@@ -23,10 +23,14 @@ import play.twirl.api.Html
 import uk.gov.hmrc.play.audit.filters.FrontendAuditFilter
 import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
-import uk.gov.hmrc.play.config.{AppName, ControllerConfig}
+import uk.gov.hmrc.play.config.{AppName, ControllerConfig, RunMode, ServicesConfig}
 import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
 import net.ceedubs.ficus.Ficus._
+import uk.gov.hmrc.http.cache.client.SessionCache
+import uk.gov.hmrc.play.audit.http.HttpAuditing
+import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
+import uk.gov.hmrc.play.http.{HttpDelete, HttpGet, HttpPut}
 
 object Global extends DefaultFrontendGlobal {
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html = views.html.errors.error()
@@ -65,4 +69,16 @@ object ControllerConfiguration extends ControllerConfig {
 
 object Environment extends uk.gov.hmrc.play.config.RunMode {
   def isDev = env == "Dev"
+}
+
+object Keystore extends SessionCache with AppName with ServicesConfig {
+  override def defaultSource: String = appName
+  override def baseUri: String = baseUrl("cachable.session-cache")
+  override def domain: String = getConfString("cachable.session-cache.domain", throw new Exception("No config setting for cache domain"))
+  override def http: HttpGet with HttpPut with HttpDelete = WSHttp
+}
+
+object WSHttp extends WSGet with WSPut with WSDelete with WSPost with HttpAuditing with AppName with RunMode {
+  override val hooks = Seq(AuditingHook)
+  override def auditConnector = AuditServiceConnector
 }

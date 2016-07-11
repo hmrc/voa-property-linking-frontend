@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package controllers
+package models
 
-import play.api.mvc.{Action, Controller}
+import controllers.Account
+import play.api.libs.json.Json
 
-object Application extends Controller {
-
-  def index() = Action { implicit request =>
-    Ok(views.html.start())
-  }
-
-  def login() = TODO
+object JsonFormats {
+  implicit val accountFormat = Json.format[Account]
 }
