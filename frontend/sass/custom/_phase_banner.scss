@@ -1,0 +1,4 @@
+.phase-banner {
+	@include phase-banner($state: beta);
+	border-bottom: 1px solid #BFC1C3;
+}
