@@ -16,13 +16,13 @@
 
 package controllers
 
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{Controller, Request}
+import uk.gov.hmrc.play.http.HeaderCarrier
 
-object Application extends Controller {
+import scala.concurrent.{ExecutionContext, Future}
 
-  def index() = Action { implicit request =>
-    Ok(views.html.start())
-  }
-
-  def login() = TODO
+trait BaseController extends Controller {
+  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
+  implicit def future[A](a: A): Future[A] = Future.successful(a)
+  implicit val ec: ExecutionContext = play.api.libs.concurrent.Execution.Implicits.defaultContext
 }

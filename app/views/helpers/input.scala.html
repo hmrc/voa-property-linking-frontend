@@ -1,0 +1,22 @@
+@import views.html.helper._
+@import play.api.data._
+@import play.api.data.Forms._
+
+@**
+ * Prepare a generic HTML input.
+ *@
+
+
+@(field: play.api.data.Field, args: (Symbol, Any)* )(inputDef: (String, String, Option[String], Map[Symbol,Any]) => Html)(implicit  requestHeader: RequestHeader, handler: FieldConstructor, lang: Lang)
+
+@id = @{ args.toMap.get('id).map(_.toString).getOrElse(field.id) }
+
+@handler(
+    FieldElements(
+        id,
+        field,
+        inputDef(id, field.name, field.value, args.filter(!_._1.name.startsWith("_")).toMap),
+        args.toMap,
+        lang
+    )
+)

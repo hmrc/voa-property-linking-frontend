@@ -1,1 +1,12 @@
 project.header=VOA Property Linking
+
+label.login=Login
+label.register=Register
+
+register.title=Register
+label.companyName=Company name
+
+label.continue=Continue
+label.footer.licence=All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
+label.footer.ogl=Open Government Licence
+label.footer.crown=Crown copyright

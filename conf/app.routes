@@ -1,4 +1,7 @@
-GET     /                       controllers.Application.index()
+GET     /                               controllers.Application.index()
+GET     /login                          controllers.Application.login()
+GET     /register                       controllers.Registration.show()
+POST    /register                       controllers.Registration.submit()
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file              controllers.Assets.at(path="/public", file)
+GET     /assets/*file                   controllers.Assets.at(path="/public", file)

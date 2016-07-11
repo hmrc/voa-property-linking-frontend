@@ -1,0 +1,25 @@
+@import views.html.helper._
+
+@**
+ * Generate an HTML input text.
+ *
+ * Example:
+ * {{{
+ * @inputText(field = myForm("name"), args = 'size -> 10, 'placeholder -> "Your name")
+ * }}}
+ *
+ * @param field The form field.
+ * @param args Set of extra attributes.
+ * @param handler The field constructor.
+ *@
+
+@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit  requestHeader: RequestHeader, handler: FieldConstructor, lang: Lang)
+
+@input(field, args:_*) { (id, name, value, htmlArgs) =>
+    <input type="text" id="@(id)_text" value="@getValue(value, args)" name="@name" @toHtmlArgs(htmlArgs) />
+}
+
+@getValue(value: Option[String], args: Seq[(Symbol, Any)]) = @{
+    if (value.isDefined) value.get
+    else args.toMap.getOrElse('_value, "")
+}
