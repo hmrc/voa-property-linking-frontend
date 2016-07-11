@@ -1,0 +1,8 @@
+@()
+@if(config.Environment.isDev){
+	<link href="@routes.Assets.at("stylesheets/application.css")" media="screen" rel="stylesheet" type="text/css" />
+	<link href="@routes.Assets.at("stylesheets/print.css")" media="print" rel="stylesheet" type="text/css" />
+}else{
+	<link href="@routes.Assets.at("stylesheets/application.min.css")" media="screen" rel="stylesheet" type="text/css" />
+	<link href="@routes.Assets.at("stylesheets/print.min.css")" media="print" rel="stylesheet" type="text/css" />
+}

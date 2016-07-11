@@ -1,0 +1,44 @@
+@(title: String,
+bodyEnd: Html = Html(""),
+headExtra: Html = Html(""), 
+links:Html = Html(""), 
+headerClass:Html=Html("with-proposition"),
+propositionHeader:Html=Html(""),
+showBackButton:Boolean=true)(content: Html)(implicit requestHeader: RequestHeader)
+
+
+@head = {
+    @headExtra
+    @views.html.includes.stylesheets()
+}
+
+@empty = {}
+
+@body = {
+    @bodyEnd
+    @views.html.includes.javascripts()
+}
+
+@insideHeader = {
+    <div class="header-proposition">
+        <div class="content">
+            <nav id="proposition-menu">
+                <a href="@routes.Application.index" id="proposition-name">@Messages("project.header")</a>
+            </nav>
+        </div>
+    </div>
+}
+
+@headers = {
+    <div class="header-content" >
+    @views.html.includes.branding_banner()
+    </div>
+}
+
+@layouts.govuk_template2(Some(title), None)(head, empty, body, insideHeader, empty, empty, footerLinks, headerClass=headerClass ) {
+    @headers
+    @content
+}
+
+@footerLinks = {
+}

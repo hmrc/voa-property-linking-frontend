@@ -1,0 +1,114 @@
+.lte-ie8{
+	.branding-banner {
+		padding-top: 0;
+		padding-bottom: 0;
+		div {
+	    border-left: #009390 solid 3px;
+	    padding-left: 6px;
+	    margin: 20px 0;
+		    span{
+		    	font-size: 1.2em;
+		    	*font-size: .7em;
+		    }
+		    .organisation-logo {
+			    background-image: url("#{$asset-path}crests/org_crest_18px.png");
+			    width: 40px;
+			    height: 33px;
+			    display: inline-block;
+			    float: left;
+			    margin-left: 0;
+			    background-repeat: no-repeat;
+			}
+		}
+	}
+	#logo{
+		font-family: "nta", Arial, sans-serif;
+	}
+}
+
+
+
+.branding-banner{
+	display: none;
+	padding: 20px 0;
+		div{
+			border-left: #009390 solid 3px;
+			padding-left: 6px;
+			span{
+				font-family: Helvetica;
+				font-size: 1.2em;
+				margin: 0 0 0 10px;
+			}
+		.organisation-logo {
+	  		background-image: url("#{$asset-path}crests/org_crest_27px.png");
+			width: 40px;
+			height: 33px;
+			display: inline-block;
+			background-size: 96%;
+			float: left;
+			margin-left: 0;
+			background-repeat: no-repeat;
+		}
+	}
+}
+
+@include media(mobile){
+	.branding-banner{
+			div{
+				border-left: #009390 solid 2px;
+				padding-left: 6px;
+			.organisation-logo {
+		  		background-image: url("#{$asset-path}crests/org_crest_18px.png");
+				width: 31px;
+				height: 26px;
+			}
+		}
+	}
+}
+
+
+@media (-webkit-min-device-pixel-ratio: 2) and (min-width: 990px){
+	.branding-banner{
+
+		div{
+			.organisation-logo {
+		  		background-image: url("#{$asset-path}crests/org_crest_27px_x2.png");
+			}
+		}
+	}
+
+	
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 990px){
+	.branding-banner{
+		padding: 10px 0;
+		//border-bottom: 1px solid #BFC1C3;
+		
+		div{
+			
+			border-left: #009390 solid 2px;
+			padding-left: 4px;
+			span{
+			font-family: Helvetica;
+			font-size: 1.2em;
+			margin: 0 0 0 6px;
+		}
+
+			.organisation-logo {
+		  		background-image: url("#{$asset-path}crests/org_crest_27px.png");
+				width: 28px;
+				height: 28px;
+				display: inline-block;
+				background-size: 100%;
+				float: left;
+				margin-left: 0;
+  				background-repeat: no-repeat;
+			}
+		}
+	}
+
+}
+.letter-img{
+	width: 300px;
+}
