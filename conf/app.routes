@@ -1,5 +1,6 @@
 GET     /                               controllers.Application.index()
-GET     /login                          controllers.Application.login()
+GET     /login                          controllers.Login.show()
+POST    /login                          controllers.Login.submit()
 GET     /register                       controllers.Registration.show()
 POST    /register                       controllers.Registration.submit()
 
