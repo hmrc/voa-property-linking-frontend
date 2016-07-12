@@ -1,0 +1,14 @@
+@()(implicit request: Request[_])
+
+@main("Start page") {
+      <main id="content">
+          <div class="grid-row">
+              <div class="column-two-thirds">
+                  <h1 class="form-title heading-xlarge">
+                      <span class="section-title">@Messages("linkError.conflict.title")</span>
+                  </h1>
+              </div>
+          </div>
+          <p>@Messages("linkError.conflict.message")</p>
+      </main>
+}
