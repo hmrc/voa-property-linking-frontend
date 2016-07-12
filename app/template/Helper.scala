@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-package controllers
+package template
 
-import play.api.mvc.{Controller, Request}
-import uk.gov.hmrc.play.http.HeaderCarrier
+import views.html.helper.FieldConstructor
 
-import scala.concurrent.{ExecutionContext, Future}
-
-trait BaseController extends Controller {
-  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
-  implicit def future[A](a: A): Future[A] = Future.successful(a)
-  implicit val ec: ExecutionContext = play.api.libs.concurrent.Execution.Implicits.defaultContext
+object Helper {
+  implicit val myFields = FieldConstructor(views.html.helpers.fieldConstructor.f)
 }

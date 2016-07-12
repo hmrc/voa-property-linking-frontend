@@ -1,0 +1,33 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@(model: LoginVM)(implicit request: Request[_])
+
+@main(Messages("login.title")) {
+    <main id="content">
+    @form(routes.Login.submit()) {
+        <h1 class="heading-xlarge">@Messages("login.title")</h1>
+
+        <div class="grid-row">
+            <div class="column-two-thirds">
+
+                @inputText(
+                    field = model.form("companyName"),
+                    '_label -> Messages("label.companyName"),
+                    '_error -> model.form("companyName").error,
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control"
+                )
+
+                <p>
+                    <button type="submit" id="continue" name="continue_button" class="button">@Messages("label.continue")</button>
+                </p>
+            </div>
+        </div>
+
+        <div class="column-third"></div>
+
+    }
+    </main>
+}

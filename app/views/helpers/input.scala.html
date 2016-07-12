@@ -7,7 +7,7 @@
  *@
 
 
-@(field: play.api.data.Field, args: (Symbol, Any)* )(inputDef: (String, String, Option[String], Map[Symbol,Any]) => Html)(implicit  requestHeader: RequestHeader, handler: FieldConstructor, lang: Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)* )(inputDef: (String, String, Option[String], Map[Symbol,Any]) => Html)(implicit requestHeader: RequestHeader, handler: FieldConstructor, lang: Lang)
 
 @id = @{ args.toMap.get('id).map(_.toString).getOrElse(field.id) }
 

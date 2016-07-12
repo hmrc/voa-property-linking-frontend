@@ -1,11 +1,18 @@
 project.header=VOA Property Linking
 
+#START PAGE
 label.login=Login
 label.register=Register
 
+#LOGIN PAGE
+login.title=Login
+error.login.invalid=Unrecognised company name
+
+#REGISTER PAGE
 register.title=Register
 label.companyName=Company name
 
+#COMMON
 label.continue=Continue
 label.footer.licence=All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
 label.footer.ogl=Open Government Licence

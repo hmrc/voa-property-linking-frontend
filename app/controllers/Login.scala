@@ -17,39 +17,30 @@
 package controllers
 
 import config.Keystore
-import models.JsonFormats._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Action
-import uk.gov.hmrc.play.http.HeaderCarrier
+import models.JsonFormats._
 
-object Registration extends PropertyLinkingController {
+object Login extends PropertyLinkingController {
 
   def show() = Action { implicit request =>
-    Ok(views.html.register(RegisterVM(registerForm)))
+    Ok(views.html.login(LoginVM(loginForm)))
   }
 
   def submit() = Action.async { implicit request =>
-    registerForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.register(RegisterVM(errors))),
-      formData => registerAccount(formData) map { _ => Ok("highly professional post-registration page") }
+    loginForm.bindFromRequest().fold(
+      errors => BadRequest(views.html.login(LoginVM(errors))),
+      formData => Keystore.fetchAndGetEntry[Seq[Account]](accountsFormId) map {
+        case Some(accounts) if accounts.contains(formData) => Ok("dashboard goes here")
+        case _ => BadRequest(views.html.login(LoginVM(loginForm.withError("companyName", "error.login.invalid"))))
+      }
     )
   }
 
-  def registerAccount(account: Account)(implicit hc: HeaderCarrier) = {
-    val a = Keystore.fetchAndGetEntry[Seq[Account]](accountsFormId) map {
-      case Some(accounts) => accounts ++ Seq(account)
-      case None => Seq(account)
-    }
-    a flatMap { Keystore.cache(accountsFormId, _) }
-  }
-
-  lazy val registerForm = Form(mapping(
+  lazy val loginForm = Form(mapping(
     "companyName" -> nonEmptyText
   )(Account.apply)(Account.unapply))
-
 }
 
-case class RegisterVM(form: Form[_])
-
-case class Account(companyName: String)
+case class LoginVM(form: Form[_])
