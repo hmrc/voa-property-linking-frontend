@@ -16,13 +16,11 @@
 
 package controllers
 
-import play.api.mvc.{Action, Controller}
+object UploadRatesBill extends PropertyLinkingController {
 
-object Application extends Controller {
+  def show() = TODO
 
-  def index() = Action { implicit request =>
-    Ok(views.html.start())
-  }
+  def submit() = TODO
 
-  def home() = TODO
+  def ratesBillApproved() = TODO
 }

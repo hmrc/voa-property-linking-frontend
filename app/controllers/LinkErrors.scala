@@ -16,13 +16,11 @@
 
 package controllers
 
-import play.api.mvc.{Action, Controller}
+object LinkErrors extends PropertyLinkingController {
 
-object Application extends Controller {
+  def manualVerificationRequired() = TODO
 
-  def index() = Action { implicit request =>
-    Ok(views.html.start())
-  }
+  def conflict() = TODO
 
-  def home() = TODO
+  def postcodeVerificationRequired() = TODO
 }
