@@ -17,3 +17,17 @@ label.continue=Continue
 label.footer.licence=All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
 label.footer.ogl=Open Government Licence
 label.footer.crown=Crown copyright
+
+#LINK ERRORS
+linkError.manualVerification.title=Manual Verification Required
+linkError.manualVerification.message=We were unable to link you to the requested property. We need to manually verify your request.
+linkError.conflict.title=Property Already Linked
+linkError.conflict.message=We were unable to link you to the requested property. The property has already been claimed for the specified time periods.
+linkError.postcodeVerification.title=Postcode Verification Required
+linkError.postcodeVerification.message=We were unable to link you to the requested property. We need to verify the postcode.
+
+
+#MISC
+alt.newWindow=Opens in a new window
+label.phase=This is a new service – your <a href="{0}" target="_blank" id="betaFeedback">feedback <span class="visuallyhidden"> ({1})</span></a> will help us to improve it.
+label.beta=BETA
