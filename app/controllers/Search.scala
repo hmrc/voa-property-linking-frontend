@@ -16,13 +16,11 @@
 
 package controllers
 
-import play.api.mvc.{Action, Controller}
+object Search extends PropertyLinkingController {
 
-object Application extends Controller {
+  def show() = TODO
 
-  def index() = Action { implicit request =>
-    Ok(views.html.start())
-  }
+  def declareCapacity() = TODO
 
-  def home() = TODO
+  def attemptLink() = TODO
 }
