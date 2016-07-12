@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-package models
+package template
 
-import controllers.Account
-import play.api.libs.json.Json
+import play.api.data.{Field, FormError}
 
-object JsonFormats {
-  implicit val accountFormat = Json.format[Account]
-  implicit val addressFormat = Json.format[Address]
-  implicit val propertyDataFormat = Json.format[PropertyData]
+object HtmlSupport {
+
+  def getArgs(value: String, dataAttributes: Seq[(String, String, Any)] = Seq(), args: Map[Symbol, Any]): Map[Symbol, Any] = {
+    val extras: Map[Symbol, Any] = dataAttributes.filter(_._1 == value).map { case (_, key, value) => (Symbol(key), value) }.toMap
+    args ++ extras
+  }
+
+  def getErrors(fields: Seq[Field]): Seq[FormError] = {
+    fields.map { _.errors } reduce (_ ++ _)
+  }
+
 }

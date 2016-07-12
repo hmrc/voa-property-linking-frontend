@@ -1,0 +1,16 @@
+@(properties: Seq[PropertyData])(implicit request: Request[_])
+
+@main(Messages("search.title")) {
+
+    <main id="content">
+        <h1 class="heading-xlarge">@Messages("search.title")</h1>
+        <table>
+        @properties.map { p =>
+            <tr>
+                <td>@p.address</td>
+                <td><a href="@routes.Search.declareCapacity(p.baRef)">@Messages("label.claim")</a></td>
+            </tr>
+        }
+        </table>
+    </main>
+}

@@ -12,6 +12,20 @@ error.login.invalid=Unrecognised company name
 register.title=Register
 label.companyName=Company name
 
+#SEARCH
+search.title=Search
+label.claim=Claim
+
+#DECLARE CAPACITY
+declareCapacity.title=Declare capacity
+label.capacity=Capacity
+capacity.owner=Owner
+capacity.occupier=Occupier
+capacity.previousOccupier=Previous owner
+label.fromDate=From
+label.toDate=To
+error.capacity.noValueSelected=You must select a capacity
+
 #COMMON
 label.continue=Continue
 label.footer.licence=All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated

@@ -1,0 +1,57 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@(model: DeclareCapacityVM)(implicit request: Request[_])
+
+@main(Messages("declareCapacity.title")) {
+
+    <main id="content">
+
+        <h1 class="heading-xlarge">@Messages("declareCapacity.title")</h1>
+        @form(routes.Search.attemptLink()) {
+
+            <div class="grid-row">
+                <div class="column-two-thirds">
+
+                    @inputRadioGroup(
+                        field = model.form("capacity"),
+                        options = CapacityType.options,
+                        args = Seq(
+                            '_label -> Messages("label.capacity"),
+                            '_labelClass -> "form-label-bold",
+                            '_error -> model.form("capacity").error
+                        )
+                    )
+
+                    @inputText(
+                        field = model.form("fromDate"),
+                        '_label -> Messages("label.fromDate"),
+                        '_error -> model.form("fromDate").error,
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control"
+                    )
+
+                    @inputText(
+                        field = model.form("toDate"),
+                        '_label -> Messages("label.toDate"),
+                        '_error -> model.form("toDate").error,
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control"
+                    )
+
+
+
+                    <p>
+                        <button type="submit" id="continue" name="continue_button" class="button">@Messages("label.continue")</button>
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="column-third"></div>
+        }
+
+    </main>
+}

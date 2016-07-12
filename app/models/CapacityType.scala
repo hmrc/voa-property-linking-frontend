@@ -16,11 +16,30 @@
 
 package models
 
-import controllers.Account
-import play.api.libs.json.Json
+sealed trait CapacityType {
+  val name: String
+  override def toString = name
+}
 
-object JsonFormats {
-  implicit val accountFormat = Json.format[Account]
-  implicit val addressFormat = Json.format[Address]
-  implicit val propertyDataFormat = Json.format[PropertyData]
+case object Occupier extends CapacityType {
+  val name = "occupier"
+}
+
+case object Owner extends CapacityType {
+  val name = "owner"
+}
+
+case object PreviousOccupier extends CapacityType {
+  val name = "previousOccupier"
+}
+
+object CapacityType {
+  def unapply(s: String) = s match {
+    case Occupier.name => Some(Occupier)
+    case Owner.name => Some(Owner)
+    case PreviousOccupier.name => Some(PreviousOccupier)
+    case _ => None
+  }
+
+  def options = Seq(Occupier.name, Owner.name, PreviousOccupier.name)
 }
