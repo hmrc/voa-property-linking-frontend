@@ -34,6 +34,10 @@ selfCertification.linkAuthorised.message=You have successfully been linked to th
 uploadRatesBill.ratesBillApproved.title=Rates Bill Approved
 uploadRatesBill.ratesBillApproved.message=Your rates bill has successfully been approved and you are now linked to the property.
 
+#UPLOAD EVIDENCE
+uploadEvidence.evidenceUploaded.title=Evidence Uploaded
+uploadEvidence.evidenceUploaded.message=Your evidence has been successfully uploaded.
+
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required
 linkError.manualVerification.message=We were unable to link you to the requested property. We need to manually verify your request.
