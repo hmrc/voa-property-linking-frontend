@@ -32,7 +32,7 @@ object Registration extends PropertyLinkingController {
   def submit() = Action.async { implicit request =>
     registerForm.bindFromRequest().fold(
       errors => BadRequest(views.html.register(RegisterVM(errors))),
-      formData => registerAccount(formData) map { _ => Ok("highly professional post-registration page") }
+      formData => registerAccount(formData) map { _ => Redirect(routes.Dashboard.home()) }
     )
   }
 

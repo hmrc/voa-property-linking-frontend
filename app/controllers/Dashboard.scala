@@ -16,12 +16,11 @@
 
 package controllers
 
-import play.api.mvc.{Action, Controller}
-import uk.gov.hmrc.play.http.SessionKeys
+import play.api.mvc.Action
 
-object Application extends Controller {
+object Dashboard extends PropertyLinkingController{
 
-  def index() = Action { implicit request =>
-    Ok(views.html.start()).withNewSession.addingToSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
+  def home() = Action { implicit request =>
+    Ok(views.html.dashboard.home())
   }
 }

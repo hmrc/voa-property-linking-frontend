@@ -12,6 +12,10 @@ error.login.invalid=Unrecognised company name
 register.title=Register
 label.companyName=Company name
 
+#DASHBOARD HOME
+dashboard.home.title=Dashboard Home
+dashboard.home.searchLinkText=Find Your Property
+
 #SEARCH
 search.title=Search
 label.claim=Claim

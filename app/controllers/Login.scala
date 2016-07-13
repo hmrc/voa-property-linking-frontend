@@ -32,7 +32,7 @@ object Login extends PropertyLinkingController {
     loginForm.bindFromRequest().fold(
       errors => BadRequest(views.html.login(LoginVM(errors))),
       formData => Keystore.fetchAndGetEntry[Seq[Account]](accountsFormId) map {
-        case Some(accounts) if accounts.contains(formData) => Ok("dashboard goes here")
+        case Some(accounts) if accounts.contains(formData) => Redirect(routes.Dashboard.home())
         case _ => BadRequest(views.html.login(LoginVM(loginForm.withError("companyName", "error.login.invalid"))))
       }
     )
