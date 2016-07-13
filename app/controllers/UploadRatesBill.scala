@@ -16,11 +16,15 @@
 
 package controllers
 
+import play.api.mvc.Action
+
 object UploadRatesBill extends PropertyLinkingController {
 
   def show() = TODO
 
   def submit() = TODO
 
-  def ratesBillApproved() = TODO
+  def ratesBillApproved() = Action { implicit request =>
+    Ok(views.html.uploadRatesBill.ratesBillApproved())
+  }
 }

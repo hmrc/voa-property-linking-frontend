@@ -16,11 +16,15 @@
 
 package controllers
 
+import play.api.mvc.Action
+
 object SelfCertification extends PropertyLinkingController {
 
   def show() = TODO
 
   def submit() = TODO
 
-  def linkAuthorised() = TODO
+  def linkAuthorised() = Action { implicit request =>
+    Ok(views.html.selfCertification.linkAuthorised())
+  }
 }

@@ -16,11 +16,15 @@
 
 package controllers
 
+import play.api.mvc.Action
+
 object UploadEvidence extends PropertyLinkingController {
 
   def show() = TODO
 
   def submit() = TODO
 
-  def evidenceUploaded() = TODO
+  def evidenceUploaded() = Action { implicit request =>
+    Ok(views.html.uploadEvidence.evidenceUploaded())
+  }
 }
