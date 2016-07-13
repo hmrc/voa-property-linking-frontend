@@ -1,0 +1,17 @@
+@import helper._
+
+@(field: play.api.data.Field, options: Seq[String], dataAttributes: Seq[(String, String, Any)] = Seq(), args: Seq[(Symbol, Any)])(implicit rh: RequestHeader, lang: Lang)
+
+@{
+    input(field, args.map { x => if(x._2 == '_label) '_name -> x._2 else x }: _*) { (id, name, value, htmlArgs) =>
+
+        Html(options.map { v =>
+            s"""<label class="block-label" for="${id}_$v">
+            <input id="${id}_$v" type="radio" name="$name" value="$v"
+            ${if(value.contains(v)) "checked" else ""} ${toHtmlArgs(_root_.template.HtmlSupport.getArgs(v, dataAttributes, htmlArgs))} />
+            ${Messages(s"$id.$v")}
+            </label>"""
+        } mkString)
+
+    }(rh, _root_.template.Helper.myFields, lang)
+}

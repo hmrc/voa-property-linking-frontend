@@ -16,11 +16,8 @@
 
 package models
 
-import controllers.Account
-import play.api.libs.json.Json
-
-object JsonFormats {
-  implicit val accountFormat = Json.format[Account]
-  implicit val addressFormat = Json.format[Address]
-  implicit val propertyDataFormat = Json.format[PropertyData]
+case class Address(lines: Seq[String], postcode: String, canReceiveCorrespondence: Boolean) {
+  override def toString = (lines ++ Seq(postcode)) mkString ", "
 }
+
+case class PropertyData(baRef: String, address: Address, propertyType: String)

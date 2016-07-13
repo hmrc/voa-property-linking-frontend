@@ -1,4 +1,3 @@
-
 #Start
 GET     /                               controllers.Application.index()
 
@@ -13,7 +12,7 @@ GET     /home                           controllers.Application.home()
 
 #Search and Link
 GET     /property-search                controllers.Search.show()
-GET     /link-to-property               controllers.Search.declareCapacity()
+GET     /link-to-property/:baref        controllers.Search.declareCapacity(baref)
 POST    /link-to-property               controllers.Search.attemptLink()
 
 #Link scenarios
