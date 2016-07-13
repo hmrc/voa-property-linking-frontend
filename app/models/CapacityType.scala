@@ -16,8 +16,9 @@
 
 package models
 
-sealed trait CapacityType {
+sealed trait CapacityType extends NamedEnum {
   val name: String
+  val key = "capacityType"
   override def toString = name
 }
 
@@ -33,7 +34,7 @@ case object PreviousOccupier extends CapacityType {
   val name = "previousOccupier"
 }
 
-object CapacityType {
+object CapacityType extends NamedEnumSupport[CapacityType] {
   def unapply(s: String) = s match {
     case Occupier.name => Some(Occupier)
     case Owner.name => Some(Owner)
@@ -42,4 +43,6 @@ object CapacityType {
   }
 
   def options = Seq(Occupier.name, Owner.name, PreviousOccupier.name)
+
+  override def all: List[CapacityType] = List(Occupier, Owner, PreviousOccupier)
 }

@@ -1,9 +1,6 @@
 import sbt._
-import sbt.Keys._
 
 object FrontendBuild extends Build with MicroService {
-
-  import scala.util.Properties._
 
   val appName = "voa-property-linking-frontend"
 

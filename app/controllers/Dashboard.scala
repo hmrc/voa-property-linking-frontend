@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package models
+package controllers
 
-import controllers.Account
-import play.api.libs.json.Json
+import play.api.mvc.Action
 
-object JsonFormats {
-  implicit val accountFormat = Json.format[Account]
-  implicit val addressFormat = Json.format[Address]
-  implicit val propertyDataFormat = Json.format[PropertyData]
+object Dashboard extends PropertyLinkingController{
+
+  def home() = Action { implicit request =>
+    Ok(views.html.dashboard.home())
+  }
 }

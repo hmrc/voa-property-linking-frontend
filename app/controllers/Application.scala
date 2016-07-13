@@ -17,12 +17,11 @@
 package controllers
 
 import play.api.mvc.{Action, Controller}
+import uk.gov.hmrc.play.http.SessionKeys
 
 object Application extends Controller {
 
   def index() = Action { implicit request =>
-    Ok(views.html.start())
+    Ok(views.html.start()).withNewSession.addingToSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
   }
-
-  def home() = TODO
 }

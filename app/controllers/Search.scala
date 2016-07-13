@@ -16,13 +16,12 @@
 
 package controllers
 
-import config.Keystore
-import models.{Address, CapacityType, PropertyData}
-import play.api.data.{Form, FormError, Forms}
+import models._
 import play.api.data.Forms._
-import play.api.mvc.Action
-import models.JsonFormats._
 import play.api.data.format.Formatter
+import play.api.data.{Form, FormError, Forms}
+import play.api.mvc.Action
+import session.{LinkingSessionRepository, WithLinkingSession}
 
 object Search extends PropertyLinkingController {
   val propertyToClaim = "propertyToClaim"
@@ -32,23 +31,25 @@ object Search extends PropertyLinkingController {
   }
 
   def declareCapacity(baRef: String) = Action.async { implicit request =>
-    pretendSearchResults.find(_.baRef == baRef) match {
-      case Some(pd) => Keystore.cache(propertyToClaim, pd) map { _ => Ok(views.html.declareCapacity(DeclareCapacityVM(declareCapacityForm))) }
+    pretendSearchResults.find(_.billingAuthorityReference == baRef) match {
+      case Some(pd) => LinkingSessionRepository.start(pd) map { _ =>
+        Ok(views.html.declareCapacity(DeclareCapacityVM(declareCapacityForm)))
+      }
       case None => NotFound(views.html.defaultpages.notFound(request, Some(app.Routes)))
     }
   }
 
-  def attemptLink() = Action { implicit request =>
+  def attemptLink() = WithLinkingSession.async { implicit request =>
     declareCapacityForm.bindFromRequest().fold(
       errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors))),
-      formData => Ok(views.html.defaultpages.todo())
+      formData => LinkingSessionRepository.saveOrUpdate(request.ses.withDeclaration(formData)) map { _ => BadRequest }
     )
   }
 
   lazy val pretendSearchResults = Seq(
-    PropertyData("1", Address(Seq("1 The Road", "The Town"), "AA11 1AA", true), "World Famous Fish and Chip Shop"),
-    PropertyData("2", Address(Seq("An ATM that charges you £10 just to look at it", "Some Road", "Some Town"), "AA11 1AA", false), "ATM"),
-    PropertyData("3", Address(Seq("Banky McBankface", "The Town"), "AA11 1AA", true), "Bank")
+    Property("testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA", true), Shop, false),
+    Property("testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA", true), Office, true),
+    Property("testbank", Address(Seq("Banky McBankface", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true)
   )
 
   implicit val capacityTypeFormatter = new Formatter[CapacityType] {
