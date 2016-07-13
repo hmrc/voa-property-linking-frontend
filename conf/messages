@@ -26,11 +26,9 @@ label.fromDate=From
 label.toDate=To
 error.capacity.noValueSelected=You must select a capacity
 
-#COMMON
-label.continue=Continue
-label.footer.licence=All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
-label.footer.ogl=Open Government Licence
-label.footer.crown=Crown copyright
+#SELF CERTIFICATION
+selfCertification.linkAuthorised.title=Link Authorised
+selfCertification.linkAuthorised.message=You have successfully been linked to the property.
 
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required
@@ -40,6 +38,11 @@ linkError.conflict.message=We were unable to link you to the requested property.
 linkError.postcodeVerification.title=Postcode Verification Required
 linkError.postcodeVerification.message=We were unable to link you to the requested property. We need to verify the postcode.
 
+#COMMON
+label.continue=Continue
+label.footer.licence=All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
+label.footer.ogl=Open Government Licence
+label.footer.crown=Crown copyright
 
 #MISC
 alt.newWindow=Opens in a new window
