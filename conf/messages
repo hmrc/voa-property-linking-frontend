@@ -30,6 +30,10 @@ error.capacity.noValueSelected=You must select a capacity
 selfCertification.linkAuthorised.title=Link Authorised
 selfCertification.linkAuthorised.message=You have successfully been linked to the property.
 
+#UPLOAD RATES BILL
+uploadRatesBill.ratesBillApproved.title=Rates Bill Approved
+uploadRatesBill.ratesBillApproved.message=Your rates bill has successfully been approved and you are now linked to the property.
+
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required
 linkError.manualVerification.message=We were unable to link you to the requested property. We need to manually verify your request.
