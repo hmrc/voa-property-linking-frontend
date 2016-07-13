@@ -20,7 +20,7 @@ import config.Keystore
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Action
-import models.JsonFormats._
+import serialization.JsonFormats.accountFormat
 
 object Login extends PropertyLinkingController {
 

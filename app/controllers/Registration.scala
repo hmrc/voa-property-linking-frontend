@@ -17,11 +17,11 @@
 package controllers
 
 import config.Keystore
-import models.JsonFormats._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Action
 import uk.gov.hmrc.play.http.HeaderCarrier
+import serialization.JsonFormats.accountFormat
 
 object Registration extends PropertyLinkingController {
 
