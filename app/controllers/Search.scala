@@ -42,18 +42,24 @@ object Search extends PropertyLinkingController {
   def attemptLink() = WithLinkingSession.async { implicit request =>
     declareCapacityForm.bindFromRequest().fold(
       errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors))),
-      dec => LinkingSessionRepository.saveOrUpdate(request.ses.withDeclaration(dec)) map { _ => chooseLinkingJourney(request.ses) }
+      dec => LinkingSessionRepository.saveOrUpdate(request.ses.withDeclaration(dec)) map { _ => chooseLinkingJourney(request.ses.claimedProperty, dec) }
     )
   }
 
-  private def chooseLinkingJourney(ses: LinkingSession): Result = SelfCertificationEnabled(ses.claimedProperty) match {
-    case true => Redirect(routes.SelfCertification.show())
-    case false => BadRequest("This journey is not implemented yet. Sorry.")
-  }
+  private def chooseLinkingJourney(p: Property, d: CapacityDeclaration): Result =
+    if (IsAlreadyLinked(p, d)) {
+      Redirect(routes.LinkErrors.conflict())
+    } else if (SelfCertificationEnabled(p)) {
+      Redirect(routes.SelfCertification.show())
+    } else {
+      BadRequest("This journey is not implemented yet. Sorry.")
+    }
+
+  lazy val conflictedProperty = Property("testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA", true), Office, true)
 
   lazy val pretendSearchResults = Seq(
     Property("testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA", true), Shop, false),
-    Property("testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA", true), Office, true),
+    conflictedProperty,
     Property("testbank", Address(Seq("Banky McBankface", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true)
   )
 
