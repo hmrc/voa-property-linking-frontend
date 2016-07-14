@@ -20,8 +20,8 @@ import models._
 import play.api.data.Forms._
 import play.api.data.format.Formatter
 import play.api.data.{Form, FormError, Forms}
-import play.api.mvc.Action
-import session.{LinkingSessionRepository, WithLinkingSession}
+import play.api.mvc.{Action, Result}
+import session.{LinkingSession, LinkingSessionRepository, WithLinkingSession}
 
 object Search extends PropertyLinkingController {
   val propertyToClaim = "propertyToClaim"
@@ -42,8 +42,13 @@ object Search extends PropertyLinkingController {
   def attemptLink() = WithLinkingSession.async { implicit request =>
     declareCapacityForm.bindFromRequest().fold(
       errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors))),
-      formData => LinkingSessionRepository.saveOrUpdate(request.ses.withDeclaration(formData)) map { _ => BadRequest }
+      dec => LinkingSessionRepository.saveOrUpdate(request.ses.withDeclaration(dec)) map { _ => chooseLinkingJourney(request.ses) }
     )
+  }
+
+  private def chooseLinkingJourney(ses: LinkingSession): Result = SelfCertificationEnabled(ses.claimedProperty) match {
+    case true => Redirect(routes.SelfCertification.show())
+    case false => BadRequest("This journey is not implemented yet. Sorry.")
   }
 
   lazy val pretendSearchResults = Seq(

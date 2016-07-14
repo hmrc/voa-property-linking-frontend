@@ -16,15 +16,34 @@
 
 package controllers
 
+import play.api.data.Form
+import play.api.data.Forms._
 import play.api.mvc.Action
+import session.{LinkingSession, WithLinkingSession}
+import views.helpers.Errors
 
 object SelfCertification extends PropertyLinkingController {
 
-  def show() = TODO
+  def show() = WithLinkingSession { implicit request =>
+    Ok(views.html.selfCertification.show(SelfCertifyVM(selfCertifyForm, request.ses)))
+  }
 
-  def submit() = TODO
+  def submit() = WithLinkingSession { implicit request =>
+    selfCertifyForm.bindFromRequest().fold(
+      errors => BadRequest(views.html.selfCertification.show(SelfCertifyVM(errors, request.ses))),
+      conf => Redirect(routes.SelfCertification.linkAuthorised())
+    )
+  }
 
   def linkAuthorised() = Action { implicit request =>
     Ok(views.html.selfCertification.linkAuthorised())
   }
+
+  lazy val selfCertifyForm = Form(mapping(
+    "iAgree" -> boolean.verifying(Errors.mustAgreeToSelfCert, _ == true)
+  )(ConfirmSelfCertification.apply)(ConfirmSelfCertification.unapply))
 }
+
+case class ConfirmSelfCertification(iAgree: Boolean)
+
+case class SelfCertifyVM(form: Form[_], session: LinkingSession)

@@ -1,0 +1,41 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@(model: SelfCertifyVM)(implicit request: Request[_])
+
+@main("Start page") {
+
+    @form(routes.SelfCertification.submit()) {
+        <main id="content">
+            <div class="grid-row">
+                <div class="column-two-thirds">
+                    <h1 class="form-title heading-xlarge">
+                        <span class="section-title">@Messages("selfCertification.show.title")</span>
+                    </h1>
+                    <p>@Messages("selfCertification.show.message")</p>
+
+                        @includes.errorSummary(model.form, "selfCertification.show")
+
+                        <fieldset id="agree" class="inline form-group">
+                            @helper.CSRF.formField
+
+                            @checkbox(
+                                field = model.form("iAgree"),
+                                'id -> "iAgree",
+                                '_label -> Html(Messages("selfCertification.show.iAgree.label")),
+                                '_error -> model.form("iAgree").error,
+                                '_fieldsetClass -> "inline",
+                                '_legend -> true,
+                                '_labelClass -> "form-label-bold",
+                                '_showConstraints -> false,
+                                '_text -> Messages("selfCertification.show.iAgree.text"),
+                                '_helpIndent -> Messages("selfCertification.show.iAgree.hint")
+                            )
+                        </fieldset>
+
+                        <button type="submit" class="button">@Messages("selfCertification.show.button")</button>
+                </div>
+            </div>
+        </main>
+    }
+}

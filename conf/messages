@@ -33,6 +33,13 @@ error.capacity.noValueSelected=You must select a capacity
 #SELF CERTIFICATION
 selfCertification.linkAuthorised.title=Link Authorised
 selfCertification.linkAuthorised.message=You have successfully been linked to the property.
+selfCertification.show.title=Self Certification Required
+selfCertification.show.message=To be able to view the details of this property. You must promise that you are telling the truth.
+selfCertification.show.iAgree.label=Do you agree?
+selfCertification.show.iAgree.text=Do you agree?
+selfCertification.show.iAgree.hint=Do you agree?
+selfCertification.show.button=Go
+error.mustAgreeToSelfCert=You must agree to continue.
 
 #UPLOAD RATES BILL
 uploadRatesBill.ratesBillApproved.title=Rates Bill Approved
@@ -60,3 +67,5 @@ label.footer.crown=Crown copyright
 alt.newWindow=Opens in a new window
 label.phase=This is a new service – your <a href="{0}" target="_blank" id="betaFeedback">feedback <span class="visuallyhidden"> ({1})</span></a> will help us to improve it.
 label.beta=BETA
+label.checkTheForm=Check the form
+label.fixTheFollowing=Fix the following:
