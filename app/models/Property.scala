@@ -16,6 +16,8 @@
 
 package models
 
+import controllers.{CapacityDeclaration, Search}
+
 case class Address(lines: Seq[String], postcode: String, canReceiveCorrespondence: Boolean) {
   override def toString = (lines ++ Seq(postcode)) mkString ", "
 }
@@ -38,6 +40,11 @@ object Industrial extends BulkClass {
 
 object BulkClass extends NamedEnumSupport[BulkClass] {
   override def all: List[BulkClass] = List(Shop, Office, Industrial)
+}
+
+object IsAlreadyLinked {
+  def apply(property: Property, declaration: CapacityDeclaration) =
+    property == Search.conflictedProperty
 }
 
 object SelfCertificationEnabled {
