@@ -16,15 +16,36 @@
 
 package controllers
 
-import play.api.mvc.Action
+import play.api.data.Form
+import play.api.data.Forms._
+import session.WithLinkingSession
 
 object UploadEvidence extends PropertyLinkingController {
 
-  def show() = TODO
+  def show() = WithLinkingSession { implicit request =>
+    Ok(views.html.uploadEvidence.show(UploadEvidenceVM(form)))
+  }
 
-  def submit() = TODO
+  def submit() = WithLinkingSession { implicit request =>
+    form.bindFromRequest().fold(
+      error => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(error))),
+      uploaded => Redirect(routes.UploadEvidence.evidenceUploaded())
+    )
+  }
 
-  def evidenceUploaded() = Action { implicit request =>
+  def evidenceUploaded() = WithLinkingSession { implicit request =>
     Ok(views.html.uploadEvidence.evidenceUploaded())
   }
+
+  def otherProof() = WithLinkingSession { implicit request =>
+    Ok(views.html.uploadEvidence.otherProof())
+  }
+
+  lazy val form = Form(mapping(
+    "hasEvidence" -> boolean
+  )(UploadedEvidence.apply)(UploadedEvidence.unapply))
 }
+
+case class UploadedEvidence(hasEvidence: Boolean)
+
+case class UploadEvidenceVM(form: Form[_])

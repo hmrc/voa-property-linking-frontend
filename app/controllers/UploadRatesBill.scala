@@ -42,8 +42,10 @@ object UploadRatesBill extends PropertyLinkingController {
       Redirect(routes.UploadRatesBill.ratesBillApproved())
     else if (hasRatesBill && ratesBill.isDefined)
       Redirect(routes.UploadRatesBill.ratesBillPending())
+    else if (p.canReceiveMail)
+      Redirect(routes.UploadEvidence.show())
     else
-      BadRequest("Rates bill verification failure journey not implemented yet")
+      Redirect(routes.UploadEvidence.otherProof())
 
   def ratesBillApproved() = Action { implicit request =>
     Ok(views.html.uploadRatesBill.ratesBillApproved())
