@@ -16,15 +16,42 @@
 
 package controllers
 
-import play.api.mvc.Action
+import models.Property
+import play.api.mvc.{Action, Result}
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.libs.Files.TemporaryFile
+import play.api.mvc.MultipartFormData.FilePart
+import session.WithLinkingSession
 
 object UploadRatesBill extends PropertyLinkingController {
 
-  def show() = TODO
+  def show() = WithLinkingSession { implicit request =>
+    Ok(views.html.uploadRatesBill.show(UploadRatesBillVM(uploadRatesBillForm)))
+  }
 
-  def submit() = TODO
+  def submit() = WithLinkingSession(parse.multipartFormData) { implicit request =>
+    uploadRatesBillForm.bindFromRequest().fold(
+      errors => BadRequest(views.html.uploadRatesBill.show(UploadRatesBillVM(uploadRatesBillForm))),
+      answer => chooseNextStep(answer.hasRatesBill, request.body.file("ratesBill"), request.ses.claimedProperty)
+    )
+  }
+
+  private def chooseNextStep(hasRatesBill: Boolean, ratesBill: Option[FilePart[TemporaryFile]], p: Property): Result =
+    if (hasRatesBill && ratesBill.isDefined && p == Search.bankForRatesBillVerifiedJourney)
+      Redirect(routes.UploadRatesBill.ratesBillApproved())
+    else
+      BadRequest("Rates bill verification failure journey not implemented yet")
 
   def ratesBillApproved() = Action { implicit request =>
     Ok(views.html.uploadRatesBill.ratesBillApproved())
   }
+
+  lazy val uploadRatesBillForm = Form(mapping(
+    "hasRatesBill" -> boolean
+  )(SubmitRatesBill.apply)(SubmitRatesBill.unapply))
 }
+
+case class UploadRatesBillVM(form: Form[_])
+
+case class SubmitRatesBill(hasRatesBill: Boolean)
