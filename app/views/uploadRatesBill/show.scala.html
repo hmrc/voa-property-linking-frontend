@@ -1,0 +1,44 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@(model: UploadRatesBillVM)(implicit request: Request[_])
+
+@main("") {
+
+    @form(routes.UploadRatesBill.submit(), 'enctype -> "multipart/form-data") {
+        <main id="content">
+            <div class="grid-row">
+                <div class="column-two-thirds">
+                    <h1 class="form-title heading-xlarge">
+                        <span class="section-title">@Messages("uploadRatesBill.show.title")</span>
+                    </h1>
+                    <p>@Messages("uploadRatesBill.show.message")</p>
+
+                        @includes.errorSummary(model.form, "uploadRatesBill.show")
+
+                        <fieldset class="inline form-group">
+                            @helper.CSRF.formField
+
+                            @checkbox(
+                                field = model.form("hasRatesBill"),
+                                'id -> "hasRatesBill",
+                                '_label -> Html(Messages("uploadRatesBill.show.hasRatesBill.label")),
+                                '_error -> model.form("iAgree").error,
+                                '_fieldsetClass -> "inline",
+                                '_legend -> true,
+                                '_labelClass -> "form-label-bold",
+                                '_showConstraints -> false,
+                                '_text -> Messages("uploadRatesBill.show.hasRatesBill.text"),
+                                '_helpIndent -> Messages("uploadRatesBill.show.hasRatesBill.hint")
+                            )
+                            <br />
+                            <br />
+                            <br />
+                            <input type="file" name="ratesBill" />
+                        </fieldset>
+                        <button type="submit" class="button">@Messages("uploadRatesBill.show.button")</button>
+                </div>
+            </div>
+        </main>
+    }
+}

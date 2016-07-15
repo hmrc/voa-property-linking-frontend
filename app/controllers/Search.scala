@@ -52,15 +52,24 @@ object Search extends PropertyLinkingController {
     } else if (SelfCertificationEnabled(p)) {
       Redirect(routes.SelfCertification.show())
     } else {
-      BadRequest("This journey is not implemented yet. Sorry.")
+      Redirect(routes.UploadRatesBill.show())
     }
 
-  lazy val conflictedProperty = Property("testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA", true), Office, true)
+  lazy val conflictedProperty = Property(
+    "testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA", true), Office, false
+  )
+  lazy val bankForRatesBillVerifiedJourney = Property(
+    "testbank", Address(Seq("Banky McBankface (rates bill accepted)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true
+  )
+  lazy val bankForRatesBillFailedJourney = Property(
+    "testbank", Address(Seq("Banky McSadface (rates bill rejected)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true
+  )
 
   lazy val pretendSearchResults = Seq(
     Property("testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA", true), Shop, false),
     conflictedProperty,
-    Property("testbank", Address(Seq("Banky McBankface", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true)
+    bankForRatesBillVerifiedJourney,
+    bankForRatesBillFailedJourney
   )
 
   implicit val capacityTypeFormatter = new Formatter[CapacityType] {

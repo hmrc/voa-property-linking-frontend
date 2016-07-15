@@ -44,6 +44,11 @@ error.mustAgreeToSelfCert=You must agree to continue.
 #UPLOAD RATES BILL
 uploadRatesBill.ratesBillApproved.title=Rates Bill Approved
 uploadRatesBill.ratesBillApproved.message=Your rates bill has successfully been approved and you are now linked to the property.
+uploadRatesBill.show.title=Please Upload Your Rates Bill
+uploadRatesBill.show.message=We require a rates bill to verify your link to the property.
+uploadRatesBill.show.hasRatesBill.label=Do you have a rates bill?
+uploadRatesBill.show.hasRatesBill.text=I have a rates bill
+uploadRatesBill.show.button=Confirm
 
 #UPLOAD EVIDENCE
 uploadEvidence.evidenceUploaded.title=Evidence Uploaded
