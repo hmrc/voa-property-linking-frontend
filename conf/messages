@@ -55,6 +55,15 @@ uploadRatesBill.ratesBillPending.message=Your rates bill will be verified and yo
 #UPLOAD EVIDENCE
 uploadEvidence.evidenceUploaded.title=Evidence Uploaded
 uploadEvidence.evidenceUploaded.message=Your evidence has been successfully uploaded.
+uploadEvidence.show.title=Evidence Upload
+uploadEvidence.show.message=Please upload evidence so that we can verify your link to the property.
+uploadEvidence.show.hasEvidence.label=Do you have evidence?
+uploadEvidence.show.hasEvidence.text=I have evidence
+uploadEvidence.show.button=Upload Evidence
+uploadEvidence.otherProof.title=Other Proof
+uploadEvidence.otherProof.message=Do you have other proof?
+uploadEvidence.otherProof.link=I have other proof
+uploadEvidence.noOtherProof.link=I do not have other proof
 
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required

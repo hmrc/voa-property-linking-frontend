@@ -22,7 +22,7 @@ case class Address(lines: Seq[String], postcode: String, canReceiveCorrespondenc
   override def toString = (lines ++ Seq(postcode)) mkString ", "
 }
 
-case class Property(billingAuthorityReference: String, address: Address, bulkClass: BulkClass, isBank: Boolean)
+case class Property(billingAuthorityReference: String, address: Address, bulkClass: BulkClass, isBank: Boolean, canReceiveMail: Boolean)
 
 sealed trait BulkClass extends NamedEnum {
   val key = "bulkClass"

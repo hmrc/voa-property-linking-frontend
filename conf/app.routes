@@ -22,6 +22,7 @@ GET     /supply-rates-bill                    controllers.UploadRatesBill.show()
 POST    /supply-rates-bill                    controllers.UploadRatesBill.submit()
 GET     /upload-evidence                      controllers.UploadEvidence.show()
 POST    /upload-evidence                      controllers.UploadEvidence.submit()
+GET     /other-proof                          controllers.UploadEvidence.otherProof()
 
 #Linking outcomes
 GET     /self-certification-link-authorised   controllers.SelfCertification.linkAuthorised()

@@ -47,29 +47,32 @@ object Search extends PropertyLinkingController {
   }
 
   private def chooseLinkingJourney(p: Property, d: CapacityDeclaration): Result =
-    if (IsAlreadyLinked(p, d)) {
+    if (IsAlreadyLinked(p, d))
       Redirect(routes.LinkErrors.conflict())
-    } else if (SelfCertificationEnabled(p)) {
+    else if (SelfCertificationEnabled(p))
       Redirect(routes.SelfCertification.show())
-    } else {
+    else if (!p.canReceiveMail)
+      Redirect(routes.UploadEvidence.otherProof())
+    else
       Redirect(routes.UploadRatesBill.show())
-    }
 
   lazy val conflictedProperty = Property(
-    "testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA", true), Office, false
+    "testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA", true), Office, false, true
   )
   lazy val bankForRatesBillVerifiedJourney = Property(
-    "testbankaccepted", Address(Seq("Banky McBankface (rates bill accepted)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true
+    "testbankaccepted", Address(Seq("Banky McBankface (rates bill accepted)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true, true
   )
   lazy val bankForRatesBillFailedJourney = Property(
-    "testbankrejected", Address(Seq("Banky McSadface (rates bill rejected)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true
+    "testbankrejected", Address(Seq("Banky McSadface (rates bill rejected)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true, true
   )
-
   lazy val pretendSearchResults = Seq(
-    Property("testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA", true), Shop, false),
+    Property("testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA", true), Shop, false, true),
     conflictedProperty,
     bankForRatesBillVerifiedJourney,
-    bankForRatesBillFailedJourney
+    bankForRatesBillFailedJourney,
+    Property(
+      "testbanknomail", Address(Seq("Banky McNoMailFace (Cannot receive mail)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true, false
+    )
   )
 
   implicit val capacityTypeFormatter = new Formatter[CapacityType] {
