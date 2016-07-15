@@ -59,10 +59,10 @@ object Search extends PropertyLinkingController {
     "testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA", true), Office, false
   )
   lazy val bankForRatesBillVerifiedJourney = Property(
-    "testbank", Address(Seq("Banky McBankface (rates bill accepted)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true
+    "testbankaccepted", Address(Seq("Banky McBankface (rates bill accepted)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true
   )
   lazy val bankForRatesBillFailedJourney = Property(
-    "testbank", Address(Seq("Banky McSadface (rates bill rejected)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true
+    "testbankrejected", Address(Seq("Banky McSadface (rates bill rejected)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true
   )
 
   lazy val pretendSearchResults = Seq(

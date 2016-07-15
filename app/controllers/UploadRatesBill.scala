@@ -40,11 +40,17 @@ object UploadRatesBill extends PropertyLinkingController {
   private def chooseNextStep(hasRatesBill: Boolean, ratesBill: Option[FilePart[TemporaryFile]], p: Property): Result =
     if (hasRatesBill && ratesBill.isDefined && p == Search.bankForRatesBillVerifiedJourney)
       Redirect(routes.UploadRatesBill.ratesBillApproved())
+    else if (hasRatesBill && ratesBill.isDefined)
+      Redirect(routes.UploadRatesBill.ratesBillPending())
     else
       BadRequest("Rates bill verification failure journey not implemented yet")
 
   def ratesBillApproved() = Action { implicit request =>
     Ok(views.html.uploadRatesBill.ratesBillApproved())
+  }
+
+  def ratesBillPending() = Action { implicit request =>
+    Ok(views.html.uploadRatesBill.ratesBillPending())
   }
 
   lazy val uploadRatesBillForm = Form(mapping(
