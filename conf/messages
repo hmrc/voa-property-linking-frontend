@@ -72,6 +72,8 @@ linkError.conflict.title=Property Already Linked
 linkError.conflict.message=We were unable to link you to the requested property. The property has already been claimed for the specified time periods.
 linkError.postcodeVerification.title=Postcode Verification Required
 linkError.postcodeVerification.message=We were unable to link you to the requested property. We need to verify the postcode.
+linkError.pinPostalProcess.title=Postal Verification Required
+linkError.pinPostalProcess.message=We will send you a pin code in the post which you can use to verify your link to the property.
 
 #COMMON
 label.continue=Continue

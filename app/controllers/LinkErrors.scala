@@ -31,4 +31,8 @@ object LinkErrors extends PropertyLinkingController {
   def postcodeVerificationRequired() = Action { implicit request =>
     Ok(views.html.linkErrors.manualVerificationRequired())
   }
+
+  def pinPostalProcess() = Action { implicit request =>
+    Ok(views.html.linkErrors.pinPostalProcess())
+  }
 }

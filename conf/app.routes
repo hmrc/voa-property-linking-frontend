@@ -32,6 +32,7 @@ GET     /evidence-uploaded                    controllers.UploadEvidence.evidenc
 GET     /manual-verification-required         controllers.LinkErrors.manualVerificationRequired()
 GET     /linking-conflict                     controllers.LinkErrors.conflict()
 GET     /postcode-verification-required       controllers.LinkErrors.postcodeVerificationRequired()
+GET     /pin-postal-process                   controllers.LinkErrors.pinPostalProcess()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                         controllers.Assets.at(path="/public", file)
