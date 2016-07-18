@@ -43,7 +43,7 @@ object UploadRatesBill extends PropertyLinkingController {
     else if (hasRatesBill && ratesBill.isDefined)
       Redirect(routes.UploadRatesBill.ratesBillPending())
     else if (p.canReceiveMail)
-      Redirect(routes.UploadEvidence.show())
+      Redirect(routes.LinkErrors.pinPostalProcess())
     else
       Redirect(routes.UploadEvidence.otherProof())
 

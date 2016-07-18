@@ -51,8 +51,6 @@ object Search extends PropertyLinkingController {
       Redirect(routes.LinkErrors.conflict())
     else if (SelfCertificationEnabled(p))
       Redirect(routes.SelfCertification.show())
-    else if (!p.canReceiveMail)
-      Redirect(routes.UploadEvidence.otherProof())
     else
       Redirect(routes.UploadRatesBill.show())
 
