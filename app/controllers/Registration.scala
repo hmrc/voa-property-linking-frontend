@@ -16,7 +16,7 @@
 
 package controllers
 
-import config.Keystore
+import config.Wiring
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Action
@@ -24,6 +24,7 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 import serialization.JsonFormats.accountFormat
 
 object Registration extends PropertyLinkingController {
+  val cache = Wiring().sessionCache
 
   def show() = Action { implicit request =>
     Ok(views.html.register(RegisterVM(registerForm)))
@@ -37,11 +38,11 @@ object Registration extends PropertyLinkingController {
   }
 
   def registerAccount(account: Account)(implicit hc: HeaderCarrier) = {
-    val a = Keystore.fetchAndGetEntry[Seq[Account]](accountsFormId) map {
+    val a = cache.fetchAndGetEntry[Seq[Account]](accountsFormId) map {
       case Some(accounts) => accounts ++ Seq(account)
       case None => Seq(account)
     }
-    a flatMap { Keystore.cache(accountsFormId, _) }
+    a flatMap { cache.cache(accountsFormId, _) }
   }
 
   lazy val registerForm = Form(mapping(

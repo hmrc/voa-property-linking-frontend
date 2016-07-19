@@ -16,6 +16,7 @@
 
 package models
 
+import connectors.PrototypeTestData
 import controllers.{CapacityDeclaration, Search}
 
 case class Address(lines: Seq[String], postcode: String, canReceiveCorrespondence: Boolean) {
@@ -44,7 +45,7 @@ object BulkClass extends NamedEnumSupport[BulkClass] {
 
 object IsAlreadyLinked {
   def apply(property: Property, declaration: CapacityDeclaration) =
-    property == Search.conflictedProperty
+    property == PrototypeTestData.conflictedProperty
 }
 
 object SelfCertificationEnabled {

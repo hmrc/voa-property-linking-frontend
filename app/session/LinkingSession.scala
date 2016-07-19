@@ -16,12 +16,12 @@
 
 package session
 
-import config.Keystore
 import controllers.CapacityDeclaration
 import models.Property
-import uk.gov.hmrc.play.http.HeaderCarrier
-import serialization.JsonFormats.sessionFormat
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import serialization.JsonFormats.sessionFormat
+import uk.gov.hmrc.http.cache.client.SessionCache
+import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
@@ -29,13 +29,13 @@ case class LinkingSession(claimedProperty: Property, declaration: Option[Capacit
   def withDeclaration(d: CapacityDeclaration) = this.copy(declaration = Some(d))
 }
 
-object LinkingSessionRepository {
+class LinkingSessionRepository(cache: SessionCache) {
   def start(p: Property)(implicit hc: HeaderCarrier): Future[Unit] =
-    Keystore.cache("sessiondocument", LinkingSession(p)).map(_ => ())
+    cache.cache("sessiondocument", LinkingSession(p)).map(_ => ())
 
   def saveOrUpdate(session: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] =
-    Keystore.cache("sessiondocument", session).map(_ => ())
+    cache.cache("sessiondocument", session).map(_ => ())
 
   def get()(implicit hc: HeaderCarrier): Future[Option[LinkingSession]] =
-    Keystore.fetchAndGetEntry("sessiondocument")
+    cache.fetchAndGetEntry("sessiondocument")
 }
