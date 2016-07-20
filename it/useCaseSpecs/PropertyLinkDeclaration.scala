@@ -7,31 +7,31 @@ import useCaseSpecs.utils._
 class PropertyLinkDeclaration extends FrontendTest {
   import TestData._
 
-  "Given an interested person is logged in and has selected a property that exists to claim" ignore {
+  "Given an interested person is logged in and has selected a property that exists to claim" - {
     implicit val hc = HeaderCarrier(sessionId = Some(SessionId(sessionId)))
     HTTP.stubPropertiesAPI(propertyToClaimBillingAuthorityRef, propertyToClaim)
 
     "When they arrive at the declaration page" - {
-      val page = Page.get(s"/property-linking/link-to-property$propertyToClaimBillingAuthorityRef")
+      val page = Page.get(s"/property-linking/link-to-property/$propertyToClaimBillingAuthorityRef")
 
       "They are asked to provide:" - {
 
-        "- their relationship to the property" in {
-          page.mustContainRadioSelect("relationship", Seq("", "", ""))
+        "their relationship to the property" in {
+          page.mustContainRadioSelect("capacity", Seq("occupier", "owner", "previousOccupier"))
         }
 
-        "- the date they became an interested person of the selected property" in {
-          page.mustContainDateSelect("startDate")
+        "the date they became an interested person of the selected property" in {
+          page.mustContainDateSelect("fromDate")
         }
 
-        "- the date they ceased to be an interested person of the selected property" in {
-          page.mustContainDateSelect("endDate")
+        "the date they ceased to be an interested person of the selected property" in {
+          page.mustContainDateSelect("toDate")
         }
       }
     }
 
     // TODO - unit tests for the different types of property
-    "When they supply a valid relationship, start and end date" in {
+    "When they supply a valid relationship, start and end date" ignore {
       val formData = Seq("relationship" -> validRelationship, "fromDate" -> fromDate, "toDate" -> toDate, "baRef" -> propertyToClaimBillingAuthorityRef)
       val response = Page.postValid("", formData:_*)
 
@@ -46,7 +46,7 @@ class PropertyLinkDeclaration extends FrontendTest {
     }
 
     // TODO - unit tests for the different types of inputs and validation rules
-    "When they do not supply a valid relationship, start or end date" in {
+    "When they do not supply a valid relationship, start or end date" ignore {
       val formData = Seq("relationship" -> invalidRelationship, "fromDate" -> fromDate, "toDate" -> toDate, "baRef" -> propertyToClaimBillingAuthorityRef)
       val page = Page.postInvalid("", formData:_*)
 

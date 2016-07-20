@@ -20,7 +20,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   def mustContainTextInput(selector: String) = mustContain1(s"form input[type=text]$selector")
 
   def mustContain1(selector: String) =
-    html.select(selector).size mustBe 1 withClue s"Expected 1 of: '$selector'\n ${html.select(selector)}"
+    html.select(selector).size mustBe 1 withClue s"Expected 1 of: '$selector'\n ${html.select(selector)}\nFull HTML: \n$html"
 
   def mustContainSummaryErrors(errors: (String, String)*) =
     errors.foreach { e =>
@@ -31,5 +31,4 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
     errors.foreach { e =>
       html.select(s"div#${e._1}.has-error div.form-grouped-error p").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e"
     }
-
 }

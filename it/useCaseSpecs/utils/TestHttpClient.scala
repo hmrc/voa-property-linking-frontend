@@ -5,6 +5,7 @@ import play.api.libs.json.{Json, Writes}
 import uk.gov.hmrc.play.http.hooks.HttpHook
 import uk.gov.hmrc.play.http.{HeaderCarrier, _}
 import SessionDocument._
+import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
 
@@ -47,8 +48,12 @@ class TestHttpClient extends HttpGet with HttpPost with HttpPut with HttpDelete 
     val b: String = Json.stringify(rds.writes(body))
     actualPuts = actualPuts :+ (url, b)
     stubbedPuts.find(x => insertUUID(x._1, url) == url && x._2.forall(hc.headers.contains) && x._3 == b) match {
-      case Some((_, _, _, res)) => Future.successful(res)
-      case _ => throw new HttpPutRequestNotStubbed(url, hc, b, stubbedPuts.map(x => (insertUUID(x._1, url), x._3)))
+      case Some((_, _, _, res)) =>
+        Future.successful(res)
+      case allowKeystorePUTsByDefault if url.startsWith("http://localhost:8400/keystore/") =>
+        Future.successful(HttpResponse(201, responseJson = Some(Json.toJson(CacheMap("", Map.empty)))))
+      case _ =>
+        throw new HttpPutRequestNotStubbed(url, hc, b, stubbedPuts.map(p => (p._1, p._3)))
     }
   }
 
@@ -73,5 +78,5 @@ class TestHttpClient extends HttpGet with HttpPost with HttpPut with HttpDelete 
 
 trait VPLAPIs { this: TestHttpClient =>
   def stubPropertiesAPI(billingAuthorityReference: String, p: Property) =
-    stubGet(s"http://localhost:9527/property-valuations/properties/$billingAuthorityReference", Seq.empty, HttpResponse(200, responseJson = Some(Json.toJson(p))))
+    stubGet(s"http://localhost:9527/properties/$billingAuthorityReference", Seq.empty, HttpResponse(200, responseJson = Some(Json.toJson(p))))
 }

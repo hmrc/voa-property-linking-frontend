@@ -80,6 +80,11 @@ label.continue=Continue
 label.footer.licence=All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
 label.footer.ogl=Open Government Licence
 label.footer.crown=Crown copyright
+label.date.day=Day
+label.date.month=Month
+label.date.year=Year
+help.date.day.month.year=For example, 12 3 2011
+help.optional.date.day.month.year=For example, 12 3 2011 (Optional)
 
 #MISC
 alt.newWindow=Opens in a new window
