@@ -32,7 +32,7 @@ object WithLinkingSession extends ActionBuilder[LinkingSessionRequest] with Acti
   override protected def refine[A](request: Request[A]) =
     repo.get()(hc(request)) map {
       case Some(x) => Right(LinkingSessionRequest(x, request))
-      case None => Left(BadRequest(s"Invalid Session. Request: ${request.session}"))
+      case None => Left(BadRequest(s"Invalid Session"))
     }
 
 }

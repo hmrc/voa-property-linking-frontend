@@ -22,6 +22,8 @@ import play.api.libs.json._
 import session.LinkingSession
 
 object JsonFormats {
+  implicit val dateReads = Reads.jodaDateReads("dd-MM-yyyy")
+  implicit val dateWrites = Writes.jodaDateWrites("dd-MM-yyyy")
   implicit val accountFormat = Json.format[Account]
   implicit val addressFormat = Json.format[Address]
   implicit val bulkClassFormat = EnumFormat[BulkClass](BulkClass)

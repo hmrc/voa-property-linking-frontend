@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-import org.scalatest.{FlatSpec, MustMatchers}
+package form
 
-class Placeholder extends FlatSpec with MustMatchers {
+import org.joda.time.DateTime
+import play.api.data.Mapping
+import play.api.data.Forms._
 
-  "This is a placeholder required by CI job" should "pass" in {
-    1 mustEqual 1
-  }
+object Mappings {
+
+ def dmyDate: Mapping[DateTime] = mapping (
+  "day" -> number(1, 31),
+  "month" -> number(1, 12),
+  "year" -> number(1900, 3000)
+ )((d, m, y) => new DateTime(y, m, d, 0, 0,0, 0))(d => Some(d.dayOfMonth.get, d.monthOfYear.get, d.year.get))
 
 }

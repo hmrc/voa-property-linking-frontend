@@ -1,15 +1,15 @@
 package useCaseSpecs
 
-import uk.gov.hmrc.play.http.HeaderCarrier
-import uk.gov.hmrc.play.http.logging.SessionId
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import useCaseSpecs.utils._
 
 class PropertyLinkDeclaration extends FrontendTest {
   import TestData._
 
-  "Given an interested person is logged in and has selected a property that exists to claim" - {
-    implicit val hc = HeaderCarrier(sessionId = Some(SessionId(sessionId)))
-    HTTP.stubPropertiesAPI(propertyToClaimBillingAuthorityRef, propertyToClaim)
+  "Given an interested person is logged in and has selected a self-certifiable property that exists to claim" - {
+    implicit val sid: SessionID = sessionId
+    HTTP.stubPropertiesAPI(propertyToClaimBillingAuthorityRef, selfCertifiableProperty)
 
     "When they arrive at the declaration page" - {
       val page = Page.get(s"/property-linking/link-to-property/$propertyToClaimBillingAuthorityRef")
@@ -30,24 +30,32 @@ class PropertyLinkDeclaration extends FrontendTest {
       }
     }
 
-    // TODO - unit tests for the different types of property
-    "When they supply a valid relationship, start and end date" ignore {
-      val formData = Seq("relationship" -> validRelationship, "fromDate" -> fromDate, "toDate" -> toDate, "baRef" -> propertyToClaimBillingAuthorityRef)
-      val response = Page.postValid("", formData:_*)
+    "When they supply a valid relationship, start and end date" - {
+      HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty))
+      val response = Page.postValid("/property-linking/link-to-property", validFormData:_*)
 
       "Their declaration is stored in the session" in {
-        fail()
+        HTTP.verifyKeystoreSaved(
+          SessionDocument(selfCertifiableProperty, Some(LinkDeclaration(validRelationship, toJoda(fromDate), toJoda(toDate))))
+        )
       }
 
-      "And they continue to the next step of their journey" in {
+      "And they continue to the next step of the self-certification journey" in {
         response.header.status mustEqual 303
-        response.header.headers("location") mustEqual "TODO"
+        response.header.headers("location") mustEqual "/property-linking/self-certify"
+      }
+
+      "But if a non-self-certifiable property had been chosen they would instead be asked to supply a rates bill" in {
+        val sid: SessionID = java.util.UUID.randomUUID.toString
+        HTTP.stubKeystoreSession(SessionDocument(nonSelfCertifiableProperty))(sid)
+        val response = Page.postValid("/property-linking/link-to-property", validFormData:_*)(sid)
+        response.header.headers("location") mustEqual "/property-linking/supply-rates-bill"
       }
     }
 
     // TODO - unit tests for the different types of inputs and validation rules
     "When they do not supply a valid relationship, start or end date" ignore {
-      val formData = Seq("relationship" -> invalidRelationship, "fromDate" -> fromDate, "toDate" -> toDate, "baRef" -> propertyToClaimBillingAuthorityRef)
+      val formData = Seq("relationship" -> invalidRelationship) ++ fromDateFields ++ toDateFields
       val page = Page.postInvalid("", formData:_*)
 
       "An error summary is shown" in {
@@ -65,11 +73,16 @@ class PropertyLinkDeclaration extends FrontendTest {
     lazy val propertyToClaimBillingAuthorityRef = "blahblahblooh"
 
     lazy val address = Address(Seq.empty, "AA11 1AA", true)
-    lazy val propertyToClaim = Property(propertyToClaimBillingAuthorityRef, address, "shop", false, true)
+    lazy val selfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, "shop", false, true)
+    lazy val nonSelfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, "shop", true, true)
     lazy val validRelationship = "owner"
     lazy val invalidRelationship = "re44wo"
     lazy val fromDate = "23/12/2001"
     lazy val toDate = "15/01/2003"
+    lazy val fromDateFields = Seq("fromDate.day" -> "23", "fromDate.month" -> "12", "fromDate.year" -> "2001")
+    lazy val toDateFields = Seq("toDate.day" -> "15", "toDate.month" -> "1", "toDate.year" -> "2003")
+    lazy val validFormData = Seq("capacity" -> validRelationship) ++ fromDateFields ++ toDateFields
+    def toJoda(s: String): DateTime = DateTime.parse(s, DateTimeFormat.forPattern("dd/MM/yyyy"))
   }
 }
 

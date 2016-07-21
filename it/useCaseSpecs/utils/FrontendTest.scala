@@ -24,4 +24,5 @@ abstract class FrontendTest extends FreeSpec with MustMatchers with OptionValues
                             with DefaultAwaitTimeout with AppendedClues with BeforeAndAfterAll {
   implicit val app = FrontendTest.app
   val HTTP = FrontendTest.HTTP
+  HTTP.reset()
 }

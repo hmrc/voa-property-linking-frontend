@@ -19,15 +19,17 @@ package controllers
 import config.Wiring
 import connectors.PrototypeTestData._
 import models._
+import org.joda.time.DateTime
 import play.api.data.Forms._
 import play.api.data.format.Formatter
 import play.api.data.{Form, FormError, Forms}
 import play.api.mvc.{Action, Result}
 import session.WithLinkingSession
+import form.Mappings.dmyDate
 
 object Search extends PropertyLinkingController {
-  val sessionRepository = Wiring().sessionRepository
-  val connector = Wiring().propertyConnector
+  lazy val sessionRepository = Wiring().sessionRepository
+  lazy val connector = Wiring().propertyConnector
 
   def show() = Action { implicit request =>
     Ok(views.html.search(pretendSearchResults))
@@ -70,11 +72,11 @@ object Search extends PropertyLinkingController {
 
   lazy val declareCapacityForm = Form(mapping(
     "capacity" -> Forms.of[CapacityType],
-    "fromDate" -> nonEmptyText,
-    "toDate" -> nonEmptyText
+    "fromDate" -> dmyDate,
+    "toDate" -> dmyDate
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 
 case class DeclareCapacityVM(form: Form[_])
 
-case class CapacityDeclaration(capacity: CapacityType, fromDate: String, toDate: String)
+case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: DateTime)
