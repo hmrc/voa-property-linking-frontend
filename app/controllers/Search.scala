@@ -16,23 +16,28 @@
 
 package controllers
 
+import config.Wiring
+import connectors.PrototypeTestData._
+import form.EnumMapping
+import form.Mappings.{dmyDate, dmyPastDate}
 import models._
+import org.joda.time.DateTime
+import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.format.Formatter
-import play.api.data.{Form, FormError, Forms}
 import play.api.mvc.{Action, Result}
-import session.{LinkingSession, LinkingSessionRepository, WithLinkingSession}
+import session.WithLinkingSession
 
 object Search extends PropertyLinkingController {
-  val propertyToClaim = "propertyToClaim"
+  lazy val sessionRepository = Wiring().sessionRepository
+  lazy val connector = Wiring().propertyConnector
 
   def show() = Action { implicit request =>
     Ok(views.html.search(pretendSearchResults))
   }
 
   def declareCapacity(baRef: String) = Action.async { implicit request =>
-    pretendSearchResults.find(_.billingAuthorityReference == baRef) match {
-      case Some(pd) => LinkingSessionRepository.start(pd) map { _ =>
+    connector.find(baRef).flatMap {
+      case Some(pd) => sessionRepository.start(pd) map { _ =>
         Ok(views.html.declareCapacity(DeclareCapacityVM(declareCapacityForm)))
       }
       case None => NotFound(views.html.defaultpages.notFound(request, Some(app.Routes)))
@@ -42,7 +47,7 @@ object Search extends PropertyLinkingController {
   def attemptLink() = WithLinkingSession.async { implicit request =>
     declareCapacityForm.bindFromRequest().fold(
       errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors))),
-      dec => LinkingSessionRepository.saveOrUpdate(request.ses.withDeclaration(dec)) map { _ => chooseLinkingJourney(request.ses.claimedProperty, dec) }
+      dec => sessionRepository.saveOrUpdate(request.ses.withDeclaration(dec)) map { _ => chooseLinkingJourney(request.ses.claimedProperty, dec) }
     )
   }
 
@@ -54,43 +59,13 @@ object Search extends PropertyLinkingController {
     else
       Redirect(routes.UploadRatesBill.show())
 
-  lazy val conflictedProperty = Property(
-    "testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA", true), Office, false, true
-  )
-  lazy val bankForRatesBillVerifiedJourney = Property(
-    "testbankaccepted", Address(Seq("Banky McBankface (rates bill accepted)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true, true
-  )
-  lazy val bankForRatesBillFailedJourney = Property(
-    "testbankrejected", Address(Seq("Banky McSadface (rates bill rejected)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true, true
-  )
-  lazy val pretendSearchResults = Seq(
-    Property("testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA", true), Shop, false, true),
-    conflictedProperty,
-    bankForRatesBillVerifiedJourney,
-    bankForRatesBillFailedJourney,
-    Property(
-      "testbanknomail", Address(Seq("Banky McNoMailFace (Cannot receive mail)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true, false
-    )
-  )
-
-  implicit val capacityTypeFormatter = new Formatter[CapacityType] {
-    override def bind(key: String, data: Map[String, String]) = {
-      CapacityType.unapply(data.getOrElse(key, "MISSING")) match {
-        case Some(ct) => Right(ct)
-        case None => Left(Seq(FormError(key, "error.capacity.noValueSelected")))
-      }
-    }
-
-    override def unbind(key: String, value: CapacityType) = Map(key -> value.name)
-  }
-
   lazy val declareCapacityForm = Form(mapping(
-    "capacity" -> Forms.of[CapacityType],
-    "fromDate" -> nonEmptyText,
-    "toDate" -> nonEmptyText
+    "capacity" -> EnumMapping(CapacityType),
+    "fromDate" -> dmyPastDate,
+    "toDate" -> optional(dmyDate)
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 
 case class DeclareCapacityVM(form: Form[_])
 
-case class CapacityDeclaration(capacity: CapacityType, fromDate: String, toDate: String)
+case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)

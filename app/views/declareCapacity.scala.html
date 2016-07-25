@@ -8,6 +8,9 @@
     <main id="content">
 
         <h1 class="heading-xlarge">@Messages("declareCapacity.title")</h1>
+
+        @includes.errorSummary(model.form)
+
         @form(routes.Search.attemptLink()) {
 
             <div class="grid-row">
@@ -17,32 +20,15 @@
                         field = model.form("capacity"),
                         options = CapacityType.options,
                         args = Seq(
-                            '_label -> Messages("label.capacity"),
+                            '_label -> Messages("capacity.label"),
                             '_labelClass -> "form-label-bold",
                             '_error -> model.form("capacity").error
                         )
                     )
 
-                    @inputText(
-                        field = model.form("fromDate"),
-                        '_label -> Messages("label.fromDate"),
-                        '_error -> model.form("fromDate").error,
-                        '_labelClass -> "form-label-bold",
-                        '_showConstraints -> false,
-                        'class -> "form-control"
-                    )
+                    @dateFields(model.form, "fromDate")
 
-                    @inputText(
-                        field = model.form("toDate"),
-                        '_label -> Messages("label.toDate"),
-                        '_error -> model.form("toDate").error,
-                        '_labelClass -> "form-label-bold",
-                        '_showConstraints -> false,
-                        'class -> "form-control"
-                    )
-
-
-
+                    @dateFields(model.form, "toDate")
                     <p>
                         <button type="submit" id="continue" name="continue_button" class="button">@Messages("label.continue")</button>
                     </p>

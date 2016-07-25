@@ -17,5 +17,24 @@
 package views.helpers
 
 object Errors {
+  // Common Play
+  val required = "error.required"
+  val invalidNumber = "error.number"
+  val belowMinimum = "error.min"
+  val aboveMaximum = "error.max"
+
+  // Common Custom
+  val noValueSelected = "error.common.noValueSelected"
+  val invalidDay = "error.common.date.invalidDay"
+  val invalidMonth = "error.common.date.invalidMonth"
+  val invalidYear = "error.common.date.invalidYear"
+  val invalidDate = "error.common.date.notARealDate"
+  val dateMustBeInPast = "error.common.date.mustBeInPast"
+
+  // Capacity Declaration
+  val capacityRequired = "error.capacityDeclaration.capacityRequired"
+  val invalidCapacity = "error.capacityDeclaration.invalidCapacity"
+
+  // Self Certification
   val mustAgreeToSelfCert="error.mustAgreeToSelfCert"
 }

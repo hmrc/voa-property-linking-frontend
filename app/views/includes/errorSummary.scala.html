@@ -1,34 +1,13 @@
 @import play.api.data._
 
-@(form: Form[_], messagePrefix: String)(implicit requestHeader: RequestHeader)
+@(form: Form[_], messagePrefix: Option[String] = None)(implicit requestHeader: RequestHeader)
 
     @showError(error: FormError) = {
         <li>
             <a href="#@error.key.replace("[", "_").replace(".", "_").replace("]", "_").replace("__", "_")">
-                <span>@Html(Messages(messagePrefix + "." + simplify(error.key) + ".label"))</span> - @Messages(stripIndices(error.message), error.args: _*)
+                <span>@Html(Messages(messagePrefix.map(_ + ".").getOrElse("") + error.key + ".label"))</span> - @Messages(stripIndices(error.message), error.args: _*)
             </a>
         </li>
-    }
-
-    @simplify(field: String) = @{
-        if(field.endsWith("day")) {
-            "date.day"
-        }
-        else if(field.endsWith("month")) {
-            "date.month"
-        }
-        else if(field.endsWith("year")) {
-            "date.year"
-        }
-        else if(field.endsWith("months")) {
-            "date.months"
-        }
-        else if(field.endsWith("years")) {
-            "date.years"
-        }
-        else {
-            field.replaceAll("""\[[0-9]\]""", "")
-        }
     }
 
     @stripIndices(field: String) = @{
@@ -37,7 +16,7 @@
 
 
 @if(form.hasErrors) {
-    <div class="form-error alert alert-danger" tabindex="-1" role="group" aria-labelledby="error-summary-heading" >
+    <div id="error-summary" class="form-error alert alert-danger" tabindex="-1" role="group" aria-labelledby="error-summary-heading" >
         <h2 id="error-summary-heading">@Messages("label.checkTheForm")</h2>
         <p>@Messages("label.fixTheFollowing")</p>
         <ul>

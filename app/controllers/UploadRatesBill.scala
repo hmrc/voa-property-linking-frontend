@@ -16,6 +16,7 @@
 
 package controllers
 
+import connectors.PrototypeTestData
 import models.Property
 import play.api.mvc.{Action, Result}
 import play.api.data.Form
@@ -38,7 +39,7 @@ object UploadRatesBill extends PropertyLinkingController {
   }
 
   private def chooseNextStep(hasRatesBill: Boolean, ratesBill: Option[FilePart[TemporaryFile]], p: Property): Result =
-    if (hasRatesBill && ratesBill.isDefined && p == Search.bankForRatesBillVerifiedJourney)
+    if (hasRatesBill && ratesBill.isDefined && p == PrototypeTestData.bankForRatesBillVerifiedJourney)
       Redirect(routes.UploadRatesBill.ratesBillApproved())
     else if (hasRatesBill && ratesBill.isDefined)
       Redirect(routes.UploadRatesBill.ratesBillPending())

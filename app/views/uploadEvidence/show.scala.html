@@ -15,7 +15,7 @@
 
                     <p>@Messages("uploadEvidence.show.message")</p>
 
-                    @includes.errorSummary(model.form, "uploadEvidence.show")
+                    @includes.errorSummary(model.form, Some("uploadEvidence.show"))
 
                     @checkbox(
                         field = model.form("hasEvidence"),

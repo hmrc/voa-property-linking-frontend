@@ -22,13 +22,19 @@ label.claim=Claim
 
 #DECLARE CAPACITY
 declareCapacity.title=Declare capacity
-label.capacity=Capacity
+capacity.label=Capacity
 capacity.owner=Owner
 capacity.occupier=Occupier
 capacity.previousOccupier=Previous owner
-label.fromDate=From
-label.toDate=To
 error.capacity.noValueSelected=You must select a capacity
+fromDate.day.label=Day
+fromDate.month.label=Month
+fromDate.year.label=Year
+fromDate.label=From date
+toDate.label=To date
+toDate.day.label=Day
+toDate.month.label=Month
+toDate.year.label=Year
 
 #SELF CERTIFICATION
 selfCertification.linkAuthorised.title=Link Authorised
@@ -80,6 +86,13 @@ label.continue=Continue
 label.footer.licence=All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
 label.footer.ogl=Open Government Licence
 label.footer.crown=Crown copyright
+label.date.day=Day
+label.date.month=Month
+label.date.year=Year
+help.date.day.month.year=For example, 12 3 2011
+help.optional.date.day.month.year=For example, 12 3 2011 (Optional)
+error.common.date.mustBeInPast=Must be in the past
+error.common.noValueSelected=No value selected
 
 #MISC
 alt.newWindow=Opens in a new window

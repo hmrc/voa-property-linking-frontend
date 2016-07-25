@@ -1,0 +1,79 @@
+@import models._
+@import play.api.data._
+@import play.api.data.Forms._
+@import _root_.template.Helper._
+
+@(form:Form[_], prefix: String, helpText: Option[String] = None, suffix: String = "",
+  optional: Boolean = false, nojsText: Option[String] = None, label: Option[String] = None)(implicit requestHeader: RequestHeader)
+
+
+@displayFieldError(message: String, args: Seq[Any]) = {
+    <p class="error">@Messages(message, args:_*)</p>
+}
+
+@errorWrapper(fields:Seq[Field],id: String,classes:String*)(content:Html) = {
+	@defining(_root_.template.HtmlSupport.getErrors(fields)){ combinedErrors =>
+
+	  <div id='@id' class='@classes.mkString(" ") @if(combinedErrors.isEmpty==false){ form-grouped-error }'>
+	    @if(combinedErrors.isEmpty==false){
+	       @combinedErrors.map(err => (err.message, err.args)).distinct.map { case (msg, args) => @displayFieldError(msg, args) }
+	    }
+	@content
+		</div>
+	}
+}
+
+	<fieldset class="form-group">
+	<legend class="form-label-bold">
+        @label.map { lab => @Messages(lab) }.getOrElse(if(suffix.nonEmpty) { Html(Messages(s"$prefix.$suffix.label")) } else { Html(Messages(s"$prefix.label")) })
+    </legend>
+	    @errorWrapper(Seq(form(""+prefix+".month"),form(""+prefix+".year"),form(prefix)), prefix.replace('.', '_'), "form-date-dayMonth"){
+
+	    @nojsText.map { t =>
+        	<p class="hidden">@t</p>
+	    }
+
+	    @helpText.map { t =>
+	    	<p class="form-hint">@t</p>
+	    }
+
+	    <p class="form-hint">@if(optional) { @Messages("help.optional.date.day.month.year") } else { @Messages("help.date.day.month.year") }</p>
+             @helpers.inputText(
+                field = form(""+prefix+".day"),
+                '_label -> Messages("label.date.day"),
+                '_error -> form(""+prefix+".date.year").error.map(_.withMessage(Messages("error.date.day"))),
+                '_labelClass -> "form-label",
+                '_showConstraints -> false, '_showErrors -> false,
+                'class -> "form-control",
+                '_fieldsetClass ->  "form-group-day",
+                Symbol("maxLength") -> "2",
+                '_optional -> optional
+             )
+
+             @helpers.inputText(
+               field = form(""+prefix+".month"),
+               '_label -> Messages("label.date.month"),
+               '_error -> form(""+prefix+".date.month").error.map(_.withMessage(Messages("error.date.month"))),
+               '_labelClass -> "form-label",
+               '_showConstraints -> false, '_showErrors -> false,
+               'class -> "form-control",
+               '_fieldsetClass -> "form-group-month",
+               Symbol("maxLength") -> "2",
+               '_optional -> optional
+             )
+
+              @helpers.inputText(
+               field = form(""+prefix+".year"),
+               '_label -> Messages("label.date.year"),
+               '_error -> form(""+prefix+".date.year").error.map(_.withMessage(Messages("error.date.year"))),
+               '_labelClass -> "form-label",
+               '_showConstraints -> false, '_showErrors -> false,
+               'class -> "form-control",
+               '_fieldsetClass ->  "form-group-year",
+               Symbol("maxLength") -> "4",
+               '_optional -> optional
+             )
+
+
+	  }
+	</fieldset>

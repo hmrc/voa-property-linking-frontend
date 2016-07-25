@@ -16,13 +16,14 @@
 
 package controllers
 
-import config.Keystore
+import config.Wiring
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Action
 import serialization.JsonFormats.accountFormat
 
 object Login extends PropertyLinkingController {
+  val cache = Wiring().sessionCache
 
   def show() = Action { implicit request =>
     Ok(views.html.login(LoginVM(loginForm)))
@@ -31,7 +32,7 @@ object Login extends PropertyLinkingController {
   def submit() = Action.async { implicit request =>
     loginForm.bindFromRequest().fold(
       errors => BadRequest(views.html.login(LoginVM(errors))),
-      formData => Keystore.fetchAndGetEntry[Seq[Account]](accountsFormId) map {
+      formData => cache.fetchAndGetEntry[Seq[Account]](accountsFormId) map {
         case Some(accounts) if accounts.contains(formData) => Redirect(routes.Dashboard.home())
         case _ => BadRequest(views.html.login(LoginVM(loginForm.withError("companyName", "error.login.invalid"))))
       }

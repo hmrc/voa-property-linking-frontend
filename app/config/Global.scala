@@ -32,19 +32,24 @@ import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
 import uk.gov.hmrc.play.http.{HttpDelete, HttpGet, HttpPut}
 
-object Global extends DefaultFrontendGlobal {
+object Global extends VPLFrontendGlobal {
+  override val wiring: Wiring = new Wiring {
+    override val http = WSHttp
+  }
+}
+
+trait VPLFrontendGlobal extends DefaultFrontendGlobal {
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html = views.html.errors.error()
 
   def auditConnector: uk.gov.hmrc.play.audit.http.connector.AuditConnector = AuditServiceConnector
 
-  override def microserviceMetricsConfig(implicit app: Application): Option[Configuration] = metricsConfig
+  override def microserviceMetricsConfig(implicit app: Application): Option[Configuration] = app.configuration.getConfig("metrics")
 
   override def loggingFilter: FrontendLoggingFilter = LoggingFilter
 
   override def frontendAuditFilter: FrontendAuditFilter = AuditFilter
 
-  lazy val config = Play.current.configuration
-  def metricsConfig: Option[Configuration] = config.getConfig("metrics")
+  val wiring: Wiring
 }
 
 object AuditServiceConnector extends AuditConnector {
@@ -69,16 +74,4 @@ object ControllerConfiguration extends ControllerConfig {
 
 object Environment extends uk.gov.hmrc.play.config.RunMode {
   def isDev = env == "Dev"
-}
-
-object Keystore extends SessionCache with AppName with ServicesConfig {
-  override def defaultSource: String = appName
-  override def baseUri: String = baseUrl("cachable.session-cache")
-  override def domain: String = getConfString("cachable.session-cache.domain", throw new Exception("No config setting for cache domain"))
-  override def http: HttpGet with HttpPut with HttpDelete = WSHttp
-}
-
-object WSHttp extends WSGet with WSPut with WSDelete with WSPost with HttpAuditing with AppName with RunMode {
-  override val hooks = Seq(AuditingHook)
-  override def auditConnector = AuditServiceConnector
 }
