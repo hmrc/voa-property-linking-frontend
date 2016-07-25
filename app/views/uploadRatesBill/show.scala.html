@@ -14,7 +14,7 @@
                     </h1>
                     <p>@Messages("uploadRatesBill.show.message")</p>
 
-                        @includes.errorSummary(model.form, "uploadRatesBill.show")
+                        @includes.errorSummary(model.form, Some("uploadRatesBill.show"))
 
                         <fieldset class="inline form-group">
                             @helper.CSRF.formField

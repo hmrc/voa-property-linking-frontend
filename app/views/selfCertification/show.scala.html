@@ -14,7 +14,7 @@
                     </h1>
                     <p>@Messages("selfCertification.show.message")</p>
 
-                        @includes.errorSummary(model.form, "selfCertification.show")
+                        @includes.errorSummary(model.form, Some("selfCertification.show"))
 
                         <fieldset id="agree" class="inline form-group">
                             @helper.CSRF.formField

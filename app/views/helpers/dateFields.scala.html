@@ -25,7 +25,7 @@
 
 	<fieldset class="form-group">
 	<legend class="form-label-bold">
-        @label.map { lab => @Messages(lab) }.getOrElse(if(suffix.nonEmpty) { Html(Messages(s"label.$prefix.$suffix")) } else { Html(Messages(s"label.$prefix")) })
+        @label.map { lab => @Messages(lab) }.getOrElse(if(suffix.nonEmpty) { Html(Messages(s"$prefix.$suffix.label")) } else { Html(Messages(s"$prefix.label")) })
     </legend>
 	    @errorWrapper(Seq(form(""+prefix+".month"),form(""+prefix+".year"),form(prefix)), prefix.replace('.', '_'), "form-date-dayMonth"){
 

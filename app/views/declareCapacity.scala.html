@@ -9,7 +9,7 @@
 
         <h1 class="heading-xlarge">@Messages("declareCapacity.title")</h1>
 
-        @includes.errorSummary(model.form, "declareCapacity")
+        @includes.errorSummary(model.form)
 
         @form(routes.Search.attemptLink()) {
 
@@ -20,7 +20,7 @@
                         field = model.form("capacity"),
                         options = CapacityType.options,
                         args = Seq(
-                            '_label -> Messages("declareCapacity.capacity.label"),
+                            '_label -> Messages("capacity.label"),
                             '_labelClass -> "form-label-bold",
                             '_error -> model.form("capacity").error
                         )
