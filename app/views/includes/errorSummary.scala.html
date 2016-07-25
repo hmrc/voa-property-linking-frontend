@@ -37,7 +37,7 @@
 
 
 @if(form.hasErrors) {
-    <div class="form-error alert alert-danger" tabindex="-1" role="group" aria-labelledby="error-summary-heading" >
+    <div id="error-summary" class="form-error alert alert-danger" tabindex="-1" role="group" aria-labelledby="error-summary-heading" >
         <h2 id="error-summary-heading">@Messages("label.checkTheForm")</h2>
         <p>@Messages("label.fixTheFollowing")</p>
         <ul>

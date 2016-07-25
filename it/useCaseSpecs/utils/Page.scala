@@ -6,7 +6,7 @@ import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.filters.csrf.CSRF
-import uk.gov.hmrc.play.http.{HeaderCarrier, HeaderNames}
+import uk.gov.hmrc.play.http.HeaderNames
 
 object Page extends MustMatchers with AppendedClues {
   def get(url: String)(implicit sid: SessionID): HtmlPage = {
@@ -30,7 +30,7 @@ object Page extends MustMatchers with AppendedClues {
     val Some(response) = route(FakeRequest("POST", url)
                           .withHeaders(HeaderNames.xSessionId -> sid)
                           .withSession("csrfToken" -> token)
-                          .withFormUrlEncodedBody(formData :+ (CSRF.TokenName -> CSRF.SignedTokenProvider.generateToken) :_*))
+                          .withFormUrlEncodedBody(formData :+ (CSRF.TokenName -> token) :_*))
     status(response) mustEqual 400
     HtmlPage(Jsoup.parse(contentAsString(response)))
   }

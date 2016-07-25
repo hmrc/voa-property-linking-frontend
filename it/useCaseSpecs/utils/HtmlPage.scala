@@ -24,11 +24,21 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
 
   def mustContainSummaryErrors(errors: (String, String)*) =
     errors.foreach { e =>
-      html.select(s"div.form-error ul li a[href=${e._1}]").asScala.count(_.text == e._2) mustEqual 1 withClue s"No Summary error for $e"
+      val summary = html.select(s"div#error-summary")
+      if (summary.asScala.length != 1) fail(s"No error summary \n$html")
+      val ses = summary.select("ul li a").asScala
+      ses.exists { x =>
+        println(s"Text: \n${x.text.trim.toLowerCase} \n${errorSummaryHtmlFor(e).toLowerCase}")
+        x.attr("href") == s"#${e._1}" && x.text.trim.toLowerCase == errorSummaryHtmlFor(e).toLowerCase
+      } mustBe true withClue s"No error summary for $e in $ses"
     }
+
+  private def errorSummaryHtmlFor(e: (String, String)): String = s"${e._1} - ${e._2}"
 
   def mustContainFieldErrors(errors: (String, String)*) =
     errors.foreach { e =>
-      html.select(s"div#${e._1}.has-error div.form-grouped-error p").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e"
+      html.select(s"div#${e._1}.has-error div.form-grouped-error p").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e \n$allFieldErrors"
     }
+
+  private def allFieldErrors = html.select(".has-error")
 }

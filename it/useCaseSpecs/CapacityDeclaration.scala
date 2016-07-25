@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import useCaseSpecs.utils._
 
-class PropertyLinkDeclaration extends FrontendTest {
+class CapacityDeclaration extends FrontendTest {
   import TestData._
 
   "Given an interested person is logged in and has selected a self-certifiable property that exists to claim" - {
@@ -53,17 +53,16 @@ class PropertyLinkDeclaration extends FrontendTest {
       }
     }
 
-    // TODO - unit tests for the different types of inputs and validation rules
-    "When they do not supply a valid relationship, start or end date" ignore {
-      val formData = Seq("relationship" -> invalidRelationship) ++ fromDateFields ++ toDateFields
-      val page = Page.postInvalid("", formData:_*)
+    "When they do not supply a valid relationship, start or end date" - {
+      val formData = Seq("capacity" -> invalidRelationship) ++ fromDateFields ++ toDateFields
+      val page = Page.postInvalid("/property-linking/link-to-property", formData:_*)
 
       "An error summary is shown" in {
-        page.mustContainSummaryErrors("capacity" -> "Must supply capacity")
+        page.mustContainSummaryErrors("capacity" -> "You must select a capacity")
       }
 
       "A field-level error is shown for each invalid field" in {
-        page.mustContainFieldErrors("capacity" -> "Must supply relationship")
+        page.mustContainFieldErrors("capacity" -> "You must select a capacity")
       }
     }
   }

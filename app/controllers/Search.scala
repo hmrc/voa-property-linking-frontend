@@ -18,14 +18,14 @@ package controllers
 
 import config.Wiring
 import connectors.PrototypeTestData._
+import form.EnumMapping
+import form.Mappings.{dmyDate, dmyPastDate}
 import models._
 import org.joda.time.DateTime
+import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.format.Formatter
-import play.api.data.{Form, FormError, Forms}
 import play.api.mvc.{Action, Result}
 import session.WithLinkingSession
-import form.Mappings.dmyDate
 
 object Search extends PropertyLinkingController {
   lazy val sessionRepository = Wiring().sessionRepository
@@ -59,24 +59,13 @@ object Search extends PropertyLinkingController {
     else
       Redirect(routes.UploadRatesBill.show())
 
-  implicit val capacityTypeFormatter = new Formatter[CapacityType] {
-    override def bind(key: String, data: Map[String, String]) = {
-      CapacityType.unapply(data.getOrElse(key, "MISSING")) match {
-        case Some(ct) => Right(ct)
-        case None => Left(Seq(FormError(key, "error.capacity.noValueSelected")))
-      }
-    }
-
-    override def unbind(key: String, value: CapacityType) = Map(key -> value.name)
-  }
-
   lazy val declareCapacityForm = Form(mapping(
-    "capacity" -> Forms.of[CapacityType],
-    "fromDate" -> dmyDate,
-    "toDate" -> dmyDate
+    "capacity" -> EnumMapping(CapacityType),
+    "fromDate" -> dmyPastDate,
+    "toDate" -> optional(dmyDate)
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 
 case class DeclareCapacityVM(form: Form[_])
 
-case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: DateTime)
+case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)

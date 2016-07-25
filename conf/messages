@@ -22,7 +22,7 @@ label.claim=Claim
 
 #DECLARE CAPACITY
 declareCapacity.title=Declare capacity
-label.capacity=Capacity
+declareCapacity.capacity.label=Capacity
 capacity.owner=Owner
 capacity.occupier=Occupier
 capacity.previousOccupier=Previous owner
