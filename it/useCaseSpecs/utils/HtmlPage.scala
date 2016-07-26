@@ -27,22 +27,20 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   def mustContain1(selector: String) =
     html.select(selector).size mustBe 1 withClue s"Expected 1 of: '$selector'\n ${html.select(selector)}\nFull HTML: \n$html"
 
-  def mustContainSummaryErrors(errors: (String, String)*) =
+  def mustContainSummaryErrors(errors: (String, String, String)*) =
     errors.foreach { e =>
       val summary = html.select(s"div#error-summary")
       if (summary.asScala.length != 1) fail(s"No error summary \n$html")
       val ses = summary.select("ul li a").asScala
-      ses.exists { x =>
-        println(s"Text: \n${x.text.trim.toLowerCase} \n${errorSummaryHtmlFor(e).toLowerCase}")
-        x.attr("href") == s"#${e._1}" && x.text.trim.toLowerCase == errorSummaryHtmlFor(e).toLowerCase
-      } mustBe true withClue s"No error summary for $e in $ses"
+      val link = ses.find(_.attr("href") == s"#${e._1}").getOrElse(fail(s"No error summary with ID ${e._1}"))
+      link.text.trim.toLowerCase mustEqual errorSummaryHtmlFor(e).toLowerCase withClue s"Errors $link did not have text ${errorSummaryHtmlFor(e)}"
     }
 
-  private def errorSummaryHtmlFor(e: (String, String)): String = s"${e._1} - ${e._2}"
+  private def errorSummaryHtmlFor(e: (String, String, String)): String = s"${e._2} - ${e._3}"
 
   def mustContainFieldErrors(errors: (String, String)*) =
     errors.foreach { e =>
-      html.select(s"div#${e._1}.has-error div.form-grouped-error p").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e \n$allFieldErrors"
+      html.select(s"#${e._1}.has-error div.form-grouped-error p").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e \n$allFieldErrors"
     }
 
   private def allFieldErrors = html.select(".has-error")

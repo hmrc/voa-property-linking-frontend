@@ -11,7 +11,7 @@
 
 @id = @{ args.toMap.get('id).map(_.toString).getOrElse(field.id) }
 
-@handler(
+@fieldConstructor(
     FieldElements(
         id,
         field,

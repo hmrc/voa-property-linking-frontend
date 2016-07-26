@@ -56,7 +56,7 @@ class CapacityDeclaration extends FrontendTest {
       val page = Page.postInvalid("/property-linking/link-to-property", formData:_*)
 
       "An error summary is shown" in {
-        page.mustContainSummaryErrors("capacity" -> "No value selected")
+        page.mustContainSummaryErrors(("capacity", "Capacity", "No value selected"))
       }
 
       "A field-level error is shown for each invalid field" in {

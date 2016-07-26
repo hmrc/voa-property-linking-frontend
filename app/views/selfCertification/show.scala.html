@@ -16,7 +16,6 @@
 
                         @includes.errorSummary(model.form, Some("selfCertification.show"))
 
-                        <fieldset id="agree" class="inline form-group">
                             @helper.CSRF.formField
 
                             @checkbox(
@@ -31,7 +30,6 @@
                                 '_text -> Messages("selfCertification.show.iAgree.text"),
                                 '_helpIndent -> Messages("selfCertification.show.iAgree.hint")
                             )
-                        </fieldset>
 
                         <button type="submit" class="button">@Messages("selfCertification.show.button")</button>
                 </div>
