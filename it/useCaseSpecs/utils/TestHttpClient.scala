@@ -87,6 +87,9 @@ trait HTTPTestPUT extends HttpPut with MustMatchers with AppendedClues {
   def verifyOnlySinglePUTFor(baseUrl: String) =
     actualPuts.count(_._1.startsWith(baseUrl)) mustEqual 1 withClue s"Multiple PUTs for $baseUrl"
 
+  def verifyNoPUTsFor(baseUrl: String) =
+    actualPuts.filter(_._1.startsWith(baseUrl)) mustBe empty withClue s"No PUTs expected for: $baseUrl, but found: ${actualPuts.map(_._1)}"
+
   private def insertUUID(stubbed: String, url: String): String = {
     stubbed.replaceAll("[UUID]", url.split("/").last)
   }
@@ -112,16 +115,18 @@ trait VPLAPIs { this: TestHttpClient =>
       HttpResponse(200, responseJson = Some(Json.toJson(CacheMap("", Map(SessionDocument.sessionKey -> Json.toJson(session))))))
     )
 
-  def verifyKeystoreSaved(session: SessionDocument)(implicit sid: SessionID) = {
+  def verifyKeystoreSaved(session: SessionDocument)(implicit sid: SessionID) =
     verifyPUT(
       s"$keystoreBaseUrl/voa-property-linking-frontend/$sid/${SessionDocument.sessionKey}", Json.stringify(Json.toJson(Json.toJson(session)))
     )
-  }
 
-  def verifyPropertyLinkRequest(billingAuthorityReference: String, accountId: String, request: LinkToProperty) = {
+  def verifyPropertyLinkRequest(billingAuthorityReference: String, accountId: String, request: LinkToProperty) {
     verifyPUT(
       s"$propertyLinksBaseUrl/$billingAuthorityReference/$accountId/[UUID]", Json.stringify(Json.toJson(request))
     )
     verifyOnlySinglePUTFor(propertyLinksBaseUrl)
   }
+
+  def verifyNoLinkRequests() =
+    verifyNoPUTsFor(propertyLinksBaseUrl)
 }

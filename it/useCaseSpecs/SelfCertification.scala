@@ -35,17 +35,18 @@ class SelfCertification extends FrontendTest {
     }
 
     "But if a user does not agree to the self certification terms and conditions" ignore {
+      val page = Page.postInvalid("/property-linking/confirm-self-certify", "iAgree" -> "true")
 
       "Their link request is not submitted" in {
-        fail()
+        HTTP.verifyNoLinkRequests()
       }
 
       "Their is an error summary indicating they are required to accept" in {
-        fail()
+        page.mustContainSummaryErrors("iAgree" -> "You must agree")
       }
 
       "There is a field-level error on the agreement confirmation" in {
-        fail()
+        page.mustContainFieldErrors("iAgree" -> "You must agree")
       }
     }
   }
