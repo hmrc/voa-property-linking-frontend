@@ -16,7 +16,8 @@
 
 package forms
 
-import controllers.{CapacityDeclaration, Search}
+import connectors.propertyLinking.ServiceContract.CapacityDeclaration
+import controllers.Search
 import models.{CapacityType, Occupier}
 import org.joda.time.DateTime
 import org.scalatest.{FlatSpec, MustMatchers}

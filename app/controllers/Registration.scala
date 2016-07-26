@@ -20,7 +20,7 @@ import config.Wiring
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Action
-import uk.gov.hmrc.play.http.HeaderCarrier
+import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
 import serialization.JsonFormats.accountFormat
 
 object Registration extends PropertyLinkingController {
@@ -33,7 +33,10 @@ object Registration extends PropertyLinkingController {
   def submit() = Action.async { implicit request =>
     registerForm.bindFromRequest().fold(
       errors => BadRequest(views.html.register(RegisterVM(errors))),
-      formData => registerAccount(formData) map { _ => Redirect(routes.Dashboard.home()) }
+      // TODO - the accountId will be eventually be supplied by the login mechanism and not dumped in the session
+      formData => registerAccount(formData) map { _ =>
+        Redirect(routes.Dashboard.home()).addingToSession("accountId" -> formData.companyName)
+      }
     )
   }
 

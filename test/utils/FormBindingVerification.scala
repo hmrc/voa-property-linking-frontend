@@ -30,6 +30,10 @@ object FormBindingVerification extends BasicVerification with DateVerification {
     }
   }
 
+  def verifyTrue(form: Form[_], field: String, error: String) {
+    verifyRange(form, Map(field -> "true"), field, Seq.empty, Seq("false", "flase", "abc"), error)
+  }
+
   def verifyMandatoryMultiChoice(form: Form[_], validData: Map[String, String], field: String) {
     val d = validData - field
     mustOnlyContainError(form.bind(d), field, Errors.noValueSelected)

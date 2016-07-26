@@ -1,7 +1,5 @@
 package useCaseSpecs
 
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 import useCaseSpecs.utils._
 
 class CapacityDeclaration extends FrontendTest {
@@ -36,7 +34,7 @@ class CapacityDeclaration extends FrontendTest {
 
       "Their declaration is stored in the session" in {
         HTTP.verifyKeystoreSaved(
-          SessionDocument(selfCertifiableProperty, Some(CapacityDeclaration(validRelationship, toJoda(fromDate), Some(toJoda(toDate)))))
+          SessionDocument(selfCertifiableProperty, Some(CapacityDeclaration(validRelationship, fromDate, Some(toDate))))
         )
       }
 
@@ -71,17 +69,17 @@ class CapacityDeclaration extends FrontendTest {
     lazy val sessionId = java.util.UUID.randomUUID().toString
     lazy val propertyToClaimBillingAuthorityRef = "blahblahblooh"
 
+    lazy val accountId = "asdfj2304rsdf"
     lazy val address = Address(Seq.empty, "AA11 1AA", true)
     lazy val selfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, "shop", false, true)
     lazy val nonSelfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, "shop", true, true)
     lazy val validRelationship = "owner"
     lazy val invalidRelationship = "re44wo"
-    lazy val fromDate = "23/12/2001"
-    lazy val toDate = "15/01/2003"
+    lazy val fromDate = "23-12-2001"
+    lazy val toDate = "15-01-2003"
     lazy val fromDateFields = Seq("fromDate.day" -> "23", "fromDate.month" -> "12", "fromDate.year" -> "2001")
     lazy val toDateFields = Seq("toDate.day" -> "15", "toDate.month" -> "1", "toDate.year" -> "2003")
     lazy val validFormData = Seq("capacity" -> validRelationship) ++ fromDateFields ++ toDateFields
-    def toJoda(s: String): DateTime = DateTime.parse(s, DateTimeFormat.forPattern("dd/MM/yyyy"))
   }
 }
 

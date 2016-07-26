@@ -17,6 +17,7 @@
 package config
 
 import connectors.PropertyConnector
+import connectors.propertyLinking.PropertyLinkConnector
 import session.LinkingSessionRepository
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.audit.http.HttpAuditing
@@ -36,6 +37,7 @@ abstract class Wiring {
   implicit lazy val ec: ExecutionContext = play.api.libs.concurrent.Execution.Implicits.defaultContext
   lazy val sessionRepository = new LinkingSessionRepository(sessionCache)
   lazy val propertyConnector = new PropertyConnector(http)
+  lazy val propertyLinkConnector = new PropertyLinkConnector(http)
   lazy val sessionCache = new VPLSessionCache(http)
 }
 
