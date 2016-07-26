@@ -2,9 +2,14 @@ package useCaseSpecs.utils
 
 import org.jsoup.nodes.Document
 import org.scalatest.{AppendedClues, MustMatchers}
+
 import scala.collection.JavaConverters._
 
 case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
+
+  def mustContainCheckbox(name: String) {
+    html.select(s"form input[type=checkbox][name=$name]")
+  }
 
   def mustContainRadioSelect(name: String, options: Seq[String]) = {
     options.foreach { o =>

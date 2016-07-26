@@ -36,7 +36,7 @@ class CapacityDeclaration extends FrontendTest {
 
       "Their declaration is stored in the session" in {
         HTTP.verifyKeystoreSaved(
-          SessionDocument(selfCertifiableProperty, Some(LinkDeclaration(validRelationship, toJoda(fromDate), toJoda(toDate))))
+          SessionDocument(selfCertifiableProperty, Some(CapacityDeclaration(validRelationship, toJoda(fromDate), Some(toJoda(toDate)))))
         )
       }
 
