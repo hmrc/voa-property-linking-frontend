@@ -23,7 +23,7 @@ label.claim=Claim
 #DECLARE CAPACITY
 declareCapacity.title=Declare capacity
 capacity.label=Capacity
-capacity.owner=Owner
+capacity.ownerlandlord=Owner/Landlord
 capacity.occupier=Occupier
 capacity.previousOccupier=Previous owner
 error.capacity.noValueSelected=You must select a capacity
