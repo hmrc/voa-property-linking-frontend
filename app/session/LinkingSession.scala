@@ -16,7 +16,7 @@
 
 package session
 
-import controllers.CapacityDeclaration
+import connectors.propertyLinking.ServiceContract.CapacityDeclaration
 import models.Property
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import serialization.JsonFormats.sessionFormat

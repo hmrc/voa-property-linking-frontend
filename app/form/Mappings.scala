@@ -26,8 +26,13 @@ import views.helpers.Errors
 
 import scala.util.Try
 
-object Mappings {
+object Mappings extends DateMappings {
 
+  def trueOnly(error: String): Mapping[Boolean] =
+    text.verifying(error, _ == "true").transform[Boolean](_.toBoolean, _.toString)
+}
+
+trait DateMappings {
   def dmyDate: Mapping[DateTime] = toDateTime(dmyDateTuple)
 
   def dmyPastDate: Mapping[DateTime] = toDateTime(dmyPastDateTuple)
@@ -49,7 +54,7 @@ object Mappings {
   )((d, m, y) => (d, m, y))(Some(_)).verifying(Errors.invalidDate, x => Try(new DateTime(x._3, x._2, x._1, 0, 0, 0, 0)).isSuccess)
 
 
-  private def number(min: Int, max: Int) = Forms.of[Int].verifying(Constraints.min(min)).verifying(Constraints.max(max))
+  private def number(min: Int, max: Int) = Forms.of[Int](trimmingNumberFormatter).verifying(Constraints.min(min)).verifying(Constraints.max(max))
 
   implicit lazy val trimmingNumberFormatter = new Formatter[Int] {
     override val format: Option[(String, Seq[Any])] = Formats.intFormat.format

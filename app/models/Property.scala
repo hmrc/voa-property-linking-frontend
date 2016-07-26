@@ -17,7 +17,7 @@
 package models
 
 import connectors.PrototypeTestData
-import controllers.{CapacityDeclaration, Search}
+import connectors.propertyLinking.ServiceContract.CapacityDeclaration
 
 case class Address(lines: Seq[String], postcode: String, canReceiveCorrespondence: Boolean) {
   override def toString = (lines ++ Seq(postcode)) mkString ", "

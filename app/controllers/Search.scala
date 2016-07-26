@@ -18,10 +18,10 @@ package controllers
 
 import config.Wiring
 import connectors.PrototypeTestData._
+import connectors.propertyLinking.ServiceContract.CapacityDeclaration
 import form.EnumMapping
 import form.Mappings.{dmyDate, dmyPastDate}
 import models._
-import org.joda.time.DateTime
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{Action, Result}
@@ -67,5 +67,3 @@ object Search extends PropertyLinkingController {
 }
 
 case class DeclareCapacityVM(form: Form[_])
-
-case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)

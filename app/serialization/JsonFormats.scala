@@ -16,7 +16,8 @@
 
 package serialization
 
-import controllers.{Account, CapacityDeclaration}
+import connectors.propertyLinking.ServiceContract.{CapacityDeclaration, LinkToProperty}
+import controllers.Account
 import models._
 import play.api.libs.json._
 import session.LinkingSession
@@ -26,10 +27,11 @@ object JsonFormats {
   implicit val dateWrites = Writes.jodaDateWrites("dd-MM-yyyy")
   implicit val accountFormat = Json.format[Account]
   implicit val addressFormat = Json.format[Address]
-  implicit val bulkClassFormat = EnumFormat[BulkClass](BulkClass)
+  implicit val bulkClassFormat = EnumFormat(BulkClass)
   implicit val propertyDataFormat = Json.format[Property]
-  implicit val capacityTypeFormat = EnumFormat[CapacityType](CapacityType)
+  implicit val capacityTypeFormat = EnumFormat(CapacityType)
   implicit val capacityFormat = Json.format[CapacityDeclaration]
+  implicit val linkRequestFormat = Json.writes[LinkToProperty]
   implicit val sessionFormat = Json.format[LinkingSession]
 }
 

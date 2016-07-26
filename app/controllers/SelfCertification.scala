@@ -16,31 +16,43 @@
 
 package controllers
 
+import config.Wiring
+import connectors.propertyLinking.ServiceContract.LinkToProperty
+import form.Mappings.trueOnly
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Action
-import session.{LinkingSession, WithLinkingSession}
+import session.{LinkingSession, LinkingSessionRequest, WithLinkingSession}
+import uk.gov.hmrc.play.http.HeaderCarrier
 import views.helpers.Errors
 
 object SelfCertification extends PropertyLinkingController {
+  lazy val connector = Wiring().propertyLinkConnector
 
   def show() = WithLinkingSession { implicit request =>
     Ok(views.html.selfCertification.show(SelfCertifyVM(selfCertifyForm, request.ses)))
   }
 
-  def submit() = WithLinkingSession { implicit request =>
+  def submit() = WithLinkingSession.async { implicit request =>
     selfCertifyForm.bindFromRequest().fold(
       errors => BadRequest(views.html.selfCertification.show(SelfCertifyVM(errors, request.ses))),
-      conf => Redirect(routes.SelfCertification.linkAuthorised())
+      conf => link(request).map(_ =>  Redirect(routes.SelfCertification.linkAuthorised()))
     )
   }
+
+  private def link(request: LinkingSessionRequest[_])(implicit hc: HeaderCarrier) =
+    connector.linkToProperty(
+      request.ses.claimedProperty.billingAuthorityReference, request.session("accountId"),
+      request.ses.declaration.map(d => LinkToProperty(d)).getOrElse(throw new Exception("No declaration")),
+      java.util.UUID.randomUUID.toString
+    )
 
   def linkAuthorised() = Action { implicit request =>
     Ok(views.html.selfCertification.linkAuthorised())
   }
 
   lazy val selfCertifyForm = Form(mapping(
-    "iAgree" -> boolean.verifying(Errors.mustAgreeToSelfCert, _ == true)
+    "iAgree" -> trueOnly(Errors.mustAgreeToSelfCert)
   )(ConfirmSelfCertification.apply)(ConfirmSelfCertification.unapply))
 }
 
