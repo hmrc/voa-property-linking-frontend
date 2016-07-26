@@ -26,8 +26,8 @@ case object Occupier extends CapacityType {
   val name = "occupier"
 }
 
-case object Owner extends CapacityType {
-  val name = "owner"
+case object OwnerLandlord extends CapacityType {
+  val name = "ownerlandlord"
 }
 
 case object PreviousOccupier extends CapacityType {
@@ -37,12 +37,12 @@ case object PreviousOccupier extends CapacityType {
 object CapacityType extends NamedEnumSupport[CapacityType] {
   def unapply(s: String) = s match {
     case Occupier.name => Some(Occupier)
-    case Owner.name => Some(Owner)
+    case OwnerLandlord.name => Some(OwnerLandlord)
     case PreviousOccupier.name => Some(PreviousOccupier)
     case _ => None
   }
 
-  def options = Seq(Occupier.name, Owner.name, PreviousOccupier.name)
+  def options = Seq(Occupier.name, OwnerLandlord.name, PreviousOccupier.name)
 
-  override def all: List[CapacityType] = List(Occupier, Owner, PreviousOccupier)
+  override def all: List[CapacityType] = List(Occupier, OwnerLandlord, PreviousOccupier)
 }

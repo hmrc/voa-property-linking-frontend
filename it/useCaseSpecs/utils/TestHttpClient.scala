@@ -84,8 +84,8 @@ trait HTTPTestPUT extends HttpPut with MustMatchers with AppendedClues {
     put._2 mustEqual body
   }
 
-  def verifyOnlySinglePUTFor(baseUrl: String) =
-    actualPuts.count(_._1.startsWith(baseUrl)) mustEqual 1 withClue s"Multiple PUTs for $baseUrl"
+  def verifyOnlyNPUTsFor(baseUrl: String, amount: Int) =
+    actualPuts.count(_._1.startsWith(baseUrl)) mustEqual amount withClue s"More than $amount PUTs for $baseUrl"
 
   def verifyNoPUTsFor(baseUrl: String) =
     actualPuts.filter(_._1.startsWith(baseUrl)) mustBe empty withClue s"No PUTs expected for: $baseUrl, but found: ${actualPuts.map(_._1)}"
@@ -120,13 +120,11 @@ trait VPLAPIs { this: TestHttpClient =>
       s"$keystoreBaseUrl/voa-property-linking-frontend/$sid/${SessionDocument.sessionKey}", Json.stringify(Json.toJson(Json.toJson(session)))
     )
 
-  def verifyPropertyLinkRequest(billingAuthorityReference: String, accountId: String, request: LinkToProperty) {
+  def verifyPropertyLinkRequest(billingAuthorityReference: String, accountId: String, request: LinkToProperty) =
     verifyPUT(
       s"$propertyLinksBaseUrl/$billingAuthorityReference/$accountId/[UUID]", Json.stringify(Json.toJson(request))
     )
-    verifyOnlySinglePUTFor(propertyLinksBaseUrl)
-  }
 
-  def verifyNoLinkRequests() =
-    verifyNoPUTsFor(propertyLinksBaseUrl)
+  def verifyNoMoreLinkRequests(amount: Int) =
+    verifyOnlyNPUTsFor(propertyLinksBaseUrl, amount)
 }

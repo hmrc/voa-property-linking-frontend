@@ -26,16 +26,6 @@ object Page extends MustMatchers with AppendedClues {
     await(response)
   }
 
-  // TODO - short term solution to take the account ID here and put into session until auth solution is confirmed
-  def postValidWithAccount(url: String, formData: (String, String)*)(aid: AccountID)(implicit sid: SessionID): Result = {
-    val token = CSRF.SignedTokenProvider.generateToken
-    val Some(response) = route(FakeRequest("POST", url)
-                          .withHeaders(HeaderNames.xSessionId -> sid)
-                          .withSession("csrfToken" -> token, "accountId" -> aid)
-                          .withFormUrlEncodedBody(formData :+ (CSRF.TokenName -> token):_*))
-    await(response)
-  }
-
   def postInvalid(url: String, formData: (String, String)*)(implicit sid: SessionID, aid: AccountID): HtmlPage = {
     val token = CSRF.SignedTokenProvider.generateToken
     val Some(response) = route(FakeRequest("POST", url)
@@ -44,6 +34,16 @@ object Page extends MustMatchers with AppendedClues {
                           .withFormUrlEncodedBody(formData :+ (CSRF.TokenName -> token) :_*))
     status(response) mustEqual 400
     HtmlPage(Jsoup.parse(contentAsString(response)))
+  }
+
+  // TODO - short term solution to take the account ID here and put into session until auth solution is confirmed
+  def postValidWithAccount(url: String, formData: (String, String)*)(aid: AccountID)(implicit sid: SessionID): Result = {
+    val token = CSRF.SignedTokenProvider.generateToken
+    val Some(response) = route(FakeRequest("POST", url)
+    .withHeaders(HeaderNames.xSessionId -> sid)
+    .withSession("csrfToken" -> token, "accountId" -> aid)
+    .withFormUrlEncodedBody(formData :+ (CSRF.TokenName -> token):_*))
+    await(response)
   }
 
   object NoSessionId extends Exception

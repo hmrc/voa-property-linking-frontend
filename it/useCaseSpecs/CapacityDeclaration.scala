@@ -15,7 +15,7 @@ class CapacityDeclaration extends FrontendTest {
       "They are asked to provide:" - {
 
         "their relationship to the property" in {
-          page.mustContainRadioSelect("capacity", Seq("occupier", "owner", "previousOccupier"))
+          page.mustContainRadioSelect("capacity", Seq("occupier", "ownerlandlord", "previousOccupier"))
         }
 
         "the date they became an interested person of the selected property" in {
@@ -56,7 +56,7 @@ class CapacityDeclaration extends FrontendTest {
       val page = Page.postInvalid("/property-linking/link-to-property", formData:_*)
 
       "An error summary is shown" in {
-        page.mustContainSummaryErrors("capacity" -> "No value selected")
+        page.mustContainSummaryErrors(("capacity", "Capacity", "No value selected"))
       }
 
       "A field-level error is shown for each invalid field" in {
@@ -73,7 +73,7 @@ class CapacityDeclaration extends FrontendTest {
     lazy val address = Address(Seq.empty, "AA11 1AA", true)
     lazy val selfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, "shop", false, true)
     lazy val nonSelfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, "shop", true, true)
-    lazy val validRelationship = "owner"
+    lazy val validRelationship = "ownerlandlord"
     lazy val invalidRelationship = "re44wo"
     lazy val fromDate = "23-12-2001"
     lazy val toDate = "15-01-2003"
