@@ -7,6 +7,7 @@ class CapacityDeclaration extends FrontendTest {
 
   "Given an interested person is logged in and has selected a self-certifiable property that exists to claim" - {
     implicit val sid: SessionID = sessionId
+    implicit val aid: AccountID = accountId
     HTTP.stubPropertiesAPI(propertyToClaimBillingAuthorityRef, selfCertifiableProperty)
 
     "When they arrive at the declaration page" - {
@@ -46,7 +47,7 @@ class CapacityDeclaration extends FrontendTest {
       "But if a non-self-certifiable property had been chosen they would instead be asked to supply a rates bill" in {
         val sid: SessionID = java.util.UUID.randomUUID.toString
         HTTP.stubKeystoreSession(SessionDocument(nonSelfCertifiableProperty))(sid)
-        val response = Page.postValid("/property-linking/link-to-property", validFormData:_*)(sid)
+        val response = Page.postValid("/property-linking/link-to-property", validFormData:_*)(sid, "blah222")
         response.header.headers("location") mustEqual "/property-linking/supply-rates-bill"
       }
     }
@@ -71,8 +72,8 @@ class CapacityDeclaration extends FrontendTest {
 
     lazy val accountId = "asdfj2304rsdf"
     lazy val address = Address(Seq.empty, "AA11 1AA", true)
-    lazy val selfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, "shop", false, true)
-    lazy val nonSelfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, "shop", true, true)
+    lazy val selfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, true, true)
+    lazy val nonSelfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, false, true)
     lazy val validRelationship = "ownerlandlord"
     lazy val invalidRelationship = "re44wo"
     lazy val fromDate = "23-12-2001"

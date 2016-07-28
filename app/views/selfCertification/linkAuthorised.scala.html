@@ -1,6 +1,6 @@
 @()(implicit request: Request[_])
 
-@main("Start page") {
+@main("") {
     <main id="content">
         <div class="grid-row">
             <div class="column-two-thirds">
@@ -10,5 +10,6 @@
             </div>
         </div>
         <p>@Messages("selfCertification.linkAuthorised.message")</p>
+        <a href="@routes.Dashboard.manageProperties()">@Messages("selfCertification.linkAuthorised.properties.link")</a>
     </main>
 }

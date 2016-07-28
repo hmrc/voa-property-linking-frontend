@@ -2,11 +2,10 @@ package useCaseSpecs.utils
 
 import org.scalatest.{AppendedClues, MustMatchers}
 import play.api.libs.json.{Json, Writes}
+import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.play.http.hooks.HttpHook
 import uk.gov.hmrc.play.http.{HeaderCarrier, _}
-import SessionDocument._
-import uk.gov.hmrc.http.cache.client.CacheMap
-import useCaseSpecs.utils.Page.NoSessionId
+import useCaseSpecs.utils.SessionDocument._
 
 import scala.concurrent.Future
 
@@ -15,7 +14,7 @@ object TestHttpClient {
   type Body = String
 }
 
-import TestHttpClient._
+import useCaseSpecs.utils.TestHttpClient._
 
 class TestHttpClient extends HttpGet with HttpPost with HTTPTestPUT with HttpDelete with MustMatchers with AppendedClues with VPLAPIs {
 
@@ -127,4 +126,10 @@ trait VPLAPIs { this: TestHttpClient =>
 
   def verifyNoMoreLinkRequests(amount: Int) =
     verifyOnlyNPUTsFor(propertyLinksBaseUrl, amount)
+
+  def stubLinkedPropertiesAPI(accountId: String, added: Seq[PropertyLink], pending: Seq[PropertyLink]) =
+    stubGet(
+      s"$propertyLinksBaseUrl/$accountId", Seq.empty,
+      HttpResponse(200, responseJson = Some(Json.toJson(LinkedProperties(added, pending))))
+    )
 }

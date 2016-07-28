@@ -1,0 +1,39 @@
+@import _root_.template.Display
+
+@(model: controllers.Dashboard.ManagePropertiesVM)(implicit request: Request[_])
+
+@main("") {
+    <main id="content">
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <h1 class="form-title heading-xlarge">
+                    <span class="section-title">@Messages("dashboard.manageProperties.title")</span>
+                </h1>
+            </div>
+        </div>
+        <table>
+            <tbody>
+                @model.properties.added.map { p =>
+                    <tr>
+                        <td>@p.name</td>
+                        <td>@p.billingAuthorityReference</td>
+                        <td>@p.capacity</td>
+                        <td>@Messages("dashboard.manageProperties.status.added")</td>
+                        <td>@Display.date(p.linkedDate)</td>
+                    </tr>
+                }
+                @model.properties.pending.map { p =>
+                    <tr>
+                        <td>@p.name</td>
+                        <td>@p.billingAuthorityReference</td>
+                        <td>@p.capacity</td>
+                        <td>@Messages("dashboard.manageProperties.status.pending")</td>
+                        <td>@Display.date(p.linkedDate)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <p><a href="@routes.Search.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.searchLinkText")</a></p>
+    </main>
+}

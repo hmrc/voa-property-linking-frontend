@@ -16,10 +16,10 @@
 
 package connectors
 
-import models.{Address, Office, Property, Shop}
+import models.{Address, Property}
+import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
-import serialization.JsonFormats._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -34,21 +34,21 @@ class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends Se
 
 object PrototypeTestData {
   lazy val conflictedProperty = Property(
-    "testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA", true), Office, false, true
+    "testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA", true), true, true
   )
   lazy val bankForRatesBillVerifiedJourney = Property(
-    "testbankaccepted", Address(Seq("Banky McBankface (rates bill accepted)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true, true
+    "testbankaccepted", Address(Seq("Banky McBankface (rates bill accepted)", "Some Road", "Some Town"), "AA11 1AA", true), false, true
   )
   lazy val bankForRatesBillFailedJourney = Property(
-    "testbankrejected", Address(Seq("Banky McSadface (rates bill rejected)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true, true
+    "testbankrejected", Address(Seq("Banky McSadface (rates bill rejected)", "Some Road", "Some Town"), "AA11 1AA", true), false, true
   )
   lazy val pretendSearchResults = Seq(
-    Property("testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA", true), Shop, false, true),
+    Property("testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA", true), true, true),
     conflictedProperty,
     bankForRatesBillVerifiedJourney,
     bankForRatesBillFailedJourney,
     Property(
-      "testbanknomail", Address(Seq("Banky McNoMailFace (Cannot receive mail)", "Some Road", "Some Town"), "AA11 1AA", true), Shop, true, false
+      "testbanknomail", Address(Seq("Banky McNoMailFace (Cannot receive mail)", "Some Road", "Some Town"), "AA11 1AA", true), false, false
     )
   )
 }

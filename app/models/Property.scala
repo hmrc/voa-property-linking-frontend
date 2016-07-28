@@ -23,35 +23,11 @@ case class Address(lines: Seq[String], postcode: String, canReceiveCorrespondenc
   override def toString = (lines ++ Seq(postcode)) mkString ", "
 }
 
-case class Property(billingAuthorityReference: String, address: Address, bulkClass: BulkClass, isBank: Boolean, canReceiveMail: Boolean)
-
-sealed trait BulkClass extends NamedEnum {
-  val key = "bulkClass"
-}
-
-object Shop extends BulkClass {
-  val name = "shop"
-}
-object Office extends BulkClass {
-  val name = "office"
-}
-object Industrial extends BulkClass {
-  val name = "industrial"
-}
-
-object BulkClass extends NamedEnumSupport[BulkClass] {
-  override def all: List[BulkClass] = List(Shop, Office, Industrial)
-}
+case class Property(billingAuthorityReference: String, address: Address, isSelfCertifiable: Boolean, canReceiveMail: Boolean)
 
 object IsAlreadyLinked {
   def apply(property: Property, declaration: CapacityDeclaration) =
     property == PrototypeTestData.conflictedProperty
-}
-
-object SelfCertificationEnabled {
-  lazy val selfCertifiableBulkClasses = Seq(Shop, Office, Industrial)
-
-  def apply(sv: Property): Boolean = selfCertifiableBulkClasses.contains(sv.bulkClass) && !sv.isBank
 }
 
 trait NamedEnum {

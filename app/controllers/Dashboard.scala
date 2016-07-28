@@ -16,11 +16,24 @@
 
 package controllers
 
+import config.Wiring
+import connectors.propertyLinking.ServiceContract.LinkedProperties
 import play.api.mvc.Action
+import session.WithAuthentication
 
-object Dashboard extends PropertyLinkingController{
+object Dashboard extends PropertyLinkingController {
+  val connector = Wiring().propertyLinkConnector
 
   def home() = Action { implicit request =>
     Ok(views.html.dashboard.home())
   }
+
+  def manageProperties() = WithAuthentication.async { implicit request =>
+    connector.linkedProperties(request.accountId).map { ps =>
+      Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(ps)))
+    }
+  }
+
+  case class ManagePropertiesVM(properties: LinkedProperties)
 }
+

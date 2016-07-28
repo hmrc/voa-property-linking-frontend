@@ -14,7 +14,13 @@ label.companyName=Company name
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard Home
-dashboard.home.searchLinkText=Find Your Property
+dashboard.home.searchLinkText=Manage your properties
+
+#DASHBOARD MANAGE PROPERTIES
+dashboard.manageProperties.title=Manage Properties
+dashboard.manageProperties.status.added=added
+dashboard.manageProperties.status.pending=pending
+dashboard.managedProperties.searchLinkText=Add another property
 
 #SEARCH
 search.title=Search
@@ -46,6 +52,7 @@ selfCertification.show.iAgree.text=Do you agree?
 selfCertification.show.iAgree.hint=Do you agree?
 selfCertification.show.button=Go
 error.mustAgreeToSelfCert=You must agree to continue.
+selfCertification.linkAuthorised.properties.link=Manage your properties
 
 #UPLOAD RATES BILL
 uploadRatesBill.ratesBillApproved.title=Rates Bill Approved
