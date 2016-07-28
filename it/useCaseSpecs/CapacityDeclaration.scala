@@ -72,8 +72,8 @@ class CapacityDeclaration extends FrontendTest {
 
     lazy val accountId = "asdfj2304rsdf"
     lazy val address = Address(Seq.empty, "AA11 1AA", true)
-    lazy val selfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, "shop", false, true)
-    lazy val nonSelfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, "shop", true, true)
+    lazy val selfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, true, true)
+    lazy val nonSelfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, false, true)
     lazy val validRelationship = "ownerlandlord"
     lazy val invalidRelationship = "re44wo"
     lazy val fromDate = "23-12-2001"

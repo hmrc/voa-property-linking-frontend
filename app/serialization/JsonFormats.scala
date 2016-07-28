@@ -27,7 +27,6 @@ object JsonFormats {
   implicit val dateWrites = Writes.jodaDateWrites("dd-MM-yyyy")
   implicit val accountFormat = Json.format[Account]
   implicit val addressFormat = Json.format[Address]
-  implicit val bulkClassFormat = EnumFormat(BulkClass)
   implicit val propertyDataFormat = Json.format[Property]
   implicit val capacityTypeFormat = EnumFormat(CapacityType)
   implicit val capacityFormat = Json.format[CapacityDeclaration]
