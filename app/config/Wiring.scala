@@ -25,7 +25,7 @@ import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
 import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
 import uk.gov.hmrc.play.http.{HttpDelete, HttpGet, HttpPut}
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 object Wiring {
   def apply() = play.api.Play.current.global.asInstanceOf[VPLFrontendGlobal].wiring
@@ -51,4 +51,9 @@ class VPLSessionCache(httpc: HttpGet with HttpPut with HttpDelete) extends Sessi
 object WSHttp extends WSGet with WSPut with WSDelete with WSPost with HttpAuditing with AppName with RunMode {
   override val hooks = Seq(AuditingHook)
   override def auditConnector = AuditServiceConnector
+}
+
+object ImplicitLifting {
+  implicit def toFut[A](a: A): Future[A] = Future.successful(a)
+  implicit def toOpt[A](a: A): Option[A] = Some(a)
 }

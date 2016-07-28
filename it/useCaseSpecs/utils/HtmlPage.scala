@@ -7,6 +7,16 @@ import scala.collection.JavaConverters._
 
 case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
 
+  def mustContainLink(selector: String, href: String) = mustContain1(s"a$selector[href=$href]")
+
+  def mustContainDataRow(cellValues: String*) {
+    val rows = html.select("table tbody tr").asScala
+    rows.exists { r =>
+      val values = r.select("td").asScala.map(_.text)
+      values == cellValues
+    } mustBe true withClue s"No row with cell values: $cellValues.\nAll rows:\n ${rows.mkString("\n")}"
+  }
+
   def mustContainCheckbox(name: String) {
     html.select(s"form input[type=checkbox][name=$name]")
   }

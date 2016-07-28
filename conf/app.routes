@@ -9,6 +9,7 @@ POST    /register                             controllers.Registration.submit()
 
 #Dashboard
 GET     /home                                 controllers.Dashboard.home()
+GET     /manage-properties                    controllers.Dashboard.manageProperties()
 
 #Search and Link
 GET     /property-search                      controllers.Search.show()

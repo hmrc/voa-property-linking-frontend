@@ -7,6 +7,7 @@ class SelfCertification extends FrontendTest {
 
   "Given an interested person has declared their capacity to a self-certifiable property" - {
     implicit val sid: SessionID = java.util.UUID.randomUUID.toString
+    implicit val aid: AccountID = accountId
     HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty, Some(capacityDeclaration)))
 
     "When they arrive at the the self certification page" - {
@@ -22,7 +23,7 @@ class SelfCertification extends FrontendTest {
     }
 
     "When they agree to the self certification terms and conditions" - {
-      val response = Page.postValidWithAccount("/property-linking/confirm-self-certify", "iAgree" -> "true")(accountId)
+      val response = Page.postValid("/property-linking/confirm-self-certify", "iAgree" -> "true")
 
       "Their link request is submitted" in {
         val submission = LinkToProperty(CapacityDeclaration(capacityDeclaration.capacity, capacityDeclaration.fromDate, None))
