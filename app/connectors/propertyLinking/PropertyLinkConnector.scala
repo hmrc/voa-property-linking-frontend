@@ -16,11 +16,13 @@
 
 package connectors.propertyLinking
 
-import connectors.propertyLinking.ServiceContract.LinkedProperties
+import connectors.PrototypeTestData
+import connectors.propertyLinking.ServiceContract.{LinkedProperties, PropertyLink}
 import models.CapacityType
 import org.joda.time.DateTime
 import serialization.JsonFormats
 import serialization.JsonFormats._
+import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 
@@ -34,29 +36,30 @@ object ServiceContract {
   case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
 }
 
-class PropertyLinkConnector(http: HttpGet with HttpPut)(implicit ec: ExecutionContext) extends ServicesConfig with JsonHttpReads {
+class PropertyLinkConnector(http: HttpGet with HttpPut, cache: SessionCache)(implicit ec: ExecutionContext) extends ServicesConfig with JsonHttpReads {
+  implicit val fmt = JsonFormats.linkedProperties
   private val url = baseUrl("property-linking") + "/property-links"
 
   implicit val rds: HttpReads[Unit] = new HttpReads[Unit] {
     override def read(method: String, url: String, response: HttpResponse): Unit = Unit
   }
 
-  implicit val rds2: HttpReads[ServiceContract.LinkedProperties] = new HttpReads[LinkedProperties] {
-    override def read(method: String, url: String, response: HttpResponse): LinkedProperties =
-      response.json.as[ServiceContract.LinkedProperties](JsonFormats.linkedProperties)
-  }
-
   // TODO - will not be passing in accountId once auth solution is confirmed
   def linkToProperty(billingAuthorityRef: String, accountId: String, request: ServiceContract.LinkToProperty, submissionId: String)
                     (implicit hc: HeaderCarrier): Future[Unit] =
     http.PUT[ServiceContract.LinkToProperty, Unit](s"$url/$billingAuthorityRef/$accountId/$submissionId", request).recoverWith {
-      // TODO - ignore errors until the backend is hooked up so we can demo frontend
-      case _ => Future.successful(Unit)
+      // TODO - use caching for temporary prototype persistence
+      case _ =>
+        val prop = PrototypeTestData.pretendSearchResults.find(_.billingAuthorityReference == billingAuthorityRef).get
+        val x = PropertyLink(
+          prop.address.lines.head + ", " + prop.address.postcode, billingAuthorityRef, request.capacityDeclaration.capacity.name, DateTime.now
+        )
+        linkedProperties(accountId).flatMap(ps => cache.cache("linkedproperties", ps.copy(added = ps.added :+ x))).map(_ => ())
     }
 
   def linkedProperties(accountId: String)(implicit hc: HeaderCarrier): Future[ServiceContract.LinkedProperties] =
     http.GET[ServiceContract.LinkedProperties](s"$url/$accountId").recoverWith {
-      // TODO -  ignore errors until the backend is hooked up
-      case _ => Future.successful(LinkedProperties(Seq.empty, Seq.empty))
+      // TODO -  use caching for temporary prototype persistence
+      case _ => cache.fetchAndGetEntry[LinkedProperties]("linkedproperties").map(_.getOrElse(LinkedProperties(Seq.empty, Seq.empty)))
     }
 }

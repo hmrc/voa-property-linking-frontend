@@ -35,10 +35,10 @@ abstract class Wiring {
   val http: HttpGet with HttpPut with HttpDelete
 
   implicit lazy val ec: ExecutionContext = play.api.libs.concurrent.Execution.Implicits.defaultContext
+  lazy val sessionCache = new VPLSessionCache(http)
   lazy val sessionRepository = new LinkingSessionRepository(sessionCache)
   lazy val propertyConnector = new PropertyConnector(http)
-  lazy val propertyLinkConnector = new PropertyLinkConnector(http)
-  lazy val sessionCache = new VPLSessionCache(http)
+  lazy val propertyLinkConnector = new PropertyLinkConnector(http, sessionCache)
 }
 
 class VPLSessionCache(httpc: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {

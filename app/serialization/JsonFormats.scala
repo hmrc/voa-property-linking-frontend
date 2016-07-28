@@ -32,8 +32,8 @@ object JsonFormats {
   implicit val capacityTypeFormat = EnumFormat(CapacityType)
   implicit val capacityFormat = Json.format[CapacityDeclaration]
   implicit val linkRequestFormat = Json.writes[LinkToProperty]
-  implicit val linkedProperty = Json.reads[PropertyLink]
-  implicit val linkedProperties = Json.reads[LinkedProperties]
+  implicit val linkedProperty = Json.format[PropertyLink]
+  implicit val linkedProperties = Json.format[LinkedProperties]
   implicit val sessionFormat = Json.format[LinkingSession]
 }
 
