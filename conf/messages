@@ -9,8 +9,9 @@ login.title=Login
 error.login.invalid=Unrecognised company name
 
 #REGISTER PAGE
-register.title=Register
-label.companyName=Company name
+register.title=Enter your company name to use this service
+register.message=Thank you for registering with the Government Gateway. You can now login to use this service.
+register.companyName.label=Please enter your company name
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard Home

@@ -11,9 +11,11 @@
             <div class="grid-row">
                 <div class="column-two-thirds">
 
+                   <p>@Messages("register.message")</p>
+
                     @inputText(
                         field = model.form("companyName"),
-                        '_label -> Messages("label.companyName"),
+                        '_label -> Messages("register.companyName.label"),
                         '_error -> model.form("companyName").error,
                         '_labelClass -> "form-label-bold",
                         '_showConstraints -> false,
@@ -21,7 +23,7 @@
                     )
 
                     <p>
-                        <button type="submit" id="continue" name="continue_button" class="button">@Messages("label.continue")</button>
+                       <button type="submit" id="continue" name="continue_button" class="button">@Messages("label.continue")</button>
                     </p>
                 </div>
             </div>
