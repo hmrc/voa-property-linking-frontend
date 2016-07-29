@@ -25,8 +25,8 @@ dashboard.manageProperties.status.pending=pending
 dashboard.managedProperties.searchLinkText=Add another property
 
 #SEARCH
-search.title=Search
-label.claim=Claim
+search.title=Search and select a property to add to your account
+search.select.link=Select
 
 #DECLARE CAPACITY
 declareCapacity.title=Declare capacity
