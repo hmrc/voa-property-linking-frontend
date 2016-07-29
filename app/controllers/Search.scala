@@ -38,7 +38,7 @@ object Search extends PropertyLinkingController {
   def declareCapacity(baRef: String) = Action.async { implicit request =>
     connector.find(baRef).flatMap {
       case Some(pd) => sessionRepository.start(pd) map { _ =>
-        Ok(views.html.declareCapacity(DeclareCapacityVM(declareCapacityForm)))
+        Ok(views.html.declareCapacity(DeclareCapacityVM(declareCapacityForm, pd.address)))
       }
       case None => NotFound(views.html.defaultpages.notFound(request, Some(app.Routes)))
     }
@@ -46,7 +46,7 @@ object Search extends PropertyLinkingController {
 
   def attemptLink() = WithLinkingSession.async { implicit request =>
     declareCapacityForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors))),
+      errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors, request.ses.claimedProperty.address))),
       dec => sessionRepository.saveOrUpdate(request.ses.withDeclaration(dec)) map { _ => chooseLinkingJourney(request.ses.claimedProperty, dec) }
     )
   }
@@ -66,4 +66,4 @@ object Search extends PropertyLinkingController {
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 
-case class DeclareCapacityVM(form: Form[_])
+case class DeclareCapacityVM(form: Form[_], address: Address)

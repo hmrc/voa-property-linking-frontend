@@ -37,7 +37,6 @@
 	    	<p class="form-hint">@t</p>
 	    }
 
-	    <p class="form-hint">@if(optional) { @Messages("help.optional.date.day.month.year") } else { @Messages("help.date.day.month.year") }</p>
              @helpers.inputText(
                 field = form(""+prefix+".day"),
                 '_label -> Messages("label.date.day"),

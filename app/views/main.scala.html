@@ -24,6 +24,11 @@ showBackButton:Boolean=true)(content: Html)(implicit requestHeader: RequestHeade
         <div class="content">
             <nav id="proposition-menu">
                 <a href="@routes.Application.index" id="proposition-name">@Messages("project.header")</a>
+                @if(controllers.LoggedIn(requestHeader)) {
+                    <div class="pull-right">
+                        <a href="@routes.Application.logOut">@Messages("logout.link")</a>
+                    </div>
+                }
             </nav>
         </div>
     </div>

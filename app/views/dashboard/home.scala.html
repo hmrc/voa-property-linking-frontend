@@ -1,6 +1,6 @@
 @()(implicit request: Request[_])
 
-@main("Start page") {
+@main(Messages("dashboard.home.title")) {
     <main id="content">
         <div class="grid-row">
             <div class="column-two-thirds">
@@ -9,6 +9,13 @@
                 </h1>
             </div>
         </div>
-        <a href="@routes.Dashboard.manageProperties">@Messages("dashboard.home.searchLinkText")</a>
+        <ul class="list-bullet">
+            <li>
+                <a href="@routes.Dashboard.manageProperties">@Messages("dashboard.home.manageProperties.link")</a>
+            </li>
+            <li>
+                <a href="@routes.Search.show">@Messages("dashboard.home.searchProperties.link")</a>
+            </li>
+        </ul>
     </main>
 }

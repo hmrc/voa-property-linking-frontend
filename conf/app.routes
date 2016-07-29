@@ -4,6 +4,7 @@ GET     /                                     controllers.Application.index()
 #Registration
 GET     /login                                controllers.Login.show()
 POST    /login                                controllers.Login.submit()
+GET     /logout                               controllers.Application.logOut()
 GET     /register                             controllers.Registration.show()
 POST    /register                             controllers.Registration.submit()
 

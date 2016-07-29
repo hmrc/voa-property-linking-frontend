@@ -7,6 +7,10 @@ import scala.collection.JavaConverters._
 
 case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
 
+  def mustContainText(text: String) {
+    html.body.text.contains(text) mustBe true withClue s"HTML did not contain: $text\nHTML:\n${html.body.text}"
+  }
+
   def mustContainLink(selector: String, href: String) = mustContain1(s"a$selector[href=$href]")
 
   def mustContainDataRow(cellValues: String*) {

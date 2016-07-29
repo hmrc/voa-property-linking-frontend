@@ -17,10 +17,13 @@
 package template
 
 
+import models.Address
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
 object Display {
   private val pattern = DateTimeFormat.forPattern("dd/MM/yyyy")
   def date(d: DateTime): String = d.toString(pattern)
+
+  def address(a: Address): String = a.lines.mkString(", ") + ", " + a.postcode
 }
