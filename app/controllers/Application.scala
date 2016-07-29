@@ -16,12 +16,17 @@
 
 package controllers
 
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{Action, AnyContent, Controller, Request}
 import uk.gov.hmrc.play.http.SessionKeys
 
 object Application extends Controller {
 
   def index() = Action { implicit request =>
-    Ok(views.html.start()).withNewSession.addingToSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
+    if (loggedIn(request))
+      Redirect(routes.Dashboard.home())
+    else
+      Ok(views.html.start()).withNewSession.addingToSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
   }
+
+  private def loggedIn(r: Request[AnyContent]) = r.session.get("accountId").isDefined
 }
