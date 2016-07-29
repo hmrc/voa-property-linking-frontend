@@ -15,7 +15,8 @@ register.companyName.label=Please enter your company name
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard Home
-dashboard.home.searchLinkText=Manage your properties
+dashboard.home.manageProperties.link=View and update properties you’ve added to your account
+dashboard.home.searchProperties.link=Search and select a property to add to your account or add multiple properties to your account
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=Manage Properties
