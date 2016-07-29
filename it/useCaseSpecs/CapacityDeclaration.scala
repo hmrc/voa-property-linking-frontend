@@ -13,7 +13,11 @@ class CapacityDeclaration extends FrontendTest {
     "When they arrive at the declaration page" - {
       val page = Page.get(s"/property-linking/link-to-property/$propertyToClaimBillingAuthorityRef")
 
-      "They are asked to provide:" - {
+      "They can see the address of the property they wish to claim" in {
+        page.mustContainText((selfCertifiableProperty.address.lines :+ selfCertifiableProperty.address.postcode).mkString(", "))
+      }
+
+      "And They are asked to provide:" - {
 
         "their relationship to the property" in {
           page.mustContainRadioSelect("capacity", Seq("occupier", "ownerlandlord", "previousOccupier"))
@@ -57,7 +61,7 @@ class CapacityDeclaration extends FrontendTest {
       val page = Page.postInvalid("/property-linking/link-to-property", formData:_*)
 
       "An error summary is shown" in {
-        page.mustContainSummaryErrors(("capacity", "Capacity", "No value selected"))
+        page.mustContainSummaryErrors(("capacity", "What is your connection to the property?", "No value selected"))
       }
 
       "A field-level error is shown for each invalid field" in {
@@ -71,7 +75,7 @@ class CapacityDeclaration extends FrontendTest {
     lazy val propertyToClaimBillingAuthorityRef = "blahblahblooh"
 
     lazy val accountId = "asdfj2304rsdf"
-    lazy val address = Address(Seq.empty, "AA11 1AA", true)
+    lazy val address = Address(Seq("123 somwhere333i", "a teeewonio", "une villagAArios"), "AA11 1AA", true)
     lazy val selfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, true, true)
     lazy val nonSelfCertifiableProperty = Property(propertyToClaimBillingAuthorityRef, address, false, true)
     lazy val validRelationship = "ownerlandlord"

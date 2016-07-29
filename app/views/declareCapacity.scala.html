@@ -1,5 +1,6 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
+@import _root_.template.Display
 
 @(model: DeclareCapacityVM)(implicit request: Request[_])
 
@@ -7,14 +8,24 @@
 
     <main id="content">
 
-        <h1 class="heading-xlarge">@Messages("declareCapacity.title")</h1>
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <h1 class="form-title heading-large">@Messages("declareCapacity.title")</h1>
 
-        @includes.errorSummary(model.form)
+                @includes.errorSummary(model.form)
 
-        @form(routes.Search.attemptLink()) {
+                <div class="form-group">
+                    <p class="heading-medium">@Messages("declareCapacity.message")</p>
+                    <p class="address-confirmation" style="font-size:36px">
+                        @Display.address(model.address)
+                    </p>
+                    <div class="panel-indent">
+                        @Messages("declareCapacity.incorrectProperty.prefix")
+                        <a href="@routes.Search.show">@Messages("declareCapacity.incorrectProperty.link")</a>
+                    </div>
+                </div>
 
-            <div class="grid-row">
-                <div class="column-two-thirds">
+                @form(routes.Search.attemptLink()) {
 
                     @inputRadioGroup(
                         field = model.form("capacity"),
@@ -26,11 +37,13 @@
                         )
                     )
 
+                    <legend class="form-label-bold">@Messages("declareCapacity.form.legend")</legend>
+
                     @dateFields(model.form, "fromDate")
 
-                    @dateFields(model.form, "toDate")
+                    @dateFields(model.form, "toDate", helpText = Some(Messages("declareCapacity.toDate.help")))
                     <p>
-                        <button type="submit" id="continue" name="continue_button" class="button">@Messages("label.continue")</button>
+                        <button type="submit" id="continue" name="continue_button" class="button">@Messages("declareCapacity.submit.button")</button>
                     </p>
 
                 </div>
