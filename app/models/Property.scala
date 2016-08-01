@@ -19,7 +19,7 @@ package models
 import connectors.PrototypeTestData
 import connectors.propertyLinking.ServiceContract.CapacityDeclaration
 
-case class Address(lines: Seq[String], postcode: String, canReceiveCorrespondence: Boolean) {
+case class Address(lines: Seq[String], postcode: String) {
   override def toString = (lines ++ Seq(postcode)) mkString ", "
 }
 

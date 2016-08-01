@@ -19,6 +19,7 @@ package controllers
 import config.Wiring
 import connectors.propertyLinking.ServiceContract.LinkToProperty
 import form.Mappings.trueOnly
+import models.Property
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Action
@@ -28,6 +29,7 @@ import views.helpers.Errors
 
 object SelfCertification extends PropertyLinkingController {
   lazy val connector = Wiring().propertyLinkConnector
+  lazy val repo = Wiring().sessionRepository
 
   def show() = WithLinkingSession { implicit request =>
     Ok(views.html.selfCertification.show(SelfCertifyVM(selfCertifyForm, request.ses)))
@@ -36,7 +38,10 @@ object SelfCertification extends PropertyLinkingController {
   def submit() = WithLinkingSession.async { implicit request =>
     selfCertifyForm.bindFromRequest().fold(
       errors => BadRequest(views.html.selfCertification.show(SelfCertifyVM(errors, request.ses))),
-      conf => link(request).map(_ =>  Redirect(routes.SelfCertification.linkAuthorised()))
+      conf => for {
+        _ <- link(request)
+        _ <- repo.saveOrUpdate(request.ses.copy(selfCertifyComplete = Some(true)))
+      } yield Redirect(routes.SelfCertification.linkAuthorised())
     )
   }
 
@@ -47,8 +52,11 @@ object SelfCertification extends PropertyLinkingController {
       java.util.UUID.randomUUID.toString
     )
 
-  def linkAuthorised() = Action { implicit request =>
-    Ok(views.html.selfCertification.linkAuthorised())
+  def linkAuthorised() = WithLinkingSession { implicit request =>
+    request.ses.selfCertifyComplete.contains(true) match {
+      case true => Ok(views.html.selfCertification.linkAuthorised(LinkAuthorisedVM(request.ses.claimedProperty)))
+      case false => Redirect(routes.Dashboard.home())
+    }
   }
 
   lazy val selfCertifyForm = Form(mapping(
@@ -59,3 +67,5 @@ object SelfCertification extends PropertyLinkingController {
 case class ConfirmSelfCertification(iAgree: Boolean)
 
 case class SelfCertifyVM(form: Form[_], session: LinkingSession)
+
+case class LinkAuthorisedVM(linkedProperty: Property)

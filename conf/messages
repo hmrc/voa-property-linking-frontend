@@ -52,8 +52,9 @@ toDate.month.label=Month
 toDate.year.label=Year
 
 #SELF CERTIFICATION
-selfCertification.linkAuthorised.title=Link Authorised
+selfCertification.linkAuthorised.title=Link Authorisation
 selfCertification.linkAuthorised.message=You have successfully been linked to the property.
+selfCertification.linkAuthorised.address.suffix=to your account.
 selfCertification.show.title=Self Certification Required
 selfCertification.show.message=To be able to view the details of this property. You must promise that you are telling the truth.
 selfCertification.show.iAgree.label=Do you agree?
@@ -90,8 +91,9 @@ uploadEvidence.noOtherProof.link=I do not have other proof
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required
 linkError.manualVerification.message=We were unable to link you to the requested property. We need to manually verify your request.
-linkError.conflict.title=Property Already Linked
-linkError.conflict.message=We were unable to link you to the requested property. The property has already been claimed for the specified time periods.
+linkError.conflict.title=Property already linked to an account
+linkError.conflict.message=We're unable to add this property to your account as it has already been linked to another account for the time period you specified.
+linkError.conflict.home.link=Manage your properties
 linkError.postcodeVerification.title=Postcode Verification Required
 linkError.postcodeVerification.message=We were unable to link you to the requested property. We need to verify the postcode.
 linkError.pinPostalProcess.title=Postal Verification Required

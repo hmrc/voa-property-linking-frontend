@@ -25,7 +25,7 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-case class LinkingSession(claimedProperty: Property, declaration: Option[CapacityDeclaration] = None) {
+case class LinkingSession(claimedProperty: Property, declaration: Option[CapacityDeclaration] = None, selfCertifyComplete: Option[Boolean] = None) {
   def withDeclaration(d: CapacityDeclaration) = this.copy(declaration = Some(d))
 }
 

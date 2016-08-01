@@ -79,7 +79,7 @@ trait HTTPTestPUT extends HttpPut with MustMatchers with AppendedClues {
   }
 
   def verifyPUT(url: String, body: String) {
-    val put = actualPuts.filter(p => insertUUID(p._1, url) == p._1).lastOption.getOrElse(fail(s"No PUT occurred for: $url"))
+    val put = actualPuts.filter { p => insertUUID(url, p._1) == p._1}.lastOption.getOrElse(fail(s"No PUT occurred for: $url"))
     put._2 mustEqual body
   }
 
@@ -90,7 +90,7 @@ trait HTTPTestPUT extends HttpPut with MustMatchers with AppendedClues {
     actualPuts.filter(_._1.startsWith(baseUrl)) mustBe empty withClue s"No PUTs expected for: $baseUrl, but found: ${actualPuts.map(_._1)}"
 
   private def insertUUID(stubbed: String, url: String): String = {
-    stubbed.replaceAll("[UUID]", url.split("/").last)
+    stubbed.replaceAll("""UUID""", url.split("/").last)
   }
 
   class HttpPutRequestNotStubbed(url: String, hc: HeaderCarrier, body: String, all: Seq[(String, Any)])
@@ -116,12 +116,12 @@ trait VPLAPIs { this: TestHttpClient =>
 
   def verifyKeystoreSaved(session: SessionDocument)(implicit sid: SessionID) =
     verifyPUT(
-      s"$keystoreBaseUrl/voa-property-linking-frontend/$sid/${SessionDocument.sessionKey}", Json.stringify(Json.toJson(Json.toJson(session)))
+      s"$keystoreBaseUrl/voa-property-linking-frontend/$sid/data/${SessionDocument.sessionKey}", Json.stringify(Json.toJson(Json.toJson(session)))
     )
 
   def verifyPropertyLinkRequest(billingAuthorityReference: String, accountId: String, request: LinkToProperty) =
     verifyPUT(
-      s"$propertyLinksBaseUrl/$billingAuthorityReference/$accountId/[UUID]", Json.stringify(Json.toJson(request))
+      s"$propertyLinksBaseUrl/$billingAuthorityReference/$accountId/UUID", Json.stringify(Json.toJson(request))
     )
 
   def verifyNoMoreLinkRequests(amount: Int) =

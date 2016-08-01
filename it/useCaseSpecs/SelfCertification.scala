@@ -33,6 +33,10 @@ class SelfCertification extends FrontendTest {
       "And they are redirected the self declaration confirmation screen once the link is successfully confirmed" in {
         response.header.headers("location") mustEqual "/property-linking/self-certification-link-authorised"
       }
+
+      "And a flag is marked in the session indicating the link was successful" in {
+        HTTP.verifyKeystoreSaved(SessionDocument(selfCertifiableProperty, Some(capacityDeclaration), Some(true)))
+      }
     }
 
     "But if a user does not agree to the self certification terms and conditions" - {
@@ -54,7 +58,7 @@ class SelfCertification extends FrontendTest {
 
   object TestData {
     lazy val accountId = "bizn33z123xdr"
-    lazy val address = Address(Seq.empty, "AA11 1AA", true)
+    lazy val address = Address(Seq.empty, "AA11 1AA")
     lazy val selfCertifiableProperty = Property("xyzbaref332", address, true, true)
     lazy val capacityDeclaration = CapacityDeclaration("occupier", "01-01-2011", None)
   }
