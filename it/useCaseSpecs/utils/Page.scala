@@ -18,6 +18,13 @@ object Page extends MustMatchers with AppendedClues {
     HtmlPage(Jsoup.parse(contentAsString(response)))
   }
 
+  def getResult(url: String)(implicit sid: SessionID, aid: AccountID): Result = {
+    val Some(response) = route(FakeRequest("GET", url)
+      .withHeaders(HeaderNames.xSessionId -> sid)
+      .withSession("accountId" -> aid.id)) // TODO - remove account ID when auth finalised
+    await(response)
+  }
+
   def postValid(url: String, formData: (String, String)*)(implicit sid: SessionID, aid: AccountID): Result = {
     val token = CSRF.SignedTokenProvider.generateToken
     val Some(response) = route(FakeRequest("POST", url)

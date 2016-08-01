@@ -7,6 +7,11 @@ import scala.collection.JavaConverters._
 
 case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
 
+  def mustContainSuccessSummary(msg: String) {
+    val successSummary = html.select("div.success-summary").asScala.headOption.getOrElse(fail(s"No success summary in $html"))
+    successSummary.text mustEqual msg withClue s"Success summary contained:\n${successSummary.text}"
+  }
+
   def mustContainText(text: String) {
     html.body.text.contains(text) mustBe true withClue s"HTML did not contain: $text\nHTML:\n${html.body.text}"
   }

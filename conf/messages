@@ -52,8 +52,9 @@ toDate.month.label=Month
 toDate.year.label=Year
 
 #SELF CERTIFICATION
-selfCertification.linkAuthorised.title=Link Authorised
+selfCertification.linkAuthorised.title=Link Authorisation
 selfCertification.linkAuthorised.message=You have successfully been linked to the property.
+selfCertification.linkAuthorised.address.suffix=to your account.
 selfCertification.show.title=Self Certification Required
 selfCertification.show.message=To be able to view the details of this property. You must promise that you are telling the truth.
 selfCertification.show.iAgree.label=Do you agree?

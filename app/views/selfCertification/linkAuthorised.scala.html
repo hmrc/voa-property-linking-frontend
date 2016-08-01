@@ -1,6 +1,8 @@
-@()(implicit request: Request[_])
+@import _root_.template.Display
 
-@main("") {
+@(model: LinkAuthorisedVM)(implicit request: Request[_])
+
+@main(Messages("selfCertification.linkAuthorised.title")) {
     <main id="content">
         <div class="grid-row">
             <div class="column-two-thirds">
@@ -9,7 +11,13 @@
                 </h1>
             </div>
         </div>
-        <p>@Messages("selfCertification.linkAuthorised.message")</p>
-        <a href="@routes.Dashboard.manageProperties()">@Messages("selfCertification.linkAuthorised.properties.link")</a>
+        <div class="success-summary addedPropertyAlert" role="group" aria-labelledby="success-summary-heading-example-1" tabindex="-1" style="display: block; margin-top: 0px;">
+            <h2 class="heading-medium success-summary-heading" id="success-summary-heading-example-1">
+                You have successfully added
+            </h2>
+            <p style="margin-bottom: 0">@Display.address(model.linkedProperty.address) @Messages("selfCertification.linkAuthorised.address.suffix")</p>
+
+        </div>
+        <a href="@routes.Dashboard.manageProperties()" class="button">@Messages("selfCertification.linkAuthorised.properties.link")</a>
     </main>
 }

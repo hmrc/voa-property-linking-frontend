@@ -104,3 +104,15 @@
 		*word-break: break-all;
 	}				
 }
+
+.success-summary {
+  border: 5px solid #006435;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 20px 15px 15px;
+}
+
+.success-summary .success-summary-heading {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
