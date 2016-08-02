@@ -42,7 +42,5 @@ object CapacityType extends NamedEnumSupport[CapacityType] {
     case _ => None
   }
 
-  def options = Seq(Occupier.name, OwnerLandlord.name, PreviousOccupier.name)
-
   override def all: List[CapacityType] = List(Occupier, OwnerLandlord, PreviousOccupier)
 }

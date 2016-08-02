@@ -19,21 +19,15 @@
                         <fieldset class="inline form-group">
                             @helper.CSRF.formField
 
-                            @checkbox(
+                            @inputRadioGroup(
                                 field = model.form("hasRatesBill"),
-                                'id -> "hasRatesBill",
-                                '_label -> Html(Messages("uploadRatesBill.show.hasRatesBill.label")),
-                                '_error -> model.form("iAgree").error,
-                                '_fieldsetClass -> "inline",
-                                '_legend -> true,
+                                options = HasRatesBill.options,
+                                args = Seq(
+                                '_label -> Messages("hasRatesBill.label"),
                                 '_labelClass -> "form-label-bold",
-                                '_showConstraints -> false,
-                                '_text -> Messages("uploadRatesBill.show.hasRatesBill.text"),
-                                '_helpIndent -> Messages("uploadRatesBill.show.hasRatesBill.hint")
+                                '_error -> model.form("hasRatesBill").error
+                                )
                             )
-                            <br />
-                            <br />
-                            <br />
                             <input type="file" name="ratesBill" />
                         </fieldset>
                         <button type="submit" class="button">@Messages("uploadRatesBill.show.button")</button>

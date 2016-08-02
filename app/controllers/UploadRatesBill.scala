@@ -17,7 +17,8 @@
 package controllers
 
 import connectors.PrototypeTestData
-import models.Property
+import form.EnumMapping
+import models.{DoesHaveRatesBill, HasRatesBill, Property}
 import play.api.mvc.{Action, Result}
 import play.api.data.Form
 import play.api.data.Forms._
@@ -38,15 +39,17 @@ object UploadRatesBill extends PropertyLinkingController {
     )
   }
 
-  private def chooseNextStep(hasRatesBill: Boolean, ratesBill: Option[FilePart[TemporaryFile]], p: Property): Result =
-    if (hasRatesBill && ratesBill.isDefined && p == PrototypeTestData.bankForRatesBillVerifiedJourney)
-      Redirect(routes.UploadRatesBill.ratesBillApproved())
-    else if (hasRatesBill && ratesBill.isDefined)
-      Redirect(routes.UploadRatesBill.ratesBillPending())
-    else if (p.canReceiveMail)
-      Redirect(routes.LinkErrors.pinPostalProcess())
-    else
-      Redirect(routes.UploadEvidence.otherProof())
+  private def chooseNextStep(hasRatesBill: HasRatesBill, ratesBill: Option[FilePart[TemporaryFile]], p: Property): Result =
+    hasRatesBill match {
+      case DoesHaveRatesBill if ratesBill.isDefined && p == PrototypeTestData.bankForRatesBillVerifiedJourney =>
+        Redirect(routes.UploadRatesBill.ratesBillApproved())
+      case DoesHaveRatesBill if ratesBill.isDefined =>
+        Redirect(routes.UploadRatesBill.ratesBillPending())
+      case _ if p.canReceiveMail =>
+        Redirect(routes.LinkErrors.pinPostalProcess())
+      case _ =>
+        Redirect(routes.UploadEvidence.otherProof())
+    }
 
   def ratesBillApproved() = Action { implicit request =>
     Ok(views.html.uploadRatesBill.ratesBillApproved())
@@ -57,10 +60,10 @@ object UploadRatesBill extends PropertyLinkingController {
   }
 
   lazy val uploadRatesBillForm = Form(mapping(
-    "hasRatesBill" -> boolean
+    "hasRatesBill" -> EnumMapping(HasRatesBill)
   )(SubmitRatesBill.apply)(SubmitRatesBill.unapply))
 }
 
 case class UploadRatesBillVM(form: Form[_])
 
-case class SubmitRatesBill(hasRatesBill: Boolean)
+case class SubmitRatesBill(hasRatesBill: HasRatesBill)
