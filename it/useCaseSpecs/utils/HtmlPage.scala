@@ -30,11 +30,12 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
     html.select(s"form input[type=checkbox][name=$name]")
   }
 
-  def mustContainRadioSelect(name: String, options: Seq[String]) = {
+  def mustContainRadioSelect(name: String, options: Seq[String]) =
     options.foreach { o =>
-      html.select(s"input[type=radio][name=$name][value=$o]").asScala.length mustEqual 1 withClue s"No radio option: $name $o"
+      html.select(s"input[type=radio][name=$name][value=$o]").asScala.length mustEqual 1 withClue s"No radio option: $name $o. All radios:\n$allRadios}"
     }
-  }
+
+  private def allRadios = html.select("input[type=radio]").asScala
 
   def mustContainDateSelect(name: String) =
     List("day", "month", "year").foreach( x =>

@@ -43,4 +43,6 @@ trait NamedEnumSupport[E <: NamedEnum]{
   def fromName(name: String): Option[E] = {
     all.find { _.name.equalsIgnoreCase(name) }
   }
+
+  def options = all.map(_.name)
 }
