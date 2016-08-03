@@ -6,11 +6,21 @@
 /******************/
 
 // set namespaces (remember to add new namespaces to .jshintrc)
+var VoaRadioToggle = {};
+var VoaCommon = {};
 var ref;
 
 (function ($) {
     'use strict';
     $(document).ready(function () {
+
+       //common.js
+       VoaCommon.addMultiButtonState();
+
+       //radioToggle.js
+       VoaRadioToggle.radioDataShowField();
+       VoaRadioToggle.radioDataShowFields();
+
     });
 
 })(jQuery);

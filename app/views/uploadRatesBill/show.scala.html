@@ -3,7 +3,7 @@
 
 @(model: UploadRatesBillVM)(implicit request: Request[_])
 
-@main("") {
+@main(Messages("uploadRatesBill.show.title")) {
 
     @form(routes.UploadRatesBill.submit(), 'enctype -> "multipart/form-data") {
         <main id="content">
@@ -22,13 +22,18 @@
                             @inputRadioGroup(
                                 field = model.form("hasRatesBill"),
                                 options = HasRatesBill.options,
+                                dataAttributes = Seq(
+                                  (DoesHaveRatesBill.name, "data-show-field", "true")
+                                ),
                                 args = Seq(
                                 '_label -> Messages("hasRatesBill.label"),
                                 '_labelClass -> "form-label-bold",
                                 '_error -> model.form("hasRatesBill").error
                                 )
                             )
-                            <input type="file" name="ratesBill" />
+                            <div class="form-group hidden hasRatesBill">
+                                <input type="file" name="ratesBill" />
+                            </div>
                         </fieldset>
                         <button type="submit" class="button">@Messages("uploadRatesBill.show.button")</button>
                 </div>
