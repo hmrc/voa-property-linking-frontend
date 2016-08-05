@@ -74,4 +74,5 @@ object ControllerConfiguration extends ControllerConfig {
 
 object Environment extends uk.gov.hmrc.play.config.RunMode {
   def isDev = env == "Dev"
+  def isProd = env == "Prod"
 }

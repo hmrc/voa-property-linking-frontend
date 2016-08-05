@@ -19,6 +19,8 @@
     "VOA",
     "GOVUK",
     "console",
+    "VoaRadioToggle",
+    "VoaCommon",
     "ref"
   ],
   "bitwise": true,

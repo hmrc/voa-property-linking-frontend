@@ -39,7 +39,7 @@ class RatesBillUploadForm extends FlatSpec with MustMatchers {
   }
 
   object TestData {
-    val form = UploadRatesBill.uploadRatesBillForm
-    val validData = Map("hasRatesBill" -> DoesHaveRatesBill.name)
+    lazy val form = UploadRatesBill.uploadRatesBillForm
+    lazy val validData = Map("hasRatesBill" -> DoesHaveRatesBill.name)
   }
 }
