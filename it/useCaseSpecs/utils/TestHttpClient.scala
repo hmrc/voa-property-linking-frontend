@@ -1,5 +1,7 @@
 package useCaseSpecs.utils
 
+import java.util.Base64
+
 import org.scalatest.{AppendedClues, MustMatchers}
 import play.api.libs.json.{Json, Writes}
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -101,6 +103,8 @@ trait VPLAPIs { this: TestHttpClient =>
   lazy val keystoreBaseUrl = "http://localhost:8400/keystore"
   lazy val propertiesBaseUrl = "http://localhost:9527/properties"
   lazy val propertyLinksBaseUrl = "http://localhost:9528/property-links"
+  lazy val ratesBillCheckBaseUrl = "http://localhost:9526/rates-bill-checks"
+  lazy val fileUploadBaseUrl = "http://localhost:9526/file-uploads"
 
   allowPUTsFor(keystoreBaseUrl)
   allowPUTsFor(propertyLinksBaseUrl)
@@ -131,5 +135,18 @@ trait VPLAPIs { this: TestHttpClient =>
     stubGet(
       s"$propertyLinksBaseUrl/$accountId", Seq.empty,
       HttpResponse(200, responseJson = Some(Json.toJson(LinkedProperties(added, pending))))
+    )
+
+  def stubRatesBillCheck(baRef: String, ratesBill: Array[Byte], ratesBillAccepted: Boolean) =
+    stubPut(
+      s"$ratesBillCheckBaseUrl/$baRef/UUID", Seq.empty,
+      Json.stringify(Json.toJson(Map("data" -> Base64.getEncoder.encodeToString(ratesBill)))),
+      HttpResponse(200, responseJson = Some(Json.toJson(Map("isValid" -> ratesBillAccepted))))
+    )
+
+  def stubFileUpload(accountId: String, sessionId: SessionID, key: String, fileName: String, fileContent: Array[Byte]) =
+    stubGet(
+      s"$fileUploadBaseUrl/$accountId/$sessionId/$key", Seq.empty,
+      HttpResponse(200, responseJson = Some(Json.toJson(Map("name" -> fileName, "content" -> Base64.getEncoder.encodeToString(fileContent)))))
     )
 }

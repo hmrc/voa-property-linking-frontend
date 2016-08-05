@@ -16,7 +16,7 @@
 
 package config
 
-import connectors.PropertyConnector
+import connectors.{FileUploadConnector, PropertyConnector, RatesBillVerificationConnector}
 import connectors.propertyLinking.PropertyLinkConnector
 import session.LinkingSessionRepository
 import uk.gov.hmrc.http.cache.client.SessionCache
@@ -39,6 +39,8 @@ abstract class Wiring {
   lazy val sessionRepository = new LinkingSessionRepository(sessionCache)
   lazy val propertyConnector = new PropertyConnector(http)
   lazy val propertyLinkConnector = new PropertyLinkConnector(http, sessionCache)
+  lazy val fileUploadConnector = new FileUploadConnector(http)
+  lazy val ratesBillVerificationConnector = new RatesBillVerificationConnector(http)
 }
 
 class VPLSessionCache(httpc: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {

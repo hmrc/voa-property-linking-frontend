@@ -16,6 +16,7 @@
 
 package serialization
 
+import connectors.{RatesBillCheck, UploadedFile}
 import connectors.propertyLinking.ServiceContract.{CapacityDeclaration, LinkToProperty, LinkedProperties, PropertyLink}
 import controllers.Account
 import models._
@@ -34,6 +35,8 @@ object JsonFormats {
   implicit val linkedProperty = Json.format[PropertyLink]
   implicit val linkedProperties = Json.format[LinkedProperties]
   implicit val sessionFormat = Json.format[LinkingSession]
+  implicit val uploadedFileFormat = Json.reads[UploadedFile]
+  implicit val ratesBillCheckFormat = Json.reads[RatesBillCheck]
 }
 
 object EnumFormat {

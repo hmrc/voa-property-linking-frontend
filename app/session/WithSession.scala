@@ -23,7 +23,11 @@ import play.api.mvc.Results.{BadRequest, Forbidden}
 import play.api.mvc.{ActionBuilder, ActionRefiner, Request, WrappedRequest}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
-case class LinkingSessionRequest[A](ses: LinkingSession, accountId: String, request: Request[A]) extends WrappedRequest[A](request)
+case class LinkingSessionRequest[A](ses: LinkingSession, accountId: String, request: Request[A]) extends WrappedRequest[A](request) {
+  def sessionId: String = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
+}
+
+case object NoSessionId extends Exception
 
 object WithLinkingSession extends ActionBuilder[LinkingSessionRequest] with ActionRefiner[Request, LinkingSessionRequest] {
   val repo = Wiring().sessionRepository
