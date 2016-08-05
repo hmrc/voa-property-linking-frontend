@@ -18,17 +18,18 @@ package controllers
 
 import config.{Environment, Wiring}
 import form.EnumMapping
-import models.{HasRatesBill, RatesBill}
-import play.api.data.Form
+import models.{DoesHaveRatesBill, DoesNotHaveRatesBill, HasRatesBill, RatesBill}
+import play.api.data.{Form, FormError}
 import play.api.data.Forms._
+import play.api.i18n.Messages
 import play.api.libs.Files.TemporaryFile
-import play.api.mvc.Action
+import play.api.mvc.{Action, AnyContent, Request}
 import play.api.mvc.MultipartFormData.FilePart
 import session.{LinkingSessionRequest, WithLinkingSession}
 
 object UploadRatesBill extends PropertyLinkingController {
-  val uploadConnector = Wiring().fileUploadConnector
-  val ratesBillConnector = Wiring().ratesBillVerificationConnector
+  lazy val uploadConnector = Wiring().fileUploadConnector
+  lazy val ratesBillConnector = Wiring().ratesBillVerificationConnector
 
   def show() = WithLinkingSession { implicit request =>
     Ok(views.html.uploadRatesBill.show(UploadRatesBillVM(uploadRatesBillForm)))
@@ -37,19 +38,28 @@ object UploadRatesBill extends PropertyLinkingController {
   def submit() = WithLinkingSession.async { implicit request =>
     uploadRatesBillForm.bindFromRequest().fold(
       errors => BadRequest(views.html.uploadRatesBill.show(UploadRatesBillVM(errors))),
-      answer => {
-        // TODO - remove file upload check once final solution confirmed
-        retrieveFile(if (Environment.isDev) request.body.asMultipartFormData.get.file("ratesBill") else None).flatMap {
-          case Some(f) => isValid(RatesBill(f.content)) map {
-            case true => Redirect(routes.UploadRatesBill.ratesBillApproved())
-            case false => Redirect(routes.UploadRatesBill.ratesBillPending())
-          }
-          case None if request.ses.claimedProperty.canReceiveMail => Redirect(routes.LinkErrors.pinPostalProcess())
-          case None => Redirect(routes.UploadEvidence.otherProof())
+      answer =>
+        answer.hasRatesBill match {
+          case DoesHaveRatesBill =>
+            handleRatesBill(answer)
+          case DoesNotHaveRatesBill if request.ses.claimedProperty.canReceiveMail =>
+            Redirect(routes.LinkErrors.pinPostalProcess())
+          case DoesNotHaveRatesBill =>
+            Redirect(routes.UploadEvidence.otherProof())
         }
-      }
     )
   }
+
+  private def handleRatesBill(s: SubmitRatesBill)(implicit req: LinkingSessionRequest[AnyContent]) =
+    retrieveFile(if (Environment.isDev) req.request.body.asMultipartFormData.get.file("ratesBill") else None).flatMap {
+      case Some(f) => isValid(RatesBill(f.content)) map {
+        case true => Redirect(routes.UploadRatesBill.ratesBillApproved())
+        case false => Redirect(routes.UploadRatesBill.ratesBillPending())
+      }
+      case None => BadRequest(views.html.uploadRatesBill.show(
+        UploadRatesBillVM(uploadRatesBillForm.fill(s).withError(FormError("ratesBill", Messages("uploadRatesBill.ratesBillMissing.error"))))
+      ))
+    }
 
   private def retrieveFile(file: Option[FilePart[TemporaryFile]])(implicit request: LinkingSessionRequest[_]) =
     uploadConnector.retrieveFile(request.accountId, request.sessionId, "ratesBill", file)

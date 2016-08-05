@@ -149,4 +149,10 @@ trait VPLAPIs { this: TestHttpClient =>
       s"$fileUploadBaseUrl/$accountId/$sessionId/$key", Seq.empty,
       HttpResponse(200, responseJson = Some(Json.toJson(Map("name" -> fileName, "content" -> Base64.getEncoder.encodeToString(fileContent)))))
     )
+
+  def stubFileUploadWithNoFile(accountId: String, sessionId: SessionID, key: String) =
+    stubGet(
+      s"$fileUploadBaseUrl/$accountId/$sessionId/$key", Seq.empty,
+      HttpResponse(404)
+    )
 }

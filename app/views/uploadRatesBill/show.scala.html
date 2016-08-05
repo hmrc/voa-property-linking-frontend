@@ -14,7 +14,7 @@
                     </h1>
                     <p>@Messages("uploadRatesBill.show.message")</p>
 
-                        @includes.errorSummary(model.form, Some("uploadRatesBill.show"))
+                        @includes.errorSummary(model.form)
 
                         <fieldset class="inline form-group">
                             @helper.CSRF.formField
@@ -32,7 +32,7 @@
                                 )
                             )
                             <div class="form-group hidden hasRatesBill">
-                                <input type="file" name="ratesBill" />
+                                @inputFile(field = model.form("ratesBill"))
                             </div>
                         </fieldset>
                         <button type="submit" class="button">@Messages("uploadRatesBill.show.button")</button>

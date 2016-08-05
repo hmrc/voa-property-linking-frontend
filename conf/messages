@@ -77,6 +77,8 @@ uploadRatesBill.ratesBillPending.message=Your rates bill will be verified and yo
 hasRatesBill.label=Do you have a rates bill?
 hasRatesBill.doeshaveratesbill=Yes, I have a rates bill
 hasRatesBill.doesnothaveratesbill=No, I do not have a rates bill
+ratesBill.label=Rates bill
+uploadRatesBill.ratesBillMissing.error=please select a rates bill
 
 #UPLOAD EVIDENCE
 uploadEvidence.evidenceUploaded.title=Evidence Uploaded

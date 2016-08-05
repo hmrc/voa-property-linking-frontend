@@ -52,7 +52,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
       val summary = html.select(s"div#error-summary")
       if (summary.asScala.length != 1) fail(s"No error summary \n$html")
       val ses = summary.select("ul li a").asScala
-      val link = ses.find(_.attr("href") == s"#${e._1}").getOrElse(fail(s"No error summary with ID ${e._1}"))
+      val link = ses.find(_.attr("href") == s"#${e._1}").getOrElse(fail(s"No error summary with ID ${e._1}\nError summary: ${ses.headOption.getOrElse("")}"))
       link.text.trim.toLowerCase mustEqual errorSummaryHtmlFor(e).toLowerCase withClue s"Errors $link did not have text ${errorSummaryHtmlFor(e)}"
     }
 
