@@ -33,6 +33,9 @@ class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends Se
 }
 
 object PrototypeTestData {
+  lazy val selfCertProperty = Property(
+    "testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA"), true, true
+  )
   lazy val conflictedProperty = Property(
     "testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA"), true, true
   )
@@ -43,7 +46,7 @@ object PrototypeTestData {
     "testbankrejected", Address(Seq("Banky McSadface (rates bill rejected)", "Some Road", "Some Town"), "AA11 1AA"), false, true
   )
   lazy val pretendSearchResults = Seq(
-    Property("testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA"), true, true),
+    selfCertProperty,
     conflictedProperty,
     bankForRatesBillVerifiedJourney,
     bankForRatesBillFailedJourney,
@@ -51,4 +54,9 @@ object PrototypeTestData {
       "testbanknomail", Address(Seq("Banky McNoMailFace (Cannot receive mail)", "Some Road", "Some Town"), "AA11 1AA"), false, false
     )
   )
+
+  def canBeLinkedTo(baRef: String) =
+    baRef == bankForRatesBillVerifiedJourney.billingAuthorityReference ||
+    baRef == selfCertProperty.billingAuthorityReference
+
 }

@@ -1,6 +1,6 @@
 package useCaseSpecs
 
-import useCaseSpecs.utils.{AccountID, FrontendTest, Page, PropertyLink, SessionID, UIFormats}
+import useCaseSpecs.utils._
 
 class ManageProperties extends FrontendTest {
   import TestData._
@@ -15,13 +15,15 @@ class ManageProperties extends FrontendTest {
 
       "They are shown the properties that they have linked to" in {
         addedProperties.foreach { p =>
-          page.mustContainDataRow(p.name, p.billingAuthorityReference, p.capacity, "added", UIFormats.date(p.linkedDate))
+          page.mustContainDataRow(
+            p.name, p.billingAuthorityReference, p.capacity, "added", UIFormats.date(p.linkedDate), p.assessmentYears.mkString(",")
+          )
         }
       }
 
       "And they are shown the properties who they have attempted to link to but are in the pending state" in {
         pendingProperties.foreach { p =>
-          page.mustContainDataRow(p.name, p.billingAuthorityReference, p.capacity, "pending", UIFormats.date(p.linkedDate))
+          page.mustContainDataRow(p.name, p.billingAuthorityReference, p.capacity, "pending", UIFormats.date(p.linkedDate), "")
         }
       }
 
@@ -35,14 +37,14 @@ class ManageProperties extends FrontendTest {
     lazy val sessionId = java.util.UUID.randomUUID.toString
     lazy val accountId = "adsjflkj3243"
     lazy val addedProperties = Seq(
-      PropertyLink("The House in The City", "ge443asdas", "owner", "23-03-2009"),
-      PropertyLink("The Other House in The Other City", "er23asdfas", "owner", "23-03-2012"),
-      PropertyLink("The House in The Other City", "aad3ge443asdas", "owner", "23-03-2013"),
-      PropertyLink("The Other House in The City", "ge44Xwers", "owner", "23-03-2014")
+      PropertyLink("The House in The City", "ge443asdas", "owner", "23-03-2009", Seq(2009, 2014)),
+      PropertyLink("The Other House in The Other City", "er23asdfas", "owner", "23-03-2012", Seq(2009)),
+      PropertyLink("The House in The Other City", "aad3ge443asdas", "owner", "23-03-2013", Seq(2014)),
+      PropertyLink("The Other House in The City", "ge44Xwers", "owner", "23-03-2014", Seq(2004))
     )
     lazy val pendingProperties = Seq(
-      PropertyLink("The Pending House in The Pending City", "gBADewaa", "owner", "12-12-2015"),
-      PropertyLink("The Other Pending House in The Other Pending City", "gBADewaa", "owner", "12-02-2015")
+      PendingPropertyLink("The Pending House in The Pending City", "gBADewaa", "owner", "12-12-2015"),
+      PendingPropertyLink("The Other Pending House in The Other Pending City", "gBADewaa", "owner", "12-02-2015")
     )
   }
 }

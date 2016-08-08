@@ -17,7 +17,7 @@
 package serialization
 
 import connectors.{RatesBillCheck, UploadedFile}
-import connectors.propertyLinking.ServiceContract.{CapacityDeclaration, LinkToProperty, LinkedProperties, PropertyLink}
+import connectors.propertyLinking.ServiceContract._
 import controllers.Account
 import models._
 import play.api.libs.json._
@@ -32,6 +32,7 @@ object JsonFormats {
   implicit val capacityTypeFormat = EnumFormat(CapacityType)
   implicit val capacityFormat = Json.format[CapacityDeclaration]
   implicit val linkRequestFormat = Json.writes[LinkToProperty]
+  implicit val penPropertyLink = Json.format[PendingPropertyLink]
   implicit val linkedProperty = Json.format[PropertyLink]
   implicit val linkedProperties = Json.format[LinkedProperties]
   implicit val sessionFormat = Json.format[LinkingSession]

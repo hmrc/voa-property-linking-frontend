@@ -17,7 +17,7 @@
 package connectors.propertyLinking
 
 import connectors.PrototypeTestData
-import connectors.propertyLinking.ServiceContract.{LinkedProperties, PropertyLink}
+import connectors.propertyLinking.ServiceContract.{LinkedProperties, PendingPropertyLink, PropertyLink}
 import models.CapacityType
 import org.joda.time.DateTime
 import serialization.JsonFormats
@@ -32,8 +32,9 @@ object ServiceContract {
   case class LinkToProperty(capacityDeclaration: CapacityDeclaration)
   case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)
 
-  case class PropertyLink(name: String, billingAuthorityReference: String, capacity: String, linkedDate: DateTime)
-  case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
+  case class PropertyLink(name: String, billingAuthorityReference: String, capacity: String, linkedDate: DateTime, assessmentYears: Seq[Int])
+  case class PendingPropertyLink(name: String, billingAuthorityReference: String, capacity: String, linkedDate: DateTime)
+  case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PendingPropertyLink])
 }
 
 class PropertyLinkConnector(http: HttpGet with HttpPut, cache: SessionCache)(implicit ec: ExecutionContext) extends ServicesConfig with JsonHttpReads {
@@ -51,10 +52,18 @@ class PropertyLinkConnector(http: HttpGet with HttpPut, cache: SessionCache)(imp
       // TODO - use caching for temporary prototype persistence
       case _ =>
         val prop = PrototypeTestData.pretendSearchResults.find(_.billingAuthorityReference == billingAuthorityRef).get
-        val x = PropertyLink(
-          prop.address.lines.head + ", " + prop.address.postcode, billingAuthorityRef, request.capacityDeclaration.capacity.name, DateTime.now
-        )
-        linkedProperties(accountId).flatMap(ps => cache.cache("linkedproperties", ps.copy(added = ps.added :+ x))).map(_ => ())
+        if (PrototypeTestData.canBeLinkedTo(billingAuthorityRef)) {
+          val x = PropertyLink(
+            prop.address.lines.head + ", " + prop.address.postcode, billingAuthorityRef, request.capacityDeclaration.capacity.name,
+            DateTime.now, Seq(2009, 20015)
+          )
+          linkedProperties(accountId).flatMap(ps => cache.cache("linkedproperties", ps.copy(added = ps.added :+ x))).map(_ => ())
+        } else {
+          val x = PendingPropertyLink(
+            prop.address.lines.head + ", " + prop.address.postcode, billingAuthorityRef, request.capacityDeclaration.capacity.name, DateTime.now
+          )
+          linkedProperties(accountId).flatMap(ps => cache.cache("linkedproperties", ps.copy(pending = ps.pending :+ x))).map(_ => ())
+        }
     }
 
   def linkedProperties(accountId: String)(implicit hc: HeaderCarrier): Future[ServiceContract.LinkedProperties] =
