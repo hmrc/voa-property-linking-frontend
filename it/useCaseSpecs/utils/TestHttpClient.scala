@@ -128,6 +128,9 @@ trait VPLAPIs { this: TestHttpClient =>
       s"$propertyLinksBaseUrl/$billingAuthorityReference/$accountId/UUID", Json.stringify(Json.toJson(request))
     )
 
+  def verifyNoPropertyLinkRequest(billingAuthorifyReference: String, accountId: AccountID) =
+    verifyNoPUTsFor(s"$propertyLinksBaseUrl/$billingAuthorifyReference/$accountId/UUID")
+
   def verifyNoMoreLinkRequests(amount: Int) =
     verifyOnlyNPUTsFor(propertyLinksBaseUrl, amount)
 

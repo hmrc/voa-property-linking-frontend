@@ -17,19 +17,23 @@
 package controllers
 
 import config.{Environment, Wiring}
+import connectors.propertyLinking.ServiceContract.LinkToProperty
 import form.EnumMapping
 import models.{DoesHaveRatesBill, DoesNotHaveRatesBill, HasRatesBill, RatesBill}
-import play.api.data.{Form, FormError}
 import play.api.data.Forms._
+import play.api.data.{Form, FormError}
 import play.api.i18n.Messages
 import play.api.libs.Files.TemporaryFile
-import play.api.mvc.{Action, AnyContent, Request}
 import play.api.mvc.MultipartFormData.FilePart
+import play.api.mvc.{Action, AnyContent}
 import session.{LinkingSessionRequest, WithLinkingSession}
+
+import scala.concurrent.Future
 
 object UploadRatesBill extends PropertyLinkingController {
   lazy val uploadConnector = Wiring().fileUploadConnector
   lazy val ratesBillConnector = Wiring().ratesBillVerificationConnector
+  lazy val propertyLinkConnector = Wiring().propertyLinkConnector
 
   def show() = WithLinkingSession { implicit request =>
     Ok(views.html.uploadRatesBill.show(UploadRatesBillVM(uploadRatesBillForm)))
@@ -38,27 +42,33 @@ object UploadRatesBill extends PropertyLinkingController {
   def submit() = WithLinkingSession.async { implicit request =>
     uploadRatesBillForm.bindFromRequest().fold(
       errors => BadRequest(views.html.uploadRatesBill.show(UploadRatesBillVM(errors))),
-      answer =>
-        answer.hasRatesBill match {
-          case DoesHaveRatesBill =>
-            handleRatesBill(answer)
-          case DoesNotHaveRatesBill if request.ses.claimedProperty.canReceiveMail =>
-            Redirect(routes.LinkErrors.pinPostalProcess())
-          case DoesNotHaveRatesBill =>
-            Redirect(routes.UploadEvidence.otherProof())
-        }
+      answer => handle(answer) flatMap {
+        case RatesBillApproved =>
+          requestLink map { _ => Redirect(routes.UploadRatesBill.ratesBillApproved()) }
+        case RatesBillPending =>
+          requestLink map { _ => Redirect(routes.UploadRatesBill.ratesBillPending()) }
+        case NoRatesBill if request.ses.claimedProperty.canReceiveMail =>
+          requestLink map { _ => Redirect(routes.LinkErrors.pinPostalProcess()) }
+        case NoRatesBill =>
+          Redirect(routes.UploadEvidence.show())
+        case RatesBillMissing(s) =>
+          BadRequest(views.html.uploadRatesBill.show(
+            UploadRatesBillVM(uploadRatesBillForm.fill(s).withError(FormError("ratesBill", Messages("uploadRatesBill.ratesBillMissing.error"))))
+          ))
+      }
     )
   }
 
-  private def handleRatesBill(s: SubmitRatesBill)(implicit req: LinkingSessionRequest[AnyContent]) =
-    retrieveFile(if (Environment.isDev) req.request.body.asMultipartFormData.get.file("ratesBill") else None).flatMap {
-      case Some(f) => isValid(RatesBill(f.content)) map {
-        case true => Redirect(routes.UploadRatesBill.ratesBillApproved())
-        case false => Redirect(routes.UploadRatesBill.ratesBillPending())
+  private def handle(answer: SubmitRatesBill)(implicit req: LinkingSessionRequest[AnyContent]): Future[RatesBillUploadResult] =
+    answer.hasRatesBill match {
+      case DoesHaveRatesBill => retrieveFile(if (Environment.isDev) req.request.body.asMultipartFormData.get.file("ratesBill") else None).flatMap {
+        case Some(f) => isValid(RatesBill(f.content)) map {
+          case true => RatesBillApproved
+          case false => RatesBillPending
+        }
+        case None => RatesBillMissing(answer)
       }
-      case None => BadRequest(views.html.uploadRatesBill.show(
-        UploadRatesBillVM(uploadRatesBillForm.fill(s).withError(FormError("ratesBill", Messages("uploadRatesBill.ratesBillMissing.error"))))
-      ))
+      case DoesNotHaveRatesBill => NoRatesBill
     }
 
   private def retrieveFile(file: Option[FilePart[TemporaryFile]])(implicit request: LinkingSessionRequest[_]) =
@@ -66,6 +76,12 @@ object UploadRatesBill extends PropertyLinkingController {
 
   private def isValid(rb: RatesBill)(implicit request: LinkingSessionRequest[_]) =
     ratesBillConnector.verify(request.ses.claimedProperty.billingAuthorityReference, rb).map(_.isValid)
+
+  private def requestLink(implicit req: LinkingSessionRequest[AnyContent]) =
+    propertyLinkConnector.linkToProperty(
+      req.ses.claimedProperty.billingAuthorityReference, req.accountId,
+      LinkToProperty(req.ses.declaration.getOrElse(throw new Exception("No declaration"))), java.util.UUID.randomUUID.toString
+    )
 
   def ratesBillApproved() = Action { implicit request =>
     Ok(views.html.uploadRatesBill.ratesBillApproved())
@@ -83,3 +99,10 @@ object UploadRatesBill extends PropertyLinkingController {
 case class UploadRatesBillVM(form: Form[_])
 
 case class SubmitRatesBill(hasRatesBill: HasRatesBill)
+
+sealed trait RatesBillUploadResult
+case object RatesBillApproved extends RatesBillUploadResult
+case object RatesBillPending extends RatesBillUploadResult
+case object NoRatesBill extends RatesBillUploadResult
+case class RatesBillMissing(s: SubmitRatesBill) extends RatesBillUploadResult
+
