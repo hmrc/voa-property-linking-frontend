@@ -11,8 +11,16 @@
                 </h1>
             </div>
         </div>
-        <table>
+        <table class="table">
             <tbody>
+                <tr>
+                    <th>Property</th>
+                    <th>BA ref#</th>
+                    <th>Connection</th>
+                    <th>Status</th>
+                    <th>Date added</th>
+                    <th>Assessments</th>
+                </tr>
                 @model.properties.added.map { p =>
                     <tr>
                         <td>@p.name</td>
@@ -20,6 +28,7 @@
                         <td>@p.capacity</td>
                         <td>@Messages("dashboard.manageProperties.status.added")</td>
                         <td>@Display.date(p.linkedDate)</td>
+                        <td>@p.assessmentYears.mkString(",")</td>
                     </tr>
                 }
                 @model.properties.pending.map { p =>
@@ -29,6 +38,7 @@
                         <td>@p.capacity</td>
                         <td>@Messages("dashboard.manageProperties.status.pending")</td>
                         <td>@Display.date(p.linkedDate)</td>
+                        <td></td>
                     </tr>
                 }
             </tbody>

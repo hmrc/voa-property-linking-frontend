@@ -134,7 +134,7 @@ trait VPLAPIs { this: TestHttpClient =>
   def verifyNoMoreLinkRequests(amount: Int) =
     verifyOnlyNPUTsFor(propertyLinksBaseUrl, amount)
 
-  def stubLinkedPropertiesAPI(accountId: String, added: Seq[PropertyLink], pending: Seq[PropertyLink]) =
+  def stubLinkedPropertiesAPI(accountId: String, added: Seq[PropertyLink], pending: Seq[PendingPropertyLink]) =
     stubGet(
       s"$propertyLinksBaseUrl/$accountId", Seq.empty,
       HttpResponse(200, responseJson = Some(Json.toJson(LinkedProperties(added, pending))))
