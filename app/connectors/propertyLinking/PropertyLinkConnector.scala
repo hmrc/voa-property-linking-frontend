@@ -54,7 +54,10 @@ class PropertyLinkConnector(http: HttpGet with HttpPut, cache: SessionCache)(imp
         val x = PropertyLink(
           prop.address.lines.head + ", " + prop.address.postcode, billingAuthorityRef, request.capacityDeclaration.capacity.name, DateTime.now
         )
-        linkedProperties(accountId).flatMap(ps => cache.cache("linkedproperties", ps.copy(added = ps.added :+ x))).map(_ => ())
+        if (PrototypeTestData.canBeLinkedTo(billingAuthorityRef))
+          linkedProperties(accountId).flatMap(ps => cache.cache("linkedproperties", ps.copy(added = ps.added :+ x))).map(_ => ())
+        else
+          linkedProperties(accountId).flatMap(ps => cache.cache("linkedproperties", ps.copy(pending = ps.pending :+ x))).map(_ => ())
     }
 
   def linkedProperties(accountId: String)(implicit hc: HeaderCarrier): Future[ServiceContract.LinkedProperties] =
