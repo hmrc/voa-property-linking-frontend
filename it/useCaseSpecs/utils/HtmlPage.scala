@@ -7,6 +7,10 @@ import scala.collection.JavaConverters._
 
 case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
 
+  def mustContainMultiFileInput(id: String) {
+    mustContain1(s"input#$id[type=file][multiple]")
+  }
+
   def mustContainSuccessSummary(msg: String) {
     val successSummary = html.select("div.success-summary").asScala.headOption.getOrElse(fail(s"No success summary in $html"))
     successSummary.text mustEqual msg withClue s"Success summary contained:\n${successSummary.text}"

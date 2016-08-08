@@ -37,10 +37,6 @@ object UploadEvidence extends PropertyLinkingController {
     Ok(views.html.uploadEvidence.evidenceUploaded())
   }
 
-  def otherProof() = WithLinkingSession { implicit request =>
-    Ok(views.html.uploadEvidence.otherProof())
-  }
-
   lazy val form = Form(mapping(
     "hasEvidence" -> boolean
   )(UploadedEvidence.apply)(UploadedEvidence.unapply))

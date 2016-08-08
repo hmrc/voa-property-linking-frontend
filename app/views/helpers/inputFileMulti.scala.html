@@ -16,7 +16,7 @@
 @(field: play.api.data.Field, args: (Symbol,Any)*)(implicit requestHeader: RequestHeader, lang: Lang)
 
 @{input(field, args:_*) { (id, name, value, htmlArgs) =>
-    Html(s"""<input type="file" id="${id}" value="${getValue(value, args)}" name="$name" ${toHtmlArgs(htmlArgs)} />""")
+    Html(s"""<input type="file" id="${id}" value="${getValue(value, args)}" name="$name" ${toHtmlArgs(htmlArgs)} multiple/>""")
 }(requestHeader, _root_.template.Helper.myFields, lang)}
 
 @getValue(value: Option[String], args: Seq[(Symbol, Any)]) = @{

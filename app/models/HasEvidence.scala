@@ -16,18 +16,18 @@
 
 package models
 
-sealed trait HasRatesBill extends NamedEnum {
-  override def key = "hasratesbill"
+sealed trait HasEvidence extends NamedEnum {
+  override def key = "hasevidence"
 }
 
-object DoesHaveRatesBill extends HasRatesBill {
-  override def name = "doeshaveratesbill"
+object DoesHaveEvidence extends HasEvidence {
+  override def name = "doeshaveevidence"
 }
 
-object DoesNotHaveRatesBill extends HasRatesBill {
-  override def name = "doesnothaveratesbill"
+object DoesNotHaveEvidence extends HasEvidence {
+  override def name = "doesnothaveevidence"
 }
 
-object HasRatesBill extends NamedEnumSupport[HasRatesBill] {
-  override def all: List[HasRatesBill] = List(DoesHaveRatesBill, DoesNotHaveRatesBill)
+object HasEvidence extends NamedEnumSupport[HasEvidence] {
+  override def all = List(DoesHaveEvidence, DoesNotHaveEvidence)
 }
