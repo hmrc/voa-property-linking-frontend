@@ -68,16 +68,16 @@ selfCertification.linkAuthorised.properties.link=Manage your properties
 uploadRatesBill.ratesBillApproved.title=Rates Bill Approved
 uploadRatesBill.ratesBillApproved.message=Your rates bill has successfully been approved and you are now linked to the property.
 uploadRatesBill.show.title=Please upload your rates bill
-uploadRatesBill.show.message=We require a rates bill to verify your link to the property.
+uploadRatesBill.show.message=The Valuation Office Agency requires proof that you have a connection to this property. This is a requirement for certain business property types.
 uploadRatesBill.show.hasRatesBill.label=Do you have a rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a rates bill
 uploadRatesBill.show.button=Confirm
-uploadRatesBill.ratesBillPending.title=Rates Bill Pending
-uploadRatesBill.ratesBillPending.message=Your rates bill will be verified and you will be contacted shortly.
-hasRatesBill.label=Do you have a rates bill?
-hasRatesBill.doeshaveratesbill=Yes, I have a rates bill
-hasRatesBill.doesnothaveratesbill=No, I do not have a rates bill
-ratesBill.label=Rates bill
+uploadRatesBill.ratesBillPending.title=Your request can not be verified
+uploadRatesBill.ratesBillPending.message=We're unable to accept your request to link to this property at this time. We’ll check the details you’ve provided and will tell you the outcome within xx weeks.
+hasRatesBill.label=Please upload a rates bill as proof of connection
+hasRatesBill.doeshaveratesbill=I have a rates bill
+hasRatesBill.doesnothaveratesbill=I don’t have a rates bill
+ratesBill.label=Please upload a copy of the rates bill
 uploadRatesBill.ratesBillMissing.error=please select a rates bill
 
 #UPLOAD EVIDENCE
