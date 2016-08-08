@@ -81,8 +81,8 @@ ratesBill.label=Rates bill
 uploadRatesBill.ratesBillMissing.error=please select a rates bill
 
 #UPLOAD EVIDENCE
-uploadEvidence.evidenceUploaded.title=Evidence Uploaded
-uploadEvidence.evidenceUploaded.message=Your evidence has been successfully uploaded.
+uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded
+uploadEvidence.evidenceUploaded.message=The evidence has been received. We’ll check the details and will tell you the outcome within xx weeks.
 uploadEvidence.show.title=Evidence Upload
 uploadEvidence.show.message=Please upload evidence so that we can verify your link to the property.
 uploadEvidence.show.hasEvidence.label=Do you have evidence?
