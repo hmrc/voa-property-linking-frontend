@@ -1,9 +1,6 @@
 package useCaseSpecs
 
-import play.api.test.Helpers._
-import useCaseSpecs.utils.{AccountID, Address, CapacityDeclaration, FrontendTest, Page, Property, SessionDocument, SessionID}
-
-import scala.concurrent.Future
+import useCaseSpecs.utils._
 
 class RatesBillRequest extends FrontendTest {
   import TestData._
@@ -26,6 +23,10 @@ class RatesBillRequest extends FrontendTest {
       HTTP.stubFileUpload(aid, sid, "ratesBill", "ratesbill.pdf", validRatesBill)
       val result = Page.postValid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doeshaveratesbill")
 
+      "Their link request is submitted" in {
+        HTTP.verifyPropertyLinkRequest(baRef, aid, LinkToProperty(declaration))
+      }
+
       "They are sent to the rates bill accepted page" in {
         result.header.headers.get("location").value mustEqual "/property-linking/rates-bill-approved"
       }
@@ -39,19 +40,42 @@ class RatesBillRequest extends FrontendTest {
       HTTP.stubFileUpload(aid, sid, "ratesBill", "ratesbill.pdf", invalidRatesBill)
       val result = Page.postValid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doeshaveratesbill")
 
+      "Their link request is submitted" in {
+        HTTP.verifyPropertyLinkRequest(baRef, aid, LinkToProperty(declaration))
+      }
+
       "They are sent to the rates bill pending page" in {
         result.header.headers.get("location").value mustEqual "/property-linking/rates-bill-approval-pending"
       }
     }
 
-    "However, if they specify they do not have a rates bill" - {
+    "However, if they specify they do not have a rates bill & the property can receive mail" - {
       implicit val sid: SessionID = java.util.UUID.randomUUID.toString
       implicit val aid: AccountID = "93ddreqejkasdfasd"
       HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration)))
       val result = Page.postValid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doesnothaveratesbill")
 
-      "They are sent on the postal PIN process journey" in {
+      "Their link request is submitted" in {
+        HTTP.verifyPropertyLinkRequest(baRef, aid, LinkToProperty(declaration))
+      }
+
+      "They are notified that they are on the postal PIN process journey" in {
         result.header.headers.get("location").value mustEqual "/property-linking/pin-postal-process"
+      }
+    }
+
+    "However, if they specify they do not have a rates bill & the property cannot receive mail" - {
+      implicit val sid: SessionID = java.util.UUID.randomUUID.toString
+      implicit val aid: AccountID = "93ddreqejkasdfasd"
+      HTTP.stubKeystoreSession(SessionDocument(nonSelfCertNoMailProperty, Some(declaration)))
+      val result = Page.postValid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doesnothaveratesbill")
+
+      "No request is submitted" in {
+        HTTP.verifyNoPropertyLinkRequest(baRef, aid)
+      }
+
+      "They are sent on the additional evidence journey" in {
+        result.header.headers.get("location").value mustEqual "/property-linking/upload-evidence"
       }
     }
 
@@ -76,6 +100,7 @@ class RatesBillRequest extends FrontendTest {
     lazy val baRef = "34asdf23423"
     lazy val address = Address(Seq("Hooooohhhhhhaaaaaqaaaeeee"), "AA11 1AA")
     lazy val nonSelfCertProperty = Property(baRef, address, isSelfCertifiable = false, true)
+    lazy val nonSelfCertNoMailProperty = Property(baRef, address, isSelfCertifiable = false, canReceiveMail = false)
     lazy val declaration = CapacityDeclaration("occupier", "01-01-2012", None)
     lazy val validRatesBill = (1 to 1000).map(_.toByte).toArray
     lazy val invalidRatesBill = (5000 to 7000).map(_.toByte).toArray
