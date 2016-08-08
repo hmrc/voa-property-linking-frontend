@@ -65,15 +65,17 @@ error.mustAgreeToSelfCert=You must agree to continue.
 selfCertification.linkAuthorised.properties.link=Manage your properties
 
 #UPLOAD RATES BILL
-uploadRatesBill.ratesBillApproved.title=Rates Bill Approved
-uploadRatesBill.ratesBillApproved.message=Your rates bill has successfully been approved and you are now linked to the property.
 uploadRatesBill.show.title=Please upload your rates bill
 uploadRatesBill.show.message=The Valuation Office Agency requires proof that you have a connection to this property. This is a requirement for certain business property types.
 uploadRatesBill.show.hasRatesBill.label=Do you have a rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a rates bill
 uploadRatesBill.show.button=Confirm
+uploadRatesBill.ratesBillApproved.title=Rates bill accepted
+uploadRatesBill.ratesBillApproved.message=Thank you, your link has been successful
+uploadRatesBill.ratesBillApproved.link=Manage your properties
 uploadRatesBill.ratesBillPending.title=Your request can not be verified
 uploadRatesBill.ratesBillPending.message=We're unable to accept your request to link to this property at this time. We’ll check the details you’ve provided and will tell you the outcome within xx weeks.
+uploadRatesBill.ratesBillPending.link=Manage your properties
 hasRatesBill.label=Please upload a rates bill as proof of connection
 hasRatesBill.doeshaveratesbill=I have a rates bill
 hasRatesBill.doesnothaveratesbill=I don’t have a rates bill
