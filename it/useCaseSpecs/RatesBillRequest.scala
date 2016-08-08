@@ -87,7 +87,7 @@ class RatesBillRequest extends FrontendTest {
       val page = Page.postInvalid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doeshaveratesbill")
 
       "An error summary is shown" in {
-        page.mustContainSummaryErrors(("ratesBill", "Rates bill", "please select a rates bill"))
+        page.mustContainSummaryErrors(("ratesBill", "Please upload a copy of the rates bill", "please select a rates bill"))
       }
 
       "A field-level error is shown for each invalid field" in {
