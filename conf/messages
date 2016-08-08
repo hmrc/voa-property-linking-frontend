@@ -96,13 +96,15 @@ uploadEvidence.noOtherProof.link=I do not have other proof
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required
 linkError.manualVerification.message=We were unable to link you to the requested property. We need to manually verify your request.
+linkError.manualVerification.home.link=Manage your properties
 linkError.conflict.title=Property already linked to an account
 linkError.conflict.message=We're unable to add this property to your account at this time as it has already been linked to another account for the period you have specified. We’ll check the details and tell you the outcome.
 linkError.conflict.home.link=Manage your properties
 linkError.postcodeVerification.title=Postcode Verification Required
 linkError.postcodeVerification.message=We were unable to link you to the requested property. We need to verify the postcode.
-linkError.pinPostalProcess.title=Postal Verification Required
-linkError.pinPostalProcess.message=We will send you a pin code in the post which you can use to verify your link to the property.
+linkError.pinPostalProcess.title=Use a pin code
+linkError.pinPostalProcess.message=The VOA will send you a pin code by post. You can verify your link to the property by logging back into your account and using the pin code. Your changes will be saved in your account until you submit them.
+linkError.pinPostalProcess.home.link=Manage your properties
 
 #COMMON
 label.continue=Continue
