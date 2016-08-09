@@ -27,10 +27,10 @@ import scala.concurrent.{ExecutionContext, Future}
 class FileUploadConnector(http: HttpGet)(implicit ec: ExecutionContext) extends ServicesConfig {
   private lazy val base = s"${baseUrl("file-uploads")}/file-uploads"
 
-  def retrieveFile(accountId: String, sessionId: String, key: String, prototypeOnlyFile: Option[FilePart[TemporaryFile]])
-                  (implicit hc: HeaderCarrier): Future[Option[UploadedFile]] =
-    http.GET[Option[UploadedFile]](s"$base/$accountId/$sessionId/$key")
-        .recover { case _ => prototypeOnlyFile.map(p => UploadedFile(p.filename, "")) } // TODO - remove once backend exists and plugged in
+  def retrieveFiles(accountId: String, sessionId: String, key: String, prototypeOnlyFiles: Seq[FilePart[TemporaryFile]])
+                  (implicit hc: HeaderCarrier): Future[Seq[UploadedFile]] =
+    http.GET[Seq[UploadedFile]](s"$base/$accountId/$sessionId/$key")
+        .recover { case _ => prototypeOnlyFiles.map(p => UploadedFile(p.filename, "")) } // TODO - remove once backend exists and plugged in
 }
 
 case class UploadedFile(name: String, content: String)
