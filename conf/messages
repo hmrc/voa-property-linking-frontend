@@ -81,17 +81,19 @@ ratesBill.label=Rates bill
 uploadRatesBill.ratesBillMissing.error=please select a rates bill
 
 #UPLOAD EVIDENCE
+uploadEvidence.show.title=Other proof required
+uploadEvidence.show.message=Please provide further proof of a connection. The Valuation Office Agency requires further proof of your connection to the property.
+hasEvidence.label=Do you have further proof?
+hasEvidence.doeshaveevidence=Yes
+hasEvidence.doesnothaveevidence=No
+evidence.label=Please upload evidence so that we can verify your link to the property.
+error.evidenceUploadFiles=Only 3 files may be uploaded
+uploadEvidence.show.button=Continue
 uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded
 uploadEvidence.evidenceUploaded.message=The evidence has been received. We’ll check the details and will tell you the outcome within xx weeks.
-uploadEvidence.show.title=Evidence Upload
-uploadEvidence.show.message=Please upload evidence so that we can verify your link to the property.
-uploadEvidence.show.hasEvidence.label=Do you have evidence?
-uploadEvidence.show.hasEvidence.text=I have evidence
-uploadEvidence.show.button=Upload Evidence
-uploadEvidence.otherProof.title=Other proof required
-uploadEvidence.otherProof.message=Please provide further proof of a connection
-uploadEvidence.otherProof.link=I have other proof
-uploadEvidence.noOtherProof.link=I do not have other proof
+uploadEvidence.noEvidenceUploaded.title=No evidence provided
+uploadEvidence.noEvidenceUploaded.message=You indicated that you have no further evidence of your connection to the property. The Valuation Office Agency will need to verify your connection.
+uploadEvidence.noEvidenceUploaded.home.link=Manage your properties
 
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required

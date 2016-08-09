@@ -3,7 +3,7 @@
 
 @(model: UploadEvidenceVM)(implicit request: Request[_])
 
-@main("") {
+@main(Messages("uploadEvidence.show.title")) {
 
     @form(routes.UploadEvidence.submit(), 'enctype -> "multipart/form-data") {
         <main id="content">
@@ -15,27 +15,30 @@
 
                     <p>@Messages("uploadEvidence.show.message")</p>
 
-                    @includes.errorSummary(model.form, Some("uploadEvidence.show"))
-
-                    @checkbox(
-                        field = model.form("hasEvidence"),
-                        'id -> "hasEvidence",
-                        '_label -> Html(Messages("uploadEvidence.show.hasEvidence.label")),
-                        '_error -> model.form("hasEvidence").error,
-                        '_fieldsetClass -> "inline",
-                        '_legend -> true,
-                        '_labelClass -> "form-label-bold",
-                        '_showConstraints -> false,
-                        '_text -> Messages("uploadEvidence.show.hasEvidence.text"),
-                        '_helpIndent -> Messages("uploadEvidence.show.hasEvidence.hint")
-                    )
-                    <br />
-                    <br />
-                    <br />
+                    @includes.errorSummary(model.form)
 
                     <fieldset class="inline form-group">
                         @helper.CSRF.formField
-                        <input type="file" name="evidence" />
+
+                        @inputRadioGroup(
+                            field = model.form("hasEvidence"),
+                            options = HasEvidence.options,
+                            dataAttributes = Seq(
+                              (DoesHaveEvidence.name, "data-show-field", "true")
+                            ),
+                            args = Seq(
+                                '_label -> Messages("hasEvidence.label"),
+                                '_labelClass -> "form-label-bold",
+                                '_error -> model.form("hasEvidence").error
+                            )
+                        )
+                        <div class="form-group hidden hasEvidence">
+                            @inputFileMulti(
+                                field = model.form("evidence"),
+                                '_label -> Messages("evidence.label"),
+                                '_labelClass -> "form-label-bold"
+                            )
+                        </div>
                     </fieldset>
 
                     <button type="submit" class="button">@Messages("uploadEvidence.show.button")</button>

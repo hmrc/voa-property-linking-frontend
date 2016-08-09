@@ -20,7 +20,7 @@ class RatesBillRequest extends FrontendTest {
 
     "When they specify they have a rates bill, and upload a rates bill that can be instantly verified" - {
       HTTP.stubRatesBillCheck(baRef, validRatesBill, ratesBillAccepted = true)
-      HTTP.stubFileUpload(aid, sid, "ratesBill", "ratesbill.pdf", validRatesBill)
+      HTTP.stubFileUpload(aid, sid, "ratesBill", ("ratesbill.pdf", validRatesBill))
       val result = Page.postValid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doeshaveratesbill")
 
       "Their link request is submitted" in {
@@ -37,7 +37,7 @@ class RatesBillRequest extends FrontendTest {
       implicit val aid: AccountID = "3874sjflkaj234"
       HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration)))
       HTTP.stubRatesBillCheck(baRef, invalidRatesBill, ratesBillAccepted = false)
-      HTTP.stubFileUpload(aid, sid, "ratesBill", "ratesbill.pdf", invalidRatesBill)
+      HTTP.stubFileUpload(aid, sid, "ratesBill", ("ratesbill.pdf", invalidRatesBill))
       val result = Page.postValid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doeshaveratesbill")
 
       "Their link request is submitted" in {

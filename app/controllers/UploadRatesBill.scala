@@ -62,17 +62,17 @@ object UploadRatesBill extends PropertyLinkingController {
   private def handle(answer: SubmitRatesBill)(implicit req: LinkingSessionRequest[AnyContent]): Future[RatesBillUploadResult] =
     answer.hasRatesBill match {
       case DoesHaveRatesBill => retrieveFile(if (Environment.isDev) req.request.body.asMultipartFormData.get.file("ratesBill") else None).flatMap {
-        case Some(f) => isValid(RatesBill(f.content)) map {
+        case f :: _ => isValid(RatesBill(f.content)) map {
           case true => RatesBillApproved
           case false => RatesBillPending
         }
-        case None => RatesBillMissing(answer)
+        case Nil => RatesBillMissing(answer)
       }
       case DoesNotHaveRatesBill => NoRatesBill
     }
 
   private def retrieveFile(file: Option[FilePart[TemporaryFile]])(implicit request: LinkingSessionRequest[_]) =
-    uploadConnector.retrieveFile(request.accountId, request.sessionId, "ratesBill", file)
+    uploadConnector.retrieveFiles(request.accountId, request.sessionId, "ratesBill", file.map(Seq(_)).getOrElse(Seq.empty))
 
   private def isValid(rb: RatesBill)(implicit request: LinkingSessionRequest[_]) =
     ratesBillConnector.verify(request.ses.claimedProperty.billingAuthorityReference, rb).map(_.isValid)

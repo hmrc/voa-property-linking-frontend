@@ -37,4 +37,7 @@ object Errors {
 
   // Self Certification
   val mustAgreeToSelfCert="error.mustAgreeToSelfCert"
+
+  // Evidence Upload
+  val uploadedFiles="error.evidenceUploadFiles"
 }
