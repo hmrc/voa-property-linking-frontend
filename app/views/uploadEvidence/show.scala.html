@@ -3,7 +3,7 @@
 
 @(model: UploadEvidenceVM)(implicit request: Request[_])
 
-@main("") {
+@main(Messages("uploadEvidence.show.title")) {
 
     @form(routes.UploadEvidence.submit(), 'enctype -> "multipart/form-data") {
         <main id="content">
@@ -33,7 +33,11 @@
                             )
                         )
                         <div class="form-group hidden hasEvidence">
-                            @inputFileMulti(field = model.form("evidence"))
+                            @inputFileMulti(
+                                field = model.form("evidence"),
+                                '_label -> Messages("evidence.label"),
+                                '_labelClass -> "form-label-bold"
+                            )
                         </div>
                     </fieldset>
 
