@@ -3,7 +3,7 @@ package useCaseSpecs.utils
 import java.util.Base64
 
 import org.scalatest.{AppendedClues, MustMatchers}
-import play.api.libs.json.{Json, Writes}
+import play.api.libs.json._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.play.http.hooks.HttpHook
 import uk.gov.hmrc.play.http.{HeaderCarrier, _}
@@ -147,11 +147,13 @@ trait VPLAPIs { this: TestHttpClient =>
       HttpResponse(200, responseJson = Some(Json.toJson(Map("isValid" -> ratesBillAccepted))))
     )
 
-  def stubFileUpload(accountId: String, sessionId: SessionID, key: String, fileName: String, fileContent: Array[Byte]) =
+  def stubFileUpload(accountId: String, sessionId: SessionID, key: String, files: (String, Array[Byte])*) = {
+    val body = JsArray(files.map(f => Json.toJson(Map("name" -> f._1, "content" -> Base64.getEncoder.encodeToString(f._2)))))
     stubGet(
       s"$fileUploadBaseUrl/$accountId/$sessionId/$key", Seq.empty,
-      HttpResponse(200, responseJson = Some(Json.toJson(Map("name" -> fileName, "content" -> Base64.getEncoder.encodeToString(fileContent)))))
+      HttpResponse(200, responseJson = Some(Json.toJson(body)))
     )
+  }
 
   def stubFileUploadWithNoFile(accountId: String, sessionId: SessionID, key: String) =
     stubGet(

@@ -16,32 +16,52 @@
 
 package controllers
 
+import config.Wiring
+import connectors.propertyLinking.ServiceContract.LinkToProperty
+import form.EnumMapping
+import models.{DoesHaveEvidence, DoesNotHaveEvidence, HasEvidence}
 import play.api.data.Form
 import play.api.data.Forms._
-import session.WithLinkingSession
+import play.api.mvc.AnyContent
+import session.{LinkingSessionRequest, WithLinkingSession}
 
 object UploadEvidence extends PropertyLinkingController {
+  lazy val propertyLinkConnector = Wiring().propertyLinkConnector
 
   def show() = WithLinkingSession { implicit request =>
     Ok(views.html.uploadEvidence.show(UploadEvidenceVM(form)))
   }
 
-  def submit() = WithLinkingSession { implicit request =>
+  def submit() = WithLinkingSession.async { implicit request =>
     form.bindFromRequest().fold(
       error => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(error))),
-      uploaded => Redirect(routes.UploadEvidence.evidenceUploaded())
+      uploaded => requestLink map { _ => uploaded.hasEvidence match {
+        case DoesHaveEvidence => Redirect(routes.UploadEvidence.evidenceUploaded())
+        case DoesNotHaveEvidence => Redirect(routes.UploadEvidence.noEvidenceUploaded())
+      }}
     )
   }
+
+  private def requestLink(implicit r: LinkingSessionRequest[AnyContent]) =
+    propertyLinkConnector.linkToProperty(
+      r.ses.claimedProperty.billingAuthorityReference,
+      r.accountId, LinkToProperty(r.ses.declaration.getOrElse(throw new Exception("No declaration"))),
+      java.util.UUID.randomUUID.toString
+    )
 
   def evidenceUploaded() = WithLinkingSession { implicit request =>
     Ok(views.html.uploadEvidence.evidenceUploaded())
   }
 
+  def noEvidenceUploaded() = WithLinkingSession { implicit request =>
+    Ok(views.html.uploadEvidence.noEvidenceUploaded())
+  }
+
   lazy val form = Form(mapping(
-    "hasEvidence" -> boolean
+    "hasEvidence" -> EnumMapping(HasEvidence)
   )(UploadedEvidence.apply)(UploadedEvidence.unapply))
 }
 
-case class UploadedEvidence(hasEvidence: Boolean)
+case class UploadedEvidence(hasEvidence: HasEvidence)
 
 case class UploadEvidenceVM(form: Form[_])
