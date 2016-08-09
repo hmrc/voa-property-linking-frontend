@@ -49,6 +49,24 @@ class EvidenceRequired extends FrontendTest {
         result.header.headers("location") mustEqual "/property-linking/no-evidence-uploaded"
       }
     }
+
+    "When they do not supply a valid response" - {
+      implicit val sid: SessionID = java.util.UUID.randomUUID.toString
+      implicit val aid: AccountID = "hurraerwerwjsdf"
+      HTTP.stubKeystoreSession(SessionDocument(property, Some(declaration)))
+      HTTP.stubFileUpload(aid, sid, "evidence", ("1.pdf", bytes1), ("2.pdf", bytes1), ("3.pdf", bytes1), ("4.pdf", bytes1))
+      val page = Page.postInvalid("/property-linking/upload-evidence", "hasEvidence" -> "doeshaveevidence")
+
+      "An error summary is shown" in {
+        page.mustContainSummaryErrors(
+          ("evidence", "Please upload evidence so that we can verify your link to the property.", "Only 3 files may be uploaded")
+        )
+      }
+
+      "A field-level error is shown for each invalid field" in {
+        page.mustContainFieldErrors("evidence" -> "Only 3 files may be uploaded")
+      }
+    }
   }
 
   object TestData {

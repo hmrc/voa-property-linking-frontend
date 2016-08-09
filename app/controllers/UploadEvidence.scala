@@ -16,7 +16,7 @@
 
 package controllers
 
-import config.Wiring
+import config.{Environment, Wiring}
 import connectors.propertyLinking.ServiceContract.LinkToProperty
 import form.EnumMapping
 import models.{DoesHaveEvidence, DoesNotHaveEvidence, HasEvidence}
@@ -24,9 +24,11 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.AnyContent
 import session.{LinkingSessionRequest, WithLinkingSession}
+import views.helpers.Errors
 
 object UploadEvidence extends PropertyLinkingController {
   lazy val propertyLinkConnector = Wiring().propertyLinkConnector
+  lazy val uploadConnector = Wiring().fileUploadConnector
 
   def show() = WithLinkingSession { implicit request =>
     Ok(views.html.uploadEvidence.show(UploadEvidenceVM(form)))
@@ -35,10 +37,13 @@ object UploadEvidence extends PropertyLinkingController {
   def submit() = WithLinkingSession.async { implicit request =>
     form.bindFromRequest().fold(
       error => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(error))),
-      uploaded => requestLink map { _ => uploaded.hasEvidence match {
-        case DoesHaveEvidence => Redirect(routes.UploadEvidence.evidenceUploaded())
-        case DoesNotHaveEvidence => Redirect(routes.UploadEvidence.noEvidenceUploaded())
-      }}
+      uploaded => uploaded.hasEvidence match {
+        case DoesHaveEvidence => verifyUploadedFiles flatMap {
+          case FilesAccepted => requestLink.map(_ => Redirect(routes.UploadEvidence.evidenceUploaded()))
+          case FilesRejected => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(form.withError("evidence", Errors.uploadedFiles))))
+        }
+        case DoesNotHaveEvidence => requestLink.map(_ => Redirect(routes.UploadEvidence.noEvidenceUploaded()))
+      }
     )
   }
 
@@ -48,6 +53,13 @@ object UploadEvidence extends PropertyLinkingController {
       r.accountId, LinkToProperty(r.ses.declaration.getOrElse(throw new Exception("No declaration"))),
       java.util.UUID.randomUUID.toString
     )
+
+  private def verifyUploadedFiles(implicit r: LinkingSessionRequest[AnyContent]) = {
+    uploadConnector.retrieveFiles(
+      r.accountId, r.sessionId, "evidence",
+      if (Environment.isDev || Environment.isProd) r.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence")) else Seq.empty
+    ).map(x => if (x.length >= 1 && x.length <=3) FilesAccepted else FilesRejected)
+  }
 
   def evidenceUploaded() = WithLinkingSession { implicit request =>
     Ok(views.html.uploadEvidence.evidenceUploaded())
@@ -65,3 +77,7 @@ object UploadEvidence extends PropertyLinkingController {
 case class UploadedEvidence(hasEvidence: HasEvidence)
 
 case class UploadEvidenceVM(form: Form[_])
+
+sealed trait EvidenceUploadResult
+case object FilesAccepted extends EvidenceUploadResult
+case object FilesRejected extends EvidenceUploadResult
