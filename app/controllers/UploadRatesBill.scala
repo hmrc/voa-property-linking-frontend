@@ -61,7 +61,7 @@ object UploadRatesBill extends PropertyLinkingController {
 
   private def handle(answer: SubmitRatesBill)(implicit req: LinkingSessionRequest[AnyContent]): Future[RatesBillUploadResult] =
     answer.hasRatesBill match {
-      case DoesHaveRatesBill => retrieveFile(if (Environment.isDev) req.request.body.asMultipartFormData.get.file("ratesBill") else None).flatMap {
+      case DoesHaveRatesBill => retrieveFile(if (!Environment.isTest) req.request.body.asMultipartFormData.get.file("ratesBill") else None).flatMap {
         case f :: _ => isValid(RatesBill(f.content)) map {
           case true => RatesBillApproved
           case false => RatesBillPending
