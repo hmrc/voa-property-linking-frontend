@@ -83,11 +83,11 @@ ratesBill.label=Please upload a copy of the rates bill
 uploadRatesBill.ratesBillMissing.error=please select a rates bill
 
 #UPLOAD EVIDENCE
-uploadEvidence.show.title=Other proof required
+uploadEvidence.show.title=Submit further proof
 uploadEvidence.show.message=Please provide further proof of a connection. The Valuation Office Agency requires further proof of your connection to the property.
-hasEvidence.label=Do you have further proof?
-hasEvidence.doeshaveevidence=Yes
-hasEvidence.doesnothaveevidence=No
+hasEvidence.label=You must provide further proof to show you have a valid connection to the property.
+hasEvidence.doeshaveevidence=I have further proof
+hasEvidence.doesnothaveevidence=I do not have any more proof
 evidence.label=Please upload evidence so that we can verify your link to the property.
 error.evidenceUploadFiles=Only 3 files may be uploaded
 uploadEvidence.show.button=Continue
