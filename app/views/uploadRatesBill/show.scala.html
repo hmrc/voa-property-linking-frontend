@@ -32,7 +32,11 @@
                                 )
                             )
                             <div class="form-group hidden hasRatesBill">
-                                @inputFile(field = model.form("ratesBill"))
+                                @inputFile(
+                                    field = model.form("ratesBill"),
+                                    '_label -> Messages("ratesBill.label"),
+                                    '_labelClass -> "form-label-bold"
+                                )
                             </div>
                         </fieldset>
                         <button type="submit" class="button">@Messages("uploadRatesBill.show.button")</button>
