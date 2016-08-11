@@ -79,6 +79,7 @@ object UploadRatesBill extends PropertyLinkingController {
 
   private def requestLink(implicit req: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(
+      req.ses.claimedProperty.uarn,
       req.ses.claimedProperty.billingAuthorityReference, req.accountId,
       LinkToProperty(req.ses.declaration.getOrElse(throw new Exception("No declaration"))), java.util.UUID.randomUUID.toString
     )

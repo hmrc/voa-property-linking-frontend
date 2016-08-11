@@ -1,0 +1,35 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import _root_.template.Display
+@import connectors.propertyLinking.ServiceContract.PropertyRepresentation
+
+@(propertyRepresentations: Seq[PropertyRepresentation])(implicit request: Request[_])
+
+@main(Messages("agent.selectAgent.title")) {
+
+    <main id="content">
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <h1 class="form-title heading-xlarge">
+                    <span class="section-title">@Messages("agent.selectAgent.title")</span>
+                </h1>
+            </div>
+        </div>
+        <p>@Messages("agent.selectAgent.message")</p>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>@Messages("agent.selectAgent.table.1")</th>
+                </tr>
+                @propertyRepresentations.map{propRep =>
+                    <tr>
+                        <td>
+                            <a href=@routes.AppointAgentController.appoint()>@propRep.agentId</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </main>
+
+}

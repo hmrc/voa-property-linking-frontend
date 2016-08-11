@@ -23,7 +23,7 @@ case class Address(lines: Seq[String], postcode: String) {
   override def toString = (lines ++ Seq(postcode)) mkString ", "
 }
 
-case class Property(billingAuthorityReference: String, address: Address, isSelfCertifiable: Boolean, canReceiveMail: Boolean)
+case class Property(uarn: String, billingAuthorityReference: String, address: Address, isSelfCertifiable: Boolean, canReceiveMail: Boolean)
 
 object IsAlreadyLinked {
   def apply(property: Property, declaration: CapacityDeclaration) =

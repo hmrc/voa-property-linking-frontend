@@ -16,7 +16,7 @@
 
 package config
 
-import connectors.{FileUploadConnector, PropertyConnector, RatesBillVerificationConnector}
+import connectors.{FileUploadConnector, PropertyConnector, PropertyRepresentationConnector, RatesBillVerificationConnector}
 import connectors.propertyLinking.PropertyLinkConnector
 import session.LinkingSessionRepository
 import uk.gov.hmrc.http.cache.client.SessionCache
@@ -38,6 +38,7 @@ abstract class Wiring {
   lazy val sessionCache = new VPLSessionCache(http)
   lazy val sessionRepository = new LinkingSessionRepository(sessionCache)
   lazy val propertyConnector = new PropertyConnector(http)
+  lazy val propertyRepresentationConnector = new PropertyRepresentationConnector(http)
   lazy val propertyLinkConnector = new PropertyLinkConnector(http, sessionCache)
   lazy val fileUploadConnector = new FileUploadConnector(http)
   lazy val ratesBillVerificationConnector = new RatesBillVerificationConnector(http)

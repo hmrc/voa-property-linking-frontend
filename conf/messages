@@ -23,6 +23,35 @@ dashboard.manageProperties.title=Manage Properties
 dashboard.manageProperties.status.added=added
 dashboard.manageProperties.status.pending=pending
 dashboard.managedProperties.searchLinkText=Add another property
+dashboard.addAgent=Add agent
+dashboard.editAgent=Edit agent
+
+#AGENT
+agent.appointAgent.title=Appoint Agent
+agent.appointAgent.message.1=Please enter the code of the Agent you wish to appoint.
+agent.appointAgent.message.2=If you do not have this code, please ask your Agent to provide it.
+agent.appointAgent.agentCode=Agent code
+agent.appointAgent.button=Submit
+canCheck.label=Permission for Check
+canCheck.true=Yes
+canCheck.false=No
+canChallenge.label=Permission for Challenge
+canChallenge.true=Yes
+canChallenge.false=No
+
+agent.appointedAgent.title=Agent nomination successful
+agent.appointedAgent.message.1=Your nomination has been received and the agent has been notified.
+agent.appointedAgent.message.2=The agent you have nominated will be asked to review and accept your nomination.
+
+agent.alreadyAppointedAgent.title=Existing Agent Nomination Detected
+agent.alreadyAppointedAgent.message.1=There is already an Agent for this assessment.
+agent.alreadyAppointedAgent.message.2=Would you like to edit the existing agent authorisation or continue with appointing a new agent?
+agent.alreadyAppointedAgent.edit=Edit existing
+agent.alreadyAppointedAgent.continue=Add new agent
+
+agent.selectAgent.title=Select Agent
+agent.selectAgent.message=Please select which Agent relationship you wish to manage
+agent.selectAgent.table.1=Agent code
 
 #SEARCH
 search.title=Search and select a property to add to your account

@@ -20,6 +20,8 @@
                     <th>Status</th>
                     <th>Date added</th>
                     <th>Assessments</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 @model.properties.added.map { p =>
                     <tr>
@@ -29,6 +31,15 @@
                         <td>@Messages("dashboard.manageProperties.status.added")</td>
                         <td>@Display.date(p.linkedDate)</td>
                         <td>@p.assessmentYears.mkString(",")</td>
+                        <td>
+                            <a href=@controllers.routes.AppointAgentController.add()>@Messages("dashboard.addAgent")</a>
+                        </td>
+                        @if(p.representations.nonEmpty) {
+                            <td><a href=@controllers.routes.AppointAgentController.edit()>
+                                @Messages("dashboard.editAgent")
+                                </a>
+                            </td>
+                        }
                     </tr>
                 }
                 @model.properties.pending.map { p =>
@@ -39,6 +50,10 @@
                         <td>@Messages("dashboard.manageProperties.status.pending")</td>
                         <td>@Display.date(p.linkedDate)</td>
                         <td></td>
+                        <td>@Messages("dashboard.addAgent")</td>
+                        @if(p.representations.nonEmpty) {
+                            <td>@Messages("dashboard.editAgent")</td>
+                        }
                     </tr>
                 }
             </tbody>

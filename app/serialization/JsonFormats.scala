@@ -29,6 +29,7 @@ object JsonFormats {
   implicit val accountFormat = Json.format[Account]
   implicit val addressFormat = Json.format[Address]
   implicit val propertyDataFormat = Json.format[Property]
+  implicit val propertyRepresentationsFormat = Json.format[PropertyRepresentation]
   implicit val capacityTypeFormat = EnumFormat(CapacityType)
   implicit val capacityFormat = Json.format[CapacityDeclaration]
   implicit val linkRequestFormat = Json.writes[LinkToProperty]

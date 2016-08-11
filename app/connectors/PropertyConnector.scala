@@ -33,16 +33,16 @@ class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends Se
 }
 
 object PrototypeTestData {
-  lazy val selfCertProperty = Property(
+  lazy val selfCertProperty = Property( "uarn1",
     "testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA"), true, true
   )
-  lazy val conflictedProperty = Property(
+  lazy val conflictedProperty = Property( "uarn2",
     "testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA"), true, true
   )
-  lazy val bankForRatesBillVerifiedJourney = Property(
+  lazy val bankForRatesBillVerifiedJourney = Property( "uarn3",
     "testbankaccepted", Address(Seq("Banky McBankface (rates bill accepted)", "Some Road", "Some Town"), "AA11 1AA"), false, true
   )
-  lazy val bankForRatesBillFailedJourney = Property(
+  lazy val bankForRatesBillFailedJourney = Property( "uarn4",
     "testbankrejected", Address(Seq("Banky McSadface (rates bill rejected)", "Some Road", "Some Town"), "AA11 1AA"), false, true
   )
   lazy val pretendSearchResults = Seq(
@@ -51,7 +51,7 @@ object PrototypeTestData {
     bankForRatesBillVerifiedJourney,
     bankForRatesBillFailedJourney,
     Property(
-      "testbanknomail", Address(Seq("Banky McNoMailFace (Cannot receive mail)", "Some Road", "Some Town"), "AA11 1AA"), false, false
+      "uarn5", "testbanknomail", Address(Seq("Banky McNoMailFace (Cannot receive mail)", "Some Road", "Some Town"), "AA11 1AA"), false, false
     )
   )
 
