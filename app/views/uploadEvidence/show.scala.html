@@ -13,8 +13,6 @@
                         <span class="section-title">@Messages("uploadEvidence.show.title")</span>
                     </h1>
 
-                    <p>@Messages("uploadEvidence.show.message")</p>
-
                     @includes.errorSummary(model.form)
 
                     <fieldset class="inline form-group">
@@ -33,9 +31,11 @@
                             )
                         )
                         <div class="form-group hidden hasEvidence">
+                            <div class="form-label-bold">@Messages("evidence.label")</div>
+                            <span class="">@Messages("evidence.label.1")</span>
                             @inputFileMulti(
                                 field = model.form("evidence"),
-                                '_label -> Messages("evidence.label"),
+                                '_label -> "",
                                 '_labelClass -> "form-label-bold"
                             )
                         </div>

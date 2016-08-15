@@ -124,11 +124,11 @@ uploadRatesBill.ratesBillMissing.error=please select a rates bill
 
 #UPLOAD EVIDENCE
 uploadEvidence.show.title=Submit further proof
-uploadEvidence.show.message=Please provide further proof of a connection. The Valuation Office Agency requires further proof of your connection to the property.
 hasEvidence.label=You must provide further proof to show you have a valid connection to the property.
 hasEvidence.doeshaveevidence=I have further proof
 hasEvidence.doesnothaveevidence=I do not have any more proof
 evidence.label=Please upload evidence so that we can verify your link to the property.
+evidence.label.1=!File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
 error.evidenceUploadFiles=Only 3 files may be uploaded
 uploadEvidence.show.button=Continue
 uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded
