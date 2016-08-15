@@ -30,6 +30,13 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
     } mustBe true withClue s"No row with cell values: $cellValues.\nAll rows:\n ${rows.mkString("\n")}"
   }
 
+  def mustContainDataInRow(cellValues: String*) {
+    val rows = html.select("table tbody tr").asScala
+    cellValues.foreach(cell => {
+      rows.mkString("\n").contains(cell) mustBe true withClue s"No row with cell value: $cell.\nAll rows:\n ${rows.mkString("\n")}"
+    })
+  }
+
   def mustContainCheckbox(name: String) {
     html.select(s"form input[type=checkbox][name=$name]")
   }

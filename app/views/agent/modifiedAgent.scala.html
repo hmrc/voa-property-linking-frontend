@@ -1,0 +1,16 @@
+@()(implicit request: Request[_])
+
+@main(Messages("agent.modifiedAgent.title")) {
+    <main id="content">
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <h1 class="form-title heading-xlarge">
+                <span class="section-title">@Messages("agent.modifiedAgent.title")</span>
+            </h1>
+        </div>
+    </div>
+    <p>@Messages("agent.modifiedAgent.message.1")</p>
+    <p>@Messages("agent.modifiedAgent.message.2")</p>
+        <a href=@controllers.routes.Dashboard.home()>Home</a>
+    </main>
+}

@@ -21,9 +21,10 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Action
 import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
-import serialization.JsonFormats.accountFormat
+import serialization.JsonFormats._
 
 object Registration extends PropertyLinkingController {
+
   val cache = Wiring().sessionCache
 
   def show() = Action { implicit request =>

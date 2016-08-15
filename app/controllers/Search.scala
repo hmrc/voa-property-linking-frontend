@@ -18,7 +18,7 @@ package controllers
 
 import config.Wiring
 import connectors.PrototypeTestData._
-import connectors.propertyLinking.ServiceContract.CapacityDeclaration
+import connectors.ServiceContract.CapacityDeclaration
 import form.EnumMapping
 import form.Mappings.{dmyDate, dmyPastDate}
 import models._

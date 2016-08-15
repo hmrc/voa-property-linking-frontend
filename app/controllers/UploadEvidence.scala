@@ -17,7 +17,7 @@
 package controllers
 
 import config.{Environment, Wiring}
-import connectors.propertyLinking.ServiceContract.LinkToProperty
+import connectors.ServiceContract.LinkToProperty
 import form.EnumMapping
 import models.{DoesHaveEvidence, DoesNotHaveEvidence, HasEvidence}
 import play.api.data.Form
@@ -48,7 +48,7 @@ object UploadEvidence extends PropertyLinkingController {
   }
 
   private def requestLink(implicit r: LinkingSessionRequest[AnyContent]) =
-    propertyLinkConnector.linkToProperty(
+    propertyLinkConnector.linkToProperty(r.ses.claimedProperty.uarn,
       r.ses.claimedProperty.billingAuthorityReference,
       r.accountId, LinkToProperty(r.ses.declaration.getOrElse(throw new Exception("No declaration"))),
       java.util.UUID.randomUUID.toString

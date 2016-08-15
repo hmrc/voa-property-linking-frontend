@@ -16,8 +16,8 @@
 
 package connectors.propertyLinking
 
-import connectors.PrototypeTestData
-import connectors.propertyLinking.ServiceContract.{LinkedProperties, PendingPropertyLink, PropertyLink}
+import connectors.{PrototypeTestData, ServiceContract}
+import connectors.ServiceContract.{LinkedProperties, PendingPropertyLink, PropertyLink}
 import models.CapacityType
 import org.joda.time.DateTime
 import serialization.JsonFormats
@@ -28,14 +28,7 @@ import uk.gov.hmrc.play.http._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-object ServiceContract {
-  case class LinkToProperty(capacityDeclaration: CapacityDeclaration)
-  case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)
 
-  case class PropertyLink(name: String, billingAuthorityReference: String, capacity: String, linkedDate: DateTime, assessmentYears: Seq[Int])
-  case class PendingPropertyLink(name: String, billingAuthorityReference: String, capacity: String, linkedDate: DateTime)
-  case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PendingPropertyLink])
-}
 
 class PropertyLinkConnector(http: HttpGet with HttpPut, cache: SessionCache)(implicit ec: ExecutionContext) extends ServicesConfig with JsonHttpReads {
   implicit val fmt = JsonFormats.linkedProperties
@@ -46,7 +39,7 @@ class PropertyLinkConnector(http: HttpGet with HttpPut, cache: SessionCache)(imp
   }
 
   // TODO - will not be passing in accountId once auth solution is confirmed
-  def linkToProperty(billingAuthorityRef: String, accountId: String, request: ServiceContract.LinkToProperty, submissionId: String)
+  def linkToProperty(uarn: String, billingAuthorityRef: String, accountId: String, request: ServiceContract.LinkToProperty, submissionId: String)
                     (implicit hc: HeaderCarrier): Future[Unit] =
     http.PUT[ServiceContract.LinkToProperty, Unit](s"$url/$billingAuthorityRef/$accountId/$submissionId", request).recoverWith {
       // TODO - use caching for temporary prototype persistence
@@ -54,13 +47,13 @@ class PropertyLinkConnector(http: HttpGet with HttpPut, cache: SessionCache)(imp
         val prop = PrototypeTestData.pretendSearchResults.find(_.billingAuthorityReference == billingAuthorityRef).get
         if (PrototypeTestData.canBeLinkedTo(billingAuthorityRef)) {
           val x = PropertyLink(
-            prop.address.lines.head + ", " + prop.address.postcode, billingAuthorityRef, request.capacityDeclaration.capacity.name,
+            prop.address.lines.head + ", " + prop.address.postcode, uarn, billingAuthorityRef, request.capacityDeclaration.capacity.name,
             DateTime.now, Seq(2009, 20015)
           )
           linkedProperties(accountId).flatMap(ps => cache.cache("linkedproperties", ps.copy(added = ps.added :+ x))).map(_ => ())
         } else {
           val x = PendingPropertyLink(
-            prop.address.lines.head + ", " + prop.address.postcode, billingAuthorityRef, request.capacityDeclaration.capacity.name, DateTime.now
+            prop.address.lines.head + ", " + prop.address.postcode, uarn, billingAuthorityRef, request.capacityDeclaration.capacity.name, DateTime.now
           )
           linkedProperties(accountId).flatMap(ps => cache.cache("linkedproperties", ps.copy(pending = ps.pending :+ x))).map(_ => ())
         }

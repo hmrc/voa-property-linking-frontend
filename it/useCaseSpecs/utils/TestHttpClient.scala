@@ -105,6 +105,7 @@ trait VPLAPIs { this: TestHttpClient =>
   lazy val propertyLinksBaseUrl = "http://localhost:9528/property-links"
   lazy val ratesBillCheckBaseUrl = "http://localhost:9526/rates-bill-checks"
   lazy val fileUploadBaseUrl = "http://localhost:9526/file-uploads"
+  lazy val propertyRepresentationLinksBaseUrl = "http://localhost:9524/property-linking/property-representations"
 
   allowPUTsFor(keystoreBaseUrl)
   allowPUTsFor(propertyLinksBaseUrl)
@@ -139,6 +140,12 @@ trait VPLAPIs { this: TestHttpClient =>
       s"$propertyLinksBaseUrl/$accountId", Seq.empty,
       HttpResponse(200, responseJson = Some(Json.toJson(LinkedProperties(added, pending))))
     )
+  def stubPropertyRepresentationAPI(accountId: String, uarn: String) = {
+    stubGet(
+      s"$propertyRepresentationLinksBaseUrl/$accountId/$uarn", Seq.empty,
+      HttpResponse(200, responseJson = Some(Json.toJson(Seq(PropertyRepresentation("id", "id", accountId, uarn, true, false, true)))))
+    )
+  }
 
   def stubRatesBillCheck(baRef: String, ratesBill: Array[Byte], ratesBillAccepted: Boolean) =
     stubPut(

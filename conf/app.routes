@@ -36,5 +36,13 @@ GET     /linking-conflict                     controllers.LinkErrors.conflict()
 GET     /postcode-verification-required       controllers.LinkErrors.postcodeVerificationRequired()
 GET     /pin-postal-process                   controllers.LinkErrors.pinPostalProcess()
 
+GET     /agent/add/:uarn                      controllers.AppointAgentController.add(uarn)
+GET     /agent/edit/:uarn                     controllers.AppointAgentController.edit(uarn)
+GET     /agent/appoint/:uarn                  controllers.AppointAgentController.appoint(uarn)
+POST    /agent/appoint/:uarn                  controllers.AppointAgentController.appointSubmit(uarn)
+GET     /agent/modify/:uarn/:reprId           controllers.AppointAgentController.modify(uarn, reprId)
+POST    /agent/modify/:uarn/:reprId           controllers.AppointAgentController.modifySubmit(uarn, reprId)
+GET     /agent/select/:uarn                   controllers.AppointAgentController.select(uarn)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                         controllers.Assets.at(path="/public", file)

@@ -72,7 +72,7 @@ class EvidenceRequired extends FrontendTest {
   object TestData {
     lazy val baRef = "asdfjlj23l4j23"
     lazy val address = Address(Seq.empty, "AA11 1AA")
-    lazy val property = Property(baRef, address, false, false)
+    lazy val property = Property("uarn4", baRef, address, false, false)
     lazy val declaration = CapacityDeclaration("occupier", "03-10-2003", None)
     lazy val bytes1 = (44 to 233).map(_.toByte).toArray
     lazy val bytes2 = (200 to 433).map(_.toByte).toArray
