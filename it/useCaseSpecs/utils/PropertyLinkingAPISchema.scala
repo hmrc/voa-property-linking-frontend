@@ -13,6 +13,11 @@ object LinkedProperties {
   implicit lazy val lps = Json.format[LinkedProperties]
 }
 
+object PropertyRepresentation {
+  implicit lazy val  fmt = Json.format[PropertyRepresentation]
+}
+
+
 case class LinkToProperty(capacityDeclaration: CapacityDeclaration)
 case class CapacityDeclaration(capacity: String, fromDate: String, toDate: Option[String])
 

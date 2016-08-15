@@ -140,11 +140,12 @@ trait VPLAPIs { this: TestHttpClient =>
       s"$propertyLinksBaseUrl/$accountId", Seq.empty,
       HttpResponse(200, responseJson = Some(Json.toJson(LinkedProperties(added, pending))))
     )
-  def stubPropertyRepresentationAPI(accountId: String, uarn: String) =
+  def stubPropertyRepresentationAPI(accountId: String, uarn: String) = {
     stubGet(
-      s"$propertyLinksBaseUrl/$accountId/$uarn", Seq.empty,
+      s"$propertyRepresentationLinksBaseUrl/$accountId/$uarn", Seq.empty,
       HttpResponse(200, responseJson = Some(Json.toJson(Seq(PropertyRepresentation("id", "id", accountId, uarn, true, false, true)))))
     )
+  }
 
   def stubRatesBillCheck(baRef: String, ratesBill: Array[Byte], ratesBillAccepted: Boolean) =
     stubPut(

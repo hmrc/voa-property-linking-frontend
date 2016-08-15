@@ -9,21 +9,27 @@ class ManageProperties extends FrontendTest {
     implicit val sid: SessionID = sessionId
     implicit val aid: AccountID = accountId
     HTTP.stubLinkedPropertiesAPI(accountId, addedProperties, pendingProperties)
+    addedProperties.map ( prop =>
+      HTTP.stubPropertyRepresentationAPI(accountId, prop.uarn)
+    )
+    pendingProperties.map ( prop =>
+      HTTP.stubPropertyRepresentationAPI(accountId, prop.uarn)
+    )
 
     "When they navigate to manage properties page" - {
       val page = Page.get("/property-linking/manage-properties")
 
       "They are shown the properties that they have linked to" in {
         addedProperties.foreach { p =>
-          page.mustContainDataRow(
-            p.name, p.billingAuthorityReference, p.capacity, "added", UIFormats.date(p.linkedDate), p.assessmentYears.mkString(",")
+          page.mustContainDataInRow(
+            p.name, p.billingAuthorityReference, p.capacity, "added", UIFormats.date(p.linkedDate), p.assessmentYears.mkString(","), "Add agent", "Edit agent"
           )
         }
       }
 
       "And they are shown the properties who they have attempted to link to but are in the pending state" in {
         pendingProperties.foreach { p =>
-          page.mustContainDataRow(p.name, p.billingAuthorityReference, p.capacity, "pending", UIFormats.date(p.linkedDate), "")
+          page.mustContainDataInRow(p.name, p.billingAuthorityReference, p.capacity, "pending", UIFormats.date(p.linkedDate), "")
         }
       }
 

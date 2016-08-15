@@ -50,10 +50,10 @@ object Dashboard extends PropertyLinkingController {
       val fsAdded: Future[Seq[PropertyLinkRepresentations]] = Future.sequence(added)
       val psPending: Future[Seq[PendingPropertyLinkRepresentations]] = Future.sequence(pending)
 
-      for { eee <- fsAdded
-            fff <- psPending
+      for { a <- fsAdded
+            p <- psPending
       } yield {
-        Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(LinkedPropertiesRepresentations(eee, fff))))
+        Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(LinkedPropertiesRepresentations(a, p))))
       }
     }
   }
