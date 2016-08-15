@@ -104,8 +104,8 @@ error.mustAgreeToSelfCert=You must agree to continue.
 selfCertification.linkAuthorised.properties.link=Manage your properties
 
 #UPLOAD RATES BILL
-uploadRatesBill.show.title=Please upload your rates bill
-uploadRatesBill.show.message=The Valuation Office Agency requires proof that you have a connection to this property. This is a requirement for certain business property types.
+uploadRatesBill.show.title=Upload your rates bill
+uploadRatesBill.show.message=You must confirm your link to the property by uploading a rates bill.
 uploadRatesBill.show.hasRatesBill.label=Do you have a rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a rates bill
 uploadRatesBill.show.button=Confirm
@@ -119,6 +119,7 @@ hasRatesBill.label=Please upload a rates bill as proof of connection
 hasRatesBill.doeshaveratesbill=I have a rates bill
 hasRatesBill.doesnothaveratesbill=I don’t have a rates bill
 ratesBill.label=Please upload a copy of the rates bill
+ratesBill.label.1=!File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
 uploadRatesBill.ratesBillMissing.error=please select a rates bill
 
 #UPLOAD EVIDENCE
