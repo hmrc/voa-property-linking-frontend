@@ -38,10 +38,18 @@ canCheck.false=No
 canChallenge.label=Permission for Challenge
 canChallenge.true=Yes
 canChallenge.false=No
+agent.modifyAgent.title=Manage agent relationship
+agent.modifyAgent.message.1=Please enter the code of the agent you wish to modify.
+agent.modifyAgent.message.2=If you do not have this code, please ask your Agent to provide it.
+agent.modifyAgent.agentCode=Agent code
+agent.modifyAgent.button=Submit
 
 agent.appointedAgent.title=Agent nomination successful
 agent.appointedAgent.message.1=Your nomination has been received and the agent has been notified.
 agent.appointedAgent.message.2=The agent you have nominated will be asked to review and accept your nomination.
+agent.modifiedAgent.title=Agent nomination changes accepted
+agent.modifiedAgent.message.1=Your changes have been applied.
+agent.modifiedAgent.message.2=The agent has been notified of the changes.
 
 agent.alreadyAppointedAgent.title=Existing Agent Nomination Detected
 agent.alreadyAppointedAgent.message.1=There is already an Agent for this assessment.
@@ -52,6 +60,8 @@ agent.alreadyAppointedAgent.continue=Add new agent
 agent.selectAgent.title=Select Agent
 agent.selectAgent.message=Please select which Agent relationship you wish to manage
 agent.selectAgent.table.1=Agent code
+agent.selectAgent.table.2=Can check
+agent.selectAgent.table.3=Can challenge
 
 #SEARCH
 search.title=Search and select a property to add to your account

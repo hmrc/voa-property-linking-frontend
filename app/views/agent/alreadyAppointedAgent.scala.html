@@ -3,7 +3,7 @@
 @import _root_.template.Display
 
 @import controllers.AppointAgentController.AppointAgentVM
-@()(implicit request: Request[_])
+@(uarn: String)(implicit request: Request[_])
 
 @main(Messages("agent.alreadyAppointedAgent.title")) {
 
@@ -17,8 +17,8 @@
         </div>
         <p>@Messages("agent.alreadyAppointedAgent.message.1")</p>
         <p>@Messages("agent.alreadyAppointedAgent.message.2")</p>
-        <a href=@routes.AppointAgentController.select()>@Messages("agent.alreadyAppointedAgent.edit")</a>
-        <a href=@routes.AppointAgentController.appoint()>@Messages("agent.alreadyAppointedAgent.continue")</a>
+        <a href=@routes.AppointAgentController.select(uarn)>@Messages("agent.alreadyAppointedAgent.edit")</a>
+        <a href=@routes.AppointAgentController.appoint(uarn)>@Messages("agent.alreadyAppointedAgent.continue")</a>
     </main>
 
 }

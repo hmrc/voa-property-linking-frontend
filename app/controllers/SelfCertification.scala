@@ -17,7 +17,7 @@
 package controllers
 
 import config.Wiring
-import connectors.propertyLinking.ServiceContract.LinkToProperty
+import connectors.ServiceContract.LinkToProperty
 import form.Mappings.trueOnly
 import models.Property
 import play.api.data.Form

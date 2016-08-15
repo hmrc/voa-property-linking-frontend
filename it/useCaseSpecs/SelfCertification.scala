@@ -59,7 +59,7 @@ class SelfCertification extends FrontendTest {
   object TestData {
     lazy val accountId = "bizn33z123xdr"
     lazy val address = Address(Seq.empty, "AA11 1AA")
-    lazy val selfCertifiableProperty = Property("xyzbaref332", address, true, true)
+    lazy val selfCertifiableProperty = Property("asf", "xyzbaref332", address, true, true)
     lazy val capacityDeclaration = CapacityDeclaration("occupier", "01-01-2011", None)
   }
 }

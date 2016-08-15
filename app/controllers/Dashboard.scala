@@ -17,7 +17,7 @@
 package controllers
 
 import config.Wiring
-import connectors.propertyLinking.ServiceContract.PropertyRepresentation
+import connectors.ServiceContract.{PropertyLink, PropertyRepresentation}
 import session.WithAuthentication
 import play.api.mvc.Action
 import org.joda.time.DateTime
@@ -34,18 +34,33 @@ object Dashboard extends PropertyLinkingController {
   }
 
   def manageProperties() = WithAuthentication.async { implicit request =>
+    connector.linkedProperties(request.accountId).flatMap { ps =>
+      val added: Seq[Future[PropertyLinkRepresentations]] = ps.added.map { prop =>
+        reprConnector.get(request.accountId, prop.uarn).map { rep =>
+          PropertyLinkRepresentations(prop.name, prop.billingAuthorityReference, prop.uarn,
+            prop.capacity, prop.linkedDate, prop.assessmentYears, rep)
+        }
+      }
+      val pending: Seq[Future[PendingPropertyLinkRepresentations]] = ps.pending.map { prop =>
+        reprConnector.get(request.accountId, prop.uarn).map { rep =>
+          PendingPropertyLinkRepresentations(prop.name, prop.billingAuthorityReference, prop.uarn,
+            prop.capacity, prop.linkedDate, rep)
+        }
+      }
+      val fsAdded: Future[Seq[PropertyLinkRepresentations]] = Future.sequence(added)
+      val psPending: Future[Seq[PendingPropertyLinkRepresentations]] = Future.sequence(pending)
 
-    connector.linkedProperties(request.accountId).map { ps =>
-      val added = ps.added.map(p=> PropertyLinkRepresentations(p.name, p.billingAuthorityReference, p.capacity, p.linkedDate,
-                                                               p.assessmentYears, Seq(PropertyRepresentation("a", "b", "c", "d", true, true, true))))
-      val pending = ps.pending.map(p=> PendingPropertyLinkRepresentations(p.name, p.billingAuthorityReference, p.capacity, p.linkedDate, Seq()))
-      Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(LinkedPropertiesRepresentations(added, pending))))
+      for { eee <- fsAdded
+            fff <- psPending
+      } yield {
+        Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(LinkedPropertiesRepresentations(eee, fff))))
+      }
     }
   }
 
-  case class PropertyLinkRepresentations(name: String, billingAuthorityReference: String, capacity: String, linkedDate: DateTime,
+  case class PropertyLinkRepresentations(name: String, billingAuthorityReference: String, uarn: String, capacity: String, linkedDate: DateTime,
                                assessmentYears: Seq[Int], representations: Seq[PropertyRepresentation])
-  case class PendingPropertyLinkRepresentations(name: String, billingAuthorityReference: String, capacity: String,
+  case class PendingPropertyLinkRepresentations(name: String, billingAuthorityReference: String, uarn: String, capacity: String,
                                                 linkedDate: DateTime, representations: Seq[PropertyRepresentation])
   case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentations], pending: Seq[PendingPropertyLinkRepresentations])
   case class ManagePropertiesVM(properties: LinkedPropertiesRepresentations)

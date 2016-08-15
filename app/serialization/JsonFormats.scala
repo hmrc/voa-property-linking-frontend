@@ -17,7 +17,7 @@
 package serialization
 
 import connectors.{RatesBillCheck, UploadedFile}
-import connectors.propertyLinking.ServiceContract._
+import connectors.ServiceContract._
 import controllers.Account
 import models._
 import play.api.libs.json._

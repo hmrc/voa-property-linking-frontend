@@ -16,8 +16,8 @@
 
 package connectors.propertyLinking
 
-import connectors.PrototypeTestData
-import connectors.propertyLinking.ServiceContract.{LinkedProperties, PendingPropertyLink, PropertyLink}
+import connectors.{PrototypeTestData, ServiceContract}
+import connectors.ServiceContract.{LinkedProperties, PendingPropertyLink, PropertyLink}
 import models.CapacityType
 import org.joda.time.DateTime
 import serialization.JsonFormats
@@ -28,17 +28,7 @@ import uk.gov.hmrc.play.http._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-object ServiceContract {
-  case class LinkToProperty(capacityDeclaration: CapacityDeclaration)
-  case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)
 
-  case class PropertyLink(name: String, uarn: String, billingAuthorityReference: String, capacity: String, linkedDate: DateTime, assessmentYears: Seq[Int])
-  case class PendingPropertyLink(name: String, uarn: String, billingAuthorityReference: String, capacity: String, linkedDate: DateTime)
-  case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PendingPropertyLink])
-  case class PropertyRepresentation(representationId: String, agentId: String, userId: String, uarn: String,
-                                    canCheck: Boolean, canChallenge: Boolean, pending: Boolean)
-
-}
 
 class PropertyLinkConnector(http: HttpGet with HttpPut, cache: SessionCache)(implicit ec: ExecutionContext) extends ServicesConfig with JsonHttpReads {
   implicit val fmt = JsonFormats.linkedProperties

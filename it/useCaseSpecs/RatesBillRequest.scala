@@ -98,9 +98,10 @@ class RatesBillRequest extends FrontendTest {
 
   object TestData {
     lazy val baRef = "34asdf23423"
+    lazy val uarn = "uarn11"
     lazy val address = Address(Seq("Hooooohhhhhhaaaaaqaaaeeee"), "AA11 1AA")
-    lazy val nonSelfCertProperty = Property(baRef, address, isSelfCertifiable = false, true)
-    lazy val nonSelfCertNoMailProperty = Property(baRef, address, isSelfCertifiable = false, canReceiveMail = false)
+    lazy val nonSelfCertProperty = Property(uarn, baRef, address, isSelfCertifiable = false, true)
+    lazy val nonSelfCertNoMailProperty = Property(uarn, baRef, address, isSelfCertifiable = false, canReceiveMail = false)
     lazy val declaration = CapacityDeclaration("occupier", "01-01-2012", None)
     lazy val validRatesBill = (1 to 1000).map(_.toByte).toArray
     lazy val invalidRatesBill = (5000 to 7000).map(_.toByte).toArray

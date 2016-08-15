@@ -17,7 +17,7 @@
 package controllers
 
 import config.{Environment, Wiring}
-import connectors.propertyLinking.ServiceContract.LinkToProperty
+import connectors.ServiceContract.LinkToProperty
 import form.EnumMapping
 import models.{DoesHaveRatesBill, DoesNotHaveRatesBill, HasRatesBill, RatesBill}
 import play.api.data.Forms._

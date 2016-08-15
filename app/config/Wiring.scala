@@ -38,7 +38,7 @@ abstract class Wiring {
   lazy val sessionCache = new VPLSessionCache(http)
   lazy val sessionRepository = new LinkingSessionRepository(sessionCache)
   lazy val propertyConnector = new PropertyConnector(http)
-  lazy val propertyRepresentationConnector = new PropertyRepresentationConnector(http)
+  lazy val propertyRepresentationConnector = new PropertyRepresentationConnector(http, sessionCache)
   lazy val propertyLinkConnector = new PropertyLinkConnector(http, sessionCache)
   lazy val fileUploadConnector = new FileUploadConnector(http)
   lazy val ratesBillVerificationConnector = new RatesBillVerificationConnector(http)

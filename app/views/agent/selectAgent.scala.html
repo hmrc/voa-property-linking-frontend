@@ -1,7 +1,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 @import _root_.template.Display
-@import connectors.propertyLinking.ServiceContract.PropertyRepresentation
+@import connectors.ServiceContract.PropertyRepresentation
 
 @(propertyRepresentations: Seq[PropertyRepresentation])(implicit request: Request[_])
 
@@ -20,12 +20,16 @@
             <tbody>
                 <tr>
                     <th>@Messages("agent.selectAgent.table.1")</th>
+                    <th>@Messages("agent.selectAgent.table.2")</th>
+                    <th>@Messages("agent.selectAgent.table.3")</th>
                 </tr>
                 @propertyRepresentations.map{propRep =>
                     <tr>
                         <td>
-                            <a href=@routes.AppointAgentController.appoint()>@propRep.agentId</a>
+                            <a href=@routes.AppointAgentController.modify(propRep.uarn, propRep.agentId)>@propRep.agentId</a>
                         </td>
+                        <td>@propRep.canCheck</td>
+                        <td>@propRep.canChallenge</td>
                     </tr>
                 }
             </tbody>
