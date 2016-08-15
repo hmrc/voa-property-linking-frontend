@@ -32,9 +32,11 @@
                                 )
                             )
                             <div class="form-group hidden hasRatesBill">
+                                <div class="form-label-bold">@Messages("ratesBill.label.1")</div>
+                                <span class="">@Messages("ratesBill.label.2")</span>
                                 @inputFile(
                                     field = model.form("ratesBill"),
-                                    '_label -> Messages("ratesBill.label"),
+                                    '_label ->"",
                                     '_labelClass -> "form-label-bold"
                                 )
                             </div>
