@@ -28,8 +28,8 @@ dashboard.editAgent=Edit agent
 
 #AGENT
 agent.appointAgent.title=Appoint Agent
-agent.appointAgent.message.1=Please enter the code of the Agent you wish to appoint.
-agent.appointAgent.message.2=If you do not have this code, please ask your Agent to provide it.
+agent.appointAgent.message.1=Please enter the code of the agent you wish to appoint.
+agent.appointAgent.message.2=If you do not have this code, please ask your agent to provide it.
 agent.appointAgent.agentCode=Agent code
 agent.appointAgent.button=Submit
 canCheck.label=Permission for Check
