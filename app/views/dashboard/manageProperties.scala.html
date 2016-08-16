@@ -50,9 +50,14 @@
                         <td>@Messages("dashboard.manageProperties.status.pending")</td>
                         <td>@Display.date(p.linkedDate)</td>
                         <td></td>
-                        <td>@Messages("dashboard.addAgent")</td>
+                        <td>
+                            <a href=@controllers.routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
+                        </td>
                         @if(p.representations.nonEmpty) {
-                            <td>@Messages("dashboard.editAgent")</td>
+                            <td><a href=@controllers.routes.AppointAgentController.edit(p.uarn)>
+                            @Messages("dashboard.editAgent")
+                            </a>
+                            </td>
                         }
                     </tr>
                 }

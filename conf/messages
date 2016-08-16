@@ -134,7 +134,7 @@ uploadEvidence.show.button=Continue
 uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded
 uploadEvidence.evidenceUploaded.message=The evidence has been received. We’ll check the details and will tell you the outcome within xx weeks.
 uploadEvidence.noEvidenceUploaded.title=No evidence provided
-uploadEvidence.noEvidenceUploaded.message=You indicated that you have no further evidence of your connection to the property. The Valuation Office Agency will need to verify your connection.
+uploadEvidence.noEvidenceUploaded.message=You indicated that you have no further evidence of your connection to the property. The VOA will need to verify your connection.
 uploadEvidence.noEvidenceUploaded.home.link=Manage your properties
 
 #LINK ERRORS
