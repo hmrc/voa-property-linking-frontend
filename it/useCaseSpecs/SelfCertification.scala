@@ -1,5 +1,7 @@
 package useCaseSpecs
 
+import config.Wiring
+import controllers.Account
 import useCaseSpecs.utils.{Property, _}
 
 class SelfCertification extends FrontendTest {
@@ -9,6 +11,7 @@ class SelfCertification extends FrontendTest {
     implicit val sid: SessionID = java.util.UUID.randomUUID.toString
     implicit val aid: AccountID = accountId
     HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty, Some(capacityDeclaration)))
+    Wiring().tmpInMemoryAccountDb(accountId) = Account(accountId, false)
 
     "When they arrive at the the self certification page" - {
       val page = Page.get("/property-linking/self-certify")

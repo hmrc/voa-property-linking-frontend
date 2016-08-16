@@ -72,7 +72,7 @@ object UploadRatesBill extends PropertyLinkingController {
     }
 
   private def retrieveFile(file: Option[FilePart[TemporaryFile]])(implicit request: LinkingSessionRequest[_]) =
-    uploadConnector.retrieveFiles(request.accountId, request.sessionId, "ratesBill", file.map(Seq(_)).getOrElse(Seq.empty))
+    uploadConnector.retrieveFiles(request.account.companyName, request.sessionId, "ratesBill", file.map(Seq(_)).getOrElse(Seq.empty))
 
   private def isValid(rb: RatesBill)(implicit request: LinkingSessionRequest[_]) =
     ratesBillConnector.verify(request.ses.claimedProperty.billingAuthorityReference, rb).map(_.isValid)
@@ -80,7 +80,7 @@ object UploadRatesBill extends PropertyLinkingController {
   private def requestLink(implicit req: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(
       req.ses.claimedProperty.uarn,
-      req.ses.claimedProperty.billingAuthorityReference, req.accountId,
+      req.ses.claimedProperty.billingAuthorityReference, req.account,
       LinkToProperty(req.ses.declaration.getOrElse(throw new Exception("No declaration"))), java.util.UUID.randomUUID.toString
     )
 

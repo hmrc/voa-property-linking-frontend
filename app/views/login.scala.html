@@ -19,6 +19,15 @@
                     '_showConstraints -> false,
                     'class -> "form-control"
                 )
+                <table>
+                    <tbody>
+                    @model.accounts.map{ acc=>
+                            <tr> <td>
+                            @acc.companyName
+                            </td> </tr>
+                    }
+                    </tbody>
+                </table>
 
                 <p>
                     <button type="submit" id="continue" name="continue_button" class="button">@Messages("label.continue")</button>

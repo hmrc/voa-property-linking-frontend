@@ -34,15 +34,15 @@ object Dashboard extends PropertyLinkingController {
   }
 
   def manageProperties() = WithAuthentication.async { implicit request =>
-    connector.linkedProperties(request.accountId).flatMap { ps =>
+    connector.linkedProperties(request.account).flatMap { ps =>
       val added: Seq[Future[PropertyLinkRepresentations]] = ps.added.map { prop =>
-        reprConnector.get(request.accountId, prop.uarn).map { rep =>
+        reprConnector.get(request.account.companyName, prop.uarn).map { rep =>
           PropertyLinkRepresentations(prop.name, prop.billingAuthorityReference, prop.uarn,
             prop.capacity, prop.linkedDate, prop.assessmentYears, rep)
         }
       }
       val pending: Seq[Future[PendingPropertyLinkRepresentations]] = ps.pending.map { prop =>
-        reprConnector.get(request.accountId, prop.uarn).map { rep =>
+        reprConnector.get(request.account.companyName, prop.uarn).map { rep =>
           PendingPropertyLinkRepresentations(prop.name, prop.billingAuthorityReference, prop.uarn,
             prop.capacity, prop.linkedDate, rep)
         }

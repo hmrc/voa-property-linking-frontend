@@ -1,5 +1,7 @@
 package useCaseSpecs
 
+import config.Wiring
+import controllers.Account
 import useCaseSpecs.utils._
 
 class ManageProperties extends FrontendTest {
@@ -9,6 +11,7 @@ class ManageProperties extends FrontendTest {
     implicit val sid: SessionID = sessionId
     implicit val aid: AccountID = accountId
     HTTP.stubLinkedPropertiesAPI(accountId, addedProperties, pendingProperties)
+    Wiring().tmpInMemoryAccountDb(accountId) = Account(accountId, false)
     addedProperties.map ( prop =>
       HTTP.stubPropertyRepresentationAPI(accountId, prop.uarn)
     )

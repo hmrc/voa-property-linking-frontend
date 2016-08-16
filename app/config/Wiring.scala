@@ -16,8 +16,10 @@
 
 package config
 
+import connectors.ServiceContract.{LinkedProperties, PropertyRepresentation}
 import connectors.{FileUploadConnector, PropertyConnector, PropertyRepresentationConnector, RatesBillVerificationConnector}
 import connectors.propertyLinking.PropertyLinkConnector
+import controllers.Account
 import session.LinkingSessionRepository
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.audit.http.HttpAuditing
@@ -38,10 +40,13 @@ abstract class Wiring {
   lazy val sessionCache = new VPLSessionCache(http)
   lazy val sessionRepository = new LinkingSessionRepository(sessionCache)
   lazy val propertyConnector = new PropertyConnector(http)
-  lazy val propertyRepresentationConnector = new PropertyRepresentationConnector(http, sessionCache)
-  lazy val propertyLinkConnector = new PropertyLinkConnector(http, sessionCache)
+  lazy val propertyRepresentationConnector = new PropertyRepresentationConnector(http, tmpInMemoryPropertyRepresentationDb)
+  lazy val propertyLinkConnector = new PropertyLinkConnector(http, tmpInMemoryLinkedPropertyDb)
   lazy val fileUploadConnector = new FileUploadConnector(http)
   lazy val ratesBillVerificationConnector = new RatesBillVerificationConnector(http)
+  lazy val tmpInMemoryAccountDb = scala.collection.mutable.HashMap[String, Account]()
+  lazy val tmpInMemoryLinkedPropertyDb = scala.collection.mutable.HashMap[Account, LinkedProperties]()
+  lazy val tmpInMemoryPropertyRepresentationDb = scala.collection.mutable.ArrayBuffer[PropertyRepresentation]()
 }
 
 class VPLSessionCache(httpc: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {

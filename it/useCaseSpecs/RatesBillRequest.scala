@@ -1,5 +1,7 @@
 package useCaseSpecs
 
+import config.Wiring
+import controllers.Account
 import useCaseSpecs.utils._
 
 class RatesBillRequest extends FrontendTest {
@@ -7,7 +9,8 @@ class RatesBillRequest extends FrontendTest {
 
   "Given an interested person was unable to self certify for a property" - {
     implicit val sid: SessionID = java.util.UUID.randomUUID.toString
-    implicit val aid: AccountID = "sdfksjdlf342"
+    implicit val aid: AccountID = accountId
+    Wiring().tmpInMemoryAccountDb(accountId) = Account(accountId, false)
     HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration)))
 
     "When they arrive at the rates bill request page" - {
@@ -34,7 +37,7 @@ class RatesBillRequest extends FrontendTest {
 
     "But if they supply a rates bill that cannot be immediately verified" - {
       implicit val sid: SessionID = java.util.UUID.randomUUID.toString
-      implicit val aid: AccountID = "3874sjflkaj234"
+      implicit val aid: AccountID = accountId
       HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration)))
       HTTP.stubRatesBillCheck(baRef, invalidRatesBill, ratesBillAccepted = false)
       HTTP.stubFileUpload(aid, sid, "ratesBill", ("ratesbill.pdf", invalidRatesBill))
@@ -51,7 +54,7 @@ class RatesBillRequest extends FrontendTest {
 
     "However, if they specify they do not have a rates bill & the property can receive mail" - {
       implicit val sid: SessionID = java.util.UUID.randomUUID.toString
-      implicit val aid: AccountID = "93ddreqejkasdfasd"
+      implicit val aid: AccountID = accountId
       HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration)))
       val result = Page.postValid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doesnothaveratesbill")
 
@@ -66,7 +69,7 @@ class RatesBillRequest extends FrontendTest {
 
     "However, if they specify they do not have a rates bill & the property cannot receive mail" - {
       implicit val sid: SessionID = java.util.UUID.randomUUID.toString
-      implicit val aid: AccountID = "93ddreqejkasdfasd"
+      implicit val aid: AccountID = accountId
       HTTP.stubKeystoreSession(SessionDocument(nonSelfCertNoMailProperty, Some(declaration)))
       val result = Page.postValid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doesnothaveratesbill")
 
@@ -81,7 +84,7 @@ class RatesBillRequest extends FrontendTest {
 
     "When they do not supply valid response" - {
       implicit val sid: SessionID = java.util.UUID.randomUUID.toString
-      implicit val aid: AccountID = "bbkljier2333as"
+      implicit val aid: AccountID = accountId
       HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration)))
       HTTP.stubFileUploadWithNoFile(aid, sid, "ratesBill")
       val page = Page.postInvalid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doeshaveratesbill")
@@ -99,6 +102,7 @@ class RatesBillRequest extends FrontendTest {
   object TestData {
     lazy val baRef = "34asdf23423"
     lazy val uarn = "uarn11"
+    lazy val accountId = "sdfksjdlf342"
     lazy val address = Address(Seq("Hooooohhhhhhaaaaaqaaaeeee"), "AA11 1AA")
     lazy val nonSelfCertProperty = Property(uarn, baRef, address, isSelfCertifiable = false, true)
     lazy val nonSelfCertNoMailProperty = Property(uarn, baRef, address, isSelfCertifiable = false, canReceiveMail = false)

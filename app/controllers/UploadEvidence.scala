@@ -50,13 +50,13 @@ object UploadEvidence extends PropertyLinkingController {
   private def requestLink(implicit r: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(r.ses.claimedProperty.uarn,
       r.ses.claimedProperty.billingAuthorityReference,
-      r.accountId, LinkToProperty(r.ses.declaration.getOrElse(throw new Exception("No declaration"))),
+      r.account, LinkToProperty(r.ses.declaration.getOrElse(throw new Exception("No declaration"))),
       java.util.UUID.randomUUID.toString
     )
 
   private def verifyUploadedFiles(implicit r: LinkingSessionRequest[AnyContent]) = {
     uploadConnector.retrieveFiles(
-      r.accountId, r.sessionId, "evidence",
+      r.account.companyName, r.sessionId, "evidence",
       if (Environment.isDev || Environment.isProd) r.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence")) else Seq.empty
     ).map(x => if (x.length >= 1 && x.length <=3) FilesAccepted else FilesRejected)
   }

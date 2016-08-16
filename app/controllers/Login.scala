@@ -26,22 +26,28 @@ object Login extends PropertyLinkingController {
   val cache = Wiring().sessionCache
 
   def show() = Action { implicit request =>
-    Ok(views.html.login(LoginVM(loginForm)))
+    Ok(views.html.login(LoginVM(loginForm, Wiring().tmpInMemoryAccountDb.values.toSeq)))
   }
 
   def submit() = Action.async { implicit request =>
     loginForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.login(LoginVM(errors))),
-      formData => cache.fetchAndGetEntry[Seq[Account]](accountsFormId) map {
-        case Some(accounts) if accounts.contains(formData) => Redirect(routes.Dashboard.home())
-        case _ => BadRequest(views.html.login(LoginVM(loginForm.withError("companyName", "error.login.invalid"))))
+      errors => BadRequest(views.html.login(LoginVM(errors, Wiring().tmpInMemoryAccountDb.values.toSeq))),
+      account => {
+        if (Wiring().tmpInMemoryAccountDb.contains(account.companyName))
+          Redirect(routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
+        else
+          BadRequest(views.html.login(LoginVM(loginForm.withError("companyName", "error.login.invalid"), Wiring().tmpInMemoryAccountDb.values.toSeq)))
       }
     )
   }
 
-  lazy val loginForm = Form(mapping(
-    "companyName" -> nonEmptyText
-  )(Account.apply)(Account.unapply))
+  lazy val loginForm = Form(
+    mapping(
+      "companyName" -> nonEmptyText
+    )
+    ((name ) => Wiring().tmpInMemoryAccountDb.getOrElse(name, Account("notFound", false)))
+    (acc => Some(acc.companyName))
+  )
 }
 
-case class LoginVM(form: Form[_])
+case class LoginVM(form: Form[_], accounts: Seq[Account])

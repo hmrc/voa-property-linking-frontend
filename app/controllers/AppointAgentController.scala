@@ -29,7 +29,7 @@ object AppointAgentController extends PropertyLinkingController {
   val propertyRepresentationConnector = Wiring().propertyRepresentationConnector
 
   def add(uarn: String) = WithAuthentication.async { implicit request =>
-    propertyRepresentationConnector.get(request.accountId, uarn).map(reprs => {
+    propertyRepresentationConnector.get(request.account.companyName, uarn).map(reprs => {
       if (reprs.nonEmpty)
         Ok(views.html.agent.alreadyAppointedAgent(uarn))
       else
@@ -38,7 +38,7 @@ object AppointAgentController extends PropertyLinkingController {
   }
 
   def edit(uarn: String) = WithAuthentication.async { implicit request =>
-    propertyRepresentationConnector.get(request.accountId, uarn).map(reprs => {
+    propertyRepresentationConnector.get(request.account.companyName, uarn).map(reprs => {
       if (reprs.size > 1)
         Ok(views.html.agent.selectAgent(reprs))
       else {
@@ -49,7 +49,7 @@ object AppointAgentController extends PropertyLinkingController {
   }
 
   def select(uarn: String) = WithAuthentication.async{implicit request =>
-    propertyRepresentationConnector.get(request.accountId, uarn).map(reprs => {
+    propertyRepresentationConnector.get(request.account.companyName, uarn).map(reprs => {
       Ok(views.html.agent.selectAgent(reprs))
     })
   }
@@ -62,7 +62,7 @@ object AppointAgentController extends PropertyLinkingController {
     appointAgentForm.bindFromRequest().fold(
       errors => BadRequest(views.html.agent.appointAgent(AppointAgentVM(errors, uarn))),
       agent => {
-        val reprRequest = PropertyRepresentation(java.util.UUID.randomUUID().toString, agent.agentCode, request.accountId,
+        val reprRequest = PropertyRepresentation(java.util.UUID.randomUUID().toString, agent.agentCode, request.account.companyName,
           uarn, agent.canCheck, agent.canChallenge, false)
         propertyRepresentationConnector.create(reprRequest).map(_ => Ok(views.html.agent.appointedAgent()))
       }
@@ -70,7 +70,7 @@ object AppointAgentController extends PropertyLinkingController {
   }
 
   def modify(uarn: String, agentCode:String) = WithAuthentication.async{ implicit request =>
-    propertyRepresentationConnector.get(request.accountId, uarn).map( propReps => {
+    propertyRepresentationConnector.get(request.account.companyName, uarn).map( propReps => {
       val form = propReps.filter(_.agentId ==agentCode)
         .headOption
         .map(repr => {
@@ -87,7 +87,7 @@ object AppointAgentController extends PropertyLinkingController {
     appointAgentForm.bindFromRequest().fold(
       errors => BadRequest(views.html.agent.modifyAgent(ModifyAgentVM(errors, uarn, reprId))),
       agent => {
-        val reprRequest = PropertyRepresentation(reprId, agent.agentCode, request.accountId,
+        val reprRequest = PropertyRepresentation(reprId, agent.agentCode, request.account.companyName,
           uarn, agent.canCheck, agent.canChallenge, false)
         propertyRepresentationConnector.update(reprRequest).map(_ => Ok(views.html.agent.modifiedAgent()))
       }
