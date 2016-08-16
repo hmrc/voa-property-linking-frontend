@@ -41,8 +41,10 @@ object AppointAgentController extends PropertyLinkingController {
     propertyRepresentationConnector.get(request.accountId, uarn).map(reprs => {
       if (reprs.size > 1)
         Ok(views.html.agent.selectAgent(reprs))
-      else
-        Ok(views.html.agent.appointAgent(AppointAgentVM(appointAgentForm, uarn)))
+      else {
+        val form = appointAgentForm.fill(AppointAgent(reprs(0).agentId, reprs(0).canCheck, reprs(0).canChallenge))
+        Ok(views.html.agent.modifyAgent(ModifyAgentVM(form, uarn, reprs(0).representationId)))
+      }
     })
   }
 
