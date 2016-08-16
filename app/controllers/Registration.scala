@@ -22,6 +22,9 @@ import play.api.data.Forms._
 import play.api.mvc.Action
 import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
 import serialization.JsonFormats._
+import uk.gov.hmrc.http.cache.client.CacheMap
+
+import scala.concurrent.Future
 
 object Registration extends PropertyLinkingController {
 
@@ -35,13 +38,16 @@ object Registration extends PropertyLinkingController {
     registerForm.bindFromRequest().fold(
       errors => BadRequest(views.html.register(RegisterVM(errors))),
       // TODO - the accountId will be eventually be supplied by the login mechanism and not dumped in the session
-      formData => registerAccount(formData) map { _ =>
-        Redirect(routes.Dashboard.home()).addingToSession("accountId" -> formData.companyName)
+      account => {
+        Wiring().tmpInMemoryAccountDb += account
+        //registerAccount(account) map { _ =>
+        Redirect(routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
+        //}
       }
     )
   }
 
-  def registerAccount(account: Account)(implicit hc: HeaderCarrier) = {
+  def registerAccount(account: Account)(implicit hc: HeaderCarrier): Future[CacheMap] = {
     val a = cache.fetchAndGetEntry[Seq[Account]](accountsFormId) map {
       case Some(accounts) => accounts ++ Seq(account)
       case None => Seq(account)

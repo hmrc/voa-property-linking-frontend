@@ -26,15 +26,17 @@ object Login extends PropertyLinkingController {
   val cache = Wiring().sessionCache
 
   def show() = Action { implicit request =>
-    Ok(views.html.login(LoginVM(loginForm)))
+    Ok(views.html.login(LoginVM(loginForm, Wiring().tmpInMemoryAccountDb.toSeq)))
   }
 
   def submit() = Action.async { implicit request =>
     loginForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.login(LoginVM(errors))),
-      formData => cache.fetchAndGetEntry[Seq[Account]](accountsFormId) map {
-        case Some(accounts) if accounts.contains(formData) => Redirect(routes.Dashboard.home())
-        case _ => BadRequest(views.html.login(LoginVM(loginForm.withError("companyName", "error.login.invalid"))))
+      errors => BadRequest(views.html.login(LoginVM(errors, Wiring().tmpInMemoryAccountDb.toSeq))),
+      account => {
+        if (Wiring().tmpInMemoryAccountDb.contains(account))
+          Redirect(routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
+        else
+          BadRequest(views.html.login(LoginVM(loginForm.withError("companyName", "error.login.invalid"), Wiring().tmpInMemoryAccountDb.toSeq)))
       }
     )
   }
@@ -44,4 +46,4 @@ object Login extends PropertyLinkingController {
   )(Account.apply)(Account.unapply))
 }
 
-case class LoginVM(form: Form[_])
+case class LoginVM(form: Form[_], accounts: Seq[Account])

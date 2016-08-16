@@ -22,9 +22,11 @@ import uk.gov.hmrc.http.cache.client.{CacheMap, SessionCache}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 
+import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyRepresentationConnector(http: HttpGet with HttpPut, cache: SessionCache)(implicit ec: ExecutionContext) extends ServicesConfig {
+class PropertyRepresentationConnector(http: HttpGet with HttpPut, cache: ArrayBuffer[PropertyRepresentation])(implicit ec: ExecutionContext)
+  extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
   implicit val rds: HttpReads[Unit] = new HttpReads[Unit] {
@@ -35,7 +37,12 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut, cache: Session
     val url = baseUrl + s"/property-representations/${userId}/${uarn}"
     http.GET[Seq[PropertyRepresentation]](url)
       .recoverWith {
-        case _ => existingPropertyRepresentations
+        case _ => {
+          val tmp: Seq[PropertyRepresentation] = cache.toSeq
+            .filter(_.userId == userId)
+            .filter(_.uarn == uarn)
+          Future.successful(tmp)
+        }
       }
   }
 
@@ -43,27 +50,19 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut, cache: Session
     val url = baseUrl + s"TODO"
     http.PUT[PropertyRepresentation, Unit](url, reprRequest)
       .recoverWith{ case _ =>
-        existingPropertyRepresentations flatMap (reprs => {
-            cache.cache("propertyrepresentations", reprs ++ Seq(reprRequest)).map(_ => ())
-          }
-        )
-    }
+        cache += reprRequest
+        Future.successful(cache)
+      }
   }
   def update(reprRequest: PropertyRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"TODO"
     http.PUT[PropertyRepresentation, Unit](url, reprRequest)
       .recoverWith{ case _ =>
-        existingPropertyRepresentations flatMap (reprs => {
-          val updatedReprs = reprs.filter(repr => repr.representationId != reprRequest.representationId) ++ Seq(reprRequest)
-          cache.cache("propertyrepresentations", updatedReprs).map(_ => ())
-        })
-      }
+        val idx = cache.indexWhere(_.representationId == reprRequest.representationId)
+          cache(idx) = reprRequest
+          Future.successful(cache)
+        }
   }
 
-  def existingPropertyRepresentations(implicit hc: HeaderCarrier) = {
-    cache.fetchAndGetEntry[Seq[PropertyRepresentation]]("propertyrepresentations")
-      .map( _.getOrElse(Seq[PropertyRepresentation]() ))
-
-  }
 }
 

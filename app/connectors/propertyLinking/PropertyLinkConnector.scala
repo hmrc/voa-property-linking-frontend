@@ -16,8 +16,12 @@
 
 package connectors.propertyLinking
 
+import config.Wiring
+
+import scala.collection.mutable.{HashMap => mMap}
 import connectors.{PrototypeTestData, ServiceContract}
 import connectors.ServiceContract.{LinkedProperties, PendingPropertyLink, PropertyLink}
+import controllers.Account
 import models.CapacityType
 import org.joda.time.DateTime
 import serialization.JsonFormats
@@ -30,7 +34,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 
 
-class PropertyLinkConnector(http: HttpGet with HttpPut, cache: SessionCache)(implicit ec: ExecutionContext) extends ServicesConfig with JsonHttpReads {
+class PropertyLinkConnector(http: HttpGet with HttpPut, cache: mMap[Account, LinkedProperties])(implicit ec: ExecutionContext)
+  extends ServicesConfig with JsonHttpReads {
   implicit val fmt = JsonFormats.linkedProperties
   private val url = baseUrl("property-linking") + "/property-links"
 
@@ -50,18 +55,27 @@ class PropertyLinkConnector(http: HttpGet with HttpPut, cache: SessionCache)(imp
             prop.address.lines.head + ", " + prop.address.postcode, uarn, billingAuthorityRef, request.capacityDeclaration.capacity.name,
             DateTime.now, Seq(2009, 20015)
           )
-          linkedProperties(accountId).flatMap(ps => cache.cache("linkedproperties", ps.copy(added = ps.added :+ x))).map(_ => ())
+          linkedProperties(accountId).flatMap(ps =>
+            Future.successful(Wiring().tmpInMemoryLinkedPropertyDb(Account(accountId)) = ps.copy(added=ps.added :+ x)))
+            .map(_ => ())
         } else {
           val x = PendingPropertyLink(
-            prop.address.lines.head + ", " + prop.address.postcode, uarn, billingAuthorityRef, request.capacityDeclaration.capacity.name, DateTime.now
+            prop.address.lines.head + ", " + prop.address.postcode, uarn,
+            billingAuthorityRef, request.capacityDeclaration.capacity.name, DateTime.now
           )
-          linkedProperties(accountId).flatMap(ps => cache.cache("linkedproperties", ps.copy(pending = ps.pending :+ x))).map(_ => ())
+          linkedProperties(accountId).flatMap(ps =>
+            Future.successful(Wiring().tmpInMemoryLinkedPropertyDb(Account(accountId))= ps.copy(pending = ps.pending :+ x)))
+            .map(_ => ())
         }
     }
 
   def linkedProperties(accountId: String)(implicit hc: HeaderCarrier): Future[ServiceContract.LinkedProperties] =
     http.GET[ServiceContract.LinkedProperties](s"$url/$accountId").recoverWith {
       // TODO -  use caching for temporary prototype persistence
-      case _ => cache.fetchAndGetEntry[LinkedProperties]("linkedproperties").map(_.getOrElse(LinkedProperties(Seq.empty, Seq.empty)))
+      case _ => {
+        val ret = Wiring().tmpInMemoryLinkedPropertyDb.getOrElse(Account(accountId), LinkedProperties(Seq.empty, Seq.empty))
+        //cache.fetchAndGetEntry[LinkedProperties]("linkedproperties").map(_.getOrElse(LinkedProperties(Seq.empty, Seq.empty)))
+        Future.successful(ret)
+      }
     }
 }
