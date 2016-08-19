@@ -17,6 +17,7 @@
 package connectors
 
 import ServiceContract.PropertyRepresentation
+import play.api.libs.json.{JsNull, JsValue}
 import serialization.JsonFormats._
 import uk.gov.hmrc.http.cache.client.{CacheMap, SessionCache}
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -46,21 +47,50 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut, cache: ArrayBu
       }
   }
 
+  def forAgent(agentId: String)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
+    //TODO: Call the backend
+    Future.successful(cache.filter(_.agentId == agentId))
+  }
+
   def create(reprRequest: PropertyRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"TODO"
     http.PUT[PropertyRepresentation, Unit](url, reprRequest)
       .recoverWith{ case _ =>
         cache += reprRequest
-        Future.successful(cache)
+        Future.successful(Nil)
       }
   }
+
+  def accept(reprId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
+    val url = baseUrl + s"TODO"
+    http.PUT[JsValue,   Unit](url, JsNull)
+      .recoverWith{ case _ =>
+        val idx = cache.indexWhere(repr => repr.representationId == reprId)
+        if (idx != -1)
+          cache(idx) = cache(idx).copy(pending = false )
+        Future.successful(Nil)
+      }
+  }
+
+  def reject(reprId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
+    val url = baseUrl + s"TODO"
+    http.PUT[JsValue, Unit](url, JsNull)
+      .recoverWith{ case _ =>
+        val idx = cache.indexWhere(repr => repr.representationId == reprId)
+        if (idx != -1)
+          cache.remove(idx)
+        Future.successful(Nil)
+      }
+  }
+
   def update(reprRequest: PropertyRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"TODO"
     http.PUT[PropertyRepresentation, Unit](url, reprRequest)
+
       .recoverWith{ case _ =>
         val idx = cache.indexWhere(_.representationId == reprRequest.representationId)
           cache(idx) = reprRequest
-          Future.successful(cache)
+          Future.successful(Nil)
         }
   }
 

@@ -1,0 +1,48 @@
+@import controllers.agent.Representation.ManagePropertiesVM
+
+@(model: ManagePropertiesVM)(implicit request: Request[_])
+
+@main(Messages("agent.dashboard.manageProperties.title")) {
+    <main id="content">
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <h1 class="form-title heading-xlarge">
+                    <span class="section-title">@Messages("agent.dashboard.manageProperties.title")</span>
+                </h1>
+            </div>
+        </div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>UserId</td>
+                    <td>UARN</td>
+                    <td>canCheck</td>
+                    <td>canChallenge</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                @model.propertyRepresentations.map{p =>
+                    <tr>
+                        <td>@p.userId</td>
+                        <td>@p.uarn</td>
+                        <td>@p.canCheck</td>
+                        <td>@p.canChallenge</td>
+                        <td>
+                            <a class="button" href=@controllers.agent.routes.Representation.accept(p.representationId)>
+                                @Messages("agent.dashboard.manageProperties.accept")
+                            </a>
+                        </td>
+                        <td>
+                            <a class="button" href=@controllers.agent.routes.Representation.reject(p.representationId)>
+                                @Messages("agent.dashboard.manageProperties.reject")
+                            </a>
+
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </main>
+}

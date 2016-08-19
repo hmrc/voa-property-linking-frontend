@@ -1,48 +1,55 @@
 #Start
-GET     /                                     controllers.Application.index()
+GET     /                                              controllers.Application.index()
 
 #Registration
-GET     /login                                controllers.Login.show()
-POST    /login                                controllers.Login.submit()
-GET     /logout                               controllers.Application.logOut()
-GET     /register                             controllers.Registration.show()
-POST    /register                             controllers.Registration.submit()
+GET     /login                                         controllers.Login.show()
+POST    /login                                         controllers.Login.submit()
+GET     /logout                                        controllers.Application.logOut()
+GET     /register                                      controllers.Registration.show()
+POST    /register                                      controllers.Registration.submit()
 
 #Dashboard
-GET     /home                                 controllers.Dashboard.home()
-GET     /manage-properties                    controllers.Dashboard.manageProperties()
+GET     /home                                          controllers.Dashboard.home()
+GET     /manage-properties                             controllers.Dashboard.manageProperties()
 
 #Search and Link
-GET     /property-search                      controllers.Search.show()
-GET     /link-to-property/:baref              controllers.Search.declareCapacity(baref)
-POST    /link-to-property                     controllers.Search.attemptLink()
+GET     /property-search                               controllers.Search.show()
+GET     /link-to-property/:baref                       controllers.Search.declareCapacity(baref)
+POST    /link-to-property                              controllers.Search.attemptLink()
 
 #Link scenarios
-GET     /self-certify                         controllers.SelfCertification.show()
-POST    /confirm-self-certify                 controllers.SelfCertification.submit()
-GET     /supply-rates-bill                    controllers.UploadRatesBill.show()
-POST    /supply-rates-bill                    controllers.UploadRatesBill.submit()
-GET     /upload-evidence                      controllers.UploadEvidence.show()
-POST    /upload-evidence                      controllers.UploadEvidence.submit()
+GET     /self-certify                                  controllers.SelfCertification.show()
+POST    /confirm-self-certify                          controllers.SelfCertification.submit()
+GET     /supply-rates-bill                             controllers.UploadRatesBill.show()
+POST    /supply-rates-bill                             controllers.UploadRatesBill.submit()
+GET     /upload-evidence                               controllers.UploadEvidence.show()
+POST    /upload-evidence                               controllers.UploadEvidence.submit()
 
 #Linking outcomes
-GET     /self-certification-link-authorised   controllers.SelfCertification.linkAuthorised()
-GET     /rates-bill-approved                  controllers.UploadRatesBill.ratesBillApproved()
-GET     /rates-bill-approval-pending          controllers.UploadRatesBill.ratesBillPending()
-GET     /evidence-uploaded                    controllers.UploadEvidence.evidenceUploaded()
-GET     /no-evidence-uploaded                 controllers.UploadEvidence.noEvidenceUploaded()
-GET     /manual-verification-required         controllers.LinkErrors.manualVerificationRequired()
-GET     /linking-conflict                     controllers.LinkErrors.conflict()
-GET     /postcode-verification-required       controllers.LinkErrors.postcodeVerificationRequired()
-GET     /pin-postal-process                   controllers.LinkErrors.pinPostalProcess()
+GET     /self-certification-link-authorised            controllers.SelfCertification.linkAuthorised()
+GET     /rates-bill-approved                           controllers.UploadRatesBill.ratesBillApproved()
+GET     /rates-bill-approval-pending                   controllers.UploadRatesBill.ratesBillPending()
+GET     /evidence-uploaded                             controllers.UploadEvidence.evidenceUploaded()
+GET     /no-evidence-uploaded                          controllers.UploadEvidence.noEvidenceUploaded()
+GET     /manual-verification-required                  controllers.LinkErrors.manualVerificationRequired()
+GET     /linking-conflict                              controllers.LinkErrors.conflict()
+GET     /postcode-verification-required                controllers.LinkErrors.postcodeVerificationRequired()
+GET     /pin-postal-process                            controllers.LinkErrors.pinPostalProcess()
 
-GET     /agent/add/:uarn                      controllers.AppointAgentController.add(uarn)
-GET     /agent/edit/:uarn                     controllers.AppointAgentController.edit(uarn)
-GET     /agent/appoint/:uarn                  controllers.AppointAgentController.appoint(uarn)
-POST    /agent/appoint/:uarn                  controllers.AppointAgentController.appointSubmit(uarn)
-GET     /agent/modify/:uarn/:reprId           controllers.AppointAgentController.modify(uarn, reprId)
-POST    /agent/modify/:uarn/:reprId           controllers.AppointAgentController.modifySubmit(uarn, reprId)
-GET     /agent/select/:uarn                   controllers.AppointAgentController.select(uarn)
+GET     /representation-request/add/:uarn              controllers.AppointAgentController.add(uarn)
+GET     /representation-request/edit/:uarn             controllers.AppointAgentController.edit(uarn)
+GET     /representation-request/appoint/:uarn          controllers.AppointAgentController.appoint(uarn)
+POST    /representation-request/appoint/:uarn          controllers.AppointAgentController.appointSubmit(uarn)
+GET     /representation-request/modify/:uarn/:reprId   controllers.AppointAgentController.modify(uarn, reprId)
+POST    /representation-request/modify/:uarn/:reprId   controllers.AppointAgentController.modifySubmit(uarn, reprId)
+GET     /representation-request/select/:uarn           controllers.AppointAgentController.select(uarn)
+
+#AGENT
+#Dashboard
+GET     /agent/home                                    controllers.agent.Dashboard.home()
+GET     /agent/representation-request                  controllers.agent.Representation.manageRepresentationRequest()
+GET     /agent/representation-request/accept/:reprId   controllers.agent.Representation.accept(reprId)
+GET     /agent/representation-request/reject/:reprId   controllers.agent.Representation.reject(reprId)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                         controllers.Assets.at(path="/public", file)

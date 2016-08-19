@@ -33,9 +33,12 @@ object Login extends PropertyLinkingController {
     loginForm.bindFromRequest().fold(
       errors => BadRequest(views.html.login(LoginVM(errors, Wiring().tmpInMemoryAccountDb.values.toSeq))),
       account => {
-        if (Wiring().tmpInMemoryAccountDb.contains(account.companyName))
-          Redirect(routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
-        else
+        if (Wiring().tmpInMemoryAccountDb.contains(account.companyName)) {
+          if (account.isAgent)
+            Redirect(controllers.agent.routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
+          else
+            Redirect(routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
+        } else
           BadRequest(views.html.login(LoginVM(loginForm.withError("companyName", "error.login.invalid"), Wiring().tmpInMemoryAccountDb.values.toSeq)))
       }
     )

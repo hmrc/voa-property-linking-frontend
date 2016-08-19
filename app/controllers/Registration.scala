@@ -40,7 +40,10 @@ object Registration extends PropertyLinkingController {
       // TODO - the accountId will be eventually be supplied by the login mechanism and not dumped in the session
       account => {
         Wiring().tmpInMemoryAccountDb(account.companyName) = account
-        Redirect(routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
+        if (account.isAgent)
+          Redirect(controllers.agent.routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
+        else
+          Redirect(routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
       }
     )
   }

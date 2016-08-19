@@ -46,7 +46,15 @@ abstract class Wiring {
   lazy val ratesBillVerificationConnector = new RatesBillVerificationConnector(http)
   lazy val tmpInMemoryAccountDb = scala.collection.mutable.HashMap[String, Account]()
   lazy val tmpInMemoryLinkedPropertyDb = scala.collection.mutable.HashMap[Account, LinkedProperties]()
-  lazy val tmpInMemoryPropertyRepresentationDb = scala.collection.mutable.ArrayBuffer[PropertyRepresentation]()
+  lazy val tmpInMemoryPropertyRepresentationDb = scala.collection.mutable.ArrayBuffer[PropertyRepresentation](
+    PropertyRepresentation(java.util.UUID.randomUUID().toString, "aaa", "bbb", "uarn1", true, true, true),
+    PropertyRepresentation(java.util.UUID.randomUUID().toString, "aaa", "bbb", "uarn1", true, true, true),
+    PropertyRepresentation(java.util.UUID.randomUUID().toString, "aaa", "bbb", "uarn1", true, true, true),
+    PropertyRepresentation(java.util.UUID.randomUUID().toString, "aaa", "bbb", "uarn3", true, true, true),
+    PropertyRepresentation(java.util.UUID.randomUUID().toString, "aaa", "bbb", "uarn3", true, true, true),
+    PropertyRepresentation(java.util.UUID.randomUUID().toString, "aaa", "bbb", "uarn4", true, true, true)
+
+  )
 }
 
 class VPLSessionCache(httpc: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {

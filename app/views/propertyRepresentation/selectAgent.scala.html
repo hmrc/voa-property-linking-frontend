@@ -5,23 +5,24 @@
 
 @(propertyRepresentations: Seq[PropertyRepresentation])(implicit request: Request[_])
 
-@main(Messages("agent.selectAgent.title")) {
+@main(Messages("propertyRepresentation.selectAgent.title")) {
 
     <main id="content">
         <div class="grid-row">
             <div class="column-two-thirds">
                 <h1 class="form-title heading-xlarge">
-                    <span class="section-title">@Messages("agent.selectAgent.title")</span>
+                    <span class="section-title">@Messages("propertyRepresentation.selectAgent.title")</span>
                 </h1>
             </div>
         </div>
-        <p>@Messages("agent.selectAgent.message")</p>
+        <p>@Messages("propertyRepresentation.selectAgent.message")</p>
         <table class="table">
             <tbody>
                 <tr>
-                    <th>@Messages("agent.selectAgent.table.1")</th>
-                    <th>@Messages("agent.selectAgent.table.2")</th>
-                    <th>@Messages("agent.selectAgent.table.3")</th>
+                    <th>@Messages("propertyRepresentation.selectAgent.table.1")</th>
+                    <th>@Messages("propertyRepresentation.selectAgent.table.2")</th>
+                    <th>@Messages("propertyRepresentation.selectAgent.table.3")</th>
+                    <th>@Messages("propertyRepresentation.selectAgent.table.4")</th>
                 </tr>
                 @propertyRepresentations.map{propRep =>
                     <tr>
@@ -30,6 +31,12 @@
                         </td>
                         <td>@propRep.canCheck</td>
                         <td>@propRep.canChallenge</td>
+                        <td>@if(propRep.pending){
+                            @Messages("propertyRepresentation.selectAgent.status.pending")
+                        }else{
+                            @Messages("propertyRepresentation.selectAgent.status.accepted")
+                        }
+                        </td>
                     </tr>
                 }
             </tbody>
