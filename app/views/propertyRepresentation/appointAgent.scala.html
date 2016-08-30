@@ -2,25 +2,25 @@
 @import helpers._
 @import _root_.template.Display
 
-@import controllers.AppointAgentController.ModifyAgentVM
-@(model: ModifyAgentVM)(implicit request: Request[_])
+@import controllers.AppointAgentController.AppointAgentVM
+@(model: AppointAgentVM)(implicit request: Request[_])
 
-@main(Messages("agent.modifyAgent.title")) {
+@main(Messages("propertyRepresentation.appointAgent.title")) {
 
     <main id="content">
         <div class="grid-row">
             <div class="column-two-thirds">
                 <h1 class="form-title heading-xlarge">
-                    <span class="section-title">@Messages("agent.modifyAgent.title")</span>
+                    <span class="section-title">@Messages("propertyRepresentation.appointAgent.title")</span>
                 </h1>
             </div>
         </div>
-        <p>@Messages("agent.modifyAgent.message.1")</p>
-        <p>@Messages("agent.modifyAgent.message.2")</p>
-        @form(routes.AppointAgentController.modifySubmit(model.uarn, model.representationId)) {
+        <p>@Messages("propertyRepresentation.appointAgent.message.1")</p>
+        <p>@Messages("propertyRepresentation.appointAgent.message.2")</p>
+        @form(routes.AppointAgentController.appointSubmit(model.uarn)) {
             @inputText(
                 field = model.form("agentCode"),
-                '_label -> Messages("agent.modifyAgent.agentCode"),
+                '_label -> Messages("propertyRepresentation.appointAgent.agentCode"),
                 '_error -> model.form("agentCode").error,
                 '_labelClass -> "form-label-bold",
                 '_showConstraints -> false,
@@ -44,7 +44,7 @@
                     '_error -> model.form("canChallenge").error
                 )
             )
-            <button type="submit" class="button">@Messages("agent.modifyAgent.button")</button>
+            <button type="submit" class="button">@Messages("propertyRepresentation.appointAgent.button")</button>
         }
     </main>
 

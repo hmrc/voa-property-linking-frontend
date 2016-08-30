@@ -26,42 +26,45 @@ dashboard.managedProperties.searchLinkText=Add another property
 dashboard.addAgent=Add agent
 dashboard.editAgent=Edit agent
 
-#AGENT
-agent.appointAgent.title=Appoint Agent
-agent.appointAgent.message.1=Please enter the code of the agent you wish to appoint.
-agent.appointAgent.message.2=If you do not have this code, please ask your agent to provide it.
-agent.appointAgent.agentCode=Agent code
-agent.appointAgent.button=Submit
+#PROPERTY REPRESENTATION
+propertyRepresentation.appointAgent.title=Appoint Agent
+propertyRepresentation.appointAgent.message.1=Please enter the code of the agent you wish to appoint.
+propertyRepresentation.appointAgent.message.2=If you do not have this code, please ask your agent to provide it.
+propertyRepresentation.appointAgent.agentCode=Agent code
+propertyRepresentation.appointAgent.button=Submit
 canCheck.label=Permission for Check
 canCheck.true=Yes
 canCheck.false=No
 canChallenge.label=Permission for Challenge
 canChallenge.true=Yes
 canChallenge.false=No
-agent.modifyAgent.title=Manage agent relationship
-agent.modifyAgent.message.1=Please enter the code of the agent you wish to modify.
-agent.modifyAgent.message.2=If you do not have this code, please ask your Agent to provide it.
-agent.modifyAgent.agentCode=Agent code
-agent.modifyAgent.button=Submit
+propertyRepresentation.modifyAgent.title=Manage agent relationship
+propertyRepresentation.modifyAgent.message.1=Please enter the code of the agent you wish to modify.
+propertyRepresentation.modifyAgent.message.2=If you do not have this code, please ask your Agent to provide it.
+propertyRepresentation.modifyAgent.agentCode=Agent code
+propertyRepresentation.modifyAgent.button=Submit
 
-agent.appointedAgent.title=Agent nomination successful
-agent.appointedAgent.message.1=Your nomination has been received and the agent has been notified.
-agent.appointedAgent.message.2=The agent you have nominated will be asked to review and accept your nomination.
-agent.modifiedAgent.title=Agent nomination changes accepted
-agent.modifiedAgent.message.1=Your changes have been applied.
-agent.modifiedAgent.message.2=The agent has been notified of the changes.
+propertyRepresentation.appointedAgent.title=Agent nomination successful
+propertyRepresentation.appointedAgent.message.1=Your nomination has been received and the agent has been notified.
+propertyRepresentation.appointedAgent.message.2=The agent you have nominated will be asked to review and accept your nomination.
+propertyRepresentation.modifiedAgent.title=Agent nomination changes accepted
+propertyRepresentation.modifiedAgent.message.1=Your changes have been applied.
+propertyRepresentation.modifiedAgent.message.2=The agent has been notified of the changes.
 
-agent.alreadyAppointedAgent.title=Existing Agent Nomination Detected
-agent.alreadyAppointedAgent.message.1=There is already an Agent for this assessment.
-agent.alreadyAppointedAgent.message.2=Would you like to edit the existing agent authorisation or continue with appointing a new agent?
-agent.alreadyAppointedAgent.edit=Edit existing
-agent.alreadyAppointedAgent.continue=Add new agent
+propertyRepresentation.alreadyAppointedAgent.title=Existing Agent Nomination Detected
+propertyRepresentation.alreadyAppointedAgent.message.1=There is already an Agent for this assessment.
+propertyRepresentation.alreadyAppointedAgent.message.2=Would you like to edit the existing agent authorisation or continue with appointing a new agent?
+propertyRepresentation.alreadyAppointedAgent.edit=Edit existing
+propertyRepresentation.alreadyAppointedAgent.continue=Add new agent
 
-agent.selectAgent.title=Select Agent
-agent.selectAgent.message=Please select which Agent relationship you wish to manage
-agent.selectAgent.table.1=Agent code
-agent.selectAgent.table.2=Can check
-agent.selectAgent.table.3=Can challenge
+propertyRepresentation.selectAgent.title=Select Agent
+propertyRepresentation.selectAgent.message=Please select which Agent relationship you wish to manage
+propertyRepresentation.selectAgent.table.1=Agent code
+propertyRepresentation.selectAgent.table.2=Can check
+propertyRepresentation.selectAgent.table.3=Can challenge
+propertyRepresentation.selectAgent.table.4=Status
+propertyRepresentation.selectAgent.status.pending=Pending
+propertyRepresentation.selectAgent.status.accepted=Accepted
 
 #SEARCH
 search.title=Search and select a property to add to your account
@@ -170,3 +173,12 @@ label.beta=BETA
 label.checkTheForm=Check the form
 label.fixTheFollowing=Fix the following:
 logout.link=Log out
+
+#DASHBOARD HOME
+agent.dashboard.home.title=Agent Dashboard Home
+agent.dashboard.home.manageRepresentationRequest.link=Review all outstanding nominations
+agent.dashboard.manageProperties.title=Agent Nominations
+agent.dashboard.manageProperties.accept=Accept
+agent.dashboard.manageProperties.reject=Reject
+agent.dashboard.manageProperties.acceptAll=Accept all
+agent.dashboard.manageProperties.rejectAll=Reject all

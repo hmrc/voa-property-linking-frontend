@@ -21,6 +21,15 @@
                         '_showConstraints -> false,
                         'class -> "form-control"
                     )
+                    @inputRadioGroup(
+                        field = model.form("isAgent"),
+                        options = Seq("true", "false"),
+                        args = Seq(
+                            '_label -> Messages("isAgent.label"),
+                            '_labelClass -> "form-label-bold",
+                            '_error -> model.form("isAgent").error
+                        )
+                    )
 
                     <p>
                        <button type="submit" id="continue" name="continue_button" class="button">@Messages("label.continue")</button>
