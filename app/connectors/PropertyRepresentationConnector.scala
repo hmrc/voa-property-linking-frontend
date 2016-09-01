@@ -17,16 +17,14 @@
 package connectors
 
 import ServiceContract.PropertyRepresentation
-import play.api.libs.json.{JsNull, JsValue}
+import play.api.libs.json.{JsNull, JsValue, Json}
 import serialization.JsonFormats._
-import uk.gov.hmrc.http.cache.client.{CacheMap, SessionCache}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 
-import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyRepresentationConnector(http: HttpGet with HttpPut, cache: ArrayBuffer[PropertyRepresentation])(implicit ec: ExecutionContext)
+class PropertyRepresentationConnector(http: HttpGet with HttpPut)(implicit ec: ExecutionContext)
   extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
@@ -37,61 +35,31 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut, cache: ArrayBu
   def get(userId: String, uarn: String)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
     val url = baseUrl + s"/property-representations/${userId}/${uarn}"
     http.GET[Seq[PropertyRepresentation]](url)
-      .recoverWith {
-        case _ => {
-          val tmp: Seq[PropertyRepresentation] = cache.toSeq
-            .filter(_.userId == userId)
-            .filter(_.uarn == uarn)
-          Future.successful(tmp)
-        }
-      }
   }
 
   def forAgent(agentId: String)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
-    //TODO: Call the backend
-    Future.successful(cache.filter(_.agentId == agentId))
+    val url = baseUrl + s"/property-representations/${agentId}"
+    http.GET[Seq[PropertyRepresentation]](url)
   }
 
   def create(reprRequest: PropertyRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = baseUrl + s"TODO"
+    val url = baseUrl + s"/property-representations/create"
     http.PUT[PropertyRepresentation, Unit](url, reprRequest)
-      .recoverWith{ case _ =>
-        cache += reprRequest
-        Future.successful(Nil)
-      }
   }
 
   def accept(reprId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = baseUrl + s"TODO"
-    http.PUT[JsValue,   Unit](url, JsNull)
-      .recoverWith{ case _ =>
-        val idx = cache.indexWhere(repr => repr.representationId == reprId)
-        if (idx != -1)
-          cache(idx) = cache(idx).copy(pending = false )
-        Future.successful(Nil)
-      }
+    val url = baseUrl + s"/property-representations/accept/${reprId}"
+    http.PUT[JsValue, Unit](url, JsNull)
   }
 
   def reject(reprId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = baseUrl + s"TODO"
+    val url = baseUrl + s"/property-representations/reject/${reprId}"
     http.PUT[JsValue, Unit](url, JsNull)
-      .recoverWith{ case _ =>
-        val idx = cache.indexWhere(repr => repr.representationId == reprId)
-        if (idx != -1)
-          cache.remove(idx)
-        Future.successful(Nil)
-      }
   }
 
   def update(reprRequest: PropertyRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = baseUrl + s"TODO"
+    val url = baseUrl + s"/property-representations/update"
     http.PUT[PropertyRepresentation, Unit](url, reprRequest)
-
-      .recoverWith{ case _ =>
-        val idx = cache.indexWhere(_.representationId == reprRequest.representationId)
-          cache(idx) = reprRequest
-          Future.successful(Nil)
-        }
   }
 
 }

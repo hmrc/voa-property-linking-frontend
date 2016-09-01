@@ -63,7 +63,7 @@ object AppointAgentController extends PropertyLinkingController {
       errors => BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, uarn))),
       agent => {
         val reprRequest = PropertyRepresentation(java.util.UUID.randomUUID().toString, agent.agentCode, request.account.companyName,
-          uarn, agent.canCheck, agent.canChallenge, false)
+          uarn, agent.canCheck, agent.canChallenge, true)
         propertyRepresentationConnector.create(reprRequest).map(_ => Ok(views.html.propertyRepresentation.appointedAgent()))
       }
     )
@@ -88,7 +88,7 @@ object AppointAgentController extends PropertyLinkingController {
       errors => BadRequest(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(errors, uarn, reprId))),
       agent => {
         val reprRequest = PropertyRepresentation(reprId, agent.agentCode, request.account.companyName,
-          uarn, agent.canCheck, agent.canChallenge, false)
+          uarn, agent.canCheck, agent.canChallenge, true)
         propertyRepresentationConnector.update(reprRequest).map(_ => Ok(views.html.propertyRepresentation.modifiedAgent()))
       }
     )
