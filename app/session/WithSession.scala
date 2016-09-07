@@ -21,8 +21,10 @@ import config.ImplicitLifting._
 import controllers.Account
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results.{BadRequest, Forbidden}
-import play.api.mvc.{ActionBuilder, ActionRefiner, Request, WrappedRequest}
+import play.api.mvc._
 import uk.gov.hmrc.play.http.HeaderCarrier
+
+import scala.concurrent.Future
 
 case class LinkingSessionRequest[A](ses: LinkingSession, account: Account, request: Request[A]) extends WrappedRequest[A](request) {
   def sessionId: String = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
@@ -31,35 +33,38 @@ case class LinkingSessionRequest[A](ses: LinkingSession, account: Account, reque
 case object NoSessionId extends Exception
 
 object WithLinkingSession extends ActionBuilder[LinkingSessionRequest] with ActionRefiner[Request, LinkingSessionRequest] {
+  def hc(request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
   val repo = Wiring().sessionRepository
+  val accountRepo = Wiring().accountConnector
 
-  implicit def hc(request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
-
-  override protected def refine[A](request: Request[A]) =
-    repo.get()(hc(request)) map {
+  override protected def refine[A](request: Request[A]) = {
+    repo.get()(hc(request)) flatMap {
       case Some(x) => {
         val accId = request.session.get("accountId")
           .getOrElse(throw new Exception("No Account ID"))
-        Right(LinkingSessionRequest(x, Wiring().tmpInMemoryAccountDb(accId).get, request))
+        accountRepo.get(accId)(hc(request)).map(account => account.map(acc =>
+          Right(LinkingSessionRequest(x, acc, request)))
+          .getOrElse(Left(BadRequest(s"Invalid Session")))
+        )
       }
-      case None => Left(BadRequest(s"Invalid Session"))
+      case None => Future.successful(Left(BadRequest(s"Invalid Session")))
     }
-
+  }
 }
 
 case class AuthenticatedRequest[A](account: Account, request: Request[A]) extends WrappedRequest[A](request)
 
 object WithAuthentication extends ActionBuilder[AuthenticatedRequest] with ActionRefiner[Request, AuthenticatedRequest] {
+  val accountRepo = Wiring().accountConnector
+
+  def hc(request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
   override protected def refine[A](request: Request[A]) =
     request.session.get("accountId") match {
       case Some(aid) => {
-        val account = Wiring().tmpInMemoryAccountDb.get(aid)
-        val tmp: Option[Right[Nothing, AuthenticatedRequest[A]]] = account.map(acc =>
+        accountRepo.get(aid)(hc(request)).map( account => account.map( acc =>
           Right(AuthenticatedRequest(acc, request))
-        )
-          val tmp2: Either[_root_.play.api.mvc.Results.Status, AuthenticatedRequest[A]] = tmp.getOrElse(Left(Forbidden))
-        tmp2
+        ).getOrElse(Left(Forbidden)))
       }
       case None => Left(Forbidden)
     }

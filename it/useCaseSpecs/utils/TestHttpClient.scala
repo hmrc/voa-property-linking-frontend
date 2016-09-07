@@ -18,12 +18,13 @@ object TestHttpClient {
 
 import useCaseSpecs.utils.TestHttpClient._
 
-class TestHttpClient extends HttpGet with HttpPost with HTTPTestPUT with HttpDelete with MustMatchers with AppendedClues with VPLAPIs {
+class TestHttpClient extends HttpGet with HttpPost with HTTPTestPUT with HTTPTestPOST with HttpDelete with MustMatchers with AppendedClues with VPLAPIs {
 
   private var stubbedGets: Seq[(Url, Seq[(String, String)], HttpResponse)] = Seq.empty
 
-  def stubGet(url: String, headers: Seq[(String, String)], response: HttpResponse) =
+  def stubGet(url: String, headers: Seq[(String, String)], response: HttpResponse) = {
     stubbedGets = stubbedGets :+ ((url, headers, response))
+  }
 
   def reset() = {
     stubbedGets = Seq.empty
@@ -31,17 +32,16 @@ class TestHttpClient extends HttpGet with HttpPost with HTTPTestPUT with HttpDel
     this
   }
 
-  override protected def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] =
+  override protected def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] ={
     stubbedGets.find(x => x._1 == url && x._2.forall(y => hc.headers.exists(h => h._1 == y._1 && h._2 == y._2))) match {
       case Some((_, _, res)) => Future.successful(res)
       case _ => throw new HttpGetRequestNotStubbed(url, hc, stubbedGets.map(_._1))
     }
+  }
 
   override protected def doPostString(url: String, body: String, headers: Seq[(String, String)])(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
 
   override protected def doFormPost(url: String, body: Map[String, Seq[String]])(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
-
-  override protected def doPost[A](url: String, body: A, headers: Seq[(String, String)])(implicit wts: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
 
   override protected def doEmptyPost[A](url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
 
@@ -49,7 +49,31 @@ class TestHttpClient extends HttpGet with HttpPost with HTTPTestPUT with HttpDel
 
   override val hooks: Seq[HttpHook] = Seq.empty
 
-  class HttpGetRequestNotStubbed(url: String, hc: HeaderCarrier, all: Seq[String]) extends Exception(s"GET Request not stubbed: $url - ${hc.headers}\n. Expected one of: $all")
+  class HttpGetRequestNotStubbed(url: String, hc: HeaderCarrier, all: Seq[String]) extends Exception(s"GET Request not stubbed: $url - ${hc.headers}\n. Expected one of: ${all.mkString("\n")}")
+}
+
+trait HTTPTestPOST extends HttpPost with MustMatchers with AppendedClues {
+  private var stubbedPosts: Seq[(Url, Seq[(String, String)], Body, HttpResponse)] = Seq.empty
+  private var actualPosts: Seq[(Url, Body)] = Seq.empty
+
+  class HttpPostRequestNotStubbed(url: String, hc: HeaderCarrier, body: String, all: Seq[(String, Any)])
+    extends Exception(s"PUT Request not stubbed: $url = ${hc.headers} - $body\nExpected one of: $all\n")
+
+  private def insertUUID(stubbed: String, url: String): String = {
+    stubbed.replaceAll("""UUID""", url.split("/").last)
+  }
+
+  override protected def doPost[A](url: String, body: A, headers: Seq[(String, String)])(implicit wts: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = {
+    val b: String = Json.stringify(wts.writes(body))
+    actualPosts = actualPosts :+ (url, b)
+    stubbedPosts.find(x => insertUUID(x._1, url) == url && x._2.forall(hc.headers.contains) && x._3 == b) match {
+      case Some((_, _, _, res)) =>
+        Future.successful(res)
+      case _ =>
+        throw new HttpPostRequestNotStubbed(url, hc, b, stubbedPosts.map(p => (p._1, p._3)))
+    }
+  }
+
 }
 
 trait HTTPTestPUT extends HttpPut with MustMatchers with AppendedClues {
@@ -67,8 +91,8 @@ trait HTTPTestPUT extends HttpPut with MustMatchers with AppendedClues {
     actualPuts = Seq.empty
   }
 
-  override protected def doPut[A](url: String, body: A)(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = {
-    val b: String = Json.stringify(rds.writes(body))
+  override protected def doPut[A](url: String, body: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = {
+    val b: String = Json.stringify(wts.writes(body))
     actualPuts = actualPuts :+ (url, b)
     stubbedPuts.find(x => insertUUID(x._1, url) == url && x._2.forall(hc.headers.contains) && x._3 == b) match {
       case Some((_, _, _, res)) =>
@@ -101,23 +125,30 @@ trait HTTPTestPUT extends HttpPut with MustMatchers with AppendedClues {
 
 trait VPLAPIs { this: TestHttpClient =>
   lazy val keystoreBaseUrl = "http://localhost:8400/keystore"
-  lazy val propertiesBaseUrl = "http://localhost:9527/properties"
-  lazy val propertyLinksBaseUrl = "http://localhost:9528/property-links"
-  lazy val ratesBillCheckBaseUrl = "http://localhost:9526/rates-bill-checks"
-  lazy val fileUploadBaseUrl = "http://localhost:9526/file-uploads"
+  lazy val propertiesBaseUrl = "http://localhost:9524/property-linking/properties"
+  lazy val propertyLinksBaseUrl = "http://localhost:9524/property-linking/property-links"
+  lazy val ratesBillCheckBaseUrl = "http://localhost:9524/rates-bill-checks"
+  lazy val fileUploadBaseUrl = "http://localhost:9524/file-uploads"
   lazy val propertyRepresentationLinksBaseUrl = "http://localhost:9524/property-linking/property-representations"
+  lazy val accountsBaseUrl = "http://localhost:9524/property-linking/accounts"
 
   allowPUTsFor(keystoreBaseUrl)
   allowPUTsFor(propertyLinksBaseUrl)
 
-  def stubPropertiesAPI(billingAuthorityReference: String, p: Property) =
-    stubGet(s"$propertiesBaseUrl/$billingAuthorityReference", Seq.empty, HttpResponse(200, responseJson = Some(Json.toJson(p))))
+  def stubPropertiesAPI(uarn: String, p: Property) = {
+    stubGet(s"$propertiesBaseUrl/$uarn", Seq.empty, HttpResponse(200, responseJson = Some(Json.toJson(p))))
+  }
 
-  def stubKeystoreSession(session: SessionDocument)(implicit sid: SessionID) =
+  def stubKeystoreSession(session: SessionDocument, accounts: Seq[Account])(implicit sid: SessionID) = {
     stubGet(
       s"$keystoreBaseUrl/voa-property-linking-frontend/$sid", Seq.empty,
       HttpResponse(200, responseJson = Some(Json.toJson(CacheMap("", Map(SessionDocument.sessionKey -> Json.toJson(session))))))
     )
+    stubGet(
+      s"$accountsBaseUrl", Seq.empty,
+      HttpResponse(200, responseJson = Some(Json.toJson(accounts)))
+    )
+  }
 
   def verifyKeystoreSaved(session: SessionDocument)(implicit sid: SessionID) =
     verifyPUT(
@@ -135,11 +166,13 @@ trait VPLAPIs { this: TestHttpClient =>
   def verifyNoMoreLinkRequests(amount: Int) =
     verifyOnlyNPUTsFor(propertyLinksBaseUrl, amount)
 
-  def stubLinkedPropertiesAPI(accountId: String, added: Seq[PropertyLink], pending: Seq[PendingPropertyLink]) =
+  def stubLinkedPropertiesAPI(accountId: String, added: Seq[PropertyLink], pending: Seq[PropertyLink]) = {
     stubGet(
       s"$propertyLinksBaseUrl/$accountId", Seq.empty,
-      HttpResponse(200, responseJson = Some(Json.toJson(LinkedProperties(added, pending))))
+      HttpResponse(200, responseJson = Some(Json.toJson((added ++ pending).toSeq)))
     )
+  }
+
   def stubPropertyRepresentationAPI(accountId: String, uarn: String) = {
     stubGet(
       s"$propertyRepresentationLinksBaseUrl/$accountId/$uarn", Seq.empty,
@@ -167,4 +200,11 @@ trait VPLAPIs { this: TestHttpClient =>
       s"$fileUploadBaseUrl/$accountId/$sessionId/$key", Seq.empty,
       HttpResponse(404)
     )
+
+  def stubAccounts(accounts: Seq[Account]) =
+    stubGet(
+      s"$accountsBaseUrl", Seq.empty,
+      HttpResponse(200, responseJson = Some(Json.toJson(accounts)))
+    )
+
 }

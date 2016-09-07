@@ -15,7 +15,7 @@
             <tbody>
                 <tr>
                     <th>Property</th>
-                    <th>BA ref#</th>
+                    <th>Uarn#</th>
                     <th>Connection</th>
                     <th>Status</th>
                     <th>Date added</th>
@@ -26,7 +26,7 @@
                 @model.properties.added.map { p =>
                     <tr>
                         <td>@p.name</td>
-                        <td>@p.billingAuthorityReference</td>
+                        <td>@p.uarn</td>
                         <td>@p.capacity</td>
                         <td>@Messages("dashboard.manageProperties.status.added")</td>
                         <td>@Display.date(p.linkedDate)</td>
@@ -45,7 +45,7 @@
                 @model.properties.pending.map { p =>
                     <tr>
                         <td>@p.name</td>
-                        <td>@p.billingAuthorityReference</td>
+                        <td>@p.uarn</td>
                         <td>@p.capacity</td>
                         <td>@Messages("dashboard.manageProperties.status.pending")</td>
                         <td>@Display.date(p.linkedDate)</td>

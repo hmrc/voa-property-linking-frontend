@@ -22,10 +22,9 @@ import org.joda.time.DateTime
 object ServiceContract {
   case class LinkToProperty(capacityDeclaration: CapacityDeclaration)
   case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)
-
-  case class PropertyLink(name: String, uarn: String, billingAuthorityReference: String, capacity: String, linkedDate: DateTime, assessmentYears: Seq[Int])
-  case class PendingPropertyLink(name: String, uarn: String, billingAuthorityReference: String, capacity: String, linkedDate: DateTime)
-  case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PendingPropertyLink])
+  case class PropertyLink(uarn: String, userId: String, capacityDeclaration: CapacityDeclaration,
+                          linkedDate: DateTime, assessmentYears: Seq[Int], pending: Boolean)
+  case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
   case class PropertyRepresentation(representationId: String, agentId: String, userId: String, uarn: String,
                                     canCheck: Boolean, canChallenge: Boolean, pending: Boolean)
 

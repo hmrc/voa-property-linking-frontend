@@ -24,22 +24,33 @@ import serialization.JsonFormats.accountFormat
 
 object Login extends PropertyLinkingController {
   val cache = Wiring().sessionCache
+  val repo = Wiring().accountConnector
 
-  def show() = Action { implicit request =>
-    Ok(views.html.login(LoginVM(loginForm, Wiring().tmpInMemoryAccountDb.values.toSeq)))
+  def show() = Action.async { implicit request =>
+    repo.get().map ( accounts =>
+      Ok(views.html.login(LoginVM(loginForm, accounts)))
+    )
   }
 
   def submit() = Action.async { implicit request =>
     loginForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.login(LoginVM(errors, Wiring().tmpInMemoryAccountDb.values.toSeq))),
+      errors => {
+        repo.get().map ( accounts =>
+          BadRequest(views.html.login(LoginVM(errors, accounts)))
+        )
+      },
       account => {
-        if (Wiring().tmpInMemoryAccountDb.contains(account.companyName)) {
-          if (account.isAgent)
-            Redirect(controllers.agent.routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
-          else
-            Redirect(routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
-        } else
-          BadRequest(views.html.login(LoginVM(loginForm.withError("companyName", "error.login.invalid"), Wiring().tmpInMemoryAccountDb.values.toSeq)))
+        repo.get().map ( accounts =>
+          accounts.find(_.companyName == account.companyName) match {
+            case Some(acc: Account) =>{
+              if (acc.isAgent)
+                Redirect(controllers.agent.routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
+              else
+                Redirect(routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
+            }
+            case None =>
+              BadRequest(views.html.login(LoginVM(loginForm.withError("companyName", "error.login.invalid"), accounts)))
+          })
       }
     )
   }
@@ -47,10 +58,9 @@ object Login extends PropertyLinkingController {
   lazy val loginForm = Form(
     mapping(
       "companyName" -> nonEmptyText
-    )
-    ((name ) => Wiring().tmpInMemoryAccountDb.getOrElse(name, Account("notFound", false)))
-    (acc => Some(acc.companyName))
+    )(miniAccount.apply)(miniAccount.unapply)
   )
 }
+case class miniAccount(companyName: String)
 
 case class LoginVM(form: Form[_], accounts: Seq[Account])

@@ -17,7 +17,7 @@
 package config
 
 import connectors.ServiceContract.{LinkedProperties, PropertyRepresentation}
-import connectors.{FileUploadConnector, PropertyConnector, PropertyRepresentationConnector, RatesBillVerificationConnector}
+import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.Account
 import session.LinkingSessionRepository
@@ -25,7 +25,7 @@ import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
 import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
-import uk.gov.hmrc.play.http.{HttpDelete, HttpGet, HttpPut}
+import uk.gov.hmrc.play.http.{HttpDelete, HttpGet, HttpPost, HttpPut}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -34,18 +34,17 @@ object Wiring {
 }
 
 abstract class Wiring {
-  val http: HttpGet with HttpPut with HttpDelete
+  val http: HttpGet with HttpPut with HttpDelete with HttpPost
 
   implicit lazy val ec: ExecutionContext = play.api.libs.concurrent.Execution.Implicits.defaultContext
   lazy val sessionCache = new VPLSessionCache(http)
   lazy val sessionRepository = new LinkingSessionRepository(sessionCache)
   lazy val propertyConnector = new PropertyConnector(http)
   lazy val propertyRepresentationConnector = new PropertyRepresentationConnector(http)
-  lazy val propertyLinkConnector = new PropertyLinkConnector(http, tmpInMemoryLinkedPropertyDb)
+  lazy val propertyLinkConnector = new PropertyLinkConnector(http)
+  lazy val accountConnector = new AccountConnector(http)
   lazy val fileUploadConnector = new FileUploadConnector(http)
   lazy val ratesBillVerificationConnector = new RatesBillVerificationConnector(http)
-  lazy val tmpInMemoryAccountDb = scala.collection.mutable.HashMap[String, Account]()
-  lazy val tmpInMemoryLinkedPropertyDb = scala.collection.mutable.HashMap[Account, LinkedProperties]()
 }
 
 class VPLSessionCache(httpc: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {

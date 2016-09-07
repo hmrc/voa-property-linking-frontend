@@ -1,7 +1,6 @@
 package useCaseSpecs
 
 import config.Wiring
-import controllers.Account
 import useCaseSpecs.utils._
 
 class CapacityDeclaration extends FrontendTest {
@@ -10,11 +9,10 @@ class CapacityDeclaration extends FrontendTest {
   "Given an interested person is logged in and has selected a self-certifiable property that exists to claim" - {
     implicit val sid: SessionID = sessionId
     implicit val aid: AccountID = accountId
-    HTTP.stubPropertiesAPI(propertyToClaimBillingAuthorityRef, selfCertifiableProperty)
-    Wiring().tmpInMemoryAccountDb(accountId) = Account(accountId, false)
+    HTTP.stubPropertiesAPI(selfCertifiableProperty.uarn, selfCertifiableProperty)
 
     "When they arrive at the declaration page" - {
-      val page = Page.get(s"/property-linking/link-to-property/$propertyToClaimBillingAuthorityRef")
+      val page = Page.get(s"/property-linking/link-to-property/${selfCertifiableProperty.uarn}")
 
       "They can see the address of the property they wish to claim" in {
         page.mustContainText((selfCertifiableProperty.address.lines :+ selfCertifiableProperty.address.postcode).mkString(", "))
@@ -37,11 +35,12 @@ class CapacityDeclaration extends FrontendTest {
     }
 
     "When they supply a valid relationship, start and end date" - {
-      HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty))
+      HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty), Seq(Account(accountId, false)))
       val response = Page.postValid("/property-linking/link-to-property", validFormData:_*)
 
       "Their declaration is stored in the session" in {
         HTTP.verifyKeystoreSaved(
+          //SessionDocument(selfCertifiableProperty)
           SessionDocument(selfCertifiableProperty, Some(CapacityDeclaration(validRelationship, fromDate, Some(toDate))))
         )
       }
@@ -54,7 +53,7 @@ class CapacityDeclaration extends FrontendTest {
       "But if a non-self-certifiable property had been chosen they would instead be asked to supply a rates bill" in {
         val sid: SessionID = java.util.UUID.randomUUID.toString
         val aid: AccountID = accountId
-        HTTP.stubKeystoreSession(SessionDocument(nonSelfCertifiableProperty))(sid)
+        HTTP.stubKeystoreSession(SessionDocument(nonSelfCertifiableProperty), Seq(Account(accountId, false)))(sid)
         val response = Page.postValid("/property-linking/link-to-property", validFormData:_*)(sid, aid)
         response.header.headers("location") mustEqual "/property-linking/supply-rates-bill"
       }
@@ -85,8 +84,8 @@ class CapacityDeclaration extends FrontendTest {
     lazy val nonSelfCertifiableProperty = Property("uarn3", propertyToClaimBillingAuthorityRef, address, false, true)
     lazy val validRelationship = "ownerlandlord"
     lazy val invalidRelationship = "re44wo"
-    lazy val fromDate = "23-12-2001"
-    lazy val toDate = "15-01-2003"
+    lazy val fromDate = "2001-12-23"
+    lazy val toDate = "2003-01-15"
     lazy val fromDateFields = Seq("fromDate.day" -> "23", "fromDate.month" -> "12", "fromDate.year" -> "2001")
     lazy val toDateFields = Seq("toDate.day" -> "15", "toDate.month" -> "1", "toDate.year" -> "2003")
     lazy val validFormData = Seq("capacity" -> validRelationship) ++ fromDateFields ++ toDateFields

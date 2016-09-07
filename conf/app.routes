@@ -14,7 +14,7 @@ GET     /manage-properties                             controllers.Dashboard.man
 
 #Search and Link
 GET     /property-search                               controllers.Search.show()
-GET     /link-to-property/:baref                       controllers.Search.declareCapacity(baref)
+GET     /link-to-property/:uarn                        controllers.Search.declareCapacity(uarn)
 POST    /link-to-property                              controllers.Search.attemptLink()
 
 #Link scenarios

@@ -24,8 +24,8 @@ import play.api.libs.json._
 import session.LinkingSession
 
 object JsonFormats {
-  implicit val dateReads = Reads.jodaDateReads("dd-MM-yyyy")
-  implicit val dateWrites = Writes.jodaDateWrites("dd-MM-yyyy")
+  implicit val dateReads = Reads.jodaDateReads("yyyy-MM-dd")
+  implicit val dateWrites = Writes.jodaDateWrites("yyyy-MM-dd")
   implicit val accountFormat = Json.format[Account]
   implicit val addressFormat = Json.format[Address]
   implicit val propertyDataFormat = Json.format[Property]
@@ -33,8 +33,7 @@ object JsonFormats {
   implicit val capacityTypeFormat = EnumFormat(CapacityType)
   implicit val capacityFormat = Json.format[CapacityDeclaration]
   implicit val linkRequestFormat = Json.writes[LinkToProperty]
-  implicit val penPropertyLink = Json.format[PendingPropertyLink]
-  implicit val linkedProperty = Json.format[PropertyLink]
+  implicit val propertyLink = Json.format[PropertyLink]
   implicit val linkedProperties = Json.format[LinkedProperties]
   implicit val sessionFormat = Json.format[LinkingSession]
   implicit val uploadedFileFormat = Json.reads[UploadedFile]
@@ -55,10 +54,10 @@ object EnumFormat {
       case JsString(value) =>
         enumObject.fromName(value) match {
           case Some(enumValue) => JsSuccess(enumValue)
-          case None => JsError()
+          case None => JsError(s"Value: ${value} is not valid type of ${this.getClass}")
         }
-      case _ =>
-        JsError()
+      case js =>
+        JsError(s"Invalid Json: expected string, got: $js")
     }
   }
 }

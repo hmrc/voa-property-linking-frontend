@@ -24,12 +24,14 @@ import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
 import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends ServicesConfig {
-  lazy val url = baseUrl("property-valuations")
+  lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  def find(billingAuthorityReference: String)(implicit hc: HeaderCarrier): Future[Option[Property]] =
-    http.GET[Option[Property]](url + s"/properties/$billingAuthorityReference")
-        .map(_.orElse(PrototypeTestData.pretendSearchResults.find(_.billingAuthorityReference == billingAuthorityReference)))
-        .recover { case _ => PrototypeTestData.pretendSearchResults.find(_.billingAuthorityReference == billingAuthorityReference) }
+  def find(uarn: String)(implicit hc: HeaderCarrier): Future[Option[Property]] =
+    http.GET[Option[Property]](baseUrl + s"/properties/$uarn")
+        .map(
+          _.orElse(PrototypeTestData.pretendSearchResults.find(_.uarn == uarn)))
+        .recover {
+          case _ => PrototypeTestData.pretendSearchResults.find(_.uarn == uarn) }
 }
 
 object PrototypeTestData {

@@ -29,6 +29,7 @@ import scala.concurrent.Future
 object Registration extends PropertyLinkingController {
 
   val cache = Wiring().sessionCache
+  val repo = Wiring().accountConnector
 
   def show() = Action { implicit request =>
     Ok(views.html.register(RegisterVM(registerForm)))
@@ -39,7 +40,7 @@ object Registration extends PropertyLinkingController {
       errors => BadRequest(views.html.register(RegisterVM(errors))),
       // TODO - the accountId will be eventually be supplied by the login mechanism and not dumped in the session
       account => {
-        Wiring().tmpInMemoryAccountDb(account.companyName) = account
+        repo.create(account)
         if (account.isAgent)
           Redirect(controllers.agent.routes.Dashboard.home()).addingToSession("accountId" -> account.companyName)
         else
