@@ -25,7 +25,8 @@ object Account {
 
 
 
-case class LinkToProperty(capacityDeclaration: CapacityDeclaration)
+case class LinkToProperty(uarn: String, userId: String, capacityDeclaration: CapacityDeclaration,
+                          linkedDate: String, assessmentYears: Seq[Int], pending: Boolean)
 case class CapacityDeclaration(capacity: String, fromDate: String, toDate: Option[String])
 
 case class PropertyLink(uarn: String, userId: String, capacityDeclaration: CapacityDeclaration,

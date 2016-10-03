@@ -1,9 +1,9 @@
 package useCaseSpecs
 
-import config.Wiring
 import useCaseSpecs.utils._
 
 class CapacityDeclaration extends FrontendTest {
+
   import TestData._
 
   "Given an interested person is logged in and has selected a self-certifiable property that exists to claim" - {
@@ -36,11 +36,10 @@ class CapacityDeclaration extends FrontendTest {
 
     "When they supply a valid relationship, start and end date" - {
       HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty), Seq(Account(accountId, false)))
-      val response = Page.postValid("/property-linking/link-to-property", validFormData:_*)
+      val response = Page.postValid("/property-linking/link-to-property", validFormData: _*)
 
       "Their declaration is stored in the session" in {
         HTTP.verifyKeystoreSaved(
-          //SessionDocument(selfCertifiableProperty)
           SessionDocument(selfCertifiableProperty, Some(CapacityDeclaration(validRelationship, fromDate, Some(toDate))))
         )
       }
@@ -54,14 +53,14 @@ class CapacityDeclaration extends FrontendTest {
         val sid: SessionID = java.util.UUID.randomUUID.toString
         val aid: AccountID = accountId
         HTTP.stubKeystoreSession(SessionDocument(nonSelfCertifiableProperty), Seq(Account(accountId, false)))(sid)
-        val response = Page.postValid("/property-linking/link-to-property", validFormData:_*)(sid, aid)
+        val response = Page.postValid("/property-linking/link-to-property", validFormData: _*)(sid, aid)
         response.header.headers("location") mustEqual "/property-linking/supply-rates-bill"
       }
     }
 
     "When they do not supply a valid relationship, start or end date" - {
       val formData = Seq("capacity" -> invalidRelationship) ++ fromDateFields ++ toDateFields
-      val page = Page.postInvalid("/property-linking/link-to-property", formData:_*)
+      val page = Page.postInvalid("/property-linking/link-to-property", formData: _*)
 
       "An error summary is shown" in {
         page.mustContainSummaryErrors(("capacity", "What is your connection to the property?", "No value selected"))
@@ -90,6 +89,7 @@ class CapacityDeclaration extends FrontendTest {
     lazy val toDateFields = Seq("toDate.day" -> "15", "toDate.month" -> "1", "toDate.year" -> "2003")
     lazy val validFormData = Seq("capacity" -> validRelationship) ++ fromDateFields ++ toDateFields
   }
+
 }
 
 
