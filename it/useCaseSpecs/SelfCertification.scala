@@ -1,15 +1,17 @@
 package useCaseSpecs
 
-import config.Wiring
+import org.joda.time.DateTime
 import useCaseSpecs.utils.{Property, _}
 
 class SelfCertification extends FrontendTest {
+
   import TestData._
 
-"Given an interested person has declared their capacity to a self-certifiable property" ignore {
+  "Given an interested person has declared their capacity to a self-certifiable property" - {
+    HTTP.reset()
     implicit val sid: SessionID = java.util.UUID.randomUUID.toString
     implicit val aid: AccountID = accountId
-    HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty, Some(capacityDeclaration)), Seq(Account(accountId, false)))
+    HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty, Some(declaration)), Seq(Account(accountId, false)))
 
     "When they arrive at the the self certification page" - {
       val page = Page.get("/property-linking/self-certify")
@@ -27,8 +29,7 @@ class SelfCertification extends FrontendTest {
       val response = Page.postValid("/property-linking/confirm-self-certify", "iAgree" -> "true")
 
       "Their link request is submitted" in {
-        val submission = LinkToProperty(CapacityDeclaration(capacityDeclaration.capacity, capacityDeclaration.fromDate, None))
-        HTTP.verifyPropertyLinkRequest(selfCertifiableProperty.billingAuthorityReference, accountId, submission)
+        HTTP.verifyPropertyLinkRequest(uarn, accountId, expectedLink)
       }
 
       "And they are redirected the self declaration confirmation screen once the link is successfully confirmed" in {
@@ -36,7 +37,7 @@ class SelfCertification extends FrontendTest {
       }
 
       "And a flag is marked in the session indicating the link was successful" in {
-        HTTP.verifyKeystoreSaved(SessionDocument(selfCertifiableProperty, Some(capacityDeclaration), Some(true)))
+        HTTP.verifyKeystoreSaved(SessionDocument(selfCertifiableProperty, Some(declaration), Some(true)))
       }
     }
 
@@ -48,7 +49,7 @@ class SelfCertification extends FrontendTest {
       }
 
       "Their is an error summary indicating they are required to accept" in {
-        page.mustContainSummaryErrors(("iAgree","Do you agree?", "You must agree to continue."))
+        page.mustContainSummaryErrors(("iAgree", "Do you agree?", "You must agree to continue."))
       }
 
       "There is a field-level error on the agreement confirmation" in {
@@ -58,9 +59,12 @@ class SelfCertification extends FrontendTest {
   }
 
   object TestData {
+    lazy val uarn = "uarn6"
     lazy val accountId = "bizn33z123xdr"
     lazy val address = Address(Seq.empty, "AA11 1AA")
-    lazy val selfCertifiableProperty = Property("asf", "xyzbaref332", address, true, true)
-    lazy val capacityDeclaration = CapacityDeclaration("occupier", "2011-01-01", None)
+    lazy val selfCertifiableProperty = Property(uarn, "xyzbaref332", address, true, true)
+    lazy val declaration = CapacityDeclaration("occupier", "2011-01-01", None)
+    lazy val expectedLink = LinkToProperty(uarn, accountId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), false)
   }
+
 }

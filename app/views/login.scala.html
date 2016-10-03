@@ -3,7 +3,7 @@
 
 @(model: LoginVM)(implicit request: Request[_])
 
-@main(Messages("login.title")) {
+@main(Messages("login.title"), showLogoutLink = false) {
     <main id="content">
     @form(routes.Login.submit()) {
         <h1 class="heading-xlarge">@Messages("login.title")</h1>

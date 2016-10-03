@@ -1,9 +1,9 @@
 package useCaseSpecs
 
-import config.Wiring
 import useCaseSpecs.utils._
 
 class ManageProperties extends FrontendTest {
+
   import TestData._
 
   "Given an interested person is logged in and has previously claimed properties" - {
@@ -11,14 +11,14 @@ class ManageProperties extends FrontendTest {
     implicit val aid: AccountID = accountId
     HTTP.stubLinkedPropertiesAPI(accountId, addedProperties, pendingProperties)
     HTTP.stubAccounts(Seq(Account(accountId, false)))
-    addedProperties.map ( prop =>
+    addedProperties.foreach(prop =>
       HTTP.stubPropertyRepresentationAPI(accountId, prop.uarn)
     )
-    pendingProperties.map ( prop =>
+    pendingProperties.foreach(prop =>
       HTTP.stubPropertyRepresentationAPI(accountId, prop.uarn)
     )
 
-    properties.map( prop =>
+    properties.foreach(prop =>
       HTTP.stubPropertiesAPI(prop.uarn, prop)
     )
 
@@ -28,14 +28,14 @@ class ManageProperties extends FrontendTest {
       "They are shown the properties that they have linked to" in {
         addedProperties.foreach { p =>
           page.mustContainDataInRow(
-          "Some where, postcode", p.uarn, p.capacityDeclaration.capacity, "added", /*UIFormats.date(p.linkedDate), */p.assessmentYears.mkString(","), "Add agent", " Edit agent"
+            "Some where, postcode", p.uarn, p.capacityDeclaration.capacity, "added", p.assessmentYears.mkString(","), "Add agent", " Edit agent"
           )
         }
       }
 
       "And they are shown the properties who they have attempted to link to but are in the pending state" in {
         pendingProperties.foreach { p =>
-          page.mustContainDataInRow("Some where, postcode", p.uarn, p.capacityDeclaration.capacity, "pending", /*UIFormats.date(p.linkedDate),*/ "")
+          page.mustContainDataInRow("Some where, postcode", p.uarn, p.capacityDeclaration.capacity, "pending", "")
         }
       }
 
@@ -67,4 +67,5 @@ class ManageProperties extends FrontendTest {
       Property("uarn6", "baRes", Address(Seq("Some where"), "postcode"), true, true)
     )
   }
+
 }

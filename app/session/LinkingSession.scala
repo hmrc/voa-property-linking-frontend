@@ -30,12 +30,14 @@ case class LinkingSession(claimedProperty: Property, declaration: Option[Capacit
 }
 
 class LinkingSessionRepository(cache: SessionCache) {
+  private val sessionDocument = "sessiondocument"
+
   def start(p: Property)(implicit hc: HeaderCarrier): Future[Unit] =
-    cache.cache("sessiondocument", LinkingSession(p)).map(_ => ())
+    cache.cache(sessionDocument, LinkingSession(p)).map(_ => ())
 
   def saveOrUpdate(session: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] =
-    cache.cache("sessiondocument", session).map(_ => ())
+    cache.cache(sessionDocument, session).map(_ => ())
 
   def get()(implicit hc: HeaderCarrier): Future[Option[LinkingSession]] =
-    cache.fetchAndGetEntry("sessiondocument")
+    cache.fetchAndGetEntry(sessionDocument)
 }

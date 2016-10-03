@@ -40,7 +40,7 @@ object Dashboard extends PropertyLinkingController {
         for {
           repr <- reprConnector.get(request.account.companyName, prop.uarn)
           name <- propConnector.find(prop.uarn)
-            .flatMap( x => x.map(prop => prop.address.lines.head + ", " + prop.address.postcode).getOrElse("No Address found"))
+            .map( x => x.map(prop => prop.address.lines.head + ", " + prop.address.postcode).getOrElse("No Address found"))
         } yield
           PropertyLinkRepresentations(name, prop.uarn,
             prop.capacityDeclaration.capacity.name, prop.linkedDate, prop.assessmentYears, repr)

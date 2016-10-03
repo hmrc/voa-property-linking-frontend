@@ -1,12 +1,13 @@
 package useCaseSpecs
 
-import config.Wiring
+import org.joda.time.DateTime
 import useCaseSpecs.utils._
 
 class EvidenceRequired extends FrontendTest {
+
   import TestData._
 
-  "Given an interested person is being asked to provide additional evidence" ignore {
+  "Given an interested person is being asked to provide additional evidence" - {
     implicit val sid: SessionID = java.util.UUID.randomUUID.toString
     implicit val aid: AccountID = accountId
     HTTP.stubKeystoreSession(SessionDocument(property, Some(declaration)), Seq(Account(accountId, false)))
@@ -23,12 +24,12 @@ class EvidenceRequired extends FrontendTest {
       }
     }
 
-    "When they specify they have evidence and upload upto 3 files" ignore {
+    "When they specify they have evidence and upload upto 3 files" - {
       HTTP.stubFileUpload(aid, sid, "evidence", ("file1.pdf", bytes1), ("file2.pdf", bytes2))
       val result = Page.postValid("/property-linking/upload-evidence", "hasEvidence" -> "doeshaveevidence")
 
       "Their link request is submitted" in {
-        HTTP.verifyPropertyLinkRequest(baRef, aid, LinkToProperty(declaration))
+        HTTP.verifyPropertyLinkRequest(uarn, aid, expectedLink)
       }
 
       "They are taken to the evidence uploaded confirmation page" in {
@@ -43,7 +44,7 @@ class EvidenceRequired extends FrontendTest {
       val result = Page.postValid("/property-linking/upload-evidence", "hasEvidence" -> "doesnothaveevidence")
 
       "Their link request is submitted" in {
-        HTTP.verifyPropertyLinkRequest(baRef, aid, LinkToProperty(declaration))
+        HTTP.verifyPropertyLinkRequest(uarn, aid, expectedLink)
       }
 
       "They are taken to the no evidence provided page" in {
@@ -71,12 +72,15 @@ class EvidenceRequired extends FrontendTest {
   }
 
   object TestData {
+    lazy val uarn = "uarn4"
     lazy val baRef = "baRef-asdfjlj23l4j23"
     lazy val accountId = "sdfksjdlf34233gr6"
     lazy val address = Address(Seq.empty, "AA11 1AA")
-    lazy val property = Property("uarn4", baRef, address, false, false)
+    lazy val property = Property(uarn, baRef, address, false, false)
     lazy val declaration = CapacityDeclaration("occupier", "2003-10-03", None)
     lazy val bytes1 = (44 to 233).map(_.toByte).toArray
     lazy val bytes2 = (200 to 433).map(_.toByte).toArray
+    lazy val expectedLink = LinkToProperty(uarn, accountId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), false)
   }
+
 }

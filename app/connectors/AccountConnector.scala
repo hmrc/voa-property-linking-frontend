@@ -40,7 +40,7 @@ class AccountConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec: Ex
 
   def get(accountId: String)(implicit hc: HeaderCarrier): Future[Option[Account]] = {
     val url = baseUrl + s"/accounts"
-    http.GET[Seq[Account]](url).map(_.find(_.companyName  == accountId))
+    http.GET[Seq[Account]](url).map(_.find(_.companyName == accountId))
   }
 
   def create(account: Account)(implicit hc: HeaderCarrier): Future[Unit] = {

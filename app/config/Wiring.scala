@@ -16,10 +16,8 @@
 
 package config
 
-import connectors.ServiceContract.{LinkedProperties, PropertyRepresentation}
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.Account
 import session.LinkingSessionRepository
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.audit.http.HttpAuditing

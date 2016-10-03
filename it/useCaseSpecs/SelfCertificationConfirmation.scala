@@ -1,9 +1,9 @@
 package useCaseSpecs
 
-import config.Wiring
 import useCaseSpecs.utils._
 
 class SelfCertificationConfirmation extends FrontendTest {
+
   import TestData._
 
   "Given an interested person has self certified for a property" - {
@@ -44,4 +44,5 @@ class SelfCertificationConfirmation extends FrontendTest {
     lazy val selfCertProperty = Property(uarn, baRef, address, true, true)
     lazy val declaration = CapacityDeclaration("occupier", "2001-01-01", None)
   }
+
 }

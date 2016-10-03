@@ -3,6 +3,7 @@ package useCaseSpecs.utils
 import java.util.Base64
 
 import org.scalatest.{AppendedClues, MustMatchers}
+import play.api.Logger
 import play.api.libs.json._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.play.http.hooks.HttpHook
@@ -18,7 +19,7 @@ object TestHttpClient {
 
 import useCaseSpecs.utils.TestHttpClient._
 
-class TestHttpClient extends HttpGet with HttpPost with HTTPTestPUT with HTTPTestPOST with HttpDelete with MustMatchers with AppendedClues with VPLAPIs {
+class TestHttpClient extends HttpGet with HTTPTestPUT with HTTPTestPOST with HttpDelete with MustMatchers with AppendedClues with VPLAPIs {
 
   private var stubbedGets: Seq[(Url, Seq[(String, String)], HttpResponse)] = Seq.empty
 
@@ -29,6 +30,7 @@ class TestHttpClient extends HttpGet with HttpPost with HTTPTestPUT with HTTPTes
   def reset() = {
     stubbedGets = Seq.empty
     resetPUTs()
+    resetPOSTs()
     this
   }
 
@@ -55,9 +57,12 @@ class TestHttpClient extends HttpGet with HttpPost with HTTPTestPUT with HTTPTes
 trait HTTPTestPOST extends HttpPost with MustMatchers with AppendedClues {
   private var stubbedPosts: Seq[(Url, Seq[(String, String)], Body, HttpResponse)] = Seq.empty
   private var actualPosts: Seq[(Url, Body)] = Seq.empty
+  private var allowedPosts: Seq[Url] = Nil
+
+  def allowPOSTsFor(baseUrl: String) = allowedPosts = allowedPosts :+ baseUrl
 
   class HttpPostRequestNotStubbed(url: String, hc: HeaderCarrier, body: String, all: Seq[(String, Any)])
-    extends Exception(s"PUT Request not stubbed: $url = ${hc.headers} - $body\nExpected one of: $all\n")
+    extends Exception(s"POST Request not stubbed: $url = ${hc.headers} - $body\nExpected one of: $all\n")
 
   private def insertUUID(stubbed: String, url: String): String = {
     stubbed.replaceAll("""UUID""", url.split("/").last)
@@ -69,9 +74,24 @@ trait HTTPTestPOST extends HttpPost with MustMatchers with AppendedClues {
     stubbedPosts.find(x => insertUUID(x._1, url) == url && x._2.forall(hc.headers.contains) && x._3 == b) match {
       case Some((_, _, _, res)) =>
         Future.successful(res)
+      case _ if allowedPosts.exists(url.startsWith) =>
+        Future.successful(HttpResponse(201))
       case _ =>
         throw new HttpPostRequestNotStubbed(url, hc, b, stubbedPosts.map(p => (p._1, p._3)))
     }
+  }
+
+  def verifyOnlyNPOSTsFor(baseUrl: String, amount: Int) =
+    actualPosts.count(_._1.startsWith(baseUrl)) mustEqual amount withClue s"More than $amount POSTs for $baseUrl"
+
+  def verifyPOST(url: String, body: String) = {
+    val post = actualPosts.filter { p => insertUUID(url, p._1) == p._1 }.lastOption getOrElse {fail(s"No POST occurred for: $url")}
+    post._2 mustEqual body
+  }
+
+  def resetPOSTs(): Unit = {
+    stubbedPosts = Seq.empty
+    actualPosts = Seq.empty
   }
 
 }
@@ -134,6 +154,7 @@ trait VPLAPIs { this: TestHttpClient =>
 
   allowPUTsFor(keystoreBaseUrl)
   allowPUTsFor(propertyLinksBaseUrl)
+  allowPOSTsFor(propertyLinksBaseUrl)
 
   def stubPropertiesAPI(uarn: String, p: Property) = {
     stubGet(s"$propertiesBaseUrl/$uarn", Seq.empty, HttpResponse(200, responseJson = Some(Json.toJson(p))))
@@ -155,21 +176,21 @@ trait VPLAPIs { this: TestHttpClient =>
       s"$keystoreBaseUrl/voa-property-linking-frontend/$sid/data/${SessionDocument.sessionKey}", Json.stringify(Json.toJson(Json.toJson(session)))
     )
 
-  def verifyPropertyLinkRequest(billingAuthorityReference: String, accountId: String, request: LinkToProperty) =
-    verifyPUT(
-      s"$propertyLinksBaseUrl/$billingAuthorityReference/$accountId/UUID", Json.stringify(Json.toJson(request))
+  def verifyPropertyLinkRequest(uarn: String, accountId: String, request: LinkToProperty) =
+    verifyPOST(
+      s"$propertyLinksBaseUrl/$uarn/$accountId/UUID", Json.stringify(Json.toJson(request))
     )
 
   def verifyNoPropertyLinkRequest(billingAuthorifyReference: String, accountId: AccountID) =
     verifyNoPUTsFor(s"$propertyLinksBaseUrl/$billingAuthorifyReference/$accountId/UUID")
 
   def verifyNoMoreLinkRequests(amount: Int) =
-    verifyOnlyNPUTsFor(propertyLinksBaseUrl, amount)
+    verifyOnlyNPOSTsFor(propertyLinksBaseUrl, amount)
 
   def stubLinkedPropertiesAPI(accountId: String, added: Seq[PropertyLink], pending: Seq[PropertyLink]) = {
     stubGet(
       s"$propertyLinksBaseUrl/$accountId", Seq.empty,
-      HttpResponse(200, responseJson = Some(Json.toJson((added ++ pending).toSeq)))
+      HttpResponse(200, responseJson = Some(Json.toJson(added ++ pending)))
     )
   }
 

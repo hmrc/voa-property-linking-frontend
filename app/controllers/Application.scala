@@ -16,17 +16,21 @@
 
 package controllers
 
+import config.Wiring
 import play.api.mvc._
 import session.WithAuthentication
-import uk.gov.hmrc.play.http.SessionKeys
+import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+
+import scala.concurrent.Future
 
 object Application extends Controller {
 
-  def index() = Action { implicit request =>
-    if (LoggedIn(request))
-      Redirect(routes.Dashboard.home())
-    else
-      Ok(views.html.start()).withNewSession.addingToSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
+  def index() = Action.async { implicit request =>
+    LoggedIn(request) map {
+      case true => Redirect(routes.Dashboard.home())
+      case false => Ok(views.html.start()).withNewSession.addingToSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
+    }
   }
 
   def logOut() = WithAuthentication { request =>
@@ -35,5 +39,13 @@ object Application extends Controller {
 }
 
 object LoggedIn {
-  def apply(implicit r: RequestHeader): Boolean = r.session.get("accountId").isDefined
+  implicit def hc(implicit request: RequestHeader) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
+
+  val accountRepo = Wiring().accountConnector
+
+  def apply(implicit r: RequestHeader) = {
+    r.session.get("accountId").map { id =>
+      accountRepo.get(id) map { _.isDefined }
+    }.getOrElse(Future.successful(false))
+  }
 }
