@@ -3,7 +3,7 @@
 
 @(model: RegisterVM)(implicit request: Request[_])
 
-@main(Messages("register.title")) {
+@main(Messages("register.title"), showLogoutLink = false) {
     @form(routes.Registration.submit()) {
         <main id="content">
             <h1 class="heading-xlarge">@Messages("register.title")</h1>
