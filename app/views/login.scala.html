@@ -20,11 +20,26 @@
                     'class -> "form-control"
                 )
                 <table>
+                    <thead>
+                            <tr>
+                                <td>
+                                    Company name
+                                </td>
+                                <td>
+                                    Is this an agent
+                                </td>
+                            </tr>
+                    </thead>
                     <tbody>
                     @model.accounts.map{ acc=>
-                            <tr> <td>
-                            @acc.companyName
-                            </td> </tr>
+                            <tr>
+                                <td>
+                                    @acc.companyName
+                                </td>
+                                <td>
+                                    @acc.isAgent
+                                </td>
+                            </tr>
                     }
                     </tbody>
                 </table>
