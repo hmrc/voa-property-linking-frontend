@@ -16,6 +16,7 @@
 
 package controllers
 
+import auth.GGAction
 import config.Wiring
 import connectors.PrototypeTestData._
 import connectors.ServiceContract.CapacityDeclaration
@@ -24,37 +25,36 @@ import form.Mappings.{dmyDate, dmyPastDate}
 import models._
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.{Action, Result}
-import session.WithLinkingSession
+import play.api.mvc.Result
 
 object Search extends PropertyLinkingController {
   lazy val sessionRepository = Wiring().sessionRepository
   lazy val connector = Wiring().propertyConnector
 
-  def show() = Action { implicit request =>
+  def show() = GGAction { _ => implicit request =>
     Ok(views.html.search(pretendSearchResults))
   }
 
-  def declareCapacity(uarn: String) = Action.async { implicit request =>
+  def declareCapacity(uarn: String) = GGAction.async { _ => implicit request =>
     connector.find(uarn).flatMap {
-      case Some(pd) => {
+      case Some(pd) =>
         sessionRepository.start(pd) map { _ =>
           Ok(views.html.declareCapacity(DeclareCapacityVM(declareCapacityForm, pd.address)))
         }
-      }
       case None => NotFound(views.html.defaultpages.notFound(request, Some(app.Routes)))
     }
   }
 
-  def attemptLink() = WithLinkingSession.async { implicit request =>
-    declareCapacityForm.bindFromRequest().fold(
-      errors => {
-        BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors, request.ses.claimedProperty.address)))
-      },
-      dec => {
-        sessionRepository.saveOrUpdate(request.ses.withDeclaration(dec)) map { _ => chooseLinkingJourney(request.ses.claimedProperty, dec) }
-      }
-    )
+  def attemptLink() = GGAction.async { _ => implicit request =>
+    sessionRepository.get() flatMap {
+      case Some(session) => declareCapacityForm.bindFromRequest().fold(
+        errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors, session.claimedProperty.address))),
+        formData => sessionRepository.saveOrUpdate(session.withDeclaration(formData)) map { _ =>
+          chooseLinkingJourney(session.claimedProperty, formData)
+        }
+      )
+      case None => NotFound("No linking session")
+    }
   }
 
   private def chooseLinkingJourney(p: Property, d: CapacityDeclaration): Result =

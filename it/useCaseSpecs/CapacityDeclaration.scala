@@ -7,9 +7,10 @@ class CapacityDeclaration extends FrontendTest {
   import TestData._
 
   "Given an interested person is logged in and has selected a self-certifiable property that exists to claim" - {
-    implicit val sid: SessionID = sessionId
-    implicit val aid: AccountID = accountId
+    implicit val sid: SessionId = sessionId
+    implicit val session = GGSession(userId, token)
     HTTP.stubPropertiesAPI(selfCertifiableProperty.uarn, selfCertifiableProperty)
+    HTTP.stubAuthentication(session)
 
     "When they arrive at the declaration page" - {
       val page = Page.get(s"/property-linking/link-to-property/${selfCertifiableProperty.uarn}")
@@ -35,7 +36,7 @@ class CapacityDeclaration extends FrontendTest {
     }
 
     "When they supply a valid relationship, start and end date" - {
-      HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty), Seq(Account(accountId, false)))
+      HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty), Seq(Account(userId, false)))
       val response = Page.postValid("/property-linking/link-to-property", validFormData: _*)
 
       "Their declaration is stored in the session" in {
@@ -50,9 +51,9 @@ class CapacityDeclaration extends FrontendTest {
       }
 
       "But if a non-self-certifiable property had been chosen they would instead be asked to supply a rates bill" in {
-        val sid: SessionID = java.util.UUID.randomUUID.toString
-        val aid: AccountID = accountId
-        HTTP.stubKeystoreSession(SessionDocument(nonSelfCertifiableProperty), Seq(Account(accountId, false)))(sid)
+        val sid: SessionId = java.util.UUID.randomUUID.toString
+        val aid = GGSession(userId, token)
+        HTTP.stubKeystoreSession(SessionDocument(nonSelfCertifiableProperty), Seq(Account(userId, false)))(sid)
         val response = Page.postValid("/property-linking/link-to-property", validFormData: _*)(sid, aid)
         response.header.headers("location") mustEqual "/property-linking/supply-rates-bill"
       }
@@ -76,7 +77,8 @@ class CapacityDeclaration extends FrontendTest {
     lazy val sessionId = java.util.UUID.randomUUID().toString
     lazy val propertyToClaimBillingAuthorityRef = "blahblahblooh"
 
-    lazy val accountId = "asdfj2304rsdf"
+    lazy val userId = "asdfj2304rsdf"
+    lazy val token = "kjasgpaopknaslk"
 
     lazy val address = Address(Seq("123 somwhere333i", "a teeewonio", "une villagAArios"), "AA11 1AA")
     lazy val selfCertifiableProperty = Property("uarn2", propertyToClaimBillingAuthorityRef, address, true, true)

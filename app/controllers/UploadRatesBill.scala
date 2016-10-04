@@ -39,7 +39,7 @@ object UploadRatesBill extends PropertyLinkingController {
     Ok(views.html.uploadRatesBill.show(UploadRatesBillVM(uploadRatesBillForm)))
   }
 
-  def submit() = WithLinkingSession.async { implicit request =>
+  def submit() = WithLinkingSession { implicit request =>
     uploadRatesBillForm.bindFromRequest().fold(
       errors => BadRequest(views.html.uploadRatesBill.show(UploadRatesBillVM(errors))),
       answer => handle(answer) flatMap {
@@ -65,12 +65,12 @@ object UploadRatesBill extends PropertyLinkingController {
     }
 
   private def retrieveFile(file: Option[FilePart[TemporaryFile]])(implicit request: LinkingSessionRequest[_]) =
-    uploadConnector.retrieveFiles(request.account.companyName, request.sessionId, "ratesBill", file.map(Seq(_)).getOrElse(Seq.empty))
+    uploadConnector.retrieveFiles(request.userId, request.sessionId, "ratesBill", file.map(Seq(_)).getOrElse(Seq.empty))
 
   private def requestLink(implicit req: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(
       req.ses.claimedProperty.uarn,
-      req.ses.claimedProperty.billingAuthorityReference, req.account,
+      req.ses.claimedProperty.billingAuthorityReference, req.userId,
       LinkToProperty(req.ses.declaration.getOrElse(throw new Exception("No declaration"))), java.util.UUID.randomUUID.toString
     )
 

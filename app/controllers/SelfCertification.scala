@@ -22,7 +22,6 @@ import form.Mappings.trueOnly
 import models.Property
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.Action
 import session.{LinkingSession, LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.play.http.HeaderCarrier
 import views.helpers.Errors
@@ -35,7 +34,7 @@ object SelfCertification extends PropertyLinkingController {
     Ok(views.html.selfCertification.show(SelfCertifyVM(selfCertifyForm, request.ses)))
   }
 
-  def submit() = WithLinkingSession.async { implicit request =>
+  def submit() = WithLinkingSession { implicit request =>
     selfCertifyForm.bindFromRequest().fold(
       errors => BadRequest(views.html.selfCertification.show(SelfCertifyVM(errors, request.ses))),
       conf => for {
@@ -47,7 +46,7 @@ object SelfCertification extends PropertyLinkingController {
 
   private def link(request: LinkingSessionRequest[_])(implicit hc: HeaderCarrier) =
     connector.linkToProperty(request.ses.claimedProperty.uarn,
-      request.ses.claimedProperty.billingAuthorityReference, request.account,
+      request.ses.claimedProperty.billingAuthorityReference, request.userId,
       request.ses.declaration.map(d => LinkToProperty(d)).getOrElse(throw new Exception("No declaration")),
       java.util.UUID.randomUUID.toString
     )

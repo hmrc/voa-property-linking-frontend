@@ -34,7 +34,7 @@ object UploadEvidence extends PropertyLinkingController {
     Ok(views.html.uploadEvidence.show(UploadEvidenceVM(form)))
   }
 
-  def submit() = WithLinkingSession.async { implicit request =>
+  def submit() = WithLinkingSession { implicit request =>
     form.bindFromRequest().fold(
       error => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(error))),
       uploaded => uploaded.hasEvidence match {
@@ -50,15 +50,15 @@ object UploadEvidence extends PropertyLinkingController {
   private def requestLink(implicit r: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(r.ses.claimedProperty.uarn,
       r.ses.claimedProperty.billingAuthorityReference,
-      r.account, LinkToProperty(r.ses.declaration.getOrElse(throw new Exception("No declaration"))),
+      r.userId, LinkToProperty(r.ses.declaration.getOrElse(throw new Exception("No declaration"))),
       java.util.UUID.randomUUID.toString
     )
 
   private def verifyUploadedFiles(implicit r: LinkingSessionRequest[AnyContent]) = {
     uploadConnector.retrieveFiles(
-      r.account.companyName, r.sessionId, "evidence",
+      r.userId, r.sessionId, "evidence",
       if (Environment.isDev || Environment.isProd) r.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence")) else Seq.empty
-    ).map(x => if (x.length >= 1 && x.length <=3) FilesAccepted else FilesRejected)
+    ).map(x => if (x.nonEmpty && x.length <=3) FilesAccepted else FilesRejected)
   }
 
   def evidenceUploaded() = WithLinkingSession { implicit request =>

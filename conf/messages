@@ -5,7 +5,7 @@ label.login=Login
 label.register=Register
 
 #LOGIN PAGE
-login.title=Login
+login.title=Login to Government Gateway
 error.login.invalid=Unrecognised company name
 
 #REGISTER PAGE
@@ -76,7 +76,7 @@ search.select.link=Select
 #DECLARE CAPACITY
 declareCapacity.title=Add property to your account
 declareCapacity.message=You are adding this property to your account:
-declareCapacity.incorrectProperty.prefix=If this isn't the right property you can
+declareCapacity.incorrectProperty.prefix=If this isn''t the right property you can
 declareCapacity.incorrectProperty.link=search for a different property
 declareCapacity.form.legend=When did you occupy or own / occupy the property?
 declareCapacity.fromDate.help=
@@ -100,14 +100,13 @@ toDate.year.label=Year
 selfCertification.linkSubmitted.title=Request received
 selfCertification.linkSubmitted.message=Thank you for your request which has been submitted to the Valuation Office Agency.
 selfCertification.show.title=Self Certification Required
-selfCertification.show.message=To be able to view the details of this property. You must promise that you are telling the truth.
+selfCertification.show.message=To be able to view the details of this property, you must promise that you are telling the truth.
 selfCertification.show.iAgree.label=Do you agree?
-selfCertification.show.iAgree.text=Do you agree?
-selfCertification.show.iAgree.hint=Do you agree?
+selfCertification.show.iAgree.text=I agree
+selfCertification.show.iAgree.hint=You must agree
 selfCertification.show.button=Go
 error.mustAgreeToSelfCert=You must agree to continue.
 selfCertification.linkAuthorised.properties.link=Manage your properties
-
 
 #UPLOAD RATES BILL
 uploadRatesBill.show.title=Upload your rates bill
@@ -183,3 +182,6 @@ agent.dashboard.manageProperties.accept=Accept
 agent.dashboard.manageProperties.reject=Reject
 agent.dashboard.manageProperties.acceptAll=Accept all
 agent.dashboard.manageProperties.rejectAll=Reject all
+
+#ERROR PAGES
+title.error.403=403 Forbidden

@@ -6,6 +6,9 @@ import org.scalatest.{AppendedClues, MustMatchers}
 import scala.collection.JavaConverters._
 
 case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
+  type FieldId = String
+  type FieldName = String
+  type Message = String
 
   def mustContainMultiFileInput(id: String) {
     mustContain1(s"input#$id[type=file][multiple]")
@@ -58,16 +61,16 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   def mustContain1(selector: String) =
     html.select(selector).size mustBe 1 withClue s"Expected 1 of: '$selector'\n ${html.select(selector)}\nFull HTML: \n$html"
 
-  def mustContainSummaryErrors(errors: (String, String, String)*) =
-    errors.foreach { e =>
+  def mustContainSummaryErrors(errors: (FieldId, FieldName, Message)*) =
+    errors.foreach { case (id, name, msg) =>
       val summary = html.select(s"div#error-summary")
       if (summary.asScala.length != 1) fail(s"No error summary \n$html")
       val ses = summary.select("ul li a").asScala
-      val link = ses.find(_.attr("href") == s"#${e._1}").getOrElse(fail(s"No error summary with ID ${e._1}\nError summary: ${ses.headOption.getOrElse("")}"))
-      link.text.trim.toLowerCase mustEqual errorSummaryHtmlFor(e).toLowerCase withClue s"Errors $link did not have text ${errorSummaryHtmlFor(e)}"
+      val link = ses.find(_.attr("href") == s"#$id").getOrElse(fail(s"No error summary with ID $id\nError summary: ${ses.headOption.getOrElse("")}"))
+      link.text.trim.toLowerCase mustEqual errorSummaryHtmlFor(name, msg).toLowerCase withClue s"Errors $link did not have text ${errorSummaryHtmlFor(name, msg)}"
     }
 
-  private def errorSummaryHtmlFor(e: (String, String, String)): String = s"${e._2} - ${e._3}"
+  private def errorSummaryHtmlFor(name: FieldName, msg: Message): String = s"$name - $msg"
 
   def mustContainFieldErrors(errors: (String, String)*) =
     errors.foreach { e =>

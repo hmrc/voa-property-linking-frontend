@@ -27,6 +27,22 @@ class TestHttpClient extends HttpGet with HTTPTestPUT with HTTPTestPOST with Htt
     stubbedGets = stubbedGets :+ ((url, headers, response))
   }
 
+  def stubAuthentication(session: GGSession) = {
+    val stubResponse = HttpResponse(
+      responseStatus = 200,
+      responseJson = Some(
+        Json.obj(
+          "userId" -> session.userId,
+          "credentialStrength" -> "weak",
+          "uri" -> session.userId,
+          "confidenceLevel" -> 50,
+          "accounts" -> JsArray()
+        )
+      )
+    )
+    stubGet("http://localhost:8500/auth/authority", Seq("token" -> session.token), stubResponse)
+  }
+
   def reset() = {
     stubbedGets = Seq.empty
     resetPUTs()
@@ -160,7 +176,7 @@ trait VPLAPIs { this: TestHttpClient =>
     stubGet(s"$propertiesBaseUrl/$uarn", Seq.empty, HttpResponse(200, responseJson = Some(Json.toJson(p))))
   }
 
-  def stubKeystoreSession(session: SessionDocument, accounts: Seq[Account])(implicit sid: SessionID) = {
+  def stubKeystoreSession(session: SessionDocument, accounts: Seq[Account])(implicit sid: SessionId) = {
     stubGet(
       s"$keystoreBaseUrl/voa-property-linking-frontend/$sid", Seq.empty,
       HttpResponse(200, responseJson = Some(Json.toJson(CacheMap("", Map(SessionDocument.sessionKey -> Json.toJson(session))))))
@@ -171,7 +187,7 @@ trait VPLAPIs { this: TestHttpClient =>
     )
   }
 
-  def verifyKeystoreSaved(session: SessionDocument)(implicit sid: SessionID) =
+  def verifyKeystoreSaved(session: SessionDocument)(implicit sid: SessionId) =
     verifyPUT(
       s"$keystoreBaseUrl/voa-property-linking-frontend/$sid/data/${SessionDocument.sessionKey}", Json.stringify(Json.toJson(Json.toJson(session)))
     )
@@ -181,7 +197,7 @@ trait VPLAPIs { this: TestHttpClient =>
       s"$propertyLinksBaseUrl/$uarn/$accountId/UUID", Json.stringify(Json.toJson(request))
     )
 
-  def verifyNoPropertyLinkRequest(billingAuthorifyReference: String, accountId: AccountID) =
+  def verifyNoPropertyLinkRequest(billingAuthorifyReference: String, accountId: String) =
     verifyNoPUTsFor(s"$propertyLinksBaseUrl/$billingAuthorifyReference/$accountId/UUID")
 
   def verifyNoMoreLinkRequests(amount: Int) =
@@ -208,7 +224,7 @@ trait VPLAPIs { this: TestHttpClient =>
       HttpResponse(200, responseJson = Some(Json.toJson(Map("isValid" -> ratesBillAccepted))))
     )
 
-  def stubFileUpload(accountId: String, sessionId: SessionID, key: String, files: (String, Array[Byte])*) = {
+  def stubFileUpload(accountId: String, sessionId: SessionId, key: String, files: (String, Array[Byte])*) = {
     val body = JsArray(files.map(f => Json.toJson(Map("name" -> f._1, "content" -> Base64.getEncoder.encodeToString(f._2)))))
     stubGet(
       s"$fileUploadBaseUrl/$accountId/$sessionId/$key", Seq.empty,
@@ -216,7 +232,7 @@ trait VPLAPIs { this: TestHttpClient =>
     )
   }
 
-  def stubFileUploadWithNoFile(accountId: String, sessionId: SessionID, key: String) =
+  def stubFileUploadWithNoFile(accountId: String, sessionId: SessionId, key: String) =
     stubGet(
       s"$fileUploadBaseUrl/$accountId/$sessionId/$key", Seq.empty,
       HttpResponse(404)
