@@ -16,11 +16,11 @@
 
 package controllers
 
+import auth.GGAction
 import config.Wiring
-import play.api.mvc._
-import session.WithAuthentication
-import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.mvc._
+import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
 
 import scala.concurrent.Future
 
@@ -29,11 +29,11 @@ object Application extends Controller {
   def index() = Action.async { implicit request =>
     LoggedIn(request) map {
       case true => Redirect(routes.Dashboard.home())
-      case false => Ok(views.html.start()).withNewSession.addingToSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
+      case false => Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
     }
   }
 
-  def logOut() = WithAuthentication { request =>
+  def logOut() = GGAction { _ => request =>
     Redirect(routes.Application.index()).withNewSession
   }
 }

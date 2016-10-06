@@ -3,7 +3,7 @@
 
 @(model: SelfCertifyVM)(implicit request: Request[_])
 
-@main("Start page") {
+@main(Messages("selfCertification.show.title")) {
 
     @form(routes.SelfCertification.submit()) {
         <main id="content">
@@ -22,7 +22,6 @@
                                 field = model.form("iAgree"),
                                 'id -> "iAgree",
                                 '_label -> Html(Messages("selfCertification.show.iAgree.label")),
-                                '_error -> model.form("iAgree").error,
                                 '_fieldsetClass -> "inline",
                                 '_legend -> false,
                                 '_labelClass -> "form-label-bold",

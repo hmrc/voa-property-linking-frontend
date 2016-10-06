@@ -17,13 +17,8 @@
 package controllers.agent
 
 import config.Wiring
-import connectors.ServiceContract.PropertyRepresentation
 import controllers.PropertyLinkingController
-import org.joda.time.DateTime
-import play.api.mvc.Action
 import session.WithAuthentication
-
-import scala.concurrent.Future
 
 object Dashboard extends PropertyLinkingController {
   val connector = Wiring().propertyLinkConnector
@@ -31,7 +26,5 @@ object Dashboard extends PropertyLinkingController {
   def home() = WithAuthentication.async { implicit request =>
     Ok(views.html.agent.dashboard.home())
   }
-
-
 }
 

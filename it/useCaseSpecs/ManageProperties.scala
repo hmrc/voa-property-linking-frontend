@@ -7,15 +7,16 @@ class ManageProperties extends FrontendTest {
   import TestData._
 
   "Given an interested person is logged in and has previously claimed properties" - {
-    implicit val sid: SessionID = sessionId
-    implicit val aid: AccountID = accountId
-    HTTP.stubLinkedPropertiesAPI(accountId, addedProperties, pendingProperties)
-    HTTP.stubAccounts(Seq(Account(accountId, false)))
+    implicit val sid: SessionId = sessionId
+    implicit val session = GGSession(userId, token)
+    HTTP.stubAuthentication(session)
+    HTTP.stubLinkedPropertiesAPI(userId, addedProperties, pendingProperties)
+    HTTP.stubAccounts(Seq(Account(userId, false)))
     addedProperties.foreach(prop =>
-      HTTP.stubPropertyRepresentationAPI(accountId, prop.uarn)
+      HTTP.stubPropertyRepresentationAPI(userId, prop.uarn)
     )
     pendingProperties.foreach(prop =>
-      HTTP.stubPropertyRepresentationAPI(accountId, prop.uarn)
+      HTTP.stubPropertyRepresentationAPI(userId, prop.uarn)
     )
 
     properties.foreach(prop =>
@@ -47,15 +48,16 @@ class ManageProperties extends FrontendTest {
 
   object TestData {
     lazy val sessionId = java.util.UUID.randomUUID.toString
-    lazy val accountId = "adsjflkj3243"
+    lazy val userId = "adsjflkj3243"
+    lazy val token = "aifjnadogkjnsaldn"
     lazy val addedProperties = Seq(
-      PropertyLink("uarn1", accountId, CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2009, 2014), false),
-      PropertyLink("uarn2", accountId, CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2009), false),
+      PropertyLink("uarn1", userId, CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2009, 2014), false),
+      PropertyLink("uarn2", userId, CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2009), false),
       PropertyLink("uarn3", "aad3ge443asdas", CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2014), false),
       PropertyLink("uarn4", "ge44Xwers", CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2004), false)
     )
     lazy val pendingProperties = Seq(
-      PropertyLink("uarn5", accountId, CapacityDeclaration("ownerlandlord", "2010-01-01", None), "2012-01-01", Seq(), true),
+      PropertyLink("uarn5", userId, CapacityDeclaration("ownerlandlord", "2010-01-01", None), "2012-01-01", Seq(), true),
       PropertyLink("uarn6", "gBADewaa", CapacityDeclaration("ownerlandlord", "2010-01-01", None), "2012-01-01", Seq(), true)
     )
     lazy val properties = Seq(

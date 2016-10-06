@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package controllers
+package config
 
-import auth.GovernmentGatewayProvider
-import play.api.mvc.Action
+import uk.gov.hmrc.play.config.RunMode
 
-object Login extends PropertyLinkingController {
-  def show = Action { implicit request =>
-    Redirect(GovernmentGatewayProvider.login)
-  }
+object ApplicationConfig extends RunMode {
+
+  def baseUrl = if (env == "Prod") "" else "http://localhost:9523"
 }

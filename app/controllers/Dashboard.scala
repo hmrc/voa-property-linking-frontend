@@ -16,12 +16,10 @@
 
 package controllers
 
+import auth.GGAction
 import config.Wiring
 import connectors.ServiceContract.PropertyRepresentation
-import session.WithAuthentication
-import play.api.mvc.Action
 import org.joda.time.DateTime
-import play.api.data.Form
 
 import scala.concurrent.Future
 
@@ -30,15 +28,15 @@ object Dashboard extends PropertyLinkingController {
   val reprConnector = Wiring().propertyRepresentationConnector
   val propConnector = Wiring().propertyConnector
 
-  def home() = Action { implicit request =>
+  def home() = GGAction { _ => implicit request =>
     Ok(views.html.dashboard.home())
   }
 
-  def manageProperties() = WithAuthentication.async { implicit request =>
-    propLinkedConnector.linkedProperties(request.account).flatMap { ps =>
+  def manageProperties() = GGAction.async { ctx => implicit request =>
+    propLinkedConnector.linkedProperties(ctx.user.oid).flatMap { ps =>
       val added: Seq[Future[PropertyLinkRepresentations]] = ps.added.map { prop =>
         for {
-          repr <- reprConnector.get(request.account.companyName, prop.uarn)
+          repr <- reprConnector.get(ctx.user.oid, prop.uarn)
           name <- propConnector.find(prop.uarn)
             .map( x => x.map(prop => prop.address.lines.head + ", " + prop.address.postcode).getOrElse("No Address found"))
         } yield
@@ -46,7 +44,7 @@ object Dashboard extends PropertyLinkingController {
             prop.capacityDeclaration.capacity.name, prop.linkedDate, prop.assessmentYears, repr)
       }
       val pending: Seq[Future[PendingPropertyLinkRepresentations]] = ps.pending.map { prop =>
-        reprConnector.get(request.account.companyName, prop.uarn).map { rep =>
+        reprConnector.get(ctx.user.oid, prop.uarn).map { rep =>
           PendingPropertyLinkRepresentations("TODO", prop.uarn,
             prop.capacityDeclaration.capacity.name, prop.linkedDate, rep)
         }
