@@ -45,7 +45,7 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
                     (implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-links/$uarn/${account.companyName}/$submissionId"
     val request = PropertyLink(uarn, account.companyName, linkToProperty.capacityDeclaration,
-      DateTime.now, Seq(2017), PrototypeTestData.canBeLinkedTo(billingAuthorityRef) )
+      DateTime.now, Seq(2017), true )
     http.POST[ServiceContract.PropertyLink, Unit](s"$url", request)
   }
 

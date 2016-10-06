@@ -9,7 +9,11 @@
                 </h1>
             </div>
         </div>
-        <p>@Messages("uploadEvidence.noEvidenceUploaded.message")</p>
-        <a href="@routes.Dashboard.home" class="button">@Messages("uploadEvidence.noEvidenceUploaded.home.link")</a>
+<div class="success-summary addedPropertyAlert" role="group" aria-labelledby="success-summary-heading-example-1" tabindex="-1" style="display: block; margin-top: 0px;">
+    <h2 class="heading-medium success-summary-heading" id="success-summary-heading-example-1">
+        @Messages("uploadEvidence.noEvidenceUploaded.message")
+    </h2>
+</div>
+<a id="backToDashBoard" href="@routes.Dashboard.manageProperties()" class="button">@Messages("uploadRatesBill.ratesBillUploaded.link")</a>
     </main>
 }

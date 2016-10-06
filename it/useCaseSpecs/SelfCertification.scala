@@ -32,8 +32,8 @@ class SelfCertification extends FrontendTest {
         HTTP.verifyPropertyLinkRequest(uarn, accountId, expectedLink)
       }
 
-      "And they are redirected the self declaration confirmation screen once the link is successfully confirmed" in {
-        response.header.headers("location") mustEqual "/property-linking/self-certification-link-authorised"
+      "And they are redirected the self declaration property linking submission" in {
+        response.header.headers("location") mustEqual "/property-linking/self-certification-link-submitted"
       }
 
       "And a flag is marked in the session indicating the link was successful" in {
@@ -64,7 +64,7 @@ class SelfCertification extends FrontendTest {
     lazy val address = Address(Seq.empty, "AA11 1AA")
     lazy val selfCertifiableProperty = Property(uarn, "xyzbaref332", address, true, true)
     lazy val declaration = CapacityDeclaration("occupier", "2011-01-01", None)
-    lazy val expectedLink = LinkToProperty(uarn, accountId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), false)
+    lazy val expectedLink = LinkToProperty(uarn, accountId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), true)
   }
 
 }

@@ -25,11 +25,6 @@ case class Address(lines: Seq[String], postcode: String) {
 
 case class Property(uarn: String, billingAuthorityReference: String, address: Address, isSelfCertifiable: Boolean, canReceiveMail: Boolean)
 
-object IsAlreadyLinked {
-  def apply(property: Property, declaration: CapacityDeclaration) =
-    property == PrototypeTestData.conflictedProperty
-}
-
 trait NamedEnum {
   def name:String
   def key:String
