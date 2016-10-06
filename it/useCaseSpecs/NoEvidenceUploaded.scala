@@ -1,0 +1,37 @@
+package useCaseSpecs
+
+import useCaseSpecs.utils._
+
+class NoEvidenceUploaded extends FrontendTest {
+
+  import TestData._
+
+  "Given an interested person has not uploaded any evidence for a property" - {
+    implicit val sid: SessionID = java.util.UUID.randomUUID.toString
+    implicit val aid: AccountID = accountId
+    HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration), selfCertifyComplete = Some(false)), Seq(Account(accountId, false)))
+
+    "When they arrive at the no evidence submitted page" - {
+      val page = Page.get("/property-linking/no-evidence-uploaded")
+
+      "They see confirmation that their property linking request has been submitted" in {
+        page.mustContainSuccessSummary(s"Thank you for your request which has been submitted to the Valuation Office Agency.")
+      }
+
+      "And the page contains a link to the dashboard" in {
+        page.mustContainLink("#backToDashBoard", "/property-linking/manage-properties")
+      }
+    }
+  }
+
+  object TestData {
+    lazy val baRef = "sfku03802342"
+    lazy val uarn = "uarn03802342"
+    lazy val address = Address(Seq("leen1", "leen2", "leen3"), "AA11 1AA")
+    lazy val accountId = "389u4asldkjfasljdf"
+    lazy val formattedAddress = "leen1, leen2, leen3, AA11 1AA"
+    lazy val nonSelfCertProperty = Property(uarn, baRef, address, false, true)
+    lazy val declaration = CapacityDeclaration("occupier", "2001-01-01", None)
+  }
+
+}

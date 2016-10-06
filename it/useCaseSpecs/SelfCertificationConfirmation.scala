@@ -12,10 +12,13 @@ class SelfCertificationConfirmation extends FrontendTest {
     HTTP.stubKeystoreSession(SessionDocument(selfCertProperty, Some(declaration), selfCertifyComplete = Some(true)), Seq(Account(accountId, false)))
 
     "When they arrive at the self certification confirmation page" - {
-      val page = Page.get("/property-linking/self-certification-link-authorised")
+      val page = Page.get("/property-linking/self-certification-link-submitted")
 
-      "They see confirmation that they are now linked to the selected property" in {
-        page.mustContainSuccessSummary(s"You have successfully added $formattedAddress to your account.")
+      "They see confirmation that their property linking request has been submitted" in {
+        page.mustContainSuccessSummary(s"Thank you for your request which has been submitted to the Valuation Office Agency. $formattedAddress")
+      }
+      "And the page contains a link to the dashboard" in {
+        page.mustContainLink("#backToDashBoard", "/property-linking/manage-properties")
       }
     }
   }
@@ -26,7 +29,7 @@ class SelfCertificationConfirmation extends FrontendTest {
     HTTP.stubKeystoreSession(SessionDocument(selfCertProperty, Some(declaration)), Seq(Account(accountId, false)))
 
     "When they try to access the self certification page" - {
-      val res = Page.getResult("/property-linking/self-certification-link-authorised")
+      val res = Page.getResult("/property-linking/self-certification-link-submitted")
 
       "They are redirected to the dashboard home page" in {
         res.header.status mustEqual 303

@@ -58,9 +58,7 @@ object Search extends PropertyLinkingController {
   }
 
   private def chooseLinkingJourney(p: Property, d: CapacityDeclaration): Result =
-    if (IsAlreadyLinked(p, d))
-      Redirect(routes.LinkErrors.conflict())
-    else if (p.isSelfCertifiable)
+    if (p.isSelfCertifiable)
       Redirect(routes.SelfCertification.show())
     else
       Redirect(routes.UploadRatesBill.show())

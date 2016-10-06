@@ -7,17 +7,17 @@
         <div class="grid-row">
             <div class="column-two-thirds">
                 <h1 class="form-title heading-xlarge">
-                    <span class="section-title">@Messages("selfCertification.linkAuthorised.title")</span>
+                    <span class="section-title">@Messages("selfCertification.linkSubmitted.title")</span>
                 </h1>
             </div>
         </div>
         <div class="success-summary addedPropertyAlert" role="group" aria-labelledby="success-summary-heading-example-1" tabindex="-1" style="display: block; margin-top: 0px;">
             <h2 class="heading-medium success-summary-heading" id="success-summary-heading-example-1">
-                You have successfully added
+                @Messages("selfCertification.linkSubmitted.message")
             </h2>
-            <p style="margin-bottom: 0">@Display.address(model.linkedProperty.address) @Messages("selfCertification.linkAuthorised.address.suffix")</p>
+            <p style="margin-bottom: 0">@Display.address(model.linkedProperty.address)</p>
 
         </div>
-        <a href="@routes.Dashboard.manageProperties()" class="button">@Messages("selfCertification.linkAuthorised.properties.link")</a>
+        <a id="backToDashBoard" href="@routes.Dashboard.manageProperties()" class="button">@Messages("selfCertification.linkAuthorised.properties.link")</a>
     </main>
 }

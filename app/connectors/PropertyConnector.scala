@@ -38,27 +38,12 @@ object PrototypeTestData {
   lazy val selfCertProperty = Property( "uarn1",
     "testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA"), true, true
   )
-  lazy val conflictedProperty = Property( "uarn2",
-    "testconflict", Address(Seq("22 Conflict Self-cert", "The Town"), "AA11 1AA"), true, true
-  )
-  lazy val bankForRatesBillVerifiedJourney = Property( "uarn3",
-    "testbankaccepted", Address(Seq("Banky McBankface (rates bill accepted)", "Some Road", "Some Town"), "AA11 1AA"), false, true
-  )
-  lazy val bankForRatesBillFailedJourney = Property( "uarn4",
-    "testbankrejected", Address(Seq("Banky McSadface (rates bill rejected)", "Some Road", "Some Town"), "AA11 1AA"), false, true
+  lazy val nonSelfCertProperty = Property( "uarn2",
+    "testnonselfcertifiableshop", Address(Seq("Non certifiable, some street", "The Town"), "AA11 1AA"), false, true
   )
   lazy val pretendSearchResults = Seq(
     selfCertProperty,
-    conflictedProperty,
-    bankForRatesBillVerifiedJourney,
-    bankForRatesBillFailedJourney,
-    Property(
-      "uarn5", "testbanknomail", Address(Seq("Banky McNoMailFace (Cannot receive mail)", "Some Road", "Some Town"), "AA11 1AA"), false, false
-    )
+    nonSelfCertProperty
   )
-
-  def canBeLinkedTo(baRef: String) =
-    baRef == bankForRatesBillVerifiedJourney.billingAuthorityReference ||
-    baRef == selfCertProperty.billingAuthorityReference
 
 }

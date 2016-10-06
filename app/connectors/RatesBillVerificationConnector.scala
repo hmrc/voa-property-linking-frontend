@@ -32,7 +32,7 @@ class RatesBillVerificationConnector(http: HttpPut)(implicit ec: ExecutionContex
       s"$base/$billingAuthorityReference/${java.util.UUID.randomUUID.toString}",
       Json.toJson(JsObject(Seq("data" -> JsString(ratesBill.toB64String))))
     ).recover { case _ =>
-      RatesBillCheck(billingAuthorityReference == PrototypeTestData.bankForRatesBillVerifiedJourney.billingAuthorityReference)
+      RatesBillCheck(true)
     }
 }
 
