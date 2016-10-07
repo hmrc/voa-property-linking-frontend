@@ -16,9 +16,10 @@
 
 package connectors.propertyLinking
 
-import connectors.ServiceContract.{LinkedProperties, PropertyLink}
-import connectors.{PrototypeTestData, ServiceContract}
+import connectors.ServiceContract.{CapacityDeclaration, LinkedProperties, PropertyLink}
+import connectors.{PrototypeTestData, RequestFlag, ServiceContract}
 import org.joda.time.DateTime
+import play.api.libs.json.Json
 import serialization.JsonFormats
 import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -36,11 +37,12 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
   }
 
   // TODO - will not be passing in accountId once auth solution is confirmed
-  def linkToProperty(uarn: String, billingAuthorityRef: String, userId: String, linkToProperty: ServiceContract.LinkToProperty, submissionId: String)
+  def linkToProperty(uarn: String, billingAuthorityRef: String, userId: String,
+                     capacityDeclaration: CapacityDeclaration, submissionId: String, flag: RequestFlag)
                     (implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-links/$uarn/$userId/$submissionId"
-    val request = PropertyLink(uarn, userId, linkToProperty.capacityDeclaration,
-      DateTime.now, Seq(2017), true )
+    val request = PropertyLink(uarn, userId, capacityDeclaration,
+      DateTime.now, Seq(2017), true, flag)
     http.POST[ServiceContract.PropertyLink, Unit](s"$url", request)
   }
 

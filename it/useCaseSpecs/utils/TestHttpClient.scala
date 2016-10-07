@@ -192,7 +192,7 @@ trait VPLAPIs { this: TestHttpClient =>
       s"$keystoreBaseUrl/voa-property-linking-frontend/$sid/data/${SessionDocument.sessionKey}", Json.stringify(Json.toJson(Json.toJson(session)))
     )
 
-  def verifyPropertyLinkRequest(uarn: String, accountId: String, request: LinkToProperty) =
+  def verifyPropertyLinkRequest(uarn: String, accountId: String, request: PropertyLink) =
     verifyPOST(
       s"$propertyLinksBaseUrl/$uarn/$accountId/UUID", Json.stringify(Json.toJson(request))
     )

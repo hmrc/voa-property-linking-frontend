@@ -80,7 +80,8 @@ class EvidenceRequired extends FrontendTest {
     lazy val declaration = CapacityDeclaration("occupier", "2003-10-03", None)
     lazy val bytes1 = (44 to 233).map(_.toByte).toArray
     lazy val bytes2 = (200 to 433).map(_.toByte).toArray
-    lazy val expectedLink = LinkToProperty(uarn, userId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), true)
+    lazy val expectedLink = PropertyLink(uarn, userId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), true, "otherEvidence")
+
   }
 
 }

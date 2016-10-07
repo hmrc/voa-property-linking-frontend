@@ -51,14 +51,14 @@ class ManageProperties extends FrontendTest {
     lazy val userId = "adsjflkj3243"
     lazy val token = "aifjnadogkjnsaldn"
     lazy val addedProperties = Seq(
-      PropertyLink("uarn1", userId, CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2009, 2014), false),
-      PropertyLink("uarn2", userId, CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2009), false),
-      PropertyLink("uarn3", "aad3ge443asdas", CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2014), false),
-      PropertyLink("uarn4", "ge44Xwers", CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2004), false)
+      PropertyLink("uarn1", userId, CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2009, 2014), false, "ratesBill"),
+      PropertyLink("uarn2", userId, CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2009), false, "ratesBill"),
+      PropertyLink("uarn3", "aad3ge443asdas", CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2014), false, "ratesBill"),
+      PropertyLink("uarn4", "ge44Xwers", CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2004), false, "ratesBill")
     )
     lazy val pendingProperties = Seq(
-      PropertyLink("uarn5", userId, CapacityDeclaration("ownerlandlord", "2010-01-01", None), "2012-01-01", Seq(), true),
-      PropertyLink("uarn6", "gBADewaa", CapacityDeclaration("ownerlandlord", "2010-01-01", None), "2012-01-01", Seq(), true)
+      PropertyLink("uarn5", userId, CapacityDeclaration("ownerlandlord", "2010-01-01", None), "2012-01-01", Seq(), true, "ratesBill"),
+      PropertyLink("uarn6", "gBADewaa", CapacityDeclaration("ownerlandlord", "2010-01-01", None), "2012-01-01", Seq(), true, "ratesBill")
     )
     lazy val properties = Seq(
       Property("uarn1", "baRes", Address(Seq("Some where", "over the rainbow"), "postcode"), true, true),

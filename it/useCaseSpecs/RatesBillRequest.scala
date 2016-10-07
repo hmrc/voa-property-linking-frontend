@@ -77,7 +77,7 @@ class RatesBillRequest extends FrontendTest {
     lazy val declaration = CapacityDeclaration("occupier", "2012-01-01", None)
     lazy val validRatesBill = (1 to 1000).map(_.toByte).toArray
     lazy val invalidRatesBill = (5000 to 7000).map(_.toByte).toArray
-    lazy val expectedLink = LinkToProperty(uarn, userId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), true)
+    lazy val expectedLink = PropertyLink(uarn, userId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), true, "ratesBill")
   }
 
 }

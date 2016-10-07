@@ -17,7 +17,7 @@
 package controllers
 
 import config.Wiring
-import connectors.ServiceContract.LinkToProperty
+import connectors.SelfCertifyFlag
 import form.Mappings.trueOnly
 import models.Property
 import play.api.data.Form
@@ -47,8 +47,8 @@ object SelfCertification extends PropertyLinkingController {
   private def link(request: LinkingSessionRequest[_])(implicit hc: HeaderCarrier) =
     connector.linkToProperty(request.ses.claimedProperty.uarn,
       request.ses.claimedProperty.billingAuthorityReference, request.userId,
-      request.ses.declaration.map(d => LinkToProperty(d)).getOrElse(throw new Exception("No declaration")),
-      java.util.UUID.randomUUID.toString
+      request.ses.declaration.getOrElse(throw new Exception("No declaration")),
+      java.util.UUID.randomUUID.toString, SelfCertifyFlag
     )
 
   def linkAuthorised() = WithLinkingSession { implicit request =>

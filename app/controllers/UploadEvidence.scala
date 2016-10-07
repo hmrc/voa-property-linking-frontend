@@ -17,7 +17,7 @@
 package controllers
 
 import config.{Environment, Wiring}
-import connectors.ServiceContract.LinkToProperty
+import connectors.{OtherEvidenceFlag}
 import form.EnumMapping
 import models.{DoesHaveEvidence, DoesNotHaveEvidence, HasEvidence}
 import play.api.data.Form
@@ -50,8 +50,8 @@ object UploadEvidence extends PropertyLinkingController {
   private def requestLink(implicit r: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(r.ses.claimedProperty.uarn,
       r.ses.claimedProperty.billingAuthorityReference,
-      r.userId, LinkToProperty(r.ses.declaration.getOrElse(throw new Exception("No declaration"))),
-      java.util.UUID.randomUUID.toString
+      r.userId, r.ses.declaration.getOrElse(throw new Exception("No declaration")),
+      java.util.UUID.randomUUID.toString, OtherEvidenceFlag
     )
 
   private def verifyUploadedFiles(implicit r: LinkingSessionRequest[AnyContent]) = {
