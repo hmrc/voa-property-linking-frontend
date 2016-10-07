@@ -17,7 +17,7 @@
 package controllers
 
 import config.{Environment, Wiring}
-import connectors.ServiceContract.LinkToProperty
+import connectors.{RatesBillFlag, ServiceContract}
 import form.EnumMapping
 import models.{DoesHaveRatesBill, DoesNotHaveRatesBill, HasRatesBill, RatesBill}
 import play.api.data.Forms._
@@ -71,7 +71,8 @@ object UploadRatesBill extends PropertyLinkingController {
     propertyLinkConnector.linkToProperty(
       req.ses.claimedProperty.uarn,
       req.ses.claimedProperty.billingAuthorityReference, req.userId,
-      LinkToProperty(req.ses.declaration.getOrElse(throw new Exception("No declaration"))), java.util.UUID.randomUUID.toString
+      req.ses.declaration.getOrElse(throw new Exception("No declaration")),
+      java.util.UUID.randomUUID.toString, RatesBillFlag
     )
 
   def ratesBillUploaded() = Action { implicit request =>

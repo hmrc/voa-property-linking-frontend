@@ -66,7 +66,7 @@ class SelfCertification extends FrontendTest {
     lazy val address = Address(Seq.empty, "AA11 1AA")
     lazy val selfCertifiableProperty = Property(uarn, "xyzbaref332", address, true, true)
     lazy val declaration = CapacityDeclaration("occupier", "2011-01-01", None)
-    lazy val expectedLink = LinkToProperty(uarn, userId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), true)
+    lazy val expectedLink = PropertyLink(uarn, userId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), true, "selfCertify")
   }
 
 }
