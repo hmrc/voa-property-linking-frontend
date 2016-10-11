@@ -35,5 +35,5 @@ object GovernmentGatewayProvider extends GovernmentGateway with ServicesConfig {
   private val continueUrl = ApplicationConfig.baseUrl + controllers.routes.Dashboard.home().url
   private val ggUrl = baseUrl("government-gateway")
 
-  override def login = s"$ggUrl/gg/sign-in?continue=$continueUrl&accountType=organisation"
+  override def login = s"${ApplicationConfig.ggSignInUrl}?continue=$continueUrl&accountType=organisation"
 }

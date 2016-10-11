@@ -16,9 +16,15 @@
 
 package config
 
+import play.api.Play._
 import uk.gov.hmrc.play.config.RunMode
 
 object ApplicationConfig extends RunMode {
 
   def baseUrl = if (env == "Prod") "" else "http://localhost:9523"
+  val ggSignInUrl = getConfig("gg-sign-in.url")
+
+  private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
 }
+
+private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")
