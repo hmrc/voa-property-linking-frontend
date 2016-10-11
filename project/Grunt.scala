@@ -7,7 +7,6 @@ object Grunt {
 
     object GruntProcess extends PlayRunHook {
 
-
       var gruntRun: Option[Process] = None
 
       override def beforeStarted(): Unit = {
