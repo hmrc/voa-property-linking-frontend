@@ -15,7 +15,6 @@ module.exports = function(grunt) {
                 'public/javascripts/intelAlerts.js'
             ]
         },
-
         // Builds Sass
         sass: {
             dev: {
