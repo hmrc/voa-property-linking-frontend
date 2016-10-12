@@ -55,11 +55,10 @@ object WithAuthentication extends ActionBuilder[AuthenticatedRequest] with Actio
 
   override protected def refine[A](request: Request[A]) =
     request.session.get("accountId") match {
-      case Some(aid) => {
+      case Some(aid) =>
         accountRepo.get(aid)(hc(request)).map( account => account.map( acc =>
           Right(AuthenticatedRequest(acc, request))
         ).getOrElse(Left(Forbidden(views.html.errors.forbidden()))))
-      }
       case None => Left(Forbidden(views.html.errors.forbidden()))
     }
 }

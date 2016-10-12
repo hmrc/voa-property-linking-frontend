@@ -14,11 +14,11 @@
 *@
 @(field: play.api.data.Field, args: (Symbol,Any)*)(implicit handler: FieldConstructor, requestHeader: RequestHeader, lang: Lang)
 
-@boxValue = @{ args.toMap.get('value).getOrElse("true") }
+@boxValue = @{args.toMap.getOrElse('value, "true")}
 
 @input(field, args:_*) { (id, name, value, htmlArgs) =>
     <label class="block-label" for="@(id)_text">
-        <input type="checkbox" id="@(id)_text" name="@name" value="@boxValue" @(if(value == Some(boxValue)) "checked" else "") @toHtmlArgs(htmlArgs.filterKeys(_ == 'value))>
+        <input type="checkbox" id="@(id)_text" name="@name" value="@boxValue" @(if(value.contains(boxValue)) "checked" else "") @toHtmlArgs(htmlArgs.filterKeys(_ == 'value))>
         @args.toMap.get('_text)
     </label>
 }

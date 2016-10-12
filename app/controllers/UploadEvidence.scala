@@ -17,7 +17,7 @@
 package controllers
 
 import config.{Environment, Wiring}
-import connectors.{OtherEvidenceFlag}
+import connectors.OtherEvidenceFlag
 import form.EnumMapping
 import models.{DoesHaveEvidence, DoesNotHaveEvidence, HasEvidence}
 import play.api.data.Form
