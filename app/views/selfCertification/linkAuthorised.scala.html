@@ -15,7 +15,7 @@
             <h2 class="heading-medium success-summary-heading" id="success-summary-heading-example-1">
                 @Messages("selfCertification.linkSubmitted.message")
             </h2>
-            <p style="margin-bottom: 0">@Display.address(model.linkedProperty.address)</p>
+            <p style="margin-bottom: 0">@model.linkedProperty.address.toString</p>
 
         </div>
         <a id="backToDashBoard" href="@routes.Dashboard.manageProperties()" class="button">@Messages("selfCertification.linkAuthorised.properties.link")</a>

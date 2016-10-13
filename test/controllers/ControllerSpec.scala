@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-package template
+package controllers
 
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
+import org.scalatest.{FlatSpec, MustMatchers}
+import play.api.test.{DefaultAwaitTimeout, FakeApplication, FutureAwaits}
+import utils.{StubAccountConnector, StubAuthConnector, StubUserDetails}
 
-object Display {
-  private val pattern = DateTimeFormat.forPattern("dd/MM/yyyy")
-  def date(d: DateTime): String = d.toString(pattern)
+trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout {
+  implicit val app = TestApp.app
+}
+
+object TestApp {
+  val app = FakeApplication()
+  play.api.Play.start(app)
 }

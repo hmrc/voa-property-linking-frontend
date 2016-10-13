@@ -16,4 +16,4 @@ object SessionDocument {
 
 case class SessionDocument(claimedProperty: Property, declaration: Option[CapacityDeclaration] = None, selfCertifyComplete: Option[Boolean] = None)
 case class Property(uarn: String, billingAuthorityReference: String, address: Address, isSelfCertifiable: Boolean, canReceiveMail: Boolean)
-case class Address(lines: Seq[String], postcode: String)
+case class Address(line1: String, line2: String, line3: String, postcode: String)

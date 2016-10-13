@@ -17,13 +17,10 @@
 package controllers
 
 import config.Wiring
-import connectors.ServiceContract
-import connectors.ServiceContract.PropertyRepresentation
-import connectors.PropertyRepresentationConnector
+import connectors.PropertyRepresentation
 import play.api.data.Form
 import play.api.data.Forms._
 import session.WithAuthentication
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 object AppointAgentController extends PropertyLinkingController {
   val propertyRepresentationConnector = Wiring().propertyRepresentationConnector
@@ -42,8 +39,8 @@ object AppointAgentController extends PropertyLinkingController {
       if (reprs.size > 1)
         Ok(views.html.propertyRepresentation.selectAgent(reprs))
       else {
-        val form = appointAgentForm.fill(AppointAgent(reprs(0).agentId, reprs(0).canCheck, reprs(0).canChallenge))
-        Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, uarn, reprs(0).representationId)))
+        val form = appointAgentForm.fill(AppointAgent(reprs.head.agentId, reprs.head.canCheck, reprs.head.canChallenge))
+        Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, uarn, reprs.head.representationId)))
       }
     })
   }
@@ -71,8 +68,7 @@ object AppointAgentController extends PropertyLinkingController {
 
   def modify(uarn: String, agentCode:String) = WithAuthentication.async{ implicit request =>
     propertyRepresentationConnector.get(request.account.companyName, uarn).map( propReps => {
-      val form = propReps.filter(_.agentId ==agentCode)
-        .headOption
+      val form = propReps.find(_.agentId == agentCode)
         .map(repr => {
           val reprId = repr.representationId
           (AppointAgent(repr.agentId, repr.canCheck, repr.canChallenge), reprId)

@@ -14,12 +14,20 @@
  * limitations under the License.
  */
 
-package template
+package utils
 
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
+import connectors.UserDetails
+import uk.gov.hmrc.play.frontend.auth.AuthContext
+import uk.gov.hmrc.play.http.HeaderCarrier
 
-object Display {
-  private val pattern = DateTimeFormat.forPattern("dd/MM/yyyy")
-  def date(d: DateTime): String = d.toString(pattern)
+import scala.concurrent.Future
+
+object StubUserDetails extends UserDetails(StubHttp) {
+  private var groupId = ""
+
+  def stubGroupId(id: String): Unit = {
+    groupId = id
+  }
+
+  override def getGroupId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(groupId)
 }

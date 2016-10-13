@@ -34,7 +34,7 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "play-json-logger" % "2.1.0",
     "uk.gov.hmrc" %% "http-caching-client" % "5.3.0",
     "joda-time" % "joda-time" % "2.8.2",
-    "uk.gov.hmrc" %% "play-authorised-frontend" % "4.5.0"
+    "uk.gov.hmrc" %% "play-authorised-frontend" % "5.8.0"
   )
 
   trait TestDependencies {

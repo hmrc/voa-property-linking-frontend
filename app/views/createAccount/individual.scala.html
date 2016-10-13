@@ -1,0 +1,51 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import controllers.CreateIndividualAccountVM
+@import controllers.CreateIndividualAccount.keys
+
+@(model: CreateIndividualAccountVM)(implicit request: Request[_])
+
+    @main(Messages("createAccount.individual.title")) {
+    <main id="content">
+        <div class="grid-row">
+            <div class="column-two-thirds">
+            
+                <h1 class="heading-xlarge">@Messages("createAccount.individual.title")</h1>
+                
+                @form(routes.CreateIndividualAccount.submit) {
+
+                    @inputText(
+                        field = model.form(keys.firstName),
+                        '_label -> Messages("label.createAccount.firstName"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control"
+                    )
+
+                    @inputText(
+                        field = model.form(keys.lastName),
+                        '_label -> Messages("label.createAccount.lastName"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control"
+                    )
+
+                    @dateFields(model.form, keys.dateOfBirth)
+
+                    @inputText(
+                        field = model.form(keys.nino),
+                        '_label -> Messages("label.createAccount.nino"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control"
+                    )
+
+                    <p>
+                        <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
+                    </p>
+                }
+                
+            </div>
+        </div>
+    </main>
+    }

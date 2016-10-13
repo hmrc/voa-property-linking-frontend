@@ -13,6 +13,7 @@ class SelfCertification extends FrontendTest {
     implicit val session = GGSession(userId, token)
     HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty, Some(declaration)), Seq(Account(userId, false)))
     HTTP.stubAuthentication(session)
+    HTTP.stubGroupId(session, groupId)
 
     "When they arrive at the the self certification page" - {
       val page = Page.get("/property-linking/self-certify")
@@ -30,7 +31,7 @@ class SelfCertification extends FrontendTest {
       val response = Page.postValid("/property-linking/confirm-self-certify", "iAgree" -> "true")
 
       "Their link request is submitted" in {
-        HTTP.verifyPropertyLinkRequest(uarn, userId, expectedLink)
+        HTTP.verifyPropertyLinkRequest(uarn, groupId, expectedLink)
       }
 
       "And they are redirected the self declaration property linking submission" in {
@@ -63,10 +64,11 @@ class SelfCertification extends FrontendTest {
     lazy val uarn = "uarn6"
     lazy val userId = "bizn33z123xdr"
     lazy val token = "jaknsfpagklm"
-    lazy val address = Address(Seq.empty, "AA11 1AA")
+    lazy val groupId = "oisagnodkflka"
+    lazy val address = Address("", "", "", "AA11 1AA")
     lazy val selfCertifiableProperty = Property(uarn, "xyzbaref332", address, true, true)
     lazy val declaration = CapacityDeclaration("occupier", "2011-01-01", None)
-    lazy val expectedLink = PropertyLink(uarn, userId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), true, "selfCertify")
+    lazy val expectedLink = PropertyLink(uarn, groupId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), true, "selfCertify")
   }
 
 }

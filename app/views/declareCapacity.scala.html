@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <p class="heading-medium">@Messages("declareCapacity.message")</p>
                     <p class="address-confirmation" style="font-size:36px">
-                        @Display.address(model.address)
+                        @model.address.toString
                     </p>
                     <div class="panel-indent">
                         @Messages("declareCapacity.incorrectProperty.prefix")

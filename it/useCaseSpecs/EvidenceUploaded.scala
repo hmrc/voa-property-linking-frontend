@@ -11,6 +11,7 @@ class EvidenceUploaded extends FrontendTest {
     implicit val session = GGSession(userId, token)
     HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration), selfCertifyComplete = Some(false)), Seq(Account(userId, false)))
     HTTP.stubAuthentication(session)
+    HTTP.stubGroupId(session, groupId)
 
     "When they arrive at the evidence submitted page" - {
       val page = Page.get("/property-linking/evidence-uploaded")
@@ -28,8 +29,9 @@ class EvidenceUploaded extends FrontendTest {
   object TestData {
     lazy val baRef = "sfku03802342"
     lazy val uarn = "uarn03802342"
-    lazy val address = Address(Seq("leen1", "leen2", "leen3"), "AA11 1AA")
+    lazy val address = Address("leen1", "leen2", "leen3", "AA11 1AA")
     lazy val userId = "389u4asldkjfasljdf"
+    lazy val groupId = "98yqwfib09qy8iuah09"
     lazy val token = "tasfnmsfk"
     lazy val formattedAddress = "leen1, leen2, leen3, AA11 1AA"
     lazy val nonSelfCertProperty = Property(uarn, baRef, address, false, true)

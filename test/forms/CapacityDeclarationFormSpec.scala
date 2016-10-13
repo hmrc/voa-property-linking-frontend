@@ -16,7 +16,7 @@
 
 package forms
 
-import connectors.ServiceContract.CapacityDeclaration
+import connectors.CapacityDeclaration
 import controllers.Search
 import models.{CapacityType, Occupier}
 import org.joda.time.DateTime

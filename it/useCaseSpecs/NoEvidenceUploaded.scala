@@ -10,6 +10,7 @@ class NoEvidenceUploaded extends FrontendTest {
     implicit val sid: SessionId = java.util.UUID.randomUUID.toString
     implicit val session = GGSession(userId, token)
     HTTP.stubAuthentication(session)
+    HTTP.stubGroupId(session, groupId)
     HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration), selfCertifyComplete = Some(false)), Seq(Account(userId, false)))
 
     "When they arrive at the no evidence submitted page" - {
@@ -28,9 +29,10 @@ class NoEvidenceUploaded extends FrontendTest {
   object TestData {
     lazy val baRef = "sfku03802342"
     lazy val uarn = "uarn03802342"
-    lazy val address = Address(Seq("leen1", "leen2", "leen3"), "AA11 1AA")
+    lazy val address = Address("leen1", "leen2", "leen3", "AA11 1AA")
     lazy val userId = "389u4asldkjfasljdf"
     lazy val token = "oiahsfojksglas"
+    lazy val groupId = "89yafh9uodoig"
     lazy val formattedAddress = "leen1, leen2, leen3, AA11 1AA"
     lazy val nonSelfCertProperty = Property(uarn, baRef, address, false, true)
     lazy val declaration = CapacityDeclaration("occupier", "2001-01-01", None)

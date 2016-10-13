@@ -18,6 +18,7 @@ package config
 
 import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
+import play.api.libs.json.JsValue
 import play.api.mvc.Request
 import play.api.{Application, Configuration, Play}
 import play.twirl.api.Html
@@ -25,10 +26,12 @@ import uk.gov.hmrc.play.audit.filters.FrontendAuditFilter
 import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.config.{AppName, ControllerConfig, ServicesConfig}
+import uk.gov.hmrc.play.frontend.auth.AuthContext
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
-import uk.gov.hmrc.play.http.HttpGet
+import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 object Global extends VPLFrontendGlobal {
   override val wiring: Wiring = new Wiring {
@@ -74,10 +77,4 @@ object Environment extends uk.gov.hmrc.play.config.RunMode {
   def isDev = env == "Dev"
   def isProd = env == "Prod"
   def isTest = env == "Test"
-}
-
-object VPLAuthConnector extends AuthConnector with ServicesConfig {
-  override val serviceUrl: String = baseUrl("auth")
-
-  override def http: HttpGet = Wiring().http
 }

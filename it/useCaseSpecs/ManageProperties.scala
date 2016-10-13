@@ -10,13 +10,14 @@ class ManageProperties extends FrontendTest {
     implicit val sid: SessionId = sessionId
     implicit val session = GGSession(userId, token)
     HTTP.stubAuthentication(session)
-    HTTP.stubLinkedPropertiesAPI(userId, addedProperties, pendingProperties)
+    HTTP.stubGroupId(session, groupId)
+    HTTP.stubLinkedPropertiesAPI(groupId, addedProperties, pendingProperties)
     HTTP.stubAccounts(Seq(Account(userId, false)))
     addedProperties.foreach(prop =>
-      HTTP.stubPropertyRepresentationAPI(userId, prop.uarn)
+      HTTP.stubPropertyRepresentationAPI(groupId, prop.uarn)
     )
     pendingProperties.foreach(prop =>
-      HTTP.stubPropertyRepresentationAPI(userId, prop.uarn)
+      HTTP.stubPropertyRepresentationAPI(groupId, prop.uarn)
     )
 
     properties.foreach(prop =>
@@ -49,6 +50,7 @@ class ManageProperties extends FrontendTest {
   object TestData {
     lazy val sessionId = java.util.UUID.randomUUID.toString
     lazy val userId = "adsjflkj3243"
+    lazy val groupId = "08sahfoiasnfoih"
     lazy val token = "aifjnadogkjnsaldn"
     lazy val addedProperties = Seq(
       PropertyLink("uarn1", userId, CapacityDeclaration("ownerlandlord", "2010-01-01", Some("2011-01-01")), "2012-01-01", Seq(2009, 2014), false, "ratesBill"),
@@ -61,12 +63,12 @@ class ManageProperties extends FrontendTest {
       PropertyLink("uarn6", "gBADewaa", CapacityDeclaration("ownerlandlord", "2010-01-01", None), "2012-01-01", Seq(), true, "ratesBill")
     )
     lazy val properties = Seq(
-      Property("uarn1", "baRes", Address(Seq("Some where", "over the rainbow"), "postcode"), true, true),
-      Property("uarn2", "baRes", Address(Seq("Some where"), "postcode"), true, true),
-      Property("uarn3", "baRes", Address(Seq("Some where"), "postcode"), true, true),
-      Property("uarn4", "baRes", Address(Seq("Some where"), "postcode"), true, true),
-      Property("uarn5", "baRes", Address(Seq("Some where"), "postcode"), true, true),
-      Property("uarn6", "baRes", Address(Seq("Some where"), "postcode"), true, true)
+      Property("uarn1", "baRes", Address("Some where", "over the rainbow", "", "postcode"), true, true),
+      Property("uarn2", "baRes", Address("Some where", "", "", "postcode"), true, true),
+      Property("uarn3", "baRes", Address("Some where", "", "", "postcode"), true, true),
+      Property("uarn4", "baRes", Address("Some where", "", "", "postcode"), true, true),
+      Property("uarn5", "baRes", Address("Some where", "", "", "postcode"), true, true),
+      Property("uarn6", "baRes", Address("Some where", "", "", "postcode"), true, true)
     )
   }
 

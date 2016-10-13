@@ -1,6 +1,6 @@
 @import _root_.template.Display
 
-@(model: controllers.Dashboard.ManagePropertiesVM)(implicit request: Request[_])
+@(model: controllers.ManagePropertiesVM)(implicit request: Request[_])
 
 @main(Messages("dashboard.manageProperties.title")) {
     <main id="content">
@@ -32,10 +32,10 @@
                         <td>@Display.date(p.linkedDate)</td>
                         <td>@p.assessmentYears.mkString(",")</td>
                         <td>
-                            <a href=@controllers.routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
+                            <a href=@routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
                         </td>
                         @if(p.representations.nonEmpty) {
-                            <td><a href=@controllers.routes.AppointAgentController.edit(p.uarn)>
+                            <td><a href=@routes.AppointAgentController.edit(p.uarn)>
                                 @Messages("dashboard.editAgent")
                                 </a>
                             </td>
@@ -51,10 +51,10 @@
                         <td>@Display.date(p.linkedDate)</td>
                         <td></td>
                         <td>
-                            <a href=@controllers.routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
+                            <a href=@routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
                         </td>
                         @if(p.representations.nonEmpty) {
-                            <td><a href=@controllers.routes.AppointAgentController.edit(p.uarn)>
+                            <td><a href=@routes.AppointAgentController.edit(p.uarn)>
                             @Messages("dashboard.editAgent")
                             </a>
                             </td>

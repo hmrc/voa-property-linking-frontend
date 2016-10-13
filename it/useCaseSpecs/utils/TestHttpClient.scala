@@ -36,11 +36,23 @@ class TestHttpClient extends HttpGet with HTTPTestPUT with HTTPTestPOST with Htt
           "credentialStrength" -> "weak",
           "uri" -> session.userId,
           "confidenceLevel" -> 50,
-          "accounts" -> JsArray()
+          "accounts" -> JsArray(),
+          "legacyOid" -> session.userId,
+          "userDetailsLink" -> s"http://localhost:9978/user-details/id/${session.userId}"
         )
       )
     )
     stubGet("http://localhost:8500/auth/authority", Seq("token" -> session.token), stubResponse)
+  }
+
+  def stubGroupId(session: GGSession, groupId: String) = {
+    val stubResponse = HttpResponse(
+      responseStatus = 200,
+      responseJson = Some(Json.obj(
+        "groupIdentifier" -> groupId
+      ))
+    )
+    stubGet(s"http://localhost:9978/user-details/id/${session.userId}", Seq("token" -> session.token), stubResponse)
   }
 
   def reset() = {
@@ -101,7 +113,7 @@ trait HTTPTestPOST extends HttpPost with MustMatchers with AppendedClues {
     actualPosts.count(_._1.startsWith(baseUrl)) mustEqual amount withClue s"More than $amount POSTs for $baseUrl"
 
   def verifyPOST(url: String, body: String) = {
-    val post = actualPosts.filter { p => insertUUID(url, p._1) == p._1 }.lastOption getOrElse {fail(s"No POST occurred for: $url")}
+    val post = actualPosts.filter { p => insertUUID(url, p._1) == p._1 }.lastOption getOrElse {fail(s"No POST occurred for: $url\nActual POSTs: $actualPosts")}
     post._2 mustEqual body
   }
 

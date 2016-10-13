@@ -14,8 +14,8 @@
 @errorWrapper(fields:Seq[Field],id: String,classes:String*)(content:Html) = {
 	@defining(_root_.template.HtmlSupport.getErrors(fields)){ combinedErrors =>
 
-	  <div id='@id' class='@classes.mkString(" ") @if(combinedErrors.isEmpty==false){ form-grouped-error }'>
-	    @if(combinedErrors.isEmpty==false){
+	  <div id='@id' class='@classes.mkString(" ") @if(combinedErrors.nonEmpty){ form-grouped-error }'>
+	    @if(combinedErrors.nonEmpty){
 	       @combinedErrors.map(err => (err.message, err.args)).distinct.map { case (msg, args) => @displayFieldError(msg, args) }
 	    }
 	@content

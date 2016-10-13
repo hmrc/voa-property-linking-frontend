@@ -36,10 +36,10 @@ class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends Se
 
 object PrototypeTestData {
   lazy val selfCertProperty = Property( "uarn1",
-    "testselfcertifiableshop", Address(Seq("1 The Self-cert non-bank street", "The Town"), "AA11 1AA"), true, true
+    "testselfcertifiableshop", Address("1 The Self-cert non-bank street", "The Town", "", "AA11 1AA"), true, true
   )
   lazy val nonSelfCertProperty = Property( "uarn2",
-    "testnonselfcertifiableshop", Address(Seq("Non certifiable, some street", "The Town"), "AA11 1AA"), false, true
+    "testnonselfcertifiableshop", Address("Non certifiable, some street", "The Town", "", "AA11 1AA"), false, true
   )
   lazy val pretendSearchResults = Seq(
     selfCertProperty,
