@@ -3,10 +3,11 @@
 
 @(model: UploadRatesBillVM)(implicit request: Request[_])
 
-@main(Messages("uploadRatesBill.show.title")) {
+
+    @main_template(title = Messages("uploadRatesBill.show.title")) {
 
     @form(routes.UploadRatesBill.submit(), 'enctype -> "multipart/form-data") {
-        <main id="content">
+
             <div class="grid-row">
                 <div class="column-two-thirds">
                     <h1 class="form-title heading-xlarge">
@@ -23,7 +24,7 @@
                                 field = model.form("hasRatesBill"),
                                 options = HasRatesBill.options,
                                 dataAttributes = Seq(
-                                  (DoesHaveRatesBill.name, "data-show-field", "true")
+                                  (DoesHaveRatesBill.name, "data-toggle-id", "ratesBillUpload")
                                 ),
                                 args = Seq(
                                 '_label -> Messages("hasRatesBill.label"),
@@ -31,19 +32,20 @@
                                 '_error -> model.form("hasRatesBill").error
                                 )
                             )
-                            <div class="form-group hidden hasRatesBill">
+                            <div class="form-group" id="ratesBillUpload" data-toggle-hidden style="display: none;">
                                 <div class="form-label-bold">@Messages("ratesBill.label")</div>
-                                <span class="">@Messages("ratesBill.label.1")</span>
+                                <p class="">@Messages("ratesBill.label.1")</p>
                                 @inputFile(
                                     field = model.form("ratesBill"),
                                     '_label ->"",
-                                    '_labelClass -> "form-label-bold"
+                                    '_labelClass -> "form-label-bold",
+                                    'class -> "filer_input"
                                 )
                             </div>
                         </fieldset>
                         <button type="submit" class="button">@Messages("uploadRatesBill.show.button")</button>
                 </div>
             </div>
-        </main>
+
     }
 }

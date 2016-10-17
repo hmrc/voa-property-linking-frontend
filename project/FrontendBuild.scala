@@ -2,6 +2,11 @@ import sbt._
 
 object FrontendBuild extends Build with MicroService {
 
+    import com.typesafe.sbt.web.SbtWeb.autoImport._
+    import play.PlayImport.PlayKeys._
+    import sbt.Keys._
+    import scala.util.Properties.envOrElse
+
   val appName = "voa-property-linking-frontend"
 
   override lazy val appDependencies: Seq[ModuleID] = AppDependencies()
@@ -10,15 +15,27 @@ object FrontendBuild extends Build with MicroService {
 
   override val defaultPort: Int = 9523
 
-  override lazy val playSettings: Seq[Setting[_]] = JavaScriptBuild.javaScriptUiSettings
-}
+  override lazy val playSettings: Seq[Setting[_]] = Seq(
+
+       // Turn off play's internal less compiler
+       lessEntryPoints := Nil,
+       // Turn off play's internal javascript compiler
+       javascriptEntryPoints := Nil,
+       // Add the views to the dist
+       unmanagedResourceDirectories in Assets += baseDirectory.value / "app" / "assets",
+       // Dont include the source assets in the dist package (public folder)
+       excludeFilter in Assets := "tasks" || "karma.conf.js" || "tests" || "gulpfile.js*" || "js*" || "src*" || "node_modules*" || "sass*" || "typescript*" || "typings*" || ".jshintrc" || "package.json" || "tsconfig.json" || "tsd.json"
+       ) ++ JavaScriptBuild.javaScriptUiSettings
+
+  }
 
 private object AppDependencies {
-  
+
   import play.PlayImport._
+  import play.core.PlayVersion
 
   private val playHealthVersion = "1.1.0"
-  private val playUiVersion = "4.4.0"
+  private val playUiVersion = "4.16.0"
 
   val compile = Seq(
     filters,
@@ -68,7 +85,3 @@ private object AppDependencies {
   def apply() = compile ++ Test() ++ IntegrationTest()
 
 }
-
-
-
-

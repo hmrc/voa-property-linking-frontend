@@ -1,0 +1,51 @@
+
+@(title: String,
+  sidebarLinks: Option[Html] = None,
+  contentHeaderText: Option[String] = None,
+  contentHeader: Option[Html] = None,
+  bodyClasses: Option[String] = None,
+  mainClass: Option[String] = None,
+  headExtra: Html = Html(""),
+  scriptElem: Option[Html] = None,showLogoutLink: Boolean = true)(mainContent: Html)(implicit request : Request[_])
+
+@import uk.gov.hmrc.play.views.html.layouts
+@import config._
+
+@headScripts ={
+    @views.html.includes.stylesheets()
+}
+@scriptElem = {
+    @views.html.includes.javascripts()
+}
+
+
+@serviceInfoContent = {
+
+}
+
+@sidebar = {
+    @if(sidebarLinks.isDefined) {
+        @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
+    }
+}
+
+@contentHeaderTextAsHtml = @{
+    contentHeaderText.map { headerText =>
+        Html(s"""<h1 class="heading-large">$headerText</h1>""")
+    }
+}
+
+@govuk_wrapper(appConfig = FrontendAppConfig,
+               title = title,
+               mainClass = mainClass,
+               bodyClasses = bodyClasses,
+               sidebar = sidebar,
+               headScripts = headScripts,
+               contentHeader = contentHeader.orElse(contentHeaderTextAsHtml),
+               mainContent = views.html.article(
+                   content = mainContent
+               ),
+               serviceInfoContent = serviceInfoContent,
+               scriptElem = Some(scriptElem),
+               showLogoutLink = showLogoutLink
+)

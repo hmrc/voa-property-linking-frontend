@@ -1,0 +1,17 @@
+
+.pager{
+	margin-top: 2em;
+	li{
+		display: inline-block;
+		margin-right: 10px;
+	}
+}
+.lte-ie8{
+    .pager{
+    	li{
+    		*float: left;
+    		*display: inline-block;	
+    	}
+        
+    }
+}

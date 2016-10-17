@@ -1,0 +1,75 @@
+@()(implicit request: Request[_])
+
+@main_template(title = "Typography") {
+
+    <h1 class="heading-xlarge">Typography</h1>
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">A extra large heading</h1>
+
+            <h2 class="heading-large">A large heading</h2>
+
+            <h3 class="heading-medium">A medium heading</h3>
+
+            <h4 class="heading-small">A small heading</h4>
+
+            <br />
+
+            <p class="lede">
+                A 24px lead paragraph, maecenas sed diam eget risus varius blandit sit amet non magna.
+            </p>
+
+            <p>
+               A 19px body copy paragraph, maecenas sed diam eget risus varius blandit sit amet non magna. Donec ullamcorper nulla non metus auctor fringilla.
+            </p>
+
+            <p class="font-xsmall">
+                A 16px supporting text paragraph, maecenas sed diam eget risus varius blandit sit amet non magna. Donec ullamcorper nulla non metus auctor fringilla.
+            </p>
+
+
+            <h3 class="heading-xsmall">Bullet list</h3>
+            <ul class="list-bullet">
+                <li>Bullet list 1</li>
+                <li>Bullet list 2</li>
+                <li>Bullet list 3</li>
+            </ul>
+
+            <br />
+
+            <div class="panel panel-border-wide">
+              <p>
+                Wide pannel. Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. De carne lumbering animata corpora quaeritis.
+              </p>
+            </div>
+
+            <br />
+
+            <div class="panel panel-border-narrow">
+              <p>
+                Narrow pannel. Summus brains sit​​, morbo vel maleficia? De apocalypsi gorger omero undead survivor dictum mauris.
+              </p>
+            </div>
+
+            <br />
+
+            <div class="notice">
+              <i class="icon icon-important"><span class="visuallyhidden">Warning</span></i>
+              <strong class="bold-small">
+                You can be fined up to £5,000 if you don’t register.
+              </strong>
+            </div>
+
+            <div class="message-warning" role="group" aria-labelledby="warning-summary-heading-example-1" tabindex="-1" >
+                <p>An adjustment for raised floors has been added to all areas. Use 'Edit' to remove it from areas where it doesn't apply.</p>
+            </div>
+
+            <div class="message-success" role="group" aria-labelledby="success-summary-heading-example-1" tabindex="-1" >
+                <p>Success message</p>
+            </div>
+
+        </div>
+    </div>
+}

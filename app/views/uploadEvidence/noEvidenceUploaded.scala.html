@@ -1,7 +1,9 @@
 @()(implicit request: Request[_])
 
-@main(Messages("uploadEvidence.noEvidenceUploaded.title")) {
-    <main id="content">
+
+    @main_template(title = Messages("uploadEvidence.noEvidenceUploaded.title")) {
+
+
         <div class="grid-row">
             <div class="column-two-thirds">
                 <h1 class="form-title heading-xlarge">
@@ -15,5 +17,5 @@
     </h2>
 </div>
 <a id="backToDashBoard" href="@routes.Dashboard.manageProperties()" class="button">@Messages("uploadRatesBill.ratesBillUploaded.link")</a>
-    </main>
+    
 }

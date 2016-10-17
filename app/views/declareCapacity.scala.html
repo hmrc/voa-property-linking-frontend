@@ -4,9 +4,10 @@
 
 @(model: DeclareCapacityVM)(implicit request: Request[_])
 
-@main(Messages("declareCapacity.title")) {
 
-    <main id="content">
+    @main_template(title = Messages("declareCapacity.title")) {
+
+
 
         <div class="grid-row">
             <div class="column-two-thirds">
@@ -14,16 +15,22 @@
 
                 @includes.errorSummary(model.form)
 
-                <div class="form-group">
+
                     <p class="heading-medium">@Messages("declareCapacity.message")</p>
-                    <p class="address-confirmation" style="font-size:36px">
-                        @model.address.toString
-                    </p>
-                    <div class="panel-indent">
+
+
+                    <header class="hero">
+                        <section class="hero__content">
+                            <span class="hero__heading-medium">@model.address.toString</span>
+                        </section>
+                    </header>
+
+
+                    <p class="panel panel-border-narrow">
                         @Messages("declareCapacity.incorrectProperty.prefix")
                         <a href="@routes.Search.show">@Messages("declareCapacity.incorrectProperty.link")</a>
-                    </div>
-                </div>
+                    </p>
+
 
                 @form(routes.Search.attemptLink()) {
 
@@ -52,5 +59,5 @@
             <div class="column-third"></div>
         }
 
-    </main>
+
 }

@@ -24,10 +24,9 @@
     <div class="header-proposition">
         <div class="content">
             <nav id="proposition-menu">
-                <a href="@routes.Application.index" id="proposition-name">@Messages("project.header")</a>
                 @if(showLogoutLink) {
                     <div class="pull-right">
-                        <a id="logout" href="@routes.Application.logOut">@Messages("logout.link")</a>
+                        <a href="@routes.Application.logOut">@Messages("logout.link")</a>
                     </div>
                 }
             </nav>
@@ -35,16 +34,17 @@
     </div>
 }
 
+
 @headers = {
-    <div class="header-content" >
-        @views.html.includes.phase_banner()
-        @views.html.includes.branding_banner()
-    </div>
+    @views.html.includes.phase_banner()
+    @views.html.includes.branding_banner()
 }
 
 @layouts.govuk_template2(Some(title), None)(head, empty, body, insideHeader, empty, empty, footerLinks, headerClass = headerClass) {
-    @headers
-    @content
+    <main id="content">
+        @headers
+        @content
+    </main>
 }
 
 @footerLinks = {
