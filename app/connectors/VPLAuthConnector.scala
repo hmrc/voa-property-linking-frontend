@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
-package controllers
+package connectors
 
-import play.api.mvc.Action
+import play.api.libs.json.JsValue
+import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.frontend.auth.AuthContext
+import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
+import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
-object Login extends PropertyLinkingController {
-  def show = Action { implicit request =>
-    Redirect(routes.Dashboard.home())
+class VPLAuthConnector(val http: HttpGet) extends AuthConnector with ServicesConfig {
+  override val serviceUrl: String = baseUrl("auth")
+
+  def getInternalId(ctx: AuthContext)(implicit hc: HeaderCarrier) = getIds[JsValue](ctx) map { r =>
+    (r \ "internalId").as[String]
   }
 }

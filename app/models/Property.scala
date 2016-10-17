@@ -16,11 +16,8 @@
 
 package models
 
-import connectors.PrototypeTestData
-import connectors.ServiceContract.CapacityDeclaration
-
-case class Address(lines: Seq[String], postcode: String) {
-  override def toString = (lines ++ Seq(postcode)) mkString ", "
+case class Address(line1: String, line2: String, line3: String, postcode: String) {
+  override def toString = Seq(line1, line2, line3, postcode).filter(_.nonEmpty).mkString(", ")
 }
 
 case class Property(uarn: String, billingAuthorityReference: String, address: Address, isSelfCertifiable: Boolean, canReceiveMail: Boolean)

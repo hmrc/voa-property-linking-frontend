@@ -11,6 +11,7 @@ class RatesBillRequest extends FrontendTest {
     implicit val sid: SessionId = java.util.UUID.randomUUID.toString
     implicit val session = GGSession(userId, token)
     HTTP.stubAuthentication(session)
+    HTTP.stubGroupId(session, groupId)
     HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration)), Seq(Account(userId, false)))
 
     "When they arrive at the rates bill request page" - {
@@ -24,11 +25,11 @@ class RatesBillRequest extends FrontendTest {
 
     "When they specify they have a rates bill" - {
       HTTP.stubRatesBillCheck(baRef, validRatesBill, ratesBillAccepted = true)
-      HTTP.stubFileUpload(userId, sid, "ratesBill", ("ratesbill.pdf", validRatesBill))
+      HTTP.stubFileUpload(groupId, sid, "ratesBill", ("ratesbill.pdf", validRatesBill))
       val result = Page.postValid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doeshaveratesbill")
 
       "Their link request is submitted" in {
-        HTTP.verifyPropertyLinkRequest(uarn, userId, expectedLink)
+        HTTP.verifyPropertyLinkRequest(uarn, groupId, expectedLink)
       }
 
       "They are sent to the rates bill accepted page" in {
@@ -53,7 +54,7 @@ class RatesBillRequest extends FrontendTest {
     "When they do not supply valid response" - {
       implicit val sid: SessionId = java.util.UUID.randomUUID.toString
       HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration)), Seq(Account(userId, false)))
-      HTTP.stubFileUploadWithNoFile(userId, sid, "ratesBill")
+      HTTP.stubFileUploadWithNoFile(groupId, sid, "ratesBill")
       val page = Page.postInvalid("/property-linking/supply-rates-bill", "hasRatesBill" -> "doeshaveratesbill")
 
       "An error summary is shown" in {
@@ -71,13 +72,14 @@ class RatesBillRequest extends FrontendTest {
     lazy val uarn = "uarn11"
     lazy val userId = "sdfksjdlf342"
     lazy val token = "oaishgosafk0awksl"
-    lazy val address = Address(Seq("Hooooohhhhhhaaaaaqaaaeeee"), "AA11 1AA")
+    lazy val groupId = "09af08aghoias"
+    lazy val address = Address("Hooooohhhhhhaaaaaqaaaeeee", "", "", "AA11 1AA")
     lazy val nonSelfCertProperty = Property(uarn, baRef, address, isSelfCertifiable = false, true)
     lazy val nonSelfCertNoMailProperty = Property(uarn, baRef, address, isSelfCertifiable = false, canReceiveMail = false)
     lazy val declaration = CapacityDeclaration("occupier", "2012-01-01", None)
     lazy val validRatesBill = (1 to 1000).map(_.toByte).toArray
     lazy val invalidRatesBill = (5000 to 7000).map(_.toByte).toArray
-    lazy val expectedLink = PropertyLink(uarn, userId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), true, "ratesBill")
+    lazy val expectedLink = PropertyLink(uarn, groupId, declaration, DateTime.now.toString("YYYY-MM-dd"), Seq(2017), true, "ratesBill")
   }
 
 }

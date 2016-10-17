@@ -11,12 +11,14 @@ class CapacityDeclaration extends FrontendTest {
     implicit val session = GGSession(userId, token)
     HTTP.stubPropertiesAPI(selfCertifiableProperty.uarn, selfCertifiableProperty)
     HTTP.stubAuthentication(session)
+    HTTP.stubGroupId(session, groupId)
 
     "When they arrive at the declaration page" - {
       val page = Page.get(s"/property-linking/link-to-property/${selfCertifiableProperty.uarn}")
 
       "They can see the address of the property they wish to claim" in {
-        page.mustContainText((selfCertifiableProperty.address.lines :+ selfCertifiableProperty.address.postcode).mkString(", "))
+        val address = selfCertifiableProperty.address
+        page.mustContainText(Seq(address.line1, address.line2, address.line3, address.postcode).filter(_.nonEmpty).mkString(", "))
       }
 
       "And They are asked to provide:" - {
@@ -78,9 +80,10 @@ class CapacityDeclaration extends FrontendTest {
     lazy val propertyToClaimBillingAuthorityRef = "blahblahblooh"
 
     lazy val userId = "asdfj2304rsdf"
+    lazy val groupId = "98ojna09qwut"
     lazy val token = "kjasgpaopknaslk"
 
-    lazy val address = Address(Seq("123 somwhere333i", "a teeewonio", "une villagAArios"), "AA11 1AA")
+    lazy val address = Address("123 somwhere333i", "a teeewonio", "une villagAArios", "AA11 1AA")
     lazy val selfCertifiableProperty = Property("uarn2", propertyToClaimBillingAuthorityRef, address, true, true)
     lazy val nonSelfCertifiableProperty = Property("uarn3", propertyToClaimBillingAuthorityRef, address, false, true)
     lazy val validRelationship = "ownerlandlord"

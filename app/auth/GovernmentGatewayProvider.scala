@@ -16,24 +16,23 @@
 
 package auth
 
-import config.{ApplicationConfig, VPLAuthConnector}
+import config.ApplicationConfig
 import play.api.mvc.{AnyContent, Request, Result}
 import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.frontend.auth.{Actions, AuthContext, GovernmentGateway}
 
 import scala.concurrent.Future
 
-object GGAction extends Actions {
+class GGAction(val authConnector: AuthConnector) extends Actions {
   private def authenticatedBy = AuthenticatedBy(GovernmentGatewayProvider, GGConfidence)
-  override protected def authConnector = VPLAuthConnector
 
   def apply(body: AuthContext => Request[AnyContent] => Result) = authenticatedBy(body)
   def async(body: AuthContext => Request[AnyContent] => Future[Result]) = authenticatedBy.async(body)
 }
 
 object GovernmentGatewayProvider extends GovernmentGateway with ServicesConfig {
-  private val continueUrl = ApplicationConfig.baseUrl + controllers.routes.Dashboard.home().url
-  private val ggUrl = baseUrl("government-gateway")
-
-  override def login = s"${ApplicationConfig.ggSignInUrl}?continue=$continueUrl&accountType=organisation"
+  override def additionalLoginParameters: Map[String, Seq[String]] = Map("accountType" -> Seq("organisation"))
+  override def loginURL: String = ApplicationConfig.ggSignInUrl
+  override def continueURL = ApplicationConfig.baseUrl + controllers.routes.Dashboard.home().url
 }

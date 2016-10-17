@@ -16,11 +16,8 @@
 
 package connectors.propertyLinking
 
-import connectors.ServiceContract.{CapacityDeclaration, LinkedProperties, PropertyLink}
-import connectors.{PrototypeTestData, RequestFlag, ServiceContract}
+import connectors.{CapacityDeclaration, LinkedProperties, PropertyLink, RequestFlag}
 import org.joda.time.DateTime
-import play.api.libs.json.Json
-import serialization.JsonFormats
 import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
@@ -29,12 +26,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec: ExecutionContext)
   extends ServicesConfig with JsonHttpReads {
-  implicit val fmt = JsonFormats.linkedProperties
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
-
-  implicit val rds: HttpReads[Unit] = new HttpReads[Unit] {
-    override def read(method: String, url: String, response: HttpResponse): Unit = Unit
-  }
 
   // TODO - will not be passing in accountId once auth solution is confirmed
   def linkToProperty(uarn: String, billingAuthorityRef: String, userId: String,
@@ -43,10 +35,10 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     val url = baseUrl + s"/property-links/$uarn/$userId/$submissionId"
     val request = PropertyLink(uarn, userId, capacityDeclaration,
       DateTime.now, Seq(2017), true, flag)
-    http.POST[ServiceContract.PropertyLink, Unit](s"$url", request)
+    http.POST[PropertyLink, HttpResponse](s"$url", request) map { _ => () }
   }
 
-  def linkedProperties(id: String)(implicit hc: HeaderCarrier): Future[ServiceContract.LinkedProperties] = {
+  def linkedProperties(id: String)(implicit hc: HeaderCarrier): Future[LinkedProperties] = {
     val url = baseUrl + s"/property-links/$id"
     http.GET[Seq[PropertyLink]](url).map(seq => {
       val tmp:(Seq[PropertyLink], Seq[PropertyLink]) = seq.partition( !_.pending)

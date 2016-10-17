@@ -10,6 +10,7 @@ class SelfCertificationConfirmation extends FrontendTest {
     implicit val sid: SessionId = java.util.UUID.randomUUID.toString
     implicit val session = GGSession(userId, token)
     HTTP.stubAuthentication(session)
+    HTTP.stubGroupId(session, groupId)
     HTTP.stubKeystoreSession(SessionDocument(selfCertProperty, Some(declaration), selfCertifyComplete = Some(true)), Seq(Account(userId, false)))
 
     "When they arrive at the self certification confirmation page" - {
@@ -43,9 +44,10 @@ class SelfCertificationConfirmation extends FrontendTest {
   object TestData {
     lazy val baRef = "sfku03802342"
     lazy val uarn = "uarn03802342"
-    lazy val address = Address(Seq("leen1", "leen2", "leen3"), "AA11 1AA")
+    lazy val address = Address("leen1", "leen2", "leen3", "AA11 1AA")
     lazy val userId = "389u4asldkjfasljdf"
     lazy val token = "uoashf98ouafn"
+    lazy val groupId = "98afh98ahuo32inm"
     lazy val formattedAddress = "leen1, leen2, leen3, AA11 1AA"
     lazy val selfCertProperty = Property(uarn, baRef, address, true, true)
     lazy val declaration = CapacityDeclaration("occupier", "2001-01-01", None)

@@ -16,6 +16,7 @@
 
 package config
 
+import auth.GGAction
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import session.LinkingSessionRepository
@@ -43,6 +44,9 @@ abstract class Wiring {
   lazy val accountConnector = new AccountConnector(http)
   lazy val fileUploadConnector = new FileUploadConnector(http)
   lazy val ratesBillVerificationConnector = new RatesBillVerificationConnector(http)
+  lazy val userDetailsConnector = new UserDetails(http)
+  lazy val authConnector = new VPLAuthConnector(http)
+  lazy val ggAction = new GGAction(authConnector)
 }
 
 class VPLSessionCache(httpc: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {

@@ -16,12 +16,10 @@
 
 package session
 
-import auth.GGAction
 import config.Wiring
-import config.ImplicitLifting._
 import controllers.Account
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.mvc.Results.{NotFound, Forbidden}
+import play.api.mvc.Results.{Redirect, Unauthorized}
 import play.api.mvc._
 import uk.gov.hmrc.play.http.HeaderCarrier
 
@@ -35,30 +33,49 @@ case object NoSessionId extends Exception
 
 object WithLinkingSession {
   implicit def hc(implicit request: Request[_]) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
-  val repo = Wiring().sessionRepository
+  val session = Wiring().sessionRepository
   val accountRepo = Wiring().accountConnector
+  val userDetails = Wiring().userDetailsConnector
+  val ggAction = Wiring().ggAction
 
-  def apply(body: LinkingSessionRequest[AnyContent] => Future[Result]) = GGAction.async { ctx => implicit request =>
-    repo.get() flatMap {
-      case Some(session) => body(LinkingSessionRequest(session, ctx.user.oid, request))
-      case None => NotFound("No linking session")
+  def apply(body: LinkingSessionRequest[AnyContent] => Future[Result]) = ggAction.async { ctx => implicit request =>
+    for {
+      groupId <- userDetails.getGroupId(ctx)
+      sOpt <- session.get
+      res <- sOpt match {
+        case Some(s) => body(LinkingSessionRequest(s, groupId, request))
+        case None => Future.successful(Unauthorized("No linking session"))
+      }
+    } yield {
+      res
     }
   }
 }
 
 case class AuthenticatedRequest[A](account: Account, request: Request[A]) extends WrappedRequest[A](request)
 
-object WithAuthentication extends ActionBuilder[AuthenticatedRequest] with ActionRefiner[Request, AuthenticatedRequest] {
-  val accountRepo = Wiring().accountConnector
+object WithAuthentication {
+  val accounts = Wiring().accountConnector
+  val ggAction = Wiring().ggAction
+  val userDetails = Wiring().userDetailsConnector
+  val auth = Wiring().authConnector
 
-  def hc(request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
+  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
-  override protected def refine[A](request: Request[A]) =
-    request.session.get("accountId") match {
-      case Some(aid) =>
-        accountRepo.get(aid)(hc(request)).map( account => account.map( acc =>
-          Right(AuthenticatedRequest(acc, request))
-        ).getOrElse(Left(Forbidden(views.html.errors.forbidden()))))
-      case None => Left(Forbidden(views.html.errors.forbidden()))
+  def apply(body: AuthenticatedRequest[AnyContent] => Future[Result]) = ggAction.async { ctx => implicit request =>
+    for {
+      userId <- auth.getInternalId(ctx)
+      groupId <- userDetails.getGroupId(ctx)
+      userAccount <- accounts.get(userId)
+      groupAccount <- accounts.get(groupId)
+      res <- (userAccount, groupAccount) match {
+        case (u, g) if u.isEmpty || g.isEmpty => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
+        case (Some(u), Some(g)) => body(AuthenticatedRequest(g, request))
+      }
+    } yield {
+      res
     }
+  }
+
+  def async(body: AuthenticatedRequest[AnyContent] => Future[Result]) = apply(body)
 }

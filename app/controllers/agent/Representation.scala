@@ -17,7 +17,7 @@
 package controllers.agent
 
 import config.Wiring
-import connectors.ServiceContract.PropertyRepresentation
+import connectors.PropertyRepresentation
 import controllers.PropertyLinkingController
 import session.WithAuthentication
 

@@ -16,6 +16,31 @@ isAgent.label=Is this an agent account?
 isAgent.true=Yes
 isAgent.false=No
 
+#CREATE INDIVIDUAL ACCOUNT
+createAccount.individual.title=Create account
+label.createAccount.firstName=First name
+label.createAccount.lastName=Last name
+label.createAccount.dateOfBirth=Date of birth
+label.createAccount.nino=National insurance number
+hint.dateOfBirth.format=For example, 13-01-1990
+error.nino.invalid=Invalid national insurance number
+dateOfBirth.label=Date of birth
+
+#IDENTITY VERIFICATION
+identityVerification.title=Identity verification
+failedIdentityVerification.title=Identity verification failed
+failedIdentityVerification.text=We could not verify your identity.
+
+#CREATE GROUP ACCOUNT
+createAccount.group.title=Create group account
+label.createAccount.companyName=Company name
+label.createAccount.email=Email address
+label.createAccount.phone=Phone number
+label.isSmallBusiness=Small business?
+isSmallBusiness.true=Yes
+isSmallBusiness.false=No
+label.isAgent=Agent?
+
 #DASHBOARD HOME
 dashboard.home.title=Dashboard Home
 dashboard.home.manageProperties.link=View and update properties you’ve added to your account
@@ -165,6 +190,15 @@ help.date.day.month.year=For example, 12 3 2011
 help.optional.date.day.month.year=For example, 12 3 2011 (Optional)
 error.common.date.mustBeInPast=Must be in the past
 error.common.noValueSelected=No value selected
+error.booleanMissing=You must select one
+label.address=Address
+label.address.line1=Address line 1
+label.address.line2=Address line 2
+label.address.line3=Address line 3
+label.postcode=Postcode
+placeholder.address.line1=Address line 1
+placeholder.address.line2=Address line 2
+placeholder.address.line3=Address line 3
 
 #MISC
 alt.newWindow=Opens in a new window

@@ -17,9 +17,9 @@
 package controllers
 
 import config.{Environment, Wiring}
-import connectors.{RatesBillFlag, ServiceContract}
+import connectors.RatesBillFlag
 import form.EnumMapping
-import models.{DoesHaveRatesBill, DoesNotHaveRatesBill, HasRatesBill, RatesBill}
+import models.{DoesHaveRatesBill, DoesNotHaveRatesBill, HasRatesBill}
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}
 import play.api.i18n.Messages

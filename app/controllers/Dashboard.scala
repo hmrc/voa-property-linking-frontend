@@ -16,55 +16,83 @@
 
 package controllers
 
-import auth.GGAction
 import config.Wiring
-import connectors.ServiceContract.PropertyRepresentation
+import connectors.{LinkedProperties, PropertyRepresentation}
 import org.joda.time.DateTime
+import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-object Dashboard extends PropertyLinkingController {
+trait Dashboard extends PropertyLinkingController {
   val propLinkedConnector = Wiring().propertyLinkConnector
   val reprConnector = Wiring().propertyRepresentationConnector
   val propConnector = Wiring().propertyConnector
+  val accounts = Wiring().accountConnector
+  val userDetails = Wiring().userDetailsConnector
+  val auth = Wiring().authConnector
+  val ggAction = Wiring().ggAction
 
-  def home() = GGAction { _ => implicit request =>
-    Ok(views.html.dashboard.home())
-  }
-
-  def manageProperties() = GGAction.async { ctx => implicit request =>
-    propLinkedConnector.linkedProperties(ctx.user.oid).flatMap { ps =>
-      val added: Seq[Future[PropertyLinkRepresentations]] = ps.added.map { prop =>
-        for {
-          repr <- reprConnector.get(ctx.user.oid, prop.uarn)
-          name <- propConnector.find(prop.uarn)
-            .map( x => x.map(prop => prop.address.lines.head + ", " + prop.address.postcode).getOrElse("No Address found"))
-        } yield
-          PropertyLinkRepresentations(name, prop.uarn,
-            prop.capacityDeclaration.capacity.name, prop.linkedDate, prop.assessmentYears, repr)
-      }
-      val pending: Seq[Future[PendingPropertyLinkRepresentations]] = ps.pending.map { prop =>
-        reprConnector.get(ctx.user.oid, prop.uarn).map { rep =>
-          PendingPropertyLinkRepresentations("TODO", prop.uarn,
-            prop.capacityDeclaration.capacity.name, prop.linkedDate, rep)
-        }
-      }
-      val fsAdded: Future[Seq[PropertyLinkRepresentations]] = Future.sequence(added)
-      val psPending: Future[Seq[PendingPropertyLinkRepresentations]] = Future.sequence(pending)
-      for { a <- fsAdded
-            p <- psPending
-      } yield {
-        Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(LinkedPropertiesRepresentations(a, p))))
+  def home() = ggAction.async { ctx => implicit request =>
+    for {
+      userId <- auth.getInternalId(ctx)
+      account <- accounts.get(userId)
+    } yield {
+      account match {
+        case Some(acc) => Ok(views.html.dashboard.home())
+        case None => Redirect(routes.CreateIndividualAccount.show)
       }
     }
   }
 
-  case class PropertyLinkRepresentations(name: String, uarn: String, capacity: String, linkedDate: DateTime,
-                               assessmentYears: Seq[Int], representations: Seq[PropertyRepresentation])
-  case class PendingPropertyLinkRepresentations(name: String, uarn: String, capacity: String,
-                                                linkedDate: DateTime, representations: Seq[PropertyRepresentation])
-  case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentations], pending: Seq[PendingPropertyLinkRepresentations])
-  case class ManagePropertiesVM(properties: LinkedPropertiesRepresentations)
+  def manageProperties() = ggAction.async { ctx => implicit request =>
+    for {
+      groupId <- userDetails.getGroupId(ctx)
+      props <- propLinkedConnector.linkedProperties(groupId)
+      added <- propertyLinkRepresentations(props, groupId)
+      pending <- pendingPropertyLinkRepresentations(props, groupId)
+    } yield {
+      Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(LinkedPropertiesRepresentations(added, pending))))
+    }
+  }
 
+  private def pendingPropertyLinkRepresentations(lps: LinkedProperties, id: String)
+                                                (implicit hc: HeaderCarrier): Future[Seq[PendingPropertyLinkRepresentations]] = {
+    val pending: Seq[Future[PendingPropertyLinkRepresentations]] = lps.pending.map { p =>
+      for {
+        reps <- reprConnector.get(id, p.uarn)
+        shortAddress <- shortAddress(p.uarn)
+      } yield {
+        PendingPropertyLinkRepresentations(shortAddress, p.uarn, p.capacityDeclaration.capacity.name, p.linkedDate, reps)
+      }
+    }
+    Future.sequence(pending)
+  }
+
+  private def propertyLinkRepresentations(lps: LinkedProperties, id: String)(implicit hc: HeaderCarrier): Future[Seq[PropertyLinkRepresentations]] = {
+    Future.sequence(lps.added.map { p =>
+      for {
+        reps <- reprConnector.get(id, p.uarn)
+        shortAddress <- shortAddress(p.uarn)
+      } yield {
+        PropertyLinkRepresentations(shortAddress, p.uarn, p.capacityDeclaration.capacity.name, p.linkedDate, p.assessmentYears, reps)
+      }
+    })
+  }
+
+  private def shortAddress(uarn: String)(implicit hc: HeaderCarrier) = propConnector.find(uarn) map {
+    case Some(p) => p.address.line1 + ", " + p.address.postcode
+    case None => "No address found"
+  }
 }
 
+object Dashboard extends Dashboard
+
+case class ManagePropertiesVM(properties: LinkedPropertiesRepresentations)
+
+case class PropertyLinkRepresentations(name: String, uarn: String, capacity: String, linkedDate: DateTime,
+                                       assessmentYears: Seq[Int], representations: Seq[PropertyRepresentation])
+
+case class PendingPropertyLinkRepresentations(name: String, uarn: String, capacity: String,
+                                              linkedDate: DateTime, representations: Seq[PropertyRepresentation])
+
+case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentations], pending: Seq[PendingPropertyLinkRepresentations])

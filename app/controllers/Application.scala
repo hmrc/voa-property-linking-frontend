@@ -25,6 +25,7 @@ import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
 import scala.concurrent.Future
 
 object Application extends Controller {
+  val ggAction = Wiring().ggAction
 
   def index() = Action.async { implicit request =>
     LoggedIn(request) map {
@@ -33,7 +34,7 @@ object Application extends Controller {
     }
   }
 
-  def logOut() = GGAction { _ => request =>
+  def logOut() = ggAction { _ => request =>
     Redirect(routes.Application.index()).withNewSession
   }
 }

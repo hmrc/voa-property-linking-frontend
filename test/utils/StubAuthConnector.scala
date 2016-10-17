@@ -14,12 +14,21 @@
  * limitations under the License.
  */
 
-package template
+package utils
 
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
+import connectors.VPLAuthConnector
+import uk.gov.hmrc.play.frontend.auth.AuthContext
+import uk.gov.hmrc.play.frontend.auth.connectors.domain.{Accounts, Authority, ConfidenceLevel, CredentialStrength}
+import uk.gov.hmrc.play.http.HeaderCarrier
 
-object Display {
-  private val pattern = DateTimeFormat.forPattern("dd/MM/yyyy")
-  def date(d: DateTime): String = d.toString(pattern)
+import scala.concurrent.Future
+
+object StubAuthConnector extends VPLAuthConnector(StubHttp) {
+  private var internalId = ""
+
+  def stubInternalId(id: String): Unit = {
+    internalId = id
+  }
+
+  override def getInternalId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(internalId)
 }

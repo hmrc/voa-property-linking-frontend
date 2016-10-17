@@ -1,0 +1,37 @@
+@import helpers._
+
+@(form: Form[_], fieldName: String)(implicit request: Request[_])
+
+@inputText(
+    field = form(s"$fieldName.line1"),
+    '_label -> Messages(s"label.$fieldName"),
+    '_labelClass -> "form-label-bold",
+    'class -> "form-control",
+    'placeholder -> Messages("placeholder.address.line1"),
+    '_fieldsetClass -> "address-fields"
+)
+
+@inputText(
+    field = form(s"$fieldName.line2"),
+    '_label -> Messages(s"label.$fieldName.line2"),
+    '_labelClass -> "visuallyhidden",
+    'class -> "form-control",
+    'placeholder -> Messages("placeholder.address.line2"),
+    '_fieldsetClass -> "address-fields"
+)
+
+@inputText(
+    field = form(s"$fieldName.line3"),
+    '_label -> Messages(s"label.$fieldName.line3"),
+    '_labelClass -> "visuallyhidden",
+    'class -> "form-control",
+    'placeholder -> Messages("placeholder.address.line3"),
+    '_fieldsetClass -> "address-fields"
+)
+
+@inputText(
+    field = form(s"$fieldName.postcode"),
+    '_label -> Messages("label.postcode"),
+    '_labelClass -> "form-label-bold",
+    'class -> "form-control form-control-1-4"
+)
