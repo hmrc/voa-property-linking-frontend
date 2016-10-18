@@ -14,24 +14,12 @@
  * limitations under the License.
  */
 
-package utils
+package models
 
-import connectors.UserDetails
-import uk.gov.hmrc.play.frontend.auth.AuthContext
-import uk.gov.hmrc.play.http.HeaderCarrier
+import play.api.libs.json.Json
 
-import scala.concurrent.Future
+case class IndividualAccount(id: String, groupId: String)
 
-object StubUserDetails extends UserDetails(StubHttp) {
-  private var groupId = ""
-
-  def stubGroupId(id: String): Unit = {
-    groupId = id
-  }
-
-  def reset() = {
-    groupId = ""
-  }
-
-  override def getGroupId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(groupId)
+object IndividualAccount {
+  implicit def formats = Json.format[IndividualAccount]
 }

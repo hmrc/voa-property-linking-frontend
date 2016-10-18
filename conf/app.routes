@@ -4,8 +4,6 @@ GET         /                                                   controllers.Appl
 #Registration
 GET         /login                                              controllers.Login.show
 GET         /logout                                             controllers.Application.logOut()
-GET         /register                                           controllers.Registration.show()
-POST        /register                                           controllers.Registration.submit()
 
 #Create individual account
 GET         /create-account                                     controllers.CreateIndividualAccount.show

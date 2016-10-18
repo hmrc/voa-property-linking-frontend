@@ -16,27 +16,28 @@
 
 package utils
 
-import connectors.AccountConnector
-import controllers.Account
+import connectors.IndividualAccounts
+import models.IndividualAccount
 import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+
 import scala.concurrent.Future
 
-object StubAccountConnector extends AccountConnector(StubHttp) {
+object StubIndividualAccountConnector extends IndividualAccounts(StubHttp) {
 
-  private var stubbedAccounts: Seq[Account] = Nil
+  private var stubbedIndividuals: Seq[IndividualAccount] = Nil
 
-  def stubAccount(account: Account): Unit = {
-    stubbedAccounts = stubbedAccounts :+ account
+  def stubAccount(account: IndividualAccount): Unit = {
+    stubbedIndividuals = stubbedIndividuals :+ account
   }
 
   def reset(): Unit = {
-    stubbedAccounts = Nil
+    stubbedIndividuals = Nil
   }
 
-  override def get()(implicit hc: HeaderCarrier): Future[Seq[Account]] = Future.successful(stubbedAccounts)
+  override def get()(implicit hc: HeaderCarrier): Future[Seq[IndividualAccount]] = Future.successful(stubbedIndividuals)
 
-  override def get(accountId: String)(implicit hc: HeaderCarrier): Future[Option[Account]] = Future.successful(stubbedAccounts.find(_.companyName == accountId))
+  override def get(accountId: String)(implicit hc: HeaderCarrier): Future[Option[IndividualAccount]] = Future.successful(stubbedIndividuals.find(_.id == accountId))
 
-  override def create(account: Account)(implicit hc: HeaderCarrier): Future[Unit] = Future.successful(stubAccount(account))
+  override def create(account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = Future.successful(stubAccount(account))
 }

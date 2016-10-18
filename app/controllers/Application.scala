@@ -42,7 +42,7 @@ object Application extends Controller {
 object LoggedIn {
   implicit def hc(implicit request: RequestHeader) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
-  val accountRepo = Wiring().accountConnector
+  val accountRepo = Wiring().individualAccountConnector
 
   def apply(implicit r: RequestHeader) = {
     r.session.get("accountId").map { id =>
