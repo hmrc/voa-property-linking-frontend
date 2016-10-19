@@ -1,18 +1,22 @@
 @()(implicit request: Request[_])
 
-@main(Messages("agent.dashboard.home.title")) {
-    <main id="content">
+
+
+@main_template(title = Messages("agent.dashboard.home.title")) {
+
         <div class="grid-row">
             <div class="column-two-thirds">
                 <h1 class="form-title heading-xlarge">
                     <span class="section-title">@Messages("agent.dashboard.home.title")</span>
                 </h1>
-            </div>
-        </div>
+
         <ul class="list-bullet">
             <li>
                 <a href="@controllers.agent.routes.Representation.manageRepresentationRequest">@Messages("agent.dashboard.home.manageRepresentationRequest.link")</a>
             </li>
         </ul>
-    </main>
+
+    </div>
+</div>
+
 }

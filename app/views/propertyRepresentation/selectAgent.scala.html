@@ -4,16 +4,17 @@
 
 @(propertyRepresentations: Seq[PropertyRepresentation])(implicit request: Request[_])
 
-@main(Messages("propertyRepresentation.selectAgent.title")) {
 
-    <main id="content">
+
+    @main_template(title = Messages("propertyRepresentation.selectAgent.title")) {
+
+
         <div class="grid-row">
             <div class="column-two-thirds">
                 <h1 class="form-title heading-xlarge">
                     <span class="section-title">@Messages("propertyRepresentation.selectAgent.title")</span>
                 </h1>
-            </div>
-        </div>
+
         <p>@Messages("propertyRepresentation.selectAgent.message")</p>
         <table class="table">
             <tbody>
@@ -40,6 +41,7 @@
                 }
             </tbody>
         </table>
-    </main>
 
+    </div>
+</div>
 }
