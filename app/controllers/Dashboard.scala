@@ -27,7 +27,8 @@ trait Dashboard extends PropertyLinkingController {
   val propLinkedConnector = Wiring().propertyLinkConnector
   val reprConnector = Wiring().propertyRepresentationConnector
   val propConnector = Wiring().propertyConnector
-  val accounts = Wiring().accountConnector
+  val individuals = Wiring().individualAccountConnector
+  val groups = Wiring().groupAccountConnector
   val userDetails = Wiring().userDetailsConnector
   val auth = Wiring().authConnector
   val ggAction = Wiring().ggAction
@@ -35,11 +36,14 @@ trait Dashboard extends PropertyLinkingController {
   def home() = ggAction.async { ctx => implicit request =>
     for {
       userId <- auth.getInternalId(ctx)
-      account <- accounts.get(userId)
+      groupId <- userDetails.getGroupId(ctx)
+      individualAccount <- individuals.get(userId)
+      groupAccount <- groups.get(groupId)
     } yield {
-      account match {
-        case Some(acc) => Ok(views.html.dashboard.home())
-        case None => Redirect(routes.CreateIndividualAccount.show)
+      (individualAccount, groupAccount) match {
+        case (Some(i), Some(g)) if g.isAgent => Redirect(agent.routes.Dashboard.home())
+        case (Some(i), Some(g)) => Ok(views.html.dashboard.home())
+        case (None, _) => Redirect(routes.CreateIndividualAccount.show)
       }
     }
   }

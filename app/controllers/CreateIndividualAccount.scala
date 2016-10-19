@@ -26,7 +26,7 @@ import play.api.data.{Form, Mapping}
 import uk.gov.hmrc.domain.Nino
 
 trait CreateIndividualAccount extends PropertyLinkingController {
-  val accounts = Wiring().accountConnector
+  val accounts = Wiring().individualAccountConnector
   val ggAction = Wiring().ggAction
 
   def show = ggAction { _ => implicit request =>
@@ -52,7 +52,7 @@ trait CreateIndividualAccount extends PropertyLinkingController {
     keys.lastName -> nonEmptyText,
     keys.dateOfBirth -> dmyDate,
     keys.nino -> nino
-  )(IndividualAccount.apply)(IndividualAccount.unapply))
+  )(IndividualDetails.apply)(IndividualDetails.unapply))
 
   lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(Nino(_), _.nino)
 
@@ -66,6 +66,6 @@ trait CreateIndividualAccount extends PropertyLinkingController {
 
 object CreateIndividualAccount extends CreateIndividualAccount
 
-case class IndividualAccount(firstName: String, lastName: String, dateOfBirth: DateTime, nino: Nino)
+case class IndividualDetails(firstName: String, lastName: String, dateOfBirth: DateTime, nino: Nino)
 
 case class CreateIndividualAccountVM(form: Form[_])

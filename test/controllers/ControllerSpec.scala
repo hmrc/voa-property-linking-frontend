@@ -16,12 +16,18 @@
 
 package controllers
 
-import org.scalatest.{FlatSpec, MustMatchers}
+import org.scalatest.{BeforeAndAfterEach, FlatSpec, MustMatchers}
 import play.api.test.{DefaultAwaitTimeout, FakeApplication, FutureAwaits}
-import utils.{StubAccountConnector, StubAuthConnector, StubUserDetails}
+import utils.{StubGroupAccountConnector, StubIndividualAccountConnector, StubUserDetails}
 
-trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout {
+trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach {
   implicit val app = TestApp.app
+
+  override protected def beforeEach(): Unit = {
+    StubIndividualAccountConnector.reset()
+    StubGroupAccountConnector.reset()
+    StubUserDetails.reset()
+  }
 }
 
 object TestApp {

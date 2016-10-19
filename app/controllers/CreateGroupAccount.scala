@@ -17,12 +17,13 @@
 package controllers
 
 import config.Wiring
-import models.Address
+import models.{Address, GroupAccount, IndividualAccount}
 import play.api.data.Forms._
 import play.api.data.{Form, Mapping}
 
 trait CreateGroupAccount extends PropertyLinkingController {
-  val accounts = Wiring().accountConnector
+  val groups = Wiring().groupAccountConnector
+  val individuals = Wiring().individualAccountConnector
   val userDetails = Wiring().userDetailsConnector
   val auth = Wiring().authConnector
   val ggAction = Wiring().ggAction
@@ -37,8 +38,8 @@ trait CreateGroupAccount extends PropertyLinkingController {
       formData => for {
         groupId <- userDetails.getGroupId(ctx)
         userId <- auth.getInternalId(ctx)
-        _ <- accounts.create(Account(groupId, formData.isAgent))
-        _ <- accounts.create(Account(userId, false))
+        _ <- groups.create(groupId, formData)
+        _ <- individuals.create(IndividualAccount(userId, groupId))
       } yield {
         Redirect(routes.Dashboard.home)
       }
@@ -61,7 +62,7 @@ trait CreateGroupAccount extends PropertyLinkingController {
     keys.phone -> nonEmptyText,
     keys.isSmallBusiness -> mandatoryBoolean,
     keys.isAgent -> mandatoryBoolean
-  )(GroupAccount.apply)(GroupAccount.unapply))
+  )(GroupAccountDetails.apply)(GroupAccountDetails.unapply))
 
   def address: Mapping[Address] = mapping(
     "line1" -> nonEmptyText,
@@ -79,4 +80,4 @@ object CreateGroupAccount extends CreateGroupAccount
 
 case class CreateGroupAccountVM(form: Form[_])
 
-case class GroupAccount(companyName: String, address: Address, email: String, phone: String, isSmallBusiness: Boolean, isAgent: Boolean)
+case class GroupAccountDetails(companyName: String, address: Address, email: String, phone: String, isSmallBusiness: Boolean, isAgent: Boolean)
