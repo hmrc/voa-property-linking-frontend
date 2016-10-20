@@ -2,22 +2,28 @@
 
 @(model: LinkAuthorisedVM)(implicit request: Request[_])
 
-@main(Messages("selfCertification.linkSubmitted.title")) {
-    <main id="content">
+
+@main_template(title = Messages("selfCertification.linkSubmitted.title")) {
+
         <div class="grid-row">
             <div class="column-two-thirds">
-                <h1 class="form-title heading-xlarge">
-                    <span class="section-title">@Messages("selfCertification.linkSubmitted.title")</span>
-                </h1>
-            </div>
-        </div>
-        <div class="success-summary addedPropertyAlert" role="group" aria-labelledby="success-summary-heading-example-1" tabindex="-1" style="display: block; margin-top: 0px;">
+
+                <div class="transaction-banner--complete">
+                  <h1 class="transaction-banner__heading">@Messages("selfCertification.linkSubmitted.title")</h1>
+                  <p>Information concerning the transaction</p>
+                </div>
+
+
+
+
             <h2 class="heading-medium success-summary-heading" id="success-summary-heading-example-1">
                 @Messages("selfCertification.linkSubmitted.message")
             </h2>
+
             <p style="margin-bottom: 0">@model.linkedProperty.address.toString</p>
 
-        </div>
-        <a id="backToDashBoard" href="@routes.Dashboard.manageProperties()" class="button">@Messages("selfCertification.linkAuthorised.properties.link")</a>
-    </main>
+
+        <p><a id="backToDashBoard" href="@routes.Dashboard.manageProperties()" class="button">@Messages("selfCertification.linkAuthorised.properties.link")</a></p>
+    </div>
+</div>
 }

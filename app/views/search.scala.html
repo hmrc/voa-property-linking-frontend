@@ -1,7 +1,8 @@
 @(properties: Seq[Property])(implicit request: Request[_])
 
-@main(Messages("search.title")) {
-    <main id="content">
+
+@main_template(title = Messages("search.title"), showLogoutLink = false ) {
+
         <h1 class="heading-xlarge">@Messages("search.title")</h1>
 
         <h3 style="font-weight: bold; color: red;">PROTOTYPE NOTE: This will be the VMV search page and not part of this project</h3>
@@ -135,7 +136,7 @@ table#vmv-table td.numeric {
                 <th>Area m²</th>
                 <th>Current Rateable value</th>
                 <th>2017 Rateable value</th>
-                <th class="ifLoggedOutTable" style="display: none"></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -151,5 +152,4 @@ table#vmv-table td.numeric {
                 }
             </tbody>
         </table>
-    </main>
 }

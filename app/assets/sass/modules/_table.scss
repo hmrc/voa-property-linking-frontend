@@ -1,0 +1,164 @@
+// ==========================================================================
+// Tables
+// ==========================================================================
+
+
+table .last, .table .last {
+    padding-right: 0;
+    text-align: right;
+}
+
+.row-status{
+    &-removed {
+      text-decoration: line-through;
+    }
+    &-changed {
+      font-weight: 800 !important;
+    }
+}
+
+
+caption{
+	text-align: left;
+}
+
+.table-summary {
+	td,
+	th{
+		@include core-19();
+	}
+	th{
+		font-weight: 800;
+	}
+	tfoot{
+		td{
+			@include bold-24();
+			border-top: 2px solid $black;
+			border-bottom: none;
+		}
+	}
+}
+
+.table-summary-title{
+	@include bold-24()
+}
+thead{
+	th{
+		border-bottom: 1px solid $black;
+	}
+}
+.no-footer-border{
+	tfoot{
+		tr, td {
+          border-bottom: none
+        }
+	}
+}
+
+
+
+//amend table
+.table-summary-amend{
+
+	tr,td{
+		@include core-19();
+	}
+	th{
+		@include bold-19();
+	}
+
+	label{
+		&.form-label-bold{
+			font-size: 19px;
+		}
+	}
+
+	.form-hint{
+	display: inline-block;
+	color: $grey-1;
+	}
+	.table-remove,
+	.table-cancel{
+		margin-left:20px;
+	}
+
+}
+
+.table-font-xsmall th:last-child,
+.table-font-xsmall td:last-child {
+    padding-right: 0;
+}
+.no-border{
+	td{
+		border: none;
+	}
+}
+
+
+.similar-properties {
+    caption {
+        padding: 10px;
+        margin-bottom: 20px;
+        height: 3em;
+        position: relative;
+        text-align: center;
+
+        span {
+            font-size: 16px;
+            color: $white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            width: 96%;
+        }
+        &.current {
+            background-color:$turquoise;
+        }
+
+        &.compare {
+            background-color:$govuk-blue;
+        }
+
+        &.banner {
+            margin-top:30px;
+            text-align:center;
+        }
+    }
+
+}
+
+.rateable-value{
+    &.similar-properties {
+        border: none;
+        margin-bottom: 30px;
+        color: #fff;
+        padding: 15px 15px 18px 15px;
+        margin-top: 30px;
+        text-align: center;
+        &.current {
+            background-color:$turquoise;
+        }
+
+        &.compare {
+            background-color:$govuk-blue;
+        }
+    }
+}
+
+.table{
+    &-edit,
+    &-remove{
+        margin-left: 10px;
+    }
+}
+table{
+    th,td {
+        border-bottom: 1px solid $grey-2;
+        &.proposed {
+            background-color: #f0f8ff;
+            padding-left: 10px;
+        }
+    }
+}

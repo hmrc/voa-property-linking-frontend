@@ -27,6 +27,10 @@ import scala.concurrent.Future
 object Application extends Controller {
   val ggAction = Wiring().ggAction
 
+ def typography = Action { implicit request =>
+   Ok(views.html.typography())
+ }
+
   def index() = Action.async { implicit request =>
     LoggedIn(request) map {
       case true => Redirect(routes.Dashboard.home())

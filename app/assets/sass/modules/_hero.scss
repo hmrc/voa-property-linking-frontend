@@ -1,0 +1,25 @@
+.hero__content {
+    padding-bottom: 1.5em;
+}
+
+.hero__heading{
+    &-medium {
+        @include bold-36;
+        color: $white;
+        margin: 0;
+    }
+}
+
+ @include media(tablet) {
+   padding-top: 35px;
+
+   .hero__heading-medium {
+     @include bold-24;
+   }
+ }
+
+ @include media(desktop) {
+   .hero__heading-medium {
+     @include bold-36;
+   }
+ }

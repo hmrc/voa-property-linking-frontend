@@ -1,0 +1,110 @@
+// ==========================================================================
+// Forms
+// ==========================================================================
+
+// Select Multiple
+
+select {
+	&.select-multiple{
+		display: block;
+	}
+}
+
+// Form Headings
+
+label,
+legend{
+	&.form-label-bold{
+		margin-bottom: .4em;
+		@include bold-24();
+	}
+}
+
+// Address Fields
+.address--fields{
+	margin-bottom: 0;
+	h2{
+		margin-bottom: .4em;
+	}
+}
+
+// Form helpers
+.margin-bottom-10{
+	margin-bottom: 10px;
+}
+.margin-bottom-5{
+	margin-bottom: 5px;
+}
+.margin-bottom-0{
+	margin-bottom: 0;
+}
+
+.pound{
+	position: relative;
+	left: 20px;
+	margin-left: -14px;
+}
+.input-currency{
+	padding-left: 24px;
+	position: inherit;
+}
+.form-control-1 {
+  width: 100%;
+}
+
+
+//hide by default
+[data-toggle-hidden]{
+	display: none;
+}
+
+//show if nojs
+.no-js{
+	[data-toggle-hidden] {
+		display: block !important;
+	}
+}
+
+// Form errors
+.error{
+	display: inline-block;
+    background-color: inherit;
+    padding-bottom: 0;
+    padding-top: 0;
+    margin-left: 0;
+}
+
+.form-group{
+	h2{
+		margin-top: 0;
+	}
+}
+
+.block-label{
+	input{
+		transform: none;
+	}
+}
+
+.lte-ie8{
+    .block-label{
+        float: left;
+        input{
+        	margin-top: -5px;
+        	*margin-top: -2px; //ie7
+        }
+    }
+}
+select.form-control{
+	margin:0;
+    cursor: pointer;
+	-webkit-appearance: menulist;
+}
+[type="file"]{
+	border: none;
+	padding: 0;
+}
+
+.error-summary{
+	display: block;
+}
