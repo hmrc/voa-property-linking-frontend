@@ -21,10 +21,8 @@
                     <th>Date added</th>
                     <th>Assessments</th>
                     <th></th>
-                    @model.properties.added.map { p =>
-                        @if(p.representations.nonEmpty) {
-                            <th></th>
-                        }
+                    @if(model.properties.pending.exists(_.representations.nonEmpty)) {
+                        <th></th>
                     }
                 </tr>
                 @model.properties.added.map { p =>
@@ -58,10 +56,11 @@
                             <a href=@routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
                         </td>
                         @if(p.representations.nonEmpty) {
-                            <td><a href=@routes.AppointAgentController.edit(p.uarn)>
-                            @Messages("dashboard.editAgent")
-                            </a>
+                            <td>
+                                <a href=@routes.AppointAgentController.edit(p.uarn)>@Messages("dashboard.editAgent")</a>
                             </td>
+                        } else {
+                            <td></td>
                         }
                     </tr>
                 }

@@ -15,7 +15,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   }
 
   def mustContainSuccessSummary(msg: String) {
-    val successSummary = html.select("div.success-summary").asScala.headOption.getOrElse(fail(s"No success summary in $html"))
+    val successSummary = html.select("h2.success-summary-heading").asScala.headOption.getOrElse(fail(s"No success summary in $html"))
     successSummary.text mustEqual msg withClue s"Success summary contained:\n${successSummary.text}"
   }
 
@@ -74,7 +74,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
 
   def mustContainFieldErrors(errors: (String, String)*) =
     errors.foreach { e =>
-      html.select(s"#${e._1}.has-error div.form-grouped-error p").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e \n$allFieldErrors"
+      html.select(s"#${e._1}.error div.form-grouped-error p").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e \n$allFieldErrors"
     }
 
   private def allFieldErrors = html.select(".has-error")

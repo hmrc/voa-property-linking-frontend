@@ -25,9 +25,8 @@ object Representation extends PropertyLinkingController{
   val reprConnector = Wiring().propertyRepresentationConnector
 
   def manageRepresentationRequest() = WithAuthentication.async { implicit request =>
-    reprConnector.forAgent(request.account.companyName).map{ reprs =>
-      val pendingReprs = reprs.filter(_.pending)
-      Ok(views.html.agent.dashboard.propertyRepresentation.manageProperties(ManagePropertiesVM(pendingReprs)))
+    reprConnector.forAgent(request.account.id).map{ reprs =>
+      Ok(views.html.agent.dashboard.propertyRepresentation.manageProperties(ManagePropertiesVM(reprs, request.account.id)))
     }
   }
 
@@ -43,6 +42,6 @@ object Representation extends PropertyLinkingController{
     }
   }
 
-  case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation])
+  case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation], agentCode: String)
 
 }
