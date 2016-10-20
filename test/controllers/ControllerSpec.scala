@@ -18,11 +18,13 @@ package controllers
 
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, MustMatchers}
 import play.api.test.{DefaultAwaitTimeout, FakeApplication, FutureAwaits}
+import play.filters.csrf.CSRF
 import utils.{StubGroupAccountConnector, StubIndividualAccountConnector, StubUserDetails}
 
 trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach {
   implicit val app = TestApp.app
 
+  val token = CSRF.TokenName -> CSRF.SignedTokenProvider.generateToken
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()
     StubGroupAccountConnector.reset()

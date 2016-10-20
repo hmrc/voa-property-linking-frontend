@@ -31,7 +31,7 @@ case class LinkingSessionRequest[A](ses: LinkingSession, groupId: String, reques
 
 case object NoSessionId extends Exception
 
-object WithLinkingSession {
+class WithLinkingSession {
   implicit def hc(implicit request: Request[_]) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
   val session = Wiring().sessionRepository
   val accountRepo = Wiring().individualAccountConnector

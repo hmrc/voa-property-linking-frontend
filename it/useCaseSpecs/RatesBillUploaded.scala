@@ -11,7 +11,7 @@ class RatesBillUploaded extends FrontendTest {
     implicit val session = GGSession(userId, token)
     HTTP.stubAuthentication(session)
     HTTP.stubGroupId(session, groupId)
-    HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration), selfCertifyComplete = Some(true)), Seq(Account(userId, false)))
+    HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, envelopeId, Some(declaration), selfCertifyComplete = Some(true)), Seq(Account(userId, false)))
 
     "When they arrive at the rates bill submitted page" - {
       val page = Page.get("/property-linking/rates-bill-submitted")
@@ -29,6 +29,7 @@ class RatesBillUploaded extends FrontendTest {
   object TestData {
     lazy val baRef = "sfku03802342"
     lazy val uarn = "uarn03802342"
+    lazy val envelopeId = "asdfasfasf"
     lazy val address = Address("leen1", "leen2", "leen3", "AA11 1AA")
     lazy val userId = "389u4asldkjfasljdf"
     lazy val token = "ouaihwfouahersagsa1"

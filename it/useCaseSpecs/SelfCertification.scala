@@ -11,7 +11,7 @@ class SelfCertification extends FrontendTest {
     HTTP.reset()
     implicit val sid: SessionId = java.util.UUID.randomUUID.toString
     implicit val session = GGSession(userId, token)
-    HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty, Some(declaration)), Seq(Account(userId, false)))
+    HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty, envelopeId, Some(declaration)), Seq(Account(userId, false)))
     HTTP.stubAuthentication(session)
     HTTP.stubGroupId(session, groupId)
 
@@ -39,7 +39,7 @@ class SelfCertification extends FrontendTest {
       }
 
       "And a flag is marked in the session indicating the link was successful" in {
-        HTTP.verifyKeystoreSaved(SessionDocument(selfCertifiableProperty, Some(declaration), Some(true)))
+        HTTP.verifyKeystoreSaved(SessionDocument(selfCertifiableProperty, envelopeId, Some(declaration), Some(true)))
       }
     }
 
@@ -63,6 +63,7 @@ class SelfCertification extends FrontendTest {
   object TestData {
     lazy val uarn = "uarn6"
     lazy val userId = "bizn33z123xdr"
+    lazy val envelopeId = "asdfasdfasf"
     lazy val token = "jaknsfpagklm"
     lazy val groupId = "oisagnodkflka"
     lazy val address = Address("", "", "", "AA11 1AA")

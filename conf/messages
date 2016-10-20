@@ -94,6 +94,13 @@ propertyRepresentation.selectAgent.table.4=Status
 propertyRepresentation.selectAgent.status.pending=Pending
 propertyRepresentation.selectAgent.status.accepted=Accepted
 
+#VIEW REPRESENTATIONS (AGENT)
+p.agentCode=Your agent code is {0}
+manageProperties.pendingRequests=Pending representation requests
+manageProperties.nonePending=You have no pending representation requests
+manageProperties.representations=Your representations
+manageProperties.noRepresentations=You have no representations
+
 #SEARCH
 search.title=Search and select a property to add to your account
 search.select.link=Select

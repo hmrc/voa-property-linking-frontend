@@ -18,7 +18,6 @@
                     @includes.errorSummary(model.form)
 
                     <fieldset class="inline form-group">
-                        @helper.CSRF.formField
 
                         @inputRadioGroup(
                             field = model.form("hasEvidence"),
@@ -28,8 +27,7 @@
                             ),
                             args = Seq(
                                 '_label -> Messages("hasEvidence.label"),
-                                '_labelClass -> "form-label-bold",
-                                '_error -> model.form("hasEvidence").error
+                                '_labelClass -> "form-label-bold"
                             )
                         )
                         <div id="evidenceFileUpload" data-toggle-hidden style="display: none;" class="form-group">

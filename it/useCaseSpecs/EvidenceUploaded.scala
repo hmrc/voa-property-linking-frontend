@@ -9,7 +9,7 @@ class EvidenceUploaded extends FrontendTest {
   "Given an interested person has uploaded some evidence for a property" - {
     implicit val sid: SessionId = java.util.UUID.randomUUID.toString
     implicit val session = GGSession(userId, token)
-    HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, Some(declaration), selfCertifyComplete = Some(false)), Seq(Account(userId, false)))
+    HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, envelopeId, Some(declaration), selfCertifyComplete = Some(false)), Seq(Account(userId, false)))
     HTTP.stubAuthentication(session)
     HTTP.stubGroupId(session, groupId)
 
@@ -31,6 +31,7 @@ class EvidenceUploaded extends FrontendTest {
     lazy val uarn = "uarn03802342"
     lazy val address = Address("leen1", "leen2", "leen3", "AA11 1AA")
     lazy val userId = "389u4asldkjfasljdf"
+    lazy val envelopeId = "asdfasfsaf"
     lazy val groupId = "98yqwfib09qy8iuah09"
     lazy val token = "tasfnmsfk"
     lazy val formattedAddress = "leen1, leen2, leen3, AA11 1AA"
