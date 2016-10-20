@@ -19,6 +19,7 @@ package config
 import play.api.Play
 import play.api.Play.{configuration, current}
 import uk.gov.hmrc.play.config.ServicesConfig
+import ConfigHelper._
 
 trait AppConfig {
   val assetsPrefix: String
@@ -30,8 +31,6 @@ trait AppConfig {
 
 
 object FrontendAppConfig extends AppConfig with ServicesConfig {
-  import ConfigHelper._
-
   lazy val appName = mustGetConfigString(Play.current, "appName")
 
   private val contactHost = getConfigString(configuration, s"contact-frontend.host").getOrElse("")
