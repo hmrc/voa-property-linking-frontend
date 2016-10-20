@@ -17,7 +17,7 @@ class SelfCertificationConfirmation extends FrontendTest {
       val page = Page.get("/property-linking/self-certification-link-submitted")
 
       "They see confirmation that their property linking request has been submitted" in {
-        page.mustContainSuccessSummary(s"Thank you for your request which has been submitted to the Valuation Office Agency. $formattedAddress")
+        page.mustContainSuccessSummary(s"Thank you for your request which has been submitted to the Valuation Office Agency.")
       }
       "And the page contains a link to the dashboard" in {
         page.mustContainLink("#backToDashBoard", "/property-linking/manage-properties")
