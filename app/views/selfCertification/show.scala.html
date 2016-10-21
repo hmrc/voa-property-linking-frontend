@@ -3,36 +3,49 @@
 
 @(model: SelfCertifyVM)(implicit request: Request[_])
 
-@main(Messages("selfCertification.show.title")) {
 
+@main_template(title = Messages("selfCertification.show.title")) {
     @form(routes.SelfCertification.submit()) {
-        <main id="content">
-            <div class="grid-row">
-                <div class="column-two-thirds">
-                    <h1 class="form-title heading-xlarge">
-                        <span class="section-title">@Messages("selfCertification.show.title")</span>
-                    </h1>
-                    <p id="self-certification-statement">@Messages("selfCertification.show.message")</p>
 
-                        @includes.errorSummary(model.form, Some("selfCertification.show"))
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <h1 class="form-title heading-xlarge">
+                    <span class="section-title">@Messages("selfCertification.show.title")</span>
+                </h1>
 
-                            @helper.CSRF.formField
+                <p id="self-certification-statement" class="panel panel-border-narrow">@Messages("selfCertification.show.message")</p>
 
-                            @checkbox(
-                                field = model.form("iAgree"),
-                                'id -> "iAgree",
-                                '_label -> Html(Messages("selfCertification.show.iAgree.label")),
-                                '_fieldsetClass -> "inline",
-                                '_legend -> false,
-                                '_labelClass -> "form-label-bold",
-                                '_showConstraints -> false,
-                                '_text -> Messages("selfCertification.show.iAgree.text"),
-                                '_helpIndent -> Messages("selfCertification.show.iAgree.hint")
-                            )
+                @includes.errorSummary(model.form, Some("selfCertification.show"))
 
-                        <button type="submit" class="button">@Messages("selfCertification.show.button")</button>
+                <br />
+
+                <div class="clearfix"></div>
+                <div class="notice">
+                    <i class="icon icon-important">
+                        <span class="visuallyhidden">Warning</span>
+                    </i>
+                    <strong class="bold-small">
+                    @Messages("selfCertification.show.iAgree.hint")
+                    </strong>
                 </div>
+
+                <br />
+
+
+                @checkbox(
+                    field = model.form("iAgree"),
+                    'id -> "iAgree",
+                    '_label -> Html(Messages("selfCertification.show.iAgree.label")),
+                    '_fieldsetClass -> "inline",
+                    '_legend -> false,
+                    '_labelClass -> "visuallyhidden",
+                    '_showConstraints -> false,
+                    '_text -> Messages("selfCertification.show.iAgree.text")
+                )
+
+                <button type="submit" class="button">@Messages("selfCertification.show.button")</button>
             </div>
-        </main>
+        </div>
+
     }
 }

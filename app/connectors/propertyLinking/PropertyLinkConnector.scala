@@ -28,7 +28,10 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
   extends ServicesConfig with JsonHttpReads {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  // TODO - will not be passing in accountId once auth solution is confirmed
+  implicit val rds: HttpReads[Unit] = new HttpReads[Unit] {
+    override def read(method: String, url: String, response: HttpResponse): Unit = Unit
+  }
+
   def linkToProperty(uarn: String, billingAuthorityRef: String, userId: String,
                      capacityDeclaration: CapacityDeclaration, submissionId: String, flag: RequestFlag)
                     (implicit hc: HeaderCarrier): Future[Unit] = {

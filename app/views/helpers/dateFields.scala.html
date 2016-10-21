@@ -8,13 +8,14 @@
 
 
 @displayFieldError(message: String, args: Seq[Any]) = {
-    <p class="error">@Messages(message, args:_*)</p>
+    <p class="error-message">@Messages(message, args:_*)</p>
 }
 
 @errorWrapper(fields:Seq[Field],id: String,classes:String*)(content:Html) = {
 	@defining(_root_.template.HtmlSupport.getErrors(fields)){ combinedErrors =>
 
-	  <div id='@id' class='@classes.mkString(" ") @if(combinedErrors.nonEmpty){ form-grouped-error }'>
+
+	  <div id='@id' class='@classes.mkString(" ") @if(combinedErrors.nonEmpty){ error }'>
 	    @if(combinedErrors.nonEmpty){
 	       @combinedErrors.map(err => (err.message, err.args)).distinct.map { case (msg, args) => @displayFieldError(msg, args) }
 	    }
@@ -23,7 +24,7 @@
 	}
 }
 
-	<fieldset class="form-group">
+	<fieldset class="form-group form-date">
 	<legend class="form-label-bold">
         @label.map { lab => @Messages(lab) }.getOrElse(if(suffix.nonEmpty) { Html(Messages(s"$prefix.$suffix.label")) } else { Html(Messages(s"$prefix.label")) })
     </legend>

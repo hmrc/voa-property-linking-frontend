@@ -5,13 +5,14 @@
 
 @(model: CreateIndividualAccountVM)(implicit request: Request[_])
 
-    @main(Messages("createAccount.individual.title")) {
-    <main id="content">
+
+@main_template(title = Messages("createAccount.individual.title")) {
+
         <div class="grid-row">
             <div class="column-two-thirds">
-            
+
                 <h1 class="heading-xlarge">@Messages("createAccount.individual.title")</h1>
-                
+
                 @form(routes.CreateIndividualAccount.submit) {
 
                     @inputText(
@@ -44,8 +45,8 @@
                         <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
                     </p>
                 }
-                
+
             </div>
         </div>
-    </main>
+    
     }

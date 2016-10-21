@@ -10,7 +10,7 @@ class EvidenceRequired extends FrontendTest {
   "Given an interested person is being asked to provide additional evidence" - {
     implicit val sid: SessionId = java.util.UUID.randomUUID.toString
     implicit val session = GGSession(userId, token)
-    HTTP.stubKeystoreSession(SessionDocument(property, Some(declaration)), Seq(Account(userId, false)))
+    HTTP.stubKeystoreSession(SessionDocument(property, envelopeId, Some(declaration)), Seq(Account(userId, false)))
     HTTP.stubAuthentication(session)
     HTTP.stubGroupId(session, groupId)
 
@@ -41,7 +41,7 @@ class EvidenceRequired extends FrontendTest {
 
     "But if they specify they do not have any evidence" - {
       implicit val sid: SessionId = java.util.UUID.randomUUID.toString
-      HTTP.stubKeystoreSession(SessionDocument(property, Some(declaration)), Seq(Account(userId, false)))
+      HTTP.stubKeystoreSession(SessionDocument(property, envelopeId, Some(declaration)), Seq(Account(userId, false)))
       val result = Page.postValid("/property-linking/upload-evidence", "hasEvidence" -> "doesnothaveevidence")
 
       "Their link request is submitted" in {
@@ -55,7 +55,7 @@ class EvidenceRequired extends FrontendTest {
 
     "When they do not supply a valid response" - {
       implicit val sid: SessionId = java.util.UUID.randomUUID.toString
-      HTTP.stubKeystoreSession(SessionDocument(property, Some(declaration)), Seq(Account(userId, false)))
+      HTTP.stubKeystoreSession(SessionDocument(property, envelopeId, Some(declaration)), Seq(Account(userId, false)))
       HTTP.stubFileUpload(groupId, sid, "evidence", ("1.pdf", bytes1), ("2.pdf", bytes1), ("3.pdf", bytes1), ("4.pdf", bytes1))
       val page = Page.postInvalid("/property-linking/upload-evidence", "hasEvidence" -> "doeshaveevidence")
 
@@ -73,6 +73,7 @@ class EvidenceRequired extends FrontendTest {
 
   object TestData {
     lazy val uarn = "uarn4"
+    lazy val envelopeId = "asdfasfsaf"
     lazy val baRef = "baRef-asdfjlj23l4j23"
     lazy val userId = "sdfksjdlf34233gr6"
     lazy val groupId = "9qiouasg099awg"

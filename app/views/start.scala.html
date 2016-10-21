@@ -1,11 +1,12 @@
 @()(implicit request: Request[_])
 
-@main("Start page", showLogoutLink = false) {
-    <main id="content">
+
+@main_template(title = "Start page", showLogoutLink = false ) {
+
         <h1 class="form-title heading-xlarge form-title-group">
             <span class="section-title">Start</span>
         </h1>
         <a href="@routes.Login.show" class="button">@Messages("label.login")</a>
-        <a href="@routes.Registration.show" class="button">@Messages("label.register")</a>
-    </main>
+
+
 }

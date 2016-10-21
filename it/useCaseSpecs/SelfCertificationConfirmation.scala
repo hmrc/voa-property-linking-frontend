@@ -11,13 +11,13 @@ class SelfCertificationConfirmation extends FrontendTest {
     implicit val session = GGSession(userId, token)
     HTTP.stubAuthentication(session)
     HTTP.stubGroupId(session, groupId)
-    HTTP.stubKeystoreSession(SessionDocument(selfCertProperty, Some(declaration), selfCertifyComplete = Some(true)), Seq(Account(userId, false)))
+    HTTP.stubKeystoreSession(SessionDocument(selfCertProperty, envelopeId, Some(declaration), selfCertifyComplete = Some(true)), Seq(Account(userId, false)))
 
     "When they arrive at the self certification confirmation page" - {
       val page = Page.get("/property-linking/self-certification-link-submitted")
 
       "They see confirmation that their property linking request has been submitted" in {
-        page.mustContainSuccessSummary(s"Thank you for your request which has been submitted to the Valuation Office Agency. $formattedAddress")
+        page.mustContainSuccessSummary(s"Thank you for your request which has been submitted to the Valuation Office Agency.")
       }
       "And the page contains a link to the dashboard" in {
         page.mustContainLink("#backToDashBoard", "/property-linking/manage-properties")
@@ -29,7 +29,7 @@ class SelfCertificationConfirmation extends FrontendTest {
     implicit val sid: SessionId = java.util.UUID.randomUUID.toString
     implicit val session = GGSession(userId, token)
     HTTP.stubAuthentication(session)
-    HTTP.stubKeystoreSession(SessionDocument(selfCertProperty, Some(declaration)), Seq(Account(userId, false)))
+    HTTP.stubKeystoreSession(SessionDocument(selfCertProperty, envelopeId, Some(declaration)), Seq(Account(userId, false)))
 
     "When they try to access the self certification page" - {
       val res = Page.getResult("/property-linking/self-certification-link-submitted")
@@ -44,6 +44,7 @@ class SelfCertificationConfirmation extends FrontendTest {
   object TestData {
     lazy val baRef = "sfku03802342"
     lazy val uarn = "uarn03802342"
+    lazy val envelopeId = "asdfasfasf"
     lazy val address = Address("leen1", "leen2", "leen3", "AA11 1AA")
     lazy val userId = "389u4asldkjfasljdf"
     lazy val token = "uoashf98ouafn"

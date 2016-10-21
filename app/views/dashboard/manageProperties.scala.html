@@ -2,8 +2,8 @@
 
 @(model: controllers.ManagePropertiesVM)(implicit request: Request[_])
 
-@main(Messages("dashboard.manageProperties.title")) {
-    <main id="content">
+
+@main_template(title = Messages("dashboard.home.title")) {
         <div class="grid-row">
             <div class="column-two-thirds">
                 <h1 class="form-title heading-xlarge">
@@ -21,7 +21,9 @@
                     <th>Date added</th>
                     <th>Assessments</th>
                     <th></th>
-                    <th></th>
+                    @if(model.properties.pending.exists(_.representations.nonEmpty)) {
+                        <th></th>
+                    }
                 </tr>
                 @model.properties.added.map { p =>
                     <tr>
@@ -54,10 +56,11 @@
                             <a href=@routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
                         </td>
                         @if(p.representations.nonEmpty) {
-                            <td><a href=@routes.AppointAgentController.edit(p.uarn)>
-                            @Messages("dashboard.editAgent")
-                            </a>
+                            <td>
+                                <a href=@routes.AppointAgentController.edit(p.uarn)>@Messages("dashboard.editAgent")</a>
                             </td>
+                        } else {
+                            <td></td>
                         }
                     </tr>
                 }
@@ -65,5 +68,5 @@
         </table>
 
         <p><a href="@routes.Search.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.searchLinkText")</a></p>
-    </main>
+
 }
