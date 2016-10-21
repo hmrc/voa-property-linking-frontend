@@ -11,8 +11,10 @@ POST        /create-account                                     controllers.Crea
 
 #Identity verification
 GET         /identity-verification                              controllers.IdentityVerification.show
+GET         /identity-verification/start                        controllers.CreateIndividualAccount.startIv
 GET         /identity-verification/failed                       controllers.IdentityVerification.fail
 GET         /identity-verification/success                      controllers.IdentityVerification.succeed
+GET         /identity-verification/restore-session              controllers.IdentityVerification.withRestoredSession
 
 #Create group account
 GET         /create-group                                       controllers.CreateGroupAccount.show
@@ -61,8 +63,8 @@ GET         /agent/representation-request/accept/:reprId        controllers.agen
 GET         /agent/representation-request/reject/:reprId        controllers.agent.Representation.reject(reprId)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                                          controllers.Assets.at(path="/public", file)
+GET         /assets/*file                                       controllers.Assets.at(path="/public", file)
 
 
 #sample pages
-GET    /typography                                              controllers.Application.typography
+GET         /typography                                         controllers.Application.typography

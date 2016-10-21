@@ -29,14 +29,17 @@ class IdentityVerificationSpec extends ControllerSpec {
     override val userDetails = StubUserDetails
     override val auth = StubAuthConnector
     override val ggAction = StubGGAction
+    override val identityVerification = StubIdentityVerification
   }
 
   val request = FakeRequest()
+  private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
 
   "Successfully verifying identity when the group does not have a CCA account" must "redirect to the create group account page, and not create an individual account" in {
     StubUserDetails.stubGroupId("groupwithoutaccount")
+    StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
 
-    val res = TestIdentityVerification.succeed()(request)
+    val res = TestIdentityVerification.withRestoredSession()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
     header("location", res) mustBe Some(routes.CreateGroupAccount.show.url)
 
@@ -49,13 +52,21 @@ class IdentityVerificationSpec extends ControllerSpec {
     StubAuthConnector.stubInternalId("individualwithoutaccount")
     StubUserDetails.stubGroupId("groupwithaccount")
     StubGroupAccountConnector.stubAccount(GroupAccount("groupwithaccount", "", Address("", "", "", ""), "", "", false, false))
+    StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
 
-    val res = TestIdentityVerification.succeed()(request)
+    val res = TestIdentityVerification.withRestoredSession()(requestWithJourneyId("anothersuccess"))
     status(res) mustBe SEE_OTHER
     header("location", res) mustBe Some(routes.Dashboard.home().url)
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
     await(StubIndividualAccountConnector.get("individualwithoutaccount")) must not be None
+  }
+
+  "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in {
+    StubIdentityVerification.stubFailedJourney("somejourneyid")
+
+    val res = TestIdentityVerification.withRestoredSession()(request.withSession("journey-id" -> "somejourneyid"))
+    status(res) mustBe UNAUTHORIZED
   }
 }

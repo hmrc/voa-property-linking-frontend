@@ -1,0 +1,65 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import controllers.StartIVVM
+@import controllers.CreateIndividualAccount.keys
+
+@(model: StartIVVM)(implicit request: Request[_])
+    
+    @main_template(Messages("startIv.title")) {
+            <div class="grid-row">
+                <div class="column-two-thirds">
+                
+                    <h1 class="heading-xlarge">@Messages("startIv.title")</h1>
+
+                    @form(Call("POST", model.url)) {
+
+                        @inputText(
+                            field = model.form(keys.firstName),
+                            '_labelClass -> "visuallyhidden",
+                            'hidden -> "hidden",
+                            'readOnly -> "true"
+                        )
+
+                        @inputText(
+                            field = model.form(keys.lastName),
+                            '_labelClass -> "visuallyhidden",
+                            'hidden -> "hidden",
+                            'readOnly -> "true"
+                        )
+
+                        @inputText(
+                            field = model.form(s"${keys.dateOfBirth}.day"),
+                            '_labelClass -> "visuallyhidden",
+                            'hidden -> "hidden",
+                            'readOnly -> "true"
+                        )
+
+                        @inputText(
+                            field = model.form(s"${keys.dateOfBirth}.month"),
+                            '_labelClass -> "visuallyhidden",
+                            'hidden -> "hidden",
+                            'readOnly -> "true"
+                        )
+
+                        @inputText(
+                            field = model.form(s"${keys.dateOfBirth}.year"),
+                            '_labelClass -> "visuallyhidden",
+                            'hidden -> "hidden",
+                            'readOnly -> "true"
+                        )
+
+                        @inputText(
+                            field = model.form(keys.nino),
+                            '_labelClass -> "visuallyhidden",
+                            'hidden -> "hidden",
+                            'readOnly -> "true"
+                        )
+
+                        <p>
+                            <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
+                        </p>
+                    }
+
+                </div>
+            </div>
+    }

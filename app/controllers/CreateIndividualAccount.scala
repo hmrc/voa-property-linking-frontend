@@ -16,34 +16,54 @@
 
 package controllers
 
-import auth.GGAction
 import config.Wiring
 import form.Mappings._
+import models.IndividualDetails
 import org.joda.time.DateTime
 import play.api.data.Forms._
 import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
 import play.api.data.{Form, Mapping}
+import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino
+import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
+import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
 
 trait CreateIndividualAccount extends PropertyLinkingController {
   val accounts = Wiring().individualAccountConnector
   val ggAction = Wiring().ggAction
+  val keystore = Wiring().sessionCache
+  val identityVerification = Wiring().identityVerification
 
-  def show = ggAction { _ => implicit request =>
-    Ok(views.html.createAccount.individual(form))
+  def show = ggAction.async { ctx => implicit request =>
+    if (ctx.user.confidenceLevel >= ConfidenceLevel.L200) {
+      Redirect(routes.CreateGroupAccount.show)
+    } else {
+      //TODO - temporary fix for PE-2543
+      Ok(views.html.createAccount.individual(form)).addingToSession("bearerToken" -> request.session.get(SessionKeys.authToken).getOrElse(""))
+    }
   }
 
-  def submit = ggAction { _ => implicit request =>
+  def submit = ggAction.async { _ => implicit request =>
     form.bindFromRequest().fold(
       errors => BadRequest(views.html.createAccount.individual(errors)),
-      formData => Redirect(routes.IdentityVerification.show)
+      formData => keystore.cache("individualDetails", formData) map { _ =>
+        Redirect(routes.CreateIndividualAccount.startIv)
+      }
     )
+  }
+
+  def startIv = ggAction.async { _ => implicit request =>
+    keystore.fetchAndGetEntry[IndividualDetails]("individualDetails") map {
+      case Some(d) => Ok(views.html.identityVerification.start(StartIVVM(form.fill(d), identityVerification.verifyUrl)))
+      case None => NotFound
+    }
   }
 
   lazy val keys = new {
     val firstName = "fname"
     val lastName = "lname"
-    val dateOfBirth = "dateOfBirth"
+    val dateOfBirth = "dob"
     val nino = "nino.nino"
   }
 
@@ -66,6 +86,6 @@ trait CreateIndividualAccount extends PropertyLinkingController {
 
 object CreateIndividualAccount extends CreateIndividualAccount
 
-case class IndividualDetails(firstName: String, lastName: String, dateOfBirth: DateTime, nino: Nino)
-
 case class CreateIndividualAccountVM(form: Form[_])
+
+case class StartIVVM(form: Form[_], url: String)
