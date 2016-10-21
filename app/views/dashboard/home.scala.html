@@ -1,21 +1,22 @@
 @()(implicit request: Request[_])
 
-@main(Messages("dashboard.home.title")) {
-    <main id="content">
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <h1 class="form-title heading-xlarge">
-                    <span class="section-title">@Messages("dashboard.home.title")</span>
-                </h1>
-            </div>
+
+@main_template(title = Messages("dashboard.home.title")) {
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <h1 class="form-title heading-xlarge">
+                <span class="section-title">@Messages("dashboard.home.title")</span>
+            </h1>
         </div>
-        <ul class="list-bullet">
-            <li>
-                <a href="@routes.Dashboard.manageProperties">@Messages("dashboard.home.manageProperties.link")</a>
-            </li>
-            <li>
-                <a href="@routes.Search.show">@Messages("dashboard.home.searchProperties.link")</a>
-            </li>
-        </ul>
-    </main>
+    </div>
+    <ul class="list-bullet">
+        <li>
+            <a href="@routes.Dashboard.manageProperties">@Messages("dashboard.home.manageProperties.link")</a>
+        </li>
+        <li>
+            <a href="@routes.Search.show">@Messages("dashboard.home.searchProperties.link")</a>
+        </li>
+    </ul>
+
 }

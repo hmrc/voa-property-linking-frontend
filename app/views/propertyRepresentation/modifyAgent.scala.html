@@ -5,16 +5,17 @@
 @import controllers.AppointAgentController.ModifyAgentVM
 @(model: ModifyAgentVM)(implicit request: Request[_])
 
-@main(Messages("propertyRepresentation.modifyAgent.title")) {
 
-    <main id="content">
+
+    @main_template(title = Messages("propertyRepresentation.modifyAgent.title")) {
+
+
         <div class="grid-row">
             <div class="column-two-thirds">
                 <h1 class="form-title heading-xlarge">
                     <span class="section-title">@Messages("propertyRepresentation.modifyAgent.title")</span>
                 </h1>
-            </div>
-        </div>
+
         <p>@Messages("propertyRepresentation.modifyAgent.message.1")</p>
         <p>@Messages("propertyRepresentation.modifyAgent.message.2")</p>
         @form(routes.AppointAgentController.modifySubmit(model.uarn, model.representationId)) {
@@ -46,6 +47,7 @@
             )
             <button type="submit" class="button">@Messages("propertyRepresentation.modifyAgent.button")</button>
         }
-    </main>
+    </div>
+</div>
 
 }

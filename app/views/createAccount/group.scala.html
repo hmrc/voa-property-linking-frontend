@@ -4,14 +4,15 @@
 @import controllers.CreateGroupAccount.keys
 
 @(model: CreateGroupAccountVM)(implicit request: Request[_])
-    
-    @main(Messages("createAccount.group.title")) {
-        <main id="content">
+
+
+@main_template(title = Messages("createAccount.group.title")) {
+        
             <div class="grid-row">
                 <div class="column-two-thirds">
-                
+
                     <h1 class="heading-xlarge">@Messages("createAccount.group.title")</h1>
-                    
+
                     @form(routes.CreateGroupAccount.submit) {
 
                         @inputText(
@@ -64,8 +65,8 @@
                         <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
                     </p>
                     }
-                    
+
                 </div>
             </div>
-        </main>
+
     }

@@ -14,6 +14,7 @@ object SessionDocument {
   implicit lazy val sdf = Json.format[SessionDocument]
 }
 
-case class SessionDocument(claimedProperty: Property, declaration: Option[CapacityDeclaration] = None, selfCertifyComplete: Option[Boolean] = None)
+case class SessionDocument(claimedProperty: Property, envelopeId: String,
+                           declaration: Option[CapacityDeclaration] = None, selfCertifyComplete: Option[Boolean] = None)
 case class Property(uarn: String, billingAuthorityReference: String, address: Address, isSelfCertifiable: Boolean, canReceiveMail: Boolean)
 case class Address(line1: String, line2: String, line3: String, postcode: String)

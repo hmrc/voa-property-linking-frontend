@@ -17,7 +17,6 @@
 package serialization
 
 import connectors._
-import controllers.Account
 import models._
 import play.api.libs.json._
 import session.LinkingSession
@@ -25,7 +24,6 @@ import session.LinkingSession
 object JsonFormats {
   implicit val dateReads = Reads.jodaDateReads("yyyy-MM-dd")
   implicit val dateWrites = Writes.jodaDateWrites("yyyy-MM-dd")
-  implicit val accountFormat = Json.format[Account]
   implicit val addressFormat = Json.format[Address]
   implicit val propertyDataFormat = Json.format[Property]
   implicit val propertyRepresentationsFormat = Json.format[PropertyRepresentation]

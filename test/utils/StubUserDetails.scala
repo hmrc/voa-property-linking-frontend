@@ -29,5 +29,9 @@ object StubUserDetails extends UserDetails(StubHttp) {
     groupId = id
   }
 
+  def reset() = {
+    groupId = ""
+  }
+
   override def getGroupId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(groupId)
 }

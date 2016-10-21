@@ -27,6 +27,10 @@ import scala.concurrent.Future
 object Application extends Controller {
   val ggAction = Wiring().ggAction
 
+ def typography = Action { implicit request =>
+   Ok(views.html.typography())
+ }
+
   def index() = Action.async { implicit request =>
     LoggedIn(request) map {
       case true => Redirect(routes.Dashboard.home())
@@ -42,7 +46,7 @@ object Application extends Controller {
 object LoggedIn {
   implicit def hc(implicit request: RequestHeader) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
-  val accountRepo = Wiring().accountConnector
+  val accountRepo = Wiring().individualAccountConnector
 
   def apply(implicit r: RequestHeader) = {
     r.session.get("accountId").map { id =>

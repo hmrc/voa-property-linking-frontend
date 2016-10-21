@@ -17,11 +17,13 @@
 package controllers
 
 import config.Wiring
+import models.IndividualAccount
 
 import scala.concurrent.Future
 
 trait IdentityVerification extends PropertyLinkingController {
-  val accounts = Wiring().accountConnector
+  val groups = Wiring().groupAccountConnector
+  val individuals = Wiring().individualAccountConnector
   val userDetails = Wiring().userDetailsConnector
   val auth = Wiring().authConnector
   val ggAction = Wiring().ggAction
@@ -38,9 +40,9 @@ trait IdentityVerification extends PropertyLinkingController {
     for {
       groupId <- userDetails.getGroupId(ctx)
       userId <- auth.getInternalId(ctx)
-      account <- accounts.get(groupId)
+      account <- groups.get(groupId)
       res <- account match {
-        case Some(acc) => accounts.create(Account(userId, false)) map { _ =>
+        case Some(acc) => individuals.create(IndividualAccount(userId, groupId)) map { _ =>
           Redirect(routes.Dashboard.home)
         }
         case None => Future.successful(Redirect(routes.CreateGroupAccount.show))

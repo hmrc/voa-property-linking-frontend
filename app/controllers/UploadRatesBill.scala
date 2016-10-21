@@ -16,6 +16,8 @@
 
 package controllers
 
+import java.nio.file.{Files, Paths}
+
 import config.{Environment, Wiring}
 import connectors.RatesBillFlag
 import form.EnumMapping
@@ -30,19 +32,24 @@ import session.{LinkingSessionRequest, WithLinkingSession}
 
 import scala.concurrent.Future
 
-object UploadRatesBill extends PropertyLinkingController {
-  lazy val uploadConnector = Wiring().fileUploadConnector
-  lazy val ratesBillConnector = Wiring().ratesBillVerificationConnector
+trait UploadRatesBill extends PropertyLinkingController {
+  lazy val fileUploadConnector = Wiring().fileUploadConnector
   lazy val propertyLinkConnector = Wiring().propertyLinkConnector
+  lazy val ratesBillConnector = Wiring().ratesBillVerificationConnector
+  lazy val sessionRepository = Wiring().sessionRepository
+  lazy val withLinkingSession = Wiring().withLinkingSession
+  lazy val fileSystemConnector = Wiring().fileSystemConnector
 
-  def show() = WithLinkingSession { implicit request =>
+  def show() = withLinkingSession { implicit request =>
     Ok(views.html.uploadRatesBill.show(UploadRatesBillVM(uploadRatesBillForm)))
   }
 
-  def submit() = WithLinkingSession { implicit request =>
+  def submit() = withLinkingSession { implicit request =>
     uploadRatesBillForm.bindFromRequest().fold(
       errors => BadRequest(views.html.uploadRatesBill.show(UploadRatesBillVM(errors))),
-      answer => handle(answer) flatMap {
+      answer => handle(answer) flatMap { x =>
+        x match {
+
         case RatesBillUploaded =>
           requestLink map { _ => Redirect(routes.UploadRatesBill.ratesBillUploaded()) }
         case NoRatesBill =>
@@ -52,37 +59,55 @@ object UploadRatesBill extends PropertyLinkingController {
             UploadRatesBillVM(uploadRatesBillForm.fill(s).withError(FormError("ratesBill", Messages("uploadRatesBill.ratesBillMissing.error"))))
           ))
       }
+      }
     )
   }
 
-  private def handle(answer: SubmitRatesBill)(implicit req: LinkingSessionRequest[AnyContent]): Future[RatesBillUploadResult] =
+  private def handle(answer: SubmitRatesBill)(implicit req: LinkingSessionRequest[AnyContent]): Future[RatesBillUploadResult] = {
     answer.hasRatesBill match {
-      case DoesHaveRatesBill => retrieveFile(if (!Environment.isTest) req.request.body.asMultipartFormData.get.file("ratesBill") else None).map {
-        case f :: _ => RatesBillUploaded
-        case Nil => RatesBillMissing(answer)
+      case DoesHaveRatesBill => {
+
+        uploadFile(req.request.body.asMultipartFormData.get.file("ratesBill"), answer).map { x =>
+        x
+        }
       }
       case DoesNotHaveRatesBill => NoRatesBill
     }
+  }
 
-  private def retrieveFile(file: Option[FilePart[TemporaryFile]])(implicit request: LinkingSessionRequest[_]) =
-    uploadConnector.retrieveFiles(request.userId, request.sessionId, "ratesBill", file.map(Seq(_)).getOrElse(Seq.empty))
+  private def uploadFile(file: Option[FilePart[TemporaryFile]], answer: SubmitRatesBill)(implicit request: LinkingSessionRequest[_]) = {
+    file.map(filepart => {
+      val envId = request.ses.envelopeId
+      val content = fileSystemConnector.readAllBytes(filepart.ref.file.toPath)
+      val contentType = filepart.contentType.getOrElse("application/octet-stream")
+      fileUploadConnector.uploadFile(envId, filepart.filename, content, contentType,filepart.ref.file ) map (_ =>
+        RatesBillUploaded
+        )
+    }).getOrElse(Future.successful(RatesBillMissing(answer)))
+  }
 
   private def requestLink(implicit req: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(
       req.ses.claimedProperty.uarn,
-      req.ses.claimedProperty.billingAuthorityReference, req.userId,
+      req.ses.claimedProperty.billingAuthorityReference, req.groupId,
       req.ses.declaration.getOrElse(throw new Exception("No declaration")),
       java.util.UUID.randomUUID.toString, RatesBillFlag
     )
 
-  def ratesBillUploaded() = Action { implicit request =>
-    Ok(views.html.uploadRatesBill.ratesBillUploaded())
+  def ratesBillUploaded() = withLinkingSession { implicit request =>
+    fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap( _=>
+      sessionRepository.remove().map( _ =>
+      Ok(views.html.uploadRatesBill.ratesBillUploaded())
+      )
+    )
   }
 
   lazy val uploadRatesBillForm = Form(mapping(
     "hasRatesBill" -> EnumMapping(HasRatesBill)
   )(SubmitRatesBill.apply)(SubmitRatesBill.unapply))
 }
+
+object UploadRatesBill extends UploadRatesBill
 
 case class UploadRatesBillVM(form: Form[_])
 

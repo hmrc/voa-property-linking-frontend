@@ -23,18 +23,19 @@ import models.{DoesHaveEvidence, DoesNotHaveEvidence, HasEvidence}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.AnyContent
-import session.{LinkingSessionRequest, WithLinkingSession}
+import session.{LinkingSession, LinkingSessionRequest, WithLinkingSession}
 import views.helpers.Errors
 
 object UploadEvidence extends PropertyLinkingController {
   lazy val propertyLinkConnector = Wiring().propertyLinkConnector
-  lazy val uploadConnector = Wiring().fileUploadConnector
+  lazy val withLinkingSession = Wiring().withLinkingSession
+  lazy val uploadConnector = Wiring().fileUploadConnectorTODODELETETHIS
 
-  def show() = WithLinkingSession { implicit request =>
+  def show() = withLinkingSession { implicit request =>
     Ok(views.html.uploadEvidence.show(UploadEvidenceVM(form)))
   }
 
-  def submit() = WithLinkingSession { implicit request =>
+  def submit() = withLinkingSession { implicit request =>
     form.bindFromRequest().fold(
       error => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(error))),
       uploaded => uploaded.hasEvidence match {
@@ -50,22 +51,27 @@ object UploadEvidence extends PropertyLinkingController {
   private def requestLink(implicit r: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(r.ses.claimedProperty.uarn,
       r.ses.claimedProperty.billingAuthorityReference,
-      r.userId, r.ses.declaration.getOrElse(throw new Exception("No declaration")),
+      r.groupId, r.ses.declaration.getOrElse(throw new Exception("No declaration")),
       java.util.UUID.randomUUID.toString, OtherEvidenceFlag
     )
 
   private def verifyUploadedFiles(implicit r: LinkingSessionRequest[AnyContent]) = {
+    r.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence"))
     uploadConnector.retrieveFiles(
-      r.userId, r.sessionId, "evidence",
+      r.groupId, r.sessionId, "evidence",
       if (Environment.isDev || Environment.isProd) r.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence")) else Seq.empty
     ).map(x => if (x.nonEmpty && x.length <=3) FilesAccepted else FilesRejected)
   }
 
-  def evidenceUploaded() = WithLinkingSession { implicit request =>
-    Ok(views.html.uploadEvidence.evidenceUploaded())
+  def evidenceUploaded() = withLinkingSession { implicit request =>
+    Wiring().fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap( _=>
+      Wiring().sessionRepository.remove().map( _ =>
+        Ok(views.html.uploadEvidence.evidenceUploaded())
+      )
+    )
   }
 
-  def noEvidenceUploaded() = WithLinkingSession { implicit request =>
+  def noEvidenceUploaded() = withLinkingSession { implicit request =>
     Ok(views.html.uploadEvidence.noEvidenceUploaded())
   }
 

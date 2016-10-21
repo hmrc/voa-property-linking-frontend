@@ -1,15 +1,15 @@
 @()(implicit request: Request[_])
 
-@main(Messages("linkError.conflict.title")) {
-      <main id="content">
+@main_template(title = Messages("linkError.conflict.title")) {
+
           <div class="grid-row">
               <div class="column-two-thirds">
                   <h1 class="form-title heading-xlarge">
                       <span class="section-title">@Messages("linkError.conflict.title")</span>
                   </h1>
-              </div>
-          </div>
+
           <p>@Messages("linkError.conflict.message")</p>
           <a href="@routes.Dashboard.home" class="button">@Messages("linkError.conflict.home.link")</a>
-      </main>
+      </div>
+  </div>
 }
