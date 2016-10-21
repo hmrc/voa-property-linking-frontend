@@ -86,7 +86,7 @@
     <check level="error" class="org.scalastyle.scalariform.SimplifyBooleanExpressionChecker" enabled="true"></check>
     <check level="error" class="org.scalastyle.scalariform.MethodLengthChecker" enabled="true">
         <parameters>
-            <parameter name="maxLength"><![CDATA[25]]></parameter>
+            <parameter name="maxLength"><![CDATA[35]]></parameter>
         </parameters>
     </check>
     <check level="error" class="org.scalastyle.scalariform.MethodNamesChecker" enabled="true">

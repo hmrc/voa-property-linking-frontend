@@ -38,12 +38,12 @@ class CapacityDeclaration extends FrontendTest {
     }
 
     "When they supply a valid relationship, start and end date" - {
-      HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty), Seq(Account(userId, false)))
+      HTTP.stubKeystoreSession(SessionDocument(selfCertifiableProperty, envelopeId), Seq(Account(userId, false)))
       val response = Page.postValid("/property-linking/link-to-property", validFormData: _*)
 
       "Their declaration is stored in the session" in {
         HTTP.verifyKeystoreSaved(
-          SessionDocument(selfCertifiableProperty, Some(CapacityDeclaration(validRelationship, fromDate, Some(toDate))))
+          SessionDocument(selfCertifiableProperty, envelopeId, Some(CapacityDeclaration(validRelationship, fromDate, Some(toDate))))
         )
       }
 
@@ -55,9 +55,9 @@ class CapacityDeclaration extends FrontendTest {
       "But if a non-self-certifiable property had been chosen they would instead be asked to supply a rates bill" in {
         val sid: SessionId = java.util.UUID.randomUUID.toString
         val aid = GGSession(userId, token)
-        HTTP.stubKeystoreSession(SessionDocument(nonSelfCertifiableProperty), Seq(Account(userId, false)))(sid)
+        HTTP.stubKeystoreSession(SessionDocument(nonSelfCertifiableProperty, envelopeId), Seq(Account(userId, false)))(sid)
         val response = Page.postValid("/property-linking/link-to-property", validFormData: _*)(sid, aid)
-        response.header.headers("location") mustEqual "/property-linking/supply-rates-bill"
+        response.header.headers("location") mustEqual "/property-linking/upload-rates-bill"
       }
     }
 
@@ -82,7 +82,7 @@ class CapacityDeclaration extends FrontendTest {
     lazy val userId = "asdfj2304rsdf"
     lazy val groupId = "98ojna09qwut"
     lazy val token = "kjasgpaopknaslk"
-
+    lazy val envelopeId = "asdfa"
     lazy val address = Address("123 somwhere333i", "a teeewonio", "une villagAArios", "AA11 1AA")
     lazy val selfCertifiableProperty = Property("uarn2", propertyToClaimBillingAuthorityRef, address, true, true)
     lazy val nonSelfCertifiableProperty = Property("uarn3", propertyToClaimBillingAuthorityRef, address, false, true)

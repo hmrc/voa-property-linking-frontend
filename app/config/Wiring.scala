@@ -19,7 +19,7 @@ package config
 import auth.GGAction
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
-import session.LinkingSessionRepository
+import session.{LinkingSessionRepository, WithLinkingSession}
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
@@ -43,11 +43,15 @@ abstract class Wiring {
   lazy val propertyLinkConnector = new PropertyLinkConnector(http)
   lazy val individualAccountConnector = new IndividualAccounts(http)
   lazy val groupAccountConnector = new GroupAccounts(http)
-  lazy val fileUploadConnector = new FileUploadConnector(http)
+  //TODO. Remove this
+  lazy val fileUploadConnectorTODODELETETHIS = new FileUploadConnector(http)
+  lazy val fileUploadConnector = new fileUpload.FileUploadConnector(http)
   lazy val ratesBillVerificationConnector = new RatesBillVerificationConnector(http)
   lazy val userDetailsConnector = new UserDetails(http)
   lazy val authConnector = new VPLAuthConnector(http)
   lazy val ggAction = new GGAction(authConnector)
+  lazy val withLinkingSession = new WithLinkingSession
+  lazy val fileSystemConnector = FileSystemConnector
 }
 
 class VPLSessionCache(httpc: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {

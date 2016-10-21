@@ -30,8 +30,8 @@ POST        /link-to-property                                   controllers.Sear
 #Link scenarios
 GET         /self-certify                                       controllers.SelfCertification.show()
 POST        /confirm-self-certify                               controllers.SelfCertification.submit()
-GET         /supply-rates-bill                                  controllers.UploadRatesBill.show()
-POST        /supply-rates-bill                                  controllers.UploadRatesBill.submit()
+GET         /upload-rates-bill                                  controllers.UploadRatesBill.show()
+POST        /upload-rates-bill                                  controllers.UploadRatesBill.submit()
 GET         /upload-evidence                                    controllers.UploadEvidence.show()
 POST        /upload-evidence                                    controllers.UploadEvidence.submit()
 

@@ -28,13 +28,14 @@ import views.helpers.Errors
 
 object SelfCertification extends PropertyLinkingController {
   lazy val connector = Wiring().propertyLinkConnector
+  lazy val withLinkingSession = Wiring().withLinkingSession
   lazy val repo = Wiring().sessionRepository
 
-  def show() = WithLinkingSession { implicit request =>
+  def show() = withLinkingSession { implicit request =>
     Ok(views.html.selfCertification.show(SelfCertifyVM(selfCertifyForm, request.ses)))
   }
 
-  def submit() = WithLinkingSession { implicit request =>
+  def submit() = withLinkingSession { implicit request =>
     selfCertifyForm.bindFromRequest().fold(
       errors => BadRequest(views.html.selfCertification.show(SelfCertifyVM(errors, request.ses))),
       conf => for {
@@ -51,7 +52,7 @@ object SelfCertification extends PropertyLinkingController {
       java.util.UUID.randomUUID.toString, SelfCertifyFlag
     )
 
-  def linkAuthorised() = WithLinkingSession { implicit request =>
+  def linkAuthorised() = withLinkingSession { implicit request =>
     request.ses.selfCertifyComplete.contains(true) match {
       case true => Ok(views.html.selfCertification.linkAuthorised(LinkAuthorisedVM(request.ses.claimedProperty)))
       case false => Redirect(routes.Dashboard.home())

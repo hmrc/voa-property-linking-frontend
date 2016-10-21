@@ -34,9 +34,9 @@ class DashboardSpec extends ControllerSpec {
     override val userDetails = StubUserDetails
   }
 
-  "Logging in for the first time with a group account" must "redirect to the create individual account page" in {
+  "Logging in for the first time with a group account" must
+    "redirect to the create individual account page" in {
     StubAuthConnector.stubInternalId("hasnoaccount")
-
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
     header("location", res) mustBe Some(routes.CreateIndividualAccount.show.url)
