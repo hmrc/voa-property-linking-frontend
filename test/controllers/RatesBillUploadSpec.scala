@@ -31,6 +31,8 @@ import play.api.mvc.MultipartFormData.FilePart
 import play.api.mvc.{MultipartFormData, Result}
 import play.api.test.{FakeRequest, Helpers}
 import play.api.test.Helpers._
+import _root_.session.LinkingSession
+import config.VPLSessionCache
 import utils._
 import utils.MultipartFormDataWritable.anyContentAsMultipartFormWritable
 
@@ -45,6 +47,8 @@ class RatesBillUploadSpec extends ControllerSpec {
     override lazy val withLinkingSession = new StubWithLinkingSession(property, capacityDeclaration)
     override lazy val fileUploadConnector = StubFileUploadConnector
     override lazy val propertyLinkConnector  = new StubPropertyLinkConnector
+    lazy val sessionCache = new VPLSessionCache(StubHttp)
+    override lazy val sessionRepository = new StubLinkingSessionRepository(session, sessionCache)
   }
 
   "Upload Rates Bill upload page" must "allow the user to upload some evidence or not" in {
@@ -59,7 +63,6 @@ class RatesBillUploadSpec extends ControllerSpec {
     val path = testFile + ".tmp"
     val tmpFile = TemporaryFile(new File(path))
     Files.copy(Paths.get(testFile), Paths.get(path))
-    //val file = new File(path)
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill2")
       .withMultipartFormDataBody(
         MultipartFormData(
@@ -95,19 +98,20 @@ class RatesBillUploadSpec extends ControllerSpec {
     page.mustContainFieldErrors(("ratesBill", "please select a rates bill"))
   }
 
-  //"When they specify they have a rates bill" - {
-  //  HTTP.stubRatesBillCheck(baRef, validRatesBill, ratesBillAccepted = true)
-  //  HTTP.stubFileUpload(groupId, sid, "ratesBill", ("ratesbill.pdf", validRatesBill))
-  //  val result = Page.postValid("/property-linking/upload-rates-bill", "hasRatesBill" -> "doeshaveratesbill")
+  it must "indicate that the request has been submitted" in {
+    val res = TestUploadRatesBill.ratesBillUploaded()(request)
+    status(res) mustBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainSuccessSummary(s"Thank you for your request which has been submitted to the Valuation Office Agency.")
+  }
 
-  //  "Their link request is submitted" in {
-  //    HTTP.verifyPropertyLinkRequest(uarn, groupId, expectedLink)
-  //  }
-
-  //  "They are sent to the rates bill accepted page" in {
-  //    result.header.headers.get("location").value mustEqual "/property-linking/rates-bill-submitted"
-  //  }
-  //}
+  it must "contains a link to the dashboard" in {
+    val request = FakeRequest().withSession(token)
+    val res = TestUploadRatesBill.ratesBillUploaded()(request)
+    status(res) mustBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainLink("#backToDashBoard", "/property-linking/manage-properties")
+  }
 
   object TestData {
     lazy val baRef = "sfku03802342"
@@ -115,5 +119,6 @@ class RatesBillUploadSpec extends ControllerSpec {
     lazy val address = Address("leen1", "leen2", "leen3", "AA11 1AA")
     lazy val property = Property(uarn, baRef, address, false, true)
     lazy val capacityDeclaration =  CapacityDeclaration(OwnerLandlord,  DateTime.now(), None)
+    lazy val session = LinkingSession(property, "envelopeId")
   }
 }

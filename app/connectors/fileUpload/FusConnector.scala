@@ -43,7 +43,7 @@ trait FusConnector extends ServicesConfig{
 
   def uploadFileToFusUrl(envelopeId:String,fileId:String):String =
     if (Environment.isDev)
-       s"https://www-dev.tax.service.gov.uk/file-upload/upload/envelopes/$envelopeId/files/$fileId"
+       s"${System.getProperty("file-upload-frontend")}/upload/envelopes/$envelopeId/files/$fileId"
     else
       s"${baseUrl("file-upload-frontend")}/upload/envelopes/$envelopeId/files/$fileId"
 

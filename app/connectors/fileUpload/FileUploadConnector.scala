@@ -51,7 +51,7 @@ class FileUploadConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec:
     }
     def createEnvelope()(implicit hc: HeaderCarrier): Future[String] = {
       val url = if (Environment.isDev)
-        s"https://www-dev.tax.service.gov.uk/file-upload/test-only/create-envelope"
+        s"${System.getProperty("file-upload-backend")}/create-envelope"
       else
         s"${baseUrl("file-upload-backend")}/create-envelope"
       val res = http.POSTEmpty[NewEnvelope](s"$url")
@@ -68,7 +68,7 @@ class FileUploadConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec:
 
     def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier) = {
       val url = if (Environment.isDev)
-        s"https://www-dev.tax.service.gov.uk/file-upload/test-only/routing/requests"
+        s"${System.getProperty("file-upload-backend")}/routing/requests"
       else
         s"${baseUrl("file-upload-backend")}/routing/requests"
       http.POST[RoutingRequest, Unit](url, RoutingRequest(envelopeId)).map ( _=>

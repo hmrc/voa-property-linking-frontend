@@ -6,25 +6,26 @@ class EvidenceUploaded extends FrontendTest {
 
   import TestData._
 
-  "Given an interested person has uploaded some evidence for a property" - {
-    implicit val sid: SessionId = java.util.UUID.randomUUID.toString
-    implicit val session = GGSession(userId, token)
-    HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, envelopeId, Some(declaration), selfCertifyComplete = Some(false)), Seq(Account(userId, false)))
-    HTTP.stubAuthentication(session)
-    HTTP.stubGroupId(session, groupId)
+  //"Given an interested person has uploaded some evidence for a property" - {
+  //  implicit val sid: SessionId = java.util.UUID.randomUUID.toString
+  //  implicit val session = GGSession(userId, token)
+  //  HTTP.stubKeystoreSession(SessionDocument(nonSelfCertProperty, envelopeId, Some(declaration),
+  //    selfCertifyComplete = Some(false)), Seq(Account(userId, false)))
+  //  HTTP.stubAuthentication(session)
+  //  HTTP.stubGroupId(session, groupId)
 
-    "When they arrive at the evidence submitted page" - {
-      val page = Page.get("/property-linking/evidence-uploaded")
+  //  "When they arrive at the evidence submitted page" - {
+  //    val page = Page.get("/property-linking/evidence-uploaded")
 
-      "They see confirmation that their property linking request has been submitted" in {
-        page.mustContainSuccessSummary(s"Thank you for your request which has been submitted to the Valuation Office Agency.")
-      }
+  //    "They see confirmation that their property linking request has been submitted" ignore {
+  //      page.mustContainSuccessSummary(s"Thank you for your request which has been submitted to the Valuation Office Agency.")
+  //    }
 
-      "And the page contains a link to the dashboard" in {
-        page.mustContainLink("#backToDashBoard", "/property-linking/manage-properties")
-      }
-    }
-  }
+  //    "And the page contains a link to the dashboard" ignore {
+  //      page.mustContainLink("#backToDashBoard", "/property-linking/manage-properties")
+  //    }
+  //  }
+  //}
 
   object TestData {
     lazy val baRef = "sfku03802342"

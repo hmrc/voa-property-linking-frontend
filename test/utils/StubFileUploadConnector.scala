@@ -34,4 +34,8 @@ object StubFileUploadConnector extends FileUploadConnector(StubHttp) {
     Future.successful(resp)
   }
 
+  override def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
+    Future.successful( () )
+  }
+
 }

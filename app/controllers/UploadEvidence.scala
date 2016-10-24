@@ -64,10 +64,8 @@ object UploadEvidence extends PropertyLinkingController {
   }
 
   def evidenceUploaded() = withLinkingSession { implicit request =>
-    Wiring().fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap( _=>
-      Wiring().sessionRepository.remove().map( _ =>
-        Ok(views.html.uploadEvidence.evidenceUploaded())
-      )
+    Wiring().sessionRepository.remove().map( _ =>
+      Ok(views.html.uploadEvidence.evidenceUploaded())
     )
   }
 

@@ -97,7 +97,7 @@ trait UploadRatesBill extends PropertyLinkingController {
   def ratesBillUploaded() = withLinkingSession { implicit request =>
     fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap( _=>
       sessionRepository.remove().map( _ =>
-      Ok(views.html.uploadRatesBill.ratesBillUploaded())
+        Ok(views.html.uploadRatesBill.ratesBillUploaded())
       )
     )
   }
