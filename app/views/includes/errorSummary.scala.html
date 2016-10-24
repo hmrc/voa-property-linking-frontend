@@ -16,10 +16,10 @@
 
 
 @if(form.hasErrors) {
-    <div id="error-summary" class="form-error alert alert-danger" tabindex="-1" role="group" aria-labelledby="error-summary-heading" >
-        <h2 id="error-summary-heading">@Messages("label.checkTheForm")</h2>
+    <div id="error-summary" class="error-summary" tabindex="-1" role="group" aria-labelledby="error-summary-heading" >
+        <h2 id="error-summary-heading" class="heading-medium error-summary-heading">@Messages("label.checkTheForm")</h2>
         <p>@Messages("label.fixTheFollowing")</p>
-        <ul>
+        <ul class="error-summary-list">
             @for(error <- form.errors) {
                 @showError(error)
             }

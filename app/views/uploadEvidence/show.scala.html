@@ -3,10 +3,12 @@
 
 @(model: UploadEvidenceVM)(implicit request: Request[_])
 
-@main(Messages("uploadEvidence.show.title")) {
+
+    @main_template(title = Messages("uploadEvidence.show.title")) {
+
 
     @form(routes.UploadEvidence.submit(), 'enctype -> "multipart/form-data") {
-        <main id="content">
+
             <div class="grid-row">
                 <div class="column-two-thirds">
                     <h1 class="form-title heading-xlarge">
@@ -16,21 +18,19 @@
                     @includes.errorSummary(model.form)
 
                     <fieldset class="inline form-group">
-                        @helper.CSRF.formField
 
                         @inputRadioGroup(
                             field = model.form("hasEvidence"),
                             options = HasEvidence.options,
                             dataAttributes = Seq(
-                              (DoesHaveEvidence.name, "data-show-field", "true")
+                              (DoesHaveEvidence.name, "data-toggle-id", "evidenceFileUpload")
                             ),
                             args = Seq(
                                 '_label -> Messages("hasEvidence.label"),
-                                '_labelClass -> "form-label-bold",
-                                '_error -> model.form("hasEvidence").error
+                                '_labelClass -> "form-label-bold"
                             )
                         )
-                        <div class="form-group hidden hasEvidence">
+                        <div id="evidenceFileUpload" data-toggle-hidden style="display: none;" class="form-group">
                             <div class="form-label-bold">@Messages("evidence.label")</div>
                             <span class="">@Messages("evidence.label.1")</span>
                             @inputFileMulti(
@@ -44,6 +44,6 @@
                     <button type="submit" class="button">@Messages("uploadEvidence.show.button")</button>
                 </div>
             </div>
-        </main>
+
     }
 }

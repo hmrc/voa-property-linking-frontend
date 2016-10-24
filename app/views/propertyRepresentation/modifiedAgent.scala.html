@@ -1,16 +1,21 @@
 @()(implicit request: Request[_])
 
-@main(Messages("propertyRepresentation.modifiedAgent.title")) {
-    <main id="content">
+
+
+@main_template(title = Messages("propertyRepresentation.modifiedAgent.title")) {
+
     <div class="grid-row">
         <div class="column-two-thirds">
-            <h1 class="form-title heading-xlarge">
+            <h1 class="heading-xlarge">
                 <span class="section-title">@Messages("propertyRepresentation.modifiedAgent.title")</span>
             </h1>
-        </div>
-    </div>
+
     <p>@Messages("propertyRepresentation.modifiedAgent.message.1")</p>
     <p>@Messages("propertyRepresentation.modifiedAgent.message.2")</p>
         <a href=@controllers.routes.Dashboard.home()>Home</a>
-    </main>
+
+
+    </div>
+</div>
+
 }

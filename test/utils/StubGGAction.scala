@@ -24,9 +24,12 @@ import uk.gov.hmrc.play.frontend.auth.connectors.domain.{Accounts, Authority, Co
 import scala.concurrent.Future
 
 object StubGGAction extends GGAction(StubAuthConnector) {
-  private val ctx = AuthContext(LoggedInUser("", None, None, None, CredentialStrength.Weak, ConfidenceLevel.L200, ""), Principal(None, Accounts()), None, None, None, None)
+  private val ctx = AuthContext(LoggedInUser("", None, None, None, CredentialStrength.Weak, ConfidenceLevel.L200, ""),
+    Principal(None, Accounts()), None, None, None, None)
 
-  override def apply(body: (AuthContext) => (Request[AnyContent]) => Result): Action[AnyContent] = Action { request => body(ctx)(request) }
+  override def apply(body: (AuthContext) => (Request[AnyContent]) => Result): Action[AnyContent] =
+    Action { request => body(ctx)(request) }
 
-  override def async(body: (AuthContext) => (Request[AnyContent]) => Future[Result]): Action[AnyContent] = Action.async { request => body(ctx)(request) }
+  override def async(body: (AuthContext) => (Request[AnyContent]) => Future[Result]): Action[AnyContent] =
+    Action.async { request => body(ctx)(request) }
 }

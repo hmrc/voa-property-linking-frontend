@@ -28,7 +28,6 @@ case class CapacityDeclaration(capacity: String, fromDate: String, toDate: Optio
 case class PropertyLink(uarn: String, userId: String, capacityDeclaration: CapacityDeclaration,
                         linkedDate: String, assessmentYears: Seq[Int], pending: Boolean, requestFlag: String)
 case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
-//TODO: create own object/file.
 case class PropertyRepresentation(representationId: String, agentId: String, userId: String, uarn: String,
                                   canCheck: Boolean, canChallenge: Boolean, pending: Boolean)
 case class Account(companyName: String, isAgent:Boolean)

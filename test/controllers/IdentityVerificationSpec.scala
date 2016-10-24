@@ -15,26 +15,25 @@
  */
 
 package controllers
-import auth.GGAction
-import connectors.{AccountConnector, UserDetails, VPLAuthConnector}
+import models.{Address, GroupAccount}
 import play.api.test.FakeRequest
-import utils.{StubAccountConnector, StubAuthConnector, StubGGAction, StubUserDetails}
 import play.api.test.Helpers._
 import uk.gov.hmrc.play.http.HeaderCarrier
+import utils._
 
 class IdentityVerificationSpec extends ControllerSpec {
 
   private object TestIdentityVerification extends IdentityVerification {
-    override val accounts: AccountConnector = StubAccountConnector
-    override val userDetails: UserDetails = StubUserDetails
-    override val auth: VPLAuthConnector = StubAuthConnector
-    override val ggAction: GGAction = StubGGAction
+    override val individuals = StubIndividualAccountConnector
+    override val groups = StubGroupAccountConnector
+    override val userDetails = StubUserDetails
+    override val auth = StubAuthConnector
+    override val ggAction = StubGGAction
   }
 
   val request = FakeRequest()
 
   "Successfully verifying identity when the group does not have a CCA account" must "redirect to the create group account page, and not create an individual account" in {
-    StubAccountConnector.reset()
     StubUserDetails.stubGroupId("groupwithoutaccount")
 
     val res = TestIdentityVerification.succeed()(request)
@@ -43,14 +42,13 @@ class IdentityVerificationSpec extends ControllerSpec {
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
-    await(StubAccountConnector.get()) mustBe Nil
+    await(StubIndividualAccountConnector.get()) mustBe Nil
   }
 
   "Successfully verifying identity when the group does have a CCA account" must "redirect to the dashboard, and create the individual account" in {
-    StubAccountConnector.reset()
-    StubAccountConnector.stubAccount(Account("groupwithaccount", false))
     StubAuthConnector.stubInternalId("individualwithoutaccount")
     StubUserDetails.stubGroupId("groupwithaccount")
+    StubGroupAccountConnector.stubAccount(GroupAccount("groupwithaccount", "", Address("", "", "", ""), "", "", false, false))
 
     val res = TestIdentityVerification.succeed()(request)
     status(res) mustBe SEE_OTHER
@@ -58,6 +56,6 @@ class IdentityVerificationSpec extends ControllerSpec {
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
-    await(StubAccountConnector.get("individualwithoutaccount")) must not be None
+    await(StubIndividualAccountConnector.get("individualwithoutaccount")) must not be None
   }
 }

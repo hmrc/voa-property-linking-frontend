@@ -1,15 +1,15 @@
 @()(implicit request: Request[_])
 
-@main(Messages("linkError.manualVerification.title")) {
-    <main id="content">
+@main_template(title = Messages("linkError.manualVerification.title")) {
+
         <div class="grid-row">
             <div class="column-two-thirds">
                 <h1 class="form-title heading-xlarge">
                     <span class="section-title">@Messages("linkError.manualVerification.title")</span>
                 </h1>
-            </div>
-        </div>
+
         <p>@Messages("linkError.manualVerification.message")</p>
         <a href="@routes.Dashboard.home" class="button">@Messages("linkError.manualVerification.home.link")</a>
-    </main>
+    </div>
+</div>
 }

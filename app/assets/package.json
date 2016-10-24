@@ -1,0 +1,32 @@
+{
+  "name": "VOA-CCA-FRONTEND-ASSETS",
+  "description": "VOA CCA frontend assets",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "govuk-elements-sass": "^1.2.1",
+    "govuk_frontend_toolkit": "^4.8.1",
+    "govuk_template_mustache": "^0.17.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-copy": "0.0.2",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-git": "^1.7.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.2.0",
+    "gulp-uglify": "^1.5.3",
+    "jquery": "^1.11.3",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0",
+    "require-dir": "^0.3.0",
+    "del": "^2.2.0",
+    "gulp-watch": "^4.3.5",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-jasmine": "^0.3.8",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-spec-reporter": "0.0.26",
+    "phantomjs-prebuilt": "^2.1.7"
+  }
+}

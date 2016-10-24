@@ -17,7 +17,7 @@
 package session
 
 import config.Wiring
-import controllers.Account
+import models.{GroupAccount, IndividualAccount}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results.{Redirect, Unauthorized}
 import play.api.mvc._
@@ -25,16 +25,16 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-case class LinkingSessionRequest[A](ses: LinkingSession, userId: String, request: Request[A]) extends WrappedRequest[A](request) {
+case class LinkingSessionRequest[A](ses: LinkingSession, groupId: String, request: Request[A]) extends WrappedRequest[A](request) {
   def sessionId: String = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
 }
 
 case object NoSessionId extends Exception
 
-object WithLinkingSession {
+class WithLinkingSession {
   implicit def hc(implicit request: Request[_]) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
   val session = Wiring().sessionRepository
-  val accountRepo = Wiring().accountConnector
+  val accountRepo = Wiring().individualAccountConnector
   val userDetails = Wiring().userDetailsConnector
   val ggAction = Wiring().ggAction
 
@@ -52,10 +52,11 @@ object WithLinkingSession {
   }
 }
 
-case class AuthenticatedRequest[A](account: Account, request: Request[A]) extends WrappedRequest[A](request)
+case class AuthenticatedRequest[A](account: GroupAccount, request: Request[A]) extends WrappedRequest[A](request)
 
 object WithAuthentication {
-  val accounts = Wiring().accountConnector
+  val individuals = Wiring().individualAccountConnector
+  val groups = Wiring().groupAccountConnector
   val ggAction = Wiring().ggAction
   val userDetails = Wiring().userDetailsConnector
   val auth = Wiring().authConnector
@@ -66,8 +67,8 @@ object WithAuthentication {
     for {
       userId <- auth.getInternalId(ctx)
       groupId <- userDetails.getGroupId(ctx)
-      userAccount <- accounts.get(userId)
-      groupAccount <- accounts.get(groupId)
+      userAccount <- individuals.get(userId)
+      groupAccount <- groups.get(groupId)
       res <- (userAccount, groupAccount) match {
         case (u, g) if u.isEmpty || g.isEmpty => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
         case (Some(u), Some(g)) => body(AuthenticatedRequest(g, request))

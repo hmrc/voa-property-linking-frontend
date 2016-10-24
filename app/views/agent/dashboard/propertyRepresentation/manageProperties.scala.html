@@ -2,7 +2,7 @@
 
 @(model: ManagePropertiesVM)(implicit request: Request[_])
 
-@main(Messages("agent.dashboard.manageProperties.title")) {
+@main_template(Messages("agent.dashboard.manageProperties.title")) {
     <main id="content">
         <div class="grid-row">
             <div class="column-two-thirds">
@@ -11,38 +11,76 @@
                 </h1>
             </div>
         </div>
-        <table class="table">
-            <tbody>
-                <tr>
-                    <td>UserId</td>
-                    <td>UARN</td>
-                    <td>canCheck</td>
-                    <td>canChallenge</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                @model.propertyRepresentations.map{p =>
+
+        <p>
+        @Messages("p.agentCode", model.agentCode)
+        </p>
+
+        @if(model.propertyRepresentations.exists(_.pending)) {
+            <h2 class="heading-medium">@Messages("manageProperties.pendingRequests")</h2>
+            <table class="table">
+                <tbody>
                     <tr>
-                        <td>@p.userId</td>
-                        <td>@p.uarn</td>
-                        <td>@p.canCheck</td>
-                        <td>@p.canChallenge</td>
-                        <td>
-                            <a class="button" href=@controllers.agent.routes.Representation.accept(p.representationId)>
-                                @Messages("agent.dashboard.manageProperties.accept")
-                            </a>
-                        </td>
-                        <td>
-                            <a class="button" href=@controllers.agent.routes.Representation.reject(p.representationId)>
-                                @Messages("agent.dashboard.manageProperties.reject")
-                            </a>
-
-
-                        </td>
+                        <td>UserId</td>
+                        <td>UARN</td>
+                        <td>canCheck</td>
+                        <td>canChallenge</td>
+                        <td></td>
+                        <td></td>
                     </tr>
-                }
-            </tbody>
-        </table>
+                    @model.propertyRepresentations.filter(_.pending).map { p =>
+                        <tr>
+                            <td>@p.userId</td>
+                            <td>@p.uarn</td>
+                            <td>@p.canCheck</td>
+                            <td>@p.canChallenge</td>
+                            <td>
+                                <a class="button" href=@controllers.agent.routes.Representation.accept(p.representationId)>
+                                @Messages("agent.dashboard.manageProperties.accept")
+                                </a>
+                            </td>
+                            <td>
+                                <a class="button" href=@controllers.agent.routes.Representation.reject(p.representationId)>
+                                @Messages("agent.dashboard.manageProperties.reject")
+                                </a>
+
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        } else {
+            <p>
+                @Messages("manageProperties.nonePending")
+            </p>
+        }
+
+        <br/>
+
+        @if(model.propertyRepresentations.exists(!_.pending)) {
+            <h2 class="heading-medium">@Messages("manageProperties.representations")</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>UserId</td>
+                        <td>UARN</td>
+                        <td>Can check</td>
+                        <td>Can challenge</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @model.propertyRepresentations.filterNot(_.pending).map { p =>
+                        <tr>
+                            <td>@p.userId</td>
+                            <td>@p.uarn</td>
+                            <td>@p.canCheck</td>
+                            <td>@p.canChallenge</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
 
     </main>
 }

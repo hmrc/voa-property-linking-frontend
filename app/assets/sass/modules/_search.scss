@@ -1,0 +1,197 @@
+.lte-ie8{
+    .searchfield{
+        input{
+            width: 92%;
+        }
+        #search-query2{
+            width: 45%;
+            *margin-top: 1px;
+        }
+        #search-query3{
+            width: 46.2%;
+        }
+        [placeholder] {
+            color: $grey-1;
+        }
+        input{
+            line-height: 2.2em;
+        }
+        .search-submit {
+            *margin-top: -53px;
+            *height: 52px;
+        }
+    }
+}
+
+.searchfield {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 20px;
+    input {
+        font-size: 19px;
+        line-height: 1.31579;
+        font-weight: 400;
+        text-transform: none;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 93%;
+        width: -webkit-calc(100% - 49px);
+        width: calc(100% - 49px);
+        margin: 0;
+        padding: 0 0 0 10px;
+        display: block;
+        height: 50px;
+        border: 1px solid #bbb;
+        //min-width: 8em;
+        border-color: #bfc1c3;
+        border-right: none;
+    }
+    .search-submit {
+        bottom: 0;
+        right: 0;
+        overflow: visible;
+        cursor: pointer;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        //position: absolute;
+        z-index: 4;
+        float: right;
+        margin-top: -50px;
+        width: 50px;
+        height: 50px;
+        border: none;
+        overflow: hidden;
+        text-indent: -5000px;
+        color: #fff;
+        background-color: #005ea5;
+        background-image: file-url('search-button.png');
+        background-repeat: no-repeat;
+        background-position: -12.5% 50%;
+    }
+
+    #search-query2{
+        width: 50%;
+        width: -webkit-calc(50% - 29px);
+        width: calc(50% - 29px);
+        float: left;
+        margin-right:5px;
+        border-right: 1px solid #bfc1c3;
+    }
+    #search-query3{
+        width: 50%;
+        width: -webkit-calc((50% + 3px) - 29px);
+        width: calc((50% + 3px) - 29px);
+    }
+
+    &.error{
+        border-left: none;
+
+    }
+
+}
+
+#search-form{
+    .error-message{
+        @include bold-19;
+        color: $red;
+        margin-bottom: 10px;
+    }
+}
+
+.searchfield.error #search-query2 {
+    border-right: 4px solid #b10e1e;
+}
+
+#results {
+    li {
+        margin-bottom: 2em;
+    }
+    h2 {
+        @include core-24;
+        text-transform: uppercase;
+    }
+    a {
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+        &:visited {
+            color: #005ea5;
+        }
+    }
+    .refNumber,
+    .desc,
+    .descNum {
+        display: inline-block;
+        @include core-14;
+        color: $grey-1;
+    }
+    .rateValue {
+        display: inline-block;
+        @include bold-19;
+    }
+    mark {
+        background: none;
+        color: #005ea5;
+        font-weight: 800;
+    }
+}
+.caps {
+    text-transform: uppercase;
+}
+.search-compare {
+    width: 50%;
+}
+@media (max-width: 640px) {
+    .search-compare {
+        width: 100%;
+    }
+}
+.searchresult {
+    font-size: 16px;
+    .button-secondary {
+        margin-left: 20px;
+        margin-right: 0;
+    }
+    .button-secondary:link,
+    .button-secondary:hover,
+    .button-secondary:focus,
+    .button-secondary:visited {
+        color: #0b0c0c !important;
+    }
+    .button-secondary:hover {
+        text-decoration: none !important;
+        ;
+    }
+}
+.result-count{
+    margin: 20px 0;
+    display: inline-block;
+}
+
+
+
+fieldset#searchForm.form-group{
+    margin-bottom: 20px;
+}
+
+.search-bar-active {
+    background: #E5E5E5;
+    padding: 0.5em;
+    width: 98%;
+    width: -webkit-calc(100% - 1em);
+    width: calc(100% - 1em);
+}
+@media (max-width: 640px) {
+    .search-bar-active {
+        padding: 0;
+        background: none;
+        width: 100%;
+    }
+}

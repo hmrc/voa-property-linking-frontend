@@ -2,19 +2,20 @@
 @import helpers._
 
 @()(implicit request: Request[_])
-    
-    @main(Messages("failedIdentityVerification.title")) {
-        <main id="content">
+
+
+@main_template(title = Messages("failedIdentityVerification.title")) {
+
             <div class="grid-row">
                 <div class="column-two-thirds">
-                
+
                     <h1 class="heading-xlarge">@Messages("failedIdentityVerification.title")</h1>
 
                     <p>
                         @Messages("failedIdentityVerification.text")
                     </p>
-                    
+
                 </div>
             </div>
-        </main>
+        
     }

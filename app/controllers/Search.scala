@@ -30,6 +30,7 @@ import play.api.mvc.Result
 object Search extends PropertyLinkingController {
   lazy val sessionRepository = Wiring().sessionRepository
   lazy val connector = Wiring().propertyConnector
+  lazy val fileUploadConnector = Wiring().fileUploadConnector
   lazy val ggAction = Wiring().ggAction
 
   def show() = ggAction { _ => implicit request =>
@@ -39,9 +40,11 @@ object Search extends PropertyLinkingController {
   def declareCapacity(uarn: String) = ggAction.async { _ => implicit request =>
     connector.find(uarn).flatMap {
       case Some(pd) =>
-        sessionRepository.start(pd) map { _ =>
+       fileUploadConnector.createEnvelope().flatMap( envelopeId =>
+        sessionRepository.start(pd, envelopeId) map { _ =>
           Ok(views.html.declareCapacity(DeclareCapacityVM(declareCapacityForm, pd.address)))
         }
+       )
       case None => NotFound(views.html.defaultpages.notFound(request, Some(app.Routes)))
     }
   }

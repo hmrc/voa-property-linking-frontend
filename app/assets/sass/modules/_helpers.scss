@@ -1,0 +1,49 @@
+// ==========================================================================
+// Helpers
+// ==========================================================================
+
+@if not(function-exists(image-url)) {
+  $path: "../images/";
+}
+
+.pull-right{
+	float: right !important;
+}
+
+.pull-left{
+	float: left !important;
+}
+
+.no-js{
+	.hide-if-no-js{
+		display: none;
+    	visibility: hidden;
+	}
+	.show-if-no-js{
+		display: block;
+    	visibility: visible;
+	}
+}
+
+.bottom-no{
+    &-padding{
+        padding-bottom: 0 !important;
+    }
+    &-margin{
+    	margin-bottom: 0 !important;
+	}
+}
+
+.no-margin{
+	margin: 0 !important;
+}
+
+.clearfix {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.unknown{
+    color: $red;
+}
