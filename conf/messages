@@ -20,13 +20,14 @@ isAgent.false=No
 createAccount.individual.title=Create account
 label.createAccount.firstName=First name
 label.createAccount.lastName=Last name
-label.createAccount.dateOfBirth=Date of birth
+dob.label=Date of birth
 label.createAccount.nino=National insurance number
 hint.dateOfBirth.format=For example, 13-01-1990
 error.nino.invalid=Invalid national insurance number
 dateOfBirth.label=Date of birth
 
 #IDENTITY VERIFICATION
+startIv.title=We need to confirm your identity
 identityVerification.title=Identity verification
 failedIdentityVerification.title=Identity verification failed
 failedIdentityVerification.text=We could not verify your identity.

@@ -19,7 +19,7 @@ package controllers
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, MustMatchers}
 import play.api.test.{DefaultAwaitTimeout, FakeApplication, FutureAwaits}
 import play.filters.csrf.CSRF
-import utils.{StubGroupAccountConnector, StubIndividualAccountConnector, StubUserDetails}
+import utils.{StubGroupAccountConnector, StubIdentityVerification, StubIndividualAccountConnector, StubUserDetails}
 
 trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach {
   implicit val app = TestApp.app
@@ -29,6 +29,7 @@ trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with D
     StubIndividualAccountConnector.reset()
     StubGroupAccountConnector.reset()
     StubUserDetails.reset()
+    StubIdentityVerification.reset()
   }
 }
 

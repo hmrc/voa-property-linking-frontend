@@ -52,13 +52,13 @@ abstract class Wiring {
   lazy val ggAction = new GGAction(authConnector)
   lazy val withLinkingSession = new WithLinkingSession
   lazy val fileSystemConnector = FileSystemConnector
+  lazy val identityVerification = new IdentityVerification(http)
 }
 
-class VPLSessionCache(httpc: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {
+class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {
   override def defaultSource: String = appName
   override def baseUri: String = baseUrl("cachable.session-cache")
   override def domain: String = getConfString("cachable.session-cache.domain", throw new Exception("No config setting for cache domain"))
-  override def http = httpc
 }
 
 object WSHttp extends WSGet with WSPut with WSDelete with WSPost with HttpAuditing with AppName with RunMode {
