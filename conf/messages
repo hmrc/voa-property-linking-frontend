@@ -155,7 +155,7 @@ hasRatesBill.doeshaveratesbill=I have a rates bill
 hasRatesBill.doesnothaveratesbill=I don’t have a rates bill
 ratesBill.label=Please upload a copy of the rates bill
 ratesBill.label.1=!File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
-uploadRatesBill.ratesBillMissing.error=please select a rates bill
+uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 
 #UPLOAD EVIDENCE
 uploadEvidence.show.title=Submit further proof
@@ -165,6 +165,7 @@ hasEvidence.doesnothaveevidence=I do not have any more proof
 evidence.label=Please upload evidence so that we can verify your link to the property.
 evidence.label.1=!File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
 error.evidenceUploadFiles=Only 3 files may be uploaded
+error.missingFiles=Please upload some evidence.
 uploadEvidence.show.button=Continue
 uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded
 uploadEvidence.evidenceUploaded.message=Thank you for your request which has been submitted to the Valuation Office Agency.

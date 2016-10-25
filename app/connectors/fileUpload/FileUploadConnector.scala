@@ -71,11 +71,11 @@ class FileUploadConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec:
         s"${System.getProperty("file-upload-backend")}/routing/requests"
       else
         s"${baseUrl("file-upload-backend")}/routing/requests"
-      http.POST[RoutingRequest, Unit](url, RoutingRequest(envelopeId)).map ( _=>
-        ()
-      ).recover{
-        case ex: HttpException => Logger.debug(s"${ex.responseCode}: ${ex.message}")
-      }
+      http.POST[RoutingRequest, Unit](url, RoutingRequest(envelopeId))
+        .map ( _=> () )
+        .recover {
+          case ex: HttpException => Logger.debug(s"${ex.responseCode}: ${ex.message}")
+        }
 
     }
 

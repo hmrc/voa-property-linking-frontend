@@ -40,4 +40,5 @@ object Errors {
 
   // Evidence Upload
   val uploadedFiles="error.evidenceUploadFiles"
+  val missingFiles="error.missingFiles"
 }

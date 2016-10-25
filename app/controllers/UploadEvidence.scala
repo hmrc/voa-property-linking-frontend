@@ -22,13 +22,19 @@ import form.EnumMapping
 import models.{DoesHaveEvidence, DoesNotHaveEvidence, HasEvidence}
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.libs.Files.TemporaryFile
 import play.api.mvc.AnyContent
+import play.api.mvc.MultipartFormData.FilePart
 import session.{LinkingSession, LinkingSessionRequest, WithLinkingSession}
 import views.helpers.Errors
 
-object UploadEvidence extends PropertyLinkingController {
+import scala.concurrent.Future
+
+trait UploadEvidence extends PropertyLinkingController {
   lazy val propertyLinkConnector = Wiring().propertyLinkConnector
   lazy val withLinkingSession = Wiring().withLinkingSession
+  lazy val fileSystemConnector = Wiring().fileSystemConnector
+  lazy val fileUploadConnector = Wiring().fileUploadConnector
   lazy val uploadConnector = Wiring().fileUploadConnectorTODODELETETHIS
 
   def show() = withLinkingSession { implicit request =>
@@ -39,9 +45,11 @@ object UploadEvidence extends PropertyLinkingController {
     form.bindFromRequest().fold(
       error => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(error))),
       uploaded => uploaded.hasEvidence match {
-        case DoesHaveEvidence => verifyUploadedFiles flatMap {
+        case DoesHaveEvidence => uploadIfNeeded flatMap { x => x match {
           case FilesAccepted => requestLink.map(_ => Redirect(routes.UploadEvidence.evidenceUploaded()))
-          case FilesRejected => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(form.withError("evidence", Errors.uploadedFiles))))
+          case FilesUploadFailed => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(form.withError("evidence", Errors.uploadedFiles))))
+          case FilesMissing => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(form.withError("evidence", Errors.missingFiles))))
+          }
         }
         case DoesNotHaveEvidence => requestLink.map(_ => Redirect(routes.UploadEvidence.noEvidenceUploaded()))
       }
@@ -55,22 +63,36 @@ object UploadEvidence extends PropertyLinkingController {
       java.util.UUID.randomUUID.toString, OtherEvidenceFlag
     )
 
-  private def verifyUploadedFiles(implicit r: LinkingSessionRequest[AnyContent]) = {
-    r.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence"))
-    uploadConnector.retrieveFiles(
-      r.groupId, r.sessionId, "evidence",
-      if (Environment.isDev || Environment.isProd) r.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence")) else Seq.empty
-    ).map(x => if (x.nonEmpty && x.length <=3) FilesAccepted else FilesRejected)
+  private def uploadIfNeeded(implicit request: LinkingSessionRequest[AnyContent]): Future[EvidenceUploadResult] = {
+    val files: Seq[FilePart[TemporaryFile]] = request.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence"))
+    if (files.isEmpty) FilesMissing
+    else {
+      val res = Future.sequence(files.map( filepart => {
+        val envId = request.ses.envelopeId
+        val content = fileSystemConnector.readAllBytes(filepart.ref.file.toPath)
+        val contentType = filepart.contentType.getOrElse("application/octet-stream")
+        fileUploadConnector.uploadFile(envId, filepart.filename, content, contentType,filepart.ref.file)
+          .map(_ =>FilesAccepted)
+          .recover{case _ => FilesUploadFailed}
+      }))
+      res.map(results => if (results.contains(FilesUploadFailed)) FilesUploadFailed else FilesAccepted)
+    }
   }
 
   def evidenceUploaded() = withLinkingSession { implicit request =>
-    Wiring().sessionRepository.remove().map( _ =>
-      Ok(views.html.uploadEvidence.evidenceUploaded())
+    fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap( _=>
+      Wiring().sessionRepository.remove().map( _ =>
+        Ok(views.html.uploadEvidence.evidenceUploaded())
+      )
     )
   }
 
   def noEvidenceUploaded() = withLinkingSession { implicit request =>
-    Ok(views.html.uploadEvidence.noEvidenceUploaded())
+    fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap( _=>
+      Wiring().sessionRepository.remove().map( _ =>
+        Ok(views.html.uploadEvidence.noEvidenceUploaded())
+      )
+    )
   }
 
   lazy val form = Form(mapping(
@@ -78,10 +100,13 @@ object UploadEvidence extends PropertyLinkingController {
   )(UploadedEvidence.apply)(UploadedEvidence.unapply))
 }
 
+object UploadEvidence extends UploadEvidence
+
 case class UploadedEvidence(hasEvidence: HasEvidence)
 
 case class UploadEvidenceVM(form: Form[_])
 
 sealed trait EvidenceUploadResult
-case object FilesAccepted extends EvidenceUploadResult
-case object FilesRejected extends EvidenceUploadResult
+case object FilesAccepted     extends EvidenceUploadResult
+case object FilesMissing      extends EvidenceUploadResult
+case object FilesUploadFailed extends EvidenceUploadResult

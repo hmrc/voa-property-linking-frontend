@@ -15,18 +15,6 @@ class EvidenceRequired extends FrontendTest {
   //  HTTP.stubAuthentication(session)
   //  HTTP.stubGroupId(session, groupId)
 
-  //  "When they arrive at the upload evidence page" - {
-  //    val page = Page.get("/property-linking/upload-evidence")
-
-  //    "They are asked if they have further evidence" ignore {
-  //      page.mustContainRadioSelect("hasEvidence", Seq("doeshaveevidence", "doesnothaveevidence"))
-  //    }
-
-  //    "They are able to upload files as evidence" ignore {
-  //      page.mustContainMultiFileInput("evidence")
-  //    }
-  //  }
-
   //  "When they specify they have evidence and upload upto 3 files" - {
   //    HTTP.stubFileUpload(groupId, sid, "evidence", ("file1.pdf", bytes1), ("file2.pdf", bytes2))
   //    val result = Page.postValid("/property-linking/upload-evidence", "hasEvidence" -> "doeshaveevidence")

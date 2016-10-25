@@ -47,9 +47,7 @@ trait UploadRatesBill extends PropertyLinkingController {
   def submit() = withLinkingSession { implicit request =>
     uploadRatesBillForm.bindFromRequest().fold(
       errors => BadRequest(views.html.uploadRatesBill.show(UploadRatesBillVM(errors))),
-      answer => handle(answer) flatMap { x =>
-        x match {
-
+      answer => uploadIfNeeded(answer) flatMap {
         case RatesBillUploaded =>
           requestLink map { _ => Redirect(routes.UploadRatesBill.ratesBillUploaded()) }
         case NoRatesBill =>
@@ -59,18 +57,13 @@ trait UploadRatesBill extends PropertyLinkingController {
             UploadRatesBillVM(uploadRatesBillForm.fill(s).withError(FormError("ratesBill", Messages("uploadRatesBill.ratesBillMissing.error"))))
           ))
       }
-      }
     )
   }
 
-  private def handle(answer: SubmitRatesBill)(implicit req: LinkingSessionRequest[AnyContent]): Future[RatesBillUploadResult] = {
+  private def uploadIfNeeded(answer: SubmitRatesBill)(implicit req: LinkingSessionRequest[AnyContent]): Future[RatesBillUploadResult] = {
     answer.hasRatesBill match {
-      case DoesHaveRatesBill => {
-
-        uploadFile(req.request.body.asMultipartFormData.get.file("ratesBill"), answer).map { x =>
-        x
-        }
-      }
+      case DoesHaveRatesBill =>
+        uploadFile(req.request.body.asMultipartFormData.get.file("ratesBill"), answer)
       case DoesNotHaveRatesBill => NoRatesBill
     }
   }
