@@ -63,7 +63,7 @@ class RatesBillUploadSpec extends ControllerSpec {
     val path = testFile + ".tmp"
     val tmpFile = TemporaryFile(new File(path))
     Files.copy(Paths.get(testFile), Paths.get(path))
-    val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill2")
+    val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
       .withMultipartFormDataBody(
         MultipartFormData(
           dataParts = Map("hasRatesBill" -> Seq(DoesHaveRatesBill.name)),
@@ -81,7 +81,7 @@ class RatesBillUploadSpec extends ControllerSpec {
   }
 
   it must "show an error if the user says he wants to submit a rates bill but doesn't" in {
-    val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill2")
+    val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
       .withMultipartFormDataBody(
         MultipartFormData(
           dataParts = Map("hasRatesBill" -> Seq(DoesHaveRatesBill.name)),
@@ -94,8 +94,8 @@ class RatesBillUploadSpec extends ControllerSpec {
     status(res) mustBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
 
-    page.mustContainSummaryErrors(("ratesBill", "Please upload a copy of the rates bill", "please select a rates bill"))
-    page.mustContainFieldErrors(("ratesBill", "please select a rates bill"))
+    page.mustContainSummaryErrors(("ratesBill", "Please upload a copy of the rates bill", "Please select a rates bill"))
+    page.mustContainFieldErrors(("ratesBill", "Please select a rates bill"))
   }
 
   it must "indicate that the request has been submitted" in {

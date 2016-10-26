@@ -27,7 +27,8 @@
                             ),
                             args = Seq(
                                 '_label -> Messages("hasEvidence.label"),
-                                '_labelClass -> "form-label-bold"
+                                '_labelClass -> "form-label-bold",
+                                '_error -> model.form("hasEvidence").error
                             )
                         )
                         <div id="evidenceFileUpload" data-toggle-hidden style="display: none;" class="form-group">
