@@ -27,10 +27,6 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut)(implicit ec: E
   extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  implicit val rds: HttpReads[Unit] = new HttpReads[Unit] {
-    override def read(method: String, url: String, response: HttpResponse): Unit = Unit
-  }
-
   def get(userId: String, uarn: String)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
     val url = baseUrl + s"/property-representations/$userId/$uarn"
     http.GET[Seq[PropertyRepresentation]](url)
@@ -43,22 +39,22 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut)(implicit ec: E
 
   def create(reprRequest: PropertyRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-representations/create"
-    http.PUT[PropertyRepresentation, Unit](url, reprRequest)
+    http.PUT[PropertyRepresentation, HttpResponse](url, reprRequest) map { _ => () }
   }
 
   def accept(reprId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-representations/accept/$reprId"
-    http.PUT[JsValue, Unit](url, JsNull)
+    http.PUT[JsValue, HttpResponse](url, JsNull) map { _ => () }
   }
 
   def reject(reprId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-representations/reject/$reprId"
-    http.PUT[JsValue, Unit](url, JsNull)
+    http.PUT[JsValue, HttpResponse](url, JsNull) map { _ => () }
   }
 
   def update(reprRequest: PropertyRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-representations/update"
-    http.PUT[PropertyRepresentation, Unit](url, reprRequest)
+    http.PUT[PropertyRepresentation, HttpResponse](url, reprRequest) map { _ => () }
   }
 
 }

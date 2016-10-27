@@ -37,4 +37,6 @@ trait NamedEnumSupport[E <: NamedEnum]{
   }
 
   def options = all.map(_.name)
+
+  def unapply(s: String) = all.find(_.name == s)
 }

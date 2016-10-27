@@ -16,7 +16,7 @@
 
 package connectors.propertyLinking
 
-import connectors.{CapacityDeclaration, LinkedProperties, PropertyLink, RequestFlag}
+import connectors.{CapacityDeclaration, LinkedProperties, PropertyLink, LinkBasis}
 import org.joda.time.DateTime
 import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -28,24 +28,20 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
   extends ServicesConfig with JsonHttpReads {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  implicit val rds: HttpReads[Unit] = new HttpReads[Unit] {
-    override def read(method: String, url: String, response: HttpResponse): Unit = Unit
-  }
-
   def linkToProperty(uarn: String, billingAuthorityRef: String, userId: String,
-                     capacityDeclaration: CapacityDeclaration, submissionId: String, flag: RequestFlag)
+                     capacityDeclaration: CapacityDeclaration, submissionId: String, basis: LinkBasis)
                     (implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-links/$uarn/$userId/$submissionId"
     val request = PropertyLink(uarn, userId, capacityDeclaration,
-      DateTime.now, Seq(2017), true, flag)
+      DateTime.now, basis)
     http.POST[PropertyLink, HttpResponse](s"$url", request) map { _ => () }
   }
 
   def linkedProperties(id: String)(implicit hc: HeaderCarrier): Future[LinkedProperties] = {
     val url = baseUrl + s"/property-links/$id"
     http.GET[Seq[PropertyLink]](url).map(seq => {
-      val tmp:(Seq[PropertyLink], Seq[PropertyLink]) = seq.partition( !_.pending)
-       LinkedProperties(tmp._1, tmp._2)
+      val tmp: (Seq[PropertyLink], Seq[PropertyLink]) = seq.partition(!_.pending)
+      LinkedProperties(tmp._1, tmp._2)
     })
   }
 }

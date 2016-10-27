@@ -22,7 +22,7 @@ import org.joda.time.DateTime
 case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)
 
 case class PropertyLink(uarn: String, userId: String, capacityDeclaration: CapacityDeclaration,
-                        linkedDate: DateTime, assessmentYears: Seq[Int], pending: Boolean, requestFlag: RequestFlag)
+                        linkedDate: DateTime, linkBasis: LinkBasis, pending: Boolean = true)
 
 case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
 
@@ -30,36 +30,28 @@ case class PropertyRepresentation(representationId: String, agentId: String, use
                                   canCheck: Boolean, canChallenge: Boolean, pending: Boolean)
 
 
-sealed trait RequestFlag extends NamedEnum {
+sealed trait LinkBasis extends NamedEnum {
   val key = "requestFlag"
 }
 
-case object SelfCertifyFlag extends RequestFlag {
+case object SelfCertifyFlag extends LinkBasis {
   val name = "selfCertify"
 }
 
-case object RatesBillFlag extends RequestFlag {
+case object RatesBillFlag extends LinkBasis {
   val name = "ratesBill"
 }
 
-case object OtherEvidenceFlag extends RequestFlag {
+case object OtherEvidenceFlag extends LinkBasis {
   val name = "otherEvidence"
 }
 
-case object NoEvidenceFlag extends RequestFlag {
+case object NoEvidenceFlag extends LinkBasis {
   override val name = "noEvidence"
 }
 
-object RequestFlag extends NamedEnumSupport[RequestFlag] {
-  def unapply(s: String) = s match {
-    case SelfCertifyFlag.name => Some(SelfCertifyFlag)
-    case RatesBillFlag.name => Some(RatesBillFlag)
-    case OtherEvidenceFlag.name => Some(OtherEvidenceFlag)
-    case NoEvidenceFlag.name => Some(NoEvidenceFlag)
-    case _ => None
-  }
-
-  override def all: List[RequestFlag] = List(SelfCertifyFlag, RatesBillFlag, OtherEvidenceFlag, NoEvidenceFlag)
+object LinkBasis extends NamedEnumSupport[LinkBasis] {
+  override def all: List[LinkBasis] = List(SelfCertifyFlag, RatesBillFlag, OtherEvidenceFlag, NoEvidenceFlag)
 }
 
 

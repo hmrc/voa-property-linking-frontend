@@ -16,12 +16,12 @@
 
 package utils
 
-import connectors.{CapacityDeclaration, RequestFlag}
 import connectors.propertyLinking.PropertyLinkConnector
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpReads}
+import connectors.{CapacityDeclaration, LinkBasis}
+import uk.gov.hmrc.play.http.HeaderCarrier
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
 
@@ -30,7 +30,7 @@ class StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
                               billingAuthorityRef: String,
                               userId: String,
                               capacityDeclaration: CapacityDeclaration,
-                              submissionId: String, flag:RequestFlag)(implicit hc: HeaderCarrier)= {
+                              submissionId: String, flag:LinkBasis)(implicit hc: HeaderCarrier)= {
     Future.successful( () )
   }
 

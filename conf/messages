@@ -54,6 +54,7 @@ dashboard.manageProperties.status.pending=pending
 dashboard.managedProperties.searchLinkText=Add another property
 dashboard.addAgent=Add agent
 dashboard.editAgent=Edit agent
+link.dashboard.home=Back to dashboard
 
 #PROPERTY REPRESENTATION
 propertyRepresentation.appointAgent.title=Appoint Agent
@@ -116,9 +117,9 @@ declareCapacity.fromDate.help=
 declareCapacity.toDate.help=Leave blank if still in occupation or ownership
 declareCapacity.submit.button=Add property
 capacity.label=What is your connection to the property?
-capacity.ownerlandlord=Owner/Landlord
+capacity.owner=Owner
 capacity.occupier=Occupier
-capacity.previousOccupier=Previous owner
+capacity.ownerOccupier=Owner and occupier
 error.capacity.noValueSelected=You must select a capacity
 fromDate.day.label=Day
 fromDate.month.label=Month
