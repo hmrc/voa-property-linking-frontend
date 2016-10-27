@@ -26,15 +26,15 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 import uk.gov.hmrc.play.http.HeaderCarrier
 
-object StubFileUploadConnector extends FileUploadConnector(StubHttp) {
+object StubFileUploadConnector /*extends FileUploadConnector(StubHttp)*/ {
 
-  override def uploadFile(envelopeId: String, fileName: String, content: Array[Byte],
+  def uploadFile(envelopeId: String, fileName: String, content: Array[Byte],
                           contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Response] = {
     val resp = (new ResponseBuilder()).build()
     Future.successful(resp)
   }
 
-  override def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
+  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
     Future.successful( () )
   }
 

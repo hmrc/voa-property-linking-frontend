@@ -3,7 +3,7 @@
 @import controllers.CreateGroupAccountVM
 @import controllers.CreateGroupAccount.keys
 
-@(model: CreateGroupAccountVM)(implicit request: Request[_])
+@(model: CreateGroupAccountVM)(implicit request: Request[_], messages: Messages)
 
 
 @main_template(title = Messages("createAccount.group.title")) {

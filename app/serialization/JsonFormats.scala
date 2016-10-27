@@ -33,7 +33,6 @@ object JsonFormats {
   implicit val propertyLink = Json.format[PropertyLink]
   implicit val linkedProperties = Json.format[LinkedProperties]
   implicit val sessionFormat = Json.format[LinkingSession]
-  implicit val uploadedFileFormat = Json.reads[UploadedFile]
   implicit val ratesBillCheckFormat = Json.reads[RatesBillCheck]
 }
 

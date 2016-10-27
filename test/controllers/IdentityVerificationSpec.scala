@@ -35,7 +35,8 @@ class IdentityVerificationSpec extends ControllerSpec {
   val request = FakeRequest()
   private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
 
-  "Successfully verifying identity when the group does not have a CCA account" must "redirect to the create group account page, and not create an individual account" in {
+  "Successfully verifying identity when the group does not have a CCA account" must
+    "redirect to the create group account page, and not create an individual account" in {
     StubUserDetails.stubGroupId("groupwithoutaccount")
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
 

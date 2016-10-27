@@ -32,15 +32,20 @@ import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.i18n.Messages.Implicits._
+import play.api.Play.current
+import uk.gov.hmrc.play.filters.MicroserviceFilterSupport
 
 object Global extends VPLFrontendGlobal {
   override val wiring: Wiring = new Wiring {
-    override val http = WSHttp
+    override val http = new WSHttp
   }
 }
 
 trait VPLFrontendGlobal extends DefaultFrontendGlobal {
-  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html = views.html.errors.error()
+  override def standardErrorTemplate(
+                                      pageTitle: String, heading: String,
+                                      message: String)(implicit request: Request[_]): Html = views.html.errors.error()(request, applicationMessages)
 
   def auditConnector: uk.gov.hmrc.play.audit.http.connector.AuditConnector = AuditServiceConnector
 
@@ -57,11 +62,11 @@ object AuditServiceConnector extends AuditConnector {
   override lazy val auditingConfig = LoadAuditingConfig("auditing")
 }
 
-object LoggingFilter extends FrontendLoggingFilter {
+object LoggingFilter extends FrontendLoggingFilter with MicroserviceFilterSupport{
   override def controllerNeedsLogging(controllerName: String): Boolean = ControllerConfiguration.paramsForController(controllerName).needsLogging
 }
 
-object AuditFilter extends FrontendAuditFilter with AppName {
+object AuditFilter extends FrontendAuditFilter with MicroserviceFilterSupport with AppName {
   override lazy val maskedFormFields = Seq.empty
   override lazy val applicationPort = None
   override lazy val auditConnector = AuditServiceConnector

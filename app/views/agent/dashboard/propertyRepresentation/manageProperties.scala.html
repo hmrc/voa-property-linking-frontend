@@ -1,6 +1,6 @@
 @import controllers.agent.Representation.ManagePropertiesVM
 
-@(model: ManagePropertiesVM)(implicit request: Request[_])
+@(model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(Messages("agent.dashboard.manageProperties.title")) {
     <main id="content">

@@ -19,33 +19,30 @@ package controllers
 import java.io.File
 import java.nio.file.{Files, Paths}
 
-import auth.GGAction
-import connectors.propertyLinking.PropertyLinkConnector
-import connectors.{CapacityDeclaration, VPLAuthConnector}
+import connectors.CapacityDeclaration
 import models._
 import org.joda.time.DateTime
 import org.jsoup.Jsoup
-import play.api.Logger
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData.FilePart
-import play.api.mvc.{MultipartFormData, Result}
+import play.api.mvc.MultipartFormData
 import play.api.test.{FakeRequest, Helpers}
 import play.api.test.Helpers._
 import _root_.session.LinkingSession
 import config.VPLSessionCache
+import connectors.fileUpload.FileUpload
+import org.scalatest.mock.MockitoSugar
 import utils._
-import utils.MultipartFormDataWritable.anyContentAsMultipartFormWritable
 
-import scala.concurrent.Future
 
-class RatesBillUploadSpec extends ControllerSpec {
+class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
   implicit val request = FakeRequest().withSession(token)
 
   import TestData._
 
-  object TestUploadRatesBill extends UploadRatesBill {
+  val mockFileUploads = mock[FileUpload]
+  object TestUploadRatesBill extends UploadRatesBill(mockFileUploads)  {
     override lazy val withLinkingSession = new StubWithLinkingSession(property, capacityDeclaration)
-    override lazy val fileUploadConnector = StubFileUploadConnector
     override lazy val propertyLinkConnector  = new StubPropertyLinkConnector
     lazy val sessionCache = new VPLSessionCache(StubHttp)
     override lazy val sessionRepository = new StubLinkingSessionRepository(session, sessionCache)
@@ -70,8 +67,7 @@ class RatesBillUploadSpec extends ControllerSpec {
           files = Seq(
             FilePart("ratesBill", path, None, tmpFile)
           ),
-          badParts = Seq.empty,
-          missingFileParts = Seq.empty
+          badParts = Seq.empty
         )
       ).withSession(token)
     val res = TestUploadRatesBill.submit()(req)
@@ -86,8 +82,7 @@ class RatesBillUploadSpec extends ControllerSpec {
         MultipartFormData(
           dataParts = Map("hasRatesBill" -> Seq(DoesHaveRatesBill.name)),
           files = Seq(), //We're not submitting any file here.
-          badParts = Seq.empty,
-          missingFileParts = Seq.empty
+          badParts = Seq.empty
         )
       ).withSession(token)
     val res = TestUploadRatesBill.submit()(req)

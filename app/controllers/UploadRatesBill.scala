@@ -15,11 +15,12 @@
  */
 
 package controllers
-
+import javax.inject.Inject
 import java.nio.file.{Files, Paths}
 
 import config.{Environment, Wiring}
 import connectors.RatesBillFlag
+import connectors.fileUpload.{FileUpload, FileUploadConnector}
 import form.EnumMapping
 import models.{DoesHaveRatesBill, DoesNotHaveRatesBill, HasRatesBill}
 import play.api.data.Forms._
@@ -32,8 +33,7 @@ import session.{LinkingSessionRequest, WithLinkingSession}
 
 import scala.concurrent.Future
 
-trait UploadRatesBill extends PropertyLinkingController {
-  lazy val fileUploadConnector = Wiring().fileUploadConnector
+class UploadRatesBill @Inject() (val fileUploadConnector: FileUpload) extends PropertyLinkingController {
   lazy val propertyLinkConnector = Wiring().propertyLinkConnector
   lazy val ratesBillConnector = Wiring().ratesBillVerificationConnector
   lazy val sessionRepository = Wiring().sessionRepository
@@ -41,11 +41,11 @@ trait UploadRatesBill extends PropertyLinkingController {
   lazy val fileSystemConnector = Wiring().fileSystemConnector
 
   def show() = withLinkingSession { implicit request =>
-    Ok(views.html.uploadRatesBill.show(UploadRatesBillVM(uploadRatesBillForm)))
+    Ok(views.html.uploadRatesBill.show(UploadRatesBillVM(UploadRatesBill.uploadRatesBillForm)))
   }
 
   def submit() = withLinkingSession { implicit request =>
-    uploadRatesBillForm.bindFromRequest().fold(
+    UploadRatesBill.uploadRatesBillForm.bindFromRequest().fold(
       errors => BadRequest(views.html.uploadRatesBill.show(UploadRatesBillVM(errors))),
       answer => uploadIfNeeded(answer) flatMap {
         case RatesBillUploaded =>
@@ -54,7 +54,7 @@ trait UploadRatesBill extends PropertyLinkingController {
           Redirect(routes.UploadEvidence.show())
         case RatesBillMissing(s) =>
           BadRequest(views.html.uploadRatesBill.show(
-            UploadRatesBillVM(uploadRatesBillForm.fill(s).withError(FormError("ratesBill", Messages("uploadRatesBill.ratesBillMissing.error"))))
+            UploadRatesBillVM(UploadRatesBill.uploadRatesBillForm.fill(s).withError(FormError("ratesBill", Messages("uploadRatesBill.ratesBillMissing.error"))))
           ))
       }
     )
@@ -71,9 +71,8 @@ trait UploadRatesBill extends PropertyLinkingController {
   private def uploadFile(file: Option[FilePart[TemporaryFile]], answer: SubmitRatesBill)(implicit request: LinkingSessionRequest[_]) = {
     file.map(filepart => {
       val envId = request.ses.envelopeId
-      val content = fileSystemConnector.readAllBytes(filepart.ref.file.toPath)
       val contentType = filepart.contentType.getOrElse("application/octet-stream")
-      fileUploadConnector.uploadFile(envId, filepart.filename, content, contentType,filepart.ref.file ) map (_ =>
+      fileUploadConnector.uploadFile(envId, filepart.filename, contentType,filepart.ref.file ) map (_ =>
         RatesBillUploaded
         )
     }).getOrElse(Future.successful(RatesBillMissing(answer)))
@@ -95,12 +94,14 @@ trait UploadRatesBill extends PropertyLinkingController {
     )
   }
 
+}
+
+
+object UploadRatesBill {
   lazy val uploadRatesBillForm = Form(mapping(
     "hasRatesBill" -> EnumMapping(HasRatesBill)
   )(SubmitRatesBill.apply)(SubmitRatesBill.unapply))
 }
-
-object UploadRatesBill extends UploadRatesBill
 
 case class UploadRatesBillVM(form: Form[_])
 

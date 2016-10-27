@@ -17,6 +17,7 @@
 package config
 
 import auth.GGAction
+import com.google.inject.ImplementedBy
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import session.{LinkingSessionRepository, WithLinkingSession}
@@ -43,9 +44,6 @@ abstract class Wiring {
   lazy val propertyLinkConnector = new PropertyLinkConnector(http)
   lazy val individualAccountConnector = new IndividualAccounts(http)
   lazy val groupAccountConnector = new GroupAccounts(http)
-  //TODO. Remove this
-  lazy val fileUploadConnectorTODODELETETHIS = new FileUploadConnector(http)
-  lazy val fileUploadConnector = new fileUpload.FileUploadConnector(http)
   lazy val ratesBillVerificationConnector = new RatesBillVerificationConnector(http)
   lazy val userDetailsConnector = new UserDetails(http)
   lazy val authConnector = new VPLAuthConnector(http)
@@ -61,7 +59,7 @@ class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends Se
   override def domain: String = getConfString("cachable.session-cache.domain", throw new Exception("No config setting for cache domain"))
 }
 
-object WSHttp extends WSGet with WSPut with WSDelete with WSPost with HttpAuditing with AppName with RunMode {
+class WSHttp extends WSGet with WSPut with WSDelete with WSPost with HttpAuditing with AppName with RunMode {
   override val hooks = Seq(AuditingHook)
   override def auditConnector = AuditServiceConnector
 }

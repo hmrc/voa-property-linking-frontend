@@ -21,6 +21,8 @@ import config.Wiring
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc._
 import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
+import play.api.i18n.Messages.Implicits._
+import play.api.Play.current
 
 import scala.concurrent.Future
 

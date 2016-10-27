@@ -15,14 +15,18 @@
  */
 
 package controllers
+import javax.inject.Inject
 
 import config.{Environment, Wiring}
 import connectors.OtherEvidenceFlag
+import connectors.fileUpload.{FileUpload, FileUploadConnector}
 import form.EnumMapping
 import models.{DoesHaveEvidence, DoesNotHaveEvidence, HasEvidence}
+import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.Files.TemporaryFile
+import play.api.i18n.Messages.Implicits._
 import play.api.mvc.AnyContent
 import play.api.mvc.MultipartFormData.FilePart
 import session.{LinkingSession, LinkingSessionRequest, WithLinkingSession}
@@ -30,25 +34,25 @@ import views.helpers.Errors
 
 import scala.concurrent.Future
 
-trait UploadEvidence extends PropertyLinkingController {
+class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends PropertyLinkingController {
   lazy val propertyLinkConnector = Wiring().propertyLinkConnector
   lazy val withLinkingSession = Wiring().withLinkingSession
   lazy val fileSystemConnector = Wiring().fileSystemConnector
-  lazy val fileUploadConnector = Wiring().fileUploadConnector
-  lazy val uploadConnector = Wiring().fileUploadConnectorTODODELETETHIS
 
   def show() = withLinkingSession { implicit request =>
-    Ok(views.html.uploadEvidence.show(UploadEvidenceVM(form)))
+    Ok(views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form)))
   }
 
   def submit() = withLinkingSession { implicit request =>
-    form.bindFromRequest().fold(
+    UploadEvidence.form.bindFromRequest().fold(
       error => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(error))),
       uploaded => uploaded.hasEvidence match {
-        case DoesHaveEvidence => uploadIfNeeded flatMap { x => x match {
+        case DoesHaveEvidence => uploadIfNeeded flatMap { x =>
+          x match {
           case FilesAccepted => requestLink.map(_ => Redirect(routes.UploadEvidence.evidenceUploaded()))
-          case FilesUploadFailed => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(form.withError("evidence", Errors.uploadedFiles))))
-          case FilesMissing => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(form.withError("evidence", Errors.missingFiles))))
+          case FilesUploadFailed => BadRequest(
+            views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence", Errors.uploadedFiles))))
+          case FilesMissing => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence", Errors.missingFiles))))
           }
         }
         case DoesNotHaveEvidence => requestLink.map(_ => Redirect(routes.UploadEvidence.noEvidenceUploaded()))
@@ -64,14 +68,13 @@ trait UploadEvidence extends PropertyLinkingController {
     )
 
   private def uploadIfNeeded(implicit request: LinkingSessionRequest[AnyContent]): Future[EvidenceUploadResult] = {
-    val files: Seq[FilePart[TemporaryFile]] = request.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence"))
+    val files: Seq[FilePart[TemporaryFile]] = request.request.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence"))
     if (files.isEmpty) FilesMissing
     else {
       val res = Future.sequence(files.map( filepart => {
         val envId = request.ses.envelopeId
-        val content = fileSystemConnector.readAllBytes(filepart.ref.file.toPath)
         val contentType = filepart.contentType.getOrElse("application/octet-stream")
-        fileUploadConnector.uploadFile(envId, filepart.filename, content, contentType,filepart.ref.file)
+        fileUploadConnector.uploadFile(envId, filepart.filename, contentType,filepart.ref.file)
           .map(_ =>FilesAccepted)
           .recover{case _ => FilesUploadFailed}
       }))
@@ -95,12 +98,14 @@ trait UploadEvidence extends PropertyLinkingController {
     )
   }
 
+}
+object UploadEvidence {
   lazy val form = Form(mapping(
     "hasEvidence" -> EnumMapping(HasEvidence)
   )(UploadedEvidence.apply)(UploadedEvidence.unapply))
+
 }
 
-object UploadEvidence extends UploadEvidence
 
 case class UploadedEvidence(hasEvidence: HasEvidence)
 

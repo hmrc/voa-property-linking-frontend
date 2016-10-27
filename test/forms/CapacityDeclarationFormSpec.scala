@@ -16,11 +16,14 @@
 
 package forms
 
+import java.io.IOException
+
 import connectors.CapacityDeclaration
 import controllers.Search
 import models.{CapacityType, Occupier}
 import org.joda.time.DateTime
 import org.scalatest.{FlatSpec, MustMatchers}
+import play.api.libs.ws.{WSClient, WSRequest}
 import utils.FormBindingVerification._
 
 class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {

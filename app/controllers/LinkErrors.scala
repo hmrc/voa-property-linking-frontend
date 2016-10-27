@@ -32,7 +32,4 @@ object LinkErrors extends PropertyLinkingController {
     Ok(views.html.linkErrors.manualVerificationRequired())
   }
 
-  def pinPostalProcess() = Action { implicit request =>
-    Ok(views.html.linkErrors.pinPostalProcess())
-  }
 }

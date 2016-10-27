@@ -1,11 +1,12 @@
-import play.PlayImport.PlayKeys
+import play.routes.compiler.StaticRoutesGenerator
+import play.sbt.PlayImport.PlayKeys
 import sbt.Keys._
 import sbt.Tests.{Group, SubProcess}
 import sbt._
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 import uk.gov.hmrc.versioning.SbtGitVersioning
-
+import play.sbt.routes.RoutesKeys.routesGenerator
 trait MicroService {
 
   import uk.gov.hmrc._
@@ -17,7 +18,7 @@ trait MicroService {
   val appName: String
 
   lazy val appDependencies: Seq[ModuleID] = ???
-  lazy val plugins: Seq[Plugins] = Seq(play.PlayScala, SbtDistributablesPlugin)
+  lazy val plugins: Seq[Plugins] = Seq(play.sbt.PlayScala, SbtDistributablesPlugin)
 
   val defaultPort = 9000
 
@@ -41,6 +42,7 @@ trait MicroService {
       compileScalastyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle.in(Compile).toTask("").value,
       test in Test <<= (test in Test) dependsOn compileScalastyle
     )
+    .settings(routesGenerator := StaticRoutesGenerator)
     .settings(inConfig(TemplateTest)(Defaults.testSettings): _*)
     .configs(IntegrationTest)
     .settings(inConfig(TemplateItTest)(Defaults.itSettings): _*)
@@ -49,7 +51,7 @@ trait MicroService {
       unmanagedSourceDirectories in IntegrationTest <<= (baseDirectory in IntegrationTest)(base => Seq(base / "it")),
       addTestReportOption(IntegrationTest, "int-test-reports"),
       parallelExecution in IntegrationTest := false)
-    .settings(resolvers += Resolver.bintrayRepo("hmrc", "releases"))
+    .settings(resolvers ++= Seq(Resolver.bintrayRepo("hmrc", "releases"), Resolver.jcenterRepo))
     .settings(evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTransitiveEvictions(false).withWarnDirectEvictions(false).withWarnScalaVersionEviction(false))
     .enablePlugins(SbtDistributablesPlugin, SbtAutoBuildPlugin, SbtGitVersioning)
 }

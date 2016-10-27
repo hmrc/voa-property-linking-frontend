@@ -15,11 +15,12 @@
  */
 
 package controllers
-
+import javax.inject.Inject
 import auth.GGAction
 import config.Wiring
 import connectors.PrototypeTestData._
 import connectors.CapacityDeclaration
+import connectors.fileUpload.FileUploadConnector
 import form.EnumMapping
 import form.Mappings.{dmyDate, dmyPastDate}
 import models._
@@ -27,10 +28,9 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Result
 
-object Search extends PropertyLinkingController {
+class Search @Inject() (val fileUploadConnector: FileUploadConnector) extends PropertyLinkingController {
   lazy val sessionRepository = Wiring().sessionRepository
   lazy val connector = Wiring().propertyConnector
-  lazy val fileUploadConnector = Wiring().fileUploadConnector
   lazy val ggAction = Wiring().ggAction
 
   def show() = ggAction { _ => implicit request =>
@@ -42,16 +42,16 @@ object Search extends PropertyLinkingController {
       case Some(pd) =>
        fileUploadConnector.createEnvelope().flatMap( envelopeId =>
         sessionRepository.start(pd, envelopeId) map { _ =>
-          Ok(views.html.declareCapacity(DeclareCapacityVM(declareCapacityForm, pd.address)))
+      Ok(views.html.declareCapacity(DeclareCapacityVM(Search.declareCapacityForm, pd.address)))
         }
        )
-      case None => NotFound(views.html.defaultpages.notFound(request, Some(app.Routes)))
+      case None => NotFound(views.html.defaultpages.notFound("TODOmethod", "TODO: URI"))
     }
   }
 
   def attemptLink() = ggAction.async { _ => implicit request =>
     sessionRepository.get() flatMap {
-      case Some(session) => declareCapacityForm.bindFromRequest().fold(
+      case Some(session) => Search.declareCapacityForm.bindFromRequest().fold(
         errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors, session.claimedProperty.address))),
         formData => sessionRepository.saveOrUpdate(session.withDeclaration(formData)) map { _ =>
           chooseLinkingJourney(session.claimedProperty, formData)
@@ -67,6 +67,9 @@ object Search extends PropertyLinkingController {
     else
       Redirect(routes.UploadRatesBill.show())
 
+}
+
+object Search {
   lazy val declareCapacityForm = Form(mapping(
     "capacity" -> EnumMapping(CapacityType),
     "fromDate" -> dmyPastDate,

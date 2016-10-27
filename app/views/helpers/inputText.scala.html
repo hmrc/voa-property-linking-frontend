@@ -13,11 +13,11 @@
  * @param handler The field constructor.
  *@
 
-@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit requestHeader: RequestHeader, lang: Lang)
+@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit requestHeader: RequestHeader, messages: Messages)
 
 @{input(field, args:_*) { (id, name, value, htmlArgs) =>
     Html(s"""<input type="text" id="${id}_text" value="${getValue(value, args)}" name="$name" ${toHtmlArgs(htmlArgs)} />""")
-}(requestHeader, _root_.template.Helper.myFields, lang)}
+}(_root_.template.Helper.myFields, messages)}
 
 @getValue(value: Option[String], args: Seq[(Symbol, Any)]) = @{
     if (value.isDefined) value.get
