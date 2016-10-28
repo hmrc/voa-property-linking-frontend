@@ -17,10 +17,6 @@ object FrontendBuild extends Build with MicroService {
 
   override lazy val playSettings: Seq[Setting[_]] = Seq(
 
-       // Turn off play's internal less compiler
-       //lessEntryPoints := Nil,
-       // Turn off play's internal javascript compiler
-       //javascriptEntryPoints := Nil,
        // Add the views to the dist
        unmanagedResourceDirectories in Assets += baseDirectory.value / "app" / "assets",
        // Dont include the source assets in the dist package (public folder)
@@ -54,7 +50,7 @@ private object AppDependencies {
   )
 
   trait TestDependencies {
-    lazy val scope: String = "test,it"
+    lazy val scope: String = "test"
     lazy val test : Seq[ModuleID] = ???
   }
 
@@ -66,19 +62,6 @@ private object AppDependencies {
         "org.pegdown" % "pegdown" % "1.6.0" % scope,
         "org.jsoup" % "jsoup" % "1.9.1",
         "org.mockito" % "mockito-core" % "2.2.9"
-      )
-    }.test
-  }
-
-  object IntegrationTest {
-    def apply() = new TestDependencies {
-      override lazy val scope = "it"
-
-      override lazy val test = Seq(
-        "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % scope,
-        "org.scalatest" %% "scalatest" % "2.2.6" % scope,
-        "org.pegdown" % "pegdown" % "1.6.0" % scope,
-        "org.jsoup" % "jsoup" % "1.9.1" % scope
       )
     }.test
   }
