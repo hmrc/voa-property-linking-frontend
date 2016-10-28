@@ -19,7 +19,6 @@
                     <th>Connection</th>
                     <th>Status</th>
                     <th>Date added</th>
-                    <th>Assessments</th>
                     <th></th>
                     @if(model.properties.pending.exists(_.representations.nonEmpty)) {
                         <th></th>
@@ -32,7 +31,6 @@
                         <td>@p.capacity</td>
                         <td>@Messages("dashboard.manageProperties.status.added")</td>
                         <td>@Display.date(p.linkedDate)</td>
-                        <td>@p.assessmentYears.mkString(",")</td>
                         <td>
                             <a href=@routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
                         </td>
@@ -68,5 +66,6 @@
         </table>
 
         <p><a href="@routes.Search.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.searchLinkText")</a></p>
+        <p><a href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a></p>
 
 }

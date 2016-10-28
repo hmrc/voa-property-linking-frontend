@@ -78,7 +78,7 @@ trait Dashboard extends PropertyLinkingController {
         reps <- reprConnector.get(id, p.uarn)
         shortAddress <- shortAddress(p.uarn)
       } yield {
-        PropertyLinkRepresentations(shortAddress, p.uarn, p.capacityDeclaration.capacity.name, p.linkedDate, p.assessmentYears, reps)
+        PropertyLinkRepresentations(shortAddress, p.uarn, p.capacityDeclaration.capacity.name, p.linkedDate, reps)
       }
     })
   }
@@ -94,7 +94,7 @@ object Dashboard extends Dashboard
 case class ManagePropertiesVM(properties: LinkedPropertiesRepresentations)
 
 case class PropertyLinkRepresentations(name: String, uarn: String, capacity: String, linkedDate: DateTime,
-                                       assessmentYears: Seq[Int], representations: Seq[PropertyRepresentation])
+                                       representations: Seq[PropertyRepresentation])
 
 case class PendingPropertyLinkRepresentations(name: String, uarn: String, capacity: String,
                                               linkedDate: DateTime, representations: Seq[PropertyRepresentation])

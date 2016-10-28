@@ -111,6 +111,6 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     lazy val baRef = "baRef-asdfjlj23l4j23"
     lazy val address = Address("", "", "", "AA11 1AA")
     lazy val property = Property(uarn, baRef, address, false, false)
-    lazy val capacityDeclaration = CapacityDeclaration(OwnerLandlord, DateTime.now, None)
+    lazy val capacityDeclaration = CapacityDeclaration(Owner, DateTime.now, None)
   }
 }

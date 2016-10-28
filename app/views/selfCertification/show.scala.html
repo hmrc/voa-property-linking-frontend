@@ -3,7 +3,6 @@
 
 @(model: SelfCertifyVM)(implicit request: Request[_], messages: Messages)
 
-
 @main_template(title = Messages("selfCertification.show.title")) {
     @form(routes.SelfCertification.submit()) {
 
@@ -42,6 +41,11 @@
                     '_showConstraints -> false,
                     '_text -> Messages("selfCertification.show.iAgree.text")
                 )
+
+                <div class="clearfix"></div>
+
+                <br/>
+                <br/>
 
                 <button type="submit" class="button">@Messages("selfCertification.show.button")</button>
             </div>
