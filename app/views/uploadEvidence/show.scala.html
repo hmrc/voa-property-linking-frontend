@@ -1,7 +1,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 
-@(model: UploadEvidenceVM)(implicit request: Request[_])
+@(model: UploadEvidenceVM)(implicit request: Request[_], messages: Messages)
 
 
     @main_template(title = Messages("uploadEvidence.show.title")) {

@@ -15,24 +15,38 @@
  */
 
 package connectors.fileUpload
-
+import com.google.inject.{ImplementedBy, Singleton}
+import com.ning.http.client.RequestBuilder
+import com.ning.http.client.Response
+import com.ning.http.client.{AsyncHttpClient, ByteArrayPart, ListenableFuture, Response}
+import com.ning.http.multipart.StringPart
+import config.{Environment, Wiring}
+import java.net.ConnectException
 import java.io.File
 import java.nio.charset.Charset
+import java.nio.file.Paths
+import java.util.concurrent.ExecutorService
 import javassist.NotFoundException
+import javax.inject.Inject
+import javax.xml.ws.WebServiceException
 
-import com.ning.http.client.Response
-import config.Environment
-import play.api.libs.json.Json
+import play.api.Logger
+import play.api.Play.current
+import play.api.libs.json.{JsValue, Json}
+import play.api.libs.ws._
+import play.api.libs.ws.{WS, WSClient, WSResponse}
+import play.api.mvc.MultipartFormData.{DataPart, FilePart}
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Promise
+import scala.concurrent.{ExecutionContext, ExecutionException, Future, TimeoutException}
+import scala.util.Try
 import serialization.JsonFormats
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http._
-import play.api.Play.current
 import uk.gov.hmrc.play.http.HttpException
-
-import scala.concurrent.{ExecutionContext, Future}
-import play.api.Logger
-import play.api.mvc.MultipartFormData.FilePart
-import play.api.libs.ws._
+import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.http.{BadGatewayException, GatewayTimeoutException, HttpResponse}
+import akka.stream.scaladsl._
 
 case class NewEnvelope(envelopeId: String)
 object NewEnvelope{
@@ -43,8 +57,16 @@ object RoutingRequest {
   implicit lazy val routingRequest = Json.format[RoutingRequest]
 }
 
-class FileUploadConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec: ExecutionContext)
-    extends ServicesConfig with JsonHttpReads {
+@ImplementedBy(classOf[FileUploadConnector])
+trait FileUpload {
+  def createEnvelope()(implicit hc: HeaderCarrier): Future[String]
+  def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier)
+  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier)
+}
+
+@Singleton
+class FileUploadConnector @Inject() (val ws: WSClient)(implicit ec: ExecutionContext) extends FileUpload with ServicesConfig with JsonHttpReads {
+    lazy val http = Wiring().http
 
     implicit val rds: HttpReads[Unit] = new HttpReads[Unit] {
       override def read(method: String, url: String, response: HttpResponse): Unit = Unit
@@ -62,23 +84,31 @@ class FileUploadConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec:
       })
     }
 
-    def uploadFile(envelopeId: String, fileName: String, content: Array[Byte], contentType: String, file: File)(implicit hc: HeaderCarrier) = {
-      FusConnector.addToEnvelope(envelopeId, fileName, content, contentType, fileName)
-    }
+  def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier) = {
+    val url = uploadFileToFusUrl(envelopeId, fileName)
+    val res = ws.url(url)
+      .withHeaders(("X-Requested-With", "VOA_CCA"))
+      .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromFile(file)) :: List()))
+  }
 
-    def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier) = {
-      val url = if (Environment.isDev)
-        s"${System.getProperty("file-upload-backend")}/routing/requests"
-      else
-        s"${baseUrl("file-upload-backend")}/routing/requests"
-      http.POST[RoutingRequest, Unit](url, RoutingRequest(envelopeId))
-        .map ( _=> () )
-        .recover {
-          case ex: HttpException => Logger.debug(s"${ex.responseCode}: ${ex.message}")
-        }
+  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier) = {
+    val url = if (Environment.isDev)
+      s"${System.getProperty("file-upload-backend")}/routing/requests"
+    else
+      s"${baseUrl("file-upload-backend")}/routing/requests"
+    http.POST[RoutingRequest, Unit](url, RoutingRequest(envelopeId))
+      .map ( _=> () )
+      .recover {
+        case ex: HttpException => Logger.debug(s"${ex.responseCode}: ${ex.message}")
+      }
 
-    }
+  }
+
+  private def uploadFileToFusUrl(envelopeId:String,fileId:String):String =
+    if (Environment.isDev)
+      s"${System.getProperty("file-upload-frontend")}/upload/envelopes/$envelopeId/files/$fileId"
+    else
+      s"${baseUrl("file-upload-frontend")}/upload/envelopes/$envelopeId/files/$fileId"
 
 }
-
 

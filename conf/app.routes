@@ -25,27 +25,26 @@ GET         /home                                               controllers.Dash
 GET         /manage-properties                                  controllers.Dashboard.manageProperties()
 
 #Search and Link
-GET         /property-search                                    controllers.Search.show()
-GET         /link-to-property/:uarn                             controllers.Search.declareCapacity(uarn)
-POST        /link-to-property                                   controllers.Search.attemptLink()
+GET         /property-search                                    @controllers.Search.show()
+GET         /link-to-property/:uarn                             @controllers.Search.declareCapacity(uarn)
+POST        /link-to-property                                   @controllers.Search.attemptLink()
 
 #Link scenarios
 GET         /self-certify                                       controllers.SelfCertification.show()
 POST        /confirm-self-certify                               controllers.SelfCertification.submit()
-GET         /upload-rates-bill                                  controllers.UploadRatesBill.show()
-POST        /upload-rates-bill                                  controllers.UploadRatesBill.submit()
-GET         /upload-evidence                                    controllers.UploadEvidence.show()
-POST        /upload-evidence                                    controllers.UploadEvidence.submit()
+GET         /upload-rates-bill                                  @controllers.UploadRatesBill.show()
+POST        /upload-rates-bill                                  @controllers.UploadRatesBill.submit()
+GET         /upload-evidence                                    @controllers.UploadEvidence.show()
+POST        /upload-evidence                                    @controllers.UploadEvidence.submit()
 
 #Linking outcomes
 GET         /self-certification-link-submitted                  controllers.SelfCertification.linkAuthorised()
-GET         /rates-bill-submitted                               controllers.UploadRatesBill.ratesBillUploaded()
-GET         /evidence-uploaded                                  controllers.UploadEvidence.evidenceUploaded()
-GET         /no-evidence-uploaded                               controllers.UploadEvidence.noEvidenceUploaded()
+GET         /rates-bill-submitted                               @controllers.UploadRatesBill.ratesBillUploaded()
+GET         /evidence-uploaded                                  @controllers.UploadEvidence.evidenceUploaded()
+GET         /no-evidence-uploaded                               @controllers.UploadEvidence.noEvidenceUploaded()
 GET         /manual-verification-required                       controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                   controllers.LinkErrors.conflict()
 GET         /postcode-verification-required                     controllers.LinkErrors.postcodeVerificationRequired()
-GET         /pin-postal-process                                 controllers.LinkErrors.pinPostalProcess()
 
 GET         /representation-request/add/:uarn                   controllers.AppointAgentController.add(uarn)
 GET         /representation-request/edit/:uarn                  controllers.AppointAgentController.edit(uarn)

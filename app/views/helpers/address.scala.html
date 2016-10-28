@@ -1,6 +1,6 @@
 @import helpers._
 
-@(form: Form[_], fieldName: String)(implicit request: Request[_])
+@(form: Form[_], fieldName: String)(implicit request: Request[_], messages: Messages)
 
 @inputText(
     field = form(s"$fieldName.line1"),

@@ -17,14 +17,15 @@
 package controllers
 
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, MustMatchers}
-import play.api.test.{DefaultAwaitTimeout, FakeApplication, FutureAwaits}
-import play.filters.csrf.CSRF
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import utils.{StubGroupAccountConnector, StubIdentityVerification, StubIndividualAccountConnector, StubUserDetails}
 
 trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach {
   implicit val app = TestApp.app
 
-  val token = CSRF.TokenName -> CSRF.SignedTokenProvider.generateToken
+  val token = "Csrf-Token" -> "nocheck"
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()
     StubGroupAccountConnector.reset()
@@ -34,6 +35,6 @@ trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with D
 }
 
 object TestApp {
-  val app = FakeApplication()
+  val app: Application = (new GuiceApplicationBuilder()).build()
   play.api.Play.start(app)
 }

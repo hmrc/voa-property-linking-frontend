@@ -7,7 +7,7 @@ import com.typesafe.sbt.packager.Keys._
  */
 object JavaScriptBuild {
 
-  import play.PlayImport.PlayKeys._
+  import play.sbt.PlayImport.PlayKeys._
 
   val uiDirectory = SettingKey[File]("ui-directory")
 
@@ -51,17 +51,17 @@ object JavaScriptBuild {
     // runs gulp before staging the application
     dist <<= dist dependsOn gulpBuild,
 
-    (test in Test) <<= (test in Test) dependsOn gulpTest,
+    (test in Test) <<= (test in Test) dependsOn gulpTest
 
     // Turn off play's internal less compiler
-    lessEntryPoints := Nil,
+    //lessEntryPoints := Nil,
 
     // Turn off play's internal JavaScript and CoffeeScript compiler
-    javascriptEntryPoints := Nil,
-    coffeescriptEntryPoints := Nil,
+    //javascriptEntryPoints := Nil,
+    //coffeescriptEntryPoints := Nil,
 
     // integrate JavaScript build into play build
-    playRunHooks <+= uiDirectory.map(ui => Gulp(ui))
+    //playRunHooks <+= uiDirectory.map(ui => Gulp(ui))
   )
 
   def npmCommand(base: File) = Command.args("npm", "<npm-command>") { (state, args) =>

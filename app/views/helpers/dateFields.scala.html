@@ -4,7 +4,7 @@
 @import _root_.template.Helper._
 
 @(form:Form[_], prefix: String, helpText: Option[String] = None, suffix: String = "",
-  optional: Boolean = false, nojsText: Option[String] = None, label: Option[String] = None)(implicit requestHeader: RequestHeader)
+  optional: Boolean = false, nojsText: Option[String] = None, label: Option[String] = None)(implicit requestHeader: RequestHeader, messages: Messages)
 
 
 @displayFieldError(message: String, args: Seq[Any]) = {

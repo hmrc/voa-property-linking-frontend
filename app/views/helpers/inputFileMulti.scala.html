@@ -1,4 +1,3 @@
-@import views.html.helper._
 
 @**
  * Generate an HTML input text.
@@ -13,11 +12,11 @@
  * @param handler The field constructor.
  *@
 
-@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit requestHeader: RequestHeader, lang: Lang)
+@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit requestHeader: RequestHeader, messages: Messages)
 
 @{input(field, args:_*) { (id, name, value, htmlArgs) =>
     Html(s"""<input type="file" id="${id}" value="${getValue(value, args)}" name="$name" ${toHtmlArgs(htmlArgs)} multiple="multiple"/>""")
-}(requestHeader, _root_.template.Helper.myFields, lang)}
+}(requestHeader, messages)}
 
 @getValue(value: Option[String], args: Seq[(Symbol, Any)]) = @{
     if (value.isDefined) value.get

@@ -12,7 +12,7 @@
 * @param args Set of extra HTML attributes ('''id''' and '''label''' are 2 special arguments).
 * @param handler The field constructor.
 *@
-@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit handler: FieldConstructor, requestHeader: RequestHeader, lang: Lang)
+@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit handler: FieldConstructor, requestHeader: RequestHeader, messages: Messages)
 
 @boxValue = @{args.toMap.getOrElse('value, "true")}
 

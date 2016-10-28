@@ -1,6 +1,6 @@
 @import _root_.template.Display
 
-@(model: LinkAuthorisedVM)(implicit request: Request[_])
+@(model: LinkAuthorisedVM)(implicit request: Request[_], messages: Messages)
 
 
 @main_template(title = Messages("selfCertification.linkSubmitted.title")) {

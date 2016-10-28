@@ -1,6 +1,6 @@
 @import play.api.data._
 
-@(form: Form[_], messagePrefix: Option[String] = None)(implicit requestHeader: RequestHeader)
+@(form: Form[_], messagePrefix: Option[String] = None)(implicit requestHeader: RequestHeader, messages: Messages)
 
     @showError(error: FormError) = {
         <li>

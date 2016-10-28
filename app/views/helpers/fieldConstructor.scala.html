@@ -19,27 +19,27 @@ Example usage:
 
 
 
-@(elements: helper.FieldElements)
+@(elements: helper.FieldElements)(implicit messages: Messages)
 
     @elements.args.get('_legend) match {
      	case Some(true) => {
      		<fieldset id="@elements.id" class="@elements.args.get('_fieldsetClass) form-group @if(elements.hasErrors) {error}">
-   				<legend class="@elements.args.get('_labelClass)"><span class="label-span">@elements.label(elements.lang)</span>
+   				<legend class="@elements.args.get('_labelClass)"><span class="label-span">@elements.label</span>
 
                     @elements.args.get('_optional) match {
-                        case Some(true) => { <span class="visuallyhidden">(@Messages("label.optional")(elements.lang))</span> }
-                        case _ => { <span class="visuallyhidden">(@Messages("label.required")(elements.lang))</span>}
+                        case Some(true) => { <span class="visuallyhidden">(@Messages("label.optional")(elements.messages))</span> }
+                        case _ => { <span class="visuallyhidden">(@Messages("label.required")(elements.messages))</span>}
                     }
 
                 </legend>
    		}
 		case _ => {
 			<div id="@elements.id" class="@elements.args.get('_fieldsetClass) form-group @if(elements.hasErrors) {error}">
-				<label class="@elements.args.get('_labelClass)" for="@(elements.id)_text" ><span class="label-span">@elements.label(elements.lang)</span>
+				<label class="@elements.args.get('_labelClass)" for="@(elements.id)_text" ><span class="label-span">@elements.label</span>
 
             @elements.args.get('_optional) match {
-                case Some(true) => { <span class="visuallyhidden">(@Messages("label.optional")(elements.lang))</span> }
-                case _ => { <span class="visuallyhidden">(@Messages("label.required")(elements.lang))</span>}
+                case Some(true) => { <span class="visuallyhidden">(@Messages("label.optional")(elements.messages))</span> }
+                case _ => { <span class="visuallyhidden">(@Messages("label.required")(elements.messages))</span>}
             }
                 </label>
 		}
@@ -67,7 +67,7 @@ Example usage:
 
     @if(elements.hasErrors) {
     	<div class="@if(elements.hasErrors) {form-grouped-error}">
-    		<p class="error-message">@elements.errors(elements.lang).mkString(", ")</p>
+    		<p class="error-message">@elements.errors.mkString(", ")</p>
     }
 
     @elements.args.get('_help).map { helpText =>
@@ -84,8 +84,8 @@ Example usage:
 
     @elements.args.get('_characterCount).map { characterCount =>
 
-        <div class="charCount hide-if-no-js">@Html(Messages("copy.character.count", characterCount)(elements.lang))</div>
-        <div class="charCount-no-js hidden">@Html(Messages("copy.character.count.nojs", characterCount)(elements.lang))</div>
+        <div class="charCount hide-if-no-js">@Html(Messages("copy.character.count", characterCount)(elements.messages))</div>
+        <div class="charCount-no-js hidden">@Html(Messages("copy.character.count.nojs", characterCount)(elements.messages))</div>
 
     }
 
@@ -95,8 +95,8 @@ Example usage:
 
     @elements.args.get('_add) match {
         case Some(true) => {
-            <a href="#" class="remove" role="button" style="display:none">@Messages("label.add.remove")(elements.lang)</a>
-            <a href="#" class="add" role="button" >@Messages("label.add.individual")(elements.lang)</a>
+            <a href="#" class="remove" role="button" style="display:none">@Messages("label.add.remove")(elements.messages)</a>
+            <a href="#" class="add" role="button" >@Messages("label.add.individual")(elements.messages)</a>
         }
         case _ => {}
     }

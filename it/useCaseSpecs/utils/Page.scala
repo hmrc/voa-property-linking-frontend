@@ -26,20 +26,20 @@ object Page extends MustMatchers with AppendedClues {
   }
 
   def postValid(url: String, formData: (String, String)*)(implicit sid: SessionId, session: GGSession): Result = {
-    val token = CSRF.SignedTokenProvider.generateToken
+    val token = "Csrf-Token" -> "nocheck"
     val Some(response) = route(FakeRequest("POST", url)
       .withHeaders(HeaderNames.xSessionId -> sid)
-      .withSession(session.toSeq :+ ("csrfToken" -> token):_*)
-      .withFormUrlEncodedBody(formData :+ (CSRF.TokenName -> token): _*))
+      .withSession(session.toSeq :+ (token):_*)
+      .withFormUrlEncodedBody(formData :+ (token): _*))
     await(response)
   }
 
   def postInvalid(url: String, formData: (String, String)*)(implicit sid: SessionId, session: GGSession): HtmlPage = {
-    val token = CSRF.SignedTokenProvider.generateToken
+    val token = "Csrf-Token" -> "nocheck"
     val Some(response) = route(FakeRequest("POST", url)
       .withHeaders(HeaderNames.xSessionId -> sid)
-      .withSession(session.toSeq :+ ("csrfToken" -> token):_*)
-      .withFormUrlEncodedBody(formData :+ (CSRF.TokenName -> token): _*))
+      .withSession(session.toSeq :+ (token):_*)
+      .withFormUrlEncodedBody(formData :+ (token): _*))
     status(response) mustEqual 400
     HtmlPage(Jsoup.parse(contentAsString(response)))
   }

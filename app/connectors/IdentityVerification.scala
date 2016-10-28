@@ -33,10 +33,10 @@ class IdentityVerification(http: HttpGet with HttpPost) extends ServicesConfig {
 
   def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier) = {
     http.GET[JsValue](s"$url/mdtp/journey/journeyId/$journeyId") map { r =>
-      r \ "result" match {
+      (r \ "result").toOption.map( x => x match {
         case JsString("Success") => true
         case _ => false
-      }
+      }).getOrElse(false)
     }
   }
 }
