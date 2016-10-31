@@ -80,8 +80,7 @@ class UploadRatesBill @Inject() (val fileUploadConnector: FileUpload) extends Pr
 
   private def requestLink(implicit req: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(
-      req.ses.claimedProperty.uarn,
-      req.ses.claimedProperty.billingAuthorityReference, req.groupId,
+      req.ses.claimedProperty, req.groupId,
       req.ses.declaration.getOrElse(throw new Exception("No declaration")),
       java.util.UUID.randomUUID.toString, RatesBillFlag
     )
