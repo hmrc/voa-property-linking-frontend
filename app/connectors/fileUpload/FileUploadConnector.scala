@@ -15,6 +15,7 @@
  */
 
 package connectors.fileUpload
+
 import java.io.File
 import javax.inject.Inject
 
@@ -37,7 +38,8 @@ object NewEnvelope {
   implicit lazy val newEnvelope = Json.format[NewEnvelope]
 }
 
-case class RoutingRequest(envelopeId: String, application:String = "application/json", destination: String = "VOA_CCA")
+case class RoutingRequest(envelopeId: String, application: String = "application/json", destination: String = "VOA_CCA")
+
 object RoutingRequest {
   implicit lazy val routingRequest = Json.format[RoutingRequest]
 }
@@ -45,26 +47,28 @@ object RoutingRequest {
 @ImplementedBy(classOf[FileUploadConnector])
 trait FileUpload {
   def createEnvelope()(implicit hc: HeaderCarrier): Future[String]
+
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier)
+
   def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier)
 }
 
 @Singleton
-class FileUploadConnector @Inject() (val ws: WSClient)(implicit ec: ExecutionContext) extends FileUpload with ServicesConfig with JsonHttpReads {
-    lazy val http = Wiring().http
+class FileUploadConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionContext) extends FileUpload with ServicesConfig with JsonHttpReads {
+  lazy val http = Wiring().http
 
-    def createEnvelope()(implicit hc: HeaderCarrier): Future[String] = {
-      val url = if (Environment.isDev)
-        s"${System.getProperty("file-upload-backend")}/create-envelope"
-      else
-        s"${baseUrl("file-upload-backend")}/create-envelope"
-      val res = http.POSTEmpty[NewEnvelope](s"$url")
+  def createEnvelope()(implicit hc: HeaderCarrier): Future[String] = {
+    val url = if (Environment.isDev)
+      s"${System.getProperty("file-upload-backend")}/create-envelope"
+    else
+      s"${baseUrl("file-upload-backend")}/create-envelope"
+    val res = http.POSTEmpty[NewEnvelope](s"$url")
 
-      res map (envelope => {
-        Logger.debug(s"env id: ${envelope.envelopeId}")
-        envelope.envelopeId
-      })
-    }
+    res map (envelope => {
+      Logger.debug(s"env id: ${envelope.envelopeId}")
+      envelope.envelopeId
+    })
+  }
 
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier) = {
     val url = uploadFileToFusUrl(envelopeId, fileName)
@@ -73,20 +77,20 @@ class FileUploadConnector @Inject() (val ws: WSClient)(implicit ec: ExecutionCon
       .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromFile(file)) :: List()))
   }
 
-    def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier) = {
-      val url = if (Environment.isDev)
-        s"${System.getProperty("file-upload-backend")}/routing/requests"
-      else
-        s"${baseUrl("file-upload-backend")}/routing/requests"
-      http.POST[RoutingRequest, HttpResponse](url, RoutingRequest(envelopeId))
-        .map ( _=> () )
-        .recover {
-          case ex: HttpException => Logger.debug(s"${ex.responseCode}: ${ex.message}")
-        }
+  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier) = {
+    val url = if (Environment.isDev)
+      s"${System.getProperty("file-upload-backend")}/routing/requests"
+    else
+      s"${baseUrl("file-upload-backend")}/routing/requests"
+    http.POST[RoutingRequest, HttpResponse](url, RoutingRequest(envelopeId))
+      .map(_ => ())
+      .recover {
+        case ex: HttpException => Logger.debug(s"${ex.responseCode}: ${ex.message}")
+      }
 
   }
 
-  private def uploadFileToFusUrl(envelopeId:String,fileId:String):String =
+  private def uploadFileToFusUrl(envelopeId: String, fileId: String): String =
     if (Environment.isDev)
       s"${System.getProperty("file-upload-frontend")}/upload/envelopes/$envelopeId/files/$fileId"
     else
