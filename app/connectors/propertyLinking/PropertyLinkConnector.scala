@@ -16,7 +16,8 @@
 
 package connectors.propertyLinking
 
-import connectors.{CapacityDeclaration, LinkedProperties, PropertyLink, LinkBasis}
+import connectors.{CapacityDeclaration, LinkBasis, LinkedProperties, PropertyLink}
+import models.Property
 import org.joda.time.DateTime
 import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -28,12 +29,12 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
   extends ServicesConfig with JsonHttpReads {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  def linkToProperty(uarn: String, billingAuthorityRef: String, userId: String,
+  def linkToProperty(property: Property, userId: String,
                      capacityDeclaration: CapacityDeclaration, submissionId: String, basis: LinkBasis)
                     (implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = baseUrl + s"/property-links/$uarn/$userId/$submissionId"
-    val request = PropertyLink(uarn, userId, capacityDeclaration,
-      DateTime.now, basis)
+    val url = baseUrl + s"/property-links/${property.uarn}/$userId/$submissionId"
+    val request = PropertyLink(property.uarn, userId, capacityDeclaration,
+      DateTime.now, basis, property.specialCategoryCode, property.description, property.bulkClassIndicator  )
     http.POST[PropertyLink, HttpResponse](s"$url", request) map { _ => () }
   }
 

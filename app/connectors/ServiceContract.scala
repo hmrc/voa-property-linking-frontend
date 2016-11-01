@@ -22,7 +22,9 @@ import org.joda.time.DateTime
 case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)
 
 case class PropertyLink(uarn: String, userId: String, capacityDeclaration: CapacityDeclaration,
-                        linkedDate: DateTime, linkBasis: LinkBasis, pending: Boolean = true)
+                        linkedDate: DateTime, linkBasis: LinkBasis,
+                        specialCategoryCode: String, description: String, bulkClassIndicator: String,
+                        pending: Boolean = true)
 
 case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
 

@@ -61,8 +61,7 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
   }
 
   private def requestLink(implicit r: LinkingSessionRequest[AnyContent]) =
-    propertyLinkConnector.linkToProperty(r.ses.claimedProperty.uarn,
-      r.ses.claimedProperty.billingAuthorityReference,
+    propertyLinkConnector.linkToProperty(r.ses.claimedProperty,
       r.groupId, r.ses.declaration.getOrElse(throw new Exception("No declaration")),
       java.util.UUID.randomUUID.toString, OtherEvidenceFlag
     )

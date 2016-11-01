@@ -112,7 +112,7 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
     lazy val baRef = "sfku03802342"
     lazy val uarn = "uarn03802342"
     lazy val address = Address("leen1", "leen2", "leen3", "AA11 1AA")
-    lazy val property = Property(uarn, baRef, address, false, true)
+    lazy val property = Property(uarn, baRef, address, false, "SCAT", "description", "C")
     lazy val capacityDeclaration =  CapacityDeclaration(Owner,  DateTime.now(), None)
     lazy val session = LinkingSession(property, "envelopeId")
   }
