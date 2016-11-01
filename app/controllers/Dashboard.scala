@@ -83,7 +83,7 @@ trait Dashboard extends PropertyLinkingController {
     })
   }
 
-  private def shortAddress(uarn: String)(implicit hc: HeaderCarrier) = propConnector.find(uarn) map {
+  private def shortAddress(uarn: Long)(implicit hc: HeaderCarrier) = propConnector.find(uarn) map {
     case Some(p) => p.address.line1 + ", " + p.address.postcode
     case None => "No address found"
   }
@@ -93,10 +93,10 @@ object Dashboard extends Dashboard
 
 case class ManagePropertiesVM(properties: LinkedPropertiesRepresentations)
 
-case class PropertyLinkRepresentations(name: String, uarn: String, capacity: String, linkedDate: DateTime,
+case class PropertyLinkRepresentations(name: String, uarn: Long, capacity: String, linkedDate: DateTime,
                                        representations: Seq[PropertyRepresentation])
 
-case class PendingPropertyLinkRepresentations(name: String, uarn: String, capacity: String,
+case class PendingPropertyLinkRepresentations(name: String, uarn: Long, capacity: String,
                                               linkedDate: DateTime, representations: Seq[PropertyRepresentation])
 
 case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentations], pending: Seq[PendingPropertyLinkRepresentations])

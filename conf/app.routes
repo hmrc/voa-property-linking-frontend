@@ -26,7 +26,7 @@ GET         /manage-properties                                  controllers.Dash
 
 #Search and Link
 GET         /property-search                                    @controllers.Search.show()
-GET         /link-to-property/:uarn                             @controllers.Search.declareCapacity(uarn)
+GET         /link-to-property/:uarn                             @controllers.Search.declareCapacity(uarn: Long)
 POST        /link-to-property                                   @controllers.Search.attemptLink()
 
 #Link scenarios
@@ -46,13 +46,13 @@ GET         /manual-verification-required                       controllers.Link
 GET         /linking-conflict                                   controllers.LinkErrors.conflict()
 GET         /postcode-verification-required                     controllers.LinkErrors.postcodeVerificationRequired()
 
-GET         /representation-request/add/:uarn                   controllers.AppointAgentController.add(uarn)
-GET         /representation-request/edit/:uarn                  controllers.AppointAgentController.edit(uarn)
-GET         /representation-request/appoint/:uarn               controllers.AppointAgentController.appoint(uarn)
-POST        /representation-request/appoint/:uarn               controllers.AppointAgentController.appointSubmit(uarn)
-GET         /representation-request/modify/:uarn/:reprId        controllers.AppointAgentController.modify(uarn, reprId)
-POST        /representation-request/modify/:uarn/:reprId        controllers.AppointAgentController.modifySubmit(uarn, reprId)
-GET         /representation-request/select/:uarn                controllers.AppointAgentController.select(uarn)
+GET         /representation-request/add/:uarn                   controllers.AppointAgentController.add(uarn: Long)
+GET         /representation-request/edit/:uarn                  controllers.AppointAgentController.edit(uarn: Long)
+GET         /representation-request/appoint/:uarn               controllers.AppointAgentController.appoint(uarn: Long)
+POST        /representation-request/appoint/:uarn               controllers.AppointAgentController.appointSubmit(uarn: Long)
+GET         /representation-request/modify/:uarn/:reprId        controllers.AppointAgentController.modify(uarn: Long, reprId)
+POST        /representation-request/modify/:uarn/:reprId        controllers.AppointAgentController.modifySubmit(uarn: Long, reprId)
+GET         /representation-request/select/:uarn                controllers.AppointAgentController.select(uarn: Long)
 
 #AGENT
 #Dashboard

@@ -23,7 +23,7 @@ import models.Property
 import play.api.data.Form
 import play.api.mvc._
 import play.api.data.Forms._
-import session.{LinkingSession, LinkingSessionRequest, WithLinkingSession}
+import session.{LinkingSession, LinkingSessionRequest}
 import uk.gov.hmrc.play.http.HeaderCarrier
 import views.helpers.Errors
 
