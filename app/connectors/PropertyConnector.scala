@@ -26,7 +26,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  def find(uarn: String)(implicit hc: HeaderCarrier): Future[Option[Property]] =
+  def find(uarn: Long)(implicit hc: HeaderCarrier): Future[Option[Property]] =
     http.GET[Option[Property]](baseUrl + s"/properties/$uarn")
         .map(
           _.orElse(PrototypeTestData.pretendSearchResults.find(_.uarn == uarn)))
@@ -35,10 +35,10 @@ class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends Se
 }
 
 object PrototypeTestData {
-  lazy val selfCertProperty = Property( "uarn1",
+  lazy val selfCertProperty = Property( 123456,
     "testselfcertifiableshop", Address("1 The Self-cert non-bank street", "The Town", "", "AA11 1AA"), true, "scat", "description", "s"
   )
-  lazy val nonSelfCertProperty = Property( "uarn2",
+  lazy val nonSelfCertProperty = Property( 789123,
     "testnonselfcertifiableshop", Address("Non certifiable, some street", "The Town", "", "AA11 1AA"), false, "bank", "description", "C"
   )
   lazy val pretendSearchResults = Seq(

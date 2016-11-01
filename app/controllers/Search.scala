@@ -15,10 +15,10 @@
  */
 
 package controllers
+
 import javax.inject.Inject
-import auth.GGAction
+
 import config.Wiring
-import connectors.PrototypeTestData._
 import connectors.CapacityDeclaration
 import connectors.fileUpload.FileUploadConnector
 import form.EnumMapping
@@ -27,25 +27,26 @@ import models._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Result
+import uk.gov.hmrc.play.config.ServicesConfig
 
-class Search @Inject() (val fileUploadConnector: FileUploadConnector) extends PropertyLinkingController {
+class Search @Inject()(val fileUploadConnector: FileUploadConnector) extends PropertyLinkingController with ServicesConfig {
   lazy val sessionRepository = Wiring().sessionRepository
   lazy val connector = Wiring().propertyConnector
   lazy val ggAction = Wiring().ggAction
 
   def show() = ggAction { _ => implicit request =>
-    Ok(views.html.search(pretendSearchResults))
+    Redirect(s"${baseUrl("vmv-frontend")}/view-my-valuation/search")
   }
 
-  def declareCapacity(uarn: String) = ggAction.async { _ => implicit request =>
+  def declareCapacity(uarn: Long) = ggAction.async { _ => implicit request =>
     connector.find(uarn).flatMap {
       case Some(pd) =>
-       fileUploadConnector.createEnvelope().flatMap( envelopeId =>
-        sessionRepository.start(pd, envelopeId) map { _ =>
-      Ok(views.html.declareCapacity(DeclareCapacityVM(Search.declareCapacityForm, pd.address)))
-        }
-       )
-      case None => NotFound(views.html.defaultpages.notFound("TODOmethod", "TODO: URI"))
+        fileUploadConnector.createEnvelope().flatMap(envelopeId =>
+          sessionRepository.start(pd, envelopeId) map { _ =>
+            Ok(views.html.declareCapacity(DeclareCapacityVM(Search.declareCapacityForm, pd.address)))
+          }
+        )
+      case None => NotFound("Not found")
     }
   }
 

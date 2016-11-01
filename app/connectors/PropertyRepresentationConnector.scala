@@ -27,7 +27,7 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut)(implicit ec: E
   extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  def get(userId: String, uarn: String)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
+  def get(userId: String, uarn: Long)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
     val url = baseUrl + s"/property-representations/$userId/$uarn"
     http.GET[Seq[PropertyRepresentation]](url)
   }

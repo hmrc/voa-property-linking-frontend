@@ -21,14 +21,14 @@ import org.joda.time.DateTime
 
 case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)
 
-case class PropertyLink(uarn: String, userId: String, capacityDeclaration: CapacityDeclaration,
+case class PropertyLink(uarn: Long, userId: String, capacityDeclaration: CapacityDeclaration,
                         linkedDate: DateTime, linkBasis: LinkBasis,
                         specialCategoryCode: String, description: String, bulkClassIndicator: String,
                         pending: Boolean = true)
 
 case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
 
-case class PropertyRepresentation(representationId: String, agentId: String, userId: String, uarn: String,
+case class PropertyRepresentation(representationId: String, agentId: String, userId: String, uarn: Long,
                                   canCheck: Boolean, canChallenge: Boolean, pending: Boolean)
 
 

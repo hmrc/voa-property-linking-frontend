@@ -20,8 +20,8 @@ case class Address(line1: String, line2: String, line3: String, postcode: String
   override def toString = Seq(line1, line2, line3, postcode).filter(_.nonEmpty).mkString(", ")
 }
 
-case class Property(uarn: String, billingAuthorityReference: String, address: Address, isSelfCertifiable: Boolean,
-                    specialCategoryCode: String, description: String, bulkClassIndicator:String)
+case class Property(uarn: Long, billingAuthorityReference: String, address: Address, isSelfCertifiable: Boolean,
+                    specialCategoryCode: String, description: String, bulkClassIndicator: String)
 
 trait NamedEnum {
   def name:String
