@@ -17,7 +17,7 @@
 package forms
 
 import controllers.{UploadEvidence, UploadedEvidence}
-import models.{DoesHaveEvidence, HasEvidence}
+import models._
 import org.scalatest.{FlatSpec, MustMatchers}
 import utils.FormBindingVerification._
 
@@ -27,7 +27,7 @@ class EvidenceUploadForm extends FlatSpec with MustMatchers {
   behavior of "Evidence upload form"
 
   it should "bind to valid data" in {
-    mustBindTo(form, validData, UploadedEvidence(DoesHaveEvidence))
+    mustBindTo(form, validData, UploadedEvidence(DoesHaveEvidence, OtherUtilityBill))
   }
 
   it should "mandate a response to has evidence" in {
@@ -40,6 +40,6 @@ class EvidenceUploadForm extends FlatSpec with MustMatchers {
 
   object TestData {
     val form = UploadEvidence.form
-    val validData = Map("hasEvidence" -> DoesHaveEvidence.name)
+    val validData = Map("hasEvidence" -> DoesHaveEvidence.name, "evidenceType" -> OtherUtilityBill.name)
   }
 }

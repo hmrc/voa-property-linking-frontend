@@ -50,7 +50,7 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainRadioSelect("hasevidence", Seq("doeshaveevidence", "doesnothaveevidence"))
-    page.mustContainMultiFileInput("evidence")
+    page.mustContainFileInput("evidence")
   }
 
   it must "redirect to the evidence-submitted page if some evidence  has been uploaded" in {
@@ -61,7 +61,10 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
         MultipartFormData(
-          dataParts = Map("hasEvidence" -> Seq(DoesHaveEvidence.name)),
+          dataParts = Map(
+            "hasEvidence" -> Seq(DoesHaveEvidence.name),
+            "evidenceType" -> Seq(OtherUtilityBill.name)
+          ),
           files = Seq(
             FilePart("evidence", path, None, tmpFile)
           ),
@@ -78,7 +81,10 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
         MultipartFormData(
-          dataParts = Map("hasEvidence" -> Seq(DoesHaveEvidence.name)),
+          dataParts = Map(
+            "hasEvidence" -> Seq(DoesHaveEvidence.name),
+            "evidenceType" -> Seq(OtherUtilityBill.name)
+          ),
           files = Seq(),
           badParts = Seq.empty
         )
@@ -96,7 +102,10 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
         MultipartFormData(
-          dataParts = Map("hasEvidence" -> Seq(DoesNotHaveEvidence.name)), 
+          dataParts = Map(
+            "hasEvidence" -> Seq(DoesNotHaveEvidence.name),
+            "evidenceType" -> Seq(OtherUtilityBill.name)
+          ),
           files = Seq(),
           badParts = Seq.empty
         )

@@ -163,6 +163,15 @@ uploadEvidence.show.title=Submit further proof
 hasEvidence.label=You must provide further proof to show you have a valid connection to the property.
 hasEvidence.doeshaveevidence=I have further proof
 hasEvidence.doesnothaveevidence=I do not have any more proof
+evidenceType.label=Type of evidence
+evidenceType.lease=Lease
+evidenceType.license=License
+evidenceType.serviceCharge=Service charge
+evidenceType.stampDutyLandTaxForm=Stamp duty and land tax form
+evidenceType.waterRateDemand=Water rate demand
+evidenceType.otherUtilityBill=Other utility bill
+evidenceType.ratesBill=Rates bill
+
 evidence.label=Please upload evidence so that we can verify your link to the property.
 evidence.label.1=!File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
 error.evidenceUploadFiles=Only 3 files may be uploaded
@@ -171,7 +180,7 @@ uploadEvidence.show.button=Continue
 uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded
 uploadEvidence.evidenceUploaded.message=Thank you for your request which has been submitted to the Valuation Office Agency.
 uploadEvidence.noEvidenceUploaded.title=No evidence provided
-uploadEvidence.noEvidenceUploaded.message=Thank you for your request which has been submitted to the Valuation Office Agency.
+uploadEvidence.noEvidenceUploaded.message=You need to call us!!!
 uploadEvidence.noEvidenceUploaded.home.link=Manage your properties
 
 #LINK ERRORS

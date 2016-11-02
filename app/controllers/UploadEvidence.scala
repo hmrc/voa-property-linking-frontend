@@ -21,7 +21,7 @@ import config.{Environment, Wiring}
 import connectors.OtherEvidenceFlag
 import connectors.fileUpload.{FileUpload, FileUploadConnector}
 import form.EnumMapping
-import models.{DoesHaveEvidence, DoesNotHaveEvidence, HasEvidence}
+import models.{DoesHaveEvidence, DoesNotHaveEvidence, EvidenceType, HasEvidence}
 import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
@@ -47,26 +47,40 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
     UploadEvidence.form.bindFromRequest().fold(
       error => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(error))),
       uploaded => uploaded.hasEvidence match {
-        case DoesHaveEvidence => uploadIfNeeded flatMap { x =>
-          x match {
-          case FilesAccepted => requestLink.map(_ => Redirect(routes.UploadEvidence.evidenceUploaded()))
-          case FilesUploadFailed => BadRequest(
-            views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence", Errors.uploadedFiles))))
-          case FilesMissing => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence", Errors.missingFiles))))
+        case DoesHaveEvidence => {
+          val filePart = request.request.body.asMultipartFormData.get.file("evidence")
+          uploadIfNeeded(filePart) flatMap { x =>
+            x match {
+              case FilesAccepted =>
+                requestLink(filePart.map(_.filename).getOrElse("FilenameNotFound"), uploaded.evidenceType.name)
+                  .map(_ => Redirect(routes.UploadEvidence.evidenceUploaded()))
+              case FilesUploadFailed => BadRequest(
+                views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence", Errors.uploadedFiles))))
+              case FilesMissing => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence", Errors.missingFiles))))
+            }
           }
         }
-        case DoesNotHaveEvidence => requestLink.map(_ => Redirect(routes.UploadEvidence.noEvidenceUploaded()))
+        case DoesNotHaveEvidence => Redirect(routes.UploadEvidence.noEvidenceUploaded())
       }
     )
   }
 
-  private def requestLink(implicit r: LinkingSessionRequest[AnyContent]) =
+  private def requestLink(fileName: String, fileType: String)(implicit r: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(r.ses.claimedProperty,
       r.groupId, r.ses.declaration.getOrElse(throw new Exception("No declaration")),
-      java.util.UUID.randomUUID.toString, OtherEvidenceFlag
+      java.util.UUID.randomUUID.toString, OtherEvidenceFlag,fileName, fileType
     )
 
-  private def uploadIfNeeded(implicit request: LinkingSessionRequest[AnyContent]): Future[EvidenceUploadResult] = {
+  private def uploadIfNeeded(filePart: Option[FilePart[TemporaryFile]])
+                            (implicit request: LinkingSessionRequest[AnyContent]): Future[EvidenceUploadResult] = {
+    filePart.map(part => {
+      val envId = request.ses.envelopeId
+      val contentType = part.contentType.getOrElse("application/octet-stream")
+      fileUploadConnector.uploadFile(envId, part.filename, contentType,part.ref.file )
+        .map (_ => FilesAccepted )
+        .recover{ case _ => FilesUploadFailed}
+    }).getOrElse(Future.successful(FilesMissing))
+
     val files: Seq[FilePart[TemporaryFile]] = request.request.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence"))
     if (files.isEmpty) FilesMissing
     else {
@@ -100,13 +114,14 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
 }
 object UploadEvidence {
   lazy val form = Form(mapping(
-    "hasEvidence" -> EnumMapping(HasEvidence)
+    "hasEvidence" -> EnumMapping(HasEvidence),
+    "evidenceType" -> EnumMapping(EvidenceType)
   )(UploadedEvidence.apply)(UploadedEvidence.unapply))
 
 }
 
 
-case class UploadedEvidence(hasEvidence: HasEvidence)
+case class UploadedEvidence(hasEvidence: HasEvidence, evidenceType: EvidenceType)
 
 case class UploadEvidenceVM(form: Form[_])
 

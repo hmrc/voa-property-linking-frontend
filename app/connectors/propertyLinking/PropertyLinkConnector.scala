@@ -16,7 +16,7 @@
 
 package connectors.propertyLinking
 
-import connectors.{CapacityDeclaration, LinkBasis, LinkedProperties, PropertyLink}
+import connectors._
 import models.Property
 import org.joda.time.DateTime
 import serialization.JsonFormats._
@@ -30,12 +30,13 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
   def linkToProperty(property: Property, userId: String,
-                     capacityDeclaration: CapacityDeclaration, submissionId: String, basis: LinkBasis)
+                     capacityDeclaration: CapacityDeclaration, submissionId: String, basis: LinkBasis,
+                     fileName: String, fileType: String)
                     (implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-links/${property.uarn}/$userId/$submissionId"
-    val request = PropertyLink(property.uarn, userId, capacityDeclaration,
-      DateTime.now, basis, property.specialCategoryCode, property.description, property.bulkClassIndicator  )
-    http.POST[PropertyLink, HttpResponse](s"$url", request) map { _ => () }
+    val request = PropertyLinkRequest(property.uarn, userId, capacityDeclaration,
+      DateTime.now, basis, property.specialCategoryCode, property.description, property.bulkClassIndicator, fileName, fileType )
+    http.POST[PropertyLinkRequest, HttpResponse](s"$url", request) map { _ => () }
   }
 
   def linkedProperties(id: String)(implicit hc: HeaderCarrier): Future[LinkedProperties] = {
