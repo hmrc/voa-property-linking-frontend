@@ -18,7 +18,7 @@ package controllers
 
 import auth.GGAction
 import connectors.VPLAuthConnector
-import models.{Address, GroupAccount, IndividualAccount}
+import models.{Address, GroupAccount, IndividualAccount, IndividualDetails}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
@@ -55,7 +55,7 @@ class DashboardSpec extends ControllerSpec {
   "Logging in again with an account that has already registered" must "continue to the dashboard" in {
     StubAuthConnector.stubInternalId("has-account")
     StubUserDetails.stubGroupId("has-group-account")
-    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", "has-group-account"))
+    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", "has-group-account", IndividualDetails("fname", "lname", "aa@aa.aa", "123", None)))
     StubGroupAccountConnector.stubAccount(GroupAccount("has-group-account", "", Address("", "", "", ""), "", "", false, false))
 
     val res = TestDashboard.home()(request)
@@ -65,7 +65,7 @@ class DashboardSpec extends ControllerSpec {
   "Logging in with a group account that has registered as an agent" must "continue to the agent dashboard" in {
     StubAuthConnector.stubInternalId("has-account")
     StubUserDetails.stubGroupId("has-agent-account")
-    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", "has-agent-account"))
+    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", "has-agent-account", IndividualDetails("fname", "lname", "aa@aa.aa", "123", None)))
     StubGroupAccountConnector.stubAccount(GroupAccount("has-agent-account", "", Address("", "", "", ""), "", "", false, true))
 
     val res = TestDashboard.home()(request)

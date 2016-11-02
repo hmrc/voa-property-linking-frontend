@@ -27,6 +27,7 @@ trait CreateGroupAccount extends PropertyLinkingController {
   val userDetails = Wiring().userDetailsConnector
   val auth = Wiring().authConnector
   val ggAction = Wiring().ggAction
+  val keystore = Wiring().sessionCache
 
   def show = ggAction { _ => implicit request =>
     Ok(views.html.createAccount.group(form))
@@ -37,9 +38,10 @@ trait CreateGroupAccount extends PropertyLinkingController {
       errors => BadRequest(views.html.createAccount.group(errors)),
       formData => for {
         groupId <- userDetails.getGroupId(ctx)
-        userId <- auth.getInternalId(ctx)
+        userId <- auth.getExternalId(ctx)
+        details <- keystore.getIndividualDetails
         _ <- groups.create(groupId, formData)
-        _ <- individuals.create(IndividualAccount(userId, groupId))
+        _ <- individuals.create(IndividualAccount(userId, groupId, details))
       } yield {
         Redirect(routes.Dashboard.home)
       }

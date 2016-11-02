@@ -18,7 +18,7 @@ package connectors
 
 import config.ApplicationConfig
 import play.api.Logger
-import play.api.libs.json.{JsString, JsValue}
+import play.api.libs.json.{JsDefined, JsLookupResult, JsString, JsValue}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -33,10 +33,10 @@ class IdentityVerification(http: HttpGet with HttpPost) extends ServicesConfig {
 
   def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier) = {
     http.GET[JsValue](s"$url/mdtp/journey/journeyId/$journeyId") map { r =>
-      (r \ "result").toOption.map( x => x match {
-        case JsString("Success") => true
+      r \ "result" match {
+        case JsDefined(JsString("Success")) => true
         case _ => false
-      }).getOrElse(false)
+      }
     }
   }
 }

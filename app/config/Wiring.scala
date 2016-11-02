@@ -17,15 +17,16 @@
 package config
 
 import auth.GGAction
-import com.google.inject.ImplementedBy
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
+import models.{IVDetails, IndividualDetails, PersonalDetails}
+import play.api.libs.json.Reads
 import session.{LinkingSessionRepository, WithLinkingSession}
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
 import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
-import uk.gov.hmrc.play.http.{HttpDelete, HttpGet, HttpPost, HttpPut}
+import uk.gov.hmrc.play.http._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -53,10 +54,26 @@ abstract class Wiring {
   lazy val identityVerification = new IdentityVerification(http)
 }
 
-class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {
+class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete)(implicit ec: ExecutionContext) extends SessionCache with AppName with ServicesConfig {
   override def defaultSource: String = appName
   override def baseUri: String = baseUrl("cachable.session-cache")
   override def domain: String = getConfString("cachable.session-cache.domain", throw new Exception("No config setting for cache domain"))
+
+  def getIndividualDetails(implicit hc: HeaderCarrier) = getEntry[IndividualDetails]("individualDetails")
+  def getIvDetails(implicit hc: HeaderCarrier) = getEntry[IVDetails]("ivDetails")
+
+  def cachePersonalDetails(details: PersonalDetails)(implicit hc: HeaderCarrier) = {
+    for {
+      _ <- cache("ivDetails", details.ivDetails)
+      _ <- cache("individualDetails", details.individualDetails)
+    } yield {
+      ()
+    }
+  }
+
+  private def getEntry[T](formId: String)(implicit hc: HeaderCarrier, rds: Reads[T]) = {
+    fetchAndGetEntry(formId) map { _.getOrElse(throw new Exception(s"No keystore record found for $formId")) }
+  }
 }
 
 class WSHttp extends WSGet with WSPut with WSDelete with WSPost with HttpAuditing with AppName with RunMode {

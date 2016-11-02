@@ -17,9 +17,8 @@
 package controllers
 
 import config.Wiring
-import models.IndividualAccount
+import models.{IVDetails, IndividualAccount}
 import play.api.mvc.{Action, Request}
-import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.AuthContext
 import uk.gov.hmrc.play.http.SessionKeys
 
@@ -34,8 +33,11 @@ trait IdentityVerification extends PropertyLinkingController {
   val keystore = Wiring().sessionCache
   val identityVerification = Wiring().identityVerification
 
-  def show = ggAction { _ => implicit request =>
-    Ok(views.html.identityVerification.show())
+  def startIv = ggAction.async { _ => implicit request =>
+    keystore.fetchAndGetEntry[IVDetails]("ivDetails") map {
+      case Some(d) => Ok(views.html.identityVerification.start(StartIVVM(d, identityVerification.verifyUrl)))
+      case None => NotFound
+    }
   }
 
   def fail = Action { implicit request =>
@@ -43,7 +45,10 @@ trait IdentityVerification extends PropertyLinkingController {
   }
 
   def succeed = Action.async { implicit request =>
-    Redirect(routes.IdentityVerification.withRestoredSession).addingToSession(SessionKeys.authToken -> request.session.get("bearerToken").getOrElse(""))
+    Redirect(routes.IdentityVerification.withRestoredSession).addingToSession(
+      SessionKeys.authToken -> request.session.get("bearerToken").getOrElse(""),
+      SessionKeys.sessionId -> request.session.get("oldSessionId").getOrElse("")
+    )
   }
 
   def withRestoredSession = ggAction.async { implicit ctx => implicit request =>
@@ -57,13 +62,14 @@ trait IdentityVerification extends PropertyLinkingController {
   private def continue(implicit ctx: AuthContext, request: Request[_]) = {
     for {
       groupId <- userDetails.getGroupId(ctx)
-      userId <- auth.getInternalId(ctx)
+      userId <- auth.getExternalId(ctx)
       account <- groups.get(groupId)
+      details <- keystore.getIndividualDetails
       res <- account match {
-        case Some(acc) => individuals.create(IndividualAccount(userId, groupId)) map { _ =>
+        case Some(acc) => individuals.create(IndividualAccount(userId, groupId, details)) map { _ =>
           Redirect(routes.Dashboard.home)
         }
-        case None => Future.successful(Redirect(routes.CreateGroupAccount.show))
+        case _ => Future.successful(Redirect(routes.CreateGroupAccount.show))
       }
     } yield {
       res
@@ -72,3 +78,5 @@ trait IdentityVerification extends PropertyLinkingController {
 }
 
 object IdentityVerification extends IdentityVerification
+
+case class StartIVVM(data: IVDetails, url: String)

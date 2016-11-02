@@ -45,6 +45,11 @@ Example usage:
 		}
     }
 
+    @elements.args.get('_optional) match {
+        case Some(true) => { <span class="form-hint">@Messages("label.optional")</span> }
+        case _ => {}
+    }
+
     @elements.args.get('_nojsText).map { nojsText =>
             <p class="hidden">@nojsText</p>
     }

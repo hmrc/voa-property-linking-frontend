@@ -65,7 +65,7 @@ object WithAuthentication {
 
   def apply(body: AuthenticatedRequest[AnyContent] => Future[Result]) = ggAction.async { ctx => implicit request =>
     for {
-      userId <- auth.getInternalId(ctx)
+      userId <- auth.getExternalId(ctx)
       groupId <- userDetails.getGroupId(ctx)
       userAccount <- individuals.get(userId)
       groupAccount <- groups.get(groupId)

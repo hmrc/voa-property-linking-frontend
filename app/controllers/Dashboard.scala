@@ -19,6 +19,7 @@ package controllers
 import config.Wiring
 import connectors.{LinkedProperties, PropertyRepresentation}
 import org.joda.time.DateTime
+import play.api.Logger
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -35,7 +36,7 @@ trait Dashboard extends PropertyLinkingController {
 
   def home() = ggAction.async { ctx => implicit request =>
     for {
-      userId <- auth.getInternalId(ctx)
+      userId <- auth.getExternalId(ctx)
       groupId <- userDetails.getGroupId(ctx)
       individualAccount <- individuals.get(userId)
       groupAccount <- groups.get(groupId)
