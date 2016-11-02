@@ -45,7 +45,7 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "play-authorised-frontend" % "6.1.0",
     "uk.gov.hmrc" %% "play-config" % "3.0.0",
     "uk.gov.hmrc" %% "play-health" % playHealthVersion,
-    "uk.gov.hmrc" %% "logback-json-logger" % "3.0.0",
+    "uk.gov.hmrc" %% "play-json-logger" % "3.0.0",
     "uk.gov.hmrc" %% "play-ui" % playUiVersion
   )
 
