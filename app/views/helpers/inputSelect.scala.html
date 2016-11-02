@@ -1,0 +1,34 @@
+@***********************************
+
+Example usage:
+    @inputSelect(
+    field = model.form("bulkClassIndicator"),
+    Seq(("value-1", "text-value-1"),("value-2", "text-value-2"),("value-3", "text-value-3")),
+    true,
+    '_label -> "the label",
+    '_emptyValueText -> "Select a value",
+    '_labelClass -> "visuallyhidden",
+    '_selectClass -> "form-control"
+    )
+
+To do: errors
+
+***********************************@
+
+
+
+@import helper._
+
+@(field: play.api.data.Field, options: Seq[String], displayEmptyValue: Boolean, args: Seq[(Symbol,Any)])(implicit messages: Messages, requestHeader: RequestHeader)
+
+@input(field, args.map{ x => if(x._2 == '_label) '_name -> x._2 else x }:_*) { (id, name, value, htmlArgs) =>
+    <select id="@(id)" name="@(id)" class="@{args.toMap.get('_selectClass)}">
+        @if(displayEmptyValue) {
+            <option>@{args.toMap.get('_emptyValueText)}</option>
+        }
+        @options.map { v =>
+            <option id="@(id)-@{v.replaceAll(" ", "-")}" value="@v" @if(value.exists(_.toLowerCase == v)){ selected } >@Messages(s"$id.${v.replaceAll(" ", "")}")</option>
+        }
+    </select>
+
+}

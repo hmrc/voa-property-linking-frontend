@@ -22,7 +22,7 @@ import config.{Environment, Wiring}
 import connectors.RatesBillFlag
 import connectors.fileUpload.{FileUpload, FileUploadConnector}
 import form.EnumMapping
-import models.{DoesHaveRatesBill, DoesNotHaveRatesBill, HasRatesBill}
+import models._
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}
 import play.api.i18n.Messages
@@ -47,9 +47,11 @@ class UploadRatesBill @Inject() (val fileUploadConnector: FileUpload) extends Pr
   def submit() = withLinkingSession { implicit request =>
     UploadRatesBill.uploadRatesBillForm.bindFromRequest().fold(
       errors => BadRequest(views.html.uploadRatesBill.show(UploadRatesBillVM(errors))),
-      answer => uploadIfNeeded(answer) flatMap {
+      answer => {
+        val filePart = request.request.body.asMultipartFormData.get.file("ratesBill")
+        uploadIfNeeded(answer, filePart) flatMap {
         case RatesBillUploaded =>
-          requestLink map { _ => Redirect(routes.UploadRatesBill.ratesBillUploaded()) }
+          requestLink(filePart.map(_.filename).getOrElse("Filename")) map { _ => Redirect(routes.UploadRatesBill.ratesBillUploaded()) }
         case NoRatesBill =>
           Redirect(routes.UploadEvidence.show())
         case RatesBillMissing(s) =>
@@ -57,13 +59,16 @@ class UploadRatesBill @Inject() (val fileUploadConnector: FileUpload) extends Pr
             UploadRatesBillVM(UploadRatesBill.uploadRatesBillForm.fill(s).withError(FormError("ratesBill", Messages("uploadRatesBill.ratesBillMissing.error"))))
           ))
       }
+      }
     )
   }
 
-  private def uploadIfNeeded(answer: SubmitRatesBill)(implicit req: LinkingSessionRequest[AnyContent]): Future[RatesBillUploadResult] = {
+  private def uploadIfNeeded(answer: SubmitRatesBill,
+                             filePart: Option[FilePart[TemporaryFile]])
+                            (implicit req: LinkingSessionRequest[AnyContent]): Future[RatesBillUploadResult] = {
     answer.hasRatesBill match {
       case DoesHaveRatesBill =>
-        uploadFile(req.request.body.asMultipartFormData.get.file("ratesBill"), answer)
+        uploadFile(filePart, answer)
       case DoesNotHaveRatesBill => NoRatesBill
     }
   }
@@ -78,11 +83,11 @@ class UploadRatesBill @Inject() (val fileUploadConnector: FileUpload) extends Pr
     }).getOrElse(Future.successful(RatesBillMissing(answer)))
   }
 
-  private def requestLink(implicit req: LinkingSessionRequest[AnyContent]) =
+  private def requestLink(fileName: String)(implicit req: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(
       req.ses.claimedProperty, req.groupId,
       req.ses.declaration.getOrElse(throw new Exception("No declaration")),
-      java.util.UUID.randomUUID.toString, RatesBillFlag
+      java.util.UUID.randomUUID.toString, RatesBillFlag, fileName, RatesBillType.name
     )
 
   def ratesBillUploaded() = withLinkingSession { implicit request =>

@@ -33,12 +33,32 @@
                         )
                         <div id="evidenceFileUpload" data-toggle-hidden style="display: none;" class="form-group">
                             <div class="form-label-bold">@Messages("evidence.label")</div>
+                            <div>
                             <span class="">@Messages("evidence.label.1")</span>
-                            @inputFileMulti(
-                                field = model.form("evidence"),
-                                '_label -> "",
-                                '_labelClass -> "form-label-bold"
-                            )
+
+                                <div >
+                                    <div class="column-half">
+                                        @inputFile(
+                                            field = model.form("evidence"),
+                                            '_label -> "",
+                                            '_labelClass -> "form-label-bold"
+                                        )
+                                    </div>
+                                    <div class="column-half">
+                                        @inputSelect(
+                                            field = model.form("evidenceType"),
+                                            options = EvidenceType.options,
+                                            displayEmptyValue=false,
+                                            args = Seq(
+                                                '_label -> Messages("evidenceType.label"),
+                                                '_labelClass -> "form-label-bold",
+                                                '_error -> model.form("evidenceType").error
+                                            )
+                                        )
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </fieldset>
 

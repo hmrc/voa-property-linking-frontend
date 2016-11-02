@@ -30,7 +30,9 @@ class StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
   override def linkToProperty(property: Property,
                               userId: String,
                               capacityDeclaration: CapacityDeclaration,
-                              submissionId: String, flag:LinkBasis)(implicit hc: HeaderCarrier)= {
+                              submissionId: String, flag:LinkBasis,
+                              fileName: String, fileType: String
+                             )(implicit hc: HeaderCarrier)= {
     Future.successful( () )
   }
 
