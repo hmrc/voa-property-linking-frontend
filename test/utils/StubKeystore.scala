@@ -14,19 +14,22 @@
  * limitations under the License.
  */
 
-package connectors
+package utils
 
-import play.api.libs.json.JsValue
-import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.frontend.auth.AuthContext
-import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
+import config.VPLSessionCache
+import models.IndividualDetails
+import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
-class VPLAuthConnector(val http: HttpGet) extends AuthConnector with ServicesConfig {
-  override val serviceUrl: String = baseUrl("auth")
+import scala.concurrent.Future
 
-  def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier) = getIds[JsValue](ctx) map { r =>
-    (r \ "externalId").as[String]
+object StubKeystore extends VPLSessionCache(StubHttp) {
+  private var individualDetails: Option[IndividualDetails] = None
+
+  def stubIndividualDetails(details: IndividualDetails) = individualDetails = Some(details)
+  
+  override def getIndividualDetails(implicit hc: HeaderCarrier): Future[IndividualDetails] = individualDetails match {
+    case Some(d) => Future.successful(d)
+    case None => Future.failed(new Exception("individual details not stubbed"))
   }
 }

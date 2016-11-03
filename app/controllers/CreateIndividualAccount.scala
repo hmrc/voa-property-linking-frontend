@@ -18,16 +18,13 @@ package controllers
 
 import config.Wiring
 import form.Mappings._
-import models.IndividualDetails
-import org.joda.time.DateTime
+import models.PersonalDetails
 import play.api.data.Forms._
 import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
 import play.api.data.{Form, Mapping}
-import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
-import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
+import uk.gov.hmrc.play.http.SessionKeys
 
 trait CreateIndividualAccount extends PropertyLinkingController {
   val accounts = Wiring().individualAccountConnector
@@ -35,29 +32,26 @@ trait CreateIndividualAccount extends PropertyLinkingController {
   val keystore = Wiring().sessionCache
   val identityVerification = Wiring().identityVerification
 
-  def show = ggAction.async { ctx => implicit request =>
+  def show = ggAction { ctx => implicit request =>
     if (ctx.user.confidenceLevel >= ConfidenceLevel.L200) {
       Redirect(routes.CreateGroupAccount.show)
     } else {
       //TODO - temporary fix for PE-2543
-      Ok(views.html.createAccount.individual(form)).addingToSession("bearerToken" -> request.session.get(SessionKeys.authToken).getOrElse(""))
+      Ok(views.html.createAccount.individual(form))
+        .addingToSession(
+          "bearerToken" -> request.session.get(SessionKeys.authToken).getOrElse(""),
+          "oldSessionId" -> request.session.get(SessionKeys.sessionId).getOrElse("")
+        )
     }
   }
 
   def submit = ggAction.async { _ => implicit request =>
     form.bindFromRequest().fold(
       errors => BadRequest(views.html.createAccount.individual(errors)),
-      formData => keystore.cache("individualDetails", formData) map { _ =>
-        Redirect(routes.CreateIndividualAccount.startIv)
+      formData => keystore.cachePersonalDetails(formData) map { _ =>
+        Redirect(routes.IdentityVerification.startIv)
       }
     )
-  }
-
-  def startIv = ggAction.async { _ => implicit request =>
-    keystore.fetchAndGetEntry[IndividualDetails]("individualDetails") map {
-      case Some(d) => Ok(views.html.identityVerification.start(StartIVVM(form.fill(d), identityVerification.verifyUrl)))
-      case None => NotFound
-    }
   }
 
   lazy val keys = new {
@@ -65,14 +59,22 @@ trait CreateIndividualAccount extends PropertyLinkingController {
     val lastName = "lname"
     val dateOfBirth = "dob"
     val nino = "nino.nino"
+    val email = "email"
+    val confirmedEmail = "confirmedEmail"
+    val phone1 = "phone1"
+    val phone2 = "phone2"
   }
 
   lazy val form = Form(mapping(
     keys.firstName -> nonEmptyText,
     keys.lastName -> nonEmptyText,
     keys.dateOfBirth -> dmyDate,
-    keys.nino -> nino
-  )(IndividualDetails.apply)(IndividualDetails.unapply))
+    keys.nino -> nino,
+    keys.email -> email,
+    keys.confirmedEmail -> email,
+    keys.phone1 -> nonEmptyText,
+    keys.phone2 -> optional(text)
+  )(PersonalDetails.apply)(PersonalDetails.unapply))
 
   lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(Nino(_), _.nino)
 
@@ -87,5 +89,3 @@ trait CreateIndividualAccount extends PropertyLinkingController {
 object CreateIndividualAccount extends CreateIndividualAccount
 
 case class CreateIndividualAccountVM(form: Form[_])
-
-case class StartIVVM(form: Form[_], url: String)

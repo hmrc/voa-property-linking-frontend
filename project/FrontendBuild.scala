@@ -39,7 +39,7 @@ private object AppDependencies {
     "com.codahale.metrics" % "metrics-graphite" % "3.0.1",
     "com.google.guava" % "guava" % "18.0",
     "joda-time" % "joda-time" % "2.8.2",
-    "uk.gov.hmrc" %% "frontend-bootstrap" % "7.3.0",
+    "uk.gov.hmrc" %% "frontend-bootstrap" % "7.5.0",
     "uk.gov.hmrc" %% "govuk-template" % "5.0.0",
     "uk.gov.hmrc" %% "http-caching-client" % "6.0.0",
     "uk.gov.hmrc" %% "play-authorised-frontend" % "6.1.0",

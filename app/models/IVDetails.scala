@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-package connectors
+package models
 
-import play.api.libs.json.JsValue
-import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.frontend.auth.AuthContext
-import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import org.joda.time.DateTime
+import play.api.libs.json.Json
+import uk.gov.hmrc.domain.Nino
 
-class VPLAuthConnector(val http: HttpGet) extends AuthConnector with ServicesConfig {
-  override val serviceUrl: String = baseUrl("auth")
+case class IVDetails(firstName: String, lastName: String, dateOfBirth: DateTime, nino: Nino)
 
-  def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier) = getIds[JsValue](ctx) map { r =>
-    (r \ "externalId").as[String]
-  }
+object IVDetails {
+  implicit val formats = Json.format[IVDetails]
 }

@@ -25,6 +25,8 @@ label.createAccount.nino=National insurance number
 hint.dateOfBirth.format=For example, 13-01-1990
 error.nino.invalid=Invalid national insurance number
 dateOfBirth.label=Date of birth
+label.createAccount.confirmEmail=Confirm email address
+label.createAccount.alternatePhone=Alternative phone
 
 #IDENTITY VERIFICATION
 startIv.title=We need to confirm your identity
@@ -226,6 +228,7 @@ label.beta=BETA
 label.checkTheForm=Check the form
 label.fixTheFollowing=Fix the following:
 logout.link=Log out
+label.optional=Optional
 
 #DASHBOARD HOME
 agent.dashboard.home.title=Agent Dashboard Home

@@ -10,8 +10,7 @@ GET         /create-account                                     controllers.Crea
 POST        /create-account                                     controllers.CreateIndividualAccount.submit
 
 #Identity verification
-GET         /identity-verification                              controllers.IdentityVerification.show
-GET         /identity-verification/start                        controllers.CreateIndividualAccount.startIv
+GET         /identity-verification/start                        controllers.IdentityVerification.startIv
 GET         /identity-verification/failed                       controllers.IdentityVerification.fail
 GET         /identity-verification/success                      controllers.IdentityVerification.succeed
 GET         /identity-verification/restore-session              controllers.IdentityVerification.withRestoredSession

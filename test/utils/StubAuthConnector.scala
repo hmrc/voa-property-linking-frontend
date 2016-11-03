@@ -30,5 +30,5 @@ object StubAuthConnector extends VPLAuthConnector(StubHttp) {
     internalId = id
   }
 
-  override def getInternalId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(internalId)
+  override def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(internalId)
 }

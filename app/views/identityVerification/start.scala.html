@@ -1,7 +1,5 @@
-@import uk.gov.hmrc.play.views.html.helpers.form
-@import helpers._
 @import controllers.StartIVVM
-@import controllers.CreateIndividualAccount.keys
+@import uk.gov.hmrc.play.views.html.helpers.form
 
 @(model: StartIVVM)(implicit request: Request[_], messages: Messages)
     
@@ -13,47 +11,12 @@
 
                     @form(Call("POST", model.url)) {
 
-                        @inputText(
-                            field = model.form(keys.firstName),
-                            '_labelClass -> "visuallyhidden",
-                            'hidden -> "hidden",
-                            'readOnly -> "true"
-                        )
-
-                        @inputText(
-                            field = model.form(keys.lastName),
-                            '_labelClass -> "visuallyhidden",
-                            'hidden -> "hidden",
-                            'readOnly -> "true"
-                        )
-
-                        @inputText(
-                            field = model.form(s"${keys.dateOfBirth}.day"),
-                            '_labelClass -> "visuallyhidden",
-                            'hidden -> "hidden",
-                            'readOnly -> "true"
-                        )
-
-                        @inputText(
-                            field = model.form(s"${keys.dateOfBirth}.month"),
-                            '_labelClass -> "visuallyhidden",
-                            'hidden -> "hidden",
-                            'readOnly -> "true"
-                        )
-
-                        @inputText(
-                            field = model.form(s"${keys.dateOfBirth}.year"),
-                            '_labelClass -> "visuallyhidden",
-                            'hidden -> "hidden",
-                            'readOnly -> "true"
-                        )
-
-                        @inputText(
-                            field = model.form(keys.nino),
-                            '_labelClass -> "visuallyhidden",
-                            'hidden -> "hidden",
-                            'readOnly -> "true"
-                        )
+                        <input type="hidden" name="fname" value="@model.data.firstName"/>
+                        <input type="hidden" name="lname" value="@model.data.lastName"/>
+                        <input type="hidden" name="dob.day" value="@model.data.dateOfBirth.getDayOfMonth"/>
+                        <input type="hidden" name="dob.month" value="@model.data.dateOfBirth.getMonthOfYear"/>
+                        <input type="hidden" name="dob.year" value="@model.data.dateOfBirth.getYear"/>
+                        <input type="hidden" name="nino.nino" value="@model.data.nino"/>
 
                         <p>
                             <button type="submit" id="continue" class="button">@Messages("label.continue")</button>

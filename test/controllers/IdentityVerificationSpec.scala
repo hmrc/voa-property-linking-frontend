@@ -15,7 +15,7 @@
  */
 
 package controllers
-import models.{Address, GroupAccount}
+import models.{Address, GroupAccount, IndividualDetails}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.play.http.HeaderCarrier
@@ -30,10 +30,12 @@ class IdentityVerificationSpec extends ControllerSpec {
     override val auth = StubAuthConnector
     override val ggAction = StubGGAction
     override val identityVerification = StubIdentityVerification
+    override val keystore = StubKeystore
   }
 
   val request = FakeRequest()
   private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
+  StubKeystore.stubIndividualDetails(IndividualDetails("fname", "lname", "aa@aa.aa", "123", None))
 
   "Successfully verifying identity when the group does not have a CCA account" must
     "redirect to the create group account page, and not create an individual account" in {

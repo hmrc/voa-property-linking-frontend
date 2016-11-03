@@ -40,6 +40,39 @@
                         'class -> "form-control"
                     )
 
+                    @inputText(
+                        field = model.form(keys.email),
+                        '_label -> Messages("label.createAccount.email"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control"
+                    )
+
+                    @inputText(
+                        field = model.form(keys.confirmedEmail),
+                        '_label -> Messages("label.createAccount.confirmEmail"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control"
+                    )
+
+                    @inputText(
+                        field = model.form(keys.phone1),
+                        '_label -> Messages("label.createAccount.phone"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control"
+                    )
+
+                    @inputText(
+                        field = model.form(keys.phone2),
+                        '_label -> Messages("label.createAccount.alternatePhone"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control",
+                        '_optional -> true
+                    )
+
                     <p>
                         <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
                     </p>
