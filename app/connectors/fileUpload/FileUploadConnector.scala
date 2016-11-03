@@ -23,7 +23,7 @@ import akka.stream.scaladsl._
 import com.google.inject.{ImplementedBy, Singleton}
 import config.{Environment, Wiring}
 import play.api.Logger
-import play.api.libs.json.Json
+import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
 import play.api.mvc.MultipartFormData.FilePart
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -58,16 +58,9 @@ class FileUploadConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionCont
   lazy val http = Wiring().http
 
   def createEnvelope()(implicit hc: HeaderCarrier): Future[String] = {
-    val url = if (Environment.isDev)
-      s"${System.getProperty("file-upload-backend")}/create-envelope"
-    else
-      s"${baseUrl("file-upload-backend")}/create-envelope"
-    val res = http.POSTEmpty[NewEnvelope](s"$url")
-
-    res map (envelope => {
-      Logger.debug(s"env id: ${envelope.envelopeId}")
-      envelope.envelopeId
-    })
+    http.POST[JsValue, HttpResponse](s"${baseUrl("file-upload-backend")}/file-upload/envelopes", Json.obj()) map { r =>
+      r.header("location").flatMap { l => l.split("/").lastOption } getOrElse (throw new Exception("No envelope id"))
+    }
   }
 
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier) = {
@@ -78,10 +71,7 @@ class FileUploadConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionCont
   }
 
   def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier) = {
-    val url = if (Environment.isDev)
-      s"${System.getProperty("file-upload-backend")}/routing/requests"
-    else
-      s"${baseUrl("file-upload-backend")}/routing/requests"
+    val url = s"${baseUrl("file-upload-backend")}/routing/requests"
     http.POST[RoutingRequest, HttpResponse](url, RoutingRequest(envelopeId))
       .map(_ => ())
       .recover {
@@ -91,10 +81,7 @@ class FileUploadConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionCont
   }
 
   private def uploadFileToFusUrl(envelopeId: String, fileId: String): String =
-    if (Environment.isDev)
-      s"${System.getProperty("file-upload-frontend")}/upload/envelopes/$envelopeId/files/$fileId"
-    else
-      s"${baseUrl("file-upload-frontend")}/upload/envelopes/$envelopeId/files/$fileId"
+      s"${baseUrl("file-upload-frontend")}/envelopes/$envelopeId/files/$fileId"
 
 }
 

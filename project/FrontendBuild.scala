@@ -30,9 +30,6 @@ private object AppDependencies {
   import play.sbt.PlayImport._
   import play.core.PlayVersion
 
-  private val playHealthVersion = "2.0.0"
-  private val playUiVersion = "5.1.0"
-
   val compile = Seq(
     filters,
     ws,
@@ -44,9 +41,9 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "http-caching-client" % "6.0.0",
     "uk.gov.hmrc" %% "play-authorised-frontend" % "6.1.0",
     "uk.gov.hmrc" %% "play-config" % "3.0.0",
-    "uk.gov.hmrc" %% "play-health" % playHealthVersion,
+    "uk.gov.hmrc" %% "play-health" % "2.0.0",
     "uk.gov.hmrc" %% "play-json-logger" % "3.0.0",
-    "uk.gov.hmrc" %% "play-ui" % playUiVersion
+    "uk.gov.hmrc" %% "play-ui" % "5.1.0"
   )
 
   trait TestDependencies {
