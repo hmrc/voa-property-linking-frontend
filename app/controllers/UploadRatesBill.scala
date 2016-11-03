@@ -19,7 +19,7 @@ import javax.inject.Inject
 import java.nio.file.{Files, Paths}
 
 import config.{Environment, Wiring}
-import connectors.RatesBillFlag
+import connectors.{FileInfo, RatesBillFlag}
 import connectors.fileUpload.{FileUpload, FileUploadConnector}
 import form.EnumMapping
 import models._
@@ -87,13 +87,13 @@ class UploadRatesBill @Inject() (val fileUploadConnector: FileUpload) extends Pr
     propertyLinkConnector.linkToProperty(
       req.ses.claimedProperty, req.groupId,
       req.ses.declaration.getOrElse(throw new Exception("No declaration")),
-      java.util.UUID.randomUUID.toString, RatesBillFlag, fileName, RatesBillType.name
+      java.util.UUID.randomUUID.toString, RatesBillFlag, Some(FileInfo(fileName, RatesBillType.name))
     )
 
   def ratesBillUploaded() = withLinkingSession { implicit request =>
     fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap( _=>
       sessionRepository.remove().map( _ =>
-        Ok(views.html.uploadRatesBill.ratesBillUploaded())
+        Ok(views.html.linkingRequestSubmitted())
       )
     )
   }

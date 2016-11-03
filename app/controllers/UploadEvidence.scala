@@ -18,7 +18,7 @@ package controllers
 import javax.inject.Inject
 
 import config.{Environment, Wiring}
-import connectors.OtherEvidenceFlag
+import connectors.{FileInfo, OtherEvidenceFlag}
 import connectors.fileUpload.{FileUpload, FileUploadConnector}
 import form.EnumMapping
 import models.{DoesHaveEvidence, DoesNotHaveEvidence, EvidenceType, HasEvidence}
@@ -68,7 +68,7 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
   private def requestLink(fileName: String, fileType: String)(implicit r: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(r.ses.claimedProperty,
       r.groupId, r.ses.declaration.getOrElse(throw new Exception("No declaration")),
-      java.util.UUID.randomUUID.toString, OtherEvidenceFlag,fileName, fileType
+      java.util.UUID.randomUUID.toString, OtherEvidenceFlag, Some(FileInfo(fileName, fileType))
     )
 
   private def uploadIfNeeded(filePart: Option[FilePart[TemporaryFile]])
@@ -98,7 +98,7 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
   def evidenceUploaded() = withLinkingSession { implicit request =>
     fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap( _=>
       Wiring().sessionRepository.remove().map( _ =>
-        Ok(views.html.uploadEvidence.evidenceUploaded())
+        Ok(views.html.linkingRequestSubmitted())
       )
     )
   }

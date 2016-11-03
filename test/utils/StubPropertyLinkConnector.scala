@@ -17,7 +17,7 @@
 package utils
 
 import connectors.propertyLinking.PropertyLinkConnector
-import connectors.{CapacityDeclaration, LinkBasis}
+import connectors.{CapacityDeclaration, FileInfo, LinkBasis}
 import models.Property
 import uk.gov.hmrc.play.http.HeaderCarrier
 
@@ -31,7 +31,7 @@ class StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
                               userId: String,
                               capacityDeclaration: CapacityDeclaration,
                               submissionId: String, flag:LinkBasis,
-                              fileName: String, fileType: String
+                              fileInfo: Option[FileInfo]
                              )(implicit hc: HeaderCarrier)= {
     Future.successful( () )
   }

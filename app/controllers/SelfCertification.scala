@@ -49,12 +49,13 @@ object SelfCertification extends PropertyLinkingController {
   private def link(request: LinkingSessionRequest[_])(implicit hc: HeaderCarrier) =
     connector.linkToProperty(request.ses.claimedProperty, request.groupId,
       request.ses.declaration.getOrElse(throw new Exception("No declaration")),
-      java.util.UUID.randomUUID.toString, SelfCertifyFlag, "FIXME", "FIXME"
+      java.util.UUID.randomUUID.toString, SelfCertifyFlag,None
     )
 
   def linkAuthorised() = withLinkingSession { implicit request =>
     request.ses.selfCertifyComplete.contains(true) match {
-      case true => Ok(views.html.selfCertification.linkAuthorised(LinkAuthorisedVM(request.ses.claimedProperty)))
+      case true =>
+        Ok(views.html.linkingRequestSubmitted())
       case false => Redirect(routes.Dashboard.home())
     }
   }
