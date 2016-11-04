@@ -34,5 +34,5 @@ class GGAction(val authConnector: AuthConnector) extends Actions {
 object GovernmentGatewayProvider extends GovernmentGateway with ServicesConfig {
   override def additionalLoginParameters: Map[String, Seq[String]] = Map("accountType" -> Seq("organisation"))
   override def loginURL: String = ApplicationConfig.ggSignInUrl
-  override def continueURL = ApplicationConfig.baseUrl + controllers.routes.Dashboard.home().url
+  override def continueURL = ApplicationConfig.ggContinueUrl
 }

@@ -3,6 +3,7 @@ GET         /                                                   controllers.Appl
 
 #Registration
 GET         /login                                              controllers.Login.show
+GET         /register                                           controllers.Register.show
 GET         /logout                                             controllers.Application.logOut()
 
 #Create individual account
@@ -62,7 +63,6 @@ GET         /agent/representation-request/reject/:reprId        controllers.agen
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                       controllers.Assets.at(path="/public", file)
-
 
 #sample pages
 GET         /typography                                         controllers.Application.typography

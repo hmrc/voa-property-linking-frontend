@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package config
+package controllers
 
-import play.api.Play._
-import uk.gov.hmrc.play.config.RunMode
+import config.ApplicationConfig
+import play.api.mvc.Action
+import uk.gov.hmrc.play.config.ServicesConfig
 
-object ApplicationConfig extends RunMode {
+object Register extends PropertyLinkingController with ServicesConfig {
 
-  def baseUrl = if (env == "Prod") "" else "http://localhost:9523"
-  val ggSignInUrl = getConfig("gg-sign-in.url")
-  val ggRegistrationUrl = getConfig("gg-registration.url")
-  val ggContinueUrl = baseUrl + controllers.routes.Dashboard.home().url
-
-  private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
+  def show = Action { implicit request =>
+    Redirect(
+      ApplicationConfig.ggRegistrationUrl,
+      Map("accountType" -> Seq("organisation"), "continue" -> Seq(ApplicationConfig.ggContinueUrl), "origin" -> Seq("voa"))
+    )
+  }
 }
-
-private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")
