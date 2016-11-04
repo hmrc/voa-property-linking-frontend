@@ -150,15 +150,16 @@ uploadRatesBill.show.message=You must confirm your link to the property by uploa
 uploadRatesBill.show.hasRatesBill.label=Do you have a rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a rates bill
 uploadRatesBill.show.button=Confirm
-uploadRatesBill.ratesBillUploaded.title=Rates bill accepted
-uploadRatesBill.ratesBillUploaded.message=Thank you for your request which has been submitted to the Valuation Office Agency.
-uploadRatesBill.ratesBillUploaded.link=Manage your properties
 hasRatesBill.label=Please upload a rates bill as proof of connection
 hasRatesBill.doeshaveratesbill=I have a rates bill
 hasRatesBill.doesnothaveratesbill=I don’t have a rates bill
 ratesBill.label=Please upload a copy of the rates bill
 ratesBill.label.1=!File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
 uploadRatesBill.ratesBillMissing.error=Please select a rates bill
+
+linkingRequestSubmitted.title=Property linking request submitted
+linkingRequestSubmitted.message=Thank you for your request which has been submitted to the Valuation Office Agency.
+linkingRequestSubmitted.link=Manage your properties
 
 #UPLOAD EVIDENCE
 uploadEvidence.show.title=Submit further proof
