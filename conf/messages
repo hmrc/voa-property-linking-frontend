@@ -176,7 +176,7 @@ evidenceType.otherUtilityBill=Other utility bill
 evidenceType.ratesBill=Rates bill
 
 evidence.label=Please upload evidence so that we can verify your link to the property.
-evidence.label.1=!File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
+evidence.label.1=File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
 error.evidenceUploadFiles=Only 3 files may be uploaded
 error.missingFiles=Please upload some evidence.
 uploadEvidence.show.button=Continue

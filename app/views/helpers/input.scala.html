@@ -1,6 +1,7 @@
 @import views.html.helper._
 @import play.api.data._
 @import play.api.data.Forms._
+@import _root_.template.Helper._
 
 @**
  * Prepare a generic HTML input.
@@ -11,7 +12,7 @@
 
 @id = @{ args.toMap.get('id).map(_.toString).getOrElse(field.id) }
 
-@fieldConstructor(
+@myFields(
     FieldElements(
         id,
         field,

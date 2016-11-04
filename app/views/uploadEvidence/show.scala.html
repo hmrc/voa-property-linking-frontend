@@ -27,40 +27,34 @@
                             ),
                             args = Seq(
                                 '_label -> Messages("hasEvidence.label"),
-                                '_labelClass -> "form-label-bold",
-                                '_error -> model.form("hasEvidence").error
+                                '_labelClass -> "form-label-bold"
                             )
                         )
+
+                    </fieldset>
+
                         <div id="evidenceFileUpload" data-toggle-hidden style="display: none;" class="form-group">
                             <div class="form-label-bold">@Messages("evidence.label")</div>
-                            <div>
-                            <span class="">@Messages("evidence.label.1")</span>
+                            <p class="panel-indent">@Messages("evidence.label.1")</p>
 
-                                <div >
-                                    <div class="column-half">
-                                        @inputFile(
-                                            field = model.form("evidence"),
-                                            '_label -> "",
-                                            '_labelClass -> "form-label-bold"
-                                        )
-                                    </div>
-                                    <div class="column-half">
-                                        @inputSelect(
-                                            field = model.form("evidenceType"),
-                                            options = EvidenceType.options,
-                                            displayEmptyValue=false,
-                                            args = Seq(
-                                                '_label -> Messages("evidenceType.label"),
-                                                '_labelClass -> "form-label-bold",
-                                                '_error -> model.form("evidenceType").error
-                                            )
-                                        )
-                                    </div>
+                                @inputFile(
+                                    field = model.form("evidence"),
+                                    '_label -> "",
+                                    '_labelClass -> "form-label-bold"
+                                )
 
-                                </div>
-                            </div>
+                                @inputSelect(
+                                    field = model.form("evidenceType"),
+                                    options = EvidenceType.options,
+                                    displayEmptyValue = false,
+                                    args = Seq(
+                                        '_label -> Messages("evidenceType.label"),
+                                        '_labelClass -> "form-label-bold",
+                                        '_class -> "form-control"
+                                    )
+                                )
+
                         </div>
-                    </fieldset>
 
                     <button type="submit" class="button">@Messages("uploadEvidence.show.button")</button>
                 </div>
