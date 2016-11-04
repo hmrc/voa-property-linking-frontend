@@ -43,7 +43,7 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "play-config" % "3.0.0",
     "uk.gov.hmrc" %% "play-health" % "2.0.0",
     "uk.gov.hmrc" %% "play-json-logger" % "3.0.0",
-    "uk.gov.hmrc" %% "play-ui" % "5.1.0"
+    "uk.gov.hmrc" %% "play-ui" % "5.2.0"
   )
 
   trait TestDependencies {

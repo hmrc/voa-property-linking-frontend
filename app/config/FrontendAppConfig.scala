@@ -21,24 +21,12 @@ import play.api.Play.{configuration, current}
 import uk.gov.hmrc.play.config.ServicesConfig
 import ConfigHelper._
 
-trait AppConfig {
-  val assetsPrefix: String
-  val analyticsToken: String
-  val analyticsHost: String
-  //val reportAProblemPartialUrl: String
-  //val reportAProblemNonJSUrl: String
-}
-
-
-object FrontendAppConfig extends AppConfig with ServicesConfig {
+object FrontendAppConfig extends ServicesConfig {
   lazy val appName = mustGetConfigString(Play.current, "appName")
 
   private val contactHost = getConfigString(configuration, s"contact-frontend.host").getOrElse("")
-  private val contactFormServiceIdentifier = "MyService"
+  private val contactFormServiceIdentifier = "property-linking"
 
-  override lazy val assetsPrefix = mustGetConfigString(Play.current, s"assets.url") + mustGetConfigString(configuration, s"assets.version")
-  override lazy val analyticsToken = mustGetConfigString(Play.current, s"google-analytics.token")
-  override lazy val analyticsHost = mustGetConfigString(Play.current, s"google-analytics.host")
-  //override lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
-  //override lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
+  lazy val analyticsToken = mustGetConfigString(Play.current, s"google-analytics.token")
+  lazy val analyticsHost = mustGetConfigString(Play.current, s"google-analytics.host")
 }

@@ -9,7 +9,6 @@
   scriptElem: Option[Html] = None,showLogoutLink: Boolean = true)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
 @import uk.gov.hmrc.play.views.html.layouts
-@import config._
 
 @headScripts ={
     @views.html.includes.stylesheets()
@@ -35,8 +34,7 @@
     }
 }
 
-@govuk_wrapper(appConfig = FrontendAppConfig,
-               title = title,
+@govuk_wrapper(title = title,
                mainClass = mainClass,
                bodyClasses = bodyClasses,
                sidebar = sidebar,

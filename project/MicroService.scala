@@ -7,6 +7,7 @@ import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 import uk.gov.hmrc.versioning.SbtGitVersioning
 import play.sbt.routes.RoutesKeys.routesGenerator
+
 trait MicroService {
 
   import uk.gov.hmrc._
@@ -48,7 +49,7 @@ trait MicroService {
     .settings(inConfig(TemplateItTest)(Defaults.itSettings): _*)
     .settings(
       Keys.fork in IntegrationTest := false,
-      unmanagedSourceDirectories in IntegrationTest <<= (baseDirectory in IntegrationTest)(base => Seq(base / "it")),
+      unmanagedSourceDirectories in IntegrationTest <<= (baseDirectory in IntegrationTest) (base => Seq(base / "it")),
       addTestReportOption(IntegrationTest, "int-test-reports"),
       parallelExecution in IntegrationTest := false)
     .settings(resolvers ++= Seq(Resolver.bintrayRepo("hmrc", "releases"), Resolver.jcenterRepo))
