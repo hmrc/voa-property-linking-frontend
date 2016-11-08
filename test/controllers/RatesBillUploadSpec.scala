@@ -53,6 +53,7 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainRadioSelect("hasRatesBill", Seq("doeshaveratesbill", "doesnothaveratesbill"))
+    page.mustContainFileInput("ratesBill_")
   }
 
   it must "redirect to the rates-bill-submitted page if a bill has been uploaded" in {
@@ -65,7 +66,7 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
         MultipartFormData(
           dataParts = Map("hasRatesBill" -> Seq(DoesHaveRatesBill.name)),
           files = Seq(
-            FilePart("ratesBill", path, None, tmpFile)
+            FilePart("ratesBill[]", path, None, tmpFile)
           ),
           badParts = Seq.empty
         )
@@ -73,7 +74,7 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
     val res = TestUploadRatesBill.submit()(req)
     tmpFile.clean()
     status(res) mustBe SEE_OTHER
-    header("location", res).get mustEqual "/property-linking/rates-bill-submitted"
+    header("location", res).get.contains("/property-linking/rates-bill-submitted") mustBe true
   }
 
   it must "show an error if the user says he wants to submit a rates bill but doesn't" in {
@@ -90,7 +91,7 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
 
     page.mustContainSummaryErrors(("ratesBill", "Please upload a copy of the rates bill", "Please select a rates bill"))
-    page.mustContainFieldErrors(("ratesBill", "Please select a rates bill"))
+    page.mustContainFieldErrors(("ratesBill_", "Please select a rates bill"))
   }
 
   it must "indicate that the request has been submitted" in {

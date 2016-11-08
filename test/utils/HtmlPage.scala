@@ -27,6 +27,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   type Message = String
 
   def mustContainFileInput(id: String) {
+
     mustContain1(s"input#$id[type=file]")
   }
 

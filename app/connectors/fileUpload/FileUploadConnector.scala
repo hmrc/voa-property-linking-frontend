@@ -64,24 +64,22 @@ class FileUploadConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionCont
   }
 
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier) = {
-    val url = uploadFileToFusUrl(envelopeId, fileName)
+    val url = s"${baseUrl("file-upload-frontend")}/file-upload/upload/envelopes/$envelopeId/files/$fileName"
     val res = ws.url(url)
       .withHeaders(("X-Requested-With", "VOA_CCA"))
       .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromFile(file)) :: List()))
+    res
   }
 
   def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier) = {
-    val url = s"${baseUrl("file-upload-backend")}/routing/requests"
+    val url = s"${baseUrl("file-upload-backend")}/file-routing/requests"
     http.POST[RoutingRequest, HttpResponse](url, RoutingRequest(envelopeId))
       .map(_ => ())
       .recover {
-        case ex: HttpException => Logger.debug(s"${ex.responseCode}: ${ex.message}")
+        case ex: HttpException => Logger.error(s"${ex.responseCode}: ${ex.message}")
       }
 
   }
-
-  private def uploadFileToFusUrl(envelopeId: String, fileId: String): String =
-      s"${baseUrl("file-upload-frontend")}/envelopes/$envelopeId/files/$fileId"
 
 }
 

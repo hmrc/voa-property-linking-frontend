@@ -50,7 +50,7 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainRadioSelect("hasevidence", Seq("doeshaveevidence", "doesnothaveevidence"))
-    page.mustContainFileInput("evidence")
+    page.mustContainFileInput("evidence_")
   }
 
   it must "redirect to the evidence-submitted page if some evidence  has been uploaded" in {
@@ -66,7 +66,7 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
             "evidenceType" -> Seq(OtherUtilityBill.name)
           ),
           files = Seq(
-            FilePart("evidence", path, None, tmpFile)
+            FilePart("evidence[]", path, None, tmpFile)
           ),
           badParts = Seq.empty
         )
@@ -74,7 +74,7 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     val res = TestUploadEvidence.submit()(req)
     tmpFile.clean()
     status(res) mustBe SEE_OTHER
-    header("location", res).get mustEqual "/property-linking/evidence-uploaded"
+    header("location", res).get.contains("/property-linking/evidence-uploaded") mustBe true
   }
 
   it must "show an error if the user says he wants to submit further evidence but doesn't" in {
@@ -94,7 +94,7 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
 
     page.mustContainSummaryErrors(("evidence", "Please upload evidence so that we can verify your link to the property.", "Please upload some evidence."))
-    page.mustContainFieldErrors(("evidence", "Please upload some evidence."))
+    page.mustContainFieldErrors(("evidence_", "Please upload some evidence."))
   }
 
 

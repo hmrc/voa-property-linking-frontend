@@ -48,7 +48,7 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
       error => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(error))),
       uploaded => uploaded.hasEvidence match {
         case DoesHaveEvidence => {
-          val filePart = request.request.body.asMultipartFormData.get.file("evidence[]")
+          val filePart = request.request.body.asMultipartFormData.get.file("evidence[]").flatMap( x => if (x.filename.isEmpty) None else Some(x))
           uploadIfNeeded(filePart) flatMap { x =>
             x match {
               case FilesAccepted =>
@@ -58,7 +58,8 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
                   .map(_ => Redirect(routes.UploadEvidence.evidenceUploaded()))
               case FilesUploadFailed => BadRequest(
                 views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", Errors.uploadedFiles))))
-              case FilesMissing => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", Errors.missingFiles))))
+              case FilesMissing => BadRequest(views.html.uploadEvidence.show(
+                UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", Errors.missingFiles))))
             }
           }
         }
@@ -86,20 +87,9 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
       fileUploadConnector.uploadFile(envId, part.filename, contentType,part.ref.file )
         .map (_ => FilesAccepted )
         .recover{ case _ => FilesUploadFailed}
-    }).getOrElse(Future.successful(FilesMissing))
-
-    val files: Seq[FilePart[TemporaryFile]] = request.request.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence[]"))
-    if (files.isEmpty) FilesMissing
-    else {
-      val res = Future.sequence(files.map( filepart => {
-        val envId = request.ses.envelopeId
-        val contentType = filepart.contentType.getOrElse("application/octet-stream")
-        fileUploadConnector.uploadFile(envId, filepart.filename, contentType,filepart.ref.file)
-          .map(_ =>FilesAccepted)
-          .recover{case _ => FilesUploadFailed}
-      }))
-      res.map(results => if (results.contains(FilesUploadFailed)) FilesUploadFailed else FilesAccepted)
-    }
+    }).getOrElse(
+      Future.successful(FilesMissing)
+    )
   }
 
   def evidenceUploaded() = withLinkingSession { implicit request =>
