@@ -33,7 +33,6 @@ POST        /link-to-property                                   @controllers.Sea
 GET         /self-certify                                       controllers.SelfCertification.show()
 POST        /confirm-self-certify                               controllers.SelfCertification.submit()
 GET         /upload-rates-bill                                  @controllers.UploadRatesBill.show()
-GET         /upload-rates-bill-js                               @controllers.UploadRatesBill.show()
 POST        /upload-rates-bill                                  @controllers.UploadRatesBill.submit()
 GET         /upload-evidence                                    @controllers.UploadEvidence.show()
 POST        /upload-evidence                                    @controllers.UploadEvidence.submit()
