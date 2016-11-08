@@ -17,6 +17,8 @@
 
                         @includes.errorSummary(model.form)
 
+                        <fieldset class="inline form-group">
+
                             @inputRadioGroup(
                                 field = model.form("hasRatesBill"),
                                 options = HasRatesBill.options,
@@ -26,22 +28,20 @@
                                 args = Seq(
                                 '_label -> Messages("hasRatesBill.label"),
                                 '_labelClass -> "form-label-bold",
-                                '_error -> model.form("hasRatesBill").error,
-                                '_legend -> true,
-                                '_fieldsetClass -> "inline"
+                                '_error -> model.form("hasRatesBill").error
                                 )
                             )
-
-                        <div class="form-group" id="ratesBillUpload" data-toggle-hidden >
-                            @inputFile(
-                                field = model.form("ratesBill[]"),
-                                '_label -> Messages("ratesBill.label"),
-                                '_labelClass -> "form-label-bold",
-                                'class -> "filer_input",
-                                '_help -> Messages("ratesBill.label.1")
-                            )
-                        </div>
-
+                            <div class="form-group" id="ratesBillUpload" data-toggle-hidden style="display: none;">
+                                <div class="form-label-bold">@Messages("ratesBill.label")</div>
+                                <p class="">@Messages("ratesBill.label.1")</p>
+                                @inputFile(
+                                    field = model.form("ratesBill"),
+                                    '_label ->"",
+                                    '_labelClass -> "form-label-bold",
+                                    'class -> "filer_input"
+                                )
+                            </div>
+                        </fieldset>
                         <button type="submit" class="button">@Messages("uploadRatesBill.show.button")</button>
                 </div>
             </div>

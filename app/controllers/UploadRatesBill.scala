@@ -48,7 +48,7 @@ class UploadRatesBill @Inject() (val fileUploadConnector: FileUpload) extends Pr
     UploadRatesBill.uploadRatesBillForm.bindFromRequest().fold(
       errors => BadRequest(views.html.uploadRatesBill.show(UploadRatesBillVM(errors))),
       answer => {
-        val filePart = request.request.body.asMultipartFormData.get.file("ratesBill")
+        val filePart = request.request.body.asMultipartFormData.get.file("ratesBill[]")
         uploadIfNeeded(answer, filePart) flatMap {
         case RatesBillUploaded =>
           requestLink(filePart.map(_.filename).getOrElse("Filename")) map { _ => Redirect(routes.UploadRatesBill.ratesBillUploaded()) }
@@ -56,7 +56,7 @@ class UploadRatesBill @Inject() (val fileUploadConnector: FileUpload) extends Pr
           Redirect(routes.UploadEvidence.show())
         case RatesBillMissing(s) =>
           BadRequest(views.html.uploadRatesBill.show(
-            UploadRatesBillVM(UploadRatesBill.uploadRatesBillForm.fill(s).withError(FormError("ratesBill", Messages("uploadRatesBill.ratesBillMissing.error"))))
+            UploadRatesBillVM(UploadRatesBill.uploadRatesBillForm.fill(s).withError(FormError("ratesBill[]", Messages("uploadRatesBill.ratesBillMissing.error"))))
           ))
       }
       }
@@ -115,4 +115,3 @@ sealed trait RatesBillUploadResult
 case object RatesBillUploaded extends RatesBillUploadResult
 case object NoRatesBill extends RatesBillUploadResult
 case class RatesBillMissing(s: SubmitRatesBill) extends RatesBillUploadResult
-
