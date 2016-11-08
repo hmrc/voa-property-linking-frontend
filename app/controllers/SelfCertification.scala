@@ -42,7 +42,7 @@ object SelfCertification extends PropertyLinkingController {
       conf => for {
         _ <- link(request)
         _ <- repo.saveOrUpdate(request.ses.copy(selfCertifyComplete = Some(true)))
-      } yield Redirect(routes.SelfCertification.linkAuthorised())
+      } yield Redirect(routes.SelfCertification.selfCertified())
     )
   }
 
@@ -52,7 +52,7 @@ object SelfCertification extends PropertyLinkingController {
       java.util.UUID.randomUUID.toString, SelfCertifyFlag,None
     )
 
-  def linkAuthorised() = withLinkingSession { implicit request =>
+  def selfCertified() = withLinkingSession { implicit request =>
     request.ses.selfCertifyComplete.contains(true) match {
       case true =>
         Ok(views.html.linkingRequestSubmitted())

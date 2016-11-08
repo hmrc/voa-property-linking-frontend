@@ -38,10 +38,10 @@ GET         /upload-evidence                                    @controllers.Upl
 POST        /upload-evidence                                    @controllers.UploadEvidence.submit()
 
 #Linking outcomes
-GET         /self-certification-link-submitted                  controllers.SelfCertification.linkAuthorised()
+GET         /self-certification-link-submitted                  controllers.SelfCertification.selfCertified()
 GET         /rates-bill-submitted                               @controllers.UploadRatesBill.ratesBillUploaded()
 GET         /evidence-uploaded                                  @controllers.UploadEvidence.evidenceUploaded()
-GET         /no-evidence-uploaded                               @controllers.UploadEvidence.noEvidenceUploaded()
+GET         /no-evidence-uploaded/:refId                        @controllers.UploadEvidence.noEvidenceUploaded(refId: String)
 GET         /manual-verification-required                       controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                   controllers.LinkErrors.conflict()
 GET         /postcode-verification-required                     controllers.LinkErrors.postcodeVerificationRequired()

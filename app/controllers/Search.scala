@@ -24,6 +24,7 @@ import connectors.fileUpload.FileUploadConnector
 import form.EnumMapping
 import form.Mappings.{dmyDate, dmyPastDate}
 import models._
+import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Result
@@ -41,10 +42,12 @@ class Search @Inject()(val fileUploadConnector: FileUploadConnector) extends Pro
   def declareCapacity(uarn: Long) = ggAction.async { _ => implicit request =>
     connector.find(uarn).flatMap {
       case Some(pd) =>
-        fileUploadConnector.createEnvelope().flatMap(envelopeId =>
+        fileUploadConnector.createEnvelope().flatMap(envelopeId => {
+          Logger.debug(s"env id: ${envelopeId}")
           sessionRepository.start(pd, envelopeId) map { _ =>
             Ok(views.html.declareCapacity(DeclareCapacityVM(Search.declareCapacityForm, pd.address)))
           }
+        }
         )
       case None => NotFound("Not found")
     }

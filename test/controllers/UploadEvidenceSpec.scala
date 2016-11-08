@@ -112,7 +112,7 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
       ).withSession(token)
     val res = TestUploadEvidence.submit()(req)
     status(res) mustBe SEE_OTHER
-    header("location", res).get mustEqual "/property-linking/no-evidence-uploaded"
+    header("location", res).get.contains("/property-linking/no-evidence-uploaded") mustBe true
   }
 
   object TestData {

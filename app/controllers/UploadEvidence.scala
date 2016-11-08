@@ -18,7 +18,7 @@ package controllers
 import javax.inject.Inject
 
 import config.{Environment, Wiring}
-import connectors.{FileInfo, OtherEvidenceFlag}
+import connectors.{FileInfo, LinkBasis, NoEvidenceFlag, OtherEvidenceFlag}
 import connectors.fileUpload.{FileUpload, FileUploadConnector}
 import form.EnumMapping
 import models.{DoesHaveEvidence, DoesNotHaveEvidence, EvidenceType, HasEvidence}
@@ -52,7 +52,9 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
           uploadIfNeeded(filePart) flatMap { x =>
             x match {
               case FilesAccepted =>
-                requestLink(filePart.map(_.filename).getOrElse("FilenameNotFound"), uploaded.evidenceType.name)
+                val fileInfo = FileInfo(filePart.map(_.filename).getOrElse("FilenameNotFound"), uploaded.evidenceType.name)
+                val refId = java.util.UUID.randomUUID.toString
+                requestLink(refId, OtherEvidenceFlag, Some(fileInfo))
                   .map(_ => Redirect(routes.UploadEvidence.evidenceUploaded()))
               case FilesUploadFailed => BadRequest(
                 views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence", Errors.uploadedFiles))))
@@ -60,15 +62,20 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
             }
           }
         }
-        case DoesNotHaveEvidence => Redirect(routes.UploadEvidence.noEvidenceUploaded())
+        case DoesNotHaveEvidence => {
+          val refId = java.util.UUID.randomUUID.toString
+          requestLink(refId, NoEvidenceFlag, None)
+            .map( _ => Redirect(routes.UploadEvidence.noEvidenceUploaded(refId))
+            )
+        }
       }
     )
   }
 
-  private def requestLink(fileName: String, fileType: String)(implicit r: LinkingSessionRequest[AnyContent]) =
+  private def requestLink(refId: String, linkBasis: LinkBasis, fileInfo: Option[FileInfo])(implicit r: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(r.ses.claimedProperty,
       r.groupId, r.ses.declaration.getOrElse(throw new Exception("No declaration")),
-      java.util.UUID.randomUUID.toString, OtherEvidenceFlag, Some(FileInfo(fileName, fileType))
+      refId, linkBasis, fileInfo
     )
 
   private def uploadIfNeeded(filePart: Option[FilePart[TemporaryFile]])
@@ -103,10 +110,10 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
     )
   }
 
-  def noEvidenceUploaded() = withLinkingSession { implicit request =>
+  def noEvidenceUploaded(refId: String) = withLinkingSession { implicit request =>
     fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap( _=>
       Wiring().sessionRepository.remove().map( _ =>
-        Ok(views.html.uploadEvidence.noEvidenceUploaded())
+        Ok(views.html.uploadEvidence.noEvidenceUploaded(refId))
       )
     )
   }

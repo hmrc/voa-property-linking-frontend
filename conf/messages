@@ -184,6 +184,7 @@ uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded
 uploadEvidence.evidenceUploaded.message=Thank you for your request which has been submitted to the Valuation Office Agency.
 uploadEvidence.noEvidenceUploaded.title=No evidence provided
 uploadEvidence.noEvidenceUploaded.message=You need to call us!!!
+uploadEvidence.noEvidenceUploaded.referenceId=Please quote the following reference: {0}
 uploadEvidence.noEvidenceUploaded.home.link=Manage your properties
 
 #LINK ERRORS
