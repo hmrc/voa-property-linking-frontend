@@ -12,6 +12,7 @@
 
     VOA.VoaModules = function(){
         new VOA.RadioToggleFields();
+        new VOA.JqueryFiler();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));

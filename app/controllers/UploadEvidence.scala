@@ -48,7 +48,7 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
       error => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(error))),
       uploaded => uploaded.hasEvidence match {
         case DoesHaveEvidence => {
-          val filePart = request.request.body.asMultipartFormData.get.file("evidence")
+          val filePart = request.request.body.asMultipartFormData.get.file("evidence[]")
           uploadIfNeeded(filePart) flatMap { x =>
             x match {
               case FilesAccepted =>
@@ -57,8 +57,8 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
                 requestLink(refId, OtherEvidenceFlag, Some(fileInfo))
                   .map(_ => Redirect(routes.UploadEvidence.evidenceUploaded()))
               case FilesUploadFailed => BadRequest(
-                views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence", Errors.uploadedFiles))))
-              case FilesMissing => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence", Errors.missingFiles))))
+                views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", Errors.uploadedFiles))))
+              case FilesMissing => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", Errors.missingFiles))))
             }
           }
         }
@@ -88,7 +88,7 @@ class UploadEvidence @Inject() (val fileUploadConnector: FileUpload) extends Pro
         .recover{ case _ => FilesUploadFailed}
     }).getOrElse(Future.successful(FilesMissing))
 
-    val files: Seq[FilePart[TemporaryFile]] = request.request.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence"))
+    val files: Seq[FilePart[TemporaryFile]] = request.request.body.asMultipartFormData.get.files.filter(_.key.startsWith("evidence[]"))
     if (files.isEmpty) FilesMissing
     else {
       val res = Future.sequence(files.map( filepart => {

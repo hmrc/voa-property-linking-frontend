@@ -17,8 +17,6 @@
 
                     @includes.errorSummary(model.form)
 
-                    <fieldset class="inline form-group">
-
                         @inputRadioGroup(
                             field = model.form("hasEvidence"),
                             options = HasEvidence.options,
@@ -27,20 +25,20 @@
                             ),
                             args = Seq(
                                 '_label -> Messages("hasEvidence.label"),
-                                '_labelClass -> "form-label-bold"
+                                '_labelClass -> "form-label-bold",
+                                '_legend -> true,
+                                '_fieldsetClass -> "inline"
                             )
                         )
 
-                    </fieldset>
-
-                        <div id="evidenceFileUpload" data-toggle-hidden style="display: none;" class="form-group">
-                            <div class="form-label-bold">@Messages("evidence.label")</div>
-                            <p class="panel-indent">@Messages("evidence.label.1")</p>
+                        <div id="evidenceFileUpload" data-toggle-hidden>
 
                                 @inputFile(
-                                    field = model.form("evidence"),
-                                    '_label -> "",
-                                    '_labelClass -> "form-label-bold"
+                                    field = model.form("evidence[]"),
+                                    '_label -> Messages("evidence.label"),
+                                    '_labelClass -> "form-label-bold",
+                                    '_help -> Messages("evidence.label.1"),
+                                    'class -> "filer_input"
                                 )
 
                                 @inputSelect(

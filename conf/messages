@@ -154,7 +154,7 @@ hasRatesBill.label=Please upload a rates bill as proof of connection
 hasRatesBill.doeshaveratesbill=I have a rates bill
 hasRatesBill.doesnothaveratesbill=I don’t have a rates bill
 ratesBill.label=Please upload a copy of the rates bill
-ratesBill.label.1=!File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
+ratesBill.label.1=File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
 uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 
 linkingRequestSubmitted.title=Property linking request submitted
