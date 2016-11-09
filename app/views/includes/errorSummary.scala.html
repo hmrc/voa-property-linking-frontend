@@ -4,8 +4,8 @@
 
     @showError(error: FormError) = {
         <li>
-            <a href="#@error.key.replace("[", "_").replace(".", "_").replace("]", "_").replace("__", "_")">
-                <span>@Html(Messages(messagePrefix.map(_ + ".").getOrElse("") + error.key + ".label"))</span> - @Messages(stripIndices(error.message), error.args: _*)
+            <a href="#@error.key.replace("[", "").replace(".", "").replace("]", "").replace("__", "")">
+                <span>@Html(Messages(messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "") + ".label"))</span> - @Messages(stripIndices(error.message), error.args: _*)
             </a>
         </li>
     }

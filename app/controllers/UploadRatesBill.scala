@@ -48,7 +48,7 @@ class UploadRatesBill @Inject() (val fileUploadConnector: FileUpload) extends Pr
     UploadRatesBill.uploadRatesBillForm.bindFromRequest().fold(
       errors => BadRequest(views.html.uploadRatesBill.show(UploadRatesBillVM(errors))),
       answer => {
-        val filePart = request.request.body.asMultipartFormData.get.file("ratesBill")
+        val filePart = request.request.body.asMultipartFormData.get.file("ratesBill[]").flatMap( x => if (x.filename.isEmpty) None else Some(x))
         uploadIfNeeded(answer, filePart) flatMap {
         case RatesBillUploaded =>
           requestLink(filePart.map(_.filename).getOrElse("Filename")) map { _ => Redirect(routes.UploadRatesBill.ratesBillUploaded()) }
@@ -56,7 +56,8 @@ class UploadRatesBill @Inject() (val fileUploadConnector: FileUpload) extends Pr
           Redirect(routes.UploadEvidence.show())
         case RatesBillMissing(s) =>
           BadRequest(views.html.uploadRatesBill.show(
-            UploadRatesBillVM(UploadRatesBill.uploadRatesBillForm.fill(s).withError(FormError("ratesBill", Messages("uploadRatesBill.ratesBillMissing.error"))))
+            UploadRatesBillVM(UploadRatesBill.uploadRatesBillForm.fill(s).withError(
+              FormError("""ratesBill[]""", Messages("uploadRatesBill.ratesBillMissing.error"))))
           ))
       }
       }
@@ -77,7 +78,8 @@ class UploadRatesBill @Inject() (val fileUploadConnector: FileUpload) extends Pr
     file.map(filepart => {
       val envId = request.ses.envelopeId
       val contentType = filepart.contentType.getOrElse("application/octet-stream")
-      fileUploadConnector.uploadFile(envId, filepart.filename, contentType,filepart.ref.file ) map (_ =>
+      fileUploadConnector.uploadFile(envId, filepart.filename, contentType,filepart.ref.file ) map (x =>
+
         RatesBillUploaded
         )
     }).getOrElse(Future.successful(RatesBillMissing(answer)))
@@ -115,4 +117,3 @@ sealed trait RatesBillUploadResult
 case object RatesBillUploaded extends RatesBillUploadResult
 case object NoRatesBill extends RatesBillUploadResult
 case class RatesBillMissing(s: SubmitRatesBill) extends RatesBillUploadResult
-

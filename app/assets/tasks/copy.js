@@ -23,6 +23,13 @@ gulp.task('copy:icons', function () {
 });
 
 
+// Copy fonts
+gulp.task('copy:fonts', function () {
+    return gulp.src(['./fonts/*.*'])
+        .pipe(gulp.dest('../../public/stylesheets'));
+});
+
+
 // Copy public html
 gulp.task('copy:publicHtml', function () {
     return gulp.src(['./public-folder/*.*'])
@@ -31,4 +38,4 @@ gulp.task('copy:publicHtml', function () {
 
 
 // Run copy task
-gulp.task('copy', [ 'copy:govuk_template_mustache','copy:jquery','copy:icons', 'copy:publicHtml']);
+gulp.task('copy', [ 'copy:govuk_template_mustache','copy:jquery','copy:icons', 'copy:publicHtml', 'copy:fonts']);
