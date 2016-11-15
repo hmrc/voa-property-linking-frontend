@@ -1,0 +1,24 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import connectors.PropertyRepresentation
+
+@(propertyRepresentations: Seq[PropertyRepresentation])(implicit request: Request[_], messages: Messages)
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th>@Messages("propertyRepresentation.selectAgent.table.1")</th>
+            <th>@Messages("propertyRepresentation.selectAgent.table.2")</th>
+            <th></th>
+        </tr>
+        @propertyRepresentations.map { propRep =>
+            <tr>
+                <td>@propRep.agentName</td>
+                <td>@propRep.agentId</td>
+                <td>
+                    <a href="@routes.AppointAgentController.modify(propRep.uarn, propRep.agentId)">@Messages("link.editPermissions")</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

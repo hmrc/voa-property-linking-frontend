@@ -13,7 +13,7 @@
         $('.filer_input').filer({
             limit: 1,
             maxSize: 5,
-            extensions: ['jpg', 'jpeg', 'pdf', 'doc', 'docm', 'docx',  'txt'],
+            extensions: ['jpg', 'jpeg', 'pdf', 'doc', 'docm', 'docx', 'txt'],
             showThumbs: true,
             addMore: false,
             onSelect: function() {

@@ -1,11 +1,9 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
-@import _root_.template.Display
-
+@import models.AgentPermissions
 @import controllers.AppointAgentController.ModifyAgentVM
+
 @(model: ModifyAgentVM)(implicit request: Request[_], messages: Messages)
-
-
 
     @main_template(title = Messages("propertyRepresentation.modifyAgent.title")) {
 
@@ -16,36 +14,28 @@
                     <span class="section-title">@Messages("propertyRepresentation.modifyAgent.title")</span>
                 </h1>
 
-        <p>@Messages("propertyRepresentation.modifyAgent.message.1")</p>
-        <p>@Messages("propertyRepresentation.modifyAgent.message.2")</p>
         @form(routes.AppointAgentController.modifySubmit(model.uarn, model.representationId)) {
-            @inputText(
-                field = model.form("agentCode"),
-                '_label -> Messages("propertyRepresentation.modifyAgent.agentCode"),
-                '_error -> model.form("agentCode").error,
-                '_labelClass -> "form-label-bold",
-                '_showConstraints -> false,
-                'class -> "form-control"
-            )
+            <input type="hidden" name="agentCode" value="@model.form("agentCode").value.getOrElse("")"/>
+
             @inputRadioGroup(
                 field = model.form("canCheck"),
-                options = Seq("true", "false"),
+                options = AgentPermissions.options,
                 args = Seq(
                     '_label -> Messages("canCheck.label"),
-                    '_labelClass -> "form-label-bold",
-                    '_error -> model.form("canCheck").error
+                    '_labelClass -> "form-label-bold"
                 )
             )
             @inputRadioGroup(
                 field = model.form("canChallenge"),
-                options = Seq("true", "false"),
+                options = AgentPermissions.options,
                 args = Seq(
                     '_label -> Messages("canChallenge.label"),
-                    '_labelClass -> "form-label-bold",
-                    '_error -> model.form("canChallenge").error
+                    '_labelClass -> "form-label-bold"
                 )
             )
+
             <button type="submit" class="button">@Messages("propertyRepresentation.modifyAgent.button")</button>
+            <p><a href="@routes.Dashboard.manageProperties" class="link-back">@Messages("link.back")</a></p>
         }
     </div>
 </div>

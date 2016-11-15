@@ -104,25 +104,31 @@ dashboard.home.searchProperties.link=Search and select a property to add to your
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=Manage Properties
-dashboard.manageProperties.status.added=added
-dashboard.manageProperties.status.pending=pending
+manageProperties.table.1=Property
+manageProperties.table.2=Capacity
+manageProperties.table.3=Status
+manageProperties.table.4=Date added
+dashboard.manageProperties.status.added=Added
+dashboard.manageProperties.status.pending=Pending
 dashboard.managedProperties.searchLinkText=Add another property
 dashboard.addAgent=Add agent
 dashboard.editAgent=Edit agent
 link.dashboard.home=Back to dashboard
 
 #PROPERTY REPRESENTATION
-propertyRepresentation.appointAgent.title=Appoint Agent
-propertyRepresentation.appointAgent.message.1=Please enter the code of the agent you wish to appoint.
-propertyRepresentation.appointAgent.message.2=If you do not have this code, please ask your agent to provide it.
+propertyRepresentation.appointAgent.title=Tell us what you want the agent to do on behalf of the business
+propertyRepresentation.appointAgent.message.1=Your agent should provide you with a unique code.
+propertyRepresentation.appointAgent.message.2=Please enter the code of the agent you wish to appoint.
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Submit
-canCheck.label=Permission for Check
-canCheck.true=Yes
-canCheck.false=No
-canChallenge.label=Permission for Challenge
-canChallenge.true=Yes
-canChallenge.false=No
+canCheck.label=Check permission
+canCheck.startAndContinue=Start and continue
+canCheck.continueOnly=Only continue existing checks
+canCheck.notPermitted=Not permitted
+canChallenge.label=Challenge permission
+canChallenge.startAndContinue=Start and continue
+canChallenge.continueOnly=Only continue existing challenges
+canChallenge.notPermitted=Not permitted
 propertyRepresentation.modifyAgent.title=Manage agent relationship
 propertyRepresentation.modifyAgent.message.1=Please enter the code of the agent you wish to modify.
 propertyRepresentation.modifyAgent.message.2=If you do not have this code, please ask your Agent to provide it.
@@ -130,24 +136,20 @@ propertyRepresentation.modifyAgent.agentCode=Agent code
 propertyRepresentation.modifyAgent.button=Submit
 
 propertyRepresentation.appointedAgent.title=Agent nomination successful
-propertyRepresentation.appointedAgent.message.1=Your nomination has been received and the agent has been notified.
-propertyRepresentation.appointedAgent.message.2=The agent you have nominated will be asked to review and accept your nomination.
+agentAppointed.heading=We have received your request for {0} to act on behalf of {1}
+appointedAgent.whatNext.p.1=The representative has been sent your request. You’ll be alerted on the dashboard once they have confirmed.
 propertyRepresentation.modifiedAgent.title=Agent nomination changes accepted
 propertyRepresentation.modifiedAgent.message.1=Your changes have been applied.
 propertyRepresentation.modifiedAgent.message.2=The agent has been notified of the changes.
 
-propertyRepresentation.alreadyAppointedAgent.title=Existing Agent Nomination Detected
-propertyRepresentation.alreadyAppointedAgent.message.1=There is already an Agent for this assessment.
-propertyRepresentation.alreadyAppointedAgent.message.2=Would you like to edit the existing agent authorisation or continue with appointing a new agent?
-propertyRepresentation.alreadyAppointedAgent.edit=Edit existing
-propertyRepresentation.alreadyAppointedAgent.continue=Add new agent
+propertyRepresentation.alreadyAppointedAgent.title=This property is already linked to an agent
+propertyRepresentation.alreadyAppointedAgent.add=Add another agent
+link.editPermissions=Edit permissions
 
 propertyRepresentation.selectAgent.title=Select Agent
 propertyRepresentation.selectAgent.message=Please select which Agent relationship you wish to manage
-propertyRepresentation.selectAgent.table.1=Agent code
-propertyRepresentation.selectAgent.table.2=Can check
-propertyRepresentation.selectAgent.table.3=Can challenge
-propertyRepresentation.selectAgent.table.4=Status
+propertyRepresentation.selectAgent.table.1=Agent name
+propertyRepresentation.selectAgent.table.2=Agent code
 propertyRepresentation.selectAgent.status.pending=Pending
 propertyRepresentation.selectAgent.status.accepted=Accepted
 
@@ -156,7 +158,14 @@ p.agentCode=Your agent code is {0}
 manageProperties.pendingRequests=Pending representation requests
 manageProperties.nonePending=You have no pending representation requests
 manageProperties.representations=Your representations
+propertyRepresentations.table.1=Business name
+propertyRepresentations.table.2=Property
+propertyRepresentations.table.3=Check permission
+propertyRepresentations.table.4=Challenge permission
 manageProperties.noRepresentations=You have no representations
+permission.continueOnly=Only continue
+permission.startAndContinue=Start and continue
+permission.notPermitted=Not permitted
 
 #SEARCH
 search.title=Search and select a property to add to your account
@@ -288,6 +297,10 @@ label.postcode=Postcode
 placeholder.address.line1=Address line 1
 placeholder.address.line2=Address line 2
 placeholder.address.line3=Address line 3
+link.back=Back
+capacityType.ownerOccupier=Owner occupier
+capacityType.owner=Owner
+capacityType.occupier=Occupier
 
 #MISC
 alt.newWindow=Opens in a new window

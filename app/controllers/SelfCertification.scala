@@ -17,9 +17,8 @@
 package controllers
 
 import config.Wiring
-import connectors.SelfCertifyFlag
 import form.Mappings.trueOnly
-import models.Property
+import models.{Property, SelfCertifyFlag}
 import play.api.data.Form
 import play.api.mvc._
 import play.api.data.Forms._

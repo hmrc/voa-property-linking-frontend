@@ -1,27 +1,28 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
-@import _root_.template.Display
+@import controllers.AppointAgentController.SelectAgentVM
 
-@import controllers.AppointAgentController.AppointAgentVM
-@(uarn: Long)(implicit request: Request[_], messages: Messages)
+@(model: SelectAgentVM)(implicit request: Request[_], messages: Messages)
 
-
-
-    @main_template(title = Messages("propertyRepresentation.alreadyAppointedAgent.title")) {
+@main_template(title = Messages("propertyRepresentation.alreadyAppointedAgent.title")) {
 
 
-        <div class="grid-row">
-            <div class="column-full">
+    <div class="grid-row">
+        <div class="column-full">
 
-                <h1 class="heading-xlarge">
-                    <span class="section-title">@Messages("propertyRepresentation.alreadyAppointedAgent.title")</span>
-                </h1>
+            <h1 class="heading-xlarge">
+                <span class="section-title">@Messages("propertyRepresentation.alreadyAppointedAgent.title")</span>
+            </h1>
 
-        <p>@Messages("propertyRepresentation.alreadyAppointedAgent.message.1")</p>
-        <p>@Messages("propertyRepresentation.alreadyAppointedAgent.message.2")</p>
-        <a href=@routes.AppointAgentController.select(uarn)>@Messages("propertyRepresentation.alreadyAppointedAgent.edit")</a>
-        <a href=@routes.AppointAgentController.appoint(uarn)>@Messages("propertyRepresentation.alreadyAppointedAgent.continue")</a>
+            @selectAgentTable(model.reps)
 
+            <p>
+                <a href="@routes.AppointAgentController.appoint(model.uarn)" class="button">@Messages("propertyRepresentation.alreadyAppointedAgent.add")</a>
+            </p>
+
+            <p>
+                <a href="@routes.Dashboard.manageProperties" class="link-back">@Messages("link.back")</a>
+            </p>
         </div>
     </div>
 }

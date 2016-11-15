@@ -16,14 +16,11 @@
 
 package forms
 
-import java.io.IOException
-
 import connectors.CapacityDeclaration
 import controllers.Search
 import models.{CapacityType, Occupier}
 import org.joda.time.DateTime
 import org.scalatest.{FlatSpec, MustMatchers}
-import play.api.libs.ws.{WSClient, WSRequest}
 import utils.FormBindingVerification._
 
 class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
@@ -47,7 +44,7 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
     verifyMandatoryDate(form, validData, "fromDate")
   }
 
-  it should "only allow dd/MM/yyy from dates before the current date" in {
+  it should "only allow dd/MM/yyyy from dates before the current date" in {
     verifyPastddmmyy(form, validData, "fromDate")
   }
 

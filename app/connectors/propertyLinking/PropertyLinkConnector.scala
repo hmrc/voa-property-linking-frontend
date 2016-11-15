@@ -17,7 +17,7 @@
 package connectors.propertyLinking
 
 import connectors._
-import models.Property
+import models.{LinkBasis, Property}
 import org.joda.time.DateTime
 import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig

@@ -4,10 +4,7 @@
 
 @(propertyRepresentations: Seq[PropertyRepresentation])(implicit request: Request[_], messages: Messages)
 
-
-
     @main_template(title = Messages("propertyRepresentation.selectAgent.title")) {
-
 
         <div class="grid-row">
             <div class="column-two-thirds">
@@ -27,7 +24,7 @@
                 @propertyRepresentations.map{propRep =>
                     <tr>
                         <td>
-                            <a href=@routes.AppointAgentController.modify(propRep.uarn, propRep.agentId)>@propRep.agentId</a>
+                            <a href=@routes.AppointAgentController.modify(propRep.uarn, propRep.agentId)>@propRep.agentName</a>
                         </td>
                         <td>@propRep.canCheck</td>
                         <td>@propRep.canChallenge</td>
