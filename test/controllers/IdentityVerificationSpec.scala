@@ -16,6 +16,7 @@
 
 package controllers
 import models.{Address, GroupAccount, IndividualDetails}
+import org.jsoup.Jsoup
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.play.http.HeaderCarrier
@@ -38,28 +39,35 @@ class IdentityVerificationSpec extends ControllerSpec {
   StubKeystore.stubIndividualDetails(IndividualDetails("fname", "lname", "aa@aa.aa", "123", None))
 
   "Successfully verifying identity when the group does not have a CCA account" must
-    "redirect to the create group account page, and not create an individual account" in {
+    "display the successful iv confirmation page, and not create an individual account" in {
     StubUserDetails.stubGroupId("groupwithoutaccount")
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
 
     val res = TestIdentityVerification.withRestoredSession()(requestWithJourneyId("successfuljourney"))
-    status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.CreateGroupAccount.show.url)
+    status(res) mustBe OK
+
+    val content = contentAsString(res)
+    val html = Jsoup.parse(content)
+    html.select("h1.heading-confirmation span.tick").html must equal ("✔") withClue "Page did not contain success summary"
+    html.select("a.button[href=/property-linking/create-group]").size must equal (1) withClue "Page did not contain link to create group account"
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
     await(StubIndividualAccountConnector.get()) mustBe Nil
   }
 
-  "Successfully verifying identity when the group does have a CCA account" must "redirect to the dashboard, and create the individual account" in {
+  "Successfully verifying identity when the group does have a CCA account" must "display a confirmation page, and create the individual account" in {
     StubAuthConnector.stubInternalId("individualwithoutaccount")
     StubUserDetails.stubGroupId("groupwithaccount")
     StubGroupAccountConnector.stubAccount(GroupAccount("groupwithaccount", "", Address("", "", "", ""), "", "", false, false))
     StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
 
     val res = TestIdentityVerification.withRestoredSession()(requestWithJourneyId("anothersuccess"))
-    status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.Dashboard.home().url)
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.select("h1.heading-confirmation span.tick").html must equal ("✔") withClue "Page did not contain success summary"
+    html.select("a.button[href=/property-linking/home").size must equal (1) withClue "Page did not contain dashboard link"
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 

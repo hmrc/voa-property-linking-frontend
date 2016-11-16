@@ -16,10 +16,13 @@
 
 package controllers
 
+import config.ApplicationConfig
 import play.api.mvc.Action
 
 object Login extends PropertyLinkingController {
   def show = Action { implicit request =>
-    Redirect(routes.Dashboard.home())
+    Redirect(ApplicationConfig.ggSignInUrl, Map(
+      "origin" -> Seq("voa"), "accountType" -> Seq("organisation"), "continue" -> Seq(ApplicationConfig.ggContinueUrl))
+    )
   }
 }

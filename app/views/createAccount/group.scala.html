@@ -47,7 +47,9 @@
                             dataAttributes = Nil,
                             args = Seq(
                                 '_label -> Messages("label.isSmallBusiness"),
-                                '_labelClass -> "form-label-bold"
+                                '_labelClass -> "form-label-bold",
+                                '_detailsQuestion -> Messages("isSmallBusiness.details.question"),
+                                '_detailsAnswer -> Messages("isSmallBusiness.details.answer")
                             )
                         )
 
@@ -60,6 +62,8 @@
                                 '_labelClass -> "form-label-bold"
                             )
                         )
+
+                        <p class="panel-indent">@Messages("isAgent.details")</p>
 
                         <p>
                         <button type="submit" id="continue" class="button">@Messages("label.continue")</button>

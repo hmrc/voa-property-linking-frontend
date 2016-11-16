@@ -9,7 +9,6 @@ Example usage:
 '_helpIndent -> "help text",                    (shows helptext with indent class)
 '_pound -> true,                                (shows pound sign on inputs)
 '_add' -> true,                                 (shows add/remove links)
-'_details -> true,                              (shows details element)
 '_detailsQuestion -> "The question",            (details element question text)
 '_detailsAnswer -> "The answer"                 (details element answer text)
 '_characterCount -> "250"                       (character limit)
@@ -58,10 +57,10 @@ Example usage:
     @elements.args.get('_helpIndent).map { helpText =>
             <p class="icon-important">@helpText</p>
     }
-    @elements.args.get('_details) match {
-        case Some(true) => {
+    @elements.args.get('_detailsQuestion) match {
+        case Some(q) => {
             <details>
-                <summary><span>@elements.args.get('_detailsQuestion).map{detailsQuestion=>@detailsQuestion}</span></summary>
+                <summary><span>@q</span></summary>
                 <div class="panel-indent">
                   @elements.args.get('_detailsAnswer).map { detailsAnswer => @detailsAnswer }
                 </div>

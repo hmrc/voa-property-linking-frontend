@@ -18,8 +18,12 @@ package utils
 
 import org.scalatest.{AppendedClues, MustMatchers}
 import org.jsoup.Jsoup
+import play.api.test.Helpers._
 import scala.collection.JavaConverters._
 import org.jsoup.nodes.Document
+import play.api.mvc.Result
+
+import scala.concurrent.Future
 
 case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   type FieldId = String
@@ -32,7 +36,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   }
 
   def mustContainSuccessSummary(msg: String) {
-    val successSummary = html.select("h2.success-summary-heading").asScala.headOption.getOrElse(fail(s"No success summary in $html"))
+    val successSummary = html.select("h1.heading-confirmation").asScala.headOption.getOrElse(fail(s"No success summary in $html"))
     successSummary.text mustEqual msg withClue s"Success summary contained:\n${successSummary.text}"
   }
 
@@ -89,10 +93,14 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
 
   private def errorSummaryHtmlFor(name: FieldName, msg: Message): String = s"$name - $msg"
 
-  def mustContainFieldErrors(errors: (String, String)*) =
+  def mustContainFieldErrors(errors: (FieldId, Message)*) =
     errors.foreach { e =>
       html.select(s"#${e._1}.error div.form-grouped-error p").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e \n$allFieldErrors"
     }
 
   private def allFieldErrors = html.select(".has-error")
+}
+
+object HtmlPage {
+  def apply(res: Future[Result]): HtmlPage = HtmlPage(Jsoup.parse(contentAsString(res)))
 }

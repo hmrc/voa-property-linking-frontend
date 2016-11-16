@@ -39,7 +39,6 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
   import TestData._
 
   val mockFileUploads = mock[FileUpload]
-  //when(mockFileUploads.createEnvelope() (any[HeaderCarrier])) thenReturn Future.successful( "asaa")
   object TestUploadEvidence extends UploadEvidence(mockFileUploads)  {
     override lazy val withLinkingSession = new StubWithLinkingSession(property, capacityDeclaration)
     override lazy val propertyLinkConnector  = new StubPropertyLinkConnector
@@ -49,11 +48,10 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     val res = TestUploadEvidence.show()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainRadioSelect("hasevidence", Seq("doeshaveevidence", "doesnothaveevidence"))
     page.mustContainFileInput("evidence_")
   }
 
-  it must "redirect to the evidence-submitted page if some evidence  has been uploaded" in {
+  it must "redirect to the evidence-submitted page if some evidence has been uploaded" in {
     val testFile = getClass.getResource("/fileUpload.txt").getPath
     val path = testFile + ".tmp"
     val tmpFile = TemporaryFile(new File(path))
@@ -95,24 +93,6 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
 
     page.mustContainSummaryErrors(("evidence", "Please upload evidence so that we can verify your link to the property.", "Please upload some evidence."))
     page.mustContainFieldErrors(("evidence_", "Please upload some evidence."))
-  }
-
-
-  it must "redirect the user to the no evidence upload page if the user doesn't upload any evidence" in {
-    val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
-      .withMultipartFormDataBody(
-        MultipartFormData(
-          dataParts = Map(
-            "hasEvidence" -> Seq(DoesNotHaveEvidence.name),
-            "evidenceType" -> Seq(OtherUtilityBill.name)
-          ),
-          files = Seq(),
-          badParts = Seq.empty
-        )
-      ).withSession(token)
-    val res = TestUploadEvidence.submit()(req)
-    status(res) mustBe SEE_OTHER
-    header("location", res).get.contains("/property-linking/no-evidence-uploaded") mustBe true
   }
 
   object TestData {

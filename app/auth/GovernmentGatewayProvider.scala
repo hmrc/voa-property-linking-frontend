@@ -21,6 +21,7 @@ import play.api.mvc.{AnyContent, Request, Result}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.frontend.auth.{Actions, AuthContext, GovernmentGateway}
+import play.api.mvc.Results.Redirect
 
 import scala.concurrent.Future
 
@@ -35,4 +36,8 @@ object GovernmentGatewayProvider extends GovernmentGateway with ServicesConfig {
   override def additionalLoginParameters: Map[String, Seq[String]] = Map("accountType" -> Seq("organisation"))
   override def loginURL: String = ApplicationConfig.ggSignInUrl
   override def continueURL = ApplicationConfig.ggContinueUrl
+
+  override def redirectToLogin(implicit request: Request[_]) = {
+    Future.successful(Redirect(loginURL, Map("continue" -> Seq(request.headers("Referer")), "origin" -> Seq("voa")) ++ additionalLoginParameters))
+  }
 }

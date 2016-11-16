@@ -43,7 +43,7 @@ class Search @Inject()(val fileUploadConnector: FileUploadConnector) extends Pro
     connector.find(uarn).flatMap {
       case Some(pd) =>
         fileUploadConnector.createEnvelope().flatMap(envelopeId => {
-          Logger.debug(s"env id: ${envelopeId}")
+          Logger.debug(s"env id: $envelopeId")
           sessionRepository.start(pd, envelopeId) map { _ =>
             Ok(views.html.declareCapacity(DeclareCapacityVM(Search.declareCapacityForm, pd.address)))
           }
@@ -69,7 +69,7 @@ class Search @Inject()(val fileUploadConnector: FileUploadConnector) extends Pro
     if (p.isSelfCertifiable)
       Redirect(routes.SelfCertification.show())
     else
-      Redirect(routes.UploadRatesBill.show())
+      Redirect(routes.ChooseEvidence.show())
 
 }
 

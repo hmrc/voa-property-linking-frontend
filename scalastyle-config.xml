@@ -101,7 +101,7 @@
     </check>
     <check enabled="true" class="org.scalastyle.scalariform.EmptyClassChecker" level="error"/>
     <check enabled="true" class="org.scalastyle.scalariform.ForBraceChecker" level="error"/>
-    <check enabled="true" class="org.scalastyle.scalariform.ImportGroupingChecker" level="error"/>
+    <check enabled="false" class="org.scalastyle.scalariform.ImportGroupingChecker" level="error"/>
     <check enabled="true" class="org.scalastyle.scalariform.MultipleStringLiteralsChecker" level="error">
         <parameters>
             <parameter name="allowed">2</parameter>

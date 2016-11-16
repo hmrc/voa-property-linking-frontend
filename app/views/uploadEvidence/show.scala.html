@@ -4,59 +4,53 @@
 @(model: UploadEvidenceVM)(implicit request: Request[_], messages: Messages)
 
 
-    @main_template(title = Messages("uploadEvidence.show.title")) {
+@main_template(title = Messages("uploadEvidence.show.title")) {
 
 
     @form(routes.UploadEvidence.submit(), 'enctype -> "multipart/form-data") {
 
-            <div class="grid-row">
-                <div class="column-two-thirds">
-                    <h1 class="form-title heading-xlarge">
-                        <span class="section-title">@Messages("uploadEvidence.show.title")</span>
-                    </h1>
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <h1 class="form-title heading-xlarge">
+                    <span class="section-title">@Messages("uploadEvidence.show.title")</span>
+                </h1>
 
-                    @includes.errorSummary(model.form)
+                <p>@Messages("uploadEvidence.p.1")</p>
+                <p>@Messages("uploadEvidence.evidenceTypes")</p>
+                <ul class="list-bullet">
+                    <li>@Messages("uploadEvidence.evidenceTypes.1")</li>
+                    <li>@Messages("uploadEvidence.evidenceTypes.2")</li>
+                    <li>@Messages("uploadEvidence.evidenceTypes.3")</li>
+                    <li>@Messages("uploadEvidence.evidenceTypes.4")</li>
+                </ul>
 
-                        @inputRadioGroup(
-                            field = model.form("hasEvidence"),
-                            options = HasEvidence.options,
-                            dataAttributes = Seq(
-                              (DoesHaveEvidence.name, "data-toggle-id", "evidenceFileUpload")
-                            ),
-                            args = Seq(
-                                '_label -> Messages("hasEvidence.label"),
-                                '_labelClass -> "form-label-bold",
-                                '_legend -> true,
-                                '_fieldsetClass -> "inline"
-                            )
-                        )
+                <a href="@routes.UploadEvidence.noEvidenceUploaded("fake ref id")">@Messages("uploadEvidence.noEvidence")</a>
+                <p>@Messages("uploadFile.allowedTypes")</p>
 
-                        <div id="evidenceFileUpload" data-toggle-hidden>
+                @includes.errorSummary(model.form)
 
-                                @inputFile(
-                                    field = model.form("evidence[]"),
-                                    '_label -> Messages("evidence.label"),
-                                    '_labelClass -> "form-label-bold",
-                                    '_help -> Messages("evidence.label.1"),
-                                    'class -> "filer_input"
-                                )
+                @inputFile(
+                    field = model.form("evidence[]"),
+                    '_label -> Messages("evidence.label"),
+                    '_labelClass -> "form-label-bold",
+                    '_help -> Messages("evidence.label.1"),
+                    'class -> "filer_input"
+                )
 
-                                @inputSelect(
-                                    field = model.form("evidenceType"),
-                                    options = EvidenceType.options,
-                                    displayEmptyValue = false,
-                                    args = Seq(
-                                        '_label -> Messages("evidenceType.label"),
-                                        '_labelClass -> "form-label-bold",
-                                        '_class -> "form-control"
-                                    )
-                                )
+                @inputSelect(
+                    field = model.form("evidenceType"),
+                    options = EvidenceType.options,
+                    displayEmptyValue = false,
+                    args = Seq(
+                        '_label -> Messages("evidenceType.label"),
+                        '_labelClass -> "form-label-bold",
+                        '_class -> "form-control"
+                    )
+                )
 
-                        </div>
-
-                    <button type="submit" class="button">@Messages("uploadEvidence.show.button")</button>
-                </div>
+                <button type="submit" class="button">@Messages("uploadEvidence.show.button")</button>
             </div>
+        </div>
 
     }
 }

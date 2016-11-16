@@ -55,7 +55,7 @@ object SelfCertification extends PropertyLinkingController {
   def selfCertified() = withLinkingSession { implicit request =>
     request.ses.selfCertifyComplete.contains(true) match {
       case true =>
-        Ok(views.html.linkingRequestSubmitted())
+        Ok(views.html.linkingRequestSubmitted(request.ses.claimedProperty.uarn))
       case false => Redirect(routes.Dashboard.home())
     }
   }
