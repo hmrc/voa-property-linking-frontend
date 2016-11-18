@@ -30,6 +30,8 @@ object Mappings extends DateMappings {
 
   def trueOnly(error: String): Mapping[Boolean] =
     text.verifying(error, _ == "true").transform[Boolean](_.toBoolean, _.toString)
+
+  def mandatoryBoolean: Mapping[Boolean] = optional(boolean).verifying("error.required", _.isDefined).transform(_.get, Some.apply)
 }
 
 trait DateMappings {

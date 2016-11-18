@@ -25,7 +25,9 @@ object Register extends PropertyLinkingController with ServicesConfig {
   def show = Action { implicit request =>
     Redirect(
       ApplicationConfig.ggRegistrationUrl,
-      Map("accountType" -> Seq("organisation"), "continue" -> Seq(ApplicationConfig.ggContinueUrl), "origin" -> Seq("voa"))
+      Map("accountType" -> Seq("organisation"), "continue" -> Seq(routes.Register.confirm.url), "origin" -> Seq("voa"))
     )
   }
+
+  def confirm = TODO
 }

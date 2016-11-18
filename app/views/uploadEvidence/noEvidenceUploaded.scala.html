@@ -1,24 +1,20 @@
 @(refId: String)(implicit request: Request[_], messages: Messages)
 
 
-    @main_template(title = Messages("uploadEvidence.noEvidenceUploaded.title")) {
+@main_template(title = Messages("noEvidenceUploaded.title")) {
 
 
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <h1 class="form-title heading-xlarge">
-                    <span class="section-title">@Messages("uploadEvidence.noEvidenceUploaded.title")</span>
-                </h1>
-            </div>
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <h1 class="form-title heading-xlarge">
+                <span class="section-title">@Messages("noEvidenceUploaded.title")</span>
+            </h1>
+
+            <p>@Messages("noEvidenceUploaded.p.1", refId)</p>
+
+            <a id="backToDashBoard" href="@routes.Dashboard.manageProperties()" class="button">@Messages("linkingRequestSubmitted.link")</a>
         </div>
-<div class="success-summary addedPropertyAlert" role="group" aria-labelledby="success-summary-heading-example-1" tabindex="-1" style="display: block; margin-top: 0px;">
-    <h2 class="heading-medium success-summary-heading" id="success-summary-heading-example-1">
-        @Messages("uploadEvidence.noEvidenceUploaded.message")
-    </h2>
-    <h2 class="heading-medium success-summary-heading" id="success-summary-heading-example-1">
-        @Messages("uploadEvidence.noEvidenceUploaded.referenceId", refId)
-    </h2>
-</div>
-<a id="backToDashBoard" href="@routes.Dashboard.manageProperties()" class="button">@Messages("linkingRequestSubmitted.link")</a>
-    
+    </div>
+
+
 }

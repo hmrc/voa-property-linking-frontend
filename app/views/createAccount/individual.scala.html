@@ -12,7 +12,14 @@
 
                 <h1 class="heading-xlarge">@Messages("createAccount.individual.title")</h1>
 
+                <p>@Messages("createAccount.individual.p.1")</p>
+                <p>@Messages("createAccount.individual.p.2")</p>
+
                 @form(routes.CreateIndividualAccount.submit) {
+
+                    <h2 class="heading-medium">@Messages("createAccount.individual.heading.details")</h2>
+
+                    <p>@Messages("createAccount.individual.details.p.1")</p>
 
                     @inputText(
                         field = model.form(keys.firstName),
@@ -30,15 +37,7 @@
                         'class -> "form-control"
                     )
 
-                    @dateFields(model.form, keys.dateOfBirth)
-
-                    @inputText(
-                        field = model.form(keys.nino),
-                        '_label -> Messages("label.createAccount.nino"),
-                        '_labelClass -> "form-label-bold",
-                        '_showConstraints -> false,
-                        'class -> "form-control"
-                    )
+                    @address(model.form, "address")
 
                     @inputText(
                         field = model.form(keys.email),
@@ -71,6 +70,20 @@
                         '_showConstraints -> false,
                         'class -> "form-control",
                         '_optional -> true
+                    )
+
+                    <h2 class="heading-medium">@Messages("createAccount.individual.verify.heading")</h2>
+                    <p>@Messages("createAccount.individual.verify.p.1")</p>
+
+                    @dateFields(model.form, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")))
+
+                    @inputText(
+                        field = model.form(keys.nino),
+                        '_label -> Messages("label.createAccount.nino"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control",
+                        '_help -> Messages("hint.nino")
                     )
 
                     <p>

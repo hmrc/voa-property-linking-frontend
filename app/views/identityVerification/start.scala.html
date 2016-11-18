@@ -9,6 +9,8 @@
                 
                     <h1 class="heading-xlarge">@Messages("startIv.title")</h1>
 
+                    <p>@Messages("startIv.p.1")</p>
+
                     @form(Call("POST", model.url)) {
 
                         <input type="hidden" name="fname" value="@model.data.firstName"/>

@@ -1,0 +1,20 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@()(implicit request: Request[_], messages: Messages)
+    
+    @main_template(Messages("ggRegistration.title")) {
+        <div class="grid-row">
+            <div class="column-two-thirds">
+
+                <h1 class="form-title heading-large heading-confirmation">
+                    <span class="tick">&#10004;</span>@Messages("ggRegistration.title")
+                </h1>
+
+                <p>@Messages("ggRegistration.p.1")</p>
+                <p>@Messages("ggRegistration.p.2")</p>
+
+                <a href="@routes.CreateIndividualAccount.show" class="button">@Messages("link.continue")</a>
+            </div>
+        </div>
+    }

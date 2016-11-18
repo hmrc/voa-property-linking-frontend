@@ -67,9 +67,9 @@ trait IdentityVerification extends PropertyLinkingController {
       details <- keystore.getIndividualDetails
       res <- account match {
         case Some(acc) => individuals.create(IndividualAccount(userId, groupId, details)) map { _ =>
-          Redirect(routes.Dashboard.home)
+          Ok(views.html.createAccount.groupAlreadyExists(acc.companyName))
         }
-        case _ => Future.successful(Redirect(routes.CreateGroupAccount.show))
+        case _ => Future.successful(Ok(views.html.identityVerification.success()))
       }
     } yield {
       res

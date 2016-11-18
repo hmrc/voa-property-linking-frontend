@@ -43,7 +43,7 @@ trait CreateGroupAccount extends PropertyLinkingController {
         _ <- groups.create(groupId, formData)
         _ <- individuals.create(IndividualAccount(userId, groupId, details))
       } yield {
-        Redirect(routes.Dashboard.home)
+        Ok(views.html.createAccount.confirmation())
       }
     )
   }

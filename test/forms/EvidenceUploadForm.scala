@@ -16,7 +16,7 @@
 
 package forms
 
-import controllers.{UploadEvidence, UploadedEvidence}
+import controllers.UploadEvidence
 import models._
 import org.scalatest.{FlatSpec, MustMatchers}
 import utils.FormBindingVerification._
@@ -27,11 +27,7 @@ class EvidenceUploadForm extends FlatSpec with MustMatchers {
   behavior of "Evidence upload form"
 
   it should "bind to valid data" in {
-    mustBindTo(form, validData, UploadedEvidence(DoesHaveEvidence, OtherUtilityBill))
-  }
-
-  it should "mandate a response to has evidence" in {
-    verifyMandatoryMultiChoice(form, validData, "hasEvidence")
+    mustBindTo(form, validData, OtherUtilityBill)
   }
 
   it should "only allow recognised hasEvidence values" in {
@@ -40,6 +36,6 @@ class EvidenceUploadForm extends FlatSpec with MustMatchers {
 
   object TestData {
     val form = UploadEvidence.form
-    val validData = Map("hasEvidence" -> DoesHaveEvidence.name, "evidenceType" -> OtherUtilityBill.name)
+    val validData = Map("evidenceType" -> OtherUtilityBill.name)
   }
 }

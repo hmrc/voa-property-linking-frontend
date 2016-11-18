@@ -4,6 +4,7 @@ GET         /                                                   controllers.Appl
 #Registration
 GET         /login                                              controllers.Login.show
 GET         /register                                           controllers.Register.show
+GET         /registered                                         controllers.Register.confirm
 GET         /logout                                             controllers.Application.logOut()
 
 #Create individual account
@@ -32,6 +33,8 @@ POST        /link-to-property                                   @controllers.Sea
 #Link scenarios
 GET         /self-certify                                       controllers.SelfCertification.show()
 POST        /confirm-self-certify                               controllers.SelfCertification.submit()
+GET         /choose-evidence                                    controllers.ChooseEvidence.show()
+POST        /choose-evidence                                    controllers.ChooseEvidence.submit()
 GET         /upload-rates-bill                                  @controllers.UploadRatesBill.show()
 POST        /upload-rates-bill                                  @controllers.UploadRatesBill.submit()
 GET         /upload-evidence                                    @controllers.UploadEvidence.show()
@@ -44,7 +47,6 @@ GET         /evidence-uploaded                                  @controllers.Upl
 GET         /no-evidence-uploaded/:refId                        @controllers.UploadEvidence.noEvidenceUploaded(refId: String)
 GET         /manual-verification-required                       controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                   controllers.LinkErrors.conflict()
-GET         /postcode-verification-required                     controllers.LinkErrors.postcodeVerificationRequired()
 
 GET         /representation-request/add/:uarn                   controllers.AppointAgentController.add(uarn: Long)
 GET         /representation-request/edit/:uarn                  controllers.AppointAgentController.edit(uarn: Long)

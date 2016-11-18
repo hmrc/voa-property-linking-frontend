@@ -1,6 +1,23 @@
 project.header=VOA Property Linking
 
 #START PAGE
+start.heading.register=Register to use this service
+start.heading.about=About this service
+start.about.p.1=If you want to tell the VOA about any changes to your property details or challenge your rateable value, you will need a VOA account. Learn more about the VOA’s check, challenge and appeal service.
+start.about.p.2=The account is created for your business but you can add individuals to the account, who can make changes to the property details, once they’re registered. If an individual leaves your company, you can remove them from the account and replace them with a new person.
+start.heading.registration=Registration
+start.registration.p.1=The registration process asks for the individual’s details, as well as the company details. We need proof of ID for the individual as well as proof of their relationship to the company. This ensures that all data is secure and only available to people who have the right to see it.
+start.registration.p.2=To use this service, you’ll firstly need a Government Gateway account. If your business doesn’t have one (even if you have one as an individual), you’ll need to register.
+start.registration.youNeed=You’ll then need to create a customer record and to do this, you’ll need to:
+start.registration.youNeed.1=register your business for a Government Gateway account
+start.registration.youNeed.2=use your Government Gateway ID to register with the VOA
+start.registration.youNeed.3=provide proof of identity (your National insurance number, your passport number and date of birth)
+start.registration.youNeed.4=provide proof of your relationship to the property (such as a rates or utility bill)
+start.registration.youNeed.5=create a VOA account for your business
+start.heading.agents=Agents and representatives
+start.agents.p.1=If you plan to act as an agent or representative, you’ll be able to indicate this during the registration process.
+start.register=Register for a Government Gateway account
+
 label.login=Login
 label.register=Register
 
@@ -17,32 +34,68 @@ isAgent.true=Yes
 isAgent.false=No
 
 #CREATE INDIVIDUAL ACCOUNT
-createAccount.individual.title=Create account
+createAccount.individual.title=Verify your right to act for your company
+createAccount.individual.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to your company’s account with us.
+createAccount.individual.p.2=We’ll ask you to verify your identity and confirm that you have the right to act for your company.
+createAccount.individual.heading.details=Your personal details
+createAccount.individual.details.p.1=Please provide your contact details as we need to contact you to arrange inspections or discuss details about your submission (s).
+createAccount.individual.verify.heading=Verify your identity part 1
+createAccount.individual.verify.p.1=Please provide your date of birth and National insurance number so that we can start to verify your identity (you will be asked for further proof of ID next). This will ensure that your data can’t be accessed by anyone else.
 label.createAccount.firstName=First name
 label.createAccount.lastName=Last name
 dob.label=Date of birth
 label.createAccount.nino=National insurance number
-hint.dateOfBirth.format=For example, 13-01-1990
 error.nino.invalid=Invalid national insurance number
 dateOfBirth.label=Date of birth
 label.createAccount.confirmEmail=Confirm email address
-label.createAccount.alternatePhone=Alternative phone
+label.createAccount.alternatePhone=Mobile number
+hint.dateOfBirth=For example, 20 3 1976
+hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.
 
 #IDENTITY VERIFICATION
-startIv.title=We need to confirm your identity
+startIv.title=Verify your identity part 2
+startIv.p.1=As part of our security procedures, we now need to ask you some more questions to confirm your identity.
 identityVerification.title=Identity verification
 failedIdentityVerification.title=Identity verification failed
-failedIdentityVerification.text=We could not verify your identity.
+failedIdentityVerification.p.1=We’re unable to verify your identity.
+failedIdentityVerification.p.2=Please call the VOA to discuss your application.
+failedIv.telephone.england=Telephone (England)
+failedIv.telephone.wales=Telephone (Wales)
+failedIv.telephone.openingHours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
+iv.success.title=Identity verification successful
+iv.success.heading=Success
+iv.success.confirmation=Confirmation of your registration
+iv.success.p.1=We’ve confirmed your details as an individual. You now have the right to act on behalf of your company.
+heading.whatNext=What happens next
+iv.success.p.2=You’ll need to create a business account with us.
+iv.success.p.3=You’ll then be able to add properties to your account and, if you wish, appoint an agent/representative to act on your behalf.
+link.createGroupAccount=Create a business account
+
+#INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
+groupAlreadyExists.title={0} already has a VOA account
+groupAlreadyExists.addedToGroup=You have been added to their account
 
 #CREATE GROUP ACCOUNT
-createAccount.group.title=Create group account
+createAccount.group.title=Create an account for your business
 label.createAccount.companyName=Company name
 label.createAccount.email=Email address
 label.createAccount.phone=Phone number
-label.isSmallBusiness=Small business?
+label.isSmallBusiness=Are you a small business?
 isSmallBusiness.true=Yes
 isSmallBusiness.false=No
-label.isAgent=Agent?
+isSmallBusiness.details.question=What is a small business?
+isSmallBusiness.details.answer=If your business employs fewer than 250 people, you are a small business. The VOA prioritises applications from small businesses.
+label.isAgent=Are you a representative acting on behalf of a business?
+isAgent.details=If you act on behalf of a business, we’ll supply you with a unique identification code. You’ll need to give this to your client so that they can register you to act on their behalf.
+
+#ACCOUNT CREATED
+account.confirmation.title=Business account created
+account.confirmation.heading=You’ve successfully created a new account for your business.
+account.confirmation.heading.2=You’re also added to this account as an individual.
+account.confirmation.youCan=You can now:
+account.confirmation.youCan.1=add properties to your account
+account.confirmation.youCan.2=authorise an agent to act on your behalf
+link.dashboard=Go to your business dashboard
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard Home
@@ -112,9 +165,9 @@ search.select.link=Select
 #DECLARE CAPACITY
 declareCapacity.title=Add property to your account
 declareCapacity.message=You are adding this property to your account:
-declareCapacity.incorrectProperty.prefix=If this isn''t the right property you can
+declareCapacity.incorrectProperty.prefix=If this isn’t the right property you can
 declareCapacity.incorrectProperty.link=search for a different property
-declareCapacity.form.legend=When did you occupy or own / occupy the property?
+declareCapacity.form.legend=When did you occupy or own the property?
 declareCapacity.fromDate.help=
 declareCapacity.toDate.help=Leave blank if still in occupation or ownership
 declareCapacity.submit.button=Add property
@@ -135,7 +188,7 @@ toDate.year.label=Year
 #SELF CERTIFICATION
 selfCertification.linkSubmitted.title=Request received
 selfCertification.linkSubmitted.message=Thank you for your request which has been submitted to the Valuation Office Agency.
-selfCertification.show.title=Self Certification Required
+selfCertification.show.title=Declaration for self certification
 selfCertification.show.message=To be able to view the details of this property, you must promise that you are telling the truth.
 selfCertification.show.iAgree.label=Do you agree?
 selfCertification.show.iAgree.text=I agree
@@ -145,27 +198,41 @@ error.mustAgreeToSelfCert=You must agree to continue.
 selfCertification.linkAuthorised.properties.link=Manage your properties
 
 #UPLOAD RATES BILL
-uploadRatesBill.show.title=Upload your rates bill
-uploadRatesBill.show.message=You must confirm your link to the property by uploading a rates bill.
-uploadRatesBill.show.hasRatesBill.label=Do you have a rates bill?
-uploadRatesBill.show.hasRatesBill.text=I have a rates bill
+uploadRatesBill.show.title=Submit a copy of your business rates bill
+uploadFile.allowedTypes=PDF, word documents, scanned images, photographs and many other common files are allowed. Your file must be less than 20Mb in size.
+uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
+uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Confirm
-hasRatesBill.label=Please upload a rates bill as proof of connection
-hasRatesBill.doeshaveratesbill=I have a rates bill
-hasRatesBill.doesnothaveratesbill=I don’t have a rates bill
+chooseEvidence.title=Provide a copy of your business rates bill
+hasRatesBill.label=Please upload a business rates bill as proof of connection
+hasRatesBill.true=I have a business rates bill
+hasRatesBill.false=I don’t have a business rates bill
 ratesBill.label=Please upload a copy of the rates bill
-ratesBill.label.1=File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
+ratesBill.label.1=PDF, word documents, scanned images, photographs and many other common files are allowed. Your file must be less than 20Mb in size.
 uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 
+#LINK REQUEST CONFIRMATION
 linkingRequestSubmitted.title=Property linking request submitted
-linkingRequestSubmitted.message=Thank you for your request which has been submitted to the Valuation Office Agency.
+linkingRequestSubmitted.message=Thank you for your request to add [address] to your account.
+linkingRequestSubmitted.p.1=The property will appear in your dashboard pending VOA approval. Once approval has been given, the status will change from ‘Pending’ to ‘Added’. This may take some time, depending on the nature of your application.
+linkingRequestSubmitted.afterApproval=Once the property request has been approved, you’ll be able to:
+linkingRequestSubmitted.afterApproval.1=View full property details
+linkingRequestSubmitted.afterApproval.2=complete a check of the valuation details (you will need to ‘check’ your details before you can make the changes)
 linkingRequestSubmitted.link=Manage your properties
+linkingRequestSubmitted.changedCircumstances.heading=Change in circumstances
+linkingRequestSubmitted.changedCircumstances.p.1=If you’re creating an account to tell us about any external circumstances that are currently impacting on your business (such as long-term disruptive roadworks, flooding, or other external factors) you’ll be able to tell us even while your request is ‘Pending’.
+link.addAnotherProperty=Add another property
+link.addAgent=Add an agent
 
 #UPLOAD EVIDENCE
-uploadEvidence.show.title=Submit further proof
-hasEvidence.label=You must provide further proof to show you have a valid connection to the property.
-hasEvidence.doeshaveevidence=I have further proof
-hasEvidence.doesnothaveevidence=I do not have any more proof
+uploadEvidence.show.title=Upload other evidence
+uploadEvidence.p.1=You’ve indicated that you don’t have a rates bill. Please provide other evidence.
+uploadEvidence.evidenceTypes=Evidence that we’ll accept includes:
+uploadEvidence.evidenceTypes.1=the lease agreement
+uploadEvidence.evidenceTypes.2=a water rate demand
+uploadEvidence.evidenceTypes.3=other utility bills
+uploadEvidence.evidenceTypes.4=Stamp Duty Land Tax form
+uploadEvidence.noEvidence=I’m unable to provide any of these documents.
 evidenceType.label=Type of evidence
 evidenceType.lease=Lease
 evidenceType.license=License
@@ -182,9 +249,8 @@ error.missingFiles=Please upload some evidence.
 uploadEvidence.show.button=Continue
 uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded
 uploadEvidence.evidenceUploaded.message=Thank you for your request which has been submitted to the Valuation Office Agency.
-uploadEvidence.noEvidenceUploaded.title=No evidence provided
-uploadEvidence.noEvidenceUploaded.message=You need to call us!!!
-uploadEvidence.noEvidenceUploaded.referenceId=Please quote the following reference: {0}
+noEvidenceUploaded.title=We’re sorry, but you can’t proceed with this form.
+noEvidenceUploaded.p.1=Please call the Valuation Office Agency and quote reference number {0} to discuss your request.
 uploadEvidence.noEvidenceUploaded.home.link=Manage your properties
 
 #LINK ERRORS

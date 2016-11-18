@@ -1,0 +1,25 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@()(implicit request: Request[_], messages: Messages)
+    
+    @main_template(Messages("iv.success.title")) {
+        <div class="grid-row">
+            <div class="column-two-thirds">
+
+                <h1 class="form-title heading-large heading-confirmation">
+                    <span class="tick">&#10004;</span> @Messages("iv.success.heading")
+                    <span class="reference-text">@Messages("iv.success.confirmation")</span>
+                </h1>
+
+                <p>@Messages("iv.success.p.1")</p>
+
+                <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
+                <p>@Messages("iv.success.p.2")</p>
+                <p>@Messages("iv.success.p.3")</p>
+
+                <a href="@routes.CreateGroupAccount.show" class="button">@Messages("link.createGroupAccount")</a>
+
+            </div>
+        </div>
+    }

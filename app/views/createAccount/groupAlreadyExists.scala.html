@@ -1,0 +1,27 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@(businessName: String)(implicit request: Request[_], messages: Messages)
+    
+    @main_template(Messages("groupAlreadyExists.title", businessName)) {
+        <div class="grid-row">
+            <div class="column-two-thirds">
+
+                <h1 class="form-title heading-large heading-confirmation">
+                    <span class="tick">&#10004;</span> @Messages("groupAlreadyExists.title", businessName)
+                    <span class="reference-text">@Messages("groupAlreadyExists.addedToGroup")</span>
+                </h1>
+
+                <p>@Messages("account.confirmation.youCan")</p>
+                <ul class="list-bullet">
+                    <li>@Messages("account.confirmation.youCan.1")</li>
+                    <li>@Messages("account.confirmation.youCan.2")</li>
+                </ul>
+
+                <p>
+                    <a href="@routes.Dashboard.home" class="button">@Messages("link.dashboard")</a>
+                </p>
+
+            </div>
+        </div>
+    }

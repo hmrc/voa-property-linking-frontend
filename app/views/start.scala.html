@@ -1,12 +1,40 @@
 @()(implicit request: Request[_], messages: Messages)
 
 
-@main_template(title = "Start page", showLogoutLink = false ) {
+@main_template(title = "Start page", showLogoutLink = false) {
 
-        <h1 class="form-title heading-xlarge form-title-group">
-            <span class="section-title">Start</span>
-        </h1>
-        <a href="@routes.Login.show" class="button">@Messages("label.login")</a>
-        <a href="@routes.Register.show" class="button">@Messages("label.register")</a>
+    <h1 class="form-title heading-xlarge form-title-group">
+        <span class="section-title">@Messages("start.heading.register")</span>
+    </h1>
+
+    <h2 class="heading-medium">
+        @Messages("start.heading.about")
+    </h2>
+
+    <p>@Messages("start.about.p.1")</p>
+    <p>@Messages("start.about.p.2")</p>
+
+    <h2 class="heading-medium">
+        @Messages("start.heading.registration")
+    </h2>
+
+    <p>@Messages("start.registration.p.1")</p>
+    <p>@Messages("start.registration.p.2")</p>
+    <p>@Messages("start.registration.youNeed")</p>
+    <ul class="list-bullet">
+        <li>@Messages("start.registration.youNeed.1")</li>
+        <li>@Messages("start.registration.youNeed.2")</li>
+        <li>@Messages("start.registration.youNeed.3")</li>
+        <li>@Messages("start.registration.youNeed.4")</li>
+        <li>@Messages("start.registration.youNeed.5")</li>
+    </ul>
+
+    <h2 class="heading-medium">
+        @Messages("start.heading.agents")
+    </h2>
+
+    <p>@Messages("start.agents.p.1")</p>
+
+    <a href="@routes.Register.show" class="button">@Messages("start.register")</a>
 
 }

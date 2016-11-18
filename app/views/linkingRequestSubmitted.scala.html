@@ -1,21 +1,29 @@
-@()(implicit request: Request[_], messages: Messages)
-
+@(uarn: Long)(implicit request: Request[_], messages: Messages)
 
     @main_template(title = Messages("linkingRequestSubmitted.title")) {
 
         <div class="grid-row">
             <div class="column-two-thirds">
-                <h1 class="form-title heading-xlarge">
-                    <span class="section-title">@Messages("linkingRequestSubmitted.title")</span>
+
+                <h1 class="form-title heading-large heading-confirmation">
+                    <span class="tick">&#10004;</span> @Messages("linkingRequestSubmitted.title")
                 </h1>
+
+                <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
+                <p>@Messages("linkingRequestSubmitted.p.1")</p>
+                <p>@Messages("linkingRequestSubmitted.afterApproval")</p>
+                <ul class="list-bullet">
+                    <li>@Messages("linkingRequestSubmitted.afterApproval.1")</li>
+                    <li>@Messages("linkingRequestSubmitted.afterApproval.2")</li>
+                </ul>
+
+                <h2 class="heading-medium">@Messages("linkingRequestSubmitted.changedCircumstances.heading")</h2>
+                <p>@Messages("linkingRequestSubmitted.changedCircumstances.p.1")</p>
+
+                <p><a href="@routes.Search.show" class="link">@Messages("link.addAnotherProperty")</a></p>
+                <p><a href="@routes.AppointAgentController.add(uarn)" class="link">@Messages("link.addAgent")</a></p>
+                <p><a href="@routes.Dashboard.manageProperties" id="backToDashBoard" class="button">@Messages("link.dashboard")</a></p>
             </div>
         </div>
-        <div class="success-summary addedPropertyAlert" role="group" aria-labelledby="success-summary-heading-example-1" tabindex="-1" style="display: block;
-            margin-top: 0px;">
-            <h2 class="heading-medium success-summary-heading" id="success-summary-heading-example-1">
-            @Messages("linkingRequestSubmitted.message")
-            </h2>
-        </div>
-        <a id="backToDashBoard" href="@routes.Dashboard.manageProperties()" class="button">@Messages("linkingRequestSubmitted.link")</a>
     
 }
