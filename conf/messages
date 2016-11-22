@@ -25,13 +25,10 @@ label.register=Register
 login.title=Login to Government Gateway
 error.login.invalid=Unrecognised company name
 
-#REGISTER PAGE
-register.title=Enter your company name to use this service
-register.message=Thank you for registering with Government Gateway. You can now login to use this service.
-register.companyName.label=Please enter your company name
-isAgent.label=Is this an agent account?
-isAgent.true=Yes
-isAgent.false=No
+#POST REGISTRATION PAGE
+ggRegistration.title=You’ve successfully registered your business with Government Gateway
+ggRegistration.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to your business’s account with us.
+ggRegistration.p.2=We’ll ask you to verify your identity and confirm that you have the right to act for the business.
 
 #CREATE INDIVIDUAL ACCOUNT
 createAccount.individual.title=Verify your right to act for your company
@@ -297,6 +294,7 @@ label.postcode=Postcode
 placeholder.address.line1=Address line 1
 placeholder.address.line2=Address line 2
 placeholder.address.line3=Address line 3
+link.continue=Continue
 link.back=Back
 capacityType.ownerOccupier=Owner occupier
 capacityType.owner=Owner
