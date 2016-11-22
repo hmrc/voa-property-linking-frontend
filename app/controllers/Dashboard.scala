@@ -18,6 +18,7 @@ package controllers
 
 import config.Wiring
 import connectors.{LinkedProperties, PropertyRepresentation}
+import models.CapacityType
 import org.joda.time.DateTime
 import play.api.Logger
 import uk.gov.hmrc.play.http.HeaderCarrier
@@ -67,7 +68,7 @@ trait Dashboard extends PropertyLinkingController {
         reps <- reprConnector.get(id, p.uarn)
         shortAddress <- shortAddress(p.uarn)
       } yield {
-        PendingPropertyLinkRepresentations(shortAddress, p.uarn, p.capacityDeclaration.capacity.name, p.linkedDate, reps)
+        PendingPropertyLinkRepresentations(shortAddress, p.uarn, p.capacityDeclaration.capacity, p.linkedDate, reps)
       }
     }
     Future.sequence(pending)
@@ -79,7 +80,7 @@ trait Dashboard extends PropertyLinkingController {
         reps <- reprConnector.get(id, p.uarn)
         shortAddress <- shortAddress(p.uarn)
       } yield {
-        PropertyLinkRepresentations(shortAddress, p.uarn, p.capacityDeclaration.capacity.name, p.linkedDate, reps)
+        PropertyLinkRepresentations(shortAddress, p.uarn, p.capacityDeclaration.capacity, p.linkedDate, reps)
       }
     })
   }
@@ -94,10 +95,10 @@ object Dashboard extends Dashboard
 
 case class ManagePropertiesVM(properties: LinkedPropertiesRepresentations)
 
-case class PropertyLinkRepresentations(name: String, uarn: Long, capacity: String, linkedDate: DateTime,
+case class PropertyLinkRepresentations(name: String, uarn: Long, capacity: CapacityType, linkedDate: DateTime,
                                        representations: Seq[PropertyRepresentation])
 
-case class PendingPropertyLinkRepresentations(name: String, uarn: Long, capacity: String,
+case class PendingPropertyLinkRepresentations(name: String, uarn: Long, capacity: CapacityType,
                                               linkedDate: DateTime, representations: Seq[PropertyRepresentation])
 
 case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentations], pending: Seq[PendingPropertyLinkRepresentations])

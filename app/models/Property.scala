@@ -24,17 +24,21 @@ case class Property(uarn: Long, billingAuthorityReference: String, address: Addr
                     specialCategoryCode: String, description: String, bulkClassIndicator: String)
 
 trait NamedEnum {
-  def name:String
-  def key:String
+  def name: String
+
+  def key: String
+
   def msgKey: String = s"$key.$name"
 }
 
-trait NamedEnumSupport[E <: NamedEnum]{
+trait NamedEnumSupport[E <: NamedEnum] {
 
-  def all:List[E]
+  def all: Seq[E]
 
   def fromName(name: String): Option[E] = {
-    all.find { _.name.equalsIgnoreCase(name) }
+    all.find {
+      _.name.equalsIgnoreCase(name)
+    }
   }
 
   def options = all.map(_.name)

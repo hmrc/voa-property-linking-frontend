@@ -14,23 +14,28 @@
  * limitations under the License.
  */
 
-package controllers
+package models
 
-import config.{ApplicationConfig, Wiring}
-import play.api.mvc.Action
-import uk.gov.hmrc.play.config.ServicesConfig
+sealed trait LinkBasis extends NamedEnum {
+  val key = "requestFlag"
+}
 
-object Register extends PropertyLinkingController with ServicesConfig {
-  val ggAction = Wiring().ggAction
+case object SelfCertifyFlag extends LinkBasis {
+  val name = "selfCertify"
+}
 
-  def show = Action { implicit request =>
-    Redirect(
-      ApplicationConfig.ggRegistrationUrl,
-      Map("accountType" -> Seq("organisation"), "continue" -> Seq(routes.Register.confirm.url), "origin" -> Seq("voa"))
-    )
-  }
+case object RatesBillFlag extends LinkBasis {
+  val name = "ratesBill"
+}
 
-  def confirm = ggAction { _ => implicit request =>
-    Ok(views.html.ggRegistration())
-  }
+case object OtherEvidenceFlag extends LinkBasis {
+  val name = "otherEvidence"
+}
+
+case object NoEvidenceFlag extends LinkBasis {
+  override val name = "noEvidence"
+}
+
+object LinkBasis extends NamedEnumSupport[LinkBasis] {
+  override def all: List[LinkBasis] = List(SelfCertifyFlag, RatesBillFlag, OtherEvidenceFlag, NoEvidenceFlag)
 }

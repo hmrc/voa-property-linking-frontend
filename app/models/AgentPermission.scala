@@ -14,23 +14,24 @@
  * limitations under the License.
  */
 
-package controllers
+package models
 
-import config.{ApplicationConfig, Wiring}
-import play.api.mvc.Action
-import uk.gov.hmrc.play.config.ServicesConfig
+sealed trait AgentPermission extends NamedEnum {
+  override def key: String = "permission"
+}
 
-object Register extends PropertyLinkingController with ServicesConfig {
-  val ggAction = Wiring().ggAction
+case object StartAndContinue extends AgentPermission {
+  override def name: String = "startAndContinue"
+}
 
-  def show = Action { implicit request =>
-    Redirect(
-      ApplicationConfig.ggRegistrationUrl,
-      Map("accountType" -> Seq("organisation"), "continue" -> Seq(routes.Register.confirm.url), "origin" -> Seq("voa"))
-    )
-  }
+case object ContinueOnly extends AgentPermission {
+  override def name: String = "continueOnly"
+}
 
-  def confirm = ggAction { _ => implicit request =>
-    Ok(views.html.ggRegistration())
-  }
+case object NotPermitted extends AgentPermission {
+  override def name: String = "notPermitted"
+}
+
+object AgentPermissions extends NamedEnumSupport[AgentPermission] {
+  override def all = Seq(StartAndContinue, ContinueOnly, NotPermitted)
 }

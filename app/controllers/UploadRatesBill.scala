@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 import config.Wiring
 import connectors.fileUpload.FileUpload
-import connectors.{FileInfo, RatesBillFlag}
+import connectors.FileInfo
 import models._
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}

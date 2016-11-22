@@ -2,6 +2,7 @@
 
 @(model: controllers.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
+@showEditColumn = @{ model.properties.pending.exists(_.representations.nonEmpty) || model.properties.added.exists(_.representations.nonEmpty) }
 
 @main_template(title = Messages("dashboard.home.title")) {
         <div class="grid-row">
@@ -14,30 +15,31 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Property</th>
-                    <th>Uarn#</th>
-                    <th>Connection</th>
-                    <th>Status</th>
-                    <th>Date added</th>
+                    <th>@Messages("manageProperties.table.1")</th>
+                    <th>@Messages("manageProperties.table.2")</th>
+                    <th>@Messages("manageProperties.table.3")</th>
+                    <th>@Messages("manageProperties.table.4")</th>
                     <th></th>
-                    @if(model.properties.pending.exists(_.representations.nonEmpty)) {
+                    @if(showEditColumn) {
                         <th></th>
                     }
                 </tr>
                 @model.properties.added.map { p =>
                     <tr>
                         <td>@p.name</td>
-                        <td>@p.uarn</td>
-                        <td>@p.capacity</td>
+                        <td>@Messages(p.capacity.msgKey)</td>
                         <td>@Messages("dashboard.manageProperties.status.added")</td>
                         <td>@Display.date(p.linkedDate)</td>
                         <td>
                             <a href=@routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
                         </td>
-                        @if(p.representations.nonEmpty) {
-                            <td><a href=@routes.AppointAgentController.edit(p.uarn)>
-                                @Messages("dashboard.editAgent")
-                                </a>
+                        @if(showEditColumn) {
+                            <td>
+                                @if(p.representations.nonEmpty) {
+                                    <a href=@routes.AppointAgentController.edit(p.uarn)>
+                                    @Messages("dashboard.editAgent")
+                                    </a>
+                                }
                             </td>
                         }
                     </tr>
@@ -45,19 +47,18 @@
                 @model.properties.pending.map { p =>
                     <tr>
                         <td>@p.name</td>
-                        <td>@p.uarn</td>
-                        <td>@p.capacity</td>
+                        <td>@Messages(p.capacity.msgKey)</td>
                         <td>@Messages("dashboard.manageProperties.status.pending")</td>
                         <td>@Display.date(p.linkedDate)</td>
                         <td>
                             <a href=@routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
                         </td>
-                        @if(p.representations.nonEmpty) {
+                        @if(showEditColumn) {
                             <td>
-                                <a href=@routes.AppointAgentController.edit(p.uarn)>@Messages("dashboard.editAgent")</a>
+                                @if(p.representations.nonEmpty) {
+                                    <a href=@routes.AppointAgentController.edit(p.uarn)>@Messages("dashboard.editAgent")</a>
+                                }
                             </td>
-                        } else {
-                            <td></td>
                         }
                     </tr>
                 }

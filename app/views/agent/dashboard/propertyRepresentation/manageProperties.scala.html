@@ -21,19 +21,19 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td>UserId</td>
-                        <td>UARN</td>
-                        <td>canCheck</td>
-                        <td>canChallenge</td>
+                        <td>@Messages("propertyRepresentations.table.1")</td>
+                        <td>@Messages("propertyRepresentations.table.2")</td>
+                        <td>@Messages("propertyRepresentations.table.3")</td>
+                        <td>@Messages("propertyRepresentations.table.4")</td>
                         <td></td>
                         <td></td>
                     </tr>
                     @model.propertyRepresentations.filter(_.pending).map { p =>
                         <tr>
-                            <td>@p.userId</td>
-                            <td>@p.uarn</td>
-                            <td>@p.canCheck</td>
-                            <td>@p.canChallenge</td>
+                            <td>@p.groupName</td>
+                            <td>@p.address.toString</td>
+                            <td>@Messages(p.canCheck.msgKey)</td>
+                            <td>@Messages(p.canChallenge.msgKey)</td>
                             <td>
                                 <a class="button" href=@controllers.agent.routes.Representation.accept(p.representationId)>
                                 @Messages("agent.dashboard.manageProperties.accept")
@@ -63,19 +63,19 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <td>UserId</td>
-                        <td>UARN</td>
-                        <td>Can check</td>
-                        <td>Can challenge</td>
+                        <td>@Messages("propertyRepresentations.table.1")</td>
+                        <td>@Messages("propertyRepresentations.table.2")</td>
+                        <td>@Messages("propertyRepresentations.table.3")</td>
+                        <td>@Messages("propertyRepresentations.table.4")</td>
                     </tr>
                 </thead>
                 <tbody>
                     @model.propertyRepresentations.filterNot(_.pending).map { p =>
                         <tr>
-                            <td>@p.userId</td>
-                            <td>@p.uarn</td>
-                            <td>@p.canCheck</td>
-                            <td>@p.canChallenge</td>
+                            <td>@p.groupName</td>
+                            <td>@p.address.toString</td>
+                            <td>@Messages(p.canCheck.msgKey)</td>
+                            <td>@Messages(p.canChallenge.msgKey)</td>
                         </tr>
                     }
                 </tbody>

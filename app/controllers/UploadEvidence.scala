@@ -19,10 +19,10 @@ package controllers
 import javax.inject.Inject
 
 import config.Wiring
+import connectors.FileInfo
 import connectors.fileUpload.FileUpload
-import connectors.{FileInfo, LinkBasis, NoEvidenceFlag, OtherEvidenceFlag}
 import form.EnumMapping
-import models.{DoesHaveEvidence, DoesNotHaveEvidence, EvidenceType, HasEvidence}
+import models._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.Files.TemporaryFile

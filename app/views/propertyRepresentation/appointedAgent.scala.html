@@ -1,19 +1,18 @@
-@()(implicit request: Request[_], messages: Messages)
+@(address: Address, agentName: String)(implicit request: Request[_], messages: Messages)
 
-
-
-    @main_template(title = Messages("propertyRepresentation.appointedAgent.title")) {
+@main_template(title = Messages("propertyRepresentation.appointedAgent.title")) {
 
 
     <div class="grid-row">
         <div class="column-two-thirds">
-            <h1 class="form-title heading-xlarge">
-                <span class="section-title">@Messages("propertyRepresentation.appointedAgent.title")</span>
+            <h1 class="form-title heading-large heading-confirmation">
+                <span class="tick">&#10004;</span>@Messages("agentAppointed.heading", agentName, address.toString)
             </h1>
 
-    <p>@Messages("propertyRepresentation.appointedAgent.message.1")</p>
-    <p>@Messages("propertyRepresentation.appointedAgent.message.2")</p>
-        <a href=@controllers.routes.Dashboard.home()>Home</a>
+            <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
+            <p>@Messages("appointedAgent.whatNext.p.1")</p>
+
+            <a href="@controllers.routes.Dashboard.home()" class="button">@Messages("link.dashboard")</a>
+        </div>
     </div>
-</div>
 }
