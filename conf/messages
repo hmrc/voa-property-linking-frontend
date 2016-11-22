@@ -83,6 +83,8 @@ isSmallBusiness.false=No
 isSmallBusiness.details.question=What is a small business?
 isSmallBusiness.details.answer=If your business employs fewer than 250 people, you are a small business. The VOA prioritises applications from small businesses.
 label.isAgent=Are you a representative acting on behalf of a business?
+isAgent.true=Yes
+isAgent.false=No
 isAgent.details=If you act on behalf of a business, we’ll supply you with a unique identification code. You’ll need to give this to your client so that they can register you to act on their behalf.
 
 #ACCOUNT CREATED
@@ -112,7 +114,7 @@ dashboard.addAgent=Add agent
 dashboard.editAgent=Edit agent
 link.dashboard.home=Back to dashboard
 
-#PROPERTY REPRESENTATION
+#ADD AGENT
 propertyRepresentation.appointAgent.title=Tell us what you want the agent to do on behalf of the business
 propertyRepresentation.appointAgent.message.1=Your agent should provide you with a unique code.
 propertyRepresentation.appointAgent.message.2=Please enter the code of the agent you wish to appoint.
@@ -126,6 +128,10 @@ canChallenge.label=Challenge permission
 canChallenge.startAndContinue=Start and continue
 canChallenge.continueOnly=Only continue existing challenges
 canChallenge.notPermitted=Not permitted
+error.invalidPermissions=Agent must either have permission to continue checks or challenges
+error.invalidAgentCode=Invalid agent code
+
+#EDIT AGENT
 propertyRepresentation.modifyAgent.title=Manage agent relationship
 propertyRepresentation.modifyAgent.message.1=Please enter the code of the agent you wish to modify.
 propertyRepresentation.modifyAgent.message.2=If you do not have this code, please ask your Agent to provide it.

@@ -21,7 +21,7 @@ import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import models.{IVDetails, IndividualDetails, PersonalDetails}
 import play.api.libs.json.Reads
-import session.{LinkingSessionRepository, WithLinkingSession}
+import session.{LinkingSessionRepository, WithAuthentication, WithLinkingSession}
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
@@ -52,6 +52,7 @@ abstract class Wiring {
   lazy val withLinkingSession = new WithLinkingSession
   lazy val fileSystemConnector = FileSystemConnector
   lazy val identityVerification = new IdentityVerification(http)
+  lazy val withAuthentication = new WithAuthentication
 }
 
 class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete)(implicit ec: ExecutionContext) extends SessionCache with AppName with ServicesConfig {

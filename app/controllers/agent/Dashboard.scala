@@ -18,12 +18,11 @@ package controllers.agent
 
 import config.Wiring
 import controllers.PropertyLinkingController
-import session.WithAuthentication
 
 object Dashboard extends PropertyLinkingController {
-  val connector = Wiring().propertyLinkConnector
+  val withAuthentication = Wiring().withAuthentication
 
-  def home() = WithAuthentication.async { implicit request =>
+  def home() = withAuthentication { implicit request =>
     Ok(views.html.agent.dashboard.home())
   }
 }

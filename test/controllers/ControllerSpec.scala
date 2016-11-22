@@ -19,7 +19,7 @@ package controllers
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
-import utils.{StubGroupAccountConnector, StubIdentityVerification, StubIndividualAccountConnector, StubUserDetails}
+import utils._
 
 trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach with AppendedClues {
   implicit val app = TestApp.app
@@ -30,6 +30,7 @@ trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with D
     StubGroupAccountConnector.reset()
     StubUserDetails.reset()
     StubIdentityVerification.reset()
+    StubPropertyConnector.reset()
   }
 }
 

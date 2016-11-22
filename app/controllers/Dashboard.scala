@@ -20,7 +20,6 @@ import config.Wiring
 import connectors.{LinkedProperties, PropertyRepresentation}
 import models.CapacityType
 import org.joda.time.DateTime
-import play.api.Logger
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future

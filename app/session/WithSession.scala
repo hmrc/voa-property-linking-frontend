@@ -17,7 +17,7 @@
 package session
 
 import config.Wiring
-import models.{GroupAccount, IndividualAccount}
+import models.GroupAccount
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results.{Redirect, Unauthorized}
 import play.api.mvc._
@@ -54,7 +54,7 @@ class WithLinkingSession {
 
 case class AuthenticatedRequest[A](account: GroupAccount, request: Request[A]) extends WrappedRequest[A](request)
 
-object WithAuthentication {
+class WithAuthentication {
   val individuals = Wiring().individualAccountConnector
   val groups = Wiring().groupAccountConnector
   val ggAction = Wiring().ggAction
@@ -77,6 +77,4 @@ object WithAuthentication {
       res
     }
   }
-
-  def async(body: AuthenticatedRequest[AnyContent] => Future[Result]) = apply(body)
 }
