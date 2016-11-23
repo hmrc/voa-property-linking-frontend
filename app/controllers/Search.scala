@@ -19,7 +19,7 @@ package controllers
 import javax.inject.Inject
 
 import config.Wiring
-import connectors.CapacityDeclaration
+import connectors.{CapacityDeclaration, EnvelopeConnector}
 import connectors.fileUpload.FileUploadConnector
 import form.EnumMapping
 import form.Mappings.{dmyDate, dmyPastDate}
@@ -30,7 +30,8 @@ import play.api.data.Forms._
 import play.api.mvc.Result
 import uk.gov.hmrc.play.config.ServicesConfig
 
-class Search @Inject()(val fileUploadConnector: FileUploadConnector) extends PropertyLinkingController with ServicesConfig {
+class Search @Inject()(val fileUploadConnector: FileUploadConnector,
+                       val envelopeConnector: EnvelopeConnector) extends PropertyLinkingController with ServicesConfig {
   lazy val sessionRepository = Wiring().sessionRepository
   lazy val connector = Wiring().propertyConnector
   lazy val ggAction = Wiring().ggAction
@@ -43,7 +44,8 @@ class Search @Inject()(val fileUploadConnector: FileUploadConnector) extends Pro
     connector.find(uarn).flatMap {
       case Some(pd) =>
         fileUploadConnector.createEnvelope().flatMap(envelopeId => {
-          Logger.debug(s"env id: $envelopeId")
+         envelopeConnector.storeEnvelope(envelopeId)
+          Logger.debug(s"env id: ${envelopeId}")
           sessionRepository.start(pd, envelopeId) map { _ =>
             Ok(views.html.declareCapacity(DeclareCapacityVM(Search.declareCapacityForm, pd.address)))
           }
