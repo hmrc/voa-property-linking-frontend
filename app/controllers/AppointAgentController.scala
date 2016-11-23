@@ -19,19 +19,20 @@ package controllers
 import config.Wiring
 import connectors.PropertyRepresentation
 import form.EnumMapping
-import models.{AgentPermission, AgentPermissions}
-import play.api.data.Form
+import models.{AgentPermission, AgentPermissions, NotPermitted}
+import play.api.data.{Form, FormError}
 import play.api.data.Forms._
-import session.WithAuthentication
+import play.api.mvc.Request
 
 import scala.concurrent.Future
 
-object AppointAgentController extends PropertyLinkingController {
+trait AppointAgentController extends PropertyLinkingController {
   val propertyRepresentationConnector = Wiring().propertyRepresentationConnector
   val properties = Wiring().propertyConnector
   val accounts = Wiring().groupAccountConnector
+  val withAuthentication = Wiring().withAuthentication
 
-  def add(uarn: Long) = WithAuthentication.async { implicit request =>
+  def add(uarn: Long) = withAuthentication { implicit request =>
     propertyRepresentationConnector.get(request.account.id, uarn).map(reprs => {
       if (reprs.nonEmpty)
         Ok(views.html.propertyRepresentation.alreadyAppointedAgent(SelectAgentVM(reprs, uarn)))
@@ -40,7 +41,7 @@ object AppointAgentController extends PropertyLinkingController {
     })
   }
 
-  def edit(uarn: Long) = WithAuthentication.async { implicit request =>
+  def edit(uarn: Long) = withAuthentication { implicit request =>
     propertyRepresentationConnector.get(request.account.id, uarn).map(reprs => {
       if (reprs.size > 1)
         Ok(views.html.propertyRepresentation.selectAgent(reprs))
@@ -51,17 +52,17 @@ object AppointAgentController extends PropertyLinkingController {
     })
   }
 
-  def select(uarn: Long) = WithAuthentication.async { implicit request =>
+  def select(uarn: Long) = withAuthentication { implicit request =>
     propertyRepresentationConnector.get(request.account.id, uarn).map(reprs => {
       Ok(views.html.propertyRepresentation.selectAgent(reprs))
     })
   }
 
-  def appoint(uarn: Long) = WithAuthentication.async { implicit request =>
+  def appoint(uarn: Long) = withAuthentication { implicit request =>
     Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, uarn)))
   }
 
-  def appointSubmit(uarn: Long) = WithAuthentication.async { implicit request =>
+  def appointSubmit(uarn: Long) = withAuthentication { implicit request =>
     appointAgentForm.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, uarn))),
       agent => {
@@ -69,6 +70,15 @@ object AppointAgentController extends PropertyLinkingController {
           account <- accounts.get(agent.agentCode)
           prop <- properties.find(uarn)
           res <- (account, prop) match {
+            case (Some(_), Some(_)) if agentHasNoPermissions(agent) =>
+              val form = appointAgentForm.fill(agent).withError(invalidPermissions)
+              badRequest(form, uarn)
+            case (None, Some(_)) if agentHasNoPermissions(agent) =>
+              val form = appointAgentForm.fill(agent).withError(invalidAgentCode).withError(invalidPermissions)
+              badRequest(form, uarn)
+            case (None, Some(p)) =>
+              val form = appointAgentForm.fill(agent).withError(invalidAgentCode)
+              badRequest(form, uarn)
             case (Some(a), Some(p)) =>
               val req = PropertyRepresentation(java.util.UUID.randomUUID().toString, a.id, a.companyName, request.account.id,
                 request.account.companyName, uarn, p.address, agent.canCheck, agent.canChallenge, true
@@ -83,7 +93,16 @@ object AppointAgentController extends PropertyLinkingController {
     )
   }
 
-  def modify(uarn: Long, agentCode: String) = WithAuthentication.async { implicit request =>
+  private def agentHasNoPermissions(a: AppointAgent) = a.canCheck == NotPermitted && a.canChallenge == NotPermitted
+
+  private lazy val invalidPermissions = FormError("canCheck", "error.invalidPermissions")
+  private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
+
+  private def badRequest(form: Form[AppointAgent], uarn: Long)(implicit request: Request[_]) = {
+    Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, uarn))))
+  }
+
+  def modify(uarn: Long, agentCode: String) = withAuthentication { implicit request =>
     propertyRepresentationConnector.get(request.account.id, uarn) map {
       _.find(_.agentId == agentCode) match {
         case Some(rep) =>
@@ -94,7 +113,7 @@ object AppointAgentController extends PropertyLinkingController {
     }
   }
 
-  def modifySubmit(uarn: Long, reprId: String) = WithAuthentication.async { implicit request =>
+  def modifySubmit(uarn: Long, reprId: String) = withAuthentication { implicit request =>
     appointAgentForm.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(errors, uarn, reprId))),
       agent => for {
@@ -119,13 +138,14 @@ object AppointAgentController extends PropertyLinkingController {
     "canCheck" -> EnumMapping(AgentPermissions),
     "canChallenge" -> EnumMapping(AgentPermissions)
   )(AppointAgent.apply)(AppointAgent.unapply))
-
-  case class AppointAgent(agentCode: String, canCheck: AgentPermission, canChallenge: AgentPermission)
-
-  case class AppointAgentVM(form: Form[_], uarn: Long)
-
-  case class ModifyAgentVM(form: Form[_], uarn: Long, representationId: String)
-
-  case class SelectAgentVM(reps: Seq[PropertyRepresentation], uarn: Long)
-
 }
+
+object AppointAgentController extends AppointAgentController
+
+case class AppointAgent(agentCode: String, canCheck: AgentPermission, canChallenge: AgentPermission)
+
+case class AppointAgentVM(form: Form[_], uarn: Long)
+
+case class ModifyAgentVM(form: Form[_], uarn: Long, representationId: String)
+
+case class SelectAgentVM(reps: Seq[PropertyRepresentation], uarn: Long)
