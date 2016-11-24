@@ -44,9 +44,10 @@ class Search @Inject()(val fileUploadConnector: FileUploadConnector,
     connector.find(uarn).flatMap {
       case Some(pd) =>
         fileUploadConnector.createEnvelope().flatMap(envelopeId => {
-         envelopeConnector.storeEnvelope(envelopeId)
-          Logger.debug(s"env id: ${envelopeId}")
-          sessionRepository.start(pd, envelopeId) map { _ =>
+          envelopeConnector.storeEnvelope(envelopeId).recover{ case _ => ()}
+          val submissionId = java.util.UUID.randomUUID().toString.replace("-", "")
+          Logger.debug(s"envelope id: ${envelopeId}")
+          sessionRepository.start(pd, envelopeId, submissionId) map { _ =>
             Ok(views.html.declareCapacity(DeclareCapacityVM(Search.declareCapacityForm, pd.address)))
           }
         }

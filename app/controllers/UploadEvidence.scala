@@ -51,8 +51,7 @@ class UploadEvidence @Inject()(val fileUploadConnector: FileUpload) extends Prop
           x match {
             case FilesAccepted =>
               val fileInfo = FileInfo(filePart.map(_.filename).getOrElse("FilenameNotFound"), uploaded.name)
-              val refId = java.util.UUID.randomUUID.toString
-              requestLink(refId, OtherEvidenceFlag, Some(fileInfo))
+              requestLink(OtherEvidenceFlag, Some(fileInfo))
                 .map(_ => Redirect(routes.UploadEvidence.evidenceUploaded()))
             case FilesUploadFailed => BadRequest(
               views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", Errors.uploadedFiles))))
@@ -64,10 +63,10 @@ class UploadEvidence @Inject()(val fileUploadConnector: FileUpload) extends Prop
     )
   }
 
-  private def requestLink(refId: String, linkBasis: LinkBasis, fileInfo: Option[FileInfo])(implicit r: LinkingSessionRequest[AnyContent]) =
+  private def requestLink(linkBasis: LinkBasis, fileInfo: Option[FileInfo])(implicit r: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(r.ses.claimedProperty,
       r.groupId, r.ses.declaration.getOrElse(throw new Exception("No declaration")),
-      refId, linkBasis, fileInfo
+      r.ses.submissionId, linkBasis, fileInfo
     )
 
   private def uploadIfNeeded(filePart: Option[FilePart[TemporaryFile]])

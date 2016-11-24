@@ -73,7 +73,7 @@ class UploadRatesBill @Inject()(val fileUploadConnector: FileUpload) extends Pro
     propertyLinkConnector.linkToProperty(
       req.ses.claimedProperty, req.groupId,
       req.ses.declaration.getOrElse(throw new Exception("No declaration")),
-      java.util.UUID.randomUUID.toString, RatesBillFlag, Some(FileInfo(fileName, RatesBillType.name))
+      req.ses.submissionId, RatesBillFlag, Some(FileInfo(fileName, RatesBillType.name))
     )
 
   def ratesBillUploaded() = withLinkingSession { implicit request =>

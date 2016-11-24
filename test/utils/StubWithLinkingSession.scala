@@ -26,7 +26,7 @@ import play.api.mvc.Results._
 import scala.concurrent.Future
 
 class StubWithLinkingSession(p:Property, decl: CapacityDeclaration) extends WithLinkingSession{
-  private val stubSession = LinkingSession(p, "envelopId", Some(decl), None)
+  private val stubSession = LinkingSession(p, "envelopId", "submissionId", Some(decl), None)
 
   override def apply(body: (LinkingSessionRequest[AnyContent]) => Future[Result]): Action[AnyContent] = Action.async { implicit request =>
     body(LinkingSessionRequest(stubSession, "", request))
