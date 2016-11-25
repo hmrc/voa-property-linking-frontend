@@ -35,15 +35,15 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @ImplementedBy(classOf[EnvelopeConnector])
 trait Envelope {
-  def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[Unit]
+  def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]
 }
 
 @Singleton
 class EnvelopeConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionContext) extends Envelope with ServicesConfig with JsonHttpReads {
   lazy val http = Wiring().http
 
-  def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.PUT[JsValue, HttpResponse](s"${baseUrl("property-linking")}/property-linking/envelopes/${envelopeId}", Json.obj()) map { _ => ()
+  def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
+    http.PUT[JsValue, HttpResponse](s"${baseUrl("property-linking")}/property-linking/envelopes/${envelopeId}", Json.obj()) map { _ => envelopeId
     }
   }
 
