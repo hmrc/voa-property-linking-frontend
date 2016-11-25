@@ -26,7 +26,7 @@ import scala.concurrent.Future
 
 class StubLinkingSessionRepository(session: LinkingSession, cache: SessionCache) extends LinkingSessionRepository(cache) {
 
-  override def start(p: Property, envelopeId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
+  override def start(p: Property, envelopeId: String, submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
     Future.successful(())
   }
 

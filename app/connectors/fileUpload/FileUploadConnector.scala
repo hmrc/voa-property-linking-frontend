@@ -22,6 +22,7 @@ import javax.inject.Inject
 import akka.stream.scaladsl._
 import com.google.inject.{ImplementedBy, Singleton}
 import config.{Environment, Wiring}
+import connectors.EnvelopeConnector
 import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
@@ -54,13 +55,16 @@ trait FileUpload {
 }
 
 @Singleton
-class FileUploadConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionContext) extends FileUpload with ServicesConfig with JsonHttpReads {
+class FileUploadConnector @Inject()(val ws: WSClient, val envelopeConnector: EnvelopeConnector)(implicit ec: ExecutionContext)
+  extends FileUpload with ServicesConfig with JsonHttpReads {
   lazy val http = Wiring().http
 
   def createEnvelope()(implicit hc: HeaderCarrier): Future[String] = {
     http.POST[JsValue, HttpResponse](s"${baseUrl("file-upload-backend")}/file-upload/envelopes", Json.obj()) map { r =>
-      r.header("location").flatMap { l => l.split("/").lastOption } getOrElse (throw new Exception("No envelope id"))
-    }
+      r.header("location")
+        .flatMap(l => l.split("/").lastOption)
+        .getOrElse(throw new Exception("No envelope id"))
+    } flatMap { envId => envelopeConnector.storeEnvelope(envId) }
   }
 
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier) = {
