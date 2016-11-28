@@ -33,5 +33,5 @@ object StubPropertyConnector extends PropertyConnector(StubHttp) {
     stubbedProperties = Nil
   }
 
-  override def find(uarn: Long)(implicit hc: HeaderCarrier): Future[Option[Property]] = Future.successful(stubbedProperties.find(_.uarn == uarn))
+  override def get(uarn: Long)(implicit hc: HeaderCarrier): Future[Option[Property]] = Future.successful(stubbedProperties.find(_.uarn == uarn))
 }

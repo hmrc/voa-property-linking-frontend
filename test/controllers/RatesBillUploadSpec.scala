@@ -43,7 +43,7 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
   val mockFileUploads = mock[FileUpload]
   object TestUploadRatesBill extends UploadRatesBill(mockFileUploads)  {
     override lazy val withLinkingSession = new StubWithLinkingSession(property, capacityDeclaration)
-    override lazy val propertyLinkConnector  = new StubPropertyLinkConnector
+    override lazy val propertyLinkConnector = StubPropertyLinkConnector
     lazy val sessionCache = new VPLSessionCache(StubHttp)
     override lazy val sessionRepository = new StubLinkingSessionRepository(session, sessionCache)
   }

@@ -14,7 +14,7 @@
                     <span class="section-title">@Messages("propertyRepresentation.modifyAgent.title")</span>
                 </h1>
 
-        @form(routes.AppointAgentController.modifySubmit(model.uarn, model.representationId)) {
+        @form(routes.AppointAgentController.modifySubmit(model.representationId)) {
             <input type="hidden" name="agentCode" value="@model.form("agentCode").value.getOrElse("")"/>
 
             @inputRadioGroup(

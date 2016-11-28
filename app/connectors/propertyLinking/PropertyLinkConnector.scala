@@ -26,21 +26,26 @@ import uk.gov.hmrc.play.http._
 import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec: ExecutionContext)
-  extends ServicesConfig with JsonHttpReads {
+  extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  def linkToProperty(property: Property, userId: String,
-                     capacityDeclaration: CapacityDeclaration, submissionId: String, basis: LinkBasis,
+  def get(linkId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
+    val url = baseUrl + s"/property-link/$linkId"
+    http.GET[Option[PropertyLink]](url)
+  }
+
+  def linkToProperty(property: Property, groupId: String,
+                     capacityDeclaration: CapacityDeclaration, linkId: String, basis: LinkBasis,
                      fileInfo: Option[FileInfo])
                     (implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = baseUrl + s"/property-links/${property.uarn}/$userId/$submissionId"
-    val request = PropertyLinkRequest(property.uarn, userId, capacityDeclaration,
+    val url = baseUrl + s"/property-links/$linkId"
+    val request = PropertyLinkRequest(property.uarn, groupId, capacityDeclaration,
       DateTime.now, basis, property.specialCategoryCode, property.description, property.bulkClassIndicator, fileInfo)
     http.POST[PropertyLinkRequest, HttpResponse](s"$url", request) map { _ => () }
   }
 
-  def linkedProperties(id: String)(implicit hc: HeaderCarrier): Future[LinkedProperties] = {
-    val url = baseUrl + s"/property-links/$id"
+  def linkedProperties(groupId: String)(implicit hc: HeaderCarrier): Future[LinkedProperties] = {
+    val url = baseUrl + s"/property-links/$groupId"
     http.GET[Seq[PropertyLink]](url).map(seq => {
       val tmp: (Seq[PropertyLink], Seq[PropertyLink]) = seq.partition(!_.pending)
       LinkedProperties(tmp._1, tmp._2)

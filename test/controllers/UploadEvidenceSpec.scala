@@ -41,7 +41,7 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
   val mockFileUploads = mock[FileUpload]
   object TestUploadEvidence extends UploadEvidence(mockFileUploads)  {
     override lazy val withLinkingSession = new StubWithLinkingSession(property, capacityDeclaration)
-    override lazy val propertyLinkConnector  = new StubPropertyLinkConnector
+    override lazy val propertyLinkConnector = StubPropertyLinkConnector
   }
 
   "Upload Evidence page" must "allow the user to upload some evidence or not" in {

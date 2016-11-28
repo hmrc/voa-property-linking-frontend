@@ -24,7 +24,7 @@
                 @propertyRepresentations.map{propRep =>
                     <tr>
                         <td>
-                            <a href=@routes.AppointAgentController.modify(propRep.uarn, propRep.agentId)>@propRep.agentName</a>
+                            <a href=@routes.AppointAgentController.modify(propRep.representationId)>@propRep.agentName</a>
                         </td>
                         <td>@propRep.canCheck</td>
                         <td>@propRep.canChallenge</td>

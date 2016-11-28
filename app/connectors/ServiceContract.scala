@@ -18,23 +18,32 @@ package connectors
 
 import models._
 import org.joda.time.DateTime
+import play.api.libs.json.Json
 
 case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)
 
 case class FileInfo(fileName: String, fileType: String)
 
-case class PropertyLinkRequest(uarn: Long, userId: String, capacityDeclaration: CapacityDeclaration,
+case class PropertyLinkRequest(uarn: Long, groupId: String, capacityDeclaration: CapacityDeclaration,
                                linkedDate: DateTime, linkBasis: LinkBasis,
                                specialCategoryCode: String, description: String, bulkClassIndicator: String,
                                fileInfo: Option[FileInfo])
 
-case class PropertyLink(uarn: Long, userId: String, description: String, capacityDeclaration: CapacityDeclaration,
-                        linkedDate: DateTime, pending: Boolean)
+case class PropertyLink(linkId: String, uarn: Long, groupId: String, description: String,
+                        capacityDeclaration: CapacityDeclaration, linkedDate: DateTime, pending: Boolean)
 
 case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
 
-case class PropertyRepresentation(representationId: String, agentId: String, agentName: String, groupId: String,
-                                  groupName: String, uarn: Long, address: Address, canCheck: AgentPermission,
-                                  canChallenge: AgentPermission, pending: Boolean)
+case class PropertyRepresentation(representationId: String, linkId: String, agentId: String, agentName: String,
+                                  groupId: String, groupName: String, uarn: Long, address: Address,
+                                  canCheck: AgentPermission, canChallenge: AgentPermission, pending: Boolean)
+
+case class UpdatedRepresentation(representationId: String, canCheck: AgentPermission, canChallenge: AgentPermission)
+
+object UpdatedRepresentation {
+  import serialization.JsonFormats._
+
+  implicit val format = Json.format[UpdatedRepresentation]
+}
 
 

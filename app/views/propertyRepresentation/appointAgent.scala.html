@@ -18,7 +18,7 @@
         <p>@Messages("propertyRepresentation.appointAgent.message.1")</p>
         <p>@Messages("propertyRepresentation.appointAgent.message.2")</p>
 
-        @form(routes.AppointAgentController.appointSubmit(model.uarn)) {
+        @form(routes.AppointAgentController.appointSubmit(model.linkId)) {
             @inputText(
                 field = model.form("agentCode"),
                 '_label -> Messages("propertyRepresentation.appointAgent.agentCode"),

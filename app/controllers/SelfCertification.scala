@@ -20,7 +20,6 @@ import config.Wiring
 import form.Mappings.trueOnly
 import models.{Property, SelfCertifyFlag}
 import play.api.data.Form
-import play.api.mvc._
 import play.api.data.Forms._
 import session.{LinkingSession, LinkingSessionRequest}
 import uk.gov.hmrc.play.http.HeaderCarrier
@@ -54,7 +53,7 @@ object SelfCertification extends PropertyLinkingController {
   def selfCertified() = withLinkingSession { implicit request =>
     request.ses.selfCertifyComplete.contains(true) match {
       case true =>
-        Ok(views.html.linkingRequestSubmitted(request.ses.claimedProperty.uarn))
+        Ok(views.html.linkingRequestSubmitted())
       case false => Redirect(routes.Dashboard.home())
     }
   }

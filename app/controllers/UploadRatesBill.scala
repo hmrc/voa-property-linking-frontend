@@ -79,7 +79,7 @@ class UploadRatesBill @Inject()(val fileUploadConnector: FileUpload) extends Pro
   def ratesBillUploaded() = withLinkingSession { implicit request =>
     fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
       sessionRepository.remove().map(_ =>
-        Ok(views.html.linkingRequestSubmitted(request.ses.claimedProperty.uarn))
+        Ok(views.html.linkingRequestSubmitted())
       )
     )
   }
