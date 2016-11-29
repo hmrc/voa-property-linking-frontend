@@ -326,3 +326,4 @@ agent.dashboard.manageProperties.rejectAll=Reject all
 
 #ERROR PAGES
 title.error.403=403 Forbidden
+invalidAppointment.title=Invalid agent appointment
