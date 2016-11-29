@@ -23,6 +23,7 @@ import models.{AgentPermission, AgentPermissions, NotPermitted}
 import play.api.data.{Form, FormError}
 import play.api.data.Forms._
 import play.api.mvc.Request
+import uk.gov.hmrc.play.http.BadRequestException
 
 import scala.concurrent.Future
 
@@ -86,7 +87,11 @@ trait AppointAgentController extends PropertyLinkingController {
               val req = PropertyRepresentation(java.util.UUID.randomUUID().toString, linkId, a.id, a.companyName, request.account.id,
                 request.account.companyName, l.uarn, p.address, agent.canCheck, agent.canChallenge, true
               )
-              representations.create(req) map { _ => Ok(views.html.propertyRepresentation.appointedAgent(p.address, a.companyName)) }
+              representations.create(req) map { _ =>
+                Ok(views.html.propertyRepresentation.appointedAgent(p.address, a.companyName))
+              } recover {
+                case _: BadRequestException => BadRequest(views.html.propertyRepresentation.invalidAppointment())
+              }
             case _ => Future.successful(internalServerError)
           }
         } yield {
