@@ -24,19 +24,19 @@ object Representation extends PropertyLinkingController {
   val reprConnector = Wiring().propertyRepresentationConnector
   val withAuthentication = Wiring().withAuthentication
 
-  def manageRepresentationRequest() = withAuthentication { implicit request =>
+  def manageRepresentationRequest() = withAuthentication.asAgent { implicit request =>
     reprConnector.forAgent(request.account.id).map { reprs =>
-      Ok(views.html.agent.dashboard.propertyRepresentation.manageProperties(ManagePropertiesVM(reprs, request.account.id)))
+      Ok(views.html.agent.dashboard.propertyRepresentation.manageProperties(ManagePropertiesVM(reprs, request.agentCode)))
     }
   }
 
-  def accept(reprId: String) = withAuthentication { implicit request =>
+  def accept(reprId: String) = withAuthentication.asAgent { implicit request =>
     reprConnector.accept(reprId).map { _ =>
       Redirect(routes.Representation.manageRepresentationRequest())
     }
   }
 
-  def reject(reprId: String) = withAuthentication { implicit request =>
+  def reject(reprId: String) = withAuthentication.asAgent { implicit request =>
     reprConnector.reject(reprId).map { _ =>
       Redirect(routes.Representation.manageRepresentationRequest())
     }

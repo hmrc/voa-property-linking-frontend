@@ -17,7 +17,7 @@
 package connectors
 
 import controllers.GroupAccountDetails
-import models.GroupAccount
+import models.{GroupAccount, GroupAccountSubmission}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost, HttpResponse}
 
@@ -35,11 +35,15 @@ class GroupAccounts(http: HttpGet with HttpPost)(implicit ec: ExecutionContext) 
     http.GET[Option[GroupAccount]](s"$url/$groupId")
   }
 
-  def create(account: GroupAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.POST[GroupAccount, HttpResponse](url, account) map { _ => () }
+  def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
+    http.GET[Option[GroupAccount]](s"$url/agentCode/$agentCode")
+  }
+
+  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.POST[GroupAccountSubmission, HttpResponse](url, account) map { _ => () }
   }
 
   def create(groupId: String, details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Unit] = {
-    create(GroupAccount(groupId, details.companyName, details.address, details.email, details.phone, details.isSmallBusiness, details.isAgent))
+    create(GroupAccountSubmission(groupId, details.companyName, details.address, details.email, details.phone, details.isSmallBusiness, details.isAgent))
   }
 }

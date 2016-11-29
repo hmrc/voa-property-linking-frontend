@@ -18,6 +18,7 @@ package session
 
 import config.Wiring
 import models.GroupAccount
+import play.api.i18n.Messages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results.{Redirect, Unauthorized}
 import play.api.mvc._
@@ -54,6 +55,8 @@ class WithLinkingSession {
 
 case class AuthenticatedRequest[A](account: GroupAccount, request: Request[A]) extends WrappedRequest[A](request)
 
+case class AgentAuthenticatedRequest[A](account: GroupAccount, agentCode: String, request: Request[A]) extends WrappedRequest[A](request)
+
 class WithAuthentication {
   val individuals = Wiring().individualAccountConnector
   val groups = Wiring().groupAccountConnector
@@ -75,6 +78,13 @@ class WithAuthentication {
       }
     } yield {
       res
+    }
+  }
+
+  def asAgent(body: AgentAuthenticatedRequest[AnyContent] => Future[Result])(implicit messages: Messages) = apply { implicit request =>
+    request.account.agentCode match {
+      case Some(code) => body(AgentAuthenticatedRequest(request.account, code, request))
+      case None => Future.successful(Unauthorized(views.html.errors.agentAccountRequired()))
     }
   }
 }

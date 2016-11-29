@@ -17,7 +17,7 @@
 package controllers
 
 import config.Wiring
-import models.{Address, GroupAccount, IndividualAccount}
+import models.{Address, GroupAccountSubmission$, IndividualAccount}
 import play.api.data.Forms._
 import play.api.data.{Form, Mapping}
 
