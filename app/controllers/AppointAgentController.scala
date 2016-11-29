@@ -70,7 +70,7 @@ trait AppointAgentController extends PropertyLinkingController {
         for {
           link <- propertyLinks.get(linkId)
           l = link.getOrElse(throw new Exception(s"Invalid linkId $linkId"))
-          account <- accounts.get(agent.agentCode)
+          account <- accounts.withAgentCode(agent.agentCode)
           prop <- properties.get(l.uarn)
           res <- (account, prop) match {
             case (Some(_), Some(_)) if agentHasNoPermissions(agent) =>

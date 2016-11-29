@@ -59,7 +59,7 @@ class IdentityVerificationSpec extends ControllerSpec {
   "Successfully verifying identity when the group does have a CCA account" must "display a confirmation page, and create the individual account" in {
     StubAuthConnector.stubInternalId("individualwithoutaccount")
     StubUserDetails.stubGroupId("groupwithaccount")
-    StubGroupAccountConnector.stubAccount(GroupAccount("groupwithaccount", "", Address("", "", "", ""), "", "", false, false))
+    StubGroupAccountConnector.stubAccount(GroupAccount("groupwithaccount", "", Address("", "", "", ""), "", "", false, None))
     StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
 
     val res = TestIdentityVerification.withRestoredSession()(requestWithJourneyId("anothersuccess"))

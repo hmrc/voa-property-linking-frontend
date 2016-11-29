@@ -16,8 +16,14 @@
 
 package models
 
+import play.api.libs.json.Json
+
 case class Address(line1: String, line2: String, line3: String, postcode: String) {
   override def toString = Seq(line1, line2, line3, postcode).filter(_.nonEmpty).mkString(", ")
+}
+
+object Address {
+  implicit val addressFormat = Json.format[Address]
 }
 
 case class Property(uarn: Long, billingAuthorityReference: String, address: Address, isSelfCertifiable: Boolean,

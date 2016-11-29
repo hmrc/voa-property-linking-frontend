@@ -16,9 +16,11 @@
 
 package controllers
 
+import java.util.UUID
+
 import auth.GGAction
 import connectors.VPLAuthConnector
-import models.{Address, GroupAccount, IndividualAccount, IndividualDetails}
+import models._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
@@ -45,7 +47,7 @@ class DashboardSpec extends ControllerSpec {
   "Logging in for the first time with an individual sub-account under a group that has registered" must "redirect to the create individual account page" in {
     StubAuthConnector.stubInternalId("hasnoaccount")
     StubUserDetails.stubGroupId("hasgroupaccount")
-    StubGroupAccountConnector.stubAccount(GroupAccount("hasgroupaccount", "", Address("", "", "", ""), "", "", false, false))
+    StubGroupAccountConnector.stubAccount(GroupAccount("hasgroupaccount", "", Address("", "", "", ""), "", "", false, Some(UUID.randomUUID().toString)))
 
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
@@ -56,7 +58,7 @@ class DashboardSpec extends ControllerSpec {
     StubAuthConnector.stubInternalId("has-account")
     StubUserDetails.stubGroupId("has-group-account")
     StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", "has-group-account", IndividualDetails("fname", "lname", "aa@aa.aa", "123", None)))
-    StubGroupAccountConnector.stubAccount(GroupAccount("has-group-account", "", Address("", "", "", ""), "", "", false, false))
+    StubGroupAccountConnector.stubAccount(GroupAccount("has-group-account", "", Address("", "", "", ""), "", "", false, None))
 
     val res = TestDashboard.home()(request)
     status(res) mustBe OK
@@ -66,7 +68,7 @@ class DashboardSpec extends ControllerSpec {
     StubAuthConnector.stubInternalId("has-account")
     StubUserDetails.stubGroupId("has-agent-account")
     StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", "has-agent-account", IndividualDetails("fname", "lname", "aa@aa.aa", "123", None)))
-    StubGroupAccountConnector.stubAccount(GroupAccount("has-agent-account", "", Address("", "", "", ""), "", "", false, true))
+    StubGroupAccountConnector.stubAccount(GroupAccount("has-agent-account", "", Address("", "", "", ""), "", "", false, Some(UUID.randomUUID().toString)))
 
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER

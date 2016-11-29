@@ -16,9 +16,11 @@
 
 package utils
 
+import java.util.UUID
+
 import connectors.GroupAccounts
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import models.GroupAccount
+import models.{GroupAccount, GroupAccountSubmission}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -39,5 +41,9 @@ object StubGroupAccountConnector extends GroupAccounts(StubHttp) {
 
   override def get(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = Future.successful(stubbedGroups.find(_.id == groupId))
 
-  override def create(account: GroupAccount)(implicit hc: HeaderCarrier): Future[Unit] = Future.successful(stubAccount(account))
+  override def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.agentCode.contains(agentCode)))
+
+  override def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Unit] = Future.successful {
+    stubAccount(GroupAccount(account.id, account.companyName, account.address, account.email, account.phone, account.isSmallBusiness, Some(UUID.randomUUID().toString)))
+  }
 }
