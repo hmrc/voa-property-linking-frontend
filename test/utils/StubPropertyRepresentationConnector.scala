@@ -30,8 +30,13 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
     stubbedRepresentations = Nil
   }
 
-  override def get(userId: String, uarn: Long)(implicit hc: HeaderCarrier) = {
-    Future.successful(stubbedRepresentations.filter(r => r.groupId == userId && r.uarn == uarn))
+  override def get(representationId: String)(implicit hc: HeaderCarrier) = Future.successful(
+    stubbedRepresentations.find(_.representationId == representationId)
+  )
+
+  override def find(linkId: String)(implicit hc: HeaderCarrier) = Future.successful {
+    stubbedRepresentations.filter(_.linkId == linkId)
   }
+
   override def create(reprRequest: PropertyRepresentation)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 }

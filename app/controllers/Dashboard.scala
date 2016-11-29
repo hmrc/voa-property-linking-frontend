@@ -53,38 +53,37 @@ trait Dashboard extends PropertyLinkingController {
     for {
       groupId <- userDetails.getGroupId(ctx)
       props <- propLinkedConnector.linkedProperties(groupId)
-      added <- propertyLinkRepresentations(props, groupId)
-      pending <- pendingPropertyLinkRepresentations(props, groupId)
+      added <- propertyLinkRepresentations(props)
+      pending <- pendingPropertyLinkRepresentations(props)
     } yield {
       Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(LinkedPropertiesRepresentations(added, pending))))
     }
   }
 
-  private def pendingPropertyLinkRepresentations(lps: LinkedProperties, id: String)
-                                                (implicit hc: HeaderCarrier): Future[Seq[PendingPropertyLinkRepresentations]] = {
+  private def pendingPropertyLinkRepresentations(lps: LinkedProperties)(implicit hc: HeaderCarrier): Future[Seq[PendingPropertyLinkRepresentations]] = {
     val pending: Seq[Future[PendingPropertyLinkRepresentations]] = lps.pending.map { p =>
       for {
-        reps <- reprConnector.get(id, p.uarn)
+        reps <- reprConnector.find(p.linkId)
         shortAddress <- shortAddress(p.uarn)
       } yield {
-        PendingPropertyLinkRepresentations(shortAddress, p.uarn, p.capacityDeclaration.capacity, p.linkedDate, reps)
+        PendingPropertyLinkRepresentations(shortAddress, p.linkId, p.capacityDeclaration.capacity, p.linkedDate, reps)
       }
     }
     Future.sequence(pending)
   }
 
-  private def propertyLinkRepresentations(lps: LinkedProperties, id: String)(implicit hc: HeaderCarrier): Future[Seq[PropertyLinkRepresentations]] = {
+  private def propertyLinkRepresentations(lps: LinkedProperties)(implicit hc: HeaderCarrier): Future[Seq[PropertyLinkRepresentations]] = {
     Future.sequence(lps.added.map { p =>
       for {
-        reps <- reprConnector.get(id, p.uarn)
+        reps <- reprConnector.find(p.linkId)
         shortAddress <- shortAddress(p.uarn)
       } yield {
-        PropertyLinkRepresentations(shortAddress, p.uarn, p.capacityDeclaration.capacity, p.linkedDate, reps)
+        PropertyLinkRepresentations(shortAddress, p.linkId, p.capacityDeclaration.capacity, p.linkedDate, reps)
       }
     })
   }
 
-  private def shortAddress(uarn: Long)(implicit hc: HeaderCarrier) = propConnector.find(uarn) map {
+  private def shortAddress(uarn: Long)(implicit hc: HeaderCarrier) = propConnector.get(uarn) map {
     case Some(p) => p.address.line1 + ", " + p.address.postcode
     case None => "No address found"
   }
@@ -94,10 +93,10 @@ object Dashboard extends Dashboard
 
 case class ManagePropertiesVM(properties: LinkedPropertiesRepresentations)
 
-case class PropertyLinkRepresentations(name: String, uarn: Long, capacity: CapacityType, linkedDate: DateTime,
+case class PropertyLinkRepresentations(name: String, linkId: String, capacity: CapacityType, linkedDate: DateTime,
                                        representations: Seq[PropertyRepresentation])
 
-case class PendingPropertyLinkRepresentations(name: String, uarn: Long, capacity: CapacityType,
+case class PendingPropertyLinkRepresentations(name: String, linkId: String, capacity: CapacityType,
                                               linkedDate: DateTime, representations: Seq[PropertyRepresentation])
 
 case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentations], pending: Seq[PendingPropertyLinkRepresentations])

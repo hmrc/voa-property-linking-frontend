@@ -27,13 +27,18 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut)(implicit ec: E
   extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  def get(userId: String, uarn: Long)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
-    val url = baseUrl + s"/property-representations/$userId/$uarn"
-    http.GET[Seq[PropertyRepresentation]](url)
+  def get(representationId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyRepresentation]] = {
+    val url = baseUrl + s"/property-representations/$representationId"
+    http.GET[Option[PropertyRepresentation]](url)
   }
 
   def forAgent(agentId: String)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
-    val url = baseUrl + s"/property-representations/$agentId"
+    val url = baseUrl + s"/property-representations/agent/$agentId"
+    http.GET[Seq[PropertyRepresentation]](url)
+  }
+
+  def find(linkId: String)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
+    val url = baseUrl + s"/property-representations/linkId/$linkId"
     http.GET[Seq[PropertyRepresentation]](url)
   }
 
@@ -52,10 +57,9 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut)(implicit ec: E
     http.PUT[JsValue, HttpResponse](url, JsNull) map { _ => () }
   }
 
-  def update(reprRequest: PropertyRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
+  def update(updated: UpdatedRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-representations/update"
-    http.PUT[PropertyRepresentation, HttpResponse](url, reprRequest) map { _ => () }
+    http.PUT[UpdatedRepresentation, HttpResponse](url, updated) map { _ => () }
   }
-
 }
 

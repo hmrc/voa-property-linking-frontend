@@ -17,15 +17,16 @@
 package utils
 
 import connectors.propertyLinking.PropertyLinkConnector
-import connectors.{CapacityDeclaration, FileInfo}
+import connectors.{CapacityDeclaration, FileInfo, PropertyLink}
 import models.{LinkBasis, Property}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
+object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
 
+  private var stubbedLinks: Seq[PropertyLink] = Nil
 
   override def linkToProperty(property: Property,
                               userId: String,
@@ -36,4 +37,15 @@ class StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
     Future.successful(())
   }
 
+  override def get(linkId: String)(implicit hc: HeaderCarrier) = Future.successful {
+    stubbedLinks.find(_.linkId == linkId)
+  }
+
+  def stubLink(link: PropertyLink) = {
+    stubbedLinks :+= link
+  }
+
+  def reset() = {
+    stubbedLinks = Nil
+  }
 }

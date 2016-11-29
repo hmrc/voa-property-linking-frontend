@@ -41,7 +41,7 @@ class Search @Inject()(val fileUploadConnector: FileUploadConnector,
   }
 
   def declareCapacity(uarn: Long) = ggAction.async { _ => implicit request =>
-    connector.find(uarn).flatMap {
+    connector.get(uarn).flatMap {
       case Some(pd) =>
         fileUploadConnector.createEnvelope().flatMap(envelopeId => {
           val submissionId = java.util.UUID.randomUUID().toString.replace("-", "")

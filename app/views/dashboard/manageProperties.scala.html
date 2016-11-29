@@ -31,12 +31,12 @@
                         <td>@Messages("dashboard.manageProperties.status.added")</td>
                         <td>@Display.date(p.linkedDate)</td>
                         <td>
-                            <a href=@routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
+                            <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("dashboard.addAgent")</a>
                         </td>
                         @if(showEditColumn) {
                             <td>
                                 @if(p.representations.nonEmpty) {
-                                    <a href=@routes.AppointAgentController.edit(p.uarn)>
+                                    <a href=@routes.AppointAgentController.edit(p.linkId)>
                                     @Messages("dashboard.editAgent")
                                     </a>
                                 }
@@ -51,12 +51,12 @@
                         <td>@Messages("dashboard.manageProperties.status.pending")</td>
                         <td>@Display.date(p.linkedDate)</td>
                         <td>
-                            <a href=@routes.AppointAgentController.add(p.uarn)>@Messages("dashboard.addAgent")</a>
+                            <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("dashboard.addAgent")</a>
                         </td>
                         @if(showEditColumn) {
                             <td>
                                 @if(p.representations.nonEmpty) {
-                                    <a href=@routes.AppointAgentController.edit(p.uarn)>@Messages("dashboard.editAgent")</a>
+                                    <a href=@routes.AppointAgentController.edit(p.linkId)>@Messages("dashboard.editAgent")</a>
                                 }
                             </td>
                         }

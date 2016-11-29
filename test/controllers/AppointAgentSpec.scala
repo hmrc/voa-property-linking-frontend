@@ -16,7 +16,9 @@
 
 package controllers
 
-import models.{Address, AgentPermissions, GroupAccount, Property}
+import connectors.{CapacityDeclaration, PropertyLink}
+import models._
+import org.joda.time.DateTime
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
@@ -25,10 +27,11 @@ class AppointAgentSpec extends ControllerSpec {
   import TestData._
 
   private object TestAppointAgent extends AppointAgentController {
-    override val propertyRepresentationConnector = StubPropertyRepresentationConnector
+    override val representations = StubPropertyRepresentationConnector
     override val properties = StubPropertyConnector
     override val accounts = StubGroupAccountConnector
     override val withAuthentication = StubWithAuthentication
+    override val propertyLinks = StubPropertyLinkConnector
   }
 
   val request = FakeRequest().withSession(token)
@@ -37,7 +40,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubPropertyConnector.stubProperty(property)
     StubWithAuthentication.stubAuthentication(account)
 
-    val res = TestAppointAgent.appoint(property.uarn)(request)
+    val res = TestAppointAgent.appoint(link.linkId)(request)
     status(res) must be (OK)
 
     val page = HtmlPage(res)
@@ -51,7 +54,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubWithAuthentication.stubAuthentication(account)
     StubGroupAccountConnector.stubAccount(agentAccount)
 
-    val res = TestAppointAgent.appointSubmit(property.uarn)(
+    val res = TestAppointAgent.appointSubmit(link.linkId)(
       request.withFormUrlEncodedBody("agentCode" -> "", "canCheck" -> "continueOnly", "canChallenge" -> "continueOnly")
     )
     status(res) must be (BAD_REQUEST)
@@ -65,7 +68,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubWithAuthentication.stubAuthentication(account)
     StubGroupAccountConnector.stubAccount(agentAccount)
 
-    val res = TestAppointAgent.appointSubmit(property.uarn)(
+    val res = TestAppointAgent.appointSubmit(link.linkId)(
       request.withFormUrlEncodedBody("agentCode" -> agentAccount.id, "canCheck" -> "", "canChallenge" -> "continueOnly")
     )
     status(res) must be (BAD_REQUEST)
@@ -79,7 +82,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubWithAuthentication.stubAuthentication(account)
     StubGroupAccountConnector.stubAccount(agentAccount)
 
-    val res = TestAppointAgent.appointSubmit(property.uarn)(
+    val res = TestAppointAgent.appointSubmit(link.linkId)(
       request.withFormUrlEncodedBody("agentCode" -> agentAccount.id, "canCheck" -> "continueOnly", "canChallenge" -> "")
     )
     status(res) must be (BAD_REQUEST)
@@ -92,8 +95,9 @@ class AppointAgentSpec extends ControllerSpec {
     StubPropertyConnector.stubProperty(property)
     StubWithAuthentication.stubAuthentication(account)
     StubGroupAccountConnector.stubAccount(agentAccount)
+    StubPropertyLinkConnector.stubLink(link)
 
-    val res = TestAppointAgent.appointSubmit(property.uarn)(
+    val res = TestAppointAgent.appointSubmit(link.linkId)(
       request.withFormUrlEncodedBody("agentCode" -> agentAccount.id, "canCheck" -> "notPermitted", "canChallenge" -> "notPermitted")
     )
     status(res) must be (BAD_REQUEST)
@@ -106,8 +110,9 @@ class AppointAgentSpec extends ControllerSpec {
     StubPropertyConnector.stubProperty(property)
     StubWithAuthentication.stubAuthentication(account)
     StubGroupAccountConnector.stubAccount(agentAccount)
+    StubPropertyLinkConnector.stubLink(link)
 
-    val res = TestAppointAgent.appointSubmit(property.uarn)(
+    val res = TestAppointAgent.appointSubmit(link.linkId)(
       request.withFormUrlEncodedBody("agentCode" -> "not an agent", "canCheck" -> "continueOnly", "canChallenge" -> "notPermitted")
     )
     status(res) must be (BAD_REQUEST)
@@ -120,5 +125,6 @@ class AppointAgentSpec extends ControllerSpec {
     val property = Property(12345, "1234", Address("123 Fake Street", "", "", "AA1 1AA"), false, "123", "A building", "W")
     val account = GroupAccount("987654", "a company", Address("1 The Road", "", "", "AA11 1AA"), "aa@aa.aa", "1234", false, false)
     val agentAccount = GroupAccount("456789", "another company", Address("1 The Place", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, true)
+    val link = PropertyLink("6584351", property.uarn, account.id, "a thing", CapacityDeclaration(OwnerOccupier, DateTime.now()), DateTime.now(), true)
   }
 }

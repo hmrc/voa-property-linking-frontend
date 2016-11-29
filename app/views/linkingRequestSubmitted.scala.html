@@ -1,4 +1,4 @@
-@(uarn: Long)(implicit request: Request[_], messages: Messages)
+@()(implicit request: Request[_], messages: Messages)
 
     @main_template(title = Messages("linkingRequestSubmitted.title")) {
 
@@ -21,7 +21,6 @@
                 <p>@Messages("linkingRequestSubmitted.changedCircumstances.p.1")</p>
 
                 <p><a href="@routes.Search.show" class="link">@Messages("link.addAnotherProperty")</a></p>
-                <p><a href="@routes.AppointAgentController.add(uarn)" class="link">@Messages("link.addAgent")</a></p>
                 <p><a href="@routes.Dashboard.manageProperties" id="backToDashBoard" class="button">@Messages("link.dashboard")</a></p>
             </div>
         </div>
