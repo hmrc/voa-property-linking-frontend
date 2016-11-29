@@ -105,7 +105,7 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
     val res = TestUploadRatesBill.ratesBillUploaded()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainLink("#backToDashBoard", "/property-linking/manage-properties")
+    page.mustContainLink("#backToDashBoard", "/property-linking/home")
   }
 
   object TestData {

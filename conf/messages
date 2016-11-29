@@ -98,8 +98,10 @@ link.dashboard=Go to your business dashboard
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard Home
-dashboard.home.manageProperties.link=View and update properties you’ve added to your account
-dashboard.home.searchProperties.link=Search and select a property to add to your account or add multiple properties to your account
+dashboard.home.manageProperties.link=Manage properties
+dashboard.home.manageProperties.text=View and update your detailed property information.
+dashboard.home.searchProperties.link=Add properties
+dashboard.home.searchProperties.text=Find and add properties to your account.
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=Manage Properties
