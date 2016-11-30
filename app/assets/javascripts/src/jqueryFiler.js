@@ -11,55 +11,83 @@
     var JqueryFiler = function (){
 
         $('.filer_input').filer({
+            afterRender: function(){
+                $('.jFiler').each(function(){
+                    $(this).before('<span class="file-error"></span>');
+                });
+                $('.jFiler-theme-govuk .button-secondary').click(function(e){
+                    e.preventDefault();
+                });
+            },
             limit: 1,
             maxSize: 5,
-            extensions: ['jpg', 'jpeg', 'pdf', 'doc', 'docm', 'docx', 'txt'],
+            extensions: ['jpg', 'jpeg', 'pdf', 'doc', 'docm', 'docx', 'txt', 'png'],
             showThumbs: true,
-            addMore: false,
-            onSelect: function() {
-                $('.error-message').remove();
-                $('.jFiler').removeClass('error');
-                /*
-                $('.typeOfDoc').each(function(){
-                    var index = $(this).closest('.jFiler-items-list .jFiler-item').attr('data-jfiler-index');
-                    $(this).find('label').attr('for', 'typeOfDoc-'+index);
-                    $(this).find('select').attr('id', 'typeOfDoc-'+index);
-                    $(this).find('select').attr('name', 'typeOfDoc-'+index);
+            addMore: true,
+            setIndex: function(){
+                $('.jFiler-items-list .jFiler-item').each(function(){
+                    var $element = $(this).closest('.jFiler-item');
+                    var i = $(this).index();
+                    //console.log(i);
+                    //$element.attr('data-jfiler-index', i);
+                    $element.find('.typeOfDoc label').attr('for' , 'typeOfDoc_'+i);
+                    $element.find('.typeOfDoc select').attr('id' , 'typeOfDoc_'+i).attr('name' , 'typeOfDoc_'+i);
                 });
-                */
+            },
+            onSelect: function() {
+                $('.file-error').text('');
+                $('.file-input-group').removeClass('form-grouped-error');
+                this.setIndex();
+                //$('.jFiler-theme-govuk .button-secondary').insertAfter('.jFiler-items');
 
+            },
+            onRemove: function(){
+                $('.file-error').text('');
+                $('.file-input-group').removeClass('form-grouped-error');
+                //this.setIndex();
             },
             dialogs: {
                 alert: function(text) {
-                   //return alert(text);
-                   $('.error-message').remove();
-                   $('.jFiler').addClass('error').prepend('<span class=\'error-message\'>'+text+'</span>');
-                },
-                confirm: function (text, callback) {
+				   //return alert(text);
+                   $('.file-error').text(text);
+                   $('.file-input-group').addClass('form-grouped-error');
+			    },
+    			confirm: function (text, callback) {
                     callback();
-                }
-            },
+    			}
+		    },
             theme: 'govuk',
+            changeInput: '<a href="#" class="button-secondary">Choose a file to upload</a>',
             templates: {
-                box: '<ul class=\'jFiler-items-list jFiler-items-default\'></ul>',
-                //item: '<li class=\'jFiler-item\'><div class=\'jFiler-item-container\'><div class=\'jFiler-item-inner\'><div class=\'jFiler-item-icon pull-left\'>{{fi-icon}}</div><div class=\'jFiler-item-info pull-left\'><div class=\'jFiler-item-title\' title=\'{{fi-name}}\'>{{fi-name | limitTo:30}}</div><div class=\'jFiler-item-others\'><span>size: {{fi-size2}}</span><span>type: {{fi-extension}}</span><span class=\'jFiler-item-status\'>{{fi-progressBar}}</span></div><div class=\'jFiler-item-assets\'><ul class=\'list-inline\'><li class=\'typeOfDoc\'><div><label class=\'visuallyhidden\'>Type of document</label><select class=\'form-control form-control-1\' ><option>Type of document</option><option value=\'Floor plan\'>Floor plan</option><option value=\'Photographs\'>Photographs</option><option value=\'Email / letters\'>Email / letters </option><option value=\'Planning permission\'>Planning permission</option><option value=\'Other\'>Other</option></select></div></li><li><a class=\'jFiler-item-trash-action\'>Remove</a></li></ul></div></div></div></div></li>',
-                item: '<li class=\'jFiler-item\'><div class=\'jFiler-item-container\'><div class=\'jFiler-item-inner\'><div class=\'jFiler-item-icon pull-left\'>{{fi-icon}}</div><div class=\'jFiler-item-info pull-left\'><div class=\'jFiler-item-title\' title=\'{{fi-name}}\'>{{fi-name | limitTo:30}}</div><div class=\'jFiler-item-others\'><span>size: {{fi-size2}}</span><span>type: {{fi-extension}}</span><span class=\'jFiler-item-status\'>{{fi-progressBar}}</span></div><div class=\'jFiler-item-assets\'><ul class=\'list-inline\'><li><a class=\'jFiler-item-trash-action\'>Remove</a></li></ul></div></div></div></div></li>',
-                progressBar: '<div class=\'bar\'></div>'
-            },
-            captions: {
-            button: 'Choose a file',
-            feedback: 'Choose a file to upload',
-            feedback2: 'file chosen',
-            removeConfirmation: 'Are you sure you want to remove this file?',
-            errors: {
-                filesLimit: 'Only {{fi-limit}} files are allowed to be uploaded.',
-                filesType: 'File types must be JPEG, PDF or Word are allowed to be uploaded.',
-                filesSize: '{{fi-name}} is too large! Please upload file up to {{fi-maxSize}} MB.',
-                filesSizeAll: 'Files you\'ve choosed are too large! Please upload files up to {{fi-maxSize}} MB.'
-                }
-
-
-            }
+                box: '<ul class="jFiler-items-list jFiler-items-default"></ul>',
+                item: '<li class="jFiler-item">'+
+                        '<div class="jFiler-item-container">'+
+                            '<div class="jFiler-item-inner">'+
+                                '<div class="jFiler-item-info pull-left">'+
+                                    '<div class="jFiler-item-title" title="{{fi-name}}">{{fi-name | limitTo:40}}</div>'+
+                                    '<div class="jFiler-item-others">'+
+                                        '<span>&nbsp;({{fi-size2}})</span>'+
+                                        '<span class="jFiler-item-status">{{fi-progressBar}}</span>'+
+                                    '</div>'+
+                                    '<div class="jFiler-item-assets">'+
+                                        '<ul class="list-inline">'+
+                                            '<li><a class="jFiler-item-trash-action">Remove</a></li>'+
+                                        '</ul></div></div></div></div></li>',
+                progressBar: '<div class="bar"></div>'
+                },
+                captions: {
+    			button: 'Choose Files',
+    			feedback: 'Choose files To Upload',
+    			feedback2: 'files were chosen',
+    			drop: 'Drop file here to Upload',
+    			removeConfirmation: false,
+    			errors: {
+    				filesLimit: 'Only {{fi-limit}} files are allowed to be uploaded.',
+    				filesType: 'Only Images are allowed to be uploaded.',
+    				filesSize: '{{fi-name}} is too large! Please upload file up to {{fi-maxSize}} MB.',
+    				filesSizeAll: 'Files you\'ve choosed are too large! Please upload files up to {{fi-maxSize}} MB.'
+    			}
+		    }
         });
 
     };

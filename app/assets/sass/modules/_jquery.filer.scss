@@ -156,81 +156,35 @@ span.jFiler-icon-file.f-audio {
             box-shadow: rgba(0,0,0,.25) 0 4px 5px -5px inset;
 }
 
-.jFiler-theme-govuk {
-    .jFiler-input {
-        position: relative;
-        display: block;
-        width: 400px;
-        height: 35px;
-        margin: 0 0 15px 0;
-        background: #fefefe;
-        font-size: 12px;
-        font-family: sans-serif;
-        color: #888;
-        border-radius: 0;
-        cursor: pointer;
-        overflow: hidden;
-        font-family: "nta", Arial, sans-serif;
-        font-size: 16px;
-        line-height: 1.25;
-        font-weight: 400;
-        text-transform: none;
-    }
+.jFiler-theme-govuk .jFiler-input {
+    position: relative;
+    display: block;
+    width: 400px;
+    height: 35px;
+    margin: 0 0 15px 0;
+    background: #fefefe;
 
-    .jFiler-items-default{
-        .jFiler-item{
+    font-size: 12px;
+    font-family: sans-serif;
+    color: #888;
+    border-radius: 0;
+    cursor: pointer;
+    overflow: hidden;
 
-            position: relative;
-            padding: 16px;
-            margin-bottom: 0;
-            //background: white;
-            color: $black;
-            //border-bottom: solid 1px $grey-2;
-            .jFiler-item-icon {
-                color: $black;
-            }
-            .jFiler-item-others{
-                span {
-                    @include core-16();
 
-                }
-            }
-            .icon-jfi-file-o{
-                margin-top: 4px;
-                display: inline-block;
-            }
-        }
-        .jFiler-item-assets{
-            //right: -5px;
-            a {
-                padding: 0;
-                cursor: pointer;
-                background: none;
-                border-radius: 0;
-                border: none;
-                color: $link-colour;
-                text-decoration: underline;
-                @include core-19();
+    font-family: "nta", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
+    text-transform: none;
 
-            }
-            a:visited {
-              color: $link-visited-colour;
-            }
-
-            a:hover {
-              color: $link-hover-colour;
-            }
-
-            a:active {
-              color: $link-colour;
-            }
-        }
-    }
 
 }
 
-
-
+.jFiler-theme-govuk button{
+    font-family: "nta", Arial, sans-serif;
+    font-size: 19px;
+}
 
 .jFiler-theme-default .jFiler-input.focused {
     outline: none;
@@ -400,6 +354,19 @@ span.jFiler-icon-file.f-audio {
     border: 1px solid #e3e3e3
 }
 
+.jFiler-theme-govuk .jFiler-items-default .jFiler-item-assets a {
+    cursor: pointer;
+    background: none;
+    color: #005ea5;
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+}
+.jFiler-theme-govuk .jFiler-items-default .jFiler-item-assets a:hover{
+    color: #2e8aca;
+}
+
 .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:hover,
 .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:active {
     color: #d9534f;
@@ -408,6 +375,16 @@ span.jFiler-icon-file.f-audio {
 .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:active {
     background: transparent;
 }
+
+.jFiler-theme-govuk .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:hover,
+.jFiler-theme-govuk .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:active {
+    color: #005ea5;
+}
+
+.jFiler-theme-govuk .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:active {
+    background: transparent;
+}
+
 
 /* Thumbnails: Grid */
 .jFiler-items-grid .jFiler-item {
@@ -525,6 +502,74 @@ span.jFiler-icon-file.f-audio {
     cursor: pointer;
     color: #d9534f;
 }
+
+.jFiler-theme-govuk .jFiler-items-grid .jFiler-item-trash-action:hover {
+    cursor: pointer;
+    color: #2e8aca;
+}
 .jFiler-items-default .jFiler-item-assets {
     top: 40%;
+}
+
+
+.jFiler-theme-govuk .jFiler-items-default .jFiler-item {
+    padding: 1.2em 0;
+    margin: 0;
+    background: none;
+    color: #0b0c0c;
+    border-bottom: 1px solid #bfc1c3;
+
+}
+.jFiler-theme-govuk .jFiler-items-default .jFiler-item:last-child{
+    margin-bottom: 2em;
+}
+
+
+.jFiler-theme-govuk  .jFiler-item-title{
+    display: inline-block;
+    font-size: 19px;
+    font-weight: normal;
+}
+
+.jFiler-theme-govuk .jFiler-items-default .jFiler-item .jFiler-item-others span{
+    padding: 0;
+}
+
+.jFiler-theme-govuk  .jFiler-items-default .jFiler-item .jFiler-item-others {
+    font-size: 19px;
+    color: #0b0c0c;
+    margin: 0;
+    display: inline-block;
+}
+
+
+.jFiler-theme-govuk  .button-secondary{
+    font-size: 19px;
+}
+
+.jFiler-theme-govuk .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action{
+    margin-right: -20px;
+    font-size: 19px;
+}
+
+
+.jFiler-theme-govuk .jFiler-items-default .jFiler-item .jFiler-item-title{
+    font-weight: normal;
+}
+.jFiler.jFiler-theme-govuk{
+    font-family: "nta", Arial, sans-serif;
+}
+.form-grouped-error .file-error {
+    color: #b10e1e;
+    font-weight: 800;
+    font-size: 19px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.form-grouped-error {
+    border-left: 5px solid #b10e1e;
+    list-style: outside none none;
+    padding: 0 0.5em 0.5em 1em;
+    display: inline-block;
 }

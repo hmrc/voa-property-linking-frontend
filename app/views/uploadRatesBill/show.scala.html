@@ -20,7 +20,9 @@
                     @inputFile(
                         field = model.form("ratesBill[]"),
                         '_labelClass -> "visuallyhidden",
-                        'class -> "filer_input"
+                        'class -> "filer_input",
+                        '_fieldsetClass -> "file-input-group"
+
                     )
 
                     <button type="submit" class="button">@Messages("uploadRatesBill.show.button")</button>
