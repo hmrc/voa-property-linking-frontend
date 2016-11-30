@@ -1,22 +1,28 @@
-@()(implicit request: Request[_], messages: Messages)
+@(individualDetails: IndividualDetails)(implicit request: Request[_], messages: Messages)
 
 
 @main_template(title = Messages("dashboard.home.title")) {
 
     <div class="grid-row">
         <div class="column-two-thirds">
-            <h1 class="form-title heading-xlarge">
+            <h1 class="form-title heading-xlarge" style="margin-bottom:4px">
+                <span class="heading-secondary">@(individualDetails.firstName) @(individualDetails.lastName)</span>
                 <span class="section-title">@Messages("dashboard.home.title")</span>
             </h1>
+            <hr style="height: 5px; background-color: #005ea5;border:0;margin-top:0px">
+            <h4 class="heading-medium">
+                <a href="@routes.Dashboard.manageProperties">@Messages("dashboard.home.manageProperties.link")</a>
+            </h4>
+            <p>
+                @Messages("dashboard.home.manageProperties.text")
+            </p>
+            <h4 class="heading-medium">
+                <a href="@routes.Search.show">@Messages("dashboard.home.searchProperties.link")</a>
+            </h4>
+            <p>
+                @Messages("dashboard.home.searchProperties.text")
+            </p>
         </div>
     </div>
-    <ul class="list-bullet">
-        <li>
-            <a href="@routes.Dashboard.manageProperties">@Messages("dashboard.home.manageProperties.link")</a>
-        </li>
-        <li>
-            <a href="@routes.Search.show">@Messages("dashboard.home.searchProperties.link")</a>
-        </li>
-    </ul>
 
 }
