@@ -12,6 +12,9 @@
                 </h1>
             </div>
         </div>
+        @if(model.properties.added.isEmpty && model.properties.pending.isEmpty){
+            @Messages("dashboard.manageProperties.noProperties")
+        } else {
         <table class="table">
             <tbody>
                 <tr>
@@ -35,7 +38,7 @@
                         <td>@Messages(p.capacity.msgKey)</td>
                         <td>
                             <a href="#">
-                            0
+                                0
                             </a>
                         </td>
                         <td>@Messages("dashboard.manageProperties.status.added")</td>
@@ -74,15 +77,16 @@
                         </td>
                         @if(showEditColumn) {
                             <td>
-                                @if(p.representations.nonEmpty) {
-                                    <a href=@routes.AppointAgentController.edit(p.linkId)>@Messages("dashboard.editAgent")</a>
-                                }
+                            @if(p.representations.nonEmpty) {
+                                <a href=@routes.AppointAgentController.edit(p.linkId)>@Messages("dashboard.editAgent")</a>
+                            }
                             </td>
                         }
                     </tr>
                 }
             </tbody>
         </table>
+    }
 
         <p><a href="@routes.Search.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.searchLinkText")</a></p>
         <p><a href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a></p>
