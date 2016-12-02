@@ -20,17 +20,15 @@ import models._
 import org.joda.time.DateTime
 import play.api.libs.json.Json
 
-case class CapacityDeclaration(capacity: CapacityType, fromDate: DateTime, toDate: Option[DateTime] = None)
+case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[DateTime],
+                               stillInterested: Boolean, toDate: Option[DateTime] = None)
 
 case class FileInfo(fileName: String, fileType: String)
 
-case class PropertyLinkRequest(uarn: Long, groupId: String, capacityDeclaration: CapacityDeclaration,
+case class PropertyLinkRequest(uarn: Long, groupId: String, capacityDeclaration: Capacity,
                                linkedDate: DateTime, linkBasis: LinkBasis,
                                specialCategoryCode: String, description: String, bulkClassIndicator: String,
                                fileInfo: Option[FileInfo])
-
-case class PropertyLink(linkId: String, uarn: Long, groupId: String, description: String,
-                        capacityDeclaration: CapacityDeclaration, linkedDate: DateTime, pending: Boolean)
 
 case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
 

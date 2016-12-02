@@ -17,8 +17,8 @@
 package utils
 
 import connectors.propertyLinking.PropertyLinkConnector
-import connectors.{CapacityDeclaration, FileInfo, PropertyLink}
-import models.{LinkBasis, Property}
+import connectors.{CapacityDeclaration, FileInfo}
+import models.{LinkBasis, Property, PropertyLink}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global

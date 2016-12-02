@@ -17,7 +17,7 @@
 package connectors.propertyLinking
 
 import connectors._
-import models.{LinkBasis, Property}
+import models.{Capacity, LinkBasis, Property, PropertyLink}
 import org.joda.time.DateTime
 import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -39,7 +39,7 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
                      fileInfo: Option[FileInfo])
                     (implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-links/$linkId"
-    val request = PropertyLinkRequest(property.uarn, groupId, capacityDeclaration,
+    val request = PropertyLinkRequest(property.uarn, groupId, Capacity.fromDeclaration(capacityDeclaration),
       DateTime.now, basis, property.specialCategoryCode, property.description, property.bulkClassIndicator, fileInfo)
     http.POST[PropertyLinkRequest, HttpResponse](s"$url", request) map { _ => () }
   }

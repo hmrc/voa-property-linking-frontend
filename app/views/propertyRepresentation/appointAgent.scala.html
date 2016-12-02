@@ -17,13 +17,11 @@
                 </h1>
 
         <p>@Messages("propertyRepresentation.appointAgent.message.1")</p>
-        <p>@Messages("propertyRepresentation.appointAgent.message.2")</p>
 
         @form(routes.AppointAgentController.appointSubmit(model.linkId)) {
             @inputText(
                 field = model.form("agentCode"),
                 '_label -> Messages("propertyRepresentation.appointAgent.agentCode"),
-                '_error -> model.form("agentCode").error,
                 '_labelClass -> "form-label-bold",
                 '_showConstraints -> false,
                 'class -> "form-control"

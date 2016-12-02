@@ -136,7 +136,7 @@ trait BasicVerification extends MustMatchers with AppendedClues with FormCheckin
     mustOnlyContainError(form.bind(data), field, error)
   }
 
-  protected def verifyOnlyError(form: Form[_], invalidData: Map[String, String], field: String, error: String) {
+  def verifyError(form: Form[_], invalidData: Map[String, String], field: String, error: String) {
      mustOnlyContainError(form.bind(invalidData), field, error)
   }
 
@@ -148,9 +148,6 @@ trait BasicVerification extends MustMatchers with AppendedClues with FormCheckin
     valid.foreach(x => mustBind(form, validData.updated(field, x)))
     invalid.foreach(x => mustContainError(form.bind(validData.updated(field, x)), field, error))
   }
-
-  protected def verifyError(form: Form[_], invalidData: Map[String, String], field: String, error: String) =
-    mustOnlyContainError(form.bind(invalidData), field, error)
 }
 
 trait FormChecking extends MustMatchers with AppendedClues {
