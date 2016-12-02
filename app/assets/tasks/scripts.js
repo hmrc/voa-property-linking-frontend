@@ -17,9 +17,9 @@ gulp.task('jshint', function() {
 // Concat/Minify JS
 gulp.task('javascripts', function(callback) {
   return gulp.src([
-    './javascripts/**/*.js',
+    './javascripts/src/*.js',
     './node_modules/govuk_frontend_toolkit/javascripts/vendor/polyfills/bind.js',
-    './node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js' 
+    './node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js'
     ])
     .pipe(concat('all.min.js'))
     .pipe(gulp.dest('../../public/javascripts'))

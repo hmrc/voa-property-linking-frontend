@@ -70,7 +70,6 @@ Example usage:
     }
 
     @if(elements.hasErrors) {
-    	<div class="@if(elements.hasErrors) {form-grouped-error}">
     		<p class="error-message">@elements.errors.mkString(", ")</p>
     }
 
@@ -93,9 +92,7 @@ Example usage:
 
     }
 
-	@if(elements.hasErrors) {
-    	</div>
-	}
+
 
     @elements.args.get('_add) match {
         case Some(true) => {

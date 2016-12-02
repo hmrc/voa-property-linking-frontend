@@ -2,9 +2,11 @@
 
 @(form: Form[_], messagePrefix: Option[String] = None)(implicit requestHeader: RequestHeader, messages: Messages)
 
+    @removeInvalid(error: FormError) = @{ error.key.replace("[", "").replace(".", "_").replace("]", "").replace("__", "") }
+
     @showError(error: FormError) = {
         <li>
-            <a href="#@error.key.replace("[", "").replace(".", "").replace("]", "").replace("__", "")">
+            <a href="#@removeInvalid(error)" data-focuses="@removeInvalid(error)">
                 <span>@Html(Messages(messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "") + ".label"))</span> - @Messages(stripIndices(error.message), error.args: _*)
             </a>
         </li>
