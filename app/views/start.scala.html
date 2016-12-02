@@ -12,7 +12,10 @@
     </h2>
 
     <p>@Messages("start.about.p.1")</p>
+    <a href="#">@Messages("start.link.learnMore")</a>
+
     <p>@Messages("start.about.p.2")</p>
+    <p>@Messages("start.about.p.3")</p>
 
     <h2 class="heading-medium">
         @Messages("start.heading.registration")
@@ -20,14 +23,16 @@
 
     <p>@Messages("start.registration.p.1")</p>
     <p>@Messages("start.registration.p.2")</p>
+    <p>@Messages("start.registration.p.3") <a href="#">@Messages("start.registration.link.ggAccount")</a> @Messages("start.registration.p.4")</p>
+
     <p>@Messages("start.registration.youNeed")</p>
     <ul class="list-bullet">
         <li>@Messages("start.registration.youNeed.1")</li>
         <li>@Messages("start.registration.youNeed.2")</li>
         <li>@Messages("start.registration.youNeed.3")</li>
-        <li>@Messages("start.registration.youNeed.4")</li>
-        <li>@Messages("start.registration.youNeed.5")</li>
     </ul>
+
+    <p>@Messages("start.registration.p.5")</p>
 
     <h2 class="heading-medium">
         @Messages("start.heading.agents")
@@ -35,6 +40,6 @@
 
     <p>@Messages("start.agents.p.1")</p>
 
-    <a href="@routes.Register.show" class="button">@Messages("start.register")</a>
+    <a href="@routes.Register.show" class="button button-get-started">@Messages("start.register")</a>
 
 }

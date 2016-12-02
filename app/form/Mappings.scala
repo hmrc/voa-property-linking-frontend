@@ -20,7 +20,7 @@ import models.{NamedEnum, NamedEnumSupport}
 import org.joda.time.DateTime
 import play.api.data.Forms._
 import play.api.data.format.{Formats, Formatter}
-import play.api.data.validation.Constraints
+import play.api.data.validation.{Constraint, Constraints}
 import play.api.data.{FormError, Forms, Mapping}
 import views.helpers.Errors
 
@@ -37,6 +37,8 @@ object Mappings extends DateMappings {
 trait DateMappings {
   def dmyDate: Mapping[DateTime] = toDateTime(dmyDateTuple)
 
+  def dmyDateAfterMarch2017 = toDateTime(dmyDateTupleAfterMarch2017)
+
   def dmyPastDate: Mapping[DateTime] = toDateTime(dmyPastDateTuple)
 
   private def toDateTime(m: Mapping[(Int, Int, Int)]): Mapping[DateTime] = m.transform[DateTime](
@@ -47,6 +49,11 @@ trait DateMappings {
   private def dmyPastDateTuple = dmyDateTuple.verifying(
     Errors.dateMustBeInPast,
     x => new DateTime(x._3, x._2, x._1, 0, 0, 0, 0).isBefore(DateTime.now.withTimeAtStartOfDay)
+  )
+
+  private def dmyDateTupleAfterMarch2017 = dmyDateTuple.verifying(
+    Errors.dateMustBeAfterMarch2017,
+    x => new DateTime(x._3, x._2, x._1, 0, 0).isAfter(new DateTime(2017, 3, 31, 0, 0))
   )
 
   private def dmyDateTuple: Mapping[(Int, Int, Int)] = mapping(
@@ -85,4 +92,25 @@ object EnumMapping {
 
     def unbind(key: String, value: T): Map[String, String] = Map(key -> value.name)
   })
+}
+
+case class DateAfter(afterField: String, key: String = "", constraints: Seq[Constraint[DateTime]] = Nil) extends Mapping[DateTime] {
+  import Mappings._
+
+  override val mappings = Nil
+
+  override def bind(data: Map[String, String]) = (dmyDate.withPrefix(afterField).bind(data), dmyDate.withPrefix(key).bind(data)) match {
+    case (_, errs@Left(_)) => errs
+    case (Left(_), r@Right(_)) => r
+    case (Right(after), r@Right(d)) if d.isAfter(after) => r
+    case (Right(_), Right(_)) => Left(Seq(FormError(key, Errors.dateMustBeAfterOtherDate)))
+  }
+
+  override def unbind(value: DateTime) = dmyDate.withPrefix(key).unbind(value)
+
+  override def unbindAndValidate(value: DateTime) = dmyDate.withPrefix(key).unbindAndValidate(value)
+
+  override def withPrefix(prefix: String) = copy(key = prefix + key)
+
+  override def verifying(c: Constraint[DateTime]*) = copy(constraints = constraints ++ c.toSeq)
 }

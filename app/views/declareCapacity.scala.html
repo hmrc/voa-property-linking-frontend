@@ -5,34 +5,33 @@
 @(model: DeclareCapacityVM)(implicit request: Request[_], messages: Messages)
 
 
-    @main_template(title = Messages("declareCapacity.title")) {
+@main_template(title = Messages("declareCapacity.title")) {
 
 
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <h1 class="form-title heading-large">@Messages("declareCapacity.title")</h1>
 
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <h1 class="form-title heading-large">@Messages("declareCapacity.title")</h1>
-
-                @includes.errorSummary(model.form)
-
-
-                    <p class="heading-medium">@Messages("declareCapacity.message")</p>
+            @includes.errorSummary(model.form)
 
 
-                    <header class="hero">
-                        <section class="hero__content">
-                            <span class="hero__heading-medium">@model.address.toString</span>
-                        </section>
-                    </header>
+            <p class="heading-medium">@Messages("declareCapacity.message")</p>
 
 
-                    <p class="panel panel-border-narrow">
-                        @Messages("declareCapacity.incorrectProperty.prefix")
-                        <a href="@routes.Search.show">@Messages("declareCapacity.incorrectProperty.link")</a>
-                    </p>
+            <header class="hero">
+                <section class="hero__content">
+                    <span class="hero__heading-medium">@model.address.toString</span>
+                </section>
+            </header>
 
 
-                @form(routes.Search.attemptLink()) {
+            <p class="panel panel-border-narrow">
+                @Messages("declareCapacity.incorrectProperty.prefix")
+                <a href="@routes.Search.show">@Messages("declareCapacity.incorrectProperty.link")</a>
+            </p>
+
+
+            @form(routes.Search.attemptLink()) {
 
                     @inputRadioGroup(
                         field = model.form("capacity"),
@@ -40,24 +39,52 @@
                         args = Seq(
                             '_label -> Messages("capacity.label"),
                             '_labelClass -> "form-label-bold",
-                            '_legend -> true
-                        )
+                            '_legend -> true)
                     )
 
-                    <h4 class="heading-medium">@Messages("declareCapacity.form.legend")</h4>
+                @inputRadioGroup(
+                    field = model.form("interestedBefore2017"),
+                    options = Seq("true", "false"),
+                    dataAttributes = Seq(
+                        ("false", "data-toggle-id", "interestedAfter2017")
+                    ),
+                    args = Seq(
+                        '_label -> Messages("interestedBefore2017.label"),
+                        '_labelClass -> "form-label-bold",
+                        '_legend -> true
+                    )
+                )
 
+                <div id="interestedAfter2017" data-toggle-hidden>
                     @dateFields(model.form, "fromDate")
-
-                    @dateFields(model.form, "toDate", helpText = Some(Messages("declareCapacity.toDate.help")))
-                    <p>
-                        <button type="submit" id="continue" name="continue_button" class="button">@Messages("declareCapacity.submit.button")</button>
-                    </p>
-
                 </div>
-            </div>
 
-            <div class="column-third"></div>
-        }
+                @inputRadioGroup(
+                    field = model.form("stillInterested"),
+                    options = Seq("true", "false"),
+                    dataAttributes = Seq(
+                        ("false", "data-toggle-id", "endDate")
+                    ),
+                    args = Seq(
+                        '_label -> Messages("stillInterested.label"),
+                        '_labelClass -> "form-label-bold",
+                        '_legend -> true
+                    )
+                )
+
+                <div id="endDate" data-toggle-hidden>
+                    @dateFields(model.form, "toDate")
+                </div>
+
+                <p>
+                    <button type="submit" id="continue" name="continue_button" class="button">@Messages("declareCapacity.submit.button")</button>
+                </p>
+
+            </div>
+    </div>
+
+    <div class="column-third"></div>
+}
 
 
 }

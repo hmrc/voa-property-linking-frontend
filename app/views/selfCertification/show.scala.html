@@ -12,8 +12,6 @@
                     @Messages("selfCertification.show.title")
                 </h1>
 
-                <p id="self-certification-statement" class="panel panel-border-narrow">@Messages("selfCertification.show.message")</p>
-
                 @includes.errorSummary(model.form, Some("selfCertification.show"))
 
                 <br />
@@ -24,12 +22,11 @@
                         <span class="visuallyhidden">Warning</span>
                     </i>
                     <strong class="bold-small">
-                    @Messages("selfCertification.show.iAgree.hint")
+                    @Messages("selfCertification.warning")
                     </strong>
                 </div>
 
-                <br />
-
+                <p>@Messages("selfCertification.p.1")</p>
 
                 @checkbox(
                     field = model.form("iAgree"),

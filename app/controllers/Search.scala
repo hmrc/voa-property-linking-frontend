@@ -21,7 +21,7 @@ import javax.inject.Inject
 import config.Wiring
 import connectors.{CapacityDeclaration, EnvelopeConnector}
 import connectors.fileUpload.FileUploadConnector
-import form.EnumMapping
+import form.{DateAfter, EnumMapping}
 import form.Mappings.{dmyDate, dmyPastDate}
 import models._
 import play.api.Logger
@@ -29,6 +29,8 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Result
 import uk.gov.hmrc.play.config.ServicesConfig
+import form.Mappings._
+import uk.gov.voa.play.form.ConditionalMappings._
 
 class Search @Inject()(val fileUploadConnector: FileUploadConnector,
                        val envelopeConnector: EnvelopeConnector) extends PropertyLinkingController with ServicesConfig {
@@ -45,7 +47,7 @@ class Search @Inject()(val fileUploadConnector: FileUploadConnector,
       case Some(pd) =>
         fileUploadConnector.createEnvelope().flatMap(envelopeId => {
           val submissionId = java.util.UUID.randomUUID().toString.replace("-", "")
-          Logger.debug(s"envelope id: ${envelopeId}")
+          Logger.debug(s"envelope id: $envelopeId")
           sessionRepository.start(pd, envelopeId, submissionId) map { _ =>
             Ok(views.html.declareCapacity(DeclareCapacityVM(Search.declareCapacityForm, pd.address)))
           }
@@ -78,8 +80,10 @@ class Search @Inject()(val fileUploadConnector: FileUploadConnector,
 object Search {
   lazy val declareCapacityForm = Form(mapping(
     "capacity" -> EnumMapping(CapacityType),
-    "fromDate" -> dmyPastDate,
-    "toDate" -> optional(dmyDate)
+    "interestedBefore2017" -> mandatoryBoolean,
+    "fromDate" -> mandatoryIfFalse("interestedBefore2017", dmyDateAfterMarch2017),
+    "stillInterested" -> mandatoryBoolean,
+    "toDate" -> mandatoryIfFalse("stillInterested", DateAfter("fromDate"))
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 

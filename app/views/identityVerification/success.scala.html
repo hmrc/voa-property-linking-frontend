@@ -1,6 +1,3 @@
-@import uk.gov.hmrc.play.views.html.helpers.form
-@import helpers._
-
 @()(implicit request: Request[_], messages: Messages)
     
     @main_template(Messages("iv.success.title")) {
@@ -12,11 +9,8 @@
                     <span class="reference-text">@Messages("iv.success.confirmation")</span>
                 </h1>
 
-                <p>@Messages("iv.success.p.1")</p>
-
                 <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
-                <p>@Messages("iv.success.p.2")</p>
-                <p>@Messages("iv.success.p.3")</p>
+                <p>@Messages("iv.success.p.1")</p>
 
                 <a href="@routes.CreateGroupAccount.show" class="button">@Messages("link.createGroupAccount")</a>
 

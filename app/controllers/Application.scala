@@ -40,7 +40,7 @@ object Application extends Controller {
     }
   }
 
-  def logOut() = ggAction { _ => request =>
+  def logOut() = Action { request =>
     Redirect(routes.Application.index()).withNewSession
   }
 }

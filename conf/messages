@@ -3,41 +3,42 @@ project.header=VOA Property Linking
 #START PAGE
 start.heading.register=Register to use this service
 start.heading.about=About this service
-start.about.p.1=If you want to tell the VOA about any changes to your property details or challenge your rateable value, you will need a VOA account. Learn more about the VOA’s check, challenge and appeal service.
-start.about.p.2=The account is created for your business but you can add individuals to the account, who can make changes to the property details, once they’re registered. If an individual leaves your company, you can remove them from the account and replace them with a new person.
+start.about.p.1=If you want to tell the VOA about any changes to the business, or challenge the rateable value, you’ll need to register for the VOA’s service.
+start.link.learnMore=Learn more about the VOA’s check and challenge service.
+start.about.p.2=You can create a customer record for the business. You can add individuals to this customer record, who can suggest changes on behalf of the business, once they’re registered.
+start.about.p.3=If an individual leaves the business, you can remove them from the customer record and replace them with a new person.
 start.heading.registration=Registration
-start.registration.p.1=The registration process asks for the individual’s details, as well as the company details. We need proof of ID for the individual as well as proof of their relationship to the company. This ensures that all data is secure and only available to people who have the right to see it.
-start.registration.p.2=To use this service, you’ll firstly need a Government Gateway account. If your business doesn’t have one (even if you have one as an individual), you’ll need to register.
-start.registration.youNeed=You’ll then need to create a customer record and to do this, you’ll need to:
-start.registration.youNeed.1=register your business for a Government Gateway account
-start.registration.youNeed.2=use your Government Gateway ID to register with the VOA
-start.registration.youNeed.3=provide proof of identity (your National insurance number, your passport number and date of birth)
-start.registration.youNeed.4=provide proof of your relationship to the property (such as a rates or utility bill)
-start.registration.youNeed.5=create a VOA account for your business
+start.registration.p.1=The registration process asks for details about the individual as well as information about the business.
+start.registration.p.2=This ensures that all data is secure and only available to people who have the right to see it.
+start.registration.p.3=To use this service, you’ll firstly need a
+start.registration.link.ggAccount=Government Gateway account for the business
+start.registration.p.4=(even if you already have one as an individual).
+start.registration.youNeed=You’ll then need to create an individual customer record by:
+start.registration.youNeed.1=using your Government Gateway ID to register with the VOA
+start.registration.youNeed.2=providing proof of ID (such as your date of birth, National Insurance number, P60 and PAYE details)
+start.registration.youNeed.3=providing proof of your relationship to the property (such as a business rates or utility bill)
+start.registration.p.5=After you’ve created an individual customer record, you’ll need to create a customer record for the business.
 start.heading.agents=Agents and representatives
-start.agents.p.1=If you plan to act as an agent or representative, you’ll be able to indicate this during the registration process.
-start.register=Register for a Government Gateway account
+start.agents.p.1=If you plan to act as an agent or representative on behalf of another business, you’ll be able to indicate this during the registration process.
+start.register=Register now
 
 label.login=Login
 label.register=Register
 
-#LOGIN PAGE
-login.title=Login to Government Gateway
-error.login.invalid=Unrecognised company name
-
 #POST REGISTRATION PAGE
 ggRegistration.title=You’ve successfully registered your business with Government Gateway
-ggRegistration.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to your business’s account with us.
+ggRegistration.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to your business’s customer record.
 ggRegistration.p.2=We’ll ask you to verify your identity and confirm that you have the right to act for the business.
 
 #CREATE INDIVIDUAL ACCOUNT
-createAccount.individual.title=Verify your right to act for your company
-createAccount.individual.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to your company’s account with us.
-createAccount.individual.p.2=We’ll ask you to verify your identity and confirm that you have the right to act for your company.
-createAccount.individual.heading.details=Your personal details
-createAccount.individual.details.p.1=Please provide your contact details as we need to contact you to arrange inspections or discuss details about your submission (s).
-createAccount.individual.verify.heading=Verify your identity part 1
-createAccount.individual.verify.p.1=Please provide your date of birth and National insurance number so that we can start to verify your identity (you will be asked for further proof of ID next). This will ensure that your data can’t be accessed by anyone else.
+createAccount.individual.title=Register for the VOA’s service
+createAccount.individual.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to the business’s customer record with us.
+createAccount.individual.p.2=We’ll ask you to verify your identity and confirm that you have the right to act for the business. You’ll need to provide your date of birth and National Insurance number to confirm your identity, however these details won’t be stored.
+createAccount.individual.heading.details=Your contact details
+label.createAccount.email=Email address
+label.createAccount.phone=Phone number
+createAccount.individual.verify.heading=Your identification details
+createAccount.individual.verify.p.1=Please verify your identity for security and data protection purposes.
 label.createAccount.firstName=First name
 label.createAccount.lastName=Last name
 dob.label=Date of birth
@@ -50,8 +51,9 @@ hint.dateOfBirth=For example, 20 3 1976
 hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.
 
 #IDENTITY VERIFICATION
-startIv.title=Verify your identity part 2
+startIv.title=Provide further identification
 startIv.p.1=As part of our security procedures, we now need to ask you some more questions to confirm your identity.
+startIv.p.2=You may be asked to provide information including your passport number, P60 and PAYE details.
 identityVerification.title=Identity verification
 failedIdentityVerification.title=Identity verification failed
 failedIdentityVerification.p.1=We’re unable to verify your identity.
@@ -61,40 +63,38 @@ failedIv.telephone.wales=Telephone (Wales)
 failedIv.telephone.openingHours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
 iv.success.title=Identity verification successful
 iv.success.heading=Success
-iv.success.confirmation=Confirmation of your registration
-iv.success.p.1=We’ve confirmed your details as an individual. You now have the right to act on behalf of your company.
+iv.success.confirmation=We’ve verified your identity
 heading.whatNext=What happens next
-iv.success.p.2=You’ll need to create a business account with us.
-iv.success.p.3=You’ll then be able to add properties to your account and, if you wish, appoint an agent/representative to act on your behalf.
+iv.success.p.1=You’ll now need to register the business.
 link.createGroupAccount=Create a business account
 
 #INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
-groupAlreadyExists.title={0} already has a VOA account
+groupAlreadyExists.title={0} has already registered. You have been added to their customer record.
 groupAlreadyExists.addedToGroup=You have been added to their account
 
 #CREATE GROUP ACCOUNT
 createAccount.group.title=Create an account for your business
-label.createAccount.companyName=Company name
-label.createAccount.email=Email address
-label.createAccount.phone=Phone number
+label.createAccount.companyName=Business name
+label.createAccount.businessEmail=Business email
+label.createAccount.businessPhone=Business telephone
 label.isSmallBusiness=Are you a small business?
 isSmallBusiness.true=Yes
 isSmallBusiness.false=No
 isSmallBusiness.details.question=What is a small business?
-isSmallBusiness.details.answer=If your business employs fewer than 250 people, you are a small business. The VOA prioritises applications from small businesses.
-label.isAgent=Are you a representative acting on behalf of a business?
+isSmallBusiness.details.answer=If the business employs fewer than 10 people and has a turnover or balance sheet total of less than £2 million, it is a small business.
+label.isAgent=Do you want to act as a representative on behalf of another business?
 isAgent.true=Yes
 isAgent.false=No
-isAgent.details=If you act on behalf of a business, we’ll supply you with a unique identification code. You’ll need to give this to your client so that they can register you to act on their behalf.
+isAgent.details=If you want to act as a representative on behalf of another business (including as an accountant, a ratings agent working on behalf of a client or representing other businesses within your business portfolio), we’ll supply you with a unique identification code. You’ll need to give this to your client so that they can register you to act on their behalf.
 
 #ACCOUNT CREATED
-account.confirmation.title=Business account created
-account.confirmation.heading=You’ve successfully created a new account for your business.
+account.confirmation.title=You’ve successfully registered the business.
+account.confirmation.heading=You’ve been added to the business’s customer record.
 account.confirmation.heading.2=You’re also added to this account as an individual.
 account.confirmation.youCan=You can now:
-account.confirmation.youCan.1=add properties to your account
-account.confirmation.youCan.2=authorise an agent to act on your behalf
-link.dashboard=Go to your business dashboard
+account.confirmation.youCan.1=add properties to the business’s customer record
+account.confirmation.youCan.2=authorise a representative to act on behalf of the business
+link.dashboard=Go to the business dashboard
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard home
@@ -118,18 +118,17 @@ link.dashboard.home=Back to dashboard
 
 #ADD AGENT
 propertyRepresentation.appointAgent.title=Tell us what you want the agent to do on behalf of the business
-propertyRepresentation.appointAgent.message.1=Your agent should provide you with a unique code.
-propertyRepresentation.appointAgent.message.2=Please enter the code of the agent you wish to appoint.
+propertyRepresentation.appointAgent.message.1=Your representative should provide you with a unique code. After entering the code you’ll be asked to confirm what you want the representative to do on behalf of the business.
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Submit
-canCheck.label=Check permission
-canCheck.startAndContinue=Start and continue
-canCheck.continueOnly=Only continue existing checks
-canCheck.notPermitted=Not permitted
-canChallenge.label=Challenge permission
-canChallenge.startAndContinue=Start and continue
-canChallenge.continueOnly=Only continue existing challenges
-canChallenge.notPermitted=Not permitted
+canCheck.label=Check permissions
+canCheck.startAndContinue=Start new checks and continue existing checks
+canCheck.continueOnly=Continue existing checks only
+canCheck.notPermitted=Not permitted to start new checks or continue existing checks
+canChallenge.label=Challenge permissions
+canChallenge.startAndContinue=Start new checks and continue existing checks
+canChallenge.continueOnly=Continue existing checks only
+canChallenge.notPermitted=Not permitted to start new checks or continue existing checks
 error.invalidPermissions=Agent must either have permission to continue checks or challenges
 error.invalidAgentCode=Invalid agent code
 
@@ -147,8 +146,8 @@ propertyRepresentation.modifiedAgent.title=Agent nomination changes accepted
 propertyRepresentation.modifiedAgent.message.1=Your changes have been applied.
 propertyRepresentation.modifiedAgent.message.2=The agent has been notified of the changes.
 
-propertyRepresentation.alreadyAppointedAgent.title=This property is already linked to an agent
-propertyRepresentation.alreadyAppointedAgent.add=Add another agent
+propertyRepresentation.alreadyAppointedAgent.title=This property is already linked to an representative
+propertyRepresentation.alreadyAppointedAgent.add=Add another representative
 link.editPermissions=Edit permissions
 
 propertyRepresentation.selectAgent.title=Select Agent
@@ -181,11 +180,16 @@ declareCapacity.title=Add property to your account
 declareCapacity.message=You are adding this property to your account:
 declareCapacity.incorrectProperty.prefix=If this isn’t the right property you can
 declareCapacity.incorrectProperty.link=search for a different property
-declareCapacity.form.legend=When did you occupy or own the property?
+interestedBefore2017.label=When did you occupy or own the property?
+interestedBefore2017.true=Before 1 April 2017
+interestedBefore2017.false=After 1 April 2017
+stillInterested.label=Do you still occupy or own the property?
+stillInterested.true=Yes
+stillInterested.false=No
 declareCapacity.fromDate.help=
 declareCapacity.toDate.help=Leave blank if still in occupation or ownership
 declareCapacity.submit.button=Add property
-capacity.label=What is your connection to the property?
+capacity.label=What is your relationship to the property?
 capacity.owner=Owner
 capacity.occupier=Occupier
 capacity.ownerOccupier=Owner and occupier
@@ -193,19 +197,22 @@ error.capacity.noValueSelected=You must select a capacity
 fromDate.day.label=Day
 fromDate.month.label=Month
 fromDate.year.label=Year
-fromDate.label=From:
-toDate.label=To:
+fromDate.label=When did you become the owner / occupier?
+toDate.label=When did you stop being the owner / occupier?
 toDate.day.label=Day
 toDate.month.label=Month
 toDate.year.label=Year
+error.date.mustBeAfter2017=This date must be after 31st March 2017
+error.date.mustBeAfterOther=The end date must be after the start date
 
 #SELF CERTIFICATION
 selfCertification.linkSubmitted.title=Request received
 selfCertification.linkSubmitted.message=Thank you for your request which has been submitted to the Valuation Office Agency.
 selfCertification.show.title=Declaration for self certification
-selfCertification.show.message=To be able to view the details of this property, you must promise that you are telling the truth.
-selfCertification.show.iAgree.label=Do you agree?
-selfCertification.show.iAgree.text=I agree
+selfCertification.warning=To be able to view the details of this property you must agree to abide by the terms and conditions of this service.
+selfCertification.p.1=You must also declare that the information you have provided is correct.
+selfCertification.show.iAgree.label=By ticking this box, you’re agreeing to use the information held by the VOA only for the purposes listed in the terms and conditions.
+selfCertification.show.iAgree.text=I confirm that I agree to the terms and conditions and that the information I have provided is correct.
 selfCertification.show.iAgree.hint=You must agree
 selfCertification.show.button=Go
 error.mustAgreeToSelfCert=You must agree to continue.

@@ -22,6 +22,7 @@ import models.{CapacityType, Occupier}
 import org.joda.time.DateTime
 import org.scalatest.{FlatSpec, MustMatchers}
 import utils.FormBindingVerification._
+import views.helpers.Errors
 
 class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
   import TestData._
@@ -29,7 +30,7 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
   behavior of "Capacity declaration form"
 
   it should "bind when the inputs are all valid" in {
-    mustBindTo(form, validData, CapacityDeclaration(Occupier, new DateTime(2001, 12, 24, 0, 0, 0), Some(new DateTime(2011, 1, 13, 0, 0, 0))))
+    mustBindTo(form, validData, CapacityDeclaration(Occupier, false, Some(new DateTime(2017, 12, 24, 0, 0, 0)), false, Some(new DateTime(2018, 1, 13, 0, 0, 0))))
   }
 
   it should "mandate a capacity" in {
@@ -40,23 +41,60 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
     verifyMultiChoice(form, validData, "capacity", CapacityType)
   }
 
-  it should "mandate presence of from date" in {
-    verifyMandatoryDate(form, validData, "fromDate")
+  it should "require a start date if the occupation/ownership started after 1st April 2017" in {
+    val data = validData.updated("interestedBefore2017", "false")
+    verifyMandatoryDate(form, data, "fromDate")
   }
 
-  it should "only allow dd/MM/yyyy from dates before the current date" in {
-    verifyPastddmmyy(form, validData, "fromDate")
+  it should "not require the start date if the occupation/ownership started before 1st April 2017" in {
+    val data = validData.updated("interestedBefore2017", "true")
+    verifyOptionalDate(form, data, "fromDate")
   }
 
-  it should "allow to date to be optional" in {
-    verifyOptionalDate(form, validData, "toDate")
+  it should "require the start date to be after 31st March 2017" in {
+    val data = validData
+      .updated("interestedBefore2017", "false")
+      .updated("fromDate.day", "31")
+      .updated("fromDate.month", "3")
+      .updated("fromDate.year", "2017")
+    verifyError(form, data, "fromDate", Errors.dateMustBeAfterMarch2017)
+  }
+
+  it should "require an end date if the occupation/ownership has ended" in {
+    val data = validData.updated("stillInterested", "false")
+    verifyMandatoryDate(form, data, "toDate")
+  }
+
+  it should "not require an end date if the occupation/ownership has not ended" in {
+    val data = validData.updated("stillInterested", "true")
+    verifyOptionalDate(form, data, "toDate")
+  }
+
+  it should "require the end date to be after the start date" in {
+    val data = validData
+      .updated("interestedBefore2017", "false")
+      .updated("fromDate.day", "1")
+      .updated("fromDate.month", "5")
+      .updated("fromDate.year", "2017")
+      .updated("stillInterested", "false")
+      .updated("toDate.day", "1")
+      .updated("toDate.month", "4")
+      .updated("toDate.year", "2017")
+    verifyError(form, data, "toDate", Errors.dateMustBeAfterOtherDate)
   }
 
   object TestData {
     val form = Search.declareCapacityForm
     val validData = Map(
-      "capacity" -> Occupier.name, "fromDate.day" -> "24", "fromDate.month" -> "12", "fromDate.year" -> "2001",
-      "toDate.day" -> "13", "toDate.month" -> "1", "toDate.year" -> "2011"
+      "capacity" -> Occupier.name,
+      "interestedBefore2017" -> "false",
+      "fromDate.day" -> "24",
+      "fromDate.month" -> "12",
+      "fromDate.year" -> "2017",
+      "stillInterested" -> "false",
+      "toDate.day" -> "13",
+      "toDate.month" -> "1",
+      "toDate.year" -> "2018"
     )
   }
 }
