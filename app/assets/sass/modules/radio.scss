@@ -1,0 +1,18 @@
+/* radios */
+.block-label, .block-label--stacked{
+    background: transparent;
+    border: none;
+}
+.js-enabled .add-focus{
+    outline: none;
+}
+.js-enabled .block-label.selection-button-radio.add-focus::before,
+.js-enabled .block-label.selection-button-checkbox.add-focus::before {
+    -webkit-box-shadow: 0 0 0 5px #ffbf47;
+    -moz-box-shadow: 0 0 0 5px #ffbf47;
+    box-shadow: 0 0 0 5px #ffbf47;
+}
+
+fieldset details{
+    margin-bottom: .8em;
+}
