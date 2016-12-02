@@ -97,7 +97,7 @@ account.confirmation.youCan.2=authorise an agent to act on your behalf
 link.dashboard=Go to your business dashboard
 
 #DASHBOARD HOME
-dashboard.home.title=Dashboard Home
+dashboard.home.title=Dashboard home
 dashboard.home.manageProperties.link=Manage properties
 dashboard.home.manageProperties.text=View and update your detailed property information.
 dashboard.home.searchProperties.link=Add properties

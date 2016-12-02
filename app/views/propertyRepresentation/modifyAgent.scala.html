@@ -10,8 +10,8 @@
 
         <div class="grid-row">
             <div class="column-two-thirds">
-                <h1 class="form-title heading-xlarge">
-                    <span class="section-title">@Messages("propertyRepresentation.modifyAgent.title")</span>
+                <h1 class="heading-large">
+                    @Messages("propertyRepresentation.modifyAgent.title")
                 </h1>
 
         @form(routes.AppointAgentController.modifySubmit(model.representationId)) {
@@ -22,7 +22,8 @@
                 options = AgentPermissions.options,
                 args = Seq(
                     '_label -> Messages("canCheck.label"),
-                    '_labelClass -> "form-label-bold"
+                    '_labelClass -> "form-label-bold",
+                    '_legend -> true
                 )
             )
             @inputRadioGroup(
@@ -30,7 +31,8 @@
                 options = AgentPermissions.options,
                 args = Seq(
                     '_label -> Messages("canChallenge.label"),
-                    '_labelClass -> "form-label-bold"
+                    '_labelClass -> "form-label-bold",
+                    '_legend -> true
                 )
             )
 

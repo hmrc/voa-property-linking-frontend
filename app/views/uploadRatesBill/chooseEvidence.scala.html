@@ -3,13 +3,13 @@
 @import controllers.ChooseEvidence.keys
 
 @(f: Form[_])(implicit request: Request[_], messages: Messages)
-    
+
     @main_template(Messages("chooseEvidence.title")) {
         <div class="grid-row">
             <div class="column-two-thirds">
-            
-                <h1 class="heading-xlarge">@Messages("chooseEvidence.title")</h1>
-                
+
+                <h1 class="heading-large">@Messages("chooseEvidence.title")</h1>
+
                 @form(routes.ChooseEvidence.submit) {
 
                     @inputRadioGroup(
@@ -21,12 +21,12 @@
                             '_legend -> true
                         )
                     )
-                
+
                 <p>
                     <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
                 </p>
                 }
-                
+
             </div>
         </div>
     }

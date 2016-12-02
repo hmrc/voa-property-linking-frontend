@@ -3,13 +3,20 @@
 
 @main_template(title = Messages("dashboard.home.title")) {
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
+
             <h1 class="form-title heading-xlarge" style="margin-bottom:4px">
                 <span class="heading-secondary">@(individualDetails.firstName) @(individualDetails.lastName)</span>
                 <span class="section-title">@Messages("dashboard.home.title")</span>
             </h1>
-            <hr style="height: 5px; background-color: #005ea5;border:0;margin-top:0px">
+
+            <hr class="main-header">
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h3 class="heading-large heading-with-rule">Properties</h3>
+
+
             <h4 class="heading-medium">
                 <a href="@routes.Dashboard.manageProperties">@Messages("dashboard.home.manageProperties.link")</a>
             </h4>
