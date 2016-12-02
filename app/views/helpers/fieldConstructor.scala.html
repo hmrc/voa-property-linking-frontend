@@ -20,9 +20,12 @@ Example usage:
 
 @(elements: helper.FieldElements)(implicit messages: Messages)
 
+
+<div class="@if(elements.hasErrors) {error} form-group">
+
     @elements.args.get('_legend) match {
      	case Some(true) => {
-     		<fieldset id="@elements.id" class="@elements.args.get('_fieldsetClass) form-group @if(elements.hasErrors) {error}">
+     		<fieldset id="@elements.id" class="@elements.args.get('_fieldsetClass)">
    				<legend class="@elements.args.get('_labelClass)"><span class="label-span">@elements.label</span>
 
                     @elements.args.get('_optional) match {
@@ -108,3 +111,5 @@ Example usage:
      	case Some(true) => { </fieldset> }
 		case _ => { </div> }
     }
+
+</div>
