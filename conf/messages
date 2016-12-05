@@ -98,17 +98,26 @@ link.dashboard=Go to the business dashboard
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard home
+dashboard.home.properties=Properties
 dashboard.home.manageProperties.link=Manage properties
 dashboard.home.manageProperties.text=View and update your detailed property information.
 dashboard.home.searchProperties.link=Add properties
 dashboard.home.searchProperties.text=Find and add properties to your account.
+dashboard.home.representatives=Representative
+dashboard.home.representatives.link=Manage representatives
+dashboard.home.representatives.text=You can give people access to your account if you'd like them to complete your application for you. You can also revoke their access.
+dashboard.home.clients=Client
+dashboard.home.clients.link=Manage clients
+dashboard.home.clients.text=TODO
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=Manage Properties
+dashboard.manageProperties.noProperties=There are no properties to display. You may wish to claim a property.
 manageProperties.table.1=Property
 manageProperties.table.2=Capacity
-manageProperties.table.3=Status
-manageProperties.table.4=Date added
+manageProperties.table.3=Assessments
+manageProperties.table.4=Status
+manageProperties.table.5=Date added
 dashboard.manageProperties.status.added=Added
 dashboard.manageProperties.status.pending=Pending
 dashboard.managedProperties.searchLinkText=Add another property

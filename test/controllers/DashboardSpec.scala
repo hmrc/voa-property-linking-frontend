@@ -71,7 +71,6 @@ class DashboardSpec extends ControllerSpec {
     StubGroupAccountConnector.stubAccount(GroupAccount("has-agent-account", "", Address("", "", "", ""), "", "", false, Some(UUID.randomUUID().toString)))
 
     val res = TestDashboard.home()(request)
-    status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(agent.routes.Dashboard.home().url)
+    status(res) mustBe OK
   }
 }
