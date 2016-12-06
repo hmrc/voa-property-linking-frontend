@@ -30,7 +30,7 @@ case class PropertyLinkRequest(uarn: Long, groupId: String, capacityDeclaration:
                                specialCategoryCode: String, description: String, bulkClassIndicator: String,
                                fileInfo: Option[FileInfo])
 
-case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
+case class LinkedProperties(added: Seq[DetailedPropertyLink], pending: Seq[DetailedPropertyLink])
 
 case class PropertyRepresentation(representationId: String, linkId: String, agentId: String, agentName: String,
                                   groupId: String, groupName: String, uarn: Long, address: Address,

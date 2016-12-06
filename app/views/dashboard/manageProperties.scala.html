@@ -23,10 +23,8 @@
                     <th>@Messages("manageProperties.table.3")</th>
                     <th>@Messages("manageProperties.table.4")</th>
                     <th>@Messages("manageProperties.table.5")</th>
+                    <th>@Messages("manageProperties.table.6")</th>
                     <th></th>
-                    @if(showEditColumn) {
-                        <th></th>
-                    }
                 </tr>
                 @model.properties.added.map { p =>
                     <tr>
@@ -42,19 +40,17 @@
                             </a>
                         </td>
                         <td>@Messages("dashboard.manageProperties.status.added")</td>
+                        <td>
+                            <ul>
+                                @p.representations.map(x => x.agentName).map{ name =>
+                                    <li>@name</li>
+                                }
+                            </ul>
+                        </td>
                         <td>@Display.date(p.linkedDate)</td>
                         <td>
-                            <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("dashboard.addAgent")</a>
+                            <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("manageProperties.addAgent")</a>
                         </td>
-                        @if(showEditColumn) {
-                            <td>
-                            @if(p.representations.nonEmpty) {
-                                <a href=@routes.AppointAgentController.edit(p.linkId)>
-                                @Messages("dashboard.editAgent")
-                                </a>
-                            }
-                            </td>
-                        }
                     </tr>
                 }
                 @model.properties.pending.map { p =>
@@ -71,17 +67,16 @@
                             </a>
                         </td>
                         <td>@Messages("dashboard.manageProperties.status.pending")</td>
+                        <td>
+                            <ul>
+                                <li>Agent Name</li>
+                                <li>Agent Name2</li>
+                            </ul>
+                        </td>
                         <td>@Display.date(p.linkedDate)</td>
                         <td>
-                            <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("dashboard.addAgent")</a>
+                            <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("manageProperties.addAgent")</a>
                         </td>
-                        @if(showEditColumn) {
-                            <td>
-                            @if(p.representations.nonEmpty) {
-                                <a href=@routes.AppointAgentController.edit(p.linkId)>@Messages("dashboard.editAgent")</a>
-                            }
-                            </td>
-                        }
                     </tr>
                 }
             </tbody>

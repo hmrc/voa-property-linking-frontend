@@ -117,12 +117,12 @@ manageProperties.table.1=Property
 manageProperties.table.2=Capacity
 manageProperties.table.3=Assessments
 manageProperties.table.4=Status
-manageProperties.table.5=Date added
+manageProperties.table.5=Appointed Agents
+manageProperties.table.6=Date added
 dashboard.manageProperties.status.added=Added
 dashboard.manageProperties.status.pending=Pending
 dashboard.managedProperties.searchLinkText=Add another property
-dashboard.addAgent=Add agent
-dashboard.editAgent=Edit agent
+manageProperties.addAgent=Appoint agent
 link.dashboard.home=Back to dashboard
 
 #ADD AGENT
