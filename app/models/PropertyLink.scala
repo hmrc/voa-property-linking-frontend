@@ -23,9 +23,19 @@ import serialization.JsonFormats._
 case class PropertyLink(linkId: String, uarn: Long, groupId: String, description: String,
                         capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean)
 
+case class DetailedPropertyLink(linkId: String, uarn: Long, groupId: String, description: String,
+                                agentNames: Seq[String], canAppointAgent: Boolean, address: Address,
+                                capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean)
+
 object PropertyLink {
   //because the implicit format in Capacity's companion object isn't visible enough, for some reason
   implicit private val capacityFmt = Json.format[Capacity]
 
   implicit val format = Json.format[PropertyLink]
+}
+
+object DetailedPropertyLink {
+  implicit private val capacityFmt = Json.format[Capacity]
+
+  implicit val format = Json.format[DetailedPropertyLink]
 }

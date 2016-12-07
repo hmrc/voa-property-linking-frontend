@@ -114,15 +114,14 @@ dashboard.home.clients.text=TODO
 dashboard.manageProperties.title=Manage Properties
 dashboard.manageProperties.noProperties=There are no properties to display. You may wish to claim a property.
 manageProperties.table.1=Property
-manageProperties.table.2=Capacity
-manageProperties.table.3=Assessments
-manageProperties.table.4=Status
+manageProperties.table.2=Assessments
+manageProperties.table.3=Status
+manageProperties.table.4=Appointed Agents
 manageProperties.table.5=Date added
 dashboard.manageProperties.status.added=Added
 dashboard.manageProperties.status.pending=Pending
 dashboard.managedProperties.searchLinkText=Add another property
-dashboard.addAgent=Add agent
-dashboard.editAgent=Edit agent
+manageProperties.addAgent=Appoint agent
 link.dashboard.home=Back to dashboard
 
 #ADD AGENT

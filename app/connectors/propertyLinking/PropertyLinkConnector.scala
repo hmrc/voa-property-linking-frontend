@@ -17,7 +17,7 @@
 package connectors.propertyLinking
 
 import connectors._
-import models.{Capacity, LinkBasis, Property, PropertyLink}
+import models._
 import org.joda.time.DateTime
 import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -44,11 +44,8 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.POST[PropertyLinkRequest, HttpResponse](s"$url", request) map { _ => () }
   }
 
-  def linkedProperties(groupId: String)(implicit hc: HeaderCarrier): Future[LinkedProperties] = {
+  def linkedProperties(groupId: String)(implicit hc: HeaderCarrier): Future[Seq[DetailedPropertyLink]] = {
     val url = baseUrl + s"/property-links/$groupId"
-    http.GET[Seq[PropertyLink]](url).map(seq => {
-      val tmp: (Seq[PropertyLink], Seq[PropertyLink]) = seq.partition(!_.pending)
-      LinkedProperties(tmp._1, tmp._2)
-    })
+    http.GET[Seq[DetailedPropertyLink]](url)
   }
 }
