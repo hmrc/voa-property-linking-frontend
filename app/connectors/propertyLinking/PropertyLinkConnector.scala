@@ -44,11 +44,8 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.POST[PropertyLinkRequest, HttpResponse](s"$url", request) map { _ => () }
   }
 
-  def linkedProperties(groupId: String)(implicit hc: HeaderCarrier): Future[LinkedProperties] = {
+  def linkedProperties(groupId: String)(implicit hc: HeaderCarrier): Future[Seq[DetailedPropertyLink]] = {
     val url = baseUrl + s"/property-links/$groupId"
-    http.GET[Seq[DetailedPropertyLink]](url).map(seq => {
-      val tmp: (Seq[DetailedPropertyLink], Seq[DetailedPropertyLink]) = seq.partition(!_.pending)
-      LinkedProperties(tmp._1, tmp._2)
-    })
+    http.GET[Seq[DetailedPropertyLink]](url)
   }
 }

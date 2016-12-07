@@ -24,7 +24,7 @@ case class PropertyLink(linkId: String, uarn: Long, groupId: String, description
                         capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean)
 
 case class DetailedPropertyLink(linkId: String, uarn: Long, groupId: String, description: String,
-                                agentNames: Seq[String],
+                                agentNames: Seq[String], canAppointAgent: Boolean, address: Address,
                                 capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean)
 
 object PropertyLink {

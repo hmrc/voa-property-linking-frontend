@@ -18,7 +18,7 @@ package controllers
 
 import config.Wiring
 import connectors.{LinkedProperties, PropertyRepresentation}
-import models.CapacityType
+import models.{CapacityType, DetailedPropertyLink}
 import org.joda.time.DateTime
 import uk.gov.hmrc.play.http.HeaderCarrier
 
@@ -52,10 +52,8 @@ trait Dashboard extends PropertyLinkingController {
     for {
       groupId <- userDetails.getGroupId(ctx)
       props <- propLinkedConnector.linkedProperties(groupId)
-      added <- propertyLinkRepresentations(props)
-      pending <- pendingPropertyLinkRepresentations(props)
     } yield {
-      Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(LinkedPropertiesRepresentations(added, pending))))
+      Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(props)))
     }
   }
 
@@ -90,7 +88,7 @@ trait Dashboard extends PropertyLinkingController {
 
 object Dashboard extends Dashboard
 
-case class ManagePropertiesVM(properties: LinkedPropertiesRepresentations)
+case class ManagePropertiesVM(properties: Seq[DetailedPropertyLink])
 
 case class PropertyLinkRepresentations(name: String, linkId: String, capacity: CapacityType, linkedDate: DateTime,
                                        representations: Seq[PropertyRepresentation])

@@ -2,8 +2,6 @@
 
 @(model: controllers.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
-@showEditColumn = @{ model.properties.pending.exists(_.representations.nonEmpty) || model.properties.added.exists(_.representations.nonEmpty) }
-
 @main_template(title = Messages("dashboard.home.title")) {
         <div class="grid-row">
             <div class="column-two-thirds">
@@ -12,7 +10,7 @@
                 </h1>
             </div>
         </div>
-        @if(model.properties.added.isEmpty && model.properties.pending.isEmpty){
+        @if(model.properties.isEmpty){
             @Messages("dashboard.manageProperties.noProperties")
         } else {
         <table class="table">
@@ -23,59 +21,39 @@
                     <th>@Messages("manageProperties.table.3")</th>
                     <th>@Messages("manageProperties.table.4")</th>
                     <th>@Messages("manageProperties.table.5")</th>
-                    <th>@Messages("manageProperties.table.6")</th>
                     <th></th>
                 </tr>
-                @model.properties.added.map { p =>
+                @model.properties.map { p =>
                     <tr>
                         <td>
                             <a href="#">
-                                @p.name
+                                @{p.address.line1 + ", " + p.address.postcode}
                             </a>
                         </td>
-                        <td>@Messages(p.capacity.msgKey)</td>
                         <td>
                             <a href="#">
                                 0
                             </a>
                         </td>
-                        <td>@Messages("dashboard.manageProperties.status.added")</td>
+                        <td>
+                            @if(p.pending) {
+                                @Messages("dashboard.manageProperties.status.pending")
+                            } else {
+                                @Messages("dashboard.manageProperties.status.added")
+                            }
+                        </td>
                         <td>
                             <ul>
-                                @p.representations.map(x => x.agentName).map{ name =>
+                                @p.agentNames.map{ name =>
                                     <li>@name</li>
                                 }
                             </ul>
                         </td>
                         <td>@Display.date(p.linkedDate)</td>
                         <td>
-                            <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("manageProperties.addAgent")</a>
-                        </td>
-                    </tr>
-                }
-                @model.properties.pending.map { p =>
-                    <tr>
-                        <td>
-                            <a href="#">
-                                @p.name
-                            </a>
-                        </td>
-                        <td>@Messages(p.capacity.msgKey)</td>
-                        <td>
-                            <a href="#">
-                                0
-                            </a>
-                        </td>
-                        <td>@Messages("dashboard.manageProperties.status.pending")</td>
-                        <td>
-                            <ul>
-                                <li>Agent Name</li>
-                                <li>Agent Name2</li>
-                            </ul>
-                        </td>
-                        <td>@Display.date(p.linkedDate)</td>
-                        <td>
-                            <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("manageProperties.addAgent")</a>
+                            @if(p.canAppointAgent){
+                                <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("manageProperties.addAgent")</a>
+                            }
                         </td>
                     </tr>
                 }
