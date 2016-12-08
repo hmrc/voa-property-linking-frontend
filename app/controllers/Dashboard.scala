@@ -42,7 +42,7 @@ trait Dashboard extends PropertyLinkingController {
       groupAccount <- groups.get(groupId)
     } yield {
       (individualAccount, groupAccount) match {
-        case (Some(i), Some(g)) => Ok(views.html.dashboard.home(i.details, g.isAgent))
+        case (Some(i), Some(g)) => Ok(views.html.dashboard.home(i.details, g))
         case (None, _) => Redirect(routes.CreateIndividualAccount.show)
       }
     }

@@ -5,7 +5,8 @@
 @main_template(title = Messages("dashboard.home.title")) {
         <div class="grid-row">
             <div class="column-two-thirds">
-                <h1 class="heading-xlarge">
+                <a class="link-back link-header" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a>
+                <h1 class="heading-large">
                     @Messages("dashboard.manageProperties.title")
                 </h1>
             </div>
@@ -13,19 +14,21 @@
         @if(model.properties.isEmpty){
             @Messages("dashboard.manageProperties.noProperties")
         } else {
-        <table class="table">
+        <table class="table-font-xsmall">
+            <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
             <tbody>
                 <tr>
-                    <th>@Messages("manageProperties.table.1")</th>
-                    <th>@Messages("manageProperties.table.2")</th>
-                    <th>@Messages("manageProperties.table.3")</th>
-                    <th>@Messages("manageProperties.table.4")</th>
-                    <th>@Messages("manageProperties.table.5")</th>
-                    <th></th>
+                    <th scope="col">@Messages("manageProperties.table.1")</th>
+                    <th scope="col">@Messages("manageProperties.table.2")</th>
+                    <th scope="col">@Messages("manageProperties.table.3")</th>
+                    <th scope="col">@Messages("manageProperties.table.4")</th>
+                    <th scope="col">@Messages("manageProperties.table.5")</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 @model.properties.map { p =>
                     <tr>
-                        <td>
+                        <td scope="row">
                             <a href="#">
                                 @{p.address.line1 + ", " + p.address.postcode}
                             </a>
@@ -50,7 +53,7 @@
                             </ul>
                         </td>
                         <td>@Display.date(p.linkedDate)</td>
-                        <td>
+                        <td class="last">
                             @if(p.canAppointAgent){
                                 <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("manageProperties.addAgent")</a>
                             }
@@ -61,7 +64,7 @@
         </table>
     }
 
-        <p><a href="@routes.Search.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.searchLinkText")</a></p>
-        <p><a href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a></p>
+    <p><a href="@routes.Search.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.searchLinkText")</a></p>
+    <p><a class="link-back" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a></p>
 
 }

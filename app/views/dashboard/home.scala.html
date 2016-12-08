@@ -1,10 +1,17 @@
-@(individualDetails: IndividualDetails, isAgent:Boolean)(implicit request: Request[_], messages: Messages)
+@(individualDetails: IndividualDetails, groupAccount:GroupAccount)(implicit request: Request[_], messages: Messages)
 
 
 @main_template(title = Messages("dashboard.home.title")) {
 
     <h1 class="heading-xlarge margin-bottom-0">
-        <span class="heading-secondary">@(individualDetails.firstName) @(individualDetails.lastName)</span>
+        <span class="heading-secondary">
+            @(individualDetails.firstName) @(individualDetails.lastName)
+            @if(groupAccount.isAgent){
+                <span class="agent-code pull-right">
+                    Agent Code: @(groupAccount.agentCode)
+                </span>
+            }
+        </span>
         <span class="section-title">@Messages("dashboard.home.title")</span>
     </h1>
 
@@ -39,7 +46,7 @@
             <p>
                 @Messages("dashboard.home.representatives.text")
             </p>
-            @if(isAgent) {
+            @if(groupAccount.isAgent) {
                 <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.clients")</h3>
                 <h4 class="heading-medium">
                     <a href="@controllers.agent.routes.Representation.manageRepresentationRequest">

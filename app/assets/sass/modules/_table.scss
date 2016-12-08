@@ -153,12 +153,24 @@ thead{
         margin-left: 10px;
     }
 }
-table{
-    th,td {
-        border-bottom: 1px solid $grey-2;
-        &.proposed {
-            background-color: #f0f8ff;
-            padding-left: 10px;
+article{
+  table{
+      th,td {
+          border-bottom: 1px solid $grey-2;
+          vertical-align: top;
+          &.proposed {
+              background-color: #f0f8ff;
+              padding-left: 10px;
+          }
+        ul{
+          margin: 0;
+          padding: 0;
+          li{
+            line-height: 20px;
+            font-size: 16px;
+            margin: 0;
+          }
         }
-    }
+      }
+  }
 }

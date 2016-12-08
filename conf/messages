@@ -108,11 +108,12 @@ dashboard.home.representatives.link=Manage representatives
 dashboard.home.representatives.text=You can give people access to your account if you'd like them to complete your application for you. You can also revoke their access.
 dashboard.home.clients=Client
 dashboard.home.clients.link=Manage clients
-dashboard.home.clients.text=TODO
+dashboard.home.clients.text=View property representations requests
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=Manage Properties
 dashboard.manageProperties.noProperties=There are no properties to display. You may wish to claim a property.
+manageProperties.table.caption=Your properties
 manageProperties.table.1=Property
 manageProperties.table.2=Assessments
 manageProperties.table.3=Status
@@ -169,11 +170,15 @@ propertyRepresentation.selectAgent.status.accepted=Accepted
 p.agentCode=Your agent code is {0}
 manageProperties.pendingRequests=Pending representation requests
 manageProperties.nonePending=You have no pending representation requests
-manageProperties.representations=Your representations
-propertyRepresentations.table.1=Business name
-propertyRepresentations.table.2=Property
-propertyRepresentations.table.3=Check permission
-propertyRepresentations.table.4=Challenge permission
+manageProperties.representations=Properties you are representing
+representationRequests.table.1=Organisation name
+representationRequests.table.2=Property address
+representationRequests.table.3=Check permission
+representationRequests.table.4=Challenge permission
+representationRequests.table.5=Date requested
+propertyRepresentations.table.1=Organisation name
+propertyRepresentations.table.2=Number of properties
+propertyRepresentations.table.3=Number of cases
 manageProperties.noRepresentations=You have no representations
 permission.continueOnly=Only continue
 permission.startAndContinue=Start and continue
@@ -333,9 +338,9 @@ logout.link=Log out
 label.optional=Optional
 
 #DASHBOARD HOME
-agent.dashboard.home.title=Agent Dashboard Home
+agent.dashboard.home.title=Agent dashboard home
 agent.dashboard.home.manageRepresentationRequest.link=Review all outstanding nominations
-agent.dashboard.manageProperties.title=Agent Nominations
+agent.dashboard.manageProperties.title=Agent nominations
 agent.dashboard.manageProperties.accept=Accept
 agent.dashboard.manageProperties.reject=Reject
 agent.dashboard.manageProperties.acceptAll=Accept all

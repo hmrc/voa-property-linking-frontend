@@ -3,48 +3,40 @@
 @(model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(Messages("agent.dashboard.manageProperties.title")) {
-    <main id="content">
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <h1 class="form-title heading-xlarge">
-                    <span class="section-title">@Messages("agent.dashboard.manageProperties.title")</span>
+                <a class="link-back link-header" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a>
+                <h1 class="heading-large">
+                    @Messages("agent.dashboard.manageProperties.title")
                 </h1>
-            </div>
-        </div>
-
-        <p>
-        @Messages("p.agentCode", model.agentCode)
-        </p>
 
         @if(model.propertyRepresentations.exists(_.pending)) {
-            <h2 class="heading-medium">@Messages("manageProperties.pendingRequests")</h2>
-            <table class="table">
+            <table class="table-font-xsmall">
+                <caption class="heading-medium">@Messages("manageProperties.pendingRequests")</caption>
                 <tbody>
                     <tr>
-                        <td>@Messages("propertyRepresentations.table.1")</td>
-                        <td>@Messages("propertyRepresentations.table.2")</td>
-                        <td>@Messages("propertyRepresentations.table.3")</td>
-                        <td>@Messages("propertyRepresentations.table.4")</td>
-                        <td></td>
-                        <td></td>
+                        <th scope="col">@Messages("representationRequests.table.1")</th>
+                        <th scope="col">@Messages("representationRequests.table.2")</th>
+                        <th scope="col">@Messages("representationRequests.table.3")</th>
+                        <th scope="col">@Messages("representationRequests.table.4")</th>
+                        <th scope="col">@Messages("representationRequests.table.5")</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                     @model.propertyRepresentations.filter(_.pending).map { p =>
                         <tr>
-                            <td>@p.groupName</td>
+                            <td scope="row">@p.groupName</td>
                             <td>@p.address.toString</td>
                             <td>@Messages(p.canCheck.msgKey)</td>
                             <td>@Messages(p.canChallenge.msgKey)</td>
+                            <td></td>
                             <td>
-                                <a class="button" href=@controllers.agent.routes.Representation.accept(p.representationId)>
-                                @Messages("agent.dashboard.manageProperties.accept")
+                                <a role="button" href=@controllers.agent.routes.Representation.accept(p.representationId)>
+                                    @Messages("agent.dashboard.manageProperties.accept")
                                 </a>
                             </td>
                             <td>
-                                <a class="button" href=@controllers.agent.routes.Representation.reject(p.representationId)>
-                                @Messages("agent.dashboard.manageProperties.reject")
+                                <a role="button" href=@controllers.agent.routes.Representation.reject(p.representationId)>
+                                    @Messages("agent.dashboard.manageProperties.reject")
                                 </a>
-
-
                             </td>
                         </tr>
                     }
@@ -56,31 +48,35 @@
             </p>
         }
 
-        <br/>
 
         @if(model.propertyRepresentations.exists(!_.pending)) {
-            <h2 class="heading-medium">@Messages("manageProperties.representations")</h2>
-            <table class="table">
+            <br/>
+            <table class="table-font-xsmall">
+                <caption class="heading-medium">
+                     @Messages("manageProperties.representations")
+                </caption>
                 <thead>
                     <tr>
-                        <td>@Messages("propertyRepresentations.table.1")</td>
-                        <td>@Messages("propertyRepresentations.table.2")</td>
-                        <td>@Messages("propertyRepresentations.table.3")</td>
-                        <td>@Messages("propertyRepresentations.table.4")</td>
+                        <th scope="col">@Messages("propertyRepresentations.table.1")</th>
+                        <th scope="col">@Messages("propertyRepresentations.table.2")</th>
+                        <th scope="col">@Messages("propertyRepresentations.table.3")</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @model.propertyRepresentations.filterNot(_.pending).map { p =>
+                    @model.propertyRepresentations.filterNot(_.pending).groupBy(_.groupName).map { case (groupName, properties) =>
                         <tr>
-                            <td>@p.groupName</td>
-                            <td>@p.address.toString</td>
-                            <td>@Messages(p.canCheck.msgKey)</td>
-                            <td>@Messages(p.canChallenge.msgKey)</td>
+                            <td scope="row">@groupName</td>
+                            <td>
+                                <a href="#">
+                                    @properties.size
+                                </a>
+                            </td>
+                            <td>0</td>
                         </tr>
                     }
                 </tbody>
             </table>
         }
 
-    </main>
+    <p><a class="link-back" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a></p>
 }
