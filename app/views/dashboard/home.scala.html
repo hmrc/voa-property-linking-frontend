@@ -3,36 +3,44 @@
 
 @main_template(title = Messages("dashboard.home.title")) {
 
-    <h1 class="form-title heading-xlarge" style="margin-bottom:4px">
+    <h1 class="heading-xlarge margin-bottom-0">
         <span class="heading-secondary">@(individualDetails.firstName) @(individualDetails.lastName)</span>
         <span class="section-title">@Messages("dashboard.home.title")</span>
     </h1>
+
+    <hr class="main-header">
+
     <div class="grid-row">
         <div class="column-two-thirds">
-            <hr style="height: 5px; background-color: #005ea5;border:0;margin-top:0px">
-            <h3 class="heading-large" style="border-bottom: solid 2px #b5babe;padding-bottom: 10px;">@Messages("dashboard.home.properties")</h3>
+
+            <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.properties")</h3>
+
             <h4 class="heading-medium">
                 <a href="@routes.Dashboard.manageProperties">@Messages("dashboard.home.manageProperties.link")</a>
             </h4>
+
             <p>
                 @Messages("dashboard.home.manageProperties.text")
             </p>
+
             <h4 class="heading-medium">
                 <a href="@routes.Search.show">@Messages("dashboard.home.searchProperties.link")</a>
             </h4>
+
             <p>
                 @Messages("dashboard.home.searchProperties.text")
             </p>
-            <h3 class="heading-large" style="border-bottom: solid 2px #b5babe;padding-bottom: 10px;">@Messages("dashboard.home.representatives")</h3>
+            <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.representatives")</h3>
             <h4 class="heading-medium">
                 <a href="#">
                 @Messages("dashboard.home.representatives.link")</a>
             </h4>
+
             <p>
                 @Messages("dashboard.home.representatives.text")
             </p>
             @if(isAgent) {
-                <h3 class="heading-large" style="border-bottom: solid 2px #b5babe;padding-bottom: 10px;">@Messages("dashboard.home.clients")</h3>
+                <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.clients")</h3>
                 <h4 class="heading-medium">
                     <a href="@controllers.agent.routes.Representation.manageRepresentationRequest">
                     @Messages("dashboard.home.clients.link")
