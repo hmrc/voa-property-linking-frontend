@@ -25,6 +25,8 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
 
+import scala.util.Random
+
 class AppointAgentSpec extends ControllerSpec {
   import TestData._
 
@@ -71,7 +73,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubGroupAccountConnector.stubAccount(agentAccount)
 
     val res = TestAppointAgent.appointSubmit(link.linkId)(
-      request.withFormUrlEncodedBody("agentCode" -> agentAccount.id, "canCheck" -> "", "canChallenge" -> "continueOnly")
+      request.withFormUrlEncodedBody("agentCode" -> agentAccount.groupId, "canCheck" -> "", "canChallenge" -> "continueOnly")
     )
     status(res) must be (BAD_REQUEST)
 
@@ -85,7 +87,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubGroupAccountConnector.stubAccount(agentAccount)
 
     val res = TestAppointAgent.appointSubmit(link.linkId)(
-      request.withFormUrlEncodedBody("agentCode" -> agentAccount.id, "canCheck" -> "continueOnly", "canChallenge" -> "")
+      request.withFormUrlEncodedBody("agentCode" -> agentAccount.groupId, "canCheck" -> "continueOnly", "canChallenge" -> "")
     )
     status(res) must be (BAD_REQUEST)
 
@@ -100,7 +102,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAppointAgent.appointSubmit(link.linkId)(
-      request.withFormUrlEncodedBody("agentCode" -> agentAccount.id, "canCheck" -> "notPermitted", "canChallenge" -> "notPermitted")
+      request.withFormUrlEncodedBody("agentCode" -> agentAccount.groupId, "canCheck" -> "notPermitted", "canChallenge" -> "notPermitted")
     )
     status(res) must be (BAD_REQUEST)
 
@@ -125,8 +127,8 @@ class AppointAgentSpec extends ControllerSpec {
 
   private object TestData {
     val property = Property(12345, "1234", Address("123 Fake Street", "", "", "AA1 1AA"), false, "123", "A building", "W")
-    val account = GroupAccount("987654", "a company", Address("1 The Road", "", "", "AA11 1AA"), "aa@aa.aa", "1234", false, None)
-    val agentAccount = GroupAccount("456789", "another company", Address("1 The Place", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, Some(UUID.randomUUID().toString))
-    val link = PropertyLink("6584351", property.uarn, account.id, "a thing", Capacity(OwnerOccupier, DateTime.now(), None), DateTime.now(), true)
+    val account = GroupAccount(Random.nextInt(Int.MaxValue), "987654", "a company", Address("1 The Road", "", "", "AA11 1AA"), "aa@aa.aa", "1234", false, None)
+    val agentAccount = GroupAccount(Random.nextInt(Int.MaxValue), "456789", "another company", Address("1 The Place", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, Some(UUID.randomUUID().toString))
+    val link = PropertyLink("6584351", property.uarn, account.groupId, "a thing", Capacity(OwnerOccupier, DateTime.now(), None), DateTime.now(), true)
   }
 }

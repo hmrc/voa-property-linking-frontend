@@ -24,6 +24,7 @@ import models.{GroupAccount, GroupAccountSubmission}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
+import scala.util.Random
 
 object StubGroupAccountConnector extends GroupAccounts(StubHttp) {
 
@@ -37,13 +38,15 @@ object StubGroupAccountConnector extends GroupAccounts(StubHttp) {
     stubbedGroups = Nil
   }
 
-  override def get()(implicit hc: HeaderCarrier): Future[Seq[GroupAccount]] = Future.successful(stubbedGroups)
-
-  override def get(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = Future.successful(stubbedGroups.find(_.id == groupId))
+  override def get(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = Future.successful(stubbedGroups.find(_.groupId == groupId))
 
   override def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.agentCode.contains(agentCode)))
 
-  override def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Unit] = Future.successful {
-    stubAccount(GroupAccount(account.id, account.companyName, account.address, account.email, account.phone, account.isSmallBusiness, Some(UUID.randomUUID().toString)))
+  override def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = Future.successful {
+    val id = randomId
+    stubAccount(GroupAccount(id, account.id, account.companyName, account.address, account.email, account.phone, account.isSmallBusiness, Some(UUID.randomUUID().toString)))
+    id
   }
+
+  private def randomId = Random.nextInt(Int.MaxValue)
 }

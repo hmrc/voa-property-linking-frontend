@@ -22,6 +22,7 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 import scala.concurrent.Future
+import scala.util.Random
 
 object StubIndividualAccountConnector extends IndividualAccounts(StubHttp) {
 
@@ -35,9 +36,7 @@ object StubIndividualAccountConnector extends IndividualAccounts(StubHttp) {
     stubbedIndividuals = Nil
   }
 
-  override def get()(implicit hc: HeaderCarrier): Future[Seq[IndividualAccount]] = Future.successful(stubbedIndividuals)
+  override def get(externalId: String)(implicit hc: HeaderCarrier): Future[Option[IndividualAccount]] = Future.successful(stubbedIndividuals.find(_.externalId == externalId))
 
-  override def get(accountId: String)(implicit hc: HeaderCarrier): Future[Option[IndividualAccount]] = Future.successful(stubbedIndividuals.find(_.id == accountId))
-
-  override def create(account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = Future.successful(stubAccount(account))
+  override def create(account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Int] = Future.successful(stubAccount(account)).map { _ => Random.nextInt(Int.MaxValue) }
 }

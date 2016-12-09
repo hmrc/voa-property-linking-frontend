@@ -36,7 +36,7 @@ Example usage:
                 </legend>
    		}
 		case _ => {
-			<div id="@elements.id" class="@elements.args.get('_fieldsetClass) form-group @if(elements.hasErrors) {error}">
+			<div id="@elements.id" class="@elements.args.get('_fieldsetClass)">
 				<label class="@elements.args.get('_labelClass)" for="@(elements.id)_text" ><span class="label-span">@elements.label</span>
 
             @elements.args.get('_optional) match {

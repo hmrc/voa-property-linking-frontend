@@ -25,6 +25,8 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
 
+import scala.util.Random
+
 class DashboardSpec extends ControllerSpec {
   implicit val request = FakeRequest()
 
@@ -38,16 +40,16 @@ class DashboardSpec extends ControllerSpec {
 
   "Logging in for the first time with a group account" must
     "redirect to the create individual account page" in {
-    StubAuthConnector.stubInternalId("hasnoaccount")
+    StubAuthConnector.stubExternalId("hasnoaccount")
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
     header("location", res) mustBe Some(routes.CreateIndividualAccount.show.url)
   }
 
   "Logging in for the first time with an individual sub-account under a group that has registered" must "redirect to the create individual account page" in {
-    StubAuthConnector.stubInternalId("hasnoaccount")
+    StubAuthConnector.stubExternalId("hasnoaccount")
     StubUserDetails.stubGroupId("hasgroupaccount")
-    StubGroupAccountConnector.stubAccount(GroupAccount("hasgroupaccount", "", Address("", "", "", ""), "", "", false, Some(UUID.randomUUID().toString)))
+    StubGroupAccountConnector.stubAccount(GroupAccount(Random.nextInt(Int.MaxValue), "hasgroupaccount", "", Address("", "", "", ""), "", "", false, Some(UUID.randomUUID().toString)))
 
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
@@ -55,20 +57,22 @@ class DashboardSpec extends ControllerSpec {
   }
 
   "Logging in again with an account that has already registered" must "continue to the dashboard" in {
-    StubAuthConnector.stubInternalId("has-account")
+    val groupId = Random.nextInt(Int.MaxValue)
+    StubAuthConnector.stubExternalId("has-account")
     StubUserDetails.stubGroupId("has-group-account")
-    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", "has-group-account", IndividualDetails("fname", "lname", "aa@aa.aa", "123", None)))
-    StubGroupAccountConnector.stubAccount(GroupAccount("has-group-account", "", Address("", "", "", ""), "", "", false, None))
+    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", UUID.randomUUID().toString, groupId, IndividualDetails("fname", "lname", "aa@aa.aa", "123", None)))
+    StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-group-account", "", Address("", "", "", ""), "", "", false, None))
 
     val res = TestDashboard.home()(request)
     status(res) mustBe OK
   }
 
   "Logging in with a group account that has registered as an agent" must "continue to the agent dashboard" in {
-    StubAuthConnector.stubInternalId("has-account")
+    val groupId = Random.nextInt(Int.MaxValue)
+    StubAuthConnector.stubExternalId("has-account")
     StubUserDetails.stubGroupId("has-agent-account")
-    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", "has-agent-account", IndividualDetails("fname", "lname", "aa@aa.aa", "123", None)))
-    StubGroupAccountConnector.stubAccount(GroupAccount("has-agent-account", "", Address("", "", "", ""), "", "", false, Some(UUID.randomUUID().toString)))
+    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", UUID.randomUUID().toString, groupId, IndividualDetails("fname", "lname", "aa@aa.aa", "123", None)))
+    StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-agent-account", "", Address("", "", "", ""), "", "", false, Some(UUID.randomUUID().toString)))
 
     val res = TestDashboard.home()(request)
     status(res) mustBe OK

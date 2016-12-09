@@ -17,7 +17,7 @@
 package controllers
 
 import config.Wiring
-import models.{Address, GroupAccountSubmission$, IndividualAccount}
+import models.{Address, IndividualAccount}
 import play.api.data.Forms._
 import play.api.data.{Form, Mapping}
 
@@ -40,8 +40,9 @@ trait CreateGroupAccount extends PropertyLinkingController {
         groupId <- userDetails.getGroupId(ctx)
         userId <- auth.getExternalId(ctx)
         details <- keystore.getIndividualDetails
-        _ <- groups.create(groupId, formData)
-        _ <- individuals.create(IndividualAccount(userId, groupId, details))
+        id <- groups.create(groupId, formData)
+        journeyId = request.session.get("journeyId").getOrElse("no-id")
+        _ <- individuals.create(IndividualAccount(userId, journeyId, id, details))
       } yield {
         Ok(views.html.createAccount.confirmation())
       }

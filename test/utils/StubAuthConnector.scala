@@ -18,17 +18,16 @@ package utils
 
 import connectors.VPLAuthConnector
 import uk.gov.hmrc.play.frontend.auth.AuthContext
-import uk.gov.hmrc.play.frontend.auth.connectors.domain.{Accounts, Authority, ConfidenceLevel, CredentialStrength}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
 object StubAuthConnector extends VPLAuthConnector(StubHttp) {
-  private var internalId = ""
+  private var externalId = ""
 
-  def stubInternalId(id: String): Unit = {
-    internalId = id
+  def stubExternalId(id: String): Unit = {
+    externalId = id
   }
 
-  override def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(internalId)
+  override def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(externalId)
 }
