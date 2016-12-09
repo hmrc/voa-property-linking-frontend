@@ -18,6 +18,7 @@ package connectors
 
 import controllers.GroupAccountDetails
 import models.{GroupAccount, GroupAccountSubmission}
+import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost, HttpResponse}
 
@@ -27,10 +28,6 @@ class GroupAccounts(http: HttpGet with HttpPost)(implicit ec: ExecutionContext) 
 
   lazy val url = baseUrl("property-representations") + "/property-linking/groups"
 
-  def get()(implicit hc: HeaderCarrier): Future[Seq[GroupAccount]] = {
-    http.GET[Seq[GroupAccount]](url)
-  }
-
   def get(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
     http.GET[Option[GroupAccount]](s"$url/$groupId")
   }
@@ -39,11 +36,14 @@ class GroupAccounts(http: HttpGet with HttpPost)(implicit ec: ExecutionContext) 
     http.GET[Option[GroupAccount]](s"$url/agentCode/$agentCode")
   }
 
-  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.POST[GroupAccountSubmission, HttpResponse](url, account) map { _ => () }
+  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = {
+    http.POST[GroupAccountSubmission, JsValue](url, account) map { js => js \ "id" match {
+      case JsDefined(JsNumber(id)) => id.toInt
+      case _ => throw new Exception(s"Invalid id $js")
+    }}
   }
 
-  def create(groupId: String, details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Unit] = {
+  def create(groupId: String, details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = {
     create(GroupAccountSubmission(groupId, details.companyName, details.address, details.email, details.phone, details.isSmallBusiness, details.isAgent))
   }
 }

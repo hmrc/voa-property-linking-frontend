@@ -21,7 +21,8 @@ legend{
 }
 
 // Address Fields
-.address--fields{
+
+.address--fields .form-group{
 	margin-bottom: 0;
 	h2{
 		margin-bottom: .4em;
@@ -29,6 +30,15 @@ legend{
 }
 
 // Form helpers
+
+.margin-bottom-30{
+	margin-bottom: 30px;
+}
+
+.margin-bottom-20{
+	margin-bottom: 20px;
+}
+
 .margin-bottom-10{
 	margin-bottom: 10px;
 }

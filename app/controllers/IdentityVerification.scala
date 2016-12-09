@@ -65,8 +65,9 @@ trait IdentityVerification extends PropertyLinkingController {
       userId <- auth.getExternalId(ctx)
       account <- groups.get(groupId)
       details <- keystore.getIndividualDetails
+      journeyId = request.session.get("journeyId").getOrElse("no-id")
       res <- account match {
-        case Some(acc) => individuals.create(IndividualAccount(userId, groupId, details)) map { _ =>
+        case Some(acc) => individuals.create(IndividualAccount(userId, journeyId, acc.id, details)) map { _ =>
           Ok(views.html.createAccount.groupAlreadyExists(acc.companyName))
         }
         case _ => Future.successful(Ok(views.html.identityVerification.success()))

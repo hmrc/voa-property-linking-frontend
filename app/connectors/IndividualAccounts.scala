@@ -17,6 +17,7 @@
 package connectors
 
 import models.IndividualAccount
+import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 
@@ -26,16 +27,15 @@ class IndividualAccounts(http: HttpGet with HttpPut with HttpPost)(implicit ec: 
   extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking/individuals"
 
-  def get()(implicit hc: HeaderCarrier): Future[Seq[IndividualAccount]] = {
-    http.GET[Seq[IndividualAccount]](baseUrl)
-  }
-
   def get(accountId: String)(implicit hc: HeaderCarrier): Future[Option[IndividualAccount]] = {
     http.GET[Option[IndividualAccount]](s"$baseUrl/$accountId")
   }
 
-  def create(account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.POST[IndividualAccount, HttpResponse](baseUrl, account) map { _ => () }
+  def create(account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Int] = {
+    http.POST[IndividualAccount, JsValue](baseUrl, account) map { js => js \ "id" match {
+      case JsDefined(JsNumber(id)) => id.toInt
+      case _ => throw new Exception(s"Invalid id: $js")
+    }}
   }
 }
 

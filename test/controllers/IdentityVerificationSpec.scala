@@ -22,6 +22,9 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
 
+import scala.concurrent.Future
+import scala.util.Random
+
 class IdentityVerificationSpec extends ControllerSpec {
 
   private object TestIdentityVerification extends IdentityVerification {
@@ -40,6 +43,7 @@ class IdentityVerificationSpec extends ControllerSpec {
 
   "Successfully verifying identity when the group does not have a CCA account" must
     "display the successful iv confirmation page, and not create an individual account" in {
+    StubAuthConnector.stubExternalId("externalId")
     StubUserDetails.stubGroupId("groupwithoutaccount")
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
 
@@ -53,13 +57,13 @@ class IdentityVerificationSpec extends ControllerSpec {
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
-    await(StubIndividualAccountConnector.get()) mustBe Nil
+    await(StubIndividualAccountConnector.get("externalId")) mustBe None
   }
 
   "Successfully verifying identity when the group does have a CCA account" must "display a confirmation page, and create the individual account" in {
-    StubAuthConnector.stubInternalId("individualwithoutaccount")
+    StubAuthConnector.stubExternalId("individualwithoutaccount")
     StubUserDetails.stubGroupId("groupwithaccount")
-    StubGroupAccountConnector.stubAccount(GroupAccount("groupwithaccount", "", Address("", "", "", ""), "", "", false, None))
+    StubGroupAccountConnector.stubAccount(GroupAccount(Random.nextInt(Int.MaxValue), "groupwithaccount", "", Address("", "", "", ""), "", "", false, None))
     StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
 
     val res = TestIdentityVerification.withRestoredSession()(requestWithJourneyId("anothersuccess"))
