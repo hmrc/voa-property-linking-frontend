@@ -59,7 +59,7 @@ class ChooseEvidenceSpec extends ControllerSpec {
   }
 
   private object TestData {
-    val property = Property(1234567L, "8901234", PropertyAddress("1", "2", "3", "AB1 2CD"), false, "123", "a thing", "S")
+    val property = Property(1234567L, "8901234", PropertyAddress(Seq("1", "2", "3"), "AB1 2CD"), false, "123", "a thing", "S")
     val declaration = CapacityDeclaration(Owner, true, None, true, None)
   }
 }

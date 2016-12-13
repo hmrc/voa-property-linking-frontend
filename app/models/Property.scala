@@ -18,8 +18,8 @@ package models
 
 import play.api.libs.json.Json
 
-case class PropertyAddress(line1: String, line2: String, line3: String, postcode: String) {
-  override def toString = Seq(line1, line2, line3, postcode).filter(_.nonEmpty).mkString(", ")
+case class PropertyAddress(lines: Seq[String], postcode: String) {
+  override def toString = lines mkString ", " + postcode
 }
 
 object PropertyAddress {

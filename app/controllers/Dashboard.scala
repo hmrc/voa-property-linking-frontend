@@ -82,7 +82,7 @@ trait Dashboard extends PropertyLinkingController {
   }
 
   private def shortAddress(uarn: Long)(implicit hc: HeaderCarrier) = propConnector.get(uarn) map {
-    case Some(p) => p.address.line1 + ", " + p.address.postcode
+    case Some(p) => p.address.lines.headOption.getOrElse("") + ", " + p.address.postcode
     case None => "No address found"
   }
 }
