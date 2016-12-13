@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package connectors
+package controllers
 
-import models.Property
-import serialization.JsonFormats._
-import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
+import config.Wiring
+import play.api.libs.json.Json
+import play.api.mvc.Action
 
-import scala.concurrent.{ExecutionContext, Future}
+trait AddressLookup extends PropertyLinkingController {
 
-class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends ServicesConfig {
-  lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
+  val addresses = Wiring().addresses
 
-  def get(uarn: Long)(implicit hc: HeaderCarrier): Future[Option[Property]] =
-    http.GET[Option[Property]](baseUrl + s"/properties/$uarn")
+  def findByPostcode(postcode: String) = Action.async { implicit request =>
+    addresses.findByPostcode(postcode) map { res => Ok(Json.toJson(res)) }
+  }
 }
+
+object AddressLookup extends AddressLookup

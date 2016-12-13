@@ -13,6 +13,7 @@
     VOA.VoaModules = function(){
         new VOA.RadioToggleFields();
         new VOA.JqueryFiler();
+        new VOA.postcodeLookup();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));

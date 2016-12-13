@@ -20,9 +20,9 @@ import org.joda.time.DateTime
 import uk.gov.hmrc.domain.Nino
 
 case class PersonalDetails(firstName: String, lastName: String, dateOfBirth: DateTime, nino: Nino,
-                           email: String, confirmedEmail: String, phone1: String, phone2: Option[String]) {
+                           email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: SimpleAddress) {
 
   def ivDetails = IVDetails(firstName, lastName, dateOfBirth, nino)
-  def individualDetails = IndividualDetails(firstName, lastName, email, phone1, phone2)
+  def individualDetails = IndividualDetails(firstName, lastName, email, phone1, phone2, address)
 
 }

@@ -63,6 +63,7 @@ trait CreateIndividualAccount extends PropertyLinkingController {
     val confirmedEmail = "confirmedEmail"
     val phone1 = "phone1"
     val phone2 = "phone2"
+    val address = "address"
   }
 
   lazy val form = Form(mapping(
@@ -73,7 +74,8 @@ trait CreateIndividualAccount extends PropertyLinkingController {
     keys.email -> email,
     keys.confirmedEmail -> email,
     keys.phone1 -> nonEmptyText,
-    keys.phone2 -> optional(text)
+    keys.phone2 -> optional(text),
+    keys.address -> address
   )(PersonalDetails.apply)(PersonalDetails.unapply))
 
   lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(Nino(_), _.nino)

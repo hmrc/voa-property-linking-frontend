@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package connectors
+package models
 
-import models.Property
-import serialization.JsonFormats._
-import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
+import play.api.libs.json.Json
 
-import scala.concurrent.{ExecutionContext, Future}
+case class SimpleAddress(addressUnitId: Option[Int], line1: String, line2: String, line3: String, line4: String, postcode: String)
 
-class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends ServicesConfig {
-  lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
-
-  def get(uarn: Long)(implicit hc: HeaderCarrier): Future[Option[Property]] =
-    http.GET[Option[Property]](baseUrl + s"/properties/$uarn")
+object SimpleAddress {
+  implicit val format = Json.format[SimpleAddress]
 }

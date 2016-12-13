@@ -43,6 +43,7 @@ trait Dashboard extends PropertyLinkingController {
     } yield {
       (individualAccount, groupAccount) match {
         case (Some(i), Some(g)) => Ok(views.html.dashboard.home(i.details, g))
+        case (Some(_), None) => throw new Exception(s"User with id $userId has account but their group does not have an account (id $groupId)")
         case (None, _) => Redirect(routes.CreateIndividualAccount.show)
       }
     }

@@ -1,4 +1,4 @@
-# Add all the application app.routes to the app.app.routes file
+# Add all the application routes to the app.routes file
 ->         /property-linking                        app.Routes
 ->         /                       					health.Routes
 ->     	   /template                                template.Routes

@@ -16,16 +16,17 @@
 
 package connectors
 
-import models.Property
-import serialization.JsonFormats._
+import models.SimpleAddress
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
-class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends ServicesConfig {
-  lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
+class Addresses(http: HttpGet) extends ServicesConfig {
 
-  def get(uarn: Long)(implicit hc: HeaderCarrier): Future[Option[Property]] =
-    http.GET[Option[Property]](baseUrl + s"/properties/$uarn")
+  val url = baseUrl("property-linking") + "/property-linking/address"
+
+  def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[SimpleAddress]] = {
+    http.GET[Seq[SimpleAddress]](url + s"?postcode=$postcode")
+  }
 }
