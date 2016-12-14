@@ -2,6 +2,19 @@
 // Content
 // ==========================================================================
 
+/* Firefox Fixes */
+body {
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@-moz-document url-prefix() {
+    details{
+        summary {
+            display: list-item;
+        }
+    }
+}
+/* End Firefox Fixes */
 
 .lte-ie8{
     #content{
