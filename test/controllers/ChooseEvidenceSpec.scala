@@ -16,9 +16,7 @@
 
 package controllers
 import connectors.CapacityDeclaration
-import models.{Address, Owner, Property}
-import org.joda.time.DateTime
-import org.jsoup.Jsoup
+import models.{PropertyAddress, Owner, Property}
 import play.api.test.FakeRequest
 import utils.{HtmlPage, StubWithLinkingSession}
 import play.api.test.Helpers._
@@ -61,7 +59,7 @@ class ChooseEvidenceSpec extends ControllerSpec {
   }
 
   private object TestData {
-    val property = Property(1234567L, "8901234", Address("1", "2", "3", "AB1 2CD"), false, "123", "a thing", "S")
+    val property = Property(1234567L, "8901234", PropertyAddress(Seq("1", "2", "3"), "AB1 2CD"), false, "123", "a thing", "S")
     val declaration = CapacityDeclaration(Owner, true, None, true, None)
   }
 }

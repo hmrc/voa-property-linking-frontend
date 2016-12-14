@@ -16,7 +16,7 @@
 
 package utils
 
-import models.{Address, Property}
+import models.{PropertyAddress$, Property}
 import session.{LinkingSession, LinkingSessionRepository}
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.http.HeaderCarrier

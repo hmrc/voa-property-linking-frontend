@@ -14,18 +14,27 @@
  * limitations under the License.
  */
 
-package connectors
+package models
 
-import models.Property
-import serialization.JsonFormats._
-import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
+trait NamedEnum {
+  def name: String
 
-import scala.concurrent.{ExecutionContext, Future}
+  def key: String
 
-class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends ServicesConfig {
-  lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
+  def msgKey: String = s"$key.$name"
+}
 
-  def get(uarn: Long)(implicit hc: HeaderCarrier): Future[Option[Property]] =
-    http.GET[Option[Property]](baseUrl + s"/properties/$uarn")
+trait NamedEnumSupport[E <: NamedEnum] {
+
+  def all: Seq[E]
+
+  def fromName(name: String): Option[E] = {
+    all.find {
+      _.name.equalsIgnoreCase(name)
+    }
+  }
+
+  def options = all.map(_.name)
+
+  def unapply(s: String) = all.find(_.name == s)
 }

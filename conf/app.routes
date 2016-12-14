@@ -63,6 +63,9 @@ GET         /representation-request                                 controllers.
 GET         /representation-request/accept/:reprId                  controllers.agent.Representation.accept(reprId)
 GET         /representation-request/reject/:reprId                  controllers.agent.Representation.reject(reprId)
 
+#Address lookup
+GET         /lookup                                                 controllers.AddressLookup.findByPostcode(postcode)
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                           controllers.Assets.at(path="/public", file)
 

@@ -109,6 +109,7 @@ select.form-control{
 	margin:0;
     cursor: pointer;
 	-webkit-appearance: menulist;
+	-moz-appearance: menulist;
 }
 [type="file"]{
 	border: none;

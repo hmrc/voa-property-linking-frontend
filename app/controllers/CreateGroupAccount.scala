@@ -17,9 +17,10 @@
 package controllers
 
 import config.Wiring
-import models.{Address, IndividualAccount}
+import models.{IndividualAccount, SimpleAddress}
 import play.api.data.Forms._
 import play.api.data.{Form, Mapping}
+import form.Mappings._
 
 trait CreateGroupAccount extends PropertyLinkingController {
   val groups = Wiring().groupAccountConnector
@@ -67,15 +68,6 @@ trait CreateGroupAccount extends PropertyLinkingController {
     keys.isAgent -> mandatoryBoolean
   )(GroupAccountDetails.apply)(GroupAccountDetails.unapply))
 
-  def address: Mapping[Address] = mapping(
-    "line1" -> nonEmptyText,
-    "line2" -> text,
-    "line3" -> text,
-    "postcode" -> nonEmptyText
-  )(Address.apply)(Address.unapply)
-
-  val mandatoryBoolean: Mapping[Boolean] = optional(boolean).verifying("error.booleanMissing", _.isDefined).transform(_.get, Some(_))
-
   implicit def vm(form: Form[_]): CreateGroupAccountVM = CreateGroupAccountVM(form)
 }
 
@@ -83,4 +75,4 @@ object CreateGroupAccount extends CreateGroupAccount
 
 case class CreateGroupAccountVM(form: Form[_])
 
-case class GroupAccountDetails(companyName: String, address: Address, email: String, phone: String, isSmallBusiness: Boolean, isAgent: Boolean)
+case class GroupAccountDetails(companyName: String, address: SimpleAddress, email: String, phone: String, isSmallBusiness: Boolean, isAgent: Boolean)

@@ -29,6 +29,7 @@ import scala.util.Random
 
 class DashboardSpec extends ControllerSpec {
   implicit val request = FakeRequest()
+  val testAddress = SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA")
 
   object TestDashboard extends Dashboard {
     override val auth: VPLAuthConnector = StubAuthConnector
@@ -49,7 +50,7 @@ class DashboardSpec extends ControllerSpec {
   "Logging in for the first time with an individual sub-account under a group that has registered" must "redirect to the create individual account page" in {
     StubAuthConnector.stubExternalId("hasnoaccount")
     StubUserDetails.stubGroupId("hasgroupaccount")
-    StubGroupAccountConnector.stubAccount(GroupAccount(Random.nextInt(Int.MaxValue), "hasgroupaccount", "", Address("", "", "", ""), "", "", false, Some(UUID.randomUUID().toString)))
+    StubGroupAccountConnector.stubAccount(GroupAccount(Random.nextInt(Int.MaxValue), "hasgroupaccount", "", SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, Some(UUID.randomUUID().toString)))
 
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
@@ -60,8 +61,8 @@ class DashboardSpec extends ControllerSpec {
     val groupId = Random.nextInt(Int.MaxValue)
     StubAuthConnector.stubExternalId("has-account")
     StubUserDetails.stubGroupId("has-group-account")
-    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", UUID.randomUUID().toString, groupId, IndividualDetails("fname", "lname", "aa@aa.aa", "123", None)))
-    StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-group-account", "", Address("", "", "", ""), "", "", false, None))
+    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", UUID.randomUUID().toString, groupId, IndividualDetails("fname", "lname", "aa@aa.aa", "123", None, testAddress)))
+    StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-group-account", "", SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, None))
 
     val res = TestDashboard.home()(request)
     status(res) mustBe OK
@@ -71,8 +72,8 @@ class DashboardSpec extends ControllerSpec {
     val groupId = Random.nextInt(Int.MaxValue)
     StubAuthConnector.stubExternalId("has-account")
     StubUserDetails.stubGroupId("has-agent-account")
-    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", UUID.randomUUID().toString, groupId, IndividualDetails("fname", "lname", "aa@aa.aa", "123", None)))
-    StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-agent-account", "", Address("", "", "", ""), "", "", false, Some(UUID.randomUUID().toString)))
+    StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", UUID.randomUUID().toString, groupId, IndividualDetails("fname", "lname", "aa@aa.aa", "123", None, testAddress)))
+    StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-agent-account", "", SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, Some(UUID.randomUUID().toString)))
 
     val res = TestDashboard.home()(request)
     status(res) mustBe OK

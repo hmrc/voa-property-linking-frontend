@@ -43,6 +43,7 @@ trait Dashboard extends PropertyLinkingController {
     } yield {
       (individualAccount, groupAccount) match {
         case (Some(i), Some(g)) => Ok(views.html.dashboard.home(i.details, g))
+        case (Some(_), None) => throw new Exception(s"User with id $userId has account but their group does not have an account (id $groupId)")
         case (None, _) => Redirect(routes.CreateIndividualAccount.show)
       }
     }
@@ -81,7 +82,7 @@ trait Dashboard extends PropertyLinkingController {
   }
 
   private def shortAddress(uarn: Long)(implicit hc: HeaderCarrier) = propConnector.get(uarn) map {
-    case Some(p) => p.address.line1 + ", " + p.address.postcode
+    case Some(p) => p.address.lines.headOption.getOrElse("") + ", " + p.address.postcode
     case None => "No address found"
   }
 }

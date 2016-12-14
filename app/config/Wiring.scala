@@ -53,6 +53,7 @@ abstract class Wiring {
   lazy val fileSystemConnector = FileSystemConnector
   lazy val identityVerification = new IdentityVerification(http)
   lazy val withAuthentication = new WithAuthentication
+  lazy val addresses = new Addresses(http)
 }
 
 class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete)(implicit ec: ExecutionContext) extends SessionCache with AppName with ServicesConfig {

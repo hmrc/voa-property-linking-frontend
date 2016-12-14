@@ -33,7 +33,7 @@ case class PropertyLinkRequest(uarn: Long, groupId: String, capacityDeclaration:
 case class LinkedProperties(added: Seq[DetailedPropertyLink], pending: Seq[DetailedPropertyLink])
 
 case class PropertyRepresentation(representationId: String, linkId: String, agentId: String, agentName: String,
-                                  groupId: String, groupName: String, uarn: Long, address: Address,
+                                  groupId: String, groupName: String, uarn: Long, address: PropertyAddress,
                                   canCheck: AgentPermission, canChallenge: AgentPermission, pending: Boolean)
 
 case class UpdatedRepresentation(representationId: String, canCheck: AgentPermission, canChallenge: AgentPermission)

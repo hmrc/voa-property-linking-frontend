@@ -30,7 +30,7 @@
                     <tr>
                         <td scope="row">
                             <a href="#">
-                                @{p.address.line1 + ", " + p.address.postcode}
+                                @{p.address.lines.headOption.getOrElse("") + ", " + p.address.postcode}
                             </a>
                         </td>
                         <td>

@@ -87,4 +87,4 @@ object Search {
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 
-case class DeclareCapacityVM(form: Form[_], address: Address)
+case class DeclareCapacityVM(form: Form[_], address: PropertyAddress)

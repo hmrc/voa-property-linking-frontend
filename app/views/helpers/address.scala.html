@@ -2,40 +2,77 @@
 
 @(form: Form[_], fieldName: String)(implicit request: Request[_], messages: Messages)
 
+@addressForm = {
+    <div class="address--fields" style="display: none">
+        <input type="hidden" id="@{fieldName}_addressId_text" name="@{fieldName}.addressId"/>
 
-<div class="address--fields">
-    @inputText(
-        field = form(s"$fieldName.line1"),
-        '_label -> Messages(s"label.$fieldName"),
-        '_labelClass -> "form-label-bold",
-        'class -> "form-control",
-        'placeholder -> Messages("placeholder.address.line1"),
-        '_fieldsetClass -> "margin-bottom-10"
-    )
+        @inputText(
+            field = form(s"$fieldName.line1"),
+            '_label -> Messages(s"label.$fieldName"),
+            '_labelClass -> "form-label-bold",
+            'class -> "form-control",
+            'placeholder -> Messages("placeholder.address.line1"),
+            '_fieldsetClass -> "margin-bottom-10"
+        )
 
-    @inputText(
-        field = form(s"$fieldName.line2"),
-        '_label -> Messages(s"label.$fieldName.line2"),
-        '_labelClass -> "visuallyhidden",
-        'class -> "form-control",
-        'placeholder -> Messages("placeholder.address.line2"),
-        '_fieldsetClass -> "margin-bottom-10"
-    )
+        @inputText(
+            field = form(s"$fieldName.line2"),
+            '_label -> Messages(s"label.$fieldName.line2"),
+            '_labelClass -> "visuallyhidden",
+            'class -> "form-control",
+            'placeholder -> Messages("placeholder.address.line2"),
+            '_fieldsetClass -> "margin-bottom-10"
+        )
 
-    @inputText(
-        field = form(s"$fieldName.line3"),
-        '_label -> Messages(s"label.$fieldName.line3"),
-        '_labelClass -> "visuallyhidden",
-        'class -> "form-control",
-        'placeholder -> Messages("placeholder.address.line3"),
-        '_fieldsetClass -> "margin-bottom-30"
-    )
+        @inputText(
+            field = form(s"$fieldName.line3"),
+            '_label -> Messages(s"label.$fieldName.line3"),
+            '_labelClass -> "visuallyhidden",
+            'class -> "form-control",
+            'placeholder -> Messages("placeholder.address.line3"),
+            '_fieldsetClass -> "margin-bottom-10"
+        )
 
+        @inputText(
+            field = form(s"$fieldName.line4"),
+            '_label -> Messages(s"label.$fieldName.line4"),
+            '_labelClass -> "visuallyhidden",
+            'class -> "form-control",
+            'placeholder -> Messages("placeholder.address.line4"),
+            '_fieldsetClass -> "margin-bottom-30"
+        )
+
+        @inputText(
+            field = form(s"$fieldName.postcode"),
+            '_label -> Messages("label.postcode"),
+            '_labelClass -> "form-label-bold",
+            'class -> "form-control form-control-1-4",
+            '_fieldsetClass -> "margin-bottom-30"
+        )
+
+            <a href="#" class="lookupAddress">@Messages("addressLookup.lookup")</a>
+    </div>
+}
+
+<div class="form-group postcode-lookup-group">
+
+    <div class="postcode-lookup-fields">
     @inputText(
-        field = form(s"$fieldName.postcode"),
+        field = form("postcodeSearch"),
         '_label -> Messages("label.postcode"),
         '_labelClass -> "form-label-bold",
-        'class -> "form-control form-control-1-4",
-        '_fieldsetClass -> "margin-bottom-30"
+        'class -> "form-control form-control-1-4"
     )
+
+    <div class="form-group">
+        <button id="postcodeLookupButton" class="button">@Messages("label.findAddress")</button>
+    </div>
+
+    <a href="#" class="manualAddress">@Messages("addressLookup.manual")</a>
+    </div>
+
+
+    @addressForm
+
+
 </div>
