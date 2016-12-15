@@ -44,7 +44,7 @@
 
         @inputText(
             field = form(s"$fieldName.postcode"),
-            '_label -> Messages("label.postcode"),
+            '_label -> Messages("label.address.postcode"),
             '_labelClass -> "form-label-bold",
             'class -> "form-control form-control-1-4",
             '_fieldsetClass -> "margin-bottom-30"
@@ -59,7 +59,7 @@
     <div class="postcode-lookup-fields">
     @inputText(
         field = form("postcodeSearch"),
-        '_label -> Messages("label.postcode"),
+        '_label -> Messages("label.address.postcode"),
         '_labelClass -> "form-label-bold",
         'class -> "form-control form-control-1-4"
     )

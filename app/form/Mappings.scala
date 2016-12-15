@@ -36,13 +36,13 @@ object Mappings extends DateMappings {
   def address: Mapping[SimpleAddress] = mapping(
     "addressId" -> addressId,
     "line1" -> nonEmptyText,
-    "line2" -> text,
-    "line3" -> text,
-    "line4" -> text,
+    "line2" -> default(text, ""),
+    "line3" -> default(text, ""),
+    "line4" -> default(text, ""),
     "postcode" -> nonEmptyText
   )(SimpleAddress.apply)(SimpleAddress.unapply)
 
-  private def addressId: Mapping[Option[Int]] = text.transform(t => Try { t.toInt }.toOption, _.map(_.toString).getOrElse(""))
+  private def addressId: Mapping[Option[Int]] = default(text, "").transform(t => Try { t.toInt }.toOption, _.map(_.toString).getOrElse(""))
 }
 
 trait DateMappings {
@@ -124,4 +124,23 @@ case class DateAfter(afterField: String, key: String = "", constraints: Seq[Cons
   override def withPrefix(prefix: String) = copy(key = prefix + key)
 
   override def verifying(c: Constraint[DateTime]*) = copy(constraints = constraints ++ c.toSeq)
+}
+
+case class TextMatching(other: String, errorKey: String, key: String = "", constraints: Seq[Constraint[String]] = Nil) extends Mapping[String] {
+  override val mappings = Nil
+
+  override def bind(data: Map[String, String]) = (text.withPrefix(key).bind(data), text.withPrefix(other).bind(data)) match {
+    case (l@Left(_), _) => l
+    case (r@Right(_), Left(_)) => r
+    case (r@Right(a), Right(b)) if a == b => r
+    case (Right(_), Right(_)) => Left(Seq(FormError(key, errorKey)))
+  }
+
+  override def unbind(value: String) = text.unbind(value)
+
+  override def unbindAndValidate(value: String) = text.unbindAndValidate(value)
+
+  override def withPrefix(prefix: String) = copy(key = prefix + key)
+
+  override def verifying(c: Constraint[String]*) = copy(constraints = constraints ++ c.toSeq)
 }

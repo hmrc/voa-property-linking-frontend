@@ -21,6 +21,9 @@ import models.{IndividualAccount, SimpleAddress}
 import play.api.data.Forms._
 import play.api.data.{Form, Mapping}
 import form.Mappings._
+import form.TextMatching
+import play.api.data.validation.Constraints
+import views.helpers.Errors
 
 trait CreateGroupAccount extends PropertyLinkingController {
   val groups = Wiring().groupAccountConnector
@@ -53,17 +56,19 @@ trait CreateGroupAccount extends PropertyLinkingController {
   lazy val keys = new {
     val companyName = "companyName"
     val address = "address"
-    val email = "email"
-    val phone = "phone"
+    val email = "businessEmail"
+    val confirmEmail = "confirmedEmail"
+    val phone = "businessPhone"
     val isSmallBusiness = "isSmallBusiness"
     val isAgent = "isAgent"
   }
 
   lazy val form = Form(mapping(
-    keys.companyName -> nonEmptyText,
+    keys.companyName -> nonEmptyText(maxLength = 45),
     keys.address -> address,
-    keys.email -> email,
-    keys.phone -> nonEmptyText,
+    keys.email -> email.verifying(Constraints.maxLength(45)),
+    keys.confirmEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
+    keys.phone -> nonEmptyText(maxLength = 20),
     keys.isSmallBusiness -> mandatoryBoolean,
     keys.isAgent -> mandatoryBoolean
   )(GroupAccountDetails.apply)(GroupAccountDetails.unapply))
@@ -75,4 +80,5 @@ object CreateGroupAccount extends CreateGroupAccount
 
 case class CreateGroupAccountVM(form: Form[_])
 
-case class GroupAccountDetails(companyName: String, address: SimpleAddress, email: String, phone: String, isSmallBusiness: Boolean, isAgent: Boolean)
+case class GroupAccountDetails(companyName: String, address: SimpleAddress, email: String, confirmedEmail: String,
+                               phone: String, isSmallBusiness: Boolean, isAgent: Boolean)

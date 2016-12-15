@@ -57,7 +57,7 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
       .updated("fromDate.day", "31")
       .updated("fromDate.month", "3")
       .updated("fromDate.year", "2017")
-    verifyError(form, data, "fromDate", Errors.dateMustBeAfterMarch2017)
+    verifyOnlyError(form, data, "fromDate", Errors.dateMustBeAfterMarch2017)
   }
 
   it should "require an end date if the occupation/ownership has ended" in {
@@ -80,7 +80,7 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
       .updated("toDate.day", "1")
       .updated("toDate.month", "4")
       .updated("toDate.year", "2017")
-    verifyError(form, data, "toDate", Errors.dateMustBeAfterOtherDate)
+    verifyOnlyError(form, data, "toDate", Errors.dateMustBeAfterOtherDate)
   }
 
   object TestData {

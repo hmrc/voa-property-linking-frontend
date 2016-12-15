@@ -7,7 +7,15 @@
     @showError(error: FormError) = {
         <li>
             <a href="#@removeInvalid(error)" data-focuses="@removeInvalid(error)">
-                <span>@Html(Messages(messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "") + ".label"))</span> - @Messages(stripIndices(error.message), error.args: _*)
+                <span>
+                @error.key match {
+                    case s if s.contains("day") => { @Messages("label.day") }
+                    case s if s.contains("month") => { @Messages("label.month") }
+                    case s if s.contains("year") => { @Messages("label.year") }
+                    case s if s.contains("address") => { @Messages(s"label.${error.key}") }
+                    case _ => { @Messages("label." + messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "")) }
+                }
+                </span> - @Messages(stripIndices(error.message), error.args: _*)
             </a>
         </li>
     }

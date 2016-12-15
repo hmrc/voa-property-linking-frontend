@@ -24,7 +24,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait PropertyLinkingController extends Controller {
 
-  implicit val messages = play.api.i18n.Messages.Implicits.applicationMessages
+  implicit lazy val messages = play.api.i18n.Messages.Implicits.applicationMessages
   def showForbiddenError(implicit request: Request[_]) = Forbidden(views.html.errors.forbidden())
   def internalServerError(implicit request: Request[_]) = InternalServerError(views.html.errors.error())
 
