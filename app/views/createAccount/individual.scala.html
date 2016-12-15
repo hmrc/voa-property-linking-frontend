@@ -15,7 +15,7 @@
                 <p>@Messages("createAccount.individual.p.1")</p>
                 <p>@Messages("createAccount.individual.p.2")</p>
 
-                @includes.errorSummary(model.form)
+                @includes.errorSummary(model.form, messagePrefix = Some("createAccount"))
 
                 @form(routes.CreateIndividualAccount.submit) {
 
@@ -23,7 +23,7 @@
 
                     @inputText(
                         field = model.form(keys.firstName),
-                        '_label -> Messages("label.createAccount.firstName"),
+                        '_label -> Messages(s"label.createAccount.${keys.firstName}"),
                         '_labelClass -> "form-label-bold",
                         '_showConstraints -> false,
                         'class -> "form-control"
@@ -31,7 +31,7 @@
 
                     @inputText(
                         field = model.form(keys.lastName),
-                        '_label -> Messages("label.createAccount.lastName"),
+                        '_label -> Messages(s"label.createAccount.${keys.lastName}"),
                         '_labelClass -> "form-label-bold",
                         '_showConstraints -> false,
                         'class -> "form-control"
@@ -41,7 +41,7 @@
 
                     @inputText(
                         field = model.form(keys.email),
-                        '_label -> Messages("label.createAccount.email"),
+                        '_label -> Messages(s"label.createAccount.${keys.email}"),
                         '_labelClass -> "form-label-bold",
                         '_showConstraints -> false,
                         'class -> "form-control"
@@ -49,7 +49,7 @@
 
                     @inputText(
                         field = model.form(keys.confirmedEmail),
-                        '_label -> Messages("label.createAccount.confirmEmail"),
+                        '_label -> Messages(s"label.createAccount.${keys.confirmedEmail}"),
                         '_labelClass -> "form-label-bold",
                         '_showConstraints -> false,
                         'class -> "form-control"
@@ -57,7 +57,7 @@
 
                     @inputText(
                         field = model.form(keys.phone1),
-                        '_label -> Messages("label.createAccount.phone"),
+                        '_label -> Messages(s"label.createAccount.${keys.phone1}"),
                         '_labelClass -> "form-label-bold",
                         '_showConstraints -> false,
                         'class -> "form-control"
@@ -65,7 +65,7 @@
 
                     @inputText(
                         field = model.form(keys.phone2),
-                        '_label -> Messages("label.createAccount.alternatePhone"),
+                        '_label -> Messages(s"label.createAccount.${keys.phone2}"),
                         '_labelClass -> "form-label-bold",
                         '_showConstraints -> false,
                         'class -> "form-control",
@@ -79,7 +79,7 @@
 
                     @inputText(
                         field = model.form(keys.nino),
-                        '_label -> Messages("label.createAccount.nino"),
+                        '_label -> Messages(s"label.createAccount.${keys.nino}"),
                         '_labelClass -> "form-label-bold",
                         '_showConstraints -> false,
                         'class -> "form-control",

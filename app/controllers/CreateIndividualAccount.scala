@@ -18,19 +18,21 @@ package controllers
 
 import config.Wiring
 import form.Mappings._
+import form.TextMatching
 import models.PersonalDetails
 import play.api.data.Forms._
-import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
+import play.api.data.validation._
 import play.api.data.{Form, Mapping}
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 import uk.gov.hmrc.play.http.SessionKeys
+import views.helpers.Errors
 
 trait CreateIndividualAccount extends PropertyLinkingController {
-  val accounts = Wiring().individualAccountConnector
-  val ggAction = Wiring().ggAction
-  val keystore = Wiring().sessionCache
-  val identityVerification = Wiring().identityVerification
+  lazy val accounts = Wiring().individualAccountConnector
+  lazy val ggAction = Wiring().ggAction
+  lazy val keystore = Wiring().sessionCache
+  lazy val identityVerification = Wiring().identityVerification
 
   def show = ggAction { ctx => implicit request =>
     if (ctx.user.confidenceLevel >= ConfidenceLevel.L200) {
@@ -67,14 +69,14 @@ trait CreateIndividualAccount extends PropertyLinkingController {
   }
 
   lazy val form = Form(mapping(
-    keys.firstName -> nonEmptyText,
-    keys.lastName -> nonEmptyText,
-    keys.dateOfBirth -> dmyDate,
+    keys.firstName -> nonEmptyText(maxLength = 100),
+    keys.lastName -> nonEmptyText(maxLength = 100),
+    keys.dateOfBirth -> dmyPastDate,
     keys.nino -> nino,
-    keys.email -> email,
-    keys.confirmedEmail -> email,
-    keys.phone1 -> nonEmptyText,
-    keys.phone2 -> optional(text),
+    keys.email -> email.verifying(Constraints.maxLength(150)),
+    keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
+    keys.phone1 -> nonEmptyText(maxLength = 20),
+    keys.phone2 -> optional(text(maxLength = 20)),
     keys.address -> address
   )(PersonalDetails.apply)(PersonalDetails.unapply))
 

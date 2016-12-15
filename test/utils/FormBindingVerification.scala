@@ -86,7 +86,7 @@ trait DateVerification { this: BasicVerification =>
       validData.updated(field + ".day", dt._1).updated(field + ".month", dt._2).updated(field + ".year", dt._3)
 
     val invalid = Seq(("29", "2", "2015"),("31", "9", "2015"))
-    invalid foreach { iv =>  verifyError(form, withDate(iv), field, Errors.invalidDate) }
+    invalid foreach { iv =>  verifyOnlyError(form, withDate(iv), field, Errors.invalidDate) }
 
     val valid = Seq(("28", "2", "2012"), ("31", "8", "2015"), ("30", "9", "2015"))
     valid foreach { v => mustBind(form, withDate(v)) }
@@ -114,7 +114,7 @@ trait DateVerification { this: BasicVerification =>
     val invalid = Seq(
       ("28", "2", "2225"), ("23", "5", "2115"), (tomorrow.getDayOfMonth.toString, tomorrow.getMonthOfYear.toString, tomorrow.getYear.toString)
     )
-    invalid foreach { iv => verifyError(form, withDate(iv), field, Errors.dateMustBeInPast) }
+    invalid foreach { iv => verifyOnlyError(form, withDate(iv), field, Errors.dateMustBeInPast) }
 
     val yday = DateTime.now.minusDays(1)
     val valid = Seq(
@@ -131,13 +131,28 @@ trait BasicVerification extends MustMatchers with AppendedClues with FormCheckin
     mustOnlyContainRequiredError(form.bind(data), field)
   }
 
+  def verifyOptional(form: Form[_], validData: Map[String, String], field: String) {
+    mustBind(form, validData - field)
+  }
+
+  def verifyCharacterLimit(form: Form[_], validData: Map[String, String], field: String, limit: Int) {
+    mustBind(form, validData.updated(field, 1 to limit map { _ => "a" } mkString))
+
+    val f = form.bind(validData.updated(field, (1 to limit + 1) map { _ => "b"} mkString))
+    mustContainError(f, field, "error.maxLength")
+  }
+
   protected def verifyNonEmptyString[T](form: Form[T], validData: Map[String, String], field: String, error: String) {
     val data = validData.updated(field, "")
     mustOnlyContainError(form.bind(data), field, error)
   }
 
-  def verifyError(form: Form[_], invalidData: Map[String, String], field: String, error: String) {
+  def verifyOnlyError(form: Form[_], invalidData: Map[String, String], field: String, error: String) {
      mustOnlyContainError(form.bind(invalidData), field, error)
+  }
+
+  def verifyError(form: Form[_], invalidData: Map[String, String], field: String, error: String) {
+    mustContainError(form.bind(invalidData), field, error)
   }
 
   protected def verifyAcceptsLeadingAndTrailingWhitespace[T](form: Form[T], validData: Map[String, String], field: String) {

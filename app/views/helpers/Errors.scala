@@ -38,9 +38,12 @@ object Errors {
   val invalidCapacity = "error.capacityDeclaration.invalidCapacity"
 
   // Self Certification
-  val mustAgreeToSelfCert="error.mustAgreeToSelfCert"
+  val mustAgreeToSelfCert = "error.mustAgreeToSelfCert"
 
   // Evidence Upload
-  val uploadedFiles="error.evidenceUploadFiles"
-  val missingFiles="error.missingFiles"
+  val uploadedFiles = "error.evidenceUploadFiles"
+  val missingFiles = "error.missingFiles"
+
+  //validation errors
+  val emailsMustMatch = "error.emailsMustMatch"
 }

@@ -13,11 +13,13 @@
 
                     <h1 class="heading-large">@Messages("createAccount.group.title")</h1>
 
+                    @includes.errorSummary(model.form, messagePrefix = Some("createAccount"))
+
                     @form(routes.CreateGroupAccount.submit) {
 
                         @inputText(
                             field = model.form(keys.companyName),
-                            '_label -> Messages("label.createAccount.companyName"),
+                            '_label -> Messages(s"label.createAccount.${keys.companyName}"),
                             '_labelClass -> "form-label-bold",
                             '_showConstraints -> false,
                             'class -> "form-control"
@@ -27,7 +29,15 @@
 
                         @inputText(
                             field = model.form(keys.email),
-                            '_label -> Messages("label.createAccount.businessEmail"),
+                            '_label -> Messages(s"label.createAccount.${keys.email}"),
+                            '_labelClass -> "form-label-bold",
+                            '_showConstraints -> false,
+                            'class -> "form-control"
+                        )
+
+                        @inputText(
+                            field = model.form(keys.confirmEmail),
+                            '_label -> Messages(s"label.createAccount.${keys.confirmEmail}"),
                             '_labelClass -> "form-label-bold",
                             '_showConstraints -> false,
                             'class -> "form-control"
@@ -35,7 +45,7 @@
 
                         @inputText(
                             field = model.form(keys.phone),
-                            '_label -> Messages("label.createAccount.businessPhone"),
+                            '_label -> Messages(s"label.createAccount.${keys.phone}"),
                             '_labelClass -> "form-label-bold",
                             '_showConstraints -> false,
                             'class -> "form-control"
@@ -46,7 +56,7 @@
                             options = Seq("true", "false"),
                             dataAttributes = Nil,
                             args = Seq(
-                                '_label -> Messages("label.isSmallBusiness"),
+                                '_label -> Messages(s"label.createAccount.${keys.isSmallBusiness}"),
                                 '_labelClass -> "form-label-bold",
                                 '_detailsQuestion -> Messages("isSmallBusiness.details.question"),
                                 '_detailsAnswer -> Messages("isSmallBusiness.details.answer"),
@@ -60,7 +70,7 @@
                             options = Seq("true", "false"),
                             dataAttributes = Nil,
                             args = Seq(
-                                '_label -> Messages("label.isAgent"),
+                                '_label -> Messages(s"label.createAccount.${keys.isAgent}"),
                                 '_labelClass -> "form-label-bold",
                                 '_legend -> true,
                                 '_fieldsetClass -> "inline"
