@@ -26,12 +26,12 @@ import play.api.data.validation.Constraints
 import views.helpers.Errors
 
 trait CreateGroupAccount extends PropertyLinkingController {
-  val groups = Wiring().groupAccountConnector
-  val individuals = Wiring().individualAccountConnector
-  val userDetails = Wiring().userDetailsConnector
-  val auth = Wiring().authConnector
-  val ggAction = Wiring().ggAction
-  val keystore = Wiring().sessionCache
+  lazy val groups = Wiring().groupAccountConnector
+  lazy val individuals = Wiring().individualAccountConnector
+  lazy val userDetails = Wiring().userDetailsConnector
+  lazy val auth = Wiring().authConnector
+  lazy val ggAction = Wiring().ggAction
+  lazy val keystore = Wiring().sessionCache
 
   def show = ggAction { _ => implicit request =>
     Ok(views.html.createAccount.group(form))
