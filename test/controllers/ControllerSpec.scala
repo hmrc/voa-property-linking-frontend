@@ -28,7 +28,7 @@ trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with D
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()
     StubGroupAccountConnector.reset()
-    StubUserDetails.reset()
+    StubAuthConnector.reset()
     StubIdentityVerification.reset()
     StubPropertyConnector.reset()
     StubPropertyLinkConnector.reset()

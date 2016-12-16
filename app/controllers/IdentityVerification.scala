@@ -27,7 +27,6 @@ import scala.concurrent.Future
 trait IdentityVerification extends PropertyLinkingController {
   val groups = Wiring().groupAccountConnector
   val individuals = Wiring().individualAccountConnector
-  val userDetails = Wiring().userDetailsConnector
   val auth = Wiring().authConnector
   val ggAction = Wiring().ggAction
   val keystore = Wiring().sessionCache
@@ -61,7 +60,7 @@ trait IdentityVerification extends PropertyLinkingController {
 
   private def continue(implicit ctx: AuthContext, request: Request[_]) = {
     for {
-      groupId <- userDetails.getGroupId(ctx)
+      groupId <- auth.getGroupId(ctx)
       userId <- auth.getExternalId(ctx)
       account <- groups.get(groupId)
       details <- keystore.getIndividualDetails

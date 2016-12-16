@@ -36,12 +36,12 @@ class WithLinkingSession {
   implicit def hc(implicit request: Request[_]) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
   val session = Wiring().sessionRepository
   val accountRepo = Wiring().individualAccountConnector
-  val userDetails = Wiring().userDetailsConnector
+  val auth = Wiring().authConnector
   val ggAction = Wiring().ggAction
 
   def apply(body: LinkingSessionRequest[AnyContent] => Future[Result]) = ggAction.async { ctx => implicit request =>
     for {
-      groupId <- userDetails.getGroupId(ctx)
+      groupId <- auth.getGroupId(ctx)
       sOpt <- session.get
       res <- sOpt match {
         case Some(s) => body(LinkingSessionRequest(s, groupId, request))
@@ -61,7 +61,6 @@ class WithAuthentication {
   val individuals = Wiring().individualAccountConnector
   val groups = Wiring().groupAccountConnector
   val ggAction = Wiring().ggAction
-  val userDetails = Wiring().userDetailsConnector
   val auth = Wiring().authConnector
 
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
@@ -69,7 +68,7 @@ class WithAuthentication {
   def apply(body: AuthenticatedRequest[AnyContent] => Future[Result]) = ggAction.async { ctx => implicit request =>
     for {
       userId <- auth.getExternalId(ctx)
-      groupId <- userDetails.getGroupId(ctx)
+      groupId <- auth.getGroupId(ctx)
       userAccount <- individuals.get(userId)
       groupAccount <- groups.get(groupId)
       res <- (userAccount, groupAccount) match {

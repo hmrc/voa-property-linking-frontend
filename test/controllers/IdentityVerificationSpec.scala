@@ -30,7 +30,6 @@ class IdentityVerificationSpec extends ControllerSpec {
   private object TestIdentityVerification extends IdentityVerification {
     override val individuals = StubIndividualAccountConnector
     override val groups = StubGroupAccountConnector
-    override val userDetails = StubUserDetails
     override val auth = StubAuthConnector
     override val ggAction = StubGGAction
     override val identityVerification = StubIdentityVerification
@@ -44,7 +43,7 @@ class IdentityVerificationSpec extends ControllerSpec {
   "Successfully verifying identity when the group does not have a CCA account" must
     "display the successful iv confirmation page, and not create an individual account" in {
     StubAuthConnector.stubExternalId("externalId")
-    StubUserDetails.stubGroupId("groupwithoutaccount")
+    StubAuthConnector.stubGroupId("groupwithoutaccount")
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
 
     val res = TestIdentityVerification.withRestoredSession()(requestWithJourneyId("successfuljourney"))
@@ -62,7 +61,7 @@ class IdentityVerificationSpec extends ControllerSpec {
 
   "Successfully verifying identity when the group does have a CCA account" must "display a confirmation page, and create the individual account" in {
     StubAuthConnector.stubExternalId("individualwithoutaccount")
-    StubUserDetails.stubGroupId("groupwithaccount")
+    StubAuthConnector.stubGroupId("groupwithaccount")
     StubGroupAccountConnector.stubAccount(GroupAccount(Random.nextInt(Int.MaxValue), "groupwithaccount", "", SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, None))
     StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
 
