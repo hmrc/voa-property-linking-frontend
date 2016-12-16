@@ -23,11 +23,25 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 import scala.concurrent.Future
 
 object StubAuthConnector extends VPLAuthConnector(StubHttp) {
-  private var externalId = ""
+  private var externalId: Option[String] = None
+  private var groupId: Option[String] = None
 
   def stubExternalId(id: String): Unit = {
-    externalId = id
+    externalId = Some(id)
   }
 
-  override def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(externalId)
+  override def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(externalId.getOrElse(throw new Exception("External id not stubbed")))
+
+  def stubGroupId(groupId: String) = {
+    this.groupId = Some(groupId)
+  }
+
+  override def getGroupId(authContext: AuthContext)(implicit hc: HeaderCarrier) = Future.successful {
+    groupId.getOrElse(throw new Exception("Group id not stubbed"))
+  }
+
+  def reset() = {
+    externalId = None
+    groupId = None
+  }
 }

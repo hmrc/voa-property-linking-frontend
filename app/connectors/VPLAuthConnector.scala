@@ -29,4 +29,8 @@ class VPLAuthConnector(val http: HttpGet) extends AuthConnector with ServicesCon
   def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier) = getIds[JsValue](ctx) map { r =>
     (r \ "externalId").as[String]
   }
+
+  def getGroupId(authContext: AuthContext)(implicit hc: HeaderCarrier) = getUserDetails[JsValue](authContext) map { r =>
+    (r \ "groupIdentifier").as[String]
+  }
 }

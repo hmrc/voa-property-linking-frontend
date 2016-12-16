@@ -46,7 +46,6 @@ abstract class Wiring {
   lazy val individualAccountConnector = new IndividualAccounts(http)
   lazy val groupAccountConnector = new GroupAccounts(http)
   lazy val ratesBillVerificationConnector = new RatesBillVerificationConnector(http)
-  lazy val userDetailsConnector = new UserDetails(http)
   lazy val authConnector = new VPLAuthConnector(http)
   lazy val ggAction = new GGAction(authConnector)
   lazy val withLinkingSession = new WithLinkingSession

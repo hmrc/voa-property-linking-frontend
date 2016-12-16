@@ -36,12 +36,12 @@ class DashboardSpec extends ControllerSpec {
     override val ggAction: GGAction = StubGGAction
     override val individuals = StubIndividualAccountConnector
     override val groups = StubGroupAccountConnector
-    override val userDetails = StubUserDetails
   }
 
   "Logging in for the first time with a group account" must
     "redirect to the create individual account page" in {
     StubAuthConnector.stubExternalId("hasnoaccount")
+    StubAuthConnector.stubGroupId("groupwithoutaccount")
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
     header("location", res) mustBe Some(routes.CreateIndividualAccount.show.url)
@@ -49,7 +49,7 @@ class DashboardSpec extends ControllerSpec {
 
   "Logging in for the first time with an individual sub-account under a group that has registered" must "redirect to the create individual account page" in {
     StubAuthConnector.stubExternalId("hasnoaccount")
-    StubUserDetails.stubGroupId("hasgroupaccount")
+    StubAuthConnector.stubGroupId("hasgroupaccount")
     StubGroupAccountConnector.stubAccount(GroupAccount(Random.nextInt(Int.MaxValue), "hasgroupaccount", "", SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, Some(UUID.randomUUID().toString)))
 
     val res = TestDashboard.home()(request)
@@ -60,7 +60,7 @@ class DashboardSpec extends ControllerSpec {
   "Logging in again with an account that has already registered" must "continue to the dashboard" in {
     val groupId = Random.nextInt(Int.MaxValue)
     StubAuthConnector.stubExternalId("has-account")
-    StubUserDetails.stubGroupId("has-group-account")
+    StubAuthConnector.stubGroupId("has-group-account")
     StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", UUID.randomUUID().toString, groupId, IndividualDetails("fname", "lname", "aa@aa.aa", "123", None, testAddress)))
     StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-group-account", "", SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, None))
 
@@ -71,7 +71,7 @@ class DashboardSpec extends ControllerSpec {
   "Logging in with a group account that has registered as an agent" must "continue to the agent dashboard" in {
     val groupId = Random.nextInt(Int.MaxValue)
     StubAuthConnector.stubExternalId("has-account")
-    StubUserDetails.stubGroupId("has-agent-account")
+    StubAuthConnector.stubGroupId("has-agent-account")
     StubIndividualAccountConnector.stubAccount(IndividualAccount("has-account", UUID.randomUUID().toString, groupId, IndividualDetails("fname", "lname", "aa@aa.aa", "123", None, testAddress)))
     StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-agent-account", "", SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, Some(UUID.randomUUID().toString)))
 

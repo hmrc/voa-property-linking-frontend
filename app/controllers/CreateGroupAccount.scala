@@ -28,7 +28,6 @@ import views.helpers.Errors
 trait CreateGroupAccount extends PropertyLinkingController {
   lazy val groups = Wiring().groupAccountConnector
   lazy val individuals = Wiring().individualAccountConnector
-  lazy val userDetails = Wiring().userDetailsConnector
   lazy val auth = Wiring().authConnector
   lazy val ggAction = Wiring().ggAction
   lazy val keystore = Wiring().sessionCache
@@ -41,7 +40,7 @@ trait CreateGroupAccount extends PropertyLinkingController {
     form.bindFromRequest().fold(
       errors => BadRequest(views.html.createAccount.group(errors)),
       formData => for {
-        groupId <- userDetails.getGroupId(ctx)
+        groupId <- auth.getGroupId(ctx)
         userId <- auth.getExternalId(ctx)
         details <- keystore.getIndividualDetails
         id <- groups.create(groupId, formData)
