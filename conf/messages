@@ -26,21 +26,20 @@ label.login=Login
 label.register=Register
 
 #POST REGISTRATION PAGE
-ggRegistration.title=You’ve successfully registered your business with Government Gateway
-ggRegistration.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to your business’s customer record.
+ggRegistration.title=You’ve successfully registered the business with Government Gateway
+ggRegistration.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to the business’s customer record.
 ggRegistration.p.2=We’ll ask you to verify your identity and confirm that you have the right to act for the business.
 
 #CREATE INDIVIDUAL ACCOUNT
 createAccount.individual.title=Register for the VOA’s service
-createAccount.individual.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to the business’s customer record with us.
-createAccount.individual.p.2=We’ll ask you to verify your identity and confirm that you have the right to act for the business. You’ll need to provide your date of birth and National Insurance number to confirm your identity, however these details won’t be stored.
+createAccount.individual.p.1=You now need to verify your identity and confirm that you have the right to act for the business.
 createAccount.individual.heading.details=Your contact details
 label.createAccount.email=Email address
 label.createAccount.phone1=Phone number
 createAccount.individual.verify.heading=Your identification details
 createAccount.individual.verify.p.1=Please verify your identity for security and data protection purposes.
 label.createAccount.fname=First name
-label.createAccount.lname=Last name
+label.createAccount.lname=Surname
 dob.label=Date of birth
 label.createAccount.nino.nino=National insurance number
 error.nino.invalid=Invalid national insurance number
@@ -326,7 +325,7 @@ placeholder.address.line2=Address line 2
 placeholder.address.line3=Address line 3
 placeholder.address.line4=Address line 4
 label.findAddress=Find address
-addressLookup.manual=Enter address manually
+addressLookup.manual=I can’t find my address in the list
 addressLookup.lookup=Find address
 link.continue=Continue
 link.back=Back

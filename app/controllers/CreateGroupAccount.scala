@@ -17,11 +17,11 @@
 package controllers
 
 import config.Wiring
-import models.{IndividualAccount, SimpleAddress}
-import play.api.data.Forms._
-import play.api.data.{Form, Mapping}
 import form.Mappings._
 import form.TextMatching
+import models.{IndividualAccount, SimpleAddress}
+import play.api.data.Form
+import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import views.helpers.Errors
 
