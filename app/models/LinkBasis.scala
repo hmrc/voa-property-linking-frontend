@@ -21,19 +21,19 @@ sealed trait LinkBasis extends NamedEnum {
 }
 
 case object SelfCertifyFlag extends LinkBasis {
-  val name = "selfCertify"
+  val name = "SELF_CERTIFY"
 }
 
 case object RatesBillFlag extends LinkBasis {
-  val name = "ratesBill"
+  val name = "RATES_BILL"
 }
 
 case object OtherEvidenceFlag extends LinkBasis {
-  val name = "otherEvidence"
+  val name = "OTHER"
 }
 
 case object NoEvidenceFlag extends LinkBasis {
-  override val name = "noEvidence"
+  override val name = "NO_EVIDENCE"
 }
 
 object LinkBasis extends NamedEnumSupport[LinkBasis] {
