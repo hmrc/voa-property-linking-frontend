@@ -40,7 +40,7 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
 
   val mockFileUploads = mock[FileUpload]
   object TestUploadEvidence extends UploadEvidence(mockFileUploads)  {
-    override lazy val withLinkingSession = new StubWithLinkingSession(property, capacityDeclaration)
+    override lazy val withLinkingSession = new StubWithLinkingSession(property, capacityDeclaration, individual)
     override lazy val propertyLinkConnector = StubPropertyLinkConnector
   }
 
@@ -101,5 +101,8 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     lazy val address = PropertyAddress(Seq("1"), "AA11 1AA")
     lazy val property = Property(uarn, baRef, address, false, "SCAT", "description", "B")
     lazy val capacityDeclaration = CapacityDeclaration(Owner, false, None, false, None)
+    lazy val individual = DetailedIndividualAccount("externalId", "trustId", 111, 111,
+      IndividualDetails("fistName", "lastName", "email", "phone1", None, SimpleAddress(None, "line1", "line2", "line3", "line4", "postcode"))
+    )
   }
 }

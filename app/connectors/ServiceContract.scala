@@ -25,7 +25,8 @@ case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boo
 
 case class FileInfo(fileName: String, fileType: String)
 
-case class PropertyLinkRequest(uarn: Long, groupId: String, capacityDeclaration: Capacity,
+case class PropertyLinkRequest(uarn: Long, groupId: String, individualId: Int,
+                               capacityDeclaration: Capacity,
                                linkedDate: DateTime, linkBasis: LinkBasis,
                                specialCategoryCode: String, description: String, bulkClassIndicator: String,
                                fileInfo: Option[FileInfo])

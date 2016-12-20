@@ -17,7 +17,7 @@
 package session
 
 import config.Wiring
-import models.GroupAccount
+import models.{DetailedIndividualAccount, GroupAccount, IndividualAccount}
 import play.api.i18n.Messages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results.{Redirect, Unauthorized}
@@ -26,7 +26,8 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-case class LinkingSessionRequest[A](ses: LinkingSession, groupId: String, request: Request[A]) extends WrappedRequest[A](request) {
+case class LinkingSessionRequest[A](ses: LinkingSession, groupId: String,
+                                    indAccount: DetailedIndividualAccount, request: Request[A]) extends WrappedRequest[A](request) {
   def sessionId: String = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
 }
 
@@ -35,17 +36,21 @@ case object NoSessionId extends Exception
 class WithLinkingSession {
   implicit def hc(implicit request: Request[_]) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
   val session = Wiring().sessionRepository
-  val accountRepo = Wiring().individualAccountConnector
+  val individualAccountConnector = Wiring().individualAccountConnector
   val auth = Wiring().authConnector
   val ggAction = Wiring().ggAction
 
   def apply(body: LinkingSessionRequest[AnyContent] => Future[Result]) = ggAction.async { ctx => implicit request =>
     for {
       groupId <- auth.getGroupId(ctx)
+      extId <- auth.getExternalId(ctx)
+      individualAccount <- individualAccountConnector.get(extId)
       sOpt <- session.get
-      res <- sOpt match {
-        case Some(s) => body(LinkingSessionRequest(s, groupId, request))
-        case None => Future.successful(Unauthorized("No linking session"))
+      res <- (individualAccount, sOpt) match {
+        case (Some(ind), Some(s)) => {
+          body(LinkingSessionRequest(s, groupId, ind, request))
+        }
+        case _ => Future.successful(Unauthorized("No linking session"))
       }
     } yield {
       res

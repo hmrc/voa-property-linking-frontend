@@ -16,7 +16,7 @@
 
 package connectors
 
-import models.IndividualAccount
+import models.{DetailedIndividualAccount, IndividualAccount}
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
@@ -27,8 +27,8 @@ class IndividualAccounts(http: HttpGet with HttpPut with HttpPost)(implicit ec: 
   extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking/individuals"
 
-  def get(accountId: String)(implicit hc: HeaderCarrier): Future[Option[IndividualAccount]] = {
-    http.GET[Option[IndividualAccount]](s"$baseUrl/$accountId")
+  def get(accountId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
+    http.GET[Option[DetailedIndividualAccount]](s"$baseUrl/$accountId")
   }
 
   def create(account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Int] = {

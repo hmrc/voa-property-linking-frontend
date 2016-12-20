@@ -23,15 +23,15 @@ sealed trait CapacityType extends NamedEnum {
 }
 
 case object Occupier extends CapacityType {
-  val name = "occupier"
+  val name = "OCCUPIER"
 }
 
 case object Owner extends CapacityType {
-  val name = "owner"
+  val name = "OWNER"
 }
 
 case object OwnerOccupier extends CapacityType {
-  val name = "ownerOccupier"
+  val name = "OWNER_OCCUPIER"
 }
 
 object CapacityType extends NamedEnumSupport[CapacityType] {

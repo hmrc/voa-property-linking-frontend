@@ -126,7 +126,6 @@ dashboard.managedProperties.searchLinkText=Add another property
 manageProperties.addAgent=Appoint agent
 link.dashboard.home=Back to dashboard
 
-#ADD AGENT
 propertyRepresentation.appointAgent.title=Tell us what you want the agent to do on behalf of the business
 propertyRepresentation.appointAgent.message.1=Your representative should provide you with a unique code. After entering the code you’ll be asked to confirm what you want the representative to do on behalf of the business.
 propertyRepresentation.appointAgent.agentCode=Agent code
@@ -204,9 +203,9 @@ declareCapacity.fromDate.help=
 declareCapacity.toDate.help=Leave blank if still in occupation or ownership
 declareCapacity.submit.button=Add property
 capacity.label=What is your relationship to the property?
-capacity.owner=Owner
-capacity.occupier=Occupier
-capacity.ownerOccupier=Owner and occupier
+capacity.OWNER=Owner
+capacity.OCCUPIER=Occupier
+capacity.OWNER_OCCUPIER=Owner and occupier
 error.capacity.noValueSelected=You must select a capacity
 fromDate.day.label=Day
 fromDate.month.label=Month

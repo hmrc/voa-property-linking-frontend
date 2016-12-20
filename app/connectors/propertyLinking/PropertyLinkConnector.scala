@@ -34,12 +34,12 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.GET[Option[PropertyLink]](url)
   }
 
-  def linkToProperty(property: Property, groupId: String,
+  def linkToProperty(property: Property, groupId: String,individualId: Int,
                      capacityDeclaration: CapacityDeclaration, linkId: String, basis: LinkBasis,
                      fileInfo: Option[FileInfo])
                     (implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-links/$linkId"
-    val request = PropertyLinkRequest(property.uarn, groupId, Capacity.fromDeclaration(capacityDeclaration),
+    val request = PropertyLinkRequest(property.uarn, groupId, individualId, Capacity.fromDeclaration(capacityDeclaration),
       DateTime.now, basis, property.specialCategoryCode, property.description, property.bulkClassIndicator, fileInfo)
     http.POST[PropertyLinkRequest, HttpResponse](s"$url", request) map { _ => () }
   }

@@ -30,6 +30,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
 
   override def linkToProperty(property: Property,
                               userId: String,
+                              individualId: Int,
                               capacityDeclaration: CapacityDeclaration,
                               submissionId: String, flag: LinkBasis,
                               fileInfo: Option[FileInfo]
