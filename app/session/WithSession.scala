@@ -27,7 +27,7 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 import scala.concurrent.Future
 
 case class LinkingSessionRequest[A](ses: LinkingSession, groupId: String,
-                                    account: DetailedIndividualAccount, request: Request[A]) extends WrappedRequest[A](request) {
+                                    individualAccount: DetailedIndividualAccount, request: Request[A]) extends WrappedRequest[A](request) {
   def sessionId: String = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
 }
 
@@ -58,9 +58,9 @@ class WithLinkingSession {
   }
 }
 
-case class AuthenticatedRequest[A](account: GroupAccount, request: Request[A]) extends WrappedRequest[A](request)
+case class AuthenticatedRequest[A](groupAccount: GroupAccount, request: Request[A]) extends WrappedRequest[A](request)
 
-case class AgentAuthenticatedRequest[A](account: GroupAccount, agentCode: String, request: Request[A]) extends WrappedRequest[A](request)
+case class AgentAuthenticatedRequest[A](groupAccount: GroupAccount, agentCode: String, request: Request[A]) extends WrappedRequest[A](request)
 
 class WithAuthentication {
   val individuals = Wiring().individualAccountConnector
@@ -86,8 +86,8 @@ class WithAuthentication {
   }
 
   def asAgent(body: AgentAuthenticatedRequest[AnyContent] => Future[Result])(implicit messages: Messages) = apply { implicit request =>
-    request.account.agentCode match {
-      case Some(code) => body(AgentAuthenticatedRequest(request.account, code, request))
+    request.groupAccount.agentCode match {
+      case Some(code) => body(AgentAuthenticatedRequest(request.groupAccount, code, request))
       case None => Future.successful(Unauthorized(views.html.errors.agentAccountRequired()))
     }
   }

@@ -65,7 +65,7 @@ class UploadEvidence @Inject()(val fileUploadConnector: FileUpload) extends Prop
 
   private def requestLink(linkBasis: LinkBasis, fileInfo: Option[FileInfo])(implicit r: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(r.ses.claimedProperty,
-      r.account.organisationId, r.account.individualId,
+      r.groupId, r.individualAccount.individualId,
       r.ses.declaration.getOrElse(throw new Exception("No declaration")),
       r.ses.submissionId, linkBasis, fileInfo
     )

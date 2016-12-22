@@ -45,7 +45,7 @@ object SelfCertification extends PropertyLinkingController {
   }
 
   private def link(request: LinkingSessionRequest[_])(implicit hc: HeaderCarrier) =
-    connector.linkToProperty(request.ses.claimedProperty, request.account.organisationId, request.account.individualId,
+    connector.linkToProperty(request.ses.claimedProperty, request.groupId, request.individualAccount.individualId,
       request.ses.declaration.getOrElse(throw new Exception("No declaration")),
       request.ses.submissionId, SelfCertifyFlag,None
     )

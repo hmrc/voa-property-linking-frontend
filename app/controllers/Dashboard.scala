@@ -47,7 +47,7 @@ trait Dashboard extends PropertyLinkingController {
   }
 
   def manageProperties() = withAuthentication { implicit request =>
-    propLinkedConnector.linkedProperties(request.account.id) map { props =>
+    propLinkedConnector.linkedProperties(request.groupAccount.id) map { props =>
       Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(props)))
     }
   }

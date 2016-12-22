@@ -84,8 +84,8 @@ trait AppointAgentController extends PropertyLinkingController {
               val form = appointAgentForm.fill(agent).withError(invalidAgentCode)
               invalidAppointment(form, linkId)
             case (Some(a), Some(p)) =>
-              val req = PropertyRepresentation(java.util.UUID.randomUUID().toString, linkId, a.groupId, a.companyName, request.account.id,
-                request.account.companyName, l.uarn, p.address, agent.canCheck, agent.canChallenge, true
+              val req = PropertyRepresentation(java.util.UUID.randomUUID().toString, linkId, a.groupId, a.companyName, request.groupAccount.id,
+                request.groupAccount.companyName, l.uarn, p.address, agent.canCheck, agent.canChallenge, true
               )
               representations.create(req) map { _ =>
                 Ok(views.html.propertyRepresentation.appointedAgent(p.address, a.companyName))
