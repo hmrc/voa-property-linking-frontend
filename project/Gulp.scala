@@ -1,3 +1,5 @@
+import java.net.InetSocketAddress
+
 import sbt._
 import play.sbt.PlayRunHook
 
@@ -10,7 +12,6 @@ object Gulp {
 
     object GulpProcess extends PlayRunHook {
 
-
       var gulpRun: Option[Process] = None
 
       override def beforeStarted(): Unit = {
@@ -20,7 +21,6 @@ object Gulp {
 
         log.info("Starting default Gulp task..")
         gulpRun = Some(gulpProcess(base, "default").run())
-
       }
 
       override def afterStopped(): Unit = {

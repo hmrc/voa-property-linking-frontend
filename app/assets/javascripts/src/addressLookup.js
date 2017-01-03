@@ -54,6 +54,7 @@
                             $('#addressSelect').change(function (e) {
                                 $('[for="addressSelect"]').css('display', 'none');
                                 $(this).css('display', 'none');
+                                $('.manualAddress').css('display', 'none');
                                 var index = $(this).find('option:selected').index() - 1;
                                 $('.address--fields').css('display', 'block');
                                 $('.address--fields input:eq(0)').val(data[index]['addressUnitId']);
@@ -78,6 +79,9 @@
 
         $('.manualAddress').click(function (e) {
             e.preventDefault();
+            $('.manualAddress').css('display', 'none');
+            $('[for="addressSelect"]').css('display', 'none');
+            $('#addressSelect').css('display', 'none');
             showFields();
         });
 
@@ -85,6 +89,7 @@
             e.preventDefault();
             $('.address--fields').css('display', 'none');
             $('.postcode-lookup-fields').css('display', 'block');
+            $('.manualAddress').css('display', 'block');
         });
     };
 

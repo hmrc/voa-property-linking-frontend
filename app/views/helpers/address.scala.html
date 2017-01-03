@@ -50,7 +50,7 @@
             '_fieldsetClass -> "margin-bottom-30"
         )
 
-            <a href="#" class="lookupAddress">@Messages("addressLookup.lookup")</a>
+        <a href="#" class="lookupAddress">@Messages("addressLookup.lookup")</a>
     </div>
 }
 
@@ -65,14 +65,15 @@
     )
 
     <div class="form-group">
-        <button id="postcodeLookupButton" class="button">@Messages("label.findAddress")</button>
+        <a href="#" id="postcodeLookupButton" class="button">@Messages("label.findAddress")</a>
     </div>
 
-    <a href="#" class="manualAddress">@Messages("addressLookup.manual")</a>
     </div>
 
+    <p>
+        <a href="#" class="manualAddress">@Messages("addressLookup.manual")</a>
+    </p>
 
     @addressForm
-
 
 </div>
