@@ -29,13 +29,13 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
   private var stubbedLinks: Seq[PropertyLink] = Nil
 
   override def linkToProperty(property: Property,
-                              userId: String,
+                              organisationId: Int,
                               individualId: Int,
                               capacityDeclaration: CapacityDeclaration,
                               submissionId: String, flag: LinkBasis,
                               fileInfo: Option[FileInfo]
                              )(implicit hc: HeaderCarrier) = {
-    Future.successful(())
+    Future.successful(Unit)
   }
 
   override def get(linkId: String)(implicit hc: HeaderCarrier) = Future.successful {

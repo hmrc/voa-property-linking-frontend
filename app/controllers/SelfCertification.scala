@@ -37,7 +37,7 @@ object SelfCertification extends PropertyLinkingController {
   def submit() = withLinkingSession { implicit request =>
     selfCertifyForm.bindFromRequest().fold(
       errors => BadRequest(views.html.selfCertification.show(SelfCertifyVM(errors, request.ses))),
-      conf => for {
+      _ => for {
         _ <- link(request)
         _ <- repo.saveOrUpdate(request.ses.copy(selfCertifyComplete = Some(true)))
       } yield Redirect(routes.SelfCertification.selfCertified())
@@ -45,7 +45,7 @@ object SelfCertification extends PropertyLinkingController {
   }
 
   private def link(request: LinkingSessionRequest[_])(implicit hc: HeaderCarrier) =
-    connector.linkToProperty(request.ses.claimedProperty, request.groupId, request.indAccount.individualId,
+    connector.linkToProperty(request.ses.claimedProperty, request.account.organisationId, request.account.individualId,
       request.ses.declaration.getOrElse(throw new Exception("No declaration")),
       request.ses.submissionId, SelfCertifyFlag,None
     )

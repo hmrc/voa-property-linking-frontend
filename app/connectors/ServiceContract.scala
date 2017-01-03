@@ -25,7 +25,7 @@ case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boo
 
 case class FileInfo(fileName: String, fileType: String)
 
-case class PropertyLinkRequest(uarn: Long, groupId: String, individualId: Int,
+case class PropertyLinkRequest(uarn: Long, organisationId: Int, individualId: Int,
                                capacityDeclaration: Capacity,
                                linkedDate: DateTime, linkBasis: LinkBasis,
                                specialCategoryCode: String, description: String, bulkClassIndicator: String,
@@ -34,7 +34,7 @@ case class PropertyLinkRequest(uarn: Long, groupId: String, individualId: Int,
 case class LinkedProperties(added: Seq[DetailedPropertyLink], pending: Seq[DetailedPropertyLink])
 
 case class PropertyRepresentation(representationId: String, linkId: String, agentId: String, agentName: String,
-                                  groupId: String, groupName: String, uarn: Long, address: PropertyAddress,
+                                  groupId: Int, groupName: String, uarn: Long, address: PropertyAddress,
                                   canCheck: AgentPermission, canChallenge: AgentPermission, pending: Boolean)
 
 case class UpdatedRepresentation(representationId: String, canCheck: AgentPermission, canChallenge: AgentPermission)
