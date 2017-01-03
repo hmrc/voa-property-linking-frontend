@@ -20,6 +20,7 @@ import config.VPLSessionCache
 import models.IndividualDetails
 import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.Writes
 
 import scala.concurrent.Future
 
@@ -32,4 +33,6 @@ object StubKeystore extends VPLSessionCache(StubHttp) {
     case Some(d) => Future.successful(d)
     case None => Future.failed(new Exception("individual details not stubbed"))
   }
+
+  override def cacheIndividualDetails(details: IndividualDetails)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 }

@@ -17,10 +17,10 @@
 package controllers
 
 import config.Wiring
-import models.{IVDetails, IndividualAccount}
+import models.{IVDetails, IndividualAccount, IndividualDetails}
 import play.api.mvc.{Action, Request}
 import uk.gov.hmrc.play.frontend.auth.AuthContext
-import uk.gov.hmrc.play.http.SessionKeys
+import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
 
 import scala.concurrent.Future
 
@@ -31,6 +31,7 @@ trait IdentityVerification extends PropertyLinkingController {
   val ggAction = Wiring().ggAction
   val keystore = Wiring().sessionCache
   val identityVerification = Wiring().identityVerification
+  val addresses = Wiring().addresses
 
   def startIv = ggAction.async { _ => implicit request =>
     keystore.fetchAndGetEntry[IVDetails]("ivDetails") map {
@@ -43,14 +44,14 @@ trait IdentityVerification extends PropertyLinkingController {
     Ok(views.html.identityVerification.failed())
   }
 
-  def succeed = Action.async { implicit request =>
-    Redirect(routes.IdentityVerification.withRestoredSession).addingToSession(
+  def restoreSession = Action.async { implicit request =>
+    Redirect(routes.IdentityVerification.success).addingToSession(
       SessionKeys.authToken -> request.session.get("bearerToken").getOrElse(""),
       SessionKeys.sessionId -> request.session.get("oldSessionId").getOrElse("")
     )
   }
 
-  def withRestoredSession = ggAction.async { implicit ctx => implicit request =>
+  def success = ggAction.async { implicit ctx => implicit request =>
     val journeyId = request.session.get("journeyId").getOrElse("no-id")
     identityVerification.verifySuccess(journeyId) flatMap {
       case true => continue
@@ -69,11 +70,19 @@ trait IdentityVerification extends PropertyLinkingController {
         case Some(acc) => individuals.create(IndividualAccount(userId, journeyId, acc.id, details)) map { _ =>
           Ok(views.html.createAccount.groupAlreadyExists(acc.companyName))
         }
-        case _ => Future.successful(Ok(views.html.identityVerification.success()))
+        case _ => registerAddress(details) map { _ => Ok(views.html.identityVerification.success()) }
       }
     } yield {
       res
     }
+  }
+
+  private def registerAddress(details: IndividualDetails)(implicit hc: HeaderCarrier): Future[Unit] = details.address.addressUnitId match {
+    case Some(_) => ()
+    case None => for {
+      id <- addresses.create(details.address)
+      _ <- keystore.cacheIndividualDetails(details.copy(address = details.address.copy(addressUnitId = Some(id))))
+    } yield ()
   }
 }
 

@@ -72,6 +72,8 @@ class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete)(implicit e
     }
   }
 
+  def cacheIndividualDetails(details: IndividualDetails)(implicit hc: HeaderCarrier) = cache("individualDetails", details) map { _ => () }
+
   private def getEntry[T](formId: String)(implicit hc: HeaderCarrier, rds: Reads[T]) = {
     fetchAndGetEntry(formId) map { _.getOrElse(throw new Exception(s"No keystore record found for $formId")) }
   }

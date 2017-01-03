@@ -24,7 +24,6 @@ import play.api.data.Forms._
 import play.api.data.validation._
 import play.api.data.{Form, Mapping}
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 import uk.gov.hmrc.play.http.SessionKeys
 import views.helpers.Errors
 
@@ -35,16 +34,12 @@ trait CreateIndividualAccount extends PropertyLinkingController {
   lazy val identityVerification = Wiring().identityVerification
 
   def show = ggAction { ctx => implicit request =>
-    if (ctx.user.confidenceLevel >= ConfidenceLevel.L200) {
-      Redirect(routes.CreateGroupAccount.show)
-    } else {
-      //TODO - temporary fix for PE-2543
-      Ok(views.html.createAccount.individual(form))
-        .addingToSession(
-          "bearerToken" -> request.session.get(SessionKeys.authToken).getOrElse(""),
-          "oldSessionId" -> request.session.get(SessionKeys.sessionId).getOrElse("")
-        )
-    }
+    //TODO - temporary fix for PE-2543
+    Ok(views.html.createAccount.individual(form))
+      .addingToSession(
+        "bearerToken" -> request.session.get(SessionKeys.authToken).getOrElse(""),
+        "oldSessionId" -> request.session.get(SessionKeys.sessionId).getOrElse("")
+      )
   }
 
   def submit = ggAction.async { _ => implicit request =>

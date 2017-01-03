@@ -15,14 +15,13 @@
  */
 
 package controllers
-import models.{GroupAccount, IndividualDetails, PropertyAddress, SimpleAddress}
+import models.{GroupAccount, IndividualDetails, SimpleAddress}
 import org.jsoup.Jsoup
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
 
-import scala.concurrent.Future
 import scala.util.Random
 
 class IdentityVerificationSpec extends ControllerSpec {
@@ -34,6 +33,7 @@ class IdentityVerificationSpec extends ControllerSpec {
     override val ggAction = StubGGAction
     override val identityVerification = StubIdentityVerification
     override val keystore = StubKeystore
+    override val addresses = StubAddresses
   }
 
   val request = FakeRequest()
@@ -46,7 +46,7 @@ class IdentityVerificationSpec extends ControllerSpec {
     StubAuthConnector.stubGroupId("groupwithoutaccount")
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
 
-    val res = TestIdentityVerification.withRestoredSession()(requestWithJourneyId("successfuljourney"))
+    val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe OK
 
     val content = contentAsString(res)
@@ -66,7 +66,7 @@ class IdentityVerificationSpec extends ControllerSpec {
       "", SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, None))
     StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
 
-    val res = TestIdentityVerification.withRestoredSession()(requestWithJourneyId("anothersuccess"))
+    val res = TestIdentityVerification.success()(requestWithJourneyId("anothersuccess"))
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -81,7 +81,7 @@ class IdentityVerificationSpec extends ControllerSpec {
   "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in {
     StubIdentityVerification.stubFailedJourney("somejourneyid")
 
-    val res = TestIdentityVerification.withRestoredSession()(request.withSession("journey-id" -> "somejourneyid"))
+    val res = TestIdentityVerification.success()(request.withSession("journey-id" -> "somejourneyid"))
     status(res) mustBe UNAUTHORIZED
   }
 }

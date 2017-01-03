@@ -26,7 +26,7 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 class IdentityVerification(http: HttpGet with HttpPost) extends ServicesConfig {
 
   val url = baseUrl("identity-verification")
-  private val successUrl = ApplicationConfig.baseUrl + controllers.routes.IdentityVerification.succeed.url
+  private val successUrl = ApplicationConfig.baseUrl + controllers.routes.IdentityVerification.restoreSession.url
   private val failureUrl = ApplicationConfig.baseUrl + controllers.routes.IdentityVerification.fail.url
 
   def verifyUrl = s"$url/mdtp/confirm?origin=voa&completionURL=$successUrl&failureURL=$failureUrl&confidenceLevel=200"
