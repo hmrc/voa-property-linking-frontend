@@ -18,9 +18,8 @@ package utils
 
 import config.VPLSessionCache
 import models.IndividualDetails
-import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.Writes
+import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 

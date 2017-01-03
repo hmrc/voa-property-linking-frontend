@@ -17,12 +17,9 @@
 package controllers
 
 import config.Wiring
-import connectors.{LinkedProperties, PropertyRepresentation}
+import connectors.PropertyRepresentation
 import models.{CapacityType, DetailedPropertyLink}
 import org.joda.time.DateTime
-import uk.gov.hmrc.play.http.HeaderCarrier
-
-import scala.concurrent.Future
 
 trait Dashboard extends PropertyLinkingController {
   val propLinkedConnector = Wiring().propertyLinkConnector
@@ -32,6 +29,7 @@ trait Dashboard extends PropertyLinkingController {
   val groups = Wiring().groupAccountConnector
   val auth = Wiring().authConnector
   val ggAction = Wiring().ggAction
+  val withAuthentication = Wiring().withAuthentication
 
   def home() = ggAction.async { ctx => implicit request =>
     for {
@@ -48,41 +46,12 @@ trait Dashboard extends PropertyLinkingController {
     }
   }
 
-  def manageProperties() = ggAction.async { ctx => implicit request =>
+  def manageProperties() = withAuthentication { implicit request =>
     for {
-      groupId <- auth.getGroupId(ctx)
-      props <- propLinkedConnector.linkedProperties(groupId)
+      props <- propLinkedConnector.linkedProperties(request.account.id)
     } yield {
       Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(props)))
     }
-  }
-
-  private def pendingPropertyLinkRepresentations(lps: LinkedProperties)(implicit hc: HeaderCarrier): Future[Seq[PendingPropertyLinkRepresentations]] = {
-    val pending: Seq[Future[PendingPropertyLinkRepresentations]] = lps.pending.map { p =>
-      for {
-        reps <- reprConnector.find(p.linkId)
-        shortAddress <- shortAddress(p.uarn)
-      } yield {
-        PendingPropertyLinkRepresentations(shortAddress, p.linkId, p.capacityDeclaration.capacity, p.linkedDate, reps)
-      }
-    }
-    Future.sequence(pending)
-  }
-
-  private def propertyLinkRepresentations(lps: LinkedProperties)(implicit hc: HeaderCarrier): Future[Seq[PropertyLinkRepresentations]] = {
-    Future.sequence(lps.added.map { p =>
-      for {
-        reps <- reprConnector.find(p.linkId)
-        shortAddress <- shortAddress(p.uarn)
-      } yield {
-        PropertyLinkRepresentations(shortAddress, p.linkId, p.capacityDeclaration.capacity, p.linkedDate, reps)
-      }
-    })
-  }
-
-  private def shortAddress(uarn: Long)(implicit hc: HeaderCarrier) = propConnector.get(uarn) map {
-    case Some(p) => p.address.lines.headOption.getOrElse("") + ", " + p.address.postcode
-    case None => "No address found"
   }
 }
 
