@@ -38,6 +38,6 @@ object GovernmentGatewayProvider extends GovernmentGateway with ServicesConfig {
   override def continueURL = ApplicationConfig.ggContinueUrl
 
   override def redirectToLogin(implicit request: Request[_]) = {
-    Future.successful(Redirect(loginURL, Map("continue" -> Seq(request.headers("Referer")), "origin" -> Seq("voa")) ++ additionalLoginParameters))
+    Future.successful(Redirect(loginURL, Map("continue" -> Seq(ApplicationConfig.baseUrl + request.uri), "origin" -> Seq("voa")) ++ additionalLoginParameters))
   }
 }

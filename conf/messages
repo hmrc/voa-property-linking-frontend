@@ -67,14 +67,14 @@ iv.success.heading=Success
 iv.success.confirmation=We’ve verified your identity
 heading.whatNext=What happens next
 iv.success.p.1=You’ll now need to register the business.
-link.createGroupAccount=Create a business account
+link.createGroupAccount=Create a business customer record
 
 #INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
 groupAlreadyExists.title={0} has already registered. You have been added to their customer record.
-groupAlreadyExists.addedToGroup=You have been added to their account
+groupAlreadyExists.addedToGroup=You have been added to their customer record
 
 #CREATE GROUP ACCOUNT
-createAccount.group.title=Create an account for your business
+createAccount.group.title=Create an customer record for your business
 label.createAccount.companyName=Business name
 label.createAccount.businessEmail=Business email
 label.createAccount.businessPhone=Business telephone
@@ -91,7 +91,7 @@ isAgent.details=If you want to act as a representative on behalf of another busi
 #ACCOUNT CREATED
 account.confirmation.title=You’ve successfully registered the business.
 account.confirmation.heading=You’ve been added to the business’s customer record.
-account.confirmation.heading.2=You’re also added to this account as an individual.
+account.confirmation.heading.2=You’re also added to this customer record as an individual.
 account.confirmation.youCan=You can now:
 account.confirmation.youCan.1=add properties to the business’s customer record
 account.confirmation.youCan.2=authorise a representative to act on behalf of the business
@@ -103,10 +103,10 @@ dashboard.home.properties=Properties
 dashboard.home.manageProperties.link=Manage properties
 dashboard.home.manageProperties.text=View and update your detailed property information.
 dashboard.home.searchProperties.link=Add properties
-dashboard.home.searchProperties.text=Find and add properties to your account.
+dashboard.home.searchProperties.text=Find and add properties to your customer record.
 dashboard.home.representatives=Representative
 dashboard.home.representatives.link=Manage representatives
-dashboard.home.representatives.text=You can give people access to your account if you’d like them to complete your application for you. You can also revoke their access.
+dashboard.home.representatives.text=You can give people access to your customer record if you’d like them to complete your application for you. You can also revoke their access.
 dashboard.home.clients=Client
 dashboard.home.clients.link=Manage clients
 dashboard.home.clients.text=View property representations requests
@@ -185,12 +185,12 @@ permission.startAndContinue=Start and continue
 permission.notPermitted=Not permitted
 
 #SEARCH
-search.title=Search and select a property to add to your account
+search.title=Search and select a property to add to your customer record
 search.select.link=Select
 
 #DECLARE CAPACITY
-declareCapacity.title=Add property to your account
-declareCapacity.message=You are adding this property to your account:
+declareCapacity.title=Add property to your customer record
+declareCapacity.message=You are adding this property to your customer record:
 declareCapacity.incorrectProperty.prefix=If this isn’t the right property you can
 declareCapacity.incorrectProperty.link=search for a different property
 interestedBefore2017.label=When did you occupy or own the property?
@@ -247,14 +247,14 @@ uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 
 #LINK REQUEST CONFIRMATION
 linkingRequestSubmitted.title=Property linking request submitted
-linkingRequestSubmitted.message=Thank you for your request to add [address] to your account.
+linkingRequestSubmitted.message=Thank you for your request to add [address] to your customer record.
 linkingRequestSubmitted.p.1=The property will appear in your dashboard pending VOA approval. Once approval has been given, the status will change from ‘Pending’ to ‘Added’. This may take some time, depending on the nature of your application.
 linkingRequestSubmitted.afterApproval=Once the property request has been approved, you’ll be able to:
 linkingRequestSubmitted.afterApproval.1=View full property details
 linkingRequestSubmitted.afterApproval.2=complete a check of the valuation details (you will need to ‘check’ your details before you can make the changes)
 linkingRequestSubmitted.link=Manage your properties
 linkingRequestSubmitted.changedCircumstances.heading=Change in circumstances
-linkingRequestSubmitted.changedCircumstances.p.1=If you’re creating an account to tell us about any external circumstances that are currently impacting on your business (such as long-term disruptive roadworks, flooding, or other external factors) you’ll be able to tell us even while your request is ‘Pending’.
+linkingRequestSubmitted.changedCircumstances.p.1=If you’re claiming a property to tell us about any external circumstances that are currently impacting on your business (such as long-term disruptive roadworks, flooding, or other external factors) you’ll be able to tell us even while your request is ‘Pending’.
 link.addAnotherProperty=Add another property
 link.addAgent=Add an agent
 
@@ -291,14 +291,9 @@ uploadEvidence.noEvidenceUploaded.home.link=Manage your properties
 linkError.manualVerification.title=Manual Verification Required
 linkError.manualVerification.message=We were unable to link you to the requested property. We need to manually verify your request.
 linkError.manualVerification.home.link=Manage your properties
-linkError.conflict.title=Property already linked to an account
-linkError.conflict.message=We're unable to add this property to your account at this time as it has already been linked to another account for the period you have specified. We’ll check the details and tell you the outcome.
+linkError.conflict.title=Property already linked to another customer record
+linkError.conflict.message=We're unable to add this property to your customer record at this time as it has already been linked to another customer record for the period you have specified. We’ll check the details and tell you the outcome.
 linkError.conflict.home.link=Manage your properties
-linkError.postcodeVerification.title=Postcode Verification Required
-linkError.postcodeVerification.message=We were unable to link you to the requested property. We need to verify the postcode.
-linkError.pinPostalProcess.title=Use a pin code
-linkError.pinPostalProcess.message=The VOA will send you a pin code by post. You can verify your link to the property by logging back into your account and using the pin code. Your changes will be saved in your account until you submit them.
-linkError.pinPostalProcess.home.link=Manage your properties
 
 #COMMON
 label.continue=Continue
