@@ -1,6 +1,9 @@
 #Start
 GET         /                                                       controllers.Application.index()
 
+GET         /betalogin                                              controllers.BetaLoginController.show
+POST        /betalogin                                              controllers.BetaLoginController.login
+
 #Registration
 GET         /login                                                  controllers.Login.show
 GET         /register                                               controllers.Register.show

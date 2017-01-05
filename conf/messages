@@ -30,6 +30,10 @@ ggRegistration.title=You’ve successfully registered the business with Governme
 ggRegistration.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to the business’s customer record.
 ggRegistration.p.2=We’ll ask you to verify your identity and confirm that you have the right to act for the business.
 
+#BETA LOGIN
+betaLogin.title=Private beta login
+betaLogin.password=Password
+
 #CREATE INDIVIDUAL ACCOUNT
 createAccount.individual.title=Register for the VOA’s service
 createAccount.individual.p.1=You now need to verify your identity and confirm that you have the right to act for the business.

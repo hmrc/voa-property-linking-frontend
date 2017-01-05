@@ -1,0 +1,23 @@
+@()(implicit request: Request[_], messages: Messages)
+    
+    @main_template(Messages("betaLogin.title")) {
+        <div class="grid-row">
+            <div class="column-two-thirds">
+            
+                <h1 class="heading-xlarge">@Messages("betaLogin.title")</h1>
+
+                <form action="@routes.BetaLoginController.login" method="post">
+                    @helper.CSRF.formField
+                    <div class="form-group">
+                        <label class="form-label-bold">@Messages("betaLogin.password")</label>
+                        <input type="password" name="betaloginkey" class="form-control" />
+                    </div>
+
+                    <p>
+                        <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
+                    </p>
+                </form>
+                
+            </div>
+        </div>
+    }

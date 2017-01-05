@@ -16,13 +16,12 @@
 
 package connectors
 
-import play.api.Logger
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.JsValue
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.AuthContext
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 class VPLAuthConnector(val http: HttpGet) extends AuthConnector with ServicesConfig {
   override val serviceUrl: String = baseUrl("auth")
@@ -33,9 +32,5 @@ class VPLAuthConnector(val http: HttpGet) extends AuthConnector with ServicesCon
 
   def getGroupId(authContext: AuthContext)(implicit hc: HeaderCarrier) = getUserDetails[JsValue](authContext) map { r =>
     (r \ "groupIdentifier").as[String]
-  }
-
-  def getTrustId(authContext: AuthContext)(implicit hc: HeaderCarrier) = getUserDetails[JsValue](authContext) map { r =>
-    Logger.info("TrustId: " + (r \ "trustId").as[String])
   }
 }

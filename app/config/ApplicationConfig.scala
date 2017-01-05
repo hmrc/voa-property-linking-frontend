@@ -22,9 +22,12 @@ import uk.gov.hmrc.play.config.RunMode
 object ApplicationConfig extends RunMode {
 
   def baseUrl = if (env == "Prod") "" else "http://localhost:9523"
+
   val ggSignInUrl = getConfig("gg-sign-in.url")
   val ggRegistrationUrl = getConfig("gg-registration.url")
   val ggContinueUrl = baseUrl + controllers.routes.Dashboard.home().url
+  val betaLoginRequired = getConfig("featureFlags.betaLoginRequired").toBoolean
+  val betaLoginPassword = getConfig("betaLoginPassword")
 
   private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
 }
