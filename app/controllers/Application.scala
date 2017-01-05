@@ -36,7 +36,7 @@ object Application extends Controller {
   def index() = Action.async { implicit request =>
     LoggedIn(request) map {
       case true => Redirect(routes.Dashboard.home())
-      case false => Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
+      case false => Ok(views.html.start()).addingToSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
     }
   }
 
