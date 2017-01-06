@@ -27,7 +27,8 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 import scala.concurrent.Future
 
 case class LinkingSessionRequest[A](ses: LinkingSession, groupId: String,
-                                    individualAccount: DetailedIndividualAccount, request: Request[A]) extends WrappedRequest[A](request) {
+                                    individualAccount: DetailedIndividualAccount,
+                                    groupAccount: GroupAccount, request: Request[A]) extends WrappedRequest[A](request) {
   def sessionId: String = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
 }
 
@@ -37,6 +38,7 @@ class WithLinkingSession {
   implicit def hc(implicit request: Request[_]) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
   val session = Wiring().sessionRepository
   val individualAccountConnector = Wiring().individualAccountConnector
+  val groupAccountConnector = Wiring().groupAccountConnector
   val auth = Wiring().authConnector
   val ggAction = Wiring().ggAction
 
@@ -45,10 +47,11 @@ class WithLinkingSession {
       groupId <- auth.getGroupId(ctx)
       extId <- auth.getExternalId(ctx)
       individualAccount <- individualAccountConnector.get(extId)
+      groupAccount <- groupAccountConnector.get(groupId)
       sOpt <- session.get
-      res <- (individualAccount, sOpt) match {
-        case (Some(ind), Some(s)) => {
-          body(LinkingSessionRequest(s, groupId, ind, request))
+      res <- (individualAccount, sOpt, groupAccount) match {
+        case (Some(ind), Some(s), Some(group)) => {
+          body(LinkingSessionRequest(s, groupId, ind, group, request))
         }
         case _ => Future.successful(Unauthorized("No linking session"))
       }

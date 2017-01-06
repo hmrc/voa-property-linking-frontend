@@ -52,14 +52,10 @@ trait Dashboard extends PropertyLinkingController {
     }
   }
 
-  def assessments(uarn: Long) = ggAction.async { ctx => implicit request =>
-    for {
-      assessments <- propLinkedConnector.assessments(uarn)
-    } yield {
+  def assessments(uarn: Long) = withAuthentication  { implicit request =>
+    propLinkedConnector.assessments(uarn) map { assessments =>
       Ok(views.html.dashboard.assessments(AssessmentsVM(assessments)))
     }
-
-
   }
 }
 
