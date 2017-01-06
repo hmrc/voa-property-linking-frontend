@@ -17,9 +17,9 @@
 package controllers
 
 import config.Wiring
-import connectors.PropertyRepresentation
-import models.{CapacityType, DetailedPropertyLink}
+import models.{Assessment, CapacityType, DetailedPropertyLink}
 import org.joda.time.DateTime
+import connectors.PropertyRepresentation
 
 trait Dashboard extends PropertyLinkingController {
   val propLinkedConnector = Wiring().propertyLinkConnector
@@ -51,11 +51,22 @@ trait Dashboard extends PropertyLinkingController {
       Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(props)))
     }
   }
+
+  def assessments(uarn: Long) = ggAction.async { ctx => implicit request =>
+    for {
+      assessments <- propLinkedConnector.assessments(uarn)
+    } yield {
+      Ok(views.html.dashboard.assessments(AssessmentsVM(assessments)))
+    }
+
+
+  }
 }
 
 object Dashboard extends Dashboard
 
 case class ManagePropertiesVM(properties: Seq[DetailedPropertyLink])
+case class AssessmentsVM(assessments: Seq[Assessment])
 
 case class PropertyLinkRepresentations(name: String, linkId: String, capacity: CapacityType, linkedDate: DateTime,
                                        representations: Seq[PropertyRepresentation])

@@ -1,0 +1,48 @@
+@import _root_.template.Display
+
+@(model: controllers.AssessmentsVM)(implicit request: Request[_], messages: Messages)
+
+@main_template(title = Messages("assessments.title")) {
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <a class="link-back link-header" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a>
+                <h1 class="heading-large">
+                    @Messages("assessments.title")
+                </h1>
+            </div>
+        </div>
+        <table class="table-font-xsmall">
+            <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
+            <tbody>
+                <tr>
+                    <th scope="col">@Messages("assessments.table.1")</th>
+                    <th scope="col">@Messages("assessments.table.2")</th>
+                    <th scope="col">@Messages("assessments.table.3")</th>
+                    <th scope="col">@Messages("assessments.table.4")</th>
+                    <th scope="col">@Messages("assessments.table.5")</th>
+                </tr>
+                @model.assessments.map { assessment =>
+                    <tr>
+                        <td scope="row">
+                                @{assessment.effectiveDate}
+                        </td>
+                        <td>
+                                @{assessment.rateableValue}
+                        </td>
+                        <td>
+                                @{assessment.capacity.capacity}
+                        </td>
+                        <td>
+                                @{assessment.capacity.fromDate}
+                        </td>
+                        <td>
+                                @{assessment.capacity.toDate.getOrElse(Messages("assessments.enddate.present"))}
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    <p><a class="link-back" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a></p>
+
+}

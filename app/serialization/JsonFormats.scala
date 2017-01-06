@@ -22,8 +22,8 @@ import play.api.libs.json._
 import session.LinkingSession
 
 object JsonFormats {
-  implicit val dateReads = Reads.jodaDateReads("yyyy-MM-dd")
-  implicit val dateWrites = Writes.jodaDateWrites("yyyy-MM-dd")
+  implicit val dateTimeReads = Reads.jodaDateReads("yyyy-MM-dd")
+  implicit val dateTimeWrites = Writes.jodaDateWrites("yyyy-MM-dd")
   implicit val propertyDataFormat = Json.format[Property]
   implicit val agentPermissionFormat = EnumFormat(AgentPermissions)
   implicit val propertyRepresentationsFormat = Json.format[PropertyRepresentation]
