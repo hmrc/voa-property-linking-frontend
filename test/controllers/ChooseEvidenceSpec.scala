@@ -25,7 +25,7 @@ class ChooseEvidenceSpec extends ControllerSpec {
   import TestData._
 
   private object TestChooseEvidence extends ChooseEvidence {
-    override val withLinkingSession = new StubWithLinkingSession(property, declaration, individual)
+    override val withLinkingSession = new StubWithLinkingSession(property, declaration, individual, groupAccount)
   }
 
   val request = FakeRequest().withSession(token)
@@ -64,5 +64,8 @@ class ChooseEvidenceSpec extends ControllerSpec {
     val individual = DetailedIndividualAccount("externalId", "trustId", 111, 111,
       IndividualDetails("fistName", "lastName", "email", "phone1", None, SimpleAddress(None, "line1", "line2", "line3", "line4", "postcode"))
     )
+    lazy val groupAccount = GroupAccount(1, "groupId", "company name",
+      SimpleAddress(None, "line1", "line2", "line3", "line4", "postcode"),
+      "email", "phone", true, None)
   }
 }

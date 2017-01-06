@@ -130,6 +130,16 @@ dashboard.managedProperties.searchLinkText=Add another property
 manageProperties.addAgent=Appoint agent
 link.dashboard.home=Back to dashboard
 
+#DASHBOARD ASSESSMENTS
+assessments.title=Assessments
+assessments.table.caption=Assessments
+assessments.table.1=Effective date
+assessments.table.2=Rateable value
+assessments.table.3=Capacity
+assessments.table.4=Valid from
+assessments.table.5=Valid until
+assessments.enddate.present=Present
+
 propertyRepresentation.appointAgent.title=Tell us what you want the agent to do on behalf of the business
 propertyRepresentation.appointAgent.message.1=Your representative should provide you with a unique code. After entering the code you’ll be asked to confirm what you want the representative to do on behalf of the business.
 propertyRepresentation.appointAgent.agentCode=Agent code

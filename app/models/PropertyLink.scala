@@ -25,7 +25,7 @@ case class PropertyLink(linkId: String, uarn: Long, organisationId: Int, descrip
 
 case class DetailedPropertyLink(linkId: String, uarn: Long, organisationId: Int, description: String,
                                 agentNames: Seq[String], canAppointAgent: Boolean, address: PropertyAddress,
-                                capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean)
+                                capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean, assessment: Seq[Assessment])
 
 object PropertyLink {
   //because the implicit format in Capacity's companion object isn't visible enough, for some reason

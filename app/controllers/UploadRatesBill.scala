@@ -71,7 +71,7 @@ class UploadRatesBill @Inject()(val fileUploadConnector: FileUpload) extends Pro
 
   private def requestLink(fileName: String)(implicit req: LinkingSessionRequest[AnyContent]) =
     propertyLinkConnector.linkToProperty(
-      req.ses.claimedProperty, req.account.organisationId, req.account.individualId,
+      req.ses.claimedProperty, req.groupAccount.id, req.individualAccount.individualId,
       req.ses.declaration.getOrElse(throw new Exception("No declaration")),
       req.ses.submissionId, RatesBillFlag, Some(FileInfo(fileName, RatesBillType.name))
     )

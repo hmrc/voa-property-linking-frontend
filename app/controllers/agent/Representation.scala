@@ -25,7 +25,7 @@ object Representation extends PropertyLinkingController {
   val withAuthentication = Wiring().withAuthentication
 
   def manageRepresentationRequest() = withAuthentication.asAgent { implicit request =>
-    reprConnector.forAgent(request.account.groupId).map { reprs =>
+    reprConnector.forAgent(request.groupAccount.groupId).map { reprs =>
       Ok(views.html.agent.dashboard.propertyRepresentation.manageProperties(ManagePropertiesVM(reprs, request.agentCode)))
     }
   }

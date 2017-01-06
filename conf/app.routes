@@ -26,7 +26,8 @@ POST        /create-group                                           controllers.
 
 #Dashboard
 GET         /home                                                   controllers.Dashboard.home()
-GET         /manage-properties                                      controllers.Dashboard.manageProperties()
+GET         /properties                                             controllers.Dashboard.manageProperties()
+GET         /property/:uarn/assessments                             controllers.Dashboard.assessments(uarn: Long)
 
 #Search and Link
 GET         /property-search                                        @controllers.Search.show()

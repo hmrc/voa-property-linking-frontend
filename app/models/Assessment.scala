@@ -16,19 +16,21 @@
 
 package models
 
-import connectors.CapacityDeclaration
 import org.joda.time.{DateTime, LocalDate}
-import play.api.libs.json.{Json, Reads, Writes}
+import play.api.libs.json.{Json, Reads}
 import serialization.JsonFormats._
 
-case class Capacity(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate])
+case class Assessment(
+                       asstRef: Long,
+                       listYear: String,
+                       uarn:Long,
+                       effectiveDate:LocalDate,
+                       rateableValue:Long,
+                       address: String,
+                       capacity: Capacity
+                     )
 
-object Capacity {
-  implicit val format = Json.format[Capacity]
-
-  lazy val defaultFromDate = new LocalDate(2017, 4, 1)
-
-  def fromDeclaration(declaration: CapacityDeclaration) = {
-    Capacity(declaration.capacity, declaration.fromDate.map(_.toLocalDate).getOrElse(defaultFromDate), declaration.toDate.map(_.toLocalDate))
-  }
+object Assessment {
+  implicit private val capacityFmt = Json.format[Capacity]
+  implicit val formats = Json.format[Assessment]
 }

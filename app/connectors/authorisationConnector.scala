@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-package models
+package connectors
 
-import connectors.CapacityDeclaration
-import org.joda.time.{DateTime, LocalDate}
-import play.api.libs.json.{Json, Reads, Writes}
-import serialization.JsonFormats._
+import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost}
 
-case class Capacity(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate])
+import scala.concurrent.ExecutionContext.Implicits.global
 
-object Capacity {
-  implicit val format = Json.format[Capacity]
+import scala.concurrent.Future
 
-  lazy val defaultFromDate = new LocalDate(2017, 4, 1)
+class AuthorisationConnector(http: HttpGet with HttpPost) extends ServicesConfig {
 
-  def fromDeclaration(declaration: CapacityDeclaration) = {
-    Capacity(declaration.capacity, declaration.fromDate.map(_.toLocalDate).getOrElse(defaultFromDate), declaration.toDate.map(_.toLocalDate))
+  def canViewAssessment(linkId: String, assessmentRef: Int)(implicit hc: HeaderCarrier): Future[Int] = {
+    val url = baseUrl("authorisation") + s"/business-rates-authorisation/property-link/${linkId}/assessment/${assessmentRef}"
+    http.GET(url).map(_.status)
   }
+
 }

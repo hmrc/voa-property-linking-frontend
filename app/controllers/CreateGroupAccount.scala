@@ -43,9 +43,9 @@ trait CreateGroupAccount extends PropertyLinkingController {
         groupId <- auth.getGroupId(ctx)
         userId <- auth.getExternalId(ctx)
         details <- keystore.getIndividualDetails
-        id <- groups.create(groupId, formData)
+        organisationId <- groups.create(groupId, formData)
         journeyId = request.session.get("journeyId").getOrElse("no-id")
-        _ <- individuals.create(IndividualAccount(userId, journeyId, id, details))
+        _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details))
       } yield {
         Ok(views.html.createAccount.confirmation())
       }
