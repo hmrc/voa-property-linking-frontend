@@ -54,9 +54,15 @@ trait Dashboard extends PropertyLinkingController {
 
   def assessments(uarn: Long) = withAuthentication  { implicit request =>
     propLinkedConnector.assessments(uarn) map { assessments =>
-      Ok(views.html.dashboard.assessments(AssessmentsVM(assessments)))
+      Ok(views.html.dashboard.assessments(AssessmentsVM(assessments.map(x => x.copy(address = capitalizeWords(x.address))))))
     }
   }
+  private def capitalizeWords(text: String) = text.split(",").map(str => {
+    if (str.trim.matches("[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9]([A-Z]){2}") && text.endsWith(str))
+      str.trim
+    else
+      str.toLowerCase().trim.split(" ").map(_.capitalize).mkString(" ")
+  }).mkString(", ")
 }
 
 object Dashboard extends Dashboard

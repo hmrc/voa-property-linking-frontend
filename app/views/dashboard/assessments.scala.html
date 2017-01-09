@@ -5,10 +5,11 @@
 @main_template(title = Messages("assessments.title")) {
         <div class="grid-row">
             <div class="column-two-thirds">
-                <a class="link-back link-header" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a>
+                <a class="link-back link-header" href="@routes.Dashboard.manageProperties" id="back">@Messages("link.back")</a>
                 <h1 class="heading-large">
                     @Messages("assessments.title")
                 </h1>
+                <h4 class="heading-medium">@model.assessments.head.address</h4>
             </div>
         </div>
         <table class="table-font-xsmall">
@@ -43,6 +44,10 @@
             </tbody>
         </table>
 
-    <p><a class="link-back" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a></p>
+    <p>
+        <a class="link-back" href="@routes.Dashboard.manageProperties" id="back">@Messages("link.back")</a>
+        <br>
+        <a class="link-back" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a>
+    </p>
 
 }
