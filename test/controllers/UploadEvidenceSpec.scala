@@ -72,7 +72,7 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     val res = TestUploadEvidence.submit()(req)
     tmpFile.clean()
     status(res) mustBe SEE_OTHER
-    header("location", res).get.contains("/property-linking/evidence-uploaded") mustBe true
+    header("location", res).get.contains(routes.UploadEvidence.evidenceUploaded.url) mustBe true
   }
 
   it must "show an error if the user says he wants to submit further evidence but doesn't" in {

@@ -73,7 +73,7 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
     val res = TestUploadRatesBill.submit()(req)
     tmpFile.clean()
     status(res) mustBe SEE_OTHER
-    header("location", res).get.contains("/property-linking/rates-bill-submitted") mustBe true
+    header("location", res).get.contains(routes.UploadRatesBill.ratesBillUploaded.url) mustBe true
   }
 
   it must "show an error if the user says he wants to submit a rates bill but doesn't" in {
@@ -105,7 +105,7 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
     val res = TestUploadRatesBill.ratesBillUploaded()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainLink("#backToDashBoard", "/property-linking/home")
+    page.mustContainLink("#backToDashBoard", routes.Dashboard.home.url)
   }
 
   object TestData {

@@ -52,7 +52,7 @@ class IdentityVerificationSpec extends ControllerSpec {
     val content = contentAsString(res)
     val html = Jsoup.parse(content)
     html.select("h1.heading-confirmation span.tick").html must equal ("✔") withClue "Page did not contain success summary"
-    html.select("a.button[href=/property-linking/create-group]").size must equal (1) withClue "Page did not contain link to create group account"
+    html.select(s"a.button[href=${routes.CreateGroupAccount.show.url}]").size must equal (1) withClue "Page did not contain link to create group account"
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
@@ -71,7 +71,7 @@ class IdentityVerificationSpec extends ControllerSpec {
 
     val html = Jsoup.parse(contentAsString(res))
     html.select("h1.heading-confirmation span.tick").html must equal ("✔") withClue "Page did not contain success summary"
-    html.select("a.button[href=/property-linking/home").size must equal (1) withClue "Page did not contain dashboard link"
+    html.select(s"a.button[href=${routes.Dashboard.home.url}]").size must equal (1) withClue "Page did not contain dashboard link"
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
