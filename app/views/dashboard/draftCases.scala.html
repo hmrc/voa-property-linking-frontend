@@ -1,43 +1,44 @@
 @import _root_.template.Display
 
-@(model: controllers.AssessmentsVM)(implicit request: Request[_], messages: Messages)
+@(model: DraftCasesVM)(implicit request: Request[_], messages: Messages)
 
-@main_template(title = Messages("assessments.title")) {
+@main_template(title = Messages("draftCases.title")) {
         <div class="grid-row">
             <div class="column-two-thirds">
                 <a class="link-back link-header" href="#" onclick="history.go(-1); return false;" id="back">@Messages("link.back")</a>
                 <h1 class="heading-large">
-                    @Messages("assessments.title")
+                    @Messages("draftCases.title")
                 </h1>
-                <h4 class="heading-medium">@model.assessments.head.address</h4>
             </div>
         </div>
         <table class="table-font-xsmall">
-            <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
+            <caption class="visuallyhidden">@Messages("draftCases.table.caption")</caption>
             <tbody>
                 <tr>
-                    <th scope="col">@Messages("assessments.table.1")</th>
-                    <th scope="col">@Messages("assessments.table.2")</th>
-                    <th scope="col">@Messages("assessments.table.3")</th>
-                    <th scope="col">@Messages("assessments.table.4")</th>
-                    <th scope="col">@Messages("assessments.table.5")</th>
+                    <th scope="col">@Messages("draftCases.table.1")</th>
+                    <th scope="col">@Messages("draftCases.table.2")</th>
+                    <th scope="col">@Messages("draftCases.table.3")</th>
+                    <th scope="col">@Messages("draftCases.table.4")</th>
+                    <th scope="col">@Messages("draftCases.table.5")</th>
                 </tr>
-                @model.assessments.map { assessment =>
+                @model.draftCases.map{ draftCase =>
                     <tr>
                         <td scope="row">
-                            @{assessment.effectiveDate}
+                            <a href="@routes.Dashboard.assessments(draftCase.uarn)">
+                                @{draftCase.address}
+                            </a>
                         </td>
                         <td>
-                        @{assessment.rateableValue}
+                        @{draftCase.effectiveDate}
                         </td>
                         <td>
-                        @{assessment.capacity.capacity}
+                        @{draftCase.caseType}
                         </td>
                         <td>
-                        @{assessment.capacity.fromDate}
+                        @{draftCase.agent}
                         </td>
                         <td>
-                        @{assessment.capacity.toDate.getOrElse(Messages("assessments.enddate.present"))}
+                        @{draftCase.caseExpiryDate}
                         </td>
                     </tr>
                 }

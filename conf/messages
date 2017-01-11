@@ -114,6 +114,8 @@ dashboard.home.representatives.text=You can give people access to your customer 
 dashboard.home.clients=Client
 dashboard.home.clients.link=Manage clients
 dashboard.home.clients.text=View property representations requests
+dashboard.home.draft.cases=Draft cases
+dashboard.home.draft.cases.text=Continue editing checks that have not yet been submitted.
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=Manage Properties
@@ -139,6 +141,15 @@ assessments.table.3=Capacity
 assessments.table.4=Valid from
 assessments.table.5=Valid until
 assessments.enddate.present=Present
+
+#DASHBOARD DRAFT CASES
+draftCases.title=Draft cases
+draftCases.table.caption=Assessments
+draftCases.table.1=Address
+draftCases.table.2=Effective date
+draftCases.table.3=Case Type
+draftCases.table.4=Agent acting
+draftCases.table.5=Draft expiry date
 
 propertyRepresentation.appointAgent.title=Tell us what you want the agent to do on behalf of the business
 propertyRepresentation.appointAgent.message.1=Your representative should provide you with a unique code. After entering the code you’ll be asked to confirm what you want the representative to do on behalf of the business.
