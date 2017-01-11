@@ -17,16 +17,16 @@
 package session
 
 import config.Wiring
-import models.{DetailedIndividualAccount, GroupAccount, IndividualAccount}
+import models.{DetailedIndividualAccount, GroupAccount}
 import play.api.i18n.Messages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.mvc.Results.{Redirect, Unauthorized}
+import play.api.mvc.Results.Unauthorized
 import play.api.mvc._
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-case class LinkingSessionRequest[A](ses: LinkingSession, groupId: String,
+case class LinkingSessionRequest[A](ses: LinkingSession, organisationId: Int,
                                     individualAccount: DetailedIndividualAccount,
                                     groupAccount: GroupAccount, request: Request[A]) extends WrappedRequest[A](request) {
   def sessionId: String = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
@@ -41,57 +41,12 @@ class WithLinkingSession {
   val groupAccountConnector = Wiring().groupAccountConnector
   val auth = Wiring().authConnector
   val ggAction = Wiring().ggAction
+  val authenticated = Wiring().authenticated
 
-  def apply(body: LinkingSessionRequest[AnyContent] => Future[Result]) = ggAction.async { ctx => implicit request =>
-    for {
-      groupId <- auth.getGroupId(ctx)
-      extId <- auth.getExternalId(ctx)
-      individualAccount <- individualAccountConnector.get(extId)
-      groupAccount <- groupAccountConnector.get(groupId)
-      sOpt <- session.get
-      res <- (individualAccount, sOpt, groupAccount) match {
-        case (Some(ind), Some(s), Some(group)) => {
-          body(LinkingSessionRequest(s, groupId, ind, group, request))
-        }
-        case _ => Future.successful(Unauthorized("No linking session"))
-      }
-    } yield {
-      res
-    }
-  }
-}
-
-case class AuthenticatedRequest[A](groupAccount: GroupAccount, request: Request[A]) extends WrappedRequest[A](request)
-
-case class AgentAuthenticatedRequest[A](groupAccount: GroupAccount, agentCode: String, request: Request[A]) extends WrappedRequest[A](request)
-
-class WithAuthentication {
-  val individuals = Wiring().individualAccountConnector
-  val groups = Wiring().groupAccountConnector
-  val ggAction = Wiring().ggAction
-  val auth = Wiring().authConnector
-
-  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
-
-  def apply(body: AuthenticatedRequest[AnyContent] => Future[Result]) = ggAction.async { ctx => implicit request =>
-    for {
-      userId <- auth.getExternalId(ctx)
-      groupId <- auth.getGroupId(ctx)
-      userAccount <- individuals.get(userId)
-      groupAccount <- groups.get(groupId)
-      res <- (userAccount, groupAccount) match {
-        case (u, g) if u.isEmpty || g.isEmpty => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
-        case (Some(u), Some(g)) => body(AuthenticatedRequest(g, request))
-      }
-    } yield {
-      res
-    }
-  }
-
-  def asAgent(body: AgentAuthenticatedRequest[AnyContent] => Future[Result])(implicit messages: Messages) = apply { implicit request =>
-    request.groupAccount.agentCode match {
-      case Some(code) => body(AgentAuthenticatedRequest(request.groupAccount, code, request))
-      case None => Future.successful(Unauthorized(views.html.errors.agentAccountRequired()))
+  def apply(body: LinkingSessionRequest[AnyContent] => Future[Result])(implicit messages: Messages) = authenticated.withAccounts { implicit request =>
+    session.get flatMap {
+      case Some(s) => body(LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request))
+      case None => Future.successful(Unauthorized("No linking session"))
     }
   }
 }

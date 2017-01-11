@@ -17,12 +17,12 @@
 package utils
 
 import connectors.Addresses
-import models.SimpleAddress
+import models.Address
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 import scala.util.Random
 
 object StubAddresses extends Addresses(StubHttp) {
-  override def create(address: SimpleAddress)(implicit hc: HeaderCarrier) = Future.successful(Random.nextInt)
+  override def create(address: Address)(implicit hc: HeaderCarrier) = Future.successful(Random.nextInt)
 }

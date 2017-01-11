@@ -18,7 +18,7 @@ package models
 
 import play.api.libs.json.Json
 
-case class IndividualDetails(firstName: String, lastName: String, email: String, phone1: String, phone2: Option[String], address: SimpleAddress)
+case class IndividualDetails(firstName: String, lastName: String, email: String, phone1: String, phone2: Option[String], address: Address)
 
 object IndividualDetails {
   implicit val formats = Json.format[IndividualDetails]

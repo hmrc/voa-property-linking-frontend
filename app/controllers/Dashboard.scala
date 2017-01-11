@@ -31,41 +31,30 @@ trait Dashboard extends PropertyLinkingController {
   val groups = Wiring().groupAccountConnector
   val auth = Wiring().authConnector
   val ggAction = Wiring().ggAction
-  val withAuthentication = Wiring().withAuthentication
+  val authenticated = Wiring().authenticated
 
-  def home() = ggAction.async { ctx => implicit request =>
-    for {
-      userId <- auth.getExternalId(ctx)
-      groupId <- auth.getGroupId(ctx)
-      individualAccount <- individuals.get(userId)
-      groupAccount <- groups.get(groupId)
-    } yield {
-      (individualAccount, groupAccount) match {
-        case (Some(i), Some(g)) => Ok(views.html.dashboard.home(i.details, g))
-        case (Some(_), None) => throw new Exception(s"User with id $userId has account but their group does not have an account (id $groupId)")
-        case (None, _) => Redirect(routes.CreateIndividualAccount.show)
-      }
-    }
+  def home() = authenticated.withAccounts { implicit request =>
+    Ok(views.html.dashboard.home(request.individualAccount.details, request.organisationAccount))
   }
 
-  def manageProperties() = withAuthentication { implicit request =>
-    propLinkedConnector.linkedProperties(request.groupAccount.id) map { props =>
+  def manageProperties() = authenticated { implicit request =>
+    propLinkedConnector.linkedProperties(request.organisationId) map { props =>
       Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(props)))
     }
   }
 
-  def assessments(uarn: Long) = withAuthentication  { implicit request =>
+  def assessments(uarn: Long) = authenticated { implicit request =>
     propLinkedConnector.assessments(uarn) map { assessments =>
       Ok(views.html.dashboard.assessments(AssessmentsVM(assessments.map(x => x.copy(address = capitalizeWords(x.address))))))
     }
   }
 
-  def draftCases() = withAuthentication { implicit request =>
+  def draftCases() = authenticated { implicit request =>
     val dummyData = Seq(
       DraftCase(146440182, "4, EX2 7LL", 123456789, new LocalDate(2017, 1, 3), "Agent ltd", "Check", new LocalDate(2017, 2, 3)),
       DraftCase(146440182, "1, RG2 9WX", 321654987, new LocalDate(2017, 1, 6), "Agent ltd", "Check", new LocalDate(2017, 2, 6))
     )
-      Future.successful(Ok(views.html.dashboard.draftCases(DraftCasesVM(dummyData))))
+    Future.successful(Ok(views.html.dashboard.draftCases(DraftCasesVM(dummyData))))
   }
 
   private def capitalizeWords(text: String) = text.split(",").map(str => {
@@ -79,7 +68,9 @@ trait Dashboard extends PropertyLinkingController {
 object Dashboard extends Dashboard
 
 case class ManagePropertiesVM(properties: Seq[DetailedPropertyLink])
+
 case class AssessmentsVM(assessments: Seq[Assessment])
+
 case class DraftCasesVM(draftCases: Seq[DraftCase])
 
 case class PropertyLinkRepresentations(name: String, linkId: String, capacity: CapacityType, linkedDate: DateTime,

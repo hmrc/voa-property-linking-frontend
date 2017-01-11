@@ -16,7 +16,7 @@
 
 package form
 
-import models.{NamedEnum, NamedEnumSupport, SimpleAddress}
+import models.{NamedEnum, NamedEnumSupport, Address}
 import org.joda.time.DateTime
 import play.api.data.Forms._
 import play.api.data.format.{Formats, Formatter}
@@ -33,14 +33,14 @@ object Mappings extends DateMappings {
 
   def mandatoryBoolean: Mapping[Boolean] = optional(boolean).verifying("error.required", _.isDefined).transform(_.get, Some.apply)
 
-  def address: Mapping[SimpleAddress] = mapping(
+  def address: Mapping[Address] = mapping(
     "addressId" -> addressId,
     "line1" -> nonEmptyText,
     "line2" -> default(text, ""),
     "line3" -> default(text, ""),
     "line4" -> default(text, ""),
     "postcode" -> nonEmptyText
-  )(SimpleAddress.apply)(SimpleAddress.unapply)
+  )(Address.apply)(Address.unapply)
 
   private def addressId: Mapping[Option[Int]] = default(text, "").transform(t => Try { t.toInt }.toOption, _.map(_.toString).getOrElse(""))
 }

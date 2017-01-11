@@ -38,7 +38,9 @@ object StubGroupAccountConnector extends GroupAccounts(StubHttp) {
     stubbedGroups = Nil
   }
 
-  override def get(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = Future.successful(stubbedGroups.find(_.groupId == groupId))
+  override def get(organisationId: Int)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = Future.successful(stubbedGroups.find(_.id == organisationId))
+
+  override def withGroupId(groupId: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.groupId == groupId))
 
   override def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.agentCode.contains(agentCode)))
 
