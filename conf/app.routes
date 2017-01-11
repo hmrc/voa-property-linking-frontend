@@ -28,6 +28,7 @@ POST        /create-group                                           controllers.
 GET         /home                                                   controllers.Dashboard.home()
 GET         /properties                                             controllers.Dashboard.manageProperties()
 GET         /property/:uarn/assessments                             controllers.Dashboard.assessments(uarn: Long)
+GET         /draft-cases                                            controllers.Dashboard.draftCases()
 
 #Search and Link
 GET         /property-search                                        @controllers.Search.show()
