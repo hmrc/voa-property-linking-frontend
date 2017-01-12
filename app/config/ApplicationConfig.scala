@@ -18,8 +18,9 @@ package config
 
 import play.api.Play._
 import uk.gov.hmrc.play.config.RunMode
+import uk.gov.hmrc.play.config.ServicesConfig
 
-object ApplicationConfig extends RunMode {
+object ApplicationConfig extends RunMode with ServicesConfig {
 
   def baseUrl = if (env == "Prod") "" else "http://localhost:9523"
 
@@ -28,6 +29,8 @@ object ApplicationConfig extends RunMode {
   val ggContinueUrl = baseUrl + controllers.routes.Dashboard.home().url
   val betaLoginRequired = getConfig("featureFlags.betaLoginRequired").toBoolean
   val betaLoginPassword = getConfig("betaLoginPassword")
+  def businessRatesValuationUrl(page: String) = baseUrl("business-rates-valuation") + s"/business-rates-valuation/$page"
+
 
   private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
 }
