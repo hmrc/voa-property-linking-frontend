@@ -378,3 +378,10 @@ agent.dashboard.manageProperties.rejectAll=Reject all
 #ERROR PAGES
 title.error.403=403 Forbidden
 invalidAppointment.title=Invalid agent appointment
+
+##FOOTER LINKS
+footer.link.feedback=Feedback
+footer.link.cookies=Cookies
+footer.link.termsAndConditions=Terms and conditions
+footer.link.privacy=Privacy policy
+footer.link.voa=Valuation Office Agency
