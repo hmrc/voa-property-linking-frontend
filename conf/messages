@@ -70,8 +70,8 @@ iv.success.title=Identity verification successful
 iv.success.heading=Success
 iv.success.confirmation=We’ve verified your identity
 heading.whatNext=What happens next
-iv.success.p.1=You’ll now need to register the business.
-link.createGroupAccount=Create a business customer record
+iv.success.p.1=You’ll now need to register the business in order to complete the registration process.
+link.createGroupAccount=Register the business
 
 #INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
 groupAlreadyExists.title={0} has already registered. You have been added to their customer record.
