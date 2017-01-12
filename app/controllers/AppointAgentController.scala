@@ -31,10 +31,10 @@ trait AppointAgentController extends PropertyLinkingController {
   val representations = Wiring().propertyRepresentationConnector
   val properties = Wiring().propertyConnector
   val accounts = Wiring().groupAccountConnector
-  val withAuthentication = Wiring().withAuthentication
   val propertyLinks = Wiring().propertyLinkConnector
+  val authenticated = Wiring().authenticated
 
-  def add(linkId: String) = withAuthentication { implicit request =>
+  def add(linkId: String) = authenticated { implicit request =>
     representations.find(linkId).map(reprs => {
       if (reprs.nonEmpty)
         Ok(views.html.propertyRepresentation.alreadyAppointedAgent(SelectAgentVM(reprs, linkId)))
@@ -43,7 +43,7 @@ trait AppointAgentController extends PropertyLinkingController {
     })
   }
 
-  def edit(linkId: String) = withAuthentication { implicit request =>
+  def edit(linkId: String) = authenticated { implicit request =>
     representations.find(linkId).map(reprs => {
       if (reprs.size > 1)
         Ok(views.html.propertyRepresentation.selectAgent(reprs))
@@ -54,17 +54,17 @@ trait AppointAgentController extends PropertyLinkingController {
     })
   }
 
-  def select(linkId: String) = withAuthentication { implicit request =>
+  def select(linkId: String) = authenticated { implicit request =>
     representations.find(linkId).map(reprs => {
       Ok(views.html.propertyRepresentation.selectAgent(reprs))
     })
   }
 
-  def appoint(linkId: String) = withAuthentication { implicit request =>
+  def appoint(linkId: String) = authenticated { implicit request =>
     Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
   }
 
-  def appointSubmit(linkId: String) = withAuthentication { implicit request =>
+  def appointSubmit(linkId: String) = authenticated.withAccounts { implicit request =>
     appointAgentForm.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, linkId))),
       agent => {
@@ -84,8 +84,8 @@ trait AppointAgentController extends PropertyLinkingController {
               val form = appointAgentForm.fill(agent).withError(invalidAgentCode)
               invalidAppointment(form, linkId)
             case (Some(a), Some(p)) =>
-              val req = PropertyRepresentation(java.util.UUID.randomUUID().toString, linkId, a.groupId, a.companyName, request.groupAccount.id,
-                request.groupAccount.companyName, l.uarn, p.address, agent.canCheck, agent.canChallenge, true
+              val req = PropertyRepresentation(java.util.UUID.randomUUID().toString, linkId, a.groupId, a.companyName, request.organisationAccount.id,
+                request.organisationAccount.companyName, l.uarn, p.address, agent.canCheck, agent.canChallenge, true
               )
               representations.create(req) map { _ =>
                 Ok(views.html.propertyRepresentation.appointedAgent(p.address, a.companyName))
@@ -110,7 +110,7 @@ trait AppointAgentController extends PropertyLinkingController {
     Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId))))
   }
 
-  def modify(representationId: String) = withAuthentication { implicit request =>
+  def modify(representationId: String) = authenticated { implicit request =>
     representations.get(representationId) map {
       case Some(rep) =>
         val form = appointAgentForm.fill(AppointAgent(rep.agentId, rep.canCheck, rep.canChallenge))
@@ -119,7 +119,7 @@ trait AppointAgentController extends PropertyLinkingController {
     }
   }
 
-  def modifySubmit(representationId: String) = withAuthentication { implicit request =>
+  def modifySubmit(representationId: String) = authenticated { implicit request =>
     appointAgentForm.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(errors, representationId))),
       agent => {

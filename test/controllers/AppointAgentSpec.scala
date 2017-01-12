@@ -18,9 +18,9 @@ package controllers
 
 import java.util.UUID
 
-import connectors.CapacityDeclaration
+import connectors.Authenticated
 import models._
-import org.joda.time.DateTime
+import org.joda.time.{DateTime, LocalDate}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
@@ -34,15 +34,15 @@ class AppointAgentSpec extends ControllerSpec {
     override val representations = StubPropertyRepresentationConnector
     override val properties = StubPropertyConnector
     override val accounts = StubGroupAccountConnector
-    override val withAuthentication = StubWithAuthentication
     override val propertyLinks = StubPropertyLinkConnector
+    override val authenticated = StubAuthentication
   }
 
   val request = FakeRequest().withSession(token)
 
   "The appoint a new agent page" must "allow the user to enter the agent code, and set permissions for checks and challenges" in {
+    stubLoggedInUser()
     StubPropertyConnector.stubProperty(property)
-    StubWithAuthentication.stubAuthentication(account)
 
     val res = TestAppointAgent.appoint(link.linkId)(request)
     status(res) must be (OK)
@@ -54,8 +54,8 @@ class AppointAgentSpec extends ControllerSpec {
   }
 
   it must "require the user to enter an agent code" in {
+    stubLoggedInUser()
     StubPropertyConnector.stubProperty(property)
-    StubWithAuthentication.stubAuthentication(account)
     StubGroupAccountConnector.stubAccount(agentAccount)
 
     val res = TestAppointAgent.appointSubmit(link.linkId)(
@@ -68,8 +68,8 @@ class AppointAgentSpec extends ControllerSpec {
   }
 
   it must "require the user to select agent permissions for checks" in {
+    stubLoggedInUser()
     StubPropertyConnector.stubProperty(property)
-    StubWithAuthentication.stubAuthentication(account)
     StubGroupAccountConnector.stubAccount(agentAccount)
 
     val res = TestAppointAgent.appointSubmit(link.linkId)(
@@ -82,8 +82,8 @@ class AppointAgentSpec extends ControllerSpec {
   }
 
   it must "require the user to select agent permissions for challenges" in {
+    stubLoggedInUser()
     StubPropertyConnector.stubProperty(property)
-    StubWithAuthentication.stubAuthentication(account)
     StubGroupAccountConnector.stubAccount(agentAccount)
 
     val res = TestAppointAgent.appointSubmit(link.linkId)(
@@ -96,8 +96,8 @@ class AppointAgentSpec extends ControllerSpec {
   }
 
   it must "not allow agents to be appointed with no permissions" in {
+    stubLoggedInUser()
     StubPropertyConnector.stubProperty(property)
-    StubWithAuthentication.stubAuthentication(account)
     StubGroupAccountConnector.stubAccount(agentAccount)
     StubPropertyLinkConnector.stubLink(link)
 
@@ -111,8 +111,8 @@ class AppointAgentSpec extends ControllerSpec {
   }
 
   it must "require the agent code to be valid" in {
+    stubLoggedInUser()
     StubPropertyConnector.stubProperty(property)
-    StubWithAuthentication.stubAuthentication(account)
     StubGroupAccountConnector.stubAccount(agentAccount)
     StubPropertyLinkConnector.stubLink(link)
 
@@ -125,13 +125,20 @@ class AppointAgentSpec extends ControllerSpec {
     page.mustContainFieldErrors("agentCode" -> "Invalid agent code")
   }
 
+  def stubLoggedInUser() = {
+    StubGroupAccountConnector.stubAccount(groupAccount)
+    StubIndividualAccountConnector.stubAccount(individualAccount)
+    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(groupAccount.id, individualAccount.individualId)))
+  }
+
   private object TestData {
+    val groupAccount = GroupAccount(1, "2", "3", Address(None, "4", "", "", "", "AA56 7AA"), "89@01.23", "456", false, None)
+    val individualAccount = DetailedIndividualAccount("externalId", "trustId", 1, 2, IndividualDetails(
+      "FirstName", "LastName", "email@address.com", "12345", None, Address(None, "999", "The Place", "", "", "AB12 3CD")
+    ))
     val property = Property(12345, "1234", PropertyAddress(Seq("123 Fake Street"), "AA1 1AA"), false, "123", "A building", "W")
-    val account = GroupAccount(Random.nextInt(Int.MaxValue), "987654", "a company",
-      SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA"), "aa@aa.aa", "1234", false, None)
-    val agentAccount = GroupAccount(Random.nextInt(Int.MaxValue), "456789", "another company",
-      SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, Some(UUID.randomUUID().toString))
-    val link = PropertyLink("6584351", property.uarn, account.id, "a thing",
-      Capacity(OwnerOccupier, DateTime.now().toLocalDate, None), DateTime.now(), true)
+    val account = GroupAccount(Random.nextInt(Int.MaxValue), "987654", "a company", Address(None, "123", "The Road", "", "", "AA11 1AA"), "aa@aa.aa", "1234", false, None)
+    val agentAccount = GroupAccount(Random.nextInt(Int.MaxValue), "456789", "another company", Address(None, "123", "The Road", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, Some(UUID.randomUUID().toString))
+    val link = PropertyLink("6584351", property.uarn, account.id, "a thing", Capacity(OwnerOccupier, LocalDate.now(), None), DateTime.now(), true)
   }
 }

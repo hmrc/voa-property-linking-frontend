@@ -16,19 +16,21 @@
 
 package config
 
+import actions.AuthenticatedAction
 import auth.GGAction
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import models.{IVDetails, IndividualDetails, PersonalDetails}
-import play.api.libs.json.Reads
-import session.{LinkingSessionRepository, WithAuthentication, WithLinkingSession}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.{JsDefined, JsString, Reads}
+import session.{LinkingSessionRepository, WithLinkingSession}
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
-import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
 import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Try
 
 object Wiring {
   def apply() = play.api.Play.current.global.asInstanceOf[VPLFrontendGlobal].wiring
@@ -37,7 +39,6 @@ object Wiring {
 abstract class Wiring {
   val http: HttpGet with HttpPut with HttpDelete with HttpPost
 
-  implicit lazy val ec: ExecutionContext = play.api.libs.concurrent.Execution.Implicits.defaultContext
   lazy val sessionCache = new VPLSessionCache(http)
   lazy val sessionRepository = new LinkingSessionRepository(sessionCache)
   lazy val propertyConnector = new PropertyConnector(http)
@@ -51,11 +52,12 @@ abstract class Wiring {
   lazy val withLinkingSession = new WithLinkingSession
   lazy val fileSystemConnector = FileSystemConnector
   lazy val identityVerification = new IdentityVerification(http)
-  lazy val withAuthentication = new WithAuthentication
   lazy val addresses = new Addresses(http)
+  lazy val businessRatesAuthentication = new BusinessRatesAuthorisation(http)
+  lazy val authenticated = new AuthenticatedAction
 }
 
-class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete)(implicit ec: ExecutionContext) extends SessionCache with AppName with ServicesConfig {
+class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {
   override def defaultSource: String = appName
   override def baseUri: String = baseUrl("cachable.session-cache")
   override def domain: String = getConfString("cachable.session-cache.domain", throw new Exception("No config setting for cache domain"))
@@ -82,9 +84,18 @@ class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete)(implicit e
 class WSHttp extends WSGet with WSPut with WSDelete with WSPost with HttpAuditing with AppName with RunMode {
   override val hooks = Seq(AuditingHook)
   override def auditConnector = AuditServiceConnector
+
+  override def doGet(url: String)(implicit hc: HeaderCarrier) = super.doGet(url) map { res =>
+    res.status match {
+      case 401 if hasJsonBody(res) => res.json \ "errorCode" match {
+        case JsDefined(JsString(err)) => throw AuthorisationFailed(err)
+        case _ => res
+      }
+      case _ => res
+    }
+  }
+
+  private def hasJsonBody(res: HttpResponse) = Try { res.json }.isSuccess
 }
 
-object ImplicitLifting {
-  implicit def toFut[A](a: A): Future[A] = Future.successful(a)
-  implicit def toOpt[A](a: A): Option[A] = Some(a)
-}
+case class AuthorisationFailed(msg: String) extends Exception

@@ -16,7 +16,7 @@
 
 package connectors
 
-import models.SimpleAddress
+import models.Address
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -28,12 +28,12 @@ class Addresses(http: HttpGet with HttpPost) extends ServicesConfig {
 
   val url = baseUrl("property-linking") + "/property-linking/address"
 
-  def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[SimpleAddress]] = {
-    http.GET[Seq[SimpleAddress]](url + s"?postcode=$postcode")
+  def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[Address]] = {
+    http.GET[Seq[Address]](url + s"?postcode=$postcode")
   }
 
-  def create(address: SimpleAddress)(implicit hc: HeaderCarrier): Future[Int] = {
-    http.POST[SimpleAddress, JsValue](url, address) map { js =>
+  def create(address: Address)(implicit hc: HeaderCarrier): Future[Int] = {
+    http.POST[Address, JsValue](url, address) map { js =>
       js \ "id" match {
         case JsDefined(JsNumber(n)) => n.toInt
         case _ => throw new Exception(s"Unexpected response: $js")

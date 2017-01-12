@@ -17,7 +17,7 @@
 package forms
 
 import connectors.CapacityDeclaration
-import controllers.Search
+import controllers.ClaimProperty
 import models.{CapacityType, Occupier}
 import org.joda.time.DateTime
 import org.scalatest.{FlatSpec, MustMatchers}
@@ -84,7 +84,7 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
   }
 
   object TestData {
-    val form = Search.declareCapacityForm
+    val form = ClaimProperty.declareCapacityForm
     val validData = Map(
       "capacity" -> Occupier.name,
       "interestedBefore2017" -> "false",

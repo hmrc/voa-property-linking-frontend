@@ -31,9 +31,9 @@ GET         /property/:uarn/assessments                             controllers.
 GET         /draft-cases                                            controllers.Dashboard.draftCases()
 
 #Search and Link
-GET         /property-search                                        @controllers.Search.show()
-GET         /link-to-property/:uarn                                 @controllers.Search.declareCapacity(uarn: Long)
-POST        /link-to-property                                       @controllers.Search.attemptLink()
+GET         /property-search                                        @controllers.ClaimProperty.show()
+GET         /link-to-property/:uarn                                 @controllers.ClaimProperty.declareCapacity(uarn: Long)
+POST        /link-to-property                                       @controllers.ClaimProperty.attemptLink()
 
 #Link scenarios
 GET         /self-certify                                           controllers.SelfCertification.show()

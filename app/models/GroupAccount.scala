@@ -18,7 +18,7 @@ package models
 
 import play.api.libs.json.Json
 
-case class GroupAccount(id: Int, groupId: String, companyName: String, address: SimpleAddress, email: String, phone: String,
+case class GroupAccount(id: Int, groupId: String, companyName: String, address: Address, email: String, phone: String,
                         isSmallBusiness: Boolean, agentCode: Option[String]) {
 
   def isAgent = agentCode.isDefined

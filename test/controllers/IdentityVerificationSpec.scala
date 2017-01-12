@@ -15,7 +15,7 @@
  */
 
 package controllers
-import models.{GroupAccount, IndividualDetails, SimpleAddress}
+import models.{GroupAccount, IndividualDetails, Address}
 import org.jsoup.Jsoup
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -38,7 +38,7 @@ class IdentityVerificationSpec extends ControllerSpec {
 
   val request = FakeRequest()
   private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
-  StubKeystore.stubIndividualDetails(IndividualDetails("fname", "lname", "aa@aa.aa", "123", None, SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA")))
+  StubKeystore.stubIndividualDetails(IndividualDetails("fname", "lname", "aa@aa.aa", "123", None, Address(None, "123", "The Road", "", "", "AA11 1AA")))
 
   "Successfully verifying identity when the group does not have a CCA account" must
     "display the successful iv confirmation page, and not create an individual account" in {
@@ -56,14 +56,14 @@ class IdentityVerificationSpec extends ControllerSpec {
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
-    await(StubIndividualAccountConnector.get("externalId")) mustBe None
+    StubIndividualAccountConnector.withExternalId("externalId") mustBe None
   }
 
   "Successfully verifying identity when the group does have a CCA account" must "display a confirmation page, and create the individual account" in {
     StubAuthConnector.stubExternalId("individualwithoutaccount")
     StubAuthConnector.stubGroupId("groupwithaccount")
     StubGroupAccountConnector.stubAccount(GroupAccount(Random.nextInt(Int.MaxValue), "groupwithaccount",
-      "", SimpleAddress(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, None))
+      "", Address(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, None))
     StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("anothersuccess"))
@@ -75,7 +75,7 @@ class IdentityVerificationSpec extends ControllerSpec {
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
-    await(StubIndividualAccountConnector.get("individualwithoutaccount")) must not be None
+    StubIndividualAccountConnector.withExternalId("individualwithoutaccount") must not be None
   }
 
   "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in {
