@@ -78,11 +78,12 @@ groupAlreadyExists.title={0} has already registered. You’ve been added to thei
 groupAlreadyExists.addedToGroup=You have been added to their customer record
 
 #CREATE GROUP ACCOUNT
-createAccount.group.title=Create an customer record for your business
+createAccount.group.title=Register the business
+createAccount.p1=You’ll need to provide information about the business in order to complete the registration process.
 label.createAccount.companyName=Business name
 label.createAccount.businessEmail=Business email
-label.createAccount.businessPhone=Business telephone
-label.createAccount.isSmallBusiness=Are you a small business?
+label.createAccount.businessPhone=Business telephone number
+label.createAccount.isSmallBusiness=Is this a small business?
 isSmallBusiness.true=Yes
 isSmallBusiness.false=No
 isSmallBusiness.details.question=What is a small business?
@@ -90,7 +91,7 @@ isSmallBusiness.details.answer=If the business employs fewer than 10 people and 
 label.createAccount.isAgent=Do you want to act as a representative on behalf of another business?
 isAgent.true=Yes
 isAgent.false=No
-isAgent.details=If you want to act as a representative on behalf of another business (including as an accountant, a ratings agent working on behalf of a client or representing other businesses within your business portfolio), we’ll supply you with a unique identification code. You’ll need to give this to your client so that they can register you to act on their behalf.
+isAgent.details=If you want to act as an agent on behalf of another business (including as an accountant, a professional surveyor, or as a ratings agent working on behalf of a client), we’ll give you a unique identification code, known as an agent code. You’ll need to give this to your client so that they can register you to act on their behalf.
 
 #ACCOUNT CREATED
 account.confirmation.title=You’ve successfully registered the business.
