@@ -74,7 +74,7 @@ iv.success.p.1=You’ll now need to register the business in order to complete t
 link.createGroupAccount=Register the business
 
 #INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
-groupAlreadyExists.title={0} has already registered. You have been added to their customer record.
+groupAlreadyExists.title={0} has already registered. You’ve been added to their customer record.
 groupAlreadyExists.addedToGroup=You have been added to their customer record
 
 #CREATE GROUP ACCOUNT
@@ -98,7 +98,7 @@ account.confirmation.heading=You’ve been added to the business’s customer re
 account.confirmation.heading.2=You’re also added to this customer record as an individual.
 account.confirmation.youCan=You can now:
 account.confirmation.youCan.1=add properties to the business’s customer record
-account.confirmation.youCan.2=authorise a representative to act on behalf of the business
+account.confirmation.youCan.2=authorise an agent to act on behalf of the business
 link.dashboard=Go to the business dashboard
 
 #DASHBOARD HOME
