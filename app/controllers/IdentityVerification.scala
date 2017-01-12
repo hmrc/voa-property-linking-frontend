@@ -63,7 +63,7 @@ trait IdentityVerification extends PropertyLinkingController {
     for {
       groupId <- auth.getGroupId(ctx)
       userId <- auth.getExternalId(ctx)
-      account <- groups.get(groupId)
+      account <- groups.withGroupId(groupId)
       details <- keystore.getIndividualDetails
       journeyId = request.session.get("journeyId").getOrElse("no-id")
       res <- account match {

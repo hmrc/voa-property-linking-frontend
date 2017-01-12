@@ -41,7 +41,7 @@
             if(postcode !== '') {
                 $.ajax({
                     type: 'GET',
-                    url: '/property-linking/lookup?postcode=' + postcode,
+                    url: '/business-rates-property-linking/lookup?postcode=' + postcode,
                     success: function(data) {
                         if (data.length > 0) {
                             $('.postcode-lookup-group').prepend('<label for="addressSelect" class="form-label-bold">Select address</label><select id="addressSelect" class="addressList form-control"></select>');

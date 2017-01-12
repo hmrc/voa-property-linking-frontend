@@ -14,26 +14,12 @@
  * limitations under the License.
  */
 
-package controllers
+package models
 
-import config.Wiring
-import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
-import play.api.mvc._
-import uk.gov.hmrc.play.http.SessionKeys
+import play.api.libs.json.Json
 
-object Application extends Controller {
-  val ggAction = Wiring().ggAction
+case class AccountIds(organisationId: Int, personId: Int)
 
- def typography = Action { implicit request =>
-   Ok(views.html.typography())
- }
-
-  def index() = Action { implicit request =>
-    Ok(views.html.start()).addingToSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
-  }
-
-  def logOut() = Action { request =>
-    Redirect(routes.Application.index()).withNewSession
-  }
+object AccountIds {
+  implicit val format = Json.format[AccountIds]
 }

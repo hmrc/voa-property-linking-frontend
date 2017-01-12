@@ -102,10 +102,10 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     lazy val property = Property(uarn, baRef, address, false, "SCAT", "description", "B")
     lazy val capacityDeclaration = CapacityDeclaration(Owner, false, None, false, None)
     lazy val individual = DetailedIndividualAccount("externalId", "trustId", 111, 111,
-      IndividualDetails("fistName", "lastName", "email", "phone1", None, SimpleAddress(None, "line1", "line2", "line3", "line4", "postcode"))
+      IndividualDetails("fistName", "lastName", "email", "phone1", None, Address(None, "line1", "line2", "line3", "line4", "postcode"))
     )
     lazy val groupAccount = GroupAccount(1, "groupId", "company name",
-      SimpleAddress(None, "line1", "line2", "line3", "line4", "postcode"),
+      Address(None, "line1", "line2", "line3", "line4", "postcode"),
       "email", "phone", true, None)
 
   }

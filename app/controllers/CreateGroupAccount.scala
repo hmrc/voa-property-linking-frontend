@@ -19,7 +19,7 @@ package controllers
 import config.Wiring
 import form.Mappings._
 import form.TextMatching
-import models.{IndividualAccount, SimpleAddress}
+import models.{IndividualAccount, Address}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
@@ -79,5 +79,5 @@ object CreateGroupAccount extends CreateGroupAccount
 
 case class CreateGroupAccountVM(form: Form[_])
 
-case class GroupAccountDetails(companyName: String, address: SimpleAddress, email: String, confirmedEmail: String,
+case class GroupAccountDetails(companyName: String, address: Address, email: String, confirmedEmail: String,
                                phone: String, isSmallBusiness: Boolean, isAgent: Boolean)

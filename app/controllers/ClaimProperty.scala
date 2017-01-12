@@ -32,24 +32,25 @@ import uk.gov.hmrc.play.config.ServicesConfig
 import form.Mappings._
 import uk.gov.voa.play.form.ConditionalMappings._
 
-class Search @Inject()(val fileUploadConnector: FileUploadConnector,
-                       val envelopeConnector: EnvelopeConnector) extends PropertyLinkingController with ServicesConfig {
+class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
+                              val envelopeConnector: EnvelopeConnector) extends PropertyLinkingController with ServicesConfig {
   lazy val sessionRepository = Wiring().sessionRepository
   lazy val connector = Wiring().propertyConnector
   lazy val ggAction = Wiring().ggAction
+  lazy val authenticated = Wiring().authenticated
 
   def show() = ggAction { _ => implicit request =>
     Redirect(s"${baseUrl("vmv-frontend")}/view-my-valuation/search")
   }
 
-  def declareCapacity(uarn: Long) = ggAction.async { _ => implicit request =>
+  def declareCapacity(uarn: Long) = authenticated { implicit request =>
     connector.get(uarn).flatMap {
       case Some(pd) =>
         fileUploadConnector.createEnvelope().flatMap(envelopeId => {
           val submissionId = java.util.UUID.randomUUID().toString.replace("-", "")
           Logger.debug(s"envelope id: $envelopeId")
           sessionRepository.start(pd, envelopeId, submissionId) map { _ =>
-            Ok(views.html.declareCapacity(DeclareCapacityVM(Search.declareCapacityForm, pd.address)))
+            Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, pd.address)))
           }
         }
         )
@@ -57,9 +58,9 @@ class Search @Inject()(val fileUploadConnector: FileUploadConnector,
     }
   }
 
-  def attemptLink() = ggAction.async { _ => implicit request =>
+  def attemptLink() = authenticated { implicit request =>
     sessionRepository.get() flatMap {
-      case Some(session) => Search.declareCapacityForm.bindFromRequest().fold(
+      case Some(session) => ClaimProperty.declareCapacityForm.bindFromRequest().fold(
         errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors, session.claimedProperty.address))),
         formData => sessionRepository.saveOrUpdate(session.withDeclaration(formData)) map { _ =>
           chooseLinkingJourney(session.claimedProperty, formData)
@@ -77,7 +78,7 @@ class Search @Inject()(val fileUploadConnector: FileUploadConnector,
 
 }
 
-object Search {
+object ClaimProperty {
   lazy val declareCapacityForm = Form(mapping(
     "capacity" -> EnumMapping(CapacityType),
     "interestedBefore2017" -> mandatoryBoolean,

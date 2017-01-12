@@ -27,11 +27,11 @@
 
             <p class="panel panel-border-narrow">
                 @Messages("declareCapacity.incorrectProperty.prefix")
-                <a href="@routes.Search.show">@Messages("declareCapacity.incorrectProperty.link")</a>
+                <a href="@routes.ClaimProperty.show">@Messages("declareCapacity.incorrectProperty.link")</a>
             </p>
 
 
-            @form(routes.Search.attemptLink()) {
+            @form(routes.ClaimProperty.attemptLink()) {
 
                     @inputRadioGroup(
                         field = model.form("capacity"),

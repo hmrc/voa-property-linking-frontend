@@ -28,19 +28,28 @@ object StubIndividualAccountConnector extends IndividualAccounts(StubHttp) {
 
   private var stubbedIndividuals: Seq[DetailedIndividualAccount] = Nil
 
-  def stubAccount(account: IndividualAccount): Unit = {
-    stubbedIndividuals = stubbedIndividuals :+ DetailedIndividualAccount(account.externalId, account.trustId, account.organisationId, 999, account.details)
+  def stubAccount(account: DetailedIndividualAccount): Unit = {
+    stubbedIndividuals = stubbedIndividuals :+ account
   }
 
   def reset(): Unit = {
     stubbedIndividuals = Nil
   }
 
-  override def get(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
-    Future.successful(stubbedIndividuals.find(_.externalId == externalId))
+  override def get(personId: Int)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
+    Future.successful(stubbedIndividuals.find(_.individualId == personId))
+  }
+
+  def withExternalId(externalId: String): Option[DetailedIndividualAccount] = {
+    stubbedIndividuals.find(_.externalId == externalId)
   }
 
   override def create(account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Int] = {
-    Future.successful(stubAccount(account)).map { _ => Random.nextInt(Int.MaxValue) }
+    val personId = Random.nextInt(Int.MaxValue)
+    Future.successful(stubAccount(detailed(personId, account))).map { _ => personId }
+  }
+
+  private def detailed(personId: Int, account: IndividualAccount): DetailedIndividualAccount = {
+    DetailedIndividualAccount(account.externalId, account.trustId, account.organisationId, personId, account.details)
   }
 }

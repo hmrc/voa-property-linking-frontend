@@ -20,9 +20,9 @@ import config.Wiring
 import controllers.PropertyLinkingController
 
 object Dashboard extends PropertyLinkingController {
-  val withAuthentication = Wiring().withAuthentication
+  val authenticated = Wiring().authenticated
 
-  def home() = withAuthentication { implicit request =>
+  def home() = authenticated { implicit request =>
     Ok(views.html.agent.dashboard.home())
   }
 }

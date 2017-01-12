@@ -27,8 +27,8 @@ class IndividualAccounts(http: HttpGet with HttpPut with HttpPost)(implicit ec: 
   extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking/individuals"
 
-  def get(accountId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
-    http.GET[Option[DetailedIndividualAccount]](s"$baseUrl/$accountId")
+  def get(personId: Int)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
+    http.GET[Option[DetailedIndividualAccount]](s"$baseUrl/$personId")
   }
 
   def create(account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Int] = {

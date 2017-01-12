@@ -32,8 +32,8 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut)(implicit ec: E
     http.GET[Option[PropertyRepresentation]](url)
   }
 
-  def forAgent(agentId: String)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
-    val url = baseUrl + s"/property-representations/agent/$agentId"
+  def forAgent(agentOrganisationId: Int)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
+    val url = baseUrl + s"/property-representations/agent/$agentOrganisationId"
     http.GET[Seq[PropertyRepresentation]](url)
   }
 

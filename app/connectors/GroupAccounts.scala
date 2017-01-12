@@ -20,7 +20,7 @@ import controllers.GroupAccountDetails
 import models.{GroupAccount, GroupAccountSubmission}
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost, HttpResponse}
+import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -28,8 +28,12 @@ class GroupAccounts(http: HttpGet with HttpPost)(implicit ec: ExecutionContext) 
 
   lazy val url = baseUrl("property-representations") + "/property-linking/groups"
 
-  def get(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
-    http.GET[Option[GroupAccount]](s"$url/$groupId")
+  def get(organisationId: Int)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
+    http.GET[Option[GroupAccount]](s"$url/$organisationId")
+  }
+
+  def withGroupId(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
+    http.GET[Option[GroupAccount]](s"$url?groupId=$groupId")
   }
 
   def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
