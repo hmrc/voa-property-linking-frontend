@@ -24,7 +24,7 @@
                 @model.draftCases.map{ draftCase =>
                     <tr>
                         <td scope="row">
-                            <a href="@routes.Dashboard.assessments(draftCase.uarn)">
+                            <a href="@routes.Dashboard.assessments(draftCase.linkId)">
                                 @{draftCase.address}
                             </a>
                         </td>

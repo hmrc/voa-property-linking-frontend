@@ -43,16 +43,21 @@ trait Dashboard extends PropertyLinkingController {
     }
   }
 
-  def assessments(uarn: Long) = authenticated { implicit request =>
-    propLinkedConnector.assessments(uarn) map { assessments =>
-      Ok(views.html.dashboard.assessments(AssessmentsVM(assessments.map(x => x.copy(address = capitalizeWords(x.address))))))
+  def assessments(linkId: Int) = authenticated { implicit request =>
+    val backLink = request.headers.get("Referer")
+    propLinkedConnector.assessments(linkId) map { assessments =>
+      Ok(views.html.dashboard.assessments(
+        AssessmentsVM(
+          assessments.map(x => x.copy(address = capitalizeWords(x.address))),
+          backLink
+        )))
     }
   }
 
   def draftCases() = authenticated { implicit request =>
     val dummyData = Seq(
-      DraftCase(146440182, "4, EX2 7LL", 123456789, new LocalDate(2017, 1, 3), "Agent ltd", "Check", new LocalDate(2017, 2, 3)),
-      DraftCase(146440182, "1, RG2 9WX", 321654987, new LocalDate(2017, 1, 6), "Agent ltd", "Check", new LocalDate(2017, 2, 6))
+      DraftCase(1234, 146440182, "4, EX2 7LL", 123456789, new LocalDate(2017, 1, 3), "Agent ltd", "Check", new LocalDate(2017, 2, 3)),
+      DraftCase(2345, 146440182, "1, RG2 9WX", 321654987, new LocalDate(2017, 1, 6), "Agent ltd", "Check", new LocalDate(2017, 2, 6))
     )
     Future.successful(Ok(views.html.dashboard.draftCases(DraftCasesVM(dummyData))))
   }
@@ -69,7 +74,7 @@ object Dashboard extends Dashboard
 
 case class ManagePropertiesVM(properties: Seq[DetailedPropertyLink])
 
-case class AssessmentsVM(assessments: Seq[Assessment])
+case class AssessmentsVM(assessments: Seq[Assessment], backLink: Option[String])
 
 case class DraftCasesVM(draftCases: Seq[DraftCase])
 

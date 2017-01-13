@@ -20,14 +20,15 @@ import org.joda.time.LocalDate
 import play.api.libs.json.Json
 
 case class DraftCase(
-                        uarn: Long,
-                        address: String,
-                        asstRef: Long,
-                        effectiveDate:LocalDate,
-                        agent: String,
-                        caseType: String,
-                        caseExpiryDate: LocalDate
-                      )
+                      linkId: Int,
+                      uarn: Long,
+                      address: String,
+                      asstRef: Long,
+                      effectiveDate:LocalDate,
+                      agent: String,
+                      caseType: String,
+                      caseExpiryDate: LocalDate
+                    )
 
 object DraftCase {
   implicit val formats = Json.format[DraftCase]
