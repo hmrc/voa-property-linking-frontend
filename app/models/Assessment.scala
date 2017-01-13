@@ -21,12 +21,14 @@ import play.api.libs.json.{Json, Reads}
 import serialization.JsonFormats._
 
 case class Assessment(
+                       linkId: Int,
                        asstRef: Long,
                        listYear: String,
                        uarn:Long,
                        effectiveDate:LocalDate,
                        rateableValue:Long,
                        address: String,
+                       billingAuthorityReference: String,
                        capacity: Capacity
                      )
 

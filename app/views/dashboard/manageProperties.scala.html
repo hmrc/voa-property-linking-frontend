@@ -23,20 +23,14 @@
                     <th scope="col">@Messages("manageProperties.table.3")</th>
                     <th scope="col">@Messages("manageProperties.table.4")</th>
                     <th scope="col">@Messages("manageProperties.table.5")</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
                 </tr>
                 @model.properties.map { p =>
                     <tr>
                         <td scope="row">
-                            <a href="#">
-                                @{p.address.lines.headOption.getOrElse("") + ", " + p.address.postcode}
-                            </a>
+                            @{p.address.lines.headOption.getOrElse("") + ", " + p.address.postcode}
                         </td>
                         <td>
-                            <a href="@routes.Dashboard.assessments(p.uarn)">
-                                @{p.assessment.size}
-                            </a>
+                            @{p.assessment.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")}
                         </td>
                         <td>
                             @if(p.pending) {
@@ -47,15 +41,24 @@
                         </td>
                         <td>
                             <ul>
-                                @p.agentNames.map{ name =>
-                                    <li>@name</li>
+                                @if(p.agentNames.isEmpty){
+                                    @Messages("dashboard.manageProperties.noAgent")
+                                } else {
+                                    @p.agentNames.map { name =>
+                                        <li>@name</li>
+                                    }
                                 }
                             </ul>
                         </td>
-                        <td>@Display.date(p.linkedDate)</td>
-                        <td class="last">
+                        <td >
                             @if(p.canAppointAgent){
                                 <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("manageProperties.addAgent")</a>
+                                <br>
+                            }
+                            @if(p.assessment.nonEmpty){
+                                <a href="@routes.Dashboard.assessments(p.linkId)">
+                                    @Messages("manageProperties.viewAssessments")
+                                </a>
                             }
                         </td>
                     </tr>

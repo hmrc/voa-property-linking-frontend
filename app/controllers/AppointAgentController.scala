@@ -34,7 +34,7 @@ trait AppointAgentController extends PropertyLinkingController {
   val propertyLinks = Wiring().propertyLinkConnector
   val authenticated = Wiring().authenticated
 
-  def add(linkId: String) = authenticated { implicit request =>
+  def add(linkId: Int) = authenticated { implicit request =>
     representations.find(linkId).map(reprs => {
       if (reprs.nonEmpty)
         Ok(views.html.propertyRepresentation.alreadyAppointedAgent(SelectAgentVM(reprs, linkId)))
@@ -43,7 +43,7 @@ trait AppointAgentController extends PropertyLinkingController {
     })
   }
 
-  def edit(linkId: String) = authenticated { implicit request =>
+  def edit(linkId: Int) = authenticated { implicit request =>
     representations.find(linkId).map(reprs => {
       if (reprs.size > 1)
         Ok(views.html.propertyRepresentation.selectAgent(reprs))
@@ -54,22 +54,22 @@ trait AppointAgentController extends PropertyLinkingController {
     })
   }
 
-  def select(linkId: String) = authenticated { implicit request =>
+  def select(linkId: Int) = authenticated { implicit request =>
     representations.find(linkId).map(reprs => {
       Ok(views.html.propertyRepresentation.selectAgent(reprs))
     })
   }
 
-  def appoint(linkId: String) = authenticated { implicit request =>
+  def appoint(linkId: Int) = authenticated { implicit request =>
     Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
   }
 
-  def appointSubmit(linkId: String) = authenticated.withAccounts { implicit request =>
+  def appointSubmit(linkId: Int) = authenticated.withAccounts { implicit request =>
     appointAgentForm.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, linkId))),
       agent => {
         for {
-          link <- propertyLinks.get(linkId)
+          link <- propertyLinks.get(request.organisationAccount.id, linkId)
           l = link.getOrElse(throw new Exception(s"Invalid linkId $linkId"))
           account <- accounts.withAgentCode(agent.agentCode)
           prop <- properties.get(l.uarn)
@@ -106,7 +106,7 @@ trait AppointAgentController extends PropertyLinkingController {
   private lazy val invalidPermissions = FormError("canCheck", "error.invalidPermissions")
   private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
 
-  private def invalidAppointment(form: Form[AppointAgent], linkId: String)(implicit request: Request[_]) = {
+  private def invalidAppointment(form: Form[AppointAgent], linkId: Int)(implicit request: Request[_]) = {
     Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId))))
   }
 
@@ -140,8 +140,8 @@ object AppointAgentController extends AppointAgentController
 
 case class AppointAgent(agentCode: String, canCheck: AgentPermission, canChallenge: AgentPermission)
 
-case class AppointAgentVM(form: Form[_], linkId: String)
+case class AppointAgentVM(form: Form[_], linkId: Int)
 
 case class ModifyAgentVM(form: Form[_], representationId: String)
 
-case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: String)
+case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Int)

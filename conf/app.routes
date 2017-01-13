@@ -27,7 +27,7 @@ POST        /create-group                                           controllers.
 #Dashboard
 GET         /home                                                   controllers.Dashboard.home()
 GET         /properties                                             controllers.Dashboard.manageProperties()
-GET         /property/:uarn/assessments                             controllers.Dashboard.assessments(uarn: Long)
+GET         /property-link/:linkId/assessments                      controllers.Dashboard.assessments(linkId: Int)
 GET         /draft-cases                                            controllers.Dashboard.draftCases()
 
 #Search and Link
@@ -53,13 +53,13 @@ GET         /no-evidence-uploaded/:refId                            @controllers
 GET         /manual-verification-required                           controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                       controllers.LinkErrors.conflict()
 
-GET         /representation-request/add/:linkId                     controllers.AppointAgentController.add(linkId)
-GET         /representation-request/edit/:linkId                    controllers.AppointAgentController.edit(linkId)
-GET         /representation-request/appoint/:linkId                 controllers.AppointAgentController.appoint(linkId)
-POST        /representation-request/appoint/:linkId                 controllers.AppointAgentController.appointSubmit(linkId)
+GET         /representation-request/add/:linkId                     controllers.AppointAgentController.add(linkId: Int)
+GET         /representation-request/edit/:linkId                    controllers.AppointAgentController.edit(linkId: Int)
+GET         /representation-request/appoint/:linkId                 controllers.AppointAgentController.appoint(linkId: Int)
+POST        /representation-request/appoint/:linkId                 controllers.AppointAgentController.appointSubmit(linkId: Int)
 GET         /representation-request/modify/:representationId        controllers.AppointAgentController.modify(representationId)
 POST        /representation-request/modify/:representationId        controllers.AppointAgentController.modifySubmit(representationId)
-GET         /representation-request/select/:linkId                  controllers.AppointAgentController.select(linkId)
+GET         /representation-request/select/:linkId                  controllers.AppointAgentController.select(linkId: Int)
 
 #AGENT
 #Dashboard

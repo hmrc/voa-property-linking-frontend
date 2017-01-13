@@ -123,14 +123,16 @@ dashboard.manageProperties.title=Manage Properties
 dashboard.manageProperties.noProperties=There are no properties to display. You may wish to claim a property.
 manageProperties.table.caption=Your properties
 manageProperties.table.1=Property
-manageProperties.table.2=Assessments
+manageProperties.table.2=Billing authority reference
 manageProperties.table.3=Status
 manageProperties.table.4=Appointed Agents
-manageProperties.table.5=Date added
+manageProperties.table.5=Actions
 dashboard.manageProperties.status.added=Added
 dashboard.manageProperties.status.pending=Pending
+dashboard.manageProperties.noAgent=None
 dashboard.managedProperties.searchLinkText=Add another property
 manageProperties.addAgent=Appoint agent
+manageProperties.viewAssessments=View assessments
 link.dashboard.home=Back to dashboard
 
 #DASHBOARD ASSESSMENTS
@@ -141,7 +143,9 @@ assessments.table.2=Rateable value
 assessments.table.3=Capacity
 assessments.table.4=Valid from
 assessments.table.5=Valid until
+assessments.table.6=Actions
 assessments.enddate.present=Present
+assessments.view.valuation=View valuation
 
 #DASHBOARD DRAFT CASES
 draftCases.title=Draft cases

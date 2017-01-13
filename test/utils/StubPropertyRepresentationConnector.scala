@@ -34,7 +34,7 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
     stubbedRepresentations.find(_.representationId == representationId)
   )
 
-  override def find(linkId: String)(implicit hc: HeaderCarrier) = Future.successful {
+  override def find(linkId: Int)(implicit hc: HeaderCarrier) = Future.successful {
     stubbedRepresentations.filter(_.linkId == linkId)
   }
 

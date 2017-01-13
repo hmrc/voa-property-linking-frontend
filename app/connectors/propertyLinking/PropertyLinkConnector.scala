@@ -29,16 +29,15 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
   extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  def get(linkId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
-    val url = baseUrl + s"/property-link/$linkId"
-    http.GET[Option[PropertyLink]](url)
+  def get(organisationId: Int, linkId: Int)(implicit hc: HeaderCarrier): Future[Option[DetailedPropertyLink]] = {
+    linkedProperties(organisationId).map( links => links.filter(_.linkId == linkId).headOption)
   }
 
   def linkToProperty(property: Property, organisationId: Int, individualId: Int,
-                     capacityDeclaration: CapacityDeclaration, linkId: String, basis: LinkBasis,
+                     capacityDeclaration: CapacityDeclaration, submissionId: String, basis: LinkBasis,
                      fileInfo: Option[FileInfo])
                     (implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = baseUrl + s"/property-links/$linkId"
+    val url = baseUrl + s"/property-links/$submissionId"
     val request = PropertyLinkRequest(property.uarn, organisationId, individualId, Capacity.fromDeclaration(capacityDeclaration),
       DateTime.now, basis, property.specialCategoryCode, property.description, property.bulkClassIndicator, fileInfo)
     http.POST[PropertyLinkRequest, HttpResponse](url, request) map { _ => () }
@@ -49,8 +48,8 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.GET[Seq[DetailedPropertyLink]](url)
   }
 
-  def assessments(uarn: Long)(implicit hc: HeaderCarrier): Future[Seq[Assessment]] = {
-    val url = baseUrl + s"/dashboard/assessments/$uarn"
+  def assessments(linkId: Int)(implicit hc: HeaderCarrier): Future[Seq[Assessment]] = {
+    val url = baseUrl + s"/dashboard/assessments/$linkId"
     http.GET[Seq[Assessment]](url)
   }
 }

@@ -37,7 +37,7 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut)(implicit ec: E
     http.GET[Seq[PropertyRepresentation]](url)
   }
 
-  def find(linkId: String)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
+  def find(linkId: Int)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
     val url = baseUrl + s"/property-representations/linkId/$linkId"
     http.GET[Seq[PropertyRepresentation]](url)
   }
