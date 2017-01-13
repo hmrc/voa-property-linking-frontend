@@ -16,7 +16,6 @@
 
 package config
 
-import play.api.Logger
 import play.api.mvc.{Filter, RequestHeader, Result}
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.play.config.RunMode
@@ -25,7 +24,7 @@ import uk.gov.hmrc.play.filters.MicroserviceFilterSupport
 import scala.concurrent.Future
 
 object PrivateBetaAuthenticationFilter extends Filter with RunMode with MicroserviceFilterSupport {
-  val unrestrictedPaths = Seq("betalogin", "ping/ping", "/property-linking", "/login")
+  val unrestrictedPaths = Seq("betalogin", "ping/ping", "/business-rates-property-linking", "/login")
 
   def apply(nextFilter: (RequestHeader) => Future[Result])(rh: RequestHeader): Future[Result] = {
     val isUnrestrictedPath = rh.path.contains("assets") || unrestrictedPaths.exists(rh.path.endsWith(_))
