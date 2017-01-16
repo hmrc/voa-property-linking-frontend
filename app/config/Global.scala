@@ -28,7 +28,7 @@ import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.config.{AppName, ControllerConfig}
 import uk.gov.hmrc.play.filters.MicroserviceFilterSupport
-import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
+import uk.gov.hmrc.play.frontend.bootstrap.{DefaultFrontendGlobal, ShowErrorPage}
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
 
 object Global extends VPLFrontendGlobal {
@@ -37,10 +37,11 @@ object Global extends VPLFrontendGlobal {
   }
 }
 
-trait VPLFrontendGlobal extends DefaultFrontendGlobal {
-  override def standardErrorTemplate(
-                                      pageTitle: String, heading: String,
-                                      message: String)(implicit request: Request[_]): Html = views.html.errors.error()(request, applicationMessages)
+trait VPLFrontendGlobal extends DefaultFrontendGlobal with ShowErrorPage {
+
+  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html = {
+    views.html.errors.error(pageTitle, heading, message)(request, applicationMessages)
+  }
 
   def auditConnector: uk.gov.hmrc.play.audit.http.connector.AuditConnector = AuditServiceConnector
 

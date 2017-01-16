@@ -10,7 +10,7 @@
   serviceInfoContent: Html = HtmlFormat.empty,
   headScripts: Html = HtmlFormat.empty,
   scriptElem: Option[Html] = None,
-  showLogoutLink: Boolean = true)(implicit request: Request[_], messages: Messages)
+  showLogoutLink: Boolean = true)(implicit request: RequestHeader, messages: Messages)
 
 @import layouts.{govuk_template => hmrcGovUkTemplate}
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}

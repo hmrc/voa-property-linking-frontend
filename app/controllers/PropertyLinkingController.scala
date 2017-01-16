@@ -25,8 +25,6 @@ import scala.concurrent.{ExecutionContext, Future}
 trait PropertyLinkingController extends Controller {
 
   implicit lazy val messages = play.api.i18n.Messages.Implicits.applicationMessages
-  def showForbiddenError(implicit request: Request[_]) = Forbidden(views.html.errors.forbidden())
-  def internalServerError(implicit request: Request[_]) = InternalServerError(views.html.errors.error())
 
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
   implicit def future[A](a: A): Future[A] = Future.successful(a)

@@ -50,7 +50,8 @@ class AuthenticatedAction {
       individual <- individualAccounts.get(request.personId)
       res <- (group, individual) match {
         case (Some(g), Some(i)) => body(DetailedAuthenticatedRequest(g, i, request))
-        case _ => Future.successful(BadRequest(views.html.errors.error()))
+        case _ => throw new Exception(s"user with organisationId ${request.organisationId} " +
+          s"and personId ${request.personId} has authenticated but accounts could not be retrieved")
       }
     } yield {
       res
