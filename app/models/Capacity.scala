@@ -17,8 +17,8 @@
 package models
 
 import connectors.CapacityDeclaration
-import org.joda.time.{DateTime, LocalDate}
-import play.api.libs.json.{Json, Reads, Writes}
+import org.joda.time.LocalDate
+import play.api.libs.json.Json
 import serialization.JsonFormats._
 
 case class Capacity(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate])
@@ -29,6 +29,6 @@ object Capacity {
   lazy val defaultFromDate = new LocalDate(2017, 4, 1)
 
   def fromDeclaration(declaration: CapacityDeclaration) = {
-    Capacity(declaration.capacity, declaration.fromDate.map(_.toLocalDate).getOrElse(defaultFromDate), declaration.toDate.map(_.toLocalDate))
+    Capacity(declaration.capacity, declaration.fromDate.getOrElse(defaultFromDate), declaration.toDate)
   }
 }

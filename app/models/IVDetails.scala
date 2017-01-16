@@ -16,11 +16,11 @@
 
 package models
 
-import org.joda.time.DateTime
+import org.joda.time.LocalDate
 import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino
 
-case class IVDetails(firstName: String, lastName: String, dateOfBirth: DateTime, nino: Nino)
+case class IVDetails(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino)
 
 object IVDetails {
   implicit val formats = Json.format[IVDetails]

@@ -17,11 +17,11 @@
 package connectors
 
 import models._
-import org.joda.time.DateTime
+import org.joda.time.{DateTime, LocalDate}
 import play.api.libs.json.Json
 
-case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[DateTime],
-                               stillInterested: Boolean, toDate: Option[DateTime] = None)
+case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate],
+                               stillInterested: Boolean, toDate: Option[LocalDate] = None)
 
 case class FileInfo(fileName: String, fileType: String)
 
