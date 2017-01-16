@@ -17,11 +17,10 @@
 package connectors
 
 import config.ApplicationConfig
-import play.api.Logger
-import play.api.libs.json.{JsDefined, JsLookupResult, JsString, JsValue}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.{JsDefined, JsString, JsValue}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 class IdentityVerification(http: HttpGet with HttpPost) extends ServicesConfig {
 

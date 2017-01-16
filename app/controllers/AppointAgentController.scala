@@ -92,7 +92,7 @@ trait AppointAgentController extends PropertyLinkingController {
               } recover {
                 case _: BadRequestException => BadRequest(views.html.propertyRepresentation.invalidAppointment())
               }
-            case _ => Future.successful(internalServerError)
+            case _ => throw new Exception(s"Failed to find property with uarn ${l.uarn} when appointing agent")
           }
         } yield {
           res
@@ -115,7 +115,7 @@ trait AppointAgentController extends PropertyLinkingController {
       case Some(rep) =>
         val form = appointAgentForm.fill(AppointAgent(rep.agentId, rep.canCheck, rep.canChallenge))
         Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, rep.representationId)))
-      case None => internalServerError
+      case None => throw new Exception(s"Invalid representation id $representationId")
     }
   }
 
