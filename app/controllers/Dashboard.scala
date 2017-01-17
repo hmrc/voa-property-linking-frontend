@@ -16,7 +16,7 @@
 
 package controllers
 
-import config.Wiring
+import config.{ApplicationConfig, Global, Wiring}
 import models.{Assessment, CapacityType, DetailedPropertyLink, DraftCase}
 import org.joda.time.{DateTime, LocalDate}
 import connectors.PropertyRepresentation
@@ -55,12 +55,16 @@ trait Dashboard extends PropertyLinkingController {
   }
 
   def draftCases() = authenticated { implicit request =>
-    val dummyData = Seq(
-      DraftCase(1234, 146440182, "4, EX2 7LL", 123456789, new LocalDate(2017, 1, 3), "Agent ltd", "Check", new LocalDate(2017, 2, 3)),
-      DraftCase(2345, 146440182, "1, RG2 9WX", 321654987, new LocalDate(2017, 1, 6), "Agent ltd", "Check", new LocalDate(2017, 2, 6))
-    )
-    Future.successful(Ok(views.html.dashboard.draftCases(DraftCasesVM(dummyData))))
-  }
+    if (ApplicationConfig.readyForPrimeTime) {
+      val dummyData = Seq(
+        DraftCase(1234, 146440182, "4, EX2 7LL", 123456789, new LocalDate(2017, 1, 3), "Agent ltd", "Check", new LocalDate(2017, 2, 3)),
+        DraftCase(2345, 146440182, "1, RG2 9WX", 321654987, new LocalDate(2017, 1, 6), "Agent ltd", "Check", new LocalDate(2017, 2, 6))
+      )
+      Future.successful(Ok(views.html.dashboard.draftCases(DraftCasesVM(dummyData))))
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
+}
 
   private def capitalizeWords(text: String) = text.split(",").map(str => {
     if (str.trim.matches("[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9]([A-Z]){2}") && text.endsWith(str))

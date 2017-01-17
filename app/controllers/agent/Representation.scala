@@ -17,28 +17,43 @@
 package controllers.agent
 
 import config.Wiring
+import config.ApplicationConfig
 import connectors.PropertyRepresentation
 import controllers.PropertyLinkingController
+import config.Global
 
 object Representation extends PropertyLinkingController {
   val reprConnector = Wiring().propertyRepresentationConnector
   val authenticated = Wiring().authenticated
 
   def manageRepresentationRequest() = authenticated.asAgent { implicit request =>
-    reprConnector.forAgent(request.organisationId).map { reprs =>
-      Ok(views.html.agent.dashboard.propertyRepresentation.manageProperties(ManagePropertiesVM(reprs, request.agentCode)))
+    if (ApplicationConfig.readyForPrimeTime) {
+      reprConnector.forAgent(request.organisationId).map { reprs =>
+        Ok(views.html.agent.dashboard.propertyRepresentation.manageProperties(ManagePropertiesVM(reprs, request.agentCode)))
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
     }
+
   }
 
   def accept(reprId: String) = authenticated.asAgent { implicit request =>
-    reprConnector.accept(reprId).map { _ =>
-      Redirect(routes.Representation.manageRepresentationRequest())
+    if (ApplicationConfig.readyForPrimeTime) {
+      reprConnector.accept(reprId).map { _ =>
+        Redirect(routes.Representation.manageRepresentationRequest())
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
     }
   }
 
   def reject(reprId: String) = authenticated.asAgent { implicit request =>
-    reprConnector.reject(reprId).map { _ =>
-      Redirect(routes.Representation.manageRepresentationRequest())
+    if (ApplicationConfig.readyForPrimeTime) {
+      reprConnector.reject(reprId).map { _ =>
+        Redirect(routes.Representation.manageRepresentationRequest())
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
     }
   }
 
