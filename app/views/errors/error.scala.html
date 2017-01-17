@@ -1,6 +1,9 @@
-@()(implicit request: Request[_], messages: Messages)
+@(title: String, heading: String, message: String)(implicit request: RequestHeader, messages: Messages)
 
 
-@main_template(title = "Error page") {
-  <p>Bad stuff happened</p>
-}
+    @main_template(title = title) {
+
+        <h1 class="heading-large">@heading</h1>
+
+        <p>@message</p>
+    }
