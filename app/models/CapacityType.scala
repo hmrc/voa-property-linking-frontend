@@ -35,5 +35,5 @@ case object OwnerOccupier extends CapacityType {
 }
 
 object CapacityType extends NamedEnumSupport[CapacityType] {
-  override def all: List[CapacityType] = List(Occupier, Owner, OwnerOccupier)
+  override def all: List[CapacityType] = List(Owner, Occupier, OwnerOccupier)
 }

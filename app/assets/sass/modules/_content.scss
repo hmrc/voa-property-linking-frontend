@@ -137,3 +137,8 @@ hr{
 html .beta-banner .phase-tag {
     @include phase-tag;
 }
+
+.heading-confirmation-normal{
+    font-weight: normal !important;
+    font-size: .8em;
+}

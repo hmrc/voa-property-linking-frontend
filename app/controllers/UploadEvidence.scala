@@ -86,7 +86,7 @@ class UploadEvidence @Inject()(val fileUploadConnector: FileUpload) extends Prop
   def evidenceUploaded() = withLinkingSession { implicit request =>
     fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
       Wiring().sessionRepository.remove().map(_ =>
-        Ok(views.html.linkingRequestSubmitted())
+        Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.claimedProperty.address)))
       )
     )
   }

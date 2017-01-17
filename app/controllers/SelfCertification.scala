@@ -18,7 +18,7 @@ package controllers
 
 import config.Wiring
 import form.Mappings.trueOnly
-import models.{Property, SelfCertifyFlag}
+import models.{Property, SelfCertifyFlag, PropertyAddress}
 import play.api.data.Form
 import play.api.data.Forms._
 import session.{LinkingSession, LinkingSessionRequest}
@@ -53,7 +53,7 @@ object SelfCertification extends PropertyLinkingController {
   def selfCertified() = withLinkingSession { implicit request =>
     request.ses.selfCertifyComplete.contains(true) match {
       case true =>
-        Ok(views.html.linkingRequestSubmitted())
+        Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.claimedProperty.address)))
       case false => Redirect(routes.Dashboard.home())
     }
   }
@@ -68,3 +68,5 @@ case class ConfirmSelfCertification(iAgree: Boolean)
 case class SelfCertifyVM(form: Form[_], session: LinkingSession)
 
 case class LinkAuthorisedVM(linkedProperty: Property)
+
+case class RequestSubmittedVM(address: PropertyAddress)

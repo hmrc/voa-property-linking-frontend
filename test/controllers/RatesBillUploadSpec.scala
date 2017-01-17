@@ -97,7 +97,7 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
     val res = TestUploadRatesBill.ratesBillUploaded()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainSuccessSummary("✔ Property linking request submitted")
+    page.mustContainSuccessSummary("✔ We’ve received your request to add leen1, leen2, leen3, AA11 1AA to your business’s customer record.")
   }
 
   it must "contains a link to the dashboard" in {

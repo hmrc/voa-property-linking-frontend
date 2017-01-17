@@ -1,4 +1,4 @@
-@()(implicit request: Request[_], messages: Messages)
+@(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages)
 
     @main_template(title = Messages("linkingRequestSubmitted.title")) {
 
@@ -6,23 +6,26 @@
             <div class="column-two-thirds">
 
                 <h1 class="form-title heading-large heading-confirmation">
-                    <span class="tick">&#10004;</span> @Messages("linkingRequestSubmitted.title")
+                    <span class="tick">&#10004;</span>
+                    <span class="heading-confirmation-normal">@Messages("linkingRequestSubmitted.title1")</span>
+                    <div class="margin-bottom-10 margin-top-10">@model.address.toString</div>
+                    <span class="heading-confirmation-normal">@Messages("linkingRequestSubmitted.title2")</span>
                 </h1>
 
                 <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
+
                 <p>@Messages("linkingRequestSubmitted.p.1")</p>
+                <p>@Messages("linkingRequestSubmitted.p.2")</p>
+
                 <p>@Messages("linkingRequestSubmitted.afterApproval")</p>
                 <ul class="list-bullet">
                     <li>@Messages("linkingRequestSubmitted.afterApproval.1")</li>
                     <li>@Messages("linkingRequestSubmitted.afterApproval.2")</li>
                 </ul>
 
-                <h2 class="heading-medium">@Messages("linkingRequestSubmitted.changedCircumstances.heading")</h2>
-                <p>@Messages("linkingRequestSubmitted.changedCircumstances.p.1")</p>
-
                 <p><a href="@routes.ClaimProperty.show" class="link">@Messages("link.addAnotherProperty")</a></p>
                 <p><a href="@routes.Dashboard.home" id="backToDashBoard" class="button">@Messages("link.dashboard")</a></p>
             </div>
         </div>
-    
+
 }

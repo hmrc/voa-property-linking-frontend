@@ -11,7 +11,7 @@
 
         <div class="grid-row">
             <div class="column-two-thirds">
-                <h1 class="heading-large">
+                <h1 class="heading-xlarge">
                     @Messages("uploadEvidence.show.title")
                 </h1>
 
@@ -32,7 +32,7 @@
                 @inputFile(
                     field = model.form("evidence[]"),
                     '_label -> Messages("evidence.label"),
-                    '_labelClass -> "form-label-bold",
+                    '_labelClass -> "visuallyhidden",
                     '_help -> Messages("evidence.label.1"),
                     'class -> "filer_input",
                     '_fieldsetClass -> "file-input-group"

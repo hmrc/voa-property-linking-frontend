@@ -3,23 +3,21 @@ project.header=VOA Property Linking
 #START PAGE
 start.heading.register=Register to use this service
 start.heading.about=About this service
-start.about.p.1=If you want to tell the VOA about any changes to the business, or challenge the rateable value, you’ll need to register for the VOA’s service.
+start.about.p.1=If you want to tell the VOA about any changes to the property, or challenge the rateable value, you’ll need to register for the VOA’s service.
 start.link.learnMore=Learn more about the VOA’s check and challenge service.
 start.about.p.2=You can create a customer record for the business. You can add individuals to this customer record, who can suggest changes on behalf of the business, once they’re registered.
 start.about.p.3=If an individual leaves the business, you can remove them from the customer record and replace them with a new person.
 start.heading.registration=Registration
 start.registration.p.1=The registration process asks for details about the individual as well as information about the business.
 start.registration.p.2=This ensures that all data is secure and only available to people who have the right to see it.
-start.registration.p.3=To use this service, you’ll firstly need a
-start.registration.link.ggAccount=Government Gateway account for the business
-start.registration.p.4=(even if you already have one as an individual).
+start.registration.p.3=To use this service, you’ll firstly need a Government Gateway account for the business (even if you already have one as an individual). If you don’t have one already, you’ll be able to create one during the registration process.
 start.registration.youNeed=You’ll then need to create an individual customer record by:
 start.registration.youNeed.1=using your Government Gateway ID to register with the VOA
 start.registration.youNeed.2=providing proof of ID (such as your date of birth, National Insurance number, P60 and PAYE details)
 start.registration.youNeed.3=providing proof of your relationship to the property (such as a business rates or utility bill)
 start.registration.p.5=After you’ve created an individual customer record, you’ll need to create a customer record for the business.
-start.heading.agents=Agents and representatives
-start.agents.p.1=If you plan to act as an agent or representative on behalf of another business, you’ll be able to indicate this during the registration process.
+start.heading.agents=Agents
+start.agents.p.1=If you plan to act as an agent on behalf of another business, you’ll be able to indicate this during the registration process.
 start.register=Register now
 
 label.login=Login
@@ -43,17 +41,18 @@ label.createAccount.phone1=Phone number
 createAccount.individual.verify.heading=Your identification details
 createAccount.individual.verify.p.1=Please verify your identity for security and data protection purposes.
 label.createAccount.fname=First name
-label.createAccount.lname=Surname
+label.createAccount.lname=Last name
 label.createAccount.dob=Date of birth
 dob.label=Date of birth
 label.createAccount.nino.nino=National insurance number
 error.nino.invalid=Invalid national insurance number
 dateOfBirth.label=Date of birth
-label.createAccount.confirmedEmail=Confirm email address
+label.createAccount.confirmedEmail=Confirm business email address
 label.createAccount.phone2=Mobile number
 hint.dateOfBirth=For example, 20 3 1976
 hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.
 error.emailsMustMatch=Email addresses must match
+createAccount.p1=You’ll need to provide information about the business in order to complete the registration process.
 
 #IDENTITY VERIFICATION
 startIv.title=Provide further identification
@@ -70,37 +69,39 @@ iv.success.title=Identity verification successful
 iv.success.heading=Success
 iv.success.confirmation=We’ve verified your identity
 heading.whatNext=What happens next
-iv.success.p.1=You’ll now need to register the business in order to complete the registration process.
+iv.success.p.1=You’ll need to provide information about the business in order to complete the registration process.
 link.createGroupAccount=Register the business
 
 #INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
-groupAlreadyExists.title={0} has already registered. You’ve been added to their customer record.
-groupAlreadyExists.addedToGroup=You have been added to their customer record
+groupAlreadyExists.title={0} has already registered.
+groupAlreadyExists.addedToGroup=You’ve been added to their customer record.
 
 #CREATE GROUP ACCOUNT
 createAccount.group.title=Register the business
 createAccount.p1=You’ll need to provide information about the business in order to complete the registration process.
 label.createAccount.companyName=Business name
-label.createAccount.businessEmail=Business email
+label.createAccount.businessEmail=Business email address
 label.createAccount.businessPhone=Business telephone number
 label.createAccount.isSmallBusiness=Is this a small business?
 isSmallBusiness.true=Yes
 isSmallBusiness.false=No
 isSmallBusiness.details.question=What is a small business?
-isSmallBusiness.details.answer=If the business employs fewer than 10 people and has a turnover or balance sheet total of less than £2 million, it is a small business.
-label.createAccount.isAgent=Do you want to act as a representative on behalf of another business?
+isSmallBusiness.details.answer=If the business employs fewer than 10 people and has a turnover or balance sheet total of less than £2 million, it’s a small business.
+label.createAccount.isAgent=Do you want to act as an agent on behalf of another business?
 isAgent.true=Yes
 isAgent.false=No
-isAgent.details=If you want to act as an agent on behalf of another business (including as an accountant, a professional surveyor, or as a ratings agent working on behalf of a client), we’ll give you a unique identification code, known as an agent code. You’ll need to give this to your client so that they can register you to act on their behalf.
+isAgent.details=If you want to act as an agent on behalf of another business (including as a professional surveyor, an accountant or as a friend or relative), we’ll give you a unique identification code, known as an agent code. You’ll need to give this to your client so that they can register you to act on their behalf.
 
 #ACCOUNT CREATED
 account.confirmation.title=You’ve successfully registered the business.
-account.confirmation.heading=You’ve been added to the business’s customer record.
-account.confirmation.heading.2=You’re also added to this customer record as an individual.
-account.confirmation.youCan=You can now:
-account.confirmation.youCan.1=add properties to the business’s customer record
-account.confirmation.youCan.2=authorise an agent to act on behalf of the business
-link.dashboard=Go to the business dashboard
+account.confirmation.heading=You’ve successfully registered for the VOA service.
+account.confirmation.heading.2=You’ve been added to the business’s customer record.
+account.confirmation.youCan=You can now go to the dashboard and add properties to the business’s customer record.
+link.dashboard=Go to the dashboard
+
+account.confirmation.alreadyRegistered.youCan=You can now:
+account.confirmation.alreadyRegistered.youCan.1=add properties to the business’s customer record
+account.confirmation.alreadyRegistered.youCan.2=authorise an agent to act on behalf of the business
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard home
@@ -156,18 +157,18 @@ draftCases.table.3=Case Type
 draftCases.table.4=Agent acting
 draftCases.table.5=Draft expiry date
 
-propertyRepresentation.appointAgent.title=Tell us what you want the agent to do on behalf of the business
-propertyRepresentation.appointAgent.message.1=Your representative should provide you with a unique code. After entering the code you’ll be asked to confirm what you want the representative to do on behalf of the business.
+propertyRepresentation.appointAgent.title=Enter the code of the agent you want to appoint
+propertyRepresentation.appointAgent.message.1=Your agent should provide you with a unique code. After entering the code you’ll be asked to confirm what you want the agent to do on behalf of the business.
 propertyRepresentation.appointAgent.agentCode=Agent code
-propertyRepresentation.appointAgent.button=Submit
+propertyRepresentation.appointAgent.button=Continue
 canCheck.label=Check permissions
 canCheck.startAndContinue=Start new checks and continue existing checks
 canCheck.continueOnly=Continue existing checks only
 canCheck.notPermitted=Not permitted to start new checks or continue existing checks
 canChallenge.label=Challenge permissions
-canChallenge.startAndContinue=Start new checks and continue existing checks
-canChallenge.continueOnly=Continue existing checks only
-canChallenge.notPermitted=Not permitted to start new checks or continue existing checks
+canChallenge.startAndContinue=Start new challenges and continue existing challenges
+canChallenge.continueOnly=Continue existing challenges only
+canChallenge.notPermitted=Not permitted to start new challenges or continue existing challenges
 error.invalidPermissions=Agent must either have permission to continue checks or challenges
 error.invalidAgentCode=Invalid agent code
 
@@ -185,8 +186,8 @@ propertyRepresentation.modifiedAgent.title=Agent nomination changes accepted
 propertyRepresentation.modifiedAgent.message.1=Your changes have been applied.
 propertyRepresentation.modifiedAgent.message.2=The agent has been notified of the changes.
 
-propertyRepresentation.alreadyAppointedAgent.title=This property is already linked to an representative
-propertyRepresentation.alreadyAppointedAgent.add=Add another representative
+propertyRepresentation.alreadyAppointedAgent.title=This property is already linked to an agent
+propertyRepresentation.alreadyAppointedAgent.add=Add another agent
 link.editPermissions=Edit permissions
 
 propertyRepresentation.selectAgent.title=Select Agent
@@ -223,7 +224,7 @@ declareCapacity.title=Add property to your customer record
 declareCapacity.message=You are adding this property to your customer record:
 declareCapacity.incorrectProperty.prefix=If this isn’t the right property you can
 declareCapacity.incorrectProperty.link=search for a different property
-interestedBefore2017.label=When did you occupy or own the property?
+interestedBefore2017.label=When did you become the owner or occupier of the property?
 interestedBefore2017.true=Before 1 April 2017
 interestedBefore2017.false=After 1 April 2017
 stillInterested.label=Do you still occupy or own the property?
@@ -240,8 +241,8 @@ error.capacity.noValueSelected=You must select a capacity
 fromDate.day.label=Day
 fromDate.month.label=Month
 fromDate.year.label=Year
-fromDate.label=When did you become the owner / occupier?
-toDate.label=When did you stop being the owner / occupier?
+fromDate.label=On what date did you become the owner or occupier?
+toDate.label=When was your last day as the owner or occupier of the property?
 toDate.day.label=Day
 toDate.month.label=Month
 toDate.year.label=Year
@@ -254,8 +255,9 @@ selfCertification.linkSubmitted.message=Thank you for your request which has bee
 selfCertification.show.title=Declaration for self certification
 selfCertification.warning=To be able to view the details of this property you must agree to abide by the terms and conditions of this service.
 selfCertification.p.1=You must also declare that the information you have provided is correct.
-selfCertification.show.iAgree.label=By ticking this box, you’re agreeing to use the information held by the VOA only for the purposes listed in the terms and conditions.
-selfCertification.show.iAgree.text=I confirm that I agree to the terms and conditions and that the information I have provided is correct.
+selfCertification.p.2=By ticking this box, you’re agreeing to use the information held by the VOA only for the purposes listed in the terms and conditions.
+selfCertification.show.iAgree.label=I confirm that I agree to the terms and conditions and that the information I have provided is correct.
+selfCertification.show.iAgree.text=xx
 selfCertification.show.iAgree.hint=You must agree
 selfCertification.show.button=Go
 error.mustAgreeToSelfCert=You must agree to continue.
@@ -268,7 +270,7 @@ uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Confirm
 chooseEvidence.title=Provide a copy of your business rates bill
-hasRatesBill.label=Please upload a business rates bill as proof of connection
+hasRatesBill.label=Please upload a copy of the business rates bill for this property.
 hasRatesBill.true=I have a business rates bill
 hasRatesBill.false=I don’t have a business rates bill
 label.ratesBill=Please upload a copy of the rates bill
@@ -276,12 +278,14 @@ ratesBill.label.1=PDF, word documents, scanned images, photographs and many othe
 uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 
 #LINK REQUEST CONFIRMATION
-linkingRequestSubmitted.title=Property linking request submitted
+linkingRequestSubmitted.title1=We’ve received your request to add
+linkingRequestSubmitted.title2=to your business’s customer record.
 linkingRequestSubmitted.message=Thank you for your request to add [address] to your customer record.
-linkingRequestSubmitted.p.1=The property will appear in your dashboard pending VOA approval. Once approval has been given, the status will change from ‘Pending’ to ‘Added’. This may take some time, depending on the nature of your application.
-linkingRequestSubmitted.afterApproval=Once the property request has been approved, you’ll be able to:
-linkingRequestSubmitted.afterApproval.1=View full property details
-linkingRequestSubmitted.afterApproval.2=complete a check of the valuation details (you will need to ‘check’ your details before you can make the changes)
+linkingRequestSubmitted.p.1=The property will appear in your dashboard pending VOA approval.
+linkingRequestSubmitted.p.2=If approval is given, the status will change from ‘pending’ to ‘added’.  This may take some time, depending on the nature of your application.
+linkingRequestSubmitted.afterApproval=If the property request has been approved, you’ll be able to:
+linkingRequestSubmitted.afterApproval.1=view full property details
+linkingRequestSubmitted.afterApproval.2=complete a check of the valuation details (you’ll need to do this to suggest any changes or proceed to a challenge)
 linkingRequestSubmitted.link=Manage your properties
 linkingRequestSubmitted.changedCircumstances.heading=Change in circumstances
 linkingRequestSubmitted.changedCircumstances.p.1=If you’re claiming a property to tell us about any external circumstances that are currently impacting on your business (such as long-term disruptive roadworks, flooding, or other external factors) you’ll be able to tell us even while your request is ‘Pending’.
@@ -290,8 +294,8 @@ link.addAgent=Add an agent
 
 #UPLOAD EVIDENCE
 uploadEvidence.show.title=Upload other evidence
-uploadEvidence.p.1=You’ve indicated that you don’t have a rates bill. Please provide other evidence.
-uploadEvidence.evidenceTypes=Evidence that we’ll accept includes:
+uploadEvidence.p.1=You’ve indicated that you don’t have a business rates bill for this property. Please provide other evidence.
+uploadEvidence.evidenceTypes=Evidence that we may accept includes:
 uploadEvidence.evidenceTypes.1=the lease agreement
 uploadEvidence.evidenceTypes.2=a water rate demand
 uploadEvidence.evidenceTypes.3=other utility bills
@@ -307,6 +311,7 @@ evidenceType.otherUtilityBill=Other utility bill
 evidenceType.ratesBill=Rates bill
 
 label.evidence=Please upload evidence so that we can verify your link to the property.
+evidence.label=Upload other evidence
 evidence.label.1=File types must be JPEG, PDF or Word. The maximum file size is 5MB. The maximum total file size is 20MB
 error.evidenceUploadFiles=Only 3 files may be uploaded
 error.missingFiles=Please upload some evidence.
@@ -370,6 +375,7 @@ label.checkTheForm=Check the form
 label.fixTheFollowing=Fix the following:
 logout.link=Log out
 label.optional=Optional
+label.required=Required
 
 #DASHBOARD HOME
 agent.dashboard.home.title=Agent dashboard home

@@ -10,7 +10,7 @@
 
     <div class="grid-row">
         <div class="column-two-thirds">
-            <h1 class="form-title heading-large">@Messages("declareCapacity.title")</h1>
+            <h1 class="heading-xlarge">@Messages("declareCapacity.title")</h1>
 
             @includes.errorSummary(model.form)
 
@@ -57,6 +57,14 @@
 
                 <div id="interestedAfter2017" data-toggle-hidden>
                     @dateFields(model.form, "fromDate")
+
+                    <details>
+                        <summary><span>I have owned or occupied the property on more than one occasion</span></summary>
+                        <div class="panel-indent">
+                          If you have owned or occupied the property on more than one occasion, you should enter the date that you moved in (and if relevant the date that you moved out) for the period of time that you want to check or challenge the rateable value.
+                        </div>
+                    </details>
+                    <br />
                 </div>
 
                 @inputRadioGroup(
