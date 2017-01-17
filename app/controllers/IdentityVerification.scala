@@ -16,7 +16,7 @@
 
 package controllers
 
-import config.Wiring
+import config.{ApplicationConfig, Wiring}
 import models.{IVDetails, IndividualAccount, IndividualDetails}
 import play.api.mvc.{Action, Request}
 import uk.gov.hmrc.play.frontend.auth.AuthContext
@@ -34,9 +34,13 @@ trait IdentityVerification extends PropertyLinkingController {
   val addresses = Wiring().addresses
 
   def startIv = ggAction.async { _ => implicit request =>
-    keystore.fetchAndGetEntry[IVDetails]("ivDetails") map {
-      case Some(d) => Ok(views.html.identityVerification.start(StartIVVM(d, identityVerification.verifyUrl)))
-      case None => NotFound
+    if (ApplicationConfig.ivEnabled) {
+      keystore.fetchAndGetEntry[IVDetails]("ivDetails") map {
+        case Some(d) => Ok(views.html.identityVerification.start(StartIVVM(d, identityVerification.verifyUrl)))
+        case None => NotFound
+      }
+    } else {
+      Future.successful(Redirect(routes.IdentityVerification.success()))
     }
   }
 

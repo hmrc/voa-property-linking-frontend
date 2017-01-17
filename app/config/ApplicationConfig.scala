@@ -29,6 +29,7 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   val ggContinueUrl = baseUrl + controllers.routes.Dashboard.home().url
   val betaLoginRequired = getConfig("featureFlags.betaLoginRequired").toBoolean
   val betaLoginPassword = getConfig("betaLoginPassword")
+  val ivEnabled = getConfig("featureFlags.ivEnabled").toBoolean
   def businessRatesValuationUrl(page: String) = getConfig("business-rates-valuation.url") + s"/$page"
 
 
