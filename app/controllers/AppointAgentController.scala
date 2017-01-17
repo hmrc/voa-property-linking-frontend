@@ -16,7 +16,7 @@
 
 package controllers
 
-import config.Wiring
+import config.{ApplicationConfig, Global, Wiring}
 import connectors.{PropertyRepresentation, UpdatedRepresentation}
 import form.EnumMapping
 import models.{AgentPermission, AgentPermissions, NotPermitted}
@@ -35,70 +35,90 @@ trait AppointAgentController extends PropertyLinkingController {
   val authenticated = Wiring().authenticated
 
   def add(linkId: Int) = authenticated { implicit request =>
-    representations.find(linkId).map(reprs => {
-      if (reprs.nonEmpty)
-        Ok(views.html.propertyRepresentation.alreadyAppointedAgent(SelectAgentVM(reprs, linkId)))
-      else
-        Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
-    })
+    if (ApplicationConfig.readyForPrimeTime) {
+      representations.find(linkId).map(reprs => {
+        if (reprs.nonEmpty)
+          Ok(views.html.propertyRepresentation.alreadyAppointedAgent(SelectAgentVM(reprs, linkId)))
+        else
+          Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
+      })
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
   }
 
   def edit(linkId: Int) = authenticated { implicit request =>
-    representations.find(linkId).map(reprs => {
-      if (reprs.size > 1)
-        Ok(views.html.propertyRepresentation.selectAgent(reprs))
-      else {
-        val form = appointAgentForm.fill(AppointAgent(reprs.head.agentId, reprs.head.canCheck, reprs.head.canChallenge))
-        Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, reprs.head.representationId)))
-      }
-    })
+    if (ApplicationConfig.readyForPrimeTime) {
+      representations.find(linkId).map(reprs => {
+        if (reprs.size > 1)
+          Ok(views.html.propertyRepresentation.selectAgent(reprs))
+        else {
+          val form = appointAgentForm.fill(AppointAgent(reprs.head.agentId, reprs.head.canCheck, reprs.head.canChallenge))
+          Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, reprs.head.representationId)))
+        }
+      })
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
   }
 
   def select(linkId: Int) = authenticated { implicit request =>
-    representations.find(linkId).map(reprs => {
-      Ok(views.html.propertyRepresentation.selectAgent(reprs))
-    })
+    if (ApplicationConfig.readyForPrimeTime) {
+      representations.find(linkId).map(reprs => {
+        Ok(views.html.propertyRepresentation.selectAgent(reprs))
+      })
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
   }
 
   def appoint(linkId: Int) = authenticated { implicit request =>
-    Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
+    if (ApplicationConfig.readyForPrimeTime) {
+      Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
   }
 
   def appointSubmit(linkId: Int) = authenticated.withAccounts { implicit request =>
-    appointAgentForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, linkId))),
-      agent => {
-        for {
-          link <- propertyLinks.get(request.organisationAccount.id, linkId)
-          l = link.getOrElse(throw new Exception(s"Invalid linkId $linkId"))
-          account <- accounts.withAgentCode(agent.agentCode)
-          prop <- properties.get(l.uarn)
-          res <- (account, prop) match {
-            case (Some(_), Some(_)) if agentHasNoPermissions(agent) =>
-              val form = appointAgentForm.fill(agent).withError(invalidPermissions)
-              invalidAppointment(form, linkId)
-            case (None, Some(_)) if agentHasNoPermissions(agent) =>
-              val form = appointAgentForm.fill(agent).withError(invalidAgentCode).withError(invalidPermissions)
-              invalidAppointment(form, linkId)
-            case (None, Some(p)) =>
-              val form = appointAgentForm.fill(agent).withError(invalidAgentCode)
-              invalidAppointment(form, linkId)
-            case (Some(a), Some(p)) =>
-              val req = PropertyRepresentation(java.util.UUID.randomUUID().toString, linkId, a.groupId, a.companyName, request.organisationAccount.id,
-                request.organisationAccount.companyName, l.uarn, p.address, agent.canCheck, agent.canChallenge, true
-              )
-              representations.create(req) map { _ =>
-                Ok(views.html.propertyRepresentation.appointedAgent(p.address, a.companyName))
-              } recover {
-                case _: BadRequestException => BadRequest(views.html.propertyRepresentation.invalidAppointment())
-              }
-            case _ => throw new Exception(s"Failed to find property with uarn ${l.uarn} when appointing agent")
+    if (ApplicationConfig.readyForPrimeTime) {
+      appointAgentForm.bindFromRequest().fold(
+        errors => BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, linkId))),
+        agent => {
+          for {
+            link <- propertyLinks.get(request.organisationAccount.id, linkId)
+            l = link.getOrElse(throw new Exception(s"Invalid linkId $linkId"))
+            account <- accounts.withAgentCode(agent.agentCode)
+            prop <- properties.get(l.uarn)
+            res <- (account, prop) match {
+              case (Some(_), Some(_)) if agentHasNoPermissions(agent) =>
+                val form = appointAgentForm.fill(agent).withError(invalidPermissions)
+                invalidAppointment(form, linkId)
+              case (None, Some(_)) if agentHasNoPermissions(agent) =>
+                val form = appointAgentForm.fill(agent).withError(invalidAgentCode).withError(invalidPermissions)
+                invalidAppointment(form, linkId)
+              case (None, Some(p)) =>
+                val form = appointAgentForm.fill(agent).withError(invalidAgentCode)
+                invalidAppointment(form, linkId)
+              case (Some(a), Some(p)) =>
+                val req = PropertyRepresentation(java.util.UUID.randomUUID().toString, linkId, a.groupId, a.companyName, request.organisationAccount.id,
+                  request.organisationAccount.companyName, l.uarn, p.address, agent.canCheck, agent.canChallenge, true
+                )
+                representations.create(req) map { _ =>
+                  Ok(views.html.propertyRepresentation.appointedAgent(p.address, a.companyName))
+                } recover {
+                  case _: BadRequestException => BadRequest(views.html.propertyRepresentation.invalidAppointment())
+                }
+              case _ => throw new Exception(s"Failed to find property with uarn ${l.uarn} when appointing agent")
+            }
+          } yield {
+            res
           }
-        } yield {
-          res
         }
-      }
-    )
+      )
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
   }
 
   private def agentHasNoPermissions(a: AppointAgent) = a.canCheck == NotPermitted && a.canChallenge == NotPermitted
@@ -111,11 +131,15 @@ trait AppointAgentController extends PropertyLinkingController {
   }
 
   def modify(representationId: String) = authenticated { implicit request =>
-    representations.get(representationId) map {
-      case Some(rep) =>
-        val form = appointAgentForm.fill(AppointAgent(rep.agentId, rep.canCheck, rep.canChallenge))
-        Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, rep.representationId)))
-      case None => throw new Exception(s"Invalid representation id $representationId")
+    if (ApplicationConfig.readyForPrimeTime) {
+      representations.get(representationId) map {
+        case Some(rep) =>
+          val form = appointAgentForm.fill(AppointAgent(rep.agentId, rep.canCheck, rep.canChallenge))
+          Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, rep.representationId)))
+        case None => throw new Exception(s"Invalid representation id $representationId")
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
     }
   }
 

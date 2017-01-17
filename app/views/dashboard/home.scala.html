@@ -1,3 +1,4 @@
+@import config.ApplicationConfig
 @(individualDetails: IndividualDetails, groupAccount:GroupAccount)(implicit request: Request[_], messages: Messages)
 
 
@@ -20,7 +21,9 @@
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.properties")</h3>
+            @if(ApplicationConfig.readyForPrimeTime) {
+                <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.properties")</h3>
+            }
 
             <h4 class="heading-medium">
                 <a href="@routes.Dashboard.manageProperties">@Messages("dashboard.home.manageProperties.link")</a>
@@ -30,40 +33,46 @@
                 @Messages("dashboard.home.manageProperties.text")
             </p>
 
-            <h4 class="heading-medium">
-                <a href="@routes.ClaimProperty.show">@Messages("dashboard.home.searchProperties.link")</a>
-            </h4>
-
-            <p>
-                @Messages("dashboard.home.searchProperties.text")
-            </p>
-            <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.representatives")</h3>
-            <h4 class="heading-medium">
-                <a href="#">
-                @Messages("dashboard.home.representatives.link")</a>
-            </h4>
-
-            <p>
-                @Messages("dashboard.home.representatives.text")
-            </p>
-            @if(groupAccount.isAgent) {
-                <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.clients")</h3>
+            @if(ApplicationConfig.readyForPrimeTime) {
                 <h4 class="heading-medium">
-                    <a href="@controllers.agent.routes.Representation.manageRepresentationRequest">
-                    @Messages("dashboard.home.clients.link")
-                    </a>
+                    <a href="@routes.ClaimProperty.show">@Messages("dashboard.home.searchProperties.link")</a>
                 </h4>
                 <p>
-                @Messages("dashboard.home.clients.text")
+                @Messages("dashboard.home.searchProperties.text")
                 </p>
+            }
+            @if(ApplicationConfig.readyForPrimeTime) {
+                <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.representatives")</h3>
+                <h4 class="heading-medium">
+                    <a href="#">
+                    @Messages("dashboard.home.representatives.link")</a>
+                </h4>
+
+                <p>
+                @Messages("dashboard.home.representatives.text")
+                </p>
+            }
+            @if(ApplicationConfig.readyForPrimeTime){
+                @if(groupAccount.isAgent) {
+                    <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.clients")</h3>
+                    <h4 class="heading-medium">
+                        <a href="@controllers.agent.routes.Representation.manageRepresentationRequest">
+                        @Messages("dashboard.home.clients.link")
+                        </a>
+                    </h4>
+                    <p>
+                    @Messages("dashboard.home.clients.text")
+                    </p>
+                }
             }
         </div>
         <div class="column-one-third">
-
-            <h4 class="heading-medium"> @Messages("dashboard.home.draft.cases") </h4>
-            <p>
-                <a href="@routes.Dashboard.draftCases">@Messages("dashboard.home.draft.cases.text")</a>
-            </p>
+            @if(ApplicationConfig.readyForPrimeTime) {
+                <h4 class="heading-medium"> @Messages("dashboard.home.draft.cases") </h4>
+                <p>
+                    <a href="@routes.Dashboard.draftCases">@Messages("dashboard.home.draft.cases.text")</a>
+                </p>
+            }
         </div>
     </div>
 

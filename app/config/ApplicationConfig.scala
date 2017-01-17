@@ -31,6 +31,7 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   val betaLoginPassword = getConfig("betaLoginPassword")
   val ivEnabled = getConfig("featureFlags.ivEnabled").toBoolean
   def businessRatesValuationUrl(page: String) = getConfig("business-rates-valuation.url") + s"/$page"
+  val readyForPrimeTime = getConfig("featureFlags.readyForPrimeTime").toBoolean
 
 
   private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
