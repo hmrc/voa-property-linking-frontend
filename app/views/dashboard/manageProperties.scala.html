@@ -1,4 +1,5 @@
 @import _root_.template.Display
+@import config.ApplicationConfig
 
 @(model: controllers.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
@@ -51,9 +52,11 @@
                             </ul>
                         </td>
                         <td >
-                            @if(p.canAppointAgent){
-                                <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("manageProperties.addAgent")</a>
-                                <br>
+                            @if(ApplicationConfig.readyForPrimeTime) {
+                                @if(p.canAppointAgent){
+                                    <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("manageProperties.addAgent")</a>
+                                    <br>
+                                }
                             }
                             @if(p.assessment.nonEmpty){
                                 <a href="@routes.Dashboard.assessments(p.linkId)">
@@ -67,7 +70,9 @@
         </table>
     }
 
-    <p><a href="@routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.searchLinkText")</a></p>
+    @if(ApplicationConfig.readyForPrimeTime) {
+        <p><a href="@routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
+    }
     <p><a class="link-back" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a></p>
 
 }

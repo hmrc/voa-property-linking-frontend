@@ -16,13 +16,17 @@
 
 package controllers.agent
 
-import config.Wiring
+import config.{ApplicationConfig, Global, Wiring}
 import controllers.PropertyLinkingController
 
 object Dashboard extends PropertyLinkingController {
   val authenticated = Wiring().authenticated
 
   def home() = authenticated { implicit request =>
-    Ok(views.html.agent.dashboard.home())
+    if (ApplicationConfig.readyForPrimeTime) {
+      Ok(views.html.agent.dashboard.home())
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
   }
 }

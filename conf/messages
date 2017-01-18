@@ -118,6 +118,8 @@ dashboard.home.clients.link=Manage clients
 dashboard.home.clients.text=View property representations requests
 dashboard.home.draft.cases=Draft cases
 dashboard.home.draft.cases.text=Continue editing checks that have not yet been submitted.
+dashboard.home.plannedFeatures=Coming soon
+dashboard.home.usefulLinks=Useful information
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=Manage Properties
@@ -131,7 +133,7 @@ manageProperties.table.5=Actions
 dashboard.manageProperties.status.added=Added
 dashboard.manageProperties.status.pending=Pending
 dashboard.manageProperties.noAgent=None
-dashboard.managedProperties.searchLinkText=Add another property
+dashboard.managedProperties.addAnotherProperty=Add another property
 manageProperties.addAgent=Appoint agent
 manageProperties.viewAssessments=View assessments
 link.dashboard.home=Back to dashboard

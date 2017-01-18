@@ -18,7 +18,7 @@ package controllers
 
 import javax.inject.Inject
 
-import config.Wiring
+import config.{ApplicationConfig, Global, Wiring}
 import connectors.{CapacityDeclaration, EnvelopeConnector}
 import connectors.fileUpload.FileUploadConnector
 import form.{DateAfter, EnumMapping}
@@ -40,21 +40,29 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
   lazy val authenticated = Wiring().authenticated
 
   def show() = ggAction { _ => implicit request =>
-    Redirect(s"${baseUrl("vmv-frontend")}/view-my-valuation/search")
+    if (ApplicationConfig.readyForPrimeTime) {
+      Redirect(s"${baseUrl("vmv-frontend")}/view-my-valuation/search")
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
   }
 
   def declareCapacity(uarn: Long) = authenticated { implicit request =>
-    connector.get(uarn).flatMap {
-      case Some(pd) =>
-        fileUploadConnector.createEnvelope().flatMap(envelopeId => {
-          val submissionId = java.util.UUID.randomUUID().toString.replace("-", "")
-          Logger.debug(s"envelope id: $envelopeId")
-          sessionRepository.start(pd, envelopeId, submissionId) map { _ =>
-            Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, pd.address)))
+    if (ApplicationConfig.readyForPrimeTime) {
+      connector.get(uarn).flatMap {
+        case Some(pd) =>
+          fileUploadConnector.createEnvelope().flatMap(envelopeId => {
+            val submissionId = java.util.UUID.randomUUID().toString.replace("-", "")
+            Logger.debug(s"envelope id: $envelopeId")
+            sessionRepository.start(pd, envelopeId, submissionId) map { _ =>
+              Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, pd.address)))
+            }
           }
-        }
-        )
-      case None => NotFound("Not found")
+          )
+        case None => NotFound("Not found")
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
     }
   }
 

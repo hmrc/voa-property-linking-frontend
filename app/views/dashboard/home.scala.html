@@ -1,3 +1,4 @@
+@import config.ApplicationConfig
 @(individualDetails: IndividualDetails, groupAccount:GroupAccount)(implicit request: Request[_], messages: Messages)
 
 
@@ -20,7 +21,9 @@
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.properties")</h3>
+            @if(ApplicationConfig.readyForPrimeTime) {
+                <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.properties")</h3>
+            }
 
             <h4 class="heading-medium">
                 <a href="@routes.Dashboard.manageProperties">@Messages("dashboard.home.manageProperties.link")</a>
@@ -30,41 +33,65 @@
                 @Messages("dashboard.home.manageProperties.text")
             </p>
 
-            <h4 class="heading-medium">
-                <a href="@routes.ClaimProperty.show">@Messages("dashboard.home.searchProperties.link")</a>
-            </h4>
-
-            <p>
-                @Messages("dashboard.home.searchProperties.text")
-            </p>
-            <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.representatives")</h3>
-            <h4 class="heading-medium">
-                <a href="#">
-                @Messages("dashboard.home.representatives.link")</a>
-            </h4>
-
-            <p>
-                @Messages("dashboard.home.representatives.text")
-            </p>
-            @if(groupAccount.isAgent) {
-                <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.clients")</h3>
+            @if(ApplicationConfig.readyForPrimeTime) {
                 <h4 class="heading-medium">
-                    <a href="@controllers.agent.routes.Representation.manageRepresentationRequest">
-                    @Messages("dashboard.home.clients.link")
-                    </a>
+                    <a href="@routes.ClaimProperty.show">@Messages("dashboard.home.searchProperties.link")</a>
                 </h4>
                 <p>
-                @Messages("dashboard.home.clients.text")
+                @Messages("dashboard.home.searchProperties.text")
                 </p>
+            }
+            @if(ApplicationConfig.readyForPrimeTime) {
+                <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.representatives")</h3>
+                <h4 class="heading-medium">
+                    <a href="#">
+                    @Messages("dashboard.home.representatives.link")</a>
+                </h4>
+
+                <p>
+                @Messages("dashboard.home.representatives.text")
+                </p>
+            }
+            @if(ApplicationConfig.readyForPrimeTime){
+                @if(groupAccount.isAgent) {
+                    <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.clients")</h3>
+                    <h4 class="heading-medium">
+                        <a href="@controllers.agent.routes.Representation.manageRepresentationRequest">
+                        @Messages("dashboard.home.clients.link")
+                        </a>
+                    </h4>
+                    <p>
+                    @Messages("dashboard.home.clients.text")
+                    </p>
+                }
             }
         </div>
         <div class="column-one-third">
-
-            <h4 class="heading-medium"> @Messages("dashboard.home.draft.cases") </h4>
-            <p>
-                <a href="@routes.Dashboard.draftCases">@Messages("dashboard.home.draft.cases.text")</a>
-            </p>
+            @if(ApplicationConfig.readyForPrimeTime) {
+                <h4 class="heading-medium"> @Messages("dashboard.home.draft.cases") </h4>
+                <p>
+                    <a href="@routes.Dashboard.draftCases">@Messages("dashboard.home.draft.cases.text")</a>
+                </p>
+            }
         </div>
     </div>
+    <h4 class="heading-medium">
+        @Messages("dashboard.home.plannedFeatures")
+        <ul class="list-bullet">
+            <li>View draft forms</li>
+            <li>Manage clients (agents only)</li>
+            <li>Claim properties</li>
+            <li>View messages</li>
+            <li>Manage cases</li>
+            <li>Manage agents</li>
+            <li>Manage personal details</li>
+            <li>Manage notifications</li>
+        </ul>
+    </h4>
+    <h4 class="heading-medium">
+    @Messages("dashboard.home.usefulLinks")
+    </h4>
+    <a href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">How non-domestic property (including plant and machinery) is valued</a><br>
+    <a href="https://www.gov.uk/guidance/how-to-check-your-rateable-value-is-correct">How to check that your rateable value is correct</a>
 
 }

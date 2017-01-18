@@ -22,6 +22,8 @@ import play.api.libs.json.{JsDefined, JsString, JsValue}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 
+import scala.concurrent.Future
+
 class IdentityVerification(http: HttpGet with HttpPost) extends ServicesConfig {
 
   val url = baseUrl("identity-verification")
@@ -31,11 +33,15 @@ class IdentityVerification(http: HttpGet with HttpPost) extends ServicesConfig {
   def verifyUrl = s"$url/mdtp/confirm?origin=voa&completionURL=$successUrl&failureURL=$failureUrl&confidenceLevel=200"
 
   def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier) = {
-    http.GET[JsValue](s"$url/mdtp/journey/journeyId/$journeyId") map { r =>
-      r \ "result" match {
-        case JsDefined(JsString("Success")) => true
-        case _ => false
+    if (ApplicationConfig.ivEnabled) {
+      http.GET[JsValue](s"$url/mdtp/journey/journeyId/$journeyId") map { r =>
+        r \ "result" match {
+          case JsDefined(JsString("Success")) => true
+          case _ => false
+        }
       }
+    } else {
+      Future.successful(true)
     }
   }
 }
