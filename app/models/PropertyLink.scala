@@ -28,14 +28,9 @@ case class DetailedPropertyLink(linkId: Int, uarn: Long, organisationId: Int, de
                                 capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean, assessment: Seq[Assessment])
 
 object PropertyLink {
-  //because the implicit format in Capacity's companion object isn't visible enough, for some reason
-  implicit private val capacityFmt = Json.format[Capacity]
-
   implicit val format = Json.format[PropertyLink]
 }
 
 object DetailedPropertyLink {
-  implicit private val capacityFmt = Json.format[Capacity]
-
   implicit val format = Json.format[DetailedPropertyLink]
 }
