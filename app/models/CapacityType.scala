@@ -16,6 +16,8 @@
 
 package models
 
+import serialization.EnumFormat
+
 sealed trait CapacityType extends NamedEnum {
   val name: String
   val key = "capacityType"
@@ -35,5 +37,7 @@ case object OwnerOccupier extends CapacityType {
 }
 
 object CapacityType extends NamedEnumSupport[CapacityType] {
+  implicit val format = EnumFormat(CapacityType)
+
   override def all: List[CapacityType] = List(Owner, Occupier, OwnerOccupier)
 }

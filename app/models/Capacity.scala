@@ -19,7 +19,6 @@ package models
 import connectors.CapacityDeclaration
 import org.joda.time.LocalDate
 import play.api.libs.json.Json
-import serialization.JsonFormats._
 
 case class Capacity(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate])
 

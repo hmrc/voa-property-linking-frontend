@@ -27,7 +27,6 @@ object JsonFormats {
   implicit val propertyDataFormat = Json.format[Property]
   implicit val agentPermissionFormat = EnumFormat(AgentPermissions)
   implicit val propertyRepresentationsFormat = Json.format[PropertyRepresentation]
-  implicit val capacityTypeFormat = EnumFormat(CapacityType)
   implicit val capacityFormat = Json.format[CapacityDeclaration]
   implicit val requestFlag = EnumFormat(LinkBasis)
   implicit val fileInfo = Json.format[FileInfo]
