@@ -123,9 +123,9 @@ dashboard.home.usefulLinks=Useful information
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=Manage Properties
-dashboard.manageProperties.noProperties=There are no properties to display. You may wish to claim a property.
+dashboard.manageProperties.noProperties=There are no properties to display.
 manageProperties.table.caption=Your properties
-manageProperties.table.1=Property
+manageProperties.table.1=Address
 manageProperties.table.2=Billing authority reference
 manageProperties.table.3=Status
 manageProperties.table.4=Appointed Agents
@@ -148,6 +148,7 @@ assessments.table.4=Valid from
 assessments.table.5=Valid until
 assessments.table.6=Actions
 assessments.enddate.present=Present
+assessments.view.valuation=View valuation
 assessments.view.valuation=View valuation
 
 #DASHBOARD DRAFT CASES

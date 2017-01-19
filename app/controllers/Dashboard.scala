@@ -48,7 +48,7 @@ trait Dashboard extends PropertyLinkingController {
     propLinkedConnector.assessments(linkId) map { assessments =>
       Ok(views.html.dashboard.assessments(
         AssessmentsVM(
-          assessments.map(x => x.copy(address = capitalizeWords(x.address))),
+          assessments,
           backLink
         )))
     }

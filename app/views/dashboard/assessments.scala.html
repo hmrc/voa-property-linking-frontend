@@ -1,5 +1,6 @@
 @import _root_.template.Display
 @import config.ApplicationConfig
+@import utils.Formatters
 
 @(model: controllers.AssessmentsVM)(implicit request: Request[_], messages: Messages)
 
@@ -10,7 +11,7 @@
                 <h1 class="heading-large">
                     @Messages("assessments.title")
                 </h1>
-                <h4 class="heading-medium">@model.assessments.head.address</h4>
+                <h4 class="heading-medium">@(Formatters.capitalizedAddress(model.assessments.head.address))</h4>
             </div>
         </div>
         <table class="table-font-xsmall">
@@ -22,24 +23,24 @@
                     <th scope="col">@Messages("assessments.table.3")</th>
                     <th scope="col">@Messages("assessments.table.4")</th>
                     <th scope="col">@Messages("assessments.table.5")</th>
-                    <th scope="col">@Messages("assessments.table.5")</th>
+                    <th scope="col">@Messages("assessments.table.6")</th>
                 </tr>
                 @model.assessments.map { assessment =>
                     <tr>
                         <td scope="row">
-                            @{assessment.effectiveDate}
+                            @(Formatters.formatDate("d MMM Y",assessment.effectiveDate))
                         </td>
                         <td>
-                        @{assessment.rateableValue}
+                        £@{assessment.rateableValue}
                         </td>
                         <td>
-                        @{assessment.capacity.capacity}
+                        @Messages(s"capacity.${assessment.capacity.capacity}")
                         </td>
                         <td>
-                        @{assessment.capacity.fromDate}
+                            @(Formatters.formatDate("d MMM Y",assessment.capacity.fromDate))
                         </td>
                         <td>
-                        @{assessment.capacity.toDate.getOrElse(Messages("assessments.enddate.present"))}
+                            @{assessment.capacity.toDate.map(Formatters.formatDate("d MMM Y",_)).getOrElse(Messages("assessments.enddate.present"))}
                         </td>
                         <td>
                             <a href=@ApplicationConfig.businessRatesValuationUrl(s"property-link/${assessment.linkId}/assessment/${assessment.asstRef}")>

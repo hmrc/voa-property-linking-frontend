@@ -1,5 +1,6 @@
 @import _root_.template.Display
 @import config.ApplicationConfig
+@import utils.Formatters
 
 @(model: controllers.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
@@ -28,7 +29,7 @@
                 @model.properties.map { p =>
                     <tr>
                         <td scope="row">
-                            @{p.address.lines.headOption.getOrElse("") + ", " + p.address.postcode}
+                            @(Formatters.capitalizedAddress(p.address))
                         </td>
                         <td>
                             @{p.assessment.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")}

@@ -19,6 +19,8 @@ package connectors.propertyLinking
 import connectors._
 import models._
 import org.joda.time.DateTime
+import play.api.Logger
+import play.api.libs.json.JsValue
 import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
@@ -45,7 +47,12 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
 
   def linkedProperties(organisationId: Int)(implicit hc: HeaderCarrier): Future[Seq[DetailedPropertyLink]] = {
     val url = baseUrl + s"/property-links/$organisationId"
-    http.GET[Seq[DetailedPropertyLink]](url)
+    val tmp = http.GET[JsValue](url)
+    val output = tmp.map(x => {
+      Logger.info(x.toString())
+      x.as[Seq[DetailedPropertyLink]]
+    })
+    output
   }
 
   def assessments(linkId: Int)(implicit hc: HeaderCarrier): Future[Seq[Assessment]] = {

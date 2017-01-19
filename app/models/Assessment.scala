@@ -27,7 +27,7 @@ case class Assessment(
                        uarn:Long,
                        effectiveDate:LocalDate,
                        rateableValue:Long,
-                       address: String,
+                       address: PropertyAddress,
                        billingAuthorityReference: String,
                        capacity: Capacity
                      )
