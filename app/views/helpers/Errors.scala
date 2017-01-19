@@ -32,6 +32,7 @@ object Errors {
   val dateMustBeInPast = "error.common.date.mustBeInPast"
   val dateMustBeAfterMarch2017 = "error.date.mustBeAfter2017"
   val dateMustBeAfterOtherDate = "error.date.mustBeAfterOther"
+  val invalidPostcode = "error.postcode"
 
   // Capacity Declaration
   val capacityRequired = "error.capacityDeclaration.capacityRequired"

@@ -33,13 +33,15 @@ object Mappings extends DateMappings {
 
   def mandatoryBoolean: Mapping[Boolean] = optional(boolean).verifying("error.required", _.isDefined).transform(_.get, Some.apply)
 
+  val postcodeRegex = """(GIR ?0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX]][0-9][A-HJKPSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY])))) ?[0-9][A-Z-[CIKMOV]]{2})""" //scalastyle:ignore
+
   def address: Mapping[Address] = mapping(
     "addressId" -> addressId,
-    "line1" -> nonEmptyText,
-    "line2" -> default(text, ""),
-    "line3" -> default(text, ""),
-    "line4" -> default(text, ""),
-    "postcode" -> nonEmptyText
+    "line1" -> nonEmptyText(maxLength = 100),
+    "line2" -> default(text(maxLength = 100), ""),
+    "line3" -> default(text(maxLength = 100), ""),
+    "line4" -> default(text(maxLength = 100), ""),
+    "postcode" -> nonEmptyText(maxLength = 100).transform[String](_.toUpperCase, identity).verifying(Errors.invalidPostcode, _.matches(postcodeRegex))
   )(Address.apply)(Address.unapply)
 
   private def addressId: Mapping[Option[Int]] = default(text, "").transform(t => Try { t.toInt }.toOption, _.map(_.toString).getOrElse(""))

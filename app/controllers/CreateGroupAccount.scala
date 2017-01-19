@@ -56,7 +56,7 @@ trait CreateGroupAccount extends PropertyLinkingController {
     val companyName = "companyName"
     val address = "address"
     val email = "businessEmail"
-    val confirmEmail = "confirmedEmail"
+    val confirmEmail = "confirmedBusinessEmail"
     val phone = "businessPhone"
     val isSmallBusiness = "isSmallBusiness"
     val isAgent = "isAgent"

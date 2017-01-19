@@ -47,7 +47,7 @@ dob.label=Date of birth
 label.createAccount.nino.nino=National insurance number
 error.nino.invalid=Invalid national insurance number
 dateOfBirth.label=Date of birth
-label.createAccount.confirmedEmail=Confirm business email address
+label.createAccount.confirmedEmail=Confirm email address
 label.createAccount.phone2=Mobile number
 hint.dateOfBirth=For example, 20 3 1976
 hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.
@@ -78,9 +78,9 @@ groupAlreadyExists.addedToGroup=You’ve been added to their customer record.
 
 #CREATE GROUP ACCOUNT
 createAccount.group.title=Register the business
-createAccount.p1=You’ll need to provide information about the business in order to complete the registration process.
 label.createAccount.companyName=Business name
 label.createAccount.businessEmail=Business email address
+label.createAccount.confirmedBusinessEmail=Confirm business email address
 label.createAccount.businessPhone=Business telephone number
 label.createAccount.isSmallBusiness=Is this a small business?
 isSmallBusiness.true=Yes
@@ -357,6 +357,7 @@ placeholder.address.line2=Address line 2
 placeholder.address.line3=Address line 3
 placeholder.address.line4=Address line 4
 label.findAddress=Find address
+error.postcode=Invalid postcode
 addressLookup.manual=I can’t find my address in the list
 addressLookup.lookup=Find address
 link.continue=Continue
