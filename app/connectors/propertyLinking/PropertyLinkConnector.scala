@@ -30,7 +30,7 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
   def get(organisationId: Int, linkId: Int)(implicit hc: HeaderCarrier): Future[Option[DetailedPropertyLink]] = {
-    linkedProperties(organisationId).map( links => links.filter(_.linkId == linkId).headOption)
+    linkedProperties(organisationId).map( links => links.find(_.linkId == linkId) )
   }
 
   def linkToProperty(property: Property, organisationId: Int, individualId: Int,

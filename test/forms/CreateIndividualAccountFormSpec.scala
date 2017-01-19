@@ -89,4 +89,18 @@ class CreateIndividualAccountFormSpec extends FlatSpec with MustMatchers {
   it must "require a valid date in the past" in {
     verifyMandatoryDate(form, validData, "dob")
   }
+
+  it must "require the first line of the address" in {
+    verifyMandatory(form, validData, "address.line1")
+  }
+
+  it must "require a postcode" in {
+    verifyMandatory(form, validData, "address.postcode")
+  }
+
+  it must "require a valid UK postcode" in {
+    Seq("postcode", "ABC 123", "123 ABC") foreach { invalid =>
+      verifyError(form, validData.updated("address.postcode", invalid), "address.postcode", Errors.invalidPostcode)
+    }
+  }
 }
