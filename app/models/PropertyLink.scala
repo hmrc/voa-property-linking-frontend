@@ -28,9 +28,11 @@ case class DetailedPropertyLink(linkId: Int, uarn: Long, organisationId: Int, de
                                 capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean, assessment: Seq[Assessment])
 
 object PropertyLink {
+  implicit private val capacityFmt = Json.format[Capacity]
   implicit val format = Json.format[PropertyLink]
 }
 
 object DetailedPropertyLink {
+  implicit private val capacityFmt = Json.format[Capacity]
   implicit val format = Json.format[DetailedPropertyLink]
 }
