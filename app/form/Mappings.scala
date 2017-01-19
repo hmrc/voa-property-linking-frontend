@@ -16,8 +16,8 @@
 
 package form
 
-import models.{NamedEnum, NamedEnumSupport, Address}
-import org.joda.time.DateTime
+import models.{Address, NamedEnum, NamedEnumSupport}
+import org.joda.time.LocalDate
 import play.api.data.Forms._
 import play.api.data.format.{Formats, Formatter}
 import play.api.data.validation.{Constraint, Constraints}
@@ -48,33 +48,17 @@ object Mappings extends DateMappings {
 }
 
 trait DateMappings {
-  def dmyDate: Mapping[DateTime] = toDateTime(dmyDateTuple)
 
-  def dmyDateAfterMarch2017 = toDateTime(dmyDateTupleAfterMarch2017)
-
-  def dmyPastDate: Mapping[DateTime] = toDateTime(dmyPastDateTuple)
-
-  private def toDateTime(m: Mapping[(Int, Int, Int)]): Mapping[DateTime] = m.transform[DateTime](
-    x => new DateTime(x._3, x._2, x._1, 0, 0, 0, 0),
-    x => (x.getDayOfMonth, x.getMonthOfYear, x.getYear)
-  )
-
-  private def dmyPastDateTuple = dmyDateTuple.verifying(
-    Errors.dateMustBeInPast,
-    x => new DateTime(x._3, x._2, x._1, 0, 0, 0, 0).isBefore(DateTime.now.withTimeAtStartOfDay)
-  )
-
-  private def dmyDateTupleAfterMarch2017 = dmyDateTuple.verifying(
-    Errors.dateMustBeAfterMarch2017,
-    x => new DateTime(x._3, x._2, x._1, 0, 0).isAfter(new DateTime(2017, 3, 31, 0, 0))
-  )
-
-  private def dmyDateTuple: Mapping[(Int, Int, Int)] = mapping(
+  def dmyDate: Mapping[LocalDate] = tuple(
     "day" -> number(1, 31),
     "month" -> number(1, 12),
     "year" -> number(1900, 3000)
-  )((d, m, y) => (d, m, y))(Some(_)).verifying(Errors.invalidDate, x => Try(new DateTime(x._3, x._2, x._1, 0, 0, 0, 0)).isSuccess)
+  ).verifying(Errors.invalidDate, x => x match { case (d, m, y) => Try(new LocalDate(y, m, d)).isSuccess } )
+    .transform({ case (d, m, y) => new LocalDate(y, m, d) }, d => (d.getDayOfMonth, d.getMonthOfYear, d.getYear))
 
+  def dmyDateAfterMarch2017: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfterMarch2017, d => d.isAfter(new LocalDate(2017, 3, 31)))
+
+  def dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfterMarch2017, d => d.isBefore(LocalDate.now))
 
   private def number(min: Int, max: Int) = Forms.of[Int](trimmingNumberFormatter).verifying(Constraints.min(min)).verifying(Constraints.max(max))
 
@@ -107,7 +91,7 @@ object EnumMapping {
   })
 }
 
-case class DateAfter(afterField: String, key: String = "", constraints: Seq[Constraint[DateTime]] = Nil) extends Mapping[DateTime] {
+case class DateAfter(afterField: String, key: String = "", constraints: Seq[Constraint[LocalDate]] = Nil) extends Mapping[LocalDate] {
   import Mappings._
 
   override val mappings = Nil
@@ -119,13 +103,13 @@ case class DateAfter(afterField: String, key: String = "", constraints: Seq[Cons
     case (Right(_), Right(_)) => Left(Seq(FormError(key, Errors.dateMustBeAfterOtherDate)))
   }
 
-  override def unbind(value: DateTime) = dmyDate.withPrefix(key).unbind(value)
+  override def unbind(value: LocalDate) = dmyDate.withPrefix(key).unbind(value)
 
-  override def unbindAndValidate(value: DateTime) = dmyDate.withPrefix(key).unbindAndValidate(value)
+  override def unbindAndValidate(value: LocalDate) = dmyDate.withPrefix(key).unbindAndValidate(value)
 
   override def withPrefix(prefix: String) = copy(key = prefix + key)
 
-  override def verifying(c: Constraint[DateTime]*) = copy(constraints = constraints ++ c.toSeq)
+  override def verifying(c: Constraint[LocalDate]*) = copy(constraints = constraints ++ c.toSeq)
 }
 
 case class TextMatching(other: String, errorKey: String, key: String = "", constraints: Seq[Constraint[String]] = Nil) extends Mapping[String] {

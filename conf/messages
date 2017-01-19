@@ -369,6 +369,7 @@ label.day=Day
 label.month=Month
 label.year=Year
 error.max=Must be less than or equal to {0}
+error.invalidDate=This must be a valid date
 
 #MISC
 alt.newWindow=Opens in a new window

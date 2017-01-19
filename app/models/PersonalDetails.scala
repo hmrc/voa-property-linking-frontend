@@ -16,10 +16,10 @@
 
 package models
 
-import org.joda.time.DateTime
+import org.joda.time.LocalDate
 import uk.gov.hmrc.domain.Nino
 
-case class PersonalDetails(firstName: String, lastName: String, dateOfBirth: DateTime, nino: Nino,
+case class PersonalDetails(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino,
                            email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: Address) {
 
   def ivDetails = IVDetails(firstName, lastName, dateOfBirth, nino)

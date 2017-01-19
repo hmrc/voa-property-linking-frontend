@@ -28,7 +28,7 @@ object Errors {
   val invalidDay = "error.common.date.invalidDay"
   val invalidMonth = "error.common.date.invalidMonth"
   val invalidYear = "error.common.date.invalidYear"
-  val invalidDate = "error.common.date.notARealDate"
+  val invalidDate = "error.invalidDate"
   val dateMustBeInPast = "error.common.date.mustBeInPast"
   val dateMustBeAfterMarch2017 = "error.date.mustBeAfter2017"
   val dateMustBeAfterOtherDate = "error.date.mustBeAfterOther"

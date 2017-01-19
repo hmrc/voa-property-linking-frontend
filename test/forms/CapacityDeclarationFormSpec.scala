@@ -19,7 +19,7 @@ package forms
 import connectors.CapacityDeclaration
 import controllers.ClaimProperty
 import models.{CapacityType, Occupier}
-import org.joda.time.DateTime
+import org.joda.time.LocalDate
 import org.scalatest.{FlatSpec, MustMatchers}
 import utils.FormBindingVerification._
 import views.helpers.Errors
@@ -30,7 +30,7 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
   behavior of "Capacity declaration form"
 
   it should "bind when the inputs are all valid" in {
-    mustBindTo(form, validData, CapacityDeclaration(Occupier, false, Some(new DateTime(2017, 12, 24, 0, 0, 0)), false, Some(new DateTime(2018, 1, 13, 0, 0, 0))))
+    mustBindTo(form, validData, CapacityDeclaration(Occupier, false, Some(new LocalDate(2017, 12, 24)), false, Some(new LocalDate(2018, 1, 13))))
   }
 
   it should "mandate a capacity" in {
