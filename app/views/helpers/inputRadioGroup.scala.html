@@ -5,16 +5,18 @@
         dataAttributes: Seq[(String, String, Any)] = Seq(),
         args: Seq[(Symbol, Any)])(implicit rh: RequestHeader, messages: Messages)
 
-@{
-    input(field, args.map { x => if(x._2 == '_label) '_name -> x._2 else x }: _*) { (id, name, value, htmlArgs) =>
+@input(field, args.map { x => if(x._2 == '_label) '_name -> x._2 else x }: _*) { (id, name, value, htmlArgs) =>
 
-        Html(options.map { v =>
-            s"""<label class="block-label" for="${id}_$v">
-            <input id="${id}_$v" type="radio" name="$name" value="$v"
-            ${if(value.contains(v)) "checked" else ""} ${toHtmlArgs(_root_.template.HtmlSupport.getArgs(v, dataAttributes, htmlArgs))} />
-            ${Messages(s"$id.$v")}
-            </label>"""
-        } mkString)
+    @options.map { v =>
+        <label class="block-label" for="@(id)_@v">
+            <input id="@(id)_@v" type="radio" name="@name" value="@v"
+            @if(value.contains(v)) {
+                checked
+            }
+            @toHtmlArgs(_root_.template.HtmlSupport.getArgs(v, dataAttributes, htmlArgs))
+            />
+            @Html(Messages(s"$id.$v"))
+        </label>
+    }
 
-    }(_root_.template.Helper.myFields, messages)
-}
+}(_root_.template.Helper.myFields, messages)
