@@ -1,11 +1,34 @@
+voa-property-linking-frontend
+=============
+A frontend service for the CCA (Business Rates) project at VOA. It communicates with voa-property-linking, and business-rates-authorisation microservices.
 
-# voa-property-linking-frontend
 
-[![Build Status](https://travis-ci.org/hmrc/voa-property-linking-frontend.svg?branch=master)](https://travis-ci.org/hmrc/voa-property-linking-frontend) [ ![Download](https://api.bintray.com/packages/hmrc/releases/voa-property-linking-frontend/images/download.svg) ](https://bintray.com/hmrc/releases/voa-property-linking-frontend/_latestVersion)
+# Installation
 
-This is a new prototype to explore how the VOA can link organisations to properties. The VOA must be certain of the link between an organisation and a property before releasing the full valuation details for the property and allowing the organisation to suggest changes.
+### Cloning:
 
-### License
+SSH
+```
+git@github.com:hmrc/voa-property-linking-frontend.git
+```
+HTTPS
+```
+https://github.com/hmrc/voa-property-linking-frontend.git
+```
+### Running the application
 
-This code is open source software licensed under the [Apache 2.0 License]("http://www.apache.org/licenses/LICENSE-2.0.html").
-    
+Ensure that you have the latest versions of the required services and that they are running. This can be done via service manager using the PROPERTY_LINKING profile
+```
+sm --start PROPERTY_LINKING -f
+sm --stop PROPERTY_LINKING
+```
+
+* `cd` to the root of the project.
+* `sbt run`
+* In your browser navigate to [localhost:9523/business-rates-property-linking](http://localhost:9523/business-rates-property-linking)
+
+
+### Found a bug?
+
+* Please raise an issue by selecting Issues near the top right hand side of this page.
+* Add comments, logs and screenshots where possible.
