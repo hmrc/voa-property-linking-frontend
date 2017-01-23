@@ -33,6 +33,10 @@ ggRegistration.p.2=We’ll ask you to verify your identity and confirm that you 
 betaLogin.title=Private beta login
 betaLogin.password=Password
 
+#LOCKED OUT
+lockedOut.title=Locked out
+lockedOut.p.1=You have entered the wrong password too many times. You are now locked out for 24 hours. Please call 03000 501 501 for help.
+
 #CREATE INDIVIDUAL ACCOUNT
 createAccount.individual.title=Register for the VOA’s service
 createAccount.individual.p.1=You now need to verify your identity and confirm that you have the right to act for the business.

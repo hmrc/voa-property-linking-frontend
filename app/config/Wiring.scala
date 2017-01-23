@@ -21,8 +21,9 @@ import auth.GGAction
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import models.{IVDetails, IndividualDetails, PersonalDetails}
+import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.{JsDefined, JsString, Reads}
+import play.api.libs.json.{JsDefined, JsString, Reads, Writes}
 import session.{LinkingSessionRepository, WithLinkingSession}
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.audit.http.HttpAuditing
@@ -30,6 +31,7 @@ import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
 import uk.gov.hmrc.play.http._
 import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
 
+import scala.concurrent.Future
 import scala.util.Try
 
 object Wiring {
@@ -55,6 +57,7 @@ abstract class Wiring {
   lazy val addresses = new Addresses(http)
   lazy val businessRatesAuthentication = new BusinessRatesAuthorisation(http)
   lazy val authenticated = new AuthenticatedAction
+  lazy val betaLoginConnector = new BetaLoginConnector(http)
 }
 
 class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {
@@ -92,6 +95,19 @@ class WSHttp extends WSGet with WSPut with WSDelete with WSPost with HttpAuditin
         case _ => res
       }
       case _ => res
+    }
+  }
+
+
+  override def doPost[A](url: String, body: A, headers: Seq[(String, String)])(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = {
+    super.doPost(url, body, headers) map { res =>
+      res.status match {
+        case 401 if hasJsonBody(res) => res.json \ "errorCode" match {
+          case JsDefined(JsString(err)) => throw AuthorisationFailed(err)
+          case _ => res
+        }
+        case _ => res
+      }
     }
   }
 

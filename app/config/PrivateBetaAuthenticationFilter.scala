@@ -31,8 +31,6 @@ object PrivateBetaAuthenticationFilter extends Filter with RunMode with Microser
     (rh.session.get("betaauthenticated"), isUnrestrictedPath, ApplicationConfig.betaLoginRequired) match {
       case (None, false, true) =>
         Future.successful(Redirect(controllers.routes.BetaLoginController.show))
-      case (Some(pw), false, true) if pw != ApplicationConfig.betaLoginPassword =>
-        Future.successful(Redirect(controllers.routes.BetaLoginController.show))
       case _ =>
         nextFilter(rh)
     }
