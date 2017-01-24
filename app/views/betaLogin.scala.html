@@ -1,4 +1,4 @@
-@()(implicit request: Request[_], messages: Messages)
+@(showError: Boolean = false)(implicit request: Request[_], messages: Messages)
 
     @main_template(Messages("betaLogin.title")) {
         <div class="grid-row">
@@ -13,7 +13,8 @@
 
                 <form action="@routes.BetaLoginController.login" method="post">
                     @helper.CSRF.formField
-                    <div class="form-group">
+                    <div class="form-group @if(showError) { error }">
+                        @if(showError) { <p class="error-message">Incorrect password</p> }
                         <label class="form-label-bold">@Messages("betaLogin.password")</label>
                         <input type="password" name="betaloginkey" class="form-control" />
                     </div>

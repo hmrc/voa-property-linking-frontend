@@ -16,24 +16,28 @@
 
 package controllers
 
-import config.ApplicationConfig.betaLoginPassword
+import config.Wiring
+import connectors.{LockedOut, LoggedIn}
+import play.api.data.{Form, Forms}
+import play.api.data.Forms._
 import play.api.mvc.Action
 
 trait BetaLoginController extends PropertyLinkingController {
+  val loginConnector = Wiring().betaLoginConnector
 
   def show = Action { implicit request =>
     Ok(views.html.betaLogin())
   }
 
-  def login = Action { implicit request =>
-    (for {
-      f <- request.body.asFormUrlEncoded
-      ps <- f.get("betaloginkey")
-      p <- ps.headOption if p == betaLoginPassword
-    } yield {
-      Redirect(routes.Dashboard.home).addingToSession("betaauthenticated" -> betaLoginPassword)
-    }).getOrElse(BadRequest(views.html.betaLogin()))
+  def login = Action.async(parse.form(loginForm)) { implicit request =>
+    loginConnector.login(request.body) map {
+      case LoggedIn => Redirect(routes.Dashboard.home).addingToSession("betaauthenticated" -> "")
+      case LockedOut => Unauthorized(views.html.lockedOut())
+      case _ => BadRequest(views.html.betaLogin(showError = true))
+    }
   }
+
+  private lazy val loginForm = Form(Forms.single("betaloginkey" -> nonEmptyText))
 }
 
 object BetaLoginController extends BetaLoginController
