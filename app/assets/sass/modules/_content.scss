@@ -146,3 +146,7 @@ html .beta-banner .phase-tag {
 #global-header .header-proposition #proposition-links.header__menu__proposition-links{
     margin-top: 7px;
 }
+
+.report-error__content h2 {
+  @include bold-24;
+}

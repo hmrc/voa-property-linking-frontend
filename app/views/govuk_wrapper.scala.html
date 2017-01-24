@@ -1,4 +1,4 @@
-@import config.FrontendAppConfig._
+@import config.ApplicationConfig._
 
 @(title: String,
   mainClass: Option[String] = None,
@@ -14,6 +14,7 @@
 
 @import layouts.{govuk_template => hmrcGovUkTemplate}
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
+@import uk.gov.hmrc.play.views.html.{helpers => uiHelpers}
 
 @head = {
     @uiLayouts.head(
@@ -43,8 +44,8 @@
 @betaBanner = {
     @uiLayouts.betaBanner(
         userLoggedIn = false,
-        betaFeedbackUrl = "#",
-        betaFeedbackUnauthenticatedUrl = "#",
+        betaFeedbackUrl = businessRatesValuationUrl("send-beta-feedback"),
+        betaFeedbackUnauthenticatedUrl = businessRatesValuationUrl("send-beta-feedback"),
         showFeedbackLinkInBetaBanner = true
     )
 }
@@ -86,7 +87,9 @@
       mainDataAttributes = mainDataAttributes,
       mainContentHeader = mainContentHeader,
       serviceInfo = serviceInfo,
-      sidebar = sidebar)
+      sidebar = sidebar,
+      getHelpForm = uiHelpers.reportAProblemLink(reportAProblemPartialUrl, reportAProblemNonJSUrl)
+    )
 }
 
 @hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(footerLinks), true)(content)
