@@ -24,7 +24,6 @@ import session.LinkingSession
 object JsonFormats {
   implicit val dateTimeReads = Reads.jodaDateReads("yyyy-MM-dd")
   implicit val dateTimeWrites = Writes.jodaDateWrites("yyyy-MM-dd")
-  implicit val propertyDataFormat = Json.format[Property]
   implicit val agentPermissionFormat = EnumFormat(AgentPermissions)
   implicit val propertyRepresentationsFormat = Json.format[PropertyRepresentation]
   implicit val capacityFormat = Json.format[CapacityDeclaration]

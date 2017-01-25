@@ -116,3 +116,5 @@ case object FilesAccepted extends EvidenceUploadResult
 case object FilesMissing extends EvidenceUploadResult
 
 case object FilesUploadFailed extends EvidenceUploadResult
+
+case class RequestSubmittedVM(address: PropertyAddress)
