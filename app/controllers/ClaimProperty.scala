@@ -71,18 +71,12 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
       case Some(session) => ClaimProperty.declareCapacityForm.bindFromRequest().fold(
         errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors, session.claimedProperty.address))),
         formData => sessionRepository.saveOrUpdate(session.withDeclaration(formData)) map { _ =>
-          chooseLinkingJourney(session.claimedProperty, formData)
+          Redirect(routes.ChooseEvidence.show())
         }
       )
       case None => NotFound("No linking session")
     }
   }
-
-  private def chooseLinkingJourney(p: Property, d: CapacityDeclaration): Result =
-    if (p.isSelfCertifiable)
-      Redirect(routes.SelfCertification.show())
-    else
-      Redirect(routes.ChooseEvidence.show())
 
 }
 
