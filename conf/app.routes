@@ -36,8 +36,6 @@ GET         /link-to-property/:uarn                                 @controllers
 POST        /link-to-property                                       @controllers.ClaimProperty.attemptLink()
 
 #Link scenarios
-GET         /self-certify                                           controllers.SelfCertification.show()
-POST        /confirm-self-certify                                   controllers.SelfCertification.submit()
 GET         /choose-evidence                                        controllers.ChooseEvidence.show()
 POST        /choose-evidence                                        controllers.ChooseEvidence.submit()
 GET         /upload-rates-bill                                      @controllers.UploadRatesBill.show()
@@ -46,7 +44,6 @@ GET         /upload-evidence                                        @controllers
 POST        /upload-evidence                                        @controllers.UploadEvidence.submit()
 
 #Linking outcomes
-GET         /self-certification-link-submitted                      controllers.SelfCertification.selfCertified()
 GET         /rates-bill-submitted                                   @controllers.UploadRatesBill.ratesBillUploaded()
 GET         /evidence-uploaded                                      @controllers.UploadEvidence.evidenceUploaded()
 GET         /no-evidence-uploaded/:refId                            @controllers.UploadEvidence.noEvidenceUploaded(refId: String)

@@ -20,10 +20,6 @@ sealed trait LinkBasis extends NamedEnum {
   val key = "requestFlag"
 }
 
-case object SelfCertifyFlag extends LinkBasis {
-  val name = "SELF_CERTIFY"
-}
-
 case object RatesBillFlag extends LinkBasis {
   val name = "RATES_BILL"
 }
@@ -37,5 +33,5 @@ case object NoEvidenceFlag extends LinkBasis {
 }
 
 object LinkBasis extends NamedEnumSupport[LinkBasis] {
-  override def all: List[LinkBasis] = List(SelfCertifyFlag, RatesBillFlag, OtherEvidenceFlag, NoEvidenceFlag)
+  override def all: List[LinkBasis] = List(RatesBillFlag, OtherEvidenceFlag, NoEvidenceFlag)
 }

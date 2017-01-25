@@ -26,5 +26,9 @@ object PropertyAddress {
   implicit val addressFormat = Json.format[PropertyAddress]
 }
 
-case class Property(uarn: Long, billingAuthorityReference: String, address: PropertyAddress, isSelfCertifiable: Boolean,
+case class Property(uarn: Long, billingAuthorityReference: String, address: PropertyAddress,
                     specialCategoryCode: String, description: String, bulkClassIndicator: String)
+
+object Property {
+  implicit val propertyFormat = Json.format[Property]
+}

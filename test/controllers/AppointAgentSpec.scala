@@ -138,7 +138,7 @@ class AppointAgentSpec extends ControllerSpec {
     val individualAccount = DetailedIndividualAccount("externalId", "trustId", 1, 2, IndividualDetails(
       "FirstName", "LastName", "email@address.com", "12345", None, Address(None, "999", "The Place", "", "", "AB12 3CD")
     ))
-    val property = Property(12345, "1234", PropertyAddress(Seq("123 Fake Street"), "AA1 1AA"), false, "123", "A building", "W")
+    val property = Property(12345, "1234", PropertyAddress(Seq("123 Fake Street"), "AA1 1AA"), "123", "A building", "W")
     val account = GroupAccount(Random.nextInt(Int.MaxValue), "987654", "a company",
       Address(None, "123", "The Road", "", "", "AA11 1AA"), "aa@aa.aa", "1234", false, None)
     val agentAccount = GroupAccount(Random.nextInt(Int.MaxValue), "456789", "another company",
