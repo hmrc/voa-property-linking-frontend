@@ -26,7 +26,6 @@ import scala.concurrent.Future
 trait Dashboard extends PropertyLinkingController {
   val propLinkedConnector = Wiring().propertyLinkConnector
   val reprConnector = Wiring().propertyRepresentationConnector
-  val propConnector = Wiring().propertyConnector
   val individuals = Wiring().individualAccountConnector
   val groups = Wiring().groupAccountConnector
   val auth = Wiring().authConnector
