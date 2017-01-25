@@ -1,10 +1,3 @@
-.top-navigation{
-	display: inline-block;
-	width: 100%;
-	.link-back{
-		margin: 0;
-	}
-}
 .navigation-links{
 	text-align: right;
 	margin: 0;
@@ -12,4 +5,7 @@
         display: inline-block;
         margin-left: 1em;
     }
+}
+#backLinkTop.link-back{
+	margin: 0;
 }

@@ -26,11 +26,11 @@
 
 <article class="content_body@if( includeGridWrapper ){ grid-wrapper}@if(articleClasses.isDefined){ @articleClasses.get }">
 
-    <div class="top-navigation">
-        @if(topBackLink){
-            <a href="#" id="backLinkTop" class="link-back" onclick="history.go(-1); return false;">@Messages("link.back")</a>
-        }
-        @if(topNavigation){
+    @if(topBackLink){
+        <a href="#" id="backLinkTop" class="link-back" onclick="history.go(-1); return false;">@Messages("link.back")</a>
+    }
+
+    @if(topNavigation){
         <ul class="navigation-links pull-right">
             @if(showLogout){
                 <li><a href="@routes.Dashboard.home()">@Messages("link.dashboardhome")</a></li>
@@ -39,8 +39,8 @@
                 <li><a href="@routes.Login.show">@Messages("label.login")</a></li>
             }
         </ul>
-        }
-    </div>
+    }
+
 
     @content
 
