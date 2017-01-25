@@ -15,8 +15,31 @@
 *@
 @(content: Html,
   includeGridWrapper: Boolean = false,
-  articleClasses: Option[String] = None)
+  articleClasses: Option[String] = None,
+  topNavigation: Boolean = false,
+  topBackLink: Boolean = false,
+  bottomBackLink: Boolean = false)(implicit messages: Messages)
 
 <article class="content_body@if( includeGridWrapper ){ grid-wrapper}@if(articleClasses.isDefined){ @articleClasses.get }">
+
+    <div class="top-navigation">
+        @if(topBackLink){
+            <a href="#" id="topLinkBottom" class="link-back" onclick="history.go(-1); return false;">@Messages("link.back")</a>
+        }
+        <ul class="navigation-links pull-right">
+            @if(topNavigation){
+                <li><a href="@routes.Dashboard.home()">@Messages("link.dashboardhome")</a></li>
+                <li><a href="@routes.Application.logOut">@Messages("logout.link")</a></li>
+            } else {
+                <li><a href="@routes.Login.show">@Messages("label.login")</a></li>
+            }
+        </ul>
+
+    </div>
+
     @content
+
+    @if(bottomBackLink){
+        <a href="#" id="backLinkBottom" class="link-back" onclick="history.go(-1); return false;">@Messages("link.back")</a>
+    }
 </article>

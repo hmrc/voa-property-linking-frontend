@@ -1,13 +1,16 @@
 @()(implicit request: Request[_], messages: Messages)
 
 
-@main_template(title = "Start page", showLogoutLink = false) {
+@main_template(
+    title = "Start page",
+    topNavigation = false
+) {
 
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            <h1 class="form-title heading-xlarge form-title-group">
-                <span class="section-title">@Messages("start.heading.register")</span>
+            <h1 class="heading-xlarge">
+                @Messages("start.heading.register")
             </h1>
 
             <h2 class="heading-medium">

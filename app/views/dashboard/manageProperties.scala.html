@@ -4,10 +4,13 @@
 
 @(model: controllers.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
-@main_template(title = Messages("dashboard.home.title")) {
+@main_template(
+title = Messages("dashboard.home.title"),
+topNavigation = true,
+topBackLink = true,
+bottomBackLink = true) {
         <div class="grid-row">
             <div class="column-two-thirds">
-                <a class="link-back link-header" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a>
                 <h1 class="heading-large">
                     @Messages("dashboard.manageProperties.title")
                 </h1>
@@ -74,6 +77,5 @@
     @if(ApplicationConfig.readyForPrimeTime) {
         <p><a href="@routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
     }
-    <p><a class="link-back" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a></p>
 
 }

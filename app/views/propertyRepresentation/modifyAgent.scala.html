@@ -5,7 +5,12 @@
 
 @(model: ModifyAgentVM)(implicit request: Request[_], messages: Messages)
 
-    @main_template(title = Messages("propertyRepresentation.modifyAgent.title")) {
+    @main_template(
+        title = Messages("propertyRepresentation.modifyAgent.title"),
+        topNavigation = true,
+        topBackLink = true,
+        bottomBackLink = true
+    ) {
 
 
         <div class="grid-row">
@@ -36,8 +41,7 @@
                 )
             )
 
-            <button type="submit" class="button">@Messages("propertyRepresentation.modifyAgent.button")</button>
-            <p><a href="@routes.Dashboard.manageProperties" class="link-back">@Messages("link.back")</a></p>
+            <p><button type="submit" class="button">@Messages("propertyRepresentation.modifyAgent.button")</button></p>
         }
     </div>
 </div>

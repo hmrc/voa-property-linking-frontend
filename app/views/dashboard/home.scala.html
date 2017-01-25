@@ -2,21 +2,33 @@
 @(individualDetails: IndividualDetails, groupAccount:GroupAccount)(implicit request: Request[_], messages: Messages)
 
 
-@main_template(title = Messages("dashboard.home.title")) {
+@main_template(
+title = Messages("dashboard.home.title"),
+    topNavigation = true
+) {
 
-    <h1 class="heading-xlarge margin-bottom-0">
-        <span class="heading-secondary">
-            @(individualDetails.firstName) @(individualDetails.lastName)
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <h1 class="heading-xlarge margin-bottom-0">
+                <span class="heading-secondary">
+                    @(individualDetails.firstName) @(individualDetails.lastName)
+                </span>
+                <span class="section-title">@Messages("dashboard.home.title")</span>
+            </h1>
+        </div>
+        <div class="column-one-third">
             @if(groupAccount.isAgent){
                 <span class="agent-code pull-right">
                     Agent Code: @(groupAccount.agentCode)
                 </span>
             }
-        </span>
-        <span class="section-title">@Messages("dashboard.home.title")</span>
-    </h1>
+        </div>
+    </div>
 
     <hr class="main-header">
+
+
 
     <div class="grid-row">
         <div class="column-two-thirds">
@@ -91,7 +103,7 @@
     <h4 class="heading-medium">
     @Messages("dashboard.home.usefulLinks")
     </h4>
-    <a href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">How non-domestic property (including plant and machinery) is valued</a><br>
-    <a href="https://www.gov.uk/guidance/how-to-check-your-rateable-value-is-correct">How to check that your rateable value is correct</a>
+    <p><a href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">How non-domestic property (including plant and machinery) is valued</a></p>
+    <p><a href="https://www.gov.uk/guidance/how-to-check-your-rateable-value-is-correct">How to check that your rateable value is correct</a></p>
 
 }

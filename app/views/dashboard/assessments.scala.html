@@ -4,10 +4,14 @@
 
 @(model: controllers.AssessmentsVM)(implicit request: Request[_], messages: Messages)
 
-@main_template(title = Messages("assessments.title")) {
+@main_template(
+    title = Messages("assessments.title"),
+    topNavigation = true,
+    topBackLink = true,
+    bottomBackLink = true
+) {
         <div class="grid-row">
             <div class="column-two-thirds">
-                <a class="link-back link-header" href="#" onclick="history.go(-1); return false;" id="back">@Messages("link.back")</a>
                 <h1 class="heading-large">
                     @Messages("assessments.title")
                 </h1>
@@ -51,11 +55,5 @@
                 }
             </tbody>
         </table>
-
-    <p>
-        <a class="link-back" href="@model.backLink.getOrElse("#")" id="back">@Messages("link.back")</a>
-        <br>
-        <a class="link-back" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a>
-    </p>
 
 }

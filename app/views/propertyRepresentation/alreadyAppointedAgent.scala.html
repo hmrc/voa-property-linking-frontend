@@ -4,7 +4,12 @@
 
 @(model: SelectAgentVM)(implicit request: Request[_], messages: Messages)
 
-@main_template(title = Messages("propertyRepresentation.alreadyAppointedAgent.title")) {
+@main_template(
+    title = Messages("propertyRepresentation.alreadyAppointedAgent.title"),
+    topNavigation = true,
+    topBackLink = true,
+    bottomBackLink = true
+) {
 
 
     <div class="grid-row">
@@ -20,9 +25,6 @@
                 <a href="@routes.AppointAgentController.appoint(model.linkId)" class="button">@Messages("propertyRepresentation.alreadyAppointedAgent.add")</a>
             </p>
 
-            <p>
-                <a href="@routes.Dashboard.manageProperties" class="link-back">@Messages("link.back")</a>
-            </p>
         </div>
     </div>
 }

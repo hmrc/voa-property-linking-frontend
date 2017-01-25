@@ -4,7 +4,12 @@
 
 @(propertyRepresentations: Seq[PropertyRepresentation])(implicit request: Request[_], messages: Messages)
 
-    @main_template(title = Messages("propertyRepresentation.selectAgent.title")) {
+    @main_template(
+        title = Messages("propertyRepresentation.selectAgent.title"),
+        topNavigation = true,
+        topBackLink = true,
+        bottomBackLink = true
+    ) {
 
         <div class="grid-row">
             <div class="column-two-thirds">

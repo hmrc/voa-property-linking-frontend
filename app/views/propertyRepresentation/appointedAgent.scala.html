@@ -1,6 +1,11 @@
 @(address: PropertyAddress, agentName: String)(implicit request: Request[_], messages: Messages)
 
-@main_template(title = Messages("propertyRepresentation.appointedAgent.title")) {
+@main_template(
+    title = Messages("propertyRepresentation.appointedAgent.title"),
+    topNavigation = true,
+    topBackLink = true,
+    bottomBackLink = true
+) {
 
 
     <div class="grid-row">
@@ -12,7 +17,6 @@
             <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
             <p>@Messages("appointedAgent.whatNext.p.1")</p>
 
-            <a href="@controllers.routes.Dashboard.home()" class="button">@Messages("link.dashboard")</a>
         </div>
     </div>
 }

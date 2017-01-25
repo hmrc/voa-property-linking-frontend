@@ -6,7 +6,10 @@
   bodyClasses: Option[String] = None,
   mainClass: Option[String] = None,
   headExtra: Html = Html(""),
-  scriptElem: Option[Html] = None, showLogoutLink: Boolean = true)(mainContent: Html)(implicit request : RequestHeader, messages: Messages)
+  scriptElem: Option[Html] = None,
+  topNavigation: Boolean = false,
+  topBackLink: Boolean = false,
+  bottomBackLink: Boolean = false)(mainContent: Html)(implicit request : RequestHeader, messages: Messages)
 
 @import uk.gov.hmrc.play.views.html.layouts
 
@@ -41,9 +44,14 @@
                headScripts = headScripts,
                contentHeader = contentHeader.orElse(contentHeaderTextAsHtml),
                mainContent = views.html.article(
-                   content = mainContent
+                   content = mainContent,
+                   topNavigation = topNavigation,
+                   topBackLink = topBackLink,
+                   bottomBackLink = bottomBackLink
                ),
                serviceInfoContent = serviceInfoContent,
                scriptElem = Some(scriptElem),
-               showLogoutLink = showLogoutLink
+               topNavigation = topNavigation,
+               topBackLink = topBackLink,
+               bottomBackLink = bottomBackLink
 )

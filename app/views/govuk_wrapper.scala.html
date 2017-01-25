@@ -10,7 +10,10 @@
   serviceInfoContent: Html = HtmlFormat.empty,
   headScripts: Html = HtmlFormat.empty,
   scriptElem: Option[Html] = None,
-  showLogoutLink: Boolean = true)(implicit request: RequestHeader, messages: Messages)
+  showLogoutLink: Boolean = false,
+  topNavigation: Boolean = true,
+  topBackLink: Boolean = true,
+  bottomBackLink: Boolean = true)(implicit request: RequestHeader, messages: Messages)
 
 @import layouts.{govuk_template => hmrcGovUkTemplate}
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
@@ -23,20 +26,15 @@
     <meta name="format-detection" content="telephone=no" />
 }
 
-@headerNavLinks = {
-    @if(showLogoutLink) {
-        <a href="@routes.Application.logOut">@Messages("logout.link")</a>
-    } else {
-        <a href="@routes.Login.show">@Messages("label.login")</a>
-    }
-}
+@headerNavLinks = {}
 
 @insideHeader = {
     @uiLayouts.header_nav(
       navTitle = Some(Messages("service.name")),
       navTitleLink = None,
       showBetaLink = false,
-      navLinks = Some(headerNavLinks))
+      navLinks = Some(Html(""))
+    )
 }
 
 @afterHeader = {}
@@ -77,6 +75,8 @@
     @if(contentHeader.isDefined) {
         @uiLayouts.main_content_header(contentHeader = contentHeader.get)
     }
+
+    @headerNavLinks
 }
 
 
