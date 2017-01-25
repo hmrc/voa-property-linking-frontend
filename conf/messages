@@ -384,7 +384,7 @@ label.phase=This is a new service – your <a href="{0}" target="_blank" id="bet
 label.beta=BETA
 label.checkTheForm=Check the form
 label.fixTheFollowing=Fix the following:
-logout.link=Log out
+logout.link=Logout
 label.optional=Optional
 label.required=Required
 
