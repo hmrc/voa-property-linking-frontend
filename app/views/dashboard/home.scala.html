@@ -2,29 +2,25 @@
 @(individualDetails: IndividualDetails, groupAccount:GroupAccount)(implicit request: Request[_], messages: Messages)
 
 
-@main_template(
-title = Messages("dashboard.home.title"),
-    topNavigation = true
-) {
+@main_template(title = Messages("dashboard.home.title")) {
 
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
-            <h1 class="heading-xlarge margin-bottom-0">
-                <span class="heading-secondary">
-                    @(individualDetails.firstName) @(individualDetails.lastName)
-                </span>
-                <span class="section-title">@Messages("dashboard.home.title")</span>
-            </h1>
-        </div>
-        <div class="column-one-third">
-            @if(groupAccount.isAgent){
-                <span class="agent-code pull-right">
-                    Agent Code: @(groupAccount.agentCode)
-                </span>
-            }
-        </div>
-    </div>
+    <h1 class="heading-xlarge no-margin">
+        <span class="heading-secondary">
+            @(individualDetails.firstName) @(individualDetails.lastName)
+        </span>
+        <span class="section-title">@Messages("dashboard.home.title")</span>
+        @if(groupAccount.isAgent){
+            <span class="agent-code pull-right">
+                Agent Code: @(groupAccount.agentCode)
+            </span>
+        }
+    </h1>
+
+
+
+
+
 
     <hr class="main-header">
 

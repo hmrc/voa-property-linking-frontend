@@ -1,8 +1,13 @@
 .top-navigation{
-	display: block;
+	display: inline-block;
+	width: 100%;
+	.link-back{
+		margin: 0;
+	}
 }
 .navigation-links{
 	text-align: right;
+	margin: 0;
     li{
         display: inline-block;
         margin-left: 1em;

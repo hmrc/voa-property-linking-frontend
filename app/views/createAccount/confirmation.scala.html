@@ -3,7 +3,7 @@
 
 @()(implicit request: Request[_], messages: Messages)
 
-    @main_template(Messages("account.confirmation.title")) {
+    @main_template(Messages("account.confirmation.title"), topNavigation = false) {
         <div class="grid-row">
             <div class="column-two-thirds">
 
@@ -13,7 +13,7 @@
                 </h1>
 
                 <p>@Messages("account.confirmation.youCan")</p>
-                
+
                 <a href="@routes.Dashboard.home" class="button">@Messages("link.dashboard")</a>
             </div>
         </div>

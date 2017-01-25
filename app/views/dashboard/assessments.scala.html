@@ -6,54 +6,50 @@
 
 @main_template(
     title = Messages("assessments.title"),
-    topNavigation = true,
     topBackLink = true,
     bottomBackLink = true
 ) {
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <h1 class="heading-large">
-                    @Messages("assessments.title")
-                </h1>
-                <h4 class="heading-medium">@(Formatters.capitalizedAddress(model.assessments.head.address))</h4>
-            </div>
-        </div>
-        <table class="table-font-xsmall">
-            <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
-            <tbody>
+    <h1 class="heading-xlarge margin-top-10">
+        @Messages("assessments.title")
+        <span class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</span>
+    </h1>
+
+    <table class="table-font-xsmall margin-bottom-20">
+        <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
+        <tbody>
+            <tr>
+                <th scope="col">@Messages("assessments.table.1")</th>
+                <th scope="col">@Messages("assessments.table.2")</th>
+                <th scope="col">@Messages("assessments.table.3")</th>
+                <th scope="col">@Messages("assessments.table.4")</th>
+                <th scope="col">@Messages("assessments.table.5")</th>
+                <th scope="col" class="last">@Messages("assessments.table.6")</th>
+            </tr>
+            @model.assessments.map { assessment =>
                 <tr>
-                    <th scope="col">@Messages("assessments.table.1")</th>
-                    <th scope="col">@Messages("assessments.table.2")</th>
-                    <th scope="col">@Messages("assessments.table.3")</th>
-                    <th scope="col">@Messages("assessments.table.4")</th>
-                    <th scope="col">@Messages("assessments.table.5")</th>
-                    <th scope="col">@Messages("assessments.table.6")</th>
+                    <td scope="row">
+                        @(Formatters.formatDate("d MMM Y",assessment.effectiveDate))
+                    </td>
+                    <td>
+                    £@{assessment.rateableValue}
+                    </td>
+                    <td>
+                    @Messages(s"capacity.${assessment.capacity.capacity}")
+                    </td>
+                    <td>
+                        @(Formatters.formatDate("d MMM Y",assessment.capacity.fromDate))
+                    </td>
+                    <td>
+                        @{assessment.capacity.toDate.map(Formatters.formatDate("d MMM Y",_)).getOrElse(Messages("assessments.enddate.present"))}
+                    </td>
+                    <td class="last">
+                        <a href=@ApplicationConfig.businessRatesValuationUrl(s"property-link/${assessment.linkId}/assessment/${assessment.asstRef}")>
+                            @Messages("assessments.view.valuation")
+                        </a>
+                    </td>
                 </tr>
-                @model.assessments.map { assessment =>
-                    <tr>
-                        <td scope="row">
-                            @(Formatters.formatDate("d MMM Y",assessment.effectiveDate))
-                        </td>
-                        <td>
-                        £@{assessment.rateableValue}
-                        </td>
-                        <td>
-                        @Messages(s"capacity.${assessment.capacity.capacity}")
-                        </td>
-                        <td>
-                            @(Formatters.formatDate("d MMM Y",assessment.capacity.fromDate))
-                        </td>
-                        <td>
-                            @{assessment.capacity.toDate.map(Formatters.formatDate("d MMM Y",_)).getOrElse(Messages("assessments.enddate.present"))}
-                        </td>
-                        <td>
-                            <a href=@ApplicationConfig.businessRatesValuationUrl(s"property-link/${assessment.linkId}/assessment/${assessment.asstRef}")>
-                                @Messages("assessments.view.valuation")
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
 
 }

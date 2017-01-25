@@ -37,6 +37,22 @@
 .no-margin{
 	margin: 0 !important;
 }
+.margin-top{
+    &-10{
+        margin-top: 10 !important;
+    }
+    &-20{
+        margin-top: 20 !important;
+    }
+}
+.margin-bottom{
+    &-10{
+        margin-top: 10 !important;
+    }
+    &-20{
+        margin-top: 20 !important;
+    }
+}
 
 .clearfix {
     content: "";

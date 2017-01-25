@@ -1,5 +1,14 @@
 .agent-code {
     color: $grey-1;
     display: inline-block;
-    margin-top: 1.6em;
+    margin-top: 1.2em;
+    font-size: .4em;
+}
+@media (max-width: 700px){
+    .agent-code {
+        display: block;
+        float: none !important;
+        margin-bottom: 4px;
+        margin-top: 0;
+    }
 }

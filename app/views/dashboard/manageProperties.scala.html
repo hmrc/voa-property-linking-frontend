@@ -5,21 +5,20 @@
 @(model: controllers.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-title = Messages("dashboard.home.title"),
-topNavigation = true,
-topBackLink = true,
-bottomBackLink = true) {
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <h1 class="heading-large">
-                    @Messages("dashboard.manageProperties.title")
-                </h1>
-            </div>
-        </div>
+    title = Messages("dashboard.home.title"),
+    topBackLink = true,
+    bottomBackLink = true
+) {
+
+
+        <h1 class="heading-xlarge margin-top-10">
+            @Messages("dashboard.manageProperties.title")
+        </h1>
+
         @if(model.properties.isEmpty){
             @Messages("dashboard.manageProperties.noProperties")
         } else {
-        <table class="table-font-xsmall">
+        <table class="table-font-xsmall margin-bottom-20">
             <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
             <tbody>
                 <tr>
@@ -27,7 +26,7 @@ bottomBackLink = true) {
                     <th scope="col">@Messages("manageProperties.table.2")</th>
                     <th scope="col">@Messages("manageProperties.table.3")</th>
                     <th scope="col">@Messages("manageProperties.table.4")</th>
-                    <th scope="col">@Messages("manageProperties.table.5")</th>
+                    <th scope="col" class="last">@Messages("manageProperties.table.5")</th>
                 </tr>
                 @model.properties.map { p =>
                     <tr>
@@ -55,7 +54,7 @@ bottomBackLink = true) {
                                 }
                             </ul>
                         </td>
-                        <td >
+                        <td class="last">
                             @if(ApplicationConfig.readyForPrimeTime) {
                                 @if(p.canAppointAgent){
                                     <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("manageProperties.addAgent")</a>

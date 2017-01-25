@@ -128,7 +128,7 @@ dashboard.home.plannedFeatures=Coming soon
 dashboard.home.usefulLinks=Useful information
 
 #DASHBOARD MANAGE PROPERTIES
-dashboard.manageProperties.title=Manage Properties
+dashboard.manageProperties.title=Manage properties
 dashboard.manageProperties.noProperties=There are no properties to display.
 manageProperties.table.caption=Your properties
 manageProperties.table.1=Address

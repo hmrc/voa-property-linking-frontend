@@ -13,10 +13,14 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *@
+
+
+
 @(content: Html,
   includeGridWrapper: Boolean = false,
   articleClasses: Option[String] = None,
-  topNavigation: Boolean = false,
+  showLogout: Boolean = true,
+  topNavigation: Boolean = true,
   topBackLink: Boolean = false,
   bottomBackLink: Boolean = false)(implicit messages: Messages)
 
@@ -24,17 +28,18 @@
 
     <div class="top-navigation">
         @if(topBackLink){
-            <a href="#" id="topLinkBottom" class="link-back" onclick="history.go(-1); return false;">@Messages("link.back")</a>
+            <a href="#" id="backLinkTop" class="link-back" onclick="history.go(-1); return false;">@Messages("link.back")</a>
         }
+        @if(topNavigation){
         <ul class="navigation-links pull-right">
-            @if(topNavigation){
+            @if(showLogout){
                 <li><a href="@routes.Dashboard.home()">@Messages("link.dashboardhome")</a></li>
                 <li><a href="@routes.Application.logOut">@Messages("logout.link")</a></li>
-            } else {
+            }else{
                 <li><a href="@routes.Login.show">@Messages("label.login")</a></li>
             }
         </ul>
-
+        }
     </div>
 
     @content

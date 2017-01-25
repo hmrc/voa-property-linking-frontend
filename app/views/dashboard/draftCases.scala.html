@@ -2,16 +2,17 @@
 
 @(model: DraftCasesVM)(implicit request: Request[_], messages: Messages)
 
-@main_template(title = Messages("draftCases.title")) {
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <a class="link-back link-header" href="#" onclick="history.go(-1); return false;" id="back">@Messages("link.back")</a>
-                <h1 class="heading-large">
-                    @Messages("draftCases.title")
-                </h1>
-            </div>
-        </div>
-        <table class="table-font-xsmall">
+@main_template(
+    title = Messages("draftCases.title"),
+    topBackLink = true,
+    bottomBackLink = true
+) {
+
+        <h1 class="heading-xlarge margin-top-10">
+            @Messages("draftCases.title")
+        </h1>
+
+        <table class="table-font-xsmall margin-bottom-20">
             <caption class="visuallyhidden">@Messages("draftCases.table.caption")</caption>
             <tbody>
                 <tr>
@@ -44,11 +45,5 @@
                 }
             </tbody>
         </table>
-
-    <p>
-        <a class="link-back" href="#" onclick="history.go(-1); return false;" id="back">@Messages("link.back")</a>
-        <br>
-        <a class="link-back" href="@routes.Dashboard.home" id="home">@Messages("link.dashboard.home")</a>
-    </p>
 
 }
