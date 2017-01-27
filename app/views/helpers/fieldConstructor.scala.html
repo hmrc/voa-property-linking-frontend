@@ -63,7 +63,7 @@ Example usage:
     @elements.args.get('_detailsQuestion) match {
         case Some(q) => {
             <details>
-                <summary><span>@q</span></summary>
+                <summary><span class="summary">@q</span></summary>
                 <div class="panel-indent">
                   @elements.args.get('_detailsAnswer).map { detailsAnswer => @detailsAnswer }
                 </div>

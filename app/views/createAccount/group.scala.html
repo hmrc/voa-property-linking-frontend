@@ -13,6 +13,13 @@
 
                     <h1 class="heading-xlarge">@Messages("createAccount.group.title")</h1>
 
+                    <details>
+                        <summary><span class="summary">@Messages("createAccount.group.details.header")</span></summary>
+                        <div class="panel-indent">
+                          @Messages("createAccount.group.details.content")
+                        </div>
+                    </details>
+
                     <p>@Messages("createAccount.p1")</p>
 
                     @includes.errorSummary(model.form, messagePrefix = Some("createAccount"))
