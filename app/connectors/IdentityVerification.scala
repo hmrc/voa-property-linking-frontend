@@ -30,7 +30,7 @@ class IdentityVerification(http: HttpGet with HttpPost) extends ServicesConfig {
   private val successUrl = ApplicationConfig.baseUrl + controllers.routes.IdentityVerification.restoreSession.url
   private val failureUrl = ApplicationConfig.baseUrl + controllers.routes.IdentityVerification.fail.url
 
-  def verifyUrl = s"$url/mdtp/confirm?origin=voa&completionURL=$successUrl&failureURL=$failureUrl&confidenceLevel=200"
+  def verifyUrl = s"${ApplicationConfig.sivUrl}/mdtp/confirm?origin=voa&completionURL=$successUrl&failureURL=$failureUrl&confidenceLevel=200"
 
   def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier) = {
     if (ApplicationConfig.ivEnabled) {

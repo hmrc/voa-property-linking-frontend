@@ -41,7 +41,7 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
 
   def show() = ggAction { _ => implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
-      Redirect(s"${baseUrl("vmv-frontend")}/view-my-valuation/search")
+      Redirect(s"${ApplicationConfig.vmvUrl}/search")
     } else {
       NotFound(Global.notFoundTemplate)
     }
