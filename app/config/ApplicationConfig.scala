@@ -25,8 +25,11 @@ import uk.gov.hmrc.play.config.ServicesConfig
 object ApplicationConfig extends RunMode with ServicesConfig {
 
   def baseUrl = if (env == "Prod") "" else "http://localhost:9523"
-  val contactHost = baseUrl("contact-frontend")
+  val contact = getConfig("contact-frontend.url")
   val contactFormServiceIdentifier = "CCA"
+
+  val vmvUrl = getConfig("vmv-frontend.url")
+  val sivUrl = getConfig("identity-verification-frontend.url")
 
   val ggSignInUrl = getConfig("gg-sign-in.url")
   val ggRegistrationUrl = getConfig("gg-registration.url")
@@ -36,8 +39,8 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   def businessRatesValuationUrl(page: String) = getConfig("business-rates-valuation.url") + s"/$page"
   val readyForPrimeTime = getConfig("featureFlags.readyForPrimeTime").toBoolean
 
-  lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
-  lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
+  lazy val reportAProblemPartialUrl = s"$contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
+  lazy val reportAProblemNonJSUrl = s"$contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val analyticsToken = mustGetConfigString(Play.current, s"google-analytics.token")
   lazy val analyticsHost = mustGetConfigString(Play.current, s"google-analytics.host")
 

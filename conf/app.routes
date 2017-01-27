@@ -8,7 +8,7 @@ POST        /betalogin                                              controllers.
 GET         /login                                                  controllers.Login.show
 GET         /register                                               controllers.Register.show
 GET         /registered                                             controllers.Register.confirm
-GET         /logout                                                 controllers.Application.logOut()
+GET         /logout                                                 controllers.Application.logOut
 
 #Create individual account
 GET         /create-account                                         controllers.CreateIndividualAccount.show
