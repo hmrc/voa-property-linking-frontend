@@ -1,0 +1,9 @@
+/* In-page feedback */
+
+.report-error__content h2{
+    @include bold-24;
+}
+textarea#report-error{
+    height: 200px;
+    width: 100%;
+}

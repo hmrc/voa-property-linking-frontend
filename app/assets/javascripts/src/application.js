@@ -14,6 +14,7 @@
         new VOA.RadioToggleFields();
         new VOA.JqueryFiler();
         new VOA.postcodeLookup();
+        new VOA.InPageFeedbackOverride();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));
