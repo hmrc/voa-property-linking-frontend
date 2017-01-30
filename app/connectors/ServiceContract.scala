@@ -19,17 +19,25 @@ package connectors
 import models._
 import org.joda.time.{DateTime, LocalDate}
 import play.api.libs.json.Json
+import serialization.JsonFormats._
 
 case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate],
                                stillInterested: Boolean, toDate: Option[LocalDate] = None)
 
 case class FileInfo(fileName: String, fileType: String)
 
-case class PropertyLinkRequest(uarn: Long, organisationId: Int, individualId: Int,
+case class PropertyLinkRequest(uarn: Long,
+                               organisationId: Int,
+                               individualId: Int,
                                capacityDeclaration: Capacity,
-                               linkedDate: DateTime, linkBasis: LinkBasis,
-                               specialCategoryCode: String, description: String, bulkClassIndicator: String,
-                               fileInfo: Option[FileInfo])
+                               linkedDate: DateTime,
+                               linkBasis: LinkBasis,
+                               fileInfo: Seq[FileInfo],
+                               submissionId: String)
+
+object PropertyLinkRequest {
+  implicit val format = Json.format[PropertyLinkRequest]
+}
 
 case class LinkedProperties(added: Seq[DetailedPropertyLink], pending: Seq[DetailedPropertyLink])
 
@@ -40,7 +48,5 @@ case class PropertyRepresentation(representationId: String, linkId: Int, agentId
 case class UpdatedRepresentation(representationId: String, canCheck: AgentPermission, canChallenge: AgentPermission)
 
 object UpdatedRepresentation {
-  import serialization.JsonFormats._
-
   implicit val format = Json.format[UpdatedRepresentation]
 }
