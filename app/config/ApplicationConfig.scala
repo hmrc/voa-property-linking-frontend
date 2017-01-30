@@ -43,6 +43,7 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   lazy val reportAProblemNonJSUrl = s"$contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val analyticsToken = mustGetConfigString(Play.current, s"google-analytics.token")
   lazy val analyticsHost = mustGetConfigString(Play.current, s"google-analytics.host")
+  lazy val voaPersonID = mustGetConfigString(Play.current, s"google-analytics.dimensions.voaPersonId")
 
   private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
 }

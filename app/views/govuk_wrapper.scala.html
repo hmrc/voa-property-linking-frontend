@@ -48,13 +48,20 @@
     )
 }
 
+@voaPersonIdValue = {"XXX"}
+
+@analyticsAdditionalJs = {
+    ga('set', @voaPersonID, @voaPersonIdValue);
+}
+
 @bodyEnd = {
     @uiLayouts.footer(
       analyticsToken = Some(analyticsToken),
       analyticsHost = analyticsHost,
       ssoUrl = None,
       scriptElem =  scriptElem,
-      gaCalls = None)
+      gaCalls = None,
+      Option(analyticsAdditionalJs))
 }
 
 @footerTop = {}
