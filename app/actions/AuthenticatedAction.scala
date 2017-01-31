@@ -35,9 +35,9 @@ class AuthenticatedAction {
   val groupAccounts = Wiring().groupAccountConnector
   val individualAccounts = Wiring().individualAccountConnector
 
-  def apply(body: AuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
+  def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
     businessRatesAuthentication.authenticate flatMap {
-      case Authenticated(ids) => body(AuthenticatedRequest(ids.organisationId, ids.personId, request))
+      case Authenticated(ids) => body(BasicAuthenticatedRequest(ids.organisationId, ids.personId, request))
       case InvalidGGSession => GovernmentGatewayProvider.redirectToLogin
       case NoVOARecord => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
       case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
@@ -66,9 +66,19 @@ class AuthenticatedAction {
   }
 }
 
-case class AuthenticatedRequest[A](organisationId: Int, personId: Int, request: Request[A]) extends WrappedRequest[A](request)
+sealed trait AuthenticatedRequest[A] extends Request[A] {
+  val organisationId: Int
+  val personId: Int
+}
+
+case class BasicAuthenticatedRequest[A](organisationId: Int, personId: Int, request: Request[A])
+  extends WrappedRequest[A](request) with AuthenticatedRequest[A]
 
 case class DetailedAuthenticatedRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A])
-  extends WrappedRequest(request)
+  extends WrappedRequest(request) with AuthenticatedRequest[A] {
+  override val organisationId = organisationAccount.id
+  override val personId = individualAccount.individualId
+}
 
-case class AgentRequest[A](organisationId: Int, personId: Int, agentCode: String, request: Request[A]) extends WrappedRequest[A](request)
+case class AgentRequest[A](organisationId: Int, personId: Int, agentCode: String, request: Request[A])
+  extends WrappedRequest[A](request) with AuthenticatedRequest[A]
