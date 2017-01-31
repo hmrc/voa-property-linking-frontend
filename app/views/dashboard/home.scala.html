@@ -1,12 +1,11 @@
 @import config.ApplicationConfig
-@import actions.DetailedAuthenticatedRequest
+@import actions.AuthenticatedRequest
 
-@(individualDetails: IndividualDetails, groupAccount:GroupAccount)(implicit request: DetailedAuthenticatedRequest[_], messages: Messages)
-
+@(individualDetails: IndividualDetails, groupAccount:GroupAccount)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @main_template(
     title = Messages("dashboard.home.title"),
-    individualId = Some(request.individualAccount.individualId)
+    individualId = Some(request.personId)
     ) {
 
 
