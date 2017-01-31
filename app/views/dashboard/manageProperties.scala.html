@@ -1,16 +1,17 @@
 @import _root_.template.Display
 @import config.ApplicationConfig
 @import utils.Formatters
+@import actions.AuthenticatedRequest
 
-@(model: controllers.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
+@(model: controllers.ManagePropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @main_template(
     title = Messages("dashboard.home.title"),
     topBackLink = true,
-    bottomBackLink = true
+    bottomBackLink = true,
+    individualId = Some(request.personId)
 ) {
-
-
+    
         <h1 class="heading-xlarge">
             @Messages("dashboard.manageProperties.title")
         </h1>

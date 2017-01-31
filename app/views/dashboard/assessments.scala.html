@@ -1,13 +1,15 @@
 @import _root_.template.Display
 @import config.ApplicationConfig
 @import utils.Formatters
+@import actions.AuthenticatedRequest
 
-@(model: controllers.AssessmentsVM)(implicit request: Request[_], messages: Messages)
+@(model: controllers.AssessmentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @main_template(
     title = Messages("assessments.title"),
     topBackLink = true,
-    bottomBackLink = true
+    bottomBackLink = true,
+    individualId = Some(request.personId)
 ) {
     <h1 class="heading-xlarge">
         @Messages("assessments.title")

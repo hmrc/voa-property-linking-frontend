@@ -1,11 +1,13 @@
 @import _root_.template.Display
+@import actions.AuthenticatedRequest
 
-@(model: DraftCasesVM)(implicit request: Request[_], messages: Messages)
+@(model: DraftCasesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @main_template(
     title = Messages("draftCases.title"),
     topBackLink = true,
-    bottomBackLink = true
+    bottomBackLink = true,
+    individualId = Some(request.personId)
 ) {
 
         <h1 class="heading-xlarge">
