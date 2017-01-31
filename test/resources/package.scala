@@ -16,7 +16,7 @@
 
 import connectors.CapacityDeclaration
 import models._
-import org.joda.time.LocalDate
+import org.joda.time.{DateTime, LocalDate}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
 
@@ -24,6 +24,7 @@ import org.scalacheck.{Arbitrary, _}
 package object resources {
 
   implicit val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new LocalDate(_)))
+  implicit val arbitraryDateTime: Arbitrary[DateTime] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new DateTime(_)))
 
   val propertyAddressGen: Gen[PropertyAddress] = for {
     lines <- Gen.nonEmptyListOf(Gen.alphaNumStr)
@@ -42,8 +43,11 @@ package object resources {
   } yield Property(uarn, billingAuthorityReference, address, specialCategoryCode, description, bulkClassIndicator)
   implicit val arbitraryProperty = Arbitrary(for {p <- propertyGen} yield p)
 
+  val capacityTypeGen: Gen[CapacityType] = Gen.oneOf(Owner, OwnerOccupier, Occupier)
+  implicit val arbitratyCapacityType = Arbitrary(capacityTypeGen)
+
   val capacityDeclarationGen: Gen[CapacityDeclaration] = for {
-    capacity <- Gen.oneOf(Owner, Occupier, OwnerOccupier)
+    capacity <- arbitrary[CapacityType]
     interestedBefore2017 <- arbitrary[Boolean]
     fromDate <-  arbitrary[Option[LocalDate]]
     stillInterested <- arbitrary[Boolean]
@@ -80,7 +84,6 @@ package object resources {
   } yield DetailedIndividualAccount(externalId, trustId, organisationId, individualId, individualDetails)
   implicit val arbitraryIndividual = Arbitrary(individualGen)
 
-
   val groupAccountGen: Gen[GroupAccount] = for {
     id <- arbitrary[Int]
     groupId <- Gen.alphaNumStr
@@ -93,4 +96,39 @@ package object resources {
   } yield GroupAccount(id, groupId, companyName, address, email, phone.mkString, isSmallBusiness, agentCode)
   implicit val arbitraryGroupAccount = Arbitrary(groupAccountGen)
 
+  val capacityGen: Gen[Capacity] = for {
+    capacity <- arbitrary[CapacityType]
+    fromDate <- arbitrary[LocalDate]
+    toDate <- arbitrary[Option[LocalDate]]
+  } yield Capacity(capacity, fromDate, toDate)
+  implicit val arbitraryCapacity = Arbitrary(capacityGen)
+
+  val assessmentGen: Gen[Assessment] = for {
+    linkId <- arbitrary[Int]
+    asstRef <- arbitrary[Long]
+    listYear <- arbitrary[String]
+    uarn <- arbitrary[Long]
+    effectiveDate <- arbitrary[LocalDate]
+    rateableValue <- arbitrary[Long]
+    address <- arbitrary[ PropertyAddress]
+    billingAuthorityReference <- arbitrary[String]
+    capacity <- arbitrary[Capacity]
+  } yield models.Assessment(linkId, asstRef, listYear, uarn, effectiveDate, rateableValue, address, billingAuthorityReference, capacity) 
+  implicit val arbitraryAssessment = Arbitrary(assessmentGen)
+  
+  val detailedPropertyLinkGen: Gen[DetailedPropertyLink] = for {
+    linkId <- arbitrary[Int]
+    uarn <- arbitrary[Long]
+    organisationId <- arbitrary[Int]
+    description <- Gen.alphaNumStr
+    agentNames <- Gen.listOf(Gen.alphaNumStr)
+    canAppointAgent <- arbitrary[Boolean]
+    address <- arbitrary[PropertyAddress]
+    capacity <- arbitrary[Capacity]
+    linkedDate <- arbitrary[DateTime]
+    pending <- arbitrary[Boolean]
+    assessment <- Gen.listOf(arbitrary[Assessment])
+  } yield DetailedPropertyLink(linkId, uarn, organisationId, description, agentNames, canAppointAgent, address, capacity,
+    linkedDate, pending, assessment)
+  implicit val arbitraryDetailedPropertyLink = Arbitrary(detailedPropertyLinkGen)
 }

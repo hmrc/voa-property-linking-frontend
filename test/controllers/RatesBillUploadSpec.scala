@@ -19,33 +19,33 @@ package controllers
 import java.io.File
 import java.nio.file.{Files, Paths}
 
-import connectors.CapacityDeclaration
-import models._
-import org.joda.time.DateTime
-import org.jsoup.Jsoup
-import play.api.libs.Files.TemporaryFile
-import play.api.mvc.MultipartFormData.FilePart
-import play.api.mvc.MultipartFormData
-import play.api.test.{FakeRequest, Helpers}
-import play.api.test.Helpers._
 import _root_.session.LinkingSession
 import config.VPLSessionCache
+import connectors.CapacityDeclaration
 import connectors.fileUpload.FileUpload
-import org.scalatest.mock.MockitoSugar
+import models._
+import org.jsoup.Jsoup
+import org.scalacheck.Arbitrary._
+import org.scalatest.mockito.MockitoSugar
+import play.api.libs.Files.TemporaryFile
+import play.api.mvc.MultipartFormData
+import play.api.mvc.MultipartFormData.FilePart
+import play.api.test.Helpers._
+import play.api.test.{FakeRequest, Helpers}
+import resources._
 import utils._
 
-
-class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
+class RatesBillUploadSpec extends ControllerSpec with MockitoSugar {
   implicit val request = FakeRequest().withSession(token)
-
-  import TestData._
 
   val mockFileUploads = mock[FileUpload]
   object TestUploadRatesBill extends UploadRatesBill(mockFileUploads)  {
-    override lazy val withLinkingSession = new StubWithLinkingSession(property, capacityDeclaration, individual ,groupAccount)
+    val property = arbitrary[Property].sample.get
+    override lazy val withLinkingSession = new StubWithLinkingSession(property, arbitrary[CapacityDeclaration].sample.get,
+      arbitrary[DetailedIndividualAccount].sample.get, arbitrary[GroupAccount].sample.get)
     override lazy val propertyLinkConnector = StubPropertyLinkConnector
     lazy val sessionCache = new VPLSessionCache(StubHttp)
-    override lazy val sessionRepository = new StubLinkingSessionRepository(session, sessionCache)
+    override lazy val sessionRepository = new StubLinkingSessionRepository(LinkingSession(property, "envelopeId", "submissionId"), sessionCache)
   }
 
   "Upload Rates Bill upload page" must "allow the user to upload some evidence or not" in {
@@ -97,7 +97,9 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
     val res = TestUploadRatesBill.ratesBillUploaded()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainSuccessSummary("✔ We’ve received your request to add leen1, leen2, leen3, AA11 1AA to your business’s customer record.")
+    page.mustContainSuccessSummary(s"✔ We’ve received your request to add ${
+      TestUploadRatesBill.property.address.lines.mkString(", ")}, ${
+      TestUploadRatesBill.property.address.postcode} to your business’s customer record.")
   }
 
   it must "contains a link to the dashboard" in {
@@ -106,20 +108,5 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainLink("#backToDashBoard", routes.Dashboard.home.url)
-  }
-
-  object TestData {
-    lazy val baRef = "sfku03802342"
-    lazy val uarn = 2345678
-    lazy val address = PropertyAddress(Seq("leen1", "leen2", "leen3"), "AA11 1AA")
-    lazy val property = Property(uarn, baRef, address, "SCAT", "description", "C")
-    lazy val capacityDeclaration =  CapacityDeclaration(Owner, true, None, true, None)
-    lazy val session = LinkingSession(property, "envelopeId", "submissionId")
-    lazy val individual = DetailedIndividualAccount("externalId", "trustId", 111, 111,
-      IndividualDetails("fistName", "lastName", "email", "phone1", None, Address(None, "line1", "line2", "line3", "line4", "postcode"))
-    )
-    lazy val groupAccount = GroupAccount(1, "groupId", "company name",
-      Address(None, "line1", "line2", "line3", "line4", "postcode"),
-      "email", "phone", true, false, "")
   }
 }

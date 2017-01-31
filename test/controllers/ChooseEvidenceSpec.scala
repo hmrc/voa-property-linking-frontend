@@ -15,6 +15,9 @@
  */
 
 package controllers
+import connectors.CapacityDeclaration
+import models.{Property, DetailedIndividualAccount, GroupAccount}
+import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import utils.{HtmlPage, StubWithLinkingSession}
 import play.api.test.Helpers._
@@ -23,8 +26,8 @@ import resources._
 class ChooseEvidenceSpec extends ControllerSpec {
 
   private object TestChooseEvidence extends ChooseEvidence {
-    override val withLinkingSession = new StubWithLinkingSession(propertyGen.sample.get, capacityDeclarationGen.sample.get,
-      individualGen.sample.get, groupAccountGen.sample.get)
+    override val withLinkingSession = new StubWithLinkingSession(arbitrary[Property].sample.get, arbitrary[CapacityDeclaration].sample.get,
+      arbitrary[DetailedIndividualAccount].sample.get, arbitrary[GroupAccount].sample.get)
   }
 
   val request = FakeRequest().withSession(token)
