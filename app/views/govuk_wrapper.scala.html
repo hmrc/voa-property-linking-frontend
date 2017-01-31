@@ -1,4 +1,5 @@
 @import config.ApplicationConfig._
+@import models.AccountIds._
 
 @(title: String,
   mainClass: Option[String] = None,
@@ -13,7 +14,8 @@
   showLogout: Boolean = true,
   topNavigation: Boolean = true,
   topBackLink: Boolean = false,
-  bottomBackLink: Boolean = false)(implicit request: RequestHeader, messages: Messages)
+  bottomBackLink: Boolean = false,
+  individualId: Option[Int] = None)(implicit request: RequestHeader, messages: Messages)
 
 @import layouts.{govuk_template => hmrcGovUkTemplate}
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
@@ -48,10 +50,8 @@
     )
 }
 
-@voaPersonIdValue = {PERSON_ID}
-
 @analyticsAdditionalJs = {
-    ga('set', '@voaPersonID', '@voaPersonIdValue');
+    ga('set', '@voaPersonID', '@individualId');
 }
 
 @bodyEnd = {

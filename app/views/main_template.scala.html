@@ -10,7 +10,8 @@
   showLogout: Boolean = true,
   topNavigation: Boolean = true,
   topBackLink: Boolean = false,
-  bottomBackLink: Boolean = false)(mainContent: Html)(implicit request : RequestHeader, messages: Messages)
+  bottomBackLink: Boolean = false,
+  individualId: Option[Int] = None)(mainContent: Html)(implicit request : RequestHeader, messages: Messages)
 
 @import uk.gov.hmrc.play.views.html.layouts
 
@@ -56,5 +57,6 @@
                showLogout = showLogout,
                topNavigation = topNavigation,
                topBackLink = topBackLink,
-               bottomBackLink = bottomBackLink
+               bottomBackLink = bottomBackLink,
+               individualId = individualId
 )

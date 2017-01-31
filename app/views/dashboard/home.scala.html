@@ -1,8 +1,13 @@
 @import config.ApplicationConfig
-@(individualDetails: IndividualDetails, groupAccount:GroupAccount)(implicit request: Request[_], messages: Messages)
+@import actions.DetailedAuthenticatedRequest
+
+@(individualDetails: IndividualDetails, groupAccount:GroupAccount)(implicit request: DetailedAuthenticatedRequest[_], messages: Messages)
 
 
-@main_template(title = Messages("dashboard.home.title")) {
+@main_template(
+    title = Messages("dashboard.home.title"),
+    individualId = Some(request.individualAccount.individualId)
+    ) {
 
 
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
@@ -17,14 +22,7 @@
         }
     </h1>
 
-
-
-
-
-
     <hr class="main-header">
-
-
 
     <div class="grid-row">
         <div class="column-two-thirds">

@@ -17,7 +17,7 @@
 package controllers
 
 import config.{ApplicationConfig, Global, Wiring}
-import models.{Assessment, CapacityType, DetailedPropertyLink, DraftCase}
+import models.{Assessment, CapacityType, DetailedPropertyLink, DraftCase, DetailedIndividualAccount}
 import org.joda.time.{DateTime, LocalDate}
 import connectors.PropertyRepresentation
 
