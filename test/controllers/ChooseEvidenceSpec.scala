@@ -15,17 +15,16 @@
  */
 
 package controllers
-import connectors.CapacityDeclaration
-import models._
 import play.api.test.FakeRequest
 import utils.{HtmlPage, StubWithLinkingSession}
 import play.api.test.Helpers._
+import resources._
 
 class ChooseEvidenceSpec extends ControllerSpec {
-  import TestData._
 
   private object TestChooseEvidence extends ChooseEvidence {
-    override val withLinkingSession = new StubWithLinkingSession(property, declaration, individual, groupAccount)
+    override val withLinkingSession = new StubWithLinkingSession(propertyGen.sample.get, capacityDeclarationGen.sample.get,
+      individualGen.sample.get, groupAccountGen.sample.get)
   }
 
   val request = FakeRequest().withSession(token)
@@ -58,14 +57,4 @@ class ChooseEvidenceSpec extends ControllerSpec {
     header("location", res) mustBe Some(routes.UploadEvidence.show().url)
   }
 
-  private object TestData {
-    val property = Property(1234567L, "8901234", PropertyAddress(Seq("1", "2", "3"), "AB1 2CD"), "123", "a thing", "S")
-    val declaration = CapacityDeclaration(Owner, true, None, true, None)
-    val individual = DetailedIndividualAccount("externalId", "trustId", 111, 111,
-      IndividualDetails("fistName", "lastName", "email", "phone1", None, Address(None, "line1", "line2", "line3", "line4", "postcode"))
-    )
-    lazy val groupAccount = GroupAccount(1, "groupId", "company name",
-      Address(None, "line1", "line2", "line3", "line4", "postcode"),
-      "email", "phone", true, false, "")
-  }
 }
