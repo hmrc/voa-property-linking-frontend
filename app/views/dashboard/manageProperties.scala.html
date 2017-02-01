@@ -11,13 +11,13 @@
     bottomBackLink = true,
     individualId = Some(request.personId)
 ) {
-    
+
         <h1 class="heading-xlarge">
             @Messages("dashboard.manageProperties.title")
         </h1>
 
         @if(model.properties.isEmpty){
-            @Messages("dashboard.manageProperties.noProperties")
+            <p>@Messages("dashboard.manageProperties.noProperties")</p>
         } else {
         <table class="table-font-xsmall margin-bottom-20">
             <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
