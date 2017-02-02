@@ -3,7 +3,7 @@
     VOA.messages = {
         en:{
             labels: {
-                selectValue: 'Select a value'
+                selectValue: 'Select an address'
             },
             errors : {
                 postcodeLookupError: 'Unrecognised postcode'
