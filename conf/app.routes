@@ -22,6 +22,7 @@ GET         /identity-verification/success                          controllers.
 
 #Create group account
 GET         /create-group                                           controllers.CreateGroupAccount.show
+GET         /create-group/success                                   controllers.CreateGroupAccount.success
 POST        /create-group                                           controllers.CreateGroupAccount.submit
 
 #Dashboard

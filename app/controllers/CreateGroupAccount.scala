@@ -36,6 +36,10 @@ trait CreateGroupAccount extends PropertyLinkingController {
     Ok(views.html.createAccount.group(form))
   }
 
+  def success = ggAction { _ => implicit request =>
+    Ok(views.html.createAccount.confirmation())
+  }
+
   def submit = ggAction.async { ctx => implicit request =>
     form.bindFromRequest().fold(
       errors => BadRequest(views.html.createAccount.group(errors)),
@@ -47,7 +51,7 @@ trait CreateGroupAccount extends PropertyLinkingController {
         journeyId = request.session.get("journeyId").getOrElse("no-id")
         _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details))
       } yield {
-        Ok(views.html.createAccount.confirmation())
+        Redirect(routes.CreateGroupAccount.success())
       }
     )
   }
@@ -74,6 +78,10 @@ trait CreateGroupAccount extends PropertyLinkingController {
 
   implicit def vm(form: Form[_]): CreateGroupAccountVM = CreateGroupAccountVM(form)
 }
+
+
+
+
 
 object CreateGroupAccount extends CreateGroupAccount
 
