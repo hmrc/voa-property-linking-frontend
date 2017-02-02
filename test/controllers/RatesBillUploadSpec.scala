@@ -120,6 +120,6 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar{
     )
     lazy val groupAccount = GroupAccount(1, "groupId", "company name",
       Address(None, "line1", "line2", "line3", "line4", "postcode"),
-      "email", "phone", true, None)
+      "email", "phone", true, false, "")
   }
 }

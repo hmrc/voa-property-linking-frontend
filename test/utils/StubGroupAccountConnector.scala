@@ -46,7 +46,7 @@ object StubGroupAccountConnector extends GroupAccounts(StubHttp) {
 
   override def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = Future.successful {
     val id = randomId
-    stubAccount(GroupAccount(id, account.id, account.companyName, account.address, account.email, account.phone, account.isSmallBusiness, Some(UUID.randomUUID().toString)))
+    stubAccount(GroupAccount(id, account.id, account.companyName, account.address, account.email, account.phone, account.isSmallBusiness, account.isAgent, UUID.randomUUID().toString))
     id
   }
 

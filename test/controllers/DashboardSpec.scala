@@ -52,7 +52,7 @@ class DashboardSpec extends ControllerSpec {
   "Logging in for the first time with an individual sub-account under a group that has registered" must "redirect to the create individual account page" in {
     StubAuthConnector.stubExternalId("hasnoaccount")
     StubAuthConnector.stubGroupId("hasgroupaccount")
-    StubGroupAccountConnector.stubAccount(GroupAccount(Random.nextInt(Int.MaxValue), "hasgroupaccount", "", Address(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, Some(UUID.randomUUID().toString)))
+    StubGroupAccountConnector.stubAccount(GroupAccount(Random.nextInt(Int.MaxValue), "hasgroupaccount", "", Address(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, false, UUID.randomUUID().toString))
     StubAuthentication.stubAuthenticationResult(NoVOARecord)
 
     val res = TestDashboard.home()(request)
@@ -66,7 +66,7 @@ class DashboardSpec extends ControllerSpec {
     StubAuthConnector.stubExternalId("has-account")
     StubAuthConnector.stubGroupId("has-group-account")
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount("has-account", UUID.randomUUID().toString, groupId, personId, IndividualDetails("fname", "lname", "aa@aa.aa", "123", None, testAddress)))
-    StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-group-account", "", Address(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, None))
+    StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-group-account", "", Address(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, false, ""))
     StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(groupId, personId)))
 
     val res = TestDashboard.home()(request)
@@ -79,7 +79,7 @@ class DashboardSpec extends ControllerSpec {
     StubAuthConnector.stubExternalId("has-account")
     StubAuthConnector.stubGroupId("has-agent-account")
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount("has-account", UUID.randomUUID().toString, groupId, personId, IndividualDetails("fname", "lname", "aa@aa.aa", "123", None, testAddress)))
-    StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-agent-account", "", Address(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, Some(UUID.randomUUID().toString)))
+    StubGroupAccountConnector.stubAccount(GroupAccount(groupId, "has-agent-account", "", Address(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, false, UUID.randomUUID().toString))
     StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(groupId, personId)))
 
     val res = TestDashboard.home()(request)

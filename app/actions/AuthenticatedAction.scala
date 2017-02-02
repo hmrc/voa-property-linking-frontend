@@ -59,9 +59,9 @@ class AuthenticatedAction {
   }
 
   def asAgent(body: AgentRequest[AnyContent] => Future[Result])(implicit messages: Messages) = withAccounts { implicit request =>
-    request.organisationAccount.agentCode match {
-      case Some(code) => body(AgentRequest(request.organisationAccount.id, request.individualAccount.individualId, code, request))
-      case None => Future.successful(Unauthorized("Agent account required"))
+    request.organisationAccount.isAgent match {
+      case true => body(AgentRequest(request.organisationAccount.id, request.individualAccount.individualId, request.organisationAccount.agentCode, request))
+      case false => Future.successful(Unauthorized("Agent account required"))
     }
   }
 }
