@@ -134,15 +134,15 @@ class AppointAgentSpec extends ControllerSpec {
   }
 
   private object TestData {
-    val groupAccount = GroupAccount(1, "2", "3", Address(None, "4", "", "", "", "AA56 7AA"), "89@01.23", "456", false, None)
+    val groupAccount = GroupAccount(1, "2", "3", Address(None, "4", "", "", "", "AA56 7AA"), "89@01.23", "456", false, false, "")
     val individualAccount = DetailedIndividualAccount("externalId", "trustId", 1, 2, IndividualDetails(
       "FirstName", "LastName", "email@address.com", "12345", None, Address(None, "999", "The Place", "", "", "AB12 3CD")
     ))
     val property = Property(12345, "1234", PropertyAddress(Seq("123 Fake Street"), "AA1 1AA"), "123", "A building", "W")
     val account = GroupAccount(Random.nextInt(Int.MaxValue), "987654", "a company",
-      Address(None, "123", "The Road", "", "", "AA11 1AA"), "aa@aa.aa", "1234", false, None)
+      Address(None, "123", "The Road", "", "", "AA11 1AA"), "aa@aa.aa", "1234", false, false, "")
     val agentAccount = GroupAccount(Random.nextInt(Int.MaxValue), "456789", "another company",
-      Address(None, "123", "The Road", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, Some(UUID.randomUUID().toString))
+      Address(None, "123", "The Road", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, false, UUID.randomUUID().toString)
     val link = DetailedPropertyLink(6584351, property.uarn, account.id, "a thing", Nil, false, PropertyAddress(Seq("somewhere"), "AA12 4GS"),
       Capacity(OwnerOccupier, LocalDate.now(), None), DateTime.now(), true, Nil)
   }

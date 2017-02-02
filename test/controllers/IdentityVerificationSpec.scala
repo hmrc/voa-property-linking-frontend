@@ -63,7 +63,7 @@ class IdentityVerificationSpec extends ControllerSpec {
     StubAuthConnector.stubExternalId("individualwithoutaccount")
     StubAuthConnector.stubGroupId("groupwithaccount")
     StubGroupAccountConnector.stubAccount(GroupAccount(Random.nextInt(Int.MaxValue), "groupwithaccount",
-      "", Address(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, None))
+      "", Address(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, false, ""))
     StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("anothersuccess"))
