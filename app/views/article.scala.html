@@ -22,12 +22,12 @@
   showLogout: Boolean = true,
   topNavigation: Boolean = true,
   topBackLink: Boolean = false,
-  bottomBackLink: Boolean = false)(implicit messages: Messages)
+  bottomBackLink: Boolean = false)(implicit requestHeader: RequestHeader, messages: Messages)
 
 <article class="content_body@if( includeGridWrapper ){ grid-wrapper}@if(articleClasses.isDefined){ @articleClasses.get }">
 
     @if(topBackLink){
-        <a href="#" id="backLinkTop" class="link-back" onclick="history.go(-1); return false;">@Messages("link.back")</a>
+        <a href=@requestHeader.headers.get("referer").getOrElse("routes.Dashboard.home()") id="backLinkTop" class="link-back">@Messages("link.back")</a>
     }
 
     @if(topNavigation){
@@ -45,6 +45,6 @@
     @content
 
     @if(bottomBackLink){
-        <a href="#" id="backLinkBottom" class="link-back" onclick="history.go(-1); return false;">@Messages("link.back")</a>
+        <a href=@requestHeader.headers.get("referer") id="backLinkBottom" class="link-back">@Messages("link.back")</a>
     }
 </article>
