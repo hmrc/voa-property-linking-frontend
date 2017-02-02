@@ -98,9 +98,4 @@ class CreateIndividualAccountFormSpec extends FlatSpec with MustMatchers {
     verifyMandatory(form, validData, "address.postcode")
   }
 
-  it must "require a valid UK postcode" in {
-    Seq("postcode", "ABC 123", "123 ABC") foreach { invalid =>
-      verifyError(form, validData.updated("address.postcode", invalid), "address.postcode", Errors.invalidPostcode)
-    }
-  }
 }
