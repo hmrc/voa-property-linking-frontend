@@ -16,9 +16,11 @@
 
 package utils
 
-import connectors.{PropertyRepresentation, PropertyRepresentationConnector}
+import connectors.PropertyRepresentationConnector
+import models.{PropertyRepresentation, RepresentationRequest}
 import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+
 import scala.concurrent.Future
 
 object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubHttp) {
@@ -30,13 +32,13 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
     stubbedRepresentations = Nil
   }
 
-  override def get(representationId: String)(implicit hc: HeaderCarrier) = Future.successful(
+  override def get(representationId: Long)(implicit hc: HeaderCarrier) = Future.successful(
     stubbedRepresentations.find(_.representationId == representationId)
   )
 
-  override def find(linkId: Int)(implicit hc: HeaderCarrier) = Future.successful {
-    stubbedRepresentations.filter(_.linkId == linkId)
+  override def find(linkId: Long)(implicit hc: HeaderCarrier) = Future.successful {
+    stubbedRepresentations.filter(_.representationId == linkId)
   }
 
-  override def create(reprRequest: PropertyRepresentation)(implicit hc: HeaderCarrier) = Future.successful(Unit)
+  override def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 }

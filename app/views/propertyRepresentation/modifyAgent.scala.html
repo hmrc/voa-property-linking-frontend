@@ -1,6 +1,6 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
-@import models.AgentPermissions
+@import models.AgentPermission
 @import controllers.ModifyAgentVM
 
 @(model: ModifyAgentVM)(implicit request: Request[_], messages: Messages)
@@ -24,7 +24,7 @@
 
             @inputRadioGroup(
                 field = model.form("canCheck"),
-                options = AgentPermissions.options,
+                options = AgentPermission.options,
                 args = Seq(
                     '_label -> Messages("canCheck.label"),
                     '_labelClass -> "form-label-bold",
@@ -33,7 +33,7 @@
             )
             @inputRadioGroup(
                 field = model.form("canChallenge"),
-                options = AgentPermissions.options,
+                options = AgentPermission.options,
                 args = Seq(
                     '_label -> Messages("canChallenge.label"),
                     '_labelClass -> "form-label-bold",

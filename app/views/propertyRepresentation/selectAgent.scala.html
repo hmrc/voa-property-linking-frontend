@@ -1,6 +1,5 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
-@import connectors.PropertyRepresentation
 
 @(propertyRepresentations: Seq[PropertyRepresentation])(implicit request: Request[_], messages: Messages)
 
@@ -29,15 +28,11 @@
                 @propertyRepresentations.map{propRep =>
                     <tr>
                         <td>
-                            <a href=@routes.AppointAgentController.modify(propRep.representationId)>@propRep.agentName</a>
+                            <a href=@routes.AppointAgentController.modify(propRep.representationId)>FIXME-AgentName</a>
                         </td>
-                        <td>@propRep.canCheck</td>
-                        <td>@propRep.canChallenge</td>
-                        <td>@if(propRep.pending){
-                            @Messages("propertyRepresentation.selectAgent.status.pending")
-                        }else{
-                            @Messages("propertyRepresentation.selectAgent.status.accepted")
-                        }
+                        <td>@propRep.checkPermission</td>
+                        <td>@propRep.challengePermission</td>
+                        <td>propRep.status
                         </td>
                     </tr>
                 }

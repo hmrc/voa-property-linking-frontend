@@ -16,25 +16,14 @@
 
 package models
 
-import serialization.EnumFormat
+import play.api.libs.json.Json
 
-sealed trait AgentPermission extends NamedEnum {
-  override def key: String = "permission"
-}
+case class PropertyRepresentations(
+                                    totalPendingRequests: Long,
+                                    propertyRepresentations: Seq[PropertyRepresentation]
+                                  )
 
-case object StartAndContinue extends AgentPermission {
-  override def name: String = "START_AND_CONTINUE"
-}
 
-case object ContinueOnly extends AgentPermission {
-  override def name: String = "CONTINUE_ONLY"
-}
-
-case object NotPermitted extends AgentPermission {
-  override def name: String = "NOT_PERMITTED"
-}
-
-object AgentPermission extends NamedEnumSupport[AgentPermission] {
-  implicit val format = EnumFormat(AgentPermission)
-  override def all = Seq(StartAndContinue, ContinueOnly, NotPermitted)
+object PropertyRepresentations {
+  implicit val format = Json.format[PropertyRepresentations]
 }

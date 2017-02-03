@@ -18,23 +18,23 @@ package models
 
 import serialization.EnumFormat
 
-sealed trait AgentPermission extends NamedEnum {
-  override def key: String = "permission"
+sealed trait RepresentationStatus extends NamedEnum {
+  val name: String
+  val key = "propReprStatus"
+  override def toString = name
 }
 
-case object StartAndContinue extends AgentPermission {
-  override def name: String = "START_AND_CONTINUE"
+case object RepresentationAccepted extends RepresentationStatus {
+  val name = "ACCEPTED"
 }
 
-case object ContinueOnly extends AgentPermission {
-  override def name: String = "CONTINUE_ONLY"
+case object RepresentationPending extends RepresentationStatus {
+  val name = "PENDING"
 }
 
-case object NotPermitted extends AgentPermission {
-  override def name: String = "NOT_PERMITTED"
-}
 
-object AgentPermission extends NamedEnumSupport[AgentPermission] {
-  implicit val format = EnumFormat(AgentPermission)
-  override def all = Seq(StartAndContinue, ContinueOnly, NotPermitted)
+object RepresentationStatus extends NamedEnumSupport[RepresentationStatus] {
+  implicit val format = EnumFormat(RepresentationStatus)
+
+  override def all: List[RepresentationStatus] = List(RepresentationAccepted, RepresentationPending)
 }

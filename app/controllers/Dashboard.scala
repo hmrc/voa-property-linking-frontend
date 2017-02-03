@@ -17,9 +17,8 @@
 package controllers
 
 import config.{ApplicationConfig, Global, Wiring}
-import models.{Assessment, CapacityType, DetailedPropertyLink, DraftCase, DetailedIndividualAccount}
+import models._
 import org.joda.time.{DateTime, LocalDate}
-import connectors.PropertyRepresentation
 
 import scala.concurrent.Future
 
@@ -42,7 +41,7 @@ trait Dashboard extends PropertyLinkingController {
     }
   }
 
-  def assessments(linkId: Int) = authenticated { implicit request =>
+  def assessments(linkId: Long) = authenticated { implicit request =>
     val backLink = request.headers.get("Referer")
     propLinkedConnector.assessments(linkId) map { assessments =>
       Ok(views.html.dashboard.assessments(
@@ -75,7 +74,7 @@ trait Dashboard extends PropertyLinkingController {
 
 object Dashboard extends Dashboard
 
-case class ManagePropertiesVM(properties: Seq[DetailedPropertyLink])
+case class ManagePropertiesVM(properties: Seq[PropertyLink])
 
 case class AssessmentsVM(assessments: Seq[Assessment], backLink: Option[String])
 

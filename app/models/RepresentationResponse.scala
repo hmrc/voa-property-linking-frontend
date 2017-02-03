@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package controllers.agent
+package models
 
-import config.{ApplicationConfig, Global, Wiring}
-import controllers.PropertyLinkingController
+import play.api.libs.json.Json
 
-object Dashboard extends PropertyLinkingController {
-  val authenticated = Wiring().authenticated
+case class RepresentationResponse(
+                                      submissionId: String,
+                                      authorisedPartyPersonId: Long,
+                                      outcome: RepresentationResponseStatus
+                                    )
 
-  def home() = authenticated { implicit request =>
-    if (ApplicationConfig.readyForPrimeTime) {
-      Ok(views.html.agent.dashboard.home())
-    } else {
-      NotFound(Global.notFoundTemplate)
-    }
-  }
+object RepresentationResponse {
+  implicit val format = Json.format[RepresentationResponse]
 }

@@ -39,13 +39,9 @@ object PropertyLinkRequest {
   implicit val format = Json.format[PropertyLinkRequest]
 }
 
-case class LinkedProperties(added: Seq[DetailedPropertyLink], pending: Seq[DetailedPropertyLink])
+case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
 
-case class PropertyRepresentation(representationId: String, linkId: Int, agentId: String, agentName: String,
-                                  groupId: Int, groupName: String, uarn: Long, address: PropertyAddress,
-                                  canCheck: AgentPermission, canChallenge: AgentPermission, pending: Boolean)
-
-case class UpdatedRepresentation(representationId: String, canCheck: AgentPermission, canChallenge: AgentPermission)
+case class UpdatedRepresentation(representationId: Long, canCheck: AgentPermission, canChallenge: AgentPermission)
 
 object UpdatedRepresentation {
   implicit val format = Json.format[UpdatedRepresentation]

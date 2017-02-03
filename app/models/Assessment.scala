@@ -21,7 +21,7 @@ import play.api.libs.json.{Json, Reads}
 import serialization.JsonFormats._
 
 case class Assessment(
-                       linkId: Int,
+                       linkId: Long,
                        asstRef: Long,
                        listYear: String,
                        uarn:Long,

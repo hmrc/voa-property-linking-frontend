@@ -18,12 +18,17 @@ package models
 
 import org.joda.time.DateTime
 import play.api.libs.json.Json
-import serialization.JsonFormats._
 
-case class PropertyLink(authorisationId: Long, uarn: Long, organisationId: Int, description: String,
-                        agentNames: Seq[String], canAppointAgent: Boolean, address: PropertyAddress,
-                        capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean, assessment: Seq[Assessment])
+case class RepresentationRequest(
+                                  authorisationId: Long,
+                                  agentOrganisationId: Long,
+                                  individualId: Long,
+                                  submissionId: String,
+                                  checkPermission: String,
+                                  challengePermission: String,
+                                  createDatetime: DateTime
+                                )
 
-object PropertyLink {
-  implicit val format = Json.format[PropertyLink]
+object RepresentationRequest {
+  implicit val format = Json.format[RepresentationRequest]
 }
