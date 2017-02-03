@@ -93,8 +93,7 @@ class AppointAgentSpec extends ControllerSpec {
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("canChalle" +
-      "testnge" -> "No value selected")
+    page.mustContainFieldErrors("canChallenge" -> "No value selected")
   }
 
   it must "not allow agents to be appointed with no permissions" in {
