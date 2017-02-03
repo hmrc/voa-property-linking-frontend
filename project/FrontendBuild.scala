@@ -9,8 +9,6 @@ object FrontendBuild extends Build with MicroService {
 
   val appName = "voa-property-linking-frontend"
 
-  resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
-
   override lazy val appDependencies: Seq[ModuleID] = AppDependencies()
 
   override lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala)
