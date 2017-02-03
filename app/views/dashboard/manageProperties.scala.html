@@ -58,12 +58,12 @@
                         <td class="last">
                             @if(ApplicationConfig.readyForPrimeTime) {
                                 @if(p.canAppointAgent){
-                                    <a href=@routes.AppointAgentController.add(p.linkId)>@Messages("manageProperties.addAgent")</a>
+                                    <a href=@routes.AppointAgentController.add(p.authorisationId)>@Messages("manageProperties.addAgent")</a>
                                     <br>
                                 }
                             }
                             @if(p.assessment.nonEmpty){
-                                <a href="@routes.Dashboard.assessments(p.linkId)">
+                                <a href="@routes.Dashboard.assessments(p.authorisationId)">
                                     @Messages("manageProperties.viewAssessments")
                                 </a>
                             }

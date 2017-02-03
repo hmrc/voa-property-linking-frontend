@@ -69,10 +69,9 @@ class FileUploadConnector @Inject()(val ws: WSClient, val envelopeConnector: Env
 
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier) = {
     val url = s"${baseUrl("file-upload-frontend")}/file-upload/upload/envelopes/$envelopeId/files/$fileName"
-    val res = ws.url(url)
+    ws.url(url)
       .withHeaders(("X-Requested-With", "VOA_CCA"))
       .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromFile(file)) :: List()))
-    res
   }
 
   def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier) = {

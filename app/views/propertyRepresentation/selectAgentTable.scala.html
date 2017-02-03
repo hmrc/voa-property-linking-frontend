@@ -1,6 +1,5 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
-@import connectors.PropertyRepresentation
 
 @(propertyRepresentations: Seq[PropertyRepresentation])(implicit request: Request[_], messages: Messages)
 
@@ -13,8 +12,8 @@
         </tr>
         @propertyRepresentations.map { propRep =>
             <tr>
-                <td>@propRep.agentName</td>
-                <td>@propRep.agentId</td>
+                <td>FIXME: AgentName</td>
+                <td>FIXME: Agent Id</td>
                 <td>
                     <a href="@routes.AppointAgentController.modify(propRep.representationId)">@Messages("link.editPermissions")</a>
                 </td>

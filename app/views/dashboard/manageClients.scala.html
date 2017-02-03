@@ -1,0 +1,60 @@
+@import controllers.agent.RepresentationController.ManagePropertiesVM
+
+@(model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    Messages("agent.dashboard.manageClients.title")
+) {
+    <h1 class="heading-large">
+    @Messages("agent.dashboard.manageClients.title")
+    </h1>
+
+    <h2 class="">
+    @Messages("agent.dashboard.manageClients.pending")
+    </h2>
+    <p>
+        @if(model.propertyRepresentations.totalPendingRequests == 0) {
+            @Messages("manageClients.nonePending")
+        } else {
+            <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest">
+                @Messages("manageClients.noOfPending", model.propertyRepresentations.totalPendingRequests)
+            </a>
+        }
+    </p>
+
+
+    <h2 class="">
+    @Messages("agent.dashboard.manageClients.existingClients")
+    </h2>
+    @if(model.propertyRepresentations.propertyRepresentations.nonEmpty) {
+        <br/>
+        <table class="table-font-xsmall">
+            <caption class="heading-medium">
+            @Messages("manageProperties.representations")
+            </caption>
+            <thead>
+                <tr>
+                    <th scope="col">@Messages("propertyRepresentations.table.1")</th>
+                    <th scope="col">@Messages("propertyRepresentations.table.2")</th>
+                    <th scope="col">@Messages("propertyRepresentations.table.3")</th>
+                </tr>
+            </thead>
+            <tbody>
+            @model.propertyRepresentations.propertyRepresentations.groupBy(_.organisationName).map { case (groupName, properties) =>
+            <tr>
+                <td scope="row">@groupName</td>
+                <td>
+                    <a href="#">
+                    @properties.size
+            </a>
+            </td>
+                <td>0</td>
+            </tr>
+            }
+            </tbody>
+        </table>
+    } else {
+        @Messages("agent.dashboard.manageClients.noClients")
+    }
+
+}

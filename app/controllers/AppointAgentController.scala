@@ -17,13 +17,15 @@
 package controllers
 
 import config.{ApplicationConfig, Global, Wiring}
-import connectors.{PropertyRepresentation, UpdatedRepresentation}
+import connectors.UpdatedRepresentation
 import form.EnumMapping
-import models.{AgentPermission, AgentPermissions, NotPermitted}
+import models._
+import org.joda.time.DateTime
 import play.api.data.{Form, FormError}
 import play.api.data.Forms._
 import play.api.mvc.Request
 import uk.gov.hmrc.play.http.BadRequestException
+import views.html.propertyRepresentation.invalidAppointment
 
 import scala.concurrent.Future
 
@@ -34,26 +36,26 @@ trait AppointAgentController extends PropertyLinkingController {
   val propertyLinks = Wiring().propertyLinkConnector
   val authenticated = Wiring().authenticated
 
-  def add(linkId: Int) = authenticated { implicit request =>
+  def add(linkId: Long) = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
-      representations.find(linkId).map(reprs => {
-        if (reprs.nonEmpty)
-          Ok(views.html.propertyRepresentation.alreadyAppointedAgent(SelectAgentVM(reprs, linkId)))
-        else
+      //representations.find(linkId).map(reprs => {
+      //  if (reprs.nonEmpty)
+      //    Ok(views.html.propertyRepresentation.alreadyAppointedAgent(SelectAgentVM(reprs, linkId)))
+      //  else
           Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
-      })
+      //})
     } else {
       NotFound(Global.notFoundTemplate)
     }
   }
 
-  def edit(linkId: Int) = authenticated { implicit request =>
+  def edit(linkId: Long) = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
       representations.find(linkId).map(reprs => {
         if (reprs.size > 1)
           Ok(views.html.propertyRepresentation.selectAgent(reprs))
         else {
-          val form = appointAgentForm.fill(AppointAgent(reprs.head.agentId, reprs.head.canCheck, reprs.head.canChallenge))
+          val form = appointAgentForm.fill(AppointAgent(/*FIXME*/ 123, reprs.head.checkPermission, reprs.head.challengePermission))
           Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, reprs.head.representationId)))
         }
       })
@@ -62,7 +64,7 @@ trait AppointAgentController extends PropertyLinkingController {
     }
   }
 
-  def select(linkId: Int) = authenticated { implicit request =>
+  def select(linkId: Long) = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
       representations.find(linkId).map(reprs => {
         Ok(views.html.propertyRepresentation.selectAgent(reprs))
@@ -72,7 +74,7 @@ trait AppointAgentController extends PropertyLinkingController {
     }
   }
 
-  def appoint(linkId: Int) = authenticated { implicit request =>
+  def appoint(linkId: Long) = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
       Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
     } else {
@@ -80,36 +82,29 @@ trait AppointAgentController extends PropertyLinkingController {
     }
   }
 
-  def appointSubmit(linkId: Int) = authenticated.withAccounts { implicit request =>
+  def appointSubmit(authorisationId: Long) = authenticated.withAccounts { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
       appointAgentForm.bindFromRequest().fold(
-        errors => BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, linkId))),
+        errors => BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, authorisationId))),
         agent => {
           for {
-            link <- propertyLinks.get(request.organisationAccount.id, linkId)
-            l = link.getOrElse(throw new Exception(s"Invalid linkId $linkId"))
-            account <- accounts.withAgentCode(agent.agentCode)
-            prop <- properties.get(l.uarn)
-            res <- (account, prop) match {
-              case (Some(_), Some(_)) if agentHasNoPermissions(agent) =>
+            agentOrgId <- representations.validateAgentCode(agent.agentCode, authorisationId)
+            propertyLink <- propertyLinks.get(request.organisationAccount.id, authorisationId)
+            res <- (agentOrgId, propertyLink) match {
+              case (_, Some(_)) if agentHasNoPermissions(agent) => {
                 val form = appointAgentForm.fill(agent).withError(invalidPermissions)
-                invalidAppointment(form, linkId)
-              case (None, Some(_)) if agentHasNoPermissions(agent) =>
-                val form = appointAgentForm.fill(agent).withError(invalidAgentCode).withError(invalidPermissions)
-                invalidAppointment(form, linkId)
-              case (None, Some(p)) =>
-                val form = appointAgentForm.fill(agent).withError(invalidAgentCode)
-                invalidAppointment(form, linkId)
-              case (Some(a), Some(p)) =>
-                val req = PropertyRepresentation(java.util.UUID.randomUUID().toString, linkId, a.groupId, a.companyName, request.organisationAccount.id,
-                  request.organisationAccount.companyName, l.uarn, p.address, agent.canCheck, agent.canChallenge, true
-                )
-                representations.create(req) map { _ =>
-                  Ok(views.html.propertyRepresentation.appointedAgent(p.address, a.companyName))
-                } recover {
-                  case _: BadRequestException => BadRequest(views.html.propertyRepresentation.invalidAppointment())
+                invalidAppointment(form, authorisationId)
+              }
+                case(_, Some(b)) => {
+                  val req = RepresentationRequest(authorisationId, agentOrgId,
+                    request.individualAccount.individualId, java.util.UUID.randomUUID().toString,
+                    agent.canCheck.name, agent.canChallenge.name, new DateTime())
+                  representations.create(req) map { _ =>
+                    Ok(views.html.propertyRepresentation.appointedAgent(b.address, "FIXME: Agent Company name"))
+                  } recover {
+                    case _: BadRequestException => BadRequest(views.html.propertyRepresentation.invalidAppointment())
+                  }
                 }
-              case _ => throw new Exception(s"Failed to find property with uarn ${l.uarn} when appointing agent")
             }
           } yield {
             res
@@ -126,15 +121,15 @@ trait AppointAgentController extends PropertyLinkingController {
   private lazy val invalidPermissions = FormError("canCheck", "error.invalidPermissions")
   private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
 
-  private def invalidAppointment(form: Form[AppointAgent], linkId: Int)(implicit request: Request[_]) = {
+  private def invalidAppointment(form: Form[AppointAgent], linkId: Long)(implicit request: Request[_]) = {
     Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId))))
   }
 
-  def modify(representationId: String) = authenticated { implicit request =>
+  def modify(representationId: Long) = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
       representations.get(representationId) map {
         case Some(rep) =>
-          val form = appointAgentForm.fill(AppointAgent(rep.agentId, rep.canCheck, rep.canChallenge))
+          val form = appointAgentForm.fill(AppointAgent(/*FIXME*/123, rep.checkPermission, rep.challengePermission))
           Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, rep.representationId)))
         case None => throw new Exception(s"Invalid representation id $representationId")
       }
@@ -143,7 +138,7 @@ trait AppointAgentController extends PropertyLinkingController {
     }
   }
 
-  def modifySubmit(representationId: String) = authenticated { implicit request =>
+  def modifySubmit(representationId: Long) = authenticated { implicit request =>
     appointAgentForm.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(errors, representationId))),
       agent => {
@@ -154,18 +149,18 @@ trait AppointAgentController extends PropertyLinkingController {
   }
 
   lazy val appointAgentForm = Form(mapping(
-    "agentCode" -> nonEmptyText,
-    "canCheck" -> EnumMapping(AgentPermissions),
-    "canChallenge" -> EnumMapping(AgentPermissions)
+    "agentCode" -> longNumber,
+    "canCheck" -> EnumMapping(AgentPermission),
+    "canChallenge" -> EnumMapping(AgentPermission)
   )(AppointAgent.apply)(AppointAgent.unapply))
 }
 
 object AppointAgentController extends AppointAgentController
 
-case class AppointAgent(agentCode: String, canCheck: AgentPermission, canChallenge: AgentPermission)
+case class AppointAgent(agentCode: Long, canCheck: AgentPermission, canChallenge: AgentPermission)
 
-case class AppointAgentVM(form: Form[_], linkId: Int)
+case class AppointAgentVM(form: Form[_], linkId: Long)
 
-case class ModifyAgentVM(form: Form[_], representationId: String)
+case class ModifyAgentVM(form: Form[_], representationId: Long)
 
-case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Int)
+case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Long)

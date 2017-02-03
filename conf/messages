@@ -156,7 +156,6 @@ assessments.table.5=To
 assessments.table.6=Actions
 assessments.enddate.present=Present
 assessments.view.valuation=View valuation
-assessments.view.valuation=View valuation
 
 #DASHBOARD DRAFT CASES
 draftCases.title=Draft cases
@@ -172,13 +171,13 @@ propertyRepresentation.appointAgent.message.1=Your agent should provide you with
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Continue
 canCheck.label=Check permissions
-canCheck.startAndContinue=Start new checks and continue existing checks
-canCheck.continueOnly=Continue existing checks only
-canCheck.notPermitted=Not permitted to start new checks or continue existing checks
+canCheck.START_AND_CONTINUE=Start new checks and continue existing checks
+canCheck.CONTINUE_ONLY=Continue existing checks only
+canCheck.NOT_PERMITTED=Not permitted to start new checks or continue existing checks
 canChallenge.label=Challenge permissions
-canChallenge.startAndContinue=Start new challenges and continue existing challenges
-canChallenge.continueOnly=Continue existing challenges only
-canChallenge.notPermitted=Not permitted to start new challenges or continue existing challenges
+canChallenge.START_AND_CONTINUE=Start new challenges and continue existing challenges
+canChallenge.CONTINUE_ONLY=Continue existing challenges only
+canChallenge.NOT_PERMITTED=Not permitted to start new challenges or continue existing challenges
 error.invalidPermissions=Agent must either have permission to continue checks or challenges
 error.invalidAgentCode=Invalid agent code
 
@@ -210,20 +209,29 @@ propertyRepresentation.selectAgent.status.accepted=Accepted
 #VIEW REPRESENTATIONS (AGENT)
 p.agentCode=Your agent code is {0}
 manageProperties.pendingRequests=Pending representation requests
-manageProperties.nonePending=You have no pending representation requests
+manageClients.noOfPending=You have {0} pending representation requests
+manageClients.nonePending=There are no outstanging representation requests
 manageProperties.representations=Properties you are representing
 representationRequests.table.1=Organisation name
 representationRequests.table.2=Property address
 representationRequests.table.3=Check permission
 representationRequests.table.4=Challenge permission
 representationRequests.table.5=Date requested
+representationRequests.table.6=Actions
 propertyRepresentations.table.1=Organisation name
 propertyRepresentations.table.2=Number of properties
 propertyRepresentations.table.3=Number of cases
 manageProperties.noRepresentations=You have no representations
-permission.continueOnly=Only continue
-permission.startAndContinue=Start and continue
-permission.notPermitted=Not permitted
+permission.CONTINUE_ONLY=Only continue
+permission.START_AND_CONTINUE=Start and continue
+permission.NOT_PERMITTED=Not permitted
+
+pendingRepresentationRequests.table.1=Organisation name
+pendingRepresentationRequests.table.2=Property address
+pendingRepresentationRequests.table.3=Check permission
+pendingRepresentationRequests.table.4=Challenge permission
+pendingRepresentationRequests.table.5=Date requested
+pendingRepresentationRequests.table.6=Actions
 
 #SEARCH
 search.title=Search and select a property to add to your customer record
@@ -392,7 +400,10 @@ label.required=Required
 #DASHBOARD HOME
 agent.dashboard.home.title=Agent dashboard home
 agent.dashboard.home.manageRepresentationRequest.link=Review all outstanding nominations
-agent.dashboard.manageProperties.title=Agent nominations
+agent.dashboard.manageClients.title=Manage clients
+agent.dashboard.manageClients.pending=Requiring a response
+agent.dashboard.manageClients.noClients=There are no existing clients
+agent.dashboard.manageClients.existingClients=Existing clients
 agent.dashboard.manageProperties.accept=Accept
 agent.dashboard.manageProperties.reject=Reject
 agent.dashboard.manageProperties.acceptAll=Accept all

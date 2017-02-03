@@ -31,8 +31,8 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
   extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  def get(organisationId: Int, linkId: Int)(implicit hc: HeaderCarrier): Future[Option[DetailedPropertyLink]] = {
-    linkedProperties(organisationId).map( links => links.find(_.linkId == linkId) )
+  def get(organisationId: Int, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
+    linkedProperties(organisationId).map( links => links.find(_.authorisationId == authorisationId) )
   }
 
   def linkToProperty(property: Property, organisationId: Int, individualId: Int,
@@ -45,17 +45,17 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.POST[PropertyLinkRequest, HttpResponse](url, request) map { _ => () }
   }
 
-  def linkedProperties(organisationId: Int)(implicit hc: HeaderCarrier): Future[Seq[DetailedPropertyLink]] = {
+  def linkedProperties(organisationId: Int)(implicit hc: HeaderCarrier): Future[Seq[PropertyLink]] = {
     val url = baseUrl + s"/property-links/$organisationId"
     val tmp = http.GET[JsValue](url)
     val output = tmp.map(x => {
       Logger.info(x.toString())
-      x.as[Seq[DetailedPropertyLink]]
+      x.as[Seq[PropertyLink]]
     })
     output
   }
 
-  def assessments(linkId: Int)(implicit hc: HeaderCarrier): Future[Seq[Assessment]] = {
+  def assessments(linkId: Long)(implicit hc: HeaderCarrier): Future[Seq[Assessment]] = {
     val url = baseUrl + s"/dashboard/assessments/$linkId"
     http.GET[Seq[Assessment]](url)
   }

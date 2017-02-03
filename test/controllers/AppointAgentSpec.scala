@@ -44,13 +44,13 @@ class AppointAgentSpec extends ControllerSpec {
     stubLoggedInUser()
     StubPropertyConnector.stubProperty(property)
 
-    val res = TestAppointAgent.appoint(link.linkId)(request)
+    val res = TestAppointAgent.appoint(link.authorisationId)(request)
     status(res) must be (OK)
 
     val page = HtmlPage(res)
     page.mustContainTextInput("#agentCode_text")
-    page.mustContainRadioSelect("canCheck", AgentPermissions.options)
-    page.mustContainRadioSelect("canChallenge", AgentPermissions.options)
+    page.mustContainRadioSelect("canCheck", AgentPermission.options)
+    page.mustContainRadioSelect("canChallenge", AgentPermission.options)
   }
 
   it must "require the user to enter an agent code" in {
@@ -58,13 +58,13 @@ class AppointAgentSpec extends ControllerSpec {
     StubPropertyConnector.stubProperty(property)
     StubGroupAccountConnector.stubAccount(agentAccount)
 
-    val res = TestAppointAgent.appointSubmit(link.linkId)(
+    val res = TestAppointAgent.appointSubmit(link.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> "", "canCheck" -> "continueOnly", "canChallenge" -> "continueOnly")
     )
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("agentCode" -> "This field is required")
+    page.mustContainFieldErrors("agentCode" -> "Numeric value expected")
   }
 
   it must "require the user to select agent permissions for checks" in {
@@ -72,7 +72,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubPropertyConnector.stubProperty(property)
     StubGroupAccountConnector.stubAccount(agentAccount)
 
-    val res = TestAppointAgent.appointSubmit(link.linkId)(
+    val res = TestAppointAgent.appointSubmit(link.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> agentAccount.groupId, "canCheck" -> "", "canChallenge" -> "continueOnly")
     )
     status(res) must be (BAD_REQUEST)
@@ -86,7 +86,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubPropertyConnector.stubProperty(property)
     StubGroupAccountConnector.stubAccount(agentAccount)
 
-    val res = TestAppointAgent.appointSubmit(link.linkId)(
+    val res = TestAppointAgent.appointSubmit(link.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> agentAccount.groupId, "canCheck" -> "continueOnly", "canChallenge" -> "")
     )
     status(res) must be (BAD_REQUEST)
@@ -102,7 +102,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubGroupAccountConnector.stubAccount(agentAccount)
     StubPropertyLinkConnector.stubLink(link)
 
-    val res = TestAppointAgent.appointSubmit(link.linkId)(
+    val res = TestAppointAgent.appointSubmit(link.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> agentAccount.groupId, "canCheck" -> "notPermitted", "canChallenge" -> "notPermitted")
     )
     status(res) must be (BAD_REQUEST)
@@ -118,7 +118,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubGroupAccountConnector.stubAccount(agentAccount)
     StubPropertyLinkConnector.stubLink(link)
 
-    val res = TestAppointAgent.appointSubmit(link.linkId)(
+    val res = TestAppointAgent.appointSubmit(link.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> "not an agent", "canCheck" -> "continueOnly", "canChallenge" -> "notPermitted")
     )
     status(res) must be (BAD_REQUEST)
@@ -142,8 +142,8 @@ class AppointAgentSpec extends ControllerSpec {
     val account = GroupAccount(Random.nextInt(Int.MaxValue), "987654", "a company",
       Address(None, "123", "The Road", "", "", "AA11 1AA"), "aa@aa.aa", "1234", false, false, "")
     val agentAccount = GroupAccount(Random.nextInt(Int.MaxValue), "456789", "another company",
-      Address(None, "123", "The Road", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, false, UUID.randomUUID().toString)
-    val link = DetailedPropertyLink(6584351, property.uarn, account.id, "a thing", Nil, false, PropertyAddress(Seq("somewhere"), "AA12 4GS"),
+      Address(None, "123", "The Road", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, true, UUID.randomUUID().toString)
+    val link = PropertyLink(6584351, property.uarn, account.id, "a thing", Nil, false, PropertyAddress(Seq("somewhere"), "AA12 4GS"),
       Capacity(OwnerOccupier, LocalDate.now(), None), DateTime.now(), true, Nil)
   }
 }

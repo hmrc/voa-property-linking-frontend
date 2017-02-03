@@ -28,7 +28,7 @@ POST        /create-group                                           controllers.
 #Dashboard
 GET         /home                                                   controllers.Dashboard.home()
 GET         /properties                                             controllers.Dashboard.manageProperties()
-GET         /property-link/:linkId/assessments                      controllers.Dashboard.assessments(linkId: Int)
+GET         /property-link/:linkId/assessments                      controllers.Dashboard.assessments(linkId: Long)
 GET         /draft-cases                                            controllers.Dashboard.draftCases()
 
 #Search and Link
@@ -51,27 +51,26 @@ GET         /no-evidence-uploaded/:refId                            @controllers
 GET         /manual-verification-required                           controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                       controllers.LinkErrors.conflict()
 
-GET         /representation-request/add/:linkId                     controllers.AppointAgentController.add(linkId: Int)
-GET         /representation-request/edit/:linkId                    controllers.AppointAgentController.edit(linkId: Int)
-GET         /representation-request/appoint/:linkId                 controllers.AppointAgentController.appoint(linkId: Int)
-POST        /representation-request/appoint/:linkId                 controllers.AppointAgentController.appointSubmit(linkId: Int)
-GET         /representation-request/modify/:representationId        controllers.AppointAgentController.modify(representationId)
-POST        /representation-request/modify/:representationId        controllers.AppointAgentController.modifySubmit(representationId)
-GET         /representation-request/select/:linkId                  controllers.AppointAgentController.select(linkId: Int)
+GET         /representation-request/add/:linkId                     controllers.AppointAgentController.add(linkId: Long)
+GET         /representation-request/edit/:linkId                    controllers.AppointAgentController.edit(linkId: Long)
+GET         /representation-request/appoint/:linkId                 controllers.AppointAgentController.appoint(linkId: Long)
+POST        /representation-request/appoint/:linkId                 controllers.AppointAgentController.appointSubmit(linkId: Long)
+GET         /representation-request/modify/:representationId        controllers.AppointAgentController.modify(representationId: Long)
+POST        /representation-request/modify/:representationId        controllers.AppointAgentController.modifySubmit(representationId: Long)
+GET         /representation-request/select/:linkId                  controllers.AppointAgentController.select(linkId: Long)
 
 #AGENT
 #Dashboard
-GET         /agent/home                                             controllers.agent.Dashboard.home()
-GET         /representation-request                                 controllers.agent.Representation.manageRepresentationRequest()
-GET         /representation-request/accept/:reprId                  controllers.agent.Representation.accept(reprId)
-GET         /representation-request/reject/:reprId                  controllers.agent.Representation.reject(reprId)
+GET         /representation-request                                 controllers.agent.RepresentationController.manageRepresentationRequest()
+GET         /representation-request/pending                         controllers.agent.RepresentationController.pendingRepresentationRequest()
+GET         /representation-request/accept/:submissionId            controllers.agent.RepresentationController.accept(submissionId)
+GET         /representation-request/reject/:submissionId            controllers.agent.RepresentationController.reject(submissionId)
 
 #Address lookup
 GET         /lookup                                                 controllers.AddressLookup.findByPostcode(postcode)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                           controllers.Assets.at(path="/public", file)
-
 
 #sample pages
 GET         /typography                                             controllers.Application.typography
