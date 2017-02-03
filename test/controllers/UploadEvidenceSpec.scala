@@ -19,28 +19,28 @@ package controllers
 import java.io.File
 import java.nio.file.{Files, Paths}
 
-import connectors.fileUpload.FileUpload
 import connectors.CapacityDeclaration
+import connectors.fileUpload.FileUpload
 import models._
-import org.joda.time.DateTime
 import org.jsoup.Jsoup
-import play.api.mvc.MultipartFormData
-import play.api.test.{FakeRequest, Helpers}
-import play.api.test.Helpers._
-import utils.{HtmlPage, StubPropertyLinkConnector, StubWithLinkingSession}
-import org.scalatest.mock.MockitoSugar
+import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.mockito.MockitoSugar
 import play.api.libs.Files.TemporaryFile
+import play.api.mvc.MultipartFormData
 import play.api.mvc.MultipartFormData.FilePart
-
+import play.api.test.Helpers._
+import play.api.test.{FakeRequest, Helpers}
+import utils.{HtmlPage, StubPropertyLinkConnector, StubWithLinkingSession}
+import resources._
 
 
 class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
   implicit val request = FakeRequest().withSession(token)
-  import TestData._
 
   val mockFileUploads = mock[FileUpload]
   object TestUploadEvidence extends UploadEvidence(mockFileUploads)  {
-    override lazy val withLinkingSession = new StubWithLinkingSession(property, capacityDeclaration, individual, groupAccount)
+    override lazy val withLinkingSession = new StubWithLinkingSession(arbitrary[Property].sample.get, arbitrary[CapacityDeclaration].sample.get,
+      arbitrary[DetailedIndividualAccount].sample.get, arbitrary[GroupAccount].sample.get)
     override lazy val propertyLinkConnector = StubPropertyLinkConnector
   }
 
@@ -95,18 +95,4 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     page.mustContainFieldErrors(("evidence_", "Please upload some evidence."))
   }
 
-  object TestData {
-    lazy val uarn = 987654
-    lazy val baRef = "baRef-asdfjlj23l4j23"
-    lazy val address = PropertyAddress(Seq("1"), "AA11 1AA")
-    lazy val property = Property(uarn, baRef, address, "SCAT", "description", "B")
-    lazy val capacityDeclaration = CapacityDeclaration(Owner, false, None, false, None)
-    lazy val individual = DetailedIndividualAccount("externalId", "trustId", 111, 111,
-      IndividualDetails("fistName", "lastName", "email", "phone1", None, Address(None, "line1", "line2", "line3", "line4", "postcode"))
-    )
-    lazy val groupAccount = GroupAccount(1, "groupId", "company name",
-      Address(None, "line1", "line2", "line3", "line4", "postcode"),
-      "email", "phone", true, false, "")
-
-  }
 }

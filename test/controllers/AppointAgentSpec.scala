@@ -16,19 +16,15 @@
 
 package controllers
 
-import java.util.UUID
-
 import connectors.Authenticated
 import models._
-import org.joda.time.{DateTime, LocalDate}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
-
-import scala.util.Random
+import resources._
+import org.scalacheck.Arbitrary.arbitrary
 
 class AppointAgentSpec extends ControllerSpec {
-  import TestData._
 
   private object TestAppointAgent extends AppointAgentController {
     override val representations = StubPropertyRepresentationConnector
@@ -42,9 +38,9 @@ class AppointAgentSpec extends ControllerSpec {
 
   "The appoint a new agent page" must "allow the user to enter the agent code, and set permissions for checks and challenges" in {
     stubLoggedInUser()
-    StubPropertyConnector.stubProperty(property)
+    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
 
-    val res = TestAppointAgent.appoint(link.authorisationId)(request)
+    val res = TestAppointAgent.appoint(arbitrary[PropertyLink].sample.get.authorisationId)(request)
     status(res) must be (OK)
 
     val page = HtmlPage(res)
@@ -55,8 +51,11 @@ class AppointAgentSpec extends ControllerSpec {
 
   it must "require the user to enter an agent code" in {
     stubLoggedInUser()
-    StubPropertyConnector.stubProperty(property)
-    StubGroupAccountConnector.stubAccount(agentAccount)
+    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
+    val groupAccount = arbitrary[GroupAccount].sample.get
+
+    StubGroupAccountConnector.stubAccount(groupAccount)
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> "", "canCheck" -> "continueOnly", "canChallenge" -> "continueOnly")
@@ -69,10 +68,11 @@ class AppointAgentSpec extends ControllerSpec {
 
   it must "require the user to select agent permissions for checks" in {
     stubLoggedInUser()
-    StubPropertyConnector.stubProperty(property)
+    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
+    val agentAccount = arbitrary[GroupAccount].sample.get
     StubGroupAccountConnector.stubAccount(agentAccount)
 
-    val res = TestAppointAgent.appointSubmit(link.authorisationId)(
+    val res = TestAppointAgent.appointSubmit(arbitrary[PropertyLink].sample.get.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> agentAccount.groupId, "canCheck" -> "", "canChallenge" -> "continueOnly")
     )
     status(res) must be (BAD_REQUEST)
@@ -83,10 +83,11 @@ class AppointAgentSpec extends ControllerSpec {
 
   it must "require the user to select agent permissions for challenges" in {
     stubLoggedInUser()
-    StubPropertyConnector.stubProperty(property)
+    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
+    val agentAccount = arbitrary[GroupAccount].sample.get
     StubGroupAccountConnector.stubAccount(agentAccount)
 
-    val res = TestAppointAgent.appointSubmit(link.authorisationId)(
+    val res = TestAppointAgent.appointSubmit(arbitrary[PropertyLink].sample.get.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> agentAccount.groupId, "canCheck" -> "continueOnly", "canChallenge" -> "")
     )
     status(res) must be (BAD_REQUEST)
@@ -98,8 +99,10 @@ class AppointAgentSpec extends ControllerSpec {
   it must "not allow agents to be appointed with no permissions" in {
     pending
     stubLoggedInUser()
-    StubPropertyConnector.stubProperty(property)
+    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
+    val agentAccount = arbitrary[GroupAccount].sample.get
     StubGroupAccountConnector.stubAccount(agentAccount)
+    val link = arbitrary[PropertyLink].sample.get
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
@@ -114,8 +117,9 @@ class AppointAgentSpec extends ControllerSpec {
   it must "require the agent code to be valid" in {
     pending
     stubLoggedInUser()
-    StubPropertyConnector.stubProperty(property)
-    StubGroupAccountConnector.stubAccount(agentAccount)
+    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
+    StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
+    val link = arbitrary[PropertyLink].sample.get
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
@@ -128,22 +132,11 @@ class AppointAgentSpec extends ControllerSpec {
   }
 
   def stubLoggedInUser() = {
+    val groupAccount = groupAccountGen.sample.get
+    val individual = individualGen.sample.get
     StubGroupAccountConnector.stubAccount(groupAccount)
-    StubIndividualAccountConnector.stubAccount(individualAccount)
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(groupAccount.id, individualAccount.individualId)))
+    StubIndividualAccountConnector.stubAccount(individual)
+    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(groupAccount.id, individual.individualId)))
   }
-
-  private object TestData {
-    val groupAccount = GroupAccount(1, "2", "3", Address(None, "4", "", "", "", "AA56 7AA"), "89@01.23", "456", false, false, "")
-    val individualAccount = DetailedIndividualAccount("externalId", "trustId", 1, 2, IndividualDetails(
-      "FirstName", "LastName", "email@address.com", "12345", None, Address(None, "999", "The Place", "", "", "AB12 3CD")
-    ))
-    val property = Property(12345, "1234", PropertyAddress(Seq("123 Fake Street"), "AA1 1AA"), "123", "A building", "W")
-    val account = GroupAccount(Random.nextInt(Int.MaxValue), "987654", "a company",
-      Address(None, "123", "The Road", "", "", "AA11 1AA"), "aa@aa.aa", "1234", false, false, "")
-    val agentAccount = GroupAccount(Random.nextInt(Int.MaxValue), "456789", "another company",
-      Address(None, "123", "The Road", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, true, UUID.randomUUID().toString)
-    val link = PropertyLink(6584351, property.uarn, account.id, "a thing", Nil, false, PropertyAddress(Seq("somewhere"), "AA12 4GS"),
-      Capacity(OwnerOccupier, LocalDate.now(), None), DateTime.now(), true, Nil)
-  }
+  
 }

@@ -15,14 +15,14 @@
  */
 
 package controllers
-import models.{GroupAccount, IndividualDetails, Address}
+import models.{GroupAccount, IndividualDetails}
 import org.jsoup.Jsoup
+import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
-
-import scala.util.Random
 
 class IdentityVerificationSpec extends ControllerSpec {
 
@@ -38,7 +38,7 @@ class IdentityVerificationSpec extends ControllerSpec {
 
   val request = FakeRequest()
   private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
-  StubKeystore.stubIndividualDetails(IndividualDetails("fname", "lname", "aa@aa.aa", "123", None, Address(None, "123", "The Road", "", "", "AA11 1AA")))
+  StubKeystore.stubIndividualDetails(arbitrary[IndividualDetails].sample.get)
 
   "Successfully verifying identity when the group does not have a CCA account" must
     "display the successful iv confirmation page, and not create an individual account" in {
@@ -62,8 +62,7 @@ class IdentityVerificationSpec extends ControllerSpec {
   "Successfully verifying identity when the group does have a CCA account" must "display a confirmation page, and create the individual account" in {
     StubAuthConnector.stubExternalId("individualwithoutaccount")
     StubAuthConnector.stubGroupId("groupwithaccount")
-    StubGroupAccountConnector.stubAccount(GroupAccount(Random.nextInt(Int.MaxValue), "groupwithaccount",
-      "", Address(None, "123", "The Road", "", "", "AA11 1AA"), "", "", false, false, ""))
+    StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get.copy(groupId = "groupwithaccount"))
     StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("anothersuccess"))
