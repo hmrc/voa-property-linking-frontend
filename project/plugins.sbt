@@ -7,6 +7,7 @@ resolvers ++= Seq(
 )
 
 resolvers += "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases/"
+
 resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8.5")
