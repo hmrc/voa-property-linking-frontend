@@ -117,7 +117,7 @@ package object resources {
   } yield models.Assessment(linkId, asstRef, listYear, uarn, effectiveDate, rateableValue, address, billingAuthorityReference, capacity) 
   implicit val arbitraryAssessment = Arbitrary(assessmentGen)
   
-  val detailedPropertyLinkGen: Gen[DetailedPropertyLink] = for {
+  val propertyLinkGen: Gen[PropertyLink] = for {
     linkId <- arbitrary[Int]
     uarn <- arbitrary[Long]
     organisationId <- arbitrary[Int]
@@ -129,7 +129,7 @@ package object resources {
     linkedDate <- arbitrary[DateTime]
     pending <- arbitrary[Boolean]
     assessment <- Gen.listOf(arbitrary[Assessment])
-  } yield DetailedPropertyLink(linkId, uarn, organisationId, description, agentNames, canAppointAgent, address, capacity,
+  } yield PropertyLink(linkId, uarn, organisationId, description, agentNames, canAppointAgent, address, capacity,
     linkedDate, pending, assessment)
-  implicit val arbitraryDetailedPropertyLink = Arbitrary(detailedPropertyLinkGen)
+  implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
 }
