@@ -96,7 +96,6 @@ trait AppointAgentController extends PropertyLinkingController {
                 invalidAppointment(form, authorisationId)
               }
                 case(_, Some(b)) => {
-                  Future.successful(Ok("all good"))
                   val req = RepresentationRequest(authorisationId, agentOrgId,
                     request.individualAccount.individualId, java.util.UUID.randomUUID().toString,
                     agent.canCheck.name, agent.canChallenge.name, new DateTime())
@@ -115,50 +114,8 @@ trait AppointAgentController extends PropertyLinkingController {
     } else {
       NotFound(Global.notFoundTemplate)
     }
-
   }
 
-  //FIXME - delete this.
-  //for {
-  //  //link <- propertyLinks.get(request.organisationAccount.id, authorisationId)
-  //  //l = link.getOrElse(throw new Exception(s"Invalid linkId $authorisationId"))
-  //  agentOrgId <- representations.validateAgentCode(agent.agentCode, authorisationId)
-  //  //account <- accounts.withAgentCode(agent.agentCode)
-  //  //prop <- properties.get(l.uarn)
-  //  res <- (agentOrgId, prop) match {
-  //    case (_, Some(_)) if agentHasNoPermissions(agent) =>
-  //      //no permissions
-  //      val form = appointAgentForm.fill(agent).withError(invalidPermissions)
-  //      invalidAppointment(form, authorisationId)
-  //    case (_, Some(_)) if agentHasNoPermissions(agent) =>
-  //      //invalid agent, no permissions
-  //      val form = appointAgentForm.fill(agent).withError(invalidAgentCode).withError(invalidPermissions)
-  //      invalidAppointment(form, authorisationId)
-  //    case (_, Some(p)) =>
-  //      //incalid agent
-  //      val form = appointAgentForm.fill(agent).withError(invalidAgentCode)
-  //      invalidAppointment(form, authorisationId)
-  //    case (agentOrgId, Some(p)) =>
-  //      //valid agent, persmission
-  //      val req = PropertyRepresentation(java.util.UUID.randomUUID().toString, authorisationId, agentOrgId,
-  //        "FIXME: company name", request.organisationAccount.id,
-  //        request.organisationAccount.companyName, 123, p.address, agent.canCheck, agent.canChallenge, true
-  //      )
-  //      representations.create(req) map { _ =>
-  //        Ok(views.html.propertyRepresentation.appointedAgent(p.address, "FIXME: company name"))
-  //      } recover {
-  //        case _: BadRequestException => BadRequest(views.html.propertyRepresentation.invalidAppointment())
-  //      }
-  //    case _ => throw new Exception(s"Failed to find property with uarn 123 FIXME: uarn when appointing agent")
-  //  }
-  //} yield {
-  //  res
-  //}
-//}
-//)
-//} else {
-//NotFound(Global.notFoundTemplate)
-//}
   private def agentHasNoPermissions(a: AppointAgent) = a.canCheck == NotPermitted && a.canChallenge == NotPermitted
 
   private lazy val invalidPermissions = FormError("canCheck", "error.invalidPermissions")
