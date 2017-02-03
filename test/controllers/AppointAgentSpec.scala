@@ -142,7 +142,7 @@ class AppointAgentSpec extends ControllerSpec {
     val account = GroupAccount(Random.nextInt(Int.MaxValue), "987654", "a company",
       Address(None, "123", "The Road", "", "", "AA11 1AA"), "aa@aa.aa", "1234", false, false, "")
     val agentAccount = GroupAccount(Random.nextInt(Int.MaxValue), "456789", "another company",
-      Address(None, "123", "The Road", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, Some(UUID.randomUUID().toString))
+      Address(None, "123", "The Road", "", "", "AA11 1AA"), "bb@cc.dd", "1234", false, true, UUID.randomUUID().toString)
     val link = PropertyLink(6584351, property.uarn, account.id, "a thing", Nil, false, PropertyAddress(Seq("somewhere"), "AA12 4GS"),
       Capacity(OwnerOccupier, LocalDate.now(), None), DateTime.now(), true, Nil)
   }
