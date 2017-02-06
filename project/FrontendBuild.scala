@@ -59,7 +59,7 @@ private object AppDependencies {
         "org.scalatest" %% "scalatest" % "3.0.1",
         "org.scalatest" %% "scalatest" % "3.0.1" % scope,
         "org.scalacheck" %% "scalacheck" % "1.13.4" % scope,
-        "org.pegdown" % "pegdown" % "1.6.0" % scope,
+        "org.pegdown" % "pegdown" % "1.6.0" % "test,it",
         "org.jsoup" % "jsoup" % "1.9.1",
         "org.mockito" % "mockito-core" % "2.2.9"
       )
