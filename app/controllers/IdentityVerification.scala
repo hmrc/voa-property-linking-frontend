@@ -37,8 +37,8 @@ trait IdentityVerification extends PropertyLinkingController {
   def startIv = ggAction.async { _ => implicit request =>
     if (ApplicationConfig.ivEnabled) {
       keystore.fetchAndGetEntry[IVDetails]("ivDetails") flatMap {
-        case Some(d) => identityVerificationProxyConnector.start(routes.IdentityVerification.success().url,
-          routes.IdentityVerification.fail().url, d, None).map(l => Redirect(l.link))
+        case Some(d) => identityVerificationProxyConnector.start(ApplicationConfig.baseUrl + routes.IdentityVerification.restoreSession().url,
+          ApplicationConfig.baseUrl + routes.IdentityVerification.fail().url, d, None).map(l => Redirect(l.link))
         case None => NotFound
       }
     } else {

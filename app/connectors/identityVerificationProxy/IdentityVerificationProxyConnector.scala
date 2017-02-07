@@ -28,7 +28,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerificationProxyConnector(http: HttpPost with HttpGet)(implicit ec: ExecutionContext) extends ServicesConfig {
   private lazy val url = baseUrl("identity-verification-proxy")
-  private val path = s"identity-verification-proxy/journey"
+  private val path = "identity-verification-proxy/journey"
 
   def start(completionURL: String, failureURL:  String, userData: IVDetails,
             expiryDate: Option[LocalDate])(implicit hc: HeaderCarrier): Future[Link] = {
