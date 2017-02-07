@@ -32,11 +32,13 @@ trait IdentityVerification extends PropertyLinkingController {
   val keystore = Wiring().sessionCache
   val identityVerification = Wiring().identityVerification
   val addresses = Wiring().addresses
+  val identityVerificationProxyConnector = Wiring().identityVerificationProxyConnector
 
   def startIv = ggAction.async { _ => implicit request =>
     if (ApplicationConfig.ivEnabled) {
-      keystore.fetchAndGetEntry[IVDetails]("ivDetails") map {
-        case Some(d) => Ok(views.html.identityVerification.start(StartIVVM(d, identityVerification.verifyUrl)))
+      keystore.fetchAndGetEntry[IVDetails]("ivDetails") flatMap {
+        case Some(d) => identityVerificationProxyConnector.start(routes.IdentityVerification.success().url,
+          routes.IdentityVerification.fail().url, d, None).map(l => Redirect(l.link))
         case None => NotFound
       }
     } else {

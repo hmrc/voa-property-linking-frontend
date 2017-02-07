@@ -21,6 +21,7 @@ import play.api.Play
 import play.api.Play._
 import uk.gov.hmrc.play.config.RunMode
 import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 
 object ApplicationConfig extends RunMode with ServicesConfig {
 
@@ -36,6 +37,8 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   val ggContinueUrl = baseUrl + controllers.routes.Dashboard.home().url
   val betaLoginRequired = getConfig("featureFlags.betaLoginRequired").toBoolean
   val ivEnabled = getConfig("featureFlags.ivEnabled").toBoolean
+  val ivConfidenceLevel = ConfidenceLevel.L200
+
   def businessRatesValuationUrl(page: String) = getConfig("business-rates-valuation.url") + s"/$page"
   val readyForPrimeTime = getConfig("featureFlags.readyForPrimeTime").toBoolean
 
