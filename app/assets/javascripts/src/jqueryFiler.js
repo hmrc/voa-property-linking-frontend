@@ -20,8 +20,9 @@
                 });
             },
             limit: 1,
-            maxSize: 5,
-            extensions: ['jpg', 'jpeg', 'pdf', 'doc', 'docm', 'docx', 'txt', 'png'],
+            maxSize: 10,
+            fileMaxSize: 10,
+            extensions: ['jpg', 'jpeg', 'pdf'],
             showThumbs: true,
             addMore: true,
             setIndex: function(){
