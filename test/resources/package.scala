@@ -16,13 +16,15 @@
 
 import connectors.CapacityDeclaration
 import models._
-import org.joda.time.{DateTime, LocalDate}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
-
+import uk.gov.hmrc.domain.Nino
+import java.{time => javatime}
+import org.joda.time.{LocalDate, DateTime}
 
 package object resources {
 
+  implicit val arbitraryJavaLocalDate: Arbitrary[javatime.LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(javatime.LocalDate.ofEpochDay(_)))
   implicit val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new LocalDate(_)))
   implicit val arbitraryDateTime: Arbitrary[DateTime] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new DateTime(_)))
 
@@ -132,4 +134,24 @@ package object resources {
   } yield PropertyLink(linkId, uarn, organisationId, description, agentNames, canAppointAgent, address, capacity,
     linkedDate, pending, assessment)
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
+
+
+  val ninoGen: Gen[Nino] = for {
+    prefix <- (for {
+      prefix1 <- Gen.oneOf(('A' to 'Z').filterNot(List('D', 'F', 'I', 'Q', 'U', 'V').contains))
+      prefix2 <- Gen.oneOf(('A' to 'Z').filterNot(List('D', 'F', 'I', 'O', 'Q', 'U', 'V').contains))
+    } yield (s"$prefix1$prefix2")) suchThat (!List("BG", "GB", "NK", "KN", "TN", "NT", "ZZ").contains(_))
+    number <- Gen.listOfN(6, Gen.numChar)
+    suffix <- Gen.oneOf('A' to 'D')
+  } yield Nino(s"$prefix${number.mkString}$suffix".grouped(2).mkString(" "))
+  implicit val arbitraryNino = Arbitrary(ninoGen)
+
+  val ivDetailsGen: Gen[IVDetails] = for {
+    firstName <- Gen.alphaNumStr
+    lastName <- Gen.alphaNumStr
+    dob <- arbitrary[LocalDate]
+    nino <- arbitrary[Nino]
+  } yield IVDetails(firstName, lastName, dob, nino)
+  implicit val arbitraryIVDetails = Arbitrary(ivDetailsGen)
+
 }
