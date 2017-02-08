@@ -1,7 +1,7 @@
 @(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages)
 
     @main_template(
-        title = Messages("linkingRequestSubmitted.title"),
+        title = Messages("linkingRequestSubmitted.title1") + " " + model.address.toString + " " + Messages("linkingRequestSubmitted.title2"),
         topNavigation = false
     ) {
 
