@@ -19,44 +19,56 @@ package connectors
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import models.IVDetails
 import models.identityVerificationProxy.{Journey, Link}
-import org.apache.http.client.methods.HttpGet
 import org.joda.time.LocalDate
 import org.mockito.ArgumentMatchers._
-import org.mockito._
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.scalatestplus.play.PlaySpec
-import resources._
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost, HttpReads}
+import org.scalatestplus.play._
 import org.scalatest.concurrent.ScalaFutures._
+import org.scalacheck.Arbitrary._
+import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost}
+import org.mockito.Mockito._
+import org.scalatest.{FlatSpec, MustMatchers}
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import resources._
+
 
 import scala.concurrent.Future
-import org.scalacheck.Arbitrary._
-import play.api.libs.json.Writes
-import play.mvc.Http
 
-class IdentityVerificationProxyConnectorSpec extends PlaySpec with MockitoSugar with GeneratorDrivenPropertyChecks  {
+class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers with MockitoSugar with GeneratorDrivenPropertyChecks {
   implicit val headerCarrier = HeaderCarrier()
+
   import scala.concurrent.ExecutionContext.Implicits.global
-/*
-  "IdentityVerificationProxy" must {
 
-    "make a successful POST to Identity Verification Proxy Service" in {
-      pending
-      val mockLink = mock[Link]
-      val mockHttp = mock[HttpGet with HttpPost]
-      mockHttp.POST[Journey, Link](anyString, any[Journey], any[Seq[(String, String)]])(
-        implicitly[Writes[Journey]], implicitly[HttpReads[Link]], implicitly[HeaderCarrier]). returns Future.successful(mockLink)
+  "IdentityVerificationProxy" must "make a successful POST to Identity Verification Proxy Service" in {
 
-      val connector = new IdentityVerificationProxyConnector(mockHttp)
-      forAll { (ivDetails: IVDetails, expiryDate: Option[LocalDate]) =>
-       whenReady(connector.start("completionUrl", "failureUrl", ivDetails, expiryDate)) { link =>
-         link must be (mockLink)
-       }
+    val mockLink = mock[Link]
+    val mockHttp = mock[HttpPost with HttpGet]
+
+    when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any())) thenReturn (Future.successful(mockLink))
+
+    val connector = new IdentityVerificationProxyConnector(mockHttp)
+    forAll { (ivDetails: IVDetails, expiryDate: Option[LocalDate]) =>
+      whenReady(connector.start("completionUrl", "failureUrl", ivDetails, expiryDate)) { link =>
+        link must be(mockLink)
       }
     }
   }
-*/
+
+  it must "handle an unsuccessful POST to Identity Verification Proxy Service" in {
+    val mockEx = new RuntimeException("something went wrong")
+    val mockHttp = mock[HttpPost with HttpGet]
+
+    when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any())).thenReturn(Future.failed(mockEx))
+
+    val connector = new IdentityVerificationProxyConnector(mockHttp)
+    forAll { (ivDetails: IVDetails, expiryDate: Option[LocalDate]) =>
+      whenReady(connector.start("completionUrl", "failureUrl", ivDetails, expiryDate).failed) { ex =>
+        ex must be(mockEx)
+      }
+    }
+  }
+
 }
 
 
