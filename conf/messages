@@ -283,7 +283,7 @@ selfCertification.linkAuthorised.properties.link=Manage your properties
 
 #UPLOAD RATES BILL
 uploadRatesBill.show.title=Submit a copy of your business rates bill
-uploadFile.allowedTypes=PDF, word documents, scanned images, photographs and many other common files are allowed. Your file must be less than 20Mb in size.
+uploadFile.allowedTypes=PDF, word documents, scanned images, photographs and many other common files are allowed. Your file must be less than 10Mb in size.
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Confirm
@@ -292,7 +292,7 @@ hasRatesBill.label=Please upload a copy of the business rates bill for this prop
 hasRatesBill.true=I have a business rates bill
 hasRatesBill.false=I don’t have a business rates bill
 label.ratesBill=Please upload a copy of the rates bill
-ratesBill.label.1=PDF, word documents, scanned images, photographs and many other common files are allowed. Your file must be less than 20Mb in size.
+ratesBill.label.1=PDF, word documents, scanned images, photographs and many other common files are allowed. Your file must be less than 10Mb in size.
 uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 
 #LINK REQUEST CONFIRMATION

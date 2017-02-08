@@ -83,7 +83,7 @@
     			drop: 'Drop file here to upload',
     			removeConfirmation: false,
     			errors: {
-    				filesLimit: 'Only {{fi-limit}} files are allowed to be uploaded.',
+    				filesLimit: 'Only {{fi-limit}} file allowed to be uploaded.',
     				filesType: 'Only jepg and pdf files are allowed to be uploaded.',
     				filesSize: '{{fi-name}} is too large! Please upload file up to {{fi-maxSize}} MB.',
     				filesSizeAll: 'Files you\'ve choosed are too large! Please upload files up to {{fi-maxSize}} MB.'
