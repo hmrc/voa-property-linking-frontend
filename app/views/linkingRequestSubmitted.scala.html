@@ -1,6 +1,9 @@
 @(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages)
 
-    @main_template(title = Messages("linkingRequestSubmitted.title")) {
+    @main_template(
+        title = Messages("linkingRequestSubmitted.title"),
+        topNavigation = false
+    ) {
 
         <div class="grid-row">
             <div class="column-two-thirds">

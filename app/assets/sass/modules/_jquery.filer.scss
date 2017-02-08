@@ -521,7 +521,7 @@ span.jFiler-icon-file.f-audio {
 
 }
 .jFiler-theme-govuk .jFiler-items-default .jFiler-item:last-child{
-    margin-bottom: 2em;
+    //margin-bottom: 2em;
 }
 
 
@@ -571,5 +571,5 @@ span.jFiler-icon-file.f-audio {
     border-left: 5px solid #b10e1e;
     list-style: outside none none;
     padding: 0 0.5em 0.5em 1em;
-    display: inline-block;
+    display: block;
 }
