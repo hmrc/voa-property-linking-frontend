@@ -19,9 +19,9 @@ package config
 import actions.AuthenticatedAction
 import auth.GGAction
 import connectors._
+import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import models.{IVDetails, IndividualDetails, PersonalDetails}
-import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, Reads, Writes}
 import session.{LinkingSessionRepository, WithLinkingSession}
@@ -58,6 +58,7 @@ abstract class Wiring {
   lazy val businessRatesAuthentication = new BusinessRatesAuthorisation(http)
   lazy val authenticated = new AuthenticatedAction
   lazy val betaLoginConnector = new BetaLoginConnector(http)
+  lazy val identityVerificationProxyConnector = new IdentityVerificationProxyConnector(http)
 }
 
 class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {
