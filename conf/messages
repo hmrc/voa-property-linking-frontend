@@ -189,7 +189,7 @@ propertyRepresentation.modifyAgent.agentCode=Agent code
 propertyRepresentation.modifyAgent.button=Submit
 
 propertyRepresentation.appointedAgent.title=Agent nomination successful
-agentAppointed.heading=We have received your request for {0} to act on behalf of {1}
+agentAppointed.heading=We have received your request for an agent to act on behalf of {0}
 appointedAgent.whatNext.p.1=The representative has been sent your request. You’ll be alerted on the dashboard once they have confirmed.
 propertyRepresentation.modifiedAgent.title=Agent nomination changes accepted
 propertyRepresentation.modifiedAgent.message.1=Your changes have been applied.
