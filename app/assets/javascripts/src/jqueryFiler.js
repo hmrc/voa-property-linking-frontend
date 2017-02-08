@@ -77,14 +77,14 @@
                 progressBar: '<div class="bar"></div>'
                 },
                 captions: {
-    			button: 'Choose Files',
-    			feedback: 'Choose files To Upload',
+    			button: 'Choose a file',
+    			feedback: 'Choose a file to upload',
     			feedback2: 'files were chosen',
-    			drop: 'Drop file here to Upload',
+    			drop: 'Drop file here to upload',
     			removeConfirmation: false,
     			errors: {
     				filesLimit: 'Only {{fi-limit}} files are allowed to be uploaded.',
-    				filesType: 'Only Images are allowed to be uploaded.',
+    				filesType: 'Only jepg and pdf files are allowed to be uploaded.',
     				filesSize: '{{fi-name}} is too large! Please upload file up to {{fi-maxSize}} MB.',
     				filesSizeAll: 'Files you\'ve choosed are too large! Please upload files up to {{fi-maxSize}} MB.'
     			}
