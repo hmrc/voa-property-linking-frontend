@@ -49,7 +49,7 @@ class CreateGroupAcountSpec extends ControllerSpec {
     status(res) mustBe OK
   }
 
-  "The create group success account page" must "return Unauthorized if user has not verified identity" in {
+  "The create group account success page" must "return Unauthorized if user has not verified identity" in {
     val res = TestCreateGroupAccount.success()(request)
     status(res) mustBe UNAUTHORIZED
   }
