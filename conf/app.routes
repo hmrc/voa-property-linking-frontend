@@ -12,6 +12,20 @@ GET         /register                                               controllers.
 GET         /registered                                             controllers.Register.confirm
 GET         /logout                                                 controllers.Application.logOut
 
+#Wizard
+GET         /authentication-wizard                                  controllers.Wizard.authenticationWizard
+POST        /authentication-wizard                                  controllers.Wizard.submit
+GET         /authentication-wizard/use-existing-account             controllers.Wizard.registerExistingGG
+POST        /authentication-wizard/use-existing-account             controllers.Wizard.submitExistingGG
+
+#Before you start pages
+GET         /authentication-wizard/before-you-start-a               controllers.Wizard.beforeYouStartA
+GET         /authentication-wizard/before-you-start-b               controllers.Wizard.beforeYouStartB
+GET         /authentication-wizard/before-you-start-c               controllers.Wizard.beforeYouStartC
+GET         /authentication-wizard/before-you-start-d               controllers.Wizard.beforeYouStartD
+
+
+
 #Create individual account
 GET         /create-account                                         controllers.CreateIndividualAccount.show
 POST        /create-account                                         controllers.CreateIndividualAccount.submit

@@ -44,4 +44,5 @@ object Application extends Controller {
   def logOut() = Action { request =>
     Redirect(routes.Application.start()).withNewSession
   }
+
 }

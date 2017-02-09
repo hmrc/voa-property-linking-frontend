@@ -2,7 +2,7 @@
 
 
 @main_template(
-    title = "Start page",
+    title = Messages("start.heading.register"),
     topNavigation = false
 ) {
 
@@ -28,7 +28,8 @@
 
             <p>@Messages("start.registration.p.6")</p>
 
-            <a href="@routes.Register.show" class="button" role="button">@Messages("start.register")</a>
+            <a href="@routes.Wizard.authenticationWizard" class="button" role="button">@Messages("start.register")</a>
+
     </div>
 </div>
 
