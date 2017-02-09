@@ -39,41 +39,41 @@ object Wizard extends Controller {
   }
 
   private def redirectToStart(options: WizardOptions) = options match {
-      case WizardOptions(true, Some(true), _) => Redirect(routes.Wizard.beforeYouStartA)
-      case WizardOptions(true, Some(false), _) => Redirect(routes.Wizard.beforeYouStartB)
+      case WizardOptions(true, Some(true), _) => Redirect(routes.Wizard.beforeYouRegisterA)
+      case WizardOptions(true, Some(false), _) => Redirect(routes.Wizard.beforeYouRegisterB)
       case WizardOptions(false, _, Some(true)) => Redirect(routes.Wizard.registerExistingGG)
-      case WizardOptions(false, _, Some(false)) => Redirect(routes.Wizard.beforeYouStartD)
+      case WizardOptions(false, _, Some(false)) => Redirect(routes.Wizard.beforeYouRegisterD)
   }
 
 
 
-  def beforeYouStartA() = Action { implicit request =>
-      Ok(views.html.authenticationWizard.beforeYouStartA())
+  def beforeYouRegisterA() = Action { implicit request =>
+      Ok(views.html.authenticationWizard.beforeYouRegisterA())
   }
 
-  def beforeYouStartB() = Action { implicit request =>
-      Ok(views.html.authenticationWizard.beforeYouStartB())
+  def beforeYouRegisterB() = Action { implicit request =>
+      Ok(views.html.authenticationWizard.beforeYouRegisterB())
   }
 
   def registerExistingGG() = Action { implicit request =>
       Ok(views.html.authenticationWizard.registerExistingGG(useExistingAccountForm))
   }
 
-  def beforeYouStartC() = Action { implicit request =>
-      Ok(views.html.authenticationWizard.beforeYouStartC())
+  def beforeYouRegisterC() = Action { implicit request =>
+      Ok(views.html.authenticationWizard.beforeYouRegisterC())
   }
 
-  def beforeYouStartD() = Action { implicit request =>
-      Ok(views.html.authenticationWizard.beforeYouStartD())
+  def beforeYouRegisterD() = Action { implicit request =>
+      Ok(views.html.authenticationWizard.beforeYouRegisterD())
   }
 
   def submitExistingGG() = Action { implicit request =>
       useExistingAccountForm.bindFromRequest.fold(
           errors => BadRequest(views.html.authenticationWizard.registerExistingGG(errors)),
           useExisting => if (useExisting) {
-              Redirect(routes.Wizard.beforeYouStartC)
+              Redirect(routes.Wizard.beforeYouRegisterC)
           } else {
-              Redirect(routes.Wizard.beforeYouStartD)
+              Redirect(routes.Wizard.beforeYouRegisterD)
           }
       )
   }
