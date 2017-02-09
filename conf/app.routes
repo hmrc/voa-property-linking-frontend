@@ -17,10 +17,10 @@ GET         /authentication-wizard/use-existing-account             controllers.
 POST        /authentication-wizard/use-existing-account             controllers.Wizard.submitExistingGG
 
 #Before you start pages
-GET         /authentication-wizard/before-you-start-a               controllers.Wizard.beforeYouStartA
-GET         /authentication-wizard/before-you-start-b               controllers.Wizard.beforeYouStartB
-GET         /authentication-wizard/before-you-start-c               controllers.Wizard.beforeYouStartC
-GET         /authentication-wizard/before-you-start-d               controllers.Wizard.beforeYouStartD
+GET         /authentication-wizard/before-you-register-a            controllers.Wizard.beforeYouRegisterA
+GET         /authentication-wizard/before-you-register-b            controllers.Wizard.beforeYouRegisterB
+GET         /authentication-wizard/before-you-register-c            controllers.Wizard.beforeYouRegisterC
+GET         /authentication-wizard/before-you-register-d            controllers.Wizard.beforeYouRegisterD
 
 
 

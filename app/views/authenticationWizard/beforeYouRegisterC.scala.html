@@ -1,0 +1,43 @@
+@()(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+    title = Messages("heading.authenticationWizard.beforeYouRegister"),
+    topNavigation = false
+) {
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">
+                @Messages("heading.authenticationWizard.beforeYouRegister")
+            </h1>
+
+            <p>@Messages("authenticationWizard.p1.beforeYouRegisterC")</p>
+
+            <p>@Messages("authenticationWizard.p2.beforeYouRegister")</p>
+
+            <ul class="bullets">
+                <li>@Messages("authenticationWizard.beforeYouRegister.li1")</li>
+                <li>@Messages("authenticationWizard.beforeYouRegister.li2")</li>
+                <li>@Messages("authenticationWizard.beforeYouRegister.li3")</li>
+            </ul>
+
+            <p class="panel panel-border-wide">@Messages("authenticationWizard.beforeYouRegister.important")</p>
+
+            <p>@Messages("authenticationWizard.p3.beforeYouRegister")</p>
+
+            <details>
+                <summary><span class="summary">@Messages("beforeYouRegister.summary.question")</span></summary>
+                <div class="panel-indent">
+                  @Messages("beforeYouRegister.summary.answer")
+                </div>
+            </details>
+
+            <p><a href="@routes.Register.show" class="button" >@Messages("label.continue")</a></p>
+
+
+    </div>
+</div>
+
+}

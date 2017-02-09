@@ -4,26 +4,54 @@ link.dashboardhome=Dashboard
 
 #START PAGE
 start.heading.register=Register to use this service
-start.heading.about=About this service
-start.about.p.1=If you want to tell the VOA about any changes to the property, or challenge the rateable value, you’ll need to register for the VOA’s service.
-start.link.learnMore=Learn more about the VOA’s check and challenge service.
-start.about.p.2=You can create a customer record for the business. You can add individuals to this customer record, who can suggest changes on behalf of the business, once they’re registered.
-start.about.p.3=If an individual leaves the business, you can remove them from the customer record and replace them with a new person.
+start.p1=If you’re a returning user, you can <a href="{0}">login</a> to use this service.
+start.p2=If you haven’t used this service before and you want to view your detailed property valuations or tell the Valuation Office Agency (VOA) about any changes to your property, you’ll need to register.
+
 start.heading.registration=Registration
-start.registration.p.1=The registration process asks for details about the individual as well as information about the business.
-start.registration.p.2=This ensures that all data is secure and only available to people who have the right to see it.
-start.registration.p.3=To use this service, you’ll firstly need a Government Gateway account for the business (even if you already have one as an individual). If you don’t have one already, you’ll be able to create one during the registration process.
-start.registration.youNeed=You’ll then need to create an individual customer record by:
-start.registration.youNeed.1=using your Government Gateway ID to register with the VOA
-start.registration.youNeed.2=providing proof of ID (such as your date of birth, National Insurance number, P60 and PAYE details)
-start.registration.youNeed.3=providing proof of your relationship to the property (such as a business rates or utility bill)
-start.registration.p.5=After you’ve created an individual customer record, you’ll need to create a customer record for the business.
 start.heading.agents=Agents
 start.agents.p.1=If you plan to act as an agent on behalf of another business, you’ll be able to indicate this during the registration process.
 start.register=Register now
 
 label.login=Login
 label.register=Register
+
+#WIZARD
+label.wizard.businessHasRegistered=Has your business already been registered by someone else?
+businessHasRegistered.true=Yes
+businessHasRegistered.false=No
+label.wizard.givenGGDetails=Have you been given Government Gateway login details to use, by someone else in your business?
+givenGGDetails.true=Yes
+givenGGDetails.false=No
+label.wizard.existingGGAccount=Do you have an existing Government Gateway account that you’d like to use to register your business?
+existingGGAccount.true=Yes
+existingGGAccount.false=No
+
+#WIZARD BEFORE YOU START
+heading.authenticationWizard.beforeYouRegister=Before you register
+authenticationWizard.p1.beforeYouRegisterA=To register for this service, you’ll need to login with the Government Gateway details that you’ve been given.
+authenticationWizard.p1.beforeYouRegisterC=To register for this service, you’ll need to login with your existing Government Gateway details.
+authenticationWizard.p1.beforeYouRegisterD=To register for this service, you’ll need to create a Government Gateway account.
+heading.authenticationWizard.alreadyRegistered=Your business has already been registered
+heading.authenticationWizard.alreadyRegistered.p1=As your business has already registered, you’ll need to ask the person who created the Government Gateway account to add you to the account. You will then be given your own personal ID and password to access the service.
+heading.authenticationWizard.alreadyRegistered.p2=Once you have the details, you’ll be able to continue to <a href="{0}">register for the service</a>.
+heading.authenticationWizard.existingGGAccount=Register with an existing Government Gateway account
+heading.authenticationWizard.existingGGAccount.p1=There are 3 types of Government Gateway account that you can create; Individual, Organisation and Agent.
+heading.authenticationWizard.existingGGAccount.p2=If you have an existing Organisation account for the business, you can use it to register for the VOA’s service. You won’t be able to use an Individual or Agent account to register.
+label.wizard.useExistingGGAccount=Do you want to use an existing Organisation Government Gateway account?
+useExistingGGAccount.true=Yes
+useExistingGGAccount.false=No
+
+authenticationWizard.p2.beforeYouRegister=You’ll also need to verify your identity, by providing your National Insurance number, date of birth and details from at least 2 of the following:
+authenticationWizard.p3.beforeYouRegister=Once your identity has been verified, you’ll be able to register your business.
+beforeYouRegister.summary.question=I want to register as an agent
+beforeYouRegister.summary.answer=If you want to register as an agent, you’ll be able to indicate this during the registration process.
+authenticationWizard.beforeYouRegister.li1=passport
+authenticationWizard.beforeYouRegister.li2=P60
+authenticationWizard.beforeYouRegister.li3=Pay slip (PAYE)
+authenticationWizard.beforeYouRegister.important=Please make sure you have these documents at hand before you start to register.
+
+
+
 
 #POST REGISTRATION PAGE
 ggRegistration.title=You’ve successfully registered the business with Government Gateway

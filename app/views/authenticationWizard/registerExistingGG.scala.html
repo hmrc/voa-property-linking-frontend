@@ -5,7 +5,7 @@
 @(theForm: Form[_])(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = Messages("heading.authenticationWizard"),
+    title = Messages("heading.authenticationWizard.existingGGAccount"),
     topNavigation = false
 ) {
 
@@ -16,6 +16,9 @@
                 @Messages("heading.authenticationWizard.existingGGAccount")
             </h1>
 
+            <p>@Messages("heading.authenticationWizard.existingGGAccount.p1")</p>
+
+            <p>@Messages("heading.authenticationWizard.existingGGAccount.p2")</p>
 
             @form(routes.Wizard.submitExistingGG) {
 
