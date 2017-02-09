@@ -1,0 +1,40 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import controllers.Wizard.keys._
+
+@(theForm: Form[_])(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = Messages("heading.authenticationWizard"),
+    topNavigation = false
+) {
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">
+                @Messages("heading.authenticationWizard.existingGGAccount")
+            </h1>
+
+
+            @form(routes.Wizard.submitExistingGG) {
+
+                @inputRadioGroup(
+                    field = theForm(useExistingGGAccount),
+                    options = Seq("true", "false"),
+                    args = Seq(
+                        '_label -> Messages(s"label.wizard.$useExistingGGAccount"),
+                        '_labelClass -> "form-label-bold",
+                        '_legend -> true,
+                        '_fieldsetClass -> "inline"
+                    )
+                )
+
+
+            <input type="submit" class="button" value="@Messages("label.continue")">
+
+            }
+    </div>
+</div>
+
+}

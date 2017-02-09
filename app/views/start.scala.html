@@ -2,7 +2,7 @@
 
 
 @main_template(
-    title = "Start page",
+    title = Messages("start.heading.register"),
     topNavigation = false
 ) {
 
@@ -16,7 +16,7 @@
 
             <a href="@routes.Login.show" class="button">@Messages("label.login")</a>
 
-            <a href="@routes.Register.show" class="button">@Messages("start.register")</a>
+            <a href="@routes.Wizard.authenticationWizard" class="button">@Messages("start.register")</a>
 
 
     </div>
