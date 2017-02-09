@@ -46,11 +46,11 @@
                         </td>
                         <td>
                             <ul>
-                                @if(p.agentNames.isEmpty){
+                                @if(p.agents.isEmpty){
                                     @Messages("dashboard.manageProperties.noAgent")
                                 } else {
-                                    @p.agentNames.map { name =>
-                                        <li>@name</li>
+                                    @p.agents.map { agent =>
+                                        <li>@agent.organisationName</li>
                                     }
                                 }
                             </ul>

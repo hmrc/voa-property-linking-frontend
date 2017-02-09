@@ -21,8 +21,9 @@ import play.api.libs.json.Json
 import serialization.JsonFormats._
 
 case class PropertyLink(authorisationId: Long, uarn: Long, organisationId: Int, description: String,
-                        agentNames: Seq[String], canAppointAgent: Boolean, address: PropertyAddress,
-                        capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean, assessment: Seq[Assessment])
+                        canAppointAgent: Boolean, address: PropertyAddress,
+                        capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean, assessment: Seq[Assessment],
+                        agents:Seq[PropertyRepresentation])
 
 object PropertyLink {
   implicit val format = Json.format[PropertyLink]
