@@ -19,11 +19,13 @@ package controllers
 import config.Wiring
 import form.Mappings._
 import form.TextMatching
-import models.{IndividualAccount, Address}
+import models.{Address, IndividualAccount}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import views.helpers.Errors
+
+import scala.concurrent.Future
 
 trait CreateGroupAccount extends PropertyLinkingController {
   lazy val groups = Wiring().groupAccountConnector
@@ -31,29 +33,46 @@ trait CreateGroupAccount extends PropertyLinkingController {
   lazy val auth = Wiring().authConnector
   lazy val ggAction = Wiring().ggAction
   lazy val keystore = Wiring().sessionCache
+  lazy val identityVerification = Wiring().identityVerification
 
-  def show = ggAction { _ => implicit request =>
-    Ok(views.html.createAccount.group(form))
+  def show = ggAction.async { _ => implicit request =>
+    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      identityVerification.verifySuccess(journeyId) flatMap {
+        case true => Ok(views.html.createAccount.group(form))
+        case false => Unauthorized("Unauthorised")
+      }
+    }
   }
 
-  def success = ggAction { _ => implicit request =>
-    Ok(views.html.createAccount.confirmation())
+  def success = ggAction.async { _ => implicit request =>
+    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      identityVerification.verifySuccess(journeyId) flatMap {
+        case true => Ok(views.html.createAccount.confirmation())
+        case false => Unauthorized("Unauthorised")
+      }
+    }
   }
 
   def submit = ggAction.async { ctx => implicit request =>
-    form.bindFromRequest().fold(
-      errors => BadRequest(views.html.createAccount.group(errors)),
-      formData => for {
-        groupId <- auth.getGroupId(ctx)
-        userId <- auth.getExternalId(ctx)
-        details <- keystore.getIndividualDetails
-        organisationId <- groups.create(groupId, formData)
-        journeyId = request.session.get("journeyId").getOrElse("no-id")
-        _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details))
-      } yield {
-        Redirect(routes.CreateGroupAccount.success())
+    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      identityVerification.verifySuccess(journeyId) flatMap {
+        case true => {
+          form.bindFromRequest().fold(
+            errors => BadRequest(views.html.createAccount.group(errors)),
+            formData => for {
+              groupId <- auth.getGroupId(ctx)
+              userId <- auth.getExternalId(ctx)
+              details <- keystore.getIndividualDetails
+              organisationId <- groups.create(groupId, formData)
+              _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details))
+            } yield {
+              Redirect(routes.CreateGroupAccount.success())
+            }
+          )
+        }
+        case false => Unauthorized("Unauthorised")
       }
-    )
+    }
   }
 
   lazy val keys = new {
