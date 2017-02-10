@@ -45,9 +45,12 @@ class AuthenticatedAction {
   }
 
   def withAccounts(body: DetailedAuthenticatedRequest[AnyContent] => Future[Result])(implicit messages: Messages) = apply { implicit request =>
+    val eventualMaybeGroupAccount = groupAccounts.get(request.organisationId)
+    val eventualMaybeIndividualAccount = individualAccounts.get(request.personId)
+
     for {
-      group <- groupAccounts.get(request.organisationId)
-      individual <- individualAccounts.get(request.personId)
+      group <- eventualMaybeGroupAccount
+      individual <- eventualMaybeIndividualAccount
       res <- (group, individual) match {
         case (Some(g), Some(i)) => body(DetailedAuthenticatedRequest(g, i, request))
         case _ => throw new Exception(s"user with organisationId ${request.organisationId} " +

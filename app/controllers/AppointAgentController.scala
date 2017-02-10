@@ -87,15 +87,17 @@ trait AppointAgentController extends PropertyLinkingController {
       appointAgentForm.bindFromRequest().fold(
         errors => BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, authorisationId))),
         agent => {
+          val eventualAgentCode = representations.validateAgentCode(agent.agentCode, authorisationId)
+          val eventualMaybeLink = propertyLinks.get(request.organisationAccount.id, authorisationId)
+
           for {
-            agentOrgId <- representations.validateAgentCode(agent.agentCode, authorisationId)
-            propertyLink <- propertyLinks.get(request.organisationAccount.id, authorisationId)
+            agentOrgId <- eventualAgentCode
+            propertyLink <- eventualMaybeLink
             res <- (agentOrgId, propertyLink) match {
-              case (_, Some(_)) if agentHasNoPermissions(agent) => {
+              case (_, Some(_)) if agentHasNoPermissions(agent) =>
                 val form = appointAgentForm.fill(agent).withError(invalidPermissions)
                 invalidAppointment(form, authorisationId)
-              }
-                case(_, Some(b)) => {
+              case(_, Some(b)) =>
                   val req = RepresentationRequest(authorisationId, agentOrgId,
                     request.individualAccount.individualId, java.util.UUID.randomUUID().toString,
                     agent.canCheck.name, agent.canChallenge.name, new DateTime())
@@ -104,7 +106,6 @@ trait AppointAgentController extends PropertyLinkingController {
                   } recover {
                     case _: BadRequestException => BadRequest(views.html.propertyRepresentation.invalidAppointment())
                   }
-                }
             }
           } yield {
             res
