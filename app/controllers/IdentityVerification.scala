@@ -42,7 +42,7 @@ trait IdentityVerification extends PropertyLinkingController {
         case None => NotFound
       }
     } else {
-      Future.successful(Redirect(routes.IdentityVerification.success()))
+      Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
     }
   }
 
@@ -58,28 +58,28 @@ trait IdentityVerification extends PropertyLinkingController {
   }
 
   def success = ggAction.async { implicit ctx => implicit request =>
-    val journeyId = request.session.get("journeyId").getOrElse("no-id")
-    identityVerification.verifySuccess(journeyId) flatMap {
-      case true => continue
-      case false => Unauthorized("Unauthorised")
+    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      identityVerification.verifySuccess(journeyId) flatMap {
+        case true => continue
+        case false => Unauthorized("Unauthorised")
+      }
     }
   }
 
   private def continue(implicit ctx: AuthContext, request: Request[_]) = {
-    for {
-      groupId <- auth.getGroupId(ctx)
-      userId <- auth.getExternalId(ctx)
-      account <- groups.withGroupId(groupId)
-      details <- keystore.getIndividualDetails
-      journeyId = request.session.get("journeyId").getOrElse("no-id")
-      res <- account match {
-        case Some(acc) => individuals.create(IndividualAccount(userId, journeyId, acc.id, details)) map { _ =>
-          Ok(views.html.createAccount.groupAlreadyExists(acc.companyName))
+    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      for {
+        groupId <- auth.getGroupId(ctx)
+        userId <- auth.getExternalId(ctx)
+        account <- groups.withGroupId(groupId)
+        details <- keystore.getIndividualDetails
+        res <- account match {
+          case Some(acc) => individuals.create(IndividualAccount(userId, journeyId, acc.id, details)) map { _ =>
+            Ok(views.html.createAccount.groupAlreadyExists(acc.companyName))
+          }
+          case _ => registerAddress(details) map { _ => Ok(views.html.identityVerification.success()) }
         }
-        case _ => registerAddress(details) map { _ => Ok(views.html.identityVerification.success()) }
-      }
-    } yield {
-      res
+      } yield res
     }
   }
 
