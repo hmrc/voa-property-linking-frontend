@@ -68,11 +68,15 @@ trait IdentityVerification extends PropertyLinkingController {
 
   private def continue(implicit ctx: AuthContext, request: Request[_]) = {
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      val eventualGroupId = auth.getGroupId(ctx)
+      val eventualExternalId = auth.getExternalId(ctx)
+      val eventualIndividualDetails = keystore.getIndividualDetails
+
       for {
-        groupId <- auth.getGroupId(ctx)
-        userId <- auth.getExternalId(ctx)
+        groupId <- eventualGroupId
+        userId <- eventualExternalId
         account <- groups.withGroupId(groupId)
-        details <- keystore.getIndividualDetails
+        details <- eventualIndividualDetails
         res <- account match {
           case Some(acc) => individuals.create(IndividualAccount(userId, journeyId, acc.id, details)) map { _ =>
             Ok(views.html.createAccount.groupAlreadyExists(acc.companyName))
