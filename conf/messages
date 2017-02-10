@@ -26,9 +26,9 @@ label.login=Login
 label.register=Register
 
 #POST REGISTRATION PAGE
-ggRegistration.title=You’ve successfully registered the business with Government Gateway
-ggRegistration.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to the business’s customer record.
-ggRegistration.p.2=We’ll ask you to verify your identity and confirm that you have the right to act for the business.
+ggRegistration.title=You’ve successfully registered your business with Government Gateway
+ggRegistration.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to your business’s customer record.
+ggRegistration.p.2=We’ll ask you to verify your identity and confirm that you have the right to act on behalf of your business.
 
 #BETA LOGIN
 betaLogin.title=Private beta login
@@ -40,7 +40,7 @@ lockedOut.p.1=You have entered the wrong password too many times. You are now lo
 
 #CREATE INDIVIDUAL ACCOUNT
 createAccount.individual.title=Register for the VOA’s service
-createAccount.individual.p.1=You now need to verify your identity and confirm that you have the right to act for the business.
+createAccount.individual.p.1=You now need to verify your identity and confirm that you have the right to act for the business. You should provide your personal contact details.
 createAccount.individual.heading.details=Your contact details
 label.createAccount.email=Email address
 label.createAccount.phone1=Telephone number
@@ -58,12 +58,15 @@ label.createAccount.phone2=Mobile number
 hint.dateOfBirth=For example, 20 3 1976
 hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.
 error.emailsMustMatch=Email addresses must match
-createAccount.p1=You’ll need to provide information about the business in order to complete the registration process.
+createAccount.p1=You’ll need to provide information about your business in order to complete the registration process.
 
 #IDENTITY VERIFICATION
 startIv.title=Provide further identification
 startIv.p.1=As part of our security procedures, we now need to ask you some more questions to confirm your identity.
-startIv.p.2=You may be asked to provide information including your passport number, P60 and PAYE details.
+startIv.p.2=You’ll be asked to provide details from at least 2 of the following:
+startIv.l1=passport
+startIv.l2=P60
+startIv.l3=payslip (PAYE)
 identityVerification.title=Identity verification
 failedIdentityVerification.title=Identity verification failed
 failedIdentityVerification.p.1=We’re unable to verify your identity.
@@ -75,15 +78,15 @@ iv.success.title=Identity verification successful
 iv.success.heading=Success
 iv.success.confirmation=We’ve verified your identity
 heading.whatNext=What happens next
-iv.success.p.1=You’ll need to provide information about the business in order to complete the registration process.
-link.createGroupAccount=Register the business
+iv.success.p.1=You’ll need to provide information about your business in order to complete the registration process.
+link.createGroupAccount=Register your business
 
 #INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
 groupAlreadyExists.title={0} has already registered.
 groupAlreadyExists.addedToGroup=You’ve been added to their customer record.
 
 #CREATE GROUP ACCOUNT
-createAccount.group.title=Register the business
+createAccount.group.title=Register your business
 label.createAccount.companyName=Business name
 label.createAccount.businessEmail=Business email address
 label.createAccount.confirmedBusinessEmail=Confirm business email address
@@ -100,11 +103,17 @@ isAgent.details=If you want to act as an agent on behalf of another business (in
 createAccount.group.details.header=I am not a business
 createAccount.group.details.content=If you are a non-commercial organisation such as a community venture hiring out rooms, village hall, trust or a charity, you should create an account in the same way as you would for a business.
 #ACCOUNT CREATED
-account.confirmation.title=You’ve successfully registered the business.
-account.confirmation.heading=You’ve successfully registered for the VOA service.
-account.confirmation.heading.2=You’ve been added to the business’s customer record.
+account.confirmation.title=You’ve successfully registered your business.
+account.confirmation.heading=You’ve successfully registered for the VOA’s service.
+account.confirmation.heading.2=You’ve been added to your business’s customer record.
+account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a href="{0}">add them to your Government Gateway account as an administrator or an assistant</a>.
 account.confirmation.youCan=You can now go to the dashboard and add properties to the business’s customer record.
 link.dashboard=Go to the dashboard
+createAccount.group.details.header.agent=I’m registering as an agent
+createAccount.group.details.content.agent=You’ll need to provide information about your own business here, not your client’s business.
+createAccount.group.details.header.multipleAddress=There’s more than one address for my business
+createAccount.group.details.content.multipleAddress=You should enter the address that you want any business correspondence to be sent.
+createAccount.business.email.help=This email address should be regularly monitored as system notifications will be sent here.
 
 account.confirmation.alreadyRegistered.youCan=You can now:
 account.confirmation.alreadyRegistered.youCan.1=add properties to the business’s customer record
@@ -238,8 +247,8 @@ search.title=Search and select a property to add to your customer record
 search.select.link=Select
 
 #DECLARE CAPACITY
-declareCapacity.title=Add property to your customer record
-declareCapacity.message=You are adding this property to your customer record:
+declareCapacity.title=Add the property to your business’s customer record
+declareCapacity.message=You are adding this property to your business’s customer record:
 declareCapacity.incorrectProperty.prefix=If this isn’t the right property you can
 declareCapacity.incorrectProperty.link=search for a different property
 interestedBefore2017.label=When did you become the owner or occupier of the property?

@@ -22,6 +22,16 @@
 
                     <p>@Messages("createAccount.p1")</p>
 
+
+                    <details>
+                        <summary><span class="summary">@Messages("createAccount.group.details.header.agent")</span></summary>
+                        <div class="panel-indent">
+                          @Messages("createAccount.group.details.content.agent")
+                        </div>
+                    </details>
+
+                    <br />
+
                     @includes.errorSummary(model.form, messagePrefix = Some("createAccount"))
 
                     @form(routes.CreateGroupAccount.submit) {
@@ -36,12 +46,22 @@
 
                         @address(model.form, keys.address)
 
+                        <details>
+                            <summary><span class="summary">@Messages("createAccount.group.details.header.multipleAddress")</span></summary>
+                            <div class="panel-indent">
+                              @Messages("createAccount.group.details.content.multipleAddress")
+                            </div>
+                        </details>
+
+                        <br />
+                        
                         @inputText(
                             field = model.form(keys.email),
                             '_label -> Messages(s"label.createAccount.${keys.email}"),
                             '_labelClass -> "form-label-bold",
                             '_showConstraints -> false,
-                            'class -> "form-control"
+                            'class -> "form-control",
+                            '_help -> Messages("createAccount.business.email.help")
                         )
 
                         @inputText(
