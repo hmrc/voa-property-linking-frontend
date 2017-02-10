@@ -63,7 +63,7 @@
                                 }
                             }
                             @if(p.assessment.nonEmpty){
-                                <a href="@routes.Dashboard.assessments(p.authorisationId)">
+                                <a href="@routes.Dashboard.assessments(p.authorisationId, p.pending)">
                                     @Messages("manageProperties.viewAssessments")
                                 </a>
                             }

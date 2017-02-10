@@ -28,8 +28,10 @@ POST        /create-group                                           controllers.
 #Dashboard
 GET         /home                                                   controllers.Dashboard.home()
 GET         /properties                                             controllers.Dashboard.manageProperties()
-GET         /property-link/:linkId/assessments                      controllers.Dashboard.assessments(linkId: Long)
+GET         /property-link/:linkId/assessments                      controllers.Dashboard.assessments(linkId: Long, linkPending: Boolean ?= false)
 GET         /draft-cases                                            controllers.Dashboard.draftCases()
+GET         /summary/:uarn                                          controllers.Dashboard.viewSummary(uarn: Long)
+GET         /detailed/:authorisationId/:assessmentRef               controllers.Dashboard.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long)
 
 #Search and Link
 GET         /property-search                                        @controllers.ClaimProperty.show()

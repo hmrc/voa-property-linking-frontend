@@ -34,4 +34,8 @@ object Formatters {
     date.toString(formatter)
   }
 
+  def formatDate(date: LocalDate) = {
+    date.toString(DateTimeFormat.forPattern("d MMM Y"))
+  }
+
 }

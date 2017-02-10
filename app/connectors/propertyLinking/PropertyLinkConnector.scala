@@ -55,8 +55,8 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     output
   }
 
-  def assessments(linkId: Long)(implicit hc: HeaderCarrier): Future[Seq[Assessment]] = {
-    val url = baseUrl + s"/dashboard/assessments/$linkId"
+  def assessments(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Seq[Assessment]] = {
+    val url = baseUrl + s"/dashboard/assessments/$authorisationId"
     http.GET[Seq[Assessment]](url)
   }
 }

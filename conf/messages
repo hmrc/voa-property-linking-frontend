@@ -102,6 +102,7 @@ isAgent.false=No
 isAgent.details=If you want to act as an agent on behalf of another business (including as a professional surveyor, an accountant or as a friend or relative), we’ll give you a unique identification code, known as an agent code. You’ll need to give this to your client so that they can register you to act on their behalf.
 createAccount.group.details.header=I am not a business
 createAccount.group.details.content=If you are a non-commercial organisation such as a community venture hiring out rooms, village hall, trust or a charity, you should create an account in the same way as you would for a business.
+
 #ACCOUNT CREATED
 account.confirmation.title=You’ve successfully registered your business.
 account.confirmation.heading=You’ve successfully registered for the VOA’s service.
@@ -165,6 +166,7 @@ assessments.table.5=To
 assessments.table.6=Actions
 assessments.enddate.present=Present
 assessments.view.valuation=View valuation
+assessments.view.summary=View summary valuation
 
 #DASHBOARD DRAFT CASES
 draftCases.title=Draft cases

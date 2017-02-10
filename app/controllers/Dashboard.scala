@@ -19,16 +19,16 @@ package controllers
 import config.{ApplicationConfig, Global, Wiring}
 import models._
 import org.joda.time.{DateTime, LocalDate}
+import play.api.mvc.Action
 
 import scala.concurrent.Future
 
 trait Dashboard extends PropertyLinkingController {
-  val propLinkedConnector = Wiring().propertyLinkConnector
+  val propertyLinks = Wiring().propertyLinkConnector
   val reprConnector = Wiring().propertyRepresentationConnector
   val individuals = Wiring().individualAccountConnector
   val groups = Wiring().groupAccountConnector
   val auth = Wiring().authConnector
-  val ggAction = Wiring().ggAction
   val authenticated = Wiring().authenticated
 
   def home() = authenticated.withAccounts { implicit request =>
@@ -36,20 +36,29 @@ trait Dashboard extends PropertyLinkingController {
   }
 
   def manageProperties() = authenticated { implicit request =>
-    propLinkedConnector.linkedProperties(request.organisationId) map { props =>
+    propertyLinks.linkedProperties(request.organisationId) map { props =>
       Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(props)))
     }
   }
 
-  def assessments(linkId: Long) = authenticated { implicit request =>
+  def assessments(authorisationId: Long, linkPending: Boolean) = authenticated { implicit request =>
     val backLink = request.headers.get("Referer")
-    propLinkedConnector.assessments(linkId) map { assessments =>
+    propertyLinks.assessments(authorisationId) map { assessments =>
       Ok(views.html.dashboard.assessments(
         AssessmentsVM(
           assessments,
-          backLink
+          backLink,
+          linkPending
         )))
     }
+  }
+
+  def viewSummary(uarn: Long) = Action { implicit request =>
+    Redirect(ApplicationConfig.vmvUrl + s"/detail/2017/$uarn")
+  }
+
+  def viewDetailedAssessment(authorisationId: Long, assessmentRef: Long) = authenticated { implicit request =>
+    Redirect(ApplicationConfig.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef"))
   }
 
   def draftCases() = authenticated { implicit request =>
@@ -62,21 +71,14 @@ trait Dashboard extends PropertyLinkingController {
     } else {
       NotFound(Global.notFoundTemplate)
     }
-}
-
-  private def capitalizeWords(text: String) = text.split(",").map(str => {
-    if (str.trim.matches("[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9]([A-Z]){2}") && text.endsWith(str))
-      str.trim
-    else
-      str.toLowerCase().trim.split(" ").map(_.capitalize).mkString(" ")
-  }).mkString(", ")
+  }
 }
 
 object Dashboard extends Dashboard
 
 case class ManagePropertiesVM(properties: Seq[PropertyLink])
 
-case class AssessmentsVM(assessments: Seq[Assessment], backLink: Option[String])
+case class AssessmentsVM(assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean)
 
 case class DraftCasesVM(draftCases: Seq[DraftCase])
 
