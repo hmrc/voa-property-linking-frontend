@@ -27,20 +27,23 @@ package object resources {
   implicit val arbitraryJavaLocalDate: Arbitrary[javatime.LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(javatime.LocalDate.ofEpochDay(_)))
   implicit val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new LocalDate(_)))
   implicit val arbitraryDateTime: Arbitrary[DateTime] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new DateTime(_)))
+  implicit val shortString = Gen.listOfN(20, Gen.alphaChar).map(_.mkString)
+
+  private def positiveLong = Gen.choose(0L, Long.MaxValue)
 
   val propertyAddressGen: Gen[PropertyAddress] = for {
-    lines <- Gen.nonEmptyListOf(Gen.alphaNumStr)
-    postcode <- Gen.alphaNumStr
+    lines <- Gen.nonEmptyListOf(shortString)
+    postcode <- shortString
   } yield PropertyAddress(lines, postcode)
 
   implicit val arbitraryPropertyAddress = Arbitrary(for {p <- propertyAddressGen} yield p)
 
   val propertyGen: Gen[Property] = for {
-    uarn <- arbitrary[Long]
-    billingAuthorityReference <- arbitrary[String]
+    uarn <- positiveLong
+    billingAuthorityReference <- shortString
     address <- propertyAddressGen
-    specialCategoryCode <- Gen.alphaNumStr
-    description <- arbitrary[String]
+    specialCategoryCode <- shortString
+    description <- shortString
     bulkClassIndicator <- arbitrary[Char].map(_.toString)
   } yield Property(uarn, billingAuthorityReference, address, specialCategoryCode, description, bulkClassIndicator)
   implicit val arbitraryProperty = Arbitrary(for {p <- propertyGen} yield p)
@@ -59,27 +62,27 @@ package object resources {
 
   val addressGen: Gen[Address] = for {
     id <- arbitrary[Option[Int]]
-    line1 <- Gen.alphaNumStr
-    line2 <- Gen.alphaNumStr
-    line3 <- Gen.alphaNumStr
-    line4 <- Gen.alphaNumStr
-    postcode <- Gen.alphaNumStr
+    line1 <- shortString
+    line2 <- shortString
+    line3 <- shortString
+    line4 <- shortString
+    postcode <- shortString
   } yield Address(id, line1, line2, line3, line4, postcode)
   implicit val arbitraryAddress = Arbitrary(addressGen)
 
 
   val individualDetailsGen: Gen[IndividualDetails] = for {
-    fistName <- Gen.alphaNumStr
-    lastName <- Gen.alphaNumStr
-    email <- Gen.alphaNumStr
+    fistName <- shortString
+    lastName <- shortString
+    email <- shortString
     phone1 <- Gen.listOfN(8, Gen.numChar)
     address <- arbitrary[Address]
   } yield IndividualDetails(fistName, lastName, email, phone1.mkString, None, address)
   implicit val arbitraryIndividualDetails = Arbitrary(individualDetailsGen)
 
   val individualGen: Gen[DetailedIndividualAccount] = for {
-    externalId <- Gen.alphaNumStr
-    trustId <- Gen.alphaNumStr
+    externalId <- shortString
+    trustId <- shortString
     organisationId <- arbitrary[Int]
     individualId <- arbitrary[Int]
     individualDetails <- arbitrary[IndividualDetails]
@@ -88,14 +91,14 @@ package object resources {
 
   val groupAccountGen: Gen[GroupAccount] = for {
     id <- arbitrary[Int]
-    groupId <- Gen.alphaNumStr
-    companyName <- Gen.alphaNumStr
+    groupId <- shortString
+    companyName <- shortString
     address <- arbitrary[Address]
-    email <- Gen.alphaNumStr
+    email <- shortString
     phone <-  Gen.listOfN(8, Gen.numChar)
     isSmallBusiness <- arbitrary[Boolean]
     isAgent <- arbitrary[Boolean]
-    agentCode <- Gen.alphaNumStr
+    agentCode <- shortString
   } yield GroupAccount(id, groupId, companyName, address, email, phone.mkString, isSmallBusiness, isAgent, agentCode)
   implicit val arbitraryGroupAccount = Arbitrary(groupAccountGen)
 
@@ -108,13 +111,13 @@ package object resources {
 
   val assessmentGen: Gen[Assessment] = for {
     linkId <- arbitrary[Int]
-    asstRef <- arbitrary[Long]
-    listYear <- arbitrary[String]
-    uarn <- arbitrary[Long]
+    asstRef <- positiveLong
+    listYear <- shortString
+    uarn <- positiveLong
     effectiveDate <- arbitrary[LocalDate]
-    rateableValue <- arbitrary[Long]
+    rateableValue <- positiveLong
     address <- arbitrary[ PropertyAddress]
-    billingAuthorityReference <- arbitrary[String]
+    billingAuthorityReference <- shortString
     capacity <- arbitrary[Capacity]
   } yield models.Assessment(linkId, asstRef, listYear, uarn, effectiveDate, rateableValue, address, billingAuthorityReference, capacity) 
   implicit val arbitraryAssessment = Arbitrary(assessmentGen)
@@ -141,7 +144,7 @@ package object resources {
 
   val propertyLinkGen: Gen[PropertyLink] = for {
     linkId <- arbitrary[Int]
-    uarn <- arbitrary[Long]
+    uarn <- positiveLong
     organisationId <- arbitrary[Int]
     description <- Gen.alphaNumStr
     canAppointAgent <- arbitrary[Boolean]
@@ -149,7 +152,7 @@ package object resources {
     capacity <- arbitrary[Capacity]
     linkedDate <- arbitrary[DateTime]
     pending <- arbitrary[Boolean]
-    assessment <- Gen.listOf(arbitrary[Assessment])
+    assessment <- Gen.nonEmptyListOf(arbitrary[Assessment])
     agents <- Gen.listOf(arbitrary[PropertyRepresentation])
   } yield PropertyLink(linkId, uarn, organisationId, description, canAppointAgent, address, capacity,
     linkedDate, pending, assessment, agents)
@@ -167,8 +170,8 @@ package object resources {
   implicit val arbitraryNino = Arbitrary(ninoGen)
 
   val ivDetailsGen: Gen[IVDetails] = for {
-    firstName <- Gen.alphaNumStr
-    lastName <- Gen.alphaNumStr
+    firstName <- shortString
+    lastName <- shortString
     dob <- arbitrary[LocalDate]
     nino <- arbitrary[Nino]
   } yield IVDetails(firstName, lastName, dob, nino)

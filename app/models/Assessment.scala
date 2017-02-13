@@ -16,13 +16,12 @@
 
 package models
 
-import org.joda.time.{DateTime, LocalDate}
-import play.api.libs.json.{Json, Reads}
-import serialization.JsonFormats._
+import org.joda.time.LocalDate
+import play.api.libs.json.Json
 
 case class Assessment(
-                       linkId: Long,
-                       asstRef: Long,
+                       authorisationId: Long,
+                       assessmentRef: Long,
                        listYear: String,
                        uarn:Long,
                        effectiveDate:LocalDate,

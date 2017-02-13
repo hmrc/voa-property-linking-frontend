@@ -30,7 +30,7 @@
             @model.assessments.map { assessment =>
                 <tr>
                     <td scope="row">
-                        @(Formatters.formatDate("d MMM Y",assessment.effectiveDate))
+                        @(Formatters.formatDate(assessment.effectiveDate))
                     </td>
                     <td>
                     £@{assessment.rateableValue}
@@ -39,15 +39,21 @@
                     @Messages(s"capacity.${assessment.capacity.capacity}")
                     </td>
                     <td>
-                        @(Formatters.formatDate("d MMM Y",assessment.capacity.fromDate))
+                        @(Formatters.formatDate(assessment.capacity.fromDate))
                     </td>
                     <td>
-                        @{assessment.capacity.toDate.map(Formatters.formatDate("d MMM Y",_)).getOrElse(Messages("assessments.enddate.present"))}
+                        @{assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))}
                     </td>
                     <td class="last">
-                        <a href=@ApplicationConfig.businessRatesValuationUrl(s"property-link/${assessment.linkId}/assessment/${assessment.asstRef}")>
-                            @Messages("assessments.view.valuation")
-                        </a>
+                        @if(model.linkPending) {
+                            <a href="@routes.Dashboard.viewSummary(assessment.uarn)">
+                                @Messages("assessments.view.summary")
+                            </a>
+                        } else {
+                            <a href=@routes.Dashboard.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef)>
+                               @Messages("assessments.view.valuation")
+                            </a>
+                        }
                     </td>
                 </tr>
             }

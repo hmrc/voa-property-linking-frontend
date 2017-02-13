@@ -30,7 +30,6 @@ class DashboardSpec extends ControllerSpec {
 
   object TestDashboard extends Dashboard {
     override val auth: VPLAuthConnector = StubAuthConnector
-    override val ggAction: GGAction = StubGGAction
     override val individuals = StubIndividualAccountConnector
     override val groups = StubGroupAccountConnector
     override val authenticated = StubAuthentication
