@@ -307,6 +307,7 @@ uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 #LINK REQUEST CONFIRMATION
 linkingRequestSubmitted.title1=We’ve received your request to add
 linkingRequestSubmitted.title2=to your business’s customer record.
+linkingRequestSubmitted.title3=Submission Id:
 linkingRequestSubmitted.message=Thank you for your request to add [address] to your customer record.
 linkingRequestSubmitted.p.1=The property will appear in your dashboard pending VOA approval.
 linkingRequestSubmitted.p.2=If approval is given, the status will change from ‘pending’ to ‘added’.  This may take some time, depending on the nature of your application.

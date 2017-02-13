@@ -45,7 +45,8 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar {
       arbitrary[DetailedIndividualAccount].sample.get, arbitrary[GroupAccount].sample.get)
     override lazy val propertyLinkConnector = StubPropertyLinkConnector
     lazy val sessionCache = new VPLSessionCache(StubHttp)
-    override lazy val sessionRepository = new StubLinkingSessionRepository(LinkingSession(property, "envelopeId", "submissionId"), sessionCache)
+    val submissionId = "submissionId"
+    override lazy val sessionRepository = new StubLinkingSessionRepository(LinkingSession(property, "envelopeId", submissionId), sessionCache)
   }
 
   "Upload Rates Bill upload page" must "allow the user to upload some evidence or not" in {
@@ -99,7 +100,8 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar {
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainSuccessSummary(s"✔ We’ve received your request to add ${
       TestUploadRatesBill.property.address.lines.mkString(", ")}, ${
-      TestUploadRatesBill.property.address.postcode} to your business’s customer record.")
+      TestUploadRatesBill.property.address.postcode} to your business’s customer record." +
+      s" Submission Id: ${TestUploadRatesBill.submissionId}")
   }
 
   it must "contains a link to the dashboard" in {

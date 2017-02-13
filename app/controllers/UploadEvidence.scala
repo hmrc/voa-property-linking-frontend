@@ -86,15 +86,17 @@ class UploadEvidence @Inject()(val fileUploadConnector: FileUpload) extends Prop
   def evidenceUploaded() = withLinkingSession { implicit request =>
     fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
       Wiring().sessionRepository.remove().map(_ =>
-        Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.claimedProperty.address)))
+        Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.claimedProperty.address, request.ses.submissionId)))
       )
     )
   }
 
   def noEvidenceUploaded(refId: String) = withLinkingSession { implicit request =>
-    fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
-      Wiring().sessionRepository.remove().map(_ =>
-        Ok(views.html.uploadEvidence.noEvidenceUploaded(refId))
+    requestLink(NoEvidenceFlag, None).flatMap( _=>
+      fileUploadConnector.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
+        Wiring().sessionRepository.remove().map(_ =>
+          Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.claimedProperty.address, request.ses.submissionId)))
+        )
       )
     )
   }
@@ -117,4 +119,4 @@ case object FilesMissing extends EvidenceUploadResult
 
 case object FilesUploadFailed extends EvidenceUploadResult
 
-case class RequestSubmittedVM(address: PropertyAddress)
+case class RequestSubmittedVM(address: PropertyAddress, refId: String)
