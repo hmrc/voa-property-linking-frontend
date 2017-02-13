@@ -16,7 +16,7 @@
 
 package connectors
 
-import models.{PropertyRepresentation, PropertyRepresentations, RepresentationRequest, RepresentationResponse}
+import models._
 import play.api.libs.json.{JsNull, JsValue}
 import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -30,9 +30,7 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost)(
 
   def validateAgentCode(agentCode:Long, authorisationId: Long)(implicit hc: HeaderCarrier) = {
     val url = baseUrl + s"/property-representations/validate-agent-code/$agentCode/$authorisationId"
-    http.GET[JsValue](url) .map(js =>{
-      (js \ "organisationId").as[Long]
-    })
+    http.GET[AgentCodeValidationResult](url)
   }
 
   def get(representationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyRepresentation]] = {

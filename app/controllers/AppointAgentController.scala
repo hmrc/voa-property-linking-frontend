@@ -84,28 +84,35 @@ trait AppointAgentController extends PropertyLinkingController {
 
   def appointSubmit(authorisationId: Long) = authenticated.withAccounts { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
-      appointAgentForm.bindFromRequest().fold(
-        errors => BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, authorisationId))),
-        agent => {
-          val eventualAgentCode = representations.validateAgentCode(agent.agentCode, authorisationId)
+      appointAgentForm.bindFromRequest().fold( errors => {
+        BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, authorisationId)))
+        }, agent => {
+          val eventualAgentCodeResult = representations.validateAgentCode(agent.agentCode, authorisationId)
           val eventualMaybeLink = propertyLinks.get(request.organisationAccount.id, authorisationId)
-
           for {
-            agentOrgId <- eventualAgentCode
+            agentCodeValidationResult <- eventualAgentCodeResult
             propertyLink <- eventualMaybeLink
-            res <- (agentOrgId, propertyLink) match {
-              case (_, Some(_)) if agentHasNoPermissions(agent) =>
-                val form = appointAgentForm.fill(agent).withError(invalidPermissions)
-                invalidAppointment(form, authorisationId)
-              case(_, Some(b)) =>
-                  val req = RepresentationRequest(authorisationId, agentOrgId,
+            res <- (agentCodeValidationResult, propertyLink) match {
+              case (AgentCodeValidationResult(orgId, failureCode), Some(prop)) =>  {
+                val codeError = failureCode.map( _ match {
+                  case "INVALID_CODE" => { invalidAgentCode }
+                  case "DUPLICATE_PARTY" => {alreadyAppointedAgent}
+                })
+                val permissionError = if (agentHasNoPermissions(agent)) Some(invalidPermissions) else None
+                val errors: List[FormError] = List(codeError, permissionError).flatten
+                if (errors.nonEmpty) {
+                  val form = appointAgentForm.fill(agent)
+                  val formWithErrors = errors.foldLeft(form){(f, error) => f.withError(error)}
+                  invalidAppointment(formWithErrors, authorisationId)
+                } else {
+                  val req = RepresentationRequest(authorisationId, agentCodeValidationResult.organisationId.getOrElse(-1),
                     request.individualAccount.individualId, java.util.UUID.randomUUID().toString,
                     agent.canCheck.name, agent.canChallenge.name, new DateTime())
                   representations.create(req) map { _ =>
-                    Ok(views.html.propertyRepresentation.appointedAgent(b.address, "FIXME: Agent Company name"))
-                  } recover {
-                    case _: BadRequestException => BadRequest(views.html.propertyRepresentation.invalidAppointment())
+                    Ok(views.html.propertyRepresentation.appointedAgent(prop.address))
                   }
+                }
+              }
             }
           } yield {
             res
@@ -121,6 +128,7 @@ trait AppointAgentController extends PropertyLinkingController {
 
   private lazy val invalidPermissions = FormError("canCheck", "error.invalidPermissions")
   private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
+  private lazy val alreadyAppointedAgent = FormError("agentCode", "error.alreadyAppointedAgent")
 
   private def invalidAppointment(form: Form[AppointAgent], linkId: Long)(implicit request: Request[_]) = {
     Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId))))

@@ -191,6 +191,7 @@ canChallenge.CONTINUE_ONLY=Continue existing challenges only
 canChallenge.NOT_PERMITTED=Not permitted to start new challenges or continue existing challenges
 error.invalidPermissions=Agent must either have permission to continue checks or challenges
 error.invalidAgentCode=Invalid agent code
+error.alreadyAppointedAgent=That agent is already assigned to this property. To change the agent permissions, go to the ''Manage agents'' section on your dashboard.
 
 #EDIT AGENT
 propertyRepresentation.modifyAgent.title=Manage agent relationship

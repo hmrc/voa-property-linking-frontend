@@ -49,7 +49,6 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     val url = baseUrl + s"/property-links/$organisationId"
     val tmp = http.GET[JsValue](url)
     val output = tmp.map(x => {
-      Logger.info(x.toString())
       x.as[Seq[PropertyLink]]
     })
     output
