@@ -1,0 +1,47 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@()(implicit request: Request[_], messages: Messages)
+    
+    @main_template(Messages("releaseNotes.title"), topNavigation = false) {
+        <div class="grid-row">
+            <div class="column-two-thirds">
+            
+                <h1 class="heading-xlarge">@Messages("releaseNotes.title")</h1>
+                
+                <h2 class="heading-medium">@Messages("releaseNotes.heading.features")</h2>
+
+                <ul class="list-bullet">
+                    <li>@Messages("releaseNotes.features.1")</li>
+                    <li>@Messages("releaseNotes.features.2")</li>
+                    <li>@Messages("releaseNotes.features.3")</li>
+                    <li>@Messages("releaseNotes.features.4")</li>
+                </ul>
+
+                <p>@Html(Messages("releaseNotes.p.1"))</p>
+                <p>@Messages("releaseNotes.p.2")</p>
+
+                <ul class="list-bullet">
+                    <li>@Messages("releaseNotes.loggedInFeatures.1")</li>
+                    <li>@Messages("releaseNotes.loggedInFeatures.2")</li>
+                    <li>@Messages("releaseNotes.loggedInFeatures.3")</li>
+                </ul>
+
+                <h2 class="heading-medium">@Messages("releaseNotes.heading.knownIssues")</h2>
+
+                <p>@Messages("releaseNotes.p.knownIssues")</p>
+
+                <ul class="list-bullet">
+                    <li>@Messages("releaseNotes.knownIssues.1")</li>
+                    <li>@Messages("releaseNotes.knownIssues.2")</li>
+                </ul>
+
+                <br/>
+
+                <p>
+                    <a href="@routes.Application.start()" class="button">@Messages("label.continue")</a>
+                </p>
+
+            </div>
+        </div>
+    }

@@ -1,5 +1,7 @@
 #Start
-GET         /                                                       controllers.Application.index()
+GET         /                                                       controllers.Application.releaseNotes()
+
+GET         /start                                                  controllers.Application.start()
 
 GET         /betalogin                                              controllers.BetaLoginController.show
 POST        /betalogin                                              controllers.BetaLoginController.login
