@@ -16,7 +16,7 @@
 
 package controllers
 
-import config.Wiring
+import config.{ApplicationConfig, Wiring}
 import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
@@ -25,15 +25,23 @@ import uk.gov.hmrc.play.http.SessionKeys
 object Application extends Controller {
   val ggAction = Wiring().ggAction
 
- def typography = Action { implicit request =>
-   Ok(views.html.typography())
- }
+  def typography = Action { implicit request =>
+    Ok(views.html.typography())
+  }
 
-  def index() = Action { implicit request =>
+  def releaseNotes = Action { implicit request =>
+    if (ApplicationConfig.showReleaseNotes) {
+      Ok(views.html.releaseNotes())
+    } else {
+      Redirect(routes.Application.start())
+    }
+  }
+
+  def start() = Action { implicit request =>
     Ok(views.html.start()).addingToSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
   }
 
   def logOut() = Action { request =>
-    Redirect(routes.Application.index()).withNewSession
+    Redirect(routes.Application.start()).withNewSession
   }
 }

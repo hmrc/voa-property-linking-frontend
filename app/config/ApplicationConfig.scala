@@ -42,6 +42,8 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   def businessRatesValuationUrl(page: String) = getConfig("business-rates-valuation.url") + s"/$page"
   val readyForPrimeTime = getConfig("featureFlags.readyForPrimeTime").toBoolean
 
+  val showReleaseNotes = getConfig("featureFlags.showReleaseNotes").toBoolean
+
   lazy val reportAProblemPartialUrl = s"$contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   lazy val reportAProblemNonJSUrl = s"$contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val analyticsToken = mustGetConfigString(Play.current, s"google-analytics.token")
