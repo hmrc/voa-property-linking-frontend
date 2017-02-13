@@ -4,7 +4,9 @@
 
 @(f: Form[_])(implicit request: Request[_], messages: Messages)
 
-    @main_template(Messages("chooseEvidence.title")) {
+    @main_template(Messages("chooseEvidence.title"),
+    topBackLink = true,
+    bottomBackLink = true) {
         <div class="grid-row">
             <div class="column-two-thirds">
 
