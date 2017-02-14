@@ -17,9 +17,10 @@
 package utils
 
 import connectors.PropertyRepresentationConnector
-import models.{PropertyRepresentation, RepresentationRequest}
+import models.{AgentCodeValidationResult, PropertyRepresentation, RepresentationRequest}
 import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import org.scalacheck.Arbitrary.arbitrary
 
 import scala.concurrent.Future
 
@@ -31,6 +32,11 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
   def reset(): Unit = {
     stubbedRepresentations = Nil
   }
+
+  override def validateAgentCode(agentCode: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful(
+    AgentCodeValidationResult(Some(123), None)
+  )
+
 
   override def get(representationId: Long)(implicit hc: HeaderCarrier) = Future.successful(
     stubbedRepresentations.find(_.representationId == representationId)

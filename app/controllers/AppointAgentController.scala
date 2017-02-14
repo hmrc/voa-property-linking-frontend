@@ -104,14 +104,14 @@ trait AppointAgentController extends PropertyLinkingController {
                   val form = appointAgentForm.fill(agent)
                   val formWithErrors = errors.foldLeft(form){(f, error) => f.withError(error)}
                   invalidAppointment(formWithErrors, authorisationId)
-                } else {
-                  val req = RepresentationRequest(authorisationId, agentCodeValidationResult.organisationId.getOrElse(-1),
+                } else { val req = RepresentationRequest(authorisationId, agentCodeValidationResult.organisationId.getOrElse(-1),
                     request.individualAccount.individualId, java.util.UUID.randomUUID().toString,
                     agent.canCheck.name, agent.canChallenge.name, new DateTime())
-                  representations.create(req) map { _ =>
-                    Ok(views.html.propertyRepresentation.appointedAgent(prop.address))
-                  }
+                  representations.create(req) map { _ => Ok(views.html.propertyRepresentation.appointedAgent(prop.address)) }
                 }
+              }
+              case (_, None) => {
+                Future.successful(NotFound)
               }
             }
           } yield {

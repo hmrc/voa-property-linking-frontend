@@ -73,7 +73,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubGroupAccountConnector.stubAccount(agentAccount)
 
     val res = TestAppointAgent.appointSubmit(arbitrary[PropertyLink].sample.get.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> agentAccount.groupId, "canCheck" -> "", "canChallenge" -> "continueOnly")
+      request.withFormUrlEncodedBody("agentCode" -> agentAccount.agentCode.toString, "canCheck" -> "", "canChallenge" -> "continueOnly")
     )
     status(res) must be (BAD_REQUEST)
 
@@ -88,7 +88,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubGroupAccountConnector.stubAccount(agentAccount)
 
     val res = TestAppointAgent.appointSubmit(arbitrary[PropertyLink].sample.get.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> agentAccount.groupId, "canCheck" -> "continueOnly", "canChallenge" -> "")
+      request.withFormUrlEncodedBody("agentCode" -> agentAccount.agentCode.toString, "canCheck" -> "continueOnly", "canChallenge" -> "")
     )
     status(res) must be (BAD_REQUEST)
 
@@ -97,16 +97,15 @@ class AppointAgentSpec extends ControllerSpec {
   }
 
   it must "not allow agents to be appointed with no permissions" in {
-    pending
-    stubLoggedInUser()
+    val (groupAccount, individualAccount) = stubLoggedInUser()
     StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
     val agentAccount = arbitrary[GroupAccount].sample.get
     StubGroupAccountConnector.stubAccount(agentAccount)
-    val link = arbitrary[PropertyLink].sample.get
+    val link:PropertyLink = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id)
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> agentAccount.groupId, "canCheck" -> "notPermitted", "canChallenge" -> "notPermitted")
+      request.withFormUrlEncodedBody("agentCode" -> agentAccount.agentCode.toString, "canCheck" -> "NOT_PERMITTED", "canChallenge" -> "NOT_PERMITTED")
     )
     status(res) must be (BAD_REQUEST)
 
@@ -115,7 +114,6 @@ class AppointAgentSpec extends ControllerSpec {
   }
 
   it must "require the agent code to be valid" in {
-    pending
     stubLoggedInUser()
     StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
     StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
@@ -128,7 +126,7 @@ class AppointAgentSpec extends ControllerSpec {
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("agentCode" -> "Invalid agent code")
+    page.mustContainFieldErrors("agentCode" -> "Numeric value expected")
   }
 
   def stubLoggedInUser() = {
@@ -137,6 +135,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubGroupAccountConnector.stubAccount(groupAccount)
     StubIndividualAccountConnector.stubAccount(individual)
     StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(groupAccount.id, individual.individualId)))
+    (groupAccount, individual)
   }
   
 }
