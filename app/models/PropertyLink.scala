@@ -20,9 +20,14 @@ import org.joda.time.DateTime
 import play.api.libs.json.Json
 import serialization.JsonFormats._
 
-case class PropertyLink(authorisationId: Long, uarn: Long, organisationId: Int, description: String,
-                        canAppointAgent: Boolean, address: PropertyAddress,
-                        capacityDeclaration: Capacity, linkedDate: DateTime, pending: Boolean, assessment: Seq[Assessment],
+case class PropertyLink(authorisationId: Long,
+                        uarn: Long,
+                        organisationId: Int,
+                        address: PropertyAddress,
+                        capacityDeclaration: Capacity,
+                        linkedDate: DateTime,
+                        pending: Boolean,
+                        assessment: Seq[Assessment],
                         agents:Seq[Party])
 
 object PropertyLink {
