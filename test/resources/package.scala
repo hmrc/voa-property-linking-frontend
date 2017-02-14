@@ -128,33 +128,23 @@ package object resources {
   val representationStatusGen: Gen[RepresentationStatus] = Gen.oneOf(RepresentationAccepted, RepresentationPending)
   implicit val representationStatusType = Arbitrary(representationStatusGen)
 
- val propertyRepresentationGen: Gen[PropertyRepresentation] = for {
-                                     representationId <- arbitrary[Long]
-                                     submissionId <- arbitrary[String]
-                                     organisationId <- arbitrary[Long]
-                                     organisationName <- arbitrary[String]
-                                     address <- arbitrary[String]
-                                     checkPermission <- arbitrary[AgentPermission]
-                                     challengePermission <- arbitrary[AgentPermission]
-                                     createDatetime <- arbitrary[DateTime]
-                                     status <- arbitrary[RepresentationStatus]
- } yield models.PropertyRepresentation(representationId, submissionId, organisationId, organisationName,
-   address, checkPermission, challengePermission, createDatetime, status)
-  implicit val arbitraryPropertyRepresentation = Arbitrary(propertyRepresentationGen)
+  val party: Gen[Party] = for {
+    organisationName <- arbitrary[String]
+    agentCode <- arbitrary[Long]
+  } yield models.Party(agentCode, organisationName)
+  implicit val arbitraryParty = Arbitrary(party)
 
   val propertyLinkGen: Gen[PropertyLink] = for {
     linkId <- arbitrary[Int]
     uarn <- positiveLong
     organisationId <- arbitrary[Int]
-    description <- Gen.alphaNumStr
-    canAppointAgent <- arbitrary[Boolean]
     address <- arbitrary[PropertyAddress]
     capacity <- arbitrary[Capacity]
     linkedDate <- arbitrary[DateTime]
     pending <- arbitrary[Boolean]
     assessment <- Gen.nonEmptyListOf(arbitrary[Assessment])
-    agents <- Gen.listOf(arbitrary[PropertyRepresentation])
-  } yield PropertyLink(linkId, uarn, organisationId, description, canAppointAgent, address, capacity,
+    agents <- Gen.listOf(arbitrary[Party])
+  } yield PropertyLink(linkId, uarn, organisationId, address, capacity,
     linkedDate, pending, assessment, agents)
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
 
