@@ -19,7 +19,7 @@ package controllers
 import config.Wiring
 import form.Mappings._
 import form.TextMatching
-import models.{Address, IndividualAccount}
+import models.{Address, IndividualAccount, IndividualDetails}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
@@ -56,20 +56,25 @@ trait CreateGroupAccount extends PropertyLinkingController {
   def submit = ggAction.async { ctx => implicit request =>
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       identityVerification.verifySuccess(journeyId) flatMap {
-        case true => {
+        case true =>
           form.bindFromRequest().fold(
             errors => BadRequest(views.html.createAccount.group(errors)),
-            formData => for {
-              groupId <- auth.getGroupId(ctx)
-              userId <- auth.getExternalId(ctx)
-              details <- keystore.getIndividualDetails
-              organisationId <- groups.create(groupId, formData)
-              _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details))
-            } yield {
-              Redirect(routes.CreateGroupAccount.success())
+            formData => {
+              val eventualGroupId = auth.getGroupId(ctx)
+              val eventualExternalId = auth.getExternalId(ctx)
+              val eventualIndividualDetails = keystore.getIndividualDetails
+
+              for {
+                groupId <- eventualGroupId
+                userId <- eventualExternalId
+                details <- eventualIndividualDetails
+                organisationId <- groups.create(groupId, formData)
+                _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details))
+              } yield {
+                Redirect(routes.CreateGroupAccount.success())
+              }
             }
           )
-        }
         case false => Unauthorized("Unauthorised")
       }
     }
