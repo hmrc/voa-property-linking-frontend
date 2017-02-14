@@ -68,6 +68,6 @@ object RepresentationController extends PropertyLinkingController {
     }
   }
 
-  case class ManagePropertiesVM(propertyRepresentations: PropertyRepresentations, agentCode: String)
+  case class ManagePropertiesVM(propertyRepresentations: PropertyRepresentations, agentCode: Long)
 
 }

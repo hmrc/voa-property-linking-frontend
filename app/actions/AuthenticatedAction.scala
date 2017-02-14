@@ -83,5 +83,5 @@ case class DetailedAuthenticatedRequest[A](organisationAccount: GroupAccount, in
   override val personId = individualAccount.individualId
 }
 
-case class AgentRequest[A](organisationId: Int, personId: Int, agentCode: String, request: Request[A])
+case class AgentRequest[A](organisationId: Int, personId: Int, agentCode: Long, request: Request[A])
   extends WrappedRequest[A](request) with AuthenticatedRequest[A]

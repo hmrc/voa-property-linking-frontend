@@ -25,6 +25,7 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 import scala.util.Random
+import org.scalacheck.Arbitrary.arbitrary
 
 object StubGroupAccountConnector extends GroupAccounts(StubHttp) {
 
@@ -42,11 +43,11 @@ object StubGroupAccountConnector extends GroupAccounts(StubHttp) {
 
   override def withGroupId(groupId: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.groupId == groupId))
 
-  override def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.agentCode.contains(agentCode)))
+  override def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.agentCode == agentCode))
 
   override def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = Future.successful {
     val id = randomId
-    stubAccount(GroupAccount(id, account.id, account.companyName, account.address, account.email, account.phone, account.isSmallBusiness, account.isAgent, UUID.randomUUID().toString))
+    stubAccount(GroupAccount(id, account.id, account.companyName, account.address, account.email, account.phone, account.isSmallBusiness, account.isAgent, arbitrary[Long].sample.get))
     id
   }
 

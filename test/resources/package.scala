@@ -98,7 +98,7 @@ package object resources {
     phone <-  Gen.listOfN(8, Gen.numChar)
     isSmallBusiness <- arbitrary[Boolean]
     isAgent <- arbitrary[Boolean]
-    agentCode <- shortString
+    agentCode <- arbitrary[Long]
   } yield GroupAccount(id, groupId, companyName, address, email, phone.mkString, isSmallBusiness, isAgent, agentCode)
   implicit val arbitraryGroupAccount = Arbitrary(groupAccountGen)
 
