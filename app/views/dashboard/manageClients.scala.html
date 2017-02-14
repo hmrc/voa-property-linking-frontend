@@ -36,7 +36,6 @@
                 <tr>
                     <th scope="col">@Messages("propertyRepresentations.table.1")</th>
                     <th scope="col">@Messages("propertyRepresentations.table.2")</th>
-                    <th scope="col">@Messages("propertyRepresentations.table.3")</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,10 +43,7 @@
             <tr>
                 <td scope="row">@groupName</td>
                 <td>
-                    <a href="#"> @properties.size </a>
-                </td>
-                <td>
-                    <a href="#">@Messages("propertyRepresentations.viewProperties")</a>
+                    @properties.size
                 </td>
             </tr>
             }
