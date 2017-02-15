@@ -72,7 +72,7 @@
                                     '</div>'+
                                     '<div class="jFiler-item-assets">'+
                                         '<ul class="list-inline">'+
-                                            '<li><a class="jFiler-item-trash-action">Remove</a></li>'+
+                                            '<li><a class="jFiler-item-trash-action" href="#">Remove</a></li>'+
                                         '</ul></div></div></div></div></li>',
                 progressBar: '<div class="bar"></div>'
                 },
