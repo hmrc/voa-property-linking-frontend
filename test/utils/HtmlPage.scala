@@ -36,7 +36,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   }
 
   def mustContainSuccessSummary(msg: String) {
-    val successSummary = html.select("h1.heading-confirmation").asScala.headOption.getOrElse(fail(s"No success summary in $html"))
+    val successSummary = html.select(".transaction-banner--complete").asScala.headOption.getOrElse(fail(s"No success summary in $html"))
     successSummary.text mustEqual msg withClue s"Success summary contained:\n${successSummary.text}"
   }
 
