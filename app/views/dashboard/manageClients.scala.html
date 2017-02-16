@@ -3,35 +3,31 @@
 @(model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    Messages("agent.dashboard.manageClients.title")
+    Messages("agent.dashboard.manageClients.title"),
+    topBackLink = true,
+    bottomBackLink = true
 ) {
-    <h1 class="heading-large">
-    @Messages("agent.dashboard.manageClients.title")
+
+
+    <h1 class="heading-xlarge margin-bottom-0 clear-right">
+        <span class="section-title">@Messages("agent.dashboard.manageClients.title")</span>
+        <span class="heading-secondary">
+            @if(model.propertyRepresentations.totalPendingRequests == 0) {
+                @Messages("manageClients.nonePending")
+            } else {
+                <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest">
+                    @Messages("manageClients.noOfPending", model.propertyRepresentations.totalPendingRequests)
+                </a>
+            }
+        </span>
     </h1>
 
-    <h2 class="">
-    @Messages("agent.dashboard.manageClients.pending")
-    </h2>
-    <p>
-        @if(model.propertyRepresentations.totalPendingRequests == 0) {
-            @Messages("manageClients.nonePending")
-        } else {
-            <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest">
-                @Messages("manageClients.noOfPending", model.propertyRepresentations.totalPendingRequests)
-            </a>
-        }
-    </p>
 
-
-    <h2 class="">
-    @Messages("agent.dashboard.manageClients.existingClients")
-    </h2>
     @if(model.propertyRepresentations.propertyRepresentations.nonEmpty) {
-        <br/>
         <div class="table-wrapper">
             <table class="table-font-xsmall">
                 <caption class="heading-medium">
-                @Messages("manageProperties.representations")
+                    @Messages("agent.dashboard.manageClients.existingClients")
                 </caption>
                 <thead>
                     <tr>
@@ -42,7 +38,7 @@
                 <tbody>
                 @model.propertyRepresentations.propertyRepresentations.groupBy(_.organisationName).map { case (groupName, properties) =>
                 <tr>
-                    <td scope="row">@groupName</td>
+                    <td>@groupName</td>
                     <td>
                         @properties.size
                     </td>
