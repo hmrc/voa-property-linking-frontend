@@ -44,7 +44,7 @@ class AppointAgentSpec extends ControllerSpec {
     status(res) must be (OK)
 
     val page = HtmlPage(res)
-    page.mustContainTextInput("#agentCode_text")
+    page.mustContainTextInput("#agentCode")
     page.mustContainRadioSelect("canCheck", AgentPermission.options)
     page.mustContainRadioSelect("canChallenge", AgentPermission.options)
   }
@@ -137,5 +137,5 @@ class AppointAgentSpec extends ControllerSpec {
     StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(groupAccount.id, individual.individualId)))
     (groupAccount, individual)
   }
-  
+
 }

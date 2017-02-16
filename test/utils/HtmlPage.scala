@@ -95,7 +95,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
 
   def mustContainFieldErrors(errors: (FieldId, Message)*) =
     errors.foreach { e =>
-      html.select(s"#${e._1} p.error-message").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e \n$allFieldErrors"
+      html.select(s"#${e._1}Group p.error-message").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e \n$allFieldErrors"
     }
 
   private def allFieldErrors = html.select(".has-error")

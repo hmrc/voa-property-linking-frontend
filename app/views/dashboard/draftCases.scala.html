@@ -22,11 +22,11 @@
                     <th scope="col">@Messages("draftCases.table.2")</th>
                     <th scope="col">@Messages("draftCases.table.3")</th>
                     <th scope="col">@Messages("draftCases.table.4")</th>
-                    <th scope="col">@Messages("draftCases.table.5")</th>
+                    <th scope="col" class="last">@Messages("draftCases.table.5")</th>
                 </tr>
                 @model.draftCases.map{ draftCase =>
                     <tr>
-                        <td scope="row">
+                        <td>
                             <a href="@routes.Dashboard.assessments(draftCase.linkId)">
                                 @{draftCase.address}
                             </a>
@@ -40,7 +40,7 @@
                         <td>
                         @{draftCase.agent}
                         </td>
-                        <td>
+                        <td class="last">
                         @{draftCase.caseExpiryDate}
                         </td>
                     </tr>
