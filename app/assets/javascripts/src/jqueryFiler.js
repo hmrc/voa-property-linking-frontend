@@ -84,9 +84,9 @@
     			removeConfirmation: false,
     			errors: {
     				filesLimit: 'Only {{fi-limit}} file allowed to be uploaded.',
-    				filesType: 'Only jepg and pdf files are allowed to be uploaded.',
-    				filesSize: '{{fi-name}} is too large! Please upload file up to {{fi-maxSize}} MB.',
-    				filesSizeAll: 'Files you\'ve choosed are too large! Please upload files up to {{fi-maxSize}} MB.'
+    				filesType: 'Only JPG and PDF files are allowed to be uploaded.',
+    				filesSize: 'Max file size is 10MB.',
+    				filesSizeAll: 'Files you\'ve choosen are too large! Please upload files up to {{fi-maxSize}} MB.'
     			}
 		    }
         });
