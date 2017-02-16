@@ -48,7 +48,7 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     val res = TestUploadEvidence.show()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainFileInput("evidence_")
+    page.mustContainFileInput("evidence_input")
   }
 
   it must "redirect to the evidence-submitted page if some evidence has been uploaded" in {

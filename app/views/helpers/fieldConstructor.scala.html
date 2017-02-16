@@ -25,7 +25,7 @@ Example usage:
 
     @elements.args.get('_legend) match {
      	case Some(true) => {
-     		<fieldset id="@elements.id" class="@elements.args.get('_fieldsetClass)">
+     		<fieldset id="@(elements.id)Group" class="@elements.args.get('_fieldsetClass)">
    				<legend class="@elements.args.get('_labelClass)"><span class="label-span">@elements.label</span>
 
                     @elements.args.get('_optional) match {
@@ -36,8 +36,8 @@ Example usage:
                 </legend>
    		}
 		case _ => {
-			<div id="@elements.id" class="@elements.args.get('_fieldsetClass)">
-				<label class="@elements.args.get('_labelClass)" for="@(elements.id)_text" ><span class="label-span">@elements.label</span>
+			<div id="@(elements.id)Group" class="@elements.args.get('_fieldsetClass)">
+				<label class="@elements.args.get('_labelClass)" for="@(elements.id)" ><span class="label-span">@elements.label</span>
 
             @elements.args.get('_optional) match {
                 case Some(true) => { <span class="visuallyhidden">(@Messages("label.optional")(elements.messages))</span> }

@@ -29,7 +29,7 @@
             </tr>
             @model.assessments.map { assessment =>
                 <tr>
-                    <td scope="row">
+                    <td>
                         @(Formatters.formatDate(assessment.effectiveDate))
                     </td>
                     <td>
@@ -45,15 +45,17 @@
                         @{assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))}
                     </td>
                     <td class="last">
+                        <ul>
                         @if(model.linkPending) {
-                            <a href="@routes.Dashboard.viewSummary(assessment.uarn)">
+                            <li><a href="@routes.Dashboard.viewSummary(assessment.uarn)">
                                 @Messages("assessments.view.summary")
-                            </a>
+                            </a></li>
                         } else {
-                            <a href=@routes.Dashboard.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef)>
+                            <li><a href=@routes.Dashboard.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef)>
                                @Messages("assessments.view.valuation")
-                            </a>
+                           </a></li>
                         }
+                        </ul>
                     </td>
                 </tr>
             }

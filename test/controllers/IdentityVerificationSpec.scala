@@ -51,7 +51,7 @@ class IdentityVerificationSpec extends ControllerSpec {
 
     val content = contentAsString(res)
     val html = Jsoup.parse(content)
-    html.select("h1.heading-confirmation span.tick").html must equal ("✔") withClue "Page did not contain success summary"
+    html.select("h1").html must equal ("Success") withClue "Page did not contain success summary"
     html.select(s"a.button[href=${routes.CreateGroupAccount.show.url}]").size must equal (1) withClue "Page did not contain link to create group account"
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))

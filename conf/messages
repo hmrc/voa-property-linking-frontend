@@ -124,7 +124,7 @@ createAccount.group.details.content=If you are a non-commercial organisation suc
 account.confirmation.title=You’ve successfully registered your business.
 account.confirmation.heading=You’ve successfully registered for the VOA’s service.
 account.confirmation.heading.2=You’ve been added to your business’s customer record.
-account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a href="{0}">add them to your Government Gateway account as an administrator or an assistant</a>.
+account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a href="{0}" rel="external">add them to your Government Gateway account as an administrator or an assistant</a>.
 account.confirmation.youCan=You can now go to the dashboard and add properties to the business’s customer record.
 link.dashboard=Go to the dashboard
 createAccount.group.details.header.agent=I’m registering as an agent

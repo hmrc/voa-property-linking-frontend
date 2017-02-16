@@ -31,7 +31,7 @@
                 </tr>
                 @model.properties.map { p =>
                     <tr>
-                        <td scope="row">
+                        <td>
                             @(Formatters.capitalizedAddress(p.address))
                         </td>
                         <td>
@@ -47,7 +47,7 @@
                         <td>
                             <ul>
                                 @if(p.agents.isEmpty){
-                                    @Messages("dashboard.manageProperties.noAgent")
+                                    <li>@Messages("dashboard.manageProperties.noAgent")</li>
                                 } else {
                                     @p.agents.map { agent =>
                                         <li>@agent.organisationName</li>
@@ -56,15 +56,17 @@
                             </ul>
                         </td>
                         <td class="last">
+                            <ul>
                             @if(ApplicationConfig.readyForPrimeTime) {
-                                <a href=@routes.AppointAgentController.add(p.authorisationId)>@Messages("manageProperties.addAgent")</a>
-                                <br>
+                                <li><a href=@routes.AppointAgentController.add(p.authorisationId)>@Messages("manageProperties.addAgent")</a></li>
+
                             }
                             @if(p.assessment.nonEmpty){
-                                <a href="@routes.Dashboard.assessments(p.authorisationId, p.pending)">
+                                <li><a href="@routes.Dashboard.assessments(p.authorisationId, p.pending)">
                                     @Messages("manageProperties.viewAssessments")
-                                </a>
+                                </a></li>
                             }
+                            </ul>
                         </td>
                     </tr>
                 }

@@ -74,7 +74,7 @@
         //Aria attributes and hide if no css
 
         $('[data-toggle-hidden]').each(function(){
-            $(this).css('display', 'none').attr({'aria-expanded': 'false', 'aria-visible':'false'});
+            $(this).css('display', 'none').attr({'aria-hidden':'true'});
         });
 
         //Toggle on change
@@ -93,14 +93,14 @@
                 //Show correct ids
 
                 $.each($(_this).attr('data-toggle-id').split(','), function( index, value ) {
-                    $('#'+value).css('display', 'block').attr({'aria-expanded': 'true', 'aria-visible':'true'});
+                    $('#'+value).css('display', 'block').attr({'aria-hidden':'false'});
                     ids = removeFromArray(ids,value);
                 });
 
                 //Hide the rest
 
                 $.each(ids, function( index, value ) {
-                    $('#'+value).css('display', 'none').attr({'aria-expanded': 'false', 'aria-visible':'false'});
+                    $('#'+value).css('display', 'none').attr({'aria-hidden':'true'});
                 });
             }else{
 
@@ -108,7 +108,7 @@
 
                 $.each($(this).closest('fieldset').find('[data-toggle-id]'), function( index, value ) {
                     $.each($(this).attr('data-toggle-id').split(','), function( index, value ) {
-                        $('#'+value).css('display', 'none').attr({'aria-expanded': 'false', 'aria-visible':'false'});
+                        $('#'+value).css('display', 'none').attr({'aria-hidden':'true'});
                     });
                 });
             }
@@ -120,7 +120,7 @@
             if($(this).is(':checked')){
                 var ids = $(this).attr('data-toggle-id').split(',');
                 $.each(ids, function( index, value ) {
-                    $('#'+value).css('display', 'block').attr({'aria-expanded': 'true', 'aria-visible':'true'});
+                    $('#'+value).css('display', 'block').attr({'aria-hidden':'false'});
                 });
             }
         });
