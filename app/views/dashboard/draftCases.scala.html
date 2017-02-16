@@ -14,38 +14,40 @@
             @Messages("draftCases.title")
         </h1>
 
-        <table class="table-font-xsmall margin-bottom-20">
-            <caption class="visuallyhidden">@Messages("draftCases.table.caption")</caption>
-            <tbody>
-                <tr>
-                    <th scope="col">@Messages("draftCases.table.1")</th>
-                    <th scope="col">@Messages("draftCases.table.2")</th>
-                    <th scope="col">@Messages("draftCases.table.3")</th>
-                    <th scope="col">@Messages("draftCases.table.4")</th>
-                    <th scope="col" class="last">@Messages("draftCases.table.5")</th>
-                </tr>
-                @model.draftCases.map{ draftCase =>
+        <div class="table-wrapper">
+            <table class="table-font-xsmall margin-bottom-20">
+                <caption class="visuallyhidden">@Messages("draftCases.table.caption")</caption>
+                <tbody>
                     <tr>
-                        <td>
-                            <a href="@routes.Dashboard.assessments(draftCase.linkId)">
-                                @{draftCase.address}
-                            </a>
-                        </td>
-                        <td>
-                        @{draftCase.effectiveDate}
-                        </td>
-                        <td>
-                        @{draftCase.caseType}
-                        </td>
-                        <td>
-                        @{draftCase.agent}
-                        </td>
-                        <td class="last">
-                        @{draftCase.caseExpiryDate}
-                        </td>
+                        <th scope="col">@Messages("draftCases.table.1")</th>
+                        <th scope="col">@Messages("draftCases.table.2")</th>
+                        <th scope="col">@Messages("draftCases.table.3")</th>
+                        <th scope="col">@Messages("draftCases.table.4")</th>
+                        <th scope="col" class="last">@Messages("draftCases.table.5")</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                    @model.draftCases.map{ draftCase =>
+                        <tr>
+                            <td>
+                                <a href="@routes.Dashboard.assessments(draftCase.linkId)">
+                                    @{draftCase.address}
+                                </a>
+                            </td>
+                            <td>
+                            @{draftCase.effectiveDate}
+                            </td>
+                            <td>
+                            @{draftCase.caseType}
+                            </td>
+                            <td>
+                            @{draftCase.agent}
+                            </td>
+                            <td class="last">
+                            @{draftCase.caseExpiryDate}
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
 }
