@@ -256,12 +256,12 @@ permission.CONTINUE_ONLY=Only continue
 permission.START_AND_CONTINUE=Start and continue
 permission.NOT_PERMITTED=Not permitted
 
+pendingRepresentationRequests.title=Pending agent requests
 pendingRepresentationRequests.table.1=Organisation name
 pendingRepresentationRequests.table.2=Property address
-pendingRepresentationRequests.table.3=Check permission
-pendingRepresentationRequests.table.4=Challenge permission
-pendingRepresentationRequests.table.5=Date requested
-pendingRepresentationRequests.table.6=Actions
+pendingRepresentationRequests.table.3=Permissions
+pendingRepresentationRequests.table.4=Date requested
+pendingRepresentationRequests.table.5=Actions
 
 #SEARCH
 search.title=Search and select a property to add to your customer record

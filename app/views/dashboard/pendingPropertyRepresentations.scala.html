@@ -13,7 +13,7 @@
 
 
         <h1 class="heading-xlarge">
-            @Messages("dashboard.manageProperties.title")
+            @Messages("pendingRepresentationRequests.title")
         </h1>
 
         @if(model.propertyRepresentations.propertyRepresentations.isEmpty){
@@ -27,8 +27,7 @@
                     <th scope="col">@Messages("pendingRepresentationRequests.table.2")</th>
                     <th scope="col">@Messages("pendingRepresentationRequests.table.3")</th>
                     <th scope="col">@Messages("pendingRepresentationRequests.table.4")</th>
-                    <th scope="col">@Messages("pendingRepresentationRequests.table.5")</th>
-                    <th scope="col" class="last">@Messages("pendingRepresentationRequests.table.6")</th>
+                    <th scope="col" class="last">@Messages("pendingRepresentationRequests.table.5")</th>
                 </tr>
                 @model.propertyRepresentations.propertyRepresentations.map { p =>
                     <tr>
@@ -39,13 +38,12 @@
                             @(p.address)
                         </td>
                         <td>
-                            @(p.checkPermission)
+                            Check: @Messages(s"permission.${p.checkPermission.name}")
+                            <br>
+                            Challenge: @Messages(s"permission.${p.challengePermission.name}")
                         </td>
                         <td>
-                            @(p.challengePermission)
-                        </td>
-                        <td>
-                            @(p.createDatetime)
+                            @utils.Formatters.formatDate(p.createDatetime.toLocalDate)
                         </td>
                         <td class="last">
                             <a role="button" href=@controllers.agent.routes.RepresentationController.accept(p.submissionId)>
