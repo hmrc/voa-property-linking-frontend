@@ -24,10 +24,18 @@
 
 
     @if(model.propertyRepresentations.propertyRepresentations.nonEmpty) {
+<<<<<<< HEAD
         <div class="table-wrapper">
             <table class="table-font-xsmall">
                 <caption class="heading-medium">
                     @Messages("agent.dashboard.manageClients.existingClients")
+=======
+        <br/>
+        <div class="table-wrapper">
+            <table class="table-font-xsmall">
+                <caption class="heading-medium">
+                @Messages("manageProperties.representations")
+>>>>>>> 7d184b368373aff8cb4d960e63c2fff0bf22df79
                 </caption>
                 <thead>
                     <tr>
@@ -38,7 +46,11 @@
                 <tbody>
                 @model.propertyRepresentations.propertyRepresentations.groupBy(_.organisationName).map { case (groupName, properties) =>
                 <tr>
+<<<<<<< HEAD
                     <td>@groupName</td>
+=======
+                    <td scope="row">@groupName</td>
+>>>>>>> 7d184b368373aff8cb4d960e63c2fff0bf22df79
                     <td>
                         @properties.size
                     </td>
