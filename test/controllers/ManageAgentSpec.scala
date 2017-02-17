@@ -16,12 +16,14 @@
 
 package controllers
 
-import connectors.{Authenticated, VPLAuthConnector}
+import connectors._
+import connectors.propertyLinking.PropertyLinkConnector
 import models._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
+import resources._
 
 class ManageAgentSpec extends ControllerSpec {
   implicit val request = FakeRequest()
@@ -31,14 +33,17 @@ class ManageAgentSpec extends ControllerSpec {
     override val individuals = StubIndividualAccountConnector
     override val groups = StubGroupAccountConnector
     override val authenticated = StubAuthentication
+    override val propertyLinks = StubPropertyLinkConnector
   }
 
 
   "Manage Agents page" must "return Ok" in {
+    val link = arbitrary[PropertyLink].sample.get
     val organisationId = arbitrary[Int].sample.get
     val personId = arbitrary[Int].sample.get
 
     StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
+    StubPropertyLinkConnector.stubLink(link)
 
     val res = TestDashboardController.manageAgents()(FakeRequest())
     status(res) mustBe OK

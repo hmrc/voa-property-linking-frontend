@@ -38,6 +38,10 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
     Future.successful(Unit)
   }
 
+  override def linkedProperties(organisationId: Int)(implicit hc: HeaderCarrier) = {
+    Future.successful(stubbedLinks)
+  }
+
   override def get(organisationId: Int, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
     stubbedLinks.find(x => {x.authorisationId == authorisationId && x.organisationId == organisationId})
   }

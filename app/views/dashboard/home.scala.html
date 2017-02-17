@@ -47,6 +47,15 @@
                 </p>
             }
             @if(ApplicationConfig.readyForPrimeTime) {
+                <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.cases")</h3>
+                <h4 class="heading-medium"> @Messages("dashboard.home.draft.cases") </h4>
+                <p>
+                    <a href="@routes.Dashboard.draftCases">@Messages("dashboard.home.draft.cases.text")</a>
+                </p>
+            }
+        </div>
+        <div class="column-one-third">
+            @if(ApplicationConfig.readyForPrimeTime) {
                 <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.management")</h3>
                 <h4 class="heading-medium">
                     <a id="manageAgents" href="@controllers.routes.Dashboard.manageAgents">@Messages("dashboard.home.manageAgents.link")</a>
@@ -68,14 +77,6 @@
                     @Messages("dashboard.home.clients.text")
                     </p>
                 }
-            }
-        </div>
-        <div class="column-one-third">
-            @if(ApplicationConfig.readyForPrimeTime) {
-                <h4 class="heading-medium"> @Messages("dashboard.home.draft.cases") </h4>
-                <p>
-                    <a href="@routes.Dashboard.draftCases">@Messages("dashboard.home.draft.cases.text")</a>
-                </p>
             }
         </div>
     </div>
