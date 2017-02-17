@@ -24,9 +24,14 @@
             <p>@Messages("propertyRepresentation.appointAgent.message.1")</p>
 
             @form(routes.AppointAgentController.appointSubmit(model.linkId)) {
+
+
+                @includes.errorSummary(model.form)
+
+
                 @inputText(
                     field = model.form("agentCode"),
-                    '_label -> Messages("propertyRepresentation.appointAgent.agentCode"),
+                    '_label -> Messages("label.agentCode"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control"
@@ -35,7 +40,7 @@
                     field = model.form("canCheck"),
                     options = AgentPermission.options,
                     args = Seq(
-                        '_label -> Messages("canCheck.label"),
+                        '_label -> Messages("label.canCheck"),
                         '_labelClass -> "form-label-bold",
                         '_legend -> true
                     )
@@ -44,7 +49,7 @@
                     field = model.form("canChallenge"),
                     options = AgentPermission.options,
                     args = Seq(
-                        '_label -> Messages("canChallenge.label"),
+                        '_label -> Messages("label.canChallenge"),
                         '_labelClass -> "form-label-bold",
                         '_legend -> true
                     )

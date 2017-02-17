@@ -15,8 +15,7 @@
 @(field: play.api.data.Field, args: (Symbol,Any)*)(implicit requestHeader: RequestHeader, messages: Messages)
 
 @input(field, args:_*) { (id, name, value, htmlArgs) =>
-    <label class="visuallyhidden" for="@(id)input">Choose a fiel to upload</label>
-    <input type="file" id="@(id)input" value="@getValue(value, args)" name="@name" @toHtmlArgs(htmlArgs) />
+    <input type="file" id=@id.replace("_", "") value="@getValue(value, args)" name="@name" @toHtmlArgs(htmlArgs) />
 }(requestHeader, messages)
 
 @getValue(value: Option[String], args: Seq[(Symbol, Any)]) = @{

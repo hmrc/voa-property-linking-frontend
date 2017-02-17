@@ -5,20 +5,25 @@
 @(f: Form[_])(implicit request: Request[_], messages: Messages)
 
     @main_template(Messages("chooseEvidence.title"),
-    topBackLink = true,
-    bottomBackLink = true) {
+        topBackLink = true,
+        bottomBackLink = true
+    ){
         <div class="grid-row">
             <div class="column-two-thirds">
 
                 <h1 class="heading-xlarge">@Messages("chooseEvidence.title")</h1>
 
+
+
                 @form(routes.ChooseEvidence.submit) {
+
+                    @includes.errorSummary(f)
 
                     @inputRadioGroup(
                         f(keys.hasRatesBill),
                         options = Seq("true", "false"),
                         args = Seq(
-                            '_label -> Messages("hasRatesBill.label"),
+                            '_label -> Messages("label.hasRatesBill"),
                             '_labelClass -> "form-label-bold",
                             '_legend -> true
                         )

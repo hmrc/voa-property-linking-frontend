@@ -6,7 +6,7 @@
 
     @showError(error: FormError) = {
         <li>
-            <a href="#@removeInvalid(error)" data-focuses="@removeInvalid(error)">
+            <a href="#@removeInvalid(error)Group" data-focuses="@removeInvalid(error)Group">
                 <span>
                 @error.key match {
                     case s if s.contains("day") => { @Messages("label.day") }
