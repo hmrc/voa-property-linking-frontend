@@ -49,13 +49,19 @@
                         <td class="last">
                             <ul>
                             @if(model.linkPending) {
-                                <li><a href="@routes.Dashboard.viewSummary(assessment.uarn)">
-                                    @Messages("assessments.view.summary")
-                                </a></li>
+                                <li>
+                                    <a href="@routes.Dashboard.viewSummary(assessment.uarn)">
+                                        @Messages("assessments.view.summary")
+                                        <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))}</span>
+                                    </a>
+                                </li>
                             } else {
-                                <li><a href=@routes.Dashboard.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef)>
-                                   @Messages("assessments.view.valuation")
-                               </a></li>
+                                <li>
+                                    <a href=@routes.Dashboard.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef)>
+                                        @Messages("assessments.view.valuation")
+                                        <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))}</span>
+                                    </a>
+                                </li>
                             }
                             </ul>
                         </td>

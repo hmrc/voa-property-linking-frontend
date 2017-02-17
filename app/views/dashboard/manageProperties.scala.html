@@ -59,13 +59,19 @@
                             <td class="last">
                                 <ul>
                                 @if(ApplicationConfig.readyForPrimeTime) {
-                                    <li><a href=@routes.AppointAgentController.add(p.authorisationId)>@Messages("manageProperties.addAgent")</a></li>
+                                    <li>
+                                        <a href=@routes.AppointAgentController.add(p.authorisationId)>@Messages("manageProperties.addAgent")
+                                            <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
+                                        </a>
+                                    </li>
 
                                 }
                                 @if(p.assessment.nonEmpty){
-                                    <li><a href="@routes.Dashboard.assessments(p.authorisationId, p.pending)">
-                                        @Messages("manageProperties.viewAssessments")
-                                    </a></li>
+                                    <li>
+                                        <a href="@routes.Dashboard.assessments(p.authorisationId, p.pending)">@Messages("manageProperties.viewAssessments")
+                                            <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
+                                        </a>
+                                    </li>
                                 }
                                 </ul>
                             </td>
