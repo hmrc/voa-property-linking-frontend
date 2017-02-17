@@ -8,16 +8,18 @@
 ) {
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
         <span class="section-title">@Messages("dashboard.manageAgents.title")</span>
-        @if(model.agents.isEmpty) {
-            <span id="noAgents" class="heading-secondary">
-            @Messages("dashboard.manageAgents.noAgents")
-            </span>
-        }
     </h1>
+
+    @if(model.agents.isEmpty) {
+        <h2 id="noAgents" class="heading-secondary">
+            @Messages("dashboard.manageAgents.noAgents")
+        </h2>
+    }
 
     @if(model.agents.nonEmpty) {
         <div class="table-wrapper">
-            <table id="agentsTable" class="table-font-xsmall">
+            <table id="agentsTable" class="table-font-xsmall margin-top-30">
+                <caption class="visuallyhidden">@Messages("dashboard.manageAgents.title")</caption>
                 <thead>
                     <tr>
                         <th scope="col">@Messages("dashboard.manageAgents.table.1")</th>

@@ -14,6 +14,17 @@
     </h1>
 
 
+    <h2 class="heading-secondary">
+       @if(model.propertyRepresentations.totalPendingRequests == 0) {
+           @Messages("manageClients.nonePending")
+       } else {
+           <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest">
+               @Messages("manageClients.noOfPending", model.propertyRepresentations.totalPendingRequests)
+           </a>
+       }
+    </h2>
+
+
     @if(model.propertyRepresentations.propertyRepresentations.nonEmpty) {
         <div class="table-wrapper">
             <table class="table-font-xsmall">
@@ -39,7 +50,7 @@
             </table>
         </div>
     } else {
-        @Messages("agent.dashboard.manageClients.noClients")
+        <p>@Messages("agent.dashboard.manageClients.noClients")</p>
     }
 
 }

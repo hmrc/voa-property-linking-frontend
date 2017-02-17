@@ -39,18 +39,24 @@
 }
 .margin-top{
     &-10{
-        margin-top: 10 !important;
+        margin-top: 10px !important;
     }
     &-20{
-        margin-top: 20 !important;
+        margin-top: 20px !important;
+    }
+    &-30{
+        margin-top: 30px !important;
     }
 }
 .margin-bottom{
     &-10{
-        margin-top: 10 !important;
+        margin-top: 10px !important;
     }
     &-20{
-        margin-top: 20 !important;
+        margin-top: 20px !important;
+    }
+    &-30{
+        margin-top: 30px !important;
     }
 }
 .clear-right{

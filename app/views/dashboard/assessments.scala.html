@@ -11,10 +11,11 @@
     bottomBackLink = true,
     individualId = Some(request.personId)
 ) {
-    <h1 class="heading-xlarge">
+    <h1 class="heading-xlarge margin-bottom-0 clear-right">
         @Messages("assessments.title")
-        <span class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</span>
     </h1>
+
+    <h2 class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</h2>
 
     <div class="table-wrapper">
         <table class="table-font-xsmall margin-bottom-20">

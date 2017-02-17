@@ -12,12 +12,12 @@
     individualId = Some(request.personId)
 ) {
 
-        <h1 class="heading-xlarge">
+        <h1 class="heading-xlarge margin-bottom-0 clear-right">
             @Messages("dashboard.manageProperties.title")
         </h1>
 
         @if(model.properties.isEmpty){
-            <p>@Messages("dashboard.manageProperties.noProperties")</p>
+            <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
         <div class="table-wrapper">
             <table class="table-font-xsmall margin-bottom-20">
