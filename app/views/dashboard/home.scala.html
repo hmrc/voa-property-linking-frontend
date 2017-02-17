@@ -47,14 +47,13 @@
                 </p>
             }
             @if(ApplicationConfig.readyForPrimeTime) {
-                <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.representatives")</h3>
+                <h3 class="heading-large heading-with-rule">@Messages("dashboard.home.management")</h3>
                 <h4 class="heading-medium">
-                    <a href="#">
-                    @Messages("dashboard.home.representatives.link")</a>
+                    <a id="manageAgents" href="@controllers.routes.Dashboard.manageAgents">@Messages("dashboard.home.manageAgents.link")</a>
                 </h4>
 
                 <p>
-                @Messages("dashboard.home.representatives.text")
+                @Messages("dashboard.home.manageAgents.text")
                 </p>
             }
             @if(ApplicationConfig.readyForPrimeTime){

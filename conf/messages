@@ -144,9 +144,9 @@ dashboard.home.manageProperties.link=Manage properties
 dashboard.home.manageProperties.text=View and update your detailed property information.
 dashboard.home.searchProperties.link=Add properties
 dashboard.home.searchProperties.text=Find and add properties to your customer record.
-dashboard.home.representatives=Representative
-dashboard.home.representatives.link=Manage representatives
-dashboard.home.representatives.text=You can give people access to your customer record if you’d like them to complete your application for you. You can also revoke their access.
+dashboard.home.management=Management
+dashboard.home.manageAgents.link=Manage agents
+dashboard.home.manageAgents.text=You can give people access to your customer record if you’d like them to complete your application for you. You can also revoke their access.
 dashboard.home.clients=Client
 dashboard.home.clients.link=Manage clients
 dashboard.home.clients.text=View property representations requests
@@ -439,6 +439,16 @@ agent.dashboard.manageProperties.accept=Accept
 agent.dashboard.manageProperties.reject=Reject
 agent.dashboard.manageProperties.acceptAll=Accept all
 agent.dashboard.manageProperties.rejectAll=Reject all
+
+
+#Manage agents
+dashboard.manageAgents.title=Manage agents
+dashboard.manageAgents.pending=Requiring a response
+dashboard.manageAgents.noAgents=You have not appointed any agents yet.
+dashboard.manageAgents.table.1=Agent name
+dashboard.manageAgents.table.2=Agent code
+dashboard.manageAgents.table.3=Actions
+
 
 #ERROR PAGES
 title.error.403=403 Forbidden
