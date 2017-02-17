@@ -16,71 +16,66 @@
 
 package controllers
 
-import java.io.File
-import java.nio.file.{Files, Paths}
-
 import connectors.CapacityDeclaration
-import connectors.fileUpload.FileUpload
+import connectors.fileUpload.FileUploadConnector
 import models._
 import org.jsoup.Jsoup
+import org.mockito.ArgumentMatchers._
+import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.mockito.MockitoSugar
-import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData
 import play.api.mvc.MultipartFormData.FilePart
-import play.api.test.Helpers._
+import play.api.test.Helpers.{contentAsString, _}
 import play.api.test.{FakeRequest, Helpers}
-import utils.{HtmlPage, StubPropertyLinkConnector, StubWithLinkingSession}
 import resources._
+import utils.{FileUploadTestHelpers, HtmlPage, StubPropertyLinkConnector, StubWithLinkingSession}
+
+import scala.concurrent.Future
 
 
-class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
+class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   implicit val request = FakeRequest().withSession(token)
 
-  val mockFileUploads = mock[FileUpload]
+  val mockFileUploads = mock[FileUploadConnector]
+  when(mockFileUploads.uploadFile(anyString(), anyString(), anyString(), any())(any())).thenReturn(Future.successful(()))
+
   object TestUploadEvidence extends UploadEvidence(mockFileUploads)  {
-    override lazy val withLinkingSession = new StubWithLinkingSession(arbitrary[Property].sample.get, arbitrary[CapacityDeclaration].sample.get,
+    override val withLinkingSession = new StubWithLinkingSession(arbitrary[Property].sample.get, arbitrary[CapacityDeclaration].sample.get,
       arbitrary[DetailedIndividualAccount].sample.get, arbitrary[GroupAccount].sample.get)
-    override lazy val propertyLinkConnector = StubPropertyLinkConnector
+    override val propertyLinks = StubPropertyLinkConnector
   }
 
-  "Upload Evidence page" must "allow the user to upload some evidence or not" in {
+  "Upload Evidence page" must "contain a file input" in {
     val res = TestUploadEvidence.show()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainFileInput("evidence")
   }
 
-  it must "redirect to the evidence-submitted page if some evidence has been uploaded" in {
-    val testFile = getClass.getResource("/fileUpload.txt").getPath
-    val path = testFile + ".tmp"
-    val tmpFile = TemporaryFile(new File(path))
-    Files.copy(Paths.get(testFile), Paths.get(path))
+  it must "redirect to the evidence-submitted page if valid evidence has been uploaded" in {
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
         MultipartFormData(
           dataParts = Map(
-            "hasEvidence" -> Seq(DoesHaveEvidence.name),
             "evidenceType" -> Seq(OtherUtilityBill.name)
           ),
           files = Seq(
-            FilePart("evidence[]", path, None, tmpFile)
+            FilePart("evidence[]", validFilePath, Some(validMimeType), validFile)
           ),
           badParts = Seq.empty
         )
       ).withSession(token)
     val res = TestUploadEvidence.submit()(req)
-    tmpFile.clean()
+
     status(res) mustBe SEE_OTHER
-    header("location", res).get.contains(routes.UploadEvidence.evidenceUploaded.url) mustBe true
+    header("location", res).get.contains(routes.UploadEvidence.fileUploaded.url) mustBe true
   }
 
-  it must "show an error if the user says he wants to submit further evidence but doesn't" in {
+  it must "show an error if the user does not upload any evidence" in {
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
         MultipartFormData(
           dataParts = Map(
-            "hasEvidence" -> Seq(DoesHaveEvidence.name),
             "evidenceType" -> Seq(OtherUtilityBill.name)
           ),
           files = Seq(),
@@ -95,4 +90,47 @@ class UploadEvidenceSpec extends ControllerSpec with MockitoSugar {
     page.mustContainFieldErrors(("evidence_", "Please upload some evidence."))
   }
 
+  it must "show an error if the user uploads a file greater than 10MB" in {
+    val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
+      .withMultipartFormDataBody(
+        MultipartFormData(
+          dataParts = Map(
+            "evidenceType" -> Seq(OtherUtilityBill.name)
+          ),
+          files = Seq(
+            FilePart("evidence[]", largeFilePath, Some(validMimeType), largeFile)
+          ),
+          badParts = Nil
+        )
+      )
+
+    val res = TestUploadEvidence.submit()(req)
+    status(res) mustBe BAD_REQUEST
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+
+    page.mustContainSummaryErrors(("evidence", "Please upload evidence so that we can verify your link to the property.", "File size must be less than 10MB"))
+    page.mustContainFieldErrors(("evidence_", "File size must be less than 10MB"))
+  }
+
+  it must "show an error if the user uploads a file that is not a JPG or PDF" in {
+    val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
+      .withMultipartFormDataBody(
+        MultipartFormData(
+          dataParts = Map(
+            "evidenceType" -> Seq(OtherUtilityBill.name)
+          ),
+          files = Seq(
+            FilePart("evidence[]", unsupportedFilePath, Some(unsupportedMimeType), unsupportedFile)
+          ),
+          badParts = Nil
+        )
+      )
+
+    val res = TestUploadEvidence.submit()(req)
+    status(res) mustBe BAD_REQUEST
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+
+    page.mustContainSummaryErrors(("evidence", "Please upload evidence so that we can verify your link to the property.", "File must be a PDF or JPG"))
+    page.mustContainFieldErrors(("evidence_", "File must be a PDF or JPG"))
+  }
 }

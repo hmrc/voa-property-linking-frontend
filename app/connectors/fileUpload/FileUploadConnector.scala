@@ -49,9 +49,9 @@ object RoutingRequest {
 trait FileUpload {
   def createEnvelope()(implicit hc: HeaderCarrier): Future[String]
 
-  def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier)
+  def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit]
 
-  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier)
+  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[Unit]
 }
 
 @Singleton
@@ -67,21 +67,21 @@ class FileUploadConnector @Inject()(val ws: WSClient, val envelopeConnector: Env
     } flatMap { envId => envelopeConnector.storeEnvelope(envId) }
   }
 
-  def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier) = {
+  def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = s"${baseUrl("file-upload-frontend")}/file-upload/upload/envelopes/$envelopeId/files/$fileName"
     ws.url(url)
       .withHeaders(("X-Requested-With", "VOA_CCA"))
       .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromFile(file)) :: List()))
+      .map(_ => Unit)
   }
 
-  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier) = {
+  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = s"${baseUrl("file-upload-backend")}/file-routing/requests"
     http.POST[RoutingRequest, HttpResponse](url, RoutingRequest(envelopeId))
       .map(_ => ())
       .recover {
         case ex: HttpException => Logger.error(s"${ex.responseCode}: ${ex.message}")
       }
-
   }
 
 }

@@ -19,9 +19,11 @@ package utils
 import org.scalatest.{AppendedClues, MustMatchers}
 import org.jsoup.Jsoup
 import play.api.test.Helpers._
+
 import scala.collection.JavaConverters._
 import org.jsoup.nodes.Document
 import play.api.mvc.Result
+import play.twirl.api.Html
 
 import scala.concurrent.Future
 
@@ -45,6 +47,14 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   }
 
   def mustContainLink(selector: String, href: String) = mustContain1(s"a$selector[href=$href]")
+
+  def mustContainTableHeader(cellValues: String*) {
+    val rows = html.select("table thead tr").asScala
+    rows.exists { r =>
+      val values = r.select("th").asScala.map(_.text)
+      values == cellValues
+    } mustBe true withClue s"No table header with cell values: $cellValues.\nTable header:\n ${rows.mkString("\n")}"
+  }
 
   def mustContainDataRow(cellValues: String*) {
     val rows = html.select("table tbody tr").asScala
@@ -82,6 +92,9 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   def mustContain1(selector: String) =
     html.select(selector).size mustBe 1 withClue s"Expected 1 of: '$selector'\n ${html.select(selector)}\nFull HTML: \n$html"
 
+  def mustContain(selector: String, count: Int) =
+    html.select(selector).size mustBe count withClue s"Expected 1 of: '$selector'\n ${html.select(selector)}\nFull HTML: \n$html"
+
   def mustContainSummaryErrors(errors: (FieldId, FieldName, Message)*) =
     errors.foreach { case (id, name, msg) =>
       val summary = html.select(s"div#error-summary")
@@ -103,4 +116,5 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
 
 object HtmlPage {
   def apply(res: Future[Result]): HtmlPage = HtmlPage(Jsoup.parse(contentAsString(res)))
+  def apply(content: Html):HtmlPage = HtmlPage(Jsoup.parse(content.toString))
 }

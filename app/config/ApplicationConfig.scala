@@ -44,6 +44,8 @@ object ApplicationConfig extends RunMode with ServicesConfig {
 
   val showReleaseNotes = getConfig("featureFlags.showReleaseNotes").toBoolean
 
+  val allowedMimeTypes: Seq[String] = getConfig("allowedFileUploadTypes").split(",")
+
   lazy val reportAProblemPartialUrl = s"$contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   lazy val reportAProblemNonJSUrl = s"$contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val analyticsToken = mustGetConfigString(Play.current, s"google-analytics.token")

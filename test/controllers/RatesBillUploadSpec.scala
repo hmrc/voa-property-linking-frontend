@@ -16,18 +16,15 @@
 
 package controllers
 
-import java.io.File
-import java.nio.file.{Files, Paths}
-
 import _root_.session.LinkingSession
 import config.VPLSessionCache
 import connectors.CapacityDeclaration
-import connectors.fileUpload.FileUpload
+import connectors.fileUpload.FileUploadConnector
 import models._
 import org.jsoup.Jsoup
+import org.mockito.ArgumentMatchers.{any, anyString}
+import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary._
-import org.scalatest.mockito.MockitoSugar
-import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData
 import play.api.mvc.MultipartFormData.FilePart
 import play.api.test.Helpers._
@@ -35,53 +32,54 @@ import play.api.test.{FakeRequest, Helpers}
 import resources._
 import utils._
 
-class RatesBillUploadSpec extends ControllerSpec with MockitoSugar {
+import scala.concurrent.Future
+
+class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   implicit val request = FakeRequest().withSession(token)
 
-  val mockFileUploads = mock[FileUpload]
+  val mockFileUploads = mock[FileUploadConnector]
+  when(mockFileUploads.uploadFile(anyString(), anyString(), anyString(), any())(any())).thenReturn(Future.successful(()))
+  when(mockFileUploads.closeEnvelope(anyString())(any())).thenReturn(Future.successful(()))
+
   object TestUploadRatesBill extends UploadRatesBill(mockFileUploads)  {
     val property = arbitrary[Property].sample.get
     override lazy val withLinkingSession = new StubWithLinkingSession(property, arbitrary[CapacityDeclaration].sample.get,
       arbitrary[DetailedIndividualAccount].sample.get, arbitrary[GroupAccount].sample.get)
-    override lazy val propertyLinkConnector = StubPropertyLinkConnector
+    override lazy val propertyLinks = StubPropertyLinkConnector
     lazy val sessionCache = new VPLSessionCache(StubHttp)
     val submissionId = "submissionId"
-    override lazy val sessionRepository = new StubLinkingSessionRepository(LinkingSession(property, "envelopeId", submissionId), sessionCache)
+    override lazy val linkingSession = new StubLinkingSessionRepository(LinkingSession(property, "envelopeId", submissionId), sessionCache)
   }
 
-  "Upload Rates Bill upload page" must "allow the user to upload some evidence or not" in {
+  "Upload Rates Bill upload page" must "contain a file input" in {
     val res = TestUploadRatesBill.show()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainFileInput("ratesBill")
   }
 
-  it must "redirect to the rates-bill-submitted page if a bill has been uploaded" in {
-    val testFile = getClass.getResource("/fileUpload.txt").getPath
-    val path = testFile + ".tmp"
-    val tmpFile = TemporaryFile(new File(path))
-    Files.copy(Paths.get(testFile), Paths.get(path))
+  it must "redirect to the rates-bill-submitted page if a valid rates bill is uploaded" in {
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
       .withMultipartFormDataBody(
         MultipartFormData(
-          dataParts = Map("hasRatesBill" -> Seq(DoesHaveRatesBill.name)),
+          dataParts = Map(),
           files = Seq(
-            FilePart("ratesBill[]", path, None, tmpFile)
+            FilePart("ratesBill[]", validFilePath, Some(validMimeType), validFile)
           ),
           badParts = Seq.empty
         )
       ).withSession(token)
     val res = TestUploadRatesBill.submit()(req)
-    tmpFile.clean()
+
     status(res) mustBe SEE_OTHER
-    header("location", res).get.contains(routes.UploadRatesBill.ratesBillUploaded.url) mustBe true
+    redirectLocation(res).get must include (routes.UploadRatesBill.fileUploaded().url)
   }
 
-  it must "show an error if the user says he wants to submit a rates bill but doesn't" in {
+  it must "show an error if the user doesn't upload any file" in {
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
       .withMultipartFormDataBody(
         MultipartFormData(
-          dataParts = Map("hasRatesBill" -> Seq(DoesHaveRatesBill.name)),
+          dataParts = Map(),
           files = Seq(), //We're not submitting any file here.
           badParts = Seq.empty
         )
@@ -94,8 +92,48 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar {
     page.mustContainFieldErrors(("ratesBill_", "Please select a rates bill"))
   }
 
-  it must "indicate that the request has been submitted" in {
-    val res = TestUploadRatesBill.ratesBillUploaded()(request)
+  it must "show an error if the uploaded file is too large" in {
+    val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
+      .withMultipartFormDataBody(
+        MultipartFormData(
+          dataParts = Map(),
+          files = Seq(
+            FilePart("ratesBill[]", largeFilePath, None, largeFile)
+          ),
+          badParts = Nil
+        )
+      )
+
+    val res = TestUploadRatesBill.submit()(req)
+    status(res) mustBe BAD_REQUEST
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+
+    page.mustContainSummaryErrors(("ratesBill", "Please upload a copy of the rates bill", "File size must be less than 10MB"))
+    page.mustContainFieldErrors(("ratesBill_", "File size must be less than 10MB"))
+  }
+
+  it must "show an error if the user uploads a file that is not a JPG or PDF" in {
+    val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
+      .withMultipartFormDataBody(
+        MultipartFormData(
+          dataParts = Map(),
+          files = Seq(
+            FilePart("ratesBill[]", unsupportedFilePath, Some(unsupportedMimeType), unsupportedFile)
+          ),
+          badParts = Nil
+        )
+      )
+
+    val res = TestUploadRatesBill.submit()(req)
+    status(res) mustBe BAD_REQUEST
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+
+    page.mustContainSummaryErrors(("ratesBill", "Please upload a copy of the rates bill", "File must be a PDF or JPG"))
+    page.mustContainFieldErrors(("ratesBill_", "File must be a PDF or JPG"))
+  }
+
+  "The upload rates bill success page" must "indicate that the request has been submitted" in {
+    val res = TestUploadRatesBill.fileUploaded()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
 
@@ -105,9 +143,9 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar {
       s" Submission Id: ${TestUploadRatesBill.submissionId}")
   }
 
-  it must "contains a link to the dashboard" in {
+  it must "contain a link to the dashboard" in {
     val request = FakeRequest().withSession(token)
-    val res = TestUploadRatesBill.ratesBillUploaded()(request)
+    val res = TestUploadRatesBill.fileUploaded()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainLink("#backToDashBoard", routes.Dashboard.home.url)

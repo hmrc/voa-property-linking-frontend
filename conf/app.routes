@@ -30,6 +30,7 @@ POST        /create-group                                           controllers.
 #Dashboard
 GET         /home                                                   controllers.Dashboard.home()
 GET         /properties                                             controllers.Dashboard.manageProperties()
+GET         /manage-agents                                          controllers.Dashboard.manageAgents()
 GET         /property-link/:linkId/assessments                      controllers.Dashboard.assessments(linkId: Long, linkPending: Boolean ?= false)
 GET         /draft-cases                                            controllers.Dashboard.draftCases()
 GET         /summary/:uarn                                          controllers.Dashboard.viewSummary(uarn: Long)
@@ -49,8 +50,8 @@ GET         /upload-evidence                                        @controllers
 POST        /upload-evidence                                        @controllers.UploadEvidence.submit()
 
 #Linking outcomes
-GET         /rates-bill-submitted                                   @controllers.UploadRatesBill.ratesBillUploaded()
-GET         /evidence-uploaded                                      @controllers.UploadEvidence.evidenceUploaded()
+GET         /rates-bill-submitted                                   @controllers.UploadRatesBill.fileUploaded()
+GET         /evidence-uploaded                                      @controllers.UploadEvidence.fileUploaded()
 GET         /no-evidence-uploaded/:refId                            @controllers.UploadEvidence.noEvidenceUploaded(refId: String)
 GET         /manual-verification-required                           controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                       controllers.LinkErrors.conflict()

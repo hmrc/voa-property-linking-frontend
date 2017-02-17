@@ -94,10 +94,10 @@ trait AppointAgentController extends PropertyLinkingController {
             propertyLink <- eventualMaybeLink
             res <- (agentCodeValidationResult, propertyLink) match {
               case (AgentCodeValidationResult(orgId, failureCode), Some(prop)) =>  {
-                val codeError = failureCode.map( _ match {
-                  case "INVALID_CODE" => { invalidAgentCode }
-                  case "DUPLICATE_PARTY" => {alreadyAppointedAgent}
-                })
+                val codeError = failureCode.map {
+                  case "INVALID_CODE" => invalidAgentCode
+                  case "DUPLICATE_PARTY" => alreadyAppointedAgent
+                }
                 val permissionError = if (agentHasNoPermissions(agent)) Some(invalidPermissions) else None
                 val errors: List[FormError] = List(codeError, permissionError).flatten
                 if (errors.nonEmpty) {
