@@ -87,7 +87,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
       val summary = html.select(s"div#error-summary")
       if (summary.asScala.length != 1) fail(s"No error summary \n$html")
       val ses = summary.select("ul li a").asScala
-      val link = ses.find(_.attr("href") == s"#$id").getOrElse(fail(s"No error summary with ID $id\nError summary: ${ses.headOption.getOrElse("")}"))
+      val link = ses.find(_.attr("href") == s"#${id}Group").getOrElse(fail(s"No error summary with ID ${id}Group\nError summary: ${ses.headOption.getOrElse("")}"))
       link.text.trim.toLowerCase mustEqual errorSummaryHtmlFor(name, msg).toLowerCase withClue s"Errors $link did not have text ${errorSummaryHtmlFor(name, msg)}"
     }
 
@@ -95,7 +95,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
 
   def mustContainFieldErrors(errors: (FieldId, Message)*) =
     errors.foreach { e =>
-      html.select(s"#${e._1}Group p.error-message").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e \n$allFieldErrors"
+      html.select(s"#${e._1.replace("_", "")}Group .error-message").asScala.count(_.text == e._2) mustEqual 1 withClue s"No field error for $e \n$allFieldErrors"
     }
 
   private def allFieldErrors = html.select(".has-error")

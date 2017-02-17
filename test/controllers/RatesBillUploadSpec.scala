@@ -53,7 +53,7 @@ class RatesBillUploadSpec extends ControllerSpec with MockitoSugar {
     val res = TestUploadRatesBill.show()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainFileInput("ratesBill_input")
+    page.mustContainFileInput("ratesBill")
   }
 
   it must "redirect to the rates-bill-submitted page if a bill has been uploaded" in {

@@ -11,15 +11,6 @@
 
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
         <span class="section-title">@Messages("agent.dashboard.manageClients.title")</span>
-        <span class="heading-secondary">
-            @if(model.propertyRepresentations.totalPendingRequests == 0) {
-                @Messages("manageClients.nonePending")
-            } else {
-                <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest">
-                    @Messages("manageClients.noOfPending", model.propertyRepresentations.totalPendingRequests)
-                </a>
-            }
-        </span>
     </h1>
 
 
