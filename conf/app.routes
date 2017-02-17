@@ -30,6 +30,7 @@ POST        /create-group                                           controllers.
 #Dashboard
 GET         /home                                                   controllers.Dashboard.home()
 GET         /properties                                             controllers.Dashboard.manageProperties()
+GET         /manage-agents                                          controllers.Dashboard.manageAgents()
 GET         /property-link/:linkId/assessments                      controllers.Dashboard.assessments(linkId: Long, linkPending: Boolean ?= false)
 GET         /draft-cases                                            controllers.Dashboard.draftCases()
 GET         /summary/:uarn                                          controllers.Dashboard.viewSummary(uarn: Long)

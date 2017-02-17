@@ -41,6 +41,13 @@ trait Dashboard extends PropertyLinkingController {
     }
   }
 
+  def manageAgents() = authenticated { implicit request =>
+    propertyLinks.linkedProperties(request.organisationId) map { props =>
+      val agentInfos = props.flatMap(_.agents.map(a=> AgentInfo(a.organisationName, a.agentCode)))
+      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos)))
+    }
+  }
+
   def assessments(authorisationId: Long, linkPending: Boolean) = authenticated { implicit request =>
     val backLink = request.headers.get("Referer")
     propertyLinks.assessments(authorisationId) map { assessments =>
@@ -78,6 +85,8 @@ object Dashboard extends Dashboard
 
 case class ManagePropertiesVM(properties: Seq[PropertyLink])
 
+case class ManageAgentsVM(agents: Seq[AgentInfo])
+
 case class AssessmentsVM(assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean)
 
 case class DraftCasesVM(draftCases: Seq[DraftCase])
@@ -89,3 +98,5 @@ case class PendingPropertyLinkRepresentations(name: String, linkId: String, capa
                                               linkedDate: DateTime, representations: Seq[PropertyRepresentation])
 
 case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentations], pending: Seq[PendingPropertyLinkRepresentations])
+
+case class AgentInfo(organisationName: String, agentCode: Long)

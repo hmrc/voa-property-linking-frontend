@@ -19,6 +19,7 @@ package controllers
 import auth.GGAction
 import connectors.{Authenticated, NoVOARecord, VPLAuthConnector}
 import models._
+import org.jsoup.Jsoup
 import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -68,6 +69,9 @@ class DashboardSpec extends ControllerSpec {
 
     val res = TestDashboard.home()(request)
     status(res) mustBe OK
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainLink("#manageAgents", routes.Dashboard.manageAgents.url)
   }
 
   "Logging in with a group account that has registered as an agent" must "continue to the agent dashboard" in {
