@@ -28,7 +28,7 @@ object RepresentationController extends PropertyLinkingController {
 
   def manageRepresentationRequest() = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
-      reprConnector.forAgent(RepresentationAccepted.name, request.organisationId).map { reprs =>
+      reprConnector.forAgent(RepresentationApproved.name, request.organisationId).map { reprs =>
         Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs, request.agentCode)))
       }
     } else {

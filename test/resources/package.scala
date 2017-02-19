@@ -125,7 +125,7 @@ package object resources {
   val agentPermissionGen: Gen[AgentPermission] = Gen.oneOf(StartAndContinue, ContinueOnly, NotPermitted)
   implicit val agentPermissionType = Arbitrary(agentPermissionGen)
 
-  val representationStatusGen: Gen[RepresentationStatus] = Gen.oneOf(RepresentationAccepted, RepresentationPending)
+  val representationStatusGen: Gen[RepresentationStatus] = Gen.oneOf(RepresentationApproved, RepresentationPending)
   implicit val representationStatusType = Arbitrary(representationStatusGen)
 
   val party: Gen[Party] = for {
