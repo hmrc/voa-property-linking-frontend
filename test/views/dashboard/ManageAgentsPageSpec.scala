@@ -15,7 +15,7 @@
  */
 
 package views.dashboard
-
+import controllers.routes
 import controllers.{AgentInfo, ControllerSpec, ManageAgentsVM}
 import play.api.test.FakeRequest
 import utils.HtmlPage
@@ -42,14 +42,17 @@ class ManageAgentsPageSpec extends ControllerSpec {
     val html = views.html.dashboard.manageAgents(twoAgents)
     val page = HtmlPage(html)
     page.mustContain1("#agentsTable")
-    page.mustContainTableHeader("Agent name", "Agent code")
+    page.mustContainTableHeader("Agent name", "Agent code", "Actions")
   }
 
   it must "display the right table content" in {
     val html = views.html.dashboard.manageAgents(twoAgents)
     val page = HtmlPage(html)
     page.mustContain1("#agentsTable")
-    page.mustContainTableHeader("Agent name", "Agent code")
+    twoAgents.agents.map{ x =>
+      page.mustContainDataInRow(x.organisationName, x.agentCode.toString, "View managed properties")
+      page.mustContainLink("#viewManagedProperties", routes.Dashboard.viewManagedProperties(x.agentCode).url)
+    }
   }
 
 }

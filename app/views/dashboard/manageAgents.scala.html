@@ -24,6 +24,7 @@
                     <tr>
                         <th scope="col">@Messages("dashboard.manageAgents.table.1")</th>
                         <th scope="col">@Messages("dashboard.manageAgents.table.2")</th>
+                        <th class="last" scope="col">@Messages("dashboard.manageAgents.table.3")</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +32,11 @@
                     <tr>
                         <td scope="row">@agent.organisationName</td>
                         <td>@agent.agentCode</td>
-                        <td>
+                        <td class="last">
+                            <a id="viewManagedProperties" href="@routes.Dashboard.viewManagedProperties(agent.agentCode)">
+                                @Messages("dashboard.manageAgents.viewManagedProperties")
+                                <span class="visually hidden"> for @agent.organisationName</span>
+                            </a>
                         </td>
                     </tr>
                 }
