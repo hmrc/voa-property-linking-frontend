@@ -7,10 +7,10 @@
         <div class="grid-row">
             <div class="column-two-thirds">
 
-                <h1 class="form-title heading-large heading-confirmation">
-                    <span class="tick">&#10004;</span> @Messages("groupAlreadyExists.title", businessName)
-                    <span class="reference-text">@Messages("groupAlreadyExists.addedToGroup")</span>
-                </h1>
+                <div class="transaction-banner--complete">
+                  <h1 class="transaction-banner__heading">@Messages("groupAlreadyExists.title", businessName)</h1>
+                  <p class="heading-medium no-margin">@Messages("groupAlreadyExists.addedToGroup")</p>
+                </div>
 
                 <p>@Messages("account.confirmation.alreadyRegistered.youCan")</p>
                 <ul class="list list-bullet">
@@ -19,7 +19,7 @@
                 </ul>
 
                 <p>
-                    <a href="@routes.Dashboard.home" class="button">@Messages("link.dashboard")</a>
+                    <a role="button" href="@routes.Dashboard.home" class="button">@Messages("link.dashboard")</a>
                 </p>
 
             </div>

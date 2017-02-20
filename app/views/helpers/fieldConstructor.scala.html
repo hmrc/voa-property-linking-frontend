@@ -25,23 +25,33 @@ Example usage:
 
     @elements.args.get('_legend) match {
      	case Some(true) => {
-     		<fieldset id="@elements.id" class="@elements.args.get('_fieldsetClass)">
-   				<legend class="@elements.args.get('_labelClass)"><span class="label-span">@elements.label</span>
+     		<fieldset id="@(elements.id)Group" class="@elements.args.get('_fieldsetClass)">
+   				<legend class="@elements.args.get('_labelClass)">
+                    <span class="@elements.args.get('_labelSpanClass) label-span">@elements.label</span>
+
+                    @if(elements.hasErrors) {
+                            <span class="error-message">@elements.errors.mkString(", ")</span>
+                    }
 
                     @elements.args.get('_optional) match {
                         case Some(true) => { <span class="visuallyhidden">(@Messages("label.optional")(elements.messages))</span> }
-                        case _ => { <span class="visuallyhidden">(@Messages("label.required")(elements.messages))</span>}
+                        case _ => {}
                     }
 
                 </legend>
    		}
 		case _ => {
-			<div id="@elements.id" class="@elements.args.get('_fieldsetClass)">
-				<label class="@elements.args.get('_labelClass)" for="@(elements.id)_text" ><span class="label-span">@elements.label</span>
+			<div id="@elements.id.replace("_","")Group" class="@elements.args.get('_fieldsetClass)">
+				<label class="@elements.args.get('_labelClass)" for=@elements.id.replace("_","") >
+                    <span class="@elements.args.get('_labelSpanClass) label-span">@elements.label</span>
+
+                    @if(elements.hasErrors) {
+                            <span class="error-message">@elements.errors.mkString(", ")</span>
+                    }
 
             @elements.args.get('_optional) match {
                 case Some(true) => { <span class="visuallyhidden">(@Messages("label.optional")(elements.messages))</span> }
-                case _ => { <span class="visuallyhidden">(@Messages("label.required")(elements.messages))</span>}
+                case _ => {}
             }
                 </label>
 		}
@@ -72,9 +82,7 @@ Example usage:
         case _ => {}
     }
 
-    @if(elements.hasErrors) {
-    		<p class="error-message">@elements.errors.mkString(", ")</p>
-    }
+
 
     @elements.args.get('_help).map { helpText =>
     		<span class="form-hint">@helpText</span>

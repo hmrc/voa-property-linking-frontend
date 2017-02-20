@@ -119,3 +119,7 @@ select.form-control{
 .error-summary{
 	display: block;
 }
+
+.form-label .error-message, .form-label-bold .error-message{
+	margin-bottom: -10px;
+}

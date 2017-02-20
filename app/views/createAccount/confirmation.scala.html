@@ -7,16 +7,16 @@
         <div class="grid-row">
             <div class="column-two-thirds">
 
-                <h1 class="form-title heading-large heading-confirmation">
-                    <span class="tick">&#10004;</span> @Messages("account.confirmation.heading")
-                    <span class="reference-text">@Messages("account.confirmation.heading.2")</span>
-                </h1>
+                <div class="transaction-banner--complete">
+                    <h1 class="transaction-banner__heading">@Messages("account.confirmation.heading")</h1>
+                    <p class="heading-medium no-margin">@Messages("account.confirmation.heading.2")</p>
+                </div>
 
                 <p>@Html(Messages("account.confirmation.addToGG", "https://myaccount.gateway.gov.uk/Pages/Common/Help.aspx?content=Whitelabel_RegisterOrLogon_AboutGateway"))</p>
 
                 <p>@Messages("account.confirmation.youCan")</p>
 
-                <a href="@routes.Dashboard.home" class="button">@Messages("link.dashboard")</a>
+                <a href="@routes.Dashboard.home" class="button" role="button">@Messages("link.dashboard")</a>
             </div>
         </div>
     }

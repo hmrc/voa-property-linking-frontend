@@ -8,14 +8,10 @@
         <div class="grid-row">
             <div class="column-two-thirds">
 
-                <h1 class="form-title heading-large heading-confirmation">
-                    <span class="tick">&#10004;</span>
-                    <span class="heading-confirmation-normal">@Messages("linkingRequestSubmitted.title1")</span>
-                    <div class="margin-bottom-10 margin-top-10">@model.address.toString</div>
-                    <span class="heading-confirmation-normal">@Messages("linkingRequestSubmitted.title2")</span>
-                    <span class="heading-confirmation-normal">@Messages("linkingRequestSubmitted.title3")</span>
-                    <div class="margin-bottom-10 margin-top-10">@model.refId</div>
-                </h1>
+                <div class="transaction-banner--complete">
+                    <h1 class="transaction-banner__heading">@Messages("linkingRequestSubmitted.title1") @model.address.toString @Messages("linkingRequestSubmitted.title2")</h1>
+                    <p class="heading-medium no-margin">@Messages("linkingRequestSubmitted.title3") @model.refId</p>
+                </div>
 
                 <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
 
@@ -29,7 +25,7 @@
                 </ul>
 
                 <p><a href="@routes.ClaimProperty.show" class="link">@Messages("link.addAnotherProperty")</a></p>
-                <p><a href="@routes.Dashboard.home" id="backToDashBoard" class="button">@Messages("link.dashboard")</a></p>
+                <p><a href="@routes.Dashboard.home" id="backToDashBoard" class="button" role="button">@Messages("link.dashboard")</a></p>
             </div>
         </div>
 

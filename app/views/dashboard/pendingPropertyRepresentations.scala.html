@@ -19,45 +19,52 @@
         @if(model.propertyRepresentations.propertyRepresentations.isEmpty){
             @Messages("dashboard.manageProperties.noProperties")
         } else {
-        <table class="table-font-xsmall margin-bottom-20">
-            <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
-            <tbody>
-                <tr>
-                    <th scope="col">@Messages("pendingRepresentationRequests.table.1")</th>
-                    <th scope="col">@Messages("pendingRepresentationRequests.table.2")</th>
-                    <th scope="col">@Messages("pendingRepresentationRequests.table.3")</th>
-                    <th scope="col">@Messages("pendingRepresentationRequests.table.4")</th>
-                    <th scope="col" class="last">@Messages("pendingRepresentationRequests.table.5")</th>
-                </tr>
-                @model.propertyRepresentations.propertyRepresentations.map { p =>
+        <div class="table-wrapper">
+            <table class="table-font-xsmall margin-bottom-20">
+                <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
+                <tbody>
                     <tr>
-                        <td scope="row">
-                            @(p.organisationName)
-                        </td>
-                        <td>
-                            @(p.address)
-                        </td>
-                        <td>
-                            Check: @Messages(s"permission.${p.checkPermission.name}")
-                            <br>
-                            Challenge: @Messages(s"permission.${p.challengePermission.name}")
-                        </td>
-                        <td>
-                            @utils.Formatters.formatDate(p.createDatetime.toLocalDate)
-                        </td>
-                        <td class="last">
-                            <a role="button" href=@controllers.agent.routes.RepresentationController.accept(p.submissionId)>
-                            @Messages("agent.dashboard.manageProperties.accept")
-                            </a>
-                            <br>
-                            <a role="button" href=@controllers.agent.routes.RepresentationController.reject(p.submissionId)>
-                            @Messages("agent.dashboard.manageProperties.reject")
-                            </a>
-                        </td>
+                        <th scope="col">@Messages("pendingRepresentationRequests.table.1")</th>
+                        <th scope="col">@Messages("pendingRepresentationRequests.table.2")</th>
+                        <th scope="col">@Messages("pendingRepresentationRequests.table.3")</th>
+                        <th scope="col">@Messages("pendingRepresentationRequests.table.4")</th>
+                        <th scope="col" class="last">@Messages("pendingRepresentationRequests.table.5")</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                    @model.propertyRepresentations.propertyRepresentations.map { p =>
+                        <tr>
+                            <td>
+                                @(p.organisationName)
+                            </td>
+                            <td>
+                                @(p.address)
+                            </td>
+                            <td>
+                                Check: @Messages(s"permission.${p.checkPermission.name}")
+                                <br>
+                                Challenge: @Messages(s"permission.${p.challengePermission.name}")
+                            </td>
+                            <td>
+                                @utils.Formatters.formatDate(p.createDatetime.toLocalDate)
+                            </td>
+                            <td class="last">
+                                <ul>
+                                    <li>
+                                        <a role="button" href=@controllers.agent.routes.RepresentationController.accept(p.submissionId)>
+                                            @Messages("agent.dashboard.manageProperties.accept")
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a role="button" href=@controllers.agent.routes.RepresentationController.reject(p.submissionId)>
+                                            @Messages("agent.dashboard.manageProperties.reject")
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
     }
 
 }

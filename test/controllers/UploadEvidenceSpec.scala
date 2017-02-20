@@ -49,7 +49,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
     val res = TestUploadEvidence.show()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainFileInput("evidence_")
+    page.mustContainFileInput("evidence")
   }
 
   it must "redirect to the evidence-submitted page if valid evidence has been uploaded" in {

@@ -51,7 +51,7 @@ class IdentityVerificationSpec extends ControllerSpec {
 
     val content = contentAsString(res)
     val html = Jsoup.parse(content)
-    html.select("h1.heading-confirmation span.tick").html must equal ("✔") withClue "Page did not contain success summary"
+    html.select("h1").html must equal ("Success") withClue "Page did not contain success summary"
     html.select(s"a.button[href=${routes.CreateGroupAccount.show.url}]").size must equal (1) withClue "Page did not contain link to create group account"
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
@@ -62,14 +62,15 @@ class IdentityVerificationSpec extends ControllerSpec {
   "Successfully verifying identity when the group does have a CCA account" must "display a confirmation page, and create the individual account" in {
     StubAuthConnector.stubExternalId("individualwithoutaccount")
     StubAuthConnector.stubGroupId("groupwithaccount")
-    StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get.copy(groupId = "groupwithaccount"))
+    val groupAccount = arbitrary[GroupAccount].sample.get
+    StubGroupAccountConnector.stubAccount(groupAccount.copy(groupId = "groupwithaccount"))
     StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("anothersuccess"))
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("h1.heading-confirmation span.tick").html must equal ("✔") withClue "Page did not contain success summary"
+    html.select("h1").html must equal (s"${groupAccount.companyName} has already registered.") withClue "Page did not contain success summary"
     html.select(s"a.button[href=${routes.Dashboard.home.url}]").size must equal (1) withClue "Page did not contain dashboard link"
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))

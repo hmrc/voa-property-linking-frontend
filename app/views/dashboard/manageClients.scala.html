@@ -3,54 +3,54 @@
 @(model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    Messages("agent.dashboard.manageClients.title")
+    Messages("agent.dashboard.manageClients.title"),
+    topBackLink = true,
+    bottomBackLink = true
 ) {
-    <h1 class="heading-large">
-    @Messages("agent.dashboard.manageClients.title")
+
+
+    <h1 class="heading-xlarge margin-bottom-0 clear-right">
+        <span class="section-title">@Messages("agent.dashboard.manageClients.title")</span>
     </h1>
 
-    <h2 class="">
-    @Messages("agent.dashboard.manageClients.pending")
+
+    <h2 class="heading-secondary">
+       @if(model.propertyRepresentations.totalPendingRequests == 0) {
+           @Messages("manageClients.nonePending")
+       } else {
+           <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest">
+               @Messages("manageClients.noOfPending", model.propertyRepresentations.totalPendingRequests)
+           </a>
+       }
     </h2>
-    <p>
-        @if(model.propertyRepresentations.totalPendingRequests == 0) {
-            @Messages("manageClients.nonePending")
-        } else {
-            <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest">
-                @Messages("manageClients.noOfPending", model.propertyRepresentations.totalPendingRequests)
-            </a>
-        }
-    </p>
 
 
-    <h2 class="">
-    @Messages("agent.dashboard.manageClients.existingClients")
-    </h2>
     @if(model.propertyRepresentations.propertyRepresentations.nonEmpty) {
-        <br/>
-        <table class="table-font-xsmall">
-            <caption class="heading-medium">
-            @Messages("manageProperties.representations")
-            </caption>
-            <thead>
+        <div class="table-wrapper">
+            <table class="table-font-xsmall">
+                <caption class="heading-medium">
+                    @Messages("agent.dashboard.manageClients.existingClients")
+                </caption>
+                <thead>
+                    <tr>
+                        <th scope="col">@Messages("propertyRepresentations.table.1")</th>
+                        <th scope="col">@Messages("propertyRepresentations.table.2")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @model.propertyRepresentations.propertyRepresentations.groupBy(_.organisationName).map { case (groupName, properties) =>
                 <tr>
-                    <th scope="col">@Messages("propertyRepresentations.table.1")</th>
-                    <th scope="col">@Messages("propertyRepresentations.table.2")</th>
+                    <td>@groupName</td>
+                    <td>
+                        @properties.size
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-            @model.propertyRepresentations.propertyRepresentations.groupBy(_.organisationName).map { case (groupName, properties) =>
-            <tr>
-                <td scope="row">@groupName</td>
-                <td>
-                    @properties.size
-                </td>
-            </tr>
-            }
-            </tbody>
-        </table>
+                }
+                </tbody>
+            </table>
+        </div>
     } else {
-        @Messages("agent.dashboard.manageClients.noClients")
+        <p>@Messages("agent.dashboard.manageClients.noClients")</p>
     }
 
 }

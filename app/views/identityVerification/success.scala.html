@@ -4,15 +4,15 @@
         <div class="grid-row">
             <div class="column-two-thirds">
 
-                <h1 class="form-title heading-large heading-confirmation">
-                    <span class="tick">&#10004;</span> @Messages("iv.success.heading")
-                    <span class="reference-text">@Messages("iv.success.confirmation")</span>
-                </h1>
+                <div class="transaction-banner--complete">
+                    <h1 class="transaction-banner__heading">@Messages("iv.success.heading")</h1>
+                    <p class="heading-medium no-margin">@Messages("iv.success.confirmation")</p>
+                </div>
 
                 <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
                 <p>@Messages("iv.success.p.1")</p>
 
-                <a href="@routes.CreateGroupAccount.show" class="button">@Messages("link.createGroupAccount")</a>
+                <a href="@routes.CreateGroupAccount.show" class="button" role="button">@Messages("link.createGroupAccount")</a>
 
             </div>
         </div>

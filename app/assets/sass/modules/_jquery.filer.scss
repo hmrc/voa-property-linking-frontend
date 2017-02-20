@@ -375,6 +375,9 @@ span.jFiler-icon-file.f-audio {
 .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:active {
     background: transparent;
 }
+.jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:focus{
+    outline: 3px solid #ffbf47;
+}
 
 .jFiler-theme-govuk .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:hover,
 .jFiler-theme-govuk .jFiler-items-default .jFiler-item-assets .jFiler-item-trash-action:active {

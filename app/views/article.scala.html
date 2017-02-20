@@ -45,6 +45,6 @@
     @content
 
     @if(bottomBackLink){
-        <a href=@requestHeader.headers.get("referer").getOrElse("routes.Dashboard.home()") id="backLinkBottom" class="link-back" onClick="history.go(-1); return false;">@Messages("link.back")</a>
+        <p><a href=@requestHeader.headers.get("referer").getOrElse("routes.Dashboard.home()") id="backLinkBottom" class="link-back" onClick="history.go(-1); return false;">@Messages("link.back")</a></p>
     }
 </article>

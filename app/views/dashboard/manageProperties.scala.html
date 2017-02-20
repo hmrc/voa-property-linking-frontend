@@ -12,64 +12,74 @@
     individualId = Some(request.personId)
 ) {
 
-        <h1 class="heading-xlarge">
+        <h1 class="heading-xlarge margin-bottom-0 clear-right">
             @Messages("dashboard.manageProperties.title")
         </h1>
 
         @if(model.properties.isEmpty){
-            <p>@Messages("dashboard.manageProperties.noProperties")</p>
+            <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
-        <table class="table-font-xsmall margin-bottom-20">
-            <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
-            <tbody>
-                <tr>
-                    <th scope="col">@Messages("manageProperties.table.1")</th>
-                    <th scope="col">@Messages("manageProperties.table.2")</th>
-                    <th scope="col">@Messages("manageProperties.table.3")</th>
-                    <th scope="col">@Messages("manageProperties.table.4")</th>
-                    <th scope="col" class="last">@Messages("manageProperties.table.5")</th>
-                </tr>
-                @model.properties.map { p =>
+        <div class="table-wrapper">
+            <table class="table-font-xsmall margin-bottom-20">
+                <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
+                <tbody>
                     <tr>
-                        <td scope="row">
-                            @(Formatters.capitalizedAddress(p.address))
-                        </td>
-                        <td>
-                            @{p.assessment.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")}
-                        </td>
-                        <td>
-                            @if(p.pending) {
-                                @Messages("dashboard.manageProperties.status.pending")
-                            } else {
-                                @Messages("dashboard.manageProperties.status.added")
-                            }
-                        </td>
-                        <td>
-                            <ul>
-                                @if(p.agents.isEmpty){
-                                    @Messages("dashboard.manageProperties.noAgent")
-                                } else {
-                                    @p.agents.map { agent =>
-                                        <li>@agent.organisationName</li>
-                                    }
-                                }
-                            </ul>
-                        </td>
-                        <td class="last">
-                            @if(ApplicationConfig.readyForPrimeTime) {
-                                <a href=@routes.AppointAgentController.add(p.authorisationId)>@Messages("manageProperties.addAgent")</a>
-                                <br>
-                            }
-                            @if(p.assessment.nonEmpty){
-                                <a href="@routes.Dashboard.assessments(p.authorisationId, p.pending)">
-                                    @Messages("manageProperties.viewAssessments")
-                                </a>
-                            }
-                        </td>
+                        <th scope="col">@Messages("manageProperties.table.1")</th>
+                        <th scope="col">@Messages("manageProperties.table.2")</th>
+                        <th scope="col">@Messages("manageProperties.table.3")</th>
+                        <th scope="col">@Messages("manageProperties.table.4")</th>
+                        <th scope="col" class="last">@Messages("manageProperties.table.5")</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                    @model.properties.map { p =>
+                        <tr>
+                            <td>
+                                @(Formatters.capitalizedAddress(p.address))
+                            </td>
+                            <td>
+                                @{p.assessment.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")}
+                            </td>
+                            <td>
+                                @if(p.pending) {
+                                    @Messages("dashboard.manageProperties.status.pending")
+                                } else {
+                                    @Messages("dashboard.manageProperties.status.added")
+                                }
+                            </td>
+                            <td>
+                                <ul>
+                                    @if(p.agents.isEmpty){
+                                        <li>@Messages("dashboard.manageProperties.noAgent")</li>
+                                    } else {
+                                        @p.agents.map { agent =>
+                                            <li>@agent.organisationName</li>
+                                        }
+                                    }
+                                </ul>
+                            </td>
+                            <td class="last">
+                                <ul>
+                                @if(ApplicationConfig.readyForPrimeTime) {
+                                    <li>
+                                        <a href=@routes.AppointAgentController.add(p.authorisationId)>@Messages("manageProperties.addAgent")
+                                            <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
+                                        </a>
+                                    </li>
+
+                                }
+                                @if(p.assessment.nonEmpty){
+                                    <li>
+                                        <a href="@routes.Dashboard.assessments(p.authorisationId, p.pending)">@Messages("manageProperties.viewAssessments")
+                                            <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
+                                        </a>
+                                    </li>
+                                }
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
 
     @if(ApplicationConfig.readyForPrimeTime) {

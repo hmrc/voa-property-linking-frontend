@@ -11,53 +11,64 @@
     bottomBackLink = true,
     individualId = Some(request.personId)
 ) {
-    <h1 class="heading-xlarge">
+    <h1 class="heading-xlarge margin-bottom-0 clear-right">
         @Messages("assessments.title")
-        <span class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</span>
     </h1>
 
-    <table class="table-font-xsmall margin-bottom-20">
-        <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
-        <tbody>
-            <tr>
-                <th scope="col">@Messages("assessments.table.1")</th>
-                <th scope="col">@Messages("assessments.table.2")</th>
-                <th scope="col">@Messages("assessments.table.3")</th>
-                <th scope="col">@Messages("assessments.table.4")</th>
-                <th scope="col">@Messages("assessments.table.5")</th>
-                <th scope="col" class="last">@Messages("assessments.table.6")</th>
-            </tr>
-            @model.assessments.map { assessment =>
+    <h2 class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</h2>
+
+    <div class="table-wrapper">
+        <table class="table-font-xsmall margin-bottom-20">
+            <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
+            <tbody>
                 <tr>
-                    <td scope="row">
-                        @(Formatters.formatDate(assessment.effectiveDate))
-                    </td>
-                    <td>
-                    £@{assessment.rateableValue}
-                    </td>
-                    <td>
-                    @Messages(s"capacity.${assessment.capacity.capacity}")
-                    </td>
-                    <td>
-                        @(Formatters.formatDate(assessment.capacity.fromDate))
-                    </td>
-                    <td>
-                        @{assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))}
-                    </td>
-                    <td class="last">
-                        @if(model.linkPending) {
-                            <a href="@routes.Dashboard.viewSummary(assessment.uarn)">
-                                @Messages("assessments.view.summary")
-                            </a>
-                        } else {
-                            <a href=@routes.Dashboard.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef)>
-                               @Messages("assessments.view.valuation")
-                            </a>
-                        }
-                    </td>
+                    <th scope="col">@Messages("assessments.table.1")</th>
+                    <th scope="col">@Messages("assessments.table.2")</th>
+                    <th scope="col">@Messages("assessments.table.3")</th>
+                    <th scope="col">@Messages("assessments.table.4")</th>
+                    <th scope="col">@Messages("assessments.table.5")</th>
+                    <th scope="col" class="last">@Messages("assessments.table.6")</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+                @model.assessments.map { assessment =>
+                    <tr>
+                        <td>
+                            @(Formatters.formatDate(assessment.effectiveDate))
+                        </td>
+                        <td>
+                        £@{assessment.rateableValue}
+                        </td>
+                        <td>
+                        @Messages(s"capacity.${assessment.capacity.capacity}")
+                        </td>
+                        <td>
+                            @(Formatters.formatDate(assessment.capacity.fromDate))
+                        </td>
+                        <td>
+                            @{assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))}
+                        </td>
+                        <td class="last">
+                            <ul>
+                            @if(model.linkPending) {
+                                <li>
+                                    <a href="@routes.Dashboard.viewSummary(assessment.uarn)">
+                                        @Messages("assessments.view.summary")
+                                        <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))}</span>
+                                    </a>
+                                </li>
+                            } else {
+                                <li>
+                                    <a href=@routes.Dashboard.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef)>
+                                        @Messages("assessments.view.valuation")
+                                        <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))}</span>
+                                    </a>
+                                </li>
+                            }
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
 }

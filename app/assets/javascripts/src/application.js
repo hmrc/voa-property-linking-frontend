@@ -15,6 +15,7 @@
         new VOA.JqueryFiler();
         new VOA.postcodeLookup();
         new VOA.InPageFeedbackOverride();
+        new VOA.ErrorSummary();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));
