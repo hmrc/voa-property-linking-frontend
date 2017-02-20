@@ -38,10 +38,11 @@ object Application extends Controller {
   }
 
   def start() = Action { implicit request =>
-    Ok(views.html.start()).addingToSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
+    Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
   }
 
   def logOut() = Action { request =>
     Redirect(routes.Application.start()).withNewSession
   }
+
 }

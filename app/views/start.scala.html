@@ -2,52 +2,36 @@
 
 
 @main_template(
-    title = "Start page",
-    showLogout = false
+    title = Messages("start.heading.register"),
+    topNavigation = false
 ) {
 
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            <h1 class="heading-xlarge clear-right">
+            <h1 class="heading-xlarge">
                 @Messages("start.heading.register")
             </h1>
 
-            <h2 class="heading-medium">
-                @Messages("start.heading.about")
-            </h2>
-
-            <p>@Messages("start.about.p.1")</p>
-            <a href="https://www.gov.uk/guidance/how-to-check-your-rateable-value-is-correct">@Messages("start.link.learnMore")</a>
-
-            <p>@Messages("start.about.p.2")</p>
-            <p>@Messages("start.about.p.3")</p>
-
-            <h2 class="heading-medium">
-                @Messages("start.heading.registration")
-            </h2>
-
-            <p>@Messages("start.registration.p.1")</p>
+            <p>@Html(Messages("start.registration.p.1", routes.Login.show))</p>
             <p>@Messages("start.registration.p.2")</p>
             <p>@Messages("start.registration.p.3")</p>
+            <p>@Messages("start.registration.p.4")</p>
 
-            <p>@Messages("start.registration.youNeed")</p>
             <ul class="list list-bullet">
                 <li>@Messages("start.registration.youNeed.1")</li>
                 <li>@Messages("start.registration.youNeed.2")</li>
                 <li>@Messages("start.registration.youNeed.3")</li>
             </ul>
 
-            <p>@Messages("start.registration.p.5")</p>
+            <p class="panel panel-border-narrow">@Messages("start.registration.p.5")</p>
 
-            <h2 class="heading-medium">
-                @Messages("start.heading.agents")
-            </h2>
+            <p>@Messages("start.registration.p.6")</p>
 
-            <p>@Messages("start.agents.p.1")</p>
+            <a href="@routes.Wizard.authenticationWizard" class="button" role="button">@Messages("start.register")</a>
 
-            <a href="@routes.Register.show" class="button button-get-started" role="button">@Messages("start.register")</a>
-    </div>
+        </div>
+
 </div>
 
 }

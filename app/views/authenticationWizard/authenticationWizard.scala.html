@@ -1,0 +1,73 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import controllers.Wizard.keys._
+
+@(theForm: Form[_])(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+    title = Messages("start.heading.register"),
+    topNavigation = false
+) {
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">
+                @Messages("start.heading.register")
+            </h1>
+
+
+            @form(routes.Wizard.submit) {
+
+                @inputRadioGroup(
+                    field = theForm(businessHasRegistered),
+                    options = Seq("true", "false"),
+                    args = Seq(
+                        '_label -> Messages(s"label.wizard.$businessHasRegistered"),
+                        '_labelClass -> "form-label-bold",
+                        '_legend -> true,
+                        '_fieldsetClass -> "inline",
+                        '_help -> Messages("help.wizard.businessHasRegistered")
+                    ),
+                    dataAttributes = Seq(
+                        ("true", "data-toggle-id", "givenGG"),
+                        ("false", "data-toggle-id", "existingGG")
+                    )
+                )
+
+            <div id="givenGG" data-toggle-hidden>
+                @inputRadioGroup(
+                    field = theForm(givenGGDetails),
+                    options = Seq("true", "false"),
+                    args = Seq(
+                        '_label -> Messages(s"label.wizard.$givenGGDetails"),
+                        '_labelClass -> "form-label-bold",
+                        '_legend -> true,
+                        '_fieldsetClass -> "inline",
+                        '_help -> Messages("help.wizard.givenGGDetails")
+                    )
+                )
+            </div>
+
+            <div id="existingGG" data-toggle-hidden>
+                @inputRadioGroup(
+                    field = theForm(existingGGAccount),
+                    options = Seq("true", "false"),
+                    args = Seq(
+                        '_label -> Messages(s"label.wizard.$existingGGAccount"),
+                        '_labelClass -> "form-label-bold",
+                        '_legend -> true,
+                        '_fieldsetClass -> "inline",
+                        '_help -> Messages("help.wizard.existingGGAccount")
+                    )
+                )
+            </div>
+
+            <input type="submit" class="button" value="@Messages("label.continue")">
+
+            }
+    </div>
+</div>
+
+}
