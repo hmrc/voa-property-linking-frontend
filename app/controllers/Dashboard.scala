@@ -43,7 +43,7 @@ trait Dashboard extends PropertyLinkingController {
 
   def manageAgents() = authenticated { implicit request =>
     propertyLinks.linkedProperties(request.organisationId) map { props =>
-      val agentInfos = props.flatMap(_.agents.map(a=> AgentInfo(a.organisationName, a.agentCode)))
+      val agentInfos = props.flatMap(_.agents.map(a=> AgentInfo(a.organisationName, a.agentCode))).sortBy(_.organisationName).distinct
       Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos)))
     }
   }
@@ -68,6 +68,20 @@ trait Dashboard extends PropertyLinkingController {
     Redirect(ApplicationConfig.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef"))
   }
 
+  def viewManagedProperties(agentCode: Long) = authenticated { implicit request => {
+    propertyLinks.linkedProperties(request.organisationId) map { props =>
+      val filteredProps = props.filter(_.agents.map(_.agentCode).contains(agentCode))
+      if (filteredProps.nonEmpty) {
+        val organisationName = filteredProps.flatMap(_.agents).filter(_.agentCode == agentCode).head.organisationName
+
+        Ok(views.html.dashboard.managedByAgentsProperties(ManagedPropertiesVM(organisationName, filteredProps)))
+      }
+      else
+        NotFound
+    }
+  }
+  }
+
   def draftCases() = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
       val dummyData = Seq(
@@ -84,6 +98,7 @@ trait Dashboard extends PropertyLinkingController {
 object Dashboard extends Dashboard
 
 case class ManagePropertiesVM(properties: Seq[PropertyLink])
+case class ManagedPropertiesVM(agentName: String, properties: Seq[PropertyLink])
 
 case class ManageAgentsVM(agents: Seq[AgentInfo])
 

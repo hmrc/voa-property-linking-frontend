@@ -251,6 +251,22 @@ manageProperties.addAgent=Appoint agent
 manageProperties.viewAssessments=View assessments
 link.dashboard.home=Back to dashboard
 
+
+#MANAGED BY AGENT PROPERTIES
+dashboard.managedByAgentsProperties.title=Properties managed by: {0}
+managedByAgentsProperties.table.caption=Your properties
+managedByAgentsProperties.table.1=Address
+managedByAgentsProperties.table.2=Billing authority reference
+managedByAgentsProperties.table.3=Status
+managedByAgentsProperties.table.4=Appointed Agents
+managedByAgentsProperties.table.5=Actions
+dashboard.managedByAgentsProperties.status.added=Approved
+dashboard.managedByAgentsProperties.status.pending=Pending
+dashboard.managedByAgentsProperties.noAgent=None
+dashboard.managedByAgentsProperties.addAnotherProperty=Add another property
+managedByAgentsProperties.addAgent=Appoint agent
+managedByAgentsProperties.viewAssessments=View assessments
+
 #DASHBOARD ASSESSMENTS
 assessments.title=Assessments
 assessments.table.caption=Assessments
@@ -528,6 +544,7 @@ dashboard.manageAgents.noAgents=You have not appointed any agents yet.
 dashboard.manageAgents.table.1=Agent name
 dashboard.manageAgents.table.2=Agent code
 dashboard.manageAgents.table.3=Actions
+dashboard.manageAgents.viewManagedProperties=View managed properties
 
 
 #ERROR PAGES

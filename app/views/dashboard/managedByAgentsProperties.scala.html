@@ -1,0 +1,76 @@
+@import _root_.template.Display
+@import config.ApplicationConfig
+@import utils.Formatters
+@import actions.AuthenticatedRequest
+
+@(model: controllers.ManagedPropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
+
+@main_template(
+    title = Messages("dashboard.managedByAgentsProperties.title", model.agentName),
+    topBackLink = true,
+    bottomBackLink = true,
+    individualId = Some(request.personId)
+) {
+
+        <h1 class="heading-xlarge">
+            @Messages("dashboard.managedByAgentsProperties.title", model.agentName)
+        </h1>
+
+    <div class="table-wrapper">
+        <table class="table-font-xsmall margin-bottom-20">
+            <caption class="visuallyhidden">@Messages("managedByAgentsProperties.table.caption")</caption>
+            <tbody>
+                <tr>
+                    <th scope="col">@Messages("managedByAgentsProperties.table.1")</th>
+                    <th scope="col">@Messages("managedByAgentsProperties.table.2")</th>
+                    <th scope="col">@Messages("managedByAgentsProperties.table.3")</th>
+                    <th scope="col">@Messages("managedByAgentsProperties.table.4")</th>
+                    <th scope="col" class="last">@Messages("managedByAgentsProperties.table.5")</th>
+                </tr>
+                @model.properties.map { p =>
+                    <tr>
+                        <td scope="row">
+                            @(Formatters.capitalizedAddress(p.address))
+                        </td>
+                        <td>
+                            @{p.assessment.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")}
+                        </td>
+                        <td>
+                            @if(p.pending) {
+                                @Messages("dashboard.managedByAgentsProperties.status.pending")
+                            } else {
+                                @Messages("dashboard.managedByAgentsProperties.status.added")
+                            }
+                        </td>
+                        <td>
+                            <ul>
+                                @if(p.agents.isEmpty){
+                                    @Messages("dashboard.managedByAgentsProperties.noAgent")
+                                } else {
+                                    @p.agents.map { agent =>
+                                        <li>@agent.organisationName</li>
+                                    }
+                                }
+                            </ul>
+                        </td>
+                        <td class="last">
+                            <ul>
+                               <li>
+                                   <a href=@routes.AppointAgentController.add(p.authorisationId)>@Messages("manageProperties.addAgent")</a>
+                               </li>
+                            @if(p.assessment.nonEmpty){
+                                <li>
+                                    <a href="@routes.Dashboard.assessments(p.authorisationId, p.pending)">
+                                        @Messages("manageProperties.viewAssessments")
+                                    </a>
+                                </li>
+                            }
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
