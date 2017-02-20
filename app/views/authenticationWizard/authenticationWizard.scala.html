@@ -27,7 +27,8 @@
                         '_label -> Messages(s"label.wizard.$businessHasRegistered"),
                         '_labelClass -> "form-label-bold",
                         '_legend -> true,
-                        '_fieldsetClass -> "inline"
+                        '_fieldsetClass -> "inline",
+                        '_help -> Messages("help.wizard.businessHasRegistered")
                     ),
                     dataAttributes = Seq(
                         ("true", "data-toggle-id", "givenGG"),
@@ -43,7 +44,8 @@
                         '_label -> Messages(s"label.wizard.$givenGGDetails"),
                         '_labelClass -> "form-label-bold",
                         '_legend -> true,
-                        '_fieldsetClass -> "inline"
+                        '_fieldsetClass -> "inline",
+                        '_help -> Messages("help.wizard.givenGGDetails")
                     )
                 )
             </div>
@@ -56,7 +58,8 @@
                         '_label -> Messages(s"label.wizard.$existingGGAccount"),
                         '_labelClass -> "form-label-bold",
                         '_legend -> true,
-                        '_fieldsetClass -> "inline"
+                        '_fieldsetClass -> "inline",
+                        '_help -> Messages("help.wizard.existingGGAccount")
                     )
                 )
             </div>
