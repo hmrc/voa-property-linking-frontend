@@ -24,7 +24,7 @@
 
         function showLookupError() {
             $('.error-message').remove();
-            $('#postcodeSearch_text').before('<p class="error-message">' + messages.errors.postcodeLookupError + '</p>').closest('.form-group').addClass('error');
+            $('#postcodeSearch').before('<p class="error-message">' + messages.errors.postcodeLookupError + '</p>').closest('.form-group').addClass('error');
         }
 
         function addressLine(s) {
@@ -36,7 +36,7 @@
         $('#postcodeLookupButton').click(function (e) {
             e.preventDefault();
 
-            var postcode = $('#postcodeSearch_text').val();
+            var postcode = $('#postcodeSearch').val();
 
             if(postcode !== '') {
                 $.ajax({
