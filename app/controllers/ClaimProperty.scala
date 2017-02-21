@@ -38,6 +38,7 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
   lazy val connector = Wiring().propertyConnector
   lazy val ggAction = Wiring().ggAction
   lazy val authenticated = Wiring().authenticated
+  lazy val submissionIdConnector = Wiring().submissionIdConnector
 
   def show() = ggAction { _ => implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
@@ -52,9 +53,10 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
       connector.get(uarn).flatMap {
         case Some(pd) =>
           fileUploadConnector.createEnvelope().flatMap(envelopeId => {
-            val submissionId = java.util.UUID.randomUUID().toString.replace("-", "")
-            Logger.debug(s"envelope id: $envelopeId")
-            sessionRepository.start(pd, envelopeId, submissionId) map { _ =>
+            for {
+              submissionId <- submissionIdConnector.get()
+              _ <- sessionRepository.start(pd, envelopeId, submissionId)
+            } yield {
               Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, pd.address)))
             }
           }
