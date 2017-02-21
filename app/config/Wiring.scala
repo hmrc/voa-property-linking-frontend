@@ -58,6 +58,7 @@ abstract class Wiring {
   lazy val businessRatesAuthentication = new BusinessRatesAuthorisation(http)
   lazy val authenticated = new AuthenticatedAction
   lazy val betaLoginConnector = new BetaLoginConnector(http)
+  lazy val submissionIdConnector = new SubmissionIdConnector(http)
   lazy val identityVerificationProxyConnector = new IdentityVerificationProxyConnector(http)
 }
 
