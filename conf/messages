@@ -253,7 +253,7 @@ link.dashboard.home=Back to dashboard
 
 
 #MANAGED BY AGENT PROPERTIES
-dashboard.managedByAgentsProperties.title=Properties managed by: {0}
+dashboard.managedByAgentsProperties.title=Properties managed by {0}
 managedByAgentsProperties.table.caption=Your properties
 managedByAgentsProperties.table.1=Address
 managedByAgentsProperties.table.2=Billing authority reference
