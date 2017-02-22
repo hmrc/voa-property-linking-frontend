@@ -57,11 +57,11 @@
                                 $('.manualAddress').css('display', 'none');
                                 var index = $(this).find('option:selected').index() - 1;
                                 $('.address--fields').css('display', 'block');
-                                $('.address--fields input:eq(0)').val(data[index]['addressUnitId']);
-                                $('.address--fields input:eq(1)').val(data[index]['line1']);
-                                $('.address--fields input:eq(2)').val(data[index]['line2']);
-                                $('.address--fields input:eq(3)').val(data[index]['line3']);
-                                $('.address--fields input:eq(4)').val(data[index]['line4']);
+                                $('.address--fields input:eq(0)').val(data[index]['addressUnitId']).attr('placeholder', '');
+                                $('.address--fields input:eq(1)').val(data[index]['line1']).attr('placeholder', '');
+                                $('.address--fields input:eq(2)').val(data[index]['line2']).attr('placeholder', '');
+                                $('.address--fields input:eq(3)').val(data[index]['line3']).attr('placeholder', '');
+                                $('.address--fields input:eq(4)').val(data[index]['line4']).attr('placeholder', '');
                                 $('.address--fields input:eq(5)').val(data[index]['postcode']);
                             });
                         } else {
