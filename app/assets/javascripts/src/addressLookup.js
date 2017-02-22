@@ -33,12 +33,15 @@
 
         errorCheck();
 
+        var active = true;
+
         $('#postcodeLookupButton').click(function (e) {
             e.preventDefault();
 
             var postcode = $('#postcodeSearch').val();
 
-            if(postcode !== '') {
+            if(postcode !== '' && active) {
+                active = false;
                 $.ajax({
                     type: 'GET',
                     url: '/business-rates-property-linking/lookup?postcode=' + postcode.toUpperCase(),
@@ -90,6 +93,7 @@
             $('.address--fields').css('display', 'none');
             $('.postcode-lookup-fields').css('display', 'block');
             $('.manualAddress').css('display', 'block');
+            active = true;
         });
     };
 
