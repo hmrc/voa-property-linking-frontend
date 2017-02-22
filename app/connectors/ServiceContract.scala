@@ -24,7 +24,7 @@ import serialization.JsonFormats._
 case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate],
                                stillInterested: Boolean, toDate: Option[LocalDate] = None)
 
-case class FileInfo(fileName: String, fileType: String)
+case class FileInfo(name: String, evidenceType: String)
 
 case class PropertyLinkRequest(uarn: Long,
                                organisationId: Int,
