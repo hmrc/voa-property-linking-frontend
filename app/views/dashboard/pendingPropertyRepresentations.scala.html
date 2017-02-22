@@ -36,7 +36,7 @@
                                 @(p.organisationName)
                             </td>
                             <td>
-                                @(p.address)
+                                @(Formatters.capitalizedAddress(PropertyAddress.fromString(p.address)))
                             </td>
                             <td>
                                 Check: @Messages(s"permission.${p.checkPermission.name}")
@@ -44,7 +44,7 @@
                                 Challenge: @Messages(s"permission.${p.challengePermission.name}")
                             </td>
                             <td>
-                                @utils.Formatters.formatDate(p.createDatetime.toLocalDate)
+                                @utils.Formatters.formatDate(p.createDatetime)
                             </td>
                             <td class="last">
                                 <ul>
