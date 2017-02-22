@@ -4,20 +4,7 @@ link.dashboardhome=Dashboard
 
 #RELEASE NOTES
 releaseNotes.title=Release notes
-releaseNotes.heading.features=In this version, you can:
-releaseNotes.features.1=Set up a Government Gateway account
-releaseNotes.features.2=Register your personal details
-releaseNotes.features.3=Register your business details
-releaseNotes.features.4=Visit the dashboard
-releaseNotes.p.1=You must then <b>log out and wait 24 hours</b> whilst we upload your details.
-releaseNotes.p.2=You can then log back in to:
-releaseNotes.loggedInFeatures.1=view your linked properties on the dashboard
-releaseNotes.loggedInFeatures.2=view detailed assessments associated with those properties
-releaseNotes.loggedInFeatures.3=complete a Check against any of those assessments
-releaseNotes.heading.knownIssues=Known issues
-releaseNotes.p.knownIssues=There are issues that we’re aware of and are currently working to fix:
-releaseNotes.knownIssues.1=the login screen has the wrong contact links
-releaseNotes.knownIssues.2=in the Check form, if you see “No Record” on the property features page, you will need to edit it and put in a value to progress with the form.
+
 
 #START PAGE
 start.heading.register=Register to use this service
