@@ -23,8 +23,9 @@
         }
 
         function showLookupError() {
-            $('.error-message').remove();
+            $('#postcodeSearchGroup .error-message').remove();
             $('#postcodeSearch').before('<p class="error-message">' + messages.errors.postcodeLookupError + '</p>').closest('.form-group').addClass('error');
+            active = true;
         }
 
         function addressLine(s) {
@@ -67,6 +68,7 @@
                                 $('.address--fields input:eq(4)').val(data[index]['line4']).attr('placeholder', '');
                                 $('.address--fields input:eq(5)').val(data[index]['postcode']);
                             });
+                            active = true;
                         } else {
                             showLookupError();
                         }
@@ -93,6 +95,9 @@
             $('.address--fields').css('display', 'none');
             $('.postcode-lookup-fields').css('display', 'block');
             $('.manualAddress').css('display', 'block');
+            $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
+            $('#postcodeSearchGroup .error-message').remove();
+            $('#postcodeSearch').val('');
             active = true;
         });
     };
