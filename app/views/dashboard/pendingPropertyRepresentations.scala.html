@@ -36,7 +36,7 @@
                                 @(p.organisationName)
                             </td>
                             <td>
-                                @(p.address)
+                                @(Formatters.capitalizedAddress(PropertyAddress.fromString(p.address)))
                             </td>
                             <td>
                                 Check: @Messages(s"permission.${p.checkPermission.name}")
