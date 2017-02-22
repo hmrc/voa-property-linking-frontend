@@ -22,6 +22,10 @@ sealed trait EvidenceType extends NamedEnum {
   override def toString = name
 }
 
+case object Assignment extends EvidenceType {
+  val name = "assignment"
+}
+
 case object Lease extends EvidenceType {
   val name = "lease"
 }
@@ -52,6 +56,6 @@ case object RatesBillType extends EvidenceType {
 
 object EvidenceType extends NamedEnumSupport[EvidenceType] {
   override def all: List[EvidenceType] = List(
-    Lease, License, ServiceCharge, StampDutyLandTaxForm,
+    Assignment, Lease, License, ServiceCharge, StampDutyLandTaxForm,
     WaterRateDemand, OtherUtilityBill, RatesBillType)
 }

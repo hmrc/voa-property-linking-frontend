@@ -14,7 +14,12 @@
                         @Messages("uploadRatesBill.show.title")
                     </h1>
 
-                    <p>@Messages("uploadFile.allowedTypes")</p>
+                    <p>@Messages("uploadFile.allowedTypes.mustbe")</p>
+
+                    <ul class="list list-bullet">
+                        <li>@Messages("uploadFile.allowedTypes.l1")</li>
+                        <li>@Messages("uploadFile.allowedTypes.l2")</li>
+                    </ul>
 
                     @includes.errorSummary(model.form)
 

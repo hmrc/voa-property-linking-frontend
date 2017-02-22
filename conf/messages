@@ -395,7 +395,9 @@ selfCertification.linkAuthorised.properties.link=Manage your properties
 
 #UPLOAD RATES BILL
 uploadRatesBill.show.title=Submit a copy of your business rates bill
-uploadFile.allowedTypes=PDF, scanned images, and photographs are allowed. Your file must be less than 10MB in size.
+uploadFile.allowedTypes.mustbe=Your file must be:
+uploadFile.allowedTypes.l1=a JPEG or PDF
+uploadFile.allowedTypes.l2=no more than 10MB in size
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Confirm
@@ -432,6 +434,7 @@ uploadEvidence.evidenceTypes.2=a water rate demand
 uploadEvidence.evidenceTypes.3=other utility bills
 uploadEvidence.evidenceTypes.4=Stamp Duty Land Tax form
 uploadEvidence.noEvidence=I’m unable to provide any of these documents.
+evidenceType.assignment=Assignment
 evidenceType.label=Type of evidence
 evidenceType.lease=Lease
 evidenceType.license=License
@@ -443,7 +446,6 @@ evidenceType.ratesBill=Rates bill
 
 label.evidence=Please upload evidence so that we can verify your link to the property.
 evidence.label=Upload other evidence
-evidence.label.1=PDF, scanned images, photographs are allowed. Your file must be less than 10MB in size.
 error.missingFiles=Please upload some evidence.
 uploadEvidence.show.button=Continue
 uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded

@@ -25,7 +25,12 @@
                 </ul>
 
                 <a href="@routes.UploadEvidence.noEvidenceUploaded("fake ref id")">@Messages("uploadEvidence.noEvidence")</a>
-                <p>@Messages("uploadFile.allowedTypes")</p>
+                <p>@Messages("uploadFile.allowedTypes.mustbe")</p>
+
+                <ul class="list list-bullet">
+                    <li>@Messages("uploadFile.allowedTypes.l1")</li>
+                    <li>@Messages("uploadFile.allowedTypes.l2")</li>
+                </ul>
 
                 @includes.errorSummary(model.form)
 
@@ -33,7 +38,6 @@
                     field = model.form("evidence[]"),
                     '_label -> Messages("evidence.label"),
                     '_labelClass -> "visuallyhidden",
-                    '_help -> Messages("evidence.label.1"),
                     'class -> "filer_input",
                     '_fieldsetClass -> "file-input-group"
                 )
