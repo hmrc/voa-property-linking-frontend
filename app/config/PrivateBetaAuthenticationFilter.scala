@@ -24,7 +24,22 @@ import uk.gov.hmrc.play.filters.MicroserviceFilterSupport
 import scala.concurrent.Future
 
 object PrivateBetaAuthenticationFilter extends Filter with RunMode with MicroserviceFilterSupport {
-  val unrestrictedPaths = Seq("betalogin", "ping/ping", "/business-rates-property-linking", "/login", "/register", "/registered", "/logout", "/start")
+  val unrestrictedPaths = Seq(
+      "betalogin",
+      "ping/ping",
+      "/business-rates-property-linking",
+      "/login",
+      "/register",
+      "/registered",
+      "/logout",
+      "/start",
+      "/authentication-wizard",
+      "/authentication-wizard/use-existing-account",
+      "/authentication-wizard/before-you-register-a",
+      "/authentication-wizard/before-you-register-b",
+      "/authentication-wizard/before-you-register-c",
+      "/authentication-wizard/before-you-register-d"
+  )
 
   def apply(nextFilter: (RequestHeader) => Future[Result])(rh: RequestHeader): Future[Result] = {
     val isUnrestrictedPath = rh.path.contains("assets") || unrestrictedPaths.exists(rh.path.endsWith(_))
