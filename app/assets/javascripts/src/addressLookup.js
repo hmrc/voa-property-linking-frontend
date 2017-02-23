@@ -53,7 +53,7 @@
                             $('.postcode-lookup-fields').css('display', 'none');
                             $.each(data, function(i, item) {
                                 var address = addressLine(item['line1']) + addressLine(item['line2']) + addressLine(item['line3']) + addressLine(item['line4']) + item['postcode'];
-                                $('.addressList').append('<option value="' + i + '">' + address + '</option>');
+                                $('.addressList').append('<option value="' + i + '">' +  window.xssEscape(address) + '</option>');
                             });
                             $('#addressSelect').change(function (e) {
                                 $('[for="addressSelect"]').css('display', 'none');
