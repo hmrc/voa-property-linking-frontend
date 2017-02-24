@@ -46,22 +46,32 @@ object RepresentationController extends PropertyLinkingController {
     }
   }
 
-  def accept(submisstionId: String) = authenticated.asAgent { implicit request =>
+  def accept(submisstionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
-      val response = RepresentationResponse(submisstionId, request.personId.toLong, RepresentationResponseAccepted)
+      val response = RepresentationResponse(submisstionId, request.personId.toLong, RepresentationResponseApproved)
       reprConnector.response(response).map { _ =>
-        Redirect(routes.RepresentationController.manageRepresentationRequest())
+        val continueLink = if (noOfPendingRequests > 1) {
+          controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
+        } else {
+          controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
+        }
+        Ok(views.html.propertyRepresentation.requestAccepted(continueLink))
       }
     } else {
       NotFound(Global.notFoundTemplate)
     }
   }
 
-  def reject(submissionId: String) = authenticated.asAgent { implicit request =>
+  def reject(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
       val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseDeclined)
       reprConnector.response(response).map { _ =>
-        Redirect(routes.RepresentationController.manageRepresentationRequest())
+        val continueLink = if (noOfPendingRequests > 1) {
+          controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
+        } else {
+          controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
+        }
+        Ok(views.html.propertyRepresentation.requestRejected(continueLink))
       }
     } else {
       NotFound(Global.notFoundTemplate)

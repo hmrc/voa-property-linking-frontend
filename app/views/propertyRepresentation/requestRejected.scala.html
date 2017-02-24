@@ -1,0 +1,25 @@
+@(continueLink: String)(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+    title = Messages("propertyRepresentation.rejected.title"),
+    topNavigation = false
+) {
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <div class="transaction-banner--complete">
+                <h1 class="transaction-banner__heading">@Messages("propertyRepresentation.rejected.message")</h1>
+            </div>
+
+            <ul class="list">
+                <li>@Messages("propertyRepresentation.rejected.youCan.1")</li>
+                <li>@Messages("propertyRepresentation.rejected.youCan.2")</li>
+            </ul>
+            <a href="@(continueLink)">
+                <button id="continue" class="button">@Messages("label.continue")</button>
+            </a>
+
+        </div>
+    </div>
+}

@@ -24,8 +24,8 @@ sealed trait RepresentationResponseStatus extends NamedEnum {
   override def toString = name
 }
 
-case object RepresentationResponseAccepted extends RepresentationResponseStatus {
-  val name = "ACCEPTED"
+case object RepresentationResponseApproved extends RepresentationResponseStatus {
+  val name = "APPROVED"
 }
 
 case object RepresentationResponseDeclined extends RepresentationResponseStatus {
@@ -36,5 +36,5 @@ case object RepresentationResponseDeclined extends RepresentationResponseStatus 
 object RepresentationResponseStatus extends NamedEnumSupport[RepresentationResponseStatus] {
   implicit val format = EnumFormat(RepresentationResponseStatus)
 
-  override def all: List[RepresentationResponseStatus] = List(RepresentationResponseAccepted, RepresentationResponseDeclined)
+  override def all: List[RepresentationResponseStatus] = List(RepresentationResponseApproved, RepresentationResponseDeclined)
 }
