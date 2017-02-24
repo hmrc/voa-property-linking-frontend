@@ -33,6 +33,12 @@ class BusinessRatesAuthorisation(http: HttpGet) extends ServicesConfig {
     }
   }
 
+  def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
+    http.GET[AccountIds](s"$url/property-link/$authorisationId/assessment/$assessmentRef") map { Authenticated } recover {
+      case AuthorisationFailed(err) => handleUnauthenticated(err)
+    }
+  }
+
   private def handleUnauthenticated(error: String) = error match {
     case "INVALID_GATEWAY_SESSION" => InvalidGGSession
     case "NO_CUSTOMER_RECORD" => NoVOARecord

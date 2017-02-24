@@ -67,6 +67,17 @@ class AuthenticatedAction {
       case false => Future.successful(Unauthorized("Agent account required"))
     }
   }
+
+  def toViewAssessment(authorisationId: Long, assessmentRef: Long)(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = {
+    Action.async { implicit request =>
+      businessRatesAuthentication.authorise(authorisationId, assessmentRef) flatMap {
+        case Authenticated(ids) => body(BasicAuthenticatedRequest(ids.organisationId, ids.personId, request))
+        case InvalidGGSession => GovernmentGatewayProvider.redirectToLogin
+        case NoVOARecord => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
+        case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
+      }
+    }
+  }
 }
 
 sealed trait AuthenticatedRequest[A] extends Request[A] {

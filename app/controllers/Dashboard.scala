@@ -48,26 +48,6 @@ trait Dashboard extends PropertyLinkingController {
     }
   }
 
-  def assessments(authorisationId: Long, linkPending: Boolean) = authenticated { implicit request =>
-    val backLink = request.headers.get("Referer")
-    propertyLinks.assessments(authorisationId) map { assessments =>
-      Ok(views.html.dashboard.assessments(
-        AssessmentsVM(
-          assessments,
-          backLink,
-          linkPending
-        )))
-    }
-  }
-
-  def viewSummary(uarn: Long) = Action { implicit request =>
-    Redirect(ApplicationConfig.vmvUrl + s"/detail/2017/$uarn")
-  }
-
-  def viewDetailedAssessment(authorisationId: Long, assessmentRef: Long) = authenticated { implicit request =>
-    Redirect(ApplicationConfig.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef"))
-  }
-
   def viewManagedProperties(agentCode: Long) = authenticated { implicit request => {
     propertyLinks.linkedProperties(request.organisationId) map { props =>
       val filteredProps = props.filter(_.agents.map(_.agentCode).contains(agentCode))
@@ -101,8 +81,6 @@ case class ManagePropertiesVM(properties: Seq[PropertyLink])
 case class ManagedPropertiesVM(agentName: String, properties: Seq[PropertyLink])
 
 case class ManageAgentsVM(agents: Seq[AgentInfo])
-
-case class AssessmentsVM(assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean)
 
 case class DraftCasesVM(draftCases: Seq[DraftCase])
 

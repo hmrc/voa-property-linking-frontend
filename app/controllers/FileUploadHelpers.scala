@@ -75,3 +75,5 @@ case object FileMissing extends FileUploadResult
 case object FileTooLarge extends FileUploadResult
 
 case object InvalidFileType extends FileUploadResult
+
+case class RequestSubmittedVM(address: String, refId: String)

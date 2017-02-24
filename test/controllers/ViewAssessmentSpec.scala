@@ -28,10 +28,11 @@ import resources._
 import utils._
 
 import scala.collection.JavaConverters._
+import scala.util.Random
 
 class ViewAssessmentSpec extends ControllerSpec {
 
-  private object TestDashboardController extends Dashboard {
+  private object TestAssessmentController extends Assessments {
     override val propertyLinks: PropertyLinkConnector = StubPropertyLinkConnector
     override val reprConnector: PropertyRepresentationConnector = StubPropertyRepresentationConnector
     override val individuals: IndividualAccounts = StubIndividualAccountConnector
@@ -48,7 +49,7 @@ class ViewAssessmentSpec extends ControllerSpec {
     StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
     StubPropertyLinkConnector.stubLink(link)
 
-    val res = TestDashboardController.assessments(link.authorisationId, link.pending)(FakeRequest())
+    val res = TestAssessmentController.assessments(link.authorisationId, link.pending)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -67,21 +68,41 @@ class ViewAssessmentSpec extends ControllerSpec {
     case OwnerOccupier => "Owner and occupier"
   }
 
-  it must "show a link to the detailed valuation for each assessment if the property link is approved" in {
+  it must "show a link to the detailed valuation for each assessment if the property link is approved and it is a bulk class property" in {
+    val bulkClassDescriptions = Seq("SHOP AND PREMISES", "OFFICE AND PREMISES", "FACTORY AND PREMISES", "WAREHOUSE AND PREMISES")
     val organisationId = arbitrary[Int].sample.get
     val personId = arbitrary[Int].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisationId, pending = false)
+    val assessment = arbitrary[Assessment].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisationId, pending = false, assessment = Seq(assessment))
 
     StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
     StubPropertyLinkConnector.stubLink(link)
 
-    val res = TestDashboardController.assessments(link.authorisationId, link.pending)(FakeRequest())
+    val res = TestAssessmentController.assessments(link.authorisationId, link.pending)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
     val assessmentLinks = html.select("td.last").asScala.map(_.select("a").attr("href"))
 
-    assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Dashboard.viewDetailedAssessment(a.authorisationId, a.assessmentRef).url)
+    assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Assessments.viewDetailedAssessment(a.authorisationId, a.assessmentRef).url)
+  }
+
+  it must "show a link to request the detailed valuation for each assessment if the property link is approved but is not a bulk class" ignore {
+    val organisationId = arbitrary[Int].sample.get
+    val personId = arbitrary[Int].sample.get
+    val assessment = arbitrary[Assessment].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisationId, pending = false, assessment = Seq(assessment))
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
+    StubPropertyLinkConnector.stubLink(link)
+
+    val res = TestAssessmentController.assessments(link.authorisationId, link.pending)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    val assessmentLinks = html.select("td.last").asScala.map(_.select("a").attr("href"))
+
+    assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Assessments.requestDetailedValuation(a.authorisationId, a.assessmentRef).url)
   }
 
   it must "show a link to the summary valuation for each assessment if the property link is pending" in {
@@ -92,12 +113,12 @@ class ViewAssessmentSpec extends ControllerSpec {
     StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
     StubPropertyLinkConnector.stubLink(link)
 
-    val res = TestDashboardController.assessments(link.authorisationId, link.pending)(FakeRequest())
+    val res = TestAssessmentController.assessments(link.authorisationId, link.pending)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
     val assessmentLinks = html.select("td.last").asScala.map(_.select("a").attr("href"))
 
-    assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Dashboard.viewSummary(a.uarn).url)
+    assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Assessments.viewSummary(a.uarn).url)
   }
 }

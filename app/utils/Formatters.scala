@@ -29,6 +29,10 @@ object Formatters {
     ).toString
   }
 
+  def capitalizedAddress(address: String): String = {
+    capitalizedAddress(PropertyAddress.fromString(address))
+  }
+
   def formatDate(fmt: String, date: LocalDate) = {
     val formatter = DateTimeFormat.forPattern(fmt)
     date.toString(formatter)
