@@ -1,4 +1,4 @@
-@(address: PropertyAddress)(implicit request: Request[_], messages: Messages)
+@(address: String)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = Messages("propertyRepresentation.appointedAgent.title"),
@@ -10,7 +10,7 @@
         <div class="column-two-thirds">
                 
             <div class="transaction-banner--complete">
-                <h1 class="transaction-banner__heading">@Messages("agentAppointed.heading", address.toString)</h1>
+                <h1 class="transaction-banner__heading">@Messages("agentAppointed.heading", address)</h1>
             </div>
 
             <h2 class="heading-medium">@Messages("heading.whatNext")</h2>

@@ -68,7 +68,7 @@
                                 }
                                 @if(p.assessment.nonEmpty){
                                     <li>
-                                        <a href="@routes.Dashboard.assessments(p.authorisationId, p.pending)">@Messages("manageProperties.viewAssessments")
+                                        <a href="@routes.Assessments.assessments(p.authorisationId, p.pending)">@Messages("manageProperties.viewAssessments")
                                             <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
                                         </a>
                                     </li>

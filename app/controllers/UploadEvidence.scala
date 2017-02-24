@@ -79,5 +79,3 @@ object UploadEvidence {
 case class UploadedEvidence(hasEvidence: HasEvidence, evidenceType: EvidenceType)
 
 case class UploadEvidenceVM(form: Form[_])
-
-case class RequestSubmittedVM(address: PropertyAddress, refId: String)

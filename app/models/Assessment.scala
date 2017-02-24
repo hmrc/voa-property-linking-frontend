@@ -23,13 +23,17 @@ case class Assessment(
                        authorisationId: Long,
                        assessmentRef: Long,
                        listYear: String,
-                       uarn:Long,
-                       effectiveDate:LocalDate,
-                       rateableValue:Long,
+                       uarn: Long,
+                       effectiveDate: LocalDate,
+                       rateableValue: Long,
                        address: PropertyAddress,
                        billingAuthorityReference: String,
                        capacity: Capacity
-                     )
+                     ) {
+
+  def isBulk = true //TODO somehow do this properly
+
+}
 
 object Assessment {
   implicit private val capacityFmt = Json.format[Capacity]
