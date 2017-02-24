@@ -18,8 +18,14 @@ package models
 
 import play.api.libs.json.Json
 
-case class Property(uarn: Long, billingAuthorityReference: String, address: String, specialCategoryCode: String)
+case class PropertyAddress(lines: Seq[String], postcode: String) {
+  override def toString = lines :+ postcode mkString ", "
+}
 
-object Property {
-  implicit val propertyFormat = Json.format[Property]
+object PropertyAddress {
+  implicit val addressFormat = Json.format[PropertyAddress]
+  def fromString(str: String) = str.split(",").toList.reverse match {
+    case s :: Nil => PropertyAddress(Nil, s)
+    case postCode :: reversedLines=> PropertyAddress(reversedLines.reverse, postCode)
+  }
 }

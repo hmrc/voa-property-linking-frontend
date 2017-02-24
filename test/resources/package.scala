@@ -45,7 +45,7 @@ package object resources {
     specialCategoryCode <- shortString
     description <- shortString
     bulkClassIndicator <- arbitrary[Char].map(_.toString)
-  } yield Property(uarn, billingAuthorityReference, address, specialCategoryCode, description, bulkClassIndicator)
+  } yield Property(uarn, billingAuthorityReference, address.toString, specialCategoryCode)
   implicit val arbitraryProperty = Arbitrary(for {p <- propertyGen} yield p)
 
   val capacityTypeGen: Gen[CapacityType] = Gen.oneOf(Owner, OwnerOccupier, Occupier)
@@ -119,7 +119,8 @@ package object resources {
     address <- arbitrary[ PropertyAddress]
     billingAuthorityReference <- shortString
     capacity <- arbitrary[Capacity]
-  } yield models.Assessment(linkId, asstRef, listYear, uarn, effectiveDate, rateableValue, address, billingAuthorityReference, capacity) 
+    description <- shortString
+  } yield models.Assessment(linkId, asstRef, listYear, uarn, effectiveDate, rateableValue, address, billingAuthorityReference, capacity)
   implicit val arbitraryAssessment = Arbitrary(assessmentGen)
 
   val agentPermissionGen: Gen[AgentPermission] = Gen.oneOf(StartAndContinue, ContinueOnly, NotPermitted)
@@ -144,7 +145,7 @@ package object resources {
     pending <- arbitrary[Boolean]
     assessment <- Gen.nonEmptyListOf(arbitrary[Assessment])
     agents <- Gen.listOf(arbitrary[Party])
-  } yield PropertyLink(linkId, uarn, organisationId, address, capacity,
+  } yield PropertyLink(linkId, uarn, organisationId, address.toString, capacity,
     linkedDate, pending, assessment, agents)
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
 

@@ -38,12 +38,7 @@ trait AppointAgentController extends PropertyLinkingController {
 
   def add(linkId: Long) = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
-      //representations.find(linkId).map(reprs => {
-      //  if (reprs.nonEmpty)
-      //    Ok(views.html.propertyRepresentation.alreadyAppointedAgent(SelectAgentVM(reprs, linkId)))
-      //  else
-          Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
-      //})
+      Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
     } else {
       NotFound(Global.notFoundTemplate)
     }
@@ -84,40 +79,39 @@ trait AppointAgentController extends PropertyLinkingController {
 
   def appointSubmit(authorisationId: Long) = authenticated.withAccounts { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
-      appointAgentForm.bindFromRequest().fold( errors => {
+      appointAgentForm.bindFromRequest().fold(errors => {
         BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, authorisationId)))
-        }, agent => {
-          val eventualAgentCodeResult = representations.validateAgentCode(agent.agentCode, authorisationId)
-          val eventualMaybeLink = propertyLinks.get(request.organisationAccount.id, authorisationId)
-          for {
-            agentCodeValidationResult <- eventualAgentCodeResult
-            propertyLink <- eventualMaybeLink
-            res <- (agentCodeValidationResult, propertyLink) match {
-              case (AgentCodeValidationResult(orgId, failureCode), Some(prop)) =>  {
-                val codeError = failureCode.map {
-                  case "INVALID_CODE" => invalidAgentCode
-                  case "DUPLICATE_PARTY" => alreadyAppointedAgent
-                }
-                val permissionError = if (agentHasNoPermissions(agent)) Some(invalidPermissions) else None
-                val errors: List[FormError] = List(codeError, permissionError).flatten
-                if (errors.nonEmpty) {
-                  val form = appointAgentForm.fill(agent)
-                  val formWithErrors = errors.foldLeft(form){(f, error) => f.withError(error)}
-                  invalidAppointment(formWithErrors, authorisationId)
-                } else { val req = RepresentationRequest(authorisationId, agentCodeValidationResult.organisationId.getOrElse(-1),
-                    request.individualAccount.individualId, java.util.UUID.randomUUID().toString,
-                    agent.canCheck.name, agent.canChallenge.name, new DateTime())
-                  representations.create(req) map { _ => Ok(views.html.propertyRepresentation.appointedAgent(prop.address)) }
-                }
+      }, agent => {
+        val eventualAgentCodeResult = representations.validateAgentCode(agent.agentCode, authorisationId)
+        val eventualMaybeLink = propertyLinks.get(request.organisationAccount.id, authorisationId)
+        for {
+          agentCodeValidationResult <- eventualAgentCodeResult
+          propertyLink <- eventualMaybeLink
+          res <- (agentCodeValidationResult, propertyLink) match {
+            case (AgentCodeValidationResult(orgId, failureCode), Some(prop)) => {
+              val codeError = failureCode.map {
+                case "INVALID_CODE" => invalidAgentCode
+                case "DUPLICATE_PARTY" => alreadyAppointedAgent
               }
-              case (_, None) => {
-                Future.successful(NotFound)
+              val permissionError = if (agentHasNoPermissions(agent)) Some(invalidPermissions) else None
+              val errors: List[FormError] = List(codeError, permissionError).flatten
+              if (errors.nonEmpty) {
+                val form = appointAgentForm.fill(agent)
+                val formWithErrors = errors.foldLeft(form) { (f, error) => f.withError(error) }
+                invalidAppointment(formWithErrors, authorisationId)
+              } else {
+                val req = RepresentationRequest(authorisationId, agentCodeValidationResult.organisationId.getOrElse(-1),
+                  request.individualAccount.individualId, java.util.UUID.randomUUID().toString,
+                  agent.canCheck.name, agent.canChallenge.name, new DateTime())
+                representations.create(req) map { _ => Ok(views.html.propertyRepresentation.appointedAgent(prop.address)) }
               }
             }
-          } yield {
-            res
+            case (_, None) => Future.successful(NotFound)
           }
+        } yield {
+          res
         }
+      }
       )
     } else {
       NotFound(Global.notFoundTemplate)
@@ -138,7 +132,7 @@ trait AppointAgentController extends PropertyLinkingController {
     if (ApplicationConfig.readyForPrimeTime) {
       representations.get(representationId) map {
         case Some(rep) =>
-          val form = appointAgentForm.fill(AppointAgent(/*FIXME*/123, rep.checkPermission, rep.challengePermission))
+          val form = appointAgentForm.fill(AppointAgent(/*FIXME*/ 123, rep.checkPermission, rep.challengePermission))
           Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, rep.representationId)))
         case None => throw new Exception(s"Invalid representation id $representationId")
       }

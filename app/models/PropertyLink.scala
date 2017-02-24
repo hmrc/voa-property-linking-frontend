@@ -23,12 +23,12 @@ import serialization.JsonFormats._
 case class PropertyLink(authorisationId: Long,
                         uarn: Long,
                         organisationId: Int,
-                        address: PropertyAddress,
+                        address: String,
                         capacityDeclaration: Capacity,
                         linkedDate: DateTime,
                         pending: Boolean,
                         assessment: Seq[Assessment],
-                        agents:Seq[Party])
+                        agents: Seq[Party])
 
 object PropertyLink {
   implicit val format = Json.format[PropertyLink]

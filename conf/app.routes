@@ -46,14 +46,16 @@ GET         /home                                                   controllers.
 GET         /properties                                             controllers.Dashboard.manageProperties()
 GET         /managed-properties/:agentCode                          controllers.Dashboard.viewManagedProperties(agentCode: Long)
 GET         /manage-agents                                          controllers.Dashboard.manageAgents()
-GET         /property-link/:linkId/assessments                      controllers.Dashboard.assessments(linkId: Long, linkPending: Boolean ?= false)
 GET         /draft-cases                                            controllers.Dashboard.draftCases()
-GET         /summary/:uarn                                          controllers.Dashboard.viewSummary(uarn: Long)
-GET         /detailed/:authorisationId/:assessmentRef               controllers.Dashboard.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long)
+
+GET         /property-link/:linkId/assessments                      controllers.Assessments.assessments(linkId: Long, linkPending: Boolean ?= false)
+GET         /summary/:uarn                                          controllers.Assessments.viewSummary(uarn: Long)
+GET         /detailed/:authorisationId/:assessmentRef               controllers.Assessments.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long)
+GET         /request-detailed/:authorisationId/:assessmentRef       controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long)
 
 #Search and Link
 GET         /property-search                                        @controllers.ClaimProperty.show()
-GET         /link-to-property/:uarn                                 @controllers.ClaimProperty.declareCapacity(uarn: Long)
+GET         /link-to-property/:uarn                                 @controllers.ClaimProperty.declareCapacity(uarn: Long, postcode)
 POST        /link-to-property                                       @controllers.ClaimProperty.attemptLink()
 
 #Link scenarios

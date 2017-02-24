@@ -48,9 +48,9 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
     }
   }
 
-  def declareCapacity(uarn: Long) = authenticated { implicit request =>
+  def declareCapacity(uarn: Long, postcode: String) = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
-      connector.get(uarn).flatMap {
+      connector.get(uarn, postcode).flatMap {
         case Some(pd) =>
           fileUploadConnector.createEnvelope().flatMap(envelopeId => {
             for {
@@ -92,4 +92,4 @@ object ClaimProperty {
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 
-case class DeclareCapacityVM(form: Form[_], address: PropertyAddress)
+case class DeclareCapacityVM(form: Form[_], address: String)

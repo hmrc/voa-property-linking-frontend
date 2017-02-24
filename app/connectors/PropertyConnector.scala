@@ -26,6 +26,6 @@ import scala.concurrent.{ExecutionContext, Future}
 class PropertyConnector(http: HttpGet)(implicit ec: ExecutionContext) extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
-  def get(uarn: Long)(implicit hc: HeaderCarrier): Future[Option[Property]] =
-    http.GET[Option[Property]](baseUrl + s"/properties/$uarn")
+  def get(uarn: Long, postcode: String)(implicit hc: HeaderCarrier): Future[Option[Property]] =
+    http.GET[Option[Property]](baseUrl + s"/properties/$uarn?postcode=$postcode")
 }
