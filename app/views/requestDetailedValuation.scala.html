@@ -1,0 +1,18 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@(authId: Long, assessmentRef: Long, baRef: String)(implicit request: Request[_], messages: Messages)
+    
+    @main_template(Messages("requestDetailedValuation.title")) {
+        <div class="grid-row">
+            <div class="column-two-thirds">
+            
+                <h1 class="heading-xlarge">@Messages("requestDetailedValuation.title")</h1>
+                
+                <p>@Messages("requestDetailedValuation.p.1")</p>
+
+                <a href="@routes.Assessments.detailedValuationRequested(authId, assessmentRef, baRef)" class="button">@Messages("link.continue")</a>
+                
+            </div>
+        </div>
+    }

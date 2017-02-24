@@ -17,7 +17,7 @@
 package controllers
 
 import config.{ApplicationConfig, Wiring}
-import models.Assessment
+import models.{Assessment, DetailedValuationRequest}
 import play.api.mvc.Action
 
 trait Assessments extends PropertyLinkingController {
@@ -27,6 +27,9 @@ trait Assessments extends PropertyLinkingController {
   val groups = Wiring().groupAccountConnector
   val auth = Wiring().authConnector
   val authenticated = Wiring().authenticated
+  val submissionIds = Wiring().submissionIdConnector
+  val dvrCaseManagement = Wiring().dvrCaseManagement
+  val businessRatesValuations = Wiring().businessRatesValuation
 
   def assessments(authorisationId: Long, linkPending: Boolean) = authenticated { implicit request =>
     val backLink = request.headers.get("Referer")
@@ -44,12 +47,25 @@ trait Assessments extends PropertyLinkingController {
     Redirect(ApplicationConfig.vmvUrl + s"/detail/2017/$uarn")
   }
 
-  def viewDetailedAssessment(authorisationId: Long, assessmentRef: Long) = authenticated { implicit request =>
-    Redirect(ApplicationConfig.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef"))
+  def viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef: String) = authenticated { implicit request =>
+    businessRatesValuations.isViewable(authorisationId, assessmentRef) map {
+      case true => Redirect(ApplicationConfig.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef"))
+      case false => Redirect(routes.Assessments.requestDetailedValuation(authorisationId, assessmentRef, baRef))
+    }
   }
 
-  def requestDetailedValuation(authId: Long, assessmentRef: Long) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
-    Ok("requested")
+  def requestDetailedValuation(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
+    Ok(views.html.requestDetailedValuation(authId, assessmentRef, baRef))
+  }
+
+  def detailedValuationRequested(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
+    for {
+      submissionId <- submissionIds.get("RV")
+      dvr = DetailedValuationRequest(authId, request.organisationId, request.personId, submissionId, assessmentRef, baRef)
+      _ <- dvrCaseManagement.requestDetailedValuation(dvr)
+    } yield {
+      Ok(views.html.detailedValuationRequested(submissionId))
+    }
   }
 }
 
