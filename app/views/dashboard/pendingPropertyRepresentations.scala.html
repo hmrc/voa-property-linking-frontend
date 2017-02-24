@@ -49,12 +49,12 @@
                             <td class="last">
                                 <ul>
                                     <li>
-                                        <a role="button" href=@controllers.agent.routes.RepresentationController.accept(p.submissionId)>
+                                        <a role="button" href=@controllers.agent.routes.RepresentationController.accept(p.submissionId, model.propertyRepresentations.totalPendingRequests)>
                                             @Messages("agent.dashboard.manageProperties.accept")
                                         </a>
                                     </li>
                                     <li>
-                                        <a role="button" href=@controllers.agent.routes.RepresentationController.reject(p.submissionId)>
+                                        <a role="button" href=@controllers.agent.routes.RepresentationController.reject(p.submissionId, model.propertyRepresentations.totalPendingRequests)>
                                             @Messages("agent.dashboard.manageProperties.reject")
                                         </a>
                                     </li>

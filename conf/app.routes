@@ -85,8 +85,9 @@ GET         /representation-request/select/:linkId                  controllers.
 #Dashboard
 GET         /representation-request                                 controllers.agent.RepresentationController.manageRepresentationRequest()
 GET         /representation-request/pending                         controllers.agent.RepresentationController.pendingRepresentationRequest()
-GET         /representation-request/accept/:submissionId            controllers.agent.RepresentationController.accept(submissionId)
-GET         /representation-request/reject/:submissionId            controllers.agent.RepresentationController.reject(submissionId)
+GET         /representation-request/accept/:submissionId/:totalPendingRequests           controllers.agent.RepresentationController.accept(submissionId, totalPendingRequests: Long)
+GET         /representation-request/reject/:submissionId/:totalPendingRequests           controllers.agent.RepresentationController.reject(submissionId, totalPendingRequests: Long)
+
 
 #Address lookup
 GET         /lookup                                                 controllers.AddressLookup.findByPostcode(postcode)
