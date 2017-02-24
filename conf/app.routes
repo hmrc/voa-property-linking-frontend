@@ -69,7 +69,7 @@ POST        /upload-evidence                                        @controllers
 #Linking outcomes
 GET         /rates-bill-submitted                                   @controllers.UploadRatesBill.fileUploaded()
 GET         /evidence-uploaded                                      @controllers.UploadEvidence.fileUploaded()
-GET         /no-evidence-uploaded/:refId                            @controllers.UploadEvidence.noEvidenceUploaded(refId: String)
+GET         /no-evidence-uploaded                                   @controllers.UploadEvidence.noEvidenceUploaded()
 GET         /manual-verification-required                           controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                       controllers.LinkErrors.conflict()
 

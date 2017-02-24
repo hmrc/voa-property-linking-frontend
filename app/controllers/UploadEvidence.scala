@@ -61,7 +61,7 @@ class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector) e
     )
   }
 
-  def noEvidenceUploaded(refId: String) = withLinkingSession { implicit request =>
+  def noEvidenceUploaded() = withLinkingSession { implicit request =>
     requestLink(NoEvidenceFlag, None).flatMap( _=>
       fileUploader.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
         Wiring().sessionRepository.remove().map(_ =>
