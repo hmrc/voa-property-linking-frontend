@@ -24,8 +24,6 @@ GET         /authentication-wizard/before-you-register-b            controllers.
 GET         /authentication-wizard/before-you-register-c            controllers.Wizard.beforeYouRegisterC
 GET         /authentication-wizard/before-you-register-d            controllers.Wizard.beforeYouRegisterD
 
-
-
 #Create individual account
 GET         /create-account                                         controllers.CreateIndividualAccount.show
 POST        /create-account                                         controllers.CreateIndividualAccount.submit
@@ -50,8 +48,9 @@ GET         /draft-cases                                            controllers.
 
 GET         /property-link/:linkId/assessments                      controllers.Assessments.assessments(linkId: Long, linkPending: Boolean ?= false)
 GET         /summary/:uarn                                          controllers.Assessments.viewSummary(uarn: Long)
-GET         /detailed/:authorisationId/:assessmentRef               controllers.Assessments.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long)
-GET         /request-detailed/:authorisationId/:assessmentRef       controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long)
+GET         /detailed/:authorisationId/:assessmentRef               controllers.Assessments.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef)
+GET         /request-detailed/:authorisationId/:assessmentRef       controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long, baRef)
+GET         /details-requested/:authorisationId/:assessmentRef      controllers.Assessments.detailedValuationRequested(authorisationId: Long, assessmentRef: Long, baRef)
 
 #Search and Link
 GET         /property-search                                        @controllers.ClaimProperty.show()

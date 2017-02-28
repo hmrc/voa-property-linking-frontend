@@ -2,7 +2,7 @@
 
 @(form: Form[_], messagePrefix: Option[String] = None)(implicit requestHeader: RequestHeader, messages: Messages)
 
-    @removeInvalid(error: FormError) = @{ error.key.replace("[", "").replace(".", "_").replace("]", "").replace("__", "") }
+    @removeInvalid(error: FormError) = @{ error.key.replace("[", "").replace(".", "").replace("]", "").replace("__", "") }
 
     @showError(error: FormError) = {
         <li>

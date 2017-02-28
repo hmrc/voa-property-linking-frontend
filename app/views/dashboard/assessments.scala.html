@@ -12,7 +12,7 @@
     individualId = Some(request.personId)
 ) {
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
-        @Messages("assessments.title")
+    @Messages("assessments.title")
     </h1>
 
     <h2 class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</h2>
@@ -35,16 +35,20 @@
                             @(Formatters.formatDate(assessment.effectiveDate))
                         </td>
                         <td>
-                        £@{assessment.rateableValue}
+                            £@{
+                            assessment.rateableValue
+                        }
                         </td>
                         <td>
                         @Messages(s"capacity.${assessment.capacity.capacity}")
                         </td>
                         <td>
-                            @(Formatters.formatDate(assessment.capacity.fromDate))
+                        @(Formatters.formatDate(assessment.capacity.fromDate))
                         </td>
                         <td>
-                            @{assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))}
+                        @{
+                            assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
+                        }
                         </td>
                         <td class="last">
                             <ul>
@@ -52,29 +56,18 @@
                                 <li>
                                     <a href="@routes.Assessments.viewSummary(assessment.uarn)">
                                         @Messages("assessments.view.summary")
-                                        <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))}</span>
+                                        <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{
+                                            assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
+                                        }</span>
                                     </a>
                                 </li>
                             } else {
-                                @if(assessment.isBulk) {
-                                    <li>
-                                        <a href=@routes.Assessments.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef)>
-                                            @Messages("assessments.view.valuation")
-                                            <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{
-                                                assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
-                                            }</span>
-                                        </a>
-                                    </li>
-                                } else {
-                                    <li>
-                                        <a href=@routes.Assessments.requestDetailedValuation(assessment.authorisationId, assessment.assessmentRef)>
-                                            @Messages("assessments.request.valuation")
-                                            <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{
-                                                assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
-                                            }</span>
-                                        </a>
-                                    </li>
-                                }
+                                <a href=@routes.Assessments.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference)>
+                                    @Messages("assessments.view.valuation")
+                                    <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{
+                                        assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
+                                    }</span>
+                                </a>
                             }
                             </ul>
                         </td>
@@ -83,5 +76,4 @@
             </tbody>
         </table>
     </div>
-
 }

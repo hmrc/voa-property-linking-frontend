@@ -1,0 +1,21 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@(submissionId: String)(implicit request: Request[_], messages: Messages)
+    
+    @main_template(Messages("detailedValuationRequested.title")) {
+        <div class="grid-row">
+            <div class="column-two-thirds">
+
+                <div class="transaction-banner--complete">
+                    <h1 class="transaction-banner__heading">@Messages("detailedValuationRequested.title")</h1>
+                    <p class="heading-medium no-margin">@Messages("detailedValuationRequested.title.reference", submissionId)</p>
+                </div>
+
+                <p>@Messages("detailedValuationRequested.p.1")</p>
+
+                <a href="@routes.Dashboard.home()" class="button">@Messages("link.dashboard")</a>
+                
+            </div>
+        </div>
+    }

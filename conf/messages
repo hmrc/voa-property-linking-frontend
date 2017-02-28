@@ -473,6 +473,13 @@ linkError.conflict.title=Property already linked to another customer record
 linkError.conflict.message=We're unable to add this property to your customer record at this time as it has already been linked to another customer record for the period you have specified. We’ll check the details and tell you the outcome.
 linkError.conflict.home.link=Manage your properties
 
+#REQUEST DETAILED VALUATION
+requestDetailedValuation.title=This assessment is not available to view online
+requestDetailedValuation.p.1=If you want to view this assessment, you can request we send it to you in the post.
+detailedValuationRequested.title=We’ve received your request to view the detailed valuation for this property.
+detailedValuationRequested.title.reference=Your reference number is {0}.
+detailedValuationRequested.p.1=This information is not available online. We’ll send this to you by post within 7 days.
+
 #COMMON
 label.continue=Continue
 label.companyName=Company name

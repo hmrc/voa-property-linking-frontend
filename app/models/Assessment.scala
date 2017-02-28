@@ -29,11 +29,7 @@ case class Assessment(
                        address: PropertyAddress,
                        billingAuthorityReference: String,
                        capacity: Capacity
-                     ) {
-
-  def isBulk = true //TODO somehow do this properly
-
-}
+                     )
 
 object Assessment {
   implicit private val capacityFmt = Json.format[Capacity]

@@ -33,6 +33,7 @@ trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with D
     StubPropertyConnector.reset()
     StubPropertyLinkConnector.reset()
     StubAuthentication.reset()
+    StubBusinessRatesValuation.reset()
   }
 }
 

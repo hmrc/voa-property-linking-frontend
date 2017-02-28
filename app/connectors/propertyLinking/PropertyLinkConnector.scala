@@ -19,9 +19,7 @@ package connectors.propertyLinking
 import connectors._
 import models._
 import org.joda.time.DateTime
-import play.api.Logger
 import play.api.libs.json.JsValue
-import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 

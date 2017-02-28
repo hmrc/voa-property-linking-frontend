@@ -60,6 +60,8 @@ abstract class Wiring {
   lazy val betaLoginConnector = new BetaLoginConnector(http)
   lazy val submissionIdConnector = new SubmissionIdConnector(http)
   lazy val identityVerificationProxyConnector = new IdentityVerificationProxyConnector(http)
+  lazy val dvrCaseManagement = new DVRCaseManagementConnector(http)
+  lazy val businessRatesValuation = new BusinessRatesValuationConnector(http)
 }
 
 class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {

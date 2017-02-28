@@ -22,15 +22,15 @@ import connectors.propertyLinking.PropertyLinkConnector
 import models._
 import org.jsoup.Jsoup
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.OptionValues
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import utils._
 
 import scala.collection.JavaConverters._
-import scala.util.Random
 
-class ViewAssessmentSpec extends ControllerSpec {
+class ViewAssessmentSpec extends ControllerSpec with OptionValues {
 
   private object TestAssessmentController extends Assessments {
     override val propertyLinks: PropertyLinkConnector = StubPropertyLinkConnector
@@ -39,6 +39,7 @@ class ViewAssessmentSpec extends ControllerSpec {
     override val groups: GroupAccounts = StubGroupAccountConnector
     override val auth: VPLAuthConnector = StubAuthConnector
     override val authenticated: AuthenticatedAction = StubAuthentication
+    override val businessRatesValuations = StubBusinessRatesValuation
   }
 
   "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment" in {
@@ -68,8 +69,7 @@ class ViewAssessmentSpec extends ControllerSpec {
     case OwnerOccupier => "Owner and occupier"
   }
 
-  it must "show a link to the detailed valuation for each assessment if the property link is approved and it is a bulk class property" in {
-    val bulkClassDescriptions = Seq("SHOP AND PREMISES", "OFFICE AND PREMISES", "FACTORY AND PREMISES", "WAREHOUSE AND PREMISES")
+  it must "show a link to the detailed valuation for each assessment if the property link is approved" in {
     val organisationId = arbitrary[Int].sample.get
     val personId = arbitrary[Int].sample.get
     val assessment = arbitrary[Assessment].sample.get
@@ -84,25 +84,7 @@ class ViewAssessmentSpec extends ControllerSpec {
     val html = Jsoup.parse(contentAsString(res))
     val assessmentLinks = html.select("td.last").asScala.map(_.select("a").attr("href"))
 
-    assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Assessments.viewDetailedAssessment(a.authorisationId, a.assessmentRef).url)
-  }
-
-  it must "show a link to request the detailed valuation for each assessment if the property link is approved but is not a bulk class" ignore {
-    val organisationId = arbitrary[Int].sample.get
-    val personId = arbitrary[Int].sample.get
-    val assessment = arbitrary[Assessment].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisationId, pending = false, assessment = Seq(assessment))
-
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
-    StubPropertyLinkConnector.stubLink(link)
-
-    val res = TestAssessmentController.assessments(link.authorisationId, link.pending)(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-    val assessmentLinks = html.select("td.last").asScala.map(_.select("a").attr("href"))
-
-    assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Assessments.requestDetailedValuation(a.authorisationId, a.assessmentRef).url)
+    assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Assessments.viewDetailedAssessment(a.authorisationId, a.assessmentRef, a.billingAuthorityReference).url)
   }
 
   it must "show a link to the summary valuation for each assessment if the property link is pending" in {
@@ -120,5 +102,35 @@ class ViewAssessmentSpec extends ControllerSpec {
     val assessmentLinks = html.select("td.last").asScala.map(_.select("a").attr("href"))
 
     assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Assessments.viewSummary(a.uarn).url)
+  }
+
+  "Viewing a detailed valuation" must "redirect to business rates valuation if the property is bulk" in {
+    val organisationId = arbitrary[Int].sample.get
+    val personId = arbitrary[Int].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisationId, pending = true)
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
+    StubPropertyLinkConnector.stubLink(link)
+    StubBusinessRatesValuation.stubValuation(link.assessment.head.assessmentRef, true)
+
+    val res = TestAssessmentController.viewDetailedAssessment(link.assessment.head.authorisationId, link.assessment.head.assessmentRef, link.assessment.head.billingAuthorityReference)(FakeRequest())
+    status(res) mustBe SEE_OTHER
+
+    redirectLocation(res).value must endWith (s"/business-rates-valuation/property-link/${link.assessment.head.authorisationId}/assessment/${link.assessment.head.assessmentRef}")
+  }
+
+  it must "redirect to the request detailed valuation page if the property is non-bulk" in {
+    val organisationId = arbitrary[Int].sample.get
+    val personId = arbitrary[Int].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisationId, pending = true)
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
+    StubPropertyLinkConnector.stubLink(link)
+    StubBusinessRatesValuation.stubValuation(link.assessment.head.assessmentRef, false)
+
+    val res = TestAssessmentController.viewDetailedAssessment(link.assessment.head.authorisationId, link.assessment.head.assessmentRef, link.assessment.head.billingAuthorityReference)(FakeRequest())
+    status(res) mustBe SEE_OTHER
+
+    redirectLocation(res).value mustBe routes.Assessments.requestDetailedValuation(link.assessment.head.authorisationId, link.assessment.head.assessmentRef, link.assessment.head.billingAuthorityReference).url
   }
 }
