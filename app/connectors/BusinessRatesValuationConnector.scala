@@ -23,7 +23,7 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import scala.concurrent.Future
 
 class BusinessRatesValuationConnector(http: HttpGet) extends ServicesConfig {
-  val url = baseUrl("business-rates-valuation") + "/business-rates-valuation"
+  val url = baseUrl("business-rates-valuation")
 
   def isViewable(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] = {
     http.GET[HttpResponse](s"$url/property-link/$authorisationId/assessment/$assessmentRef") map { _ => true } recover { case _: NotFoundException => false }
