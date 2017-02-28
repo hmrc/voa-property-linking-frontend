@@ -139,7 +139,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
 
     page.mustContainSuccessSummary(s"We’ve received your request to add ${
       TestUploadRatesBill.property.address} to your business’s customer record." +
-      s" Submission Id: ${TestUploadRatesBill.submissionId}")
+      s" Your submission ID is ${TestUploadRatesBill.submissionId}")
   }
 
   it must "contain a link to the dashboard" in {
