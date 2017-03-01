@@ -25,7 +25,7 @@ import session.{LinkingSession, LinkingSessionRequest, WithLinkingSession}
 import scala.concurrent.Future
 
 class StubWithLinkingSession(p: Property, decl: CapacityDeclaration, ind: DetailedIndividualAccount, group: GroupAccount) extends WithLinkingSession {
-  private val stubSession = LinkingSession(p, "envelopId", "submissionId", Some(decl), None)
+  private val stubSession = LinkingSession(p.address, p.uarn, "envelopeId", "submissionId", Some(decl), None)
 
   override def apply(body: (LinkingSessionRequest[AnyContent]) => Future[Result])(implicit messages: Messages) = Action.async { implicit request =>
     body(LinkingSessionRequest(stubSession, ind.organisationId, ind, group, request))

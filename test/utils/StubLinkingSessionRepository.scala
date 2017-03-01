@@ -16,17 +16,15 @@
 
 package utils
 
-import models.{PropertyAddress$, Property}
 import session.{LinkingSession, LinkingSessionRepository}
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.http.HeaderCarrier
 
-import scala.collection.mutable.{Map => mMap}
 import scala.concurrent.Future
 
 class StubLinkingSessionRepository(session: LinkingSession, cache: SessionCache) extends LinkingSessionRepository(cache) {
 
-  override def start(p: Property, envelopeId: String, submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
+  override def start(address: String, uarn: Long, envelopeId: String, submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
     Future.successful(())
   }
 

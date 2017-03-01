@@ -48,7 +48,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
     override lazy val propertyLinks = StubPropertyLinkConnector
     lazy val sessionCache = new VPLSessionCache(StubHttp)
     val submissionId = "submissionId"
-    override lazy val linkingSession = new StubLinkingSessionRepository(LinkingSession(property, "envelopeId", submissionId), sessionCache)
+    override lazy val linkingSession = new StubLinkingSessionRepository(LinkingSession(property.address, property.uarn, "envelopeId", submissionId), sessionCache)
   }
 
   "Upload Rates Bill upload page" must "contain a file input" in {
