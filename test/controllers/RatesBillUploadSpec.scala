@@ -22,14 +22,15 @@ import connectors.CapacityDeclaration
 import connectors.fileUpload.FileUploadConnector
 import models._
 import org.jsoup.Jsoup
-import org.mockito.ArgumentMatchers.{any, anyString}
-import org.mockito.Mockito.when
+import org.mockito.ArgumentMatchers.{any, anyString, eq => matches}
+import org.mockito.Mockito.{verify, when}
 import org.scalacheck.Arbitrary._
 import play.api.mvc.MultipartFormData
 import play.api.mvc.MultipartFormData.FilePart
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Helpers}
 import resources._
+import uk.gov.hmrc.play.http.{HeaderCarrier, HeaderNames}
 import utils._
 
 import scala.concurrent.Future
@@ -43,12 +44,18 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
 
   object TestUploadRatesBill extends UploadRatesBill(mockFileUploads)  {
     val property = arbitrary[Property].sample.get
-    override lazy val withLinkingSession = new StubWithLinkingSession(property, arbitrary[CapacityDeclaration].sample.get,
-      arbitrary[DetailedIndividualAccount].sample.get, arbitrary[GroupAccount].sample.get)
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+
     override lazy val propertyLinks = StubPropertyLinkConnector
     lazy val sessionCache = new VPLSessionCache(StubHttp)
-    val submissionId = "submissionId"
-    override lazy val linkingSession = new StubLinkingSessionRepository(LinkingSession(property.address, property.uarn, "envelopeId", submissionId), sessionCache)
+    val submissionId = shortString.sample.get
+    val envelopeId = shortString.sample.get
+    val personId = Math.abs(arbitrary[Long].sample.get)
+    val session = LinkingSession(property.address, property.uarn, envelopeId, submissionId, personId, Some(CapacityDeclaration(Owner, true, None, true, None)))
+
+    override lazy val withLinkingSession = new StubWithLinkingSession(session,
+      person, arbitrary[GroupAccount].sample.get)
+    override lazy val linkingSession = new StubLinkingSessionRepository(session, sessionCache)
   }
 
   "Upload Rates Bill upload page" must "contain a file input" in {
@@ -69,10 +76,18 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
           badParts = Seq.empty
         )
       ).withSession(token)
+      .withHeaders(HeaderNames.xRequestChain -> "something", HeaderNames.xRequestTimestamp -> "12345")
+
     val res = TestUploadRatesBill.submit()(req)
 
     status(res) mustBe SEE_OTHER
     redirectLocation(res).get must include (routes.UploadRatesBill.fileUploaded().url)
+
+    verify(mockFileUploads).uploadFile(
+      matches(TestUploadRatesBill.envelopeId),
+      matches(s"${TestUploadRatesBill.submissionId}-${TestUploadRatesBill.personId}-$validFilePath"),
+      matches(validMimeType),
+      any())(any())
   }
 
   it must "show an error if the user doesn't upload any file" in {

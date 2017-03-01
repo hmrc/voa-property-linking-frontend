@@ -27,7 +27,7 @@ package object resources {
   implicit val arbitraryJavaLocalDate: Arbitrary[javatime.LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(javatime.LocalDate.ofEpochDay(_)))
   implicit val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new LocalDate(_)))
   implicit val arbitraryDateTime: Arbitrary[DateTime] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new DateTime(_)))
-  implicit val shortString = Gen.listOfN(20, Gen.alphaChar).map(_.mkString)
+  val shortString = Gen.listOfN(20, Gen.alphaChar).map(_.mkString)
 
   private def positiveLong = Gen.choose(0L, Long.MaxValue)
 

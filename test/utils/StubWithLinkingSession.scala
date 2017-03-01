@@ -16,18 +16,16 @@
 
 package utils
 
-import connectors.CapacityDeclaration
-import models.{DetailedIndividualAccount, GroupAccount, Property}
+import models.{DetailedIndividualAccount, GroupAccount}
 import play.api.i18n.Messages
 import play.api.mvc.{Action, AnyContent, Result}
 import session.{LinkingSession, LinkingSessionRequest, WithLinkingSession}
 
 import scala.concurrent.Future
 
-class StubWithLinkingSession(p: Property, decl: CapacityDeclaration, ind: DetailedIndividualAccount, group: GroupAccount) extends WithLinkingSession {
-  private val stubSession = LinkingSession(p.address, p.uarn, "envelopeId", "submissionId", Some(decl), None)
+class StubWithLinkingSession(session: LinkingSession, person: DetailedIndividualAccount, organisation: GroupAccount) extends WithLinkingSession {
 
   override def apply(body: (LinkingSessionRequest[AnyContent]) => Future[Result])(implicit messages: Messages) = Action.async { implicit request =>
-    body(LinkingSessionRequest(stubSession, ind.organisationId, ind, group, request))
+    body(LinkingSessionRequest(session, person.organisationId, person, organisation, request))
   }
 }

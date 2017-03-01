@@ -39,25 +39,26 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
   lazy val authenticated = Wiring().authenticated
   lazy val submissionIdConnector = Wiring().submissionIdConnector
 
-  def show() = ggAction { _ => implicit request =>
-    if (ApplicationConfig.readyForPrimeTime) {
-      Redirect(s"${ApplicationConfig.vmvUrl}/cca/search")
-    } else {
-      NotFound(Global.notFoundTemplate)
-    }
+  def show() = ggAction { _ =>
+    implicit request =>
+      if (ApplicationConfig.readyForPrimeTime) {
+        Redirect(s"${ApplicationConfig.vmvUrl}/cca/search")
+      } else {
+        NotFound(Global.notFoundTemplate)
+      }
   }
 
   def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
-          fileUploadConnector.createEnvelope().flatMap(envelopeId => {
-            for {
-              submissionId <- submissionIdConnector.get()
-              _ <- sessionRepository.start(address, uarn, envelopeId, submissionId)
-            } yield {
-              Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, address)))
-            }
-          }
-          )
+      fileUploadConnector.createEnvelope().flatMap(envelopeId => {
+        for {
+          submissionId <- submissionIdConnector.get()
+          _ <- sessionRepository.start(address, uarn, envelopeId, submissionId, request.personId)
+        } yield {
+          Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, address)))
+        }
+      }
+      )
     } else {
       NotFound(Global.notFoundTemplate)
     }
