@@ -61,11 +61,13 @@
         field = form("postcodeSearch"),
         '_label -> Messages("label.address.postcode"),
         '_labelClass -> "form-label-bold",
-        'class -> "form-control form-control-1-4"
+        'class -> "form-control form-control-1-4",
+        '_help -> Messages("addressLookup.lookup.example")
+
     )
 
     <div class="form-group">
-        <a href="#" id="postcodeLookupButton" class="button" role="button">@Messages("label.findAddress")</a>
+        <a href="#" id="postcodeLookupButton" class="button button-secondary" role="button">@Messages("label.findAddress")</a>
     </div>
 
     </div>
@@ -75,6 +77,9 @@
         <a href="#" class="manualAddress">@Messages("addressLookup.manual")</a>
     </p>
 -->
+
+    <a href="#" class="lookupAddressCancel" style="display: none">@Messages("label.findAddress.tryAgain")</a>
+
     @addressForm
 
 </div>

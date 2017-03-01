@@ -52,12 +52,13 @@
                             $('.postcode-lookup-group').prepend('<label for="addressSelect" class="form-label-bold">Select address</label><select id="addressSelect" class="addressList form-control"></select>');
                             $('#addressSelect').append('<option value="" selected disabled>' + messages.labels.selectValue + '</option>');
                             $('.postcode-lookup-fields').css('display', 'none');
+                            $('.lookupAddressCancel').css('display', 'block');
                             $.each(data, function(i, item) {
                                 var address = addressLine(item['line1']) + addressLine(item['line2']) + addressLine(item['line3']) + addressLine(item['line4']) + item['postcode'];
                                 $('.addressList').append('<option value="' + i + '">' +  window.xssEscape(address) + '</option>');
                             });
                             $('#addressSelect').change(function (e) {
-                                $('[for="addressSelect"]').css('display', 'none');
+                                $('[for="addressSelect"], .lookupAddressCancel').css('display', 'none');
                                 $(this).css('display', 'none');
                                 $('.manualAddress').css('display', 'none');
                                 var index = $(this).find('option:selected').index() - 1;
@@ -83,6 +84,7 @@
             }
         });
 
+
         $('.manualAddress').click(function (e) {
             e.preventDefault();
             $('.manualAddress').css('display', 'none');
@@ -101,6 +103,22 @@
             $('#postcodeSearch').val('');
             active = true;
         });
+
+        $('.lookupAddressCancel').click(function (e) {
+            e.preventDefault();
+            $('.address--fields').css('display', 'none');
+            $('.postcode-lookup-fields').css('display', 'block');
+            $('.manualAddress').css('display', 'block');
+            $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
+            $('#postcodeSearchGroup .error-message').remove();
+            $('#postcodeSearch').val('').focus();
+            $('#addressSelect, [for="addressSelect"]').remove();
+            $(this).css('display', 'none');
+            active = true;
+        });
+
+
+
     };
 
 }).call(this);
