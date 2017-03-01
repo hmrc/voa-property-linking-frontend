@@ -509,6 +509,7 @@ placeholder.address.line4=Address line 4
 label.findAddress=Find address
 label.findAddress.tryAgain=Try another postcode
 error.postcode=Invalid postcode
+error.postcode.nospace=Postcode must contain a space 
 addressLookup.manual=I can’t find my address in the list
 addressLookup.lookup=Find address by postcode
 link.continue=Continue

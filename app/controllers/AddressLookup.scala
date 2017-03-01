@@ -17,6 +17,7 @@
 package controllers
 
 import config.Wiring
+import play.api.i18n.Messages
 import play.api.libs.json.Json
 import play.api.mvc.Action
 
@@ -25,7 +26,17 @@ trait AddressLookup extends PropertyLinkingController {
   val addresses = Wiring().addresses
 
   def findByPostcode(postcode: String) = Action.async { implicit request =>
-    addresses.findByPostcode(postcode) map { res => Ok(Json.toJson(res)) }
+    if (postcode.trim.contains(" ")) {
+      addresses.findByPostcode(postcode) map { res =>
+        if (res.isEmpty) {
+          NotFound
+        } else {
+          Ok(Json.toJson(res))
+        }
+      }
+    } else {
+      BadRequest(Messages("error.postcode.nospace"))
+    }
   }
 }
 

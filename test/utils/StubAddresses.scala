@@ -18,11 +18,24 @@ package utils
 
 import connectors.Addresses
 import models.Address
+import org.scalacheck.Arbitrary
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 import scala.util.Random
+import org.scalacheck.Arbitrary._
+import resources._
 
 object StubAddresses extends Addresses(StubHttp) {
+  val noResultPostcode = "NO RESULT"
+
   override def create(address: Address)(implicit hc: HeaderCarrier) = Future.successful(Random.nextInt)
+
+  override def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[Address]] = {
+    if (postcode.contentEquals(noResultPostcode)) {
+      Future.successful(Seq[Address]())
+    } else {
+      Future.successful(Seq.fill(10)(arbitrary[Address].sample.get))
+    }
+  }
 }
