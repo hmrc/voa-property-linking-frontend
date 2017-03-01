@@ -3,7 +3,10 @@
 
 @()(implicit request: Request[_], messages: Messages)
 
-    @main_template(Messages("ggRegistration.title")) {
+    @main_template(
+        Messages("ggRegistration.title"),
+        topNavigation = false
+    ) {
         <div class="grid-row">
             <div class="column-two-thirds">
 

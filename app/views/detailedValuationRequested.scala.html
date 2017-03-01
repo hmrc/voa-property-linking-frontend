@@ -2,8 +2,8 @@
 @import helpers._
 
 @(submissionId: String)(implicit request: Request[_], messages: Messages)
-    
-    @main_template(Messages("detailedValuationRequested.title")) {
+
+    @main_template(Messages("detailedValuationRequested.title"), topNavigation = false) {
         <div class="grid-row">
             <div class="column-two-thirds">
 
@@ -15,7 +15,7 @@
                 <p>@Messages("detailedValuationRequested.p.1")</p>
 
                 <a href="@routes.Dashboard.home()" class="button">@Messages("link.dashboard")</a>
-                
+
             </div>
         </div>
     }

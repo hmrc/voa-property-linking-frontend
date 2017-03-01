@@ -4,7 +4,7 @@
 @()(implicit request: Request[_], messages: Messages)
 
 
-@main_template(title = Messages("failedIdentityVerification.title")) {
+@main_template(title = Messages("failedIdentityVerification.title"), topNavigation = false) {
 
             <div class="grid-row">
                 <div class="column-two-thirds">
@@ -24,5 +24,5 @@
 
                 </div>
             </div>
-        
+
     }
