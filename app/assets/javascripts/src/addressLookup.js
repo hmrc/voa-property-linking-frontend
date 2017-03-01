@@ -47,6 +47,14 @@
                 $.ajax({
                     type: 'GET',
                     url: '/business-rates-property-linking/lookup?postcode=' + postcode.toUpperCase(),
+                    statusCode: {
+                        404: function(res) {
+
+                        },
+                        400: function(res) {
+                            $('#postcodeSearchGroup .error-message').text(res.responseText);
+                        }
+                    },
                     success: function(data) {
                         if (data.length > 0) {
                             $('.postcode-lookup-group').prepend('<label for="addressSelect" class="form-label-bold">Select address</label><select id="addressSelect" class="addressList form-control"></select>');
