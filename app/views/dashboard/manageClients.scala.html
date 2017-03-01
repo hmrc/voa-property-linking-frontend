@@ -35,6 +35,7 @@
                     <tr>
                         <th scope="col">@Messages("propertyRepresentations.table.1")</th>
                         <th scope="col">@Messages("propertyRepresentations.table.2")</th>
+                        <th scope="col" class="last">@Messages("propertyRepresentations.table.3")</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +43,14 @@
                 <tr>
                     <td>@groupName</td>
                     <td>
-                        @properties.size
+                        <a href="@controllers.routes.Dashboard.clientProperties(properties.headOption.map(_.organisationId).getOrElse(-1))">
+                            @properties.size
+                        </a>
+                    </td>
+                    <td class="last">
+                        <a href="@controllers.routes.Dashboard.clientProperties(properties.headOption.map(_.organisationId).getOrElse(-1))">
+                            @Messages("agent.dashboard.manageClients.viewProperties")
+                        </a>
                     </td>
                 </tr>
                 }
