@@ -40,7 +40,7 @@ trait FileUploadHelpers {
   val maxFileSize = 10485760 //10MB
 
   protected def requestLink(linkBasis: LinkBasis, fileInfo: Option[FileInfo])(implicit r: LinkingSessionRequest[AnyContent]) =
-    propertyLinks.linkToProperty(r.ses.claimedProperty,
+    propertyLinks.linkToProperty(r.ses.uarn,
       r.groupAccount.id, r.individualAccount.individualId,
       r.ses.declaration.getOrElse(throw new Exception("No declaration")),
       r.ses.submissionId, linkBasis, fileInfo
@@ -60,7 +60,7 @@ trait FileUploadHelpers {
   def fileUploaded() = withLinkingSession { implicit request =>
     fileUploader.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
       linkingSession.remove().map(_ =>
-        Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.claimedProperty.address, request.ses.submissionId)))
+        Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
       )
     )
   }

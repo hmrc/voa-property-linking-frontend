@@ -28,7 +28,6 @@ class AppointAgentSpec extends ControllerSpec {
 
   private object TestAppointAgent extends AppointAgentController {
     override val representations = StubPropertyRepresentationConnector
-    override val properties = StubPropertyConnector
     override val accounts = StubGroupAccountConnector
     override val propertyLinks = StubPropertyLinkConnector
     override val authenticated = StubAuthentication
@@ -38,7 +37,6 @@ class AppointAgentSpec extends ControllerSpec {
 
   "The appoint a new agent page" must "allow the user to enter the agent code, and set permissions for checks and challenges" in {
     stubLoggedInUser()
-    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
 
     val res = TestAppointAgent.appoint(arbitrary[PropertyLink].sample.get.authorisationId)(request)
     status(res) must be (OK)
@@ -51,7 +49,6 @@ class AppointAgentSpec extends ControllerSpec {
 
   it must "require the user to enter an agent code" in {
     stubLoggedInUser()
-    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
     val groupAccount = arbitrary[GroupAccount].sample.get
 
     StubGroupAccountConnector.stubAccount(groupAccount)
@@ -68,7 +65,6 @@ class AppointAgentSpec extends ControllerSpec {
 
   it must "require the user to select agent permissions for checks" in {
     stubLoggedInUser()
-    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
     val agentAccount = arbitrary[GroupAccount].sample.get
     StubGroupAccountConnector.stubAccount(agentAccount)
 
@@ -83,7 +79,6 @@ class AppointAgentSpec extends ControllerSpec {
 
   it must "require the user to select agent permissions for challenges" in {
     stubLoggedInUser()
-    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
     val agentAccount = arbitrary[GroupAccount].sample.get
     StubGroupAccountConnector.stubAccount(agentAccount)
 
@@ -98,7 +93,6 @@ class AppointAgentSpec extends ControllerSpec {
 
   it must "not allow agents to be appointed with no permissions" in {
     val (groupAccount, individualAccount) = stubLoggedInUser()
-    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
     val agentAccount = arbitrary[GroupAccount].sample.get
     StubGroupAccountConnector.stubAccount(agentAccount)
     val link:PropertyLink = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id)
@@ -115,7 +109,6 @@ class AppointAgentSpec extends ControllerSpec {
 
   it must "require the agent code to be valid" in {
     stubLoggedInUser()
-    StubPropertyConnector.stubProperty(arbitrary[Property].sample.get)
     StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
     val link = arbitrary[PropertyLink].sample.get
     StubPropertyLinkConnector.stubLink(link)

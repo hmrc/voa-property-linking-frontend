@@ -33,12 +33,12 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     linkedProperties(organisationId).map( links => links.find(_.authorisationId == authorisationId) )
   }
 
-  def linkToProperty(property: Property, organisationId: Int, individualId: Int,
+  def linkToProperty(uarn: Long, organisationId: Int, individualId: Int,
                      capacityDeclaration: CapacityDeclaration, submissionId: String, basis: LinkBasis,
                      fileInfo: Option[FileInfo])
                     (implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-links"
-    val request = PropertyLinkRequest(property.uarn, organisationId, individualId, Capacity.fromDeclaration(capacityDeclaration),
+    val request = PropertyLinkRequest(uarn, organisationId, individualId, Capacity.fromDeclaration(capacityDeclaration),
       DateTime.now, basis, fileInfo.toSeq, submissionId)
     http.POST[PropertyLinkRequest, HttpResponse](url, request) map { _ => () }
   }

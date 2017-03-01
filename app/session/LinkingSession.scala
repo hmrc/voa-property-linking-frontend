@@ -16,9 +16,7 @@
 
 package session
 
-import config.Wiring
 import connectors.CapacityDeclaration
-import models.Property
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import serialization.JsonFormats.sessionFormat
 import uk.gov.hmrc.http.cache.client.SessionCache
@@ -26,7 +24,7 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-case class LinkingSession(claimedProperty: Property, envelopeId: String, submissionId: String,
+case class LinkingSession(address: String, uarn: Long, envelopeId: String, submissionId: String,
                           declaration: Option[CapacityDeclaration] = None, selfCertifyComplete: Option[Boolean] = None) {
   def withDeclaration(d: CapacityDeclaration) = this.copy(declaration = Some(d))
 }
@@ -34,8 +32,8 @@ case class LinkingSession(claimedProperty: Property, envelopeId: String, submiss
 class LinkingSessionRepository(cache: SessionCache) {
   private val sessionDocument = "sessiondocument"
 
-  def start(p: Property, envelopeId:String, submissionId: String )(implicit hc: HeaderCarrier): Future[Unit] = {
-      cache.cache(sessionDocument, LinkingSession(p, envelopeId, submissionId)).map(_ => ())
+  def start(address: String, uarn: Long, envelopeId: String, submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
+    cache.cache(sessionDocument, LinkingSession(address, uarn, envelopeId, submissionId)).map(_ => ())
   }
 
   def saveOrUpdate(session: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] =
@@ -44,7 +42,7 @@ class LinkingSessionRepository(cache: SessionCache) {
   def get()(implicit hc: HeaderCarrier): Future[Option[LinkingSession]] =
     cache.fetchAndGetEntry(sessionDocument)
 
-  def remove()(implicit hc:HeaderCarrier): Future[Unit] =
+  def remove()(implicit hc: HeaderCarrier): Future[Unit] =
     cache.remove().map(_ => ())
 
 }

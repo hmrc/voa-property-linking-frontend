@@ -21,17 +21,14 @@ import connectors.UpdatedRepresentation
 import form.EnumMapping
 import models._
 import org.joda.time.DateTime
-import play.api.data.{Form, FormError}
 import play.api.data.Forms._
+import play.api.data.{Form, FormError}
 import play.api.mvc.Request
-import uk.gov.hmrc.play.http.BadRequestException
-import views.html.propertyRepresentation.invalidAppointment
 
 import scala.concurrent.Future
 
 trait AppointAgentController extends PropertyLinkingController {
   val representations = Wiring().propertyRepresentationConnector
-  val properties = Wiring().propertyConnector
   val accounts = Wiring().groupAccountConnector
   val propertyLinks = Wiring().propertyLinkConnector
   val authenticated = Wiring().authenticated

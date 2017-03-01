@@ -35,34 +35,29 @@ import uk.gov.voa.play.form.ConditionalMappings._
 class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
                               val envelopeConnector: EnvelopeConnector) extends PropertyLinkingController with ServicesConfig {
   lazy val sessionRepository = Wiring().sessionRepository
-  lazy val connector = Wiring().propertyConnector
   lazy val ggAction = Wiring().ggAction
   lazy val authenticated = Wiring().authenticated
   lazy val submissionIdConnector = Wiring().submissionIdConnector
 
   def show() = ggAction { _ => implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
-      Redirect(s"${ApplicationConfig.vmvUrl}/search")
+      Redirect(s"${ApplicationConfig.vmvUrl}/cca/search")
     } else {
       NotFound(Global.notFoundTemplate)
     }
   }
 
-  def declareCapacity(uarn: Long, postcode: String) = authenticated { implicit request =>
+  def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
-      connector.get(uarn, postcode).flatMap {
-        case Some(pd) =>
           fileUploadConnector.createEnvelope().flatMap(envelopeId => {
             for {
               submissionId <- submissionIdConnector.get()
-              _ <- sessionRepository.start(pd, envelopeId, submissionId)
+              _ <- sessionRepository.start(address, uarn, envelopeId, submissionId)
             } yield {
-              Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, pd.address)))
+              Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, address)))
             }
           }
           )
-        case None => NotFound("Not found")
-      }
     } else {
       NotFound(Global.notFoundTemplate)
     }
@@ -71,7 +66,7 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
   def attemptLink() = authenticated { implicit request =>
     sessionRepository.get() flatMap {
       case Some(session) => ClaimProperty.declareCapacityForm.bindFromRequest().fold(
-        errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors, session.claimedProperty.address))),
+        errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors, session.address))),
         formData => sessionRepository.saveOrUpdate(session.withDeclaration(formData)) map { _ =>
           Redirect(routes.ChooseEvidence.show())
         }

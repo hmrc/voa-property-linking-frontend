@@ -28,7 +28,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
 
   private var stubbedLinks: Seq[PropertyLink] = Nil
 
-  override def linkToProperty(property: Property,
+  override def linkToProperty(uarn: Long,
                               organisationId: Int,
                               individualId: Int,
                               capacityDeclaration: CapacityDeclaration,

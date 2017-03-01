@@ -54,7 +54,7 @@ GET         /details-requested/:authorisationId/:assessmentRef      controllers.
 
 #Search and Link
 GET         /property-search                                        @controllers.ClaimProperty.show()
-GET         /link-to-property/:uarn                                 @controllers.ClaimProperty.declareCapacity(uarn: Long, postcode)
+GET         /link-to-property/:uarn                                 @controllers.ClaimProperty.declareCapacity(uarn: Long, address)
 POST        /link-to-property                                       @controllers.ClaimProperty.attemptLink()
 
 #Link scenarios
