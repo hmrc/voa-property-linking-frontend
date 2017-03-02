@@ -15,7 +15,7 @@
 	@defining(_root_.template.HtmlSupport.getErrors(fields)){ combinedErrors =>
 
 
-	  <div id='@id' class='@classes.mkString(" ") @if(combinedErrors.nonEmpty){ error }'>
+	  <div id=@(id)Group class='@classes.mkString(" ") @if(combinedErrors.nonEmpty){ error }'>
 	    @if(combinedErrors.nonEmpty){
 	       @combinedErrors.map(err => (err.message, err.args)).distinct.map { case (msg, args) => @displayFieldError(msg, args) }
 	    }
@@ -26,7 +26,7 @@
 
 	<fieldset class="form-group form-date">
 	<legend class="form-label-bold">
-        @label.map { lab => @Messages(lab) }.getOrElse(if(suffix.nonEmpty) { Html(Messages(s"$prefix.$suffix.label")) } else { Html(Messages(s"$prefix.label")) })
+        @label.map { lab => @Messages(lab) }.getOrElse(if(suffix.nonEmpty) { Html(Messages(s"label.$prefix.$suffix")) } else { Html(Messages(s"label.$prefix")) })
     </legend>
 	    @errorWrapper(Seq(form(""+prefix+".month"),form(""+prefix+".year"),form(prefix)), prefix.replace('.', '_'), "form-date-dayMonth"){
 
