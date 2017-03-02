@@ -132,7 +132,8 @@ package object resources {
   val party: Gen[Party] = for {
     organisationName <- arbitrary[String]
     agentCode <- arbitrary[Long]
-  } yield models.Party(agentCode, organisationName)
+    organisationId <- arbitrary[Long]
+  } yield models.Party(agentCode, organisationName, organisationId)
   implicit val arbitraryParty = Arbitrary(party)
 
   val propertyLinkGen: Gen[PropertyLink] = for {

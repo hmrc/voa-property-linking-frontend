@@ -28,7 +28,6 @@ object JsonFormats {
   implicit val capacityFormat = Json.format[CapacityDeclaration]
   implicit val requestFlag = EnumFormat(LinkBasis)
   implicit val fileInfo = Json.format[FileInfo]
-  implicit val linkedProperties = Json.format[LinkedProperties]
   implicit val sessionFormat = Json.format[LinkingSession]
   implicit val ratesBillCheckFormat = Json.reads[RatesBillCheck]
 }

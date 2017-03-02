@@ -40,6 +40,9 @@ object PropertyLinkRequest {
 }
 
 case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
+object LinkedProperties{
+  implicit val format = Json.format[LinkedProperties]
+}
 
 case class UpdatedRepresentation(representationId: Long, canCheck: AgentPermission, canChallenge: AgentPermission)
 
