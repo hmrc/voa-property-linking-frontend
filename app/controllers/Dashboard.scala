@@ -62,6 +62,18 @@ trait Dashboard extends PropertyLinkingController {
   }
   }
 
+  def clientProperties(organisationId: Long) = authenticated.asAgent { implicit request =>
+    if (ApplicationConfig.readyForPrimeTime) {
+      propertyLinks.clientProperties(organisationId, request.organisationId) map { props =>
+        if (props.nonEmpty) {
+          Ok(views.html.dashboard.clientProperties(ClientPropertiesVM(props)))
+        } else NotFound
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
+  }
+
   def draftCases() = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
       val dummyData = Seq(
@@ -93,3 +105,5 @@ case class PendingPropertyLinkRepresentations(name: String, linkId: String, capa
 case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentations], pending: Seq[PendingPropertyLinkRepresentations])
 
 case class AgentInfo(organisationName: String, agentCode: Long)
+
+case class ClientPropertiesVM(properties: Seq[ClientProperties])

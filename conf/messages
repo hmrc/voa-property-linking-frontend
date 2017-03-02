@@ -542,11 +542,18 @@ agent.dashboard.manageClients.title=Manage clients
 agent.dashboard.manageClients.pending=Requiring a response
 agent.dashboard.manageClients.noClients=There are no existing clients
 agent.dashboard.manageClients.existingClients=Existing clients
+agent.dashboard.manageClients.viewProperties=View all properties
 agent.dashboard.manageProperties.accept=Accept
 agent.dashboard.manageProperties.reject=Reject
 agent.dashboard.manageProperties.acceptAll=Accept all
 agent.dashboard.manageProperties.rejectAll=Reject all
 
+#Client Properties
+dashboard.clientProperties.title=Client properties
+dashboard.clientProperties.clientName=Properties for {0}
+dashboard.clientProperties.table.1=Address
+dashboard.clientProperties.table.2=Billing authority reference
+dashboard.clientProperties.table.3=Permissions
 
 #Manage agents
 dashboard.manageAgents.title=Manage agents

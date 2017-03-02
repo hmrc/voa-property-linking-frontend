@@ -36,6 +36,7 @@ object RepresentationController extends PropertyLinkingController {
     }
   }
 
+
   def pendingRepresentationRequest() = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
       reprConnector.forAgent(RepresentationPending.name, request.organisationId).map { reprs =>
@@ -77,6 +78,8 @@ object RepresentationController extends PropertyLinkingController {
       NotFound(Global.notFoundTemplate)
     }
   }
+
+
 
   case class ManagePropertiesVM(propertyRepresentations: PropertyRepresentations, agentCode: Long)
 
