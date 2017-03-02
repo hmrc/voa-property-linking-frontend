@@ -24,16 +24,16 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-case class LinkingSession(address: String, uarn: Long, envelopeId: String, submissionId: String,
-                          declaration: Option[CapacityDeclaration] = None, selfCertifyComplete: Option[Boolean] = None) {
+case class LinkingSession(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long,
+                          declaration: Option[CapacityDeclaration] = None) {
   def withDeclaration(d: CapacityDeclaration) = this.copy(declaration = Some(d))
 }
 
 class LinkingSessionRepository(cache: SessionCache) {
   private val sessionDocument = "sessiondocument"
 
-  def start(address: String, uarn: Long, envelopeId: String, submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
-    cache.cache(sessionDocument, LinkingSession(address, uarn, envelopeId, submissionId)).map(_ => ())
+  def start(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
+    cache.cache(sessionDocument, LinkingSession(address, uarn, envelopeId, submissionId, personId)).map(_ => ())
   }
 
   def saveOrUpdate(session: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] =

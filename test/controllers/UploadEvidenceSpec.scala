@@ -21,6 +21,7 @@ import connectors.fileUpload.FileUploadConnector
 import models._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers._
+import org.mockito.ArgumentMatchers.{eq => matches}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.mvc.MultipartFormData
@@ -28,6 +29,7 @@ import play.api.mvc.MultipartFormData.FilePart
 import play.api.test.Helpers.{contentAsString, _}
 import play.api.test.{FakeRequest, Helpers}
 import resources._
+import _root_.session.LinkingSession
 import utils.{FileUploadTestHelpers, HtmlPage, StubPropertyLinkConnector, StubWithLinkingSession}
 
 import scala.concurrent.Future
@@ -40,7 +42,11 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   when(mockFileUploads.uploadFile(anyString(), anyString(), anyString(), any())(any())).thenReturn(Future.successful(()))
 
   object TestUploadEvidence extends UploadEvidence(mockFileUploads)  {
-    override val withLinkingSession = new StubWithLinkingSession(arbitrary[Property].sample.get, arbitrary[CapacityDeclaration].sample.get,
+    val property = arbitrary[Property].sample.get
+    val envelopeId = shortString.sample.get
+    val submissionId = shortString.sample.get
+    val personId = Math.abs(arbitrary[Long].sample.get)
+    override val withLinkingSession = new StubWithLinkingSession(LinkingSession(property.address, property.uarn, envelopeId, submissionId, personId, Some(CapacityDeclaration(Owner, true, None, true, None))),
       arbitrary[DetailedIndividualAccount].sample.get, arbitrary[GroupAccount].sample.get)
     override val propertyLinks = StubPropertyLinkConnector
   }
@@ -69,6 +75,13 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
     status(res) mustBe SEE_OTHER
     header("location", res).get.contains(routes.UploadEvidence.fileUploaded.url) mustBe true
+
+    verify(mockFileUploads).uploadFile(
+      matches(TestUploadEvidence.envelopeId),
+      matches(s"${TestUploadEvidence.submissionId}-${TestUploadEvidence.personId}-$validFilePath"),
+      matches(validMimeType),
+      any())(any()
+    )
   }
 
   it must "show an error if the user does not upload any evidence" in {
