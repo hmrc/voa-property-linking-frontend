@@ -16,12 +16,13 @@
 
 package controllers
 
+import java.net.URLEncoder
+
 import config.ApplicationConfig
 import connectors.FileInfo
 import connectors.fileUpload.FileUpload
 import connectors.propertyLinking.PropertyLinkConnector
 import models.LinkBasis
-import play.api.Logger
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.AnyContent
 import play.api.mvc.MultipartFormData.FilePart
@@ -51,7 +52,7 @@ trait FileUploadHelpers {
     filePart match {
       case Some(part) if part.ref.file.length > maxFileSize => FileTooLarge
       case Some(FilePart(_, filename, Some(mimetype), TemporaryFile(file))) if ApplicationConfig.allowedMimeTypes.contains(mimetype) =>
-        fileUploader.uploadFile(request.ses.envelopeId, filename, mimetype, file) map { _ => FileAccepted }
+        fileUploader.uploadFile(request.ses.envelopeId, addMetadata(filename), mimetype, file) map { _ => FileAccepted }
       case Some(part) /* wrong mimetype */ => InvalidFileType
       case None => FileMissing
     }
@@ -63,6 +64,10 @@ trait FileUploadHelpers {
         Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
       )
     )
+  }
+
+  private def addMetadata(fileName: String)(implicit request: LinkingSessionRequest[AnyContent]) = {
+    URLEncoder.encode(s"${request.ses.submissionId}-${request.ses.personId}-$fileName", "UTF-8")
   }
 }
 

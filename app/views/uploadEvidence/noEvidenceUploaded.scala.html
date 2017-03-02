@@ -1,18 +1,22 @@
-@(refId: String)(implicit request: Request[_], messages: Messages)
+@import controllers.RequestSubmittedVM
 
+@(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(title = Messages("noEvidenceUploaded.title")) {
 
 
     <div class="grid-row">
         <div class="column-two-thirds">
-            <h1 class="heading-xlarge">
-                @Messages("noEvidenceUploaded.title")
-            </h1>
+            <div class="transaction-banner--complete">
+                <h1 class="transaction-banner__heading">@Messages("noEvidenceUploaded.h1", model.address.toString)</h1>
+                <p class="heading-medium no-margin">@Messages("noEvidenceUploaded.p.1", model.refId)</p>
+            </div>
 
-            <p>@Messages("noEvidenceUploaded.p.1", refId)</p>
+            <h3 class="heading-medium">@Messages("noEvidenceUploaded.whatHappensNext")</h3>
+            <p>@Messages("noEvidenceUploaded.p.2")</p>
+            <p>@Messages("noEvidenceUploaded.telephone")</p>
 
-            <a id="backToDashBoard" href="@routes.Dashboard.home()" class="button" role="button">@Messages("link.dashboard")</a>
+            <a id="backToDashBoard" href="@routes.Dashboard.home()" class="button" role="button">@Messages("link.backToDashboard")</a>
         </div>
     </div>
 

@@ -1,0 +1,51 @@
+@import utils.Formatters
+@(model: ClientPropertiesVM)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    Messages("dashboard.clientProperties.title"),
+    topBackLink = true,
+    bottomBackLink = true
+) {
+
+
+    <h1 class="heading-xlarge margin-bottom-0 clear-right">
+        <span class="section-title">@Messages("dashboard.clientProperties.title")</span>
+    </h1>
+
+
+        <div class="table-wrapper">
+            <table class="table-font-xsmall">
+                <caption class="heading-medium">
+                    @Messages("dashboard.clientProperties.clientName", model.properties.head.clientOrganisationName)
+                </caption>
+                <thead>
+                    <tr>
+                        <th scope="col">@Messages("dashboard.clientProperties.table.1")</th>
+                        <th scope="col">@Messages("dashboard.clientProperties.table.2")</th>
+                        <th scope="col" class="last">@Messages("dashboard.clientProperties.table.3")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @model.properties.map { prop =>
+                <tr>
+                    <td>@Formatters.capitalizedAddress(prop.address)</td>
+                    <td>
+                        @prop.billingAuthorityReference
+                    </td>
+                    <td class="last">
+                        <ul>
+                            <li>
+                                Check: @Messages(s"permission.${prop.checkPermission}")
+                            </li>
+                            <li>
+                                Challenge: @Messages(s"permission.${prop.challengePermission}")
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+}
