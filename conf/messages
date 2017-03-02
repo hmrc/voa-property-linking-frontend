@@ -464,8 +464,11 @@ uploadEvidence.show.button=Continue
 uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded
 uploadEvidence.evidenceUploaded.message=Thank you for your request which has been submitted to the Valuation Office Agency.
 noEvidenceUploaded.title=We’re sorry, but you can’t proceed with this form.
-noEvidenceUploaded.p.1=Please call the Valuation Office Agency and quote reference number {0} to discuss your request.
-uploadEvidence.noEvidenceUploaded.home.link=Manage your properties
+noEvidenceUploaded.h1=We’re unable to add {0} to your business’ customer record without a business rates bill or other suitable evidence.
+noEvidenceUploaded.p.1=Your submission ID is {0}
+noEvidenceUploaded.whatHappensNext=What happens next
+noEvidenceUploaded.p.2=You’ll need to contact us to discuss your property linking request.
+noEvidenceUploaded.telephone=Telephone: 03000 501 501
 
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required
@@ -524,6 +527,7 @@ error.max=Must be less than or equal to {0}
 error.invalidDate=This must be a valid date
 error.fileUpload.tooLarge=File size must be less than 10MB
 error.fileUpload.invalidFileType=File must be a PDF or JPG
+link.backToDashboard=Go back to your dashboard
 
 #MISC
 alt.newWindow=Opens in a new window

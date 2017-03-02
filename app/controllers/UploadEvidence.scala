@@ -65,7 +65,7 @@ class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector) e
     requestLink(NoEvidenceFlag, None).flatMap( _=>
       fileUploader.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
         Wiring().sessionRepository.remove().map(_ =>
-          Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
+          Ok(views.html.uploadEvidence.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
         )
       )
     )
