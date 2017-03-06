@@ -41,6 +41,7 @@ object ApplicationConfig extends RunMode with ServicesConfig {
 
   def businessRatesValuationUrl(page: String) = getConfig("business-rates-valuation.url") + s"/$page"
   val readyForPrimeTime = getConfig("featureFlags.readyForPrimeTime").toBoolean
+  val propertyLinkingEnabled = getConfig("featureFlags.propertyLinkingEnabled").toBoolean
 
   val showReleaseNotes = getConfig("featureFlags.showReleaseNotes").toBoolean
 
