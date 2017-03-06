@@ -38,7 +38,7 @@
                 @Messages("dashboard.home.manageProperties.text")
             </p>
 
-            @if(ApplicationConfig.readyForPrimeTime) {
+            @if(ApplicationConfig.propertyLinkingEnabled) {
                 <h3 class="heading-medium">
                     <a href="@routes.ClaimProperty.show">@Messages("dashboard.home.searchProperties.link")</a>
                 </h3>
