@@ -2,8 +2,10 @@
 
 @(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages)
 
-@main_template(title = Messages("noEvidenceUploaded.title")) {
-
+@main_template(
+    title = Messages("noEvidenceUploaded.title"),
+    topNavigation = false
+) {
 
     <div class="grid-row">
         <div class="column-two-thirds">
@@ -12,9 +14,16 @@
                 <p class="heading-medium no-margin">@Messages("noEvidenceUploaded.p.1", model.refId)</p>
             </div>
 
-            <h3 class="heading-medium">@Messages("noEvidenceUploaded.whatHappensNext")</h3>
-            <p>@Messages("noEvidenceUploaded.p.2")</p>
-            <p>@Messages("noEvidenceUploaded.telephone")</p>
+            <p>@Messages("noEvidenceUploaded.reason.1")</p>
+            <p class="panel panel-border-wide">@Messages("noEvidenceUploaded.reason.2")</p>
+
+            <h2 class="heading-small">@Messages("noEvidenceUploaded.email")</h2>
+            <p>@Html(Messages("noEvidenceUploaded.emailaddress", "ccaservice@voa.gsi.gov.uk"))</p>
+
+            <h2 class="heading-small">Telephone</h2>
+            <p>03000 501 501</p>
+
+            <p>Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.</p>
 
             <a id="backToDashBoard" href="@routes.Dashboard.home()" class="button" role="button">@Messages("link.backToDashboard")</a>
         </div>

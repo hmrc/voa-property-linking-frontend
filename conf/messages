@@ -467,6 +467,11 @@ noEvidenceUploaded.p.1=Your submission ID is {0}
 noEvidenceUploaded.whatHappensNext=What happens next
 noEvidenceUploaded.p.2=You’ll need to contact us to discuss your property linking request.
 noEvidenceUploaded.telephone=Telephone: 03000 501 501
+noEvidenceUploaded.reason.1=We’re unable to complete this request as you haven’t provided any proof of your link to this property. You won’t be able to view the detailed valuation for this property.
+noEvidenceUploaded.reason.2=Please make a note of your reference number and contact us to discuss other ways of proving your link to this property.
+noEvidenceUploaded.email=Email
+noEvidenceUploaded.emailaddress=<a href="mailto:{0}">ccaservice@voa.gsi.gov.uk</a>
+
 
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required
