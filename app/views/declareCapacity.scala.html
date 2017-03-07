@@ -2,6 +2,7 @@
 @import helpers._
 @import _root_.template.Display
 
+
 @(model: DeclareCapacityVM)(implicit request: Request[_], messages: Messages)
 
 
@@ -25,13 +26,36 @@
             </header>
 
 
-            <p class="panel panel-border-narrow">
+            <p class="panel panel-border-wide">
                 @Messages("declareCapacity.incorrectProperty.prefix")
                 <a href="@routes.ClaimProperty.show">@Messages("declareCapacity.incorrectProperty.link")</a>
             </p>
 
 
             @form(routes.ClaimProperty.attemptLink()) {
+
+                <details>
+                    <summary><span>@Messages("declareCapacity.details.ownerOrOccupier")</span></summary>
+                    <div class="panel-indent">
+                        @Html(Messages("declareCapacity.details.ownerOrOccupier.text", routes.Application.contactUs()))
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span>@Messages("declareCapacity.details.notOwner")</span></summary>
+                    <div class="panel-indent">
+                        @Html(Messages("declareCapacity.details.notOwner.text", routes.Application.contactUs()))
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span>@Messages("declareCapacity.details.agent")</span></summary>
+                    <div class="panel-indent">
+                        @Messages("declareCapacity.details.agent.text")
+                    </div>
+                </details>
+
+                <br />
 
                     @inputRadioGroup(
                         field = model.form("capacity"),
@@ -59,9 +83,9 @@
                     @dateFields(model.form, "fromDate")
 
                     <details>
-                        <summary><span>I have owned or occupied the property on more than one occasion</span></summary>
+                        <summary><span>@Messages("declareCapacity.details.haveOwned")</span></summary>
                         <div class="panel-indent">
-                          If you have owned or occupied the property on more than one occasion, you should enter the date that you moved in (and if relevant the date that you moved out) for the period of time that you want to check or challenge the rateable value.
+                            @Messages("declareCapacity.details.haveOwned.text")
                         </div>
                     </details>
                     <br />

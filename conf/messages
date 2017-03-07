@@ -365,14 +365,14 @@ search.title=Search and select a property to add to your customer record
 search.select.link=Select
 
 #DECLARE CAPACITY
-declareCapacity.title=Add the property to your business’s customer record
+declareCapacity.title=Add this property to your business’s customer record
 declareCapacity.message=You are adding this property to your business’s customer record:
 declareCapacity.incorrectProperty.prefix=If this isn’t the right property you can
 declareCapacity.incorrectProperty.link=search for a different property
 label.interestedBefore2017=When did you become the owner or occupier of the property?
-interestedBefore2017.true=Before 1 April 2017
+interestedBefore2017.true=On or before 1 April 2017
 interestedBefore2017.false=After 1 April 2017
-label.stillInterested=Do you still occupy or own the property?
+label.stillInterested=Do you still own or occupy the property?
 stillInterested.true=Yes
 stillInterested.false=No
 declareCapacity.fromDate.help=
@@ -393,6 +393,14 @@ toDate.month.label=Month
 toDate.year.label=Year
 error.date.mustBeAfter2017=This date must be after 31st March 2017
 error.date.mustBeAfterOther=The end date must be after the start date
+declareCapacity.details.ownerOrOccupier=I’m the owner or occupier for only part of this property
+declareCapacity.details.ownerOrOccupier.text=If you’re the owner or occupier for only part of the property, you shouldn’t add this property to your customer record. Instead, you should <a href="{0}">contact us</a> to request a split for the property.
+declareCapacity.details.notOwner=I’m not the owner but I let the property to someone else, as a sublet
+declareCapacity.details.notOwner.text=<p>If you’re not the owner of the property but you let all or part of the property to another person or business as a sublet, you should select ‘owner’ and enter the dates of the sublet period.</p><p>If you let only a part of the property to another person or business, you shouldn’t add this property to your customer record. Instead, you should <a href="{0}">contact us</a> to request a split to the property.</p>
+declareCapacity.details.agent=I’m an agent acting on behalf of the owner or occupier for this property
+declareCapacity.details.agent.text=Only an owner or occupier can add a property. You can’t add a property on behalf of your client.
+declareCapacity.details.haveOwned=I have owned or occupied the property on more than one occasion
+declareCapacity.details.haveOwned.text=If you have owned or occupied the property on more than one occasion, you should enter the date that you moved in (and if relevant the date that you moved out) for the period of time that you want to check or challenge the rateable value.
 
 #SELF CERTIFICATION
 selfCertification.linkSubmitted.title=Request received
