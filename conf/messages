@@ -108,9 +108,8 @@ authenticationWizard.beforeYouRegister.important=Please make sure you have these
 
 
 #POST REGISTRATION PAGE
-ggRegistration.title=You’ve successfully registered your business with Government Gateway
-ggRegistration.p.1=Before you can use the VOA’s service, we need to add you, as an individual, to your business’s customer record.
-ggRegistration.p.2=We’ll ask you to verify your identity and confirm that you have the right to act on behalf of your business.
+ggRegistration.title=You’ve created a Government Gateway account for your business
+ggRegistration.p.1=We’ll ask you to verify your identity and confirm that you have the right to act on behalf of your business.
 
 #BETA LOGIN
 betaLogin.title=Private beta login
@@ -586,3 +585,13 @@ footer.link.cookies=Cookies
 footer.link.termsAndConditions=Terms and conditions
 footer.link.privacy=Privacy policy
 footer.link.voa=Valuation Office Agency
+
+
+##CONTACT US
+contactUs.heading1=We’re unable to continue with this request.
+contactUs.heading2=Please contact us
+contactUs.email=Email
+contactUs.emailaddress=<a href="mailto:{0}">ccaservice@voa.gsi.gov.uk</a>
+contactUs.telephone=Telephone
+contactUs.telephone.number=03000 501 501
+contactUs.telephone.openhours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.

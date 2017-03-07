@@ -3,6 +3,8 @@ GET         /                                                       controllers.
 
 GET         /start                                                  controllers.Application.start()
 
+GET         /contact-us                                              controllers.Application.contactUs()
+
 GET         /betalogin                                              controllers.BetaLoginController.show
 POST        /betalogin                                              controllers.BetaLoginController.login
 

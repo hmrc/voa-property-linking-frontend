@@ -45,4 +45,8 @@ object Application extends Controller {
     Redirect(routes.Application.start()).withNewSession
   }
 
+  def contactUs() = Action { implicit request =>
+    Ok(views.html.contactUs())
+  }
+
 }
