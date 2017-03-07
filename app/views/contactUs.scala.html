@@ -1,0 +1,35 @@
+@()(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+    title = Messages("contactUs.heading1"),
+    topNavigation = false
+) {
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <div class="transaction-banner--complete">
+                <h1 class="transaction-banner__heading">@Messages("contactUs.heading1")</h1>
+            </div>
+
+            <h2 class="heading-medium">@Messages("contactUs.heading2")</h2>
+
+            <p>@Messages("contactUs.email")
+                <br />
+                @Html(Messages("contactUs.emailaddress", "ccaservice@voa.gsi.gov.uk"))
+            </p>
+
+            <p>@Messages("contactUs.telephone")
+                    <br />
+                    <strong>@Messages("contactUs.telephone.number")</strong>
+            </p>
+
+            <p>@Messages("contactUs.telephone.openhours")</p>
+
+
+        </div>
+
+</div>
+
+}

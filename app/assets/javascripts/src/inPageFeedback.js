@@ -27,15 +27,14 @@
 
             $('.report-error__content').prepend('<div class="form-help-content">'+
             '<div class="panel panel-border-wide">'+
-            '<p>If you\'d like to speak to somebody about this service, please contact the Valuation Office Agency helpdesk.</p>'+
-            '<p>Telephone (England)'+
+            '<p>If you’d like to speak to somebody about this service, please contact us.</p>'+
+            '<p>Email'+
                 '<br>'+
-                '<strong>03000 501501</strong>'+
+                '<a href="matilto:ccaservice@voa.gsi.gov.uk">ccaservice@voa.gsi.gov.uk</a>'+
             '</p>'+
-            '<p>'+
-                'Telephone (Wales)'+
+            '<p>Telephone'+
                 '<br>'+
-                '<strong>03000 505505</strong>'+
+                '<strong>03000 501 501</strong>'+
             '</p>'+
             '<p>Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.</p>'+
             '</div>'+
