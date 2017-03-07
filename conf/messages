@@ -429,6 +429,7 @@ label.hasRatesBill=Please upload a copy of the business rates bill for this prop
 hasRatesBill.true=I have a business rates bill
 hasRatesBill.false=I don’t have a business rates bill
 label.ratesBill=Please upload a copy of the rates bill
+label.ratesBill.help=This business rates bill should be the most recent bill that you have for the property, for the period that you were the owner or occupier.
 ratesBill.label.1=PDF, scanned images, and photographs are allowed. Your file must be less than 10MB in size.
 uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 
