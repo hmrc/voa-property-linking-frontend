@@ -22,8 +22,10 @@ import form.EnumMapping
 import models._
 import org.joda.time.DateTime
 import play.api.data.Forms._
-import play.api.data.{Form, FormError}
+import play.api.data.validation.Constraint
+import play.api.data.{Form, FormError, Mapping}
 import play.api.mvc.Request
+import uk.gov.voa.play.form.ConditionalMapping
 
 import scala.concurrent.Future
 
@@ -90,8 +92,7 @@ trait AppointAgentController extends PropertyLinkingController {
                 case "INVALID_CODE" => invalidAgentCode
                 case "DUPLICATE_PARTY" => alreadyAppointedAgent
               }
-              val permissionError = if (agentHasNoPermissions(agent)) Some(invalidPermissions) else None
-              val errors: List[FormError] = List(codeError, permissionError).flatten
+              val errors: List[FormError] = List(codeError).flatten
               if (errors.nonEmpty) {
                 val form = appointAgentForm.fill(agent)
                 val formWithErrors = errors.foldLeft(form) { (f, error) => f.withError(error) }
@@ -115,9 +116,6 @@ trait AppointAgentController extends PropertyLinkingController {
     }
   }
 
-  private def agentHasNoPermissions(a: AppointAgent) = a.canCheck == NotPermitted && a.canChallenge == NotPermitted
-
-  private lazy val invalidPermissions = FormError("canCheck", "error.invalidPermissions")
   private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
   private lazy val alreadyAppointedAgent = FormError("agentCode", "error.alreadyAppointedAgent")
 
@@ -150,8 +148,8 @@ trait AppointAgentController extends PropertyLinkingController {
 
   lazy val appointAgentForm = Form(mapping(
     "agentCode" -> longNumber,
-    "canCheck" -> EnumMapping(AgentPermission),
-    "canChallenge" -> EnumMapping(AgentPermission)
+    "canCheck" -> AgentPermissionMapping("canChallenge"),
+    "canChallenge" -> AgentPermissionMapping("canCheck")
   )(AppointAgent.apply)(AppointAgent.unapply))
 }
 
@@ -164,3 +162,24 @@ case class AppointAgentVM(form: Form[_], linkId: Long)
 case class ModifyAgentVM(form: Form[_], representationId: Long)
 
 case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Long)
+
+case class AgentPermissionMapping(other: String, key: String = "", constraints: Seq[Constraint[AgentPermission]] = Nil) extends Mapping[AgentPermission] {
+  override val mappings = Seq(this)
+  private val wrapped = EnumMapping(AgentPermission)
+
+  override def bind(data: Map[String, String]) = {
+    (wrapped.withPrefix(key).bind(data), wrapped.withPrefix(other).bind(data)) match {
+      case (e@Left(err), _) => e
+      case (Right(p1), Right(p2)) if p1 == NotPermitted && p2 == NotPermitted => Left(Seq(FormError(key, "error.invalidPermissions")))
+      case (r@Right(_), _) => r
+    }
+  }
+
+  override def unbind(value: AgentPermission) = wrapped.unbind(value)
+
+  override def unbindAndValidate(value: AgentPermission) = wrapped.unbindAndValidate(value)
+
+  override def withPrefix(prefix: String) = copy(key = prefix + key)
+
+  override def verifying(cs: Constraint[AgentPermission]*) = copy(constraints = constraints ++ cs.toSeq)
+}
