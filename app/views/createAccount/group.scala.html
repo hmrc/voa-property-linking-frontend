@@ -22,6 +22,9 @@
 
                     <p>@Messages("createAccount.p1")</p>
 
+                    <h3 class="heading-small">Small business definition is:</h3>
+                    <p>If the business employs fewer than 10 people and has a turnover or balance sheet total of less than £2 million in the financial year, it’s a small business. If a business previously met these conditions but no longer does, it’s still recognised as a small business unless it fails to meet the conditions in 2 consecutive years.</p>
+
 
                     <details>
                         <summary><span class="summary">@Messages("createAccount.group.details.header.agent")</span></summary>
@@ -54,7 +57,7 @@
                         </details>
 
                         <br />
-                        
+
                         @inputText(
                             field = model.form(keys.email),
                             '_label -> Messages(s"label.createAccount.${keys.email}"),
@@ -106,7 +109,7 @@
                             )
                         )
 
-                        <p class="panel-indent">@Messages("isAgent.details")</p>
+                        <p class="panel panel-border-wide">@Messages("isAgent.details")</p>
 
                         <p>
                         <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
