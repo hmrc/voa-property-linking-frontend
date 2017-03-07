@@ -153,7 +153,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
 
     page.mustContainSuccessSummary(s"We’ve received your request to add ${
-      TestUploadRatesBill.property.address} to your business’s customer record." +
+      TestUploadRatesBill.property.address} to your business’s customer record" +
       s" Your submission ID is ${TestUploadRatesBill.submissionId}")
   }
 
@@ -162,6 +162,6 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
     val res = TestUploadRatesBill.fileUploaded()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainLink("#backToDashBoard", routes.Dashboard.home.url)
+    page.mustContainLink("#backToDashBoard", routes.Dashboard.manageProperties.url)
   }
 }

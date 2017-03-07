@@ -424,19 +424,18 @@ uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 
 #LINK REQUEST CONFIRMATION
 linkingRequestSubmitted.title1=We’ve received your request to add
-linkingRequestSubmitted.title2=to your business’s customer record.
+linkingRequestSubmitted.title2=to your business’s customer record
 linkingRequestSubmitted.title3=Your submission ID is
 linkingRequestSubmitted.message=Thank you for your request to add [address] to your customer record.
-linkingRequestSubmitted.p.1=The property will appear in your dashboard pending VOA approval.
-linkingRequestSubmitted.p.2=If approval is given, the status will change from ‘pending’ to ‘added’.  This may take some time, depending on the nature of your application.
-linkingRequestSubmitted.afterApproval=If the property request has been approved, you’ll be able to:
-linkingRequestSubmitted.afterApproval.1=view full property details
-linkingRequestSubmitted.afterApproval.2=complete a check of the valuation details (you’ll need to do this before you can suggest changes).
+linkingRequestSubmitted.p.1=If the property request is approved you’ll be able to view the detailed valuation. This may take some time depending on the nature of your application.
+
+
 linkingRequestSubmitted.link=Manage your properties
 linkingRequestSubmitted.changedCircumstances.heading=Change in circumstances
 linkingRequestSubmitted.changedCircumstances.p.1=If you’re claiming a property to tell us about any external circumstances that are currently impacting on your business (such as long-term disruptive roadworks, flooding, or other external factors) you’ll be able to tell us even while your request is ‘Pending’.
 link.addAnotherProperty=Add another property
 link.addAgent=Add an agent
+link.manageProperties=Manage properties
 
 #UPLOAD EVIDENCE
 uploadEvidence.show.title=Upload other evidence

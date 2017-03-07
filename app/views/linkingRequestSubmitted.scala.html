@@ -17,16 +17,11 @@
                 <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
 
                 <p>@Messages("linkingRequestSubmitted.p.1")</p>
-                <p>@Messages("linkingRequestSubmitted.p.2")</p>
-
-                <p>@Messages("linkingRequestSubmitted.afterApproval")</p>
-                <ul class="list list-bullet">
-                    <li>@Messages("linkingRequestSubmitted.afterApproval.1")</li>
-                    <li>@Messages("linkingRequestSubmitted.afterApproval.2")</li>
-                </ul>
 
                 <p><a href="@routes.ClaimProperty.show" class="link">@Messages("link.addAnotherProperty")</a></p>
-                <p><a href="@routes.Dashboard.home" id="backToDashBoard" class="button" role="button">@Messages("link.dashboard")</a></p>
+
+                <p><a href="@routes.Dashboard.manageProperties()" id="backToDashBoard" class="button" role="button">@Messages("link.manageProperties")</a></p>
+
             </div>
         </div>
 
