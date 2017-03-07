@@ -32,9 +32,7 @@ label.login=Login
 label.register=Register
 
 #WIZARD
-label.wizard.businessHasRegistered=Has your business already been registered by someone else?
-
-help.wizard.businessHasRegistered=If someone else in the business has already registered, you’ll still need to register with your personal details.
+label.wizard.businessHasRegistered=Is your business already registered for this service?
 businessHasRegistered.true=Yes
 businessHasRegistered.false=No
 label.wizard.givenGGDetails=Have you been given Government Gateway login details to use, by someone else in your business?
