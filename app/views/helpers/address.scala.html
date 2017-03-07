@@ -1,6 +1,6 @@
 @import helpers._
 
-@(form: Form[_], fieldName: String)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], fieldName: String, helpText: String = "addressLookup.lookup.example")(implicit request: Request[_], messages: Messages)
 
 @addressForm = {
     <div class="address--fields" style="display: none">
@@ -62,7 +62,7 @@
         '_label -> Messages("label.address.postcode"),
         '_labelClass -> "form-label-bold",
         'class -> "form-control form-control-1-4",
-        '_help -> Messages("addressLookup.lookup.example")
+        '_help -> Messages(helpText)
 
     )
 

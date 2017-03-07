@@ -18,8 +18,6 @@
 
                 @form(routes.CreateIndividualAccount.submit) {
 
-                    <h2 class="heading-large">@Messages("createAccount.individual.heading.details")</h2>
-
                     @inputText(
                         field = model.form(keys.firstName),
                         '_label -> Messages(s"label.createAccount.${keys.firstName}"),
@@ -41,7 +39,8 @@
                         '_label -> Messages(s"label.createAccount.${keys.email}"),
                         '_labelClass -> "form-label-bold",
                         '_showConstraints -> false,
-                        'class -> "form-control"
+                        'class -> "form-control",
+                        '_help -> Messages("label.createAccount.email.help")
                     )
 
                     @inputText(
@@ -57,7 +56,8 @@
                         '_label -> Messages(s"label.createAccount.${keys.phone1}"),
                         '_labelClass -> "form-label-bold",
                         '_showConstraints -> false,
-                        'class -> "form-control"
+                        'class -> "form-control",
+                        '_help -> Messages("label.createAccount.phone1.help")
                     )
 
                     @inputText(
@@ -66,7 +66,8 @@
                         '_labelClass -> "form-label-bold",
                         '_showConstraints -> false,
                         'class -> "form-control",
-                        '_optional -> true
+                        '_optional -> true,
+                        '_help -> Messages("label.createAccount.phone2.help")
                     )
 
                     <h2 class="heading-large">@Messages("createAccount.individual.verify.heading")</h2>
@@ -83,7 +84,7 @@
                         '_help -> Messages("hint.nino")
                     )
 
-                    @address(model.form, "address")
+                    @address(model.form, "address", helpText = "label.createAccount.postcode.help")
 
 
                     <p>

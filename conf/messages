@@ -121,11 +121,13 @@ lockedOut.title=Locked out
 lockedOut.p.1=You have entered the wrong password too many times. You are now locked out for 24 hours. Please call 03000 501 501 for help.
 
 #CREATE INDIVIDUAL ACCOUNT
-createAccount.individual.title=Register for the VOA’s service
+createAccount.individual.title=Your contact details
 createAccount.individual.p.1=You now need to verify your identity and confirm that you have the right to act for the business. You should provide your personal contact details.
 createAccount.individual.heading.details=Your contact details
 label.createAccount.email=Email address
+label.createAccount.email.help=This should be your own work email address, which should be monitored.
 label.createAccount.phone1=Telephone number
+label.createAccount.phone1.help=This should be your own work telephone number.
 createAccount.individual.verify.heading=Your identification details
 createAccount.individual.verify.p.1=Please verify your identity for security and data protection purposes.
 label.createAccount.fname=First name
@@ -137,10 +139,12 @@ error.nino.invalid=Invalid National Insurance number
 dateOfBirth.label=Date of birth
 label.createAccount.confirmedEmail=Confirm email address
 label.createAccount.phone2=Mobile number
+label.createAccount.phone2.help=This should be your own work mobile number
 hint.dateOfBirth=For example, 20 3 1976
-hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.
+hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C.
 error.emailsMustMatch=Email addresses must match
 createAccount.p1=You’ll need to provide information about your business in order to complete the registration process.
+label.createAccount.postcode.help=This should be your home address. For example, SW1A 1AA.
 
 #IDENTITY VERIFICATION
 startIv.title=Provide further identification
