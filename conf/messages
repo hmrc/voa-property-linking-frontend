@@ -157,7 +157,6 @@ failedIv.telephone.england=Telephone (England)
 failedIv.telephone.wales=Telephone (Wales)
 failedIv.telephone.openingHours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
 iv.success.title=Identity verification successful
-iv.success.heading=Success
 iv.success.confirmation=We’ve verified your identity
 heading.whatNext=What happens next
 iv.success.p.1=You’ll need to provide information about your business in order to complete the registration process.
@@ -189,10 +188,10 @@ addressLookup.lookup.example=For example, SW1A 1AA
 
 #ACCOUNT CREATED
 account.confirmation.title=You’ve successfully registered your business.
-account.confirmation.heading=You’ve successfully registered for the VOA’s service.
-account.confirmation.heading.2=You’ve been added to your business’s customer record.
-account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a href="{0}" rel="external">add them to your Government Gateway account as an administrator or an assistant</a>.
-account.confirmation.youCan=You can now go to the dashboard and add properties to the business’s customer record.
+account.confirmation.heading=You’ve successfully registered for this service.
+account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a href="{0}" rel="external">add them to your Government Gateway account</a> as an administrator or an assistant.
+account.confirmation.youCan=You can now manage your properties
+link.manageProperties=Manage your properties
 link.dashboard=Go to the dashboard
 createAccount.group.details.header.agent=I’m registering as an agent
 createAccount.group.details.content.agent=You’ll need to provide information about your own business here, not your client’s business.
@@ -235,7 +234,7 @@ manageProperties.table.5=Actions
 dashboard.manageProperties.status.added=Approved
 dashboard.manageProperties.status.pending=Pending
 dashboard.manageProperties.noAgent=None
-dashboard.managedProperties.addAnotherProperty=Add another property
+dashboard.managedProperties.addAnotherProperty=Add property
 manageProperties.addAgent=Appoint agent
 manageProperties.viewAssessments=View assessments
 link.dashboard.home=Back to dashboard

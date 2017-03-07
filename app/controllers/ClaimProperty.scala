@@ -41,7 +41,7 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
 
   def show() = ggAction { _ =>
     implicit request =>
-      if (ApplicationConfig.readyForPrimeTime) {
+      if (ApplicationConfig.propertyLinkingEnabled) {
         Redirect(s"${ApplicationConfig.vmvUrl}/cca/search")
       } else {
         NotFound(Global.notFoundTemplate)
@@ -49,7 +49,7 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
   }
 
   def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
-    if (ApplicationConfig.readyForPrimeTime) {
+    if (ApplicationConfig.propertyLinkingEnabled) {
       fileUploadConnector.createEnvelope().flatMap(envelopeId => {
         for {
           submissionId <- submissionIdConnector.get()
