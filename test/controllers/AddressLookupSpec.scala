@@ -34,9 +34,9 @@ class AddressLookupSpec extends ControllerSpec {
     status(res) mustBe OK
   }
 
-  it must "return 400 for badly formatted postcode" in {
+  it must "return OK even if postcode has no space" in {
     val res = TestAddressLookupController.findByPostcode("AB11BA")(request)
-    status(res) mustBe BAD_REQUEST
+    status(res) mustBe OK
   }
 
   it must "return 404 for postcode with no result" in {
