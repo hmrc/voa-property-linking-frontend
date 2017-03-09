@@ -1,25 +1,25 @@
-
 @(title: String,
-  sidebarLinks: Option[Html] = None,
-  contentHeaderText: Option[String] = None,
-  contentHeader: Option[Html] = None,
-  bodyClasses: Option[String] = None,
-  mainClass: Option[String] = None,
-  headExtra: Html = Html(""),
-  scriptElem: Option[Html] = None,
-  showLogout: Boolean = true,
-  topNavigation: Boolean = true,
-  topBackLink: Boolean = false,
-  bottomBackLink: Boolean = false,
-  individualId: Option[Int] = None)(mainContent: Html)(implicit request : RequestHeader, messages: Messages)
+        sidebarLinks: Option[Html] = None,
+        contentHeaderText: Option[String] = None,
+        contentHeader: Option[Html] = None,
+        bodyClasses: Option[String] = None,
+        mainClass: Option[String] = None,
+        headExtra: Html = Html(""),
+        scriptElem: Option[Html] = None,
+        showLogout: Boolean = true,
+        topNavigation: Boolean = true,
+        topBackLink: Boolean = false,
+        bottomBackLink: Boolean = false,
+        backLinkUrl: Option[String] = None,
+        individualId: Option[Int] = None)(mainContent: Html)(implicit request: RequestHeader, messages: Messages)
 
 @import uk.gov.hmrc.play.views.html.layouts
 
-@headScripts ={
-    @views.html.includes.stylesheets()
+@headScripts = {
+@views.html.includes.stylesheets()
 }
 @scriptElem = {
-    @views.html.includes.javascripts()
+@views.html.includes.javascripts()
 }
 
 
@@ -28,9 +28,9 @@
 }
 
 @sidebar = {
-    @if(sidebarLinks.isDefined) {
-        @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
-    }
+@if(sidebarLinks.isDefined) {
+    @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
+}
 }
 
 @contentHeaderTextAsHtml = @{
@@ -40,23 +40,22 @@
 }
 
 @govuk_wrapper(title = title,
-               mainClass = mainClass,
-               bodyClasses = bodyClasses,
-               sidebar = sidebar,
-               headScripts = headScripts,
-               contentHeader = contentHeader.orElse(contentHeaderTextAsHtml),
-               mainContent = views.html.article(
-                   content = mainContent,
-                   showLogout = showLogout,
-                   topNavigation = topNavigation,
-                   topBackLink = topBackLink,
-                   bottomBackLink = bottomBackLink
-               ),
-               serviceInfoContent = serviceInfoContent,
-               scriptElem = Some(scriptElem),
-               showLogout = showLogout,
-               topNavigation = topNavigation,
-               topBackLink = topBackLink,
-               bottomBackLink = bottomBackLink,
-               individualId = individualId
+    mainClass = mainClass,
+    bodyClasses = bodyClasses,
+    sidebar = sidebar,
+    headScripts = headScripts,
+    contentHeader = contentHeader.orElse(contentHeaderTextAsHtml),
+    mainContent = views.html.article(
+        content = mainContent,
+        showLogout = showLogout,
+        topNavigation = topNavigation,
+        topBackLink = topBackLink,
+        bottomBackLink = bottomBackLink,
+        backLinkUrl = backLinkUrl
+    ),
+    serviceInfoContent = serviceInfoContent,
+    scriptElem = Some(scriptElem),
+    showLogout = showLogout,
+    topNavigation = topNavigation,
+    individualId = individualId
 )
