@@ -25,7 +25,6 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraint
 import play.api.data.{Form, FormError, Mapping}
 import play.api.mvc.Request
-import uk.gov.voa.play.form.ConditionalMapping
 
 import scala.concurrent.Future
 
@@ -76,7 +75,7 @@ trait AppointAgentController extends PropertyLinkingController {
     }
   }
 
-  def appointSubmit(authorisationId: Long) = authenticated.withAccounts { implicit request =>
+  def appointSubmit(authorisationId: Long) = authenticated { implicit request =>
     if (ApplicationConfig.readyForPrimeTime) {
       appointAgentForm.bindFromRequest().fold(errors => {
         BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, authorisationId)))

@@ -127,7 +127,7 @@ class AppointAgentSpec extends ControllerSpec {
     val individual = individualGen.sample.get
     StubGroupAccountConnector.stubAccount(groupAccount)
     StubIndividualAccountConnector.stubAccount(individual)
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(groupAccount.id, individual.individualId)))
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individual)))
     (groupAccount, individual)
   }
 

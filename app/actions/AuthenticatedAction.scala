@@ -37,41 +37,25 @@ class AuthenticatedAction {
 
   def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
     businessRatesAuthentication.authenticate flatMap {
-      case Authenticated(ids) => body(BasicAuthenticatedRequest(ids.organisationId, ids.personId, request))
+      case Authenticated(accounts) => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
       case InvalidGGSession => GovernmentGatewayProvider.redirectToLogin
       case NoVOARecord => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
       case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
     }
   }
 
-  def withAccounts(body: DetailedAuthenticatedRequest[AnyContent] => Future[Result])(implicit messages: Messages) = apply { implicit request =>
-    val eventualMaybeGroupAccount = groupAccounts.get(request.organisationId)
-    val eventualMaybeIndividualAccount = individualAccounts.get(request.personId)
-
-    for {
-      group <- eventualMaybeGroupAccount
-      individual <- eventualMaybeIndividualAccount
-      res <- (group, individual) match {
-        case (Some(g), Some(i)) => body(DetailedAuthenticatedRequest(g, i, request))
-        case _ => throw new Exception(s"user with organisationId ${request.organisationId} " +
-          s"and personId ${request.personId} has authenticated but accounts could not be retrieved")
-      }
-    } yield {
-      res
-    }
-  }
-
-  def asAgent(body: AgentRequest[AnyContent] => Future[Result])(implicit messages: Messages) = withAccounts { implicit request =>
-    request.organisationAccount.isAgent match {
-      case true => body(AgentRequest(request.organisationAccount.id, request.individualAccount.individualId, request.organisationAccount.agentCode, request))
-      case false => Future.successful(Unauthorized("Agent account required"))
+  def asAgent(body: AgentRequest[AnyContent] => Future[Result])(implicit messages: Messages) = apply { implicit request =>
+    if (request.organisationAccount.isAgent) {
+      body(AgentRequest(request.organisationAccount, request.individualAccount, request.organisationAccount.agentCode, request))
+    } else {
+      Future.successful(Unauthorized("Agent account required"))
     }
   }
 
   def toViewAssessment(authorisationId: Long, assessmentRef: Long)(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = {
     Action.async { implicit request =>
       businessRatesAuthentication.authorise(authorisationId, assessmentRef) flatMap {
-        case Authenticated(ids) => body(BasicAuthenticatedRequest(ids.organisationId, ids.personId, request))
+        case Authenticated(accounts) => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
         case InvalidGGSession => GovernmentGatewayProvider.redirectToLogin
         case NoVOARecord => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
         case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
@@ -81,18 +65,18 @@ class AuthenticatedAction {
 }
 
 sealed trait AuthenticatedRequest[A] extends Request[A] {
-  val organisationId: Int
-  val personId: Int
+  val organisationAccount: GroupAccount
+  val individualAccount: DetailedIndividualAccount
+
+  def organisationId: Int = organisationAccount.id
+  def personId: Int = individualAccount.individualId
 }
 
-case class BasicAuthenticatedRequest[A](organisationId: Int, personId: Int, request: Request[A])
+case class BasicAuthenticatedRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A])
   extends WrappedRequest[A](request) with AuthenticatedRequest[A]
 
 case class DetailedAuthenticatedRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A])
-  extends WrappedRequest(request) with AuthenticatedRequest[A] {
-  override val organisationId = organisationAccount.id
-  override val personId = individualAccount.individualId
-}
+  extends WrappedRequest(request) with AuthenticatedRequest[A]
 
-case class AgentRequest[A](organisationId: Int, personId: Int, agentCode: Long, request: Request[A])
+case class AgentRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, agentCode: Long, request: Request[A])
   extends WrappedRequest[A](request) with AuthenticatedRequest[A]
