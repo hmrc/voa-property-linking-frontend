@@ -43,7 +43,7 @@ class WithLinkingSession {
   val ggAction = Wiring().ggAction
   val authenticated = Wiring().authenticated
 
-  def apply(body: LinkingSessionRequest[AnyContent] => Future[Result])(implicit messages: Messages) = authenticated.withAccounts { implicit request =>
+  def apply(body: LinkingSessionRequest[AnyContent] => Future[Result])(implicit messages: Messages) = authenticated { implicit request =>
     session.get flatMap {
       case Some(s) => body(LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request))
       case None => Future.successful(Unauthorized("No linking session"))

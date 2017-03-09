@@ -18,8 +18,8 @@ package models
 
 import play.api.libs.json.Json
 
-case class AccountIds(organisationId: Int, personId: Int)
+case class Accounts(organisation: GroupAccount, person: DetailedIndividualAccount)
 
-object AccountIds {
-  implicit val format = Json.format[AccountIds]
+object Accounts {
+  implicit val format = Json.format[Accounts]
 }

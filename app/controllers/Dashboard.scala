@@ -31,7 +31,7 @@ trait Dashboard extends PropertyLinkingController {
   val auth = Wiring().authConnector
   val authenticated = Wiring().authenticated
 
-  def home() = authenticated.withAccounts { implicit request =>
+  def home() = authenticated { implicit request =>
     Ok(views.html.dashboard.home(request.individualAccount.details, request.organisationAccount))
   }
 
