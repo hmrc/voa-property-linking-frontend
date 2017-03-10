@@ -30,7 +30,6 @@ import play.api.mvc.MultipartFormData.FilePart
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Helpers}
 import resources._
-import uk.gov.hmrc.play.http.{HeaderCarrier, HeaderNames}
 import utils._
 
 import scala.concurrent.Future
@@ -38,7 +37,7 @@ import scala.concurrent.Future
 class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   implicit val request = FakeRequest().withSession(token)
 
-  val mockFileUploads = mock[FileUploadConnector]
+  private val mockFileUploads = mock[FileUploadConnector]
   when(mockFileUploads.uploadFile(anyString(), anyString(), anyString(), any())(any())).thenReturn(Future.successful(()))
   when(mockFileUploads.closeEnvelope(anyString())(any())).thenReturn(Future.successful(()))
 
@@ -47,7 +46,6 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
     val person = arbitrary[DetailedIndividualAccount].sample.get
 
     override lazy val propertyLinks = StubPropertyLinkConnector
-    lazy val sessionCache = new VPLSessionCache(StubHttp)
     val submissionId = shortString.sample.get
     val envelopeId = shortString.sample.get
     val personId = Math.abs(arbitrary[Long].sample.get)
@@ -55,7 +53,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
 
     override lazy val withLinkingSession = new StubWithLinkingSession(session,
       person, arbitrary[GroupAccount].sample.get)
-    override lazy val linkingSession = new StubLinkingSessionRepository(session, sessionCache)
+    override lazy val linkingSession = new StubLinkingSessionRepository
   }
 
   "Upload Rates Bill upload page" must "contain a file input" in {
@@ -76,7 +74,6 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
           badParts = Seq.empty
         )
       ).withSession(token)
-      .withHeaders(HeaderNames.xRequestChain -> "something", HeaderNames.xRequestTimestamp -> "12345")
 
     val res = TestUploadRatesBill.submit()(req)
 
@@ -85,7 +82,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
 
     verify(mockFileUploads).uploadFile(
       matches(TestUploadRatesBill.envelopeId),
-      matches(s"${TestUploadRatesBill.submissionId}-${TestUploadRatesBill.personId}-$validFilePath"),
+      matches(validFilePath),
       matches(validMimeType),
       any())(any())
   }

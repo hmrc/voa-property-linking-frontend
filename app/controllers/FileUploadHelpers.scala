@@ -52,7 +52,7 @@ trait FileUploadHelpers {
     filePart match {
       case Some(part) if part.ref.file.length > maxFileSize => FileTooLarge
       case Some(FilePart(_, filename, Some(mimetype), TemporaryFile(file))) if ApplicationConfig.allowedMimeTypes.contains(mimetype) =>
-        fileUploader.uploadFile(request.ses.envelopeId, addMetadata(filename), mimetype, file) map { _ => FileAccepted }
+        fileUploader.uploadFile(request.ses.envelopeId, encode(filename), mimetype, file) map { _ => FileAccepted }
       case Some(part) /* wrong mimetype */ => InvalidFileType
       case None => FileMissing
     }
@@ -66,8 +66,8 @@ trait FileUploadHelpers {
     )
   }
 
-  private def addMetadata(fileName: String)(implicit request: LinkingSessionRequest[AnyContent]) = {
-    URLEncoder.encode(s"${request.ses.submissionId}-${request.ses.personId}-$fileName", "UTF-8")
+  private def encode(fileName: String)(implicit request: LinkingSessionRequest[AnyContent]) = {
+    URLEncoder.encode(fileName, "UTF-8")
   }
 }
 

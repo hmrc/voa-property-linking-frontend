@@ -19,46 +19,38 @@ package controllers
 import javax.inject.Inject
 
 import config.{ApplicationConfig, Global, Wiring}
+import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
 import connectors.{CapacityDeclaration, EnvelopeConnector}
-import connectors.fileUpload.FileUploadConnector
+import form.Mappings._
 import form.{DateAfter, EnumMapping}
-import form.Mappings.{dmyDate, dmyPastDate}
 import models._
-import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.Result
 import uk.gov.hmrc.play.config.ServicesConfig
-import form.Mappings._
 import uk.gov.voa.play.form.ConditionalMappings._
 
-class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
-                              val envelopeConnector: EnvelopeConnector) extends PropertyLinkingController with ServicesConfig {
+class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector) extends PropertyLinkingController with ServicesConfig {
   lazy val sessionRepository = Wiring().sessionRepository
-  lazy val ggAction = Wiring().ggAction
   lazy val authenticated = Wiring().authenticated
   lazy val submissionIdConnector = Wiring().submissionIdConnector
 
-  def show() = ggAction { _ =>
-    implicit request =>
-      if (ApplicationConfig.propertyLinkingEnabled) {
-        Redirect(s"${ApplicationConfig.vmvUrl}/cca/search")
-      } else {
-        NotFound(Global.notFoundTemplate)
-      }
+  def show() = authenticated { implicit request =>
+    if (ApplicationConfig.propertyLinkingEnabled) {
+      Redirect(s"${ApplicationConfig.vmvUrl}/cca/search")
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
   }
 
   def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
     if (ApplicationConfig.propertyLinkingEnabled) {
-      fileUploadConnector.createEnvelope().flatMap(envelopeId => {
-        for {
-          submissionId <- submissionIdConnector.get()
-          _ <- sessionRepository.start(address, uarn, envelopeId, submissionId, request.personId)
-        } yield {
-          Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, address)))
-        }
+      for {
+        submissionId <- submissionIdConnector.get()
+        envelopeId <- fileUploadConnector.createEnvelope(EnvelopeMetadata(submissionId, request.personId))
+        _ <- sessionRepository.start(address, uarn, envelopeId, submissionId, request.personId)
+      } yield {
+        Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, address)))
       }
-      )
     } else {
       NotFound(Global.notFoundTemplate)
     }

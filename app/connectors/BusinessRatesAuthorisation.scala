@@ -28,13 +28,17 @@ class BusinessRatesAuthorisation(http: HttpGet) extends ServicesConfig {
   val url = baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 
   def authenticate(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
-    http.GET[Accounts](s"$url/authenticate") map { Authenticated } recover {
+    http.GET[Accounts](s"$url/authenticate") map {
+      Authenticated
+    } recover {
       case AuthorisationFailed(err) => handleUnauthenticated(err)
     }
   }
 
   def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
-    http.GET[Accounts](s"$url/property-link/$authorisationId/assessment/$assessmentRef") map { Authenticated } recover {
+    http.GET[Accounts](s"$url/property-link/$authorisationId/assessment/$assessmentRef") map {
+      Authenticated
+    } recover {
       case AuthorisationFailed(err) => handleUnauthenticated(err)
     }
   }
@@ -49,7 +53,7 @@ class BusinessRatesAuthorisation(http: HttpGet) extends ServicesConfig {
 
 sealed trait AuthorisationResult
 
-case class Authenticated(ids: Accounts) extends AuthorisationResult
+case class Authenticated(accounts: Accounts) extends AuthorisationResult
 
 case object InvalidGGSession extends AuthorisationResult
 

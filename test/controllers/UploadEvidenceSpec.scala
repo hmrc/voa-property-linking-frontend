@@ -26,7 +26,7 @@ import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.mvc.MultipartFormData
 import play.api.mvc.MultipartFormData.FilePart
-import play.api.test.Helpers.{contentAsString, _}
+import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Helpers}
 import resources._
 import _root_.session.LinkingSession
@@ -78,7 +78,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
     verify(mockFileUploads).uploadFile(
       matches(TestUploadEvidence.envelopeId),
-      matches(s"${TestUploadEvidence.submissionId}-${TestUploadEvidence.personId}-$validFilePath"),
+      matches(validFilePath),
       matches(validMimeType),
       any())(any()
     )
