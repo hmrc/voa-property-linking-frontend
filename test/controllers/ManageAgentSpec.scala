@@ -39,10 +39,10 @@ class ManageAgentSpec extends ControllerSpec {
 
   "Manage Agents page" must "return Ok" in {
     val link = arbitrary[PropertyLink].sample.get
-    val organisationId = arbitrary[Int].sample.get
-    val personId = arbitrary[Int].sample.get
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
 
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestDashboardController.manageAgents()(FakeRequest())

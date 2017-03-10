@@ -43,11 +43,11 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
   }
 
   "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment" in {
-    val organisationId = arbitrary[Int].sample.get
-    val personId = arbitrary[Int].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisationId)
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id)
 
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAssessmentController.assessments(link.authorisationId, link.pending)(FakeRequest())
@@ -70,12 +70,12 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
   }
 
   it must "show a link to the detailed valuation for each assessment if the property link is approved" in {
-    val organisationId = arbitrary[Int].sample.get
-    val personId = arbitrary[Int].sample.get
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
     val assessment = arbitrary[Assessment].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisationId, pending = false, assessment = Seq(assessment))
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, pending = false, assessment = Seq(assessment))
 
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAssessmentController.assessments(link.authorisationId, link.pending)(FakeRequest())
@@ -88,11 +88,11 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
   }
 
   it must "show a link to the summary valuation for each assessment if the property link is pending" in {
-    val organisationId = arbitrary[Int].sample.get
-    val personId = arbitrary[Int].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisationId, pending = true)
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, pending = true)
 
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAssessmentController.assessments(link.authorisationId, link.pending)(FakeRequest())
@@ -105,11 +105,11 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
   }
 
   "Viewing a detailed valuation" must "redirect to business rates valuation if the property is bulk" in {
-    val organisationId = arbitrary[Int].sample.get
-    val personId = arbitrary[Int].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisationId, pending = true)
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, pending = true)
 
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
     StubBusinessRatesValuation.stubValuation(link.assessment.head.assessmentRef, true)
 
@@ -120,11 +120,11 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
   }
 
   it must "redirect to the request detailed valuation page if the property is non-bulk" in {
-    val organisationId = arbitrary[Int].sample.get
-    val personId = arbitrary[Int].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisationId, pending = true)
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, pending = true)
 
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(organisationId, personId)))
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
     StubBusinessRatesValuation.stubValuation(link.assessment.head.assessmentRef, false)
 

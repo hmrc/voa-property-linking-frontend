@@ -5,7 +5,7 @@
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
 *
-*   http://www.apache.org/licenses/LICENSE-2.0
+* http://www.apache.org/licenses/LICENSE-2.0
 *
 * Unless required by applicable law or agreed to in writing, software
 * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,38 +13,42 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *@
-
-
-
 @(content: Html,
-  includeGridWrapper: Boolean = false,
-  articleClasses: Option[String] = None,
-  showLogout: Boolean = true,
-  topNavigation: Boolean = true,
-  topBackLink: Boolean = false,
-  bottomBackLink: Boolean = false)(implicit requestHeader: RequestHeader, messages: Messages)
+        includeGridWrapper: Boolean = false,
+        articleClasses: Option[String] = None,
+        showLogout: Boolean = true,
+        topNavigation: Boolean = true,
+        topBackLink: Boolean = false,
+        bottomBackLink: Boolean = false,
+        backLinkUrl: Option[String] = None
+)(implicit requestHeader: RequestHeader, messages: Messages)
 
-<article class="content_body@if( includeGridWrapper ){ grid-wrapper}@if(articleClasses.isDefined){ @articleClasses.get }">
+<article class="content_body@if(includeGridWrapper) { grid-wrapper} @if(articleClasses.isDefined) {
+    @articleClasses.get
+}">
 
-    @if(topBackLink){
-        <a href=@requestHeader.headers.get("referer").getOrElse("routes.Dashboard.home()") id="backLinkTop" class="link-back" onClick="history.go(-1); return false;">@Messages("link.back")</a>
+    @backLink = {
+        <a href=@backLinkUrl.orElse(requestHeader.headers.get("referer")).getOrElse(routes.Dashboard.home()) id="backLinkTop" class="link-back">@Messages("link.back")</a>
     }
 
-    @if(topNavigation){
+    @if(topBackLink) {
+        @backLink
+    }
+
+    @if(topNavigation) {
         <ul class="navigation-links pull-right">
-            @if(showLogout){
-                <li><a href="@routes.Dashboard.home()">@Messages("link.dashboardhome")</a></li>
-                <li><a href="@routes.Application.logOut">@Messages("logout.link")</a></li>
-            }else{
-                <li><a href="@routes.Login.show">@Messages("label.login")</a></li>
-            }
+        @if(showLogout) {
+            <li><a href="@routes.Dashboard.home()">@Messages("link.dashboardhome")</a></li>
+            <li><a href="@routes.Application.logOut">@Messages("logout.link")</a></li>
+        } else {
+            <li><a href="@routes.Login.show">@Messages("label.login")</a></li>
+        }
         </ul>
     }
 
-
     @content
 
-    @if(bottomBackLink){
-        <p><a href=@requestHeader.headers.get("referer").getOrElse("routes.Dashboard.home()") id="backLinkBottom" class="link-back" onClick="history.go(-1); return false;">@Messages("link.back")</a></p>
+    @if(bottomBackLink) {
+        @backLink
     }
 </article>

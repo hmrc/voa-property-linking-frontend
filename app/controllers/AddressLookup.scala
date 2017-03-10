@@ -26,17 +26,13 @@ trait AddressLookup extends PropertyLinkingController {
   val addresses = Wiring().addresses
 
   def findByPostcode(postcode: String) = Action.async { implicit request =>
-    if (postcode.trim.contains(" ")) {
-      addresses.findByPostcode(postcode) map { res =>
+      addresses.findByPostcode(postcode.trim) map { res =>
         if (res.isEmpty) {
           NotFound
         } else {
           Ok(Json.toJson(res))
         }
       }
-    } else {
-      BadRequest(Messages("error.postcode.nospace"))
-    }
   }
 }
 

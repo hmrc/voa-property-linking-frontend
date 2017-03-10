@@ -1,5 +1,5 @@
 @import config.ApplicationConfig._
-@import models.AccountIds._
+@import models.Accounts._
 
 @(title: String,
   mainClass: Option[String] = None,
@@ -13,8 +13,6 @@
   scriptElem: Option[Html] = None,
   showLogout: Boolean = true,
   topNavigation: Boolean = true,
-  topBackLink: Boolean = false,
-  bottomBackLink: Boolean = false,
   individualId: Option[Int] = None)(implicit request: RequestHeader, messages: Messages)
 
 @import layouts.{govuk_template => hmrcGovUkTemplate}

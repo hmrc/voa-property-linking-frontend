@@ -65,7 +65,7 @@ class DashboardSpec extends ControllerSpec {
     StubAuthConnector.stubGroupId("has-group-account")
     StubIndividualAccountConnector.stubAccount(person)
     StubGroupAccountConnector.stubAccount(group)
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(group.id, person.individualId)))
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
 
     val res = TestDashboard.home()(request)
     status(res) mustBe OK
@@ -82,7 +82,7 @@ class DashboardSpec extends ControllerSpec {
     StubAuthConnector.stubGroupId("has-agent-account")
     StubIndividualAccountConnector.stubAccount(person)
     StubGroupAccountConnector.stubAccount(group)
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(group.id, person.individualId)))
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
 
     val res = TestDashboard.home()(request)
     status(res) mustBe OK

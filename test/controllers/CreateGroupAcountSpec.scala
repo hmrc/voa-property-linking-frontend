@@ -19,7 +19,7 @@ package controllers
 import auth.GGAction
 import connectors.{Authenticated, VPLAuthConnector}
 import controllers.CreateGroupAccount.keys
-import models.{AccountIds, DetailedIndividualAccount, GroupAccount}
+import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -86,7 +86,7 @@ class CreateGroupAcountSpec extends ControllerSpec {
     StubAuthConnector.stubGroupId("has-group-account")
     StubIndividualAccountConnector.stubAccount(person)
     StubGroupAccountConnector.stubAccount(group)
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(group.id, person.individualId)))
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
 
     val res = TestCreateGroupAccount.submit()(request.withSession(token, ("journeyId", "fakeId")).withFormUrlEncodedBody(validData.toList: _*))
     status(res) mustBe CREATED
@@ -103,7 +103,7 @@ class CreateGroupAcountSpec extends ControllerSpec {
     StubAuthConnector.stubGroupId("has-group-account")
     StubIndividualAccountConnector.stubAccount(person)
     StubGroupAccountConnector.stubAccount(group)
-    StubAuthentication.stubAuthenticationResult(Authenticated(AccountIds(group.id, person.individualId)))
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
 
     val res = TestCreateGroupAccount.submit()(request.withSession(token, ("journeyId", "fakeId")))
     status(res) mustBe BAD_REQUEST
