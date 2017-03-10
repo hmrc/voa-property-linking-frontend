@@ -119,14 +119,14 @@ label.createAccount.lname=Last name
 label.createAccount.dob=Date of birth
 label.dob=Date of birth
 label.createAccount.nino.nino=National Insurance number
-error.nino.invalid=Invalid National Insurance number
+error.nino.invalid=Enter a valid National Insurance number
 dateOfBirth.label=Date of birth
 label.createAccount.confirmedEmail=Confirm email address
 label.createAccount.phone2=Mobile number
 label.createAccount.phone2.help=This should be your own work mobile number
 hint.dateOfBirth=For example, 20 3 1976
 hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C.
-error.emailsMustMatch=Email addresses must match
+error.emailsMustMatch=Email addresses must match. Check them and try again
 createAccount.p1=You’ll need to provide information about your business in order to complete the registration process.
 label.createAccount.postcode.help=This should be your home address. For example, SW1A 1AA.
 
@@ -376,7 +376,7 @@ label.toDate=When was your last day as the owner or occupier of the property?
 toDate.day.label=Day
 toDate.month.label=Month
 toDate.year.label=Year
-error.date.mustBeAfter2017=This date must be after 31st March 2017
+error.date.mustBeAfter2017=Must be in the past
 error.date.mustBeAfterOther=The end date must be after the start date
 declareCapacity.details.ownerOrOccupier=I’m the owner or occupier for only part of this property
 declareCapacity.details.ownerOrOccupier.text=If you’re the owner or occupier for only part of the property, you shouldn’t add this property to your customer record. Instead, you should <a href="{0}">contact us</a> to request a split for the property.
@@ -524,10 +524,13 @@ label.day=Day
 label.month=Month
 label.year=Year
 error.max=Must be less than or equal to {0}
-error.invalidDate=This must be a valid date
+error.invalidDate=Enter a valid date
 error.fileUpload.tooLarge=File size must be less than 10MB
 error.fileUpload.invalidFileType=File must be a PDF or JPG
 link.backToDashboard=Go back to your dashboard
+error.required=This must be filled in
+error.email=Enter a valid email address
+error.max=Must be no more than {0}
 
 #MISC
 alt.newWindow=Opens in a new window

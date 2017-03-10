@@ -32,7 +32,7 @@ object Mappings extends DateMappings {
     text.verifying(error, _ == "true").transform[Boolean](_.toBoolean, _.toString)
 
   def mandatoryBoolean: Mapping[Boolean] = optional(boolean).verifying("error.required", _.isDefined).transform(_.get, Some.apply)
-
+  
   def address: Mapping[Address] = mapping(
     "addressId" -> addressId,
     "line1" -> nonEmptyText(maxLength = 100),
