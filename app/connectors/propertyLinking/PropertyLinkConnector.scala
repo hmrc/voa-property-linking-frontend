@@ -48,9 +48,9 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.GET[Seq[PropertyLink]](url)
   }
 
-  def clientProperties(userOrgId: Long, agentOrgId: Int)(implicit hc: HeaderCarrier): Future[Seq[ClientProperties]] = {
+  def clientProperties(userOrgId: Long, agentOrgId: Int)(implicit hc: HeaderCarrier): Future[Seq[ClientProperty]] = {
     val url = baseUrl + s"/property-links/client-properties/$userOrgId/$agentOrgId"
-    http.GET[Seq[ClientProperties]](url)
+    http.GET[Seq[ClientProperty]](url)
   }
 
   def assessments(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Seq[Assessment]] = {

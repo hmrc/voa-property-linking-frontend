@@ -1,0 +1,28 @@
+@(clientProperty: ClientProperty)(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+    title = Messages("propertyRepresentation.revokeClient.title"),
+    topNavigation = true,
+    topBackLink = true,
+    bottomBackLink = true
+) {
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">
+            @Messages("propertyRepresentation.revokeClient.title")
+            </h1>
+
+            <p>@Messages("propertyRepresentation.revokeClient.message", clientProperty.ownerOrganisationName, utils.Formatters.capitalizedAddress(clientProperty.address))</p>
+            <p>
+                <a href="@controllers.agent.routes.RepresentationController.revokeClientConfirmed(clientProperty.ownerOrganisationId, clientProperty.permissionId)">
+                    <button type="submit" class="button">
+                        @Messages("propertyRepresentation.revokeClient.button")
+                    </button>
+                </a>
+            </p>
+
+        </div>
+    </div>
+}

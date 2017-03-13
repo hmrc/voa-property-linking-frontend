@@ -44,6 +44,7 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "play-health" % "2.0.0",
     "uk.gov.hmrc" %% "play-json-logger" % "3.0.0",
     "uk.gov.hmrc" %% "play-ui" % "7.0.0",
+    "org.typelevel" %% "cats-core" % "0.8.1",
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % "0.2.0"
   )
 

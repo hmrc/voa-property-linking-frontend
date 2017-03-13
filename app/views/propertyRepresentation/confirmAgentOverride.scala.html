@@ -24,7 +24,7 @@
                 </li>
             }
             </ul>
-            <p>@Messages("propertyRepresentation.overrideAgent.message.3", model.newAgent.agentCode.toString, model.newAgent.availablePermission.mkString(" and "))</p>
+            <p>@Messages("propertyRepresentation.overrideAgent.message.3", model.newAgent.agentCode.toString, model.newAgent.availablePermission.sorted.reverse.mkString(" and "))</p>
             <p>@Messages("propertyRepresentation.overrideAgent.message.4")</p>
 
             <p>

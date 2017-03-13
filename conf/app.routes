@@ -48,6 +48,8 @@ GET         /managed-properties/:agentCode                          controllers.
 GET         /manage-agents                                          controllers.Dashboard.manageAgents()
 GET         /draft-cases                                            controllers.Dashboard.draftCases()
 GET         /client-properties/:organisationId                      controllers.Dashboard.clientProperties(organisationId: Long)
+GET         /client-properties/:organisationId/revoke/:permId       controllers.agent.RepresentationController.revokeClient(organisationId: Long, permId: Long)
+GET         /client-properties/:organisationId/revoke/:permId/confirmed       controllers.agent.RepresentationController.revokeClientConfirmed(organisationId: Long, permId: Long)
 
 GET         /property-link/:linkId/assessments                      controllers.Assessments.assessments(linkId: Long, linkPending: Boolean ?= false)
 GET         /summary/:uarn                                          controllers.Assessments.viewSummary(uarn: Long)
@@ -86,9 +88,9 @@ POST        /representation-request/modify/:representationId        @controllers
 #AGENT
 #Dashboard
 #TODO: Move to dashboard
-GET         /representation-request                                 controllers.agent.RepresentationController.manageRepresentationRequest()
+GET         /manage-clients                                         controllers.agent.RepresentationController.manageRepresentationRequest()
 
-GET         /representation-request/pending                         controllers.agent.RepresentationController.pendingRepresentationRequest()
+GET         /manage-clients/pending-requests                        controllers.agent.RepresentationController.pendingRepresentationRequest()
 GET         /representation-request/accept/:submissionId/:totalPendingRequests           controllers.agent.RepresentationController.accept(submissionId, totalPendingRequests: Long)
 GET         /representation-request/reject/:submissionId/:totalPendingRequests           controllers.agent.RepresentationController.reject(submissionId, totalPendingRequests: Long)
 

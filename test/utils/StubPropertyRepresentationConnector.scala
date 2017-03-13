@@ -47,4 +47,7 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
   }
 
   override def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier) = Future.successful(Unit)
+
+
+  override def revoke(permissionId: Long)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 }

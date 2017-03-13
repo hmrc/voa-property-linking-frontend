@@ -18,7 +18,7 @@ package utils
 
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{CapacityDeclaration, FileInfo}
-import models.{PropertyLink, LinkBasis, Property}
+import models._
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -27,6 +27,7 @@ import scala.concurrent.Future
 object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
 
   private var stubbedLinks: Seq[PropertyLink] = Nil
+  private var stubbedClientProperties: Seq[ClientProperty] = Nil
 
   override def linkToProperty(uarn: Long,
                               organisationId: Int,
@@ -53,11 +54,19 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
     }
   }
 
+  override def clientProperties(userOrgId: Long, agentOrgId: Int)(implicit hc: HeaderCarrier): Future[Seq[ClientProperty]] = {
+    Future.successful(stubbedClientProperties)
+  }
   def stubLink(link: PropertyLink) = {
     stubbedLinks :+= link
   }
 
+  def stubClientProperties(clientProperty: ClientProperty) = {
+    stubbedClientProperties :+= clientProperty
+  }
+
   def reset() = {
     stubbedLinks = Nil
+    stubbedClientProperties = Nil
   }
 }
