@@ -60,14 +60,14 @@
                             $('.postcode-lookup-group').prepend('<label for="addressSelect" class="form-label-bold">Select address</label><select id="addressSelect" class="addressList form-control"></select>');
                             $('#addressSelect').append('<option value="" selected disabled>' + messages.labels.selectValue + '</option>');
                             $('.postcode-lookup-fields').css('display', 'none');
-                            $('.lookupAddressCancel').css('display', 'block');
+                            $('.lookupAddressCancel').css('display', 'inline-block');
                             $.each(data, function(i, item) {
                                 var address = addressLine(item['line1']) + addressLine(item['line2']) + addressLine(item['line3']) + addressLine(item['line4']) + item['postcode'];
                                 $('.addressList').append('<option value="' + i + '">' +  window.xssEscape(address) + '</option>');
                             });
+                            $('#addressSelect').focus();
                             $('#addressSelect').change(function (e) {
                                 $('[for="addressSelect"], .lookupAddressCancel').css('display', 'none');
-                                $(this).css('display', 'none');
                                 $('.manualAddress').css('display', 'none');
                                 var index = $(this).find('option:selected').index() - 1;
                                 $('.address--fields').css('display', 'block');
@@ -77,6 +77,8 @@
                                 $('.address--fields input:eq(3)').val(data[index]['line3']).attr('placeholder', '');
                                 $('.address--fields input:eq(4)').val(data[index]['line4']).attr('placeholder', '');
                                 $('.address--fields input:eq(5)').val(data[index]['postcode']);
+                                $(this).closest('.form-group').find('[for="addressSelect"]').remove();
+                                $(this).remove();
                             });
                             active = true;
                         } else {
