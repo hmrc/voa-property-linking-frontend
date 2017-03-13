@@ -17,14 +17,12 @@
 package connectors
 
 import models._
-import play.api.libs.json.{JsNull, JsValue}
-import serialization.JsonFormats._
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec: ExecutionContext)
+class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost with HttpPatch)(implicit ec: ExecutionContext)
   extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
 
@@ -61,5 +59,10 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost)(
   def update(updated: UpdatedRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = baseUrl + s"/property-representations/update"
     http.PUT[UpdatedRepresentation, HttpResponse](url, updated) map { _ => () }
+  }
+
+  def revoke(permissionId: Long)(implicit hc: HeaderCarrier) = {
+    val url = baseUrl + s"/property-representations/revoke/${permissionId}"
+    http.PATCH(url, "") map { _ => () }
   }
 }

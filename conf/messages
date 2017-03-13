@@ -281,16 +281,22 @@ propertyRepresentation.appointAgent.message.1=Your agent should provide you with
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Continue
 label.canCheck=Check permissions
-canCheck.START_AND_CONTINUE=Start new checks and continue existing checks
-canCheck.CONTINUE_ONLY=Continue existing checks only
-canCheck.NOT_PERMITTED=Not permitted to start new checks or continue existing checks
+canCheck.START_AND_CONTINUE=Yes
+canCheck.NOT_PERMITTED=No
 label.canChallenge=Challenge permissions
-canChallenge.START_AND_CONTINUE=Start new challenges and continue existing challenges
-canChallenge.CONTINUE_ONLY=Continue existing challenges only
-canChallenge.NOT_PERMITTED=Not permitted to start new challenges or continue existing challenges
+canChallenge.START_AND_CONTINUE=Yes
+canChallenge.NOT_PERMITTED=No
 error.invalidPermissions=Agent must either have permission to continue checks or challenges
 error.invalidAgentCode=Invalid agent code
 error.alreadyAppointedAgent=That agent is already assigned to this property. To change the agent permissions, go to the ''Manage agents'' section on your dashboard.
+
+propertyRepresentation.overrideAgent.title=Are you sure?
+propertyRepresentation.overrideAgent.message.1=Our records show that the following agents are currently appointed:
+propertyRepresentation.overrideAgent.message.2=agent with code {0} to carry out {1} cases
+propertyRepresentation.overrideAgent.message.3=If you choose to continue, agent with code {0} will be given permission to carry out {1} cases and existing agents will no longer be able to do so.
+propertyRepresentation.overrideAgent.message.4=Would you like to continue?
+propertyRepresentation.overrideAgent.button=Continue
+propertyRepresentation.overrideAgent.back=Back
 
 #EDIT AGENT
 propertyRepresentation.modifyAgent.title=Manage agent relationship

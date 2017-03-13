@@ -26,7 +26,7 @@
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            @if(ApplicationConfig.readyForPrimeTime) {
+            @if(ApplicationConfig.agentEnabled) {
                 <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.properties")</h2>
             }
 
@@ -46,7 +46,7 @@
                 @Messages("dashboard.home.searchProperties.text")
                 </p>
             }
-            @if(ApplicationConfig.readyForPrimeTime) {
+            @if(ApplicationConfig.casesEnabled) {
                 <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.cases")</h2>
                 <h3 class="heading-medium"> @Messages("dashboard.home.draft.cases") </h3>
                 <p>
@@ -55,7 +55,7 @@
             }
         </div>
         <div class="column-one-third">
-            @if(ApplicationConfig.readyForPrimeTime) {
+            @if(ApplicationConfig.agentEnabled) {
                 <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.management")</h2>
                 <h3 class="heading-medium">
                     <a id="manageAgents" href="@controllers.routes.Dashboard.manageAgents">@Messages("dashboard.home.manageAgents.link")</a>
@@ -65,7 +65,7 @@
                 @Messages("dashboard.home.manageAgents.text")
                 </p>
             }
-            @if(ApplicationConfig.readyForPrimeTime){
+            @if(ApplicationConfig.agentEnabled){
                 @if(groupAccount.isAgent) {
                     <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.clients")</h2>
                     <h3 class="heading-medium">

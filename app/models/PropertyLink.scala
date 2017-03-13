@@ -18,7 +18,6 @@ package models
 
 import org.joda.time.DateTime
 import play.api.libs.json.Json
-import serialization.JsonFormats._
 
 case class PropertyLink(authorisationId: Long,
                         uarn: Long,

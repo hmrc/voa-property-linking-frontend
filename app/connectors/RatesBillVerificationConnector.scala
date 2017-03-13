@@ -20,9 +20,13 @@ import models.RatesBill
 import play.api.libs.json._
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPut}
-import serialization.JsonFormats.ratesBillCheckFormat
 
 import scala.concurrent.{ExecutionContext, Future}
+
+case class RatesBillCheck(isValid: Boolean)
+object RatesBillCheck {
+  implicit val format = Json.reads[RatesBillCheck]
+}
 
 class RatesBillVerificationConnector(http: HttpPut)(implicit ec: ExecutionContext) extends ServicesConfig {
   private lazy val base = s"${baseUrl("rates-bill-verification")}/rates-bill-checks"
@@ -36,4 +40,3 @@ class RatesBillVerificationConnector(http: HttpPut)(implicit ec: ExecutionContex
     }
 }
 
-case class RatesBillCheck(isValid: Boolean)

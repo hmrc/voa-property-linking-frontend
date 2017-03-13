@@ -40,7 +40,8 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   val ivConfidenceLevel = ConfidenceLevel.L200
 
   def businessRatesValuationUrl(page: String) = getConfig("business-rates-valuation.url") + s"/$page"
-  val readyForPrimeTime = getConfig("featureFlags.readyForPrimeTime").toBoolean
+  val agentEnabled = getConfig("featureFlags.agentsEnabled").toBoolean
+  val casesEnabled = getConfig("featureFlags.casesEnabled").toBoolean
   val propertyLinkingEnabled = getConfig("featureFlags.propertyLinkingEnabled").toBoolean
 
   val showReleaseNotes = getConfig("featureFlags.showReleaseNotes").toBoolean

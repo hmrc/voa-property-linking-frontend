@@ -16,8 +16,6 @@
 
 package models
 
-import serialization.EnumFormat
-
 sealed trait AgentPermission extends NamedEnum {
   override def key: String = "permission"
 }
@@ -36,5 +34,5 @@ case object NotPermitted extends AgentPermission {
 
 object AgentPermission extends NamedEnumSupport[AgentPermission] {
   implicit val format = EnumFormat(AgentPermission)
-  override def all = Seq(StartAndContinue, ContinueOnly, NotPermitted)
+  override def all = Seq(StartAndContinue, NotPermitted)
 }
