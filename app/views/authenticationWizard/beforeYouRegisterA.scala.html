@@ -20,6 +20,20 @@
                 <li>@Messages("authenticationWizard.beforeYouRegister.l2")</li>
             </ul>
 
+            <details>
+                <summary><span class="summary">@Messages("beforeYouRegister.summary.question")</span></summary>
+                <div class="panel-indent">
+                  @Html(Messages("beforeYouRegister.summary.answer"))
+                </div>
+            </details>
+
+            <details>
+                <summary><span class="summary">@Messages("beforeYouRegister.summary.question2")</span></summary>
+                <div class="panel-indent">
+                  @Html(Messages("beforeYouRegister.summary.answer2"))
+                </div>
+            </details>
+
             <p><a href="@routes.CreateIndividualAccount.show" class="button" role="button">@Messages("label.continue")</a></p>
 
     </div>
