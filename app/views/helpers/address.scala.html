@@ -12,7 +12,7 @@
             '_labelClass -> "form-label-bold",
             'class -> "form-control",
             'placeholder -> Messages("placeholder.address.line1"),
-            '_fieldsetClass -> "margin-bottom-10"
+            '_fieldsetClass -> "margin-bottom-0"
         )
 
         @inputText(
@@ -30,7 +30,7 @@
             '_labelClass -> "visuallyhidden",
             'class -> "form-control",
             'placeholder -> Messages("placeholder.address.line3"),
-            '_fieldsetClass -> "margin-bottom-10"
+            '_fieldsetClass -> "margin-bottom-0"
         )
 
         @inputText(
@@ -39,15 +39,14 @@
             '_labelClass -> "visuallyhidden",
             'class -> "form-control",
             'placeholder -> Messages("placeholder.address.line4"),
-            '_fieldsetClass -> "margin-bottom-0"
+            '_fieldsetClass -> "margin-bottom-20"
         )
 
         @inputText(
             field = form(s"$fieldName.postcode"),
             '_label -> Messages("label.address.postcode"),
             '_labelClass -> "form-label-bold",
-            'class -> "form-control form-control-1-4",
-            '_fieldsetClass -> "margin-bottom-30"
+            'class -> "form-control form-control-1-4"
         )
 
         <a href="#" class="lookupAddress">@Messages("addressLookup.lookup")</a>

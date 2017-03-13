@@ -60,7 +60,7 @@ class AppointAgentSpec extends ControllerSpec {
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("agentCode" -> "Numeric value expected")
+    page.mustContainFieldErrors("agentCode" -> "This must be filled in")
   }
 
   it must "require the user to select agent permissions for checks" in {
@@ -119,7 +119,7 @@ class AppointAgentSpec extends ControllerSpec {
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("agentCode" -> "Numeric value expected")
+    page.mustContainFieldErrors("agentCode" -> "This must be filled in")
   }
 
   def stubLoggedInUser() = {

@@ -9,9 +9,9 @@
             <a href="#@removeInvalid(error)Group" data-focuses="@removeInvalid(error)Group">
                 <span>
                 @error.key match {
-                    case s if s.contains("day") => { @Messages("label.day") }
-                    case s if s.contains("month") => { @Messages("label.month") }
-                    case s if s.contains("year") => { @Messages("label.year") }
+                    case s if s.contains("day") => { @Messages("error.label.day") }
+                    case s if s.contains("month") => { @Messages("error.label.month") }
+                    case s if s.contains("year") => { @Messages("error.label.year") }
                     case s if s.contains("address") => { @Messages(s"label.${error.key}") }
                     case _ => { @Messages("label." + messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "")) }
                 }
