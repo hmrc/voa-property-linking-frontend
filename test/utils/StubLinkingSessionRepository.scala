@@ -17,26 +17,32 @@
 package utils
 
 import session.{LinkingSession, LinkingSessionRepository}
-import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class StubLinkingSessionRepository(session: LinkingSession, cache: SessionCache) extends LinkingSessionRepository(cache) {
+class StubLinkingSessionRepository extends LinkingSessionRepository(StubSessionCache) {
+  private var stubbedLinkingSession: Option[LinkingSession] = None
 
   override def start(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
-    Future.successful(())
+    Future.successful {
+      stubbedLinkingSession = Some(LinkingSession(address, uarn, envelopeId, submissionId, personId))
+    }
   }
 
   override def saveOrUpdate(session: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] = {
-    Future.successful(())
+    Future.successful {
+      stubbedLinkingSession = Some(session)
+    }
   }
 
   override def get()(implicit hc: HeaderCarrier): Future[Option[LinkingSession]] = {
-    Future.successful(Some(session))
+    Future.successful(stubbedLinkingSession)
   }
 
   override def remove()(implicit hc: HeaderCarrier): Future[Unit] = {
-    Future.successful(())
+    Future.successful {
+      stubbedLinkingSession = None
+    }
   }
 }

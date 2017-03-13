@@ -21,10 +21,11 @@ import javax.inject.Inject
 
 import akka.stream.scaladsl._
 import com.google.inject.{ImplementedBy, Singleton}
-import config.{Environment, Wiring}
+import config.Wiring
 import connectors.EnvelopeConnector
 import play.api.Logger
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.functional.syntax._
+import play.api.libs.json.{Format, JsValue, Json, __}
 import play.api.libs.ws.WSClient
 import play.api.mvc.MultipartFormData.FilePart
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -33,10 +34,13 @@ import uk.gov.hmrc.play.http.{HttpException, HttpResponse, _}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-case class NewEnvelope(envelopeId: String)
+case class EnvelopeMetadata(submissionId: String, personId: Long)
 
-object NewEnvelope {
-  implicit lazy val newEnvelope = Json.format[NewEnvelope]
+object EnvelopeMetadata {
+  implicit val format: Format[EnvelopeMetadata] = (
+    (__ \ "metadata" \ "submissionId").format[String] and
+      (__ \ "metadata" \ "personId").format[Long]
+    )(EnvelopeMetadata.apply, unlift(EnvelopeMetadata.unapply))
 }
 
 case class RoutingRequest(envelopeId: String, application: String = "application/json", destination: String = "VOA_CCA")
@@ -47,7 +51,7 @@ object RoutingRequest {
 
 @ImplementedBy(classOf[FileUploadConnector])
 trait FileUpload {
-  def createEnvelope()(implicit hc: HeaderCarrier): Future[String]
+  def createEnvelope(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String]
 
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit]
 
@@ -59,8 +63,8 @@ class FileUploadConnector @Inject()(val ws: WSClient, val envelopeConnector: Env
   extends FileUpload with ServicesConfig with JsonHttpReads {
   lazy val http = Wiring().http
 
-  def createEnvelope()(implicit hc: HeaderCarrier): Future[String] = {
-    http.POST[JsValue, HttpResponse](s"${baseUrl("file-upload-backend")}/file-upload/envelopes", Json.obj()) map { r =>
+  def createEnvelope(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String] = {
+    http.POST[JsValue, HttpResponse](s"${baseUrl("file-upload-backend")}/file-upload/envelopes", Json.toJson(metadata)) map { r =>
       r.header("location")
         .flatMap(l => l.split("/").lastOption)
         .getOrElse(throw new Exception("No envelope id"))
