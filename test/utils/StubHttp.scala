@@ -22,7 +22,7 @@ import uk.gov.hmrc.play.http._
 
 import scala.concurrent.Future
 
-object StubHttp extends HttpGet with HttpPost with HttpPut with HttpDelete {
+object StubHttp extends HttpGet with HttpPost with HttpPut with HttpDelete with HttpPatch {
   override protected def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
 
   override protected def doPut[A](url: String, body: A)(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
@@ -36,6 +36,8 @@ object StubHttp extends HttpGet with HttpPost with HttpPut with HttpDelete {
   override protected def doFormPost(url: String, body: Map[String, Seq[String]])(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
 
   override protected def doDelete(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
+
+  override protected def doPatch[A](url: String, body: A)(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
 
   override val hooks: Seq[HttpHook] = NoneRequired
 }

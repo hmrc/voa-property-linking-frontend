@@ -18,7 +18,7 @@ package session
 
 import connectors.CapacityDeclaration
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import serialization.JsonFormats.sessionFormat
+import play.api.libs.json.{Json, Reads, Writes}
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.http.HeaderCarrier
 
@@ -27,6 +27,10 @@ import scala.concurrent.Future
 case class LinkingSession(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long,
                           declaration: Option[CapacityDeclaration] = None) {
   def withDeclaration(d: CapacityDeclaration) = this.copy(declaration = Some(d))
+}
+
+object LinkingSession {
+  implicit val format = Json.format[LinkingSession]
 }
 
 class LinkingSessionRepository(cache: SessionCache) {
@@ -40,7 +44,7 @@ class LinkingSessionRepository(cache: SessionCache) {
     cache.cache(sessionDocument, session).map(_ => ())
 
   def get()(implicit hc: HeaderCarrier): Future[Option[LinkingSession]] =
-    cache.fetchAndGetEntry(sessionDocument)
+    cache.fetchAndGetEntry[LinkingSession](sessionDocument)
 
   def remove()(implicit hc: HeaderCarrier): Future[Unit] =
     cache.remove().map(_ => ())

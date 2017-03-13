@@ -24,12 +24,12 @@ import connectors.propertyLinking.PropertyLinkConnector
 import models.{IVDetails, IndividualDetails, PersonalDetails}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, Reads, Writes}
-import session.{LinkingSessionRepository, WithLinkingSession}
+import session.{AgentAppointmentSessionRepository, LinkingSessionRepository, WithLinkingSession}
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
 import uk.gov.hmrc.play.http._
-import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
+import uk.gov.hmrc.play.http.ws._
 
 import scala.concurrent.Future
 import scala.util.Try
@@ -39,10 +39,10 @@ object Wiring {
 }
 
 abstract class Wiring {
-  val http: HttpGet with HttpPut with HttpDelete with HttpPost
-
+  val http: HttpGet with HttpPut with HttpDelete with HttpPost with HttpPatch
   lazy val sessionCache = new VPLSessionCache(http)
   lazy val sessionRepository = new LinkingSessionRepository(sessionCache)
+  lazy val agentAppointmentSessionRepository = new AgentAppointmentSessionRepository(sessionCache)
   lazy val propertyRepresentationConnector = new PropertyRepresentationConnector(http)
   lazy val propertyLinkConnector = new PropertyLinkConnector(http)
   lazy val individualAccountConnector = new IndividualAccounts(http)
@@ -87,7 +87,8 @@ class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends Se
   }
 }
 
-class WSHttp extends WSGet with WSPut with WSDelete with WSPost with HttpAuditing with AppName with RunMode {
+
+class WSHttp extends WSGet with WSPut with WSDelete with WSPost with WSPatch with HttpAuditing with AppName with RunMode {
   override val hooks = Seq(AuditingHook)
   override def auditConnector = AuditServiceConnector
 

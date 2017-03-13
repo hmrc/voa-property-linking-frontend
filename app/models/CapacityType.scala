@@ -16,8 +16,6 @@
 
 package models
 
-import serialization.EnumFormat
-
 sealed trait CapacityType extends NamedEnum {
   val name: String
   val key = "capacityType"

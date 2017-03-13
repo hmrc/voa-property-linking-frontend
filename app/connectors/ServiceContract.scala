@@ -18,13 +18,20 @@ package connectors
 
 import models._
 import org.joda.time.{DateTime, LocalDate}
-import play.api.libs.json.Json
-import serialization.JsonFormats._
+import play.api.libs.json.{Json, Reads, Writes}
 
 case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate],
                                stillInterested: Boolean, toDate: Option[LocalDate] = None)
+object CapacityDeclaration {
+  implicit val dateTimeReads = Reads.jodaDateReads("yyyy-MM-dd")
+  implicit val dateTimeWrites = Writes.jodaDateWrites("yyyy-MM-dd")
+  implicit val format = Json.format[CapacityDeclaration]
+}
 
 case class FileInfo(name: String, evidenceType: String)
+object FileInfo {
+  implicit val format = Json.format[FileInfo]
+}
 
 case class PropertyLinkRequest(uarn: Long,
                                organisationId: Int,

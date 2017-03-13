@@ -59,9 +59,9 @@
                             </td>
                             <td class="last">
                                 <ul>
-                                @if(ApplicationConfig.readyForPrimeTime) {
+                                @if(ApplicationConfig.agentEnabled) {
                                     <li>
-                                        <a href=@routes.AppointAgentController.add(p.authorisationId)>@Messages("manageProperties.addAgent")
+                                        <a href=@routes.AppointAgentController.appoint(p.authorisationId)>@Messages("manageProperties.addAgent")
                                             <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
                                         </a>
                                     </li>
@@ -83,7 +83,7 @@
         </div>
     }
 
-    @if(ApplicationConfig.readyForPrimeTime) {
+    @if(ApplicationConfig.agentEnabled) {
         <p><a href="@routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
     }
 

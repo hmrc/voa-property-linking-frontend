@@ -34,4 +34,5 @@ case object NoEvidenceFlag extends LinkBasis {
 
 object LinkBasis extends NamedEnumSupport[LinkBasis] {
   override def all: List[LinkBasis] = List(RatesBillFlag, OtherEvidenceFlag, NoEvidenceFlag)
+  implicit val format = EnumFormat(LinkBasis)
 }
