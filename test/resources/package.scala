@@ -24,12 +24,14 @@ import org.joda.time.{LocalDate, DateTime}
 
 package object resources {
 
+  implicit def getArbitrary[T](t: Gen[T]): T = t.sample.get
+
   implicit val arbitraryJavaLocalDate: Arbitrary[javatime.LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(javatime.LocalDate.ofEpochDay(_)))
   implicit val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new LocalDate(_)))
   implicit val arbitraryDateTime: Arbitrary[DateTime] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new DateTime(_)))
-  val shortString = Gen.listOfN(20, Gen.alphaChar).map(_.mkString)
+  def shortString = Gen.listOfN(20, Gen.alphaChar).map(_.mkString)
 
-  private def positiveLong = Gen.choose(0L, Long.MaxValue)
+  def positiveLong = Gen.choose(0L, Long.MaxValue)
 
   val propertyAddressGen: Gen[PropertyAddress] = for {
     lines <- Gen.nonEmptyListOf(shortString)
@@ -167,6 +169,14 @@ package object resources {
     dob <- arbitrary[LocalDate]
     nino <- arbitrary[Nino]
   } yield IVDetails(firstName, lastName, dob, nino)
+
   implicit val arbitraryIVDetails = Arbitrary(ivDetailsGen)
+
+  private val accountsGenerator = for {
+    group <- arbitrary[GroupAccount]
+    individual <- arbitrary[DetailedIndividualAccount]
+  } yield Accounts(group, individual)
+
+  implicit val arbitraryAccounts = Arbitrary(accountsGenerator)
 
 }
