@@ -340,9 +340,8 @@ propertyRepresentations.table.2=Number of properties
 propertyRepresentations.table.3=Actions
 propertyRepresentations.viewProperties=View properties
 manageProperties.noRepresentations=You have no representations
-permission.CONTINUE_ONLY=Only continue
-permission.START_AND_CONTINUE=Start and continue
-permission.NOT_PERMITTED=Not permitted
+permission.START_AND_CONTINUE=Yes
+permission.NOT_PERMITTED=No
 
 pendingRepresentationRequests.title=Pending agent requests
 pendingRepresentationRequests.table.1=Organisation name
