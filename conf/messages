@@ -8,13 +8,13 @@ releaseNotes.title=Release notes
 
 #START PAGE
 start.heading.register=Register to use this service
-start.p1=If you’re a returning user, you can <a href="{0}">login</a> to use this service.
+start.p1=If you’re a returning user, you can <a href="{0}">sign in</a> to use this service.
 start.p2=If you haven’t used this service before and you want to view your detailed property valuations or tell the Valuation Office Agency (VOA) about any changes to your property, you’ll need to register.
 
 start.heading.registration=Registration
 
 
-start.registration.p.1=If you’re a returning user, you can <a href="{0}">login</a> to use this service.
+start.registration.p.1=If you’re a returning user, you can <a href="{0}">sign in</a> to use this service.
 start.registration.p.2=If you haven’t used this service before and you want to view your detailed property valuations or tell the Valuation Office Agency (VOA) about any changes to your property, you’ll need to register.
 start.registration.p.3=You’ll need a Government Gateway ID to register for this service. You can choose to use an existing Government Gateway ID or create a new one when you register.
 start.registration.p.4=You’ll also need to verify your identity, by providing your National Insurance number, date of birth and details from at least 2 of the following:
@@ -28,14 +28,14 @@ start.heading.agents=Agents
 start.agents.p.1=If you plan to act as an agent on behalf of another business, you’ll be able to indicate this during the registration process.
 start.register=Register now
 
-label.login=Login
+label.login=Sign in
 label.register=Register
 
 #WIZARD
 label.wizard.businessHasRegistered=Is your business already registered for this service?
 businessHasRegistered.true=Yes
 businessHasRegistered.false=No
-label.wizard.givenGGDetails=Have you been given Government Gateway login details to use, by someone else in your business?
+label.wizard.givenGGDetails=Have you been given Government Gateway sign in details to use, by someone else in your business?
 help.wizard.givenGGDetails=You need a Government Gateway ID to register for this service. If someone else has already registered your business, they’ll need to add you to the business’s Government Gateway account and provide you with your personal Government Gateway ID and password.
 givenGGDetails.true=Yes
 givenGGDetails.false=No
@@ -44,7 +44,7 @@ help.wizard.existingGGAccount=If you don’t have a Government Gateway account t
 
 businessHasRegistered.true=Yes
 businessHasRegistered.false=No
-label.wizard.givenGGDetails=Have you been given Government Gateway login details to use, by someone else in your business?
+label.wizard.givenGGDetails=Have you been given Government Gateway sign in details to use, by someone else in your business?
 givenGGDetails.true=Yes
 givenGGDetails.false=No
 label.wizard.existingGGAccount=Do you have an existing Government Gateway account that you’d like to use to register your business?
@@ -56,11 +56,11 @@ existingGGAccount.false=No
 heading.authenticationWizard.beforeYouRegister=What you need to do next
 
 authenticationWizard.p1.beforeYouRegisterA=To complete your registration you need to:
-authenticationWizard.beforeYouRegister.l1=login with the Government Gateway details that you’ve been given
+authenticationWizard.beforeYouRegister.l1=sign in with the Government Gateway details that you’ve been given
 authenticationWizard.beforeYouRegister.l2=verify your identity
 
 authenticationWizard.p1.beforeYouRegisterC=To complete your registration you need to:
-authenticationWizard.beforeYouRegisterC.l1=login with your existing Government Gateway details
+authenticationWizard.beforeYouRegisterC.l1=sign in with your existing Government Gateway details
 authenticationWizard.beforeYouRegisterC.l2=verify your identity
 authenticationWizard.beforeYouRegisterC.l3=register your business
 
@@ -97,7 +97,7 @@ ggRegistration.title=You’ve created a Government Gateway account for your busi
 ggRegistration.p.1=We’ll ask you to verify your identity and confirm that you have the right to act on behalf of your business.
 
 #BETA LOGIN
-betaLogin.title=Private beta login
+betaLogin.title=Private beta sign in
 betaLogin.password=Password
 
 #LOCKED OUT
@@ -547,7 +547,7 @@ label.phase=This is a new service – your <a href="{0}" target="_blank" id="bet
 label.beta=BETA
 label.checkTheForm=Check the form
 label.fixTheFollowing=Fix the following:
-logout.link=Logout
+logout.link=Sign out
 label.optional=Optional
 label.required=Required
 
