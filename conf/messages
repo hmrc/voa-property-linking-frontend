@@ -8,21 +8,17 @@ releaseNotes.title=Release notes
 
 #START PAGE
 start.heading.register=Register to use this service
-start.p1=If you’re a returning user, you can <a href="{0}">sign in</a> to use this service.
-start.p2=If you haven’t used this service before and you want to view your detailed property valuations or tell the Valuation Office Agency (VOA) about any changes to your property, you’ll need to register.
-
 start.heading.registration=Registration
-
-
 start.registration.p.1=If you’re a returning user, you can <a href="{0}">sign in</a> to use this service.
-start.registration.p.2=If you haven’t used this service before and you want to view your detailed property valuations or tell the Valuation Office Agency (VOA) about any changes to your property, you’ll need to register.
-start.registration.p.3=You’ll need a Government Gateway ID to register for this service. You can choose to use an existing Government Gateway ID or create a new one when you register.
-start.registration.p.4=You’ll also need to verify your identity, by providing your National Insurance number, date of birth and details from at least 2 of the following:
-start.registration.youNeed.1=passport
-start.registration.youNeed.2=P60
-start.registration.youNeed.3=payslip (PAYE)
-start.registration.p.5=Please make sure you have these documents before you start to register.
-start.registration.p.6=The registration should take no longer than 15 minutes to complete.
+start.registration.p.2=If you’ve already registered for this service and other people from your business want to register, you need to <a href="https://myaccount.gateway.gov.uk/Pages/Common/Help.aspx?content=Whitelabel_RegisterOrLogon_AboutGateway" rel="external">add them to your business Government Gateway account</a>.
+start.registration.p.3=To register for this service you’ll need to verify your identity by providing your National Insurance number, date of birth and details from at least one of the following:
+start.registration.youNeed.1=payslips
+start.registration.youNeed.2=UK passport
+start.registration.youNeed.3=P60
+start.registration.p.5=You should allow approximately 15 minutes without interruption to complete the registration process.
+start.registration.IdontHave=I don’t have these details
+start.registration.IdontHave.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to call the Valuation Office Agency (VOA).</p><p>Telephone: 03000 501 501</p>
+
 
 start.heading.agents=Agents
 start.agents.p.1=If you plan to act as an agent on behalf of another business, you’ll be able to indicate this during the registration process.
