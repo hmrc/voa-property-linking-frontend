@@ -136,9 +136,11 @@ startIv.l3=payslip (PAYE)
 identityVerification.title=Identity verification
 failedIdentityVerification.title=Identity verification failed
 failedIdentityVerification.p.1=We’re unable to verify your identity.
-failedIdentityVerification.p.2=Please call the VOA to discuss your application.
-failedIv.telephone.england=Telephone (England)
-failedIv.telephone.wales=Telephone (Wales)
+failedIdentityVerification.p.2=Please contact us to discuss your application.
+failedIv.telephone.england=Telephone
+failedIv.telephone.england.number=03000 501 501
+failedIv.email=Email
+failedIv.emailaddress=<a href="mailto:{0}">ccaservice@voa.gsi.gov.uk</a>
 failedIv.telephone.openingHours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
 iv.success.title=Identity verification successful
 iv.success.confirmation=We’ve verified your identity
