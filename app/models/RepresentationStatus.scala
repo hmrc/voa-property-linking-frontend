@@ -16,8 +16,6 @@
 
 package models
 
-import serialization.EnumFormat
-
 sealed trait RepresentationStatus extends NamedEnum {
   val name: String
   val key = "propReprStatus"

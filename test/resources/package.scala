@@ -132,10 +132,13 @@ package object resources {
   implicit val representationStatusType = Arbitrary(representationStatusGen)
 
   val party: Gen[Party] = for {
-    organisationName <- arbitrary[String]
+    permissionId <- arbitrary[Long]
     agentCode <- arbitrary[Long]
+    organisationName <- arbitrary[String]
     organisationId <- arbitrary[Long]
-  } yield models.Party(agentCode, organisationName, organisationId)
+    checkPermission <- arbitrary[AgentPermission]
+    challengePermission <- arbitrary[AgentPermission]
+  } yield models.Party(permissionId, agentCode, organisationName, organisationId, checkPermission, challengePermission)
   implicit val arbitraryParty = Arbitrary(party)
 
   val propertyLinkGen: Gen[PropertyLink] = for {

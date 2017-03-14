@@ -27,7 +27,7 @@ object RepresentationController extends PropertyLinkingController {
   val authenticated = Wiring().authenticated
 
   def manageRepresentationRequest() = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.readyForPrimeTime) {
+    if (ApplicationConfig.agentEnabled) {
       reprConnector.forAgent(RepresentationApproved.name, request.organisationId).map { reprs =>
         Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs, request.agentCode)))
       }
@@ -38,7 +38,7 @@ object RepresentationController extends PropertyLinkingController {
 
 
   def pendingRepresentationRequest() = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.readyForPrimeTime) {
+    if (ApplicationConfig.agentEnabled) {
       reprConnector.forAgent(RepresentationPending.name, request.organisationId).map { reprs =>
         Ok(views.html.dashboard.pendingPropertyRepresentations(ManagePropertiesVM(reprs, request.agentCode)))
       }
@@ -48,7 +48,7 @@ object RepresentationController extends PropertyLinkingController {
   }
 
   def accept(submisstionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.readyForPrimeTime) {
+    if (ApplicationConfig.agentEnabled) {
       val response = RepresentationResponse(submisstionId, request.personId.toLong, RepresentationResponseApproved)
       reprConnector.response(response).map { _ =>
         val continueLink = if (noOfPendingRequests > 1) {
@@ -64,7 +64,7 @@ object RepresentationController extends PropertyLinkingController {
   }
 
   def reject(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.readyForPrimeTime) {
+    if (ApplicationConfig.agentEnabled) {
       val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseDeclined)
       reprConnector.response(response).map { _ =>
         val continueLink = if (noOfPendingRequests > 1) {

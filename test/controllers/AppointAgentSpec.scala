@@ -16,6 +16,7 @@
 
 package controllers
 
+import config.VPLSessionCache
 import connectors.Authenticated
 import models._
 import play.api.test.FakeRequest
@@ -23,14 +24,19 @@ import play.api.test.Helpers._
 import utils._
 import resources._
 import org.scalacheck.Arbitrary.arbitrary
+import _root_.session.AgentAppointmentSessionRepository
+import uk.gov.hmrc.play.http.HeaderCarrier
 
 class AppointAgentSpec extends ControllerSpec {
 
   private object TestAppointAgent extends AppointAgentController {
+    lazy val sessionCache = new VPLSessionCache(StubHttp)
     override val representations = StubPropertyRepresentationConnector
     override val accounts = StubGroupAccountConnector
     override val propertyLinks = StubPropertyLinkConnector
     override val authenticated = StubAuthentication
+    override val sessionRepository = new StubAgentAppointmentSessionRepository(sessionCache)
+
   }
 
   val request = FakeRequest().withSession(token)
@@ -105,6 +111,7 @@ class AppointAgentSpec extends ControllerSpec {
 
     val page = HtmlPage(res)
     page.mustContainFieldErrors("canCheck" -> "Agent must either have permission to continue checks or challenges")
+    page.mustContainFieldErrors("canChallenge" -> "Agent must either have permission to continue checks or challenges")
   }
 
   it must "require the agent code to be valid" in {
@@ -120,6 +127,22 @@ class AppointAgentSpec extends ControllerSpec {
 
     val page = HtmlPage(res)
     page.mustContainFieldErrors("agentCode" -> "This must be filled in")
+  }
+
+  it must "when everything is valid, and no permission have previously been set" in {
+    val (groupAccount, individual) = stubLoggedInUser()
+    StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id, authorisationId = 555
+    ,agents = Nil)
+    StubPropertyLinkConnector.stubLink(link)
+
+    val res = TestAppointAgent.appointSubmit(link.authorisationId)(
+      request.withFormUrlEncodedBody("agentCode" -> "123", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
+    )
+    status(res) must be (OK)
+
+    val page = HtmlPage(res)
+    page.mustContainText("We have received your request for an agent")
   }
 
   def stubLoggedInUser() = {

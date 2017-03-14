@@ -75,13 +75,13 @@ GET         /no-evidence-uploaded                                   @controllers
 GET         /manual-verification-required                           controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                       controllers.LinkErrors.conflict()
 
-GET         /representation-request/add/:linkId                     controllers.AppointAgentController.add(linkId: Long)
-GET         /representation-request/edit/:linkId                    controllers.AppointAgentController.edit(linkId: Long)
-GET         /representation-request/appoint/:linkId                 controllers.AppointAgentController.appoint(linkId: Long)
-POST        /representation-request/appoint/:linkId                 controllers.AppointAgentController.appointSubmit(linkId: Long)
-GET         /representation-request/modify/:representationId        controllers.AppointAgentController.modify(representationId: Long)
-POST        /representation-request/modify/:representationId        controllers.AppointAgentController.modifySubmit(representationId: Long)
-GET         /representation-request/select/:linkId                  controllers.AppointAgentController.select(linkId: Long)
+GET         /appoint-agent/:linkId                                  @controllers.AppointAgentController.appoint(linkId: Long)
+GET         /appoint-agent/:linkId/confirmed                        @controllers.AppointAgentController.confirmed(linkId: Long)
+POST        /appoint-agent/:linkId                                  @controllers.AppointAgentController.appointSubmit(linkId: Long)
+GET         /representation-request/select/:linkId                  @controllers.AppointAgentController.select(linkId: Long)
+GET         /representation-request/edit/:linkId                    @controllers.AppointAgentController.edit(linkId: Long)
+GET         /representation-request/modify/:representationId        @controllers.AppointAgentController.modify(representationId: Long)
+POST        /representation-request/modify/:representationId        @controllers.AppointAgentController.modifySubmit(representationId: Long)
 
 #AGENT
 #Dashboard

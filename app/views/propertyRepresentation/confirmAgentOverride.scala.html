@@ -1,0 +1,42 @@
+@(model: ConfirmOverrideVM)(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+    title = Messages("propertyRepresentation.overrideAgent.title"),
+    topNavigation = true,
+    topBackLink = true,
+    bottomBackLink = true
+) {
+
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">
+            @Messages("propertyRepresentation.overrideAgent.title")
+            </h1>
+
+            <p>@Messages("propertyRepresentation.overrideAgent.message.1")</p>
+            <ul class="list-bullet">
+            @model.existingPermissions.map{ perm =>
+                <li>
+                    @Messages("propertyRepresentation.overrideAgent.message.2", perm.agentCode.toString, perm.availablePermission.mkString(" and "))
+                </li>
+            }
+            </ul>
+            <p>@Messages("propertyRepresentation.overrideAgent.message.3", model.newAgent.agentCode.toString, model.newAgent.availablePermission.mkString(" and "))</p>
+            <p>@Messages("propertyRepresentation.overrideAgent.message.4")</p>
+
+            <p>
+                <a href="@routes.AppointAgentController.confirmed(model.authorisationId)">
+                    <button type="submit" class="button">
+                        @Messages("propertyRepresentation.appointAgent.button")
+                    </button>
+                </a>
+            </p>
+
+        </div>
+    </div>
+
+
+}
