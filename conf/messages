@@ -87,7 +87,7 @@ beforeYouRegister.summary.question=I want to register as an agent
 beforeYouRegister.summary.answer=<p>To register as an agent, you first need to follow the registration process to register your own business. You’ll be able to indicate during the registration process that you want to act as an agent.</p><strong>Once you’ve registered</strong><p>You’ll find your agent code displayed in your dashboard. You’ll need to give this to your client so that they can appoint you as their agent.</p><p>You can’t register your client’s business on their behalf.</p>
 
 beforeYouRegister.summary.question2=I want to appoint an agent to represent my business
-beforeYouRegister.summary.answer2=<p>You first need to follow the registration process to register your own business. Your agent can’t register your business on your behalf.</p><strong>Once you’ve registered</strong><p>Your agent will be assigned an agent code once they’ve registered. You’ll need to enter their agent code in order to appoint them. You can do this by going to the ‘Manage representatives’ section in your dashboard.</p>
+beforeYouRegister.summary.answer2=<p>You first need to follow the registration process to register your own business. Your agent can’t register your business on your behalf.</p><strong>Once you’ve registered</strong><p>Your agent will be assigned an agent code once they’ve registered. You’ll need to enter their agent code in order to appoint them. You can do this by going to the ‘Manage agents’ section in your dashboard.</p>
 
 
 
