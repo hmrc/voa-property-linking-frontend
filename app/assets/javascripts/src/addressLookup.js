@@ -13,7 +13,7 @@
 
         function showFields() {
             $('.address--fields').css('display', 'block');
-            $('.postcode-lookup-fields').css('display', 'none');
+            $('.postcode-lookup-fields, .manualAddress').css('display', 'none');
             $('.address--fields input').attr('placeholder', '');
         }
 
