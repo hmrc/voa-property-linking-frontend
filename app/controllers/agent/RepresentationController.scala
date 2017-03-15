@@ -16,15 +16,19 @@
 
 package controllers.agent
 
-import config.Wiring
-import config.ApplicationConfig
+import cats.data.OptionT
+import cats.instances.future._
+import config.{ApplicationConfig, Global, Wiring}
 import controllers.PropertyLinkingController
-import config.Global
+import controllers.agent.RepresentationController.ManagePropertiesVM
 import models._
 
-object RepresentationController extends PropertyLinkingController {
+import scala.concurrent.Future
+
+trait RepresentationController extends PropertyLinkingController {
   val reprConnector = Wiring().propertyRepresentationConnector
   val authenticated = Wiring().authenticated
+  val propertyLinkConnector = Wiring().propertyLinkConnector
 
   def manageRepresentationRequest() = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.agentEnabled) {
@@ -47,9 +51,9 @@ object RepresentationController extends PropertyLinkingController {
     }
   }
 
-  def accept(submisstionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
+  def accept(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.agentEnabled) {
-      val response = RepresentationResponse(submisstionId, request.personId.toLong, RepresentationResponseApproved)
+      val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseApproved)
       reprConnector.response(response).map { _ =>
         val continueLink = if (noOfPendingRequests > 1) {
           controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
@@ -79,7 +83,42 @@ object RepresentationController extends PropertyLinkingController {
     }
   }
 
+  def revokeClient(organisationId: Long, permissionId: Long) = authenticated.asAgent { implicit request =>
+    if (ApplicationConfig.agentEnabled) {
+      for {
+        clientProperties <- propertyLinkConnector.clientProperties(organisationId, request.organisationAccount.id)
+        clientProperty = clientProperties.filter(_.permissionId == permissionId)
+      } yield {
+        if (clientProperty.nonEmpty)
+          Ok(views.html.propertyRepresentation.revokeClient(clientProperty.head))
+        else
+          NotFound(Global.notFoundTemplate)
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
+  }
 
+  def revokeClientConfirmed(organisationId: Long, permissionId: Long) = authenticated.asAgent { implicit request =>
+    if (ApplicationConfig.agentEnabled) {
+      (for {
+        clientProperties <- OptionT.liftF(propertyLinkConnector.clientProperties(organisationId, request.organisationAccount.id))
+        prop <- OptionT.fromOption(clientProperties.filter(_.permissionId == permissionId).headOption)
+        _ <- OptionT.liftF(reprConnector.revoke(prop.permissionId))
+      } yield {
+        if (clientProperties.size > 1)
+          Redirect(controllers.routes.Dashboard.clientProperties(organisationId))
+        else
+          Redirect(controllers.agent.routes.RepresentationController.manageRepresentationRequest())
+      }).value.map(_.getOrElse(NotFound(Global.notFoundTemplate)))
+    } else {
+      Future.successful(NotFound(Global.notFoundTemplate))
+    }
+  }
+
+
+}
+object RepresentationController extends RepresentationController {
 
   case class ManagePropertiesVM(propertyRepresentations: PropertyRepresentations, agentCode: Long)
 

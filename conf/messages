@@ -296,6 +296,10 @@ propertyRepresentation.overrideAgent.message.4=Would you like to continue?
 propertyRepresentation.overrideAgent.button=Continue
 propertyRepresentation.overrideAgent.back=Back
 
+propertyRepresentation.revokeClient.title=Revoking client
+propertyRepresentation.revokeClient.message=Are you sure you no longer want to act on behalf of {0} for {1}?
+propertyRepresentation.revokeClient.button=Continue
+
 #EDIT AGENT
 propertyRepresentation.modifyAgent.title=Manage agent relationship
 propertyRepresentation.modifyAgent.message.1=Please enter the code of the agent you wish to modify.
@@ -568,6 +572,8 @@ dashboard.clientProperties.clientName=Properties for {0}
 dashboard.clientProperties.table.1=Address
 dashboard.clientProperties.table.2=Billing authority reference
 dashboard.clientProperties.table.3=Permissions
+dashboard.clientProperties.table.4=Actions
+dashboard.clientProperties.revokeClient=Revoke client
 
 #Manage agents
 dashboard.manageAgents.title=Manage agents

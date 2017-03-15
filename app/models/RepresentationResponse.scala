@@ -19,10 +19,10 @@ package models
 import play.api.libs.json.Json
 
 case class RepresentationResponse(
-                                      submissionId: String,
-                                      authorisedPartyPersonId: Long,
-                                      outcome: RepresentationResponseStatus
-                                    )
+                                   submissionId: String,
+                                   authorisedPartyPersonId: Long,
+                                   outcome: RepresentationResponseStatus
+                                 )
 
 object RepresentationResponse {
   implicit val format = Json.format[RepresentationResponse]

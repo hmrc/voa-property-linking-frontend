@@ -106,4 +106,4 @@ case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentation
 
 case class AgentInfo(organisationName: String, agentCode: Long)
 
-case class ClientPropertiesVM(properties: Seq[ClientProperties])
+case class ClientPropertiesVM(properties: Seq[ClientProperty])

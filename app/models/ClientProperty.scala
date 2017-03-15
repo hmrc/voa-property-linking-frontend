@@ -18,14 +18,16 @@ package models
 
 import play.api.libs.json.Json
 
-case class ClientProperties (
-                              clientOrganisationName: String,
+case class ClientProperty(
+                              ownerOrganisationId: Long,
+                              ownerOrganisationName: String,
                               billingAuthorityReference: String,
+                              permissionId: Long,
                               checkPermission: String,
                               challengePermission: String,
                               address: String
                             )
 
-object ClientProperties {
-  implicit val format = Json.format[ClientProperties]
+object ClientProperty {
+  implicit val format = Json.format[ClientProperty]
 }

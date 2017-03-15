@@ -16,13 +16,14 @@
         <div class="table-wrapper">
             <table class="table-font-xsmall">
                 <caption class="heading-medium">
-                    @Messages("dashboard.clientProperties.clientName", model.properties.head.clientOrganisationName)
+                    @Messages("dashboard.clientProperties.clientName", model.properties.head.ownerOrganisationName)
                 </caption>
                 <thead>
                     <tr>
                         <th scope="col">@Messages("dashboard.clientProperties.table.1")</th>
                         <th scope="col">@Messages("dashboard.clientProperties.table.2")</th>
-                        <th scope="col" class="last">@Messages("dashboard.clientProperties.table.3")</th>
+                        <th scope="col">@Messages("dashboard.clientProperties.table.3")</th>
+                        <th scope="col" class="last">@Messages("dashboard.clientProperties.table.4")</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +33,7 @@
                     <td>
                         @prop.billingAuthorityReference
                     </td>
-                    <td class="last">
+                    <td>
                         <ul>
                             <li>
                                 Check: @Messages(s"permission.${prop.checkPermission}")
@@ -41,6 +42,11 @@
                                 Challenge: @Messages(s"permission.${prop.challengePermission}")
                             </li>
                         </ul>
+                    </td>
+                    <td class="last">
+                        <a href="@controllers.agent.routes.RepresentationController.revokeClient(prop.ownerOrganisationId, prop.permissionId)">
+                            @Messages("dashboard.clientProperties.revokeClient")
+                        </a>
                     </td>
                 </tr>
                 }
