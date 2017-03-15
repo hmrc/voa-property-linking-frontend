@@ -3,7 +3,7 @@
 @(form: Form[_], fieldName: String, helpText: String = "addressLookup.lookup.example")(implicit request: Request[_], messages: Messages)
 
 @addressForm = {
-    <div class="address--fields" style="display: none">
+    <div class="address--fields show-if-no-js" style="display: none">
         <input type="hidden" id="@{fieldName}_addressId_text" name="@{fieldName}.addressId"/>
 
         @inputText(
@@ -49,13 +49,13 @@
             'class -> "form-control form-control-1-4"
         )
 
-        <a href="#" class="lookupAddress">@Messages("addressLookup.lookup")</a>
+        <a href="#" class="lookupAddress hide-if-no-js">@Messages("addressLookup.lookup")</a>
     </div>
 }
 
 <div class="form-group postcode-lookup-group">
 
-    <div class="postcode-lookup-fields">
+    <div class="postcode-lookup-fields hide-if-no-js">
     @inputText(
         field = form("postcodeSearch"),
         '_label -> Messages("label.address.postcode"),
@@ -65,20 +65,18 @@
 
     )
 
-    <div class="form-group">
-        <a href="#" id="postcodeLookupButton" class="button button-secondary" role="button">@Messages("label.findAddress")</a>
-    </div>
+        <div class="form-group">
+            <a href="#" id="postcodeLookupButton" class="button button-secondary" role="button">@Messages("label.findAddress")</a>
+        </div>
 
     </div>
-
-<!-- Temp
-    <p>
-        <a href="#" class="manualAddress">@Messages("addressLookup.manual")</a>
-    </p>
--->
-
-    <a href="#" class="lookupAddressCancel" style="display: none">@Messages("label.findAddress.tryAgain")</a>
 
     @addressForm
+    
+    <p><a href="#" class="manualAddress hide-if-no-js" >@Messages("addressLookup.manual")</a></p>
+
+    <p><a href="#" class="lookupAddressCancel" style="display: none">@Messages("label.findAddress.tryAgain")</a></p>
+
+
 
 </div>

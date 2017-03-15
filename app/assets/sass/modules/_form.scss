@@ -31,24 +31,6 @@ legend{
 
 // Form helpers
 
-.margin-bottom-30{
-	margin-bottom: 30px;
-}
-
-.margin-bottom-20{
-	margin-bottom: 20px;
-}
-
-.margin-bottom-10{
-	margin-bottom: 10px;
-}
-.margin-bottom-5{
-	margin-bottom: 5px;
-}
-.margin-bottom-0{
-	margin-bottom: 0;
-}
-
 .pound{
 	position: relative;
 	left: 20px;
@@ -132,4 +114,10 @@ select.form-control{
 .lookupAddress{
 	display: inline-block;
 	margin-top: 10px;
+}
+.manualAddress{
+	display: inline-block;
+}
+select.addressList.form-control{
+	margin-bottom: 2em;
 }
