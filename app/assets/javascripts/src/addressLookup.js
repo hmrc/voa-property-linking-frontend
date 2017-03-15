@@ -17,6 +17,10 @@
             $('.address--fields input').attr('placeholder', '');
         }
 
+        function clearFields(_this) {
+            $(_this).closest('.postcode-lookup-group').find('.address--fields input').val('');
+        }
+
         function errorCheck() {
             if($('#error-summary').length) {
                 showFields();
@@ -39,6 +43,7 @@
 
         $('#postcodeLookupButton').click(function (e) {
             e.preventDefault();
+            $(this).closest('.postcode-lookup-group').find('#addressSelect, [for="addressSelect"]').remove();
 
             var postcode = $('#postcodeSearch').val();
 
@@ -97,17 +102,16 @@
 
         $('.manualAddress').click(function (e) {
             e.preventDefault();
-            $('.manualAddress').css('display', 'none');
-            $('[for="addressSelect"]').css('display', 'none');
-            $('#addressSelect').css('display', 'none');
+            $('.manualAddress, .lookupAddressCancel, [for="addressSelect"], #addressSelect').css('display', 'none');
             showFields();
+            clearFields(this);
         });
 
         $('.lookupAddress').click(function (e) {
             e.preventDefault();
             $('.address--fields').css('display', 'none');
             $('.postcode-lookup-fields').css('display', 'block');
-            $('.manualAddress').css('display', 'block');
+            $('.manualAddress').css('display', 'inline-block');
             $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
             $('#postcodeSearchGroup .error-message').remove();
             $('#postcodeSearch').val('');
@@ -118,7 +122,7 @@
             e.preventDefault();
             $('.address--fields').css('display', 'none');
             $('.postcode-lookup-fields').css('display', 'block');
-            $('.manualAddress').css('display', 'block');
+            $('.manualAddress').css('display', 'inline-block');
             $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
             $('#postcodeSearchGroup .error-message').remove();
             $('#postcodeSearch').val('').focus();

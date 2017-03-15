@@ -22,6 +22,10 @@ legend{
 
 // Address Fields
 
+.address--fields{
+	margin-top: -14px;
+}
+
 .address--fields .form-group{
 	margin-bottom: 10px;
 	h2{
@@ -132,4 +136,10 @@ select.form-control{
 .lookupAddress{
 	display: inline-block;
 	margin-top: 10px;
+}
+.manualAddress{
+	display: inline-block;
+}
+select.addressList.form-control{
+	margin-bottom: 2em;
 }
