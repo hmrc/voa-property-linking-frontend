@@ -78,8 +78,8 @@ package object resources {
     lastName <- shortString
     email <- shortString
     phone1 <- Gen.listOfN(8, Gen.numChar)
-    address <- arbitrary[Address]
-  } yield IndividualDetails(fistName, lastName, email, phone1.mkString, None, address)
+    addressId <- arbitrary[Int]
+  } yield IndividualDetails(fistName, lastName, email, phone1.mkString, None, addressId)
   implicit val arbitraryIndividualDetails = Arbitrary(individualDetailsGen)
 
   val individualGen: Gen[DetailedIndividualAccount] = for {
@@ -95,13 +95,13 @@ package object resources {
     id <- arbitrary[Int]
     groupId <- shortString
     companyName <- shortString
-    address <- arbitrary[Address]
+    addressId <- arbitrary[Int]
     email <- shortString
     phone <-  Gen.listOfN(8, Gen.numChar)
     isSmallBusiness <- arbitrary[Boolean]
     isAgent <- arbitrary[Boolean]
     agentCode <- arbitrary[Long]
-  } yield GroupAccount(id, groupId, companyName, address, email, phone.mkString, isSmallBusiness, isAgent, agentCode)
+  } yield GroupAccount(id, groupId, companyName, addressId, email, phone.mkString, isSmallBusiness, isAgent, agentCode)
   implicit val arbitraryGroupAccount = Arbitrary(groupAccountGen)
 
   val capacityGen: Gen[Capacity] = for {
@@ -192,5 +192,17 @@ package object resources {
   } yield Accounts(group, individual)
 
   implicit val arbitraryAccounts = Arbitrary(accountsGenerator)
+
+  private val personalDetailsGen: Gen[PersonalDetails] = for {
+    firstName <- shortString
+    lastName <- shortString
+    dob <- arbitrary[LocalDate]
+    nino <- arbitrary[Nino]
+    email <- shortString
+    phone <- Gen.listOfN(8, Gen.numChar)
+    address <- arbitrary[Address]
+  } yield PersonalDetails(firstName, lastName, dob, nino, email, email, phone.mkString, None, address)
+
+  implicit val arbitraryPersonalDetails: Arbitrary[PersonalDetails] = Arbitrary(personalDetailsGen)
 
 }

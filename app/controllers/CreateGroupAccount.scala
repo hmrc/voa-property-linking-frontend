@@ -20,9 +20,11 @@ import config.Wiring
 import form.Mappings._
 import form.TextMatching
 import models.{Address, IndividualAccount, IndividualDetails}
+import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
+import uk.gov.hmrc.play.http.HeaderCarrier
 import views.helpers.Errors
 
 import scala.concurrent.Future
@@ -34,6 +36,7 @@ trait CreateGroupAccount extends PropertyLinkingController {
   lazy val ggAction = Wiring().ggAction
   lazy val keystore = Wiring().sessionCache
   lazy val identityVerification = Wiring().identityVerification
+  lazy val addresses = Wiring().addresses
 
   def show = ggAction.async { _ => implicit request =>
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
@@ -62,14 +65,16 @@ trait CreateGroupAccount extends PropertyLinkingController {
             formData => {
               val eventualGroupId = auth.getGroupId(ctx)
               val eventualExternalId = auth.getExternalId(ctx)
-              val eventualIndividualDetails = keystore.getIndividualDetails
+              val eventualPersonalDetails = keystore.getPersonalDetails
+              val addressId = registerAddress(formData)
 
               for {
                 groupId <- eventualGroupId
                 userId <- eventualExternalId
-                details <- eventualIndividualDetails
-                organisationId <- groups.create(groupId, formData)
-                _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details))
+                details <- eventualPersonalDetails
+                id <- addressId
+                organisationId <- groups.create(groupId, id, formData)
+                _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details.individualDetails))
               } yield {
                 Redirect(routes.CreateGroupAccount.success())
               }
@@ -78,6 +83,11 @@ trait CreateGroupAccount extends PropertyLinkingController {
         case false => Unauthorized("Unauthorised")
       }
     }
+  }
+
+  private def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = details.address.addressUnitId match {
+    case Some(id) => Future.successful(id)
+    case None => addresses.create(details.address)
   }
 
   lazy val keys = new {

@@ -17,7 +17,7 @@
 package controllers
 
 import config.{ApplicationConfig, Wiring}
-import models.{IVDetails, IndividualAccount, IndividualDetails}
+import models.{IVDetails, IndividualAccount, IndividualDetails, PersonalDetails}
 import play.api.mvc.{Action, Request}
 import uk.gov.hmrc.play.frontend.auth.AuthContext
 import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
@@ -70,29 +70,28 @@ trait IdentityVerification extends PropertyLinkingController {
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       val eventualGroupId = auth.getGroupId(ctx)
       val eventualExternalId = auth.getExternalId(ctx)
-      val eventualIndividualDetails = keystore.getIndividualDetails
+      val eventualIndividualDetails = keystore.getPersonalDetails
 
       for {
         groupId <- eventualGroupId
         userId <- eventualExternalId
         account <- groups.withGroupId(groupId)
         details <- eventualIndividualDetails
+        id <- registerAddress(details)
+        d = details.withAddressId(id)
         res <- account match {
-          case Some(acc) => individuals.create(IndividualAccount(userId, journeyId, acc.id, details)) map { _ =>
+          case Some(acc) => individuals.create(IndividualAccount(userId, journeyId, acc.id, d.individualDetails)) map { _ =>
             Ok(views.html.createAccount.groupAlreadyExists(acc.companyName))
           }
-          case _ => registerAddress(details) map { _ => Ok(views.html.identityVerification.success()) }
+          case _ => keystore.cachePersonalDetails(d) map { _ => Ok(views.html.identityVerification.success()) }
         }
       } yield res
     }
   }
 
-  private def registerAddress(details: IndividualDetails)(implicit hc: HeaderCarrier): Future[Unit] = details.address.addressUnitId match {
-    case Some(_) => ()
-    case None => for {
-      id <- addresses.create(details.address)
-      _ <- keystore.cacheIndividualDetails(details.copy(address = details.address.copy(addressUnitId = Some(id))))
-    } yield ()
+  private def registerAddress(details: PersonalDetails)(implicit hc: HeaderCarrier): Future[Int] = details.address.addressUnitId match {
+    case Some(id) => id
+    case None => addresses.create(details.address)
   }
 }
 

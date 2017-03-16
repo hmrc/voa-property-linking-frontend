@@ -17,12 +17,22 @@
 package models
 
 import org.joda.time.LocalDate
+import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino
 
 case class PersonalDetails(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino,
                            email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: Address) {
 
   def ivDetails = IVDetails(firstName, lastName, dateOfBirth, nino)
-  def individualDetails = IndividualDetails(firstName, lastName, email, phone1, phone2, address)
 
+  def individualDetails = {
+    IndividualDetails(firstName, lastName, email, phone1, phone2, address.addressUnitId.getOrElse(throw new Exception("Address ID not set")))
+  }
+
+  def withAddressId(addressId: Int) = copy(address = address.copy(addressUnitId = Some(addressId)))
+
+}
+
+object PersonalDetails {
+  implicit val format = Json.format[PersonalDetails]
 }

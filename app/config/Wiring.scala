@@ -22,6 +22,7 @@ import connectors._
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import models.{IVDetails, IndividualDetails, PersonalDetails}
+import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, Reads, Writes}
 import session.{AgentAppointmentSessionRepository, LinkingSessionRepository, WithLinkingSession}
@@ -68,19 +69,11 @@ class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends Se
   override def baseUri: String = baseUrl("cachable.session-cache")
   override def domain: String = getConfString("cachable.session-cache.domain", throw new Exception("No config setting for cache domain"))
 
-  def getIndividualDetails(implicit hc: HeaderCarrier) = getEntry[IndividualDetails]("individualDetails")
-  def getIvDetails(implicit hc: HeaderCarrier) = getEntry[IVDetails]("ivDetails")
+  def getPersonalDetails(implicit hc: HeaderCarrier) = getEntry[PersonalDetails]("personDetails")
 
-  def cachePersonalDetails(details: PersonalDetails)(implicit hc: HeaderCarrier) = {
-    for {
-      _ <- cache("ivDetails", details.ivDetails)
-      _ <- cache("individualDetails", details.individualDetails)
-    } yield {
-      ()
-    }
+  def cachePersonalDetails(details: PersonalDetails)(implicit hc: HeaderCarrier): Future[Unit] = {
+    cache("personDetails", details) map { _ => () }
   }
-
-  def cacheIndividualDetails(details: IndividualDetails)(implicit hc: HeaderCarrier) = cache("individualDetails", details) map { _ => () }
 
   private def getEntry[T](formId: String)(implicit hc: HeaderCarrier, rds: Reads[T]) = {
     fetchAndGetEntry(formId) map { _.getOrElse(throw new Exception(s"No keystore record found for $formId")) }
