@@ -64,8 +64,9 @@ trait Dashboard extends PropertyLinkingController {
   def clientProperties(organisationId: Long) = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.agentEnabled) {
       propertyLinks.clientProperties(organisationId, request.organisationId) map { props =>
-        if (props.nonEmpty) {
-          Ok(views.html.dashboard.clientProperties(ClientPropertiesVM(props)))
+        if (props.exists(_.authorisedPartyStatus == RepresentationApproved)) {
+          val filteredProps: Seq[ClientProperty] = props.filter(_.authorisedPartyStatus == RepresentationApproved)
+          Ok(views.html.dashboard.clientProperties(ClientPropertiesVM(filteredProps)))
         } else NotFound
       }
     } else {
