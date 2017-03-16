@@ -1,0 +1,21 @@
+details{
+    &.get-help-toggle{
+        margin-top: 3em;
+        summary{
+            color: #454a4c;
+            font-family: "nta",Arial,sans-serif;
+            font-size: 16px;
+            line-height: 1.25;
+            font-weight: 300;
+            text-transform: none;
+        }
+    }
+}
+
+details.get-help-toggle summary::-webkit-details-marker {
+    display:none;
+}
+
+details.get-help-toggle>summary:first-of-type {
+    list-style-type: none;
+  }
