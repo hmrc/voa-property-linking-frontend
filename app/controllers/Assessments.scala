@@ -17,7 +17,9 @@
 package controllers
 
 import config.{ApplicationConfig, Wiring}
-import models.{Assessment, DetailedValuationRequest}
+import form.EnumMapping
+import models._
+import play.api.data.{Form, Forms}
 import play.api.mvc.Action
 
 trait Assessments extends PropertyLinkingController {
@@ -55,20 +57,39 @@ trait Assessments extends PropertyLinkingController {
   }
 
   def requestDetailedValuation(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
-    Ok(views.html.requestDetailedValuation(authId, assessmentRef, baRef))
+    Ok(views.html.requestDetailedValuation(RequestDetailedValuationVM(dvRequestForm, authId, assessmentRef, baRef)))
   }
 
   def detailedValuationRequested(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
-    for {
-      submissionId <- submissionIds.get("RV")
-      dvr = DetailedValuationRequest(authId, request.organisationId, request.personId, submissionId, assessmentRef, baRef)
-      _ <- dvrCaseManagement.requestDetailedValuation(dvr)
-    } yield {
-      Ok(views.html.detailedValuationRequested(submissionId))
-    }
+    dvRequestForm.bindFromRequest().fold(
+      errs => BadRequest(views.html.requestDetailedValuation(RequestDetailedValuationVM(errs, authId, assessmentRef, baRef))),
+      preference => {
+        val prefix = preference match {
+          case EmailRequest => "EMAIL"
+          case PostRequest => "POST"
+        }
+
+        for {
+          submissionId <- submissionIds.get(prefix)
+          dvr = DetailedValuationRequest(authId, request.organisationId, request.personId, submissionId, assessmentRef, baRef)
+          _ <- dvrCaseManagement.requestDetailedValuation(dvr)
+        } yield {
+          Redirect(routes.Assessments.dvRequestConfirmation(submissionId))
+        }
+      }
+    )
   }
+
+  def dvRequestConfirmation(submissionId: String) = Action { implicit request =>
+    val preference = if (submissionId.startsWith("EMAIL")) "email" else "post"
+    Ok(views.html.detailedValuationRequested(submissionId, preference))
+  }
+
+  lazy val dvRequestForm = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))
 }
 
 object Assessments extends Assessments
 
 case class AssessmentsVM(assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean)
+
+case class RequestDetailedValuationVM(form: Form[_], authId: Long, assessmentRef: Long, baRef: String)

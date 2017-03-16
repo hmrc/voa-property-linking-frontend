@@ -1,7 +1,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 
-@(submissionId: String)(implicit request: Request[_], messages: Messages)
+@(submissionId: String, requestType: String)(implicit request: Request[_], messages: Messages)
 
     @main_template(Messages("detailedValuationRequested.title"), topNavigation = false) {
         <div class="grid-row">
@@ -12,7 +12,7 @@
                     <p class="heading-medium no-margin">@Messages("detailedValuationRequested.title.reference", submissionId)</p>
                 </div>
 
-                <p>@Messages("detailedValuationRequested.p.1")</p>
+                <p>@Messages("detailedValuationRequested.p.1", requestType)</p>
 
                 <a href="@routes.Dashboard.home()" class="button">@Messages("link.dashboard")</a>
 

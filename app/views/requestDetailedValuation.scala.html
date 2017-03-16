@@ -1,18 +1,37 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 
-@(authId: Long, assessmentRef: Long, baRef: String)(implicit request: Request[_], messages: Messages)
-    
+@(model: RequestDetailedValuationVM)(implicit request: Request[_], messages: Messages)
+
     @main_template(Messages("requestDetailedValuation.title")) {
         <div class="grid-row">
             <div class="column-two-thirds">
-            
-                <h1 class="heading-xlarge">@Messages("requestDetailedValuation.title")</h1>
-                
-                <p>@Messages("requestDetailedValuation.p.1")</p>
 
-                <a href="@routes.Assessments.detailedValuationRequested(authId, assessmentRef, baRef)" class="button">@Messages("link.continue")</a>
-                
+                @includes.errorSummary(model.form)
+
+                <h1 class="heading-xlarge">@Messages("requestDetailedValuation.title")</h1>
+
+                <p>@Messages("requestDetailedValuation.p.1")</p>
+                <p>@Html(Messages("requestDetailedValuation.p.2", routes.Dashboard.home()))</p>
+                <p>@Messages("requestDetailedValuation.p.3")</p>
+                <p>@Messages("requestDetailedValuation.p.4")</p>
+
+                @form(routes.Assessments.detailedValuationRequested(model.authId, model.assessmentRef, model.baRef)) {
+                    @inputRadioGroup(
+                        model.form("requestType"),
+                        options = DetailedValuationRequestTypes.options,
+                        args = Seq(
+                            '_label -> Messages("label.requestType"),
+                            '_labelSpanClass -> "visuallyhidden",
+                            '_legend -> true
+                        )
+                    )
+
+                    <p>
+                        <button type="submit" class="button" id="continue" name="continue_button">@Messages("link.continue")</button>
+                    </p>
+                }
+
             </div>
         </div>
     }
