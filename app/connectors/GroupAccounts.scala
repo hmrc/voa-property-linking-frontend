@@ -47,7 +47,7 @@ class GroupAccounts(http: HttpGet with HttpPost)(implicit ec: ExecutionContext) 
     }}
   }
 
-  def create(groupId: String, details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = {
-    create(GroupAccountSubmission(groupId, details.companyName, details.address, details.email, details.phone, details.isSmallBusiness, details.isAgent))
+  def create(groupId: String, addressId: Int, details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = {
+    create(GroupAccountSubmission(groupId, details.companyName, addressId, details.email, details.phone, details.isSmallBusiness, details.isAgent))
   }
 }

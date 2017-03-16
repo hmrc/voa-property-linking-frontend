@@ -17,21 +17,20 @@
 package utils
 
 import config.VPLSessionCache
-import models.IndividualDetails
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import models.PersonalDetails
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
 object StubKeystore extends VPLSessionCache(StubHttp) {
-  private var individualDetails: Option[IndividualDetails] = None
+  private var personalDetails: Option[PersonalDetails] = None
 
-  def stubIndividualDetails(details: IndividualDetails) = individualDetails = Some(details)
+  def stubPersonalDetails(details: PersonalDetails) = personalDetails = Some(details)
   
-  override def getIndividualDetails(implicit hc: HeaderCarrier): Future[IndividualDetails] = individualDetails match {
+  override def getPersonalDetails(implicit hc: HeaderCarrier): Future[PersonalDetails] = personalDetails match {
     case Some(d) => Future.successful(d)
-    case None => Future.failed(new Exception("individual details not stubbed"))
+    case None => Future.failed(new Exception("personal details not stubbed"))
   }
 
-  override def cacheIndividualDetails(details: IndividualDetails)(implicit hc: HeaderCarrier) = Future.successful(Unit)
+  override def cachePersonalDetails(details: PersonalDetails)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 }

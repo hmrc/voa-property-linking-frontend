@@ -15,7 +15,7 @@
  */
 
 package controllers
-import models.{GroupAccount, IndividualDetails}
+import models.{GroupAccount, IndividualDetails, PersonalDetails}
 import org.jsoup.Jsoup
 import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
@@ -38,7 +38,7 @@ class IdentityVerificationSpec extends ControllerSpec {
 
   val request = FakeRequest()
   private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
-  StubKeystore.stubIndividualDetails(arbitrary[IndividualDetails].sample.get)
+  StubKeystore.stubPersonalDetails(arbitrary[PersonalDetails].sample.get)
 
   "Successfully verifying identity when the group does not have a CCA account" must
     "display the successful iv confirmation page, and not create an individual account" in {
