@@ -12,9 +12,12 @@
     individualId = Some(request.personId)
 ) {
 
-        <h1 class="heading-xlarge">
-            @Messages("dashboard.managedByAgentsProperties.title", model.agentName)
-        </h1>
+    <h1 class="heading-xlarge clear-right">
+        <span class="heading-secondary">
+            @Messages("dashboard.managedByAgentsProperties.title", "")
+        </span>
+        <span class="section-title">@model.agentName</span>
+    </h1>
 
     <div class="table-wrapper">
         <table class="table-font-xsmall margin-bottom-20">
@@ -25,7 +28,7 @@
                     <th scope="col">@Messages("managedByAgentsProperties.table.2")</th>
                     <th scope="col">@Messages("managedByAgentsProperties.table.3")</th>
                     <th scope="col">@Messages("managedByAgentsProperties.table.4")</th>
-                    <th scope="col" class="last">@Messages("managedByAgentsProperties.table.5")</th>
+                    <th scope="col" width="15%" class="last">@Messages("managedByAgentsProperties.table.5")</th>
                 </tr>
                 @model.properties.map { p =>
                     <tr>
@@ -55,6 +58,9 @@
                         </td>
                         <td class="last">
                             <ul>
+                                <li>
+                                    <a href="@routes.AppointAgentController.revokeAgent(model.agentCode, p.agents.filter(_.agentCode == model.agentCode).head.authorisedPartyId)">@Messages("manageProperties.revokeAgent")</a>
+                                </li>
                                <li>
                                    <a href=@routes.AppointAgentController.appoint(p.authorisationId)>@Messages("manageProperties.addAgent")</a>
                                </li>

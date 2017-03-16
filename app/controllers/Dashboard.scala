@@ -53,11 +53,10 @@ trait Dashboard extends PropertyLinkingController {
       val filteredProps = props.filter(_.agents.map(_.agentCode).contains(agentCode))
       if (filteredProps.nonEmpty) {
         val organisationName = filteredProps.flatMap(_.agents).filter(_.agentCode == agentCode).head.organisationName
-
-        Ok(views.html.dashboard.managedByAgentsProperties(ManagedPropertiesVM(organisationName, filteredProps)))
+        Ok(views.html.dashboard.managedByAgentsProperties(ManagedPropertiesVM(organisationName, agentCode, filteredProps)))
       }
       else
-        NotFound
+        NotFound(Global.notFoundTemplate)
     }
   }
   }
@@ -90,7 +89,7 @@ trait Dashboard extends PropertyLinkingController {
 object Dashboard extends Dashboard
 
 case class ManagePropertiesVM(properties: Seq[PropertyLink])
-case class ManagedPropertiesVM(agentName: String, properties: Seq[PropertyLink])
+case class ManagedPropertiesVM(agentName: String, agentCode: Long, properties: Seq[PropertyLink])
 
 case class ManageAgentsVM(agents: Seq[AgentInfo])
 

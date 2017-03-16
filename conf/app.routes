@@ -45,6 +45,8 @@ POST        /create-group                                           controllers.
 GET         /home                                                   controllers.Dashboard.home()
 GET         /properties                                             controllers.Dashboard.manageProperties()
 GET         /managed-properties/:agentCode                          controllers.Dashboard.viewManagedProperties(agentCode: Long)
+GET         /managed-properties/:agentCode/revoke/:authorisedPartyId             @controllers.AppointAgentController.revokeAgent(agentCode: Long, authorisedPartyId: Long)
+GET         /managed-properties/:agentCode/revoke/:authorisedPartyId/confirmed   @controllers.AppointAgentController.revokeAgentConfirmed(agentCode: Long, authorisedPartyId: Long)
 GET         /manage-agents                                          controllers.Dashboard.manageAgents()
 GET         /draft-cases                                            controllers.Dashboard.draftCases()
 GET         /client-properties/:organisationId                      controllers.Dashboard.clientProperties(organisationId: Long)

@@ -19,6 +19,7 @@ package models
 import play.api.libs.json.Json
 
 case class Party (
+                   authorisedPartyId: Long,
                    permissionId: Long,
                    agentCode: Long,
                    organisationName: String,

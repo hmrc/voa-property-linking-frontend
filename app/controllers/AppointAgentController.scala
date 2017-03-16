@@ -76,6 +76,48 @@ class AppointAgentController extends PropertyLinkingController {
     }
   }
 
+  def revokeAgent(agentCode: Long, authorisedPartyId: Long) = authenticated { implicit request =>
+    if (ApplicationConfig.agentEnabled) {
+      for {
+        links <- propertyLinks.linkedProperties(request.organisationId)
+        agents = links.flatMap(_.agents)
+          .filter(_.agentCode == agentCode)
+          .filter(_.authorisedPartyId == authorisedPartyId)
+      } yield {
+        if (agents.size == 1) {
+          Ok(views.html.propertyRepresentation.revokeAgent(agentCode, authorisedPartyId, agents.head.organisationName, "some address"))
+        } else {
+          NotFound(Global.notFoundTemplate)
+        }
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
+  }
+
+  def revokeAgentConfirmed(agentCode: Long, authorisedPartyId: Long) = authenticated { implicit request =>
+    if (ApplicationConfig.agentEnabled) {
+      for {
+        links <- propertyLinks.linkedProperties(request.organisationId)
+        agents = links.flatMap(_.agents)
+          .filter(_.agentCode == agentCode)
+          .filter(_.authorisedPartyId == authorisedPartyId)
+      } yield {
+        if (agents.filter(_.authorisedPartyId == authorisedPartyId).size == 1) {
+          val revoked = representations.revoke(authorisedPartyId)
+          if (agents.size > 1)
+            Redirect(controllers.routes.Dashboard.viewManagedProperties(agentCode))
+          else
+            Redirect(controllers.routes.Dashboard.manageAgents())
+        } else {
+          NotFound(Global.notFoundTemplate)
+        }
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
+  }
+
   def appointSubmit(authorisationId: Long) = authenticated { implicit request =>
     if (ApplicationConfig.agentEnabled) {
       appointAgentForm.bindFromRequest().fold(errors => {
