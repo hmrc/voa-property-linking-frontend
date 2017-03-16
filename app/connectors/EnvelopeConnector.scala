@@ -16,18 +16,14 @@
 
 package connectors
 
-import java.io.File
 import javax.inject.Inject
 
-import akka.stream.scaladsl._
 import com.google.inject.{ImplementedBy, Singleton}
-import config.{Environment, Wiring}
-import play.api.Logger
+import config.Wiring
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
-import play.api.mvc.MultipartFormData.FilePart
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.{HttpException, HttpResponse, _}
+import uk.gov.hmrc.play.http.{HttpResponse, _}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}

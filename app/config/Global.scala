@@ -52,8 +52,6 @@ trait VPLFrontendGlobal extends DefaultFrontendGlobal with ShowErrorPage {
   override def frontendAuditFilter: FrontendAuditFilter = AuditFilter
 
   val wiring: Wiring
-
-  override def frontendFilters = defaultFrontendFilters :+ PrivateBetaAuthenticationFilter
 }
 
 object AuditServiceConnector extends AuditConnector {
@@ -74,10 +72,4 @@ object AuditFilter extends FrontendAuditFilter with MicroserviceFilterSupport wi
 
 object ControllerConfiguration extends ControllerConfig {
   lazy val controllerConfigs = Play.current.configuration.underlying.as[Config]("controllers")
-}
-
-object Environment extends uk.gov.hmrc.play.config.RunMode {
-  def isDev = env == "Dev"
-  def isProd = env == "Prod"
-  def isTest = env == "Test"
 }
