@@ -31,6 +31,7 @@
         <a href=@backLinkUrl.orElse(requestHeader.headers.get("referer")).getOrElse(routes.Dashboard.home()) id="backLinkTop" class="link-back">@Messages("link.back")</a>
     }
 
+
     @if(topBackLink) {
         @backLink
     }
@@ -51,4 +52,14 @@
     @if(bottomBackLink) {
         @backLink
     }
+
+
+    <details class="get-help-toggle">
+        <summary><span class="summary">@Messages("getHelpLink")</span></summary>
+        <div class="panel panel-border-wide">
+            @Html(Messages("getHelpContent", "ccaservice@voa.gsi.gov.uk"))
+        </div>
+    </details>
+
+
 </article>

@@ -605,3 +605,7 @@ contactUs.emailaddress=<a href="mailto:{0}">ccaservice@voa.gsi.gov.uk</a>
 contactUs.telephone=Telephone
 contactUs.telephone.number=03000 501 501
 contactUs.telephone.openhours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
+
+##GET HELP
+getHelpLink=Get help with this page.
+getHelpContent=<p>If you’d like to speak to somebody about this service, please contact us.</p><p>Email<br /><a href="mailto:{0}">{0}</a></p><p>Telephone<br /><strong>03000 501 501</strong></p><p>Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.</p>
