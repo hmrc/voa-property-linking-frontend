@@ -221,6 +221,7 @@ dashboard.manageProperties.status.added=Approved
 dashboard.manageProperties.status.pending=Pending
 dashboard.manageProperties.noAgent=None
 dashboard.managedProperties.addAnotherProperty=Add property
+manageProperties.revokeAgent=Revoke agent
 manageProperties.addAgent=Appoint agent
 manageProperties.viewAssessments=View assessments
 link.dashboard.home=Back to dashboard
@@ -299,6 +300,10 @@ propertyRepresentation.overrideAgent.back=Back
 propertyRepresentation.revokeClient.title=Revoking client
 propertyRepresentation.revokeClient.message=Are you sure you no longer want to act on behalf of {0} for {1}?
 propertyRepresentation.revokeClient.button=Continue
+
+propertyRepresentation.revokeAgent.title=Revoking agent
+propertyRepresentation.revokeAgent.message=Are you sure you no longer want to {0} to act on behalf of this property?
+propertyRepresentation.revokeAgent.button=Continue
 
 #EDIT AGENT
 propertyRepresentation.modifyAgent.title=Manage agent relationship
