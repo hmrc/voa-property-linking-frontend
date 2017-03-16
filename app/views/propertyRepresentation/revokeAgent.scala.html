@@ -1,0 +1,29 @@
+@(agentCode: Long, authorisedPartyId: Long,
+        agentName: String, propertyAddress: String)(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+    title = Messages("propertyRepresentation.revokeAgent.title"),
+    topNavigation = true,
+    topBackLink = true,
+    bottomBackLink = true
+) {
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">
+            @Messages("propertyRepresentation.revokeAgent.title")
+            </h1>
+
+            <p>@Messages("propertyRepresentation.revokeAgent.message", agentName, propertyAddress)
+            <p>
+                <a href="@controllers.routes.AppointAgentController.revokeAgentConfirmed(agentCode, authorisedPartyId)">
+                    <button type="submit" class="button">
+                        @Messages("propertyRepresentation.revokeAgent.button")
+                    </button>
+                </a>
+            </p>
+
+        </div>
+    </div>
+}

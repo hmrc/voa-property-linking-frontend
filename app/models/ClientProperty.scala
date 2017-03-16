@@ -19,14 +19,16 @@ package models
 import play.api.libs.json.Json
 
 case class ClientProperty(
-                              ownerOrganisationId: Long,
-                              ownerOrganisationName: String,
-                              billingAuthorityReference: String,
-                              permissionId: Long,
-                              checkPermission: String,
-                              challengePermission: String,
-                              address: String
-                            )
+                           ownerOrganisationId: Long,
+                           ownerOrganisationName: String,
+                           billingAuthorityReference: String,
+                           authorisedPartyId: Long,
+                           permissionId: Long,
+                           authorisedPartyStatus: RepresentationStatus,
+                           checkPermission: String,
+                           challengePermission: String,
+                           address: String
+                         )
 
 object ClientProperty {
   implicit val format = Json.format[ClientProperty]

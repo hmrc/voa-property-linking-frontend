@@ -53,11 +53,10 @@ trait Dashboard extends PropertyLinkingController {
       val filteredProps = props.filter(_.agents.map(_.agentCode).contains(agentCode))
       if (filteredProps.nonEmpty) {
         val organisationName = filteredProps.flatMap(_.agents).filter(_.agentCode == agentCode).head.organisationName
-
-        Ok(views.html.dashboard.managedByAgentsProperties(ManagedPropertiesVM(organisationName, filteredProps)))
+        Ok(views.html.dashboard.managedByAgentsProperties(ManagedPropertiesVM(organisationName, agentCode, filteredProps)))
       }
       else
-        NotFound
+        NotFound(Global.notFoundTemplate)
     }
   }
   }
@@ -65,8 +64,9 @@ trait Dashboard extends PropertyLinkingController {
   def clientProperties(organisationId: Long) = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.agentEnabled) {
       propertyLinks.clientProperties(organisationId, request.organisationId) map { props =>
-        if (props.nonEmpty) {
-          Ok(views.html.dashboard.clientProperties(ClientPropertiesVM(props)))
+        if (props.exists(_.authorisedPartyStatus == RepresentationApproved)) {
+          val filteredProps: Seq[ClientProperty] = props.filter(_.authorisedPartyStatus == RepresentationApproved)
+          Ok(views.html.dashboard.clientProperties(ClientPropertiesVM(filteredProps)))
         } else NotFound
       }
     } else {
@@ -90,7 +90,7 @@ trait Dashboard extends PropertyLinkingController {
 object Dashboard extends Dashboard
 
 case class ManagePropertiesVM(properties: Seq[PropertyLink])
-case class ManagedPropertiesVM(agentName: String, properties: Seq[PropertyLink])
+case class ManagedPropertiesVM(agentName: String, agentCode: Long, properties: Seq[PropertyLink])
 
 case class ManageAgentsVM(agents: Seq[AgentInfo])
 

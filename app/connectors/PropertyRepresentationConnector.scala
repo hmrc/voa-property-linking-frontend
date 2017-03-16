@@ -61,8 +61,8 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost w
     http.PUT[UpdatedRepresentation, HttpResponse](url, updated) map { _ => () }
   }
 
-  def revoke(permissionId: Long)(implicit hc: HeaderCarrier) = {
-    val url = baseUrl + s"/property-representations/revoke/${permissionId}"
-    http.PATCH(url, "") map { _ => () }
+  def revoke(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
+    val url = baseUrl + s"/property-representations/revoke/${authorisedPartyId}"
+    http.PATCH[String, HttpResponse](url, "") map { _ => () }
   }
 }

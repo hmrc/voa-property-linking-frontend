@@ -16,18 +16,18 @@
 
 package models
 
-import play.api.libs.json.Json
+sealed trait DetailedValuationRequestTypes extends NamedEnum {
+  override def key: String = "dvRequestType"
+}
 
-case class Party (
-                   authorisedPartyId: Long,
-                   permissionId: Long,
-                   agentCode: Long,
-                   organisationName: String,
-                   organisationId: Long,
-                   checkPermission: AgentPermission,
-                   challengePermission: AgentPermission
-                 )
+case object EmailRequest extends DetailedValuationRequestTypes {
+  override def name: String = "email"
+}
 
-object Party {
-  implicit val format = Json.format[Party]
+case object PostRequest extends DetailedValuationRequestTypes {
+  override def name: String = "post"
+}
+
+object DetailedValuationRequestTypes extends NamedEnumSupport[DetailedValuationRequestTypes] {
+  override def all: Seq[DetailedValuationRequestTypes] = Seq(EmailRequest, PostRequest)
 }
