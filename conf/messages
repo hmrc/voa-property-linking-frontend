@@ -490,9 +490,9 @@ requestDetailedValuation.p.2=If you don’t want to request this, you can <a hre
 requestDetailedValuation.p.3=Sending information by email is our preferred method as it means we can get it to you quicker. Although we take care to protect the security of your property data, we cannot guarantee that your detailed valuation will be secure if sent by email.
 requestDetailedValuation.p.4=If you’d prefer us to send this by post, we’ll send it to the address that you provided on the ‘your contact details’ page during registration.
 
-label.requestType=Detailed valuation request preference
-requestType.email=Request detailed valuation by email
-requestType.post=Request detailed valuation by post
+label.requestType=How would you like to receive the detailed valuation?
+requestType.email=By email
+requestType.post=By post
 
 detailedValuationRequested.title=We’ve received your request to view the detailed valuation for this property.
 detailedValuationRequested.title.reference=Your reference number is {0}.
