@@ -80,7 +80,7 @@ class AppointAgentSpec extends ControllerSpec {
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("canCheck" -> "No value selected")
+    page.mustContainFieldErrors("canCheck" -> "Select an option")
   }
 
   it must "require the user to select agent permissions for challenges" in {
@@ -94,7 +94,7 @@ class AppointAgentSpec extends ControllerSpec {
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("canChallenge" -> "No value selected")
+    page.mustContainFieldErrors("canChallenge" -> "Select an option")
   }
 
   it must "not allow agents to be appointed with no permissions" in {
@@ -133,7 +133,7 @@ class AppointAgentSpec extends ControllerSpec {
     val (groupAccount, individual) = stubLoggedInUser()
     StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
     val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id, authorisationId = 555
-    ,agents = Nil)
+      ,agents = Nil)
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
@@ -142,7 +142,7 @@ class AppointAgentSpec extends ControllerSpec {
     status(res) must be (OK)
 
     val page = HtmlPage(res)
-    page.mustContainText("We have received your request for an agent")
+    page.mustContainText("We have received your request for")
   }
 
   def stubLoggedInUser() = {
