@@ -513,7 +513,7 @@ label.date.year=Year
 help.date.day.month.year=For example, 12 3 2011
 help.optional.date.day.month.year=For example, 12 3 2011 (Optional)
 error.common.date.mustBeInPast=Must be in the past
-error.common.noValueSelected=Select an option
+error.common.noValueSelected=Please select an option
 error.booleanMissing=You must select one
 label.address=Address
 label.address.line1=Address line 1
@@ -550,6 +550,7 @@ error.number=This must be filled in
 error.label.day=Date of birth - Day
 error.label.month=Date of birth - Month
 error.label.year=Date of birth - Year
+error.boolean=Please select an option
 
 #MISC
 alt.newWindow=Opens in a new window

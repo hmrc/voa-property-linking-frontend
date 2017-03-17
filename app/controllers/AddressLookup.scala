@@ -32,7 +32,9 @@ trait AddressLookup extends PropertyLinkingController {
         } else {
           Ok(Json.toJson(res))
         }
-      }
+    } recover {
+        case _ => NotFound
+    }
   }
 }
 

@@ -47,7 +47,7 @@ class ChooseEvidenceSpec extends ControllerSpec {
     status(res) mustBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.mustContainFieldErrors("hasRatesBill" -> "This must be filled in")
+    html.mustContainFieldErrors("hasRatesBill" -> "Please select an option")
   }
 
   it must "redirect to the rates bill upload page if the user has a rates bill" in {

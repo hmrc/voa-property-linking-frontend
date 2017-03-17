@@ -69,10 +69,10 @@ class CreateGroupAccountFormSpec extends FlatSpec with MustMatchers {
   }
 
   it must "require the user to specify if they are an agent or not" in {
-    verifyMandatory(form, validData, keys.isAgent)
+    verifyError(form, validData - keys.isAgent, keys.isAgent, "error.boolean")
   }
 
   it must "require the user to specify if their business is a small business" in {
-    verifyMandatory(form, validData, keys.isSmallBusiness)
+    verifyError(form, validData - keys.isSmallBusiness, keys.isSmallBusiness, "error.boolean")
   }
 }

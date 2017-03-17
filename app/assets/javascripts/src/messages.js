@@ -6,7 +6,7 @@
                 selectValue: 'Select an address'
             },
             errors : {
-                postcodeLookupError: 'Unrecognised postcode'
+                postcodeLookupError: 'Enter a valid postcode'
             }
         }
     };

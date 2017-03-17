@@ -80,7 +80,9 @@ class AppointAgentSpec extends ControllerSpec {
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("canCheck" -> "Select an option")
+
+    page.mustContainFieldErrors("canCheck" -> "Please select an option")
+
   }
 
   it must "require the user to select agent permissions for challenges" in {
@@ -94,7 +96,9 @@ class AppointAgentSpec extends ControllerSpec {
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("canChallenge" -> "Select an option")
+
+    page.mustContainFieldErrors("canChallenge" -> "Please select an option")
+
   }
 
   it must "not allow agents to be appointed with no permissions" in {
