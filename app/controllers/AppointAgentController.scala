@@ -160,12 +160,12 @@ class AppointAgentController extends PropertyLinkingController {
     val hasChallengeAgent = pLink.agents.map(_.challengePermission).contains(StartAndContinue)
     if (hasCheckAgent && agent.canCheck == StartAndContinue || hasChallengeAgent && agent.canChallenge == StartAndContinue) {
       sessionRepository.start(agent, agentOrgId, pLink).map(_ => {
-        val permissions = pLink.agents.map(a => ExistingAgentsPermission(a.agentCode,
+        val permissions = pLink.agents.map(a => ExistingAgentsPermission(a.organisationName, a.agentCode,
                         Seq(
                           if (a.checkPermission == StartAndContinue) "check" else "",
                           if (a.challengePermission == StartAndContinue) "challenge" else "").filter(_.nonEmpty)
         ))
-        val newAgentPerms = ExistingAgentsPermission(agent.agentCode,
+        val newAgentPerms = ExistingAgentsPermission("", agent.agentCode,
           Seq(
             if (agent.canChallenge == StartAndContinue) "challenge" else "",
             if (agent.canCheck == StartAndContinue) "check" else "").filter(_.nonEmpty)
@@ -241,6 +241,15 @@ class AppointAgentController extends PropertyLinkingController {
     }
   }
 
+  def declined(authorisationId: Long) = authenticated { implicit request =>
+    if (ApplicationConfig.agentEnabled) {
+      sessionRepository.remove().map( _ => Redirect(controllers.routes.Dashboard.manageProperties()))
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
+
+  }
+
   private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
   private lazy val alreadyAppointedAgent = FormError("agentCode", "error.alreadyAppointedAgent")
 
@@ -289,7 +298,7 @@ case class AppointAgentVM(form: Form[_], linkId: Long)
 
 case class ModifyAgentVM(form: Form[_], representationId: Long)
 
-case class ExistingAgentsPermission(agentCode: Long, availablePermission: Seq[String])
+case class ExistingAgentsPermission(agentName: String, agentCode: Long, availablePermission: Seq[String])
 case class ConfirmOverrideVM(authorisationId: Long, newAgent: ExistingAgentsPermission, existingPermissions: Seq[ExistingAgentsPermission])
 
 case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Long)

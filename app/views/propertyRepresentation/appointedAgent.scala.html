@@ -1,3 +1,4 @@
+@import utils.Formatters
 @(address: String)(implicit request: Request[_], messages: Messages)
 
 @main_template(
@@ -10,11 +11,17 @@
         <div class="column-two-thirds">
                 
             <div class="transaction-banner--complete">
-                <h1 class="transaction-banner__heading">@Messages("agentAppointed.heading", address)</h1>
+                <h1 class="transaction-banner__heading">@Messages("agentAppointed.heading")</h1>
             </div>
 
-            <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
-            <p>@Messages("appointedAgent.whatNext.p.1")</p>
+            <h2 class="heading-medium">@Messages("appointedAgent.whatNext")</h2>
+            <p>@Messages("appointedAgent.whatNext.p.1", Formatters.capitalizedAddress(address))</p>
+
+            <p>
+                <a href="@routes.Dashboard.home()" class="button">
+                    @Messages("appointedAgent.button")
+                </a>
+            </p>
 
         </div>
     </div>

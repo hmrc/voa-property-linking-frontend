@@ -20,18 +20,19 @@
             <ul class="list-bullet">
             @model.existingPermissions.map{ perm =>
                 <li>
-                    @Messages("propertyRepresentation.overrideAgent.message.2", perm.agentCode.toString, perm.availablePermission.mkString(" and "))
+                    @Messages("propertyRepresentation.overrideAgent.message.2", perm.agentName.toString, perm.availablePermission.mkString(" and "))
                 </li>
             }
             </ul>
-            <p>@Messages("propertyRepresentation.overrideAgent.message.3", model.newAgent.agentCode.toString, model.newAgent.availablePermission.sorted.reverse.mkString(" and "))</p>
+            <p>@Messages("propertyRepresentation.overrideAgent.message.3", model.newAgent.agentCode.toString, model.newAgent.availablePermission.sorted.reverse.mkString(" and "), model.newAgent.availablePermission.sorted.reverse.mkString(" and "))</p>
             <p>@Messages("propertyRepresentation.overrideAgent.message.4")</p>
 
             <p>
-                <a href="@routes.AppointAgentController.confirmed(model.authorisationId)">
-                    <button type="submit" class="button">
-                        @Messages("propertyRepresentation.appointAgent.button")
-                    </button>
+                <a href="@routes.AppointAgentController.confirmed(model.authorisationId)" class="button">
+                    @Messages("propertyRepresentation.overrideAgent.button.yes")
+                </a>
+                <a href="@routes.AppointAgentController.declined(model.authorisationId)" class="button">
+                    @Messages("propertyRepresentation.overrideAgent.button.no")
                 </a>
             </p>
 

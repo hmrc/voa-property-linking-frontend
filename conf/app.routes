@@ -82,6 +82,7 @@ GET         /linking-conflict                                       controllers.
 
 GET         /appoint-agent/:linkId                                  @controllers.AppointAgentController.appoint(linkId: Long)
 GET         /appoint-agent/:linkId/confirmed                        @controllers.AppointAgentController.confirmed(linkId: Long)
+GET         /appoint-agent/:linkId/declined                         @controllers.AppointAgentController.declined(linkId: Long)
 POST        /appoint-agent/:linkId                                  @controllers.AppointAgentController.appointSubmit(linkId: Long)
 GET         /representation-request/select/:linkId                  @controllers.AppointAgentController.select(linkId: Long)
 GET         /representation-request/edit/:linkId                    @controllers.AppointAgentController.edit(linkId: Long)
