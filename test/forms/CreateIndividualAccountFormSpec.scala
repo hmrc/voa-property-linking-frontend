@@ -16,8 +16,11 @@
 
 package forms
 
+import org.joda.time.LocalDate
 import controllers.CreateIndividualAccount._
+import models.{Address, PersonalDetails}
 import org.scalatest.{FlatSpec, MustMatchers}
+import uk.gov.hmrc.domain.Nino
 import utils.FormBindingVerification._
 import views.helpers.Errors
 
@@ -96,6 +99,22 @@ class CreateIndividualAccountFormSpec extends FlatSpec with MustMatchers {
 
   it must "require a postcode" in {
     verifyMandatory(form, validData, "address.postcode")
+  }
+
+  it must "accept national insurance numbers with lower case characters" in {
+    val withLowerCaseNino = validData.updated(keys.nino, "ab123456b")
+    mustBind(form, withLowerCaseNino)
+  }
+
+  it must "strip spaces from national insurance numbers" in {
+    val ninoWithSpaces = validData.updated(keys.nino, "AB 12 34 56 C")
+    mustBindTo(form, ninoWithSpaces,
+      PersonalDetails(
+        "fname", "lname", new LocalDate(1950, 1, 12), Nino("AB123456C"),
+        "email@address.com", "email@address.com", "01234567890",
+        None, Address(None, "123 The Road", "", "", "", "AA11 1AA")
+      )
+    )
   }
 
 }
