@@ -148,12 +148,14 @@ package object resources {
     billingAuthorityReference <- arbitrary[String]
     authorisedPartyId <- arbitrary[Long]
     permissionId <- arbitrary[Long]
+    authorisationId <- arbitrary[Long]
+    authorisationStatus <- arbitrary[Boolean]
     authorisedPartyStatus <- arbitrary[RepresentationStatus]
     checkPermission <- arbitrary[String]
     challengePermission <- arbitrary[String]
     address <- arbitrary[String]
   } yield models.ClientProperty(ownerOrganisationId, ownerOrganisationName, billingAuthorityReference, authorisedPartyId, permissionId,
-    authorisedPartyStatus, checkPermission, challengePermission, address)
+    authorisationId, authorisationStatus, authorisedPartyStatus, checkPermission, challengePermission, address)
  implicit val arbitraryClientProperty = Arbitrary(clientPropertyGen)
 
   val propertyLinkGen: Gen[PropertyLink] = for {

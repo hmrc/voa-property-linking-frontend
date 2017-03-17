@@ -67,7 +67,6 @@
             }
             @if(ApplicationConfig.agentEnabled){
                 @if(groupAccount.isAgent) {
-                    <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.clients")</h2>
                     <h3 class="heading-medium">
                         <a href="@controllers.agent.routes.RepresentationController.manageRepresentationRequest">
                         @Messages("dashboard.home.clients.link")

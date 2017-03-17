@@ -24,6 +24,8 @@ case class ClientProperty(
                            billingAuthorityReference: String,
                            authorisedPartyId: Long,
                            permissionId: Long,
+                           authorisationId: Long,
+                           authorisationStatus: Boolean,
                            authorisedPartyStatus: RepresentationStatus,
                            checkPermission: String,
                            challengePermission: String,
