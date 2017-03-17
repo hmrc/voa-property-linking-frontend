@@ -44,7 +44,7 @@ class RequestDetailedValuationSpec extends ControllerSpec with MockitoSugar {
     when(m.requestDetailedValuation(any[DetailedValuationRequest])(any[HeaderCarrier])).thenReturn(Future.successful(()))
     m
   }
-  
+
   lazy val mockSubmissionIds = {
     val m = mock[SubmissionIdConnector]
     when(m.get(matching("EMAIL"))(any[HeaderCarrier])).thenReturn(Future.successful("EMAIL123"))
@@ -74,7 +74,7 @@ class RequestDetailedValuationSpec extends ControllerSpec with MockitoSugar {
     status(res) mustBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.mustContainFieldErrors("requestType" -> "No value selected")
+    html.mustContainFieldErrors("requestType" -> "Please select an option")
   }
 
   it should """generate a submission ID starting with "EMAIL" if they choose to receive the detailed valuation by email""" in {
