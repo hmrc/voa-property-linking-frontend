@@ -75,11 +75,15 @@ trait CreateIndividualAccount extends PropertyLinkingController {
     keys.address -> address
   )(PersonalDetails.apply)(PersonalDetails.unapply))
 
-  lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(Nino(_), _.nino)
+  lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
 
   lazy val validNino: Constraint[String] = Constraint {
-    case s if Nino.isValid(s) => Valid
+    case s if Nino.isValid(s.toUpperCase) => Valid
     case _ => Invalid(ValidationError("error.nino.invalid"))
+  }
+
+  private def toNino(nino: String) = {
+    Nino(nino.toUpperCase.replaceAll(" ", ""))
   }
 
   implicit def vm(form: Form[_]): CreateIndividualAccountVM = CreateIndividualAccountVM(form)
