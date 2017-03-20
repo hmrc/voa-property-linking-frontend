@@ -5,8 +5,12 @@
 
 @(model: controllers.ManagePropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
+@heading=@{
+    Messages("dashboard.manageProperties.title")
+}
+
 @main_template(
-    title = Messages("dashboard.home.title"),
+    title = heading,
     topBackLink = true,
     bottomBackLink = true,
     backLinkUrl = Some(routes.Dashboard.home.url),
@@ -14,7 +18,7 @@
 ) {
 
         <h1 class="heading-xlarge margin-bottom-0 clear-right">
-            @Messages("dashboard.manageProperties.title")
+            @heading
         </h1>
 
         @if(model.properties.isEmpty){
