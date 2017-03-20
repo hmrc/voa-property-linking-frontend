@@ -42,8 +42,9 @@
                     options = AgentPermission.options,
                     args = Seq(
                         '_label -> Messages("label.canCheck"),
-                        '_labelClass -> "form-label-bold",
-                        '_legend -> true
+                        '_labelClass -> "form-label",
+                        '_legend -> true,
+                        '_fieldsetClass -> "inline"
                     )
                 )
                 @inputRadioGroup(
@@ -51,8 +52,9 @@
                     options = AgentPermission.options,
                     args = Seq(
                         '_label -> Messages("label.canChallenge"),
-                        '_labelClass -> "form-label-bold",
-                        '_legend -> true
+                        '_labelClass -> "form-label",
+                        '_legend -> true,
+                        '_fieldsetClass -> "inline"
                     )
                 )
                 <p><button type="submit" class="button">@Messages("propertyRepresentation.appointAgent.button")</button></p>
