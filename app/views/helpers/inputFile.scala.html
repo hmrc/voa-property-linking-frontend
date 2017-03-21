@@ -1,17 +1,3 @@
-
-@**
- * Generate an HTML input text.
- *
- * Example:
- * {{{
- * @inputText(field = myForm("name"), args = 'size -> 10, 'placeholder -> "Your name")
- * }}}
- *
- * @param field The form field.
- * @param args Set of extra attributes.
- * @param handler The field constructor.
- *@
-
 @(field: play.api.data.Field, args: (Symbol,Any)*)(implicit requestHeader: RequestHeader, messages: Messages)
 
 @input(field, args:_*) { (id, name, value, htmlArgs) =>

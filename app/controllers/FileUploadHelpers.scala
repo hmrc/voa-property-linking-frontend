@@ -41,40 +41,23 @@ trait FileUploadHelpers {
 
   val maxFileSize = 10485760 //10MB
 
-  protected def requestLink(linkBasis: LinkBasis, fileInfo: Option[FileInfo])(implicit r: LinkingSessionRequest[AnyContent]) =
-    propertyLinks.linkToProperty(r.ses.uarn,
-      r.groupAccount.id, r.individualAccount.individualId,
-      r.ses.declaration.getOrElse(throw new Exception("No declaration")),
-      r.ses.submissionId, linkBasis, fileInfo
-    )
-
   protected def uploadIfNeeded(filePart: Option[FilePart[TemporaryFile]])
-                            (implicit request: LinkingSessionRequest[AnyContent]): Future[FileUploadResult] = {
+                              (implicit request: LinkingSessionRequest[AnyContent]): Future[FileUploadResult] = {
     filePart match {
       case Some(part) if part.ref.file.length > maxFileSize => FileTooLarge
       case Some(FilePart(_, filename, Some(mimetype), TemporaryFile(file))) if ApplicationConfig.allowedMimeTypes.contains(mimetype) =>
-        fileUploader.uploadFile(request.ses.envelopeId, encode(filename), mimetype, file) map { _ => FileAccepted }
+        for {
+          _ <- fileUploader.uploadFile(request.ses.envelopeId, encode(filename), mimetype, file)
+        } yield {
+          FileAccepted
+        }
       case Some(part) /* wrong mimetype */ => InvalidFileType
       case None => FileMissing
     }
   }
 
   def fileUploaded() = withLinkingSession { implicit request =>
-    envelopeConnector.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
-      linkingSession.remove().map(_ =>
-        Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
-      )
-    )
-  }
-
-  def noEvidenceUploaded() = withLinkingSession { implicit request =>
-    requestLink(NoEvidenceFlag, None).flatMap( _=>
-      envelopeConnector.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
-        linkingSession.remove().map(_ =>
-          Ok(views.html.uploadEvidence.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
-        )
-      )
-    )
+    Redirect(propertyLinking.routes.Declaration.show())
   }
 
   private def encode(fileName: String)(implicit request: LinkingSessionRequest[AnyContent]) = {
@@ -91,5 +74,3 @@ case object FileMissing extends FileUploadResult
 case object FileTooLarge extends FileUploadResult
 
 case object InvalidFileType extends FileUploadResult
-
-case class RequestSubmittedVM(address: String, refId: String)

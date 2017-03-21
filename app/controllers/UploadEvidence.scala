@@ -45,9 +45,10 @@ class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector, o
         uploadIfNeeded(filePart) flatMap { x =>
           x match {
             case FileAccepted =>
-              val fileInfo = FileInfo(filePart.map(_.filename).getOrElse("FilenameNotFound"), uploaded.name)
-              requestLink(OtherEvidenceFlag, Some(fileInfo))
-                .map(_ => Redirect(routes.UploadEvidence.fileUploaded()))
+              val fileInfo = FileInfo(filePart.fold("no file")(_.filename), uploaded.name)
+              linkingSession.saveOrUpdate(request.ses.withLinkBasis(OtherEvidenceFlag, Some(fileInfo))) map { _ =>
+                Redirect(propertyLinking.routes.Declaration.show)
+              }
             case FileTooLarge => BadRequest(
               views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", "error.fileUpload.tooLarge")))
             )
@@ -62,6 +63,11 @@ class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector, o
     )
   }
 
+  def noEvidenceUploaded() = withLinkingSession { implicit request =>
+    linkingSession.saveOrUpdate(request.ses.withLinkBasis(NoEvidenceFlag, None)) map { _ =>
+      Redirect(propertyLinking.routes.Declaration.show())
+    }
+  }
 }
 
 object UploadEvidence {

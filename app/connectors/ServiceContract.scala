@@ -22,6 +22,7 @@ import play.api.libs.json.{Json, Reads, Writes}
 
 case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate],
                                stillInterested: Boolean, toDate: Option[LocalDate] = None)
+
 object CapacityDeclaration {
   implicit val dateTimeReads = Reads.jodaDateReads("yyyy-MM-dd")
   implicit val dateTimeWrites = Writes.jodaDateWrites("yyyy-MM-dd")
@@ -29,13 +30,14 @@ object CapacityDeclaration {
 }
 
 case class FileInfo(name: String, evidenceType: String)
+
 object FileInfo {
   implicit val format = Json.format[FileInfo]
 }
 
 case class PropertyLinkRequest(uarn: Long,
-                               organisationId: Int,
-                               individualId: Int,
+                               organisationId: Long,
+                               individualId: Long,
                                capacityDeclaration: Capacity,
                                linkedDate: DateTime,
                                linkBasis: LinkBasis,
@@ -47,7 +49,8 @@ object PropertyLinkRequest {
 }
 
 case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
-object LinkedProperties{
+
+object LinkedProperties {
   implicit val format = Json.format[LinkedProperties]
 }
 

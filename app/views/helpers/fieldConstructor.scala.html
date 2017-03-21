@@ -42,18 +42,29 @@ Example usage:
    		}
 		case _ => {
 			<div id="@elements.id.replace("_","")Group" class="@elements.args.get('_fieldsetClass)">
-				<label class="@elements.args.get('_labelClass)" for=@elements.id.replace("_","") >
-                    <span class="@elements.args.get('_labelSpanClass) label-span">@elements.label</span>
+                @elements.args.get('_noTopLabel) match {
+                    case Some(true) => {
 
-                    @if(elements.hasErrors) {
-                            <span class="error-message">@elements.errors.mkString(", ")</span>
+                        <p class="error-message" id="@(elements.id)_error">@elements.errors.mkString(", ")</p>
+
                     }
+                    case _ => {
+                        <label class="@elements.args.get('_labelClass)" for=@elements.id.replace("_", "") >
+                            <span class="@elements.args.get('_labelSpanClass) label-span">@elements.label</span>
 
-            @elements.args.get('_optional) match {
-                case Some(true) => { <span class="visuallyhidden">(@Messages("label.optional")(elements.messages))</span> }
-                case _ => {}
-            }
-                </label>
+                            @if(elements.hasErrors) {
+                                <span class="error-message">@elements.errors.mkString(", ")</span>
+                            }
+
+                            @elements.args.get('_optional) match {
+                                case Some(true) => {
+                                    <span class="visuallyhidden">(@Messages("label.optional")(elements.messages))</span>
+                                }
+                                case _ => {}
+                            }
+                        </label>
+                    }
+                }
 		}
     }
 

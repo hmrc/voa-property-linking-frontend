@@ -1,4 +1,3 @@
-@import helper._
 
 @**
 * Generate an HTML input checkbox.
@@ -12,7 +11,7 @@
 * @param args Set of extra HTML attributes ('''id''' and '''label''' are 2 special arguments).
 * @param handler The field constructor.
 *@
-@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit handler: FieldConstructor, requestHeader: RequestHeader, messages: Messages)
+@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit requestHeader: RequestHeader, messages: Messages)
 
 @boxValue = @{args.toMap.getOrElse('value, "true")}
 
@@ -21,4 +20,4 @@
         <input type="checkbox" id="@id" name="@name" value="@boxValue" @(if(value.contains(boxValue)) "checked" else "") @toHtmlArgs(htmlArgs.filterKeys(_ == 'value))>
         @args.toMap.get('_text)
     </label>
-}
+}(requestHeader, messages)

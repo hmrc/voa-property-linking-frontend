@@ -19,7 +19,7 @@ package connectors.propertyLinking
 import connectors._
 import models._
 import org.joda.time.DateTime
-import play.api.libs.json.JsValue
+import session.LinkingSessionRequest
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 
@@ -33,14 +33,20 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     linkedProperties(organisationId).map( links => links.find(_.authorisationId == authorisationId) )
   }
 
-  def linkToProperty(uarn: Long, organisationId: Int, individualId: Int,
-                     capacityDeclaration: CapacityDeclaration, submissionId: String, basis: LinkBasis,
-                     fileInfo: Option[FileInfo])
-                    (implicit hc: HeaderCarrier): Future[Unit] = {
+  def linkToProperty(linkBasis: LinkBasis)(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
+    implicit val hc = HeaderCarrier.fromHeadersAndSession(request.request.headers, Some(request.request.session))
     val url = baseUrl + s"/property-links"
-    val request = PropertyLinkRequest(uarn, organisationId, individualId, Capacity.fromDeclaration(capacityDeclaration),
-      DateTime.now, basis, fileInfo.toSeq, submissionId)
-    http.POST[PropertyLinkRequest, HttpResponse](url, request) map { _ => () }
+    val linkRequest = PropertyLinkRequest(
+      request.ses.uarn,
+      request.organisationId,
+      request.ses.personId,
+      Capacity.fromDeclaration(request.ses.declaration),
+      DateTime.now,
+      linkBasis,
+      request.ses.fileInfo.toSeq,
+      request.ses.submissionId
+    )
+    http.POST[PropertyLinkRequest, HttpResponse](url, linkRequest) map { _ => () }
   }
 
   def linkedProperties(organisationId: Int)(implicit hc: HeaderCarrier): Future[Seq[PropertyLink]] = {

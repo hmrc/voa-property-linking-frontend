@@ -19,6 +19,7 @@ package utils
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{CapacityDeclaration, FileInfo}
 import models._
+import session.LinkingSessionRequest
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -29,15 +30,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
   private var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil
 
-  override def linkToProperty(uarn: Long,
-                              organisationId: Int,
-                              individualId: Int,
-                              capacityDeclaration: CapacityDeclaration,
-                              submissionId: String, flag: LinkBasis,
-                              fileInfo: Option[FileInfo]
-                             )(implicit hc: HeaderCarrier) = {
-    Future.successful(Unit)
-  }
+  override def linkToProperty(linkBasis: LinkBasis)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
   override def linkedProperties(organisationId: Int)(implicit hc: HeaderCarrier) = {
     Future.successful(stubbedLinks)

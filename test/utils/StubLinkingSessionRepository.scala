@@ -24,9 +24,9 @@ import scala.concurrent.Future
 class StubLinkingSessionRepository extends LinkingSessionRepository(StubSessionCache) {
   private var stubbedLinkingSession: Option[LinkingSession] = None
 
-  override def start(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
+  override def start(session: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] = {
     Future.successful {
-      stubbedLinkingSession = Some(LinkingSession(address, uarn, envelopeId, submissionId, personId))
+      stubbedLinkingSession = Some(session)
     }
   }
 

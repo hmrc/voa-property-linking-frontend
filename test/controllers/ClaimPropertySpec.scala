@@ -16,8 +16,8 @@
 
 package controllers
 
-import connectors.Authenticated
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
+import connectors.{Authenticated, CapacityDeclaration}
 import models.{Accounts, CapacityType}
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
@@ -71,7 +71,7 @@ class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = TestClaimProperty.attemptLink()(FakeRequest())
+    val res = TestClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
@@ -79,7 +79,7 @@ class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = TestClaimProperty.attemptLink()(FakeRequest().withFormUrlEncodedBody(
+    val res = TestClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest().withFormUrlEncodedBody(
       "capacity" -> "OWNER",
       "interestedBefore2017" -> "true",
       "stillInterested" -> "true"
@@ -87,16 +87,33 @@ class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.ChooseEvidence.show.url)
   }
-
-  "Claiming a property" should "initialise a linking session" in {
+  
+  it should "initialise the linking session on submission" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
     val uarn: Long = positiveLong
     val address: String = shortString
+    
+    val declaration: CapacityDeclaration = arbitrary[CapacityDeclaration]
 
-    val res = TestClaimProperty.declareCapacity(uarn, address)(FakeRequest())
-    status(res) mustBe OK
-    await(TestClaimProperty.sessionRepository.get()(HeaderCarrier())) mustBe Some(LinkingSession(address, uarn, anEnvelopeId, submissionId, accounts.person.individualId, None))
+    val res = TestClaimProperty.attemptLink(uarn, address)(FakeRequest().withFormUrlEncodedBody(
+      "capacity" -> declaration.capacity.toString,
+      "interestedBefore2017" -> declaration.interestedBefore2017.toString,
+      "fromDate.year" -> declaration.fromDate.fold("")(_.getYear.toString),
+      "fromDate.month" -> declaration.fromDate.fold("")(_.getMonthOfYear.toString),
+      "fromDate.day" -> declaration.fromDate.fold("")(_.getDayOfMonth.toString),
+      "stillInterested" -> declaration.stillInterested.toString,
+      "toDate.year" -> declaration.toDate.fold("")(_.getYear.toString),
+      "toDate.month" -> declaration.toDate.fold("")(_.getMonthOfYear.toString),
+      "toDate.day" -> declaration.toDate.fold("")(_.getDayOfMonth.toString)
+    ))
+
+
+
+    status(res) mustBe SEE_OTHER
+
+    val Some(session) = await(TestClaimProperty.sessionRepository.get()(HeaderCarrier()))
+    session mustBe LinkingSession(address, uarn, anEnvelopeId, submissionId, accounts.person.individualId, declaration)
   }
 }
