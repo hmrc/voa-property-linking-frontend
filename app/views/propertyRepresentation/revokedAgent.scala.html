@@ -1,0 +1,29 @@
+@import utils.Formatters
+@(url: String, agentName: String, address: String)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = Messages("propertyRepresentation.revokedAgent.title"),
+    topNavigation = true,
+    topBackLink = false,
+    bottomBackLink = false
+) {
+    <div class="grid-row">
+        <div class="column-two-thirds">
+                
+            <div class="transaction-banner--complete">
+                <h1 class="transaction-banner__heading">@Messages("propertyRepresentation.revokedAgent.heading", agentName)</h1>
+            </div>
+
+            <h2 class="heading-medium">@Messages("propertyRepresentation.revokedAgent.whatNext")</h2>
+            <p>@Messages("propertyRepresentation.revokedAgent.p.1", Formatters.capitalizedAddress(address))</p>
+            <p>@Messages("propertyRepresentation.revokedAgent.p.2")</p>
+
+            <p>
+                <a href="@url" class="button">
+                    @Messages("propertyRepresentation.revokedAgent.button")
+                </a>
+            </p>
+
+        </div>
+    </div>
+}

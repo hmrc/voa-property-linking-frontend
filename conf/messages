@@ -214,7 +214,7 @@ dashboard.manageProperties.status.added=Approved
 dashboard.manageProperties.status.pending=Pending
 dashboard.manageProperties.noAgent=None
 dashboard.managedProperties.addAnotherProperty=Add property
-manageProperties.revokeAgent=Revoke agent
+manageProperties.revokeAgent=Remove agent
 manageProperties.addAgent=Appoint agent
 manageProperties.viewAssessments=View assessments
 link.dashboard.home=Back to dashboard
@@ -295,10 +295,16 @@ propertyRepresentation.revokeClient.title=Revoking client
 propertyRepresentation.revokeClient.message=Are you sure you no longer want to act on behalf of {0} for {1}?
 propertyRepresentation.revokeClient.button=Continue
 
-propertyRepresentation.revokeAgent.title=Revoking agent
-propertyRepresentation.revokeAgent.message=Are you sure you no longer want to {0} to act on behalf of this property?
-propertyRepresentation.revokeAgent.button=Continue
+propertyRepresentation.revokeAgent.title=Remove agent
+propertyRepresentation.revokeAgent.message=Are you sure you no longer want {0} to act on behalf of this property?
+propertyRepresentation.revokeAgent.button=Remove agent
 
+propertyRepresentation.revokedAgent.title=Remove agent
+propertyRepresentation.revokedAgent.heading=We’ve received your request to remove {0}
+propertyRepresentation.revokedAgent.whatNext=What happens next
+propertyRepresentation.revokedAgent.p.1=The agent will no longer be able to act on behalf of {0}.
+propertyRepresentation.revokedAgent.p.2=They will no longer appear in the ‘Manage agents’ section on your dashboard for this property.
+propertyRepresentation.revokedAgent.button=Continue
 #EDIT AGENT
 propertyRepresentation.modifyAgent.title=Manage agent relationship
 propertyRepresentation.modifyAgent.message.1=Please enter the code of the agent you wish to modify.
