@@ -101,14 +101,18 @@ class AppointAgentController extends PropertyLinkingController {
         links <- propertyLinks.linkedProperties(request.organisationId)
         agents = links.flatMap(_.agents)
           .filter(_.agentCode == agentCode)
-          .filter(_.authorisedPartyId == authorisedPartyId)
       } yield {
+        val address = links.filter(_.agents.filter(_.authorisedPartyId == authorisedPartyId).nonEmpty).headOption.map(_.address).getOrElse("Address not found")
         if (agents.filter(_.authorisedPartyId == authorisedPartyId).size == 1) {
           val revoked = representations.revoke(authorisedPartyId)
-          if (agents.size > 1)
-            Redirect(controllers.routes.Dashboard.viewManagedProperties(agentCode))
-          else
-            Redirect(controllers.routes.Dashboard.manageAgents())
+          if (agents.size > 1) {
+            val nextUrl = controllers.routes.Dashboard.viewManagedProperties(agentCode).url
+            Ok(views.html.propertyRepresentation.revokedAgent(nextUrl, agents.head.organisationName, address))
+          }
+          else{
+            val nextUrl = controllers.routes.Dashboard.manageAgents().url
+            Ok(views.html.propertyRepresentation.revokedAgent(nextUrl, agents.head.organisationName, address))
+          }
         } else {
           NotFound(Global.notFoundTemplate)
         }

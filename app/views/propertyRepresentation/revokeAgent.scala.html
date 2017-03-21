@@ -17,10 +17,8 @@
 
             <p>@Messages("propertyRepresentation.revokeAgent.message", agentName, propertyAddress)
             <p>
-                <a href="@controllers.routes.AppointAgentController.revokeAgentConfirmed(agentCode, authorisedPartyId)">
-                    <button type="submit" class="button">
-                        @Messages("propertyRepresentation.revokeAgent.button")
-                    </button>
+                <a href="@controllers.routes.AppointAgentController.revokeAgentConfirmed(agentCode, authorisedPartyId)" class="button">
+                    @Messages("propertyRepresentation.revokeAgent.button")
                 </a>
             </p>
 
