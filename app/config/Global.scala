@@ -16,20 +16,27 @@
 
 package config
 
+import javax.inject.Inject
+
+import akka.stream.Materializer
 import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
-import play.api.Play.current
+import play.api.Play.{configuration, current}
 import play.api.i18n.Messages.Implicits._
-import play.api.mvc.Request
-import play.api.{Application, Configuration, Play}
+import play.api.mvc._
+import play.api.{Application, Configuration, GlobalSettings, Play}
 import play.twirl.api.Html
 import uk.gov.hmrc.play.audit.filters.FrontendAuditFilter
 import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
-import uk.gov.hmrc.play.config.{AppName, ControllerConfig}
+import uk.gov.hmrc.play.config.{AppName, ControllerConfig, ServicesConfig}
 import uk.gov.hmrc.play.filters.MicroserviceFilterSupport
 import uk.gov.hmrc.play.frontend.bootstrap.{DefaultFrontendGlobal, ShowErrorPage}
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
+import uk.gov.hmrc.whitelist.AkamaiWhitelistFilter
+import play.api.http.DefaultHttpFilters
+
+import scala.concurrent.Future
 
 object Global extends VPLFrontendGlobal {
   override val wiring: Wiring = new Wiring {
@@ -73,3 +80,27 @@ object AuditFilter extends FrontendAuditFilter with MicroserviceFilterSupport wi
 object ControllerConfiguration extends ControllerConfig {
   lazy val controllerConfigs = Play.current.configuration.underlying.as[Config]("controllers")
 }
+
+class Filters @Inject()(filter: WhitelistFilter) extends DefaultHttpFilters(filter)
+
+class WhitelistFilter @Inject()(conf: Configuration)(implicit val mat: Materializer) extends AkamaiWhitelistFilter {
+  lazy val enabled = conf.getBoolean("feature.whitelist").getOrElse(false)
+
+  override def whitelist: Seq[String] = conf.getString("whitelist.ips")
+    .map(str => str.split(",").toSeq).getOrElse(Seq())
+
+  override def destination: Call = conf.getString("whitelist.destination")
+    .map(url => Call("GET", url)).getOrElse(Call("GET", "https://www.gov.uk"))
+
+  override def excludedPaths: Seq[Call] = conf.getString("whitelist.exclusions")
+    .map[Seq[Call]](str => str.split(",").map(entry => Call("GET", entry))).getOrElse(Seq())
+
+  override def apply(f: (RequestHeader) => Future[Result])(rh: RequestHeader): Future[Result] = {
+    if (enabled) {
+      super.apply(f)(rh)
+    } else {
+      f(rh)
+    }
+  }
+}
+
