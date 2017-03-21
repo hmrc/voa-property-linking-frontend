@@ -18,6 +18,7 @@
                 $('.jFiler-theme-govuk .button-secondary').click(function(e){
                     e.preventDefault();
                 });
+                $('.filer_input').attr('tabindex', '-1');
             },
             limit: 1,
             maxSize: 10,
@@ -29,8 +30,6 @@
                 $('.jFiler-items-list .jFiler-item').each(function(){
                     var $element = $(this).closest('.jFiler-item');
                     var i = $(this).index();
-                    //console.log(i);
-                    //$element.attr('data-jfiler-index', i);
                     $element.find('.typeOfDoc label').attr('for' , 'typeOfDoc_'+i);
                     $element.find('.typeOfDoc select').attr('id' , 'typeOfDoc_'+i).attr('name' , 'typeOfDoc_'+i);
                 });
@@ -39,19 +38,18 @@
                 $('.file-error').text('');
                 $('.file-input-group').removeClass('form-grouped-error');
                 this.setIndex();
-                //$('.jFiler-theme-govuk .button-secondary').insertAfter('.jFiler-items');
 
             },
             onRemove: function(){
                 $('.file-error').text('');
                 $('.file-input-group').removeClass('form-grouped-error');
-                //this.setIndex();
             },
             dialogs: {
                 alert: function(text) {
-				   //return alert(text);
                    $('.file-error').text(text);
                    $('.file-input-group').addClass('form-grouped-error');
+                   $('.file-input-group').closest('.form-group').removeClass('error');
+                   $('.error-message').remove();
 			    },
     			confirm: function (text, callback) {
                     callback();
@@ -83,10 +81,10 @@
     			drop: 'Drop file here to upload',
     			removeConfirmation: false,
     			errors: {
-    				filesLimit: 'Only {{fi-limit}} file allowed to be uploaded.',
-    				filesType: 'Only JPG and PDF files can be uploaded.',
-    				filesSize: 'Your file must be no more than {{fi-maxSize}}MB in size.',
-    				filesSizeAll: 'Your file must be no more than {{fi-maxSize}}MB in size.'
+    				filesLimit: 'Only {{fi-limit}} file allowed to be uploaded',
+    				filesType: 'Only JPG and PDF files can be uploaded',
+    				filesSize: 'Your file must be no more than {{fi-maxSize}}MB in size',
+    				filesSizeAll: 'Your file must be no more than {{fi-maxSize}}MB in size'
     			}
 		    }
         });
