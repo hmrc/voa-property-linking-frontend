@@ -216,7 +216,7 @@ dashboard.manageProperties.noAgent=None
 dashboard.managedProperties.addAnotherProperty=Add property
 manageProperties.revokeAgent=Remove agent
 manageProperties.addAgent=Appoint agent
-manageProperties.viewAssessments=View assessments
+manageProperties.viewAssessments=View valuations
 link.dashboard.home=Back to dashboard
 
 
@@ -233,11 +233,11 @@ dashboard.managedByAgentsProperties.status.pending=Pending
 dashboard.managedByAgentsProperties.noAgent=None
 dashboard.managedByAgentsProperties.addAnotherProperty=Add another property
 managedByAgentsProperties.addAgent=Appoint agent
-managedByAgentsProperties.viewAssessments=View assessments
+managedByAgentsProperties.viewAssessments=View valuations
 
 #DASHBOARD ASSESSMENTS
-assessments.title=Assessments
-assessments.table.caption=Assessments
+assessments.title=Valuations
+assessments.table.caption=Valuations
 assessments.table.1=Effective date
 assessments.table.2=Rateable value
 assessments.table.3=Capacity
@@ -250,7 +250,7 @@ assessments.view.summary=View summary valuation
 
 #DASHBOARD DRAFT CASES
 draftCases.title=Draft cases
-draftCases.table.caption=Assessments
+draftCases.table.caption=Valuations
 draftCases.table.1=Address
 draftCases.table.2=Effective date
 draftCases.table.3=Case Type
