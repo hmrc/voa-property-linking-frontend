@@ -268,20 +268,29 @@ propertyRepresentation.rejected.message=You’ve confirmed that you don’t act 
 propertyRepresentation.rejected.youCan.1=You won’t be able to view the detailed valuation for this property or complete a check or challenge.
 propertyRepresentation.rejected.youCan.2=The business will be notified of your decision.
 
-propertyRepresentation.appointAgent.title=Enter the code of the agent you want to appoint
-propertyRepresentation.appointAgent.message.1=Your agent will provide you with a code. After entering this code you’ll be asked to confirm what you want the agent to do on behalf of your business.
-propertyRepresentation.appointAgent.message.2=Set permissions for this agent
+propertyRepresentation.appointAgent.title=Appoint an agent
+propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
+propertyRepresentation.appointAgent.message.2=Please be aware that you'll be responsible for any information your agent submits to us about your property. You'll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
+
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Continue
-label.canCheck=Check
+label.canCheck=Do you want this agent to submit checks?
 canCheck.START_AND_CONTINUE=Yes
 canCheck.NOT_PERMITTED=No
-label.canChallenge=Challenge
+label.canChallenge=Do you want this agent to submit challenges?
 canChallenge.START_AND_CONTINUE=Yes
 canChallenge.NOT_PERMITTED=No
 error.invalidPermissions=Agent must either have permission to continue checks or challenges
 error.invalidAgentCode=Invalid agent code
 error.alreadyAppointedAgent=This agent is already assigned to this property. If you want to change the permissions for this agent, you’ll need to remove their permissions and then appoint them with the new permissions.
+propertyRepresentation.appointAgent.summary.1=My agent hasn’t given me a code
+propertyRepresentation.appointAgent.details.1=You’ll need to ask your agent for the code they were assigned when they registered for this service.
+canCheck.summary=What is a check?
+canCheck.details=If any of the factual details about your property or land are incorrect, you need to let us know. Confirming or alerting us to any changes through this service is known as a check.
+
+canChallenge.summary=What is a challenge?
+canChallenge.details=If you want to request a change to your valuation, you’ll need to submit a challenge. Unlike a check, which is to confirm and propose changes to current property information, a challenge allows you to suggest changes to the valuation.
+
 
 propertyRepresentation.overrideAgent.title=Another agent is already appointed
 propertyRepresentation.overrideAgent.message.1=Our records show that the following agents are currently appointed:

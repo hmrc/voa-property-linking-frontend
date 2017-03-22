@@ -23,6 +23,15 @@
 
             <p>@Messages("propertyRepresentation.appointAgent.message.1")</p>
 
+            <details>
+                <summary><span class="summary">@Messages("propertyRepresentation.appointAgent.summary.1")</span></summary>
+                <div class="panel-indent">
+                  @Messages("propertyRepresentation.appointAgent.details.1")
+                </div>
+            </details>
+
+            <p>@Messages("propertyRepresentation.appointAgent.message.2")</p>
+
             @form(routes.AppointAgentController.appointSubmit(model.linkId)) {
 
 
@@ -36,15 +45,17 @@
                     '_showConstraints -> false,
                     'class -> "form-control"
                 )
-                <h2>@Messages("propertyRepresentation.appointAgent.message.2")</h2>
+
                 @inputRadioGroup(
                     field = model.form("canCheck"),
                     options = AgentPermission.options,
                     args = Seq(
                         '_label -> Messages("label.canCheck"),
-                        '_labelClass -> "form-label",
+                        '_labelClass -> "form-label-bold",
                         '_legend -> true,
-                        '_fieldsetClass -> "inline"
+                        '_fieldsetClass -> "inline",
+                        '_detailsQuestion -> Messages("canCheck.summary"),
+                        '_detailsAnswer -> Messages("canCheck.details")
                     )
                 )
                 @inputRadioGroup(
@@ -52,9 +63,11 @@
                     options = AgentPermission.options,
                     args = Seq(
                         '_label -> Messages("label.canChallenge"),
-                        '_labelClass -> "form-label",
+                        '_labelClass -> "form-label-bold",
                         '_legend -> true,
-                        '_fieldsetClass -> "inline"
+                        '_fieldsetClass -> "inline",
+                        '_detailsQuestion -> Messages("canChallenge.summary"),
+                        '_detailsAnswer -> Messages("canChallenge.details")
                     )
                 )
                 <p><button type="submit" class="button">@Messages("propertyRepresentation.appointAgent.button")</button></p>
