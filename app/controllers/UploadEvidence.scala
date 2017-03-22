@@ -19,7 +19,7 @@ package controllers
 import javax.inject.Inject
 
 import config.Wiring
-import connectors.FileInfo
+import connectors.{EnvelopeConnector, FileInfo}
 import connectors.fileUpload.FileUploadConnector
 import form.EnumMapping
 import models._
@@ -27,7 +27,8 @@ import play.api.data.Form
 import play.api.data.Forms._
 import views.helpers.Errors
 
-class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector) extends PropertyLinkingController with FileUploadHelpers {
+class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector, override val envelopeConnector: EnvelopeConnector)
+  extends PropertyLinkingController with FileUploadHelpers {
   override val propertyLinks = Wiring().propertyLinkConnector
   override val withLinkingSession = Wiring().withLinkingSession
   override val linkingSession = Wiring().sessionRepository
@@ -61,15 +62,6 @@ class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector) e
     )
   }
 
-  def noEvidenceUploaded() = withLinkingSession { implicit request =>
-    requestLink(NoEvidenceFlag, None).flatMap( _=>
-      fileUploader.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
-        Wiring().sessionRepository.remove().map(_ =>
-          Ok(views.html.uploadEvidence.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
-        )
-      )
-    )
-  }
 }
 
 object UploadEvidence {

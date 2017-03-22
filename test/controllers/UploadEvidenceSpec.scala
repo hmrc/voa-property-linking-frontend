@@ -16,37 +16,56 @@
 
 package controllers
 
-import connectors.CapacityDeclaration
-import connectors.fileUpload.FileUploadConnector
+import java.io.File
+
+import _root_.session.LinkingSession
+import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
+import connectors.{CapacityDeclaration, EnvelopeConnector}
 import models._
 import org.jsoup.Jsoup
-import org.mockito.ArgumentMatchers._
 import org.mockito.ArgumentMatchers.{eq => matches}
-import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
+import play.api.libs.ws.WSClient
 import play.api.mvc.MultipartFormData
 import play.api.mvc.MultipartFormData.FilePart
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Helpers}
 import resources._
-import _root_.session.LinkingSession
+import uk.gov.hmrc.play.http.HeaderCarrier
 import utils.{FileUploadTestHelpers, HtmlPage, StubPropertyLinkConnector, StubWithLinkingSession}
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
 class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   implicit val request = FakeRequest().withSession(token)
 
-  val mockFileUploads = mock[FileUploadConnector]
-  when(mockFileUploads.uploadFile(anyString(), anyString(), anyString(), any())(any())).thenReturn(Future.successful(()))
+  val wsClient = app.injector.instanceOf[WSClient]
+  val envConnectorStub = new EnvelopeConnector(wsClient) {
+    override def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] =  {
+      Future.successful(envelopeId)
+    }
+    override def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] =  {
+      Future.successful(envelopeId)
+    }
+  }
+  val fileUploadConnectorStub = new FileUploadConnector(wsClient, envConnectorStub) {
+    override def createEnvelope(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String] = {
+      Future.successful("some string")
+    }
+    override def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit] = {
+      Future.successful(())
+    }
+  }
 
-  object TestUploadEvidence extends UploadEvidence(mockFileUploads)  {
+  object TestUploadEvidence extends UploadEvidence(fileUploadConnectorStub, envConnectorStub)  {
     val property = arbitrary[Property].sample.get
     val envelopeId = shortString.sample.get
     val submissionId = shortString.sample.get
     val personId = Math.abs(arbitrary[Long].sample.get)
-    override val withLinkingSession = new StubWithLinkingSession(LinkingSession(property.address, property.uarn, envelopeId, submissionId, personId, Some(CapacityDeclaration(Owner, true, None, true, None))),
+    override val withLinkingSession = new StubWithLinkingSession(LinkingSession(property.address, property.uarn, envelopeId, submissionId, personId,
+      Some(CapacityDeclaration(Owner, true, None, true, None))),
       arbitrary[DetailedIndividualAccount].sample.get, arbitrary[GroupAccount].sample.get)
     override val propertyLinks = StubPropertyLinkConnector
   }
@@ -76,12 +95,6 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
     status(res) mustBe SEE_OTHER
     header("location", res).get.contains(routes.UploadEvidence.fileUploaded.url) mustBe true
 
-    verify(mockFileUploads).uploadFile(
-      matches(TestUploadEvidence.envelopeId),
-      matches(validFilePath),
-      matches(validMimeType),
-      any())(any()
-    )
   }
 
   it must "show an error if the user does not upload any evidence" in {

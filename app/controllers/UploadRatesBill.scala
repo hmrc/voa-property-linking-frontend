@@ -19,14 +19,15 @@ package controllers
 import javax.inject.Inject
 
 import config.Wiring
-import connectors.FileInfo
+import connectors.{EnvelopeConnector, FileInfo}
 import connectors.fileUpload.FileUploadConnector
 import models._
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}
 import play.api.i18n.Messages
 
-class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector) extends PropertyLinkingController with FileUploadHelpers {
+class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector, override val envelopeConnector: EnvelopeConnector)
+  extends PropertyLinkingController with FileUploadHelpers {
 
   import UploadRatesBill._
 
