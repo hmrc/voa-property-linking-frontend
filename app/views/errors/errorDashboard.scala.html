@@ -1,0 +1,24 @@
+@()(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+    title = Messages("heading.dashboard-error"),
+    topNavigation = false
+) {
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">
+                @Messages("heading.dashboard-error")
+            </h1>
+
+            <p>@Messages("heading.dashboard-error.p1")</p>
+            <p>@Messages("heading.dashboard-error.p2")</p>
+            <p>@Messages("heading.dashboard-error.p3")</p>
+            
+        </div>
+
+</div>
+
+}

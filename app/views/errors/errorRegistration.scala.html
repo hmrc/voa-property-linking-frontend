@@ -1,0 +1,23 @@
+@()(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+    title = Messages("heading.register-error"),
+    topNavigation = false
+) {
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">
+                @Messages("heading.register-error")
+            </h1>
+
+            <p>@Messages("heading.register-error.p1")</p>
+            <p>@Messages("heading.register-error.p2")</p>
+
+        </div>
+
+</div>
+
+}

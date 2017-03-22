@@ -603,6 +603,14 @@ dashboard.manageAgents.viewManagedProperties=View managed properties
 #ERROR PAGES
 title.error.403=403 Forbidden
 invalidAppointment.title=Invalid agent appointment
+heading.register-error=We’re currently experiencing a high volume of visitors to this site.
+heading.register-error.p1=We’re limiting the number of visitors who can use the service at this time.
+heading.register-error.p2=We apologise for any inconvenience. Please try again later.
+
+heading.dashboard-error=Thank you for registering to use this service
+heading.dashboard-error.p1=We’re currently experiencing a high volume of visitors to this site.
+heading.dashboard-error.p2=We’re limiting the number of visitors who can use the service at this time.
+heading.dashboard-error.p3=We apologise for any inconvenience. Please try again later.
 
 ##FOOTER LINKS
 footer.link.feedback=Feedback
