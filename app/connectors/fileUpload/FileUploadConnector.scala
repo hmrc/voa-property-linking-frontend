@@ -54,8 +54,6 @@ trait FileUpload {
   def createEnvelope(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String]
 
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit]
-
-  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[Unit]
 }
 
 @Singleton
@@ -77,15 +75,6 @@ class FileUploadConnector @Inject()(val ws: WSClient, val envelopeConnector: Env
       .withHeaders(("X-Requested-With", "VOA_CCA"))
       .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromFile(file)) :: List()))
       .map(_ => Unit)
-  }
-
-  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = s"${baseUrl("file-upload-backend")}/file-routing/requests"
-    http.POST[RoutingRequest, HttpResponse](url, RoutingRequest(envelopeId))
-      .map(_ => ())
-      .recover {
-        case ex: HttpException => Logger.error(s"${ex.responseCode}: ${ex.message}")
-      }
   }
 
 }
