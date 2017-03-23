@@ -37,7 +37,7 @@ trait Dashboard extends PropertyLinkingController {
 
   def manageProperties() = authenticated { implicit request =>
     propertyLinks.linkedProperties(request.organisationId) map { props =>
-      Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(props)))
+      Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(request.individualAccount.organisationId, props)))
     }
   }
 
@@ -89,7 +89,7 @@ trait Dashboard extends PropertyLinkingController {
 
 object Dashboard extends Dashboard
 
-case class ManagePropertiesVM(properties: Seq[PropertyLink])
+case class ManagePropertiesVM(organisationId: Long, properties: Seq[PropertyLink])
 case class ManagedPropertiesVM(agentName: String, agentCode: Long, properties: Seq[PropertyLink])
 
 case class ManageAgentsVM(agents: Seq[AgentInfo])
