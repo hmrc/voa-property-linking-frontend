@@ -40,12 +40,11 @@ class EnvelopeConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionContex
   lazy val http = Wiring().http
 
   def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
-    http.POST[JsValue, HttpResponse](s"${baseUrl("property-linking")}/property-linking/envelopes/${envelopeId}", Json.obj()) map { _ => envelopeId
-    }
+    http.POST[JsValue, HttpResponse](s"${baseUrl("property-linking")}/property-linking/envelopes/${envelopeId}", Json.obj()) map { _ => envelopeId }
   }
+
   def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
-    http.PUT[JsValue, HttpResponse](s"${baseUrl("property-linking")}/property-linking/envelopes/${envelopeId}", Json.obj()) map { _ => envelopeId
-    }
+    http.PUT[JsValue, HttpResponse](s"${baseUrl("property-linking")}/property-linking/envelopes/${envelopeId}", Json.obj()) map { _ => envelopeId }
   }
 
 }

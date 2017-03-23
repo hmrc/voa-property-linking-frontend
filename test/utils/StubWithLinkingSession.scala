@@ -23,9 +23,21 @@ import session.{LinkingSession, LinkingSessionRequest, WithLinkingSession}
 
 import scala.concurrent.Future
 
-class StubWithLinkingSession(session: LinkingSession, person: DetailedIndividualAccount, organisation: GroupAccount) extends WithLinkingSession {
+object StubWithLinkingSession extends WithLinkingSession {
+
+  private var stubbedSession: Option[(LinkingSession, DetailedIndividualAccount, GroupAccount)] = None
 
   override def apply(body: (LinkingSessionRequest[AnyContent]) => Future[Result])(implicit messages: Messages) = Action.async { implicit request =>
-    body(LinkingSessionRequest(session, person.organisationId, person, organisation, request))
+    stubbedSession.fold(throw new Exception("Linking session not stubbed")) { case (linkingSession, person, organisation) =>
+      body(LinkingSessionRequest(linkingSession, person.organisationId, person, organisation, request))
+    }
+  }
+
+  def stubSession(linkingSession: LinkingSession, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount) = {
+    stubbedSession = Some((linkingSession, individualAccount, groupAccount))
+  }
+
+  def reset() = {
+    stubbedSession = None
   }
 }

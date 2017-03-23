@@ -170,7 +170,6 @@ account.confirmation.title=You’ve successfully registered your business.
 account.confirmation.heading=You’ve successfully registered for this service.
 account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a href="{0}" rel="external">add them to your Government Gateway account</a> as an administrator or an assistant.
 account.confirmation.youCan=You can now manage your properties.
-link.manageProperties=Manage your properties
 link.dashboard=Go to the dashboard
 createAccount.group.details.header.agent=I’m registering as an agent
 createAccount.group.details.content.agent=You’ll need to provide information about your own business here, not your client’s business.
@@ -410,20 +409,6 @@ declareCapacity.details.agent.text=Only an owner or occupier can add a property.
 declareCapacity.details.haveOwned=I have owned or occupied the property on more than one occasion
 declareCapacity.details.haveOwned.text=If you have owned or occupied the property on more than one occasion, you should enter the date that you moved in (and if relevant the date that you moved out) for the period of time that you want to check or challenge the rateable value.
 
-#SELF CERTIFICATION
-selfCertification.linkSubmitted.title=Request received
-selfCertification.linkSubmitted.message=Thank you for your request which has been submitted to the Valuation Office Agency.
-selfCertification.show.title=Declaration for self certification
-selfCertification.warning=To be able to view the details of this property you must agree to abide by the terms and conditions of this service.
-selfCertification.p.1=You must also declare that the information you have provided is correct.
-selfCertification.p.2=By ticking this box, you’re agreeing to use the information held by the VOA only for the purposes listed in the terms and conditions.
-selfCertification.show.iAgree.label=I confirm that I agree to the terms and conditions and that the information I have provided is correct.
-selfCertification.show.iAgree.text=xx
-selfCertification.show.iAgree.hint=You must agree
-selfCertification.show.button=Go
-error.mustAgreeToSelfCert=You must agree to continue.
-selfCertification.linkAuthorised.properties.link=Manage your properties
-
 #UPLOAD RATES BILL
 uploadRatesBill.show.title=Submit a copy of your business rates bill
 uploadFile.allowedTypes.mustbe=Your file must be:
@@ -445,7 +430,7 @@ uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 linkingRequestSubmitted.title1=We’ve received your request to add
 linkingRequestSubmitted.title2=to your business’s customer record
 linkingRequestSubmitted.title3=Your submission ID is
-linkingRequestSubmitted.message=Thank you for your request to add [address] to your customer record.
+linkingRequestSubmitted.message=Thank you for your request to add {0} to your customer record.
 linkingRequestSubmitted.p.1=If the property request is approved you’ll be able to view the detailed valuation. This may take some time depending on the nature of your application.
 
 
@@ -490,8 +475,18 @@ noEvidenceUploaded.telephone=Telephone: 03000 501 501
 noEvidenceUploaded.reason.1=We’re unable to complete this request as you haven’t provided any proof of your link to this property. You won’t be able to view the detailed valuation for this property.
 noEvidenceUploaded.reason.2=Please make a note of your reference number and contact us to discuss other ways of proving your link to this property.
 noEvidenceUploaded.email=Email
-noEvidenceUploaded.emailaddress=<a href="mailto:{0}">ccaservice@voa.gsi.gov.uk</a>
+noEvidenceUploaded.emailaddress=<a href="mailto:{0}">{0}</a>
 
+#PROPERTY LINKING SUMMARY
+declaration.title=Declaration
+declaration.p.1=I declare that:
+declaration.1=the information I have given in this form is correct and complete
+declaration.2=the file/details that I have uploaded contains proof of my relationship to the property for dates that overlap with the period claimed
+declaration.p.2=I understand that I could be taken to court if I knowingly submit false information.
+declaration.p.3=Once you submit the form you will not be able to go back and make any changes.
+label.declaration=Declaration
+declaration.iAgree=I agree to the above declaration
+declaration.required=You must agree to the declaration to continue
 
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required
@@ -633,7 +628,7 @@ footer.link.voa=Valuation Office Agency
 contactUs.heading1=We’re unable to continue with this request.
 contactUs.heading2=Please contact us
 contactUs.email=Email
-contactUs.emailaddress=<a href="mailto:{0}">ccaservice@voa.gsi.gov.uk</a>
+contactUs.emailaddress=<a href="mailto:{0}">{0}</a>
 contactUs.telephone=Telephone
 contactUs.telephone.number=03000 501 501
 contactUs.telephone.openhours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.

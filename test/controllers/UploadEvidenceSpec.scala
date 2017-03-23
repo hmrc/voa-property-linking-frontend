@@ -19,11 +19,12 @@ package controllers
 import java.io.File
 
 import _root_.session.LinkingSession
+import connectors.EnvelopeConnector
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
-import connectors.{CapacityDeclaration, EnvelopeConnector}
 import models._
 import org.jsoup.Jsoup
-import org.mockito.ArgumentMatchers.{eq => matches}
+import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.libs.ws.WSClient
 import play.api.mvc.MultipartFormData
@@ -32,11 +33,10 @@ import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Helpers}
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import utils.{FileUploadTestHelpers, HtmlPage, StubPropertyLinkConnector, StubWithLinkingSession}
+import utils._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-
 
 class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   implicit val request = FakeRequest().withSession(token)
@@ -50,27 +50,26 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
       Future.successful(envelopeId)
     }
   }
-  val fileUploadConnectorStub = new FileUploadConnector(wsClient, envConnectorStub) {
-    override def createEnvelope(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String] = {
-      Future.successful("some string")
-    }
-    override def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit] = {
-      Future.successful(())
-    }
-  }
 
-  object TestUploadEvidence extends UploadEvidence(fileUploadConnectorStub, envConnectorStub)  {
-    val property = arbitrary[Property].sample.get
-    val envelopeId = shortString.sample.get
-    val submissionId = shortString.sample.get
-    val personId = Math.abs(arbitrary[Long].sample.get)
-    override val withLinkingSession = new StubWithLinkingSession(LinkingSession(property.address, property.uarn, envelopeId, submissionId, personId,
-      Some(CapacityDeclaration(Owner, true, None, true, None))),
-      arbitrary[DetailedIndividualAccount].sample.get, arbitrary[GroupAccount].sample.get)
+  object TestUploadEvidence extends UploadEvidence(mockFileUploads, envConnectorStub)  {
+    override val withLinkingSession = StubWithLinkingSession
+
+    override val linkingSession = new StubLinkingSessionRepository
     override val propertyLinks = StubPropertyLinkConnector
   }
 
+  lazy val mockFileUploads = {
+    val m = mock[FileUploadConnector]
+    when(m.createEnvelope(any[EnvelopeMetadata])(any[HeaderCarrier])).thenReturn(Future.successful(envelopeId))
+    when(m.uploadFile(matching(envelopeId), anyString, anyString, any[File])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    m
+  }
+
+  lazy val envelopeId: String = shortString
+
   "Upload Evidence page" must "contain a file input" in {
+    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
     val res = TestUploadEvidence.show()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
@@ -78,6 +77,8 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "redirect to the evidence-submitted page if valid evidence has been uploaded" in {
+    StubWithLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
         MultipartFormData(
@@ -93,11 +94,19 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
     val res = TestUploadEvidence.submit()(req)
 
     status(res) mustBe SEE_OTHER
-    header("location", res).get.contains(routes.UploadEvidence.fileUploaded.url) mustBe true
+    header("location", res) mustBe Some(propertyLinking.routes.Declaration.show.url)
 
+    verify(mockFileUploads).uploadFile(
+      matching(envelopeId),
+      matching(validFilePath),
+      matching(validMimeType),
+      any())(any()
+    )
   }
 
   it must "show an error if the user does not upload any evidence" in {
+    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
         MultipartFormData(
@@ -117,6 +126,8 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "show an error if the user uploads a file greater than 10MB" in {
+    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
         MultipartFormData(
@@ -139,6 +150,8 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "show an error if the user uploads a file that is not a JPG or PDF" in {
+    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
         MultipartFormData(

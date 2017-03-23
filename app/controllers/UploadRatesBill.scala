@@ -32,7 +32,6 @@ class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector, 
   import UploadRatesBill._
 
   lazy val propertyLinks = Wiring().propertyLinkConnector
-  lazy val ratesBillConnector = Wiring().ratesBillVerificationConnector
   lazy val withLinkingSession = Wiring().withLinkingSession
   lazy val linkingSession = Wiring().sessionRepository
 
@@ -44,8 +43,9 @@ class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector, 
     val filePart = request.request.body.asMultipartFormData.flatMap(_.file("ratesBill[]").flatMap(x => if (x.filename.isEmpty) None else Some(x)))
     uploadIfNeeded(filePart) flatMap {
       case FileAccepted =>
-        requestLink(RatesBillFlag, Some(FileInfo(filePart.map(_.filename).getOrElse("no file"), RatesBillType.name))) map { _ =>
-          Redirect(routes.UploadRatesBill.fileUploaded())
+        val fileInfo = FileInfo(filePart.fold("No File")(_.filename), RatesBillType.name)
+        linkingSession.saveOrUpdate(request.ses.withLinkBasis(RatesBillFlag, Some(fileInfo))) map { _ =>
+          Redirect(propertyLinking.routes.Declaration.show())
         }
       case FileMissing =>
         BadRequest(views.html.uploadRatesBill.show(

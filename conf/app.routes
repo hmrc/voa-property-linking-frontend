@@ -63,7 +63,7 @@ GET         /details-requested/:submissionId                        controllers.
 #Search and Link
 GET         /property-search                                        @controllers.ClaimProperty.show()
 GET         /link-to-property/:uarn                                 @controllers.ClaimProperty.declareCapacity(uarn: Long, address)
-POST        /link-to-property                                       @controllers.ClaimProperty.attemptLink()
+POST        /link-to-property/:uarn                                 @controllers.ClaimProperty.attemptLink(uarn: Long, address)
 
 #Link scenarios
 GET         /choose-evidence                                        controllers.ChooseEvidence.show()
@@ -72,6 +72,9 @@ GET         /upload-rates-bill                                      @controllers
 POST        /upload-rates-bill                                      @controllers.UploadRatesBill.submit()
 GET         /upload-evidence                                        @controllers.UploadEvidence.show()
 POST        /upload-evidence                                        @controllers.UploadEvidence.submit()
+
+GET         /summary                                                @controllers.propertyLinking.Declaration.show
+POST        /summary                                                @controllers.propertyLinking.Declaration.submit
 
 #Linking outcomes
 GET         /rates-bill-submitted                                   @controllers.UploadRatesBill.fileUploaded()

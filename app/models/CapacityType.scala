@@ -18,7 +18,7 @@ package models
 
 sealed trait CapacityType extends NamedEnum {
   val name: String
-  val key = "capacityType"
+  val key = "capacity"
   override def toString = name
 }
 

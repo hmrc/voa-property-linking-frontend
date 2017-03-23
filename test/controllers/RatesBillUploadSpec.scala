@@ -19,11 +19,12 @@ package controllers
 import java.io.File
 
 import _root_.session.LinkingSession
+import connectors.EnvelopeConnector
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
-import connectors.{CapacityDeclaration, EnvelopeConnector}
 import models._
 import org.jsoup.Jsoup
-import org.mockito.ArgumentMatchers.{eq => matches}
+import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
 import play.api.libs.ws.WSClient
 import play.api.mvc.MultipartFormData
@@ -51,39 +52,38 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
       Future.successful(envelopeId)
     }
   }
-  val fileUploadConnectorStub = new FileUploadConnector(wsClient, envConnectorStub) {
-    override def createEnvelope(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String] = {
-      Future.successful("some string")
-    }
-    override def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit] = {
-      Future.successful(())
-    }
-  }
 
-
-  object TestUploadRatesBill extends UploadRatesBill(fileUploadConnectorStub, envConnectorStub)  {
+  object TestUploadRatesBill extends UploadRatesBill(mockFileUploads, envConnectorStub)  {
     val property = arbitrary[Property].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
 
     override lazy val propertyLinks = StubPropertyLinkConnector
-    val submissionId = shortString.sample.get
-    val personId = Math.abs(arbitrary[Long].sample.get)
-    val envelopeId = "12345"
-    val session = LinkingSession(property.address, property.uarn, envelopeId, submissionId, personId, Some(CapacityDeclaration(Owner, true, None, true, None)))
 
-    override lazy val withLinkingSession = new StubWithLinkingSession(session,
-      person, arbitrary[GroupAccount].sample.get)
+    override lazy val withLinkingSession = StubWithLinkingSession
+
     override lazy val linkingSession = new StubLinkingSessionRepository
   }
+  
+  lazy val mockFileUploads = {
+    val m = mock[FileUploadConnector]
+    when(m.createEnvelope(any[EnvelopeMetadata])(any[HeaderCarrier])).thenReturn(Future.successful(envelopeId))
+    when(m.uploadFile(matching(envelopeId), anyString, anyString, any[File])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    m
+  }
+
+  lazy val envelopeId: String = shortString
 
   "Upload Rates Bill upload page" must "contain a file input" in  {
+    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
     val res = TestUploadRatesBill.show()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainFileInput("ratesBill")
   }
 
-  it must "redirect to the rates-bill-submitted page if a valid rates bill is uploaded" in {
+  it must "redirect to the declaration page if a valid rates bill is uploaded" in {
+    StubWithLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
       .withMultipartFormDataBody(
         MultipartFormData(
@@ -98,10 +98,18 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
     val res = TestUploadRatesBill.submit()(req)
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res).get must include (routes.UploadRatesBill.fileUploaded().url)
+    redirectLocation(res) mustBe Some(propertyLinking.routes.Declaration.show.url)
+
+    verify(mockFileUploads).uploadFile(
+        matching(envelopeId),
+        matching(validFilePath),
+        matching(validMimeType),
+        any())(any())
   }
 
   it must "show an error if the user doesn't upload any file" in {
+    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
       .withMultipartFormDataBody(
         MultipartFormData(
@@ -119,6 +127,8 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "show an error if the uploaded file is too large" in {
+    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
       .withMultipartFormDataBody(
         MultipartFormData(
@@ -139,6 +149,8 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "show an error if the user uploads a file that is not a JPG or PDF" in {
+    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
       .withMultipartFormDataBody(
         MultipartFormData(
@@ -156,23 +168,5 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
 
     page.mustContainSummaryErrors(("ratesBill", "Please upload a copy of the rates bill", "File must be a PDF or JPG"))
     page.mustContainFieldErrors(("ratesBill_", "File must be a PDF or JPG"))
-  }
-
-  "The upload rates bill success page" must "indicate that the request has been submitted" in {
-    val res = TestUploadRatesBill.fileUploaded()(request)
-    status(res) mustBe OK
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-
-    page.mustContainSuccessSummary(s"We’ve received your request to add ${
-      TestUploadRatesBill.property.address} to your business’s customer record" +
-      s" Your submission ID is ${TestUploadRatesBill.submissionId}")
-  }
-
-  it must "contain a link to the dashboard" in {
-    val request = FakeRequest().withSession(token)
-    val res = TestUploadRatesBill.fileUploaded()(request)
-    status(res) mustBe OK
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainLink("#backToDashBoard", routes.Dashboard.manageProperties.url)
   }
 }

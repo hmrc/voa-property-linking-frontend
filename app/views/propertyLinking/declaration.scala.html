@@ -1,0 +1,52 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import controllers.propertyLinking.DeclarationVM
+@import utils.Formatters
+
+@(model: DeclarationVM)(implicit request: Request[_], messages: Messages)
+
+@main_template(Messages("declaration.title")) {
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">@Messages("declaration.title")</h1>
+
+            @includes.errorSummary(model.form)
+
+            @form(controllers.propertyLinking.routes.Declaration.submit) {
+
+                <p>@Messages("declaration.p.1")</p>
+
+                <ul class="list-bullet">
+                    <li>@Messages("declaration.1")</li>
+                    <li>@Messages("declaration.2")</li>
+                </ul>
+
+                <p>@Messages("declaration.p.2")</p>
+
+                <div class="notice">
+                    <i class="icon icon-important">
+                        <span class="visually-hidden">Warning</span>
+                    </i>
+                    <strong class="bold-small">
+                        @Messages("declaration.p.3")
+                    </strong>
+                </div>
+
+                @checkbox(
+                    field = model.form("declaration"),
+                    '_label -> "declaration.iAgree",
+                    '_labelClass -> "",
+                    '_text -> Messages("declaration.iAgree"),
+                    '_class -> "form-control",
+                    '_noTopLabel -> true
+                )
+
+                <p>
+                    <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
+                </p>
+            }
+
+        </div>
+    </div>
+}

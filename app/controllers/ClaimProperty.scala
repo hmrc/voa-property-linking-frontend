@@ -18,14 +18,16 @@ package controllers
 
 import javax.inject.Inject
 
-import config.{ApplicationConfig, Global, Wiring}
+import actions.AuthenticatedRequest
+import config.{ApplicationConfig, Wiring}
+import connectors.CapacityDeclaration
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
-import connectors.{CapacityDeclaration, EnvelopeConnector}
 import form.Mappings._
 import form.{DateAfter, EnumMapping}
 import models._
 import play.api.data.Form
 import play.api.data.Forms._
+import session.LinkingSession
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.play.form.ConditionalMappings._
 
@@ -35,37 +37,28 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector) exte
   lazy val submissionIdConnector = Wiring().submissionIdConnector
 
   def show() = authenticated { implicit request =>
-    if (ApplicationConfig.propertyLinkingEnabled) {
-      Redirect(s"${ApplicationConfig.vmvUrl}/cca/search")
-    } else {
-      NotFound(Global.notFoundTemplate)
-    }
+    Redirect(s"${ApplicationConfig.vmvUrl}/cca/search")
   }
 
   def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
-    if (ApplicationConfig.propertyLinkingEnabled) {
-      for {
-        submissionId <- submissionIdConnector.get()
-        envelopeId <- fileUploadConnector.createEnvelope(EnvelopeMetadata(submissionId, request.personId))
-        _ <- sessionRepository.start(address, uarn, envelopeId, submissionId, request.personId)
-      } yield {
-        Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, address)))
-      }
-    } else {
-      NotFound(Global.notFoundTemplate)
-    }
+    Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, address, uarn)))
   }
 
-  def attemptLink() = authenticated { implicit request =>
-    sessionRepository.get() flatMap {
-      case Some(session) => ClaimProperty.declareCapacityForm.bindFromRequest().fold(
-        errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors, session.address))),
-        formData => sessionRepository.saveOrUpdate(session.withDeclaration(formData)) map { _ =>
-          Redirect(routes.ChooseEvidence.show())
-        }
-      )
-      case None => NotFound("No linking session")
-    }
+  def attemptLink(uarn: Long, address: String) = authenticated { implicit request =>
+    ClaimProperty.declareCapacityForm.bindFromRequest().fold(
+      errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors, address, uarn))),
+      formData => initialiseSession(formData, uarn, address) map { _ =>
+        Redirect(routes.ChooseEvidence.show())
+      }
+    )
+  }
+
+  private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(implicit request: AuthenticatedRequest[_]) = {
+    for {
+      submissionId <- submissionIdConnector.get()
+      envelopeId <- fileUploadConnector.createEnvelope(EnvelopeMetadata(submissionId, request.personId))
+      _ <- sessionRepository.start(LinkingSession(address, uarn, envelopeId, submissionId, request.personId, declaration))
+    } yield ()
   }
 
 }
@@ -80,4 +73,4 @@ object ClaimProperty {
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 
-case class DeclareCapacityVM(form: Form[_], address: String)
+case class DeclareCapacityVM(form: Form[_], address: String, uarn: Long)

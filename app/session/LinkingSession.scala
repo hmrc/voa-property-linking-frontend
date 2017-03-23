@@ -16,17 +16,19 @@
 
 package session
 
-import connectors.CapacityDeclaration
+import connectors.{CapacityDeclaration, FileInfo}
+import models.LinkBasis
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.{Json, Reads, Writes}
+import play.api.libs.json.Json
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
 case class LinkingSession(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long,
-                          declaration: Option[CapacityDeclaration] = None) {
-  def withDeclaration(d: CapacityDeclaration) = this.copy(declaration = Some(d))
+                          declaration: CapacityDeclaration, linkBasis: Option[LinkBasis] = None, fileInfo: Option[FileInfo] = None) {
+
+  def withLinkBasis(basis: LinkBasis, fileInfo: Option[FileInfo]) = copy(linkBasis = Some(basis), fileInfo = fileInfo)
 }
 
 object LinkingSession {
@@ -36,8 +38,8 @@ object LinkingSession {
 class LinkingSessionRepository(cache: SessionCache) {
   private val sessionDocument = "sessiondocument"
 
-  def start(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
-    cache.cache(sessionDocument, LinkingSession(address, uarn, envelopeId, submissionId, personId)).map(_ => ())
+  def start(session: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] = {
+    cache.cache(sessionDocument, session).map(_ => ())
   }
 
   def saveOrUpdate(session: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] =

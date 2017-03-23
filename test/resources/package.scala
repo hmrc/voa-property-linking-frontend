@@ -20,7 +20,9 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
 import uk.gov.hmrc.domain.Nino
 import java.{time => javatime}
-import org.joda.time.{LocalDate, DateTime}
+
+import org.joda.time.{DateTime, LocalDate}
+import session.LinkingSession
 
 package object resources {
 
@@ -29,9 +31,16 @@ package object resources {
   implicit val arbitraryJavaLocalDate: Arbitrary[javatime.LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(javatime.LocalDate.ofEpochDay(_)))
   implicit val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new LocalDate(_)))
   implicit val arbitraryDateTime: Arbitrary[DateTime] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new DateTime(_)))
+
   def shortString = Gen.listOfN(20, Gen.alphaChar).map(_.mkString)
 
   def positiveLong = Gen.choose(0L, Long.MaxValue)
+
+  def dateAfterApril2017: Gen[LocalDate] = for {
+    year <- Gen.choose(2017, 2100)
+    month <- Gen.choose(1, 12)
+    day <- Gen.choose(1, 28)
+  } yield new LocalDate(year, month, day)
 
   val propertyAddressGen: Gen[PropertyAddress] = for {
     lines <- Gen.nonEmptyListOf(shortString)
@@ -56,10 +65,11 @@ package object resources {
   val capacityDeclarationGen: Gen[CapacityDeclaration] = for {
     capacity <- arbitrary[CapacityType]
     interestedBefore2017 <- arbitrary[Boolean]
-    fromDate <-  arbitrary[Option[LocalDate]]
+    fromDate <- dateAfterApril2017
     stillInterested <- arbitrary[Boolean]
-    toDate <- arbitrary[Option[LocalDate]]
-  } yield  CapacityDeclaration(capacity, interestedBefore2017, fromDate, stillInterested, toDate)
+    days <- Gen.choose(1, 5000)
+    toDate = fromDate.plusDays(days)
+  } yield CapacityDeclaration(capacity, interestedBefore2017, if (interestedBefore2017) None else Some(fromDate), stillInterested, if (stillInterested) None else Some(toDate))
   implicit val arbitraryCapacityDeclaration = Arbitrary(capacityDeclarationGen)
 
   val addressGen: Gen[Address] = for {
@@ -211,4 +221,15 @@ package object resources {
 
   implicit val arbitraryPersonalDetails: Arbitrary[PersonalDetails] = Arbitrary(personalDetailsGen)
 
+  private val linkingSessionGen: Gen[LinkingSession] = for {
+    address <- shortString
+    uarn <- positiveLong
+    envelopeId <- shortString
+    submissionId <- shortString
+    personId <- positiveLong
+    declaration <- capacityDeclarationGen
+    linkBasis <- Gen.oneOf(LinkBasis.all)
+  } yield LinkingSession(address, uarn, envelopeId, submissionId, personId, declaration, Some(linkBasis), None)
+
+  implicit val arbitraryLinkinSession: Arbitrary[LinkingSession] = Arbitrary(linkingSessionGen)
 }

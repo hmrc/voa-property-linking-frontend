@@ -32,7 +32,7 @@
             </p>
 
 
-            @form(routes.ClaimProperty.attemptLink()) {
+            @form(routes.ClaimProperty.attemptLink(model.uarn, model.address)) {
 
                 <details>
                     <summary><span>@Messages("declareCapacity.details.ownerOrOccupier")</span></summary>
