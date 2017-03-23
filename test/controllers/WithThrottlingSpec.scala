@@ -42,6 +42,13 @@ class WithThrottlingSpec extends UnitSpec with MockitoSugar {
 
   val mockTrafficThrottleConnector = mock[TrafficThrottleConnector]
 
+  def fakeRequest = new FakeRequest(
+    "GET",
+    "http://localhost:9000/voa-property-linking-frontend/index",
+    FakeHeaders(Seq()),
+    "RequestBody"
+  )
+
   object ThrottledController extends WithThrottling {
     override lazy val trafficThrottleConnector = mockTrafficThrottleConnector
 
@@ -56,13 +63,6 @@ class WithThrottlingSpec extends UnitSpec with MockitoSugar {
     "return the normal page" in {
       when(mockTrafficThrottleConnector.isThrottled()).thenReturn(Future(false))
 
-      val fakeRequest = new FakeRequest(
-        "GET",
-        "http://localhost:9000/voa-property-linking-frontend/index",
-        FakeHeaders(Seq()),
-        "RequestBody"
-      )
-
       val result = Await.result(ThrottledController.index()(fakeRequest).run(), 60 seconds)
 
       contentAsString(result) shouldBe "Normal page"
@@ -73,13 +73,6 @@ class WithThrottlingSpec extends UnitSpec with MockitoSugar {
     "return the holding page" in {
       when(mockTrafficThrottleConnector.isThrottled()).thenReturn(Future(true))
 
-      val fakeRequest = new FakeRequest(
-        "GET",
-        "http://localhost:9000/voa-property-linking-frontend/index",
-        FakeHeaders(Seq()),
-        "RequestBody"
-      )
-
       val result = Await.result(ThrottledController.index()(fakeRequest).run(), 60 seconds)
 
       contentAsString(result) shouldBe "Holding page"
@@ -89,13 +82,6 @@ class WithThrottlingSpec extends UnitSpec with MockitoSugar {
   "when an exception occurs" should {
     "return the normal page" in {
       when(mockTrafficThrottleConnector.isThrottled()).thenReturn(Future.failed(new Exception))
-
-      val fakeRequest = new FakeRequest(
-        "GET",
-        "http://localhost:9000/voa-property-linking-frontend/index",
-        FakeHeaders(Seq()),
-        "RequestBody"
-      )
 
       val result = Await.result(ThrottledController.index()(fakeRequest).run(), 60 seconds)
 

@@ -26,7 +26,7 @@ import play.api.test.Helpers._
 import resources._
 import utils._
 
-class CreateGroupAcountSpec extends ControllerSpec {
+class CreateGroupAccountSpec extends ControllerSpec {
 
   private object TestCreateGroupAccount extends CreateGroupAccount {
     override lazy val auth: VPLAuthConnector = StubAuthConnector
