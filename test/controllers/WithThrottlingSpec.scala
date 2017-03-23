@@ -18,23 +18,23 @@ package controllers
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import config.Wiring
 import connectors.TrafficThrottleConnector
 import controllers.Application.Ok
+import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import play.api.mvc.Action
-import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
-import org.mockito.Mockito._
+import play.api.test.Helpers._
 import play.api.test.{FakeHeaders, FakeRequest}
 import uk.gov.hmrc.play.http.HeaderCarrier
+import uk.gov.hmrc.play.test.UnitSpec
 
-import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Await
+import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
-import play.api.test.Helpers._
 
-class WithThrottlingSpec extends UnitSpec with MockitoSugar with WithFakeApplication {
+class WithThrottlingSpec extends UnitSpec with MockitoSugar {
+
+  implicit val app = TestApp.app
 
   implicit val hc: HeaderCarrier = mock[HeaderCarrier]
   implicit val system = ActorSystem("test-system")
@@ -43,7 +43,7 @@ class WithThrottlingSpec extends UnitSpec with MockitoSugar with WithFakeApplica
   val mockTrafficThrottleConnector = mock[TrafficThrottleConnector]
 
   object ThrottledController extends WithThrottling {
-    override val trafficThrottleConnector = mockTrafficThrottleConnector
+    override lazy val trafficThrottleConnector = mockTrafficThrottleConnector
 
     def index() = Action.async { implicit request =>
       withThrottledHoldingPage(Ok("Holding page")) {
@@ -52,7 +52,7 @@ class WithThrottlingSpec extends UnitSpec with MockitoSugar with WithFakeApplica
     }
   }
 
-  "when the controller is not being throttled" should {
+  "when the controller is not being throttled" must {
     "return the normal page" in {
       when(mockTrafficThrottleConnector.isThrottled()).thenReturn(Future(false))
 

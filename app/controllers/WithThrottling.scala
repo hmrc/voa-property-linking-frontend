@@ -26,7 +26,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 trait WithThrottling {
 
-  val trafficThrottleConnector = Wiring().trafficThrottleConnector
+  lazy val trafficThrottleConnector = Wiring().trafficThrottleConnector
 
   def withThrottledHoldingPage(throttledPage: => Result)(block: => Result)
                               (implicit request: Request[AnyContent], hc: HeaderCarrier): Future[Result] = {
