@@ -102,8 +102,8 @@ class AppointAgentController extends PropertyLinkingController {
         agents = links.flatMap(_.agents)
           .filter(_.agentCode == agentCode)
       } yield {
-        val address = links.filter(_.agents.filter(_.authorisedPartyId == authorisedPartyId).nonEmpty).headOption.map(_.address).getOrElse("Address not found")
-        if (agents.filter(_.authorisedPartyId == authorisedPartyId).size == 1) {
+        val address = links.find(_.agents.exists(_.authorisedPartyId == authorisedPartyId)).map(_.address).getOrElse("Address not found")
+        if (agents.count(_.authorisedPartyId == authorisedPartyId) == 1) {
           val revoked = representations.revoke(authorisedPartyId)
           if (agents.size > 1) {
             val nextUrl = controllers.routes.Dashboard.viewManagedProperties(agentCode).url
@@ -284,8 +284,8 @@ class AppointAgentController extends PropertyLinkingController {
     )
   }
 
-  lazy val appointAgentForm = Form(mapping(
-    "agentCode" -> longNumber,
+  def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
+    "agentCode" -> longNumber.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode),
     "canCheck" ->  AgentPermissionMapping("canChallenge"),
     "canChallenge" -> AgentPermissionMapping("canCheck")
   )(AppointAgent.apply)(AppointAgent.unapply))
