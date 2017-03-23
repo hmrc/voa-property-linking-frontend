@@ -19,10 +19,10 @@ package controllers
 import java.net.URLEncoder
 
 import config.ApplicationConfig
-import connectors.FileInfo
+import connectors.{EnvelopeConnector, FileInfo}
 import connectors.fileUpload.FileUpload
 import connectors.propertyLinking.PropertyLinkConnector
-import models.LinkBasis
+import models.{LinkBasis, NoEvidenceFlag}
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.AnyContent
 import play.api.mvc.MultipartFormData.FilePart
@@ -34,6 +34,7 @@ trait FileUploadHelpers {
   self: PropertyLinkingController =>
 
   val fileUploader: FileUpload
+  val envelopeConnector: EnvelopeConnector
   val propertyLinks: PropertyLinkConnector
   val withLinkingSession: WithLinkingSession
   val linkingSession: LinkingSessionRepository
@@ -59,9 +60,19 @@ trait FileUploadHelpers {
   }
 
   def fileUploaded() = withLinkingSession { implicit request =>
-    fileUploader.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
+    envelopeConnector.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
       linkingSession.remove().map(_ =>
         Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
+      )
+    )
+  }
+
+  def noEvidenceUploaded() = withLinkingSession { implicit request =>
+    requestLink(NoEvidenceFlag, None).flatMap( _=>
+      envelopeConnector.closeEnvelope(request.ses.envelopeId).flatMap(_ =>
+        linkingSession.remove().map(_ =>
+          Ok(views.html.uploadEvidence.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
+        )
       )
     )
   }
