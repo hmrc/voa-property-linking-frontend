@@ -16,39 +16,59 @@
 
 package controllers
 
+import java.io.File
+
 import _root_.session.LinkingSession
-import config.VPLSessionCache
-import connectors.CapacityDeclaration
-import connectors.fileUpload.FileUploadConnector
+import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
+import connectors.{CapacityDeclaration, EnvelopeConnector}
 import models._
 import org.jsoup.Jsoup
-import org.mockito.ArgumentMatchers.{any, anyString, eq => matches}
-import org.mockito.Mockito.{verify, when}
+import org.mockito.ArgumentMatchers.{eq => matches}
 import org.scalacheck.Arbitrary._
+import play.api.libs.ws.WSClient
 import play.api.mvc.MultipartFormData
 import play.api.mvc.MultipartFormData.FilePart
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Helpers}
 import resources._
+import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   implicit val request = FakeRequest().withSession(token)
 
-  private val mockFileUploads = mock[FileUploadConnector]
-  when(mockFileUploads.uploadFile(anyString(), anyString(), anyString(), any())(any())).thenReturn(Future.successful(()))
-  when(mockFileUploads.closeEnvelope(anyString())(any())).thenReturn(Future.successful(()))
+  implicit val hc = HeaderCarrier()
+  val wsClient = app.injector.instanceOf[WSClient]
 
-  object TestUploadRatesBill extends UploadRatesBill(mockFileUploads)  {
+  val envConnectorStub = new EnvelopeConnector(wsClient) {
+    override def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] =  {
+      Future.successful(envelopeId)
+    }
+    override def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] =  {
+      Future.successful(envelopeId)
+    }
+  }
+  val fileUploadConnectorStub = new FileUploadConnector(wsClient, envConnectorStub) {
+    override def createEnvelope(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String] = {
+      Future.successful("some string")
+    }
+    override def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit] = {
+      Future.successful(())
+    }
+  }
+
+
+  object TestUploadRatesBill extends UploadRatesBill(fileUploadConnectorStub, envConnectorStub)  {
     val property = arbitrary[Property].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
 
     override lazy val propertyLinks = StubPropertyLinkConnector
     val submissionId = shortString.sample.get
-    val envelopeId = shortString.sample.get
     val personId = Math.abs(arbitrary[Long].sample.get)
+    val envelopeId = "12345"
     val session = LinkingSession(property.address, property.uarn, envelopeId, submissionId, personId, Some(CapacityDeclaration(Owner, true, None, true, None)))
 
     override lazy val withLinkingSession = new StubWithLinkingSession(session,
@@ -56,7 +76,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
     override lazy val linkingSession = new StubLinkingSessionRepository
   }
 
-  "Upload Rates Bill upload page" must "contain a file input" in {
+  "Upload Rates Bill upload page" must "contain a file input" in  {
     val res = TestUploadRatesBill.show()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
@@ -79,12 +99,6 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
 
     status(res) mustBe SEE_OTHER
     redirectLocation(res).get must include (routes.UploadRatesBill.fileUploaded().url)
-
-    verify(mockFileUploads).uploadFile(
-      matches(TestUploadRatesBill.envelopeId),
-      matches(validFilePath),
-      matches(validMimeType),
-      any())(any())
   }
 
   it must "show an error if the user doesn't upload any file" in {
