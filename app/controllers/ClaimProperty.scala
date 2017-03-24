@@ -19,8 +19,8 @@ package controllers
 import javax.inject.Inject
 
 import actions.AuthenticatedRequest
-import config.{ApplicationConfig, Global, Wiring}
-import connectors.CapacityDeclaration, EnvelopeConnector}
+import config.{ApplicationConfig, Wiring}
+import connectors.CapacityDeclaration
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
 import form.Mappings._
 import form.{DateAfter, EnumMapping}
