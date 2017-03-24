@@ -269,7 +269,7 @@ propertyRepresentation.rejected.youCan.2=The business will be notified of your d
 
 propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
-propertyRepresentation.appointAgent.message.2=Please be aware that you'll be responsible for any information your agent submits to us about your property. You'll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
+propertyRepresentation.appointAgent.message.2=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
 
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Continue
