@@ -211,6 +211,7 @@ manageProperties.table.4=Appointed Agents
 manageProperties.table.5=Actions
 dashboard.manageProperties.status.added=Approved
 dashboard.manageProperties.status.pending=Pending
+dashboard.manageProperties.submissionId=Submission ID: {0}
 dashboard.manageProperties.noAgent=None
 dashboard.managedProperties.addAnotherProperty=Add property
 manageProperties.revokeAgent=Remove agent

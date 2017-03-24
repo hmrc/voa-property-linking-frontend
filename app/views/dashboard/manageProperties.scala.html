@@ -30,7 +30,7 @@
                 <col width="">
                 <col width="">
                 <col width="">
-                <col width="20%">
+                <col width="">
                 <col width="20%">
                 <tbody>
                     <tr>
@@ -49,11 +49,23 @@
                                 @{p.assessment.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")}
                             </td>
                             <td>
-                                @if(p.pending) {
-                                    @Messages("dashboard.manageProperties.status.pending")
-                                } else {
-                                    @Messages("dashboard.manageProperties.status.added")
-                                }
+                                <ul>
+                                    <li>
+                                    @if(p.pending) {
+                                        @Messages("dashboard.manageProperties.status.pending")
+                                    } else {
+                                        @Messages("dashboard.manageProperties.status.added")
+                                    }
+                                    </li>
+                                    @if(p.pending) {
+                                        <li id="submissionId">
+                                            <span class="submission-id">
+                                                @Messages("dashboard.manageProperties.submissionId", p.submissionId)
+                                            </span>
+                                        </li>
+                                    }
+
+                                </ul>
                             </td>
                             <td>
                                 <ul>

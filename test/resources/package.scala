@@ -145,7 +145,7 @@ package object resources {
     authorisedPartyId <- arbitrary[Long]
     permissionId <- arbitrary[Long]
     agentCode <- arbitrary[Long]
-    organisationName <- arbitrary[String]
+    organisationName <- shortString
     organisationId <- arbitrary[Long]
     checkPermission <- arbitrary[AgentPermission]
     challengePermission <- arbitrary[AgentPermission]
@@ -154,22 +154,23 @@ package object resources {
 
   val clientPropertyGen: Gen[ClientProperty] = for {
     ownerOrganisationId <- arbitrary[Long]
-    ownerOrganisationName <- arbitrary[String]
-    billingAuthorityReference <- arbitrary[String]
+    ownerOrganisationName <- shortString
+    billingAuthorityReference <- shortString
     authorisedPartyId <- arbitrary[Long]
     permissionId <- arbitrary[Long]
     authorisationId <- arbitrary[Long]
     authorisationStatus <- arbitrary[Boolean]
     authorisedPartyStatus <- arbitrary[RepresentationStatus]
-    checkPermission <- arbitrary[String]
-    challengePermission <- arbitrary[String]
-    address <- arbitrary[String]
+    checkPermission <- shortString
+    challengePermission <- shortString
+    address <- shortString
   } yield models.ClientProperty(ownerOrganisationId, ownerOrganisationName, billingAuthorityReference, authorisedPartyId, permissionId,
     authorisationId, authorisationStatus, authorisedPartyStatus, checkPermission, challengePermission, address)
  implicit val arbitraryClientProperty = Arbitrary(clientPropertyGen)
 
   val propertyLinkGen: Gen[PropertyLink] = for {
     linkId <- arbitrary[Int]
+    submissionId <- shortString
     uarn <- positiveLong
     organisationId <- arbitrary[Int]
     address <- arbitrary[PropertyAddress]
@@ -178,7 +179,7 @@ package object resources {
     pending <- arbitrary[Boolean]
     assessment <- Gen.nonEmptyListOf(arbitrary[Assessment])
     agents <- Gen.listOf(arbitrary[Party])
-  } yield PropertyLink(linkId, uarn, organisationId, address.toString, capacity,
+  } yield PropertyLink(linkId, submissionId, uarn, organisationId, address.toString, capacity,
     linkedDate, pending, assessment, agents)
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
 

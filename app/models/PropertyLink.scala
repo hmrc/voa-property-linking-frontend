@@ -20,6 +20,7 @@ import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 case class PropertyLink(authorisationId: Long,
+                        submissionId: String,
                         uarn: Long,
                         organisationId: Int,
                         address: String,
