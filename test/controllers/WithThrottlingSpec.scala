@@ -53,7 +53,7 @@ class WithThrottlingSpec extends UnitSpec with MockitoSugar {
     override lazy val trafficThrottleConnector = mockTrafficThrottleConnector
 
     def index() = Action.async { implicit request =>
-      withThrottledHoldingPage(Ok("Holding page")) {
+      withThrottledHoldingPage("route", Ok("Holding page")) {
         Ok("Normal page")
       }
     }
@@ -61,7 +61,7 @@ class WithThrottlingSpec extends UnitSpec with MockitoSugar {
 
   "when the controller is not being throttled" must {
     "return the normal page" in {
-      when(mockTrafficThrottleConnector.isThrottled()).thenReturn(Future(false))
+      when(mockTrafficThrottleConnector.isThrottled("route")).thenReturn(Future(false))
 
       val result = Await.result(ThrottledController.index()(fakeRequest).run(), 60 seconds)
 
@@ -71,7 +71,7 @@ class WithThrottlingSpec extends UnitSpec with MockitoSugar {
 
   "when the controller is being throttled" should {
     "return the holding page" in {
-      when(mockTrafficThrottleConnector.isThrottled()).thenReturn(Future(true))
+      when(mockTrafficThrottleConnector.isThrottled("route")).thenReturn(Future(true))
 
       val result = Await.result(ThrottledController.index()(fakeRequest).run(), 60 seconds)
 
@@ -81,7 +81,7 @@ class WithThrottlingSpec extends UnitSpec with MockitoSugar {
 
   "when an exception occurs" should {
     "return the normal page" in {
-      when(mockTrafficThrottleConnector.isThrottled()).thenReturn(Future.failed(new Exception))
+      when(mockTrafficThrottleConnector.isThrottled("route")).thenReturn(Future.failed(new Exception))
 
       val result = Await.result(ThrottledController.index()(fakeRequest).run(), 60 seconds)
 

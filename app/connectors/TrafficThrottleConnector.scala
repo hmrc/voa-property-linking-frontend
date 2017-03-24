@@ -25,10 +25,12 @@ import scala.concurrent.{ExecutionContext, Future}
 class TrafficThrottleConnector(http: HttpGet with HttpPost)(implicit ec: ExecutionContext) extends ServicesConfig {
   val trafficRouter = "voa-traffic-throttle"
 
-  lazy val serviceUrl = s"${baseUrl(trafficRouter)}/$trafficRouter/vmv/throttled"
+  lazy val serviceUrl = s"${baseUrl(trafficRouter)}/$trafficRouter"
 
-  def isThrottled()(implicit hc: HeaderCarrier): Future[Boolean] = {
-    http.GET[Boolean](serviceUrl)
+  def isThrottled(route: String)(implicit hc: HeaderCarrier): Future[Boolean] = {
+    val url = s"$serviceUrl/cca/$route/throttled"
+
+    http.GET[Boolean](url)
   }
 
 }

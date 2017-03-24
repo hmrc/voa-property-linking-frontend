@@ -17,9 +17,11 @@
 package controllers
 
 import config.{ApplicationConfig, Global, Wiring}
+import controllers.Application.{Ok, withThrottledHoldingPage}
 import models._
 import org.joda.time.{DateTime, LocalDate}
 import play.api.mvc.Action
+import uk.gov.hmrc.play.http.SessionKeys
 
 import scala.concurrent.Future
 
@@ -32,7 +34,9 @@ trait Dashboard extends PropertyLinkingController {
   val authenticated = Wiring().authenticated
 
   def home() = authenticated { implicit request =>
-    Ok(views.html.dashboard.home(request.individualAccount.details, request.organisationAccount))
+    withThrottledHoldingPage("dashboard", Ok(views.html.errors.errorDashboard())) {
+      Ok(views.html.dashboard.home(request.individualAccount.details, request.organisationAccount))
+    }
   }
 
   def manageProperties() = authenticated { implicit request =>
