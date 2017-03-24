@@ -282,6 +282,7 @@ canChallenge.NOT_PERMITTED=No
 error.invalidPermissions=Agent must either have permission to continue checks or challenges
 error.invalidAgentCode=Invalid agent code
 error.alreadyAppointedAgent=This agent is already assigned to this property. If you want to change the permissions for this agent, you’ll need to remove their permissions and then appoint them with the new permissions.
+error.selfAppointment=You can’t appoint your own business as your agent
 propertyRepresentation.appointAgent.summary.1=My agent hasn’t given me a code
 propertyRepresentation.appointAgent.details.1=You’ll need to ask your agent for the code they were assigned when they registered for this service.
 canCheck.summary=What is a check?

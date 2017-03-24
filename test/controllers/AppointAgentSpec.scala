@@ -19,13 +19,11 @@ package controllers
 import config.VPLSessionCache
 import connectors.Authenticated
 import models._
+import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils._
 import resources._
-import org.scalacheck.Arbitrary.arbitrary
-import _root_.session.AgentAppointmentSessionRepository
-import uk.gov.hmrc.play.http.HeaderCarrier
+import utils._
 
 class AppointAgentSpec extends ControllerSpec {
 
@@ -36,7 +34,6 @@ class AppointAgentSpec extends ControllerSpec {
     override val propertyLinks = StubPropertyLinkConnector
     override val authenticated = StubAuthentication
     override val sessionRepository = new StubAgentAppointmentSessionRepository(sessionCache)
-
   }
 
   val request = FakeRequest().withSession(token)
@@ -120,7 +117,6 @@ class AppointAgentSpec extends ControllerSpec {
 
   it must "require the agent code to be valid" in {
     stubLoggedInUser()
-    StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
     val link = arbitrary[PropertyLink].sample.get
     StubPropertyLinkConnector.stubLink(link)
 
@@ -133,7 +129,21 @@ class AppointAgentSpec extends ControllerSpec {
     page.mustContainFieldErrors("agentCode" -> "This must be filled in")
   }
 
-  it must "when everything is valid, and no permission have previously been set" in {
+  it must "not allow an agent to appoint themselves" in {
+    val (groupAccount, _) = stubLoggedInUser()
+    val link: PropertyLink = arbitrary[PropertyLink]
+
+    StubPropertyLinkConnector.stubLink(link)
+
+    val res = TestAppointAgent.appointSubmit(link.authorisationId)(
+      request.withFormUrlEncodedBody("agentCode" -> groupAccount.agentCode.toString, "canCheck" -> "continueOnly", "canChallenge" -> "notPermitted")
+    )
+    status(res) mustBe BAD_REQUEST
+
+    HtmlPage(res).mustContainFieldErrors("agentCode" -> "You can’t appoint your own business as your agent")
+  }
+
+  it must "display the success page when the form is valid, and no permission have previously been set" in {
     val (groupAccount, individual) = stubLoggedInUser()
     StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
     val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id, authorisationId = 555
