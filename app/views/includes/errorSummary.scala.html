@@ -7,13 +7,12 @@
     @showError(error: FormError) = {
         <li>
             <a href="#@removeInvalid(error)Group" data-focuses="@removeInvalid(error)Group">
-                <span>
-                @error.key match {
-                    case s if s.contains("day") => { @Messages("error.label.day") }
-                    case s if s.contains("month") => { @Messages("error.label.month") }
-                    case s if s.contains("year") => { @Messages("error.label.year") }
-                    case s if s.contains("address") => { @Messages(s"label.${error.key}") }
-                    case _ => { @Messages("label." + messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "")) }
+                <span>@defining(error.key.split("\\.")) { errorParts =>
+                    @error.key match {
+                        case s if Seq("day", "month", "year").exists(s.contains) => { @Messages(s"label.${errorParts.head}") - @Messages(s"${error.key}.label") }
+                        case s if s.contains("address") => { @Messages(s"label.${error.key}") }
+                        case _ => { @Messages("label." + messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "")) }
+                    }
                 }
                 </span> - @Messages(stripIndices(error.message), error.args: _*)
             </a>
