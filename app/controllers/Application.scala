@@ -40,7 +40,7 @@ object Application extends Controller with WithThrottling {
   }
 
   def start() = Action.async { implicit request =>
-    withThrottledHoldingPage(Ok(views.html.errors.errorRegistration())) {
+    withThrottledHoldingPage("registration", Ok(views.html.errors.errorRegistration())) {
       Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
     }
   }

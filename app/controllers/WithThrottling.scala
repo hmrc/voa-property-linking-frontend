@@ -28,9 +28,9 @@ trait WithThrottling {
 
   lazy val trafficThrottleConnector = Wiring().trafficThrottleConnector
 
-  def withThrottledHoldingPage(throttledPage: => Result)(block: => Result)
+  def withThrottledHoldingPage(route: String, throttledPage: => Result)(block: => Result)
                               (implicit request: Request[AnyContent], hc: HeaderCarrier): Future[Result] = {
-    trafficThrottleConnector.isThrottled().map {
+    trafficThrottleConnector.isThrottled(route).map {
       case true => throttledPage
       case _ => block
     } recover {
