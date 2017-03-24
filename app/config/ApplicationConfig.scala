@@ -22,6 +22,7 @@ import play.api.Play._
 import uk.gov.hmrc.play.config.RunMode
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
+import org.joda.time.LocalDate
 
 object ApplicationConfig extends RunMode with ServicesConfig {
 
@@ -43,6 +44,8 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   val agentEnabled = getConfig("featureFlags.agentsEnabled").toBoolean
   val casesEnabled = getConfig("featureFlags.casesEnabled").toBoolean
   val propertyLinkingEnabled = getConfig("featureFlags.propertyLinkingEnabled").toBoolean
+
+  val propertyLinkingDateThreshold = configuration.getString("propertyLinkingDateThreshold").fold(new LocalDate(2017,4,1))(LocalDate.parse(_))
 
   val showReleaseNotes = getConfig("featureFlags.showReleaseNotes").toBoolean
 

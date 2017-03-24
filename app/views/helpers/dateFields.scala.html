@@ -28,7 +28,7 @@
 	<legend class="form-label-bold">
         @label.map { lab => @Messages(lab) }.getOrElse(if(suffix.nonEmpty) { Html(Messages(s"label.$prefix.$suffix")) } else { Html(Messages(s"label.$prefix")) })
     </legend>
-	    @errorWrapper(Seq(form(""+prefix+".month"),form(""+prefix+".year"),form(prefix)), prefix.replace('.', '_'), "form-date-dayMonth"){
+	    @errorWrapper(Seq(form(""+prefix+".day"),form(""+prefix+".month"),form(""+prefix+".year"),form(prefix)), prefix.replace('.', '_'), "form-date-dayMonth"){
 
 	    @nojsText.map { t =>
         	<p class="hidden">@t</p>
@@ -41,9 +41,10 @@
              @helpers.inputText(
                 field = form(""+prefix+".day"),
                 '_label -> Messages("label.date.day"),
-                '_error -> form(""+prefix+".date.year").error.map(_.withMessage(Messages("error.date.day"))),
+                '_error -> form(""+prefix+".date.day").error.map(_.withMessage(Messages("error.date.day"))),
                 '_labelClass -> "form-label",
-                '_showConstraints -> false, '_showErrors -> false,
+                '_showConstraints -> false,
+                 '_showErrors -> false,
                 'class -> "form-control",
                 '_fieldsetClass ->  "form-group-day",
                 'maxLength -> "2",

@@ -16,21 +16,25 @@
 
 package forms
 
+import config.ApplicationConfig
 import connectors.CapacityDeclaration
 import controllers.ClaimProperty
 import models.{CapacityType, Occupier}
 import org.joda.time.LocalDate
 import org.scalatest.{FlatSpec, MustMatchers}
+import play.api.inject.guice.GuiceApplicationBuilder
 import utils.FormBindingVerification._
 import views.helpers.Errors
 
 class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
+
   import TestData._
+
 
   behavior of "Capacity declaration form"
 
   it should "bind when the inputs are all valid" in {
-    mustBindTo(form, validData, CapacityDeclaration(Occupier, false, Some(new LocalDate(2017, 12, 24)), false, Some(new LocalDate(2018, 1, 13))))
+    mustBindTo(form, validData, CapacityDeclaration(Occupier, false, Some(new LocalDate(2017, 3, 20)), false, Some(new LocalDate(2017, 3, 23))))
   }
 
   it should "mandate a capacity" in {
@@ -51,10 +55,10 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
     verifyOptionalDate(form, data, "fromDate")
   }
 
-  it should "require the start date to be after 31st March 2017" in {
+  it should s"require the start date to be after ${ApplicationConfig.propertyLinkingDateThreshold}" in {
     val data = validData
       .updated("interestedBefore2017", "false")
-      .updated("fromDate.day", "31")
+      .updated("fromDate.day", "1")
       .updated("fromDate.month", "3")
       .updated("fromDate.year", "2017")
     verifyOnlyError(form, data, "fromDate", Errors.dateMustBeAfterMarch2017)
@@ -73,28 +77,30 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
   it should "require the end date to be after the start date" in {
     val data = validData
       .updated("interestedBefore2017", "false")
-      .updated("fromDate.day", "1")
-      .updated("fromDate.month", "5")
+      .updated("fromDate.day", "10")
+      .updated("fromDate.month", "3")
       .updated("fromDate.year", "2017")
       .updated("stillInterested", "false")
-      .updated("toDate.day", "1")
-      .updated("toDate.month", "4")
+      .updated("toDate.day", "3")
+      .updated("toDate.month", "3")
       .updated("toDate.year", "2017")
     verifyOnlyError(form, data, "toDate", Errors.dateMustBeAfterOtherDate)
   }
+
 
   object TestData {
     val form = ClaimProperty.declareCapacityForm
     val validData = Map(
       "capacity" -> Occupier.name,
       "interestedBefore2017" -> "false",
-      "fromDate.day" -> "24",
-      "fromDate.month" -> "12",
+      "fromDate.day" -> "20",
+      "fromDate.month" -> "3",
       "fromDate.year" -> "2017",
       "stillInterested" -> "false",
-      "toDate.day" -> "13",
-      "toDate.month" -> "1",
-      "toDate.year" -> "2018"
+      "toDate.day" -> "23",
+      "toDate.month" -> "3",
+      "toDate.year" -> "2017"
     )
   }
+
 }

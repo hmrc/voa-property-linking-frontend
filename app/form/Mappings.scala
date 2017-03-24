@@ -16,6 +16,7 @@
 
 package form
 
+import config.ApplicationConfig
 import models.{Address, NamedEnum, NamedEnumSupport}
 import org.joda.time.LocalDate
 import play.api.data.Forms._
@@ -54,7 +55,8 @@ trait DateMappings {
   ).verifying(Errors.invalidDate, x => x match { case (d, m, y) => Try(new LocalDate(y, m, d)).isSuccess } )
     .transform({ case (d, m, y) => new LocalDate(y, m, d) }, d => (d.getDayOfMonth, d.getMonthOfYear, d.getYear))
 
-  def dmyDateAfterMarch2017: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfterMarch2017, d => d.isAfter(new LocalDate(2017, 3, 31)))
+  def dmyDateAfterThreshold: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfterMarch2017,
+    d => d.isAfter(ApplicationConfig.propertyLinkingDateThreshold))
 
   def dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfterMarch2017, d => d.isBefore(LocalDate.now))
 
@@ -109,6 +111,7 @@ case class DateAfter(afterField: String, key: String = "", constraints: Seq[Cons
 
   override def verifying(c: Constraint[LocalDate]*) = copy(constraints = constraints ++ c.toSeq)
 }
+
 
 case class TextMatching(other: String, errorKey: String, key: String = "", constraints: Seq[Constraint[String]] = Nil) extends Mapping[String] {
   override val mappings = Nil

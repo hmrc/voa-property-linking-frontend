@@ -25,11 +25,13 @@ import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
 import form.Mappings._
 import form.{DateAfter, EnumMapping}
 import models._
+import org.joda.time.LocalDate
 import play.api.data.Form
 import play.api.data.Forms._
 import session.LinkingSession
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.play.form.ConditionalMappings._
+import views.helpers.Errors
 
 class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector) extends PropertyLinkingController with ServicesConfig {
   lazy val sessionRepository = Wiring().sessionRepository
@@ -67,9 +69,9 @@ object ClaimProperty {
   lazy val declareCapacityForm = Form(mapping(
     "capacity" -> EnumMapping(CapacityType),
     "interestedBefore2017" -> mandatoryBoolean,
-    "fromDate" -> mandatoryIfFalse("interestedBefore2017", dmyDateAfterMarch2017),
+    "fromDate" -> mandatoryIfFalse("interestedBefore2017", dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => !d.isAfter(LocalDate.now))),
     "stillInterested" -> mandatoryBoolean,
-    "toDate" -> mandatoryIfFalse("stillInterested", DateAfter("fromDate"))
+    "toDate" -> mandatoryIfFalse("stillInterested", DateAfter(afterField = "fromDate").verifying(Errors.dateMustBeInPast, d => !d.isAfter(LocalDate.now)))
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 

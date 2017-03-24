@@ -107,6 +107,9 @@ label.createAccount.fname=First name
 label.createAccount.lname=Last name
 label.createAccount.dob=Date of birth
 label.dob=Date of birth
+dob.day.label=Day
+dob.month.label=Month
+dob.year.label=Year
 label.createAccount.nino.nino=National Insurance number
 error.nino.invalid=Enter a valid National Insurance number
 dateOfBirth.label=Date of birth
@@ -400,7 +403,8 @@ label.toDate=When was your last day as the owner or occupier of the property?
 toDate.day.label=Day
 toDate.month.label=Month
 toDate.year.label=Year
-error.date.mustBeAfter2017=Must be in the past
+error.date.mustBeAfter2017=Must be after 31st March 2017
+error.date.mustBeInPast=Must be in the past
 error.date.mustBeAfterOther=The end date must be after the start date
 declareCapacity.details.ownerOrOccupier=I’m the owner or occupier for only part of this property
 declareCapacity.details.ownerOrOccupier.text=If you’re the owner or occupier for only part of the property, you shouldn’t add this property to your customer record. Instead, you should <a href="{0}">contact us</a> to request a split for the property.
@@ -559,9 +563,9 @@ error.email=Enter a valid email address
 error.max=Must be no more than {0}
 error.min=Must be at least {0}
 error.number=This must be filled in
-error.label.day=Date of birth - Day
-error.label.month=Date of birth - Month
-error.label.year=Date of birth - Year
+error.label.day=Day
+error.label.month=Month
+error.label.year=Year
 error.boolean=Please select an option
 
 #MISC
