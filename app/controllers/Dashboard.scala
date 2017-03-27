@@ -46,8 +46,14 @@ trait Dashboard extends PropertyLinkingController {
   }
 
   def manageAgents() = authenticated { implicit request =>
-    propertyLinks.linkedProperties(request.organisationId) map { props =>
-      val agentInfos = props.flatMap(_.agents.map(a=> AgentInfo(a.organisationName, a.agentCode))).sortBy(_.organisationName).distinct
+    for {
+      props <- propertyLinks.linkedProperties(request.organisationId)
+    } yield {
+      val agentInfos = props
+        .filterNot(_.userActingAsAgent)
+        .flatMap(_.agents)
+        .map(a=> AgentInfo(a.organisationName, a.agentCode))
+        .sortBy(_.organisationName).distinct
       Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos)))
     }
   }
