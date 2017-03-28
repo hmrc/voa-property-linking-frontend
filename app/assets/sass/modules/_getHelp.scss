@@ -8,6 +8,9 @@ details{
             line-height: 1.25;
             font-weight: 300;
             text-transform: none;
+            .arrow{
+                display: none;
+            }
         }
     }
 }
