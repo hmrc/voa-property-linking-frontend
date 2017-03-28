@@ -17,7 +17,7 @@
 package controllers
 
 import config.{ApplicationConfig, Wiring}
-import models.{IVDetails, IndividualAccount, IndividualDetails, PersonalDetails}
+import models.{IVDetails, IndividualAccount, PersonalDetails}
 import play.api.mvc.{Action, Request}
 import uk.gov.hmrc.play.frontend.auth.AuthContext
 import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
@@ -36,10 +36,9 @@ trait IdentityVerification extends PropertyLinkingController {
 
   def startIv = ggAction.async { _ => implicit request =>
     if (ApplicationConfig.ivEnabled) {
-      keystore.fetchAndGetEntry[IVDetails]("ivDetails") flatMap {
-        case Some(d) => identityVerificationProxyConnector.start(ApplicationConfig.baseUrl + routes.IdentityVerification.restoreSession().url,
-          ApplicationConfig.baseUrl + routes.IdentityVerification.fail().url, d, None).map(l => Redirect(l.link))
-        case None => NotFound
+      keystore.getPersonalDetails flatMap { d =>
+        identityVerificationProxyConnector.start(ApplicationConfig.baseUrl + routes.IdentityVerification.restoreSession().url,
+          ApplicationConfig.baseUrl + routes.IdentityVerification.fail().url, d.ivDetails, None).map(l => Redirect(l.link))
       }
     } else {
       Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))

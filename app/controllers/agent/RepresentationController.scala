@@ -103,7 +103,7 @@ trait RepresentationController extends PropertyLinkingController {
     if (ApplicationConfig.agentEnabled) {
       (for {
         clientProperties <- OptionT.liftF(propertyLinkConnector.clientProperties(organisationId, request.organisationAccount.id))
-        prop <- OptionT.fromOption(clientProperties.filter(_.permissionId == permissionId).headOption)
+        prop <- OptionT.fromOption(clientProperties.find(_.permissionId == permissionId))
         _ <- OptionT.liftF(reprConnector.revoke(prop.permissionId))
       } yield {
         if (clientProperties.size > 1)
