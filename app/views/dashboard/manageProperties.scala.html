@@ -107,8 +107,6 @@
         </div>
     }
 
-    @if(ApplicationConfig.agentEnabled) {
-        <p><a href="@routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
-    }
+    <p><a href="@routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
 
 }
