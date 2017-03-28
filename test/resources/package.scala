@@ -178,9 +178,10 @@ package object resources {
     linkedDate <- arbitrary[DateTime]
     pending <- arbitrary[Boolean]
     assessment <- Gen.nonEmptyListOf(arbitrary[Assessment])
+    userActingAsAgent <- arbitrary[Boolean]
     agents <- Gen.listOf(arbitrary[Party])
   } yield PropertyLink(linkId, submissionId, uarn, organisationId, address.toString, capacity,
-    linkedDate, pending, assessment, agents)
+    linkedDate, pending, assessment, userActingAsAgent, agents)
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
 
 
