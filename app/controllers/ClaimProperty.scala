@@ -33,6 +33,7 @@ import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
 
+
 class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector) extends PropertyLinkingController with ServicesConfig {
   lazy val sessionRepository = Wiring().sessionRepository
   lazy val authenticated = Wiring().authenticated
@@ -71,7 +72,9 @@ object ClaimProperty {
     "interestedBefore2017" -> mandatoryBoolean,
     "fromDate" -> mandatoryIfFalse("interestedBefore2017", dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => !d.isAfter(LocalDate.now))),
     "stillInterested" -> mandatoryBoolean,
-    "toDate" -> mandatoryIfFalse("stillInterested", DateAfter(afterField = "fromDate").verifying(Errors.dateMustBeInPast, d => !d.isAfter(LocalDate.now)))
+    "toDate" -> mandatoryIfFalse("stillInterested", DateAfter("fromDate")
+      .verifying(Errors.dateMustBeInPast, d => !d.isAfter(LocalDate.now))
+      .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(ApplicationConfig.propertyLinkingDateThreshold)))
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 

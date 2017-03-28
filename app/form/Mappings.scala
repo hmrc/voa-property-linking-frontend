@@ -55,10 +55,10 @@ trait DateMappings {
   ).verifying(Errors.invalidDate, x => x match { case (d, m, y) => Try(new LocalDate(y, m, d)).isSuccess } )
     .transform({ case (d, m, y) => new LocalDate(y, m, d) }, d => (d.getDayOfMonth, d.getMonthOfYear, d.getYear))
 
-  def dmyDateAfterThreshold: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfterMarch2017,
+  def dmyDateAfterThreshold: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfter1stApril2017,
     d => d.isAfter(ApplicationConfig.propertyLinkingDateThreshold))
 
-  def dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfterMarch2017, d => d.isBefore(LocalDate.now))
+  def dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfter1stApril2017, d => d.isBefore(LocalDate.now))
 
   private def number(min: Int, max: Int) = Forms.of[Int](trimmingNumberFormatter).verifying(Constraints.min(min)).verifying(Constraints.max(max))
 
@@ -96,7 +96,8 @@ case class DateAfter(afterField: String, key: String = "", constraints: Seq[Cons
 
   override val mappings = Nil
 
-  override def bind(data: Map[String, String]) = (dmyDate.withPrefix(afterField).bind(data), dmyDate.withPrefix(key).bind(data)) match {
+  override def bind(data: Map[String, String]) = (dmyDate.withPrefix(afterField).bind(data),
+    dmyDate.withPrefix(key).verifying(constraints:_*).bind(data)) match {
     case (_, errs@Left(_)) => errs
     case (Left(_), r@Right(_)) => r
     case (Right(after), r@Right(d)) if d.isAfter(after) => r
