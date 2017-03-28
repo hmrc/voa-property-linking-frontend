@@ -96,27 +96,6 @@ case class DateAfter(afterField: String, key: String = "", constraints: Seq[Cons
 
   override val mappings = Nil
 
-  override def bind(data: Map[String, String]) = (dmyDate.withPrefix(afterField).bind(data), dmyDate.withPrefix(key).bind(data)) match {
-    case (_, errs@Left(_)) => errs
-    case (Left(_), r@Right(_)) => r
-    case (Right(after), r@Right(d)) if d.isAfter(after) => r
-    case (Right(_), Right(_)) => Left(Seq(FormError(key, Errors.dateMustBeAfterOtherDate)))
-  }
-
-  override def unbind(value: LocalDate) = dmyDate.withPrefix(key).unbind(value)
-
-  override def unbindAndValidate(value: LocalDate) = dmyDate.withPrefix(key).unbindAndValidate(value)
-
-  override def withPrefix(prefix: String) = copy(key = prefix + key)
-
-  override def verifying(c: Constraint[LocalDate]*) = copy(constraints = constraints ++ c.toSeq)
-}
-
-case class DateAfterWithConstraints(afterField: String, key: String = "", constraints: Seq[Constraint[LocalDate]] = Nil) extends Mapping[LocalDate] {
-  import Mappings._
-
-  override val mappings = Nil
-
   override def bind(data: Map[String, String]) = (dmyDate.withPrefix(afterField).bind(data),
     dmyDate.withPrefix(key).verifying(constraints:_*).bind(data)) match {
     case (_, errs@Left(_)) => errs
