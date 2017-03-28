@@ -8,10 +8,14 @@ details{
             line-height: 1.25;
             font-weight: 300;
             text-transform: none;
-            .arrow{
-                display: none;
-            }
         }
+    }
+}
+
+html .no-details details summary{
+    .arrow-closed,
+    .arrow-open{
+        display: none;
     }
 }
 
