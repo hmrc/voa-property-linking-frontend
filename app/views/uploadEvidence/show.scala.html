@@ -32,6 +32,16 @@
                     <li>@Messages("uploadFile.allowedTypes.l2")</li>
                 </ul>
 
+                <details class="print-hide">
+                    <summary role="button" aria-controls="details-content-1" >
+                        <span class="summary">@Messages("uploadFile.info.title")</span>
+                    </summary>
+                    <div id="details-content-1" class="panel panel-border-narrow">
+                        @Html(Messages("uploadFile.info.content"))
+                    </div>
+                </details>
+                <br />
+
                 @includes.errorSummary(model.form)
 
                 @inputFile(
