@@ -12,7 +12,7 @@ details{
     }
 }
 
-html .no-details details summary{
+html.no-details details summary{
     .arrow-closed,
     .arrow-open{
         display: none;
