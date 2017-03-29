@@ -21,8 +21,7 @@ import auth.GGAction
 import connectors._
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import connectors.propertyLinking.PropertyLinkConnector
-import models.{IVDetails, IndividualDetails, PersonalDetails}
-import play.api.Logger
+import models.PersonalDetails
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, Reads, Writes}
 import session.{AgentAppointmentSessionRepository, LinkingSessionRepository, WithLinkingSession}
@@ -56,7 +55,6 @@ abstract class Wiring {
   lazy val addresses = new Addresses(http)
   lazy val businessRatesAuthentication = new BusinessRatesAuthorisation(http)
   lazy val authenticated = new AuthenticatedAction
-  lazy val betaLoginConnector = new BetaLoginConnector(http)
   lazy val submissionIdConnector = new SubmissionIdConnector(http)
   lazy val identityVerificationProxyConnector = new IdentityVerificationProxyConnector(http)
   lazy val dvrCaseManagement = new DVRCaseManagementConnector(http)
