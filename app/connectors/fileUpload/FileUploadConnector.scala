@@ -56,7 +56,6 @@ trait FileUpload {
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit]
 }
 
-@Singleton
 class FileUploadConnector @Inject()(val ws: WSClient, val envelopeConnector: EnvelopeConnector)(implicit ec: ExecutionContext)
   extends FileUpload with ServicesConfig with JsonHttpReads {
   lazy val http = Wiring().http

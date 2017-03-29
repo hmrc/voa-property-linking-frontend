@@ -19,8 +19,8 @@ package controllers
 import javax.inject.Inject
 
 import config.Wiring
-import connectors.{EnvelopeConnector, FileInfo}
 import connectors.fileUpload.FileUploadConnector
+import connectors.{EnvelopeConnector, FileInfo}
 import form.EnumMapping
 import models._
 import play.api.data.Form

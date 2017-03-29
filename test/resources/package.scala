@@ -143,13 +143,12 @@ package object resources {
 
   val party: Gen[Party] = for {
     authorisedPartyId <- arbitrary[Long]
-    permissionId <- arbitrary[Long]
     agentCode <- arbitrary[Long]
     organisationName <- shortString
     organisationId <- arbitrary[Long]
     checkPermission <- arbitrary[AgentPermission]
     challengePermission <- arbitrary[AgentPermission]
-  } yield models.Party(authorisedPartyId, permissionId, agentCode, organisationName, organisationId, checkPermission, challengePermission)
+  } yield models.Party(authorisedPartyId, agentCode, organisationName, organisationId, checkPermission, challengePermission)
   implicit val arbitraryParty = Arbitrary(party)
 
   val clientPropertyGen: Gen[ClientProperty] = for {
@@ -157,14 +156,13 @@ package object resources {
     ownerOrganisationName <- shortString
     billingAuthorityReference <- shortString
     authorisedPartyId <- arbitrary[Long]
-    permissionId <- arbitrary[Long]
     authorisationId <- arbitrary[Long]
     authorisationStatus <- arbitrary[Boolean]
     authorisedPartyStatus <- arbitrary[RepresentationStatus]
     checkPermission <- shortString
     challengePermission <- shortString
     address <- shortString
-  } yield models.ClientProperty(ownerOrganisationId, ownerOrganisationName, billingAuthorityReference, authorisedPartyId, permissionId,
+  } yield models.ClientProperty(ownerOrganisationId, ownerOrganisationName, billingAuthorityReference, authorisedPartyId,
     authorisationId, authorisationStatus, authorisedPartyStatus, checkPermission, challengePermission, address)
  implicit val arbitraryClientProperty = Arbitrary(clientPropertyGen)
 

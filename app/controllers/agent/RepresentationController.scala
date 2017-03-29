@@ -83,11 +83,11 @@ trait RepresentationController extends PropertyLinkingController {
     }
   }
 
-  def revokeClient(organisationId: Long, permissionId: Long) = authenticated.asAgent { implicit request =>
+  def revokeClient(organisationId: Long, authorisedPartyId: Long) = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.agentEnabled) {
       for {
         clientProperties <- propertyLinkConnector.clientProperties(organisationId, request.organisationAccount.id)
-        clientProperty = clientProperties.filter(_.permissionId == permissionId)
+        clientProperty = clientProperties.filter(_.authorisedPartyId == authorisedPartyId)
       } yield {
         if (clientProperty.nonEmpty)
           Ok(views.html.propertyRepresentation.revokeClient(clientProperty.head))
@@ -99,12 +99,12 @@ trait RepresentationController extends PropertyLinkingController {
     }
   }
 
-  def revokeClientConfirmed(organisationId: Long, permissionId: Long) = authenticated.asAgent { implicit request =>
+  def revokeClientConfirmed(organisationId: Long, authorisedPartyId: Long) = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.agentEnabled) {
       (for {
         clientProperties <- OptionT.liftF(propertyLinkConnector.clientProperties(organisationId, request.organisationAccount.id))
-        prop <- OptionT.fromOption(clientProperties.find(_.permissionId == permissionId))
-        _ <- OptionT.liftF(reprConnector.revoke(prop.permissionId))
+        prop <- OptionT.fromOption(clientProperties.find(_.authorisedPartyId == authorisedPartyId))
+        _ <- OptionT.liftF(reprConnector.revoke(prop.authorisedPartyId))
       } yield {
         if (clientProperties.size > 1)
           Redirect(controllers.routes.Dashboard.clientProperties(organisationId))
