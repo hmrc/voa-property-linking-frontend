@@ -39,28 +39,26 @@ object Wiring {
 }
 
 abstract class Wiring {
-  val http: HttpGet with HttpPut with HttpDelete with HttpPost with HttpPatch
+  def http: HttpGet with HttpPut with HttpDelete with HttpPost with HttpPatch
   lazy val sessionCache = new VPLSessionCache(http)
   lazy val sessionRepository = new LinkingSessionRepository(sessionCache)
   lazy val agentAppointmentSessionRepository = new AgentAppointmentSessionRepository(sessionCache)
-  lazy val propertyRepresentationConnector = new PropertyRepresentationConnector(http)
-  lazy val propertyLinkConnector = new PropertyLinkConnector(http)
-  lazy val individualAccountConnector = new IndividualAccounts(http)
-  lazy val groupAccountConnector = new GroupAccounts(http)
-  lazy val authConnector = new VPLAuthConnector(http)
-  lazy val ggAction = new GGAction(authConnector)
-  lazy val withLinkingSession = new WithLinkingSession
-  lazy val fileSystemConnector = FileSystemConnector
-  lazy val identityVerification = new IdentityVerification(http)
-  lazy val addresses = new Addresses(http)
-  lazy val businessRatesAuthentication = new BusinessRatesAuthorisation(http)
-  lazy val authenticated = new AuthenticatedAction
-  lazy val submissionIdConnector = new SubmissionIdConnector(http)
-  lazy val identityVerificationProxyConnector = new IdentityVerificationProxyConnector(http)
-  lazy val dvrCaseManagement = new DVRCaseManagementConnector(http)
-  lazy val businessRatesValuation = new BusinessRatesValuationConnector(http)
-  lazy val trafficThrottleConnector = new TrafficThrottleConnector(http)
-
+  def propertyRepresentationConnector = new PropertyRepresentationConnector(http)
+  def propertyLinkConnector = new PropertyLinkConnector(http)
+  def individualAccountConnector = new IndividualAccounts(http)
+  def groupAccountConnector = new GroupAccounts(http)
+  def authConnector = new VPLAuthConnector(http)
+  def ggAction = new GGAction(authConnector)
+  def withLinkingSession = new WithLinkingSession
+  def identityVerification = new IdentityVerification(http)
+  def addresses = new Addresses(http)
+  def businessRatesAuthentication = new BusinessRatesAuthorisation(http)
+  def authenticated = new AuthenticatedAction
+  def submissionIdConnector = new SubmissionIdConnector(http)
+  def identityVerificationProxyConnector = new IdentityVerificationProxyConnector(http)
+  def dvrCaseManagement = new DVRCaseManagementConnector(http)
+  def businessRatesValuation = new BusinessRatesValuationConnector(http)
+  def trafficThrottleConnector = new TrafficThrottleConnector(http)
 }
 
 class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {

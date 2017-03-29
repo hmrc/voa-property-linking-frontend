@@ -35,7 +35,6 @@ trait Envelope {
   def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]
 }
 
-@Singleton
 class EnvelopeConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionContext) extends Envelope with ServicesConfig with JsonHttpReads {
   lazy val http = Wiring().http
 

@@ -18,16 +18,14 @@ package controllers
 
 import javax.inject.Inject
 
-import com.google.inject.Singleton
 import config.Wiring
-import connectors.{EnvelopeConnector, FileInfo}
 import connectors.fileUpload.FileUploadConnector
+import connectors.{EnvelopeConnector, FileInfo}
 import models._
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}
 import play.api.i18n.Messages
 
-@Singleton
 class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector, override val envelopeConnector: EnvelopeConnector)
   extends PropertyLinkingController with FileUploadHelpers {
 
