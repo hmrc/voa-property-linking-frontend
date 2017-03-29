@@ -40,7 +40,7 @@ import scala.concurrent.Future
 
 object Global extends VPLFrontendGlobal {
   override val wiring: Wiring = new Wiring {
-    override val http = new WSHttp
+    override def http = new WSHttp
   }
 }
 

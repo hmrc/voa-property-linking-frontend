@@ -19,8 +19,7 @@ package controllers
 import config.Wiring
 import form.Mappings._
 import form.TextMatching
-import models.{Address, IndividualAccount, IndividualDetails}
-import play.api.Logger
+import models.{Address, IndividualAccount}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
