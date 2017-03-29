@@ -20,6 +20,7 @@ import actions.BasicAuthenticatedRequest
 import config.{ApplicationConfig, Global, Wiring}
 import connectors.UpdatedRepresentation
 import form.EnumMapping
+import form.Mappings._
 import models._
 import org.joda.time.DateTime
 import play.api.data.Forms._
@@ -285,7 +286,7 @@ class AppointAgentController extends PropertyLinkingController {
   }
 
   def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
-    "agentCode" -> longNumber.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode),
+    "agentCode" -> longNumeric.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode),
     "canCheck" ->  AgentPermissionMapping("canChallenge"),
     "canChallenge" -> AgentPermissionMapping("canCheck")
   )(AppointAgent.apply)(AppointAgent.unapply))

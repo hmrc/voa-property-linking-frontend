@@ -18,24 +18,29 @@ package utils
 
 import connectors.PropertyRepresentationConnector
 import models.{AgentCodeValidationResult, PropertyRepresentation, RepresentationRequest}
-import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import org.scalacheck.Arbitrary.arbitrary
+import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
 object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubHttp) {
   private var stubbedRepresentations: Seq[PropertyRepresentation] = Nil
+  private var stubbedValidCodes: Seq[Long] = Nil
 
   def stubRepresentation(rep: PropertyRepresentation) = stubbedRepresentations :+= rep
 
-  def reset(): Unit = {
-    stubbedRepresentations = Nil
+  def stubAgentCode(agentCode: Long) = {
+    stubbedValidCodes :+= agentCode
   }
 
-  override def validateAgentCode(agentCode: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful(
-    AgentCodeValidationResult(Some(123), None)
-  )
+  def reset(): Unit = {
+    stubbedRepresentations = Nil
+    stubbedValidCodes = Nil
+  }
+
+  override def validateAgentCode(agentCode: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
+    if(stubbedValidCodes.contains(agentCode)) { AgentCodeValidationResult(Some(123), None) } else { AgentCodeValidationResult(None, Some("INVALID_CODE")) }
+  }
 
 
   override def get(representationId: Long)(implicit hc: HeaderCarrier) = Future.successful(

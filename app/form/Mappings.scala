@@ -44,6 +44,8 @@ object Mappings extends DateMappings {
   )(Address.apply)(Address.unapply)
 
   private def addressId: Mapping[Option[Int]] = default(text, "").transform(t => Try { t.toInt }.toOption, _.map(_.toString).getOrElse(""))
+
+  def longNumeric: Mapping[Long] = nonEmptyText.verifying("error.number", s => s.trim.forall(_.isDigit)).transform(_.trim.toLong, _.toString)
 }
 
 trait DateMappings {
