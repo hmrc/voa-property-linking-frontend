@@ -23,7 +23,6 @@ case class ClientProperty(
                            ownerOrganisationName: String,
                            billingAuthorityReference: String,
                            authorisedPartyId: Long,
-                           permissionId: Long,
                            authorisationId: Long,
                            authorisationStatus: Boolean,
                            authorisedPartyStatus: RepresentationStatus,

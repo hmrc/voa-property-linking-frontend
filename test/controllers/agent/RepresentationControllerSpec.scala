@@ -40,22 +40,22 @@ class RepresentationControllerSpec extends ControllerSpec {
   it should "revoke an agent and redirect to manage client page if the agent is not representing any more properties" in {
     val (agentGroupAccount, agentIndividual) = stubLoggedInUser()
     val  ownerOrgId = 111
-    val permId = 1
+    val authorisedPartyId = 1
     val clientProp = arbitrary[ClientProperty].sample.get
-    StubPropertyLinkConnector.stubClientProperties(clientProp.copy(ownerOrganisationId = ownerOrgId, permissionId = permId))
-    val res = TestRepresentationController.revokeClientConfirmed(ownerOrgId, permId)(request)
+    StubPropertyLinkConnector.stubClientProperties(clientProp.copy(ownerOrganisationId = ownerOrgId, authorisedPartyId= authorisedPartyId))
+    val res = TestRepresentationController.revokeClientConfirmed(ownerOrgId, authorisedPartyId)(request)
     redirectLocation(res) must be (Some(controllers.agent.routes.RepresentationController.manageRepresentationRequest().url))
     status(res) must be (SEE_OTHER)
   }
   it should "revoke an agent and redirect to view client properties page if the agent is representing more properties for the client" in {
     val (agentGroupAccount, agentIndividual) = stubLoggedInUser()
     val  ownerOrgId = 111
-    val permIdOne = 1
-    val permIdTwo = 2
+    val authorisedPartyIdOne = 1
+    val authorisedPartyIdTwo = 2
     val clientProp = arbitrary[ClientProperty].sample.get
-    StubPropertyLinkConnector.stubClientProperties(clientProp.copy(ownerOrganisationId = ownerOrgId, permissionId = permIdOne))
-    StubPropertyLinkConnector.stubClientProperties(clientProp.copy(ownerOrganisationId = ownerOrgId, permissionId = permIdTwo))
-    val res = TestRepresentationController.revokeClientConfirmed(ownerOrgId, permIdOne)(request)
+    StubPropertyLinkConnector.stubClientProperties(clientProp.copy(ownerOrganisationId = ownerOrgId, authorisedPartyId = authorisedPartyIdOne))
+    StubPropertyLinkConnector.stubClientProperties(clientProp.copy(ownerOrganisationId = ownerOrgId, authorisedPartyId = authorisedPartyIdTwo))
+    val res = TestRepresentationController.revokeClientConfirmed(ownerOrgId, authorisedPartyIdOne)(request)
     redirectLocation(res) must be (Some(controllers.routes.Dashboard.clientProperties(ownerOrgId).url))
     status(res) must be (SEE_OTHER)
   }

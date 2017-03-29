@@ -16,7 +16,7 @@
 
             <p>@Messages("propertyRepresentation.revokeClient.message", clientProperty.ownerOrganisationName, utils.Formatters.capitalizedAddress(clientProperty.address))</p>
             <p>
-                <a href="@controllers.agent.routes.RepresentationController.revokeClientConfirmed(clientProperty.ownerOrganisationId, clientProperty.permissionId)">
+                <a href="@controllers.agent.routes.RepresentationController.revokeClientConfirmed(clientProperty.ownerOrganisationId, clientProperty.authorisedPartyId)">
                     <button type="submit" class="button">
                         @Messages("propertyRepresentation.revokeClient.button")
                     </button>
