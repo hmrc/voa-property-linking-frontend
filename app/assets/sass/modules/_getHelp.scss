@@ -15,7 +15,7 @@ details{
 html.no-details details summary{
     .arrow-closed,
     .arrow-open{
-        display: none;
+        display: none !important;
     }
 }
 
