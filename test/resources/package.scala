@@ -36,6 +36,8 @@ package object resources {
 
   def positiveLong = Gen.choose(0L, Long.MaxValue)
 
+  def positiveInt = Gen.choose(0, Int.MaxValue)
+
   def dateAfterApril2017: Gen[LocalDate] = for {
     year <- Gen.choose(2017, 2100)
     month <- Gen.choose(1, 12)
@@ -102,7 +104,7 @@ package object resources {
   implicit val arbitraryIndividual = Arbitrary(individualGen)
 
   val groupAccountGen: Gen[GroupAccount] = for {
-    id <- arbitrary[Int]
+    id <- positiveInt
     groupId <- shortString
     companyName <- shortString
     addressId <- arbitrary[Int]
@@ -110,7 +112,7 @@ package object resources {
     phone <-  Gen.listOfN(8, Gen.numChar)
     isSmallBusiness <- arbitrary[Boolean]
     isAgent <- arbitrary[Boolean]
-    agentCode <- arbitrary[Long]
+    agentCode <- positiveLong
   } yield GroupAccount(id, groupId, companyName, addressId, email, phone.mkString, isSmallBusiness, isAgent, agentCode)
   implicit val arbitraryGroupAccount = Arbitrary(groupAccountGen)
 
@@ -193,7 +195,7 @@ package object resources {
   } yield Nino(s"$prefix${number.mkString}$suffix".grouped(2).mkString(" "))
   implicit val arbitraryNino = Arbitrary(ninoGen)
 
-  val ivDetailsGen: Gen[IVDetails] = for {
+  private val ivDetailsGen: Gen[IVDetails] = for {
     firstName <- shortString
     lastName <- shortString
     dob <- arbitrary[LocalDate]

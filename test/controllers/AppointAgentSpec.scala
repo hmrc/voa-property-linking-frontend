@@ -50,6 +50,31 @@ class AppointAgentSpec extends ControllerSpec {
     page.mustContainRadioSelect("canChallenge", AgentPermission.options)
   }
 
+  it must "require the agent code to be numeric" in {
+    stubLoggedInUser()
+
+    val res = TestAppointAgent.appointSubmit(arbitrary[Long])(
+      request.withFormUrlEncodedBody("agentCode" -> "agents inc", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
+    )
+    status(res) must be (BAD_REQUEST)
+
+    val page = HtmlPage(res)
+    page.mustContainFieldErrors("agentCode" -> "This must be a number")
+  }
+
+  it must "trim leading and trailing spaces from the agent code" in {
+    val (groupAccount, individual) = stubLoggedInUser()
+    StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id, authorisationId = 555, agents = Nil)
+    StubPropertyLinkConnector.stubLink(link)
+    StubPropertyRepresentationConnector.stubAgentCode(123)
+
+    val res = TestAppointAgent.appointSubmit(link.authorisationId)(
+      request.withFormUrlEncodedBody("agentCode" -> " 123 ", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
+    )
+    status(res) must be (OK)
+  }
+
   it must "require the user to enter an agent code" in {
     stubLoggedInUser()
     val groupAccount = arbitrary[GroupAccount].sample.get
@@ -58,7 +83,7 @@ class AppointAgentSpec extends ControllerSpec {
     val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> "", "canCheck" -> "continueOnly", "canChallenge" -> "continueOnly")
+      request.withFormUrlEncodedBody("agentCode" -> "", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
     )
     status(res) must be (BAD_REQUEST)
 
@@ -72,7 +97,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubGroupAccountConnector.stubAccount(agentAccount)
 
     val res = TestAppointAgent.appointSubmit(arbitrary[PropertyLink].sample.get.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> agentAccount.agentCode.toString, "canCheck" -> "", "canChallenge" -> "continueOnly")
+      request.withFormUrlEncodedBody("agentCode" -> agentAccount.agentCode.toString, "canCheck" -> "", "canChallenge" -> StartAndContinue.name)
     )
     status(res) must be (BAD_REQUEST)
 
@@ -88,7 +113,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubGroupAccountConnector.stubAccount(agentAccount)
 
     val res = TestAppointAgent.appointSubmit(arbitrary[PropertyLink].sample.get.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> agentAccount.agentCode.toString, "canCheck" -> "continueOnly", "canChallenge" -> "")
+      request.withFormUrlEncodedBody("agentCode" -> agentAccount.agentCode.toString, "canCheck" -> StartAndContinue.name, "canChallenge" -> "")
     )
     status(res) must be (BAD_REQUEST)
 
@@ -106,7 +131,7 @@ class AppointAgentSpec extends ControllerSpec {
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> agentAccount.agentCode.toString, "canCheck" -> "NOT_PERMITTED", "canChallenge" -> "NOT_PERMITTED")
+      request.withFormUrlEncodedBody("agentCode" -> agentAccount.agentCode.toString, "canCheck" -> NotPermitted.name, "canChallenge" -> NotPermitted.name)
     )
     status(res) must be (BAD_REQUEST)
 
@@ -116,17 +141,17 @@ class AppointAgentSpec extends ControllerSpec {
   }
 
   it must "require the agent code to be valid" in {
-    stubLoggedInUser()
-    val link = arbitrary[PropertyLink].sample.get
+    val (groupAccount, _) = stubLoggedInUser()
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id)
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> "not an agent", "canCheck" -> "continueOnly", "canChallenge" -> "notPermitted")
+      request.withFormUrlEncodedBody("agentCode" -> "999", "canCheck" -> StartAndContinue.name, "canChallenge" -> NotPermitted.name)
     )
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("agentCode" -> "This must be filled in")
+    page.mustContainFieldErrors("agentCode" -> "Invalid agent code")
   }
 
   it must "not allow an agent to appoint themselves" in {
@@ -135,8 +160,10 @@ class AppointAgentSpec extends ControllerSpec {
 
     StubPropertyLinkConnector.stubLink(link)
 
+
+
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> groupAccount.agentCode.toString, "canCheck" -> "continueOnly", "canChallenge" -> "notPermitted")
+      request.withFormUrlEncodedBody("agentCode" -> groupAccount.agentCode.toString, "canCheck" -> StartAndContinue.name, "canChallenge" -> NotPermitted.name)
     )
     status(res) mustBe BAD_REQUEST
 
@@ -146,9 +173,9 @@ class AppointAgentSpec extends ControllerSpec {
   it must "display the success page when the form is valid, and no permission have previously been set" in {
     val (groupAccount, individual) = stubLoggedInUser()
     StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id, authorisationId = 555
-      ,agents = Nil)
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id, authorisationId = 555, agents = Nil)
     StubPropertyLinkConnector.stubLink(link)
+    StubPropertyRepresentationConnector.stubAgentCode(123)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> "123", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
