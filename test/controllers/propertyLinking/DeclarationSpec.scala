@@ -16,24 +16,21 @@
 
 package controllers.propertyLinking
 
-import connectors.fileUpload.FileUploadConnector
-import controllers.ControllerSpec
-import models.{DetailedIndividualAccount, GroupAccount, LinkBasis}
-import org.jsoup.nodes.Document
-import org.mockito.ArgumentMatchers.{eq => matching, _}
-import org.mockito.Mockito._
-import org.scalatest.Assertion
-import org.scalatest.mockito.MockitoSugar
-import resources._
-import uk.gov.hmrc.play.http.HeaderCarrier
-import utils.{HtmlPage, StubLinkingSessionRepository, StubPropertyLinkConnector, StubWithLinkingSession}
-import org.scalacheck.Arbitrary.arbitrary
-import play.api.test.FakeRequest
-import play.api.test.Helpers._
 import _root_.session.{LinkingSession, LinkingSessionRequest}
 import connectors.EnvelopeConnector
 import connectors.propertyLinking.PropertyLinkConnector
+import controllers.ControllerSpec
+import models._
 import org.jsoup.Jsoup
+import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
+import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.mockito.MockitoSugar
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import resources._
+import uk.gov.hmrc.play.http.HeaderCarrier
+import utils.{HtmlPage, StubLinkingSessionRepository, StubWithLinkingSession}
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
@@ -89,6 +86,45 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
     status(res) mustBe OK
 
     verify(mockPropertyLinkConnector, times(1)).linkToProperty(matching(linkingSession.linkBasis.get))(any[LinkingSessionRequest[_]])
+  }
+
+  it should "display the normal confirmation page when the user has uploaded a rates bill" in {
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(RatesBillFlag))
+
+    StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe s"We’ve received your request to add ${linkingSession.address} to your business’s customer record"
+    html.body().text must include (linkingSession.submissionId)
+  }
+
+  it should "display the normal confirmation page when the user has uploaded other evidence" in {
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(OtherEvidenceFlag))
+
+    StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe s"We’ve received your request to add ${linkingSession.address} to your business’s customer record"
+    html.body().text must include (linkingSession.submissionId)
+  }
+
+  it should "display the no evidence confirmation page when the user has not uploaded any evidence" in {
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(NoEvidenceFlag))
+
+    StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "We’re sorry, but you can’t proceed with this form."
+    html.body().text must include (linkingSession.submissionId)
   }
 
   "The confirmation page" should "display the submission ID" in {

@@ -21,7 +21,7 @@ import config.Wiring
 import connectors.{CapacityDeclaration, EnvelopeConnector, FileInfo}
 import controllers.PropertyLinkingController
 import form.Mappings._
-import models.LinkBasis
+import models.{LinkBasis, NoEvidenceFlag}
 import play.api.data.{Form, FormError, Forms}
 import session.LinkingSessionRequest
 import views.html.propertyLinking.declaration
@@ -47,13 +47,16 @@ class Declaration @Inject()(envelopes: EnvelopeConnector) extends PropertyLinkin
     session.linkBasis match {
       case Some(basis) =>
         form.bindFromRequest().value match {
-          case Some(true) => submitLinkingRequest(basis) map { _ => 
-            Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(session.address, session.submissionId))) 
-          }
+          case Some(true) => submitLinkingRequest(basis) map { _ => showConfirmation(basis) }
           case _ => BadRequest(declaration(DeclarationVM(session.address, session.declaration, session.fileInfo, formWithNoDeclaration)))
         }
       case None => Unauthorized
     }
+  }
+
+  private def showConfirmation(basis: LinkBasis)(implicit request: LinkingSessionRequest[_]) = basis match {
+    case NoEvidenceFlag => Ok(views.html.uploadEvidence.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
+    case _ => Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
   }
 
   private def submitLinkingRequest(basis: LinkBasis)(implicit request: LinkingSessionRequest[_]) = {
