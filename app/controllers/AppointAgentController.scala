@@ -189,11 +189,11 @@ class AppointAgentController extends PropertyLinkingController {
   private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
                                 newAgentOrgId: Long, individualId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
     val updateExistingAgents = if (newAgentPermission.canCheck == StartAndContinue && newAgentPermission.canChallenge == StartAndContinue) {
-      Future.sequence(link.agents.map( repr =>  representations.revoke(repr.permissionId)) )
+      Future.sequence(link.agents.map( agent =>  representations.revoke(agent.authorisedPartyId)) )
     } else if (newAgentPermission.canCheck == StartAndContinue) {
       val agentsToUpdate = link.agents.filter(_.checkPermission == StartAndContinue)
       for {
-        revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.permissionId))
+        revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
         //existing agents that had a check permission have been revoked
         //we now need to re-add the agents that had a challenge permission
         updatedAgents <- Future.traverse(agentsToUpdate.filter(_.challengePermission != NotPermitted))( agent => {
@@ -205,7 +205,7 @@ class AppointAgentController extends PropertyLinkingController {
     } else {
       val agentsToUpdate = link.agents.filter(_.challengePermission == StartAndContinue)
       for {
-        revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.permissionId))
+        revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
         updatedAgents <- Future.traverse(agentsToUpdate.filter(_.checkPermission != NotPermitted))(agent => {
           createAndSubmitAgentRepRequest(authorisationId, agent.organisationId, individualId, agent.checkPermission, NotPermitted)
         })
