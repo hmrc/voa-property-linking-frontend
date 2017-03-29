@@ -5,9 +5,6 @@ GET         /start                                                  controllers.
 
 GET         /contact-us                                              controllers.Application.contactUs()
 
-GET         /betalogin                                              controllers.BetaLoginController.show
-POST        /betalogin                                              controllers.BetaLoginController.login
-
 #Registration
 GET         /login                                                  controllers.Login.show
 GET         /register                                               controllers.Register.show

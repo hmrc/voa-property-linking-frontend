@@ -19,6 +19,7 @@ package controllers
 import javax.inject.Inject
 
 import actions.AuthenticatedRequest
+import com.google.inject.Singleton
 import config.{ApplicationConfig, Wiring}
 import connectors.CapacityDeclaration
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
@@ -33,7 +34,7 @@ import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
 
-
+@Singleton
 class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector) extends PropertyLinkingController with ServicesConfig {
   lazy val sessionRepository = Wiring().sessionRepository
   lazy val authenticated = Wiring().authenticated
