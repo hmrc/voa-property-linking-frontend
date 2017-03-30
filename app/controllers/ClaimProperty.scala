@@ -24,7 +24,7 @@ import config.{ApplicationConfig, Wiring}
 import connectors.CapacityDeclaration
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
 import form.Mappings._
-import form.{DateAfter, EnumMapping}
+import form.{ConditionalDateAfter, EnumMapping}
 import models._
 import org.joda.time.LocalDate
 import play.api.data.Form
@@ -73,7 +73,7 @@ object ClaimProperty {
     "interestedBefore2017" -> mandatoryBoolean,
     "fromDate" -> mandatoryIfFalse("interestedBefore2017", dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => !d.isAfter(LocalDate.now))),
     "stillInterested" -> mandatoryBoolean,
-    "toDate" -> mandatoryIfFalse("stillInterested", DateAfter("fromDate")
+    "toDate" -> mandatoryIfFalse("stillInterested", ConditionalDateAfter("interestedBefore2017", "fromDate")
       .verifying(Errors.dateMustBeInPast, d => !d.isAfter(LocalDate.now))
       .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(ApplicationConfig.propertyLinkingDateThreshold)))
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))

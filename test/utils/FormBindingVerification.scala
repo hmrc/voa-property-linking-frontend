@@ -47,11 +47,12 @@ object FormBindingVerification extends BasicVerification with DateVerification {
 
 }
 
-trait DateVerification { this: BasicVerification =>
+trait DateVerification {
+  this: BasicVerification =>
 
-  def verifyMandatoryDate(form: Form[_], validData: Map[String, String], dateField: String) {
+  def verifyMandatoryDate(form: Form[_], validData: Map[String, String], dateField: String, exclusive: Boolean = true) {
     Seq("day", "month", "year").foreach { x =>
-      verifyMandatory(form, validData, s"$dateField.$x")
+      verifyMandatory(form, validData, s"$dateField.$x", exclusive)
     }
   }
 
@@ -85,8 +86,8 @@ trait DateVerification { this: BasicVerification =>
     def withDate(dt: (String, String, String)) =
       validData.updated(field + ".day", dt._1).updated(field + ".month", dt._2).updated(field + ".year", dt._3)
 
-    val invalid = Seq(("29", "2", "2015"),("31", "9", "2015"))
-    invalid foreach { iv =>  verifyOnlyError(form, withDate(iv), field, Errors.invalidDate) }
+    val invalid = Seq(("29", "2", "2015"), ("31", "9", "2015"))
+    invalid foreach { iv => verifyOnlyError(form, withDate(iv), field, Errors.invalidDate) }
 
     val valid = Seq(("28", "2", "2012"), ("31", "8", "2015"), ("30", "9", "2015"))
     valid foreach { v => mustBind(form, withDate(v)) }
@@ -126,9 +127,9 @@ trait DateVerification { this: BasicVerification =>
 
 trait BasicVerification extends MustMatchers with AppendedClues with FormChecking {
 
-  def verifyMandatory(form: Form[_], validData: Map[String, String], field: String) {
+  def verifyMandatory(form: Form[_], validData: Map[String, String], field: String, exclusive: Boolean = true) {
     val data = validData - field
-    mustOnlyContainRequiredError(form.bind(data), field)
+    mustContainRequiredError(form.bind(data), field, exclusive)
   }
 
   def verifyOptional(form: Form[_], validData: Map[String, String], field: String) {
@@ -138,7 +139,7 @@ trait BasicVerification extends MustMatchers with AppendedClues with FormCheckin
   def verifyCharacterLimit(form: Form[_], validData: Map[String, String], field: String, limit: Int) {
     mustBind(form, validData.updated(field, 1 to limit map { _ => "a" } mkString))
 
-    val f = form.bind(validData.updated(field, (1 to limit + 1) map { _ => "b"} mkString))
+    val f = form.bind(validData.updated(field, (1 to limit + 1) map { _ => "b" } mkString))
     mustContainError(f, field, "error.maxLength")
   }
 
@@ -148,7 +149,7 @@ trait BasicVerification extends MustMatchers with AppendedClues with FormCheckin
   }
 
   def verifyOnlyError(form: Form[_], invalidData: Map[String, String], field: String, error: String) {
-     mustOnlyContainError(form.bind(invalidData), field, error)
+    mustOnlyContainError(form.bind(invalidData), field, error)
   }
 
   def verifyError(form: Form[_], invalidData: Map[String, String], field: String, error: String) {
@@ -169,13 +170,21 @@ trait FormChecking extends MustMatchers with AppendedClues {
 
   def mustBind[A](form: Form[A], data: Map[String, String]): Form[A] = {
     val f = form.bind(data)
-    f.bind(data).errors.isEmpty  mustBe true withClue s"Form did not bind.${diagnostics(f)}"
+    f.bind(data).errors.isEmpty mustBe true withClue s"Form did not bind.${diagnostics(f)}"
     f.value.getOrElse(fail(s"Form has errors:${diagnostics(f)}"))
     f
   }
 
   protected def mustOnlyContainRequiredError(form: Form[_], field: String) {
-    mustOnlyContainError(form, field, Errors.required)
+    mustContainRequiredError(form, field, true)
+  }
+
+  protected def mustContainRequiredError(form: Form[_], field: String, exclusive: Boolean = true) {
+    if (exclusive) {
+      mustOnlyContainError(form, field, Errors.required)
+    } else {
+      mustContainError(form, field, Errors.required)
+    }
   }
 
   protected def mustOnlyContainError[T](form: Form[T], field: String, error: String) {

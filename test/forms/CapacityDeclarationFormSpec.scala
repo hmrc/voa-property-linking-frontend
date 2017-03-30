@@ -22,7 +22,6 @@ import controllers.ClaimProperty
 import models.{CapacityType, Occupier}
 import org.joda.time.LocalDate
 import org.scalatest.{FlatSpec, MustMatchers}
-import play.api.inject.guice.GuiceApplicationBuilder
 import utils.FormBindingVerification._
 import views.helpers.Errors
 
@@ -30,7 +29,13 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
 
   import TestData._
 
+  /*
+  Important note on testing this form binding - for the purposes of testing the 1st April Date is overridden in the
+  application configuration parameter 'propertyLinkingDateThreshold' to be 1st MARCH 2017 and all the test cases used accordingly
+  however for clarity the test descriptions remain 1st April so that it doesn't get confusint as to the desired behavior.
 
+  After 1st April this could be reversed, but then the test cases should also be changed
+   */
   behavior of "Capacity declaration form"
 
   it should "bind when the inputs are all valid" in {
@@ -46,13 +51,42 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
   }
 
   it should "require a start date if the occupation/ownership started after 1st April 2017" in {
-    val data = validData.updated("interestedBefore2017", "false")
-    verifyMandatoryDate(form, data, "fromDate")
+    val data = validData.updated("interestedBefore2017", "false") - "fromDate.day" - "fromDate.month" - "fromDate.year"
+    verifyMandatoryDate(form, data, "fromDate", false)
+    verifyError(form, data, "toDate", Errors.dateMustBeAfterOtherDate)
   }
+
+  it should "ignore a start date and require an end date after 1st April 2017 if the occupation/ownership started before 1st April 2017" in {
+    val data = validData.updated("interestedBefore2017", "true")
+      .updated("toDate.day", "28")
+      .updated("toDate.month", "2")
+      .updated("toDate.year", "2017")
+    verifyError(form, data, "toDate", Errors.dateMustBeAfter1stApril2017)
+  }
+
+  it should "ignore a start date if the occupation/ownership started before 1st April 2017" in {
+    val data = validData
+      .updated("interestedBefore2017", "true")
+      .updated("toDate.day", "19")
+      .updated("toDate.month", "3")
+      .updated("toDate.year", "2017")
+    mustBindTo(form, data, CapacityDeclaration(Occupier, true, None, false, Some(new LocalDate(2017, 3, 19))))
+  }
+
+  it should "require end date after 1st April 2017 if the occupation/ownership started before 1st April 2017" in {
+    val data = validData
+      .updated("interestedBefore2017", "true")
+      .updated("toDate.day", "28")
+      .updated("toDate.month", "2")
+      .updated("toDate.year", "2017")
+    verifyError(form, data, "toDate", Errors.dateMustBeAfter1stApril2017)
+  }
+
 
   it should "not require the start date if the occupation/ownership started before 1st April 2017" in {
     val data = validData.updated("interestedBefore2017", "true")
     verifyOptionalDate(form, data, "fromDate")
+
   }
 
   it should s"require the start date to be after ${ApplicationConfig.propertyLinkingDateThreshold}" in {
@@ -85,6 +119,19 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
       .updated("toDate.month", "3")
       .updated("toDate.year", "2017")
     verifyOnlyError(form, data, "toDate", Errors.dateMustBeAfterOtherDate)
+  }
+
+  it should "require the end date to be after 1st April if start before 1st April but start date still set" in {
+    val data = validData
+      .updated("interestedBefore2017", "true")
+      .updated("fromDate.day", "10")
+      .updated("fromDate.month", "3")
+      .updated("fromDate.year", "2017")
+      .updated("stillInterested", "false")
+      .updated("toDate.day", "1")
+      .updated("toDate.month", "3")
+      .updated("toDate.year", "2017")
+    verifyOnlyError(form, data, "toDate", Errors.dateMustBeAfter1stApril2017)
   }
 
 

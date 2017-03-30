@@ -93,17 +93,21 @@ object EnumMapping {
   })
 }
 
-case class DateAfter(afterField: String, key: String = "", constraints: Seq[Constraint[LocalDate]] = Nil) extends Mapping[LocalDate] {
+case class ConditionalDateAfter(disableField: String,
+                                afterField: String, key: String = "",
+                                constraints: Seq[Constraint[LocalDate]] = Nil) extends Mapping[LocalDate] {
+
   import Mappings._
 
   override val mappings = Nil
 
-  override def bind(data: Map[String, String]) = (dmyDate.withPrefix(afterField).bind(data),
-    dmyDate.withPrefix(key).verifying(constraints:_*).bind(data)) match {
-    case (_, errs@Left(_)) => errs
-    case (Left(_), r@Right(_)) => r
-    case (Right(after), r@Right(d)) if d.isAfter(after) => r
-    case (Right(_), Right(_)) => Left(Seq(FormError(key, Errors.dateMustBeAfterOtherDate)))
+  override def bind(data: Map[String, String]) = (boolean.withPrefix(disableField).bind(data), dmyDate.withPrefix(afterField).bind(data),
+    dmyDate.withPrefix(key).verifying(constraints: _*).bind(data)) match {
+    case (_, _, errs@Left(_)) => errs
+    case (Left(_), Left(_), r@Right(_)) => r
+    case (Right(true), _, r@Right(_)) => r
+    case (Right(false), Right(after), r@Right(d)) if d.isAfter(after) => r
+    case (Right(false), _, Right(_)) => Left(Seq(FormError(key, Errors.dateMustBeAfterOtherDate)))
   }
 
   override def unbind(value: LocalDate) = dmyDate.withPrefix(key).unbind(value)
