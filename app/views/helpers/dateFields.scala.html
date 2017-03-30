@@ -17,7 +17,7 @@
 
 	  <div id=@(id)Group class='@classes.mkString(" ") @if(combinedErrors.nonEmpty){ error }'>
 	    @if(combinedErrors.nonEmpty){
-	       @combinedErrors.map(err => (err.message, err.args)).distinct.map { case (msg, args) => @displayFieldError(msg, args) }
+	       @combinedErrors.map(err => (err.message.replaceAll("error\\.number|error\\.required", "error.invalidDate") , err.args)).distinct.map { case (msg, args) => @displayFieldError(msg, args) }
 	    }
 	@content
 		</div>
