@@ -74,10 +74,10 @@
                                 var index = $(this).find('option:selected').index() - 1;
                                 $('.address--fields').css('display', 'block');
                                 $('.address--fields input:eq(0)').val(data[index]['addressUnitId']).attr('placeholder', '');
-                                $('.address--fields input:eq(1)').val(data[index]['line1']).attr('placeholder', '');
-                                $('.address--fields input:eq(2)').val(data[index]['line2']).attr('placeholder', '');
-                                $('.address--fields input:eq(3)').val(data[index]['line3']).attr('placeholder', '');
-                                $('.address--fields input:eq(4)').val(data[index]['line4']).attr('placeholder', '');
+                                $('.address--fields input:eq(1)').val(data[index]['line1'].substring(0, 100)).attr('placeholder', '');
+                                $('.address--fields input:eq(2)').val(data[index]['line2'].substring(0, 100)).attr('placeholder', '');
+                                $('.address--fields input:eq(3)').val(data[index]['line3'].substring(0, 100)).attr('placeholder', '');
+                                $('.address--fields input:eq(4)').val(data[index]['line4'].substring(0, 100)).attr('placeholder', '');
                                 $('.address--fields input:eq(5)').val(data[index]['postcode']);
                                 $(this).closest('.form-group').find('[for="addressSelect"]').remove();
                                 $(this).remove();
