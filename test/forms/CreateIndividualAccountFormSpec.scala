@@ -93,10 +93,6 @@ class CreateIndividualAccountFormSpec extends FlatSpec with MustMatchers {
     verifyMandatoryDate(form, validData, "dob")
   }
 
-  it must "require the first line of the address" in {
-    verifyMandatory(form, validData, "address.line1")
-  }
-
   it must "require a postcode" in {
     verifyMandatory(form, validData, "address.postcode")
   }

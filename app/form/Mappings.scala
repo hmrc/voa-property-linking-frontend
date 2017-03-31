@@ -36,7 +36,7 @@ object Mappings extends DateMappings {
 
   def address: Mapping[Address] = mapping(
     "addressId" -> addressId,
-    "line1" -> nonEmptyText(maxLength = 100),
+    "line1" -> default(text(maxLength = 100), ""),
     "line2" -> default(text(maxLength = 100), ""),
     "line3" -> default(text(maxLength = 100), ""),
     "line4" -> default(text(maxLength = 100), ""),
