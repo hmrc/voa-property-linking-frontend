@@ -84,13 +84,13 @@ package object resources {
   implicit val arbitraryCapacityDeclaration = Arbitrary(capacityDeclarationGen)
 
   val addressGen: Gen[Address] = for {
-    id <- arbitrary[Option[Int]]
+    id <- arbitrary[Int]
     line1 <- shortString
     line2 <- shortString
     line3 <- shortString
     line4 <- shortString
     postcode <- shortString
-  } yield Address(id, line1, line2, line3, line4, postcode)
+  } yield Address(Some(id), line1, line2, line3, line4, postcode)
   implicit val arbitraryAddress = Arbitrary(addressGen)
 
 
