@@ -23,20 +23,33 @@ import models.PersonalDetails
 import play.api.data.Forms._
 import play.api.data.validation._
 import play.api.data.{Form, Mapping}
+import play.api.mvc.Request
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.play.http.SessionKeys
 import views.helpers.Errors
 
 trait CreateIndividualAccount extends PropertyLinkingController {
-  lazy val accounts = Wiring().individualAccountConnector
   lazy val ggAction = Wiring().ggAction
   lazy val keystore = Wiring().sessionCache
   lazy val identityVerification = Wiring().identityVerification
+  lazy val auth = Wiring().authConnector
+  lazy val individuals = Wiring().individualAccountConnector
 
-  def show = ggAction { ctx => implicit request =>
-    //TODO - temporary fix for PE-2543
+  def show = ggAction.async { ctx => implicit request =>
+    for {
+      externalId <- auth.getExternalId(ctx)
+      person <- individuals.withExternalId(externalId)
+    } yield {
+      person match {
+        case Some(_) => Redirect(routes.Dashboard.home)
+        case None => showForm
+      }
+    }
+  }
+
+  private def showForm(implicit request: Request[_]) = {
     Ok(views.html.createAccount.individual(form))
-      .addingToSession(
+      .addingToSession( //because SIV wipes the session
         "bearerToken" -> request.session.get(SessionKeys.authToken).getOrElse(""),
         "oldSessionId" -> request.session.get(SessionKeys.sessionId).getOrElse("")
       )

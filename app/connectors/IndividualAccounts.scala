@@ -31,6 +31,10 @@ class IndividualAccounts(http: HttpGet with HttpPut with HttpPost)(implicit ec: 
     http.GET[Option[DetailedIndividualAccount]](s"$baseUrl/$personId")
   }
 
+  def withExternalId(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
+    http.GET[Option[DetailedIndividualAccount]](s"$baseUrl?externalId=$externalId")
+  }
+
   def create(account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Int] = {
     http.POST[IndividualAccount, JsValue](baseUrl, account) map { js => js \ "id" match {
       case JsDefined(JsNumber(id)) => id.toInt

@@ -21,18 +21,27 @@ import org.scalacheck.{Arbitrary, _}
 import uk.gov.hmrc.domain.Nino
 import java.{time => javatime}
 
-import org.joda.time.{DateTime, LocalDate}
+import org.joda.time.{DateTime, LocalDate, Instant}
 import session.LinkingSession
 
 package object resources {
 
   implicit def getArbitrary[T](t: Gen[T]): T = t.sample.get
 
-  implicit val arbitraryJavaLocalDate: Arbitrary[javatime.LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(javatime.LocalDate.ofEpochDay(_)))
-  implicit val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new LocalDate(_)))
-  implicit val arbitraryDateTime: Arbitrary[DateTime] = Arbitrary(Gen.choose(0L, Long.MaxValue).map(new DateTime(_)))
+  implicit val arbitraryJavaLocalDate: Arbitrary[javatime.LocalDate] = Arbitrary(Gen.choose(0L, 32472144000000L /* 1/1/2999 */).map(javatime.LocalDate.ofEpochDay(_)))
+  implicit val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary(Gen.choose(0L, 32472144000000L).map(new LocalDate(_)))
+  implicit val arbitraryDateTime: Arbitrary[DateTime] = Arbitrary(Gen.choose(0L, 32472144000000L).map(new DateTime(_)))
+
+  def dateInPast = Gen.choose(0L, Instant.now().getMillis).map(new LocalDate(_))
 
   def shortString = Gen.listOfN(20, Gen.alphaChar).map(_.mkString)
+
+  def randomEmail = {
+    val mailbox: String = shortString
+    val domain: String = shortString
+    val tld: String = shortString
+    s"$mailbox@$domain.$tld"
+  }
 
   def positiveLong = Gen.choose(0L, Long.MaxValue)
 
@@ -88,10 +97,9 @@ package object resources {
   val individualDetailsGen: Gen[IndividualDetails] = for {
     fistName <- shortString
     lastName <- shortString
-    email <- shortString
     phone1 <- Gen.listOfN(8, Gen.numChar)
     addressId <- arbitrary[Int]
-  } yield IndividualDetails(fistName, lastName, email, phone1.mkString, None, addressId)
+  } yield IndividualDetails(fistName, lastName, randomEmail, phone1.mkString, None, addressId)
   implicit val arbitraryIndividualDetails = Arbitrary(individualDetailsGen)
 
   val individualGen: Gen[DetailedIndividualAccount] = for {
@@ -108,12 +116,11 @@ package object resources {
     groupId <- shortString
     companyName <- shortString
     addressId <- arbitrary[Int]
-    email <- shortString
     phone <-  Gen.listOfN(8, Gen.numChar)
     isSmallBusiness <- arbitrary[Boolean]
     isAgent <- arbitrary[Boolean]
     agentCode <- positiveLong
-  } yield GroupAccount(id, groupId, companyName, addressId, email, phone.mkString, isSmallBusiness, isAgent, agentCode)
+  } yield GroupAccount(id, groupId, companyName, addressId, randomEmail, phone.mkString, isSmallBusiness, isAgent, agentCode)
   implicit val arbitraryGroupAccount = Arbitrary(groupAccountGen)
 
   val capacityGen: Gen[Capacity] = for {
@@ -184,15 +191,15 @@ package object resources {
     linkedDate, pending, assessment, userActingAsAgent, agents)
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
 
-
-  val ninoGen: Gen[Nino] = for {
+  private val ninoGen: Gen[Nino] = for {
     prefix <- (for {
       prefix1 <- Gen.oneOf(('A' to 'Z').filterNot(List('D', 'F', 'I', 'Q', 'U', 'V').contains))
       prefix2 <- Gen.oneOf(('A' to 'Z').filterNot(List('D', 'F', 'I', 'O', 'Q', 'U', 'V').contains))
-    } yield (s"$prefix1$prefix2")) suchThat (!List("BG", "GB", "NK", "KN", "TN", "NT", "ZZ").contains(_))
+    } yield (s"$prefix1$prefix2")) retryUntil (!List("BG", "GB", "NK", "KN", "TN", "NT", "ZZ").contains(_))
     number <- Gen.listOfN(6, Gen.numChar)
     suffix <- Gen.oneOf('A' to 'D')
   } yield Nino(s"$prefix${number.mkString}$suffix".grouped(2).mkString(" "))
+
   implicit val arbitraryNino = Arbitrary(ninoGen)
 
   private val ivDetailsGen: Gen[IVDetails] = for {
@@ -214,9 +221,9 @@ package object resources {
   private val personalDetailsGen: Gen[PersonalDetails] = for {
     firstName <- shortString
     lastName <- shortString
-    dob <- arbitrary[LocalDate]
+    dob <- dateInPast
     nino <- arbitrary[Nino]
-    email <- shortString
+    email = randomEmail
     phone <- Gen.listOfN(8, Gen.numChar)
     address <- arbitrary[Address]
   } yield PersonalDetails(firstName, lastName, dob, nino, email, email, phone.mkString, None, address)
