@@ -206,6 +206,7 @@ dashboard.home.usefulLinks=Useful information
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=Manage properties
+dashboard.manageProperties.expectDelays=It may take several hours for your property to display here once you have claimed it.
 dashboard.manageProperties.noProperties=There are no properties to display.
 manageProperties.table.caption=Your properties
 manageProperties.table.1=Address
