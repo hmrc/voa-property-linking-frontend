@@ -56,7 +56,7 @@ class IdentityVerificationSpec extends ControllerSpec {
 
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
-    StubIndividualAccountConnector.withExternalId("externalId") mustBe None
+    await(StubIndividualAccountConnector.withExternalId("externalId")) mustBe None
   }
 
   "Successfully verifying identity when the group does have a CCA account" must "display a confirmation page, and create the individual account" in {

@@ -87,10 +87,17 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
       mustContainTextInput(s"[name=$name.$x]")
     )
 
-  def mustContainTextInput(selector: String) = mustContain1(s"form input[type=text]$selector")
+  def mustContainTextInput(selector: String) = mustContainInput(s"form input[type=text]$selector")
 
-  def mustContain1(selector: String) =
+  def mustContain1(selector: String) = {
     html.select(selector).size mustBe 1 withClue s"Expected 1 of: '$selector'\n ${html.select(selector)}\nFull HTML: \n$html"
+  }
+
+  private def mustContainInput(selector: String) = {
+    if(html.select(selector).size != 1) {
+      fail(s"Expected one element matching $selector, found inputs: \n${html.select("form input").asScala.mkString("\n\t")}")
+    }
+  }
 
   def mustContain(selector: String, count: Int) =
     html.select(selector).size mustBe count withClue s"Expected 1 of: '$selector'\n ${html.select(selector)}\nFull HTML: \n$html"

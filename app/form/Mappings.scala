@@ -60,7 +60,7 @@ trait DateMappings {
   def dmyDateAfterThreshold: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfter1stApril2017,
     d => d.isAfter(ApplicationConfig.propertyLinkingDateThreshold))
 
-  def dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfter1stApril2017, d => d.isBefore(LocalDate.now))
+  def dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
 
   private def number(min: Int, max: Int) = Forms.of[Int](trimmingNumberFormatter).verifying(Constraints.min(min)).verifying(Constraints.max(max))
 

@@ -40,7 +40,7 @@ object StubIndividualAccountConnector extends IndividualAccounts(StubHttp) {
     Future.successful(stubbedIndividuals.find(_.individualId == personId))
   }
 
-  def withExternalId(externalId: String): Option[DetailedIndividualAccount] = {
+  override def withExternalId(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = Future.successful {
     stubbedIndividuals.find(_.externalId == externalId)
   }
 
