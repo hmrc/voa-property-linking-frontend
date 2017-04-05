@@ -72,7 +72,8 @@ class AppointAgentSpec extends ControllerSpec {
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> " 123 ", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
     )
-    status(res) must be (OK)
+    status(res) must be (SEE_OTHER)
+    redirectLocation(res) mustBe Some(routes.AppointAgentController.appointed(link.authorisationId).url)
   }
 
   it must "require the user to enter an agent code" in {
@@ -180,13 +181,12 @@ class AppointAgentSpec extends ControllerSpec {
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> "123", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
     )
-    status(res) must be (OK)
 
-    val page = HtmlPage(res)
-    page.mustContainText("We have received your request for")
+    status(res) must be (SEE_OTHER)
+    redirectLocation(res) mustBe Some(routes.AppointAgentController.appointed(link.authorisationId).url)
   }
 
-  def stubLoggedInUser() = {
+  private def stubLoggedInUser() = {
     val groupAccount = groupAccountGen.sample.get
     val individual = individualGen.sample.get
     StubGroupAccountConnector.stubAccount(groupAccount)
@@ -194,5 +194,4 @@ class AppointAgentSpec extends ControllerSpec {
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individual)))
     (groupAccount, individual)
   }
-
 }

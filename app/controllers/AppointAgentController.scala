@@ -159,7 +159,7 @@ class AppointAgentController extends PropertyLinkingController {
     }
   }
 
-  def appointAgent(authorisationId: Long, agent: AppointAgent,
+  private def appointAgent(authorisationId: Long, agent: AppointAgent,
                    agentOrgId: Long, pLink: PropertyLink)(implicit request: BasicAuthenticatedRequest[_]) = {
     val hasCheckAgent = pLink.agents.map(_.checkPermission).contains(StartAndContinue)
     val hasChallengeAgent = pLink.agents.map(_.challengePermission).contains(StartAndContinue)
@@ -182,8 +182,15 @@ class AppointAgentController extends PropertyLinkingController {
         submittedAgent <- createAndSubmitAgentRepRequest(authorisationId, agentOrgId, request.individualAccount.individualId, agent)
         sessionRemoved <- sessionRepository.remove()
       } yield {
-        Ok(views.html.propertyRepresentation.appointedAgent(pLink.address))
+        Redirect(routes.AppointAgentController.appointed(authorisationId))
       }
+    }
+  }
+
+  def appointed(authorisationId: Long) = authenticated { implicit request =>
+    propertyLinks.get(request.organisationAccount.id, authorisationId) map {
+      case Some(pl) => Ok(views.html.propertyRepresentation.appointedAgent(pl.address))
+      case None => NotFound(Global.notFoundTemplate)
     }
   }
 

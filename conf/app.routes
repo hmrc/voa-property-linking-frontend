@@ -73,6 +73,9 @@ POST        /upload-evidence                                        @controllers
 GET         /summary                                                @controllers.propertyLinking.Declaration.show
 POST        /summary                                                @controllers.propertyLinking.Declaration.submit
 
+GET         /confirmation                                           @controllers.propertyLinking.Declaration.confirmation
+GET         /confirmation/no-evidence                               @controllers.propertyLinking.Declaration.noEvidence
+
 #Linking outcomes
 GET         /rates-bill-submitted                                   @controllers.UploadRatesBill.fileUploaded()
 GET         /evidence-uploaded                                      @controllers.UploadEvidence.fileUploaded()
@@ -84,6 +87,7 @@ GET         /appoint-agent/:linkId                                  @controllers
 GET         /appoint-agent/:linkId/confirmed                        @controllers.AppointAgentController.confirmed(linkId: Long)
 GET         /appoint-agent/:linkId/declined                         @controllers.AppointAgentController.declined(linkId: Long)
 POST        /appoint-agent/:linkId                                  @controllers.AppointAgentController.appointSubmit(linkId: Long)
+GET         /appointed-agent/:authorisationId                       @controllers.AppointAgentController.appointed(authorisationId: Long)
 GET         /representation-request/select/:linkId                  @controllers.AppointAgentController.select(linkId: Long)
 GET         /representation-request/edit/:linkId                    @controllers.AppointAgentController.edit(linkId: Long)
 GET         /representation-request/modify/:representationId        @controllers.AppointAgentController.modify(representationId: Long)
