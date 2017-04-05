@@ -16,15 +16,13 @@
 
 package controllers
 
-import config.Wiring
+import form.Mappings._
 import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
-import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
-import form.Mappings._
+import play.api.i18n.Messages.Implicits._
+import play.api.mvc._
 import uk.gov.voa.play.form.ConditionalMappings._
-import uk.gov.hmrc.play.http.SessionKeys
 
 
 object Wizard extends Controller {
@@ -46,8 +44,6 @@ object Wizard extends Controller {
       case WizardOptions(false, _, Some(true)) => Redirect(routes.Wizard.registerExistingGG)
       case WizardOptions(false, _, Some(false)) => Redirect(routes.Wizard.beforeYouRegisterD)
   }
-
-
 
   def beforeYouRegisterA() = Action { implicit request =>
       Ok(views.html.authenticationWizard.beforeYouRegisterA())

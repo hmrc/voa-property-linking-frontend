@@ -55,8 +55,18 @@ class Declaration @Inject()(envelopes: EnvelopeConnector) extends PropertyLinkin
   }
 
   private def showConfirmation(basis: LinkBasis)(implicit request: LinkingSessionRequest[_]) = basis match {
-    case NoEvidenceFlag => Ok(views.html.uploadEvidence.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
-    case _ => Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
+    case NoEvidenceFlag => Redirect(routes.Declaration.noEvidence().url)
+    case _ => Redirect(routes.Declaration.confirmation())
+  }
+
+  def confirmation = withLinkingSession { implicit request =>
+    linkingSessionRepo.remove() map { _ =>
+        Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
+    }
+  }
+
+  def noEvidence = withLinkingSession { implicit request =>
+    linkingSessionRepo.remove() map { _ => Ok(views.html.uploadEvidence.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId))) }
   }
 
   private def submitLinkingRequest(basis: LinkBasis)(implicit request: LinkingSessionRequest[_]) = {
@@ -64,7 +74,6 @@ class Declaration @Inject()(envelopes: EnvelopeConnector) extends PropertyLinkin
     for {
       _ <- propertyLinks.linkToProperty(basis)
       _ <- envelopes.closeEnvelope(session.envelopeId)
-      _ <- linkingSessionRepo.remove()
     } yield ()
   }
 

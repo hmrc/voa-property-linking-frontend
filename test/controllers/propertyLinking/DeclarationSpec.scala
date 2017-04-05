@@ -83,7 +83,8 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
     StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-    status(res) mustBe OK
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
 
     verify(mockPropertyLinkConnector, times(1)).linkToProperty(matching(linkingSession.linkBasis.get))(any[LinkingSessionRequest[_]])
   }
@@ -94,9 +95,13 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
     StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-    status(res) mustBe OK
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
 
-    val html = Jsoup.parse(contentAsString(res))
+    val confirmation = TestDeclaration.confirmation()(FakeRequest())
+    status(confirmation) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(confirmation))
     html.title mustBe s"We’ve received your request to add ${linkingSession.address} to your business’s customer record"
     html.body().text must include (linkingSession.submissionId)
   }
@@ -107,9 +112,13 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
     StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-    status(res) mustBe OK
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
 
-    val html = Jsoup.parse(contentAsString(res))
+    val confirmation = TestDeclaration.confirmation()(FakeRequest())
+    status(confirmation) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(confirmation))
     html.title mustBe s"We’ve received your request to add ${linkingSession.address} to your business’s customer record"
     html.body().text must include (linkingSession.submissionId)
   }
@@ -120,9 +129,13 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
     StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-    status(res) mustBe OK
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Declaration.noEvidence().url)
 
-    val html = Jsoup.parse(contentAsString(res))
+    val confirmation = TestDeclaration.noEvidence()(FakeRequest())
+    status(confirmation) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(confirmation))
     html.title mustBe "We’re sorry, but you can’t proceed with this form."
     html.body().text must include (linkingSession.submissionId)
   }
@@ -131,7 +144,7 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
     val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
     StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
-    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    val res = TestDeclaration.confirmation()(FakeRequest())
     status(res) mustBe OK
 
     contentAsString(res) must include (linkingSession.submissionId)
