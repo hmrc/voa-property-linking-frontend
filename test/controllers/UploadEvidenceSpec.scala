@@ -121,8 +121,8 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
     status(res) mustBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
 
-    page.mustContainSummaryErrors(("evidence", "Please upload evidence so that we can verify your link to the property.", "Please upload some evidence."))
-    page.mustContainFieldErrors(("evidence_", "Please upload some evidence."))
+    page.mustContainSummaryErrors(("evidence", "Please upload evidence so that we can verify your link to the property", "Please upload some evidence"))
+    page.mustContainFieldErrors(("evidence_", "Please upload some evidence"))
   }
 
   it must "show an error if the user uploads a file greater than 10MB" in {
@@ -145,7 +145,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
     status(res) mustBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
 
-    page.mustContainSummaryErrors(("evidence", "Please upload evidence so that we can verify your link to the property.", "File size must be less than 10MB"))
+    page.mustContainSummaryErrors(("evidence", "Please upload evidence so that we can verify your link to the property", "File size must be less than 10MB"))
     page.mustContainFieldErrors(("evidence_", "File size must be less than 10MB"))
   }
 
@@ -169,7 +169,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
     status(res) mustBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
 
-    page.mustContainSummaryErrors(("evidence", "Please upload evidence so that we can verify your link to the property.", "File must be a PDF or JPG"))
+    page.mustContainSummaryErrors(("evidence", "Please upload evidence so that we can verify your link to the property", "File must be a PDF or JPG"))
     page.mustContainFieldErrors(("evidence_", "File must be a PDF or JPG"))
   }
 }

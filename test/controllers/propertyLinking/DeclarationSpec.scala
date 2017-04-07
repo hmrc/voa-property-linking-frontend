@@ -78,7 +78,7 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
   }
 
   it should "submit the property link if the user accepts the declaration" in {
-    val linkingSession: LinkingSession = arbitrary[LinkingSession].retryUntil(_.linkBasis.isDefined).copy(envelopeId = envelopeId)
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(RatesBillFlag))
 
     StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 

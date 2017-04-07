@@ -472,9 +472,9 @@ evidenceType.waterRateDemand=Water rate demand
 evidenceType.otherUtilityBill=Other utility bill
 evidenceType.ratesBill=Rates bill
 
-label.evidence=Please upload evidence so that we can verify your link to the property.
+label.evidence=Please upload evidence so that we can verify your link to the property
 evidence.label=Upload other evidence
-error.missingFiles=Please upload some evidence.
+error.missingFiles=Please upload some evidence
 uploadEvidence.show.button=Continue
 uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded
 uploadEvidence.evidenceUploaded.message=Thank you for your request which has been submitted to the Valuation Office Agency.
