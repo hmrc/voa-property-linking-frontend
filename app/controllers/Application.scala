@@ -53,4 +53,8 @@ object Application extends Controller with WithThrottling {
     Ok(views.html.contactUs())
   }
 
+  def invalidAccountType = Action { implicit request =>
+    Unauthorized(views.html.errors.invalidAccountType())
+  }
+
 }
