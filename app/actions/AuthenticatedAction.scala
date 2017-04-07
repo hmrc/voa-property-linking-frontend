@@ -41,6 +41,7 @@ class AuthenticatedAction {
       case InvalidGGSession => GovernmentGatewayProvider.redirectToLogin
       case NoVOARecord => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
       case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
+      case NonOrganisationAccount => Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
     }
   }
 

@@ -47,6 +47,7 @@ class BusinessRatesAuthorisation(http: HttpGet) extends ServicesConfig {
     case "INVALID_GATEWAY_SESSION" => InvalidGGSession
     case "NO_CUSTOMER_RECORD" => NoVOARecord
     case "TRUST_ID_MISMATCH" => IncorrectTrustId
+    case "NON_ORGANISATION_ACCOUNT" => NonOrganisationAccount
   }
 
 }
@@ -60,3 +61,5 @@ case object InvalidGGSession extends AuthorisationResult
 case object NoVOARecord extends AuthorisationResult
 
 case object IncorrectTrustId extends AuthorisationResult
+
+case object NonOrganisationAccount extends AuthorisationResult

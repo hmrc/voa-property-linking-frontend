@@ -78,9 +78,6 @@ beforeYouRegister.summary.answer=<p>To register as an agent, you first need to f
 beforeYouRegister.summary.question2=I want to appoint an agent to represent my business
 beforeYouRegister.summary.answer2=<p>You first need to follow the registration process to register your own business. Your agent can’t register your business on your behalf.</p><strong>Once you’ve registered</strong><p>Your agent will be assigned an agent code once they’ve registered. You’ll need to enter their agent code in order to appoint them. You can do this by going to the ‘Manage agents’ section in your dashboard.</p>
 
-
-
-
 #POST REGISTRATION PAGE
 ggRegistration.title=You’ve created a Government Gateway account for your business
 ggRegistration.p.1=We’ll ask you to verify your identity and confirm that you have the right to act on behalf of your business.
@@ -627,6 +624,12 @@ heading.dashboard-error=Thank you for registering to use this service
 heading.dashboard-error.p1=We’re currently experiencing a high volume of visitors to this site.
 heading.dashboard-error.p2=We’re limiting the number of visitors who can use the service at this time.
 heading.dashboard-error.p3=We apologise for any inconvenience. Please try again later.
+
+invalidAccountType.title=You can’t use that Government Gateway account to register for this service.
+invalidAccountType.p.1=You’ve tried to register using an existing Individual or Agent Government Gateway account.
+invalidAccountType.p.2=To register for this service you’ll need to use an Organisation Government Gateway account.
+invalidAccountType.p.3=You can continue to register for this service where you’ll be able to create the correct Government Gateway account.
+invalidAccountType.register=Register for the service
 
 ##FOOTER LINKS
 footer.link.feedback=Feedback

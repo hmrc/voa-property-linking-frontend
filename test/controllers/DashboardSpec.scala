@@ -17,7 +17,7 @@
 package controllers
 
 import auth.GGAction
-import connectors.{Authenticated, NoVOARecord, VPLAuthConnector}
+import connectors.{Authenticated, NoVOARecord, NonOrganisationAccount, VPLAuthConnector}
 import models._
 import org.jsoup.Jsoup
 import org.scalacheck.Arbitrary._
@@ -34,6 +34,16 @@ class DashboardSpec extends ControllerSpec {
     override val individuals = StubIndividualAccountConnector
     override val groups = StubGroupAccountConnector
     override val authenticated = StubAuthentication
+  }
+
+  "Logging in with a non-organisation account" must "redirect to the wrong account type error page" in {
+    StubAuthConnector.stubExternalId(shortString)
+    StubAuthConnector.stubGroupId(shortString)
+    StubAuthentication.stubAuthenticationResult(NonOrganisationAccount)
+
+    val res = TestDashboard.home()(request)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Application.invalidAccountType().url)
   }
 
   "Logging in for the first time with a group account" must
@@ -59,7 +69,7 @@ class DashboardSpec extends ControllerSpec {
 
   "Logging in again with an account that has already registered" must "continue to the dashboard" in {
     val group = arbitrary[GroupAccount].sample.get
-    val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account",  organisationId = group.id)
+    val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
 
     StubAuthConnector.stubExternalId("has-account")
     StubAuthConnector.stubGroupId("has-group-account")
@@ -76,7 +86,7 @@ class DashboardSpec extends ControllerSpec {
 
   "Logging in with a group account that has registered as an agent" must "continue to the agent dashboard" in {
     val group = arbitrary[GroupAccount].sample.get.copy(groupId = "has-agent-account")
-    val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account",  organisationId = group.id)
+    val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
 
     StubAuthConnector.stubExternalId("has-account")
     StubAuthConnector.stubGroupId("has-agent-account")

@@ -1,0 +1,19 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@()(implicit request: Request[_], messages: Messages)
+    
+    @main_template(Messages("invalidAccountType.title"), topNavigation = false) {
+        <div class="grid-row">
+            <div class="column-two-thirds">
+            
+                <h1 class="heading-xlarge">@Messages("invalidAccountType.title")</h1>
+                
+                <p>@Messages("invalidAccountType.p.1")</p>
+                <p>@Messages("invalidAccountType.p.2")</p>
+                <p>@Messages("invalidAccountType.p.3")</p>
+
+                <a href="@routes.Register.show()" class="button" role="button">@Messages("invalidAccountType.register")</a>
+            </div>
+        </div>
+    }

@@ -10,6 +10,7 @@ GET         /login                                                  controllers.
 GET         /register                                               controllers.Register.show
 GET         /registered                                             controllers.Register.confirm
 GET         /logout                                                 controllers.Application.logOut
+GET         /invalid-account                                        controllers.Application.invalidAccountType
 
 #Wizard
 GET         /authentication-wizard                                  controllers.Wizard.authenticationWizard
