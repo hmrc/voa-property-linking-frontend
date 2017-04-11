@@ -37,6 +37,12 @@
             if (s) { return s + ', '; } else { return ''; }
         }
 
+        function clearId() {
+            $('.postcode-lookup-group input').change(function(){
+                $('#address_addressId_text').val('');
+            });
+        }
+
         errorCheck();
 
         var active = true;
@@ -82,6 +88,7 @@
                                 $(this).closest('.form-group').find('[for="addressSelect"]').remove();
                                 $(this).remove();
                             });
+                            clearId();
                             active = true;
                         } else {
                             showLookupError();
@@ -127,6 +134,7 @@
             $(this).css('display', 'none');
             active = true;
         });
+
 
 
 
