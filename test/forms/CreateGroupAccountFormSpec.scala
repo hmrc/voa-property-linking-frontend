@@ -75,4 +75,12 @@ class CreateGroupAccountFormSpec extends FlatSpec with MustMatchers {
   it must "require the user to specify if their business is a small business" in {
     verifyError(form, validData - keys.isSmallBusiness, keys.isSmallBusiness, "error.boolean")
   }
+
+  it must "require a postcode" in {
+    verifyMandatory(form, validData, "address.postcode")
+  }
+
+  it must "reject postcode longer than 8 chars" in {
+    verifyCharacterLimit(form, validData, "address.postcode", 8)
+  }
 }
