@@ -97,6 +97,10 @@ class CreateIndividualAccountFormSpec extends FlatSpec with MustMatchers {
     verifyMandatory(form, validData, "address.postcode")
   }
 
+  it must "reject postcode longer than 8 chars" in {
+    verifyCharacterLimit(form, validData, "address.postcode", 8)
+  }
+
   it must "accept national insurance numbers with lower case characters" in {
     val withLowerCaseNino = validData.updated(keys.nino, "ab123456b")
     mustBind(form, withLowerCaseNino)
