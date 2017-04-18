@@ -23,6 +23,7 @@ import connectors.{EnvelopeConnector, FileInfo}
 import connectors.fileUpload.FileUpload
 import connectors.propertyLinking.PropertyLinkConnector
 import models.{LinkBasis, NoEvidenceFlag}
+import org.apache.commons.io.FilenameUtils
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.AnyContent
 import play.api.mvc.MultipartFormData.FilePart
@@ -47,7 +48,7 @@ trait FileUploadHelpers {
       case Some(part) if part.ref.file.length > maxFileSize => FileTooLarge
       case Some(FilePart(_, filename, Some(mimetype), TemporaryFile(file))) if ApplicationConfig.allowedMimeTypes.contains(mimetype) =>
         for {
-          _ <- fileUploader.uploadFile(request.ses.envelopeId, encode(filename), mimetype, file)
+          _ <- fileUploader.uploadFile(request.ses.envelopeId, transform(filename), mimetype, file)
         } yield {
           FileAccepted
         }
@@ -60,8 +61,8 @@ trait FileUploadHelpers {
     Redirect(propertyLinking.routes.Declaration.show())
   }
 
-  private def encode(fileName: String)(implicit request: LinkingSessionRequest[AnyContent]) = {
-    URLEncoder.encode(fileName, "UTF-8")
+  private def transform(fileName: String)(implicit request: LinkingSessionRequest[AnyContent]) = {
+    URLEncoder.encode(FilenameUtils.getName(fileName), "UTF-8")
   }
 }
 
