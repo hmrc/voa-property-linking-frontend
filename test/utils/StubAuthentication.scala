@@ -28,6 +28,7 @@ object StubAuthentication extends AuthenticatedAction {
   private object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubHttp) {
     override def authenticate(implicit hc: HeaderCarrier) = Future.successful(authorisationResult)
     override def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
+    override def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
   }
 
   def stubAuthenticationResult(result: AuthorisationResult) = {

@@ -614,7 +614,7 @@ dashboard.manageAgents.viewManagedProperties=View managed properties
 
 
 #ERROR PAGES
-title.error.403=403 Forbidden
+title.error.403=Forbidden
 invalidAppointment.title=Invalid agent appointment
 heading.register-error=We’re currently experiencing a high volume of visitors to this site.
 heading.register-error.p1=We’re limiting the number of visitors who can use the service at this time.
