@@ -82,7 +82,7 @@ class WSHttp extends WSGet with WSPut with WSDelete with WSPost with WSPatch wit
   override val hooks = Seq(AuditingHook)
   override def auditConnector = AuditServiceConnector
 
-  override def doGet(url: String)(implicit hc: HeaderCarrier) = super.doGet(url) map { res =>
+  override def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = super.doGet(url) map { res =>
     res.status match {
       case 401 if hasJsonBody(res) => res.json \ "errorCode" match {
         case JsDefined(JsString(err)) => throw AuthorisationFailed(err)

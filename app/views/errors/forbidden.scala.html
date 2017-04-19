@@ -1,3 +1,5 @@
-@()(implicit messages: Messages)
+@()(implicit request: RequestHeader, messages: Messages)
 
-<h2 class="heading-medium">@Messages("title.error.403")</h2>
+@main_template(Messages("title.error.403"), topNavigation = false) {
+    <h1 class="heading-large">@Messages("title.error.403")</h1>
+}

@@ -20,7 +20,7 @@ import config.AuthorisationFailed
 import models.Accounts
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
+import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, Upstream4xxResponse}
 
 import scala.concurrent.Future
 
@@ -40,6 +40,15 @@ class BusinessRatesAuthorisation(http: HttpGet) extends ServicesConfig {
       Authenticated
     } recover {
       case AuthorisationFailed(err) => handleUnauthenticated(err)
+    }
+  }
+
+  def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
+    http.GET[Accounts](s"$url/property-link/$authorisationId") map {
+      Authenticated
+    } recover {
+      case AuthorisationFailed(err) => handleUnauthenticated(err)
+      case Upstream4xxResponse(_, 403, _, _) => ForbiddenResponse
     }
   }
 
@@ -63,3 +72,5 @@ case object NoVOARecord extends AuthorisationResult
 case object IncorrectTrustId extends AuthorisationResult
 
 case object NonOrganisationAccount extends AuthorisationResult
+
+case object ForbiddenResponse extends AuthorisationResult
