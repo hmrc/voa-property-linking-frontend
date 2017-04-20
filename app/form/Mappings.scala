@@ -47,7 +47,9 @@ object Mappings extends DateMappings {
 
   def postcode:Mapping[String] = nonEmptyText.verifying("error.maxLength", s=> s.trim.size <= 8)
 
-  def longNumeric: Mapping[Long] = nonEmptyText.verifying("error.number", s => s.trim.forall(_.isDigit)).transform(_.trim.toLong, _.toString)
+  def agentCode: Mapping[Long] = nonEmptyText.verifying("error.agentCode", s => s.trim.forall(_.isDigit)).transform(_.trim.toLong, _.toString)
+
+
 }
 
 trait DateMappings {

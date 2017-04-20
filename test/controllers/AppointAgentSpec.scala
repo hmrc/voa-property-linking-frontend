@@ -59,7 +59,7 @@ class AppointAgentSpec extends ControllerSpec {
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("agentCode" -> "This must be a number")
+    page.mustContainFieldErrors("agentCode" -> "This must be a valid code")
   }
 
   it must "trim leading and trailing spaces from the agent code" in {

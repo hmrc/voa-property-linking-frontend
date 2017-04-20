@@ -293,7 +293,7 @@ class AppointAgentController extends PropertyLinkingController {
   }
 
   def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
-    "agentCode" -> longNumeric.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode),
+    "agentCode" -> agentCode.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode),
     "canCheck" ->  AgentPermissionMapping("canChallenge"),
     "canChallenge" -> AgentPermissionMapping("canCheck")
   )(AppointAgent.apply)(AppointAgent.unapply))
