@@ -24,7 +24,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost with HttpPatch)(implicit ec: ExecutionContext)
   extends ServicesConfig {
-  lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
+  lazy val baseUrl: String = baseUrl("property-linking") + s"/property-linking"
 
   def validateAgentCode(agentCode:Long, authorisationId: Long)(implicit hc: HeaderCarrier) = {
     val url = baseUrl + s"/property-representations/validate-agent-code/$agentCode/$authorisationId"

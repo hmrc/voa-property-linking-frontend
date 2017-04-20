@@ -27,7 +27,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec: ExecutionContext)
   extends ServicesConfig {
-  lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking"
+  lazy val baseUrl: String = baseUrl("property-linking") + s"/property-linking"
 
   def get(organisationId: Int, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
     linkedProperties(organisationId).map( links => links.find(_.authorisationId == authorisationId) )
