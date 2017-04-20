@@ -25,7 +25,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class IndividualAccounts(http: HttpGet with HttpPut with HttpPost)(implicit ec: ExecutionContext)
   extends ServicesConfig {
-  lazy val baseUrl: String = baseUrl("property-representations") + s"/property-linking/individuals"
+  lazy val baseUrl: String = baseUrl("property-linking") + s"/property-linking/individuals"
 
   def get(personId: Int)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
     http.GET[Option[DetailedIndividualAccount]](s"$baseUrl/$personId")
