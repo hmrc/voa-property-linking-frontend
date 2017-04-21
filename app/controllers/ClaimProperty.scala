@@ -21,11 +21,10 @@ import javax.inject.Inject
 import actions.AuthenticatedRequest
 import com.google.inject.Singleton
 import config.{ApplicationConfig, Wiring}
-import connectors.CapacityDeclaration
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
-import models._
+import models.{CapacityDeclaration, _}
 import org.joda.time.LocalDate
 import play.api.data.Form
 import play.api.data.Forms._

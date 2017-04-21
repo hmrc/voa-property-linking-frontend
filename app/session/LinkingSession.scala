@@ -16,8 +16,7 @@
 
 package session
 
-import connectors.{CapacityDeclaration, FileInfo}
-import models.LinkBasis
+import models.{CapacityDeclaration, FileInfo, LinkBasis}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.cache.client.SessionCache

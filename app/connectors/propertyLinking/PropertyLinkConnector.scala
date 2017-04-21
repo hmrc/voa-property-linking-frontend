@@ -16,7 +16,6 @@
 
 package connectors.propertyLinking
 
-import connectors._
 import models._
 import org.joda.time.DateTime
 import session.LinkingSessionRequest
@@ -30,7 +29,9 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
   lazy val baseUrl: String = baseUrl("property-linking") + s"/property-linking"
 
   def get(organisationId: Int, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
-    linkedProperties(organisationId).map( links => links.find(_.authorisationId == authorisationId) )
+    linkedProperties(organisationId, 1, 100, requestTotalRowCount = false) map { response =>
+      response.propertyLinks.find(_.authorisationId == authorisationId)
+    }
   }
 
   def linkToProperty(linkBasis: LinkBasis)(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
@@ -49,9 +50,10 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.POST[PropertyLinkRequest, HttpResponse](url, linkRequest) map { _ => () }
   }
 
-  def linkedProperties(organisationId: Int)(implicit hc: HeaderCarrier): Future[Seq[PropertyLink]] = {
-    val url = baseUrl + s"/property-links/$organisationId"
-    http.GET[Seq[PropertyLink]](url)
+  def linkedProperties(organisationId: Int, startPoint: Int, pageSize: Int, requestTotalRowCount: Boolean)
+                      (implicit hc: HeaderCarrier): Future[PropertyLinkResponse] = {
+    val url = baseUrl + s"/property-links/$organisationId?startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$requestTotalRowCount"
+    http.GET[PropertyLinkResponse](url)
   }
 
   def clientProperties(userOrgId: Long, agentOrgId: Int)(implicit hc: HeaderCarrier): Future[Seq[ClientProperty]] = {

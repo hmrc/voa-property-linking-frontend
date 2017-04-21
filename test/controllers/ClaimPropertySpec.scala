@@ -17,8 +17,8 @@
 package controllers
 
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
-import connectors.{Authenticated, CapacityDeclaration}
-import models.{Accounts, CapacityType, Owner}
+import connectors.Authenticated
+import models.{Accounts, CapacityDeclaration, CapacityType, Owner}
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary

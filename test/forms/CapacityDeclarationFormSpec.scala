@@ -17,9 +17,8 @@
 package forms
 
 import config.ApplicationConfig
-import connectors.CapacityDeclaration
 import controllers.ClaimProperty
-import models.{CapacityType, Occupier}
+import models.{CapacityDeclaration, CapacityType, Occupier}
 import org.joda.time.LocalDate
 import org.scalatest.{FlatSpec, MustMatchers}
 import utils.FormBindingVerification._

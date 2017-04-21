@@ -18,10 +18,9 @@ package controllers
 
 import actions.BasicAuthenticatedRequest
 import config.{ApplicationConfig, Global, Wiring}
-import connectors.UpdatedRepresentation
 import form.EnumMapping
 import form.Mappings._
-import models._
+import models.{UpdatedRepresentation, _}
 import org.joda.time.DateTime
 import play.api.data.Forms._
 import play.api.data.validation.Constraint
@@ -80,8 +79,8 @@ class AppointAgentController extends PropertyLinkingController {
   def revokeAgent(agentCode: Long, authorisedPartyId: Long) = authenticated { implicit request =>
     if (ApplicationConfig.agentEnabled) {
       for {
-        links <- propertyLinks.linkedProperties(request.organisationId)
-        agents = links.flatMap(_.agents)
+        response <- propertyLinks.linkedProperties(request.organisationId, 1, 100, requestTotalRowCount = false)
+        agents = response.propertyLinks.flatMap(_.agents)
           .filter(_.agentCode == agentCode)
           .filter(_.authorisedPartyId == authorisedPartyId)
       } yield {
@@ -99,11 +98,11 @@ class AppointAgentController extends PropertyLinkingController {
   def revokeAgentConfirmed(agentCode: Long, authorisedPartyId: Long) = authenticated { implicit request =>
     if (ApplicationConfig.agentEnabled) {
       for {
-        links <- propertyLinks.linkedProperties(request.organisationId)
-        agents = links.flatMap(_.agents)
+        response <- propertyLinks.linkedProperties(request.organisationId, 1, 100, requestTotalRowCount = false)
+        agents = response.propertyLinks.flatMap(_.agents)
           .filter(_.agentCode == agentCode)
       } yield {
-        val address = links.find(_.agents.exists(_.authorisedPartyId == authorisedPartyId)).map(_.address).getOrElse("Address not found")
+        val address = response.propertyLinks.find(_.agents.exists(_.authorisedPartyId == authorisedPartyId)).map(_.address).getOrElse("Address not found")
         if (agents.count(_.authorisedPartyId == authorisedPartyId) == 1) {
           val revoked = representations.revoke(authorisedPartyId)
           if (agents.size > 1) {

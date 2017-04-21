@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 import config.Wiring
 import connectors.fileUpload.FileUploadConnector
-import connectors.{EnvelopeConnector, FileInfo}
+import connectors.EnvelopeConnector
 import form.EnumMapping
 import models._
 import play.api.data.Form

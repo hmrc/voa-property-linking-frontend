@@ -17,7 +17,6 @@
 package utils
 
 import connectors.propertyLinking.PropertyLinkConnector
-import connectors.{CapacityDeclaration, FileInfo}
 import models._
 import session.LinkingSessionRequest
 import uk.gov.hmrc.play.http.HeaderCarrier

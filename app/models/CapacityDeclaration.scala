@@ -16,18 +16,14 @@
 
 package models
 
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.scalatest.{FlatSpec, MustMatchers}
-import resources._
+import org.joda.time.LocalDate
+import play.api.libs.json.{Json, Reads, Writes}
 
-class CapacitySpec extends FlatSpec with MustMatchers with GeneratorDrivenPropertyChecks {
-  "Capacity" must "create from CapacityDeclaration" in {
-    forAll({  declaration:CapacityDeclaration => {
-      val capacity = Capacity.fromDeclaration(declaration)
-      (capacity match {
-        case c:Capacity => true
-        case _ => false
-      }) must be (true)
-    }})
-  }
+case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate],
+                               stillInterested: Boolean, toDate: Option[LocalDate] = None)
+
+object CapacityDeclaration {
+  implicit val dateTimeReads = Reads.jodaDateReads("yyyy-MM-dd")
+  implicit val dateTimeWrites = Writes.jodaDateWrites("yyyy-MM-dd")
+  implicit val format = Json.format[CapacityDeclaration]
 }
