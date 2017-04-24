@@ -64,10 +64,12 @@
                         <td class="last">
                             <ul>
                                 <li>
-                                    <a href="@routes.AppointAgentController.revokeAgent(model.agentCode, p.agents.filter(_.agentCode == model.agentCode).head.authorisedPartyId)">@Messages("manageProperties.revokeAgent")</a>
+                                    <a href="@agentAppointment.routes.RevokeAgentController.revokeAgent(p.authorisationId, p.agents.filter(_.agentCode == model.agentCode).head.authorisedPartyId, model.agentCode)">
+                                        @Messages("manageProperties.revokeAgent")
+                                    </a>
                                 </li>
                                <li>
-                                   <a href=@routes.AppointAgentController.appoint(p.authorisationId)>@Messages("manageProperties.addAgent")</a>
+                                   <a href=@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)>@Messages("manageProperties.addAgent")</a>
                                </li>
                             @if(p.assessment.nonEmpty){
                                 <li>

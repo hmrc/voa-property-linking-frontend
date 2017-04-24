@@ -16,7 +16,7 @@
 
 package utils
 
-import controllers.AppointAgent
+import controllers.agentAppointment.AppointAgent
 import models.PropertyLink
 import session.{AgentAppointmentSession, AgentAppointmentSessionRepository}
 import uk.gov.hmrc.http.cache.client.SessionCache

@@ -16,7 +16,7 @@
 
 package session
 
-import controllers.AppointAgent
+import controllers.agentAppointment.AppointAgent
 import models.PropertyLink
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.Json

@@ -7,7 +7,6 @@
     bottomBackLink = true
 ) {
 
-
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
         <span class="section-title">@Messages("dashboard.clientProperties.title")</span>
     </h1>
@@ -48,7 +47,7 @@
                         </ul>
                     </td>
                     <td class="last">
-                        <a href="@controllers.agent.routes.RepresentationController.revokeClient(prop.ownerOrganisationId, prop.authorisedPartyId)">
+                        <a href="@controllers.agent.routes.RepresentationController.revokeClient(prop.authorisationId, prop.ownerOrganisationId)">
                             @Messages("dashboard.clientProperties.revokeClient")
                         </a>
                     </td>

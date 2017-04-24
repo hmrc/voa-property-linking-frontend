@@ -186,8 +186,20 @@ package object resources {
     assessment <- Gen.nonEmptyListOf(arbitrary[Assessment])
     userActingAsAgent <- arbitrary[Boolean]
     agents <- Gen.listOf(arbitrary[Party])
-  } yield PropertyLink(linkId, submissionId, uarn, organisationId, address.toString, capacity,
-    linkedDate, pending, assessment, userActingAsAgent, agents)
+  } yield {
+    PropertyLink(
+      authorisationId = linkId,
+      submissionId = submissionId,
+      uarn = uarn,
+      organisationId = organisationId,
+      address = address.toString,
+      capacityDeclaration = capacity,
+      linkedDate = linkedDate,
+      pending = pending,
+      assessment = assessment,
+      agents = agents
+    )
+  }
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
 
   private val ninoGen: Gen[Nino] = for {

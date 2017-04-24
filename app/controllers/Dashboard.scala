@@ -89,16 +89,20 @@ trait Dashboard extends PropertyLinkingController {
   }
   }
 
-  def clientProperties(organisationId: Long) = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      propertyLinks.clientProperties(organisationId, request.organisationId) map { props =>
-        if (props.exists(_.authorisedPartyStatus == RepresentationApproved)) {
-          val filteredProps: Seq[ClientProperty] = props.filter(_.authorisedPartyStatus == RepresentationApproved)
+  def clientProperties(organisationId: Long, page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+    withValidPagination(page, pageSize) {
+      propertyLinks.clientProperties(
+        organisationId,
+        request.organisationId,
+        Pagination.getStartPoint(page, pageSize),
+        pageSize,
+        requestTotalRowCount = true
+      ) map { res =>
+        if (res.properties.exists(_.authorisedPartyStatus == RepresentationApproved)) {
+          val filteredProps: Seq[ClientProperty] = res.properties.filter(_.authorisedPartyStatus == RepresentationApproved)
           Ok(views.html.dashboard.clientProperties(ClientPropertiesVM(filteredProps)))
         } else NotFound
       }
-    } else {
-      NotFound(Global.notFoundTemplate)
     }
   }
 

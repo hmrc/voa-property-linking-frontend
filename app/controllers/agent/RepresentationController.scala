@@ -83,41 +83,23 @@ trait RepresentationController extends PropertyLinkingController {
     }
   }
 
-  def revokeClient(organisationId: Long, authorisedPartyId: Long) = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      for {
-        clientProperties <- propertyLinkConnector.clientProperties(organisationId, request.organisationAccount.id)
-        clientProperty = clientProperties.filter(_.authorisedPartyId == authorisedPartyId)
-      } yield {
-        if (clientProperty.nonEmpty)
-          Ok(views.html.propertyRepresentation.revokeClient(clientProperty.head))
-        else
-          NotFound(Global.notFoundTemplate)
-      }
-    } else {
-      NotFound(Global.notFoundTemplate)
+  def revokeClient(authorisationId: Long, clientOrganisationId: Long) = authenticated.asAgent { implicit request =>
+    propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id) map {
+      case Some(property) => Ok(views.html.propertyRepresentation.revokeClient(property))
+      case None => notFound
     }
   }
 
-  def revokeClientConfirmed(organisationId: Long, authorisedPartyId: Long) = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      (for {
-        clientProperties <- OptionT.liftF(propertyLinkConnector.clientProperties(organisationId, request.organisationAccount.id))
-        prop <- OptionT.fromOption(clientProperties.find(_.authorisedPartyId == authorisedPartyId))
-        _ <- OptionT.liftF(reprConnector.revoke(prop.authorisedPartyId))
-      } yield {
-        if (clientProperties.size > 1)
-          Redirect(controllers.routes.Dashboard.clientProperties(organisationId))
-        else
-          Redirect(controllers.agent.routes.RepresentationController.manageRepresentationRequest())
-      }).value.map(_.getOrElse(NotFound(Global.notFoundTemplate)))
-    } else {
-      Future.successful(NotFound(Global.notFoundTemplate))
-    }
+  def revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long) = authenticated.asAgent { implicit request =>
+    (for {
+      clientProperty <- OptionT(propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id))
+      _ <- OptionT.liftF(reprConnector.revoke(clientProperty.authorisedPartyId))
+    } yield {
+      Redirect(controllers.routes.Dashboard.clientProperties(clientOrganisationId))
+    }).getOrElse(notFound)
   }
-
-
 }
+
 object RepresentationController extends RepresentationController {
 
   case class ManagePropertiesVM(propertyRepresentations: PropertyRepresentations, agentCode: Long)

@@ -1,3 +1,5 @@
+@import controllers.agentAppointment.ConfirmOverrideVM
+
 @(model: ConfirmOverrideVM)(implicit request: Request[_], messages: Messages)
 
 
@@ -28,10 +30,10 @@
             <p>@Messages("propertyRepresentation.overrideAgent.message.4")</p>
 
             <p>
-                <a href="@routes.AppointAgentController.confirmed(model.authorisationId)" class="button">
+                <a href="@agentAppointment.routes.AppointAgentController.confirmed(model.authorisationId)" class="button">
                     @Messages("propertyRepresentation.overrideAgent.button.yes")
                 </a>
-                <a href="@routes.AppointAgentController.declined(model.authorisationId)" class="button">
+                <a href="@agentAppointment.routes.AppointAgentController.declined(model.authorisationId)" class="button">
                     @Messages("propertyRepresentation.overrideAgent.button.no")
                 </a>
             </p>

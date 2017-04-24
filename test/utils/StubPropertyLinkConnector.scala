@@ -31,8 +31,8 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
 
   override def linkToProperty(linkBasis: LinkBasis)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
-  override def linkedProperties(organisationId: Int)(implicit hc: HeaderCarrier) = {
-    Future.successful(stubbedLinks)
+  override def linkedProperties(organisationId: Int, startPoint: Int, pageSize: Int, requestTotalRowCount: Boolean)(implicit hc: HeaderCarrier) = {
+    Future.successful(PropertyLinkResponse(Some(stubbedLinks.size), stubbedLinks))
   }
 
   override def get(organisationId: Int, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
@@ -46,14 +46,20 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
     }
   }
 
-  override def clientProperties(userOrgId: Long, agentOrgId: Int)(implicit hc: HeaderCarrier): Future[Seq[ClientProperty]] = {
-    Future.successful(stubbedClientProperties)
+  override def clientProperties(userOrgId: Long, agentOrgId: Int, startPoint: Int, pageSize: Int, requestTotalRowCount: Boolean)
+                               (implicit hc: HeaderCarrier): Future[ClientPropertyResponse] = {
+    Future.successful(ClientPropertyResponse(Some(stubbedClientProperties.size), stubbedClientProperties))
   }
+
+  override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = Future.successful {
+    stubbedClientProperties.find(p => p.authorisationId == authorisationId && p.ownerOrganisationId == clientOrgId)
+  }
+
   def stubLink(link: PropertyLink) = {
     stubbedLinks :+= link
   }
 
-  def stubClientProperties(clientProperty: ClientProperty) = {
+  def stubClientProperty(clientProperty: ClientProperty) = {
     stubbedClientProperties :+= clientProperty
   }
 
