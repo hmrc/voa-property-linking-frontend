@@ -20,11 +20,18 @@
         <h1 class="heading-xlarge margin-bottom-0 clear-right">
             @heading
         </h1>
+
+
+        @jsManageProperties()
+
+        <noscript>
         <p>@Messages("dashboard.manageProperties.expectDelays")</p>
         @if(model.properties.isEmpty){
             <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
             <p>Displaying results @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)}</p>
+
+
         <div class="table-wrapper">
             <table class="table-font-xsmall margin-bottom-20 margin-top-30">
                 <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
@@ -105,6 +112,7 @@
                     }
                 </tbody>
             </table>
+
         </div>
 
             @if(model.pagination.totalResults > model.pagination.pageSize && model.pagination.pageNumber > 1) {
@@ -117,6 +125,8 @@
                 <a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next</a>
             }
     }
+
+    </noscript>
 
     <p><a href="@routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
 

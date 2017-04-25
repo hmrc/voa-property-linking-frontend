@@ -10,6 +10,7 @@ module.exports = function(config) {
       './node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js',
       './javascripts/src/*.js',
       './javascripts/vendor/jquery.filer.min.js',
+      './javascripts/vendor/jquery.dataTables.min.js',
       './tests/spec/*.js',
       {
         pattern: './tests/fixtures/*.html',

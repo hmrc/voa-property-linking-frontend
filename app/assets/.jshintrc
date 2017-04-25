@@ -18,7 +18,8 @@
         "require",
         "setFixtures",
         "sandbox",
-        "console"
+        "console",
+        "JSON"
     ],
     "bitwise": true,
     "curly": true,
