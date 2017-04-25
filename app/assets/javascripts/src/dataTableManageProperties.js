@@ -10,9 +10,9 @@
 
     var DataTableManageProperties = function (){
 
-        var $table = $('#dataTableManageProperties');
-
-        var showLinks = '<ul><li><a href=\"/dashboard/1/appoint-agent\">Appoint agent</a></li><li><a href=\"\">View valuations</a></li></ul>';
+        var $table  = $('#dataTableManageProperties');
+        var service = '/business-rates-property-linking';
+        var action = '<ul><li><a href=\"/dashboard/1/appoint-agent\">Appoint agent</a></li><li><a href=\"\">View valuations</a></li></ul>';
 
         $.fn.dataTable.ext.errMode = 'none';
 
@@ -28,7 +28,7 @@
             ajax: {
                 data: function() {
                     var info = $table.DataTable().page.info();
-                    $table.DataTable().ajax.url('http://localhost:9523/business-rates-property-linking/list-properties?page=' + (info.page + 1) + '&pageSize=10&requestTotalRowCount=true');
+                    $table.DataTable().ajax.url(service + '/list-properties?page=' + (info.page + 1) + '&pageSize=10&requestTotalRowCount=true');
                 },
                 dataSrc: 'propertyLinks',
                 dataFilter: function(data) {
@@ -39,15 +39,15 @@
                 }
             },
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                $('td:eq(4) ul li:eq(0) a', nRow).attr('href', '/business-rates-property-linking/appoint-agent/' + aData.authorisationId + '');
-                $('td:eq(4) ul li:eq(1) a', nRow).attr('href', '/business-rates-property-linking/property-link/' + aData.authorisationId + '/assessments');
+                $('td:eq(4) ul li:eq(0) a', nRow).attr('href', service + '/appoint-agent/' + aData.authorisationId );
+                $('td:eq(4) ul li:eq(1) a', nRow).attr('href', service + '/property-link/' + aData.authorisationId + '/assessments');
             },
             columns: [
                 {width: '300px', data: 'address'},
                 {width: '208px', data: 'assessment.0.billingAuthorityReference'},
                 {width: 'auto', data: 'pending'},
                 {width: 'auto', data: 'agents[, ].organisationName'},
-                {width: '140px', data: null, defaultContent: showLinks, sClass: 'last', sortable: false}
+                {width: '140px', data: null, defaultContent: action, sClass: 'last', sortable: false}
             ],
             language: {
                 info: 'Showing page _PAGE_ of _PAGES_',
@@ -60,10 +60,6 @@
         }).on('error.dt', function (e, settings, techNote, message) {
             $table.find('tbody').empty().append('<tr><td class="text-centered" colspan="'+settings.aoColumns.length+'"><span class="heading-medium error-message">An error occurred</span></td></tr>');
         });
-
-
-
-
 
     };
 
