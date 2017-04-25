@@ -10,8 +10,8 @@ var gulp = require('gulp'),
 gulp.task('sass', function () {
     return gulp.src('./sass/**/*')
         .pipe(sass({
-            style: 'expanded',
-            sourceComments: 'normal'
+            outputStyle: 'compressed',
+            //sourceComments: 'normal'
         }).on('error', sass.logError))
         .pipe(gulp.dest('../../public/stylesheets'));
 });
