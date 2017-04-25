@@ -58,7 +58,7 @@
                 }
             }
         }).on('error.dt', function (e, settings, techNote, message) {
-            $table.find('tbody').append('<tr><td class="text-centered" colspan="'+settings.aoColumns.length+'"><span class="heading-medium error-message">An error occurred</span></td></tr>');
+            $table.find('tbody').empty().append('<tr><td class="text-centered" colspan="'+settings.aoColumns.length+'"><span class="heading-medium error-message">An error occurred</span></td></tr>');
         });
 
 
