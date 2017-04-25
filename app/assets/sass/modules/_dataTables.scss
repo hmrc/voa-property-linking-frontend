@@ -182,15 +182,11 @@
 
     .dataTables_filter{
         position: inherit;
-    }
-    .dataTables_length select{
-        display: inline-block;
+        input {
+           background-image: none;
+       }
     }
 
-    .dataTables_filter input {
-        background-image: none;
-    }
-    
     .dataTables_wrapper {
         min-height: 260px;
         .dataTables_processing{
@@ -201,6 +197,9 @@
         }
         .dataTables_length {
             float: none;
+            select{
+                display: inline-block;
+            }
         }
     }
 

@@ -14,6 +14,8 @@
 
         var showLinks = '<ul><li><a href=\"/dashboard/1/appoint-agent\">Appoint agent</a></li><li><a href=\"\">View valuations</a></li></ul>';
 
+        $.fn.dataTable.ext.errMode = 'none';
+
         $table.DataTable({
             serverSide: true,
             info: true,
@@ -34,9 +36,6 @@
                     json.recordsTotal = json.resultCount;
                     json.recordsFiltered = json.resultCount;
                     return JSON.stringify(json);
-                },
-                error: function() {
-                    console.log('error'); //todo
                 }
             },
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -58,7 +57,13 @@
                     previous: '<i class="previous-arrow"></i>Previous'
                 }
             }
+        }).on('error.dt', function (e, settings, techNote, message) {
+            $table.find('tbody').append('<tr><td class="text-centered" colspan="'+settings.aoColumns.length+'"><span class="heading-medium error-message">An error occurred</span></td></tr>');
         });
+
+
+
+
 
     };
 
