@@ -23,14 +23,15 @@
 
         <p>@Messages("dashboard.manageProperties.expectDelays")</p>
 
-        @jsManageProperties()
 
-        <noscript>
 
         @if(model.properties.isEmpty){
             <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
 
+        @jsManageProperties()
+
+        <noscript>
         <div class="table-wrapper">
             <table class="table-font-xsmall margin-bottom-20 margin-top-20">
                 <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
@@ -114,7 +115,7 @@
 
         </div>
 
-            <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults properties</p>
+            <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</p>
 
 
 
@@ -133,9 +134,10 @@
                     <li  class="next disabled">Next <i class="next-arrow"></i></li>
                 }
             </ul>
+        </noscript>
     }
 
-    </noscript>
+
 
     <div class="clearfix"></div>
     <p><a href="@routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>

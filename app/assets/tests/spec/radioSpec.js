@@ -15,7 +15,7 @@ describe("Radio show hide test suite", function() {
 	beforeEach(function(){
 		loadFixtures('radioFragment.html');
 		//trigger functions
-		VOA.VoaModules();
+		new VOA.RadioToggleFields();
 	});
 
 	//teardown

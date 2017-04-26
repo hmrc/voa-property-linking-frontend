@@ -8,7 +8,7 @@
         root.VOA = {};
     }
 
-    var JqueryFiler = function (){
+    root.VOA.JqueryFiler = function (){
 
         $('.filer_input').filer({
             afterRender: function(){
@@ -91,6 +91,4 @@
 
     };
 
-    root.VOA.JqueryFiler = JqueryFiler;
-
-    }).call(this);
+}).call(this);

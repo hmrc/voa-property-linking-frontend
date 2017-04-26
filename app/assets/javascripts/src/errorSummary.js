@@ -8,14 +8,12 @@
         root.VOA = {};
     }
 
-    var ErrorSummary = function (){
+    root.VOA.ErrorSummary = function (){
 
         if ($('.error-summary')) {
             $('.error-summary').focus();
         }
-        
-    };
 
-    root.VOA.ErrorSummary = ErrorSummary;
+    };
 
 }).call(this);
