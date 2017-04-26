@@ -10,8 +10,58 @@
     .pager{
     	li{
     		*float: left;
-    		*display: inline-block;	
+    		*display: inline-block;
     	}
-        
+
     }
+}
+
+
+.pagination{
+	list-style-type:none;
+	float: right;
+	li{
+		display: inline-block;
+		margin: 0 .2em;
+		&.disabled{
+			color: $grey-1;
+			text-decoration: none;
+			.previous-arrow,
+			.next-arrow{
+				border-color: $grey-1;
+			}
+		}
+		&.next {
+		   margin-right: 0;
+		}
+		&.previous {
+		    margin-left: 0;
+		}
+		.current{
+			text-decoration: none;
+			color: $black;
+		}
+		i{
+			border: solid $link-colour;
+			border-width: 0 3px 3px 0;
+			display: inline-block;
+			padding: .25em;
+
+		}
+		.previous-arrow{
+			margin-right: .3em;
+			transform: rotate(135deg);
+			-webkit-transform: rotate(135deg);
+		}
+		.next-arrow{
+			margin-left: .3em;
+			transform: rotate(-45deg);
+			-webkit-transform: rotate(-45deg);
+		}
+	}
+	> li:first-child{
+		margin-left: 0;
+	}
+
+
 }

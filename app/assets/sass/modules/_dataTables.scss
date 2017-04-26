@@ -1,7 +1,7 @@
 #content{
 
     table.dataTable{
-        margin:20px 0 !important;
+        margin-bottom: 20px;
         display:inline-table;
         width: 100% !important;
     }
@@ -190,6 +190,7 @@
 
     .dataTables_wrapper {
         min-height: 260px;
+        margin-top: 0;
         .dataTables_processing{
             height: 90px;
         }

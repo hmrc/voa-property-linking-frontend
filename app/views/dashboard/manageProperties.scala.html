@@ -21,25 +21,24 @@
             @heading
         </h1>
 
+        <p>@Messages("dashboard.manageProperties.expectDelays")</p>
 
         @jsManageProperties()
 
         <noscript>
-        <p>@Messages("dashboard.manageProperties.expectDelays")</p>
+
         @if(model.properties.isEmpty){
             <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
-            <p>Displaying results @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)}</p>
-
 
         <div class="table-wrapper">
-            <table class="table-font-xsmall margin-bottom-20 margin-top-30">
+            <table class="table-font-xsmall margin-bottom-20 margin-top-20">
                 <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
+                <col width="300px">
+                <col width="208px">
                 <col width="">
                 <col width="">
-                <col width="">
-                <col width="">
-                <col width="20%">
+                <col width="160px">
                 <tbody>
                     <tr>
                         <th scope="col">@Messages("manageProperties.table.1")</th>
@@ -66,7 +65,7 @@
                                     }
                                     </li>
                                     @if(p.pending) {
-                                        <li id="submissionId">
+                                        <li>
                                             <span class="submission-id">
                                                 @Messages("dashboard.manageProperties.submissionId", p.submissionId)
                                             </span>
@@ -115,19 +114,30 @@
 
         </div>
 
-            @if(model.pagination.totalResults > model.pagination.pageSize && model.pagination.pageNumber > 1) {
-                <a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber - 1, model.pagination.pageSize).url">Previous</a>
-            }
-            <p>
-                @model.pagination.pageNumber
-            </p>
-            @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize) {
-                <a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next</a>
-            }
+            <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults properties</p>
+
+
+
+            <ul role="navigation" aria-label="Pagination" class="pagination">
+                @if(model.pagination.totalResults > model.pagination.pageSize && model.pagination.pageNumber > 1) {
+                    <li  class="previous "><a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
+                }else{
+                    <li  class="previous disabled"><i class="previous-arrow"></i>Previous</li>
+                }
+
+                <li class="active">@model.pagination.pageNumber</li>
+
+                @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize) {
+                    <li  class="next"><a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
+                }else{
+                    <li  class="next disabled">Next <i class="next-arrow"></i></li>
+                }
+            </ul>
     }
 
     </noscript>
 
+    <div class="clearfix"></div>
     <p><a href="@routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
 
 }

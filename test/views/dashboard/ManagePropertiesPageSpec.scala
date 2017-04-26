@@ -44,7 +44,7 @@ class ManagePropertiesPageSpec extends ControllerSpec {
     )
     val html = views.html.dashboard.manageProperties(ManagePropertiesVM(organisationAccount.id, Seq(pendingProp, approvedProp), Pagination(1, 25, 25)))
     val page = HtmlPage(html)
-    page.mustContain1("#submissionId")
+    page.mustContain1(".submission-id")
   }
 
 }
