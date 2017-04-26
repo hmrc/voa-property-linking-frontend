@@ -50,8 +50,11 @@
             },
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $('td:eq(2) ul li:eq(0)', nRow).text( statusLabel(aData.pending) );
-                if(aData.pending){ 
+                if(aData.pending){
                     $('td:eq(2) ul li:eq(1) .submission-id', nRow).text( 'Submission ID: ' + aData.submissionId );
+                }
+                if(aData.agents.length === 0){
+                    $('td:eq(3)', nRow).text('None');
                 }
                 $('td:eq(4) ul li:eq(0) a', nRow).attr('href', service + '/appoint-agent/' + aData.authorisationId );
                 $('td:eq(4) ul li:eq(1) a', nRow).attr('href', service + '/property-link/' + aData.authorisationId + '/assessments');
