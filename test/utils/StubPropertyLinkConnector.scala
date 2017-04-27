@@ -17,6 +17,7 @@
 package utils
 
 import connectors.propertyLinking.PropertyLinkConnector
+import controllers.Pagination
 import models._
 import session.LinkingSessionRequest
 import uk.gov.hmrc.play.http.HeaderCarrier
@@ -31,7 +32,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
 
   override def linkToProperty(linkBasis: LinkBasis)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
-  override def linkedProperties(organisationId: Int, startPoint: Int, pageSize: Int, requestTotalRowCount: Boolean)(implicit hc: HeaderCarrier) = {
+  override def linkedProperties(organisationId: Int, pagination: Pagination)(implicit hc: HeaderCarrier) = {
     Future.successful(PropertyLinkResponse(Some(stubbedLinks.size), stubbedLinks))
   }
 
@@ -46,7 +47,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
     }
   }
 
-  override def clientProperties(userOrgId: Long, agentOrgId: Int, startPoint: Int, pageSize: Int, requestTotalRowCount: Boolean)
+  override def clientProperties(userOrgId: Long, agentOrgId: Int, pagination: Pagination)
                                (implicit hc: HeaderCarrier): Future[ClientPropertyResponse] = {
     Future.successful(ClientPropertyResponse(Some(stubbedClientProperties.size), stubbedClientProperties))
   }
