@@ -16,6 +16,7 @@
         new VOA.postcodeLookup();
         new VOA.ErrorSummary();
         new VOA.DataTableManageProperties();
+        new VOA.DataTableManageClients();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));

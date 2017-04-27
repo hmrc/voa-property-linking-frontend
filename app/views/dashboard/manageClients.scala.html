@@ -27,10 +27,17 @@
 
     @if(model.propertyRepresentations.nonEmpty) {
         <div class="table-wrapper">
-            <table class="table-font-xsmall margin-bottom-20 margin-top-30">
+            <table class="table-font-xsmall margin-bottom-20 margin-top-20">
                 <caption class="heading-medium">
                     @Messages("agent.dashboard.manageClients.existingClients")
                 </caption>
+                <colgroup>
+                    <col width="120px">
+                    <col>
+                    <col width="120px">
+                    <col width="160px">
+                    <col width="140px">
+                </colgroup>
                 <thead>
                     <tr>
                         <th scope="col">@Messages("propertyRepresentations.table.1")</th>
