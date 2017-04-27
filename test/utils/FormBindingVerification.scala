@@ -140,7 +140,7 @@ trait BasicVerification extends MustMatchers with AppendedClues with FormCheckin
     mustBind(form, validData.updated(field, 1 to limit map { _ => "a" } mkString))
 
     val f = form.bind(validData.updated(field, (1 to limit + 1) map { _ => "b" } mkString))
-    mustContainError(f, field, "error.maxLength")
+    mustContainError(f, field, "error.maxLength", Seq(limit))
   }
 
   protected def verifyNonEmptyString[T](form: Form[T], validData: Map[String, String], field: String, error: String) {
@@ -152,8 +152,16 @@ trait BasicVerification extends MustMatchers with AppendedClues with FormCheckin
     mustOnlyContainError(form.bind(invalidData), field, error)
   }
 
-  def verifyError(form: Form[_], invalidData: Map[String, String], field: String, error: String) {
-    mustContainError(form.bind(invalidData), field, error)
+  def verifyError(form: Form[_], invalidData: Map[String, String], field: String, error: String, args: Seq[Any] = Nil) {
+    mustContainError(form.bind(invalidData), field, error, args)
+  }
+
+  def verifyNoErrors(form: Form[_], validData: Map[String, String]) {
+    val f = form.bind(validData)
+
+    if(f.hasErrors) {
+      fail(s"Form unexpectedly contained errors: ${diagnostics(f)}")
+    }
   }
 
   protected def verifyAcceptsLeadingAndTrailingWhitespace[T](form: Form[T], validData: Map[String, String], field: String) {
@@ -194,9 +202,9 @@ trait FormChecking extends MustMatchers with AppendedClues {
     }
   }
 
-  protected def mustContainError(form: Form[_], field: String, error: String) {
-    val xists = form.errors.exists(e => e.key == field && e.messages.head == error)
-    xists mustEqual true withClue s"No error for $field - $error${diagnostics(form)}"
+  protected def mustContainError(form: Form[_], field: String, error: String, args: Seq[Any] = Nil) {
+    val exists = form.errors.exists(e => e.key == field && e.messages.head == error && e.args == args)
+    exists mustEqual true withClue s"No matching error for $field - $error${diagnostics(form)}"
   }
 
   protected def diagnostics(f: Form[_]) = s"\nErrors: ${f.errors} \nData: ${f.data}"

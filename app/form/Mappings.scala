@@ -40,16 +40,12 @@ object Mappings extends DateMappings {
     "line2" -> default(text(maxLength = 100), ""),
     "line3" -> default(text(maxLength = 100), ""),
     "line4" -> default(text(maxLength = 100), ""),
-    "postcode" -> postcode.transform[String](_.toUpperCase, identity)
+    "postcode" -> nonEmptyText(maxLength = 8).transform[String](_.toUpperCase, identity)
   )(Address.apply)(Address.unapply)
 
   private def addressId: Mapping[Option[Int]] = default(text, "").transform(t => Try { t.toInt }.toOption, _.map(_.toString).getOrElse(""))
 
-  def postcode:Mapping[String] = nonEmptyText.verifying("error.maxLength", s=> s.trim.size <= 8)
-
   def agentCode: Mapping[Long] = nonEmptyText.verifying("error.agentCode", s => s.trim.forall(_.isDigit)).transform(_.trim.toLong, _.toString)
-
-
 }
 
 trait DateMappings {

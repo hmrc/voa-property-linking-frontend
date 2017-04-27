@@ -102,7 +102,7 @@ trait CreateGroupAccount extends PropertyLinkingController {
   lazy val form = Form(mapping(
     keys.companyName -> nonEmptyText(maxLength = 45),
     keys.address -> address,
-    keys.email -> email.verifying(Constraints.maxLength(45)),
+    keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.phone -> nonEmptyText(maxLength = 20),
     keys.isSmallBusiness -> mandatoryBoolean,
