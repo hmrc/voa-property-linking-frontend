@@ -40,7 +40,7 @@ trait Dashboard extends PropertyLinkingController with ValidPagination {
 
   def manageProperties(page: Int, pageSize: Int) = authenticated { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
-      propertyLinks.linkedProperties(request.organisationId, pagination.startPoint, pageSize, requestTotalRowCount = true) map { response =>
+      propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>
         Ok(views.html.dashboard.manageProperties(
           ManagePropertiesVM(request.individualAccount.organisationId,
             response.propertyLinks,
@@ -51,7 +51,7 @@ trait Dashboard extends PropertyLinkingController with ValidPagination {
 
   def getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
-      propertyLinks.linkedProperties(request.organisationId, pagination.startPoint, pageSize, requestTotalRowCount) map { res =>
+      propertyLinks.linkedProperties(request.organisationId, pagination) map { res =>
         Ok(Json.toJson(res))
       }
     }
@@ -59,7 +59,7 @@ trait Dashboard extends PropertyLinkingController with ValidPagination {
 
   def manageAgents() = authenticated { implicit request =>
     for {
-      response <- propertyLinks.linkedProperties(request.organisationId, 1, 100, requestTotalRowCount = false)
+      response <- propertyLinks.linkedProperties(request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false))
     } yield {
       val agentInfos = response.propertyLinks
         .flatMap(_.agents)
@@ -70,7 +70,7 @@ trait Dashboard extends PropertyLinkingController with ValidPagination {
   }
 
   def viewManagedProperties(agentCode: Long) = authenticated { implicit request => {
-    propertyLinks.linkedProperties(request.organisationId, 1, 100, requestTotalRowCount = false) map { response =>
+    propertyLinks.linkedProperties(request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false)) map { response =>
       val filteredProps = response.propertyLinks.filter(_.agents.map(_.agentCode).contains(agentCode))
       if (filteredProps.nonEmpty) {
         val organisationName = filteredProps.flatMap(_.agents).filter(_.agentCode == agentCode).head.organisationName
@@ -87,9 +87,7 @@ trait Dashboard extends PropertyLinkingController with ValidPagination {
       propertyLinks.clientProperties(
         organisationId,
         request.organisationId,
-        pagination.startPoint,
-        pageSize,
-        requestTotalRowCount = true
+        pagination
       ) map { res =>
         if (res.properties.exists(_.authorisedPartyStatus == RepresentationApproved)) {
           val filteredProps: Seq[ClientProperty] = res.properties.filter(_.authorisedPartyStatus == RepresentationApproved)
