@@ -18,9 +18,9 @@ package controllers.agent
 
 import cats.data.OptionT
 import cats.instances.future._
-import config.{ApplicationConfig, Global, Wiring}
-import controllers.{Pagination, PropertyLinkingController, ValidPagination}
+import config.Wiring
 import controllers.agent.RepresentationController.ManagePropertiesVM
+import controllers.{Pagination, PropertyLinkingController, ValidPagination}
 import models._
 import play.api.libs.json.Json
 
@@ -40,7 +40,7 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
   }
 
   def listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated.asAgent { implicit request =>
-    withValidPagination(page, pageSize) { pagination =>
+    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
       reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
         Ok(Json.toJson(reprs))
       }
