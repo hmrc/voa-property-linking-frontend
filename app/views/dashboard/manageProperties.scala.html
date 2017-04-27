@@ -33,7 +33,7 @@
 
         <noscript>
         <div class="table-wrapper">
-            <table class="table-font-xsmall margin-bottom-20 margin-top-20">
+            <table class="table-font-xsmall margin-bottom-20 margin-top-20" id="nojsManageProperties">
                 <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
                 <col>
                 <col width="120px">
@@ -88,16 +88,13 @@
                             </td>
                             <td class="last">
                                 <ul>
-                                @if(ApplicationConfig.agentEnabled) {
-                                    @if(model.organisationId == p.organisationId) {
-                                        <li>
-                                            <a href=@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)>@Messages("manageProperties.addAgent")
-                                                <span class="visuallyhidden">
-                                                    for @(Formatters.capitalizedAddress(p.address))</span>
-                                            </a>
-                                        </li>
-                                    }
-
+                                @if(model.organisationId == p.organisationId) {
+                                    <li>
+                                        <a href=@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)>@Messages("manageProperties.addAgent")
+                                            <span class="visuallyhidden">
+                                                for @(Formatters.capitalizedAddress(p.address))</span>
+                                        </a>
+                                    </li>
                                 }
                                 @if(p.assessment.nonEmpty){
                                     <li>
@@ -118,9 +115,8 @@
             <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</p>
 
 
-
             <ul role="navigation" aria-label="Pagination" class="pagination">
-                @if(model.pagination.totalResults > model.pagination.pageSize && model.pagination.pageNumber > 1) {
+                @if(model.pagination.pageNumber > 1) {
                     <li  class="previous "><a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
                 }else{
                     <li  class="previous disabled"><i class="previous-arrow"></i>Previous</li>
@@ -128,7 +124,7 @@
 
                 <li class="active">@model.pagination.pageNumber</li>
 
-                @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize) {
+                @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
                     <li  class="next"><a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
                 }else{
                     <li  class="next disabled">Next <i class="next-arrow"></i></li>

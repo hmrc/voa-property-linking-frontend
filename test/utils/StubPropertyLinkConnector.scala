@@ -26,7 +26,7 @@ import scala.concurrent.Future
 
 object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
 
-  private var stubbedLinks: Seq[PropertyLink] = Nil
+  var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil
 
   override def linkToProperty(linkBasis: LinkBasis)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
@@ -57,6 +57,10 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
 
   def stubLink(link: PropertyLink) = {
     stubbedLinks :+= link
+  }
+
+  def stubLinks(links: Seq[PropertyLink]) = {
+    stubbedLinks ++= links
   }
 
   def stubClientProperty(clientProperty: ClientProperty) = {

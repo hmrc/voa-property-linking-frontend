@@ -101,7 +101,7 @@ trait Dashboard extends PropertyLinkingController {
         if (res.properties.exists(_.authorisedPartyStatus == RepresentationApproved)) {
           val filteredProps: Seq[ClientProperty] = res.properties.filter(_.authorisedPartyStatus == RepresentationApproved)
           Ok(views.html.dashboard.clientProperties(ClientPropertiesVM(filteredProps)))
-        } else NotFound
+        } else Redirect(agent.routes.RepresentationController.manageRepresentationRequest())
       }
     }
   }
