@@ -25,7 +25,7 @@
             lengthChange: false,
             searching: false,
             ordering: false,
-            lengthMenu: [[15, 25, 50, 100],[15, 25, 50, 100]],
+            pageLength: pageSize,
             ajax: {
                 data: function() {
                     var info = $table.DataTable().page.info();

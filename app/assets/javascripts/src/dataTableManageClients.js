@@ -25,6 +25,7 @@
             lengthChange: false,
             searching: false,
             ordering: false,
+            pageLength: pageSize,
             ajax: {
                 data: function() {
                     var info = $table.DataTable().page.info();
