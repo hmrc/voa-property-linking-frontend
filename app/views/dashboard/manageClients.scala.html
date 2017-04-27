@@ -15,17 +15,17 @@
 
 
     <h2 class="heading-secondary">
-       @if(model.propertyRepresentations.totalPendingRequests == 0) {
+       @if(model.totalPendingRequests == 0) {
            @Messages("manageClients.nonePending")
        } else {
            <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest">
-               @Messages("manageClients.noOfPending", model.propertyRepresentations.totalPendingRequests)
+               @Messages("manageClients.noOfPending", model.totalPendingRequests)
            </a>
        }
     </h2>
 
 
-    @if(model.propertyRepresentations.propertyRepresentations.nonEmpty) {
+    @if(model.propertyRepresentations.nonEmpty) {
         <div class="table-wrapper">
             <table class="table-font-xsmall margin-bottom-20 margin-top-30">
                 <caption class="heading-medium">
@@ -39,7 +39,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @model.propertyRepresentations.propertyRepresentations.groupBy(_.organisationName).map { case (groupName, properties) =>
+                @model.propertyRepresentations.groupBy(_.organisationName).map { case (groupName, properties) =>
                 <tr>
                     <td>@groupName</td>
                     <td>

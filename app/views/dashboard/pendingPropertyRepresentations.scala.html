@@ -16,7 +16,7 @@
             @Messages("pendingRepresentationRequests.title")
         </h1>
 
-        @if(model.propertyRepresentations.propertyRepresentations.isEmpty){
+        @if(model.propertyRepresentations.isEmpty){
             @Messages("dashboard.manageProperties.noProperties")
         } else {
         <div class="table-wrapper">
@@ -30,7 +30,7 @@
                         <th scope="col">@Messages("pendingRepresentationRequests.table.4")</th>
                         <th scope="col" class="last">@Messages("pendingRepresentationRequests.table.5")</th>
                     </tr>
-                    @model.propertyRepresentations.propertyRepresentations.map { p =>
+                    @model.propertyRepresentations.map { p =>
                         <tr>
                             <td>
                                 @(p.organisationName)
@@ -49,12 +49,12 @@
                             <td class="last">
                                 <ul>
                                     <li>
-                                        <a role="button" href=@controllers.agent.routes.RepresentationController.accept(p.submissionId, model.propertyRepresentations.totalPendingRequests)>
+                                        <a role="button" href=@controllers.agent.routes.RepresentationController.accept(p.submissionId, model.totalPendingRequests)>
                                             @Messages("agent.dashboard.manageProperties.accept")
                                         </a>
                                     </li>
                                     <li>
-                                        <a role="button" href=@controllers.agent.routes.RepresentationController.reject(p.submissionId, model.propertyRepresentations.totalPendingRequests)>
+                                        <a role="button" href=@controllers.agent.routes.RepresentationController.reject(p.submissionId, model.totalPendingRequests)>
                                             @Messages("agent.dashboard.manageProperties.reject")
                                         </a>
                                     </li>

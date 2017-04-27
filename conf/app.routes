@@ -98,7 +98,8 @@ POST        /representation-request/modify/:representationId                    
 #AGENT
 #Dashboard
 #TODO: Move to dashboard
-GET         /manage-clients                                                                   controllers.agent.RepresentationController.manageRepresentationRequest()
+GET         /manage-clients                                                                   controllers.agent.RepresentationController.manageRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
+GET         /list-clients                                                                     controllers.agent.RepresentationController.listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
 
 GET         /manage-clients/pending-requests                                                  controllers.agent.RepresentationController.pendingRepresentationRequest()
 GET         /representation-request/accept/:submissionId/:totalPendingRequests                controllers.agent.RepresentationController.accept(submissionId, totalPendingRequests: Long)

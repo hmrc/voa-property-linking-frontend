@@ -44,7 +44,7 @@ trait Dashboard extends PropertyLinkingController with ValidPagination {
         Ok(views.html.dashboard.manageProperties(
           ManagePropertiesVM(request.individualAccount.organisationId,
             response.propertyLinks,
-            pagination.copy(totalResults = response.resultCount.getOrElse(0)))))
+            pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
       }
     }
   }

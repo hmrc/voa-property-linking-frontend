@@ -19,9 +19,10 @@ package controllers.agent
 import cats.data.OptionT
 import cats.instances.future._
 import config.{ApplicationConfig, Global, Wiring}
-import controllers.{PropertyLinkingController, ValidPagination}
+import controllers.{Pagination, PropertyLinkingController, ValidPagination}
 import controllers.agent.RepresentationController.ManagePropertiesVM
 import models._
+import play.api.libs.json.Json
 
 trait RepresentationController extends PropertyLinkingController with ValidPagination {
   val reprConnector = Wiring().propertyRepresentationConnector
@@ -31,7 +32,17 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
   def manageRepresentationRequest(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
       reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
-        Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs, request.agentCode)))
+        Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
+          reprs.totalPendingRequests,
+          pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
+      }
+    }
+  }
+
+  def listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated.asAgent { implicit request =>
+    withValidPagination(page, pageSize) { pagination =>
+      reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
+        Ok(Json.toJson(reprs))
       }
     }
   }
@@ -39,7 +50,9 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
   def pendingRepresentationRequest() = authenticated.asAgent { implicit request =>
     withValidPagination(1, 15) { pagination =>
       reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
-        Ok(views.html.dashboard.pendingPropertyRepresentations(ManagePropertiesVM(reprs, request.agentCode)))
+        Ok(views.html.dashboard.pendingPropertyRepresentations(ManagePropertiesVM(reprs.propertyRepresentations,
+          reprs.totalPendingRequests,
+          pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
       }
     }
   }
@@ -86,5 +99,5 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
 }
 
 object RepresentationController extends RepresentationController {
-  case class ManagePropertiesVM(propertyRepresentations: PropertyRepresentations, agentCode: Long)
+  case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation], totalPendingRequests: Long, pagination: Pagination)
 }
