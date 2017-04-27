@@ -62,17 +62,16 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
 
   def clientProperties(clientOrgId: Long, agentOrgId: Int, pagination: Pagination)
                       (implicit hc: HeaderCarrier): Future[ClientPropertyResponse] = {
-    http.GET[ClientPropertyResponse](s"""$baseUrl/property-links/client-properties?
-                                        |clientOrganisationId=$clientOrgId&
-                                        |agentOrganisationId=$agentOrgId&
-                                        |$pagination""".stripMargin)
+    http.GET[ClientPropertyResponse](s"$baseUrl/property-links/client-properties?" +
+      s"clientOrganisationId=$clientOrgId&" +
+      s"agentOrganisationId=$agentOrgId&" +
+      s"$pagination")
   }
 
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
-    val url =
-      s"""$baseUrl/property-links/client-property/$authorisationId?
-         |clientOrganisationId=$clientOrgId&
-         |agentOrganisationId=$agentOrgId""".stripMargin
+    val url = s"$baseUrl/property-links/client-property/$authorisationId?" +
+      s"clientOrganisationId=$clientOrgId&" +
+      s"agentOrganisationId=$agentOrgId"
 
     http.GET[Option[ClientProperty]](url) recover { case _: NotFoundException => None }
   }

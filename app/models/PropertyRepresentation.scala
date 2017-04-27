@@ -21,7 +21,7 @@ import play.api.libs.json.Json
 
 case class PropertyRepresentation(representationId: Long,
                                    authorisationId: Long,
-                                   billingAuthorityReferenceNumber: String,
+                                   billingAuthorityReference: String,
                                    submissionId: String,
                                    organisationId: Long,
                                    organisationName: String,
