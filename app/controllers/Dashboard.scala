@@ -48,6 +48,8 @@ trait Dashboard extends PropertyLinkingController {
     }
   }
 
+
+  // TODO - duplicate
   def getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated { implicit request =>
     withValidPagination(page, pageSize) {
       propertyLinks.linkedProperties(request.organisationId, Pagination.getStartPoint(page, pageSize), pageSize, requestTotalRowCount) map { res =>

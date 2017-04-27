@@ -32,7 +32,7 @@ trait RepresentationController extends PropertyLinkingController {
 
   def manageRepresentationRequest() = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.agentEnabled) {
-      reprConnector.forAgent(RepresentationApproved.name, request.organisationId).map { reprs =>
+      reprConnector.forAgent(RepresentationApproved, request.organisationId).map { reprs =>
         Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs, request.agentCode)))
       }
     } else {
@@ -43,7 +43,7 @@ trait RepresentationController extends PropertyLinkingController {
 
   def pendingRepresentationRequest() = authenticated.asAgent { implicit request =>
     if (ApplicationConfig.agentEnabled) {
-      reprConnector.forAgent(RepresentationPending.name, request.organisationId).map { reprs =>
+      reprConnector.forAgent(RepresentationPending, request.organisationId).map { reprs =>
         Ok(views.html.dashboard.pendingPropertyRepresentations(ManagePropertiesVM(reprs, request.agentCode)))
       }
     } else {
