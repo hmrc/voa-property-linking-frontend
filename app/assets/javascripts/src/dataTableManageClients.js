@@ -33,8 +33,8 @@
                 dataSrc: 'propertyRepresentations',
                 dataFilter: function(data) {
                    var json = jQuery.parseJSON(data);
-                   json.recordsTotal = json.totalResults;
-                   json.recordsFiltered = json.totalResults;
+                   json.recordsTotal = json.resultCount;
+                   json.recordsFiltered = json.resultCount;
                    return JSON.stringify(json);
                }
             },
@@ -45,9 +45,9 @@
                 $('td:eq(4) ul li:eq(1)', nRow).html('<a href="' + service + '/property-link/' + aData.authorisationId + '/assessments' + '">' + messages.labels.viewValuations + '</a>');
             },
             columns: [
-                {data: "organisationName"},
-                {data: "address"},
-                {data: "billingAuthorityReferenceNumber"},
+                {data: 'organisationName'},
+                {data: 'address'},
+                {data: 'billingAuthorityReference'},
                 {data: null, defaultContent: '<ul><li></li><li></li></ul>'},
                 {data: null, defaultContent: '<ul><li></li><li></li></ul>', sClass: 'last'}
             ],

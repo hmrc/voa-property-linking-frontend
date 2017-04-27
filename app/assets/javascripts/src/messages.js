@@ -18,8 +18,8 @@
                 submissionId: 'Submission ID',
                 statustrue: 'Pending',
                 statusfalse: 'Approved',
-                statusSTART_AND_CONTINUE: 'Yes',
-                statusNOT_PERMITTED: 'No',
+                'statusSTART_AND_CONTINUE': 'Yes',
+                'statusNOT_PERMITTED': 'No',
                 check: 'Check',
                 challenge: 'Challenge',
                 revokeClient: 'Revoke client'

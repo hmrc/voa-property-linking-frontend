@@ -1,14 +1,16 @@
 @()(implicit  messages: Messages)
 
 <div class="table-wrapper hide-if-no-js">
-    <table id="dataTableManageProperties" class="table-font-xsmall margin-bottom-20 margin-top-20">
-        <caption class="visuallyhidden">@Messages("manageClients.table.caption")</caption>
+    <table id="dataTableManageClients" class="table-font-xsmall margin-bottom-20 margin-top-20">
+        <caption class="heading-medium">
+            @Messages("agent.dashboard.manageClients.existingClients")
+        </caption>
         <colgroup>
-            <col width="120px">
+            <col width="200px">
             <col>
-            <col width="120px">
-            <col width="160px">
             <col width="140px">
+            <col width="130px">
+            <col width="120px">
         </colgroup>
         <thead>
             <tr>

@@ -237,6 +237,13 @@ dashboard.managedByAgentsProperties.addAnotherProperty=Add another property
 managedByAgentsProperties.addAgent=Appoint agent
 managedByAgentsProperties.viewAssessments=View valuations
 
+
+manageClients.table.1=Organisation name
+manageClients.table.2=Address
+manageClients.table.3=Local authority reference
+manageClients.table.4=Permissions
+manageClients.table.5=Actions
+
 #DASHBOARD ASSESSMENTS
 assessments.title=Valuations
 assessments.table.caption=Valuations
