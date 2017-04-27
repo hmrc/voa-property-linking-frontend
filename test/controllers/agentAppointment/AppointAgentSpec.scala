@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.agentAppointment
 
 import config.VPLSessionCache
 import connectors.Authenticated
+import controllers.ControllerSpec
 import models._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest

@@ -14,26 +14,10 @@
  * limitations under the License.
  */
 
-package connectors
+package models
 
-import models._
-import org.joda.time.{DateTime, LocalDate}
-import play.api.libs.json.{Json, Reads, Writes}
-
-case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate],
-                               stillInterested: Boolean, toDate: Option[LocalDate] = None)
-
-object CapacityDeclaration {
-  implicit val dateTimeReads = Reads.jodaDateReads("yyyy-MM-dd")
-  implicit val dateTimeWrites = Writes.jodaDateWrites("yyyy-MM-dd")
-  implicit val format = Json.format[CapacityDeclaration]
-}
-
-case class FileInfo(name: String, evidenceType: String)
-
-object FileInfo {
-  implicit val format = Json.format[FileInfo]
-}
+import org.joda.time.DateTime
+import play.api.libs.json.Json
 
 case class PropertyLinkRequest(uarn: Long,
                                organisationId: Long,
@@ -46,16 +30,4 @@ case class PropertyLinkRequest(uarn: Long,
 
 object PropertyLinkRequest {
   implicit val format = Json.format[PropertyLinkRequest]
-}
-
-case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
-
-object LinkedProperties {
-  implicit val format = Json.format[LinkedProperties]
-}
-
-case class UpdatedRepresentation(representationId: Long, canCheck: AgentPermission, canChallenge: AgentPermission)
-
-object UpdatedRepresentation {
-  implicit val format = Json.format[UpdatedRepresentation]
 }

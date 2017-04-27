@@ -15,8 +15,7 @@
  */
 
 package controllers
-import connectors.CapacityDeclaration
-import models.{DetailedIndividualAccount, GroupAccount, Owner, Property}
+import models._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import utils.{HtmlPage, StubWithLinkingSession}

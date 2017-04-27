@@ -42,7 +42,7 @@
         root.VOA = {};
     }
 
-    var RadioToggleFields = function (){
+    root.VOA.RadioToggleFields = function (){
 
         var getDataToggleIds = function (scope) {
             var ids = [];
@@ -125,7 +125,5 @@
             }
         });
     };
-
-    root.VOA.RadioToggleFields = RadioToggleFields;
 
 }).call(this);

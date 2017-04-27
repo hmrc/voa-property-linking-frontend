@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.agentAppointment
 
 import actions.BasicAuthenticatedRequest
 import config.{ApplicationConfig, Global, Wiring}
-import connectors.UpdatedRepresentation
+import controllers.PropertyLinkingController
 import form.EnumMapping
 import form.Mappings._
-import models._
+import models.{AgentPermission, PropertyRepresentation, UpdatedRepresentation, _}
 import org.joda.time.DateTime
 import play.api.data.Forms._
 import play.api.data.validation.Constraint
@@ -72,52 +72,6 @@ class AppointAgentController extends PropertyLinkingController {
       representations.find(linkId).map(reprs => {
         Ok(views.html.propertyRepresentation.selectAgent(reprs))
       })
-    } else {
-      NotFound(Global.notFoundTemplate)
-    }
-  }
-
-  def revokeAgent(agentCode: Long, authorisedPartyId: Long) = authenticated { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      for {
-        links <- propertyLinks.linkedProperties(request.organisationId)
-        agents = links.flatMap(_.agents)
-          .filter(_.agentCode == agentCode)
-          .filter(_.authorisedPartyId == authorisedPartyId)
-      } yield {
-        if (agents.size == 1) {
-          Ok(views.html.propertyRepresentation.revokeAgent(agentCode, authorisedPartyId, agents.head.organisationName, "some address"))
-        } else {
-          NotFound(Global.notFoundTemplate)
-        }
-      }
-    } else {
-      NotFound(Global.notFoundTemplate)
-    }
-  }
-
-  def revokeAgentConfirmed(agentCode: Long, authorisedPartyId: Long) = authenticated { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      for {
-        links <- propertyLinks.linkedProperties(request.organisationId)
-        agents = links.flatMap(_.agents)
-          .filter(_.agentCode == agentCode)
-      } yield {
-        val address = links.find(_.agents.exists(_.authorisedPartyId == authorisedPartyId)).map(_.address).getOrElse("Address not found")
-        if (agents.count(_.authorisedPartyId == authorisedPartyId) == 1) {
-          val revoked = representations.revoke(authorisedPartyId)
-          if (agents.size > 1) {
-            val nextUrl = controllers.routes.Dashboard.viewManagedProperties(agentCode).url
-            Ok(views.html.propertyRepresentation.revokedAgent(nextUrl, agents.head.organisationName, address))
-          }
-          else{
-            val nextUrl = controllers.routes.Dashboard.manageAgents().url
-            Ok(views.html.propertyRepresentation.revokedAgent(nextUrl, agents.head.organisationName, address))
-          }
-        } else {
-          NotFound(Global.notFoundTemplate)
-        }
-      }
     } else {
       NotFound(Global.notFoundTemplate)
     }
@@ -179,8 +133,8 @@ class AppointAgentController extends PropertyLinkingController {
       })
     } else {
       for {
-        submittedAgent <- createAndSubmitAgentRepRequest(authorisationId, agentOrgId, request.individualAccount.individualId, agent)
-        sessionRemoved <- sessionRepository.remove()
+        _ <- createAndSubmitAgentRepRequest(authorisationId, agentOrgId, request.individualAccount.individualId, agent)
+        _ <- sessionRepository.remove()
       } yield {
         Redirect(routes.AppointAgentController.appointed(authorisationId))
       }
@@ -332,7 +286,7 @@ case class AgentPermissionMapping(other: String, key: String = "", constraints: 
   }
 
   override def unbindAndValidate(value: AgentPermission) = {
-      wrapped.withPrefix(key).unbindAndValidate(value)
+    wrapped.withPrefix(key).unbindAndValidate(value)
   }
 
   override def withPrefix(prefix: String) = copy(key = prefix + key)

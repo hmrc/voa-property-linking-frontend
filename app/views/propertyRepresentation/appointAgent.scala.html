@@ -1,7 +1,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 @import models.AgentPermission
-@import controllers.AppointAgentVM
+@import controllers.agentAppointment.AppointAgentVM
 
 @(model: AppointAgentVM)(implicit request: Request[_], messages: Messages)
 
@@ -32,7 +32,7 @@
 
             <p>@Messages("propertyRepresentation.appointAgent.message.2")</p>
 
-            @form(routes.AppointAgentController.appointSubmit(model.linkId)) {
+            @form(agentAppointment.routes.AppointAgentController.appointSubmit(model.linkId)) {
 
 
                 @includes.errorSummary(model.form)

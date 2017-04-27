@@ -1,0 +1,226 @@
+#content{
+
+    table.dataTable{
+        margin-bottom: 20px;
+        display:inline-table;
+        width: 100% !important;
+    }
+
+    table.dataTable.stripe tbody tr.odd,
+    table.dataTable.display tbody tr.odd{
+        background-color: #fff;
+    }
+    table.dataTable.row-border tbody th,
+    table.dataTable.row-border tbody td,
+    table.dataTable.display tbody th,
+    table.dataTable.display tbody td {
+        border-top: none;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        background: none;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+    	margin: 0 $gutter-half $gutter-half 0;
+    	padding: em(6) em(6) em(3) em(6);
+    	vertical-align: top;
+        font-size: 1em;
+        &:hover{
+            background: transparent !important;
+            background-color: transparent !important;
+            color: $black !important;
+        }
+        i{
+            border: solid $link-colour;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: .25em;
+
+        }
+        .previous-arrow{
+            margin-right: .3em;
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+        }
+        .next-arrow{
+            margin-left: .3em;
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled .previous-arrow,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled .next-arrow{
+        border-color: $grey-1 !important;
+    }
+
+    .dt-body-center{
+        text-align: center;
+        padding-left: 0;
+    }
+    table.dataTable thead th, table.dataTable thead td {
+        padding-left:10px;
+    }
+    td.details-control {
+        background: url('/public/images/icons/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+    tr.shown td.details-control {
+        background: url('/public/images/icons/details_close.png') no-repeat center center;
+    }
+
+    tr.shown{
+        td{
+            border-bottom: none;
+        }
+    }
+
+	.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        background-color: white !important;
+        background: transparent !important;
+        color: $black !important;
+        text-decoration: none !important;
+        border: 1px solid #fff;
+	}
+
+	.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+	    border-color: #fff;
+		color: $link-hover-colour !important;
+	}
+
+	.dataTables_wrapper .dataTables_paginate .paginate_button {
+        color: $link-colour !important;
+    	text-decoration: underline !important;
+    	margin: 0 10px 10px 0 !important;
+    	padding: 0 !important;
+    	vertical-align: top;
+    	min-width: auto;
+        &.next,
+        &.next.disabled{
+            margin-right: 2px !important;
+        }
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button:visited {
+        color: $link-visited-colour !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button:active {
+    	background-color: transparent !important;
+    	background: none !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .ellipsis {
+        padding: 0;
+    	margin-right: 10px;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+        color: $grey-1 !important;
+        text-decoration: none !important;
+        margin: 0 10px 10px 0 !important;
+        padding: 0 !important;
+        vertical-align: top;
+        min-width: auto;
+    	&:hover{
+    		text-decoration: none !important;
+    		color: $grey-1 !important;
+    	}
+    }
+
+    table.dataTable thead .sorting {
+        background-image: url(../images/sort_both.png) !important;
+    }
+    table.dataTable thead .sorting_asc {
+        background-image: url(../images/sort_asc.png) !important;
+    }
+    table.dataTable thead .sorting_desc {
+        background-image: url(../images/sort_desc.png) !important;
+    }
+    table.dataTable thead th, table.dataTable thead td {
+        padding: 10px 18px;
+        border-bottom: 1px solid $grey-2;
+    }
+    table.dataTable.no-footer {
+        border-bottom: none;
+    }
+    table.dataTable tbody th, table.dataTable tbody td {
+        padding: 8px 20px 8px 0;
+    }
+    table.dataTable tbody td.last {
+        padding: 8px 0px 8px 0;
+    }
+    table.dataTable thead th.last {
+        padding-right: 0;
+    }
+    table.dataTable thead th, #content table.dataTable thead td {
+        padding: 10px 20px 8px 0;
+    }
+    .dataTables_length [name="dataTable_length"]{
+    	    width: auto;
+    		-webkit-box-sizing: border-box;
+    		-moz-box-sizing: border-box;
+    		box-sizing: border-box;
+    		font-family: "nta", Arial, sans-serif;
+    		font-weight: 400;
+    		text-transform: none;
+    		font-size: 16px;
+    		line-height: 1.25;
+    		padding: 5px 4px 4px;
+    		border: 2px solid #0b0c0c;
+    }
+    .dataTables_filter [type="search"]{
+    		width: 200px;
+    		-webkit-box-sizing: border-box;
+    		-moz-box-sizing: border-box;
+    		box-sizing: border-box;
+    		font-family: "nta", Arial, sans-serif;
+    		font-weight: 400;
+    		text-transform: none;
+    		font-size: 16px;
+    		line-height: 1.25;
+    		padding: 5px 4px 4px;
+    		border: 2px solid #0b0c0c;
+    }
+
+    .dataTables_filter{
+        position: inherit;
+        input {
+           background-image: none;
+       }
+    }
+
+    .dataTables_wrapper {
+        min-height: 260px;
+        margin-top: 0;
+        .dataTables_processing{
+            height: 90px;
+        }
+        .dataTables_info{
+            padding-top: 0.2em;
+        }
+        .dataTables_length {
+            float: none;
+            select{
+                display: inline-block;
+            }
+        }
+    }
+
+    .dataTables_processing{
+        background: none;
+        .loading-container{
+            background-color: rgba(255, 255, 255, 1);
+            width: 130px;
+            margin: 0 auto;
+            padding: 1em;
+            border: solid 1px #c3c3c3;
+            border-radius: .2em;
+            .loading-icon{
+                background: url('../images/loading.gif') no-repeat center center;
+                height: 32px;
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+}

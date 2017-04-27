@@ -17,7 +17,7 @@
 package views.dashboard
 
 import actions.BasicAuthenticatedRequest
-import controllers.{ControllerSpec, ManagePropertiesVM}
+import controllers.{ControllerSpec, ManagePropertiesVM, Pagination}
 import models.{DetailedIndividualAccount, GroupAccount, PropertyLink}
 import play.api.test.FakeRequest
 import org.scalacheck.Arbitrary.arbitrary
@@ -42,9 +42,9 @@ class ManagePropertiesPageSpec extends ControllerSpec {
       organisationId = organisationAccount.id,
       pending = false
     )
-    val html = views.html.dashboard.manageProperties(ManagePropertiesVM(organisationAccount.id, Seq(pendingProp, approvedProp)))
+    val html = views.html.dashboard.manageProperties(ManagePropertiesVM(organisationAccount.id, Seq(pendingProp, approvedProp), Pagination(1, 25, 25)))
     val page = HtmlPage(html)
-    page.mustContain1("#submissionId")
+    page.mustContain1(".submission-id")
   }
 
 }

@@ -16,7 +16,6 @@
 
 package models
 
-import connectors.CapacityDeclaration
 import org.joda.time.LocalDate
 import play.api.libs.json.Json
 

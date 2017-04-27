@@ -20,18 +20,26 @@
         <h1 class="heading-xlarge margin-bottom-0 clear-right">
             @heading
         </h1>
+
         <p>@Messages("dashboard.manageProperties.expectDelays")</p>
+
+
+
         @if(model.properties.isEmpty){
             <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
+
+        @jsManageProperties()
+
+        <noscript>
         <div class="table-wrapper">
-            <table class="table-font-xsmall margin-bottom-20 margin-top-30">
+            <table class="table-font-xsmall margin-bottom-20 margin-top-20" id="nojsManageProperties">
                 <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="20%">
+                <col>
+                <col width="120px">
+                <col width="120px">
+                <col width="160px">
+                <col width="140px">
                 <tbody>
                     <tr>
                         <th scope="col">@Messages("manageProperties.table.1")</th>
@@ -58,7 +66,7 @@
                                     }
                                     </li>
                                     @if(p.pending) {
-                                        <li id="submissionId">
+                                        <li>
                                             <span class="submission-id">
                                                 @Messages("dashboard.manageProperties.submissionId", p.submissionId)
                                             </span>
@@ -80,16 +88,13 @@
                             </td>
                             <td class="last">
                                 <ul>
-                                @if(ApplicationConfig.agentEnabled) {
-                                    @if(model.organisationId == p.organisationId) {
-                                        <li>
-                                            <a href=@routes.AppointAgentController.appoint(p.authorisationId)>@Messages("manageProperties.addAgent")
-                                                <span class="visuallyhidden">
-                                                    for @(Formatters.capitalizedAddress(p.address))</span>
-                                            </a>
-                                        </li>
-                                    }
-
+                                @if(model.organisationId == p.organisationId) {
+                                    <li>
+                                        <a href=@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)>@Messages("manageProperties.addAgent")
+                                            <span class="visuallyhidden">
+                                                for @(Formatters.capitalizedAddress(p.address))</span>
+                                        </a>
+                                    </li>
                                 }
                                 @if(p.assessment.nonEmpty){
                                     <li>
@@ -104,9 +109,33 @@
                     }
                 </tbody>
             </table>
+
         </div>
+
+            <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</p>
+
+
+            <ul role="navigation" aria-label="Pagination" class="pagination">
+                @if(model.pagination.pageNumber > 1) {
+                    <li  class="previous "><a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
+                }else{
+                    <li  class="previous disabled"><i class="previous-arrow"></i>Previous</li>
+                }
+
+                <li class="active">@model.pagination.pageNumber</li>
+
+                @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
+                    <li  class="next"><a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
+                }else{
+                    <li  class="next disabled">Next <i class="next-arrow"></i></li>
+                }
+            </ul>
+        </noscript>
     }
 
+
+
+    <div class="clearfix"></div>
     <p><a href="@routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
 
 }

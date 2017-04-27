@@ -17,7 +17,7 @@
 package models
 
 import org.joda.time.DateTime
-import play.api.libs.json.Json
+import play.api.libs.json.{Format, Json}
 
 case class PropertyLink(authorisationId: Long,
                         submissionId: String,
@@ -28,9 +28,15 @@ case class PropertyLink(authorisationId: Long,
                         linkedDate: DateTime,
                         pending: Boolean,
                         assessment: Seq[Assessment],
-                        userActingAsAgent: Boolean,
                         agents: Seq[Party])
 
 object PropertyLink {
   implicit val format = Json.format[PropertyLink]
+}
+
+case class PropertyLinkResponse(resultCount: Option[Int],
+                                propertyLinks: Seq[PropertyLink])
+
+object PropertyLinkResponse {
+  implicit val format: Format[PropertyLinkResponse] = Json.format[PropertyLinkResponse]
 }

@@ -18,17 +18,17 @@ package controllers.agent
 
 import connectors.Authenticated
 import controllers.ControllerSpec
-import models.{Accounts, ClientProperty, GroupAccount}
+import models.{Accounts, ClientProperty}
+import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import org.scalacheck.Arbitrary.arbitrary
 import utils._
 
 class RepresentationControllerSpec extends ControllerSpec {
 
-
   val request = FakeRequest().withSession(token)
+
   object TestRepresentationController extends RepresentationController {
     override val reprConnector = StubPropertyRepresentationConnector
     override val authenticated = StubAuthentication
@@ -37,27 +37,15 @@ class RepresentationControllerSpec extends ControllerSpec {
 
   behavior of "revokeClientConfirmed method"
 
-  it should "revoke an agent and redirect to manage client page if the agent is not representing any more properties" in {
+  it should "revoke an agent and redirect to the client properties page" in {
     val (agentGroupAccount, agentIndividual) = stubLoggedInUser()
-    val  ownerOrgId = 111
-    val authorisedPartyId = 1
-    val clientProp = arbitrary[ClientProperty].sample.get
-    StubPropertyLinkConnector.stubClientProperties(clientProp.copy(ownerOrganisationId = ownerOrgId, authorisedPartyId= authorisedPartyId))
-    val res = TestRepresentationController.revokeClientConfirmed(ownerOrgId, authorisedPartyId)(request)
-    redirectLocation(res) must be (Some(controllers.agent.routes.RepresentationController.manageRepresentationRequest().url))
-    status(res) must be (SEE_OTHER)
-  }
-  it should "revoke an agent and redirect to view client properties page if the agent is representing more properties for the client" in {
-    val (agentGroupAccount, agentIndividual) = stubLoggedInUser()
-    val  ownerOrgId = 111
-    val authorisedPartyIdOne = 1
-    val authorisedPartyIdTwo = 2
-    val clientProp = arbitrary[ClientProperty].sample.get
-    StubPropertyLinkConnector.stubClientProperties(clientProp.copy(ownerOrganisationId = ownerOrgId, authorisedPartyId = authorisedPartyIdOne))
-    StubPropertyLinkConnector.stubClientProperties(clientProp.copy(ownerOrganisationId = ownerOrgId, authorisedPartyId = authorisedPartyIdTwo))
-    val res = TestRepresentationController.revokeClientConfirmed(ownerOrgId, authorisedPartyIdOne)(request)
-    redirectLocation(res) must be (Some(controllers.routes.Dashboard.clientProperties(ownerOrgId).url))
-    status(res) must be (SEE_OTHER)
+    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+
+    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+    val res = TestRepresentationController.revokeClientConfirmed(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
+
+    status(res) must be(SEE_OTHER)
+    redirectLocation(res) must be(Some(controllers.routes.Dashboard.clientProperties(clientProperty.ownerOrganisationId).url))
   }
 
   def stubLoggedInUser() = {
@@ -68,4 +56,4 @@ class RepresentationControllerSpec extends ControllerSpec {
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individual)))
     (groupAccount, individual)
   }
-  }
+}

@@ -18,10 +18,10 @@ package controllers.propertyLinking
 
 import com.google.inject.{Inject, Singleton}
 import config.Wiring
-import connectors.{CapacityDeclaration, EnvelopeConnector, FileInfo}
+import connectors.EnvelopeConnector
 import controllers.PropertyLinkingController
 import form.Mappings._
-import models.{LinkBasis, NoEvidenceFlag}
+import models.{CapacityDeclaration, FileInfo, LinkBasis, NoEvidenceFlag}
 import play.api.data.{Form, FormError, Forms}
 import session.LinkingSessionRequest
 import views.html.propertyLinking.declaration

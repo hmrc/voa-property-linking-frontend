@@ -2,8 +2,8 @@
     'use strict';
 
     $(document).ready(function() {
-        VOA.GdsModules();
         VOA.VoaModules();
+        VOA.GdsModules();
     });
 
     VOA.GdsModules = function() {
@@ -15,6 +15,7 @@
         new VOA.JqueryFiler();
         new VOA.postcodeLookup();
         new VOA.ErrorSummary();
+        new VOA.DataTableManageProperties();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));

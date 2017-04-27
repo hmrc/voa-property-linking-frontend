@@ -19,7 +19,7 @@ package controllers
 import java.net.URLEncoder
 
 import config.ApplicationConfig
-import connectors.{EnvelopeConnector, FileInfo}
+import connectors.EnvelopeConnector
 import connectors.fileUpload.FileUpload
 import connectors.propertyLinking.PropertyLinkConnector
 import models.{LinkBasis, NoEvidenceFlag}

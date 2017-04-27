@@ -16,18 +16,10 @@
 
 package models
 
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.scalatest.{FlatSpec, MustMatchers}
-import resources._
+import play.api.libs.json.Json
 
-class CapacitySpec extends FlatSpec with MustMatchers with GeneratorDrivenPropertyChecks {
-  "Capacity" must "create from CapacityDeclaration" in {
-    forAll({  declaration:CapacityDeclaration => {
-      val capacity = Capacity.fromDeclaration(declaration)
-      (capacity match {
-        case c:Capacity => true
-        case _ => false
-      }) must be (true)
-    }})
-  }
+case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
+
+object LinkedProperties {
+  implicit val format = Json.format[LinkedProperties]
 }

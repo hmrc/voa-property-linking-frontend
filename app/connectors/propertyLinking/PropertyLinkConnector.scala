@@ -16,7 +16,6 @@
 
 package connectors.propertyLinking
 
-import connectors._
 import models._
 import org.joda.time.DateTime
 import session.LinkingSessionRequest
@@ -30,7 +29,13 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
   lazy val baseUrl: String = baseUrl("property-linking") + s"/property-linking"
 
   def get(organisationId: Int, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
-    linkedProperties(organisationId).map( links => links.find(_.authorisationId == authorisationId) )
+    val url = s"$baseUrl/property-links/$authorisationId"
+
+    http.GET[Option[PropertyLink]](url) map { link =>
+      link.find(_.organisationId == organisationId)
+    } recover {
+      case _: NotFoundException => None
+    }
   }
 
   def linkToProperty(linkBasis: LinkBasis)(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
@@ -49,14 +54,35 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.POST[PropertyLinkRequest, HttpResponse](url, linkRequest) map { _ => () }
   }
 
-  def linkedProperties(organisationId: Int)(implicit hc: HeaderCarrier): Future[Seq[PropertyLink]] = {
-    val url = baseUrl + s"/property-links/$organisationId"
-    http.GET[Seq[PropertyLink]](url)
+  def linkedProperties(organisationId: Int, startPoint: Int, pageSize: Int, requestTotalRowCount: Boolean)
+                      (implicit hc: HeaderCarrier): Future[PropertyLinkResponse] = {
+    val url = baseUrl + s"/property-links/" +
+      s"?organisationId=$organisationId" +
+      s"&startPoint=$startPoint" +
+      s"&pageSize=$pageSize" +
+      s"&requestTotalRowCount=$requestTotalRowCount"
+
+    http.GET[PropertyLinkResponse](url)
   }
 
-  def clientProperties(userOrgId: Long, agentOrgId: Int)(implicit hc: HeaderCarrier): Future[Seq[ClientProperty]] = {
-    val url = baseUrl + s"/property-links/client-properties/$userOrgId/$agentOrgId"
-    http.GET[Seq[ClientProperty]](url)
+  def clientProperties(clientOrgId: Long, agentOrgId: Int, startPoint: Int, pageSize: Int, requestTotalRowCount: Boolean)
+                      (implicit hc: HeaderCarrier): Future[ClientPropertyResponse] = {
+    val url = baseUrl + s"/property-links/client-properties" +
+      s"?clientOrganisationId=$clientOrgId" +
+      s"&agentOrganisationId=$agentOrgId" +
+      s"&startPoint=$startPoint" +
+      s"&pageSize=$pageSize" +
+      s"&requestTotalRowCount=$requestTotalRowCount"
+
+    http.GET[ClientPropertyResponse](url)
+  }
+
+  def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
+    val url = baseUrl + s"/property-links/client-property/$authorisationId" +
+      s"?clientOrganisationId=$clientOrgId" +
+      s"&agentOrganisationId=$agentOrgId"
+
+    http.GET[Option[ClientProperty]](url) recover { case _: NotFoundException => None }
   }
 
   def assessments(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Seq[Assessment]] = {

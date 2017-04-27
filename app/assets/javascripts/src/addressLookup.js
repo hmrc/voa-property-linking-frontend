@@ -9,7 +9,7 @@
 
     root.VOA.postcodeLookup = function () {
 
-        var messages = VOA.messages[VOA.helper.lang()];
+        var messages = VOA.messages.en;
 
         function showFields() {
             $('.address--fields').css('display', 'block');

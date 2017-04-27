@@ -1,6 +1,6 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
-@import controllers.SelectAgentVM
+@import controllers.agentAppointment.SelectAgentVM
 
 @(model: SelectAgentVM)(implicit request: Request[_], messages: Messages)
 
@@ -22,7 +22,7 @@
             @selectAgentTable(model.reps)
 
             <p>
-                <a href="@routes.AppointAgentController.appoint(model.linkId)" class="button">@Messages("propertyRepresentation.alreadyAppointedAgent.add")</a>
+                <a href="@agentAppointment.routes.AppointAgentController.appoint(model.linkId)" class="button">@Messages("propertyRepresentation.alreadyAppointedAgent.add")</a>
             </p>
 
         </div>

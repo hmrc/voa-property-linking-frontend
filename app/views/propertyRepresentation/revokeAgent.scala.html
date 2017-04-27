@@ -1,6 +1,4 @@
-@(agentCode: Long, authorisedPartyId: Long,
-        agentName: String, propertyAddress: String)(implicit request: Request[_], messages: Messages)
-
+@(agentCode: Long, authorisationId: Long, authorisedPartyId: Long, agentName: String, propertyAddress: String)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = Messages("propertyRepresentation.revokeAgent.title"),
@@ -17,7 +15,7 @@
 
             <p>@Messages("propertyRepresentation.revokeAgent.message", agentName, propertyAddress)
             <p>
-                <a href="@controllers.routes.AppointAgentController.revokeAgentConfirmed(agentCode, authorisedPartyId)" class="button">
+                <a href="@agentAppointment.routes.RevokeAgentController.revokeAgentConfirmed(authorisationId, authorisedPartyId, agentCode)" class="button">
                     @Messages("propertyRepresentation.revokeAgent.button")
                 </a>
             </p>

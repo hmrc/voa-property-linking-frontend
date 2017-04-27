@@ -1,114 +1,115 @@
 #Start
-GET         /                                                       controllers.Application.releaseNotes()
+GET         /                                                                                 controllers.Application.releaseNotes()
 
-GET         /start                                                  controllers.Application.start()
+GET         /start                                                                            controllers.Application.start()
 
-GET         /contact-us                                              controllers.Application.contactUs()
+GET         /contact-us                                                                       controllers.Application.contactUs()
 
 #Registration
-GET         /login                                                  controllers.Login.show
-GET         /register                                               controllers.Register.show
-GET         /registered                                             controllers.Register.confirm
-GET         /logout                                                 controllers.Application.logOut
-GET         /invalid-account                                        controllers.Application.invalidAccountType
+GET         /login                                                                            controllers.Login.show
+GET         /register                                                                         controllers.Register.show
+GET         /registered                                                                       controllers.Register.confirm
+GET         /logout                                                                           controllers.Application.logOut
+GET         /invalid-account                                                                  controllers.Application.invalidAccountType
 
 #Wizard
-GET         /authentication-wizard                                  controllers.Wizard.authenticationWizard
-POST        /authentication-wizard                                  controllers.Wizard.submit
-GET         /authentication-wizard/use-existing-account             controllers.Wizard.registerExistingGG
-POST        /authentication-wizard/use-existing-account             controllers.Wizard.submitExistingGG
+GET         /authentication-wizard                                                            controllers.Wizard.authenticationWizard
+POST        /authentication-wizard                                                            controllers.Wizard.submit
+GET         /authentication-wizard/use-existing-account                                       controllers.Wizard.registerExistingGG
+POST        /authentication-wizard/use-existing-account                                       controllers.Wizard.submitExistingGG
 
 #Before you start pages
-GET         /authentication-wizard/before-you-register-a            controllers.Wizard.beforeYouRegisterA
-GET         /authentication-wizard/before-you-register-b            controllers.Wizard.beforeYouRegisterB
-GET         /authentication-wizard/before-you-register-c            controllers.Wizard.beforeYouRegisterC
-GET         /authentication-wizard/before-you-register-d            controllers.Wizard.beforeYouRegisterD
+GET         /authentication-wizard/before-you-register-a                                      controllers.Wizard.beforeYouRegisterA
+GET         /authentication-wizard/before-you-register-b                                      controllers.Wizard.beforeYouRegisterB
+GET         /authentication-wizard/before-you-register-c                                      controllers.Wizard.beforeYouRegisterC
+GET         /authentication-wizard/before-you-register-d                                      controllers.Wizard.beforeYouRegisterD
 
 #Create individual account
-GET         /create-account                                         controllers.CreateIndividualAccount.show
-POST        /create-account                                         controllers.CreateIndividualAccount.submit
+GET         /create-account                                                                   controllers.CreateIndividualAccount.show
+POST        /create-account                                                                   controllers.CreateIndividualAccount.submit
 
 #Identity verification
-GET         /identity-verification/start                            controllers.IdentityVerification.startIv
-GET         /identity-verification/failed                           controllers.IdentityVerification.fail
-GET         /identity-verification/restore-session                  controllers.IdentityVerification.restoreSession
-GET         /identity-verification/success                          controllers.IdentityVerification.success
+GET         /identity-verification/start                                                      controllers.IdentityVerification.startIv
+GET         /identity-verification/failed                                                     controllers.IdentityVerification.fail
+GET         /identity-verification/restore-session                                            controllers.IdentityVerification.restoreSession
+GET         /identity-verification/success                                                    controllers.IdentityVerification.success
 
 #Create group account
-GET         /create-group                                           controllers.CreateGroupAccount.show
-GET         /create-group/success                                   controllers.CreateGroupAccount.success
-POST        /create-group                                           controllers.CreateGroupAccount.submit
+GET         /create-group                                                                     controllers.CreateGroupAccount.show
+GET         /create-group/success                                                             controllers.CreateGroupAccount.success
+POST        /create-group                                                                     controllers.CreateGroupAccount.submit
 
 #Dashboard
-GET         /home                                                   controllers.Dashboard.home()
-GET         /properties                                             controllers.Dashboard.manageProperties()
-GET         /managed-properties/:agentCode                          controllers.Dashboard.viewManagedProperties(agentCode: Long)
-GET         /managed-properties/:agentCode/revoke/:authorisedPartyId             @controllers.AppointAgentController.revokeAgent(agentCode: Long, authorisedPartyId: Long)
-GET         /managed-properties/:agentCode/revoke/:authorisedPartyId/confirmed   @controllers.AppointAgentController.revokeAgentConfirmed(agentCode: Long, authorisedPartyId: Long)
-GET         /manage-agents                                          controllers.Dashboard.manageAgents()
-GET         /draft-cases                                            controllers.Dashboard.draftCases()
-GET         /client-properties/:organisationId                      controllers.Dashboard.clientProperties(organisationId: Long)
-GET         /client-properties/:organisationId/revoke/:permId       controllers.agent.RepresentationController.revokeClient(organisationId: Long, permId: Long)
-GET         /client-properties/:organisationId/revoke/:permId/confirmed       controllers.agent.RepresentationController.revokeClientConfirmed(organisationId: Long, permId: Long)
+GET         /home                                                                             controllers.Dashboard.home()
+GET         /properties                                                                       controllers.Dashboard.manageProperties(page: Int ?= 1, pageSize: Int ?= 15)
+GET         /list-properties                                                                  controllers.Dashboard.getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
+GET         /managed-properties/:agentCode                                                    controllers.Dashboard.viewManagedProperties(agentCode: Long)
+GET         /managed-properties/:agentCode/revoke                                             @controllers.agentAppointment.RevokeAgentController.revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
+GET         /managed-properties/:agentCode/revoke/confirmed                                   @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
+GET         /manage-agents                                                                    controllers.Dashboard.manageAgents()
+GET         /draft-cases                                                                      controllers.Dashboard.draftCases()
+GET         /client-properties/:organisationId                                                controllers.Dashboard.clientProperties(organisationId: Long, page: Int ?= 1, pageSize: Int ?= 15)
+GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
+GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
 
-GET         /property-link/:linkId/assessments                      controllers.Assessments.assessments(linkId: Long, linkPending: Boolean ?= false)
-GET         /summary/:uarn                                          controllers.Assessments.viewSummary(uarn: Long)
-GET         /detailed/:authorisationId/:assessmentRef               controllers.Assessments.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef)
-GET         /request-detailed/:authorisationId/:assessmentRef       controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long, baRef)
-POST        /details-requested/:authorisationId/:assessmentRef      controllers.Assessments.detailedValuationRequested(authorisationId: Long, assessmentRef: Long, baRef)
-GET         /details-requested/:submissionId                        controllers.Assessments.dvRequestConfirmation(submissionId)
+GET         /property-link/:linkId/assessments                                                controllers.Assessments.assessments(linkId: Long, linkPending: Boolean ?= false)
+GET         /summary/:uarn                                                                    controllers.Assessments.viewSummary(uarn: Long)
+GET         /detailed/:authorisationId/:assessmentRef                                         controllers.Assessments.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef)
+GET         /request-detailed/:authorisationId/:assessmentRef                                 controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long, baRef)
+POST        /details-requested/:authorisationId/:assessmentRef                                controllers.Assessments.detailedValuationRequested(authorisationId: Long, assessmentRef: Long, baRef)
+GET         /details-requested/:submissionId                                                  controllers.Assessments.dvRequestConfirmation(submissionId)
 
 #Search and Link
-GET         /property-search                                        @controllers.ClaimProperty.show()
-GET         /link-to-property/:uarn                                 @controllers.ClaimProperty.declareCapacity(uarn: Long, address)
-POST        /link-to-property/:uarn                                 @controllers.ClaimProperty.attemptLink(uarn: Long, address)
+GET         /property-search                                                                  @controllers.ClaimProperty.show()
+GET         /link-to-property/:uarn                                                           @controllers.ClaimProperty.declareCapacity(uarn: Long, address)
+POST        /link-to-property/:uarn                                                           @controllers.ClaimProperty.attemptLink(uarn: Long, address)
 
 #Link scenarios
-GET         /choose-evidence                                        controllers.ChooseEvidence.show()
-POST        /choose-evidence                                        controllers.ChooseEvidence.submit()
-GET         /upload-rates-bill                                      @controllers.UploadRatesBill.show()
-POST        /upload-rates-bill                                      @controllers.UploadRatesBill.submit()
-GET         /upload-evidence                                        @controllers.UploadEvidence.show()
-POST        /upload-evidence                                        @controllers.UploadEvidence.submit()
+GET         /choose-evidence                                                                  controllers.ChooseEvidence.show()
+POST        /choose-evidence                                                                  controllers.ChooseEvidence.submit()
+GET         /upload-rates-bill                                                                @controllers.UploadRatesBill.show()
+POST        /upload-rates-bill                                                                @controllers.UploadRatesBill.submit()
+GET         /upload-evidence                                                                  @controllers.UploadEvidence.show()
+POST        /upload-evidence                                                                  @controllers.UploadEvidence.submit()
 
-GET         /summary                                                @controllers.propertyLinking.Declaration.show
-POST        /summary                                                @controllers.propertyLinking.Declaration.submit
+GET         /summary                                                                          @controllers.propertyLinking.Declaration.show
+POST        /summary                                                                          @controllers.propertyLinking.Declaration.submit
 
-GET         /confirmation                                           @controllers.propertyLinking.Declaration.confirmation
-GET         /confirmation/no-evidence                               @controllers.propertyLinking.Declaration.noEvidence
+GET         /confirmation                                                                     @controllers.propertyLinking.Declaration.confirmation
+GET         /confirmation/no-evidence                                                         @controllers.propertyLinking.Declaration.noEvidence
 
 #Linking outcomes
-GET         /rates-bill-submitted                                   @controllers.UploadRatesBill.fileUploaded()
-GET         /evidence-uploaded                                      @controllers.UploadEvidence.fileUploaded()
-GET         /no-evidence-uploaded                                   @controllers.UploadEvidence.noEvidenceUploaded()
-GET         /manual-verification-required                           controllers.LinkErrors.manualVerificationRequired()
-GET         /linking-conflict                                       controllers.LinkErrors.conflict()
+GET         /rates-bill-submitted                                                             @controllers.UploadRatesBill.fileUploaded()
+GET         /evidence-uploaded                                                                @controllers.UploadEvidence.fileUploaded()
+GET         /no-evidence-uploaded                                                             @controllers.UploadEvidence.noEvidenceUploaded()
+GET         /manual-verification-required                                                     controllers.LinkErrors.manualVerificationRequired()
+GET         /linking-conflict                                                                 controllers.LinkErrors.conflict()
 
-GET         /appoint-agent/:linkId                                  @controllers.AppointAgentController.appoint(linkId: Long)
-GET         /appoint-agent/:linkId/confirmed                        @controllers.AppointAgentController.confirmed(linkId: Long)
-GET         /appoint-agent/:linkId/declined                         @controllers.AppointAgentController.declined(linkId: Long)
-POST        /appoint-agent/:linkId                                  @controllers.AppointAgentController.appointSubmit(linkId: Long)
-GET         /appointed-agent/:authorisationId                       @controllers.AppointAgentController.appointed(authorisationId: Long)
-GET         /representation-request/select/:linkId                  @controllers.AppointAgentController.select(linkId: Long)
-GET         /representation-request/edit/:linkId                    @controllers.AppointAgentController.edit(linkId: Long)
-GET         /representation-request/modify/:representationId        @controllers.AppointAgentController.modify(representationId: Long)
-POST        /representation-request/modify/:representationId        @controllers.AppointAgentController.modifySubmit(representationId: Long)
+GET         /appoint-agent/:linkId                                                            @controllers.agentAppointment.AppointAgentController.appoint(linkId: Long)
+GET         /appoint-agent/:linkId/confirmed                                                  @controllers.agentAppointment.AppointAgentController.confirmed(linkId: Long)
+GET         /appoint-agent/:linkId/declined                                                   @controllers.agentAppointment.AppointAgentController.declined(linkId: Long)
+POST        /appoint-agent/:linkId                                                            @controllers.agentAppointment.AppointAgentController.appointSubmit(linkId: Long)
+GET         /appointed-agent/:authorisationId                                                 @controllers.agentAppointment.AppointAgentController.appointed(authorisationId: Long)
+GET         /representation-request/select/:linkId                                            @controllers.agentAppointment.AppointAgentController.select(linkId: Long)
+GET         /representation-request/edit/:linkId                                              @controllers.agentAppointment.AppointAgentController.edit(linkId: Long)
+GET         /representation-request/modify/:representationId                                  @controllers.agentAppointment.AppointAgentController.modify(representationId: Long)
+POST        /representation-request/modify/:representationId                                  @controllers.agentAppointment.AppointAgentController.modifySubmit(representationId: Long)
 
 #AGENT
 #Dashboard
 #TODO: Move to dashboard
-GET         /manage-clients                                         controllers.agent.RepresentationController.manageRepresentationRequest()
+GET         /manage-clients                                                                   controllers.agent.RepresentationController.manageRepresentationRequest()
 
-GET         /manage-clients/pending-requests                        controllers.agent.RepresentationController.pendingRepresentationRequest()
-GET         /representation-request/accept/:submissionId/:totalPendingRequests           controllers.agent.RepresentationController.accept(submissionId, totalPendingRequests: Long)
-GET         /representation-request/reject/:submissionId/:totalPendingRequests           controllers.agent.RepresentationController.reject(submissionId, totalPendingRequests: Long)
+GET         /manage-clients/pending-requests                                                  controllers.agent.RepresentationController.pendingRepresentationRequest()
+GET         /representation-request/accept/:submissionId/:totalPendingRequests                controllers.agent.RepresentationController.accept(submissionId, totalPendingRequests: Long)
+GET         /representation-request/reject/:submissionId/:totalPendingRequests                controllers.agent.RepresentationController.reject(submissionId, totalPendingRequests: Long)
 
 
 #Address lookup
-GET         /lookup                                                 controllers.AddressLookup.findByPostcode(postcode)
+GET         /lookup                                                                           controllers.AddressLookup.findByPostcode(postcode)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                                           controllers.Assets.at(path="/public", file)
+GET         /assets/*file                                                                     controllers.Assets.at(path="/public", file)
 
 #sample pages
-GET         /typography                                             controllers.Application.typography
+GET         /typography                                                                       controllers.Application.typography

@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-import connectors.CapacityDeclaration
-import models._
+import models.{CapacityDeclaration, _}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
 import uk.gov.hmrc.domain.Nino
 import java.{time => javatime}
 
-import org.joda.time.{DateTime, LocalDate, Instant}
+import org.joda.time.{DateTime, Instant, LocalDate}
 import session.LinkingSession
 
 package object resources {
@@ -187,8 +186,20 @@ package object resources {
     assessment <- Gen.nonEmptyListOf(arbitrary[Assessment])
     userActingAsAgent <- arbitrary[Boolean]
     agents <- Gen.listOf(arbitrary[Party])
-  } yield PropertyLink(linkId, submissionId, uarn, organisationId, address.toString, capacity,
-    linkedDate, pending, assessment, userActingAsAgent, agents)
+  } yield {
+    PropertyLink(
+      authorisationId = linkId,
+      submissionId = submissionId,
+      uarn = uarn,
+      organisationId = organisationId,
+      address = address.toString,
+      capacityDeclaration = capacity,
+      linkedDate = linkedDate,
+      pending = pending,
+      assessment = assessment,
+      agents = agents
+    )
+  }
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
 
   private val ninoGen: Gen[Nino] = for {
