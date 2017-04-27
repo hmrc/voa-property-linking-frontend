@@ -19,67 +19,52 @@ package controllers.agent
 import cats.data.OptionT
 import cats.instances.future._
 import config.{ApplicationConfig, Global, Wiring}
-import controllers.PropertyLinkingController
+import controllers.{PropertyLinkingController, ValidPagination}
 import controllers.agent.RepresentationController.ManagePropertiesVM
 import models._
 
-import scala.concurrent.Future
-
-trait RepresentationController extends PropertyLinkingController {
+trait RepresentationController extends PropertyLinkingController with ValidPagination {
   val reprConnector = Wiring().propertyRepresentationConnector
   val authenticated = Wiring().authenticated
   val propertyLinkConnector = Wiring().propertyLinkConnector
 
-  def manageRepresentationRequest() = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      reprConnector.forAgent(RepresentationApproved, request.organisationId).map { reprs =>
+  def manageRepresentationRequest(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+    withValidPagination(page, pageSize) { pagination =>
+      reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
         Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs, request.agentCode)))
       }
-    } else {
-      NotFound(Global.notFoundTemplate)
     }
   }
 
-
   def pendingRepresentationRequest() = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      reprConnector.forAgent(RepresentationPending, request.organisationId).map { reprs =>
+    withValidPagination(1, 15) { pagination =>
+      reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
         Ok(views.html.dashboard.pendingPropertyRepresentations(ManagePropertiesVM(reprs, request.agentCode)))
       }
-    } else {
-      NotFound(Global.notFoundTemplate)
     }
   }
 
   def accept(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseApproved)
-      reprConnector.response(response).map { _ =>
-        val continueLink = if (noOfPendingRequests > 1) {
-          controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
-        } else {
-          controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
-        }
-        Ok(views.html.propertyRepresentation.requestAccepted(continueLink))
+    val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseApproved)
+    reprConnector.response(response).map { _ =>
+      val continueLink = if (noOfPendingRequests > 1) {
+        controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
+      } else {
+        controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
       }
-    } else {
-      NotFound(Global.notFoundTemplate)
+      Ok(views.html.propertyRepresentation.requestAccepted(continueLink))
     }
   }
 
   def reject(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseDeclined)
-      reprConnector.response(response).map { _ =>
-        val continueLink = if (noOfPendingRequests > 1) {
-          controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
-        } else {
-          controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
-        }
-        Ok(views.html.propertyRepresentation.requestRejected(continueLink))
+    val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseDeclined)
+    reprConnector.response(response).map { _ =>
+      val continueLink = if (noOfPendingRequests > 1) {
+        controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
+      } else {
+        controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
       }
-    } else {
-      NotFound(Global.notFoundTemplate)
+      Ok(views.html.propertyRepresentation.requestRejected(continueLink))
     }
   }
 
@@ -101,7 +86,5 @@ trait RepresentationController extends PropertyLinkingController {
 }
 
 object RepresentationController extends RepresentationController {
-
   case class ManagePropertiesVM(propertyRepresentations: PropertyRepresentations, agentCode: Long)
-
 }
