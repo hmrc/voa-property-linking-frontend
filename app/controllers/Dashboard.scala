@@ -50,7 +50,7 @@ trait Dashboard extends PropertyLinkingController with ValidPagination {
   }
 
   def getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated { implicit request =>
-    withValidPagination(page, pageSize) { pagination =>
+    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
       propertyLinks.linkedProperties(request.organisationId, pagination) map { res =>
         Ok(Json.toJson(res))
       }
