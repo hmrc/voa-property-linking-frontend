@@ -1,11 +1,9 @@
-@import _root_.template.Display
-@import config.ApplicationConfig
-@import utils.Formatters
 @import actions.AuthenticatedRequest
+@import utils.Formatters
 
 @(model: controllers.ManagePropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
-@heading=@{
+@heading = @{
     Messages("dashboard.manageProperties.title")
 }
 
@@ -30,7 +28,10 @@
         @jsManageProperties()
 
         <noscript>
-        <div class="table-wrapper">
+
+            @helpers.paginationControls(model.pagination, routes.Dashboard.manageProperties)
+
+            <div class="table-wrapper">
             <table class="table-font-xsmall margin-bottom-20 margin-top-20" id="nojsManageProperties">
                 <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption
                 <colgroup>

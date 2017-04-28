@@ -62,6 +62,14 @@
 	> li:first-child{
 		margin-left: 0;
 	}
+}
 
+.pageLength{
+	list-style-type:none;
+	display: inline-block;
 
+	li{
+		display: inline-block;
+		margin: 0 .2em;
+	}
 }
