@@ -143,7 +143,7 @@ package object resources {
   } yield models.Assessment(linkId, asstRef, listYear, uarn, effectiveDate, rateableValue, address, billingAuthorityReference, capacity)
   implicit val arbitraryAssessment = Arbitrary(assessmentGen)
 
-  val agentPermissionGen: Gen[AgentPermission] = Gen.oneOf(StartAndContinue, ContinueOnly, NotPermitted)
+  val agentPermissionGen: Gen[AgentPermission] = Gen.oneOf(StartAndContinue, NotPermitted)
   implicit val agentPermissionType = Arbitrary(agentPermissionGen)
 
   val representationStatusGen: Gen[RepresentationStatus] = Gen.oneOf(RepresentationApproved, RepresentationPending)
@@ -201,6 +201,33 @@ package object resources {
     )
   }
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
+
+  val propertyRepresentationGen: Gen[PropertyRepresentation] = for {
+    representationId <- arbitrary[Long]
+    authorisationId <- arbitrary[Long]
+    billingAuthorityReference <- shortString
+    submissionId <- shortString
+    organisationId <- arbitrary[Long]
+    organisationName <- shortString
+    address <- arbitrary[PropertyAddress]
+    checkPermission <- arbitrary[AgentPermission]
+    challengePermission <- arbitrary[AgentPermission]
+    createDatetime <- arbitrary[LocalDate]
+    status <- arbitrary[RepresentationStatus]
+  } yield {
+    PropertyRepresentation(representationId = representationId,
+      authorisationId = authorisationId,
+      billingAuthorityReference = billingAuthorityReference,
+      submissionId = submissionId,
+      organisationId = organisationId,
+      organisationName = organisationName,
+      address = address.toString,
+      checkPermission = checkPermission,
+      challengePermission = challengePermission,
+      createDatetime = createDatetime,
+      status = status)
+  }
+  implicit val arbitraryPropertyRepresentation = Arbitrary(propertyRepresentationGen)
 
   private val ninoGen: Gen[Nino] = for {
     prefix <- (for {
