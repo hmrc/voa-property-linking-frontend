@@ -588,6 +588,10 @@ logout.link=Sign out
 label.optional=Optional
 label.required=Required
 
+#PAGINATION
+paginationControls.show=Show
+paginationControls.rows=rows
+
 #DASHBOARD HOME
 agent.dashboard.home.title=Agent dashboard home
 agent.dashboard.home.manageRepresentationRequest.link=Review all outstanding nominations

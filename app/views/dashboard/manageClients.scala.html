@@ -29,6 +29,9 @@
         @jsManageClients()
 
         <noscript>
+
+            @helpers.paginationControls(model.pagination, agent.routes.RepresentationController.manageRepresentationRequest)
+
             <div class="table-wrapper">
                 <table class="table-font-xsmall margin-bottom-20 margin-top-20">
                     <caption class="visuallyhidden">
