@@ -41,7 +41,7 @@
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $('td:eq(2) ul li:eq(0)', nRow).html( messages.labels.check + ': ' + messages.labels['status' + aData.checkPermission]);
                 $('td:eq(2) ul li:eq(1)', nRow).html( messages.labels.challenge + ': ' + messages.labels['status' + aData.challengePermission]);
-                $('td:eq(3)', nRow).text(aData.createDatetime));
+                $('td:eq(3)', nRow).text(moment(aData.createDatetime).format('LL'));
                 $('td:eq(4) ul li:eq(0)', nRow).html('<a href="' + service + '/representation-request/accept/' + aData.submissionId + '">' + messages.labels.accept + '</a>');
                 $('td:eq(4) ul li:eq(1)', nRow).html('<a href="' + service + '/representation-request/reject/' + aData.submissionId + '">' + messages.labels.reject + '</a>');
             },
