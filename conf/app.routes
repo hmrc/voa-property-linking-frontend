@@ -42,7 +42,7 @@ POST        /create-group                                                       
 #Dashboard
 GET         /home                                                                             controllers.Dashboard.home()
 GET         /properties                                                                       controllers.Dashboard.manageProperties(page: Int ?= 1, pageSize: Int ?= 15)
-GET         /list-properties                                                                  controllers.Dashboard.getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
+GET         /properties/json                                                                  controllers.Dashboard.getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
 GET         /managed-properties/:agentCode                                                    controllers.Dashboard.viewManagedProperties(agentCode: Long)
 GET         /managed-properties/:agentCode/revoke                                             @controllers.agentAppointment.RevokeAgentController.revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
 GET         /managed-properties/:agentCode/revoke/confirmed                                   @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
@@ -98,9 +98,11 @@ POST        /representation-request/modify/:representationId                    
 #Dashboard
 #TODO: Move to dashboard
 GET         /manage-clients                                                                   controllers.agent.RepresentationController.manageRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
-GET         /list-clients                                                                     controllers.agent.RepresentationController.listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
+GET         /manage-clients/json                                                              controllers.agent.RepresentationController.listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
 
-GET         /manage-clients/pending-requests                                                  controllers.agent.RepresentationController.pendingRepresentationRequest()
+GET         /manage-clients/pending-requests                                                  controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
+GET         /manage-clients/pending-requests/json                                             controllers.agent.RepresentationController.pendingRepresentationsJson(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
+
 GET         /representation-request/accept/:submissionId/:totalPendingRequests                controllers.agent.RepresentationController.accept(submissionId, totalPendingRequests: Long)
 GET         /representation-request/reject/:submissionId/:totalPendingRequests                controllers.agent.RepresentationController.reject(submissionId, totalPendingRequests: Long)
 

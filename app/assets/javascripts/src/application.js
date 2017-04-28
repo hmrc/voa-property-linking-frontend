@@ -17,6 +17,7 @@
         new VOA.ErrorSummary();
         new VOA.DataTableManageProperties();
         new VOA.DataTableManageClients();
+        new VOA.DataTablePendingRequests();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));

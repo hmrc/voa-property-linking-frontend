@@ -8,10 +8,10 @@
         root.VOA = {};
     }
 
-    root.VOA.DataTableManageProperties = function (){
+    root.VOA.DataTablePendingRequests = function (){
 
         var messages = VOA.messages.en;
-        var $table  = $('#dataTableManageProperties');
+        var $table  = $('#dataTablePendingRequests');
         var service = '/business-rates-property-linking';
 
         $.fn.dataTable.ext.errMode = 'none';
@@ -28,9 +28,9 @@
             ajax: {
                 data: function() {
                     var info = $table.DataTable().page.info();
-                    $table.DataTable().ajax.url(service + '/properties/json?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true');
+                    $table.DataTable().ajax.url(service + '/manage-clients/pending-requests/json?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true');
                 },
-                dataSrc: 'propertyLinks',
+                dataSrc: 'propertyRepresentations',
                 dataFilter: function(data) {
                     var json = jQuery.parseJSON(data);
                     json.recordsTotal = json.resultCount;
@@ -39,21 +39,17 @@
                 }
             },
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                $('td:eq(2) ul li:eq(0)', nRow).text( messages.labels['status' + aData.pending + ''] );
-                if(aData.pending){
-                    $('td:eq(2) ul li:eq(1)', nRow).html('<span class="submission-id">' + messages.labels.submissionId+ ': ' + aData.submissionId + '</span>' );
-                }
-                if(aData.agents.length === 0){
-                    $('td:eq(3)', nRow).text('None');
-                }
-                $('td:eq(4) ul li:eq(0)', nRow).html('<a href="' + service + '/appoint-agent/' + aData.authorisationId + '">'+ messages.labels.appointAgent + '</a>');
-                $('td:eq(4) ul li:eq(1)', nRow).html('<a href="' + service + '/property-link/' + aData.authorisationId + '/assessments'+'">' + messages.labels.viewValuations + '</a>');
+                $('td:eq(2) ul li:eq(0)', nRow).html( messages.labels.check + ': ' + messages.labels['status' + aData.checkPermission]);
+                $('td:eq(2) ul li:eq(1)', nRow).html( messages.labels.challenge + ': ' + messages.labels['status' + aData.challengePermission]);
+                $('td:eq(3)', nRow).text(aData.createDatetime));
+                $('td:eq(4) ul li:eq(0)', nRow).html('<a href="' + service + '/representation-request/accept/' + aData.submissionId + '">' + messages.labels.accept + '</a>');
+                $('td:eq(4) ul li:eq(1)', nRow).html('<a href="' + service + '/representation-request/reject/' + aData.submissionId + '">' + messages.labels.reject + '</a>');
             },
             columns: [
+                {data: 'organisationName'},
                 {data: 'address'},
-                {data: 'assessment.0.billingAuthorityReference'},
                 {data: null, defaultContent: '<ul><li></li><li></li></ul>'},
-                {data: 'agents[, ].organisationName'},
+                {data: null},
                 {data: null, defaultContent: '<ul><li></li><li></li></ul>', sClass: 'last'}
             ],
             language: {

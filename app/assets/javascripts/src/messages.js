@@ -24,7 +24,9 @@
                 challenge: 'Challenge',
                 revokeClient: 'Revoke client',
                 show: 'Show',
-                rows: 'rows'
+                rows: 'rows',
+                accept: 'Accept',
+                reject: 'Reject'
             },
             errors : {
                 postcodeLookupError: 'Enter a valid postcode',

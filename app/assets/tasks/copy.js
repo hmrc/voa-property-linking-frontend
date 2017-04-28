@@ -16,6 +16,11 @@ gulp.task('copy:jquery', function () {
         .pipe(gulp.dest('../../public/javascripts/vendor'));
 });
 
+gulp.task('copy:moment', function () {
+    return gulp.src(['./node_modules/moment/min/moment.min.js'])
+        .pipe(gulp.dest('../../public/javascripts/vendor'));
+});
+
 // Copy images
 gulp.task('copy:icons', function () {
     return gulp.src(['./node_modules/govuk_frontend_toolkit/images/*.png'])
@@ -45,4 +50,4 @@ gulp.task('copy:publicHtml', function () {
 
 
 // Run copy task
-gulp.task('copy', [ 'copy:govuk_template_mustache','copy:jquery','copy:icons', 'copy:publicHtml', 'copy:fonts', 'copy:css']);
+gulp.task('copy', [ 'copy:govuk_template_mustache','copy:jquery', 'copy:moment','copy:icons', 'copy:publicHtml', 'copy:fonts', 'copy:css']);

@@ -18,7 +18,7 @@
        @if(model.totalPendingRequests == 0) {
            @Messages("manageClients.nonePending")
        } else {
-           <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest" id="viewPending">
+           <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest()" id="viewPending">
                @Messages("manageClients.noOfPending", model.totalPendingRequests)
            </a>
        }

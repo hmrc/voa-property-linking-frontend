@@ -28,7 +28,7 @@
             ajax: {
                 data: function() {
                     var info = $table.DataTable().page.info();
-                    $table.DataTable().ajax.url(service + '/list-clients?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true');
+                    $table.DataTable().ajax.url(service + '/manage-clients/json?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true');
                 },
                 dataSrc: 'propertyRepresentations',
                 dataFilter: function(data) {
