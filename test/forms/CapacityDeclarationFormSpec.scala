@@ -16,7 +16,6 @@
 
 package forms
 
-import config.ApplicationConfig
 import controllers.ClaimProperty
 import models.{CapacityDeclaration, CapacityType, Occupier}
 import org.joda.time.LocalDate
@@ -38,7 +37,7 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
   behavior of "Capacity declaration form"
 
   it should "bind when the inputs are all valid" in {
-    mustBindTo(form, validData, CapacityDeclaration(Occupier, false, Some(new LocalDate(2017, 3, 20)), false, Some(new LocalDate(2017, 3, 23))))
+    mustBindTo(form, validData, CapacityDeclaration(Occupier, false, Some(new LocalDate(2017, 4, 20)), false, Some(new LocalDate(2017, 4, 23))))
   }
 
   it should "mandate a capacity" in {
@@ -67,9 +66,9 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
     val data = validData
       .updated("interestedBefore2017", "true")
       .updated("toDate.day", "19")
-      .updated("toDate.month", "3")
+      .updated("toDate.month", "4")
       .updated("toDate.year", "2017")
-    mustBindTo(form, data, CapacityDeclaration(Occupier, true, None, false, Some(new LocalDate(2017, 3, 19))))
+    mustBindTo(form, data, CapacityDeclaration(Occupier, true, None, false, Some(new LocalDate(2017, 4, 19))))
   }
 
   it should "require end date after 1st April 2017 if the occupation/ownership started before 1st April 2017" in {
@@ -88,7 +87,7 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
 
   }
 
-  it should s"require the start date to be after ${ApplicationConfig.propertyLinkingDateThreshold}" in {
+  it should s"require the start date to be after 1 April 2017" in {
     val data = validData
       .updated("interestedBefore2017", "false")
       .updated("fromDate.day", "1")
@@ -111,11 +110,11 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
     val data = validData
       .updated("interestedBefore2017", "false")
       .updated("fromDate.day", "10")
-      .updated("fromDate.month", "3")
+      .updated("fromDate.month", "4")
       .updated("fromDate.year", "2017")
       .updated("stillInterested", "false")
       .updated("toDate.day", "3")
-      .updated("toDate.month", "3")
+      .updated("toDate.month", "4")
       .updated("toDate.year", "2017")
     verifyOnlyError(form, data, "toDate", Errors.dateMustBeAfterOtherDate)
   }
@@ -140,11 +139,11 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
       "capacity" -> Occupier.name,
       "interestedBefore2017" -> "false",
       "fromDate.day" -> "20",
-      "fromDate.month" -> "3",
+      "fromDate.month" -> "4",
       "fromDate.year" -> "2017",
       "stillInterested" -> "false",
       "toDate.day" -> "23",
-      "toDate.month" -> "3",
+      "toDate.month" -> "4",
       "toDate.year" -> "2017"
     )
   }

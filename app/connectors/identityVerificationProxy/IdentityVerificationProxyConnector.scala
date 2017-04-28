@@ -16,12 +16,11 @@
 
 package connectors.identityVerificationProxy
 
-import org.joda.time.LocalDate
-
-import config.ApplicationConfig
 import models.IVDetails
 import models.identityVerificationProxy._
+import org.joda.time.LocalDate
 import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 import uk.gov.hmrc.play.http._
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -33,7 +32,7 @@ class IdentityVerificationProxyConnector(http: HttpPost with HttpGet)(implicit e
   def start(completionURL: String, failureURL:  String, userData: IVDetails,
             expiryDate: Option[LocalDate])(implicit hc: HeaderCarrier): Future[Link] = {
     http.POST[Journey, Link](s"$url/$path/start", Journey(None, "voa-property-linking",
-      completionURL, failureURL, ApplicationConfig.ivConfidenceLevel, userData, expiryDate))
+      completionURL, failureURL, ConfidenceLevel.L200, userData, expiryDate))
   }
 
   def get(id: Long)(implicit hc: HeaderCarrier): Future[Journey] = {

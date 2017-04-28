@@ -26,9 +26,7 @@
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            @if(ApplicationConfig.agentEnabled) {
-                <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.properties")</h2>
-            }
+            <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.properties")</h2>
 
             <h3 class="heading-medium">
                 <a href="@routes.Dashboard.manageProperties()">@Messages("dashboard.home.manageProperties.link")</a>
@@ -38,14 +36,13 @@
                 @Messages("dashboard.home.manageProperties.text")
             </p>
 
-            @if(ApplicationConfig.propertyLinkingEnabled) {
-                <h3 class="heading-medium">
-                    <a href="@routes.ClaimProperty.show">@Messages("dashboard.home.searchProperties.link")</a>
-                </h3>
-                <p>
-                @Messages("dashboard.home.searchProperties.text")
-                </p>
-            }
+            <h3 class="heading-medium">
+                <a href="@routes.ClaimProperty.show">@Messages("dashboard.home.searchProperties.link")</a>
+            </h3>
+            <p>
+            @Messages("dashboard.home.searchProperties.text")
+            </p>
+
             @if(ApplicationConfig.casesEnabled) {
                 <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.cases")</h2>
                 <h3 class="heading-medium"> @Messages("dashboard.home.draft.cases") </h3>
@@ -53,48 +50,47 @@
                     <a href="@routes.Dashboard.draftCases">@Messages("dashboard.home.draft.cases.text")</a>
                 </p>
             }
-        </div>
-        <div class="column-one-third">
-            @if(ApplicationConfig.agentEnabled) {
-                <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.management")</h2>
-                <h3 class="heading-medium">
-                    <a id="manageAgents" href="@controllers.routes.Dashboard.manageAgents">@Messages("dashboard.home.manageAgents.link")</a>
-                </h3>
 
+        </div>
+
+        <div class="column-one-third">
+            <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.management")</h2>
+            <h3 class="heading-medium">
+                <a id="manageAgents" href="@controllers.routes.Dashboard.manageAgents">@Messages("dashboard.home.manageAgents.link")</a>
+            </h3>
+
+            <p>
+            @Messages("dashboard.home.manageAgents.text")
+            </p>
+
+            @if(groupAccount.isAgent) {
+                <h3 class="heading-medium">
+                    <a href="@controllers.agent.routes.RepresentationController.manageRepresentationRequest()">
+                    @Messages("dashboard.home.clients.link")
+                    </a>
+                </h3>
                 <p>
-                @Messages("dashboard.home.manageAgents.text")
+                @Messages("dashboard.home.clients.text")
                 </p>
-            }
-            @if(ApplicationConfig.agentEnabled){
-                @if(groupAccount.isAgent) {
-                    <h3 class="heading-medium">
-                        <a href="@controllers.agent.routes.RepresentationController.manageRepresentationRequest()">
-                        @Messages("dashboard.home.clients.link")
-                        </a>
-                    </h3>
-                    <p>
-                    @Messages("dashboard.home.clients.text")
-                    </p>
-                }
             }
         </div>
     </div>
+
     <h3 class="heading-medium">
         @Messages("dashboard.home.plannedFeatures")
         <ul class="list list-bullet">
             <li>View draft forms</li>
-            <li>Manage clients (agents only)</li>
-            <li>Claim properties</li>
             <li>View messages</li>
             <li>Manage cases</li>
-            <li>Manage agents</li>
             <li>Manage personal details</li>
             <li>Manage notifications</li>
         </ul>
     </h3>
+
     <h3 class="heading-medium">
     @Messages("dashboard.home.usefulLinks")
     </h3>
+
     <p><a href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">How non-domestic property (including plant and machinery) is valued</a></p>
     
 

@@ -74,7 +74,7 @@ object ClaimProperty {
     "stillInterested" -> mandatoryBoolean,
     "toDate" -> mandatoryIfFalse("stillInterested", ConditionalDateAfter("interestedBefore2017", "fromDate")
       .verifying(Errors.dateMustBeInPast, d => !d.isAfter(LocalDate.now))
-      .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(ApplicationConfig.propertyLinkingDateThreshold)))
+      .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(new LocalDate(2017,4,1))))
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 

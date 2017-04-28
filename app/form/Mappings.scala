@@ -32,9 +32,9 @@ object Mappings extends DateMappings {
   def trueOnly(error: String): Mapping[Boolean] =
     text.verifying(error, _ == "true").transform[Boolean](_.toBoolean, _.toString)
 
-  def mandatoryBoolean: Mapping[Boolean] = optional(boolean).verifying("error.boolean", _.isDefined).transform(_.get, Some.apply)
+  val mandatoryBoolean: Mapping[Boolean] = optional(boolean).verifying("error.boolean", _.isDefined).transform(_.get, Some.apply)
 
-  def address: Mapping[Address] = mapping(
+  val address: Mapping[Address] = mapping(
     "addressId" -> addressId,
     "line1" -> default(text(maxLength = 100), ""),
     "line2" -> default(text(maxLength = 100), ""),
@@ -43,24 +43,24 @@ object Mappings extends DateMappings {
     "postcode" -> nonEmptyText(maxLength = 8).transform[String](_.toUpperCase, identity)
   )(Address.apply)(Address.unapply)
 
-  private def addressId: Mapping[Option[Int]] = default(text, "").transform(t => Try { t.toInt }.toOption, _.map(_.toString).getOrElse(""))
+  private lazy val addressId: Mapping[Option[Int]] = default(text, "").transform(t => Try { t.toInt }.toOption, _.map(_.toString).getOrElse(""))
 
-  def agentCode: Mapping[Long] = nonEmptyText.verifying("error.agentCode", s => s.trim.forall(_.isDigit)).transform(_.trim.toLong, _.toString)
+  lazy val agentCode: Mapping[Long] = nonEmptyText.verifying("error.agentCode", s => s.trim.forall(_.isDigit)).transform(_.trim.toLong, _.toString)
 }
 
 trait DateMappings {
 
-  def dmyDate: Mapping[LocalDate] = tuple(
+  val dmyDate: Mapping[LocalDate] = tuple(
     "day" -> number(1, 31),
     "month" -> number(1, 12),
     "year" -> number(1900, 3000)
   ).verifying(Errors.invalidDate, x => x match { case (d, m, y) => Try(new LocalDate(y, m, d)).isSuccess } )
     .transform({ case (d, m, y) => new LocalDate(y, m, d) }, d => (d.getDayOfMonth, d.getMonthOfYear, d.getYear))
 
-  def dmyDateAfterThreshold: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfter1stApril2017,
-    d => d.isAfter(ApplicationConfig.propertyLinkingDateThreshold))
+  val dmyDateAfterThreshold: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfter1stApril2017,
+    d => d.isAfter(new LocalDate(2017,4,1)))
 
-  def dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
+  val dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
 
   private def number(min: Int, max: Int) = Forms.of[Int](trimmingNumberFormatter).verifying(Constraints.min(min)).verifying(Constraints.max(max))
 

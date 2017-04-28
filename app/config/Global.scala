@@ -81,26 +81,3 @@ object ControllerConfiguration extends ControllerConfig {
   lazy val controllerConfigs = Play.current.configuration.underlying.as[Config]("controllers")
 }
 
-class Filters @Inject()(filter: WhitelistFilter) extends DefaultHttpFilters(filter)
-
-class WhitelistFilter @Inject()(conf: Configuration)(implicit val mat: Materializer) extends AkamaiWhitelistFilter {
-  lazy val enabled = conf.getBoolean("feature.whitelist").getOrElse(false)
-
-  override def whitelist: Seq[String] = conf.getString("whitelist.ips")
-    .map(str => str.split(",").toSeq).getOrElse(Seq())
-
-  override def destination: Call = conf.getString("whitelist.destination")
-    .map(url => Call("GET", url)).getOrElse(Call("GET", "https://www.gov.uk"))
-
-  override def excludedPaths: Seq[Call] = conf.getString("whitelist.exclusions")
-    .map[Seq[Call]](str => str.split(",").map(entry => Call("GET", entry))).getOrElse(Seq())
-
-  override def apply(f: (RequestHeader) => Future[Result])(rh: RequestHeader): Future[Result] = {
-    if (enabled) {
-      super.apply(f)(rh)
-    } else {
-      f(rh)
-    }
-  }
-}
-
