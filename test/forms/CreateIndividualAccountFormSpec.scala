@@ -62,7 +62,11 @@ class CreateIndividualAccountFormSpec extends FlatSpec with MustMatchers {
   }
 
   it must "require the email address to be no more than 150 characters" in {
-    verifyError(form, validData.updated(keys.email, (1 to 140 map { _ => "a" } mkString) + "@example.com"), keys.email, "error.maxLength")
+    val `150chars` = (1 to 138 map { _ => "a" } mkString) + "@example.com"
+
+    verifyNoErrors(form, validData.updated(keys.email, `150chars`).updated(keys.confirmedEmail, `150chars`))
+
+    verifyError(form, validData.updated(keys.email, "a" + `150chars`).updated(keys.confirmedEmail, `150chars`), keys.email, "error.maxLength", Seq(150))
   }
 
   it must "require the email address to be valid" in {
