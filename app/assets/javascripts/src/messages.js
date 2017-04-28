@@ -22,7 +22,9 @@
                 'statusNOT_PERMITTED': 'No',
                 check: 'Check',
                 challenge: 'Challenge',
-                revokeClient: 'Revoke client'
+                revokeClient: 'Revoke client',
+                show: 'Show',
+                rows: 'rows'
             },
             errors : {
                 postcodeLookupError: 'Enter a valid postcode',

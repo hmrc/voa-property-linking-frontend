@@ -154,31 +154,36 @@
     table.dataTable thead th, #content table.dataTable thead td {
         padding: 10px 20px 8px 0;
     }
-    .dataTables_length [name="dataTable_length"]{
-    	    width: auto;
-    		-webkit-box-sizing: border-box;
-    		-moz-box-sizing: border-box;
-    		box-sizing: border-box;
-    		font-family: "nta", Arial, sans-serif;
-    		font-weight: 400;
-    		text-transform: none;
-    		font-size: 16px;
-    		line-height: 1.25;
-    		padding: 5px 4px 4px;
-    		border: 2px solid #0b0c0c;
-    }
-    .dataTables_filter [type="search"]{
-    		width: 200px;
-    		-webkit-box-sizing: border-box;
-    		-moz-box-sizing: border-box;
-    		box-sizing: border-box;
-    		font-family: "nta", Arial, sans-serif;
-    		font-weight: 400;
-    		text-transform: none;
-    		font-size: 16px;
-    		line-height: 1.25;
-    		padding: 5px 4px 4px;
-    		border: 2px solid #0b0c0c;
+    .dataTables_length {
+
+        label{
+            color: $black;
+        }
+        select{
+        	    width: auto;
+        		-webkit-box-sizing: border-box;
+        		-moz-box-sizing: border-box;
+        		box-sizing: border-box;
+        		font-family: "nta", Arial, sans-serif;
+        		font-weight: 400;
+        		text-transform: none;
+        		padding: 5px 4px 4px;
+        		border: 2px solid $black;
+                margin-left: 0;
+                margin-right: 0;
+        }
+        [type="search"]{
+        		width: 200px;
+        		-webkit-box-sizing: border-box;
+        		-moz-box-sizing: border-box;
+        		box-sizing: border-box;
+        		font-family: "nta", Arial, sans-serif;
+        		font-weight: 400;
+        		text-transform: none;
+        		padding: 5px 4px 4px;
+        		border: 2px solid $black;
+        }
+
     }
 
     .dataTables_filter{
@@ -196,6 +201,7 @@
         }
         .dataTables_info{
             padding-top: 0.2em;
+            color: $black;
         }
         .dataTables_length {
             float: none;

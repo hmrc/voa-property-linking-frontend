@@ -13,7 +13,6 @@
         var messages = VOA.messages.en;
         var $table  = $('#dataTableManageProperties');
         var service = '/business-rates-property-linking';
-        var pageSize = 15;
 
         $.fn.dataTable.ext.errMode = 'none';
 
@@ -22,14 +21,14 @@
             info: true,
             paging: true,
             processing: true,
-            lengthChange: false,
+            lengthChange: true,
             searching: false,
             ordering: false,
-            pageLength: pageSize,
+            lengthMenu: [[15, 25, 50, 100], [15, 25, 50, 100]],
             ajax: {
                 data: function() {
                     var info = $table.DataTable().page.info();
-                    $table.DataTable().ajax.url(service + '/list-properties?page=' + (info.page + 1) + '&pageSize='+ pageSize +'&requestTotalRowCount=true');
+                    $table.DataTable().ajax.url(service + '/list-properties?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true');
                 },
                 dataSrc: 'propertyLinks',
                 dataFilter: function(data) {
@@ -63,7 +62,8 @@
                 paginate: {
                     next: messages.labels.next + '<i class="next-arrow"></i>',
                     previous: '<i class="previous-arrow"></i>' +  messages.labels.previous
-                }
+                },
+                lengthMenu: messages.labels.show + ' _MENU_ ' + messages.labels.rows
             }
         }).on('error.dt', function (e, settings, techNote, message) {
             $table.find('tbody').empty().append('<tr><td class="text-centered" colspan="'+settings.aoColumns.length+'"><span class="heading-medium error-message">' + messages.errors.dataError + '</span></td></tr>');
