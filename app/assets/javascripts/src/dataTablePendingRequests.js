@@ -10,9 +10,10 @@
 
     root.VOA.DataTablePendingRequests = function (){
 
-        var messages = VOA.messages.en;
-        var $table  = $('#dataTablePendingRequests');
-        var service = '/business-rates-property-linking';
+        var messages = VOA.messages.en,
+        $table  = $('#dataTablePendingRequests'),
+        service = '/business-rates-property-linking',
+        resluts;
 
         $.fn.dataTable.ext.errMode = 'none';
 
@@ -35,6 +36,7 @@
                     var json = jQuery.parseJSON(data);
                     json.recordsTotal = json.resultCount;
                     json.recordsFiltered = json.resultCount;
+                    resluts = json.totalPendingRequests;
                     return JSON.stringify(json);
                 }
             },
@@ -42,8 +44,9 @@
                 $('td:eq(2) ul li:eq(0)', nRow).html( messages.labels.check + ': ' + messages.labels['status' + aData.checkPermission]);
                 $('td:eq(2) ul li:eq(1)', nRow).html( messages.labels.challenge + ': ' + messages.labels['status' + aData.challengePermission]);
                 $('td:eq(3)', nRow).text(moment(aData.createDatetime).format('LL'));
-                $('td:eq(4) ul li:eq(0)', nRow).html('<a href="' + service + '/representation-request/accept/' + aData.submissionId + '">' + messages.labels.accept + '</a>');
-                $('td:eq(4) ul li:eq(1)', nRow).html('<a href="' + service + '/representation-request/reject/' + aData.submissionId + '">' + messages.labels.reject + '</a>');
+                $('td:eq(4) ul li:eq(0)', nRow).html('<a href="' + service + '/representation-request/accept/' + aData.submissionId + '/' + resluts +'">' + messages.labels.accept + '</a>');
+                $('td:eq(4) ul li:eq(1)', nRow).html('<a href="' + service + '/representation-request/reject/' + aData.submissionId + '/' + resluts +'">' + messages.labels.reject + '</a>');
+                console.log(aData);
             },
             columns: [
                 {data: 'organisationName'},
