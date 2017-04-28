@@ -45,7 +45,7 @@ class RepresentationControllerSpec extends ControllerSpec {
     val res = TestRepresentationController.revokeClientConfirmed(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
 
     status(res) must be(SEE_OTHER)
-    redirectLocation(res) must be(Some(controllers.routes.Dashboard.clientProperties(clientProperty.ownerOrganisationId).url))
+    redirectLocation(res) must be(Some(routes.RepresentationController.manageRepresentationRequest().url))
   }
 
   def stubLoggedInUser() = {

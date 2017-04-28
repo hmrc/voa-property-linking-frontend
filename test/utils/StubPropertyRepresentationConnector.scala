@@ -17,7 +17,8 @@
 package utils
 
 import connectors.PropertyRepresentationConnector
-import models.{AgentCodeValidationResult, PropertyRepresentation, RepresentationRequest}
+import controllers.Pagination
+import models._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.http.HeaderCarrier
 
@@ -42,6 +43,11 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
     if(stubbedValidCodes.contains(agentCode)) { AgentCodeValidationResult(Some(123), None) } else { AgentCodeValidationResult(None, Some("INVALID_CODE")) }
   }
 
+  override def forAgent(status: RepresentationStatus, agentOrganisationId: Int, pagination: Pagination)(implicit hc: HeaderCarrier) = Future.successful(
+    PropertyRepresentations(totalPendingRequests = stubbedRepresentations.count(_.status == RepresentationPending),
+      resultCount = Some(stubbedRepresentations.count(_.status == RepresentationApproved)),
+      propertyRepresentations = stubbedRepresentations.filter(_.status == RepresentationApproved))
+  )
 
   override def get(representationId: Long)(implicit hc: HeaderCarrier) = Future.successful(
     stubbedRepresentations.find(_.representationId == representationId)

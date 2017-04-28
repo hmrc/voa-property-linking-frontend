@@ -1,0 +1,25 @@
+@()(implicit  messages: Messages)
+
+<div class="table-wrapper hide-if-no-js">
+    <table id="dataTableManageClients" class="table-font-xsmall margin-bottom-20 margin-top-20">
+        <caption class="visuallyhidden">
+            @Messages("agent.dashboard.manageClients.existingClients")
+        </caption>
+        <colgroup>
+            <col width="200px">
+            <col>
+            <col width="140px">
+            <col width="130px">
+            <col width="120px">
+        </colgroup>
+        <thead>
+            <tr>
+                <th scope="col">@Messages("manageClients.table.1")</th>
+                <th scope="col">@Messages("manageClients.table.2")</th>
+                <th scope="col">@Messages("manageClients.table.3")</th>
+                <th scope="col">@Messages("manageClients.table.4")</th>
+                <th scope="col">@Messages("manageClients.table.5")</th>
+            </tr>
+        </thead>
+    </table>
+</div>

@@ -34,7 +34,7 @@ object PropertyLink {
   implicit val format = Json.format[PropertyLink]
 }
 
-case class PropertyLinkResponse(resultCount: Option[Int],
+case class PropertyLinkResponse(resultCount: Option[Long],
                                 propertyLinks: Seq[PropertyLink])
 
 object PropertyLinkResponse {

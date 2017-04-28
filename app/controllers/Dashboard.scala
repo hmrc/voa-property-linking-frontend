@@ -21,11 +21,10 @@ import controllers.Application.withThrottledHoldingPage
 import models._
 import org.joda.time.{DateTime, LocalDate}
 import play.api.libs.json.Json
-import play.api.mvc.{AnyContent, Request, Result}
 
 import scala.concurrent.Future
 
-trait Dashboard extends PropertyLinkingController {
+trait Dashboard extends PropertyLinkingController with ValidPagination {
   val propertyLinks = Wiring().propertyLinkConnector
   val reprConnector = Wiring().propertyRepresentationConnector
   val individuals = Wiring().individualAccountConnector
@@ -40,33 +39,27 @@ trait Dashboard extends PropertyLinkingController {
   }
 
   def manageProperties(page: Int, pageSize: Int) = authenticated { implicit request =>
-    withValidPagination(page, pageSize) {
-      propertyLinks.linkedProperties(request.organisationId, Pagination.getStartPoint(page, pageSize), pageSize, requestTotalRowCount = true) map { response =>
-        val pagination = Pagination(page, pageSize, response.resultCount.getOrElse(0))
-        Ok(views.html.dashboard.manageProperties(ManagePropertiesVM(request.individualAccount.organisationId, response.propertyLinks, pagination)))
+    withValidPagination(page, pageSize) { pagination =>
+      propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>
+        Ok(views.html.dashboard.manageProperties(
+          ManagePropertiesVM(request.individualAccount.organisationId,
+            response.propertyLinks,
+            pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
       }
     }
   }
 
   def getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated { implicit request =>
-    withValidPagination(page, pageSize) {
-      propertyLinks.linkedProperties(request.organisationId, Pagination.getStartPoint(page, pageSize), pageSize, requestTotalRowCount) map { res =>
+    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
+      propertyLinks.linkedProperties(request.organisationId, pagination) map { res =>
         Ok(Json.toJson(res))
       }
     }
   }
 
-  private def withValidPagination(page: Int, pageSize: Int)(default: => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
-    if (page <= 0 || pageSize < 10 || pageSize > 100) {
-      BadRequest(Global.badRequestTemplate)
-    } else {
-      default
-    }
-  }
-
   def manageAgents() = authenticated { implicit request =>
     for {
-      response <- propertyLinks.linkedProperties(request.organisationId, 1, 100, requestTotalRowCount = false)
+      response <- propertyLinks.linkedProperties(request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false))
     } yield {
       val agentInfos = response.propertyLinks
         .flatMap(_.agents)
@@ -76,8 +69,8 @@ trait Dashboard extends PropertyLinkingController {
     }
   }
 
-  def viewManagedProperties(agentCode: Long) = authenticated { implicit request => {
-    propertyLinks.linkedProperties(request.organisationId, 1, 100, requestTotalRowCount = false) map { response =>
+  def viewManagedProperties(agentCode: Long) = authenticated { implicit request =>
+    propertyLinks.linkedProperties(request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false)) map { response =>
       val filteredProps = response.propertyLinks.filter(_.agents.map(_.agentCode).contains(agentCode))
       if (filteredProps.nonEmpty) {
         val organisationName = filteredProps.flatMap(_.agents).filter(_.agentCode == agentCode).head.organisationName
@@ -85,24 +78,6 @@ trait Dashboard extends PropertyLinkingController {
       }
       else
         NotFound(Global.notFoundTemplate)
-    }
-  }
-  }
-
-  def clientProperties(organisationId: Long, page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
-    withValidPagination(page, pageSize) {
-      propertyLinks.clientProperties(
-        organisationId,
-        request.organisationId,
-        Pagination.getStartPoint(page, pageSize),
-        pageSize,
-        requestTotalRowCount = true
-      ) map { res =>
-        if (res.properties.exists(_.authorisedPartyStatus == RepresentationApproved)) {
-          val filteredProps: Seq[ClientProperty] = res.properties.filter(_.authorisedPartyStatus == RepresentationApproved)
-          Ok(views.html.dashboard.clientProperties(ClientPropertiesVM(filteredProps)))
-        } else Redirect(agent.routes.RepresentationController.manageRepresentationRequest())
-      }
     }
   }
 
@@ -139,11 +114,3 @@ case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentation
 case class AgentInfo(organisationName: String, agentCode: Long)
 
 case class ClientPropertiesVM(properties: Seq[ClientProperty])
-
-case class Pagination(pageNumber: Int, pageSize: Int, totalResults: Int) {
-  val startPoint = Pagination.getStartPoint(pageNumber, pageSize)
-}
-
-object Pagination {
-  def getStartPoint(pageNumber: Int, pageSize: Int): Int = pageSize * (pageNumber - 1) + 1
-}

@@ -15,48 +15,95 @@
 
 
     <h2 class="heading-secondary">
-       @if(model.propertyRepresentations.totalPendingRequests == 0) {
+       @if(model.totalPendingRequests == 0) {
            @Messages("manageClients.nonePending")
        } else {
            <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest">
-               @Messages("manageClients.noOfPending", model.propertyRepresentations.totalPendingRequests)
+               @Messages("manageClients.noOfPending", model.totalPendingRequests)
            </a>
        }
     </h2>
 
+    @if(model.propertyRepresentations.nonEmpty) {
 
-    @if(model.propertyRepresentations.propertyRepresentations.nonEmpty) {
-        <div class="table-wrapper">
-            <table class="table-font-xsmall margin-bottom-20 margin-top-30">
-                <caption class="heading-medium">
-                    @Messages("agent.dashboard.manageClients.existingClients")
-                </caption>
-                <thead>
+        @jsManageClients()
+
+        <noscript>
+            <div class="table-wrapper">
+                <table class="table-font-xsmall margin-bottom-20 margin-top-20">
+                    <caption class="visuallyhidden">
+                        @Messages("agent.dashboard.manageClients.existingClients")
+                    </caption>
+                    <colgroup>
+                        <col width="200px">
+                        <col>
+                        <col width="140px">
+                        <col width="130px">
+                        <col width="120px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">@Messages("manageClients.table.1")</th>
+                            <th scope="col">@Messages("manageClients.table.2")</th>
+                            <th scope="col">@Messages("manageClients.table.3")</th>
+                            <th scope="col">@Messages("manageClients.table.4")</th>
+                            <th scope="col" class="last">@Messages("manageClients.table.5")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @model.propertyRepresentations.map { link =>
+
                     <tr>
-                        <th scope="col">@Messages("propertyRepresentations.table.1")</th>
-                        <th scope="col">@Messages("propertyRepresentations.table.2")</th>
-                        <th scope="col" class="last">@Messages("propertyRepresentations.table.3")</th>
+                        <td>@link.organisationName</td>
+                        <td>@link.address</td>
+                        <td>@link.billingAuthorityReference</td>
+                        <td>
+                            <ul>
+                                <li>Check: @Messages(link.checkPermission.msgKey)</li>
+                                <li>Challenge: @Messages(link.challengePermission.msgKey)</li>
+                            </ul>
+                        </td>
+                        <td class="last">
+                            <ul>
+                                <li>
+                                    <a href="@agent.routes.RepresentationController.revokeClient(link.authorisationId, link.organisationId)">
+                                        @Messages("dashboard.clientProperties.revokeClient")
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@routes.Assessments.assessments(link.authorisationId)">
+                                        @Messages("manageProperties.viewAssessments")
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                @model.propertyRepresentations.propertyRepresentations.groupBy(_.organisationName).map { case (groupName, properties) =>
-                <tr>
-                    <td>@groupName</td>
-                    <td>
-                        <a href="@controllers.routes.Dashboard.clientProperties(properties.headOption.map(_.organisationId).getOrElse(-1))">
-                            @properties.size
-                        </a>
-                    </td>
-                    <td class="last">
-                        <a href="@controllers.routes.Dashboard.clientProperties(properties.headOption.map(_.organisationId).getOrElse(-1))">
-                            @Messages("agent.dashboard.manageClients.viewProperties")
-                        </a>
-                    </td>
-                </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+            <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</p>
+
+
+            <ul role="navigation" aria-label="Pagination" class="pagination">
+                @if(model.pagination.pageNumber > 1) {
+                    <li  class="previous "><a href="@agent.routes.RepresentationController.manageRepresentationRequest(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
+                }else{
+                    <li  class="previous disabled"><i class="previous-arrow"></i>Previous</li>
                 }
-                </tbody>
-            </table>
-        </div>
+
+                <li class="active">@model.pagination.pageNumber</li>
+
+                @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
+                    <li  class="next"><a href="@agent.routes.RepresentationController.manageRepresentationRequest(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
+                }else{
+                    <li  class="next disabled">Next <i class="next-arrow"></i></li>
+                }
+            </ul>
+
+        </noscript>
+
     } else {
         <p>@Messages("agent.dashboard.manageClients.noClients")</p>
     }

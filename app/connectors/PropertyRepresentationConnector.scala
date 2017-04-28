@@ -16,6 +16,7 @@
 
 package connectors
 
+import controllers.Pagination
 import models._
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
@@ -24,45 +25,37 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost with HttpPatch)(implicit ec: ExecutionContext)
   extends ServicesConfig {
-  lazy val baseUrl: String = baseUrl("property-linking") + s"/property-linking"
+  lazy val baseUrl: String = s"${baseUrl("property-linking")}/property-linking"
 
-  def validateAgentCode(agentCode:Long, authorisationId: Long)(implicit hc: HeaderCarrier) = {
-    val url = baseUrl + s"/property-representations/validate-agent-code/$agentCode/$authorisationId"
-    http.GET[AgentCodeValidationResult](url)
+  def validateAgentCode(agentCode:Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[AgentCodeValidationResult] = {
+    http.GET[AgentCodeValidationResult](s"$baseUrl/property-representations/validate-agent-code/$agentCode/$authorisationId")
   }
 
   def get(representationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyRepresentation]] = {
-    val url = baseUrl + s"/property-representations/$representationId"
-    http.GET[Option[PropertyRepresentation]](url)
+    http.GET[Option[PropertyRepresentation]](s"$baseUrl/property-representations/$representationId")
   }
 
-  def forAgent(status: String, agentOrganisationId: Int)(implicit hc: HeaderCarrier): Future[PropertyRepresentations] = {
-    val url = baseUrl + s"/property-representations/agent/$status/$agentOrganisationId"
-    http.GET[PropertyRepresentations](url)
+  def forAgent(status: RepresentationStatus, agentOrganisationId: Int, pagination: Pagination)(implicit hc: HeaderCarrier): Future[PropertyRepresentations] = {
+    http.GET[PropertyRepresentations](s"$baseUrl/property-representations/agent/${status.name}/$agentOrganisationId?$pagination")
   }
 
   def find(linkId: Long)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
-    val url = baseUrl + s"/property-representations/linkId/$linkId"
-    http.GET[Seq[PropertyRepresentation]](url)
+    http.GET[Seq[PropertyRepresentation]](s"$baseUrl/property-representations/linkId/$linkId")
   }
 
   def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = baseUrl + s"/property-representations/create"
-    http.POST[RepresentationRequest, HttpResponse](url, reprRequest) map { _ => () }
+    http.POST[RepresentationRequest, HttpResponse](s"$baseUrl/property-representations/create", reprRequest) map { _ => () }
   }
 
   def response(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = baseUrl + s"/property-representations/response"
-    http.PUT[RepresentationResponse, HttpResponse](url, representationResponse) map { _ => () }
+    http.PUT[RepresentationResponse, HttpResponse](s"$baseUrl/property-representations/response", representationResponse) map { _ => () }
   }
 
   def update(updated: UpdatedRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = baseUrl + s"/property-representations/update"
-    http.PUT[UpdatedRepresentation, HttpResponse](url, updated) map { _ => () }
+    http.PUT[UpdatedRepresentation, HttpResponse](s"$baseUrl/property-representations/update", updated) map { _ => () }
   }
 
   def revoke(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = baseUrl + s"/property-representations/revoke/${authorisedPartyId}"
-    http.PATCH[String, HttpResponse](url, "") map { _ => () }
+    http.PATCH[String, HttpResponse](s"$baseUrl/property-representations/revoke/$authorisedPartyId", "") map { _ => () }
   }
 }

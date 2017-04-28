@@ -15,9 +15,16 @@
                 showing: 'Showing',
                 to: 'to',
                 of: 'of',
-                submissionId: 'Submission ID:',
+                submissionId: 'Submission ID',
                 statustrue: 'Pending',
-                statusfalse: 'Approved'
+                statusfalse: 'Approved',
+                'statusSTART_AND_CONTINUE': 'Yes',
+                'statusNOT_PERMITTED': 'No',
+                check: 'Check',
+                challenge: 'Challenge',
+                revokeClient: 'Revoke client',
+                show: 'Show',
+                rows: 'rows'
             },
             errors : {
                 postcodeLookupError: 'Enter a valid postcode',

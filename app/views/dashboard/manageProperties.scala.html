@@ -23,8 +23,6 @@
 
         <p>@Messages("dashboard.manageProperties.expectDelays")</p>
 
-
-
         @if(model.properties.isEmpty){
             <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
@@ -34,12 +32,14 @@
         <noscript>
         <div class="table-wrapper">
             <table class="table-font-xsmall margin-bottom-20 margin-top-20" id="nojsManageProperties">
-                <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
-                <col>
-                <col width="120px">
-                <col width="120px">
-                <col width="160px">
-                <col width="140px">
+                <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption
+                <colgroup>
+                    <col>
+                    <col width="140px">
+                    <col width="120px">
+                    <col width="160px">
+                    <col width="140px">
+                </colgroup>
                 <tbody>
                     <tr>
                         <th scope="col">@Messages("manageProperties.table.1")</th>

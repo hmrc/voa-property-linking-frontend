@@ -18,68 +18,66 @@ package controllers.agent
 
 import cats.data.OptionT
 import cats.instances.future._
-import config.{ApplicationConfig, Global, Wiring}
-import controllers.PropertyLinkingController
+import config.Wiring
 import controllers.agent.RepresentationController.ManagePropertiesVM
+import controllers.{Pagination, PropertyLinkingController, ValidPagination}
 import models._
+import play.api.libs.json.Json
 
-import scala.concurrent.Future
-
-trait RepresentationController extends PropertyLinkingController {
+trait RepresentationController extends PropertyLinkingController with ValidPagination {
   val reprConnector = Wiring().propertyRepresentationConnector
   val authenticated = Wiring().authenticated
   val propertyLinkConnector = Wiring().propertyLinkConnector
 
-  def manageRepresentationRequest() = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      reprConnector.forAgent(RepresentationApproved.name, request.organisationId).map { reprs =>
-        Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs, request.agentCode)))
+  def manageRepresentationRequest(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+    withValidPagination(page, pageSize) { pagination =>
+      reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
+        Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
+          reprs.totalPendingRequests,
+          pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
       }
-    } else {
-      NotFound(Global.notFoundTemplate)
     }
   }
 
+  def listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated.asAgent { implicit request =>
+    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
+      reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
+        Ok(Json.toJson(reprs))
+      }
+    }
+  }
 
   def pendingRepresentationRequest() = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      reprConnector.forAgent(RepresentationPending.name, request.organisationId).map { reprs =>
-        Ok(views.html.dashboard.pendingPropertyRepresentations(ManagePropertiesVM(reprs, request.agentCode)))
+    withValidPagination(1, 15) { pagination =>
+      reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
+        Ok(views.html.dashboard.pendingPropertyRepresentations(ManagePropertiesVM(reprs.propertyRepresentations,
+          reprs.totalPendingRequests,
+          pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
       }
-    } else {
-      NotFound(Global.notFoundTemplate)
     }
   }
 
   def accept(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseApproved)
-      reprConnector.response(response).map { _ =>
-        val continueLink = if (noOfPendingRequests > 1) {
-          controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
-        } else {
-          controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
-        }
-        Ok(views.html.propertyRepresentation.requestAccepted(continueLink))
+    val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseApproved)
+    reprConnector.response(response).map { _ =>
+      val continueLink = if (noOfPendingRequests > 1) {
+        controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
+      } else {
+        controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
       }
-    } else {
-      NotFound(Global.notFoundTemplate)
+      Ok(views.html.propertyRepresentation.requestAccepted(continueLink))
     }
   }
 
   def reject(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
-    if (ApplicationConfig.agentEnabled) {
-      val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseDeclined)
-      reprConnector.response(response).map { _ =>
-        val continueLink = if (noOfPendingRequests > 1) {
-          controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
-        } else {
-          controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
-        }
-        Ok(views.html.propertyRepresentation.requestRejected(continueLink))
+    val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseDeclined)
+    reprConnector.response(response).map { _ =>
+      val continueLink = if (noOfPendingRequests > 1) {
+        controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
+      } else {
+        controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
       }
-    } else {
-      NotFound(Global.notFoundTemplate)
+      Ok(views.html.propertyRepresentation.requestRejected(continueLink))
     }
   }
 
@@ -95,13 +93,11 @@ trait RepresentationController extends PropertyLinkingController {
       clientProperty <- OptionT(propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id))
       _ <- OptionT.liftF(reprConnector.revoke(clientProperty.authorisedPartyId))
     } yield {
-      Redirect(controllers.routes.Dashboard.clientProperties(clientOrganisationId))
+      Redirect(routes.RepresentationController.manageRepresentationRequest())
     }).getOrElse(notFound)
   }
 }
 
 object RepresentationController extends RepresentationController {
-
-  case class ManagePropertiesVM(propertyRepresentations: PropertyRepresentations, agentCode: Long)
-
+  case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation], totalPendingRequests: Long, pagination: Pagination)
 }
