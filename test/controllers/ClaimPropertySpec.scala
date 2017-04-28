@@ -96,8 +96,8 @@ class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
     val uarn: Long = positiveLong
     val address: String = shortString
 
-    val declaration: CapacityDeclaration = CapacityDeclaration(Owner, false, Option(LocalDate.parse("2017-03-2")),
-      false, Option(LocalDate.parse("2017-03-5")))
+    val declaration: CapacityDeclaration = CapacityDeclaration(Owner, false, Option(LocalDate.parse("2017-04-2")),
+      false, Option(LocalDate.parse("2017-04-5")))
 
     val res = TestClaimProperty.attemptLink(uarn, address)(FakeRequest().withFormUrlEncodedBody(
       "capacity" -> declaration.capacity.toString,
