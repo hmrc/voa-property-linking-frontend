@@ -47,11 +47,6 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
     }
   }
 
-  override def clientProperties(userOrgId: Long, agentOrgId: Int, pagination: Pagination)
-                               (implicit hc: HeaderCarrier): Future[ClientPropertyResponse] = {
-    Future.successful(ClientPropertyResponse(Some(stubbedClientProperties.size), stubbedClientProperties))
-  }
-
   override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = Future.successful {
     stubbedClientProperties.find(p => p.authorisationId == authorisationId && p.ownerOrganisationId == clientOrgId)
   }

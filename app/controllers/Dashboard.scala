@@ -69,7 +69,7 @@ trait Dashboard extends PropertyLinkingController with ValidPagination {
     }
   }
 
-  def viewManagedProperties(agentCode: Long) = authenticated { implicit request => {
+  def viewManagedProperties(agentCode: Long) = authenticated { implicit request =>
     propertyLinks.linkedProperties(request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false)) map { response =>
       val filteredProps = response.propertyLinks.filter(_.agents.map(_.agentCode).contains(agentCode))
       if (filteredProps.nonEmpty) {
@@ -78,22 +78,6 @@ trait Dashboard extends PropertyLinkingController with ValidPagination {
       }
       else
         NotFound(Global.notFoundTemplate)
-    }
-  }
-  }
-
-  def clientProperties(organisationId: Long, page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
-    withValidPagination(page, pageSize) { pagination =>
-      propertyLinks.clientProperties(
-        organisationId,
-        request.organisationId,
-        pagination
-      ) map { res =>
-        if (res.properties.exists(_.authorisedPartyStatus == RepresentationApproved)) {
-          val filteredProps: Seq[ClientProperty] = res.properties.filter(_.authorisedPartyStatus == RepresentationApproved)
-          Ok(views.html.dashboard.clientProperties(ClientPropertiesVM(filteredProps)))
-        } else Redirect(agent.routes.RepresentationController.manageRepresentationRequest())
-      }
     }
   }
 

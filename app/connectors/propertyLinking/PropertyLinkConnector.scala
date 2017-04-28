@@ -60,14 +60,6 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.GET[PropertyLinkResponse](s"$baseUrl/property-links/?organisationId=$organisationId&$pagination")
   }
 
-  def clientProperties(clientOrgId: Long, agentOrgId: Int, pagination: Pagination)
-                      (implicit hc: HeaderCarrier): Future[ClientPropertyResponse] = {
-    http.GET[ClientPropertyResponse](s"$baseUrl/property-links/client-properties" +
-                                    s"?clientOrganisationId=$clientOrgId" +
-                                    s"&agentOrganisationId=$agentOrgId" +
-                                    s"&$pagination")
-  }
-
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
     val url =
       s"$baseUrl/property-links/client-property/$authorisationId" +

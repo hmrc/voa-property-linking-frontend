@@ -93,7 +93,7 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
       clientProperty <- OptionT(propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id))
       _ <- OptionT.liftF(reprConnector.revoke(clientProperty.authorisedPartyId))
     } yield {
-      Redirect(controllers.routes.Dashboard.clientProperties(clientOrganisationId))
+      Redirect(routes.RepresentationController.manageRepresentationRequest())
     }).getOrElse(notFound)
   }
 }
