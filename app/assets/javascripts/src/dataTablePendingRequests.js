@@ -12,7 +12,7 @@
 
         var messages = VOA.messages.en,
         $table  = $('#dataTablePendingRequests'),
-        resluts;
+        results;
 
         VOA.helper.dataTableSettings($table);
 
@@ -27,7 +27,7 @@
                     var json = jQuery.parseJSON(data);
                     json.recordsTotal = json.resultCount;
                     json.recordsFiltered = json.resultCount;
-                    resluts = json.totalPendingRequests;
+                    results = json.totalPendingRequests;
                     return JSON.stringify(json);
                 }
             },
@@ -42,8 +42,8 @@
                 $('td:eq(2) ul li:eq(0)', nRow).html( messages.labels.check + ': ' + messages.labels['status' + aData.checkPermission]);
                 $('td:eq(2) ul li:eq(1)', nRow).html( messages.labels.challenge + ': ' + messages.labels['status' + aData.challengePermission]);
                 $('td:eq(3)', nRow).text(moment(aData.createDatetime).format('LL'));
-                $('td:eq(4) ul li:eq(0)', nRow).html('<a href="/business-rates-property-linking/representation-request/accept/' + aData.submissionId + '/' + resluts +'">' + messages.labels.accept + '</a>');
-                $('td:eq(4) ul li:eq(1)', nRow).html('<a href="/business-rates-property-linking/representation-request/reject/' + aData.submissionId + '/' + resluts +'">' + messages.labels.reject + '</a>');
+                $('td:eq(4) ul li:eq(0)', nRow).html('<a href="/business-rates-property-linking/representation-request/accept/' + aData.submissionId + '/' + results +'">' + messages.labels.accept + '</a>');
+                $('td:eq(4) ul li:eq(1)', nRow).html('<a href="/business-rates-property-linking/representation-request/reject/' + aData.submissionId + '/' + results +'">' + messages.labels.reject + '</a>');
             }
         });
 

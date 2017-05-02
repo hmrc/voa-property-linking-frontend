@@ -16,20 +16,20 @@
 
 package models
 
-import org.joda.time.{DateTime, LocalDate}
+import org.joda.time.LocalDate
 import play.api.libs.json.Json
 
 case class PropertyRepresentation(representationId: Long,
-                                   authorisationId: Long,
-                                   billingAuthorityReference: String,
-                                   submissionId: String,
-                                   organisationId: Long,
-                                   organisationName: String,
-                                   address: String,
-                                   checkPermission: AgentPermission,
-                                   challengePermission: AgentPermission,
-                                   createDatetime: LocalDate,
-                                   status: RepresentationStatus)
+                                  authorisationId: Long,
+                                  billingAuthorityReference: String,
+                                  submissionId: String,
+                                  organisationId: Long,
+                                  organisationName: String,
+                                  address: String,
+                                  checkPermission: AgentPermission,
+                                  challengePermission: AgentPermission,
+                                  createDatetime: LocalDate,
+                                  status: RepresentationStatus)
 
 
 object PropertyRepresentation {

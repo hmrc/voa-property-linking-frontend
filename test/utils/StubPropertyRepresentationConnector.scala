@@ -49,8 +49,8 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
 
   override def forAgent(status: RepresentationStatus, agentOrganisationId: Int, pagination: Pagination)(implicit hc: HeaderCarrier) = Future.successful(
     PropertyRepresentations(totalPendingRequests = stubbedRepresentations.count(_.status == RepresentationPending),
-      resultCount = Some(stubbedRepresentations.count(_.status == RepresentationApproved)),
-      propertyRepresentations = stubbedRepresentations.filter(_.status == RepresentationApproved))
+      resultCount = Some(stubbedRepresentations.count(_.status == status)),
+      propertyRepresentations = stubbedRepresentations.filter(_.status == status))
   )
 
   override def get(representationId: Long)(implicit hc: HeaderCarrier) = Future.successful(

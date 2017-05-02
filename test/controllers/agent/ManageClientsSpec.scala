@@ -42,21 +42,21 @@ class ManageClientsSpec extends ControllerSpec {
     Jsoup.parse(contentAsString(res))
   }
 
-  "The manage clients page" must "display the organisation name for each of the agent's first 15 properties" in {
+  "The manage clients page" must "display the organisation name for each of the agent's first 15 clients" in {
     val html = defaultHtml
     val organisationNames = StubPropertyRepresentationConnector.stubbedRepresentations().map(_.organisationName)
 
     checkTableColumn(html, 0, "Organisation name", organisationNames)
   }
 
-  it must "display the address for each of the agent's first 15 properties" in {
+  it must "display the address for each of the agent's first 15 clients" in {
     val html = defaultHtml
     val addresses = StubPropertyRepresentationConnector.stubbedRepresentations().map(_.address)
 
     checkTableColumn(html, 1, "Address", addresses)
   }
 
-  it must "display the BA ref for each of the agent's first 15 properties" in {
+  it must "display the BA ref for each of the agent's first 15 clients" in {
     val html = defaultHtml
     val baRefs = StubPropertyRepresentationConnector.stubbedRepresentations().map(_.billingAuthorityReference)
 
@@ -72,7 +72,7 @@ class ManageClientsSpec extends ControllerSpec {
     case (check, chal) => s"Check: ${permToString(check)} Challenge: ${permToString(chal)}"
   }
 
-  it must "display the permissions for each of the agent's first 15 properties" in {
+  it must "display the permissions for each of the agent's first 15 clients" in {
     val html = defaultHtml
     val permissions = StubPropertyRepresentationConnector.stubbedRepresentations()
       .map(toPermissions.andThen(toStringCheck))
@@ -80,7 +80,7 @@ class ManageClientsSpec extends ControllerSpec {
     checkTableColumn(html, 3, "Permissions", permissions)
   }
 
-  it must "display the available actions for each of the user's first 15 properties" in {
+  it must "display the available actions for each of the user's first 15 clients" in {
     val html = defaultHtml
     val actions = StubPropertyRepresentationConnector.stubbedRepresentations().map { l =>
       s"Revoke Client View Valuations"
@@ -155,7 +155,7 @@ class ManageClientsSpec extends ControllerSpec {
     html.select("a#viewPending").attr("href") mustBe routes.RepresentationController.pendingRepresentationRequest().url
   }
 
-  it must "tell the user they have no properties, if they have no properties to display" in {
+  it must "tell the user they have no clients, if they have no clients to display" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(arbitrary[GroupAccount].copy(isAgent = true),
       arbitrary[DetailedIndividualAccount])))
     StubPropertyRepresentationConnector.reset()
@@ -191,13 +191,12 @@ class ManageClientsSpec extends ControllerSpec {
     pageSizeControls must have size 4
     pageSizeControls.head.text mustBe "15"
 
-    val managePropertiesLink: Int => String = n => routes.RepresentationController.manageRepresentationRequest(pageSize = n).url
+    val manageClientsLink: Int => String = n => routes.RepresentationController.manageRepresentationRequest(pageSize = n).url
 
-    pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(managePropertiesLink(25), managePropertiesLink(50), managePropertiesLink(100))
+    pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(manageClientsLink(25), manageClientsLink(50), manageClientsLink(100))
   }
 
   private def setup(numberOfLinks: Int = 15) = {
-    StubPropertyRepresentationConnector.reset()
     val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = true)
     val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
 
