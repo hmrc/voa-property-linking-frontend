@@ -18,7 +18,7 @@
        @if(model.totalPendingRequests == 0) {
            @Messages("manageClients.nonePending")
        } else {
-           <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest">
+           <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest" id="viewPending">
                @Messages("manageClients.noOfPending", model.totalPendingRequests)
            </a>
        }
@@ -33,7 +33,7 @@
             @helpers.paginationControls(model.pagination, agent.routes.RepresentationController.manageRepresentationRequest)
 
             <div class="table-wrapper">
-                <table class="table-font-xsmall margin-bottom-20 margin-top-20">
+                <table class="table-font-xsmall margin-bottom-20 margin-top-20" id="nojsManageClients">
                     <caption class="visuallyhidden">
                         @Messages("agent.dashboard.manageClients.existingClients")
                     </caption>
@@ -108,7 +108,7 @@
         </noscript>
 
     } else {
-        <p>@Messages("agent.dashboard.manageClients.noClients")</p>
+        <p id="noProperties">@Messages("agent.dashboard.manageClients.noClients")</p>
     }
 
 }

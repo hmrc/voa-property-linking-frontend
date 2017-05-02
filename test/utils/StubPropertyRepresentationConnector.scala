@@ -28,7 +28,11 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
   private var stubbedRepresentations: Seq[PropertyRepresentation] = Nil
   private var stubbedValidCodes: Seq[Long] = Nil
 
+  def stubbedRepresentations(status: RepresentationStatus = RepresentationApproved): Seq[PropertyRepresentation] = stubbedRepresentations.filter(_.status == status)
+
   def stubRepresentation(rep: PropertyRepresentation) = stubbedRepresentations :+= rep
+
+  def stubRepresentations(reps: Seq[PropertyRepresentation]) = stubbedRepresentations ++= reps
 
   def stubAgentCode(agentCode: Long) = {
     stubbedValidCodes :+= agentCode
