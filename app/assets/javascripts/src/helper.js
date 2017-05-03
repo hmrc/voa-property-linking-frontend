@@ -20,7 +20,7 @@
                         info: true,
                         paging: true,
                         processing: true,
-                        lengthChange: true,
+                        lengthChange: false,
                         searching: false,
                         ordering: false,
                         pageLength: 15,
