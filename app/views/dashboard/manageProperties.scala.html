@@ -36,10 +36,10 @@
                 <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
                 <colgroup>
                     <col>
-                    <col width="140px">
-                    <col width="120px">
-                    <col width="160px">
-                    <col width="140px">
+                    <col style="width: 140px">
+                    <col style="width: 120px">
+                    <col style="width: 160px">
+                    <col style="width: 140px">
                 </colgroup>
                 <tbody>
                     <tr>
@@ -91,7 +91,7 @@
                                 <ul>
                                 @if(model.organisationId == p.organisationId) {
                                     <li>
-                                        <a href=@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)>@Messages("manageProperties.addAgent")
+                                        <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")
                                             <span class="visuallyhidden">
                                                 for @(Formatters.capitalizedAddress(p.address))</span>
                                         </a>
@@ -115,22 +115,23 @@
 
             <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</p>
 
+            <div role="navigation" aria-label="Pagination">
+                <ul class="pagination">
+                    @if(model.pagination.pageNumber > 1) {
+                        <li  class="previous "><a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
+                    }else{
+                        <li  class="previous disabled"><i class="previous-arrow"></i>Previous</li>
+                    }
 
-            <ul role="navigation" aria-label="Pagination" class="pagination">
-                @if(model.pagination.pageNumber > 1) {
-                    <li  class="previous "><a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
-                }else{
-                    <li  class="previous disabled"><i class="previous-arrow"></i>Previous</li>
-                }
+                    <li class="active">@model.pagination.pageNumber</li>
 
-                <li class="active">@model.pagination.pageNumber</li>
-
-                @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
-                    <li  class="next"><a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
-                }else{
-                    <li  class="next disabled">Next <i class="next-arrow"></i></li>
-                }
-            </ul>
+                    @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
+                        <li  class="next"><a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
+                    }else{
+                        <li  class="next disabled">Next <i class="next-arrow"></i></li>
+                    }
+                </ul>
+            </div>
         </noscript>
     }
 
