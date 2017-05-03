@@ -54,12 +54,12 @@
                             <td class="last">
                                 <ul>
                                     <li>
-                                        <a role="button" href=@controllers.agent.routes.RepresentationController.accept(p.submissionId, model.totalPendingRequests)>
+                                        <a role="button" href="@controllers.agent.routes.RepresentationController.accept(p.submissionId, model.totalPendingRequests)">
                                         @Messages("agent.dashboard.manageProperties.accept")
                                         </a>
                                     </li>
                                     <li>
-                                        <a role="button" href=@controllers.agent.routes.RepresentationController.reject(p.submissionId, model.totalPendingRequests)>
+                                        <a role="button" href="@controllers.agent.routes.RepresentationController.reject(p.submissionId, model.totalPendingRequests)">
                                         @Messages("agent.dashboard.manageProperties.reject")
                                         </a>
                                     </li>
@@ -73,22 +73,23 @@
 
         <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</p>
 
+        <div role="navigation" aria-label="Pagination">
+            <ul class="pagination">
+                @if(model.pagination.pageNumber > 1) {
+                    <li class="previous"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
+                }else{
+                    <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
+                }
 
-        <ul role="navigation" aria-label="Pagination" class="pagination">
-            @if(model.pagination.pageNumber > 1) {
-                <li class="previous"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
-            }else{
-                <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
-            }
+                <li class="active">@model.pagination.pageNumber</li>
 
-            <li class="active">@model.pagination.pageNumber</li>
-
-            @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
-                <li class="next"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
-            }else{
-                <li class="next disabled">Next<i class="next-arrow"></i></li>
-            }
-        </ul>
+                @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
+                    <li class="next"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
+                }else{
+                    <li class="next disabled">Next<i class="next-arrow"></i></li>
+                }
+            </ul>
+        </div>
 
         </noscript>
     }

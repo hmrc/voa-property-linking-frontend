@@ -30,10 +30,10 @@
                 <tbody>
                 @model.agents.map { agent =>
                     <tr>
-                        <td scope="row">@agent.organisationName</td>
+                        <td >@agent.organisationName</td>
                         <td>@agent.agentCode</td>
                         <td class="last">
-                            <a id="viewManagedProperties" href="@routes.Dashboard.viewManagedProperties(agent.agentCode)">
+                            <a class="viewManagedProperties" href="@routes.Dashboard.viewManagedProperties(agent.agentCode)">
                                 @Messages("dashboard.manageAgents.viewManagedProperties")
                                 <span class="visually hidden"> for @agent.organisationName</span>
                             </a>

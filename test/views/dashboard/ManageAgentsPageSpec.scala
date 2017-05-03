@@ -51,7 +51,7 @@ class ManageAgentsPageSpec extends ControllerSpec {
     page.mustContain1("#agentsTable")
     twoAgents.agents.map{ x =>
       page.mustContainDataInRow(x.organisationName, x.agentCode.toString, "View managed properties")
-      page.mustContainLink("#viewManagedProperties", routes.Dashboard.viewManagedProperties(x.agentCode).url)
+      page.mustContainLink(".viewManagedProperties", routes.Dashboard.viewManagedProperties(x.agentCode).url)
     }
   }
 

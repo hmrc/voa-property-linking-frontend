@@ -62,12 +62,12 @@
                                     </a>
                                 </li>
                             } else {
-                                <a href=@routes.Assessments.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference)>
+                                <li><a href="@routes.Assessments.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference)">
                                     @Messages("assessments.view.valuation")
                                     <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{
                                         assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
                                     }</span>
-                                </a>
+                                </a></li>
                             }
                             </ul>
                         </td>
