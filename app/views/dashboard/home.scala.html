@@ -51,6 +51,26 @@
                 </p>
             }
 
+            <h3 class="heading-medium">
+                @Messages("dashboard.home.plannedFeatures")
+            </h3>
+
+            <ul class="list list-bullet">
+                <li>View draft forms</li>
+                <li>View messages</li>
+                <li>Manage cases</li>
+                <li>Manage personal details</li>
+                <li>Manage notifications</li>
+            </ul>
+
+
+            <h3 class="heading-medium">
+            @Messages("dashboard.home.usefulLinks")
+            </h3>
+
+            <p><a href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">@Messages("dashboard.home.usefulLinks.1")</a></p>
+            <p><a href="https://www.gov.uk/guidance/how-to-check-your-rateable-value-is-correct">@Messages("dashboard.home.usefulLinks.2")</a></p>
+
         </div>
 
         <div class="column-one-third">
@@ -73,27 +93,17 @@
                 @Messages("dashboard.home.clients.text")
                 </p>
             }
+
+
+        <h3 class="heading-medium">
+            <a id="addUserFromBusiness" href="@controllers.routes.Application.addUserToGG">@Messages("dashboard.home.addAnotherUser.link")</a>
+        </h3>
+
+        <p>@Messages("dashboard.home.addAnotherUser.text")</p>
+
         </div>
     </div>
 
-    <h3 class="heading-medium">
-        @Messages("dashboard.home.plannedFeatures")
-    </h3>
-
-    <ul class="list list-bullet">
-        <li>View draft forms</li>
-        <li>View messages</li>
-        <li>Manage cases</li>
-        <li>Manage personal details</li>
-        <li>Manage notifications</li>
-    </ul>
-
-
-    <h3 class="heading-medium">
-    @Messages("dashboard.home.usefulLinks")
-    </h3>
-
-    <p><a href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">How non-domestic property (including plant and machinery) is valued</a></p>
 
 
 }

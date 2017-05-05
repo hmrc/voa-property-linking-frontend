@@ -200,6 +200,8 @@ dashboard.home.draft.cases=Draft cases
 dashboard.home.draft.cases.text=Continue editing checks that have not yet been submitted.
 dashboard.home.plannedFeatures=Coming soon
 dashboard.home.usefulLinks=Useful information
+dashboard.home.addAnotherUser.link=Add another user from my business
+dashboard.home.addAnotherUser.text=To add another user, you’ll firstly need to add them to your Government Gateway account.
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=Manage properties
@@ -604,6 +606,8 @@ agent.dashboard.manageProperties.accept=Accept
 agent.dashboard.manageProperties.reject=Reject
 agent.dashboard.manageProperties.acceptAll=Accept all
 agent.dashboard.manageProperties.rejectAll=Reject all
+dashboard.home.usefulLinks.1=How non-domestic property (including plant and machinery) is valued
+dashboard.home.usefulLinks.2=How to check and challenge your rateable value
 
 #Client Properties
 dashboard.clientProperties.title=Client properties
@@ -662,3 +666,16 @@ contactUs.telephone.openhours=Opening hours: 8:30am to 5:00pm Monday to Friday. 
 ##GET HELP
 getHelpLink=Get help with this page.
 getHelpContent=<p>If you’d like to speak to somebody about this service, please contact us.</p><p>Email<br /><a href="mailto:{0}">{0}</a></p><p>Telephone<br /><strong>03000 501 501</strong></p><p>Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.</p>
+
+
+##ADD USER TO GG
+addUserToGG.heading=Add another user to your Government Gateway account
+addUserToGG.p1=You’ll need to be an administrator for the Government Gateway account to add users. You're an administrator if you created the Government Gateway account or if you have the ‘Manage Administrators’ and ‘Manage Assistants’ options (shown on the left hand side after signing in to Government Gateway and clicking on ‘Your account’).
+addUserToGG.p2=To add a user, you’ll need to:
+addUserToGG.l1=sign in to Government Gateway
+addUserToGG.l2=select ‘Manage Administrators’ (or Manage Assistants’)
+addUserToGG.l3=select ‘Add an Administrator’ (or ‘Add an Assistant’)
+addUserToGG.l4=enter the details of the new user and create a password
+addUserToGG.l5=submit the details
+addUserToGG.l6=make a note of the User ID
+addUserToGG.p3=You can then give the User ID and password to the new user so that they can <a href="https://www.gov.uk/correct-your-business-rates">register for the service</a>.

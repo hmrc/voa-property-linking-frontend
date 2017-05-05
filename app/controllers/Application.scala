@@ -27,8 +27,8 @@ object Application extends Controller with WithThrottling {
 
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
-  def typography = Action { implicit request =>
-    Ok(views.html.typography())
+  def addUserToGG = Action { implicit request =>
+    Ok(views.html.addUserToGG())
   }
 
   def releaseNotes = Action { implicit request =>
