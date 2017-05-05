@@ -1,0 +1,35 @@
+@()(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+    title = Messages("addUserToGG.heading"),
+    topNavigation = false
+) {
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">@Messages("addUserToGG.heading")</h1>
+
+            <p>@Messages("addUserToGG.p1")</p>
+
+            <p>@Messages("addUserToGG.p2")</p>
+
+            <ul class="list list-bullet">
+                <li><a href="http://www.gateway.gov.uk/" class="external-link" rel="nofollow">@Messages("addUserToGG.l1")</a></li>
+                <li>@Messages("addUserToGG.l2")</li>
+                <li>@Messages("addUserToGG.l3")</li>
+                <li>@Messages("addUserToGG.l4")</li>
+                <li>@Messages("addUserToGG.l5")</li>
+                <li>@Messages("addUserToGG.l6")</li>
+            </ul>
+
+            <p>@Html(Messages("addUserToGG.p3"))</p>
+
+            <a href="@routes.Dashboard.home()" id="backLinkBottom" class="link-back">@Messages("link.back")</a>
+
+        </div>
+
+</div>
+
+}
