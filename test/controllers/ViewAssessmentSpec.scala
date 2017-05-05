@@ -50,17 +50,17 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
-    val res = TestAssessmentController.assessments(link.authorisationId, link.pending)(FakeRequest())
+    val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
     val assessmentTable = html.select("tr").asScala.tail.map(_.select("td"))
 
-    assessmentTable.map(_.first().text) must contain theSameElementsAs link.assessment.map(a => Formatters.formatDate(a.effectiveDate))
-    assessmentTable.map(_.get(1).text) must contain theSameElementsAs link.assessment.map(a => "£" + a.rateableValue)
-    assessmentTable.map(_.get(2).text) must contain theSameElementsAs link.assessment.map(formatCapacity)
-    assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessment.map(a => Formatters.formatDate(a.capacity.fromDate))
-    assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessment.map(a => a.capacity.toDate.map(Formatters.formatDate).getOrElse("Present"))
+    assessmentTable.map(_.first().text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.effectiveDate))
+    assessmentTable.map(_.get(1).text) must contain theSameElementsAs link.assessments.map(a => "£" + a.rateableValue)
+    assessmentTable.map(_.get(2).text) must contain theSameElementsAs link.assessments.map(formatCapacity)
+    assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.capacity.fromDate))
+    assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map(a => a.capacity.toDate.map(Formatters.formatDate).getOrElse("Present"))
   }
 
   private def formatCapacity(assessment: Assessment) = assessment.capacity.capacity match {
@@ -73,18 +73,18 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
     val assessment = arbitrary[Assessment].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, pending = false, assessment = Seq(assessment))
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, pending = false, assessments = Seq(assessment))
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
-    val res = TestAssessmentController.assessments(link.authorisationId, link.pending)(FakeRequest())
+    val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
     val assessmentLinks = html.select("td:eq(5)").asScala.map(_.select("a").attr("href"))
 
-    assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Assessments.viewDetailedAssessment(a.authorisationId, a.assessmentRef, a.billingAuthorityReference).url)
+    assessmentLinks must contain theSameElementsAs link.assessments.map(a => controllers.routes.Assessments.viewDetailedAssessment(a.authorisationId, a.assessmentRef, a.billingAuthorityReference).url)
   }
 
   it must "show a link to the summary valuation for each assessment if the property link is pending" in {
@@ -95,13 +95,13 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
-    val res = TestAssessmentController.assessments(link.authorisationId, link.pending)(FakeRequest())
+    val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
     val assessmentLinks = html.select("td:eq(5)").asScala.map(_.select("a").attr("href"))
 
-    assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Assessments.viewSummary(a.uarn).url)
+    assessmentLinks must contain theSameElementsAs link.assessments.map(a => controllers.routes.Assessments.viewSummary(a.uarn).url)
   }
 
   "Viewing a detailed valuation" must "redirect to business rates valuation if the property is bulk" in {
@@ -111,12 +111,12 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
-    StubBusinessRatesValuation.stubValuation(link.assessment.head.assessmentRef, true)
+    StubBusinessRatesValuation.stubValuation(link.assessments.head.assessmentRef, true)
 
-    val res = TestAssessmentController.viewDetailedAssessment(link.assessment.head.authorisationId, link.assessment.head.assessmentRef, link.assessment.head.billingAuthorityReference)(FakeRequest())
+    val res = TestAssessmentController.viewDetailedAssessment(link.assessments.head.authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference)(FakeRequest())
     status(res) mustBe SEE_OTHER
 
-    redirectLocation(res).value must endWith (s"/business-rates-valuation/property-link/${link.assessment.head.authorisationId}/assessment/${link.assessment.head.assessmentRef}")
+    redirectLocation(res).value must endWith (s"/business-rates-valuation/property-link/${link.assessments.head.authorisationId}/assessment/${link.assessments.head.assessmentRef}")
   }
 
   it must "redirect to the request detailed valuation page if the property is non-bulk" in {
@@ -126,11 +126,11 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
-    StubBusinessRatesValuation.stubValuation(link.assessment.head.assessmentRef, false)
+    StubBusinessRatesValuation.stubValuation(link.assessments.head.assessmentRef, false)
 
-    val res = TestAssessmentController.viewDetailedAssessment(link.assessment.head.authorisationId, link.assessment.head.assessmentRef, link.assessment.head.billingAuthorityReference)(FakeRequest())
+    val res = TestAssessmentController.viewDetailedAssessment(link.assessments.head.authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference)(FakeRequest())
     status(res) mustBe SEE_OTHER
 
-    redirectLocation(res).value mustBe routes.Assessments.requestDetailedValuation(link.assessment.head.authorisationId, link.assessment.head.assessmentRef, link.assessment.head.billingAuthorityReference).url
+    redirectLocation(res).value mustBe routes.Assessments.requestDetailedValuation(link.assessments.head.authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference).url
   }
 }

@@ -40,11 +40,8 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
     stubbedLinks.find(x => {x.authorisationId == authorisationId && x.organisationId == organisationId})
   }
 
-  override def assessments(linkId: Long)(implicit hc: HeaderCarrier) = Future.successful {
-    stubbedLinks.find(_.authorisationId == linkId) match {
-      case Some(link) => link.assessment
-      case None => Nil
-    }
+  override def getLink(linkId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = Future.successful {
+    stubbedLinks.find(_.authorisationId == linkId)
   }
 
   override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = Future.successful {

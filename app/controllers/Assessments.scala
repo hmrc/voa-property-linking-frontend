@@ -33,15 +33,12 @@ trait Assessments extends PropertyLinkingController {
   val dvrCaseManagement = Wiring().dvrCaseManagement
   val businessRatesValuations = Wiring().businessRatesValuation
 
-  def assessments(authorisationId: Long, linkPending: Boolean) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
+  def assessments(authorisationId: Long) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
     val backLink = request.headers.get("Referer")
-    propertyLinks.assessments(authorisationId) map { assessments =>
-      Ok(views.html.dashboard.assessments(
-        AssessmentsVM(
-          assessments,
-          backLink,
-          linkPending
-        )))
+
+    propertyLinks.getLink(authorisationId) map {
+      case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(link.assessments, backLink, link.pending)))
+      case None => notFound
     }
   }
 
