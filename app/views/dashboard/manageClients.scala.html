@@ -61,13 +61,13 @@
                         <td>@link.address</td>
                         <td>@link.billingAuthorityReference</td>
                         <td>
-                            <ul>
+                            <ul class="list">
                                 <li>Check: @Messages(link.checkPermission.msgKey)</li>
                                 <li>Challenge: @Messages(link.challengePermission.msgKey)</li>
                             </ul>
                         </td>
                         <td>
-                            <ul>
+                            <ul class="list">
                                 <li>
                                     <a href="@agent.routes.RepresentationController.revokeClient(link.authorisationId, link.organisationId)">
                                         @Messages("dashboard.clientProperties.revokeClient")

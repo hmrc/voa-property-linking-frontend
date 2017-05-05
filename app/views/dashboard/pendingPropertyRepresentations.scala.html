@@ -42,7 +42,7 @@
                             <td>@(Formatters.capitalizedAddress(PropertyAddress.fromString(p.address)))</td>
 
                             <td>
-                                <ul>
+                                <ul class="list">
                                     <li>Check: @Messages(p.checkPermission.msgKey)</li>
                                     <li>Challenge: @Messages(p.challengePermission.msgKey)</li>
                                 </ul>
@@ -52,7 +52,7 @@
                             <td>@utils.Formatters.formatDate(p.createDatetime)</td>
 
                             <td>
-                                <ul>
+                                <ul class="list">
                                     <li>
                                         <a role="button" href="@controllers.agent.routes.RepresentationController.accept(p.submissionId, model.totalPendingRequests)">
                                         @Messages("agent.dashboard.manageProperties.accept")

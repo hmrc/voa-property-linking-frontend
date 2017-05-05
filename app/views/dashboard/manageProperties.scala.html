@@ -58,7 +58,7 @@
                                 @{p.assessment.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")}
                             </td>
                             <td>
-                                <ul>
+                                <ul class="list">
                                     <li>
                                     @if(p.pending) {
                                         @Messages("dashboard.manageProperties.status.pending")
@@ -77,7 +77,7 @@
                                 </ul>
                             </td>
                             <td>
-                                <ul>
+                                <ul class="list">
                                     @if(p.agents.isEmpty){
                                         <li>@Messages("dashboard.manageProperties.noAgent")</li>
                                     } else {
@@ -88,7 +88,7 @@
                                 </ul>
                             </td>
                             <td>
-                                <ul>
+                                <ul class="list">
                                 @if(model.organisationId == p.organisationId) {
                                     <li>
                                         <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")

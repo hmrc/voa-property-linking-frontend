@@ -51,7 +51,7 @@
                             }
                         </td>
                         <td>
-                            <ul>
+                            <ul class="list">
                                 @if(p.agents.isEmpty){
                                     @Messages("dashboard.managedByAgentsProperties.noAgent")
                                 } else {
@@ -62,7 +62,7 @@
                             </ul>
                         </td>
                         <td>
-                            <ul>
+                            <ul class="list">
                                 <li>
                                     <a href="@agentAppointment.routes.RevokeAgentController.revokeAgent(p.authorisationId, p.agents.filter(_.agentCode == model.agentCode).head.authorisedPartyId, model.agentCode)">
                                         @Messages("manageProperties.revokeAgent")

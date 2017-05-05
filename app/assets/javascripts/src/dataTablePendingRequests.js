@@ -34,9 +34,9 @@
             columns: [
                 {data: 'organisationName'},
                 {data: 'address'},
-                {data: null, defaultContent: '<ul><li></li><li></li></ul>'},
+                {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>'},
                 {data: null},
-                {data: null, defaultContent: '<ul><li></li><li></li></ul>'}
+                {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>'}
             ],
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $('td:eq(2) ul li:eq(0)', nRow).html( messages.labels.check + ': ' + messages.labels['status' + aData.checkPermission]);
