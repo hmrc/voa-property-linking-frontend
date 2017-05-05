@@ -196,7 +196,7 @@ package object resources {
       capacityDeclaration = capacity,
       linkedDate = linkedDate,
       pending = pending,
-      assessment = assessment,
+      assessments = assessment,
       agents = agents
     )
   }

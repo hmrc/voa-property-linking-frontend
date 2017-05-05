@@ -41,7 +41,7 @@
                             @(Formatters.capitalizedAddress(p.address))
                         </td>
                         <td>
-                            @{p.assessment.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")}
+                            @{p.assessments.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")}
                         </td>
                         <td>
                             @if(p.pending) {
@@ -71,9 +71,9 @@
                                <li>
                                    <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")</a>
                                </li>
-                            @if(p.assessment.nonEmpty){
+                            @if(p.assessments.nonEmpty){
                                 <li>
-                                    <a href="@routes.Assessments.assessments(p.authorisationId, p.pending)">
+                                    <a href="@routes.Assessments.assessments(p.authorisationId)">
                                         @Messages("manageProperties.viewAssessments")
                                     </a>
                                 </li>

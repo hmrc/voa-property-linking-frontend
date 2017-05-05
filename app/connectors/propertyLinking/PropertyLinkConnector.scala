@@ -57,7 +57,7 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
 
   def linkedProperties(organisationId: Int, pagination: Pagination)
                       (implicit hc: HeaderCarrier): Future[PropertyLinkResponse] = {
-    http.GET[PropertyLinkResponse](s"$baseUrl/property-links/?organisationId=$organisationId&$pagination")
+    http.GET[PropertyLinkResponse](s"$baseUrl/property-links?organisationId=$organisationId&$pagination")
   }
 
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
@@ -69,7 +69,7 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.GET[Option[ClientProperty]](url) recover { case _: NotFoundException => None }
   }
 
-  def assessments(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Seq[Assessment]] = {
-    http.GET[Seq[Assessment]](s"$baseUrl/dashboard/assessments/$authorisationId")
+  def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
+    http.GET[Option[PropertyLink]](s"$baseUrl/dashboard/assessments/$authorisationId") recover { case _: NotFoundException => None }
   }
 }

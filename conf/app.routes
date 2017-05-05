@@ -51,7 +51,7 @@ GET         /draft-cases                                                        
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
 
-GET         /property-link/:linkId/assessments                                                controllers.Assessments.assessments(linkId: Long, linkPending: Boolean ?= false)
+GET         /property-link/:linkId/assessments                                                controllers.Assessments.assessments(linkId: Long)
 GET         /summary/:uarn                                                                    controllers.Assessments.viewSummary(uarn: Long)
 GET         /detailed/:authorisationId/:assessmentRef                                         controllers.Assessments.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef)
 GET         /request-detailed/:authorisationId/:assessmentRef                                 controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long, baRef)

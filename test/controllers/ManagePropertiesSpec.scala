@@ -49,7 +49,7 @@ class ManagePropertiesSpec extends ControllerSpec {
 
   it must "display the BA reference for each of the user's first 15 properties" in {
     val html = defaultHtml
-    val baRefs = StubPropertyLinkConnector.stubbedLinks.map(_.assessment.head.billingAuthorityReference)
+    val baRefs = StubPropertyLinkConnector.stubbedLinks.map(_.assessments.head.billingAuthorityReference)
 
     checkTableColumn(html, 1, "Local authority reference", baRefs)
   }

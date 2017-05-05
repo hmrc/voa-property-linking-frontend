@@ -27,7 +27,7 @@ case class PropertyLink(authorisationId: Long,
                         capacityDeclaration: Capacity,
                         linkedDate: DateTime,
                         pending: Boolean,
-                        assessment: Seq[Assessment],
+                        assessments: Seq[Assessment],
                         agents: Seq[Party])
 
 object PropertyLink {

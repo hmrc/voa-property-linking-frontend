@@ -29,7 +29,7 @@
                 @model.properties.map { prop =>
                 <tr>
                     <td>
-                        <a href="@routes.Assessments.assessments(prop.authorisationId, prop.authorisationStatus)">
+                        <a href="@routes.Assessments.assessments(prop.authorisationId)">
                             @Formatters.capitalizedAddress(prop.address)
                         </a>
                     </td>
