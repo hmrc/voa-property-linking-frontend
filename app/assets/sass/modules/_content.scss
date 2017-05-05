@@ -165,3 +165,10 @@ html .beta-banner .phase-tag {
 summary span{
     text-decoration: underline;
 }
+.external-link{
+    &:after,
+    &:hover:after{
+        content: "     ";
+        background-position: right 6px;
+    }
+}
