@@ -33,7 +33,7 @@
                         <th scope="col">@Messages("pendingRepresentationRequests.table.2")</th>
                         <th scope="col">@Messages("pendingRepresentationRequests.table.3")</th>
                         <th scope="col">@Messages("pendingRepresentationRequests.table.4")</th>
-                        <th scope="col" class="last">@Messages("pendingRepresentationRequests.table.5")</th>
+                        <th scope="col">@Messages("pendingRepresentationRequests.table.5")</th>
                     </tr>
                     @model.propertyRepresentations.map { p =>
                         <tr>
@@ -42,7 +42,7 @@
                             <td>@(Formatters.capitalizedAddress(PropertyAddress.fromString(p.address)))</td>
 
                             <td>
-                                <ul>
+                                <ul class="list">
                                     <li>Check: @Messages(p.checkPermission.msgKey)</li>
                                     <li>Challenge: @Messages(p.challengePermission.msgKey)</li>
                                 </ul>
@@ -51,8 +51,8 @@
 
                             <td>@utils.Formatters.formatDate(p.createDatetime)</td>
 
-                            <td class="last">
-                                <ul>
+                            <td>
+                                <ul class="list">
                                     <li>
                                         <a role="button" href="@controllers.agent.routes.RepresentationController.accept(p.submissionId, model.totalPendingRequests)">
                                         @Messages("agent.dashboard.manageProperties.accept")

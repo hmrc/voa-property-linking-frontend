@@ -33,7 +33,7 @@
                     <th scope="col">@Messages("managedByAgentsProperties.table.2")</th>
                     <th scope="col">@Messages("managedByAgentsProperties.table.3")</th>
                     <th scope="col">@Messages("managedByAgentsProperties.table.4")</th>
-                    <th scope="col" style="width: 15%" class="last">@Messages("managedByAgentsProperties.table.5")</th>
+                    <th scope="col" style="width: 15%">@Messages("managedByAgentsProperties.table.5")</th>
                 </tr>
                 @model.properties.map { p =>
                     <tr>
@@ -51,7 +51,7 @@
                             }
                         </td>
                         <td>
-                            <ul>
+                            <ul class="list">
                                 @if(p.agents.isEmpty){
                                     @Messages("dashboard.managedByAgentsProperties.noAgent")
                                 } else {
@@ -61,8 +61,8 @@
                                 }
                             </ul>
                         </td>
-                        <td class="last">
-                            <ul>
+                        <td>
+                            <ul class="list">
                                 <li>
                                     <a href="@agentAppointment.routes.RevokeAgentController.revokeAgent(p.authorisationId, p.agents.filter(_.agentCode == model.agentCode).head.authorisedPartyId, model.agentCode)">
                                         @Messages("manageProperties.revokeAgent")

@@ -82,7 +82,7 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    val assessmentLinks = html.select("td.last").asScala.map(_.select("a").attr("href"))
+    val assessmentLinks = html.select("td:eq(5)").asScala.map(_.select("a").attr("href"))
 
     assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Assessments.viewDetailedAssessment(a.authorisationId, a.assessmentRef, a.billingAuthorityReference).url)
   }
@@ -99,7 +99,7 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    val assessmentLinks = html.select("td.last").asScala.map(_.select("a").attr("href"))
+    val assessmentLinks = html.select("td:eq(5)").asScala.map(_.select("a").attr("href"))
 
     assessmentLinks must contain theSameElementsAs link.assessment.map(a => controllers.routes.Assessments.viewSummary(a.uarn).url)
   }
