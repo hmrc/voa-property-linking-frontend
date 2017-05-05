@@ -34,7 +34,7 @@
                 {data: 'address'},
                 {data: 'billingAuthorityReference'},
                 {data: null, defaultContent: '<ul><li></li><li></li></ul>'},
-                {data: null, defaultContent: '<ul><li></li><li></li></ul>', sClass: 'last'}
+                {data: null, defaultContent: '<ul><li></li><li></li></ul>'}
             ],
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $('td:eq(3) ul li:eq(0)', nRow).html( messages.labels.check + ': ' + messages.labels['status' + aData.checkPermission]);

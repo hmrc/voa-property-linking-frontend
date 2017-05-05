@@ -27,7 +27,7 @@
                     <th scope="col">@Messages("assessments.table.3")</th>
                     <th scope="col">@Messages("assessments.table.4")</th>
                     <th scope="col">@Messages("assessments.table.5")</th>
-                    <th scope="col" class="last">@Messages("assessments.table.6")</th>
+                    <th scope="col">@Messages("assessments.table.6")</th>
                 </tr>
                 @model.assessments.map { assessment =>
                     <tr>
@@ -50,7 +50,7 @@
                             assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
                         }
                         </td>
-                        <td class="last">
+                        <td>
                             <ul>
                             @if(model.linkPending) {
                                 <li>

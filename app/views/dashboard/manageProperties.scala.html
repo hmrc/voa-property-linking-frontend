@@ -47,7 +47,7 @@
                         <th scope="col">@Messages("manageProperties.table.2")</th>
                         <th scope="col">@Messages("manageProperties.table.3")</th>
                         <th scope="col">@Messages("manageProperties.table.4")</th>
-                        <th scope="col" class="last">@Messages("manageProperties.table.5")</th>
+                        <th scope="col">@Messages("manageProperties.table.5")</th>
                     </tr>
                     @model.properties.map { p =>
                         <tr>
@@ -87,7 +87,7 @@
                                     }
                                 </ul>
                             </td>
-                            <td class="last">
+                            <td>
                                 <ul>
                                 @if(model.organisationId == p.organisationId) {
                                     <li>

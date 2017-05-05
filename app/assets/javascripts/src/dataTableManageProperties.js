@@ -34,7 +34,7 @@
                 {data: 'assessment.0.billingAuthorityReference'},
                 {data: null, defaultContent: '<ul><li></li><li></li></ul>'},
                 {data: 'agents[, ].organisationName'},
-                {data: null, defaultContent: '<ul><li></li><li></li></ul>', sClass: 'last'}
+                {data: null, defaultContent: '<ul><li></li><li></li></ul>'}
             ],
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $('td:eq(2) ul li:eq(0)', nRow).text( messages.labels['status' + aData.pending + ''] );

@@ -22,7 +22,7 @@
                         <th scope="col">@Messages("dashboard.clientProperties.table.1")</th>
                         <th scope="col">@Messages("dashboard.clientProperties.table.2")</th>
                         <th scope="col">@Messages("dashboard.clientProperties.table.3")</th>
-                        <th scope="col" class="last">@Messages("dashboard.clientProperties.table.4")</th>
+                        <th scope="col">@Messages("dashboard.clientProperties.table.4")</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +46,7 @@
                             </li>
                         </ul>
                     </td>
-                    <td class="last">
+                    <td>
                         <a href="@controllers.agent.routes.RepresentationController.revokeClient(prop.authorisationId, prop.ownerOrganisationId)">
                             @Messages("dashboard.clientProperties.revokeClient")
                         </a>

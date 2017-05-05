@@ -42,7 +42,7 @@
                         <col>
                         <col width="140px">
                         <col width="130px">
-                        <col width="120px">
+                        <col width="130px">
                     </colgroup>
                     <thead>
                         <tr>
@@ -50,7 +50,7 @@
                             <th scope="col">@Messages("manageClients.table.2")</th>
                             <th scope="col">@Messages("manageClients.table.3")</th>
                             <th scope="col">@Messages("manageClients.table.4")</th>
-                            <th scope="col" class="last">@Messages("manageClients.table.5")</th>
+                            <th scope="col">@Messages("manageClients.table.5")</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,7 +66,7 @@
                                 <li>Challenge: @Messages(link.challengePermission.msgKey)</li>
                             </ul>
                         </td>
-                        <td class="last">
+                        <td>
                             <ul>
                                 <li>
                                     <a href="@agent.routes.RepresentationController.revokeClient(link.authorisationId, link.organisationId)">
