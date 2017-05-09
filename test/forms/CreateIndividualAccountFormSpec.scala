@@ -121,4 +121,35 @@ class CreateIndividualAccountFormSpec extends FlatSpec with MustMatchers {
     )
   }
 
+  val validData2AddressLines = validData ++ Map("address.line2" -> "Test")
+  val validData3AddressLines = validData2AddressLines ++ Map("address.line3" -> "Test")
+  val validData4AddressLines = validData3AddressLines ++ Map("address.line4" -> "Test")
+
+  it must "not allow more than 80 characters in line1" in {
+    verifyCharacterLimit(form, validData, "address.line1", 80)
+  }
+
+  it must "not allow more than 30 characters in line2 if 2 lines are populated" in {
+    verifyCharacterLimit(form, validData2AddressLines, "address.line2", 30)
+  }
+
+  it must "not allow more than 80 characters in line2 if 3 lines are populated" in {
+    verifyCharacterLimit(form, validData3AddressLines, "address.line2", 80)
+  }
+
+  it must "not allow more than 30 characters in line3 if 3 lines are populated" in {
+    verifyCharacterLimit(form, validData3AddressLines, "address.line3", 30)
+  }
+
+  it must "not allow more than 80 characters in line2 if 4 lines are populated" in {
+    verifyCharacterLimit(form, validData4AddressLines, "address.line2", 80)
+  }
+
+  it must "not allow more than 35 characters in line3 if 4 lines are populated" in {
+    verifyCharacterLimit(form, validData4AddressLines, "address.line3", 35)
+  }
+
+  it must "not allow more than 30 characters in line4 if 4 lines are populated" in {
+    verifyCharacterLimit(form, validData4AddressLines, "address.line4", 30)
+  }
 }
