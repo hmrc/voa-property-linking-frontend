@@ -200,7 +200,7 @@ dashboard.home.draft.cases=Draft cases
 dashboard.home.draft.cases.text=Continue editing checks that have not yet been submitted.
 dashboard.home.plannedFeatures=Coming soon
 dashboard.home.usefulLinks=Useful information
-dashboard.home.addAnotherUser.link=Add another user from my business
+dashboard.home.addAnotherUser.link=I want to add another user from my business
 dashboard.home.addAnotherUser.text=To add another user, you’ll firstly need to add them to your Government Gateway account.
 
 #DASHBOARD MANAGE PROPERTIES
@@ -670,7 +670,7 @@ getHelpContent=<p>If you’d like to speak to somebody about this service, pleas
 
 ##ADD USER TO GG
 addUserToGG.heading=Add another user to your Government Gateway account
-addUserToGG.p1=You’ll need to be an administrator for the Government Gateway account to add users. You're an administrator if you created the Government Gateway account or if you have the ‘Manage Administrators’ and ‘Manage Assistants’ options (shown on the left hand side after signing in to Government Gateway and clicking on ‘Your account’).
+addUserToGG.p1=You’ll need to be an administrator for the Government Gateway account to add users. You’re an administrator if you created the Government Gateway account or if you have the ‘Manage Administrators’ and ‘Manage Assistants’ options (shown on the left hand side after signing in to Government Gateway and clicking on ‘Your account’).
 addUserToGG.p2=To add a user, you’ll need to:
 addUserToGG.l1=sign in to Government Gateway
 addUserToGG.l2=select ‘Manage Administrators’ (or Manage Assistants’)
