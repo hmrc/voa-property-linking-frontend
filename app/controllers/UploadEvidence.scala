@@ -19,19 +19,22 @@ package controllers
 import javax.inject.Inject
 
 import config.Wiring
-import connectors.fileUpload.FileUploadConnector
 import connectors.EnvelopeConnector
+import connectors.fileUpload.FileUploadConnector
 import form.EnumMapping
 import models._
 import play.api.data.Form
 import play.api.data.Forms._
+import repositories.SessionRepo
+import session.WithLinkingSession
 import views.helpers.Errors
 
-class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector, override val envelopeConnector: EnvelopeConnector)
+class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector,
+                               override val envelopeConnector: EnvelopeConnector,
+                               override val sessionRepository: SessionRepo,
+                               override val withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController with FileUploadHelpers {
   override val propertyLinks = Wiring().propertyLinkConnector
-  override val withLinkingSession = Wiring().withLinkingSession
-  override val linkingSession = Wiring().sessionRepository
 
   def show() = withLinkingSession { implicit request =>
     Ok(views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form)))
@@ -46,7 +49,7 @@ class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector, o
           x match {
             case FileAccepted =>
               val fileInfo = FileInfo(filePart.fold("no file")(_.filename), uploaded.name)
-              linkingSession.saveOrUpdate(request.ses.withLinkBasis(OtherEvidenceFlag, Some(fileInfo))) map { _ =>
+              sessionRepository.saveOrUpdate[LinkingSession](request.ses.withLinkBasis(OtherEvidenceFlag, Some(fileInfo))) map { _ =>
                 Redirect(propertyLinking.routes.Declaration.show)
               }
             case FileTooLarge => BadRequest(
@@ -64,7 +67,7 @@ class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector, o
   }
 
   def noEvidenceUploaded() = withLinkingSession { implicit request =>
-    linkingSession.saveOrUpdate(request.ses.withLinkBasis(NoEvidenceFlag, None)) map { _ =>
+    sessionRepository.saveOrUpdate[LinkingSession](request.ses.withLinkBasis(NoEvidenceFlag, None)) map { _ =>
       Redirect(propertyLinking.routes.Declaration.show())
     }
   }

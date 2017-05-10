@@ -23,14 +23,17 @@ import controllers.PropertyLinkingController
 import form.Mappings._
 import models.{CapacityDeclaration, FileInfo, LinkBasis, NoEvidenceFlag}
 import play.api.data.{Form, FormError, Forms}
-import session.LinkingSessionRequest
+import repositories.{SessionRepo, SessionRepository}
+import session.{LinkingSessionRequest, WithLinkingSession}
 import views.html.propertyLinking.declaration
 
 @Singleton
-class Declaration @Inject()(envelopes: EnvelopeConnector) extends PropertyLinkingController {
+class Declaration @Inject()(envelopes: EnvelopeConnector,
+                            sessionRepository: SessionRepo,
+                            withLinkingSession: WithLinkingSession
+                           )
+  extends PropertyLinkingController {
 
-  val linkingSessionRepo = Wiring().sessionRepository
-  val withLinkingSession = Wiring().withLinkingSession
   val propertyLinks = Wiring().propertyLinkConnector
 
   def show = withLinkingSession { implicit request =>
@@ -60,13 +63,13 @@ class Declaration @Inject()(envelopes: EnvelopeConnector) extends PropertyLinkin
   }
 
   def confirmation = withLinkingSession { implicit request =>
-    linkingSessionRepo.remove() map { _ =>
+    sessionRepository.remove() map { _ =>
         Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
     }
   }
 
   def noEvidence = withLinkingSession { implicit request =>
-    linkingSessionRepo.remove() map { _ => Ok(views.html.uploadEvidence.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId))) }
+    sessionRepository.remove() map { _ => Ok(views.html.uploadEvidence.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId))) }
   }
 
   private def submitLinkingRequest(basis: LinkBasis)(implicit request: LinkingSessionRequest[_]) = {

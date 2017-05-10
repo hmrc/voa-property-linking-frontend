@@ -25,15 +25,18 @@ import models._
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}
 import play.api.i18n.Messages
+import repositories.{SessionRepo, SessionRepository}
+import session.WithLinkingSession
 
-class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector, override val envelopeConnector: EnvelopeConnector)
+class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
+                                override val envelopeConnector: EnvelopeConnector,
+                                override val sessionRepository: SessionRepo,
+                                override val withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController with FileUploadHelpers {
 
   import UploadRatesBill._
 
   lazy val propertyLinks = Wiring().propertyLinkConnector
-  lazy val withLinkingSession = Wiring().withLinkingSession
-  lazy val linkingSession = Wiring().sessionRepository
 
   def show() = withLinkingSession { implicit request =>
     Ok(views.html.uploadRatesBill.show(UploadRatesBillVM(form)))
@@ -44,7 +47,7 @@ class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector, 
     uploadIfNeeded(filePart) flatMap {
       case FileAccepted =>
         val fileInfo = FileInfo(filePart.fold("No File")(_.filename), RatesBillType.name)
-        linkingSession.saveOrUpdate(request.ses.withLinkBasis(RatesBillFlag, Some(fileInfo))) map { _ =>
+        sessionRepository.saveOrUpdate[LinkingSession](request.ses.withLinkBasis(RatesBillFlag, Some(fileInfo))) map { _ =>
           Redirect(propertyLinking.routes.Declaration.show())
         }
       case FileMissing =>

@@ -16,21 +16,23 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.Wiring
 import play.api.data.Form
 import play.api.data.Forms._
 import form.Mappings._
+import session.WithLinkingSession
 
-trait ChooseEvidence extends PropertyLinkingController {
-
-  val withLinkingSession = Wiring().withLinkingSession
+class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession)
+extends PropertyLinkingController {
 
   def show = withLinkingSession { implicit request =>
-    Ok(views.html.uploadRatesBill.chooseEvidence(form))
+    Ok(views.html.uploadRatesBill.chooseEvidence(ChooseEvidence.form))
   }
 
   def submit = withLinkingSession { implicit request =>
-    form.bindFromRequest().fold(
+    ChooseEvidence.form.bindFromRequest().fold(
       errors => BadRequest(views.html.uploadRatesBill.chooseEvidence(errors)),
       {
         case true => Redirect(routes.UploadRatesBill.show)
@@ -39,11 +41,11 @@ trait ChooseEvidence extends PropertyLinkingController {
     )
   }
 
-  lazy val form = Form(single(keys.hasRatesBill -> mandatoryBoolean))
 
+}
+object ChooseEvidence {
+  lazy val form = Form(single(keys.hasRatesBill -> mandatoryBoolean))
   lazy val keys = new {
     val hasRatesBill = "hasRatesBill"
   }
 }
-
-object ChooseEvidence extends ChooseEvidence

@@ -30,9 +30,11 @@ private object AppDependencies {
   import play.sbt.PlayImport._
   import play.core.PlayVersion
 
+  private val playReactivemongoVersion = "5.0.0"
   val compile = Seq(
     filters,
     ws,
+    "uk.gov.hmrc" %% "play-reactivemongo" % playReactivemongoVersion,
     "com.codahale.metrics" % "metrics-graphite" % "3.0.1",
     "com.google.guava" % "guava" % "18.0",
     "joda-time" % "joda-time" % "2.8.2",

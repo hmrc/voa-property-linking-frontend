@@ -28,14 +28,17 @@ import models.{CapacityDeclaration, _}
 import org.joda.time.LocalDate
 import play.api.data.Form
 import play.api.data.Forms._
-import session.LinkingSession
+import repositories.{SessionRepo, SessionRepository}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
 
+import scala.concurrent.Future
+
 @Singleton
-class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector) extends PropertyLinkingController with ServicesConfig {
-  lazy val sessionRepository = Wiring().sessionRepository
+class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
+                              val sessionRepository: SessionRepo)
+  extends PropertyLinkingController with ServicesConfig {
   lazy val authenticated = Wiring().authenticated
   lazy val submissionIdConnector = Wiring().submissionIdConnector
 
@@ -60,7 +63,7 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector) exte
     for {
       submissionId <- submissionIdConnector.get()
       envelopeId <- fileUploadConnector.createEnvelope(EnvelopeMetadata(submissionId, request.personId))
-      _ <- sessionRepository.start(LinkingSession(address, uarn, envelopeId, submissionId, request.personId, declaration))
+      _ <- sessionRepository.start[LinkingSession](LinkingSession(address, uarn, envelopeId, submissionId, request.personId, declaration))
     } yield ()
   }
 

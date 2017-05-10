@@ -18,7 +18,6 @@ package controllers
 
 import java.io.File
 
-import _root_.session.LinkingSession
 import connectors.EnvelopeConnector
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
 import models._
@@ -31,6 +30,7 @@ import play.api.mvc.MultipartFormData
 import play.api.mvc.MultipartFormData.FilePart
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Helpers}
+import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
@@ -54,15 +54,19 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
     }
   }
 
-  object TestUploadRatesBill extends UploadRatesBill(mockFileUploads, envConnectorStub) {
+  val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
+  object TestUploadRatesBill extends UploadRatesBill(mockFileUploads, envConnectorStub, mockSessionRepo, withLinkingSession) {
     val property = arbitrary[Property].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
-
     override lazy val propertyLinks = StubPropertyLinkConnector
-
-    override lazy val withLinkingSession = StubWithLinkingSession
-
-    override lazy val linkingSession = new StubLinkingSessionRepository
+  }
+  lazy val mockSessionRepo = {
+    val f = mock[SessionRepo]
+    when(f.start(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    when(f.saveOrUpdate(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    f
   }
 
   lazy val mockFileUploads = {
@@ -75,7 +79,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   lazy val envelopeId: String = shortString
 
   "Upload Rates Bill upload page" must "contain a file input" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
     val res = TestUploadRatesBill.show()(request)
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
@@ -83,7 +87,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "redirect to the declaration page if a valid rates bill is uploaded" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = uploadValidFile()
 
@@ -98,7 +102,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "show an error if the user doesn't upload any file" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
       .withMultipartFormDataBody(
@@ -117,7 +121,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "show an error if the uploaded file is too large" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
       .withMultipartFormDataBody(
@@ -139,7 +143,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "show an error if the user uploads a file that is not a JPG or PDF" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-rates-bill")
       .withMultipartFormDataBody(
@@ -161,7 +165,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "url encode the file name when uploading the file" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val unencodedFileName = "a file name with spaces in it.jpg"
     val encodedFileName = "a+file+name+with+spaces+in+it.jpg"
@@ -176,7 +180,7 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "strip the file path from the file name, if it is present" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val fileWithFullPath = """C:\Internet Explorer\Is Silly\And sometimes uploads the full path\Even though we don't even want it\actual file name.jpg"""
     val fileWithPathRemoved = "actual+file+name.jpg"

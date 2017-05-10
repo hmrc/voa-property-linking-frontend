@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-import models.{CapacityDeclaration, _}
+import models._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
 import uk.gov.hmrc.domain.Nino
 import java.{time => javatime}
 
 import org.joda.time.{DateTime, Instant, LocalDate}
-import session.LinkingSession
 
 package object resources {
 

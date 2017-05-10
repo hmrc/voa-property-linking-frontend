@@ -16,28 +16,40 @@
 
 package controllers
 import models._
+import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
-import utils.{HtmlPage, StubWithLinkingSession}
 import play.api.test.Helpers._
+import repositories.SessionRepo
 import resources._
-import _root_.session.LinkingSession
+import utils.{HtmlPage, StubWithLinkingSession}
 
-class ChooseEvidenceSpec extends ControllerSpec {
+import scala.concurrent.Future
 
-  private object TestChooseEvidence extends ChooseEvidence {
-    val property = testProperty
-    override val withLinkingSession = StubWithLinkingSession
+class ChooseEvidenceSpec extends ControllerSpec with MockitoSugar{
+
+  lazy val mockSessionRepo = {
+    val f = mock[SessionRepo]
+    when(f.start(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    f
   }
+  lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
+  private class TestChooseEvidence (withLinkingSession: StubWithLinkingSession) extends ChooseEvidence(withLinkingSession) {
+    val property = testProperty
+  }
+  private val testChooseEvidence = new TestChooseEvidence(withLinkingSession)
 
   lazy val testProperty: Property = arbitrary[Property]
 
   val request = FakeRequest().withSession(token)
 
   "The choose evidence page" must "ask the user whether they have a rates bill" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
-    val res = TestChooseEvidence.show()(request)
+    val res = testChooseEvidence.show()(request)
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -45,9 +57,9 @@ class ChooseEvidenceSpec extends ControllerSpec {
   }
 
   it must "require the user to select whether they have a rates bill" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
-    val res = TestChooseEvidence.submit()(request)
+    val res = testChooseEvidence.submit()(request)
     status(res) mustBe BAD_REQUEST
 
     val html = HtmlPage(res)
@@ -55,17 +67,17 @@ class ChooseEvidenceSpec extends ControllerSpec {
   }
 
   it must "redirect to the rates bill upload page if the user has a rates bill" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
-    val res = TestChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
+    val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
     status(res) mustBe SEE_OTHER
     header("location", res) mustBe Some(routes.UploadRatesBill.show().url)
   }
 
   it must "redirect to the other evidence page if the user does not have a rates bill" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
-    val res = TestChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
+    val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
     status(res) mustBe SEE_OTHER
     header("location", res) mustBe Some(routes.UploadEvidence.show().url)
   }

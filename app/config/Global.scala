@@ -16,15 +16,16 @@
 
 package config
 
-import javax.inject.Inject
+import javax.inject.{Inject, Provider}
 
 import akka.stream.Materializer
+import com.google.inject.AbstractModule
 import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
 import play.api.Play.{configuration, current}
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
-import play.api.{Application, Configuration, GlobalSettings, Play}
+import play.api._
 import play.twirl.api.Html
 import uk.gov.hmrc.play.audit.filters.FrontendAuditFilter
 import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
@@ -35,6 +36,8 @@ import uk.gov.hmrc.play.frontend.bootstrap.{DefaultFrontendGlobal, ShowErrorPage
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
 import uk.gov.hmrc.whitelist.AkamaiWhitelistFilter
 import play.api.http.DefaultHttpFilters
+import play.modules.reactivemongo.ReactiveMongoComponent
+import reactivemongo.api.DB
 
 import scala.concurrent.Future
 
@@ -81,3 +84,13 @@ object ControllerConfiguration extends ControllerConfig {
   lazy val controllerConfigs = Play.current.configuration.underlying.as[Config]("controllers")
 }
 
+class GuiceModule(environment: Environment,
+                  configuration: Configuration) extends AbstractModule {
+  def configure() = {
+    bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
+  }
+}
+
+class MongoDbProvider @Inject() (reactiveMongoComponent: ReactiveMongoComponent) extends Provider[DB] {
+  def get = reactiveMongoComponent.mongoConnector.db()
+}

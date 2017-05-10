@@ -16,30 +16,31 @@
 
 package controllers
 
-import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
 import connectors.Authenticated
-import models.{Accounts, CapacityDeclaration, CapacityType, Owner}
+import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
+import models._
+import org.joda.time.LocalDate
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import repositories.SessionRepo
 import resources._
-import _root_.session.LinkingSession
-import org.joda.time.LocalDate
 import uk.gov.hmrc.play.http.HeaderCarrier
-import utils.{HtmlPage, StubAuthentication, StubLinkingSessionRepository, StubSubmissionIdConnector}
+import utils.{HtmlPage, StubAuthentication, StubSubmissionIdConnector}
 
 import scala.concurrent.Future
 
 class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
 
-  private object TestClaimProperty extends ClaimProperty(mockFileUploads) {
-    override lazy val sessionRepository = new StubLinkingSessionRepository
+  private class TestClaimProperty(fileUploadConnector: FileUploadConnector,
+                              sessionRepository: SessionRepo) extends ClaimProperty(fileUploadConnector, sessionRepository) {
     override lazy val authenticated = StubAuthentication
     override lazy val submissionIdConnector = StubSubmissionIdConnector
   }
+  private val testClaimProperty = new TestClaimProperty(mockFileUploads, mockSessionRepo)
 
   lazy val submissionId: String = shortString
   lazy val accounts: Accounts = arbitrary[Accounts]
@@ -52,12 +53,18 @@ class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
     ).thenReturn(Future.successful(anEnvelopeId))
     f
   }
+  lazy val mockSessionRepo = {
+    val f = mock[SessionRepo]
+    when(f.start(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    f
+  }
 
   "The claim property page" should "contain the claim property form" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = TestClaimProperty.declareCapacity(positiveLong, shortString)(FakeRequest())
+    val res = testClaimProperty.declareCapacity(positiveLong, shortString)(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -72,7 +79,7 @@ class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = TestClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest())
+    val res = testClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
@@ -80,7 +87,7 @@ class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = TestClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest().withFormUrlEncodedBody(
+    val res = testClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest().withFormUrlEncodedBody(
       "capacity" -> "OWNER",
       "interestedBefore2017" -> "true",
       "stillInterested" -> "true"
@@ -99,7 +106,7 @@ class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
     val declaration: CapacityDeclaration = CapacityDeclaration(Owner, false, Option(LocalDate.parse("2017-04-2")),
       false, Option(LocalDate.parse("2017-04-5")))
 
-    val res = TestClaimProperty.attemptLink(uarn, address)(FakeRequest().withFormUrlEncodedBody(
+    val res = testClaimProperty.attemptLink(uarn, address)(FakeRequest().withFormUrlEncodedBody(
       "capacity" -> declaration.capacity.toString,
       "interestedBefore2017" -> declaration.interestedBefore2017.toString,
       "fromDate.year" -> declaration.fromDate.fold("")(_.getYear.toString),
@@ -112,8 +119,6 @@ class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
     ))
 
     status(res) mustBe SEE_OTHER
-
-    val Some(session) = await(TestClaimProperty.sessionRepository.get()(HeaderCarrier()))
-    session mustBe LinkingSession(address, uarn, anEnvelopeId, submissionId, accounts.person.individualId, declaration)
+    verify(mockSessionRepo, times(2)).start(any())(any(), any())
   }
 }

@@ -16,12 +16,15 @@
 
 package session
 
+import javax.inject.Inject
+
 import config.Wiring
-import models.{DetailedIndividualAccount, GroupAccount}
+import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
 import play.api.i18n.Messages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results.Unauthorized
 import play.api.mvc._
+import repositories.{SessionRepo, SessionRepository}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -34,9 +37,8 @@ case class LinkingSessionRequest[A](ses: LinkingSession, organisationId: Int,
 
 case object NoSessionId extends Exception
 
-class WithLinkingSession {
+class WithLinkingSession @Inject() (val sessionRepository: SessionRepo) {
   implicit def hc(implicit request: Request[_]) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
-  val session = Wiring().sessionRepository
   val individualAccountConnector = Wiring().individualAccountConnector
   val groupAccountConnector = Wiring().groupAccountConnector
   val auth = Wiring().authConnector
@@ -44,8 +46,10 @@ class WithLinkingSession {
   val authenticated = Wiring().authenticated
 
   def apply(body: LinkingSessionRequest[AnyContent] => Future[Result])(implicit messages: Messages) = authenticated { implicit request =>
-    session.get flatMap {
-      case Some(s) => body(LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request))
+    sessionRepository.get[LinkingSession] flatMap {
+      case Some(s) => body(
+        LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request)
+      )
       case None => Future.successful(Unauthorized("No linking session"))
     }
   }
