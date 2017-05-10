@@ -16,7 +16,6 @@
 
 package controllers.propertyLinking
 
-import _root_.session.{LinkingSession, LinkingSessionRequest}
 import connectors.EnvelopeConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.ControllerSpec
@@ -27,20 +26,30 @@ import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
+import session.LinkingSessionRequest
 import play.api.test.Helpers._
+import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import utils.{HtmlPage, StubLinkingSessionRepository, StubWithLinkingSession}
+import utils.{HtmlPage, StubWithLinkingSession}
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
 
 class DeclarationSpec extends ControllerSpec with MockitoSugar {
 
-  private object TestDeclaration extends Declaration(mockFileUploadConnector) {
-    override val linkingSessionRepo = new StubLinkingSessionRepository
-    override val withLinkingSession = StubWithLinkingSession
+  val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
+  private object TestDeclaration extends Declaration(mockFileUploadConnector, mockSessionRepo, withLinkingSession) {
     override val propertyLinks = mockPropertyLinkConnector
+  }
+
+  lazy val mockSessionRepo = {
+    val f = mock[SessionRepo]
+    when(f.start(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    when(f.remove()(any())
+    ).thenReturn(Future.successful(()))
+    f
   }
 
   lazy val mockFileUploadConnector = {
@@ -58,7 +67,7 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
   lazy val envelopeId: String = shortString
 
   "The declaration page" should "include a checkbox to allow the user to accept the declaration" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.show()(FakeRequest())
     status(res) mustBe OK
@@ -68,7 +77,7 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
   }
 
   it should "require the user to accept the declaration to continue" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest())
     status(res) mustBe BAD_REQUEST
@@ -80,7 +89,7 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
   it should "submit the property link if the user accepts the declaration" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(RatesBillFlag))
 
-    StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -92,7 +101,7 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
   it should "display the normal confirmation page when the user has uploaded a rates bill" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(RatesBillFlag))
 
-    StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -109,7 +118,7 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
   it should "display the normal confirmation page when the user has uploaded other evidence" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(OtherEvidenceFlag))
 
-    StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -126,7 +135,7 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
   it should "display the no evidence confirmation page when the user has not uploaded any evidence" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(NoEvidenceFlag))
 
-    StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -142,7 +151,7 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
 
   "The confirmation page" should "display the submission ID" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
-    StubWithLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.confirmation()(FakeRequest())
     status(res) mustBe OK

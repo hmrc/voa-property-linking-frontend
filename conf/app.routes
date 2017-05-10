@@ -64,8 +64,8 @@ GET         /link-to-property/:uarn                                             
 POST        /link-to-property/:uarn                                                           @controllers.ClaimProperty.attemptLink(uarn: Long, address)
 
 #Link scenarios
-GET         /choose-evidence                                                                  controllers.ChooseEvidence.show()
-POST        /choose-evidence                                                                  controllers.ChooseEvidence.submit()
+GET         /choose-evidence                                                                  @controllers.ChooseEvidence.show()
+POST        /choose-evidence                                                                  @controllers.ChooseEvidence.submit()
 GET         /upload-rates-bill                                                                @controllers.UploadRatesBill.show()
 POST        /upload-rates-bill                                                                @controllers.UploadRatesBill.submit()
 GET         /upload-evidence                                                                  @controllers.UploadEvidence.show()

@@ -14,40 +14,15 @@
  * limitations under the License.
  */
 
-package session
+package models
 
-import models.{CapacityDeclaration, FileInfo, LinkBasis}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.Json
-import uk.gov.hmrc.http.cache.client.SessionCache
-import uk.gov.hmrc.play.http.HeaderCarrier
-
-import scala.concurrent.Future
 
 case class LinkingSession(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long,
                           declaration: CapacityDeclaration, linkBasis: Option[LinkBasis] = None, fileInfo: Option[FileInfo] = None) {
-
   def withLinkBasis(basis: LinkBasis, fileInfo: Option[FileInfo]) = copy(linkBasis = Some(basis), fileInfo = fileInfo)
 }
 
 object LinkingSession {
   implicit val format = Json.format[LinkingSession]
-}
-
-class LinkingSessionRepository(cache: SessionCache) {
-  private val sessionDocument = "sessiondocument"
-
-  def start(session: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] = {
-    cache.cache(sessionDocument, session).map(_ => ())
-  }
-
-  def saveOrUpdate(session: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] =
-    cache.cache(sessionDocument, session).map(_ => ())
-
-  def get()(implicit hc: HeaderCarrier): Future[Option[LinkingSession]] =
-    cache.fetchAndGetEntry[LinkingSession](sessionDocument)
-
-  def remove()(implicit hc: HeaderCarrier): Future[Unit] =
-    cache.remove().map(_ => ())
-
 }

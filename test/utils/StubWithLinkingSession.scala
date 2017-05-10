@@ -16,14 +16,15 @@
 
 package utils
 
-import models.{DetailedIndividualAccount, GroupAccount}
+import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
 import play.api.i18n.Messages
 import play.api.mvc.{Action, AnyContent, Result}
-import session.{LinkingSession, LinkingSessionRequest, WithLinkingSession}
+import repositories.SessionRepo
+import session.{LinkingSessionRequest, WithLinkingSession}
 
 import scala.concurrent.Future
 
-object StubWithLinkingSession extends WithLinkingSession {
+class StubWithLinkingSession(sessionRepository: SessionRepo ) extends WithLinkingSession(sessionRepository) {
 
   private var stubbedSession: Option[(LinkingSession, DetailedIndividualAccount, GroupAccount)] = None
 

@@ -22,14 +22,19 @@ import connectors._
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import models.PersonalDetails
+import play.api.Play
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, Reads, Writes}
-import session.{AgentAppointmentSessionRepository, LinkingSessionRepository, WithLinkingSession}
+import repositories.SessionRepository
+import session.{AgentAppointmentSessionRepository, WithLinkingSession}
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
 import uk.gov.hmrc.play.http._
 import uk.gov.hmrc.play.http.ws._
+import play.modules.reactivemongo.ReactiveMongoComponent
+import reactivemongo.api.DefaultDB
+import uk.gov.hmrc.mongo.MongoConnector
 
 import scala.concurrent.Future
 import scala.util.Try
@@ -41,7 +46,7 @@ object Wiring {
 abstract class Wiring {
   def http: HttpGet with HttpPut with HttpDelete with HttpPost with HttpPatch
   lazy val sessionCache = new VPLSessionCache(http)
-  lazy val sessionRepository = new LinkingSessionRepository(sessionCache)
+  lazy val mongoConnector:MongoConnector = Play.current.injector.instanceOf[ReactiveMongoComponent].mongoConnector
   lazy val agentAppointmentSessionRepository = new AgentAppointmentSessionRepository(sessionCache)
   def propertyRepresentationConnector = new PropertyRepresentationConnector(http)
   def propertyLinkConnector = new PropertyLinkConnector(http)
@@ -49,7 +54,6 @@ abstract class Wiring {
   def groupAccountConnector = new GroupAccounts(http)
   def authConnector = new VPLAuthConnector(http)
   def ggAction = new GGAction(authConnector)
-  def withLinkingSession = new WithLinkingSession
   def identityVerification = new IdentityVerification(http)
   def addresses = new Addresses(http)
   def businessRatesAuthentication = new BusinessRatesAuthorisation(http)

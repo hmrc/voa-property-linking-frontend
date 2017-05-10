@@ -18,7 +18,6 @@ package controllers
 
 import java.io.File
 
-import _root_.session.LinkingSession
 import connectors.EnvelopeConnector
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
 import models._
@@ -31,6 +30,7 @@ import play.api.mvc.MultipartFormData
 import play.api.mvc.MultipartFormData.FilePart
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Helpers}
+import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
@@ -51,11 +51,18 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
     }
   }
 
-  object TestUploadEvidence extends UploadEvidence(mockFileUploads, envConnectorStub)  {
-    override val withLinkingSession = StubWithLinkingSession
-
-    override val linkingSession = new StubLinkingSessionRepository
+  val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
+  object TestUploadEvidence extends UploadEvidence(mockFileUploads, envConnectorStub, mockSessionRepo, withLinkingSession)  {
     override val propertyLinks = StubPropertyLinkConnector
+  }
+
+  lazy val mockSessionRepo = {
+    val f = mock[SessionRepo]
+    when(f.start(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    when(f.saveOrUpdate(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    f
   }
 
   lazy val mockFileUploads = {
@@ -68,7 +75,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   lazy val envelopeId: String = shortString
 
   "Upload Evidence page" must "contain a file input" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestUploadEvidence.show()(request)
     status(res) mustBe OK
@@ -77,7 +84,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "redirect to the evidence-submitted page if valid evidence has been uploaded" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
@@ -105,7 +112,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "show an error if the user does not upload any evidence" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
@@ -126,7 +133,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "show an error if the user uploads a file greater than 10MB" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(
@@ -150,7 +157,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "show an error if the user uploads a file that is not a JPG or PDF" in {
-    StubWithLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
       .withMultipartFormDataBody(

@@ -22,12 +22,12 @@ import config.ApplicationConfig
 import connectors.EnvelopeConnector
 import connectors.fileUpload.FileUpload
 import connectors.propertyLinking.PropertyLinkConnector
-import models.{LinkBasis, NoEvidenceFlag}
 import org.apache.commons.io.FilenameUtils
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.AnyContent
 import play.api.mvc.MultipartFormData.FilePart
-import session.{LinkingSessionRepository, LinkingSessionRequest, WithLinkingSession}
+import repositories.SessionRepo
+import session.{LinkingSessionRequest, WithLinkingSession}
 
 import scala.concurrent.Future
 
@@ -38,7 +38,7 @@ trait FileUploadHelpers {
   val envelopeConnector: EnvelopeConnector
   val propertyLinks: PropertyLinkConnector
   val withLinkingSession: WithLinkingSession
-  val linkingSession: LinkingSessionRepository
+  val sessionRepository: SessionRepo
 
   val maxFileSize = 10485760 //10MB
 
