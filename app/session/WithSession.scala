@@ -16,7 +16,7 @@
 
 package session
 
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 
 import config.Wiring
 import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
@@ -37,7 +37,7 @@ case class LinkingSessionRequest[A](ses: LinkingSession, organisationId: Int,
 
 case object NoSessionId extends Exception
 
-class WithLinkingSession @Inject() (val sessionRepository: SessionRepo) {
+class WithLinkingSession @Inject() (@Named("propertyLinkingSession") val sessionRepository: SessionRepo) {
   implicit def hc(implicit request: Request[_]) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
   val individualAccountConnector = Wiring().individualAccountConnector
   val groupAccountConnector = Wiring().groupAccountConnector

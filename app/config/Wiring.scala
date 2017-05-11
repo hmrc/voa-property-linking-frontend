@@ -65,7 +65,7 @@ abstract class Wiring {
   def trafficThrottleConnector = new TrafficThrottleConnector(http)
 }
 
-class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {
+class VPLSessionCache (val http: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {
   override def defaultSource: String = appName
   override def baseUri: String = baseUrl("cachable.session-cache")
   override def domain: String = getConfString("cachable.session-cache.domain", throw new Exception("No config setting for cache domain"))

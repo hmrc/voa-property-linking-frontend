@@ -20,6 +20,7 @@ import javax.inject.{Inject, Provider}
 
 import akka.stream.Materializer
 import com.google.inject.AbstractModule
+import com.google.inject.name.Names
 import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
 import play.api.Play.{configuration, current}
@@ -38,6 +39,7 @@ import uk.gov.hmrc.whitelist.AkamaiWhitelistFilter
 import play.api.http.DefaultHttpFilters
 import play.modules.reactivemongo.ReactiveMongoComponent
 import reactivemongo.api.DB
+import repositories.{PropertyLinkingSessionRepository, SessionRepo}
 
 import scala.concurrent.Future
 
@@ -88,6 +90,7 @@ class GuiceModule(environment: Environment,
                   configuration: Configuration) extends AbstractModule {
   def configure() = {
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
+    bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
   }
 }
 

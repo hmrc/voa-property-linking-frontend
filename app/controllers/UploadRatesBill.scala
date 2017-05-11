@@ -16,7 +16,7 @@
 
 package controllers
 
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 
 import config.Wiring
 import connectors.fileUpload.FileUploadConnector
@@ -30,7 +30,7 @@ import session.WithLinkingSession
 
 class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
                                 override val envelopeConnector: EnvelopeConnector,
-                                override val sessionRepository: SessionRepo,
+                                @Named("propertyLinkingSession") override val sessionRepository: SessionRepo,
                                 override val withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController with FileUploadHelpers {
 
