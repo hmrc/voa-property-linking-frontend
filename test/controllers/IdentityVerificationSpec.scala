@@ -15,30 +15,45 @@
  */
 
 package controllers
-import models.{GroupAccount, IndividualDetails, PersonalDetails}
+import config.VPLSessionCache
+import models.{GroupAccount, PersonalDetails}
 import org.jsoup.Jsoup
+import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
+import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
 
-class IdentityVerificationSpec extends ControllerSpec {
+import scala.concurrent.Future
 
-  private object TestIdentityVerification extends IdentityVerification {
+class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
+
+  lazy val mockSessionRepo = {
+    val f = mock[VPLSessionCache]
+    when(f.start(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    when(f.saveOrUpdate(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    when(f.get[PersonalDetails](any(), any())).thenReturn(Future.successful(arbitrary[PersonalDetails].sample))
+    f
+  }
+
+  private object TestIdentityVerification extends IdentityVerification(mockSessionRepo) {
     override val individuals = StubIndividualAccountConnector
     override val groups = StubGroupAccountConnector
     override val auth = StubAuthConnector
     override val ggAction = StubGGAction
     override val identityVerification = StubIdentityVerification
-    override val keystore = StubKeystore
     override val addresses = StubAddresses
   }
 
   val request = FakeRequest()
   private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
-  StubKeystore.stubPersonalDetails(arbitrary[PersonalDetails].sample.get)
+  //StubKeystore.stubPersonalDetails(arbitrary[PersonalDetails].sample.get)
 
   "Successfully verifying identity when the group does not have a CCA account" must
     "display the successful iv confirmation page, and not create an individual account" in {

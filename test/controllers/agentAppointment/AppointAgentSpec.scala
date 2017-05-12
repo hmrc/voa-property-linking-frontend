@@ -17,24 +17,40 @@
 package controllers.agentAppointment
 
 import config.VPLSessionCache
+import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
 import connectors.Authenticated
 import controllers.ControllerSpec
 import models._
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
+import _root_.session.{AgentAppointmentSession, AgentAppointmentSessionRepository}
 import utils._
 
-class AppointAgentSpec extends ControllerSpec {
+import scala.concurrent.Future
 
-  private object TestAppointAgent extends AppointAgentController {
-    lazy val sessionCache = new VPLSessionCache(StubHttp)
+class AppointAgentSpec extends ControllerSpec with MockitoSugar{
+
+  lazy val agentSession =  AgentAppointmentSession(AppointAgent(1231, StartAndContinue, StartAndContinue), 123, arbitrary[PropertyLink].sample.get)
+  lazy val mockSessionRepo = {
+    val f = mock[AgentAppointmentSessionRepository]
+    when(f.start(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    when(f.saveOrUpdate(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    when(f.get[AgentAppointmentSession](any(), any())).thenReturn(Future.successful(Some(agentSession)))
+    when(f.remove()(any())).thenReturn(Future.successful(()))
+    f
+  }
+
+  private object TestAppointAgent extends AppointAgentController(mockSessionRepo) {
     override val representations = StubPropertyRepresentationConnector
     override val accounts = StubGroupAccountConnector
     override val propertyLinks = StubPropertyLinkConnector
     override val authenticated = StubAuthentication
-    override val sessionRepository = new StubAgentAppointmentSessionRepository(sessionCache)
   }
 
   val request = FakeRequest().withSession(token)

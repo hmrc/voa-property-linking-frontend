@@ -16,10 +16,14 @@
 
 package session
 
+import javax.inject.Inject
+
 import controllers.agentAppointment.AppointAgent
 import models.PropertyLink
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.Json
+import reactivemongo.api.DB
+import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.SessionCache
 import uk.gov.hmrc.play.http.HeaderCarrier
 
@@ -30,20 +34,16 @@ object AgentAppointmentSession {
   implicit val format = Json.format[AgentAppointmentSession]
 }
 
-class AgentAppointmentSessionRepository(cache: SessionCache) {
-  private val sessionDocument = "agentAppointmentDocument"
-
-  def start(agent: AppointAgent, agentOrgId: Long, propertyLink: PropertyLink)(implicit hc: HeaderCarrier): Future[Unit] = {
-    cache.cache(sessionDocument, AgentAppointmentSession(agent, agentOrgId, propertyLink)).map(_ => ())
-  }
-
-  def saveOrUpdate(session: AgentAppointmentSession)(implicit hc: HeaderCarrier): Future[Unit] =
-    cache.cache(sessionDocument, session).map(_ => ())
-
-  def get()(implicit hc: HeaderCarrier): Future[Option[AgentAppointmentSession]] =
-    cache.fetchAndGetEntry[AgentAppointmentSession](sessionDocument)
-
-  def remove()(implicit hc: HeaderCarrier): Future[Unit] =
-    cache.remove().map(_ => ())
-
-}
+  //FIXME
+class AgentAppointmentSessionRepository @Inject() (db: DB) extends SessionRepository ("agentAppointmentDocument", db)
+//  private val sessionDocument = "agentAppointmentDocument"
+//  def start(agent: AppointAgent, agentOrgId: Long, propertyLink: PropertyLink)(implicit hc: HeaderCarrier): Future[Unit] = {
+//    cache.cache(sessionDocument, AgentAppointmentSession(agent, agentOrgId, propertyLink)).map(_ => ())
+//  }
+//  def saveOrUpdate(session: AgentAppointmentSession)(implicit hc: HeaderCarrier): Future[Unit] =
+//    cache.cache(sessionDocument, session).map(_ => ())
+//  def get()(implicit hc: HeaderCarrier): Future[Option[AgentAppointmentSession]] =
+//    cache.fetchAndGetEntry[AgentAppointmentSession](sessionDocument)
+//  def remove()(implicit hc: HeaderCarrier): Future[Unit] =
+//    cache.remove().map(_ => ())
+//}

@@ -16,6 +16,8 @@
 
 package controllers
 
+import javax.inject.{Inject, Named}
+
 import config.Wiring
 import form.Mappings._
 import form.TextMatching
@@ -24,13 +26,15 @@ import play.api.data.Forms._
 import play.api.data.validation._
 import play.api.data.{Form, Mapping}
 import play.api.mvc.Request
+import repositories.SessionRepo
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.play.http.SessionKeys
 import views.helpers.Errors
 
-trait CreateIndividualAccount extends PropertyLinkingController {
+class CreateIndividualAccount @Inject() (
+                                          @Named ("personSession") val keystore: SessionRepo)
+  extends PropertyLinkingController {
   lazy val ggAction = Wiring().ggAction
-  lazy val keystore = Wiring().sessionCache
   lazy val identityVerification = Wiring().identityVerification
   lazy val auth = Wiring().authConnector
   lazy val individuals = Wiring().individualAccountConnector
@@ -48,7 +52,7 @@ trait CreateIndividualAccount extends PropertyLinkingController {
   }
 
   private def showForm(implicit request: Request[_]) = {
-    Ok(views.html.createAccount.individual(form))
+    Ok(views.html.createAccount.individual(CreateIndividualAccount.form))
       .addingToSession( //because SIV wipes the session
         "bearerToken" -> request.session.get(SessionKeys.authToken).getOrElse(""),
         "oldSessionId" -> request.session.get(SessionKeys.sessionId).getOrElse("")
@@ -56,26 +60,28 @@ trait CreateIndividualAccount extends PropertyLinkingController {
   }
 
   def submit = ggAction.async { _ => implicit request =>
-    form.bindFromRequest().fold(
+    CreateIndividualAccount.form.bindFromRequest().fold(
       errors => BadRequest(views.html.createAccount.individual(errors)),
-      formData => keystore.cachePersonalDetails(formData) map { _ =>
+      formData => keystore.saveOrUpdate(formData) map { _ =>
         Redirect(routes.IdentityVerification.startIv)
       }
     )
   }
 
-  lazy val keys = new {
-    val firstName = "fname"
-    val lastName = "lname"
-    val dateOfBirth = "dob"
-    val nino = "nino.nino"
-    val email = "email"
-    val confirmedEmail = "confirmedEmail"
-    val phone1 = "phone1"
-    val phone2 = "phone2"
-    val address = "address"
-  }
 
+
+
+  implicit def vm(form: Form[_]): CreateIndividualAccountVM = CreateIndividualAccountVM(form)
+}
+
+object CreateIndividualAccount{
+
+  lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
+
+  lazy val validNino: Constraint[String] = Constraint {
+    case s if Nino.isValid(s.toUpperCase) => Valid
+    case _ => Invalid(ValidationError("error.nino.invalid"))
+  }
   lazy val form = Form(mapping(
     keys.firstName -> nonEmptyText(maxLength = 100),
     keys.lastName -> nonEmptyText(maxLength = 100),
@@ -88,20 +94,20 @@ trait CreateIndividualAccount extends PropertyLinkingController {
     keys.address -> address
   )(PersonalDetails.apply)(PersonalDetails.unapply))
 
-  lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
-
-  lazy val validNino: Constraint[String] = Constraint {
-    case s if Nino.isValid(s.toUpperCase) => Valid
-    case _ => Invalid(ValidationError("error.nino.invalid"))
+  lazy val keys = new {
+    val firstName = "fname"
+    val lastName = "lname"
+    val dateOfBirth = "dob"
+    val nino = "nino.nino"
+    val email = "email"
+    val confirmedEmail = "confirmedEmail"
+    val phone1 = "phone1"
+    val phone2 = "phone2"
+    val address = "address"
   }
-
   private def toNino(nino: String) = {
     Nino(nino.toUpperCase.replaceAll(" ", ""))
   }
 
-  implicit def vm(form: Form[_]): CreateIndividualAccountVM = CreateIndividualAccountVM(form)
 }
-
-object CreateIndividualAccount extends CreateIndividualAccount
-
 case class CreateIndividualAccountVM(form: Form[_])

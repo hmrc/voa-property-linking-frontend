@@ -18,4 +18,5 @@ package utils
 
 import config.VPLSessionCache
 
-object StubSessionCache extends VPLSessionCache(StubHttp)
+//FIXME - delete me.
+//object StubSessionCache extends VPLSessionCache(StubHttp)

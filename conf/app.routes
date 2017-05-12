@@ -25,19 +25,19 @@ GET         /authentication-wizard/before-you-register-c                        
 GET         /authentication-wizard/before-you-register-d                                      controllers.Wizard.beforeYouRegisterD
 
 #Create individual account
-GET         /create-account                                                                   controllers.CreateIndividualAccount.show
-POST        /create-account                                                                   controllers.CreateIndividualAccount.submit
+GET         /create-account                                                                   @controllers.CreateIndividualAccount.show
+POST        /create-account                                                                   @controllers.CreateIndividualAccount.submit
 
 #Identity verification
-GET         /identity-verification/start                                                      controllers.IdentityVerification.startIv
-GET         /identity-verification/failed                                                     controllers.IdentityVerification.fail
-GET         /identity-verification/restore-session                                            controllers.IdentityVerification.restoreSession
-GET         /identity-verification/success                                                    controllers.IdentityVerification.success
+GET         /identity-verification/start                                                      @controllers.IdentityVerification.startIv
+GET         /identity-verification/failed                                                     @controllers.IdentityVerification.fail
+GET         /identity-verification/restore-session                                            @controllers.IdentityVerification.restoreSession
+GET         /identity-verification/success                                                    @controllers.IdentityVerification.success
 
 #Create group account
-GET         /create-group                                                                     controllers.CreateGroupAccount.show
-GET         /create-group/success                                                             controllers.CreateGroupAccount.success
-POST        /create-group                                                                     controllers.CreateGroupAccount.submit
+GET         /create-group                                                                     @controllers.CreateGroupAccount.show
+GET         /create-group/success                                                             @controllers.CreateGroupAccount.success
+POST        /create-group                                                                     @controllers.CreateGroupAccount.submit
 
 #Dashboard
 GET         /home                                                                             controllers.Dashboard.home()

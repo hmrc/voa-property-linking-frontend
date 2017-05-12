@@ -40,6 +40,7 @@ import play.api.http.DefaultHttpFilters
 import play.modules.reactivemongo.ReactiveMongoComponent
 import reactivemongo.api.DB
 import repositories.{PropertyLinkingSessionRepository, SessionRepo}
+import session.AgentAppointmentSessionRepository
 
 import scala.concurrent.Future
 
@@ -91,6 +92,8 @@ class GuiceModule(environment: Environment,
   def configure() = {
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
+    bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])
+    bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[VPLSessionCache])
   }
 }
 

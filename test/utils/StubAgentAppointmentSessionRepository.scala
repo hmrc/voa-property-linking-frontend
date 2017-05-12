@@ -24,21 +24,22 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class StubAgentAppointmentSessionRepository(cache: SessionCache) extends AgentAppointmentSessionRepository(cache) {
-
-  override def start(agent: AppointAgent, agentOrgId: Long, propertyLink: PropertyLink)(implicit hc: HeaderCarrier): Future[Unit] = {
-    Future.successful(())
-  }
-
-  override def saveOrUpdate(session: AgentAppointmentSession)(implicit hc: HeaderCarrier): Future[Unit] = {
-    Future.successful(())
-  }
-
-  override def get()(implicit hc: HeaderCarrier): Future[Option[AgentAppointmentSession]] = {
-    Future.successful(None)
-  }
-
-  override def remove()(implicit hc: HeaderCarrier): Future[Unit] = {
-    Future.successful(())
-  }
-}
+//FIXME: not needed
+//class StubAgentAppointmentSessionRepository(cache: SessionCache) extends AgentAppointmentSessionRepository(cache) {
+//
+//  override def start(agent: AppointAgent, agentOrgId: Long, propertyLink: PropertyLink)(implicit hc: HeaderCarrier): Future[Unit] = {
+//    Future.successful(())
+//  }
+//
+//  override def saveOrUpdate(session: AgentAppointmentSession)(implicit hc: HeaderCarrier): Future[Unit] = {
+//    Future.successful(())
+//  }
+//
+//  override def get()(implicit hc: HeaderCarrier): Future[Option[AgentAppointmentSession]] = {
+//    Future.successful(None)
+//  }
+//
+//  override def remove()(implicit hc: HeaderCarrier): Future[Unit] = {
+//    Future.successful(())
+//  }
+//}

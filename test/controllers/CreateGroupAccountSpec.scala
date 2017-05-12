@@ -21,20 +21,34 @@ import connectors.{Authenticated, VPLAuthConnector}
 import controllers.CreateGroupAccount.keys
 import models.{Accounts, DetailedIndividualAccount, GroupAccount, PersonalDetails}
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.mockito.MockitoSugar
+import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import repositories.SessionRepo
 import resources._
 import utils._
 
-class CreateGroupAccountSpec extends ControllerSpec {
+import scala.concurrent.Future
 
-  private object TestCreateGroupAccount extends CreateGroupAccount {
+class CreateGroupAccountSpec extends ControllerSpec with MockitoSugar {
+
+  lazy val mockSessionRepo = {
+    val f = mock[SessionRepo]
+    when(f.start(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    when(f.saveOrUpdate(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    when(f.get[PersonalDetails](any(), any())).thenReturn(Future.successful(arbitrary[PersonalDetails].sample))
+    f
+  }
+  private object TestCreateGroupAccount extends CreateGroupAccount(mockSessionRepo) {
     override lazy val auth: VPLAuthConnector = StubAuthConnector
     override lazy val ggAction: GGAction = StubGGAction
     override lazy val individuals = StubIndividualAccountConnector
     override lazy val groups = StubGroupAccountConnector
     override lazy val identityVerification = StubIdentityVerification
-    override lazy val keystore = StubKeystore
     override lazy val addresses = StubAddresses
   }
 
@@ -79,7 +93,7 @@ class CreateGroupAccountSpec extends ControllerSpec {
       keys.isSmallBusiness -> "true"
     )
     StubIdentityVerification.stubSuccessfulJourney("fakeId")
-    StubKeystore.stubPersonalDetails(arbitrary[PersonalDetails])
+    //StubKeystore.stubPersonalDetails(arbitrary[PersonalDetails])
 
     val group = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)

@@ -22,15 +22,16 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-object StubKeystore extends VPLSessionCache(StubHttp) {
-  private var personalDetails: Option[PersonalDetails] = None
-
-  def stubPersonalDetails(details: PersonalDetails) = personalDetails = Some(details)
-  
-  override def getPersonalDetails(implicit hc: HeaderCarrier): Future[PersonalDetails] = personalDetails match {
-    case Some(d) => Future.successful(d)
-    case None => Future.failed(new Exception("personal details not stubbed"))
-  }
-
-  override def cachePersonalDetails(details: PersonalDetails)(implicit hc: HeaderCarrier) = Future.successful(Unit)
-}
+//FIXME - delete me.
+//object StubKeystore extends VPLSessionCache(StubHttp) {
+//  private var personalDetails: Option[PersonalDetails] = None
+//
+//  def stubPersonalDetails(details: PersonalDetails) = personalDetails = Some(details)
+//
+//  override def get(implicit hc: HeaderCarrier): Future[PersonalDetails] = personalDetails match {
+//    case Some(d) => Future.successful(d)
+//    case None => Future.failed(new Exception("personal details not stubbed"))
+//  }
+//
+//  override def saveOrUpdate(details: PersonalDetails)(implicit hc: HeaderCarrier) = Future.successful(Unit)
+//}

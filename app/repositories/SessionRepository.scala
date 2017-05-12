@@ -66,15 +66,22 @@ class SessionRepository @Inject()(formId: String, db: DB)
       maybeOption <- findById(sessionId)
     } yield {
       val aaa = maybeOption.map(_.data \ formId)
-      val tmp: Option[Map[String, A]] = maybeOption.map(_.data.as[Map[String , A]])
-      tmp.flatMap( _.get(formId))
+
+      aaa.flatMap(x => x match {
+        case JsDefined(value) => Some(value.as[A])
+        case JsUndefined() => None
+      })
     }
   }
 
   override def remove()(implicit hc: HeaderCarrier): Future[Unit] = {
     for {
       sessionId <- getSessionId
-      _ <- removeById(sessionId)
+      _ <- collection.update(
+        BSONDocument("_id" -> BSONString(sessionId)),
+        BSONDocument(
+          "$unset" -> BSONDocument(s"data.${formId}" -> 1))
+      )
     } yield {
       ()
     }
