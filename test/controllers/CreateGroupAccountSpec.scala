@@ -93,7 +93,6 @@ class CreateGroupAccountSpec extends ControllerSpec with MockitoSugar {
       keys.isSmallBusiness -> "true"
     )
     StubIdentityVerification.stubSuccessfulJourney("fakeId")
-    //StubKeystore.stubPersonalDetails(arbitrary[PersonalDetails])
 
     val group = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)

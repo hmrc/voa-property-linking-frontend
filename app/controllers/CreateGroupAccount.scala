@@ -32,7 +32,7 @@ import views.helpers.Errors
 import scala.concurrent.Future
 
 class CreateGroupAccount @Inject() (
-                                     @Named ("personSession") val keystore: SessionRepo)
+                                     @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
   extends PropertyLinkingController {
   lazy val groups = Wiring().groupAccountConnector
   lazy val individuals = Wiring().individualAccountConnector
@@ -68,14 +68,14 @@ class CreateGroupAccount @Inject() (
             formData => {
               val eventualGroupId = auth.getGroupId(ctx)
               val eventualExternalId = auth.getExternalId(ctx)
-              val eventualPersonalDetails = keystore.get[PersonalDetails]
+              val eventualPersonalDetails = personalDetailsSessionRepo.get[PersonalDetails]
               val addressId = registerAddress(formData)
 
               for {
                 groupId <- eventualGroupId
                 userId <- eventualExternalId
                 _details <- eventualPersonalDetails
-                details = _details.getOrElse(throw new Exception(s"No keystore record found."))
+                details = _details.getOrElse(throw new Exception(s"No PersonalDetails record found."))
                 id <- addressId
                 organisationId <- groups.create(groupId, id, formData)
                 _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details.individualDetails))

@@ -18,7 +18,7 @@ package repositories
 
 import javax.inject.Inject
 
-import com.google.inject.{ImplementedBy, Singleton}
+import com.google.inject.Singleton
 import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.DB
@@ -27,10 +27,15 @@ import reactivemongo.bson.{BSONDocument, BSONObjectID, BSONString}
 import uk.gov.hmrc.mongo.{AtomicUpdate, ReactiveRepository}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import scala.concurrent.duration._
 
+@Singleton
+class AgentAppointmentSessionRepository @Inject() (db: DB) extends SessionRepository ("agentAppointmentDocument", db)
+
+@Singleton
+class PersonalDetailsSessionRepository @Inject()(db: DB) extends SessionRepository("personDetails", db)
 
 @Singleton
 class PropertyLinkingSessionRepository @Inject()(db: DB) extends SessionRepository("propertyLinking", db)
@@ -65,12 +70,12 @@ class SessionRepository @Inject()(formId: String, db: DB)
       sessionId <- getSessionId
       maybeOption <- findById(sessionId)
     } yield {
-      val aaa = maybeOption.map(_.data \ formId)
-
-      aaa.flatMap(x => x match {
-        case JsDefined(value) => Some(value.as[A])
-        case JsUndefined() => None
-      })
+      maybeOption
+        .map(_.data \ formId)
+        .flatMap(x => x match {
+          case JsDefined(value) => Some(value.as[A])
+          case JsUndefined() => None
+        })
     }
   }
 

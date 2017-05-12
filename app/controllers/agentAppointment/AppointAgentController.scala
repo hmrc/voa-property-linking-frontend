@@ -31,7 +31,6 @@ import play.api.data.{Form, FormError, Mapping}
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import repositories.SessionRepo
-import session.{AgentAppointmentSession, AgentAppointmentSessionRepository}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -107,7 +106,6 @@ class AppointAgentController @Inject() (
     val hasCheckAgent = pLink.agents.map(_.checkPermission).contains(StartAndContinue)
     val hasChallengeAgent = pLink.agents.map(_.challengePermission).contains(StartAndContinue)
     if (hasCheckAgent && agent.canCheck == StartAndContinue || hasChallengeAgent && agent.canChallenge == StartAndContinue) {
-      //  def start(agent: AppointAgent, agentOrgId: Long, propertyLink: PropertyLink)(implicit hc: HeaderCarrier): Future[Unit] = {
       val agentSession = AgentAppointmentSession(agent, agentOrgId, pLink)
       sessionRepository.start[AgentAppointmentSession](agentSession).map(_ => {
         val permissions = pLink.agents.map(a => ExistingAgentsPermission(a.organisationName, a.agentCode,

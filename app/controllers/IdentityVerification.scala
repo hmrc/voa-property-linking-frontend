@@ -28,7 +28,7 @@ import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
 import scala.concurrent.Future
 
 class IdentityVerification @Inject() (
-                                       @Named ("personSession") val keystore: SessionRepo)
+                                       @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
   extends PropertyLinkingController {
   val groups = Wiring().groupAccountConnector
   val individuals = Wiring().individualAccountConnector
@@ -40,7 +40,7 @@ class IdentityVerification @Inject() (
 
   def startIv = ggAction.async { _ => implicit request =>
     if (ApplicationConfig.ivEnabled) {
-      keystore.get[PersonalDetails] flatMap { details  => {
+      personalDetailsSessionRepo.get[PersonalDetails] flatMap { details  => {
         val d = details.getOrElse(throw new Exception("details not found"))
         identityVerificationProxyConnector.start(ApplicationConfig.baseUrl + routes.IdentityVerification.restoreSession().url,
           ApplicationConfig.baseUrl + routes.IdentityVerification.fail().url, d.ivDetails, None).map(l => Redirect(l.link))
@@ -75,7 +75,7 @@ class IdentityVerification @Inject() (
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       val eventualGroupId = auth.getGroupId(ctx)
       val eventualExternalId = auth.getExternalId(ctx)
-      val eventualIndividualDetails = keystore.get[PersonalDetails]
+      val eventualIndividualDetails = personalDetailsSessionRepo.get[PersonalDetails]
 
       for {
         groupId <- eventualGroupId
@@ -88,7 +88,7 @@ class IdentityVerification @Inject() (
           case Some(acc) => individuals.create(IndividualAccount(userId, journeyId, acc.id, d.individualDetails)) map { _ =>
             Ok(views.html.createAccount.groupAlreadyExists(acc.companyName))
           }
-          case _ => keystore.saveOrUpdate(d) map { _ => Ok(views.html.identityVerification.success()) }
+          case _ => personalDetailsSessionRepo.saveOrUpdate(d) map { _ => Ok(views.html.identityVerification.success()) }
         }
       } yield res
     }

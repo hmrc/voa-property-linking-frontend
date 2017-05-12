@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-package utils
+package models
 
-import config.VPLSessionCache
+import controllers.agentAppointment.AppointAgent
+import play.api.libs.json.Json
 
-//FIXME - delete me.
-//object StubSessionCache extends VPLSessionCache(StubHttp)
+case class AgentAppointmentSession(agent: AppointAgent, agentOrgId: Long, propertyLink: PropertyLink)
+
+object AgentAppointmentSession {
+  implicit val format = Json.format[AgentAppointmentSession]
+}

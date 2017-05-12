@@ -16,7 +16,6 @@
 
 package controllers.agentAppointment
 
-import config.VPLSessionCache
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
 import connectors.Authenticated
@@ -27,7 +26,8 @@ import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import _root_.session.{AgentAppointmentSession, AgentAppointmentSessionRepository}
+import repositories.AgentAppointmentSessionRepository
+import repositories.PersonalDetailsSessionRepository
 import utils._
 
 import scala.concurrent.Future

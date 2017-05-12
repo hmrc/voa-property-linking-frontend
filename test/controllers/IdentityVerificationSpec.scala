@@ -15,7 +15,6 @@
  */
 
 package controllers
-import config.VPLSessionCache
 import models.{GroupAccount, PersonalDetails}
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
@@ -24,6 +23,7 @@ import org.scalacheck.Arbitrary._
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import repositories.PersonalDetailsSessionRepository
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
@@ -33,7 +33,7 @@ import scala.concurrent.Future
 class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
 
   lazy val mockSessionRepo = {
-    val f = mock[VPLSessionCache]
+    val f = mock[PersonalDetailsSessionRepository]
     when(f.start(any())(any(), any())
     ).thenReturn(Future.successful(()))
     when(f.saveOrUpdate(any())(any(), any())
@@ -53,7 +53,6 @@ class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
 
   val request = FakeRequest()
   private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
-  //StubKeystore.stubPersonalDetails(arbitrary[PersonalDetails].sample.get)
 
   "Successfully verifying identity when the group does not have a CCA account" must
     "display the successful iv confirmation page, and not create an individual account" in {

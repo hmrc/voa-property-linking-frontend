@@ -32,7 +32,7 @@ import uk.gov.hmrc.play.http.SessionKeys
 import views.helpers.Errors
 
 class CreateIndividualAccount @Inject() (
-                                          @Named ("personSession") val keystore: SessionRepo)
+                                          @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
   extends PropertyLinkingController {
   lazy val ggAction = Wiring().ggAction
   lazy val identityVerification = Wiring().identityVerification
@@ -62,7 +62,7 @@ class CreateIndividualAccount @Inject() (
   def submit = ggAction.async { _ => implicit request =>
     CreateIndividualAccount.form.bindFromRequest().fold(
       errors => BadRequest(views.html.createAccount.individual(errors)),
-      formData => keystore.saveOrUpdate(formData) map { _ =>
+      formData => personalDetailsSessionRepo.saveOrUpdate(formData) map { _ =>
         Redirect(routes.IdentityVerification.startIv)
       }
     )

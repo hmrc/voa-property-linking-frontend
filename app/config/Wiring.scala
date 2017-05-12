@@ -16,27 +16,17 @@
 
 package config
 
-import javax.inject.Inject
-
 import actions.AuthenticatedAction
 import auth.GGAction
 import connectors._
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import connectors.propertyLinking.PropertyLinkConnector
-import models.PersonalDetails
-import play.api.Play
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.{JsDefined, JsString, Reads, Writes}
-import repositories.SessionRepository
-import session.{AgentAppointmentSessionRepository, WithLinkingSession}
-import uk.gov.hmrc.http.cache.client.SessionCache
+import play.api.libs.json.{JsDefined, JsString, Writes}
 import uk.gov.hmrc.play.audit.http.HttpAuditing
-import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
+import uk.gov.hmrc.play.config.{AppName, RunMode}
 import uk.gov.hmrc.play.http._
 import uk.gov.hmrc.play.http.ws._
-import play.modules.reactivemongo.ReactiveMongoComponent
-import reactivemongo.api.{DB, DefaultDB}
-import uk.gov.hmrc.mongo.MongoConnector
 
 import scala.concurrent.Future
 import scala.util.Try
@@ -63,12 +53,6 @@ abstract class Wiring {
   def businessRatesValuation = new BusinessRatesValuationConnector(http)
   def trafficThrottleConnector = new TrafficThrottleConnector(http)
 }
-
-  //FIXME: move to sessionRepo, ,and rename
-//class PropertyLinkingSessionRepository @Inject()(db: DB) extends SessionRepository("propertyLinking", db)
-class VPLSessionCache @Inject()(db: DB) extends SessionRepository("personDetails", db)
-//(val http: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {
-
 
 class WSHttp extends WSGet with WSPut with WSDelete with WSPost with WSPatch with HttpAuditing with AppName with RunMode {
   override val hooks = Seq(AuditingHook)

@@ -18,12 +18,11 @@ package config
 
 import javax.inject.{Inject, Provider}
 
-import akka.stream.Materializer
 import com.google.inject.AbstractModule
 import com.google.inject.name.Names
 import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
-import play.api.Play.{configuration, current}
+import play.api.Play.{current}
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.api._
@@ -31,18 +30,14 @@ import play.twirl.api.Html
 import uk.gov.hmrc.play.audit.filters.FrontendAuditFilter
 import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
-import uk.gov.hmrc.play.config.{AppName, ControllerConfig, ServicesConfig}
+import uk.gov.hmrc.play.config.{AppName, ControllerConfig}
 import uk.gov.hmrc.play.filters.MicroserviceFilterSupport
 import uk.gov.hmrc.play.frontend.bootstrap.{DefaultFrontendGlobal, ShowErrorPage}
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
-import uk.gov.hmrc.whitelist.AkamaiWhitelistFilter
-import play.api.http.DefaultHttpFilters
 import play.modules.reactivemongo.ReactiveMongoComponent
 import reactivemongo.api.DB
-import repositories.{PropertyLinkingSessionRepository, SessionRepo}
-import session.AgentAppointmentSessionRepository
+import repositories.{AgentAppointmentSessionRepository, PropertyLinkingSessionRepository, SessionRepo, PersonalDetailsSessionRepository}
 
-import scala.concurrent.Future
 
 object Global extends VPLFrontendGlobal {
   override val wiring: Wiring = new Wiring {
@@ -93,7 +88,7 @@ class GuiceModule(environment: Environment,
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])
-    bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[VPLSessionCache])
+    bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
   }
 }
 
