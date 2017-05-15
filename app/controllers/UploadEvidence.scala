@@ -16,7 +16,7 @@
 
 package controllers
 
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 
 import config.Wiring
 import connectors.EnvelopeConnector
@@ -31,7 +31,7 @@ import views.helpers.Errors
 
 class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector,
                                override val envelopeConnector: EnvelopeConnector,
-                               override val sessionRepository: SessionRepo,
+                               @Named("propertyLinkingSession") override val sessionRepository: SessionRepo,
                                override val withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController with FileUploadHelpers {
   override val propertyLinks = Wiring().propertyLinkConnector

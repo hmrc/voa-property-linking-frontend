@@ -18,7 +18,7 @@ package repositories
 
 import javax.inject.Inject
 
-import com.google.inject.{ImplementedBy, Singleton}
+import com.google.inject.Singleton
 import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.DB
@@ -27,31 +27,38 @@ import reactivemongo.bson.{BSONDocument, BSONObjectID, BSONString}
 import uk.gov.hmrc.mongo.{AtomicUpdate, ReactiveRepository}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import scala.concurrent.duration._
 
 @Singleton
-class SessionRepository @Inject()(db: DB)
+class AgentAppointmentSessionRepository @Inject() (db: DB) extends SessionRepository ("agentAppointmentDocument", db)
+
+@Singleton
+class PersonalDetailsSessionRepository @Inject()(db: DB) extends SessionRepository("personDetails", db)
+
+@Singleton
+class PropertyLinkingSessionRepository @Inject()(db: DB) extends SessionRepository("propertyLinking", db)
+
+class SessionRepository @Inject()(formId: String, db: DB)
   extends ReactiveRepository[SessionData, String]("sessions", () => db, SessionData.format, implicitly[Format[String]])
     with SessionRepo with AtomicUpdate[SessionData] {
 
   override def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] = {
-    for {
-      sessionId <- getSessionId
-      _ <- insert(SessionData(sessionId, Json.toJson(data)))
-    } yield {
-      ()
-    }
+    saveOrUpdate[A](data)
   }
 
   override def saveOrUpdate[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] = {
    for {
      sessionId <- getSessionId
-     _ <- atomicUpsert(
+     _ <- collection.update(
        BSONDocument("_id" -> BSONString(sessionId)),
        BSONDocument(
-         "$set" -> BSONDocument("data" -> Json.toJson(data)))
+         "$set" -> BSONDocument(s"data.${formId}" -> Json.toJson(data)),
+         "$setOnInsert" -> BSONDocument("createdAt" -> Json.toJson(DateTime.now()))
+       ),
+       upsert = true
+
      )
    } yield {
      ()
@@ -63,14 +70,23 @@ class SessionRepository @Inject()(db: DB)
       sessionId <- getSessionId
       maybeOption <- findById(sessionId)
     } yield {
-      maybeOption.map(_.data.as[A])
+      maybeOption
+        .map(_.data \ formId)
+        .flatMap(x => x match {
+          case JsDefined(value) => Some(value.as[A])
+          case JsUndefined() => None
+        })
     }
   }
 
   override def remove()(implicit hc: HeaderCarrier): Future[Unit] = {
     for {
       sessionId <- getSessionId
-      _ <- removeById(sessionId)
+      _ <- collection.update(
+        BSONDocument("_id" -> BSONString(sessionId)),
+        BSONDocument(
+          "$unset" -> BSONDocument(s"data.${formId}" -> 1))
+      )
     } yield {
       ()
     }
@@ -100,7 +116,6 @@ object SessionData {
 }
 case object NoSessionException extends Exception("Could not find sessionId in HeaderCarrier")
 
-@ImplementedBy(classOf[SessionRepository])
 trait SessionRepo {
 
   def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]

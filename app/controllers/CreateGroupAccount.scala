@@ -16,31 +16,35 @@
 
 package controllers
 
+import javax.inject.{Inject, Named}
+
 import config.Wiring
 import form.Mappings._
 import form.TextMatching
-import models.{Address, IndividualAccount}
+import models.{Address, IndividualAccount, PersonalDetails}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
+import repositories.SessionRepo
 import uk.gov.hmrc.play.http.HeaderCarrier
 import views.helpers.Errors
 
 import scala.concurrent.Future
 
-trait CreateGroupAccount extends PropertyLinkingController {
+class CreateGroupAccount @Inject() (
+                                     @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
+  extends PropertyLinkingController {
   lazy val groups = Wiring().groupAccountConnector
   lazy val individuals = Wiring().individualAccountConnector
   lazy val auth = Wiring().authConnector
   lazy val ggAction = Wiring().ggAction
-  lazy val keystore = Wiring().sessionCache
   lazy val identityVerification = Wiring().identityVerification
   lazy val addresses = Wiring().addresses
 
   def show = ggAction.async { _ => implicit request =>
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       identityVerification.verifySuccess(journeyId) flatMap {
-        case true => Ok(views.html.createAccount.group(form))
+        case true => Ok(views.html.createAccount.group(CreateGroupAccount.form))
         case false => Unauthorized("Unauthorised")
       }
     }
@@ -59,18 +63,19 @@ trait CreateGroupAccount extends PropertyLinkingController {
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       identityVerification.verifySuccess(journeyId) flatMap {
         case true =>
-          form.bindFromRequest().fold(
+          CreateGroupAccount.form.bindFromRequest().fold(
             errors => BadRequest(views.html.createAccount.group(errors)),
             formData => {
               val eventualGroupId = auth.getGroupId(ctx)
               val eventualExternalId = auth.getExternalId(ctx)
-              val eventualPersonalDetails = keystore.getPersonalDetails
+              val eventualPersonalDetails = personalDetailsSessionRepo.get[PersonalDetails]
               val addressId = registerAddress(formData)
 
               for {
                 groupId <- eventualGroupId
                 userId <- eventualExternalId
-                details <- eventualPersonalDetails
+                _details <- eventualPersonalDetails
+                details = _details.getOrElse(throw new Exception(s"No PersonalDetails record found."))
                 id <- addressId
                 organisationId <- groups.create(groupId, id, formData)
                 _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details.individualDetails))
@@ -89,6 +94,10 @@ trait CreateGroupAccount extends PropertyLinkingController {
     case None => addresses.create(details.address)
   }
 
+  implicit def vm(form: Form[_]): CreateGroupAccountVM = CreateGroupAccountVM(form)
+}
+
+object CreateGroupAccount{
   lazy val keys = new {
     val companyName = "companyName"
     val address = "address"
@@ -108,15 +117,11 @@ trait CreateGroupAccount extends PropertyLinkingController {
     keys.isSmallBusiness -> mandatoryBoolean,
     keys.isAgent -> mandatoryBoolean
   )(GroupAccountDetails.apply)(GroupAccountDetails.unapply))
-
-  implicit def vm(form: Form[_]): CreateGroupAccountVM = CreateGroupAccountVM(form)
 }
 
 
 
 
-
-object CreateGroupAccount extends CreateGroupAccount
 
 case class CreateGroupAccountVM(form: Form[_])
 

@@ -16,7 +16,7 @@
 
 package controllers
 
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 
 import actions.AuthenticatedRequest
 import com.google.inject.Singleton
@@ -37,7 +37,7 @@ import scala.concurrent.Future
 
 @Singleton
 class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
-                              val sessionRepository: SessionRepo)
+                              @Named("propertyLinkingSession") val sessionRepository: SessionRepo)
   extends PropertyLinkingController with ServicesConfig {
   lazy val authenticated = Wiring().authenticated
   lazy val submissionIdConnector = Wiring().submissionIdConnector

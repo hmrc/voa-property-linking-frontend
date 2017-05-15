@@ -16,6 +16,8 @@
 
 package controllers.propertyLinking
 
+import javax.inject.Named
+
 import com.google.inject.{Inject, Singleton}
 import config.Wiring
 import connectors.EnvelopeConnector
@@ -29,7 +31,7 @@ import views.html.propertyLinking.declaration
 
 @Singleton
 class Declaration @Inject()(envelopes: EnvelopeConnector,
-                            sessionRepository: SessionRepo,
+                            @Named("propertyLinkingSession") sessionRepository: SessionRepo,
                             withLinkingSession: WithLinkingSession
                            )
   extends PropertyLinkingController {

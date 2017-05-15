@@ -16,6 +16,8 @@
 
 package controllers.agentAppointment
 
+import javax.inject.{Inject, Named}
+
 import actions.BasicAuthenticatedRequest
 import config.{Global, Wiring}
 import controllers.PropertyLinkingController
@@ -28,19 +30,21 @@ import play.api.data.validation.Constraint
 import play.api.data.{Form, FormError, Mapping}
 import play.api.libs.json.Json
 import play.api.mvc.Request
+import repositories.SessionRepo
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class AppointAgentController extends PropertyLinkingController {
+class AppointAgentController @Inject() (
+                                         @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
+  extends PropertyLinkingController {
   val representations = Wiring().propertyRepresentationConnector
   val accounts = Wiring().groupAccountConnector
   val propertyLinks = Wiring().propertyLinkConnector
   val authenticated = Wiring().authenticated
-  val sessionRepository = Wiring().agentAppointmentSessionRepository
 
   def appoint(linkId: Long) = authenticated { implicit request =>
-    sessionRepository.get flatMap {
+    sessionRepository.get[AgentAppointmentSession] flatMap {
       case Some(s) =>
         Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm.fill(s.agent), linkId)))
       case None =>
@@ -102,7 +106,8 @@ class AppointAgentController extends PropertyLinkingController {
     val hasCheckAgent = pLink.agents.map(_.checkPermission).contains(StartAndContinue)
     val hasChallengeAgent = pLink.agents.map(_.challengePermission).contains(StartAndContinue)
     if (hasCheckAgent && agent.canCheck == StartAndContinue || hasChallengeAgent && agent.canChallenge == StartAndContinue) {
-      sessionRepository.start(agent, agentOrgId, pLink).map(_ => {
+      val agentSession = AgentAppointmentSession(agent, agentOrgId, pLink)
+      sessionRepository.start[AgentAppointmentSession](agentSession).map(_ => {
         val permissions = pLink.agents.map(a => ExistingAgentsPermission(a.organisationName, a.agentCode,
           Seq(
             if (a.checkPermission == StartAndContinue) "check" else "",
@@ -179,7 +184,7 @@ class AppointAgentController extends PropertyLinkingController {
   }
 
   def confirmed(authorisationId: Long) = authenticated { implicit request =>
-    sessionRepository.get flatMap {
+    sessionRepository.get[AgentAppointmentSession] flatMap {
       case Some(s) => {
         updateAllAgentsPermission(authorisationId, s.propertyLink, s.agent, s.agentOrgId, request.individualAccount.individualId)
           .map(_ => sessionRepository.remove())
@@ -225,8 +230,6 @@ class AppointAgentController extends PropertyLinkingController {
     "canChallenge" -> AgentPermissionMapping("canCheck")
   )(AppointAgent.apply)(AppointAgent.unapply))
 }
-
-object AppointAgentController extends AppointAgentController
 
 case class AppointAgent(agentCode: Long, canCheck: AgentPermission, canChallenge: AgentPermission)
 

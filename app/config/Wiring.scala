@@ -21,20 +21,12 @@ import auth.GGAction
 import connectors._
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import connectors.propertyLinking.PropertyLinkConnector
-import models.PersonalDetails
-import play.api.Play
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.{JsDefined, JsString, Reads, Writes}
-import repositories.SessionRepository
-import session.{AgentAppointmentSessionRepository, WithLinkingSession}
-import uk.gov.hmrc.http.cache.client.SessionCache
+import play.api.libs.json.{JsDefined, JsString, Writes}
 import uk.gov.hmrc.play.audit.http.HttpAuditing
-import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
+import uk.gov.hmrc.play.config.{AppName, RunMode}
 import uk.gov.hmrc.play.http._
 import uk.gov.hmrc.play.http.ws._
-import play.modules.reactivemongo.ReactiveMongoComponent
-import reactivemongo.api.DefaultDB
-import uk.gov.hmrc.mongo.MongoConnector
 
 import scala.concurrent.Future
 import scala.util.Try
@@ -45,9 +37,6 @@ object Wiring {
 
 abstract class Wiring {
   def http: HttpGet with HttpPut with HttpDelete with HttpPost with HttpPatch
-  lazy val sessionCache = new VPLSessionCache(http)
-  lazy val mongoConnector:MongoConnector = Play.current.injector.instanceOf[ReactiveMongoComponent].mongoConnector
-  lazy val agentAppointmentSessionRepository = new AgentAppointmentSessionRepository(sessionCache)
   def propertyRepresentationConnector = new PropertyRepresentationConnector(http)
   def propertyLinkConnector = new PropertyLinkConnector(http)
   def individualAccountConnector = new IndividualAccounts(http)
@@ -64,23 +53,6 @@ abstract class Wiring {
   def businessRatesValuation = new BusinessRatesValuationConnector(http)
   def trafficThrottleConnector = new TrafficThrottleConnector(http)
 }
-
-class VPLSessionCache(val http: HttpGet with HttpPut with HttpDelete) extends SessionCache with AppName with ServicesConfig {
-  override def defaultSource: String = appName
-  override def baseUri: String = baseUrl("cachable.session-cache")
-  override def domain: String = getConfString("cachable.session-cache.domain", throw new Exception("No config setting for cache domain"))
-
-  def getPersonalDetails(implicit hc: HeaderCarrier) = getEntry[PersonalDetails]("personDetails")
-
-  def cachePersonalDetails(details: PersonalDetails)(implicit hc: HeaderCarrier): Future[Unit] = {
-    cache("personDetails", details) map { _ => () }
-  }
-
-  private def getEntry[T](formId: String)(implicit hc: HeaderCarrier, rds: Reads[T]) = {
-    fetchAndGetEntry(formId) map { _.getOrElse(throw new Exception(s"No keystore record found for $formId")) }
-  }
-}
-
 
 class WSHttp extends WSGet with WSPut with WSDelete with WSPost with WSPatch with HttpAuditing with AppName with RunMode {
   override val hooks = Seq(AuditingHook)

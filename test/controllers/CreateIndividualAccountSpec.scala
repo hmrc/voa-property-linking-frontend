@@ -17,22 +17,36 @@
 package controllers
 
 import models.{DetailedIndividualAccount, PersonalDetails}
+import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.mockito.MockitoSugar
 import play.api.Logger
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.play.http.HeaderNames
 import utils._
 
-class CreateIndividualAccountSpec extends ControllerSpec {
+import scala.concurrent.Future
 
-  private object TestCreateIndividualAccount extends CreateIndividualAccount {
+class CreateIndividualAccountSpec extends ControllerSpec with MockitoSugar {
+
+  lazy val mockSessionRepo = {
+    val f = mock[SessionRepo]
+    when(f.start(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    when(f.saveOrUpdate(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    f
+  }
+
+  private object TestCreateIndividualAccount extends CreateIndividualAccount(mockSessionRepo) {
     override lazy val ggAction = StubGGAction
     override lazy val auth = StubAuthConnector
     override lazy val individuals = StubIndividualAccountConnector
-    override lazy val keystore = StubKeystore
   }
 
   "Going to the create individual account page, when logged in with an account that has not registered" should "display the create individual account form" in {
