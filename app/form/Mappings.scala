@@ -16,30 +16,36 @@
 
 package form
 
-import config.ApplicationConfig
 import models.{Address, NamedEnum, NamedEnumSupport}
 import org.joda.time.LocalDate
 import play.api.data.Forms._
 import play.api.data.format.{Formats, Formatter}
 import play.api.data.validation.{Constraint, Constraints}
 import play.api.data.{FormError, Forms, Mapping}
+import uk.gov.voa.play.form.Condition
+import utils.Conditionals.IfCondition
 import views.helpers.Errors
 
 import scala.util.Try
 
 object Mappings extends DateMappings {
 
-  def trueOnly(error: String): Mapping[Boolean] =
-    text.verifying(error, _ == "true").transform[Boolean](_.toBoolean, _.toString)
+  def trueOnly(error: String): Mapping[Boolean] = text.verifying(error, _ == "true").transform[Boolean](_.toBoolean, _.toString)
+
+  def line3IsLast(): Condition = data => (data.getOrElse("address.line3", ""), data.getOrElse("address.line4", "")) match {
+    case (line3, line4) => line3.length > 0 && line4.length == 0
+  }
+
+  def line4IsLast(): Condition = data => data.getOrElse("address.line4", "").length > 0
 
   val mandatoryBoolean: Mapping[Boolean] = optional(boolean).verifying("error.boolean", _.isDefined).transform(_.get, Some.apply)
 
   val address: Mapping[Address] = mapping(
     "addressId" -> addressId,
-    "line1" -> default(text(maxLength = 100), ""),
-    "line2" -> default(text(maxLength = 100), ""),
-    "line3" -> default(text(maxLength = 100), ""),
-    "line4" -> default(text(maxLength = 100), ""),
+    "line1" -> default(text(maxLength = 80), ""),
+    "line2" -> IfCondition(line3IsLast(), text(maxLength = 80)).elseIf(line4IsLast(), text(maxLength = 80)).default(text(maxLength = 30), ""),
+    "line3" -> IfCondition(line4IsLast(), text(maxLength = 35)).default(text(maxLength = 30), ""),
+    "line4" -> default(text(maxLength = 30), ""),
     "postcode" -> nonEmptyText(maxLength = 8).transform[String](_.toUpperCase, identity)
   )(Address.apply)(Address.unapply)
 
