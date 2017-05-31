@@ -55,7 +55,7 @@
                                 @(Formatters.capitalizedAddress(p.address))
                             </td>
                             <td>
-                                @{p.assessments.headOption.map(_.billingAuthorityReference).getOrElse("-")}
+                                @{p.assessments.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")}
                             </td>
                             <td>
                                 <ul class="list">
