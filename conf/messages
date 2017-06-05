@@ -2,10 +2,6 @@ project.header=VOA Property Linking
 service.name=Check and challenge your business rates valuation
 link.dashboardhome=Dashboard
 
-#RELEASE NOTES
-releaseNotes.title=Release notes
-
-
 #START PAGE
 start.heading.register=Register to use this service
 start.heading.registration=Registration
