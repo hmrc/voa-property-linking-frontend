@@ -31,14 +31,6 @@ object Application extends Controller with WithThrottling {
     Ok(views.html.addUserToGG())
   }
 
-  def releaseNotes = Action { implicit request =>
-    if (ApplicationConfig.showReleaseNotes) {
-      Ok(views.html.releaseNotes())
-    } else {
-      Redirect(routes.Application.start())
-    }
-  }
-
   def start() = Action.async { implicit request =>
     withThrottledHoldingPage("registration", Ok(views.html.errors.errorRegistration())) {
       Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)

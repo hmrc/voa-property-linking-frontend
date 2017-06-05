@@ -1,5 +1,5 @@
 #Start
-GET         /                                                                                 controllers.Application.releaseNotes()
+GET         /                                                                                 controllers.Application.start()
 
 GET         /start                                                                            controllers.Application.start()
 
