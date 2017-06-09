@@ -104,7 +104,6 @@ object CreateGroupAccount{
     val email = "businessEmail"
     val confirmEmail = "confirmedBusinessEmail"
     val phone = "businessPhone"
-    val isSmallBusiness = "isSmallBusiness"
     val isAgent = "isAgent"
   }
 
@@ -114,7 +113,6 @@ object CreateGroupAccount{
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.phone -> nonEmptyText(maxLength = 20),
-    keys.isSmallBusiness -> mandatoryBoolean,
     keys.isAgent -> mandatoryBoolean
   )(GroupAccountDetails.apply)(GroupAccountDetails.unapply))
 }
@@ -122,4 +120,4 @@ object CreateGroupAccount{
 case class CreateGroupAccountVM(form: Form[_])
 
 case class GroupAccountDetails(companyName: String, address: Address, email: String, confirmedEmail: String,
-                               phone: String, isSmallBusiness: Boolean, isAgent: Boolean)
+                               phone: String, isAgent: Boolean)

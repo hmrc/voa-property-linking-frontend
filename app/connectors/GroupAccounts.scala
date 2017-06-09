@@ -49,7 +49,7 @@ class GroupAccounts(http: WSHttp)(implicit ec: ExecutionContext) extends Service
   }
 
   def create(groupId: String, addressId: Int, details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = {
-    create(GroupAccountSubmission(groupId, details.companyName, addressId, details.email, details.phone, details.isSmallBusiness, details.isAgent))
+    create(GroupAccountSubmission(groupId, details.companyName, addressId, details.email, details.phone, details.isAgent))
   }
 
   def update(orgId: Int, details: UpdatedOrganisationAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
