@@ -43,7 +43,7 @@ trait Assessments extends PropertyLinkingController {
   }
 
   def viewSummary(uarn: Long) = Action { implicit request =>
-    Redirect(ApplicationConfig.vmvUrl + s"/cca/detail/$uarn")
+    Redirect(ApplicationConfig.vmvUrl + s"/detail/$uarn")
   }
 
   def viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef: String) = authenticated { implicit request =>
