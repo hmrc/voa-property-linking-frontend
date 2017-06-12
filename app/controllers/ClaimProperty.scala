@@ -43,7 +43,7 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
   lazy val submissionIdConnector = Wiring().submissionIdConnector
 
   def show() = authenticated { implicit request =>
-    Redirect(s"${ApplicationConfig.vmvUrl}/cca/search")
+    Redirect(s"${ApplicationConfig.vmvUrl}/search")
   }
 
   def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
