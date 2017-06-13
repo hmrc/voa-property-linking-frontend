@@ -18,6 +18,11 @@ package models
 
 import play.api.libs.json.Json
 
+case class IndividualAccountSubmission(externalId: String, trustId: String, organisationId: Option[Int], details: IndividualDetails)
+object IndividualAccountSubmission {
+  implicit def formats = Json.format[IndividualAccountSubmission]
+}
+
 case class IndividualAccount(externalId: String, trustId: String, organisationId: Int, details: IndividualDetails)
 
 case class DetailedIndividualAccount(externalId: String, trustId: String, organisationId: Int, individualId: Int, details: IndividualDetails) {

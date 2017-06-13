@@ -21,7 +21,7 @@ import javax.inject.{Inject, Named}
 import config.Wiring
 import form.Mappings._
 import form.TextMatching
-import models.{Address, IndividualAccount, PersonalDetails}
+import models.{Address, IndividualAccount, IndividualAccountSubmission, PersonalDetails}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
@@ -77,8 +77,7 @@ class CreateGroupAccount @Inject() (
                 _details <- eventualPersonalDetails
                 details = _details.getOrElse(throw new Exception(s"No PersonalDetails record found."))
                 id <- addressId
-                organisationId <- groups.create(groupId, id, formData)
-                _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details.individualDetails))
+                organisationId <- groups.create(groupId, id, formData, IndividualAccountSubmission(userId, journeyId, None, details.individualDetails))
               } yield {
                 Redirect(routes.CreateGroupAccount.success())
               }
