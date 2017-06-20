@@ -31,7 +31,7 @@
             },
             columns: [
                 {data: 'address'},
-                {data: 'assessment.0.billingAuthorityReference'},
+                {data: 'assessments.0.billingAuthorityReference', defaultContent:'-'},
                 {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>'},
                 {data: 'agents[, ].organisationName'},
                 {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>'}
