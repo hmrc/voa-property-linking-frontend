@@ -8,9 +8,9 @@
 
 @main_template(
     title = Messages("propertyRepresentation.appointAgent.title"),
-    topNavigation = true,
     topBackLink = true,
-    bottomBackLink = true
+    bottomBackLink = true,
+    backLinkUrl = Some(routes.Dashboard.manageProperties().url)
 ) {
 
 

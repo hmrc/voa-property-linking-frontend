@@ -16,7 +16,7 @@
 
 package forms
 
-import controllers.UploadEvidence
+import controllers.propertyLinking.UploadEvidence
 import models._
 import org.scalatest.{FlatSpec, MustMatchers}
 import utils.FormBindingVerification._

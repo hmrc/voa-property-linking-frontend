@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.propertyLinking
 
 import javax.inject.{Inject, Named}
 
@@ -22,23 +22,27 @@ import actions.AuthenticatedRequest
 import com.google.inject.Singleton
 import config.{ApplicationConfig, Wiring}
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
+import controllers.PropertyLinkingController
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
 import models.{CapacityDeclaration, _}
 import org.joda.time.LocalDate
 import play.api.data.Form
 import play.api.data.Forms._
-import repositories.{SessionRepo, SessionRepository}
+import repositories.SessionRepo
+import session.WithLinkingSession
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
 
-import scala.concurrent.Future
-
 @Singleton
 class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
-                              @Named("propertyLinkingSession") val sessionRepository: SessionRepo)
+                              @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
+                              val withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController with ServicesConfig {
+
+  import ClaimProperty._
+
   lazy val authenticated = Wiring().authenticated
   lazy val submissionIdConnector = Wiring().submissionIdConnector
 
@@ -47,16 +51,21 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
   }
 
   def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
-    Ok(views.html.declareCapacity(DeclareCapacityVM(ClaimProperty.declareCapacityForm, address, uarn)))
+    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn)))
   }
 
   def attemptLink(uarn: Long, address: String) = authenticated { implicit request =>
     ClaimProperty.declareCapacityForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.declareCapacity(DeclareCapacityVM(errors, address, uarn))),
+      errors => BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn))),
       formData => initialiseSession(formData, uarn, address) map { _ =>
         Redirect(routes.ChooseEvidence.show())
       }
     )
+  }
+
+  def back = withLinkingSession { implicit request =>
+    val form = declareCapacityForm.fillAndValidate(request.ses.declaration)
+    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn)))
   }
 
   private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(implicit request: AuthenticatedRequest[_]) = {

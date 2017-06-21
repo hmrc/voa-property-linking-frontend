@@ -146,7 +146,7 @@ class ManagePropertiesSpec extends ControllerSpec {
   it must "include a link to add another property" in {
     val html = defaultHtml
 
-    html.select("a#addAnotherProperty").attr("href") mustBe routes.ClaimProperty.show.url
+    html.select("a#addAnotherProperty").attr("href") mustBe propertyLinking.routes.ClaimProperty.show.url
   }
 
   it must "tell the user they have no properties, if they have no properties to display" in {

@@ -16,7 +16,7 @@
 
 package forms
 
-import controllers.ClaimProperty
+import controllers.propertyLinking.ClaimProperty
 import models.{CapacityDeclaration, CapacityType, Occupier}
 import org.joda.time.LocalDate
 import org.scalatest.{FlatSpec, MustMatchers}

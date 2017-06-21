@@ -1,12 +1,11 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
-@import _root_.template.Display
-
+@import config.ApplicationConfig._
+@import controllers.propertyLinking.DeclareCapacityVM
 
 @(model: DeclareCapacityVM)(implicit request: Request[_], messages: Messages)
 
-
-@main_template(title = Messages("declareCapacity.title")) {
+@main_template(title = Messages("declareCapacity.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(vmvUrl + "/back-to-list-valuations")) {
 
 
     <div class="grid-row">
@@ -28,11 +27,11 @@
 
             <p class="panel panel-border-wide">
                 @Messages("declareCapacity.incorrectProperty.prefix")
-                <a href="@routes.ClaimProperty.show">@Messages("declareCapacity.incorrectProperty.link")</a>
+                <a href="@controllers.propertyLinking.routes.ClaimProperty.show">@Messages("declareCapacity.incorrectProperty.link")</a>
             </p>
 
 
-            @form(routes.ClaimProperty.attemptLink(model.uarn, model.address)) {
+            @form(controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address)) {
 
                 <details>
                     <summary><span>@Messages("declareCapacity.details.ownerOrOccupier")</span></summary>

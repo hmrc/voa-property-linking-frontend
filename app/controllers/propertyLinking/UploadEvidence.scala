@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.propertyLinking
 
 import javax.inject.{Inject, Named}
 
 import config.Wiring
 import connectors.EnvelopeConnector
 import connectors.fileUpload.FileUploadConnector
+import controllers._
 import form.EnumMapping
 import models._
 import play.api.data.Form
@@ -37,12 +38,12 @@ class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector,
   override val propertyLinks = Wiring().propertyLinkConnector
 
   def show() = withLinkingSession { implicit request =>
-    Ok(views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form)))
+    Ok(views.html.propertyLinking.uploadEvidence(UploadEvidenceVM(UploadEvidence.form)))
   }
 
   def submit() = withLinkingSession { implicit request =>
     UploadEvidence.form.bindFromRequest().fold(
-      error => BadRequest(views.html.uploadEvidence.show(UploadEvidenceVM(error))),
+      error => BadRequest(views.html.propertyLinking.uploadEvidence(UploadEvidenceVM(error))),
       uploaded => {
         val filePart = request.request.body.asMultipartFormData.get.file("evidence[]").flatMap(x => if (x.filename.isEmpty) None else Some(x))
         uploadIfNeeded(filePart) flatMap { x =>
@@ -53,12 +54,12 @@ class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector,
                 Redirect(propertyLinking.routes.Declaration.show)
               }
             case FileTooLarge => BadRequest(
-              views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", "error.fileUpload.tooLarge")))
+              views.html.propertyLinking.uploadEvidence(UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", "error.fileUpload.tooLarge")))
             )
             case InvalidFileType => BadRequest(
-              views.html.uploadEvidence.show(UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", "error.fileUpload.invalidFileType")))
+              views.html.propertyLinking.uploadEvidence(UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", "error.fileUpload.invalidFileType")))
             )
-            case FileMissing => BadRequest(views.html.uploadEvidence.show(
+            case FileMissing => BadRequest(views.html.propertyLinking.uploadEvidence(
               UploadEvidenceVM(UploadEvidence.form.withError("evidence[]", Errors.missingFiles))))
           }
         }
