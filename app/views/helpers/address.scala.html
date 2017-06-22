@@ -3,7 +3,7 @@
 @(form: Form[_], fieldName: String, helpText: String = "addressLookup.lookup.example")(implicit request: Request[_], messages: Messages)
 
 @addressForm = {
-    <div class="address--fields show-if-no-js" style="display: none">
+    <div class="address--fields uploadEvidence-if-no-js" style="display: none">
         <input type="hidden" id="@{fieldName}_addressId_text" name="@{fieldName}.addressId"/>
 
         @inputText(

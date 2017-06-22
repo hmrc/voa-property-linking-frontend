@@ -6,7 +6,8 @@
 @main_template(
     title = Messages("manageProperties.pendingRequests"),
     topBackLink = true,
-    bottomBackLink = true
+    bottomBackLink = true,
+    backLinkUrl = Some(controllers.agent.routes.RepresentationController.manageRepresentationRequest().url)
 ) {
 
 

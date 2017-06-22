@@ -1,10 +1,10 @@
-@import controllers.agent.RepresentationController.ManagePropertiesVM
-
 @(model: ManageAgentsVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    Messages("dashboard.manageAgents.title"), topNavigation = true,
-    topBackLink = true, bottomBackLink = true
+    Messages("dashboard.manageAgents.title"),
+    topBackLink = true,
+    bottomBackLink = true,
+    backLinkUrl = Some(routes.Dashboard.home().url)
 ) {
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
         <span class="section-title">@Messages("dashboard.manageAgents.title")</span>

@@ -2,9 +2,9 @@
 
 @main_template(
     title = Messages("propertyRepresentation.revokeAgent.title"),
-    topNavigation = true,
     topBackLink = true,
-    bottomBackLink = true
+    bottomBackLink = true,
+    backLinkUrl = Some(routes.Dashboard.viewManagedProperties(agentCode).url)
 ) {
     <div class="grid-row">
         <div class="column-two-thirds">

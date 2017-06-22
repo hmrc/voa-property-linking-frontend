@@ -25,7 +25,7 @@ import controllers.PropertyLinkingController
 import form.Mappings._
 import models.{CapacityDeclaration, FileInfo, LinkBasis, NoEvidenceFlag}
 import play.api.data.{Form, FormError, Forms}
-import repositories.{SessionRepo, SessionRepository}
+import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
 import views.html.propertyLinking.declaration
 
@@ -71,7 +71,7 @@ class Declaration @Inject()(envelopes: EnvelopeConnector,
   }
 
   def noEvidence = withLinkingSession { implicit request =>
-    sessionRepository.remove() map { _ => Ok(views.html.uploadEvidence.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId))) }
+    sessionRepository.remove() map { _ => Ok(views.html.propertyLinking.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId))) }
   }
 
   private def submitLinkingRequest(basis: LinkBasis)(implicit request: LinkingSessionRequest[_]) = {

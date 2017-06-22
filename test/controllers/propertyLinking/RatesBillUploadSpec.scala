@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.propertyLinking
 
 import java.io.File
 
 import connectors.EnvelopeConnector
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
+import controllers.{ControllerSpec, propertyLinking}
 import models._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}

@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.propertyLinking
 
 import connectors.Authenticated
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
+import controllers.ControllerSpec
 import models._
 import org.joda.time.LocalDate
 import org.mockito.ArgumentMatchers.{eq => matching, _}
@@ -29,17 +30,18 @@ import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import utils.{HtmlPage, StubAuthentication, StubSubmissionIdConnector}
+import utils.{HtmlPage, StubAuthentication, StubSubmissionIdConnector, StubWithLinkingSession}
 
 import scala.concurrent.Future
 
 class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
 
   private class TestClaimProperty(fileUploadConnector: FileUploadConnector,
-                              sessionRepository: SessionRepo) extends ClaimProperty(fileUploadConnector, sessionRepository) {
+                                  sessionRepository: SessionRepo) extends ClaimProperty(fileUploadConnector, sessionRepository, new StubWithLinkingSession(mock[SessionRepo])) {
     override lazy val authenticated = StubAuthentication
     override lazy val submissionIdConnector = StubSubmissionIdConnector
   }
+
   private val testClaimProperty = new TestClaimProperty(mockFileUploads, mockSessionRepo)
 
   lazy val submissionId: String = shortString

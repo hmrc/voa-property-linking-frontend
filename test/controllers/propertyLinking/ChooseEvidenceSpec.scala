@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.propertyLinking
+
+import controllers.ControllerSpec
 import models._
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._

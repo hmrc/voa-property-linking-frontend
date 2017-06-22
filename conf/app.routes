@@ -59,17 +59,18 @@ POST        /details-requested/:authorisationId/:assessmentRef                  
 GET         /details-requested/:submissionId                                                  controllers.Assessments.dvRequestConfirmation(submissionId)
 
 #Search and Link
-GET         /property-search                                                                  @controllers.ClaimProperty.show()
-GET         /link-to-property/:uarn                                                           @controllers.ClaimProperty.declareCapacity(uarn: Long, address)
-POST        /link-to-property/:uarn                                                           @controllers.ClaimProperty.attemptLink(uarn: Long, address)
+GET         /property-search                                                                  @controllers.propertyLinking.ClaimProperty.show()
+GET         /link-to-property/:uarn                                                           @controllers.propertyLinking.ClaimProperty.declareCapacity(uarn: Long, address)
+GET         /link-to-property                                                                 @controllers.propertyLinking.ClaimProperty.back()
+POST        /link-to-property/:uarn                                                           @controllers.propertyLinking.ClaimProperty.attemptLink(uarn: Long, address)
 
 #Link scenarios
-GET         /choose-evidence                                                                  @controllers.ChooseEvidence.show()
-POST        /choose-evidence                                                                  @controllers.ChooseEvidence.submit()
-GET         /upload-rates-bill                                                                @controllers.UploadRatesBill.show()
-POST        /upload-rates-bill                                                                @controllers.UploadRatesBill.submit()
-GET         /upload-evidence                                                                  @controllers.UploadEvidence.show()
-POST        /upload-evidence                                                                  @controllers.UploadEvidence.submit()
+GET         /choose-evidence                                                                  @controllers.propertyLinking.ChooseEvidence.show()
+POST        /choose-evidence                                                                  @controllers.propertyLinking.ChooseEvidence.submit()
+GET         /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.show()
+POST        /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.submit()
+GET         /upload-evidence                                                                  @controllers.propertyLinking.UploadEvidence.show()
+POST        /upload-evidence                                                                  @controllers.propertyLinking.UploadEvidence.submit()
 
 GET         /summary                                                                          @controllers.propertyLinking.Declaration.show
 POST        /summary                                                                          @controllers.propertyLinking.Declaration.submit
@@ -78,9 +79,9 @@ GET         /confirmation                                                       
 GET         /confirmation/no-evidence                                                         @controllers.propertyLinking.Declaration.noEvidence
 
 #Linking outcomes
-GET         /rates-bill-submitted                                                             @controllers.UploadRatesBill.fileUploaded()
-GET         /evidence-uploaded                                                                @controllers.UploadEvidence.fileUploaded()
-GET         /no-evidence-uploaded                                                             @controllers.UploadEvidence.noEvidenceUploaded()
+GET         /rates-bill-submitted                                                             @controllers.propertyLinking.UploadRatesBill.fileUploaded()
+GET         /evidence-uploaded                                                                @controllers.propertyLinking.UploadEvidence.fileUploaded()
+GET         /no-evidence-uploaded                                                             @controllers.propertyLinking.UploadEvidence.noEvidenceUploaded()
 GET         /manual-verification-required                                                     controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                                                 controllers.LinkErrors.conflict()
 

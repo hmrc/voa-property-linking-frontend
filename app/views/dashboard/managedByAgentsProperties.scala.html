@@ -9,7 +9,8 @@
     title = Messages("dashboard.managedByAgentsProperties.title", model.agentName),
     topBackLink = true,
     bottomBackLink = true,
-    individualId = Some(request.personId)
+    individualId = Some(request.personId),
+    backLinkUrl = Some(routes.Dashboard.manageAgents().url)
 ) {
 
     <h1 class="heading-xlarge clear-right">

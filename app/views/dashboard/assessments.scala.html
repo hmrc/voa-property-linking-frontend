@@ -7,7 +7,8 @@
     title = Messages("assessments.title"),
     topBackLink = true,
     bottomBackLink = true,
-    individualId = Some(request.personId)
+    individualId = Some(request.personId),
+    backLinkUrl = Some(routes.Dashboard.manageProperties().url)
 ) {
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
     @Messages("assessments.title")

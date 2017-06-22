@@ -28,7 +28,7 @@
 }">
 
     @backLink = {
-        @*<a href=@backLinkUrl.orElse(requestHeader.headers.get("referer")).getOrElse(routes.Dashboard.home()) id="backLinkTop" class="link-back">@Messages("link.back")</a>*@
+        <a href=@backLinkUrl.orElse(requestHeader.headers.get("referer")).getOrElse(routes.Dashboard.home()) id="backLinkTop" class="link-back">@Messages("link.back")</a>
     }
 
 

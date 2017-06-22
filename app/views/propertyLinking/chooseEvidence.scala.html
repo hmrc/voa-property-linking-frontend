@@ -1,21 +1,20 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
-@import controllers.ChooseEvidence.keys
+@import controllers.propertyLinking.ChooseEvidence.keys
 
 @(f: Form[_])(implicit request: Request[_], messages: Messages)
 
     @main_template(Messages("chooseEvidence.title"),
         topBackLink = true,
-        bottomBackLink = true
+        bottomBackLink = true,
+        backLinkUrl = Some(controllers.propertyLinking.routes.ClaimProperty.back().url)
     ){
         <div class="grid-row">
             <div class="column-two-thirds">
 
                 <h1 class="heading-xlarge">@Messages("chooseEvidence.title")</h1>
 
-
-
-                @form(routes.ChooseEvidence.submit) {
+                @form(controllers.propertyLinking.routes.ChooseEvidence.submit) {
 
                     @includes.errorSummary(f)
 

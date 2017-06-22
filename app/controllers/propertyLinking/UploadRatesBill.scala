@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.propertyLinking
 
 import javax.inject.{Inject, Named}
 
 import config.Wiring
-import connectors.fileUpload.FileUploadConnector
 import connectors.EnvelopeConnector
+import connectors.fileUpload.FileUploadConnector
+import controllers._
 import models._
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}
 import play.api.i18n.Messages
-import repositories.{SessionRepo, SessionRepository}
+import repositories.SessionRepo
 import session.WithLinkingSession
 
 class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
@@ -39,7 +40,7 @@ class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
   lazy val propertyLinks = Wiring().propertyLinkConnector
 
   def show() = withLinkingSession { implicit request =>
-    Ok(views.html.uploadRatesBill.show(UploadRatesBillVM(form)))
+    Ok(views.html.propertyLinking.uploadRatesBill(UploadRatesBillVM(form)))
   }
 
   def submit() = withLinkingSession { implicit request =>
@@ -51,17 +52,17 @@ class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
           Redirect(propertyLinking.routes.Declaration.show())
         }
       case FileMissing =>
-        BadRequest(views.html.uploadRatesBill.show(
+        BadRequest(views.html.propertyLinking.uploadRatesBill(
           UploadRatesBillVM(form.withError(
             FormError("ratesBill[]", Messages("uploadRatesBill.ratesBillMissing.error"))))
         ))
       case FileTooLarge =>
-        BadRequest(views.html.uploadRatesBill.show(
+        BadRequest(views.html.propertyLinking.uploadRatesBill(
           UploadRatesBillVM(form.withError(
             FormError("ratesBill[]", Messages("error.fileUpload.tooLarge"))))
         ))
       case InvalidFileType =>
-        BadRequest(views.html.uploadRatesBill.show(UploadRatesBillVM(form.withError(FormError("ratesBill[]", Messages("error.fileUpload.invalidFileType"))))))
+        BadRequest(views.html.propertyLinking.uploadRatesBill(UploadRatesBillVM(form.withError(FormError("ratesBill[]", Messages("error.fileUpload.invalidFileType")))))) //scalastyle:ignore
     }
   }
 }

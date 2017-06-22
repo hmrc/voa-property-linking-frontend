@@ -14,34 +14,31 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.propertyLinking
 
 import javax.inject.Inject
 
-import config.Wiring
+import controllers.PropertyLinkingController
+import form.Mappings._
 import play.api.data.Form
 import play.api.data.Forms._
-import form.Mappings._
 import session.WithLinkingSession
 
-class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession)
-extends PropertyLinkingController {
+class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession) extends PropertyLinkingController {
 
   def show = withLinkingSession { implicit request =>
-    Ok(views.html.uploadRatesBill.chooseEvidence(ChooseEvidence.form))
+    Ok(views.html.propertyLinking.chooseEvidence(ChooseEvidence.form))
   }
 
   def submit = withLinkingSession { implicit request =>
     ChooseEvidence.form.bindFromRequest().fold(
-      errors => BadRequest(views.html.uploadRatesBill.chooseEvidence(errors)),
+      errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors)),
       {
         case true => Redirect(routes.UploadRatesBill.show)
         case false => Redirect(routes.UploadEvidence.show)
       }
     )
   }
-
-
 }
 object ChooseEvidence {
   lazy val form = Form(single(keys.hasRatesBill -> mandatoryBoolean))
