@@ -45,7 +45,7 @@ class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector,
     UploadEvidence.form.bindFromRequest().fold(
       error => BadRequest(views.html.propertyLinking.uploadEvidence(UploadEvidenceVM(error))),
       uploaded => {
-        val filePart = request.request.body.asMultipartFormData.get.file("evidence[]").flatMap(x => if (x.filename.isEmpty) None else Some(x))
+        val filePart = getFile("evidence[]")
         uploadIfNeeded(filePart) flatMap { x =>
           x match {
             case FileAccepted =>

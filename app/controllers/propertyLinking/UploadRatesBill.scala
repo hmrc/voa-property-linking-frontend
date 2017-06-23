@@ -23,9 +23,13 @@ import connectors.EnvelopeConnector
 import connectors.fileUpload.FileUploadConnector
 import controllers._
 import models._
+import org.apache.commons.io.FilenameUtils
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}
 import play.api.i18n.Messages
+import play.api.libs.Files
+import play.api.mvc.MultipartFormData.FilePart
+import play.api.mvc.{AnyContent, Request}
 import repositories.SessionRepo
 import session.WithLinkingSession
 
@@ -44,7 +48,7 @@ class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
   }
 
   def submit() = withLinkingSession { implicit request =>
-    val filePart = request.request.body.asMultipartFormData.flatMap(_.file("ratesBill[]").flatMap(x => if (x.filename.isEmpty) None else Some(x)))
+    val filePart = getFile("ratesBill[]")
     uploadIfNeeded(filePart) flatMap {
       case FileAccepted =>
         val fileInfo = FileInfo(filePart.fold("No File")(_.filename), RatesBillType.name)

@@ -23,8 +23,9 @@ import connectors.EnvelopeConnector
 import connectors.fileUpload.FileUpload
 import connectors.propertyLinking.PropertyLinkConnector
 import org.apache.commons.io.FilenameUtils
+import play.api.libs.Files
 import play.api.libs.Files.TemporaryFile
-import play.api.mvc.AnyContent
+import play.api.mvc.{AnyContent, Request}
 import play.api.mvc.MultipartFormData.FilePart
 import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
@@ -62,7 +63,19 @@ trait FileUploadHelpers {
   }
 
   private def transform(fileName: String)(implicit request: LinkingSessionRequest[AnyContent]) = {
-    URLEncoder.encode(FilenameUtils.getName(fileName), "UTF-8")
+    URLEncoder.encode(fileName, "UTF-8")
+  }
+
+  protected def getFile(filename: String)(implicit request: Request[AnyContent]) = {
+    request.body.asMultipartFormData.flatMap(_.file(filename).flatMap(stripFilePath))
+  }
+
+  private def stripFilePath(file: FilePart[Files.TemporaryFile]) = {
+    if (file.filename.isEmpty) {
+      None
+    } else {
+      Some(file.copy(filename = FilenameUtils.getName(file.filename)))
+    }
   }
 }
 

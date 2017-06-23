@@ -26,6 +26,7 @@ import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
+import play.api.libs.json.Writes
 import play.api.libs.ws.WSClient
 import play.api.mvc.MultipartFormData
 import play.api.mvc.MultipartFormData.FilePart
@@ -87,19 +88,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   it must "redirect to the evidence-submitted page if valid evidence has been uploaded" in {
     withLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
-    val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
-      .withMultipartFormDataBody(
-        MultipartFormData(
-          dataParts = Map(
-            "evidenceType" -> Seq(OtherUtilityBill.name)
-          ),
-          files = Seq(
-            FilePart("evidence[]", validFilePath, Some(validMimeType), validFile)
-          ),
-          badParts = Seq.empty
-        )
-      ).withSession(token)
-    val res = TestUploadEvidence.submit()(req)
+    val res = uploadValidFile()
 
     status(res) mustBe SEE_OTHER
     header("location", res) mustBe Some(propertyLinking.routes.Declaration.show.url)
@@ -179,5 +168,41 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
     page.mustContainSummaryErrors(("evidence", "Please upload evidence so that we can verify your link to the property", "File must be a PDF or JPG"))
     page.mustContainFieldErrors(("evidence_", "File must be a PDF or JPG"))
+  }
+
+  it must "strip the file path from the file name, if it is present" in {
+    val session = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    withLinkingSession.stubSession(session, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val fileWithFullPath = """C:\Internet Explorer\Is Silly\And sometimes uploads the full path\Even though we don't even want it\actual file name.jpg"""
+    val fileWithPathRemoved = "actual file name.jpg"
+    val encodedFileWithPathRemoved = "actual+file+name.jpg"
+
+    await(uploadValidFile(fileWithFullPath))
+
+    verify(mockFileUploads).uploadFile(
+      matching(envelopeId),
+      matching(encodedFileWithPathRemoved),
+      matching(validMimeType),
+      any())(any())
+
+    verify(mockSessionRepo, times(1)).saveOrUpdate(matching(session.withLinkBasis(OtherEvidenceFlag, Some(FileInfo(fileWithPathRemoved, OtherUtilityBill.name)))))(any[Writes[LinkingSession]], any[HeaderCarrier])
+  }
+
+  private def uploadValidFile(filename: String = validFilePath) = {
+    val req = FakeRequest(Helpers.POST, "/property-linking/upload-evidence")
+      .withMultipartFormDataBody(
+        MultipartFormData(
+          dataParts = Map(
+            "evidenceType" -> Seq(OtherUtilityBill.name)
+          ),
+          files = Seq(
+            FilePart("evidence[]", filename, Some(validMimeType), validFile)
+          ),
+          badParts = Seq.empty
+        )
+      ).withSession(token)
+
+    TestUploadEvidence.submit()(req)
   }
 }

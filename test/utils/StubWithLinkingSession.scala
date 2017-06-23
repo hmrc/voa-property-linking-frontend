@@ -24,7 +24,7 @@ import session.{LinkingSessionRequest, WithLinkingSession}
 
 import scala.concurrent.Future
 
-class StubWithLinkingSession(sessionRepository: SessionRepo ) extends WithLinkingSession(sessionRepository) {
+class StubWithLinkingSession(sessionRepository: SessionRepo) extends WithLinkingSession(sessionRepository) {
 
   private var stubbedSession: Option[(LinkingSession, DetailedIndividualAccount, GroupAccount)] = None
 

@@ -26,6 +26,7 @@ import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
+import play.api.libs.json.Writes
 import play.api.libs.ws.WSClient
 import play.api.mvc.MultipartFormData
 import play.api.mvc.MultipartFormData.FilePart
@@ -63,10 +64,8 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   }
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
-    when(f.start(any())(any(), any())
-    ).thenReturn(Future.successful(()))
-    when(f.saveOrUpdate(any())(any(), any())
-    ).thenReturn(Future.successful(()))
+    when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
+    when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
     f
   }
 
@@ -181,18 +180,21 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "strip the file path from the file name, if it is present" in {
-    withLinkingSession.stubSession(arbitrary[LinkingSession].copy(envelopeId = envelopeId), arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    val session = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    withLinkingSession.stubSession(session, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val fileWithFullPath = """C:\Internet Explorer\Is Silly\And sometimes uploads the full path\Even though we don't even want it\actual file name.jpg"""
     val fileWithPathRemoved = "actual+file+name.jpg"
 
-    uploadValidFile(fileWithFullPath)
+    await(uploadValidFile(fileWithFullPath))
 
     verify(mockFileUploads).uploadFile(
       matching(envelopeId),
       matching(fileWithPathRemoved),
       matching(validMimeType),
       any())(any())
+
+    verify(mockSessionRepo, times(1)).saveOrUpdate(matching(session.withLinkBasis(RatesBillFlag, Some(FileInfo("actual file name.jpg", RatesBillType.name)))))(any[Writes[LinkingSession]], any[HeaderCarrier])
   }
 
   private def uploadValidFile(fileName: String = validFilePath) = {
