@@ -95,6 +95,17 @@
             }
 
 
+            @if(ApplicationConfig.editDetailsEnabled) {
+                <h3 class="heading-medium">
+                    <a href="@controllers.routes.DetailsController.show()">
+                    @Messages("dashboard.home.editDetails.link")
+                    </a>
+                </h3>
+                <p>
+                @Messages("dashboard.home.editDetails.text")
+                </p>
+            }
+
         <h3 class="heading-medium">
             <a id="addUserFromBusiness" href="@controllers.routes.Application.addUserToGG">@Messages("dashboard.home.addAnotherUser.link")</a>
         </h3>

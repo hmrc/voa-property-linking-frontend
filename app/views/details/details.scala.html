@@ -1,0 +1,111 @@
+@import utils.Formatters
+@(individualAccount: DetailedIndividualAccount, organisationAccount: GroupAccount, address: Address)(implicit request: Request[_], messages: Messages)
+@main_template(
+    Messages("details.title"), topNavigation = true,
+    topBackLink = true, bottomBackLink = true
+) {
+    <h1 class="heading-large margin-bottom-0 clear-right">
+        <span class="section-title">@Messages("details.user")</span>
+    </h1>
+    <div class="table-wrapper">
+        <table id="personalDetailsTable" class="table-font-xsmall margin-top-30 margin-bottom-20">
+            <caption class="visuallyhidden">@Messages("details.user")</caption>
+            <tbody>
+                <tr>
+                    <td>@messages("details.personal.name")</td>
+                    <td>@(s"${individualAccount.details.firstName} ${individualAccount.details.lastName}")</td>
+                    <td>
+                        <a id="personalName" class="viewManagedProperties" href="@controllers.routes.DetailsController.personalName()">
+                            Update
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@messages("details.personal.address")</td>
+                    <td>@Formatters.capitalizedAddress(address.toPropertyAddress())</td>
+                    <td>
+                        <a id="personalAddress" class="viewManagedProperties" href="@controllers.routes.DetailsController.personalAddress()">
+                            Update
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@messages("details.personal.telephone")</td>
+                    <td>@individualAccount.details.phone1</td>
+                    <td>
+                        <a id="personalTelephone" class="viewManagedProperties" href="@controllers.routes.DetailsController.personalTelephone()">
+                            Update
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@messages("details.personal.email")</td>
+                    <td>@individualAccount.details.email</td>
+                    <td>
+                        <a id="personalEmail" class="viewManagedProperties" href="@controllers.routes.DetailsController.personalEmail()">
+                            Update
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    @if(false) {
+
+        <h1 class="heading-large margin-bottom-0 clear-right">
+            <span class="section-title">@Messages("details.business")</span>
+        </h1>
+        <div class="table-wrapper">
+            <table id="businessDetailsTable" class="table-font-xsmall margin-top-30 margin-bottom-20">
+                <caption class="visuallyhidden">@Messages("details.business")</caption>
+                <tbody>
+                    @if(organisationAccount.isAgent) {
+                        <tr>
+                            <td>@messages("details.business.agentCode")</td>
+                            <td>@organisationAccount.agentCode</td>
+                            <td>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>@messages("details.business.name")</td>
+                        <td>@organisationAccount.companyName</td>
+                        <td>
+                            <a class="viewManagedProperties" href="#">
+                                Update
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@messages("details.business.address")</td>
+                        <td>FIXME: @organisationAccount.addressId</td>
+                        <td>
+                            <a class="viewManagedProperties" href="#">
+                                Update
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@messages("details.business.telephone")</td>
+                        <td>@organisationAccount.phone</td>
+                        <td>
+                            <a class="viewManagedProperties" href="#">
+                                Update
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@messages("details.business.email")</td>
+                        <td>@organisationAccount.email</td>
+                        <td>
+                            <a class="viewManagedProperties" href="#">
+                                Update
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+}

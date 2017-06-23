@@ -32,6 +32,7 @@ object ApplicationConfig extends RunMode with ServicesConfig {
 
   def businessRatesValuationUrl(page: String) = getConfig("business-rates-valuation.url") + s"/$page"
   val casesEnabled = getConfig("featureFlags.casesEnabled").toBoolean
+  val editDetailsEnabled = getConfig("featureFlags.editDetailsEnabled").toBoolean
 
   val allowedMimeTypes: Seq[String] = getConfig("allowedFileUploadTypes").split(",")
 

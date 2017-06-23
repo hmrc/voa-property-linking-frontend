@@ -1,0 +1,26 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@(model: PersonalEmailVM)(implicit request: Request[_], messages: Messages)
+@main_template(
+    Messages("details.title"), topNavigation = true,
+    topBackLink = true, bottomBackLink = true
+) {
+    <h1 class="heading-large margin-bottom-0 clear-right">
+        <span class="section-title">@Messages("details.edit.personalEmail")</span>
+    </h1>
+    <p>
+    @form(routes.DetailsController.personalEmailSubmit() ) {
+        @inputText(
+            field = model.form("email"), //model.form(keys.confirmedEmail),
+            '_label -> Messages("details.edit.label.email"),
+            '_labelClass -> "form-label-bold",
+            '_showConstraints -> false,
+            'class -> "form-control"
+        )
+        <button type="submit" id="update" class="button">@Messages("details.edit.personalEmail.button.update")</button>
+        <a href="@controllers.routes.DetailsController.show" class="button">
+        @Messages("details.edit.personalEmail.button.cancel")
+        </a>
+    </p>
+}
+}

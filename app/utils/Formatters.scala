@@ -24,7 +24,7 @@ object Formatters {
 
   def capitalizedAddress(address: PropertyAddress) = {
     address.copy(
-      lines = address.lines.map(_.toLowerCase().trim.split(" ").map(_.capitalize).mkString(" ")),
+      lines = address.lines.map(_.toLowerCase().trim.split(" ").map(_.capitalize).mkString(" ")).filter(_.nonEmpty),
       postcode = address.postcode.toUpperCase()
     ).toString
   }
