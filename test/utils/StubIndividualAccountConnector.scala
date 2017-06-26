@@ -40,8 +40,11 @@ object StubIndividualAccountConnector extends IndividualAccounts(StubHttp) {
     Future.successful(stubbedIndividuals.find(_.individualId == personId))
   }
 
-  override def update(id: Int, account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Int] = {
-    Future.successful(id)
+  override def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = Future.successful {
+    stubbedIndividuals = stubbedIndividuals.map {
+      case DetailedIndividualAccount(_, _, _, id, _) if id == account.individualId => account
+      case acc => acc
+    }
   }
 
   override def withExternalId(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = Future.successful {

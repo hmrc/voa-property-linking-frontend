@@ -16,7 +16,7 @@
 
 package connectors
 
-import models.{DetailedIndividualAccount, IndividualAccount, IndividualDetails}
+import models.{DetailedIndividualAccount, IndividualAccount}
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
@@ -42,10 +42,7 @@ class IndividualAccounts(http: HttpGet with HttpPut with HttpPost)(implicit ec: 
     }}
   }
 
-  def update(id: Int, account: IndividualAccount)(implicit hc: HeaderCarrier):Future[Int] = {
-    http.PUT[IndividualAccount, JsValue](baseUrl + s"/$id", account) map { js => js \ "id" match {
-      case JsDefined(JsNumber(id)) => id.toInt
-      case _ => throw new Exception(s"Invalid id: $js")
-    }}
+  def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.PUT[IndividualAccount, HttpResponse](baseUrl + s"/${account.individualId}", account.toIndividualAccount) map { _ => () }
   }
 }

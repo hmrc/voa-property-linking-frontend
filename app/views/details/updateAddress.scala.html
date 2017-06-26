@@ -1,0 +1,27 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+
+@(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    Messages("updateAddress.title"),
+    topBackLink = true,
+    bottomBackLink = true,
+    backLinkUrl = Some(routes.UpdatePersonalDetails.show().url)
+) {
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <h1 class="heading-large">@Messages("updateAddress.title")</h1>
+
+            @form(routes.UpdatePersonalDetails.updateAddress()) {
+                @address(model.form, "address", helpText = "details.edit.postcode.help")
+
+                <p>
+                    <button type="submit" id="update" class="button">@Messages("link.update")</button>
+                    <a href="@routes.UpdatePersonalDetails.show" class="button-secondary">@Messages("link.cancel")</a>
+                </p>
+
+            </div>
+    </div>
+}
+}

@@ -91,7 +91,7 @@ object CreateIndividualAccount{
     keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.phone1 -> nonEmptyText(maxLength = 20),
     keys.phone2 -> optional(text(maxLength = 20)),
-    keys.address -> address
+    keys.address -> addressMapping
   )(PersonalDetails.apply)(PersonalDetails.unapply))
 
   lazy val keys = new {

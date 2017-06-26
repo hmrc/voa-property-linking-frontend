@@ -16,13 +16,13 @@
 
 package utils
 
-import models.PropertyAddress
+import models.{Address, PropertyAddress}
 import org.joda.time.LocalDate
 import org.joda.time.format.DateTimeFormat
 
 object Formatters {
 
-  def capitalizedAddress(address: PropertyAddress) = {
+  def capitalizedAddress(address: PropertyAddress): String = {
     address.copy(
       lines = address.lines.map(_.toLowerCase().trim.split(" ").map(_.capitalize).mkString(" ")).filter(_.nonEmpty),
       postcode = address.postcode.toUpperCase()
@@ -33,12 +33,16 @@ object Formatters {
     capitalizedAddress(PropertyAddress.fromString(address))
   }
 
-  def formatDate(fmt: String, date: LocalDate) = {
+  def capitalizedAddress(address: Address): String = {
+    Seq(address.line1, address.line2, address.line3, address.line4, address.postcode).filterNot(_.isEmpty).map(_.capitalize) mkString ", "
+  }
+
+  def formatDate(fmt: String, date: LocalDate): String = {
     val formatter = DateTimeFormat.forPattern(fmt)
     date.toString(formatter)
   }
 
-  def formatDate(date: LocalDate) = {
+  def formatDate(date: LocalDate): String = {
     date.toString(DateTimeFormat.forPattern("d MMM Y"))
   }
 

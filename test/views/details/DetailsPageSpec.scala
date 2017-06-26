@@ -18,28 +18,30 @@ package views.details
 
 import controllers.ControllerSpec
 import models.{Address, DetailedIndividualAccount, GroupAccount, IndividualDetails}
+import play.api.i18n.Messages.Implicits._
 import play.api.test.FakeRequest
 import utils.HtmlPage
-import play.api.i18n.Messages.Implicits._
-import resources._
 
 class DetailsPageSpec extends ControllerSpec {
 
   behavior of "DetailsPage"
 
-  it should "Allow the user to update personal name/email/addess/telephone" in {
+  it should "contain links to update the user's name, email, address, phone, or mobile number" in {
     val individualAccount = DetailedIndividualAccount(
       "bbb", "aaa", 123, 123,
       IndividualDetails("firstName", "lastName", "email@email.com", "phone1", None, 100))
     val groupAccount = GroupAccount(123, "groupId", "companyName", 100, "email@email.com", "123", false, false, 123)
     val address = Address(Some(100), "line1", "line2", "line3", "line4", "BN1 1NA")
     implicit val request = FakeRequest()
-    val actualHtml = views.html.details.details(individualAccount, groupAccount, address)
+
+    val actualHtml = views.html.details.personalDetails(individualAccount, groupAccount, address)
+
     val html = HtmlPage(actualHtml)
-    html.mustContainLink("#personalName", controllers.routes.DetailsController.personalName().url)
-    html.mustContainLink("#personalEmail", controllers.routes.DetailsController.personalEmail().url)
-    html.mustContainLink("#personalAddress", controllers.routes.DetailsController.personalAddress().url)
-    html.mustContainLink("#personalTelephone", controllers.routes.DetailsController.personalTelephone().url)
+    html.mustContainLink("#updateName", controllers.routes.UpdatePersonalDetails.viewName().url)
+    html.mustContainLink("#updateEmail", controllers.routes.UpdatePersonalDetails.viewEmail().url)
+    html.mustContainLink("#updateAddress", controllers.routes.UpdatePersonalDetails.viewAddress().url)
+    html.mustContainLink("#updatePhone", controllers.routes.UpdatePersonalDetails.viewPhone().url)
+    html.mustContainLink("#updateMobile", controllers.routes.UpdatePersonalDetails.viewMobile().url)
   }
 
 }

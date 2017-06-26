@@ -1,0 +1,37 @@
+@import utils.Formatters
+
+@(individualAccount: DetailedIndividualAccount, organisationAccount: GroupAccount, address: Address)(implicit request: Request[_], messages: Messages)
+
+    @tableRow(key: String, value: String, link: Call) = {
+        <tr>
+            <td>@Messages(s"details.personal.$key")</td>
+            <td>@value</td>
+            <td>
+                <a id="update@key.capitalize" href="@link">@Messages("link.update")</a>
+            </td>
+        </tr>
+    }
+
+    @main_template(
+        Messages("details.title"),
+        topBackLink = true,
+        bottomBackLink = true,
+        backLinkUrl = Some(routes.Dashboard.home().url)
+    ) {
+        <h1 class="heading-large">
+        @Messages("details.user")
+        </h1>
+
+        <div class="table-wrapper">
+            <table id="personalDetailsTable" class="table-font-xsmall margin-top-30 margin-bottom-20">
+                <caption class="visuallyhidden">@Messages("details.user")</caption>
+                <tbody>
+                    @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", routes.UpdatePersonalDetails.viewName())
+                    @tableRow("address", Formatters.capitalizedAddress(address), routes.UpdatePersonalDetails.viewAddress())
+                    @tableRow("phone", individualAccount.details.phone1, routes.UpdatePersonalDetails.viewPhone())
+                    @tableRow("mobile", individualAccount.details.phone2.getOrElse(Messages("details.mobile.notSet")), routes.UpdatePersonalDetails.viewMobile())
+                    @tableRow("email", individualAccount.details.email, routes.UpdatePersonalDetails.viewEmail())
+                </tbody>
+            </table>
+        </div>
+    }

@@ -76,7 +76,7 @@
         <div class="column-one-third">
             <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.management")</h2>
             <h3 class="heading-medium">
-                <a id="manageAgents" href="@controllers.routes.Dashboard.manageAgents">@Messages("dashboard.home.manageAgents.link")</a>
+                <a id="manageAgents" href="@routes.Dashboard.manageAgents">@Messages("dashboard.home.manageAgents.link")</a>
             </h3>
 
             <p>
@@ -97,7 +97,7 @@
 
             @if(ApplicationConfig.editDetailsEnabled) {
                 <h3 class="heading-medium">
-                    <a href="@controllers.routes.DetailsController.show()">
+                    <a href="@routes.UpdatePersonalDetails.show()">
                     @Messages("dashboard.home.editDetails.link")
                     </a>
                 </h3>
@@ -107,7 +107,7 @@
             }
 
         <h3 class="heading-medium">
-            <a id="addUserFromBusiness" href="@controllers.routes.Application.addUserToGG">@Messages("dashboard.home.addAnotherUser.link")</a>
+            <a id="addUserFromBusiness" href="@routes.Application.addUserToGG">@Messages("dashboard.home.addAnotherUser.link")</a>
         </h3>
 
         <p>@Messages("dashboard.home.addAnotherUser.text")</p>

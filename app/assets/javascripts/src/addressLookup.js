@@ -22,13 +22,13 @@
         }
 
         function errorCheck() {
-            if($('#error-summary').length) {
+            if($('#error-summary').length || $('#addressline1Group').find('.error-message').length || $('#addresspostcodeGroup').find('.error-message').length) {
                 showFields();
             }
         }
 
         function showLookupError() {
-            $('#postcodeSearchGroup .error-message').remove();
+            $('#postcodeSearchGroup').find('.error-message').remove();
             $('#postcodeSearch').before('<p class="error-message">' + messages.errors.postcodeLookupError + '</p>').closest('.form-group').addClass('error');
             active = true;
         }
@@ -60,7 +60,7 @@
                     url: '/business-rates-property-linking/lookup?postcode=' + postcode.toUpperCase(),
                     statusCode: {
                         404: function(res) {
-                            $('#postcodeSearchGroup .error-message').text(messages.errors.postcodeLookupError);
+                            $('#postcodeSearchGroup').find('.error-message').text(messages.errors.postcodeLookupError);
                         }
                     },
                     success: function(data) {
@@ -117,7 +117,7 @@
             $('.postcode-lookup-fields').css('display', 'block');
             $('.manualAddress').css('display', 'inline-block');
             $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
-            $('#postcodeSearchGroup .error-message').remove();
+            $('#postcodeSearchGroup').find('.error-message').remove();
             $('#postcodeSearch').val('');
             active = true;
         });
@@ -128,7 +128,7 @@
             $('.postcode-lookup-fields').css('display', 'block');
             $('.manualAddress').css('display', 'inline-block');
             $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
-            $('#postcodeSearchGroup .error-message').remove();
+            $('#postcodeSearchGroup').find('.error-message').remove();
             $('#postcodeSearch').val('').focus();
             $('#addressSelect, [for="addressSelect"]').remove();
             $(this).css('display', 'none');
