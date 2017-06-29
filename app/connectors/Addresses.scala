@@ -32,6 +32,10 @@ class Addresses(http: HttpGet with HttpPost) extends ServicesConfig {
     http.GET[Seq[Address]](url + s"?postcode=$postcode")
   }
 
+  def findById(id: Int)(implicit hc: HeaderCarrier): Future[Option[Address]] = {
+    http.GET[Option[Address]](url + s"/$id")
+  }
+
   def create(address: Address)(implicit hc: HeaderCarrier): Future[Int] = {
     http.POST[Address, JsValue](url, address) map { js =>
       js \ "id" match {

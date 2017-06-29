@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package models
+package template
 
-import play.api.libs.json.Json
+import play.api.data.Field
 
-case class IndividualAccount(externalId: String, trustId: String, organisationId: Int, details: IndividualDetails)
+object FormSupport {
 
-case class DetailedIndividualAccount(externalId: String, trustId: String, organisationId: Int, individualId: Int, details: IndividualDetails) {
-  def toIndividualAccount: IndividualAccount = IndividualAccount(externalId, trustId, organisationId, details)
-}
+  def prepopulated(field: Field, default: String): Field = field.value match {
+    case Some(_) => field
+    case _ => field.copy(value = Some(default))
+  }
 
-
-object IndividualAccount {
-  implicit def formats = Json.format[IndividualAccount]
-}
-object DetailedIndividualAccount {
-  implicit def formats = Json.format[DetailedIndividualAccount]
 }

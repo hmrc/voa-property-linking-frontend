@@ -99,7 +99,7 @@ class RequestDetailedValuationSpec extends ControllerSpec with MockitoSugar {
     redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("POST123").url)
   }
 
-  it should "confirm that the user will receive the detailed valuation by post if that is their preference" in {
+  it should "confirm that the user will receive the detailed valuation by email if that is their preference" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     val res = TestAssessments.dvRequestConfirmation("EMAIL123")(FakeRequest())
 
@@ -110,7 +110,7 @@ class RequestDetailedValuationSpec extends ControllerSpec with MockitoSugar {
     html must include ("We’ll send this to you by email")
   }
 
-  it should "confirm that the user will receive the detailed valuation by email if that is their preference" in {
+  it should "confirm that the user will receive the detailed valuation by post if that is their preference" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     val res = TestAssessments.dvRequestConfirmation("POST123")(FakeRequest())
 

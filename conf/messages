@@ -191,6 +191,8 @@ dashboard.home.manageAgents.text=Give/remove permission for agents to complete c
 dashboard.home.clients=Client
 dashboard.home.clients.link=Manage clients
 dashboard.home.clients.text=View property representation requests.
+dashboard.home.editDetails.link=My details
+dashboard.home.editDetails.text=View and update your personal details
 dashboard.home.cases=Cases
 dashboard.home.draft.cases=Draft cases
 dashboard.home.draft.cases.text=Continue editing checks that have not yet been submitted.
@@ -556,6 +558,8 @@ addressLookup.manual=Enter address manually
 addressLookup.lookup=Find address by postcode
 link.continue=Continue
 link.back=Back
+link.update=Update
+link.cancel=Cancel
 capacityType.ownerOccupier=Owner occupier
 capacityType.owner=Owner
 capacityType.occupier=Occupier
@@ -623,6 +627,31 @@ dashboard.manageAgents.table.2=Agent code
 dashboard.manageAgents.table.3=Actions
 dashboard.manageAgents.viewManagedProperties=View managed properties
 
+#details page
+details.title=My details
+details.user=Personal details
+details.personal.name=Name
+details.personal.address=Address
+details.personal.phone=Telephone
+details.personal.email=Email
+details.personal.mobile=Mobile number
+details.mobile.notSet=Not set
+
+details.edit.label.email=Email
+details.edit.label.email.confirm=Confirm email
+details.edit.personalEmail=Update your email
+details.edit.label.telephone=Telephone
+details.edit.label.firstName=First name
+details.edit.label.lastName=Last name
+details.edit.label.address=Email
+details.edit.postcode.help=This should be your home address. For example, SW1A 1AA.
+
+updateName.title=Update your name
+updatePhone.title=Update your telephone number
+updateMobile.title=Update mobile number
+updateAddress.title=Update your address
+updateEmail.title=Update your email
+label.updateMobile=Mobile number
 
 #ERROR PAGES
 title.error.403=Forbidden

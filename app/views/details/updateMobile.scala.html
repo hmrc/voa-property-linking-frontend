@@ -1,0 +1,38 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import _root_.template.FormSupport._
+
+@(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    Messages("updateMobile.title"),
+    topBackLink = true,
+    bottomBackLink = true,
+    backLinkUrl = Some(routes.UpdatePersonalDetails.show().url)
+) {
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">@Messages("updateMobile.title")</h1>
+
+            @form(routes.UpdatePersonalDetails.updateMobile()) {
+
+                @inputText(
+                    field = prepopulated(model.form("updatePhone"), model.currentDetails.phone2.getOrElse("")),
+                    '_label -> Messages("label.updateMobile"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control"
+                )
+
+                <p>
+                    <button type="submit" id="continue" class="button">@Messages("link.update")</button>
+                    <a href="@routes.UpdatePersonalDetails.show().url" class="button-secondary">
+                    @Messages("link.back")
+                    </a>
+                </p>
+            }
+
+        </div>
+    </div>
+}

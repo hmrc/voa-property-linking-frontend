@@ -40,7 +40,7 @@ object Mappings extends DateMappings {
 
   val mandatoryBoolean: Mapping[Boolean] = optional(boolean).verifying("error.boolean", _.isDefined).transform(_.get, Some.apply)
 
-  val address: Mapping[Address] = mapping(
+  val addressMapping: Mapping[Address] = mapping(
     "addressId" -> addressId,
     "line1" -> default(text(maxLength = 80), ""),
     "line2" -> IfCondition(line3IsLast(), text(maxLength = 80)).elseIf(line4IsLast(), text(maxLength = 80)).default(text(maxLength = 30), ""),

@@ -41,4 +41,8 @@ class IndividualAccounts(http: HttpGet with HttpPut with HttpPost)(implicit ec: 
       case _ => throw new Exception(s"Invalid id: $js")
     }}
   }
+
+  def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.PUT[IndividualAccount, HttpResponse](baseUrl + s"/${account.individualId}", account.toIndividualAccount) map { _ => () }
+  }
 }

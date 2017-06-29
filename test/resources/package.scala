@@ -34,6 +34,8 @@ package object resources {
 
   def shortString = Gen.listOfN(20, Gen.alphaChar).map(_.mkString)
 
+  private def postcode = Gen.listOfN(8, Gen.alphaChar).map(_.mkString.toUpperCase)
+
   def randomEmail = {
     val mailbox: String = shortString
     val domain: String = shortString
@@ -87,7 +89,7 @@ package object resources {
     line2 <- shortString
     line3 <- shortString
     line4 <- shortString
-    postcode <- shortString
+    postcode <- postcode
   } yield Address(Some(id), line1, line2, line3, line4, postcode)
   implicit val arbitraryAddress = Arbitrary(addressGen)
 
