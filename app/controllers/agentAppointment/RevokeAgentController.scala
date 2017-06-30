@@ -30,7 +30,7 @@ class RevokeAgentController extends PropertyLinkingController {
       case Some(link) =>
         link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
           case Some(agent) =>
-            Ok(views.html.propertyRepresentation.revokeAgent(agentCode, authorisationId, authorisedPartyId, agent.organisationName, link.address))
+            Ok(views.html.propertyRepresentation.revokeAgent(agentCode, authorisationId, authorisedPartyId, agent.organisationName))
           case None => notFound
         }
       case None => notFound
@@ -47,7 +47,9 @@ class RevokeAgentController extends PropertyLinkingController {
         }
 
         link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-          case Some(agent) => Ok(views.html.propertyRepresentation.revokedAgent(nextLink, agent.organisationName, link.address))
+          case Some(agent) => representations.revoke(authorisedPartyId).map { _ =>
+            Ok(views.html.propertyRepresentation.revokedAgent(nextLink, agent.organisationName, link.address))
+          }
           case None => notFound
         }
       case None => notFound
