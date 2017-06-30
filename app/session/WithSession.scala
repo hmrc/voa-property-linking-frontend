@@ -18,13 +18,13 @@ package session
 
 import javax.inject.{Inject, Named}
 
-import config.Wiring
+import config.{Global, Wiring}
 import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
 import play.api.i18n.Messages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.mvc.Results.Unauthorized
+import play.api.mvc.Results._
 import play.api.mvc._
-import repositories.{SessionRepo, SessionRepository}
+import repositories.SessionRepo
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -50,7 +50,7 @@ class WithLinkingSession @Inject() (@Named("propertyLinkingSession") val session
       case Some(s) => body(
         LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request)
       )
-      case None => Future.successful(Unauthorized("No linking session"))
+      case None => Future.successful(NotFound(Global.notFoundTemplate))
     }
   }
 }
