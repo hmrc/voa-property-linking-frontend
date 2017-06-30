@@ -1,0 +1,11 @@
+GET         /update-details/business-name        @controllers.manageDetails.UpdateOrganisationDetails.viewBusinessName
+POST        /update-details/business-name        @controllers.manageDetails.UpdateOrganisationDetails.updateBusinessName
+
+GET         /update-details/business-address     @controllers.manageDetails.UpdateOrganisationDetails.viewBusinessAddress
+POST        /update-details/business-address     @controllers.manageDetails.UpdateOrganisationDetails.updateBusinessAddress
+
+GET         /update-details/business-phone       @controllers.manageDetails.UpdateOrganisationDetails.viewBusinessPhone
+POST        /update-details/business-phone       @controllers.manageDetails.UpdateOrganisationDetails.updateBusinessPhone
+
+GET         /update-details/business-email       @controllers.manageDetails.UpdateOrganisationDetails.viewBusinessEmail
+POST        /update-details/business-email       @controllers.manageDetails.UpdateOrganisationDetails.updateBusinessEmail

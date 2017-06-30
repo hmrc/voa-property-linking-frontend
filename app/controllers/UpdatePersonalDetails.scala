@@ -17,6 +17,8 @@
 package controllers
 
 import actions.BasicAuthenticatedRequest
+import cats.data.OptionT
+import cats.implicits._
 import config.Wiring
 import form.Mappings._
 import form.TextMatching
@@ -35,10 +37,15 @@ class UpdatePersonalDetails extends PropertyLinkingController {
   val individualAccountConnector = Wiring().individualAccountConnector
 
   def show() = authenticated { implicit request =>
-    addressesConnector.findById(request.individualAccount.details.addressId) map {
-      case Some(address) => Ok(views.html.details.personalDetails(request.individualAccount, request.organisationAccount, address))
-      case None => throw new Exception(s"Unable to lookup address for individual; ID: ${request.individualAccount.individualId}")
-    }
+    val person = request.individualAccount
+
+    (for {
+      personalAddress <- OptionT(addressesConnector.findById(person.details.addressId))
+      businessAddress <- OptionT(addressesConnector.findById(request.organisationAccount.addressId))
+    } yield Ok(views.html.details.viewDetails(person, request.organisationAccount, personalAddress, businessAddress))
+    ).getOrElse(throw new Exception(
+      s"Unable to lookup address: Individual address ID: ${person.details.addressId}; Organisation address Id: ${request.organisationAccount.addressId}")
+    )
   }
 
   def viewEmail() = authenticated { implicit request =>

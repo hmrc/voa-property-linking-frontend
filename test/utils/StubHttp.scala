@@ -19,25 +19,26 @@ package utils
 import play.api.libs.json.Writes
 import uk.gov.hmrc.play.http.hooks.HttpHook
 import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.Future
 
-object StubHttp extends HttpGet with HttpPost with HttpPut with HttpDelete with HttpPatch {
-  override protected def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
+object StubHttp extends WSHttp {
+  override def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
 
-  override protected def doPut[A](url: String, body: A)(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
+  override def doPut[A](url: String, body: A)(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
 
-  override protected def doPost[A](url: String, body: A, headers: Seq[(String, String)])(implicit wts: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
+  override def doPost[A](url: String, body: A, headers: Seq[(String, String)])(implicit wts: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
 
-  override protected def doPostString(url: String, body: String, headers: Seq[(String, String)])(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
+  override def doPostString(url: String, body: String, headers: Seq[(String, String)])(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
 
-  override protected def doEmptyPost[A](url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
+  override def doEmptyPost[A](url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
 
-  override protected def doFormPost(url: String, body: Map[String, Seq[String]])(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
+  override def doFormPost(url: String, body: Map[String, Seq[String]])(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
 
-  override protected def doDelete(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
+  override def doDelete(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
 
-  override protected def doPatch[A](url: String, body: A)(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
+  override def doPatch[A](url: String, body: A)(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
 
   override val hooks: Seq[HttpHook] = NoneRequired
 }

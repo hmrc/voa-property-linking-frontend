@@ -17,14 +17,15 @@
 package connectors
 
 import controllers.GroupAccountDetails
-import models.{GroupAccount, GroupAccountSubmission}
+import models.{GroupAccount, GroupAccountSubmission, UpdatedOrganisationAccount}
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost}
+import uk.gov.hmrc.play.http.ws.WSHttp
+import uk.gov.hmrc.play.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class GroupAccounts(http: HttpGet with HttpPost)(implicit ec: ExecutionContext) extends ServicesConfig {
+class GroupAccounts(http: WSHttp)(implicit ec: ExecutionContext) extends ServicesConfig {
 
   lazy val url = baseUrl("property-linking") + "/property-linking/groups"
 
@@ -49,5 +50,9 @@ class GroupAccounts(http: HttpGet with HttpPost)(implicit ec: ExecutionContext) 
 
   def create(groupId: String, addressId: Int, details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = {
     create(GroupAccountSubmission(groupId, details.companyName, addressId, details.email, details.phone, details.isSmallBusiness, details.isAgent))
+  }
+
+  def update(orgId: Int, details: UpdatedOrganisationAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.PUT[UpdatedOrganisationAccount, HttpResponse](s"$url/$orgId", details) map { _ => () }
   }
 }
