@@ -1,0 +1,39 @@
+@import utils.Formatters
+
+@(organisationAccount: GroupAccount, businessAddress: Address)(implicit request: Request[_], messages: Messages)
+
+@tableRow(key: String, value: String, link: Call) = {
+    <tr>
+        <td>@Messages(s"details.business.$key")</td>
+        <td>@value</td>
+        <td>
+            <a id="update@key.capitalize" href="@link">@Messages("link.update")</a>
+        </td>
+    </tr>
+}
+
+<h1 class="heading-large">@Messages("details.business")</h1>
+
+<div class="table-wrapper">
+    <table id="businessDetailsTable" class="table-font-xsmall margin-top-30 margin-bottom-20">
+        <caption class="visuallyhidden">@Messages("details.business")</caption>
+        <colgroup>
+            <col style="width: 45%">
+            <col style="width: 45%">
+            <col style="width: 10%">
+        </colgroup>
+        <tbody>
+            @if(organisationAccount.isAgent) {
+                <tr>
+                    <td>@Messages("details.business.agentCode")</td>
+                    <td>@organisationAccount.agentCode</td>
+                    <td></td>
+                </tr>
+            }
+            @tableRow("businessName", organisationAccount.companyName, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessName())
+            @tableRow("businessAddress", Formatters.capitalizedAddress(businessAddress), controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessAddress())
+            @tableRow("businessPhone", organisationAccount.phone, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessPhone())
+            @tableRow("businessEmail", organisationAccount.email, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessEmail())
+        </tbody>
+    </table>
+</div>

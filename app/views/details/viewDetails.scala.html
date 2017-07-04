@@ -1,0 +1,14 @@
+@(individualAccount: DetailedIndividualAccount, organisationAccount: GroupAccount, personalAddress: Address, businessAddress: Address)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    Messages("viewDetails.title"),
+    topBackLink = true,
+    bottomBackLink = true,
+    backLinkUrl = Some(routes.Dashboard.home().url)
+) {
+
+    <h1 class="heading-xlarge">@Messages("viewDetails.title")</h1>
+
+    @personalDetails(individualAccount, personalAddress)
+    @businessDetails(organisationAccount, businessAddress)
+}

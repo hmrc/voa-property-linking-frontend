@@ -1,0 +1,45 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import controllers.manageDetails.UpdateOrganisationDetailsVM
+@import _root_.template.FormSupport._
+
+@(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    Messages("updateBusinessEmail.title"),
+    topBackLink = true,
+    bottomBackLink = true,
+    backLinkUrl = Some(routes.UpdatePersonalDetails.show().url)
+) {
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">@Messages("updateBusinessEmail.title")</h1>
+
+            @form(controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessEmail()) {
+
+                @inputText(
+                    field = prepopulated(model.form("email"), model.currentDetails.email),
+                    '_label -> Messages("label.createAccount.businessEmail"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control"
+                )
+
+                @inputText(
+                    field = prepopulated(model.form("confirmedEmail"), model.currentDetails.email),
+                    '_label -> Messages("label.createAccount.confirmedBusinessEmail"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control"
+                )
+
+                <p>
+                    <button type="submit" id="continue" class="button">@Messages("link.update")</button>
+                    <a href="@routes.UpdatePersonalDetails.show().url" class="button-secondary">@Messages("link.cancel")</a>
+                </p>
+            }
+
+        </div>
+    </div>
+}

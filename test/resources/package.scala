@@ -98,8 +98,9 @@ package object resources {
     fistName <- shortString
     lastName <- shortString
     phone1 <- Gen.listOfN(8, Gen.numChar)
+    phone2 <- Gen.option(Gen.listOfN(8, Gen.numChar).map(_.mkString))
     addressId <- arbitrary[Int]
-  } yield IndividualDetails(fistName, lastName, randomEmail, phone1.mkString, None, addressId)
+  } yield IndividualDetails(fistName, lastName, randomEmail, phone1.mkString, phone2, addressId)
   implicit val arbitraryIndividualDetails = Arbitrary(individualDetailsGen)
 
   val individualGen: Gen[DetailedIndividualAccount] = for {

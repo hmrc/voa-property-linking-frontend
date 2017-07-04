@@ -1,0 +1,30 @@
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import controllers.manageDetails.UpdateOrganisationDetailsVM
+
+@(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    Messages("updateBusinessAddress.title"),
+    topBackLink = true,
+    bottomBackLink = true,
+    backLinkUrl = Some(routes.UpdatePersonalDetails.show().url)
+) {
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">@Messages("updateBusinessAddress.title")</h1>
+
+            @form(controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessAddress()) {
+
+                @address(model.form, "address")
+
+                <p>
+                    <button type="submit" id="continue" class="button">@Messages("link.update")</button>
+                    <a href="@routes.UpdatePersonalDetails.show().url" class="button-secondary">@Messages("link.cancel")</a>
+                </p>
+            }
+
+        </div>
+    </div>
+}

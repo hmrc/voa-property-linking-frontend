@@ -119,10 +119,6 @@ object CreateGroupAccount{
   )(GroupAccountDetails.apply)(GroupAccountDetails.unapply))
 }
 
-
-
-
-
 case class CreateGroupAccountVM(form: Form[_])
 
 case class GroupAccountDetails(companyName: String, address: Address, email: String, confirmedEmail: String,

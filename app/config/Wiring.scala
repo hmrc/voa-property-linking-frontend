@@ -36,7 +36,7 @@ object Wiring {
 }
 
 abstract class Wiring {
-  def http: HttpGet with HttpPut with HttpDelete with HttpPost with HttpPatch
+  def http: WSHttp
   def propertyRepresentationConnector = new PropertyRepresentationConnector(http)
   def propertyLinkConnector = new PropertyLinkConnector(http)
   def individualAccountConnector = new IndividualAccounts(http)
@@ -54,7 +54,7 @@ abstract class Wiring {
   def trafficThrottleConnector = new TrafficThrottleConnector(http)
 }
 
-class WSHttp extends WSGet with WSPut with WSDelete with WSPost with WSPatch with HttpAuditing with AppName with RunMode {
+class VPLHttp extends WSHttp with HttpAuditing with AppName with RunMode {
   override val hooks = Seq(AuditingHook)
   override def auditConnector = AuditServiceConnector
 

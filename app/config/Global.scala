@@ -41,7 +41,7 @@ import repositories.{AgentAppointmentSessionRepository, PropertyLinkingSessionRe
 
 object Global extends VPLFrontendGlobal {
   override val wiring: Wiring = new Wiring {
-    override def http = new WSHttp
+    override def http = new VPLHttp
   }
 }
 

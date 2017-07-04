@@ -630,7 +630,7 @@ dashboard.manageAgents.table.3=Actions
 dashboard.manageAgents.viewManagedProperties=View managed properties
 
 #details page
-details.title=My details
+viewDetails.title=My details
 details.user=Personal details
 details.personal.name=Name
 details.personal.address=Address
@@ -638,6 +638,13 @@ details.personal.phone=Telephone
 details.personal.email=Email
 details.personal.mobile=Mobile number
 details.mobile.notSet=Not set
+
+details.business=Business details
+details.business.agentCode=Agent code
+details.business.businessName=Business name
+details.business.businessAddress=Business address
+details.business.businessPhone=Business telephone
+details.business.businessEmail=Business email
 
 details.edit.label.email=Email
 details.edit.label.email.confirm=Confirm email
@@ -654,6 +661,10 @@ updateMobile.title=Update mobile number
 updateAddress.title=Update your address
 updateEmail.title=Update your email
 label.updateMobile=Mobile number
+
+updateBusinessAddress.title=Update business address
+updateBusinessPhone.title=Update business telephone number
+updateBusinessEmail.title=Update business email
 
 #ERROR PAGES
 title.error.403=Forbidden

@@ -17,31 +17,107 @@
 package views.details
 
 import controllers.ControllerSpec
-import models.{Address, DetailedIndividualAccount, GroupAccount, IndividualDetails}
+import models.{Address, DetailedIndividualAccount, GroupAccount}
+import org.jsoup.Jsoup
+import org.jsoup.nodes.{Document, Element}
 import play.api.i18n.Messages.Implicits._
 import play.api.test.FakeRequest
-import utils.HtmlPage
+import resources._
+import utils.Formatters
+
+import scala.collection.JavaConverters._
 
 class DetailsPageSpec extends ControllerSpec {
 
   behavior of "DetailsPage"
 
-  it should "contain links to update the user's name, email, address, phone, or mobile number" in {
-    val individualAccount = DetailedIndividualAccount(
-      "bbb", "aaa", 123, 123,
-      IndividualDetails("firstName", "lastName", "email@email.com", "phone1", None, 100))
-    val groupAccount = GroupAccount(123, "groupId", "companyName", 100, "email@email.com", "123", false, false, 123)
-    val address = Address(Some(100), "line1", "line2", "line3", "line4", "BN1 1NA")
+  it should "display, and allow the user to edit, their name, email, address, phone, or mobile number" in {
+    val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isDefined)
+    val groupAccount: GroupAccount = groupAccountGen
+    val address: Address = addressGen
     implicit val request = FakeRequest()
 
-    val actualHtml = views.html.details.personalDetails(individualAccount, groupAccount, address)
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
+    val details = individualAccount.details
 
-    val html = HtmlPage(actualHtml)
-    html.mustContainLink("#updateName", controllers.routes.UpdatePersonalDetails.viewName().url)
-    html.mustContainLink("#updateEmail", controllers.routes.UpdatePersonalDetails.viewEmail().url)
-    html.mustContainLink("#updateAddress", controllers.routes.UpdatePersonalDetails.viewAddress().url)
-    html.mustContainLink("#updatePhone", controllers.routes.UpdatePersonalDetails.viewPhone().url)
-    html.mustContainLink("#updateMobile", controllers.routes.UpdatePersonalDetails.viewMobile().url)
+    val expectedRows: Seq[(String, String, String)] = Seq(
+      ("Name", s"${details.firstName} ${details.lastName}", controllers.routes.UpdatePersonalDetails.viewName().url),
+      ("Address", Formatters.capitalizedAddress(address), controllers.routes.UpdatePersonalDetails.viewAddress().url),
+      ("Telephone", details.phone1, controllers.routes.UpdatePersonalDetails.viewPhone().url),
+      ("Mobile number", details.phone2.get, controllers.routes.UpdatePersonalDetails.viewMobile().url),
+      ("Email", details.email, controllers.routes.UpdatePersonalDetails.viewEmail().url)
+    )
+
+    val rows = getRows(html, "personalDetailsTable")
+
+    expectedRows.foreach { r =>
+      rows must contain (r)
+    }
+  }
+
+  it should "display a placeholder value if the user's mobile number is not set" in {
+    val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isEmpty)
+    val groupAccount: GroupAccount = groupAccountGen
+    val address: Address = addressGen
+    implicit val request = FakeRequest()
+
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
+
+    val rows = getRows(html, "personalDetailsTable")
+    rows must contain (("Mobile number", "Not set", controllers.routes.UpdatePersonalDetails.viewMobile().url))
+  }
+
+  it should "display the business's agent code if they are an agent" in {
+    val individualAccount: DetailedIndividualAccount = individualGen
+    val groupAccount: GroupAccount = groupAccountGen.retryUntil(_.isAgent)
+    val address: Address = addressGen
+    implicit val request = FakeRequest()
+
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
+
+    val rows = getRows(html, "businessDetailsTable")
+    rows must contain (("Agent code", groupAccount.agentCode.toString, ""))
+  }
+
+  it should "not display the business's agent code if they are not an agent" in {
+    val individualAccount: DetailedIndividualAccount = individualGen
+    val groupAccount: GroupAccount = groupAccountGen.retryUntil(!_.isAgent)
+    val address: Address = addressGen
+    implicit val request = FakeRequest()
+
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
+
+    val rows = getRows(html, "businessDetailsTable")
+    rows must not contain (("Agent code", groupAccount.agentCode.toString, ""))
+  }
+
+  it should "display, and allow the user to edit, the business's name, address, email, and phone number" in {
+    val individualAccount: DetailedIndividualAccount = individualGen
+    val groupAccount: GroupAccount = groupAccountGen
+    val address: Address = addressGen
+    implicit val request = FakeRequest()
+
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
+
+    val expectedRows = Seq(
+      ("Business name", groupAccount.companyName, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessName().url),
+      ("Business address", Formatters.capitalizedAddress(address), controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessAddress().url),
+      ("Business telephone", groupAccount.phone, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessPhone().url),
+      ("Business email", groupAccount.email, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessEmail().url)
+    )
+    val rows = getRows(html, "businessDetailsTable")
+
+    expectedRows foreach { r =>
+      rows must contain (r)
+    }
+  }
+
+  private def getRows(html: Document, tableId: String) = {
+    html.select(s"#$tableId tr").asScala.map { e => (e.select("td").get(0).text, e.select("td").get(1).text, getUpdateUrl(e)) }
+  }
+
+  private def getUpdateUrl(e: Element) = {
+    Option(e.select("td a")).fold("")(_.attr("href"))
   }
 
 }

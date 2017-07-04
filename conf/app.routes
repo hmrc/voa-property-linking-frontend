@@ -1,3 +1,5 @@
+->          /                                                                                 manageDetails.Routes
+
 #Start
 GET         /                                                                                 controllers.Application.start()
 
@@ -50,6 +52,7 @@ GET         /manage-agents                                                      
 GET         /draft-cases                                                                      controllers.Dashboard.draftCases()
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
+
 GET         /details                                                                          @controllers.UpdatePersonalDetails.show()
 GET         /update-details/email                                                             @controllers.UpdatePersonalDetails.viewEmail()
 POST        /update-details/email                                                             @controllers.UpdatePersonalDetails.updateEmail()
