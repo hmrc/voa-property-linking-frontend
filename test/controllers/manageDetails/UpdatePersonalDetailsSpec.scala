@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package controllers.details
+package controllers.manageDetails
 
 import connectors.{Addresses, Authenticated, IndividualAccounts}
-import controllers.{ControllerSpec, UpdatePersonalDetails}
+import controllers.ControllerSpec
 import models.{Accounts, Address, DetailedIndividualAccount}
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
@@ -227,7 +227,7 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
     verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
-  private lazy val viewDetailsPage = controllers.routes.UpdatePersonalDetails.show().url
+  private lazy val viewDetailsPage = controllers.manageDetails.routes.UpdatePersonalDetails.show().url
 
   private object TestUpdatePersonalDetails extends UpdatePersonalDetails {
     override val authenticated = StubAuthentication

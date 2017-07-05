@@ -96,7 +96,7 @@ class UpdateOrganisationDetails extends PropertyLinkingController {
       LocalDate.now(),
       request.individualAccount.externalId
     )
-    groups.update(current.id, details) map { _ => Redirect(controllers.routes.UpdatePersonalDetails.show()) }
+    groups.update(current.id, details) map { _ => Redirect(controllers.manageDetails.routes.UpdatePersonalDetails.show()) }
   }
 
   lazy val businessNameForm = Form(single("businessName" -> nonEmptyText(maxLength = 45)))

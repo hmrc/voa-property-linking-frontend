@@ -2,20 +2,21 @@
 @import helpers._
 @import _root_.template.FormSupport._
 
+@import controllers.manageDetails.UpdateDetailsVM
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     Messages("updatePhone.title"),
     topBackLink = true,
     bottomBackLink = true,
-    backLinkUrl = Some(routes.UpdatePersonalDetails.show().url)
+    backLinkUrl = Some(controllers.manageDetails.routes.UpdatePersonalDetails.show().url)
 ) {
     <div class="grid-row">
         <div class="column-two-thirds">
 
             <h1 class="heading-large">@Messages("updatePhone.title")</h1>
 
-            @form(routes.UpdatePersonalDetails.updatePhone()) {
+            @form(controllers.manageDetails.routes.UpdatePersonalDetails.updatePhone()) {
 
                 @inputText(
                     field = prepopulated(model.form("phone"), model.currentDetails.phone1),
@@ -28,7 +29,7 @@
                 <p>
                     <button type="submit" id="update" class="button">@Messages("link.update")</button>
 
-                    <a href="@controllers.routes.UpdatePersonalDetails.show" class="button-secondary">
+                    <a href="@controllers.manageDetails.routes.UpdatePersonalDetails.show" class="button-secondary">
                     @Messages("link.cancel")
                     </a>
                 </p>

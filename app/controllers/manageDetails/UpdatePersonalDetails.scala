@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.manageDetails
 
 import actions.BasicAuthenticatedRequest
 import cats.data.OptionT
-import cats.implicits._
 import config.Wiring
-import form.Mappings._
+import controllers.PropertyLinkingController
 import form.TextMatching
 import models.IndividualDetails
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import play.api.mvc.Result
+import form.Mappings._
+import cats.implicits._
 
 import scala.concurrent.Future
 
@@ -43,7 +44,7 @@ class UpdatePersonalDetails extends PropertyLinkingController {
       personalAddress <- OptionT(addressesConnector.findById(person.details.addressId))
       businessAddress <- OptionT(addressesConnector.findById(request.organisationAccount.addressId))
     } yield Ok(views.html.details.viewDetails(person, request.organisationAccount, personalAddress, businessAddress))
-    ).getOrElse(throw new Exception(
+      ).getOrElse(throw new Exception(
       s"Unable to lookup address: Individual address ID: ${person.details.addressId}; Organisation address Id: ${request.organisationAccount.addressId}")
     )
   }
@@ -66,11 +67,9 @@ class UpdatePersonalDetails extends PropertyLinkingController {
   def updateAddress() = authenticated { implicit request =>
     addressForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateAddress(UpdateDetailsVM(errors, request.individualAccount.details))),
-      address => {
-        address.addressUnitId match {
-          case Some(id) => updateDetails(addressId = Some(id))
-          case None => addressesConnector.create(address) flatMap { id => updateDetails(addressId = Some(id)) }
-        }
+      address => address.addressUnitId match {
+        case Some(id) => updateDetails(addressId = Some(id))
+        case None => addressesConnector.create(address) flatMap { id => updateDetails(addressId = Some(id)) }
       }
     )
   }
@@ -127,7 +126,7 @@ class UpdatePersonalDetails extends PropertyLinkingController {
     )
     val updatedAccount = request.individualAccount.copy(details = updatedDetails)
 
-    individualAccountConnector.update(updatedAccount) map { _ => Redirect(routes.UpdatePersonalDetails.show()) }
+    individualAccountConnector.update(updatedAccount) map { _ => Redirect(controllers.manageDetails.routes.UpdatePersonalDetails.show()) }
   }
 
   private lazy val emailForm = Form(

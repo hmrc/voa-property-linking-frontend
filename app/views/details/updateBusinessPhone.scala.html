@@ -9,7 +9,7 @@
     Messages("updateBusinessPhone.title"),
     topBackLink = true,
     bottomBackLink = true,
-    backLinkUrl = Some(routes.UpdatePersonalDetails.show().url)
+    backLinkUrl = Some(controllers.manageDetails.routes.UpdatePersonalDetails.show().url)
 ) {
     <div class="grid-row">
         <div class="column-two-thirds">
@@ -28,7 +28,7 @@
 
                 <p>
                     <button type="submit" id="continue" class="button">@Messages("link.update")</button>
-                    <a href="@routes.UpdatePersonalDetails.show().url" class="button-secondary">@Messages("link.cancel")</a>
+                    <a href="@controllers.manageDetails.routes.UpdatePersonalDetails.show().url" class="button-secondary">@Messages("link.cancel")</a>
                 </p>
             }
 

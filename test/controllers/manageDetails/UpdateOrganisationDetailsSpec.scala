@@ -205,5 +205,5 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
   }
 
   private lazy val once = times(1)
-  private lazy val viewDetailsPage = controllers.routes.UpdatePersonalDetails.show().url
+  private lazy val viewDetailsPage = controllers.manageDetails.routes.UpdatePersonalDetails.show().url
 }

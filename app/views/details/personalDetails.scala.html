@@ -23,11 +23,11 @@
             <col style="width: 10%">
         </colgroup>
         <tbody>
-            @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", routes.UpdatePersonalDetails.viewName())
-            @tableRow("address", Formatters.capitalizedAddress(personalAddress), routes.UpdatePersonalDetails.viewAddress())
-            @tableRow("phone", individualAccount.details.phone1, routes.UpdatePersonalDetails.viewPhone())
-            @tableRow("mobile", individualAccount.details.phone2.getOrElse(Messages("details.mobile.notSet")), routes.UpdatePersonalDetails.viewMobile())
-            @tableRow("email", individualAccount.details.email, routes.UpdatePersonalDetails.viewEmail())
+            @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName())
+            @tableRow("address", Formatters.capitalizedAddress(personalAddress), controllers.manageDetails.routes.UpdatePersonalDetails.viewAddress())
+            @tableRow("phone", individualAccount.details.phone1, controllers.manageDetails.routes.UpdatePersonalDetails.viewPhone())
+            @tableRow("mobile", individualAccount.details.phone2.getOrElse(Messages("details.mobile.notSet")), controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile())
+            @tableRow("email", individualAccount.details.email, controllers.manageDetails.routes.UpdatePersonalDetails.viewEmail())
         </tbody>
     </table>
 </div>
