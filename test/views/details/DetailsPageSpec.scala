@@ -41,11 +41,11 @@ class DetailsPageSpec extends ControllerSpec {
     val details = individualAccount.details
 
     val expectedRows: Seq[(String, String, String)] = Seq(
-      ("Name", s"${details.firstName} ${details.lastName}", controllers.routes.UpdatePersonalDetails.viewName().url),
-      ("Address", Formatters.capitalizedAddress(address), controllers.routes.UpdatePersonalDetails.viewAddress().url),
-      ("Telephone", details.phone1, controllers.routes.UpdatePersonalDetails.viewPhone().url),
-      ("Mobile number", details.phone2.get, controllers.routes.UpdatePersonalDetails.viewMobile().url),
-      ("Email", details.email, controllers.routes.UpdatePersonalDetails.viewEmail().url)
+      ("Name", s"${details.firstName} ${details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName().url),
+      ("Address", Formatters.capitalizedAddress(address), controllers.manageDetails.routes.UpdatePersonalDetails.viewAddress().url),
+      ("Telephone", details.phone1, controllers.manageDetails.routes.UpdatePersonalDetails.viewPhone().url),
+      ("Mobile number", details.phone2.get, controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile().url),
+      ("Email", details.email, controllers.manageDetails.routes.UpdatePersonalDetails.viewEmail().url)
     )
 
     val rows = getRows(html, "personalDetailsTable")
@@ -64,7 +64,7 @@ class DetailsPageSpec extends ControllerSpec {
     val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
 
     val rows = getRows(html, "personalDetailsTable")
-    rows must contain (("Mobile number", "Not set", controllers.routes.UpdatePersonalDetails.viewMobile().url))
+    rows must contain (("Mobile number", "Not set", controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile().url))
   }
 
   it should "display the business's agent code if they are an agent" in {

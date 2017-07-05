@@ -662,6 +662,7 @@ updateAddress.title=Update your address
 updateEmail.title=Update your email
 label.updateMobile=Mobile number
 
+updateBusinessName.title=Update business name
 updateBusinessAddress.title=Update business address
 updateBusinessPhone.title=Update business telephone number
 updateBusinessEmail.title=Update business email

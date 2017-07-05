@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
-package controllers.details
+package controllers.manageDetails
 
+import actions.BasicAuthenticatedRequest
 import connectors.{Addresses, Authenticated, IndividualAccounts}
-import controllers.{ControllerSpec, UpdatePersonalDetails}
+import controllers.ControllerSpec
 import models.{Accounts, Address, DetailedIndividualAccount}
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
+import org.mockito.invocation.InvocationOnMock
+import org.mockito.stubbing.Answer
 import org.scalatest.mockito.MockitoSugar
+import play.api.mvc.{Action, AnyContent, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
@@ -227,13 +231,14 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
     verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
-  private lazy val viewDetailsPage = controllers.routes.UpdatePersonalDetails.show().url
+  private lazy val viewDetailsPage = controllers.manageDetails.routes.UpdatePersonalDetails.show().url
 
-  private object TestUpdatePersonalDetails extends UpdatePersonalDetails {
-    override val authenticated = StubAuthentication
+  private object TestUpdatePersonalDetails extends UpdatePersonalDetails(mockEditDetailsAction) {
     override val addressesConnector = mockAddressConnector
     override val individualAccountConnector = mockIndividualAccounts
   }
+
+  lazy val mockEditDetailsAction = mock[EditDetailsAction]
 
   lazy val mockIndividualAccounts = {
     val m = mock[IndividualAccounts]
@@ -252,7 +257,12 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
     val individual = individualGen.sample.get
     StubGroupAccountConnector.stubAccount(groupAccount)
     when(mockIndividualAccounts.get(matching(individual.individualId))(any[HeaderCarrier])).thenReturn(Future.successful(Some(individual)))
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individual)))
+    when(mockEditDetailsAction.apply(any())).thenAnswer(new Answer[Action[AnyContent]] {
+      override def answer(invocation: InvocationOnMock): Action[AnyContent] = Action.async { request =>
+        val body = invocation.getArgument[(BasicAuthenticatedRequest[AnyContent]) => Future[Result]](0)
+        body(BasicAuthenticatedRequest(groupAccount, individual, request))
+      }
+    })
     (groupAccount, individual)
   }
 }
