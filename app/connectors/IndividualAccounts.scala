@@ -16,7 +16,7 @@
 
 package connectors
 
-import models.{DetailedIndividualAccount, IndividualAccount}
+import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
@@ -35,8 +35,8 @@ class IndividualAccounts(http: HttpGet with HttpPut with HttpPost)(implicit ec: 
     http.GET[Option[DetailedIndividualAccount]](s"$baseUrl?externalId=$externalId")
   }
 
-  def create(account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Int] = {
-    http.POST[IndividualAccount, JsValue](baseUrl, account) map { js => js \ "id" match {
+  def create(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = {
+    http.POST[IndividualAccountSubmission, JsValue](baseUrl, account) map { js => js \ "id" match {
       case JsDefined(JsNumber(id)) => id.toInt
       case _ => throw new Exception(s"Invalid id: $js")
     }}

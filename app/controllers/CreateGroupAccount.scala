@@ -21,7 +21,7 @@ import javax.inject.{Inject, Named}
 import config.Wiring
 import form.Mappings._
 import form.TextMatching
-import models.{Address, IndividualAccount, PersonalDetails}
+import models.{Address, IndividualAccount, IndividualAccountSubmission, PersonalDetails}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
@@ -77,8 +77,7 @@ class CreateGroupAccount @Inject() (
                 _details <- eventualPersonalDetails
                 details = _details.getOrElse(throw new Exception(s"No PersonalDetails record found."))
                 id <- addressId
-                organisationId <- groups.create(groupId, id, formData)
-                _ <- individuals.create(IndividualAccount(userId, journeyId, organisationId, details.individualDetails))
+                organisationId <- groups.create(groupId, id, formData, IndividualAccountSubmission(userId, journeyId, None, details.individualDetails))
               } yield {
                 Redirect(routes.CreateGroupAccount.success())
               }
@@ -104,7 +103,6 @@ object CreateGroupAccount{
     val email = "businessEmail"
     val confirmEmail = "confirmedBusinessEmail"
     val phone = "businessPhone"
-    val isSmallBusiness = "isSmallBusiness"
     val isAgent = "isAgent"
   }
 
@@ -114,7 +112,6 @@ object CreateGroupAccount{
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.phone -> nonEmptyText(maxLength = 20),
-    keys.isSmallBusiness -> mandatoryBoolean,
     keys.isAgent -> mandatoryBoolean
   )(GroupAccountDetails.apply)(GroupAccountDetails.unapply))
 }
@@ -122,4 +119,4 @@ object CreateGroupAccount{
 case class CreateGroupAccountVM(form: Form[_])
 
 case class GroupAccountDetails(companyName: String, address: Address, email: String, confirmedEmail: String,
-                               phone: String, isSmallBusiness: Boolean, isAgent: Boolean)
+                               phone: String, isAgent: Boolean)

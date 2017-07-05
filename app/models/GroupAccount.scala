@@ -19,7 +19,7 @@ package models
 import play.api.libs.json.Json
 
 case class GroupAccount(id: Int, groupId: String, companyName: String, addressId: Int, email: String, phone: String,
-                        isSmallBusiness: Boolean, isAgent: Boolean, agentCode: Long)
+                        isAgent: Boolean, agentCode: Long)
 
 object GroupAccount {
   implicit val format = Json.format[GroupAccount]

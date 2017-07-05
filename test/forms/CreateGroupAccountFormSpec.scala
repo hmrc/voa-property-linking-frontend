@@ -30,8 +30,7 @@ class CreateGroupAccountFormSpec extends FlatSpec with MustMatchers {
     "address.line1" -> "Address line 1",
     "address.postcode" -> "AA11 1AA",
     keys.phone -> "01234567890",
-    keys.isAgent -> "false",
-    keys.isSmallBusiness -> "true"
+    keys.isAgent -> "false"
   )
 
   "The create group account form" must "require a company name" in {
@@ -74,10 +73,6 @@ class CreateGroupAccountFormSpec extends FlatSpec with MustMatchers {
 
   it must "require the user to specify if they are an agent or not" in {
     verifyError(form, validData - keys.isAgent, keys.isAgent, "error.boolean")
-  }
-
-  it must "require the user to specify if their business is a small business" in {
-    verifyError(form, validData - keys.isSmallBusiness, keys.isSmallBusiness, "error.boolean")
   }
 
   it must "require a postcode" in {

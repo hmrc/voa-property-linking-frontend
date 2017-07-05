@@ -79,20 +79,6 @@
                             'class -> "form-control"
                         )
 
-                        <div style="display: none">
-                        @inputRadioGroup(
-                            field = model.form(keys.isSmallBusiness).copy(value=model.form(keys.isSmallBusiness).value.map{Some(_)}.getOrElse(Some("false"))),
-                            options = Seq("true", "false"),
-                            dataAttributes = Nil,
-                            args = Seq(
-                                '_label -> Messages(s"label.createAccount.${keys.isSmallBusiness}"),
-                                '_labelClass -> "form-label-bold",
-                                '_legend -> true,
-                                '_fieldsetClass -> "inline"
-                            )
-                        )
-                        </div>
-
                         @inputRadioGroup(
                             field = model.form(keys.isAgent),
                             options = Seq("true", "false"),
