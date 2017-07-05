@@ -18,6 +18,7 @@ package controllers.manageDetails
 
 import java.time.LocalDate
 
+import actions.BasicAuthenticatedRequest
 import connectors.{Addresses, Authenticated, GroupAccounts}
 import controllers.ControllerSpec
 import models._
@@ -25,6 +26,9 @@ import org.jsoup.Jsoup
 import org.scalatest.mockito.MockitoSugar
 import org.mockito.Mockito._
 import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.invocation.InvocationOnMock
+import org.mockito.stubbing.Answer
+import play.api.mvc.{Action, AnyContent, Result}
 import play.api.test.FakeRequest
 import resources._
 import utils.StubAuthentication
@@ -186,11 +190,12 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
     UpdatedOrganisationAccount(org.groupId, addressId.getOrElse(org.addressId), org.isAgent, name.getOrElse(org.companyName), email.getOrElse(org.email), phone.getOrElse(org.phone), LocalDate.now, personId)
   }
 
-  private lazy val testController = new UpdateOrganisationDetails() {
-    override lazy val authenticated = StubAuthentication
+  private lazy val testController = new UpdateOrganisationDetails(mockEditDetailsAction) {
     override lazy val groups = mockGroups
     override lazy val addresses = mockAddresses
   }
+
+  private lazy val mockEditDetailsAction = mock[EditDetailsAction]
 
   private lazy val mockAddresses = mock[Addresses]
 
@@ -200,7 +205,12 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
     val org: GroupAccount = groupAccountGen
     val person: DetailedIndividualAccount = individualGen
     when(mockGroups.get(anyInt)(any[HeaderCarrier])).thenReturn(Future.successful(Some(org)))
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(org, person)))
+    when(mockEditDetailsAction.apply(any())).thenAnswer(new Answer[Action[AnyContent]] {
+      override def answer(invocation: InvocationOnMock): Action[AnyContent] = Action.async { request =>
+        val body = invocation.getArgument[(BasicAuthenticatedRequest[AnyContent]) => Future[Result]](0)
+        body(BasicAuthenticatedRequest(org, person, request))
+      }
+    })
     (org, person)
   }
 

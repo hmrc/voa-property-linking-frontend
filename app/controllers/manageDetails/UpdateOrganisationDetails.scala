@@ -19,6 +19,7 @@ package controllers.manageDetails
 import java.time.LocalDate
 
 import actions.BasicAuthenticatedRequest
+import com.google.inject.Inject
 import config.Wiring
 import controllers.PropertyLinkingController
 import form.{Mappings, TextMatching}
@@ -29,27 +30,26 @@ import play.api.mvc.Result
 
 import scala.concurrent.Future
 
-class UpdateOrganisationDetails extends PropertyLinkingController {
-  lazy val authenticated = Wiring().authenticated
+class UpdateOrganisationDetails @Inject()(editDetailsAction: EditDetailsAction) extends PropertyLinkingController {
   lazy val groups = Wiring().groupAccountConnector
   lazy val addresses = Wiring().addresses
 
-  def viewBusinessName = authenticated { implicit request =>
+  def viewBusinessName = editDetailsAction { implicit request =>
     Ok(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
   }
 
-  def updateBusinessName = authenticated { implicit request =>
+  def updateBusinessName = editDetailsAction { implicit request =>
     businessNameForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       businessName => updateDetails(name = Some(businessName))
     )
   }
 
-  def viewBusinessAddress = authenticated { implicit request =>
+  def viewBusinessAddress = editDetailsAction { implicit request =>
     Ok(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(addressForm, request.organisationAccount)))
   }
 
-  def updateBusinessAddress = authenticated { implicit request =>
+  def updateBusinessAddress = editDetailsAction { implicit request =>
     addressForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       address => address.addressUnitId match {
@@ -59,22 +59,22 @@ class UpdateOrganisationDetails extends PropertyLinkingController {
     )
   }
 
-  def viewBusinessPhone = authenticated { implicit request =>
+  def viewBusinessPhone = editDetailsAction { implicit request =>
     Ok(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(phoneForm, request.organisationAccount)))
   }
 
-  def updateBusinessPhone = authenticated { implicit request =>
+  def updateBusinessPhone = editDetailsAction { implicit request =>
     phoneForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       phone => updateDetails(phone = Some(phone))
     )
   }
 
-  def viewBusinessEmail = authenticated { implicit request =>
+  def viewBusinessEmail = editDetailsAction { implicit request =>
     Ok(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(emailForm, request.organisationAccount)))
   }
 
-  def updateBusinessEmail = authenticated { implicit request =>
+  def updateBusinessEmail = editDetailsAction { implicit request =>
     emailForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       email => updateDetails(email = Some(email))

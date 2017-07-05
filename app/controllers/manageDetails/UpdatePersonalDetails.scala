@@ -28,16 +28,16 @@ import play.api.data.validation.Constraints
 import play.api.mvc.Result
 import form.Mappings._
 import cats.implicits._
+import com.google.inject.Inject
 
 import scala.concurrent.Future
 
-class UpdatePersonalDetails extends PropertyLinkingController {
+class UpdatePersonalDetails @Inject()(editDetailsAction: EditDetailsAction) extends PropertyLinkingController {
 
-  val authenticated = Wiring().authenticated
   val addressesConnector = Wiring().addresses
   val individualAccountConnector = Wiring().individualAccountConnector
 
-  def show() = authenticated { implicit request =>
+  def show() = editDetailsAction { implicit request =>
     val person = request.individualAccount
 
     (for {
@@ -49,22 +49,22 @@ class UpdatePersonalDetails extends PropertyLinkingController {
     )
   }
 
-  def viewEmail() = authenticated { implicit request =>
+  def viewEmail() = editDetailsAction { implicit request =>
     Ok(views.html.details.updateEmail(UpdateDetailsVM(emailForm, request.individualAccount.details)))
   }
 
-  def updateEmail() = authenticated { implicit request =>
+  def updateEmail() = editDetailsAction { implicit request =>
     emailForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateEmail(UpdateDetailsVM(errors, request.individualAccount.details))),
       email => updateDetails(email = Some(email))
     )
   }
 
-  def viewAddress() = authenticated { implicit request =>
+  def viewAddress() = editDetailsAction { implicit request =>
     Ok(views.html.details.updateAddress(UpdateDetailsVM(addressForm, request.individualAccount.details)))
   }
 
-  def updateAddress() = authenticated { implicit request =>
+  def updateAddress() = editDetailsAction { implicit request =>
     addressForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateAddress(UpdateDetailsVM(errors, request.individualAccount.details))),
       address => address.addressUnitId match {
@@ -74,33 +74,33 @@ class UpdatePersonalDetails extends PropertyLinkingController {
     )
   }
 
-  def viewPhone() = authenticated { implicit request =>
+  def viewPhone() = editDetailsAction { implicit request =>
     Ok(views.html.details.updatePhone(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
   }
 
-  def updatePhone() = authenticated { implicit request =>
+  def updatePhone() = editDetailsAction { implicit request =>
     telephoneForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updatePhone(UpdateDetailsVM(errors, request.individualAccount.details))),
       phone => updateDetails(phone = Some(phone))
     )
   }
 
-  def viewName() = authenticated { implicit request =>
+  def viewName() = editDetailsAction { implicit request =>
     Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details)))
   }
 
-  def updateName() = authenticated { implicit request =>
+  def updateName() = editDetailsAction { implicit request =>
     nameForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details))),
       name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
     )
   }
 
-  def viewMobile() = authenticated { implicit request =>
+  def viewMobile() = editDetailsAction { implicit request =>
     Ok(views.html.details.updateMobile(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
   }
 
-  def updateMobile() = authenticated { implicit request =>
+  def updateMobile() = editDetailsAction { implicit request =>
     telephoneForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateMobile(UpdateDetailsVM(errors, request.individualAccount.details))),
       mobile => updateDetails(mobile = Some(mobile))
