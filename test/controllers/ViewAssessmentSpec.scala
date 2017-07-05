@@ -57,7 +57,7 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     val assessmentTable = html.select("tr").asScala.tail.map(_.select("td"))
 
     assessmentTable.map(_.first().text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.effectiveDate))
-    assessmentTable.map(_.get(1).text) must contain theSameElementsAs link.assessments.map(a => "£" + a.rateableValue)
+    assessmentTable.map(_.get(1).text) must contain theSameElementsAs link.assessments.map(a => "£" + a.rateableValue.getOrElse("N/A"))
     assessmentTable.map(_.get(2).text) must contain theSameElementsAs link.assessments.map(formatCapacity)
     assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.capacity.fromDate))
     assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map(a => a.capacity.toDate.map(Formatters.formatDate).getOrElse("Present"))
@@ -67,6 +67,24 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     case Owner => "Owner"
     case Occupier => "Occupier"
     case OwnerOccupier => "Owner and occupier"
+  }
+
+  it must "show N/A if the assessment does not have a rateable value" in {
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+    val assessment = arbitrary[Assessment].copy(rateableValue = None)
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, assessments = Seq(assessment))
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
+    StubPropertyLinkConnector.stubLink(link)
+
+    val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    val assessmentTable = html.select("tr").asScala.tail.map(_.select("td"))
+
+    assessmentTable.map(_.get(1).text).head must startWith ("N/A")
   }
 
   it must "show a link to the detailed valuation for each assessment if the property link is approved" in {

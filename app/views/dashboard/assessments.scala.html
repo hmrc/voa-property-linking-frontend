@@ -33,11 +33,18 @@
                         <td>
                             @(Formatters.formatDate(assessment.effectiveDate))
                         </td>
-                        <td>
-                            £@{
-                            assessment.rateableValue
+                        @assessment.rateableValue match {
+                            case Some(rv) => {
+                                <td>£@rv</td>
+                            }
+                            case None => {
+                                <td>N/A
+                                    <a href="#my-rv-is-na" data-toggle="dialog" data-target="no-rv-help" class="help">
+                                        <i><span class="visuallyhidden">@Messages("label.help", Messages("rv.na"))</span></i>
+                                    </a>
+                                </td>
+                            }
                         }
-                        </td>
                         <td>
                         @Messages(s"capacity.${assessment.capacity.capacity}")
                         </td>
@@ -74,5 +81,12 @@
                 }
             </tbody>
         </table>
+    </div>
+
+    <div id="my-rv-is-na">
+        <h3 class="heading-small">@Messages("help.rv.na")</h3>
+        <p>@Messages("rv.na.p.1")</p>
+        <p>@Messages("rv.na.p.2")</p>
+        <p>@Messages("rv.na.p.3")</p>
     </div>
 }
