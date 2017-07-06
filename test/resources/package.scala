@@ -142,7 +142,7 @@ package object resources {
     billingAuthorityReference <- shortString
     capacity <- arbitrary[Capacity]
     description <- shortString
-  } yield models.Assessment(linkId, asstRef, listYear, uarn, effectiveDate, rateableValue, address, billingAuthorityReference, capacity)
+  } yield models.Assessment(linkId, asstRef, listYear, uarn, effectiveDate, Some(rateableValue), address, billingAuthorityReference, capacity)
   implicit val arbitraryAssessment = Arbitrary(assessmentGen)
 
   val agentPermissionGen: Gen[AgentPermission] = Gen.oneOf(StartAndContinue, NotPermitted)

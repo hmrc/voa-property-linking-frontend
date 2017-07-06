@@ -1,0 +1,46 @@
+.icon {
+
+  &-close {
+    background-image: url('../images/icon-close.png');
+    display: block;
+
+  	@include device-pixel-ratio() {
+  		background-image: url('../images/icon-close-2x.png');
+      background-size: 100%;
+  	}
+  }
+
+}
+
+
+
+//details - help
+
+.help{
+  text-decoration: none;
+  color: $black;
+  display: inline-block;
+  summary{
+    width: auto;
+    color: $black;
+    position: inherit;
+    .arrow{
+      display: none;
+    }
+    &::-webkit-details-marker {
+      display: none
+    }
+  }
+  .panel-indent{
+      margin-bottom: 0;
+    }
+
+}
+
+.badge{
+    background-color: $green;
+    padding: 4px;
+    color: white;
+    font-size: 16px;
+    margin-left:10px;
+}
