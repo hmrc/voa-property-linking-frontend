@@ -50,7 +50,7 @@ authenticationWizard.beforeYouRegisterC.l2=verify your identity
 authenticationWizard.beforeYouRegisterC.l3=register your business
 
 authenticationWizard.p1.beforeYouRegisterD=To complete your registration you need to:
-authenticationWizard.beforeYouRegisterD.l1=create a Government Gateway account
+authenticationWizard.beforeYouRegisterD.l1=create a Government Gateway account (you can do this on the next page)
 authenticationWizard.beforeYouRegisterD.l2=verify your identity
 authenticationWizard.beforeYouRegisterD.l3=register your business
 
