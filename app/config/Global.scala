@@ -22,7 +22,7 @@ import com.google.inject.AbstractModule
 import com.google.inject.name.Names
 import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
-import play.api.Play.{current}
+import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.api._
@@ -36,7 +36,8 @@ import uk.gov.hmrc.play.frontend.bootstrap.{DefaultFrontendGlobal, ShowErrorPage
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
 import play.modules.reactivemongo.ReactiveMongoComponent
 import reactivemongo.api.DB
-import repositories.{AgentAppointmentSessionRepository, PropertyLinkingSessionRepository, SessionRepo, PersonalDetailsSessionRepository}
+import repositories.{AgentAppointmentSessionRepository, PersonalDetailsSessionRepository, PropertyLinkingSessionRepository, SessionRepo}
+import uk.gov.hmrc.play.http.ws.WSHttp
 
 
 object Global extends VPLFrontendGlobal {
@@ -89,6 +90,7 @@ class GuiceModule(environment: Environment,
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
+    bind(classOf[WSHttp]).to(classOf[VPLHttp])
   }
 }
 

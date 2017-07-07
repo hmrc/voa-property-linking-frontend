@@ -256,7 +256,7 @@ package object resources {
     individual <- arbitrary[DetailedIndividualAccount]
   } yield Accounts(group, individual)
 
-  implicit val arbitraryAccounts = Arbitrary(accountsGenerator)
+  implicit val arbitraryAccounts: Arbitrary[Accounts] = Arbitrary(accountsGenerator)
 
   private val personalDetailsGen: Gen[PersonalDetails] = for {
     firstName <- shortString
@@ -281,4 +281,18 @@ package object resources {
   } yield LinkingSession(address, uarn, envelopeId, submissionId, personId, declaration, Some(linkBasis), None)
 
   implicit val arbitraryLinkinSession: Arbitrary[LinkingSession] = Arbitrary(linkingSessionGen)
+
+  val draftCaseGenerator: Gen[DraftCase] = for {
+    id <- shortString
+    url <- shortString.map { s => s"/business-rates-check/build/$s" }
+    address <- arbitrary[PropertyAddress]
+    effectiveDate <- arbitrary[LocalDate]
+    checkType <- shortString
+    expirationDate <- arbitrary[LocalDate]
+    propertyLinkId <- positiveLong
+    assessmentRef <- positiveLong
+    baRef <- shortString
+  } yield DraftCase(id, url, address, effectiveDate, checkType, expirationDate, propertyLinkId, assessmentRef, baRef)
+
+  def randomDraftCase: DraftCase = draftCaseGenerator.sample.get
 }

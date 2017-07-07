@@ -17,18 +17,17 @@
 package controllers
 
 import connectors._
-import connectors.propertyLinking.PropertyLinkConnector
 import models._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils._
 import resources._
+import utils._
 
 class ManageAgentSpec extends ControllerSpec {
   implicit val request = FakeRequest()
 
-  object TestDashboardController extends Dashboard {
+  object TestDashboardController extends Dashboard(mock[DraftCases]) {
     override val auth: VPLAuthConnector = StubAuthConnector
     override val individuals = StubIndividualAccountConnector
     override val groups = StubGroupAccountConnector

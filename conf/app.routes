@@ -42,14 +42,14 @@ GET         /create-group/success                                               
 POST        /create-group                                                                     @controllers.CreateGroupAccount.submit
 
 #Dashboard
-GET         /home                                                                             controllers.Dashboard.home()
-GET         /properties                                                                       controllers.Dashboard.manageProperties(page: Int ?= 1, pageSize: Int ?= 15)
-GET         /properties/json                                                                  controllers.Dashboard.getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
-GET         /managed-properties/:agentCode                                                    controllers.Dashboard.viewManagedProperties(agentCode: Long)
+GET         /home                                                                             @controllers.Dashboard.home()
+GET         /properties                                                                       @controllers.Dashboard.manageProperties(page: Int ?= 1, pageSize: Int ?= 15)
+GET         /properties/json                                                                  @controllers.Dashboard.getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
+GET         /managed-properties/:agentCode                                                    @controllers.Dashboard.viewManagedProperties(agentCode: Long)
 GET         /managed-properties/:agentCode/revoke                                             @controllers.agentAppointment.RevokeAgentController.revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
 GET         /managed-properties/:agentCode/revoke/confirmed                                   @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
-GET         /manage-agents                                                                    controllers.Dashboard.manageAgents()
-GET         /draft-cases                                                                      controllers.Dashboard.draftCases()
+GET         /manage-agents                                                                    @controllers.Dashboard.manageAgents()
+GET         /draft-cases                                                                      @controllers.Dashboard.viewDraftCases()
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
 
