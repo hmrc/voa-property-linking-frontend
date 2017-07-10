@@ -42,7 +42,7 @@ object Mappings extends DateMappings {
 
   val addressMapping: Mapping[Address] = mapping(
     "addressId" -> addressId,
-    "line1" -> default(text(maxLength = 80), ""),
+    "line1" -> nonEmptyText(maxLength = 80),
     "line2" -> IfCondition(line3IsLast(), text(maxLength = 80)).elseIf(line4IsLast(), text(maxLength = 80)).default(text(maxLength = 30), ""),
     "line3" -> IfCondition(line4IsLast(), text(maxLength = 35)).default(text(maxLength = 30), ""),
     "line4" -> default(text(maxLength = 30), ""),
