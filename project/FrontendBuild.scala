@@ -42,7 +42,7 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "govuk-template" % "5.0.0",
     "uk.gov.hmrc" %% "http-caching-client" % "6.0.0",
     "uk.gov.hmrc" %% "play-authorised-frontend" % "6.1.0",
-    "uk.gov.hmrc" %% "play-config" % "3.0.0",
+    "uk.gov.hmrc" %% "play-config" % "4.3.0",
     "uk.gov.hmrc" %% "play-health" % "2.0.0",
     "uk.gov.hmrc" %% "play-json-logger" % "3.0.0",
     "uk.gov.hmrc" %% "play-ui" % "7.2.1",

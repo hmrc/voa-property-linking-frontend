@@ -1,53 +1,60 @@
-@import _root_.template.Display
+@import utils.Formatters._
 @import actions.AuthenticatedRequest
 
 @(model: DraftCasesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
+
+@detailedValuationUrl(draft: DraftCase) = @{
+    routes.Assessments.viewDetailedAssessment(draft.propertyLinkId, draft.assessmentRef, draft.baRef)
+}
 
 @main_template(
     title = Messages("draftCases.title"),
     topBackLink = true,
     bottomBackLink = true,
-    individualId = Some(request.personId)
+    individualId = Some(request.personId),
+    backLinkUrl = Some(routes.Dashboard.home().url)
 ) {
 
-        <h1 class="heading-xlarge margin-bottom-0 clear-right">
-            @Messages("draftCases.title")
-        </h1>
+    <h1 class="heading-xlarge margin-bottom-0 clear-right">
+    @Messages("draftCases.title")
+    </h1>
+
+    <p>@Messages("draftCases.p.expiry")</p>
+
+    @if(model.draftCases.nonEmpty) {
 
         <div class="table-wrapper">
             <table class="table-font-xsmall margin-bottom-20 margin-top-30">
                 <caption class="visuallyhidden">@Messages("draftCases.table.caption")</caption>
-                <tbody>
+                <colgroup>
+                    <col width="60%">
+                    <col width="20%">
+                    <col width="20%">
+                </colgroup>
+                <thead>
                     <tr>
                         <th scope="col">@Messages("draftCases.table.1")</th>
-                        <th scope="col">@Messages("draftCases.table.2")</th>
                         <th scope="col">@Messages("draftCases.table.3")</th>
                         <th scope="col">@Messages("draftCases.table.4")</th>
-                        <th scope="col">@Messages("draftCases.table.5")</th>
                     </tr>
-                    @model.draftCases.map{ draftCase =>
+                </thead>
+                <tbody>
+                    @model.draftCases.map { draftCase =>
                         <tr>
+                            <td>@capitalizedAddress(draftCase.address)</td>
+                            <td>@formatDate(draftCase.expirationDate)</td>
                             <td>
-                                <a href="@routes.Assessments.assessments(draftCase.linkId)">
-                                    @{draftCase.address}
-                                </a>
-                            </td>
-                            <td>
-                            @{draftCase.effectiveDate}
-                            </td>
-                            <td>
-                            @{draftCase.caseType}
-                            </td>
-                            <td>
-                            @{draftCase.agent}
-                            </td>
-                            <td>
-                            @{draftCase.caseExpiryDate}
+                                <ul>
+                                    <li><a href="@draftCase.url">@Messages("draftCase.continue.check")</a></li>
+                                    <li><a href="@detailedValuationUrl(draftCase)">@Messages("draftCase.viewValuation")</a></li>
+                                </ul>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
-
+    } else {
+        <p>@Messages("draftCases.p.empty")</p>
+    }
 }

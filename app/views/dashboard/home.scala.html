@@ -1,20 +1,27 @@
 @import config.ApplicationConfig
 @import actions.AuthenticatedRequest
 
-@(individualDetails: IndividualDetails, groupAccount:GroupAccount)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(individualDetails: IndividualDetails, groupAccount: GroupAccount, draftCases: Seq[DraftCase])(implicit request: AuthenticatedRequest[_], messages: Messages)
+
+@numberOfDrafts = @{
+    draftCases.size match {
+        case 0 => "(No drafts)"
+        case 1 => "(1 draft)"
+        case n => s"($n drafts)"
+    }
+}
 
 @main_template(
     title = Messages("dashboard.home.title"),
     individualId = Some(request.personId)
-    ) {
-
+) {
 
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
         <span class="heading-secondary">
             @(individualDetails.firstName) @(individualDetails.lastName)
         </span>
         <span class="section-title">@Messages("dashboard.home.title")</span>
-        @if(groupAccount.isAgent){
+        @if(groupAccount.isAgent) {
             <span class="agent-code pull-right">
                 Agent Code: @(groupAccount.agentCode)
             </span>
@@ -33,7 +40,7 @@
             </h3>
 
             <p>
-                @Messages("dashboard.home.manageProperties.text")
+            @Messages("dashboard.home.manageProperties.text")
             </p>
 
             <h3 class="heading-medium">
@@ -45,14 +52,14 @@
 
             @if(ApplicationConfig.casesEnabled) {
                 <h2 class="heading-large heading-with-rule">@Messages("dashboard.home.cases")</h2>
-                <h3 class="heading-medium"> @Messages("dashboard.home.draft.cases") </h3>
+                <h3 class="heading-medium">@Messages("dashboard.home.draft.cases", numberOfDrafts)</h3>
                 <p>
-                    <a href="@routes.Dashboard.draftCases">@Messages("dashboard.home.draft.cases.text")</a>
+                    <a href="@routes.Dashboard.viewDraftCases">@Messages("dashboard.home.draft.cases.text")</a>
                 </p>
             }
 
             <h3 class="heading-medium">
-                @Messages("dashboard.home.plannedFeatures")
+            @Messages("dashboard.home.plannedFeatures")
             </h3>
 
             <ul class="list list-bullet">
@@ -106,15 +113,12 @@
                 </p>
             }
 
-        <h3 class="heading-medium">
-            <a id="addUserFromBusiness" href="@routes.Application.addUserToGG">@Messages("dashboard.home.addAnotherUser.link")</a>
-        </h3>
+            <h3 class="heading-medium">
+                <a id="addUserFromBusiness" href="@routes.Application.addUserToGG">@Messages("dashboard.home.addAnotherUser.link")</a>
+            </h3>
 
-        <p>@Messages("dashboard.home.addAnotherUser.text")</p>
+            <p>@Messages("dashboard.home.addAnotherUser.text")</p>
 
         </div>
     </div>
-
-
-
 }

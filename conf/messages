@@ -194,7 +194,7 @@ dashboard.home.clients.text=View property representation requests.
 dashboard.home.editDetails.link=My details
 dashboard.home.editDetails.text=View and update your personal details
 dashboard.home.cases=Cases
-dashboard.home.draft.cases=Draft cases
+dashboard.home.draft.cases=Draft cases {0}
 dashboard.home.draft.cases.text=Continue editing checks that have not yet been submitted.
 dashboard.home.plannedFeatures=Coming soon
 dashboard.home.usefulLinks=Useful information
@@ -267,12 +267,15 @@ rv.na.p.3=If you are looking to view the detailed valuation or check or challeng
 
 #DASHBOARD DRAFT CASES
 draftCases.title=Draft cases
+draftCases.p.expiry=Your draft will be saved for 30 days from the last time you saved your check form.
 draftCases.table.caption=Valuations
 draftCases.table.1=Address
-draftCases.table.2=Effective date
-draftCases.table.3=Case Type
-draftCases.table.4=Agent acting
-draftCases.table.5=Draft expiry date
+draftCases.table.2=Agent
+draftCases.table.3=Draft expiry date
+draftCases.table.4=Actions
+draftCase.continue.check=Continue check
+draftCase.viewValuation=Property details
+draftCases.p.empty=You have no saved draft cases
 
 propertyRepresentation.accepted.title=Request accepted
 propertyRepresentation.accepted.message=You’ve confirmed that you act as an agent for this business

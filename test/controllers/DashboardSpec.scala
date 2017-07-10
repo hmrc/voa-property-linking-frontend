@@ -17,19 +17,30 @@
 package controllers
 
 import auth.GGAction
-import connectors.{Authenticated, NoVOARecord, NonOrganisationAccount, VPLAuthConnector}
+import connectors._
 import models._
 import org.jsoup.Jsoup
+import org.mockito.ArgumentMatchers.{any, anyLong}
+import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
 import resources._
+import uk.gov.hmrc.play.http.HeaderCarrier
+
+import scala.concurrent.Future
 
 class DashboardSpec extends ControllerSpec {
   implicit val request = FakeRequest()
 
-  object TestDashboard extends Dashboard {
+  lazy val mockDraftCases = {
+    val m = mock[DraftCases]
+    when(m.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Nil))
+    m
+  }
+
+  object TestDashboard extends Dashboard(mockDraftCases) {
     override val auth: VPLAuthConnector = StubAuthConnector
     override val individuals = StubIndividualAccountConnector
     override val groups = StubGroupAccountConnector
