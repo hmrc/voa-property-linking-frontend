@@ -101,6 +101,10 @@ class CreateIndividualAccountFormSpec extends FlatSpec with MustMatchers {
     verifyMandatory(form, validData, "address.postcode")
   }
 
+  it must "require the first line of the address to be non-empty" in {
+    verifyMandatory(form, validData, "address.line1")
+  }
+
   it must "reject postcode longer than 8 chars" in {
     verifyCharacterLimit(form, validData, "address.postcode", 8)
   }
