@@ -23,20 +23,20 @@ import com.google.inject.name.Names
 import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
 import play.api.Play.current
+import play.api._
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
-import play.api._
+import play.modules.reactivemongo.ReactiveMongoComponent
 import play.twirl.api.Html
+import reactivemongo.api.DB
+import repositories.{AgentAppointmentSessionRepository, PersonalDetailsSessionRepository, PropertyLinkingSessionRepository, SessionRepo}
 import uk.gov.hmrc.play.audit.filters.FrontendAuditFilter
 import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.config.{AppName, ControllerConfig}
-import uk.gov.hmrc.play.filters.MicroserviceFilterSupport
-import uk.gov.hmrc.play.frontend.bootstrap.{DefaultFrontendGlobal, ShowErrorPage}
+import uk.gov.hmrc.play.filters.{MicroserviceFilterSupport, RecoveryFilter}
+import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
-import play.modules.reactivemongo.ReactiveMongoComponent
-import reactivemongo.api.DB
-import repositories.{AgentAppointmentSessionRepository, PersonalDetailsSessionRepository, PropertyLinkingSessionRepository, SessionRepo}
 import uk.gov.hmrc.play.http.ws.WSHttp
 
 
@@ -46,7 +46,7 @@ object Global extends VPLFrontendGlobal {
   }
 }
 
-trait VPLFrontendGlobal extends DefaultFrontendGlobal with ShowErrorPage {
+trait VPLFrontendGlobal extends DefaultFrontendGlobal {
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html = {
     views.html.errors.error(pageTitle, heading, message)(request, applicationMessages)
@@ -61,6 +61,8 @@ trait VPLFrontendGlobal extends DefaultFrontendGlobal with ShowErrorPage {
   override def frontendAuditFilter: FrontendAuditFilter = AuditFilter
 
   val wiring: Wiring
+
+  override def filters: Seq[EssentialFilter] = super.filters.filterNot(_ == RecoveryFilter)
 }
 
 object AuditServiceConnector extends AuditConnector {
