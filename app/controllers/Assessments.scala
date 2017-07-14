@@ -54,12 +54,16 @@ trait Assessments extends PropertyLinkingController {
   }
 
   def requestDetailedValuation(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
-    Ok(views.html.requestDetailedValuation(RequestDetailedValuationVM(dvRequestForm, authId, assessmentRef, baRef)))
+    Ok(views.html.dvr.requestDetailedValuation(RequestDetailedValuationVM(dvRequestForm, authId, assessmentRef, baRef)))
+  }
+
+  def startChallengeFromDVR = authenticated { implicit request =>
+    Ok(views.html.dvr.startChallenge())
   }
 
   def detailedValuationRequested(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
     dvRequestForm.bindFromRequest().fold(
-      errs => BadRequest(views.html.requestDetailedValuation(RequestDetailedValuationVM(errs, authId, assessmentRef, baRef))),
+      errs => BadRequest(views.html.dvr.requestDetailedValuation(RequestDetailedValuationVM(errs, authId, assessmentRef, baRef))),
       preference => {
         val prefix = preference match {
           case EmailRequest => "EMAIL"
@@ -79,7 +83,7 @@ trait Assessments extends PropertyLinkingController {
 
   def dvRequestConfirmation(submissionId: String) = Action { implicit request =>
     val preference = if (submissionId.startsWith("EMAIL")) "email" else "post"
-    Ok(views.html.detailedValuationRequested(submissionId, preference))
+    Ok(views.html.dvr.detailedValuationRequested(submissionId, preference))
   }
 
   lazy val dvRequestForm = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))

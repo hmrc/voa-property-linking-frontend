@@ -532,6 +532,10 @@ requestDetailedValuation.p.2=If you don’t want to request this, you can <a hre
 requestDetailedValuation.p.3=The majority of our customers prefer us to send information by email as it means we can get it to them quicker. Although we take care to protect the security of your property data, we cannot guarantee that your detailed valuation will be secure once sent.
 requestDetailedValuation.p.4=If you’d prefer us to send this by post, we’ll send it to the address that you provided on the ‘your contact details’ page during registration.
 
+requestDetailedValuation.heading.challenge=Already completed a check?
+requestDetailedValuation.challenge.p=Once you’ve completed a check, the VOA will contact you with the outcome. If you disagree with the outcome of the check or you believe the rateable value of your property is incorrect, you can let us know. Doing this is known as a challenge. (You can’t start a challenge until you’ve received the outcome for your check)
+requestDetailedValuation.challenge.start=Challenge this valuation
+
 label.requestType=How would you like to receive the detailed valuation?
 requestType.email=By email
 requestType.post=By post
@@ -539,6 +543,12 @@ requestType.post=By post
 detailedValuationRequested.title=We’ve received your request to view the detailed valuation for this property.
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 10 working days.
+
+startChallenge.title=Challenge this valuation
+startChallenge.p.1=Your challenge must be submitted within 4 months of the VOA decision, or within 16 months of the date you told the VOA about a change in the surrounding area of your property. You can also submit a challenge if you told the VOA about a change and you haven’t received a decision within 12 months.
+startChallenge.p.2=To submit a challenge you’ll need to <a href="{0}">download and complete the form</a>. You can <a href="{1}">download guidance for completing the form</a>.
+startChallenge.p.3=You should send the form and any supporting evidence to <a href=mailto:ccaservice@voa.gsi.gov.uk>ccaservice@voa.gsi.gov.uk</a>.
+startChallenge.p.4=Please be aware of the risks before sending any confidential information.
 
 #COMMON
 label.continue=Continue
