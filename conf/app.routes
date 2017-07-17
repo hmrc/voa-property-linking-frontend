@@ -101,7 +101,7 @@ POST        /representation-request/modify/:representationId                    
 #AGENT
 #Dashboard
 #TODO: Move to dashboard
-GET         /manage-clients                                                                   controllers.agent.RepresentationController.manageRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
+GET         /manage-clients                                                                   controllers.agent.RepresentationController.viewClientProperties(page: Int ?= 1, pageSize: Int ?= 15)
 GET         /manage-clients/json                                                              controllers.agent.RepresentationController.listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
 
 GET         /manage-clients/pending-requests                                                  controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)

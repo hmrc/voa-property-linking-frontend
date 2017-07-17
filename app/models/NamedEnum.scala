@@ -54,7 +54,7 @@ object EnumFormat {
       case JsString(value) =>
         enumObject.fromName(value) match {
           case Some(enumValue) => JsSuccess(enumValue)
-          case None => JsError(s"Value: $value is not valid type of ${this.getClass}")
+          case None => JsError(s"Value: $value is not valid; expected one of ${enumObject.all}")
         }
       case js =>
         JsError(s"Invalid Json: expected string, got: $js")

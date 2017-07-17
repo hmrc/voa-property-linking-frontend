@@ -30,9 +30,16 @@ case object RepresentationPending extends RepresentationStatus {
   val name = "PENDING"
 }
 
+case object RepresentationRevoked extends RepresentationStatus {
+  override val name = "REVOKED"
+}
+
+case object RepresentationDeclined extends RepresentationStatus {
+  override val name = "DECLINED"
+}
 
 object RepresentationStatus extends NamedEnumSupport[RepresentationStatus] {
   implicit val format = EnumFormat(RepresentationStatus)
 
-  override def all: List[RepresentationStatus] = List(RepresentationApproved, RepresentationPending)
+  override def all: List[RepresentationStatus] = List(RepresentationApproved, RepresentationPending, RepresentationRevoked, RepresentationDeclined)
 }
