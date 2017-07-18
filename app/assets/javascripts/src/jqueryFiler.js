@@ -89,6 +89,10 @@
 		    }
         });
 
+        $(document).on('click', '#uploadFile', function(e) {
+           $(this).after('<div class="message-warning"><p>Please wait whilst your file is uploading. This may take some time.</p></div>');
+        });
+
     };
 
 }).call(this);
