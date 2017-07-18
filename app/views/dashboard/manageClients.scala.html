@@ -31,7 +31,7 @@
 
         <noscript>
 
-            @helpers.paginationControls(model.pagination, agent.routes.RepresentationController.manageRepresentationRequest)
+            @helpers.paginationControls(model.pagination, agent.routes.RepresentationController.viewClientProperties)
 
             <div class="table-wrapper">
                 <table class="table-font-xsmall margin-bottom-20 margin-top-20" id="nojsManageClients">
@@ -92,7 +92,7 @@
             <div role="navigation" aria-label="Pagination">
                 <ul class="pagination">
                     @if(model.pagination.pageNumber > 1) {
-                        <li  class="previous "><a href="@agent.routes.RepresentationController.manageRepresentationRequest(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
+                        <li  class="previous "><a href="@agent.routes.RepresentationController.viewClientProperties(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
                     }else{
                         <li  class="previous disabled"><i class="previous-arrow"></i>Previous</li>
                     }
@@ -100,7 +100,7 @@
                     <li class="active">@model.pagination.pageNumber</li>
 
                     @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
-                        <li  class="next"><a href="@agent.routes.RepresentationController.manageRepresentationRequest(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
+                        <li  class="next"><a href="@agent.routes.RepresentationController.viewClientProperties(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
                     }else{
                         <li  class="next disabled">Next <i class="next-arrow"></i></li>
                     }

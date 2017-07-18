@@ -29,7 +29,7 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
   val authenticated = Wiring().authenticated
   val propertyLinkConnector = Wiring().propertyLinkConnector
 
-  def manageRepresentationRequest(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+  def viewClientProperties(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
       reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
         Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
@@ -75,7 +75,7 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
       val continueLink = if (noOfPendingRequests > 1) {
         controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
       } else {
-        controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
+        controllers.agent.routes.RepresentationController.viewClientProperties().url
       }
       Ok(views.html.propertyRepresentation.requestAccepted(continueLink))
     }
@@ -87,7 +87,7 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
       val continueLink = if (noOfPendingRequests > 1) {
         controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
       } else {
-        controllers.agent.routes.RepresentationController.manageRepresentationRequest().url
+        controllers.agent.routes.RepresentationController.viewClientProperties().url
       }
       Ok(views.html.propertyRepresentation.requestRejected(continueLink))
     }
@@ -105,7 +105,7 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
       clientProperty <- OptionT(propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id))
       _ <- OptionT.liftF(reprConnector.revoke(clientProperty.authorisedPartyId))
     } yield {
-      Redirect(routes.RepresentationController.manageRepresentationRequest())
+      Redirect(routes.RepresentationController.viewClientProperties())
     }).getOrElse(notFound)
   }
 }

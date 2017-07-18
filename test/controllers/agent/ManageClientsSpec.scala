@@ -36,7 +36,7 @@ class ManageClientsSpec extends ControllerSpec {
   private lazy val defaultHtml = {
     setup()
 
-    val res = TestController.manageRepresentationRequest(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
     status(res) mustBe OK
 
     Jsoup.parse(contentAsString(res))
@@ -98,7 +98,7 @@ class ManageClientsSpec extends ControllerSpec {
   it must "include a 'next' link if there are more results" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.manageRepresentationRequest(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -106,13 +106,13 @@ class ManageClientsSpec extends ControllerSpec {
     val nextLink = html.select("ul.pagination li.next")
 
     nextLink.hasClass("disabled") mustBe false withClue "'Next' link is incorrectly disabled"
-    nextLink.select("a").attr("href") mustBe routes.RepresentationController.manageRepresentationRequest(2).url
+    nextLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientProperties(2).url
   }
 
   it must "include an inactive 'next' link if there are no further results" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.manageRepresentationRequest(2, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(2, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -125,7 +125,7 @@ class ManageClientsSpec extends ControllerSpec {
   it must "include an inactive 'previous' link when on page 1" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.manageRepresentationRequest(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -138,7 +138,7 @@ class ManageClientsSpec extends ControllerSpec {
   it must "include a 'previous' link when not on page 1" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.manageRepresentationRequest(2, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(2, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -146,7 +146,7 @@ class ManageClientsSpec extends ControllerSpec {
     val previousLink = html.select("ul.pagination li.previous")
 
     previousLink.hasClass("disabled") mustBe false withClue "'Previous' link is incorrectly disabled"
-    previousLink.select("a").attr("href") mustBe routes.RepresentationController.manageRepresentationRequest(1).url
+    previousLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientProperties(1).url
   }
 
   it must "include a link to pending properties view" in {
@@ -160,7 +160,7 @@ class ManageClientsSpec extends ControllerSpec {
       arbitrary[DetailedIndividualAccount])))
     StubPropertyRepresentationConnector.reset()
 
-    val res = TestController.manageRepresentationRequest(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -179,7 +179,7 @@ class ManageClientsSpec extends ControllerSpec {
     val indirectLink = arbitrary[PropertyLink].retryUntil(_.organisationId != groupAccount.id).copy(agents = Seq(arbitrary[Party].copy(organisationId = groupAccount.id)))
     StubPropertyLinkConnector.stubLink(indirectLink)
 
-    val res = TestController.manageRepresentationRequest(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
     status(res) mustBe UNAUTHORIZED
   }
 
@@ -192,7 +192,7 @@ class ManageClientsSpec extends ControllerSpec {
     pageSizeControls must have size 4
     pageSizeControls.head.text mustBe "15"
 
-    val manageClientsLink: Int => String = n => routes.RepresentationController.manageRepresentationRequest(pageSize = n).url
+    val manageClientsLink: Int => String = n => routes.RepresentationController.viewClientProperties(pageSize = n).url
 
     pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(manageClientsLink(25), manageClientsLink(50), manageClientsLink(100))
   }
