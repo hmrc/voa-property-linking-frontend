@@ -268,9 +268,9 @@ rv.na.p.3=If you are looking to view the detailed valuation or check or challeng
 #DASHBOARD DRAFT CASES
 draftCases.title=Draft cases
 draftCases.p.expiry=Your draft will be saved for 30 days from the last time you saved your check form.
-draftCases.table.caption=Valuations
+draftCases.table.caption=Draft cases
 draftCases.table.1=Address
-draftCases.table.2=Agent
+draftCases.table.2=Effective date
 draftCases.table.3=Draft expiry date
 draftCases.table.4=Actions
 draftCase.continue.check=Continue check
