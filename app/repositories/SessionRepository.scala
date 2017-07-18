@@ -42,7 +42,7 @@ class PropertyLinkingSessionRepository @Inject()(db: DB) extends SessionReposito
 
 class SessionRepository @Inject()(formId: String, db: DB)
   extends ReactiveRepository[SessionData, String]("sessions", () => db, SessionData.format, implicitly[Format[String]])
-    with SessionRepo with AtomicUpdate[SessionData] {
+    with SessionRepo {
 
   override def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] = {
     saveOrUpdate[A](data)
@@ -54,7 +54,7 @@ class SessionRepository @Inject()(formId: String, db: DB)
      _ <- collection.update(
        BSONDocument("_id" -> BSONString(sessionId)),
        BSONDocument(
-         "$set" -> BSONDocument(s"data.${formId}" -> Json.toJson(data)),
+         "$set" -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
          "$setOnInsert" -> BSONDocument("createdAt" -> Json.toJson(DateTime.now()))
        ),
        upsert = true
@@ -85,7 +85,7 @@ class SessionRepository @Inject()(formId: String, db: DB)
       _ <- collection.update(
         BSONDocument("_id" -> BSONString(sessionId)),
         BSONDocument(
-          "$unset" -> BSONDocument(s"data.${formId}" -> 1))
+          "$unset" -> BSONDocument(s"data.$formId" -> 1))
       )
     } yield {
       ()
@@ -98,15 +98,12 @@ class SessionRepository @Inject()(formId: String, db: DB)
     Index(
       key = Seq(("createdAt",  IndexType.Ascending)),
       name = Some("sessionTTL"),
-      options = BSONDocument("createdAt" -> (2 hours).toSeconds)
+      options = BSONDocument("expireAfterSeconds" -> (2 hours).toSeconds)
     )
   )
 
   private def getSessionId(implicit hc: HeaderCarrier): Future[String] =
     hc.sessionId.fold(noSession)(c => Future.successful(c.value))
-
-  override def isInsertion(suppliedId: BSONObjectID, returned: SessionData): Boolean =
-    suppliedId.equals(returned._id)
 
 }
 
