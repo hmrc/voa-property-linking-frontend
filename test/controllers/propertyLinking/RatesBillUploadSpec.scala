@@ -71,7 +71,6 @@ class RatesBillUploadSpec extends ControllerSpec with FileUploadTestHelpers {
 
   lazy val mockFileUploads = {
     val m = mock[FileUploadConnector]
-    when(m.createEnvelope(any[EnvelopeMetadata])(any[HeaderCarrier])).thenReturn(Future.successful(envelopeId))
     when(m.uploadFile(matching(envelopeId), anyString, anyString, any[File])(any[HeaderCarrier])).thenReturn(Future.successful(()))
     m
   }
