@@ -23,8 +23,8 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.DB
 import reactivemongo.api.indexes.{Index, IndexType}
-import reactivemongo.bson.{BSONDocument, BSONObjectID, BSONString}
-import uk.gov.hmrc.mongo.{AtomicUpdate, ReactiveRepository}
+import reactivemongo.bson.{BSONDocument, BSONString}
+import uk.gov.hmrc.mongo.ReactiveRepository
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global

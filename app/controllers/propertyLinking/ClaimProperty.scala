@@ -21,6 +21,7 @@ import javax.inject.{Inject, Named}
 import actions.AuthenticatedRequest
 import com.google.inject.Singleton
 import config.{ApplicationConfig, Wiring}
+import connectors.EnvelopeConnector
 import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
 import controllers.PropertyLinkingController
 import form.Mappings._
@@ -36,7 +37,7 @@ import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
 
 @Singleton
-class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
+class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
                               @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
                               val withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController with ServicesConfig {
@@ -71,7 +72,7 @@ class ClaimProperty @Inject()(val fileUploadConnector: FileUploadConnector,
   private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(implicit request: AuthenticatedRequest[_]) = {
     for {
       submissionId <- submissionIdConnector.get()
-      envelopeId <- fileUploadConnector.createEnvelope(EnvelopeMetadata(submissionId, request.personId))
+      envelopeId <- envelopeConnector.createEnvelope(EnvelopeMetadata(submissionId, request.personId))
       _ <- sessionRepository.start[LinkingSession](LinkingSession(address, uarn, envelopeId, submissionId, request.personId, declaration))
     } yield ()
   }

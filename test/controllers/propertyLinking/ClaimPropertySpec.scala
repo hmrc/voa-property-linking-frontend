@@ -16,8 +16,8 @@
 
 package controllers.propertyLinking
 
-import connectors.Authenticated
-import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
+import connectors.fileUpload.EnvelopeMetadata
+import connectors.{Authenticated, EnvelopeConnector}
 import controllers.ControllerSpec
 import models._
 import org.joda.time.LocalDate
@@ -36,25 +36,21 @@ import scala.concurrent.Future
 
 class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
 
-  private class TestClaimProperty(fileUploadConnector: FileUploadConnector,
-                                  sessionRepository: SessionRepo) extends ClaimProperty(fileUploadConnector, sessionRepository, new StubWithLinkingSession(mock[SessionRepo])) {
+  private val testClaimProperty = new ClaimProperty(mockEnvelopes, mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo])) {
     override lazy val authenticated = StubAuthentication
     override lazy val submissionIdConnector = StubSubmissionIdConnector
   }
-
-  private val testClaimProperty = new TestClaimProperty(mockFileUploads, mockSessionRepo)
 
   lazy val submissionId: String = shortString
   lazy val accounts: Accounts = arbitrary[Accounts]
   lazy val anEnvelopeId = java.util.UUID.randomUUID().toString
 
-  lazy val mockFileUploads = {
-    val f = mock[FileUploadConnector]
-    when(f.createEnvelope(
-      any[EnvelopeMetadata])(any[HeaderCarrier]())
-    ).thenReturn(Future.successful(anEnvelopeId))
+  lazy val mockEnvelopes = {
+    val f = mock[EnvelopeConnector]
+    when(f.createEnvelope(any[EnvelopeMetadata])(any[HeaderCarrier]())).thenReturn(Future.successful(anEnvelopeId))
     f
   }
+
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
     when(f.start(any())(any(), any())
@@ -121,6 +117,8 @@ class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
     ))
 
     status(res) mustBe SEE_OTHER
+    verify(mockEnvelopes, atLeastOnce()).createEnvelope(any[EnvelopeMetadata])(any[HeaderCarrier])
+
     verify(mockSessionRepo, times(2)).start(any())(any(), any())
   }
 }
