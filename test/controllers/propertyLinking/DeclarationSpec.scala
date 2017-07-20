@@ -17,6 +17,7 @@
 package controllers.propertyLinking
 
 import connectors.EnvelopeConnector
+import connectors.fileUpload.{FileMetadata, FileUploadConnector}
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.ControllerSpec
 import models._
@@ -37,34 +38,6 @@ import scala.collection.JavaConverters._
 import scala.concurrent.Future
 
 class DeclarationSpec extends ControllerSpec with MockitoSugar {
-
-  val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
-  private object TestDeclaration extends Declaration(mockFileUploadConnector, mockSessionRepo, withLinkingSession) {
-    override val propertyLinks = mockPropertyLinkConnector
-  }
-
-  lazy val mockSessionRepo = {
-    val f = mock[SessionRepo]
-    when(f.start(any())(any(), any())
-    ).thenReturn(Future.successful(()))
-    when(f.remove()(any())
-    ).thenReturn(Future.successful(()))
-    f
-  }
-
-  lazy val mockFileUploadConnector = {
-    val m = mock[EnvelopeConnector]
-    when(m.closeEnvelope(matching(envelopeId))(any[HeaderCarrier])).thenReturn(Future.successful(""))
-    m
-  }
-
-  lazy val mockPropertyLinkConnector = {
-    val m = mock[PropertyLinkConnector]
-    when(m.linkToProperty(any[LinkBasis])(any[LinkingSessionRequest[_]])).thenReturn(Future.successful(()))
-    m
-  }
-
-  lazy val envelopeId: String = shortString
 
   "The declaration page" should "include a checkbox to allow the user to accept the declaration" in {
     withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
@@ -87,20 +60,24 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
   }
 
   it should "submit the property link if the user accepts the declaration" in {
-    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(RatesBillFlag))
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    val metadata = FileMetadata(RatesBillFlag, Some(FileInfo("rates bill.pdf", RatesBillType)))
 
+    when(mockFileUploads.getFileMetadata(matching(envelopeId))(any[HeaderCarrier])).thenReturn(Future.successful(metadata))
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
 
-    verify(mockPropertyLinkConnector, times(1)).linkToProperty(matching(linkingSession.linkBasis.get))(any[LinkingSessionRequest[_]])
+    verify(mockPropertyLinkConnector, times(1)).linkToProperty(matching(metadata))(any[LinkingSessionRequest[_]])
   }
 
   it should "display the normal confirmation page when the user has uploaded a rates bill" in {
-    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(RatesBillFlag))
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    val metadata = FileMetadata(RatesBillFlag, Some(FileInfo("rates bill.pdf", RatesBillType)))
 
+    when(mockFileUploads.getFileMetadata(matching(envelopeId))(any[HeaderCarrier])).thenReturn(Future.successful(metadata))
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
@@ -116,8 +93,10 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
   }
 
   it should "display the normal confirmation page when the user has uploaded other evidence" in {
-    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(OtherEvidenceFlag))
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    val metadata = FileMetadata(OtherEvidenceFlag, Some(FileInfo("not a rates bill.pdf", OtherUtilityBill)))
 
+    when(mockFileUploads.getFileMetadata(matching(envelopeId))(any[HeaderCarrier])).thenReturn(Future.successful(metadata))
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
@@ -133,8 +112,10 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
   }
 
   it should "display the no evidence confirmation page when the user has not uploaded any evidence" in {
-    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId, linkBasis = Some(NoEvidenceFlag))
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    val metadata = FileMetadata(NoEvidenceFlag, None)
 
+    when(mockFileUploads.getFileMetadata(matching(envelopeId))(any[HeaderCarrier])).thenReturn(Future.successful(metadata))
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
@@ -158,4 +139,35 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
 
     contentAsString(res) must include (linkingSession.submissionId)
   }
+
+  lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
+
+  private object TestDeclaration extends Declaration(mockEnvelopes, mockFileUploads, mockSessionRepo, withLinkingSession) {
+    override val propertyLinks = mockPropertyLinkConnector
+  }
+
+  lazy val mockSessionRepo = {
+    val f = mock[SessionRepo]
+    when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
+
+    when(f.remove()(any())).thenReturn(Future.successful(()))
+    f
+  }
+
+  lazy val mockEnvelopes = {
+    val m = mock[EnvelopeConnector]
+    when(m.closeEnvelope(matching(envelopeId))(any[HeaderCarrier])).thenReturn(Future.successful(""))
+    m
+  }
+
+  lazy val mockFileUploads = mock[FileUploadConnector]
+
+  lazy val mockPropertyLinkConnector = {
+    val m = mock[PropertyLinkConnector]
+    when(m.linkToProperty(any[FileMetadata])(any[LinkingSessionRequest[_]])).thenReturn(Future.successful(()))
+    m
+  }
+
+  lazy val envelopeId: String = shortString
+
 }

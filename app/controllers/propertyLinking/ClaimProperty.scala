@@ -21,8 +21,7 @@ import javax.inject.{Inject, Named}
 import actions.AuthenticatedRequest
 import com.google.inject.Singleton
 import config.{ApplicationConfig, Wiring}
-import connectors.EnvelopeConnector
-import connectors.fileUpload.{EnvelopeMetadata, FileUploadConnector}
+import connectors.{EnvelopeConnector, EnvelopeMetadata}
 import controllers.PropertyLinkingController
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}

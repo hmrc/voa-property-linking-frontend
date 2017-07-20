@@ -22,28 +22,39 @@ import javax.inject.Inject
 import akka.stream.scaladsl._
 import com.google.inject.ImplementedBy
 import config.Wiring
-import connectors.EnvelopeConnector
-import play.api.libs.json.{Format, Json}
+import models._
+import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import play.api.mvc.MultipartFormData.FilePart
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
+import play.api.libs.functional.syntax._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-case class EnvelopeMetadata(submissionId: String, personId: Long)
+case class FileMetadata(linkBasis: LinkBasis, fileInfo: Option[FileInfo])
 
-object EnvelopeMetadata {
-  implicit val format: Format[EnvelopeMetadata] = Json.format[EnvelopeMetadata]
+object FileMetadata {
+  implicit val reads: Reads[FileMetadata] = (
+      (__ \ "files" \ 0 \ "name").readNullable[String] and
+      (__ \ "files" \ 0 \ "metadata" \ "evidenceType" \ 0).readNullable[EvidenceType]
+  ) { FileMetadata.apply }
+
+  def apply: (Option[String], Option[EvidenceType]) => FileMetadata = {
+    case (name, evidence) if name.isEmpty || evidence.isEmpty /* "I have no evidence" route */ => FileMetadata(NoEvidenceFlag, None)
+    case (Some(name), _) if name.isEmpty /* FUaaS doesn't prevent users from uploading no files! */ => FileMetadata(NoEvidenceFlag, None)
+    case (Some(name), Some(RatesBillType)) => FileMetadata(RatesBillFlag, Some(FileInfo(name, RatesBillType)))
+    case (Some(name), Some(evidence)) => FileMetadata(OtherEvidenceFlag, Some(FileInfo(name, evidence)))
+  }
 }
 
 @ImplementedBy(classOf[FileUploadConnector])
 trait FileUpload {
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit]
+  def getFileMetadata(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata]
 }
 
-class FileUploadConnector @Inject()(val ws: WSClient, val envelopeConnector: EnvelopeConnector)(implicit ec: ExecutionContext)
-  extends FileUpload with ServicesConfig with JsonHttpReads {
+class FileUploadConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionContext) extends FileUpload with ServicesConfig {
 
   lazy val http = Wiring().http
 
@@ -51,8 +62,16 @@ class FileUploadConnector @Inject()(val ws: WSClient, val envelopeConnector: Env
     val url = s"${baseUrl("file-upload-frontend")}/file-upload/upload/envelopes/$envelopeId/files/$fileName"
     ws.url(url)
       .withHeaders(("X-Requested-With", "VOA_CCA"))
-      .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromFile(file)) :: List()))
+      .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromPath(file.toPath)) :: List()))
       .map(_ => Unit)
   }
 
+  def getFileMetadata(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata] = {
+    http.GET[JsValue](s"${baseUrl("file-upload-backend")}/file-upload/envelopes/$envelopeId") map {
+      _.validate[FileMetadata] match {
+        case JsSuccess(data, _) => data
+        case _ => FileMetadata(NoEvidenceFlag, None)
+      }
+    }
+  }
 }

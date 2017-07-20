@@ -16,6 +16,7 @@
 
 package utils
 
+import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.Pagination
 import models._
@@ -30,7 +31,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
   var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil
 
-  override def linkToProperty(linkBasis: LinkBasis)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
+  override def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
   override def linkedProperties(organisationId: Int, pagination: Pagination)(implicit hc: HeaderCarrier) = {
     Future.successful(PropertyLinkResponse(Some(stubbedLinks.size), stubbedLinks))

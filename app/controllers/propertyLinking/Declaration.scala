@@ -21,9 +21,10 @@ import javax.inject.Named
 import com.google.inject.{Inject, Singleton}
 import config.Wiring
 import connectors.EnvelopeConnector
+import connectors.fileUpload.{FileMetadata, FileUploadConnector}
 import controllers.PropertyLinkingController
 import form.Mappings._
-import models.{CapacityDeclaration, FileInfo, LinkBasis, NoEvidenceFlag}
+import models.NoEvidenceFlag
 import play.api.data.{Form, FormError, Forms}
 import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
@@ -31,42 +32,30 @@ import views.html.propertyLinking.declaration
 
 @Singleton
 class Declaration @Inject()(envelopes: EnvelopeConnector,
+                            fileUploads: FileUploadConnector,
                             @Named("propertyLinkingSession") sessionRepository: SessionRepo,
-                            withLinkingSession: WithLinkingSession
-                           )
+                            withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController {
 
   val propertyLinks = Wiring().propertyLinkConnector
 
   def show = withLinkingSession { implicit request =>
-    request.ses.linkBasis match {
-      case Some(basis) => Ok(declaration(DeclarationVM(request.ses.address, request.ses.declaration, request.ses.fileInfo, form)))
-      case None => Unauthorized
-    }
-
+    Ok(declaration(DeclarationVM(form)))
   }
 
   def submit = withLinkingSession { implicit request =>
-    val session = request.ses
-
-    session.linkBasis match {
-      case Some(basis) =>
-        form.bindFromRequest().value match {
-          case Some(true) => submitLinkingRequest(basis) map { _ => showConfirmation(basis) }
-          case _ => BadRequest(declaration(DeclarationVM(session.address, session.declaration, session.fileInfo, formWithNoDeclaration)))
-        }
-      case None => Unauthorized
+    form.bindFromRequest().value match {
+      case Some(true) => fileUploads.getFileMetadata(request.ses.envelopeId) flatMap {
+        case data@FileMetadata(_, Some(info)) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.confirmation()) }
+        case data@FileMetadata(NoEvidenceFlag, _) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.noEvidence()) }
+      }
+      case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
     }
-  }
-
-  private def showConfirmation(basis: LinkBasis)(implicit request: LinkingSessionRequest[_]) = basis match {
-    case NoEvidenceFlag => Redirect(routes.Declaration.noEvidence().url)
-    case _ => Redirect(routes.Declaration.confirmation())
   }
 
   def confirmation = withLinkingSession { implicit request =>
     sessionRepository.remove() map { _ =>
-        Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
+      Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
     }
   }
 
@@ -74,11 +63,10 @@ class Declaration @Inject()(envelopes: EnvelopeConnector,
     sessionRepository.remove() map { _ => Ok(views.html.propertyLinking.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId))) }
   }
 
-  private def submitLinkingRequest(basis: LinkBasis)(implicit request: LinkingSessionRequest[_]) = {
-    val session = request.ses
+  private def submitLinkingRequest(info: FileMetadata)(implicit request: LinkingSessionRequest[_]) = {
     for {
-      _ <- propertyLinks.linkToProperty(basis)
-      _ <- envelopes.closeEnvelope(session.envelopeId)
+      _ <- propertyLinks.linkToProperty(info)
+      _ <- envelopes.closeEnvelope(request.ses.envelopeId)
     } yield ()
   }
 
@@ -86,6 +74,6 @@ class Declaration @Inject()(envelopes: EnvelopeConnector,
   lazy val formWithNoDeclaration = form.withError(FormError("declaration", "declaration.required"))
 }
 
-case class DeclarationVM(address: String, declaration: CapacityDeclaration, fileInfo: Option[FileInfo], form: Form[_])
+case class DeclarationVM(form: Form[_])
 
 case class RequestSubmittedVM(address: String, refId: String)

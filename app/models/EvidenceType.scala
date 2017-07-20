@@ -16,6 +16,8 @@
 
 package models
 
+import play.api.libs.json.Format
+
 sealed trait EvidenceType extends NamedEnum {
   val name: String
   val key = "evidenceType"
@@ -54,4 +56,6 @@ object EvidenceType extends NamedEnumSupport[EvidenceType] {
   override def all: List[EvidenceType] = List(
     Lease, License, ServiceCharge, StampDutyLandTaxForm,
     WaterRateDemand, OtherUtilityBill, RatesBillType)
+
+  implicit val format: Format[EvidenceType] = EnumFormat(EvidenceType)
 }

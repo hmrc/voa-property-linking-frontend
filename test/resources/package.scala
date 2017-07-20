@@ -276,8 +276,7 @@ package object resources {
     submissionId <- shortString
     personId <- positiveLong
     declaration <- capacityDeclarationGen
-    linkBasis <- Gen.oneOf(LinkBasis.all)
-  } yield LinkingSession(address, uarn, envelopeId, submissionId, personId, declaration, Some(linkBasis), None)
+  } yield LinkingSession(address, uarn, envelopeId, submissionId, personId, declaration)
 
   implicit val arbitraryLinkinSession: Arbitrary[LinkingSession] = Arbitrary(linkingSessionGen)
 
