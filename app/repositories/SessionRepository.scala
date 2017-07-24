@@ -44,6 +44,9 @@ class SessionRepository @Inject()(formId: String, db: DB)
   extends ReactiveRepository[SessionData, String]("sessions", () => db, SessionData.format, implicitly[Format[String]])
     with SessionRepo {
 
+  //TODO remove this after deploying to prod
+  collection.indexesManager.drop("sessionTTL")
+
   override def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] = {
     saveOrUpdate[A](data)
   }
@@ -97,7 +100,7 @@ class SessionRepository @Inject()(formId: String, db: DB)
   override def indexes: Seq[Index] = Seq(
     Index(
       key = Seq(("createdAt",  IndexType.Ascending)),
-      name = Some("sessionTTL"),
+      name = Some("workingSessionTTL"),
       options = BSONDocument("expireAfterSeconds" -> (2 hours).toSeconds)
     )
   )
