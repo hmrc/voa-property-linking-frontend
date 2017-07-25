@@ -16,8 +16,7 @@
 
 package controllers.propertyLinking
 
-import connectors.fileUpload.EnvelopeMetadata
-import connectors.{Authenticated, EnvelopeConnector}
+import connectors.{Authenticated, EnvelopeConnector, EnvelopeMetadata}
 import controllers.ControllerSpec
 import models._
 import org.joda.time.LocalDate

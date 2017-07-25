@@ -99,7 +99,7 @@ class SessionRepository @Inject()(formId: String, db: DB)
 
   override def indexes: Seq[Index] = Seq(
     Index(
-      key = Seq(("createdAt",  IndexType.Ascending)),
+      key = Seq(("createdAt", IndexType.Ascending)),
       name = Some("workingSessionTTL"),
       options = BSONDocument("expireAfterSeconds" -> (2 hours).toSeconds)
     )

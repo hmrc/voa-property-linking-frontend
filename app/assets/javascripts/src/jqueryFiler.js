@@ -89,9 +89,28 @@
 		    }
         });
 
-        $(document).on('click', '#uploadFile', function(e) {
-           $(this).after('<div class="message-warning"><p>Please wait whilst your file is uploading. This may take some time.</p></div>');
+        $(document).on('click', '#uploadFile', function (e) {
+            if(noFileUploaded()) {
+                showNoFileError();
+                e.preventDefault();
+            } else {
+                $(this).after('<div class="message-warning"><p>Please wait whilst your file is uploading. This may take some time.</p></div>');
+            }
         });
+
+        function noFileUploaded() {
+            return $('.filer_input')[0].jFiler.files === null;
+        }
+
+        function showNoFileError() {
+            if($('#ratesBillGroup').length) {
+                $('#ratesBillGroup').addClass('form-grouped-error');
+                $('span.file-error')[0].innerHTML = 'Please select a rates bill';
+            } else {
+                $('#evidenceGroup').addClass('form-grouped-error');
+                $('span.file-error')[0].innerHTML = 'Please upload some evidence';
+            }
+        }
 
     };
 

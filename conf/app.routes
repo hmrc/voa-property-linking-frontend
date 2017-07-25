@@ -70,10 +70,8 @@ POST        /link-to-property/:uarn                                             
 #Link scenarios
 GET         /choose-evidence                                                                  @controllers.propertyLinking.ChooseEvidence.show()
 POST        /choose-evidence                                                                  @controllers.propertyLinking.ChooseEvidence.submit()
-GET         /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.show()
-POST        /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.submit()
-GET         /upload-evidence                                                                  @controllers.propertyLinking.UploadEvidence.show()
-POST        /upload-evidence                                                                  @controllers.propertyLinking.UploadEvidence.submit()
+GET         /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.show(errorCode: Option[Int] ?= None, errorMessage: Option[String] ?= None)
+GET         /upload-evidence                                                                  @controllers.propertyLinking.UploadEvidence.show(errorCode: Option[Int] ?= None, errorMessage: Option[String] ?= None)
 
 GET         /summary                                                                          @controllers.propertyLinking.Declaration.show
 POST        /summary                                                                          @controllers.propertyLinking.Declaration.submit

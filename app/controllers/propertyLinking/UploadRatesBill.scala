@@ -18,20 +18,16 @@ package controllers.propertyLinking
 
 import javax.inject.{Inject, Named}
 
-import config.Wiring
+import config.{Global, Wiring}
 import connectors.EnvelopeConnector
 import connectors.fileUpload.FileUploadConnector
 import controllers._
-import models._
-import org.apache.commons.io.FilenameUtils
+import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.{Form, FormError}
-import play.api.i18n.Messages
-import play.api.libs.Files
-import play.api.mvc.MultipartFormData.FilePart
-import play.api.mvc.{AnyContent, Request}
+import play.api.mvc.RequestHeader
 import repositories.SessionRepo
 import session.WithLinkingSession
+import views.html.propertyLinking.uploadRatesBill
 
 class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
                                 override val envelopeConnector: EnvelopeConnector,
@@ -39,40 +35,22 @@ class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
                                 override val withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController with FileUploadHelpers {
 
-  import UploadRatesBill._
-
   lazy val propertyLinks = Wiring().propertyLinkConnector
 
-  def show() = withLinkingSession { implicit request =>
-    Ok(views.html.propertyLinking.uploadRatesBill(UploadRatesBillVM(form)))
-  }
-
-  def submit() = withLinkingSession { implicit request =>
-    val filePart = getFile("ratesBill[]")
-    uploadIfNeeded(filePart) flatMap {
-      case FileAccepted =>
-        val fileInfo = FileInfo(filePart.fold("No File")(_.filename), RatesBillType.name)
-        sessionRepository.saveOrUpdate[LinkingSession](request.ses.withLinkBasis(RatesBillFlag, Some(fileInfo))) map { _ =>
-          Redirect(propertyLinking.routes.Declaration.show())
-        }
-      case FileMissing =>
-        BadRequest(views.html.propertyLinking.uploadRatesBill(
-          UploadRatesBillVM(form.withError(
-            FormError("ratesBill[]", Messages("uploadRatesBill.ratesBillMissing.error"))))
-        ))
-      case FileTooLarge =>
-        BadRequest(views.html.propertyLinking.uploadRatesBill(
-          UploadRatesBillVM(form.withError(
-            FormError("ratesBill[]", Messages("error.fileUpload.tooLarge"))))
-        ))
-      case InvalidFileType =>
-        BadRequest(views.html.propertyLinking.uploadRatesBill(UploadRatesBillVM(form.withError(FormError("ratesBill[]", Messages("error.fileUpload.invalidFileType")))))) //scalastyle:ignore
+  def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
+    errorCode match {
+      case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadRatesBill(UploadRatesBillVM(fileTooLargeError, failureUrl)))
+      case Some(NOT_FOUND) => NotFound(Global.notFoundTemplate)
+      case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, failureUrl)))
+      case _ => Ok(uploadRatesBill(UploadRatesBillVM(form, fileUploadUrl(routes.UploadRatesBill.show().absoluteURL()))))
     }
   }
-}
 
-object UploadRatesBill {
   lazy val form = Form(single("ratesBill[]" -> text))
+  lazy val fileTooLargeError = form.withError("ratesBill[]", "error.fileUpload.tooLarge")
+  lazy val invalidFileTypeError = form.withError("ratesBill[]", "error.fileUpload.invalidFileType")
+
+  private def failureUrl(implicit requestHeader: RequestHeader) = routes.UploadRatesBill.show().absoluteURL()
 }
 
-case class UploadRatesBillVM(form: Form[_])
+case class UploadRatesBillVM(form: Form[_], submissionUrl: String)

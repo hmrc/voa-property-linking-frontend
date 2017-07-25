@@ -34,8 +34,8 @@ class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession) exte
     ChooseEvidence.form.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors)),
       {
-        case true => Redirect(routes.UploadRatesBill.show)
-        case false => Redirect(routes.UploadEvidence.show)
+        case true => Redirect(routes.UploadRatesBill.show())
+        case false => Redirect(routes.UploadEvidence.show())
       }
     )
   }

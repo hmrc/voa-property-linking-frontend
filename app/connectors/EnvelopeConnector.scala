@@ -20,15 +20,13 @@ import javax.inject.Inject
 
 import com.google.inject.ImplementedBy
 import config.Wiring
-import connectors.fileUpload.EnvelopeMetadata
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{Format, JsValue, Json}
 import play.api.libs.ws.WSClient
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HttpResponse, _}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
-
 
 @ImplementedBy(classOf[EnvelopeConnector])
 trait Envelope {
@@ -53,5 +51,10 @@ class EnvelopeConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionContex
   def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
     http.PUT[JsValue, HttpResponse](s"${baseUrl("property-linking")}/property-linking/envelopes/$envelopeId", Json.obj()) map { _ => envelopeId }
   }
+}
 
+case class EnvelopeMetadata(submissionId: String, personId: Long)
+
+object EnvelopeMetadata {
+  implicit val format: Format[EnvelopeMetadata] = Json.format[EnvelopeMetadata]
 }

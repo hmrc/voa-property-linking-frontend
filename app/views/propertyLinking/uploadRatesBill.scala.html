@@ -7,7 +7,7 @@
     @main_template(title = Messages("uploadRatesBill.show.title"),
         topBackLink = true, bottomBackLink = true) {
 
-        @form(routes.UploadRatesBill.submit(), 'enctype -> "multipart/form-data") {
+        @form(Call("POST", model.submissionUrl), 'enctype -> "multipart/form-data") {
 
             <div class="grid-row">
                 <div class="column-two-thirds">
@@ -23,7 +23,7 @@
                     </ul>
 
                     <details class="print-hide">
-                        <summary role="button" aria-controls="details-content-uploadFile" >
+                        <summary aria-controls="details-content-uploadFile" >
                             <span class="summary">@Messages("uploadFile.info.title")</span>
                         </summary>
                         <div id="details-content-uploadFile" class="panel panel-border-narrow">
@@ -42,8 +42,10 @@
                         '_label -> Messages("label.ratesBill")
                     )
 
+                    <input name="evidenceType" type="hidden" readonly value="@RatesBillType.name"/>
+
                     <p>
-                        <button id="uploadFile" type="submit" class="button">@Messages("uploadRatesBill.show.button")</button>
+                        <button id="uploadFile" class="button">@Messages("uploadRatesBill.show.button")</button>
                     </p>
                 </div>
             </div>

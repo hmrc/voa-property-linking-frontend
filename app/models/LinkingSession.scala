@@ -19,9 +19,7 @@ package models
 import play.api.libs.json.Json
 
 case class LinkingSession(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long,
-                          declaration: CapacityDeclaration, linkBasis: Option[LinkBasis] = None, fileInfo: Option[FileInfo] = None) {
-  def withLinkBasis(basis: LinkBasis, fileInfo: Option[FileInfo]) = copy(linkBasis = Some(basis), fileInfo = fileInfo)
-}
+                          declaration: CapacityDeclaration)
 
 object LinkingSession {
   implicit val format = Json.format[LinkingSession]

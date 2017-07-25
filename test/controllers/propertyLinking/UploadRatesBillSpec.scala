@@ -23,10 +23,10 @@ import connectors.fileUpload.FileUploadConnector
 import controllers.ControllerSpec
 import models._
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
-import org.scalacheck.Arbitrary.arbitrary
-import play.api.i18n.Messages
+import org.scalacheck.Arbitrary._
 import play.api.libs.ws.WSClient
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -39,76 +39,81 @@ import scala.collection.JavaConverters._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
+class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
 
-  "Upload Evidence page" must "contain a file input" in {
-    val page = HtmlPage(uploadEvidencePage)
-    page.mustContainFileInput("evidence")
+  "Upload Rates Bill upload page" must "contain a file input" in {
+    val html = HtmlPage(uploadRatesBillPage)
+    html.mustContainFileInput("ratesBill")
   }
 
-  it must "contain a file type dropdown" in {
-    val html = uploadEvidencePage
-    val options = html.select("select option").asScala.map(_.text)
-    options must contain theSameElementsAs EvidenceType.all.map { et => Messages(et.msgKey) }
+  it must "contain a hidden input for the evidence type" in {
+    val html = uploadRatesBillPage
+    val csrfToken: Element => Boolean = _.attr("name") == "csrfToken"
+
+    val evidenceType = html.select("input[type=hidden][name=evidenceType]").asScala.filterNot(csrfToken).head
+    evidenceType.`val`() mustBe "ratesBill"
   }
 
   it must "submit to the file upload service, with valid success and failure callback URLs" in {
-    val html = uploadEvidencePage
-    val successUrl = routes.Declaration.show.absoluteURL()
-    val failureUrl = routes.UploadEvidence.show().absoluteURL()
+    val html = uploadRatesBillPage
+    val successUrl = "http://localhost:9523/business-rates-property-linking/summary"
+    val failureUrl = "http://localhost:9523/business-rates-property-linking/upload-rates-bill"
 
-    val formAction = html.select("form").attr("action")
-    formAction must fullyMatch regex s"http://localhost:8899/file-upload/upload/envelopes/$envelopeId/files/(.*?)?redirect-success-url=$successUrl&redirect-error-url=$failureUrl"
+    val formTarget = html.select("form").attr("action")
+    formTarget must fullyMatch regex s"http://localhost:8899/file-upload/upload/envelopes/$envelopeId/files/(.*?)?redirect-success-url=$successUrl&redirect-error-url=$failureUrl"
   }
 
   it must "display an error if the user uploads a file over 10MB" in {
     val linkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
-    val res = TestUploadEvidence.show(errorCode = Some(REQUEST_ENTITY_TOO_LARGE), None)(request)
+    val res = TestUploadRatesBill.show(errorCode = Some(REQUEST_ENTITY_TOO_LARGE), None)(request)
     status(res) mustBe REQUEST_ENTITY_TOO_LARGE
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=evidence] span.error-message").text mustBe "File size must be less than 10MB"
+    html.select("label[for=ratesBill] span.error-message").text mustBe "File size must be less than 10MB"
   }
 
   it must "display an error if the user uploads a file which is not a PDF or JPEG" in {
     val linkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
-    val res = TestUploadEvidence.show(errorCode = Some(UNSUPPORTED_MEDIA_TYPE), None)(request)
+    val res = TestUploadRatesBill.show(errorCode = Some(UNSUPPORTED_MEDIA_TYPE), None)(request)
     status(res) mustBe UNSUPPORTED_MEDIA_TYPE
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=evidence] span.error-message").text mustBe "File must be a PDF or JPG"
+    html.select("label[for=ratesBill] span.error-message").text mustBe "File must be a PDF or JPG"
   }
 
-  lazy val uploadEvidencePage = {
+  lazy val uploadRatesBillPage = {
     val linkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
-
-    val res = TestUploadEvidence.show(errorCode = None, errorMessage = None)(request)
+    val res = TestUploadRatesBill.show(errorCode = None, errorMessage = None)(request)
     status(res) mustBe OK
     Jsoup.parse(contentAsString(res))
   }
 
   implicit lazy val request = FakeRequest().withSession(token).withHeaders(HOST -> "localhost:9523")
 
+  implicit lazy val hc = HeaderCarrier()
   lazy val wsClient = app.injector.instanceOf[WSClient]
 
   lazy val envConnectorStub = new EnvelopeConnector(wsClient) {
-    override def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] =  {
+    override def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
       Future.successful(envelopeId)
     }
-    override def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] =  {
+
+    override def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
       Future.successful(envelopeId)
     }
   }
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  object TestUploadEvidence extends UploadEvidence(mockFileUploads, envConnectorStub, mockSessionRepo, withLinkingSession)  {
-    override val propertyLinks = StubPropertyLinkConnector
+  object TestUploadRatesBill extends UploadRatesBill(mockFileUploads, envConnectorStub, mockSessionRepo, withLinkingSession) {
+    val property = arbitrary[Property].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+    override lazy val propertyLinks = StubPropertyLinkConnector
   }
 
   lazy val mockSessionRepo = {
@@ -125,6 +130,4 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   lazy val envelopeId: String = shortString
-
-  implicit lazy val messages = play.api.i18n.Messages.Implicits.applicationMessages
 }

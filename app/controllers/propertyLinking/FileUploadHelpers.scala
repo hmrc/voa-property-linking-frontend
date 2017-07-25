@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.propertyLinking
 
 import java.net.URLEncoder
+import java.util.UUID
 
 import config.ApplicationConfig
 import connectors.EnvelopeConnector
 import connectors.fileUpload.FileUpload
 import connectors.propertyLinking.PropertyLinkConnector
+import controllers._
 import org.apache.commons.io.FilenameUtils
 import play.api.libs.Files
 import play.api.libs.Files.TemporaryFile
-import play.api.mvc.{AnyContent, Request}
 import play.api.mvc.MultipartFormData.FilePart
+import play.api.mvc.{AnyContent, Request}
 import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
 
@@ -40,6 +42,7 @@ trait FileUploadHelpers {
   val propertyLinks: PropertyLinkConnector
   val withLinkingSession: WithLinkingSession
   val sessionRepository: SessionRepo
+  lazy val fileUploadBaseUrl = ApplicationConfig.fileUploadUrl
 
   val maxFileSize = 10485760 //10MB
 
@@ -76,6 +79,14 @@ trait FileUploadHelpers {
     } else {
       Some(file.copy(filename = FilenameUtils.getName(file.filename)))
     }
+  }
+
+  def fileUploadUrl(failureUrl: String)(implicit request: LinkingSessionRequest[_]): String = {
+    val envelopeId = request.ses.envelopeId
+    val fileId = UUID.randomUUID().toString
+    val successUrl = routes.Declaration.show().absoluteURL()
+
+    s"$fileUploadBaseUrl/upload/envelopes/$envelopeId/files/$fileId?redirect-success-url=$successUrl&redirect-error-url=$failureUrl"
   }
 }
 

@@ -7,7 +7,7 @@
 @main_template(title = Messages("uploadEvidence.show.title"), bottomBackLink = true, topBackLink = true) {
 
 
-    @form(routes.UploadEvidence.submit(), 'enctype -> "multipart/form-data") {
+    @form(Call("POST", model.submissionUrl), 'enctype -> "multipart/form-data") {
 
         <div class="grid-row">
             <div class="column-two-thirds">
@@ -33,7 +33,7 @@
                 </ul>
 
                 <details class="print-hide">
-                    <summary role="button" aria-controls="details-content-1" >
+                    <summary aria-controls="details-content-1" >
                         <span class="summary">@Messages("uploadFile.info.title")</span>
                     </summary>
                     <div id="details-content-1" class="panel panel-border-narrow">
@@ -63,7 +63,9 @@
                     )
                 )
 
-                <button id="uploadFile" type="submit" class="button">@Messages("uploadEvidence.show.button")</button>
+                <p>
+                    <button id="uploadFile" class="button">@Messages("uploadEvidence.show.button")</button>
+                </p>
             </div>
         </div>
 

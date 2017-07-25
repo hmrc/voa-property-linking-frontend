@@ -16,6 +16,7 @@
 
 package connectors.propertyLinking
 
+import connectors.fileUpload.FileMetadata
 import controllers.Pagination
 import models._
 import org.joda.time.DateTime
@@ -39,7 +40,7 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     }
   }
 
-  def linkToProperty(linkBasis: LinkBasis)(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
+  def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
     implicit val hc = HeaderCarrier.fromHeadersAndSession(request.request.headers, Some(request.request.session))
     val url = s"$baseUrl/property-links"
     val linkRequest = PropertyLinkRequest(
@@ -48,8 +49,8 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
       request.ses.personId,
       Capacity.fromDeclaration(request.ses.declaration),
       DateTime.now,
-      linkBasis,
-      request.ses.fileInfo.toSeq,
+      data.linkBasis,
+      data.fileInfo.toSeq,
       request.ses.submissionId
     )
     http.POST[PropertyLinkRequest, HttpResponse](url, linkRequest) map { _ => () }

@@ -1,7 +1,6 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 @import controllers.propertyLinking.DeclarationVM
-@import utils.Formatters
 
 @(model: DeclarationVM)(implicit request: Request[_], messages: Messages)
 
@@ -43,7 +42,7 @@
                 )
 
                 <p>
-                    <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
+                    <button id="continue" class="button">@Messages("label.continue")</button>
                 </p>
             }
 
