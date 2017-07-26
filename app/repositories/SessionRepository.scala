@@ -19,11 +19,11 @@ package repositories
 import javax.inject.Inject
 
 import com.google.inject.Singleton
-import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.DB
 import reactivemongo.api.indexes.{Index, IndexType}
-import reactivemongo.bson.{BSONDocument, BSONString}
+import reactivemongo.bson.{BSONDateTime, BSONDocument, BSONString}
+import uk.gov.hmrc.http.cache.client.NoSessionException
 import uk.gov.hmrc.mongo.ReactiveRepository
 import uk.gov.hmrc.play.http.HeaderCarrier
 
@@ -44,9 +44,6 @@ class SessionRepository @Inject()(formId: String, db: DB)
   extends ReactiveRepository[SessionData, String]("sessions", () => db, SessionData.format, implicitly[Format[String]])
     with SessionRepo {
 
-  //TODO remove this after deploying to prod
-  collection.indexesManager.drop("sessionTTL")
-
   override def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] = {
     saveOrUpdate[A](data)
   }
@@ -58,10 +55,9 @@ class SessionRepository @Inject()(formId: String, db: DB)
        BSONDocument("_id" -> BSONString(sessionId)),
        BSONDocument(
          "$set" -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
-         "$setOnInsert" -> BSONDocument("createdAt" -> Json.toJson(DateTime.now()))
+         "$setOnInsert" -> BSONDocument("createdAt" -> BSONDateTime(System.currentTimeMillis))
        ),
        upsert = true
-
      )
    } yield {
      ()
@@ -100,7 +96,7 @@ class SessionRepository @Inject()(formId: String, db: DB)
   override def indexes: Seq[Index] = Seq(
     Index(
       key = Seq(("createdAt", IndexType.Ascending)),
-      name = Some("workingSessionTTL"),
+      name = Some("sessionTTL"),
       options = BSONDocument("expireAfterSeconds" -> (2 hours).toSeconds)
     )
   )
@@ -110,11 +106,13 @@ class SessionRepository @Inject()(formId: String, db: DB)
 
 }
 
-case class SessionData(_id: String, data: JsValue, createdAt: DateTime = DateTime.now())
+case class SessionData(_id: String, data: JsValue, createdAt: BSONDateTime = BSONDateTime(System.currentTimeMillis))
+
 object SessionData {
+  import reactivemongo.json.BSONFormats.BSONDateTimeFormat
+
   val format = Json.format[SessionData]
 }
-case object NoSessionException extends Exception("Could not find sessionId in HeaderCarrier")
 
 trait SessionRepo {
 
