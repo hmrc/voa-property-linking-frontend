@@ -22,12 +22,12 @@ import repositories.SessionRepository
 import scala.concurrent.{ExecutionContext, Future}
 
 class FixSessionIndex @Inject()(sessionRepo: SessionRepository)(implicit ec: ExecutionContext) extends MongoTask {
-  override val upToVersion = 1
+  override val upToVersion = 2
 
   override def run(version: Int): Future[Unit] = {
     for {
-      _ <- sessionRepo.collection.indexesManager.drop("sessionTTL")
-      _ <- sessionRepo.collection.indexesManager.drop("workingSessionTTL")
+      _ <- sessionRepo.collection.indexesManager.drop("sessionTTL") recover { case _ => () }
+      _ <- sessionRepo.collection.indexesManager.drop("workingSessionTTL") recover { case _ => () }
     } yield ()
   }
 }
