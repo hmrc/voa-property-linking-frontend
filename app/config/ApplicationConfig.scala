@@ -33,6 +33,7 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   def businessRatesValuationUrl(page: String) = getConfig("business-rates-valuation.url") + s"/$page"
 
   val fileUploadUrl = getConfig("file-upload-frontend.url")
+  val serviceUrl = getConfig("voa-property-linking-frontend.url")
   val casesEnabled = getConfig("featureFlags.casesEnabled").toBoolean
   val editDetailsEnabled = getConfig("featureFlags.editDetailsEnabled").toBoolean
 

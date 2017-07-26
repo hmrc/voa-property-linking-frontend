@@ -54,7 +54,7 @@ class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector,
   lazy val fileTooLarge = form.withError("evidence[]", "error.fileUpload.tooLarge")
   lazy val invalidFileType = form.withError("evidence[]", "error.fileUpload.invalidFileType")
 
-  private def submissionUrl(implicit request: LinkingSessionRequest[_]) = fileUploadUrl(routes.UploadEvidence.show().absoluteURL())
+  private def submissionUrl(implicit request: LinkingSessionRequest[_]) = fileUploadUrl(routes.UploadEvidence.show().url)
 }
 
 case class UploadEvidenceVM(form: Form[_], submissionUrl: String)
