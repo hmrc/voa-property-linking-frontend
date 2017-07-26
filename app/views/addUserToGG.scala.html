@@ -3,7 +3,9 @@
 
 @main_template(
     title = Messages("addUserToGG.heading"),
-    topNavigation = false
+    topNavigation = false,
+    bottomBackLink = true,
+    backLinkUrl = Some(controllers.manageDetails.routes.UpdatePersonalDetails.show().url)
 ) {
 
     <div class="grid-row">
@@ -25,8 +27,6 @@
             </ul>
 
             <p>@Html(Messages("addUserToGG.p3"))</p>
-
-            <a href="@routes.Dashboard.home()" id="backLinkBottom" class="link-back">@Messages("link.back")</a>
 
         </div>
 

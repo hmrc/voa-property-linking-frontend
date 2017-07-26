@@ -17,34 +17,44 @@
 package views.dashboard
 
 import actions.BasicAuthenticatedRequest
-import controllers.{ControllerSpec, ManagePropertiesVM, Pagination}
+import controllers.{ControllerSpec, ManagePropertiesVM, Pagination, routes}
 import models.{DetailedIndividualAccount, GroupAccount, PropertyLink}
+import org.jsoup.Jsoup
 import play.api.test.FakeRequest
 import org.scalacheck.Arbitrary.arbitrary
 import resources._
 import utils.HtmlPage
 import play.api.i18n.Messages.Implicits._
+import views.html.dashboard.manageProperties
+
+import scala.collection.JavaConverters._
 
 class ManagePropertiesPageSpec extends ControllerSpec {
 
-  implicit val request = FakeRequest()
-  val organisationAccount = arbitrary[GroupAccount]
-  val individualAccount = arbitrary[DetailedIndividualAccount]
-  implicit val basicAuthenticatedRequest = BasicAuthenticatedRequest(organisationAccount, individualAccount, request)
-
-  "Manage properties page" should "show the submissionId if the property link is pending" in {
-
+  "Manage properties page" must "show the submissionId if the property link is pending" in {
     val pendingProp = arbitrary[PropertyLink].sample.get.copy(
-        organisationId = organisationAccount.id,
-        pending = true
-      )
+      organisationId = organisationAccount.id,
+      pending = true
+    )
     val approvedProp = arbitrary[PropertyLink].sample.get.copy(
       organisationId = organisationAccount.id,
       pending = false
     )
-    val html = views.html.dashboard.manageProperties(ManagePropertiesVM(organisationAccount.id, Seq(pendingProp, approvedProp), Pagination(1, 25, 25)))
+
+    val html = manageProperties(ManagePropertiesVM(organisationAccount.id, Seq(pendingProp, approvedProp), Pagination(1, 25, 25)))
     val page = HtmlPage(html)
     page.mustContain1(".submission-id")
   }
 
+  it must "show the dashboard navigation tabs at the top of the screen" in {
+    val page = Jsoup.parse(manageProperties(ManagePropertiesVM(organisationAccount.id, Nil, Pagination(1, 25, 25))).toString)
+    val tabs = page.select(".section-tabs ul[role=tablist] li").asScala
+    tabs must have size 5
+    tabs.init.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(routes.Dashboard.manageProperties().url, routes.Dashboard.manageAgents().url, routes.Dashboard.viewDraftCases().url, controllers.manageDetails.routes.UpdatePersonalDetails.show().url)
+  }
+
+  implicit lazy val request = FakeRequest()
+  lazy val organisationAccount = arbitrary[GroupAccount]
+  lazy val individualAccount = arbitrary[DetailedIndividualAccount]
+  implicit lazy val basicAuthenticatedRequest = BasicAuthenticatedRequest(organisationAccount, individualAccount, request)
 }

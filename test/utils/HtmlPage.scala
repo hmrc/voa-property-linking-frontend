@@ -100,7 +100,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   }
 
   def mustContain(selector: String, count: Int) =
-    html.select(selector).size mustBe count withClue s"Expected 1 of: '$selector'\n ${html.select(selector)}\nFull HTML: \n$html"
+    html.select(selector).size mustBe count withClue s"Expected $count of: '$selector'\n ${html.select(selector)}\nFull HTML: \n$html"
 
   def mustContainSummaryErrors(errors: (FieldId, FieldName, Message)*) =
     errors.foreach { case (id, name, msg) =>

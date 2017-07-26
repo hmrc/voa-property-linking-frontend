@@ -16,6 +16,7 @@
 
 package views.details
 
+import actions.BasicAuthenticatedRequest
 import controllers.ControllerSpec
 import models.{Address, DetailedIndividualAccount, GroupAccount}
 import org.jsoup.Jsoup
@@ -35,7 +36,7 @@ class DetailsPageSpec extends ControllerSpec {
     val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isDefined)
     val groupAccount: GroupAccount = groupAccountGen
     val address: Address = addressGen
-    implicit val request = FakeRequest()
+    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
     val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
     val details = individualAccount.details
@@ -59,7 +60,7 @@ class DetailsPageSpec extends ControllerSpec {
     val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isEmpty)
     val groupAccount: GroupAccount = groupAccountGen
     val address: Address = addressGen
-    implicit val request = FakeRequest()
+    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
     val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
 
@@ -71,7 +72,7 @@ class DetailsPageSpec extends ControllerSpec {
     val individualAccount: DetailedIndividualAccount = individualGen
     val groupAccount: GroupAccount = groupAccountGen.retryUntil(_.isAgent)
     val address: Address = addressGen
-    implicit val request = FakeRequest()
+    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
     val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
 
@@ -83,7 +84,7 @@ class DetailsPageSpec extends ControllerSpec {
     val individualAccount: DetailedIndividualAccount = individualGen
     val groupAccount: GroupAccount = groupAccountGen.retryUntil(!_.isAgent)
     val address: Address = addressGen
-    implicit val request = FakeRequest()
+    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
     val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
 
@@ -95,7 +96,7 @@ class DetailsPageSpec extends ControllerSpec {
     val individualAccount: DetailedIndividualAccount = individualGen
     val groupAccount: GroupAccount = groupAccountGen
     val address: Address = addressGen
-    implicit val request = FakeRequest()
+    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
     val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
 
