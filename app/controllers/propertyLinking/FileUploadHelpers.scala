@@ -84,9 +84,10 @@ trait FileUploadHelpers {
   def fileUploadUrl(failureUrl: String)(implicit request: LinkingSessionRequest[_]): String = {
     val envelopeId = request.ses.envelopeId
     val fileId = UUID.randomUUID().toString
-    val successUrl = routes.Declaration.show().absoluteURL()
+    val absoluteSuccessUrl = s"${ApplicationConfig.serviceUrl}${routes.Declaration.show().url}"
+    val absoluteFailureUrl = s"${ApplicationConfig.serviceUrl}$failureUrl"
 
-    s"$fileUploadBaseUrl/upload/envelopes/$envelopeId/files/$fileId?redirect-success-url=$successUrl&redirect-error-url=$failureUrl"
+    s"$fileUploadBaseUrl/upload/envelopes/$envelopeId/files/$fileId?redirect-success-url=$absoluteSuccessUrl&redirect-error-url=$absoluteFailureUrl"
   }
 }
 

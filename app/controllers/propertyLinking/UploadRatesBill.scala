@@ -26,7 +26,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.RequestHeader
 import repositories.SessionRepo
-import session.WithLinkingSession
+import session.{LinkingSessionRequest, WithLinkingSession}
 import views.html.propertyLinking.uploadRatesBill
 
 class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
@@ -39,10 +39,10 @@ class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
 
   def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
     errorCode match {
-      case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadRatesBill(UploadRatesBillVM(fileTooLargeError, failureUrl)))
+      case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadRatesBill(UploadRatesBillVM(fileTooLargeError, submissionUrl)))
       case Some(NOT_FOUND) => NotFound(Global.notFoundTemplate)
-      case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, failureUrl)))
-      case _ => Ok(uploadRatesBill(UploadRatesBillVM(form, fileUploadUrl(routes.UploadRatesBill.show().absoluteURL()))))
+      case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionUrl)))
+      case _ => Ok(uploadRatesBill(UploadRatesBillVM(form, submissionUrl)))
     }
   }
 
@@ -50,7 +50,7 @@ class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
   lazy val fileTooLargeError = form.withError("ratesBill[]", "error.fileUpload.tooLarge")
   lazy val invalidFileTypeError = form.withError("ratesBill[]", "error.fileUpload.invalidFileType")
 
-  private def failureUrl(implicit requestHeader: RequestHeader) = routes.UploadRatesBill.show().absoluteURL()
+  private def submissionUrl(implicit request: LinkingSessionRequest[_]) = fileUploadUrl(routes.UploadRatesBill.show().url)
 }
 
 case class UploadRatesBillVM(form: Form[_], submissionUrl: String)
