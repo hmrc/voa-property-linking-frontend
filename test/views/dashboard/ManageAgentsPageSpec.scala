@@ -15,44 +15,50 @@
  */
 
 package views.dashboard
-import controllers.routes
-import controllers.{AgentInfo, ControllerSpec, ManageAgentsVM}
-import play.api.test.FakeRequest
-import utils.HtmlPage
+import actions.AgentRequest
+import controllers.{AgentInfo, ControllerSpec, ManageAgentsVM, routes}
+import org.jsoup.Jsoup
 import play.api.i18n.Messages.Implicits._
+import play.api.test.FakeRequest
+import resources._
+import utils.HtmlPage
+import scala.collection.JavaConverters._
 
 class ManageAgentsPageSpec extends ControllerSpec {
-  implicit val request = FakeRequest()
-  val noAgents = ManageAgentsVM(Nil)
-  val twoAgents = ManageAgentsVM(List(AgentInfo("name1", 111), AgentInfo("name2", 222)))
 
-  "ManageClientPage" must "show a message stating that no agents have been appointed" in  {
+  "The manage agents page" must "show a message stating that no agents have been appointed if the user has no agents" in  {
     val html = views.html.dashboard.manageAgents(noAgents)
     val page = HtmlPage(html)
     page.mustContain1("#noAgents")
   }
 
   it must "not show this message when agent have been appointed" in {
-    val html = views.html.dashboard.manageAgents(twoAgents)
-    val page = HtmlPage(html)
-    page.mustContain("#noAgents", 0)
+    HtmlPage(manageAgentsPage).mustContain("#noAgents", 0)
   }
 
-  it must "display the right table header" in {
-    val html = views.html.dashboard.manageAgents(twoAgents)
-    val page = HtmlPage(html)
+  it must "show each of the user's agent's name and code, and possible actions" in {
+    val page = HtmlPage(manageAgentsPage)
+    
     page.mustContain1("#agentsTable")
     page.mustContainTableHeader("Agent name", "Agent code", "Actions")
-  }
-
-  it must "display the right table content" in {
-    val html = views.html.dashboard.manageAgents(twoAgents)
-    val page = HtmlPage(html)
-    page.mustContain1("#agentsTable")
-    twoAgents.agents.map{ x =>
+    twoAgents.agents map { x =>
       page.mustContainDataInRow(x.organisationName, x.agentCode.toString, "View managed properties")
       page.mustContainLink(".viewManagedProperties", routes.Dashboard.viewManagedProperties(x.agentCode).url)
     }
   }
 
+  it must "show the dashboard navigation tabs at the top of the screen" in {
+    val tabs = manageAgentsPage.select(".section-tabs ul[role=tablist] li").asScala
+    tabs must have size 5
+    tabs.init.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(routes.Dashboard.manageProperties().url, routes.Dashboard.manageAgents().url, routes.Dashboard.viewDraftCases().url, controllers.manageDetails.routes.UpdatePersonalDetails.show().url)
+  }
+
+  implicit lazy val request = AgentRequest(groupAccountGen.copy(isAgent = false), individualGen, positiveLong, FakeRequest())
+  lazy val noAgents = ManageAgentsVM(Nil)
+  lazy val twoAgents = ManageAgentsVM(List(AgentInfo("name1", 111), AgentInfo("name2", 222)))
+
+  lazy val manageAgentsPage = {
+    val html = views.html.dashboard.manageAgents(twoAgents)
+    Jsoup.parse(html.toString)
+  }
 }

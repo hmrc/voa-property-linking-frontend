@@ -83,8 +83,5 @@ sealed trait AuthenticatedRequest[A] extends Request[A] {
 case class BasicAuthenticatedRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A])
   extends WrappedRequest[A](request) with AuthenticatedRequest[A]
 
-case class DetailedAuthenticatedRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A])
-  extends WrappedRequest(request) with AuthenticatedRequest[A]
-
 case class AgentRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, agentCode: Long, request: Request[A])
   extends WrappedRequest[A](request) with AuthenticatedRequest[A]

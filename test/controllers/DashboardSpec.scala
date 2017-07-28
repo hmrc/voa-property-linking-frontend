@@ -16,18 +16,16 @@
 
 package controllers
 
-import auth.GGAction
 import connectors._
 import models._
-import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils._
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
+import utils._
 
 import scala.concurrent.Future
 
@@ -57,8 +55,7 @@ class DashboardSpec extends ControllerSpec {
     redirectLocation(res) mustBe Some(routes.Application.invalidAccountType().url)
   }
 
-  "Logging in for the first time with a group account" must
-    "redirect to the create individual account page" in {
+  "Logging in for the first time with a group account" must "redirect to the create individual account page" in {
     StubAuthConnector.stubExternalId("hasnoaccount")
     StubAuthConnector.stubGroupId("groupwithoutaccount")
     StubAuthentication.stubAuthenticationResult(NoVOARecord)
@@ -78,8 +75,8 @@ class DashboardSpec extends ControllerSpec {
     header("location", res) mustBe Some(routes.CreateIndividualAccount.show.url)
   }
 
-  "Logging in again with an account that has already registered" must "continue to the dashboard" in {
-    val group = arbitrary[GroupAccount].sample.get
+  "Logging in again with an account that has already registered" must "continue to the manage properties page" in {
+    val group = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
     val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
 
     StubAuthConnector.stubExternalId("has-account")
@@ -89,14 +86,12 @@ class DashboardSpec extends ControllerSpec {
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
 
     val res = TestDashboard.home()(request)
-    status(res) mustBe OK
-
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainLink("#manageAgents", routes.Dashboard.manageAgents.url)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Dashboard.manageProperties().url)
   }
 
   "Logging in with a group account that has registered as an agent" must "continue to the agent dashboard" in {
-    val group = arbitrary[GroupAccount].sample.get.copy(groupId = "has-agent-account")
+    val group = arbitrary[GroupAccount].sample.get.copy(groupId = "has-agent-account", isAgent = true)
     val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
 
     StubAuthConnector.stubExternalId("has-account")
@@ -106,6 +101,7 @@ class DashboardSpec extends ControllerSpec {
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
 
     val res = TestDashboard.home()(request)
-    status(res) mustBe OK
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(controllers.agent.routes.RepresentationController.viewClientProperties().url)
   }
 }

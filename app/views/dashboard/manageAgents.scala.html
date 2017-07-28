@@ -1,18 +1,16 @@
-@(model: ManageAgentsVM)(implicit request: Request[_], messages: Messages)
+@import actions.AuthenticatedRequest
+
+@(model: ManageAgentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @main_template(
     Messages("dashboard.manageAgents.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = Some(routes.Dashboard.home().url)
+    topNavigation = false
 ) {
-    <h1 class="heading-xlarge margin-bottom-0 clear-right">
-        <span class="section-title">@Messages("dashboard.manageAgents.title")</span>
-    </h1>
+    @partials.dashboardTabs()
 
     @if(model.agents.isEmpty) {
         <h2 id="noAgents" class="heading-secondary">
-            @Messages("dashboard.manageAgents.noAgents")
+        @Messages("dashboard.manageAgents.noAgents")
         </h2>
     }
 
@@ -46,5 +44,4 @@
     }
 
     <p>@Html(Messages("manageAgents.howToAppoint", routes.Dashboard.manageProperties().url))</p>
-
 }

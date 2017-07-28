@@ -18,6 +18,7 @@ package controllers
 
 import javax.inject.Inject
 
+import actions.AgentRequest
 import config.{ApplicationConfig, Global, Wiring}
 import connectors.DraftCases
 import models._
@@ -33,8 +34,9 @@ class Dashboard @Inject()(draftCases: DraftCases) extends PropertyLinkingControl
   val authenticated = Wiring().authenticated
 
   def home() = authenticated { implicit request =>
-    draftCases.get(request.personId) map { cases =>
-      Ok(views.html.dashboard.home(request.individualAccount.details, request.organisationAccount, cases))
+    request.organisationAccount.isAgent match {
+      case true => Redirect(controllers.agent.routes.RepresentationController.viewClientProperties())
+      case false => Redirect(routes.Dashboard.manageProperties())
     }
   }
 

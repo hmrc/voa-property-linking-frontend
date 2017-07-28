@@ -178,6 +178,13 @@ account.confirmation.alreadyRegistered.youCan=You can now:
 account.confirmation.alreadyRegistered.youCan.1=add properties to the business’s customer record
 account.confirmation.alreadyRegistered.youCan.2=authorise an agent to act on behalf of the business
 
+#DASHBOARD TABS
+dashboard.tab.clientProperties=Client properties
+dashboard.tab.myProperties=My properties
+dashboard.tab.manageAgents=Agents
+dashboard.tab.drafts=Drafts
+dashboard.tab.editDetails=My details
+
 #DASHBOARD HOME
 dashboard.home.title=Dashboard home
 dashboard.home.properties=Properties

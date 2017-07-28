@@ -1,0 +1,35 @@
+@import actions.AuthenticatedRequest
+@import config.ApplicationConfig._
+
+@()(implicit request: AuthenticatedRequest[_], messages: Messages)
+
+<div class="section-tabs">
+    <ul role="tablist">
+        @if(isAgent) {
+            @tab("clientProperties", controllers.agent.routes.RepresentationController.viewClientProperties().url)
+        }
+        @tab("myProperties", routes.Dashboard.manageProperties().url)
+        @tab("manageAgents", routes.Dashboard.manageAgents().url)
+        @if(casesEnabled) {
+            @tab("drafts", routes.Dashboard.viewDraftCases().url)
+        }
+        @if(editDetailsEnabled) {
+            @tab("editDetails", controllers.manageDetails.routes.UpdatePersonalDetails.show().url)
+        }
+        <li class="tab-right">
+            <span>Welcome, @if(casesEnabled) {<a href="@routes.Dashboard.viewDraftCases().url">} @name @if(casesEnabled) {</a>}. <a href="@routes.Application.logOut().url">Not you?</a></span>
+        </li>
+    </ul>
+</div>
+
+@isAgent = @{ request.organisationAccount.isAgent }
+
+@tab(name: String, url: String) = {
+    <li @if(url == request.path) {class="active"}>
+        <a href="@url">@Messages(s"dashboard.tab.$name")</a>
+    </li>
+}
+
+@name = @{
+    s"${request.individualAccount.details.firstName} ${request.individualAccount.details.lastName} - ${request.organisationAccount.companyName}"
+}

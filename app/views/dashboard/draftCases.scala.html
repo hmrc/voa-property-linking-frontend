@@ -9,15 +9,11 @@
 
 @main_template(
     title = Messages("draftCases.title"),
-    topBackLink = true,
-    bottomBackLink = true,
     individualId = Some(request.personId),
-    backLinkUrl = Some(routes.Dashboard.home().url)
+    topNavigation = false
 ) {
 
-    <h1 class="heading-xlarge margin-bottom-0 clear-right">
-    @Messages("draftCases.title")
-    </h1>
+    @partials.dashboardTabs()
 
     <p>@Messages("draftCases.p.expiry")</p>
 
@@ -41,19 +37,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @model.draftCases.map { draftCase =>
-                        <tr>
-                            <td>@capitalizedAddress(draftCase.address)</td>
-                            <td>@formatDate(draftCase.effectiveDate)</td>
-                            <td>@formatDate(draftCase.expirationDate)</td>
-                            <td>
-                                <ul>
-                                    <li><a href="@draftCase.url">@Messages("draftCase.continue.check")</a></li>
-                                    <li><a href="@detailedValuationUrl(draftCase)">@Messages("draftCase.viewValuation")</a></li>
-                                </ul>
-                            </td>
-                        </tr>
-                    }
+                @model.draftCases.map { draftCase =>
+                    <tr>
+                        <td>@capitalizedAddress(draftCase.address)</td>
+                        <td>@formatDate(draftCase.effectiveDate)</td>
+                        <td>@formatDate(draftCase.expirationDate)</td>
+                        <td>
+                            <ul>
+                                <li><a href="@draftCase.url">@Messages("draftCase.continue.check")</a></li>
+                                <li><a href="@detailedValuationUrl(draftCase)">@Messages("draftCase.viewValuation")</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
                 </tbody>
             </table>
         </div>
