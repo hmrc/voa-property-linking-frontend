@@ -84,4 +84,4 @@ class VPLHttp extends WSHttp with HttpAuditing with AppName with RunMode {
   private def hasJsonBody(res: HttpResponse) = Try { res.json }.isSuccess
 }
 
-case class AuthorisationFailed(msg: String) extends Exception
+case class AuthorisationFailed(msg: String) extends Exception(s"Authorisation failed: $msg")

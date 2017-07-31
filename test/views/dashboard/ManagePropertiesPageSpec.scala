@@ -56,5 +56,5 @@ class ManagePropertiesPageSpec extends ControllerSpec {
   implicit lazy val request = FakeRequest()
   lazy val organisationAccount = arbitrary[GroupAccount]
   lazy val individualAccount = arbitrary[DetailedIndividualAccount]
-  implicit lazy val basicAuthenticatedRequest = BasicAuthenticatedRequest(organisationAccount, individualAccount, request)
+  implicit lazy val basicAuthenticatedRequest = BasicAuthenticatedRequest(organisationAccount.copy(isAgent = false), individualAccount, request)
 }
