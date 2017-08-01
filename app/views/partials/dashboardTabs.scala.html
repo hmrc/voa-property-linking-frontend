@@ -17,7 +17,7 @@
             @tab("editDetails", controllers.manageDetails.routes.UpdatePersonalDetails.show().url)
         }
         <li class="tab-right">
-            <span>Welcome, @if(casesEnabled) {<a href="@routes.Dashboard.viewDraftCases().url">} @name @if(casesEnabled) {</a>}. <a href="@routes.Application.logOut().url">Not you?</a></span>
+            <span>Welcome, @if(editDetailsEnabled) {<a href="@controllers.manageDetails.routes.UpdatePersonalDetails.show().url">} @name @if(editDetailsEnabled) {</a>}. <a href="@routes.Application.logOut().url">Not you?</a></span>
         </li>
     </ul>
 </div>
