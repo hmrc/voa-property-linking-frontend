@@ -19,7 +19,7 @@ package models
 import play.api.libs.json.Json
 
 case class GroupAccountSubmission(id: String, companyName: String, addressId: Int, email: String, phone: String,
-                                  isSmallBusiness: Boolean, isAgent: Boolean)
+                                  isAgent: Boolean, individualAccountSubmission: IndividualAccountSubmission)
 
 object GroupAccountSubmission {
   implicit def formats = Json.format[GroupAccountSubmission]

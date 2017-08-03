@@ -17,7 +17,7 @@
 package utils
 
 import connectors.IndividualAccounts
-import models.{DetailedIndividualAccount, IndividualAccount}
+import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
 import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
@@ -51,12 +51,12 @@ object StubIndividualAccountConnector extends IndividualAccounts(StubHttp) {
     stubbedIndividuals.find(_.externalId == externalId)
   }
 
-  override def create(account: IndividualAccount)(implicit hc: HeaderCarrier): Future[Int] = {
+  override def create(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = {
     val personId = Random.nextInt(Int.MaxValue)
     Future.successful(stubAccount(detailed(personId, account))).map { _ => personId }
   }
 
-  private def detailed(personId: Int, account: IndividualAccount): DetailedIndividualAccount = {
-    DetailedIndividualAccount(account.externalId, account.trustId, account.organisationId, personId, account.details)
+  private def detailed(personId: Int, account: IndividualAccountSubmission): DetailedIndividualAccount = {
+    DetailedIndividualAccount(account.externalId, account.trustId, account.organisationId.getOrElse(-1), personId, account.details)
   }
 }

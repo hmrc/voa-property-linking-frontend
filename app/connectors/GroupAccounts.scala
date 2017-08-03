@@ -17,7 +17,7 @@
 package connectors
 
 import controllers.GroupAccountDetails
-import models.{GroupAccount, GroupAccountSubmission, UpdatedOrganisationAccount}
+import models._
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.ws.WSHttp
@@ -48,8 +48,12 @@ class GroupAccounts(http: WSHttp)(implicit ec: ExecutionContext) extends Service
     }}
   }
 
-  def create(groupId: String, addressId: Int, details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = {
-    create(GroupAccountSubmission(groupId, details.companyName, addressId, details.email, details.phone, details.isSmallBusiness, details.isAgent))
+  def create(groupId: String, addressId: Int, details: GroupAccountDetails,
+             individualAccountSubmission: IndividualAccountSubmission)
+            (implicit hc: HeaderCarrier): Future[Int] = {
+    create(GroupAccountSubmission(
+      groupId, details.companyName, addressId, details.email, details.phone, details.isAgent, individualAccountSubmission
+    ))
   }
 
   def update(orgId: Int, details: UpdatedOrganisationAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
