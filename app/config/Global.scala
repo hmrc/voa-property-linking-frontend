@@ -16,6 +16,7 @@
 
 package config
 
+import java.time.Clock
 import javax.inject.{Inject, Provider}
 
 import com.google.inject.AbstractModule
@@ -93,6 +94,7 @@ class GuiceModule(environment: Environment,
     bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
+    bind(classOf[Clock]).toInstance(Clock.systemUTC())
   }
 }
 

@@ -77,7 +77,7 @@ class CreateGroupAccount @Inject() (
                 _details <- eventualPersonalDetails
                 details = _details.getOrElse(throw new Exception(s"No PersonalDetails record found."))
                 id <- addressId
-                organisationId <- groups.create(groupId, id, formData, IndividualAccountSubmission(userId, journeyId, None, details.individualDetails))
+                _ <- groups.create(groupId, id, formData, IndividualAccountSubmission(userId, journeyId, None, details.individualDetails))
               } yield {
                 Redirect(routes.CreateGroupAccount.success())
               }

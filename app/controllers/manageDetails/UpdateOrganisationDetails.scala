@@ -16,7 +16,7 @@
 
 package controllers.manageDetails
 
-import java.time.LocalDate
+import java.time.{Clock, Instant}
 
 import actions.BasicAuthenticatedRequest
 import com.google.inject.Inject
@@ -30,7 +30,7 @@ import play.api.mvc.Result
 
 import scala.concurrent.Future
 
-class UpdateOrganisationDetails @Inject()(editDetailsAction: EditDetailsAction) extends PropertyLinkingController {
+class UpdateOrganisationDetails @Inject()(editDetailsAction: EditDetailsAction)(implicit clock: Clock) extends PropertyLinkingController {
   lazy val groups = Wiring().groupAccountConnector
   lazy val addresses = Wiring().addresses
 
@@ -93,7 +93,7 @@ class UpdateOrganisationDetails @Inject()(editDetailsAction: EditDetailsAction) 
       name.getOrElse(current.companyName),
       email.getOrElse(current.email),
       phone.getOrElse(current.phone),
-      LocalDate.now(),
+      Instant.now(clock),
       request.individualAccount.externalId
     )
     groups.update(current.id, details) map { _ => Redirect(controllers.manageDetails.routes.UpdatePersonalDetails.show()) }

@@ -16,7 +16,7 @@
 
 package models
 
-import java.time.LocalDate
+import java.time.{Instant, LocalDate}
 
 import play.api.libs.json.{Format, Json}
 
@@ -26,7 +26,7 @@ case class UpdatedOrganisationAccount(governmentGatewayGroupId: String,
                                       organisationName: String,
                                       organisationEmailAddress: String,
                                       organisationTelephoneNumber: String,
-                                      effectiveFrom: LocalDate,
+                                      effectiveFrom: Instant,
                                       changedByGGExternalId: String)
 
 object UpdatedOrganisationAccount {
