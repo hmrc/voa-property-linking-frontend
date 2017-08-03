@@ -19,7 +19,7 @@ package controllers
 import javax.inject.{Inject, Named}
 
 import config.{ApplicationConfig, Wiring}
-import models.{IVDetails, IndividualAccount, PersonalDetails}
+import models.{IVDetails, IndividualAccount, IndividualAccountSubmission, PersonalDetails}
 import play.api.mvc.{Action, Request}
 import repositories.SessionRepo
 import uk.gov.hmrc.play.frontend.auth.AuthContext
@@ -85,7 +85,7 @@ class IdentityVerification @Inject() (
         id <- registerAddress(details)
         d = details.withAddressId(id)
         res <- account match {
-          case Some(acc) => individuals.create(IndividualAccount(userId, journeyId, acc.id, d.individualDetails)) map { _ =>
+          case Some(acc) => individuals.create(IndividualAccountSubmission(userId, journeyId, Some(acc.id), d.individualDetails)) map { _ =>
             Ok(views.html.createAccount.groupAlreadyExists(acc.companyName))
           }
           case _ => personalDetailsSessionRepo.saveOrUpdate(d) map { _ => Ok(views.html.identityVerification.success()) }

@@ -89,8 +89,7 @@ class CreateGroupAccountSpec extends ControllerSpec with MockitoSugar {
       "address.line1" -> "Address line 1",
       "address.postcode" -> "AA11 1AA",
       keys.phone -> "01234567890",
-      keys.isAgent -> "false",
-      keys.isSmallBusiness -> "true"
+      keys.isAgent -> "false"
     )
     StubIdentityVerification.stubSuccessfulJourney("fakeId")
 
