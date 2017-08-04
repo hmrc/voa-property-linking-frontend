@@ -16,7 +16,7 @@
 
 package controllers.manageDetails
 
-import java.time.LocalDate
+import java.time.{Clock, Instant, LocalDate, ZoneId}
 
 import actions.BasicAuthenticatedRequest
 import connectors.{Addresses, Authenticated, GroupAccounts}
@@ -187,10 +187,10 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
                              name: Option[String] = None,
                              email: Option[String] = None,
                              phone: Option[String] = None) = {
-    UpdatedOrganisationAccount(org.groupId, addressId.getOrElse(org.addressId), org.isAgent, name.getOrElse(org.companyName), email.getOrElse(org.email), phone.getOrElse(org.phone), LocalDate.now, personId)
+    UpdatedOrganisationAccount(org.groupId, addressId.getOrElse(org.addressId), org.isAgent, name.getOrElse(org.companyName), email.getOrElse(org.email), phone.getOrElse(org.phone), Instant.now(clock), personId)
   }
 
-  private lazy val testController = new UpdateOrganisationDetails(mockEditDetailsAction) {
+  private lazy val testController = new UpdateOrganisationDetails(mockEditDetailsAction)(clock) {
     override lazy val groups = mockGroups
     override lazy val addresses = mockAddresses
   }
@@ -216,4 +216,6 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
 
   private lazy val once = times(1)
   private lazy val viewDetailsPage = controllers.manageDetails.routes.UpdatePersonalDetails.show().url
+
+  private lazy val clock = Clock.fixed(Instant.now, ZoneId.systemDefault)
 }
