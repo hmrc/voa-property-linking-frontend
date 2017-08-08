@@ -96,7 +96,7 @@ class UpdateOrganisationDetails @Inject()(editDetailsAction: EditDetailsAction)(
       Instant.now(clock),
       request.individualAccount.externalId
     )
-    groups.update(current.id, details) map { _ => Redirect(controllers.manageDetails.routes.UpdatePersonalDetails.show()) }
+    groups.update(current.id, details) map { _ => Redirect(controllers.manageDetails.routes.ViewDetails.show()) }
   }
 
   lazy val businessNameForm = Form(single("businessName" -> nonEmptyText(maxLength = 45)))

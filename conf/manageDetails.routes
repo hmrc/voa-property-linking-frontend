@@ -1,4 +1,4 @@
-GET         /details                                @controllers.manageDetails.UpdatePersonalDetails.show()
+GET         /details                                @controllers.manageDetails.ViewDetails.show()
 
 GET         /update-details/email                   @controllers.manageDetails.UpdatePersonalDetails.viewEmail()
 POST        /update-details/email                   @controllers.manageDetails.UpdatePersonalDetails.updateEmail()

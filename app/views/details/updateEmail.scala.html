@@ -9,7 +9,7 @@
     Messages("updateEmail.title"),
     topBackLink = true,
     bottomBackLink = true,
-    backLinkUrl = Some(controllers.manageDetails.routes.UpdatePersonalDetails.show.url)
+    backLinkUrl = Some(controllers.manageDetails.routes.ViewDetails.show.url)
 ) {
 
     <div class="grid-row">
@@ -40,7 +40,7 @@
                 <p>
                     <button type="submit" id="update" class="button">@Messages("link.update")</button>
 
-                    <a href="@controllers.manageDetails.routes.UpdatePersonalDetails.show" class="button-secondary">
+                    <a href="@controllers.manageDetails.routes.ViewDetails.show" class="button-secondary">
                     @Messages("link.cancel")
                     </a>
                 </p>
