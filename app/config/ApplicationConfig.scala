@@ -36,6 +36,7 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   val serviceUrl = getConfig("voa-property-linking-frontend.url")
   val casesEnabled = getConfig("featureFlags.casesEnabled").toBoolean
   val editDetailsEnabled = getConfig("featureFlags.editDetailsEnabled").toBoolean
+  val editNameEnabled = getConfig("featureFlags.editNameEnabled").toBoolean
 
   val allowedMimeTypes: Seq[String] = getConfig("allowedFileUploadTypes").split(",")
 

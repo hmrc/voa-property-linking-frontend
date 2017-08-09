@@ -231,7 +231,7 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
     verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
-  private lazy val viewDetailsPage = controllers.manageDetails.routes.UpdatePersonalDetails.show().url
+  private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
 
   private object TestUpdatePersonalDetails extends UpdatePersonalDetails(mockEditDetailsAction) {
     override val addressesConnector = mockAddressConnector

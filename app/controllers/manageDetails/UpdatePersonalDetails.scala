@@ -17,18 +17,16 @@
 package controllers.manageDetails
 
 import actions.BasicAuthenticatedRequest
-import cats.data.OptionT
-import config.Wiring
+import com.google.inject.Inject
+import config.{ApplicationConfig, Wiring}
 import controllers.PropertyLinkingController
+import form.Mappings._
 import form.TextMatching
 import models.IndividualDetails
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import play.api.mvc.Result
-import form.Mappings._
-import cats.implicits._
-import com.google.inject.Inject
 
 import scala.concurrent.Future
 
@@ -36,18 +34,6 @@ class UpdatePersonalDetails @Inject()(editDetailsAction: EditDetailsAction) exte
 
   val addressesConnector = Wiring().addresses
   val individualAccountConnector = Wiring().individualAccountConnector
-
-  def show() = editDetailsAction { implicit request =>
-    val person = request.individualAccount
-
-    (for {
-      personalAddress <- OptionT(addressesConnector.findById(person.details.addressId))
-      businessAddress <- OptionT(addressesConnector.findById(request.organisationAccount.addressId))
-    } yield Ok(views.html.details.viewDetails(person, request.organisationAccount, personalAddress, businessAddress))
-      ).getOrElse(throw new Exception(
-      s"Unable to lookup address: Individual address ID: ${person.details.addressId}; Organisation address Id: ${request.organisationAccount.addressId}")
-    )
-  }
 
   def viewEmail() = editDetailsAction { implicit request =>
     Ok(views.html.details.updateEmail(UpdateDetailsVM(emailForm, request.individualAccount.details)))
@@ -86,14 +72,22 @@ class UpdatePersonalDetails @Inject()(editDetailsAction: EditDetailsAction) exte
   }
 
   def viewName() = editDetailsAction { implicit request =>
-    Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details)))
+    if (ApplicationConfig.editNameEnabled) {
+      Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details)))
+    } else {
+      notFound
+    }
   }
 
   def updateName() = editDetailsAction { implicit request =>
-    nameForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details))),
-      name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
-    )
+    if (ApplicationConfig.editNameEnabled) {
+      nameForm.bindFromRequest().fold(
+        errors => BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details))),
+        name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
+      )
+    } else {
+      notFound
+    }
   }
 
   def viewMobile() = editDetailsAction { implicit request =>
@@ -126,7 +120,7 @@ class UpdatePersonalDetails @Inject()(editDetailsAction: EditDetailsAction) exte
     )
     val updatedAccount = request.individualAccount.copy(details = updatedDetails)
 
-    individualAccountConnector.update(updatedAccount) map { _ => Redirect(controllers.manageDetails.routes.UpdatePersonalDetails.show()) }
+    individualAccountConnector.update(updatedAccount) map { _ => Redirect(controllers.manageDetails.routes.ViewDetails.show()) }
   }
 
   private lazy val emailForm = Form(
