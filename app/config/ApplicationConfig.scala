@@ -16,6 +16,8 @@
 
 package config
 
+import java.util.Base64
+
 import play.api.Play._
 import uk.gov.hmrc.play.config.{RunMode, ServicesConfig}
 
@@ -39,6 +41,10 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   lazy val analyticsToken = getConfig("google-analytics.token")
   lazy val analyticsHost = getConfig("google-analytics.host")
   lazy val voaPersonID = getConfig("google-analytics.dimensions.voaPersonId")
+
+  lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
+    new String(Base64.getUrlDecoder.decode(e))
+  }
 
   private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
 }
