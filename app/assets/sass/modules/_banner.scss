@@ -1,0 +1,24 @@
+.notification-banner {
+  color: #FFFFFF;
+  font-weight: bold;
+  background-color: #005ea5;
+  padding-bottom: 5px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.notification-banner a {
+  color: #FFFFFF;
+}
+
+.notification-banner p {
+  margin: 0;
+  font-weight: bold;
+}
+
+@media (min-width: 769px) {
+  .notification-banner p {
+    width: 75%;
+    margin: 0 auto;
+  }
+}

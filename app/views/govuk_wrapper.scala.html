@@ -67,7 +67,16 @@
     @views.html.partials.footer_links()
 }
 
+@banner = {
+    @bannerContent.map { content =>
+        <div class="notification-banner">
+            <p>@Html(content)</p>
+        </div>
+    }
+}
+
 @serviceInfo = {
+    @banner
     @uiLayouts.serviceInfo(
         betaBanner = betaBanner,
         includeGridWrapper = false,
