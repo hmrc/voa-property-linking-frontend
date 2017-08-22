@@ -27,9 +27,20 @@ trait MicroService {
 
   lazy val compileScalastyle = taskKey[Unit]("compileScalastyle")
 
+  lazy val scoverageSettings = {
+    // Semicolon-separated list of regexs matching classes to exclude
+    import scoverage.ScoverageKeys
+    Seq(
+      ScoverageKeys.coverageExcludedPackages := "<empty>;Reverse.*;views.*;config.*;poc.view.*;poc.config.*;.*(AuthService|BuildInfo|Routes).*",
+      ScoverageKeys.coverageMinimum := 100,
+      ScoverageKeys.coverageFailOnMinimum := false,
+      ScoverageKeys.coverageHighlighting := true
+    )
+  }
+
   lazy val microservice = Project(appName, file("."))
     .enablePlugins(plugins: _*)
-    .settings(playSettings: _*)
+    .settings(playSettings ++ scoverageSettings : _*)
     .settings(scalaSettings: _*)
     .settings(publishingSettings: _*)
     .settings(organization := "uk.gov.hmrc")
