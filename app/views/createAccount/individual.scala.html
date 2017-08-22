@@ -84,8 +84,24 @@
                         '_help -> Messages("hint.nino")
                     )
 
-                    @address(model.form, "address", helpText = "label.createAccount.postcode.help")
+                    <details>
+                        <summary aria-expanded="false">
+                            <span>@messages("dropdown.createAccount.nino")</span>
+                        </summary>
+                        <div class="panel panel-indent">
+                            <p>@Html(messages("dropdown.createAccount.nino.p1"))</p>
+                            <p>@messages("dropdown.createAccount.nino.p2")</p>
+                            <p><h1 class="heading-small">@messages("dropdown.createAccount.nino.emailHeading")</h1></p>
+                            <p>@Html(messages("dropdown.createAccount.nino.email"))</p>
+                            <p><h1 class="heading-small">@messages("dropdown.createAccount.nino.telephoneHeading")</h1></p>
+                            <p>@messages("dropdown.createAccount.nino.telephone")</p>
+                            <p>@messages("dropdown.createAccount.nino.opening")</p>
+                        </div>
+                    </details>
 
+                    <p>
+                    @address(model.form, "address", helpText = "label.createAccount.postcode.help")
+                    </p>
 
                     <p>
                         <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
