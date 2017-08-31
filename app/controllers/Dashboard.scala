@@ -42,25 +42,44 @@ class Dashboard @Inject()(draftCases: DraftCases) extends PropertyLinkingControl
 
   def manageProperties(page: Int, pageSize: Int) = authenticated { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
-      propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>
-        if(ApplicationConfig.searchSortEnabled) {
-          Ok(views.html.dashboard.managePropertiesSearchSort(
-            ManagePropertiesVM(request.organisationAccount.id,
-              response.propertyLinks,
-              pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
+
+      if(ApplicationConfig.searchSortEnabled) {
+          propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination) map { response =>
+            Ok(views.html.dashboard.managePropertiesSearchSort(
+              ManagePropertiesVM(request.organisationAccount.id,
+                response.propertyLinks,
+                pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
+          }
         } else {
-          Ok(views.html.dashboard.manageProperties(
-            ManagePropertiesVM(request.organisationAccount.id,
-              response.propertyLinks,
-              pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
+            propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>
+            Ok(views.html.dashboard.manageProperties(
+              ManagePropertiesVM(request.organisationAccount.id,
+                response.propertyLinks,
+                pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
+          }
         }
-      }
     }
   }
 
   def getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated { implicit request =>
     withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
       propertyLinks.linkedProperties(request.organisationId, pagination) map { res =>
+        Ok(Json.toJson(res))
+      }
+    }
+  }
+
+  def getPropertiesSearchAndSort(page: Int,
+                                 pageSize: Int,
+                                 requestTotalRowCount: Boolean,
+                                 sortfield: Option[String],
+                                 sortorder: Option[String],
+                                 status: Option[String],
+                                 address: Option[String],
+                                 baref: Option[String],
+                                 agent: Option[String])  = authenticated { implicit request =>
+    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
+      propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination, sortfield, sortorder, status, address, baref, agent) map { res =>
         Ok(Json.toJson(res))
       }
     }

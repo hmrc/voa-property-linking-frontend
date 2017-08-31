@@ -61,6 +61,18 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.GET[PropertyLinkResponse](s"$baseUrl/property-links?organisationId=$organisationId&$pagination")
   }
 
+  def linkedPropertiesSearchAndSort(organisationId: Int,
+                                    pagination: Pagination,
+                                    sortfield: Option[String] = None,
+                                    sortorder: Option[String] = None,
+                                    status: Option[String] = None,
+                                    address: Option[String] = None,
+                                    baref: Option[String] = None,
+                                    agent: Option[String] = None)
+                      (implicit hc: HeaderCarrier): Future[PropertyLinkResponse] = {
+    http.GET[PropertyLinkResponse](s"$baseUrl/property-links?organisationId=$organisationId&$pagination")
+  }
+
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
     val url =
       s"$baseUrl/property-links/client-property/$authorisationId" +
