@@ -63,14 +63,22 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
 
   def linkedPropertiesSearchAndSort(organisationId: Int,
                                     pagination: Pagination,
-                                    sortfield: Option[String] = None,
-                                    sortorder: Option[String] = None,
+                                    sortfield: Option[String] = Some("address"),
+                                    sortorder: Option[String] = Some("asc"),
                                     status: Option[String] = None,
                                     address: Option[String] = None,
                                     baref: Option[String] = None,
                                     agent: Option[String] = None)
                       (implicit hc: HeaderCarrier): Future[PropertyLinkResponse] = {
-    http.GET[PropertyLinkResponse](s"$baseUrl/property-links?organisationId=$organisationId&$pagination")
+    http.GET[PropertyLinkResponse](s"$baseUrl/property-links-search-sort?" +
+      s"organisationId=$organisationId&" +
+      s"$pagination&" +
+      s"sortfield=${sortfield.getOrElse("")}&" +
+      s"sortorder=${sortorder.getOrElse("")}&" +
+      s"status=${status.getOrElse("")}&" +
+      s"address=${address.getOrElse("")}&" +
+      s"baref=${baref.getOrElse("")}&" +
+      s"agent=${agent.getOrElse("")}")
   }
 
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
