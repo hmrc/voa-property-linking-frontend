@@ -43,10 +43,17 @@ class Dashboard @Inject()(draftCases: DraftCases) extends PropertyLinkingControl
   def manageProperties(page: Int, pageSize: Int) = authenticated { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
       propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>
-        Ok(views.html.dashboard.manageProperties(
-          ManagePropertiesVM(request.organisationAccount.id,
-            response.propertyLinks,
-            pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
+        if(ApplicationConfig.searchSortEnabled) {
+          Ok(views.html.dashboard.managePropertiesSearchSort(
+            ManagePropertiesVM(request.organisationAccount.id,
+              response.propertyLinks,
+              pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
+        } else {
+          Ok(views.html.dashboard.manageProperties(
+            ManagePropertiesVM(request.organisationAccount.id,
+              response.propertyLinks,
+              pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
+        }
       }
     }
   }
