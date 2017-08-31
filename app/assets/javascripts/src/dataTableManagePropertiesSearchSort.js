@@ -43,7 +43,7 @@
                 {data: 'assessments.0.billingAuthorityReference', defaultContent:'-', name: 'baref'},
                 {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', name: 'status'},
                 {data: 'agents[, ].organisationName', name: 'agent'},
-                {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>'}
+                {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', "bSortable": false}
             ],
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $('td:eq(2) ul li:eq(0)', nRow).text( messages.labels['status' + aData.pending + ''] );
@@ -67,6 +67,11 @@
         $( '#dataTableManagePropertiesSearchSort th button').on( 'click', function () {
             dataTable.draw();
         } );
+
+        $( 'th .clear').on( 'click', function () {
+            $('#dataTableManagePropertiesSearchSort th').find('input:text').val('');
+        } );
+
 
 
     };
