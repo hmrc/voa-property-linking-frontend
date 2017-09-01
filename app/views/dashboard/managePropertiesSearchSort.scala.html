@@ -1,7 +1,7 @@
 @import actions.AuthenticatedRequest
 @import utils.Formatters
 
-@(model: controllers.ManagePropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: controllers.ManagePropertiesSearchAndSortVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
     @heading = @{
         Messages("dashboard.manageProperties.title")
@@ -17,7 +17,7 @@
 
         <p>@Messages("dashboard.manageProperties.expectDelays")</p>
 
-        @if(model.properties.isEmpty) {
+        @if(model.result.authorisations.isEmpty) {
             <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
 
@@ -53,32 +53,33 @@
                                 <th scope="col"><input type="agent" class="filter-input"><button class="icon"><i class="search-icon"></i></button></th>
                                 <th scope="col"><a href="#" class="clear">Clear search</a></th>
                             </tr>
-                            @model.properties.map { p =>
+                            @model.result.authorisations.map { p =>
                                 <tr>
                                     <td>
                                         @(Formatters.capitalizedAddress(p.address))
                                     </td>
                                     <td>
                                     @{
-                                        p.assessments.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")
+                                        p.localAuthorityRef
                                     }
                                     </td>
                                     <td>
                                         <ul class="list">
-                                            <li>
-                                            @if(p.pending) {
-                                                @Messages("dashboard.manageProperties.status.pending")
-                                            } else {
-                                                @Messages("dashboard.manageProperties.status.added")
-                                            }
-                                            </li>
-                                            @if(p.pending) {
+
                                                 <li>
-                                                    <span class="submission-id">
-                                                    @Messages("dashboard.manageProperties.submissionId", p.submissionId)
-                                                    </span>
+                                                @if(p.status.toLowerCase == "pending") {
+                                                    @Messages("dashboard.manageProperties.status.pending")
+                                                } else {
+                                                    @Messages("dashboard.manageProperties.status.added")
+                                                }
                                                 </li>
-                                            }
+                                                @if(p.status.toLowerCase == "pending") {
+                                                    <li>
+                                                        <span class="submission-id">
+                                                        @Messages("dashboard.manageProperties.submissionId", p.submissionId)
+                                                        </span>
+                                                    </li>
+                                                }
 
                                         </ul>
                                     </td>
@@ -87,25 +88,23 @@
                                         @if(p.agents.isEmpty) {
                                             <li>@Messages("dashboard.manageProperties.noAgent")</li>
                                         } else {
-                                            @p.agents.map { agent =>
-                                                <li>@agent.organisationName</li>
-                                            }
+                                            @p.agents.map( agents => agents.map { org => <li>@org.organisationName</li> } )
                                         }
                                         </ul>
                                     </td>
                                     <td>
                                         <ul class="list">
-                                            @if(model.organisationId == p.organisationId) {
+                                            @if(model.organisationId == p.id) {
                                                 <li>
-                                                    <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")
+                                                    <a href="@agentAppointment.routes.AppointAgentController.appoint(p.id)">@Messages("manageProperties.addAgent")
                                                         <span class="visuallyhidden">
                                                             for @(Formatters.capitalizedAddress(p.address))</span>
                                                     </a>
                                                 </li>
                                             }
-                                            @if(p.assessments.nonEmpty) {
+                                            @if(p.agents.nonEmpty) {
                                                 <li>
-                                                    <a href="@routes.Assessments.assessments(p.authorisationId)">@Messages("manageProperties.viewAssessments")
+                                                    <a href="@routes.Assessments.assessments(p.id)">@Messages("manageProperties.viewAssessments")
                                                         <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
                                                     </a>
                                                 </li>

@@ -30,31 +30,31 @@
 
                     $table.DataTable().ajax.url('/business-rates-property-linking/properties-search-sort/json?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true' + queryParameters);
                 },
-                dataSrc: 'propertyLinks',
+                dataSrc: 'authorisations',
                 dataFilter: function(data) {
                     var json = jQuery.parseJSON(data);
-                    json.recordsTotal = json.resultCount;
-                    json.recordsFiltered = json.resultCount;
+                    json.recordsTotal = json.total;
+                    json.recordsFiltered = json.filterTotal;
                     return JSON.stringify(json);
                 }
             },
             columns: [
                 {data: 'address', name: 'address'},
-                {data: 'assessments.0.billingAuthorityReference', defaultContent:'-', name: 'baref'},
+                {data: 'localAuthorityRef', defaultContent:'-', name: 'baref'},
                 {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', name: 'status'},
                 {data: 'agents[, ].organisationName', name: 'agent'},
                 {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', "bSortable": false}
             ],
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                $('td:eq(2) ul li:eq(0)', nRow).text( messages.labels['status' + aData.pending + ''] );
-                if(aData.pending){
+                $('td:eq(2) ul li:eq(0)', nRow).text( messages.labels['status' + (aData.status.toLowerCase() === 'pending') + ''] );
+                if(aData.status.toLowerCase() === 'pending'){
                     $('td:eq(2) ul li:eq(1)', nRow).html('<span class="submission-id">' + messages.labels.submissionId+ ': ' + aData.submissionId + '</span>' );
                 }
-                if(aData.agents.length === 0){
+                if(aData.agents == 'None'){
                     $('td:eq(3)', nRow).text('None');
                 }
-                $('td:eq(4) ul li:eq(0)', nRow).html('<a href="/business-rates-property-linking/appoint-agent/' + aData.authorisationId + '">'+ messages.labels.appointAgent + '</a>');
-                $('td:eq(4) ul li:eq(1)', nRow).html('<a href="/business-rates-property-linking/property-link/' + aData.authorisationId + '/assessments'+'">' + messages.labels.viewValuations + '</a>');
+                $('td:eq(4) ul li:eq(0)', nRow).html('<a href="/business-rates-property-linking/appoint-agent/' + aData.id + '">'+ messages.labels.appointAgent + '</a>');
+                $('td:eq(4) ul li:eq(1)', nRow).html('<a href="/business-rates-property-linking/property-link/' + aData.id + '/assessments'+'">' + messages.labels.viewValuations + '</a>');
             },
             fnServerParams: function(data) {
                 data['order'].forEach(function(items, index) {

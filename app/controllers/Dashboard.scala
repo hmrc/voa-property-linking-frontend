@@ -22,6 +22,7 @@ import actions.AgentRequest
 import config.{ApplicationConfig, Global, Wiring}
 import connectors.DraftCases
 import models._
+import models.searchApi.OwnerAuthResult
 import org.joda.time.DateTime
 import play.api.libs.json.Json
 
@@ -46,9 +47,10 @@ class Dashboard @Inject()(draftCases: DraftCases) extends PropertyLinkingControl
       if(ApplicationConfig.searchSortEnabled) {
           propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination) map { response =>
             Ok(views.html.dashboard.managePropertiesSearchSort(
-              ManagePropertiesVM(request.organisationAccount.id,
-                response.propertyLinks,
-                pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
+              ManagePropertiesSearchAndSortVM(request.organisationAccount.id,
+                response,
+                pagination.copy(
+                  totalResults = response.total))))
           }
         } else {
             propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>
@@ -121,6 +123,8 @@ class Dashboard @Inject()(draftCases: DraftCases) extends PropertyLinkingControl
 }
 
 case class ManagePropertiesVM(organisationId: Long, properties: Seq[PropertyLink], pagination: Pagination)
+case class ManagePropertiesSearchAndSortVM(organisationId: Long, result: OwnerAuthResult, pagination: Pagination)
+
 
 case class ManagedPropertiesVM(agentName: String, agentCode: Long, properties: Seq[PropertyLink])
 

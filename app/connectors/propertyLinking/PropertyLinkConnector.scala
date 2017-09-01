@@ -19,6 +19,7 @@ package connectors.propertyLinking
 import connectors.fileUpload.FileMetadata
 import controllers.Pagination
 import models._
+import models.searchApi.{AgentAuthResult, OwnerAuthResult}
 import org.joda.time.DateTime
 import session.LinkingSessionRequest
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -69,16 +70,22 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
                                     address: Option[String] = None,
                                     baref: Option[String] = None,
                                     agent: Option[String] = None)
-                      (implicit hc: HeaderCarrier): Future[PropertyLinkResponse] = {
-    http.GET[PropertyLinkResponse](s"$baseUrl/property-links-search-sort?" +
+                      (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
+    http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +
       s"organisationId=$organisationId&" +
       s"$pagination&" +
-      s"sortfield=${sortfield.getOrElse("")}&" +
-      s"sortorder=${sortorder.getOrElse("")}&" +
-      s"status=${status.getOrElse("")}&" +
-      s"address=${address.getOrElse("")}&" +
-      s"baref=${baref.getOrElse("")}&" +
-      s"agent=${agent.getOrElse("")}")
+      buildQueryParams("sortfield", sortfield) +
+      buildQueryParams("sortorder", sortorder) +
+      buildQueryParams("status", status) +
+      buildQueryParams("address", address) +
+      buildQueryParams("baref", baref) +
+      buildQueryParams("agent", agent)
+    )
+
+  }
+
+  private def buildQueryParams(name : String, value : Option[String]) : String = {
+    value match { case Some(paramValue) if paramValue != "" => s"&$name=$paramValue" ; case _ => ""}
   }
 
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
