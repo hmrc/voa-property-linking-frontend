@@ -259,6 +259,11 @@ manageClients.table.3=Local authority reference
 manageClients.table.4=Permissions
 manageClients.table.5=Actions
 
+managePropertiesSearchSort.table.1=Address
+managePropertiesSearchSort.table.2=Local authority reference
+managePropertiesSearchSort.table.3=Client
+managePropertiesSearchSort.table.4=Actions
+
 #DASHBOARD ASSESSMENTS
 assessments.title=Valuations
 assessments.table.caption=Valuations

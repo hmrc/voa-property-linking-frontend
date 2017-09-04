@@ -18,6 +18,7 @@
         new VOA.DataTableManageProperties();
         new VOA.DataTableManagePropertiesSearchSort();
         new VOA.DataTableManageClients();
+        new VOA.DataTableManageClientsSearchSort();
         new VOA.DataTablePendingRequests();
     };
 

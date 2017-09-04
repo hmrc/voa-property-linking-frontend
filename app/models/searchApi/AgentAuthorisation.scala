@@ -22,7 +22,7 @@ case class AgentAuthorisation(
                              id: Long,
                              address: String,
                              localAuthorityRef: String,
-                             client: Option[Organisation]
+                             client: Organisation
                              )
 
 object AgentAuthorisation {

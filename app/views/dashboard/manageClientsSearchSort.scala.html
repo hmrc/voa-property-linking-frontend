@@ -1,0 +1,111 @@
+@import actions.AuthenticatedRequest
+@import utils.Formatters
+
+@(model: controllers.agent.ManageClientPropertiesSearchAndSortVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
+
+@main_template(
+    Messages("agent.dashboard.manageClients.title"),
+    topNavigation = false
+) {
+
+    @partials.dashboardTabs()
+
+    <h2 class="heading-secondary">
+       @if(model.totalPendingRequests == 0) {
+           @Messages("manageClients.nonePending")
+       } else {
+           <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest()" id="viewPending">
+               @Messages("manageClients.noOfPending", model.totalPendingRequests)
+           </a>
+       }
+    </h2>
+
+        @if(!model.result.authorisations.isEmpty) {
+
+        @jsManageClientsSearchSort()
+
+        <noscript>
+
+            @helpers.paginationControls(model.pagination, agent.routes.RepresentationController.viewClientProperties)
+
+            <div class="table-wrapper">
+                <table class="table-font-xsmall margin-bottom-20 margin-top-20" id="nojsManageClients">
+                    <caption class="visuallyhidden">
+                        @Messages("agent.dashboard.manageClients.existingClients")
+                    </caption>
+                    <colgroup>
+                        <col width="200px">
+                        <col width="140px">
+                        <col width="130px">
+                        <col width="130px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">@Messages("managePropertiesSearchSort.table.1")</th>
+                            <th scope="col">@Messages("managePropertiesSearchSort.table.2")</th>
+                            <th scope="col">@Messages("managePropertiesSearchSort.table.3")</th>
+                            <th scope="col">@Messages("managePropertiesSearchSort.table.4")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @model.result.authorisations.map { p =>
+
+                    <tr>
+                        <td>
+                        @(Formatters.capitalizedAddress(p.address))
+                        </td>
+                        <td>
+                        @{
+                            p.localAuthorityRef
+                        }
+                        </td>
+                        <td>
+                            <li>@p.client.organisationName</li>
+                        </td>
+                        <td>
+                            <ul class="list">
+                                <li>
+                                    <a href="@agent.routes.RepresentationController.revokeClient(p.id, p.client.organisationId)">
+                                        @Messages("dashboard.clientProperties.revokeClient")
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@routes.Assessments.assessments(p.id)">
+                                        @Messages("manageProperties.viewAssessments")
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </td>
+                    </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+            <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</p>
+
+            <div role="navigation" aria-label="Pagination">
+                <ul class="pagination">
+                    @if(model.pagination.pageNumber > 1) {
+                        <li  class="previous "><a href="@agent.routes.RepresentationController.viewClientProperties(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
+                    }else{
+                        <li  class="previous disabled"><i class="previous-arrow"></i>Previous</li>
+                    }
+
+                    <li class="active">@model.pagination.pageNumber</li>
+
+                    @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
+                        <li  class="next"><a href="@agent.routes.RepresentationController.viewClientProperties(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
+                    }else{
+                        <li  class="next disabled">Next <i class="next-arrow"></i></li>
+                    }
+                </ul>
+            </div>
+
+        </noscript>
+
+    } else {
+        <p id="noProperties">@Messages("agent.dashboard.manageClients.noClients")</p>
+    }
+
+}

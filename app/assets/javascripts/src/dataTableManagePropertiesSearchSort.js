@@ -70,6 +70,7 @@
 
         $( 'th .clear').on( 'click', function () {
             $('#dataTableManagePropertiesSearchSort th').find('input:text').val('');
+            dataTable.draw();
         } );
 
 

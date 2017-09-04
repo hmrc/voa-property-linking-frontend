@@ -102,6 +102,7 @@ POST        /representation-request/modify/:representationId                    
 #TODO: Move to dashboard
 GET         /manage-clients                                                                   controllers.agent.RepresentationController.viewClientProperties(page: Int ?= 1, pageSize: Int ?= 15)
 GET         /manage-clients/json                                                              controllers.agent.RepresentationController.listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
+GET         /manage-clients-search-sort/json                                                  controllers.agent.RepresentationController.listRepresentationRequestSearchAndSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], client: Option[String])
 
 GET         /manage-clients/pending-requests                                                  controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
 GET         /manage-clients/pending-requests/json                                             controllers.agent.RepresentationController.pendingRepresentationsJson(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
