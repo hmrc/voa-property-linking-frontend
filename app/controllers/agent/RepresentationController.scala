@@ -33,13 +33,20 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
   def viewClientProperties(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
       if (ApplicationConfig.searchSortEnabled) {
-        reprConnector.forAgentSearchAndSort(request.organisationId, pagination).map { response =>
-          Ok(views.html.dashboard.manageClientsSearchSort(
-            ManageClientPropertiesSearchAndSortVM(
-              result = response,
-              totalPendingRequests = response.total,
-              pagination = pagination.copy(totalResults = response.total)))
-          )
+
+        for{
+          totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
+                                                                      pagination =  pagination,
+                                                                      status = Some("PENDING"))
+          clientResponse       <- reprConnector.forAgentSearchAndSort(request.organisationId, pagination)
+
+        }yield {
+            Ok(views.html.dashboard.manageClientsSearchSort(
+              ManageClientPropertiesSearchAndSortVM(
+                result = clientResponse,
+                totalPendingRequests = totalPendingRequests.total,
+                pagination = pagination.copy(totalResults = clientResponse.total)))
+            )
         }
 
       } else {
