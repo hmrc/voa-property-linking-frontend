@@ -39,6 +39,7 @@ object ApplicationConfig extends RunMode with ServicesConfig {
   val casesEnabled = getConfig("featureFlags.casesEnabled").toBoolean
   val editDetailsEnabled = getConfig("featureFlags.editDetailsEnabled").toBoolean
   val editNameEnabled = getConfig("featureFlags.editNameEnabled").toBoolean
+  val searchSortEnabled = getConfig("featureFlags.searchSortEnabled").toBoolean
 
   val allowedMimeTypes: Seq[String] = getConfig("allowedFileUploadTypes").split(",")
 

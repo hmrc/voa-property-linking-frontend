@@ -18,11 +18,12 @@ package controllers.agent
 
 import cats.data.OptionT
 import cats.instances.future._
-import config.Wiring
-import controllers.agent.RepresentationController.ManagePropertiesVM
+import config.{ApplicationConfig, Wiring}
 import controllers.{Pagination, PropertyLinkingController, ValidPagination}
 import models._
 import play.api.libs.json.Json
+import controllers.agent.RepresentationController.ManagePropertiesVM
+import models.searchApi.AgentAuthResult
 
 trait RepresentationController extends PropertyLinkingController with ValidPagination {
   val reprConnector = Wiring().propertyRepresentationConnector
@@ -31,10 +32,29 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
 
   def viewClientProperties(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
-      reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
-        Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
-          reprs.totalPendingRequests,
-          pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
+      if (ApplicationConfig.searchSortEnabled) {
+
+        for{
+          totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
+                                                                      pagination =  pagination,
+                                                                      status = Some("PENDING"))
+          clientResponse       <- reprConnector.forAgentSearchAndSort(request.organisationId, pagination)
+
+        }yield {
+            Ok(views.html.dashboard.manageClientsSearchSort(
+              ManageClientPropertiesSearchAndSortVM(
+                result = clientResponse,
+                totalPendingRequests = totalPendingRequests.total,
+                pagination = pagination.copy(totalResults = clientResponse.total)))
+            )
+        }
+
+      } else {
+        reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
+          Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
+            reprs.totalPendingRequests,
+            pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
+        }
       }
     }
   }
@@ -43,6 +63,23 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
     withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
       reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
         Ok(Json.toJson(reprs))
+      }
+    }
+  }
+
+
+  def listRepresentationRequestSearchAndSort(page: Int,
+                                 pageSize: Int,
+                                 requestTotalRowCount: Boolean,
+                                 sortfield: Option[String],
+                                 sortorder: Option[String],
+                                 status: Option[String],
+                                 address: Option[String],
+                                 baref: Option[String],
+                                             client: Option[String])  = authenticated { implicit request =>
+    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
+      reprConnector.forAgentSearchAndSort(request.organisationId, pagination, sortfield, sortorder, status, address, baref, client) map { res =>
+        Ok(Json.toJson(res))
       }
     }
   }
@@ -111,7 +148,6 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
 }
 
 object RepresentationController extends RepresentationController {
-
   case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation], totalPendingRequests: Long, pagination: Pagination)
-
 }
+case class ManageClientPropertiesSearchAndSortVM(result: AgentAuthResult, totalPendingRequests: Long, pagination: Pagination)
