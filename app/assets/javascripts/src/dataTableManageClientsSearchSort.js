@@ -21,10 +21,10 @@
             orderCellsTop: true,
             ajax: {
                 data: function() {
-                    var queryParameters = "";
-                    queryParameters += "&baref=" + $('#baref').val();
-                    queryParameters += "&client=" + $('#client').val();
-                    queryParameters += "&address=" + $('#address').val();
+                    var queryParameters = '';
+                    queryParameters += '&baref=' + $('#baref').val();
+                    queryParameters += '&client=' + $('#client').val();
+                    queryParameters += '&address=' + $('#address').val();
 
                     var info = $table.DataTable().page.info();
                     $table.DataTable().ajax.url('/business-rates-property-linking/manage-clients-search-sort/json?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true' + queryParameters);
@@ -41,7 +41,7 @@
                 {data: 'address', name: 'address'},
                 {data: 'localAuthorityRef', name: 'baref'},
                 {data: 'client.organisationName', name: 'client'},
-                {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', "bSortable": false}
+                {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', 'bSortable': false}
             ],
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $('td:eq(3) ul li:eq(0)', nRow).html('<a href="/business-rates-property-linking/client-properties/' + aData.client.organisationId + '/revoke/' + aData.id +'">' + messages.labels.revokeClient + '</a>');
@@ -50,7 +50,7 @@
             fnServerParams: function(data) {
                 data['order'].forEach(function(items, index) {
                     data.sortfield = data['columns'][items.column]['name'];
-                    data.sortorder = data['order'][index].dir
+                    data.sortorder = data['order'][index].dir;
                 });
             }
 
