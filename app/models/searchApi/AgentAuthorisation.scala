@@ -20,6 +20,8 @@ import play.api.libs.json.Json
 
 case class AgentAuthorisation(
                              id: Long,
+                             status: String,
+                             submissionId: String,
                              address: String,
                              localAuthorityRef: String,
                              client: Organisation

@@ -42,5 +42,13 @@ trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with D
 
 object TestApp {
   val app = new GuiceApplicationBuilder().build()
-  play.api.Play.start(app)
+  start()
+
+  def stop() = {
+    play.api.Play.stop(app)
+  }
+
+  def start() = {
+    play.api.Play.start(app)
+  }
 }
