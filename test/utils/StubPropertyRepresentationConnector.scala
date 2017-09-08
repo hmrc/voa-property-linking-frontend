@@ -19,7 +19,7 @@ package utils
 import connectors.PropertyRepresentationConnector
 import controllers.Pagination
 import models._
-import models.searchApi.{AgentAuthResult, AgentAuthorisation}
+import models.searchApi.{AgentAuthResult, AgentAuthorisation, OwnerAuthResult, OwnerAuthorisation}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.http.HeaderCarrier
 

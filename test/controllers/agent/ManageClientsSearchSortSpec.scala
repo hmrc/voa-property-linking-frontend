@@ -181,8 +181,8 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
 
-    val indirectLink = arbitrary[PropertyLink].retryUntil(_.organisationId != groupAccount.id).copy(agents = Seq(arbitrary[Party].copy(organisationId = groupAccount.id)))
-    StubPropertyLinkConnector.stubLink(indirectLink)
+    val indirectLink = arbitrary[AgentAuthorisation].retryUntil(_.client.organisationId != groupAccount.id)
+    //StubPropertyLinkConnector.stubLink(indirectLink)
 
     val res = TestController.viewClientProperties(1, 15)(FakeRequest())
     status(res) mustBe UNAUTHORIZED

@@ -229,7 +229,6 @@ class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits wit
   }
 
   private def setup(numberOfLinks: Int = 15) = {
-
     val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = true)
     val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
 
