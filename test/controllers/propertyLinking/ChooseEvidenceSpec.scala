@@ -46,7 +46,7 @@ class ChooseEvidenceSpec extends ControllerSpec with MockitoSugar{
 
   lazy val testProperty: Property = arbitrary[Property]
 
-  val request = FakeRequest().withSession(token)
+  lazy val request = FakeRequest().withSession(token)
 
   "The choose evidence page" must "ask the user whether they have a rates bill" in {
     withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])

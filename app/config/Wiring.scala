@@ -16,11 +16,6 @@
 
 package config
 
-import actions.AuthenticatedAction
-import auth.GGAction
-import connectors._
-import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
-import connectors.propertyLinking.PropertyLinkConnector
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, Writes}
 import uk.gov.hmrc.play.audit.http.HttpAuditing
@@ -30,29 +25,6 @@ import uk.gov.hmrc.play.http.ws._
 
 import scala.concurrent.Future
 import scala.util.Try
-
-object Wiring {
-  def apply() = play.api.Play.current.global.asInstanceOf[VPLFrontendGlobal].wiring
-}
-
-abstract class Wiring {
-  def http: WSHttp
-  def propertyRepresentationConnector = new PropertyRepresentationConnector(http)
-  def propertyLinkConnector = new PropertyLinkConnector(http)
-  def individualAccountConnector = new IndividualAccounts(http)
-  def groupAccountConnector = new GroupAccounts(http)
-  def authConnector = new VPLAuthConnector(http)
-  def ggAction = new GGAction(authConnector)
-  def identityVerification = new IdentityVerification(http)
-  def addresses = new Addresses(http)
-  def businessRatesAuthentication = new BusinessRatesAuthorisation(http)
-  def authenticated = new AuthenticatedAction
-  def submissionIdConnector = new SubmissionIdConnector(http)
-  def identityVerificationProxyConnector = new IdentityVerificationProxyConnector(http)
-  def dvrCaseManagement = new DVRCaseManagementConnector(http)
-  def businessRatesValuation = new BusinessRatesValuationConnector(http)
-  def trafficThrottleConnector = new TrafficThrottleConnector(http)
-}
 
 class VPLHttp extends WSHttp with HttpAuditing with AppName with RunMode {
   override val hooks = Seq(AuditingHook)
@@ -67,7 +39,6 @@ class VPLHttp extends WSHttp with HttpAuditing with AppName with RunMode {
       case _ => res
     }
   }
-
 
   override def doPost[A](url: String, body: A, headers: Seq[(String, String)])(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = {
     super.doPost(url, body, headers) map { res =>

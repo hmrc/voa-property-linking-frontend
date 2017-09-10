@@ -18,7 +18,8 @@ package session
 
 import javax.inject.{Inject, Named}
 
-import config.{Global, Wiring}
+import actions.AuthenticatedAction
+import config.Global
 import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
 import play.api.i18n.Messages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -37,13 +38,9 @@ case class LinkingSessionRequest[A](ses: LinkingSession, organisationId: Int,
 
 case object NoSessionId extends Exception
 
-class WithLinkingSession @Inject() (@Named("propertyLinkingSession") val sessionRepository: SessionRepo) {
+class WithLinkingSession @Inject() (authenticated: AuthenticatedAction,
+                                     @Named("propertyLinkingSession") val sessionRepository: SessionRepo) {
   implicit def hc(implicit request: Request[_]) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
-  val individualAccountConnector = Wiring().individualAccountConnector
-  val groupAccountConnector = Wiring().groupAccountConnector
-  val auth = Wiring().authConnector
-  val ggAction = Wiring().ggAction
-  val authenticated = Wiring().authenticated
 
   def apply(body: LinkingSessionRequest[AnyContent] => Future[Result])(implicit messages: Messages) = authenticated { implicit request =>
     sessionRepository.get[LinkingSession] flatMap {

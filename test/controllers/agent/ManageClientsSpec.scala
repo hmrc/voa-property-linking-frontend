@@ -16,42 +16,33 @@
 
 package controllers.agent
 
-import org.scalatest.mockito.MockitoSugar
-import org.scalatest._
-import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
+import config.ApplicationConfig
 import connectors.Authenticated
-import controllers.TestApp
 import models._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
-import play.api.test.FakeRequest
+import org.scalatest._
+import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.play.guice.{GuiceOneAppPerSuite, GuiceOneAppPerTest}
+import play.api.Logger
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
+import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
 import resources._
-import uk.gov.hmrc.play.test.WithFakeApplication
 import utils._
 
 import scala.collection.JavaConverters._
 class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout
-  with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with WithFakeApplication{
-  TestApp.stop()
-  implicit override lazy val  fakeApplication = new GuiceApplicationBuilder()
+  with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with GuiceOneAppPerSuite {
+
+  override def fakeApplication() = new GuiceApplicationBuilder()
     .configure("featureFlags.searchSortEnabled" -> "false")
     .configure("metrics.enabled" -> "false")
     .build()
 
-  override def beforeAll() {
-    TestApp.stop()
-    play.api.Play.start(fakeApplication)
-  }
+  val token = "Csrf-Token" -> "nocheck"
 
-  override def afterAll() {
-    play.api.Play.stop(fakeApplication)
-    TestApp.start()
-  }
-
-    val token = "Csrf-Token" -> "nocheck"
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()
     StubGroupAccountConnector.reset()
@@ -64,8 +55,7 @@ class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits wit
     StubPropertyRepresentationConnector.reset()
   }
 
-  //Make the tests run significantly fassbt ter by only loading and parsing the default case, of 15 property links, once
-  private lazy val defaultHtml = {
+  lazy val defaultHtml = {
     setup()
 
     val res = TestController.viewClientProperties(1, 15)(FakeRequest())
@@ -249,10 +239,6 @@ class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits wit
     values foreach { v => data must contain (v.toUpperCase) }
   }
 
-  private object TestController extends RepresentationController {
-    override val propertyLinkConnector = StubPropertyLinkConnector
-    override val reprConnector = StubPropertyRepresentationConnector
-    override val authenticated = StubAuthentication
-  }
-
+  private object TestController extends RepresentationController(app.injector.instanceOf[ApplicationConfig],
+    StubPropertyRepresentationConnector, StubAuthentication, StubPropertyLinkConnector)
 }

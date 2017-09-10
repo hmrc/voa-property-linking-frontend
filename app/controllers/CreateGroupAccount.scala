@@ -18,7 +18,8 @@ package controllers
 
 import javax.inject.{Inject, Named}
 
-import config.Wiring
+import auth.GGAction
+import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector, IdentityVerification => IDV}
 import form.Mappings._
 import form.TextMatching
 import models.{Address, IndividualAccountSubmission, PersonalDetails}
@@ -26,20 +27,19 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import repositories.SessionRepo
+import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.http.HeaderCarrier
 import views.helpers.Errors
 
 import scala.concurrent.Future
 
-class CreateGroupAccount @Inject() (
-                                     @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
+class CreateGroupAccount @Inject()(groups: GroupAccounts,
+                                   auth: VPLAuthConnector,
+                                   ggAction: GGAction,
+                                   identityVerification: IDV,
+                                   addresses: Addresses,
+                                   @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
   extends PropertyLinkingController {
-  lazy val groups = Wiring().groupAccountConnector
-  lazy val individuals = Wiring().individualAccountConnector
-  lazy val auth = Wiring().authConnector
-  lazy val ggAction = Wiring().ggAction
-  lazy val identityVerification = Wiring().identityVerification
-  lazy val addresses = Wiring().addresses
 
   def show = ggAction.async { _ => implicit request =>
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>

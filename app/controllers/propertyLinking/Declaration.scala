@@ -19,9 +19,9 @@ package controllers.propertyLinking
 import javax.inject.Named
 
 import com.google.inject.{Inject, Singleton}
-import config.Wiring
 import connectors.EnvelopeConnector
 import connectors.fileUpload.{FileMetadata, FileUploadConnector}
+import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import form.Mappings._
 import models.NoEvidenceFlag
@@ -33,11 +33,10 @@ import views.html.propertyLinking.declaration
 @Singleton
 class Declaration @Inject()(envelopes: EnvelopeConnector,
                             fileUploads: FileUploadConnector,
+                            propertyLinks: PropertyLinkConnector,
                             @Named("propertyLinkingSession") sessionRepository: SessionRepo,
                             withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController {
-
-  val propertyLinks = Wiring().propertyLinkConnector
 
   def show = withLinkingSession { implicit request =>
     Ok(declaration(DeclarationVM(form)))

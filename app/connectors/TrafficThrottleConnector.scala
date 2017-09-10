@@ -17,12 +17,13 @@
 package connectors
 
 
+import com.google.inject.Inject
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TrafficThrottleConnector(http: HttpGet with HttpPost)(implicit ec: ExecutionContext) extends ServicesConfig {
+class TrafficThrottleConnector @Inject()(http: HttpGet with HttpPost)(implicit ec: ExecutionContext) extends ServicesConfig {
   val trafficRouter = "voa-traffic-throttle"
 
   lazy val serviceUrl = s"${baseUrl(trafficRouter)}/$trafficRouter"

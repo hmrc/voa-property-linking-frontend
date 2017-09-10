@@ -16,47 +16,35 @@
 
 package controllers.agent
 
+import config.ApplicationConfig
 import connectors.Authenticated
-import controllers.TestApp
 import models._
 import models.searchApi.{AgentAuthResult, AgentAuthorisation, Organisation}
-import org.scalatest.mockito.MockitoSugar
-import org.scalatest._
-import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
-import connectors.Authenticated
-import controllers.TestApp
-import models._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
-import play.api.test.FakeRequest
+import org.scalatest._
+import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.play.guice.{GuiceOneAppPerSuite, GuiceOneAppPerTest}
+import play.api.{Application, Logger}
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
+import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
 import resources._
-import uk.gov.hmrc.play.test.WithFakeApplication
 import utils._
 
 import scala.collection.JavaConverters._
 
 class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout
-  with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with WithFakeApplication{
-  TestApp.stop()
-  implicit override lazy val  fakeApplication = new GuiceApplicationBuilder()
+  with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with GuiceOneAppPerSuite {
+
+  override def fakeApplication(): Application = new GuiceApplicationBuilder()
     .configure("featureFlags.searchSortEnabled" -> "true")
     .configure("metrics.enabled" -> "false")
     .build()
 
-  override def beforeAll() {
-    TestApp.stop()
-    play.api.Play.start(fakeApplication)
-  }
+  val token: (String, String) = "Csrf-Token" -> "nocheck"
 
-  override def afterAll() {
-    play.api.Play.stop(fakeApplication)
-    TestApp.start()
-  }
-
-  val token = "Csrf-Token" -> "nocheck"
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()
     StubGroupAccountConnector.reset()
@@ -69,8 +57,7 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
     StubPropertyRepresentationConnector.reset()
   }
 
-  //Make the tests run significantly faster by only loading and parsing the default case, of 15 property links, once
-  private lazy val defaultHtml = {
+  lazy val defaultHtml = {
     setup()
     val res = TestController.viewClientProperties(1, 15)(FakeRequest())
     status(res) mustBe OK
@@ -202,8 +189,7 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
     pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(manageClientsLink(25), manageClientsLink(50), manageClientsLink(100))
   }
 
-  private def setup(numberOfLinks: Int = 15) = {
-
+  private def setup(numberOfLinks: Int = 15): Unit = {
     val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = true)
     val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
     var arbitraryAgentAuthorisation: Seq[AgentAuthorisation] = Nil
@@ -221,7 +207,7 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
 
   }
 
-  private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]) = {
+  private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
     html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
 
     val data = html.select("table#nojsManageClients").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
@@ -229,9 +215,6 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
     values foreach { v => data must contain (v.toUpperCase) }
   }
 
-  private object TestController extends RepresentationController {
-    override val reprConnector = StubPropertyRepresentationConnector
-    override val authenticated = StubAuthentication
-  }
-
+  object TestController extends RepresentationController(app.injector.instanceOf[ApplicationConfig],
+    StubPropertyRepresentationConnector, StubAuthentication, StubPropertyLinkConnector)
 }

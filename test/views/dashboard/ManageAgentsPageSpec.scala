@@ -18,10 +18,13 @@ package views.dashboard
 import actions.AgentRequest
 import controllers.{AgentInfo, ControllerSpec, ManageAgentsVM, routes}
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import play.api.i18n.Messages.Implicits._
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import resources._
 import utils.HtmlPage
+
 import scala.collection.JavaConverters._
 
 class ManageAgentsPageSpec extends ControllerSpec {
@@ -53,11 +56,11 @@ class ManageAgentsPageSpec extends ControllerSpec {
     tabs.init.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(routes.Dashboard.manageProperties().url, routes.Dashboard.manageAgents().url, routes.Dashboard.viewDraftCases().url, controllers.manageDetails.routes.ViewDetails.show().url)
   }
 
-  implicit lazy val request = AgentRequest(groupAccountGen.copy(isAgent = false), individualGen, positiveLong, FakeRequest())
+  implicit lazy val request: AgentRequest[_] = AgentRequest(groupAccountGen.copy(isAgent = false), individualGen, positiveLong, FakeRequest())
   lazy val noAgents = ManageAgentsVM(Nil)
   lazy val twoAgents = ManageAgentsVM(List(AgentInfo("name1", 111), AgentInfo("name2", 222)))
 
-  lazy val manageAgentsPage = {
+  lazy val manageAgentsPage: Document = {
     val html = views.html.dashboard.manageAgents(twoAgents)
     Jsoup.parse(html.toString)
   }

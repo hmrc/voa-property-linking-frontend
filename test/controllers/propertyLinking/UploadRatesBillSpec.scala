@@ -18,6 +18,7 @@ package controllers.propertyLinking
 
 import java.io.File
 
+import config.{ApplicationConfig, VPLHttp}
 import connectors.EnvelopeConnector
 import connectors.fileUpload.FileUploadConnector
 import controllers.ControllerSpec
@@ -33,6 +34,7 @@ import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
+import uk.gov.hmrc.play.http.ws.WSHttp
 import utils._
 
 import scala.collection.JavaConverters._
@@ -96,9 +98,9 @@ class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
   implicit lazy val request = FakeRequest().withSession(token).withHeaders(HOST -> "localhost:9523")
 
   implicit lazy val hc = HeaderCarrier()
-  lazy val wsClient = app.injector.instanceOf[WSClient]
+  lazy val wsHttp = app.injector.instanceOf[VPLHttp]
 
-  lazy val envConnectorStub = new EnvelopeConnector(wsClient) {
+  lazy val envConnectorStub = new EnvelopeConnector(wsHttp) {
     override def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
       Future.successful(envelopeId)
     }
@@ -110,11 +112,8 @@ class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  object TestUploadRatesBill extends UploadRatesBill(mockFileUploads, envConnectorStub, mockSessionRepo, withLinkingSession) {
-    val property = arbitrary[Property].sample.get
-    val person = arbitrary[DetailedIndividualAccount].sample.get
-    override lazy val propertyLinks = StubPropertyLinkConnector
-  }
+  object TestUploadRatesBill extends UploadRatesBill(app.injector.instanceOf[ApplicationConfig], mockFileUploads,
+    envConnectorStub, StubPropertyLinkConnector, mockSessionRepo, withLinkingSession)
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

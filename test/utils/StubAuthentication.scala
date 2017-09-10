@@ -17,29 +17,34 @@
 package utils
 
 import actions.AuthenticatedAction
+import config.ApplicationConfig
 import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
+import org.scalatest.mockito.MockitoSugar
+import play.api.{Configuration, Environment, Mode}
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-object StubAuthentication extends AuthenticatedAction {
-  private var authorisationResult: AuthorisationResult = InvalidGGSession
-
-  private object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubHttp) {
-    override def authenticate(implicit hc: HeaderCarrier) = Future.successful(authorisationResult)
-    override def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
-    override def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
-  }
-
+object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation) {
   def stubAuthenticationResult(result: AuthorisationResult) = {
-    authorisationResult = result
+    StubBusinessRatesAuthorisation.authorisationResult = result
   }
 
   def reset() = {
-    authorisationResult = InvalidGGSession
+    StubBusinessRatesAuthorisation.authorisationResult = InvalidGGSession
   }
 
-  override val businessRatesAuthentication: BusinessRatesAuthorisation = StubBusinessRatesAuthorisation
-  override val groupAccounts = StubGroupAccountConnector
-  override val individualAccounts = StubIndividualAccountConnector
+}
+
+object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubApplicationConfig(), StubHttp) {
+  var authorisationResult: AuthorisationResult = InvalidGGSession
+
+  override def authenticate(implicit hc: HeaderCarrier) = Future.successful(authorisationResult)
+  override def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
+  override def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
+}
+
+object StubApplicationConfig extends MockitoSugar {
+  def apply(): ServicesConfig = mock[ServicesConfig]
 }

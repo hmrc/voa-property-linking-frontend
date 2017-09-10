@@ -16,6 +16,7 @@
 
 package controllers
 
+import config.ApplicationConfig
 import connectors.{Authenticated, DraftCases}
 import models._
 import org.jsoup.Jsoup
@@ -213,12 +214,6 @@ class ManagePropertiesSpec extends ControllerSpec {
     values foreach { v => data must contain (v.toUpperCase) }
   }
 
-  private object TestDashboardController extends Dashboard(mock[DraftCases]) {
-    override val propertyLinks = StubPropertyLinkConnector
-    override val reprConnector = StubPropertyRepresentationConnector
-    override val individuals = StubIndividualAccountConnector
-    override val groups = StubGroupAccountConnector
-    override val auth = StubAuthConnector
-    override val authenticated = StubAuthentication
-  }
+  private object TestDashboardController extends Dashboard(app.injector.instanceOf[ApplicationConfig], mock[DraftCases],
+    StubPropertyLinkConnector, StubAuthentication)
 }

@@ -57,14 +57,9 @@ class FileUploadConnectorSpec extends ControllerSpec {
     data mustBe FileMetadata(NoEvidenceFlag, None)
   }
 
-  lazy val testConnector = new FileUploadConnector(mock[WSClient]) {
-    override lazy val http = mockHttp
-  }
+  lazy val mockHttp = mock[WSHttp]
 
-  lazy val mockHttp = {
-    val m = mock[WSHttp]
-    m
-  }
+  lazy val testConnector = new FileUploadConnector(mockHttp)
 
   lazy val fileUploadedMetadata = Json.parse {
     """{

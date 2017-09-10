@@ -18,7 +18,8 @@ package controllers.manageDetails
 
 import actions.BasicAuthenticatedRequest
 import com.google.inject.Inject
-import config.{ApplicationConfig, Wiring}
+import config.ApplicationConfig
+import connectors.{Addresses, IndividualAccounts}
 import controllers.PropertyLinkingController
 import form.Mappings._
 import form.TextMatching
@@ -30,10 +31,10 @@ import play.api.mvc.Result
 
 import scala.concurrent.Future
 
-class UpdatePersonalDetails @Inject()(editDetailsAction: EditDetailsAction) extends PropertyLinkingController {
-
-  val addressesConnector = Wiring().addresses
-  val individualAccountConnector = Wiring().individualAccountConnector
+class UpdatePersonalDetails @Inject()(config: ApplicationConfig,
+                                      editDetailsAction: EditDetailsAction,
+                                      addressesConnector: Addresses,
+                                      individualAccountConnector: IndividualAccounts) extends PropertyLinkingController {
 
   def viewEmail() = editDetailsAction { implicit request =>
     Ok(views.html.details.updateEmail(UpdateDetailsVM(emailForm, request.individualAccount.details)))
@@ -72,7 +73,7 @@ class UpdatePersonalDetails @Inject()(editDetailsAction: EditDetailsAction) exte
   }
 
   def viewName() = editDetailsAction { implicit request =>
-    if (ApplicationConfig.editNameEnabled) {
+    if (config.editNameEnabled) {
       Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details)))
     } else {
       notFound
@@ -80,7 +81,7 @@ class UpdatePersonalDetails @Inject()(editDetailsAction: EditDetailsAction) exte
   }
 
   def updateName() = editDetailsAction { implicit request =>
-    if (ApplicationConfig.editNameEnabled) {
+    if (config.editNameEnabled) {
       nameForm.bindFromRequest().fold(
         errors => BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details))),
         name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))

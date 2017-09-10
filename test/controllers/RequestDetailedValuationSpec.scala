@@ -16,6 +16,7 @@
 
 package controllers
 
+import config.ApplicationConfig
 import connectors.{Authenticated, DVRCaseManagementConnector, SubmissionIdConnector}
 import models.{Accounts, DetailedValuationRequest, DetailedValuationRequestTypes}
 import org.mockito.ArgumentMatchers._
@@ -27,17 +28,14 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import utils.{HtmlPage, StubAuthentication}
+import utils.{HtmlPage, StubAuthentication, StubBusinessRatesValuation, StubPropertyLinkConnector}
 
 import scala.concurrent.Future
 
 class RequestDetailedValuationSpec extends ControllerSpec with MockitoSugar {
 
-  private object TestAssessments extends Assessments {
-    override val authenticated = StubAuthentication
-    override val submissionIds = mockSubmissionIds
-    override val dvrCaseManagement = mockDvrCaseManagement
-  }
+  private object TestAssessments extends Assessments(app.injector.instanceOf[ApplicationConfig], StubPropertyLinkConnector,
+    StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation)
 
   lazy val mockDvrCaseManagement = {
     val m = mock[DVRCaseManagementConnector]

@@ -20,11 +20,12 @@ import connectors.IndividualAccounts
 import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
 import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 
 import scala.concurrent.Future
 import scala.util.Random
 
-object StubIndividualAccountConnector extends IndividualAccounts(StubHttp) {
+object StubIndividualAccountConnector extends IndividualAccounts(StubServicesConfig, StubHttp) {
 
   private var stubbedIndividuals: Seq[DetailedIndividualAccount] = Nil
 

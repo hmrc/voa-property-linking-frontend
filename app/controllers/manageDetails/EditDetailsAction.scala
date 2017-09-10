@@ -17,15 +17,22 @@
 package controllers.manageDetails
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import auth.GovernmentGatewayProvider
+import com.google.inject.Inject
 import config.{ApplicationConfig, Global}
+import connectors.BusinessRatesAuthorisation
 import play.api.mvc.{Action, AnyContent, Result}
 import play.api.mvc.Results._
 
 import scala.concurrent.Future
 
-class EditDetailsAction extends AuthenticatedAction {
+class EditDetailsAction @Inject()(config: ApplicationConfig,
+                                  provider: GovernmentGatewayProvider,
+                                  businessRatesAuthorisation: BusinessRatesAuthorisation)
+  extends AuthenticatedAction(provider, businessRatesAuthorisation) {
+
   override def apply(body: (BasicAuthenticatedRequest[AnyContent]) => Future[Result]): Action[AnyContent] = {
-    if (ApplicationConfig.editDetailsEnabled) { super.apply(body) } else { notFound }
+    if (config.editDetailsEnabled) { super.apply(body) } else { notFound }
   }
 
   private def notFound = Action { implicit request =>

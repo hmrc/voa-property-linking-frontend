@@ -16,6 +16,7 @@
 
 package controllers.agent
 
+import config.ApplicationConfig
 import connectors.Authenticated
 import controllers.ControllerSpec
 import models.{Accounts, ClientProperty}
@@ -27,13 +28,10 @@ import utils._
 
 class RepresentationControllerSpec extends ControllerSpec {
 
-  val request = FakeRequest().withSession(token)
+  lazy val request = FakeRequest().withSession(token)
 
-  object TestRepresentationController extends RepresentationController {
-    override val reprConnector = StubPropertyRepresentationConnector
-    override val authenticated = StubAuthentication
-    override val propertyLinkConnector = StubPropertyLinkConnector
-  }
+  object TestRepresentationController extends RepresentationController(app.injector.instanceOf[ApplicationConfig],
+    StubPropertyRepresentationConnector, StubAuthentication, StubPropertyLinkConnector)
 
   behavior of "revokeClientConfirmed method"
 

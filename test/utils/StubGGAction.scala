@@ -23,7 +23,7 @@ import uk.gov.hmrc.play.frontend.auth.connectors.domain.{Accounts, Authority, Co
 
 import scala.concurrent.Future
 
-object StubGGAction extends GGAction(StubAuthConnector) {
+object StubGGAction extends GGAction(null, StubAuthConnector) {
   private val ctx = AuthContext(LoggedInUser("", None, None, None, CredentialStrength.Weak, ConfidenceLevel.L200, ""),
     Principal(None, Accounts()), None, None, None, None)
 

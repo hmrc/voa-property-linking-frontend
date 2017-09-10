@@ -18,8 +18,10 @@ package controllers.agentAppointment
 
 import javax.inject.{Inject, Named}
 
-import actions.BasicAuthenticatedRequest
-import config.{Global, Wiring}
+import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import config.Global
+import connectors._
+import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import form.EnumMapping
 import form.Mappings._
@@ -35,13 +37,12 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class AppointAgentController @Inject() (
-                                         @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
+class AppointAgentController @Inject() (representations: PropertyRepresentationConnector,
+                                        accounts: GroupAccounts,
+                                        propertyLinks: PropertyLinkConnector,
+                                        authenticated: AuthenticatedAction,
+                                        @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
   extends PropertyLinkingController {
-  val representations = Wiring().propertyRepresentationConnector
-  val accounts = Wiring().groupAccountConnector
-  val propertyLinks = Wiring().propertyLinkConnector
-  val authenticated = Wiring().authenticated
 
   def appoint(linkId: Long) = authenticated { implicit request =>
     sessionRepository.get[AgentAppointmentSession] flatMap {

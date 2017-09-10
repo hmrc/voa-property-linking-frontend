@@ -18,10 +18,10 @@ package controllers.propertyLinking
 
 import javax.inject.{Inject, Named}
 
-import actions.AuthenticatedRequest
+import actions.{AuthenticatedAction, AuthenticatedRequest}
 import com.google.inject.Singleton
-import config.{ApplicationConfig, Wiring}
-import connectors.{EnvelopeConnector, EnvelopeMetadata}
+import config.ApplicationConfig
+import connectors.{EnvelopeConnector, EnvelopeMetadata, SubmissionIdConnector}
 import controllers.PropertyLinkingController
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
@@ -36,18 +36,18 @@ import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
 
 @Singleton
-class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
+class ClaimProperty @Inject()(val config: ApplicationConfig,
+                              val envelopeConnector: EnvelopeConnector,
+                              val authenticated: AuthenticatedAction,
+                              val submissionIdConnector: SubmissionIdConnector,
                               @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
                               val withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController with ServicesConfig {
 
   import ClaimProperty._
 
-  lazy val authenticated = Wiring().authenticated
-  lazy val submissionIdConnector = Wiring().submissionIdConnector
-
   def show() = authenticated { implicit request =>
-    Redirect(s"${ApplicationConfig.vmvUrl}/search")
+    Redirect(s"${config.vmvUrl}/search")
   }
 
   def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>

@@ -21,14 +21,13 @@ import javax.inject.Inject
 
 import akka.stream.scaladsl._
 import com.google.inject.ImplementedBy
-import config.Wiring
 import models._
+import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
 import play.api.mvc.MultipartFormData.FilePart
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
-import play.api.libs.functional.syntax._
+import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -54,13 +53,11 @@ trait FileUpload {
   def getFileMetadata(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata]
 }
 
-class FileUploadConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionContext) extends FileUpload with ServicesConfig {
-
-  lazy val http = Wiring().http
+class FileUploadConnector @Inject()(val http: WSHttp)(implicit ec: ExecutionContext) extends FileUpload with ServicesConfig {
 
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = s"${baseUrl("file-upload-frontend")}/file-upload/upload/envelopes/$envelopeId/files/$fileName"
-    ws.url(url)
+    http.buildRequest(url)
       .withHeaders(("X-Requested-With", "VOA_CCA"))
       .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromPath(file.toPath)) :: List()))
       .map(_ => Unit)

@@ -17,11 +17,12 @@
 package utils
 
 import connectors.IdentityVerification
+import org.scalatest.mockito.MockitoSugar
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-object StubIdentityVerification extends IdentityVerification(StubHttp) {
+object StubIdentityVerification extends IdentityVerification(null, StubHttp) with MockitoSugar {
 
   private var journeyResult = ("", "")
 

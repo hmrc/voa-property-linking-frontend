@@ -16,6 +16,7 @@
 
 package controllers.agent
 
+import config.ApplicationConfig
 import connectors.Authenticated
 import controllers.ControllerSpec
 import models._
@@ -175,9 +176,6 @@ class PendingRequestsSpec extends ControllerSpec {
     values foreach { v => data must contain (v.toUpperCase) }
   }
 
-  private object TestRepresentationController extends RepresentationController {
-    override val reprConnector = StubPropertyRepresentationConnector
-    override val authenticated = StubAuthentication
-    override val propertyLinkConnector = StubPropertyLinkConnector
-  }
+  private object TestRepresentationController extends RepresentationController(app.injector.instanceOf[ApplicationConfig],
+    StubPropertyRepresentationConnector, StubAuthentication, StubPropertyLinkConnector)
 }

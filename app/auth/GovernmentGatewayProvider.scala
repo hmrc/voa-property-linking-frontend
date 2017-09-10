@@ -16,6 +16,7 @@
 
 package auth
 
+import com.google.inject.Inject
 import config.ApplicationConfig
 import play.api.mvc.{AnyContent, Request, Result}
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -25,19 +26,20 @@ import play.api.mvc.Results.Redirect
 
 import scala.concurrent.Future
 
-class GGAction(val authConnector: AuthConnector) extends Actions {
-  private def authenticatedBy = AuthenticatedBy(GovernmentGatewayProvider, GGConfidence)
+class GGAction @Inject()(val provider: GovernmentGatewayProvider, val authConnector: AuthConnector) extends Actions {
+  private def authenticatedBy = AuthenticatedBy(provider, GGConfidence)
 
   def apply(body: AuthContext => Request[AnyContent] => Result) = authenticatedBy(body)
   def async(body: AuthContext => Request[AnyContent] => Future[Result]) = authenticatedBy.async(body)
 }
 
-object GovernmentGatewayProvider extends GovernmentGateway with ServicesConfig {
+class GovernmentGatewayProvider @Inject()(config: ApplicationConfig) extends GovernmentGateway {
+  this: ServicesConfig =>
   override def additionalLoginParameters: Map[String, Seq[String]] = Map("accountType" -> Seq("organisation"))
-  override def loginURL: String = ApplicationConfig.ggSignInUrl
-  override def continueURL = ApplicationConfig.ggContinueUrl
+  override def loginURL: String = config.ggSignInUrl
+  override def continueURL = config.ggContinueUrl
 
   override def redirectToLogin(implicit request: Request[_]) = {
-    Future.successful(Redirect(loginURL, Map("continue" -> Seq(ApplicationConfig.baseUrl + request.uri), "origin" -> Seq("voa")) ++ additionalLoginParameters))
+    Future.successful(Redirect(loginURL, Map("continue" -> Seq(config.baseUrl + request.uri), "origin" -> Seq("voa")) ++ additionalLoginParameters))
   }
 }

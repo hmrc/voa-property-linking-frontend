@@ -16,15 +16,15 @@
 
 package controllers
 
-import config.{ApplicationConfig, Wiring}
+import auth.GGAction
+import com.google.inject.Inject
+import connectors.TrafficThrottleConnector
 import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
 
-object Application extends Controller with WithThrottling {
-  val ggAction = Wiring().ggAction
-
+class Application @Inject()(ggAction: GGAction, val trafficThrottleConnector: TrafficThrottleConnector) extends Controller with WithThrottling {
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
   def addUserToGG = Action { implicit request =>
@@ -48,5 +48,4 @@ object Application extends Controller with WithThrottling {
   def invalidAccountType = Action { implicit request =>
     Unauthorized(views.html.errors.invalidAccountType())
   }
-
 }

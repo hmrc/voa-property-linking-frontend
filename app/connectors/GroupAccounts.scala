@@ -16,6 +16,7 @@
 
 package connectors
 
+import com.google.inject.Inject
 import controllers.GroupAccountDetails
 import models._
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
@@ -25,7 +26,7 @@ import uk.gov.hmrc.play.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class GroupAccounts(http: WSHttp)(implicit ec: ExecutionContext) extends ServicesConfig {
+class GroupAccounts @Inject()(http: WSHttp)(implicit ec: ExecutionContext) extends ServicesConfig {
 
   lazy val url = baseUrl("property-linking") + "/property-linking/groups"
 

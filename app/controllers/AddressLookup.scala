@@ -16,16 +16,13 @@
 
 package controllers
 
-import config.Wiring
-import play.api.i18n.Messages
+import com.google.inject.Inject
+import connectors.Addresses
 import play.api.libs.json.Json
-import play.api.mvc.Action
+import play.api.mvc.{Action, AnyContent}
 
-trait AddressLookup extends PropertyLinkingController {
-
-  val addresses = Wiring().addresses
-
-  def findByPostcode(postcode: String) = Action.async { implicit request =>
+class AddressLookup @Inject()(addresses: Addresses) extends PropertyLinkingController {
+  def findByPostcode(postcode: String): Action[AnyContent] = Action.async { implicit request =>
       addresses.findByPostcode(postcode.trim) map { res =>
         if (res.isEmpty) {
           NotFound
@@ -37,5 +34,3 @@ trait AddressLookup extends PropertyLinkingController {
     }
   }
 }
-
-object AddressLookup extends AddressLookup

@@ -16,6 +16,7 @@
 
 package connectors
 
+import com.google.inject.Inject
 import models.Address
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost}
@@ -24,7 +25,7 @@ import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 
 import scala.concurrent.Future
 
-class Addresses(http: HttpGet with HttpPost) extends ServicesConfig {
+class Addresses @Inject()(http: HttpGet with HttpPost) extends ServicesConfig {
 
   val url = baseUrl("property-linking") + "/property-linking/address"
 

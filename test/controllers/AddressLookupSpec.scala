@@ -18,14 +18,12 @@ package controllers
 
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils._
+import utils.StubAddresses
 
 class AddressLookupSpec extends ControllerSpec {
   implicit val request = FakeRequest()
 
-  object TestAddressLookupController extends AddressLookup {
-    override val addresses = StubAddresses
-  }
+  object TestAddressLookupController extends AddressLookup(StubAddresses)
 
   behavior of "Address lookup"
 

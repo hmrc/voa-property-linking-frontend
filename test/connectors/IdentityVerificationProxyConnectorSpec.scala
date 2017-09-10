@@ -31,11 +31,13 @@ import org.mockito.Mockito._
 import org.scalatest.{FlatSpec, MustMatchers}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import resources._
-
+import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.Future
 
-class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers with MockitoSugar with GeneratorDrivenPropertyChecks {
+class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers with MockitoSugar
+  with GeneratorDrivenPropertyChecks with GuiceOneAppPerSuite {
+
   implicit val headerCarrier = HeaderCarrier()
 
   import scala.concurrent.ExecutionContext.Implicits.global
@@ -43,7 +45,7 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
   "IdentityVerificationProxy" must "make a successful POST to Identity Verification Proxy Service" in {
 
     val mockLink = mock[Link]
-    val mockHttp = mock[HttpPost with HttpGet]
+    val mockHttp = mock[WSHttp]
 
     when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any())) thenReturn (Future.successful(mockLink))
 
@@ -57,7 +59,7 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
 
   it must "handle an unsuccessful POST to Identity Verification Proxy Service" in {
     val mockEx = new RuntimeException("something went wrong")
-    val mockHttp = mock[HttpPost with HttpGet]
+    val mockHttp = mock[WSHttp]
 
     when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any())).thenReturn(Future.failed(mockEx))
 

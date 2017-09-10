@@ -18,7 +18,8 @@ package controllers
 
 import javax.inject.{Inject, Named}
 
-import config.Wiring
+import auth.GGAction
+import connectors.{IndividualAccounts, VPLAuthConnector}
 import form.Mappings._
 import form.TextMatching
 import models.PersonalDetails
@@ -31,13 +32,11 @@ import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.play.http.SessionKeys
 import views.helpers.Errors
 
-class CreateIndividualAccount @Inject() (
+class CreateIndividualAccount @Inject() (ggAction: GGAction,
+                                         auth: VPLAuthConnector,
+                                         individuals: IndividualAccounts,
                                           @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
   extends PropertyLinkingController {
-  lazy val ggAction = Wiring().ggAction
-  lazy val identityVerification = Wiring().identityVerification
-  lazy val auth = Wiring().authConnector
-  lazy val individuals = Wiring().individualAccountConnector
 
   def show = ggAction.async { ctx => implicit request =>
     for {
@@ -67,9 +66,6 @@ class CreateIndividualAccount @Inject() (
       }
     )
   }
-
-
-
 
   implicit def vm(form: Form[_]): CreateIndividualAccountVM = CreateIndividualAccountVM(form)
 }

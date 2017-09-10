@@ -19,9 +19,8 @@ package connectors
 import javax.inject.Inject
 
 import com.google.inject.ImplementedBy
-import config.Wiring
+import config.VPLHttp
 import play.api.libs.json.{Format, JsValue, Json}
-import play.api.libs.ws.WSClient
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HttpResponse, _}
 
@@ -35,8 +34,7 @@ trait Envelope {
   def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]
 }
 
-class EnvelopeConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionContext) extends Envelope with ServicesConfig with JsonHttpReads {
-  lazy val http = Wiring().http
+class EnvelopeConnector @Inject()(val http: VPLHttp)(implicit ec: ExecutionContext) extends Envelope with ServicesConfig with JsonHttpReads {
 
   override def createEnvelope(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String] = {
     http.POST[EnvelopeMetadata, JsValue](s"${baseUrl("property-linking")}/property-linking/envelopes", metadata) map { res =>

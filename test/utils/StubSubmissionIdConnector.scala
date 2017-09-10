@@ -18,11 +18,12 @@ package utils
 
 import connectors.SubmissionIdConnector
 import uk.gov.hmrc.play.http.HeaderCarrier
-
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+
 import scala.concurrent.Future
 
-object StubSubmissionIdConnector extends SubmissionIdConnector(StubHttp) {
+object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfig, StubHttp) {
   private var stubbedId: Option[String] = None
 
   override def get(prefix: String)(implicit hc: HeaderCarrier): Future[String] = Future {
@@ -36,4 +37,8 @@ object StubSubmissionIdConnector extends SubmissionIdConnector(StubHttp) {
   def reset() = {
     stubbedId = None
   }
+}
+
+object StubServicesConfig extends ServicesConfig {
+  override protected def environment = null
 }

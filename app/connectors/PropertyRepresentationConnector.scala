@@ -16,15 +16,16 @@
 
 package connectors
 
+import com.google.inject.Inject
 import controllers.Pagination
 import models._
-import models.searchApi.{AgentAuthResult, OwnerAuthResult}
+import models.searchApi.AgentAuthResult
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost with HttpPatch)(implicit ec: ExecutionContext)
+class PropertyRepresentationConnector @Inject()(http: HttpGet with HttpPut with HttpPost with HttpPatch)(implicit ec: ExecutionContext)
   extends ServicesConfig {
   lazy val baseUrl: String = s"${baseUrl("property-linking")}/property-linking"
 

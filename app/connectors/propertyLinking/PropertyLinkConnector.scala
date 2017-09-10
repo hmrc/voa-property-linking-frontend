@@ -16,6 +16,7 @@
 
 package connectors.propertyLinking
 
+import com.google.inject.Inject
 import connectors.fileUpload.FileMetadata
 import controllers.Pagination
 import models._
@@ -27,7 +28,7 @@ import uk.gov.hmrc.play.http._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec: ExecutionContext)
+class PropertyLinkConnector @Inject()(http: HttpGet with HttpPut with HttpPost)(implicit ec: ExecutionContext)
   extends ServicesConfig {
   lazy val baseUrl: String = baseUrl("property-linking") + s"/property-linking"
 
