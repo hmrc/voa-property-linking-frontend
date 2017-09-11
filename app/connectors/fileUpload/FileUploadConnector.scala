@@ -25,7 +25,7 @@ import models._
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.api.mvc.MultipartFormData.FilePart
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
 import uk.gov.hmrc.play.http.ws.WSHttp
 
@@ -53,10 +53,10 @@ trait FileUpload {
   def getFileMetadata(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata]
 }
 
-class FileUploadConnector @Inject()(val http: WSHttp)(implicit ec: ExecutionContext) extends FileUpload with ServicesConfig {
+class FileUploadConnector @Inject()(config: ServicesConfig, val http: WSHttp)(implicit ec: ExecutionContext) extends FileUpload {
 
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = s"${baseUrl("file-upload-frontend")}/file-upload/upload/envelopes/$envelopeId/files/$fileName"
+    val url = s"${config.baseUrl("file-upload-frontend")}/file-upload/upload/envelopes/$envelopeId/files/$fileName"
     http.buildRequest(url)
       .withHeaders(("X-Requested-With", "VOA_CCA"))
       .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromPath(file.toPath)) :: List()))
@@ -64,7 +64,7 @@ class FileUploadConnector @Inject()(val http: WSHttp)(implicit ec: ExecutionCont
   }
 
   def getFileMetadata(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata] = {
-    http.GET[JsValue](s"${baseUrl("file-upload-backend")}/file-upload/envelopes/$envelopeId") map {
+    http.GET[JsValue](s"${config.baseUrl("file-upload-backend")}/file-upload/envelopes/$envelopeId") map {
       _.validate[FileMetadata] match {
         case JsSuccess(data, _) => data
         case _ => FileMetadata(NoEvidenceFlag, None)

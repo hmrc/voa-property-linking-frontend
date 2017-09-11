@@ -100,7 +100,7 @@ class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
   implicit lazy val hc = HeaderCarrier()
   lazy val wsHttp = app.injector.instanceOf[VPLHttp]
 
-  lazy val envConnectorStub = new EnvelopeConnector(wsHttp) {
+  lazy val envConnectorStub = new EnvelopeConnector(StubServicesConfig, wsHttp) {
     override def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
       Future.successful(envelopeId)
     }

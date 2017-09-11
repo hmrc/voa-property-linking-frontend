@@ -22,7 +22,7 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-object StubAuthConnector extends VPLAuthConnector(StubHttp) {
+object StubAuthConnector extends VPLAuthConnector(StubServicesConfig, StubHttp) {
   private var externalId: Option[String] = None
   private var groupId: Option[String] = None
 

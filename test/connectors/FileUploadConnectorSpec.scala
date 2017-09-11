@@ -29,6 +29,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import utils.StubServicesConfig
 
 class FileUploadConnectorSpec extends ControllerSpec {
 
@@ -59,7 +60,7 @@ class FileUploadConnectorSpec extends ControllerSpec {
 
   lazy val mockHttp = mock[WSHttp]
 
-  lazy val testConnector = new FileUploadConnector(mockHttp)
+  lazy val testConnector = new FileUploadConnector(StubServicesConfig, mockHttp)
 
   lazy val fileUploadedMetadata = Json.parse {
     """{

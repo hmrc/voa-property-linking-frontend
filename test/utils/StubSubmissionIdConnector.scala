@@ -16,12 +16,16 @@
 
 package utils
 
+import com.google.inject.Singleton
 import connectors.SubmissionIdConnector
+import org.scalatest.mockito.MockitoSugar
+import play.api.Environment
 import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 
 import scala.concurrent.Future
+
 
 object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfig, StubHttp) {
   private var stubbedId: Option[String] = None
@@ -39,6 +43,8 @@ object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfi
   }
 }
 
-object StubServicesConfig extends ServicesConfig {
-  override protected def environment = null
+
+object StubServicesConfig extends ServicesConfig with MockitoSugar {
+  override protected def environment = mock[Environment]
+  override lazy val env = "Test"
 }

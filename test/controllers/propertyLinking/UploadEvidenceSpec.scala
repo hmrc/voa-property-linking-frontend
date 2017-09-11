@@ -96,7 +96,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
   lazy val wsClient = app.injector.instanceOf[VPLHttp]
 
-  lazy val envConnectorStub = new EnvelopeConnector(wsClient) {
+  lazy val envConnectorStub = new EnvelopeConnector(StubServicesConfig, wsClient) {
     override def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] =  {
       Future.successful(envelopeId)
     }

@@ -22,7 +22,7 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-object StubIdentityVerification extends IdentityVerification(null, StubHttp) with MockitoSugar {
+object StubIdentityVerification extends IdentityVerification(StubServicesConfig, null, StubHttp) with MockitoSugar {
 
   private var journeyResult = ("", "")
 

@@ -32,6 +32,7 @@ import org.scalatest.{FlatSpec, MustMatchers}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import resources._
 import uk.gov.hmrc.play.http.ws.WSHttp
+import utils.StubServicesConfig
 
 import scala.concurrent.Future
 
@@ -49,7 +50,7 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
 
     when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any())) thenReturn (Future.successful(mockLink))
 
-    val connector = new IdentityVerificationProxyConnector(mockHttp)
+    val connector = new IdentityVerificationProxyConnector(StubServicesConfig, mockHttp)
     forAll { (ivDetails: IVDetails, expiryDate: Option[LocalDate]) =>
       whenReady(connector.start("completionUrl", "failureUrl", ivDetails, expiryDate)) { link =>
         link must be(mockLink)
@@ -63,7 +64,7 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
 
     when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any())).thenReturn(Future.failed(mockEx))
 
-    val connector = new IdentityVerificationProxyConnector(mockHttp)
+    val connector = new IdentityVerificationProxyConnector(StubServicesConfig, mockHttp)
     forAll { (ivDetails: IVDetails, expiryDate: Option[LocalDate]) =>
       whenReady(connector.start("completionUrl", "failureUrl", ivDetails, expiryDate).failed) { ex =>
         ex must be(mockEx)

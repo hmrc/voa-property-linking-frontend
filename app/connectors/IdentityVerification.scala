@@ -20,14 +20,14 @@ import com.google.inject.Inject
 import config.ApplicationConfig
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, JsValue}
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
 
 import scala.concurrent.Future
 
-class IdentityVerification @Inject()(config: ApplicationConfig, http: HttpGet with HttpPost) extends ServicesConfig {
+class IdentityVerification @Inject()(serverConfig: ServicesConfig, config: ApplicationConfig, http: HttpGet with HttpPost) {
 
-  val url = baseUrl("identity-verification")
+  val url = serverConfig.baseUrl("identity-verification")
 
   def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier) = {
     if (config.ivEnabled) {
