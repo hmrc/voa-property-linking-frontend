@@ -18,24 +18,24 @@ package controllers.propertyLinking
 
 import javax.inject.{Inject, Named}
 
-import config.{Global, Wiring}
+import config.{ApplicationConfig, Global}
 import connectors.EnvelopeConnector
 import connectors.fileUpload.FileUploadConnector
+import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.RequestHeader
 import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
 import views.html.propertyLinking.uploadRatesBill
 
-class UploadRatesBill @Inject()(override val fileUploader: FileUploadConnector,
+class UploadRatesBill @Inject()(override val config: ApplicationConfig,
+                                override val fileUploader: FileUploadConnector,
                                 override val envelopeConnector: EnvelopeConnector,
+                                override val propertyLinks: PropertyLinkConnector,
                                 @Named("propertyLinkingSession") override val sessionRepository: SessionRepo,
                                 override val withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController with FileUploadHelpers {
-
-  lazy val propertyLinks = Wiring().propertyLinkConnector
 
   def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
     errorCode match {

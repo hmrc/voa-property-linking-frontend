@@ -20,7 +20,7 @@ import java.time.{Clock, Instant}
 
 import actions.BasicAuthenticatedRequest
 import com.google.inject.Inject
-import config.Wiring
+import connectors.{Addresses, GroupAccounts}
 import controllers.PropertyLinkingController
 import form.{Mappings, TextMatching}
 import models.{GroupAccount, UpdatedOrganisationAccount}
@@ -30,9 +30,9 @@ import play.api.mvc.Result
 
 import scala.concurrent.Future
 
-class UpdateOrganisationDetails @Inject()(editDetailsAction: EditDetailsAction)(implicit clock: Clock) extends PropertyLinkingController {
-  lazy val groups = Wiring().groupAccountConnector
-  lazy val addresses = Wiring().addresses
+class UpdateOrganisationDetails @Inject()(editDetailsAction: EditDetailsAction,
+                                          groups: GroupAccounts,
+                                          addresses: Addresses)(implicit clock: Clock) extends PropertyLinkingController {
 
   def viewBusinessName = editDetailsAction { implicit request =>
     Ok(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))

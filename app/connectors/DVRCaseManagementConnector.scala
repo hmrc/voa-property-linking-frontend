@@ -16,15 +16,16 @@
 
 package connectors
 
+import com.google.inject.Inject
 import models.DetailedValuationRequest
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost, HttpResponse}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 import scala.concurrent.Future
 
-class DVRCaseManagementConnector(http: HttpPost) extends ServicesConfig {
-  val url = baseUrl("property-linking") + "/property-linking"
+class DVRCaseManagementConnector @Inject()(config: ServicesConfig, http: HttpPost) {
+  val url = config.baseUrl("property-linking") + "/property-linking"
 
   def requestDetailedValuation(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
     http.POST[DetailedValuationRequest, HttpResponse](url + "/request-detailed-valuation", dvr) map { _ => () }

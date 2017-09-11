@@ -46,14 +46,10 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     f
   }
 
-  private object TestAppointAgent extends AppointAgentController(mockSessionRepo) {
-    override val representations = StubPropertyRepresentationConnector
-    override val accounts = StubGroupAccountConnector
-    override val propertyLinks = StubPropertyLinkConnector
-    override val authenticated = StubAuthentication
-  }
+  private object TestAppointAgent extends AppointAgentController(StubPropertyRepresentationConnector, StubGroupAccountConnector,
+    StubPropertyLinkConnector, StubAuthentication, mockSessionRepo)
 
-  val request = FakeRequest().withSession(token)
+  lazy val request = FakeRequest().withSession(token)
 
   "The appoint a new agent page" must "allow the user to enter the agent code, and set permissions for checks and challenges" in {
     stubLoggedInUser()

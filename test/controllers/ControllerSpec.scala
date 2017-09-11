@@ -18,13 +18,16 @@ package controllers
 
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import utils._
 
-trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach with AppendedClues with MockitoSugar {
+trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach with AppendedClues with MockitoSugar with GuiceOneAppPerSuite {
 
-  implicit val app = TestApp.app
+  override def fakeApplication() = new GuiceApplicationBuilder()
+    .configure("metrics.enabled" -> "false")
+    .build()
 
   val token = "Csrf-Token" -> "nocheck"
   override protected def beforeEach(): Unit = {
@@ -37,18 +40,5 @@ trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with D
     StubBusinessRatesValuation.reset()
     StubSubmissionIdConnector.reset()
     StubPropertyRepresentationConnector.reset()
-  }
-}
-
-object TestApp {
-  val app = new GuiceApplicationBuilder().build()
-  start()
-
-  def stop() = {
-    play.api.Play.stop(app)
-  }
-
-  def start() = {
-    play.api.Play.start(app)
   }
 }

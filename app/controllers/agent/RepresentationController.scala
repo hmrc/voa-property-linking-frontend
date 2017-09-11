@@ -16,23 +16,29 @@
 
 package controllers.agent
 
+import actions.AuthenticatedAction
 import cats.data.OptionT
 import cats.instances.future._
-import config.{ApplicationConfig, Wiring}
+import com.google.inject.{Inject, Singleton}
+import config.ApplicationConfig
+import connectors.propertyLinking.PropertyLinkConnector
+import connectors.PropertyRepresentationConnector
 import controllers.{Pagination, PropertyLinkingController, ValidPagination}
 import models._
 import play.api.libs.json.Json
 import controllers.agent.RepresentationController.ManagePropertiesVM
 import models.searchApi.AgentAuthResult
 
-trait RepresentationController extends PropertyLinkingController with ValidPagination {
-  val reprConnector = Wiring().propertyRepresentationConnector
-  val authenticated = Wiring().authenticated
-  val propertyLinkConnector = Wiring().propertyLinkConnector
+@Singleton()
+class RepresentationController @Inject()(config: ApplicationConfig,
+                                         reprConnector: PropertyRepresentationConnector,
+                                         authenticated: AuthenticatedAction,
+                                         propertyLinkConnector: PropertyLinkConnector)
+  extends PropertyLinkingController with ValidPagination {
 
   def viewClientProperties(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
-      if (ApplicationConfig.searchSortEnabled) {
+      if (config.searchSortEnabled) {
 
         for{
           totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
@@ -147,7 +153,8 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
   }
 }
 
-object RepresentationController extends RepresentationController {
+object RepresentationController {
   case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation], totalPendingRequests: Long, pagination: Pagination)
 }
+
 case class ManageClientPropertiesSearchAndSortVM(result: AgentAuthResult, totalPendingRequests: Long, pagination: Pagination)

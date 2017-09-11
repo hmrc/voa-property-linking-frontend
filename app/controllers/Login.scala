@@ -16,13 +16,14 @@
 
 package controllers
 
+import com.google.inject.Inject
 import config.ApplicationConfig
 import play.api.mvc.Action
 
-object Login extends PropertyLinkingController {
+class Login @Inject()(config: ApplicationConfig) extends PropertyLinkingController {
   def show = Action { implicit request =>
-    Redirect(ApplicationConfig.ggSignInUrl, Map(
-      "origin" -> Seq("voa"), "accountType" -> Seq("organisation"), "continue" -> Seq(ApplicationConfig.ggContinueUrl))
+    Redirect(config.ggSignInUrl, Map(
+      "origin" -> Seq("voa"), "accountType" -> Seq("organisation"), "continue" -> Seq(config.ggContinueUrl))
     )
   }
 }

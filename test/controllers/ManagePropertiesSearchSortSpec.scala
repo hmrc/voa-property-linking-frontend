@@ -16,19 +16,27 @@
 
 package controllers
 
+import config.ApplicationConfig
 import models.searchApi._
 import connectors.{Authenticated, DraftCases}
 import models._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import utils._
+
 import scala.collection.JavaConverters._
 
 class ManagePropertiesSearchSortSpec extends ControllerSpec {
+
+  override def fakeApplication() = new GuiceApplicationBuilder()
+    .configure("featureFlags.searchSortEnabled" -> "true")
+    .configure("metrics.enabled" -> "false")
+    .build()
 
   //Make the tests run significantly faster by only loading and parsing the default case, of 15 property links, once
   lazy val defaultHtml = {
@@ -201,12 +209,6 @@ class ManagePropertiesSearchSortSpec extends ControllerSpec {
     values foreach { v => data must contain (v.toUpperCase) }
   }
 
-  private object TestDashboardController extends Dashboard(mock[DraftCases]) {
-    override val propertyLinks = StubPropertyLinkConnector
-    override val reprConnector = StubPropertyRepresentationConnector
-    override val individuals = StubIndividualAccountConnector
-    override val groups = StubGroupAccountConnector
-    override val auth = StubAuthConnector
-    override val authenticated = StubAuthentication
-  }
+  private object TestDashboardController extends Dashboard(app.injector.instanceOf[ApplicationConfig], mock[DraftCases],
+    StubPropertyLinkConnector, StubAuthentication)
 }

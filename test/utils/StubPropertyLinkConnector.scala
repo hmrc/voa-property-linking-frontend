@@ -27,7 +27,7 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
+object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfig, StubHttp) {
 
   var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil

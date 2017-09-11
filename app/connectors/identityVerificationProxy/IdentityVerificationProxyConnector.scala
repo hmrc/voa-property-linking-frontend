@@ -16,17 +16,19 @@
 
 package connectors.identityVerificationProxy
 
+import com.google.inject.Inject
 import models.IVDetails
 import models.identityVerificationProxy._
 import org.joda.time.LocalDate
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class IdentityVerificationProxyConnector(http: HttpPost with HttpGet)(implicit ec: ExecutionContext) extends ServicesConfig {
-  private lazy val url = baseUrl("identity-verification-proxy")
+class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+  private lazy val url = serverConfig.baseUrl("identity-verification-proxy")
   private val path = "identity-verification-proxy/journey"
 
   def start(completionURL: String, failureURL:  String, userData: IVDetails,

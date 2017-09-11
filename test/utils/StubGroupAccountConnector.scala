@@ -27,7 +27,7 @@ import scala.concurrent.Future
 import scala.util.Random
 import org.scalacheck.Arbitrary.arbitrary
 
-object StubGroupAccountConnector extends GroupAccounts(StubHttp) {
+object StubGroupAccountConnector extends GroupAccounts(StubServicesConfig, StubHttp) {
 
   private var stubbedGroups: Seq[GroupAccount] = Nil
 

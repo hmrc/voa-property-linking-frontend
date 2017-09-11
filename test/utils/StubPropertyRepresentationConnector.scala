@@ -25,7 +25,7 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubHttp) {
+object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubServicesConfig, StubHttp) {
   private var stubbedRepresentations: Seq[PropertyRepresentation] = Nil
   private var stubbedValidCodes: Seq[Long] = Nil
   private var stubbedAgentAuthResult: AgentAuthResult = AgentAuthResult(start = 15, total = 15, size= 15, filterTotal = 15, authorisations = Seq.empty[AgentAuthorisation])

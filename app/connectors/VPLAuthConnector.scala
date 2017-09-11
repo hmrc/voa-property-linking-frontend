@@ -16,15 +16,16 @@
 
 package connectors
 
+import com.google.inject.Inject
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.JsValue
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.AuthContext
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
 
-class VPLAuthConnector(val http: HttpGet) extends AuthConnector with ServicesConfig {
-  override val serviceUrl: String = baseUrl("auth")
+class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: HttpGet) extends AuthConnector {
+  override val serviceUrl: String = serverConfig.baseUrl("auth")
 
   def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier) = getIds[JsValue](ctx) map { r =>
     (r \ "externalId").as[String]
