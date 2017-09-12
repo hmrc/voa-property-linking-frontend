@@ -22,6 +22,7 @@ import javax.inject.{Inject, Provider}
 import com.google.inject.AbstractModule
 import com.google.inject.name.Names
 import com.typesafe.config.Config
+import connectors.VPLAuthConnector
 import net.ceedubs.ficus.Ficus._
 import play.api.Play.current
 import play.api._
@@ -36,6 +37,7 @@ import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.config.{AppName, ControllerConfig}
 import uk.gov.hmrc.play.filters.{MicroserviceFilterSupport, RecoveryFilter}
+import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
 import uk.gov.hmrc.play.http.ws.WSHttp
@@ -89,6 +91,7 @@ class GuiceModule(environment: Environment,
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
     bind(classOf[Clock]).toInstance(Clock.systemUTC())
+    bind(classOf[AuthConnector]).to(classOf[VPLAuthConnector])
   }
 }
 
