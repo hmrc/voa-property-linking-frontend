@@ -41,7 +41,15 @@ class Dashboard @Inject()(draftCases: DraftCases) extends PropertyLinkingControl
     }
   }
 
-  def manageProperties(page: Int, pageSize: Int) = authenticated { implicit request =>
+  def manageProperties(page: Int,
+                       pageSize: Int,
+                       requestTotalRowCount: Boolean,
+                       sortfield: Option[String],
+                       sortorder: Option[String],
+                       status: Option[String],
+                       address: Option[String],
+                       baref: Option[String],
+                       agent: Option[String]) = authenticated { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
 
       if(ApplicationConfig.searchSortEnabled) {

@@ -16,11 +16,12 @@
 
 package connectors
 
-import controllers.Pagination
+import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.{AgentAuthResult, OwnerAuthResult}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
+import utils.Formatters.buildQueryParams
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -41,29 +42,19 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost w
   }
 
   def forAgentSearchAndSort(agentOrganisationId: Int,
-                            pagination: Pagination,
-                            sortfield: Option[String] = Some("address"),
-                            sortorder: Option[String] = Some("asc"),
-                            status: Option[String] = None,
-                            address: Option[String] = None,
-                            baref: Option[String] = None,
-                            client: Option[String] = None)
+                            pagination: PaginationSearchSort)
                            (implicit hc: HeaderCarrier): Future[AgentAuthResult] = {
     http.GET[AgentAuthResult](s"$baseUrl/property-representations-search-sort?" +
       s"organisationId=$agentOrganisationId&" +
       s"$pagination&" +
-      buildQueryParams("sortfield", sortfield) +
-      buildQueryParams("sortorder", sortorder) +
-      buildQueryParams("status", status) +
-      buildQueryParams("address", address) +
-      buildQueryParams("baref", baref) +
-      buildQueryParams("client", client)
+      buildQueryParams("sortfield", pagination.sortfield) +
+      buildQueryParams("sortorder", pagination.sortorder) +
+      buildQueryParams("status", pagination.status) +
+      buildQueryParams("address", pagination.address) +
+      buildQueryParams("baref", pagination.baref) +
+      buildQueryParams("client", pagination.client)
     )
 
-  }
-
-  private def buildQueryParams(name : String, value : Option[String]) : String = {
-    value match { case Some(paramValue) if paramValue != "" => s"&$name=$paramValue" ; case _ => ""}
   }
 
   def find(linkId: Long)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {

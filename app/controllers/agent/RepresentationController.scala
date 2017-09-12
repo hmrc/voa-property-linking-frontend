@@ -30,33 +30,41 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
   val authenticated = Wiring().authenticated
   val propertyLinkConnector = Wiring().propertyLinkConnector
 
-  def viewClientProperties(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
-    withValidPagination(page, pageSize) { pagination =>
-      if (ApplicationConfig.searchSortEnabled) {
-
-        for{
-          totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
-                                                                      pagination =  pagination,
-                                                                      status = Some("PENDING"))
-          clientResponse       <- reprConnector.forAgentSearchAndSort(request.organisationId, pagination)
-
-        }yield {
-            Ok(views.html.dashboard.manageClientsSearchSort(
-              ManageClientPropertiesSearchAndSortVM(
-                result = clientResponse,
-                totalPendingRequests = totalPendingRequests.total,
-                pagination = pagination.copy(totalResults = clientResponse.total)))
-            )
+  def viewClientProperties( page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String],
+                            sortorder: Option[String], status: Option[String], address: Option[String],
+                            baref: Option[String], client: Option[String]) = authenticated.asAgent { implicit request =>
+    withValidPaginationSearchSort(
+          page = page,
+          pageSize = pageSize,
+          requestTotalRowCount = requestTotalRowCount,
+          sortfield = sortfield,
+          sortorder = sortorder,
+          status = status,
+          address = address,
+          baref = baref,
+          client = client
+        ) { pagination =>
+          if (ApplicationConfig.searchSortEnabled) {
+            for{
+              totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
+                                                                          pagination =  pagination.copy(status = RepresentationPending.name))
+              clientResponse       <- reprConnector.forAgentSearchAndSort(request.organisationId, pagination)
+            }yield {
+                Ok(views.html.dashboard.manageClientsSearchSort(
+                  ManageClientPropertiesSearchAndSortVM(
+                    result = clientResponse,
+                    totalPendingRequests = totalPendingRequests.total,
+                    pagination = pagination.copy(totalResults = clientResponse.total)))
+                )
+            }
+          } else {
+            reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
+              Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
+                reprs.totalPendingRequests,
+                pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
+            }
+          }
         }
-
-      } else {
-        reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
-          Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
-            reprs.totalPendingRequests,
-            pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
-        }
-      }
-    }
   }
 
   def listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated.asAgent { implicit request =>
@@ -76,9 +84,9 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
                                  status: Option[String],
                                  address: Option[String],
                                  baref: Option[String],
-                                             client: Option[String])  = authenticated { implicit request =>
-    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
-      reprConnector.forAgentSearchAndSort(request.organisationId, pagination, sortfield, sortorder, status, address, baref, client) map { res =>
+                                 client: Option[String])  = authenticated { implicit request =>
+    withValidPaginationSearchSort(page, pageSize, requestTotalRowCount, sortfield, sortorder, status, address, baref, client) { pagination =>
+      reprConnector.forAgentSearchAndSort(request.organisationId, pagination) map { res =>
         Ok(Json.toJson(res))
       }
     }

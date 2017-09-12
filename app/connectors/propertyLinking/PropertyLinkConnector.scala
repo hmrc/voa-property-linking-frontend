@@ -24,6 +24,7 @@ import org.joda.time.DateTime
 import session.LinkingSessionRequest
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
+import utils.Formatters.buildQueryParams
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -82,10 +83,6 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
       buildQueryParams("agent", agent)
     )
 
-  }
-
-  private def buildQueryParams(name : String, value : Option[String]) : String = {
-    value match { case Some(paramValue) if paramValue != "" => s"&$name=$paramValue" ; case _ => ""}
   }
 
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {

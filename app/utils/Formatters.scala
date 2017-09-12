@@ -46,4 +46,9 @@ object Formatters {
     date.toString(DateTimeFormat.forPattern("d MMM Y"))
   }
 
+  def buildQueryParams(name : String, value : Option[String]) : String = {
+    value match { case Some(paramValue) if paramValue != "" => s"&$name=$paramValue" ; case _ => ""}
+  }
+
+
 }
