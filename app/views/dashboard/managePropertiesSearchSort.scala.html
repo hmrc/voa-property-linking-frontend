@@ -60,11 +60,13 @@
                                         <ul class="list">
 
                                                 <li>
-                                                @if(p.status.toLowerCase == "pending") {
-                                                    @Messages("dashboard.manageProperties.status.pending")
-                                                } else {
-                                                    @Messages("dashboard.manageProperties.status.added")
-                                                }
+                                                    @if(p.status.toLowerCase == "pending") {
+                                                            @Messages("dashboard.manageProperties.status.pending")
+                                                        } else { @if(p.status.toLowerCase == "declined") {
+                                                                    @Messages("dashboard.manageProperties.status.declined")
+                                                                } else {
+                                                                    @Messages("dashboard.manageProperties.status.added")
+                                                                }}
                                                 </li>
                                                 @if(p.status.toLowerCase == "pending") {
                                                     <li>
@@ -73,7 +75,6 @@
                                                         </span>
                                                     </li>
                                                 }
-
                                         </ul>
                                     </td>
                                     <td>
@@ -81,7 +82,9 @@
                                         @if(p.agents.isEmpty) {
                                             <li>@Messages("dashboard.manageProperties.noAgent")</li>
                                         } else {
-                                            @p.agents.map( agents => agents.map { org => <li>@org.organisationName</li> } )
+                                            @p.agents.get.map { agent =>
+                                                <li>@agent.organisationName</li>
+                                            }
                                         }
                                         </ul>
                                     </td>
@@ -95,13 +98,17 @@
                                                     </a>
                                                 </li>
                                             }
-                                            @if(p.agents.nonEmpty) {
-                                                <li>
-                                                    <a href="@routes.Assessments.assessments(p.id)">@Messages("manageProperties.viewAssessments")
-                                                        <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
-                                                    </a>
-                                                </li>
+                                            <li>
+                                            @if(p.status.toLowerCase == "declined") {
+                                                <a href="@routes.Assessments.viewSummary(p.uarn)">@Messages("manageProperties.viewAssessments")
+                                                    <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
+                                                </a>
+                                            } else {
+                                                <a href="@routes.Assessments.assessments(p.id)">@Messages("manageProperties.viewAssessments")
+                                                    <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
+                                                </a>
                                             }
+                                            </li>
                                         </ul>
                                     </td>
                                 </tr>
