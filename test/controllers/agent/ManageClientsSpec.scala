@@ -34,12 +34,9 @@ import utils._
 
 import scala.collection.JavaConverters._
 class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout
-  with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with GuiceOneAppPerSuite {
+  with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with NoMetricsOneAppPerSuite {
 
-  override def fakeApplication() = new GuiceApplicationBuilder()
-    .configure("featureFlags.searchSortEnabled" -> "false")
-    .configure("metrics.enabled" -> "false")
-    .build()
+  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false")
 
   val token = "Csrf-Token" -> "nocheck"
 
