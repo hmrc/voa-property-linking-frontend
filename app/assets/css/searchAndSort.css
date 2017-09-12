@@ -1,0 +1,14 @@
+.dataTable * .searchfield .ss-input {
+    height:30px;
+    width: -webkit-calc(100% - 51px);
+    width: calc(100% - 51px);
+    padding: 0 10px 0 10px;
+}
+
+.dataTable * .searchfield .search-submit.ss-button {
+    height:30px;
+    width:30px;
+    margin-top: -30px;
+    background-position:  0% 50%;
+    right:6px
+}
