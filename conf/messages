@@ -228,6 +228,7 @@ manageProperties.table.5=Actions
 manageProperties.table.clear.search=Clear search
 dashboard.manageProperties.status.added=Approved
 dashboard.manageProperties.status.pending=Pending
+dashboard.manageProperties.status.declined=Declined
 dashboard.manageProperties.submissionId=Submission ID: {0}
 dashboard.manageProperties.noAgent=None
 dashboard.managedProperties.addAnotherProperty=Add property

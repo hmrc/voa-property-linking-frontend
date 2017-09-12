@@ -37,14 +37,14 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
         for{
           totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
                                                                       pagination =  pagination,
-                                                                      status = Some("PENDING"))
+                                                                      status = Some(RepresentationPending.toString))
           clientResponse       <- reprConnector.forAgentSearchAndSort(request.organisationId, pagination)
 
         }yield {
             Ok(views.html.dashboard.manageClientsSearchSort(
               ManageClientPropertiesSearchAndSortVM(
                 result = clientResponse,
-                totalPendingRequests = totalPendingRequests.total,
+                totalPendingRequests = totalPendingRequests.filterTotal,
                 pagination = pagination.copy(totalResults = clientResponse.total)))
             )
         }
