@@ -23,9 +23,9 @@ import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import uk.gov.voa.play.form.ConditionalMappings._
+import controllers.Wizard._
 
-
-object Wizard extends Controller {
+class Wizard extends Controller {
 
   def authenticationWizard() = Action { implicit request =>
     Ok(views.html.authenticationWizard.authenticationWizard(wizardForm))
@@ -75,7 +75,9 @@ object Wizard extends Controller {
           }
       )
   }
+}
 
+object Wizard {
   lazy val wizardForm = Form(mapping(
     keys.businessHasRegistered -> mandatoryBoolean,
     keys.givenGGDetails -> mandatoryIfTrue(keys.businessHasRegistered, mandatoryBoolean),
@@ -83,10 +85,10 @@ object Wizard extends Controller {
   )(WizardOptions.apply)(WizardOptions.unapply))
 
   lazy val keys = new {
-      val businessHasRegistered = "businessHasRegistered"
-      val givenGGDetails = "givenGGDetails"
-      val existingGGAccount = "existingGGAccount"
-      val useExistingGGAccount = "useExistingGGAccount"
+    val businessHasRegistered = "businessHasRegistered"
+    val givenGGDetails = "givenGGDetails"
+    val existingGGAccount = "existingGGAccount"
+    val useExistingGGAccount = "useExistingGGAccount"
   }
 
   lazy val useExistingAccountForm = Form(single(keys.useExistingGGAccount -> mandatoryBoolean))

@@ -17,6 +17,7 @@
 package controllers.manageDetails
 
 import actions.BasicAuthenticatedRequest
+import config.ApplicationConfig
 import connectors.{Addresses, Authenticated, IndividualAccounts}
 import controllers.ControllerSpec
 import models.{Accounts, Address, DetailedIndividualAccount}
@@ -233,10 +234,8 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
 
   private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
 
-  private object TestUpdatePersonalDetails extends UpdatePersonalDetails(mockEditDetailsAction) {
-    override val addressesConnector = mockAddressConnector
-    override val individualAccountConnector = mockIndividualAccounts
-  }
+  private object TestUpdatePersonalDetails extends UpdatePersonalDetails(app.injector.instanceOf[ApplicationConfig],
+    mockEditDetailsAction, mockAddressConnector, mockIndividualAccounts)
 
   lazy val mockEditDetailsAction = mock[EditDetailsAction]
 

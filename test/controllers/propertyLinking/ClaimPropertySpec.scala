@@ -16,6 +16,7 @@
 
 package controllers.propertyLinking
 
+import config.ApplicationConfig
 import connectors.{Authenticated, EnvelopeConnector, EnvelopeMetadata}
 import controllers.ControllerSpec
 import models._
@@ -35,10 +36,8 @@ import scala.concurrent.Future
 
 class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
 
-  private val testClaimProperty = new ClaimProperty(mockEnvelopes, mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo])) {
-    override lazy val authenticated = StubAuthentication
-    override lazy val submissionIdConnector = StubSubmissionIdConnector
-  }
+  private val testClaimProperty = new ClaimProperty(mock[ApplicationConfig], mockEnvelopes,
+    StubAuthentication, StubSubmissionIdConnector, mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]))
 
   lazy val submissionId: String = shortString
   lazy val accounts: Accounts = arbitrary[Accounts]

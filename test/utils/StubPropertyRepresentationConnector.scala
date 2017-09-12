@@ -19,20 +19,28 @@ package utils
 import connectors.PropertyRepresentationConnector
 import controllers.Pagination
 import models._
+import models.searchApi.{AgentAuthResult, AgentAuthorisation, OwnerAuthResult, OwnerAuthorisation}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubHttp) {
+object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubServicesConfig, StubHttp) {
   private var stubbedRepresentations: Seq[PropertyRepresentation] = Nil
   private var stubbedValidCodes: Seq[Long] = Nil
+  private var stubbedAgentAuthResult: AgentAuthResult = AgentAuthResult(start = 15, total = 15, size= 15, filterTotal = 15, authorisations = Seq.empty[AgentAuthorisation])
+
 
   def stubbedRepresentations(status: RepresentationStatus = RepresentationApproved): Seq[PropertyRepresentation] = stubbedRepresentations.filter(_.status == status)
 
   def stubRepresentation(rep: PropertyRepresentation) = stubbedRepresentations :+= rep
 
   def stubRepresentations(reps: Seq[PropertyRepresentation]) = stubbedRepresentations ++= reps
+
+  def stubAgentAuthResult(reps: AgentAuthResult) = { stubbedAgentAuthResult = reps }
+
+  def getstubbedAgentAuthResult() : AgentAuthResult = stubbedAgentAuthResult
+
 
   def stubAgentCode(agentCode: Long) = {
     stubbedValidCodes :+= agentCode
@@ -51,6 +59,18 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
     PropertyRepresentations(totalPendingRequests = stubbedRepresentations.count(_.status == RepresentationPending),
       resultCount = Some(stubbedRepresentations.count(_.status == status)),
       propertyRepresentations = stubbedRepresentations.filter(_.status == status))
+  )
+
+  override def forAgentSearchAndSort(agentOrganisationId: Int,
+                            pagination: Pagination,
+                            sortfield: Option[String] = Some("address"),
+                            sortorder: Option[String] = Some("asc"),
+                            status: Option[String] = None,
+                            address: Option[String] = None,
+                            baref: Option[String] = None,
+                            client: Option[String] = None)
+                           (implicit hc: HeaderCarrier): Future[AgentAuthResult] = Future.successful(
+    stubbedAgentAuthResult
   )
 
   override def get(representationId: Long)(implicit hc: HeaderCarrier) = Future.successful(

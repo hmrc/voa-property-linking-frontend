@@ -16,17 +16,19 @@
 
 package connectors
 
+import javax.inject.Inject
+
 import controllers.Pagination
 import models._
-import models.searchApi.{AgentAuthResult, OwnerAuthResult}
-import uk.gov.hmrc.play.config.ServicesConfig
+import models.searchApi.AgentAuthResult
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost with HttpPatch)(implicit ec: ExecutionContext)
-  extends ServicesConfig {
-  lazy val baseUrl: String = s"${baseUrl("property-linking")}/property-linking"
+class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+  lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
 
   def validateAgentCode(agentCode:Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[AgentCodeValidationResult] = {
     http.GET[AgentCodeValidationResult](s"$baseUrl/property-representations/validate-agent-code/$agentCode/$authorisationId")
@@ -42,8 +44,8 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost w
 
   def forAgentSearchAndSort(agentOrganisationId: Int,
                             pagination: Pagination,
-                            sortfield: Option[String] = Some("address"),
-                            sortorder: Option[String] = Some("asc"),
+                            sortfield: Option[String] = None,
+                            sortorder: Option[String] = None,
                             status: Option[String] = None,
                             address: Option[String] = None,
                             baref: Option[String] = None,
@@ -52,18 +54,21 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost w
     http.GET[AgentAuthResult](s"$baseUrl/property-representations-search-sort?" +
       s"organisationId=$agentOrganisationId&" +
       s"$pagination&" +
-      buildQueryParams("sortfield", sortfield) +
-      buildQueryParams("sortorder", sortorder) +
-      buildQueryParams("status", status) +
+      buildUppercaseQueryParams("sortfield", sortfield) +
+      buildUppercaseQueryParams("sortorder", sortorder) +
+      buildUppercaseQueryParams("status", status) +
       buildQueryParams("address", address) +
       buildQueryParams("baref", baref) +
       buildQueryParams("client", client)
     )
 
   }
-
   private def buildQueryParams(name : String, value : Option[String]) : String = {
     value match { case Some(paramValue) if paramValue != "" => s"&$name=$paramValue" ; case _ => ""}
+  }
+
+  private def buildUppercaseQueryParams(name : String, value : Option[String]) : String = {
+    value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.toUpperCase}" ; case _ => ""}
   }
 
   def find(linkId: Long)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {

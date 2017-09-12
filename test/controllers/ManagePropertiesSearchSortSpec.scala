@@ -17,11 +17,13 @@
 package controllers
 
 import config.ApplicationConfig
+import models.searchApi._
 import connectors.{Authenticated, DraftCases}
 import models._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
@@ -29,7 +31,12 @@ import utils._
 
 import scala.collection.JavaConverters._
 
-class ManagePropertiesSpec extends ControllerSpec {
+class ManagePropertiesSearchSortSpec extends ControllerSpec {
+
+  override def fakeApplication() = new GuiceApplicationBuilder()
+    .configure("featureFlags.searchSortEnabled" -> "true")
+    .configure("metrics.enabled" -> "false")
+    .build()
 
   //Make the tests run significantly faster by only loading and parsing the default case, of 15 property links, once
   lazy val defaultHtml = {
@@ -43,22 +50,21 @@ class ManagePropertiesSpec extends ControllerSpec {
 
   "The manage properties page" must "display the address for each of the user's first 15 properties" in {
     val html = defaultHtml
-    val addresses = StubPropertyLinkConnector.stubbedLinks.map(_.address)
-
+    val addresses = StubPropertyLinkConnector.getstubbedOwnerAuthResult().authorisations.map(_.address)
     checkTableColumn(html, 0, "Address", addresses)
   }
 
   it must "display the BA reference for each of the user's first 15 properties" in {
     val html = defaultHtml
-    val baRefs = StubPropertyLinkConnector.stubbedLinks.map(_.assessments.head.billingAuthorityReference)
+    val baRefs = StubPropertyLinkConnector.getstubbedOwnerAuthResult().authorisations.map(_.localAuthorityRef)
 
     checkTableColumn(html, 1, "Local authority reference", baRefs)
   }
 
   it must "display the link status, and the submission ID if the link is pending, for each of the user's first 15 properties" in {
     val html = defaultHtml
-    val statuses = StubPropertyLinkConnector.stubbedLinks.map {
-      case l if l.pending => s"Pending submission ID: ${l.submissionId}"
+    val statuses = StubPropertyLinkConnector.getstubbedOwnerAuthResult().authorisations.map {
+      case authorisation if authorisation.status.toUpperCase == RepresentationPending.name => s"Pending submission ID: ${authorisation.submissionId}"
       case _ => "Approved"
     }
 
@@ -67,8 +73,8 @@ class ManagePropertiesSpec extends ControllerSpec {
 
   it must "display the appointed agents for each of the user's first 15 properties" in {
     val html = defaultHtml
-    val agents = StubPropertyLinkConnector.stubbedLinks.map {
-      case l if l.agents.nonEmpty => l.agents.map(_.organisationName) mkString " "
+    val agents = StubPropertyLinkConnector.getstubbedOwnerAuthResult().authorisations.map {
+      case authorisation if authorisation.agents.nonEmpty => authorisation.agents.get.map(_.organisationName) mkString " "
       case _ => "None"
     }
 
@@ -150,36 +156,6 @@ class ManagePropertiesSpec extends ControllerSpec {
     html.select("a#addAnotherProperty").attr("href") mustBe propertyLinking.routes.ClaimProperty.show.url
   }
 
-  it must "tell the user they have no properties, if they have no properties to display" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(arbitrary[GroupAccount], arbitrary[DetailedIndividualAccount])))
-
-    val res = TestDashboardController.manageProperties(1, 15)(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-
-    html.select("h2.heading-secondary").text mustBe "There are no properties to display."
-    html.select("table") mustBe empty
-  }
-
-  it must "not display the 'Appoint agent' action if the user is acting as an agent on the property link" in {
-    val groupAccount: GroupAccount = arbitrary[GroupAccount]
-    val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
-
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
-
-    val indirectLink = arbitrary[PropertyLink].retryUntil(_.organisationId != groupAccount.id).copy(agents = Seq(arbitrary[Party].copy(organisationId = groupAccount.id)))
-    StubPropertyLinkConnector.stubLink(indirectLink)
-
-    val res = TestDashboardController.manageProperties(1, 15)(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-    val actions = html.select("table#nojsManageProperties").select("tr").asScala.drop(1).map(_.select("td").last.text.toUpperCase)
-
-    actions must contain theSameElementsAs Seq(s"View valuations for ${indirectLink.address}".toUpperCase)
-  }
-
   it must "include pagination controls" in {
     pending
     val html = defaultHtml
@@ -194,16 +170,35 @@ class ManagePropertiesSpec extends ControllerSpec {
     pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(managePropertiesLink(25), managePropertiesLink(50), managePropertiesLink(100))
   }
 
+  it must "tell the user they have no properties, if they have no properties to display" in {
+    StubPropertyLinkConnector.reset()
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(arbitrary[GroupAccount], arbitrary[DetailedIndividualAccount])))
+
+    val res = TestDashboardController.manageProperties(1, 15)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    html.select("h2.heading-secondary").text mustBe "There are no properties to display."
+    html.select("table") mustBe empty
+  }
+
   private def setup(numberOfLinks: Int = 15) = {
     val groupAccount: GroupAccount = arbitrary[GroupAccount]
     val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
 
+    var arbitraryOwnerAuthorisation: Seq[OwnerAuthorisation] = Nil
+
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
-    val links = (1 to numberOfLinks) map { _ =>
-      arbitrary[PropertyLink].copy(organisationId = groupAccount.id)
+    (1 to numberOfLinks) foreach { _ =>
+      arbitraryOwnerAuthorisation :+= arbitrary[OwnerAuthorisation].copy(id = groupAccount.id.toLong)
     }
 
-    StubPropertyLinkConnector.stubLinks(links)
+    StubPropertyLinkConnector.stubOwnerAuthResult(OwnerAuthResult(start =1,
+      size = numberOfLinks,
+      total = numberOfLinks,
+      filterTotal = numberOfLinks,
+      authorisations = arbitraryOwnerAuthorisation))
   }
 
   private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]) = {

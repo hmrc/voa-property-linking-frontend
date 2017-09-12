@@ -18,11 +18,11 @@ package models.searchApi
 
 import play.api.libs.json.Json
 
-case class Organisation(
-                         organisationId: Long,
-                         organisationName: String
-                       )
+case class AgentAuthClient(
+                            organisationId: Long,
+                            organisationName: String
+                          )
 
-object Organisation {
-  implicit val ownerAuthAgent = Json.format[Organisation]
+object AgentAuthClient {
+  implicit val agentAuthClient = Json.format[AgentAuthClient]
 }

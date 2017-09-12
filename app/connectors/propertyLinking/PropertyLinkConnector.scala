@@ -16,20 +16,22 @@
 
 package connectors.propertyLinking
 
+import javax.inject.Inject
+
 import connectors.fileUpload.FileMetadata
 import controllers.Pagination
 import models._
-import models.searchApi.{AgentAuthResult, OwnerAuthResult}
+import models.searchApi.OwnerAuthResult
 import org.joda.time.DateTime
 import session.LinkingSessionRequest
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec: ExecutionContext)
-  extends ServicesConfig {
-  lazy val baseUrl: String = baseUrl("property-linking") + s"/property-linking"
+class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+  lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
 
   def get(organisationId: Int, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
     val url = s"$baseUrl/property-links/$authorisationId"
@@ -64,8 +66,8 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
 
   def linkedPropertiesSearchAndSort(organisationId: Int,
                                     pagination: Pagination,
-                                    sortfield: Option[String] = Some("address"),
-                                    sortorder: Option[String] = Some("asc"),
+                                    sortfield: Option[String] = None,
+                                    sortorder: Option[String] = None,
                                     status: Option[String] = None,
                                     address: Option[String] = None,
                                     baref: Option[String] = None,
@@ -74,9 +76,9 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
     http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +
       s"organisationId=$organisationId&" +
       s"$pagination&" +
-      buildQueryParams("sortfield", sortfield) +
-      buildQueryParams("sortorder", sortorder) +
-      buildQueryParams("status", status) +
+      buildUppercaseQueryParams("sortfield", sortfield) +
+      buildUppercaseQueryParams("sortorder", sortorder) +
+      buildUppercaseQueryParams("status", status) +
       buildQueryParams("address", address) +
       buildQueryParams("baref", baref) +
       buildQueryParams("agent", agent)
@@ -86,6 +88,10 @@ class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit e
 
   private def buildQueryParams(name : String, value : Option[String]) : String = {
     value match { case Some(paramValue) if paramValue != "" => s"&$name=$paramValue" ; case _ => ""}
+  }
+
+  private def buildUppercaseQueryParams(name : String, value : Option[String]) : String = {
+    value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.toUpperCase}" ; case _ => ""}
   }
 
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {

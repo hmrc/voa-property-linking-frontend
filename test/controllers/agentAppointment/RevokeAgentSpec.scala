@@ -112,11 +112,7 @@ class RevokeAgentSpec extends ControllerSpec with MockitoSugar {
     verify(mockRepresentationConnector, times(1)).revoke(matching(agentId))(any[HeaderCarrier])
   }
 
-  private lazy val testController = new RevokeAgentController {
-    override val authenticated = StubAuthentication
-    override val propertyLinks = mockPropertyLinks
-    override val representations = mockRepresentationConnector
-  }
+  private lazy val testController = new RevokeAgentController(StubAuthentication, mockPropertyLinks, mockRepresentationConnector)
 
   private lazy val mockPropertyLinks = mock[PropertyLinkConnector]
 

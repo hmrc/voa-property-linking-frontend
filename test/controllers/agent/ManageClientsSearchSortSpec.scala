@@ -19,13 +19,14 @@ package controllers.agent
 import config.ApplicationConfig
 import connectors.Authenticated
 import models._
+import models.searchApi.{AgentAuthClient, AgentAuthResult, AgentAuthorisation}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest._
 import org.scalatest.mockito.MockitoSugar
-import org.scalatestplus.play.guice.{GuiceOneAppPerSuite, GuiceOneAppPerTest}
-import play.api.Logger
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
@@ -33,15 +34,16 @@ import resources._
 import utils._
 
 import scala.collection.JavaConverters._
-class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout
+
+class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout
   with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with GuiceOneAppPerSuite {
 
-  override def fakeApplication() = new GuiceApplicationBuilder()
-    .configure("featureFlags.searchSortEnabled" -> "false")
+  override def fakeApplication(): Application = new GuiceApplicationBuilder()
+    .configure("featureFlags.searchSortEnabled" -> "true")
     .configure("metrics.enabled" -> "false")
     .build()
 
-  val token = "Csrf-Token" -> "nocheck"
+  val token: (String, String) = "Csrf-Token" -> "nocheck"
 
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()
@@ -57,7 +59,6 @@ class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits wit
 
   lazy val defaultHtml = {
     setup()
-
     val res = TestController.viewClientProperties(1, 15)(FakeRequest())
     status(res) mustBe OK
 
@@ -66,48 +67,33 @@ class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits wit
 
   "The manage clients page" must "display the organisation name for each of the agent's first 15 client properties" in {
     val html = defaultHtml
-      val organisationNames: Seq[String] = StubPropertyRepresentationConnector.stubbedRepresentations().map(_.organisationName)
-      checkTableColumn(html, 0, "Organisation name", organisationNames)
+
+    val organisationNames = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.client.organisationName)
+    checkTableColumn(html, 2, "Client", organisationNames)
   }
 
   it must "display the address for each of the agent's first 15 client properties" in {
     val html = defaultHtml
-    val addresses = StubPropertyRepresentationConnector.stubbedRepresentations().map(_.address)
+    val addresses = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.address)
 
-    checkTableColumn(html, 1, "Address", addresses)
+    checkTableColumn(html, 0, "Address", addresses)
   }
 
   it must "display the BA ref for each of the agent's first 15 client properties" in {
     val html = defaultHtml
-    val baRefs = StubPropertyRepresentationConnector.stubbedRepresentations().map(_.billingAuthorityReference)
+    val baRefs = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.localAuthorityRef)
 
-    checkTableColumn(html, 2, "Local authority reference", baRefs)
+    checkTableColumn(html, 1, "Local authority reference", baRefs)
   }
 
-  val permToString: AgentPermission => String = {
-    case StartAndContinue => "Yes"
-    case _ => "No"
-  }
-  val toPermissions: PropertyRepresentation => (AgentPermission, AgentPermission) = rep => (rep.checkPermission, rep.challengePermission)
-  val toStringCheck: Tuple2[AgentPermission, AgentPermission] => String = {
-    case (check, chal) => s"Check: ${permToString(check)} Challenge: ${permToString(chal)}"
-  }
-
-  it must "display the permissions for each of the agent's first 15 client properties" in {
-    val html = defaultHtml
-    val permissions = StubPropertyRepresentationConnector.stubbedRepresentations()
-      .map(toPermissions.andThen(toStringCheck))
-
-    checkTableColumn(html, 3, "Permissions", permissions)
-  }
 
   it must "display the available actions for each of the user's first 15 client properties" in {
-    val html = defaultHtml
-    val actions = StubPropertyRepresentationConnector.stubbedRepresentations().map { l =>
+    val html: Document = defaultHtml
+
+    val actions = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map { auth =>
       s"Revoke Client View Valuations"
     }
-
-    checkTableColumn(html, 4, "Actions", actions)
+    checkTableColumnStartsWith(html, 3, "Actions", actions)
   }
 
   it must "display the current page number" in {
@@ -176,29 +162,14 @@ class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits wit
     html.select("a#viewPending").attr("href") mustBe routes.RepresentationController.pendingRepresentationRequest().url
   }
 
-  it must "tell the user they have no clients, if they have no clients to display" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(arbitrary[GroupAccount].copy(isAgent = true),
-      arbitrary[DetailedIndividualAccount])))
-    StubPropertyRepresentationConnector.reset()
-
-    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-
-    html.select("p#noProperties").text mustBe "There are no existing clients"
-
-    setup()
-  }
-
   it must "not display the page if the user is not an agent" in {
     val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = false)
     val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
 
-    val indirectLink = arbitrary[PropertyLink].retryUntil(_.organisationId != groupAccount.id).copy(agents = Seq(arbitrary[Party].copy(organisationId = groupAccount.id)))
-    StubPropertyLinkConnector.stubLink(indirectLink)
+    val indirectLink = arbitrary[AgentAuthorisation].retryUntil(_.client.organisationId != groupAccount.id)
+    //StubPropertyLinkConnector.stubLink(indirectLink)
 
     val res = TestController.viewClientProperties(1, 15)(FakeRequest())
     status(res) mustBe UNAUTHORIZED
@@ -218,27 +189,38 @@ class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits wit
     pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(manageClientsLink(25), manageClientsLink(50), manageClientsLink(100))
   }
 
-  private def setup(numberOfLinks: Int = 15) = {
+  private def setup(numberOfLinks: Int = 15): Unit = {
     val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = true)
     val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
+    var arbitraryAgentAuthorisation: Seq[AgentAuthorisation] = Nil
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
     (1 to numberOfLinks) foreach { _ =>
-      StubPropertyLinkConnector.stubLink(arbitrary[PropertyLink].copy(organisationId = groupAccount.id))
-      StubPropertyRepresentationConnector.stubRepresentation(arbitrary[PropertyRepresentation].copy(organisationId = groupAccount.id, status = RepresentationApproved))
-      StubPropertyRepresentationConnector.stubRepresentation(arbitrary[PropertyRepresentation].copy(organisationId = groupAccount.id, status = RepresentationPending))
+      arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(authorisedPartyId = groupAccount.id.toLong,
+        client = arbitrary[AgentAuthClient].copy(organisationId = groupAccount.id.toLong))
     }
+
+    StubPropertyRepresentationConnector.stubAgentAuthResult(AgentAuthResult(start =1,
+      size = numberOfLinks,
+      total = numberOfLinks,
+      filterTotal = numberOfLinks,
+      authorisations = arbitraryAgentAuthorisation))
 
   }
 
-  private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]) = {
+  private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
     html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
-
     val data = html.select("table#nojsManageClients").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
-
     values foreach { v => data must contain (v.toUpperCase) }
   }
 
-  private object TestController extends RepresentationController(app.injector.instanceOf[ApplicationConfig],
+  private def checkTableColumnStartsWith(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
+    html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
+    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
+
+    (data zip values).foreach { case (d, v) => d.toUpperCase must startWith (v.toUpperCase) }
+  }
+
+  object TestController extends RepresentationController(app.injector.instanceOf[ApplicationConfig],
     StubPropertyRepresentationConnector, StubAuthentication, StubPropertyLinkConnector)
 }

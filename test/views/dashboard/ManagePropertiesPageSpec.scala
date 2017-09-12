@@ -16,12 +16,13 @@
 
 package views.dashboard
 
-import actions.BasicAuthenticatedRequest
+import actions.{AuthenticatedRequest, BasicAuthenticatedRequest}
 import controllers.{ControllerSpec, ManagePropertiesVM, Pagination, routes}
 import models.{DetailedIndividualAccount, GroupAccount, PropertyLink}
 import org.jsoup.Jsoup
 import play.api.test.FakeRequest
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.Gen
 import resources._
 import utils.HtmlPage
 import play.api.i18n.Messages.Implicits._
@@ -54,7 +55,7 @@ class ManagePropertiesPageSpec extends ControllerSpec {
   }
 
   implicit lazy val request = FakeRequest()
-  lazy val organisationAccount = arbitrary[GroupAccount]
-  lazy val individualAccount = arbitrary[DetailedIndividualAccount]
-  implicit lazy val basicAuthenticatedRequest = BasicAuthenticatedRequest(organisationAccount.copy(isAgent = false), individualAccount, request)
+  lazy val organisationAccount: Gen[GroupAccount] = arbitrary[GroupAccount]
+  lazy val individualAccount: Gen[DetailedIndividualAccount] = arbitrary[DetailedIndividualAccount]
+  implicit lazy val basicAuthenticatedRequest: AuthenticatedRequest[_] = BasicAuthenticatedRequest(organisationAccount.copy(isAgent = false), individualAccount, request)
 }

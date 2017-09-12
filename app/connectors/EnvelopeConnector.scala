@@ -19,10 +19,9 @@ package connectors
 import javax.inject.Inject
 
 import com.google.inject.ImplementedBy
-import config.Wiring
+import config.VPLHttp
 import play.api.libs.json.{Format, JsValue, Json}
-import play.api.libs.ws.WSClient
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http.{HttpResponse, _}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -35,21 +34,20 @@ trait Envelope {
   def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]
 }
 
-class EnvelopeConnector @Inject()(val ws: WSClient)(implicit ec: ExecutionContext) extends Envelope with ServicesConfig with JsonHttpReads {
-  lazy val http = Wiring().http
+class EnvelopeConnector @Inject()(config: ServicesConfig, val http: VPLHttp)(implicit ec: ExecutionContext) extends Envelope with JsonHttpReads {
 
   override def createEnvelope(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String] = {
-    http.POST[EnvelopeMetadata, JsValue](s"${baseUrl("property-linking")}/property-linking/envelopes", metadata) map { res =>
+    http.POST[EnvelopeMetadata, JsValue](s"${config.baseUrl("property-linking")}/property-linking/envelopes", metadata) map { res =>
       (res \ "envelopeId").as[String]
     }
   }
 
   def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
-    http.POST[JsValue, HttpResponse](s"${baseUrl("property-linking")}/property-linking/envelopes/$envelopeId", Json.obj()) map { _ => envelopeId }
+    http.POST[JsValue, HttpResponse](s"${config.baseUrl("property-linking")}/property-linking/envelopes/$envelopeId", Json.obj()) map { _ => envelopeId }
   }
 
   def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
-    http.PUT[JsValue, HttpResponse](s"${baseUrl("property-linking")}/property-linking/envelopes/$envelopeId", Json.obj()) map { _ => envelopeId }
+    http.PUT[JsValue, HttpResponse](s"${config.baseUrl("property-linking")}/property-linking/envelopes/$envelopeId", Json.obj()) map { _ => envelopeId }
   }
 }
 

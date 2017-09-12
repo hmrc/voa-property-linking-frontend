@@ -22,9 +22,10 @@ case class OwnerAuthorisation(
                              id: Long,
                              status: String,
                              submissionId: String,
+                             uarn: Long,
                              address: String,
                              localAuthorityRef: String,
-                             agents: Option[Seq[Organisation]]
+                             agents: Option[Seq[OwnerAuthAgent]]
                              )
 
 object OwnerAuthorisation {

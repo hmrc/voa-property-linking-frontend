@@ -20,12 +20,10 @@ import javax.inject.Inject
 
 import cats.data.OptionT
 import cats.implicits._
-import config.Wiring
+import connectors.Addresses
 import controllers.PropertyLinkingController
 
-class ViewDetails @Inject()(editDetailsAction: EditDetailsAction) extends PropertyLinkingController {
-
-  val addressesConnector = Wiring().addresses
+class ViewDetails @Inject()(addressesConnector: Addresses, editDetailsAction: EditDetailsAction) extends PropertyLinkingController {
 
   def show() = editDetailsAction { implicit request =>
     val person = request.individualAccount

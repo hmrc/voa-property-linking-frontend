@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
+import java.{time => javatime}
+
 import models._
+import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
+import org.joda.time.{DateTime, Instant, LocalDate}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
 import uk.gov.hmrc.domain.Nino
-import java.{time => javatime}
-
-import org.joda.time.{DateTime, Instant, LocalDate}
 
 package object resources {
 
@@ -293,4 +294,69 @@ package object resources {
   } yield DraftCase(id, url, address, effectiveDate, checkType, expirationDate, propertyLinkId, assessmentRef, baRef)
 
   def randomDraftCase: DraftCase = draftCaseGenerator.sample.get
+
+  val agentAuthClientGen: Gen[AgentAuthClient] = for {
+    organisationId <- arbitrary[Long]
+    organisationName <- shortString
+  } yield {
+    AgentAuthClient(organisationId, organisationName)
+  }
+  implicit val agentAuthClient = Arbitrary(agentAuthClientGen)
+
+  val ownerAuthAgentGen: Gen[OwnerAuthAgent] = for {
+    authorisationPartyId <- arbitrary[Long]
+    organisationId <- arbitrary[Long]
+    organisationName <- shortString
+  } yield {
+    OwnerAuthAgent(authorisationPartyId, organisationId, organisationName)
+  }
+  implicit val ownerAuthAgent = Arbitrary(ownerAuthAgentGen)
+
+  val agentAuthorisationGen: Gen[AgentAuthorisation] = for {
+    authorisationId <- arbitrary[Long]
+    authorisedPartyId <- arbitrary[Long]
+    uarn <- arbitrary[Long]
+    status <- Gen.oneOf(RepresentationApproved.name,
+                        RepresentationDeclined.name,
+                        RepresentationPending.name,
+                        RepresentationRevoked.name)
+    submissionId <- shortString
+    address <- arbitrary[PropertyAddress]
+    localAuthorityRef <- shortString
+    client <- arbitrary[AgentAuthClient]
+  } yield {
+    AgentAuthorisation(authorisationId = authorisationId,
+      authorisedPartyId = authorisedPartyId,
+      status = status,
+      uarn = uarn,
+      submissionId = submissionId,
+      address = address.toString,
+      localAuthorityRef = localAuthorityRef,
+      client = client)
+  }
+  implicit val arbitraryAgentAuthorisationGen = Arbitrary(agentAuthorisationGen)
+
+
+  val ownerAuthorisationGen: Gen[OwnerAuthorisation] = for {
+    id <- arbitrary[Long]
+    uarn <- arbitrary[Long]
+    status <- Gen.oneOf(RepresentationApproved.name,
+      RepresentationDeclined.name,
+      RepresentationPending.name,
+      RepresentationRevoked.name)
+    submissionId <- shortString
+    address <- arbitrary[PropertyAddress]
+    localAuthorityRef <- shortString
+    agents <- Gen.option(Gen.listOfN(1, arbitrary[OwnerAuthAgent]))
+  } yield {
+    OwnerAuthorisation(id = id,
+      status = status,
+      uarn = uarn,
+      submissionId = submissionId,
+      address = address.toString,
+      localAuthorityRef = localAuthorityRef,
+      agents = agents)
+  }
+  implicit val arbitraryOwnerAuthorisationGen = Arbitrary(ownerAuthorisationGen)
+
 }

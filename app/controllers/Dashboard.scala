@@ -18,33 +18,32 @@ package controllers
 
 import javax.inject.Inject
 
-import actions.AgentRequest
-import config.{ApplicationConfig, Global, Wiring}
-import connectors.DraftCases
+import actions.AuthenticatedAction
+import config.{ApplicationConfig, Global}
+import connectors._
+import connectors.propertyLinking.PropertyLinkConnector
 import models._
 import models.searchApi.OwnerAuthResult
 import org.joda.time.DateTime
 import play.api.libs.json.Json
 
-class Dashboard @Inject()(draftCases: DraftCases) extends PropertyLinkingController with ValidPagination {
-  val propertyLinks = Wiring().propertyLinkConnector
-  val reprConnector = Wiring().propertyRepresentationConnector
-  val individuals = Wiring().individualAccountConnector
-  val groups = Wiring().groupAccountConnector
-  val auth = Wiring().authConnector
-  val authenticated = Wiring().authenticated
+class Dashboard @Inject()(config: ApplicationConfig,
+                          draftCases: DraftCases,
+                          propertyLinks: PropertyLinkConnector,
+                          authenticated: AuthenticatedAction) extends PropertyLinkingController with ValidPagination {
 
   def home() = authenticated { implicit request =>
-    request.organisationAccount.isAgent match {
-      case true => Redirect(controllers.agent.routes.RepresentationController.viewClientProperties())
-      case false => Redirect(routes.Dashboard.manageProperties())
+    if (request.organisationAccount.isAgent) {
+      Redirect(controllers.agent.routes.RepresentationController.viewClientProperties())
+    } else {
+      Redirect(routes.Dashboard.manageProperties())
     }
   }
 
   def manageProperties(page: Int, pageSize: Int) = authenticated { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
 
-      if(ApplicationConfig.searchSortEnabled) {
+      if(config.searchSortEnabled) {
           propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination) map { response =>
             Ok(views.html.dashboard.managePropertiesSearchSort(
               ManagePropertiesSearchAndSortVM(request.organisationAccount.id,
@@ -112,7 +111,7 @@ class Dashboard @Inject()(draftCases: DraftCases) extends PropertyLinkingControl
   }
 
   def viewDraftCases() = authenticated { implicit request =>
-    if (ApplicationConfig.casesEnabled) {
+    if (config.casesEnabled) {
       draftCases.get(request.personId) map { cases =>
         Ok(views.html.dashboard.draftCases(DraftCasesVM(cases)))
       }

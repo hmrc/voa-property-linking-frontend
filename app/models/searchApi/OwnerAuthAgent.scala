@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package controllers
+package models.searchApi
 
-import javax.inject.Inject
-import config.ApplicationConfig
-import play.api.mvc.Action
+import play.api.libs.json.Json
 
-class Login @Inject()(config: ApplicationConfig) extends PropertyLinkingController {
-  def show = Action { implicit request =>
-    Redirect(config.ggSignInUrl, Map(
-      "origin" -> Seq("voa"), "accountType" -> Seq("organisation"), "continue" -> Seq(config.ggContinueUrl))
-    )
-  }
+case class OwnerAuthAgent(
+                           authorisationPartyId: Long,
+                           organisationId: Long,
+                           organisationName: String
+                         )
+
+object OwnerAuthAgent {
+  implicit val ownerAuthAgent = Json.format[OwnerAuthAgent]
 }

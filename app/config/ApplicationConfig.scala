@@ -18,40 +18,43 @@ package config
 
 import java.util.Base64
 
-import play.api.Play._
-import uk.gov.hmrc.play.config.{RunMode, ServicesConfig}
+import com.google.inject.{Inject, Singleton}
+import play.api.{Configuration, Play}
+import uk.gov.hmrc.play.config.inject.RunMode
 
-object ApplicationConfig extends RunMode with ServicesConfig {
+@Singleton()
+class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode) {
+  def baseUrl: String = if (runMode.env == "Prod") "" else "http://localhost:9523"
+  def businessRatesValuationUrl(page: String): String = getConfig("business-rates-valuation.url") + s"/$page"
 
-  def baseUrl = if (env == "Prod") "" else "http://localhost:9523"
+  val vmvUrl: String = getConfig("vmv-frontend.url")
+  val ggSignInUrl: String = getConfig("gg-sign-in.url")
+  val ggRegistrationUrl: String = getConfig("gg-registration.url")
+  val ggContinueUrl: String = baseUrl + controllers.routes.Dashboard.home().url
+  val fileUploadUrl: String = getConfig("file-upload-frontend.url")
+  val serviceUrl: String = getConfig("voa-property-linking-frontend.url")
 
-  val vmvUrl = getConfig("vmv-frontend.url")
+  lazy val analyticsToken: String = getConfig("google-analytics.token")
+  lazy val analyticsHost: String = getConfig("google-analytics.host")
+  lazy val voaPersonID: String = getConfig("google-analytics.dimensions.voaPersonId")
 
-  val ggSignInUrl = getConfig("gg-sign-in.url")
-  val ggRegistrationUrl = getConfig("gg-registration.url")
-  val ggContinueUrl = baseUrl + controllers.routes.Dashboard.home().url
-  val ivEnabled = getConfig("featureFlags.ivEnabled").toBoolean
-
-  def businessRatesValuationUrl(page: String) = getConfig("business-rates-valuation.url") + s"/$page"
-
-  val fileUploadUrl = getConfig("file-upload-frontend.url")
-  val serviceUrl = getConfig("voa-property-linking-frontend.url")
-  val casesEnabled = getConfig("featureFlags.casesEnabled").toBoolean
-  val editDetailsEnabled = getConfig("featureFlags.editDetailsEnabled").toBoolean
-  val editNameEnabled = getConfig("featureFlags.editNameEnabled").toBoolean
-  val searchSortEnabled = getConfig("featureFlags.searchSortEnabled").toBoolean
+  val casesEnabled: Boolean = getConfig("featureFlags.casesEnabled").toBoolean
+  val editDetailsEnabled: Boolean = getConfig("featureFlags.editDetailsEnabled").toBoolean
+  val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
+  val searchSortEnabled: Boolean = getConfig("featureFlags.searchSortEnabled").toBoolean
+  val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
 
   val allowedMimeTypes: Seq[String] = getConfig("allowedFileUploadTypes").split(",")
-
-  lazy val analyticsToken = getConfig("google-analytics.token")
-  lazy val analyticsHost = getConfig("google-analytics.host")
-  lazy val voaPersonID = getConfig("google-analytics.dimensions.voaPersonId")
 
   lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
     new String(Base64.getUrlDecoder.decode(e))
   }
 
   private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
+}
+
+object ApplicationConfig {
+  val config = Play.current.injector.instanceOf[ApplicationConfig]
 }
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")

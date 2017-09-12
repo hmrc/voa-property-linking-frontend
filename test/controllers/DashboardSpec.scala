@@ -16,6 +16,7 @@
 
 package controllers
 
+import config.ApplicationConfig
 import connectors._
 import models._
 import org.mockito.ArgumentMatchers.{any, anyLong}
@@ -25,7 +26,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import utils._
+import utils.{StubPropertyLinkConnector, _}
 
 import scala.concurrent.Future
 
@@ -38,12 +39,7 @@ class DashboardSpec extends ControllerSpec {
     m
   }
 
-  object TestDashboard extends Dashboard(mockDraftCases) {
-    override val auth: VPLAuthConnector = StubAuthConnector
-    override val individuals = StubIndividualAccountConnector
-    override val groups = StubGroupAccountConnector
-    override val authenticated = StubAuthentication
-  }
+  object TestDashboard extends Dashboard(app.injector.instanceOf[ApplicationConfig], mockDraftCases, StubPropertyLinkConnector, StubAuthentication)
 
   "Logging in with a non-organisation account" must "redirect to the wrong account type error page" in {
     StubAuthConnector.stubExternalId(shortString)

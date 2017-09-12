@@ -17,29 +17,41 @@
 package controllers
 
 import actions.AuthenticatedAction
+import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import models._
 import org.jsoup.Jsoup
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import org.mockito.ArgumentMatchers.{eq => matching}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.OptionValues
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import utils._
+import uk.gov.hmrc.play.http.HeaderCarrier
+import utils.{StubBusinessRatesValuation, _}
 
 import scala.collection.JavaConverters._
+import scala.concurrent.Future
 
 class ViewAssessmentSpec extends ControllerSpec with OptionValues {
 
-  private object TestAssessmentController extends Assessments {
-    override val propertyLinks: PropertyLinkConnector = StubPropertyLinkConnector
-    override val reprConnector: PropertyRepresentationConnector = StubPropertyRepresentationConnector
-    override val individuals: IndividualAccounts = StubIndividualAccountConnector
-    override val groups: GroupAccounts = StubGroupAccountConnector
-    override val auth: VPLAuthConnector = StubAuthConnector
-    override val authenticated: AuthenticatedAction = StubAuthentication
-    override val businessRatesValuations = StubBusinessRatesValuation
+  private object TestAssessmentController extends Assessments(app.injector.instanceOf[ApplicationConfig], StubPropertyLinkConnector,
+    StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation)
+
+  lazy val mockDvrCaseManagement = {
+    val m = mock[DVRCaseManagementConnector]
+    when(m.requestDetailedValuation(any[DetailedValuationRequest])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    m
+  }
+
+  lazy val mockSubmissionIds = {
+    val m = mock[SubmissionIdConnector]
+    when(m.get(matching("EMAIL"))(any[HeaderCarrier])).thenReturn(Future.successful("EMAIL123"))
+    when(m.get(matching("POST"))(any[HeaderCarrier])).thenReturn(Future.successful("POST123"))
+    m
   }
 
   "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment" in {
