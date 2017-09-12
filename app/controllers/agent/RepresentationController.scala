@@ -21,13 +21,13 @@ import cats.data.OptionT
 import cats.instances.future._
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
-import connectors.propertyLinking.PropertyLinkConnector
 import connectors.PropertyRepresentationConnector
+import connectors.propertyLinking.PropertyLinkConnector
+import controllers.agent.RepresentationController.ManagePropertiesVM
 import controllers.{Pagination, PropertyLinkingController, ValidPagination}
 import models._
-import play.api.libs.json.Json
-import controllers.agent.RepresentationController.ManagePropertiesVM
 import models.searchApi.AgentAuthResult
+import play.api.libs.json.Json
 
 @Singleton()
 class RepresentationController @Inject()(config: ApplicationConfig,
@@ -43,7 +43,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
         for{
           totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
                                                                       pagination =  pagination,
-                                                                      status = Some(RepresentationPending.toString))
+                                                                      status = Some(RepresentationPending.name))
           clientResponse       <- reprConnector.forAgentSearchAndSort(request.organisationId, pagination)
 
         }yield {
