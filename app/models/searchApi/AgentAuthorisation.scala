@@ -19,10 +19,14 @@ package models.searchApi
 import play.api.libs.json.Json
 
 case class AgentAuthorisation(
-                             id: Long,
-                             address: String,
-                             localAuthorityRef: String,
-                             client: Organisation
+                               authorisationId: Long,
+                               authorisedPartyId: Long,
+                               status: String,
+                               submissionId: String,
+                               uarn: Long,
+                               address: String,
+                               localAuthorityRef: String,
+                               client: AgentAuthClient
                              )
 
 object AgentAuthorisation {
