@@ -16,17 +16,20 @@
 
 package connectors
 
+import javax.inject.Inject
+
 import models.Address
-import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.http.ws.WSHttp
+import uk.gov.hmrc.play.http.{HeaderCarrier}
 
 import scala.concurrent.Future
 
-class Addresses(http: HttpGet with HttpPost) extends ServicesConfig {
+class Addresses @Inject()(config: ServicesConfig, http: WSHttp) {
 
-  val url = baseUrl("property-linking") + "/property-linking/address"
+  val url = config.baseUrl("property-linking") + "/property-linking/address"
 
   def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[Address]] = {
     http.GET[Seq[Address]](url + s"?postcode=$postcode")

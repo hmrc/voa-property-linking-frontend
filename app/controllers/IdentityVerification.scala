@@ -18,8 +18,11 @@ package controllers
 
 import javax.inject.{Inject, Named}
 
-import config.{ApplicationConfig, Wiring}
-import models.{IVDetails, IndividualAccount, IndividualAccountSubmission, PersonalDetails}
+import auth.GGAction
+import config.ApplicationConfig
+import connectors._
+import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
+import models.{IVDetails, IndividualAccountSubmission, PersonalDetails}
 import play.api.mvc.{Action, Request}
 import repositories.SessionRepo
 import uk.gov.hmrc.play.frontend.auth.AuthContext
@@ -27,23 +30,23 @@ import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
 
 import scala.concurrent.Future
 
-class IdentityVerification @Inject() (
-                                       @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
+class IdentityVerification @Inject() (ggAction: GGAction,
+                                      identityVerification: connectors.IdentityVerification,
+                                      addresses: Addresses,
+                                      individuals: IndividualAccounts,
+                                      identityVerificationProxyConnector: IdentityVerificationProxyConnector,
+                                      groups: GroupAccounts,
+                                      auth: VPLAuthConnector,
+                                      config: ApplicationConfig,
+                                      @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
   extends PropertyLinkingController {
-  val groups = Wiring().groupAccountConnector
-  val individuals = Wiring().individualAccountConnector
-  val auth = Wiring().authConnector
-  val ggAction = Wiring().ggAction
-  val identityVerification = Wiring().identityVerification
-  val addresses = Wiring().addresses
-  val identityVerificationProxyConnector = Wiring().identityVerificationProxyConnector
 
   def startIv = ggAction.async { _ => implicit request =>
-    if (ApplicationConfig.ivEnabled) {
+    if (config.ivEnabled) {
       personalDetailsSessionRepo.get[PersonalDetails] flatMap { details  => {
         val d = details.getOrElse(throw new Exception("details not found"))
-        identityVerificationProxyConnector.start(ApplicationConfig.baseUrl + routes.IdentityVerification.restoreSession().url,
-          ApplicationConfig.baseUrl + routes.IdentityVerification.fail().url, d.ivDetails, None).map(l => Redirect(l.link))
+        identityVerificationProxyConnector.start(config.baseUrl + routes.IdentityVerification.restoreSession().url,
+          config.baseUrl + routes.IdentityVerification.fail().url, d.ivDetails, None).map(l => Redirect(l.link))
       }
       }
     } else {
@@ -56,7 +59,7 @@ class IdentityVerification @Inject() (
   }
 
   def restoreSession = Action.async { implicit request =>
-    Redirect(routes.IdentityVerification.success).addingToSession(
+    Redirect(routes.IdentityVerification.success()).addingToSession(
       SessionKeys.authToken -> request.session.get("bearerToken").getOrElse(""),
       SessionKeys.sessionId -> request.session.get("oldSessionId").getOrElse("")
     )

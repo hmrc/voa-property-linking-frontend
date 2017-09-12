@@ -1,0 +1,25 @@
+@(pagination: PaginationSearchSort, url: (Int, Int, Boolean, Option[String], Option[String], Option[String], Option[String], Option[String], Option[String]) => Call)(implicit messages: Messages)
+
+@paginationLink(pageSize: Int) = {
+    @if(pagination.pageSize == pageSize) {
+        <strong>@pageSize</strong>
+    } else {
+        <a href="@url(pagination.pageNumber, pageSize, true, pagination.sortfield, pagination.sortorder, pagination.status, pagination.address, pagination.baref, pagination.agent))">
+        @pageSize
+        </a>
+    }
+}
+@*
+    @Messages("paginationControls.uploadEvidence")
+
+    <ul class="pageLength">
+        <li>@paginationLink(15)</li>
+        <li>@paginationLink(25)</li>
+        <li>@paginationLink(50)</li>
+        <li>@paginationLink(100)</li>
+    </ul>
+
+
+    @Messages("paginationControls.rows")
+
+*@

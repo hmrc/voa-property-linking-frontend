@@ -16,21 +16,23 @@
 
 package connectors.propertyLinking
 
+import javax.inject.Inject
+
 import connectors.fileUpload.FileMetadata
 import controllers.Pagination
 import models._
-import models.searchApi.{AgentAuthResult, OwnerAuthResult}
+import models.searchApi.OwnerAuthResult
 import org.joda.time.DateTime
 import session.LinkingSessionRequest
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.http.ws.WSHttp
 import utils.Formatters.buildQueryParams
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyLinkConnector(http: HttpGet with HttpPut with HttpPost)(implicit ec: ExecutionContext)
-  extends ServicesConfig {
-  lazy val baseUrl: String = baseUrl("property-linking") + s"/property-linking"
+class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+  lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
 
   def get(organisationId: Int, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
     val url = s"$baseUrl/property-links/$authorisationId"

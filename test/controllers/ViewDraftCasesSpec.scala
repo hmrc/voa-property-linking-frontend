@@ -16,6 +16,7 @@
 
 package controllers
 
+import config.ApplicationConfig
 import connectors.{Authenticated, DraftCases}
 import models.Accounts
 import org.jsoup.Jsoup
@@ -25,7 +26,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import utils.{Formatters, StubAuthentication}
+import utils.{Formatters, StubAuthentication, StubPropertyLinkConnector}
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
@@ -109,9 +110,7 @@ class ViewDraftCasesSpec extends ControllerSpec {
     }
   }
 
-  private lazy val testController = new Dashboard(mockDraftCases) {
-    override val authenticated = StubAuthentication
-  }
+  private lazy val testController = new Dashboard(app.injector.instanceOf[ApplicationConfig], mockDraftCases, StubPropertyLinkConnector, StubAuthentication)
 
   private lazy val mockDraftCases = mock[DraftCases]
 }

@@ -16,55 +16,67 @@
 
 package controllers.agent
 
+import actions.AuthenticatedAction
 import cats.data.OptionT
 import cats.instances.future._
-import config.{ApplicationConfig, Wiring}
-import controllers.{Pagination, PropertyLinkingController, ValidPagination}
+import com.google.inject.{Inject, Singleton}
+import config.ApplicationConfig
+import connectors.propertyLinking.PropertyLinkConnector
+import connectors.PropertyRepresentationConnector
+import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
 import models._
 import play.api.libs.json.Json
 import controllers.agent.RepresentationController.ManagePropertiesVM
 import models.searchApi.AgentAuthResult
 
-trait RepresentationController extends PropertyLinkingController with ValidPagination {
-  val reprConnector = Wiring().propertyRepresentationConnector
-  val authenticated = Wiring().authenticated
-  val propertyLinkConnector = Wiring().propertyLinkConnector
+@Singleton()
+class RepresentationController @Inject()(config: ApplicationConfig,
+                                         reprConnector: PropertyRepresentationConnector,
+                                         authenticated: AuthenticatedAction,
+                                         propertyLinkConnector: PropertyLinkConnector)
+  extends PropertyLinkingController with ValidPagination {
 
-  def viewClientProperties( page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String],
-                            sortorder: Option[String], status: Option[String], address: Option[String],
-                            baref: Option[String], client: Option[String]) = authenticated.asAgent { implicit request =>
-    withValidPaginationSearchSort(
-          page = page,
-          pageSize = pageSize,
-          requestTotalRowCount = requestTotalRowCount,
-          sortfield = sortfield,
-          sortorder = sortorder,
-          status = status,
-          address = address,
-          baref = baref,
-          client = client
-        ) { pagination =>
-          if (ApplicationConfig.searchSortEnabled) {
-            for{
-              totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
-                                                                          pagination =  pagination.copy(status = RepresentationPending.name))
-              clientResponse       <- reprConnector.forAgentSearchAndSort(request.organisationId, pagination)
-            }yield {
+  def viewClientProperties( page: Int = 1, pageSize: Int = 15, requestTotalRowCount: Boolean = true) =
+    viewClientPropertiesSearchSort(page = page, pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, None, None, None, None, None, None)
+
+
+  def viewClientPropertiesSearchSort( page: Int = 1, pageSize: Int = 15, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
+                            sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
+                            baref: Option[String] = None, client: Option[String]  = None) = authenticated.asAgent { implicit request =>
+          if (config.searchSortEnabled) {
+            withValidPaginationSearchSort(
+              page = page,
+              pageSize = pageSize,
+              requestTotalRowCount = requestTotalRowCount,
+              sortfield = sortfield,
+              sortorder = sortorder,
+              status = status,
+              address = address,
+              baref = baref,
+              client = client
+            ) { paginationSearchSort =>
+              for {
+                totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
+                  pagination = PaginationSearchSort(pageNumber = page, pageSize = pageSize, status = Some(RepresentationPending.name)))
+                clientResponse <- reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
+              } yield {
                 Ok(views.html.dashboard.manageClientsSearchSort(
                   ManageClientPropertiesSearchAndSortVM(
                     result = clientResponse,
                     totalPendingRequests = totalPendingRequests.total,
-                    pagination = pagination.copy(totalResults = clientResponse.total)))
+                    pagination = paginationSearchSort.copy(totalResults = clientResponse.total)))
                 )
+              }
             }
           } else {
-            reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
-              Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
-                reprs.totalPendingRequests,
-                pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
-            }
+              withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
+                reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
+                  Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
+                    reprs.totalPendingRequests,
+                    pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
+                }
+              }
           }
-        }
   }
 
   def listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated.asAgent { implicit request =>
@@ -155,7 +167,8 @@ trait RepresentationController extends PropertyLinkingController with ValidPagin
   }
 }
 
-object RepresentationController extends RepresentationController {
+object RepresentationController {
   case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation], totalPendingRequests: Long, pagination: Pagination)
 }
-case class ManageClientPropertiesSearchAndSortVM(result: AgentAuthResult, totalPendingRequests: Long, pagination: Pagination)
+
+case class ManageClientPropertiesSearchAndSortVM(result: AgentAuthResult, totalPendingRequests: Long, pagination: PaginationSearchSort)

@@ -190,10 +190,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
     UpdatedOrganisationAccount(org.groupId, addressId.getOrElse(org.addressId), org.isAgent, name.getOrElse(org.companyName), email.getOrElse(org.email), phone.getOrElse(org.phone), Instant.now(clock), personId)
   }
 
-  private lazy val testController = new UpdateOrganisationDetails(mockEditDetailsAction)(clock) {
-    override lazy val groups = mockGroups
-    override lazy val addresses = mockAddresses
-  }
+  private lazy val testController = new UpdateOrganisationDetails(mockEditDetailsAction, mockGroups, mockAddresses)(clock)
 
   private lazy val mockEditDetailsAction = mock[EditDetailsAction]
 

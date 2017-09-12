@@ -20,6 +20,7 @@ import org.scalacheck.{Arbitrary, _}
 import uk.gov.hmrc.domain.Nino
 import java.{time => javatime}
 
+import models.searchApi.{AgentAuthorisation, Organisation, OwnerAuthorisation}
 import org.joda.time.{DateTime, Instant, LocalDate}
 
 package object resources {
@@ -293,4 +294,54 @@ package object resources {
   } yield DraftCase(id, url, address, effectiveDate, checkType, expirationDate, propertyLinkId, assessmentRef, baRef)
 
   def randomDraftCase: DraftCase = draftCaseGenerator.sample.get
+
+  val organisationGen: Gen[Organisation] = for {
+    organisationId <- arbitrary[Long]
+    organisationName <- shortString
+  } yield {
+    Organisation(organisationId, organisationName)
+  }
+  implicit val arbitraryOrganisationGen = Arbitrary(organisationGen)
+
+  val agentAuthorisationGen: Gen[AgentAuthorisation] = for {
+    id <- arbitrary[Long]
+    status <- Gen.oneOf(RepresentationApproved.name,
+                        RepresentationDeclined.name,
+                        RepresentationPending.name,
+                        RepresentationRevoked.name)
+    submissionId <- shortString
+    address <- arbitrary[PropertyAddress]
+    localAuthorityRef <- shortString
+    client <- arbitrary[Organisation]
+  } yield {
+    AgentAuthorisation(id = id,
+      status = status,
+      submissionId = submissionId,
+      address = address.toString,
+      localAuthorityRef = localAuthorityRef,
+      client = client)
+  }
+  implicit val arbitraryAgentAuthorisationGen = Arbitrary(agentAuthorisationGen)
+
+
+  val ownerAuthorisationGen: Gen[OwnerAuthorisation] = for {
+    id <- arbitrary[Long]
+    status <- Gen.oneOf(RepresentationApproved.name,
+      RepresentationDeclined.name,
+      RepresentationPending.name,
+      RepresentationRevoked.name)
+    submissionId <- shortString
+    address <- arbitrary[PropertyAddress]
+    localAuthorityRef <- shortString
+    agents <- Gen.option(Gen.listOfN(1, arbitrary[Organisation]))
+  } yield {
+    OwnerAuthorisation(id = id,
+      status = status,
+      submissionId = submissionId,
+      address = address.toString,
+      localAuthorityRef = localAuthorityRef,
+      agents = agents)
+  }
+  implicit val arbitraryOwnerAuthorisationGen = Arbitrary(ownerAuthorisationGen)
+
 }

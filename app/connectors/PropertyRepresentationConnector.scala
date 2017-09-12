@@ -16,18 +16,21 @@
 
 package connectors
 
+import javax.inject.Inject
+
+import controllers.Pagination
 import controllers.{Pagination, PaginationSearchSort}
 import models._
-import models.searchApi.{AgentAuthResult, OwnerAuthResult}
-import uk.gov.hmrc.play.config.ServicesConfig
+import models.searchApi.AgentAuthResult
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.http.ws.WSHttp
 import utils.Formatters.buildQueryParams
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost with HttpPatch)(implicit ec: ExecutionContext)
-  extends ServicesConfig {
-  lazy val baseUrl: String = s"${baseUrl("property-linking")}/property-linking"
+class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+  lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
 
   def validateAgentCode(agentCode:Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[AgentCodeValidationResult] = {
     http.GET[AgentCodeValidationResult](s"$baseUrl/property-representations/validate-agent-code/$agentCode/$authorisationId")
@@ -44,16 +47,10 @@ class PropertyRepresentationConnector(http: HttpGet with HttpPut with HttpPost w
   def forAgentSearchAndSort(agentOrganisationId: Int,
                             pagination: PaginationSearchSort)
                            (implicit hc: HeaderCarrier): Future[AgentAuthResult] = {
-    http.GET[AgentAuthResult](s"$baseUrl/property-representations-search-sort?" +
+    val url = s"$baseUrl/property-representations-search-sort?" +
       s"organisationId=$agentOrganisationId&" +
-      s"$pagination&" +
-      buildQueryParams("sortfield", pagination.sortfield) +
-      buildQueryParams("sortorder", pagination.sortorder) +
-      buildQueryParams("status", pagination.status) +
-      buildQueryParams("address", pagination.address) +
-      buildQueryParams("baref", pagination.baref) +
-      buildQueryParams("client", pagination.client)
-    )
+      s"$pagination"
+    http.GET[AgentAuthResult](url)
 
   }
 

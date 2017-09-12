@@ -50,5 +50,4 @@ object Formatters {
     value match { case Some(paramValue) if paramValue != "" => s"&$name=$paramValue" ; case _ => ""}
   }
 
-
 }

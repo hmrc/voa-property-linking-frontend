@@ -43,11 +43,8 @@ class CreateIndividualAccountSpec extends ControllerSpec with MockitoSugar {
     f
   }
 
-  private object TestCreateIndividualAccount extends CreateIndividualAccount(mockSessionRepo) {
-    override lazy val ggAction = StubGGAction
-    override lazy val auth = StubAuthConnector
-    override lazy val individuals = StubIndividualAccountConnector
-  }
+  private object TestCreateIndividualAccount extends CreateIndividualAccount(StubGGAction, StubAuthConnector,
+    StubIndividualAccountConnector, mockSessionRepo)
 
   "Going to the create individual account page, when logged in with an account that has not registered" should "display the create individual account form" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)

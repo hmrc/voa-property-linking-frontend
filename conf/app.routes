@@ -1,30 +1,30 @@
 ->          /                                                                                 manageDetails.Routes
 
 #Start
-GET         /                                                                                 controllers.Application.start()
+GET         /                                                                                 @controllers.Application.start()
 
-GET         /start                                                                            controllers.Application.start()
+GET         /start                                                                            @controllers.Application.start()
 
-GET         /contact-us                                                                       controllers.Application.contactUs()
+GET         /contact-us                                                                       @controllers.Application.contactUs()
 
 #Registration
-GET         /login                                                                            controllers.Login.show
-GET         /register                                                                         controllers.Register.show
-GET         /registered                                                                       controllers.Register.confirm
-GET         /logout                                                                           controllers.Application.logOut
-GET         /invalid-account                                                                  controllers.Application.invalidAccountType
+GET         /login                                                                            @controllers.Login.show
+GET         /register                                                                         @controllers.Register.show
+GET         /registered                                                                       @controllers.Register.confirm
+GET         /logout                                                                           @controllers.Application.logOut
+GET         /invalid-account                                                                  @controllers.Application.invalidAccountType
 
 #Wizard
-GET         /authentication-wizard                                                            controllers.Wizard.authenticationWizard
-POST        /authentication-wizard                                                            controllers.Wizard.submit
-GET         /authentication-wizard/use-existing-account                                       controllers.Wizard.registerExistingGG
-POST        /authentication-wizard/use-existing-account                                       controllers.Wizard.submitExistingGG
+GET         /authentication-wizard                                                            @controllers.Wizard.authenticationWizard
+POST        /authentication-wizard                                                            @controllers.Wizard.submit
+GET         /authentication-wizard/use-existing-account                                       @controllers.Wizard.registerExistingGG
+POST        /authentication-wizard/use-existing-account                                       @controllers.Wizard.submitExistingGG
 
 #Before you start pages
-GET         /authentication-wizard/before-you-register-a                                      controllers.Wizard.beforeYouRegisterA
-GET         /authentication-wizard/before-you-register-b                                      controllers.Wizard.beforeYouRegisterB
-GET         /authentication-wizard/before-you-register-c                                      controllers.Wizard.beforeYouRegisterC
-GET         /authentication-wizard/before-you-register-d                                      controllers.Wizard.beforeYouRegisterD
+GET         /authentication-wizard/before-you-register-a                                      @controllers.Wizard.beforeYouRegisterA
+GET         /authentication-wizard/before-you-register-b                                      @controllers.Wizard.beforeYouRegisterB
+GET         /authentication-wizard/before-you-register-c                                      @controllers.Wizard.beforeYouRegisterC
+GET         /authentication-wizard/before-you-register-d                                      @controllers.Wizard.beforeYouRegisterD
 
 #Create individual account
 GET         /create-account                                                                   @controllers.CreateIndividualAccount.show
@@ -44,6 +44,7 @@ POST        /create-group                                                       
 #Dashboard
 GET         /home                                                                             @controllers.Dashboard.home()
 GET         /properties                                                                       @controllers.Dashboard.manageProperties(page: Int ?= 1, pageSize: Int ?= 15)
+GET         /properties-search-sort                                                           @controllers.Dashboard.managePropertiesSearchSort(page: Int ?= 1, pageSize: Int ?= 15, requestTotalRowCount: Boolean ?= true, sortfield: Option[String] ?= None, sortorder: Option[String] ?= None, status: Option[String] ?= None, address: Option[String] ?= None, baref: Option[String] ?= None, agent: Option[String] ?= None)
 GET         /properties/json                                                                  @controllers.Dashboard.getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
 GET         /properties-search-sort/json                                                      @controllers.Dashboard.getPropertiesSearchAndSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], agent: Option[String])
 GET         /managed-properties/:agentCode                                                    @controllers.Dashboard.viewManagedProperties(agentCode: Long)
@@ -51,16 +52,16 @@ GET         /managed-properties/:agentCode/revoke                               
 GET         /managed-properties/:agentCode/revoke/confirmed                                   @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
 GET         /manage-agents                                                                    @controllers.Dashboard.manageAgents()
 GET         /draft-cases                                                                      @controllers.Dashboard.viewDraftCases()
-GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
-GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
+GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  @controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
+GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        @controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
 
-GET         /property-link/:linkId/assessments                                                controllers.Assessments.assessments(linkId: Long)
-GET         /summary/:uarn                                                                    controllers.Assessments.viewSummary(uarn: Long)
-GET         /detailed/:authorisationId/:assessmentRef                                         controllers.Assessments.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef)
-GET         /request-detailed/:authorisationId/:assessmentRef                                 controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long, baRef)
-GET         /request-detailed/start-challenge                                                 controllers.Assessments.startChallengeFromDVR
-POST        /details-requested/:authorisationId/:assessmentRef                                controllers.Assessments.detailedValuationRequested(authorisationId: Long, assessmentRef: Long, baRef)
-GET         /details-requested/:submissionId                                                  controllers.Assessments.dvRequestConfirmation(submissionId)
+GET         /property-link/:linkId/assessments                                                @controllers.Assessments.assessments(linkId: Long)
+GET         /summary/:uarn                                                                    @controllers.Assessments.viewSummary(uarn: Long)
+GET         /detailed/:authorisationId/:assessmentRef                                         @controllers.Assessments.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef)
+GET         /request-detailed/:authorisationId/:assessmentRef                                 @controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long, baRef)
+GET         /request-detailed/start-challenge                                                 @controllers.Assessments.startChallengeFromDVR
+POST        /details-requested/:authorisationId/:assessmentRef                                @controllers.Assessments.detailedValuationRequested(authorisationId: Long, assessmentRef: Long, baRef)
+GET         /details-requested/:submissionId                                                  @controllers.Assessments.dvRequestConfirmation(submissionId)
 
 #Search and Link
 GET         /property-search                                                                  @controllers.propertyLinking.ClaimProperty.show()
@@ -100,20 +101,22 @@ POST        /representation-request/modify/:representationId                    
 #AGENT
 #Dashboard
 #TODO: Move to dashboard
-GET         /manage-clients                                                                   controllers.agent.RepresentationController.viewClientProperties(page: Int ?= 1, pageSize: Int ?= 15)
-GET         /manage-clients/json                                                              controllers.agent.RepresentationController.listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
-GET         /manage-clients-search-sort/json                                                  controllers.agent.RepresentationController.listRepresentationRequestSearchAndSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], client: Option[String])
+GET         /manage-clients                                                                   @controllers.agent.RepresentationController.viewClientProperties(page: Int ?= 1, pageSize: Int ?= 15)
+GET         /manage-clients-search-sort                                                       @controllers.agent.RepresentationController.viewClientPropertiesSearchSort(page: Int ?= 1, pageSize: Int ?= 15, requestTotalRowCount: Boolean ?= true, sortfield: Option[String] ?= None, sortorder: Option[String] ?= None, status: Option[String] ?= None, address: Option[String] ?= None, baref: Option[String] ?= None, agent: Option[String] ?= None)
 
-GET         /manage-clients/pending-requests                                                  controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
-GET         /manage-clients/pending-requests/json                                             controllers.agent.RepresentationController.pendingRepresentationsJson(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
+GET         /manage-clients/json                                                              @controllers.agent.RepresentationController.listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
+GET         /manage-clients-search-sort/json                                                  @controllers.agent.RepresentationController.listRepresentationRequestSearchAndSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], client: Option[String])
 
-GET         /representation-request/accept/:submissionId/:totalPendingRequests                controllers.agent.RepresentationController.accept(submissionId, totalPendingRequests: Long)
-GET         /representation-request/reject/:submissionId/:totalPendingRequests                controllers.agent.RepresentationController.reject(submissionId, totalPendingRequests: Long)
+GET         /manage-clients/pending-requests                                                  @controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
+GET         /manage-clients/pending-requests/json                                             @controllers.agent.RepresentationController.pendingRepresentationsJson(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
 
-GET         /add-user-to-gg                                                                   controllers.Application.addUserToGG
+GET         /representation-request/accept/:submissionId/:totalPendingRequests                @controllers.agent.RepresentationController.accept(submissionId, totalPendingRequests: Long)
+GET         /representation-request/reject/:submissionId/:totalPendingRequests                @controllers.agent.RepresentationController.reject(submissionId, totalPendingRequests: Long)
+
+GET         /add-user-to-gg                                                                   @controllers.Application.addUserToGG
 
 #Address lookup
-GET         /lookup                                                                           controllers.AddressLookup.findByPostcode(postcode)
+GET         /lookup                                                                           @controllers.AddressLookup.findByPostcode(postcode)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                                                                     controllers.Assets.at(path="/public", file)
+GET         /assets/*file                                                                     @controllers.Assets.at(path="/public", file)

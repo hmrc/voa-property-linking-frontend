@@ -19,10 +19,11 @@ package controllers
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import connectors.TrafficThrottleConnector
-import controllers.Application.Ok
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.mvc.Action
+import play.api.mvc.Results._
 import play.api.test.Helpers._
 import play.api.test.{FakeHeaders, FakeRequest}
 import uk.gov.hmrc.play.http.HeaderCarrier
@@ -32,9 +33,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 
-class WithThrottlingSpec extends UnitSpec with MockitoSugar {
-
-  implicit val app = TestApp.app
+class WithThrottlingSpec extends UnitSpec with MockitoSugar with GuiceOneAppPerSuite {
 
   implicit val hc: HeaderCarrier = mock[HeaderCarrier]
   implicit val system = ActorSystem("test-system")

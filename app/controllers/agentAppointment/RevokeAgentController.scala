@@ -16,14 +16,16 @@
 
 package controllers.agentAppointment
 
-import config.Wiring
+import actions.AuthenticatedAction
+import javax.inject.Inject
+import connectors.PropertyRepresentationConnector
+import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import models.Party
 
-class RevokeAgentController extends PropertyLinkingController {
-  val authenticated = Wiring().authenticated
-  val propertyLinks = Wiring().propertyLinkConnector
-  val representations = Wiring().propertyRepresentationConnector
+class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
+                                      propertyLinks: PropertyLinkConnector,
+                                      representations: PropertyRepresentationConnector) extends PropertyLinkingController {
 
   def revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
     propertyLinks.get(request.organisationId, authorisationId) map {

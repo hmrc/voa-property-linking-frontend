@@ -16,6 +16,7 @@
 
 package controllers
 
+import config.ApplicationConfig
 import connectors._
 import models._
 import org.scalacheck.Arbitrary.arbitrary
@@ -27,14 +28,8 @@ import utils._
 class ManageAgentSpec extends ControllerSpec {
   implicit val request = FakeRequest()
 
-  object TestDashboardController extends Dashboard(mock[DraftCases]) {
-    override val auth: VPLAuthConnector = StubAuthConnector
-    override val individuals = StubIndividualAccountConnector
-    override val groups = StubGroupAccountConnector
-    override val authenticated = StubAuthentication
-    override val propertyLinks = StubPropertyLinkConnector
-  }
-
+  object TestDashboardController extends Dashboard(app.injector.instanceOf[ApplicationConfig], mock[DraftCases],
+    StubPropertyLinkConnector, StubAuthentication)
 
   "Manage Agents page" must "return Ok" in {
     val link = arbitrary[PropertyLink].sample.get

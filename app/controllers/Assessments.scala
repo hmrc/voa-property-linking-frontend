@@ -16,22 +16,22 @@
 
 package controllers
 
-import config.{ApplicationConfig, Wiring}
+import actions.AuthenticatedAction
+import javax.inject.Inject
+import config.ApplicationConfig
+import connectors._
+import connectors.propertyLinking.PropertyLinkConnector
 import form.EnumMapping
 import models._
 import play.api.data.{Form, Forms}
 import play.api.mvc.Action
 
-trait Assessments extends PropertyLinkingController {
-  val propertyLinks = Wiring().propertyLinkConnector
-  val reprConnector = Wiring().propertyRepresentationConnector
-  val individuals = Wiring().individualAccountConnector
-  val groups = Wiring().groupAccountConnector
-  val auth = Wiring().authConnector
-  val authenticated = Wiring().authenticated
-  val submissionIds = Wiring().submissionIdConnector
-  val dvrCaseManagement = Wiring().dvrCaseManagement
-  val businessRatesValuations = Wiring().businessRatesValuation
+class Assessments @Inject()(config: ApplicationConfig,
+                            propertyLinks: PropertyLinkConnector,
+                            authenticated: AuthenticatedAction,
+                            submissionIds: SubmissionIdConnector,
+                            dvrCaseManagement: DVRCaseManagementConnector,
+                            businessRatesValuations: BusinessRatesValuationConnector) extends PropertyLinkingController {
 
   def assessments(authorisationId: Long) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
     val backLink = request.headers.get("Referer")
@@ -43,12 +43,12 @@ trait Assessments extends PropertyLinkingController {
   }
 
   def viewSummary(uarn: Long) = Action { implicit request =>
-    Redirect(ApplicationConfig.vmvUrl + s"/detail/$uarn")
+    Redirect(config.vmvUrl + s"/detail/$uarn")
   }
 
   def viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef: String) = authenticated { implicit request =>
     businessRatesValuations.isViewable(authorisationId, assessmentRef) map {
-      case true => Redirect(ApplicationConfig.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef"))
+      case true => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef"))
       case false => Redirect(routes.Assessments.requestDetailedValuation(authorisationId, assessmentRef, baRef))
     }
   }
@@ -88,8 +88,6 @@ trait Assessments extends PropertyLinkingController {
 
   lazy val dvRequestForm = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))
 }
-
-object Assessments extends Assessments
 
 case class AssessmentsVM(assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean)
 

@@ -26,7 +26,7 @@ import scala.util.Random
 import org.scalacheck.Arbitrary._
 import resources._
 
-object StubAddresses extends Addresses(StubHttp) {
+object StubAddresses extends Addresses(StubServicesConfig,StubHttp) {
   val noResultPostcode = "NO RESULT"
 
   override def create(address: Address)(implicit hc: HeaderCarrier) = Future.successful(Random.nextInt)

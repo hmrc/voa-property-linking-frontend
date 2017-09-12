@@ -41,11 +41,7 @@ import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
 import uk.gov.hmrc.play.http.ws.WSHttp
 
 
-object Global extends VPLFrontendGlobal {
-  override val wiring: Wiring = new Wiring {
-    override def http = new VPLHttp
-  }
-}
+object Global extends VPLFrontendGlobal
 
 trait VPLFrontendGlobal extends DefaultFrontendGlobal {
 
@@ -60,8 +56,6 @@ trait VPLFrontendGlobal extends DefaultFrontendGlobal {
   override def loggingFilter: FrontendLoggingFilter = LoggingFilter
 
   override def frontendAuditFilter: FrontendAuditFilter = AuditFilter
-
-  val wiring: Wiring
 
   override def filters: Seq[EssentialFilter] = super.filters.filterNot(_ == RecoveryFilter)
 }

@@ -20,21 +20,39 @@ import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.Pagination
 import models._
+import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import session.LinkingSessionRequest
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
+object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfig, StubHttp) {
 
   var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil
+  private var stubbedOwnerAuthResult: OwnerAuthResult = OwnerAuthResult(start = 15, total = 15, size= 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
+
+  def getstubbedOwnerAuthResult() : OwnerAuthResult = stubbedOwnerAuthResult
+
+  def stubOwnerAuthResult(reps: OwnerAuthResult) = { stubbedOwnerAuthResult = reps }
 
   override def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
   override def linkedProperties(organisationId: Int, pagination: Pagination)(implicit hc: HeaderCarrier) = {
     Future.successful(PropertyLinkResponse(Some(stubbedLinks.size), stubbedLinks))
+  }
+
+  override def linkedPropertiesSearchAndSort(organisationId: Int,
+                                            pagination: Pagination,
+                                            sortfield: Option[String] = Some("address"),
+                                            sortorder: Option[String] = Some("asc"),
+                                            status: Option[String] = None,
+                                            address: Option[String] = None,
+                                            baref: Option[String] = None,
+                                            agent: Option[String] = None)
+                                           (implicit hc: HeaderCarrier) = {
+    Future.successful(stubbedOwnerAuthResult)
   }
 
   override def get(organisationId: Int, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
@@ -64,5 +82,6 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubHttp) {
   def reset() = {
     stubbedLinks = Nil
     stubbedClientProperties = Nil
+    stubbedOwnerAuthResult = stubbedOwnerAuthResult.copy(authorisations = Seq.empty[OwnerAuthorisation])
   }
 }

@@ -49,7 +49,7 @@ trait ValidPagination extends PropertyLinkingController {
     } else {
       default(PaginationSearchSort(pageNumber = page,
         pageSize = pageSize,
-        requestTotalRowCount = getTotal,
+        requestTotalRowCount = requestTotalRowCount,
         sortfield = sortfield,
         sortorder = sortorder,
         status = status,
@@ -69,14 +69,14 @@ case class Pagination(pageNumber: Int, pageSize: Int, totalResults: Long = 0, re
 
 case class PaginationSearchSort(pageNumber: Int,
                                 pageSize: Int,
-                                requestTotalRowCount: Boolean,
-                                sortfield: Option[String],
-                                sortorder: Option[String],
-                                status: Option[String],
-                                address: Option[String],
-                                baref: Option[String],
-                                agent: Option[String],
-                                client: Option[String],
+                                requestTotalRowCount: Boolean = false,
+                                sortfield: Option[String] = None,
+                                sortorder: Option[String] = None,
+                                status: Option[String] = None,
+                                address: Option[String] = None,
+                                baref: Option[String] = None,
+                                agent: Option[String] = None,
+                                client: Option[String] = None,
                                 totalResults: Long = 0) {
   def startPoint: Int = pageSize * (pageNumber - 1) + 1
   override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$requestTotalRowCount" +

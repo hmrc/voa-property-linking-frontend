@@ -37,12 +37,13 @@ import scala.concurrent.Future
 trait FileUploadHelpers {
   self: PropertyLinkingController =>
 
+  val config: ApplicationConfig
   val fileUploader: FileUpload
   val envelopeConnector: EnvelopeConnector
   val propertyLinks: PropertyLinkConnector
   val withLinkingSession: WithLinkingSession
   val sessionRepository: SessionRepo
-  lazy val fileUploadBaseUrl = ApplicationConfig.fileUploadUrl
+  lazy val fileUploadBaseUrl = config.fileUploadUrl
 
   val maxFileSize = 10485760 //10MB
 
@@ -50,7 +51,7 @@ trait FileUploadHelpers {
                               (implicit request: LinkingSessionRequest[AnyContent]): Future[FileUploadResult] = {
     filePart match {
       case Some(part) if part.ref.file.length > maxFileSize => FileTooLarge
-      case Some(FilePart(_, filename, Some(mimetype), TemporaryFile(file))) if ApplicationConfig.allowedMimeTypes.contains(mimetype) =>
+      case Some(FilePart(_, filename, Some(mimetype), TemporaryFile(file))) if config.allowedMimeTypes.contains(mimetype) =>
         for {
           _ <- fileUploader.uploadFile(request.ses.envelopeId, transform(filename), mimetype, file)
         } yield {
@@ -84,8 +85,8 @@ trait FileUploadHelpers {
   def fileUploadUrl(failureUrl: String)(implicit request: LinkingSessionRequest[_]): String = {
     val envelopeId = request.ses.envelopeId
     val fileId = UUID.randomUUID().toString
-    val absoluteSuccessUrl = s"${ApplicationConfig.serviceUrl}${routes.Declaration.show().url}"
-    val absoluteFailureUrl = s"${ApplicationConfig.serviceUrl}$failureUrl"
+    val absoluteSuccessUrl = s"${config.serviceUrl}${routes.Declaration.show().url}"
+    val absoluteFailureUrl = s"${config.serviceUrl}$failureUrl"
 
     s"$fileUploadBaseUrl/upload/envelopes/$envelopeId/files/$fileId?redirect-success-url=$absoluteSuccessUrl&redirect-error-url=$absoluteFailureUrl"
   }

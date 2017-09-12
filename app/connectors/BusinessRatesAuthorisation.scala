@@ -16,16 +16,18 @@
 
 package connectors
 
+import javax.inject.Inject
+
 import config.AuthorisationFailed
 import models.Accounts
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, Upstream4xxResponse}
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.http.ws.WSHttp
+import uk.gov.hmrc.play.http.{HeaderCarrier, Upstream4xxResponse}
 
 import scala.concurrent.Future
-
-class BusinessRatesAuthorisation(http: HttpGet) extends ServicesConfig {
-  val url = baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
+class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp) {
+  val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 
   def authenticate(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
     http.GET[Accounts](s"$url/authenticate") map {

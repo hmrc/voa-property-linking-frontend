@@ -43,16 +43,11 @@ class CreateGroupAccountSpec extends ControllerSpec with MockitoSugar {
     when(f.get[PersonalDetails](any(), any())).thenReturn(Future.successful(arbitrary[PersonalDetails].sample))
     f
   }
-  private object TestCreateGroupAccount extends CreateGroupAccount(mockSessionRepo) {
-    override lazy val auth: VPLAuthConnector = StubAuthConnector
-    override lazy val ggAction: GGAction = StubGGAction
-    override lazy val individuals = StubIndividualAccountConnector
-    override lazy val groups = StubGroupAccountConnector
-    override lazy val identityVerification = StubIdentityVerification
-    override lazy val addresses = StubAddresses
-  }
 
-  val request = FakeRequest().withSession(token)
+  private object TestCreateGroupAccount extends CreateGroupAccount(StubGroupAccountConnector, StubAuthConnector, StubGGAction,
+    StubIdentityVerification, StubAddresses, mockSessionRepo)
+
+  lazy val request = FakeRequest().withSession(token)
 
   "The create group account page" must "return Unauthorized if user has not verified identity" in {
     val res = TestCreateGroupAccount.show()(request)

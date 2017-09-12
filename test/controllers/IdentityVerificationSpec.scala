@@ -15,6 +15,8 @@
  */
 
 package controllers
+import config.ApplicationConfig
+import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import models.{GroupAccount, PersonalDetails}
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
@@ -26,7 +28,7 @@ import play.api.test.Helpers._
 import repositories.PersonalDetailsSessionRepository
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import utils._
+import utils.{StubAddresses, StubAuthConnector, StubGGAction, StubGroupAccountConnector, StubIdentityVerification, StubIndividualAccountConnector, _}
 
 import scala.concurrent.Future
 
@@ -42,14 +44,9 @@ class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
     f
   }
 
-  private object TestIdentityVerification extends IdentityVerification(mockSessionRepo) {
-    override val individuals = StubIndividualAccountConnector
-    override val groups = StubGroupAccountConnector
-    override val auth = StubAuthConnector
-    override val ggAction = StubGGAction
-    override val identityVerification = StubIdentityVerification
-    override val addresses = StubAddresses
-  }
+  private object TestIdentityVerification extends IdentityVerification(StubGGAction, StubIdentityVerification, StubAddresses,
+    StubIndividualAccountConnector, app.injector.instanceOf[IdentityVerificationProxyConnector], StubGroupAccountConnector,
+    StubAuthConnector, app.injector.instanceOf[ApplicationConfig], mockSessionRepo)
 
   val request = FakeRequest()
   private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)

@@ -18,9 +18,10 @@ package controllers.propertyLinking
 
 import javax.inject.{Inject, Named}
 
-import config.Wiring
+import config.ApplicationConfig
 import connectors.EnvelopeConnector
 import connectors.fileUpload.FileUploadConnector
+import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
 import form.EnumMapping
 import models._
@@ -30,12 +31,12 @@ import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
 import views.html.propertyLinking.uploadEvidence
 
-class UploadEvidence @Inject()(override val fileUploader: FileUploadConnector,
+class UploadEvidence @Inject()(override val config: ApplicationConfig,
+                               override val fileUploader: FileUploadConnector,
                                override val envelopeConnector: EnvelopeConnector,
+                               override val propertyLinks: PropertyLinkConnector,
                                @Named("propertyLinkingSession") override val sessionRepository: SessionRepo,
                                override val withLinkingSession: WithLinkingSession) extends PropertyLinkingController with FileUploadHelpers {
-
-  override val propertyLinks = Wiring().propertyLinkConnector
 
   def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
     errorCode match {

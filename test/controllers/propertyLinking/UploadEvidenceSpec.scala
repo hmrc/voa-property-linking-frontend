@@ -18,6 +18,7 @@ package controllers.propertyLinking
 
 import java.io.File
 
+import config.{ApplicationConfig, VPLHttp}
 import connectors.EnvelopeConnector
 import connectors.fileUpload.FileUploadConnector
 import controllers.ControllerSpec
@@ -27,7 +28,6 @@ import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.i18n.Messages
-import play.api.libs.ws.WSClient
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
@@ -54,7 +54,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
   it must "submit to the file upload service, with valid success and failure callback URLs" in {
     val html = uploadEvidencePage
-    val successUrl = routes.Declaration.show.absoluteURL()
+    val successUrl = routes.Declaration.show().absoluteURL()
     val failureUrl = routes.UploadEvidence.show().absoluteURL()
 
     val formAction = html.select("form").attr("action")
@@ -94,9 +94,9 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
   implicit lazy val request = FakeRequest().withSession(token).withHeaders(HOST -> "localhost:9523")
 
-  lazy val wsClient = app.injector.instanceOf[WSClient]
+  lazy val wsClient = app.injector.instanceOf[VPLHttp]
 
-  lazy val envConnectorStub = new EnvelopeConnector(wsClient) {
+  lazy val envConnectorStub = new EnvelopeConnector(StubServicesConfig, wsClient) {
     override def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] =  {
       Future.successful(envelopeId)
     }
@@ -107,9 +107,8 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  object TestUploadEvidence extends UploadEvidence(mockFileUploads, envConnectorStub, mockSessionRepo, withLinkingSession)  {
-    override val propertyLinks = StubPropertyLinkConnector
-  }
+  object TestUploadEvidence extends UploadEvidence(app.injector.instanceOf[ApplicationConfig], mockFileUploads, envConnectorStub,
+    StubPropertyLinkConnector, mockSessionRepo, withLinkingSession)
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
