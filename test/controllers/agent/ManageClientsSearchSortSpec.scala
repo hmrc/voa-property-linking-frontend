@@ -19,14 +19,14 @@ package controllers.agent
 import config.ApplicationConfig
 import connectors.Authenticated
 import models._
-import models.searchApi.{AgentAuthResult, AgentAuthorisation, Organisation}
+import models.searchApi.{AgentAuthClient, AgentAuthResult, AgentAuthorisation}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest._
 import org.scalatest.mockito.MockitoSugar
-import org.scalatestplus.play.guice.{GuiceOneAppPerSuite, GuiceOneAppPerTest}
-import play.api.{Application, Logger}
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
@@ -196,7 +196,8 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
     (1 to numberOfLinks) foreach { _ =>
-      arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(id = groupAccount.id.toLong, client = arbitrary[Organisation].copy(organisationId = groupAccount.id.toLong))
+      arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(authorisedPartyId = groupAccount.id.toLong,
+        client = arbitrary[AgentAuthClient].copy(organisationId = groupAccount.id.toLong))
     }
 
     StubPropertyRepresentationConnector.stubAgentAuthResult(AgentAuthResult(start =1,

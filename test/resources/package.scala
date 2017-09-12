@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+import java.{time => javatime}
+
 import models._
+import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
+import org.joda.time.{DateTime, Instant, LocalDate}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
 import uk.gov.hmrc.domain.Nino
-import java.{time => javatime}
-
-import models.searchApi.{AgentAuthorisation, Organisation, OwnerAuthorisation}
-import org.joda.time.{DateTime, Instant, LocalDate}
 
 package object resources {
 
@@ -295,16 +295,27 @@ package object resources {
 
   def randomDraftCase: DraftCase = draftCaseGenerator.sample.get
 
-  val organisationGen: Gen[Organisation] = for {
+  val agentAuthClientGen: Gen[AgentAuthClient] = for {
     organisationId <- arbitrary[Long]
     organisationName <- shortString
   } yield {
-    Organisation(organisationId, organisationName)
+    AgentAuthClient(organisationId, organisationName)
   }
-  implicit val arbitraryOrganisationGen = Arbitrary(organisationGen)
+  implicit val agentAuthClient = Arbitrary(agentAuthClientGen)
+
+  val ownerAuthAgentGen: Gen[OwnerAuthAgent] = for {
+    authorisationPartyId <- arbitrary[Long]
+    organisationId <- arbitrary[Long]
+    organisationName <- shortString
+  } yield {
+    OwnerAuthAgent(authorisationPartyId, organisationId, organisationName)
+  }
+  implicit val ownerAuthAgent = Arbitrary(ownerAuthAgentGen)
 
   val agentAuthorisationGen: Gen[AgentAuthorisation] = for {
-    id <- arbitrary[Long]
+    authorisationId <- arbitrary[Long]
+    authorisedPartyId <- arbitrary[Long]
+    uarn <- arbitrary[Long]
     status <- Gen.oneOf(RepresentationApproved.name,
                         RepresentationDeclined.name,
                         RepresentationPending.name,
@@ -312,10 +323,12 @@ package object resources {
     submissionId <- shortString
     address <- arbitrary[PropertyAddress]
     localAuthorityRef <- shortString
-    client <- arbitrary[Organisation]
+    client <- arbitrary[AgentAuthClient]
   } yield {
-    AgentAuthorisation(id = id,
+    AgentAuthorisation(authorisationId = authorisationId,
+      authorisedPartyId = authorisedPartyId,
       status = status,
+      uarn = uarn,
       submissionId = submissionId,
       address = address.toString,
       localAuthorityRef = localAuthorityRef,
@@ -326,6 +339,7 @@ package object resources {
 
   val ownerAuthorisationGen: Gen[OwnerAuthorisation] = for {
     id <- arbitrary[Long]
+    uarn <- arbitrary[Long]
     status <- Gen.oneOf(RepresentationApproved.name,
       RepresentationDeclined.name,
       RepresentationPending.name,
@@ -333,10 +347,11 @@ package object resources {
     submissionId <- shortString
     address <- arbitrary[PropertyAddress]
     localAuthorityRef <- shortString
-    agents <- Gen.option(Gen.listOfN(1, arbitrary[Organisation]))
+    agents <- Gen.option(Gen.listOfN(1, arbitrary[OwnerAuthAgent]))
   } yield {
     OwnerAuthorisation(id = id,
       status = status,
+      uarn = uarn,
       submissionId = submissionId,
       address = address.toString,
       localAuthorityRef = localAuthorityRef,
