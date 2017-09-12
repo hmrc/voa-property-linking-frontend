@@ -22,6 +22,7 @@ import models._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
@@ -30,6 +31,11 @@ import utils._
 import scala.collection.JavaConverters._
 
 class ManagePropertiesSpec extends ControllerSpec {
+
+  override def fakeApplication() = new GuiceApplicationBuilder()
+    .configure("featureFlags.searchSortEnabled" -> "false")
+    .configure("metrics.enabled" -> "false")
+    .build()
 
   //Make the tests run significantly faster by only loading and parsing the default case, of 15 property links, once
   lazy val defaultHtml = {
