@@ -19,7 +19,7 @@ package controllers.manageDetails
 import java.time.{Clock, Instant}
 
 import actions.BasicAuthenticatedRequest
-import com.google.inject.Inject
+import javax.inject.Inject
 import connectors.{Addresses, GroupAccounts}
 import controllers.PropertyLinkingController
 import form.{Mappings, TextMatching}

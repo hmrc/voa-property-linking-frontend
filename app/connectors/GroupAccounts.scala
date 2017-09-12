@@ -16,7 +16,7 @@
 
 package connectors
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import controllers.GroupAccountDetails
 import models._
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}

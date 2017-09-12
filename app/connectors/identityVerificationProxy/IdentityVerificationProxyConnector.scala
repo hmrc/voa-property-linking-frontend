@@ -16,7 +16,7 @@
 
 package connectors.identityVerificationProxy
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import models.IVDetails
 import models.identityVerificationProxy._
 import org.joda.time.LocalDate

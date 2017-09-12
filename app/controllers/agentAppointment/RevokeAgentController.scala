@@ -17,7 +17,7 @@
 package controllers.agentAppointment
 
 import actions.AuthenticatedAction
-import com.google.inject.Inject
+import javax.inject.Inject
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController

@@ -17,7 +17,7 @@
 package controllers
 
 import auth.GGAction
-import com.google.inject.Inject
+import javax.inject.Inject
 import config.ApplicationConfig
 import play.api.mvc.Action
 import uk.gov.hmrc.play.config.ServicesConfig

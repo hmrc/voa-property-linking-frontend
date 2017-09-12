@@ -16,7 +16,7 @@
 
 package auth
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import config.ApplicationConfig
 import play.api.mvc.{AnyContent, Request, Result}
 import uk.gov.hmrc.play.config.ServicesConfig

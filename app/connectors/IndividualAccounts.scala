@@ -16,15 +16,17 @@
 
 package connectors
 
-import com.google.inject.Inject
+import javax.inject.Inject
+
 import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class IndividualAccounts @Inject()(config: ServicesConfig, http: HttpGet with HttpPut with HttpPost)(implicit ec: ExecutionContext) {
+class IndividualAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
 
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking/individuals"
 

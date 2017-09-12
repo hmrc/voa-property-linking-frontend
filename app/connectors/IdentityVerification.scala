@@ -16,16 +16,18 @@
 
 package connectors
 
-import com.google.inject.Inject
+import javax.inject.Inject
+
 import config.ApplicationConfig
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, JsValue}
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.Future
 
-class IdentityVerification @Inject()(serverConfig: ServicesConfig, config: ApplicationConfig, http: HttpGet with HttpPost) {
+class IdentityVerification @Inject()(serverConfig: ServicesConfig, config: ApplicationConfig, http: WSHttp) {
 
   val url = serverConfig.baseUrl("identity-verification")
 

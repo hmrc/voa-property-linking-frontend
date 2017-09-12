@@ -16,14 +16,16 @@
 
 package connectors
 
-import com.google.inject.Inject
+import javax.inject.Inject
+
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost, HttpResponse}
+import uk.gov.hmrc.play.http.ws.WSHttp
+import uk.gov.hmrc.play.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class AuthorisationConnector @Inject()(config: ServicesConfig, http: HttpGet with HttpPost) {
+class AuthorisationConnector @Inject()(config: ServicesConfig, http: WSHttp) {
 
   def canViewAssessment(linkId: String, assessmentRef: Int)(implicit hc: HeaderCarrier): Future[Int] = {
     val url = config.baseUrl("authorisation") + s"/business-rates-authorisation/property-link/$linkId/assessment/$assessmentRef"

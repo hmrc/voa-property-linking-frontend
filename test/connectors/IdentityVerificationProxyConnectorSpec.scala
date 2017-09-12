@@ -26,7 +26,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.scalatestplus.play._
 import org.scalatest.concurrent.ScalaFutures._
 import org.scalacheck.Arbitrary._
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost}
+import uk.gov.hmrc.play.http.{HeaderCarrier}
 import org.mockito.Mockito._
 import org.scalatest.{FlatSpec, MustMatchers}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite

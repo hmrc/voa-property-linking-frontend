@@ -18,7 +18,7 @@ package controllers.manageDetails
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import auth.GovernmentGatewayProvider
-import com.google.inject.Inject
+import javax.inject.Inject
 import config.{ApplicationConfig, Global}
 import connectors.BusinessRatesAuthorisation
 import play.api.mvc.{Action, AnyContent, Result}

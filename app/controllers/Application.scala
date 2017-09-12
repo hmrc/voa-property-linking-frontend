@@ -17,7 +17,7 @@
 package controllers
 
 import auth.GGAction
-import com.google.inject.Inject
+import javax.inject.Inject
 import connectors.TrafficThrottleConnector
 import play.api.Play.current
 import play.api.i18n.Messages.Implicits._

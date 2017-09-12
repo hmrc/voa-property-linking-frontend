@@ -16,16 +16,18 @@
 
 package connectors
 
-import com.google.inject.Inject
+import javax.inject.Inject
+
 import controllers.Pagination
 import models._
 import models.searchApi.AgentAuthResult
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: HttpGet with HttpPut with HttpPost with HttpPatch)(implicit ec: ExecutionContext) {
+class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
 
   def validateAgentCode(agentCode:Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[AgentCodeValidationResult] = {

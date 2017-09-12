@@ -17,7 +17,7 @@
 package controllers
 
 import actions.AuthenticatedAction
-import com.google.inject.Inject
+import javax.inject.Inject
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector

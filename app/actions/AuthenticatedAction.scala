@@ -17,7 +17,7 @@
 package actions
 
 import auth.GovernmentGatewayProvider
-import com.google.inject.Inject
+import javax.inject.Inject
 import connectors._
 import models.{DetailedIndividualAccount, GroupAccount}
 import play.api.i18n.Messages

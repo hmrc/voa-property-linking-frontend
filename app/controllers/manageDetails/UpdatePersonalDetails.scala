@@ -17,7 +17,7 @@
 package controllers.manageDetails
 
 import actions.BasicAuthenticatedRequest
-import com.google.inject.Inject
+import javax.inject.Inject
 import config.ApplicationConfig
 import connectors.{Addresses, IndividualAccounts}
 import controllers.PropertyLinkingController

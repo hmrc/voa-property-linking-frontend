@@ -16,16 +16,17 @@
 
 package connectors
 
-import com.google.inject.Inject
+import javax.inject.Inject
+
 import config.AuthorisationFailed
 import models.Accounts
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, Upstream4xxResponse}
+import uk.gov.hmrc.play.http.ws.WSHttp
+import uk.gov.hmrc.play.http.{HeaderCarrier, Upstream4xxResponse}
 
 import scala.concurrent.Future
-
-class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: HttpGet) {
+class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp) {
   val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 
   def authenticate(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {

@@ -16,13 +16,15 @@
 
 package connectors
 
-import com.google.inject.Inject
+import javax.inject.Inject
+
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet}
+import uk.gov.hmrc.play.http.ws.WSHttp
+import uk.gov.hmrc.play.http.{HeaderCarrier}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SubmissionIdConnector @Inject()(config: ServicesConfig, http: HttpGet)(implicit ec: ExecutionContext) {
+class SubmissionIdConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
 
   def get(prefix: String = "PL")(implicit hc: HeaderCarrier): Future[String] =

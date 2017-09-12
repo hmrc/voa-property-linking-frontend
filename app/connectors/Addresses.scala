@@ -16,16 +16,18 @@
 
 package connectors
 
-import com.google.inject.Inject
+import javax.inject.Inject
+
 import models.Address
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpGet, HttpPost}
+import uk.gov.hmrc.play.http.ws.WSHttp
+import uk.gov.hmrc.play.http.{HeaderCarrier}
 
 import scala.concurrent.Future
 
-class Addresses @Inject()(config: ServicesConfig, http: HttpGet with HttpPost) {
+class Addresses @Inject()(config: ServicesConfig, http: WSHttp) {
 
   val url = config.baseUrl("property-linking") + "/property-linking/address"
 
