@@ -16,9 +16,12 @@
 
 package utils
 
+import java.time.{LocalDate, LocalTime}
+import java.time.format.DateTimeFormatter
+
 import models.{Address, PropertyAddress}
-import org.joda.time.LocalDate
-import org.joda.time.format.DateTimeFormat
+import org.joda.time.{LocalDate => JodaDate}
+import org.joda.time.format.{DateTimeFormat => JodaDateTimeFormat}
 
 object Formatters {
 
@@ -37,13 +40,15 @@ object Formatters {
     Seq(address.line1, address.line2, address.line3, address.line4, address.postcode).filterNot(_.isEmpty).map(_.capitalize) mkString ", "
   }
 
-  def formatDate(fmt: String, date: LocalDate): String = {
-    val formatter = DateTimeFormat.forPattern(fmt)
-    date.toString(formatter)
+  def formatJodaDate(date: JodaDate): String = {
+    date.toString(JodaDateTimeFormat.forPattern("d MMM Y"))
   }
 
   def formatDate(date: LocalDate): String = {
-    date.toString(DateTimeFormat.forPattern("d MMM Y"))
+    date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
   }
 
+  def formatTime(time: LocalTime): String = {
+    time.format(DateTimeFormatter.ofPattern("hh:mm a"))
+  }
 }

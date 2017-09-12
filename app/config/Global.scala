@@ -16,7 +16,7 @@
 
 package config
 
-import java.time.Clock
+import java.time.{Clock, Instant, LocalDateTime, ZoneId}
 import javax.inject.{Inject, Provider}
 
 import com.google.inject.AbstractModule
@@ -37,6 +37,7 @@ import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.config.{AppName, ControllerConfig}
 import uk.gov.hmrc.play.filters.{MicroserviceFilterSupport, RecoveryFilter}
 import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
+import uk.gov.hmrc.play.http.HeaderNames
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
 import uk.gov.hmrc.play.http.ws.WSHttp
 
@@ -47,6 +48,19 @@ trait VPLFrontendGlobal extends DefaultFrontendGlobal {
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html = {
     views.html.errors.error(pageTitle, heading, message)(request, applicationMessages)
+  }
+
+  override def internalServerErrorTemplate(implicit request: Request[_]): Html = {
+    views.html.errors.technicalDifficulties(extractErrorReference(request), getDateTime)
+  }
+
+  private def getDateTime: LocalDateTime = {
+    val instant = Instant.ofEpochMilli(System.currentTimeMillis)
+    LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+  }
+
+  private def extractErrorReference(request: Request[_]): Option[String] = {
+    request.headers.get(HeaderNames.xRequestId) map { _.split("-")(2) }
   }
 
   def auditConnector: uk.gov.hmrc.play.audit.http.connector.AuditConnector = AuditServiceConnector

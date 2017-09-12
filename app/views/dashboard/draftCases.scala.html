@@ -40,8 +40,8 @@
                 @model.draftCases.map { draftCase =>
                     <tr>
                         <td>@capitalizedAddress(draftCase.address)</td>
-                        <td>@formatDate(draftCase.effectiveDate)</td>
-                        <td>@formatDate(draftCase.expirationDate)</td>
+                        <td>@formatJodaDate(draftCase.effectiveDate)</td>
+                        <td>@formatJodaDate(draftCase.expirationDate)</td>
                         <td>
                             <ul>
                                 <li><a href="@draftCase.url">@Messages("draftCase.continue.check")</a></li>
