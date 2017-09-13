@@ -28,12 +28,13 @@ import play.api.test.Helpers._
 import play.api.test.{FakeHeaders, FakeRequest}
 import uk.gov.hmrc.play.http.HeaderCarrier
 import uk.gov.hmrc.play.test.UnitSpec
+import utils.NoMetricsOneAppPerSuite
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 
-class WithThrottlingSpec extends UnitSpec with MockitoSugar with GuiceOneAppPerSuite {
+class WithThrottlingSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSuite {
 
   implicit val hc: HeaderCarrier = mock[HeaderCarrier]
   implicit val system = ActorSystem("test-system")

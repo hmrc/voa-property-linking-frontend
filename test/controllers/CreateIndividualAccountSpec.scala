@@ -46,6 +46,10 @@ class CreateIndividualAccountSpec extends ControllerSpec with MockitoSugar {
   private object TestCreateIndividualAccount extends CreateIndividualAccount(StubGGAction, StubAuthConnector,
     StubIndividualAccountConnector, mockSessionRepo)
 
+  "Invoking the app held CreateIndividualAccount controller" should "result in correct dependency injection" in {
+      app.injector.instanceOf[CreateIndividualAccount]
+  }
+
   "Going to the create individual account page, when logged in with an account that has not registered" should "display the create individual account form" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)

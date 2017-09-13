@@ -36,12 +36,9 @@ import utils._
 import scala.collection.JavaConverters._
 
 class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout
-  with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with GuiceOneAppPerSuite {
+  with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with NoMetricsOneAppPerSuite {
 
-  override def fakeApplication(): Application = new GuiceApplicationBuilder()
-    .configure("featureFlags.searchSortEnabled" -> "true")
-    .configure("metrics.enabled" -> "false")
-    .build()
+  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "true")
 
   val token: (String, String) = "Csrf-Token" -> "nocheck"
 
