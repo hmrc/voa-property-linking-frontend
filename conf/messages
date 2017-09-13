@@ -759,3 +759,10 @@ addUserToGG.l4=enter the details of the new user and create a password
 addUserToGG.l5=submit the details
 addUserToGG.l6=make a note of the User ID
 addUserToGG.p3=You can then give the User ID and password to the new user so that they can <a href="https://www.gov.uk/correct-your-business-rates">register for the service</a>.
+
+#TECHNICAL DIFFICULTIES
+internalServerError.p.1=Please try again in a few minutes.
+internalServerError.p.2=If you continue to experience problems, please contact us on 03000 501 501. You’ll need to tell us the date, time and your reference number.
+internalServerError.reference=Reference number: {0}
+internalServerError.date=Date: {0}
+internalServerError.time=Time: {0}

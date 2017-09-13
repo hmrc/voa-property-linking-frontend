@@ -68,11 +68,11 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     val html = Jsoup.parse(contentAsString(res))
     val assessmentTable = html.select("tr").asScala.tail.map(_.select("td"))
 
-    assessmentTable.map(_.first().text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.effectiveDate))
+    assessmentTable.map(_.first().text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatJodaDate(a.effectiveDate))
     assessmentTable.map(_.get(1).text) must contain theSameElementsAs link.assessments.map(a => "£" + a.rateableValue.getOrElse("N/A"))
     assessmentTable.map(_.get(2).text) must contain theSameElementsAs link.assessments.map(formatCapacity)
-    assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.capacity.fromDate))
-    assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map(a => a.capacity.toDate.map(Formatters.formatDate).getOrElse("Present"))
+    assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatJodaDate(a.capacity.fromDate))
+    assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map(a => a.capacity.toDate.map(Formatters.formatJodaDate).getOrElse("Present"))
   }
 
   private def formatCapacity(assessment: Assessment) = assessment.capacity.capacity match {
