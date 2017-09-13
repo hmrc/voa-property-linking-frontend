@@ -27,7 +27,7 @@
     </check>
     <check level="error" class="org.scalastyle.scalariform.SpacesAfterPlusChecker" enabled="true"></check>
     <check level="error" class="org.scalastyle.scalariform.SpacesBeforePlusChecker" enabled="true"></check>
-    <check level="error" class="org.scalastyle.file.FileLineLengthChecker" enabled="true">
+    <check level="warning" class="org.scalastyle.file.FileLineLengthChecker" enabled="true">
         <parameters>
             <parameter name="maxLineLength"><![CDATA[180]]></parameter>
             <parameter name="tabSize"><![CDATA[4]]></parameter>
@@ -110,7 +110,7 @@
     </check>
     <check enabled="true" class="org.scalastyle.scalariform.NotImplementedErrorUsage" level="warning"/>
     <check enabled="true" class="org.scalastyle.scalariform.RedundantIfChecker" level="error"/>
-    <check enabled="true" class="org.scalastyle.scalariform.VarFieldChecker" level="error"/>
-    <check enabled="true" class="org.scalastyle.scalariform.VarLocalChecker" level="error"/>
+    <check enabled="true" class="org.scalastyle.scalariform.VarFieldChecker" level="warning"/>
+    <check enabled="true" class="org.scalastyle.scalariform.VarLocalChecker" level="warning"/>
     <check enabled="true" class="org.scalastyle.scalariform.WhileChecker" level="warning"/>
 </scalastyle>

@@ -60,19 +60,25 @@
                         }
                         </td>
                         <td>
-                            <li>@p.client.organisationName</li>
+                            @p.client.organisationName
                         </td>
                         <td>
                             <ul class="list">
                                 <li>
-                                    <a href="@agent.routes.RepresentationController.revokeClient(p.id, p.client.organisationId)">
+                                    <a href="@agent.routes.RepresentationController.revokeClient(p.authorisationId, p.client.organisationId)">
                                         @Messages("dashboard.clientProperties.revokeClient")
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="@routes.Assessments.assessments(p.id)">
-                                        @Messages("manageProperties.viewAssessments")
-                                    </a>
+                                    @if(p.status.toLowerCase == "declined") {
+                                        <a href="@routes.Assessments.viewSummary(p.uarn)">@Messages("manageProperties.viewAssessments")
+                                            <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
+                                        </a>
+                                    } else {
+                                        <a href="@routes.Assessments.assessments(p.authorisationId)">@Messages("manageProperties.viewAssessments")
+                                            <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
+                                        </a>
+                                    }
                                 </li>
                             </ul>
 

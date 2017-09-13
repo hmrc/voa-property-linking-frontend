@@ -50,4 +50,8 @@ object Formatters {
     value match { case Some(paramValue) if paramValue != "" => s"&$name=$paramValue" ; case _ => ""}
   }
 
+  def buildUppercaseQueryParams(name : String, value : Option[String]) : String = {
+    value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.toUpperCase}" ; case _ => ""}
+  }
+
 }

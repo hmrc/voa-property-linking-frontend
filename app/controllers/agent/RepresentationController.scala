@@ -21,13 +21,14 @@ import cats.data.OptionT
 import cats.instances.future._
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
-import connectors.propertyLinking.PropertyLinkConnector
 import connectors.PropertyRepresentationConnector
 import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
-import models._
-import play.api.libs.json.Json
+import connectors.propertyLinking.PropertyLinkConnector
 import controllers.agent.RepresentationController.ManagePropertiesVM
+import controllers.{Pagination, PropertyLinkingController, ValidPagination}
+import models._
 import models.searchApi.AgentAuthResult
+import play.api.libs.json.Json
 
 @Singleton()
 class RepresentationController @Inject()(config: ApplicationConfig,
@@ -36,7 +37,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
                                          propertyLinkConnector: PropertyLinkConnector)
   extends PropertyLinkingController with ValidPagination {
 
-  def viewClientProperties( page: Int = 1, pageSize: Int = 15, requestTotalRowCount: Boolean = true) =
+  def viewClientProperties( page: Int, pageSize: Int, requestTotalRowCount: Boolean = true) =
     viewClientPropertiesSearchSort(page = page, pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, None, None, None, None, None, None)
 
 
@@ -57,7 +58,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
             ) { paginationSearchSort =>
               for {
                 totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
-                  pagination = PaginationSearchSort(pageNumber = page, pageSize = pageSize, status = Some(RepresentationPending.name)))
+                  pagination = PaginationSearchSort(pageNumber = page, pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, status = Some(RepresentationPending.name)))
                 clientResponse <- reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
               } yield {
                 Ok(views.html.dashboard.manageClientsSearchSort(

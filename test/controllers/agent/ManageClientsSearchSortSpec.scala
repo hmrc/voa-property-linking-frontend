@@ -19,14 +19,14 @@ package controllers.agent
 import config.ApplicationConfig
 import connectors.Authenticated
 import models._
-import models.searchApi.{AgentAuthResult, AgentAuthorisation, Organisation}
+import models.searchApi.{AgentAuthClient, AgentAuthResult, AgentAuthorisation}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest._
 import org.scalatest.mockito.MockitoSugar
-import org.scalatestplus.play.guice.{GuiceOneAppPerSuite, GuiceOneAppPerTest}
-import play.api.{Application, Logger}
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
@@ -68,8 +68,8 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
   "The manage clients page" must "display the organisation name for each of the agent's first 15 client properties" in {
     val html = defaultHtml
 
-      val organisationNames = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.client.organisationName)
-      checkTableColumn(html, 2, "Client", organisationNames)
+    val organisationNames = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.client.organisationName)
+    checkTableColumn(html, 2, "Client", organisationNames)
   }
 
   it must "display the address for each of the agent's first 15 client properties" in {
@@ -88,12 +88,12 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
 
 
   it must "display the available actions for each of the user's first 15 client properties" in {
-    val html = defaultHtml
+    val html: Document = defaultHtml
 
     val actions = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map { auth =>
       s"Revoke Client View Valuations"
     }
-    checkTableColumn(html, 3, "Actions", actions)
+    checkTableColumnStartsWith(html, 3, "Actions", actions)
   }
 
   it must "display the current page number" in {
@@ -196,7 +196,8 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
     (1 to numberOfLinks) foreach { _ =>
-      arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(id = groupAccount.id.toLong, client = arbitrary[Organisation].copy(organisationId = groupAccount.id.toLong))
+      arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(authorisedPartyId = groupAccount.id.toLong,
+        client = arbitrary[AgentAuthClient].copy(organisationId = groupAccount.id.toLong))
     }
 
     StubPropertyRepresentationConnector.stubAgentAuthResult(AgentAuthResult(start =1,
@@ -209,10 +210,15 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
 
   private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
     html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
+    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
+    values foreach { v => data must contain (v.toUpperCase) }
+  }
 
+  private def checkTableColumnStartsWith(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
+    html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
     val data = html.select("table#nojsManageClients").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
 
-    values foreach { v => data must contain (v.toUpperCase) }
+    (data zip values).foreach { case (d, v) => d.toUpperCase must startWith (v.toUpperCase) }
   }
 
   object TestController extends RepresentationController(app.injector.instanceOf[ApplicationConfig],

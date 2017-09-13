@@ -19,7 +19,7 @@ package controllers
 import config.Global
 import play.api.mvc.{AnyContent, Request, Result}
 import play.api.mvc.Results.BadRequest
-import utils.Formatters.buildQueryParams
+import utils.Formatters._
 
 import scala.concurrent.Future
 
@@ -80,9 +80,9 @@ case class PaginationSearchSort(pageNumber: Int,
                                 totalResults: Long = 0) {
   def startPoint: Int = pageSize * (pageNumber - 1) + 1
   override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$requestTotalRowCount" +
-    buildQueryParams("sortfield", sortfield) +
-    buildQueryParams("sortorder", sortorder) +
-    buildQueryParams("status", status) +
+    buildUppercaseQueryParams("sortfield", sortfield) +
+    buildUppercaseQueryParams("sortorder", sortorder) +
+    buildUppercaseQueryParams("status", status) +
     buildQueryParams("address", address) +
     buildQueryParams("baref", baref) +
     buildQueryParams("agent", agent) +

@@ -41,20 +41,26 @@
             columns: [
                 {data: 'address', name: 'address'},
                 {data: 'localAuthorityRef', defaultContent:'-', name: 'baref'},
-                {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', name: 'status'},
+                {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', name: 'status', 'bSortable': false},
                 {data: 'agents[, ].organisationName', name: 'agent'},
                 {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', 'bSortable': false}
             ],
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                $('td:eq(2) ul li:eq(0)', nRow).text( messages.labels['status' + (aData.status.toLowerCase() === 'pending') + ''] );
+                $('td:eq(2) ul li:eq(0)', nRow).text( aData.status );
                 if(aData.status.toLowerCase() === 'pending'){
                     $('td:eq(2) ul li:eq(1)', nRow).html('<span class="submission-id">' + messages.labels.submissionId+ ': ' + aData.submissionId + '</span>' );
+                } else {
+
                 }
-                if(aData.agents === 'None'){
+                if(!aData.agents){
                     $('td:eq(3)', nRow).text('None');
                 }
                 $('td:eq(4) ul li:eq(0)', nRow).html('<a href="/business-rates-property-linking/appoint-agent/' + aData.id + '">'+ messages.labels.appointAgent + '</a>');
-                $('td:eq(4) ul li:eq(1)', nRow).html('<a href="/business-rates-property-linking/property-link/' + aData.id + '/assessments'+'">' + messages.labels.viewValuations + '</a>');
+                if (aData.status.toLowerCase() === 'declined') {
+                    $('td:eq(4) ul li:eq(1)', nRow).html('<a href="/business-rates-property-linking/summary/' + aData.uarn + '">' + messages.labels.viewValuations + '</a>');
+                } else {
+                    $('td:eq(4) ul li:eq(1)', nRow).html('<a href="/business-rates-property-linking/property-link/' + aData.id + '/assessments' + '">' + messages.labels.viewValuations + '</a>');
+                }
             },
             fnServerParams: function(data) {
                 data['order'].forEach(function(items, index) {
