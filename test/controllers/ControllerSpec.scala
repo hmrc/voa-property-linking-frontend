@@ -23,11 +23,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import utils._
 
-trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach with AppendedClues with MockitoSugar with GuiceOneAppPerSuite {
-
-  override def fakeApplication() = new GuiceApplicationBuilder()
-    .configure("metrics.enabled" -> "false")
-    .build()
+trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite {
 
   val token = "Csrf-Token" -> "nocheck"
   override protected def beforeEach(): Unit = {

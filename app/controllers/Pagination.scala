@@ -78,6 +78,24 @@ case class PaginationSearchSort(pageNumber: Int,
                                 agent: Option[String] = None,
                                 client: Option[String] = None,
                                 totalResults: Long = 0) {
+
+  def reverseSortOrder: Option[String] = {
+
+    sortorder match
+      { case Some(paramValue) if paramValue.toUpperCase == "ASC" => Some("DESC") ;
+        case _ => Some("ASC")
+      }
+  }
+
+  def valueOfSortorder : String = sortorder.getOrElse("ASC").toUpperCase
+  def valueOfSortfield: String = sortfield.getOrElse("")
+  def valueOfStatus: String = status.getOrElse("")
+  def valueOfAddress: String = address.getOrElse("")
+  def valueOfBaref: String = baref.getOrElse("")
+  def valueOfAgent: String = agent.getOrElse("")
+  def valueOfClient: String = client.getOrElse("")
+
+
   def startPoint: Int = pageSize * (pageNumber - 1) + 1
   override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$requestTotalRowCount" +
     buildUppercaseQueryParams("sortfield", sortfield) +

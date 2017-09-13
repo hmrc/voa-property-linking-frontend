@@ -16,17 +16,19 @@
 
 package actions
 
-import auth.GovernmentGatewayProvider
 import javax.inject.Inject
+
+import auth.GovernmentGatewayProvider
+import config.Global
 import connectors._
 import models.{DetailedIndividualAccount, GroupAccount}
+import play.api.Play.current
 import play.api.i18n.Messages
+import play.api.i18n.Messages.Implicits.applicationMessages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results._
 import play.api.mvc._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import play.api.Play.current
-import play.api.i18n.Messages.Implicits.applicationMessages
 
 import scala.concurrent.Future
 
@@ -35,7 +37,11 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
   def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
-    businessRatesAuthorisation.authenticate flatMap { res => handleResult(res, body) }
+    businessRatesAuthorisation.authenticate flatMap {
+      res => handleResult(res, body)
+    } recover {
+      case _ => InternalServerError(Global.internalServerErrorTemplate(request))
+    }
   }
 
   def asAgent(body: AgentRequest[AnyContent] => Future[Result])(implicit messages: Messages) = apply { implicit request =>
@@ -48,12 +54,20 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
 
   def toViewAssessment(authorisationId: Long, assessmentRef: Long)(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = {
     Action.async { implicit request =>
-      businessRatesAuthorisation.authorise(authorisationId, assessmentRef) flatMap { res => handleResult(res, body) }
+      businessRatesAuthorisation.authorise(authorisationId, assessmentRef) flatMap {
+        res => handleResult(res, body)
+      } recover {
+        case _ => InternalServerError(Global.internalServerErrorTemplate(request))
+      }
     }
   }
 
   def toViewAssessmentsFor(authorisationId: Long)(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
-    businessRatesAuthorisation.authorise(authorisationId) flatMap { res => handleResult(res, body) }
+    businessRatesAuthorisation.authorise(authorisationId) flatMap {
+      res => handleResult(res, body)
+    } recover {
+      case _ => InternalServerError(Global.internalServerErrorTemplate(request))
+    }
   }
 
   private def handleResult(result: AuthorisationResult, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])

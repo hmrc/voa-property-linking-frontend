@@ -59,8 +59,8 @@ class ViewDraftCasesSpec extends ControllerSpec {
     val expirationDate = rows.head.select("td").get(2).text
 
     address mustBe Formatters.capitalizedAddress(draftCase.address)
-    effectiveDate mustBe Formatters.formatDate(draftCase.effectiveDate)
-    expirationDate mustBe Formatters.formatDate(draftCase.expirationDate)
+    effectiveDate mustBe Formatters.formatJodaDate(draftCase.effectiveDate)
+    expirationDate mustBe Formatters.formatJodaDate(draftCase.expirationDate)
   }
 
   it should "show a link to continue the draft, and a link to view the detailed valuation" in {
@@ -99,10 +99,10 @@ class ViewDraftCasesSpec extends ControllerSpec {
       address mustBe Formatters.capitalizedAddress(draft.address)
 
       val effectiveDate = columns.get(1).text
-      effectiveDate mustBe Formatters.formatDate(draft.effectiveDate)
+      effectiveDate mustBe Formatters.formatJodaDate(draft.effectiveDate)
 
       val expirationDate = columns.get(2).text
-      expirationDate mustBe Formatters.formatDate(draft.expirationDate)
+      expirationDate mustBe Formatters.formatJodaDate(draft.expirationDate)
 
       val links = columns.get(3).select("li a")
       links.first.attr("href") mustBe draft.url

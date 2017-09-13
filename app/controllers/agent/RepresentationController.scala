@@ -65,7 +65,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
                   ManageClientPropertiesSearchAndSortVM(
                     result = clientResponse,
                     totalPendingRequests = totalPendingRequests.total,
-                    pagination = paginationSearchSort.copy(totalResults = clientResponse.total)))
+                    pagination = paginationSearchSort.copy(totalResults = clientResponse.filterTotal)))
                 )
               }
             }

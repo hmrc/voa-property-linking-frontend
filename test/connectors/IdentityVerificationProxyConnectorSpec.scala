@@ -26,18 +26,18 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.scalatestplus.play._
 import org.scalatest.concurrent.ScalaFutures._
 import org.scalacheck.Arbitrary._
-import uk.gov.hmrc.play.http.{HeaderCarrier}
+import uk.gov.hmrc.play.http.HeaderCarrier
 import org.mockito.Mockito._
 import org.scalatest.{FlatSpec, MustMatchers}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import resources._
 import uk.gov.hmrc.play.http.ws.WSHttp
-import utils.StubServicesConfig
+import utils.{NoMetricsOneAppPerSuite, StubServicesConfig}
 
 import scala.concurrent.Future
 
 class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers with MockitoSugar
-  with GeneratorDrivenPropertyChecks with GuiceOneAppPerSuite {
+  with GeneratorDrivenPropertyChecks with NoMetricsOneAppPerSuite {
 
   implicit val headerCarrier = HeaderCarrier()
 

@@ -60,7 +60,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
               ManagePropertiesSearchAndSortVM(request.organisationAccount.id,
                 response,
                 pagination.copy(
-                  totalResults = response.total))))
+                  totalResults = response.filterTotal))))
           }
         } else {
             propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>

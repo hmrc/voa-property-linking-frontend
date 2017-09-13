@@ -12,3 +12,15 @@
     background-position:  0% 50%;
     right:6px
 }
+
+.sorting {
+    background: url("../images/sort_both.png") no-repeat scroll center right;
+}
+
+.sorting_asc {
+    background: url("../images/sort_asc.png") no-repeat scroll center right;
+}
+
+.sorting_desc {
+    background: url("../images/sort_desc.png") no-repeat scroll center right;
+}
