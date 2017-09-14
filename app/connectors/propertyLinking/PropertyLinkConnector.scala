@@ -19,7 +19,7 @@ package connectors.propertyLinking
 import javax.inject.Inject
 
 import connectors.fileUpload.FileMetadata
-import controllers.Pagination
+import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.OwnerAuthResult
 import org.joda.time.DateTime
@@ -65,24 +65,11 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   }
 
   def linkedPropertiesSearchAndSort(organisationId: Int,
-                                    pagination: Pagination,
-                                    sortfield: Option[String] = None,
-                                    sortorder: Option[String] = None,
-                                    status: Option[String] = None,
-                                    address: Option[String] = None,
-                                    baref: Option[String] = None,
-                                    agent: Option[String] = None)
+                                    pagination: PaginationSearchSort)
                       (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
     http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +
       s"organisationId=$organisationId&" +
-      s"$pagination&" +
-      buildUppercaseQueryParams("sortfield", sortfield) +
-      buildUppercaseQueryParams("sortorder", sortorder) +
-      buildUppercaseQueryParams("status", status) +
-      buildQueryParams("address", address) +
-      buildQueryParams("baref", baref) +
-      buildQueryParams("agent", agent)
-    )
+      s"$pagination")
 
   }
 
