@@ -46,7 +46,7 @@
                 {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', 'bSortable': false}
             ],
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                $('td:eq(2) ul li:eq(0)', nRow).text( aData.status );
+                $('td:eq(2) ul li:eq(0)', nRow).text( messages.labels['status' + (aData.status.toLowerCase()) + ''] );
                 if(aData.status.toLowerCase() === 'pending'){
                     $('td:eq(2) ul li:eq(1)', nRow).html('<span class="submission-id">' + messages.labels.submissionId+ ': ' + aData.submissionId + '</span>' );
                 } else {
