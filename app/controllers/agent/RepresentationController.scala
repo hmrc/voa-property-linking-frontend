@@ -41,7 +41,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
     viewClientPropertiesSearchSort(page = page, pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, None, None, None, None, None, None)
 
 
-  def viewClientPropertiesSearchSort( page: Int = 1, pageSize: Int = 15, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
+  def viewClientPropertiesSearchSort( page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
                             sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
                             baref: Option[String] = None, client: Option[String]  = None) = authenticated.asAgent { implicit request =>
           if (config.searchSortEnabled) {
