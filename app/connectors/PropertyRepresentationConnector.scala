@@ -18,14 +18,12 @@ package connectors
 
 import javax.inject.Inject
 
-import controllers.Pagination
 import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.AgentAuthResult
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
 import uk.gov.hmrc.play.http.ws.WSHttp
-import utils.Formatters.buildQueryParams
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -51,7 +49,6 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
       s"organisationId=$agentOrganisationId&" +
       s"$pagination"
     http.GET[AgentAuthResult](url)
-
   }
 
   def find(linkId: Long)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {

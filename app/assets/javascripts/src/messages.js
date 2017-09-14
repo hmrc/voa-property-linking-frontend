@@ -21,6 +21,8 @@
                 statuspending: 'Pending',
                 statusapproved: 'Approved',
                 statusdeclined: 'Declined',
+                statusrevoked: 'Revoked',
+                statusmoreevidencerequired: 'More evidence required',
                 'statusSTART_AND_CONTINUE': 'Yes',
                 'statusNOT_PERMITTED': 'No',
                 check: 'Check',

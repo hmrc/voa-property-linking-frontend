@@ -41,8 +41,6 @@
                     </colgroup>
                     <thead>
 
-
-
                         <tr role="row">
                             <th scope="col" >
                                 @if(model.pagination.valueOfSortfield == "address") {
@@ -108,12 +106,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    @if(p.status.toLowerCase == "declined") {
-                                        <a href="@routes.Assessments.viewSummary(p.uarn)">@Messages("manageProperties.viewAssessments")
+                                    @if(p.status.toLowerCase == "approved" || p.status.toLowerCase == "pending") {
+                                        <a href="@routes.Assessments.assessments(p.authorisationId)">@Messages("manageProperties.viewAssessments")
                                             <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
                                         </a>
                                     } else {
-                                        <a href="@routes.Assessments.assessments(p.authorisationId)">@Messages("manageProperties.viewAssessments")
+                                        <a href="@routes.Assessments.viewSummary(p.uarn)">@Messages("manageProperties.viewAssessments")
                                             <span class="visuallyhidden"> for @(Formatters.capitalizedAddress(p.address))</span>
                                         </a>
                                     }
