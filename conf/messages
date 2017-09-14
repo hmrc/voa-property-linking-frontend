@@ -479,8 +479,10 @@ linkingRequestSubmitted.title3=Your submission ID is
 linkingRequestSubmitted.message=Thank you for your request to add {0} to your customer record.
 linkingRequestSubmitted.p.1=If the property request is approved you’ll be able to view the detailed valuation. This may take some time depending on the nature of your application.
 p.whatHappensNext=What happens next
-linkSubmitted.whatNext.1=It may take up to 15 days for your request to be approved. You can see the status of your request in your dashboard.
-linkSubmitted.whatNext.2=You should make a note of your submission ID. You may need to quote this if you contact us about your property before the link has been approved.
+linkSubmitted.whatNext.1=You should make a note of your submission ID. This is the reference for your request.
+linkSubmitted.whatNext.2=We’ll process your request as quickly as possible but this may take up to 15 working days.
+linkSubmitted.whatNext.3=You can see the status of your request in your dashboard. Once the request is approved, the status will update.
+linkSubmitted.whatNext.4=We’ll contact you if we need more information.
 
 linkingRequestSubmitted.link=Manage your properties
 linkingRequestSubmitted.changedCircumstances.heading=Change in circumstances
