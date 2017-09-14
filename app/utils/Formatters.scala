@@ -51,12 +51,4 @@ object Formatters {
   def formatTime(time: LocalTime): String = {
     time.format(DateTimeFormatter.ofPattern("hh:mm a"))
   }
-  def buildQueryParams(name : String, value : Option[String]) : String = {
-    value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.trim}" ; case _ => ""}
-  }
-
-  def buildUppercaseQueryParams(name : String, value : Option[String]) : String = {
-    value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.toUpperCase.trim}" ; case _ => ""}
-  }
-
 }
