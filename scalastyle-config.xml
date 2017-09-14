@@ -56,7 +56,7 @@
     </check>
     <check level="error" class="org.scalastyle.scalariform.ParameterNumberChecker" enabled="true">
         <parameters>
-            <parameter name="maxParameters"><![CDATA[10]]></parameter>
+            <parameter name="maxParameters"><![CDATA[15]]></parameter>
         </parameters>
     </check>
     <check level="error" class="org.scalastyle.scalariform.NoWhitespaceBeforeLeftBracketChecker" enabled="true"></check>

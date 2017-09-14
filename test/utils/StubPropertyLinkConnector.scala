@@ -18,7 +18,7 @@ package utils
 
 import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.Pagination
+import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import session.LinkingSessionRequest
@@ -44,13 +44,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
   }
 
   override def linkedPropertiesSearchAndSort(organisationId: Int,
-                                            pagination: Pagination,
-                                            sortfield: Option[String] = Some("address"),
-                                            sortorder: Option[String] = Some("asc"),
-                                            status: Option[String] = None,
-                                            address: Option[String] = None,
-                                            baref: Option[String] = None,
-                                            agent: Option[String] = None)
+                                            pagination: PaginationSearchSort)
                                            (implicit hc: HeaderCarrier) = {
     Future.successful(stubbedOwnerAuthResult)
   }

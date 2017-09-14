@@ -22,6 +22,7 @@ import cats.instances.future._
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
+import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.agent.RepresentationController.ManagePropertiesVM
 import controllers.{Pagination, PropertyLinkingController, ValidPagination}
@@ -36,33 +37,47 @@ class RepresentationController @Inject()(config: ApplicationConfig,
                                          propertyLinkConnector: PropertyLinkConnector)
   extends PropertyLinkingController with ValidPagination {
 
-  def viewClientProperties(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
-    withValidPagination(page, pageSize) { pagination =>
-      if (config.searchSortEnabled) {
+  def viewClientProperties( page: Int, pageSize: Int, requestTotalRowCount: Boolean = true) =
+    viewClientPropertiesSearchSort(page = page, pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, None, None, None, None, None, None)
 
-        for{
-          totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
-                                                                      pagination =  pagination,
-                                                                      status = Some(RepresentationPending.name))
-          clientResponse       <- reprConnector.forAgentSearchAndSort(request.organisationId, pagination)
 
-        }yield {
-            Ok(views.html.dashboard.manageClientsSearchSort(
-              ManageClientPropertiesSearchAndSortVM(
-                result = clientResponse,
-                totalPendingRequests = totalPendingRequests.filterTotal,
-                pagination = pagination.copy(totalResults = clientResponse.total)))
-            )
-        }
-
-      } else {
-        reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
-          Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
-            reprs.totalPendingRequests,
-            pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
-        }
-      }
-    }
+  def viewClientPropertiesSearchSort( page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
+                            sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
+                            baref: Option[String] = None, client: Option[String]  = None) = authenticated.asAgent { implicit request =>
+          if (config.searchSortEnabled) {
+            withValidPaginationSearchSort(
+              page = page,
+              pageSize = pageSize,
+              requestTotalRowCount = requestTotalRowCount,
+              sortfield = sortfield,
+              sortorder = sortorder,
+              status = status,
+              address = address,
+              baref = baref,
+              client = client
+            ) { paginationSearchSort =>
+              for {
+                totalPendingRequests <- reprConnector.forAgentSearchAndSort(agentOrganisationId = request.organisationId,
+                  pagination = PaginationSearchSort(pageNumber = page, pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, status = Some(RepresentationPending.name)))
+                clientResponse <- reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
+              } yield {
+                Ok(views.html.dashboard.manageClientsSearchSort(
+                  ManageClientPropertiesSearchAndSortVM(
+                    result = clientResponse,
+                    totalPendingRequests = totalPendingRequests.total,
+                    pagination = paginationSearchSort.copy(totalResults = clientResponse.filterTotal)))
+                )
+              }
+            }
+          } else {
+              withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
+                reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
+                  Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
+                    reprs.totalPendingRequests,
+                    pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
+                }
+              }
+          }
   }
 
   def listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated.asAgent { implicit request =>
@@ -82,9 +97,9 @@ class RepresentationController @Inject()(config: ApplicationConfig,
                                  status: Option[String],
                                  address: Option[String],
                                  baref: Option[String],
-                                             client: Option[String])  = authenticated { implicit request =>
-    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
-      reprConnector.forAgentSearchAndSort(request.organisationId, pagination, sortfield, sortorder, status, address, baref, client) map { res =>
+                                 client: Option[String])  = authenticated { implicit request =>
+    withValidPaginationSearchSort(page, pageSize, requestTotalRowCount, sortfield, sortorder, status, address, baref, client) { pagination =>
+      reprConnector.forAgentSearchAndSort(request.organisationId, pagination) map { res =>
         Ok(Json.toJson(res))
       }
     }
@@ -157,4 +172,4 @@ object RepresentationController {
   case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation], totalPendingRequests: Long, pagination: Pagination)
 }
 
-case class ManageClientPropertiesSearchAndSortVM(result: AgentAuthResult, totalPendingRequests: Long, pagination: Pagination)
+case class ManageClientPropertiesSearchAndSortVM(result: AgentAuthResult, totalPendingRequests: Long, pagination: PaginationSearchSort)

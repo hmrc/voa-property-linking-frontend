@@ -17,7 +17,7 @@
 package utils
 
 import connectors.PropertyRepresentationConnector
-import controllers.Pagination
+import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.{AgentAuthResult, AgentAuthorisation, OwnerAuthResult, OwnerAuthorisation}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -62,13 +62,7 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
   )
 
   override def forAgentSearchAndSort(agentOrganisationId: Int,
-                            pagination: Pagination,
-                            sortfield: Option[String] = Some("address"),
-                            sortorder: Option[String] = Some("asc"),
-                            status: Option[String] = None,
-                            address: Option[String] = None,
-                            baref: Option[String] = None,
-                            client: Option[String] = None)
+                            pagination: PaginationSearchSort)
                            (implicit hc: HeaderCarrier): Future[AgentAuthResult] = Future.successful(
     stubbedAgentAuthResult
   )

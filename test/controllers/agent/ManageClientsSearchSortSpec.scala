@@ -18,6 +18,7 @@ package controllers.agent
 
 import config.ApplicationConfig
 import connectors.Authenticated
+import controllers.ControllerSpec
 import models._
 import models.searchApi.{AgentAuthClient, AgentAuthResult, AgentAuthorisation}
 import org.jsoup.Jsoup
@@ -35,24 +36,9 @@ import utils._
 
 import scala.collection.JavaConverters._
 
-class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout
-  with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with NoMetricsOneAppPerSuite {
+class ManageClientsSearchSortSpec extends ControllerSpec {
 
   override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "true")
-
-  val token: (String, String) = "Csrf-Token" -> "nocheck"
-
-  override protected def beforeEach(): Unit = {
-    StubIndividualAccountConnector.reset()
-    StubGroupAccountConnector.reset()
-    StubAuthConnector.reset()
-    StubIdentityVerification.reset()
-    StubPropertyLinkConnector.reset()
-    StubAuthentication.reset()
-    StubBusinessRatesValuation.reset()
-    StubSubmissionIdConnector.reset()
-    StubPropertyRepresentationConnector.reset()
-  }
 
   lazy val defaultHtml = {
     setup()
@@ -102,7 +88,7 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
   it must "include a 'next' link if there are more results" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    val res = TestController.viewClientPropertiesSearchSort(1, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -110,7 +96,7 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
     val nextLink = html.select("ul.pagination li.next")
 
     nextLink.hasClass("disabled") mustBe false withClue "'Next' link is incorrectly disabled"
-    nextLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientProperties(2).url
+    nextLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientPropertiesSearchSort(2).url
   }
 
   it must "include an inactive 'next' link if there are no further results" in {
@@ -142,7 +128,7 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
   it must "include a 'previous' link when not on page 1" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientProperties(2, 15)(FakeRequest())
+    val res = TestController.viewClientPropertiesSearchSort(2, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -150,7 +136,7 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
     val previousLink = html.select("ul.pagination li.previous")
 
     previousLink.hasClass("disabled") mustBe false withClue "'Previous' link is incorrectly disabled"
-    previousLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientProperties(1).url
+    previousLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientPropertiesSearchSort(1).url
   }
 
   it must "include a link to pending properties view" in {
@@ -207,13 +193,13 @@ class ManageClientsSearchSortSpec extends FlatSpec with MustMatchers with Future
 
   private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
     html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
-    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
+    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(2).map(_.select("td").get(index).text.toUpperCase)
     values foreach { v => data must contain (v.toUpperCase) }
   }
 
   private def checkTableColumnStartsWith(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
     html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
-    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
+    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(2).map(_.select("td").get(index).text.toUpperCase)
 
     (data zip values).foreach { case (d, v) => d.toUpperCase must startWith (v.toUpperCase) }
   }
