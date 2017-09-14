@@ -18,7 +18,7 @@ package connectors
 
 import javax.inject.Inject
 
-import controllers.{Pagination, PaginationSearchSort}
+import controllers.Pagination
 import models._
 import models.searchApi.AgentAuthResult
 import uk.gov.hmrc.play.config.inject.ServicesConfig
@@ -43,12 +43,32 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
   }
 
   def forAgentSearchAndSort(agentOrganisationId: Int,
-                            pagination: PaginationSearchSort)
+                            pagination: Pagination,
+                            sortfield: Option[String] = None,
+                            sortorder: Option[String] = None,
+                            status: Option[String] = None,
+                            address: Option[String] = None,
+                            baref: Option[String] = None,
+                            client: Option[String] = None)
                            (implicit hc: HeaderCarrier): Future[AgentAuthResult] = {
-    val url = s"$baseUrl/property-representations-search-sort?" +
+    http.GET[AgentAuthResult](s"$baseUrl/property-representations-search-sort?" +
       s"organisationId=$agentOrganisationId&" +
-      s"$pagination"
-    http.GET[AgentAuthResult](url)
+      s"$pagination&" +
+      buildUppercaseQueryParams("sortfield", sortfield) +
+      buildUppercaseQueryParams("sortorder", sortorder) +
+      buildUppercaseQueryParams("status", status) +
+      buildQueryParams("address", address) +
+      buildQueryParams("baref", baref) +
+      buildQueryParams("client", client)
+    )
+
+  }
+  private def buildQueryParams(name : String, value : Option[String]) : String = {
+    value match { case Some(paramValue) if paramValue != "" => s"&$name=$paramValue" ; case _ => ""}
+  }
+
+  private def buildUppercaseQueryParams(name : String, value : Option[String]) : String = {
+    value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.toUpperCase}" ; case _ => ""}
   }
 
   def find(linkId: Long)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {

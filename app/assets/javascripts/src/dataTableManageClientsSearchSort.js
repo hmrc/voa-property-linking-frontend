@@ -45,10 +45,10 @@
             ],
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $('td:eq(3) ul li:eq(0)', nRow).html('<a href="/business-rates-property-linking/client-properties/' + aData.client.organisationId + '/revoke/' + aData.authorisationId +'">' + messages.labels.revokeClient + '</a>');
-                if (aData.status.toLowerCase() === 'pending' || aData.status.toLowerCase() === 'approved') {
-                    $('td:eq(3) ul li:eq(1)', nRow).html('<a href="/business-rates-property-linking/property-link/' + aData.authorisationId + '/assessments' + '">' + messages.labels.viewValuations + '</a>');
-                } else {
+                if (aData.status.toLowerCase() === 'declined') {
                     $('td:eq(3) ul li:eq(1)', nRow).html('<a href="/business-rates-property-linking/summary/' + aData.uarn + '">' + messages.labels.viewValuations + '</a>');
+                } else {
+                    $('td:eq(3) ul li:eq(1)', nRow).html('<a href="/business-rates-property-linking/property-link/' + aData.authorisationId + '/assessments' + '">' + messages.labels.viewValuations + '</a>');
                 }
             },
             fnServerParams: function(data) {

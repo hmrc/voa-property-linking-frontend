@@ -19,7 +19,6 @@ package controllers
 import config.Global
 import play.api.mvc.{AnyContent, Request, Result}
 import play.api.mvc.Results.BadRequest
-import utils.Formatters._
 
 import scala.concurrent.Future
 
@@ -32,79 +31,9 @@ trait ValidPagination extends PropertyLinkingController {
       default(Pagination(pageNumber = page, pageSize = pageSize, resultCount = getTotal))
     }
   }
-
-  protected def withValidPaginationSearchSort(page: Int,
-                                              pageSize: Int,
-                                              requestTotalRowCount: Boolean = true,
-                                              sortfield: Option[String] = None,
-                                              sortorder: Option[String] = None,
-                                              status: Option[String] = None,
-                                              address: Option[String] = None,
-                                              baref: Option[String] = None,
-                                              agent: Option[String] = None,
-                                              client: Option[String] = None)
-                                   (default: PaginationSearchSort => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
-    if (page <= 0 || pageSize < 10 || pageSize > 100) {
-      BadRequest(Global.badRequestTemplate)
-    } else {
-      default(PaginationSearchSort(pageNumber = page,
-        pageSize = pageSize,
-        requestTotalRowCount = requestTotalRowCount,
-        sortfield = sortfield,
-        sortorder = sortorder,
-        status = status,
-        address = address,
-        baref = baref,
-        agent = agent,
-        client = client))
-    }
-  }
 }
 
 case class Pagination(pageNumber: Int, pageSize: Int, totalResults: Long = 0, resultCount: Boolean = true) {
   def startPoint: Int = pageSize * (pageNumber - 1) + 1
   override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$resultCount"
 }
-
-
-case class PaginationSearchSort(pageNumber: Int,
-                                pageSize: Int,
-                                requestTotalRowCount: Boolean = false,
-                                sortfield: Option[String] = None,
-                                sortorder: Option[String] = None,
-                                status: Option[String] = None,
-                                address: Option[String] = None,
-                                baref: Option[String] = None,
-                                agent: Option[String] = None,
-                                client: Option[String] = None,
-                                totalResults: Long = 0) {
-
-  def reverseSortOrder: Option[String] = {
-
-    sortorder match
-      { case Some(paramValue) if paramValue.toUpperCase == "ASC" => Some("DESC") ;
-        case _ => Some("ASC")
-      }
-  }
-
-  def valueOfSortorder : String = sortorder.getOrElse("ASC").toUpperCase
-  def valueOfSortfield: String = sortfield.getOrElse("")
-  def valueOfStatus: String = status.getOrElse("")
-  def valueOfAddress: String = address.getOrElse("")
-  def valueOfBaref: String = baref.getOrElse("")
-  def valueOfAgent: String = agent.getOrElse("")
-  def valueOfClient: String = client.getOrElse("")
-
-
-  def startPoint: Int = pageSize * (pageNumber - 1) + 1
-  override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$requestTotalRowCount" +
-    buildUppercaseQueryParams("sortfield", sortfield) +
-    buildUppercaseQueryParams("sortorder", sortorder) +
-    buildUppercaseQueryParams("status", status) +
-    buildQueryParams("address", address) +
-    buildQueryParams("baref", baref) +
-    buildQueryParams("agent", agent) +
-    buildQueryParams("client", client)
-
-}
-
