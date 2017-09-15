@@ -11,13 +11,9 @@
     @partials.dashboardTabs()
 
     <h2 class="heading-secondary">
-       @if(model.totalPendingRequests == 0) {
-           @Messages("manageClients.nonePending")
-       } else {
-           <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest()" id="viewPending">
-               @Messages("manageClients.noOfPending", model.totalPendingRequests)
-           </a>
-       }
+        <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest()" id="viewPending">
+        @Messages("manageProperties.pendingRequests")
+        </a>
     </h2>
 
         @if(!model.result.authorisations.isEmpty) {
