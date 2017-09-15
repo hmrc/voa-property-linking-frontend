@@ -88,12 +88,12 @@ case class PaginationSearchSort(pageNumber: Int,
   }
 
   def valueOfSortorder : String = sortorder.getOrElse("ASC").toUpperCase
-  def valueOfSortfield: String = sortfield.getOrElse("")
-  def valueOfStatus: String = status.getOrElse("")
-  def valueOfAddress: String = address.getOrElse("")
-  def valueOfBaref: String = baref.getOrElse("")
-  def valueOfAgent: String = agent.getOrElse("")
-  def valueOfClient: String = client.getOrElse("")
+  def valueOfSortfield: String = sortfield.getOrElse("").trim
+  def valueOfStatus: String = status.getOrElse("").trim
+  def valueOfAddress: String = address.getOrElse("").trim
+  def valueOfBaref: String = baref.getOrElse("").trim
+  def valueOfAgent: String = agent.getOrElse("").trim
+  def valueOfClient: String = client.getOrElse("").trim
 
 
   def startPoint: Int = pageSize * (pageNumber - 1) + 1
