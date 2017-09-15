@@ -30,11 +30,11 @@
                     <table class="dataTable table-font-xsmall margin-bottom-20 margin-top-20" id="nojsManageProperties">
                         <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
                         <colgroup>
-                            <col>
+                            <col style="width: 200px">
                             <col style="width: 140px">
-                            <col style="width: 120px">
-                            <col style="width: 170px">
                             <col style="width: 130px">
+                            <col style="width: 170px">
+                            <col style="width: 120px">
                         </colgroup>
                         <tbody>
 
@@ -73,7 +73,7 @@
                                 </th>
                             </tr>
                             <form method="GET" action="@routes.Dashboard.managePropertiesSearchSort()">
-                                <tr role="row">    
+                                <tr role="row">
                                     <th scope="col"><div class="searchfield"><input name="address" value="@model.pagination.valueOfAddress" id="address" size="10" class="ss-input"><button id="addressBtn" class="search-submit ss-button"></button></div></th>
                                     <th scope="col"><div class="searchfield"><input name="baref"  value="@model.pagination.valueOfBaref" id="baref" size="10" class="ss-input"><button id="barefBtn" class="search-submit ss-button"></button></div></th>
                                     <th scope="col"><div class="searchfield"><input name="status"  value="@model.pagination.valueOfStatus" id="status" size="10" class="ss-input"><button id="statusBtn" class="search-submit ss-button"></button></div></th>
@@ -155,7 +155,6 @@
                     <ul class="pagination">
                         @if(model.pagination.pageNumber > 1) {
                             <li class="previous "><a href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber - 1, model.pagination.pageSize, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url"><i class="previous-arrow"></i>Previous</a></li>
-                             Previous</a></li>
                         } else {
                             <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
                         }
@@ -166,7 +165,6 @@
                             <li class="next">
                                     <a href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber + 1, model.pagination.pageSize, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">Next<i class="next-arrow"></i></a></li>
 
-                        Next<i class="next-arrow"></i></a></li>
                         } else {
                             <li class="next disabled">Next <i class="next-arrow"></i></li>
                         }

@@ -32,6 +32,8 @@ import scala.collection.JavaConverters._
 
 class ManagePropertiesPageSpec extends ControllerSpec {
 
+  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false")
+
   "Manage properties page" must "show the submissionId if the property link is pending" in {
     val pendingProp = arbitrary[PropertyLink].sample.get.copy(
       organisationId = organisationAccount.id,
