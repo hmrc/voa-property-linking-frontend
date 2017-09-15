@@ -32,6 +32,8 @@ import scala.collection.JavaConverters._
 
 class ManagePropertiesPageSpec extends ControllerSpec {
 
+  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false")
+
   "Manage properties page" must "show the submissionId if the property link is pending" in {
     val pendingProp = arbitrary[PropertyLink].sample.get.copy(
       organisationId = organisationAccount.id,
@@ -51,7 +53,7 @@ class ManagePropertiesPageSpec extends ControllerSpec {
     val page = Jsoup.parse(manageProperties(ManagePropertiesVM(organisationAccount.id, Nil, Pagination(1, 25, 25))).toString)
     val tabs = page.select(".section-tabs ul[role=tablist] li").asScala
     tabs must have size 5
-    tabs.init.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(routes.Dashboard.managePropertiesSearchSort().url, routes.Dashboard.manageAgents().url, routes.Dashboard.viewDraftCases().url, controllers.manageDetails.routes.ViewDetails.show().url)
+    tabs.init.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(routes.Dashboard.manageProperties().url, routes.Dashboard.manageAgents().url, routes.Dashboard.viewDraftCases().url, controllers.manageDetails.routes.ViewDetails.show().url)
   }
 
   implicit lazy val request = FakeRequest()
