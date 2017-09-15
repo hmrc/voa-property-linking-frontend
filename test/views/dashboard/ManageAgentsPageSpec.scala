@@ -53,7 +53,7 @@ class ManageAgentsPageSpec extends ControllerSpec {
   it must "show the dashboard navigation tabs at the top of the screen" in {
     val tabs = manageAgentsPage.select(".section-tabs ul[role=tablist] li").asScala
     tabs must have size 5
-    tabs.init.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(routes.Dashboard.manageProperties().url, routes.Dashboard.manageAgents().url, routes.Dashboard.viewDraftCases().url, controllers.manageDetails.routes.ViewDetails.show().url)
+    tabs.init.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(routes.Dashboard.managePropertiesSearchSort().url, routes.Dashboard.manageAgents().url, routes.Dashboard.viewDraftCases().url, controllers.manageDetails.routes.ViewDetails.show().url)
   }
 
   implicit lazy val request: AgentRequest[_] = AgentRequest(groupAccountGen.copy(isAgent = false), individualGen, positiveLong, FakeRequest())
