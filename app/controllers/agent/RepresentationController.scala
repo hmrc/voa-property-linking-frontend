@@ -60,9 +60,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
                 totalPendingRequests <- reprConnector.forAgentSearchAndSort(
                   agentOrganisationId = request.organisationId,
                   pagination = PaginationSearchSort(pageNumber = page,
-                    pageSize = pageSize,
-                    requestTotalRowCount = requestTotalRowCount,
-                    status = Some(RepresentationPending.name)))
+                    pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, status = Some(RepresentationPending.name)))
                 clientResponse <- reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
               } yield {
                 Ok(views.html.dashboard.manageClientsSearchSort(
