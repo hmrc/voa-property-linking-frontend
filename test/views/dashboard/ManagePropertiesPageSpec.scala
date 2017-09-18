@@ -56,7 +56,7 @@ class ManagePropertiesPageSpec extends ControllerSpec {
     tabs.init.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(routes.Dashboard.manageProperties().url, routes.Dashboard.manageAgents().url, routes.Dashboard.viewDraftCases().url, controllers.manageDetails.routes.ViewDetails.show().url)
   }
 
-  implicit lazy val request = FakeRequest()
+  implicit lazy val request = FakeRequest("GET", "/business-rates-property-linking/properties")
   lazy val organisationAccount: Gen[GroupAccount] = arbitrary[GroupAccount]
   lazy val individualAccount: Gen[DetailedIndividualAccount] = arbitrary[DetailedIndividualAccount]
   implicit lazy val basicAuthenticatedRequest: AuthenticatedRequest[_] = BasicAuthenticatedRequest(organisationAccount.copy(isAgent = false), individualAccount, request)
