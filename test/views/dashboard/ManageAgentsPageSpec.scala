@@ -59,7 +59,7 @@ class ManageAgentsPageSpec extends ControllerSpec {
     tabs.init.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(routes.Dashboard.manageProperties().url, routes.Dashboard.manageAgents().url, routes.Dashboard.viewDraftCases().url, controllers.manageDetails.routes.ViewDetails.show().url)
   }
 
-  implicit lazy val request: AgentRequest[_] = AgentRequest(groupAccountGen.copy(isAgent = false), individualGen, positiveLong, FakeRequest())
+  implicit lazy val request: AgentRequest[_] = AgentRequest(groupAccountGen.copy(isAgent = false), individualGen, positiveLong, FakeRequest("GET", "/business-rates-property-linking/properties"))
   lazy val noAgents = ManageAgentsVM(Nil)
   lazy val twoAgents = ManageAgentsVM(List(AgentInfo("name1", 111), AgentInfo("name2", 222)))
 
