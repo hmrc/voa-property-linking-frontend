@@ -32,6 +32,7 @@ import play.api.data.Forms._
 import repositories.SessionRepo
 import session.WithLinkingSession
 import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.http.Upstream5xxResponse
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
 
@@ -57,8 +58,10 @@ class ClaimProperty @Inject()(val config: ApplicationConfig,
   def attemptLink(uarn: Long, address: String) = authenticated { implicit request =>
     ClaimProperty.declareCapacityForm.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn))),
-      formData => initialiseSession(formData, uarn, address) map { _ =>
+      formData => initialiseSession(formData, uarn, address).map { _ =>
         Redirect(routes.ChooseEvidence.show())
+      }.recover {
+        case Upstream5xxResponse(_, 503, _) => ServiceUnavailable(views.html.errors.serviceUnavailable())
       }
     )
   }
