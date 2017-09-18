@@ -324,6 +324,7 @@ package object resources {
     address <- arbitrary[PropertyAddress]
     localAuthorityRef <- shortString
     client <- arbitrary[AgentAuthClient]
+    representationStatus <- arbitrary[String]
   } yield {
     AgentAuthorisation(authorisationId = authorisationId,
       authorisedPartyId = authorisedPartyId,
@@ -332,7 +333,8 @@ package object resources {
       submissionId = submissionId,
       address = address.toString,
       localAuthorityRef = localAuthorityRef,
-      client = client)
+      client = client,
+      representationStatus = representationStatus)
   }
   implicit val arbitraryAgentAuthorisationGen = Arbitrary(agentAuthorisationGen)
 

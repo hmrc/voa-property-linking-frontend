@@ -187,6 +187,7 @@ class ManageClientsSearchSortSpec extends ControllerSpec {
       size = numberOfLinks,
       total = numberOfLinks,
       filterTotal = numberOfLinks,
+      pendingRepresentations = numberOfLinks,
       authorisations = arbitraryAgentAuthorisation))
 
   }

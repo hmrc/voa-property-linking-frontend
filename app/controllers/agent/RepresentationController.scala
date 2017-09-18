@@ -56,20 +56,12 @@ class RepresentationController @Inject()(config: ApplicationConfig,
               baref = baref,
               client = client
             ) { paginationSearchSort =>
-              for {
-                totalPendingRequests <- reprConnector.forAgentSearchAndSort(
-                  agentOrganisationId = request.organisationId,
-                  pagination = PaginationSearchSort(pageNumber = page,
-                    pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, status = Some(RepresentationPending.name)))
-                clientResponse <- reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
-              } yield {
+              reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort).map( reprs =>
                 Ok(views.html.dashboard.manageClientsSearchSort(
                   ManageClientPropertiesSearchAndSortVM(
-                    result = clientResponse,
-                    totalPendingRequests = totalPendingRequests.total,
-                    pagination = paginationSearchSort.copy(totalResults = clientResponse.filterTotal)))
-                )
-              }
+                    result = reprs,
+                    totalPendingRequests = reprs.pendingRepresentations,
+                    pagination = paginationSearchSort.copy(totalResults = reprs.filterTotal)))))
             }
           } else {
               withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>

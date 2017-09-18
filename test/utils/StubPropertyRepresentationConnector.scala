@@ -28,7 +28,10 @@ import scala.concurrent.Future
 object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubServicesConfig, StubHttp) {
   private var stubbedRepresentations: Seq[PropertyRepresentation] = Nil
   private var stubbedValidCodes: Seq[Long] = Nil
-  private var stubbedAgentAuthResult: AgentAuthResult = AgentAuthResult(start = 15, total = 15, size= 15, filterTotal = 15, authorisations = Seq.empty[AgentAuthorisation])
+  private var stubbedAgentAuthResult: AgentAuthResult = AgentAuthResult(
+    start = 15, total = 15, size= 15,
+    filterTotal = 15, pendingRepresentations = 2,
+    authorisations = Seq.empty[AgentAuthorisation])
 
 
   def stubbedRepresentations(status: RepresentationStatus = RepresentationApproved): Seq[PropertyRepresentation] = stubbedRepresentations.filter(_.status == status)
