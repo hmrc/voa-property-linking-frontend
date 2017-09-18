@@ -20,7 +20,9 @@
        }
     </h2>
 
-        @if(!model.result.authorisations.isEmpty) {
+    @if(model.result.authorisations.isEmpty && model.pagination.valuesOfSearchParameters == "") {
+        <h2 class="heading-secondary">@Messages("agent.dashboard.manageClients.noClients")</h2>
+    } else {
 
         @jsManageClientsSearchSort()
 
@@ -84,6 +86,14 @@
                         </form>
                     </thead>
                     <tbody>
+
+                        @if(model.result.authorisations.isEmpty) {
+                            <tr>
+                                <td colspan="4">
+                                    <h2 class="heading-secondary">@Messages("no.search.results.found")</h2>
+                                </td>
+                            </tr>
+                        }
                     @model.result.authorisations.map { p =>
 
                     <tr>
@@ -147,8 +157,6 @@
 
         </noscript>
 
-    } else {
-        <p id="noProperties">@Messages("agent.dashboard.manageClients.noClients")</p>
     }
 
 }

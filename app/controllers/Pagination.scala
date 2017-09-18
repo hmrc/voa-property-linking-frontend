@@ -95,6 +95,9 @@ case class PaginationSearchSort(pageNumber: Int,
   def valueOfAgent: String = agent.getOrElse("").trim
   def valueOfClient: String = client.getOrElse("").trim
 
+  def valuesOfSearchParameters : String =
+    valueOfStatus + valueOfAddress + valueOfBaref + valueOfAgent + valueOfClient
+
 
   def startPoint: Int = pageSize * (pageNumber - 1) + 1
   override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$requestTotalRowCount" +

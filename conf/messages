@@ -713,6 +713,9 @@ updateBusinessAddress.title=Update business address
 updateBusinessPhone.title=Update business telephone number
 updateBusinessEmail.title=Update business email
 
+#Search Filter
+no.search.results.found=0 results found
+
 #ERROR PAGES
 title.error.403=Forbidden
 invalidAppointment.title=Invalid agent appointment
