@@ -17,7 +17,7 @@
 
         <p>@Messages("dashboard.manageProperties.expectDelays")</p>
 
-        @if(model.result.authorisations.isEmpty) {
+        @if(model.result.authorisations.isEmpty && model.pagination.valuesOfSearchParameters == "") {
             <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
 
@@ -84,6 +84,14 @@
                                 <input type="hidden" name="sortorder" value="@model.pagination.valueOfSortorder" />
                                 <input type="hidden" name="sortfield" value="@model.pagination.valueOfSortfield" />
                             </form>
+
+                            @if(model.result.authorisations.isEmpty) {
+                                <tr>
+                                    <td colspan="5">
+                                        <h2 class="heading-secondary">@Messages("no.search.results.found")</h2>
+                                    </td>
+                                </tr>
+                            }
                             @model.result.authorisations.map { p =>
                                 <tr>
                                     <td>
