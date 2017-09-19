@@ -26,7 +26,8 @@ case class AgentAuthorisation(
                                uarn: Long,
                                address: String,
                                localAuthorityRef: String,
-                               client: AgentAuthClient
+                               client: AgentAuthClient,
+                               representationStatus: String
                              )
 
 object AgentAuthorisation {
