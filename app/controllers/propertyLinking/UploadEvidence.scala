@@ -16,34 +16,34 @@
 
 package controllers.propertyLinking
 
-import javax.inject.{Inject, Named}
+import javax.inject.Inject
 
 import config.ApplicationConfig
-import connectors.EnvelopeConnector
-import connectors.fileUpload.FileUploadConnector
-import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
 import form.EnumMapping
 import models._
 import play.api.data.Form
 import play.api.data.Forms._
-import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
+import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
 import views.html.propertyLinking.uploadEvidence
 
 class UploadEvidence @Inject()(override val config: ApplicationConfig,
-                               override val fileUploader: FileUploadConnector,
-                               override val envelopeConnector: EnvelopeConnector,
-                               override val propertyLinks: PropertyLinkConnector,
-                               @Named("propertyLinkingSession") override val sessionRepository: SessionRepo,
-                               override val withLinkingSession: WithLinkingSession) extends PropertyLinkingController with FileUploadHelpers {
+                               override val withLinkingSession: WithLinkingSession,
+                               withCircuitBreaker: FileUploadCircuitBreaker) extends PropertyLinkingController with FileUploadHelpers {
 
   def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
-    errorCode match {
-      case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadEvidence(UploadEvidenceVM(fileTooLarge, submissionUrl)))
-      case Some(NOT_FOUND) => notFound
-      case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadEvidence(UploadEvidenceVM(invalidFileType, submissionUrl)))
-      case _ => Ok(uploadEvidence(UploadEvidenceVM(form, submissionUrl)))
+    withCircuitBreaker {
+      errorCode match {
+        case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadEvidence(UploadEvidenceVM(fileTooLarge, submissionUrl)))
+        case Some(NOT_FOUND) => notFound
+        case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadEvidence(UploadEvidenceVM(invalidFileType, submissionUrl)))
+        //if FUaaS repeatedly returns unexpected error codes e.g. 500s, trigger the circuit breaker
+        case Some(err) => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
+        case None => Ok(uploadEvidence(UploadEvidenceVM(form, submissionUrl)))
+      }
+    } recover {
+      case _: UnhealthyServiceException => ServiceUnavailable(views.html.errors.serviceUnavailable())
     }
   }
 

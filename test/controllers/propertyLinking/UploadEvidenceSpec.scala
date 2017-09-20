@@ -32,6 +32,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
+import uk.gov.hmrc.circuitbreaker.{CircuitBreakerConfig, UnhealthyServiceException}
 import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
 
@@ -83,6 +84,19 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
     html.select("label[for=evidence] span.error-message").text mustBe "File must be a PDF or JPG"
   }
 
+  it must "display a service unavailable page when the file upload service is not available" in {
+    val testController = new UploadEvidence(app.injector.instanceOf[ApplicationConfig], withLinkingSession, brokenCircuit)
+
+    val linkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = testController.show(None, None)(request)
+    status(res) mustBe SERVICE_UNAVAILABLE
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.select("h1.heading-xlarge").text mustBe "Service unavailable"
+  }
+
   lazy val uploadEvidencePage = {
     val linkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
@@ -107,8 +121,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  object TestUploadEvidence extends UploadEvidence(app.injector.instanceOf[ApplicationConfig], mockFileUploads, envConnectorStub,
-    StubPropertyLinkConnector, mockSessionRepo, withLinkingSession)
+  object TestUploadEvidence extends UploadEvidence(app.injector.instanceOf[ApplicationConfig], withLinkingSession, unbreakableCircuit)
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
@@ -126,4 +139,12 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
   lazy val envelopeId: String = shortString
 
   implicit lazy val messages = play.api.i18n.Messages.Implicits.applicationMessages
+
+  lazy val unbreakableCircuit = new FileUploadCircuitBreaker(mock[CircuitBreakerConfig], mock[FileUploadConnector]) {
+    override def apply[T](f: => Future[T])(implicit hc: HeaderCarrier): Future[T] = f
+  }
+
+  lazy val brokenCircuit = new FileUploadCircuitBreaker(mock[CircuitBreakerConfig], mock[FileUploadConnector]) {
+    override def apply[T](f: => Future[T])(implicit hc: HeaderCarrier) = Future.failed(new UnhealthyServiceException("file upload isn't feeling well"))
+  }
 }

@@ -32,6 +32,7 @@ import play.modules.reactivemongo.ReactiveMongoComponent
 import play.twirl.api.Html
 import reactivemongo.api.DB
 import repositories.{AgentAppointmentSessionRepository, PersonalDetailsSessionRepository, PropertyLinkingSessionRepository, SessionRepo}
+import uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig
 import uk.gov.hmrc.play.audit.filters.FrontendAuditFilter
 import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
@@ -106,9 +107,21 @@ class GuiceModule(environment: Environment,
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
     bind(classOf[Clock]).toInstance(Clock.systemUTC())
     bind(classOf[AuthConnector]).to(classOf[VPLAuthConnector])
+    bind(classOf[CircuitBreakerConfig]).toProvider(classOf[CircuitBreakerConfigProvider]).asEagerSingleton()
   }
 }
 
 class MongoDbProvider @Inject() (reactiveMongoComponent: ReactiveMongoComponent) extends Provider[DB] {
   def get = reactiveMongoComponent.mongoConnector.db()
+}
+
+class CircuitBreakerConfigProvider @Inject() (config: Configuration) extends Provider[CircuitBreakerConfig] {
+  override def get(): CircuitBreakerConfig = {
+    val serviceName = config.getString("circuitBreaker.serviceName").getOrElse("file-upload-frontend")
+    val numberOfCallsToTriggerChange = config.getInt("circuitBreaker.numberOfCallsToTriggerStateChange")
+    val unavailablePeriod = config.getInt("circuitBreaker.unavailablePeriodDuration")
+    val unstablePeriod = config.getInt("circuitBreaker.unstablePeriodDuration")
+
+    CircuitBreakerConfig(serviceName, numberOfCallsToTriggerChange, unavailablePeriod, unstablePeriod)
+  }
 }
