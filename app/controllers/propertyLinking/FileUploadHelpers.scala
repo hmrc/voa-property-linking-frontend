@@ -16,70 +16,21 @@
 
 package controllers.propertyLinking
 
-import java.net.URLEncoder
 import java.util.UUID
 
 import config.ApplicationConfig
-import connectors.EnvelopeConnector
-import connectors.fileUpload.FileUpload
-import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
-import org.apache.commons.io.FilenameUtils
-import play.api.libs.Files
-import play.api.libs.Files.TemporaryFile
-import play.api.mvc.MultipartFormData.FilePart
-import play.api.mvc.{AnyContent, Request}
-import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
-
-import scala.concurrent.Future
 
 trait FileUploadHelpers {
   self: PropertyLinkingController =>
 
   val config: ApplicationConfig
-  val fileUploader: FileUpload
-  val envelopeConnector: EnvelopeConnector
-  val propertyLinks: PropertyLinkConnector
   val withLinkingSession: WithLinkingSession
-  val sessionRepository: SessionRepo
   lazy val fileUploadBaseUrl = config.fileUploadUrl
-
-  val maxFileSize = 10485760 //10MB
-
-  protected def uploadIfNeeded(filePart: Option[FilePart[TemporaryFile]])
-                              (implicit request: LinkingSessionRequest[AnyContent]): Future[FileUploadResult] = {
-    filePart match {
-      case Some(part) if part.ref.file.length > maxFileSize => FileTooLarge
-      case Some(FilePart(_, filename, Some(mimetype), TemporaryFile(file))) if config.allowedMimeTypes.contains(mimetype) =>
-        for {
-          _ <- fileUploader.uploadFile(request.ses.envelopeId, transform(filename), mimetype, file)
-        } yield {
-          FileAccepted
-        }
-      case Some(part) /* wrong mimetype */ => InvalidFileType
-      case None => FileMissing
-    }
-  }
 
   def fileUploaded() = withLinkingSession { implicit request =>
     Redirect(propertyLinking.routes.Declaration.show())
-  }
-
-  private def transform(fileName: String)(implicit request: LinkingSessionRequest[AnyContent]) = {
-    URLEncoder.encode(fileName, "UTF-8")
-  }
-
-  protected def getFile(filename: String)(implicit request: Request[AnyContent]) = {
-    request.body.asMultipartFormData.flatMap(_.file(filename).flatMap(stripFilePath))
-  }
-
-  private def stripFilePath(file: FilePart[Files.TemporaryFile]) = {
-    if (file.filename.isEmpty) {
-      None
-    } else {
-      Some(file.copy(filename = FilenameUtils.getName(file.filename)))
-    }
   }
 
   def fileUploadUrl(failureUrl: String)(implicit request: LinkingSessionRequest[_]): String = {

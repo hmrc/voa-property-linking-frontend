@@ -21,6 +21,7 @@ import javax.inject.Inject
 
 import akka.stream.scaladsl._
 import com.google.inject.ImplementedBy
+import config.ApplicationConfig
 import models._
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -49,11 +50,16 @@ object FileMetadata {
 
 @ImplementedBy(classOf[FileUploadConnector])
 trait FileUpload {
+  def healthCheck(implicit hc: HeaderCarrier): Future[Unit]
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit]
   def getFileMetadata(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata]
 }
 
-class FileUploadConnector @Inject()(config: ServicesConfig, val http: WSHttp)(implicit ec: ExecutionContext) extends FileUpload {
+class FileUploadConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) extends FileUpload {
+
+  override def healthCheck(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.GET[HttpResponse](s"${config.baseUrl("file-upload-frontend")}/ping/ping") map { _ => () }
+  }
 
   def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit] = {
     val url = s"${config.baseUrl("file-upload-frontend")}/file-upload/upload/envelopes/$envelopeId/files/$fileName"

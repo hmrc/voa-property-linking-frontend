@@ -1,0 +1,10 @@
+@()(implicit messages: Messages, request: Request[_])
+
+@main_template(Messages("serviceUnavailable.title"), topNavigation = false) {
+
+    <h1 class="heading-xlarge">@Messages("serviceUnavailable.title")</h1>
+
+    <p>@Messages("serviceUnavailable.p.1")</p>
+    <p>@Messages("serviceUnavailable.p.2")</p>
+    <p>@Messages("serviceUnavailable.p.3")</p>
+}

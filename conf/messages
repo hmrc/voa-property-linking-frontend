@@ -88,10 +88,10 @@ lockedOut.p.1=You have entered the wrong password too many times. You are now lo
 
 #CREATE INDIVIDUAL ACCOUNT
 createAccount.individual.title=Your contact details
-createAccount.individual.p.1=You now need to verify your identity and confirm that you have the right to act on behalf of your business. You should provide your personal contact details.
+createAccount.individual.p.1=You now need to verify your identity and confirm that you have the right to act on behalf of your business. You should provide your personal contact details and not the contact details for your agent.
 createAccount.individual.heading.details=Your contact details
 label.createAccount.email=Email address
-label.createAccount.email.help=This should be your own work email address, which should be monitored.
+label.createAccount.email.help=This should be your work email address and not the email address for your agent. The email address should be monitored.
 label.createAccount.phone1=Telephone number
 label.createAccount.phone1.help=This should be your own work telephone number.
 createAccount.individual.verify.heading=Your identification details
@@ -733,6 +733,11 @@ invalidAccountType.p.1=You’ve tried to register using an existing Individual o
 invalidAccountType.p.2=To register for this service you’ll need to use an Organisation Government Gateway account.
 invalidAccountType.p.3=You can continue to register for this service where you’ll be able to create the correct Government Gateway account.
 invalidAccountType.register=Register for the service
+
+serviceUnavailable.title=Service unavailable
+serviceUnavailable.p.1=The file upload service is currently unavailable.
+serviceUnavailable.p.2=We’re unable to complete your property link at this time.
+serviceUnavailable.p.3=We apologise for any inconvenience. Please try again later.
 
 ##FOOTER LINKS
 footer.link.feedback=Feedback

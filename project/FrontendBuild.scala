@@ -50,7 +50,8 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % "0.2.0",
     "uk.gov.hmrc" %% "play-whitelist-filter" % "2.0.0",
     "uk.gov.hmrc" %% "mongo-lock" % "4.1.0",
-    "com.google.inject.extensions" % "guice-multibindings" % "4.0"
+    "com.google.inject.extensions" % "guice-multibindings" % "4.0",
+    "uk.gov.hmrc" %% "reactive-circuit-breaker" % "2.1.0"
   )
 
   trait TestDependencies {
