@@ -52,8 +52,19 @@ class ManageClientsSearchSortSpec extends ControllerSpec {
     val html = defaultHtml
 
     val organisationNames = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.client.organisationName)
-    checkTableColumn(html, 2, "Client", organisationNames)
+    checkTableColumn(html, 3, "Client", organisationNames)
   }
+
+  it must "display the link status, and the submission ID if the link is pending, for each of the user's first 15 properties" in {
+    val html = defaultHtml
+    val statuses = StubPropertyLinkConnector.getstubbedOwnerAuthResult().authorisations.map {
+      case authorisation if authorisation.status.toUpperCase == RepresentationPending.name => s"Pending submission ID: ${authorisation.submissionId}"
+      case _ => "Approved"
+    }
+
+    checkTableColumn(html, 2, "Status", statuses)
+  }
+
 
   it must "display the address for each of the agent's first 15 client properties" in {
     val html = defaultHtml
@@ -76,7 +87,7 @@ class ManageClientsSearchSortSpec extends ControllerSpec {
     val actions = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map { auth =>
       s"Revoke Client View Valuations"
     }
-    checkTableColumnStartsWith(html, 3, "Actions", actions)
+    checkTableColumnStartsWith(html, 4, "Actions", actions)
   }
 
   it must "display the current page number" in {

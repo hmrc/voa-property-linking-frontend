@@ -16,29 +16,32 @@
 
 package actions
 
+import javax.inject.Inject
+
 import auth.GovernmentGatewayProvider
-import config.Wiring
+import config.Global
 import connectors._
 import models.{DetailedIndividualAccount, GroupAccount}
+import play.api.Play.current
 import play.api.i18n.Messages
+import play.api.i18n.Messages.Implicits.applicationMessages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results._
 import play.api.mvc._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import play.api.Play.current
-import play.api.i18n.Messages.Implicits.applicationMessages
 
 import scala.concurrent.Future
 
-class AuthenticatedAction {
+class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
+                                    businessRatesAuthorisation: BusinessRatesAuthorisation) {
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
 
-  val businessRatesAuthentication = Wiring().businessRatesAuthentication
-  val groupAccounts = Wiring().groupAccountConnector
-  val individualAccounts = Wiring().individualAccountConnector
-
   def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
-    businessRatesAuthentication.authenticate flatMap { res => handleResult(res, body) }
+    businessRatesAuthorisation.authenticate flatMap {
+      res => handleResult(res, body)
+    } recover {
+      case _ => InternalServerError(Global.internalServerErrorTemplate(request))
+    }
   }
 
   def asAgent(body: AgentRequest[AnyContent] => Future[Result])(implicit messages: Messages) = apply { implicit request =>
@@ -51,19 +54,27 @@ class AuthenticatedAction {
 
   def toViewAssessment(authorisationId: Long, assessmentRef: Long)(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = {
     Action.async { implicit request =>
-      businessRatesAuthentication.authorise(authorisationId, assessmentRef) flatMap { res => handleResult(res, body) }
+      businessRatesAuthorisation.authorise(authorisationId, assessmentRef) flatMap {
+        res => handleResult(res, body)
+      } recover {
+        case _ => InternalServerError(Global.internalServerErrorTemplate(request))
+      }
     }
   }
 
   def toViewAssessmentsFor(authorisationId: Long)(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
-    businessRatesAuthentication.authorise(authorisationId) flatMap { res => handleResult(res, body) }
+    businessRatesAuthorisation.authorise(authorisationId) flatMap {
+      res => handleResult(res, body)
+    } recover {
+      case _ => InternalServerError(Global.internalServerErrorTemplate(request))
+    }
   }
 
   private def handleResult(result: AuthorisationResult, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
                           (implicit request: Request[AnyContent]) = {
     result match {
       case Authenticated(accounts) => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
-      case InvalidGGSession => GovernmentGatewayProvider.redirectToLogin
+      case InvalidGGSession => provider.redirectToLogin
       case NoVOARecord => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
       case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
       case NonOrganisationAccount => Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
