@@ -49,11 +49,9 @@
                 $('td:eq(2) ul li:eq(0)', nRow).text( messages.labels['status' + (aData.status.split('_').join('').toLowerCase())] );
                 if(aData.status.toLowerCase() === 'pending'){
                     $('td:eq(2) ul li:eq(1)', nRow).html('<span class="submission-id">' + messages.labels.submissionId+ ': ' + aData.submissionId + '</span>' );
-                } else {
-
                 }
                 if(!aData.agents){
-                    $('td:eq(3)', nRow).text('None');
+                    $('td:eq(3)', nRow).text('');
                 }
                 $('td:eq(4) ul li:eq(0)', nRow).html('<a href="/business-rates-property-linking/appoint-agent/' + aData.id + '">'+ messages.labels.appointAgent + '</a>');
                 if (aData.status.toLowerCase() === 'approved' || aData.status.toLowerCase() === 'pending') {
