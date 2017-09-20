@@ -265,8 +265,9 @@ manageClients.table.5=Actions
 
 managePropertiesSearchSort.table.1=Address
 managePropertiesSearchSort.table.2=Local authority reference
-managePropertiesSearchSort.table.3=Client
-managePropertiesSearchSort.table.4=Actions
+managePropertiesSearchSort.table.3=Status
+managePropertiesSearchSort.table.4=Client
+managePropertiesSearchSort.table.5=Actions
 
 #DASHBOARD ASSESSMENTS
 assessments.title=Valuations

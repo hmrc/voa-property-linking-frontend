@@ -119,7 +119,7 @@
                                     <td>
                                         <ul class="list">
                                         @if(p.agents.isEmpty) {
-                                            <li>@Messages("dashboard.manageProperties.noAgent")</li>
+                                            <li></li>
                                         } else {
                                             @p.agents.get.map { agent =>
                                                 <li>@agent.organisationName</li>
