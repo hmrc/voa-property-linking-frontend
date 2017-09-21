@@ -166,4 +166,7 @@ object RepresentationController {
   case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation], totalPendingRequests: Long, pagination: Pagination)
 }
 
-case class ManageClientPropertiesSearchAndSortVM(result: AgentAuthResult, totalPendingRequests: Long, pagination: PaginationSearchSort)
+case class ManageClientPropertiesSearchAndSortVM(result: AgentAuthResult,
+                                                 totalPendingRequests: Long,
+                                                 pagination: PaginationSearchSort)
+

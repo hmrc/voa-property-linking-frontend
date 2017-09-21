@@ -25,6 +25,7 @@
                     queryParameters += '&baref=' + $('#baref').val();
                     queryParameters += '&client=' + $('#client').val();
                     queryParameters += '&address=' + $('#address').val();
+                    queryParameters += '&status=' + $('#status').val();
 
                     var info = $table.DataTable().page.info();
                     $table.DataTable().ajax.url('/business-rates-property-linking/manage-clients-search-sort/json?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true' + queryParameters);
@@ -71,6 +72,7 @@
 
         $( 'th .clear').on( 'click', function () {
             $('#dataTableManageClientsSearchSort th').find('input:text').val('');
+            $('#dataTableManageClientsSearchSort th').find('#status').val('');
             dataTable.draw();
         } );
 
