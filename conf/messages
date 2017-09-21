@@ -23,6 +23,14 @@ start.register=Register now
 label.login=Sign in
 label.register=Register
 
+#PROPERTY LINKING STATUSES
+propertyLinkingStatus.ADDED=Approved
+propertyLinkingStatus.APPROVED=Approved
+propertyLinkingStatus.PENDING=Pending
+propertyLinkingStatus.DECLINED=Declined
+propertyLinkingStatus.REVOKED=Revoked
+propertyLinkingStatus.MORE_EVIDENCE_REQUIRED=More evidence required
+
 #WIZARD
 label.wizard.businessHasRegistered=Is your business already registered for this service?
 businessHasRegistered.true=Yes
