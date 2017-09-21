@@ -40,7 +40,7 @@
             columns: [
                 {data: 'address', name: 'address'},
                 {data: 'localAuthorityRef', name: 'baref'},
-                {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', name: 'status', 'bSortable': false},
+                {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', name: 'status'},
                 {data: 'client.organisationName', name: 'client'},
                 {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', 'bSortable': false}
             ],
