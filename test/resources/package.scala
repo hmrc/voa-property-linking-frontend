@@ -304,11 +304,11 @@ package object resources {
   implicit val agentAuthClient = Arbitrary(agentAuthClientGen)
 
   val ownerAuthAgentGen: Gen[OwnerAuthAgent] = for {
-    authorisationPartyId <- arbitrary[Long]
+    authorisedPartyId <- arbitrary[Long]
     organisationId <- arbitrary[Long]
     organisationName <- shortString
   } yield {
-    OwnerAuthAgent(authorisationPartyId, organisationId, organisationName)
+    OwnerAuthAgent(authorisedPartyId, organisationId, organisationName)
   }
   implicit val ownerAuthAgent = Arbitrary(ownerAuthAgentGen)
 
@@ -351,7 +351,7 @@ package object resources {
     localAuthorityRef <- shortString
     agents <- Gen.option(Gen.listOfN(1, arbitrary[OwnerAuthAgent]))
   } yield {
-    OwnerAuthorisation(id = id,
+    OwnerAuthorisation(authorisationId = id,
       status = status,
       uarn = uarn,
       submissionId = submissionId,

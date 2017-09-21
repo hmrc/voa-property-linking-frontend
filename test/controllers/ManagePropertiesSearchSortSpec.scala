@@ -188,7 +188,7 @@ class ManagePropertiesSearchSortSpec extends ControllerSpec {
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
     (1 to numberOfLinks) foreach { _ =>
-      arbitraryOwnerAuthorisation :+= arbitrary[OwnerAuthorisation].copy(id = groupAccount.id.toLong)
+      arbitraryOwnerAuthorisation :+= arbitrary[OwnerAuthorisation].copy(authorisationId = groupAccount.id.toLong)
     }
 
     StubPropertyLinkConnector.stubOwnerAuthResult(OwnerAuthResult(start =1,

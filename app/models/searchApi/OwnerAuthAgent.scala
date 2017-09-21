@@ -19,7 +19,7 @@ package models.searchApi
 import play.api.libs.json.Json
 
 case class OwnerAuthAgent(
-                           authorisationPartyId: Long,
+                           authorisedPartyId: Long,
                            organisationId: Long,
                            organisationName: String
                          )
