@@ -74,6 +74,8 @@
 
         $( 'th .clear').on( 'click', function () {
             $('#dataTableManagePropertiesSearchSort th').find('input:text').val('');
+            $('#dataTableManagePropertiesSearchSort th').find('#status').val('');
+
             dataTable.draw();
         } );
 

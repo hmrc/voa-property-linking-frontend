@@ -140,7 +140,9 @@ class Dashboard @Inject()(config: ApplicationConfig,
 }
 
 case class ManagePropertiesVM(organisationId: Long, properties: Seq[PropertyLink], pagination: Pagination)
-case class ManagePropertiesSearchAndSortVM(organisationId: Long, result: OwnerAuthResult, pagination: PaginationSearchSort)
+case class ManagePropertiesSearchAndSortVM(organisationId: Long,
+                                           result: OwnerAuthResult,
+                                           pagination: PaginationSearchSort)
 
 
 case class ManagedPropertiesVM(agentName: String, agentCode: Long, properties: Seq[PropertyLink])
