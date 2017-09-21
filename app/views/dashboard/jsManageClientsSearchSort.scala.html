@@ -1,4 +1,4 @@
-@()(implicit  messages: Messages)
+@(model: controllers.agent.ManageClientPropertiesSearchAndSortVM)(implicit  messages: Messages)
 
 <div class="table-wrapper hide-if-no-js">
     <table id="dataTableManageClientsSearchSort" class="table-font-xsmall margin-bottom-20 margin-top-20">
@@ -23,7 +23,7 @@
             <tr>
                 <th scope="col"><div class="searchfield"><input name="address" id="address" size="10" class="ss-input"><button id="addressBtn" class="search-submit ss-button"></button></div></th>
                 <th scope="col"><div class="searchfield"><input name="baref"  id="baref" size="10" class="ss-input"><button id="barefBtn" class="search-submit ss-button"></button></div></th>
-                <th scope="col"></th>
+                <th scope="col"><div class="searchfield">@propertyLinkingStatusDropdown(model.pagination.valueOfStatus)</div></th>
                 <th scope="col"><div class="searchfield"><input name="client"  id="client" size="8" class="ss-input"><button id="clientBtn" class="search-submit ss-button"></button></div></th>
                 <th scope="col"><a href="#" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
             </tr>

@@ -1,0 +1,10 @@
+@(valueOfStatus: String)(implicit  messages: Messages)
+<select id="status" name="status" class="ss-input">
+    <option class="blank" value="">All</option>
+    @for(status <- PropertyLinkingStatus.all) {
+        <option value="@status.name" @if(valueOfStatus == status.name) { selected }>
+        @Messages(status.msgKey)
+        </option>
+    }
+</select><button id="statusBtn" class="search-submit ss-button"></button>
+

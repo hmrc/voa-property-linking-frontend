@@ -24,7 +24,7 @@
         <h2 class="heading-secondary">@Messages("agent.dashboard.manageClients.noClients")</h2>
     } else {
 
-        @jsManageClientsSearchSort()
+        @jsManageClientsSearchSort(model)
 
         <noscript>
 
@@ -88,7 +88,7 @@
                             <tr>
                             <th scope="col"><div class="searchfield"><input name="address" id="address" value="@model.pagination.valueOfAddress" size="10" class="ss-input"><button id="addressBtn" type="submit" class="search-submit ss-button"></button></div></th>
                             <th scope="col"><div class="searchfield"><input name="baref"  id="baref" value="@model.pagination.valueOfBaref" size="10" class="ss-input"><button id="barefBtn" type="submit" class="search-submit ss-button"></button></div></th>
-                            <th scope="col"></th>
+                                <th scope="col"><div class="searchfield">@propertyLinkingStatusDropdown(model.pagination.valueOfStatus)</div></th>
                             <th scope="col"><div class="searchfield"><input name="client"  id="client" value="@model.pagination.valueOfClient" size="8" class="ss-input"><button id="clientBtn" type="submit" class="search-submit ss-button"></button></div></th>
                             <th scope="col"><a href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort().url" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
                         </tr>
