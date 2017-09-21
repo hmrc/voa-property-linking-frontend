@@ -85,13 +85,10 @@
                                         <select id="status" name="status" class="ss-input">
                                             <option class="blank" value="">All</option>
                                             @for(status <- model.propertyLinkingStatusList) {
-                                                @if(model.pagination.valueOfStatus == status.name) {
-                                                    <option value="@status.name" selected>@status.msgKey</option>
-                                                } else {
-                                                    <option value="@status.name" selected>@status.msgKey</option>
-                                                }
+                                                <option value="@status.name" @if(model.pagination.valueOfStatus == status.name) { selected }>
+                                                    @Messages(status.msgKey)
+                                                </option>
                                             }
-
                                         </select>
                                         <button id="statusBtn" class="search-submit ss-button"></button>
                                     </div></th>
