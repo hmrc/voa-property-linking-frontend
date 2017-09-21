@@ -64,7 +64,13 @@
                                     </div>
                             </th>
                             <th scope="col">
-                                <div>@Messages("managePropertiesSearchSort.table.3")</div>
+                                @if(model.pagination.valueOfSortfield == "status") {
+                                    <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
+                                    } else {
+                                    <div class="sorting" >
+                                    }
+                                <a href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("status"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.3")</a>
+                                    </div>
                             </th>
                             <th scope="col">
                                 @if(model.pagination.valueOfSortfield == "client") {
