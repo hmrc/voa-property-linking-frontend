@@ -13,6 +13,17 @@
     right:6px
 }
 
+.dataTable * .searchfield .search-submit.ss-dropdown-button {
+    height:30px;
+    width:30px;
+    margin: 0px .78947em 0 0;
+    background-position:  0% 50%;
+    right:6px;
+    position:relative;
+    float: right;
+
+}
+
 .sorting {
     background: url("../images/sort_both.png") no-repeat scroll center right;
 }
