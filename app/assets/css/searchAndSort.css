@@ -5,14 +5,22 @@
     padding: 0 10px 0 10px;
 }
 
-.dataTable * .searchfield .search-submit.ss-button {
+.dataTable * .searchfield .search-submit.ss-dropdown-button {
     height:30px;
     width:30px;
-    margin-top: -30px;
+    margin: 0px 8px 0 0;
     background-position:  0% 50%;
-    right:6px
+    right:6px;
+    position:relative;
+    float: right;
+
 }
 
+.dataTable * .searchfield .ss-dropdown {
+    margin:0;
+    display:inline-block;
+
+}
 .sorting {
     background: url("../images/sort_both.png") no-repeat scroll center right;
 }
@@ -24,6 +32,5 @@
 .sorting_desc {
     background: url("../images/sort_desc.png") no-repeat scroll center right;
 }
-
 .sorting a, .sorting_asc a, .sorting_desc a {display:block;}
 .sorting a:focus, .sorting_asc a:focus, .sorting_desc a:focus {background-color: transparent;}

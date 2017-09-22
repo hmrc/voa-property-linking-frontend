@@ -66,9 +66,15 @@
 
         });
 
-        $( '#dataTableManageClientsSearchSort th button').on( 'click', function () {
+        $( '#dataTableManageClientsSearchSort th button').on('click', function () {
             dataTable.draw();
         } );
+
+        $( '#dataTableManageClientsSearchSort input').bind('keyup', function(e) {
+            if(e.keyCode == 13) {
+                dataTable.draw();
+            }
+        });
 
         $( 'th .clear').on( 'click', function () {
             $('#dataTableManageClientsSearchSort th').find('input:text').val('');
