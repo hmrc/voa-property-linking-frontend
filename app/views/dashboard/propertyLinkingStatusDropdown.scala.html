@@ -1,5 +1,5 @@
 @(valueOfStatus: String)(implicit  messages: Messages)
-<select id="status" name="status" class="ss-input">
+<select id="status" name="status" class="ss-dropdown">
     <option class="blank" value="">All</option>
     @for(status <- PropertyLinkingStatus.all) {
         <option value="@status.name" @if(valueOfStatus == status.name) { selected }>

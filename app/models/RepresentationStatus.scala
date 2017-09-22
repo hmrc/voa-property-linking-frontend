@@ -45,5 +45,9 @@ case object RepresentationTimeOut extends RepresentationStatus {
 object RepresentationStatus extends NamedEnumSupport[RepresentationStatus] {
   implicit val format = EnumFormat(RepresentationStatus)
 
-  override def all: List[RepresentationStatus] = List(RepresentationApproved, RepresentationPending, RepresentationRevoked, RepresentationDeclined, RepresentationTimeOut)
+  override def all: List[RepresentationStatus] = List(RepresentationApproved,
+                                                      RepresentationPending,
+                                                      RepresentationRevoked,
+                                                      RepresentationDeclined,
+                                                      RepresentationTimeOut)
 }
