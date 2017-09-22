@@ -93,10 +93,6 @@ GET         /appoint-agent/:linkId/confirmed                                    
 GET         /appoint-agent/:linkId/declined                                                   @controllers.agentAppointment.AppointAgentController.declined(linkId: Long)
 POST        /appoint-agent/:linkId                                                            @controllers.agentAppointment.AppointAgentController.appointSubmit(linkId: Long)
 GET         /appointed-agent/:authorisationId                                                 @controllers.agentAppointment.AppointAgentController.appointed(authorisationId: Long)
-GET         /representation-request/select/:linkId                                            @controllers.agentAppointment.AppointAgentController.select(linkId: Long)
-GET         /representation-request/edit/:linkId                                              @controllers.agentAppointment.AppointAgentController.edit(linkId: Long)
-GET         /representation-request/modify/:representationId                                  @controllers.agentAppointment.AppointAgentController.modify(representationId: Long)
-POST        /representation-request/modify/:representationId                                  @controllers.agentAppointment.AppointAgentController.modifySubmit(representationId: Long)
 
 #AGENT
 #Dashboard

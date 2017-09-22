@@ -16,9 +16,10 @@
 
 package forms
 
+import java.time.LocalDate
+
 import controllers.propertyLinking.ClaimProperty
 import models.{CapacityDeclaration, CapacityType, Occupier}
-import org.joda.time.LocalDate
 import org.scalatest.{FlatSpec, MustMatchers}
 import utils.FormBindingVerification._
 import views.helpers.Errors
@@ -27,17 +28,10 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
 
   import TestData._
 
-  /*
-  Important note on testing this form binding - for the purposes of testing the 1st April Date is overridden in the
-  application configuration parameter 'propertyLinkingDateThreshold' to be 1st MARCH 2017 and all the test cases used accordingly
-  however for clarity the test descriptions remain 1st April so that it doesn't get confusint as to the desired behavior.
-
-  After 1st April this could be reversed, but then the test cases should also be changed
-   */
   behavior of "Capacity declaration form"
 
   it should "bind when the inputs are all valid" in {
-    mustBindTo(form, validData, CapacityDeclaration(Occupier, false, Some(new LocalDate(2017, 4, 20)), false, Some(new LocalDate(2017, 4, 23))))
+    mustBindTo(form, validData, CapacityDeclaration(Occupier, false, Some(LocalDate.of(2017, 4, 20)), false, Some(LocalDate.of(2017, 4, 23))))
   }
 
   it should "mandate a capacity" in {
@@ -68,7 +62,7 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
       .updated("toDate.day", "19")
       .updated("toDate.month", "4")
       .updated("toDate.year", "2017")
-    mustBindTo(form, data, CapacityDeclaration(Occupier, true, None, false, Some(new LocalDate(2017, 4, 19))))
+    mustBindTo(form, data, CapacityDeclaration(Occupier, true, None, false, Some(LocalDate.of(2017, 4, 19))))
   }
 
   it should "require end date after 1st April 2017 if the occupation/ownership started before 1st April 2017" in {

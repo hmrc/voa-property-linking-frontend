@@ -16,7 +16,8 @@
 
 package models
 
-import org.joda.time.DateTime
+import java.time.LocalDate
+
 import play.api.libs.json.{Format, Json}
 
 case class PropertyLink(authorisationId: Long,
@@ -25,7 +26,7 @@ case class PropertyLink(authorisationId: Long,
                         organisationId: Int,
                         address: String,
                         capacityDeclaration: Capacity,
-                        linkedDate: DateTime,
+                        linkedDate: LocalDate,
                         pending: Boolean,
                         assessments: Seq[Assessment],
                         agents: Seq[Party])

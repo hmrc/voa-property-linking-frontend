@@ -46,7 +46,7 @@ class IdentityVerification @Inject() (ggAction: GGAction,
       personalDetailsSessionRepo.get[PersonalDetails] flatMap { details  => {
         val d = details.getOrElse(throw new Exception("details not found"))
         identityVerificationProxyConnector.start(config.baseUrl + routes.IdentityVerification.restoreSession().url,
-          config.baseUrl + routes.IdentityVerification.fail().url, d.ivDetails, None).map(l => Redirect(l.link))
+          config.baseUrl + routes.IdentityVerification.fail().url, d.ivDetails).map(l => Redirect(l.link))
       }
       }
     } else {

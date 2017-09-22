@@ -16,7 +16,8 @@
 
 package forms
 
-import org.joda.time.LocalDate
+import java.time.LocalDate
+
 import controllers.CreateIndividualAccount._
 import models.{Address, PersonalDetails}
 import org.scalatest.{FlatSpec, MustMatchers}
@@ -118,7 +119,7 @@ class CreateIndividualAccountFormSpec extends FlatSpec with MustMatchers {
     val ninoWithSpaces = validData.updated(keys.nino, "AB 12 34 56 C")
     mustBindTo(form, ninoWithSpaces,
       PersonalDetails(
-        "fname", "lname", new LocalDate(1950, 1, 12), Nino("AB123456C"),
+        "fname", "lname", LocalDate.of(1950, 1, 12), Nino("AB123456C"),
         "email@address.com", "email@address.com", "01234567890",
         None, Address(None, "123 The Road", "", "", "", "AA11 1AA")
       )

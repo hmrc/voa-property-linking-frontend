@@ -17,7 +17,6 @@
 package utils
 
 import models.{NamedEnum, NamedEnumSupport}
-import org.joda.time.DateTime
 import org.scalatest.{AppendedClues, MustMatchers}
 import play.api.data.Form
 import views.helpers.Errors
@@ -68,13 +67,6 @@ trait DateVerification {
     verifyRealDatesOnly(form, validData, dateField)
   }
 
-  def verifyPastddmmyy(form: Form[_], validData: Map[String, String], dateField: String) {
-    validateDay(form, validData, dateField)
-    validateMonth(form, validData, dateField)
-    validateYearUpto(form, validData, dateField, DateTime.now.year.get - 1)
-    verifyPastDatesOnly(form, validData, dateField)
-  }
-
   private def validateDay[T](form: Form[T], validData: Map[String, String], field: String) {
     verifyRange(form, validData, s"$field.day", (1 to 31).map(_.toString), Seq("0"), Errors.belowMinimum)
     verifyRange(form, validData, s"$field.day", Seq.empty, Seq("32", "33", "55", "101", "58987"), Errors.aboveMaximum)
@@ -105,23 +97,6 @@ trait DateVerification {
     verifyRange(form, validData, s"$field.year", Seq.empty, Seq("3001", "4000", "999999"), Errors.aboveMaximum)
     verifyNonEmptyString(form, validData, s"$field.year", Errors.invalidNumber)
     verifyAcceptsLeadingAndTrailingWhitespace(form, validData, s"$field.year")
-  }
-
-  private def verifyPastDatesOnly[T](form: Form[T], validData: Map[String, String], field: String) {
-    def withDate(dt: (String, String, String)) =
-      validData.updated(field + ".day", dt._1).updated(field + ".month", dt._2).updated(field + ".year", dt._3)
-
-    val tomorrow = DateTime.now.plusDays(1)
-    val invalid = Seq(
-      ("28", "2", "2225"), ("23", "5", "2115"), (tomorrow.getDayOfMonth.toString, tomorrow.getMonthOfYear.toString, tomorrow.getYear.toString)
-    )
-    invalid foreach { iv => verifyOnlyError(form, withDate(iv), field, Errors.dateMustBeInPast) }
-
-    val yday = DateTime.now.minusDays(1)
-    val valid = Seq(
-      ("1", "1", "2015"), ("31", "10", "2014"), (yday.getDayOfMonth.toString, yday.getMonthOfYear.toString, yday.getYear.toString)
-    )
-    valid foreach { v => mustBind(form, withDate(v)) }
   }
 }
 

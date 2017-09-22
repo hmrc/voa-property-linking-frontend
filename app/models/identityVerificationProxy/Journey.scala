@@ -16,20 +16,15 @@
 
 package models.identityVerificationProxy
 
-import org.joda.time.LocalDate
-
 import models.IVDetails
 import play.api.libs.json.Json
 import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 
-case class Journey(journeyId: Option[String],
-     origin: String,
-     completionURL: String,
-     failureURL:  String,
-     confidenceLevel: ConfidenceLevel,
-     userData: IVDetails,
-     expiryDate: Option[LocalDate]
-  )
+case class Journey(origin: String,
+                   completionURL: String,
+                   failureURL: String,
+                   confidenceLevel: ConfidenceLevel,
+                   userData: IVDetails)
 
 object Journey {
   implicit val formats = Json.format[Journey]
