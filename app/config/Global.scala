@@ -59,7 +59,7 @@ trait VPLFrontendGlobal extends DefaultFrontendGlobal {
 
   private def getDateTime: LocalDateTime = {
     val instant = Instant.ofEpochMilli(System.currentTimeMillis)
-    LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+    LocalDateTime.ofInstant(instant, ZoneId.of("Europe/London"))
   }
 
   private def extractErrorReference(request: Request[_]): Option[String] = {
