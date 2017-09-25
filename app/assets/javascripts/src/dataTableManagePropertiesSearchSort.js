@@ -36,6 +36,9 @@
                     json.recordsTotal = json.total;
                     json.recordsFiltered = json.filterTotal;
                     return JSON.stringify(json);
+                },
+                error: function (x, status, error) {
+                    window.location.reload();
                 }
             },
             columns: [
