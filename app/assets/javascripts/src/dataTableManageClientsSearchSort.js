@@ -70,8 +70,8 @@
             dataTable.draw();
         } );
 
-        $( '#dataTableManageClientsSearchSort input').bind('keyup', function(e) {
-            if(e.keyCode == 13) {
+        $( '#dataTableManageClientsSearchSort input, select').bind('keyup', function(e) {
+            if(e.keyCode === 13) {
                 dataTable.draw();
             }
         });
