@@ -16,6 +16,7 @@
 
 package controllers.agentAppointment
 
+import java.time.LocalDateTime
 import javax.inject.{Inject, Named}
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
@@ -25,8 +26,7 @@ import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import form.EnumMapping
 import form.Mappings._
-import models.{AgentPermission, PropertyRepresentation, UpdatedRepresentation, _}
-import org.joda.time.DateTime
+import models._
 import play.api.data.Forms._
 import play.api.data.validation.Constraint
 import play.api.data.{Form, FormError, Mapping}
@@ -51,23 +51,6 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
       case None =>
         Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
     }
-  }
-
-  def edit(linkId: Long) = authenticated { implicit request =>
-    representations.find(linkId).map(reprs => {
-      if (reprs.size > 1)
-        Ok(views.html.propertyRepresentation.selectAgent(reprs))
-      else {
-        val form = appointAgentForm.fill(AppointAgent(/*FIXME*/ 123, reprs.head.checkPermission, reprs.head.challengePermission))
-        Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, reprs.head.representationId)))
-      }
-    })
-  }
-
-  def select(linkId: Long) = authenticated { implicit request =>
-    representations.find(linkId).map(reprs => {
-      Ok(views.html.propertyRepresentation.selectAgent(reprs))
-    })
   }
 
   def appointSubmit(authorisationId: Long) = authenticated { implicit request =>
@@ -175,7 +158,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
                                              checkPermission: AgentPermission, challengePermission: AgentPermission)
                                             (implicit hc: HeaderCarrier): Future[Unit] = {
     val req = RepresentationRequest(authorisationId, agentOrgId, userIndividualId,
-      java.util.UUID.randomUUID().toString, checkPermission.name, challengePermission.name, new DateTime())
+      java.util.UUID.randomUUID().toString, checkPermission.name, challengePermission.name, LocalDateTime.now)
     representations.create(req)
   }
 
@@ -204,25 +187,6 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
 
   private def invalidAppointment(form: Form[AppointAgent], linkId: Long)(implicit request: Request[_]) = {
     Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId))))
-  }
-
-  def modify(representationId: Long) = authenticated { implicit request =>
-    representations.get(representationId) map {
-      case Some(rep) =>
-        val form = appointAgentForm.fill(AppointAgent(/*FIXME*/ 123, rep.checkPermission, rep.challengePermission))
-        Ok(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(form, rep.representationId)))
-      case None => throw new Exception(s"Invalid representation id $representationId")
-    }
-  }
-
-  def modifySubmit(representationId: Long) = authenticated { implicit request =>
-    appointAgentForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.propertyRepresentation.modifyAgent(ModifyAgentVM(errors, representationId))),
-      agent => {
-        val updated = UpdatedRepresentation(representationId, agent.canCheck, agent.canChallenge)
-        representations.update(updated) map { _ => Ok(views.html.propertyRepresentation.modifiedAgent()) }
-      }
-    )
   }
 
   def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(

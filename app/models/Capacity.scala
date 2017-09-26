@@ -16,7 +16,8 @@
 
 package models
 
-import org.joda.time.LocalDate
+import java.time.LocalDate
+
 import play.api.libs.json.Json
 
 case class Capacity(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate])
@@ -24,7 +25,7 @@ case class Capacity(capacity: CapacityType, fromDate: LocalDate, toDate: Option[
 object Capacity {
   implicit val format = Json.format[Capacity]
 
-  lazy val defaultFromDate = new LocalDate(2017, 4, 1)
+  lazy val defaultFromDate = LocalDate.of(2017, 4, 1)
 
   def fromDeclaration(declaration: CapacityDeclaration) = {
     Capacity(declaration.capacity, declaration.fromDate.getOrElse(defaultFromDate), declaration.toDate)

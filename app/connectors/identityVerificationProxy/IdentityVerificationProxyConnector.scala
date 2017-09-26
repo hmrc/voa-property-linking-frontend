@@ -17,9 +17,9 @@
 package connectors.identityVerificationProxy
 
 import javax.inject.Inject
+
 import models.IVDetails
 import models.identityVerificationProxy._
-import org.joda.time.LocalDate
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 import uk.gov.hmrc.play.http._
@@ -31,10 +31,9 @@ class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig,
   private lazy val url = serverConfig.baseUrl("identity-verification-proxy")
   private val path = "identity-verification-proxy/journey"
 
-  def start(completionURL: String, failureURL:  String, userData: IVDetails,
-            expiryDate: Option[LocalDate])(implicit hc: HeaderCarrier): Future[Link] = {
-    http.POST[Journey, Link](s"$url/$path/start", Journey(None, "voa-property-linking",
-      completionURL, failureURL, ConfidenceLevel.L200, userData, expiryDate))
+  def start(completionURL: String, failureURL:  String, userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] = {
+    http.POST[Journey, Link](s"$url/$path/start", Journey("voa-property-linking",
+      completionURL, failureURL, ConfidenceLevel.L200, userData))
   }
 
   def get(id: Long)(implicit hc: HeaderCarrier): Future[Journey] = {

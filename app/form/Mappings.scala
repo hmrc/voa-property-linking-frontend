@@ -16,8 +16,9 @@
 
 package form
 
+import java.time.LocalDate
+
 import models.{Address, NamedEnum, NamedEnumSupport}
-import org.joda.time.LocalDate
 import play.api.data.Forms._
 import play.api.data.format.{Formats, Formatter}
 import play.api.data.validation.{Constraint, Constraints}
@@ -60,11 +61,11 @@ trait DateMappings {
     "day" -> number(1, 31),
     "month" -> number(1, 12),
     "year" -> number(1900, 3000)
-  ).verifying(Errors.invalidDate, x => x match { case (d, m, y) => Try(new LocalDate(y, m, d)).isSuccess } )
-    .transform({ case (d, m, y) => new LocalDate(y, m, d) }, d => (d.getDayOfMonth, d.getMonthOfYear, d.getYear))
+  ).verifying(Errors.invalidDate, x => x match { case (d, m, y) => Try(LocalDate.of(y, m, d)).isSuccess } )
+    .transform({ case (d, m, y) => LocalDate.of(y, m, d) }, d => (d.getDayOfMonth, d.getMonthValue, d.getYear))
 
   val dmyDateAfterThreshold: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfter1stApril2017,
-    d => d.isAfter(new LocalDate(2017,4,1)))
+    d => d.isAfter(LocalDate.of(2017,4,1)))
 
   val dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
 

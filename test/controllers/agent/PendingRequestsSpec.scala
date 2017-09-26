@@ -58,7 +58,7 @@ class PendingRequestsSpec extends ControllerSpec {
   it must "contain the request date for each pending request" in {
     val html = defaultHtml
 
-    val dates = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { r => Formatters.formatJodaDate(r.createDatetime) }
+    val dates = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { r => Formatters.formatDate(r.createDatetime) }
     checkTableColumn(html, 3, "Date requested", dates)
   }
 
