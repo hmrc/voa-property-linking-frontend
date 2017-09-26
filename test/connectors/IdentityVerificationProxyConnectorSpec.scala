@@ -19,18 +19,14 @@ package connectors
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import models.IVDetails
 import models.identityVerificationProxy.{Journey, Link}
-import org.joda.time.LocalDate
 import org.mockito.ArgumentMatchers._
+import org.mockito.Mockito._
+import org.scalatest.concurrent.ScalaFutures._
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.scalatestplus.play._
-import org.scalatest.concurrent.ScalaFutures._
-import org.scalacheck.Arbitrary._
-import uk.gov.hmrc.play.http.HeaderCarrier
-import org.mockito.Mockito._
 import org.scalatest.{FlatSpec, MustMatchers}
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import resources._
+import uk.gov.hmrc.play.http.HeaderCarrier
 import uk.gov.hmrc.play.http.ws.WSHttp
 import utils.{NoMetricsOneAppPerSuite, StubServicesConfig}
 
@@ -48,11 +44,11 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
     val mockLink = mock[Link]
     val mockHttp = mock[WSHttp]
 
-    when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any())) thenReturn (Future.successful(mockLink))
+    when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any())) thenReturn Future.successful(mockLink)
 
     val connector = new IdentityVerificationProxyConnector(StubServicesConfig, mockHttp)
-    forAll { (ivDetails: IVDetails, expiryDate: Option[LocalDate]) =>
-      whenReady(connector.start("completionUrl", "failureUrl", ivDetails, expiryDate)) { link =>
+    forAll { (ivDetails: IVDetails) =>
+      whenReady(connector.start("completionUrl", "failureUrl", ivDetails)) { link =>
         link must be(mockLink)
       }
     }
@@ -65,8 +61,8 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
     when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any())).thenReturn(Future.failed(mockEx))
 
     val connector = new IdentityVerificationProxyConnector(StubServicesConfig, mockHttp)
-    forAll { (ivDetails: IVDetails, expiryDate: Option[LocalDate]) =>
-      whenReady(connector.start("completionUrl", "failureUrl", ivDetails, expiryDate).failed) { ex =>
+    forAll { (ivDetails: IVDetails) =>
+      whenReady(connector.start("completionUrl", "failureUrl", ivDetails).failed) { ex =>
         ex must be(mockEx)
       }
     }

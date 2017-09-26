@@ -20,8 +20,6 @@ import java.time.{LocalDate, LocalTime}
 import java.time.format.DateTimeFormatter
 
 import models.{Address, PropertyAddress}
-import org.joda.time.{LocalDate => JodaDate}
-import org.joda.time.format.{DateTimeFormat => JodaDateTimeFormat}
 
 object Formatters {
 
@@ -38,10 +36,6 @@ object Formatters {
 
   def capitalizedAddress(address: Address): String = {
     Seq(address.line1, address.line2, address.line3, address.line4, address.postcode).filterNot(_.isEmpty).map(_.capitalize) mkString ", "
-  }
-
-  def formatJodaDate(date: JodaDate): String = {
-    date.toString(JodaDateTimeFormat.forPattern("d MMM Y"))
   }
 
   def formatDate(date: LocalDate): String = {

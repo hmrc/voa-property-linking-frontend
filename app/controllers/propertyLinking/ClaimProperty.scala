@@ -16,6 +16,7 @@
 
 package controllers.propertyLinking
 
+import java.time.LocalDate
 import javax.inject.{Inject, Named}
 
 import actions.{AuthenticatedAction, AuthenticatedRequest}
@@ -26,7 +27,6 @@ import controllers.PropertyLinkingController
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
 import models.{CapacityDeclaration, _}
-import org.joda.time.LocalDate
 import play.api.data.Form
 import play.api.data.Forms._
 import repositories.SessionRepo
@@ -85,11 +85,11 @@ object ClaimProperty {
   lazy val declareCapacityForm = Form(mapping(
     "capacity" -> EnumMapping(CapacityType),
     "interestedBefore2017" -> mandatoryBoolean,
-    "fromDate" -> mandatoryIfFalse("interestedBefore2017", dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => !d.isAfter(LocalDate.now))),
+    "fromDate" -> mandatoryIfFalse("interestedBefore2017", dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))),
     "stillInterested" -> mandatoryBoolean,
     "toDate" -> mandatoryIfFalse("stillInterested", ConditionalDateAfter("interestedBefore2017", "fromDate")
-      .verifying(Errors.dateMustBeInPast, d => !d.isAfter(LocalDate.now))
-      .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(new LocalDate(2017,4,1))))
+      .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
+      .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017,4,1))))
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 

@@ -16,7 +16,8 @@
 
 package models
 
-import org.joda.time.DateTime
+import java.time.LocalDateTime
+
 import play.api.libs.json.Json
 
 case class RepresentationRequest(
@@ -26,7 +27,7 @@ case class RepresentationRequest(
                                   submissionId: String,
                                   checkPermission: String,
                                   challengePermission: String,
-                                  createDatetime: DateTime
+                                  createDatetime: LocalDateTime
                                 )
 
 object RepresentationRequest {

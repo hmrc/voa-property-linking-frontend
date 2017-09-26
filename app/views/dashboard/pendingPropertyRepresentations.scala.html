@@ -16,7 +16,7 @@
     </h1>
 
     @if(model.propertyRepresentations.isEmpty) {
-        @Messages("dashboard.manageProperties.noProperties")
+        <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
     } else {
 
         @jsPendingRequests()
@@ -50,7 +50,7 @@
                                 <br>
                             </td>
 
-                            <td>@utils.Formatters.formatJodaDate(p.createDatetime)</td>
+                            <td>@utils.Formatters.formatDate(p.createDatetime)</td>
 
                             <td>
                                 <ul class="list">

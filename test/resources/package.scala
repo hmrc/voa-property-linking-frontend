@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import java.{time => javatime}
+import java.time.{Instant, LocalDate, LocalDateTime, ZoneId}
 
 import models._
 import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
-import org.joda.time.{DateTime, Instant, LocalDate}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
 import uk.gov.hmrc.domain.Nino
@@ -27,11 +26,9 @@ package object resources {
 
   implicit def getArbitrary[T](t: Gen[T]): T = t.sample.get
 
-  implicit val arbitraryJavaLocalDate: Arbitrary[javatime.LocalDate] = Arbitrary(Gen.choose(0L, 32472144000000L /* 1/1/2999 */).map(javatime.LocalDate.ofEpochDay(_)))
-  implicit val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary(Gen.choose(0L, 32472144000000L).map(new LocalDate(_)))
-  implicit val arbitraryDateTime: Arbitrary[DateTime] = Arbitrary(Gen.choose(0L, 32472144000000L).map(new DateTime(_)))
+  implicit val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary(Gen.choose(0L, 375584 /* approx 1/1/2999 */).map(LocalDate.ofEpochDay(_)))
 
-  def dateInPast = Gen.choose(0L, Instant.now().getMillis).map(new LocalDate(_))
+  def dateInPast: Gen[LocalDate] = Gen.choose(0L, Instant.now().toEpochMilli).map(l => Instant.ofEpochMilli(l).atZone(ZoneId.systemDefault).toLocalDate)
 
   def shortString = Gen.listOfN(20, Gen.alphaChar).map(_.mkString)
 
@@ -52,7 +49,7 @@ package object resources {
     year <- Gen.choose(2017, 2100)
     month <- Gen.choose(1, 12)
     day <- Gen.choose(1, 28)
-  } yield new LocalDate(year, month, day)
+  } yield LocalDate.of(year, month, day)
 
   val propertyAddressGen: Gen[PropertyAddress] = for {
     lines <- Gen.nonEmptyListOf(shortString)
@@ -183,7 +180,7 @@ package object resources {
     organisationId <- arbitrary[Int]
     address <- arbitrary[PropertyAddress]
     capacity <- arbitrary[Capacity]
-    linkedDate <- arbitrary[DateTime]
+    linkedDate <- arbitrary[LocalDate]
     pending <- arbitrary[Boolean]
     assessment <- Gen.nonEmptyListOf(arbitrary[Assessment])
     userActingAsAgent <- arbitrary[Boolean]

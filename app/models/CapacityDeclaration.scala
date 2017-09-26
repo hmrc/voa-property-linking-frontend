@@ -16,14 +16,13 @@
 
 package models
 
-import org.joda.time.LocalDate
-import play.api.libs.json.{Json, Reads, Writes}
+import java.time.LocalDate
+
+import play.api.libs.json.Json
 
 case class CapacityDeclaration(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate],
                                stillInterested: Boolean, toDate: Option[LocalDate] = None)
 
 object CapacityDeclaration {
-  implicit val dateTimeReads = Reads.jodaDateReads("yyyy-MM-dd")
-  implicit val dateTimeWrites = Writes.jodaDateWrites("yyyy-MM-dd")
   implicit val format = Json.format[CapacityDeclaration]
 }

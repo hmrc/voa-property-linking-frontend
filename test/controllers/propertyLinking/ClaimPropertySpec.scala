@@ -16,11 +16,12 @@
 
 package controllers.propertyLinking
 
+import java.time.LocalDate
+
 import config.ApplicationConfig
 import connectors.{Authenticated, EnvelopeConnector, EnvelopeMetadata}
 import controllers.ControllerSpec
 import models._
-import org.joda.time.LocalDate
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
@@ -99,18 +100,18 @@ class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
     val uarn: Long = positiveLong
     val address: String = shortString
 
-    val declaration: CapacityDeclaration = CapacityDeclaration(Owner, false, Option(LocalDate.parse("2017-04-2")),
-      false, Option(LocalDate.parse("2017-04-5")))
+    val declaration: CapacityDeclaration = CapacityDeclaration(Owner, false, Some(LocalDate.of(2017, 4, 2)),
+      false, Some(LocalDate.of(2017, 4, 5)))
 
     val res = testClaimProperty.attemptLink(uarn, address)(FakeRequest().withFormUrlEncodedBody(
       "capacity" -> declaration.capacity.toString,
       "interestedBefore2017" -> declaration.interestedBefore2017.toString,
       "fromDate.year" -> declaration.fromDate.fold("")(_.getYear.toString),
-      "fromDate.month" -> declaration.fromDate.fold("")(_.getMonthOfYear.toString),
+      "fromDate.month" -> declaration.fromDate.fold("")(_.getMonthValue.toString),
       "fromDate.day" -> declaration.fromDate.fold("")(_.getDayOfMonth.toString),
       "stillInterested" -> declaration.stillInterested.toString,
       "toDate.year" -> declaration.fromDate.fold("")(_.getYear.toString),
-      "toDate.month" -> declaration.toDate.fold("")(_.getMonthOfYear.toString),
+      "toDate.month" -> declaration.toDate.fold("")(_.getMonthValue.toString),
       "toDate.day" -> declaration.toDate.fold("")(_.getDayOfMonth.toString)
     ))
 
