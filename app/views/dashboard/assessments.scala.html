@@ -58,7 +58,7 @@
                         </td>
                         <td>
                             <ul class="list">
-                            @if(model.linkPending) {
+                            @if(model.linkPending || assessment.rateableValue.isEmpty) {
                                 <li>
                                     <a href="@routes.Assessments.viewSummary(assessment.uarn)">
                                         @Messages("assessments.view.summary")
