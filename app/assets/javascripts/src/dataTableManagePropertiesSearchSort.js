@@ -27,7 +27,6 @@
                     queryParameters += '&agent=' + $('#agent').val();
                     queryParameters += '&address=' + $('#address').val();
                     queryParameters += '&status=' + $('#status').val();
-
                     $table.DataTable().ajax.url('/business-rates-property-linking/properties-search-sort/json?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true' + queryParameters);
                 },
                 dataSrc: 'authorisations',
