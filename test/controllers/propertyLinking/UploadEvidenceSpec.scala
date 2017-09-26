@@ -138,7 +138,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
   lazy val envelopeId: String = shortString
 
-  implicit lazy val messages = play.api.i18n.Messages.Implicits.applicationMessages
+  implicit lazy val messages: Messages = play.api.i18n.Messages.Implicits.applicationMessages
 
   lazy val unbreakableCircuit = new FileUploadCircuitBreaker(mock[CircuitBreakerConfig], mock[FileUploadConnector]) {
     override def apply[T](f: => Future[T])(implicit hc: HeaderCarrier): Future[T] = f

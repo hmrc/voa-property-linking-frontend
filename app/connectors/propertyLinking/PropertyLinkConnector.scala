@@ -16,13 +16,13 @@
 
 package connectors.propertyLinking
 
+import java.time.Instant
 import javax.inject.Inject
 
 import connectors.fileUpload.FileMetadata
 import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.OwnerAuthResult
-import org.joda.time.DateTime
 import session.LinkingSessionRequest
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
@@ -51,7 +51,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
       request.organisationId,
       request.ses.personId,
       Capacity.fromDeclaration(request.ses.declaration),
-      DateTime.now,
+      Instant.now,
       data.linkBasis,
       data.fileInfo.toSeq,
       request.ses.submissionId
@@ -70,15 +70,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
     http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +
       s"organisationId=$organisationId&" +
       s"$pagination")
-
-  }
-
-  private def buildQueryParams(name : String, value : Option[String]) : String = {
-    value match { case Some(paramValue) if paramValue != "" => s"&$name=$paramValue" ; case _ => ""}
-  }
-
-  private def buildUppercaseQueryParams(name : String, value : Option[String]) : String = {
-    value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.toUpperCase}" ; case _ => ""}
   }
 
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {

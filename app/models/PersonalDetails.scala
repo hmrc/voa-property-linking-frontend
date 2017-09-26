@@ -16,7 +16,8 @@
 
 package models
 
-import org.joda.time.LocalDate
+import java.time.LocalDate
+
 import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino
 

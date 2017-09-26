@@ -47,7 +47,7 @@ class CreateIndividualAccountSpec extends ControllerSpec with MockitoSugar {
     StubIndividualAccountConnector, mockSessionRepo)
 
   "Invoking the app held CreateIndividualAccount controller" should "result in correct dependency injection" in {
-      app.injector.instanceOf[CreateIndividualAccount]
+    app.injector.instanceOf[CreateIndividualAccount]
   }
 
   "Going to the create individual account page, when logged in with an account that has not registered" should "display the create individual account form" in {
@@ -87,7 +87,7 @@ class CreateIndividualAccountSpec extends ControllerSpec with MockitoSugar {
       "phone2" -> "",
       "nino.nino" -> arbitrary[Nino].value,
       "dob.day" -> individualAccount.dateOfBirth.getDayOfMonth.toString,
-      "dob.month" -> individualAccount.dateOfBirth.getMonthOfYear.toString,
+      "dob.month" -> individualAccount.dateOfBirth.getMonthValue.toString,
       "dob.year" -> individualAccount.dateOfBirth.getYear.toString,
       "address.line1" -> shortString,
       "address.postcode" -> "AA11 1AA"

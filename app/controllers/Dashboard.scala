@@ -16,6 +16,7 @@
 
 package controllers
 
+import java.time.LocalDate
 import javax.inject.Inject
 
 import actions.AuthenticatedAction
@@ -24,7 +25,6 @@ import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import models._
 import models.searchApi.OwnerAuthResult
-import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 class Dashboard @Inject()(config: ApplicationConfig,
@@ -151,11 +151,11 @@ case class ManageAgentsVM(agents: Seq[AgentInfo])
 
 case class DraftCasesVM(draftCases: Seq[DraftCase])
 
-case class PropertyLinkRepresentations(name: String, linkId: String, capacity: CapacityType, linkedDate: DateTime,
+case class PropertyLinkRepresentations(name: String, linkId: String, capacity: CapacityType, linkedDate: LocalDate,
                                        representations: Seq[PropertyRepresentation])
 
 case class PendingPropertyLinkRepresentations(name: String, linkId: String, capacity: CapacityType,
-                                              linkedDate: DateTime, representations: Seq[PropertyRepresentation])
+                                              linkedDate: LocalDate, representations: Seq[PropertyRepresentation])
 
 case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentations], pending: Seq[PendingPropertyLinkRepresentations])
 

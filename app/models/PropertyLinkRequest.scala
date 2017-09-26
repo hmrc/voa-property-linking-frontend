@@ -16,14 +16,15 @@
 
 package models
 
-import org.joda.time.DateTime
+import java.time.Instant
+
 import play.api.libs.json.Json
 
 case class PropertyLinkRequest(uarn: Long,
                                organisationId: Long,
                                individualId: Long,
                                capacityDeclaration: Capacity,
-                               linkedDate: DateTime,
+                               linkedDate: Instant,
                                linkBasis: LinkBasis,
                                fileInfo: Seq[FileInfo],
                                submissionId: String)
