@@ -20,6 +20,7 @@
         new VOA.DataTableManageClients();
         new VOA.DataTableManageClientsSearchSort();
         new VOA.DataTablePendingRequests();
+        new VOA.ShowDialog();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));

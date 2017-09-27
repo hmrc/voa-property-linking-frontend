@@ -16,7 +16,7 @@
 
 package controllers.agentAppointment
 
-import java.time.LocalDateTime
+import java.time.Instant
 import javax.inject.{Inject, Named}
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
@@ -158,7 +158,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
                                              checkPermission: AgentPermission, challengePermission: AgentPermission)
                                             (implicit hc: HeaderCarrier): Future[Unit] = {
     val req = RepresentationRequest(authorisationId, agentOrgId, userIndividualId,
-      java.util.UUID.randomUUID().toString, checkPermission.name, challengePermission.name, LocalDateTime.now)
+      java.util.UUID.randomUUID().toString, checkPermission.name, challengePermission.name, Instant.now)
     representations.create(req)
   }
 
