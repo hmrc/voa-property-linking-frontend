@@ -28,6 +28,7 @@
 .dataTable * .searchfield .ss-dropdown {
     margin:0;
     display:inline-block;
+    width: 75%;
 
 }
 .sorting {
