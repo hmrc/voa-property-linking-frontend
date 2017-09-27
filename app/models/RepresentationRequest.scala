@@ -16,19 +16,17 @@
 
 package models
 
-import java.time.LocalDateTime
+import java.time.Instant
 
 import play.api.libs.json.Json
 
-case class RepresentationRequest(
-                                  authorisationId: Long,
-                                  agentOrganisationId: Long,
-                                  individualId: Long,
-                                  submissionId: String,
-                                  checkPermission: String,
-                                  challengePermission: String,
-                                  createDatetime: LocalDateTime
-                                )
+case class RepresentationRequest(authorisationId: Long,
+                                 agentOrganisationId: Long,
+                                 individualId: Long,
+                                 submissionId: String,
+                                 checkPermission: String,
+                                 challengePermission: String,
+                                 createDatetime: Instant)
 
 object RepresentationRequest {
   implicit val format = Json.format[RepresentationRequest]
