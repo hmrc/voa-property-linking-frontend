@@ -20,7 +20,7 @@
             '</span></i></a>';
 
         var dataTable = $table.DataTable({
-            searching: true,
+            searching: false,
             ordering: true,
             orderCellsTop: true,
             ajax: {
