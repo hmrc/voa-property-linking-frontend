@@ -1,4 +1,5 @@
 @(valueOfStatus: String)(implicit  messages: Messages)
+<label for="status" class="visually-hidden">@Messages("manageProperties.table.3") </label>
 <select id="status" name="status" class="ss-dropdown">
     <option class="blank" value="">All</option>
     @for(status <- PropertyLinkingStatus.all) {
@@ -6,5 +7,5 @@
         @Messages(status.msgKey)
         </option>
     }
-</select><button id="statusBtn" class="search-submit ss-dropdown-button"></button>
+</select><button id="statusBtn" class="search-submit ss-dropdown-button">Search for @Messages("manageProperties.table.3")</button>
 
