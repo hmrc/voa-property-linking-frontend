@@ -66,6 +66,11 @@
 .section-tabs ul a:hover .label, .section-tabs ul a:focus .label {
   text-decoration: underline;
 }
+
+.section-tabs ul a:focus {
+  outline: 3px solid #ffbf47;
+}
+
 @media (max-width: 640px) {
   
   .section-tabs ul a {
