@@ -102,16 +102,23 @@
                                     </td>
                                     <td>
                                         <ul class="list">
-                                                <li>
-                                                    @Messages("dashboard.manageProperties.status."+p.status.toLowerCase )
-                                                </li>
-                                                @if(p.status.toLowerCase == "pending") {
-                                                    <li>
-                                                        <span class="submission-id">
-                                                        @Messages("dashboard.manageProperties.submissionId", p.submissionId)
-                                                        </span>
-                                                    </li>
+                                            <li>
+                                                <span>@Messages("dashboard.manageProperties.status." + p.status.toLowerCase)</span>
+                                                @if(p.status.toLowerCase == "declined") {
+                                                    <a class="help" href="#declinedHelp" data-toggle="dialog" data-target="declinedHelp-dialog">
+                                                        <i>
+                                                            <span class="visuallyhidden">@Messages("declined.getHelp")</span>
+                                                        </i>
+                                                    </a>
                                                 }
+                                            </li>
+                                            @if(p.status.toLowerCase == "pending") {
+                                                <li>
+                                                    <span class="submission-id">
+                                                    @Messages("dashboard.manageProperties.submissionId", p.submissionId)
+                                                    </span>
+                                                </li>
+                                            }
                                         </ul>
                                     </td>
                                     <td>
@@ -159,13 +166,10 @@
                         0
                     }else{
                         @model.pagination.startPoint
-                    }                    @if(model.result.authorisations.isEmpty) {
-                    0
-                }else{
-                    @model.pagination.startPoint
-                }
-                    to @{
-                    model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1) } of @model.pagination.totalResults</p>
+                    } to @{
+                        model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)
+                    } of @model.pagination.totalResults
+                </p>
 
                 <div role="navigation" aria-label="Pagination">
                     <ul class="pagination">
@@ -187,10 +191,12 @@
                     </ul>
                 </div>
             </noscript>
+
+            <div class="clearfix"></div>
+            
+            @views.html.helpers.declinedHelp()
         }
 
+    <p><a href="@controllers.propertyLinking.routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
 
-
-        <div class="clearfix"></div>
-        <p><a href="@controllers.propertyLinking.routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
-    }
+}

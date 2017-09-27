@@ -1,0 +1,29 @@
+@()(implicit request: RequestHeader, messages: Messages)
+
+<div class="dialog" id="declinedHelp-dialog" data-modal="true" aria-hidden="true">
+
+    <div class="dialog-holder" aria-labelledby="declinedHelp-dialog" aria-describedby="declinedHelp-content" role="alertdialog">
+
+        <div class="dialog-content" id="declinedHelp-content" role="document" tabindex="0">
+
+            <button class="dialog-close" aria-label="close" type="button"><span class="icon icon-close">x</span></button>
+
+            <div class="modal-content-div">
+                @helpContent
+            </div>
+
+            <a href="#" class="dialog-cancel button" aria-label="close" >@Messages("label.close")</a>
+
+        </div>
+    </div>
+</div>
+
+<noscript id="declinedHelp">
+@helpContent
+</noscript>
+
+    @helpContent = {
+        <h3 class="heading-small">@Messages("help.declined")</h3>
+        <p>@Messages("help.declined.p1")</p>
+        <p>@Messages("help.declined.p2")</p>
+    }

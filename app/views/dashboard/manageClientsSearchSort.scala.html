@@ -112,7 +112,14 @@
                         <td>
                             <ul class="list">
                                 <li>
-                                @Messages("dashboard.manageProperties.status."+p.status.toLowerCase )
+                                    @Messages("dashboard.manageProperties.status." + p.status.toLowerCase)
+                                    @if(p.status.toLowerCase == "declined") {
+                                        <a class="help" href="#declinedHelp" data-toggle="dialog" data-target="declinedHelp-dialog">
+                                            <i>
+                                                <span class="visuallyhidden">@Messages("declined.getHelp")</span>
+                                            </i>
+                                        </a>
+                                    }
                                 </li>
                                 @if(p.status.toLowerCase == "pending") {
                                     <li>
@@ -184,6 +191,7 @@
 
         </noscript>
 
+        <div class="clearfix"></div>
+        @views.html.helpers.declinedHelp()
     }
-
 }
