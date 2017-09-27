@@ -20,7 +20,7 @@
         VOA.helper.dataTableSettings($table);
 
         var dataTable = $table.DataTable({
-            searching: true,
+            searching: false,
             ordering: true,
             orderCellsTop: true,
             ajax: {
