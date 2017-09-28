@@ -38,13 +38,9 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val analyticsHost: String = getConfig("google-analytics.host")
   lazy val voaPersonID: String = getConfig("google-analytics.dimensions.voaPersonId")
 
-  val casesEnabled: Boolean = getConfig("featureFlags.casesEnabled").toBoolean
-  val editDetailsEnabled: Boolean = getConfig("featureFlags.editDetailsEnabled").toBoolean
   val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
   val searchSortEnabled: Boolean = getConfig("featureFlags.searchSortEnabled").toBoolean
   val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
-
-  val allowedMimeTypes: Seq[String] = getConfig("allowedFileUploadTypes").split(",")
 
   lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
     new String(Base64.getUrlDecoder.decode(e))
