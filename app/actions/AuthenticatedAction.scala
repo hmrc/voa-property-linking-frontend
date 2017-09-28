@@ -22,6 +22,7 @@ import auth.GovernmentGatewayProvider
 import config.Global
 import connectors._
 import models.{DetailedIndividualAccount, GroupAccount}
+import play.api.Logger
 import play.api.Play.current
 import play.api.i18n.Messages
 import play.api.i18n.Messages.Implicits.applicationMessages
@@ -40,7 +41,9 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
     businessRatesAuthorisation.authenticate flatMap {
       res => handleResult(res, body)
     } recover {
-      case _ => InternalServerError(Global.internalServerErrorTemplate(request))
+      case e =>
+        Logger.error(e.getMessage, e)
+        InternalServerError(Global.internalServerErrorTemplate(request))
     }
   }
 
@@ -57,7 +60,9 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
       businessRatesAuthorisation.authorise(authorisationId, assessmentRef) flatMap {
         res => handleResult(res, body)
       } recover {
-        case _ => InternalServerError(Global.internalServerErrorTemplate(request))
+        case e =>
+          Logger.error(e.getMessage, e)
+          InternalServerError(Global.internalServerErrorTemplate(request))
       }
     }
   }
@@ -66,7 +71,9 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
     businessRatesAuthorisation.authorise(authorisationId) flatMap {
       res => handleResult(res, body)
     } recover {
-      case _ => InternalServerError(Global.internalServerErrorTemplate(request))
+      case e =>
+        Logger.error(e.getMessage, e)
+        InternalServerError(Global.internalServerErrorTemplate(request))
     }
   }
 
