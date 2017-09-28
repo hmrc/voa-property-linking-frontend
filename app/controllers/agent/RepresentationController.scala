@@ -84,20 +84,29 @@ class RepresentationController @Inject()(config: ApplicationConfig,
 
 
   def listRepresentationRequestSearchAndSort(page: Int,
-                                 pageSize: Int,
-                                 requestTotalRowCount: Boolean,
-                                 sortfield: Option[String],
-                                 sortorder: Option[String],
-                                 status: Option[String],
-                                 address: Option[String],
-                                 baref: Option[String],
-                                 client: Option[String])  = authenticated { implicit request =>
-    withValidPaginationSearchSort(page, pageSize, requestTotalRowCount, sortfield, sortorder, status, address, baref, client) { pagination =>
-      reprConnector.forAgentSearchAndSort(request.organisationId, pagination) map { res =>
-        Ok(Json.toJson(res))
-      }
+                                             pageSize: Int,
+                                             requestTotalRowCount: Boolean,
+                                             sortfield: Option[String],
+                                             sortorder: Option[String],
+                                             status: Option[String],
+                                             address: Option[String],
+                                             baref: Option[String],
+                                             client: Option[String])  = authenticated { implicit request =>
+        withValidPaginationSearchSort(page = page,
+                                      pageSize = pageSize,
+                                      requestTotalRowCount = requestTotalRowCount,
+                                      sortfield = sortfield,
+                                      sortorder = sortorder,
+                                      status = status,
+                                      address = address,
+                                      baref = baref,
+                                      client = client) { pagination =>
+          reprConnector.forAgentSearchAndSort(request.organisationId, pagination) map { res =>
+            Ok(Json.toJson(res))
+          }
     }
   }
+
 
   def pendingRepresentationsJson(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated.asAgent { implicit request =>
     withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
