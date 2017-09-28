@@ -36,13 +36,17 @@
                 },
                 dataSrc: 'authorisations',
                 dataFilter: function(data) {
-                    var json = jQuery.parseJSON(data);
-                    json.recordsTotal = json.total;
-                    json.recordsFiltered = json.filterTotal;
-                    return JSON.stringify(json);
-               },
+                    try{
+                        var json = jQuery.parseJSON(data);
+                        json.recordsTotal = json.total;
+                        json.recordsFiltered = json.filterTotal;
+                        return JSON.stringify(json);
+                    }catch(e){
+                        window.location.reload(true);
+                    }
+                },
                 error: function (x, status, error) { 
-                    window.location.reload();                
+                    window.location.reload(true);                
                 }
             },
             columns: [
