@@ -79,14 +79,12 @@
                         </tr>
                         <form method="GET" action="@agent.routes.RepresentationController.viewClientPropertiesSearchSort()">
                             <tr>
-                            <th scope="col"><div class="searchfield"><input name="address" id="address" value="@model.pagination.valueOfAddress" size="10" class="ss-input"><button id="addressBtn" type="submit" class="search-submit ss-button"></button></div></th>
-                            <th scope="col"><div class="searchfield"><input name="baref"  id="baref" value="@model.pagination.valueOfBaref" size="10" class="ss-input"><button id="barefBtn" type="submit" class="search-submit ss-button"></button></div></th>
+                                <th scope="col"><div class="searchfield"><label for="address" class="visually-hidden">@Messages("managePropertiesSearchSort.table.1") </label><input name="address" value="@model.pagination.valueOfAddress" id="address" size="10" class="ss-input"><button id="addressBtn" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.1") </button></div></th>
+                                <th scope="col"><div class="searchfield"><label for="baref" class="visually-hidden">@Messages("managePropertiesSearchSort.table.2")  </label><input name="baref"  value="@model.pagination.valueOfBaref" id="baref" size="10" class="ss-input"><button id="barefBtn" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.2") </button></div></th>
                                 <th scope="col"><div class="searchfield">@propertyLinkingStatusDropdown(model.pagination.valueOfStatus)</div></th>
-                            <th scope="col"><div class="searchfield"><input name="client"  id="client" value="@model.pagination.valueOfClient" size="8" class="ss-input"><button id="clientBtn" type="submit" class="search-submit ss-button"></button></div></th>
-                            <th scope="col"><a href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort().url" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
-                        </tr>
-                            <input type="hidden" name="sortorder" value="@model.pagination.valueOfSortorder" />
-                            <input type="hidden" name="sortfield" value="@model.pagination.valueOfSortfield" />
+                                <th scope="col"><div class="searchfield"><label for="client" class="visually-hidden">@Messages("managePropertiesSearchSort.table.4") </label><input name="client"  id="client" value="@model.pagination.valueOfClient" size="8" class="ss-input"><button id="clientBtn" type="submit" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.4")</button></div></th>
+                                <th scope="col"><a href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort().url" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
+                            </tr>
                         </form>
                     </thead>
                     <tbody>
@@ -112,7 +110,14 @@
                         <td>
                             <ul class="list">
                                 <li>
-                                @Messages("dashboard.manageProperties.status."+p.status.toLowerCase )
+                                    @Messages("dashboard.manageProperties.status." + p.status.toLowerCase)
+                                    @if(p.status.toLowerCase == "declined") {
+                                        <a class="help" href="#declinedHelp" data-toggle="dialog" data-target="declinedHelp-dialog">
+                                            <i>
+                                                <span class="visuallyhidden">@Messages("declined.getHelp")</span>
+                                            </i>
+                                        </a>
+                                    }
                                 </li>
                                 @if(p.status.toLowerCase == "pending") {
                                     <li>
@@ -184,6 +189,7 @@
 
         </noscript>
 
+        <div class="clearfix"></div>
+        @views.html.helpers.declinedHelp()
     }
-
 }

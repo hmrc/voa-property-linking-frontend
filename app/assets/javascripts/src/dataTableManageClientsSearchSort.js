@@ -13,10 +13,14 @@
         var messages = VOA.messages.en,
         $table  = $('#dataTableManageClientsSearchSort');
 
+        var declinedHelpLink = '<a class="help" href="#declinedHelp" data-toggle="dialog" data-target="declinedHelp-dialog"><i><span class="visuallyhidden">' +
+            messages.labels.declinedHelp +
+            '</span></i></a>';
+
         VOA.helper.dataTableSettings($table);
 
         var dataTable = $table.DataTable({
-            searching: true,
+            searching: false,
             ordering: true,
             orderCellsTop: true,
             ajax: {
@@ -49,11 +53,20 @@
                 {data: null, defaultContent: '<ul class="list"><li></li><li></li></ul>', 'bSortable': false}
             ],
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                $('td:eq(2) ul li:eq(0)', nRow).text( messages.labels['status' + (aData.status.split('_').join('').toLowerCase())] );
+                var $status = $('td:eq(2) ul li:eq(0)', nRow);
+
+                $status.text( messages.labels['status' + (aData.status.split('_').join('').toLowerCase())]);
+
+                if(aData.status.toLowerCase() === 'declined') {
+                    $status.after(declinedHelpLink);
+                }
+
                 if(aData.status.toLowerCase() === 'pending'){
                     $('td:eq(2) ul li:eq(1)', nRow).html('<span class="submission-id">' + messages.labels.submissionId+ ': ' + aData.submissionId + '</span>' );
                 }
+
                 $('td:eq(4) ul li:eq(0)', nRow).html('<a href="/business-rates-property-linking/client-properties/' + aData.client.organisationId + '/revoke/' + aData.authorisationId +'">' + messages.labels.revokeClient + '</a>');
+
                 if (aData.status.toLowerCase() === 'pending' || aData.status.toLowerCase() === 'approved') {
                     $('td:eq(4) ul li:eq(1)', nRow).html('<a href="/business-rates-property-linking/property-link/' + aData.authorisationId + '/assessments' + '">' + messages.labels.viewValuations + '</a>');
                 } else {
@@ -73,7 +86,13 @@
             dataTable.draw();
         } );
 
-        $( '#dataTableManageClientsSearchSort input, select').bind('keyup', function(e) {
+        $( '#dataTableManageClientsSearchSort input').bind('keyup', function(e) {
+            if(e.keyCode === 13) {
+                dataTable.draw();
+            }
+        });
+
+        $( '#dataTableManageClientsSearchSort select').bind('keyup', function(e) {
             if(e.keyCode === 13) {
                 dataTable.draw();
             }

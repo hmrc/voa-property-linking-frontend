@@ -788,3 +788,10 @@ internalServerError.p.2=If you continue to experience problems, please contact u
 internalServerError.reference=Reference number: {0}
 internalServerError.date=Date: {0}
 internalServerError.time=Time: {0}
+
+#DECLINED PROPERTY HELP
+help.declined=Property link declined by the VOA
+help.declined.p1=The property link has been declined by the VOA. If you believe this has been declined in error, please contact the VOA.
+help.declined.p2=Telephone: 03000 501 501
+declined.getHelp=Declined help
+label.close=Close
