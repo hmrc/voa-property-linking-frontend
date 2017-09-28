@@ -129,12 +129,8 @@ class Dashboard @Inject()(config: ApplicationConfig,
   }
 
   def viewDraftCases() = authenticated { implicit request =>
-    if (config.casesEnabled) {
-      draftCases.get(request.personId) map { cases =>
-        Ok(views.html.dashboard.draftCases(DraftCasesVM(cases)))
-      }
-    } else {
-      NotFound(Global.notFoundTemplate)
+    draftCases.get(request.personId) map { cases =>
+      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases)))
     }
   }
 }

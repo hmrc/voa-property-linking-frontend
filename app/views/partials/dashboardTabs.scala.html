@@ -19,14 +19,10 @@
         }
 
         @tab("manageAgents", routes.Dashboard.manageAgents().url)
-        @if(casesEnabled) {
-            @tab("drafts", routes.Dashboard.viewDraftCases().url)
-        }
-        @if(editDetailsEnabled) {
-            @tab("editDetails", controllers.manageDetails.routes.ViewDetails.show().url)
-        }
+        @tab("drafts", routes.Dashboard.viewDraftCases().url)
+        @tab("editDetails", controllers.manageDetails.routes.ViewDetails.show().url)
         <li class="tab-right">
-            <span>Welcome, @if(editDetailsEnabled) {<a href="@controllers.manageDetails.routes.ViewDetails.show().url">} @name @if(editDetailsEnabled) {</a>}. <a href="@routes.Application.logOut().url">Not you?</a></span>
+            <span>Welcome, <a href="@controllers.manageDetails.routes.ViewDetails.show().url">@name</a>. <a href="@routes.Application.logOut().url">Not you?</a></span>
         </li>
     </ul>
 </div>
