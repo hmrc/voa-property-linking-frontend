@@ -33,7 +33,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
 
-  def get(organisationId: Int, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
+  def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
     val url = s"$baseUrl/property-links/$authorisationId"
 
     http.GET[Option[PropertyLink]](url) map { link =>
@@ -59,12 +59,12 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
     http.POST[PropertyLinkRequest, HttpResponse](url, linkRequest) map { _ => () }
   }
 
-  def linkedProperties(organisationId: Int, pagination: Pagination)
+  def linkedProperties(organisationId: Long, pagination: Pagination)
                       (implicit hc: HeaderCarrier): Future[PropertyLinkResponse] = {
     http.GET[PropertyLinkResponse](s"$baseUrl/property-links?organisationId=$organisationId&$pagination")
   }
 
-  def linkedPropertiesSearchAndSort(organisationId: Int,
+  def linkedPropertiesSearchAndSort(organisationId: Long,
                                     pagination: PaginationSearchSort)
                       (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
     http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +

@@ -78,7 +78,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
   it must "trim leading and trailing spaces from the agent code" in {
     val (groupAccount, individual) = stubLoggedInUser()
     StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id, authorisationId = 555, agents = Nil)
+    val link = arbitrary[PropertyLink].sample.get.copy()
     StubPropertyLinkConnector.stubLink(link)
     StubPropertyRepresentationConnector.stubAgentCode(123)
 
@@ -94,7 +94,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     val groupAccount = arbitrary[GroupAccount].sample.get
 
     StubGroupAccountConnector.stubAccount(groupAccount)
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id)
+    val link = arbitrary[PropertyLink].sample.get.copy()
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
       request.withFormUrlEncodedBody("agentCode" -> "", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
@@ -141,7 +141,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     val (groupAccount, individualAccount) = stubLoggedInUser()
     val agentAccount = arbitrary[GroupAccount].sample.get
     StubGroupAccountConnector.stubAccount(agentAccount)
-    val link:PropertyLink = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id)
+    val link:PropertyLink = arbitrary[PropertyLink].sample.get.copy()
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
@@ -156,7 +156,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
 
   it must "require the agent code to be valid" in {
     val (groupAccount, _) = stubLoggedInUser()
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id)
+    val link = arbitrary[PropertyLink].sample.get.copy()
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
@@ -187,7 +187,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
   it must "display the success page when the form is valid, and no permission have previously been set" in {
     val (groupAccount, individual) = stubLoggedInUser()
     StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id, authorisationId = 555, agents = Nil)
+    val link = arbitrary[PropertyLink].sample.get.copy()
     StubPropertyLinkConnector.stubLink(link)
     StubPropertyRepresentationConnector.stubAgentCode(123)
 

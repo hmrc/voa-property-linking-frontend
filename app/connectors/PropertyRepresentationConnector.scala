@@ -38,11 +38,11 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
     http.GET[Option[PropertyRepresentation]](s"$baseUrl/property-representations/$representationId")
   }
 
-  def forAgent(status: RepresentationStatus, agentOrganisationId: Int, pagination: Pagination)(implicit hc: HeaderCarrier): Future[PropertyRepresentations] = {
+  def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier): Future[PropertyRepresentations] = {
     http.GET[PropertyRepresentations](s"$baseUrl/property-representations/agent/${status.name}/$agentOrganisationId?$pagination")
   }
 
-  def forAgentSearchAndSort(agentOrganisationId: Int,
+  def forAgentSearchAndSort(agentOrganisationId: Long,
                             pagination: PaginationSearchSort)
                            (implicit hc: HeaderCarrier): Future[AgentAuthResult] = {
     val url = s"$baseUrl/property-representations-search-sort?" +

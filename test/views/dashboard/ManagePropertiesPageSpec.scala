@@ -35,14 +35,8 @@ class ManagePropertiesPageSpec extends ControllerSpec {
   override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false")
 
   "Manage properties page" must "show the submissionId if the property link is pending" in {
-    val pendingProp = arbitrary[PropertyLink].sample.get.copy(
-      organisationId = organisationAccount.id,
-      pending = true
-    )
-    val approvedProp = arbitrary[PropertyLink].sample.get.copy(
-      organisationId = organisationAccount.id,
-      pending = false
-    )
+    val pendingProp = arbitrary[PropertyLink].sample.get.copy()
+    val approvedProp = arbitrary[PropertyLink].sample.get.copy()
 
     val html = manageProperties(ManagePropertiesVM(organisationAccount.id, Seq(pendingProp, approvedProp), Pagination(1, 25, 25)))
     val page = HtmlPage(html)
