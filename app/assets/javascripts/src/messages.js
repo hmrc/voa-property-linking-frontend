@@ -35,7 +35,7 @@
                 declinedHelp: 'Declined help'
             },
             errors : {
-                postcodeLookupError: 'Enter a valid postcode',
+                postcodeLookupError: 'You can search for an address in England, Scotland and Wales. If your property is in Northern Ireland or outside of the UK, you’ll need to enter it manually.',
                 dataError: 'An error occurred'
             }
         }
