@@ -16,8 +16,9 @@
 
 package controllers.manageDetails
 
-import actions.BasicAuthenticatedRequest
+import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import javax.inject.Inject
+
 import config.ApplicationConfig
 import connectors.{Addresses, IndividualAccounts}
 import controllers.PropertyLinkingController
@@ -32,26 +33,26 @@ import play.api.mvc.Result
 import scala.concurrent.Future
 
 class UpdatePersonalDetails @Inject()(config: ApplicationConfig,
-                                      editDetailsAction: EditDetailsAction,
+                                      authenticated: AuthenticatedAction,
                                       addressesConnector: Addresses,
                                       individualAccountConnector: IndividualAccounts) extends PropertyLinkingController {
 
-  def viewEmail() = editDetailsAction { implicit request =>
+  def viewEmail() = authenticated { implicit request =>
     Ok(views.html.details.updateEmail(UpdateDetailsVM(emailForm, request.individualAccount.details)))
   }
 
-  def updateEmail() = editDetailsAction { implicit request =>
+  def updateEmail() = authenticated { implicit request =>
     emailForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateEmail(UpdateDetailsVM(errors, request.individualAccount.details))),
       email => updateDetails(email = Some(email))
     )
   }
 
-  def viewAddress() = editDetailsAction { implicit request =>
+  def viewAddress() = authenticated { implicit request =>
     Ok(views.html.details.updateAddress(UpdateDetailsVM(addressForm, request.individualAccount.details)))
   }
 
-  def updateAddress() = editDetailsAction { implicit request =>
+  def updateAddress() = authenticated { implicit request =>
     addressForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateAddress(UpdateDetailsVM(errors, request.individualAccount.details))),
       address => address.addressUnitId match {
@@ -61,18 +62,18 @@ class UpdatePersonalDetails @Inject()(config: ApplicationConfig,
     )
   }
 
-  def viewPhone() = editDetailsAction { implicit request =>
+  def viewPhone() = authenticated { implicit request =>
     Ok(views.html.details.updatePhone(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
   }
 
-  def updatePhone() = editDetailsAction { implicit request =>
+  def updatePhone() = authenticated { implicit request =>
     telephoneForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updatePhone(UpdateDetailsVM(errors, request.individualAccount.details))),
       phone => updateDetails(phone = Some(phone))
     )
   }
 
-  def viewName() = editDetailsAction { implicit request =>
+  def viewName() = authenticated { implicit request =>
     if (config.editNameEnabled) {
       Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details)))
     } else {
@@ -80,7 +81,7 @@ class UpdatePersonalDetails @Inject()(config: ApplicationConfig,
     }
   }
 
-  def updateName() = editDetailsAction { implicit request =>
+  def updateName() = authenticated { implicit request =>
     if (config.editNameEnabled) {
       nameForm.bindFromRequest().fold(
         errors => BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details))),
@@ -91,11 +92,11 @@ class UpdatePersonalDetails @Inject()(config: ApplicationConfig,
     }
   }
 
-  def viewMobile() = editDetailsAction { implicit request =>
+  def viewMobile() = authenticated { implicit request =>
     Ok(views.html.details.updateMobile(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
   }
 
-  def updateMobile() = editDetailsAction { implicit request =>
+  def updateMobile() = authenticated { implicit request =>
     telephoneForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateMobile(UpdateDetailsVM(errors, request.individualAccount.details))),
       mobile => updateDetails(mobile = Some(mobile))

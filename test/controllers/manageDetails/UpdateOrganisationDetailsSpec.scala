@@ -190,9 +190,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
     UpdatedOrganisationAccount(org.groupId, addressId.getOrElse(org.addressId), org.isAgent, name.getOrElse(org.companyName), email.getOrElse(org.email), phone.getOrElse(org.phone), Instant.now(clock), personId)
   }
 
-  private lazy val testController = new UpdateOrganisationDetails(mockEditDetailsAction, mockGroups, mockAddresses)(clock)
-
-  private lazy val mockEditDetailsAction = mock[EditDetailsAction]
+  private lazy val testController = new UpdateOrganisationDetails(StubAuthentication, mockGroups, mockAddresses)(clock)
 
   private lazy val mockAddresses = mock[Addresses]
 
@@ -202,12 +200,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
     val org: GroupAccount = groupAccountGen
     val person: DetailedIndividualAccount = individualGen
     when(mockGroups.get(anyInt)(any[HeaderCarrier])).thenReturn(Future.successful(Some(org)))
-    when(mockEditDetailsAction.apply(any())).thenAnswer(new Answer[Action[AnyContent]] {
-      override def answer(invocation: InvocationOnMock): Action[AnyContent] = Action.async { request =>
-        val body = invocation.getArgument[(BasicAuthenticatedRequest[AnyContent]) => Future[Result]](0)
-        body(BasicAuthenticatedRequest(org, person, request))
-      }
-    })
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(org, person)))
     (org, person)
   }
 

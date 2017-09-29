@@ -18,8 +18,9 @@ package controllers.manageDetails
 
 import java.time.{Clock, Instant}
 
-import actions.BasicAuthenticatedRequest
+import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import javax.inject.Inject
+
 import connectors.{Addresses, GroupAccounts}
 import controllers.PropertyLinkingController
 import form.{Mappings, TextMatching}
@@ -30,26 +31,26 @@ import play.api.mvc.Result
 
 import scala.concurrent.Future
 
-class UpdateOrganisationDetails @Inject()(editDetailsAction: EditDetailsAction,
+class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction,
                                           groups: GroupAccounts,
                                           addresses: Addresses)(implicit clock: Clock) extends PropertyLinkingController {
 
-  def viewBusinessName = editDetailsAction { implicit request =>
+  def viewBusinessName = authenticated { implicit request =>
     Ok(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
   }
 
-  def updateBusinessName = editDetailsAction { implicit request =>
+  def updateBusinessName = authenticated { implicit request =>
     businessNameForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       businessName => updateDetails(name = Some(businessName))
     )
   }
 
-  def viewBusinessAddress = editDetailsAction { implicit request =>
+  def viewBusinessAddress = authenticated { implicit request =>
     Ok(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(addressForm, request.organisationAccount)))
   }
 
-  def updateBusinessAddress = editDetailsAction { implicit request =>
+  def updateBusinessAddress = authenticated { implicit request =>
     addressForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       address => address.addressUnitId match {
@@ -59,22 +60,22 @@ class UpdateOrganisationDetails @Inject()(editDetailsAction: EditDetailsAction,
     )
   }
 
-  def viewBusinessPhone = editDetailsAction { implicit request =>
+  def viewBusinessPhone = authenticated { implicit request =>
     Ok(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(phoneForm, request.organisationAccount)))
   }
 
-  def updateBusinessPhone = editDetailsAction { implicit request =>
+  def updateBusinessPhone = authenticated { implicit request =>
     phoneForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       phone => updateDetails(phone = Some(phone))
     )
   }
 
-  def viewBusinessEmail = editDetailsAction { implicit request =>
+  def viewBusinessEmail = authenticated { implicit request =>
     Ok(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(emailForm, request.organisationAccount)))
   }
 
-  def updateBusinessEmail = editDetailsAction { implicit request =>
+  def updateBusinessEmail = authenticated { implicit request =>
     emailForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       email => updateDetails(email = Some(email))

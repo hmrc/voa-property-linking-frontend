@@ -234,10 +234,12 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
 
   private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
 
-  private object TestUpdatePersonalDetails extends UpdatePersonalDetails(app.injector.instanceOf[ApplicationConfig],
-    mockEditDetailsAction, mockAddressConnector, mockIndividualAccounts)
-
-  lazy val mockEditDetailsAction = mock[EditDetailsAction]
+  private object TestUpdatePersonalDetails extends UpdatePersonalDetails(
+    app.injector.instanceOf[ApplicationConfig],
+    StubAuthentication,
+    mockAddressConnector,
+    mockIndividualAccounts
+  )
 
   lazy val mockIndividualAccounts = {
     val m = mock[IndividualAccounts]
@@ -256,12 +258,7 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
     val individual = individualGen.sample.get
     StubGroupAccountConnector.stubAccount(groupAccount)
     when(mockIndividualAccounts.get(matching(individual.individualId))(any[HeaderCarrier])).thenReturn(Future.successful(Some(individual)))
-    when(mockEditDetailsAction.apply(any())).thenAnswer(new Answer[Action[AnyContent]] {
-      override def answer(invocation: InvocationOnMock): Action[AnyContent] = Action.async { request =>
-        val body = invocation.getArgument[(BasicAuthenticatedRequest[AnyContent]) => Future[Result]](0)
-        body(BasicAuthenticatedRequest(groupAccount, individual, request))
-      }
-    })
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individual)))
     (groupAccount, individual)
   }
 }
