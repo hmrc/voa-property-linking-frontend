@@ -55,7 +55,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
 
   it must "update the business name on a valid submission" in {
     val (org, person) = stubLoggedInUser()
-    when(mockGroups.update(anyInt, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val validData = Seq(
       "businessName" -> "My Cool Business"
@@ -70,7 +70,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
 
   "The update business address page" must "update the business address ID if the postcode lookup is used" in {
     val (org, person) = stubLoggedInUser()
-    when(mockGroups.update(anyInt, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val validData = Seq(
       "address.addressId" -> "1234567890",
@@ -87,7 +87,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
 
   it must "create an address record, and update the business address ID to the created ID, if the address is entered manually" in {
     val (org, person) = stubLoggedInUser()
-    when(mockGroups.update(anyInt, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
     when(mockAddresses.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(1))
 
     val validData = Seq(
@@ -105,7 +105,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
 
   "The update business phone page" must "require a non-empty phone number" in {
     stubLoggedInUser()
-    when(mockGroups.update(anyInt, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val emptyPhoneNumber = Seq(
       "phone" -> ""
@@ -120,7 +120,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
 
   it must "update the business phone number on a valid submission" in {
     val (org, person) = stubLoggedInUser()
-    when(mockGroups.update(anyInt, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val validData = Seq(
       "phone" -> "999"
@@ -135,7 +135,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
 
   "The update business email page" must "require a valid email address" in {
     stubLoggedInUser()
-    when(mockGroups.update(anyInt, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val invalidEmail = Seq(
       "email" -> "not an email",
@@ -151,7 +151,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
 
   it must "require the confirmed email to match" in {
     stubLoggedInUser()
-    when(mockGroups.update(anyInt, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val mismatchingEmails = Seq(
       "email" -> "email@example.com",
@@ -167,7 +167,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
 
   it must "update the business email address on a valid submission" in {
     val (org, person) = stubLoggedInUser()
-    when(mockGroups.update(anyInt, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val validData = Seq(
       "email" -> "email@example.com",

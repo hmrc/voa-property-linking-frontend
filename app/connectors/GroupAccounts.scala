@@ -30,7 +30,7 @@ class GroupAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec:
 
   lazy val url = config.baseUrl("property-linking") + "/property-linking/groups"
 
-  def get(organisationId: Int)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
+  def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
     http.GET[Option[GroupAccount]](s"$url/$organisationId")
   }
 

@@ -58,13 +58,13 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
     if(stubbedValidCodes.contains(agentCode)) { AgentCodeValidationResult(Some(123), None) } else { AgentCodeValidationResult(None, Some("INVALID_CODE")) }
   }
 
-  override def forAgent(status: RepresentationStatus, agentOrganisationId: Int, pagination: Pagination)(implicit hc: HeaderCarrier) = Future.successful(
+  override def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier) = Future.successful(
     PropertyRepresentations(totalPendingRequests = stubbedRepresentations.count(_.status == RepresentationPending),
       resultCount = Some(stubbedRepresentations.count(_.status == status)),
       propertyRepresentations = stubbedRepresentations.filter(_.status == status))
   )
 
-  override def forAgentSearchAndSort(agentOrganisationId: Int,
+  override def forAgentSearchAndSort(agentOrganisationId: Long,
                             pagination: PaginationSearchSort)
                            (implicit hc: HeaderCarrier): Future[AgentAuthResult] = Future.successful(
     stubbedAgentAuthResult
