@@ -37,7 +37,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val analyticsToken: String = getConfig("google-analytics.token")
   lazy val analyticsHost: String = getConfig("google-analytics.host")
   lazy val voaPersonID: String = getConfig("google-analytics.dimensions.voaPersonId")
-  lazy val pingdomToken: String = getConfig("pingdom.performance.monitor.token")
+  lazy val pingdomToken: Option[String] = getOptionalConfig("pingdom.performance.monitor.token")
 
 
   val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
@@ -49,6 +49,8 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   }
 
   private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
+  private def getOptionalConfig(key: String) = configuration.getString(key)
+
 }
 
 object ApplicationConfig {
