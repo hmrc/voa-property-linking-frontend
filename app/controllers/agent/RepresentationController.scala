@@ -131,7 +131,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
   }
 
   def accept(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
-    val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseApproved)
+    val response = RepresentationResponse(submissionId, request.personId, RepresentationResponseApproved)
     reprConnector.response(response).map { _ =>
       val continueLink = if (noOfPendingRequests > 1) {
         controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
@@ -143,7 +143,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
   }
 
   def reject(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
-    val response = RepresentationResponse(submissionId, request.personId.toLong, RepresentationResponseDeclined)
+    val response = RepresentationResponse(submissionId, request.personId, RepresentationResponseDeclined)
     reprConnector.response(response).map { _ =>
       val continueLink = if (noOfPendingRequests > 1) {
         controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url

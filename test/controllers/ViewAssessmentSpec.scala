@@ -16,15 +16,12 @@
 
 package controllers
 
-import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
-import connectors.propertyLinking.PropertyLinkConnector
 import models._
 import org.jsoup.Jsoup
-import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.{any, eq => matching}
 import org.mockito.Mockito.when
-import org.mockito.ArgumentMatchers.{eq => matching}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.OptionValues
 import play.api.test.FakeRequest
@@ -57,7 +54,7 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
   "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment" in {
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id)
+    val link = arbitrary[PropertyLink].sample.get.copy()
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
@@ -114,7 +111,11 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     val html = Jsoup.parse(contentAsString(res))
     val assessmentLinks = html.select("td:eq(5)").asScala.map(_.select("a").attr("href"))
 
-    assessmentLinks must contain theSameElementsAs link.assessments.map(a => controllers.routes.Assessments.viewDetailedAssessment(a.authorisationId, a.assessmentRef, a.billingAuthorityReference).url)
+    assessmentLinks must contain theSameElementsAs link.assessments.map(
+      a => controllers.routes.Assessments.viewDetailedAssessment(
+        a.authorisationId,
+        a.assessmentRef,
+        a.billingAuthorityReference).url)
   }
 
   it must "show a link to the summary valuation for each assessment if the property link is pending" in {
@@ -143,7 +144,10 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     StubPropertyLinkConnector.stubLink(link)
     StubBusinessRatesValuation.stubValuation(link.assessments.head.assessmentRef, true)
 
-    val res = TestAssessmentController.viewDetailedAssessment(link.assessments.head.authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference)(FakeRequest())
+    val res = TestAssessmentController.viewDetailedAssessment(
+      link.assessments.head.authorisationId,
+      link.assessments.head.assessmentRef,
+      link.assessments.head.billingAuthorityReference)(FakeRequest())
     status(res) mustBe SEE_OTHER
 
     redirectLocation(res).value must endWith (s"/business-rates-valuation/property-link/${link.assessments.head.authorisationId}/assessment/${link.assessments.head.assessmentRef}")
@@ -158,9 +162,15 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     StubPropertyLinkConnector.stubLink(link)
     StubBusinessRatesValuation.stubValuation(link.assessments.head.assessmentRef, false)
 
-    val res = TestAssessmentController.viewDetailedAssessment(link.assessments.head.authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference)(FakeRequest())
+    val res = TestAssessmentController.viewDetailedAssessment(
+      link.assessments.head.authorisationId,
+      link.assessments.head.assessmentRef,
+      link.assessments.head.billingAuthorityReference)(FakeRequest())
     status(res) mustBe SEE_OTHER
 
-    redirectLocation(res).value mustBe routes.Assessments.requestDetailedValuation(link.assessments.head.authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference).url
+    redirectLocation(res).value mustBe routes.Assessments.requestDetailedValuation(
+      link.assessments.head.authorisationId,
+      link.assessments.head.assessmentRef,
+      link.assessments.head.billingAuthorityReference).url
   }
 }

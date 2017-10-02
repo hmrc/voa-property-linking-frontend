@@ -39,17 +39,17 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
 
   override def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
-  override def linkedProperties(organisationId: Int, pagination: Pagination)(implicit hc: HeaderCarrier) = {
+  override def linkedProperties(organisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier) = {
     Future.successful(PropertyLinkResponse(Some(stubbedLinks.size), stubbedLinks))
   }
 
-  override def linkedPropertiesSearchAndSort(organisationId: Int,
+  override def linkedPropertiesSearchAndSort(organisationId: Long,
                                             pagination: PaginationSearchSort)
                                            (implicit hc: HeaderCarrier) = {
     Future.successful(stubbedOwnerAuthResult)
   }
 
-  override def get(organisationId: Int, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
+  override def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
     stubbedLinks.find(x => {x.authorisationId == authorisationId && x.organisationId == organisationId})
   }
 

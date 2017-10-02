@@ -30,7 +30,7 @@ class GroupAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec:
 
   lazy val url = config.baseUrl("property-linking") + "/property-linking/groups"
 
-  def get(organisationId: Int)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
+  def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
     http.GET[Option[GroupAccount]](s"$url/$organisationId")
   }
 
@@ -42,22 +42,22 @@ class GroupAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec:
     http.GET[Option[GroupAccount]](s"$url/agentCode/$agentCode")
   }
 
-  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = {
+  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] = {
     http.POST[GroupAccountSubmission, JsValue](url, account) map { js => js \ "id" match {
-      case JsDefined(JsNumber(id)) => id.toInt
+      case JsDefined(JsNumber(id)) => id.toLong
       case _ => throw new Exception(s"Invalid id $js")
     }}
   }
 
   def create(groupId: String, addressId: Int, details: GroupAccountDetails,
              individualAccountSubmission: IndividualAccountSubmission)
-            (implicit hc: HeaderCarrier): Future[Int] = {
+            (implicit hc: HeaderCarrier): Future[Long] = {
     create(GroupAccountSubmission(
       groupId, details.companyName, addressId, details.email, details.phone, details.isAgent, individualAccountSubmission
     ))
   }
 
-  def update(orgId: Int, details: UpdatedOrganisationAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
+  def update(orgId: Long, details: UpdatedOrganisationAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
     http.PUT[UpdatedOrganisationAccount, HttpResponse](s"$url/$orgId", details) map { _ => () }
   }
 }

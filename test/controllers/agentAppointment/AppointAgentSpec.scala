@@ -16,18 +16,17 @@
 
 package controllers.agentAppointment
 
-import org.mockito.ArgumentMatchers.{eq => matching, _}
-import org.mockito.Mockito._
 import connectors.Authenticated
 import controllers.ControllerSpec
 import models._
+import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
 import repositories.AgentAppointmentSessionRepository
-import repositories.PersonalDetailsSessionRepository
+import resources._
 import utils._
 
 import scala.concurrent.Future
