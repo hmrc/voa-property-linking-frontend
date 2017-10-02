@@ -94,7 +94,7 @@ sealed trait AuthenticatedRequest[A] extends Request[A] {
   val organisationAccount: GroupAccount
   val individualAccount: DetailedIndividualAccount
 
-  def organisationId: Int = organisationAccount.id
+  def organisationId: Long = organisationAccount.id
   def personId: Int = individualAccount.individualId
 }
 

@@ -20,16 +20,17 @@ import java.time.LocalDate
 
 import play.api.libs.json.{Format, Json}
 
-case class PropertyLink(authorisationId: Long,
-                        submissionId: String,
-                        uarn: Long,
-                        organisationId: Int,
-                        address: String,
-                        capacityDeclaration: Capacity,
-                        linkedDate: LocalDate,
-                        pending: Boolean,
-                        assessments: Seq[Assessment],
-                        agents: Seq[Party])
+case class PropertyLink(
+                         authorisationId: Long,
+                         submissionId: String,
+                         uarn: Long,
+                         organisationId: Long,
+                         address: String,
+                         capacityDeclaration: Capacity,
+                         linkedDate: LocalDate,
+                         pending: Boolean,
+                         assessments: Seq[Assessment],
+                         agents: Seq[Party])
 
 object PropertyLink {
   implicit val format = Json.format[PropertyLink]

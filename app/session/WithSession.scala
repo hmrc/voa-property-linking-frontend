@@ -30,7 +30,7 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-case class LinkingSessionRequest[A](ses: LinkingSession, organisationId: Int,
+case class LinkingSessionRequest[A](ses: LinkingSession, organisationId: Long,
                                     individualAccount: DetailedIndividualAccount,
                                     groupAccount: GroupAccount, request: Request[A]) extends WrappedRequest[A](request) {
   def sessionId: String = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)

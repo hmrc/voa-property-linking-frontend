@@ -18,14 +18,14 @@ package models
 
 import play.api.libs.json.Json
 
-case class IndividualAccountSubmission(externalId: String, trustId: String, organisationId: Option[Int], details: IndividualDetails)
+case class IndividualAccountSubmission(externalId: String, trustId: String, organisationId: Option[Long], details: IndividualDetails)
 object IndividualAccountSubmission {
   implicit def formats = Json.format[IndividualAccountSubmission]
 }
 
-case class IndividualAccount(externalId: String, trustId: String, organisationId: Int, details: IndividualDetails)
+case class IndividualAccount(externalId: String, trustId: String, organisationId: Long, details: IndividualDetails)
 
-case class DetailedIndividualAccount(externalId: String, trustId: String, organisationId: Int, individualId: Int, details: IndividualDetails) {
+case class DetailedIndividualAccount(externalId: String, trustId: String, organisationId: Long, individualId: Int, details: IndividualDetails) {
   def toIndividualAccount: IndividualAccount = IndividualAccount(externalId, trustId, organisationId, details)
 }
 

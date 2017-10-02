@@ -39,14 +39,14 @@ object StubGroupAccountConnector extends GroupAccounts(StubServicesConfig, StubH
     stubbedGroups = Nil
   }
 
-  override def get(organisationId: Int)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = Future.successful(stubbedGroups.find(_.id == organisationId))
+  override def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = Future.successful(stubbedGroups.find(_.id == organisationId))
 
   override def withGroupId(groupId: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.groupId == groupId))
 
   override def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.agentCode.toString == agentCode))
 
-  override def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = Future.successful {
-    val id = randomId
+  override def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] = Future.successful {
+    val id = randomId.toLong
     stubAccount(GroupAccount(id, account.id, account.companyName, account.addressId, account.email, account.phone, account.isAgent, arbitrary[Long].sample.get))
     id
   }
