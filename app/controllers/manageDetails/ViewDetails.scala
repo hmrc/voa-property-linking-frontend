@@ -18,14 +18,15 @@ package controllers.manageDetails
 
 import javax.inject.Inject
 
+import actions.AuthenticatedAction
 import cats.data.OptionT
 import cats.implicits._
 import connectors.Addresses
 import controllers.PropertyLinkingController
 
-class ViewDetails @Inject()(addressesConnector: Addresses, editDetailsAction: EditDetailsAction) extends PropertyLinkingController {
+class ViewDetails @Inject()(addressesConnector: Addresses, authenticated: AuthenticatedAction) extends PropertyLinkingController {
 
-  def show() = editDetailsAction { implicit request =>
+  def show() = authenticated { implicit request =>
     val person = request.individualAccount
 
     (for {

@@ -35,7 +35,7 @@
                 declinedHelp: 'Declined help'
             },
             errors : {
-                postcodeLookupError: 'Enter a valid postcode',
+                postcodeLookupError:'Enter a valid postcode',
                 dataError: 'An error occurred'
             }
         }
