@@ -13,7 +13,7 @@
   scriptElem: Option[Html] = None,
   showLogout: Boolean = true,
   topNavigation: Boolean = true,
-  individualId: Option[Int] = None)(implicit request: RequestHeader, messages: Messages)
+  individualId: Option[Long] = None)(implicit request: RequestHeader, messages: Messages)
 
 @import layouts.{govuk_template => hmrcGovUkTemplate}
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}

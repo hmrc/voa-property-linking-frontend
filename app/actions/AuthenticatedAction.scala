@@ -95,7 +95,7 @@ sealed trait AuthenticatedRequest[A] extends Request[A] {
   val individualAccount: DetailedIndividualAccount
 
   def organisationId: Long = organisationAccount.id
-  def personId: Int = individualAccount.individualId
+  def personId: Long = individualAccount.individualId
 }
 
 case class BasicAuthenticatedRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A])

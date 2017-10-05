@@ -37,7 +37,7 @@ object StubIndividualAccountConnector extends IndividualAccounts(StubServicesCon
     stubbedIndividuals = Nil
   }
 
-  override def get(personId: Int)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
+  override def get(personId: Long)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
     Future.successful(stubbedIndividuals.find(_.individualId == personId))
   }
 
