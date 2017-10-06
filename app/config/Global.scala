@@ -44,7 +44,6 @@ import uk.gov.hmrc.play.http.HeaderNames
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
 import uk.gov.hmrc.play.http.ws.WSHttp
 
-
 object Global extends VPLFrontendGlobal
 
 trait VPLFrontendGlobal extends DefaultFrontendGlobal {

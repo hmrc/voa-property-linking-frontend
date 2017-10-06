@@ -40,42 +40,42 @@ class Dashboard @Inject()(config: ApplicationConfig,
     }
   }
 
-  def manageProperties( page: Int, pageSize: Int, requestTotalRowCount: Boolean = true) =
+  def manageProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true) =
     managePropertiesSearchSort(page = page, pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, None, None, None, None, None, None)
 
-  def managePropertiesSearchSort( page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
-                                      sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
-                                      baref: Option[String] = None, agent: Option[String]  = None) = authenticated { implicit request =>
-        if (config.searchSortEnabled) {
-          withValidPaginationSearchSort(
-            page = page,
-            pageSize = pageSize,
-            requestTotalRowCount = requestTotalRowCount,
-            sortfield = sortfield,
-            sortorder = sortorder,
-            status = status,
-            address = address,
-            baref = baref,
-            agent = agent
-          ) { paginationSearchSort =>
-            propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort) map { response =>
-              Ok(views.html.dashboard.managePropertiesSearchSort(
-                ManagePropertiesSearchAndSortVM(request.organisationAccount.id,
-                  response,
-                  paginationSearchSort.copy(
-                    totalResults = response.filterTotal))))
-            }
-          }
-        } else {
-          withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
-            propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>
-              Ok(views.html.dashboard.manageProperties(
-                ManagePropertiesVM(request.organisationAccount.id,
-                  response.propertyLinks,
-                  pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
-            }
-          }
+  def managePropertiesSearchSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
+                                 sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
+                                 baref: Option[String] = None, agent: Option[String] = None) = authenticated { implicit request =>
+    if (config.searchSortEnabled) {
+      withValidPaginationSearchSort(
+        page = page,
+        pageSize = pageSize,
+        requestTotalRowCount = requestTotalRowCount,
+        sortfield = sortfield,
+        sortorder = sortorder,
+        status = status,
+        address = address,
+        baref = baref,
+        agent = agent
+      ) { paginationSearchSort =>
+        propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort) map { response =>
+          Ok(views.html.dashboard.managePropertiesSearchSort(
+            ManagePropertiesSearchAndSortVM(request.organisationAccount.id,
+              response,
+              paginationSearchSort.copy(
+                totalResults = response.filterTotal))))
         }
+      }
+    } else {
+      withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
+        propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>
+          Ok(views.html.dashboard.manageProperties(
+            ManagePropertiesVM(request.organisationAccount.id,
+              response.propertyLinks,
+              pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
+        }
+      }
+    }
 
   }
 
@@ -96,7 +96,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
                                  status: Option[String],
                                  address: Option[String],
                                  baref: Option[String],
-                                 agent: Option[String])  = authenticated { implicit request =>
+                                 agent: Option[String]) = authenticated { implicit request =>
     withValidPaginationSearchSort(page, pageSize, requestTotalRowCount, sortfield, sortorder, status, address, baref, agent) { pagination =>
       propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination) map { res =>
         Ok(Json.toJson(res))
@@ -136,6 +136,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
 }
 
 case class ManagePropertiesVM(organisationId: Long, properties: Seq[PropertyLink], pagination: Pagination)
+
 case class ManagePropertiesSearchAndSortVM(organisationId: Long,
                                            result: OwnerAuthResult,
                                            pagination: PaginationSearchSort)
