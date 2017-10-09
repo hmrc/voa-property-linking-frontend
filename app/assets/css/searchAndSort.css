@@ -49,16 +49,29 @@ word-wrap:break-word;
     width: 67.50%;
 
 }
+
 .sorting {
-    background: url("../images/sort_both.png") no-repeat scroll center right;
+    background: url("../images/sort_both.png") no-repeat scroll right 20px center;
 }
 
 .sorting_asc {
-    background: url("../images/sort_asc.png") no-repeat scroll center right;
+    background: url("../images/sort_asc.png") no-repeat scroll right 20px center;
 }
 
 .sorting_desc {
-    background: url("../images/sort_desc.png") no-repeat scroll center right;
+    background: url("../images/sort_desc.png") no-repeat scroll right 20px center;
+}
+
+table.dataTable thead .sorting {
+    background: url("../images/sort_both.png") no-repeat scroll right 20px center;
+}
+
+table.dataTable thead .sorting_asc {
+    background: url("../images/sort_asc.png") no-repeat scroll right 20px center;
+}
+
+table.dataTable thead .sorting_desc {
+    background: url("../images/sort_desc.png") no-repeat scroll right 20px center;
 }
 
 .sorting a, .sorting_asc a, .sorting_desc a {display:block;}
