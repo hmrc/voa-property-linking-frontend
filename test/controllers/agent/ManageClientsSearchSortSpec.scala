@@ -216,6 +216,11 @@ class ManageClientsSearchSortSpec extends ControllerSpec {
     (data zip values).foreach { case (d, v) => d.toUpperCase must startWith (v.toUpperCase) }
   }
 
-  object TestController extends RepresentationController(app.injector.instanceOf[ApplicationConfig],
-    StubPropertyRepresentationConnector, StubAuthentication, StubPropertyLinkConnector)
+  object TestController extends RepresentationController(
+    app.injector.instanceOf[ApplicationConfig],
+    StubPropertyRepresentationConnector,
+    StubAuthentication,
+    StubPropertyLinkConnector,
+    StubMessagesConnector
+  )
 }

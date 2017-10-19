@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-package utils
+package models.messages
 
-import org.scalatest.TestSuite
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.libs.json.{Format, Json}
 
-trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite {
-  this: TestSuite =>
+case class MessageSearchResults(start: Int, size: Int, messages: Seq[Message], total: Int)
 
-  val additionalAppConfig: Seq[(String, String)] = Nil
-
-  override def fakeApplication() = new GuiceApplicationBuilder()
-    .disable[com.kenshoo.play.metrics.PlayModule]
-    .disable[modules.MongoStartup]
-    .configure("featureFlags.messagesEnabled" -> "true")
-    .configure(additionalAppConfig:_*)
-    .build()
+object MessageSearchResults {
+  implicit val format: Format[MessageSearchResults] = Json.format[MessageSearchResults]
 }

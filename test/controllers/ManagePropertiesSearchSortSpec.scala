@@ -206,6 +206,11 @@ class ManagePropertiesSearchSortSpec extends ControllerSpec {
     values foreach { v => data must contain (v.toUpperCase) }
   }
 
-  private object TestDashboardController extends Dashboard(app.injector.instanceOf[ApplicationConfig], mock[DraftCases],
-    StubPropertyLinkConnector, StubAuthentication)
+  private object TestDashboardController extends Dashboard(
+    app.injector.instanceOf[ApplicationConfig],
+    mock[DraftCases],
+    StubPropertyLinkConnector,
+    StubMessagesConnector,
+    StubAuthentication
+  )
 }

@@ -1,7 +1,7 @@
 @import actions.AuthenticatedRequest
 @import utils.Formatters
 
-@(model: controllers.ManagePropertiesSearchAndSortVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: controllers.ManagePropertiesSearchAndSortVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
     @heading = @{
         Messages("dashboard.manageProperties.title")
@@ -13,7 +13,7 @@
         topNavigation = false
     ) {
 
-        @partials.dashboardTabs()
+        @partials.dashboardTabs(unreadMessageCount)
 
         <p>@Messages("dashboard.manageProperties.expectDelays")</p>
 
