@@ -797,4 +797,4 @@ declined.getHelp=Declined help
 label.close=Close
 
 #AGENT REQUEST WARNING
-agent.requet.warning=
+agent.request.warning=You need to accept agent requests within 21 days. Otherwise, they will be rejected and your clients will need to send a new request.
