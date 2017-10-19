@@ -1,0 +1,62 @@
+/* Scss Document */
+
+.userStatus {
+  text-align:right;
+  margin: $gutter-two-thirds 0;
+  @include core-16;
+
+  &--name {
+    display:block;
+    margin-bottom:5px;
+
+  }
+  &--business {
+    display:block;
+  }
+  &--agentName {
+    display:block;
+    margin-bottom:5px;
+  }
+  &--agentCode {
+    display:block;
+    margin-top:5px;
+  }
+  &--signOut {
+    display:block;
+    margin-top:5px;
+
+  }
+}
+
+/* User details */
+@media (min-width:641px) {
+  .userStatus {
+    text-align:right;
+    margin: $gutter-two-thirds 0;
+    @include core-16;
+
+    &--name {
+      display:inline-block;
+      margin-bottom:5px;
+
+    }
+    &--business {
+      display:inline-block;
+    }
+    &--agentName {
+      display:inline-block;
+      margin-bottom:5px;
+    }
+    &--agentCode {
+      display:inline-block;
+
+
+    }
+    &--signOut {
+      display:block;
+      margin-top:5px;
+
+    }
+  }
+
+}
