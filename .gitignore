@@ -22,7 +22,7 @@ project/.idea
 public
 node_modules
 govuk_modules
-npm-debug.log
+npm-debug.log*
 *.DS_Store
 frontend/sass/elements
 .grunt
