@@ -3,7 +3,28 @@
 
 @()(implicit request: AuthenticatedRequest[_], messages: Messages)
 
-<div class="section-tabs">
+<div class="userStatus">
+    <span class="userStatus--name">Welcome,
+        <a href="@controllers.manageDetails.routes.ViewDetails.show().url">
+            @name
+        </a>
+    </span> -
+    <span class="userStatus--business">
+        <a href="@controllers.manageDetails.routes.ViewDetails.show().url">
+            @company
+        </a>
+    </span>
+
+    @if(isAgent){ &nbsp;<span class="userStatus--agentCode">Agent code: @agentCode</span> }
+
+    <span class="userStatus--signOut">
+        <a href="@routes.Application.logOut().url">Not you?</a> | <a href="@routes.Application.logOut().url">Sign Out</a>
+    </span>
+
+</div>
+
+
+<div class="clearfix section-tabs">
     <ul role="tablist">
         @if(isAgent) {
             @if(searchSortEnabled && request.path != controllers.agent.routes.RepresentationController.viewClientProperties().url) {
@@ -21,9 +42,6 @@
         @tab("manageAgents", routes.Dashboard.manageAgents().url)
         @tab("drafts", routes.Dashboard.viewDraftCases().url)
         @tab("editDetails", controllers.manageDetails.routes.ViewDetails.show().url)
-        <li class="tab-right">
-            <span>Welcome, <a href="@controllers.manageDetails.routes.ViewDetails.show().url">@name</a>. <a href="@routes.Application.logOut().url">Not you?</a></span>
-        </li>
     </ul>
 </div>
 
@@ -36,5 +54,11 @@
 }
 
 @name = @{
-    s"${request.individualAccount.details.firstName} ${request.individualAccount.details.lastName} - ${request.organisationAccount.companyName}"
+    s"${request.individualAccount.details.firstName} ${request.individualAccount.details.lastName}"
+}
+@company = @{
+    s"${request.organisationAccount.companyName}"
+}
+@agentCode = @{
+    s"${request.organisationAccount.agentCode}"
 }
