@@ -16,13 +16,12 @@
 
 package utils
 
-import com.google.inject.Singleton
 import connectors.SubmissionIdConnector
 import org.scalatest.mockito.MockitoSugar
 import play.api.Environment
-import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 

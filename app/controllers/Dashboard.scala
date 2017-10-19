@@ -30,6 +30,7 @@ import play.api.libs.json.Json
 class Dashboard @Inject()(config: ApplicationConfig,
                           draftCases: DraftCases,
                           propertyLinks: PropertyLinkConnector,
+                          messagesConnector: MessagesConnector,
                           authenticated: AuthenticatedAction) extends PropertyLinkingController with ValidPagination {
 
   def home() = authenticated { implicit request =>
@@ -58,12 +59,18 @@ class Dashboard @Inject()(config: ApplicationConfig,
         baref = baref,
         agent = agent
       ) { paginationSearchSort =>
-        propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort) map { response =>
+        for {
+          response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
+          msgCount <- messagesConnector.countUnread(request.organisationId)
+        } yield {
           Ok(views.html.dashboard.managePropertiesSearchSort(
-            ManagePropertiesSearchAndSortVM(request.organisationAccount.id,
+            ManagePropertiesSearchAndSortVM(
+              request.organisationAccount.id,
               response,
-              paginationSearchSort.copy(
-                totalResults = response.filterTotal))))
+              paginationSearchSort.copy(totalResults = response.filterTotal)
+            ),
+            msgCount
+          ))
         }
       }
     } else {
@@ -76,9 +83,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
         }
       }
     }
-
   }
-
 
   def getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated { implicit request =>
     withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
@@ -107,12 +112,13 @@ class Dashboard @Inject()(config: ApplicationConfig,
   def manageAgents() = authenticated { implicit request =>
     for {
       response <- propertyLinks.linkedProperties(request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false))
+      msgCount <- messagesConnector.countUnread(request.organisationId)
     } yield {
       val agentInfos = response.propertyLinks
         .flatMap(_.agents)
         .map(a => AgentInfo(a.organisationName, a.agentCode))
         .sortBy(_.organisationName).distinct
-      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos)))
+      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos), msgCount))
     }
   }
 
@@ -129,8 +135,26 @@ class Dashboard @Inject()(config: ApplicationConfig,
   }
 
   def viewDraftCases() = authenticated { implicit request =>
-    draftCases.get(request.personId) map { cases =>
-      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases)))
+    for {
+      cases <- draftCases.get(request.personId)
+      msgCount <- messagesConnector.countUnread(request.organisationId)
+    } yield {
+      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), msgCount))
+    }
+  }
+
+  def viewMessages(pageNumber: Int, pageSize: Int) = authenticated { implicit request =>
+    if(config.messagesEnabled) {
+      for {
+        count <- messagesConnector.countUnread(request.organisationId)
+        startPoint = (pageNumber - 1) * pageSize + 1
+        msgs <- messagesConnector.getMessages(request.organisationId, startPoint, pageSize)
+      } yield {
+        val numberOfPages = msgs.total / pageSize + 1
+        Ok(views.html.dashboard.messagesTab(msgs, count, pageNumber, numberOfPages))
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
     }
   }
 }

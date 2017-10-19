@@ -28,8 +28,13 @@ import utils._
 class ManageAgentSpec extends ControllerSpec {
   implicit val request = FakeRequest()
 
-  object TestDashboardController extends Dashboard(app.injector.instanceOf[ApplicationConfig], mock[DraftCases],
-    StubPropertyLinkConnector, StubAuthentication)
+  object TestDashboardController extends Dashboard(
+    app.injector.instanceOf[ApplicationConfig],
+    mock[DraftCases],
+    StubPropertyLinkConnector,
+    StubMessagesConnector,
+    StubAuthentication
+  )
 
   "Manage Agents page" must "return Ok" in {
     val link = arbitrary[PropertyLink].sample.get

@@ -39,7 +39,13 @@ class DashboardSpec extends ControllerSpec {
     m
   }
 
-  object TestDashboard extends Dashboard(app.injector.instanceOf[ApplicationConfig], mockDraftCases, StubPropertyLinkConnector, StubAuthentication)
+  object TestDashboard extends Dashboard(
+    app.injector.instanceOf[ApplicationConfig],
+    mockDraftCases,
+    StubPropertyLinkConnector,
+    StubMessagesConnector,
+    StubAuthentication
+  )
 
   "Logging in with a non-organisation account" must "redirect to the wrong account type error page" in {
     StubAuthConnector.stubExternalId(shortString)

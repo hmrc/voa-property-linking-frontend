@@ -1,7 +1,7 @@
 @import utils.Formatters._
 @import actions.AuthenticatedRequest
 
-@(model: DraftCasesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: DraftCasesVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @detailedValuationUrl(draft: DraftCase) = @{
     routes.Assessments.viewDetailedAssessment(draft.propertyLinkId, draft.assessmentRef, draft.baRef)
@@ -13,7 +13,7 @@
     topNavigation = false
 ) {
 
-    @partials.dashboardTabs()
+    @partials.dashboardTabs(unreadMessageCount)
 
     <p>@Messages("draftCases.p.expiry")</p>
 
