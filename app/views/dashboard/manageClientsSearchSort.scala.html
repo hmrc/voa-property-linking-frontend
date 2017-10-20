@@ -17,6 +17,11 @@
             <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest()" id="viewPending">
             @Messages("manageClients.noOfPending", model.totalPendingRequests)
             </a>
+        <div class="margin-top-10 panel panel-border-wide">
+            <p>
+                @Messages("agent.request.warning")
+            </p>
+        </div>
         }
     </h2>
 
