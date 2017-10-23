@@ -23,6 +23,7 @@
 
             @jsManagePropertiesSearchSort(model)
 
+            @helpers.pagination_footer(model.pagination)
             <noscript>
                 @helpers.paginationControlsSearchSort(model.pagination, routes.Dashboard.managePropertiesSearchSort, "agent")
 

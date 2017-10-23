@@ -31,7 +31,10 @@
                     queryParameters += '&agent=' + $('#agent').val();
                     queryParameters += '&address=' + $('#address').val();
                     queryParameters += '&status=' + $('#status').val();
-                    $table.DataTable().ajax.url('/business-rates-property-linking/properties-search-sort/json?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true' + queryParameters);
+
+                    var pageNumber = 1
+                    var pageSize = $('#page_size').find(":selected").text();
+                    $table.DataTable().ajax.url('/business-rates-property-linking/properties-search-sort/json?page=' + pageNumber + '&pageSize='+ pageSize +'&requestTotalRowCount=true' + queryParameters);
                 },
                 dataSrc: 'authorisations',
                 dataFilter: function(data) {
@@ -85,6 +88,24 @@
             }
         });
 
+        $('.pX').click(function(){
+            var value = parseInt($(this).data("dt-idx"));
+            var last = parseInt($('#propertiesTableBusiness_paginate > :nth-last-child(2)').data("dt-idx"));
+            var isNearMax = value >= (last - 2);
+            var isMax = value == last;
+            console.log($(this).text());
+            $('#current').removeAttr("id");
+            previous(value);
+            minValues(value);
+            middleValues(value, isNearMax, last);
+            maxValues(last, isNearMax);
+            next(value, isMax);
+            dataTable.draw();
+        });
+
+        $('#page_size').change(function (){
+            dataTable.draw();
+        } );
         $( '#dataTableManagePropertiesSearchSort th button').on( 'click', function () {
             dataTable.draw();
         } );
@@ -109,6 +130,65 @@
         } );
 
 
+        function minValues(value) {
+          if(value <= 4){
+            $('#propertiesTableBusiness_paginate > :nth-child(3)').data("dt-idx", 2).addClass("pX").text(2);
+          } else {
+            $('#propertiesTableBusiness_paginate > :nth-child(3)').removeAttr("data-dt-idx").text("...").removeClass("pX");
+          }
+        }
+
+        function maxValues(max, isNearMax){
+            if(isNearMax){
+                console.log(max - 1);
+               $('#propertiesTableBusiness_paginate > :nth-last-child(3)').addClass("pX").data("dt-idx", parseInt(max) - 1).text(parseInt(max) - 1);//'<a class="paginate_button pagination value" data-dt-idx="'+ value + '">'+ value + '</a>');
+            } else {
+               $('#propertiesTableBusiness_paginate > :nth-last-child(3)').removeAttr("data-dt-idx").text("...").removeClass("pX");
+            }
+        };
+
+        function middleValues(value, isNearMax, max){
+          if(parseInt(value) <= 4){
+            console.log("Low");
+                        console.log(value);
+
+            $('#propertiesTableBusiness_paginate > :nth-child(4)').data("dt-idx", 3).text(3);
+            $('#propertiesTableBusiness_paginate > :nth-child(5)').data("dt-idx", 4).text(4);
+            $('#propertiesTableBusiness_paginate > :nth-child(6)').data("dt-idx", 5).text(5);
+            $(this).attr("id", "current");
+          } else if(isNearMax) {
+            console.log("High");
+                        console.log(value);
+
+            $('#propertiesTableBusiness_paginate > :nth-last-child(4)').data("dt-idx", parseInt(max) - 2).text(parseInt(max) - 2);
+            $('#propertiesTableBusiness_paginate > :nth-last-child(5)').data("dt-idx", parseInt(max) - 3).text(parseInt(max) - 3);
+            $('#propertiesTableBusiness_paginate > :nth-last-child(6)').data("dt-idx", parseInt(max) - 4).text(parseInt(max) - 4);
+            $(this).attr("id", "current");
+          } else {
+            console.log("Bob");
+            console.log(value);
+            $(this).removeAttr("data-dt-idx");
+            $('#propertiesTableBusiness_paginate > :nth-child(4)').data("dt-idx", parseInt(value) - 1).text(parseInt(value) - 1);
+            $('#propertiesTableBusiness_paginate > :nth-child(5)').data("dt-idx", value).attr("id", "current").text(value);
+            $('#propertiesTableBusiness_paginate > :nth-child(6)').data("dt-idx", parseInt(value) + 1).text(parseInt(value) + 1);
+          }
+        };
+
+        function previous(value) {
+          if(value == 1){
+            $('#propertiesTableBusiness_paginate > :nth-child(1)').removeClass("pX").removeAttr("data-dt-idx");//.replaceWith('<a class="paginateButton">Previous</a>');
+          } else {
+            $('#propertiesTableBusiness_paginate > :nth-child(1)').addClass("pX").data("dt-idx", parseInt(value) - 1);//"'<a class="paginate_button previous pagination" data-dt-idx=' + (parseInt(value | 1) - 1) + '>Previous</a>');
+          }
+        };
+
+        function next(value, isMax) {
+         if(isMax){
+            $('#propertiesTableBusiness_paginate > :nth-last-child(1)').removeClass("pX").removeAttr("data-dt-idx");
+         } else {
+            $('#propertiesTableBusiness_paginate > :nth-last-child(1)').addClass("pX").attr("data-dt-idx", parseInt(value) + 1);// data-dt-idx="' + (parseInt(value | 0) + 1) + '">Next</a>');
+         }
+        };
 
     };
 
