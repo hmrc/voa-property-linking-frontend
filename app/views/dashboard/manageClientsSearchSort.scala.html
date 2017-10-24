@@ -29,11 +29,8 @@
         <h2 class="heading-secondary">@Messages("agent.dashboard.manageClients.noClients")</h2>
     } else {
 
-`           <div id="messagesTable_wrapper" class="dataTables_wrapper no-footer" >
         @jsManageClientsSearchSort(model)
 
-        @helpers.pagination_footer(model.pagination)
-</div>
         <noscript>
 
             @helpers.paginationControlsSearchSort(model.pagination, agent.routes.RepresentationController.viewClientPropertiesSearchSort, "client")
