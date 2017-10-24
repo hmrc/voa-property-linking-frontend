@@ -1,0 +1,211 @@
+/* Hide dataTables search input from top */
+div#messagesTable_filter.dataTables_filter {
+  display: none;
+}
+
+.icon-messageunread {
+  background-size: 80%;
+  background-image: url('../images/icon-envelope-closed.png');
+  background-repeat: no-repeat;
+  background-position: center 2px;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  margin: 0 8px 0px 10px;
+}
+
+.icon-messageread {
+  background-size: 80%;
+  background-image: url('../images/icon-envelope-open.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  margin: 0 8px 0px 10px
+}
+
+.messages {
+  table-layout: auto;
+  width: 100%;
+  &--date {
+    width: 13% !important;
+  }
+  &--subject {
+    width: 35% !important;
+  }
+  &--reference {
+    width: 13% !important;
+  }
+  &--address {
+    width: 35% !important;
+  }
+  & td {
+    font-size: 15px;
+
+  }
+  &--row > td {
+    font-weight: bold;
+
+  }
+
+  &--row__read > td {
+    background: #F5F5F5;
+    color: #222222;
+    font-weight: normal;
+  }
+
+  &--row > td a {
+    text-decoration: none;
+    color: #0b0c0c;
+    display: block;
+  }
+
+  &--row > td a:focus {
+    text-decoration: none;
+    color: #FFFFFF;
+    background: #005ea5;
+    border: 0;
+    outline: none;
+  }
+
+  &--row:active {
+    outline: 3px solid #ffbf47;
+    background: #ffbf47;
+  }
+
+  &--row:hover > td {
+    cursor: pointer;
+    background: #005ea5;
+    color: #FFFFFF;
+  }
+  &--row:hover > td a {
+    color: #FFFFFF;
+  }
+
+  &--row:hover > td a i.icon-messageunread {
+    background-image: url('../images/icon-envelope-closed-white.png');
+
+  }
+
+  &--row__read:hover > td a i.icon-messageread {
+    background-image: url('../images/icon-envelope-open-white.png');
+  }
+
+}
+
+/* Collapse the messages table in mobile and tablet */
+
+@media screen and (max-width: 600px) {
+
+  .searchHeader {
+    display: block;
+    border: 0;
+    &--empty {
+      display: none;
+    }
+  }
+
+  .searchHeader label.visuallyhidden {
+    position: relative;
+    overflow: auto;
+    clip: auto;
+    height: auto;
+    width: auto;
+    margin: auto;
+    left: 0;
+  }
+
+  .icon.icon-messageread, .icon.icon-messageunread {
+    margin: 0;
+    padding: 0
+  }
+
+  table.messages {
+    border: 0;
+  }
+
+  table.messages caption {
+    font-size: 1.3em;
+  }
+  table.messages thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  table.messages tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  table.messages td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+
+  }
+  table.messages td:before {
+
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+
+  }
+
+  table.messages tr.messages--row {
+    position: relative;
+  }
+
+  table.messages td[data-label="Date"]:before, table.messages td[data-label="Subject"]:before, table.messages td[data-label="Address"]:before, table.messages td[data-label="Status"]:before {
+    display: none;
+  }
+
+  table.messages td[data-label="Reference"]:before {
+
+    padding: 0px 3px 0px 30px;
+    font-weight: normal;
+  }
+
+  table.messages td[data-label="Date"] {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+
+    border: none;
+    background: inherit;
+    padding: 3px;
+  }
+
+  table.messages td[data-label="Status"] {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    border-bottom: none;
+    width: 22px;
+    height: 22px;
+    padding: 0px;
+
+  }
+
+  table.messages.dataTable td[data-label="Subject"] a {
+    padding: 6px 105px 6px 30px;
+  }
+
+  table.messages td[data-label="Address"] a {
+    padding: 6px 3px 6px 30px;
+  }
+
+  table.messages td[data-label="Date"] {
+    text-align: left;
+  }
+
+  table.messages td {
+    background: transparent;
+  }
+
+}

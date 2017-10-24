@@ -1,14 +1,14 @@
 @import actions.AuthenticatedRequest
 @import utils.Formatters
 
-@(model: controllers.agent.ManageClientPropertiesSearchAndSortVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: controllers.agent.ManageClientPropertiesSearchAndSortVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @main_template(
     Messages("agent.dashboard.manageClients.title"),
     topNavigation = false
 ) {
 
-    @partials.dashboardTabs()
+    @partials.dashboardTabs(unreadMessageCount)
 
     <h2 class="heading-secondary">
         @if(model.totalPendingRequests == 0) {

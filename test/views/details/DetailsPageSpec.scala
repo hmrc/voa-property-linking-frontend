@@ -38,7 +38,7 @@ class DetailsPageSpec extends ControllerSpec {
     val address: Address = addressGen
     implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
-    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
     val details = individualAccount.details
 
     val expectedRows: Seq[(String, String, String)] = Seq(
@@ -62,7 +62,7 @@ class DetailsPageSpec extends ControllerSpec {
     val address: Address = addressGen
     implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
-    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
 
     val rows = getRows(html, "personalDetailsTable")
     rows must contain (("Mobile number", "Not set", controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile().url))
@@ -74,7 +74,7 @@ class DetailsPageSpec extends ControllerSpec {
     val address: Address = addressGen
     implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
-    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
 
     val rows = getRows(html, "businessDetailsTable")
     rows must contain (("Agent code", groupAccount.agentCode.toString, ""))
@@ -86,7 +86,7 @@ class DetailsPageSpec extends ControllerSpec {
     val address: Address = addressGen
     implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
-    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
 
     val rows = getRows(html, "businessDetailsTable")
     rows must not contain (("Agent code", groupAccount.agentCode.toString, ""))
@@ -98,7 +98,7 @@ class DetailsPageSpec extends ControllerSpec {
     val address: Address = addressGen
     implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
-    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address).toString)
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
 
     val expectedRows = Seq(
       ("Business name", groupAccount.companyName, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessName().url),

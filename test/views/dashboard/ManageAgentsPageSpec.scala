@@ -20,7 +20,6 @@ import controllers.{AgentInfo, ControllerSpec, ManageAgentsVM, routes}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.i18n.Messages.Implicits._
-import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import resources._
 import utils.HtmlPage
@@ -33,7 +32,7 @@ class ManageAgentsPageSpec extends ControllerSpec {
 
 
   "The manage agents page" must "show a message stating that no agents have been appointed if the user has no agents" in  {
-    val html = views.html.dashboard.manageAgents(noAgents)
+    val html = views.html.dashboard.manageAgents(noAgents, 0)
     val page = HtmlPage(html)
     page.mustContain1("#noAgents")
   }
@@ -55,8 +54,16 @@ class ManageAgentsPageSpec extends ControllerSpec {
 
   it must "show the dashboard navigation tabs at the top of the screen" in {
     val tabs = manageAgentsPage.select(".section-tabs ul[role=tablist] li").asScala
-    tabs must have size 4
-    tabs.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(routes.Dashboard.manageProperties().url, routes.Dashboard.manageAgents().url, routes.Dashboard.viewDraftCases().url, controllers.manageDetails.routes.ViewDetails.show().url)
+    val expectedUrls = Seq(
+      routes.Dashboard.manageProperties().url,
+      routes.Dashboard.manageAgents().url,
+      routes.Dashboard.viewDraftCases().url,
+      controllers.manageDetails.routes.ViewDetails.show().url,
+      routes.Dashboard.viewMessages().url
+    )
+
+    tabs must have size 5
+    tabs.map(_.select("a").attr("href")) must contain theSameElementsAs expectedUrls
   }
 
   implicit lazy val request: AgentRequest[_] = AgentRequest(groupAccountGen.copy(isAgent = false), individualGen, positiveLong, FakeRequest("GET", "/business-rates-property-linking/properties"))
@@ -64,7 +71,7 @@ class ManageAgentsPageSpec extends ControllerSpec {
   lazy val twoAgents = ManageAgentsVM(List(AgentInfo("name1", 111), AgentInfo("name2", 222)))
 
   lazy val manageAgentsPage: Document = {
-    val html = views.html.dashboard.manageAgents(twoAgents)
+    val html = views.html.dashboard.manageAgents(twoAgents, 0)
     Jsoup.parse(html.toString)
   }
 }

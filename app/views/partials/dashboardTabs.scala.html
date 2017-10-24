@@ -1,7 +1,7 @@
 @import actions.AuthenticatedRequest
 @import config.ApplicationConfig.config._
 
-@()(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 <div class="userStatus">
     <span class="userStatus--name">Welcome,
@@ -15,14 +15,18 @@
         </a>
     </span>
 
-    @if(isAgent){ &nbsp;<span class="userStatus--agentCode">Agent code: @agentCode</span> }
+    @if(isAgent){ &nbsp;<span class="userStatus--agentCode">@Messages("dashboard.agentCode", agentCode)</span> }
 
     <span class="userStatus--signOut">
-        <a href="@routes.Application.logOut().url">Not you?</a> | <a href="@routes.Application.logOut().url">Sign Out</a>
+        <a href="@routes.Application.logOut().url">@Messages("dashboard.notYou")</a> | <a href="@routes.Application.logOut().url">@Messages("logout.link")</a>
     </span>
 
 </div>
 
+<div class="clearfix pull-right margin-top-5 margin-bottom-20 font-xsmall">
+    <i class="icon icon-messageunread"></i>
+    <span>@Html(Messages("dashboard.unreadMessages", routes.Dashboard.viewMessages().url, unreadMessagesCount))</span>
+</div>
 
 <div class="clearfix section-tabs">
     <ul role="tablist">
@@ -42,14 +46,17 @@
         @tab("manageAgents", routes.Dashboard.manageAgents().url)
         @tab("drafts", routes.Dashboard.viewDraftCases().url)
         @tab("editDetails", controllers.manageDetails.routes.ViewDetails.show().url)
+        @if(messagesEnabled) {
+            @tab("messages", routes.Dashboard.viewMessages().url, unreadMessagesCount)
+        }
     </ul>
 </div>
 
 @isAgent = @{ request.organisationAccount.isAgent }
 
-@tab(name: String, url: String) = {
+@tab(name: String, url: String, args: Any*) = {
     <li @if(url == request.path) {class="active"}>
-        <a href="@url">@Messages(s"dashboard.tab.$name")</a>
+        <a href="@url">@Messages(s"dashboard.tab.$name", args:_*)</a>
     </li>
 }
 

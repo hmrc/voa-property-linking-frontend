@@ -52,8 +52,16 @@ class ManagePropertiesPageSpec extends ControllerSpec {
   it must "show the dashboard navigation tabs at the top of the screen" in {
     val page = Jsoup.parse(manageProperties(ManagePropertiesVM(organisationAccount.id, Nil, Pagination(1, 25, 25))).toString)
     val tabs = page.select(".section-tabs ul[role=tablist] li").asScala
-    tabs must have size 4
-    tabs.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(routes.Dashboard.manageProperties().url, routes.Dashboard.manageAgents().url, routes.Dashboard.viewDraftCases().url, controllers.manageDetails.routes.ViewDetails.show().url)
+    val expectedUrls = Seq(
+      routes.Dashboard.manageProperties().url,
+      routes.Dashboard.manageAgents().url,
+      routes.Dashboard.viewDraftCases().url,
+      controllers.manageDetails.routes.ViewDetails.show().url,
+      routes.Dashboard.viewMessages().url
+    )
+
+    tabs must have size 5
+    tabs.map(_.select("a").attr("href")) must contain theSameElementsAs expectedUrls
   }
 
   implicit lazy val request = FakeRequest("GET", "/business-rates-property-linking/properties")

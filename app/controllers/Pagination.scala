@@ -18,7 +18,6 @@ package controllers
 
 import config.Global
 import play.api.mvc.{AnyContent, Request, Result}
-import play.api.mvc.Results.BadRequest
 import utils.Formatters._
 
 import scala.concurrent.Future

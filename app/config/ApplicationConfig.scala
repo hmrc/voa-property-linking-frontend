@@ -43,6 +43,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
   val searchSortEnabled: Boolean = getConfig("featureFlags.searchSortEnabled").toBoolean
   val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
+  val messagesEnabled: Boolean = getConfig("featureFlags.messagesEnabled").toBoolean
 
   lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
     new String(Base64.getUrlDecoder.decode(e))

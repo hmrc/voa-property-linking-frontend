@@ -24,7 +24,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
-import utils.{Formatters, StubAuthentication, StubPropertyLinkConnector, StubPropertyRepresentationConnector}
+import utils._
 import resources._
 import play.api.test.Helpers._
 
@@ -176,6 +176,11 @@ class PendingRequestsSpec extends ControllerSpec {
     values foreach { v => data must contain (v.toUpperCase) }
   }
 
-  private object TestRepresentationController extends RepresentationController(app.injector.instanceOf[ApplicationConfig],
-    StubPropertyRepresentationConnector, StubAuthentication, StubPropertyLinkConnector)
+  private object TestRepresentationController extends RepresentationController(
+    app.injector.instanceOf[ApplicationConfig],
+    StubPropertyRepresentationConnector,
+    StubAuthentication,
+    StubPropertyLinkConnector,
+    StubMessagesConnector
+  )
 }
