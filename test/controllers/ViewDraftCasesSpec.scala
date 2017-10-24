@@ -26,7 +26,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import utils.{Formatters, StubAuthentication, StubPropertyLinkConnector}
+import utils.{Formatters, StubAuthentication, StubMessagesConnector, StubPropertyLinkConnector}
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
@@ -110,7 +110,13 @@ class ViewDraftCasesSpec extends ControllerSpec {
     }
   }
 
-  private lazy val testController = new Dashboard(app.injector.instanceOf[ApplicationConfig], mockDraftCases, StubPropertyLinkConnector, StubAuthentication)
+  private lazy val testController = new Dashboard(
+    app.injector.instanceOf[ApplicationConfig],
+    mockDraftCases,
+    StubPropertyLinkConnector,
+    StubMessagesConnector,
+    StubAuthentication
+  )
 
   private lazy val mockDraftCases = mock[DraftCases]
 }

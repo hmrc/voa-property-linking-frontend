@@ -1,13 +1,14 @@
 @import actions.AuthenticatedRequest
 
-@(individualAccount: DetailedIndividualAccount, organisationAccount: GroupAccount, personalAddress: Address, businessAddress: Address)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(individualAccount: DetailedIndividualAccount, organisationAccount: GroupAccount,
+        personalAddress: Address, businessAddress: Address, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @main_template(
     Messages("viewDetails.title"),
     topNavigation = false
 ) {
 
-    @partials.dashboardTabs()
+    @partials.dashboardTabs(unreadMessageCount)
 
     @personalDetails(individualAccount, personalAddress)
     @businessDetails(organisationAccount, businessAddress)

@@ -30,13 +30,18 @@ class RepresentationControllerSpec extends ControllerSpec {
 
   lazy val request = FakeRequest().withSession(token)
 
-  object TestRepresentationController extends RepresentationController(app.injector.instanceOf[ApplicationConfig],
-    StubPropertyRepresentationConnector, StubAuthentication, StubPropertyLinkConnector)
+  object TestRepresentationController extends RepresentationController(
+    app.injector.instanceOf[ApplicationConfig],
+    StubPropertyRepresentationConnector,
+    StubAuthentication,
+    StubPropertyLinkConnector,
+    StubMessagesConnector
+  )
 
   behavior of "revokeClientConfirmed method"
 
   it should "revoke an agent and redirect to the client properties page" in {
-    val (agentGroupAccount, agentIndividual) = stubLoggedInUser()
+    stubLoggedInUser()
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)

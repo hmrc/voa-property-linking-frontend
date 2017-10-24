@@ -194,11 +194,15 @@ account.confirmation.alreadyRegistered.youCan.1=add properties to the businessâ€
 account.confirmation.alreadyRegistered.youCan.2=authorise an agent to act on behalf of the business
 
 #DASHBOARD TABS
+dashboard.agentCode=Agent code: {0}
+dashboard.notYou=Not you?
+dashboard.unreadMessages=You have <a href={0}>({1}) unread messages</a>
 dashboard.tab.clientProperties=Client properties
 dashboard.tab.myProperties=My properties
 dashboard.tab.manageAgents=Agents
 dashboard.tab.drafts=Drafts
 dashboard.tab.editDetails=My details
+dashboard.tab.messages=Messages ({0})
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard home
@@ -798,3 +802,20 @@ label.close=Close
 
 #AGENT REQUEST WARNING
 agent.request.warning=You need to accept agent requests within 21 days. Otherwise, they will be rejected and your clients will need to send a new request.
+
+#MESSAGES TAB
+messages.title=Messages
+messages.noMessages=There are no messages to display
+messages.th.1=Status
+messages.th.2=Subject
+messages.th.3=Address
+messages.th.4=Reference
+messages.th.5=Client
+messages.th.6=Received at
+messages.read=Read
+messages.unread=Unread
+messages.paginationInfo=Showing page {0} of {1}
+
+#PAGINATION CONTROLS
+pagination.next=Next
+pagination.previous=Previous

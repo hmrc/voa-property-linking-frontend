@@ -1,12 +1,12 @@
 @import actions.AuthenticatedRequest
 
-@(model: ManageAgentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: ManageAgentsVM, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @main_template(
     Messages("dashboard.manageAgents.title"),
     topNavigation = false
 ) {
-    @partials.dashboardTabs()
+    @partials.dashboardTabs(unreadMessagesCount)
 
     @if(model.agents.isEmpty) {
         <h2 id="noAgents" class="heading-secondary">

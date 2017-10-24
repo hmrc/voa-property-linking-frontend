@@ -16,19 +16,16 @@
 
 package utils
 
-import org.scalatest.TestSuite
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.inject.guice.GuiceApplicationBuilder
+import connectors.MessagesConnector
+import models.messages.MessageSearchResults
+import uk.gov.hmrc.play.http.HeaderCarrier
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import scala.concurrent.Future
 
-trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite {
-  this: TestSuite =>
+object StubMessagesConnector extends MessagesConnector(StubHttp, StubServicesConfig) {
+  override def getMessages(orgId: Long, startPoint: Int, pageSize: Int)(implicit hc: HeaderCarrier): Future[MessageSearchResults] = Future.successful {
+    MessageSearchResults(0, 0, Nil, 0)
+  }
 
-  val additionalAppConfig: Seq[(String, String)] = Nil
-
-  override def fakeApplication() = new GuiceApplicationBuilder()
-    .disable[com.kenshoo.play.metrics.PlayModule]
-    .disable[modules.MongoStartup]
-    .configure("featureFlags.messagesEnabled" -> "true")
-    .configure(additionalAppConfig:_*)
-    .build()
+  override def countUnread(orgId: Long)(implicit hc: HeaderCarrier): Future[Int] = Future.successful(0)
 }
