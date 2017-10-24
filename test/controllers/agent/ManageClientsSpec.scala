@@ -239,6 +239,6 @@ class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits wit
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,
-    StubMessagesConnector
+    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
   )
 }

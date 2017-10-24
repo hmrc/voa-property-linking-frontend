@@ -18,6 +18,7 @@ package connectors
 
 import javax.inject.Inject
 
+import config.ApplicationConfig
 import models.messages.{MessageCount, MessagePagination, MessageSearchResults}
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http.HeaderCarrier
@@ -25,7 +26,7 @@ import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig)(implicit ec: ExecutionContext) {
+class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig, config: ApplicationConfig)(implicit ec: ExecutionContext) {
 
   lazy val baseUrl: String = conf.baseUrl("property-linking") + "/property-linking"
 
@@ -35,6 +36,11 @@ class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig)(implicit e
   }
 
   def countUnread(orgId: Long)(implicit hc: HeaderCarrier): Future[MessageCount] = {
-    http.GET[MessageCount](s"$baseUrl/unread-messages-count/$orgId")
+    if(config.messagesEnabled) {
+      http.GET[MessageCount](s"$baseUrl/unread-messages-count/$orgId")
+    } else {
+      //return fake value when messaging is disabled, so every Dashboard action doesn't need to check the config, etc.
+      Future.successful(MessageCount(0, 0))
+    }
   }
 }

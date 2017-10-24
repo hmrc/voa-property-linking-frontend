@@ -114,7 +114,7 @@ class ViewDraftCasesSpec extends ControllerSpec {
     app.injector.instanceOf[ApplicationConfig],
     mockDraftCases,
     StubPropertyLinkConnector,
-    StubMessagesConnector,
+    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
     StubAuthentication
   )
 
