@@ -21,9 +21,11 @@
             <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
 
+`           <div id="messagesTable_wrapper" class="dataTables_wrapper no-footer" >
             @jsManagePropertiesSearchSort(model)
 
             @helpers.pagination_footer(model.pagination)
+</div>
             <noscript>
                 @helpers.paginationControlsSearchSort(model.pagination, routes.Dashboard.managePropertiesSearchSort, "agent")
 

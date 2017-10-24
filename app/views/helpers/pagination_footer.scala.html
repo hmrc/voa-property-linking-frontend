@@ -3,18 +3,16 @@
 
 <div class="dataTables_length" id="propertiesTableBusiness_length"
      style="float: none; margin-left: 30px; display: inline-block; margin-top: 13px;">
-    <label for="page_size">
-        Show
-    </label>
-    <select id="page_size" name="propertiesTableBusiness_length" aria-controls="propertiesTableBusiness">
+    <label for="page_size"> Show <select id="page_size" name="propertiesTableBusiness_length" aria-controls="propertiesTableBusiness">
         <option value="10">10</option>
         <option value="20">20</option>
         <option value="50">50</option>
         <option value="100">100</option>
     </select>
+    </label>
 </div>
 
-<div class="dataTables_paginate paging_simple_numbers" id="propertiesTableBusiness_paginate">
+<div class="dataTables_paginate paging_simple_numbers" id="propertiesTableBusiness_paginate" style="margin-top: 8px; margin-right: -10px;">
     @for(id <- pagination.getHtml.reverse){
     @id
     }
