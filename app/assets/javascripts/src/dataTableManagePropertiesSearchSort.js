@@ -32,7 +32,7 @@
                     queryParameters += '&address=' + $('#address').val();
                     queryParameters += '&status=' + $('#status').val();
 
-                    var pageNumber = 1
+                    var pageNumber = $('#current').data("dt-idx");
                     var pageSize = $('#page_size').find(":selected").text();
                     $table.DataTable().ajax.url('/business-rates-property-linking/properties-search-sort/json?page=' + pageNumber + '&pageSize='+ pageSize +'&requestTotalRowCount=true' + queryParameters);
                 },

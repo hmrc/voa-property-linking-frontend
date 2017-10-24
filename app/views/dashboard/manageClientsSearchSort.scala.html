@@ -31,6 +31,7 @@
 
         @jsManageClientsSearchSort(model)
 
+        @helpers.pagination_footer(model.pagination)
         <noscript>
 
             @helpers.paginationControlsSearchSort(model.pagination, agent.routes.RepresentationController.viewClientPropertiesSearchSort, "client")
