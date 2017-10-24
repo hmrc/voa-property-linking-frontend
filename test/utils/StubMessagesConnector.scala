@@ -17,15 +17,17 @@
 package utils
 
 import connectors.MessagesConnector
-import models.messages.MessageSearchResults
-import uk.gov.hmrc.play.http.HeaderCarrier
+import models.messages.{MessageCount, MessagePagination, MessageSearchResults}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import uk.gov.hmrc.play.http.HeaderCarrier
+
 import scala.concurrent.Future
 
 object StubMessagesConnector extends MessagesConnector(StubHttp, StubServicesConfig) {
-  override def getMessages(orgId: Long, startPoint: Int, pageSize: Int)(implicit hc: HeaderCarrier): Future[MessageSearchResults] = Future.successful {
-    MessageSearchResults(0, 0, Nil, 0)
+  override def getMessages(orgId: Long, pagination: MessagePagination)
+                          (implicit hc: HeaderCarrier): Future[MessageSearchResults] = Future.successful {
+    MessageSearchResults(0, 0, Nil)
   }
 
-  override def countUnread(orgId: Long)(implicit hc: HeaderCarrier): Future[Int] = Future.successful(0)
+  override def countUnread(orgId: Long)(implicit hc: HeaderCarrier): Future[MessageCount] = Future.successful(MessageCount(0, 0))
 }

@@ -18,7 +18,7 @@ package connectors
 
 import javax.inject.Inject
 
-import models.messages.{MessageCount, MessageSearchResults}
+import models.messages.{MessageCount, MessagePagination, MessageSearchResults}
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http.HeaderCarrier
 import uk.gov.hmrc.play.http.ws.WSHttp
@@ -29,11 +29,12 @@ class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig)(implicit e
 
   lazy val baseUrl: String = conf.baseUrl("property-linking") + "/property-linking"
 
-  def getMessages(orgId: Long, startPoint: Int, pageSize: Int)(implicit hc: HeaderCarrier): Future[MessageSearchResults] = {
-    http.GET[MessageSearchResults](s"$baseUrl/messages?recipientOrgId=$orgId&sortField=effectiveDate&sortOrder=DESC&startPoint=$startPoint&pageSize=$pageSize")
+  def getMessages(orgId: Long, pagination: MessagePagination)
+                 (implicit hc: HeaderCarrier): Future[MessageSearchResults] = {
+    http.GET[MessageSearchResults](s"$baseUrl/messages?recipientOrgId=$orgId&${pagination.queryString}")
   }
 
-  def countUnread(orgId: Long)(implicit hc: HeaderCarrier): Future[Int] = {
-    http.GET[MessageCount](s"$baseUrl/unread-messages-count/$orgId").map(_.messageCount)
+  def countUnread(orgId: Long)(implicit hc: HeaderCarrier): Future[MessageCount] = {
+    http.GET[MessageCount](s"$baseUrl/unread-messages-count/$orgId")
   }
 }
