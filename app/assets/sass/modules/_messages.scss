@@ -25,7 +25,12 @@ div#messagesTable_filter.dataTables_filter {
   margin: 0 8px 0px 10px
 }
 
-.messages {
+table.message a {
+  text-decoration: none;
+  color: #0b0c0c;
+}
+
+.message {
   table-layout: auto;
   width: 100%;
   &--date {
@@ -42,11 +47,10 @@ div#messagesTable_filter.dataTables_filter {
   }
   & td {
     font-size: 15px;
-
   }
+
   &--row > td {
     font-weight: bold;
-
   }
 
   &--row__read > td {

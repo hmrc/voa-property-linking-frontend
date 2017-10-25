@@ -12,27 +12,27 @@
 
     @partials.dashboardTabs(unreadCount)
 
-    <table id="messagesTable" class="messages dataTable table-font-xsmall no-footer">
+    <table id="messagesTable" class="message dataTable table-font-xsmall no-footer">
         <colgroup>
-            <col>
-            <col>
-            <col>
-            <col>
+            <col style="width: 12.5%">
+            <col style="width: @if(request.organisationAccount.isAgent) {20%} else {25%}">
+            <col style="width: @if(request.organisationAccount.isAgent) {20%} else {25%}">
+            <col style="width: @if(request.organisationAccount.isAgent) {17.5%} else {22.5%}">
             @if(request.organisationAccount.isAgent) {
-                <col>
+                <col style="width: 15%">
             }
-            <col>
+            <col style="width: 15%">
         </colgroup>
         <thead>
             <tr role="row">
-                <th class="message--status">@sortingControl(MessageSortField.LastRead)</th>
-                <th class="messages--subject">@sortingControl(MessageSortField.Subject)</th>
-                <th class="messages--address">@sortingControl(MessageSortField.Address)</th>
-                <th class="messages--reference">@sortingControl(MessageSortField.CaseReference)</th>
+                <th>@sortingControl(MessageSortField.LastRead)</th>
+                <th>@sortingControl(MessageSortField.Subject)</th>
+                <th>@sortingControl(MessageSortField.Address)</th>
+                <th>@sortingControl(MessageSortField.CaseReference)</th>
                 @if(request.organisationAccount.isAgent) {
-                    <th class="messages--client">@sortingControl(MessageSortField.ClientName)</th>
+                    <th>@sortingControl(MessageSortField.ClientName)</th>
                 }
-                <th class="messages--date">@sortingControl(MessageSortField.EffectiveDate)</th>
+                <th>@sortingControl(MessageSortField.EffectiveDate)</th>
             </tr>
 
             <form method="GET" action="@routes.Dashboard.viewMessages()">
@@ -73,7 +73,7 @@
 
         <tbody>
             @results.messages.map { m =>
-                <tr class="messages--row @rowClass(m)">
+                <tr class="message--row @rowClass(m)">
                     <td>
                     @if(m.lastRead.isDefined) {
                         <a href="#">
@@ -135,9 +135,9 @@
 
 @rowClass(msg: Message) = @{
     if(msg.lastRead.isDefined) {
-        "messages--row__read"
+        "message--row__read"
     } else {
-        "messages--row__unread"
+        "message--row__unread"
     }
 }
 

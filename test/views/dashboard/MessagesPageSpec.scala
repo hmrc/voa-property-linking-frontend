@@ -233,7 +233,7 @@ class MessagesPageSpec extends ControllerSpec {
   it must "have a clickable link to reverse the sort order on the current sorting field" in {
     val pageSortedByAscendingAddress = Jsoup.parse(messagesTab(oneMessage, MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Ascending), 1, 1).toString)
 
-    val addressHeading = pageSortedByAscendingAddress.select("#messagesTable thead").select("th.messages--address")
+    val addressHeading = pageSortedByAscendingAddress.select("#messagesTable thead").select("th").eq(2)
     addressHeading.select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Descending)).url
   }
 
