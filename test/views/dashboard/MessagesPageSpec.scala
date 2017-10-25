@@ -41,7 +41,7 @@ class MessagesPageSpec extends ControllerSpec {
     val noMessages = MessageSearchResults(
       0, 0, Nil
     )
-    val noMessagesPage = Jsoup.parse(messagesTab(noMessages, MessagePagination.default, 1, 1).toString)
+    val noMessagesPage = Jsoup.parse(messagesTab(noMessages, MessagePagination(), 1, 1).toString)
 
     noMessagesPage.select("p#noMessages").text mustBe "There are no messages to display"
   }
@@ -75,7 +75,7 @@ class MessagesPageSpec extends ControllerSpec {
   it must "show the read status, subject, address, reference number, and received date for each message" in {
     val messagesTable = pageWithOneUnreadMessage.select("#messagesTable")
 
-    val headings = messagesTable.select("thead tr th").asScala.map(_.text)
+    val headings = messagesTable.select("thead tr").first.select("th").asScala.map(_.text)
     headings must contain theSameElementsAs Seq("Status", "Subject", "Address", "Reference", "Received at")
 
     val row = messagesTable.select("tbody tr td").asScala
@@ -88,59 +88,41 @@ class MessagesPageSpec extends ControllerSpec {
     row(4).text mustBe message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a"))
   }
 
+  it must "include search fields for address and reference number" in {
+    val messagesTable = pageWithOneUnreadMessage.select("#messagesTable")
+
+    val inputs = messagesTable.select("thead tr th div.searchField input").asScala.map(_.attr("name"))
+    inputs must contain ("address")
+    inputs must contain ("referenceNumber")
+  }
+
+  it must "include hidden search fields for page number, page size, sort field, and sort order" in {
+    val messagesTable = pageWithOneUnreadMessage.select("#messagesTable")
+
+    val hiddenInputs = messagesTable.select("thead tr input[type=hidden]").asScala.map(_.attr("name"))
+    hiddenInputs must contain ("pageNumber")
+    hiddenInputs must contain ("pageSize")
+    hiddenInputs must contain ("sortField")
+    hiddenInputs must contain ("sortOrder")
+  }
+
+  it must "prepopulate the address search field if the results are filtered by address" in {
+    val filteredByAddress = Jsoup.parse(messagesTab(oneMessage, MessagePagination(address = Some("where")), 1, 1).toString)
+
+    val addressInput = filteredByAddress.select("input#address")
+    addressInput.attr("value") mustBe "where"
+  }
+
+  it must "prepopulate the reference number search field if the results are filtered by reference" in {
+    val filteredByReference = Jsoup.parse(messagesTab(oneMessage, MessagePagination(referenceNumber = Some("ref")), 1, 1).toString)
+
+    val referenceInput = filteredByReference.select("input#referenceNumber")
+    referenceInput.attr("value") mustBe "ref"
+  }
+
   it must "show the client name for each message if the user is an agent" in {
-    val agentRequest: AgentRequest[AnyContentAsEmpty.type] = AgentRequest(
-      organisationAccount = GroupAccount(
-        id = 456,
-        groupId = "some-group",
-        companyName = "a company",
-        addressId = 999,
-        email = "aa@bb.cc",
-        phone = "123",
-        isAgent = true,
-        agentCode = 123
-      ),
-      individualAccount = DetailedIndividualAccount(
-        externalId = "external-id",
-        trustId = "trust-id",
-        organisationId = 456,
-        individualId = 789,
-        details = IndividualDetails(
-          firstName = "fname",
-          lastName = "lname",
-          email = "aa@bb.cc",
-          phone1 = "1",
-          phone2 = None,
-          addressId = 111
-        )
-      ),
-      agentCode = 123,
-      request = FakeRequest()
-    )
-
-    lazy val clientMessages = MessageSearchResults(
-      1,
-      1,
-      Seq(Message(
-        "noderef",
-        222,
-        "a template",
-        Some(333),
-        Some("client"),
-        "aaa",
-        "bbb",
-        LocalDateTime.now,
-        "address",
-        LocalDateTime.now,
-        "something",
-        None,
-        "a message"
-      ))
-    )
-
-    val clientMessagesPage = Jsoup.parse(messagesTab(clientMessages, MessagePagination.default, 1, 1)(agentRequest, implicitly).toString)
     val messagesTable = clientMessagesPage.select("#messagesTable")
-    val headings = messagesTable.select("thead tr th").asScala.map(_.text)
+    val headings = messagesTable.select("thead tr").first.select("th").asScala.map(_.text)
 
     headings must contain theSameElementsAs Seq("Status", "Subject", "Address", "Reference", "Client", "Received at")
 
@@ -154,24 +136,38 @@ class MessagesPageSpec extends ControllerSpec {
     row(5).text mustBe message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a"))
   }
 
+  it must "include a search field for client name if the user is an agent" in {
+    val messagesTable = clientMessagesPage.select("#messagesTable")
+
+    val inputs = messagesTable.select("thead tr th div.searchField input").asScala.map(_.attr("name"))
+    inputs must contain ("clientName")
+  }
+
+  it must "prepopulate the client name search field if the results are filtered by client name" in {
+    val filteredByClient = Jsoup.parse(messagesTab(clientMessages, MessagePagination(clientName = Some("body")), 1, 1)(agentRequest, implicitly).toString)
+
+    val clientInput = filteredByClient.select("input#clientName")
+    clientInput.attr("value") mustBe "body"
+  }
+
   it must """show a "next" button if there is another page of messages to show""" in {
-    lazy val multiplePages = Jsoup.parse(messagesTab(oneMessage, MessagePagination.default, 1, 2).toString)
+    lazy val multiplePages = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 2).toString)
 
     val nextPageLink = multiplePages.select("div#messagesTable_paginate a#messagesTable_next")
     nextPageLink.text mustBe "Next"
-    nextPageLink.attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination.default.copy(pageNumber = 2)).url
+    nextPageLink.attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination().copy(pageNumber = 2)).url
   }
 
   it must """show a "previous" button if the user is not on page 1""" in {
-    lazy val messagesPg2 = Jsoup.parse(messagesTab(oneMessage, MessagePagination.default.copy(pageNumber = 2), 1, 2).toString)
+    lazy val messagesPg2 = Jsoup.parse(messagesTab(oneMessage, MessagePagination().copy(pageNumber = 2), 1, 2).toString)
 
     val previousPageLink = messagesPg2.select("div#messagesTable_paginate a#messagesTable_previous")
     previousPageLink.text mustBe "Previous"
-    previousPageLink.attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination.default).url
+    previousPageLink.attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination()).url
   }
 
   it must "not show a next button on the last page of messages" in {
-    lazy val messagesPg2 = Jsoup.parse(messagesTab(oneMessage, MessagePagination.default.copy(pageNumber = 2), 1, 1).toString)
+    lazy val messagesPg2 = Jsoup.parse(messagesTab(oneMessage, MessagePagination().copy(pageNumber = 2), 1, 1).toString)
 
     val nextPageLink = messagesPg2.select("div#messagesTable_paginate a#messagesTable_next")
     nextPageLink.text mustBe "Next"
@@ -179,7 +175,7 @@ class MessagesPageSpec extends ControllerSpec {
   }
 
   it must "not show a previous button on page 1" in {
-    lazy val multiplePages = Jsoup.parse(messagesTab(oneMessage, MessagePagination.default, 1, 1).toString)
+    lazy val multiplePages = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 1).toString)
 
     val previousPageLink = multiplePages.select("div#messagesTable_paginate a#messagesTable_previous")
     previousPageLink.text mustBe "Previous"
@@ -216,7 +212,7 @@ class MessagesPageSpec extends ControllerSpec {
       )
     )
 
-    lazy val pageWithNoUnreadMessages = Jsoup.parse(messagesTab(noUnreadMessages, MessagePagination.default, 1, 1).toString)
+    lazy val pageWithNoUnreadMessages = Jsoup.parse(messagesTab(noUnreadMessages, MessagePagination(), 1, 1).toString)
     val messagesTable = pageWithNoUnreadMessages.select("#messagesTable")
 
     val readStatus = messagesTable.select("tbody tr td").asScala.head
@@ -226,22 +222,24 @@ class MessagesPageSpec extends ControllerSpec {
   it must "have clickable links on each heading to sort by each field" in {
     val headings = pageWithOneUnreadMessage.select("#messagesTable thead tr th").asScala
 
-    headings.head.select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(1, 15, MessageSortField.LastRead, SortOrder.Ascending)).url
-    headings(1).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(1, 15, MessageSortField.Subject, SortOrder.Ascending)).url
-    headings(2).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(1, 15, MessageSortField.Address, SortOrder.Ascending)).url
-    headings(3).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(1, 15, MessageSortField.CaseReference, SortOrder.Ascending)).url
+    headings.head.select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.LastRead, sortOrder = SortOrder.Ascending)).url
+    headings(1).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.Subject, sortOrder = SortOrder.Ascending)).url
+    headings(2).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Ascending)).url
+    headings(3).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.CaseReference, sortOrder = SortOrder.Ascending)).url
     //sorted in descending date order by default
-    headings(4).select("div.sorting_desc a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(1, 15, MessageSortField.EffectiveDate, SortOrder.Ascending)).url
+    headings(4).select("div.sorting_desc a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.EffectiveDate, sortOrder = SortOrder.Ascending)).url
   }
 
   it must "have a clickable link to reverse the sort order on the current sorting field" in {
-    val pageSortedByAscendingAddress = Jsoup.parse(messagesTab(oneMessage, MessagePagination(1, 15, MessageSortField.Address, SortOrder.Ascending), 1, 1).toString)
+    val pageSortedByAscendingAddress = Jsoup.parse(messagesTab(oneMessage, MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Ascending), 1, 1).toString)
 
     val addressHeading = pageSortedByAscendingAddress.select("#messagesTable thead").select("th.messages--address")
-    addressHeading.select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(1, 15, MessageSortField.Address, SortOrder.Descending)).url
+    addressHeading.select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Descending)).url
   }
 
-  lazy val pageWithOneUnreadMessage: Document = Jsoup.parse(messagesTab(oneMessage, MessagePagination.default, 1, 1).toString)
+  lazy val pageWithOneUnreadMessage: Document = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 1).toString)
+
+  lazy val clientMessagesPage = Jsoup.parse(messagesTab(clientMessages, MessagePagination(), 1, 1)(agentRequest, implicitly).toString)
 
   lazy val oneMessage = MessageSearchResults(
     start = 1,
@@ -263,6 +261,26 @@ class MessagesPageSpec extends ControllerSpec {
         messageType = "message"
       )
     )
+  )
+
+  lazy val clientMessages = MessageSearchResults(
+    1,
+    1,
+    Seq(Message(
+      "noderef",
+      222,
+      "a template",
+      Some(333),
+      Some("client"),
+      "aaa",
+      "bbb",
+      LocalDateTime.now,
+      "address",
+      LocalDateTime.now,
+      "something",
+      None,
+      "a message"
+    ))
   )
 
   implicit lazy val nonAgentRequest: BasicAuthenticatedRequest[AnyContent] = {
@@ -294,6 +312,35 @@ class MessagesPageSpec extends ControllerSpec {
       FakeRequest()
     )
   }
+
+  lazy val agentRequest: AgentRequest[AnyContentAsEmpty.type] = AgentRequest(
+    organisationAccount = GroupAccount(
+      id = 456,
+      groupId = "some-group",
+      companyName = "a company",
+      addressId = 999,
+      email = "aa@bb.cc",
+      phone = "123",
+      isAgent = true,
+      agentCode = 123
+    ),
+    individualAccount = DetailedIndividualAccount(
+      externalId = "external-id",
+      trustId = "trust-id",
+      organisationId = 456,
+      individualId = 789,
+      details = IndividualDetails(
+        firstName = "fname",
+        lastName = "lname",
+        email = "aa@bb.cc",
+        phone1 = "1",
+        phone2 = None,
+        addressId = 111
+      )
+    ),
+    agentCode = 123,
+    request = FakeRequest()
+  )
 
   implicit lazy val messages: Messages = Messages.Implicits.applicationMessages
 }

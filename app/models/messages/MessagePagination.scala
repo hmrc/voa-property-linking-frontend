@@ -19,7 +19,14 @@ package models.messages
 import models.SortOrder
 import play.api.mvc.QueryStringBindable
 
-case class MessagePagination(pageNumber: Int, pageSize: Int, sortField: MessageSortField, sortOrder: SortOrder) {
+case class MessagePagination(clientName: Option[String] = None,
+                             referenceNumber: Option[String] = None,
+                             address: Option[String] = None,
+                             pageNumber: Int = 1,
+                             pageSize: Int = 15,
+                             sortField: MessageSortField = MessageSortField.EffectiveDate,
+                             sortOrder: SortOrder = SortOrder.Descending) {
+
   lazy val startPoint: Int = (pageNumber - 1) * pageSize + 1
 
   def reverseSorting: MessagePagination = copy(sortOrder = sortOrder.reverse)
@@ -30,6 +37,9 @@ case class MessagePagination(pageNumber: Int, pageSize: Int, sortField: MessageS
 
   lazy val queryString: String =
     s"""
+       |${clientName.filter(_.nonEmpty).fold("")(cn => s"clientName=$cn&")}
+       |${referenceNumber.filter(_.nonEmpty).fold("")(rn => s"referenceNumber=$rn&")}
+       |${address.filter(_.nonEmpty).fold("")(a => s"address=$a&")}
        |startPoint=$startPoint&
        |pageSize=$pageSize&
        |sortField=$sortField&
@@ -43,13 +53,17 @@ object MessagePagination {
       def bindParam[T](key: String)(implicit qsb: QueryStringBindable[T]): Option[Either[String, T]] = qsb.bind(key, params)
 
       for {
+        clientName <- bindParam[Option[String]]("clientName")
+        referenceNumber <- bindParam[Option[String]]("referenceNumber")
+        address <- bindParam[Option[String]]("address")
         pageNumber <- bindParam[Int]("pageNumber")
         pageSize <- bindParam[Int]("pageSize")
         sortField <- bindParam[MessageSortField]("sortField")
         sortOrder <- bindParam[SortOrder]("sortOrder")
       } yield {
-        (pageNumber, pageSize, sortField, sortOrder) match {
-          case (Right(pn), Right(ps), Right(sf), Right(so)) => Right(MessagePagination(pn, ps, sf, so))
+        (clientName, referenceNumber, address, pageNumber, pageSize, sortField, sortOrder) match {
+          case (Right(cn), Right(rn), Right(ad), Right(pn), Right(ps), Right(sf), Right(so)) =>
+            Right(MessagePagination(cn, rn, ad, pn, ps, sf, so))
           case _ => Left("Unable to bind to MessagePagination")
         }
       }
@@ -57,12 +71,13 @@ object MessagePagination {
 
     override def unbind(key: String, value: MessagePagination): String =
       s"""
+         |clientName=${value.clientName.getOrElse("")}&
+         |referenceNumber=${value.referenceNumber.getOrElse("")}&
+         |address=${value.address.getOrElse("")}&
          |pageNumber=${value.pageNumber}&
          |pageSize=${value.pageSize}&
          |sortField=${value.sortField}&
          |sortOrder=${value.sortOrder}
          |""".stripMargin.replaceAll("\n", "")
   }
-
-  lazy val default: MessagePagination = MessagePagination(1, 15, MessageSortField.EffectiveDate, SortOrder.Descending)
 }

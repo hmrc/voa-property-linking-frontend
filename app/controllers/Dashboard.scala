@@ -27,6 +27,9 @@ import models._
 import models.messages.MessagePagination
 import models.searchApi.OwnerAuthResult
 import play.api.libs.json.Json
+import play.api.mvc.{Request, Result}
+
+import scala.concurrent.Future
 
 class Dashboard @Inject()(config: ApplicationConfig,
                           draftCases: DraftCases,
@@ -146,16 +149,28 @@ class Dashboard @Inject()(config: ApplicationConfig,
 
   def viewMessages(pagination: MessagePagination) = authenticated { implicit request =>
     if(config.messagesEnabled) {
-      for {
-        count <- messagesConnector.countUnread(request.organisationId)
-        msgs <- messagesConnector.getMessages(request.organisationId, pagination)
-      } yield {
-        //round up to nearest integer
-        val numberOfPages: Int = Math.ceil(count.total.toDouble / pagination.pageSize).toInt
-        Ok(views.html.dashboard.messagesTab(msgs, pagination, count.unread, numberOfPages))
+      withValidMessagePagination(pagination) {
+        for {
+          count <- messagesConnector.countUnread(request.organisationId)
+          msgs <- messagesConnector.getMessages(request.organisationId, pagination)
+        } yield {
+          //round up to nearest integer
+          val numberOfPages: Int = Math.ceil(count.total.toDouble / pagination.pageSize).toInt
+          Ok(views.html.dashboard.messagesTab(msgs, pagination, count.unread, numberOfPages))
+        }
       }
     } else {
       NotFound(Global.notFoundTemplate)
+    }
+  }
+
+  private def withValidMessagePagination(pagination: MessagePagination)
+                                        (f: => Future[Result])
+                                        (implicit request: Request[_]): Future[Result] = {
+    if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 100) {
+      f
+    } else {
+      BadRequest(Global.badRequestTemplate)
     }
   }
 }
