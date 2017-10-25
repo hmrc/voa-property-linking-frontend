@@ -819,3 +819,6 @@ messages.paginationInfo=Showing page {0} of {1}
 #PAGINATION CONTROLS
 pagination.next=Next
 pagination.previous=Previous
+
+#PLANNED OUTAGE
+planned.downtime.banner=This service will be offline from 8am until early afternoon on 31 October while we make some planned improvements.

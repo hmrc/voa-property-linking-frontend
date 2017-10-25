@@ -75,12 +75,25 @@
     }
 }
 
+@serviceInfoContentBanner = {
+@if(appConfig.isDowntime){
+<div class="beta-banner">
+    <p>
+        <span>@Messages("planned.downtime.banner")</span>
+        <a href="/guidance/how-to-check-your-rateable-value-is-correct" >Guidance Page</a>
+    </p>
+</div>
+} else {
+@serviceInfoContent
+}
+}
+
 @serviceInfo = {
     @banner
     @uiLayouts.serviceInfo(
         betaBanner = betaBanner,
         includeGridWrapper = false,
-        serviceInfoContent = Some(serviceInfoContent),
+        serviceInfoContent = Some(serviceInfoContentBanner),
         includeHMRCBranding = false
         )
 }
