@@ -18,7 +18,7 @@ package models.messages
 
 import play.api.libs.json.{Format, Json}
 
-case class MessageSearchResults(start: Int, size: Int, messages: Seq[Message], total: Int)
+case class MessageSearchResults(start: Int, size: Int, messages: Seq[Message])
 
 object MessageSearchResults {
   implicit val format: Format[MessageSearchResults] = Json.format[MessageSearchResults]

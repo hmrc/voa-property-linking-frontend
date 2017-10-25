@@ -24,8 +24,12 @@ import config.{ApplicationConfig, Global}
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import models._
+import models.messages.MessagePagination
 import models.searchApi.OwnerAuthResult
 import play.api.libs.json.Json
+import play.api.mvc.{Request, Result}
+
+import scala.concurrent.Future
 
 class Dashboard @Inject()(config: ApplicationConfig,
                           draftCases: DraftCases,
@@ -69,7 +73,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
               response,
               paginationSearchSort.copy(totalResults = response.filterTotal)
             ),
-            msgCount
+            msgCount.unread
           ))
         }
       }
@@ -118,7 +122,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
         .flatMap(_.agents)
         .map(a => AgentInfo(a.organisationName, a.agentCode))
         .sortBy(_.organisationName).distinct
-      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos), msgCount))
+      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos), msgCount.unread))
     }
   }
 
@@ -139,22 +143,34 @@ class Dashboard @Inject()(config: ApplicationConfig,
       cases <- draftCases.get(request.personId)
       msgCount <- messagesConnector.countUnread(request.organisationId)
     } yield {
-      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), msgCount))
+      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), msgCount.unread))
     }
   }
 
-  def viewMessages(pageNumber: Int, pageSize: Int) = authenticated { implicit request =>
+  def viewMessages(pagination: MessagePagination) = authenticated { implicit request =>
     if(config.messagesEnabled) {
-      for {
-        count <- messagesConnector.countUnread(request.organisationId)
-        startPoint = (pageNumber - 1) * pageSize + 1
-        msgs <- messagesConnector.getMessages(request.organisationId, startPoint, pageSize)
-      } yield {
-        val numberOfPages = msgs.total / pageSize + 1
-        Ok(views.html.dashboard.messagesTab(msgs, count, pageNumber, numberOfPages))
+      withValidMessagePagination(pagination) {
+        for {
+          count <- messagesConnector.countUnread(request.organisationId)
+          msgs <- messagesConnector.getMessages(request.organisationId, pagination)
+        } yield {
+          //round up to nearest integer
+          val numberOfPages: Int = Math.ceil(count.total.toDouble / pagination.pageSize).toInt
+          Ok(views.html.dashboard.messagesTab(msgs, pagination, count.unread, numberOfPages))
+        }
       }
     } else {
       NotFound(Global.notFoundTemplate)
+    }
+  }
+
+  private def withValidMessagePagination(pagination: MessagePagination)
+                                        (f: => Future[Result])
+                                        (implicit request: Request[_]): Future[Result] = {
+    if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 100) {
+      f
+    } else {
+      BadRequest(Global.badRequestTemplate)
     }
   }
 }

@@ -2,33 +2,31 @@ import sbt._
 
 object FrontendBuild extends Build with MicroService {
 
-    import com.typesafe.sbt.web.SbtWeb.autoImport._
-    import play.sbt.PlayImport.PlayKeys._
-    import sbt.Keys._
-    import scala.util.Properties.envOrElse
+  import com.typesafe.sbt.web.SbtWeb.autoImport._
+  import play.sbt.routes.RoutesKeys._
+  import sbt.Keys._
 
   val appName = "voa-property-linking-frontend"
 
   override lazy val appDependencies: Seq[ModuleID] = AppDependencies()
 
-  override lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala)
+  override lazy val plugins: Seq[Plugins] = Seq(play.sbt.PlayScala)
 
   override val defaultPort: Int = 9523
 
   override lazy val playSettings: Seq[Setting[_]] = Seq(
+    routesImport ++= Seq("models.SortOrder", "models.messages.MessagePagination"),
+    // Add the views to the dist
+    unmanagedResourceDirectories in Assets += baseDirectory.value / "app" / "assets",
+    // Dont include the source assets in the dist package (public folder)
+    excludeFilter in Assets := "fonts" || "tasks" || "karma.conf.js" || "tests" || "gulpfile.js*" || "js*" || "src*" || "node_modules*" || "sass*" || "typescript*" || "typings*" || ".jshintrc" || "package.json" || "tsconfig.json" || "tsd.json"
+  ) ++ JavaScriptBuild.javaScriptUiSettings
 
-       // Add the views to the dist
-       unmanagedResourceDirectories in Assets += baseDirectory.value / "app" / "assets",
-       // Dont include the source assets in the dist package (public folder)
-       excludeFilter in Assets := "fonts" || "tasks" || "karma.conf.js" || "tests" || "gulpfile.js*" || "js*" || "src*" || "node_modules*" || "sass*" || "typescript*" || "typings*" || ".jshintrc" || "package.json" || "tsconfig.json" || "tsd.json"
-       ) ++ JavaScriptBuild.javaScriptUiSettings
-
-  }
+}
 
 private object AppDependencies {
 
   import play.sbt.PlayImport._
-  import play.core.PlayVersion
 
   private val playReactivemongoVersion = "5.0.0"
   val compile = Seq(
@@ -56,7 +54,7 @@ private object AppDependencies {
 
   trait TestDependencies {
     lazy val scope: String = "test"
-    lazy val test : Seq[ModuleID] = ???
+    lazy val test: Seq[ModuleID] = ???
   }
 
   object Test {
