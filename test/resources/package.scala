@@ -293,6 +293,10 @@ package object resources {
     authorisedPartyId <- arbitrary[Long]
     organisationId <- arbitrary[Long]
     organisationName <- shortString
+    status <- Gen.oneOf(RepresentationApproved.name,
+      RepresentationDeclined.name,
+      RepresentationPending.name,
+      RepresentationRevoked.name)
   } yield {
     OwnerAuthAgent(authorisedPartyId, organisationId, organisationName)
   }
