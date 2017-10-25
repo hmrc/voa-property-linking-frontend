@@ -298,7 +298,7 @@ package object resources {
       RepresentationPending.name,
       RepresentationRevoked.name)
   } yield {
-    OwnerAuthAgent(authorisedPartyId, organisationId, organisationName)
+    OwnerAuthAgent(authorisedPartyId, organisationId, organisationName, Some(status))
   }
   implicit val ownerAuthAgent = Arbitrary(ownerAuthAgentGen)
 
