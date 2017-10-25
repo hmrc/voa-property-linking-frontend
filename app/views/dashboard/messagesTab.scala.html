@@ -12,32 +12,66 @@
 
     @partials.dashboardTabs(unreadCount)
 
-    @if(results.messages.isEmpty) {
-        <p id="noMessages">@Messages("messages.noMessages")</p>
-    } else {
-        <table id="messagesTable" class="messages dataTable table-font-xsmall no-footer">
-            <colgroup>
+    <table id="messagesTable" class="messages dataTable table-font-xsmall no-footer">
+        <colgroup>
+            <col>
+            <col>
+            <col>
+            <col>
+            @if(request.organisationAccount.isAgent) {
                 <col>
-                <col>
-                <col>
-                <col>
-                @if(request.organisationAccount.isAgent) { <col> }
-                <col>
-            </colgroup>
-            <thead>
-                <tr role="row">
-                    <th class="message--status">@sortingControl(MessageSortField.LastRead)</th>
-                    <th class="messages--subject">@sortingControl(MessageSortField.Subject)</th>
-                    <th class="messages--address">@sortingControl(MessageSortField.Address)</th>
-                    <th class="messages--reference">@sortingControl(MessageSortField.CaseReference)</th>
-                    @if(request.organisationAccount.isAgent) {
-                        <th class="messages--client">@sortingControl(MessageSortField.ClientName)</th>
-                    }
-                    <th class="messages--date">@sortingControl(MessageSortField.EffectiveDate)</th>
-                </tr>
-            </thead>
+            }
+            <col>
+        </colgroup>
+        <thead>
+            <tr role="row">
+                <th class="message--status">@sortingControl(MessageSortField.LastRead)</th>
+                <th class="messages--subject">@sortingControl(MessageSortField.Subject)</th>
+                <th class="messages--address">@sortingControl(MessageSortField.Address)</th>
+                <th class="messages--reference">@sortingControl(MessageSortField.CaseReference)</th>
+                @if(request.organisationAccount.isAgent) {
+                    <th class="messages--client">@sortingControl(MessageSortField.ClientName)</th>
+                }
+                <th class="messages--date">@sortingControl(MessageSortField.EffectiveDate)</th>
+            </tr>
 
-            <tbody>
+            <form method="GET" action="@routes.Dashboard.viewMessages()">
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>
+                        <div class="searchfield">
+                            <label for="address" class="visually-hidden">@Messages("messages.th.address")</label>
+                            <input id="address" name="address" value="@pagination.address" class="ss-input">
+                            <button id="addressButton" class="search-submit ss-button">@Messages("messages.search", Messages("messages.th.address"))</button>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="searchfield">
+                            <label for="referenceNumber" class="visually-hidden">@Messages("messages.th.caseReference")</label>
+                            <input id="referenceNumber" name="referenceNumber" value="@pagination.referenceNumber" class="ss-input">
+                            <button id="referenceNumberButton" class="search-submit ss-button">@Messages("messages.search", Messages("messages.th.caseReference"))</button>
+                        </div>
+                    </th>
+                    @if(request.organisationAccount.isAgent) {
+                        <th>
+                            <div class="searchfield">
+                                <label for="clientName" class="visually-hidden">@Messages("messages.th.clientName")</label>
+                                <input id="clientName" name="clientName" value="@pagination.clientName" class="ss-input">
+                                <button id="clientButton" class="search-submit ss-button">@Messages("messages.search", Messages("messages.th.clientName"))</button>
+                            </div>
+                        </th>
+                    }
+                    <th></th>
+                    <input type="hidden" name="pageNumber" value="@pagination.pageNumber" readonly>
+                    <input type="hidden" name="pageSize" value="@pagination.pageSize" readonly>
+                    <input type="hidden" name="sortField" value="@pagination.sortField" readonly>
+                    <input type="hidden" name="sortOrder" value="@pagination.sortOrder" readonly>
+                </tr>
+            </form>
+        </thead>
+
+        <tbody>
             @results.messages.map { m =>
                 <tr class="messages--row @rowClass(m)">
                     <td>
@@ -64,8 +98,12 @@
                     <td>@m.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a"))</td>
                 </tr>
             }
-            </tbody>
-        </table>
+        </tbody>
+    </table>
+
+    @if(results.messages.isEmpty) {
+        <p id="noMessages">@Messages("messages.noMessages")</p>
+    } else {
 
         <div id="messagesTable_info">@Messages("messages.paginationInfo", pagination.pageNumber, numberOfPages)</div>
 
@@ -90,7 +128,9 @@
                 <a id="messagesTable_next" class="paginate_button next disabled">@Messages("pagination.next")</a>
             }
         </div>
+
     }
+
 }
 
 @rowClass(msg: Message) = @{
