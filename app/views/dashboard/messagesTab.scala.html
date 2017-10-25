@@ -2,7 +2,8 @@
 @import java.time.format.DateTimeFormatter
 @import actions.AuthenticatedRequest
 
-@(results: MessageSearchResults, unreadCount: Int, pageNumber: Int, numberOfPages: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(results: MessageSearchResults, pagination: MessagePagination,
+        unreadCount: Int, numberOfPages: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @main_template(
     Messages("messages.title"),
@@ -25,14 +26,14 @@
             </colgroup>
             <thead>
                 <tr role="row">
-                    <th class="message--status">@Messages("messages.th.1")</th>
-                    <th class="messages--subject">@Messages("messages.th.2")</th>
-                    <th class="messages--address">@Messages("messages.th.3")</th>
-                    <th class="messages--reference">@Messages("messages.th.4")</th>
+                    <th class="message--status">@sortingControl(MessageSortField.LastRead)</th>
+                    <th class="messages--subject">@sortingControl(MessageSortField.Subject)</th>
+                    <th class="messages--address">@sortingControl(MessageSortField.Address)</th>
+                    <th class="messages--reference">@sortingControl(MessageSortField.CaseReference)</th>
                     @if(request.organisationAccount.isAgent) {
-                        <th class="messages--client">@Messages("messages.th.5")</th>
+                        <th class="messages--client">@sortingControl(MessageSortField.ClientName)</th>
                     }
-                    <th class="messages--date">@Messages("messages.th.6")</th>
+                    <th class="messages--date">@sortingControl(MessageSortField.EffectiveDate)</th>
                 </tr>
             </thead>
 
@@ -66,25 +67,25 @@
             </tbody>
         </table>
 
-        <div id="messagesTable_info">@Messages("messages.paginationInfo", pageNumber, numberOfPages)</div>
+        <div id="messagesTable_info">@Messages("messages.paginationInfo", pagination.pageNumber, numberOfPages)</div>
 
         <div id="messagesTable_paginate" class="dataTables_paginate paging_simple_numbers">
-            @if(pageNumber == 1) {
+            @if(pagination.pageNumber == 1) {
                 <a id="messagesTable_previous" class="paginate_button previous disabled">@Messages("pagination.previous")</a>
             } else {
-                <a id="messagesTable_previous" class="paginate_button previous" href="@routes.Dashboard.viewMessages(pageNumber - 1)">@Messages("pagination.previous")</a>
+                <a id="messagesTable_previous" class="paginate_button previous" href="@routes.Dashboard.viewMessages(pagination.previousPage)">@Messages("pagination.previous")</a>
             }
 
             @for(i <- 1 to numberOfPages) {
-                @if(pageNumber == i) {
+                @if(pagination.pageNumber == i) {
                     <a class="paginate_button current">@i</a>
                 } else {
-                    <a href="@routes.Dashboard.viewMessages(i)" class="paginate_button">@i</a>
+                    <a href="@routes.Dashboard.viewMessages(pagination.copy(pageNumber = i))" class="paginate_button">@i</a>
                 }
             }
 
-            @if(pageNumber < numberOfPages) {
-                <a id="messagesTable_next" class="paginate_button next" href="@routes.Dashboard.viewMessages(pageNumber + 1)">@Messages("pagination.next")</a>
+            @if(pagination.pageNumber < numberOfPages) {
+                <a id="messagesTable_next" class="paginate_button next" href="@routes.Dashboard.viewMessages(pagination.nextPage)">@Messages("pagination.next")</a>
             } else {
                 <a id="messagesTable_next" class="paginate_button next disabled">@Messages("pagination.next")</a>
             }
@@ -97,5 +98,17 @@
         "messages--row__read"
     } else {
         "messages--row__unread"
+    }
+}
+
+@sortingControl(field: MessageSortField) = {
+    @if(pagination.sortField == field) {
+        <div class="sorting_@pagination.sortOrder">
+            <a href="@routes.Dashboard.viewMessages(pagination.reverseSorting)">@Messages(s"messages.th.$field")</a>
+        </div>
+    } else {
+        <div class="sorting">
+            <a href="@routes.Dashboard.viewMessages(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"messages.th.$field")</a>
+        </div>
     }
 }

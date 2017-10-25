@@ -33,7 +33,7 @@ class ViewDetails @Inject()(addressesConnector: Addresses, authenticated: Authen
       personalAddress <- OptionT(addressesConnector.findById(person.details.addressId))
       businessAddress <- OptionT(addressesConnector.findById(request.organisationAccount.addressId))
       msgCount <- OptionT.liftF(messagesConnector.countUnread(request.organisationId))
-    } yield Ok(views.html.details.viewDetails(person, request.organisationAccount, personalAddress, businessAddress, msgCount))
+    } yield Ok(views.html.details.viewDetails(person, request.organisationAccount, personalAddress, businessAddress, msgCount.unread))
       ).getOrElse(throw new Exception(
       s"Unable to lookup address: Individual address ID: ${person.details.addressId}; Organisation address Id: ${request.organisationAccount.addressId}")
     )

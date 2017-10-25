@@ -16,6 +16,7 @@
 
 package models
 import play.api.libs.json._
+import play.api.mvc.QueryStringBindable
 
 trait NamedEnum {
   def name: String
@@ -38,6 +39,22 @@ trait NamedEnumSupport[E <: NamedEnum] {
   def options = all.map(_.name)
 
   def unapply(s: String) = all.find(_.name == s)
+
+  implicit val queryStringBindable: QueryStringBindable[E] = new QueryStringBindable[E] {
+    override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, E]] = {
+      for {
+        vs <- params.get(key)
+        v <- vs.headOption
+      } yield {
+        unapply(v) match {
+          case Some(e) => Right(e)
+          case None => Left(s"Invalid value; expected one of $options")
+        }
+      }
+    }
+
+    override def unbind(key: String, value: E): String = key + "=" + value.name
+  }
 }
 
 object EnumFormat {

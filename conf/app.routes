@@ -52,7 +52,7 @@ GET         /managed-properties/:agentCode/revoke                               
 GET         /managed-properties/:agentCode/revoke/confirmed                                   @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
 GET         /manage-agents                                                                    @controllers.Dashboard.manageAgents()
 GET         /draft-cases                                                                      @controllers.Dashboard.viewDraftCases()
-GET         /messages                                                                         @controllers.Dashboard.viewMessages(pageNumber: Int ?= 1, pageSize: Int ?= 15)
+GET         /messages                                                                         @controllers.Dashboard.viewMessages(pagination: MessagePagination ?= MessagePagination.default)
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  @controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        @controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
 

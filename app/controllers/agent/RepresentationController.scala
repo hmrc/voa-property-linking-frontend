@@ -67,7 +67,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
               totalPendingRequests = reprs.pendingRepresentations,
               pagination = paginationSearchSort.copy(totalResults = reprs.filterTotal)
             ),
-            msgCount
+            msgCount.unread
           ))
         }
       }

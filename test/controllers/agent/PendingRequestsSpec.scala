@@ -181,6 +181,6 @@ class PendingRequestsSpec extends ControllerSpec {
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,
-    StubMessagesConnector
+    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
   )
 }
