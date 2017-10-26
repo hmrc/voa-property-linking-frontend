@@ -49,7 +49,8 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "play-whitelist-filter" % "2.0.0",
     "uk.gov.hmrc" %% "mongo-lock" % "4.1.0",
     "com.google.inject.extensions" % "guice-multibindings" % "4.0",
-    "uk.gov.hmrc" %% "reactive-circuit-breaker" % "2.1.0"
+    "uk.gov.hmrc" %% "reactive-circuit-breaker" % "2.1.0",
+    "com.builtamont" %% "play2-scala-pdf" % "2.0.0.P25"
   )
 
   trait TestDependencies {

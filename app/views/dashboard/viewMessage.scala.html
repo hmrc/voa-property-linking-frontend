@@ -1,0 +1,12 @@
+@import models.messages.Message
+@import actions.AuthenticatedRequest
+
+@(message: Message, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+
+@main_template(title = message.subject, topNavigation = false, bottomBackLink = true, backLinkUrl = Some(routes.Dashboard.viewMessages().url)) {
+    @partials.welcomeLinks(unreadMessagesCount)
+
+    @checkReceivedTemplate(message)
+
+    <p><a href="@routes.Dashboard.viewMessageAsPdf(message.id)">@Messages("checkReceived.download")</a></p>
+}

@@ -16,6 +16,7 @@
 
 package controllers
 
+import com.builtamont.play.pdf.PdfGenerator
 import config.ApplicationConfig
 import models.searchApi._
 import connectors.{Authenticated, DraftCases}
@@ -26,6 +27,7 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import repositories.MessageCacheRepository
 import resources._
 import utils._
 
@@ -211,6 +213,8 @@ class ManagePropertiesSearchSortSpec extends ControllerSpec {
     mock[DraftCases],
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
-    StubAuthentication
+    StubAuthentication,
+    mock[MessageCacheRepository],
+    mock[PdfGenerator]
   )
 }

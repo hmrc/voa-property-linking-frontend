@@ -16,18 +16,21 @@
 
 package controllers
 
-import java.time.LocalDate
+import java.time._
 import javax.inject.Inject
 
 import actions.AuthenticatedAction
+import com.builtamont.play.pdf.PdfGenerator
 import config.{ApplicationConfig, Global}
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import models._
-import models.messages.MessagePagination
+import models.messages.{Message, MessagePagination}
 import models.searchApi.OwnerAuthResult
 import play.api.libs.json.Json
 import play.api.mvc.{Request, Result}
+import play.twirl.api.Html
+import repositories.MessageCacheRepository
 
 import scala.concurrent.Future
 
@@ -35,7 +38,9 @@ class Dashboard @Inject()(config: ApplicationConfig,
                           draftCases: DraftCases,
                           propertyLinks: PropertyLinkConnector,
                           messagesConnector: MessagesConnector,
-                          authenticated: AuthenticatedAction) extends PropertyLinkingController with ValidPagination {
+                          authenticated: AuthenticatedAction,
+                          messageCache: MessageCacheRepository,
+                          pdfGen: PdfGenerator) extends PropertyLinkingController with ValidPagination {
 
   def home() = authenticated { implicit request =>
     if (request.organisationAccount.isAgent) {
@@ -153,6 +158,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
         for {
           count <- messagesConnector.countUnread(request.organisationId)
           msgs <- messagesConnector.getMessages(request.organisationId, pagination)
+          _ <- messageCache.saveOrUpdate(msgs.messages)
         } yield {
           //round up to nearest integer
           val numberOfPages: Int = Math.ceil(count.total.toDouble / pagination.pageSize).toInt
@@ -161,6 +167,35 @@ class Dashboard @Inject()(config: ApplicationConfig,
       }
     } else {
       NotFound(Global.notFoundTemplate)
+    }
+  }
+
+  def viewMessage(messageId: String) = authenticated { implicit request =>
+    if(config.messagesEnabled) {
+      for {
+        message <- messageCache.getMessage(messageId)
+        count <- messagesConnector.countUnread(request.organisationId)
+        _ <- messagesConnector.markAsRead(messageId, request.individualAccount.externalId)
+      } yield {
+        message match {
+          case Some(m) => Ok(views.html.dashboard.viewMessage(m, count.unread))
+          case None => NotFound(Global.notFoundTemplate)
+        }
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
+  }
+
+  def viewMessageAsPdf(messageId: String) = authenticated { implicit request =>
+    for {
+      message <- messageCache.getMessage(messageId)
+      count <- messagesConnector.countUnread(request.organisationId)
+    } yield {
+      message match {
+        case Some(m) => pdfGen.ok(views.html.dashboard.viewMessagePdf(m), "localhost:9523")
+        case None => NotFound(Global.notFoundTemplate)
+      }
     }
   }
 

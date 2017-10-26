@@ -40,27 +40,13 @@
                     <th></th>
                     <th></th>
                     <th>
-                        <div class="searchfield">
-                            <label for="address" class="visually-hidden">@Messages("messages.th.address")</label>
-                            <input id="address" name="address" value="@pagination.address" class="ss-input">
-                            <button id="addressButton" class="search-submit ss-button">@Messages("messages.search", Messages("messages.th.address"))</button>
-                        </div>
+                        @searchField("address", pagination.address)
                     </th>
                     <th>
-                        <div class="searchfield">
-                            <label for="referenceNumber" class="visually-hidden">@Messages("messages.th.caseReference")</label>
-                            <input id="referenceNumber" name="referenceNumber" value="@pagination.referenceNumber" class="ss-input">
-                            <button id="referenceNumberButton" class="search-submit ss-button">@Messages("messages.search", Messages("messages.th.caseReference"))</button>
-                        </div>
+                        @searchField("caseReference", pagination.referenceNumber)
                     </th>
                     @if(request.organisationAccount.isAgent) {
-                        <th>
-                            <div class="searchfield">
-                                <label for="clientName" class="visually-hidden">@Messages("messages.th.clientName")</label>
-                                <input id="clientName" name="clientName" value="@pagination.clientName" class="ss-input">
-                                <button id="clientButton" class="search-submit ss-button">@Messages("messages.search", Messages("messages.th.clientName"))</button>
-                            </div>
-                        </th>
+                        <th>@searchField("clientName", pagination.clientName)</th>
                     }
                     <th></th>
                     <input type="hidden" name="pageNumber" value="@pagination.pageNumber" readonly>
@@ -76,20 +62,20 @@
                 <tr class="message--row @rowClass(m)">
                     <td>
                     @if(m.lastRead.isDefined) {
-                        <a href="#">
+                        <a href="@viewMessageLink(m)">
                             <i class="icon icon-messageread">
                                 <span class="visuallyhidden">@Messages("messages.read")</span>
                             </i>
                         </a>
                     } else {
-                        <a href="#">
+                        <a href="@viewMessageLink(m)">
                             <i class="icon icon-messageunread">
                                 <span class="visuallyhidden">@Messages("messages.unread")</span>
                             </i>
                         </a>
                     }
                     </td>
-                    <td>@m.subject</td>
+                    <td><a href="@viewMessageLink(m)">@m.subject</a></td>
                     <td>@m.address</td>
                     <td>@m.caseReference</td>
                     @if(request.organisationAccount.isAgent) {
@@ -105,34 +91,9 @@
         <p id="noMessages">@Messages("messages.noMessages")</p>
     } else {
 
-        <div id="messagesTable_info">@Messages("messages.paginationInfo", pagination.pageNumber, numberOfPages)</div>
-
-        <div id="messagesTable_paginate" class="dataTables_paginate paging_simple_numbers">
-            @if(pagination.pageNumber == 1) {
-                <a id="messagesTable_previous" class="paginate_button previous disabled">@Messages("pagination.previous")</a>
-            } else {
-                <a id="messagesTable_previous" class="paginate_button previous" href="@routes.Dashboard.viewMessages(pagination.previousPage)">@Messages("pagination.previous")</a>
-            }
-
-            @for(i <- 1 to numberOfPages) {
-                @if(pagination.pageNumber == i) {
-                    <a class="paginate_button current">@i</a>
-                } else {
-                    <a href="@routes.Dashboard.viewMessages(pagination.copy(pageNumber = i))" class="paginate_button">@i</a>
-                }
-            }
-
-            @if(pagination.pageNumber < numberOfPages) {
-                <a id="messagesTable_next" class="paginate_button next" href="@routes.Dashboard.viewMessages(pagination.nextPage)">@Messages("pagination.next")</a>
-            } else {
-                <a id="messagesTable_next" class="paginate_button next disabled">@Messages("pagination.next")</a>
-            }
-
-        </div>
-
-        <div class="navigation-links">
+        <div class="column-half">
             @Messages("messages.pageSize.showing")
-            <ul class="inline-block">
+            <ul class="showResults">
                 @pageSizeControl(15)
                 @pageSizeControl(25)
                 @pageSizeControl(50)
@@ -141,6 +102,46 @@
             @Messages("messages.pageSize.perPage")
         </div>
 
+        <div class="column-half">
+            <span class="pull-right">@Messages("messages.paginationInfo", pagination.pageNumber, numberOfPages)</span>
+        </div>
+
+        <div id="messagesTable_paginate" class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination">
+
+                @if(pagination.pageNumber == 1) {
+                    <li class="previous disabled">
+                        <span id="messagesTable_previous" class="paginate_button previous">@Messages("pagination.previous")</span>
+                    </li>
+                } else {
+                    <li>
+                        <a id="messagesTable_previous" class="paginate_button previous" href="@routes.Dashboard.viewMessages(pagination.previousPage)">@Messages("pagination.previous")</a>
+                    </li>
+                }
+
+                @if(numberOfPages != 1) {
+                    @for(i <- 1 to numberOfPages) {
+                        @if(pagination.pageNumber == i) {
+                            <li class="current">@i</li>
+                        } else {
+                            <li><a href="@routes.Dashboard.viewMessages(pagination.copy(pageNumber = i))" class="paginate_button">@i</a></li>
+                        }
+                    }
+                }
+
+                @if(pagination.pageNumber < numberOfPages) {
+                    <li class="next">
+                        <a id="messagesTable_next" class="paginate_button next" href="@routes.Dashboard.viewMessages(pagination.nextPage)">@Messages("pagination.next")</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <span id="messagesTable_next" class="paginate_button next">@Messages("pagination.next")</span>
+                    </li>
+                }
+
+            </ul>
+
+        </div>
     }
 
 }
@@ -155,11 +156,11 @@
 
 @sortingControl(field: MessageSortField) = {
     @if(pagination.sortField == field) {
-        <div class="sorting_@pagination.sortOrder">
+        <div id="sort-by-@field" class="sorting_@pagination.sortOrder">
             <a href="@routes.Dashboard.viewMessages(pagination.reverseSorting)">@Messages(s"messages.th.$field")</a>
         </div>
     } else {
-        <div class="sorting">
+        <div id="sort-by-@field" class="sorting">
             <a href="@routes.Dashboard.viewMessages(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"messages.th.$field")</a>
         </div>
     }
@@ -171,4 +172,16 @@
     } else {
         <li><a href="@routes.Dashboard.viewMessages(pagination.copy(pageSize = size))">@size</a></li>
     }
+}
+
+@viewMessageLink(m: Message) = @{
+    routes.Dashboard.viewMessage(m.id)
+}
+
+@searchField(fieldName: String, value: Option[String]) = {
+    <div class="searchfield">
+        <label for="@fieldName" class="visually-hidden">@Messages(s"messages.th.$fieldName")</label>
+        <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
+        <button id="@{fieldName}Button" class="search-submit ss-button">@Messages("messages.search", Messages(s"messages.th.$fieldName"))</button>
+    </div>
 }
