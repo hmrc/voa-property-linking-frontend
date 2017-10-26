@@ -233,8 +233,17 @@ class MessagesPageSpec extends ControllerSpec {
   it must "have a clickable link to reverse the sort order on the current sorting field" in {
     val pageSortedByAscendingAddress = Jsoup.parse(messagesTab(oneMessage, MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Ascending), 1, 1).toString)
 
-    val addressHeading = pageSortedByAscendingAddress.select("#messagesTable thead").select("th.messages--address")
+    val addressHeading = pageSortedByAscendingAddress.select("#messagesTable thead").select("th").eq(2)
     addressHeading.select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Descending)).url
+  }
+
+  it must "include controls to change the page size" in {
+    val pageSizeControls = pageWithOneUnreadMessage.select("div.navigation-links ul li")
+
+    pageSizeControls.first().text mustBe "15"
+    pageSizeControls.get(1).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 25)).url
+    pageSizeControls.get(2).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 50)).url
+    pageSizeControls.get(3).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 100)).url
   }
 
   lazy val pageWithOneUnreadMessage: Document = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 1).toString)
