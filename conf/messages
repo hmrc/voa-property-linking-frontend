@@ -816,6 +816,8 @@ messages.read=Read
 messages.unread=Unread
 messages.paginationInfo=Showing page {0} of {1}
 messages.search=Search for {0}
+messages.pageSize.showing=Showing
+messages.pageSize.perPage=messages per page
 
 #PAGINATION CONTROLS
 pagination.next=Next

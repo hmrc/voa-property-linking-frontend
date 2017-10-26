@@ -127,6 +127,18 @@
             } else {
                 <a id="messagesTable_next" class="paginate_button next disabled">@Messages("pagination.next")</a>
             }
+
+        </div>
+
+        <div class="navigation-links">
+            @Messages("messages.pageSize.showing")
+            <ul class="inline-block">
+                @pageSizeControl(15)
+                @pageSizeControl(25)
+                @pageSizeControl(50)
+                @pageSizeControl(100)
+            </ul>
+            @Messages("messages.pageSize.perPage")
         </div>
 
     }
@@ -150,5 +162,13 @@
         <div class="sorting">
             <a href="@routes.Dashboard.viewMessages(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"messages.th.$field")</a>
         </div>
+    }
+}
+
+@pageSizeControl(size: Int) = {
+    @if(pagination.pageSize == size) {
+        <li>@size</li>
+    } else {
+        <li><a href="@routes.Dashboard.viewMessages(pagination.copy(pageSize = size))">@size</a></li>
     }
 }
