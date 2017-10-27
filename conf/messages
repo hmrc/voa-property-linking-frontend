@@ -814,10 +814,20 @@ messages.th.clientName=Client
 messages.th.effectiveDate=Received at
 messages.read=Read
 messages.unread=Unread
-messages.paginationInfo=Showing page {0} of {1}
+messages.paginationInfo=Page {0} of {1}
 messages.search=Search for {0}
 messages.pageSize.showing=Showing
 messages.pageSize.perPage=messages per page
+
+#CHECK RECEIVED MESSAGE
+checkReceived.reference=Reference: {0}
+checkReceived.address=Property: {0}
+checkReceived.timestamp=Received: {0}
+checkReceived.template.1=<p>We have received your business rates check that you submitted with submission ID {0}.</p><p>We have now created a case reference number for your check which you should use for all future correspondence. Your case reference number is {1}.</p>
+checkReceived.template.whatNow=What happens now?
+checkReceived.template.2=<p>The check will be considered by the Valuation Office Agency (VOA). No further action is required at this time.</p><p>We aim to provide a response within 12 weeks. Some checks may take longer to resolve. We will prioritise your check if you are a smaller proposer. We will contact you with an outcome for your check.</p><p>We may contact you if we need more information or evidence.</p><p><strong>Please note:</strong> the information submitted as part of your check may cause the valuation to go up as well as down.</p><p>Valuation Office Agency</p>
+checkReceived.print=Print this message
+checkReceived.download=Download this message as a PDF
 
 #PAGINATION CONTROLS
 pagination.next=Next

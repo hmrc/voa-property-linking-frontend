@@ -16,6 +16,7 @@
 
 package controllers
 
+import com.builtamont.play.pdf.PdfGenerator
 import config.ApplicationConfig
 import connectors._
 import models._
@@ -24,6 +25,7 @@ import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import repositories.MessageCacheRepository
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
 import utils.{StubPropertyLinkConnector, _}
@@ -44,7 +46,9 @@ class DashboardSpec extends ControllerSpec {
     mockDraftCases,
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
-    StubAuthentication
+    StubAuthentication,
+    mock[MessageCacheRepository],
+    mock[PdfGenerator]
   )
 
   "Logging in with a non-organisation account" must "redirect to the wrong account type error page" in {

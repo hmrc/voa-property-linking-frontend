@@ -93,7 +93,7 @@ class MessagesPageSpec extends ControllerSpec {
 
     val inputs = messagesTable.select("thead tr th div.searchField input").asScala.map(_.attr("name"))
     inputs must contain ("address")
-    inputs must contain ("referenceNumber")
+    inputs must contain ("caseReference")
   }
 
   it must "include hidden search fields for page number, page size, sort field, and sort order" in {
@@ -116,7 +116,7 @@ class MessagesPageSpec extends ControllerSpec {
   it must "prepopulate the reference number search field if the results are filtered by reference" in {
     val filteredByReference = Jsoup.parse(messagesTab(oneMessage, MessagePagination(referenceNumber = Some("ref")), 1, 1).toString)
 
-    val referenceInput = filteredByReference.select("input#referenceNumber")
+    val referenceInput = filteredByReference.select("input#caseReference")
     referenceInput.attr("value") mustBe "ref"
   }
 
@@ -169,7 +169,7 @@ class MessagesPageSpec extends ControllerSpec {
   it must "not show a next button on the last page of messages" in {
     lazy val messagesPg2 = Jsoup.parse(messagesTab(oneMessage, MessagePagination().copy(pageNumber = 2), 1, 1).toString)
 
-    val nextPageLink = messagesPg2.select("div#messagesTable_paginate a#messagesTable_next")
+    val nextPageLink = messagesPg2.select("div#messagesTable_paginate").select("li.next")
     nextPageLink.text mustBe "Next"
     nextPageLink.hasClass("disabled") mustBe true withClue "Next page link was not disabled"
   }
@@ -177,7 +177,7 @@ class MessagesPageSpec extends ControllerSpec {
   it must "not show a previous button on page 1" in {
     lazy val multiplePages = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 1).toString)
 
-    val previousPageLink = multiplePages.select("div#messagesTable_paginate a#messagesTable_previous")
+    val previousPageLink = multiplePages.select("div#messagesTable_paginate").select("li.previous")
     previousPageLink.text mustBe "Previous"
     previousPageLink.hasClass("disabled") mustBe true withClue "Previous page link was not disabled"
   }
@@ -238,12 +238,21 @@ class MessagesPageSpec extends ControllerSpec {
   }
 
   it must "include controls to change the page size" in {
-    val pageSizeControls = pageWithOneUnreadMessage.select("div.navigation-links ul li")
+    val pageSizeControls = pageWithOneUnreadMessage.select("ul.showResults li")
 
     pageSizeControls.first().text mustBe "15"
     pageSizeControls.get(1).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 25)).url
     pageSizeControls.get(2).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 50)).url
     pageSizeControls.get(3).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 100)).url
+  }
+
+  it must "have links on the read status and subject to view the message for each message" in {
+    val rows = pageWithOneUnreadMessage.select("#messagesTable tbody tr td").asScala
+
+    val message = oneMessage.messages.head
+
+    rows.head.select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.id).url
+    rows(1).select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.id).url
   }
 
   lazy val pageWithOneUnreadMessage: Document = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 1).toString)

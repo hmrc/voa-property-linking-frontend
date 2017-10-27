@@ -20,8 +20,9 @@ import javax.inject.Inject
 
 import config.ApplicationConfig
 import models.messages.{MessageCount, MessagePagination, MessageSearchResults}
+import play.api.libs.json.{JsNull, JsValue}
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.HeaderCarrier
+import uk.gov.hmrc.play.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -42,5 +43,9 @@ class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig, config: Ap
       //return fake value when messaging is disabled, so every Dashboard action doesn't need to check the config, etc.
       Future.successful(MessageCount(0, 0))
     }
+  }
+
+  def markAsRead(messageId: String, ggId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.PUT[JsValue, HttpResponse](s"$baseUrl/message/$messageId?readBy=$ggId", JsNull) map { _ => () }
   }
 }

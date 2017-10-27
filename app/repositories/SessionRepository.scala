@@ -19,6 +19,7 @@ package repositories
 import javax.inject.Inject
 
 import com.google.inject.Singleton
+import models.messages.Message
 import play.api.libs.json._
 import reactivemongo.api.DB
 import reactivemongo.api.indexes.{Index, IndexType}
@@ -39,6 +40,16 @@ class PersonalDetailsSessionRepository @Inject()(db: DB) extends SessionReposito
 
 @Singleton
 class PropertyLinkingSessionRepository @Inject()(db: DB) extends SessionRepository("propertyLinking", db)
+
+@Singleton
+class MessageCacheRepository @Inject()(db: DB) extends SessionRepository("messageCache", db) {
+  def getMessage(messageId: String)(implicit rds: Reads[Message], hc: HeaderCarrier): Future[Option[Message]] = {
+    get[Seq[Message]] map {
+      case Some(msgs) => msgs.find(_.id == messageId)
+      case None => None
+    }
+  }
+}
 
 class SessionRepository @Inject()(formId: String, db: DB)
   extends ReactiveRepository[SessionData, String]("sessions", () => db, SessionData.format, implicitly[Format[String]])

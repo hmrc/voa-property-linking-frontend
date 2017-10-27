@@ -18,8 +18,6 @@ package utils
 
 import actions.AuthenticatedAction
 import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
-import org.scalatest.mockito.MockitoSugar
-import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future

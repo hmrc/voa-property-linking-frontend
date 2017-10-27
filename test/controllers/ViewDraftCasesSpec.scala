@@ -16,6 +16,7 @@
 
 package controllers
 
+import com.builtamont.play.pdf.PdfGenerator
 import config.ApplicationConfig
 import connectors.{Authenticated, DraftCases}
 import models.Accounts
@@ -24,6 +25,7 @@ import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import repositories.MessageCacheRepository
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
 import utils.{Formatters, StubAuthentication, StubMessagesConnector, StubPropertyLinkConnector}
@@ -115,7 +117,9 @@ class ViewDraftCasesSpec extends ControllerSpec {
     mockDraftCases,
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
-    StubAuthentication
+    StubAuthentication,
+    mock[MessageCacheRepository],
+    mock[PdfGenerator]
   )
 
   private lazy val mockDraftCases = mock[DraftCases]
