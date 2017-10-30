@@ -3,7 +3,7 @@
 // ==========================================================================
 .dialog {
   @include box-sizing(border-box);
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, .5);
   height: 100%;
   padding: $gutter-half;
   position: fixed; left: 0; top: 0; right: 0; bottom: 0;
@@ -22,7 +22,6 @@
     z-index: 11;
   }
 
-
   // Matches page container properties
 
   @include media(tablet) {
@@ -33,7 +32,6 @@
     padding: 0;
   }
 
-
   &:before {
     content: '';
     display: inline-block;
@@ -41,7 +39,6 @@
     margin-right: -.25em;
     vertical-align: middle;
   }
-
 
   &-holder {
     background-color: $white;
@@ -52,7 +49,6 @@
     position: relative;
     vertical-align: middle;
   }
-
 
   &-heading {
     @include bold-36();
@@ -66,13 +62,11 @@
 
   }
 
-
   &-content {
     outline: none; // Removes dotted border on focus
     padding: 1em;
     text-align: left;
   }
-
 
   // Modify form controls inside a dialog
 
@@ -83,7 +77,6 @@
   .form-control {
     width: 100%;
   }
-
 
   // Button close modal
 
@@ -99,7 +92,8 @@
     margin: auto;
     padding: 0;
     position: absolute;
-    top: 5px; right: 5px;
+    top: 5px;
+    right: 5px;
     width: 22px;
 
     span {
@@ -107,7 +101,6 @@
     }
 
   }
-
 
   // Cancel link to close dialog
 
@@ -133,18 +126,16 @@
 
   }
 
-
-}
-.dialog-close{
-    box-shadow: none;
-    &:hover,
-    &:focus{
-        background-color: transparent;
-    }
 }
 
-.modal-content-div{
-    max-height: 368px;
-    overflow: auto;
-    margin-bottom: 20px;
+.dialog-close {
+  box-shadow: none;
+  &:hover,
+  &:focus {
+    background-color: transparent;
+  }
+}
+
+.modal-content-div {
+  margin-bottom: 20px;
 }

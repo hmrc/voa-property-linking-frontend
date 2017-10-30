@@ -8,5 +8,5 @@
 
     @checkReceivedTemplate(message)
 
-    <p><a href="@routes.Dashboard.viewMessageAsPdf(message.id)">@Messages("checkReceived.download")</a></p>
+    <p id="message-pdf"><a href="@routes.Dashboard.viewMessageAsPdf(message.id)">@Messages("checkReceived.download")</a></p>
 }

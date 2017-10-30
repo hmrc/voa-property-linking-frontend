@@ -24,6 +24,7 @@ node_modules
 govuk_modules
 npm-debug.log*
 app/assets/package-lock.json
+package-lock.json
 *.DS_Store
 frontend/sass/elements
 .grunt
