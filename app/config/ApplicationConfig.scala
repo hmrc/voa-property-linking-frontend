@@ -39,7 +39,6 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val voaPersonID: String = getConfig("google-analytics.dimensions.voaPersonId")
   lazy val pingdomToken: Option[String] = getOptionalConfig("pingdom.performance.monitor.token")
 
-
   val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
   val searchSortEnabled: Boolean = getConfig("featureFlags.searchSortEnabled").toBoolean
   val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean

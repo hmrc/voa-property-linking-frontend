@@ -192,7 +192,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
       message <- messageCache.getMessage(messageId)
     } yield {
       message match {
-        case Some(m) => pdfGen.ok(views.html.dashboard.viewMessagePdf(m), ApplicationConfig.config.baseUrl)
+        case Some(m) => pdfGen.ok(views.html.dashboard.viewMessagePdf(m), ApplicationConfig.config.serviceUrl)
         case None => NotFound(Global.notFoundTemplate)
       }
     }
