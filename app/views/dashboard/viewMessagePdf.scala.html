@@ -1,10 +1,11 @@
 @import models.messages.Message
+@import config.ApplicationConfig.config
 
 @(message: Message)(implicit request: Request[_], messages: Messages)
 
 <html>
     <head>
-        <link href="https://www.tax.service.gov.uk/template/assets/stylesheets/govuk-template-print.css" media="print" rel="stylesheet" type="text/css">
+        <link href="@config.baseUrl/template/assets/stylesheets/govuk-template-print.css" media="print" rel="stylesheet" type="text/css">
     </head>
     <body>
         @checkReceivedTemplate(message)
