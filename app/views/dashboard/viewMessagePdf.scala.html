@@ -4,9 +4,9 @@
 @(message: Message)(implicit request: Request[_], messages: Messages)
 
 <html>
-    <head>
+    @*<head>
         <link href="@config.serviceUrl/template/assets/stylesheets/govuk-template-print.css" media="print" rel="stylesheet" type="text/css">
-    </head>
+    </head>*@
     <body>
         @checkReceivedTemplate(message)
     </body>
