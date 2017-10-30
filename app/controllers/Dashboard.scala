@@ -190,10 +190,9 @@ class Dashboard @Inject()(config: ApplicationConfig,
   def viewMessageAsPdf(messageId: String) = authenticated { implicit request =>
     for {
       message <- messageCache.getMessage(messageId)
-      count <- messagesConnector.countUnread(request.organisationId)
     } yield {
       message match {
-        case Some(m) => pdfGen.ok(views.html.dashboard.viewMessagePdf(m), "localhost:9523")
+        case Some(m) => pdfGen.ok(views.html.dashboard.viewMessagePdf(m), ApplicationConfig.config.baseUrl)
         case None => NotFound(Global.notFoundTemplate)
       }
     }
