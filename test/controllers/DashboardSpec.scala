@@ -25,10 +25,9 @@ import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import repositories.MessageCacheRepository
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import utils.{StubPropertyLinkConnector, _}
+import utils._
 
 import scala.concurrent.Future
 
@@ -47,7 +46,6 @@ class DashboardSpec extends ControllerSpec {
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
     StubAuthentication,
-    mock[MessageCacheRepository],
     mock[PdfGenerator]
   )
 

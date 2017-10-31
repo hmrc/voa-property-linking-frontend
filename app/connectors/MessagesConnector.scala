@@ -19,7 +19,7 @@ package connectors
 import javax.inject.Inject
 
 import config.ApplicationConfig
-import models.messages.{MessageCount, MessagePagination, MessageSearchResults}
+import models.messages.{Message, MessageCount, MessagePagination, MessageSearchResults}
 import play.api.libs.json.{JsNull, JsValue}
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpResponse}
@@ -30,6 +30,10 @@ import scala.concurrent.{ExecutionContext, Future}
 class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig, config: ApplicationConfig)(implicit ec: ExecutionContext) {
 
   lazy val baseUrl: String = conf.baseUrl("property-linking") + "/property-linking"
+
+  def getMessage(orgId: Long, messageId: String)(implicit hc: HeaderCarrier): Future[Option[Message]] = {
+    http.GET[Message](s"$baseUrl/message/$orgId/$messageId") map { Some.apply }
+  }
 
   def getMessages(orgId: Long, pagination: MessagePagination)
                  (implicit hc: HeaderCarrier): Future[MessageSearchResults] = {

@@ -23,7 +23,6 @@ import models._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import repositories.MessageCacheRepository
 import resources._
 import utils._
 
@@ -36,7 +35,6 @@ class ManageAgentSpec extends ControllerSpec {
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
     StubAuthentication,
-    mock[MessageCacheRepository],
     mock[PdfGenerator]
   )
 

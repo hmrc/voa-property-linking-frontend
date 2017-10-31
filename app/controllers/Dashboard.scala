@@ -25,12 +25,10 @@ import config.{ApplicationConfig, Global}
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import models._
-import models.messages.{Message, MessagePagination}
+import models.messages.MessagePagination
 import models.searchApi.OwnerAuthResult
 import play.api.libs.json.Json
 import play.api.mvc.{Request, Result}
-import play.twirl.api.Html
-import repositories.MessageCacheRepository
 
 import scala.concurrent.Future
 
@@ -39,7 +37,6 @@ class Dashboard @Inject()(config: ApplicationConfig,
                           propertyLinks: PropertyLinkConnector,
                           messagesConnector: MessagesConnector,
                           authenticated: AuthenticatedAction,
-                          messageCache: MessageCacheRepository,
                           pdfGen: PdfGenerator) extends PropertyLinkingController with ValidPagination {
 
   def home() = authenticated { implicit request =>
@@ -158,7 +155,6 @@ class Dashboard @Inject()(config: ApplicationConfig,
         for {
           count <- messagesConnector.countUnread(request.organisationId)
           msgs <- messagesConnector.getMessages(request.organisationId, pagination)
-          _ <- messageCache.saveOrUpdate(msgs.messages)
         } yield {
           //round up to nearest integer
           val numberOfPages: Int = Math.ceil(count.total.toDouble / pagination.pageSize).toInt
@@ -173,7 +169,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
   def viewMessage(messageId: String) = authenticated { implicit request =>
     if(config.messagesEnabled) {
       for {
-        message <- messageCache.getMessage(messageId)
+        message <- messagesConnector.getMessage(request.organisationId, messageId)
         count <- messagesConnector.countUnread(request.organisationId)
         _ <- messagesConnector.markAsRead(messageId, request.individualAccount.externalId)
       } yield {
@@ -189,7 +185,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
 
   def viewMessageAsPdf(messageId: String) = authenticated { implicit request =>
     for {
-      message <- messageCache.getMessage(messageId)
+      message <- messagesConnector.getMessage(request.organisationId, messageId)
     } yield {
       message match {
         case Some(m) => pdfGen.ok(views.html.dashboard.viewMessagePdf(m), ApplicationConfig.config.serviceUrl)

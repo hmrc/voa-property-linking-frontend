@@ -10,24 +10,14 @@
 
     root.VOA.viewMessage = function () {
         $('.message-link').click(function (e) {
+            //prevent the non-js behaviour
             e.preventDefault();
-
-            markMessageAsRead($(this).closest('tr'));
-
-            var viewMessageUrl = $(this).context.href;
-            $.get(viewMessageUrl).then(function (viewMessagePage) {
-                var modal = createModal(viewMessagePage, viewMessageUrl);
-
-                $(document).find('.content_body').after(modal);
-
-                $('#print-message').click(function() {
-                    $('.modal-content-div').printThis();
-                });
-            });
         });
 
         $('.message--row').click(function (e) {
             markMessageAsRead($(this));
+
+            $('#dialog-message').remove();
 
             var viewMessageUrl = $(this).find('a').first().attr('href');
             $.get(viewMessageUrl).then(function (viewMessagePage) {
