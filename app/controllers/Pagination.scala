@@ -17,14 +17,17 @@
 package controllers
 
 import config.Global
-import play.api.mvc.{AnyContent, Request, Result}
+import play.api.mvc.{ AnyContent, Request, Result }
+import play.api.mvc.Results.BadRequest
+import play.twirl.api.Html
 import utils.Formatters._
 
+import scala.collection.immutable.IndexedSeq
+import scala.collection.immutable.NumericRange.Inclusive
 import scala.concurrent.Future
 
 trait ValidPagination extends PropertyLinkingController {
-  protected def withValidPagination(page: Int, pageSize: Int, getTotal: Boolean = true)
-                                   (default: Pagination => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+  protected def withValidPagination(page: Int, pageSize: Int, getTotal: Boolean = true)(default: Pagination => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
     if (page <= 0 || pageSize < 10 || pageSize > 100) {
       BadRequest(Global.badRequestTemplate)
     } else {
@@ -32,21 +35,23 @@ trait ValidPagination extends PropertyLinkingController {
     }
   }
 
-  protected def withValidPaginationSearchSort(page: Int,
-                                              pageSize: Int,
-                                              requestTotalRowCount: Boolean = true,
-                                              sortfield: Option[String] = None,
-                                              sortorder: Option[String] = None,
-                                              status: Option[String] = None,
-                                              address: Option[String] = None,
-                                              baref: Option[String] = None,
-                                              agent: Option[String] = None,
-                                              client: Option[String] = None)
-                                   (default: PaginationSearchSort => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+  protected def withValidPaginationSearchSort(
+    page: Int,
+    pageSize: Int,
+    requestTotalRowCount: Boolean = true,
+    sortfield: Option[String] = None,
+    sortorder: Option[String] = None,
+    status: Option[String] = None,
+    address: Option[String] = None,
+    baref: Option[String] = None,
+    agent: Option[String] = None,
+    client: Option[String] = None
+  )(default: PaginationSearchSort => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
     if (page <= 0 || pageSize < 10 || pageSize > 100) {
       BadRequest(Global.badRequestTemplate)
     } else {
-      default(PaginationSearchSort(pageNumber = page,
+      default(PaginationSearchSort(
+        pageNumber = page,
         pageSize = pageSize,
         requestTotalRowCount = requestTotalRowCount,
         sortfield = sortfield,
@@ -55,7 +60,8 @@ trait ValidPagination extends PropertyLinkingController {
         address = address,
         baref = baref,
         agent = agent,
-        client = client))
+        client = client
+      ))
     }
   }
 }
@@ -63,30 +69,56 @@ trait ValidPagination extends PropertyLinkingController {
 case class Pagination(pageNumber: Int, pageSize: Int, totalResults: Long = 0, resultCount: Boolean = true) {
   def startPoint: Int = pageSize * (pageNumber - 1) + 1
   override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$resultCount"
+
+  def maxPage: Int = (totalResults / pageSize).toInt
+
+  def pageination = (1 to maxPage).map(html)
+
+  private def html(int: Int): Html = {
+    if (int == pageNumber)
+      Html(s"<li value='1'>$int</li>")
+    else
+      Html(s"""<li class="Bob" value=$int>$int</li>""")
+  }
+
+  private def previous: List[Html] = {
+    if (pageNumber == 1)
+      List(Html("<li>Previous</li>"))
+    else
+      List(Html(s"""<li class="bob" value="${pageNumber - 1}">Previous</li>"""))
+  }
+
+  private def next: List[Html] = {
+    if (pageNumber == maxPage)
+      List(Html("<li>Next</li>"))
+    else
+      List(Html(s"""<li class="bob" value="${pageNumber + 1}">Next</li>"""))
+  }
 }
 
-
-case class PaginationSearchSort(pageNumber: Int,
-                                pageSize: Int,
-                                requestTotalRowCount: Boolean = false,
-                                sortfield: Option[String] = None,
-                                sortorder: Option[String] = None,
-                                status: Option[String] = None,
-                                address: Option[String] = None,
-                                baref: Option[String] = None,
-                                agent: Option[String] = None,
-                                client: Option[String] = None,
-                                totalResults: Long = 0) {
+case class PaginationSearchSort(
+    pageNumber: Int,
+    pageSize: Int,
+    requestTotalRowCount: Boolean = false,
+    sortfield: Option[String] = None,
+    sortorder: Option[String] = None,
+    status: Option[String] = None,
+    address: Option[String] = None,
+    baref: Option[String] = None,
+    agent: Option[String] = None,
+    client: Option[String] = None,
+    totalResults: Long = 0
+) {
 
   def reverseSortOrder: Option[String] = {
 
-    sortorder match
-      { case Some(paramValue) if paramValue.toUpperCase == "ASC" => Some("DESC") ;
-        case _ => Some("ASC")
-      }
+    sortorder match {
+      case Some(paramValue) if paramValue.toUpperCase == "ASC" => Some("DESC");
+      case _ => Some("ASC")
+    }
   }
 
-  def valueOfSortorder : String = sortorder.getOrElse("ASC").toUpperCase
+  def valueOfSortorder: String = sortorder.getOrElse("ASC").toUpperCase
   def valueOfSortfield: String = sortfield.getOrElse("").trim
   def valueOfStatus: String = status.getOrElse("").trim
   def valueOfAddress: String = address.getOrElse("").trim
@@ -94,9 +126,8 @@ case class PaginationSearchSort(pageNumber: Int,
   def valueOfAgent: String = agent.getOrElse("").trim
   def valueOfClient: String = client.getOrElse("").trim
 
-  def valuesOfSearchParameters : String =
+  def valuesOfSearchParameters: String =
     valueOfStatus + valueOfAddress + valueOfBaref + valueOfAgent + valueOfClient
-
 
   def startPoint: Int = pageSize * (pageNumber - 1) + 1
   override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$requestTotalRowCount" +
@@ -108,5 +139,35 @@ case class PaginationSearchSort(pageNumber: Int,
     buildQueryParams("agent", agent) +
     buildQueryParams("client", client)
 
+  def maxPage: Int = (totalResults / pageSize).toInt
+
+  def getHtml: List[Html] = {
+    val list = (1 to maxPage).map(html).toList
+    if (list.isEmpty)
+      List(Html("""<a class="next pX disabled">Next</a>"""), Html("""<a class="value" id="current" data-dt-idx="1">1</a>"""), Html("""<a class="previous pX disabled" >Previous</a>"""))
+    else
+      previous ::: list ::: next
+  }
+
+  private def previous: List[Html] = {
+    if (pageNumber == 1)
+      List(Html("""<a class="pX disabled">Previous</a>"""))
+    else
+      List(Html(s"""<a class="pX" data-dt-idx="${pageNumber - 1}" >Previous</a>"""))
+  }
+
+  private def next: List[Html] = {
+    if (pageNumber == maxPage)
+      List(Html("""<a class="pX disabled" >Next</a>"""))
+    else
+      List(Html(s"""<a class="pX" data-dt-idx="${pageNumber + 1}" >Next<a>"""))
+  }
+
+  private def html(int: Int): Html = {
+    if (int == pageNumber)
+      Html(s"""<a class="pX value" id="current" data-dt-idx="$int" >$int</a>""")
+    else
+      Html(s"""<a class="pX value" data-dt-idx="$int" >$int</a>""")
+  }
 }
 
