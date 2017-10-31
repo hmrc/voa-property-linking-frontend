@@ -48,35 +48,36 @@
                                     <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
                                 } else {
                                     <div class="sorting" >
-                                    }
-                                    <a href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("address"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.1")</a>
+                                }
+                                    <a id="sort-by-address-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("address"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.1")</a>
                                     </div>
                             </th>
                             <th scope="col" >
                                 @if(model.pagination.valueOfSortfield == "baref") {
                                     <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
-                                    } else {
+                                } else {
                                     <div class="sorting" >
-                                    }
-                                    <a href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("baref"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.2")</a>
+                                }
+                                    <a id="sort-by-baref-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("baref"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.2")</a>
                                     </div>
                             </th>
                             <th scope="col">
                                 @if(model.pagination.valueOfSortfield == "status") {
                                     <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
-                                    } else {
+                                } else {
                                     <div class="sorting" >
-                                    }
-                                <a href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("status"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.3")</a>
+                                }
+                                    <a id="sort-by-status-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("status"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.3")</a>
                                     </div>
                             </th>
                             <th scope="col">
                                 @if(model.pagination.valueOfSortfield == "client") {
                                     <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
-                                    } else {
+                                } else {
                                     <div class="sorting" >
-                                    }
-                                    <a href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("client"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.4")</a></div>
+                                }
+                                    <a id="sort-by-client-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("client"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.4")</a>
+                                    </div>
                             </th>
                             <th scope="col">
                                 <div>@Messages("managePropertiesSearchSort.table.5")</div>

@@ -30,41 +30,42 @@
                     <table class="dataTable table-font-xsmall margin-bottom-20 margin-top-20" id="nojsManageProperties">
                         <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
                         <tbody>
-
                             <tr role="row">
                                 <th scope="col" >
                                     @if(model.pagination.valueOfSortfield == "address") {
                                         <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
-                                        } else {
+                                    } else {
                                         <div class="sorting" >
-                                        }
-                                    <a href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("address"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">@Messages("manageProperties.table.1")</a>
-                                </div>
+                                    }
+                                        <a id="sort-by-address-no-js" href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("address"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">@Messages("manageProperties.table.1")</a>
+                                        </div>
                                 </th>
                                 <th scope="col" >
                                     @if(model.pagination.valueOfSortfield == "baref") {
                                         <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
-                                        } else {
+                                    } else {
                                         <div class="sorting" >
-                                        }
-                                    <a href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("baref"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">@Messages("manageProperties.table.2")</a>
-                                </div>
+                                    }
+                                        <a id="sort-by-baref-no-js" href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("baref"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">@Messages("manageProperties.table.2")</a>
+                                        </div>
                                 </th>
                                 <th scope="col">
                                     @if(model.pagination.valueOfSortfield == "status") {
                                         <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
-                                        } else {
+                                    } else {
                                         <div class="sorting" >
-                                        }
-                                    <a href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("status"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">@Messages("manageProperties.table.3")</a>
+                                    }
+                                        <a id="sort-by-status-no-js" href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("status"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">@Messages("manageProperties.table.3")</a>
+                                        </div>
                                 </th>
                                 <th scope="col">
                                     @if(model.pagination.valueOfSortfield == "agent") {
                                         <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
-                                        } else {
+                                    } else {
                                         <div class="sorting" >
-                                        }
-                                    <a href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("agent"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">@Messages("manageProperties.table.4")</a></div>
+                                    }
+                                        <a id="sort-by-agent-no-js" href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("agent"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">@Messages("manageProperties.table.4")</a>
+                                        </div>
                                 </th>
                                 <th scope="col">
                                     <div>@Messages("manageProperties.table.5")</div>
