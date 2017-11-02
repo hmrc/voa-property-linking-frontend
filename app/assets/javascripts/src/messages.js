@@ -32,7 +32,9 @@
                 rows: 'rows',
                 accept: 'Accept',
                 reject: 'Reject',
-                declinedHelp: 'Declined help'
+                declinedHelp: 'Declined help',
+                view: 'View',
+                propertiesPerPage: 'properties per page'
             },
             errors : {
                 postcodeLookupError:'Enter a valid postcode',

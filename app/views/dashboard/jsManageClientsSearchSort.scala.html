@@ -23,3 +23,12 @@
         </thead>
     </table>
 </div>
+<script>
+function pageSize(size) {
+    var table = $('#dataTableManageClientsSearchSort').DataTable();
+    if (table.page.len() == size)
+        return false;
+    else
+        table.page.len(size).draw();
+}
+</script>
