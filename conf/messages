@@ -187,7 +187,7 @@ createAccount.group.details.header.agent=I’m registering as an agent
 createAccount.group.details.content.agent=You’ll need to provide information about your own business here, not your client’s business.
 createAccount.group.details.header.multipleAddress=There’s more than one address for my business
 createAccount.group.details.content.multipleAddress=You should enter the address that you want any business correspondence to be sent to.
-createAccount.business.email.help=This email address should be regularly monitored as we’ll use this for correspondence.
+createAccount.business.email.help=This should be your email address and not your agent's. The email address should be monitored.
 
 account.confirmation.alreadyRegistered.youCan=You can now:
 account.confirmation.alreadyRegistered.youCan.1=add properties to the business’s customer record
