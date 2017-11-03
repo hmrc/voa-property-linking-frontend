@@ -21,14 +21,6 @@
            </tr>
         </thead>
     </table>
-</div>
 
-<script>
-function pageSize(size) {
-    var table = $('#dataTableManagePropertiesSearchSort').DataTable();
-    if (table.page.len() == size)
-        return false;
-    else
-        table.page.len(size).draw();
-}
-</script>
+    @jsSearchSortPageSize("#dataTableManagePropertiesSearchSort")
+</div>

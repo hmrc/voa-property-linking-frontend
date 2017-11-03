@@ -15,7 +15,6 @@
                 $.fn.dataTable.ext.errMode = 'none';
 
                 function settings(table) {
-                    var pagesizelist = pageSizeList(15);
                     return $.extend( true, $.fn.dataTable.defaults, {
                         serverSide: true,
                         info: true,
@@ -31,8 +30,7 @@
                             $("#page-size-option-"+current).removeClass().addClass("page-size-option-current");
                         },
                         language: {
-                            info: '<div class="page-size-list">' + messages.labels.view + pagesizelist + messages.labels.propertiesPerPage + '</div>'
-                                + messages.labels.showing + ' _START_ ' + messages.labels.to + ' _END_ ' + messages.labels.of + ' _TOTAL_',
+                            info: messages.labels.showing + ' _START_ ' + messages.labels.to + ' _END_ ' + messages.labels.of + ' _TOTAL_',
                             processing: '<div class="loading-container"><span class="loading-icon"></span><span class="loading-label">' +  messages.labels.loading + '</span></div>',
                             paginate: {
                                 next: messages.labels.next + '<i class="next-arrow"></i>',
@@ -44,20 +42,6 @@
                             $(this).closest('.dataTables_wrapper').find('.dataTables_length').toggle(settings._iRecordsTotal > settings._iDisplayLength);
                         }
                     });
-                }
-
-                function pageSizeList(current) {
-                    return pageSizeListItem(current, 15) + pageSizeListItem(current, 25) +
-                        pageSizeListItem(current, 50) + pageSizeListItem(current, 100);
-                }
-
-                function pageSizeListItem(currentSize, size) {
-                    if (currentSize == size)
-                        return '<a id="page-size-option-'+size+
-                            '" class="page-size-option-current" onclick="return pageSize('+size+');" href="#">'+size+'</a>';
-                    else
-                        return '<a id="page-size-option-'+size+
-                            '" class="page-size-option" onclick="return pageSize('+size+');" href="#">'+size+'</a>';
                 }
 
                 function errors(table) {
