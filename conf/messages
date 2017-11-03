@@ -251,6 +251,8 @@ manageProperties.revokeAgent=Remove agent
 manageProperties.addAgent=Appoint agent
 manageProperties.viewAssessments=View valuations
 link.dashboard.home=Back to dashboard
+search.sort.page.size.view=View
+search.sort.page.size.properties.per.page=properties per page
 
 
 #MANAGED BY AGENT PROPERTIES

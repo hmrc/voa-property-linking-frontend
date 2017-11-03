@@ -22,7 +22,21 @@
     right:6px;
     position:relative;
     float: right;
+}
 
+a.page-size-option {
+    padding-right: 5px;
+    text-decoration: underline ;
+}
+
+a.page-size-option:first-child, a.page-size-option-current:first-child {
+    padding-left: 5px;
+}
+
+a.page-size-option-current {
+    padding-right: 5px;
+    text-decoration: none ;
+    color: #0b0c0c;
 }
 
 
