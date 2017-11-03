@@ -161,40 +161,68 @@
 
                 </div>
 
-                <p class="pull-left">
-                    Showing
-                    @if(model.result.authorisations.isEmpty) {
-                        0
-                    }else{
-                        @model.pagination.startPoint
-                    } to @{
-                        model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)
-                    } of @model.pagination.totalResults
-                </p>
+                <div>
+                    <div class="pull-left">
+                        Showing
+                        @if(model.result.authorisations.isEmpty) {
+                            0
+                        }else{
+                            @model.pagination.startPoint
+                        } to @{
+                            model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)
+                        } of @model.pagination.totalResults
+                    </div>
 
-                <div role="navigation" aria-label="Pagination">
-                    <ul class="pagination">
-                        @if(model.pagination.pageNumber > 1) {
-                            <li class="previous "><a href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber - 1, model.pagination.pageSize, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url"><i class="previous-arrow"></i>Previous</a></li>
-                        } else {
-                            <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
-                        }
+                    <div role="navigation" aria-label="Pagination" class="pull-right">
+                        <ul class="pagination" style="margin-top: 0px">
+                            @if(model.pagination.pageNumber > 1) {
+                                <li class="previous "><a href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber - 1, model.pagination.pageSize, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url"><i class="previous-arrow"></i>Previous</a></li>
+                            } else {
+                                <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
+                            }
 
-                        <li class="active">@model.pagination.pageNumber</li>
+                            <li class="active">@model.pagination.pageNumber</li>
 
-                        @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
-                            <li class="next">
-                                    <a href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber + 1, model.pagination.pageSize, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">Next<i class="next-arrow"></i></a></li>
+                            @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
+                                <li class="next">
+                                        <a href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber + 1, model.pagination.pageSize, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">Next<i class="next-arrow"></i></a></li>
 
-                        } else {
-                            <li class="next disabled">Next <i class="next-arrow"></i></li>
-                        }
-                    </ul>
+                            } else {
+                                <li class="next disabled">Next <i class="next-arrow"></i></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
+
+                <div id="page-size-list">
+                    <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
+                    @if(model.pagination.pageSize == 15) {
+                        <span class="page-size-option-current">15</span>
+                    } else {
+                        <a class="page-size-option" href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, 15, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">15</a>
+                    }
+                    @if(model.pagination.pageSize == 25) {
+                        <span class="page-size-option-current">25</span>
+                    } else {
+                        <a class="page-size-option" href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, 25, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">25</a>
+                    }
+                    @if(model.pagination.pageSize == 50) {
+                        <span class="page-size-option-current">50</span>
+                    } else {
+                        <a class="page-size-option" href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, 50, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">50</a>
+                    }
+                    @if(model.pagination.pageSize == 100) {
+                        <span class="page-size-option-current">100</span>
+                    } else {
+                        <a class="page-size-option" href="@routes.Dashboard.managePropertiesSearchSort(model.pagination.pageNumber, 100, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">100</a>
+                    }
+                    @Messages("search.sort.page.size.properties.per.page")
+                </div>
+
+                <br>
             </noscript>
 
-            <div class="clearfix"></div>
-            
             @views.html.helpers.declinedHelp()
         }
 
