@@ -14,7 +14,7 @@
 
                 $.fn.dataTable.ext.errMode = 'none';
 
-                function settings(table){
+                function settings(table) {
                     return $.extend( true, $.fn.dataTable.defaults, {
                         serverSide: true,
                         info: true,
@@ -24,15 +24,18 @@
                         searching: false,
                         ordering: false,
                         pageLength: 15,
-                        lengthMenu: [[15, 25, 50, 100], [15, 25, 50, 100]],
+                        drawCallback: function(settings) {
+                            var current = this.api().page.len();
+                            $(".page-size-option-current").removeClass().addClass("page-size-option");
+                            $("#page-size-option-"+current).removeClass().addClass("page-size-option-current");
+                        },
                         language: {
                             info: messages.labels.showing + ' _START_ ' + messages.labels.to + ' _END_ ' + messages.labels.of + ' _TOTAL_',
                             processing: '<div class="loading-container"><span class="loading-icon"></span><span class="loading-label">' +  messages.labels.loading + '</span></div>',
                             paginate: {
                                 next: messages.labels.next + '<i class="next-arrow"></i>',
                                 previous: '<i class="previous-arrow"></i>' +  messages.labels.previous
-                            },
-                            lengthMenu: messages.labels.show + ' _MENU_ ' + messages.labels.rows
+                            }
                         },
                         initComplete: function(settings, json) {
                             $(this).closest('.dataTables_wrapper').find('.dataTables_paginate').toggle(settings._iRecordsTotal > settings._iDisplayLength);
