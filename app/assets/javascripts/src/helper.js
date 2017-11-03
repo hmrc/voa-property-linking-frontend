@@ -26,8 +26,8 @@
                         pageLength: 15,
                         drawCallback: function(settings) {
                             var current = this.api().page.len();
-                            $(".page-size-option-current").removeClass().addClass("page-size-option");
-                            $("#page-size-option-"+current).removeClass().addClass("page-size-option-current");
+                            $('.page-size-option-current').removeClass().addClass('page-size-option');
+                            $('#page-size-option-'+current).removeClass().addClass('page-size-option-current');
                         },
                         language: {
                             info: messages.labels.showing + ' _START_ ' + messages.labels.to + ' _END_ ' + messages.labels.of + ' _TOTAL_',
