@@ -201,7 +201,7 @@
                     @if(model.pagination.pageSize == len) {
                         <span class="page-size-option-current">@len</span>
                     } else {
-                        <a class="page-size-option" href="@controllers.agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, 15, model.pagination.requestTotalRowCount, model.pagination.sortfield, model.pagination.sortorder, model.pagination.status, model.pagination.address, model.pagination.baref, model.pagination.agent).url">
+                        <a class="page-size-option" href="@controllers.agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, len, model.pagination.requestTotalRowCount, model.pagination.sortfield, model.pagination.sortorder, model.pagination.status, model.pagination.address, model.pagination.baref, model.pagination.agent).url">
                             @len</a>
                     }
                 }
