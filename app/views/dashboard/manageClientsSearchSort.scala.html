@@ -197,25 +197,12 @@
 
             <div id="page-size-list">
                 <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
-                @if(model.pagination.pageSize == 15) {
-                    <span class="page-size-option-current">15</span>
-                } else {
-                    <a class="page-size-option" href="@controllers.agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, 15, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">15</a>
-                }
-                @if(model.pagination.pageSize == 25) {
-                    <span class="page-size-option-current">25</span>
-                } else {
-                    <a class="page-size-option" href="@controllers.agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, 25, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">25</a>
-                }
-                @if(model.pagination.pageSize == 50) {
-                    <span class="page-size-option-current">50</span>
-                } else {
-                    <a class="page-size-option" href="@controllers.agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, 50, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">50</a>
-                }
-                @if(model.pagination.pageSize == 100) {
-                    <span class="page-size-option-current">100</span>
-                } else {
-                    <a class="page-size-option" href="@controllers.agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, 100, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">100</a>
+                @for(len <- List(15,25,50,100)) {
+                    @if(model.pagination.pageSize == len) {
+                        <span class="page-size-option-current">len</span>
+                    } else {
+                        <a class="page-size-option" href="@controllers.agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, 15, model.pagination.requestTotalRowCount, model.pagination.sortfield, model.pagination.sortorder, model.pagination.status, model.pagination.address, model.pagination.baref, model.pagination.agent).url">len</a>
+                    }
                 }
                 @Messages("search.sort.page.size.properties.per.page")
             </div>
