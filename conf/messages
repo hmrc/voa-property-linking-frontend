@@ -421,11 +421,13 @@ manageProperties.noRepresentations=You have no representations
 permission.START_AND_CONTINUE=Yes
 permission.NOT_PERMITTED=No
 
+pendingRepresentationRequests.select.deselect=Select / deselect all
 pendingRepresentationRequests.title=Pending agent requests
-pendingRepresentationRequests.table.1=Organisation name
-pendingRepresentationRequests.table.2=Property address
-pendingRepresentationRequests.table.3=Permissions
-pendingRepresentationRequests.table.4=Date requested
+pendingRepresentationRequests.table.select=Select
+pendingRepresentationRequests.table.orgName=Organisation name
+pendingRepresentationRequests.table.propertyAddress=Property address
+pendingRepresentationRequests.table.permissions=Permissions
+pendingRepresentationRequests.table.dateRequested=Date requested
 pendingRepresentationRequests.table.5=Actions
 
 #SEARCH

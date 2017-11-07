@@ -19,31 +19,31 @@
         <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
     } else {
 
-        @jsPendingRequests()
+        <div class="margin-top-10 panel panel-border-wide">
+            <p class="font-xsmall"> @Messages("agent.request.warning")</p>
+        </div>
 
-        <noscript>
-
-        @helpers.paginationControls(model.pagination, agent.routes.RepresentationController.pendingRepresentationRequest)
+        <div class="margin-top-20 hide-if-no-js">
+            <a href="#" id="select-all">@Messages("pendingRepresentationRequests.select.deselect")</a>
+        </div>
 
         <div class="table-wrapper">
             <table class="table-font-xsmall margin-bottom-20 margin-top-30" id="nojsPendingRequests">
                 <caption class="visuallyhidden">@Messages("pendingRepresentationRequests.title")</caption>
-                <div class="margin-top-10 panel panel-border-wide">
-                    <p class="font-xsmall">
-                        @Messages("agent.request.warning")
-                    </p>
-                </div>
                 <tbody>
                     <tr>
-                        <th scope="col">@Messages("pendingRepresentationRequests.table.1")</th>
-                        <th scope="col">@Messages("pendingRepresentationRequests.table.2")</th>
-                        <th scope="col">@Messages("pendingRepresentationRequests.table.3")</th>
-                        <th scope="col">@Messages("pendingRepresentationRequests.table.4")</th>
+                        <th scope="col">@Messages("pendingRepresentationRequests.table.select")</th>
+                        <th scope="col">@Messages("pendingRepresentationRequests.table.orgName")</th>
+                        <th scope="col">@Messages("pendingRepresentationRequests.table.propertyAddress")</th>
+                        <th scope="col">@Messages("pendingRepresentationRequests.table.permissions")</th>
+                        <th scope="col">@Messages("pendingRepresentationRequests.table.dateRequested")</th>
                         <th scope="col">@Messages("pendingRepresentationRequests.table.5")</th>
                     </tr>
                     @model.propertyRepresentations.map { p =>
                         <tr>
-                            <td>@(p.organisationName)</td>
+                            <td><div class="multiple-choice">
+                            <input class="select-checkbox" type="checkbox" name="requestId" value="@p.submissionId"></div></td>
+                            <td>@p.organisationName</td>
 
                             <td>@(Formatters.capitalizedAddress(PropertyAddress.fromString(p.address)))</td>
 
@@ -97,7 +97,6 @@
             </ul>
         </div>
 
-        </noscript>
     }
 
 }
