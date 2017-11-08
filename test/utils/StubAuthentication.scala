@@ -17,11 +17,7 @@
 package utils
 
 import actions.AuthenticatedAction
-import config.ApplicationConfig
 import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
-import org.scalatest.mockito.MockitoSugar
-import play.api.{Configuration, Environment, Mode}
-import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -37,14 +33,10 @@ object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAut
 
 }
 
-object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubApplicationConfig(), StubHttp) {
+object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubServicesConfig, StubHttp) {
   var authorisationResult: AuthorisationResult = InvalidGGSession
 
   override def authenticate(implicit hc: HeaderCarrier) = Future.successful(authorisationResult)
   override def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
   override def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
-}
-
-object StubApplicationConfig extends MockitoSugar {
-  def apply(): ServicesConfig = mock[ServicesConfig]
 }

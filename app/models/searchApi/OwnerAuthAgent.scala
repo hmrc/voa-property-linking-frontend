@@ -21,7 +21,8 @@ import play.api.libs.json.Json
 case class OwnerAuthAgent(
                            authorisedPartyId: Long,
                            organisationId: Long,
-                           organisationName: String
+                           organisationName: String,
+                           status: Option[String]
                          )
 
 object OwnerAuthAgent {

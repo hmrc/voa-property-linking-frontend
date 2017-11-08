@@ -29,7 +29,7 @@ import play.api.i18n.Messages.Implicits.applicationMessages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results._
 import play.api.mvc._
-import uk.gov.hmrc.play.http.HeaderCarrier
+import uk.gov.hmrc.play.http.{BadRequestException, HeaderCarrier, NotFoundException}
 
 import scala.concurrent.Future
 
@@ -40,10 +40,14 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
   def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
     businessRatesAuthorisation.authenticate flatMap {
       res => handleResult(res, body)
-    } recover {
+    } recoverWith {
+      case e: BadRequestException =>
+        Global.onBadRequest(request, e.message)
+      case _: NotFoundException =>
+        Global.onHandlerNotFound(request)
+      //need to catch unhandled exceptions here to propagate the request ID into the internal server error page
       case e =>
-        Logger.error(e.getMessage, e)
-        InternalServerError(Global.internalServerErrorTemplate(request))
+        Global.onError(request, e)
     }
   }
 
@@ -95,7 +99,7 @@ sealed trait AuthenticatedRequest[A] extends Request[A] {
   val individualAccount: DetailedIndividualAccount
 
   def organisationId: Long = organisationAccount.id
-  def personId: Int = individualAccount.individualId
+  def personId: Long = individualAccount.individualId
 }
 
 case class BasicAuthenticatedRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A])

@@ -38,6 +38,8 @@ class UploadEvidence @Inject()(override val config: ApplicationConfig,
         case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadEvidence(UploadEvidenceVM(fileTooLarge, submissionUrl)))
         case Some(NOT_FOUND) => notFound
         case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadEvidence(UploadEvidenceVM(invalidFileType, submissionUrl)))
+        // this assumes BAD_REQUEST is caused by "Envelope does not allow zero length files, and submitted file has length 0"
+        case Some(BAD_REQUEST) => UnsupportedMediaType(uploadEvidence(UploadEvidenceVM(invalidFileType, submissionUrl)))
         //if FUaaS repeatedly returns unexpected error codes e.g. 500s, trigger the circuit breaker
         case Some(err) => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
         case None => Ok(uploadEvidence(UploadEvidenceVM(form, submissionUrl)))

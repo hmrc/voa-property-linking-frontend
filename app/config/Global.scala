@@ -19,6 +19,7 @@ package config
 import java.time.{Clock, Instant, LocalDateTime, ZoneId}
 import javax.inject.{Inject, Provider}
 
+import com.builtamont.play.pdf.PdfGenerator
 import com.google.inject.AbstractModule
 import com.google.inject.name.Names
 import com.typesafe.config.Config
@@ -43,7 +44,6 @@ import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
 import uk.gov.hmrc.play.http.HeaderNames
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
 import uk.gov.hmrc.play.http.ws.WSHttp
-
 
 object Global extends VPLFrontendGlobal
 
@@ -108,6 +108,7 @@ class GuiceModule(environment: Environment,
     bind(classOf[Clock]).toInstance(Clock.systemUTC())
     bind(classOf[AuthConnector]).to(classOf[VPLAuthConnector])
     bind(classOf[CircuitBreakerConfig]).toProvider(classOf[CircuitBreakerConfigProvider]).asEagerSingleton()
+    bind(classOf[PdfGenerator]).toInstance(new PdfGenerator(environment))
   }
 }
 

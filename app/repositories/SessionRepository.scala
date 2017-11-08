@@ -19,6 +19,7 @@ package repositories
 import javax.inject.Inject
 
 import com.google.inject.Singleton
+import models.messages.Message
 import play.api.libs.json._
 import reactivemongo.api.DB
 import reactivemongo.api.indexes.{Index, IndexType}

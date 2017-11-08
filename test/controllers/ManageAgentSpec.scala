@@ -16,6 +16,7 @@
 
 package controllers
 
+import com.builtamont.play.pdf.PdfGenerator
 import config.ApplicationConfig
 import connectors._
 import models._
@@ -28,8 +29,14 @@ import utils._
 class ManageAgentSpec extends ControllerSpec {
   implicit val request = FakeRequest()
 
-  object TestDashboardController extends Dashboard(app.injector.instanceOf[ApplicationConfig], mock[DraftCases],
-    StubPropertyLinkConnector, StubAuthentication)
+  object TestDashboardController extends Dashboard(
+    app.injector.instanceOf[ApplicationConfig],
+    mock[DraftCases],
+    StubPropertyLinkConnector,
+    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
+    StubAuthentication,
+    mock[PdfGenerator]
+  )
 
   "Manage Agents page" must "return Ok" in {
     val link = arbitrary[PropertyLink].sample.get

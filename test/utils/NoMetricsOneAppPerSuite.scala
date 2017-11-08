@@ -28,6 +28,7 @@ trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite {
   override def fakeApplication() = new GuiceApplicationBuilder()
     .disable[com.kenshoo.play.metrics.PlayModule]
     .disable[modules.MongoStartup]
+    .configure("featureFlags.messagesEnabled" -> "true")
     .configure(additionalAppConfig:_*)
     .build()
 }

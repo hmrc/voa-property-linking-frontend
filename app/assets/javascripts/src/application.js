@@ -21,6 +21,7 @@
         new VOA.DataTableManageClientsSearchSort();
         new VOA.DataTablePendingRequests();
         new VOA.ShowDialog();
+        new VOA.viewMessage();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));

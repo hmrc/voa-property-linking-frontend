@@ -16,6 +16,7 @@
 
 package controllers
 
+import com.builtamont.play.pdf.PdfGenerator
 import config.ApplicationConfig
 import connectors.{Authenticated, DraftCases}
 import models.Accounts
@@ -26,7 +27,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import uk.gov.hmrc.play.http.HeaderCarrier
-import utils.{Formatters, StubAuthentication, StubPropertyLinkConnector}
+import utils.{Formatters, StubAuthentication, StubMessagesConnector, StubPropertyLinkConnector}
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
@@ -110,7 +111,14 @@ class ViewDraftCasesSpec extends ControllerSpec {
     }
   }
 
-  private lazy val testController = new Dashboard(app.injector.instanceOf[ApplicationConfig], mockDraftCases, StubPropertyLinkConnector, StubAuthentication)
+  private lazy val testController = new Dashboard(
+    app.injector.instanceOf[ApplicationConfig],
+    mockDraftCases,
+    StubPropertyLinkConnector,
+    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
+    StubAuthentication,
+    mock[PdfGenerator]
+  )
 
   private lazy val mockDraftCases = mock[DraftCases]
 }

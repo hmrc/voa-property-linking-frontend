@@ -16,21 +16,28 @@
 
 package controllers
 
-import java.time.LocalDate
+import java.time._
 import javax.inject.Inject
 
 import actions.AuthenticatedAction
+import com.builtamont.play.pdf.PdfGenerator
 import config.{ApplicationConfig, Global}
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import models._
+import models.messages.MessagePagination
 import models.searchApi.OwnerAuthResult
 import play.api.libs.json.Json
+import play.api.mvc.{Request, Result}
+
+import scala.concurrent.Future
 
 class Dashboard @Inject()(config: ApplicationConfig,
                           draftCases: DraftCases,
                           propertyLinks: PropertyLinkConnector,
-                          authenticated: AuthenticatedAction) extends PropertyLinkingController with ValidPagination {
+                          messagesConnector: MessagesConnector,
+                          authenticated: AuthenticatedAction,
+                          pdfGen: PdfGenerator) extends PropertyLinkingController with ValidPagination {
 
   def home() = authenticated { implicit request =>
     if (request.organisationAccount.isAgent) {
@@ -40,45 +47,49 @@ class Dashboard @Inject()(config: ApplicationConfig,
     }
   }
 
-  def manageProperties( page: Int, pageSize: Int, requestTotalRowCount: Boolean = true) =
+  def manageProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true) =
     managePropertiesSearchSort(page = page, pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, None, None, None, None, None, None)
 
-  def managePropertiesSearchSort( page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
-                                      sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
-                                      baref: Option[String] = None, agent: Option[String]  = None) = authenticated { implicit request =>
-        if (config.searchSortEnabled) {
-          withValidPaginationSearchSort(
-            page = page,
-            pageSize = pageSize,
-            requestTotalRowCount = requestTotalRowCount,
-            sortfield = sortfield,
-            sortorder = sortorder,
-            status = status,
-            address = address,
-            baref = baref,
-            agent = agent
-          ) { paginationSearchSort =>
-            propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort) map { response =>
-              Ok(views.html.dashboard.managePropertiesSearchSort(
-                ManagePropertiesSearchAndSortVM(request.organisationAccount.id,
-                  response,
-                  paginationSearchSort.copy(
-                    totalResults = response.filterTotal))))
-            }
-          }
-        } else {
-          withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
-            propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>
-              Ok(views.html.dashboard.manageProperties(
-                ManagePropertiesVM(request.organisationAccount.id,
-                  response.propertyLinks,
-                  pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
-            }
-          }
+  def managePropertiesSearchSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
+                                 sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
+                                 baref: Option[String] = None, agent: Option[String] = None) = authenticated { implicit request =>
+    if (config.searchSortEnabled) {
+      withValidPaginationSearchSort(
+        page = page,
+        pageSize = pageSize,
+        requestTotalRowCount = requestTotalRowCount,
+        sortfield = sortfield,
+        sortorder = sortorder,
+        status = status,
+        address = address,
+        baref = baref,
+        agent = agent
+      ) { paginationSearchSort =>
+        for {
+          response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
+          msgCount <- messagesConnector.countUnread(request.organisationId)
+        } yield {
+          Ok(views.html.dashboard.managePropertiesSearchSort(
+            ManagePropertiesSearchAndSortVM(
+              request.organisationAccount.id,
+              response,
+              paginationSearchSort.copy(totalResults = response.filterTotal)
+            ),
+            msgCount.unread
+          ))
         }
-
+      }
+    } else {
+      withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
+        propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>
+          Ok(views.html.dashboard.manageProperties(
+            ManagePropertiesVM(request.organisationAccount.id,
+              response.propertyLinks,
+              pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
+        }
+      }
+    }
   }
-
 
   def getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated { implicit request =>
     withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
@@ -96,7 +107,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
                                  status: Option[String],
                                  address: Option[String],
                                  baref: Option[String],
-                                 agent: Option[String])  = authenticated { implicit request =>
+                                 agent: Option[String]) = authenticated { implicit request =>
     withValidPaginationSearchSort(page, pageSize, requestTotalRowCount, sortfield, sortorder, status, address, baref, agent) { pagination =>
       propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination) map { res =>
         Ok(Json.toJson(res))
@@ -107,12 +118,13 @@ class Dashboard @Inject()(config: ApplicationConfig,
   def manageAgents() = authenticated { implicit request =>
     for {
       response <- propertyLinks.linkedProperties(request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false))
+      msgCount <- messagesConnector.countUnread(request.organisationId)
     } yield {
       val agentInfos = response.propertyLinks
         .flatMap(_.agents)
         .map(a => AgentInfo(a.organisationName, a.agentCode))
         .sortBy(_.organisationName).distinct
-      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos)))
+      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos), msgCount.unread))
     }
   }
 
@@ -129,13 +141,72 @@ class Dashboard @Inject()(config: ApplicationConfig,
   }
 
   def viewDraftCases() = authenticated { implicit request =>
-    draftCases.get(request.personId) map { cases =>
-      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases)))
+    for {
+      cases <- draftCases.get(request.personId)
+      msgCount <- messagesConnector.countUnread(request.organisationId)
+    } yield {
+      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), msgCount.unread))
+    }
+  }
+
+  def viewMessages(pagination: MessagePagination) = authenticated { implicit request =>
+    if(config.messagesEnabled) {
+      withValidMessagePagination(pagination) {
+        for {
+          count <- messagesConnector.countUnread(request.organisationId)
+          msgs <- messagesConnector.getMessages(request.organisationId, pagination)
+        } yield {
+          //round up to nearest integer
+          val numberOfPages: Int = Math.ceil(count.total.toDouble / pagination.pageSize).toInt
+          Ok(views.html.dashboard.messagesTab(msgs, pagination, count.unread, numberOfPages))
+        }
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
+  }
+
+  def viewMessage(messageId: String) = authenticated { implicit request =>
+    if(config.messagesEnabled) {
+      for {
+        message <- messagesConnector.getMessage(request.organisationId, messageId)
+        count <- messagesConnector.countUnread(request.organisationId)
+        _ <- messagesConnector.markAsRead(messageId, request.individualAccount.externalId)
+      } yield {
+        message match {
+          case Some(m) => Ok(views.html.dashboard.viewMessage(m, count.unread))
+          case None => NotFound(Global.notFoundTemplate)
+        }
+      }
+    } else {
+      NotFound(Global.notFoundTemplate)
+    }
+  }
+
+  def viewMessageAsPdf(messageId: String) = authenticated { implicit request =>
+    for {
+      message <- messagesConnector.getMessage(request.organisationId, messageId)
+    } yield {
+      message match {
+        case Some(m) => pdfGen.ok(views.html.dashboard.viewMessagePdf(m), ApplicationConfig.config.serviceUrl)
+        case None => NotFound(Global.notFoundTemplate)
+      }
+    }
+  }
+
+  private def withValidMessagePagination(pagination: MessagePagination)
+                                        (f: => Future[Result])
+                                        (implicit request: Request[_]): Future[Result] = {
+    if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 100) {
+      f
+    } else {
+      BadRequest(Global.badRequestTemplate)
     }
   }
 }
 
 case class ManagePropertiesVM(organisationId: Long, properties: Seq[PropertyLink], pagination: Pagination)
+
 case class ManagePropertiesSearchAndSortVM(organisationId: Long,
                                            result: OwnerAuthResult,
                                            pagination: PaginationSearchSort)

@@ -22,7 +22,21 @@
     right:6px;
     position:relative;
     float: right;
+}
 
+a.page-size-option {
+    padding-right: 5px;
+    text-decoration: underline;
+}
+
+span.page-size-option-label {
+    padding-right: 5px;
+}
+
+a.page-size-option-current, span.page-size-option-current {
+    padding-right: 5px;
+    text-decoration: none;
+    color: #0b0c0c;
 }
 
 
@@ -49,16 +63,29 @@ word-wrap:break-word;
     width: 67.50%;
 
 }
+
 .sorting {
-    background: url("../images/sort_both.png") no-repeat scroll center right;
+    background: url("../images/sort_both.png") no-repeat scroll right 20px center;
 }
 
 .sorting_asc {
-    background: url("../images/sort_asc.png") no-repeat scroll center right;
+    background: url("../images/sort_asc.png") no-repeat scroll right 20px center;
 }
 
 .sorting_desc {
-    background: url("../images/sort_desc.png") no-repeat scroll center right;
+    background: url("../images/sort_desc.png") no-repeat scroll right 20px center;
+}
+
+table.dataTable thead .sorting {
+    background: url("../images/sort_both.png") no-repeat scroll right 20px center;
+}
+
+table.dataTable thead .sorting_asc {
+    background: url("../images/sort_asc.png") no-repeat scroll right 20px center;
+}
+
+table.dataTable thead .sorting_desc {
+    background: url("../images/sort_desc.png") no-repeat scroll right 20px center;
 }
 
 .sorting a, .sorting_asc a, .sorting_desc a {display:block;}

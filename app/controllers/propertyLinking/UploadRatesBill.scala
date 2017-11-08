@@ -37,6 +37,8 @@ class UploadRatesBill @Inject()(override val config: ApplicationConfig,
         case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadRatesBill(UploadRatesBillVM(fileTooLargeError, submissionUrl)))
         case Some(NOT_FOUND) => NotFound(Global.notFoundTemplate)
         case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionUrl)))
+        // this assumes BAD_REQUEST is caused by "Envelope does not allow zero length files, and submitted file has length 0"
+        case Some(BAD_REQUEST) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionUrl)))
         //if FUaaS repeatedly returns unexpected error codes e.g. 500s, trigger the circuit breaker
         case Some(err) => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
         case None => Ok(uploadRatesBill(UploadRatesBillVM(form, submissionUrl)))

@@ -30,7 +30,7 @@ class IndividualAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implici
 
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking/individuals"
 
-  def get(personId: Int)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
+  def get(personId: Long)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
     http.GET[Option[DetailedIndividualAccount]](s"$baseUrl/$personId")
   }
 

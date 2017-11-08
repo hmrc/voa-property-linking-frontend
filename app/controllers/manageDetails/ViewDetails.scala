@@ -21,10 +21,10 @@ import javax.inject.Inject
 import actions.AuthenticatedAction
 import cats.data.OptionT
 import cats.implicits._
-import connectors.Addresses
+import connectors.{Addresses, MessagesConnector}
 import controllers.PropertyLinkingController
 
-class ViewDetails @Inject()(addressesConnector: Addresses, authenticated: AuthenticatedAction) extends PropertyLinkingController {
+class ViewDetails @Inject()(addressesConnector: Addresses, authenticated: AuthenticatedAction, messagesConnector: MessagesConnector) extends PropertyLinkingController {
 
   def show() = authenticated { implicit request =>
     val person = request.individualAccount
@@ -32,7 +32,8 @@ class ViewDetails @Inject()(addressesConnector: Addresses, authenticated: Authen
     (for {
       personalAddress <- OptionT(addressesConnector.findById(person.details.addressId))
       businessAddress <- OptionT(addressesConnector.findById(request.organisationAccount.addressId))
-    } yield Ok(views.html.details.viewDetails(person, request.organisationAccount, personalAddress, businessAddress))
+      msgCount <- OptionT.liftF(messagesConnector.countUnread(request.organisationId))
+    } yield Ok(views.html.details.viewDetails(person, request.organisationAccount, personalAddress, businessAddress, msgCount.unread))
       ).getOrElse(throw new Exception(
       s"Unable to lookup address: Individual address ID: ${person.details.addressId}; Organisation address Id: ${request.organisationAccount.addressId}")
     )

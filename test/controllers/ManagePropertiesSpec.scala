@@ -16,13 +16,13 @@
 
 package controllers
 
+import com.builtamont.play.pdf.PdfGenerator
 import config.ApplicationConfig
 import connectors.{Authenticated, DraftCases}
 import models._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
-import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
@@ -214,9 +214,16 @@ class ManagePropertiesSpec extends ControllerSpec {
 
     val data = html.select("table#nojsManageProperties").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
 
-    values foreach { v => data must contain (v.toUpperCase) }
+    values foreach { v => data must contain(v.toUpperCase) }
   }
 
-  private object TestDashboardController extends Dashboard(app.injector.instanceOf[ApplicationConfig], mock[DraftCases],
-    StubPropertyLinkConnector, StubAuthentication)
+  private object TestDashboardController extends Dashboard(
+    app.injector.instanceOf[ApplicationConfig],
+    mock[DraftCases],
+    StubPropertyLinkConnector,
+    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
+    StubAuthentication,
+    mock[PdfGenerator]
+  )
+
 }

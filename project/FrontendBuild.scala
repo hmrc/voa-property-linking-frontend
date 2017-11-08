@@ -2,33 +2,31 @@ import sbt._
 
 object FrontendBuild extends Build with MicroService {
 
-    import com.typesafe.sbt.web.SbtWeb.autoImport._
-    import play.sbt.PlayImport.PlayKeys._
-    import sbt.Keys._
-    import scala.util.Properties.envOrElse
+  import com.typesafe.sbt.web.SbtWeb.autoImport._
+  import play.sbt.routes.RoutesKeys._
+  import sbt.Keys._
 
   val appName = "voa-property-linking-frontend"
 
   override lazy val appDependencies: Seq[ModuleID] = AppDependencies()
 
-  override lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala)
+  override lazy val plugins: Seq[Plugins] = Seq(play.sbt.PlayScala)
 
   override val defaultPort: Int = 9523
 
   override lazy val playSettings: Seq[Setting[_]] = Seq(
+    routesImport ++= Seq("models.SortOrder", "models.messages.MessagePagination"),
+    // Add the views to the dist
+    unmanagedResourceDirectories in Assets += baseDirectory.value / "app" / "assets",
+    // Dont include the source assets in the dist package (public folder)
+    excludeFilter in Assets := "fonts" || "tasks" || "karma.conf.js" || "tests" || "gulpfile.js*" || "js*" || "src*" || "node_modules*" || "sass*" || "typescript*" || "typings*" || ".jshintrc" || "package.json" || "tsconfig.json" || "tsd.json"
+  ) ++ JavaScriptBuild.javaScriptUiSettings
 
-       // Add the views to the dist
-       unmanagedResourceDirectories in Assets += baseDirectory.value / "app" / "assets",
-       // Dont include the source assets in the dist package (public folder)
-       excludeFilter in Assets := "fonts" || "tasks" || "karma.conf.js" || "tests" || "gulpfile.js*" || "js*" || "src*" || "node_modules*" || "sass*" || "typescript*" || "typings*" || ".jshintrc" || "package.json" || "tsconfig.json" || "tsd.json"
-       ) ++ JavaScriptBuild.javaScriptUiSettings
-
-  }
+}
 
 private object AppDependencies {
 
   import play.sbt.PlayImport._
-  import play.core.PlayVersion
 
   private val playReactivemongoVersion = "5.0.0"
   val compile = Seq(
@@ -51,12 +49,13 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "play-whitelist-filter" % "2.0.0",
     "uk.gov.hmrc" %% "mongo-lock" % "4.1.0",
     "com.google.inject.extensions" % "guice-multibindings" % "4.0",
-    "uk.gov.hmrc" %% "reactive-circuit-breaker" % "2.1.0"
+    "uk.gov.hmrc" %% "reactive-circuit-breaker" % "2.1.0",
+    "com.builtamont" %% "play2-scala-pdf" % "2.0.0.P25" exclude ("com.typesafe.play", "play-logback_2.11")
   )
 
   trait TestDependencies {
     lazy val scope: String = "test"
-    lazy val test : Seq[ModuleID] = ???
+    lazy val test: Seq[ModuleID] = ???
   }
 
   object Test {

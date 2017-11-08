@@ -1,9 +1,11 @@
 @import actions.AuthenticatedRequest
 @import config.ApplicationConfig.config._
 
-@()(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
-<div class="section-tabs">
+@welcomeLinks(unreadMessagesCount)
+
+<div class="clearfix section-tabs">
     <ul role="tablist">
         @if(isAgent) {
             @if(searchSortEnabled && request.path != controllers.agent.routes.RepresentationController.viewClientProperties().url) {
@@ -21,20 +23,16 @@
         @tab("manageAgents", routes.Dashboard.manageAgents().url)
         @tab("drafts", routes.Dashboard.viewDraftCases().url)
         @tab("editDetails", controllers.manageDetails.routes.ViewDetails.show().url)
-        <li class="tab-right">
-            <span>Welcome, <a href="@controllers.manageDetails.routes.ViewDetails.show().url">@name</a>. <a href="@routes.Application.logOut().url">Not you?</a></span>
-        </li>
+        @if(messagesEnabled) {
+            @tab("messages", routes.Dashboard.viewMessages().url, unreadMessagesCount)
+        }
     </ul>
 </div>
 
 @isAgent = @{ request.organisationAccount.isAgent }
 
-@tab(name: String, url: String) = {
+@tab(name: String, url: String, args: Any*) = {
     <li @if(url == request.path) {class="active"}>
-        <a href="@url">@Messages(s"dashboard.tab.$name")</a>
+        <a href="@url">@Messages(s"dashboard.tab.$name", args:_*)</a>
     </li>
-}
-
-@name = @{
-    s"${request.individualAccount.details.firstName} ${request.individualAccount.details.lastName} - ${request.organisationAccount.companyName}"
 }
