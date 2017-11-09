@@ -1,0 +1,16 @@
+@import controllers.agent.RepresentationController.ManagePropertiesVM
+@import utils.Formatters
+@import helpers._
+@import uk.gov.hmrc.play.views.html.helpers.form
+
+
+@(f: Form[_])(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = Messages("manageProperties.pendingRequests"),
+    topBackLink = true,
+    bottomBackLink = true,
+    backLinkUrl = Some(controllers.agent.routes.RepresentationController.viewClientProperties().url)
+) {
+    <h1>CONFIRM</h1>
+}

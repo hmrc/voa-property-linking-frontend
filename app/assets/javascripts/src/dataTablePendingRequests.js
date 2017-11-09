@@ -50,7 +50,7 @@
 
     };
 
-    $('#select-all').click(function(event) {
+    $('#select-all-top, #select-all-bottom').click(function(event) {
         var allselected = true;
         $('input[type="checkbox"]').each(function () {
             allselected = allselected && $(this).is(':checked');

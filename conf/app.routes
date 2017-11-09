@@ -111,6 +111,8 @@ GET         /manage-clients/pending-requests/json                               
 
 GET         /representation-request/accept/:submissionId/:totalPendingRequests                @controllers.agent.RepresentationController.accept(submissionId, totalPendingRequests: Long)
 GET         /representation-request/reject/:submissionId/:totalPendingRequests                @controllers.agent.RepresentationController.reject(submissionId, totalPendingRequests: Long)
+POST        /representation-request/confirm                                                   @controllers.agent.RepresentationController.confirm
+POST        /representation-request/bulk                                                      @controllers.agent.RepresentationController.bulkActions
 
 GET         /add-user-to-gg                                                                   @controllers.Application.addUserToGG
 

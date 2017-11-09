@@ -16,6 +16,8 @@
 
 package controllers.agent
 
+import java.time.LocalDate
+
 import actions.AuthenticatedAction
 import cats.data.OptionT
 import cats.instances.future._
@@ -25,10 +27,17 @@ import connectors.{MessagesConnector, PropertyRepresentationConnector}
 import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.agent.RepresentationController.ManagePropertiesVM
+import controllers.propertyLinking.{ChooseEvidence, routes}
 import controllers.{Pagination, PropertyLinkingController, ValidPagination}
+import form.{ConditionalDateAfter, EnumMapping}
+import form.Mappings.dmyDateAfterThreshold
 import models._
 import models.searchApi.AgentAuthResult
+import play.api.data.Form
+import play.api.data.Forms.mapping
 import play.api.libs.json.Json
+import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfFalse
+import views.helpers.Errors
 
 @Singleton()
 class RepresentationController @Inject()(config: ApplicationConfig,
@@ -130,6 +139,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
     withValidPagination(page, pageSize) { pagination =>
       reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
         Ok(views.html.dashboard.pendingPropertyRepresentations(
+          BulkActionsForm.form,
           ManagePropertiesVM(
             reprs.propertyRepresentations,
             reprs.totalPendingRequests,
@@ -139,6 +149,15 @@ class RepresentationController @Inject()(config: ApplicationConfig,
       }
     }
   }
+
+  def confirm() = authenticated.asAgent { implicit request =>
+    BulkActionsForm.form.bindFromRequest().fold(
+      errors => Ok,
+      data => Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(
+        BulkActionsForm.form))
+    )}
+
+  def bulkActions() = play.mvc.Results.TODO
 
   def accept(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
     val response = RepresentationResponse(submissionId, request.personId, RepresentationResponseApproved)
@@ -179,12 +198,23 @@ class RepresentationController @Inject()(config: ApplicationConfig,
       Redirect(routes.RepresentationController.viewClientProperties())
     }).getOrElse(notFound)
   }
+
 }
 
 object RepresentationController {
 
   case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation], totalPendingRequests: Long, pagination: Pagination)
 
+}
+
+import play.api.data.Form
+import play.api.data.Forms._
+
+object BulkActionsForm {
+  lazy val form = Form(mapping(
+    "action" -> text,
+    "requestId" -> optional(list(text))
+  )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))
 }
 
 case class ManageClientPropertiesSearchAndSortVM(result: AgentAuthResult,

@@ -422,6 +422,10 @@ permission.START_AND_CONTINUE=Yes
 permission.NOT_PERMITTED=No
 
 pendingRepresentationRequests.select.deselect=Select / deselect all
+pendingRepresentationRequests.accept=Accept
+pendingRepresentationRequests.accept.reject=Accept or reject selected client requests
+pendingRepresentationRequests.reject=Reject
+pendingRepresentationRequests.button.label=Submit
 pendingRepresentationRequests.title=Pending agent requests
 pendingRepresentationRequests.table.select=Select
 pendingRepresentationRequests.table.orgName=Organisation name
