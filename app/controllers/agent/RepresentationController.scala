@@ -22,7 +22,7 @@ import actions.AuthenticatedAction
 import cats.data.OptionT
 import cats.instances.future._
 import com.google.inject.{Inject, Singleton}
-import config.ApplicationConfig
+import config.{ApplicationConfig, Global}
 import connectors.{MessagesConnector, PropertyRepresentationConnector}
 import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
 import connectors.propertyLinking.PropertyLinkConnector
@@ -150,13 +150,48 @@ class RepresentationController @Inject()(config: ApplicationConfig,
     }
   }
 
-  def confirm() = authenticated.asAgent { implicit request =>
-    BulkActionsForm.form.bindFromRequest().fold(
-      errors => Ok,
-      data => Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(data, BulkActionsForm.form))
-    )}
+  def confirm(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+    withValidPagination(page, pageSize) { pagination =>
+      reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
+        BulkActionsForm.form.bindFromRequest().fold(
+          errors => BadRequest(views.html.dashboard.pendingPropertyRepresentations(errors,
+            ManagePropertiesVM(
+              reprs.propertyRepresentations,
+              reprs.totalPendingRequests,
+              pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
+            ))),
+          data => Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(data, BulkActionsForm.form))
+        )
+      }
+    }
+  }
 
-  def bulkActions() = play.mvc.Results.TODO
+  def bulkActions() = authenticated.asAgent { implicit request =>
+
+    BulkActionsForm.form.bindFromRequest().fold(
+      errors => BadRequest(Global.badRequestTemplate),
+      data => {
+        //... do stuff
+        val actionType = if (data.action == "accept") RepresentationResponseApproved else RepresentationResponseDeclined
+        data.requestIds.foreach(id => reprConnector.response(RepresentationResponse(id, request.personId, actionType)))
+
+        // re-route
+        withValidPagination(data.page, data.pageSize) { pagination =>
+          reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
+            Ok(views.html.dashboard.pendingPropertyRepresentations(
+              BulkActionsForm.form,
+              ManagePropertiesVM(
+                reprs.propertyRepresentations,
+                reprs.totalPendingRequests,
+                pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
+              )
+            ))
+          }
+        }
+      }
+    )
+
+  }
 
   def accept(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
     val response = RepresentationResponse(submissionId, request.personId, RepresentationResponseApproved)
@@ -208,11 +243,14 @@ object RepresentationController {
 
 import play.api.data.Form
 import play.api.data.Forms._
+import form.FormValidation._
 
 object BulkActionsForm {
-  lazy val form = Form(mapping(
+  lazy val form: Form[RepresentationBulkAction] = Form(mapping(
+    "page" -> number,
+    "pageSize" -> number,
     "action" -> text,
-    "requestIds" -> optional(list(text))
+    "requestIds" -> list(text).verifying(nonEmptyList)
   )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))
 }
 

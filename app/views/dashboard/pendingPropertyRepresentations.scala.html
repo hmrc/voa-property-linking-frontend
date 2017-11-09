@@ -1,10 +1,8 @@
 @import controllers.agent.RepresentationController.ManagePropertiesVM
 @import utils.Formatters
-@import helpers._
 @import uk.gov.hmrc.play.views.html.helpers.form
 
-
-@(f: Form[_], model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
+@(f: Form[RepresentationBulkAction], model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = Messages("manageProperties.pendingRequests"),
@@ -18,11 +16,16 @@
     @Messages("pendingRepresentationRequests.title")
     </h1>
 
+    @includes.errorSummary(f,messagePrefix = Some("pendingRepresentationRequests"))
+
     @if(model.propertyRepresentations.isEmpty) {
         <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
     } else {
 
-        @form(controllers.agent.routes.RepresentationController.confirm) {
+        @form(controllers.agent.routes.RepresentationController.confirm(model.pagination.pageNumber, model.pagination.pageSize)) {
+            <input type="hidden" name="page" value="@model.pagination.pageNumber">
+            <input type="hidden" name="pageSize" value="@model.pagination.pageSize">
+
             <div class="margin-top-10 panel panel-border-wide">
                 <p class="font-xsmall"> @Messages("agent.request.warning")</p>
             </div>

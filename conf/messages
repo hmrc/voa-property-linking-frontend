@@ -23,6 +23,10 @@ start.register=Register now
 label.login=Sign in
 label.register=Register
 
+
+app.common.errorSummaryLabel            = The following errors were identified on this page.
+
+
 #PROPERTY LINKING STATUSES
 propertyLinkingStatus.ADDED=Approved
 propertyLinkingStatus.APPROVED=Approved
@@ -437,8 +441,11 @@ pendingRepresentationRequests.table.5=Actions
 pendingRepresentationRequests.confirm.title=Confirm actions
 pendingRepresentationRequests.confirm.header={0} client requests
 pendingRepresentationRequests.confirm.para.1=Are you sure you wish to {0} {1} pending agent requests?
-pendingRepresentationRequests.confirm.para.2=If you accept these requests then your client will have to reapply to link to this property to your agency.
-
+pendingRepresentationRequests.confirm.para.2=If you reject these requests then your client will have to reapply to link to this property to your agency.
+pendingRepresentationRequests.button.text={0} requests
+pendingRepresentationRequests.button.cancel=Cancel
+label.pendingRepresentationRequests.action=Accept or reject
+label.pendingRepresentationRequests.requestIds=Select at least one pending request
 
 #SEARCH
 search.title=Search and select a property to add to your customer record

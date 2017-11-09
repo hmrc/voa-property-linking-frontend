@@ -19,8 +19,10 @@ package models
 import play.api.libs.json.Json
 
 case class RepresentationBulkAction(
+                                     page: Int,
+                                     pageSize: Int,
                                      action: String,
-                                     requestIds: Option[List[String]]
+                                     requestIds: List[String]
                                    )
 
 object RepresentationBulkAction {
