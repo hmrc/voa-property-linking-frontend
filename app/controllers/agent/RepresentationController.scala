@@ -212,7 +212,7 @@ import play.api.data.Forms._
 object BulkActionsForm {
   lazy val form = Form(mapping(
     "action" -> text,
-    "requestIds" -> list(text)
+    "requestIds" -> optional(list(text))
   )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))
 }
 

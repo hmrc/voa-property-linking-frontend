@@ -17,7 +17,7 @@
         @*<button class="dialog-close" aria-label="close" type="button"><span class="icon icon-close">x</span></button>*@
         <div>
             <h3 class="heading-small">@Messages("pendingRepresentationRequests.confirm.header", model.action.capitalize)</h3>
-            <p>@Messages("pendingRepresentationRequests.confirm.para.1", model.action, model.requestIds.length)</p>
+            <p>@Messages("pendingRepresentationRequests.confirm.para.1", model.action, model.requestIds.getOrElse(List()).length)</p>
             <p>@Messages("pendingRepresentationRequests.confirm.para.2")</p>
 
             <a href="#" class="button pull-left" role="button">Reject requests</a>

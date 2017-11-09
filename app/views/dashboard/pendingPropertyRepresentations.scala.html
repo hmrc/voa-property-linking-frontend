@@ -46,7 +46,7 @@
                         @model.propertyRepresentations.map { p =>
                             <tr>
                                 <td><div class="multiple-choice">
-                                    <input class="select-checkbox" type="checkbox" name="requestIds" value="@p.submissionId"></div></td>
+                                    <input class="select-checkbox" type="checkbox" name="requestIds[]" value="@p.submissionId"></div></td>
                                 <td>@p.organisationName</td>
 
                                 <td>@(Formatters.capitalizedAddress(PropertyAddress.fromString(p.address)))</td>

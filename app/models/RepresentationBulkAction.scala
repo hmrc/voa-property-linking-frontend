@@ -20,7 +20,7 @@ import play.api.libs.json.Json
 
 case class RepresentationBulkAction(
                                      action: String,
-                                     requestIds: List[String]
+                                     requestIds: Option[List[String]]
                                    )
 
 object RepresentationBulkAction {
