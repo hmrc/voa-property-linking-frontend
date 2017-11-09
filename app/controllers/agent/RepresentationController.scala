@@ -153,8 +153,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
   def confirm() = authenticated.asAgent { implicit request =>
     BulkActionsForm.form.bindFromRequest().fold(
       errors => Ok,
-      data => Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(
-        BulkActionsForm.form))
+      data => Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(data, BulkActionsForm.form))
     )}
 
   def bulkActions() = play.mvc.Results.TODO
@@ -213,7 +212,7 @@ import play.api.data.Forms._
 object BulkActionsForm {
   lazy val form = Form(mapping(
     "action" -> text,
-    "requestId" -> optional(list(text))
+    "requestIds" -> list(text)
   )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))
 }
 

@@ -421,6 +421,7 @@ manageProperties.noRepresentations=You have no representations
 permission.START_AND_CONTINUE=Yes
 permission.NOT_PERMITTED=No
 
+#PENDING AGENT REQUESTS
 pendingRepresentationRequests.select.deselect=Select / deselect all
 pendingRepresentationRequests.accept=Accept
 pendingRepresentationRequests.accept.reject=Accept or reject selected client requests
@@ -433,6 +434,11 @@ pendingRepresentationRequests.table.propertyAddress=Property address
 pendingRepresentationRequests.table.permissions=Permissions
 pendingRepresentationRequests.table.dateRequested=Date requested
 pendingRepresentationRequests.table.5=Actions
+pendingRepresentationRequests.confirm.title=Confirm actions
+pendingRepresentationRequests.confirm.header={0} client requests
+pendingRepresentationRequests.confirm.para.1=Are you sure you wish to {0} {1} pending agent requests?
+pendingRepresentationRequests.confirm.para.2=If you accept these requests then your client will have to reapply to link to this property to your agency.
+
 
 #SEARCH
 search.title=Search and select a property to add to your customer record

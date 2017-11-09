@@ -1,16 +1,27 @@
-@import controllers.agent.RepresentationController.ManagePropertiesVM
+@import controllers.agent.RepresentationController._
 @import utils.Formatters
 @import helpers._
 @import uk.gov.hmrc.play.views.html.helpers.form
 
 
-@(f: Form[_])(implicit request: Request[_], messages: Messages)
+@(model: RepresentationBulkAction, f: Form[RepresentationBulkAction])(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = Messages("manageProperties.pendingRequests"),
+    title = Messages("pendingRepresentationRequests.confirm.title"),
     topBackLink = true,
     bottomBackLink = true,
-    backLinkUrl = Some(controllers.agent.routes.RepresentationController.viewClientProperties().url)
+    backLinkUrl = Some(controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url)
 ) {
-    <h1>CONFIRM</h1>
+
+    <div class="dialog-content" id="dialog-content-message" role="document" tabindex="-1">
+        @*<button class="dialog-close" aria-label="close" type="button"><span class="icon icon-close">x</span></button>*@
+        <div>
+            <h3 class="heading-small">@Messages("pendingRepresentationRequests.confirm.header", model.action.capitalize)</h3>
+            <p>@Messages("pendingRepresentationRequests.confirm.para.1", model.action, model.requestIds.length)</p>
+            <p>@Messages("pendingRepresentationRequests.confirm.para.2")</p>
+
+            <a href="#" class="button pull-left" role="button">Reject requests</a>
+            <a href="#" class="dialog-cancel button-secondary pull-right" aria-label="close" role="button">Cancel</a>
+        </div>
+    </div>
 }
