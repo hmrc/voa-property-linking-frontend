@@ -1,0 +1,559 @@
+
+÷äÇ
+÷Ÿx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.5
+¢¶+_root_.controllers.CreateGroupAccount.keys.5
+∞¥+_root_.controllers.CreateGroupAccount.keys.5
+ü£+_root_.controllers.CreateGroupAccount.keys.É
+üÆy_root_.utils.BasicVerification#verifyMandatory(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Z)V.5
+ÓÚ+_root_.controllers.CreateGroupAccount.keys.5
+¬∆+_root_.controllers.CreateGroupAccount.keys."
+ﬂ‚_root_.scala.Predef.Map.u
+≤∂k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.o
+ïóe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.A
+≠≤7_root_.controllers.CreateGroupAccount.keys.$anon#email.5
+Ÿ›+_root_.controllers.CreateGroupAccount.keys.&
+≤∏_root_.views.helpers.Errors.G
+‡	Î	=_root_.controllers.CreateGroupAccount.keys.$anon#companyName.o
+ÚÙe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.6
+π»,_root_.views.helpers.Errors.emailsMustMatch.É
+∫	…	y_root_.utils.BasicVerification#verifyMandatory(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Z)V.P
+˘˚F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.5
+≥∑+_root_.controllers.CreateGroupAccount.keys.@
+ßß4_root_.forms.CreateGroupAccountFormSpec#`<init>`()V.5
+Á
+Î
++_root_.controllers.CreateGroupAccount.keys.5
+ñö+_root_.controllers.CreateGroupAccount.form.L
+ß®B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.A
+«Ã7_root_.controllers.CreateGroupAccount.keys.$anon#email.5
+®¨+_root_.controllers.CreateGroupAccount.keys.Ç
+èñx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.5
+Œ“+_root_.controllers.CreateGroupAccount.keys.G
+Ï
+˜
+=_root_.controllers.CreateGroupAccount.keys.$anon#companyName.<
+µæ2_root_.forms.CreateGroupAccountFormSpec#validData.
+ü®_root_.org.scalatest.A
+√»7_root_.controllers.CreateGroupAccount.keys.$anon#email.u
+Ω¡k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.5
+‘ÿ+_root_.controllers.CreateGroupAccount.keys.ß
+û©ú_root_.utils.BasicVerification#verifyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)V.A
+≥∏7_root_.controllers.CreateGroupAccount.keys.$anon#email.
+ÂÍ_root_.forms.&
+˛Ñ_root_.views.helpers.Errors.H
+Ûˇ>_root_.controllers.CreateGroupAccount.keys.$anon#confirmEmail.<
+∞π2_root_.forms.CreateGroupAccountFormSpec#validData.<
+ñü2_root_.forms.CreateGroupAccountFormSpec#validData.@
+∫ƒ6test/forms/CreateGroupAccountFormSpec.scala@1595..1665H
+”ﬂ>_root_.controllers.CreateGroupAccount.keys.$anon#confirmEmail.P
+ÙˆF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.Y
+œ—O_root_.scala.runtime.RichInt#to(I)Lscala/collection/immutable/Range/Inclusive;.&
+∆…_root_.scala.collection.Seq.
+Û˛_root_.controllers.H
+§∞>_root_.controllers.CreateGroupAccount.keys.$anon#confirmEmail.o
+ñòe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.A
+ß¨7_root_.controllers.CreateGroupAccount.keys.$anon#phone.(
+™≤_root_.org.scalatest.FlatSpec#u
+áãk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.o
+≤¥e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
+…Œ_root_.utils.@
+©≥6test/forms/CreateGroupAccountFormSpec.scala@1595..1665O
+ÁÔE_root_.scala.collection.TraversableOnce#mkString()Ljava/lang/String;.Ç
+¶≠x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;./
+πª%_root_.org.scalatest.FlatSpecLike#it./
+ÊË%_root_.org.scalatest.FlatSpecLike#it./
+ÏÓ%_root_.org.scalatest.FlatSpecLike#it.u
+êîk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.5
+€	ﬂ	+_root_.controllers.CreateGroupAccount.keys.P
+æ¿F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.A
+°¶7_root_.controllers.CreateGroupAccount.keys.$anon#phone.5
+êî+_root_.controllers.CreateGroupAccount.form./
+∫º%_root_.org.scalatest.FlatSpecLike#it.X
+†°N_root_.scala.collection.MapLike#`-`(Ljava/lang/Object;)Lscala/collection/Map;.ß
+Ñèú_root_.utils.BasicVerification#verifyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)V.ß
+Ñèú_root_.utils.BasicVerification#verifyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)V./
+ÿ⁄%_root_.org.scalatest.FlatSpecLike#it.5
+ãè+_root_.controllers.CreateGroupAccount.form.5
+Æ≤+_root_.controllers.CreateGroupAccount.keys./
+—”%_root_.org.scalatest.FlatSpecLike#it.É
+˛çy_root_.utils.BasicVerification#verifyMandatory(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Z)V.5
+ 	Œ	+_root_.controllers.CreateGroupAccount.form.Ç
+†ßx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.A
+‚Á7_root_.controllers.CreateGroupAccount.keys.$anon#email.&
+¸ˇ_root_.scala.collection.Seq.@
+·Î6test/forms/CreateGroupAccountFormSpec.scala@1595..16655
+ˇÉ+_root_.controllers.CreateGroupAccount.form.<
+ó†2_root_.forms.CreateGroupAccountFormSpec#validData.o
+∏
+∫
+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.5
+ËÏ+_root_.controllers.CreateGroupAccount.keys.É
+˚äy_root_.utils.BasicVerification#verifyMandatory(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Z)V.o
+Ø±e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.P
+öúF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.o
+áïe_root_.utils.BasicVerification#verifyNoErrors(Lplay/api/data/Form;Lscala/collection/immutable/Map;)V.u
+˜	˚	k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.u
+€ﬂk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.K
+ÈA_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.¡
+ì	ó	∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.<
+‹
+Â
+2_root_.forms.CreateGroupAccountFormSpec#validData.P
+·„F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.5
+Ω¡+_root_.controllers.CreateGroupAccount.keys.o
+ËÍe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.5
+∂∫+_root_.controllers.CreateGroupAccount.keys.u
+º¿k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.u
+Ÿ›k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.G
+Ì¯=_root_.controllers.CreateGroupAccount.keys.$anon#companyName.<
+ú•2_root_.forms.CreateGroupAccountFormSpec#validData.A
+∏Ω7_root_.controllers.CreateGroupAccount.keys.$anon#phone.
+ˆ˝_root_.views.helpers.5
+»Ã+_root_.controllers.CreateGroupAccount.form.L
+ÒÚB_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.5
+›·+_root_.controllers.CreateGroupAccount.keys.5
+æ¬+_root_.controllers.CreateGroupAccount.keys.5
+ëï+_root_.controllers.CreateGroupAccount.form.4
+∏∏*_root_.org.scalatest.FlatSpec#`<init>`()V.>
+”‹2_root_.forms.CreateGroupAccountFormSpec#validData.o
+˚˝e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.@
+–⁄6test/forms/CreateGroupAccountFormSpec.scala@1595..1665à
+¡
+’
+~_root_.utils.BasicVerification#verifyCharacterLimit(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;I)V.u
+‘ÿk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.P
+†¢F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.0
+ˇë&_root_.controllers.CreateGroupAccount.ß
+Û˛ú_root_.utils.BasicVerification#verifyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)V.C
+Ÿ‡9_root_.controllers.CreateGroupAccount.keys.$anon#isAgent.5
+óõ+_root_.controllers.CreateGroupAccount.keys.<
+åï2_root_.forms.CreateGroupAccountFormSpec#validData.<
+Œ◊2_root_.forms.CreateGroupAccountFormSpec#validData./
+Ù	ˆ	%_root_.org.scalatest.FlatSpecLike#it.o
+Ωøe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.Ç
+ÊÌx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.
+ı_root_.views.5
+ú†+_root_.controllers.CreateGroupAccount.keys.4
+å¶(_root_.forms.CreateGroupAccountFormSpec#<
+îù2_root_.forms.CreateGroupAccountFormSpec#validData.u
+ÔÛk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.A
+ﬁ„7_root_.controllers.CreateGroupAccount.keys.$anon#email.<
+Öé2_root_.forms.CreateGroupAccountFormSpec#validData.<
+–	Ÿ	2_root_.forms.CreateGroupAccountFormSpec#validData.Ç
+µºx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.5
+¢¶+_root_.controllers.CreateGroupAccount.keys.<
+ëö2_root_.forms.CreateGroupAccountFormSpec#validData.Ç
+∆Õx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.A
+îô7_root_.controllers.CreateGroupAccount.keys.$anon#email.H
+¬Œ>_root_.controllers.CreateGroupAccount.keys.$anon#confirmEmail.o
+ı˜e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.A
+ú°7_root_.controllers.CreateGroupAccount.keys.$anon#email.o
+Ûıe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.(
+Ø∑_root_.org.scalatest.FlatSpec#C
+µº9_root_.controllers.CreateGroupAccount.keys.$anon#isAgent.É
+∏«y_root_.utils.BasicVerification#verifyMandatory(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Z)V./
+çè%_root_.org.scalatest.FlatSpecLike#it.5
+Üä+_root_.controllers.CreateGroupAccount.form.5
+êî+_root_.controllers.CreateGroupAccount.form.5
+™Æ+_root_.controllers.CreateGroupAccount.form.5
+Ø≥+_root_.controllers.CreateGroupAccount.form.u
+±	≥	k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.B
+ø…6test/forms/CreateGroupAccountFormSpec.scala@1595..1665u
+ÈÌk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;./
+÷ÿ%_root_.org.scalatest.FlatSpecLike#it.O
+¥¿E_root_.org.scalatest.MustMatchers.;_root_.org.scalatest.MustMatchers#C
+ßÆ9_root_.controllers.CreateGroupAccount.keys.$anon#isAgent.P
+» F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.Ç
+∫¡x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.B
+Û˙6test/forms/CreateGroupAccountFormSpec.scala@2035..2042@
+¥ª6test/forms/CreateGroupAccountFormSpec.scala@2035..2042
+õû_root_.org.5
+èì+_root_.controllers.CreateGroupAccount.keys.à
+ÒÖ~_root_.utils.BasicVerification#verifyCharacterLimit(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;I)V.<
+ñü2_root_.forms.CreateGroupAccountFormSpec#validData.5
+÷
+⁄
++_root_.controllers.CreateGroupAccount.form./
+œÊ%_root_.utils.FormBindingVerification.5
+éí+_root_.controllers.CreateGroupAccount.form./
+Ø±%_root_.org.scalatest.FlatSpecLike#it.,
+Ω…"_root_.org.scalatest.MustMatchers#à
+¸ê~_root_.utils.BasicVerification#verifyCharacterLimit(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;I)V.H
+ª«>_root_.controllers.CreateGroupAccount.keys.$anon#confirmEmail./
+ÑÜ%_root_.org.scalatest.FlatSpecLike#it.")
+_root_.scala.collection.Seq.	ÄÑSeq"p
+9_root_.controllers.CreateGroupAccount.keys.$anon#isAgent.3isAgentString"
+_root_.java.lang.String#"ß
++_root_.controllers.CreateGroupAccount.form.xÅÄ@formForm[GroupAccountDetails]" 
+_root_.play.api.data.Form#"/
+'_root_.controllers.GroupAccountDetails#"î
+4_root_.forms.CreateGroupAccountFormSpec#`<init>`()V.\<init>(): CreateGroupAccountFormSpec"0
+(_root_.forms.CreateGroupAccountFormSpec#"n
+6test/forms/CreateGroupAccountFormSpec.scala@2035..20424ÄinvalidString"
+_root_.java.lang.String#"û
+B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.XÑÄ+(x$1: Any): String"
+	_root_.scala.Any#" 
+_root_.java.lang.String#"À
+2_root_.forms.CreateGroupAccountFormSpec#validData.î	validDataMap[String, String]",
+&_root_.scala.collection.immutable.Map#" 
+
+_root_.java.lang.String#" 
+_root_.java.lang.String#"l
+7_root_.controllers.CreateGroupAccount.keys.$anon#phone.1phoneString"
+_root_.java.lang.String#"…
+e_root_.utils.BasicVerification#verifyNoErrors(Lplay/api/data/Form;Lscala/collection/immutable/Map;)V.ﬂverifyNoErrorsC(form: play.api.data.Form[_], validData: Map[String, String]): Unit" 
+),_root_.scala.Predef.Map#"#
+-3_root_.scala.Predef.String#"#
+5;_root_.scala.Predef.String#"
+?C_root_.scala.Unit#"B
+&_root_.controllers.CreateGroupAccount.ÄÑCreateGroupAccount"›
+x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.‡updated'[B1] => (key: A, value: B1): Map[A, B1]"5
+-_root_.scala.collection.immutable.MapLike#[A]"Ñ
+|_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.[B1]".
+ &_root_.scala.collection.immutable.Map#"5
+!"-_root_.scala.collection.immutable.MapLike#[A]"Ñ
+$&|_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.[B1]"[
+_root_.scala.Predef.Map.?MapMap.type",
+&_root_.scala.collection.immutable.Map."'
+_root_.views.helpers.ÄàÄhelpers"∆
+N_root_.scala.collection.MapLike#`-`(Ljava/lang/Object;)Lscala/collection/Map;.tÑÄ-(key: A): This"+
+#_root_.scala.collection.MapLike#[A]".
+
+&_root_.scala.collection.MapLike#[This]"∂
+ú_root_.utils.BasicVerification#verifyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)V.îverifyErrors(form: play.api.data.Form[_], invalidData: Map[String, String], field: String, error: String, args: Seq[Any]): Unit" 
++._root_.scala.Predef.Map#"#
+/5_root_.scala.Predef.String#"#
+7=_root_.scala.Predef.String#"#
+GM_root_.scala.Predef.String#"#
+V\_root_.scala.Predef.String#"!
+dg_root_.scala.package.Seq#"
+hk_root_.scala.Any#"
+os_root_.scala.Unit#")
+_root_.org.scalatest.ÄàÄ	scalatest"
+_root_.org.
+ÄàÄorg"F
+%_root_.utils.FormBindingVerification.ÄÑFormBindingVerification"∫
+x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ΩmapQ[B, That] => (f: Function1[A, B])(implicit bf: CanBuildFrom[Repr, B, That]): That"
+_root_.scala.Function1#"3
++_root_.scala.collection.TraversableLike#[A]"É
+{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+/;-_root_.scala.collection.generic.CanBuildFrom#"6
+<@._root_.scala.collection.TraversableLike#[Repr]"É
+BC{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ü
+EI~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ü
+MQ~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"K
+(_root_.forms.CreateGroupAccountFormSpec#Ä CreateGroupAccountFormSpec"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"∞
+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#",
+_root_.views.helpers.Errors.ÄÑErrors"
+_root_.forms.ÄàÄforms"z
+>_root_.controllers.CreateGroupAccount.keys.$anon#confirmEmail.8confirmEmailString"
+_root_.java.lang.String#"¡
+∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
+_root_.scala.Predef.String#">
+96_root_.org.scalatest.words.StringVerbStringInvocation#">
+<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"Ä
+E_root_.scala.collection.TraversableOnce#mkString()Ljava/lang/String;.7mkStringString"!
+_root_.scala.Predef.String#"√
+~_root_.utils.BasicVerification#verifyCharacterLimit(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;I)V.¿verifyCharacterLimit^(form: play.api.data.Form[_], validData: Map[String, String], field: String, limit: Int): Unit" 
+),_root_.scala.Predef.Map#"#
+-3_root_.scala.Predef.String#"#
+5;_root_.scala.Predef.String#"#
+EK_root_.scala.Predef.String#"
+TW_root_.scala.Int#"
+Z^_root_.scala.Unit#"/
+_root_.org.scalatest.FlatSpec#Ä FlatSpec"˙
++_root_.controllers.CreateGroupAccount.keys. ÅÄ@keysâAnyRef{val companyName: String; val address: String; val email: String; val confirmEmail: String; val phone: String; val isAgent: String}"
+_root_.scala.AnyRef#"E
+=_root_.controllers.CreateGroupAccount.keys.$anon#companyName."A
+$+9_root_.controllers.CreateGroupAccount.keys.$anon#address."?
+9>7_root_.controllers.CreateGroupAccount.keys.$anon#email."F
+LX>_root_.controllers.CreateGroupAccount.keys.$anon#confirmEmail."?
+fk7_root_.controllers.CreateGroupAccount.keys.$anon#phone."B
+yÄ9_root_.controllers.CreateGroupAccount.keys.$anon#isAgent."ˆ
+k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.Ümust(string: String): ItVerbString"#
+	_root_.scala.Predef.String#"7
+/_root_.org.scalatest.FlatSpecLike#ItVerbString#"n
+6test/forms/CreateGroupAccountFormSpec.scala@1595..16654150charsString"
+_root_.java.lang.String#"≈
+y_root_.utils.BasicVerification#verifyMandatory(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Z)V.«verifyMandatoryf(form: play.api.data.Form[_], validData: Map[String, String], field: String, exclusive: Boolean): Unit" 
+),_root_.scala.Predef.Map#"#
+-3_root_.scala.Predef.String#"#
+5;_root_.scala.Predef.String#"#
+EK_root_.scala.Predef.String#"
+X__root_.scala.Boolean#"
+bf_root_.scala.Unit#"
+_root_.views.ÄàÄviews")
+_root_.controllers.ÄàÄcontrollers"
+_root_.utils.ÄàÄutils"l
+7_root_.controllers.CreateGroupAccount.keys.$anon#email.1emailString"
+_root_.java.lang.String#"k
+,_root_.views.helpers.Errors.emailsMustMatch.;emailsMustMatchString"
+_root_.java.lang.String#"±
+A_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.Îforeach![U] => (f: Function1[A, U]): Unit"
+_root_.scala.Function1#"0
+(_root_.scala.collection.IterableLike#[A]"L
+D_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.[U]"
+!_root_.scala.Unit#"n
+*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
+_root_.org.scalatest.FlatSpec#"x
+=_root_.controllers.CreateGroupAccount.keys.$anon#companyName.7companyNameString"
+_root_.java.lang.String#"«
+O_root_.scala.runtime.RichInt#to(I)Lscala/collection/immutable/Range/Inclusive;.tto(end: Int): Inclusive"
+	_root_.scala.Int#":
+2_root_.scala.collection.immutable.Range.Inclusive#"j
+%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
+)_root_.org.scalatest.FlatSpecLike#ItWord#"7
+"_root_.org.scalatest.MustMatchers#Ä@MustMatchers"∂
+k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#2∫
+ˇˇ*.apply[Int]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.
+_root_.scala.Int#2◊
+≠≠¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 86))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
+ÌÌ	*[String]
+_star_. 
+_root_.java.lang.String#2D
+„„	*[String]
+_star_. 
+_root_.java.lang.String#2Æ
+‘‡"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2Æ
+‰Û"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2◊
+‰‰¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 44))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
+ÕÕ	*[String]
+_star_. 
+_root_.java.lang.String#2D
+¡¡	*[String]
+_star_. 
+_root_.java.lang.String#2◊
+……¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 62))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Æ
+Ë¯"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2±
+ŸŸ*[String, IndexedSeq[String]]
+_star_. 
+_root_.java.lang.String#5
+
+-_root_.scala.collection.immutable.IndexedSeq# 
+_root_.java.lang.String#2D
+úú	*[String]
+_star_. 
+_root_.java.lang.String#2„
+‚‚*.apply[String, String]
+_star_.m
+e_root_.scala.collection.generic.GenMapFactory#apply(Lscala/collection/Seq;)Lscala/collection/GenMap;. 
+_root_.java.lang.String# 
+_root_.java.lang.String#2p
+ÕŒscala.Predef.intWrapper(*)9
+1_root_.scala.LowPriorityImplicits#intWrapper(I)I.
+_star_.2Ñ
+Û∞	>CreateGroupAccountFormSpec.this.convertToInAndIgnoreMethods(*)®
+ ;ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+<=_star_.2◊
+––¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 78))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Ø
+Ûí	†CreateGroupAccountFormSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 36), org.scalactic.Prettifier.default)¡
+ :∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+;<_star_.y
+\aq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+òü(_root_.org.scalactic.Prettifier.default.2◊
+ßß¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 66))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Æ
+çü"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2D
+¿¿	*[String]
+_star_. 
+_root_.java.lang.String#2<
+*[Unit]
+_star_.
+_root_.scala.Unit#2D
+˚˚	*[String]
+_star_. 
+_root_.java.lang.String#2´
+∞	∞	D*(CreateGroupAccountFormSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+"CD_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2D
+ßß	*[String]
+_star_. 
+_root_.java.lang.String#2D
+  	*[String]
+_star_. 
+_root_.java.lang.String#2◊
+≤≤¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 82))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Â
+‰‰=*(scala.collection.immutable.IndexedSeq.canBuildFrom[String])
+_star_. 
+5;_root_.java.lang.String#k
+(4c_root_.scala.collection.immutable.IndexedSeq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2Æ
+≥Ω"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2D
+¢¢	*[String]
+_star_. 
+_root_.java.lang.String#2D
+ññ	*[String]
+_star_. 
+_root_.java.lang.String#2D
+ˆˆ	*[String]
+_star_. 
+_root_.java.lang.String#2◊
+±±¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 70))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ƒ
+……*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String#2Æ
+∂«"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2◊
+Ï	Ï	¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 36))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2◊
+¸
+¸
+¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 40))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2◊
+ŒŒ¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 74))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2◊
+ÿÿ¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 56))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2◊
+ââ¬*(org.scalactic.source.Position.apply("CreateGroupAccountFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 48))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
+≠≠	*[String]
+_star_. 
+_root_.java.lang.String#2Æ
+èô"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2D
+ºº	*[String]
+_star_. 
+_root_.java.lang.String#:Scala211B¥/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package forms
+
+import controllers.CreateGroupAccount._
+import org.scalatest.{FlatSpec, MustMatchers}
+import utils.FormBindingVerification._
+import views.helpers.Errors
+
+class CreateGroupAccountFormSpec extends FlatSpec with MustMatchers {
+
+  val validData = Map(
+    keys.companyName -> "Company Ltd",
+    keys.email -> "email@address.com",
+    keys.confirmEmail -> "email@address.com",
+    "address.line1" -> "Address line 1",
+    "address.postcode" -> "AA11 1AA",
+    keys.phone -> "01234567890",
+    keys.isAgent -> "false"
+  )
+
+  "The create group account form" must "require a company name" in {
+    verifyMandatory(form, validData, keys.companyName)
+  }
+
+  it must "require the company name to be no more than 45 characters" in {
+    verifyCharacterLimit(form, validData, keys.companyName, 45)
+  }
+
+  it must "require a business email address" in {
+    verifyMandatory(form, validData, keys.email)
+  }
+
+  it must "require the email address to be no more than 150 characters" in {
+    val `150chars` = (1 to 138 map { _ => "a" } mkString) + "@example.com"
+
+    verifyNoErrors(form, validData.updated(keys.email, `150chars`).updated(keys.confirmEmail, `150chars`))
+
+    verifyError(form, validData.updated(keys.email, "a" + `150chars`).updated(keys.confirmEmail, `150chars`), keys.email, "error.maxLength", Seq(150))
+  }
+
+  it must "require the email address to be valid" in {
+    Seq("aa.aa", "aaaa", "aa@@aa", "") foreach { invalid =>
+      verifyError(form, validData.updated(keys.email, invalid), keys.email, "error.email")
+    }
+  }
+
+  it must "require the confirmed email to match" in {
+    verifyError(form, validData.updated(keys.email, "an.email@address.com").updated(keys.confirmEmail, "another.email@address.com"), keys.confirmEmail, Errors.emailsMustMatch)
+  }
+
+  it must "require a phone number" in {
+    verifyMandatory(form, validData, keys.phone)
+  }
+
+  it must "require the phone number to be no more than 20 characters" in {
+    verifyCharacterLimit(form, validData, keys.phone, 20)
+  }
+
+  it must "require the user to specify if they are an agent or not" in {
+    verifyError(form, validData - keys.isAgent, keys.isAgent, "error.boolean")
+  }
+
+  it must "require the first line of the address to be non-empty" in {
+    verifyMandatory(form, validData, "address.line1")
+  }
+
+  it must "require a postcode" in {
+    verifyMandatory(form, validData, "address.postcode")
+  }
+
+  it must "reject postcode longer than 8 chars" in {
+    verifyCharacterLimit(form, validData, "address.postcode", 8)
+  }
+}
+J+test/forms/CreateGroupAccountFormSpec.scala

@@ -1,0 +1,167 @@
+
+ò:
+πº_root_.play.api."
+ÈÏ_root_.scala.Predef.Map.
+Ω¿_root_.play.api.mvc.&
+¿√_root_.scala.collection.Seq.7
+Çõ-_root_.controllers.PropertyLinkingController#
+˘˛_root_.javax.
+îö_root_.config.+
+ƒ !_root_.controllers.Login#(config)&
+ù†_root_.scala.collection.Seq.%
+´±_root_.play.api.mvc.Action.+
+’€!_root_.controllers.Login#(config)
+ˇÖ_root_.javax.inject.8
+Àÿ._root_.config.ApplicationConfig#ggContinueUrl.P
+öúF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.1
+‹‹'_root_.javax.inject.Inject#`<init>`()V.-
+ﬂÂ!_root_.controllers.Login#(config)A
+§®5_root_.controllers.Login#show()Lplay/api/mvc/Action;.K
+õ¨A_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#%
+÷‹_root_.javax.inject.Inject#y
+Ã‘o_root_.play.api.mvc.Results#Redirect(Ljava/lang/String;Lscala/collection/immutable/Map;I)Lplay/api/mvc/Result;.%
+œ‘_root_.controllers.Login#P
+ΩøF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.K
+ﬁﬁ?_root_.controllers.Login#`<init>`(Lconfig/ApplicationConfig;)V.
+Â_root_.controllers.6
+‹Á,_root_.config.ApplicationConfig#ggSignInUrl.*
+Á¯ _root_.config.ApplicationConfig#&
+ÄÉ_root_.scala.collection.Seq.A
+Üå7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#0
+Ωƒ$app/controllers/Login.scala@829..836A
+¡«7_root_.play.api.mvc.Action.;_root_.play.api.mvc.Action#.
+úú$_root_.java.lang.Object#`<init>`()V.P
+˝ˇF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+¥∏_root_.play."c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"ø
+o_root_.play.api.mvc.Results#Redirect(Ljava/lang/String;Lscala/collection/immutable/Map;I)Lplay/api/mvc/Result;.ÀRedirectI(url: String, queryString: Map[String, Seq[String]], status: Int): Result"#
+_root_.scala.Predef.String#" 
+_root_.scala.Predef.Map#"#
+%_root_.scala.Predef.String#"!
+'*_root_.scala.package.Seq#"#
++1_root_.scala.Predef.String#"
+=@_root_.scala.Int#"#
+CI_root_.play.api.mvc.Result#")
+_root_.scala.collection.Seq.	ÄÑSeq"k
+!_root_.controllers.Login#(config)FÄconfigApplicationConfig"&
+ _root_.config.ApplicationConfig#"j
+,_root_.config.ApplicationConfig#ggSignInUrl.:ggSignInUrlString"!
+_root_.scala.Predef.String#""
+_root_.play.api.mvc.
+ÄàÄmvc"
+_root_.javax.ÄàÄjavax"
+_root_.play.api.
+ÄàÄapi",
+_root_.javax.inject.Inject#Ä†ÄInject"ó
+$app/controllers/Login.scala@829..836oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"[
+_root_.scala.Predef.Map.?MapMap.type",
+&_root_.scala.collection.immutable.Map."%
+_root_.javax.inject.ÄàÄinject"æ
+?_root_.controllers.Login#`<init>`(Lconfig/ApplicationConfig;)V.{<init>"(config: ApplicationConfig): Login"(
+	 _root_.config.ApplicationConfig#"!
+"_root_.controllers.Login#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"
+_root_.play.ÄàÄplay"°
+5_root_.controllers.Login#show()Lplay/api/mvc/Action;.hshowAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"n
+._root_.config.ApplicationConfig#ggContinueUrl.<ggContinueUrlString"!
+_root_.scala.Predef.String#"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController")
+_root_.controllers.ÄàÄcontrollers"+
+_root_.play.api.mvc.Action.ÄÑAction" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"
+_root_.config.ÄàÄconfig"'
+_root_.controllers.Login#
+Ä Login2ƒ
+ÉÉ*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String#2z
+±±*.apply
+_star_.X
+P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2ë
+ÏÏ*.apply[String, Seq[String]]
+_star_.m
+e_root_.scala.collection.generic.GenMapFactory#apply(Lscala/collection/Seq;)Lscala/collection/GenMap;. 
+_root_.java.lang.String#$
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2Æ
+≤º"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2r
+øø*[Seq[String]]
+_star_.$
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2ƒ
+††*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String#2o
+úú*[Seq[String]]
+_star_.$
+_root_.scala.collection.Seq# 
+_root_.java.lang.String#2Æ
+Ù¸"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2o
+ˇˇ*[Seq[String]]
+_star_.$
+_root_.scala.collection.Seq# 
+_root_.java.lang.String#2«
+√√*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.#
+_root_.scala.Predef.String#2Æ
+åô"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.:Scala211BÁ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers
+
+import javax.inject.Inject
+import config.ApplicationConfig
+import play.api.mvc.Action
+
+class Login @Inject()(config: ApplicationConfig) extends PropertyLinkingController {
+  def show = Action { implicit request =>
+    Redirect(config.ggSignInUrl, Map(
+      "origin" -> Seq("voa"), "accountType" -> Seq("organisation"), "continue" -> Seq(config.ggContinueUrl))
+    )
+  }
+}
+Japp/controllers/Login.scala

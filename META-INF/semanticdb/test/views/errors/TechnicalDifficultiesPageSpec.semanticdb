@@ -1,0 +1,354 @@
+
+Ÿô!
+¡«_root_.play.api.inject.U
+Ù¯K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.P
+ÕœF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+ˇÉ_root_.java.time.#
+–÷_root_.views.html.errors.I
+Ñë?_root_.java.time.LocalDateTime.;_root_.java.time.LocalDateTime#+
+ù	®	!_root_.play.api.test.FakeRequest.h
+±∫^_root_.play.api.inject.guice.GuiceBuilder#configure(Lscala/collection/Seq;)Ljava/lang/Object;.
+ÎÒ_root_.views.errors.]
+ﬁ„S_root_.play.api.inject.guice.GuiceApplicationBuilder#build()Lplay/api/Application;.%
+°ß_root_.scala.Predef.String#x
+˚
+˝
+n_root_.org.scalatest.WordSpecLike#WordSpecStringWrapper#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
+˙˛_root_.java.E
+™µ;_root_.resources.package.shortString()Lorg/scalacheck/Gen;.L
+úü@test/views/errors/TechnicalDifficultiesPageSpec.scala@1048..1077
+éó_root_.resources.
+§ß_root_.uk.gov.
+Àœ_root_.views.html.)
+¯Ö	_root_.java.time.LocalDateTime.x
+ÈÎn_root_.org.scalatest.WordSpecLike#WordSpecStringWrapper#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
+ÂÍ_root_.views.ò
+ãëç_root_.org.scalatest.words.ShouldVerb#StringShouldWrapperForVerb#should(Lscala/Function0;Lorg/scalatest/words/StringVerbBlockRegistration;)V.?
+í©5_root_.play.api.inject.guice.GuiceApplicationBuilder#
+ÌÒ_root_.scala.Some.L
+‹	‡	@test/views/errors/TechnicalDifficultiesPageSpec.scala@1240..1264
+Ω¿_root_.play.api.Ü
+˘ˇ|_root_.org.scalatest.Matchers#AnyShouldWrapper#should(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;."
+≠±_root_.uk.gov.hmrc.play.
+ˆ˙_root_.play.api.test.
+ÌÒ_root_.play.:
+±
+∏
+0_root_.org.scalatest.words.MatcherWords#include.
+≈ _root_.views.Ü
+ãë|_root_.org.scalatest.Matchers#AnyShouldWrapper#should(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.>
+«‰2_root_.views.errors.TechnicalDifficultiesPageSpec#J
+ÂÂ>_root_.views.errors.TechnicalDifficultiesPageSpec#`<init>`()V.K
+©©A_root_.play.api.inject.guice.GuiceApplicationBuilder#`<init>`()V.9
+◊Ï/_root_.views.html.errors.technicalDifficulties.Q
+∫
+ª
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.J
+„	Á	@test/views/errors/TechnicalDifficultiesPageSpec.scala@1082..1235B
+àã6_root_.views.errors.TechnicalDifficultiesPageSpec#app..
+ˆˆ$_root_.java.lang.Object#`<init>`()V.
+£ß_root_.play.api.i18n.:
+íô0_root_.org.scalatest.words.MatcherWords#include.L
+æ¬@test/views/errors/TechnicalDifficultiesPageSpec.scala@1082..1235'
+≤∂_root_.uk.gov.hmrc.play.test.G
+®∞=_root_.play.api.i18n.Messages.;_root_.play.api.i18n.Messages#
+ü¢_root_.play.api.M
+˚ÜC_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#U
+ÜäK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.L
+Ü	à	B_root_.java.time.LocalDateTime.of(IIIII)Ljava/time/LocalDateTime;.
+®¨_root_.uk.gov.hmrc.(
+¨	¥	_root_.play.api.i18n.Messages.U
+•
+©
+K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.
+∏º_root_.play.0
+Ìı&_root_.uk.gov.hmrc.play.test.UnitSpec#J
+œ
+“
+@test/views/errors/TechnicalDifficultiesPageSpec.scala@1048..1077
+Úı_root_.play.api.
+°£
+_root_.uk.u
+ŒÂk_root_.play.api.inject.guice.GuiceApplicationBuilder.;_root_.play.api.inject.guice.GuiceApplicationBuilder#x
+ö
+ú
+n_root_.org.scalatest.WordSpecLike#WordSpecStringWrapper#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.'
+»Õ_root_.play.api.inject.guice.:
+Äá0_root_.org.scalatest.words.MatcherWords#include.2
+µ	æ	(_root_.play.api.i18n.Messages.Implicits.0
+∑ø&_root_.uk.gov.hmrc.play.test.UnitSpec#J
+Úı@test/views/errors/TechnicalDifficultiesPageSpec.scala@1048..1077M
+Ë		C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.Ü
+™
+∞
+|_root_.org.scalatest.Matchers#AnyShouldWrapper#should(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.
+öû_root_.play.ã
+ø	“	Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;."t
+6_root_.views.errors.TechnicalDifficultiesPageSpec#app.:ÅÄ appApplication""
+_root_.play.api.Application#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"7
+_root_.java.time.LocalDateTime.ÄÑàLocalDateTime"$
+_root_.play.api.test.ÄàÄtest"¢
+;_root_.resources.package.shortString()Lorg/scalacheck/Gen;.cshortStringGen[String]" 
+_root_.org.scalacheck.Gen#"#
+
+_root_.scala.Predef.String#"0
+_root_.play.api.i18n.Messages.ÄÑMessages"6
+!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"W
+5_root_.play.api.inject.guice.GuiceApplicationBuilder#Ä†àGuiceApplicationBuilder"Ã
+Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.∆ÑÄ applicationMessages9(implicit lang: Lang, application: Application): Messages""
+_root_.play.api.i18n.Lang#"$
+#._root_.play.api.Application#"&
+19_root_.play.api.i18n.Messages#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"´
+>_root_.views.errors.TechnicalDifficultiesPageSpec#`<init>`()V.i<init>!(): TechnicalDifficultiesPageSpec":
+!2_root_.views.errors.TechnicalDifficultiesPageSpec#"
+_root_.java.ÄàÄjava"ó
+S_root_.play.api.inject.guice.GuiceApplicationBuilder#build()Lplay/api/Application;.@build(): Application"$
+_root_.play.api.Application#"Ç
+ç_root_.org.scalatest.words.ShouldVerb#StringShouldWrapperForVerb#should(Lscala/Function0;Lorg/scalatest/words/StringVerbBlockRegistration;)V.ÔshouldH(right: <byname>[Unit])(implicit fun: StringVerbBlockRegistration): Unit" 
+_root_.scala.`<byname>`#"
+_root_.scala.Unit#"?
+&A7_root_.org.scalatest.words.StringVerbBlockRegistration#"
+DH_root_.scala.Unit#"
+_root_.play.api.
+ÄàÄapi"%
+_root_.views.errors.ÄàÄerrors"ê
+K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.A†Ä herePosition"+
+%_root_.org.scalactic.source.Position#",
+_root_.uk.gov.hmrc.play.test.ÄàÄtest"!
+_root_.views.html.ÄàÄhtml"%
+_root_.resources.ÄàÄ	resources"≥
+n_root_.org.scalatest.WordSpecLike#WordSpecStringWrapper#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.¿in0(f: <byname>[Any])(implicit pos: Position): Unit" 
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+!)%_root_.org.scalactic.source.Position#"
+,0_root_.scala.Unit#"-
+_root_.play.api.inject.guice.ÄàÄguice"*
+_root_.views.html.errors.ÄàÄerrors"´
+A_root_.play.api.inject.guice.GuiceApplicationBuilder#`<init>`()V.f<init>(): GuiceApplicationBuilder"=
+5_root_.play.api.inject.guice.GuiceApplicationBuilder#"
+
+_root_.uk.	ÄàÄuk"(
+_root_.play.api.inject.ÄàÄinject"
+_root_.uk.gov.
+ÄàÄgov"—
+|_root_.org.scalatest.Matchers#AnyShouldWrapper#should(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.–should'(rightMatcherX1: Matcher[T]): Assertion".
+&_root_.org.scalatest.matchers.Matcher#":
+2_root_.org.scalatest.Matchers#AnyShouldWrapper#[T]"/
+''_root_.org.scalatest.package.Assertion#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"Å
+C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.:toString
+(): String" 
+
+_root_.java.lang.String#";
+(_root_.play.api.i18n.Messages.Implicits.ÄÑ	Implicits"$
+_root_.play.api.i18n.ÄàÄi18n"{
+0_root_.org.scalatest.words.MatcherWords#include.GincludeIncludeWord"-
+'_root_.org.scalatest.words.IncludeWord#"v
+@test/views/errors/TechnicalDifficultiesPageSpec.scala@1048..10772refString"!
+_root_.scala.Predef.String#"î
+Ç_root_.play.api.inject.guice.GuiceApplicationBuilder#`<init>`(Lplay/api/Environment;Lplay/api/Configuration;Lscala/collection/Seq;Lscala/collection/Seq;Lscala/collection/Seq;Lscala/collection/immutable/Set;ZLscala/Function1;Lscala/Option;Lscala/Function2;)V.å
+<init>˛(environment: Environment, configuration: Configuration, modules: Seq[GuiceableModule], overrides: Seq[GuiceableModule], disabled: Seq[Class[_]], binderOptions: Set[BinderOption], eagerly: Boolean, loadConfiguration: Function1[Environment, Configuration], global: Option[Deprecated], loadModules: Function2[Environment, Configuration, Seq[GuiceableModule]]): GuiceApplicationBuilder"$
+_root_.play.api.Environment#"&
+*7_root_.play.api.Configuration#"!
+BE_root_.scala.package.Seq#"5
+FU-_root_.play.api.inject.guice.GuiceableModule#"!
+cf_root_.scala.package.Seq#"5
+gv-_root_.play.api.inject.guice.GuiceableModule#"#
+ÉÜ_root_.scala.package.Seq#""
+°§_root_.scala.Predef.Set#"4
+•±*_root_.play.api.inject.guice.BinderOption#"
+Ωƒ_root_.scala.Boolean#"!
+Ÿ‚_root_.scala.Function1#"&
+„Ó_root_.play.api.Environment#"(
+˝_root_.play.api.Configuration#"
+àé_root_.scala.Option#"4
+èô*_root_.play.api.GlobalSettings.Deprecated#"!
+©≤_root_.scala.Function2#"&
+≥æ_root_.play.api.Environment#"(
+¿Õ_root_.play.api.Configuration#"#
+œ“_root_.scala.package.Seq#"7
+”‚-_root_.play.api.inject.guice.GuiceableModule#"?
+Á˛5_root_.play.api.inject.guice.GuiceApplicationBuilder#"
+_root_.play.ÄàÄplay"›
+^_root_.play.api.inject.guice.GuiceBuilder#configure(Lscala/collection/Seq;)Ljava/lang/Object;.˙ÑÄ	configure-(conf: <repeated>[Tuple2[String, Any]]): Self""
+_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+_root_.scala.Predef.String#"
+!$_root_.scala.Any#"8
+)-0_root_.play.api.inject.guice.GuiceBuilder#[Self]"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"à
+@test/views/errors/TechnicalDifficultiesPageSpec.scala@1082..1235Dhtml
+Appendable".
+
+(_root_.play.twirl.api.Format#Appendable#" 
+_root_.java.time.ÄàÄtime"
+_root_.views.ÄàÄviews"X
+2_root_.views.errors.TechnicalDifficultiesPageSpec#"Ä TechnicalDifficultiesPageSpec"7
+&_root_.uk.gov.hmrc.play.test.UnitSpec#Ä@UnitSpec"N
+/_root_.views.html.errors.technicalDifficulties.ÄÑtechnicalDifficulties""
+_root_.uk.gov.hmrc.ÄàÄhmrc"t
+@test/views/errors/TechnicalDifficultiesPageSpec.scala@1240..12640pageString"
+_root_.java.lang.String#"'
+_root_.uk.gov.hmrc.play.ÄàÄplay" 
+_root_.scala.Some.
+ÄÑSome"√
+B_root_.java.time.LocalDateTime.of(IIIII)Ljava/time/LocalDateTime;.¸ÑÄÄofA(x$1: Int, x$2: Int, x$3: Int, x$4: Int, x$5: Int): LocalDateTime"
+	_root_.scala.Int#"
+_root_.scala.Int#"
+_root_.scala.Int#"
+$'_root_.scala.Int#"
+.1_root_.scala.Int#"'
+4A_root_.java.time.LocalDateTime#2≥
+Ù¯®TechnicalDifficultiesPageSpec.this.convertToStringShouldWrapper(*)(org.scalactic.source.Position.apply("TechnicalDifficultiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 47), org.scalactic.Prettifier.default)Ω
+#?¥_root_.org.scalatest.Matchers#convertToStringShouldWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/Matchers/StringShouldWrapper;.
+@A_star_.y
+afq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+†ß(_root_.org.scalactic.Prettifier.default.2ã
+ôô*.apply
+_star_.i
+a_root_.org.scalatest.words.IncludeWord#apply(Ljava/lang/String;)Lorg/scalatest/matchers/Matcher;.2≥
+Èä®TechnicalDifficultiesPageSpec.this.convertToStringShouldWrapper(*)(org.scalactic.source.Position.apply("TechnicalDifficultiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 33), org.scalactic.Prettifier.default)Ω
+#?¥_root_.org.scalatest.Matchers#convertToStringShouldWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/Matchers/StringShouldWrapper;.
+@A_star_.y
+afq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+†ß(_root_.org.scalactic.Prettifier.default.2√
+™µ+resources.`package`.getArbitrary[String](*)#
+!'_root_.scala.Predef.String#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+)*_star_.2x
+∫
+∫
+*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2“
+“	“	I*(play.api.i18n.Lang.defaultLang, TechnicalDifficultiesPageSpec.this.app)
+_star_..
+ &_root_.play.api.i18n.Lang.defaultLang.>
+EH6_root_.views.errors.TechnicalDifficultiesPageSpec#app.2⁄
+∞∞≈*(org.scalactic.source.Position.apply("TechnicalDifficultiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 42))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2è
+ÒÒ*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2Ú
+ºËDTechnicalDifficultiesPageSpec.this.convertToWordSpecStringWrapper(*)ê
+#Aá_root_.org.scalatest.WordSpecLike#convertToWordSpecStringWrapper(Ljava/lang/String;)Lorg/scalatest/WordSpecLike/WordSpecStringWrapper;.
+BC_star_.2¢
+§§A*(TechnicalDifficultiesPageSpec.this.subjectRegistrationFunction)
+_star_.F
+%@>_root_.org.scalatest.WordSpecLike#subjectRegistrationFunction.2Æ
+ªÃ"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2Ú
+ˆ	ô
+DTechnicalDifficultiesPageSpec.this.convertToWordSpecStringWrapper(*)ê
+#Aá_root_.org.scalatest.WordSpecLike#convertToWordSpecStringWrapper(Ljava/lang/String;)Lorg/scalatest/WordSpecLike/WordSpecStringWrapper;.
+BC_star_.2≥
+Üä®TechnicalDifficultiesPageSpec.this.convertToStringShouldWrapper(*)(org.scalactic.source.Position.apply("TechnicalDifficultiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 43), org.scalactic.Prettifier.default)Ω
+#?¥_root_.org.scalatest.Matchers#convertToStringShouldWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/Matchers/StringShouldWrapper;.
+@A_star_.y
+afq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+†ß(_root_.org.scalactic.Prettifier.default.2≥
+•
+©
+®TechnicalDifficultiesPageSpec.this.convertToStringShouldWrapper(*)(org.scalactic.source.Position.apply("TechnicalDifficultiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 39), org.scalactic.Prettifier.default)Ω
+#?¥_root_.org.scalatest.Matchers#convertToStringShouldWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/Matchers/StringShouldWrapper;.
+@A_star_.y
+afq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+†ß(_root_.org.scalactic.Prettifier.default.2ã
+áá*.apply
+_star_.i
+a_root_.org.scalatest.words.IncludeWord#apply(Ljava/lang/String;)Lorg/scalatest/matchers/Matcher;.2ç
+ÏÏ*.apply
+_star_.Í
+·_root_.views.html.errors.technicalDifficulties_Scope0.technicalDifficulties_Scope1.technicalDifficulties#apply(Lscala/Option;Ljava/time/LocalDateTime;Lplay/api/mvc/RequestHeader;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Ú
+‡
+˙
+DTechnicalDifficultiesPageSpec.this.convertToWordSpecStringWrapper(*)ê
+#Aá_root_.org.scalatest.WordSpecLike#convertToWordSpecStringWrapper(Ljava/lang/String;)Lorg/scalatest/WordSpecLike/WordSpecStringWrapper;.
+BC_star_.2n
+®	®	*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2⁄
+‘
+‘
+≈*(org.scalactic.source.Position.apply("TechnicalDifficultiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 38))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2⁄
+öö≈*(org.scalactic.source.Position.apply("TechnicalDifficultiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 46))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
+œœ	*[String]
+_star_. 
+_root_.java.lang.String#2ã
+∏
+∏
+*.apply
+_star_.i
+a_root_.org.scalatest.words.IncludeWord#apply(Ljava/lang/String;)Lorg/scalatest/matchers/Matcher;.:Scala211B®/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package views.errors
+
+import java.time.LocalDateTime
+
+import play.api.i18n.Messages
+import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.test.FakeRequest
+import resources._
+import uk.gov.hmrc.play.test.UnitSpec
+
+class TechnicalDifficultiesPageSpec extends UnitSpec {
+
+  implicit val app = new GuiceApplicationBuilder()
+    .configure("metrics.enabled" -> "false")
+    .build()
+
+  "The technical difficulties page" should {
+    val ref: String = shortString
+    val html = views.html.errors.technicalDifficulties(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(FakeRequest(), Messages.Implicits.applicationMessages)
+    val page = html.toString
+
+    "display an error reference number" in {
+      page should include (s"Reference number: $ref")
+    }
+
+    "display the current date" in {
+      page should include ("Date: 1 April 2017")
+    }
+
+    "display the current time in 12 hour format" in {
+      page should include ("Time: 09:30 AM")
+    }
+  }
+
+}
+J5test/views/errors/TechnicalDifficultiesPageSpec.scala

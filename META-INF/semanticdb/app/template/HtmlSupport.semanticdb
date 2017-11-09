@@ -1,0 +1,289 @@
+
+©Ä^
+ﬂÂT_root_.scala.collection.TraversableLike#filter(Lscala/Function1;)Ljava/lang/Object;.3
+Ñá'app/template/HtmlSupport.scala@900..9033
+âé'app/template/HtmlSupport.scala@905..9101
+õû'app/template/HtmlSupport.scala@900..903
+âè_root_.scala.Symbol#(
+ü™_root_.template.HtmlSupport.
+îö_root_.scala.Symbol.
+ÂÌ_root_.template.ò
+¶®ç_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.
+ú¢_root_.scala.Symbol#f
+Ñä\_root_.template.HtmlSupport.getErrors(Lscala/collection/Seq;)Lscala/collection/Seq;.(fields)%
+‰È_root_.play.api.data.Field#1
+°¶'app/template/HtmlSupport.scala@905..910I
+åï?_root_.play.api.data.FormError.;_root_.play.api.data.FormError#-
+ìô#_root_.play.api.data.Field#(errors)
+§ß_root_.scala.Any#3
+µª'app/template/HtmlSupport.scala@817..943`
+Œ◊T_root_.template.HtmlSupport.getErrors(Lscala/collection/Seq;)Lscala/collection/Seq;.
+Û_root_.scala.Any#h
+ÿﬁ\_root_.template.HtmlSupport.getErrors(Lscala/collection/Seq;)Lscala/collection/Seq;.(fields)©
+–ﬁû_root_.template.HtmlSupport.getArgs(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/immutable/Map;)Lscala/collection/immutable/Map;.(dataAttributes)&
+¯˚_root_.scala.collection.Seq.°
+ˇÉî_root_.template.HtmlSupport.getArgs(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/immutable/Map;)Lscala/collection/immutable/Map;.(args)
+¡«_root_.scala.Symbol#
+ˇÉ_root_.play.api.data.1
+º¬'app/template/HtmlSupport.scala@817..943#
+‡„_root_.scala.package.Seq#y
+™Øo_root_.scala.collection.TraversableOnce#toMap(Lscala/Predef/$less$colon$less;)Lscala/collection/immutable/Map;.^
+ú¢T_root_.scala.collection.TraversableOnce#reduce(Lscala/Function2;)Ljava/lang/Object;.´
+ÀŸû_root_.template.HtmlSupport.getArgs(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/immutable/Map;)Lscala/collection/immutable/Map;.(dataAttributes)<
+ÎÌ2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.
+˚˛_root_.play.api.)
+Ò˙_root_.play.api.data.FormError#
+…Ã_root_.scala.Any#¢
+º¡ï_root_.template.HtmlSupport.getArgs(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/immutable/Map;)Lscala/collection/immutable/Map;.(value)%
+‡Ê_root_.scala.Predef.String#"
+ËÍ_root_.scala.Tuple3#(_1)#
+Ì_root_.scala.package.Seq#Ç
+ãéx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.%
+ËÓ_root_.scala.Predef.String#A
+Öä7_root_.play.api.data.Field.;_root_.play.api.data.Field#"
+òõ_root_.scala.Predef.Map#"
+Öà_root_.scala.Predef.Map#õ
+¥ªé_root_.template.HtmlSupport.getArgs(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/immutable/Map;)Lscala/collection/immutable/Map;.#
+€ﬁ_root_.scala.package.Seq#†
+ÓÛï_root_.template.HtmlSupport.getArgs(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/immutable/Map;)Lscala/collection/immutable/Map;.(value)Ä
+πªv_root_.scala.collection.immutable.MapLike#`++`(Lscala/collection/GenTraversableOnce;)Lscala/collection/immutable/Map;.
+ˆ˙_root_.play.Ç
+ı¯x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.%
+√…_root_.scala.Predef.String#ü
+¥∏î_root_.template.HtmlSupport.getArgs(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/immutable/Map;)Lscala/collection/immutable/Map;.(args)
+ëî_root_.scala.Any#"
+Ω¿_root_.scala.Predef.Map#")
+_root_.scala.collection.Seq.	ÄÑSeq"≤
+T_root_.scala.collection.TraversableLike#filter(Lscala/Function1;)Ljava/lang/Object;.Ÿfilter (p: Function1[A, Boolean]): Repr"
+_root_.scala.Function1#"3
++_root_.scala.collection.TraversableLike#[A]"
+_root_.scala.Boolean#"6
+ ._root_.scala.collection.TraversableLike#[Repr]"
+_root_.scala.Any#	Ä†Any"è
+ç_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.¸++Z[B, That] => (that: GenTraversableOnce[B])(implicit bf: CanBuildFrom[Repr, B, That]): That"3
+&+_root_.scala.collection.GenTraversableOnce#"ô
+'(ê_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+8D-_root_.scala.collection.generic.CanBuildFrom#"6
+EI._root_.scala.collection.TraversableLike#[Repr]"ô
+KLê_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"ú
+NRì_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"ú
+VZì_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"$
+_root_.play.api.data.ÄàÄdata"+
+_root_.play.api.data.Field#Ä†ÄField"
+_root_.play.api.
+ÄàÄapi"˝
+û_root_.template.HtmlSupport.getArgs(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/immutable/Map;)Lscala/collection/immutable/Map;.(dataAttributes)ŸÄdataAttributes Seq[Tuple3[String, String, Any]]"
+_root_.scala.package.Seq#"
+
+_root_.scala.Tuple3#"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"
+_root_.scala.Any#"ç
+2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.WÑÄ==(x$1: Any): Boolean"
+	_root_.scala.Any#"
+_root_.scala.Boolean#"3
+_root_.play.api.data.FormError#Ä†Ä	FormError"[
+_root_.scala.Predef.Map#?MapMap.type",
+&_root_.scala.collection.immutable.Map."π
+v_root_.scala.collection.immutable.MapLike#`++`(Lscala/collection/GenTraversableOnce;)Lscala/collection/immutable/Map;.æ++;[B1] => (xs: GenTraversableOnce[Tuple2[A, B1]]): Map[A, B1]"3
++_root_.scala.collection.GenTraversableOnce#"
+ &_root_.scala.Tuple2#"5
+'(-_root_.scala.collection.immutable.MapLike#[A]"Ç
+*,z_root_.scala.collection.immutable.MapLike#`++`(Lscala/collection/GenTraversableOnce;)Lscala/collection/immutable/Map;.[B1]".
+14&_root_.scala.collection.immutable.Map#"5
+56-_root_.scala.collection.immutable.MapLike#[A]"Ç
+8:z_root_.scala.collection.immutable.MapLike#`++`(Lscala/collection/GenTraversableOnce;)Lscala/collection/immutable/Map;.[B1]"1
+_root_.template.HtmlSupport.ÄÑHtmlSupport"µ
+T_root_.scala.collection.TraversableOnce#reduce(Lscala/Function2;)Ljava/lang/Object;.‹reduce'[A1] => (op: Function2[A1, A1, A1]): A1"
+_root_.scala.Function2#"`
+X_root_.scala.collection.TraversableOnce#reduce(Lscala/Function2;)Ljava/lang/Object;.[A1]"`
+X_root_.scala.collection.TraversableOnce#reduce(Lscala/Function2;)Ljava/lang/Object;.[A1]"`
+!X_root_.scala.collection.TraversableOnce#reduce(Lscala/Function2;)Ljava/lang/Object;.[A1]"`
+%'X_root_.scala.collection.TraversableOnce#reduce(Lscala/Function2;)Ljava/lang/Object;.[A1]"R
+'app/template/HtmlSupport.scala@905..910'valueAny"
+_root_.scala.Any#"∫
+x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ΩmapQ[B, That] => (f: Function1[A, B])(implicit bf: CanBuildFrom[Repr, B, That]): That"
+_root_.scala.Function1#"3
++_root_.scala.collection.TraversableLike#[A]"É
+{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+/;-_root_.scala.collection.generic.CanBuildFrom#"6
+<@._root_.scala.collection.TraversableLike#[Repr]"É
+BC{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ü
+EI~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ü
+MQ~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"å
+#_root_.play.api.data.Field#(errors)eÅerrorsSeq[FormError]"
+_root_.scala.package.Seq#"'
+_root_.play.api.data.FormError#"†
+'app/template/HtmlSupport.scala@817..943uextrasMap[Symbol, Any]"
+_root_.scala.Predef.Map#"
+
+_root_.scala.Symbol#"
+_root_.scala.Any#"
+_root_.play.ÄàÄplay"G
+_root_.scala.Tuple3#(_1)+Å_1T1"
+_root_.scala.Tuple3#[T1]"$
+_root_.scala.Symbol#Ä†Symbol"$
+_root_.scala.Symbol.ÄÑSymbol"Œ
+o_root_.scala.collection.TraversableOnce#toMap(Lscala/Predef/$less$colon$less;)Lscala/collection/immutable/Map;.⁄toMap8[T, U] => (implicit ev: <:<[A, Tuple2[T, U]]): Map[T, U]""
+_root_.scala.Predef.`<:<`#"3
++_root_.scala.collection.TraversableOnce#[A]"
+%_root_.scala.Tuple2#"z
+&'r_root_.scala.collection.TraversableOnce#toMap(Lscala/Predef/$less$colon$less;)Lscala/collection/immutable/Map;.[T]"z
+)*r_root_.scala.collection.TraversableOnce#toMap(Lscala/Predef/$less$colon$less;)Lscala/collection/immutable/Map;.[U]".
+/2&_root_.scala.collection.immutable.Map#"z
+34r_root_.scala.collection.TraversableOnce#toMap(Lscala/Predef/$less$colon$less;)Lscala/collection/immutable/Map;.[T]"z
+67r_root_.scala.collection.TraversableOnce#toMap(Lscala/Predef/$less$colon$less;)Lscala/collection/immutable/Map;.[U]"ù
+2_root_.scala.Symbol#`<init>`(Ljava/lang/String;)V.gàÄ<init>(name: String): Symbol"#
+_root_.scala.Predef.String#"
+_root_.scala.Symbol#"Ω
+\_root_.template.HtmlSupport.getErrors(Lscala/collection/Seq;)Lscala/collection/Seq;.(fields)]Äfields
+Seq[Field]"
+_root_.scala.package.Seq#"#
+	_root_.play.api.data.Field#"†
+T_root_.template.HtmlSupport.getErrors(Lscala/collection/Seq;)Lscala/collection/Seq;.«	getErrors$(fields: Seq[Field]): Seq[FormError]"!
+	_root_.scala.package.Seq#"#
+_root_.play.api.data.Field#"!
+_root_.scala.package.Seq#"'
+#_root_.play.api.data.FormError#"œ
+ï_root_.template.HtmlSupport.getArgs(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/immutable/Map;)Lscala/collection/immutable/Map;.(value)5ÄvalueString"!
+_root_.scala.Predef.String#"]
+'app/template/HtmlSupport.scala@900..9032keyString"!
+_root_.scala.Predef.String#"Ö
+ï_root_.play.api.data.Field#`<init>`(Lplay/api/data/Form;Ljava/lang/String;Lscala/collection/Seq;Lscala/Option;Lscala/collection/Seq;Lscala/Option;)V.Í<init>∑(form: play.api.data.Form[_], name: String, constraints: Seq[Tuple2[String, Seq[Any]]], format: Option[Tuple2[String, Seq[Any]]], errors: Seq[FormError], value: Option[String]): Field"#
+$*_root_.scala.Predef.String#"!
+9<_root_.scala.package.Seq#"
+=C_root_.scala.Tuple2#"#
+DJ_root_.scala.Predef.String#"!
+LO_root_.scala.package.Seq#"
+PS_root_.scala.Any#"
+`f_root_.scala.Option#"
+gm_root_.scala.Tuple2#"#
+nt_root_.scala.Predef.String#"!
+vy_root_.scala.package.Seq#"
+z}_root_.scala.Any#"#
+äç_root_.scala.package.Seq#")
+éó_root_.play.api.data.FormError#"
+°ß_root_.scala.Option#"%
+®Æ_root_.scala.Predef.String#"%
+≤∑_root_.play.api.data.Field#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."ç
+é_root_.template.HtmlSupport.getArgs(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/immutable/Map;)Lscala/collection/immutable/Map;.˘getArgsk(value: String, dataAttributes: Seq[Tuple3[String, String, Any]], args: Map[Symbol, Any]): Map[Symbol, Any]"#
+_root_.scala.Predef.String#"!
+ #_root_.scala.package.Seq#"
+$*_root_.scala.Tuple3#"#
++1_root_.scala.Predef.String#"#
+39_root_.scala.Predef.String#"
+;>_root_.scala.Any#" 
+HK_root_.scala.Predef.Map#"
+LR_root_.scala.Symbol#"
+TW_root_.scala.Any#" 
+[^_root_.scala.Predef.Map#"
+_e_root_.scala.Symbol#"
+gj_root_.scala.Any#"#
+_root_.template.ÄàÄtemplate"ç
+î_root_.template.HtmlSupport.getArgs(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/immutable/Map;)Lscala/collection/immutable/Map;.(args)tÄargsMap[Symbol, Any]"
+_root_.scala.Predef.Map#"
+
+_root_.scala.Symbol#"
+_root_.scala.Any#"ç
+i_root_.play.api.data.FormError#`<init>`(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/Seq;)V.ü<init>?(key: String, messages: Seq[String], args: Seq[Any]): FormError"#
+_root_.scala.Predef.String#"!
+_root_.scala.package.Seq#"#
+"_root_.scala.Predef.String#"!
++._root_.scala.package.Seq#"
+/2_root_.scala.Any#"'
+6?_root_.play.api.data.FormError#2v
+¢¢*[Seq[FormError]]
+_star_.'
+_root_.play.api.data.FormError#!
+_root_.scala.package.Seq#2ı
+õõ4*(scala.collection.Seq.canBuildFrom[Seq[FormError]])
+_star_.'
+(1_root_.play.api.data.FormError#!
+$'_root_.scala.package.Seq#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2Ö
+©©9*(scala.collection.Seq.canBuildFrom[Tuple2[Symbol, Any]])
+_star_.
+36_root_.scala.Any#
+$*_root_.scala.Tuple2#
++1_root_.scala.Symbol#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2¬
+˚˚*.apply[Nothing]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.
+_root_.scala.Nothing#2˝
+éé&*[Seq[FormError], Seq[Seq[FormError]]]
+_star_.'
+_root_.play.api.data.FormError#!
+_root_.scala.package.Seq#'
+#_root_.play.api.data.FormError#!
+_root_.scala.package.Seq#$
+_root_.scala.collection.Seq#2Õ
+™™/*(scala.collection.Seq.canBuildFrom[FormError])
+_star_.'
+$-_root_.play.api.data.FormError#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2≠
+ØØ;*[Symbol, Any](scala.Predef.$conforms[Tuple2[Symbol, Any]])
+_star_.
+_root_.scala.Symbol#
+
+_root_.scala.Any#
+&,_root_.scala.Tuple2#G
+%?_root_.scala.Predef.$conforms()Lscala/Predef/$less$colon$less;.
+58_root_.scala.Any#
+-3_root_.scala.Symbol#2f
+öö*.apply
+_star_.D
+<_root_.scala.Symbol.apply(Ljava/lang/String;)Lscala/Symbol;.2™
+®®*[FormError, Seq[FormError]]
+_star_.'
+_root_.play.api.data.FormError#'
+_root_.play.api.data.FormError#!
+_root_.scala.package.Seq#2ù
+¯¯0*[Tuple2[Symbol, Any], Seq[Tuple2[Symbol, Any]]]
+_star_.
+	_root_.scala.Symbol#
+_root_.scala.Any#
+_root_.scala.Tuple2#
+"(_root_.scala.Symbol#$
+_root_.scala.collection.Seq#
+!_root_.scala.Tuple2#
+*-_root_.scala.Any#2:
+ªª*[Any]
+_star_.
+_root_.scala.Any#:Scala211B≥/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package template
+
+import play.api.data.{Field, FormError}
+
+object HtmlSupport {
+
+  def getArgs(value: String, dataAttributes: Seq[(String, String, Any)] = Seq(), args: Map[Symbol, Any]): Map[Symbol, Any] = {
+    val extras: Map[Symbol, Any] = dataAttributes.filter(_._1 == value).map { case (_, key, value) => (Symbol(key), value) }.toMap
+    args ++ extras
+  }
+
+  def getErrors(fields: Seq[Field]): Seq[FormError] = {
+    fields.map { _.errors } reduce (_ ++ _)
+  }
+
+}
+Japp/template/HtmlSupport.scala

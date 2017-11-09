@@ -21,9 +21,9 @@ import javax.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import connectors.fileUpload.FileUploadConnector
 import uk.gov.hmrc.circuitbreaker.{CircuitBreakerConfig, UsingCircuitBreaker}
-import uk.gov.hmrc.play.http.{HeaderCarrier, Upstream4xxResponse}
 
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{ HeaderCarrier, Upstream4xxResponse }
 
 @Singleton
 class FileUploadCircuitBreaker @Inject()(override val circuitBreakerConfig: CircuitBreakerConfig,

@@ -1,0 +1,279 @@
+
+±h&
+˘_root_.connectors.Addresses#*
+çñ _root_.org.scalacheck.Arbitrary.8
+üØ,_root_.utils.StubAddresses.noResultPostcode.
+ÂÍ_root_.scala.%
+–÷_root_.scala.Predef.String#6
+≠	Ω	,_root_.utils.StubAddresses.noResultPostcode. 
+ﬁ	Â	_root_.models.Address#K
+ü	¨	A_root_.java.lang.String#contentEquals(Ljava/lang/CharSequence;)Z."
+ø√_root_.uk.gov.hmrc.http.y
+Œ‘m_root_.utils.StubAddresses.create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+ÎÔ_root_.scala.util.a
+åñW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.)
+ı˚_root_.scala.concurrent.Future#
+ÂÍ_root_.utils.*
+˙å _root_.utils.StubServicesConfig.=
+ˆ3_root_.scala.util.Random.;_root_.scala.util.Random#&
+˛á_root_.connectors.Addresses#
+∆À_root_.scala.z
+ì
+ó
+p_root_.scala.collection.generic.GenTraversableFactory#fill(ILscala/Function0;)Lscala/collection/GenTraversable;.a
+œ	Ÿ	W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.&
+è
+í
+_root_.scala.collection.Seq. 
+çï_root_.utils.StubHttp.å
+ñ	û	Å_root_.utils.StubAddresses.findByPostcode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(postcode) 
+ﬁÂ_root_.models.Address#0
+ÂÚ&_root_.uk.gov.hmrc.http.HeaderCarrier##
+¸ˇ_root_.scala.package.Seq# 
+Ä	á	_root_.models.Address#É
+∑≈w_root_.utils.StubAddresses.findByPostcode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+Û˝_root_.connectors.á
+·„{_root_.utils.StubAddresses.findByPostcode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+•®_root_.org.)
+»	Œ	_root_.scala.concurrent.Future.
+†©_root_.resources.7
+ñù-_root_.models.Address.;_root_.models.Address# 
+¶
+≠
+_root_.models.Address#I
+◊›?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#0
+ÙÅ&_root_.uk.gov.hmrc.http.HeaderCarrier#.
+û•$_root_.scala.util.Random#nextInt()I."
+Ã÷_root_.scala.concurrent.é
+∆ŒÅ_root_.utils.StubAddresses.findByPostcode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(postcode)o
+ú
+•
+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.6
+∂
+π
+,_root_.scala.Option#get()Ljava/lang/Object;.
+∂π_root_.uk.gov.K
+¥ΩA_root_.org.scalacheck.Arbitrary.;_root_.org.scalacheck.Arbitrary# 
+©≥_root_.org.scalacheck.p
+˘˘f_root_.connectors.Addresses#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.
+≥µ
+_root_.uk.}
+Úq_root_.utils.StubAddresses.create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)&
+⁄	›	_root_.scala.collection.Seq.'
+⁄Á_root_.utils.StubAddresses.;
+Ø
+µ
+1_root_.org.scalacheck.Gen#sample()Lscala/Option;.a
+Ñ
+é
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.#
+óù_root_.scala.util.Random.)
+Öã_root_.scala.concurrent.Future.W
+ƒ—M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#
+˛Å_root_.org.
+èï_root_.models.Ç
+’‹v_root_.utils.StubAddresses.create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(address)
+∫æ_root_.uk.gov.hmrc. 
+Çå_root_.org.scalacheck.)
+˝	É
+_root_.scala.concurrent.Future.")
+_root_.scala.collection.Seq.	ÄÑSeq"'
+_root_.connectors.ÄàÄ
+connectors"‘
+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Í	arbitrary)[T] => (implicit a: Arbitrary[T]): Gen[T]"(
+ _root_.org.scalacheck.Arbitrary#"p
+h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]""
+#&_root_.org.scalacheck.Gen#"p
+'(h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"!
+_root_.scala.util.ÄàÄutil"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"(
+_root_.utils.StubHttp.ÄÑStubHttp"l
+,_root_.utils.StubAddresses.noResultPostcode.<noResultPostcodeString"
+_root_.java.lang.String#"ç
+1_root_.org.scalacheck.Gen#sample()Lscala/Option;.Xsample	Option[T]"
+_root_.scala.Option#"%
+_root_.org.scalacheck.Gen#[T]".
+_root_.scala.concurrent.Future#Ä@Future"/
+_root_.scala.concurrent.Future.ÄÑFuture"£
+p_root_.scala.collection.generic.GenTraversableFactory#fill(ILscala/Function0;)Lscala/collection/GenTraversable;.Æfill)[A] => (n: Int)(elem: <byname>[A]): CC[A]"
+_root_.scala.Int#" 
+_root_.scala.`<byname>`#"{
+ s_root_.scala.collection.generic.GenTraversableFactory#fill(ILscala/Function0;)Lscala/collection/GenTraversable;.[A]"B
+$&:_root_.scala.collection.generic.GenTraversableFactory#[CC]"{
+'(s_root_.scala.collection.generic.GenTraversableFactory#fill(ILscala/Function0;)Lscala/collection/GenTraversable;.[A]"æ
+Å_root_.utils.StubAddresses.findByPostcode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(postcode)8ÄpostcodeString"!
+_root_.scala.Predef.String#"W
+$_root_.scala.util.Random#nextInt()I./nextInt(): Int"
+_root_.scala.Int#"%
+_root_.resources.ÄàÄ	resources"(
+_root_.models.Address#Ä†ÄAddress"°
+ä_root_.models.Address#`<init>`(Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V.ë<init>s(addressUnitId: Option[Int], line1: String, line2: String, line3: String, line4: String, postcode: String): Address"
+_root_.scala.Option#"
+_root_.scala.Int#"#
+$*_root_.scala.Predef.String#"#
+39_root_.scala.Predef.String#"#
+BH_root_.scala.Predef.String#"#
+QW_root_.scala.Predef.String#"#
+ci_root_.scala.Predef.String#"
+ls_root_.models.Address#"∫
+q_root_.utils.StubAddresses.create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"
+_root_.org.
+ÄàÄorg"
+
+_root_.uk.	ÄàÄuk"
+_root_.uk.gov.
+ÄàÄgov"≠
+v_root_.utils.StubAddresses.create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(address)3ÄaddressAddress"
+_root_.models.Address#"¨
+f_root_.connectors.Addresses#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.¡<init>1(config: ServicesConfig, http: WSHttp): Addresses"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"$
+(1_root_.connectors.Addresses#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"æ
+A_root_.java.lang.String#contentEquals(Ljava/lang/CharSequence;)Z.yÑÄÄcontentEquals(x$1: CharSequence): Boolean"&
+_root_.java.lang.CharSequence#"
+_root_.scala.Boolean#"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"+
+_root_.org.scalacheck.ÄàÄ
+scalacheck")
+_root_.scala.util.Random.ÄÑRandom"3
+ _root_.org.scalacheck.Arbitrary.ÄÑ	Arbitrary"
+_root_.models.ÄàÄmodels"[
+,_root_.scala.Option#get()Ljava/lang/Object;.+ÑÄgetA"
+_root_.scala.Option#[A]"<
+ _root_.utils.StubServicesConfig.ÄÑStubServicesConfig"ï
+w_root_.utils.StubAddresses.findByPostcode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ôfindByPostcodeD(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[Address]]"#
+_root_.scala.Predef.String#".
+ -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+06_root_.scala.concurrent.Future#"!
+7:_root_.scala.package.Seq#"
+;B_root_.models.Address#"
+_root_.utils.ÄàÄutils">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."
+_root_.scala.ÄàÄscala""
+_root_.uk.gov.hmrc.ÄàÄhmrc"ƒ
+{_root_.utils.StubAddresses.findByPostcode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Õ
+m_root_.utils.StubAddresses.create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.€create;(address: Address)(implicit hc: HeaderCarrier): Future[Int]"
+
+_root_.models.Address#".
+ -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+06_root_.scala.concurrent.Future#"
+7:_root_.scala.Int#".
+_root_.connectors.Addresses#Ä 	Addresses"2
+_root_.utils.StubAddresses.ÄÑStubAddresses2t
+Æ
+Æ
+'*(resources.`package`.arbitraryAddress)
+_star_.2
+&*_root_.resources.package.arbitraryAddress.2C
+ó
+ó
+
+*[Address]
+_star_.
+	_root_.models.Address#2ö
+›	›	*.apply
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.2:
+ññ*[Int]
+_star_.
+_root_.scala.Int#2n
+é
+é
+*[Seq[Address]]
+_star_.
+_root_.models.Address#$
+_root_.scala.collection.Seq#2n
+Ÿ	Ÿ	*[Seq[Address]]
+_star_.
+_root_.models.Address#$
+_root_.scala.collection.Seq#:Scala211B»
+/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package utils
+
+import connectors.Addresses
+import models.Address
+import org.scalacheck.Arbitrary
+
+import scala.concurrent.Future
+import scala.util.Random
+import org.scalacheck.Arbitrary._
+import resources._
+import uk.gov.hmrc.http.HeaderCarrier
+
+object StubAddresses extends Addresses(StubServicesConfig,StubHttp) {
+  val noResultPostcode = "NO RESULT"
+
+  override def create(address: Address)(implicit hc: HeaderCarrier) = Future.successful(Random.nextInt)
+
+  override def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[Address]] = {
+    if (postcode.contentEquals(noResultPostcode)) {
+      Future.successful(Seq[Address]())
+    } else {
+      Future.successful(Seq.fill(10)(arbitrary[Address].sample.get))
+    }
+  }
+}
+Jtest/utils/StubAddresses.scala

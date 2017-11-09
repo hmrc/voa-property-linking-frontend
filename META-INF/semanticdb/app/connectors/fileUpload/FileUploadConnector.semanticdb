@@ -1,0 +1,818 @@
+
+∆Ç
+Üä_root_.scala.None.
+ÿ‹_root_.uk.gov.hmrc.–
+Ÿ·≈_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(fileName)
+ü¢_root_.uk.gov.
+ÓÚ_root_.scala.None.0
+¥∫&_root_.uk.gov.hmrc.play.config.inject.
+Éá_root_.java.
+´Ø_root_.java.io.File#b
+Ç	Ç	V_root_.connectors.fileUpload.FileMetadata#`<init>`(Lmodels/LinkBasis;Lscala/Option;)V.i
+åî__root_.play.api.mvc.MultipartFormData.FilePart.;_root_.play.api.mvc.MultipartFormData.FilePart#
+∏∫s_root_.connectors.fileUpload.FileUpload#healthCheck(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+ÂÔ_root_.connectors.;
+çì1_root_.java.io.File#toPath()Ljava/nio/file/Path;.=
+¿”1_root_.connectors.fileUpload.FileUploadConnector#H
+ “>app/connectors/fileUpload/FileUploadConnector.scala@1928..19364
+€Á*_root_.connectors.fileUpload.FileMetadata.•
+ıˇö_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)!
+Õ’_root_.models.FileInfo.A
+ËÏ7_root_.connectors.fileUpload.FileUploadConnector#(http)J
+çë>app/connectors/fileUpload/FileUploadConnector.scala@1805..1809
+º¿_root_.java.io.File#K
+ˇêA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#4
+Ë	Ù	*_root_.connectors.fileUpload.FileMetadata#A
+É	å	5_root_.connectors.fileUpload.FileMetadata#(linkBasis)'
+˙_root_.connectors.fileUpload.'
+Ëˆ_root_.models.NoEvidenceFlag.9
+∆Œ/_root_.play.api.mvc.MultipartFormData.FilePart.H
+åê>app/connectors/fileUpload/FileUploadConnector.scala@1529..1533
+ˆ_root_.config.%
+Æ¥_root_.scala.Predef.String#0
+æÀ&_root_.uk.gov.hmrc.http.HeaderCarrier#0
+º…&_root_.uk.gov.hmrc.http.HeaderCarrier#A
+°•7_root_.connectors.fileUpload.FileUploadConnector#(http)à
+›ﬂ|_root_.connectors.fileUpload.FileUploadConnector#healthCheck(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)!
+ª√_root_.models.FileInfo.3
+ãè)_root_.java.io.File.;_root_.java.io.File#*
+∂¿ _root_.play.api.libs.functional.
+¸Ç_root_.config.WSHttp#Q
+≥¥G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.
+¿ƒ_root_.uk.gov.hmrc.“
+èó≈_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(fileName)≈
+•©∏_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(file)%
+ﬂÂ_root_.scala.Predef.String#Ã
+ÀÕø_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)%
+ôü_root_.scala.Predef.String#0
+˙ã&_root_.play.api.mvc.MultipartFormData.$
+ﬂ„_root_.play.api.libs.json.4
+ô•*_root_.connectors.fileUpload.FileMetadata#
+àä_root_.java.io.Q
+˛ˇG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.C
+∑Ω9_root_.connectors.fileUpload.FileUploadConnector#(config)4
+ﬁÍ*_root_.connectors.fileUpload.FileMetadata#I
+™∞?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#%
+ˆ¸_root_.scala.Predef.String#
+÷Ÿ_root_.play.api."
+≈…_root_.uk.gov.hmrc.http.)
+Ñä_root_.scala.concurrent.Future#"
+é	ó	_root_.models.LinkBasis#W
+ÃŸM_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#
+—’_root_.play.%
+ù£_root_.scala.Predef.String#-
+¯˛#_root_.akka.stream.scaladsl.FileIO.?
+ÊÙ5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#H
+ú§>app/connectors/fileUpload/FileUploadConnector.scala@1535..1543J
+¯˚>app/connectors/fileUpload/FileUploadConnector.scala@2804..2915&
+ô¶_root_.models.RatesBillType.-
+ø≈#_root_.akka.stream.scaladsl.Source..
+º≈$_root_.play.api.libs.json.JsSuccess.
+®¨_root_.play.”
+Íı»_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(contentType)J
+¸Ä>app/connectors/fileUpload/FileUploadConnector.scala@1916..1920J
+àê>app/connectors/fileUpload/FileUploadConnector.scala@1928..1936%
+àé_root_.scala.Predef.String#^
+⁄
+€
+T_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.|
+’ÿr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.J
+˘˝>app/connectors/fileUpload/FileUploadConnector.scala@1529..1533
+£	©	_root_.scala.Option#%
+˝É_root_.scala.Predef.String#
+≠∞_root_.play.api.0
+ÙÅ&_root_.uk.gov.hmrc.http.HeaderCarrier#)
+ﬂÂ_root_.scala.concurrent.Future#'
+ˆÑ_root_.models.NoEvidenceFlag."
+›·_root_.uk.gov.hmrc.play.j
+ˇá`_root_.akka.stream.scaladsl.FileIO.fromPath(Ljava/nio/file/Path;I)Lakka/stream/scaladsl/Source;.M
+û£C_root_.connectors.fileUpload.FileMetadata.apply()Lscala/Function2;.Q
+ùûG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.
+ÊÍ_root_.scala.Unit#
+∏æ_root_.akka.stream.»
+˙ª_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+ˆ˘_root_.play.api.mvc.'
+ﬁÏ_root_.models.NoEvidenceFlag.n
+êòd_root_.play.api.libs.json.JsValue#validate(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/JsResult;.^
+ø
+¿
+T_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.H
+ƒ»>app/connectors/fileUpload/FileUploadConnector.scala@1916..1920E
+ﬁ‰9_root_.connectors.fileUpload.FileUploadConnector#(config)í
+·Ö_root_.connectors.fileUpload.FileUpload#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+îò_root_.scala.Some.
+¯¸_root_.scala.Unit#
+¯¸_root_.scala.None.(
+ôõ_root_.scala.Boolean#`||`(Z)Z.%
+Ãÿ_root_.models.EvidenceType#À
+ÍÙæ_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)M
+…
+ 
+C_root_.play.api.libs.json.JsPath#`\`(I)Lplay/api/libs/json/JsPath;.{
+£Æo_root_.connectors.fileUpload.FileUpload#healthCheck(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.)
+¢®_root_.scala.concurrent.Future#"
+åñ_root_.scala.concurrent.
+≥∑_root_.akka.]
+ò®S_root_.scala.concurrent.ExecutionContext.;_root_.scala.concurrent.ExecutionContext#Y
+„O_root_.com.google.inject.ImplementedBy.;_root_.com.google.inject.ImplementedBy#
+˜˚_root_.scala.Some.
+ºø_root_.uk.gov.f
+®Ø\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.l
+Üëb_root_.play.api.libs.ws.WSRequest#withHeaders(Lscala/collection/Seq;)Lplay/api/libs/ws/WSRequest;.3
+ë°)_root_.scala.concurrent.ExecutionContext#
+òû_root_.models.1
+€€'_root_.javax.inject.Inject#`<init>`()V.
+∂∫_root_.scala.Some.
+πª
+_root_.uk.*
+‚	Á	 _root_.play.api.libs.json.Reads#4
+©µ*_root_.connectors.fileUpload.FileMetadata#%
+áç_root_.scala.Predef.String#
+˛Ç_root_.scala.Some.‘
+˚Ö«_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)–
+œ◊≈_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(fileName)|
+ÇÖr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.4
+ëù*_root_.connectors.fileUpload.FileMetadata.)
+Œ‘_root_.scala.concurrent.Future#&
+π∆_root_.models.RatesBillFlag.A
+§™7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#ª
+ãé∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.k
+ñòa_root_.scala.collection.immutable.List#`::`(Ljava/lang/Object;)Lscala/collection/immutable/List;.J
+∆ >app/connectors/fileUpload/FileUploadConnector.scala@3398..3402=
+ÎÎ3_root_.com.google.inject.ImplementedBy#`<init>`()V.1
+¡«'_root_.play.api.libs.functional.syntax.C
+Çà9_root_.connectors.fileUpload.FileUploadConnector#(config)H
+˙˝>app/connectors/fileUpload/FileUploadConnector.scala@2804..2915
+Üã_root_.scala.)
+ëò_root_.scala.Option#isEmpty()Z.
+’Ÿ_root_.scala.Unit#H
+“÷>app/connectors/fileUpload/FileUploadConnector.scala@3398..3402-
+ïú#_root_.java.lang.String#isEmpty()Z.M
+Î
+Ï
+C_root_.play.api.libs.json.JsPath#`\`(I)Lplay/api/libs/json/JsPath;.û
+Ò˚ë_root_.connectors.fileUpload.FileUpload#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)O
+≠≤C_root_.connectors.fileUpload.FileMetadata.apply()Lscala/Function2;.n
+
+¸
+d_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.<
+€	‡	0_root_.connectors.fileUpload.FileMetadata.reads.4
+ñ¢*_root_.connectors.fileUpload.FileMetadata.%
+˝
+â_root_.models.EvidenceType#
+‘◊_root_.uk.gov.´
+››û_root_.connectors.fileUpload.FileUploadConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.
+„È_root_.scala.Option.!
+™	≤	_root_.models.FileInfo#^
+Õ
+Œ
+T_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.√
+∫º∂_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)J
+Éá>app/connectors/fileUpload/FileUploadConnector.scala@1667..1671Ã
+àå¡_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(file)
+àå_root_.scala.Some.#
+‹‚_root_.com.google.inject.*
+£¥ _root_.models.OtherEvidenceFlag.U
+€ÁK_root_.uk.gov.hmrc.http.HttpResponse.;_root_.uk.gov.hmrc.http.HttpResponse#/
+èõ%_root_.uk.gov.hmrc.http.HttpResponse#&
+ø«_root_.akka.stream.scaladsl.%
+’€_root_.javax.inject.Inject#H
+êî>app/connectors/fileUpload/FileUploadConnector.scala@1667..16714
+—›*_root_.connectors.fileUpload.FileMetadata.
+úû
+_root_.uk.“
+»“«_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)Ñ
+»”x_root_.connectors.fileUpload.FileUploadConnector#healthCheck(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.)
+Ò˜_root_.scala.concurrent.Future#
+»Ã_root_.scala.Some.
+⁄ﬁ_root_.play.api.libs.1
+ﬁÎ'_root_.com.google.inject.ImplementedBy#"
+®¨_root_.uk.gov.hmrc.play.5
+˜˝+_root_.config.WSHttp.;_root_.config.WSHttp#4
+¨∏*_root_.connectors.fileUpload.FileMetadata.
+—”
+_root_.uk.f
+æ≈\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.ü
+Úí_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)0
+íü&_root_.uk.gov.hmrc.http.HeaderCarrier#
+£ß_root_.uk.gov.hmrc.ß
+”›ö_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId);
+Ùá1_root_.connectors.fileUpload.FileUploadConnector#1
+ôù'_root_.scala.collection.immutable.List.
+ÌÒ_root_.play.4
+êö(_root_.connectors.fileUpload.FileUpload#?
+ª…5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#
+≤∂_root_.scala.Unit..
+∂∂$_root_.java.lang.Object#`<init>`()V.ª
+¶©∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+’€_root_.com.google.)
+Ã“_root_.scala.concurrent.Future#
+±µ_root_.play.api.libs.
+Úı_root_.play.api.–
+⁄‚≈_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(fileName)
+µª_root_.scala.Option#…
+˛Üº_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(fileName)J
+ˇá>app/connectors/fileUpload/FileUploadConnector.scala@1535..1543
+—‘_root_.com.4
+Èı*_root_.connectors.fileUpload.FileMetadata.ø
+ﬂÈ≤_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.|
+©¨r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.6
+Ω	…	*_root_.connectors.fileUpload.FileMetadata.H
+÷⁄>app/connectors/fileUpload/FileUploadConnector.scala@1805..18090
+œ‹&_root_.uk.gov.hmrc.http.HeaderCarrier#
+¯˛_root_.config.
+ù£_root_.javax.inject.4
+ãó*_root_.connectors.fileUpload.FileMetadata#i
+∫æ__root_.play.api.libs.ws.WSRequest#post(Lakka/stream/scaladsl/Source;)Lscala/concurrent/Future;.C
+°ß9_root_.connectors.fileUpload.FileUploadConnector#(config))
+≠≥_root_.uk.gov.hmrc.play.config.
+≈À_root_.scala.Option#&
+‹È_root_.models.RatesBillType.%
+º¬_root_.scala.Predef.String#/
+º
+æ
+%_root_.play.api.libs.json.package.__.f
+âê\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.@
+ô	°	4_root_.connectors.fileUpload.FileMetadata#(fileInfo)0
+·Ó&_root_.uk.gov.hmrc.http.HeaderCarrier#ñ
+éêâ_root_.connectors.fileUpload.FileUpload#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)õ
+√“é_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A
+çè5_root_.connectors.fileUpload.FileUploadConnector#(ec)’
+°¨»_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(contentType)2
+´µ(_root_.connectors.fileUpload.FileUpload#)
+•¨_root_.scala.Option#isEmpty()Z.
+”◊_root_.scala.Unit#é
+±
+¥
+É_root_.play.api.libs.functional.FunctionalBuilderOps#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild2;.Ã
+êõø_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(contentType)
+óú_root_.javax.'
+‚Ê_root_.uk.gov.hmrc.play.http.
+Éá_root_.scala.Some.í
+Ì˘á_root_.uk.gov.hmrc.play.http.ws.WSRequest#buildRequest(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lplay/api/libs/ws/WSRequest;.,
+™±"_root_.play.api.libs.json.JsValue#A
+Üä7_root_.connectors.fileUpload.FileUploadConnector#(http)Œ
+∂∫¡_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(file)6
+ˆÇ	*_root_.connectors.fileUpload.FileMetadata#C
+ˆ˙7_root_.connectors.fileUpload.FileUploadConnector#(http)"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"3
+"_root_.play.api.libs.json.JsValue#Ä¿JsValue"M
+1_root_.connectors.fileUpload.FileUploadConnector#Ä FileUploadConnector"ä
+>app/connectors/fileUpload/FileUploadConnector.scala@3398..3402HdataFileMetadata"0
+*_root_.connectors.fileUpload.FileMetadata#"˛
+d_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.ïreadNullable/[T] => (implicit r: Reads[T]): Reads[Option[T]]"(
+ _root_.play.api.libs.json.Reads#"o
+g_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.[T]"(
+$ _root_.play.api.libs.json.Reads#"
+%+_root_.scala.Option#"o
+,-g_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.[T]"1
+_root_.models.EvidenceType#Ä¿EvidenceType"°
+é_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.çgetFileMetadataF(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata]"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+28_root_.scala.concurrent.Future#"2
+9E*_root_.connectors.fileUpload.FileMetadata#"*
+_root_.com.google.inject.ÄàÄinject"
+_root_.com.
+ÄàÄcom"$
+_root_.config.WSHttp#Ä@WSHttp"Ü
+«_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId):Ä
+envelopeIdString"!
+_root_.scala.Predef.String#"3
+#_root_.akka.stream.scaladsl.Source.ÄÑSource")
+_root_.play.api.libs.json.ÄàÄjson"A
+&_root_.play.api.mvc.MultipartFormData.ÄÑMultipartFormData"u
+>app/connectors/fileUpload/FileUploadConnector.scala@1667..16713nameString"!
+_root_.scala.Predef.String#"/
+_root_.akka.stream.scaladsl.ÄàÄscaladsl"5
+ _root_.play.api.libs.functional.ÄàÄ
+functional"*
+_root_.models.FileInfo#Ä†ÄFileInfo"u
+>app/connectors/fileUpload/FileUploadConnector.scala@1805..18093nameString"!
+_root_.scala.Predef.String#")
+_root_.models.FileInfo.ÄÑFileInfo":
+%_root_.uk.gov.hmrc.http.HttpResponse#Ä@HttpResponse"≈
+|_root_.connectors.fileUpload.FileUploadConnector#healthCheck(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"A
+/_root_.play.api.mvc.MultipartFormData.FilePart.ÄÑFilePart"'
+_root_.connectors.ÄàÄ
+connectors"¶
+o_root_.connectors.fileUpload.FileUpload#healthCheck(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.≤ÑÄhealthCheck*(implicit hc: HeaderCarrier): Future[Unit]".
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+$_root_.scala.concurrent.Future#"
+%)_root_.scala.Unit#"ƒ
+ª_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.É
+uploadFileq(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit]"#
+_root_.scala.Predef.String#"#
+%_root_.scala.Predef.String#"#
+4:_root_.scala.Predef.String#"
+BF_root_.java.io.File#".
+Ub&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+ek_root_.scala.concurrent.Future#"
+lp_root_.scala.Unit#"‹
+d_root_.play.api.libs.json.JsValue#validate(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/JsResult;.Ûvalidate,[A] => (implicit rds: Reads[A]): JsResult[A]"(
+ _root_.play.api.libs.json.Reads#"o
+g_root_.play.api.libs.json.JsValue#validate(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/JsResult;.[A]"+
+!)#_root_.play.api.libs.json.JsResult#"o
+*+g_root_.play.api.libs.json.JsValue#validate(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/JsResult;.[A]"î
+4_root_.connectors.fileUpload.FileMetadata#(fileInfo)\ÅfileInfoOption[FileInfo]"
+_root_.scala.Option#"
+_root_.models.FileInfo#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"ò
+2_root_.java.io.File#`<init>`(Ljava/lang/String;)V.bàÄÄ<init>(x$1: String): File" 
+_root_.java.lang.String#"
+_root_.java.io.File#"7
+$_root_.play.api.libs.json.JsSuccess.ÄÑ	JsSuccess"Ò
+¡_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(file)+ÄfileFile"
+_root_.java.io.File#"
+_root_.java.ÄàÄjava"a
+#_root_.java.lang.String#isEmpty()Z.:ÑÄÄisEmpty(): Boolean"
+_root_.scala.Boolean#"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.javax.ÄàÄjavax""
+_root_.play.api.mvc.
+ÄàÄmvc"
+_root_.akka.ÄàÄakka"
+_root_.play.api.
+ÄàÄapi"2
+_root_.connectors.fileUpload.ÄàÄ
+fileUpload"Ω
+≤_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÖÑÄ
+uploadFileq(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit]"#
+_root_.scala.Predef.String#"#
+%_root_.scala.Predef.String#"#
+4:_root_.scala.Predef.String#"
+BF_root_.java.io.File#".
+Ub&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+ek_root_.scala.concurrent.Future#"
+lp_root_.scala.Unit#"ˇ
+ø_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(contentType);ÄcontentTypeString"!
+_root_.scala.Predef.String#"¢
+É_root_.play.api.libs.functional.FunctionalBuilderOps#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild2;.ôand"[B] => (mb: M[B]): CanBuild2[A, B]"@
+8_root_.play.api.libs.functional.FunctionalBuilderOps#[M]"è
+Ü_root_.play.api.libs.functional.FunctionalBuilderOps#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild2;.[B]"D
+<_root_.play.api.libs.functional.FunctionalBuilder#CanBuild2#"@
+8_root_.play.api.libs.functional.FunctionalBuilderOps#[A]"è
+ !Ü_root_.play.api.libs.functional.FunctionalBuilderOps#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild2;.[B]"i
+7_root_.connectors.fileUpload.FileUploadConnector#(http).ÄhttpWSHttp"
+_root_.config.WSHttp#" 
+_root_.scala.Unit.
+ÄÑUnit" 
+_root_.scala.Unit#
+Ä†Unit"–
+ë_root_.connectors.fileUpload.FileUpload#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId):Ä
+envelopeIdString"!
+_root_.scala.Predef.String#"
+_root_.java.io.	ÄàÄio",
+_root_.uk.gov.hmrc.play.http.ÄàÄhttp".
+_root_.scala.concurrent.Future#Ä@Future"L
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig"˝
+æ_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId):Ä
+envelopeIdString"!
+_root_.scala.Predef.String#"ﬁ
+__root_.play.api.libs.ws.WSRequest#post(Lakka/stream/scaladsl/Source;)Lscala/concurrent/Future;.˙postï(body: akka.stream.scaladsl.Source[play.api.mvc.MultipartFormData.Part[akka.stream.scaladsl.Source[akka.util.ByteString, _]], _]): Future[WSResponse]")
+Éâ_root_.scala.concurrent.Future#"-
+äî#_root_.play.api.libs.ws.WSResponse#",
+_root_.javax.inject.Inject#Ä†ÄInject"¶
+C_root_.play.api.libs.json.JsPath#`\`(I)Lplay/api/libs/json/JsPath;._\(idx: Int): JsPath"
+	_root_.scala.Int#")
+!_root_.play.api.libs.json.JsPath#"@
+*_root_.connectors.fileUpload.FileMetadata.ÄÑFileMetadata"A
+*_root_.connectors.fileUpload.FileMetadata#Ä†ÄFileMetadata"8
+'_root_.play.api.libs.functional.syntax.ÄàÄsyntax"Ä
+∂_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"∞
+0_root_.connectors.fileUpload.FileMetadata.reads.|ÅÄ readsReads[FileMetadata]"&
+ _root_.play.api.libs.json.Reads#"2
+*_root_.connectors.fileUpload.FileMetadata#"à
+3_root_.com.google.inject.ImplementedBy#`<init>`()V.QàÄÄ<init>(): ImplementedBy"/
+'_root_.com.google.inject.ImplementedBy#"r
+5_root_.connectors.fileUpload.FileMetadata#(linkBasis)9Å	linkBasis	LinkBasis"
+	_root_.models.LinkBasis#"È
+C_root_.connectors.fileUpload.FileMetadata.apply()Lscala/Function2;.°apply=Function2[Option[String], Option[EvidenceType], FileMetadata]"
+	_root_.scala.Function2#"
+
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+ _root_.scala.Option#"#
+!-_root_.models.EvidenceType#"2
+0<*_root_.connectors.fileUpload.FileMetadata#"7
+&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"4
+_root_.models.RatesBillType.ÄÑàRatesBillType"$
+_root_.scala.Option.ÄÑOption"$
+_root_.scala.Option#Ä†Option"3
+#_root_.akka.stream.scaladsl.FileIO.ÄÑFileIO"
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"õ
+>app/connectors/fileUpload/FileUploadConnector.scala@1529..1533YnameOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"Ÿ
+ö_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId):Ä
+envelopeIdString"!
+_root_.scala.Predef.String#"#
+_root_.com.google.ÄàÄgoogle"‘
+\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.tbaseUrl(serviceName: String): String"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"5
+'_root_.scala.collection.immutable.List.
+ÄÑList"∆
+T_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.n\(child: String): JsPath"#
+_root_.scala.Predef.String#")
+!_root_.play.api.libs.json.JsPath#"
+_root_.uk.gov.
+ÄàÄgov"p
+1_root_.java.io.File#toPath()Ljava/nio/file/Path;.;ÑÄÄtoPath(): Path""
+_root_.java.nio.file.Path#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"$
+_root_.akka.stream.ÄàÄstream"ö
+Ö_root_.connectors.fileUpload.FileUpload#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.èÑÄgetFileMetadataF(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata]"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+28_root_.scala.concurrent.Future#"2
+9E*_root_.connectors.fileUpload.FileMetadata#"!
+_root_.scala.None.ÄÑàNone"Ñ
+5_root_.connectors.fileUpload.FileUploadConnector#(ec)KÄÅ ecExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"‹
+í_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"B
+)_root_.scala.concurrent.ExecutionContext#Ä@ExecutionContext"˘
+º_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(fileName)8ÄfileNameString"!
+_root_.scala.Predef.String#";
+(_root_.connectors.fileUpload.FileUpload#Ä@
+FileUpload"?
+'_root_.com.google.inject.ImplementedBy#Ä†ÄImplementedBy"â
+ø_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"
+_root_.play.ÄàÄplay"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"e
+%_root_.play.api.libs.json.package.__.<__JsPath.type"'
+!_root_.play.api.libs.json.JsPath."+
+_root_.models.LinkBasis#Ä¿	LinkBasis"÷
+û_root_.connectors.fileUpload.FileUploadConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.≤<init>Z(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): FileUploadConnector"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"9
+GZ1_root_.connectors.fileUpload.FileUploadConnector#"<
+ _root_.models.OtherEvidenceFlag.ÄÑàOtherEvidenceFlag"Á
+b_root_.play.api.libs.ws.WSRequest#withHeaders(Lscala/collection/Seq;)Lplay/api/libs/ws/WSRequest;.ÄÑÄwithHeaders5(hdrs: <repeated>[Tuple2[String, String]]): WSRequest""
+_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+_root_.scala.Predef.String#"#
+!'_root_.scala.Predef.String#"*
+,5"_root_.play.api.libs.ws.WSRequest#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"
+>app/connectors/fileUpload/FileUploadConnector.scala@1928..1936=evidenceEvidenceType"!
+_root_.models.EvidenceType#"4
+_root_.models.RatesBillFlag.ÄÑàRatesBillFlag"R
+_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
+_root_.scala.Unit#"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"
+_root_.models.ÄàÄmodels"ï
+9_root_.connectors.fileUpload.FileUploadConnector#(config)XÄconfigServicesConfig";
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"€
+á_root_.uk.gov.hmrc.play.http.ws.WSRequest#buildRequest(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lplay/api/libs/ws/WSRequest;.ŒbuildRequest;[A] => (url: String)(implicit hc: HeaderCarrier): WSRequest"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"*
+2;"_root_.play.api.libs.ws.WSRequest#".
+ _root_.play.api.libs.json.Reads#
+Ä@Reads"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"º
+V_root_.connectors.fileUpload.FileMetadata#`<init>`(Lmodels/LinkBasis;Lscala/Option;)V.·<init>@(linkBasis: LinkBasis, fileInfo: Option[FileInfo]): FileMetadata" 
+_root_.models.LinkBasis#"
+!'_root_.scala.Option#"
+(0_root_.models.FileInfo#"2
+4@*_root_.connectors.fileUpload.FileMetadata#"ì
+`_root_.akka.stream.scaladsl.FileIO.fromPath(Ljava/nio/file/Path;I)Lakka/stream/scaladsl/Source;.ÆfromPath?(f: Path, chunkSize: Int): Source[ByteString, Future[IOResult]]""
+_root_.java.nio.file.Path#"
+_root_.scala.Int#"+
+!#_root_.akka.stream.scaladsl.Source#"$
+",_root_.akka.util.ByteString#"'
+.4_root_.scala.concurrent.Future#"$
+5=_root_.akka.stream.IOResult#"”
+â_root_.connectors.fileUpload.FileUpload#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"
+_root_.scala.Boolean#`||`(Z)Z.]ÑÄ||(x: Boolean): Boolean"
+_root_.scala.Boolean#"
+_root_.scala.Boolean#"
+_root_.config.ÄàÄconfig">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"ë
+a_root_.scala.collection.immutable.List#`::`(Ljava/lang/Object;)Lscala/collection/immutable/List;.´::[B] => (x: B): List[B]"l
+d_root_.scala.collection.immutable.List#`::`(Ljava/lang/Object;)Lscala/collection/immutable/List;.[B]"/
+'_root_.scala.collection.immutable.List#"l
+d_root_.scala.collection.immutable.List#`::`(Ljava/lang/Object;)Lscala/collection/immutable/List;.[B]"≠
+x_root_.connectors.fileUpload.FileUploadConnector#healthCheck(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.∞healthCheck*(implicit hc: HeaderCarrier): Future[Unit]".
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+$_root_.scala.concurrent.Future#"
+%)_root_.scala.Unit#"˙
+J_root_.models.FileInfo#`<init>`(Ljava/lang/String;Lmodels/EvidenceType;)V.´<init>4(name: String, evidenceType: EvidenceType): FileInfo"#
+_root_.scala.Predef.String#"#
+)_root_.models.EvidenceType#"
+,4_root_.models.FileInfo#"t
+>app/connectors/fileUpload/FileUploadConnector.scala@2804..29152urlString"!
+_root_.scala.Predef.String#"Ç
+≈_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(fileName)8ÄfileNameString"!
+_root_.scala.Predef.String#"
+_root_.scala.ÄàÄscala"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"Ë
+∏_root_.connectors.fileUpload.FileUpload#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(file)+ÄfileFile"
+_root_.java.io.File#"˛
+∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.»GETd[A] => (url: String)(implicit rds: HttpReads[A], hc: HeaderCarrier, ec: ExecutionContext): Future[A]"#
+_root_.scala.Predef.String#"*
+#,"_root_.uk.gov.hmrc.http.HttpReads#"º
+-.≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]".
+5B&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+HX)_root_.scala.concurrent.ExecutionContext#"'
+[a_root_.scala.concurrent.Future#"º
+bc≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"•
+>app/connectors/fileUpload/FileUploadConnector.scala@1535..1543cevidenceOption[EvidenceType]"
+_root_.scala.Option#"#
+_root_.models.EvidenceType#"V
+_root_.scala.Option#isEmpty()Z.3ÑÄisEmptyBoolean"
+_root_.scala.Boolean#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"à
+»_root_.connectors.fileUpload.FileUploadConnector#uploadFile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(contentType);ÄcontentTypeString"!
+_root_.scala.Predef.String#"º
+s_root_.connectors.fileUpload.FileUpload#healthCheck(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"6
+_root_.models.NoEvidenceFlag.ÄÑàNoEvidenceFlag" 
+_root_.scala.Some.
+ÄÑSome"#
+_root_.java.io.File#Ä†ÄFile"u
+>app/connectors/fileUpload/FileUploadConnector.scala@1916..19203nameString"!
+_root_.scala.Predef.String#2Å
+’’*.apply
+_star_._
+W_root_.models.FileInfo.apply(Ljava/lang/String;Lmodels/EvidenceType;)Lmodels/FileInfo;.2¢
+≈≈7*.apply[FilePart[Source[ByteString, Future[IOResult]]]]
+_star_.u
+m_root_.akka.stream.scaladsl.Source.apply(Lscala/collection/immutable/Iterable;)Lakka/stream/scaladsl/Source;.$
++3_root_.akka.stream.IOResult#$
+"_root_.akka.util.ByteString#'
+$*_root_.scala.concurrent.Future#7
+/_root_.play.api.mvc.MultipartFormData.FilePart#+
+#_root_.akka.stream.scaladsl.Source#2ì
+ÈÈ*.apply[String]
+_star_.D
+<_root_.scala.Option.apply(Ljava/lang/Object;)Lscala/Option;.#
+_root_.scala.Predef.String#2~
+¶¶+*(connectors.fileUpload.FileMetadata.reads)
+_star_.8
+%*0_root_.connectors.fileUpload.FileMetadata.reads.2ç
+ÃÃ*.apply[FileInfo]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
+_root_.models.FileInfo#2v
+∑∑*(FileUploadConnector.this.ec)
+_star_.=
+5_root_.connectors.fileUpload.FileUploadConnector#(ec)2∏
+ùù*.apply[Nothing]
+_star_.n
+f_root_.scala.collection.immutable.List.apply(Lscala/collection/Seq;)Lscala/collection/immutable/List;.
+_root_.scala.Nothing#2ﬂ
+••*(play.api.libs.json.Reads.functorReads(play.api.libs.json.Reads.applicative(play.api.libs.json.JsResult.applicativeJsResult)))
+_star_.?
+i|7_root_.play.api.libs.json.JsResult.applicativeJsResult.Ç
+ALz_root_.play.api.libs.json.Reads.applicative(Lplay/api/libs/functional/Applicative;)Lplay/api/libs/functional/Applicative;.
+'w_root_.play.api.libs.json.Reads.functorReads(Lplay/api/libs/functional/Applicative;)Lplay/api/libs/functional/Functor;.2•
+üü1*[FilePart[Source[ByteString, Future[IOResult]]]]
+_star_.$
+%-_root_.akka.stream.IOResult#$
+_root_.akka.util.ByteString#'
+$_root_.scala.concurrent.Future#7
+
+/_root_.play.api.mvc.MultipartFormData.FilePart#+
+#_root_.akka.stream.scaladsl.Source#2<
+ÿÿ*[Unit]
+_star_.
+_root_.scala.Unit#2x
+≥≥*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2Å
+√√*.apply
+_star_._
+W_root_.models.FileInfo.apply(Ljava/lang/String;Lmodels/EvidenceType;)Lmodels/FileInfo;.2x
+ùù*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2
+˛˛*(hc)
+_star_.2<
+¨¨*[Unit]
+_star_.
+_root_.scala.Unit#2†
+››*.apply
+_star_.~
+v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.2ò
+ŒŒ-*.apply[Source[ByteString, Future[IOResult]]]
+_star_.≠
+§_root_.play.api.mvc.MultipartFormData.FilePart.apply(Ljava/lang/String;Ljava/lang/String;Lscala/Option;Ljava/lang/Object;)Lplay/api/mvc/MultipartFormData/FilePart;.$
+_root_.akka.util.ByteString#'
+!_root_.scala.concurrent.Future#+
+#_root_.akka.stream.scaladsl.Source#$
+"*_root_.akka.stream.IOResult#2†
+ıı*.apply
+_star_.~
+v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.2v
+‚‚*(FileUploadConnector.this.ec)
+_star_.=
+5_root_.connectors.fileUpload.FileUploadConnector#(ec)2v
+ìì*(FileUploadConnector.this.ec)
+_star_.=
+5_root_.connectors.fileUpload.FileUploadConnector#(ec)2s
+¥
+¥
+*[Option[EvidenceType]]
+_star_.#
+	_root_.models.EvidenceType#
+_root_.scala.Option#2†
+ÁÁ*.apply
+_star_.~
+v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.2π
+ÅÅ“*(uk.gov.hmrc.http.HttpReads.readFromJson[JsValue](play.api.libs.json.Reads.JsValueReads, scala.reflect.ManifestFactory.classType[JsValue](classOf[play.api.libs.json.JsValue])), hc, FileUploadConnector.this.ec)
+_star_.*
+*1"_root_.play.api.libs.json.JsValue#å
+)É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.,
+Çâ"_root_.play.api.libs.json.JsValue#c
+xÅZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.<
+LX4_root_.play.api.libs.json.DefaultReads#JsValueReads.?
+œ—5_root_.connectors.fileUpload.FileUploadConnector#(ec)2ç
+∫∫*.apply[FileInfo]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
+_root_.models.FileInfo#2ø
+ää1*.apply[FileMetadata](models.EvidenceType.format)
+_star_.í
+â_root_.play.api.libs.functional.FunctionalBuilder#CanBuild2#apply(Lscala/Function2;Lplay/api/libs/functional/Functor;)Ljava/lang/Object;.2
+*_root_.connectors.fileUpload.FileMetadata#*
+*0"_root_.models.EvidenceType.format.2†
+∏∏*.apply
+_star_.~
+v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.2†
+¢¢*.apply
+_star_.~
+v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.2B
+˘˘
+*[Nothing]
+_star_.
+	_root_.scala.Nothing#2“
+‘‘F*(uk.gov.hmrc.http.HttpReads.readRaw, hc, FileUploadConnector.this.ec)
+_star_.2
+$*_root_.uk.gov.hmrc.http.HttpReads.readRaw.=
+CE5_root_.connectors.fileUpload.FileUploadConnector#(ec)2¯
+Å
+∞
+Éplay.api.libs.functional.syntax.`package`.toFunctionalBuilderOps[Reads, Option[String]](*)(play.api.libs.functional.FunctionalCanBuild.functionalCanBuildApplicative[Reads](play.api.libs.json.Reads.applicative(play.api.libs.json.JsResult.applicativeJsResult)))ø
+*@∂_root_.play.api.libs.functional.syntax.package.toFunctionalBuilderOps(Ljava/lang/Object;Lplay/api/libs/functional/FunctionalCanBuild;)Lplay/api/libs/functional/FunctionalBuilderOps;.
+HN_root_.scala.Option##
+OU_root_.scala.Predef.String#(
+AF _root_.play.api.libs.json.Reads#
+XY_star_.Ñ
+≈–z_root_.play.api.libs.json.Reads.applicative(Lplay/api/libs/functional/Applicative;)Lplay/api/libs/functional/Applicative;.±
+á§¶_root_.play.api.libs.functional.FunctionalCanBuild.functionalCanBuildApplicative(Lplay/api/libs/functional/Applicative;)Lplay/api/libs/functional/FunctionalCanBuild;.*
+•™ _root_.play.api.libs.json.Reads#A
+ÌÄ7_root_.play.api.libs.json.JsResult.applicativeJsResult.2x
+˛˛*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2\
+ÖÖ*[FileMetadata]
+_star_.2
+*_root_.connectors.fileUpload.FileMetadata#:Scala211B†/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package connectors.fileUpload
+
+import java.io.File
+import javax.inject.Inject
+
+import akka.stream.scaladsl._
+import com.google.inject.ImplementedBy
+import config.ApplicationConfig
+import models._
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+import play.api.mvc.MultipartFormData.FilePart
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.http._
+import config.WSHttp
+
+import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{ HeaderCarrier, HttpResponse }
+
+case class FileMetadata(linkBasis: LinkBasis, fileInfo: Option[FileInfo])
+
+object FileMetadata {
+  implicit val reads: Reads[FileMetadata] = (
+      (__ \ "files" \ 0 \ "name").readNullable[String] and
+      (__ \ "files" \ 0 \ "metadata" \ "evidenceType" \ 0).readNullable[EvidenceType]
+  ) { FileMetadata.apply }
+
+  def apply: (Option[String], Option[EvidenceType]) => FileMetadata = {
+    case (name, evidence) if name.isEmpty || evidence.isEmpty /* "I have no evidence" route */ => FileMetadata(NoEvidenceFlag, None)
+    case (Some(name), _) if name.isEmpty /* FUaaS doesn't prevent users from uploading no files! */ => FileMetadata(NoEvidenceFlag, None)
+    case (Some(name), Some(RatesBillType)) => FileMetadata(RatesBillFlag, Some(FileInfo(name, RatesBillType)))
+    case (Some(name), Some(evidence)) => FileMetadata(OtherEvidenceFlag, Some(FileInfo(name, evidence)))
+  }
+}
+
+@ImplementedBy(classOf[FileUploadConnector])
+trait FileUpload {
+  def healthCheck(implicit hc: HeaderCarrier): Future[Unit]
+  def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit]
+  def getFileMetadata(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata]
+}
+
+class FileUploadConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) extends FileUpload {
+
+  override def healthCheck(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.GET[HttpResponse](s"${config.baseUrl("file-upload-frontend")}/ping/ping") map { _ => () }
+  }
+
+  def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit] = {
+    val url = s"${config.baseUrl("file-upload-frontend")}/file-upload/upload/envelopes/$envelopeId/files/$fileName"
+    http.buildRequest(url)
+      .withHeaders(("X-Requested-With", "VOA_CCA"))
+      .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromPath(file.toPath)) :: List()))
+      .map(_ => Unit)
+  }
+
+  def getFileMetadata(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata] = {
+    http.GET[JsValue](s"${config.baseUrl("file-upload-backend")}/file-upload/envelopes/$envelopeId") map {
+      _.validate[FileMetadata] match {
+        case JsSuccess(data, _) => data
+        case _ => FileMetadata(NoEvidenceFlag, None)
+      }
+    }
+  }
+}
+J3app/connectors/fileUpload/FileUploadConnector.scala

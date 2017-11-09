@@ -1,0 +1,107 @@
+
+◊%/
+∏º#_root_.models.LinkingSession#(uarn),
+•∏"_root_.models.CapacityDeclaration#)
+¬–_root_.models.LinkingSession.
+˘¸_root_.play.api.
+ÂÎ_root_.models.2
+ßÆ&_root_.models.LinkingSession#(address))
+áã_root_.play.api.libs.json.Json.
+¯¸_root_.scala.Long#%
+∞∂_root_.scala.Predef.String#%
+–÷_root_.scala.Predef.String#N
+ˆD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.
+æ¬_root_.scala.Long#'
+˜Ö_root_.models.LinkingSession#)
+ÎÔ_root_.play.api.libs.json.Json.â
+¶¶}_root_.models.LinkingSession#`<init>`(Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;JLmodels/CapacityDeclaration;)V.3
+Óˆ'_root_.models.LinkingSession#(personId)0
+‚Ë$_root_.models.LinkingSession.format.7
+ÿ‰+_root_.models.LinkingSession#(submissionId)$
+ÇÜ_root_.play.api.libs.json.
+˝Å_root_.play.api.libs.6
+ò£*_root_.models.LinkingSession#(declaration)5
+ƒŒ)_root_.models.LinkingSession#(envelopeId))
+ò¶_root_.models.LinkingSession#%
+ÊÏ_root_.scala.Predef.String#
+Ù¯_root_.play."„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]")
+_root_.play.api.libs.json.ÄàÄjson" 
+_root_.scala.Long#
+Ä†Long"a
+&_root_.models.LinkingSession#(address)7ÅaddressString"!
+_root_.scala.Predef.String#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"û
+$_root_.models.LinkingSession.format.vÅÄ formatOFormat[LinkingSession]"(
+"_root_.play.api.libs.json.OFormat#"%
+_root_.models.LinkingSession#"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"X
+'_root_.models.LinkingSession#(personId)-ÅpersonIdLong"
+_root_.scala.Long#"}
+*_root_.models.LinkingSession#(declaration)OÅdeclarationCapacityDeclaration"(
+"_root_.models.CapacityDeclaration#"k
++_root_.models.LinkingSession#(submissionId)<ÅsubmissionIdString"!
+_root_.scala.Predef.String#"
+_root_.play.ÄàÄplay"@
+"_root_.models.CapacityDeclaration#Ä†ÄCapacityDeclaration"P
+#_root_.models.LinkingSession#(uarn))ÅuarnLong"
+_root_.scala.Long#"
+_root_.models.ÄàÄmodels"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"©
+a_root_.models.CapacityDeclaration#`<init>`(Lmodels/CapacityType;ZLscala/Option;ZLscala/Option;)V.√<init>û(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate], stillInterested: Boolean, toDate: Option[LocalDate]): CapacityDeclaration"#
+_root_.models.CapacityType#"
+/6_root_.scala.Boolean#"
+BH_root_.scala.Option#"#
+IR_root_.java.time.LocalDate#"
+fm_root_.scala.Boolean#"
+w}_root_.scala.Option#"$
+~á_root_.java.time.LocalDate#",
+ãû"_root_.models.CapacityDeclaration#"g
+)_root_.models.LinkingSession#(envelopeId):Å
+envelopeIdString"!
+_root_.scala.Predef.String#"ì
+}_root_.models.LinkingSession#`<init>`(Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;JLmodels/CapacityDeclaration;)V.ë<init>â(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long, declaration: CapacityDeclaration): LinkingSession"#
+
+_root_.scala.Predef.String#"
+_root_.scala.Long#"#
+*0_root_.scala.Predef.String#"#
+@F_root_.scala.Predef.String#"
+RV_root_.scala.Long#"*
+ex"_root_.models.CapacityDeclaration#"&
+{â_root_.models.LinkingSession#"5
+_root_.models.LinkingSession.ÄÑLinkingSession"6
+_root_.models.LinkingSession#Ä†ÄLinkingSession:Scala211Bâ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import play.api.libs.json.Json
+
+case class LinkingSession(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long,
+                          declaration: CapacityDeclaration)
+
+object LinkingSession {
+  implicit val format = Json.format[LinkingSession]
+}
+Japp/models/LinkingSession.scala

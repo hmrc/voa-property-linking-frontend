@@ -1,0 +1,1124 @@
+
+õ¶Ç
+û§˜_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.(upsert)Æ
+ëï°_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(data)9
+»	»	/_root_.com.google.inject.Singleton#`<init>`()V.P
+˜˘F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.1
+˚á'_root_.reactivemongo.bson.BSONDateTime#ü
+˙¸í_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)1
+¯	¯	'_root_.javax.inject.Inject#`<init>`()V.$
+“÷_root_.reactivemongo.bson.0
+∑ƒ&_root_.uk.gov.hmrc.http.HeaderCarrier#,
+»” _root_.repositories.SessionData#=
+ëú3app/repositories/SessionRepository.scala@2522..2533)
+˛Ç_root_.reactivemongo.play.json.á
+ÄÅ{_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#N
+ù£D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.&
+Ûˆ_root_.scala.collection.Seq.G
+ƒÀ=_root_.scala.Option#flatMap(Lscala/Function1;)Lscala/Option;.9
+ææ/_root_.com.google.inject.Singleton#`<init>`()V.=
+—“3app/repositories/SessionRepository.scala@2636..26377
+ûØ-_root_.java.lang.System.currentTimeMillis()J.;
+˛á1_root_.uk.gov.hmrc.http.HeaderCarrier#(sessionId))
+¬»_root_.scala.concurrent.Future#0
+åù&_root_.repositories.SessionRepository#°
+Éàî_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.+
+Ôı!_root_.play.api.libs.json.Writes#)
+ÊÏ_root_.scala.concurrent.Future#Y
+´∞O_root_.reactivemongo.api.indexes.Index.;_root_.reactivemongo.api.indexes.Index#
+ÔÛ_root_.scala.Unit#x
+«”n_root_.repositories.SessionRepository#getSessionId(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.1
+…’'_root_.reactivemongo.bson.BSONDocument.
+ƒ—_root_.reactivemongo.n
+»Œb_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ß
+ƒ«ö_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(wts)
+äç_root_.uk.gov.=
+Ø∞3app/repositories/SessionRepository.scala@3480..3481Q
+®±G_root_.com.google.inject.Singleton.;_root_.com.google.inject.Singleton#6
+ÓÄ,_root_.uk.gov.hmrc.mongo.ReactiveRepository#f
+ª
+Ω
+\_root_.repositories.AgentAppointmentSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.(db)-
+ø	»	#_root_.com.google.inject.Singleton#+
+£©!_root_.play.api.libs.json.Writes#.
+ÍÛ$_root_.play.api.libs.json.JsDefined.å
+åçÅ_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#0
+÷„&_root_.uk.gov.hmrc.http.HeaderCarrier#)
+ù£_root_.scala.concurrent.Future.)
+Øµ_root_.scala.concurrent.Future#,
+∫≈ _root_.repositories.SessionRepo#?
+°™3app/repositories/SessionRepository.scala@2849..28580
+≤ø&_root_.uk.gov.hmrc.http.HeaderCarrier#8
+èï._root_.repositories.SessionRepository#(formId)†
+ÍÌì_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(wts)
+Î¯_root_.reactivemongo.¶
+‘÷ô_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)¢
+–—ó_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#Ö
+óò{_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#!
+¿»_root_.models.messages.)
+£©_root_.scala.concurrent.Future.ù
+’÷ê_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#
+ø¡
+_root_.uk."
+™	Æ	_root_.uk.gov.hmrc.http.`
+™∞V_root_.scala.concurrent.Future.failed(Ljava/lang/Throwable;)Lscala/concurrent/Future;.1
+ª«'_root_.reactivemongo.bson.BSONDocument.*
+ˆ˚ _root_.play.api.libs.json.Reads#
+∆ _root_.uk.gov.hmrc.®
+Åçõ_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Q
+áàG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.ã
+·‰_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+πø_root_.models.)
+éî_root_.scala.concurrent.Future#7
+˘ä-_root_.java.lang.System.currentTimeMillis()J.5
+°™+_root_.reactivemongo.api.indexes.IndexType.1
+·Ì'_root_.reactivemongo.bson.BSONDocument.á
+””{_root_.repositories.SessionData#`<init>`(Ljava/lang/String;Lplay/api/libs/json/JsValue;Lreactivemongo/bson/BSONDateTime;)V.
+éí_root_.uk.gov.hmrc.
+¢ß_root_.scala.0
+ÿÂ&_root_.uk.gov.hmrc.http.HeaderCarrier#?
+ÃÕ3app/repositories/SessionRepository.scala@2636..2637
+ïô_root_.scala.Unit#=
+Çã3app/repositories/SessionRepository.scala@2849..2858x
+Ûˇn_root_.repositories.SessionRepository#getSessionId(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.1
+§∞'_root_.reactivemongo.bson.BSONDocument.
+¬≈_root_.uk.gov.
+ÄÜ_root_.javax.inject.d
+ëëZ_root_.repositories.SessionRepository#`<init>`(Ljava/lang/String;Lreactivemongo/api/DB;)V.
+û	†	
+_root_.uk.c
+—„Y_root_.uk.gov.hmrc.mongo.ReactiveRepository.;_root_.uk.gov.hmrc.mongo.ReactiveRepository#$
+ﬂ„_root_.reactivemongo.play.R
+›‰F_root_.repositories.SessionRepository#indexes()Lscala/collection/Seq;.˙
+ïõÔ_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.%
+Ÿﬂ_root_.scala.Predef.String#1
+˘
+˘
+'_root_.javax.inject.Inject#`<init>`()V.+
+¢©!_root_.reactivemongo.api.indexes.•
+Æ∞ò_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)#
+ÊÈ_root_.scala.package.Seq#"
+ìó_root_.uk.gov.hmrc.http.⁄
+ïïœ_root_.uk.gov.hmrc.mongo.ReactiveRepository#`<init>`(Ljava/lang/String;Lscala/Function0;Lplay/api/libs/json/Format;Lplay/api/libs/json/Format;Lscala/Option;Lscala/reflect/Manifest;Lscala/reflect/Manifest;)V."
+Å	ã	_root_.scala.concurrent.+
+å	î	!_root_.scala.concurrent.duration.1
+Èı'_root_.reactivemongo.bson.BSONDocument.c
+˚
+˚
+W_root_.repositories.PersonalDetailsSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.™
+éèù_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#&
+Ä
+Ç
+_root_.reactivemongo.api.DB#%
+Ú	¯	_root_.javax.inject.Inject#:
+Ã“._root_.repositories.SessionRepository#(formId)°
+™´ñ_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#/
+˜Å%_root_.reactivemongo.bson.BSONString.$
+˘˝_root_.reactivemongo.play.r
+⁄‹f_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+‹·_root_.scala.1
+ó£'_root_.reactivemongo.bson.BSONDocument.A
+∆–7_root_.uk.gov.hmrc.mongo.ReactiveRepository#collection."
+‚Ï_root_.scala.concurrent.P
+∑πF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.,
+∫≈ _root_.repositories.SessionData.1
+‘◊%_root_.repositories.SessionData#(_id)*
+¨∑ _root_.repositories.SessionData.z
+º»n_root_.repositories.SessionRepository#getSessionId(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+ÿ‹_root_.play.
+›‡_root_.play.api.d
+û
+û
+Z_root_.repositories.SessionRepository#`<init>`(Ljava/lang/String;Lreactivemongo/api/DB;)V.§
+Ø∞ó_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#&
+èí_root_.scala.collection.Seq.e
+•ß[_root_.repositories.PropertyLinkingSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.(db)1
+……'_root_.javax.inject.Inject#`<init>`()V.0
+ü™&_root_.play.api.libs.json.JsUndefined.&
+‡‚_root_.reactivemongo.api.DB#/
+∫ƒ%_root_.reactivemongo.bson.BSONString.1
+ŸÂ'_root_.reactivemongo.bson.BSONDocument.2
+·Â&_root_.repositories.SessionData#(data)=
+Éà3app/repositories/SessionRepository.scala@2676..2681"
+Ú¯_root_.java.lang.System.x
+Æ∫n_root_.repositories.SessionRepository#getSessionId(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.+
+À—!_root_.play.api.libs.json.Format#Ö
+¸ˇy_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+ö†_root_.com.google.E
+¸
+˛
+9_root_.repositories.PersonalDetailsSessionRepository#(db)>
+Éó4_root_.reactivemongo.play.json.ImplicitBSONHandlers.A
+≈Â5_root_.repositories.PropertyLinkingSessionRepository#≠
+£¶†_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(wts)O
+¿ E_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.d
+˚	˚	X_root_.repositories.AgentAppointmentSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.
+õ°_root_.scala.Option#*
+Â _root_.repositories.SessionRepo#c
+ÔÔW_root_.repositories.PropertyLinkingSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.ß
+åêö_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(data)
+∞¥_root_.scala.None.#
+À–_root_.uk.gov.hmrc.mongo.+
+®Æ!_root_.play.api.libs.json.Writes#Y
+àåO_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.•
+ÁÎö_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(data)¨
+≥µü_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)*
+Åå _root_.repositories.SessionData#A
+áç7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#E
+Ú9_root_.repositories.PropertyLinkingSessionRepository#(db)õ
+ˆ˜ê_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#-
+¡
+ 
+#_root_.com.google.inject.Singleton#/
+û§%_root_.uk.gov.hmrc.http.cache.client.å
+¢£Å_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#0
+å
+ù
+&_root_.repositories.SessionRepository#`
+âãV_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.
+•	©	_root_.uk.gov.hmrc.
+êù_root_.reactivemongo.?
+ÊÔ3app/repositories/SessionRepository.scala@2022..2031?
+⁄Â3app/repositories/SessionRepository.scala@2522..25331
+ÍÔ'_root_.reactivemongo.api.indexes.Index#é
+ÂÊÅ_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#7
+˘+_root_.repositories.SessionData#(createdAt)$
+ÊÍ_root_.play.api.libs.json.
+·Â_root_.play.api.libs.®
+óòù_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#)
+ÓÙ_root_.scala.concurrent.Future#0
+˛ã&_root_.uk.gov.hmrc.http.HeaderCarrier#°
+ÿ‹î_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(data))
+ÄÜ_root_.scala.concurrent.Future#2
+∞¡&_root_.repositories.SessionRepository#-
+µæ#_root_.com.google.inject.Singleton#K
+ÿ⁄A_root_.reactivemongo.bson.DefaultBSONHandlers#BSONIntegerHandler.0
+ﬁÎ&_root_.uk.gov.hmrc.http.HeaderCarrier#U
+Ù˛K_root_.reactivemongo.bson.BSONString.;_root_.reactivemongo.bson.BSONString#F
+¸	˛	:_root_.repositories.AgentAppointmentSessionRepository#(db)Ö
+Ωæ{_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#1
+¸Å'_root_.reactivemongo.api.indexes.Index.f
+ÀÀZ_root_.repositories.SessionRepository#`<init>`(Ljava/lang/String;Lreactivemongo/api/DB;)V.|
+˚˝r_root_.repositories.SessionRepository#getSessionId(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)õ
+œ‘é_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+—ﬁ_root_.reactivemongo.)
+ËÓ_root_.scala.concurrent.Future#
+∂º_root_.scala.Option#
+≈…_root_.scala.Some.0
+˝&_root_.uk.gov.hmrc.http.HeaderCarrier#=
+ƒÕ3_root_.scala.concurrent.ExecutionContext.Implicits.?
+òô3app/repositories/SessionRepository.scala@3480..34811
+∏æ'_root_.repositories.SessionData.format.ê
+ÄÇÉ_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc))
+öû_root_.play.api.libs.json.Json.3
+èï'_root_.repositories.SessionData.format.<
+ó†0_root_.repositories.SessionRepository#noSession.¨
+¶™°_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(data)h
+®™^_root_.repositories.SessionRepository#`<init>`(Ljava/lang/String;Lreactivemongo/api/DB;)V.(db)%
+±∑_root_.scala.Predef.String#
+áã_root_.scala.Unit#%
+√…_root_.javax.inject.Inject#P
+∆»F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ä
+åè~_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(rds)õ
+ﬁﬂê_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#,
+ÁÓ"_root_.play.api.libs.json.JsValue#C
+¶©9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.0
+ü¨&_root_.uk.gov.hmrc.http.HeaderCarrier#
+˚Ä	_root_.scala.å
+¸˝Å_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#
+˛Ç_root_.scala.Some.Y
+ÊÚO_root_.reactivemongo.bson.BSONDocument.;_root_.reactivemongo.bson.BSONDocument#d
+ùùZ_root_.repositories.SessionRepository#`<init>`(Ljava/lang/String;Lreactivemongo/api/DB;)V.P
+óôF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.+
+…œ!_root_.play.api.libs.json.Writes#¢
+∏πó_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A##
+°ß_root_.com.google.inject.˙
+—◊Ô_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.a
+≤ªW_root_.reactivemongo.api.indexes.IndexType.;_root_.reactivemongo.api.indexes.IndexType# 
+ÂÒ_root_.repositories.)
+îö_root_.scala.concurrent.Future#(
+òù_root_.uk.gov.hmrc.http.cache.0
+Äë&_root_.repositories.SessionRepository#&
+Ùˆ_root_.reactivemongo.api.DB#%
+ÌÛ_root_.scala.Predef.String#B
+•∑8_root_.uk.gov.hmrc.http.cache.client.NoSessionException.P
+∏∫F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.¶
+û°ô_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(wts)1
+ÂÒ'_root_.reactivemongo.bson.BSONDateTime.P
+ÙˆF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.x
+ÏÓl_root_.repositories.SessionRepository#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)Y
+ÿ‰O_root_.reactivemongo.bson.BSONDateTime.;_root_.reactivemongo.bson.BSONDateTime#:
+çñ0_root_.repositories.SessionRepository#noSession.&
+ÄÇ_root_.reactivemongo.api.DB#0
+¨∞&_root_.repositories.SessionData#(data)a
+§ÆW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.I
+…–?_root_.models.messages.Message.;_root_.models.messages.Message#h
+±≤^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.
+ÙÅ_root_.reactivemongo.C
+Üà9_root_.reactivemongo.api.DB.;_root_.reactivemongo.api.DB#%
+éî_root_.scala.Predef.String#®
+Ø∞ù_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#6
+‹ﬁ*_root_.repositories.SessionRepository#(db)A
+—
+Ò
+5_root_.repositories.PersonalDetailsSessionRepository#{
+ü•q_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.%
+‘⁄_root_.scala.Predef.String#0
+Ñë&_root_.uk.gov.hmrc.http.HeaderCarrier#=
+Ú˚3app/repositories/SessionRepository.scala@2490..2499â
+õù}_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)®
+≤∂õ_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(data)1
+˙Ü'_root_.reactivemongo.bson.BSONDocument.?
+∫√3app/repositories/SessionRepository.scala@2490..24993
+≥√)_root_.scala.concurrent.ExecutionContext.%
+“ÿ_root_.scala.Predef.String#P
+‚‰F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.*
+§Ø _root_.repositories.SessionData#¢
+¢Æï_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.*
+ëñ _root_.play.api.libs.json.Reads#1
+ÌÌ'_root_.javax.inject.Inject#`<init>`()V.H
+ıá>_root_.reactivemongo.play.json.BSONFormats#BSONDateTimeFormat.8
+≥π._root_.repositories.SessionRepository#(formId)"
+óù_root_.java.lang.System.?
+´¥5_root_.reactivemongo.api.indexes.IndexType.Ascending.A
+äî7_root_.uk.gov.hmrc.mongo.ReactiveRepository#collection.?
+Ù˘3app/repositories/SessionRepository.scala@2676..2681ë
+ÒÙÑ_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(rds)°
+íìñ_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#
+Œ“_root_.scala.Unit#
+ñô_root_.com.%
+ÁÌ_root_.javax.inject.Inject#¶
+◊„õ_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;."
+®≤_root_.scala.concurrent.
+…Õ_root_.scala.Unit#
+°	§	_root_.uk.gov.
+áâ
+_root_.uk.t
+⁄‡h_root_.repositories.SessionRepository#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.B
+πÀ8_root_.uk.gov.hmrc.http.cache.client.NoSessionException.°
+‰Âñ_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#5
+ÈÙ+_root_.reactivemongo.play.json.BSONFormats.)
+«Õ_root_.scala.concurrent.Future##
+û°_root_.reactivemongo.api.D
+Œ‘:_root_.scala.concurrent.ExecutionContext.Implicits.global.B
+œ		6_root_.repositories.AgentAppointmentSessionRepository#%
+Û
+˘
+_root_.javax.inject.Inject#H
+ãç>_root_.reactivemongo.bson.DefaultBSONHandlers#BSONLongHandler.e
+Ø±[_root_.repositories.PersonalDetailsSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.(db)W
+Ø	º	M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#)
+‰Ë_root_.reactivemongo.play.json.~
+“‘r_root_.repositories.SessionRepository#getSessionId(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)≤
+ÈÒß_root_.uk.gov.hmrc.mongo.ReactiveRepository#findById(Ljava/lang/Object;Lreactivemongo/api/ReadPreference;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.1
+äñ'_root_.reactivemongo.bson.BSONDateTime.)
+òú_root_.play.api.libs.json.Json.=
+≈Œ3app/repositories/SessionRepository.scala@2022..2031
+˙ˇ_root_.javax.£
+âäñ_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#I
+ÌÛ?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future##
+ÇÖ_root_.reactivemongo.api.;
+±∂1_root_.uk.gov.hmrc.http.logging.SessionId#(value)
+ı˘_root_.scala.Unit#9
+ 
+ 
+/_root_.com.google.inject.Singleton#`<init>`()V."„
+ô_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"é
+[_root_.repositories.PersonalDetailsSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.(db)/ÄdbDB""
+_root_.reactivemongo.api.DB#")
+_root_.scala.collection.Seq.	ÄÑSeq"3
+"_root_.play.api.libs.json.JsValue#Ä¿JsValue"è
+\_root_.repositories.AgentAppointmentSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.(db)/ÄdbDB""
+_root_.reactivemongo.api.DB#"H
+5_root_.reactivemongo.api.indexes.IndexType.Ascending.ÄÑ	Ascending"€
+9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.ùÑÄmap&[B] => (f: Function1[A, B]): Option[B]"
+_root_.scala.Function1#"
+_root_.scala.Option#[A]"D
+<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"
+#_root_.scala.Option#"D
+$%<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"ù
+:_root_.scala.concurrent.ExecutionContext.Implicits.global._ÅÄ`globalExecutionContextExecutor"7
+1_root_.scala.concurrent.ExecutionContextExecutor#"*
+_root_.com.google.inject.ÄàÄinject"
+_root_.com.
+ÄàÄcom"å
+Å_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#ÄA"≈
+é_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.±ÑÄstartJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"ö
+ë_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
+%!_root_.play.api.libs.json.Writes#"ö
+&'ë_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+>D_root_.scala.concurrent.Future#"
+EI_root_.scala.Unit#"Z
+>_root_.reactivemongo.play.json.BSONFormats#BSONDateTimeFormat.ÄÑ(BSONDateTimeFormat";
+&_root_.play.api.libs.json.JsUndefined.ÄÑJsUndefined"Ì
+Ô_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.¯update [S, T] => (selector: S, update: T, writeConcern: WriteConcern, upsert: Boolean, multi: Boolean)(implicit swriter: pack.Writer[S], writer: pack.Writer[T], ec: ExecutionContext): Future[UpdateWriteResult]"˚
+Ú_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"˚
+ !Ú_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[T]"?
+1=7_root_.reactivemongo.api.commands.package.WriteConcern#"
+GN_root_.scala.Boolean#"
+W^_root_.scala.Boolean#"D
+rv<_root_.reactivemongo.api.collections.GenericCollection#pack.":
+w}2_root_.reactivemongo.api.SerializationPack#Writer#"˚
+~Ú_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"F
+äé<_root_.reactivemongo.api.collections.GenericCollection#pack."<
+èï2_root_.reactivemongo.api.SerializationPack#Writer#"˝
+ñóÚ_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[T]"3
+ûÆ)_root_.scala.concurrent.ExecutionContext#")
+±∑_root_.scala.concurrent.Future#">
+∏…4_root_.reactivemongo.api.commands.UpdateWriteResult#")
+_root_.play.api.libs.json.ÄàÄjson"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"4
+ _root_.repositories.SessionRepo#Ä@SessionRepo"¢
+3app/repositories/SessionRepository.scala@2522..2533kÄmaybeOptionOption[SessionData]"
+_root_.scala.Option#"(
+ _root_.repositories.SessionData#"U
+8_root_.uk.gov.hmrc.http.cache.client.NoSessionException.ÄÑàNoSessionException"‚
+ò_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"ú
+7_root_.uk.gov.hmrc.mongo.ReactiveRepository#collection.aÅÄ@
+collectionJSONCollection"?
+9_root_.reactivemongo.play.json.collection.JSONCollection#"è
+_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ãgetE[A] => (implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]]"(
+ _root_.play.api.libs.json.Reads#"ã
+Ç_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+$1&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+4:_root_.scala.concurrent.Future#"
+;A_root_.scala.Option#"ã
+BCÇ_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
+_root_.reactivemongo.play.ÄàÄplay".
+_root_.reactivemongo.play.json.ÄàÄjson"ë
+=_root_.scala.Option#flatMap(Lscala/Function1;)Lscala/Option;.œÑÄflatMap.[B] => (f: Function1[A, Option[B]]): Option[B]"
+_root_.scala.Function1#"
+_root_.scala.Option#[A]"
+_root_.scala.Option#"H
+ @_root_.scala.Option#flatMap(Lscala/Function1;)Lscala/Option;.[B]"
+%+_root_.scala.Option#"H
+,-@_root_.scala.Option#flatMap(Lscala/Function1;)Lscala/Option;.[B]"¿
+î_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(data)¶ÄdataA"ó
+ê_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"`
+6_root_.repositories.AgentAppointmentSessionRepository#&Ä !AgentAppointmentSessionRepository"Ò
+õ_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.–saveOrUpdateJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"ß
+û_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
+%!_root_.play.api.libs.json.Writes#"ß
+&'û_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+>D_root_.scala.concurrent.Future#"
+EI_root_.scala.Unit#"6
+%_root_.uk.gov.hmrc.http.cache.client.ÄàÄclient"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"≠
+˜_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.(upsert)1ÄupsertBoolean"
+_root_.scala.Boolean#"@
++_root_.reactivemongo.play.json.BSONFormats.ÄÑBSONFormats"ó
+E_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.Õ
+implicitly[T] => (implicit e: T): T"P
+H_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.[T]"P
+H_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.[T]"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"*
+_root_.models.messages.ÄàÄmessages"ƒ
+~_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(rds)¡ÄÅ rdsReads[A]"&
+ _root_.play.api.libs.json.Reads#"É
+{_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"±
+n_root_.repositories.SessionRepository#getSessionId(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.æÑÄgetSessionId,(implicit hc: HeaderCarrier): Future[String]".
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+$_root_.scala.concurrent.Future#"#
+%+_root_.scala.Predef.String#"¢
+ó_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#ÄA"$
+_root_.play.api.libs.ÄàÄlibs"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"W
+>_root_.reactivemongo.bson.DefaultBSONHandlers#BSONLongHandler.ÄÑ(BSONLongHandler"3
+!_root_.reactivemongo.api.indexes.ÄàÄindexes"z
+3app/repositories/SessionRepository.scala@3480..3481CÄc	SessionId"0
+	*_root_.uk.gov.hmrc.http.logging.SessionId#"é
+[_root_.repositories.PropertyLinkingSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.(db)/ÄdbDB""
+_root_.reactivemongo.api.DB#"
+_root_.javax.ÄàÄjavax"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"o
+-_root_.java.lang.System.currentTimeMillis()J.>ÑÄÄcurrentTimeMillis(): Long"
+_root_.scala.Long#"Ö
+{_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#ÄA"Ä
+ö_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(wts)‡ÄÅ wts	Writes[A]"'
+!_root_.play.api.libs.json.Writes#"†
+ó_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"F
+3_root_.scala.concurrent.ExecutionContext.Implicits.ÄÑ	Implicits"4
+!_root_.scala.concurrent.duration.ÄàÄduration"È
+ü_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#" 
+_root_.scala.Unit#
+Ä†Unit"⁄
+ò_root_.reactivemongo.api.indexes.Index#`<init>`(Lscala/collection/Seq;Lscala/Option;ZZZZLscala/Option;Lscala/Option;Lreactivemongo/bson/BSONDocument;)V.º<init>ﬁ(key: Seq[Tuple2[String, IndexType]], name: Option[String], unique: Boolean, background: Boolean, dropDups: Boolean, sparse: Boolean, version: Option[Int], partialFilter: Option[BSONDocument], options: BSONDocument): Index"!
+	_root_.scala.package.Seq#"
+
+_root_.scala.Tuple2#"#
+_root_.scala.Predef.String#"3
+"+_root_.reactivemongo.api.indexes.IndexType#"
+,2_root_.scala.Option#"#
+39_root_.scala.Predef.String#"
+DK_root_.scala.Boolean#"
+Y`_root_.scala.Boolean#"
+ls_root_.scala.Boolean#"
+}Ñ_root_.scala.Boolean#"
+èï_root_.scala.Option#"
+ñô_root_.scala.Int#"
+´±_root_.scala.Option#"1
+≤æ'_root_.reactivemongo.bson.BSONDocument#"1
+ ÷'_root_.reactivemongo.bson.BSONDocument#"1
+Ÿﬁ'_root_.reactivemongo.api.indexes.Index#"0
+!_root_.play.api.libs.json.Writes#Ä@Writes"õ
+ê_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#ÄA"\
+%_root_.repositories.SessionData#(_id)3Å_idString"!
+_root_.scala.Predef.String#"/
+_root_.scala.concurrent.Future.ÄÑFuture".
+_root_.scala.concurrent.Future#Ä@Future"·
+ï_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.∆ÑÄsaveOrUpdateJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"°
+ò_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
+%!_root_.play.api.libs.json.Writes#"°
+&'ò_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+>D_root_.scala.concurrent.Future#"
+EI_root_.scala.Unit#"å
+O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.∏ÑÄfold4[B] => (ifEmpty: <byname>[B])(f: Function1[A, B]): B" 
+_root_.scala.`<byname>`#"Z
+R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"
+!*_root_.scala.Function1#"
++,_root_.scala.Option#[A]"Z
+./R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"Z
+34R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]")
+_root_.uk.gov.hmrc.mongo.ÄàÄmongo"∆
+}_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#",
+_root_.javax.inject.Inject#Ä†ÄInject"ö
+h_root_.repositories.SessionRepository#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.≠remove,()(implicit hc: HeaderCarrier): Future[Unit]".
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+ &_root_.scala.concurrent.Future#"
+'+_root_.scala.Unit#"6
+ _root_.repositories.SessionData#Ä†ÄSessionData"5
+ _root_.repositories.SessionData.ÄÑSessionData"+
+_root_.repositories.ÄàÄrepositories"p
+3app/repositories/SessionRepository.scala@2849..28589Ä	sessionIdString"!
+_root_.scala.Predef.String#"¶
+1_root_.uk.gov.hmrc.http.HeaderCarrier#(sessionId)qÅ	sessionIdOption[SessionId]"
+_root_.scala.Option#"2
+*_root_.uk.gov.hmrc.http.logging.SessionId#"“
+Ñ_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(rds)»ÄÅ rdsReads[A]"&
+ _root_.play.api.libs.json.Reads#"ä
+Å_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"p
+3app/repositories/SessionRepository.scala@2022..20319Ä	sessionIdString"!
+_root_.scala.Predef.String#"$
+_root_.scala.Option#Ä†Option">
+'_root_.reactivemongo.bson.BSONDateTime#Ä†ÄBSONDateTime"=
+'_root_.reactivemongo.bson.BSONDateTime.ÄÑBSONDateTime">
++_root_.reactivemongo.api.indexes.IndexType.ÄÑ	IndexType"®
+ù_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#ÄA"ı
+V_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.öas"[T] => (implicit fjs: Reads[T]): T"(
+ _root_.play.api.libs.json.Reads#"a
+Y_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.[T]"a
+!"Y_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.[T]"
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"’
+î_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ªstartJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"†
+ó_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
+%!_root_.play.api.libs.json.Writes#"†
+&'ó_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+>D_root_.scala.concurrent.Future#"
+EI_root_.scala.Unit#"≥
+F_root_.repositories.SessionRepository#indexes()Lscala/collection/Seq;.iindexes
+Seq[Index]"
+_root_.scala.package.Seq#"/
+	'_root_.reactivemongo.api.indexes.Index#"H
+,_root_.uk.gov.hmrc.mongo.ReactiveRepository#Ä†ReactiveRepository"#
+_root_.com.google.ÄàÄgoogle"h
+._root_.repositories.SessionRepository#(formId)6ÄformIdString"!
+_root_.scala.Predef.String#"s
+3app/repositories/SessionRepository.scala@2676..2681<valueJsValue"(
+"_root_.play.api.libs.json.JsValue#"ü
+'_root_.repositories.SessionData.format.tformatOFormat[SessionData]"(
+"_root_.play.api.libs.json.OFormat#"(
+ _root_.repositories.SessionData#"ª
+r_root_.repositories.SessionRepository#getSessionId(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"7
+$_root_.play.api.libs.json.JsDefined.ÄÑ	JsDefined"@
+&_root_.repositories.SessionRepository#Ä SessionRepository"
+_root_.uk.gov.
+ÄàÄgov"|
+/_root_.com.google.inject.Singleton#`<init>`()V.IàÄÄ<init>(): Singleton"+
+#_root_.com.google.inject.Singleton#"]
+A_root_.reactivemongo.bson.DefaultBSONHandlers#BSONIntegerHandler.ÄÑ(BSONIntegerHandler"6
+'_root_.reactivemongo.api.indexes.Index.ÄÑIndex"7
+'_root_.reactivemongo.api.indexes.Index#Ä†ÄIndex"å
+†_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(wts)ÊÄÅ wts	Writes[A]"'
+!_root_.play.api.libs.json.Writes#"¶
+ù_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"ë
+^_root_.repositories.SessionRepository#`<init>`(Ljava/lang/String;Lreactivemongo/api/DB;)V.(db)/ÄdbDB""
+_root_.reactivemongo.api.DB#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"^
+5_root_.repositories.PropertyLinkingSessionRepository#%Ä  PropertyLinkingSessionRepository"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"°
+ñ_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#ÄA"˜
+W_root_.repositories.PropertyLinkingSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.õ<init>*(db: DB): PropertyLinkingSessionRepository"$
+_root_.reactivemongo.api.DB#"=
+
+*5_root_.repositories.PropertyLinkingSessionRepository#"~
+3app/repositories/SessionRepository.scala@2636..2637GÄxJsLookupResult"/
+)_root_.play.api.libs.json.JsLookupResult#"!
+_root_.scala.None.ÄÑàNone"f
+&_root_.repositories.SessionData#(data)<ÅdataJsValue"(
+"_root_.play.api.libs.json.JsValue#"(
+_root_.reactivemongo.api.DB#Ä¿DB"C
+)_root_.scala.concurrent.ExecutionContext.ÄÑExecutionContext"z
++_root_.repositories.SessionData#(createdAt)KÅ	createdAtBSONDateTime"-
+'_root_.reactivemongo.bson.BSONDateTime#"
+_root_.play.ÄàÄplay"l
+9_root_.repositories.PropertyLinkingSessionRepository#(db)/ÄdbDB""
+_root_.reactivemongo.api.DB#"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"p
+3app/repositories/SessionRepository.scala@2490..24999Ä	sessionIdString"!
+_root_.scala.Predef.String#"-
+_root_.reactivemongo.ÄàÄreactivemongo"l
+9_root_.repositories.PersonalDetailsSessionRepository#(db)/ÄdbDB""
+_root_.reactivemongo.api.DB#"Œ
+õ_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(data)≠ÄdataA"û
+ó_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"'
+_root_.reactivemongo.api.
+ÄàÄapi"µ
+l_root_.repositories.SessionRepository#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Â
+^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.Ç\#(fieldName: String): JsLookupResult"#
+_root_.scala.Predef.String#"1
+#)_root_.play.api.libs.json.JsLookupResult#"⁄
+°_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(data)≥ÄdataA"§
+ù_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"m
+:_root_.repositories.AgentAppointmentSessionRepository#(db)/ÄdbDB""
+_root_.reactivemongo.api.DB#"R
+_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
+_root_.scala.Unit#"‹
+í_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"
+_root_.models.ÄàÄmodels"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]".
+ _root_.play.api.libs.json.Reads#
+Ä@Reads"7
+#_root_.com.google.inject.Singleton#Ä†Ä	Singleton".
+_root_.uk.gov.hmrc.http.cache.ÄàÄcache"9
+%_root_.reactivemongo.bson.BSONString.ÄÑ
+BSONString"˝
+y_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ˇÑÄgetE[A] => (implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]]"(
+ _root_.play.api.libs.json.Reads#"Ñ
+|_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+$1&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+4:_root_.scala.concurrent.Future#"
+;A_root_.scala.Option#"Ñ
+BC|_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]"˛
+ô_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(wts)ﬂÄÅ wts	Writes[A]"'
+!_root_.play.api.libs.json.Writes#"ü
+ñ_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"˙
+X_root_.repositories.AgentAppointmentSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.ù<init>+(db: DB): AgentAppointmentSessionRepository"$
+_root_.reactivemongo.api.DB#">
+
++6_root_.repositories.AgentAppointmentSessionRepository#"¥
+ß_root_.uk.gov.hmrc.mongo.ReactiveRepository#findById(Ljava/lang/Object;Lreactivemongo/api/ReadPreference;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.áfindByIdZ(id: ID, readPreference: ReadPreference)(implicit ec: ExecutionContext): Future[Option[A]]"8
+0_root_.uk.gov.hmrc.mongo.ReactiveRepository#[ID]"0
+'(_root_.reactivemongo.api.ReadPreference#"1
+6F)_root_.scala.concurrent.ExecutionContext#"'
+IO_root_.scala.concurrent.Future#"
+PV_root_.scala.Option#"7
+WX/_root_.uk.gov.hmrc.mongo.ReactiveRepository#[A]"]
+*_root_.repositories.SessionRepository#(db)/ÄdbDB""
+_root_.reactivemongo.api.DB#")
+_root_.java.lang.System.ÄÑàSystem">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"Ñ
+q_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.étoJson/[T] => (o: T)(implicit tjs: Writes[T]): JsValue"|
+t_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.[T]")
+"!_root_.play.api.libs.json.Writes#"|
+#$t_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.[T]"*
+(/"_root_.play.api.libs.json.JsValue#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."ë
+Z_root_.repositories.SessionRepository#`<init>`(Ljava/lang/String;Lreactivemongo/api/DB;)V.≤<init>+(formId: String, db: DB): SessionRepository"#
+	_root_.scala.Predef.String#"$
+_root_.reactivemongo.api.DB#".
++&_root_.repositories.SessionRepository#"ñ
+b_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ØÑÄremove,()(implicit hc: HeaderCarrier): Future[Unit]".
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+ &_root_.scala.concurrent.Future#"
+'+_root_.scala.Unit#"
+_root_.scala.ÄàÄscala"R
+4_root_.reactivemongo.play.json.ImplicitBSONHandlers.ÄÑImplicitBSONHandlers"0
+!_root_.play.api.libs.json.Format#Ä@Format")
+_root_.reactivemongo.bson.ÄàÄbson"^
+5_root_.repositories.PersonalDetailsSessionRepository#%Ä  PersonalDetailsSessionRepository"Ã
+ö_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(data)¨ÄdataA"ù
+ñ_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"ƒ
+V_root_.scala.concurrent.Future.failed(Ljava/lang/Throwable;)Lscala/concurrent/Future;.Èfailed([T] => (exception: Throwable): Future[T]"'
+_root_.scala.package.Throwable#"'
+%_root_.scala.concurrent.Future#"a
+&'Y_root_.scala.concurrent.Future.failed(Ljava/lang/Throwable;)Lscala/concurrent/Future;.[T]"∑	
+œ_root_.uk.gov.hmrc.mongo.ReactiveRepository#`<init>`(Ljava/lang/String;Lscala/Function0;Lplay/api/libs/json/Format;Lplay/api/libs/json/Format;Lscala/Option;Lscala/reflect/Manifest;Lscala/reflect/Manifest;)V.‚<init>«(collectionName: String, mongo: Function0[DB], domainFormat: Format[A], idFormat: Format[ID], mc: Option[JSONCollection])(implicit manifest: Manifest[A], mid: Manifest[ID]): ReactiveRepository[A, ID]"#
+_root_.scala.Predef.String#"
+ )_root_.scala.Function0#"$
+*,_root_.reactivemongo.api.DB#")
+=C!_root_.play.api.libs.json.Format#"7
+DE/_root_.uk.gov.hmrc.mongo.ReactiveRepository#[A]")
+RX!_root_.play.api.libs.json.Format#"8
+Y[0_root_.uk.gov.hmrc.mongo.ReactiveRepository#[ID]"
+bh_root_.scala.Option#"A
+iw9_root_.reactivemongo.play.json.collection.JSONCollection#"'
+çï_root_.scala.Predef.Manifest#"9
+ñó/_root_.uk.gov.hmrc.mongo.ReactiveRepository#[A]"'
+üß_root_.scala.Predef.Manifest#":
+®™0_root_.uk.gov.hmrc.mongo.ReactiveRepository#[ID]"6
+Æ¿,_root_.uk.gov.hmrc.mongo.ReactiveRepository#"9
+¡¬/_root_.uk.gov.hmrc.mongo.ReactiveRepository#[A]":
+ƒ∆0_root_.uk.gov.hmrc.mongo.ReactiveRepository#[ID]"¨
+4_root_.reactivemongo.bson.BSONDateTime#`<init>`(J)V.t<init>(value: Long): BSONDateTime"
+_root_.scala.Long#"/
+'_root_.reactivemongo.bson.BSONDateTime#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"=
+'_root_.reactivemongo.bson.BSONDocument.ÄÑBSONDocument"ü
+0_root_.repositories.SessionRepository#noSession.kÅÄ	noSessionFuture[String]"%
+_root_.scala.concurrent.Future#"#
+_root_.scala.Predef.String#"˙
+{_root_.repositories.SessionData#`<init>`(Ljava/lang/String;Lplay/api/libs/json/JsValue;Lreactivemongo/bson/BSONDateTime;)V.˙<init>B(_id: String, data: JsValue, createdAt: BSONDateTime): SessionData"#
+_root_.scala.Predef.String#"*
+"_root_.play.api.libs.json.JsValue#"/
+(4'_root_.reactivemongo.bson.BSONDateTime#"(
+7B _root_.repositories.SessionData#"j
+1_root_.uk.gov.hmrc.http.logging.SessionId#(value)5ÅvalueString"!
+_root_.scala.Predef.String#" 
+_root_.scala.Some.
+ÄÑSome"Ø
+f_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Ú
+ì_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(wts)ŸÄÅ wts	Writes[A]"'
+!_root_.play.api.libs.json.Writes#"ô
+ê_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"Õ
+É_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"˜
+W_root_.repositories.PersonalDetailsSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.õ<init>*(db: DB): PersonalDetailsSessionRepository"$
+_root_.reactivemongo.api.DB#"=
+
+*5_root_.repositories.PersonalDetailsSessionRepository#2ê
+∞∞*.apply
+_star_.n
+f_root_.reactivemongo.bson.BSONDocument.apply(Lscala/collection/Seq;)Lreactivemongo/bson/BSONDocument;.2
+éé*(rds)
+_star_.2]
+©©*[JsLookupResult]
+_star_.1
+)_root_.play.api.libs.json.JsLookupResult#2Æ
+÷ã*reactivemongo.bson.BSONElement.provided(*)g
+'__root_.reactivemongo.bson.BSONElement.provided(Lscala/Tuple2;)Lreactivemongo/bson/BSONElement;.
+()_star_.2Ú
+ÇÇ
+*.apply[A]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.ä
+	Å_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#2ê
+ÜÜ*.apply
+_star_.n
+f_root_.reactivemongo.bson.BSONDocument.apply(Lscala/collection/Seq;)Lreactivemongo/bson/BSONDocument;.2º
+≤≤*.map[Unit]
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+
+_root_.scala.Unit#2Æ
+∑å*reactivemongo.bson.BSONElement.provided(*)g
+'__root_.reactivemongo.bson.BSONElement.provided(Lscala/Tuple2;)Lreactivemongo/bson/BSONElement;.
+()_star_.2Æ
+±œ*reactivemongo.bson.BSONElement.provided(*)g
+'__root_.reactivemongo.bson.BSONElement.provided(Lscala/Tuple2;)Lreactivemongo/bson/BSONElement;.
+()_star_.2Æ
+Ø∑"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2»
+¸¸D*.map[Option[A]](scala.concurrent.ExecutionContext.Implicits.global)
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ä
+Å_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#
+_root_.scala.Option#B
+=C:_root_.scala.concurrent.ExecutionContext.Implicits.global.2G
+ÆÆ	*[String]
+_star_.#
+_root_.scala.Predef.String#2x
+åå*[Future[String]]
+_star_.#
+	_root_.scala.Predef.String#'
+_root_.scala.concurrent.Future#2ò
+õõ*[BSONDocument, BSONDocument]
+_star_./
+'_root_.reactivemongo.bson.BSONDocument#/
+'_root_.reactivemongo.bson.BSONDocument#2‹
+””*.flatMap[Option[A]](hc)
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ä
+Å_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#
+
+_root_.scala.Option#2#
+ÏÏ
+*(wts, hc)
+_star_.2í
+˝˝5*(scala.concurrent.ExecutionContext.Implicits.global)
+_star_.B
+.4:_root_.scala.concurrent.ExecutionContext.Implicits.global.2»
+ˇˇ*.flatMap[Unit](hc)
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+
+_root_.scala.Unit#2Æ
+¨*reactivemongo.bson.BSONElement.provided(*)g
+'__root_.reactivemongo.bson.BSONElement.provided(Lscala/Tuple2;)Lreactivemongo/bson/BSONElement;.
+()_star_.2o
+™™	*.unapply
+_star_.K
+	C_root_.play.api.libs.json.JsUndefined.unapply(Ljava/lang/Object;)Z.2Æ
+±∂"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2Æ
+∑≈"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2»
+∫∫*.flatMap[Unit](hc)
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+
+_root_.scala.Unit#2í
+««5*(scala.concurrent.ExecutionContext.Implicits.global)
+_star_.B
+.4:_root_.scala.concurrent.ExecutionContext.Implicits.global.2í
+øø5*(scala.concurrent.ExecutionContext.Implicits.global)
+_star_.B
+.4:_root_.scala.concurrent.ExecutionContext.Implicits.global.2Y
+‰‰*[BSONDateTime]
+_star_./
+'_root_.reactivemongo.bson.BSONDateTime#2ê
+££*.apply
+_star_.n
+f_root_.reactivemongo.bson.BSONDocument.apply(Lscala/collection/Seq;)Lreactivemongo/bson/BSONDocument;.2Æ
+Ø›*reactivemongo.bson.BSONElement.provided(*)g
+'__root_.reactivemongo.bson.BSONElement.provided(Lscala/Tuple2;)Lreactivemongo/bson/BSONElement;.
+()_star_.2{
+ññ*.apply
+_star_.Y
+Q_root_.reactivemongo.bson.BSONDateTime.apply(J)Lreactivemongo/bson/BSONDateTime;.2œ
+⁄⁄Ä*(play.api.libs.json.Format.GenericFormat[String](play.api.libs.json.Reads.StringReads, play.api.libs.json.Writes.StringWrites))
+_star_.ë
+)à_root_.play.api.libs.json.DefaultFormat#GenericFormat(Lplay/api/libs/json/Reads;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/Format;.=
+r~5_root_.play.api.libs.json.DefaultWrites#StringWrites.#
+*0_root_.scala.Predef.String#;
+KV3_root_.play.api.libs.json.DefaultReads#StringReads.2Y
+∫∫*[BSONDocument]
+_star_./
+'_root_.reactivemongo.bson.BSONDocument#2·
+ÅÅ*.apply
+_star_.æ
+µ_root_.reactivemongo.api.indexes.Index.apply(Lscala/collection/Seq;Lscala/Option;ZZZZLscala/Option;Lscala/Option;Lreactivemongo/bson/BSONDocument;)Lreactivemongo/api/indexes/Index;.2à
+ÅÅ*.apply
+_star_.f
+^_root_.reactivemongo.bson.BSONString.apply(Ljava/lang/String;)Lreactivemongo/bson/BSONString;.2Y
+»»*[BSONDocument]
+_star_./
+'_root_.reactivemongo.bson.BSONDocument#2
+´´*(wts)
+_star_.2ê
+’’*.apply
+_star_.n
+f_root_.reactivemongo.bson.BSONDocument.apply(Lscala/collection/Seq;)Lreactivemongo/bson/BSONDocument;.2x
+áá*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2O
+ôô
+*[JsValue]
+_star_.*
+	"_root_.play.api.libs.json.JsValue#2Y
+˘˘*[BSONDocument]
+_star_./
+'_root_.reactivemongo.bson.BSONDocument#2Æ
+ˆ"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2à
+ƒƒ*.apply
+_star_.f
+^_root_.reactivemongo.bson.BSONString.apply(Ljava/lang/String;)Lreactivemongo/bson/BSONString;.2∆
+••*[A]
+_star_.¶
+ù_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#2ê
+ıı*.apply
+_star_.n
+f_root_.reactivemongo.bson.BSONDocument.apply(Lscala/collection/Seq;)Lreactivemongo/bson/BSONDocument;.2Æ
+÷·"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2U
+ˆˆ*[BSONString]
+_star_.-
+%_root_.reactivemongo.bson.BSONString#2π
+íí'*.apply[Tuple2[String, Ascending.type]]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String#=
+ 5_root_.reactivemongo.api.indexes.IndexType.Ascending.
+_root_.scala.Tuple2#2ß
+á´Sreactivemongo.play.json.ImplicitBSONHandlers.JsFieldBSONElementProducer[JsValue](*)*
+HO"_root_.play.api.libs.json.JsValue#ä
+-GÅ_root_.reactivemongo.play.json.LowerImplicitBSONHandlers#JsFieldBSONElementProducer(Lscala/Tuple2;)Lreactivemongo/bson/Producer;.
+QR_star_.2{
+ÒÒ*.apply
+_star_.Y
+Q_root_.reactivemongo.bson.BSONDateTime.apply(J)Lreactivemongo/bson/BSONDateTime;.2™
+ÀÀ*[A]
+_star_.ä
+Å_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#2Æ
+ÓÛ"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2ò
+◊◊*[BSONDocument, BSONDocument]
+_star_./
+'_root_.reactivemongo.bson.BSONDocument#/
+'_root_.reactivemongo.bson.BSONDocument#2ê
+ÌÌ*.apply
+_star_.n
+f_root_.reactivemongo.bson.BSONDocument.apply(Lscala/collection/Seq;)Lreactivemongo/bson/BSONDocument;.2ê
+ÂÂ*.apply
+_star_.n
+f_root_.reactivemongo.bson.BSONDocument.apply(Lscala/collection/Seq;)Lreactivemongo/bson/BSONDocument;.2…
+™∞/play.api.libs.json.JsValue.jsValueToJsLookup(*)}
+,u_root_.play.api.libs.json.JsValue.jsValueToJsLookup(Lplay/api/libs/json/JsValue;)Lplay/api/libs/json/JsLookupResult;.
+-._star_.2Ù
+ˆ°_reactivemongo.bson.BSONElement.converted[Long](*)(reactivemongo.bson.`package`.BSONLongHandler)
+)-_root_.scala.Long#ì
+(ä_root_.reactivemongo.bson.BSONElementLowPriority#converted(Lscala/Tuple2;Lreactivemongo/bson/BSONWriter;)Lreactivemongo/bson/BSONElement;.
+/0_star_.F
+O^>_root_.reactivemongo.bson.DefaultBSONHandlers#BSONLongHandler.2ê
+««*.apply
+_star_.n
+f_root_.reactivemongo.bson.BSONDocument.apply(Lscala/collection/Seq;)Lreactivemongo/bson/BSONDocument;.2¯
+»‹areactivemongo.bson.BSONElement.converted[Int](*)(reactivemongo.bson.`package`.BSONIntegerHandler)ì
+(ä_root_.reactivemongo.bson.BSONElementLowPriority#converted(Lscala/Tuple2;Lreactivemongo/bson/BSONWriter;)Lreactivemongo/bson/BSONElement;.
+),_root_.scala.Int#
+./_star_.I
+N`A_root_.reactivemongo.bson.DefaultBSONHandlers#BSONIntegerHandler.2“
+ˆˆ*.apply[Index]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;./
+'_root_.reactivemongo.api.indexes.Index#2±
+áñ"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;.#
+_root_.scala.Predef.String#
+ !_star_.2U
+ππ*[BSONString]
+_star_.-
+%_root_.reactivemongo.bson.BSONString#2‹
+ÊÊ¡*.map[Unit](reactivemongo.play.json.ImplicitBSONHandlers.BSONDocumentWrites, reactivemongo.play.json.ImplicitBSONHandlers.BSONDocumentWrites, scala.concurrent.ExecutionContext.Implicits.global)
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+
+_root_.scala.Unit#O
+9KG_root_.reactivemongo.play.json.ImplicitBSONHandlers#BSONDocumentWrites.P
+zåG_root_.reactivemongo.play.json.ImplicitBSONHandlers#BSONDocumentWrites.D
+∫¿:_root_.scala.concurrent.ExecutionContext.Implicits.global.2Æ
+Óå*reactivemongo.bson.BSONElement.provided(*)g
+'__root_.reactivemongo.bson.BSONElement.provided(Lscala/Tuple2;)Lreactivemongo/bson/BSONElement;.
+()_star_.2å
+……*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;. 
+_root_.java.lang.String#:Scala211Bˇ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package repositories
+
+import javax.inject.Inject
+
+import com.google.inject.Singleton
+import models.messages.Message
+import play.api.libs.json._
+import reactivemongo.api.DB
+import reactivemongo.api.indexes.{Index, IndexType}
+import reactivemongo.bson.{BSONDateTime, BSONDocument, BSONString}
+import uk.gov.hmrc.http.cache.client.NoSessionException
+import uk.gov.hmrc.mongo.ReactiveRepository
+import reactivemongo.play.json.ImplicitBSONHandlers._
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+import scala.concurrent.duration._
+import uk.gov.hmrc.http.HeaderCarrier
+
+@Singleton
+class AgentAppointmentSessionRepository @Inject() (db: DB) extends SessionRepository ("agentAppointmentDocument", db)
+
+@Singleton
+class PersonalDetailsSessionRepository @Inject()(db: DB) extends SessionRepository("personDetails", db)
+
+@Singleton
+class PropertyLinkingSessionRepository @Inject()(db: DB) extends SessionRepository("propertyLinking", db)
+
+class SessionRepository @Inject()(formId: String, db: DB)
+  extends ReactiveRepository[SessionData, String]("sessions", () => db, SessionData.format, implicitly[Format[String]])
+    with SessionRepo {
+
+  override def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] = {
+    saveOrUpdate[A](data)
+  }
+
+  override def saveOrUpdate[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] = {
+   for {
+     sessionId <- getSessionId
+     _ <- collection.update(
+       BSONDocument("_id" -> BSONString(sessionId)),
+       BSONDocument(
+         "$set" -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
+         "$setOnInsert" -> BSONDocument("createdAt" -> BSONDateTime(System.currentTimeMillis))
+       ),
+       upsert = true
+     )
+   } yield {
+     ()
+   }
+  }
+
+  override def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]] = {
+    for {
+      sessionId <- getSessionId
+      maybeOption <- findById(sessionId)
+    } yield {
+      maybeOption
+        .map(_.data \ formId)
+        .flatMap(x => x match {
+          case JsDefined(value) => Some(value.as[A])
+          case JsUndefined() => None
+        })
+    }
+  }
+
+  override def remove()(implicit hc: HeaderCarrier): Future[Unit] = {
+    for {
+      sessionId <- getSessionId
+      _ <- collection.update(
+        BSONDocument("_id" -> BSONString(sessionId)),
+        BSONDocument(
+          "$unset" -> BSONDocument(s"data.$formId" -> 1))
+      )
+    } yield {
+      ()
+    }
+  }
+
+  private val noSession = Future.failed[String](NoSessionException)
+
+  override def indexes: Seq[Index] = Seq(
+    Index(
+      key = Seq(("createdAt", IndexType.Ascending)),
+      name = Some("sessionTTL"),
+      options = BSONDocument("expireAfterSeconds" -> (2 hours).toSeconds)
+    )
+  )
+
+  private def getSessionId(implicit hc: HeaderCarrier): Future[String] =
+    hc.sessionId.fold(noSession)(c => Future.successful(c.value))
+
+}
+
+case class SessionData(_id: String, data: JsValue, createdAt: BSONDateTime = BSONDateTime(System.currentTimeMillis))
+
+object SessionData {
+  import reactivemongo.play.json.BSONFormats.BSONDateTimeFormat
+
+  val format = Json.format[SessionData]
+}
+
+trait SessionRepo {
+
+  def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]
+
+  def saveOrUpdate[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]
+
+  def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]]
+
+  def remove()(implicit hc: HeaderCarrier): Future[Unit]
+}
+
+
+J(app/repositories/SessionRepository.scala

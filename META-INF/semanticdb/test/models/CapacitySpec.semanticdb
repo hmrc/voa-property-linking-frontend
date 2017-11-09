@@ -1,0 +1,158 @@
+
+•^{
+á§q_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks.;_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks#B
+¢ø8_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks#
+ÂÎ_root_.models.
+∞π_root_.org.scalatest.
+Ù˜_root_.org.
+¯Å_root_.org.scalatest.,
+êú"_root_.org.scalatest.MustMatchers#¡
+œ”∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.'
+Ì˘_root_.models.CapacitySpec#Ü
+¬∆|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.3
+˙˙'_root_.models.CapacitySpec#`<init>`()V.`
+Ã€V_root_.models.Capacity.fromDeclaration(Lmodels/CapacityDeclaration;)Lmodels/Capacity;.,
+ï®"_root_.models.CapacityDeclaration#4
+∏¿(test/models/CapacitySpec.scala@948..1000(
+ª√_root_.org.scalatest.FlatSpec#O
+≈—E_root_.org.scalatest.MustMatchers.;_root_.org.scalatest.MustMatchers#
+¨Ø_root_.org.u
+ˆ¯k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.4
+ãã*_root_.org.scalatest.FlatSpec#`<init>`()V.5
+«…+_root_.org.scalatest.words.MatcherWords#be.!
+√À_root_.models.Capacity.$
+ÇÜ_root_.org.scalatest.prop.1
+‹Á'test/models/CapacitySpec.scala@905..936
+⁄„_root_.resources.3
+âî'test/models/CapacitySpec.scala@905..936(
+Çä_root_.org.scalatest.FlatSpec#æ
+ˇÖ≥_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks#forAll(Lscala/Function1;Lorg/scalatest/prop/Configuration/PropertyCheckConfigurable;Lorg/scalacheck/Arbitrary;Lorg/scalacheck/Shrink;Lorg/scalatest/enablers/CheckerAsserting;Lorg/scalactic/Prettifier;Lorg/scalactic/source/Position;)Ljava/lang/Object;."^
+8_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks#"Ä@GeneratorDrivenPropertyChecks"g
++_root_.org.scalatest.words.MatcherWords#be.8beBeWord"(
+"_root_.org.scalatest.words.BeWord#"z
+'test/models/CapacitySpec.scala@905..936OÄdeclarationCapacityDeclaration"(
+"_root_.models.CapacityDeclaration#")
+_root_.models.Capacity.ÄÑCapacity"a
+(test/models/CapacitySpec.scala@948..10005capacityCapacity"
+_root_.models.Capacity#"%
+_root_.resources.ÄàÄ	resources"0
+_root_.models.CapacitySpec#Ä CapacitySpec")
+_root_.org.scalatest.ÄàÄ	scalatest"
+_root_.org.
+ÄàÄorg"—
+|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.–must'(rightMatcherX1: Matcher[T]): Assertion".
+&_root_.org.scalatest.matchers.Matcher#"<
+4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"/
+''_root_.org.scalatest.package.Assertion#"¡
+∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
+_root_.scala.Predef.String#">
+96_root_.org.scalatest.words.StringVerbStringInvocation#">
+<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"/
+_root_.org.scalatest.FlatSpec#Ä FlatSpec"@
+"_root_.models.CapacityDeclaration#Ä†ÄCapacityDeclaration"
+_root_.models.ÄàÄmodels"Ë
+≥_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks#forAll(Lscala/Function1;Lorg/scalatest/prop/Configuration/PropertyCheckConfigurable;Lorg/scalacheck/Arbitrary;Lorg/scalacheck/Shrink;Lorg/scalatest/enablers/CheckerAsserting;Lorg/scalactic/Prettifier;Lorg/scalactic/source/Position;)Ljava/lang/Object;.ØforAll‚[A, ASSERTION] => (fun: Function1[A, ASSERTION])(implicit config: PropertyCheckConfigurable, arbA: Arbitrary[A], shrA: Shrink[A], asserting: CheckerAsserting[ASSERTION], prettifier: Prettifier, pos: Position): asserting.Result"
+!_root_.scala.Function1#"ø
+"#∂_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks#forAll(Lscala/Function1;Lorg/scalatest/prop/Configuration/PropertyCheckConfigurable;Lorg/scalacheck/Arbitrary;Lorg/scalacheck/Shrink;Lorg/scalatest/enablers/CheckerAsserting;Lorg/scalactic/Prettifier;Lorg/scalactic/source/Position;)Ljava/lang/Object;.[A]"«
+%.æ_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks#forAll(Lscala/Function1;Lorg/scalatest/prop/Configuration/PropertyCheckConfigurable;Lorg/scalacheck/Arbitrary;Lorg/scalacheck/Shrink;Lorg/scalatest/enablers/CheckerAsserting;Lorg/scalactic/Prettifier;Lorg/scalactic/source/Position;)Ljava/lang/Object;.[ASSERTION]"J
+B[B_root_.org.scalatest.prop.Configuration#PropertyCheckConfigurable#"(
+cl _root_.org.scalacheck.Arbitrary#"ø
+mn∂_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks#forAll(Lscala/Function1;Lorg/scalatest/prop/Configuration/PropertyCheckConfigurable;Lorg/scalacheck/Arbitrary;Lorg/scalacheck/Shrink;Lorg/scalatest/enablers/CheckerAsserting;Lorg/scalactic/Prettifier;Lorg/scalactic/source/Position;)Ljava/lang/Object;.[A]"%
+w}_root_.org.scalacheck.Shrink#"ø
+~∂_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks#forAll(Lscala/Function1;Lorg/scalatest/prop/Configuration/PropertyCheckConfigurable;Lorg/scalacheck/Arbitrary;Lorg/scalacheck/Shrink;Lorg/scalatest/enablers/CheckerAsserting;Lorg/scalactic/Prettifier;Lorg/scalactic/source/Position;)Ljava/lang/Object;.[A]"9
+çù/_root_.org.scalatest.enablers.CheckerAsserting#"…
+ûßæ_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks#forAll(Lscala/Function1;Lorg/scalatest/prop/Configuration/PropertyCheckConfigurable;Lorg/scalacheck/Arbitrary;Lorg/scalacheck/Shrink;Lorg/scalatest/enablers/CheckerAsserting;Lorg/scalactic/Prettifier;Lorg/scalactic/source/Position;)Ljava/lang/Object;.[ASSERTION]"*
+∂¿ _root_.org.scalactic.Prettifier#"/
+«œ%_root_.org.scalactic.source.Position#"…
+“€æ_root_.org.scalatest.prop.GeneratorDrivenPropertyChecks#forAll(Lscala/Function1;Lorg/scalatest/prop/Configuration/PropertyCheckConfigurable;Lorg/scalacheck/Arbitrary;Lorg/scalacheck/Shrink;Lorg/scalatest/enablers/CheckerAsserting;Lorg/scalactic/Prettifier;Lorg/scalactic/source/Position;)Ljava/lang/Object;.(asserting)"@
+‹‚6_root_.org.scalatest.enablers.CheckerAsserting#Result#")
+_root_.org.scalatest.prop.ÄàÄprop"È
+V_root_.models.Capacity.fromDeclaration(Lmodels/CapacityDeclaration;)Lmodels/Capacity;.éfromDeclaration,(declaration: CapacityDeclaration): Capacity"*
+!"_root_.models.CapacityDeclaration#"
+$,_root_.models.Capacity#"©
+a_root_.models.CapacityDeclaration#`<init>`(Lmodels/CapacityType;ZLscala/Option;ZLscala/Option;)V.√<init>û(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate], stillInterested: Boolean, toDate: Option[LocalDate]): CapacityDeclaration"#
+_root_.models.CapacityType#"
+/6_root_.scala.Boolean#"
+BH_root_.scala.Option#"#
+IR_root_.java.time.LocalDate#"
+fm_root_.scala.Boolean#"
+w}_root_.scala.Option#"$
+~á_root_.java.time.LocalDate#",
+ãû"_root_.models.CapacityDeclaration#"l
+'_root_.models.CapacitySpec#`<init>`()V.A<init>(): CapacitySpec"#
+_root_.models.CapacitySpec#"n
+*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
+_root_.org.scalatest.FlatSpec#"7
+"_root_.org.scalatest.MustMatchers#Ä@MustMatchers"∂
+k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#2ó
+ÖÖ!*[CapacityDeclaration, Assertion]
+_star_.*
+"_root_.models.CapacityDeclaration#/
+ '_root_.org.scalatest.package.Assertion#2ˆ
+ƒı0CapacitySpec.this.convertToInAndIgnoreMethods(*)®
+-ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+./_star_.2≤
+¿äCapacitySpec.this.convertToAnyMustWrapper[Boolean](*)(org.scalactic.source.Position.apply("CapacitySpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 27), org.scalactic.Prettifier.default)
+*1_root_.scala.Boolean#ª
+)≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+34_star_.y
+TYq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Çâ(_root_.org.scalactic.Prettifier.default.2ù
+ıı6*(CapacitySpec.this.shorthandTestRegistrationFunction)
+_star_.L
+5D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2u
+……*.apply
+_star_.S
+K_root_.org.scalatest.words.BeWord#apply(Z)Lorg/scalatest/matchers/Matcher;.2ì
+ƒŒÑCapacitySpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("CapacitySpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 24), org.scalactic.Prettifier.default)¡
+,∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+-._star_.y
+NSq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+¸É(_root_.org.scalactic.Prettifier.default.2Å
+ÿÿ´*(CapacitySpec.this.generatorDrivenConfig, resources.`package`.arbitraryCapacityDeclaration, org.scalacheck.Shrink.shrinkAny[CapacityDeclaration], org.scalatest.enablers.CheckerAsserting.assertingNatureOfAssertion, org.scalactic.Prettifier.default, org.scalactic.source.Position.apply("CapacitySpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 25))
+_star_.F
+)>_root_.org.scalatest.prop.Configuration#generatorDrivenConfig.>
+?[6_root_.resources.package.arbitraryCapacityDeclaration.+
+}ê"_root_.models.CapacityDeclaration#S
+s|K_root_.org.scalacheck.ShrinkLowPriority#shrinkAny()Lorg/scalacheck/Shrink;.
+ª’u_root_.org.scalatest.enablers.CheckerAsserting.assertingNatureOfAssertion()Lorg/scalatest/enablers/CheckerAsserting;.2
+˜(_root_.org.scalactic.Prettifier.default.{
+óúq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.:Scala211Bﬂ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.{FlatSpec, MustMatchers}
+import resources._
+
+class CapacitySpec extends FlatSpec with MustMatchers with GeneratorDrivenPropertyChecks {
+  "Capacity" must "create from CapacityDeclaration" in {
+    forAll({  declaration:CapacityDeclaration => {
+      val capacity = Capacity.fromDeclaration(declaration)
+      (capacity match {
+        case c:Capacity => true
+        case _ => false
+      }) must be (true)
+    }})
+  }
+}
+Jtest/models/CapacitySpec.scala

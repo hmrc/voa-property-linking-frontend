@@ -1,0 +1,88 @@
+
+ï$
+”◊_root_.scala.package.List#H
+·Â<_root_.models.DoesNotHaveRatesBill.name()Ljava/lang/String;.*
+Ì˛ _root_.models.DoesHaveRatesBill.1
+ËÏ'_root_.scala.collection.immutable.List.1
+áé%_root_.models.HasRatesBill#$init$()V."
+èò_root_.models.NamedEnum#%
+Øª_root_.models.HasRatesBill#.
+ΩΩ$_root_.java.lang.Object#`<init>`()V.
+ÂÎ_root_.models./
+¶∫#_root_.models.DoesNotHaveRatesBill..
+––$_root_.java.lang.Object#`<init>`()V.E
+ÅÖ9_root_.models.DoesHaveRatesBill.name()Ljava/lang/String;..
+$_root_.java.lang.Object#`<init>`()V.)
+ûÆ_root_.models.NamedEnumSupport#'
+˙Ü_root_.models.HasRatesBill#-
+Äî#_root_.models.DoesNotHaveRatesBill.'
+âï_root_.models.HasRatesBill.?
+™≠3_root_.models.HasRatesBill#key()Ljava/lang/String;.,
+…⁄ _root_.models.DoesHaveRatesBill.%
+ÿ‰_root_.models.HasRatesBill#N
+Œ—B_root_.models.HasRatesBill.all()Lscala/collection/immutable/List;.%
+„Ô_root_.models.HasRatesBill#%
+√œ_root_.models.HasRatesBill#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#";
+ _root_.models.DoesHaveRatesBill.ÄÑDoesHaveRatesBill"`
+_root_.scala.package.List#BList	List.type"-
+'_root_.scala.collection.immutable.List."m
+9_root_.models.DoesHaveRatesBill.name()Ljava/lang/String;.0nameString"
+_root_.java.lang.String#"1
+_root_.models.HasRatesBill#Ä¿HasRatesBill"f
+3_root_.models.HasRatesBill#key()Ljava/lang/String;./keyString"
+_root_.java.lang.String#"p
+<_root_.models.DoesNotHaveRatesBill.name()Ljava/lang/String;.0nameString"
+_root_.java.lang.String#"1
+_root_.models.HasRatesBill.ÄÑHasRatesBill"Y
+%_root_.models.HasRatesBill#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#"5
+'_root_.scala.collection.immutable.List.
+ÄÑList"8
+_root_.models.NamedEnumSupport#Ä@NamedEnumSupport"
+_root_.models.ÄàÄmodels"*
+_root_.models.NamedEnum#Ä@	NamedEnum"A
+#_root_.models.DoesNotHaveRatesBill.ÄÑDoesNotHaveRatesBill"®
+B_root_.models.HasRatesBill.all()Lscala/collection/immutable/List;.ballList[HasRatesBill]" 
+_root_.scala.package.List#"#
+_root_.models.HasRatesBill#2√
+ÏÏ*.apply[HasRatesBill]
+_star_.n
+f_root_.scala.collection.immutable.List.apply(Lscala/collection/Seq;)Lscala/collection/immutable/List;.#
+_root_.models.HasRatesBill#:Scala211Bò/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+sealed trait HasRatesBill extends NamedEnum {
+  override def key = "hasratesbill"
+}
+
+object DoesHaveRatesBill extends HasRatesBill {
+  override def name = "doeshaveratesbill"
+}
+
+object DoesNotHaveRatesBill extends HasRatesBill {
+  override def name = "doesnothaveratesbill"
+}
+
+object HasRatesBill extends NamedEnumSupport[HasRatesBill] {
+  override def all: List[HasRatesBill] = List(DoesHaveRatesBill, DoesNotHaveRatesBill)
+}
+Japp/models/HasRatesBill.scala

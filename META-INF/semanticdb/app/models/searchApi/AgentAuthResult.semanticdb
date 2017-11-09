@@ -1,0 +1,117 @@
+
+’+;
+Ã—/_root_.models.searchApi.AgentAuthResult#(total)
+´Æ_root_.scala.Int#
+˛Ç_root_.play.)
+ëï_root_.play.api.libs.json.Json.
+”÷_root_.scala.Int#[
+±±O_root_.models.searchApi.AgentAuthResult#`<init>`(IIIIILscala/collection/Seq;)V.4
+¢±(_root_.models.searchApi.AgentAuthResult#5
+¡”+_root_.models.searchApi.AgentAuthorisation#
+˝Ä_root_.scala.Int#2
+∏«(_root_.models.searchApi.AgentAuthResult#"
+Ïı_root_.models.searchApi.4
+˘à(_root_.models.searchApi.AgentAuthResult.:
+˜˚._root_.models.searchApi.AgentAuthResult#(size)
+áã_root_.play.api.libs.
+ÂÎ_root_.models.N
+±∑D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.A
+û©5_root_.models.searchApi.AgentAuthResult#(filterTotal)$
+åê_root_.play.api.libs.json.
+åè_root_.scala.Int#D
+≠ª8_root_.models.searchApi.AgentAuthResult#(authorisations);
+œ‘/_root_.models.searchApi.AgentAuthResult#(start)D
+ö©8_root_.models.searchApi.AgentAuthResult.agentAuthResult.)
+¨∞_root_.play.api.libs.json.Json.
+÷Ÿ_root_.scala.Int##
+Ω¿_root_.scala.package.Seq#
+ÉÜ_root_.play.api.L
+Ùä@_root_.models.searchApi.AgentAuthResult#(pendingRepresentations)"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]")
+_root_.play.api.libs.json.ÄàÄjson",
+_root_.models.searchApi.ÄàÄ	searchApi"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"û
+∂_root_.models.searchApi.AgentAuthorisation#`<init>`(JJLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lmodels/searchApi/AgentAuthClient;Ljava/lang/String;)V.‚<init>Ÿ(authorisationId: Long, authorisedPartyId: Long, status: String, submissionId: String, uarn: Long, address: String, localAuthorityRef: String, client: AgentAuthClient, representationStatus: String): AgentAuthorisation"
+_root_.scala.Long#"
++/_root_.scala.Long#"#
+9?_root_.scala.Predef.String#"#
+OU_root_.scala.Predef.String#"
+]a_root_.scala.Long#"#
+lr_root_.scala.Predef.String#"%
+áç_root_.scala.Predef.String#"2
+ó¶(_root_.models.searchApi.AgentAuthClient#"%
+æƒ_root_.scala.Predef.String#"5
+«Ÿ+_root_.models.searchApi.AgentAuthorisation#"»
+8_root_.models.searchApi.AgentAuthResult.agentAuthResult.ãÅÄ agentAuthResultOFormat[AgentAuthResult]"(
+"_root_.play.api.libs.json.OFormat#"0
+(_root_.models.searchApi.AgentAuthResult#"g
+5_root_.models.searchApi.AgentAuthResult#(filterTotal).ÅfilterTotalInt"
+_root_.scala.Int#"Y
+._root_.models.searchApi.AgentAuthResult#(size)'ÅsizeInt"
+_root_.scala.Int#"A
+(_root_.models.searchApi.AgentAuthResult.ÄÑAgentAuthResult"B
+(_root_.models.searchApi.AgentAuthResult#Ä†ÄAgentAuthResult"}
+@_root_.models.searchApi.AgentAuthResult#(pendingRepresentations)9ÅpendingRepresentationsInt"
+_root_.scala.Int#"
+_root_.play.ÄàÄplay"ˇ
+O_root_.models.searchApi.AgentAuthResult#`<init>`(IIIIILscala/collection/Seq;)V.´<init>å(start: Int, size: Int, filterTotal: Int, total: Int, pendingRepresentations: Int, authorisations: Seq[AgentAuthorisation]): AgentAuthResult"
+_root_.scala.Int#"
+_root_.scala.Int#"
+%(_root_.scala.Int#"
+14_root_.scala.Int#"
+NQ_root_.scala.Int#"!
+cf_root_.scala.package.Seq#"3
+gy+_root_.models.searchApi.AgentAuthorisation#"1
+}å(_root_.models.searchApi.AgentAuthResult#"
+_root_.models.ÄàÄmodels"[
+/_root_.models.searchApi.AgentAuthResult#(start)(ÅstartInt"
+_root_.scala.Int#"ø
+8_root_.models.searchApi.AgentAuthResult#(authorisations)ÇÅauthorisationsSeq[AgentAuthorisation]"
+_root_.scala.package.Seq#"3
++_root_.models.searchApi.AgentAuthorisation#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."H
++_root_.models.searchApi.AgentAuthorisation#Ä†ÄAgentAuthorisation"[
+/_root_.models.searchApi.AgentAuthResult#(total)(ÅtotalInt"
+_root_.scala.Int#"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"
+_root_.scala.Int#	Ä†Int:Scala211BÀ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models.searchApi
+
+import play.api.libs.json.Json
+
+case class AgentAuthResult(
+                            start: Int,
+                            size: Int,
+                            filterTotal: Int,
+                            total: Int,
+                            pendingRepresentations: Int,
+                            authorisations: Seq[AgentAuthorisation]
+                          )
+
+object AgentAuthResult {
+  implicit val agentAuthResult = Json.format[AgentAuthResult]
+}
+J*app/models/searchApi/AgentAuthResult.scala

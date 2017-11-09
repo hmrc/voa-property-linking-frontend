@@ -1,0 +1,128 @@
+
+î2√
+¥¥∂_root_.models.searchApi.AgentAuthorisation#`<init>`(JJLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lmodels/searchApi/AgentAuthClient;Ljava/lang/String;)V.5
+˝	è
++_root_.models.searchApi.AgentAuthorisation#7
+∏	 	+_root_.models.searchApi.AgentAuthorisation.?
+º¬3_root_.models.searchApi.AgentAuthorisation#(client)J
+Çì>_root_.models.searchApi.AgentAuthorisation#(localAuthorityRef))
+ëï_root_.play.api.libs.json.Json.@
+“Ÿ4_root_.models.searchApi.AgentAuthorisation#(address)%
+ä	ê	_root_.scala.Predef.String#)
+Ò	ı	_root_.play.api.libs.json.Json.
+˛Ç_root_.play.%
+ïõ_root_.scala.Predef.String#=
+ß´1_root_.models.searchApi.AgentAuthorisation#(uarn)?
+√…3_root_.models.searchApi.AgentAuthorisation#(status)
+ÊÍ_root_.scala.Long#
+≠±_root_.scala.Long#2
+ƒ”(_root_.models.searchApi.AgentAuthClient#$
+åê_root_.play.api.libs.json.
+áã_root_.play.api.libs.M
+Ùà	A_root_.models.searchApi.AgentAuthorisation#(representationStatus)
+ÂÎ_root_.models.J
+ãú>_root_.models.searchApi.AgentAuthorisation#(authorisedPartyId)
+ÉÜ_root_.play.api.J
+‹	Ó	>_root_.models.searchApi.AgentAuthorisation.agentAuthorisation.%
+ÄÜ_root_.scala.Predef.String#7
+¢¥+_root_.models.searchApi.AgentAuthorisation#
+û¢_root_.scala.Long#E
+Ú˛9_root_.models.searchApi.AgentAuthorisation#(submissionId)H
+’‰<_root_.models.searchApi.AgentAuthorisation#(authorisationId)%
+€·_root_.scala.Predef.String#"
+Ïı_root_.models.searchApi.%
+À—_root_.scala.Predef.String#N
+ˆ	¸	D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;."◊
+>_root_.models.searchApi.AgentAuthorisation.agentAuthorisation.îÅÄ agentAuthorisationOFormat[AgentAuthorisation]"(
+"_root_.play.api.libs.json.OFormat#"3
++_root_.models.searchApi.AgentAuthorisation#")
+_root_.play.api.libs.json.ÄàÄjson"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]" 
+_root_.scala.Long#
+Ä†Long"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"m
+3_root_.models.searchApi.AgentAuthorisation#(status)6ÅstatusString"!
+_root_.scala.Predef.String#",
+_root_.models.searchApi.ÄàÄ	searchApi"å
+G_root_.models.searchApi.AgentAuthClient#`<init>`(JLjava/lang/String;)V.¿<init>A(organisationId: Long, organisationName: String): AgentAuthClient"
+_root_.scala.Long#"#
+)/_root_.scala.Predef.String#"0
+2A(_root_.models.searchApi.AgentAuthClient#"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"û
+∂_root_.models.searchApi.AgentAuthorisation#`<init>`(JJLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lmodels/searchApi/AgentAuthClient;Ljava/lang/String;)V.‚<init>Ÿ(authorisationId: Long, authorisedPartyId: Long, status: String, submissionId: String, uarn: Long, address: String, localAuthorityRef: String, client: AgentAuthClient, representationStatus: String): AgentAuthorisation"
+_root_.scala.Long#"
++/_root_.scala.Long#"#
+9?_root_.scala.Predef.String#"#
+OU_root_.scala.Predef.String#"
+]a_root_.scala.Long#"#
+lr_root_.scala.Predef.String#"%
+áç_root_.scala.Predef.String#"2
+ó¶(_root_.models.searchApi.AgentAuthClient#"%
+æƒ_root_.scala.Predef.String#"5
+«Ÿ+_root_.models.searchApi.AgentAuthorisation#"y
+9_root_.models.searchApi.AgentAuthorisation#(submissionId)<ÅsubmissionIdString"!
+_root_.scala.Predef.String#"x
+>_root_.models.searchApi.AgentAuthorisation#(authorisedPartyId)6ÅauthorisedPartyIdLong"
+_root_.scala.Long#"o
+4_root_.models.searchApi.AgentAuthorisation#(address)7ÅaddressString"!
+_root_.scala.Predef.String#"â
+A_root_.models.searchApi.AgentAuthorisation#(representationStatus)DÅrepresentationStatusString"!
+_root_.scala.Predef.String#"
+_root_.play.ÄàÄplay"B
+(_root_.models.searchApi.AgentAuthClient#Ä†ÄAgentAuthClient"
+_root_.models.ÄàÄmodels"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"É
+3_root_.models.searchApi.AgentAuthorisation#(client)LÅclientAgentAuthClient".
+(_root_.models.searchApi.AgentAuthClient#"H
++_root_.models.searchApi.AgentAuthorisation#Ä†ÄAgentAuthorisation"É
+>_root_.models.searchApi.AgentAuthorisation#(localAuthorityRef)AÅlocalAuthorityRefString"!
+_root_.scala.Predef.String#"G
++_root_.models.searchApi.AgentAuthorisation.ÄÑAgentAuthorisation"^
+1_root_.models.searchApi.AgentAuthorisation#(uarn))ÅuarnLong"
+_root_.scala.Long#"t
+<_root_.models.searchApi.AgentAuthorisation#(authorisationId)4ÅauthorisationIdLong"
+_root_.scala.Long#:Scala211Bì
+/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models.searchApi
+
+import play.api.libs.json.Json
+
+case class AgentAuthorisation(
+                               authorisationId: Long,
+                               authorisedPartyId: Long,
+                               status: String,
+                               submissionId: String,
+                               uarn: Long,
+                               address: String,
+                               localAuthorityRef: String,
+                               client: AgentAuthClient,
+                               representationStatus: String
+                             )
+
+object AgentAuthorisation {
+  implicit val agentAuthorisation = Json.format[AgentAuthorisation]
+}
+J-app/models/searchApi/AgentAuthorisation.scala

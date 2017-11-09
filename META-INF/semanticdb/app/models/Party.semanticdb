@@ -1,0 +1,102 @@
+
+Ñ!
+¿ƒ_root_.scala.Long#
+ÍÓ_root_.scala.Long# 
+Œ”_root_.models.Party.N
+Û˘D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.5
+é°)_root_.models.Party#(challengePermission)$
+ÇÜ_root_.play.api.libs.json. 
+òù_root_.models.Party#(
+Í˘_root_.models.AgentPermission#'
+ÂÎ_root_.models.Party.format.
+ÂÎ_root_.models.(
+£≤_root_.models.AgentPermission#)
+áã_root_.play.api.libs.json.Json.
+˘¸_root_.play.api.
+∆ _root_.scala.Long#
+˙ˇ_root_.models.Party#q
+ûûe_root_.models.Party#`<init>`(JJLjava/lang/String;JLmodels/AgentPermission;Lmodels/AgentPermission;)V.)
+ÓÚ_root_.play.api.libs.json.Json.1
+ŸË%_root_.models.Party#(checkPermission)2
+Éì&_root_.models.Party#(organisationName)+
+ﬂË_root_.models.Party#(agentCode)0
+∞æ$_root_.models.Party#(organisationId)
+Ù¯_root_.play.%
+ïõ_root_.scala.Predef.String#3
+≥ƒ'_root_.models.Party#(authorisedPartyId)
+˝Å_root_.play.api.libs."[
+$_root_.models.Party#(organisationId)3ÅorganisationIdLong"
+_root_.scala.Long#"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]")
+_root_.play.api.libs.json.ÄàÄjson" 
+_root_.scala.Long#
+Ä†Long"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"É
+_root_.models.Party.format.dÅÄ formatOFormat[Party]"(
+"_root_.play.api.libs.json.OFormat#"
+_root_.models.Party#"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"7
+_root_.models.AgentPermission#Ä¿AgentPermission"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"ã
+e_root_.models.Party#`<init>`(JJLjava/lang/String;JLmodels/AgentPermission;Lmodels/AgentPermission;)V.°<init>©(authorisedPartyId: Long, agentCode: Long, organisationName: String, organisationId: Long, checkPermission: AgentPermission, challengePermission: AgentPermission): Party"
+_root_.scala.Long#"
+%)_root_.scala.Long#"#
+=C_root_.scala.Predef.String#"
+UY_root_.scala.Long#"&
+l{_root_.models.AgentPermission#"(
+í°_root_.models.AgentPermission#"
+§©_root_.models.Party#"j
+&_root_.models.Party#(organisationName)@ÅorganisationNameString"!
+_root_.scala.Predef.String#"t
+%_root_.models.Party#(checkPermission)KÅcheckPermissionAgentPermission"$
+_root_.models.AgentPermission#"|
+)_root_.models.Party#(challengePermission)OÅchallengePermissionAgentPermission"$
+_root_.models.AgentPermission#"
+_root_.play.ÄàÄplay"a
+'_root_.models.Party#(authorisedPartyId)6ÅauthorisedPartyIdLong"
+_root_.scala.Long#"
+_root_.models.ÄàÄmodels"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"Q
+_root_.models.Party#(agentCode).Å	agentCodeLong"
+_root_.scala.Long#"#
+_root_.models.Party.ÄÑParty"$
+_root_.models.Party#Ä†ÄParty:Scala211BÉ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import play.api.libs.json.Json
+
+case class Party (
+                   authorisedPartyId: Long,
+                   agentCode: Long,
+                   organisationName: String,
+                   organisationId: Long,
+                   checkPermission: AgentPermission,
+                   challengePermission: AgentPermission
+                 )
+
+object Party {
+  implicit val format = Json.format[Party]
+}
+Japp/models/Party.scala

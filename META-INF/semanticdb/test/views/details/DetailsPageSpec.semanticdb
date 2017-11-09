@@ -1,0 +1,1242 @@
+
+≥¡
+ÁÚ_root_.controllers.
+“÷_root_.play.api.i18n.+
+¬œ!_root_.controllers.manageDetails./
+ÑÜ%_root_.org.scalatest.FlatSpecLike#it.#
+Üâ_root_.scala.package.Seq#ç
+Ö,â,Ç_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;.(html)?
+ü£3test/views/details/DetailsPageSpec.scala@3611..36594
+êê*_root_.org.scalatest.FlatSpec#`<init>`()V.3
+Í˘)_root_.resources.package.groupAccountGen.5
+∆œ+_root_.models.IndividualDetails#(firstName)°
+™+Æ+ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.=
+‡Ò3test/views/details/DetailsPageSpec.scala@2524..2625_
+∏,æ,U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.+
+˝	Ü
+!_root_.scala.Option#isDefined()Z.>
+≈,»,4_root_.java.util.ArrayList#get(I)Ljava/lang/Object;.=
+‚$Û$3test/views/details/DetailsPageSpec.scala@4483..4547!
+´∞_root_.org.jsoup.Jsoup.U
+¿!ƒ!K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.Ü
+ñ!ù!|_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;.3
+Áˆ)_root_.resources.package.groupAccountGen..
+íú$_root_.resources.package.addressGen.+
+Ò'˛'!_root_.controllers.manageDetails.3
+¡⁄)_root_.actions.BasicAuthenticatedRequest.U
+–‘K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.L
+é)ß)B_root_.controllers.manageDetails.routes.UpdateOrganisationDetails.Ü
+çî|_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;.(
+©¨_root_.play.api.mvc.Call#(url)U
+° ¶ K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.;
+Ó	ı	1_root_.models.DetailedIndividualAccount#(details)
+¶%™%_root_.views.html.
+§Ø_root_.controllers.,
+∞æ"_root_.controllers.ControllerSpec#=
+¥&¿&3test/views/details/DetailsPageSpec.scala@4552..46004
+€„*_root_.models.IndividualDetails#(lastName)?
+è!ì!3test/views/details/DetailsPageSpec.scala@4235..42832
+Åá(_root_.controllers.manageDetails.routes.Q
+∫ªG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.2
+–÷(_root_.models.IndividualDetails#(phone1)=
+¶∑3test/views/details/DetailsPageSpec.scala@1184..1287M
+ı%˝%C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.?
+∞,±,3test/views/details/DetailsPageSpec.scala@5680..5681
+ß¨_root_.utils.=
+˜˛3test/views/details/DetailsPageSpec.scala@3348..3381;
+ÁÓ1_root_.models.DetailedIndividualAccount#(details)=
+‡*‰*3test/views/details/DetailsPageSpec.scala@4745..4862°
+º¿ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.+
+Û˛!_root_.play.api.test.FakeRequest.
+û°_root_.org.2
+¡&Ã&(_root_.models.GroupAccount#(companyName)V
+ÈÛL_root_.org.scalacheck.Gen#retryUntil(Lscala/Function1;)Lorg/scalacheck/Gen;.+
+ÛÄ!_root_.controllers.manageDetails.8
+˝!Ö"._root_.scala.Any#toString()Ljava/lang/String;.°
+’Ÿñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.g
+èò]_root_.controllers.manageDetails.ReverseUpdatePersonalDetails#viewPhone()Lplay/api/mvc/Call;.=
+∆ ◊ 3test/views/details/DetailsPageSpec.scala@3827..3891í
+Ï+Û+Ö_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;.(tableId)B
+Ã,–,8_root_.org.jsoup.nodes.Element#text()Ljava/lang/String;.n
+°-¢-b_root_.views.details.DetailsPageSpec#getUpdateUrl(Lorg/jsoup/nodes/Element;)Ljava/lang/String;.(e)?
+î ò 3test/views/details/DetailsPageSpec.scala@4112..4229?
+Å$à$3test/views/details/DetailsPageSpec.scala@4605..4638=
+ø%–%3test/views/details/DetailsPageSpec.scala@4483..4547?
+àô3test/views/details/DetailsPageSpec.scala@3204..3268+
+ıÇ!_root_.controllers.manageDetails.(
+õû_root_.play.api.mvc.Call#(url)
+¢ß_root_.org.jsoup.1
+∑ƒ'_root_.resources.package.individualGen.?
+Ã#ÿ#3test/views/details/DetailsPageSpec.scala@4552..4600f
+û¶\_root_.controllers.manageDetails.ReverseUpdatePersonalDetails#viewName()Lplay/api/mvc/Call;."
+¡À_root_.utils.Formatters.%
+ÿ‰_root_.models.GroupAccount#s
+™*ª*i_root_.controllers.manageDetails.ReverseUpdateOrganisationDetails#viewBusinessEmail()Lplay/api/mvc/Call;.+
+ı$Ä%!_root_.play.api.test.FakeRequest./
+ü°%_root_.org.scalatest.FlatSpecLike#it.?
+¯Ñ3test/views/details/DetailsPageSpec.scala@1652..2307:
+⁄·0_root_.org.scalatest.words.MatcherWords#contain.?
+º»3test/views/details/DetailsPageSpec.scala@3896..39672
+¡«(_root_.models.IndividualDetails#(phone2)0
+∫ ≈ &_root_.views.html.details.viewDetails.!
+®≠_root_.org.jsoup.nodes.Ü
+îõ|_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;..
+õ•$_root_.resources.package.addressGen.1
+—ﬂ'_root_.scala.collection.JavaConverters.U
+ﬁ„K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.?
+ˇÜ3test/views/details/DetailsPageSpec.scala@2683..2716M
+Û˚C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.$
+≤ π _root_.views.html.details.?
+ ÷3test/views/details/DetailsPageSpec.scala@2630..2678H
+˘é>_root_.controllers.manageDetails.routes.UpdatePersonalDetails.2
+â*è*(_root_.controllers.manageDetails.routes.g
+Ìˆ]_root_.controllers.manageDetails.ReverseUpdatePersonalDetails#viewEmail()Lplay/api/mvc/Call;.?
+ê
+ú
+3test/views/details/DetailsPageSpec.scala@1292..1340°
+ÊÍñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.ü
+Œ!’!î_root_.org.scalatest.words.ResultOfNotWordForAny#contain(Ljava/lang/Object;Lorg/scalatest/enablers/Containing;)Lorg/scalatest/compatible/Assertion;.=
+≠¥3test/views/details/DetailsPageSpec.scala@1345..13782
+Ú¯(_root_.controllers.manageDetails.routes.?
+§®3test/views/details/DetailsPageSpec.scala@3488..3605H
+àù>_root_.controllers.manageDetails.routes.UpdatePersonalDetails.3
+∏—)_root_.actions.BasicAuthenticatedRequest.V
+Ÿ-›-L_root_.org.jsoup.select.Elements#attr(Ljava/lang/String;)Ljava/lang/String;.=
+ ˜ 3test/views/details/DetailsPageSpec.scala@3972..4005
+Û˜_root_.play.=
+π¿3test/views/details/DetailsPageSpec.scala@1607..1646Ç
+™,≠,x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.?
+«Œ3test/views/details/DetailsPageSpec.scala@3395..3482$
+´%≤%_root_.views.html.details.]
+ÉúS_root_.actions.BasicAuthenticatedRequest.;_root_.actions.BasicAuthenticatedRequest#
+µ-ª-_root_.scala.Option.2
+á)ç)(_root_.controllers.manageDetails.routes.=
+“%ﬁ%3test/views/details/DetailsPageSpec.scala@4552..4600)
+π¿_root_.scala.Option#isEmpty()Z.o
+ÍÏe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V._
+‘,⁄,U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.=
+Äá3test/views/details/DetailsPageSpec.scala@3348..3381
+Â''_root_.controllers.
+§®_root_.views.html.2
+õ¥(_root_.models.DetailedIndividualAccount#=
+€'‚'3test/views/details/DetailsPageSpec.scala@4605..4638Y
+Œ-“-O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.Q
+ë,í,G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.%
+€Á_root_.models.GroupAccount#%
+ìô_root_.scala.Predef.String#=
+’Ê3test/views/details/DetailsPageSpec.scala@1184..1287
+‰È_root_.views.)
+§-´-_root_.org.jsoup.nodes.Element#
+˚Ç_root_.actions.(
+æ*¡*_root_.play.api.mvc.Call#(url)+
+πƒ!_root_.play.api.test.FakeRequest.9
+ëñ/_root_.org.jsoup.Jsoup.;_root_.org.jsoup.Jsoup#?
+÷◊3test/views/details/DetailsPageSpec.scala@2390..2391o
+˙"¸"e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
+ÍÓ_root_.views.html.M
+π¡C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.=
+‡%Á%3test/views/details/DetailsPageSpec.scala@4605..4638K
+ê+ó+A_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.2
+ä£(_root_.models.DetailedIndividualAccount#w
+ñ"ú"m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.?
+∞$∑$3test/views/details/DetailsPageSpec.scala@4652..4739
+ÈÙ_root_.controllers.?
+Ù
+˚
+3test/views/details/DetailsPageSpec.scala@1392..14793
+È#¯#)_root_.resources.package.groupAccountGen.o
+”’e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
+îù_root_.resources.=
+∂,∑,3test/views/details/DetailsPageSpec.scala@5680..5681(
+º)ø)_root_.play.api.mvc.Call#(url)L
+Ô&à'B_root_.controllers.manageDetails.routes.UpdateOrganisationDetails.+
+‰Ò!_root_.controllers.manageDetails.6
+»À,_root_.scala.Option#get()Ljava/lang/Object;.$
+Ôˆ_root_.views.html.details.L
+Ü(ü(B_root_.controllers.manageDetails.routes.UpdateOrganisationDetails.!
+ÿ›_root_.org.jsoup.Jsoup.+
+åó!_root_.play.api.test.FakeRequest.?
+≈
+Ã
+3test/views/details/DetailsPageSpec.scala@1345..1378Ü
+¶≠|_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;..
+´µ$_root_.resources.package.addressGen.2
+ö#≥#(_root_.models.DetailedIndividualAccount#
+ÿ„_root_.controllers.!
+õ † _root_.org.jsoup.Jsoup._
+æ-ƒ-U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.%
+ ÷_root_.models.GroupAccount#=
+ñ¢3test/views/details/DetailsPageSpec.scala@1292..1340h
+û®^_root_.controllers.manageDetails.ReverseUpdatePersonalDetails#viewMobile()Lplay/api/mvc/Call;.
+†%•%_root_.views. 
+°®_root_.models.Address#
+ÎÚ_root_.views.details.?
+àè3test/views/details/DetailsPageSpec.scala@3972..4005H
+àù>_root_.controllers.manageDetails.routes.UpdatePersonalDetails.=
+Ú˛3test/views/details/DetailsPageSpec.scala@3273..3343(
+ú'ü'_root_.play.api.mvc.Call#(url)0
+˜Ç&_root_.views.html.details.viewDetails.(
+˘¸_root_.play.api.mvc.Call#(url)V
+ùßL_root_.org.scalacheck.Gen#retryUntil(Lscala/Function1;)Lorg/scalacheck/Gen;.=
+ïô3test/views/details/DetailsPageSpec.scala@2823..2940=
+˘˘1_root_.views.details.DetailsPageSpec#`<init>`()V.
+ß ¨ _root_.views.I
+π¿?_root_.org.jsoup.nodes.Element.;_root_.org.jsoup.nodes.Element#=
+È˙3test/views/details/DetailsPageSpec.scala@3827..3891$
+¬…_root_.views.html.details.=
+ò§3test/views/details/DetailsPageSpec.scala@1292..1340
+ÂÍ_root_.views.&
+ó&ö&_root_.scala.collection.Seq.0
+ ’&_root_.views.html.details.viewDetails.u
+†(≥(k_root_.controllers.manageDetails.ReverseUpdateOrganisationDetails#viewBusinessAddress()Lplay/api/mvc/Call;.?
+‡Ò3test/views/details/DetailsPageSpec.scala@2524..2625U
+±∂K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.0
+Û!¸!&_root_.models.GroupAccount#(agentCode)i
+Ó,˙,__root_.views.details.DetailsPageSpec#getUpdateUrl(Lorg/jsoup/nodes/Element;)Ljava/lang/String;.M
+ÅåC_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#U
+·ÂK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;..
+ÿ
+‚
+$_root_.resources.package.addressGen.
+¸Ä_root_.play.api.test.=
+€)Á)3test/views/details/DetailsPageSpec.scala@4552..4600è
+‹+‡+Ç_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;.(html)=
+ﬂÊ3test/views/details/DetailsPageSpec.scala@1345..13782
+≤∏(_root_.models.IndividualDetails#(phone2)1
+èú'_root_.resources.package.individualGen.A
+Ú˛7_root_.models.GroupAccount.;_root_.models.GroupAccount#2
+Ë&Ó&(_root_.controllers.manageDetails.routes..
+áé$_root_.models.GroupAccount#(isAgent)
+Ô)˙)_root_.controllers.6
+ !Õ!,_root_.org.scalatest.words.MatcherWords#not.?
+à&î&3test/views/details/DetailsPageSpec.scala@4868..5448+
+ŸÊ!_root_.controllers.manageDetails.=
+”⁄3test/views/details/DetailsPageSpec.scala@1607..1646?
+—*’*3test/views/details/DetailsPageSpec.scala@5453..5501?
+§	µ	3test/views/details/DetailsPageSpec.scala@1184..1287?
+çë3test/views/details/DetailsPageSpec.scala@2313..2361i
+†´__root_.controllers.manageDetails.ReverseUpdatePersonalDetails#viewAddress()Lplay/api/mvc/Call;.>
+·,‰,4_root_.java.util.ArrayList#get(I)Ljava/lang/Object;.=
+∏+π+3test/views/details/DetailsPageSpec.scala@5530..5531/
+≤¥%_root_.org.scalatest.FlatSpecLike#it.2
+‡È(_root_.play.api.i18n.Messages.Implicits.7
+Œ’-_root_.models.Address.;_root_.models.Address#?
+Æµ3test/views/details/DetailsPageSpec.scala@2730..2817=
+Î˜3test/views/details/DetailsPageSpec.scala@3273..3343&
+¶©_root_.scala.collection.Seq.k
+î-†-__root_.views.details.DetailsPageSpec#getUpdateUrl(Lorg/jsoup/nodes/Element;)Ljava/lang/String;.
+Õÿ_root_.controllers.B
+Ë,Ï,8_root_.org.jsoup.nodes.Element#text()Ljava/lang/String;.=
+ú†3test/views/details/DetailsPageSpec.scala@1485..1602(
+◊ﬂ_root_.play.api.i18n.Messages.=
+§´3test/views/details/DetailsPageSpec.scala@1345..1378V
+·	Î	L_root_.org.scalacheck.Gen#retryUntil(Lscala/Function1;)Lorg/scalacheck/Gen;.+
+˘(Ü)!_root_.controllers.manageDetails.
+∑º_root_.views.Y
+»'⁄'O_root_.utils.Formatters.capitalizedAddress(Lmodels/Address;)Ljava/lang/String;.
+¯˚_root_.play.api.(
+´Æ_root_.play.api.mvc.Call#(url)(
+Æ±_root_.play.api.mvc.Call#(url)%
+õ°_root_.scala.Predef.String#U
+∑ªK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.=
+€Á3test/views/details/DetailsPageSpec.scala@3896..3967M
+¸ Ñ!C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.?
+—’3test/views/details/DetailsPageSpec.scala@1485..1602!
+î%ô%_root_.org.jsoup.Jsoup.=
+ﬁÂ3test/views/details/DetailsPageSpec.scala@2683..2716?
+òü3test/views/details/DetailsPageSpec.scala@3348..3381U
+òùK_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.[
+◊Q_root_.models.DetailedIndividualAccount.;_root_.models.DetailedIndividualAccount#?
+ö+õ+3test/views/details/DetailsPageSpec.scala@5530..5531U
+•+©+K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.+
+⁄&Á&!_root_.controllers.manageDetails. 
+Œ
+’
+_root_.models.Address#=
+øÀ3test/views/details/DetailsPageSpec.scala@1652..23075
+ïù+_root_.org.scalatest.FlatSpecLike#behavior.:
+¡»0_root_.org.scalatest.words.MatcherWords#contain.+
+¸á !_root_.play.api.test.FakeRequest.1
+”	‡	'_root_.resources.package.individualGen.1
+∂#√#'_root_.resources.package.individualGen.ã
+≈!…!Ä_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/NotWord;)Lorg/scalatest/words/ResultOfNotWordForAny;.=
+ßÆ3test/views/details/DetailsPageSpec.scala@1607..1646!
+íó_root_.org.jsoup.Jsoup.
+…Õ_root_.play.o
+˚˝e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.+
+˚)à*!_root_.controllers.manageDetails.w
+ª¡m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.=
+Ê!Ú!3test/views/details/DetailsPageSpec.scala@3896..3967
+Ì(¯(_root_.controllers.à
+‘+€+|_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;.:
+Ø+∂+0_root_.org.scalatest.words.MatcherWords#contain.
+ÁÚ_root_.controllers.$
+©∞_root_.views.html.details.?
+˜à3test/views/details/DetailsPageSpec.scala@3827..3891/
+ì"ï"%_root_.org.scalatest.FlatSpecLike#it.
+ãê_root_.org.jsoup.
+≠ ± _root_.views.html.=
+Ÿ Â 3test/views/details/DetailsPageSpec.scala@3896..3967
+Œ—_root_.play.api.
+Ω¡_root_.views.html.2
+ÁÌ(_root_.controllers.manageDetails.routes.ê
+ï,ú,Ö_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;.(tableId)%
+û
+™
+_root_.models.GroupAccount#K
+Ø∑A_root_.org.jsoup.nodes.Document.;_root_.org.jsoup.nodes.Document#l
+º-Ω-b_root_.views.details.DetailsPageSpec#getUpdateUrl(Lorg/jsoup/nodes/Element;)Ljava/lang/String;.(e)=
+Æ≤3test/views/details/DetailsPageSpec.scala@3488..3605=
+÷Á3test/views/details/DetailsPageSpec.scala@3204..3268=
+É+è+3test/views/details/DetailsPageSpec.scala@4868..54482
+ˇ'Ö((_root_.controllers.manageDetails.routes.H
+äü>_root_.controllers.manageDetails.routes.UpdatePersonalDetails.
+∆Ã_root_.models.2
+–÷(_root_.controllers.manageDetails.routes.,
+Ê(Î("_root_.models.GroupAccount#(phone)=
+û!¢!3test/views/details/DetailsPageSpec.scala@4112..4229;
+™±1_root_.models.DetailedIndividualAccount#(details)=
+“ﬁ3test/views/details/DetailsPageSpec.scala@2630..2678U
+ö%ü%K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.3
+≠
+º
+)_root_.resources.package.groupAccountGen.,
+Ùı"_root_.scala.Boolean#`unary_!`()Z.Ü
+ÿ*ﬂ*|_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;.
+Œ&Ÿ&_root_.controllers.%
+⁄#Ê#_root_.models.GroupAccount#"
+≠∑_root_.utils.Formatters.h
+Ñé^_root_.controllers.manageDetails.ReverseUpdatePersonalDetails#viewMobile()Lplay/api/mvc/Call;.?
+á#ò#3test/views/details/DetailsPageSpec.scala@4483..4547=
+Á Ó 3test/views/details/DetailsPageSpec.scala@3972..4005
+áä_root_.org.,
+Ë)Ì)"_root_.models.GroupAccount#(email)0
+ˇà&_root_.models.GroupAccount#(agentCode)3
+˛
+ó)_root_.actions.BasicAuthenticatedRequest./
+∏∫%_root_.org.scalatest.FlatSpecLike#it.o
+ó	ô	e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.*
+‚+Í+ _root_.org.jsoup.nodes.Document#"
+∆–_root_.scala.collection.w
+¢®m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.r
+â'ô'h_root_.controllers.manageDetails.ReverseUpdateOrganisationDetails#viewBusinessName()Lplay/api/mvc/Call;.=
+Èı3test/views/details/DetailsPageSpec.scala@3273..3343
+û£_root_.views._
+ä,ê,U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.?
+ãè3test/views/details/DetailsPageSpec.scala@2823..2940=
+‘$‡$3test/views/details/DetailsPageSpec.scala@4552..4600=
+»œ3test/views/details/DetailsPageSpec.scala@1607..16461
+¶≥'_root_.resources.package.individualGen.8
+âë._root_.scala.Any#toString()Ljava/lang/String;. 
+àè_root_.models.Address#2
+Éâ(_root_.controllers.manageDetails.routes.=
+˘ä3test/views/details/DetailsPageSpec.scala@3204..3268=
+È%%3test/views/details/DetailsPageSpec.scala@4605..4638M
+åîC_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.H
+◊Ï>_root_.controllers.manageDetails.routes.UpdatePersonalDetails.Y
+¢,©,O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.(
+∂(π(_root_.play.api.mvc.Call#(url)?
+∑æ3test/views/details/DetailsPageSpec.scala@4019..4106%
+ãë_root_.scala.Predef.String# 
+ëò_root_.models.Address#=
+“,”,3test/views/details/DetailsPageSpec.scala@5680..5681=
+Éî3test/views/details/DetailsPageSpec.scala@1184..1287?
+ÕŸ3test/views/details/DetailsPageSpec.scala@3273..3343?
+ç%ë%3test/views/details/DetailsPageSpec.scala@4745..4862=
+ÁÓ3test/views/details/DetailsPageSpec.scala@2683..27162
+ˆ	¸	(_root_.models.IndividualDetails#(phone2)w
+áçm_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.=
+ΩŒ3test/views/details/DetailsPageSpec.scala@2524..2625?
+À“3test/views/details/DetailsPageSpec.scala@1607..1646s
+®)π)i_root_.controllers.manageDetails.ReverseUpdateOrganisationDetails#viewBusinessPhone()Lplay/api/mvc/Call;.V
+˙ÑL_root_.org.scalacheck.Gen#retryUntil(Lscala/Function1;)Lorg/scalacheck/Gen;..
+˜˛$_root_.models.GroupAccount#(isAgent)w
+µªm_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.1
+Ø¥'_root_.models.IndividualDetails#(email)"
+Ω'«'_root_.utils.Formatters.(
+ëî_root_.play.api.mvc.Call#(url)+
+ÛÄ!_root_.controllers.manageDetails.2
+Ûå(_root_.models.DetailedIndividualAccount#0
+≥%æ%&_root_.views.html.details.viewDetails.
+¿≈_root_.scala.L
+ê*©*B_root_.controllers.manageDetails.routes.UpdateOrganisationDetails.:
+ÎÚ0_root_.org.scalatest.words.MatcherWords#contain..
+î$û$$_root_.resources.package.addressGen.=
+˚,¸,3test/views/details/DetailsPageSpec.scala@5680..5681Y
+ÃﬁO_root_.utils.Formatters.capitalizedAddress(Lmodels/Address;)Ljava/lang/String;.0
+±º&_root_.views.html.details.viewDetails.p
+û†f_root_.org.scalatest.FlatSpecLike#BehaviorWord#of(Ljava/lang/String;Lorg/scalactic/source/Position;)V.K
+Ã”A_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.=
+Ÿ(Â(3test/views/details/DetailsPageSpec.scala@4552..4600?
+Üä3test/views/details/DetailsPageSpec.scala@2946..2994,
+Åè"_root_.controllers.ControllerSpec#3
+ŸË)_root_.resources.package.groupAccountGen.=
+–‹3test/views/details/DetailsPageSpec.scala@2630..26782
+Åá(_root_.controllers.manageDetails.routes.2
+∑	–	(_root_.models.DetailedIndividualAccount#3
+—Í)_root_.actions.BasicAuthenticatedRequest.1
+È¯%_root_.views.details.DetailsPageSpec#3
+∫$”$)_root_.actions.BasicAuthenticatedRequest.=
+æ≈3test/views/details/DetailsPageSpec.scala@1607..1646
+∂¡_root_.controllers.=
+Ùı3test/views/details/DetailsPageSpec.scala@2390..2391 
+ä$ë$_root_.models.Address#%
+ı+˚+_root_.scala.Predef.String#H
+ÓÉ>_root_.controllers.manageDetails.routes.UpdatePersonalDetails."9
+"_root_.controllers.ControllerSpec#Ä@ControllerSpec")
+_root_.scala.collection.Seq.	ÄÑSeq"1
+_root_.org.jsoup.nodes.Element#Ä†ÄElement"¬
+Ç_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;.(html);ÄhtmlDocument"&
+ _root_.org.jsoup.nodes.Document#"$
+_root_.play.api.test.ÄàÄtest"¡
+Ö_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;.(tableId)7ÄtableIdString"!
+_root_.scala.Predef.String#"0
+_root_.play.api.i18n.Messages.ÄÑMessages"ö
+)_root_.resources.package.groupAccountGen.mgroupAccountGenGen[GroupAccount]" 
+_root_.org.scalacheck.Gen#"#
+_root_.models.GroupAccount#"6
+!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"√
+>_root_.controllers.manageDetails.routes.UpdatePersonalDetails.ÄÅÄàUpdatePersonalDetailsReverseUpdatePersonalDetails"D
+>_root_.controllers.manageDetails.ReverseUpdatePersonalDetails#"x
+3test/views/details/DetailsPageSpec.scala@3273..3343AgroupAccountGroupAccount"!
+_root_.models.GroupAccount#"|
+1_root_.models.DetailedIndividualAccount#(details)GÅdetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"-
+_root_.scala.collection.ÄàÄ
+collection"i
+3test/views/details/DetailsPageSpec.scala@3348..33812addressAddress"
+_root_.models.Address#"ó
+3test/views/details/DetailsPageSpec.scala@1184..1287`individualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"i
+3test/views/details/DetailsPageSpec.scala@2683..27162addressAddress"
+_root_.models.Address#"õ
+3test/views/details/DetailsPageSpec.scala@2946..2994„rows&Buffer[Tuple3[String, String, String]]"-
+'_root_.scala.collection.mutable.Buffer#"
+_root_.scala.Tuple3#" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#" 
+$_root_.java.lang.String#"Ÿ
+3test/views/details/DetailsPageSpec.scala@4652..4739°ÅÄ request1BasicAuthenticatedRequest[AnyContentAsEmpty.type]"/
+)_root_.actions.BasicAuthenticatedRequest#".
++&_root_.play.api.mvc.AnyContentAsEmpty."Î
+t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"
+JN_root_.scala.Long#"(
+Yj _root_.models.IndividualDetails#"1
+mÜ(_root_.models.DetailedIndividualAccount#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"f
+*_root_.models.IndividualDetails#(lastName)8ÅlastNameString"!
+_root_.scala.Predef.String#"h
++_root_.models.IndividualDetails#(firstName)9Å	firstNameString"!
+_root_.scala.Predef.String#"q
+3test/views/details/DetailsPageSpec.scala@4112..4229:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"±
+'_root_.resources.package.individualGen.ÖindividualGenGen[DetailedIndividualAccount]" 
+_root_.org.scalacheck.Gen#"0
+(_root_.models.DetailedIndividualAccount#"î
+4_root_.java.util.ArrayList#get(I)Ljava/lang/Object;.\ÑÄÄget(x$1: Int): E"
+	_root_.scala.Int#"&
+_root_.java.util.ArrayList#[E]"b
+(_root_.models.IndividualDetails#(phone1)6Åphone1String"!
+_root_.scala.Predef.String#"∂
+L_root_.org.jsoup.select.Elements#attr(Ljava/lang/String;)Ljava/lang/String;.fÑÄÄattr(x$1: String): String" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#"ó
+3test/views/details/DetailsPageSpec.scala@3827..3891`individualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"ó
+3test/views/details/DetailsPageSpec.scala@2524..2625`individualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"É
+1_root_.views.details.DetailsPageSpec#`<init>`()V.N<init>(): DetailsPageSpec"-
+%_root_.views.details.DetailsPageSpec#"õ
+3test/views/details/DetailsPageSpec.scala@1652..2307„expectedRows#Seq[Tuple3[String, String, String]]"
+_root_.scala.package.Seq#"
+
+_root_.scala.Tuple3#"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"#
+!_root_.scala.Predef.String#"›
+|_root_.views.details.DetailsPageSpec#getRows(Lorg/jsoup/nodes/Document;Ljava/lang/String;)Lscala/collection/mutable/Buffer;.‹ÑÄgetRowsI(html: Document, tableId: String): Buffer[Tuple3[String, String, String]]"(
+ _root_.org.jsoup.nodes.Document#"#
+ _root_.scala.Predef.String#"/
+#)'_root_.scala.collection.mutable.Buffer#"
+*0_root_.scala.Tuple3#" 
+17_root_.java.lang.String#" 
+9?_root_.java.lang.String#" 
+AG_root_.java.lang.String#"Ê
+3test/views/details/DetailsPageSpec.scala@5530..5531ÆÄrTuple3[String, String, String]"
+_root_.scala.Tuple3#" 
+_root_.java.lang.String#"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"©
+î_root_.org.scalatest.words.ResultOfNotWordForAny#contain(Ljava/lang/Object;Lorg/scalatest/enablers/Containing;)Lorg/scalatest/compatible/Assertion;.ècontainE(expectedElement: Any)(implicit containing: Containing[T]): Assertion"
+_root_.scala.Any#"1
+,6)_root_.org.scalatest.enablers.Containing#"<
+784_root_.org.scalatest.words.ResultOfNotWordForAny#[T]"/
+<E'_root_.org.scalatest.package.Assertion#"
+_root_.play.api.
+ÄàÄapi"”
+B_root_.controllers.manageDetails.routes.UpdateOrganisationDetails.åÅÄàUpdateOrganisationDetails ReverseUpdateOrganisationDetails"H
+ B_root_.controllers.manageDetails.ReverseUpdateOrganisationDetails#"õ
+3test/views/details/DetailsPageSpec.scala@4235..4283„rows&Buffer[Tuple3[String, String, String]]"-
+'_root_.scala.collection.mutable.Buffer#"
+_root_.scala.Tuple3#" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#" 
+$_root_.java.lang.String#"Ç
++_root_.org.scalatest.FlatSpecLike#behavior.SÅÄbehaviorBehaviorWord"5
+/_root_.org.scalatest.FlatSpecLike#BehaviorWord#"u
+8_root_.org.jsoup.nodes.Element#text()Ljava/lang/String;.9ÑÄÄtext
+(): String" 
+
+_root_.java.lang.String#"Ÿ
+3test/views/details/DetailsPageSpec.scala@1392..1479°ÅÄ request1BasicAuthenticatedRequest[AnyContentAsEmpty.type]"/
+)_root_.actions.BasicAuthenticatedRequest#".
++&_root_.play.api.mvc.AnyContentAsEmpty."i
+3test/views/details/DetailsPageSpec.scala@4605..46382addressAddress"
+_root_.models.Address#"Y
+"_root_.scala.Boolean#`unary_!`()Z.3ÑÄunary_!Boolean"
+_root_.scala.Boolean#"X
+!_root_.scala.Option#isDefined()Z.3	isDefinedBoolean"
+_root_.scala.Boolean#"ê
+K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.A†Ä herePosition"+
+%_root_.org.scalactic.source.Position#"Ã
+U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.sÑÄÄselect(x$1: String): Elements" 
+_root_.java.lang.String#")
+!_root_.org.jsoup.select.Elements#"µ
+L_root_.org.scalacheck.Gen#retryUntil(Lscala/Function1;)Lorg/scalacheck/Gen;.‰
+retryUntil"(p: Function1[T, Boolean]): Gen[T]"
+_root_.scala.Function1#"%
+_root_.org.scalacheck.Gen#[T]"
+_root_.scala.Boolean#""
+_root_.org.scalacheck.Gen#"%
+ !_root_.org.scalacheck.Gen#[T]"¬
+s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
+	_root_.scala.Long#"#
+_root_.scala.Predef.String#"#
+)/_root_.scala.Predef.String#"
+<?_root_.scala.Int#"#
+HN_root_.scala.Predef.String#"#
+W]_root_.scala.Predef.String#"
+ho_root_.scala.Boolean#"
+|Ä_root_.scala.Long#"%
+Éè_root_.models.GroupAccount#"õ
+3test/views/details/DetailsPageSpec.scala@3611..3659„rows&Buffer[Tuple3[String, String, String]]"-
+'_root_.scala.collection.mutable.Buffer#"
+_root_.scala.Tuple3#" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#" 
+$_root_.java.lang.String#"q
+3test/views/details/DetailsPageSpec.scala@3488..3605:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"å
+O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.∏ÑÄfold4[B] => (ifEmpty: <byname>[B])(f: Function1[A, B]): B" 
+_root_.scala.`<byname>`#"Z
+R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"
+!*_root_.scala.Function1#"
++,_root_.scala.Option#[A]"Z
+./R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"Z
+34R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"!
+_root_.views.html.ÄàÄhtml"õ
+]_root_.controllers.manageDetails.ReverseUpdatePersonalDetails#viewPhone()Lplay/api/mvc/Call;.:	viewPhone(): Call"!
+_root_.play.api.mvc.Call#"'
+_root_.org.jsoup.Jsoup.ÄÑàJsoup"9
+(_root_.controllers.manageDetails.routes.ÄÑàroutes"(
+_root_.models.Address#Ä†ÄAddress"%
+_root_.resources.ÄàÄ	resources"°
+ä_root_.models.Address#`<init>`(Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V.ë<init>s(addressUnitId: Option[Int], line1: String, line2: String, line3: String, line4: String, postcode: String): Address"
+_root_.scala.Option#"
+_root_.scala.Int#"#
+$*_root_.scala.Predef.String#"#
+39_root_.scala.Predef.String#"#
+BH_root_.scala.Predef.String#"#
+QW_root_.scala.Predef.String#"#
+ci_root_.scala.Predef.String#"
+ls_root_.models.Address#"õ
+]_root_.controllers.manageDetails.ReverseUpdatePersonalDetails#viewEmail()Lplay/api/mvc/Call;.:	viewEmail(): Call"!
+_root_.play.api.mvc.Call#"È
+3test/views/details/DetailsPageSpec.scala@2390..2391±ÄrTuple3[String, String, String]"
+_root_.scala.Tuple3#"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"[
+"_root_.models.GroupAccount#(phone)5ÅphoneString"!
+_root_.scala.Predef.String#"‹
+ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.¿mustu[TYPECLASS1] => (rightMatcherFactory1: MatcherFactory1[T, TYPECLASS1])(implicit typeClass1: TYPECLASS1[T]): Assertion"6
+'6._root_.org.scalatest.matchers.MatcherFactory1#"<
+784_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"´
+:D¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"´
+\f¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"<
+gh4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"/
+lu'_root_.org.scalatest.package.Assertion#"$
+_root_.scala.Option.ÄÑOption"
+_root_.org.
+ÄàÄorg",
+_root_.views.html.details.ÄàÄdetails"Ø
+i_root_.controllers.manageDetails.ReverseUpdateOrganisationDetails#viewBusinessPhone()Lplay/api/mvc/Call;.BviewBusinessPhone(): Call"!
+_root_.play.api.mvc.Call#"'
+_root_.org.jsoup.nodes.ÄàÄnodes"à
+(_root_.models.IndividualDetails#(phone2)\Åphone2Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"õ
+3test/views/details/DetailsPageSpec.scala@5453..5501„rows&Buffer[Tuple3[String, String, String]]"-
+'_root_.scala.collection.mutable.Buffer#"
+_root_.scala.Tuple3#" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#" 
+$_root_.java.lang.String#"2
+_root_.models.GroupAccount#Ä†ÄGroupAccount"}
+3test/views/details/DetailsPageSpec.scala@1607..1646FdetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"≥
+k_root_.controllers.manageDetails.ReverseUpdateOrganisationDetails#viewBusinessAddress()Lplay/api/mvc/Call;.DviewBusinessAddress(): Call"!
+_root_.play.api.mvc.Call#"ô
+\_root_.controllers.manageDetails.ReverseUpdatePersonalDetails#viewName()Lplay/api/mvc/Call;.9viewName(): Call"!
+_root_.play.api.mvc.Call#"X
+&_root_.models.GroupAccount#(agentCode).Å	agentCodeLong"
+_root_.scala.Long#"m
+3test/views/details/DetailsPageSpec.scala@5680..56816ÄeElement"%
+_root_.org.jsoup.nodes.Element#"∫
+x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ΩmapQ[B, That] => (f: Function1[A, B])(implicit bf: CanBuildFrom[Repr, B, That]): That"
+_root_.scala.Function1#"3
++_root_.scala.collection.TraversableLike#[A]"É
+{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+/;-_root_.scala.collection.generic.CanBuildFrom#"6
+<@._root_.scala.collection.TraversableLike#[Repr]"É
+BC{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ü
+EI~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ü
+MQ~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Å
+C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.:toString
+(): String" 
+
+_root_.java.lang.String#"∞
+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#";
+(_root_.play.api.i18n.Messages.Implicits.ÄÑ	Implicits"=
+%_root_.views.details.DetailsPageSpec#Ä DetailsPageSpec"{
+0_root_.org.scalatest.words.MatcherWords#contain.GcontainContainWord"-
+'_root_.org.scalatest.words.ContainWord#"i
+3test/views/details/DetailsPageSpec.scala@3972..40052addressAddress"
+_root_.models.Address#"$
+_root_.play.api.i18n.ÄàÄi18n"?
+'_root_.scala.collection.JavaConverters.ÄÑJavaConverters"ú
+b_root_.views.details.DetailsPageSpec#getUpdateUrl(Lorg/jsoup/nodes/Element;)Ljava/lang/String;.(e)6ÄeElement"%
+_root_.org.jsoup.nodes.Element#"x
+3test/views/details/DetailsPageSpec.scala@3896..3967AgroupAccountGroupAccount"!
+_root_.models.GroupAccount#"ü
+O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.LasScalaA"<
+6_root_.scala.collection.convert.Decorators#AsScala#[A]"q
+3test/views/details/DetailsPageSpec.scala@1485..1602:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"ñ
+f_root_.org.scalatest.FlatSpecLike#BehaviorWord#of(Ljava/lang/String;Lorg/scalactic/source/Position;)V.´of3(description: String)(implicit pos: Position): Unit"#
+_root_.scala.Predef.String#"-
+$,%_root_.org.scalactic.source.Position#"
+/3_root_.scala.Unit#"k
+,_root_.org.scalatest.words.MatcherWords#not.;notNotWord")
+#_root_.org.scalatest.words.NotWord#"[
+"_root_.models.GroupAccount#(email)5ÅemailString"!
+_root_.scala.Predef.String#"L
+)_root_.actions.BasicAuthenticatedRequest.ÄÑBasicAuthenticatedRequest"
+_root_.play.ÄàÄplay"ó
+3test/views/details/DetailsPageSpec.scala@4483..4547`individualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#";
+&_root_.views.html.details.viewDetails.ÄÑviewDetails"≠
+h_root_.controllers.manageDetails.ReverseUpdateOrganisationDetails#viewBusinessName()Lplay/api/mvc/Call;.AviewBusinessName(): Call"!
+_root_.play.api.mvc.Call#"ó
+3test/views/details/DetailsPageSpec.scala@3204..3268`individualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"‚
+Ä_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/NotWord;)Lorg/scalatest/words/ResultOfNotWordForAny;.‹must,(notWord: NotWord): ResultOfNotWordForAny[T]"+
+
+#_root_.org.scalatest.words.NotWord#"9
+)1_root_.org.scalatest.words.ResultOfNotWordForAny#"<
+*+4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"i
+3test/views/details/DetailsPageSpec.scala@1345..13782addressAddress"
+_root_.models.Address#"õ
+3test/views/details/DetailsPageSpec.scala@2313..2361„rows&Buffer[Tuple3[String, String, String]]"-
+'_root_.scala.collection.mutable.Buffer#"
+_root_.scala.Tuple3#" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#" 
+$_root_.java.lang.String#"Ÿ
+3test/views/details/DetailsPageSpec.scala@3395..3482°ÅÄ request1BasicAuthenticatedRequest[AnyContentAsEmpty.type]"/
+)_root_.actions.BasicAuthenticatedRequest#".
++&_root_.play.api.mvc.AnyContentAsEmpty."Ø
+i_root_.controllers.manageDetails.ReverseUpdateOrganisationDetails#viewBusinessEmail()Lplay/api/mvc/Call;.BviewBusinessEmail(): Call"!
+_root_.play.api.mvc.Call#"x
+3test/views/details/DetailsPageSpec.scala@1292..1340AgroupAccountGroupAccount"!
+_root_.models.GroupAccount#"q
+3test/views/details/DetailsPageSpec.scala@2823..2940:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"
+_root_.models.ÄàÄmodels"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"Z
+$_root_.models.GroupAccount#(isAgent)2ÅisAgentBoolean"
+_root_.scala.Boolean#"[
+,_root_.scala.Option#get()Ljava/lang/Object;.+ÑÄgetA"
+_root_.scala.Option#[A]"!
+_root_.actions.ÄàÄactions"`
+'_root_.models.IndividualDetails#(email)5ÅemailString"!
+_root_.scala.Predef.String#")
+_root_.controllers.ÄàÄcontrollers"
+_root_.views.ÄàÄviews"˙
+m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.àshould(string: String): ItVerbString"#
+	_root_.scala.Predef.String#"7
+/_root_.org.scalatest.FlatSpecLike#ItVerbString#"
+_root_.utils.ÄàÄutils"!
+_root_.org.jsoup.ÄàÄjsoup"—
+o_root_.org.jsoup.nodes.Element#`<init>`(Lorg/jsoup/parser/Tag;Ljava/lang/String;Lorg/jsoup/nodes/Attributes;)V.›àÄÄ<init>1(x$1: Tag, x$2: String, x$3: Attributes): Element"$
+	_root_.org.jsoup.parser.Tag#" 
+_root_.java.lang.String#"*
+'"_root_.org.jsoup.nodes.Attributes#"'
+*1_root_.org.jsoup.nodes.Element#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."x
+3test/views/details/DetailsPageSpec.scala@4552..4600AgroupAccountGroupAccount"!
+_root_.models.GroupAccount#"
+_root_.scala.ÄàÄscala" 
+O_root_.utils.Formatters.capitalizedAddress(Lmodels/Address;)Ljava/lang/String;.wcapitalizedAddress(address: Address): String"
+
+_root_.models.Address#"#
+_root_.scala.Predef.String#"ù
+^_root_.controllers.manageDetails.ReverseUpdatePersonalDetails#viewMobile()Lplay/api/mvc/Call;.;
+viewMobile(): Call"!
+_root_.play.api.mvc.Call#"q
+3test/views/details/DetailsPageSpec.scala@4745..4862:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"Ÿ
+3test/views/details/DetailsPageSpec.scala@4019..4106°ÅÄ request1BasicAuthenticatedRequest[AnyContentAsEmpty.type]"/
+)_root_.actions.BasicAuthenticatedRequest#".
++&_root_.play.api.mvc.AnyContentAsEmpty."l
+._root_.scala.Any#toString()Ljava/lang/String;.:toString
+(): String" 
+
+_root_.java.lang.String#"ü
+__root_.controllers.manageDetails.ReverseUpdatePersonalDetails#viewAddress()Lplay/api/mvc/Call;.<viewAddress(): Call"!
+_root_.play.api.mvc.Call#"÷
+__root_.views.details.DetailsPageSpec#getUpdateUrl(Lorg/jsoup/nodes/Element;)Ljava/lang/String;.sÑÄgetUpdateUrl(e: Element): String"'
+_root_.org.jsoup.nodes.Element#" 
+_root_.java.lang.String#"'
+_root_.views.details.ÄàÄdetails"õ
+3test/views/details/DetailsPageSpec.scala@4868..5448„expectedRows#Seq[Tuple3[String, String, String]]""
+_root_.scala.collection.Seq#"
+
+_root_.scala.Tuple3#" 
+_root_.java.lang.String#"#
+_root_.scala.Predef.String#"#
+!_root_.scala.Predef.String#"±
+A_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.Îforeach![U] => (f: Function1[A, U]): Unit"
+_root_.scala.Function1#"0
+(_root_.scala.collection.IterableLike#[A]"L
+D_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.[U]"
+!_root_.scala.Unit#"L
+(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"n
+*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
+_root_.org.scalatest.FlatSpec#"V
+_root_.scala.Option#isEmpty()Z.3ÑÄisEmptyBoolean"
+_root_.scala.Boolean#",
+_root_.utils.Formatters.ÄÑ
+Formatters"Ü
+$_root_.resources.package.addressGen.^
+addressGenGen[Address]" 
+_root_.org.scalacheck.Gen#"
+_root_.models.Address#"j
+%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
+)_root_.org.scalatest.FlatSpecLike#ItWord#"x
+3test/views/details/DetailsPageSpec.scala@2630..2678AgroupAccountGroupAccount"!
+_root_.models.GroupAccount#"9
+!_root_.controllers.manageDetails.ÄàÄmanageDetails"Ÿ
+3test/views/details/DetailsPageSpec.scala@2730..2817°ÅÄ request1BasicAuthenticatedRequest[AnyContentAsEmpty.type]"/
+)_root_.actions.BasicAuthenticatedRequest#".
++&_root_.play.api.mvc.AnyContentAsEmpty."3
+ _root_.org.jsoup.nodes.Document#Ä†ÄDocument"¥
+>_root_.org.jsoup.nodes.Document#`<init>`(Ljava/lang/String;)V.ràÄÄ<init>(x$1: String): Document" 
+_root_.java.lang.String#"(
+ _root_.org.jsoup.nodes.Document#"g
+(_root_.models.GroupAccount#(companyName);ÅcompanyNameString"!
+_root_.scala.Predef.String#"¿
+K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.qÑÄÄparse(x$1: String): Document" 
+_root_.java.lang.String#"(
+ _root_.org.jsoup.nodes.Document#2„
+”	á
+>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2Y
+ŸŸ*[Containing]
+_star_.1
+)_root_.org.scalatest.enablers.Containing#2£
+æ%æ%*.apply
+_star_.Ä
+˜_root_.views.html.details.viewDetails_Scope0.viewDetails_Scope1.viewDetails#apply(Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lmodels/Address;Lmodels/Address;ILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2ì
+··*.apply
+_star_.q
+i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2ì
+∂+∂+*.apply
+_star_.q
+i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2ƒ
+ö&ö&'*.apply[Tuple3[String, String, String]]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String##
+%_root_.scala.Predef.String#
+_root_.scala.Tuple3##
+_root_.scala.Predef.String#2ì
+ÚÚ*.apply
+_star_.q
+i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2Ì
+¿!ƒ!ØDetailsPageSpec.this.convertToAnyMustWrapper[Buffer[Tuple3[String, String, String]]](*)(org.scalactic.source.Position.apply("DetailsPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 92), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;. 
+CI_root_.java.lang.String#
+4:_root_.scala.Tuple3# 
+;A_root_.java.lang.String# 
+KQ_root_.java.lang.String#/
+-3'_root_.scala.collection.mutable.Buffer#
+UV_star_.y
+v{q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ßÆ(_root_.org.scalactic.Prettifier.default.2é
+ÚÚz*(request, play.api.i18n.Messages.Implicits.applicationMessages(play.api.i18n.Lang.defaultLang, DetailsPageSpec.this.app))
+_star_.=
+ux5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app..
+S^&_root_.play.api.i18n.Lang.defaultLang.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.2ø
+íú,resources.`package`.getArbitrary[Address](*)
+!(_root_.models.Address#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+*+_star_.2…
+Áˆ1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2ƒ
+©©'*.apply[Tuple3[String, String, String]]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String##
+%_root_.scala.Predef.String#
+_root_.scala.Tuple3##
+_root_.scala.Predef.String#2V
+””*[Assertion]
+_star_./
+'_root_.org.scalatest.package.Assertion#2Ì
+–‘ØDetailsPageSpec.this.convertToAnyMustWrapper[Buffer[Tuple3[String, String, String]]](*)(org.scalactic.source.Position.apply("DetailsPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 80), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;. 
+CI_root_.java.lang.String#
+4:_root_.scala.Tuple3# 
+;A_root_.java.lang.String# 
+KQ_root_.java.lang.String#/
+-3'_root_.scala.collection.mutable.Buffer#
+UV_star_.y
+v{q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ßÆ(_root_.org.scalactic.Prettifier.default.2£
+≈ ≈ *.apply
+_star_.Ä
+˜_root_.views.html.details.viewDetails_Scope0.viewDetails_Scope1.viewDetails#apply(Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lmodels/Address;Lmodels/Address;ILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Y
+¿¿*[Containing]
+_star_.1
+)_root_.org.scalatest.enablers.Containing#2x
+ë,ë,*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2D
+“-“-	*[String]
+_star_. 
+_root_.java.lang.String#2Ã
+ÄÄ∑*(org.scalactic.source.Position.apply("DetailsPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 35))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ï
+óó*.apply[AnyContentAsEmpty.type]
+_star_.™
+°_root_.actions.BasicAuthenticatedRequest.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)Lactions/BasicAuthenticatedRequest;..
+&_root_.play.api.mvc.AnyContentAsEmpty.2é
+˚ ˚ z*(request, play.api.i18n.Messages.Implicits.applicationMessages(play.api.i18n.Lang.defaultLang, DetailsPageSpec.this.app))
+_star_.=
+ux5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app..
+S^&_root_.play.api.i18n.Lang.defaultLang.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.2Ã
+õõ∑*(org.scalactic.source.Position.apply("DetailsPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 71))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2…
+Ÿˇ1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2…
+Íè1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2„
+∑ƒ>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2Ã
+¥¥∑*(org.scalactic.source.Position.apply("DetailsPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 59))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Á
+ã"ã"≠*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[Tuple3[String, String, String], Buffer](org.scalactic.Equality.default[Tuple3[String, String, String]]))
+_star_."
+£©_root_.java.lang.String#J
+Ñã@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;."
+õ°_root_.java.lang.String#ê
+$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;."
+ìô_root_.java.lang.String# 
+TZ_root_.java.lang.String#
+EK_root_.scala.Tuple3#
+åí_root_.scala.Tuple3# 
+LR_root_.java.lang.String#/
+ek'_root_.scala.collection.mutable.Buffer# 
+\b_root_.java.lang.String#2n
+Ä%Ä%*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2ï
+”$”$*.apply[AnyContentAsEmpty.type]
+_star_.™
+°_root_.actions.BasicAuthenticatedRequest.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)Lactions/BasicAuthenticatedRequest;..
+&_root_.play.api.mvc.AnyContentAsEmpty.2Ã
+ƒ+ƒ+∑*(org.scalactic.source.Position.apply("DetailsPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 95))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ï
+——*.apply[AnyContentAsEmpty.type]
+_star_.™
+°_root_.actions.BasicAuthenticatedRequest.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)Lactions/BasicAuthenticatedRequest;..
+&_root_.play.api.mvc.AnyContentAsEmpty.2ø
+õ•,resources.`package`.getArbitrary[Address](*)
+!(_root_.models.Address#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+*+_star_.2ï
+⁄⁄*.apply[AnyContentAsEmpty.type]
+_star_.™
+°_root_.actions.BasicAuthenticatedRequest.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)Lactions/BasicAuthenticatedRequest;..
+&_root_.play.api.mvc.AnyContentAsEmpty.2ì
+»»*.apply
+_star_.q
+i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2£
+’’*.apply
+_star_.Ä
+˜_root_.views.html.details.viewDetails_Scope0.viewDetails_Scope1.viewDetails#apply(Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lmodels/Address;Lmodels/Address;ILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Á
+∫+∫+≠*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[Tuple3[String, String, String], Buffer](org.scalactic.Equality.default[Tuple3[String, String, String]]))
+_star_."
+£©_root_.java.lang.String#J
+Ñã@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;."
+õ°_root_.java.lang.String#ê
+$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;."
+ìô_root_.java.lang.String# 
+TZ_root_.java.lang.String#
+EK_root_.scala.Tuple3#
+åí_root_.scala.Tuple3# 
+LR_root_.java.lang.String#/
+ek'_root_.scala.collection.mutable.Buffer# 
+\b_root_.java.lang.String#2n
+óó*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2õ
+≠,≠,I*[Tuple3[String, String, String], Buffer[Tuple3[String, String, String]]]
+_star_. 
+	_root_.java.lang.String# 
+_root_.java.lang.String#
+_root_.scala.Tuple3# 
+_root_.java.lang.String#
+)/_root_.scala.Tuple3# 
+8>_root_.java.lang.String#/
+"('_root_.scala.collection.mutable.Buffer# 
+@F_root_.java.lang.String# 
+06_root_.java.lang.String#2…
+È#¯#1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2ò
+Ö,°,Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
+ 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
+7>_root_.org.jsoup.nodes.Element#
+@A_star_.2£
+ºº*.apply
+_star_.Ä
+˜_root_.views.html.details.viewDetails_Scope0.viewDetails_Scope1.viewDetails#apply(Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lmodels/Address;Lmodels/Address;ILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2ø
+´µ,resources.`package`.getArbitrary[Address](*)
+!(_root_.models.Address#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+*+_star_.2£
+ÇÇ*.apply
+_star_.Ä
+˜_root_.views.html.details.viewDetails_Scope0.viewDetails_Scope1.viewDetails#apply(Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lmodels/Address;Lmodels/Address;ILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2õ
+ª-ª-*.apply[Elements]
+_star_.D
+<_root_.scala.Option.apply(Ljava/lang/Object;)Lscala/Option;.)
+!_root_.org.jsoup.select.Elements#2”
+Ä-Ä-O*(scala.collection.mutable.Buffer.canBuildFrom[Tuple3[String, String, String]])
+_star_. 
+FL_root_.java.lang.String# 
+6<_root_.java.lang.String#e
+".]_root_.scala.collection.mutable.Buffer.canBuildFrom()Lscala/collection/generic/CanBuildFrom;. 
+>D_root_.java.lang.String#
+/5_root_.scala.Tuple3#2Á
+∞∞≠*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[Tuple3[String, String, String], Buffer](org.scalactic.Equality.default[Tuple3[String, String, String]]))
+_star_."
+£©_root_.java.lang.String#J
+Ñã@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;."
+õ°_root_.java.lang.String#ê
+$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;."
+ìô_root_.java.lang.String# 
+TZ_root_.java.lang.String#
+EK_root_.scala.Tuple3#
+åí_root_.scala.Tuple3# 
+LR_root_.java.lang.String#/
+ek'_root_.scala.collection.mutable.Buffer# 
+\b_root_.java.lang.String#2é
+ããz*(request, play.api.i18n.Messages.Implicits.applicationMessages(play.api.i18n.Lang.defaultLang, DetailsPageSpec.this.app))
+_star_.=
+ux5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app..
+S^&_root_.play.api.i18n.Lang.defaultLang.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.2Ì
+·ÂØDetailsPageSpec.this.convertToAnyMustWrapper[Buffer[Tuple3[String, String, String]]](*)(org.scalactic.source.Position.apply("DetailsPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 55), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;. 
+CI_root_.java.lang.String#
+4:_root_.scala.Tuple3# 
+;A_root_.java.lang.String# 
+KQ_root_.java.lang.String#/
+-3'_root_.scala.collection.mutable.Buffer#
+UV_star_.y
+v{q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ßÆ(_root_.org.scalactic.Prettifier.default.2ø
+ÿ
+‚
+,resources.`package`.getArbitrary[Address](*)
+!(_root_.models.Address#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+*+_star_.2é
+Ù%Ù%z*(request, play.api.i18n.Messages.Implicits.applicationMessages(play.api.i18n.Lang.defaultLang, DetailsPageSpec.this.app))
+_star_.=
+ux5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app..
+S^&_root_.play.api.i18n.Lang.defaultLang.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.2Á
+ˆˆ≠*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[Tuple3[String, String, String], Buffer](org.scalactic.Equality.default[Tuple3[String, String, String]]))
+_star_."
+£©_root_.java.lang.String#J
+Ñã@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;."
+õ°_root_.java.lang.String#ê
+$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;."
+ìô_root_.java.lang.String# 
+TZ_root_.java.lang.String#
+EK_root_.scala.Tuple3#
+åí_root_.scala.Tuple3# 
+LR_root_.java.lang.String#/
+ek'_root_.scala.collection.mutable.Buffer# 
+\b_root_.java.lang.String#2V
+ó+ó+*[Assertion]
+_star_./
+'_root_.org.scalatest.package.Assertion#2n
+˛˛*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2n
+ƒƒ*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2„
+è¡>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2Ì
+∑ªØDetailsPageSpec.this.convertToAnyMustWrapper[Buffer[Tuple3[String, String, String]]](*)(org.scalactic.source.Position.apply("DetailsPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 68), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;. 
+CI_root_.java.lang.String#
+4:_root_.scala.Tuple3# 
+;A_root_.java.lang.String# 
+KQ_root_.java.lang.String#/
+-3'_root_.scala.collection.mutable.Buffer#
+UV_star_.y
+v{q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ßÆ(_root_.org.scalactic.Prettifier.default.2x
+∫∫*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2Ó
+•+©+∞DetailsPageSpec.this.convertToAnyMustWrapper[Buffer[Tuple3[String, String, String]]](*)(org.scalactic.source.Position.apply("DetailsPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 112), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;. 
+CI_root_.java.lang.String#
+4:_root_.scala.Tuple3# 
+;A_root_.java.lang.String# 
+KQ_root_.java.lang.String#/
+-3'_root_.scala.collection.mutable.Buffer#
+UV_star_.y
+v{q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+®Ø(_root_.org.scalactic.Prettifier.default.2„
+∂#√#>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2Á
+óó≠*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[Tuple3[String, String, String], Buffer](org.scalactic.Equality.default[Tuple3[String, String, String]]))
+_star_."
+£©_root_.java.lang.String#J
+Ñã@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;."
+õ°_root_.java.lang.String#ê
+$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;."
+ìô_root_.java.lang.String# 
+TZ_root_.java.lang.String#
+EK_root_.scala.Tuple3#
+åí_root_.scala.Tuple3# 
+LR_root_.java.lang.String#/
+ek'_root_.scala.collection.mutable.Buffer# 
+\b_root_.java.lang.String#2Y
+Æ+Æ+*[Containing]
+_star_.1
+)_root_.org.scalatest.enablers.Containing#2Ã
+ÆÆ∑*(org.scalactic.source.Position.apply("DetailsPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 33))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2é
+∏∏z*(request, play.api.i18n.Messages.Implicits.applicationMessages(play.api.i18n.Lang.defaultLang, DetailsPageSpec.this.app))
+_star_.=
+ux5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app..
+S^&_root_.play.api.i18n.Lang.defaultLang.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.2…
+≠
+º
+1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2ï
+ÍÍ*.apply[AnyContentAsEmpty.type]
+_star_.™
+°_root_.actions.BasicAuthenticatedRequest.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)Lactions/BasicAuthenticatedRequest;..
+&_root_.play.api.mvc.AnyContentAsEmpty.2„
+¶≥>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2Y
+ÍÍ*[Containing]
+_star_.1
+)_root_.org.scalatest.enablers.Containing#2ø
+î$û$,resources.`package`.getArbitrary[Address](*)
+!(_root_.models.Address#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+*+_star_.2n
+á á *.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2Ã
+è"è"∑*(org.scalactic.source.Position.apply("DetailsPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 83))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.:Scala211BÓ-/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package views.details
+
+import actions.BasicAuthenticatedRequest
+import controllers.ControllerSpec
+import models.{Address, DetailedIndividualAccount, GroupAccount}
+import org.jsoup.Jsoup
+import org.jsoup.nodes.{Document, Element}
+import play.api.i18n.Messages.Implicits._
+import play.api.test.FakeRequest
+import resources._
+import utils.Formatters
+
+import scala.collection.JavaConverters._
+
+class DetailsPageSpec extends ControllerSpec {
+
+  behavior of "DetailsPage"
+
+  it should "display, and allow the user to edit, their name, email, address, phone, or mobile number" in {
+    val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isDefined)
+    val groupAccount: GroupAccount = groupAccountGen
+    val address: Address = addressGen
+    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
+    val details = individualAccount.details
+
+    val expectedRows: Seq[(String, String, String)] = Seq(
+      ("Name", s"${details.firstName} ${details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName().url),
+      ("Address", Formatters.capitalizedAddress(address), controllers.manageDetails.routes.UpdatePersonalDetails.viewAddress().url),
+      ("Telephone", details.phone1, controllers.manageDetails.routes.UpdatePersonalDetails.viewPhone().url),
+      ("Mobile number", details.phone2.get, controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile().url),
+      ("Email", details.email, controllers.manageDetails.routes.UpdatePersonalDetails.viewEmail().url)
+    )
+
+    val rows = getRows(html, "personalDetailsTable")
+
+    expectedRows.foreach { r =>
+      rows must contain (r)
+    }
+  }
+
+  it should "display a placeholder value if the user's mobile number is not set" in {
+    val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isEmpty)
+    val groupAccount: GroupAccount = groupAccountGen
+    val address: Address = addressGen
+    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
+
+    val rows = getRows(html, "personalDetailsTable")
+    rows must contain (("Mobile number", "Not set", controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile().url))
+  }
+
+  it should "display the business's agent code if they are an agent" in {
+    val individualAccount: DetailedIndividualAccount = individualGen
+    val groupAccount: GroupAccount = groupAccountGen.retryUntil(_.isAgent)
+    val address: Address = addressGen
+    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
+
+    val rows = getRows(html, "businessDetailsTable")
+    rows must contain (("Agent code", groupAccount.agentCode.toString, ""))
+  }
+
+  it should "not display the business's agent code if they are not an agent" in {
+    val individualAccount: DetailedIndividualAccount = individualGen
+    val groupAccount: GroupAccount = groupAccountGen.retryUntil(!_.isAgent)
+    val address: Address = addressGen
+    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
+
+    val rows = getRows(html, "businessDetailsTable")
+    rows must not contain (("Agent code", groupAccount.agentCode.toString, ""))
+  }
+
+  it should "display, and allow the user to edit, the business's name, address, email, and phone number" in {
+    val individualAccount: DetailedIndividualAccount = individualGen
+    val groupAccount: GroupAccount = groupAccountGen
+    val address: Address = addressGen
+    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
+
+    val expectedRows = Seq(
+      ("Business name", groupAccount.companyName, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessName().url),
+      ("Business address", Formatters.capitalizedAddress(address), controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessAddress().url),
+      ("Business telephone", groupAccount.phone, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessPhone().url),
+      ("Business email", groupAccount.email, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessEmail().url)
+    )
+    val rows = getRows(html, "businessDetailsTable")
+
+    expectedRows foreach { r =>
+      rows must contain (r)
+    }
+  }
+
+  private def getRows(html: Document, tableId: String) = {
+    html.select(s"#$tableId tr").asScala.map { e => (e.select("td").get(0).text, e.select("td").get(1).text, getUpdateUrl(e)) }
+  }
+
+  private def getUpdateUrl(e: Element) = {
+    Option(e.select("td a")).fold("")(_.attr("href"))
+  }
+
+}
+J(test/views/details/DetailsPageSpec.scala

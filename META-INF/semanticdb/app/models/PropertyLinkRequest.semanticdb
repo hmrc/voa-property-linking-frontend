@@ -1,0 +1,138 @@
+
+¡1<
+¶≤0_root_.models.PropertyLinkRequest#(individualId)4
+∆ (_root_.models.PropertyLinkRequest#(uarn))
+Ñ	à	_root_.play.api.libs.json.Json.9
+À‘-_root_.models.PropertyLinkRequest#(linkBasis)#
+äç_root_.scala.package.Seq#,
+ê	£	"_root_.models.PropertyLinkRequest#
+¥∏_root_.scala.Long#8
+Äà,_root_.models.PropertyLinkRequest#(fileInfo)
+Ã–_root_.scala.Long#
+ÂÎ_root_.models.
+ÅÖ_root_.scala.Long#"
+÷ﬂ_root_.models.LinkBasis#!
+Óˆ_root_.models.Capacity#N
+â	è	D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.%
+∆Ã_root_.scala.Predef.String#.
+≤≈"_root_.models.PropertyLinkRequest#$
+ú†_root_.play.api.libs.json..
+÷È"_root_.models.PropertyLinkRequest.>
+Òˇ2_root_.models.PropertyLinkRequest#(organisationId)#
+£™_root_.java.time.Instant#
+ìñ_root_.play.api.=
+˛Ö3_root_.java.time.Instant.;_root_.java.time.Instant#
+˘˝_root_.java.time.<
+∏ƒ0_root_.models.PropertyLinkRequest#(submissionId)
+óõ_root_.play.api.libs.C
+ŸÏ7_root_.models.PropertyLinkRequest#(capacityDeclaration)5
+˚Å	)_root_.models.PropertyLinkRequest.format.
+Ù¯_root_.java.ú
+≈≈è_root_.models.PropertyLinkRequest#`<init>`(JJJLmodels/Capacity;Ljava/time/Instant;Lmodels/LinkBasis;Lscala/collection/Seq;Ljava/lang/String;)V.:
+ó°._root_.models.PropertyLinkRequest#(linkedDate))
+°•_root_.play.api.libs.json.Json.!
+éñ_root_.models.FileInfo#
+éí_root_.play."Ω
+è_root_.models.PropertyLinkRequest#`<init>`(JJJLmodels/Capacity;Ljava/time/Instant;Lmodels/LinkBasis;Lscala/collection/Seq;Ljava/lang/String;)V.®<init>ƒ(uarn: Long, organisationId: Long, individualId: Long, capacityDeclaration: Capacity, linkedDate: Instant, linkBasis: LinkBasis, fileInfo: Seq[FileInfo], submissionId: String): PropertyLinkRequest"
+_root_.scala.Long#"
+!_root_.scala.Long#"
+15_root_.scala.Long#"
+LT_root_.models.Capacity#"!
+bi_root_.java.time.Instant#" 
+v_root_.models.LinkBasis#"#
+ãé_root_.scala.package.Seq#"!
+èó_root_.models.FileInfo#"%
+®Æ_root_.scala.Predef.String#",
+±ƒ"_root_.models.PropertyLinkRequest#"i
+2_root_.models.PropertyLinkRequest#(organisationId)3ÅorganisationIdLong"
+_root_.scala.Long#")
+_root_.play.api.libs.json.ÄàÄjson"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]" 
+_root_.scala.Long#
+Ä†Long"*
+_root_.models.FileInfo#Ä†ÄFileInfo"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"
+_root_.java.ÄàÄjava"$
+_root_.play.api.libs.ÄàÄlibs"*
+_root_.models.Capacity#Ä†ÄCapacity"Æ
+)_root_.models.PropertyLinkRequest.format.ÄÅÄ formatOFormat[PropertyLinkRequest]"(
+"_root_.play.api.libs.json.OFormat#"*
+"_root_.models.PropertyLinkRequest#"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"k
+._root_.models.PropertyLinkRequest#(linkedDate)9Å
+linkedDateInstant"
+_root_.java.time.Instant#"|
+7_root_.models.PropertyLinkRequest#(capacityDeclaration)AÅcapacityDeclarationCapacity"
+_root_.models.Capacity#"j
+-_root_.models.PropertyLinkRequest#(linkBasis)9Å	linkBasis	LinkBasis"
+	_root_.models.LinkBasis#"?
+"_root_.models.PropertyLinkRequest.ÄÑPropertyLinkRequest"@
+"_root_.models.PropertyLinkRequest#Ä†ÄPropertyLinkRequest"e
+0_root_.models.PropertyLinkRequest#(individualId)1ÅindividualIdLong"
+_root_.scala.Long#"
+_root_.play.ÄàÄplay"+
+_root_.models.LinkBasis#Ä¿	LinkBasis"
+_root_.models.ÄàÄmodels"Ï
+[_root_.models.Capacity#`<init>`(Lmodels/CapacityType;Ljava/time/LocalDate;Lscala/Option;)V.å<init>R(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate]): Capacity"#
+_root_.models.CapacityType#"#
+#,_root_.java.time.LocalDate#"
+6<_root_.scala.Option#"#
+=F_root_.java.time.LocalDate#"
+JR_root_.models.Capacity#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"p
+0_root_.models.PropertyLinkRequest#(submissionId)<ÅsubmissionIdString"!
+_root_.scala.Predef.String#" 
+_root_.java.time.ÄàÄtime"é
+,_root_.models.PropertyLinkRequest#(fileInfo)^ÅfileInfoSeq[FileInfo]"
+_root_.scala.package.Seq#"
+_root_.models.FileInfo#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."˙
+J_root_.models.FileInfo#`<init>`(Ljava/lang/String;Lmodels/EvidenceType;)V.´<init>4(name: String, evidenceType: EvidenceType): FileInfo"#
+_root_.scala.Predef.String#"#
+)_root_.models.EvidenceType#"
+,4_root_.models.FileInfo#"U
+(_root_.models.PropertyLinkRequest#(uarn))ÅuarnLong"
+_root_.scala.Long#"+
+_root_.java.time.Instant#Ä†àInstant:Scala211Bß	/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import java.time.Instant
+
+import play.api.libs.json.Json
+
+case class PropertyLinkRequest(uarn: Long,
+                               organisationId: Long,
+                               individualId: Long,
+                               capacityDeclaration: Capacity,
+                               linkedDate: Instant,
+                               linkBasis: LinkBasis,
+                               fileInfo: Seq[FileInfo],
+                               submissionId: String)
+
+object PropertyLinkRequest {
+  implicit val format = Json.format[PropertyLinkRequest]
+}
+J$app/models/PropertyLinkRequest.scala

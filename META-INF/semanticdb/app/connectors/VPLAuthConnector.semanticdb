@@ -1,0 +1,355 @@
+
+´¶|
+¯
+˚
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.$
+˙˛_root_.play.api.libs.json.*
+∑¡ _root_.play.api.libs.concurrent.<
+˛
+ˇ
+0app/connectors/VPLAuthConnector.scala@1406..1407y
+ÙÙm_root_.connectors.VPLAuthConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.5
+õ°+_root_.config.WSHttp.;_root_.config.WSHttp#
+√≈
+_root_.uk.+
+Üé!_root_.uk.gov.hmrc.play.frontend..
+ªª$_root_.java.lang.Object#`<init>`()V.0
+›·&_root_.uk.gov.hmrc.play.frontend.auth.™
+ì	ñ	ù_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(ctx)1
+ÚÚ'_root_.javax.inject.Inject#`<init>`()V.`
+˙	¸	V_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.0
+≤	ø	&_root_.uk.gov.hmrc.http.HeaderCarrier#
+ı˘_root_.play.api.libs.©
+Æ	∞	ú_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+ªø_root_.uk.gov.hmrc.<
+ò	£	2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#
+¯˝_root_.javax.
+ Œ_root_.uk.gov.hmrc.h
+äã^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.0
+èì&_root_.uk.gov.hmrc.play.frontend.auth.
+Ï_root_.play.0
+¶¨&_root_.uk.gov.hmrc.play.config.inject."
+ÅÖ_root_.uk.gov.hmrc.play.
+îö_root_.config.
+©≠_root_.play.0
+¬
+œ
+&_root_.uk.gov.hmrc.http.HeaderCarrier#;
+îû1_root_.uk.gov.hmrc.play.frontend.auth.connectors.
+≤∂_root_.play.api.libs./
+⁄Í#_root_.connectors.VPLAuthConnector#¢
+ê
+ö
+ï_root_.connectors.VPLAuthConnector#getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+ÒÙ_root_.play.api."
+¿ƒ_root_.uk.gov.hmrc.http.)
+ü•_root_.uk.gov.hmrc.play.config.¶
+æ
+¿
+ô_root_.connectors.VPLAuthConnector#getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+¸Ä_root_.uk.gov.hmrc.A
+Öã7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#=
+ıÅ1_root_.connectors.VPLAuthConnector#(serverConfig),
+‚
+È
+"_root_.play.api.libs.json.JsValue#
+˛Ñ_root_.javax.inject.
+ëî_root_.uk.gov.`
+ü°V_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.
+¯˚_root_.uk.gov.
+éê
+_root_.uk.
+ù£_root_.config.WSHttp#f
+Óı\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.>
+Ã’4_root_.play.api.libs.concurrent.Execution.Implicits.5
+óõ)_root_.connectors.VPLAuthConnector#(http)
+ïô_root_.uk.gov.hmrc.<
+®
+≥
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#:
+àâ0app/connectors/VPLAuthConnector.scala@1406..1407;
+·Ì1_root_.connectors.VPLAuthConnector#(serverConfig)|
+ÿ	€	r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.W
+≈“M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#≠
+Î
+ˆ
+¢_root_.connectors.VPLAuthConnector#getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authContext)˜
+√	…	Ï_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#getIds(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;Luk/gov/hmrc/http/HttpReads;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.r
+÷‰h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.
+∑∫_root_.uk.gov.
+¥∂
+_root_.uk.
+Æ±_root_.play.api.4
+¬À*_root_.play.api.libs.concurrent.Execution."
+œ”_root_.uk.gov.hmrc.play.?
+Éë5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+öû_root_.uk.gov.hmrc.play.<
+ﬁ	ﬂ	0app/connectors/VPLAuthConnector.scala@1246..1247•
+Ö	í	ò_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.%
+˝	É
+_root_.scala.Predef.String#ˇ
+”
+·
+Ù_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#getUserDetails(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;Luk/gov/hmrc/http/HttpReads;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.:
+Ë	È	0app/connectors/VPLAuthConnector.scala@1246..1247I
+ü¨?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#%
+ÏÚ_root_.javax.inject.Inject#
+ı˜
+_root_.uk.,
+ 	—	"_root_.play.api.libs.json.JsValue#?
+≠ª5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#®
+”	÷	ù_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(ctx)I
+≠∫?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#:
+Ã÷._root_.connectors.VPLAuthConnector#serviceUrl.
+ÂÔ_root_.connectors.o
+‚Ìe_root_.uk.gov.hmrc.play.frontend.auth.AuthContext.;_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#%
+¢®_root_.scala.Predef.String#%
+ÿﬁ_root_.scala.Predef.String#O
+ˇÜE_root_.play.api.libs.json.JsValue.;_root_.play.api.libs.json.JsValue#+
+‘‹!_root_.uk.gov.hmrc.play.frontend.h
+Í	Î	^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.Ø
+õ
+¶
+¢_root_.connectors.VPLAuthConnector#getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authContext)
+∆…_root_.uk.gov."c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"©
+ò_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ãgetExternalId>(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String]":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#".
+ -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+06_root_.scala.concurrent.Future#"#
+7=_root_.scala.Predef.String#"3
+"_root_.play.api.libs.json.JsValue#Ä¿JsValue"5
+ _root_.play.api.libs.concurrent.ÄàÄ
+concurrent"ì
+1_root_.connectors.VPLAuthConnector#(serverConfig)^ÄserverConfigServicesConfig";
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"$
+_root_.config.WSHttp#Ä@WSHttp"[
+)_root_.connectors.VPLAuthConnector#(http).ÅhttpWSHttp"
+_root_.config.WSHttp#")
+_root_.play.api.libs.json.ÄàÄjson"'
+_root_.connectors.ÄàÄ
+connectors"F
+1_root_.uk.gov.hmrc.play.frontend.auth.connectors.ÄàÄ
+connectors"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"m
+0app/connectors/VPLAuthConnector.scala@1246..12479ÄrJsValue"(
+"_root_.play.api.libs.json.JsValue#"4
+!_root_.uk.gov.hmrc.play.frontend.ÄàÄfrontend"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.javax.ÄàÄjavax"
+_root_.play.api.
+ÄàÄapi"k
+._root_.connectors.VPLAuthConnector#serviceUrl.9
+serviceUrlString"!
+_root_.scala.Predef.String#"G
+4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits"=
+*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution"L
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig",
+_root_.javax.inject.Inject#Ä†ÄInject"«
+m_root_.connectors.VPLAuthConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.’<init>>(serverConfig: ServicesConfig, http: WSHttp): VPLAuthConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"+
+.>#_root_.connectors.VPLAuthConnector#"7
+&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"‰
+Õ_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#`<init>`(Luk/gov/hmrc/play/frontend/auth/LoggedInUser;Luk/gov/hmrc/play/frontend/auth/Principal;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)V.ë<init>™(user: LoggedInUser, principal: Principal, attorney: Option[Attorney], userDetailsUri: Option[String], enrolmentsUri: Option[String], idsUri: Option[String]): AuthContext";
+3_root_.uk.gov.hmrc.play.frontend.auth.LoggedInUser#"8
+ )0_root_.uk.gov.hmrc.play.frontend.auth.Principal#"
+5;_root_.scala.Option#"7
+<D/_root_.uk.gov.hmrc.play.frontend.auth.Attorney#"
+W]_root_.scala.Option#"#
+^d_root_.scala.Predef.String#"
+v|_root_.scala.Option#"$
+}É_root_.scala.Predef.String#"
+éî_root_.scala.Option#"%
+ïõ_root_.scala.Predef.String#"<
+ü™2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"€
+Ï_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#getIds(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;Luk/gov/hmrc/http/HttpReads;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ÈgetIdss[T] => (authContext: AuthContext)(implicit hc: HeaderCarrier, reads: HttpReads[T], ec: ExecutionContext): Future[T]":
+ 2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#".
+/<&_root_.uk.gov.hmrc.http.HeaderCarrier#"*
+EN"_root_.uk.gov.hmrc.http.HttpReads#"¯
+OPÔ_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#getIds(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;Luk/gov/hmrc/http/HttpReads;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[T]"1
+Wg)_root_.scala.concurrent.ExecutionContext#"'
+jp_root_.scala.concurrent.Future#"¯
+qrÔ_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#getIds(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;Luk/gov/hmrc/http/HttpReads;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[T]"
+
+_root_.uk.	ÄàÄuk"ı
+V_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.öas"[T] => (implicit fjs: Reads[T]): T"(
+ _root_.play.api.libs.json.Reads#"a
+Y_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.[T]"a
+!"Y_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.[T]"´
+ï_root_.connectors.VPLAuthConnector#getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ê
+getGroupIdF(authContext: AuthContext)(implicit hc: HeaderCarrier): Future[String]":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#".
+(5&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+8>_root_.scala.concurrent.Future#"#
+?E_root_.scala.Predef.String#"%
+_root_.javax.inject.ÄàÄinject"‘
+\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.tbaseUrl(serviceName: String): String"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"
+_root_.uk.gov.
+ÄàÄgov"m
+0app/connectors/VPLAuthConnector.scala@1406..14079ÄrJsValue"(
+"_root_.play.api.libs.json.JsValue#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"<
+#_root_.connectors.VPLAuthConnector#Ä VPLAuthConnector"˛
+¢_root_.connectors.VPLAuthConnector#getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authContext)WÄauthContextAuthContext"8
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"
+_root_.play.ÄàÄplay"„
+ô_root_.connectors.VPLAuthConnector#getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"√
+h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"Â
+^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.Ç\#(fieldName: String): JsLookupResult"#
+_root_.scala.Predef.String#"1
+#)_root_.play.api.libs.json.JsLookupResult#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"˚
+Ù_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#getUserDetails(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;Luk/gov/hmrc/http/HttpReads;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ÅgetUserDetailss[T] => (authContext: AuthContext)(implicit hc: HeaderCarrier, reads: HttpReads[T], ec: ExecutionContext): Future[T]":
+ 2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#".
+/<&_root_.uk.gov.hmrc.http.HeaderCarrier#"*
+EN"_root_.uk.gov.hmrc.http.HttpReads#"Ä
+OP˜_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#getUserDetails(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;Luk/gov/hmrc/http/HttpReads;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[T]"1
+Wg)_root_.scala.concurrent.ExecutionContext#"'
+jp_root_.scala.concurrent.Future#"Ä
+qr˜_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#getUserDetails(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;Luk/gov/hmrc/http/HttpReads;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[T]"
+_root_.config.ÄàÄconfig">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"5
+&_root_.uk.gov.hmrc.play.frontend.auth.ÄàÄauth"Ê
+ú_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"H
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#Ä†ÄAuthContext"Ò
+ù_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(ctx)OÄctxAuthContext"8
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"U
+?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#Ä@AuthConnector"'
+_root_.uk.gov.hmrc.play.ÄàÄplay2å
+˜
+˜
+Ú*(hc, uk.gov.hmrc.http.HttpReads.readFromJson[JsValue](play.api.libs.json.Reads.JsValueReads, scala.reflect.ManifestFactory.classType[JsValue](classOf[play.api.libs.json.JsValue])), play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.*
+.5"_root_.play.api.libs.json.JsValue#å
+!-É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.,
+Üç"_root_.play.api.libs.json.JsValue#c
+|ÖZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.<
+P\4_root_.play.api.libs.json.DefaultReads#JsValueReads.r
+„Òh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2G
+˚
+˚
+	*[String]
+_star_.#
+_root_.scala.Predef.String#2}
+Ñ
+Ñ
+'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.2}
+©©'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.2å
+◊	◊	Ú*(hc, uk.gov.hmrc.http.HttpReads.readFromJson[JsValue](play.api.libs.json.Reads.JsValueReads, scala.reflect.ManifestFactory.classType[JsValue](classOf[play.api.libs.json.JsValue])), play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.*
+.5"_root_.play.api.libs.json.JsValue#å
+!-É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.,
+Üç"_root_.play.api.libs.json.JsValue#c
+|ÖZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.<
+P\4_root_.play.api.libs.json.DefaultReads#JsValueReads.r
+„Òh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2…
+àâ/play.api.libs.json.JsValue.jsValueToJsLookup(*)}
+,u_root_.play.api.libs.json.JsValue.jsValueToJsLookup(Lplay/api/libs/json/JsValue;)Lplay/api/libs/json/JsLookupResult;.
+-._star_.2G
+€	€		*[String]
+_star_.#
+_root_.scala.Predef.String#2…
+Ë	È	/play.api.libs.json.JsValue.jsValueToJsLookup(*)}
+,u_root_.play.api.libs.json.JsValue.jsValueToJsLookup(Lplay/api/libs/json/JsValue;)Lplay/api/libs/json/JsLookupResult;.
+-._star_.:Scala211B∞/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package connectors
+
+import javax.inject.Inject
+
+import config.WSHttp
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.JsValue
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.frontend.auth.AuthContext
+import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
+import uk.gov.hmrc.http.HeaderCarrier
+
+class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp) extends AuthConnector {
+  override val serviceUrl: String = serverConfig.baseUrl("auth")
+
+  def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier) = getIds[JsValue](ctx) map { r =>
+    (r \ "externalId").as[String]
+  }
+
+  def getGroupId(authContext: AuthContext)(implicit hc: HeaderCarrier) = getUserDetails[JsValue](authContext) map { r =>
+    (r \ "groupIdentifier").as[String]
+  }
+}
+J%app/connectors/VPLAuthConnector.scala

@@ -1,0 +1,1049 @@
+
+•‰)
+ë%í%_root_.actions.AgentRequest#[A]3
+Ûˇ)_root_.play.api.mvc.Results#Unauthorized.)
+˜˝_root_.scala.concurrent.Future.>
+…“4_root_.play.api.libs.concurrent.Execution.Implicits.)
+Æ%Ø%_root_.actions.AgentRequest#[A]a
+≤ºW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.c
+ÄÑW_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.(body)2
+™!√!(_root_.models.DetailedIndividualAccount#)
+·Á_root_.scala.concurrent.Future.
+ƒ»_root_.uk.gov.hmrc.0
+µ»&_root_.connectors.AuthorisationResult#$
+“ÿ_root_.controllers.routes.ç
+⁄ÎÇ_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#onHandlerNotFound(Lplay/api/mvc/RequestHeader;)Lscala/concurrent/Future;.Ü
+◊ﬁ|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.:
+Ì0app/actions/AuthenticatedAction.scala@3161..3164j
+¨º^_root_.actions.AuthenticatedAction#toViewAssessment(JJLscala/Function1;)Lplay/api/mvc/Action;.)
+ÊÏ_root_.scala.concurrent.Future.q
+Úˆg_root_.actions.AuthenticatedAction#toViewAssessmentsFor(JLscala/Function1;)Lplay/api/mvc/Action;.(body)O
+€#€#E_root_.play.api.mvc.WrappedRequest#`<init>`(Lplay/api/mvc/Request;)V.B
+À!Ÿ!6_root_.actions.AuthenticatedRequest#organisationId()J.]
+˙ˇQ_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.&
+ˆ˝_root_.play.api.mvc.Results.a
+ËÚW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.Y
+âëO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.G
+⁄‚=_root_.play.api.i18n.Messages.;_root_.play.api.i18n.Messages#
+ù†_root_.play.api.*
+¥æ _root_.play.api.libs.concurrent.
+åè_root_.play.api.0
+•∞&_root_.controllers.routes.Application.è
+Ÿ"Ÿ"Ç_root_.actions.BasicAuthenticatedRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)V.
+Ø≥_root_.play.api.libs..
+—‚$_root_.connectors.ForbiddenResponse.;
+¡$“$/_root_.actions.AgentRequest#(individualAccount)Ç
+ù$ù$v_root_.actions.AgentRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;JLplay/api/mvc/Request;)V.
+˝É_root_.config.Global.@
+¢"Æ"6_root_.models.DetailedIndividualAccount#(individualId)[
+ËÅQ_root_.models.DetailedIndividualAccount.;_root_.models.DetailedIndividualAccount#Z
+»ÕP_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.=
+û$±$1_root_.actions.AgentRequest#(organisationAccount)
+ÍÓ_root_.play.(
+ˆ˛_root_.play.api.i18n.Messages#B
+ó!®!6_root_.actions.AuthenticatedRequest#individualAccount.:
+ƒÀ0app/actions/AuthenticatedAction.scala@2195..2202
+Éèu_root_.connectors.BusinessRatesAuthorisation#authenticate(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.?
+Ωƒ5_root_.play.api.Play.current()Lplay/api/Application;.3
+©µ)_root_.play.api.mvc.Results#Unauthorized./
+∞º%_root_.models.Accounts#(organisation)q
+À“g_root_.actions.AuthenticatedAction#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)ù
+∑√í_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.&
+∑√_root_.actions.AgentRequest#"
+ô	ù	_root_.uk.gov.hmrc.play.I
+ŸÛ?_root_.actions.AuthenticatedAction#(businessRatesAuthorisation)2
+Åä(_root_.play.api.i18n.Messages.Implicits.H
+•∏>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)
+„Á_root_.scala.Long#
+€!ﬂ!_root_.scala.Long#
+”Ÿ_root_.config.Global.}
+Æ∑s_root_.connectors.BusinessRatesAuthorisation#authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.•
+”Ÿö_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(result)&
+Åà_root_.play.api.mvc.Request#<
+ìö0app/actions/AuthenticatedAction.scala@2195..2202)
+À’_root_.play.api.mvc.AnyContent#
+•©_root_.scala.Long#ñ
+‹#„#ã_root_.actions.BasicAuthenticatedRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)V.(request)D
+Øπ:_root_.java.lang.Throwable#getMessage()Ljava/lang/String;.&
+‹ „ _root_.play.api.mvc.Request#4
+È*_root_.play.api.mvc.RequestHeader#session.
+Ωø
+_root_.uk.ö
+áìè_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#onBadRequest(Lplay/api/mvc/RequestHeader;Ljava/lang/String;)Lscala/concurrent/Future;.<
+ìî0app/actions/AuthenticatedAction.scala@3219..3220)
+ˆ!¯!_root_.models.GroupAccount#(id):
+‘ € ._root_.actions.AuthenticatedRequest#$init$()V.6
+º#Ω#,_root_.actions.BasicAuthenticatedRequest#[A]~
+Ù˝t_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Y
+Ω≈O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.%
+Ñ!ê!_root_.models.GroupAccount#•
+ Œò_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(body)7
+ø
+Ÿ
+-_root_.connectors.BusinessRatesAuthorisation#%
+¡«_root_.play.api.mvc.Action.
+¿√_root_.uk.gov.s
+·¸i_root_.config.VPLFrontendGlobal#internalServerErrorTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.9
+û	¥	/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.(
+é$ö$_root_.actions.AgentRequest#s
+¯
+ˇ
+g_root_.actions.AuthenticatedAction#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)
+πø_root_.config.Global.¶
+œ÷õ_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(request)
+Úı_root_.play.api.mvc.ã
+≈–Ä_root_.scala.concurrent.Future#recoverWith(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.2
+‘$Ì$(_root_.models.DetailedIndividualAccount#{
+”◊q_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(body)5
+Ω"÷")_root_.actions.BasicAuthenticatedRequest#D
+åñ:_root_.java.lang.Throwable#getMessage()Ljava/lang/String;.
+ÓÒ_root_.play.api.:
+îõ0app/actions/AuthenticatedAction.scala@1625..1632V
+ÒıL_root_.controllers.ReverseCreateIndividualAccount#show()Lplay/api/mvc/Call;.:
+≠Æ0app/actions/AuthenticatedAction.scala@3219..3220
+ÂÏ_root_.actions.7
+¯Ä-_root_.actions.AuthenticatedAction#(provider)
+Ç á _root_.views.
+ÄÜ_root_.config.Global.!
+˝É_root_.play.api.Logger.<
+Ÿ‡0app/actions/AuthenticatedAction.scala@1625..1632Ä
+û•v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.Ä
+…–v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.a
+˛àW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.%
+ÄÜ_root_.play.api.mvc.Result#w
+©∞k_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.D
+Ô Ç!8_root_.actions.AuthenticatedRequest#organisationAccount.
+˙$˛$_root_.scala.Long#B
+‚!ı!8_root_.actions.AuthenticatedRequest#organisationAccount.ß
+≠≥ö_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(result)%
+·Á_root_.play.api.mvc.Result#)
+”Ÿ_root_.scala.concurrent.Future#3
+— “ '_root_.actions.AuthenticatedRequest#[A])
+⁄‡_root_.scala.concurrent.Future#J
+⁄"Ì">_root_.actions.BasicAuthenticatedRequest#(organisationAccount)#
+ç ì _root_.views.html.errors.
+â"ç"_root_.scala.Long#r
+”·h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.X
+±√N_root_.controllers.ReverseApplication#invalidAccountType()Lplay/api/mvc/Call;.:
+•∏0_root_.play.api.mvc.Results#InternalServerError.s
+¿€i_root_.config.VPLFrontendGlobal#internalServerErrorTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.
+’Ÿ_root_.play.api.i18n.
+Œ“_root_.scala.Long#.
+ø%”%$_root_.actions.AuthenticatedRequest#Å
+ÏÙu_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(messages)
+Ø≥_root_.play.4
+ÛÑ	*_root_.uk.gov.hmrc.http.NotFoundException#-
+Éì#_root_.connectors.IncorrectTrustId.-
+‰Ù#_root_.connectors.InvalidGGSession.6
+œ‚,_root_.uk.gov.hmrc.http.BadRequestException#<
+Ñã0app/actions/AuthenticatedAction.scala@3076..3083)
+òû_root_.scala.concurrent.Future#<
+ÓÔ0app/actions/AuthenticatedAction.scala@2798..2799<
+∞≥0app/actions/AuthenticatedAction.scala@2736..27398
+◊"ÿ",_root_.actions.BasicAuthenticatedRequest#[A]O
+∞%∞%E_root_.play.api.mvc.WrappedRequest#`<init>`(Lplay/api/mvc/Request;)V.>
+´#≤#2_root_.actions.BasicAuthenticatedRequest#(request)0
+º – $_root_.actions.AuthenticatedRequest#:
+¥∑0app/actions/AuthenticatedAction.scala@1696..1699
+¥∑_root_.play.api.
+—‘_root_.play.api.
+‹‡_root_.scala.Some.:
+Çâ0app/actions/AuthenticatedAction.scala@2195..2202<
+Ÿ2_root_.controllers.routes.CreateIndividualAccount.)
+ƒŒ_root_.play.api.mvc.AnyContent#0
+π¬&_root_.models.GroupAccount#(agentCode))
+ÍÙ_root_.play.api.mvc.AnyContent#Z
+∑ºP_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.+
+õ$ú$_root_.actions.AgentRequest#[A]
+òú_root_.play.
+ç	è	
+_root_.uk.6
+ˇ#Ä$,_root_.actions.BasicAuthenticatedRequest#[A])
+âì_root_.play.api.mvc.AnyContent#
+ê	ì	_root_.uk.gov.3
+–È)_root_.actions.BasicAuthenticatedRequest#F
+äõ<_root_.actions.BasicAuthenticatedRequest#(individualAccount))
+‘%’%_root_.actions.AgentRequest#[A]L
+”⁄B_root_.play.api.mvc.RequestHeader#headers()Lplay/api/mvc/Headers;.I
+ËÇ?_root_.actions.AuthenticatedAction#(businessRatesAuthorisation)2
+ê#©#(_root_.models.DetailedIndividualAccount#s
+´Øg_root_.actions.AuthenticatedAction#toViewAssessmentsFor(JLscala/Function1;)Lplay/api/mvc/Action;.(body)
+¶™_root_.play.%
+≥$ø$_root_.models.GroupAccount#%
+ü•_root_.play.api.mvc.Result#:
+òô0app/actions/AuthenticatedAction.scala@2798..2799ò
+Ñãç_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#onError(Lplay/api/mvc/RequestHeader;Ljava/lang/Throwable;)Lscala/concurrent/Future;.y
+˛ço_root_.actions.AuthenticatedAction#toViewAssessment(JJLscala/Function1;)Lplay/api/mvc/Action;.(authorisationId)
+ÈÌ_root_.play.<
+ˇ!á"0_root_.actions.AuthenticatedRequest#personId()J./
+º	œ	#_root_.actions.AuthenticatedAction#w
+èúm_root_.actions.AuthenticatedAction#toViewAssessment(JJLscala/Function1;)Lplay/api/mvc/Action;.(assessmentRef)
+∏º_root_.play.api.Play.n
+…Õd_root_.actions.AuthenticatedAction#toViewAssessment(JJLscala/Function1;)Lplay/api/mvc/Action;.(body)9
+û¥/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.
+ëï_root_.auth.
+êì_root_.play.api.mvc.â
+±%∏%_root_.actions.AgentRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;JLplay/api/mvc/Request;)V.(request)m
+ˇìa_root_.actions.AuthenticatedAction#toViewAssessmentsFor(JLscala/Function1;)Lplay/api/mvc/Action;.)
+†™_root_.play.api.mvc.AnyContent#
+ı˙_root_.javax.&
+ÿ‰_root_.actions.AgentRequest.[
+ÇáQ_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.H
+ÌÄ>_root_.actions.BasicAuthenticatedRequest#(organisationAccount){
+ΩÃo_root_.actions.AuthenticatedAction#toViewAssessment(JJLscala/Function1;)Lplay/api/mvc/Action;.(authorisationId)~
+î£r_root_.actions.AuthenticatedAction#toViewAssessmentsFor(JLscala/Function1;)Lplay/api/mvc/Action;.(authorisationId)(
+úß_root_.connectors.NoVOARecord.:
+ßØ0app/actions/AuthenticatedAction.scala@3579..35871
+‰ Â '_root_.actions.AuthenticatedRequest#[A])
+óù_root_.scala.concurrent.Future.4
+ø»*_root_.play.api.libs.concurrent.Execution.:
+∆Ÿ0_root_.play.api.mvc.Results#InternalServerError.9
+⁄	‚	-_root_.actions.AuthenticatedAction#(provider)a
+û®W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.
+⁄‡_root_.config.Global.&
+¥#ª#_root_.play.api.mvc.Request#4
+∂«*_root_.uk.gov.hmrc.http.NotFoundException#I
+ì≠?_root_.actions.AuthenticatedAction#(businessRatesAuthorisation)H
+Æ¡>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)
+∑Ω_root_.config.0
+‰	˝	&_root_.auth.GovernmentGatewayProvider#-
+î ù #_root_.views.html.errors.forbidden.%
+ÏÚ_root_.play.api.mvc.Action.)
+«Õ_root_.models.Accounts#(person)6
+·Ù,_root_.uk.gov.hmrc.http.BadRequestException#
+Ã÷_root_.connectors.®
+≠¥õ_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(request)9
+ü¶/_root_.uk.gov.hmrc.http.HttpException#(message)0
+éõ&_root_.uk.gov.hmrc.http.HeaderCarrier#(
+¯Ä_root_.play.api.i18n.Messages.%
+Ô"˚"_root_.models.GroupAccount#I
+Øµ?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#q
+Åêg_root_.auth.GovernmentGatewayProvider#redirectToLogin(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.
+áã_root_.play..
+¬…$_root_.models.GroupAccount#(isAgent):
+ÏÛ0app/actions/AuthenticatedAction.scala@1625..1632:
+ïñ0app/actions/AuthenticatedAction.scala@2032..20333
+ç¶)_root_.actions.BasicAuthenticatedRequest.
+‡Ê_root_.models.ã
+ãûÄ_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.
+Ã–_root_.play.a
+Ì˜W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.ñ
+µ ã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.:
+¶≠0app/actions/AuthenticatedAction.scala@2195..2202A
+Çà7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#
+à å _root_.views.html.:
+äã0app/actions/AuthenticatedAction.scala@2798..2799
+´Æ_root_.play.api.3
+Ô$¯$'_root_.actions.AgentRequest#(agentCode)K
+£
+Ω
+?_root_.actions.AuthenticatedAction#(businessRatesAuthorisation)9
+°ß/_root_.play.api.Logger.;_root_.play.api.Logger#!
+†¶_root_.play.api.Logger.ü
+†¨í_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.
+íù_root_.controllers.0
+ñØ&_root_.auth.GovernmentGatewayProvider#%
+∂º_root_.play.api.mvc.Result#1
+◊	◊	'_root_.javax.inject.Inject#`<init>`()V.
+ÔÚ_root_.play.api.<
+Ò0app/actions/AuthenticatedAction.scala@2032..2033"
+§Æ_root_.scala.concurrent.:
+ù§0app/actions/AuthenticatedAction.scala@2195..2202:
+åì0app/actions/AuthenticatedAction.scala@1625..1632A
+Éè7_root_.models.GroupAccount.;_root_.models.GroupAccount#Z
+Û¯P_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.|
+∏«r_root_.actions.AuthenticatedAction#toViewAssessmentsFor(JLscala/Function1;)Lplay/api/mvc/Action;.(authorisationId)-
+ü%≠%#_root_.play.api.mvc.WrappedRequest#)
+´±_root_.scala.concurrent.Future."
+…Õ_root_.uk.gov.hmrc.http.)
+Øµ_root_.scala.concurrent.Future#-
+ #ÿ##_root_.play.api.mvc.WrappedRequest#0
+¯Å &_root_.play.api.mvc.Results#Forbidden.p
+ÈÌd_root_.actions.AuthenticatedAction#toViewAssessment(JJLscala/Function1;)Lplay/api/mvc/Action;.(body)}
+±µq_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(body)%
+∞∂_root_.play.api.mvc.Action.
+Û˜_root_.play.api.i18n.
+˚Å_root_.javax.inject.
+û£_root_.scala.H
+˝"é#<_root_.actions.BasicAuthenticatedRequest#(individualAccount):
+æ∆0app/actions/AuthenticatedAction.scala@3579..3587$
+û§_root_.controllers.routes.:
+‹„0app/actions/AuthenticatedAction.scala@2632..2639:
+˝Ñ0app/actions/AuthenticatedAction.scala@3076..3083<
+»œ0app/actions/AuthenticatedAction.scala@2632..2639a
+πΩW_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.(body)%
+⁄‡_root_.play.api.mvc.Result#:
+ªº0app/actions/AuthenticatedAction.scala@3219..32203
+Ôà)_root_.actions.BasicAuthenticatedRequest#Ä
+êóv_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.P
+ÑâF_root_.play.api.LoggerLike#error(Lscala/Function0;Lscala/Function0;)V.<
+†£0app/actions/AuthenticatedAction.scala@1696..16993
+± )_root_.actions.BasicAuthenticatedRequest#j
+Ï
+Ó
+^_root_.actions.AuthenticatedAction#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.
+æƒ_root_.config.Global.6
+Ÿ#⁄#,_root_.actions.BasicAuthenticatedRequest#[A]3
+Üü)_root_.actions.BasicAuthenticatedRequest#@
+ê"°"6_root_.actions.AuthenticatedRequest#individualAccount.y
+‘·m_root_.actions.AuthenticatedAction#toViewAssessment(JJLscala/Function1;)Lplay/api/mvc/Action;.(assessmentRef)£
+àåò_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(body)&
+â%ê%_root_.play.api.mvc.Request#*
+Ì˙ _root_.connectors.Authenticated.:
+ÂÏ0app/actions/AuthenticatedAction.scala@2195..2202Ü
+˛Ö|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+î	ò	_root_.uk.gov.hmrc.ù
+‡Ïí_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.ù
+ß≥í_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.:
+ùû0app/actions/AuthenticatedAction.scala@1758..1780)
+˘ˇ_root_.scala.concurrent.Future#.
+Í#˛#$_root_.actions.AuthenticatedRequest#<
+ﬁﬂ0app/actions/AuthenticatedAction.scala@1758..1780q
+·Ëg_root_.actions.AuthenticatedAction#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)Ç
+Ÿ	Ÿ	v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.W
+‰ÒM_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#P
+ß¨F_root_.play.api.LoggerLike#error(Lscala/Function0;Lscala/Function0;)V.:
+ƒ«0app/actions/AuthenticatedAction.scala@2736..2739<
+Ÿ‹0app/actions/AuthenticatedAction.scala@3161..3164&
+∂Ω_root_.play.api.mvc.Request#1
+Ä%á%%_root_.actions.AgentRequest#(request))
+æ»_root_.play.api.mvc.AnyContent#<
+˚É0app/actions/AuthenticatedAction.scala@3579..3587%
+—	◊	_root_.javax.inject.Inject#3
+›Û)_root_.connectors.NonOrganisationAccount.
+∆—_root_.controllers."Y
+'_root_.actions.AgentRequest#(agentCode).Å	agentCodeLong"
+_root_.scala.Long#"5
+ _root_.play.api.libs.concurrent.ÄàÄ
+concurrent"@
+$_root_.connectors.ForbiddenResponse.ÄÑàForbiddenResponse"≤
+ò_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(body)îÄbody@Function1[BasicAuthenticatedRequest[AnyContent], Future[Result]]"
+	_root_.scala.Function1#"1
+
+#)_root_.actions.BasicAuthenticatedRequest#"'
+$._root_.play.api.mvc.AnyContent#"'
+17_root_.scala.concurrent.Future#"#
+8>_root_.play.api.mvc.Result#"™
+r_root_.actions.AuthenticatedAction#toViewAssessmentsFor(JLscala/Function1;)Lplay/api/mvc/Action;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"±
+E_root_.play.api.mvc.WrappedRequest#`<init>`(Lplay/api/mvc/Request;)V.Á<init>((request: Request[A]): WrappedRequest[A]"$
+
+_root_.play.api.mvc.Request#".
+&_root_.play.api.mvc.WrappedRequest#[A]"+
+%#_root_.play.api.mvc.WrappedRequest#".
+&'&_root_.play.api.mvc.WrappedRequest#[A]"ù
+^_root_.play.api.mvc.Result#`<init>`(Lplay/api/mvc/ResponseHeader;Lplay/api/http/HttpEntity;)V.∫<init>2(header: ResponseHeader, body: HttpEntity): Result"+
+	#_root_.play.api.mvc.ResponseHeader#"(
+) _root_.play.api.http.HttpEntity#"#
+,2_root_.play.api.mvc.Result#"y
+_root_.models.Accounts#(person)VÅpersonDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"0
+_root_.play.api.i18n.Messages.ÄÑMessages"1
+_root_.play.api.i18n.Messages#Ä†ÄMessages"k
+0app/actions/AuthenticatedAction.scala@3219..32207e	Throwable"%
+	_root_.scala.package.Throwable#"
+_root_.auth.ÄàÄauth"¸
+ç_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#onError(Lplay/api/mvc/RequestHeader;Ljava/lang/Throwable;)Lscala/concurrent/Future;.ÈÑÄonError7(request: RequestHeader, ex: Throwable): Future[Result]"*
+
+"_root_.play.api.mvc.RequestHeader#"'
+&_root_.scala.package.Throwable#"'
+)/_root_.scala.concurrent.Future#"#
+06_root_.play.api.mvc.Result#" 
+_root_.scala.Long#
+Ä†Long"
+W_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.(body)îÄbody@Function1[BasicAuthenticatedRequest[AnyContent], Future[Result]]"
+	_root_.scala.Function1#"1
+
+#)_root_.actions.BasicAuthenticatedRequest#"'
+$._root_.play.api.mvc.AnyContent#"'
+17_root_.scala.concurrent.Future#"#
+8>_root_.play.api.mvc.Result#"'
+_root_.connectors.ÄàÄ
+connectors"§
+v_root_.actions.AgentRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;JLplay/api/mvc/Request;)V.©<init>à(organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, agentCode: Long, request: Request[A]): AgentRequest[A]"#
+"_root_.models.GroupAccount#"0
+7P(_root_.models.DetailedIndividualAccount#"
+]a_root_.scala.Long#"$
+ls_root_.play.api.mvc.Request#"'
+tu_root_.actions.AgentRequest#[A]"%
+yÖ_root_.actions.AgentRequest#")
+Üá_root_.actions.AgentRequest#[A]"£
+0app/actions/AuthenticatedAction.scala@1625..1632oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"6
+#_root_.views.html.errors.forbidden.ÄÑ	forbidden"Ã
+Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.∆ÑÄ applicationMessages9(implicit lang: Lang, application: Application): Messages""
+_root_.play.api.i18n.Lang#"$
+#._root_.play.api.Application#"&
+19_root_.play.api.i18n.Messages#"é
+%_root_.actions.AgentRequest#(request)eÅrequest
+Request[A]""
+_root_.play.api.mvc.Request#"'
+	_root_.actions.AgentRequest#[A]"Î
+t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"
+JN_root_.scala.Long#"(
+Yj _root_.models.IndividualDetails#"1
+mÜ(_root_.models.DetailedIndividualAccount#",
+_root_.play.api.mvc.Request#Ä@Request"≥
+?_root_.actions.AuthenticatedAction#(businessRatesAuthorisation)pÄbusinessRatesAuthorisationBusinessRatesAuthorisation"3
+-_root_.connectors.BusinessRatesAuthorisation#"∑
+u_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(messages)>ÄÅ messagesMessages"$
+_root_.play.api.i18n.Messages#"~
+1_root_.actions.AgentRequest#(organisationAccount)IÅorganisationAccountGroupAccount"!
+_root_.models.GroupAccount#"H
+&_root_.auth.GovernmentGatewayProvider#Ä GovernmentGatewayProvider"Ü
+8_root_.actions.AuthenticatedRequest#organisationAccount.JÅÄorganisationAccountGroupAccount"!
+_root_.models.GroupAccount#"á
+-_root_.actions.AuthenticatedAction#(provider)VÄproviderGovernmentGatewayProvider",
+&_root_.auth.GovernmentGatewayProvider#"÷
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.Äapply\(body: Function1[BasicAuthenticatedRequest[AnyContent], Future[Result]]): Action[AnyContent]"
+_root_.scala.Function1#"1
+*)_root_.actions.BasicAuthenticatedRequest#"'
++5_root_.play.api.mvc.AnyContent#"'
+8>_root_.scala.concurrent.Future#"#
+?E_root_.play.api.mvc.Result#"#
+JP_root_.play.api.mvc.Action#"'
+Q[_root_.play.api.mvc.AnyContent#"Ì
+ö_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(result)NÄresultAuthorisationResult",
+&_root_.connectors.AuthorisationResult#"˝
+d_root_.actions.AuthenticatedAction#toViewAssessment(JJLscala/Function1;)Lplay/api/mvc/Action;.(body)îÄbody@Function1[BasicAuthenticatedRequest[AnyContent], Future[Result]]"
+	_root_.scala.Function1#"1
+
+#)_root_.actions.BasicAuthenticatedRequest#"'
+$._root_.play.api.mvc.AnyContent#"'
+17_root_.scala.concurrent.Future#"#
+8>_root_.play.api.mvc.Result#"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"ï
+N_root_.controllers.ReverseApplication#invalidAccountType()Lplay/api/mvc/Call;.CinvalidAccountType(): Call"!
+_root_.play.api.mvc.Call#"
+0app/actions/AuthenticatedAction.scala@3161..3164KÄresAuthorisationResult",
+&_root_.connectors.AuthorisationResult#"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"$
+_root_.play.api.libs.ÄàÄlibs"ù
+k_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.≠asAgentl(body: Function1[AgentRequest[AnyContent], Future[Result]])(implicit messages: Messages): Action[AnyContent]"
+_root_.scala.Function1#"$
+_root_.actions.AgentRequest#"'
+(_root_.play.api.mvc.AnyContent#"'
++1_root_.scala.concurrent.Future#"#
+28_root_.play.api.mvc.Result#"&
+OW_root_.play.api.i18n.Messages#"#
+Z`_root_.play.api.mvc.Action#"'
+ak_root_.play.api.mvc.AnyContent#"¸
+s_root_.connectors.BusinessRatesAuthorisation#authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Ñ	authoriseP(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult]"
+_root_.scala.Long#".
+%2&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+5;_root_.scala.concurrent.Future#".
+<O&_root_.connectors.AuthorisationResult#"
+_root_.javax.ÄàÄjavax"J
+_root_.models.GroupAccount#(id)'ÅidLong"
+_root_.scala.Long#""
+_root_.play.api.mvc.
+ÄàÄmvc"‰
+i_root_.config.VPLFrontendGlobal#internalServerErrorTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.winternalServerErrorTemplate1(implicit request: play.api.mvc.Request[_]): Html"#
+-1_root_.play.twirl.api.Html#"'
+_root_.play.api.Logger.ÄÑLogger"
+_root_.play.api.
+ÄàÄapi"Æ
+2_root_.controllers.routes.CreateIndividualAccount.xÅÄàCreateIndividualAccountReverseCreateIndividualAccount"8
+2_root_.controllers.ReverseCreateIndividualAccount#"
+0app/actions/AuthenticatedAction.scala@1696..1699KÄresAuthorisationResult",
+&_root_.connectors.AuthorisationResult#"º
+P_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.ÁÑÄasyncE(block: Function1[R[AnyContent], Future[Result]]): Action[AnyContent]"
+_root_.scala.Function1#"-
+%_root_.play.api.mvc.ActionBuilder#[R]"'
+_root_.play.api.mvc.AnyContent#"'
+!'_root_.scala.concurrent.Future#"#
+(._root_.play.api.mvc.Result#"#
+39_root_.play.api.mvc.Action#"'
+:D_root_.play.api.mvc.AnyContent#"∏
+Ç_root_.actions.BasicAuthenticatedRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)V.∞<init>Ñ(organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A]): BasicAuthenticatedRequest[A]"#
+"_root_.models.GroupAccount#"0
+7P(_root_.models.DetailedIndividualAccount#"$
+[b_root_.play.api.mvc.Request#"4
+cd,_root_.actions.BasicAuthenticatedRequest#[A]"2
+hÅ)_root_.actions.BasicAuthenticatedRequest#"6
+ÇÉ,_root_.actions.BasicAuthenticatedRequest#[A]"k
+0app/actions/AuthenticatedAction.scala@2032..20337e	Throwable"%
+	_root_.scala.package.Throwable#"˙
+è_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#onBadRequest(Lplay/api/mvc/RequestHeader;Ljava/lang/String;)Lscala/concurrent/Future;.ÂÑÄonBadRequest2(rh: RequestHeader, error: String): Future[Result]"*
+"_root_.play.api.mvc.RequestHeader#"#
+!_root_.scala.Predef.String#"'
+$*_root_.scala.concurrent.Future#"#
++1_root_.play.api.mvc.Result#"G
+4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits"¬
+s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
+	_root_.scala.Long#"#
+_root_.scala.Predef.String#"#
+)/_root_.scala.Predef.String#"
+<?_root_.scala.Int#"#
+HN_root_.scala.Predef.String#"#
+W]_root_.scala.Predef.String#"
+ho_root_.scala.Boolean#"
+|Ä_root_.scala.Long#"%
+Éè_root_.models.GroupAccount#"i
+0app/actions/AuthenticatedAction.scala@3579..35875accountsAccounts"
+_root_.models.Accounts#".
+_root_.scala.concurrent.Future#Ä@Future"/
+_root_.scala.concurrent.Future.ÄÑFuture"=
+*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution"
+q_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(body)˙Äbody3Function1[AgentRequest[AnyContent], Future[Result]]"
+	_root_.scala.Function1#"$
+
+_root_.actions.AgentRequest#"'
+!_root_.play.api.mvc.AnyContent#"'
+$*_root_.scala.concurrent.Future#"#
++1_root_.play.api.mvc.Result#"b
+._root_.actions.AuthenticatedRequest#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#"!
+_root_.views.html.ÄàÄhtml"è
+õ_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(request)oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#">
+#_root_.connectors.IncorrectTrustId.ÄÑàIncorrectTrustId",
+_root_.javax.inject.Inject#Ä†ÄInject"®
+|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ßrecoverZ[U] => (pf: PartialFunction[Throwable, U])(implicit executor: ExecutionContext): Future[U]"%
+_root_.scala.PartialFunction#"'
+%_root_.scala.package.Throwable#"á
+'(_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]"1
+>N)_root_.scala.concurrent.ExecutionContext#"'
+QW_root_.scala.concurrent.Future#"á
+XY_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]"#
+_root_.play.api.Play.
+ÄÑPlay"Æ
+t_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.µ	authorisee(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult]"
+_root_.scala.Long#"
+'+_root_.scala.Long#".
+:G&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+JP_root_.scala.concurrent.Future#".
+Qd&_root_.connectors.AuthorisationResult#"3
+_root_.actions.AgentRequest#Ä†ÄAgentRequest"2
+_root_.actions.AgentRequest.ÄÑAgentRequest"6
+,_root_.actions.BasicAuthenticatedRequest#[A]ÄA"~
+0_root_.play.api.mvc.Results#InternalServerError.JInternalServerErrorStatus")
+#_root_.play.api.mvc.Results#Status#"l
+6_root_.actions.AuthenticatedRequest#organisationId()J.2organisationIdLong"
+_root_.scala.Long#"Ì
+L_root_.auth.GovernmentGatewayProvider#`<init>`(Lconfig/ApplicationConfig;)V.ú<init>6(config: ApplicationConfig): GovernmentGatewayProvider"(
+	 _root_.config.ApplicationConfig#".
+6&_root_.auth.GovernmentGatewayProvider#"7
+ _root_.connectors.Authenticated.ÄÑAuthenticated"*
+_root_.views.html.errors.ÄàÄerrors"Ω
+O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
+_root_.play.api.mvc.Call#"#
+_root_.play.api.mvc.Result#"
+
+_root_.uk.	ÄàÄuk"?
+#_root_.actions.AuthenticatedAction#Ä AuthenticatedAction"%
+_root_.javax.inject.ÄàÄinject"æ
+Ç_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#onHandlerNotFound(Lplay/api/mvc/RequestHeader;)Lscala/concurrent/Future;.∂ÑÄonHandlerNotFound#(rh: RequestHeader): Future[Result]"*
+"_root_.play.api.mvc.RequestHeader#"'
+_root_.scala.concurrent.Future#"#
+"_root_.play.api.mvc.Result#")
+_root_.actions.AgentRequest#[A]ÄA"‹
+J_root_.uk.gov.hmrc.http.BadRequestException#`<init>`(Ljava/lang/String;)V.ç<init>&(message: String): BadRequestException"#
+
+_root_.scala.Predef.String#"4
+&,_root_.uk.gov.hmrc.http.BadRequestException#"ú
+6_root_.actions.AuthenticatedRequest#individualAccount.bÅÄindividualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"
+0app/actions/AuthenticatedAction.scala@2736..2739KÄresAuthorisationResult",
+&_root_.connectors.AuthorisationResult#"î
+/_root_.actions.AgentRequest#(individualAccount)aÅindividualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"2
+_root_.models.GroupAccount#Ä†ÄGroupAccount"°
+<_root_.actions.BasicAuthenticatedRequest#(individualAccount)aÅindividualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"+
+_root_.controllers.routes.ÄÑàroutes"
+_root_.uk.gov.
+ÄàÄgov"Ä
+B_root_.play.api.mvc.RequestHeader#headers()Lplay/api/mvc/Headers;.:ÑÄheadersHeaders""
+_root_.play.api.mvc.Headers#"Ç
+ã_root_.actions.BasicAuthenticatedRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)V.(request)rÄrequest
+Request[A]""
+_root_.play.api.mvc.Request#"4
+	,_root_.actions.BasicAuthenticatedRequest#[A]"Ä
+g_root_.actions.AuthenticatedAction#toViewAssessmentsFor(JLscala/Function1;)Lplay/api/mvc/Action;.(body)îÄbody@Function1[BasicAuthenticatedRequest[AnyContent], Future[Result]]"
+	_root_.scala.Function1#"1
+
+#)_root_.actions.BasicAuthenticatedRequest#"'
+$._root_.play.api.mvc.AnyContent#"'
+17_root_.scala.concurrent.Future#"#
+8>_root_.play.api.mvc.Result#"ë
+g_root_.actions.AuthenticatedAction#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)&ÄÅ requestplay.api.mvc.Request[_]"X
+&_root_.models.GroupAccount#(agentCode).Å	agentCodeLong"
+_root_.scala.Long#"¡
+F_root_.play.api.LoggerLike#error(Lscala/Function0;Lscala/Function0;)V.ˆerror=(message: <byname>[String], error: <byname>[Throwable]): Unit" 
+
+_root_.scala.`<byname>`#"#
+_root_.scala.Predef.String#" 
+#+_root_.scala.`<byname>`#"'
+,5_root_.scala.package.Throwable#"
+9=_root_.scala.Unit#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"Œ
+u_root_.connectors.BusinessRatesAuthorisation#authenticate(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.‘authenticate9(implicit hc: HeaderCarrier): Future[AuthorisationResult]".
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+$_root_.scala.concurrent.Future#".
+%8&_root_.connectors.AuthorisationResult#">
+#_root_.connectors.InvalidGGSession.ÄÑàInvalidGGSession"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#";
+(_root_.play.api.i18n.Messages.Implicits.ÄÑ	Implicits"H
+,_root_.uk.gov.hmrc.http.BadRequestException#Ä BadRequestException"}
+:_root_.java.lang.Throwable#getMessage()Ljava/lang/String;.?ÑÄÄ
+getMessage
+(): String" 
+
+_root_.java.lang.String#"$
+_root_.play.api.i18n.ÄàÄi18n"Å
+ã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.fromHeadersAndSession;(headers: Headers, session: Option[Session]): HeaderCarrier"$
+
+_root_.play.api.mvc.Headers#"
+"_root_.scala.Option#"$
+#*_root_.play.api.mvc.Session#".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"Ï
+Ä_root_.scala.concurrent.Future#recoverWith(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ÊrecoverWithb[U] => (pf: PartialFunction[Throwable, Future[U]])(implicit executor: ExecutionContext): Future[U]"%
+_root_.scala.PartialFunction#"'
+%_root_.scala.package.Throwable#"'
+'-_root_.scala.concurrent.Future#"å
+./É_root_.scala.concurrent.Future#recoverWith(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]"1
+FV)_root_.scala.concurrent.ExecutionContext#"'
+Y__root_.scala.concurrent.Future#"å
+`aÉ_root_.scala.concurrent.Future#recoverWith(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]"O
+/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.ÄÑHeaderCarrierConverter"C
+&_root_.connectors.AuthorisationResult#Ä¿AuthorisationResult"`
+0_root_.actions.AuthenticatedRequest#personId()J.,personIdLong"
+_root_.scala.Long#"ä
+g_root_.auth.GovernmentGatewayProvider#redirectToLogin(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.ûredirectToLogin;(implicit request: play.api.mvc.Request[_]): Future[Result]"'
+-3_root_.scala.concurrent.Future#"#
+4:_root_.play.api.mvc.Result#"L
+)_root_.actions.BasicAuthenticatedRequest.ÄÑBasicAuthenticatedRequest"£
+0app/actions/AuthenticatedAction.scala@3076..3083oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"M
+)_root_.actions.BasicAuthenticatedRequest# Ä†ÄBasicAuthenticatedRequest"
+_root_.play.ÄàÄplay"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"J
+)_root_.connectors.NonOrganisationAccount.ÄÑàNonOrganisationAccount"√
+h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"£
+0app/actions/AuthenticatedAction.scala@2632..2639oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"‘
+^_root_.actions.AuthenticatedAction#toViewAssessment(JJLscala/Function1;)Lplay/api/mvc/Action;.ÒtoViewAssessmentà(authorisationId: Long, assessmentRef: Long)(body: Function1[BasicAuthenticatedRequest[AnyContent], Future[Result]]): Action[AnyContent]"
+_root_.scala.Long#"
+'+_root_.scala.Long#"
+3<_root_.scala.Function1#"1
+=V)_root_.actions.BasicAuthenticatedRequest#"'
+Wa_root_.play.api.mvc.AnyContent#"'
+dj_root_.scala.concurrent.Future#"#
+kq_root_.play.api.mvc.Result#"#
+v|_root_.play.api.mvc.Action#"(
+}á_root_.play.api.mvc.AnyContent#"3
+_root_.play.api.mvc.AnyContent#Ä¿
+AnyContent"√
+0app/actions/AuthenticatedAction.scala@2195..2202éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#":
+#_root_.play.api.mvc.WrappedRequest#Ä WrappedRequest"
+_root_.models.ÄàÄmodels"Z
+$_root_.models.GroupAccount#(isAgent)2ÅisAgentBoolean"
+_root_.scala.Boolean#"p
+)_root_.play.api.mvc.Results#Unauthorized.CUnauthorizedStatus")
+#_root_.play.api.mvc.Results#Status#"P
+-_root_.connectors.BusinessRatesAuthorisation#Ä BusinessRatesAuthorisation"ﬂ
+w_root_.connectors.BusinessRatesAuthorisation#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.„<init>B(config: ServicesConfig, http: WSHttp): BusinessRatesAuthorisation"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"5
+(B-_root_.connectors.BusinessRatesAuthorisation#"!
+_root_.actions.ÄàÄactions",
+_root_.play.api.mvc.Result#Ä†ÄResult"4
+_root_.connectors.NoVOARecord.ÄÑàNoVOARecord"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"w
+5_root_.play.api.Play.current()Lplay/api/Application;.>ÑÄ currentApplication""
+_root_.play.api.Application#"+
+_root_.play.api.mvc.Action.ÄÑAction")
+_root_.controllers.ÄàÄcontrollers"j
+/_root_.uk.gov.hmrc.http.HttpException#(message)7ÅmessageString"!
+_root_.scala.Predef.String#"ß
+o_root_.actions.AuthenticatedAction#toViewAssessment(JJLscala/Function1;)Lplay/api/mvc/Action;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"
+_root_.views.ÄàÄviews"Ç
+0app/actions/AuthenticatedAction.scala@1758..1780NeBadRequestException"2
+,_root_.uk.gov.hmrc.http.BadRequestException#"~
+&_root_.controllers.routes.Application.TÅÄàApplicationReverseApplication",
+&_root_.controllers.ReverseApplication#"ã
+>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)IÅorganisationAccountGroupAccount"!
+_root_.models.GroupAccount#"£
+m_root_.actions.AuthenticatedAction#toViewAssessment(JJLscala/Function1;)Lplay/api/mvc/Action;.(assessmentRef)2ÄassessmentRefLong"
+_root_.scala.Long#"
+_root_.config.ÄàÄconfig">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"k
+0app/actions/AuthenticatedAction.scala@2798..27997e	Throwable"%
+	_root_.scala.package.Throwable#"D
+*_root_.uk.gov.hmrc.http.NotFoundException#Ä NotFoundException"
+_root_.scala.ÄàÄscala"®
+a_root_.actions.AuthenticatedAction#toViewAssessmentsFor(JLscala/Function1;)Lplay/api/mvc/Action;.¬toViewAssessmentsFors(authorisationId: Long)(body: Function1[BasicAuthenticatedRequest[AnyContent], Future[Result]]): Action[AnyContent]"
+_root_.scala.Long#"
+'_root_.scala.Function1#"1
+(A)_root_.actions.BasicAuthenticatedRequest#"'
+BL_root_.play.api.mvc.AnyContent#"'
+OU_root_.scala.concurrent.Future#"#
+V\_root_.play.api.mvc.Result#"#
+ag_root_.play.api.mvc.Action#"'
+hr_root_.play.api.mvc.AnyContent#"%
+_root_.config.Global.ÄÑGlobal"Ë
+_root_.actions.AgentRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;JLplay/api/mvc/Request;)V.(request)eÄrequest
+Request[A]""
+_root_.play.api.mvc.Request#"'
+	_root_.actions.AgentRequest#[A]"÷
+^_root_.actions.AuthenticatedAction#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.tÑÄ hc:(implicit request: play.api.mvc.Request[_]): HeaderCarrier".
+-:&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+'_root_.actions.AuthenticatedRequest#[A]ÄA"®
+2_root_.actions.BasicAuthenticatedRequest#(request)rÅrequest
+Request[A]""
+_root_.play.api.mvc.Request#"4
+	,_root_.actions.BasicAuthenticatedRequest#[A]"-
+_root_.play.api.mvc.Results.ÄÑResults"Ö
+L_root_.controllers.ReverseCreateIndividualAccount#show()Lplay/api/mvc/Call;.5show(): Call"!
+_root_.play.api.mvc.Call#"L
+(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount""
+_root_.uk.gov.hmrc.ÄàÄhmrc"B
+$_root_.actions.AuthenticatedRequest#Ä¿AuthenticatedRequest"µ
+v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.∫flatMapS[S] => (f: Function1[T, Future[S]])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"'
+_root_.scala.concurrent.Future#"Å
+ y_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+7G)_root_.scala.concurrent.ExecutionContext#"'
+JP_root_.scala.concurrent.Future#"Å
+QRy_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"Á
+í_root_.actions.AuthenticatedAction#handleResult(Lconnectors/AuthorisationResult;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.œÑÄhandleResultú(result: AuthorisationResult, body: Function1[BasicAuthenticatedRequest[AnyContent], Future[Result]])(implicit request: Request[AnyContent]): Future[Result]".
+	&_root_.connectors.AuthorisationResult#"
+$-_root_.scala.Function1#"1
+.G)_root_.actions.BasicAuthenticatedRequest#"'
+HR_root_.play.api.mvc.AnyContent#"'
+U[_root_.scala.concurrent.Future#"#
+\b_root_.play.api.mvc.Result#"$
+x_root_.play.api.mvc.Request#")
+Ää_root_.play.api.mvc.AnyContent#")
+éî_root_.scala.concurrent.Future#"%
+ïõ_root_.play.api.mvc.Result#"h
+*_root_.play.api.mvc.RequestHeader#session.:ÅÄ@sessionSession""
+_root_.play.api.mvc.Session#"k
+6_root_.models.DetailedIndividualAccount#(individualId)1ÅindividualIdLong"
+_root_.scala.Long#"k
+%_root_.models.Accounts#(organisation)BÅorganisationGroupAccount"!
+_root_.models.GroupAccount#"'
+_root_.uk.gov.hmrc.play.ÄàÄplay" 
+_root_.scala.Some.
+ÄÑSome"j
+&_root_.play.api.mvc.Results#Forbidden.@	ForbiddenStatus")
+#_root_.play.api.mvc.Results#Status#"ç
+v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.í<init>r(provider: GovernmentGatewayProvider, businessRatesAuthorisation: BusinessRatesAuthorisation): AuthenticatedAction".
+$&_root_.auth.GovernmentGatewayProvider#"5
+B\-_root_.connectors.BusinessRatesAuthorisation#"+
+_r#_root_.actions.AuthenticatedAction#"é
+Y_root_.play.api.i18n.Messages#`<init>`(Lplay/api/i18n/Lang;Lplay/api/i18n/MessagesApi;)V.∞<init>-(lang: Lang, messages: MessagesApi): Messages""
+_root_.play.api.i18n.Lang#")
+"!_root_.play.api.i18n.MessagesApi#"&
+%-_root_.play.api.i18n.Messages#"÷
+H_root_.uk.gov.hmrc.http.NotFoundException#`<init>`(Ljava/lang/String;)V.â<init>$(message: String): NotFoundException"#
+
+_root_.scala.Predef.String#"2
+$*_root_.uk.gov.hmrc.http.NotFoundException#2¿
+ŸŸ*.apply[Html]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.#
+_root_.play.twirl.api.Html#2#
+êê
+*(request)
+_star_.2ë
+‡‡*.apply[Session]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.$
+_root_.play.api.mvc.Session#2ú
+ùùD*.apply(play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.p
+5Ch_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2m
+åå*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2G
+••	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2®
+ùù'*(AuthenticatedAction.this.hc(request))
+_star_.f
+^_root_.actions.AuthenticatedAction#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2#
+ææ
+*(request)
+_star_.2ú
+ÌÌD*.apply(play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.p
+5Ch_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2¿
+∏∏*.apply[Html]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.#
+_root_.play.twirl.api.Html#2G
+––	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2ø
+µµ*.apply[String]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;. 
+_root_.java.lang.String#2Ç
+¶¶*.apply[AnyContent]
+_star_.™
+°_root_.actions.BasicAuthenticatedRequest.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)Lactions/BasicAuthenticatedRequest;.'
+_root_.play.api.mvc.AnyContent#2G
+ÚÚ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2È
+‰‰*.apply[AnyContent]
+_star_.ë
+à_root_.actions.AgentRequest.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;JLplay/api/mvc/Request;)Lactions/AgentRequest;.'
+_root_.play.api.mvc.AnyContent#2m
+◊◊*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2G
+––	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2±
+ù ù *.apply
+_star_.é
+Ö_root_.views.html.errors.forbidden_Scope0.forbidden#apply(Lplay/api/mvc/RequestHeader;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2G
+ﬁﬁ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2ø
+ÂÂò*(play.api.http.Writeable.writeableOf_Content[Html](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.#
+.2_root_.play.twirl.api.Html#y
+j|q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.(
+GL _root_.play.api.mvc.Codec.utf_8.*
+êï _root_.play.api.mvc.Codec.utf_8.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.2#
+˜˜
+*(request)
+_star_.2#
+ŒŒ
+*(request)
+_star_.2”
+Å Å *.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2ã
+ü ü w*(request, play.api.i18n.Messages.Implicits.applicationMessages(play.api.i18n.Lang.defaultLang, play.api.Play.current))
+_star_..
+S^&_root_.play.api.i18n.Lang.defaultLang.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
+nu5_root_.play.api.Play.current()Lplay/api/Application;.2G
+˜˜	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2”
+† † û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2Á
+––<*(play.api.http.Writeable.wString(play.api.mvc.Codec.utf_8))
+_star_.f
+!^_root_.play.api.http.DefaultWriteables#wString(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.(
+5: _root_.play.api.mvc.Codec.utf_8.2Á
+ôô<*(play.api.http.Writeable.wString(play.api.mvc.Codec.utf_8))
+_star_.f
+!^_root_.play.api.http.DefaultWriteables#wString(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.(
+5: _root_.play.api.mvc.Codec.utf_8.2ú
+ååD*.apply(play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.p
+5Ch_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2G
+óó	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2®
+»»'*(AuthenticatedAction.this.hc(request))
+_star_.f
+^_root_.actions.AuthenticatedAction#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2®
+èè'*(AuthenticatedAction.this.hc(request))
+_star_.f
+^_root_.actions.AuthenticatedAction#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2ø
+ˇˇ*.apply[String]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;. 
+_root_.java.lang.String#2G
+ÖÖ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2ø
+ÜÜò*(play.api.http.Writeable.writeableOf_Content[Html](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.#
+.2_root_.play.twirl.api.Html#y
+j|q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.(
+GL _root_.play.api.mvc.Codec.utf_8.*
+êï _root_.play.api.mvc.Codec.utf_8.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.2G
+àà	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2G
+®®	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2G
+ºº	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#:Scala211B÷%/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package actions
+
+import javax.inject.Inject
+
+import auth.GovernmentGatewayProvider
+import config.Global
+import connectors._
+import models.{DetailedIndividualAccount, GroupAccount}
+import play.api.Logger
+import play.api.Play.current
+import play.api.i18n.Messages
+import play.api.i18n.Messages.Implicits.applicationMessages
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.mvc.Results._
+import play.api.mvc._
+
+import scala.concurrent.Future
+import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
+import uk.gov.hmrc.play.HeaderCarrierConverter
+
+class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
+                                    businessRatesAuthorisation: BusinessRatesAuthorisation) {
+  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+
+  def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
+    businessRatesAuthorisation.authenticate flatMap {
+      res => handleResult(res, body)
+    } recoverWith {
+      case e: BadRequestException =>
+        Global.onBadRequest(request, e.message)
+      case _: NotFoundException =>
+        Global.onHandlerNotFound(request)
+      //need to catch unhandled exceptions here to propagate the request ID into the internal server error page
+      case e =>
+        Global.onError(request, e)
+    }
+  }
+
+  def asAgent(body: AgentRequest[AnyContent] => Future[Result])(implicit messages: Messages) = apply { implicit request =>
+    if (request.organisationAccount.isAgent) {
+      body(AgentRequest(request.organisationAccount, request.individualAccount, request.organisationAccount.agentCode, request))
+    } else {
+      Future.successful(Unauthorized("Agent account required"))
+    }
+  }
+
+  def toViewAssessment(authorisationId: Long, assessmentRef: Long)(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = {
+    Action.async { implicit request =>
+      businessRatesAuthorisation.authorise(authorisationId, assessmentRef) flatMap {
+        res => handleResult(res, body)
+      } recover {
+        case e =>
+          Logger.error(e.getMessage, e)
+          InternalServerError(Global.internalServerErrorTemplate(request))
+      }
+    }
+  }
+
+  def toViewAssessmentsFor(authorisationId: Long)(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
+    businessRatesAuthorisation.authorise(authorisationId) flatMap {
+      res => handleResult(res, body)
+    } recover {
+      case e =>
+        Logger.error(e.getMessage, e)
+        InternalServerError(Global.internalServerErrorTemplate(request))
+    }
+  }
+
+  private def handleResult(result: AuthorisationResult, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
+                          (implicit request: Request[AnyContent]) = {
+    result match {
+      case Authenticated(accounts) => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+      case InvalidGGSession => provider.redirectToLogin
+      case NoVOARecord => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
+      case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
+      case NonOrganisationAccount => Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
+      case ForbiddenResponse => Future.successful(Forbidden(views.html.errors.forbidden()))
+    }
+  }
+}
+
+sealed trait AuthenticatedRequest[A] extends Request[A] {
+  val organisationAccount: GroupAccount
+  val individualAccount: DetailedIndividualAccount
+
+  def organisationId: Long = organisationAccount.id
+  def personId: Long = individualAccount.individualId
+}
+
+case class BasicAuthenticatedRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A])
+  extends WrappedRequest[A](request) with AuthenticatedRequest[A]
+
+case class AgentRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, agentCode: Long, request: Request[A])
+  extends WrappedRequest[A](request) with AuthenticatedRequest[A]J%app/actions/AuthenticatedAction.scala

@@ -1,0 +1,94 @@
+
+ù 6
+æƒ,_root_.models.DetailedValuationRequestTypes#?
+•™3_root_.models.PostRequest.name()Ljava/lang/String;.%
+›¡_root_.scala.Predef.String#T
+œŸH_root_.models.DetailedValuationRequestTypes.all()Lscala/collection/Seq;.B
+˜Ÿ6_root_.models.DetailedValuationRequestTypes#$init$()V.
+åë_root_.models.8
+µÒ,_root_.models.DetailedValuationRequestTypes.&
+ÒÝ_root_.models.PostRequest.$
+Øã_root_.models.PostRequest..
+››$_root_.java.lang.Object#`<init>`()V.8
+ú—,_root_.models.DetailedValuationRequestTypes#'
+èô_root_.models.EmailRequest."
+ ©_root_.models.NamedEnum#.
+„„$_root_.java.lang.Object#`<init>`()V.P
+»¾D_root_.models.DetailedValuationRequestTypes#key()Ljava/lang/String;.6
+¥Â,_root_.models.DetailedValuationRequestTypes#%
+ÊÖ_root_.models.EmailRequest.%
+ÀÆ_root_.scala.Predef.String#@
+¬°4_root_.models.EmailRequest.name()Ljava/lang/String;.6
+ì‰,_root_.models.DetailedValuationRequestTypes##
+¡¤_root_.scala.package.Seq#%
+²¸_root_.scala.Predef.String#.
+‹‹$_root_.java.lang.Object#`<init>`()V.)
+Ûë_root_.models.NamedEnumSupport#&
+ÆÉ_root_.scala.collection.Seq.6
+ýš,_root_.models.DetailedValuationRequestTypes#")
+_root_.scala.collection.Seq.	€„Seq"c
+$_root_.java.lang.Object#`<init>`()V.;ˆ€€<init>
+(): Object" 
+
+_root_.java.lang.Object#"Ï
+H_root_.models.DetailedValuationRequestTypes.all()Lscala/collection/Seq;.‚all"Seq[DetailedValuationRequestTypes]"
+_root_.scala.package.Seq#"4
+!,_root_.models.DetailedValuationRequestTypes#"j
+3_root_.models.PostRequest.name()Ljava/lang/String;.3nameString"!
+_root_.scala.Predef.String#"S
+,_root_.models.DetailedValuationRequestTypes##€ÀDetailedValuationRequestTypes"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"S
+,_root_.models.DetailedValuationRequestTypes.#€„DetailedValuationRequestTypes"k
+4_root_.models.EmailRequest.name()Ljava/lang/String;.3nameString"!
+_root_.scala.Predef.String#"j
+6_root_.models.DetailedValuationRequestTypes#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#"z
+D_root_.models.DetailedValuationRequestTypes#key()Ljava/lang/String;.2keyString"!
+_root_.scala.Predef.String#"8
+_root_.models.NamedEnumSupport#€@NamedEnumSupport"
+_root_.models.€ˆ€models"*
+_root_.models.NamedEnum#€@	NamedEnum"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."2
+_root_.models.EmailRequest.€„ˆEmailRequest"0
+_root_.models.PostRequest.€„ˆPostRequest2Ó
+ÉÉG*.apply[DetailedValuationRequestTypes with Product with Serializable{}]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.4
+%,_root_.models.DetailedValuationRequestTypes#"
+8D_root_.scala.Serializable#
++2_root_.scala.Product#:Scala211Bç/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+sealed trait DetailedValuationRequestTypes extends NamedEnum {
+  override def key: String = "dvRequestType"
+}
+
+case object EmailRequest extends DetailedValuationRequestTypes {
+  override def name: String = "email"
+}
+
+case object PostRequest extends DetailedValuationRequestTypes {
+  override def name: String = "post"
+}
+
+object DetailedValuationRequestTypes extends NamedEnumSupport[DetailedValuationRequestTypes] {
+  override def all: Seq[DetailedValuationRequestTypes] = Seq(EmailRequest, PostRequest)
+}
+J.app/models/DetailedValuationRequestTypes.scala

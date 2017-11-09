@@ -1,0 +1,1286 @@
+
+æ ?
+ÈÏ3app/controllers/CreateGroupAccount.scala@2409..2412A
+ì#ò#7_root_.controllers.CreateGroupAccount.keys.$anon#email.
+ôù_root_.play.C
+ÃÃ9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.&
+ø»_root_.connectors.Addresses#=
+·È3app/controllers/CreateGroupAccount.scala@2769..2777=
+Ò˙3app/controllers/CreateGroupAccount.scala@2529..2538?
+ˆ ˚ 3app/controllers/CreateGroupAccount.scala@4210..4237F
+ë•<_root_.controllers.CreateGroupAccount#(identityVerification)0
+˜#á$&_root_.form.Mappings.mandatoryBoolean.5
+”!◊!+_root_.controllers.CreateGroupAccount.keys.I
+â	è	?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#T
+ÈJ_root_.controllers.ReverseCreateGroupAccount#success()Lplay/api/mvc/Call;.&
+œÿ_root_.connectors.Addresses#?
+ú£3app/controllers/CreateGroupAccount.scala@3228..3314ô
+ñ%ñ%å_root_.controllers.GroupAccountDetails#`<init>`(Ljava/lang/String;Lmodels/Address;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V.?
+˘Ä3app/controllers/CreateGroupAccount.scala@2425..2432`
+„ÚV_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.P
+¬#ƒ#F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.5
+é#í#+_root_.controllers.CreateGroupAccount.keys.ç
+âñÇ_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Ä
+¢©v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.%
+Á!Û!_root_.play.api.data.Forms.=
+¥Ω3app/controllers/CreateGroupAccount.scala@1790..1799X
+“#€#N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength)P
+ñ"ò"F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.?
+ˇÅ3app/controllers/CreateGroupAccount.scala@3839..3841N
+ÙB_root_.controllers.CreateGroupAccount#show()Lplay/api/mvc/Action;.=
+≈◊3app/controllers/CreateGroupAccount.scala@2854..29021
+ß$∫$'_root_.controllers.GroupAccountDetails.*
+‚	Ô	 _root_.connectors.GroupAccounts#1
+ãû'_root_.controllers.GroupAccountDetails#=
+øÀ3_root_.form.TextMatching.;_root_.form.TextMatching#
+€‡_root_.views.;
+≠∂1_root_.controllers.CreateGroupAccount#(addresses)=
+¶Æ3app/controllers/CreateGroupAccount.scala@3176..3184_
+ı˘U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.4
+¶≠*_root_.play.api.mvc.RequestHeader#session.?
+ÊÒ3app/controllers/CreateGroupAccount.scala@4066..4097A
+áç7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#0
+˙ˇ&_root_.views.html.createAccount.group.)
+Ω√_root_.scala.concurrent.Future#4
+≠¥*_root_.play.api.mvc.RequestHeader#session.7
+÷Ë-_root_.controllers.routes.CreateGroupAccount.=
+ó†3app/controllers/CreateGroupAccount.scala@2529..2538
+£ß_root_.form.j
+ª$¬$`_root_.controllers.GroupAccountDetails.unapply(Lcontrollers/GroupAccountDetails;)Lscala/Option;..
+ô"ß"$_root_.form.Mappings.addressMapping.Y
+ø√O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.%
+√Ã_root_.java.lang.Exception#5
+â"ç"+_root_.controllers.CreateGroupAccount.keys.?
+ª¡3app/controllers/CreateGroupAccount.scala@3131..3137
+£´_root_.auth.GGAction#;
+ª≈1_root_.uk.gov.hmrc.play.frontend.auth.connectors.Ä
+ø∆v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.N
+ö¥B_root_.controllers.CreateGroupAccount#(personalDetailsSessionRepo)4
+ÕË*_root_.models.IndividualAccountSubmission.)
+À—_root_.scala.concurrent.Future.=
+àè3app/controllers/CreateGroupAccount.scala@2425..2432
+ÁÎ_root_.views.html.=
+û•3app/controllers/CreateGroupAccount.scala@2063..20704
+êó*_root_.play.api.mvc.RequestHeader#session.?
+ñ!ù!3app/controllers/CreateGroupAccount.scala@4242..4265ç
+ü¨Ç_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.?
+˜Ä3app/controllers/CreateGroupAccount.scala@2167..21768
+î
+ò
+,_root_.controllers.CreateGroupAccount#(auth)a
+“‹W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.=
+ƒÕ1_root_.controllers.CreateGroupAccount#(addresses)$
+¡!≈!_root_.play.api.data.Form.%
+≈%À%_root_.scala.Predef.String#"
+®¨_root_.uk.gov.hmrc.play.?
+êó3app/controllers/CreateGroupAccount.scala@3088..3095
+≥∑_root_.play.:
+˜ˇ0_root_.controllers.CreateGroupAccount#(ggAction)5
+ﬁ‚+_root_.controllers.CreateGroupAccount.form.*
+Ï˘ _root_.views.html.createAccount.5
+Á#Î#+_root_.controllers.CreateGroupAccount.keys.:
+Ë$Ï$._root_.controllers.CreateGroupAccountVM#(form)C
+Õ%€%7_root_.controllers.GroupAccountDetails#(confirmedEmail)?
+≈Œ3app/controllers/CreateGroupAccount.scala@3009..3050?
+¶ ´ 3app/controllers/CreateGroupAccount.scala@4130..4157a
+çóW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.3
+¥¿)_root_.play.api.mvc.Results#Unauthorized.&
+ÈÔ_root_.views.helpers.Errors.?
+·Í3app/controllers/CreateGroupAccount.scala@2529..25381
+◊	◊	'_root_.javax.inject.Inject#`<init>`()V.¶
+À“õ_root_.controllers.CreateGroupAccount#registerAddress(Lcontrollers/GroupAccountDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)6
+À"÷",_root_.play.api.data.validation.Constraints.H
+Ò"˝">_root_.controllers.CreateGroupAccount.keys.$anon#confirmEmail.ü
+ÚÅí_root_.controllers.CreateGroupAccount#registerAddress(Lcontrollers/GroupAccountDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.?
+˛á3app/controllers/CreateGroupAccount.scala@1790..1799É
+û°y_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+û°_root_.play.api.:
+æ%√%._root_.controllers.GroupAccountDetails#(email)?
+ñù3app/controllers/CreateGroupAccount.scala@1686..1693a
+µøW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.6
+ø√,_root_.controllers.CreateGroupAccount#(auth):
+⁄	‡	._root_.controllers.CreateGroupAccount#(groups)
+¸Ä_root_.scala.None.L
+Æ±B_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;.A
+≤"∑"7_root_.controllers.CreateGroupAccount.keys.$anon#email.=
+“’3app/controllers/CreateGroupAccount.scala@2409..24127
+∫!æ!+_root_.controllers.CreateGroupAccount.form.Q
+ÊÌE_root_.controllers.CreateGroupAccount#success()Lplay/api/mvc/Action;.?
+ß´5_root_.play.api.data.Form.;_root_.play.api.data.Form#3
+¿Ã)_root_.play.api.mvc.Results#Unauthorized.0
+∂∫&_root_.uk.gov.hmrc.play.frontend.auth.8
+®Æ._root_.controllers.CreateGroupAccount#(groups)V
+äõL_root_.models.PersonalDetails#individualDetails()Lmodels/IndividualDetails;.?
+áç3app/controllers/CreateGroupAccount.scala@2695..2701M
+˘˛C_root_.auth.GGAction#async(Lscala/Function1;)Lplay/api/mvc/Action;.÷
+Ÿ	Ÿ	…_root_.controllers.CreateGroupAccount#`<init>`(Lconnectors/GroupAccounts;Lconnectors/VPLAuthConnector;Lauth/GGAction;Lconnectors/IdentityVerification;Lconnectors/Addresses;Lrepositories/SessionRepo;)V.=
+âí3app/controllers/CreateGroupAccount.scala@3009..3050=
+õ™3app/controllers/CreateGroupAccount.scala@2797..2839Ω
+∆!Õ!≤_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.
+’ÿ_root_.play.api.
+¢¶_root_.play.api.data.P
+‰!Ê!F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.%
+—	◊	_root_.javax.inject.Inject#
+¯˝_root_.scala."
+£	ß	_root_.uk.gov.hmrc.http.M
+ÄÖC_root_.auth.GGAction#async(Lscala/Function1;)Lplay/api/mvc/Action;.?
+ä ë 3app/controllers/CreateGroupAccount.scala@4102..4125$
+œ’_root_.controllers.routes.W
+®	µ	M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#
+ˇÖ_root_.javax.inject.$
+Ï_root_.play.api.data.Form#M
+·ÊC_root_.auth.GGAction#async(Lscala/Function1;)Lplay/api/mvc/Action;.H
+Üö<_root_.controllers.CreateGroupAccount#(identityVerification)¶
+æ≈õ_root_.controllers.CreateGroupAccount#registerAddress(Lcontrollers/GroupAccountDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)&
+ö#†#_root_.views.helpers.Errors.s
+ÊÍg_root_.controllers.CreateGroupAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateGroupAccountVM;.(form)<
+œ
+◊
+0_root_.controllers.CreateGroupAccount#(ggAction)*
+ﬁË _root_.play.api.data.validation.?
+ÉÖ3app/controllers/CreateGroupAccount.scala@3331..3333`
+¡" "V_root_.play.api.data.Mapping#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.
+–‘_root_.play.*
+ß¥ _root_.views.html.createAccount.
+•©_root_.scala.None./
+€Ë%_root_.models.Address#(addressUnitId)Y
+∆ O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.Q
+ÕŒG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.
+Ÿ
+·
+_root_.auth.GGAction#0
+À›&_root_.controllers.CreateGroupAccount.)
+ﬁ‡_root_.play.api.mvc.Results#Ok.<
+¨%≥%0_root_.controllers.GroupAccountDetails#(address):
+ÿ‡0_root_.controllers.CreateGroupAccount#(ggAction)£
+ƒ—ò_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.6
+°#∞#,_root_.views.helpers.Errors.emailsMustMatch.
+≥Ω_root_.connectors.3
+ô•)_root_.play.api.mvc.Results#Unauthorized.£
+©´ñ_root_.controllers.CreateGroupAccount#registerAddress(Lcontrollers/GroupAccountDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)0
+µ∫&_root_.views.html.createAccount.group."
+˛à	_root_.scala.concurrent.
+£ß_root_.uk.gov.hmrc.=
+ø¡3app/controllers/CreateGroupAccount.scala@3331..3333
+ó	ô	
+_root_.uk.
+⁄ﬂ_root_.views.
+ü¢_root_.uk.gov.Y
+©≠O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.%
+≈#—#_root_.play.api.data.Forms.I
+∆”?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#
+ú°_root_.views.®
+Çâõ_root_.controllers.CreateGroupAccount#registerAddress(Lcontrollers/GroupAccountDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)
+·Ê_root_.views.:
+∆Õ0_root_.controllers.GroupAccountDetails#(address)L
+òõB_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;.C
+é"ï"9_root_.controllers.CreateGroupAccount.keys.$anon#address.)
+ƒ _root_.scala.concurrent.Future.7
+—’+_root_.controllers.CreateGroupAccount.keys.L
+µ∏B_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;.=
+≠∂3app/controllers/CreateGroupAccount.scala@2167..2176
+ƒ«_root_.scala.Int#
+”Ÿ_root_.models.*
+ÂÚ _root_.views.html.createAccount.)
+◊Ÿ_root_.play.api.mvc.Results#Ok.+
+ª"¿"!_root_.play.api.data.Forms.email.?
+èî5_root_.javax.inject.Named.;_root_.javax.inject.Named#0
+Äí&_root_.controllers.CreateGroupAccount.2
+ˆä(_root_.controllers.CreateGroupAccountVM#
+®∞_root_.form.Mappings.≈
+Øµ∫_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.=
+•¨3app/controllers/CreateGroupAccount.scala@1686..16935
+Ï""+_root_.controllers.CreateGroupAccount.keys.
+Ÿ›_root_.play.api.data.x
+∑Ωn_root_.connectors.Addresses#create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.4
+”$Á$(_root_.controllers.CreateGroupAccountVM#ç
+¶≥Ç_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;._
+‰ˇU_root_.models.IndividualAccountSubmission.;_root_.models.IndividualAccountSubmission#5
+≠"±"+_root_.controllers.CreateGroupAccount.keys.1
+ˇì'_root_.connectors.IdentityVerification#q
+¢¶g_root_.controllers.CreateGroupAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateGroupAccountVM;.(form)<
+ì&ö&0_root_.controllers.GroupAccountDetails#(isAgent)=
+òö3app/controllers/CreateGroupAccount.scala@3839..3841$
+˛É_root_.javax.inject.Named#h
+◊"‡"^_root_.play.api.data.validation.Constraints#maxLength(I)Lplay/api/data/validation/Constraint;.?
+Ë3app/controllers/CreateGroupAccount.scala@3176..3184C
+Ï#Û#9_root_.controllers.CreateGroupAccount.keys.$anon#isAgent.P
+∏"∫"F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.m
+„Âa_root_.controllers.CreateGroupAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateGroupAccountVM;.P
+œ’D_root_.controllers.CreateGroupAccount#submit()Lplay/api/mvc/Action;.=
+ìñ3app/controllers/CreateGroupAccount.scala@2409..24120
+≠∫&_root_.uk.gov.hmrc.http.HeaderCarrier#?
+∆ “ 3app/controllers/CreateGroupAccount.scala@4162..4205
+û	¢	_root_.uk.gov.hmrc.
+∫æ_root_.form.L
+ÉùB_root_.controllers.CreateGroupAccount#(personalDetailsSessionRepo)P
+Ù#ˆ#F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.3
+∞º)_root_.play.api.mvc.Results#Unauthorized.5
+∑#ª#+_root_.controllers.CreateGroupAccount.keys.1
+úü'_root_.connectors.IdentityVerification##
+Å#ç#_root_.form.TextMatching.)
+Üå_root_.scala.concurrent.Future.
+·Ë_root_.views.helpers.)
+Æ¥_root_.scala.concurrent.Future.
+º¿_root_.play.api.data.F
+äû<_root_.controllers.CreateGroupAccount#(identityVerification)%
+¡∆_root_.play.api.data.Forms.c
+ÈÙY_root_.play.api.data.validation.Constraints.;_root_.play.api.data.validation.Constraints#2
+ç°(_root_.controllers.CreateGroupAccountVM.T
+Á$Á$H_root_.controllers.CreateGroupAccountVM#`<init>`(Lplay/api/data/Form;)V.*
+ ◊ _root_.connectors.GroupAccounts#7
+Ûˇ-_root_.views.html.createAccount.confirmation.?
+èñ3app/controllers/CreateGroupAccount.scala@2063..2070
+¢¶_root_.views.html.-
+ö
+™
+#_root_.connectors.VPLAuthConnector#?
+—Ÿ3app/controllers/CreateGroupAccount.scala@2769..2777F
+Ùà<_root_.controllers.CreateGroupAccount#(identityVerification).
+ÁÁ$_root_.java.lang.Object#`<init>`()V.
+˘˛_root_.javax.3
+÷‚)_root_.play.api.mvc.Results#Unauthorized.3
+É%ñ%'_root_.controllers.GroupAccountDetails#+
+≠µ!_root_.uk.gov.hmrc.play.frontend.
+‡‰_root_.views.html.
+ú&£&_root_.scala.Boolean#%
+ã&ë&_root_.scala.Predef.String#:
+”⁄0_root_.controllers.GroupAccountDetails#(address)7
+ÕÊ-_root_.controllers.PropertyLinkingController#5
+ìó+_root_.controllers.CreateGroupAccount.form.=
+ª¡3app/controllers/CreateGroupAccount.scala@2695..2701 
+µ%º%_root_.models.Address#A
+º#¡#7_root_.controllers.CreateGroupAccount.keys.$anon#phone.@
+ó%¢%4_root_.controllers.GroupAccountDetails#(companyName)
+¸à_root_.repositories.G
+Åê=_root_.models.PersonalDetails.;_root_.models.PersonalDetails#:
+Ñ&â&._root_.controllers.GroupAccountDetails#(phone)=
+∂Ω3app/controllers/CreateGroupAccount.scala@3088..3095%
+›%„%_root_.scala.Predef.String#G
+ÿ!„!=_root_.controllers.CreateGroupAccount.keys.$anon#companyName./
+ŸÎ%_root_.connectors.IndividualAccounts#*
+âî _root_.repositories.SessionRepo#
+Â_root_.controllers.†
+àíï_root_.connectors.VPLAuthConnector#getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.=
+Ùã3app/controllers/CreateGroupAccount.scala@2917..2994M
+Ø∏C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.0
+ÑÑ&_root_.javax.inject.Named#`<init>`()V.¥
+†$•$©_root_.controllers.GroupAccountDetails.apply(Ljava/lang/String;Lmodels/Address;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Lcontrollers/GroupAccountDetails;.X
+Ù!˝!N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength)%
+§%™%_root_.scala.Predef.String#=
+ÈÔ3app/controllers/CreateGroupAccount.scala@3131..3137=
+√À3app/controllers/CreateGroupAccount.scala@2769..2777(
+¢±_root_.models.PersonalDetails#Y
+∆ŒO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.
+úû
+_root_.uk.$
+Ó$Ú$_root_.play.api.data.Form#a
+À’W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.
+ö	ù	_root_.uk.gov.?
+™º3app/controllers/CreateGroupAccount.scala@2854..29027
+€‚-_root_.models.Address.;_root_.models.Address#-
+Ì˝#_root_.connectors.VPLAuthConnector#
+˙˛_root_.scala.Some.6
+Éá,_root_.controllers.CreateGroupAccount#(auth)2
+≤ƒ&_root_.controllers.CreateGroupAccount.3
+›È)_root_.play.api.mvc.Results#Unauthorized.2
+Ω	œ	&_root_.controllers.CreateGroupAccount#P
+˛"Ä#F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.?
+ÒÄ3app/controllers/CreateGroupAccount.scala@2797..2839?
+ÈÄ3app/controllers/CreateGroupAccount.scala@2917..2994
+û¢_root_.auth.
+∏ª_root_.play.api.Ä
+∏øv_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ù
+—‡í_root_.controllers.CreateGroupAccount#registerAddress(Lcontrollers/GroupAccountDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.1
+ëõ'_root_.play.api.mvc.Results#BadRequest.=
+Çâ3app/controllers/CreateGroupAccount.scala@3228..3228*
+∂¡ _root_.repositories.SessionRepo#1
+å$ü$'_root_.controllers.GroupAccountDetails.:
+¯0_root_.controllers.CreateGroupAccount#(ggAction)"ì
+3app/controllers/CreateGroupAccount.scala@3009..3050\	addressIdFuture[Int]"%
+_root_.scala.concurrent.Future#"
+
+_root_.scala.Int#"©
+ò_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ãgetExternalId>(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String]":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#".
+ -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+06_root_.scala.concurrent.Future#"#
+7=_root_.scala.Predef.String#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"5
+ _root_.play.api.data.validation.ÄàÄ
+validation"‘
+a_root_.controllers.CreateGroupAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateGroupAccountVM;.oÑÄ vm3(form: play.api.data.Form[_]): CreateGroupAccountVM"0
+3(_root_.controllers.CreateGroupAccountVM#"p
+9_root_.controllers.CreateGroupAccount.keys.$anon#isAgent.3isAgentString"
+_root_.java.lang.String#"∞
+3app/controllers/CreateGroupAccount.scala@2695..2701yÄerrorsForm[GroupAccountDetails]" 
+_root_.play.api.data.Form#"/
+'_root_.controllers.GroupAccountDetails#"’
+B_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;.éget(key: String): Option[String]"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"«
+©_root_.controllers.GroupAccountDetails.apply(Ljava/lang/String;Lmodels/Address;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Lcontrollers/GroupAccountDetails;.òÑÄÄapplyÑ(companyName: String, address: Address, email: String, confirmedEmail: String, phone: String, isAgent: Boolean): GroupAccountDetails"#
+_root_.scala.Predef.String#"
+&_root_.models.Address#"#
+/5_root_.scala.Predef.String#"#
+GM_root_.scala.Predef.String#"#
+V\_root_.scala.Predef.String#"
+gn_root_.scala.Boolean#"0
+qÑ'_root_.controllers.GroupAccountDetails#"å
+Å_root_.play.api.data.Form#`<init>`(Lplay/api/data/Mapping;Lscala/collection/immutable/Map;Lscala/collection/Seq;Lscala/Option;)V.Ö<init>c(mapping: Mapping[T], data: Map[String, String], errors: Seq[FormError], value: Option[T]): Form[T]"%
+
+_root_.play.api.data.Mapping#"%
+_root_.play.api.data.Form#[T]" 
+_root_.scala.Predef.Map#"#
+ &_root_.scala.Predef.String#"#
+(._root_.scala.Predef.String#"!
+9<_root_.scala.package.Seq#"'
+=F_root_.play.api.data.FormError#"
+PV_root_.scala.Option#"%
+WX_root_.play.api.data.Form#[T]""
+\`_root_.play.api.data.Form#"%
+ab_root_.play.api.data.Form#[T]"O
+*_root_.models.IndividualAccountSubmission.!ÄÑIndividualAccountSubmission"
+_root_.auth.ÄàÄauth"ß
++_root_.controllers.CreateGroupAccount.form.xÅÄ@formForm[GroupAccountDetails]" 
+_root_.play.api.data.Form#"/
+'_root_.controllers.GroupAccountDetails#"
+%_root_.models.Address#(addressUnitId)VÅaddressUnitIdOption[Int]"
+_root_.scala.Option#"
+
+_root_.scala.Int#"4
+ _root_.repositories.SessionRepo#Ä@SessionRepo"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#"¶
+3app/controllers/CreateGroupAccount.scala@2797..2839oeventualGroupIdFuture[String]"%
+_root_.scala.concurrent.Future#"#
+_root_.scala.Predef.String#"'
+_root_.connectors.ÄàÄ
+connectors"à
+^_root_.play.api.data.validation.Constraints#maxLength(I)Lplay/api/data/validation/Constraint;.•	maxLength!(length: Int): Constraint[String]"
+	_root_.scala.Int#"3
++_root_.play.api.data.validation.Constraint#"#
+ _root_.scala.Predef.String#"F
+1_root_.uk.gov.hmrc.play.frontend.auth.connectors.ÄàÄ
+connectors"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"ö
+B_root_.controllers.CreateGroupAccount#(personalDetailsSessionRepo)TÅpersonalDetailsSessionRepoSessionRepo"&
+ _root_.repositories.SessionRepo#"A
+,_root_.play.api.data.validation.Constraints.ÄÑConstraints"\
+3app/controllers/CreateGroupAccount.scala@3331..3333%ÄidInt"
+_root_.scala.Int#"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"4
+!_root_.uk.gov.hmrc.play.frontend.ÄàÄfrontend"/
+_root_.java.lang.Exception#Ä†Ä	Exception"‡
+ñ_root_.controllers.CreateGroupAccount#registerAddress(Lcontrollers/GroupAccountDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"l
+7_root_.controllers.CreateGroupAccount.keys.$anon#phone.1phoneString"
+_root_.java.lang.String#"û
+<_root_.controllers.CreateGroupAccount#(identityVerification)^ÄidentityVerificationIdentityVerification"-
+'_root_.connectors.IdentityVerification#"D
+'_root_.connectors.IdentityVerification#Ä IdentityVerification"$
+_root_.play.api.data.ÄàÄdata"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"@
+%_root_.connectors.IndividualAccounts#Ä IndividualAccounts"
+_root_.form.ÄàÄform"
+z_root_.auth.GGAction#`<init>`(Lauth/GovernmentGatewayProvider;Luk/gov/hmrc/play/frontend/auth/connectors/AuthConnector;)V.Ò<init>M(provider: GovernmentGatewayProvider, authConnector: AuthConnector): GGAction".
+$&_root_.auth.GovernmentGatewayProvider#"G
+5B?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#"
+EM_root_.auth.GGAction#"à
+3app/controllers/CreateGroupAccount.scala@2769..2777QÄformDataGroupAccountDetails"-
+'_root_.controllers.GroupAccountDetails#"C
+-_root_.views.html.createAccount.confirmation.ÄÑconfirmation"
+_root_.javax.ÄàÄjavax"g
+0_root_.controllers.GroupAccountDetails#(address)3ÅaddressAddress"
+_root_.models.Address#"
+_root_.play.api.
+ÄàÄapi"n
+3app/controllers/CreateGroupAccount.scala@4066..40977companyNameString"
+_root_.java.lang.String#"l
+'_root_.play.api.mvc.Results#BadRequest.A
+BadRequestStatus")
+#_root_.play.api.mvc.Results#Status#"î
+&_root_.form.Mappings.mandatoryBoolean.jmandatoryBooleanMapping[Boolean]"#
+_root_.play.api.data.Mapping#"
+_root_.scala.Boolean#"h
+0_root_.controllers.CreateGroupAccount#(ggAction)4ÄggActionGGAction"
+_root_.auth.GGAction#"†
+L_root_.models.PersonalDetails#individualDetails()Lmodels/IndividualDetails;.PindividualDetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"n
+3app/controllers/CreateGroupAccount.scala@3088..30957ÄgroupIdString"!
+_root_.scala.Predef.String#"[
+!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
+_root_.scala.Boolean#".
+_root_.scala.concurrent.Future#Ä@Future"A
+&_root_.controllers.CreateGroupAccount#Ä CreateGroupAccount"/
+_root_.scala.concurrent.Future.ÄÑFuture"B
+&_root_.controllers.CreateGroupAccount.ÄÑCreateGroupAccount"´
+9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.nêÄÄ<init>(x$1: String): Exception" 
+_root_.java.lang.String#"#
+_root_.java.lang.Exception#"å
+O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.∏ÑÄfold4[B] => (ifEmpty: <byname>[B])(f: Function1[A, B]): B" 
+_root_.scala.`<byname>`#"Z
+R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"
+!*_root_.scala.Function1#"
++,_root_.scala.Option#[A]"Z
+./R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"Z
+34R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"!
+_root_.views.html.ÄàÄhtml",
+_root_.javax.inject.Inject#Ä†ÄInject"«
+m_root_.connectors.VPLAuthConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.’<init>>(serverConfig: ServicesConfig, http: WSHttp): VPLAuthConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"+
+.>#_root_.connectors.VPLAuthConnector#"+
+_root_.repositories.ÄàÄrepositories"©
+3app/controllers/CreateGroupAccount.scala@2854..2902reventualExternalIdFuture[String]"%
+_root_.scala.concurrent.Future#"#
+_root_.scala.Predef.String#"(
+_root_.models.Address#Ä†ÄAddress"°
+ä_root_.models.Address#`<init>`(Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V.ë<init>s(addressUnitId: Option[Int], line1: String, line2: String, line3: String, line4: String, postcode: String): Address"
+_root_.scala.Option#"
+_root_.scala.Int#"#
+$*_root_.scala.Predef.String#"#
+39_root_.scala.Predef.String#"#
+BH_root_.scala.Predef.String#"#
+QW_root_.scala.Predef.String#"#
+ci_root_.scala.Predef.String#"
+ls_root_.models.Address#"l
+'_root_.java.lang.Exception#`<init>`()V.AàÄÄ<init>(): Exception"#
+_root_.java.lang.Exception#"6
+ _root_.connectors.GroupAccounts#Ä GroupAccounts"p
+3app/controllers/CreateGroupAccount.scala@2167..21769Ä	journeyIdString"!
+_root_.scala.Predef.String#"~
+N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength),Ä	maxLengthInt"
+_root_.scala.Int#"'
+_root_.views.helpers.ÄàÄhelpers"
+õ_root_.controllers.CreateGroupAccount#registerAddress(Lcontrollers/GroupAccountDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)PÄdetailsGroupAccountDetails"-
+'_root_.controllers.GroupAccountDetails#"·
+3app/controllers/CreateGroupAccount.scala@2917..2994©eventualPersonalDetailsFuture[Option[PersonalDetails]]"%
+_root_.scala.concurrent.Future#"
+_root_.scala.Option#"&
+_root_.models.PersonalDetails#"≥
+ã_root_.connectors.IdentityVerification#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/ApplicationConfig;Lconfig/WSHttp;)V.¢<init>](serverConfig: ServicesConfig, config: ApplicationConfig, http: WSHttp): IdentityVerification"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"(
+'8 _root_.config.ApplicationConfig#"
+@F_root_.config.WSHttp#"/
+I]'_root_.connectors.IdentityVerification#"h
+3app/controllers/CreateGroupAccount.scala@4210..42371phoneString"
+_root_.java.lang.String#"D
+'_root_.controllers.GroupAccountDetails.ÄÑGroupAccountDetails"E
+'_root_.controllers.GroupAccountDetails#Ä†ÄGroupAccountDetails"Ü
+J_root_.controllers.ReverseCreateGroupAccount#success()Lplay/api/mvc/Call;.8success(): Call"!
+_root_.play.api.mvc.Call#"Ω
+O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
+_root_.play.api.mvc.Call#"#
+_root_.play.api.mvc.Result#"p
+9_root_.controllers.CreateGroupAccount.keys.$anon#address.3addressString"
+_root_.java.lang.String#"´
+ï_root_.connectors.VPLAuthConnector#getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ê
+getGroupIdF(authContext: AuthContext)(implicit hc: HeaderCarrier): Future[String]":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#".
+(5&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+8>_root_.scala.concurrent.Future#"#
+?E_root_.scala.Predef.String#"
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"≤
+D_root_.controllers.CreateGroupAccount#submit()Lplay/api/mvc/Action;.jsubmitAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"õ
+í_root_.controllers.CreateGroupAccount#registerAddress(Lcontrollers/GroupAccountDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÉÑÄregisterAddressG(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int]"/
+
+'_root_.controllers.GroupAccountDetails#".
+,9&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+<B_root_.scala.concurrent.Future#"
+CF_root_.scala.Int#"+
+_root_.controllers.routes.ÄÑàroutes"°
+3app/controllers/CreateGroupAccount.scala@3176..3184jÄ_detailsOption[PersonalDetails]"
+_root_.scala.Option#"&
+_root_.models.PersonalDetails#"
+_root_.uk.gov.
+ÄàÄgov"ë
+`_root_.controllers.GroupAccountDetails.unapply(Lcontrollers/GroupAccountDetails;)Lscala/Option;.¨ÑÄÄunapply\(x$0: GroupAccountDetails): Option[Tuple6[String, Address, String, String, String, Boolean]]"/
+'_root_.controllers.GroupAccountDetails#"
+"_root_.scala.Option#"
+#)_root_.scala.Tuple6#"#
+*0_root_.scala.Predef.String#"
+29_root_.models.Address#"#
+;A_root_.scala.Predef.String#"#
+CI_root_.scala.Predef.String#"#
+KQ_root_.scala.Predef.String#"
+SZ_root_.scala.Boolean#"¨
+f_root_.connectors.Addresses#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.¡<init>1(config: ServicesConfig, http: WSHttp): Addresses"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"$
+(1_root_.connectors.Addresses#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"5
+&_root_.views.html.createAccount.group.ÄÑgroup"û
+C_root_.auth.GGAction#async(Lscala/Function1;)Lplay/api/mvc/Action;.÷asyncb(body: Function1[AuthContext, Function1[Request[AnyContent], Future[Result]]]): Action[AnyContent]"
+_root_.scala.Function1#":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"
+'_root_.scala.Function1#"$
+(/_root_.play.api.mvc.Request#"'
+0:_root_.play.api.mvc.AnyContent#"'
+=C_root_.scala.concurrent.Future#"#
+DJ_root_.play.api.mvc.Result#"#
+PV_root_.play.api.mvc.Action#"'
+Wa_root_.play.api.mvc.AnyContent#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#",
+_root_.views.helpers.Errors.ÄÑErrors"<
+#_root_.connectors.VPLAuthConnector#Ä VPLAuthConnector"¯
+Ç_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.verifySuccess@(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean]"#
+_root_.scala.Predef.String#".
+!.&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+17_root_.scala.concurrent.Future#"
+8?_root_.scala.Boolean#"y
+7_root_.controllers.GroupAccountDetails#(confirmedEmail)>ÅconfirmedEmailString"!
+_root_.scala.Predef.String#"â
+!_root_.play.api.data.Forms.email.demailMapping[String]"#
+_root_.play.api.data.Mapping#"#
+_root_.scala.Predef.String#"z
+>_root_.controllers.CreateGroupAccount.keys.$anon#confirmEmail.8confirmEmailString"
+_root_.java.lang.String#"!
+_root_.scala.None.ÄÑàNone"¶
+3app/controllers/CreateGroupAccount.scala@2425..2432oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"(
+_root_.play.api.data.Form.
+ÄÑForm")
+_root_.play.api.data.Form#Ä†ÄForm"t
+._root_.controllers.CreateGroupAccount#(groups)BÄgroupsGroupAccounts"&
+ _root_.connectors.GroupAccounts#"j
+3app/controllers/CreateGroupAccount.scala@4242..42653isAgentString"
+_root_.java.lang.String#"8
+ _root_.views.html.createAccount.ÄàÄcreateAccount"&
+_root_.scala.Boolean#Ä†Boolean"y
+3app/controllers/CreateGroupAccount.scala@3228..3228BdetailsPersonalDetails"$
+_root_.models.PersonalDetails#"Ò
+V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.ñbindFromRequest6()(implicit request: play.api.mvc.Request[_]): Form[T]""
+/3_root_.play.api.data.Form#"%
+45_root_.play.api.data.Form#[T]"Ù
+V_root_.play.api.data.Mapping#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.ôÑÄ	verifying4(constraints: <repeated>[Constraint[T]]): Mapping[T]""
+_root_.scala.`<repeated>`#"3
+#+_root_.play.api.data.validation.Constraint#"(
+$% _root_.play.api.data.Mapping#[T]"%
+*1_root_.play.api.data.Mapping#"(
+23 _root_.play.api.data.Mapping#[T]"
+_root_.play.ÄàÄplay"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"f
+&_root_.javax.inject.Named#`<init>`()V.<àÄÄ<init>	(): Named""
+	_root_.javax.inject.Named#"v
+,_root_.controllers.CreateGroupAccount#(auth)FÄauthVPLAuthConnector")
+#_root_.connectors.VPLAuthConnector#"ê
+∫_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.–create£(groupId: String, addressId: Int, details: GroupAccountDetails, individualAccountSubmission: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Long]"#
+
+_root_.scala.Predef.String#"
+ _root_.scala.Int#"/
++>'_root_.controllers.GroupAccountDetails#"2
+]x*_root_.models.IndividualAccountSubmission#"0
+áî&_root_.uk.gov.hmrc.http.HeaderCarrier#")
+óù_root_.scala.concurrent.Future#"
+û¢_root_.scala.Long#"Æ
+ç_root_.connectors.GroupAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.õ<init>T(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): GroupAccounts"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"(
+GT _root_.connectors.GroupAccounts#"˙
++_root_.controllers.CreateGroupAccount.keys. ÅÄ@keysâAnyRef{val companyName: String; val address: String; val email: String; val confirmEmail: String; val phone: String; val isAgent: String}"
+_root_.scala.AnyRef#"E
+=_root_.controllers.CreateGroupAccount.keys.$anon#companyName."A
+$+9_root_.controllers.CreateGroupAccount.keys.$anon#address."?
+9>7_root_.controllers.CreateGroupAccount.keys.$anon#email."F
+LX>_root_.controllers.CreateGroupAccount.keys.$anon#confirmEmail."?
+fk7_root_.controllers.CreateGroupAccount.keys.$anon#phone."B
+yÄ9_root_.controllers.CreateGroupAccount.keys.$anon#isAgent."¶
+3app/controllers/CreateGroupAccount.scala@2063..2070oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"'
+_root_.form.Mappings.ÄÑMappings"¥
+E_root_.controllers.CreateGroupAccount#success()Lplay/api/mvc/Action;.ksuccessAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"¶
+3app/controllers/CreateGroupAccount.scala@1686..1693oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"g
+._root_.controllers.GroupAccountDetails#(email)5ÅemailString"!
+_root_.scala.Predef.String#"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"
+_root_.models.ÄàÄmodels"p
+)_root_.play.api.mvc.Results#Unauthorized.CUnauthorizedStatus")
+#_root_.play.api.mvc.Results#Status#"∏
+–_root_.models.PersonalDetails#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/Address;)V.‚<init>ª(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino, email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: Address): PersonalDetails"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"#
+3<_root_.java.time.LocalDate#"'
+DH_root_.uk.gov.hmrc.domain.Nino#"#
+QW_root_.scala.Predef.String#"#
+io_root_.scala.Predef.String#"#
+y_root_.scala.Predef.String#"
+âè_root_.scala.Option#"%
+êñ_root_.scala.Predef.String#" 
+¢©_root_.models.Address#"(
+¨ª_root_.models.PersonalDetails#"Æ
+B_root_.controllers.CreateGroupAccount#show()Lplay/api/mvc/Action;.hshowAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"y
+3app/controllers/CreateGroupAccount.scala@3228..3314BdetailsPersonalDetails"$
+_root_.models.PersonalDetails#"&
+_root_.auth.GGAction#Ä GGAction"R
+._root_.controllers.CreateGroupAccountVM#(form) Åformplay.api.data.Form[_]"˝
+y_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ˇÑÄgetE[A] => (implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]]"(
+ _root_.play.api.libs.json.Reads#"Ñ
+|_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+$1&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+4:_root_.scala.concurrent.Future#"
+;A_root_.scala.Option#"Ñ
+BC|_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]"/
+_root_.form.TextMatching.ÄÑTextMatching")
+_root_.controllers.ÄàÄcontrollers"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"
+_root_.views.ÄàÄviews"8
+_root_.models.PersonalDetails#Ä†ÄPersonalDetails"h
+3app/controllers/CreateGroupAccount.scala@4130..41571emailString"
+_root_.java.lang.String#">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"Î*
+≤_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.≥)mapping›[R, A1, A2, A3, A4, A5, A6] => (a1: Tuple2[String, Mapping[A1]], a2: Tuple2[String, Mapping[A2]], a3: Tuple2[String, Mapping[A3]], a4: Tuple2[String, Mapping[A4]], a5: Tuple2[String, Mapping[A5]], a6: Tuple2[String, Mapping[A6]])(apply: Function6[A1, A2, A3, A4, A5, A6, R])(unapply: Function1[R, Option[Tuple6[A1, A2, A3, A4, A5, A6]]]): Mapping[R]"
+$*_root_.scala.Tuple2#"#
++1_root_.scala.Predef.String#"%
+3:_root_.play.api.data.Mapping#"ø
+;=∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"
+EK_root_.scala.Tuple2#"#
+LR_root_.scala.Predef.String#"%
+T[_root_.play.api.data.Mapping#"ø
+\^∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"
+fl_root_.scala.Tuple2#"#
+ms_root_.scala.Predef.String#"%
+u|_root_.play.api.data.Mapping#"ø
+}∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"
+áç_root_.scala.Tuple2#"%
+éî_root_.scala.Predef.String#"'
+ñù_root_.play.api.data.Mapping#"¡
+û†∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A4]"
+®Æ_root_.scala.Tuple2#"%
+Øµ_root_.scala.Predef.String#"'
+∑æ_root_.play.api.data.Mapping#"¡
+ø¡∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A5]"
+…œ_root_.scala.Tuple2#"%
+–÷_root_.scala.Predef.String#"'
+ÿﬂ_root_.play.api.data.Mapping#"¡
+‡‚∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A6]"!
+Ìˆ_root_.scala.Function6#"¡
+˜˘∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"¡
+˚˝∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"¡
+ˇÅ∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"¡
+ÉÖ∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A4]"¡
+áâ∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A5]"¡
+ãç∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A6]"¿
+èêµ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"!
+ú•_root_.scala.Function1#"¿
+¶ßµ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"
+©Ø_root_.scala.Option#"
+∞∂_root_.scala.Tuple6#"¡
+∑π∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"¡
+ªΩ∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"¡
+ø¡∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"¡
+√≈∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A4]"¡
+«…∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A5]"¡
+ÀÕ∂_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[A6]"'
+”⁄_root_.play.api.data.Mapping#"¿
+€‹µ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function6;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"p
+3app/controllers/CreateGroupAccount.scala@1790..17999Ä	journeyIdString"!
+_root_.scala.Predef.String#"ë
+$_root_.form.Mappings.addressMapping.iaddressMappingMapping[Address]"#
+_root_.play.api.data.Mapping#"
+_root_.models.Address#"f
+0_root_.controllers.GroupAccountDetails#(isAgent)2ÅisAgentBoolean"
+_root_.scala.Boolean#"l
+7_root_.controllers.CreateGroupAccount.keys.$anon#email.1emailString"
+_root_.java.lang.String#"
+_root_.scala.ÄàÄscala"k
+,_root_.views.helpers.Errors.emailsMustMatch.;emailsMustMatchString"
+_root_.java.lang.String#"*
+_root_.javax.inject.Named#Ä†ÄNamed"5
+&_root_.uk.gov.hmrc.play.frontend.auth.ÄàÄauth"®
+å_root_.controllers.GroupAccountDetails#`<init>`(Ljava/lang/String;Lmodels/Address;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V.ñ<init>Ñ(companyName: String, address: Address, email: String, confirmedEmail: String, phone: String, isAgent: Boolean): GroupAccountDetails"#
+_root_.scala.Predef.String#"
+&_root_.models.Address#"#
+/5_root_.scala.Predef.String#"#
+GM_root_.scala.Predef.String#"#
+V\_root_.scala.Predef.String#"
+gn_root_.scala.Boolean#"0
+qÑ'_root_.controllers.GroupAccountDetails#"r
+1_root_.controllers.CreateGroupAccount#(addresses)=Ä	addresses	Addresses""
+	_root_.connectors.Addresses#"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"ö
+-_root_.controllers.routes.CreateGroupAccount.iÅÄàCreateGroupAccountReverseCreateGroupAccount"3
+-_root_.controllers.ReverseCreateGroupAccount#"o
+3app/controllers/CreateGroupAccount.scala@4162..42058confirmEmailString"
+_root_.java.lang.String#"m
+3app/controllers/CreateGroupAccount.scala@3131..31376ÄuserIdString"!
+_root_.scala.Predef.String#"s
+4_root_.controllers.GroupAccountDetails#(companyName);ÅcompanyNameString"!
+_root_.scala.Predef.String#"ã
+g_root_.controllers.CreateGroupAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateGroupAccountVM;.(form) Äformplay.api.data.Form[_]"[
+3app/controllers/CreateGroupAccount.scala@3839..3841$idInt"
+_root_.scala.Int#"x
+=_root_.controllers.CreateGroupAccount.keys.$anon#companyName.7companyNameString"
+_root_.java.lang.String#"*
+_root_.play.api.data.Forms.ÄÑForms"g
+._root_.controllers.GroupAccountDetails#(phone)5ÅphoneString"!
+_root_.scala.Predef.String#"F
+(_root_.controllers.CreateGroupAccountVM.ÄÑCreateGroupAccountVM"G
+(_root_.controllers.CreateGroupAccountVM#Ä†ÄCreateGroupAccountVM""
+_root_.uk.gov.hmrc.ÄàÄhmrc"µ
+v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.∫flatMapS[S] => (f: Function1[T, Future[S]])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"'
+_root_.scala.concurrent.Future#"Å
+ y_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+7G)_root_.scala.concurrent.ExecutionContext#"'
+JP_root_.scala.concurrent.Future#"Å
+QRy_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"h
+*_root_.play.api.mvc.RequestHeader#session.:ÅÄ@sessionSession""
+_root_.play.api.mvc.Session#"Œ
+n_root_.connectors.Addresses#create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.€create;(address: Address)(implicit hc: HeaderCarrier): Future[Int]"
+
+_root_.models.Address#".
+ -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+06_root_.scala.concurrent.Future#"
+7:_root_.scala.Int#"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"Ü
+3app/controllers/CreateGroupAccount.scala@2409..2412OÄctxAuthContext"8
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"
+_root_.scala.Int#	Ä†Int" 
+…_root_.controllers.CreateGroupAccount#`<init>`(Lconnectors/GroupAccounts;Lconnectors/VPLAuthConnector;Lauth/GGAction;Lconnectors/IdentityVerification;Lconnectors/Addresses;Lrepositories/SessionRepo;)V.˚<init>¬(groups: GroupAccounts, auth: VPLAuthConnector, ggAction: GGAction, identityVerification: IdentityVerification, addresses: Addresses, personalDetailsSessionRepo: SessionRepo): CreateGroupAccount"(
+	 _root_.connectors.GroupAccounts#"+
+.#_root_.connectors.VPLAuthConnector#"
+:B_root_.auth.GGAction#"/
+Zn'_root_.connectors.IdentityVerification#"%
+{Ñ_root_.connectors.Addresses#"*
+¢≠ _root_.repositories.SessionRepo#"0
+∞¬&_root_.controllers.CreateGroupAccount#"U
+?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#Ä@AuthConnector"j
+3app/controllers/CreateGroupAccount.scala@4102..41253addressString"
+_root_.java.lang.String#"Ω
+í_root_.connectors.IndividualAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.•<init>Y(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): IndividualAccounts"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"-
+GY%_root_.connectors.IndividualAccounts#"p
+3app/controllers/CreateGroupAccount.scala@2529..25389Ä	journeyIdString"!
+_root_.scala.Predef.String#"Ω
+H_root_.controllers.CreateGroupAccountVM#`<init>`(Lplay/api/data/Form;)V.q<init>3(form: play.api.data.Form[_]): CreateGroupAccountVM"0
+3(_root_.controllers.CreateGroupAccountVM#" 
+_root_.scala.Some.
+ÄÑSome".
+_root_.connectors.Addresses#Ä 	Addresses"Ñ
+U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.™foldF[R] => (hasErrors: Function1[Form[T], R], success: Function1[T, R]): R"
+_root_.scala.Function1#""
+!_root_.play.api.data.Form#"%
+"#_root_.play.api.data.Form#[T]"`
+&'X_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"
+3<_root_.scala.Function1#"%
+=>_root_.play.api.data.Form#[T]"`
+@AX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"`
+EFX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]2x
+˘˘*[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2Á
+µµ<*(play.api.http.Writeable.wString(play.api.mvc.Codec.utf_8))
+_star_.f
+!^_root_.play.api.http.DefaultWriteables#wString(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.(
+5: _root_.play.api.mvc.Codec.utf_8.2”
+ŸŸ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2Ÿ
+ˇˇ*.apply
+_star_.∂
+≠_root_.views.html.createAccount.group_Scope0.group_Scope1.group#apply(Lcontrollers/CreateGroupAccountVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2x
+√√*[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2s
+ò"ò"*[Mapping[Address]]
+_star_.%
+	_root_.play.api.data.Mapping#
+
+_root_.models.Address#2±
+ÍÍ&*(CreateGroupAccount.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2Á
+ÚÚ<*(play.api.http.Writeable.wString(play.api.mvc.Codec.utf_8))
+_star_.f
+!^_root_.play.api.http.DefaultWriteables#wString(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.(
+5: _root_.play.api.mvc.Codec.utf_8.2Ö
+ÅÅ,*(request, CreateGroupAccount.this.messages)
+_star_.>
+#+6_root_.controllers.PropertyLinkingController#messages.2‘
+ﬁô)CreateGroupAccount.this.future[Result](*)#
+%_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+'(_star_.2ê
+°°*.apply
+_star_.n
+f_root_.controllers.CreateGroupAccountVM.apply(Lplay/api/data/Form;)Lcontrollers/CreateGroupAccountVM;.2‘
+¥–)CreateGroupAccount.this.future[Result](*)#
+%_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+'(_star_.2”
+ÇÇû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2r
+ˆ#ˆ#*[Mapping[Boolean]]
+_star_.%
+	_root_.play.api.data.Mapping#
+
+_root_.scala.Boolean#2¨
+ç#ç#*.apply
+_star_.â
+Ä_root_.form.TextMatching.apply(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lform/TextMatching;.2£
+ÄóCreateGroupAccount.this.vm(*)i
+a_root_.controllers.CreateGroupAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateGroupAccountVM;.
+_star_.2•
+ÚÚ-*.flatMap[Result](CreateGroupAccount.this.ec)
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#8
+*,0_root_.controllers.PropertyLinkingController#ec.2p
+ΩΩ*(CreateGroupAccount.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2p
+ÛÛ*(CreateGroupAccount.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2”
+õõ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2ø
+‚‚*.apply[String]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;. 
+_root_.java.lang.String#2Æ
+â"ï""scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2ø
+ºº*.apply[String]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;. 
+_root_.java.lang.String#2Á
+˘˘<*(play.api.http.Writeable.wString(play.api.mvc.Codec.utf_8))
+_star_.f
+!^_root_.play.api.http.DefaultWriteables#wString(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.(
+5: _root_.play.api.mvc.Codec.utf_8.2Ÿ
+∫∫*.apply
+_star_.∂
+≠_root_.views.html.createAccount.group_Scope0.group_Scope1.group#apply(Lcontrollers/CreateGroupAccountVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2‘
+◊Ç)CreateGroupAccount.this.future[Result](*)#
+%_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+'(_star_.2G
+øø	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2G
+’’	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2:
+óó*[Int]
+_star_.
+_root_.scala.Int#2œ
+™™*.flatMap[Result]
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#2Á
+ÃÃ<*(play.api.http.Writeable.wString(play.api.mvc.Codec.utf_8))
+_star_.f
+!^_root_.play.api.http.DefaultWriteables#wString(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.(
+5: _root_.play.api.mvc.Codec.utf_8.2ﬁ
+ùù2*.map[Result](CreateGroupAccount.this.hc(request))
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+_root_.play.api.mvc.Result#p
+&(h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2±
+ææ&*(CreateGroupAccount.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2ˇ
+≤≤E*(models.PersonalDetails.format, CreateGroupAccount.this.hc(request))
+_star_.-
+%_root_.models.PersonalDetails.format.p
+9;h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2±
+óó&*(CreateGroupAccount.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2x
+  *[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2Á
+––<*(play.api.http.Writeable.wString(play.api.mvc.Codec.utf_8))
+_star_.f
+!^_root_.play.api.http.DefaultWriteables#wString(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.(
+5: _root_.play.api.mvc.Codec.utf_8.2w
+Ê!Ê!*[Mapping[String]]
+_star_.#
+
+_root_.scala.Predef.String#%
+	_root_.play.api.data.Mapping#2ø
+••*.apply[String]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;. 
+_root_.java.lang.String#2p
+‘‘*(CreateGroupAccount.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2w
+ƒ#ƒ#*[Mapping[String]]
+_star_.#
+
+_root_.scala.Predef.String#%
+	_root_.play.api.data.Mapping#2Ω
+≈!≈!*.apply[GroupAccountDetails]
+_star_.U
+M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;./
+'_root_.controllers.GroupAccountDetails#2w
+∫"∫"*[Mapping[String]]
+_star_.#
+
+_root_.scala.Predef.String#%
+	_root_.play.api.data.Mapping#2G
+∆∆	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2#
+ÙÙ
+*(request)
+_star_.2G
+‹‹	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2S
+∏∏*[PersonalDetails]
+_star_.&
+_root_.models.PersonalDetails#2x
+ÕÕ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2G
+øø	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2K
+Ä#Ä#*[TextMatching]
+_star_.!
+_root_.form.TextMatching#2Â
+Õ!Õ!H*[GroupAccountDetails, String, Address, String, String, String, Boolean]
+_star_./
+'_root_.controllers.GroupAccountDetails##
+_root_.scala.Predef.String#
+&_root_.models.Address##
+(._root_.scala.Predef.String##
+06_root_.scala.Predef.String##
+8>_root_.scala.Predef.String#
+@G_root_.scala.Boolean#2Æ
+∑#¡#"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2Æ
+Ï"˝""scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2
+ŒŒ*(hc)
+_star_.2Ö
+òò,*(request, CreateGroupAccount.this.messages)
+_star_.>
+#+6_root_.controllers.PropertyLinkingController#messages.2ø
+ÃÃ*.apply[String]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;. 
+_root_.java.lang.String#2G
+©©	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2‘
+ë√)CreateGroupAccount.this.future[Result](*)#
+%_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+'(_star_.2œ
+íí*.flatMap[Result]
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#2±
+°°&*(CreateGroupAccount.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2ÿ
+ãã7*.map[Tuple2[Option[PersonalDetails], PersonalDetails]]
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+_root_.scala.Option#&
+&5_root_.models.PersonalDetails#
+_root_.scala.Tuple2#&
+#_root_.models.PersonalDetails#2x
+≠≠*[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2Æ
+”!„!"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2Œ
+ËË*.apply
+_star_.´
+¢_root_.models.IndividualAccountSubmission.apply(Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/IndividualDetails;)Lmodels/IndividualAccountSubmission;.2ø
+ÈÈ*.apply[String]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;. 
+_root_.java.lang.String#2Á
+‹‹<*(play.api.http.Writeable.wString(play.api.mvc.Codec.utf_8))
+_star_.f
+!^_root_.play.api.http.DefaultWriteables#wString(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.(
+5: _root_.play.api.mvc.Codec.utf_8.2”
+√√û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2Æ
+≠"∑""scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2‘
+ôµ)CreateGroupAccount.this.future[Result](*)#
+%_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+'(_star_.2”
+ôôû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2p
+ÿÿ*(CreateGroupAccount.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2£
+ª¡CreateGroupAccount.this.vm(*)i
+a_root_.controllers.CreateGroupAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateGroupAccountVM;.
+_star_.2œ
+◊◊*.flatMap[Result]
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#2Ö
+¬¬,*(request, CreateGroupAccount.this.messages)
+_star_.>
+#+6_root_.controllers.PropertyLinkingController#messages.2±
+÷÷&*(CreateGroupAccount.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2±
+∑∑&*(CreateGroupAccount.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2Æ
+Á#Û#"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2Ã
+ˇˇ*.apply
+_star_.©
+†_root_.views.html.createAccount.confirmation_Scope0.confirmation_Scope1.confirmation#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2‘
+∞Ã)CreateGroupAccount.this.future[Result](*)#
+%_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+'(_star_.2”
+‡‡*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2ø
+¿¿*.apply[String]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;. 
+_root_.java.lang.String#:Scala211B•&/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers
+
+import javax.inject.{Inject, Named}
+
+import auth.GGAction
+import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector, IdentityVerification => IDV}
+import form.Mappings._
+import form.TextMatching
+import models.{Address, IndividualAccountSubmission, PersonalDetails}
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.data.validation.Constraints
+import repositories.SessionRepo
+import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
+import views.helpers.Errors
+
+import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
+
+class CreateGroupAccount @Inject()(groups: GroupAccounts,
+                                   auth: VPLAuthConnector,
+                                   ggAction: GGAction,
+                                   identityVerification: IDV,
+                                   addresses: Addresses,
+                                   @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
+  extends PropertyLinkingController {
+
+  def show = ggAction.async { _ => implicit request =>
+    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      identityVerification.verifySuccess(journeyId) flatMap {
+        case true => Ok(views.html.createAccount.group(CreateGroupAccount.form))
+        case false => Unauthorized("Unauthorised")
+      }
+    }
+  }
+
+  def success = ggAction.async { _ => implicit request =>
+    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      identityVerification.verifySuccess(journeyId) flatMap {
+        case true => Ok(views.html.createAccount.confirmation())
+        case false => Unauthorized("Unauthorised")
+      }
+    }
+  }
+
+  def submit = ggAction.async { ctx => implicit request =>
+    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      identityVerification.verifySuccess(journeyId) flatMap {
+        case true =>
+          CreateGroupAccount.form.bindFromRequest().fold(
+            errors => BadRequest(views.html.createAccount.group(errors)),
+            formData => {
+              val eventualGroupId = auth.getGroupId(ctx)
+              val eventualExternalId = auth.getExternalId(ctx)
+              val eventualPersonalDetails = personalDetailsSessionRepo.get[PersonalDetails]
+              val addressId = registerAddress(formData)
+
+              for {
+                groupId <- eventualGroupId
+                userId <- eventualExternalId
+                _details <- eventualPersonalDetails
+                details = _details.getOrElse(throw new Exception(s"No PersonalDetails record found."))
+                id <- addressId
+                _ <- groups.create(groupId, id, formData, IndividualAccountSubmission(userId, journeyId, None, details.individualDetails))
+              } yield {
+                Redirect(routes.CreateGroupAccount.success())
+              }
+            }
+          )
+        case false => Unauthorized("Unauthorised")
+      }
+    }
+  }
+
+  private def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = details.address.addressUnitId match {
+    case Some(id) => Future.successful(id)
+    case None => addresses.create(details.address)
+  }
+
+  implicit def vm(form: Form[_]): CreateGroupAccountVM = CreateGroupAccountVM(form)
+}
+
+object CreateGroupAccount{
+  lazy val keys = new {
+    val companyName = "companyName"
+    val address = "address"
+    val email = "businessEmail"
+    val confirmEmail = "confirmedBusinessEmail"
+    val phone = "businessPhone"
+    val isAgent = "isAgent"
+  }
+
+  lazy val form = Form(mapping(
+    keys.companyName -> nonEmptyText(maxLength = 45),
+    keys.address -> addressMapping,
+    keys.email -> email.verifying(Constraints.maxLength(150)),
+    keys.confirmEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
+    keys.phone -> nonEmptyText(maxLength = 20),
+    keys.isAgent -> mandatoryBoolean
+  )(GroupAccountDetails.apply)(GroupAccountDetails.unapply))
+}
+
+case class CreateGroupAccountVM(form: Form[_])
+
+case class GroupAccountDetails(companyName: String, address: Address, email: String, confirmedEmail: String,
+                               phone: String, isAgent: Boolean)
+J(app/controllers/CreateGroupAccount.scala

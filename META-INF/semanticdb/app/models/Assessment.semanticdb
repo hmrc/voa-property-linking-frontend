@@ -1,0 +1,158 @@
+
+ï6%
+ˇâ	_root_.models.Assessment.
+îò_root_.scala.Long#
+ÂÎ_root_.models.
+ËÏ_root_.scala.Long#/
+Õ’#_root_.models.Assessment#(capacity)
+‡‰_root_.scala.Long#
+Ω√_root_.scala.Option#
+ƒ»_root_.scala.Long#A
+˛á7_root_.java.time.LocalDate.;_root_.java.time.LocalDate#%
+Æ¥_root_.scala.Predef.String#•
+ææò_root_.models.Assessment#`<init>`(JJLjava/lang/String;JLjava/time/LocalDate;Lscala/Option;Lmodels/PropertyAddress;Ljava/lang/String;Lmodels/Capacity;)V..
+‚È"_root_.models.Assessment#(address)
+ôù_root_.play.api.libs.
+Ù¯_root_.java.4
+Æª(_root_.models.Assessment#(rateableValue)(
+Î˙_root_.models.PropertyAddress##
+Ï	ˆ	_root_.models.Assessment#+
+⁄ﬁ_root_.models.Assessment#(uarn)!
+◊ﬂ_root_.models.Capacity#4
+Öí(_root_.models.Assessment#(assessmentRef)
+ïò_root_.play.api.$
+û¢_root_.play.api.libs.json.-
+÷	›	!_root_.models.Assessment.formats.1
+£	Æ	%_root_.models.Assessment.capacityFmt./
+±π#_root_.models.Assessment#(listYear)6
+◊Ê*_root_.models.Assessment#(authorisationId))
+£ß_root_.play.api.libs.json.Json.N
+∂	º	D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.4
+˝ä(_root_.models.Assessment#(effectiveDate)
+êî_root_.play.)
+‡	‰	_root_.play.api.libs.json.Json.!
+Ω	≈	_root_.models.Capacity#)
+±	µ	_root_.play.api.libs.json.Json.%
+¥æ_root_.models.Assessment#%
+ª¡_root_.scala.Predef.String#%
+åï_root_.java.time.LocalDate#N
+Â	Î	D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.
+˘˝_root_.java.time.@
+ì¨4_root_.models.Assessment#(billingAuthorityReference)"ò
+%_root_.models.Assessment.capacityFmt.oÅÄ!capacityFmtOFormat[Capacity]"(
+"_root_.play.api.libs.json.OFormat#"
+_root_.models.Capacity#"l
+(_root_.models.Assessment#(effectiveDate)@ÅeffectiveDate	LocalDate"!
+	_root_.java.time.LocalDate#")
+_root_.play.api.libs.json.ÄàÄjson"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"]
+#_root_.models.Assessment#(capacity)6ÅcapacityCapacity"
+_root_.models.Capacity#" 
+_root_.scala.Long#
+Ä†Long"˙
+ò_root_.models.Assessment#`<init>`(JJLjava/lang/String;JLjava/time/LocalDate;Lscala/Option;Lmodels/PropertyAddress;Ljava/lang/String;Lmodels/Capacity;)V.‹<init>ﬁ(authorisationId: Long, assessmentRef: Long, listYear: String, uarn: Long, effectiveDate: LocalDate, rateableValue: Option[Long], address: PropertyAddress, billingAuthorityReference: String, capacity: Capacity): Assessment"
+_root_.scala.Long#"
+'+_root_.scala.Long#"#
+7=_root_.scala.Predef.String#"
+EI_root_.scala.Long#"#
+Zc_root_.java.time.LocalDate#"
+tz_root_.scala.Option#"
+{_root_.scala.Long#"(
+ãö_root_.models.PropertyAddress#"%
+∑Ω_root_.scala.Predef.String#"!
+…—_root_.models.Capacity#"#
+‘ﬁ_root_.models.Assessment#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"
+_root_.java.ÄàÄjava"Å
+4_root_.models.Assessment#(billingAuthorityReference)IÅbillingAuthorityReferenceString"!
+_root_.scala.Predef.String#"$
+_root_.play.api.libs.ÄàÄlibs"*
+_root_.models.Capacity#Ä†ÄCapacity"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"_
+#_root_.models.Assessment#(listYear)8ÅlistYearString"!
+_root_.scala.Predef.String#"/
+_root_.java.time.LocalDate#Ä†à	LocalDate"$
+_root_.scala.Option#Ä†Option"
+_root_.play.ÄàÄplay"-
+_root_.models.Assessment.ÄÑ
+Assessment".
+_root_.models.Assessment#Ä†Ä
+Assessment"î
+!_root_.models.Assessment.formats.oÅÄ formatsOFormat[Assessment]"(
+"_root_.play.api.libs.json.OFormat#"!
+_root_.models.Assessment#"
+_root_.models.ÄàÄmodels"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"Ï
+[_root_.models.Capacity#`<init>`(Lmodels/CapacityType;Ljava/time/LocalDate;Lscala/Option;)V.å<init>R(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate]): Capacity"#
+_root_.models.CapacityType#"#
+#,_root_.java.time.LocalDate#"
+6<_root_.scala.Option#"#
+=F_root_.java.time.LocalDate#"
+JR_root_.models.Capacity#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"b
+*_root_.models.Assessment#(authorisationId)4ÅauthorisationIdLong"
+_root_.scala.Long#" 
+_root_.java.time.ÄàÄtime"Ø
+R_root_.models.PropertyAddress#`<init>`(Lscala/collection/Seq;Ljava/lang/String;)V.ÿ<init>7(lines: Seq[String], postcode: String): PropertyAddress"!
+_root_.scala.package.Seq#"#
+_root_.scala.Predef.String#"#
+%_root_.scala.Predef.String#"&
+(7_root_.models.PropertyAddress#"8
+_root_.models.PropertyAddress#Ä†ÄPropertyAddress"i
+"_root_.models.Assessment#(address)CÅaddressPropertyAddress"$
+_root_.models.PropertyAddress#"L
+_root_.models.Assessment#(uarn))ÅuarnLong"
+_root_.scala.Long#"Ñ
+(_root_.models.Assessment#(rateableValue)XÅrateableValueOption[Long]"
+_root_.scala.Option#"
+_root_.scala.Long#"^
+(_root_.models.Assessment#(assessmentRef)2ÅassessmentRefLong"
+_root_.scala.Long#:Scala211B˙	/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import java.time.LocalDate
+
+import play.api.libs.json.Json
+
+case class Assessment(
+                       authorisationId: Long,
+                       assessmentRef: Long,
+                       listYear: String,
+                       uarn: Long,
+                       effectiveDate: LocalDate,
+                       rateableValue: Option[Long],
+                       address: PropertyAddress,
+                       billingAuthorityReference: String,
+                       capacity: Capacity
+                     )
+
+object Assessment {
+  implicit private val capacityFmt = Json.format[Capacity]
+  implicit val formats = Json.format[Assessment]
+}
+Japp/models/Assessment.scala

@@ -1,0 +1,553 @@
+
+òﬂ5
+π∫)_root_.models.NamedEnumSupport#$init$()V.<
+Öá2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.;
+Ÿ›1_root_.models.NamedEnum#name()Ljava/lang/String;.
+ÂÎ_root_.models.l
+“”`_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.T#%
+ï	õ	_root_.scala.Predef.String#M
+Ñ
+é
+C_root_.scala.collection.TraversableLike#headOption()Lscala/Option;.%
+€·_root_.scala.Predef.String#-
+ñû#_root_.play.api.libs.json.JsString.+
+Ñä!_root_.play.api.libs.json.Writes#1
+⁄ﬂ%app/models/NamedEnum.scala@2006..2376j
+ˇÄ`_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.T#&
+≥	π	_root_.scala.package.Either#/
+Äâ%app/models/NamedEnum.scala@2152..2161,
+ÊÌ"_root_.play.api.libs.json.JsValue#U
+‡ÁI_root_.models.NamedEnumSupport#unapply(Ljava/lang/String;)Lscala/Option;.$
+∑¿_root_.models.NamedEnum#/
+¥π%app/models/NamedEnum.scala@2079..2084;
+âç1_root_.models.NamedEnum#name()Ljava/lang/String;.a
+Ø¥U_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;./
+≈ %app/models/NamedEnum.scala@2079..2084k
+ß±a_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.(enumObject)k
+ãïa_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.(enumObject)Z
+®¨P_root_.models.NamedEnumSupport#fromName(Ljava/lang/String;)Lscala/Option;.(name)1
+ÅÉ%app/models/NamedEnum.scala@2305..2307<
+›‡0_root_.models.NamedEnum#key()Ljava/lang/String;.%
+°	ß	_root_.scala.Predef.String#1
+®Æ%app/models/NamedEnum.scala@1828..1892,
+ÀÃ"_root_.models.NamedEnumSupport#[E]I
+õ¢?_root_.models.NamedEnumSupport#options()Lscala/collection/Seq;.f
+˝ä\_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.,
+¬	√	"_root_.models.NamedEnumSupport#[E],
+èñ"_root_.play.api.libs.json.JsError./
+«Ã%app/models/NamedEnum.scala@1991..2380j
+√—^_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.j
+Üá^_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.T#j
+ãå`_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.T#j
+µ∂`_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.T#ã
+„Ë_root_.models.NamedEnumSupport#queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/NamedEnum;)Ljava/lang/String;.(value)"
+◊‡_root_.models.NamedEnum#1
+Œ
+œ
+%app/models/NamedEnum.scala@1358..1359r
+⁄‰h_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.(enumObject)a
+‚„W_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.T#ê
+Ô	Ú	Ö_root_.models.NamedEnumSupport#queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.(key)
+Ï
+
+_root_.scala.None.$
+Ù
+¯
+_root_.scala.package.Left.,
+π¿"_root_.play.api.libs.json.JsValue#
+ÌÛ_root_.scala.Option#L
+ÅÇB_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.U
+˘˝K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.â
+Éà_root_.models.NamedEnumSupport#queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/NamedEnum;)Ljava/lang/String;.(value).
+©™"_root_.models.NamedEnumSupport#[E]a
+˙˚W_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.T#
+¨	≤	_root_.scala.Option##
+ù	†	_root_.scala.package.Seq#V
+àâL_root_.models.NamedEnumSupport#unapply(Ljava/lang/String;)Lscala/Option;.(s);
+ÄÑ1_root_.models.NamedEnum#name()Ljava/lang/String;.K
+ø∆?_root_.models.NamedEnumSupport#options()Lscala/collection/Seq;.
+òõ_root_.play.api.mvc./
+Å
+É
+%app/models/NamedEnum.scala@1246..1248
+èì_root_.play.
+Û˜_root_.play.j
+õú`_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.T#V
+’›J_root_.models.NamedEnumSupport#fromName(Ljava/lang/String;)Lscala/Option;..
+¡¬"_root_.models.NamedEnum#$init$()V.;
+”◊1_root_.models.NamedEnum#name()Ljava/lang/String;.\
+ﬁ‚P_root_.models.NamedEnumSupport#fromName(Ljava/lang/String;)Lscala/Option;.(name)-
+¯#_root_.play.api.libs.json.JsResult#c
+µ∂W_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.T#%
+ú¶_root_.models.EnumFormat.C
+Õ‡9_root_.models.NamedEnumSupport#queryStringBindable.$anon#á
+˜˙}_root_.models.NamedEnumSupport#queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/NamedEnum;)Ljava/lang/String;.(key)S
+ß
+Æ
+I_root_.models.NamedEnumSupport#unapply(Ljava/lang/String;)Lscala/Option;.U
+ÉáK_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.Q
+˘
+˙
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.%
+¯˛_root_.scala.Predef.String#+
+ÁÌ!_root_.play.api.libs.json.Format#%
+‰Í_root_.scala.Predef.String##
+« _root_.scala.package.Seq#1
+¸	˝	%app/models/NamedEnum.scala@1276..1277H
+óß>_root_.java.lang.String#equalsIgnoreCase(Ljava/lang/String;)Z.Q
+ÅÇG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.,
+·‚"_root_.models.NamedEnumSupport#[E]?
+ˆ3_root_.models.NamedEnum#msgKey()Ljava/lang/String;.+
+ò®_root_.models.NamedEnumSupport#1
+Ø≥%app/models/NamedEnum.scala@1839..1846%
+‚Ë_root_.scala.Predef.String#í
+¸ˇÖ_root_.models.NamedEnumSupport#queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.(key)"
+Æ∑_root_.models.NamedEnum#,
+ƒ≈"_root_.models.NamedEnumSupport#[E]2
+∞√(_root_.play.api.mvc.QueryStringBindable#,
+ÍÎ"_root_.models.NamedEnumSupport#[E]h
+≥¥^_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.T#t
+ñ†h_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.(enumObject)
+îó_root_.play.api.â
+÷Ÿ}_root_.models.NamedEnumSupport#queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/NamedEnum;)Ljava/lang/String;.(key))
+¢≤_root_.models.NamedEnumSupport#
+¸Ä_root_.play.api.libs..
+ûû$_root_.java.lang.Object#`<init>`()V./
+˛Ç%app/models/NamedEnum.scala@2016..2029:
+Ñá0_root_.models.NamedEnum#key()Ljava/lang/String;.E
+…Ã;_root_.models.NamedEnumSupport#all()Lscala/collection/Seq;.,
+¢©"_root_.play.api.libs.json.JsError..
+––$_root_.java.lang.Object#`<init>`()V.ç
+˜˚Ä_root_.models.NamedEnumSupport#queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.h
+˘˙^_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.T#)
+Ó˛_root_.models.NamedEnumSupport#r
+±ªh_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.(enumObject)/
+‘ÿ%app/models/NamedEnum.scala@1839..1846%
+ÎÒ_root_.scala.Predef.String#L
+˚¸B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;..
+‰‰$_root_.java.lang.Object#`<init>`()V.G
+¬≈;_root_.models.NamedEnumSupport#all()Lscala/collection/Seq;.ï
+â	è	à_root_.models.NamedEnumSupport#queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.(params)/
+Ø
+∞
+%app/models/NamedEnum.scala@1276..1277Q
+óòG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.h
+¯Ö\_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.X
+ËÈL_root_.models.NamedEnumSupport#unapply(Ljava/lang/String;)Lscala/Option;.(s)h
+ò¶^_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;."
+∫√_root_.models.NamedEnum#E
+ÂË;_root_.models.NamedEnumSupport#all()Lscala/collection/Seq;.+
+Û˘!_root_.play.api.libs.json.Format.
+¯˚_root_.play.api.a
+ÓÔW_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.T#%
+Å	á	_root_.scala.Predef.String#P
+Î	Ó	F_root_.scala.collection.MapLike#get(Ljava/lang/Object;)Lscala/Option;./
+⁄
+€
+%app/models/NamedEnum.scala@1358..1359h
+æø^_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.T#%
+œ’_root_.scala.Predef.String#/
+îö%app/models/NamedEnum.scala@1812..1896m
+≈œa_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.(enumObject),
+Ùı"_root_.models.NamedEnumSupport#[E][
+úØQ_root_.play.api.mvc.QueryStringBindable.;_root_.play.api.mvc.QueryStringBindable#=
+…Õ1_root_.models.NamedEnum#name()Ljava/lang/String;.T
+ºƒJ_root_.models.NamedEnumSupport#fromName(Ljava/lang/String;)Lscala/Option;.ì
+‰	Í	à_root_.models.NamedEnumSupport#queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.(params)
+„Á_root_.scala.Some.v
+‚Ïj_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.(enumObject)"
+ë	î	_root_.scala.Predef.Map#Q
+™´G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.)
+—·_root_.models.NamedEnumSupport#;
+íñ1_root_.models.NamedEnum#name()Ljava/lang/String;.*
+∏Ω _root_.play.api.libs.json.Reads#?
+õÆ3_root_.models.NamedEnumSupport#queryStringBindable.%
+ÓÙ_root_.scala.Predef.String#-
+À”#_root_.play.api.libs.json.JsString.%
+∫	¿	_root_.scala.Predef.String#1
+ËÒ%app/models/NamedEnum.scala@2152..21611
+‡‰%app/models/NamedEnum.scala@2016..2029/
+æ¿%app/models/NamedEnum.scala@2305..2307;
+âç1_root_.models.NamedEnum#name()Ljava/lang/String;."
+ãî_root_.models.NamedEnum#Ç
+Õ–x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.E
+ˇÇ;_root_.models.NamedEnumSupport#all()Lscala/collection/Seq;.E
+ı¯;_root_.models.NamedEnumSupport#all()Lscala/collection/Seq;..
+ˆˇ$_root_.play.api.libs.json.JsSuccess.$
+ÅÖ_root_.play.api.libs.json.%
+‘
+Ÿ
+_root_.scala.package.Right.
+öû_root_.scala.None.h
+ÕŒ^_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.T#
+…
+Õ
+_root_.scala.Some.Ñ
+œ’x_root_.models.NamedEnumSupport#queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/NamedEnum;)Ljava/lang/String;.1
+ü§%app/models/NamedEnum.scala@2079..20841
+ﬁ	‡	%app/models/NamedEnum.scala@1246..1248"j
+`_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.T#ÄT"÷
+^_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.ÛÑÄgenerateWrites3[T] => (enumObject: NamedEnumSupport[T]): Writes[T]"'
+$_root_.models.NamedEnumSupport#"i
+%&a_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.[T]")
+*0!_root_.play.api.libs.json.Writes#"i
+12a_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.[T]"∞
+U_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.÷apply3[T] => (enumObject: NamedEnumSupport[T]): Format[T]"'
+$_root_.models.NamedEnumSupport#"`
+%&X_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.[T]")
+*0!_root_.play.api.libs.json.Format#"`
+12X_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.[T]"4
+%app/models/NamedEnum.scala@1991..2380Ä†$anon"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"3
+"_root_.play.api.libs.json.JsValue#Ä¿JsValue"T
+_root_.scala.package.Right.5Right
+Right.type"
+_root_.scala.util.Right."í
+a_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.(enumObject)¨Ä
+enumObjectNamedEnumSupport[T]"%
+_root_.models.NamedEnumSupport#"_
+W_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.T#"H
+9_root_.models.NamedEnumSupport#queryStringBindable.$anon#Ä†$anon"3
+"_root_.play.api.libs.json.JsError.ÄÑJsError")
+_root_.play.api.libs.json.ÄàÄjson"m
+%app/models/NamedEnum.scala@1812..1812D<init>	(): $anon"-
+	%app/models/NamedEnum.scala@1812..1896"¡
+K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.Òfind%(p: Function1[A, Boolean]): Option[A]"
+_root_.scala.Function1#"0
+(_root_.scala.collection.IterableLike#[A]"
+_root_.scala.Boolean#"
+"_root_.scala.Option#"0
+#$(_root_.scala.collection.IterableLike#[A]"5
+#_root_.play.api.libs.json.JsString.ÄÑJsString"≤
+>_root_.java.lang.String#equalsIgnoreCase(Ljava/lang/String;)Z.pÑÄÄequalsIgnoreCase(x$1: String): Boolean" 
+_root_.java.lang.String#"
+_root_.scala.Boolean#"l
+3_root_.models.NamedEnum#msgKey()Ljava/lang/String;.5msgKeyString"!
+_root_.scala.Predef.String#"±
+C_root_.scala.collection.TraversableLike#headOption()Lscala/Option;.j
+headOption	Option[A]"
+_root_.scala.Option#"3
++_root_.scala.collection.TraversableLike#[A]"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"7
+$_root_.play.api.libs.json.JsSuccess.ÄÑ	JsSuccess"‡
+I_root_.models.NamedEnumSupport#unapply(Ljava/lang/String;)Lscala/Option;.íunapply(s: String): Option[E]"#
+
+_root_.scala.Predef.String#"
+_root_.scala.Option#"*
+"_root_.models.NamedEnumSupport#[E]"Õ
+\_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.ÏÑÄgenerateReads2[T] => (enumObject: NamedEnumSupport[T]): Reads[T]"'
+$_root_.models.NamedEnumSupport#"g
+%&__root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.[T]"(
+*/ _root_.play.api.libs.json.Reads#"g
+01__root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.[T]"≈
+3_root_.models.NamedEnumSupport#queryStringBindable.çÅÄ queryStringBindableQueryStringBindable[E]".
+(_root_.play.api.mvc.QueryStringBindable#"*
+"_root_.models.NamedEnumSupport#[E]"û
+B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.XÑÄ+(x$1: Any): String"
+	_root_.scala.Any#" 
+_root_.java.lang.String#"$
+_root_.play.api.libs.ÄàÄlibs"ù
+%app/models/NamedEnum.scala@1839..1846tÄdataT"f
+`_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.T#"D
+(_root_.play.api.mvc.QueryStringBindable#Ä@QueryStringBindable""
+_root_.play.api.mvc.
+ÄàÄmvc"
+_root_.play.api.
+ÄàÄapi"°
+E_root_.models.NamedEnumSupport#queryStringBindable.$anon#`<init>`()V.X<init>	(): $anon"A
+	9_root_.models.NamedEnumSupport#queryStringBindable.$anon#"P
+_root_.scala.package.Left.2Left	Left.type"
+_root_.scala.util.Left."Z
+%app/models/NamedEnum.scala@1276..12771ÄvString"!
+_root_.scala.Predef.String#"ç
+2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.WÑÄ==(x$1: Any): Boolean"
+	_root_.scala.Any#"
+_root_.scala.Boolean#"-
+_root_.models.EnumFormat.ÄÑ
+EnumFormat"0
+!_root_.play.api.libs.json.Writes#Ä@Writes"§
+j_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.(enumObject)µÄ
+enumObjectNamedEnumSupport[T]"%
+_root_.models.NamedEnumSupport#"h
+`_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.T#"à
+P_root_.models.NamedEnumSupport#fromName(Ljava/lang/String;)Lscala/Option;.(name)4ÄnameString"!
+_root_.scala.Predef.String#"[
+_root_.scala.Predef.Map#?MapMap.type",
+&_root_.scala.collection.immutable.Map."¿
+à_root_.models.NamedEnumSupport#queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.(params)≤ÄparamsMap[String, Seq[String]]"
+_root_.scala.Predef.Map#"#
+
+_root_.scala.Predef.String#"!
+_root_.scala.package.Seq#"#
+_root_.scala.Predef.String#"·
+F_root_.scala.collection.MapLike#get(Ljava/lang/Object;)Lscala/Option;.ñÑÄget(key: A): Option[B]"+
+#_root_.scala.collection.MapLike#[A]"
+
+_root_.scala.Option#"+
+#_root_.scala.collection.MapLike#[B]"$
+_root_.scala.Option#Ä†Option"Ω
+Ö_root_.models.NamedEnumSupport#queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.(key)3ÄkeyString"!
+_root_.scala.Predef.String#"Â
+J_root_.models.NamedEnumSupport#fromName(Ljava/lang/String;)Lscala/Option;.ñfromName(name: String): Option[E]"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"*
+"_root_.models.NamedEnumSupport#[E]"∫
+x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ΩmapQ[B, That] => (f: Function1[A, B])(implicit bf: CanBuildFrom[Repr, B, That]): That"
+_root_.scala.Function1#"3
++_root_.scala.collection.TraversableLike#[A]"É
+{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+/;-_root_.scala.collection.generic.CanBuildFrom#"6
+<@._root_.scala.collection.TraversableLike#[Repr]"É
+BC{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ü
+EI~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ü
+MQ~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"]
+%app/models/NamedEnum.scala@2079..20844valueString"!
+_root_.scala.Predef.String#"†
+h_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.(enumObject)≥Ä
+enumObjectNamedEnumSupport[T]"%
+_root_.models.NamedEnumSupport#"f
+^_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.T#"h
+0_root_.models.NamedEnum#key()Ljava/lang/String;.4ÑÄkeyString"!
+_root_.scala.Predef.String#"!
+_root_.scala.None.ÄÑàNone"í
+%app/models/NamedEnum.scala@2006..2376Ëreads(json: JsValue): JsResult[T]"*
+"_root_.play.api.libs.json.JsValue#"+
+#_root_.play.api.libs.json.JsResult#"f
+^_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.T#"∫
+_root_.models.NamedEnumSupport#queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/NamedEnum;)Ljava/lang/String;.(value)7ÄvalueE"(
+"_root_.models.NamedEnumSupport#[E]"ù
+;_root_.models.NamedEnumSupport#all()Lscala/collection/Seq;.^ÑÄallSeq[E]"
+_root_.scala.package.Seq#"*
+"_root_.models.NamedEnumSupport#[E]"8
+_root_.models.NamedEnumSupport#Ä@NamedEnumSupport"¥
+}_root_.models.NamedEnumSupport#queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/NamedEnum;)Ljava/lang/String;.(key)3ÄkeyString"!
+_root_.scala.Predef.String#"
+_root_.play.ÄàÄplay"Å
+L_root_.models.NamedEnumSupport#unapply(Ljava/lang/String;)Lscala/Option;.(s)1ÄsString"!
+_root_.scala.Predef.String#"b
+%app/models/NamedEnum.scala@2305..23079jsJsValue"(
+"_root_.play.api.libs.json.JsValue#"h
+^_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.T#ÄT"û
+x_root_.models.NamedEnumSupport#queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/NamedEnum;)Ljava/lang/String;.°unbind(key: String, value: E): String"#
+_root_.scala.Predef.String#"*
+"_root_.models.NamedEnumSupport#[E]"#
+_root_.scala.Predef.String#"£
+Ä_root_.models.NamedEnumSupport#queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.ùbindJ(key: String, params: Map[String, Seq[String]]): Option[Either[String, E]]"#
+_root_.scala.Predef.String#" 
+_root_.scala.Predef.Map#"#
+ _root_.scala.Predef.String#"!
+"%_root_.scala.package.Seq#"#
+&,_root_.scala.Predef.String#"
+17_root_.scala.Option#"$
+8>_root_.scala.package.Either#"#
+?E_root_.scala.Predef.String#"*
+GH"_root_.models.NamedEnumSupport#[E]"ü
+%app/models/NamedEnum.scala@2152..2161v	enumValueT"d
+^_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.T#"ﬁ
+%app/models/NamedEnum.scala@1828..1892¥writes(data: T): JsValue"h
+`_root_.models.EnumFormat.generateWrites(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Writes;.T#"*
+"_root_.play.api.libs.json.JsValue#".
+ _root_.play.api.libs.json.Reads#
+Ä@Reads"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"
+_root_.models.ÄàÄmodels"*
+_root_.models.NamedEnum#Ä@	NamedEnum"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"V
+"_root_.models.NamedEnum#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#"É
+%app/models/NamedEnum.scala@1246..1248ZÄvsSeq[String]"
+_root_.scala.package.Seq#"#
+
+_root_.scala.Predef.String#"5
+#_root_.play.api.libs.json.JsResult#Ä¿JsResult"4
+%app/models/NamedEnum.scala@1812..1896Ä†$anon"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."e
+%app/models/NamedEnum.scala@2016..2029<ÄjsonJsValue"(
+"_root_.play.api.libs.json.JsValue#"a
+W_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.T#ÄT"1
+!_root_.play.api.libs.json.Format.ÄÑFormat"0
+!_root_.play.api.libs.json.Format#Ä@Format"]
+)_root_.models.NamedEnumSupport#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#",
+"_root_.models.NamedEnumSupport#[E]ÄE"§
+?_root_.models.NamedEnumSupport#options()Lscala/collection/Seq;.aoptionsSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"X
+_root_.scala.package.Either#8EitherEither.type"
+_root_.scala.util.Either."m
+%app/models/NamedEnum.scala@1991..1991D<init>	(): $anon"-
+	%app/models/NamedEnum.scala@1991..2380"j
+1_root_.models.NamedEnum#name()Ljava/lang/String;.5ÑÄnameString"!
+_root_.scala.Predef.String#"[
+%app/models/NamedEnum.scala@1358..13592eE"(
+"_root_.models.NamedEnumSupport#[E]" 
+_root_.scala.Some.
+ÄÑSome2Î
+é
+é
+*.map[Either[String, E]]
+_star_.A
+9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.#
+_root_.scala.Predef.String#*
+"_root_.models.NamedEnumSupport#[E]$
+_root_.scala.package.Either#2ü
+––*[String, Seq[String]]
+_star_.#
+_root_.scala.Predef.String#$
+
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2Û
+Û	Û	*.flatMap[Either[String, E]]
+_star_.E
+	=_root_.scala.Option#flatMap(Lscala/Function1;)Lscala/Option;.#
+_root_.scala.Predef.String#*
+"_root_.models.NamedEnumSupport#[E]$
+
+_root_.scala.package.Either#2Ç
+©©*.apply
+_star_.`
+X_root_.play.api.libs.json.JsError.apply(Ljava/lang/String;)Lplay/api/libs/json/JsError;.2¡
+¯
+¯
+*.apply[String, Nothing]
+_star_.J
+B_root_.scala.util.Left.apply(Ljava/lang/Object;)Lscala/util/Left;.#
+_root_.scala.Predef.String#
+_root_.scala.Nothing#2x
+óó*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2~
+ää*[T]
+_star_._
+W_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.T#2∆
+ÿÿ,*(scala.collection.Seq.canBuildFrom[String])
+_star_.#
+$*_root_.scala.Predef.String#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2§
+˘˘*.apply
+_star_.Å
+y_root_.play.api.libs.json.Format.apply(Lplay/api/libs/json/Reads;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/Format;.2~
+¶¶*[T]
+_star_._
+W_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.T#2≈
+Ÿ
+Ÿ
+*.apply[Nothing, E]
+_star_.L
+D_root_.scala.util.Right.apply(Ljava/lang/Object;)Lscala/util/Right;.
+_root_.scala.Nothing#*
+"_root_.models.NamedEnumSupport#[E]2Ç
+ññ*.apply
+_star_.`
+X_root_.play.api.libs.json.JsError.apply(Ljava/lang/String;)Lplay/api/libs/json/JsError;.2x
+™™*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+ÅÅ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+˘
+˘
+*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2å
+ˇˇ
+*.apply[T]
+_star_.
+w_root_.play.api.libs.json.JsSuccess.apply(Ljava/lang/Object;Lplay/api/libs/json/JsPath;)Lplay/api/libs/json/JsSuccess;.f
+	^_root_.models.EnumFormat.generateReads(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Reads;.T#2Ñ
+””*.apply
+_star_.b
+Z_root_.play.api.libs.json.JsString.apply(Ljava/lang/String;)Lplay/api/libs/json/JsString;.:Scala211Bœ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+import play.api.libs.json._
+import play.api.mvc.QueryStringBindable
+
+trait NamedEnum {
+  def name: String
+
+  def key: String
+
+  def msgKey: String = s"$key.$name"
+}
+
+trait NamedEnumSupport[E <: NamedEnum] {
+
+  def all: Seq[E]
+
+  def fromName(name: String): Option[E] = {
+    all.find {
+      _.name.equalsIgnoreCase(name)
+    }
+  }
+
+  def options = all.map(_.name)
+
+  def unapply(s: String) = all.find(_.name == s)
+
+  implicit val queryStringBindable: QueryStringBindable[E] = new QueryStringBindable[E] {
+    override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, E]] = {
+      for {
+        vs <- params.get(key)
+        v <- vs.headOption
+      } yield {
+        unapply(v) match {
+          case Some(e) => Right(e)
+          case None => Left(s"Invalid value; expected one of $options")
+        }
+      }
+    }
+
+    override def unbind(key: String, value: E): String = key + "=" + value.name
+  }
+}
+
+object EnumFormat {
+  def apply[T <: NamedEnum](enumObject: NamedEnumSupport[T]): Format[T] = Format[T](generateReads(enumObject), generateWrites(enumObject))
+
+  private def generateWrites[T <: NamedEnum](enumObject: NamedEnumSupport[T]): Writes[T] = new Writes[T] {
+    def writes(data: T): JsValue = {
+      JsString(data.name)
+    }
+  }
+
+  private def generateReads[T <: NamedEnum](enumObject: NamedEnumSupport[T]): Reads[T] = new Reads[T] {
+    def reads(json: JsValue): JsResult[T] = json match {
+      case JsString(value) =>
+        enumObject.fromName(value) match {
+          case Some(enumValue) => JsSuccess(enumValue)
+          case None => JsError(s"Value: $value is not valid; expected one of ${enumObject.all}")
+        }
+      case js =>
+        JsError(s"Invalid Json: expected string, got: $js")
+    }
+  }
+}
+Japp/models/NamedEnum.scala

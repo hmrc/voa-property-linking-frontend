@@ -1,0 +1,99 @@
+
+Ø%1
+ŸÒ'_root_.models.DetailedValuationRequest#g
+∫∫[_root_.models.DetailedValuationRequest#`<init>`(JJJLjava/lang/String;JLjava/lang/String;)V.D
+ª 8_root_.models.DetailedValuationRequest#(authorisationId)C
+“‡7_root_.models.DetailedValuationRequest#(organisationId)3
+¯ê'_root_.models.DetailedValuationRequest.:
+¢®._root_.models.DetailedValuationRequest.format.B
+≤ø6_root_.models.DetailedValuationRequest#(assessmentRef)
+Ù¯_root_.play.$
+ÇÜ_root_.play.api.libs.json.%
+™∞_root_.scala.Predef.String#)
+êî_root_.play.api.libs.json.Json.
+‚Ê_root_.scala.Long#
+˝Å_root_.play.api.libs.3
+¢∫'_root_.models.DetailedValuationRequest#=
+Ë1_root_.models.DetailedValuationRequest#(personId)%
+ËÓ_root_.scala.Predef.String#T
+«ÊH_root_.models.DetailedValuationRequest#(billingAuthorityReferenceNumber)M
+àéC_root_.play.api.libs.json.Format.;_root_.play.api.libs.json.Format#A
+ú®5_root_.models.DetailedValuationRequest#(submissionId)N
+“ÿD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.
+˘¸_root_.play.api.
+ÂÎ_root_.models.
+Ã–_root_.scala.Long#1
+±…'_root_.models.DetailedValuationRequest#
+¡≈_root_.scala.Long#
+Úˆ_root_.scala.Long#)
+Õ—_root_.play.api.libs.json.Json.+
+™∞!_root_.play.api.libs.json.Format#"ª
+._root_.models.DetailedValuationRequest.format.àÅÄ format Format[DetailedValuationRequest]"'
+!_root_.play.api.libs.json.Format#"/
+'_root_.models.DetailedValuationRequest#"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]")
+_root_.play.api.libs.json.ÄàÄjson" 
+_root_.scala.Long#
+Ä†Long"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"u
+5_root_.models.DetailedValuationRequest#(submissionId)<ÅsubmissionIdString"!
+_root_.scala.Predef.String#"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"p
+8_root_.models.DetailedValuationRequest#(authorisationId)4ÅauthorisationIdLong"
+_root_.scala.Long#"á
+[_root_.models.DetailedValuationRequest#`<init>`(JJJLjava/lang/String;JLjava/lang/String;)V.ß<init>´(authorisationId: Long, organisationId: Long, personId: Long, submissionId: String, assessmentRef: Long, billingAuthorityReferenceNumber: String): DetailedValuationRequest"
+_root_.scala.Long#"
+(,_root_.scala.Long#"
+8<_root_.scala.Long#"#
+LR_root_.scala.Predef.String#"
+cg_root_.scala.Long#"%
+äê_root_.scala.Predef.String#"1
+ì´'_root_.models.DetailedValuationRequest#"n
+7_root_.models.DetailedValuationRequest#(organisationId)3ÅorganisationIdLong"
+_root_.scala.Long#"I
+'_root_.models.DetailedValuationRequest.ÄÑDetailedValuationRequest"
+_root_.play.ÄàÄplay"J
+'_root_.models.DetailedValuationRequest#Ä†ÄDetailedValuationRequest"
+_root_.models.ÄàÄmodels"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"b
+1_root_.models.DetailedValuationRequest#(personId)-ÅpersonIdLong"
+_root_.scala.Long#"0
+!_root_.play.api.libs.json.Format#Ä@Format"l
+6_root_.models.DetailedValuationRequest#(assessmentRef)2ÅassessmentRefLong"
+_root_.scala.Long#"õ
+H_root_.models.DetailedValuationRequest#(billingAuthorityReferenceNumber)OÅbillingAuthorityReferenceNumberString"!
+_root_.scala.Predef.String#:Scala211Bı/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import play.api.libs.json.{Format, Json}
+
+case class DetailedValuationRequest(authorisationId: Long, organisationId: Long, personId: Long,
+                                    submissionId: String, assessmentRef: Long, billingAuthorityReferenceNumber: String)
+
+object DetailedValuationRequest {
+  implicit val format: Format[DetailedValuationRequest] = Json.format[DetailedValuationRequest]
+}
+J)app/models/DetailedValuationRequest.scala

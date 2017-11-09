@@ -20,10 +20,9 @@ package connectors
 import javax.inject.Inject
 
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.ws.WSHttp
-import uk.gov.hmrc.play.http.{HeaderCarrier}
-
+import config.WSHttp
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.HeaderCarrier
 
 class TrafficThrottleConnector @Inject()(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
   val trafficRouter = "voa-traffic-throttle"

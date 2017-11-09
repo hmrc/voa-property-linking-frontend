@@ -1,0 +1,638 @@
+
+çŒŒ
+°®√_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)0
+ó	§	&_root_.uk.gov.hmrc.http.HeaderCarrier#Q
+¥µG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.:
+«Œ0_root_.controllers.GroupAccountDetails#(isAgent)%
+À—_root_.scala.Predef.String#)
+…
+œ
+_root_.scala.concurrent.Future#,
+Ÿ‡"_root_.play.api.libs.json.JsValue#.
+Ó	Ò	$_root_.connectors.GroupAccounts#url.O
+Û˙E_root_.play.api.libs.json.JsValue.;_root_.play.api.libs.json.JsValue#Q
+úùG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.)
+æƒ_root_.scala.concurrent.Future#
+Ñ	à	_root_.scala.Long#7
+Ú-app/connectors/GroupAccounts.scala@1782..17840
+∑ª&_root_.connectors.GroupAccounts#(http)4
+˜í*_root_.models.IndividualAccountSubmission#Y
+ü≤O_root_.controllers.GroupAccountDetails.;_root_.controllers.GroupAccountDetails#7
+¥∂-app/connectors/GroupAccounts.scala@1836..1838A
+Öã7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#–
+ñü≈_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(addressId)0
+Æª&_root_.uk.gov.hmrc.http.HeaderCarrier#
+˜˝_root_.scala.Option#/
+⁄%_root_.models.GroupAccountSubmission.I
+Ò˜?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#?
+¢∞5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#1
+∏À'_root_.controllers.GroupAccountDetails#ì
+¿…Ü_root_.connectors.GroupAccounts#withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentCode)U
+¢ÆK_root_.uk.gov.hmrc.http.HttpResponse.;_root_.uk.gov.hmrc.http.HttpResponse#L
+ÃÕB_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.ã
+‹ﬁ_root_.connectors.GroupAccounts#withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)1
+ÕÕ'_root_.javax.inject.Inject#`<init>`()V.Œ
+¯ˇ√_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(groupId)–
+Ø∂√_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)A
+∑Ω7_root_.scala.math.ScalaNumericAnyConversions#toLong()J./
+éö%_root_.uk.gov.hmrc.http.HttpResponse#
+Üâ_root_.uk.gov.ë
+∆œÜ_root_.connectors.GroupAccounts#withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentCode)ª
+öù∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+áã_root_.uk.gov.hmrc.3
+Éì)_root_.scala.concurrent.ExecutionContext#p
+ì	ï	d_root_.connectors.GroupAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)‚
+–Î◊_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(individualAccountSubmission)2
+ËÏ&_root_.connectors.GroupAccounts#(http)?
+ÿÊ5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#0
+π
+∆
+&_root_.uk.gov.hmrc.http.HeaderCarrier#ª
+Û
+ˆ
+∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+ìû_root_.controllers.
+∏æ_root_.config.%
+˛ä_root_.models.GroupAccount#è
+õ
+¢
+Ç_root_.connectors.GroupAccounts#withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(groupId)0
+Ó
+Ú
+&_root_.connectors.GroupAccounts#(http)%
+˛
+ä_root_.models.GroupAccount#Œ
+∞∑√_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details))
+ˆ_root_.scala.concurrent.Future#
+–
+÷
+_root_.scala.Option#|
+Ûr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+ÓÙ_root_.config.WSHttp#ö
+œœç_root_.connectors.GroupAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.ú
+íôè_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)å
+”ŸÅ_root_.connectors.GroupAccounts#create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.á
+≤ø{_root_.connectors.GroupAccounts#withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.0
+£¶$_root_.connectors.GroupAccounts#url.“
+ü®≈_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(addressId)
+äé_root_.uk.gov.hmrc.4
+–÷(_root_.connectors.GroupAccounts#(config)
+∫¿_root_.models."
+”›_root_.scala.concurrent.
+Õ“_root_.scala.%
+◊
+„
+_root_.models.GroupAccount#f
+∞∑\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.%
+«Õ_root_.javax.inject.Inject#W
+ì†M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#0
+ÈÌ&_root_.connectors.GroupAccounts#(http)Q
+ÈÒG_root_.play.api.libs.json.JsNumber.;_root_.play.api.libs.json.JsNumber#"
+èì_root_.uk.gov.hmrc.play.
+¯˝_root_.javax.3
+õµ)_root_.models.UpdatedOrganisationAccount#.
+ô¢$_root_.play.api.libs.json.JsDefined.0
+Ã	–	&_root_.connectors.GroupAccounts#(http)ó
+¿¬ä_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)8
+∏Ω._root_.controllers.GroupAccountDetails#(phone)
+˜
+˝
+_root_.scala.Option#
+€ﬂ_root_.scala.Unit#–
+éï√_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(groupId)ó
+‰Îä_root_.connectors.GroupAccounts#create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)
+™≠_root_.scala.Int#)
+¢®_root_.scala.concurrent.Future#%
+‹	Ë	_root_.models.GroupAccount#2
+©Ø(_root_.connectors.GroupAccounts#(config)$
+ÿ‹_root_.play.api.libs.json.
+”◊_root_.play.api.libs.‰
+⁄ı◊_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(individualAccountSubmission)Q
+çéG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.0
+ïô&_root_.connectors.GroupAccounts#(http)3
+Úå)_root_.models.UpdatedOrganisationAccount#
+ÉÜ_root_.uk.gov.ö
+Öäç_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(orgId)ö
+¨≥è_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)Q
+‚„G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.0
+ƒ—&_root_.uk.gov.hmrc.http.HeaderCarrier#ª
+—	‘	∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+≈…_root_.scala.Long#â
+µ
+∑
+}_root_.connectors.GroupAccounts#withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+åê_root_.scala.Long#h
+ˇÄ^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;..
+∑∫$_root_.connectors.GroupAccounts#url.ç
+ù§Ç_root_.connectors.GroupAccounts#withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(groupId)Ä
+º¿ı_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.)
+îö_root_.uk.gov.hmrc.play.config.|
+µ∏r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.9
+ˆ¯-app/connectors/GroupAccounts.scala@1782..1784
+ Œ_root_.play.
+©≠_root_.scala.Long#S
+ﬁÁI_root_.play.api.libs.json.JsDefined.;_root_.play.api.libs.json.JsDefined#,
+∏≈ _root_.connectors.GroupAccounts#
+ÄÇ
+_root_.uk.%
+µ	¡	_root_.models.GroupAccount#
+Æ	¥	_root_.scala.Option#)
+ß	≠	_root_.scala.concurrent.Future#À
+™¨æ_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)é
+›„Å_root_.connectors.GroupAccounts#create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Ë
+ÓÒ›_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+’	€	_root_.scala.Option#
+˛Ñ_root_.javax.inject.5
+ø≈+_root_.config.WSHttp.;_root_.config.WSHttp#0
+õ°&_root_.uk.gov.hmrc.play.config.inject.%
+•±_root_.models.GroupAccount#Œ
+Åà√_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)0
+ˇÅ$_root_.connectors.GroupAccounts#(ec)0
+‡Ì&_root_.uk.gov.hmrc.http.HeaderCarrier#/
+ÌÉ%_root_.models.GroupAccountSubmission#ò
+§©ç_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(orgId)-
+£´#_root_.play.api.libs.json.JsNumber.ï
+ÁÓä_root_.connectors.GroupAccounts#create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)0
+íü&_root_.uk.gov.hmrc.http.HeaderCarrier#.
+‚Â$_root_.connectors.GroupAccounts#url.9
+¨Æ-app/connectors/GroupAccounts.scala@1836..1838|
+ÙÇ	p_root_.connectors.GroupAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)"
+åê_root_.uk.gov.hmrc.http..
+ü¢$_root_.connectors.GroupAccounts#url.Ö
+è
+ö
+y_root_.connectors.GroupAccounts#withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.%
+§
+™
+_root_.scala.Predef.String#
+û§_root_.scala.Option#7
+¸˛-app/connectors/GroupAccounts.scala@1782..1784í
+éêÖ_root_.connectors.GroupAccounts#create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)ì
+˛ÑÜ_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.%
+ÿ·_root_.java.lang.Exception#%
+óù_root_.scala.Predef.String#z
+Û	Å
+p_root_.connectors.GroupAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)8
+©Æ._root_.controllers.GroupAccountDetails#(email)C
+··9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.Œ
+ø∆√_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)]
+ﬂÔS_root_.scala.concurrent.ExecutionContext.;_root_.scala.concurrent.ExecutionContext#
+œ“_root_.play.api.>
+âî4_root_.controllers.GroupAccountDetails#(companyName)
+ÉÖ
+_root_.uk./
+¡◊%_root_.models.GroupAccountSubmission#
+ÂÔ_root_.connectors..
+êì$_root_.connectors.GroupAccounts#url.«
+áç∫_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.)
+‘⁄_root_.scala.concurrent.Future#Q
+Î	Ï	G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.l
+Û`_root_.connectors.GroupAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;."÷
+ı_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.€POST¶[I, O] => (url: String, body: I, headers: Seq[Tuple2[String, String]])(implicit wts: Writes[I], rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext): Future[O]"#
+_root_.scala.Predef.String#"Å
+¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"!
+*-_root_.scala.package.Seq#"
+.4_root_.scala.Tuple2#"#
+5;_root_.scala.Predef.String#"#
+=C_root_.scala.Predef.String#")
+U[!_root_.play.api.libs.json.Writes#"Å
+\]¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"*
+en"_root_.uk.gov.hmrc.http.HttpReads#"Å
+op¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"/
+wÑ&_root_.uk.gov.hmrc.http.HeaderCarrier#"3
+äö)_root_.scala.concurrent.ExecutionContext#")
+ù£_root_.scala.concurrent.Future#"É
+§•¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"3
+"_root_.play.api.libs.json.JsValue#Ä¿JsValue"X
+&_root_.connectors.GroupAccounts#(http).ÄhttpWSHttp"
+_root_.config.WSHttp#"$
+_root_.config.WSHttp#Ä@WSHttp"P
+*_root_.models.IndividualAccountSubmission#"Ä†ÄIndividualAccountSubmission"œ
+Ö_root_.connectors.GroupAccounts#create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#")
+_root_.play.api.libs.json.ÄàÄjson"‘
+ä_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#" 
+_root_.scala.Long#
+Ä†Long":
+%_root_.uk.gov.hmrc.http.HttpResponse#Ä@HttpResponse"ˇ
+√_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(groupId)7ÄgroupIdString"!
+_root_.scala.Predef.String#"'
+_root_.connectors.ÄàÄ
+connectors"Y
+$_root_.connectors.GroupAccounts#url.1ÅÄ@urlString"
+_root_.java.lang.String#"ß
+p_root_.connectors.GroupAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)3ÄorganisationIdLong"
+_root_.scala.Long#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"5
+#_root_.play.api.libs.json.JsNumber.ÄÑJsNumber"ˆ
+`_root_.connectors.GroupAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ëgetP(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]]"
+_root_.scala.Long#".
+$1&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+4:_root_.scala.concurrent.Future#"
+;A_root_.scala.Option#"#
+BN_root_.models.GroupAccount#"/
+_root_.java.lang.Exception#Ä†Ä	Exception"s
+$_root_.connectors.GroupAccounts#(ec)KÄÅ ecExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"û
+B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.XÑÄ+(x$1: Any): String"
+	_root_.scala.Any#" 
+_root_.java.lang.String#"$
+_root_.play.api.libs.ÄàÄlibs"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"
+_root_.javax.ÄàÄjavax"°
+{_root_.connectors.GroupAccounts#withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.°withAgentCodeM(agentCode: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]]"#
+_root_.scala.Predef.String#".
+!.&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+17_root_.scala.concurrent.Future#"
+8>_root_.scala.Option#"#
+?K_root_.models.GroupAccount#"
+_root_.play.api.
+ÄàÄapi"N
+)_root_.models.UpdatedOrganisationAccount#!Ä†ÄUpdatedOrganisationAccount" 
+_root_.scala.Unit#
+Ä†Unit"¬
+s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
+	_root_.scala.Long#"#
+_root_.scala.Predef.String#"#
+)/_root_.scala.Predef.String#"
+<?_root_.scala.Int#"#
+HN_root_.scala.Predef.String#"#
+W]_root_.scala.Predef.String#"
+ho_root_.scala.Boolean#"
+|Ä_root_.scala.Long#"%
+Éè_root_.models.GroupAccount#"Ñ
+(_root_.connectors.GroupAccounts#(config)XÄconfigServicesConfig";
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#".
+_root_.scala.concurrent.Future#Ä@Future"L
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig"´
+9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.nêÄÄ<init>(x$1: String): Exception" 
+_root_.java.lang.String#"#
+_root_.java.lang.Exception#"k
+-app/connectors/GroupAccounts.scala@1836..1838:id
+BigDecimal"&
+
+ _root_.scala.package.BigDecimal#",
+_root_.javax.inject.Inject#Ä†ÄInject"»
+_root_.connectors.GroupAccounts#withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Ì
+è_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)YÄdetailsUpdatedOrganisationAccount"/
+)_root_.models.UpdatedOrganisationAccount#"6
+ _root_.connectors.GroupAccounts#Ä GroupAccounts"l
+'_root_.java.lang.Exception#`<init>`()V.AàÄÄ<init>(): Exception"#
+_root_.java.lang.Exception#"7
+&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"$
+_root_.scala.Option#Ä†Option"ˆ
+≈_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(addressId),Ä	addressIdInt"
+_root_.scala.Int#"E
+'_root_.controllers.GroupAccountDetails#Ä†ÄGroupAccountDetails"
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"2
+_root_.models.GroupAccount#Ä†ÄGroupAccount"‘
+\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.tbaseUrl(serviceName: String): String"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"∏
+Ü_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.¨update\(orgId: Long, details: UpdatedOrganisationAccount)(implicit hc: HeaderCarrier): Future[Unit]"
+_root_.scala.Long#"1
+1)_root_.models.UpdatedOrganisationAccount#".
+@M&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+PV_root_.scala.concurrent.Future#"
+W[_root_.scala.Unit#"7
+$_root_.play.api.libs.json.JsDefined.ÄÑ	JsDefined"
+_root_.uk.gov.
+ÄàÄgov"ƒ
+Ü_root_.connectors.GroupAccounts#withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentCode)9Ä	agentCodeString"!
+_root_.scala.Predef.String#"k
+-app/connectors/GroupAccounts.scala@1782..1784:ÄjsJsValue"(
+"_root_.play.api.libs.json.JsValue#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"e
+7_root_.scala.math.ScalaNumericAnyConversions#toLong()J.*toLongLong"
+_root_.scala.Long#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"õ
+y_root_.connectors.GroupAccounts#withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ùwithGroupIdK(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]]"#
+
+_root_.scala.Predef.String#".
+,&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+/5_root_.scala.concurrent.Future#"
+6<_root_.scala.Option#"#
+=I_root_.models.GroupAccount#"Ú
+Ç_root_.models.IndividualAccountSubmission#`<init>`(Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/IndividualDetails;)V.Í<init>|(externalId: String, trustId: String, organisationId: Option[Long], details: IndividualDetails): IndividualAccountSubmission"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6<_root_.scala.Option#"
+=A_root_.scala.Long#"(
+M^ _root_.models.IndividualDetails#"2
+a|*_root_.models.IndividualAccountSubmission#"ô
+ü_root_.models.GroupAccountSubmission#`<init>`(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZLmodels/IndividualAccountSubmission;)V.Ù<init>≥(id: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, individualAccountSubmission: IndividualAccountSubmission): GroupAccountSubmission"#
+_root_.scala.Predef.String#"#
+ _root_.scala.Predef.String#"
+-0_root_.scala.Int#"#
+9?_root_.scala.Predef.String#"#
+HN_root_.scala.Predef.String#"
+Y`_root_.scala.Boolean#"3
+ö*_root_.models.IndividualAccountSubmission#"/
+ù≥%_root_.models.GroupAccountSubmission#"≠
+d_root_.connectors.GroupAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"∆
+}_root_.connectors.GroupAccounts#withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"B
+)_root_.scala.concurrent.ExecutionContext#Ä@ExecutionContext"à
+æ_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"
+_root_.play.ÄàÄplay"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"F
+%_root_.models.GroupAccountSubmission#Ä†ÄGroupAccountSubmission"E
+%_root_.models.GroupAccountSubmission.ÄÑGroupAccountSubmission"ê
+∫_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.–create£(groupId: String, addressId: Int, details: GroupAccountDetails, individualAccountSubmission: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Long]"#
+
+_root_.scala.Predef.String#"
+ _root_.scala.Int#"/
++>'_root_.controllers.GroupAccountDetails#"2
+]x*_root_.models.IndividualAccountSubmission#"0
+áî&_root_.uk.gov.hmrc.http.HeaderCarrier#")
+óù_root_.scala.concurrent.Future#"
+û¢_root_.scala.Long#"Æ
+ç_root_.connectors.GroupAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.õ<init>T(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): GroupAccounts"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"(
+GT _root_.connectors.GroupAccounts#"Â
+^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.Ç\#(fieldName: String): JsLookupResult"#
+_root_.scala.Predef.String#"1
+#)_root_.play.api.libs.json.JsLookupResult#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"Ç
+Å_root_.connectors.GroupAccounts#create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˚createK(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long]"-
+
+ %_root_.models.GroupAccountSubmission#".
+/<&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+?E_root_.scala.concurrent.Future#"
+FJ_root_.scala.Long#"g
+._root_.controllers.GroupAccountDetails#(email)5ÅemailString"!
+_root_.scala.Predef.String#"R
+_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
+_root_.scala.Unit#"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"
+_root_.models.ÄàÄmodels"æ
+Ç_root_.connectors.GroupAccounts#withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(groupId)7ÄgroupIdString"!
+_root_.scala.Predef.String#"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"‡
+ä_root_.connectors.GroupAccounts#create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)QÄaccountGroupAccountSubmission"+
+%_root_.models.GroupAccountSubmission#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"º
+ç_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(orgId)*ÄorgIdLong"
+_root_.scala.Long#")
+_root_.controllers.ÄàÄcontrollers"
+_root_.config.ÄàÄconfig">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"•
+›_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.¬
+PUTÄ[I, O] => (url: String, body: I)(implicit wts: Writes[I], rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext): Future[O]"#
+_root_.scala.Predef.String#"È
+‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]")
+/5!_root_.play.api.libs.json.Writes#"È
+67‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"*
+?H"_root_.uk.gov.hmrc.http.HttpReads#"È
+IJ‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]".
+Q^&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+dt)_root_.scala.concurrent.ExecutionContext#"'
+w}_root_.scala.concurrent.Future#"È
+~‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"ë
+§_root_.models.UpdatedOrganisationAccount#`<init>`(Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/time/Instant;Ljava/lang/String;)V.Á<init>á(governmentGatewayGroupId: String, addressUnitId: Int, representativeFlag: Boolean, organisationName: String, organisationEmailAddress: String, organisationTelephoneNumber: String, effectiveFrom: Instant, changedByGGExternalId: String): UpdatedOrganisationAccount"#
+!_root_.scala.Predef.String#"
+25_root_.scala.Int#"
+KR_root_.scala.Boolean#"#
+fl_root_.scala.Predef.String#"%
+àé_root_.scala.Predef.String#"%
+≠≥_root_.scala.Predef.String#"#
+ƒÀ_root_.java.time.Instant#"%
+‰Í_root_.scala.Predef.String#"3
+Ìá)_root_.models.UpdatedOrganisationAccount#"f
+0_root_.controllers.GroupAccountDetails#(isAgent)2ÅisAgentBoolean"
+_root_.scala.Boolean#"
+_root_.scala.ÄàÄscala"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"®
+å_root_.controllers.GroupAccountDetails#`<init>`(Ljava/lang/String;Lmodels/Address;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V.ñ<init>Ñ(companyName: String, address: Address, email: String, confirmedEmail: String, phone: String, isAgent: Boolean): GroupAccountDetails"#
+_root_.scala.Predef.String#"
+&_root_.models.Address#"#
+/5_root_.scala.Predef.String#"#
+GM_root_.scala.Predef.String#"#
+V\_root_.scala.Predef.String#"
+gn_root_.scala.Boolean#"0
+qÑ'_root_.controllers.GroupAccountDetails#"˛
+∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.»GETd[A] => (url: String)(implicit rds: HttpReads[A], hc: HeaderCarrier, ec: ExecutionContext): Future[A]"#
+_root_.scala.Predef.String#"*
+#,"_root_.uk.gov.hmrc.http.HttpReads#"º
+-.≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]".
+5B&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+HX)_root_.scala.concurrent.ExecutionContext#"'
+[a_root_.scala.concurrent.Future#"º
+bc≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"À
+◊_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(individualAccountSubmission)oÄindividualAccountSubmissionIndividualAccountSubmission"0
+*_root_.models.IndividualAccountSubmission#"s
+4_root_.controllers.GroupAccountDetails#(companyName);ÅcompanyNameString"!
+_root_.scala.Predef.String#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"g
+._root_.controllers.GroupAccountDetails#(phone)5ÅphoneString"!
+_root_.scala.Predef.String#"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"
+_root_.scala.Int#	Ä†Int"ò
+√_root_.connectors.GroupAccounts#create(Ljava/lang/String;ILcontrollers/GroupAccountDetails;Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)PÄdetailsGroupAccountDetails"-
+'_root_.controllers.GroupAccountDetails#2_
+¬¬*(GroupAccounts.this.ec)
+_star_.,
+$_root_.connectors.GroupAccounts#(ec)2Ê
+*.apply
+_star_.√
+∫_root_.models.GroupAccountSubmission.apply(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZLmodels/IndividualAccountSubmission;)Lmodels/GroupAccountSubmission;.2_
+˙˙*(GroupAccounts.this.ec)
+_star_.,
+$_root_.connectors.GroupAccounts#(ec)2“
+¶¶˚*(uk.gov.hmrc.http.HttpReads.readOptionOf[GroupAccount](uk.gov.hmrc.http.HttpReads.readFromJson[GroupAccount](models.GroupAccount.format, scala.reflect.ManifestFactory.classType[GroupAccount](classOf[models.GroupAccount]))), hc, GroupAccounts.this.ec)
+_star_.#
+*6_root_.models.GroupAccount#å
+S_É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.w
+)o_root_.uk.gov.hmrc.http.OptionHttpReads#readOptionOf(Luk/gov/hmrc/http/HttpReads;)Luk/gov/hmrc/http/HttpReads;.#
+`l_root_.models.GroupAccount#d
+®±Z_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.,
+Çà"_root_.models.GroupAccount.format.%
+≤æ_root_.models.GroupAccount#.
+¯˙$_root_.connectors.GroupAccounts#(ec)2x
+çç*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2
+ÚÚ*(hc)
+_star_.2x
+Î	Î	*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2“
+——˚*(uk.gov.hmrc.http.HttpReads.readOptionOf[GroupAccount](uk.gov.hmrc.http.HttpReads.readFromJson[GroupAccount](models.GroupAccount.format, scala.reflect.ManifestFactory.classType[GroupAccount](classOf[models.GroupAccount]))), hc, GroupAccounts.this.ec)
+_star_.#
+*6_root_.models.GroupAccount#å
+S_É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.w
+)o_root_.uk.gov.hmrc.http.OptionHttpReads#readOptionOf(Luk/gov/hmrc/http/HttpReads;)Luk/gov/hmrc/http/HttpReads;.#
+`l_root_.models.GroupAccount#d
+®±Z_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.,
+Çà"_root_.models.GroupAccount.format.%
+≤æ_root_.models.GroupAccount#.
+¯˙$_root_.connectors.GroupAccounts#(ec)2ü
+¥¥j*(models.UpdatedOrganisationAccount.format, uk.gov.hmrc.http.HttpReads.readRaw, hc, GroupAccounts.this.ec)
+_star_.8
+$*0_root_.models.UpdatedOrganisationAccount.format.2
+GN*_root_.uk.gov.hmrc.http.HttpReads.readRaw.,
+gi$_root_.connectors.GroupAccounts#(ec)2ü
+ÔÔÛ*(models.GroupAccountSubmission.formats, uk.gov.hmrc.http.HttpReads.readFromJson[JsValue](play.api.libs.json.Reads.JsValueReads, scala.reflect.ManifestFactory.classType[JsValue](classOf[play.api.libs.json.JsValue])), hc, GroupAccounts.this.ec)
+_star_.S
+ 'K_root_.models.GroupAccountSubmission.formats()Lplay/api/libs/json/OFormat;.*
+QX"_root_.play.api.libs.json.JsValue#å
+DPÉ_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.,
+©∞"_root_.play.api.libs.json.JsValue#d
+ü®Z_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.<
+s4_root_.play.api.libs.json.DefaultReads#JsValueReads..
+Ú$_root_.connectors.GroupAccounts#(ec)2x
+‚‚*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+úú*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+¥¥*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2“
+É
+É
+˚*(uk.gov.hmrc.http.HttpReads.readOptionOf[GroupAccount](uk.gov.hmrc.http.HttpReads.readFromJson[GroupAccount](models.GroupAccount.format, scala.reflect.ManifestFactory.classType[GroupAccount](classOf[models.GroupAccount]))), hc, GroupAccounts.this.ec)
+_star_.#
+*6_root_.models.GroupAccount#å
+S_É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.w
+)o_root_.uk.gov.hmrc.http.OptionHttpReads#readOptionOf(Luk/gov/hmrc/http/HttpReads;)Luk/gov/hmrc/http/HttpReads;.#
+`l_root_.models.GroupAccount#d
+®±Z_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.,
+Çà"_root_.models.GroupAccount.format.%
+≤æ_root_.models.GroupAccount#.
+¯˙$_root_.connectors.GroupAccounts#(ec)2<
+ÛÛ*[Long]
+_star_.
+_root_.scala.Long#2<
+∏∏*[Unit]
+_star_.
+_root_.scala.Unit#2…
+¸˛/play.api.libs.json.JsValue.jsValueToJsLookup(*)}
+,u_root_.play.api.libs.json.JsValue.jsValueToJsLookup(Lplay/api/libs/json/JsValue;)Lplay/api/libs/json/JsLookupResult;.
+-._star_.:Scala211BÀ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package connectors
+
+import javax.inject.Inject
+import controllers.GroupAccountDetails
+import models._
+import play.api.libs.json.{JsDefined, JsNumber, JsValue}
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+import config.WSHttp
+import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{ HeaderCarrier, HttpResponse }
+
+class GroupAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+
+  lazy val url = config.baseUrl("property-linking") + "/property-linking/groups"
+
+  def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
+    http.GET[Option[GroupAccount]](s"$url/$organisationId")
+  }
+
+  def withGroupId(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
+    http.GET[Option[GroupAccount]](s"$url?groupId=$groupId")
+  }
+
+  def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
+    http.GET[Option[GroupAccount]](s"$url/agentCode/$agentCode")
+  }
+
+  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] = {
+    http.POST[GroupAccountSubmission, JsValue](url, account) map { js => js \ "id" match {
+      case JsDefined(JsNumber(id)) => id.toLong
+      case _ => throw new Exception(s"Invalid id $js")
+    }}
+  }
+
+  def create(groupId: String, addressId: Int, details: GroupAccountDetails,
+             individualAccountSubmission: IndividualAccountSubmission)
+            (implicit hc: HeaderCarrier): Future[Long] = {
+    create(GroupAccountSubmission(
+      groupId, details.companyName, addressId, details.email, details.phone, details.isAgent, individualAccountSubmission
+    ))
+  }
+
+  def update(orgId: Long, details: UpdatedOrganisationAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.PUT[UpdatedOrganisationAccount, HttpResponse](s"$url/$orgId", details) map { _ => () }
+  }
+}
+J"app/connectors/GroupAccounts.scala

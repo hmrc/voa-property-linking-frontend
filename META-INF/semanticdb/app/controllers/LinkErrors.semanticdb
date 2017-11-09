@@ -1,0 +1,172 @@
+
+“@
+éì_root_.views.0
+îú&_root_.views.html.linkErrors.conflict.5
+ﬁÂ)app/controllers/LinkErrors.scala@990..997
+ı_root_.views.%
+Ã“_root_.play.api.mvc.Action.)
+ãç_root_.play.api.mvc.Results#Ok.5
+ÏÛ)app/controllers/LinkErrors.scala@876..883B
+Ü†8_root_.views.html.linkErrors.manualVerificationRequired..
+¬¬$_root_.java.lang.Object#`<init>`()V.
+îò_root_.views.html.)
+ÌÔ_root_.play.api.mvc.Results#Ok.5
+¸É)app/controllers/LinkErrors.scala@764..771
+˛Å_root_.play.api.
+ˆ˙_root_.views.html.%
+⁄‡_root_.play.api.mvc.Action.*
+ïü_root_.controllers.LinkErrors.)
+˚˝_root_.play.api.mvc.Results#Ok.J
+Õ’>_root_.controllers.LinkErrors.conflict()Lplay/api/mvc/Action;.
+Ñà_root_.views.html.^
+´«R_root_.controllers.LinkErrors.postcodeVerificationRequired()Lplay/api/mvc/Action;.7
+®¡-_root_.controllers.PropertyLinkingController#
+˘˝_root_.play.\
+ÀÂP_root_.controllers.LinkErrors.manualVerificationRequired()Lplay/api/mvc/Action;.A
+Üå7_root_.play.api.mvc.Action.;_root_.play.api.mvc.Action#
+ÇÖ_root_.play.api.mvc.
+˛É_root_.views.'
+˚Ö_root_.views.html.linkErrors.%
+Í_root_.play.api.mvc.Action.'
+ô£_root_.views.html.linkErrors.B
+§æ8_root_.views.html.linkErrors.manualVerificationRequired.'
+âì_root_.views.html.linkErrors.
+Â_root_.controllers."c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"¥
+>_root_.controllers.LinkErrors.conflict()Lplay/api/mvc/Action;.rconflict(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#"ú
+)app/controllers/LinkErrors.scala@764..771oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"\
+8_root_.views.html.linkErrors.manualVerificationRequired. ÄÑmanualVerificationRequired"8
+&_root_.views.html.linkErrors.conflict.ÄÑconflict""
+_root_.play.api.mvc.
+ÄàÄmvc"
+_root_.play.api.
+ÄàÄapi"!
+_root_.views.html.ÄàÄhtml"2
+_root_.views.html.linkErrors.ÄàÄ
+linkErrors"
+_root_.play.ÄàÄplay"Ÿ
+P_root_.controllers.LinkErrors.manualVerificationRequired()Lplay/api/mvc/Action;.ÑmanualVerificationRequired(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"ú
+)app/controllers/LinkErrors.scala@990..997oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"ú
+)app/controllers/LinkErrors.scala@876..883oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"2
+_root_.controllers.LinkErrors.ÄÑ
+LinkErrors"›
+R_root_.controllers.LinkErrors.postcodeVerificationRequired()Lplay/api/mvc/Action;.ÜpostcodeVerificationRequired(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"
+_root_.views.ÄàÄviews")
+_root_.controllers.ÄàÄcontrollers"+
+_root_.play.api.mvc.Action.ÄÑAction2}
+¿¿$*(request, LinkErrors.this.messages)
+_star_.>
+#6_root_.controllers.PropertyLinkingController#messages.2”
+çç*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2z
+*.apply
+_star_.X
+P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2z
+‡‡*.apply
+_star_.X
+P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2—
+††*.apply
+_star_.Æ
+•_root_.views.html.linkErrors.manualVerificationRequired_Scope0.manualVerificationRequired#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2}
+¢¢$*(request, LinkErrors.this.messages)
+_star_.>
+#6_root_.controllers.PropertyLinkingController#messages.2”
+üüû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2}
+ûû$*(request, LinkErrors.this.messages)
+_star_.>
+#6_root_.controllers.PropertyLinkingController#messages.2z
+““*.apply
+_star_.X
+P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2”
+˝˝*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2”
+¡¡û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2”
+££û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2”
+ÔÔ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2—
+ææ*.apply
+_star_.Æ
+•_root_.views.html.linkErrors.manualVerificationRequired_Scope0.manualVerificationRequired#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2≠
+úú*.apply
+_star_.ä
+Å_root_.views.html.linkErrors.conflict_Scope0.conflict#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.:Scala211B´/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers
+
+import play.api.mvc.Action
+
+object LinkErrors extends PropertyLinkingController {
+
+  def manualVerificationRequired() = Action { implicit request =>
+    Ok(views.html.linkErrors.manualVerificationRequired())
+  }
+
+  def conflict() = Action { implicit request =>
+    Ok(views.html.linkErrors.conflict())
+  }
+
+  def postcodeVerificationRequired() = Action { implicit request =>
+    Ok(views.html.linkErrors.manualVerificationRequired())
+  }
+
+}
+J app/controllers/LinkErrors.scala

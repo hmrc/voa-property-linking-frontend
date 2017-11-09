@@ -1,0 +1,105 @@
+
+ï)
+•©_root_.play.2
+…‡&_root_.models.AgentAppointmentSession#
+ÇÜ_root_.scala.Long#0
+ÍÅ&_root_.models.AgentAppointmentSession#
+ÂÎ_root_.models..
+Äê$_root_.controllers.agentAppointment.
+Æ≤_root_.play.api.libs.>
+ˆÄ2_root_.models.AgentAppointmentSession#(agentOrgId))
+ﬁ‚_root_.play.api.libs.json.Json.m
+ëùc_root_.controllers.agentAppointment.AppointAgent.;_root_.controllers.agentAppointment.AppointAgent#$
+≥∑_root_.play.api.libs.json.2
+¨√&_root_.models.AgentAppointmentSession.)
+∏º_root_.play.api.libs.json.Json.;
+ËÙ1_root_.controllers.agentAppointment.AppointAgent#9
+’€-_root_.models.AgentAppointmentSession.format.N
+„ÈD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.
+Ùˇ_root_.controllers.
+™≠_root_.play.api.9
+·Ê-_root_.models.AgentAppointmentSession#(agent)%
+ñ¢_root_.models.PropertyLink#
+‡‡s_root_.models.AgentAppointmentSession#`<init>`(Lcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;)V.@
+àî4_root_.models.AgentAppointmentSession#(propertyLink)"H
+1_root_.controllers.agentAppointment.AppointAgent#Ä†ÄAppointAgent"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]" 
+_root_.scala.Long#
+Ä†Long"?
+$_root_.controllers.agentAppointment.ÄàÄagentAppointment")
+_root_.play.api.libs.json.ÄàÄjson"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"2
+_root_.models.PropertyLink#Ä†ÄPropertyLink"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"ˇ
+n_root_.controllers.agentAppointment.AppointAgent#`<init>`(JLmodels/AgentPermission;Lmodels/AgentPermission;)V.å<init>Y(agentCode: Long, canCheck: AgentPermission, canChallenge: AgentPermission): AppointAgent"
+_root_.scala.Long#"&
++_root_.models.AgentPermission#"&
+;J_root_.models.AgentPermission#"9
+MY1_root_.controllers.agentAppointment.AppointAgent#"e
+2_root_.models.AgentAppointmentSession#(agentOrgId)/Å
+agentOrgIdLong"
+_root_.scala.Long#"å
+s_root_.models.AgentAppointmentSession#`<init>`(Lcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;)V.î<init>\(agent: AppointAgent, agentOrgId: Long, propertyLink: PropertyLink): AgentAppointmentSession"9
+1_root_.controllers.agentAppointment.AppointAgent#"
+"&_root_.scala.Long#"#
+6B_root_.models.PropertyLink#".
+E\&_root_.models.AgentAppointmentSession#"G
+&_root_.models.AgentAppointmentSession.ÄÑAgentAppointmentSession"H
+&_root_.models.AgentAppointmentSession#Ä†ÄAgentAppointmentSession"
+_root_.play.ÄàÄplay"Ç
+-_root_.models.AgentAppointmentSession#(agent)QÅagentAppointAgent"7
+1_root_.controllers.agentAppointment.AppointAgent#"
+_root_.models.ÄàÄmodels"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#")
+_root_.controllers.ÄàÄcontrollers"z
+4_root_.models.AgentAppointmentSession#(propertyLink)BÅpropertyLinkPropertyLink"!
+_root_.models.PropertyLink#"Ÿ
+°_root_.models.PropertyLink#`<init>`(JLjava/lang/String;JJLjava/lang/String;Lmodels/Capacity;Ljava/time/LocalDate;ZLscala/collection/Seq;Lscala/collection/Seq;)V.≤<init>Ë(authorisationId: Long, submissionId: String, uarn: Long, organisationId: Long, address: String, capacityDeclaration: Capacity, linkedDate: LocalDate, pending: Boolean, assessments: Seq[Assessment], agents: Seq[Party]): PropertyLink"
+_root_.scala.Long#"#
+&,_root_.scala.Predef.String#"
+48_root_.scala.Long#"
+JN_root_.scala.Long#"#
+Y__root_.scala.Predef.String#"
+v~_root_.models.Capacity#"%
+åï_root_.java.time.LocalDate#"
+†ß_root_.scala.Boolean#"#
+∂π_root_.scala.package.Seq#"#
+∫ƒ_root_.models.Assessment#"#
+œ“_root_.scala.package.Seq#"
+”ÿ_root_.models.Party#"%
+‹Ë_root_.models.PropertyLink#"∫
+-_root_.models.AgentAppointmentSession.format.àÅÄ format OFormat[AgentAppointmentSession]"(
+"_root_.play.api.libs.json.OFormat#".
+&_root_.models.AgentAppointmentSession#:Scala211BÖ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import controllers.agentAppointment.AppointAgent
+import play.api.libs.json.Json
+
+case class AgentAppointmentSession(agent: AppointAgent, agentOrgId: Long, propertyLink: PropertyLink)
+
+object AgentAppointmentSession {
+  implicit val format = Json.format[AgentAppointmentSession]
+}
+J(app/models/AgentAppointmentSession.scala

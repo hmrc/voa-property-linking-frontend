@@ -18,12 +18,11 @@ package connectors
 
 import javax.inject.Inject
 
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.ws.WSHttp
-
+import config.WSHttp
 import scala.concurrent.Future
+import uk.gov.hmrc.http.{ HeaderCarrier, HttpResponse, NotFoundException }
 
 class BusinessRatesValuationConnector @Inject()(config: ServicesConfig, http: WSHttp) {
   val url = config.baseUrl("business-rates-valuation")

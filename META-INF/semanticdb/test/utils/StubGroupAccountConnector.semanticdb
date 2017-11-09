@@ -1,0 +1,489 @@
+
+Å–*
+Œ€ _root_.connectors.GroupAccounts#r
+◊Âh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.ö
+Öéç_root_.utils.StubGroupAccountConnector.withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentCode)<
+ñ	õ	0_root_.utils.StubGroupAccountConnector.reset()V.)
+¢
+®
+_root_.scala.concurrent.Future.U
+ÀœK_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.
+™Æ_root_.play.%
+Öã_root_.scala.Predef.String##
+öù_root_.scala.package.Seq#
+€ﬁ_root_.org.
+ÈÏ_root_.scala.Int.?
+πª5test/utils/StubGroupAccountConnector.scala@1787..1811|
+Ä	Ç	r_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;..
+“Ÿ$_root_.models.GroupAccount#(groupId)8
+ÁÔ._root_.scala.Any#toString()Ljava/lang/String;.%
+çì_root_.scala.Int#toLong()J.w
+Ô	Ò	k_root_.utils.StubGroupAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)8
+èñ._root_.models.GroupAccountSubmission#(isAgent)3
+¨≈'_root_.utils.StubGroupAccountConnector.
+€ﬂ_root_.scala.Long# 
+¯_root_.utils.StubHttp.0
+•≤&_root_.uk.gov.hmrc.http.HeaderCarrier#o
+ò°e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.
+ÌÛ_root_.models.ú
+¡»ë_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)0
+¥	∑	&_root_.scala.collection.immutable.Nil."
+©≥_root_.scala.concurrent.:
+ﬁÁ0_root_.models.GroupAccountSubmission#(addressId)0
+›Ê&_root_.models.GroupAccount#(agentCode)a
+≤ºW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.î
+›‰â_root_.utils.StubGroupAccountConnector.withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(groupId)\
+‚ÔR_root_.utils.StubGroupAccountConnector.`stubbedGroups_=`(Lscala/collection/Seq;)V.ò
+€€ç_root_.connectors.GroupAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.)
+„È_root_.scala.concurrent.Future.?
+œ◊3_root_.utils.StubGroupAccountConnector.randomId()I.s
+Ã	œ	g_root_.utils.StubGroupAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.a
+Ω«W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.ú
+áéë_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)=
+Ñå3_root_.utils.StubGroupAccountConnector.randomId()I.ñ
+¸
+Éâ_root_.utils.StubGroupAccountConnector.withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(groupId)%
+Œ⁄_root_.models.GroupAccount#
+¯¸_root_.java.util.6
+Òˆ,_root_.models.GroupAccountSubmission#(email)
+£®_root_.scala.
+ä
+ê
+_root_.scala.Option#7
+˝Å-_root_.java.util.UUID.;_root_.java.util.UUID#a
+©
+≥
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.)
+‘⁄_root_.scala.concurrent.Future#
+Öá
+_root_.uk.)
+É
+â
+_root_.scala.concurrent.Future#U
+ò£K_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.`
+≈ÃT_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.(account)Å
+œ
+›
+w_root_.utils.StubGroupAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)A
+ıÅ7_root_.models.GroupAccount.;_root_.models.GroupAccount#"
+ëï_root_.uk.gov.hmrc.http.
+Û˜_root_.java.<
+…‘2_root_.models.GroupAccountSubmission#(companyName)0
+öß&_root_.uk.gov.hmrc.http.HeaderCarrier#?
+Ω 5_root_.utils.StubGroupAccountConnector.stubbedGroups.W
+ñ£M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#0
+ƒ—&_root_.uk.gov.hmrc.http.HeaderCarrier#)
+´±_root_.scala.concurrent.Future.U
+¬
+∆
+K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.U
+ÉôK_root_.models.GroupAccountSubmission.;_root_.models.GroupAccountSubmission#6
+ÄÖ,_root_.models.GroupAccountSubmission#(phone)%
+§∞_root_.models.GroupAccount.
+¢¶_root_.scala.Long#è
+˜ÑÇ_root_.utils.StubGroupAccountConnector.withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ú
+Èë_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)ú
+¯ˇë_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)ç
+
+˚
+Ä_root_.utils.StubGroupAccountConnector.withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.?
+±≥5test/utils/StubGroupAccountConnector.scala@1787..18110
+Û	Ä
+&_root_.uk.gov.hmrc.http.HeaderCarrier#?
+¥
+¡
+5_root_.utils.StubGroupAccountConnector.stubbedGroups.
+Ø≤_root_.play.api.
+ÂÍ_root_.utils.?
+Úˇ5_root_.utils.StubGroupAccountConnector.stubbedGroups.4
+√Ã*_root_.play.api.libs.concurrent.Execution.ú
+µºë_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)*
+∏¬ _root_.play.api.libs.concurrent.\
+§	±	R_root_.utils.StubGroupAccountConnector.`stubbedGroups_=`(Lscala/collection/Seq;)V. 
+ﬂÈ_root_.org.scalacheck.%
+ë
+ù
+_root_.models.GroupAccount#)
+…
+À
+_root_.models.GroupAccount#(id)?
+»’5_root_.utils.StubGroupAccountConnector.stubbedGroups.<
+⁄‹2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.
+äî_root_.connectors.É
+–	ﬁ	w_root_.utils.StubGroupAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)ï
+èïà_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.$
+Ìı_root_.scala.Int.MaxValue.%
+êñ_root_.scala.Predef.String#û
+ñùë_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)%
+Ã
+Œ
+_root_.scala.Long#`==`(J)Z.o
+Ù˝e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.ë
+ñòÑ_root_.utils.StubGroupAccountConnector.withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)ú
+÷›ë_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)
+»Ã_root_.scala.util.ò
+Û¸ç_root_.utils.StubGroupAccountConnector.withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentCode)/
+üµ%_root_.models.GroupAccountSubmission##
+⁄‡_root_.scala.util.Random.
+àã_root_.uk.gov.I
+¥∫?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#;
+®Æ1_root_.org.scalacheck.Gen#sample()Lscala/Option;.U
+÷⁄K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.
+‡	‰	_root_.scala.Long#ì
+°£Ü_root_.utils.StubGroupAccountConnector.withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc))
+∂º_root_.scala.concurrent.Future.ô
+¿¬å_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)3
+Ωø)_root_.models.GroupAccountSubmission#(id)*
+ï¢ _root_.connectors.GroupAccounts#/
+·Ë%_root_.scala.util.Random#nextInt(I)I.
+¬«_root_.scala.^
+É	ä	T_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.(account)*
+ÍÛ _root_.org.scalacheck.Arbitrary.<
+Ú2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.*
+‹Ó _root_.utils.StubServicesConfig.A
+ãò5_root_.utils.StubGroupAccountConnector.stubbedGroups.>
+Õ÷4_root_.play.api.libs.concurrent.Execution.Implicits.%
+û™_root_.models.GroupAccount#a
+ÍÙW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.A
+ˇÅ5test/utils/StubGroupAccountConnector.scala@1787..1811W
+πƒK_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.
+≥∑_root_.play.api.libs.0
+Æ±&_root_.scala.collection.immutable.Nil.6
+Ø≤,_root_.scala.Option#get()Ljava/lang/Object;.=
+Õ”3_root_.scala.util.Random.;_root_.scala.util.Random#
+åê_root_.uk.gov.hmrc."5
+ _root_.play.api.libs.concurrent.ÄàÄ
+concurrent" 
+_root_.scala.Long#
+Ä†Long"¡
+K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.Òfind%(p: Function1[A, Boolean]): Option[A]"
+_root_.scala.Function1#"0
+(_root_.scala.collection.IterableLike#[A]"
+_root_.scala.Boolean#"
+"_root_.scala.Option#"0
+#$(_root_.scala.collection.IterableLike#[A]"'
+_root_.connectors.ÄàÄ
+connectors"Œ
+Ñ_root_.utils.StubGroupAccountConnector.withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"À
+ç_root_.utils.StubGroupAccountConnector.withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentCode)9Ä	agentCodeString"!
+_root_.scala.Predef.String#"”
+5_root_.utils.StubGroupAccountConnector.stubbedGroups.ôÇÄstubbedGroups_=(x$1: Seq[GroupAccount]): Unit"!
+	_root_.scala.package.Seq#"#
+
+_root_.models.GroupAccount#"
+_root_.scala.Unit#"‘
+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Í	arbitrary)[T] => (implicit a: Arbitrary[T]): Gen[T]"(
+ _root_.org.scalacheck.Arbitrary#"p
+h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]""
+#&_root_.org.scalacheck.Gen#"p
+'(h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"!
+_root_.scala.util.ÄàÄutil"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"
+_root_.java.ÄàÄjava"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"$
+_root_.play.api.libs.ÄàÄlibs"≈
+â_root_.utils.StubGroupAccountConnector.withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(groupId)7ÄgroupIdString"!
+_root_.scala.Predef.String#"c
+0_root_.utils.StubGroupAccountConnector.reset()V./reset(): Unit"
+_root_.scala.Unit#"(
+_root_.utils.StubHttp.ÄÑStubHttp"_
+)_root_.models.GroupAccountSubmission#(id)2ÅidString"!
+_root_.scala.Predef.String#"J
+_root_.models.GroupAccount#(id)'ÅidLong"
+_root_.scala.Long#"e
+,_root_.models.GroupAccountSubmission#(phone)5ÅphoneString"!
+_root_.scala.Predef.String#"J
+_root_.scala.Int.MaxValue.,ÅÄMaxValueInt"
+_root_.scala.Int#"e
+,_root_.models.GroupAccountSubmission#(email)5ÅemailString"!
+_root_.scala.Predef.String#"
+_root_.play.api.
+ÄàÄapi"_
+$_root_.models.GroupAccount#(groupId)7ÅgroupIdString"!
+_root_.scala.Predef.String#"â
+à_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˚createK(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long]"-
+
+ %_root_.models.GroupAccountSubmission#".
+/<&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+?E_root_.scala.concurrent.Future#"
+FJ_root_.scala.Long#"ç
+2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.WÑÄ==(x$1: Any): Boolean"
+	_root_.scala.Any#"
+_root_.scala.Boolean#"d
+._root_.models.GroupAccountSubmission#(isAgent)2ÅisAgentBoolean"
+_root_.scala.Boolean#"4
+&_root_.scala.collection.immutable.Nil.
+ÄÑàNil"G
+4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits"ç
+1_root_.org.scalacheck.Gen#sample()Lscala/Option;.Xsample	Option[T]"
+_root_.scala.Option#"%
+_root_.org.scalacheck.Gen#[T]"/
+_root_.scala.concurrent.Future.ÄÑFuture"¬
+s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
+	_root_.scala.Long#"#
+_root_.scala.Predef.String#"#
+)/_root_.scala.Predef.String#"
+<?_root_.scala.Int#"#
+HN_root_.scala.Predef.String#"#
+W]_root_.scala.Predef.String#"
+ho_root_.scala.Boolean#"
+|Ä_root_.scala.Long#"%
+Éè_root_.models.GroupAccount#".
+_root_.scala.concurrent.Future#Ä@Future"=
+*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution"_
+5test/utils/StubGroupAccountConnector.scala@1787..1811&idLong"
+_root_.scala.Long#"6
+ _root_.connectors.GroupAccounts#Ä GroupAccounts"$
+_root_.scala.Option#Ä†Option"
+_root_.org.
+ÄàÄorg"
+
+_root_.uk.	ÄàÄuk"y
+%_root_.scala.util.Random#nextInt(I)I.PnextInt(n: Int): Int"
+_root_.scala.Int#"
+
+_root_.scala.Int#"c
+3_root_.utils.StubGroupAccountConnector.randomId()I.,ÑÄrandomIdInt"
+_root_.scala.Int#"Æ
+w_root_.utils.StubGroupAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)3ÄorganisationIdLong"
+_root_.scala.Long#"1
+_root_.models.GroupAccount.ÄÑGroupAccount"2
+_root_.models.GroupAccount#Ä†ÄGroupAccount"
+_root_.uk.gov.
+ÄàÄgov"X
+&_root_.models.GroupAccount#(agentCode).Å	agentCodeLong"
+_root_.scala.Long#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"ô
+ü_root_.models.GroupAccountSubmission#`<init>`(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZLmodels/IndividualAccountSubmission;)V.Ù<init>≥(id: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, individualAccountSubmission: IndividualAccountSubmission): GroupAccountSubmission"#
+_root_.scala.Predef.String#"#
+ _root_.scala.Predef.String#"
+-0_root_.scala.Int#"#
+9?_root_.scala.Predef.String#"#
+HN_root_.scala.Predef.String#"
+Y`_root_.scala.Boolean#"3
+ö*_root_.models.IndividualAccountSubmission#"/
+ù≥%_root_.models.GroupAccountSubmission#"ï
+T_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.(account)=ÄaccountGroupAccount"!
+_root_.models.GroupAccount#"¥
+k_root_.utils.StubGroupAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"–
+Ü_root_.utils.StubGroupAccountConnector.withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"+
+_root_.org.scalacheck.ÄàÄ
+scalacheck"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"
+_root_.play.ÄàÄplay"√
+h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"F
+%_root_.models.GroupAccountSubmission#Ä†ÄGroupAccountSubmission"Æ
+ç_root_.connectors.GroupAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.õ<init>T(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): GroupAccounts"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"(
+GT _root_.connectors.GroupAccounts#"÷
+å_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#")
+_root_.scala.util.Random.ÄÑRandom"Á
+ë_root_.utils.StubGroupAccountConnector.create(Lmodels/GroupAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)QÄaccountGroupAccountSubmission"+
+%_root_.models.GroupAccountSubmission#"©
+Ç_root_.utils.StubGroupAccountConnector.withAgentCode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.°withAgentCodeM(agentCode: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]]"#
+_root_.scala.Predef.String#".
+!.&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+17_root_.scala.concurrent.Future#"
+8>_root_.scala.Option#"#
+?K_root_.models.GroupAccount#"3
+ _root_.org.scalacheck.Arbitrary.ÄÑ	Arbitrary"
+_root_.models.ÄàÄmodels"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"v
+_root_.scala.Long#`==`(J)Z.WÑÄ==(x: Long): Boolean"
+_root_.scala.Long#"
+_root_.scala.Boolean#"[
+,_root_.scala.Option#get()Ljava/lang/Object;.+ÑÄgetA"
+_root_.scala.Option#[A]"<
+ _root_.utils.StubServicesConfig.ÄÑStubServicesConfig"
+R_root_.utils.StubGroupAccountConnector.`stubbedGroups_=`(Lscala/collection/Seq;)V.ôÇÄstubbedGroups_=(x$1: Seq[GroupAccount]): Unit"!
+	_root_.scala.package.Seq#"#
+
+_root_.models.GroupAccount#"
+_root_.scala.Unit#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"£
+Ä_root_.utils.StubGroupAccountConnector.withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ùwithGroupIdK(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]]"#
+
+_root_.scala.Predef.String#".
+,&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+/5_root_.scala.concurrent.Future#"
+6<_root_.scala.Option#"#
+=I_root_.models.GroupAccount#"K
+_root_.scala.Int#toLong()J.,ÑÄtoLongLong"
+_root_.scala.Long#"J
+'_root_.utils.StubGroupAccountConnector.ÄÑStubGroupAccountConnector"
+_root_.utils.ÄàÄutils">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."`
+0_root_.models.GroupAccountSubmission#(addressId),Å	addressIdInt"
+_root_.scala.Int#"
+_root_.scala.ÄàÄscala"l
+._root_.scala.Any#toString()Ljava/lang/String;.:toString
+(): String" 
+
+_root_.java.lang.String#" 
+_root_.java.util.ÄàÄutil"˝
+g_root_.utils.StubGroupAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ëgetP(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]]"
+_root_.scala.Long#".
+$1&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+4:_root_.scala.concurrent.Future#"
+;A_root_.scala.Option#"#
+BN_root_.models.GroupAccount#"æ
+K_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.ostubAccount(account: GroupAccount): Unit"#
+
+_root_.models.GroupAccount#"
+_root_.scala.Unit#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"
+_root_.scala.Int.	ÄÑInt"q
+2_root_.models.GroupAccountSubmission#(companyName);ÅcompanyNameString"!
+_root_.scala.Predef.String#"∞
+r_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.π:+F[B, That] => (elem: B)(implicit bf: CanBuildFrom[Repr, B, That]): That"}
+u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+$0-_root_.scala.collection.generic.CanBuildFrom#".
+15&_root_.scala.collection.SeqLike#[Repr]"}
+78u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ä
+:>x_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ä
+BFx_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]2…
+¯¯>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.p
+/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2®
+Ç	Ç	"*[GroupAccount, Seq[GroupAccount]]
+_star_.#
+_root_.models.GroupAccount##
+ _root_.models.GroupAccount#!
+_root_.scala.package.Seq#2∞
+∞∞*.apply
+_star_.ç
+Ñ_root_.models.GroupAccount.apply(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)Lmodels/GroupAccount;.2s
+≥
+≥
+*[Option[GroupAccount]]
+_star_.#
+	_root_.models.GroupAccount#
+_root_.scala.Option#2s
+««*[Option[GroupAccount]]
+_star_.#
+	_root_.models.GroupAccount#
+_root_.scala.Option#2Ã
+ä	ä	2*(scala.collection.Seq.canBuildFrom[GroupAccount])
+_star_.#
+$0_root_.models.GroupAccount#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2<
+ÙÙ*[Long]
+_star_.
+_root_.scala.Long#2s
+ºº*[Option[GroupAccount]]
+_star_.#
+	_root_.models.GroupAccount#
+_root_.scala.Option#2y
+ßß#*(org.scalacheck.Arbitrary.arbLong)
+_star_.;
+"3_root_.org.scalacheck.ArbitraryLowPriority#arbLong.:Scala211B˘/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package utils
+
+import java.util.UUID
+
+import connectors.GroupAccounts
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import models.{GroupAccount, GroupAccountSubmission}
+
+import scala.concurrent.Future
+import scala.util.Random
+import org.scalacheck.Arbitrary.arbitrary
+import uk.gov.hmrc.http.HeaderCarrier
+
+object StubGroupAccountConnector extends GroupAccounts(StubServicesConfig, StubHttp) {
+
+  private var stubbedGroups: Seq[GroupAccount] = Nil
+
+  def stubAccount(account: GroupAccount) {
+    stubbedGroups = stubbedGroups :+ account
+  }
+
+  def reset() {
+    stubbedGroups = Nil
+  }
+
+  override def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = Future.successful(stubbedGroups.find(_.id == organisationId))
+
+  override def withGroupId(groupId: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.groupId == groupId))
+
+  override def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.agentCode.toString == agentCode))
+
+  override def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] = Future.successful {
+    val id = randomId.toLong
+    stubAccount(GroupAccount(id, account.id, account.companyName, account.addressId, account.email, account.phone, account.isAgent, arbitrary[Long].sample.get))
+    id
+  }
+
+  private def randomId = Random.nextInt(Int.MaxValue)
+}
+J*test/utils/StubGroupAccountConnector.scala

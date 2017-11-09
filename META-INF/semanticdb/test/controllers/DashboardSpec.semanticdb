@@ -1,0 +1,917 @@
+
+¡ΩI
+“ÿ?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#J
+ÿ„@_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.!
+∂"æ"_root_.models.Accounts.9
+ü	¶	/_root_.org.mockito.ArgumentMatchers.anyLong()J.%
+®Ø_root_.org.mockito.Mockito.V
+≥√L_root_.controllers.ReverseDashboard#manageProperties(II)Lplay/api/mvc/Call;.z
+µªp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.)
+˛Ä_root_.models.GroupAccount#(id)-
+Äï#_root_.utils.StubMessagesConnector#M
+∑≈C_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.ï
+áää_root_.org.mockito.ArgumentMatchers.any(Ljava/lang/Class;)Ljava/lang/Object;.;_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.9
+œ‘/test/controllers/DashboardSpec.scala@3136..32043
+Òá)_root_.connectors.NonOrganisationAccount.<
+»ﬂ2_root_.controllers.routes.CreateIndividualAccount. 
+¿ _root_.org.scalacheck.<
+°∏2_root_.controllers.routes.CreateIndividualAccount.
+¡∆_root_.scala.;
+˚¸/test/controllers/DashboardSpec.scala@1143..1167
+‡‚
+_root_.uk.f
+ÌÖ\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.<
+‡Ó0_root_.controllers.DashboardSpec#mockDraftCases.)
+ñß_root_.utils.StubAuthConnector.;
+Ù	Å
+/_root_.controllers.DashboardSpec#TestDashboard.;
+çì/test/controllers/DashboardSpec.scala@3209..33299
+§™/test/controllers/DashboardSpec.scala@3209..3329f
+ÿ\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.9
+ò•/_root_.controllers.DashboardSpec#TestDashboard.6
+ÔÚ,_root_.scala.Option#get()Ljava/lang/Object;.)
+•∂_root_.utils.StubAuthConnector.
+ïô_root_.scala.Some.V
+‡‰L_root_.controllers.ReverseCreateIndividualAccount#show()Lplay/api/mvc/Call;.;
+»Õ/test/controllers/DashboardSpec.scala@3908..40061
+›
+ˆ
+'_root_.utils.StubPropertyLinkConnector.0
+ËÒ&_root_.play.api.http.Status#SEE_OTHER.9
+ù£/test/controllers/DashboardSpec.scala@3209..3329{
+Ω	«	q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.J
+Ï˜@_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.u
+àäk_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
+Ñá_root_.play.api.6
+Úê,_root_.utils.StubIndividualAccountConnector.2
+¬€(_root_.models.DetailedIndividualAccount#¡
+îò∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.o
+Ã’e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.;
+‘◊/test/controllers/DashboardSpec.scala@2256..22959
+⁄Á/_root_.controllers.DashboardSpec#TestDashboard..
+©≤$_root_.controllers.routes.Dashboard.*
+÷#‹# _root_.controllers.agent.routes.(
+ó¢_root_.connectors.NoVOARecord.u
+ªΩk_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.'
+Ñ	é	_root_.connectors.DraftCases#9
+≥¿/_root_.controllers.DashboardSpec#TestDashboard.4
+´´*_root_.org.scalatest.FlatSpec#`<init>`()V.9
+Ω /_root_.controllers.DashboardSpec#TestDashboard.E
+¥ø;_root_.resources.package.shortString()Lorg/scalacheck/Gen;.!
+îú_root_.models.Accounts.¡
+“÷∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.W
+Ò˛M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#¡
+¶™∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.+
+∆—!_root_.play.api.test.FakeRequest.(
+∆…_root_.play.api.mvc.Call#(url)
+àå_root_.play.api.test.
+ø#√#_root_.scala.Some.%
+÷‚_root_.models.GroupAccount#6
+î!≤!,_root_.utils.StubIndividualAccountConnector.E
+Öê;_root_.resources.package.shortString()Lorg/scalacheck/Gen;.f
+¶æ\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.(
+ø _root_.connectors.NoVOARecord.o
+ñüe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.?
+ô
+ú
+5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.*
+«Ÿ _root_.utils.StubAuthentication.M
+ôßC_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.)
+› Ó _root_.utils.StubAuthConnector.C
+¶™9_root_.controllers.Dashboard#home()Lplay/api/mvc/Action;.
+˘¸_root_.com.9
+ËÏ/test/controllers/DashboardSpec.scala@4072..4072z
+àép_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.(
+•®_root_.play.api.mvc.Call#(url)K
+ù
+•
+A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.*
+Üì _root_.connectors.Authenticated.
+Ÿﬂ_root_.models..
+ıÖ$_root_.org.mockito.ArgumentMatchers.U
+√ŒK_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.*
+®"µ" _root_.connectors.Authenticated.z
+·Áp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.%
+⁄Ê_root_.models.GroupAccount#d
+∞¥Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;. 
+˝á_root_.com.builtamont.6
+ÎÓ,_root_.scala.Option#get()Ljava/lang/Object;.-
+Üì!_root_.controllers.DashboardSpec#9
+åì/_root_.org.mockito.ArgumentMatchers.anyLong()J.)
+áò_root_.utils.StubAuthConnector.3
+»œ)_root_.controllers.DashboardSpec#request.)
+»	Œ	_root_.scala.concurrent.Future.
+ÁÎ_root_.play.api.test.
+„Ê_root_.uk.gov.C
+›#ı#9_root_.controllers.agent.routes.RepresentationController.)
+© ∫ _root_.utils.StubAuthConnector.9
+ﬂ"Ï"/_root_.controllers.DashboardSpec#TestDashboard.;
+ƒ…/test/controllers/DashboardSpec.scala@3136..32049
+ø"ƒ"/test/controllers/DashboardSpec.scala@3908..40069
+Ò!ˆ!/test/controllers/DashboardSpec.scala@3908..4006a
+œ	Ÿ	W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.3
+“Ÿ)_root_.controllers.DashboardSpec#request.*
+À‘ _root_.org.scalacheck.Arbitrary.o
+°™e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.*
+Æø _root_.config.ApplicationConfig#u
+úûk_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.)
+ªÃ_root_.utils.StubAuthConnector.
+úü_root_.org.*
+Î˝ _root_.utils.StubAuthentication.'
+ä
+ì
+_root_.controllers.Dashboard#6
+¿√,_root_.scala.Option#get()Ljava/lang/Object;.9
+ƒ»/test/controllers/DashboardSpec.scala@2756..2756;
+ª¡1_root_.org.scalacheck.Gen#sample()Lscala/Option;.o
+–Ÿe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.0
+Ú˚&_root_.play.api.http.Status#SEE_OTHER.*
+¸!é" _root_.utils.StubAuthentication.;
+∑∫/test/controllers/DashboardSpec.scala@3635..3674¯
+ì
+ì
+Ì_root_.controllers.Dashboard#`<init>`(Lconfig/ApplicationConfig;Lconnectors/DraftCases;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;Lactions/AuthenticatedAction;Lcom/builtamont/play/pdf/PdfGenerator;)V.c
+ëùY_root_.com.builtamont.play.pdf.PdfGenerator.;_root_.com.builtamont.play.pdf.PdfGenerator#
+ûß_root_.resources.)
+‰ı_root_.utils.StubAuthConnector.%
+àå_root_.com.builtamont.play.9
+‰	Â	/test/controllers/DashboardSpec.scala@1143..1167;
+πø1_root_.org.scalacheck.Gen#sample()Lscala/Option;.U
+Â!!K_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.;
+íï/test/controllers/DashboardSpec.scala@1806..1845F
+®	´	<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.g
+ëú]_root_.utils.StubIndividualAccountConnector.stubAccount(Lmodels/DetailedIndividualAccount;)V.;
+ËÓ1_root_.org.scalacheck.Gen#sample()Lscala/Option;.
+„Ê_root_.play.api.u
+∑πk_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.9
+ø!≈!/test/controllers/DashboardSpec.scala@4011..4131
+±∂_root_.utils.M
+ª … C_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.J
+Õÿ@_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.
+Â_root_.controllers.*
+≈◊ _root_.utils.StubAuthentication.
+ÁÎ_root_.uk.gov.hmrc.z
+ñúp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.9
+ö ü /test/controllers/DashboardSpec.scala@3908..4006¡
+ÊÍ∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.z
+éîp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.*
+±
+¬
+ _root_.config.ApplicationConfig#C
+Àœ9_root_.controllers.Dashboard#home()Lplay/api/mvc/Action;.u
+€›k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.9
+îî-_root_.controllers.DashboardSpec#`<init>`()V.$
+ö†_root_.controllers.routes.)
+⁄Î_root_.utils.StubAuthConnector.'
+çî_root_.play.api.test.Helpers.0
+î#ù#&_root_.play.api.http.Status#SEE_OTHER.0
+¨	π	&_root_.uk.gov.hmrc.http.HeaderCarrier#6
+¬≈,_root_.scala.Option#get()Ljava/lang/Object;.;
+›„1_root_.org.scalacheck.Gen#sample()Lscala/Option;.
+º¿_root_.scala.Some.;
+Ÿ"‹"/test/controllers/DashboardSpec.scala@4437..4476*
+⁄Ï _root_.utils.StubAuthentication.M
+Ï˜C_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#K
+¨ΩA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#M
+£±C_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.;
+Øµ/test/controllers/DashboardSpec.scala@4011..4131¡
+âç∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.$
+¢®_root_.controllers.routes.f
+è"ß"\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.%
+´∑_root_.models.GroupAccount#o
+∏¡e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.S
+ïïI_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.X
+ê¢N_root_.controllers.ReverseApplication#invalidAccountType()Lplay/api/mvc/Call;.C
+¡≈9_root_.controllers.Dashboard#home()Lplay/api/mvc/Action;.d
+î	ò	Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.M
+ˆÑC_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.9
+‰/_root_.controllers.DashboardSpec#TestDashboard.$
+˝É_root_.controllers.routes.#
+–#’#_root_.controllers.agent.g
+≥!æ!]_root_.utils.StubIndividualAccountConnector.stubAccount(Lmodels/DetailedIndividualAccount;)V.
+ﬁ‚_root_.play.6
+‰Á,_root_.scala.Option#get()Ljava/lang/Object;.
+ÌÙ_root_.org.mockito.0
+⁄	›	&_root_.scala.collection.immutable.Nil.9
+ù¢/test/controllers/DashboardSpec.scala@3136..32049
+ô	ö	/test/controllers/DashboardSpec.scala@1143..11679
+∆ /test/controllers/DashboardSpec.scala@3270..3270z
+∏#æ#p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.(
+æ¡_root_.play.api.mvc.Call#(url)e
+ﬂ„[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.a
+¶
+∞
+W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.;
+≠∞/test/controllers/DashboardSpec.scala@2857..28963
+Ôˆ)_root_.controllers.DashboardSpec#request.:
+…
+◊
+0_root_.controllers.DashboardSpec#mockDraftCases.(
+ç$ê$_root_.play.api.mvc.Call#(url)?
+ñô5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.2
+†π(_root_.models.DetailedIndividualAccount#0
+Ñè&_root_.controllers.routes.Application.1
+˚î'_root_.utils.StubGroupAccountConnector.1
+À!‰!'_root_.utils.StubGroupAccountConnector.3
+Ù"˚")_root_.controllers.DashboardSpec#request.V
+πΩL_root_.controllers.ReverseCreateIndividualAccount#show()Lplay/api/mvc/Call;.J
+Ô ˙ @_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.
+¯¸_root_.scala.Some.;
+‰Í1_root_.org.scalacheck.Gen#sample()Lscala/Option;.e
+ˇÉ	[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.9
+¯˝/test/controllers/DashboardSpec.scala@3136..32049
+ÔÛ/test/controllers/DashboardSpec.scala@3183..3183$
+¡«_root_.controllers.routes.
+ˇÉ_root_.play.
+ºø_root_.org.
+≈œ_root_.connectors.C
+ËÏ9_root_.controllers.Dashboard#home()Lplay/api/mvc/Action;.
+ù°_root_.scala.Some.
+ƒ#œ#_root_.controllers.1
+©¬'_root_.utils.StubGroupAccountConnector.)
+çê_root_.com.builtamont.play.pdf.U
+ï†K_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.(
+ÂË_root_.play.api.mvc.Call#(url)
+•´_root_.config.0
+èò&_root_.play.api.http.Status#SEE_OTHER.z
+∆Ãp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.,
+ú™"_root_.controllers.ControllerSpec#)
+ë¢_root_.utils.StubAuthConnector.)
+† ¢ _root_.models.GroupAccount#(id)g
+õ	û	]_root_.connectors.DraftCases#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.3
+≠¥)_root_.controllers.DashboardSpec#request.9
+Û˜/test/controllers/DashboardSpec.scala@3955..3955a
+£≠W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.z
+ÎÒp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.f
+˛ñ\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.*
+ì• _root_.utils.StubAuthentication.z
+ç#ì#p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
+†ß_root_.org.mockito.
+ÈÏ_root_.org."
+«—_root_.scala.concurrent.K
+ö¢A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.)
+∆◊_root_.utils.StubAuthConnector.z
+Ò˜p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.C
+Ì"Ò"9_root_.controllers.Dashboard#home()Lplay/api/mvc/Action;.9
+∆"Ã"/test/controllers/DashboardSpec.scala@4011..4131o
+ˆ#ä$e_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;."
+Ï_root_.uk.gov.hmrc.http.0
+Õ÷&_root_.play.api.http.Status#SEE_OTHER.J
+®≥@_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.5
+º√)_root_.controllers.DashboardSpec#request."9
+"_root_.controllers.ControllerSpec#Ä@ControllerSpec"[
+/test/controllers/DashboardSpec.scala@3183..3183(x$10Long"
+_root_.scala.Long#"ñ
+/test/controllers/DashboardSpec.scala@1806..1845cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"T
+,_root_.utils.StubIndividualAccountConnector.$ÄÑStubIndividualAccountConnector"Õ
+q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.◊ÑÄÑ
+thenReturn(x$1: T): OngoingStubbing[T]"7
+/_root_.org.mockito.stubbing.OngoingStubbing#[T]"4
+
+,_root_.org.mockito.stubbing.OngoingStubbing#"7
+/_root_.org.mockito.stubbing.OngoingStubbing#[T]"$
+_root_.play.api.test.ÄàÄtest"
+_root_.com.
+ÄàÄcom"¢
+;_root_.resources.package.shortString()Lorg/scalacheck/Gen;.cshortStringGen[String]" 
+_root_.org.scalacheck.Gen#"#
+
+_root_.scala.Predef.String#"6
+!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"ñ
+/test/controllers/DashboardSpec.scala@3635..3674cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"'
+_root_.connectors.ÄàÄ
+connectors"Î
+]_root_.utils.StubIndividualAccountConnector.stubAccount(Lmodels/DetailedIndividualAccount;)V.âstubAccount*(account: DetailedIndividualAccount): Unit"0
+
+#(_root_.models.DetailedIndividualAccount#"
+&*_root_.scala.Unit#"‘
+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Í	arbitrary)[T] => (implicit a: Arbitrary[T]): Gen[T]"(
+ _root_.org.scalacheck.Arbitrary#"p
+h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]""
+#&_root_.org.scalacheck.Gen#"p
+'(h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]"1
+ _root_.controllers.agent.routes.ÄÑàroutes"Î
+t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"
+JN_root_.scala.Long#"(
+Yj _root_.models.IndividualDetails#"1
+mÜ(_root_.models.DetailedIndividualAccount#"m
+/test/controllers/DashboardSpec.scala@3136..3204:groupGroupAccount"!
+_root_.models.GroupAccount#"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"g
+/_root_.org.mockito.ArgumentMatchers.anyLong()J.4ÑÄÄanyLong(): Long"
+_root_.scala.Long#"Ê
+I_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.ò<init>5(appConfig: ApplicationConfig): StubMessagesConnector"(
+ _root_.config.ApplicationConfig#"+
+ 5#_root_.utils.StubMessagesConnector#"ï
+N_root_.controllers.ReverseApplication#invalidAccountType()Lplay/api/mvc/Call;.CinvalidAccountType(): Call"!
+_root_.play.api.mvc.Call#"ï
+Ì_root_.controllers.Dashboard#`<init>`(Lconfig/ApplicationConfig;Lconnectors/DraftCases;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;Lactions/AuthenticatedAction;Lcom/builtamont/play/pdf/PdfGenerator;)V.¢<init>ƒ(config: ApplicationConfig, draftCases: DraftCases, propertyLinks: PropertyLinkConnector, messagesConnector: MessagesConnector, authenticated: AuthenticatedAction, pdfGen: PdfGenerator): Dashboard"(
+	 _root_.config.ApplicationConfig#"%
+(2_root_.connectors.DraftCases#"@
+CX8_root_.connectors.propertyLinking.PropertyLinkConnector#",
+m~$_root_.connectors.MessagesConnector#"-
+è¢#_root_.actions.AuthenticatedAction#"6
+¨∏,_root_.com.builtamont.play.pdf.PdfGenerator#"'
+ªƒ_root_.controllers.Dashboard#"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"È
+]_root_.connectors.DraftCases#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ágetD(personId: Long)(implicit hc: HeaderCarrier): Future[Seq[DraftCase]]"
+_root_.scala.Long#".
++&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+.4_root_.scala.concurrent.Future#"!
+58_root_.scala.package.Seq#" 
+9B_root_.models.DraftCase#"J
+_root_.models.GroupAccount#(id)'ÅidLong"
+_root_.scala.Long#"ø
+9_root_.controllers.agent.routes.RepresentationController.ÅÅÄàRepresentationControllerReverseRepresentationController"?
+9_root_.controllers.agent.ReverseRepresentationController#"/
+_root_.controllers.Dashboard#Ä 	Dashboard"
+_root_.play.api.
+ÄàÄapi"Æ
+2_root_.controllers.routes.CreateIndividualAccount.xÅÄàCreateIndividualAccountReverseCreateIndividualAccount"8
+2_root_.controllers.ReverseCreateIndividualAccount#"à
+/test/controllers/DashboardSpec.scala@4011..4131UpersonDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"ï
+;_root_.controllers.DashboardSpec#TestDashboard.`<init>`()V.V<init>(): TestDashboard"7
+/_root_.controllers.DashboardSpec#TestDashboard."0
+_root_.connectors.DraftCases#Ä 
+DraftCases"´
+9_root_.controllers.Dashboard#home()Lplay/api/mvc/Action;.nhome(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"U
+&_root_.play.api.http.Status#SEE_OTHER.+	SEE_OTHERInt"
+_root_.scala.Int#"4
+&_root_.scala.collection.immutable.Nil.
+ÄÑàNil"?
+$_root_.org.mockito.ArgumentMatchers.ÄÑàArgumentMatchers"+
+_root_.com.builtamont.ÄàÄ
+builtamont"¬
+s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
+	_root_.scala.Long#"#
+_root_.scala.Predef.String#"#
+)/_root_.scala.Predef.String#"
+<?_root_.scala.Int#"#
+HN_root_.scala.Predef.String#"#
+W]_root_.scala.Predef.String#"
+ho_root_.scala.Boolean#"
+|Ä_root_.scala.Long#"%
+Éè_root_.models.GroupAccount#"/
+_root_.scala.concurrent.Future.ÄÑFuture"ç
+1_root_.org.scalacheck.Gen#sample()Lscala/Option;.Xsample	Option[T]"
+_root_.scala.Option#"%
+_root_.org.scalacheck.Gen#[T]"å
+[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.¨mock*[T] => (implicit classTag: ClassTag[T]): T"&
+#_root_.scala.reflect.ClassTag#"f
+$%^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"f
+)*^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"7
+!_root_.controllers.DashboardSpec#Ä DashboardSpec"%
+_root_.resources.ÄàÄ	resources"Æ
+C_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.gstubExternalId(id: String): Unit"#
+_root_.scala.Predef.String#"
+_root_.scala.Unit#"7
+ _root_.connectors.Authenticated.ÄÑAuthenticated"
+_root_.org.
+ÄàÄorg"à
+/test/controllers/DashboardSpec.scala@3209..3329UpersonDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"m
+/test/controllers/DashboardSpec.scala@3908..4006:groupGroupAccount"!
+_root_.models.GroupAccount#"v
+$_root_.controllers.routes.Dashboard.NÅÄà	DashboardReverseDashboard"*
+$_root_.controllers.ReverseDashboard#"
+
+_root_.uk.	ÄàÄuk"„
+p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.omustBe(right: Any): Assertion"
+_root_.scala.Any#"/
+'_root_.org.scalatest.package.Assertion#"ì
+Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.¥ÑÄÄwhen#[T] => (x$1: T): OngoingStubbing[T]"e
+]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"4
+ ,_root_.org.mockito.stubbing.OngoingStubbing#"e
+!"]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"2
+_root_.models.GroupAccount#Ä†ÄGroupAccount"+
+_root_.controllers.routes.ÄÑàroutes"
+_root_.uk.gov.
+ÄàÄgov"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"f
+/test/controllers/DashboardSpec.scala@4072..40723x$32String"!
+_root_.scala.Predef.String#"ñ
+/test/controllers/DashboardSpec.scala@2256..2295cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig".
+_root_.play.api.test.Helpers.ÄÑHelpers"ñ
+/test/controllers/DashboardSpec.scala@2857..2896cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"i
+/test/controllers/DashboardSpec.scala@1143..11676m
+DraftCases"#
+
+_root_.connectors.DraftCases#"¡
+∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
+_root_.scala.Predef.String#">
+96_root_.org.scalatest.words.StringVerbStringInvocation#">
+<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"ñ
+/test/controllers/DashboardSpec.scala@4437..4476cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"Z
+/test/controllers/DashboardSpec.scala@2756..2756'x$2Long"
+_root_.scala.Long#"ä
+W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.ÆÑÄ
+instanceOf,[T] => (implicit evidence$1: ClassTag[T]): T"&
+%_root_.scala.reflect.ClassTag#"b
+&'Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"b
++,Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"
+_root_.play.ÄàÄplay"+
+_root_.org.scalacheck.ÄàÄ
+scalacheck"-
+_root_.scala.concurrent.ÄàÄ
+concurrent":
+_root_.utils.StubAuthConnector.ÄÑStubAuthConnector"J
+)_root_.connectors.NonOrganisationAccount.ÄÑàNonOrganisationAccount"A
+#_root_.utils.StubMessagesConnector#Ä StubMessagesConnector"˝
+e_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;.ìviewClientProperties (page: Int, pageSize: Int): Call"
+
+_root_.scala.Int#"
+_root_.scala.Int#"!
+ _root_.play.api.mvc.Call#"°
+<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.aÑÄÄany[T] => (): T"G
+?_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.[T]"-
+_root_.org.mockito.Mockito.ÄÑàMockito"3
+ _root_.org.scalacheck.Arbitrary.ÄÑ	Arbitrary"Ó
+\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.çstubAuthenticationResult#(result: AuthorisationResult): Unit".
+	&_root_.connectors.AuthorisationResult#"
+#_root_.scala.Unit#"≠
+@_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.istubGroupId(groupId: String): Unit"#
+
+_root_.scala.Predef.String#"
+_root_.scala.Unit#"‡
+L_root_.controllers.ReverseDashboard#manageProperties(II)Lplay/api/mvc/Call;.èmanageProperties (page: Int, pageSize: Int): Call"
+
+_root_.scala.Int#"
+_root_.scala.Int#"!
+ _root_.play.api.mvc.Call#"
+_root_.models.ÄàÄmodels"*
+_root_.com.builtamont.play.ÄàÄplay"[
+,_root_.scala.Option#get()Ljava/lang/Object;.+ÑÄgetA"
+_root_.scala.Option#[A]"-
+_root_.com.builtamont.play.pdf.
+ÄàÄpdf"4
+_root_.connectors.NoVOARecord.ÄÑàNoVOARecord")
+_root_.controllers.ÄàÄcontrollers"y
+-_root_.controllers.DashboardSpec#`<init>`()V.H<init>(): DashboardSpec")
+!_root_.controllers.DashboardSpec#" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"~
+&_root_.controllers.routes.Application.TÅÄàApplicationReverseApplication",
+&_root_.controllers.ReverseApplication#"J
+'_root_.utils.StubGroupAccountConnector.ÄÑStubGroupAccountConnector"
+_root_.utils.ÄàÄutils"<
+ _root_.utils.StubAuthentication.ÄÑStubAuthentication"f
+/test/controllers/DashboardSpec.scala@3270..32703x$19String"!
+_root_.scala.Predef.String#"
+_root_.config.ÄàÄconfig"F
+/_root_.controllers.DashboardSpec#TestDashboard.ÄÑTestDashboard">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier")
+_root_.controllers.agent.ÄàÄagent"
+_root_.scala.ÄàÄscala"y
+0_root_.controllers.DashboardSpec#mockDraftCases.EÅÄ@mockDraftCases
+DraftCases"#
+
+_root_.connectors.DraftCases#"Ö
+L_root_.controllers.ReverseCreateIndividualAccount#show()Lplay/api/mvc/Call;.5show(): Call"!
+_root_.play.api.mvc.Call#"J
+'_root_.utils.StubPropertyLinkConnector.ÄÑStubPropertyLinkConnector"æ
+K_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.ostubAccount(account: GroupAccount): Unit"#
+
+_root_.models.GroupAccount#"
+_root_.scala.Unit#"n
+*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
+_root_.org.scalatest.FlatSpec#"L
+(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount""
+_root_.uk.gov.hmrc.ÄàÄhmrc")
+_root_.models.Accounts.ÄÑAccounts"É
+A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.>injectorInjector"&
+ _root_.play.api.inject.Injector#"s
+5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.:ÅÄ`appApplication""
+_root_.play.api.Application#" 
+_root_.scala.Some.
+ÄÑSome"[
+/test/controllers/DashboardSpec.scala@3955..3955(x$24Long"
+_root_.scala.Long#"π
+)_root_.controllers.DashboardSpec#request.ãÅÄ request#FakeRequest[AnyContentAsEmpty.type]"'
+!_root_.play.api.test.FakeRequest#".
+&_root_.play.api.mvc.AnyContentAsEmpty."%
+_root_.org.mockito.ÄàÄmockito"∂
+k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#"•
+ä_root_.connectors.DraftCases#`<init>`(Lconfig/WSHttp;Luk/gov/hmrc/play/config/inject/ServicesConfig;Lscala/concurrent/ExecutionContext;)V.ï<init>Q(http: WSHttp, config: ServicesConfig)(implicit ec: ExecutionContext): DraftCases"
+_root_.config.WSHttp#"=
+%5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"1
+4D)_root_.scala.concurrent.ExecutionContext#"%
+GQ_root_.connectors.DraftCases#2û
+⁄⁄7*(DashboardSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+6D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2˜
+˘⁄1DashboardSpec.this.convertToInAndIgnoreMethods(*)®
+.ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+/0_star_.2~
+∏∏,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2 
+ÌÌµ*(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 62))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2˜
+ ∂1DashboardSpec.this.convertToInAndIgnoreMethods(*)®
+.ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+/0_star_.2|
+ÓÓ*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2ï
+±ÂÜDashboardSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 62), org.scalactic.Prettifier.default)¡
+-∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+./_star_.y
+OTq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+˛Ö(_root_.org.scalactic.Prettifier.default.2ï
+˘•ÜDashboardSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 52), org.scalactic.Prettifier.default)¡
+-∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+./_star_.y
+OTq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+˛Ö(_root_.org.scalactic.Prettifier.default.2è
+¸¸*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2†
+ò	ò	*[Future[Seq[DraftCase]]]
+_star_. 
+_root_.models.DraftCase#'
+_root_.scala.concurrent.Future#!
+	_root_.scala.package.Seq#2~
+„„,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2û
+áá7*(DashboardSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+6D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2ﬂ
+ù¥ìDashboardSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 68), org.scalactic.Prettifier.default)#
+28_root_.scala.Predef.String#
++1_root_.scala.Option#ª
+*≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+;<_star_.y
+\aq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ãí(_root_.org.scalactic.Prettifier.default.2˜
+“∫1DashboardSpec.this.convertToInAndIgnoreMethods(*)®
+.ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+/0_star_.2è
+√#√#*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2è
+°°*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2
+ÒÒj*(((ClassTag.apply[PdfGenerator](classOf[com.builtamont.play.pdf.PdfGenerator])): ClassTag[PdfGenerator]))
+_star_.4
+,_root_.com.builtamont.play.pdf.PdfGenerator#&
+RZ_root_.scala.reflect.ClassTag#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.4
+[g,_root_.com.builtamont.play.pdf.PdfGenerator#2¨
+ﬂÍàDashboardSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 93), org.scalactic.Prettifier.default)ª
+*≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
++._root_.scala.Int#
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Äá(_root_.org.scalactic.Prettifier.default.2 
+≠≠µ*(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 52))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2√
+¥ø+resources.`package`.getArbitrary[String](*)#
+!'_root_.scala.Predef.String#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+)*_star_.2¨
+¸áàDashboardSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 67), org.scalactic.Prettifier.default)ª
+*≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
++._root_.scala.Int#
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Äá(_root_.org.scalactic.Prettifier.default.2˜
+Òá1DashboardSpec.this.convertToInAndIgnoreMethods(*)®
+.ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+/0_star_.2|
+Û"Û"*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2‡
+¢#∑#îDashboardSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 109), org.scalactic.Prettifier.default)#
+28_root_.scala.Predef.String#
++1_root_.scala.Option#ª
+*≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+;<_star_.y
+\aq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+åì(_root_.org.scalactic.Prettifier.default.2√
+Öê+resources.`package`.getArbitrary[String](*)#
+!'_root_.scala.Predef.String#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+)*_star_.2 
+ï$ï$µ*(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 97))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2≠
+Å#å#âDashboardSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 108), org.scalactic.Prettifier.default)ª
+*≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
++._root_.scala.Int#
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Åà(_root_.org.scalactic.Prettifier.default.2|
+««*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2è
+¿¿*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2û
+õõ7*(DashboardSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+6D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2T
+Ÿ	Ÿ	*[Nil.type]
+_star_..
+&_root_.scala.collection.immutable.Nil.2|
+——*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2ï
+ àÜDashboardSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 82), org.scalactic.Prettifier.default)¡
+-∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+./_star_.y
+OTq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+˛Ö(_root_.org.scalactic.Prettifier.default.2z
+‹‹**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2ï
+Ò—ÜDashboardSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 71), org.scalactic.Prettifier.default)¡
+-∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+./_star_.y
+OTq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+˛Ö(_root_.org.scalactic.Prettifier.default.2˜
+±õ1DashboardSpec.this.convertToInAndIgnoreMethods(*)®
+.ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+/0_star_.2÷
+¿¿h*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
+_star_.(
+Te _root_.config.ApplicationConfig#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
+$ _root_.config.ApplicationConfig#&
+KS_root_.scala.reflect.ClassTag#2ë
+úú*.apply
+_star_.o
+g_root_.models.Accounts.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;)Lmodels/Accounts;.2}
+µ"µ"*.apply
+_star_.[
+S_root_.connectors.Authenticated.apply(Lmodels/Accounts;)Lconnectors/Authenticated;.2 
+∆∆µ*(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 71))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2¨
+’‡àDashboardSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 78), org.scalactic.Prettifier.default)ª
+*≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
++._root_.scala.Int#
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Äá(_root_.org.scalactic.Prettifier.default.2¨
+∫≈àDashboardSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 58), org.scalactic.Prettifier.default)ª
+*≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
++._root_.scala.Int#
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Äá(_root_.org.scalactic.Prettifier.default.2è
+ôô*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2ø
+è	è	W*(((ClassTag.apply[DraftCases](classOf[connectors.DraftCases])): ClassTag[DraftCases]))
+_star_.%
+JT_root_.connectors.DraftCases#&
+AI_root_.scala.reflect.ClassTag#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.%
+_root_.connectors.DraftCases#2~
+ÁÁ,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2û
+∫∫7*(DashboardSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+6D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2÷
+√
+√
+h*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
+_star_.(
+Te _root_.config.ApplicationConfig#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
+$ _root_.config.ApplicationConfig#&
+KS_root_.scala.reflect.ClassTag#2|
+¨¨*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2ï
+“ìÜDashboardSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 97), org.scalactic.Prettifier.default)¡
+-∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+./_star_.y
+OTq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+˛Ö(_root_.org.scalactic.Prettifier.default.2ﬂ
+ˆçìDashboardSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 79), org.scalactic.Prettifier.default)#
+28_root_.scala.Predef.String#
++1_root_.scala.Option#ª
+*≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+;<_star_.y
+\aq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ãí(_root_.org.scalactic.Prettifier.default.2û
+∂∂7*(DashboardSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+6D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2z
+∫∫**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2ﬂ
+ÄïìDashboardSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 94), org.scalactic.Prettifier.default)#
+28_root_.scala.Predef.String#
++1_root_.scala.Option#ª
+*≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+;<_star_.y
+\aq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ãí(_root_.org.scalactic.Prettifier.default.2ë
+æ"æ"*.apply
+_star_.o
+g_root_.models.Accounts.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;)Lmodels/Accounts;.2 
+ŒŒµ*(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 82))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2}
+ìì*.apply
+_star_.[
+S_root_.connectors.Authenticated.apply(Lmodels/Accounts;)Lconnectors/Authenticated;.2ﬂ
+€ìDashboardSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("DashboardSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 59), org.scalactic.Prettifier.default)#
+28_root_.scala.Predef.String#
++1_root_.scala.Option#ª
+*≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+;<_star_.y
+\aq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ãí(_root_.org.scalactic.Prettifier.default.2n
+——*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.:Scala211Bò$/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers
+
+import com.builtamont.play.pdf.PdfGenerator
+import config.ApplicationConfig
+import connectors._
+import models._
+import org.mockito.ArgumentMatchers.{any, anyLong}
+import org.mockito.Mockito.when
+import org.scalacheck.Arbitrary._
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import resources._
+import utils._
+
+import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
+
+class DashboardSpec extends ControllerSpec {
+  implicit val request = FakeRequest()
+
+  lazy val mockDraftCases = {
+    val m = mock[DraftCases]
+    when(m.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Nil))
+    m
+  }
+
+  object TestDashboard extends Dashboard(
+    app.injector.instanceOf[ApplicationConfig],
+    mockDraftCases,
+    StubPropertyLinkConnector,
+    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
+    StubAuthentication,
+    mock[PdfGenerator]
+  )
+
+  "Logging in with a non-organisation account" must "redirect to the wrong account type error page" in {
+    StubAuthConnector.stubExternalId(shortString)
+    StubAuthConnector.stubGroupId(shortString)
+    StubAuthentication.stubAuthenticationResult(NonOrganisationAccount)
+
+    val res = TestDashboard.home()(request)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Application.invalidAccountType().url)
+  }
+
+  "Logging in for the first time with a group account" must "redirect to the create individual account page" in {
+    StubAuthConnector.stubExternalId("hasnoaccount")
+    StubAuthConnector.stubGroupId("groupwithoutaccount")
+    StubAuthentication.stubAuthenticationResult(NoVOARecord)
+    val res = TestDashboard.home()(request)
+    status(res) mustBe SEE_OTHER
+    header("location", res) mustBe Some(routes.CreateIndividualAccount.show.url)
+  }
+
+  "Logging in for the first time with an individual sub-account under a group that has registered" must "redirect to the create individual account page" in {
+    StubAuthConnector.stubExternalId("hasnoaccount")
+    StubAuthConnector.stubGroupId("hasgroupaccount")
+    StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get.copy(groupId = "hasgroupaccount"))
+    StubAuthentication.stubAuthenticationResult(NoVOARecord)
+
+    val res = TestDashboard.home()(request)
+    status(res) mustBe SEE_OTHER
+    header("location", res) mustBe Some(routes.CreateIndividualAccount.show.url)
+  }
+
+  "Logging in again with an account that has already registered" must "continue to the manage properties page" in {
+    val group = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
+    val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
+
+    StubAuthConnector.stubExternalId("has-account")
+    StubAuthConnector.stubGroupId("has-group-account")
+    StubIndividualAccountConnector.stubAccount(person)
+    StubGroupAccountConnector.stubAccount(group)
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
+
+    val res = TestDashboard.home()(request)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Dashboard.manageProperties().url)
+  }
+
+  "Logging in with a group account that has registered as an agent" must "continue to the agent dashboard" in {
+    val group = arbitrary[GroupAccount].sample.get.copy(groupId = "has-agent-account", isAgent = true)
+    val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
+
+    StubAuthConnector.stubExternalId("has-account")
+    StubAuthConnector.stubGroupId("has-agent-account")
+    StubIndividualAccountConnector.stubAccount(person)
+    StubGroupAccountConnector.stubAccount(group)
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
+
+    val res = TestDashboard.home()(request)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(controllers.agent.routes.RepresentationController.viewClientProperties().url)
+  }
+}
+J$test/controllers/DashboardSpec.scala

@@ -1,0 +1,1020 @@
+
+„ƒ9
+¡ » /_root_.scala.Predef.classOf()Ljava/lang/Class;.
+≥∑_root_.play.5
+˛å)_root_.config.AuditFilter.auditConnector.
+û
+°
+_root_.uk.gov.
+ëî_root_.play.api.I
+ıä?_root_.uk.gov.hmrc.play.frontend.filters.FrontendLoggingFilter#1
+Ì&Ì&'_root_.javax.inject.Inject#`<init>`()V.!
+≠$≤$_root_.java.time.Clock#A
+ª¡7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#6
+˘Ä*_root_.config.VPLFrontendGlobal#$init$()V."
+ôù_root_.uk.gov.hmrc.play.
+‚Ê_root_.play.Ñ
+Ù$ˆ$z_root_.com.google.inject.binder.LinkedBindingBuilder#to(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;.I
+‰$Ò$?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#.
+àó$_root_.play.api.mvc.EssentialFilter#[
+ü(ü(O_root_.config.CircuitBreakerConfigProvider#`<init>`(Lplay/api/Configuration;)V.&
+± ≥ _root_.reactivemongo.api.DB#Q
+Ç+à+G_root_.play.api.Configuration#getInt(Ljava/lang/String;)Lscala/Option;..
+ù"¢"$_root_.com.google.inject.name.Names.5
+”‡)_root_.config.GuiceModule#(configuration)9
+•$¨$/_root_.scala.Predef.classOf()Ljava/lang/Class;.9
+˘!Ä"/_root_.scala.Predef.classOf()Ljava/lang/Class;.
+ëî_root_.uk.gov.u
+Ô¸i_root_.config.VPLFrontendGlobal#loggingFilter()Luk/gov/hmrc/play/frontend/filters/FrontendLoggingFilter;.,
+ ,€,"app/config/Global.scala@5475..5556&
+¥ø_root_.play.api.Environment#C
+⁄›9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.I
+ÛÄ?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#&
+õ¶_root_.config.GuiceModule#
+“÷_root_.play.api.Play.*
+Å"å" _root_.repositories.SessionRepo#7
+¯'î(+_root_.config.CircuitBreakerConfigProvider#
+©¨_root_.com.,
+ü,™,"app/config/Global.scala@5267..53659
+õ%¢%/_root_.scala.Predef.classOf()Ljava/lang/Class;.
+ÇÑ
+_root_.uk.#
+åí_root_.com.google.inject.3
+◊ﬁ)_root_.uk.gov.hmrc.play.frontend.filters.9
+˝"Ñ#/_root_.scala.Predef.classOf()Ljava/lang/Class;.S
+Ï%¸%I_root_.com.google.inject.binder.ScopedBindingBuilder#asEagerSingleton()V.≠
+√ ¢_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(heading)-
+§®#_root_.uk.gov.hmrc.play.audit.http.ç
+∂ ¿ Ç_root_.com.google.inject.binder.LinkedBindingBuilder#toProvider(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;."
+ﬁ
+‚
+_root_.uk.gov.hmrc.play.&
+íù_root_.play.api.Application#9
+ˆ#˝#/_root_.scala.Predef.classOf()Ljava/lang/Class;.
+ßÆ_root_.play.modules.c
+Ì˘Y_root_.com.builtamont.play.pdf.PdfGenerator.;_root_.com.builtamont.play.pdf.PdfGenerator#*
+ˇ ä! _root_.repositories.SessionRepo#(
+œ‹_root_.config.LoggingFilter.s
+©≤i_root_.java.time.LocalDateTime.ofInstant(Ljava/time/Instant;Ljava/time/ZoneId;)Ljava/time/LocalDateTime;.ã
+ﬁÒÄ_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.@
+ƒ'⁄'6_root_.config.MongoDbProvider#(reactiveMongoComponent)b
+ëüX_root_.config.LoggingFilter.controllerNeedsLogging(Ljava/lang/String;)Z.(controllerName)M
+‘)›)C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.
+Ωø
+_root_.uk.9
+© ∞ /_root_.scala.Predef.classOf()Ljava/lang/Class;.@
+†	¡	6_root_.repositories.AgentAppointmentSessionRepository#%
+ìó_root_.play.twirl.api.Html#Ñ
+≈"«"z_root_.com.google.inject.binder.LinkedBindingBuilder#to(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;. 
+ÊÈ_root_.play.twirl.api.?
+¡»5_root_.play.api.Play.current()Lplay/api/Application;.≠
+’‹¢_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(request)
+ﬁ‡
+_root_.uk.#
+´±_root_.views.html.errors.1
+ª&∆&'_root_.config.GuiceModule#(environment)
+Öã_root_.com.google.
+àä
+_root_.uk.&
+Üç_root_.play.api.mvc.Request#1
+ú(ú('_root_.javax.inject.Inject#`<init>`()V. 
+í$ô$_root_.config.VPLHttp#
+ÅÑ_root_.com.,
+¨,»,"app/config/Global.scala@5370..5470*
+á
+í
+ _root_.repositories.SessionRepo#
+Ù¯_root_.java.f
+˜å\_root_.config.VPLFrontendGlobal#extractErrorReference(Lplay/api/mvc/Request;)Lscala/Option;.6
+ê&ú&,_root_.com.builtamont.play.pdf.PdfGenerator#"
+…Õ_root_.uk.gov.hmrc.play.<
+µ∑2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.(
+ªø_root_.com.google.inject.name.!
+ø≈_root_.config.Global..
+Ω+À+"app/config/Global.scala@5561..5636
+≠≤_root_.javax.I
+Â˙?_root_.uk.gov.hmrc.play.frontend.filters.FrontendLoggingFilter#
+ÎÔ_root_.play.api.i18n.L
+æ¡B_root_.play.api.mvc.Headers#get(Ljava/lang/String;)Lscala/Option;.D
+æœ8_root_.config.ControllerConfiguration.controllerConfigs.
+ÂÈ_root_.scala.None."
+éí_root_.uk.gov.hmrc.play.%
+⁄‡_root_.com.typesafe.config.I
+˛ì?_root_.uk.gov.hmrc.play.frontend.filters.FrontendLoggingFilter#
+˘˝_root_.java.time..
+ﬁ(ﬁ($_root_.java.lang.Object#`<init>`()V.|
+ñ%ö%r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.i
+&&]_root_.config.MongoDbProvider#`<init>`(Lplay/modules/reactivemongo/ReactiveMongoComponent;)V.%
+›„_root_.scala.Predef.String#0
+“Á$_root_.config.AuditServiceConnector.S
+µÃG_root_.config.AuditFilter.controllerNeedsAuditing(Ljava/lang/String;)Z.+
+Œ÷!_root_.uk.gov.hmrc.play.frontend.;
+û§1_root_.java.time.ZoneId.;_root_.java.time.ZoneId#0
+„Á&_root_.uk.gov.hmrc.play.frontend.auth.O
+‚ÁE_root_.java.lang.String#split(Ljava/lang/String;)[Ljava/lang/String;..
+ˇˇ$_root_.java.lang.Object#`<init>`()V.
+¶™_root_.views.html.Q
+’+€+G_root_.play.api.Configuration#getInt(Ljava/lang/String;)Lscala/Option;."
+îò_root_.uk.gov.hmrc.play.
+–‘_root_.uk.gov.hmrc.A
+ÍÓ7_root_.play.twirl.api.Html.;_root_.play.twirl.api.Html#?
+◊ﬁ5_root_.play.api.Play.current()Lplay/api/Application;.:
+†∞0_root_.uk.gov.hmrc.play.config.ControllerConfig#0
+Â¸&_root_.config.ControllerConfiguration.y
+∂
+ 
+o_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig.;_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#A
+»(‹(7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#k
+°®a_root_.uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal#filters()Lscala/collection/Seq;.%
+€·_root_.scala.Predef.String#N
+º…D_root_.play.api.Application#configuration()Lplay/api/Configuration;.#
+⁄‡_root_.views.html.errors.G
+…‹=_root_.uk.gov.hmrc.play.frontend.filters.FrontendAuditFilter#5
+¢´+_root_.uk.gov.hmrc.play.frontend.bootstrap.W
+‡‡M_root_.uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal#`<init>`()V.u
+á¢i_root_.config.VPLFrontendGlobal#internalServerErrorTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.M
+Â˛C_root_.uk.gov.hmrc.play.frontend.filters.MicroserviceFilterSupport#%
+ñ(ú(_root_.javax.inject.Inject#7
+¢≤+_root_.config.AuditFilter.maskedFormFields.S
+¿≈I_root_.com.google.inject.name.Names.;_root_.com.google.inject.name.Names#'
+ø(«(_root_.javax.inject.Provider#F
+¯
+Ü<_root_.uk.gov.hmrc.play.audit.http.connector.AuditConnector#[
+ì°Q_root_.com.google.inject.AbstractModule.;_root_.com.google.inject.AbstractModule#
+…œ_root_.config.d
+¬–X_root_.config.LoggingFilter.controllerNeedsLogging(Ljava/lang/String;)Z.(controllerName)
+åê_root_.play.K
+ÅñA_root_.uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal#"
+˝É_root_.java.lang.System.S
+∑¬G_root_.config.VPLFrontendGlobal#getDateTime()Ljava/time/LocalDateTime;.
+ïô_root_.uk.gov.hmrc.
+èì_root_.uk.gov.hmrc.v
+€'È'l_root_.play.modules.reactivemongo.ReactiveMongoComponent#mongoConnector()Luk/gov/hmrc/mongo/MongoConnector;.?
+√	„	5_root_.repositories.PersonalDetailsSessionRepository#b
+¨)µ)X_root_.play.api.Configuration#getString(Ljava/lang/String;Lscala/Option;)Lscala/Option;.9
+≈%Ã%/_root_.scala.Predef.classOf()Ljava/lang/Class;.=
+˚*Å+3_root_.config.CircuitBreakerConfigProvider#(config)
+∏ª_root_.play.api..
+∂'∂'$_root_.java.lang.Object#`<init>`()V.B
+ßµ8_root_.uk.gov.hmrc.play.frontend.filters.RecoveryFilter.Q
+§*™*G_root_.play.api.Configuration#getInt(Ljava/lang/String;)Lscala/Option;.-
+È
+Ì
+#_root_.uk.gov.hmrc.play.audit.http.7
+Ó
+˜
+-_root_.uk.gov.hmrc.play.audit.http.connector. 
+Ÿ„_root_.com.builtamont.|
+Ù!¯!r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.
+—Ÿ_root_.com.typesafe.1
+Ñã'_root_.uk.gov.hmrc.play.config.AppName#%
+“ÿ_root_.scala.Predef.String#:
+∞¿0_root_.uk.gov.hmrc.play.config.ControllerConfig#O
+Í'Ï'E_root_.uk.gov.hmrc.mongo.SimpleMongoConnection#db()Lscala/Function0;.
+¯˙u_root_.net.ceedubs.ficus.FicusConfig#as(Ljava/lang/String;Lnet/ceedubs/ficus/readers/ValueReader;)Ljava/lang/Object;.|
+§ ® r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.Q
+ó¢G_root_.config.VPLFrontendGlobal#getDateTime()Ljava/time/LocalDateTime;._
+µ$ø$U_root_.com.google.inject.binder.LinkedBindingBuilder#toInstance(Ljava/lang/Object;)V.±
+ø»§_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(pageTitle)6
+Æ&∫&,_root_.com.builtamont.play.pdf.PdfGenerator#
+¿√_root_.uk.gov..
+õ!†!$_root_.com.google.inject.name.Names.
+¢
+¶
+_root_.uk.gov.hmrc.6
+”‚*_root_.config.AuditFilter.applicationPort.?
+ï£3_root_.config.AuditServiceConnector.auditingConfig..
+Ô˙$_root_.uk.gov.hmrc.http.HeaderNames.)
+õ®_root_.java.time.LocalDateTime.9
+‹$„$/_root_.scala.Predef.classOf()Ljava/lang/Class;.
+ãé_root_.uk.gov.&
+≤'¥'_root_.reactivemongo.api.DB#
+€‚_root_.scala.Boolean#I
+èú?_root_.java.time.LocalDateTime.;_root_.java.time.LocalDateTime#9
+ä$ë$/_root_.scala.Predef.classOf()Ljava/lang/Class;.
+âç_root_.uk.gov.hmrc.9
+˜$˛$/_root_.scala.Predef.classOf()Ljava/lang/Class;.|
+É&á&r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.!
+¿$≈$_root_.java.time.Clock.G
+‡Û=_root_.uk.gov.hmrc.play.frontend.filters.FrontendAuditFilter#M
+å•C_root_.uk.gov.hmrc.play.frontend.filters.MicroserviceFilterSupport#q
+Åàe_root_.config.VPLFrontendGlobal#extractErrorReference(Lplay/api/mvc/Request;)Lscala/Option;.(request),
+≥∫"app/config/Global.scala@2394..2454,
+›,Î,"app/config/Global.scala@5561..5636=
+•)´)3_root_.config.CircuitBreakerConfigProvider#(config)
+ˆÉ	_root_.reactivemongo.s
+˝ãg_root_.config.VPLFrontendGlobal#auditConnector()Luk/gov/hmrc/play/audit/http/connector/AuditConnector;.'
+©'±'_root_.javax.inject.Provider#c
+Õ€W_root_.config.AuditFilter.controllerNeedsAuditing(Ljava/lang/String;)Z.(controllerName).
+°#¶#$_root_.com.google.inject.name.Names.F
+≥¡<_root_.uk.gov.hmrc.play.audit.http.connector.AuditConnector#T
+´¡H_root_.config.LoggingFilter.controllerNeedsLogging(Ljava/lang/String;)Z.5
+Õ%È%+_root_.config.CircuitBreakerConfigProvider#,
+Á¯ _root_.config.VPLFrontendGlobal#
+œ‘_root_.views.~
+¨≥r_root_.config.VPLFrontendGlobal#internalServerErrorTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(request)9
+≈!Ã!/_root_.scala.Predef.classOf()Ljava/lang/Class;.$
+ﬂÍ_root_.config.AuditFilter..
+ƒŸ$_root_.config.AuditServiceConnector.(
+¯_root_.play.api.i18n.Messages.)
+ü•_root_.uk.gov.hmrc.play.config.f
+ß#¨#\_root_.com.google.inject.name.Names.named(Ljava/lang/String;)Lcom/google/inject/name/Named;.£
+ì#†#ò_root_.com.google.inject.binder.AnnotatedBindingBuilder#annotatedWith(Ljava/lang/annotation/Annotation;)Lcom/google/inject/binder/LinkedBindingBuilder;.7
+©≤-_root_.uk.gov.hmrc.play.audit.http.connector.C
+à	ä	9_root_.reactivemongo.api.DB.;_root_.reactivemongo.api.DB#.
+˛)ö*"app/config/Global.scala@5370..5470M
+æ'¡'A_root_.config.MongoDbProvider#get()Lreactivemongo/api/DefaultDB;.
+’
+ÿ
+_root_.uk.gov.
+óù_root_.scala.Option#|
+◊$€$r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.2
+Äó&_root_.config.ControllerConfiguration.Ñ
+ø#¡#z_root_.com.google.inject.binder.LinkedBindingBuilder#to(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;.?
+Â	Ö
+5_root_.repositories.PropertyLinkingSessionRepository#
+†•_root_.views.Y
+ßÆO_root_.uk.gov.hmrc.play.config.AppName.;_root_.uk.gov.hmrc.play.config.AppName#)
+ÈÏ_root_.com.builtamont.play.pdf.)
+§©_root_.net.ceedubs.ficus.Ficus.
+õ
+ù
+
+_root_.uk.F
+¸<_root_.java.time.Instant.ofEpochMilli(J)Ljava/time/Instant;.£
+è"ú"ò_root_.com.google.inject.binder.AnnotatedBindingBuilder#annotatedWith(Ljava/lang/annotation/Annotation;)Lcom/google/inject/binder/LinkedBindingBuilder;.
+≠≥_root_.com.google.o
+Æµe_root_.config.VPLFrontendGlobal#extractErrorReference(Lplay/api/mvc/Request;)Lscala/Option;.(request)=
+ù*£*3_root_.config.CircuitBreakerConfigProvider#(config)
+ÂÈ_root_.uk.gov.hmrc..
+Á*¯*"app/config/Global.scala@5475..5556d
+πæZ_root_.scala.collection.generic.GenericCompanion#empty()Lscala/collection/GenTraversable;.
+ÁÍ_root_.play.api.9
+Œÿ/_root_.uk.gov.hmrc.http.HeaderNames.xRequestId.
+Öà_root_.uk.gov.,
+Øº"_root_.play.modules.reactivemongo.|
+Ú ˆ r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.C
+â'ü'9_root_.play.modules.reactivemongo.ReactiveMongoComponent#9
+˜ ˛ /_root_.scala.Predef.classOf()Ljava/lang/Class;.E
+√À;_root_.javax.inject.Provider.;_root_.javax.inject.Provider#?
+Õ!Ì!5_root_.repositories.PropertyLinkingSessionRepository#
+ÊÌ_root_.scala.Boolean#K
+¨¡A_root_.uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal##
+Ñ	á	_root_.reactivemongo.api.5
+–÷+_root_.config.WSHttp.;_root_.config.WSHttp#@
+–"Ò"6_root_.repositories.AgentAppointmentSessionRepository#a
+©≤W_root_.scala.collection.TraversableLike#filterNot(Lscala/Function1;)Ljava/lang/Object;.+
+ìõ!_root_.uk.gov.hmrc.play.frontend.2
+˘á (_root_.com.google.inject.AbstractModule##
+Ñá_root_.scala.package.Seq#Ñ
+¬!ƒ!z_root_.com.google.inject.binder.LinkedBindingBuilder#to(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;.
+éê
+_root_.uk.9
+ˇÑ/_root_.java.time.Clock.;_root_.java.time.Clock#%
+ –_root_.scala.Predef.String#*
+Ö#ê# _root_.repositories.SessionRepo#Ø
+„Í¢_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(message)9
+»"œ"/_root_.scala.Predef.classOf()Ljava/lang/Class;.
+’Ÿ_root_.views.html.+
+ô°!_root_.uk.gov.hmrc.play.frontend.f
+£"®"\_root_.com.google.inject.name.Names.named(Ljava/lang/String;)Lcom/google/inject/name/Named;.Y
+∫&∫&O_root_.com.builtamont.play.pdf.PdfGenerator#`<init>`(Lplay/api/Environment;Z)V.)
+≤∑_root_.views.html.errors.error.
+ñù_root_.net.ceedubs.(
+û£_root_.uk.gov.hmrc.play.audit.&
+äë_root_.play.api.mvc.Request#,
+˚Å"_root_.com.typesafe.config.Config#N
+ﬂÏD_root_.play.api.Application#configuration()Lplay/api/Configuration;.%
+Á&Ì&_root_.javax.inject.Inject##
+û£_root_.net.ceedubs.ficus.|
+†$§$r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.#
+ËÔ_root_.java.time.Instant.%
+û§_root_.scala.Predef.String#4
+Ì˜*_root_.play.api.Configuration#(underlying)
+ïò_root_.play.api.mvc._
+ü&©&U_root_.com.google.inject.binder.LinkedBindingBuilder#toInstance(Ljava/lang/Object;)V..
+ﬁÂ"app/config/Global.scala@2394..2454&
+ñ£_root_.config.LoggingFilter.ç
+∫%ƒ%Ç_root_.com.google.inject.binder.LinkedBindingBuilder#toProvider(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;.
+¢¶_root_.play.
+≥π_root_.javax.inject.|
+¯"¸"r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.+
+⁄‚!_root_.uk.gov.hmrc.play.frontend.(
+‚Ô_root_.play.api.Configuration#
+êì_root_.uk.gov.`
+¶¶T_root_.config.GuiceModule#`<init>`(Lplay/api/Environment;Lplay/api/Configuration;)V.?
+†(¶(3_root_.config.CircuitBreakerConfigProvider#(config)
+€ﬂ_root_.play..
+ó)¢)"app/config/Global.scala@5267..5365>
+à à 4_root_.com.google.inject.AbstractModule#`<init>`()V.%
+ÏÚ_root_.scala.Predef.String#
+º¿_root_.play.api.Play.,
+ß
+µ
+"_root_.uk.gov.hmrc.circuitbreaker.(
+… ÿ _root_.config.MongoDbProvider#
+ÂÎ_root_.config.h
+ÎÄ\_root_.config.VPLFrontendGlobal#extractErrorReference(Lplay/api/mvc/Request;)Lscala/Option;.M
+ÄôC_root_.uk.gov.hmrc.play.frontend.filters.MicroserviceFilterSupport#|
+çîr_root_.config.VPLFrontendGlobal#internalServerErrorTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(request)£
+ç!ö!ò_root_.com.google.inject.binder.AnnotatedBindingBuilder#annotatedWith(Ljava/lang/annotation/Annotation;)Lcom/google/inject/binder/LinkedBindingBuilder;.-
+ˇ$è%#_root_.connectors.VPLAuthConnector#3
+ß≤'_root_.config.GuiceModule#(environment)
+çè
+_root_.uk.
+í	û	_root_.repositories.2
+ú¢(_root_.uk.gov.hmrc.play.frontend.config.
+’ÿ_root_.play.api.
+–‘_root_.play.A
+£%∑%7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#%
+¬∆_root_.play.twirl.api.Html#*
+Œﬂ _root_.config.VPLFrontendGlobal#&
+µº_root_.play.api.mvc.Request#B
+∏∆8_root_.uk.gov.hmrc.play.frontend.filters.RecoveryFilter.L
+∂ΩB_root_.play.api.mvc.RequestHeader#headers()Lplay/api/mvc/Headers;.F
+˛<_root_.uk.gov.hmrc.play.audit.http.connector.AuditConnector#L
+˚Ç@_root_.config.VPLFrontendGlobal#filters()Lscala/collection/Seq;.
+Õ–_root_.com.H
+°≠>_root_.uk.gov.hmrc.play.config.ControllerParams#(needsLogging)E
+¶∏;_root_.uk.gov.hmrc.play.frontend.config.LoadAuditingConfig.Ñ
+á$â$z_root_.com.google.inject.binder.LinkedBindingBuilder#to(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;.9
+à&è&/_root_.scala.Predef.classOf()Ljava/lang/Class;..
+˚˚$_root_.java.lang.Object#`<init>`()V.)
+ƒ—_root_.java.time.LocalDateTime#
+Ÿ
+›
+_root_.uk.gov.hmrc.
+ƒ»_root_.uk.gov.hmrc.A
+ä,û,7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig..
+¬Õ$_root_.uk.gov.hmrc.http.HeaderNames.K
+√≈A_root_.java.time.ZoneId.of(Ljava/lang/String;)Ljava/time/ZoneId;.
+˛#Ñ$_root_.config.WSHttp#"
+öû_root_.uk.gov.hmrc.play.=
+Œ+‘+3_root_.config.CircuitBreakerConfigProvider#(config)
+·‰_root_.uk.gov.
+’ÿ_root_.com.≠
+Ã”¢_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(message)&
+∏√_root_.config.AuditFilter.
+îò_root_.uk.gov.hmrc.E
+£µ;_root_.uk.gov.hmrc.play.frontend.config.LoadAuditingConfig.A
+ˆ(ä)7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#B
+Ò&á'6_root_.config.MongoDbProvider#(reactiveMongoComponent).
+‡‡$_root_.java.lang.Object#`<init>`()V.*
+÷&Â&_root_.config.MongoDbProvider#3
+ê ô '_root_.config.GuiceModule#configure()V.=
+Üç3_root_.java.time.Instant.;_root_.java.time.Instant##
+¥∫_root_.com.google.inject.(
+ß¥_root_.play.api.Configuration#
+Ãœ_root_.uk.gov.C
+Ω”9_root_.play.modules.reactivemongo.ReactiveMongoComponent#G
+Ãﬂ=_root_.uk.gov.hmrc.play.frontend.filters.FrontendAuditFilter#"
+ÍÓ_root_.uk.gov.hmrc.http.O
+·ÁE_root_.com.typesafe.config.Config.;_root_.com.typesafe.config.Config#Ø
+“Ÿ¢_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(heading)
+“
+‘
+
+_root_.uk.
+…À
+_root_.uk.Ø
+∏¡§_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(pageTitle)|
+Ò#ı#r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.
+Ô˘_root_.connectors.?
+ #Í#5_root_.repositories.PersonalDetailsSessionRepository#o
+∏ªe_root_.config.VPLFrontendGlobal#microserviceMetricsConfig(Lplay/api/Application;)Lscala/Option;.(app)
+‡Â_root_.play.twirl.(
+„
+Ë
+_root_.uk.gov.hmrc.play.audit.¶
+©æô_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;..
+±±$_root_.java.lang.Object#`<init>`()V.>
+∆$œ$4_root_.java.time.Clock.systemUTC()Ljava/time/Clock;.9
+¬#…#/_root_.scala.Predef.classOf()Ljava/lang/Class;.S
+€ Î I_root_.com.google.inject.binder.ScopedBindingBuilder#asEagerSingleton()V.l
+ÍÉ`_root_.config.VPLFrontendGlobal#microserviceMetricsConfig(Lplay/api/Application;)Lscala/Option;.T
+ ”J_root_.play.api.Configuration#getConfig(Ljava/lang/String;)Lscala/Option;.
+íï_root_.net.2
+˘Ç(_root_.play.api.i18n.Messages.Implicits.Ø
+˝Ñ¢_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(request)7
+Ñï-_root_.java.lang.System.currentTimeMillis()J.;
+ËÚ1_root_.uk.gov.hmrc.play.frontend.auth.connectors.9
+·ˆ/_root_.views.html.errors.technicalDifficulties.y
+¥«m_root_.config.VPLFrontendGlobal#frontendAuditFilter()Luk/gov/hmrc/play/frontend/filters/FrontendAuditFilter;.%
+‰Ë_root_.com.builtamont.play.(
+®(µ(_root_.play.api.Configuration#f
+°!¶!\_root_.com.google.inject.name.Names.named(Ljava/lang/String;)Lcom/google/inject/name/Named;.
+†¶_root_.scala.Option#"
+º¬_root_.java.time.ZoneId.n
+Ô(Ú(b_root_.config.CircuitBreakerConfigProvider#get()Luk/gov/hmrc/circuitbreaker/CircuitBreakerConfig;."
+’Ÿ_root_.uk.gov.hmrc.play.&
+µ∏_root_.scala.collection.Seq.q
+çêe_root_.config.VPLFrontendGlobal#microserviceMetricsConfig(Lplay/api/Application;)Lscala/Option;.(app)ç
+˝êÇ_root_.uk.gov.hmrc.play.config.ControllerConfig#paramsForController(Ljava/lang/String;)Luk/gov/hmrc/play/config/ControllerParams;.-
+˙ä#_root_.connectors.VPLAuthConnector#.
+è§$_root_.config.AuditServiceConnector.d
+¬÷Ximported `WSHttp' is permanently hidden by definition of object WSHttp in package configc
+¬÷Wimported `WSHttp' is permanently hidden by definition of trait WSHttp in package configr
+“ﬁfmethod current in object Play is deprecated: This is a static reference to application, use DI instead")
+_root_.scala.collection.Seq.	ÄÑSeq"7
+_root_.java.time.LocalDateTime#Ä†àLocalDateTime"ﬁ
+¢_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(heading)7ÄheadingString"!
+_root_.scala.Predef.String#"7
+_root_.java.time.LocalDateTime.ÄÑàLocalDateTime"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"A
+-_root_.uk.gov.hmrc.play.audit.http.connector.ÄàÄ	connector"<
+$_root_.play.api.mvc.EssentialFilter#Ä@EssentialFilter"|
+"app/config/Global.scala@5561..5636VunstablePeriodOption[Int]"
+_root_.scala.Option#"
+
+_root_.scala.Int#"€
+9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.ùÑÄmap&[B] => (f: Function1[A, B]): Option[B]"
+_root_.scala.Function1#"
+_root_.scala.Option#[A]"D
+<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"
+#_root_.scala.Option#"D
+$%<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"*
+_root_.com.google.inject.ÄàÄinject"h
+*_root_.config.AuditFilter.applicationPort.:ÅÄ@applicationPort	None.type"
+_root_.scala.None."
+_root_.com.
+ÄàÄcom"ƒ
+l_root_.play.modules.reactivemongo.ReactiveMongoComponent#mongoConnector()Luk/gov/hmrc/mongo/MongoConnector;.TÑÄmongoConnectorMongoConnector".
+(_root_.uk.gov.hmrc.mongo.MongoConnector#"$
+_root_.config.WSHttp#Ä@WSHttp"0
+_root_.play.api.i18n.Messages.ÄÑMessages"ì
+ò_root_.com.google.inject.binder.AnnotatedBindingBuilder#annotatedWith(Ljava/lang/annotation/Annotation;)Lcom/google/inject/binder/LinkedBindingBuilder;.ıÑÄÑannotatedWith*(x$1: Annotation): LinkedBindingBuilder[T]"/
+'_root_.java.lang.annotation.Annotation#"=
+'5_root_.com.google.inject.binder.LinkedBindingBuilder#"C
+();_root_.com.google.inject.binder.AnnotatedBindingBuilder#[T]"4
+ _root_.repositories.SessionRepo#Ä@SessionRepo"o
+*_root_.play.api.Configuration#(underlying)AÅ
+underlyingConfig"(
+"_root_.com.typesafe.config.Config#"(
+_root_.play.twirl.api.Html#	Ä Html"ã
+4_root_.com.google.inject.AbstractModule#`<init>`()V.SàÄÄ<init>(): AbstractModule"0
+(_root_.com.google.inject.AbstractModule#"'
+_root_.connectors.ÄàÄ
+connectors"—
+G_root_.play.api.Configuration#getInt(Ljava/lang/String;)Lscala/Option;.ÖgetInt(path: String): Option[Int]"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"
+_root_.scala.Int#"[
+"app/config/Global.scala@2394..24545instantInstant"
+_root_.java.time.Instant#"`
+6_root_.repositories.AgentAppointmentSessionRepository#&Ä !AgentAppointmentSessionRepository"F
+1_root_.uk.gov.hmrc.play.frontend.auth.connectors.ÄàÄ
+connectors"Ã
+Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.∆ÑÄ applicationMessages9(implicit lang: Lang, application: Application): Messages""
+_root_.play.api.i18n.Lang#"$
+#._root_.play.api.Application#"&
+19_root_.play.api.i18n.Messages#",
+_root_.play.api.mvc.Request#Ä@Request"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"2
+#_root_.uk.gov.hmrc.play.audit.http.ÄàÄhttp"’
+B_root_.play.api.mvc.Headers#get(Ljava/lang/String;)Lscala/Option;.éget(key: String): Option[String]"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"™
+Ç_root_.uk.gov.hmrc.play.config.ControllerConfig#paramsForController(Ljava/lang/String;)Luk/gov/hmrc/play/config/ControllerParams;.¢paramsForController*(controllerName: String): ControllerParams"#
+_root_.scala.Predef.String#"8
+*0_root_.uk.gov.hmrc.play.config.ControllerParams#"A
+,_root_.com.builtamont.play.pdf.PdfGenerator#Ä PdfGenerator"t
+4_root_.java.time.Clock.systemUTC()Ljava/time/Clock;.<ÑÄÄ	systemUTC	(): Clock"
+	_root_.java.time.Clock#"Œ
+F_root_.play.api.Configuration#`<init>`(Lcom/typesafe/config/Config;)V.É<init>#(underlying: Config): Configuration"*
+"_root_.com.typesafe.config.Config#"&
+#_root_.play.api.Configuration#"4
+!_root_.uk.gov.hmrc.play.frontend.ÄàÄfrontend"Œ
+G_root_.config.AuditFilter.controllerNeedsAuditing(Ljava/lang/String;)Z.ÇcontrollerNeedsAuditing!(controllerName: String): Boolean"#
+_root_.scala.Predef.String#"
+!_root_.scala.Boolean#"
+_root_.net.
+ÄàÄnet"í
+G_root_.config.VPLFrontendGlobal#getDateTime()Ljava/time/LocalDateTime;.GÑÄgetDateTimeLocalDateTime"%
+_root_.java.time.LocalDateTime#"
+_root_.java.ÄàÄjava"©
+A_root_.java.time.ZoneId.of(Ljava/lang/String;)Ljava/time/ZoneId;.dÑÄÄof(x$1: String): ZoneId" 
+_root_.java.lang.String#" 
+_root_.java.time.ZoneId#"’
+E_root_.java.lang.String#split(Ljava/lang/String;)[Ljava/lang/String;.ãÑÄÄsplit(x$1: String): Array[String]" 
+_root_.java.lang.String#"
+_root_.scala.Array#" 
+_root_.java.lang.String#"‹
+i_root_.config.VPLFrontendGlobal#loggingFilter()Luk/gov/hmrc/play/frontend/filters/FrontendLoggingFilter;.ologgingFilterFrontendLoggingFilter"E
+?_root_.uk.gov.hmrc.play.frontend.filters.FrontendLoggingFilter#"6
+_root_.config.MongoDbProvider#Ä MongoDbProvider"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"0
+_root_.javax.inject.Provider#Ä¿ÄProvider".
+_root_.net.ceedubs.ficus.Ficus.ÄÑFicus"t
+)_root_.config.GuiceModule#(configuration)GÄconfigurationConfiguration"$
+_root_.play.api.Configuration#"ﬁ
+¢_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(message)7ÄmessageString"!
+_root_.scala.Predef.String#"Ú
+z_root_.com.google.inject.binder.LinkedBindingBuilder#to(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;.tÑÄÑto*(x$1: Class[_ <: T]): ScopedBindingBuilder"=
+*5_root_.com.google.inject.binder.ScopedBindingBuilder#"ö
+]_root_.config.MongoDbProvider#`<init>`(Lplay/modules/reactivemongo/ReactiveMongoComponent;)V.∏<init>A(reactiveMongoComponent: ReactiveMongoComponent): MongoDbProvider"A
+/9_root_.play.modules.reactivemongo.ReactiveMongoComponent#"&
+2A_root_.config.MongoDbProvider#"
+_root_.javax.ÄàÄjavax";
+)_root_.uk.gov.hmrc.play.frontend.filters.ÄàÄfilters"^
+'_root_.config.GuiceModule#configure()V.3	configure(): Unit"
+_root_.scala.Unit#""
+_root_.play.api.mvc.
+ÄàÄmvc"‰
+i_root_.config.VPLFrontendGlobal#internalServerErrorTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.winternalServerErrorTemplate1(implicit request: play.api.mvc.Request[_]): Html"#
+-1_root_.play.twirl.api.Html#"‚
+m_root_.config.VPLFrontendGlobal#frontendAuditFilter()Luk/gov/hmrc/play/frontend/filters/FrontendAuditFilter;.qfrontendAuditFilterFrontendAuditFilter"C
+=_root_.uk.gov.hmrc.play.frontend.filters.FrontendAuditFilter#"ú
+r_root_.config.VPLFrontendGlobal#internalServerErrorTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(request)&ÄÅ requestplay.api.mvc.Request[_]"
+_root_.play.api.
+ÄàÄapi"ú
+3_root_.config.AuditServiceConnector.auditingConfig.eÅÄ@auditingConfigAuditingConfig"?
+9_root_.uk.gov.hmrc.play.audit.http.config.AuditingConfig#"é
+e_root_.config.VPLFrontendGlobal#extractErrorReference(Lplay/api/mvc/Request;)Lscala/Option;.(request)%Ärequestplay.api.mvc.Request[_]"^
+*_root_.config.VPLFrontendGlobal#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#"W
+;_root_.uk.gov.hmrc.play.frontend.config.LoadAuditingConfig.ÄÑLoadAuditingConfig"ÿ
+U_root_.com.google.inject.binder.LinkedBindingBuilder#toInstance(Ljava/lang/Object;)V.ÑÄÑ
+toInstance(x$1: T): Unit"@
+8_root_.com.google.inject.binder.LinkedBindingBuilder#[T]"
+
+_root_.scala.Unit#"?
++_root_.uk.gov.hmrc.play.frontend.bootstrap.ÄàÄ	bootstrap"'
+_root_.java.time.Clock#Ä†ÑClock"'
+_root_.java.time.Clock.ÄÑàClock"o
+-_root_.java.lang.System.currentTimeMillis()J.>ÑÄÄcurrentTimeMillis(): Long"
+_root_.scala.Long#":
+ _root_.config.VPLFrontendGlobal#Ä@VPLFrontendGlobal"$
+_root_.play.twirl.api.
+ÄàÄapi"≥
+E_root_.uk.gov.hmrc.mongo.SimpleMongoConnection#db()Lscala/Function0;.jÑÄ dbFunction0[DefaultDB]"
+	_root_.scala.Function0#"+
+
+#_root_.reactivemongo.api.DefaultDB#"ç
+2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.WÑÄ==(x$1: Any): Boolean"
+	_root_.scala.Any#"
+_root_.scala.Boolean#",
+_root_.com.typesafe.config.ÄàÄconfig"e
+C_root_.uk.gov.hmrc.play.frontend.filters.MicroserviceFilterSupport#Ä@MicroserviceFilterSupport"+
+_root_.com.builtamont.ÄàÄ
+builtamont"[
+!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
+_root_.scala.Boolean#"Õ
+¢_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(request)&ÄÅ requestplay.api.mvc.Request[_]"6
+_root_.play.api.Configuration#Ä†ÄConfiguration"!
+_root_.views.html.ÄàÄhtml"ÿ
+a_root_.uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal#filters()Lscala/collection/Seq;.sfiltersSeq[EssentialFilter]""
+_root_.scala.collection.Seq#",
+$_root_.play.api.mvc.EssentialFilter#"l
+'_root_.config.GuiceModule#(environment)AÄenvironmentEnvironment""
+_root_.play.api.Environment#",
+_root_.javax.inject.Inject#Ä†ÄInject"«
+m_root_.connectors.VPLAuthConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.’<init>>(serverConfig: ServicesConfig, http: WSHttp): VPLAuthConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"+
+.>#_root_.connectors.VPLAuthConnector#"+
+_root_.repositories.ÄàÄrepositories"ö
+X_root_.config.LoggingFilter.controllerNeedsLogging(Ljava/lang/String;)Z.(controllerName)>ÄcontrollerNameString"!
+_root_.scala.Predef.String#"†
+Ç_root_.com.google.inject.binder.LinkedBindingBuilder#toProvider(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;.òÑÄÑ
+toProviderF(x$1: Class[_ <: javax.inject.Provider[_ <: T]]): ScopedBindingBuilder"=
+2F5_root_.com.google.inject.binder.ScopedBindingBuilder#"#
+_root_.play.api.Play.
+ÄÑPlay"'
+_root_.com.typesafe.ÄàÄtypesafe"&
+_root_.config.VPLHttp#Ä VPLHttp"&
+_root_.play.modules.ÄàÄmodules"G
+&_root_.config.ControllerConfiguration.ÄÑControllerConfiguration"V
+7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig.ÄÑàCircuitBreakerConfig"V
+7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#Ä†ÄCircuitBreakerConfig"ã
+O_root_.com.builtamont.play.pdf.PdfGenerator#`<init>`(Lplay/api/Environment;Z)V.∑<init>0(env: Environment, xhtml: Boolean): PdfGenerator"$
+_root_.play.api.Environment#"
+!_root_.scala.Boolean#"4
+$0,_root_.com.builtamont.play.pdf.PdfGenerator#":
+"_root_.play.modules.reactivemongo.ÄàÄreactivemongo"3
+"_root_.com.typesafe.config.Config#Ä¿ÄConfig"7
+'_root_.uk.gov.hmrc.play.config.AppName#Ä@AppName"$
+_root_.scala.Option#Ä†Option"¥
+@_root_.config.VPLFrontendGlobal#filters()Lscala/collection/Seq;.pfiltersSeq[EssentialFilter]"
+_root_.scala.package.Seq#",
+$_root_.play.api.mvc.EssentialFilter#"*
+_root_.views.html.errors.ÄàÄerrors".
+_root_.uk.gov.hmrc.play.audit.ÄàÄaudit"4
+$_root_.com.google.inject.name.Names.ÄÑàNames")
+_root_.java.time.ZoneId.ÄÑàZoneId"y
+>_root_.uk.gov.hmrc.play.config.ControllerParams#(needsLogging)7ÅneedsLoggingBoolean"
+_root_.scala.Boolean#"Ú
+O_root_.config.CircuitBreakerConfigProvider#`<init>`(Lplay/api/Configuration;)V.û<init>5(config: Configuration): CircuitBreakerConfigProvider"&
+	_root_.play.api.Configuration#"3
+5+_root_.config.CircuitBreakerConfigProvider#"
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"I
+0_root_.uk.gov.hmrc.play.config.ControllerConfig#Ä@ControllerConfig"]
+?_root_.uk.gov.hmrc.play.frontend.filters.FrontendLoggingFilter#Ä@FrontendLoggingFilter"¥
+ô_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.ïstandardErrorTemplatef(pageTitle: String, heading: String, message: String)(implicit request: play.api.mvc.Request[_]): Html"#
+_root_.scala.Predef.String#"#
+#_root_.scala.Predef.String#"#
+.4_root_.scala.Predef.String#"#
+bf_root_.play.twirl.api.Html#"9
+$_root_.uk.gov.hmrc.http.HeaderNames.ÄÑHeaderNames"#
+_root_.com.google.ÄàÄgoogle".
+_root_.config.GuiceModule#Ä GuiceModule"
+_root_.uk.gov.
+ÄàÄgov"Ä
+B_root_.play.api.mvc.RequestHeader#headers()Lplay/api/mvc/Headers;.:ÑÄheadersHeaders""
+_root_.play.api.mvc.Headers#"9
+(_root_.uk.gov.hmrc.play.frontend.config.ÄàÄconfig"C
+$_root_.config.AuditServiceConnector.ÄÑAuditServiceConnector"Ø
+/_root_.scala.Predef.classOf()Ljava/lang/Class;.|classOf[T] => Class[T]""
+_root_.scala.Predef.Class#":
+2_root_.scala.Predef.classOf()Ljava/lang/Class;.[T]"^
+5_root_.repositories.PropertyLinkingSessionRepository#%Ä  PropertyLinkingSessionRepository"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"<
+#_root_.connectors.VPLAuthConnector#Ä VPLAuthConnector"—
+g_root_.config.VPLFrontendGlobal#auditConnector()Luk/gov/hmrc/play/audit/http/connector/AuditConnector;.fauditConnectorAuditConnector"B
+<_root_.uk.gov.hmrc.play.audit.http.connector.AuditConnector#";
+(_root_.play.api.i18n.Messages.Implicits.ÄÑ	Implicits"®
+<_root_.java.time.Instant.ofEpochMilli(J)Ljava/time/Instant;.hÑÄÄofEpochMilli(x$1: Long): Instant"
+
+_root_.scala.Long#"!
+_root_.java.time.Instant#"‚
+§_root_.config.VPLFrontendGlobal#standardErrorTemplate(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.(pageTitle)9Ä	pageTitleString"!
+_root_.scala.Predef.String#"`
+"app/config/Global.scala@5267..5365:serviceNameString"!
+_root_.scala.Predef.String#"˜
+W_root_.repositories.PropertyLinkingSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.õ<init>*(db: DB): PropertyLinkingSessionRepository"$
+_root_.reactivemongo.api.DB#"=
+
+*5_root_.repositories.PropertyLinkingSessionRepository#"ä
+I_root_.com.google.inject.binder.ScopedBindingBuilder#asEagerSingleton()V.=ÑÄÑasEagerSingleton(): Unit"
+_root_.scala.Unit#"$
+_root_.play.api.i18n.ÄàÄi18n"¢
+`_root_.config.VPLFrontendGlobal#microserviceMetricsConfig(Lplay/api/Application;)Lscala/Option;.ΩmicroserviceMetricsConfig2(implicit app: Application): Option[Configuration]"$
+_root_.play.api.Application#"
+#_root_.scala.Option#"&
+$1_root_.play.api.Configuration#"!
+_root_.scala.None.ÄÑàNone"(
+_root_.reactivemongo.api.DB#Ä¿DB"`
+#_root_.java.time.Clock#`<init>`()V.9àÄÇ<init>	(): Clock"
+	_root_.java.time.Clock#"&
+_root_.scala.Boolean#Ä†Boolean"£
+e_root_.config.VPLFrontendGlobal#microserviceMetricsConfig(Lplay/api/Application;)Lscala/Option;.(app):ÄÅ appApplication""
+_root_.play.api.Application#"“
+\_root_.com.google.inject.name.Names.named(Ljava/lang/String;)Lcom/google/inject/name/Named;.rÑÄÄnamed(x$1: String): Named" 
+_root_.java.lang.String#",
+$_root_.com.google.inject.name.Named#"ó
+r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.†ÑÄÇbind2[T] => (x$1: Class[T]): AnnotatedBindingBuilder[T]"
+_root_.java.lang.Class#"}
+u_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.[T]"@
+/8_root_.com.google.inject.binder.AnnotatedBindingBuilder#"}
+01u_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.[T]"Û
+\_root_.config.VPLFrontendGlobal#extractErrorReference(Lplay/api/mvc/Request;)Lscala/Option;.íÑÄextractErrorReference2(request: play.api.mvc.Request[_]): Option[String]"
+$*_root_.scala.Option#"#
++1_root_.scala.Predef.String#"
+_root_.play.ÄàÄplay"
+"app/config/Global.scala@5475..5556YunavailablePeriodOption[Int]"
+_root_.scala.Option#"
+
+_root_.scala.Int#"Y
+=_root_.uk.gov.hmrc.play.frontend.filters.FrontendAuditFilter#Ä@FrontendAuditFilter"-
+_root_.reactivemongo.ÄàÄreactivemongo"Ö
+8_root_.config.ControllerConfiguration.controllerConfigs.IÅÄ@controllerConfigsConfig"(
+"_root_.com.typesafe.config.Config#"'
+_root_.reactivemongo.api.
+ÄàÄapi"`
+A_root_.uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal#Ä†DefaultFrontendGlobal"ò
+i_root_.java.time.LocalDateTime.ofInstant(Ljava/time/Instant;Ljava/time/ZoneId;)Ljava/time/LocalDateTime;.™ÑÄÄ	ofInstant*(x$1: Instant, x$2: ZoneId): LocalDateTime"!
+_root_.java.time.Instant#" 
+_root_.java.time.ZoneId#"'
+*_root_.java.time.LocalDateTime#"/
+_root_.config.AuditFilter.ÄÑAuditFilter"ô
+W_root_.config.AuditFilter.controllerNeedsAuditing(Ljava/lang/String;)Z.(controllerName)>ÄcontrollerNameString"!
+_root_.scala.Predef.String#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"ú
+T_root_.config.GuiceModule#`<init>`(Lplay/api/Environment;Lplay/api/Configuration;)V.√<init>E(environment: Environment, configuration: Configuration): GuiceModule"$
+_root_.play.api.Environment#"&
+*7_root_.play.api.Configuration#""
+:E_root_.config.GuiceModule#"â
+)_root_.config.AuditFilter.auditConnector.\ÅÄ@auditConnectorAuditServiceConnector.type"*
+$_root_.config.AuditServiceConnector."*
+_root_.com.builtamont.play.ÄàÄplay".
+_root_.views.html.errors.error.ÄÑerror"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"3
+_root_.config.LoggingFilter.ÄÑLoggingFilter"S
+<_root_.uk.gov.hmrc.play.audit.http.connector.AuditConnector#Ä@AuditConnector"-
+_root_.com.builtamont.play.pdf.
+ÄàÄpdf"%
+_root_.net.ceedubs.ÄàÄceedubs"0
+_root_.play.api.Application#Ä@Application"˙
+X_root_.repositories.AgentAppointmentSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.ù<init>+(db: DB): AgentAppointmentSessionRepository"$
+_root_.reactivemongo.api.DB#">
+
++6_root_.repositories.AgentAppointmentSessionRepository#"˘
+X_root_.play.api.Configuration#getString(Ljava/lang/String;Lscala/Option;)Lscala/Option;.ú	getString@(path: String, validValues: Option[Set[String]]): Option[String]"#
+_root_.scala.Predef.String#"
+"_root_.scala.Option#" 
+#&_root_.scala.Predef.Set#"#
+'-_root_.scala.Predef.String#"
+28_root_.scala.Option#"#
+9?_root_.scala.Predef.String#"w
+5_root_.play.api.Play.current()Lplay/api/Application;.>ÑÄ currentApplication""
+_root_.play.api.Application#" 
+_root_.java.time.ÄàÄtime"-
+_root_.com.google.inject.name.ÄàÄname"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"
+_root_.views.ÄàÄviews"ù
+u_root_.net.ceedubs.ficus.FicusConfig#as(Ljava/lang/String;Lnet/ceedubs/ficus/readers/ValueReader;)Ljava/lang/Object;.£as9[A] => (path: String)(implicit reader: ValueReader[A]): A"#
+_root_.scala.Predef.String#"5
+'2-_root_.net.ceedubs.ficus.readers.ValueReader#"Ä
+34x_root_.net.ceedubs.ficus.FicusConfig#as(Ljava/lang/String;Lnet/ceedubs/ficus/readers/ValueReader;)Ljava/lang/Object;.[A]"Ä
+89x_root_.net.ceedubs.ficus.FicusConfig#as(Ljava/lang/String;Lnet/ceedubs/ficus/readers/ValueReader;)Ljava/lang/Object;.[A]"à
+A_root_.config.MongoDbProvider#get()Lreactivemongo/api/DefaultDB;.Cget(): DefaultDB"+
+#_root_.reactivemongo.api.DefaultDB#"A
+(_root_.com.google.inject.AbstractModule#Ä†ÑAbstractModule"X
+9_root_.play.modules.reactivemongo.ReactiveMongoComponent#Ä@ReactiveMongoComponent"ê
+D_root_.play.api.Application#configuration()Lplay/api/Configuration;.HÑÄconfigurationConfiguration"$
+_root_.play.api.Configuration#")
+_root_.java.lang.System.ÄÑàSystem"P
+8_root_.uk.gov.hmrc.play.frontend.filters.RecoveryFilter.ÄÑRecoveryFilter"
+_root_.config.ÄàÄconfig"≤
+X_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#`<init>`(Ljava/lang/String;III)V.’<init>ê(serviceName: String, numberOfCallsToTriggerStateChange: Int, unavailablePeriodDuration: Int, unstablePeriodDuration: Int): CircuitBreakerConfig"#
+_root_.scala.Predef.String#"
+9<_root_.scala.Int#"
+Y\_root_.scala.Int#"
+vy_root_.scala.Int#"@
+|ê7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."ñ
++_root_.config.AuditFilter.maskedFormFields.gÅÄ@maskedFormFieldsSeq[Nothing]""
+_root_.scala.collection.Seq#"
+_root_.scala.Nothing#""
+_root_.play.twirl.ÄàÄtwirl"+
+_root_.java.time.Instant.ÄÑàInstant"…
+f_root_.play.api.Environment#`<init>`(Ljava/io/File;Ljava/lang/ClassLoader;Lscala/Enumeration/Value;)V.ﬁ<init>C(rootPath: File, classLoader: ClassLoader, mode: Mode): Environment"
+_root_.java.io.File#"%
+)_root_.java.lang.ClassLoader#""
+15_root_.play.api.Mode.Mode#"$
+8C_root_.play.api.Environment#"»
+b_root_.config.CircuitBreakerConfigProvider#get()Luk/gov/hmrc/circuitbreaker/CircuitBreakerConfig;.bget(): CircuitBreakerConfig"?
+7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#"5
+&_root_.uk.gov.hmrc.play.frontend.auth.ÄàÄauth"%
+_root_.config.Global.ÄÑGlobal"2
+_root_.play.api.Environment#Ä†ÄEnvironment"P
++_root_.config.CircuitBreakerConfigProvider#!Ä CircuitBreakerConfigProvider"N
+/_root_.views.html.errors.technicalDifficulties.ÄÑtechnicalDifficulties"^
+5_root_.repositories.PersonalDetailsSessionRepository#%Ä  PersonalDetailsSessionRepository"]
+"_root_.config.VPLHttp#`<init>`()V.7<init>(): VPLHttp"
+_root_.config.VPLHttp#"Ó
+J_root_.play.api.Configuration#getConfig(Ljava/lang/String;)Lscala/Option;.ü	getConfig%(path: String): Option[Configuration]"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"&
+$_root_.play.api.Configuration#"Æ
+6_root_.config.MongoDbProvider#(reactiveMongoComponent)tÄreactiveMongoComponentReactiveMongoComponent"?
+9_root_.play.modules.reactivemongo.ReactiveMongoComponent#"Œ
+H_root_.config.LoggingFilter.controllerNeedsLogging(Ljava/lang/String;)Z.ÅcontrollerNeedsLogging!(controllerName: String): Boolean"#
+_root_.scala.Predef.String#"
+!_root_.scala.Boolean#"Â
+Z_root_.play.twirl.api.Html#`<init>`(Lscala/collection/immutable/Seq;Ljava/lang/String;Z)V.ÜàÄ<init>:(elements: Seq[Html], text: String, escape: Boolean): Html".
+&_root_.scala.collection.immutable.Seq#"#
+_root_.play.twirl.api.Html#"#
+"_root_.scala.Predef.String#"
+,3_root_.scala.Boolean#"#
+6:_root_.play.twirl.api.Html#""
+_root_.uk.gov.hmrc.ÄàÄhmrc";
+"_root_.uk.gov.hmrc.circuitbreaker.ÄàÄcircuitbreaker"w
+3_root_.config.CircuitBreakerConfigProvider#(config)@ÄconfigConfiguration"$
+_root_.play.api.Configuration#"i
+/_root_.uk.gov.hmrc.http.HeaderNames.xRequestId.6
+xRequestIdString"
+_root_.java.lang.String#"ä
+"app/config/Global.scala@5370..5470dnumberOfCallsToTriggerChangeOption[Int]"
+_root_.scala.Option#"
+
+_root_.scala.Int#"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"U
+?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#Ä@AuthConnector"∏
+W_root_.scala.collection.TraversableLike#filterNot(Lscala/Function1;)Ljava/lang/Object;.‹	filterNot (p: Function1[A, Boolean]): Repr"
+_root_.scala.Function1#"3
++_root_.scala.collection.TraversableLike#[A]"
+_root_.scala.Boolean#"6
+ ._root_.scala.collection.TraversableLike#[Repr]"¡
+M_root_.uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal#`<init>`()V.p<init>(): DefaultFrontendGlobal"I
+A_root_.uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal#"˜
+W_root_.repositories.PersonalDetailsSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.õ<init>*(db: DB): PersonalDetailsSessionRepository"$
+_root_.reactivemongo.api.DB#"=
+
+*5_root_.repositories.PersonalDetailsSessionRepository#"ú
+Z_root_.scala.collection.generic.GenericCompanion#empty()Lscala/collection/GenTraversable;.Ωempty[A] => CC[A]"=
+	5_root_.scala.collection.generic.GenericCompanion#[CC]"e
+
+]_root_.scala.collection.generic.GenericCompanion#empty()Lscala/collection/GenTraversable;.[A]")
+_root_.net.ceedubs.ficus.ÄàÄficus2B
+§$§$*[Clock]
+_star_.
+_root_.java.time.Clock#2B
+ææ
+*[Nothing]
+_star_.
+	_root_.scala.Nothing#2^
+á&á&*[PdfGenerator]
+_star_.4
+,_root_.com.builtamont.play.pdf.PdfGenerator#2q
+ö%ö%*[CircuitBreakerConfig]
+_star_.?
+7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#2X
+ÏÏ*.apply
+_star_.6
+._root_.scala.Array#apply(I)Ljava/lang/Object;.2ﬂ
+∑∑*.apply
+_star_.º
+≥_root_.views.html.errors.error_Scope0.error#apply(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/RequestHeader;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2∑
+“˜(net.ceedubs.ficus.Ficus.toFicusConfig(*)r
+%j_root_.net.ceedubs.ficus.Ficus.toFicusConfig(Lcom/typesafe/config/Config;)Lnet/ceedubs/ficus/FicusConfig;.
+&'_star_.2Q
+ˆ ˆ *[SessionRepo]
+_star_.(
+ _root_.repositories.SessionRepo#2¥
+∏∏*.apply
+_star_.ë
+à_root_.uk.gov.hmrc.play.frontend.config.LoadAuditingConfig.apply(Ljava/lang/String;)Luk/gov/hmrc/play/audit/http/config/AuditingConfig;.2è
+ëë,*(net.ceedubs.ficus.Ficus.configValueReader)
+_star_.H
++@_root_.net.ceedubs.ficus.readers.ConfigReader#configValueReader.2r
+€$€$*[AuthConnector]
+_star_.G
+?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#2ã
+££w*(request, play.api.i18n.Messages.Implicits.applicationMessages(play.api.i18n.Lang.defaultLang, play.api.Play.current))
+_star_..
+S^&_root_.play.api.i18n.Lang.defaultLang.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
+nu5_root_.play.api.Play.current()Lplay/api/Application;.2Q
+¸"¸"*[SessionRepo]
+_star_.(
+ _root_.repositories.SessionRepo#2G
+›)›)	*[String]
+_star_.#
+_root_.scala.Predef.String#2A
+ı#ı#	*[WSHttp]
+_star_.
+_root_.config.WSHttp#2Q
+¯!¯!*[SessionRepo]
+_star_.(
+ _root_.repositories.SessionRepo#2[
+Ï'Ï'*.apply
+_star_.9
+1_root_.scala.Function0#apply()Ljava/lang/Object;.2ÿ
+û,û,*.apply
+_star_.µ
+¨_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig.apply(Ljava/lang/String;Lscala/Option;Lscala/Option;Lscala/Option;)Luk/gov/hmrc/circuitbreaker/CircuitBreakerConfig;.2D
+››	*[String]
+_star_. 
+_root_.java.lang.String#2D
+® ® *[DB]
+_star_.$
+_root_.reactivemongo.api.DB#2ç
+ˆˆ*.apply
+_star_.Í
+·_root_.views.html.errors.technicalDifficulties_Scope0.technicalDifficulties_Scope1.technicalDifficulties#apply(Lscala/Option;Ljava/time/LocalDateTime;Lplay/api/mvc/RequestHeader;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2¿
+ÒÒ8*(play.api.i18n.Lang.defaultLang, play.api.Play.current)
+_star_..
+ &_root_.play.api.i18n.Lang.defaultLang.=
+075_root_.play.api.Play.current()Lplay/api/Application;.:Scala211BÚ,/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package config
+
+import java.time.{Clock, Instant, LocalDateTime, ZoneId}
+import javax.inject.{Inject, Provider}
+
+import com.builtamont.play.pdf.PdfGenerator
+import com.google.inject.AbstractModule
+import com.google.inject.name.Names
+import com.typesafe.config.Config
+import connectors.VPLAuthConnector
+import net.ceedubs.ficus.Ficus._
+import play.api.Play.current
+import play.api._
+import play.api.i18n.Messages.Implicits._
+import play.api.mvc._
+import play.modules.reactivemongo.ReactiveMongoComponent
+import play.twirl.api.Html
+import reactivemongo.api.DB
+import repositories.{AgentAppointmentSessionRepository, PersonalDetailsSessionRepository, PropertyLinkingSessionRepository, SessionRepo}
+import uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig
+import uk.gov.hmrc.play.audit.http.connector.AuditConnector
+import uk.gov.hmrc.play.config.{AppName, ControllerConfig}
+import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
+import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
+import config.WSHttp
+import uk.gov.hmrc.http.HeaderNames
+import uk.gov.hmrc.play.frontend.config.LoadAuditingConfig
+import uk.gov.hmrc.play.frontend.filters.{FrontendAuditFilter, FrontendLoggingFilter, MicroserviceFilterSupport, RecoveryFilter}
+
+object Global extends VPLFrontendGlobal
+
+trait VPLFrontendGlobal extends DefaultFrontendGlobal {
+
+  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html = {
+    views.html.errors.error(pageTitle, heading, message)(request, applicationMessages)
+  }
+
+  override def internalServerErrorTemplate(implicit request: Request[_]): Html = {
+    views.html.errors.technicalDifficulties(extractErrorReference(request), getDateTime)
+  }
+
+  private def getDateTime: LocalDateTime = {
+    val instant = Instant.ofEpochMilli(System.currentTimeMillis)
+    LocalDateTime.ofInstant(instant, ZoneId.of("Europe/London"))
+  }
+
+  private def extractErrorReference(request: Request[_]): Option[String] = {
+    request.headers.get(HeaderNames.xRequestId) map { _.split("-")(2) }
+  }
+
+  def auditConnector: uk.gov.hmrc.play.audit.http.connector.AuditConnector = AuditServiceConnector
+
+  override def microserviceMetricsConfig(implicit app: Application): Option[Configuration] = app.configuration.getConfig("metrics")
+
+  override def loggingFilter: FrontendLoggingFilter = LoggingFilter
+
+  override def frontendAuditFilter: FrontendAuditFilter = AuditFilter
+
+  override def filters: Seq[EssentialFilter] = super.filters.filterNot(_ == RecoveryFilter)
+}
+
+object AuditServiceConnector extends AuditConnector {
+  override lazy val auditingConfig = LoadAuditingConfig("auditing")
+}
+
+object LoggingFilter extends FrontendLoggingFilter with MicroserviceFilterSupport {
+  override def controllerNeedsLogging(controllerName: String): Boolean = ControllerConfiguration.paramsForController(controllerName).needsLogging
+}
+
+object AuditFilter extends FrontendAuditFilter with MicroserviceFilterSupport with AppName {
+  override lazy val maskedFormFields = Seq.empty
+  override lazy val applicationPort = None
+  override lazy val auditConnector = AuditServiceConnector
+
+  override def controllerNeedsAuditing(controllerName: String): Boolean = false
+}
+
+object ControllerConfiguration extends ControllerConfig {
+  lazy val controllerConfigs = Play.current.configuration.underlying.as[Config]("controllers")
+}
+
+class GuiceModule(environment: Environment,
+                  configuration: Configuration) extends AbstractModule {
+  def configure() = {
+    bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
+    bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
+    bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])
+    bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
+    bind(classOf[WSHttp]).to(classOf[VPLHttp])
+    bind(classOf[Clock]).toInstance(Clock.systemUTC())
+    bind(classOf[AuthConnector]).to(classOf[VPLAuthConnector])
+    bind(classOf[CircuitBreakerConfig]).toProvider(classOf[CircuitBreakerConfigProvider]).asEagerSingleton()
+    bind(classOf[PdfGenerator]).toInstance(new PdfGenerator(environment))
+  }
+}
+
+class MongoDbProvider @Inject() (reactiveMongoComponent: ReactiveMongoComponent) extends Provider[DB] {
+  def get = reactiveMongoComponent.mongoConnector.db()
+}
+
+class CircuitBreakerConfigProvider @Inject() (config: Configuration) extends Provider[CircuitBreakerConfig] {
+  override def get(): CircuitBreakerConfig = {
+    val serviceName = config.getString("circuitBreaker.serviceName").getOrElse("file-upload-frontend")
+    val numberOfCallsToTriggerChange = config.getInt("circuitBreaker.numberOfCallsToTriggerStateChange")
+    val unavailablePeriod = config.getInt("circuitBreaker.unavailablePeriodDuration")
+    val unstablePeriod = config.getInt("circuitBreaker.unstablePeriodDuration")
+
+    CircuitBreakerConfig(serviceName, numberOfCallsToTriggerChange, unavailablePeriod, unstablePeriod)
+  }
+}Japp/config/Global.scala

@@ -1,0 +1,99 @@
+
+–!)
+“÷_root_.play.api.libs.json.Json.
+áã_root_.play.api.libs.B
+¡œ6_root_.models.searchApi.OwnerAuthAgent.ownerAuthAgent.a
+∞∞U_root_.models.searchApi.OwnerAuthAgent#`<init>`(JJLjava/lang/String;Lscala/Option;)V.;
+ÁÌ/_root_.models.searchApi.OwnerAuthAgent#(status)
+˛Ç_root_.play.C
+Åè7_root_.models.searchApi.OwnerAuthAgent#(organisationId)3
+°Ø'_root_.models.searchApi.OwnerAuthAgent.)
+ëï_root_.play.api.libs.json.Json.%
+ˆ¸_root_.scala.Predef.String#
+ÂÎ_root_.models."
+Ïı_root_.models.searchApi.$
+åê_root_.play.api.libs.json.3
+¢∞'_root_.models.searchApi.OwnerAuthAgent#
+Ôı_root_.scala.Option#N
+◊›D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.1
+ﬁÏ'_root_.models.searchApi.OwnerAuthAgent#
+ÉÜ_root_.play.api.
+ëï_root_.scala.Long#%
+ƒ _root_.scala.Predef.String#E
+≤¬9_root_.models.searchApi.OwnerAuthAgent#(organisationName)
+‡‰_root_.scala.Long#F
+Õﬁ:_root_.models.searchApi.OwnerAuthAgent#(authorisedPartyId)"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]")
+_root_.play.api.libs.json.ÄàÄjson" 
+_root_.scala.Long#
+Ä†Long"n
+7_root_.models.searchApi.OwnerAuthAgent#(organisationId)3ÅorganisationIdLong"
+_root_.scala.Long#"√
+6_root_.models.searchApi.OwnerAuthAgent.ownerAuthAgent.àÅÄ ownerAuthAgentOFormat[OwnerAuthAgent]"(
+"_root_.play.api.libs.json.OFormat#"/
+'_root_.models.searchApi.OwnerAuthAgent#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#",
+_root_.models.searchApi.ÄàÄ	searchApi"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"$
+_root_.scala.Option#Ä†Option"®
+U_root_.models.searchApi.OwnerAuthAgent#`<init>`(JJLjava/lang/String;Lscala/Option;)V.Œ<init>q(authorisedPartyId: Long, organisationId: Long, organisationName: String, status: Option[String]): OwnerAuthAgent"
+_root_.scala.Long#"
+*._root_.scala.Long#"#
+BH_root_.scala.Predef.String#"
+RX_root_.scala.Option#"#
+Y__root_.scala.Predef.String#"/
+cq'_root_.models.searchApi.OwnerAuthAgent#"}
+9_root_.models.searchApi.OwnerAuthAgent#(organisationName)@ÅorganisationNameString"!
+_root_.scala.Predef.String#"
+_root_.play.ÄàÄplay"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"è
+/_root_.models.searchApi.OwnerAuthAgent#(status)\ÅstatusOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.models.ÄàÄmodels"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"?
+'_root_.models.searchApi.OwnerAuthAgent.ÄÑOwnerAuthAgent"@
+'_root_.models.searchApi.OwnerAuthAgent#Ä†ÄOwnerAuthAgent"t
+:_root_.models.searchApi.OwnerAuthAgent#(authorisedPartyId)6ÅauthorisedPartyIdLong"
+_root_.scala.Long#:Scala211B/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models.searchApi
+
+import play.api.libs.json.Json
+
+case class OwnerAuthAgent(
+                           authorisedPartyId: Long,
+                           organisationId: Long,
+                           organisationName: String,
+                           status: Option[String]
+                         )
+
+object OwnerAuthAgent {
+  implicit val ownerAuthAgent = Json.format[OwnerAuthAgent]
+}
+J)app/models/searchApi/OwnerAuthAgent.scala

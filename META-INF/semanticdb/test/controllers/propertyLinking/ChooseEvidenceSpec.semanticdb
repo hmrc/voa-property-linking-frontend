@@ -1,0 +1,775 @@
+
+ÕÙP
+’ŸDtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@2385..2409!
+‰Ï_root_.models.Property#z
+∞∂p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.*
+±º _root_.repositories.SessionRepo#M
+Ú˝C_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#4
+——*_root_.org.scalatest.FlatSpec#`<init>`()V.å
+®≥Å_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.4
+ÏÚ*_root_.controllers.propertyLinking.routes.o
+˛áe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.u
+≤∂k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.%
+ˇã_root_.models.GroupAccount#^
+À”R_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#property.P
+˛ÅDtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@2298..2344
+Â_root_.controllers.%
+ÊÚ_root_.models.GroupAccount#.
+«◊$_root_.org.mockito.ArgumentMatchers.2
+√‹(_root_.models.DetailedIndividualAccount#¡
+√«∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.u
+ˆ¯k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.H
+π¿>_root_.controllers.propertyLinking.ChooseEvidenceSpec#request. 
+‹‰_root_.utils.HtmlPage.o
+©≤e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.P
+∆…Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@3138..3234N
+´	¨	Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@1160..1185N
+∫∫B_root_.controllers.propertyLinking.ChooseEvidenceSpec#`<init>`()V.P
+ñòF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.u
+Ük_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.S
+ƒ÷I_root_.controllers.propertyLinking.ChooseEvidenceSpec#withLinkingSession.∏
+Ÿ€≠_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.;_root_.org.mockito.ArgumentMatchers.eq(S)S.;_root_.org.mockito.ArgumentMatchers.eq(J)J.;_root_.org.mockito.ArgumentMatchers.eq(I)I.;_root_.org.mockito.ArgumentMatchers.eq(F)F.;_root_.org.mockito.ArgumentMatchers.eq(D)D.;_root_.org.mockito.ArgumentMatchers.eq(C)C.;_root_.org.mockito.ArgumentMatchers.eq(B)B.;_root_.org.mockito.ArgumentMatchers.eq(Z)Z.0
+äì&_root_.play.api.http.Status#SEE_OTHER.o
+ı˛e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;. 
+‘‹_root_.utils.HtmlPage.
+‰Ë_root_.play.z
+≥πp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.z
+∫¿p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.P
+ôõF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.o
+ûße_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.
+È
+È
+s_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#`<init>`(Lutils/StubWithLinkingSession;)V.*
+ü® _root_.org.scalacheck.Arbitrary.
+æ«_root_.org.scalatest.+
+Ñè!_root_.play.api.test.FakeRequest.o
+¥Ωe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.z
+πøp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.o
+π¬e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.N
+›‡Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@1917..1961
+´±_root_.models.
+ø∆_root_.org.mockito.H
+†ß>_root_.controllers.propertyLinking.ChooseEvidenceSpec#request.j
+íù`_root_.play.api.test.FakeRequest#withSession(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.'
+Ì˚_root_.models.LinkingSession#o
+ﬂËe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.N
+Ù	ı	Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@1160..1185!
+œ◊_root_.models.Property#/
+ÊË%_root_.org.scalatest.FlatSpecLike#it.B
+ßπ6_root_.controllers.propertyLinking.ChooseEvidenceSpec#P
+ÁÈF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.b
+ÎÅX_root_.utils.HtmlPage#mustContainRadioSelect(Ljava/lang/String;Lscala/collection/Seq;)V.å
+íùÅ_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.F
+≥	∂	<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.o
+⁄„e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.
+§∞_root_.repositories..
+Ë˛$_root_.utils.StubWithLinkingSession#u
+ÈÌk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.2
+¿Ÿ(_root_.models.DetailedIndividualAccount#S
+é†I_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#ô
+≠	≤	é_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.N
+ÂËDtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@2298..23444
+º¬*_root_.controllers.propertyLinking.routes.o
+∂øe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;./
+Ø±%_root_.org.scalatest.FlatSpecLike#it.2
+û£(_root_.controllers.ControllerSpec#token.u
+¡◊k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.R
+ˇF_root_.controllers.propertyLinking.ChooseEvidenceSpec#mockSessionRepo.S
+áôI_root_.controllers.propertyLinking.ChooseEvidenceSpec#testChooseEvidence.Z
+óùP_root_.controllers.propertyLinking.ChooseEvidence#submit()Lplay/api/mvc/Action;.o
+‹Âe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.d
+¶	™	Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.
+ÁÎ_root_.scala.Some.o
+åée_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.N
+ÊÍDtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@1993..2017
+âî_root_.controllers.F
+¡	ƒ	<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.o
+Ûıe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
+∑ª_root_.scala.Some."
+éò_root_.scala.concurrent.S
+ˇëI_root_.controllers.propertyLinking.ChooseEvidenceSpec#withLinkingSession.o
+§≠e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.í
+≠øá_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#`<init>`(Lutils/StubWithLinkingSession;)V.(withLinkingSession)
+ÈÏ_root_.play.api.d
+¨¨Z_root_.controllers.propertyLinking.ChooseEvidence#`<init>`(Lsession/WithLinkingSession;)V.N
+ÓÚDtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@2385..2409<
+û¨2_root_.controllers.propertyLinking.ChooseEvidence#H
+ËÔ>_root_.controllers.propertyLinking.ChooseEvidenceSpec#request.S
+°≥I_root_.controllers.propertyLinking.ChooseEvidenceSpec#withLinkingSession.'
+•≥_root_.models.LinkingSession#
+ªæ_root_.org.S
+ùØI_root_.controllers.propertyLinking.ChooseEvidenceSpec#testChooseEvidence.o
+œÿe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.*
+ï	†	 _root_.repositories.SessionRepo#.
+û
+¥
+$_root_.utils.StubWithLinkingSession#
+àç_root_.scala.U
+÷
+Ë
+I_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#P
+å	ç	Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@1160..1185a
+‡	Í	W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;..
+˛
+î$_root_.utils.StubWithLinkingSession#}
+††s_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#`<init>`(Lutils/StubWithLinkingSession;)V.
+ƒÕ_root_.resources.U
+Ö
+ó
+I_root_.controllers.propertyLinking.ChooseEvidenceSpec#withLinkingSession.'
+æÃ_root_.models.LinkingSession#o
+ªΩe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.O
+¡ÕC_root_.controllers.propertyLinking.ChooseEvidenceSpec#testProperty.{
+Œ	ÿ	q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.
+êì_root_.org.&
+íï_root_.scala.collection.Seq.%
+Æ∫_root_.models.GroupAccount#P
+Õ—Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@1993..2017(
+âå_root_.play.api.mvc.Call#(url)z
+”◊p_root_.controllers.propertyLinking.ReverseUploadRatesBill#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.P
+µ
+ƒ
+F_root_.controllers.propertyLinking.ChooseEvidenceSpec#mockSessionRepo.M
+÷‚C_root_.controllers.propertyLinking.ChooseEvidenceSpec#testProperty.0
+∫√&_root_.play.api.http.Status#SEE_OTHER.Z
+∞∂P_root_.controllers.propertyLinking.ChooseEvidence#submit()Lplay/api/mvc/Action;.S
+ÃﬁI_root_.controllers.propertyLinking.ChooseEvidenceSpec#testChooseEvidence.o
+õ§e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.2
+ŸÚ(_root_.models.DetailedIndividualAccount#o
+„Ïe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.
+◊‹_root_.utils.y
+ÇÜo_root_.controllers.propertyLinking.ReverseUploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.'
+®∂_root_.models.LinkingSession#S
+¸éI_root_.controllers.propertyLinking.ChooseEvidenceSpec#withLinkingSession._
+–‹U_root_.org.scalatest.mockito.MockitoSugar.;_root_.org.scalatest.mockito.MockitoSugar#-
+ÒÄ#_root_.controllers.propertyLinking.,
+¬–"_root_.controllers.ControllerSpec#%
+Èı_root_.models.GroupAccount#å
+èöÅ_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.i
+Í
+¸
+]_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#(withLinkingSession)e
+ê	î	[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.I
+ôü?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#
+∫Ω_root_.org.T
+¥
+¥
+J_root_.utils.StubWithLinkingSession#`<init>`(Lrepositories/SessionRepo;)V.P
+ÅÑDtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@1917..1961
+˜˛_root_.org.mockito.U
+ıáI_root_.controllers.propertyLinking.ChooseEvidenceSpec#testChooseEvidence.'
+ìö_root_.play.api.test.Helpers.J
+˙Å>_root_.controllers.propertyLinking.ChooseEvidenceSpec#request.)
+¡√_root_.play.api.http.Status#OK.F
+∫	Ω	<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.
+äç_root_.play.api.X
+öûN_root_.controllers.propertyLinking.ChooseEvidence#show()Lplay/api/mvc/Action;.(
+⁄›_root_.play.api.mvc.Call#(url)Z
+ﬂÂP_root_.controllers.propertyLinking.ChooseEvidence#submit()Lplay/api/mvc/Action;.
+Öâ_root_.play.P
+óöDtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@2707..2802å
+◊‚Å_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.
+éí_root_.play.api.test.7
+ﬁÊ-_root_.utils.HtmlPage.;_root_.utils.HtmlPage#D
+√“:_root_.controllers.propertyLinking.routes.UploadRatesBill.2
+¿À(_root_.play.api.http.Status#BAD_REQUEST.S
+ÑñI_root_.controllers.propertyLinking.ChooseEvidenceSpec#testChooseEvidence.4
+÷‚*_root_.org.scalatest.mockito.MockitoSugar#2
+à°(_root_.models.DetailedIndividualAccount#
+ÌÒ_root_.play.api.test.
+Ûˆ_root_.org.'
+»œ_root_.org.scalatest.mockito.H
+°®>_root_.controllers.propertyLinking.ChooseEvidenceSpec#request.C
+ÛÅ9_root_.controllers.propertyLinking.routes.UploadEvidence.,
+ï£"_root_.controllers.ControllerSpec# 
+îû_root_.org.scalacheck.)
+Ÿ	ﬂ	_root_.scala.concurrent.Future.z
+‡Êp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.%
+ˇÜ_root_.org.mockito.Mockito.S
+ïßI_root_.controllers.propertyLinking.ChooseEvidenceSpec#withLinkingSession.P
+ÛâF_root_.utils.HtmlPage#mustContainFieldErrors(Lscala/collection/Seq;)V.z
+Éâp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;./
+æ¿%_root_.org.scalatest.FlatSpecLike#it.u
+¡≈k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;."9
+"_root_.controllers.ControllerSpec#Ä@ControllerSpec")
+_root_.scala.collection.Seq.	ÄÑSeq"ã
+R_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#property.5propertyProperty"
+_root_.models.Property#"Ç
+Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@1160..1185:fSessionRepo"&
+ _root_.repositories.SessionRepo#"$
+_root_.play.api.test.ÄàÄtest"Õ
+q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.◊ÑÄÑ
+thenReturn(x$1: T): OngoingStubbing[T]"7
+/_root_.org.mockito.stubbing.OngoingStubbing#[T]"4
+
+,_root_.org.mockito.stubbing.OngoingStubbing#"7
+/_root_.org.mockito.stubbing.OngoingStubbing#[T]" 
+I_root_.controllers.propertyLinking.ChooseEvidenceSpec#testChooseEvidence.}ÅÄtestChooseEvidenceTestChooseEvidence"O
+I_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#"ã
+Z_root_.controllers.propertyLinking.ChooseEvidence#`<init>`(Lsession/WithLinkingSession;)V.¨<init>8(withLinkingSession: WithLinkingSession): ChooseEvidence"*
+'"_root_.session.WithLinkingSession#":
+*82_root_.controllers.propertyLinking.ChooseEvidence#"Á
+á_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#`<init>`(Lutils/StubWithLinkingSession;)V.(withLinkingSession)[ÄwithLinkingSessionStubWithLinkingSession"*
+$_root_.utils.StubWithLinkingSession#"≈
+é_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.±ÑÄstartJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"ö
+ë_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
+%!_root_.play.api.libs.json.Writes#"ö
+&'ë_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+>D_root_.scala.concurrent.Future#"
+EI_root_.scala.Unit#"e
+I_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#Ä†TestChooseEvidence"…
+F_root_.utils.HtmlPage#mustContainFieldErrors(Lscala/collection/Seq;)V.˛mustContainFieldErrors4(errors: <repeated>[Tuple2[FieldId, Message]]): Unit""
+	_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"&
+"_root_.utils.HtmlPage#FieldId#"&
+$+_root_.utils.HtmlPage#Message#"
+04_root_.scala.Unit#"6
+!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"4
+ _root_.repositories.SessionRepo#Ä@SessionRepo"Œ
+>_root_.controllers.propertyLinking.ChooseEvidenceSpec#request.ãÅÄ@request#FakeRequest[AnyContentAsEmpty.type]"'
+!_root_.play.api.test.FakeRequest#".
+&_root_.play.api.mvc.AnyContentAsEmpty."Î
+J_root_.utils.StubWithLinkingSession#`<init>`(Lrepositories/SessionRepo;)V.ú<init>8(sessionRepository: SessionRepo): StubWithLinkingSession"(
+ _root_.repositories.SessionRepo#",
+"8$_root_.utils.StubWithLinkingSession#"‘
+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Í	arbitrary)[T] => (implicit a: Arbitrary[T]): Gen[T]"(
+ _root_.org.scalacheck.Arbitrary#"p
+h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]""
+#&_root_.org.scalacheck.Gen#"p
+'(h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]"º
+]_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#(withLinkingSession)[ÄwithLinkingSessionStubWithLinkingSession"*
+$_root_.utils.StubWithLinkingSession#"Î
+t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"
+JN_root_.scala.Long#"(
+Yj _root_.models.IndividualDetails#"1
+mÜ(_root_.models.DetailedIndividualAccount#"?
+*_root_.org.scalatest.mockito.MockitoSugar#Ä@MockitoSugar"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"®
+B_root_.controllers.propertyLinking.ChooseEvidenceSpec#`<init>`()V.b<init>(): ChooseEvidenceSpec">
+6_root_.controllers.propertyLinking.ChooseEvidenceSpec#"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"≈
+s_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#`<init>`(Lutils/StubWithLinkingSession;)V.Õ<init>@(withLinkingSession: StubWithLinkingSession): TestChooseEvidence",
++$_root_.utils.StubWithLinkingSession#"Q
+.@I_root_.controllers.propertyLinking.ChooseEvidenceSpec#TestChooseEvidence#"¢
+Å_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.õstubSessionp(linkingSession: LinkingSession, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount): Unit"%
+_root_.models.LinkingSession#"0
+4M(_root_.models.DetailedIndividualAccount#"#
+]i_root_.models.GroupAccount#"
+lp_root_.scala.Unit#"
+_root_.play.api.
+ÄàÄapi"=
+#_root_.controllers.propertyLinking.ÄàÄpropertyLinking"Y
+(_root_.play.api.http.Status#BAD_REQUEST.-BAD_REQUESTInt"
+_root_.scala.Int#"U
+&_root_.play.api.http.Status#SEE_OTHER.+	SEE_OTHERInt"
+_root_.scala.Int#"?
+$_root_.org.mockito.ArgumentMatchers.ÄÑàArgumentMatchers"¬
+s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
+	_root_.scala.Long#"#
+_root_.scala.Predef.String#"#
+)/_root_.scala.Predef.String#"
+<?_root_.scala.Int#"#
+HN_root_.scala.Predef.String#"#
+W]_root_.scala.Predef.String#"
+ho_root_.scala.Boolean#"
+|Ä_root_.scala.Long#"%
+Éè_root_.models.GroupAccount#"Æ
+(_root_.controllers.ControllerSpec#token.ÅtokenTuple2[String, String]"
+_root_.scala.Tuple2#" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#"/
+_root_.scala.concurrent.Future.ÄÑFuture"œ
+k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.ﬂwithFormUrlEncodedBodyS(data: <repeated>[Tuple2[String, String]]): FakeRequest[AnyContentAsFormUrlEncoded]""
+_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+_root_.scala.Predef.String#"#
+!'_root_.scala.Predef.String#")
+,7!_root_.play.api.test.FakeRequest#"7
+8R/_root_.play.api.mvc.AnyContentAsFormUrlEncoded#"/
+_root_.org.scalatest.mockito.ÄàÄmockito"C
+$_root_.utils.StubWithLinkingSession#Ä StubWithLinkingSession"å
+[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.¨mock*[T] => (implicit classTag: ClassTag[T]): T"&
+#_root_.scala.reflect.ClassTag#"f
+$%^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"f
+)*^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"∫
+N_root_.controllers.propertyLinking.ChooseEvidence#show()Lplay/api/mvc/Action;.hshowAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"+
+_root_.repositories.ÄàÄrepositories"%
+_root_.resources.ÄàÄ	resources"æ
+P_root_.controllers.propertyLinking.ChooseEvidence#submit()Lplay/api/mvc/Action;.jsubmitAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"(
+_root_.utils.HtmlPage.ÄÑHtmlPage"´
+Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@3138..3234cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#")
+_root_.org.scalatest.ÄàÄ	scalatest"
+_root_.org.
+ÄàÄorg"x
+Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@1993..20170htmlHtmlPage"
+_root_.utils.HtmlPage#"´
+Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@1917..1961cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"„
+p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.omustBe(right: Any): Assertion"
+_root_.scala.Any#"/
+'_root_.org.scalatest.package.Assertion#"ì
+Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.¥ÑÄÄwhen#[T] => (x$1: T): OngoingStubbing[T]"e
+]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"4
+ ,_root_.org.mockito.stubbing.OngoingStubbing#"e
+!"]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"˛
+Z_root_.models.Property#`<init>`(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V.ü<init>g(uarn: Long, billingAuthorityReference: String, address: String, specialCategoryCode: String): Property"
+_root_.scala.Long#"#
+(._root_.scala.Predef.String#"#
+9?_root_.scala.Predef.String#"#
+V\_root_.scala.Predef.String#"
+_g_root_.models.Property#"2
+_root_.models.GroupAccount#Ä†ÄGroupAccount"x
+Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@2385..24090htmlHtmlPage"
+_root_.utils.HtmlPage#"©
+I_root_.controllers.propertyLinking.ChooseEvidenceSpec#withLinkingSession.\ÅÄ@withLinkingSessionStubWithLinkingSession"*
+$_root_.utils.StubWithLinkingSession#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"∞
+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#".
+_root_.play.api.test.Helpers.ÄÑHelpers"Q
+6_root_.controllers.propertyLinking.ChooseEvidenceSpec#Ä ChooseEvidenceSpec"¡
+∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
+_root_.scala.Predef.String#">
+96_root_.org.scalatest.words.StringVerbStringInvocation#">
+<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"
+_root_.play.ÄàÄplay"+
+_root_.org.scalacheck.ÄàÄ
+scalacheck"⁄
+p_root_.controllers.propertyLinking.ReverseUploadRatesBill#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.Âshow<(errorCode: Option[Int], errorMessage: Option[String]): Call"
+_root_.scala.Option#"
+_root_.scala.Int#"
+'-_root_.scala.Option#"#
+.4_root_.scala.Predef.String#"!
+8<_root_.play.api.mvc.Call#"°
+<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.aÑÄÄany[T] => (): T"G
+?_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.[T]"I
+2_root_.controllers.propertyLinking.ChooseEvidence#Ä ChooseEvidence"-
+_root_.org.mockito.Mockito.ÄÑàMockito"ˆ
+k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.Ümust(string: String): ItVerbString"#
+	_root_.scala.Predef.String#"7
+/_root_.org.scalatest.FlatSpecLike#ItVerbString#"3
+ _root_.org.scalacheck.Arbitrary.ÄÑ	Arbitrary"™
+9_root_.controllers.propertyLinking.routes.UploadEvidence.mÅÄàUploadEvidenceReverseUploadEvidence"?
+9_root_.controllers.propertyLinking.ReverseUploadEvidence#"
+_root_.models.ÄàÄmodels"Ÿ
+o_root_.controllers.propertyLinking.ReverseUploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.Âshow<(errorCode: Option[Int], errorMessage: Option[String]): Call"
+_root_.scala.Option#"
+_root_.scala.Int#"
+'-_root_.scala.Option#"#
+.4_root_.scala.Predef.String#"!
+8<_root_.play.api.mvc.Call#")
+_root_.controllers.ÄàÄcontrollers"´
+Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@2707..2802cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"´
+Dtest/controllers/propertyLinking/ChooseEvidenceSpec.scala@2298..2344cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"
+_root_.utils.ÄàÄutils"¨
+X_root_.utils.HtmlPage#mustContainRadioSelect(Ljava/lang/String;Lscala/collection/Seq;)V.œmustContainRadioSelect*(name: String, options: Seq[String]): Unit"#
+_root_.scala.Predef.String#"!
+_root_.scala.package.Seq#"#
+"_root_.scala.Predef.String#"
+&*_root_.scala.Unit#"
+_root_.scala.ÄàÄscala"Ç
+C_root_.controllers.propertyLinking.ChooseEvidenceSpec#testProperty.;ÅÄ@testPropertyProperty"
+_root_.models.Property#"ì
+}_root_.models.LinkingSession#`<init>`(Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;JLmodels/CapacityDeclaration;)V.ë<init>â(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long, declaration: CapacityDeclaration): LinkingSession"#
+
+_root_.scala.Predef.String#"
+_root_.scala.Long#"#
+*0_root_.scala.Predef.String#"#
+@F_root_.scala.Predef.String#"
+RV_root_.scala.Long#"*
+ex"_root_.models.CapacityDeclaration#"&
+{â_root_.models.LinkingSession#"L
+(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"n
+*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
+_root_.org.scalatest.FlatSpec#"ú
+`_root_.play.api.test.FakeRequest#withSession(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.∑withSessionA(newSessions: <repeated>[Tuple2[String, String]]): FakeRequest[A]""
+_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+ &_root_.scala.Predef.String#"#
+(._root_.scala.Predef.String#")
+3>!_root_.play.api.test.FakeRequest#",
+?@$_root_.play.api.test.FakeRequest#[A]"î
+F_root_.controllers.propertyLinking.ChooseEvidenceSpec#mockSessionRepo.JÅÄ@mockSessionRepoSessionRepo"&
+ _root_.repositories.SessionRepo#"*
+_root_.models.Property#Ä†ÄProperty"Æ
+:_root_.controllers.propertyLinking.routes.UploadRatesBill.pÅÄàUploadRatesBillReverseUploadRatesBill"@
+:_root_.controllers.propertyLinking.ReverseUploadRatesBill#"6
+_root_.models.LinkingSession#Ä†ÄLinkingSession";
+*_root_.controllers.propertyLinking.routes.ÄÑàroutes"j
+%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
+)_root_.org.scalatest.FlatSpecLike#ItWord#"G
+_root_.play.api.http.Status#OK.$OKInt"
+_root_.scala.Int#" 
+_root_.scala.Some.
+ÄÑSome"%
+_root_.org.mockito.ÄàÄmockito"∂
+k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#2œ
+∫∫∫*(org.scalactic.source.Position.apply("ChooseEvidenceSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 61))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2v
+ÌÌ(*(resources.`package`.arbitraryProperty)
+_star_.3
+'+_root_.resources.package.arbitraryProperty.2q
+‹‹*.apply
+_star_.O
+G_root_.utils.HtmlPage.apply(Lscala/concurrent/Future;)Lutils/HtmlPage;.2Æ
+áï"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2b
+ûû*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2z
+ÛÛ**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2È
+òØùChooseEvidenceSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("ChooseEvidenceSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 76), org.scalactic.Prettifier.default)
+06_root_.scala.Option##
+7=_root_.scala.Predef.String#ª
+/≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+@A_star_.y
+afq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ïú(_root_.org.scalactic.Prettifier.default.2è
+ÎÎ*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2ƒ
+ïï*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String#2È
+»ﬂùChooseEvidenceSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("ChooseEvidenceSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 84), org.scalactic.Prettifier.default)
+06_root_.scala.Option##
+7=_root_.scala.Predef.String#ª
+/≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+@A_star_.y
+afq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ïú(_root_.org.scalactic.Prettifier.default.2|
+††*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2<
+Í	Í	*[Unit]
+_star_.
+_root_.scala.Unit#2 
+°	°	\*(((ClassTag.apply[SessionRepo](classOf[repositories.SessionRepo])): ClassTag[SessionRepo]))
+_star_.(
+NY _root_.repositories.SessionRepo#&
+EM_root_.scala.reflect.ClassTag#(
+ _root_.repositories.SessionRepo#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.2|
+üü*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2D
+õõ	*[String]
+_star_. 
+_root_.java.lang.String#2B
+Ω	Ω	
+*[Nothing]
+_star_.
+	_root_.scala.Nothing#2„
+π›>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2…
+‹Û1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2q
+‰‰*.apply
+_star_.O
+G_root_.utils.HtmlPage.apply(Lscala/concurrent/Future;)Lutils/HtmlPage;.2b
+∂∂*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2œ
+ëë∫*(org.scalactic.source.Position.apply("ChooseEvidenceSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 79))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2∂
+˜ÇíChooseEvidenceSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("ChooseEvidenceSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 75), org.scalactic.Prettifier.default)
+03_root_.scala.Int#ª
+/≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+56_star_.y
+V[q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+äë(_root_.org.scalactic.Prettifier.default.2|
+∏∏*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2„
+∂⁄>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2∂
+≠∏íChooseEvidenceSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("ChooseEvidenceSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 65), org.scalactic.Prettifier.default)
+03_root_.scala.Int#ª
+/≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+56_star_.y
+V[q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+äë(_root_.org.scalactic.Prettifier.default.2D
+òò	*[String]
+_star_. 
+_root_.java.lang.String#2|
+ÁÁ*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2~
+ªª,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2∂
+ÆπíChooseEvidenceSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("ChooseEvidenceSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 55), org.scalactic.Prettifier.default)
+03_root_.scala.Int#ª
+/≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+56_star_.y
+V[q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+äë(_root_.org.scalactic.Prettifier.default.2~
+åå,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2b
+ùù*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2z
+⁄⁄**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2∂
+ß≤íChooseEvidenceSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("ChooseEvidenceSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 83), org.scalactic.Prettifier.default)
+03_root_.scala.Int#ª
+/≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+56_star_.y
+V[q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+äë(_root_.org.scalactic.Prettifier.default.2„
+˛¢>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2ü
+®¬êChooseEvidenceSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ChooseEvidenceSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 51), org.scalactic.Prettifier.default)¡
+2∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+34_star_.y
+TYq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+àè(_root_.org.scalactic.Prettifier.default.2B
+≤	≤	
+*[Nothing]
+_star_.
+	_root_.scala.Nothing#2Õ
+¥Õ3resources.`package`.getArbitrary[LinkingSession](*)%
+!/_root_.models.LinkingSession#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.2n
+èè*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2b
+ÂÂ*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2~
+ˆˆ,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2…
+ﬂˆ1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2Æ
+ÿÊ"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2m
+™	™	*[Future[Unit]]
+_star_.
+	_root_.scala.Unit#'
+_root_.scala.concurrent.Future#2œ
+‚‚∫*(org.scalactic.source.Position.apply("ChooseEvidenceSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 71))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Õ
+õ¥3resources.`package`.getArbitrary[LinkingSession](*)%
+!/_root_.models.LinkingSession#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.2…
+ıå1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2Ä
+¸¸-*(resources.`package`.arbitraryLinkinSession)
+_star_.8
+,0_root_.resources.package.arbitraryLinkinSession.2B
+ƒ	ƒ	
+*[Nothing]
+_star_.
+	_root_.scala.Nothing#2¡
+⁄Ì-resources.`package`.getArbitrary[Property](*)
+!)_root_.models.Property#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
++,_star_.2„
+œÛ>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2B
+∂	∂	
+*[Nothing]
+_star_.
+	_root_.scala.Nothing#2Ä
+¥¥-*(resources.`package`.arbitraryLinkinSession)
+_star_.8
+,0_root_.resources.package.arbitraryLinkinSession.2Ä
+ÕÕ-*(resources.`package`.arbitraryLinkinSession)
+_star_.8
+,0_root_.resources.package.arbitraryLinkinSession.2Õ
+„¸3resources.`package`.getArbitrary[LinkingSession](*)%
+!/_root_.models.LinkingSession#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.2Ä
+∑∑-*(resources.`package`.arbitraryLinkinSession)
+_star_.8
+,0_root_.resources.package.arbitraryLinkinSession.2¸
+®ı6ChooseEvidenceSpec.this.convertToInAndIgnoreMethods(*)®
+3ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+45_star_.2œ
+´´∫*(org.scalactic.source.Position.apply("ChooseEvidenceSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 51))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2£
+ıı<*(ChooseEvidenceSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+;D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2…
+§ª1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2D
+ÈÈ	*[String]
+_star_. 
+_root_.java.lang.String#2~
+ÛÛ,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2Õ
+û∑3resources.`package`.getArbitrary[LinkingSession](*)%
+!/_root_.models.LinkingSession#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.2z
+››**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2è
+ªª*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2Æ
+äò"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2z
+¢¢**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.:Scala211Bï/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.propertyLinking
+
+import controllers.ControllerSpec
+import models._
+import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
+import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.mockito.MockitoSugar
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import repositories.SessionRepo
+import resources._
+import utils.{HtmlPage, StubWithLinkingSession}
+
+import scala.concurrent.Future
+
+class ChooseEvidenceSpec extends ControllerSpec with MockitoSugar{
+
+  lazy val mockSessionRepo = {
+    val f = mock[SessionRepo]
+    when(f.start(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    f
+  }
+  lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
+  private class TestChooseEvidence (withLinkingSession: StubWithLinkingSession) extends ChooseEvidence(withLinkingSession) {
+    val property = testProperty
+  }
+  private val testChooseEvidence = new TestChooseEvidence(withLinkingSession)
+
+  lazy val testProperty: Property = arbitrary[Property]
+
+  lazy val request = FakeRequest().withSession(token)
+
+  "The choose evidence page" must "ask the user whether they have a rates bill" in {
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = testChooseEvidence.show()(request)
+    status(res) mustBe OK
+
+    val html = HtmlPage(res)
+    html.mustContainRadioSelect("hasRatesBill", Seq("true", "false"))
+  }
+
+  it must "require the user to select whether they have a rates bill" in {
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = testChooseEvidence.submit()(request)
+    status(res) mustBe BAD_REQUEST
+
+    val html = HtmlPage(res)
+    html.mustContainFieldErrors("hasRatesBill" -> "Please select an option")
+  }
+
+  it must "redirect to the rates bill upload page if the user has a rates bill" in {
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
+    status(res) mustBe SEE_OTHER
+    header("location", res) mustBe Some(routes.UploadRatesBill.show().url)
+  }
+
+  it must "redirect to the other evidence page if the user does not have a rates bill" in {
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
+    status(res) mustBe SEE_OTHER
+    header("location", res) mustBe Some(routes.UploadEvidence.show().url)
+  }
+
+}
+J9test/controllers/propertyLinking/ChooseEvidenceSpec.scala

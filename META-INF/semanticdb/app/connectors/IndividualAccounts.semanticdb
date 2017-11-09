@@ -1,0 +1,517 @@
+
+îÄé
+˚
+âÅ_root_.connectors.IndividualAccounts#withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.7
+÷›-_root_.connectors.IndividualAccounts#baseUrl.<
+Ùˆ2app/connectors/IndividualAccounts.scala@1774..1776
+˜˚_root_.play.api.libs."
+≥∑_root_.uk.gov.hmrc.play.L
+†	°	B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.W
+÷„M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#1
+˚ç%_root_.connectors.IndividualAccounts#2
+è®(_root_.models.DetailedIndividualAccount#1
+ïï'_root_.javax.inject.Inject#`<init>`()V.
+ÂÔ_root_.connectors.7
+ú£-_root_.connectors.IndividualAccounts#baseUrl.
+˚Å_root_.config.'
+ÌÒ_root_.uk.gov.hmrc.play.http.|
+ËÎr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ò
+∞∫ç_root_.connectors.IndividualAccounts#withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(externalId)S
+ÇãI_root_.play.api.libs.json.JsDefined.;_root_.play.api.libs.json.JsDefined#0
+´∏&_root_.uk.gov.hmrc.http.HeaderCarrier#%
+Ù˙_root_.scala.Predef.String#)
+ª¡_root_.scala.concurrent.Future#0
+Î	¯	&_root_.uk.gov.hmrc.http.HeaderCarrier#_
+ ÂU_root_.models.IndividualAccountSubmission.;_root_.models.IndividualAccountSubmission#
+ÓÚ_root_.play.Q
+ôöG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.í
+ß©Ö_root_.connectors.IndividualAccounts#withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+ôú_root_.scala.Int#2
+…‚(_root_.models.DetailedIndividualAccount#
+ﬂ‚_root_.uk.gov.|
+ Õr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.Q
+Ÿ⁄G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.7
+∞¥+_root_.connectors.IndividualAccounts#(http)2
+â
+¢
+(_root_.models.DetailedIndividualAccount#ö
+≥µç_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)I
+¥∫?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#y
+Â
+Ì
+o_root_.connectors.IndividualAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(personId)-
+õ£#_root_.play.api.libs.json.JsNumber.
+Ûˆ_root_.play.api.ª
+Úı∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.9
+òû-_root_.connectors.IndividualAccounts#(config)f
+Ñ	ã	\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.
+ÿ	‹	_root_.scala.Long#"
+ñ†_root_.scala.concurrent.ª
+≤
+µ
+∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.Ë
+·‰›_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.<
+ËÍ2app/connectors/IndividualAccounts.scala@1774..1776ù
+ïúí_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)%
+èï_root_.javax.inject.Inject#"
+œ”_root_.uk.gov.hmrc.http.U
+ÂÒK_root_.uk.gov.hmrc.http.HttpResponse.;_root_.uk.gov.hmrc.http.HttpResponse#ö
+äîç_root_.connectors.IndividualAccounts#withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(externalId)@
+Ø¥6_root_.scala.math.ScalaNumericAnyConversions#toInt()I.?
+†Æ5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#)
+˚	Å
+_root_.scala.concurrent.Future#%
+ñú_root_.scala.Predef.String#4
+ÿÛ*_root_.models.IndividualAccountSubmission#5
+Çà+_root_.config.WSHttp.;_root_.config.WSHttp#
+¬»_root_.scala.Option#]
+¢≤S_root_.scala.concurrent.ExecutionContext.;_root_.scala.concurrent.ExecutionContext#@
+ù©6_root_.models.DetailedIndividualAccount#(individualId)>
+Ó2app/connectors/IndividualAccounts.scala@1774..1776
+∂º_root_.config.WSHttp#q
+ 	Õ	e_root_.connectors.IndividualAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Q
+êëG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.Q
+çïG_root_.play.api.libs.json.JsNumber.;_root_.play.api.libs.json.JsNumber#K
+∑»A_root_.models.IndividualAccount.;_root_.models.IndividualAccount#Ä
+´Øı_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;."
+ËÏ_root_.uk.gov.hmrc.play.
+ˆ¸_root_.scala.Option#ù
+≠¥í_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)
+îö_root_.models.[
+úµQ_root_.models.DetailedIndividualAccount.;_root_.models.DetailedIndividualAccount#°
+œ÷î_root_.connectors.IndividualAccounts#create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)b
+µ»X_root_.models.DetailedIndividualAccount#toIndividualAccount()Lmodels/IndividualAccount;.
+Œ“_root_.scala.Unit#5
+≠
+±
++_root_.connectors.IndividualAccounts#(http)ü
+ﬂÊî_root_.connectors.IndividualAccounts#create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)3
+À€)_root_.scala.concurrent.ExecutionContext#?
+∆‘5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#,
+Õ‘"_root_.play.api.libs.json.JsValue#ú
+˛Äè_root_.connectors.IndividualAccounts#create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)Q
+Ÿ
+⁄
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.7
+‹
+„
+-_root_.connectors.IndividualAccounts#baseUrl.
+Ç
+à
+_root_.scala.Option#
+„Á_root_.uk.gov.hmrc.7
+˝É	-_root_.connectors.IndividualAccounts#(config){
+Œ	÷	o_root_.connectors.IndividualAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(personId)7
+Üç-_root_.connectors.IndividualAccounts#baseUrl.
+√≈
+_root_.uk.
+˛Ñ_root_.javax.inject.
+∆…_root_.uk.gov.)
+∏æ_root_.uk.gov.hmrc.play.config.9
+ÎÚ-_root_.connectors.IndividualAccounts#baseUrl.O
+óûE_root_.play.api.libs.json.JsValue.;_root_.play.api.libs.json.JsValue#0
+∑ƒ&_root_.uk.gov.hmrc.http.HeaderCarrier#5
+«…)_root_.connectors.IndividualAccounts#(ec)
+∂
+º
+_root_.scala.Option#%
+œÿ_root_.java.lang.Exception#
+Æ≤_root_.uk.gov.hmrc.0
+Çè&_root_.uk.gov.hmrc.http.HeaderCarrier#0
+ø≈&_root_.uk.gov.hmrc.play.config.inject.<
+¨Æ2app/connectors/IndividualAccounts.scala@1828..1830L
+éèB_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.$
+¸Ä_root_.play.api.libs.json.2
+Ω
+÷
+(_root_.models.DetailedIndividualAccount#
+‹ﬁ
+_root_.uk.4
+∞À*_root_.models.IndividualAccountSubmission#5
+¶™+_root_.connectors.IndividualAccounts#(http)/
+¯Ñ%_root_.uk.gov.hmrc.http.HttpResponse#.
+ëö$_root_.play.api.libs.json.JsDefined.ñ
+ˇÖâ_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Q
+¢	£	G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.5
+‹‡+_root_.connectors.IndividualAccounts#(http)
+¯˝_root_.javax.2
+˝ñ(_root_.models.DetailedIndividualAccount#A
+Öã7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#
+™≠_root_.uk.gov.>
+§¶2app/connectors/IndividualAccounts.scala@1828..1830ü
+Üçí_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)
+êï_root_.scala.5
+ÌÒ+_root_.connectors.IndividualAccounts#(http)h
+˜¯^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.
+ß©
+_root_.uk.u
+Á	È	i_root_.connectors.IndividualAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)*
+Âˆ _root_.models.IndividualAccount#ü
+óóí_root_.connectors.IndividualAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.ò
+»Œã_root_.connectors.IndividualAccounts#create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.)
+íò_root_.scala.concurrent.Future#
+ Œ_root_.uk.gov.hmrc.)
+«Õ_root_.scala.concurrent.Future#C
+ÿÿ9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V."÷
+ı_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.€POST¶[I, O] => (url: String, body: I, headers: Seq[Tuple2[String, String]])(implicit wts: Writes[I], rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext): Future[O]"#
+_root_.scala.Predef.String#"Å
+¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"!
+*-_root_.scala.package.Seq#"
+.4_root_.scala.Tuple2#"#
+5;_root_.scala.Predef.String#"#
+=C_root_.scala.Predef.String#")
+U[!_root_.play.api.libs.json.Writes#"Å
+\]¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"*
+en"_root_.uk.gov.hmrc.http.HttpReads#"Å
+op¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"/
+wÑ&_root_.uk.gov.hmrc.http.HeaderCarrier#"3
+äö)_root_.scala.concurrent.ExecutionContext#")
+ù£_root_.scala.concurrent.Future#"É
+§•¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"≤
+i_root_.connectors.IndividualAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"3
+"_root_.play.api.libs.json.JsValue#Ä¿JsValue"†
+o_root_.connectors.IndividualAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(personId)-ÄpersonIdLong"
+_root_.scala.Long#"x
+)_root_.connectors.IndividualAccounts#(ec)KÄÅ ecExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"$
+_root_.config.WSHttp#Ä@WSHttp"ê
+â_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÅupdateN(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit]"0
+
+#(_root_.models.DetailedIndividualAccount#".
+2?&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+BH_root_.scala.concurrent.Future#"
+IM_root_.scala.Unit#"P
+*_root_.models.IndividualAccountSubmission#"Ä†ÄIndividualAccountSubmission")
+_root_.play.api.libs.json.ÄàÄjson":
+%_root_.uk.gov.hmrc.http.HttpResponse#Ä@HttpResponse" 
+_root_.scala.Long#
+Ä†Long"'
+_root_.connectors.ÄàÄ
+connectors"†
+k_root_.models.IndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JLmodels/IndividualDetails;)V.∞<init>j(externalId: String, trustId: String, organisationId: Long, details: IndividualDetails): IndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"(
+EV _root_.models.IndividualDetails#"(
+Yj _root_.models.IndividualAccount#"ƒ
+Å_root_.connectors.IndividualAccounts#withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ΩwithExternalId[(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]]"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+28_root_.scala.concurrent.Future#"
+9?_root_.scala.Option#"0
+@Y(_root_.models.DetailedIndividualAccount#"â
+-_root_.connectors.IndividualAccounts#(config)XÄconfigServicesConfig";
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"Î
+t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"
+JN_root_.scala.Long#"(
+Yj _root_.models.IndividualDetails#"1
+mÜ(_root_.models.DetailedIndividualAccount#"5
+#_root_.play.api.libs.json.JsNumber.ÄÑJsNumber"/
+_root_.java.lang.Exception#Ä†Ä	Exception"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"$
+_root_.play.api.libs.ÄàÄlibs"û
+B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.XÑÄ+(x$1: Any): String"
+	_root_.scala.Any#" 
+_root_.java.lang.String#"@
+%_root_.connectors.IndividualAccounts#Ä IndividualAccounts"Ã
+ç_root_.connectors.IndividualAccounts#withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(externalId):Ä
+externalIdString"!
+_root_.scala.Predef.String#"i
+-_root_.connectors.IndividualAccounts#baseUrl.8ÅÄ@baseUrlString"!
+_root_.scala.Predef.String#"
+_root_.javax.ÄàÄjavax"
+_root_.play.api.
+ÄàÄapi"<
+ _root_.models.IndividualAccount#Ä†ÄIndividualAccount" 
+_root_.scala.Unit#
+Ä†Unit",
+_root_.uk.gov.hmrc.play.http.ÄàÄhttp".
+_root_.scala.concurrent.Future#Ä@Future"´
+9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.nêÄÄ<init>(x$1: String): Exception" 
+_root_.java.lang.String#"#
+_root_.java.lang.Exception#"L
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig"]
++_root_.connectors.IndividualAccounts#(http).ÄhttpWSHttp"
+_root_.config.WSHttp#",
+_root_.javax.inject.Inject#Ä†ÄInject"l
+'_root_.java.lang.Exception#`<init>`()V.AàÄÄ<init>(): Exception"#
+_root_.java.lang.Exception#"7
+&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"$
+_root_.scala.Option#Ä†Option"
+
+_root_.uk.	ÄàÄuk"p
+2app/connectors/IndividualAccounts.scala@1774..1776:ÄjsJsValue"(
+"_root_.play.api.libs.json.JsValue#"%
+_root_.javax.inject.ÄàÄinject"‘
+\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.tbaseUrl(serviceName: String): String"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"7
+$_root_.play.api.libs.json.JsDefined.ÄÑ	JsDefined"
+_root_.uk.gov.
+ÄàÄgov"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"Ú
+Ç_root_.models.IndividualAccountSubmission#`<init>`(Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/IndividualDetails;)V.Í<init>|(externalId: String, trustId: String, organisationId: Option[Long], details: IndividualDetails): IndividualAccountSubmission"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6<_root_.scala.Option#"
+=A_root_.scala.Long#"(
+M^ _root_.models.IndividualDetails#"2
+a|*_root_.models.IndividualAccountSubmission#"B
+)_root_.scala.concurrent.ExecutionContext#Ä@ExecutionContext"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"
+_root_.play.ÄàÄplay"Ÿ
+è_root_.connectors.IndividualAccounts#create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Â
+^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.Ç\#(fieldName: String): JsLookupResult"#
+_root_.scala.Predef.String#"1
+#)_root_.play.api.libs.json.JsLookupResult#"Ó
+í_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)WÄaccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"R
+_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
+_root_.scala.Unit#"
+_root_.models.ÄàÄmodels"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"◊
+ç_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"œ
+Ö_root_.connectors.IndividualAccounts#withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"Æ
+X_root_.models.DetailedIndividualAccount#toIndividualAccount()Lmodels/IndividualAccount;.RtoIndividualAccountIndividualAccount"&
+ _root_.models.IndividualAccount#"a
+6_root_.scala.math.ScalaNumericAnyConversions#toInt()I.'toIntInt"
+_root_.scala.Int#"è
+e_root_.connectors.IndividualAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.•getW(personId: Long)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]]"
+_root_.scala.Long#".
++&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+.4_root_.scala.concurrent.Future#"
+5;_root_.scala.Option#"0
+<U(_root_.models.DetailedIndividualAccount#"
+_root_.config.ÄàÄconfig"•
+›_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.¬
+PUTÄ[I, O] => (url: String, body: I)(implicit wts: Writes[I], rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext): Future[O]"#
+_root_.scala.Predef.String#"È
+‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]")
+/5!_root_.play.api.libs.json.Writes#"È
+67‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"*
+?H"_root_.uk.gov.hmrc.http.HttpReads#"È
+IJ‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]".
+Q^&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+dt)_root_.scala.concurrent.ExecutionContext#"'
+w}_root_.scala.concurrent.Future#"È
+~‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"
+_root_.scala.ÄàÄscala"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"î
+ã_root_.connectors.IndividualAccounts#create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÉcreateO(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int]"2
+
+%*_root_.models.IndividualAccountSubmission#".
+4A&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+DJ_root_.scala.concurrent.Future#"
+KN_root_.scala.Int#"˛
+∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.»GETd[A] => (url: String)(implicit rds: HttpReads[A], hc: HeaderCarrier, ec: ExecutionContext): Future[A]"#
+_root_.scala.Predef.String#"*
+#,"_root_.uk.gov.hmrc.http.HttpReads#"º
+-.≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]".
+5B&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+HX)_root_.scala.concurrent.ExecutionContext#"'
+[a_root_.scala.concurrent.Future#"º
+bc≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"p
+2app/connectors/IndividualAccounts.scala@1828..1830:id
+BigDecimal"&
+
+ _root_.scala.package.BigDecimal#"L
+(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"Ù
+î_root_.connectors.IndividualAccounts#create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)[ÄaccountIndividualAccountSubmission"0
+*_root_.models.IndividualAccountSubmission#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"k
+6_root_.models.DetailedIndividualAccount#(individualId)1ÅindividualIdLong"
+_root_.scala.Long#"
+_root_.scala.Int#	Ä†Int"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"Ω
+í_root_.connectors.IndividualAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.•<init>Y(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): IndividualAccounts"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"-
+GY%_root_.connectors.IndividualAccounts#2…
+Ùˆ/play.api.libs.json.JsValue.jsValueToJsLookup(*)}
+,u_root_.play.api.libs.json.JsValue.jsValueToJsLookup(Lplay/api/libs/json/JsValue;)Lplay/api/libs/json/JsLookupResult;.
+-._star_.2:
+ÎÎ*[Int]
+_star_.
+_root_.scala.Int#2x
+ŸŸ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+êê*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+Ÿ
+Ÿ
+*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2Ú
+Ô
+Ô
+¬*(uk.gov.hmrc.http.HttpReads.readOptionOf[DetailedIndividualAccount](uk.gov.hmrc.http.HttpReads.readFromJson[DetailedIndividualAccount](models.DetailedIndividualAccount.formats, scala.reflect.ManifestFactory.classType[DetailedIndividualAccount](classOf[models.DetailedIndividualAccount]))), hc, IndividualAccounts.this.ec)
+_star_.2
+⁄Û(_root_.models.DetailedIndividualAccount#1
+mÜ(_root_.models.DetailedIndividualAccount#X
+©∞N_root_.models.DetailedIndividualAccount.formats()Lplay/api/libs/json/OFormat;.w
+)o_root_.uk.gov.hmrc.http.OptionHttpReads#readOptionOf(Luk/gov/hmrc/http/HttpReads;)Luk/gov/hmrc/http/HttpReads;.d
+–ŸZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.å
+`lÉ_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.0
+*C(_root_.models.DetailedIndividualAccount#3
+ø¡)_root_.connectors.IndividualAccounts#(ec)2<
+ÕÕ*[Unit]
+_star_.
+_root_.scala.Unit#2Ú
+ºº¬*(uk.gov.hmrc.http.HttpReads.readOptionOf[DetailedIndividualAccount](uk.gov.hmrc.http.HttpReads.readFromJson[DetailedIndividualAccount](models.DetailedIndividualAccount.formats, scala.reflect.ManifestFactory.classType[DetailedIndividualAccount](classOf[models.DetailedIndividualAccount]))), hc, IndividualAccounts.this.ec)
+_star_.2
+⁄Û(_root_.models.DetailedIndividualAccount#1
+mÜ(_root_.models.DetailedIndividualAccount#X
+©∞N_root_.models.DetailedIndividualAccount.formats()Lplay/api/libs/json/OFormat;.w
+)o_root_.uk.gov.hmrc.http.OptionHttpReads#readOptionOf(Luk/gov/hmrc/http/HttpReads;)Luk/gov/hmrc/http/HttpReads;.d
+–ŸZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.å
+`lÉ_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.0
+*C(_root_.models.DetailedIndividualAccount#3
+ø¡)_root_.connectors.IndividualAccounts#(ec)2¥
+ÁÁ˝*(models.IndividualAccountSubmission.formats, uk.gov.hmrc.http.HttpReads.readFromJson[JsValue](play.api.libs.json.Reads.JsValueReads, scala.reflect.ManifestFactory.classType[JsValue](classOf[play.api.libs.json.JsValue])), hc, IndividualAccounts.this.ec)
+_star_.X
+%,P_root_.models.IndividualAccountSubmission.formats()Lplay/api/libs/json/OFormat;.*
+V]"_root_.play.api.libs.json.JsValue#å
+IUÉ_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.,
+Æµ"_root_.play.api.libs.json.JsValue#d
+§≠Z_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.=
+xÑ4_root_.play.api.libs.json.DefaultReads#JsValueReads.3
+˙¸)_root_.connectors.IndividualAccounts#(ec)2x
+ôô*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2i
+◊◊*(IndividualAccounts.this.ec)
+_star_.1
+)_root_.connectors.IndividualAccounts#(ec)2x
+¢	¢	*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2∑
+……g*(models.IndividualAccount.formats, uk.gov.hmrc.http.HttpReads.readRaw, hc, IndividualAccounts.this.ec)
+_star_.N
+"F_root_.models.IndividualAccount.formats()Lplay/api/libs/json/OFormat;.2
+?F*_root_.uk.gov.hmrc.http.HttpReads.readRaw.1
+df)_root_.connectors.IndividualAccounts#(ec)2i
+ÚÚ*(IndividualAccounts.this.ec)
+_star_.1
+)_root_.connectors.IndividualAccounts#(ec):Scala211B‡/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package connectors
+
+import javax.inject.Inject
+
+import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
+import play.api.libs.json.{JsDefined, JsNumber, JsValue}
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.http._
+import config.WSHttp
+import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{ HeaderCarrier, HttpResponse }
+
+class IndividualAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+
+  lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking/individuals"
+
+  def get(personId: Long)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
+    http.GET[Option[DetailedIndividualAccount]](s"$baseUrl/$personId")
+  }
+
+  def withExternalId(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
+    http.GET[Option[DetailedIndividualAccount]](s"$baseUrl?externalId=$externalId")
+  }
+
+  def create(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = {
+    http.POST[IndividualAccountSubmission, JsValue](baseUrl, account) map { js => js \ "id" match {
+      case JsDefined(JsNumber(id)) => id.toInt
+      case _ => throw new Exception(s"Invalid id: $js")
+    }}
+  }
+
+  def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.PUT[IndividualAccount, HttpResponse](baseUrl + s"/${account.individualId}", account.toIndividualAccount) map { _ => () }
+  }
+}
+J'app/connectors/IndividualAccounts.scala

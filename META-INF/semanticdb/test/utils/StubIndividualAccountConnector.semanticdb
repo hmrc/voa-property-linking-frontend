@@ -1,0 +1,531 @@
+
+ï¯)
+ı˚_root_.scala.concurrent.Future.
+„Ê_root_.scala.Int.£
+ùüñ_root_.utils.StubIndividualAccountConnector.create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+äè_root_.scala.í
+˙Åá_root_.utils.StubIndividualAccountConnector.detailed(ILmodels/IndividualAccountSubmission;)Lmodels/DetailedIndividualAccount;.(account)®
+Óıõ_root_.utils.StubIndividualAccountConnector.create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account))
+∆Ã_root_.uk.gov.hmrc.play.config.ü
+ÁÌí_root_.utils.StubIndividualAccountConnector.create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.U
+∫æK_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.ô
+«…å_root_.utils.StubIndividualAccountConnector.withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+ÂÍ_root_.utils.F
+…—:test/utils/StubIndividualAccountConnector.scala@2117..2160@
+”ﬂ6_root_.models.DetailedIndividualAccount#(individualId)
+¶©_root_.uk.gov.î
+Ú˘á_root_.utils.StubIndividualAccountConnector.detailed(ILmodels/IndividualAccountSubmission;)Lmodels/DetailedIndividualAccount;.(account)
+Û˝_root_.connectors.0
+ö
+ù
+&_root_.scala.collection.immutable.Nil.$
+ÁÔ_root_.scala.Int.MaxValue.ù
+ÉÉí_root_.connectors.IndividualAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V./
+ÒÉ%_root_.connectors.IndividualAccounts#
+™Æ_root_.uk.gov.hmrc.%
+†®_root_.scala.Int#toLong()J.i
+Û˛]_root_.utils.StubIndividualAccountConnector.stubAccount(Lmodels/DetailedIndividualAccount;)V.
+ø√_root_.scala.Unit#)
+€·_root_.scala.concurrent.Future#f
+Ö
+ó
+\_root_.utils.StubIndividualAccountConnector.`stubbedIndividuals_=`(Lscala/collection/Seq;)V.2
+ò±(_root_.models.DetailedIndividualAccount.¶
+¶≠õ_root_.utils.StubIndividualAccountConnector.create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)
+µ∑
+_root_.uk.ï
+„Îà_root_.utils.StubIndividualAccountConnector.detailed(ILmodels/IndividualAccountSubmission;)Lmodels/DetailedIndividualAccount;.(personId)W
+¥¡M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#2
+ª‘(_root_.models.DetailedIndividualAccount.
+∏ª_root_.scala.Int#D
+≈«:test/utils/StubIndividualAccountConnector.scala@1723..1725=
+≤π3_root_.models.IndividualAccountSubmission#(details)f
+ﬂÒ\_root_.utils.StubIndividualAccountConnector.`stubbedIndividuals_=`(Lscala/collection/Seq;)V.§
+„Íô_root_.utils.StubIndividualAccountConnector.update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account))
+ïõ_root_.scala.concurrent.Future.2
+À‰(_root_.models.DetailedIndividualAccount#"
+Ø≥_root_.uk.gov.hmrc.http.4
+˜í*_root_.models.IndividualAccountSubmission#x
+≤
+µ
+l_root_.utils.StubIndividualAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+§	®	_root_.scala.Unit#Ç
+∂
+æ
+v_root_.utils.StubIndividualAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(personId)a
+ú¶W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.)
+«Õ_root_.scala.concurrent.Future.K
+≥≈?_root_.utils.StubIndividualAccountConnector.stubbedIndividuals.°
+™¥î_root_.utils.StubIndividualAccountConnector.withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(externalId)Ä
+—Ÿv_root_.utils.StubIndividualAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(personId)
+Ì_root_.scala.Int#I
+ÙÜ?_root_.utils.StubIndividualAccountConnector.stubbedIndividuals.)
+„
+È
+_root_.scala.concurrent.Future#<
+ƒ∆2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.
+êî_root_.scala.util.%
+∂º_root_.scala.Predef.String#
+òû_root_.models.?
+‘‚5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#D
+ºƒ:test/utils/StubIndividualAccountConnector.scala@2117..2160*
+Ää _root_.play.api.libs.concurrent.I
+ßπ?_root_.utils.StubIndividualAccountConnector.stubbedIndividuals.f
+±	√	\_root_.utils.StubIndividualAccountConnector.`stubbedIndividuals_=`(Lscala/collection/Seq;)V.2
+ÈÇ(_root_.models.DetailedIndividualAccount#I
+∆	ÿ	?_root_.utils.StubIndividualAccountConnector.stubbedIndividuals.2
+Äô(_root_.models.DetailedIndividualAccount#D
+ú§:test/utils/StubIndividualAccountConnector.scala@2117..2160_
+ŒÈU_root_.models.IndividualAccountSubmission.;_root_.models.IndividualAccountSubmission#
+¯	¸	_root_.scala.Unit#0
+Àÿ&_root_.uk.gov.hmrc.http.HeaderCarrier#=
+Ò¯3_root_.models.IndividualAccountSubmission#(trustId)°
+§¶î_root_.utils.StubIndividualAccountConnector.update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)à
+ìõ~_root_.utils.StubIndividualAccountConnector.detailed(ILmodels/IndividualAccountSubmission;)Lmodels/DetailedIndividualAccount;.í
+Èá_root_.utils.StubIndividualAccountConnector.detailed(ILmodels/IndividualAccountSubmission;)Lmodels/DetailedIndividualAccount;.(account)I
+¸Ç?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#0
+Õ”&_root_.uk.gov.hmrc.play.config.inject.r
+ü≠h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.|
+±¥r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.@
+¡Õ6_root_.models.DetailedIndividualAccount#(individualId)í
+™±á_root_.utils.StubIndividualAccountConnector.detailed(ILmodels/IndividualAccountSubmission;)Lmodels/DetailedIndividualAccount;.(account)A
+Ô	Ù	5_root_.utils.StubIndividualAccountConnector.reset()V.#
+‘⁄_root_.scala.util.Random.
+Í
+
+_root_.scala.Option#)
+±∑_root_.scala.concurrent.Future# 
+ò†_root_.utils.StubHttp.>
+π√4_root_.models.DetailedIndividualAccount#(externalId)F
+ªΩ:test/utils/StubIndividualAccountConnector.scala@1723..1725F
+ˆ˘:test/utils/StubIndividualAccountConnector.scala@1782..1785g
+áí]_root_.utils.StubIndividualAccountConnector.stubAccount(Lmodels/DetailedIndividualAccount;)V.*
+Ññ _root_.utils.StubServicesConfig.
+º¿_root_.uk.gov.hmrc.ï
+õ©à_root_.utils.StubIndividualAccountConnector.withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;./
+€‚%_root_.scala.util.Random#nextInt(I)I.ù
+ˆê_root_.utils.StubIndividualAccountConnector.update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+˚ˇ_root_.play.api.libs.0
+®µ&_root_.uk.gov.hmrc.http.HeaderCarrier##
+« _root_.scala.package.Seq#"
+¡≈_root_.uk.gov.hmrc.play.¶
+˜˛ô_root_.utils.StubIndividualAccountConnector.update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)%
+Œ–_root_.scala.Long#`==`(J)Z.2
+à	°	(_root_.models.DetailedIndividualAccount#|
+Ÿ	€	r_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.
+Î_root_.scala.)
+áç_root_.scala.concurrent.Future.[
+†πQ_root_.models.DetailedIndividualAccount.;_root_.models.DetailedIndividualAccount#D
+Çê:_root_.models.IndividualAccountSubmission#(organisationId)0
+”
+‡
+&_root_.uk.gov.hmrc.http.HeaderCarrier#I
+ü±?_root_.utils.StubIndividualAccountConnector.stubbedIndividuals.a
+¸ÜW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.K
+ªÃA_root_.models.IndividualAccount.;_root_.models.IndividualAccount#ü
+«—î_root_.utils.StubIndividualAccountConnector.withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(externalId)4
+ãî*_root_.play.api.libs.concurrent.Execution.Ç
+áäx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.|
+œ
+—
+p_root_.utils.StubIndividualAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)2
+Ò
+ä(_root_.models.DetailedIndividualAccount#§
+À“ô_root_.utils.StubIndividualAccountConnector.update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)4
+˚ñ*_root_.models.IndividualAccountSubmission#8
+ Ë,_root_.utils.StubIndividualAccountConnector.
+¿
+ƒ
+_root_.scala.Long#ä
+⁄‚~_root_.utils.StubIndividualAccountConnector.detailed(ILmodels/IndividualAccountSubmission;)Lmodels/DetailedIndividualAccount;.0
+ËÎ&_root_.scala.collection.immutable.Nil.p
+‹	„	f_root_.utils.StubIndividualAccountConnector.stubAccount(Lmodels/DetailedIndividualAccount;)V.(account)D
+˝Ä:test/utils/StubIndividualAccountConnector.scala@1782..1785"
+Ò˚_root_.scala.concurrent.%
+» _root_.scala.Long#`==`(J)Z.=
+ïõ3_root_.scala.util.Random.;_root_.scala.util.Random#
+∏ª_root_.uk.gov.U
+≤∂K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.r
+ˇÜ	f_root_.utils.StubIndividualAccountConnector.stubAccount(Lmodels/DetailedIndividualAccount;)V.(account)
+£•
+_root_.uk.í
+’‹á_root_.utils.StubIndividualAccountConnector.detailed(ILmodels/IndividualAccountSubmission;)Lmodels/DetailedIndividualAccount;.(account)@
+›Á6_root_.models.IndividualAccountSubmission#(externalId)/
+˛ê%_root_.connectors.IndividualAccounts#
+˜˙_root_.play.api.0
+°Æ&_root_.uk.gov.hmrc.http.HeaderCarrier#>
+ïû4_root_.play.api.libs.concurrent.Execution.Implicits.
+‚Ë_root_.scala.Option#a
+ŒÿW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.M
+ëöC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.)
+∏æ_root_.scala.concurrent.Future#2
+ô≤(_root_.models.DetailedIndividualAccount#a
+éòW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.
+Úˆ_root_.play."‡
+ñ_root_.utils.StubIndividualAccountConnector.create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"T
+,_root_.utils.StubIndividualAccountConnector.$ÄÑStubIndividualAccountConnector"5
+ _root_.play.api.libs.concurrent.ÄàÄ
+concurrent"ô
+\_root_.utils.StubIndividualAccountConnector.`stubbedIndividuals_=`(Lscala/collection/Seq;)V.∏ÇÄstubbedIndividuals_=+(x$1: Seq[DetailedIndividualAccount]): Unit"!
+	_root_.scala.package.Seq#"0
+
+#(_root_.models.DetailedIndividualAccount#"
+'+_root_.scala.Unit#"P
+*_root_.models.IndividualAccountSubmission#"Ä†ÄIndividualAccountSubmission" 
+_root_.scala.Long#
+Ä†Long"¡
+K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.Òfind%(p: Function1[A, Boolean]): Option[A]"
+_root_.scala.Function1#"0
+(_root_.scala.collection.IterableLike#[A]"
+_root_.scala.Boolean#"
+"_root_.scala.Option#"0
+#$(_root_.scala.collection.IterableLike#[A]"'
+_root_.connectors.ÄàÄ
+connectors"ﬁ
+î_root_.utils.StubIndividualAccountConnector.update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Î
+]_root_.utils.StubIndividualAccountConnector.stubAccount(Lmodels/DetailedIndividualAccount;)V.âstubAccount*(account: DetailedIndividualAccount): Unit"0
+
+#(_root_.models.DetailedIndividualAccount#"
+&*_root_.scala.Unit#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"Î
+t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"
+JN_root_.scala.Long#"(
+Yj _root_.models.IndividualDetails#"1
+mÜ(_root_.models.DetailedIndividualAccount#"!
+_root_.scala.util.ÄàÄutil"~
+3_root_.models.IndividualAccountSubmission#(details)GÅdetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"r
+4_root_.models.DetailedIndividualAccount#(externalId):Å
+externalIdString"!
+_root_.scala.Predef.String#"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"$
+_root_.play.api.libs.ÄàÄlibs"@
+%_root_.connectors.IndividualAccounts#Ä IndividualAccounts"(
+_root_.utils.StubHttp.ÄÑStubHttp"ñ
+l_root_.utils.StubIndividualAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.•getW(personId: Long)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]]"
+_root_.scala.Long#".
++&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+.4_root_.scala.concurrent.Future#"
+5;_root_.scala.Option#"0
+<U(_root_.models.DetailedIndividualAccount#"J
+_root_.scala.Int.MaxValue.,ÅÄMaxValueInt"
+_root_.scala.Int#"
+_root_.play.api.
+ÄàÄapi"h
+:test/utils/StubIndividualAccountConnector.scala@2117..2160*personIdInt"
+_root_.scala.Int#"ç
+2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.WÑÄ==(x$1: Any): Boolean"
+	_root_.scala.Any#"
+_root_.scala.Boolean#" 
+_root_.scala.Unit#
+Ä†Unit"4
+&_root_.scala.collection.immutable.Nil.
+ÄÑàNil"G
+4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits"/
+_root_.scala.concurrent.Future.ÄÑFuture"ß
+v_root_.utils.StubIndividualAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(personId)-ÄpersonIdLong"
+_root_.scala.Long#".
+_root_.scala.concurrent.Future#Ä@Future"õ
+í_root_.utils.StubIndividualAccountConnector.create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÉcreateO(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int]"2
+
+%*_root_.models.IndividualAccountSubmission#".
+4A&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+DJ_root_.scala.concurrent.Future#"
+KN_root_.scala.Int#"d
+:test/utils/StubIndividualAccountConnector.scala@1723..1725&idLong"
+_root_.scala.Long#"=
+*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution"L
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig"7
+&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"$
+_root_.scala.Option#Ä†Option"
+
+_root_.uk.	ÄàÄuk"y
+%_root_.scala.util.Random#nextInt(I)I.PnextInt(n: Int): Int"
+_root_.scala.Int#"
+
+_root_.scala.Int#"ê
+:test/utils/StubIndividualAccountConnector.scala@1782..1785RaccDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"
+_root_.uk.gov.
+ÄàÄgov"ó
+:_root_.models.IndividualAccountSubmission#(organisationId)YÅorganisationIdOption[Long]"
+_root_.scala.Option#"
+_root_.scala.Long#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"∫
+x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ΩmapQ[B, That] => (f: Function1[A, B])(implicit bf: CanBuildFrom[Repr, B, That]): That"
+_root_.scala.Function1#"3
++_root_.scala.collection.TraversableLike#[A]"É
+{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+/;-_root_.scala.collection.generic.CanBuildFrom#"6
+<@._root_.scala.collection.TraversableLike#[Repr]"É
+BC{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ü
+EI~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ü
+MQ~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ú
+Ç_root_.models.IndividualAccountSubmission#`<init>`(Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/IndividualDetails;)V.Í<init>|(externalId: String, trustId: String, organisationId: Option[Long], details: IndividualDetails): IndividualAccountSubmission"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6<_root_.scala.Option#"
+=A_root_.scala.Long#"(
+M^ _root_.models.IndividualDetails#"2
+a|*_root_.models.IndividualAccountSubmission#"”
+î_root_.utils.StubIndividualAccountConnector.withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(externalId):Ä
+externalIdString"!
+_root_.scala.Predef.String#"π
+p_root_.utils.StubIndividualAccountConnector.get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"t
+6_root_.models.IndividualAccountSubmission#(externalId):Å
+externalIdString"!
+_root_.scala.Predef.String#"À
+à_root_.utils.StubIndividualAccountConnector.withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ΩwithExternalId[(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]]"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+28_root_.scala.concurrent.Future#"
+9?_root_.scala.Option#"0
+@Y(_root_.models.DetailedIndividualAccount#"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"
+_root_.play.ÄàÄplay"∏
+à_root_.utils.StubIndividualAccountConnector.detailed(ILmodels/IndividualAccountSubmission;)Lmodels/DetailedIndividualAccount;.(personId)+ÄpersonIdInt"
+_root_.scala.Int#"√
+h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#")
+_root_.scala.util.Random.ÄÑRandom"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"‰
+~_root_.utils.StubIndividualAccountConnector.detailed(ILmodels/IndividualAccountSubmission;)Lmodels/DetailedIndividualAccount;.·ÑÄdetailedP(personId: Int, account: IndividualAccountSubmission): DetailedIndividualAccount"
+_root_.scala.Int#"2
+4*_root_.models.IndividualAccountSubmission#"0
+7P(_root_.models.DetailedIndividualAccount#"Á
+á_root_.utils.StubIndividualAccountConnector.detailed(ILmodels/IndividualAccountSubmission;)Lmodels/DetailedIndividualAccount;.(account)[ÄaccountIndividualAccountSubmission"0
+*_root_.models.IndividualAccountSubmission#"R
+_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
+_root_.scala.Unit#"
+_root_.models.ÄàÄmodels"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"v
+_root_.scala.Long#`==`(J)Z.WÑÄ==(x: Long): Boolean"
+_root_.scala.Long#"
+_root_.scala.Boolean#"<
+ _root_.utils.StubServicesConfig.ÄÑStubServicesConfig"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"K
+_root_.scala.Int#toLong()J.,ÑÄtoLongLong"
+_root_.scala.Long#"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"˚
+õ_root_.utils.StubIndividualAccountConnector.create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)[ÄaccountIndividualAccountSubmission"0
+*_root_.models.IndividualAccountSubmission#"¡
+f_root_.utils.StubIndividualAccountConnector.stubAccount(Lmodels/DetailedIndividualAccount;)V.(account)WÄaccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"
+_root_.utils.ÄàÄutils"h
+5_root_.utils.StubIndividualAccountConnector.reset()V./reset(): Unit"
+_root_.scala.Unit#">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"¸
+?_root_.utils.StubIndividualAccountConnector.stubbedIndividuals.∏ÇÄstubbedIndividuals_=+(x$1: Seq[DetailedIndividualAccount]): Unit"!
+	_root_.scala.package.Seq#"0
+
+#(_root_.models.DetailedIndividualAccount#"
+'+_root_.scala.Unit#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."
+_root_.scala.ÄàÄscala"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"ó
+ê_root_.utils.StubIndividualAccountConnector.update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÅupdateN(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit]"0
+
+#(_root_.models.DetailedIndividualAccount#".
+2?&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+BH_root_.scala.concurrent.Future#"
+IM_root_.scala.Unit#"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"K
+(_root_.models.DetailedIndividualAccount.ÄÑDetailedIndividualAccount"L
+(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"n
+3_root_.models.IndividualAccountSubmission#(trustId)7ÅtrustIdString"!
+_root_.scala.Predef.String#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"
+_root_.scala.Int.	ÄÑInt"
+_root_.scala.Int#	Ä†Int"k
+6_root_.models.DetailedIndividualAccount#(individualId)1ÅindividualIdLong"
+_root_.scala.Long#"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"Ω
+í_root_.connectors.IndividualAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.•<init>Y(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): IndividualAccounts"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"-
+GY%_root_.connectors.IndividualAccounts#"ı
+ô_root_.utils.StubIndividualAccountConnector.update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(account)WÄaccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"∞
+r_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.π:+F[B, That] => (elem: B)(implicit bf: CanBuildFrom[Repr, B, That]): That"}
+u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+$0-_root_.scala.collection.generic.CanBuildFrom#".
+15&_root_.scala.collection.SeqLike#[Repr]"}
+78u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ä
+:>x_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ä
+BFx_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"÷
+å_root_.utils.StubIndividualAccountConnector.withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#2‹
+ää<*[DetailedIndividualAccount, Seq[DetailedIndividualAccount]]
+_star_.0
+(_root_.models.DetailedIndividualAccount#!
+ _root_.scala.package.Seq#0
+!:(_root_.models.DetailedIndividualAccount#2Ê
+ÜÜ?*(scala.collection.Seq.canBuildFrom[DetailedIndividualAccount])
+_star_.0
+$=(_root_.models.DetailedIndividualAccount#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2<
+ÿÿ*[Unit]
+_star_.
+_root_.scala.Unit#2:
+¥¥*[Int]
+_star_.
+_root_.scala.Int#2…
+∆∆>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.p
+/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2Ê
+„	„	?*(scala.collection.Seq.canBuildFrom[DetailedIndividualAccount])
+_star_.0
+$=(_root_.models.DetailedIndividualAccount#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2‹
+€	€	<*[DetailedIndividualAccount, Seq[DetailedIndividualAccount]]
+_star_.0
+(_root_.models.DetailedIndividualAccount#!
+ _root_.scala.package.Seq#0
+!:(_root_.models.DetailedIndividualAccount#2<
+ÜÜ*[Unit]
+_star_.
+_root_.scala.Unit#2…
+††>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.p
+/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2ç
+òò$*[Option[DetailedIndividualAccount]]
+_star_.0
+	"(_root_.models.DetailedIndividualAccount#
+_root_.scala.Option#2æ
+‘‘*.apply
+_star_.õ
+í_root_.models.DetailedIndividualAccount.apply(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.2ç
+¶¶$*[Option[DetailedIndividualAccount]]
+_star_.0
+	"(_root_.models.DetailedIndividualAccount#
+_root_.scala.Option#2<
+öö*[Long]
+_star_.
+_root_.scala.Long#:Scala211B¡/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package utils
+
+import connectors.IndividualAccounts
+import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+
+import scala.concurrent.Future
+import scala.util.Random
+import uk.gov.hmrc.http.HeaderCarrier
+
+object StubIndividualAccountConnector extends IndividualAccounts(StubServicesConfig, StubHttp) {
+
+  private var stubbedIndividuals: Seq[DetailedIndividualAccount] = Nil
+
+  def stubAccount(account: DetailedIndividualAccount): Unit = {
+    stubbedIndividuals = stubbedIndividuals :+ account
+  }
+
+  def reset(): Unit = {
+    stubbedIndividuals = Nil
+  }
+
+  override def get(personId: Long)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
+    Future.successful(stubbedIndividuals.find(_.individualId == personId))
+  }
+
+  override def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = Future.successful {
+    stubbedIndividuals = stubbedIndividuals.map {
+      case DetailedIndividualAccount(_, _, _, id, _) if id == account.individualId => account
+      case acc => acc
+    }
+  }
+
+  override def withExternalId(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = Future.successful {
+    stubbedIndividuals.find(_.externalId == externalId)
+  }
+
+  override def create(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = {
+    val personId = Random.nextInt(Int.MaxValue)
+    Future.successful(stubAccount(detailed(personId, account))).map { _ => personId }
+  }
+
+  private def detailed(personId: Int, account: IndividualAccountSubmission): DetailedIndividualAccount = {
+    DetailedIndividualAccount(account.externalId, account.trustId, account.organisationId.getOrElse(-1), personId, account.details)
+  }
+}
+J/test/utils/StubIndividualAccountConnector.scala

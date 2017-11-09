@@ -1,0 +1,253 @@
+
+Óo0
+»
+’
+&_root_.uk.gov.hmrc.http.HeaderCarrier#5
+ïö)_root_.utils.StubAuthentication.reset()V.q
+ÌÄg_root_.utils.StubBusinessRatesAuthorisation.`authorisationResult_=`(Lconnectors/AuthorisationResult;)V.-
+⁄Í#_root_.connectors.InvalidGGSession. 
+–	ÿ	_root_.utils.StubHttp.É
+Œ–w_root_.utils.StubBusinessRatesAuthorisation.authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)6
+ËÜ,_root_.utils.StubBusinessRatesAuthorisation.0
+“ﬂ&_root_.uk.gov.hmrc.http.HeaderCarrier#
+åé
+_root_.uk."
+Û˝_root_.scala.concurrent.Ä
+Æ
+∫
+t_root_.utils.StubBusinessRatesAuthorisation.authenticate(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+—’_root_.scala.Long#0
+˜	ä
+&_root_.connectors.AuthorisationResult#Ñ
+ƒ
+∆
+x_root_.utils.StubBusinessRatesAuthorisation.authenticate(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)a
+‡
+Í
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.*
+º	Œ	 _root_.utils.StubServicesConfig.-
+˚é#_root_.actions.AuthenticatedAction#ê
+¿œÉ_root_.utils.StubBusinessRatesAuthorisation.authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)0
+È¸&_root_.connectors.AuthorisationResult#J
+í•@_root_.utils.StubBusinessRatesAuthorisation.authorisationResult.Å
+ª	ª	w_root_.connectors.BusinessRatesAuthorisation#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.a
+áëW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.a
+ô£W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.7
+°	ª	-_root_.connectors.BusinessRatesAuthorisation#L
+‚	ı	@_root_.utils.StubBusinessRatesAuthorisation.authorisationResult.Ä
+··v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.)
+ÄÜ_root_.scala.concurrent.Future.8
+˙ò	,_root_.utils.StubBusinessRatesAuthorisation.)
+íò_root_.scala.concurrent.Future.7
+∑—-_root_.connectors.BusinessRatesAuthorisation#
+Û˙_root_.actions.I
+˛Ñ?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#-
+ç
+ù
+#_root_.connectors.InvalidGGSession.)
+‚Ë_root_.scala.concurrent.Future#n
+Éâd_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.(result)W
+ù™M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#Ç
+‡‚v_root_.utils.StubBusinessRatesAuthorisation.authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+ñ†_root_.connectors.6
+•√,_root_.utils.StubBusinessRatesAuthorisation.h
+ê®\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.
+ÌÚ_root_.scala.
+ìó_root_.uk.gov.hmrc.,
+≥≈ _root_.utils.StubAuthentication.
+ÂÍ_root_.utils.p
+©Ød_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.(result)0
+±ƒ&_root_.connectors.AuthorisationResult#0
+¢µ&_root_.connectors.AuthorisationResult#-
+Œ·#_root_.actions.AuthenticatedAction#è
+∞ΩÇ_root_.utils.StubBusinessRatesAuthorisation.authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(assessmentRef)"
+òú_root_.uk.gov.hmrc.http.0
+˚é&_root_.connectors.AuthorisationResult#ë
+ô®Ñ_root_.utils.StubBusinessRatesAuthorisation.authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)0
+‰Ò&_root_.uk.gov.hmrc.http.HeaderCarrier#~
+∂ør_root_.utils.StubBusinessRatesAuthorisation.authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.6
+ŒÏ,_root_.utils.StubBusinessRatesAuthorisation.)
+Ù˙_root_.scala.concurrent.Future#
+èòs_root_.utils.StubBusinessRatesAuthorisation.authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+™Æ_root_.scala.Long#J
+§∑@_root_.utils.StubBusinessRatesAuthorisation.authorisationResult.J
+Î
+˛
+@_root_.utils.StubBusinessRatesAuthorisation.authorisationResult.-
+”„#_root_.connectors.InvalidGGSession.)
+Ÿ
+ﬂ
+_root_.scala.concurrent.Future.
+èí_root_.uk.gov.q
+ƒ◊g_root_.utils.StubBusinessRatesAuthorisation.`authorisationResult_=`(Lconnectors/AuthorisationResult;)V.
+ø√_root_.scala.Long#"Û
+g_root_.utils.StubBusinessRatesAuthorisation.`authorisationResult_=`(Lconnectors/AuthorisationResult;)V.áauthorisationResult_= (x$1: AuthorisationResult): Unit".
+&_root_.connectors.AuthorisationResult#"
+ _root_.scala.Unit#" 
+_root_.scala.Long#
+Ä†Long"'
+_root_.connectors.ÄàÄ
+connectors"¡
+x_root_.utils.StubBusinessRatesAuthorisation.authenticate(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Õ
+t_root_.utils.StubBusinessRatesAuthorisation.authenticate(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.‘authenticate9(implicit hc: HeaderCarrier): Future[AuthorisationResult]".
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+$_root_.scala.concurrent.Future#".
+%8&_root_.connectors.AuthorisationResult#"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"π
+Ç_root_.utils.StubBusinessRatesAuthorisation.authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(assessmentRef)2ÄassessmentRefLong"
+_root_.scala.Long#"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"≠
+s_root_.utils.StubBusinessRatesAuthorisation.authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.µ	authorisee(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult]"
+_root_.scala.Long#"
+'+_root_.scala.Long#".
+:G&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+JP_root_.scala.concurrent.Future#".
+Qd&_root_.connectors.AuthorisationResult#"(
+_root_.utils.StubHttp.ÄÑStubHttp"ø
+v_root_.utils.StubBusinessRatesAuthorisation.authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Ω
+Ñ_root_.utils.StubBusinessRatesAuthorisation.authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"˚
+r_root_.utils.StubBusinessRatesAuthorisation.authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Ñ	authoriseP(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult]"
+_root_.scala.Long#".
+%2&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+5;_root_.scala.concurrent.Future#".
+<O&_root_.connectors.AuthorisationResult#".
+_root_.scala.concurrent.Future#Ä@Future"/
+_root_.scala.concurrent.Future.ÄÑFuture"
+
+_root_.uk.	ÄàÄuk"?
+#_root_.actions.AuthenticatedAction#Ä AuthenticatedAction"
+_root_.uk.gov.
+ÄàÄgov"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#">
+#_root_.connectors.InvalidGGSession.ÄÑàInvalidGGSession"C
+&_root_.connectors.AuthorisationResult#Ä¿AuthorisationResult"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"∂
+d_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.(result)NÄresultAuthorisationResult",
+&_root_.connectors.AuthorisationResult#"º
+É_root_.utils.StubBusinessRatesAuthorisation.authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"T
+,_root_.utils.StubBusinessRatesAuthorisation.$ÄÑStubBusinessRatesAuthorisation"\
+)_root_.utils.StubAuthentication.reset()V./reset(): Unit"
+_root_.scala.Unit#"Ó
+\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.çstubAuthenticationResult#(result: AuthorisationResult): Unit".
+	&_root_.connectors.AuthorisationResult#"
+#_root_.scala.Unit#"ﬂ
+w_root_.connectors.BusinessRatesAuthorisation#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.„<init>B(config: ServicesConfig, http: WSHttp): BusinessRatesAuthorisation"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"5
+(B-_root_.connectors.BusinessRatesAuthorisation#"P
+-_root_.connectors.BusinessRatesAuthorisation#Ä BusinessRatesAuthorisation"!
+_root_.actions.ÄàÄactions"<
+ _root_.utils.StubServicesConfig.ÄÑStubServicesConfig"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"
+_root_.utils.ÄàÄutils"<
+ _root_.utils.StubAuthentication.ÄÑStubAuthentication">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"
+_root_.scala.ÄàÄscala"Ã
+@_root_.utils.StubBusinessRatesAuthorisation.authorisationResult.áauthorisationResult_= (x$1: AuthorisationResult): Unit".
+&_root_.connectors.AuthorisationResult#"
+ _root_.scala.Unit#"¿
+w_root_.utils.StubBusinessRatesAuthorisation.authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"ç
+v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.í<init>r(provider: GovernmentGatewayProvider, businessRatesAuthorisation: BusinessRatesAuthorisation): AuthenticatedAction".
+$&_root_.auth.GovernmentGatewayProvider#"5
+B\-_root_.connectors.BusinessRatesAuthorisation#"+
+_r#_root_.actions.AuthenticatedAction#2_
+Í
+Í
+*[AuthorisationResult]
+_star_..
+&_root_.connectors.AuthorisationResult#2_
+££*[AuthorisationResult]
+_star_..
+&_root_.connectors.AuthorisationResult#2_
+ëë*[AuthorisationResult]
+_star_..
+&_root_.connectors.AuthorisationResult#:Scala211Bª/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package utils
+
+import actions.AuthenticatedAction
+import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
+
+import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
+
+object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation) {
+  def stubAuthenticationResult(result: AuthorisationResult) = {
+    StubBusinessRatesAuthorisation.authorisationResult = result
+  }
+
+  def reset() = {
+    StubBusinessRatesAuthorisation.authorisationResult = InvalidGGSession
+  }
+
+}
+
+object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubServicesConfig, StubHttp) {
+  var authorisationResult: AuthorisationResult = InvalidGGSession
+
+  override def authenticate(implicit hc: HeaderCarrier) = Future.successful(authorisationResult)
+  override def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
+  override def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
+}
+J#test/utils/StubAuthentication.scala

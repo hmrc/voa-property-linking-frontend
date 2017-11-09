@@ -1,0 +1,1530 @@
+
+†◊
+—‘_root_.play.api.Î
+œ ‘ ﬁ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(email)
+⁄ﬁ_root_.views.html.;
+äë1_root_.models.DetailedIndividualAccount#(details)N
+‚ËDapp/controllers/manageDetails/UpdatePersonalDetails.scala@1694..1700F
+¯â<_root_.actions.BasicAuthenticatedRequest#(individualAccount)
+ó"õ"_root_.scala.None.•
+Ö'å'ö_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.(details)_
+¿
+⁄
+S_root_.controllers.manageDetails.UpdatePersonalDetails#(individualAccountConnector)
+êî_root_.scala.Some.%
+ó!ù!_root_.scala.Predef.String#
+°!•!_root_.scala.None.Y
+·'È'O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.N
+˜Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3615..3622$
+Äá_root_.views.html.details.N
+∫øDapp/controllers/manageDetails/UpdatePersonalDetails.scala@1814..1819N
+â*é*Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@5370..5375C
+Ú-ˆ-7_root_.controllers.manageDetails.UpdateDetailsVM#(form)$
+ﬂÊ_root_.views.html.details.X
+ó(õ(N_root_.controllers.manageDetails.ReverseViewDetails#show()Lplay/api/mvc/Call;.1
+‹Ê'_root_.play.api.mvc.Results#BadRequest.
+Ã–_root_.play._
+íñU_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.S
+À*—*I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.=
+˛ä3_root_.form.TextMatching.;_root_.form.TextMatching#$
+ô†_root_.views.html.details.N
+Ñ%í%Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4482..4536X
+Ò*˙*N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength)
+û°_root_.play.api.mvc.%
+“+ﬁ+_root_.play.api.data.Forms.N
+§™Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3966..39721
+®≤'_root_.play.api.mvc.Results#BadRequest.P
+¡#œ#Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4541..4940Ñ
+¥+ª+z_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.
+íò_root_.models.N
+ÂÏDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2266..2273"
+∑¡_root_.scala.concurrent.
+ê!ñ!_root_.scala.Option#
+«Ã_root_.javax.F
+¶∑<_root_.actions.BasicAuthenticatedRequest#(individualAccount)P
+≠¥Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2989..2996A
+ü¨7_root_.controllers.manageDetails.UpdatePersonalDetails#/
+Ì˙%_root_.models.Address#(addressUnitId)N
+õ¢Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2989..2996≠
+Æ$∂$¢_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(lastName)
+∂∫_root_.scala.Some.M
+∞%π%C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.%
+π-ø-_root_.scala.Predef.String#P
+ÍÓDapp/controllers/manageDetails/UpdatePersonalDetails.scala@3434..3438*
+¯â	 _root_.config.ApplicationConfig#2
+˛%Ñ&(_root_.models.IndividualDetails#(phone2)/
+ˆÄ%_root_.views.html.details.updateName.;
+Øæ1_root_.controllers.manageDetails.UpdateDetailsVM.M
+¬$À$C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.Ä
+¯ˇv_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+Õ—_root_.scala.None.+
+ˆ'É(!_root_.controllers.manageDetails.e
+˜ÅY_root_.controllers.manageDetails.UpdatePersonalDetails#viewMobile()Lplay/api/mvc/Action;.*
+˜Å _root_.play.api.data.validation.S
+Û,˘,I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.È
+™%Ø%ﬁ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(phone)K
+ˆˇA_root_.controllers.manageDetails.UpdatePersonalDetails#emailForm.1
+ƒ–'_root_.views.html.details.updateMobile.%
+À-—-_root_.scala.Predef.String#;
+∫…1_root_.controllers.manageDetails.UpdateDetailsVM.Q
+ñüG_root_.controllers.manageDetails.UpdatePersonalDetails#Name#(firstName)S
+Æ-∑-G_root_.controllers.manageDetails.UpdatePersonalDetails#Name#(firstName)?
+¿ƒ5_root_.play.api.data.Form.;_root_.play.api.data.Form#N
+ê*ï*Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@5370..5375F
+Ë%Ó%<_root_.scala.Option#orElse(Lscala/Function0;)Lscala/Option;.-
+ê£#_root_.actions.AuthenticatedAction#
+Ù_root_.scala.None.N
+ÍÒDapp/controllers/manageDetails/UpdatePersonalDetails.scala@1639..1646Ì
+¬"…"‡_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(request)5
+º&≈&+_root_.models.IndividualDetails#(addressId)0
+ÁÚ&_root_.views.html.details.updateEmail.`
+¬—V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.Æ
+ç&ñ&£_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(addressId)%
+£ © _root_.scala.Predef.String#X
+í,õ,N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength)
+≠ ± _root_.scala.None.
+˚ˇ_root_.views.html.P
+Ì)Ó)Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@5357..5358´
+ÿ%ﬁ%†_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(phone2)
+ïô_root_.play.F
+µ,π,<_root_.controllers.manageDetails.UpdatePersonalDetails#Name.>
+ã(ñ(4_root_.controllers.manageDetails.routes.ViewDetails.%
+ÁÌ_root_.javax.inject.Inject#:
+Øæ0_root_.config.ApplicationConfig#editNameEnabled.+
+È(Ó(!_root_.play.api.data.Forms.email.N
+ÓÛDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2890..2895_
+„ÁU_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.h
+Ö)é)^_root_.play.api.data.validation.Constraints#maxLength(I)Lplay/api/data/validation/Constraint;.N
+ÆµDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2087..2094.
+á-ï-$_root_.form.Mappings.addressMapping.
+≤∂_root_.play.$
+™+Æ+_root_.play.api.data.Form.P
+≠)Ø)F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.P
+ÓıDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2542..25491
+èô'_root_.play.api.mvc.Results#BadRequest.
+±∂_root_.scala.P
+ü¶Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3615..3622K
+ô™A_root_.models.IndividualDetails.;_root_.models.IndividualDetails#N
+Ô%˝%Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4482..4536N
+≤∂Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3434..3438;
+Üï1_root_.controllers.manageDetails.UpdateDetailsVM.%
+‰**_root_.play.api.data.Forms.
+’Ÿ_root_.play.api.data.`
+ÄèV_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.P
+ïúDapp/controllers/manageDetails/UpdatePersonalDetails.scala@3221..3228î
+ø'≈'â_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+†§_root_.views.html.
+±∂_root_.views.M
+£&¨&C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.A
+¢®7_root_.play.api.mvc.Result.;_root_.play.api.mvc.Result#P
+ÁÓDapp/controllers/manageDetails/UpdatePersonalDetails.scala@1639..1646;
+µº1_root_.models.DetailedIndividualAccount#(details)
+‹!‡!_root_.scala.None.M
+É$å$C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.
+ÁÏ_root_.views.)
+‡‚_root_.play.api.mvc.Results#Ok.N
+æ≈Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2542..2549M
+π(¬(A_root_.controllers.manageDetails.UpdatePersonalDetails#emailForm.;
+ÏÛ1_root_.models.DetailedIndividualAccount#(details)w
+Ò-Ò-k_root_.controllers.manageDetails.UpdateDetailsVM#`<init>`(Lplay/api/data/Form;Lmodels/IndividualDetails;)V.&
+è
+ò
+_root_.connectors.Addresses#P
+éõF_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated)K
+Í˚A_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#N
+ªΩDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2325..2327
+ªø_root_.play.api.data.c
+ÇçY_root_.play.api.data.validation.Constraints.;_root_.play.api.data.validation.Constraints#%
+Ö,ë,_root_.play.api.data.Forms.N
+ëïDapp/controllers/manageDetails/UpdatePersonalDetails.scala@3434..3438P
+¬…Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@1474..1481d
+õ§X_root_.controllers.manageDetails.UpdatePersonalDetails#viewEmail()Lplay/api/mvc/Action;.
+éì_root_.views.A
+àï7_root_.controllers.manageDetails.UpdatePersonalDetails#‚
+Úˇ◊_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.P
+ñõDapp/controllers/manageDetails/UpdatePersonalDetails.scala@1814..18191
+ì%ò%'_root_.models.IndividualDetails#(email)
+˘˝_root_.form.Ô
+‘›‚_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(firstName)Æ
+Ì#ˆ#£_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(firstName)A
+ú©7_root_.controllers.manageDetails.UpdatePersonalDetails#P
+î°F_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated)P
+Ò˜Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3313..3319]
+•æS_root_.actions.BasicAuthenticatedRequest.;_root_.actions.BasicAuthenticatedRequest#Î
+Ê&Ì&‡_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(request)0
+∆—&_root_.views.html.details.updateEmail.M
+˙$É%C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.x
+≠-≠-l_root_.controllers.manageDetails.UpdatePersonalDetails#Name#`<init>`(Ljava/lang/String;Ljava/lang/String;)V.
+Éç_root_.connectors.$
+º√_root_.views.html.details.N
+º√Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3221..3228;
+ñ•1_root_.controllers.manageDetails.UpdateDetailsVM.W
+˚	ç
+K_root_.controllers.manageDetails.UpdatePersonalDetails#(addressesConnector)%
+› „ _root_.scala.Predef.String#
+µ¿_root_.controllers.;
+üÆ1_root_.controllers.manageDetails.UpdateDetailsVM.P
+„F_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated)P
+Ê(Ë(F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+áé_root_.actions.$
+È,Ì,_root_.play.api.data.Form.È
+Ù$˘$ﬁ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(email)
+Úˆ_root_.play.api.data.P
+Ñ-Ü-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.‰
+∆”◊_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.
+åê_root_.scala.Some.1
+ÍÙ'_root_.play.api.mvc.Results#BadRequest.m
+”€c_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.
+öü_root_.views.+
+Ò˛!_root_.controllers.manageDetails.
+À!—!_root_.scala.Option#1
+˚Ö'_root_.play.api.mvc.Results#BadRequest.:
+«÷0_root_.config.ApplicationConfig#editNameEnabled.
+‚Ê_root_.form.I
+®Æ?_root_.controllers.manageDetails.UpdatePersonalDetails#(config)C
+–Â7_root_.controllers.manageDetails.UpdatePersonalDetails#N
+ß©Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2434..2436Í
+·%Á%ﬂ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(mobile)2
+Ñ(ä((_root_.controllers.manageDetails.routes.F
+∆◊<_root_.actions.BasicAuthenticatedRequest#(individualAccount)H
+©-≠-<_root_.controllers.manageDetails.UpdatePersonalDetails#Name#;
+ÊÌ1_root_.models.DetailedIndividualAccount#(details)
+ÈÌ_root_.scala.Some.K
+ˆ?_root_.controllers.manageDetails.UpdatePersonalDetails#(config)]
+§'æ'S_root_.controllers.manageDetails.UpdatePersonalDetails#(individualAccountConnector)
+ÓÒ_root_.play.api.P
+óûDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2711..2718;
+®Ø1_root_.models.DetailedIndividualAccount#(details)6
+˘(Ñ),_root_.play.api.data.validation.Constraints./
+‹
+Ó
+%_root_.connectors.IndividualAccounts#N
+ –Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3845..3851
+µπ_root_.scala.Some.È
+·Êﬁ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(phone)5
+ú$•$+_root_.models.IndividualDetails#(firstName)Ì
+ñü‚_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(addressId)F
+ÚÉ<_root_.actions.BasicAuthenticatedRequest#(individualAccount)Ì
+™≥‚_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(addressId)2
+…%œ%(_root_.models.IndividualDetails#(phone1)1
+ÌÌ'_root_.javax.inject.Inject#`<init>`()V.;
+Åê1_root_.controllers.manageDetails.UpdateDetailsVM.N
+éïDapp/controllers/manageDetails/UpdatePersonalDetails.scala@1474..1481
+Õ”_root_.javax.inject.P
+ïóDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2325..2327M
+∂¡C_root_.controllers.manageDetails.UpdatePersonalDetails#addressForm.P
+œ+—+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+„Ë_root_.views./
+ö¨%_root_.connectors.IndividualAccounts#Ì
+Äâ‚_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(firstName)Ó
+í ö ·_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(lastName)
+Í'ı'_root_.controllers._
+∆ U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.m
+›Âc_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.`
+Ô(¯(V_root_.play.api.data.Mapping#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.#
+∞)º)_root_.form.TextMatching.M
+ø C_root_.controllers.manageDetails.UpdatePersonalDetails#addressForm.P
+ÖãDapp/controllers/manageDetails/UpdatePersonalDetails.scala@3845..3851
+îò_root_.views.html.$
+ëò_root_.views.html.details.$
+æ≈_root_.views.html.details.;
+—‡1_root_.controllers.manageDetails.UpdateDetailsVM.
+ú ¢ _root_.scala.Option#$
+ãí_root_.views.html.details.h
+¸â\_root_.controllers.manageDetails.UpdatePersonalDetails#updateAddress()Lplay/api/mvc/Action;.)
+˝ˇ_root_.play.api.mvc.Results#Ok.O
+ØºE_root_.controllers.manageDetails.UpdatePersonalDetails#telephoneForm.O
+ŸÊE_root_.controllers.manageDetails.UpdatePersonalDetails#telephoneForm.N
+∫%»%Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4482..4536P
+ œDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2890..2895K
+ÉåA_root_.controllers.manageDetails.UpdatePersonalDetails#emailForm.|
+÷'Ÿ'r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;._
+‘ÿU_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.
+É*á*_root_.scala.Some.d
+«–X_root_.controllers.manageDetails.UpdatePersonalDetails#viewPhone()Lplay/api/mvc/Action;.P
+ÇÑDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2434..2436
+‘Ÿ_root_.views.
+∑ª_root_.views.html.P
+¸âF_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated)P
+˙)ˇ)Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@5370..5375O
+·ÓE_root_.controllers.manageDetails.UpdatePersonalDetails#telephoneForm.;
+§≥1_root_.controllers.manageDetails.UpdateDetailsVM.Ñ
+œ(÷(z_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.F
+ü#∞#<_root_.actions.BasicAuthenticatedRequest#(individualAccount)º
+ÔÔØ_root_.controllers.manageDetails.UpdatePersonalDetails#`<init>`(Lconfig/ApplicationConfig;Lactions/AuthenticatedAction;Lconnectors/Addresses;Lconnectors/IndividualAccounts;)V.P
+Ç,Ñ,F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+Üã_root_.views.F
+⁄Î<_root_.actions.BasicAuthenticatedRequest#(individualAccount)P
+¸ÉDapp/controllers/manageDetails/UpdatePersonalDetails.scala@1916..1923
+∑∫_root_.play.api.P
+ÜìF_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated)
+öù_root_.play.api.%
+ÊÏ_root_.scala.Predef.String#-
+¿	”	#_root_.actions.AuthenticatedAction#;
+“·1_root_.controllers.manageDetails.UpdateDetailsVM.)
+—”_root_.play.api.mvc.Results#Ok.=
+‚-Ò-1_root_.controllers.manageDetails.UpdateDetailsVM#
+πΩ_root_.views.html.)
+ãç_root_.play.api.mvc.Results#Ok.F
+ƒ’<_root_.actions.BasicAuthenticatedRequest#(individualAccount)
+Â_root_.controllers.;
+»œ1_root_.models.DetailedIndividualAccount#(details)
+ÈÌ_root_.views.html.ï
+∫,¡,ä_root_.controllers.manageDetails.UpdatePersonalDetails#Name.unapply(Lcontrollers/manageDetails/UpdatePersonalDetails/Name;)Lscala/Option;.F
+ñß<_root_.actions.BasicAuthenticatedRequest#(individualAccount)3
+À"‰")_root_.actions.BasicAuthenticatedRequest#J
+ëô@_root_.controllers.manageDetails.UpdatePersonalDetails#nameForm.f
+æ…Z_root_.controllers.manageDetails.UpdatePersonalDetails#updateEmail()Lplay/api/mvc/Action;.$
+¯-¸-_root_.play.api.data.Form#P
+’&„&Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4945..5022x
+ËÓn_root_.connectors.Addresses#create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.;
+ÛÇ1_root_.controllers.manageDetails.UpdateDetailsVM.P
+©∂F_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated)A
+”‡7_root_.controllers.manageDetails.UpdatePersonalDetails#F
+∂«<_root_.actions.BasicAuthenticatedRequest#(individualAccount)A
+àï7_root_.controllers.manageDetails.UpdatePersonalDetails#F
+Ó&ˇ&<_root_.actions.BasicAuthenticatedRequest#(individualAccount)O
+¶≥E_root_.controllers.manageDetails.UpdatePersonalDetails#telephoneForm.P
+±æF_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated)Ï
+√!…!ﬂ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(mobile)
+ü£_root_.scala.Some.Ô
+˛!á"‚_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(addressId)4
+€$„$*_root_.models.IndividualDetails#(lastName)
+≥∏_root_.views.™
+Ï$Ò$ü_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(email)f
+Ó˘Z_root_.controllers.manageDetails.UpdatePersonalDetails#updatePhone()Lplay/api/mvc/Action;.1
+≠π'_root_.views.html.details.updateMobile.È
+≠≤ﬁ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(email)
+÷ ‹ _root_.scala.Option#
+åê_root_.views.html.P
+∑øF_root_.controllers.manageDetails.UpdatePersonalDetails#Name#(lastName).
+íí$_root_.java.lang.Object#`<init>`()V.$
+≈(…(_root_.play.api.data.Form.%
+“!ÿ!_root_.scala.Predef.String#P
+ —Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3786..3793
+ﬂÂ_root_.scala.Option#
+ı˙_root_.views.
+Üä_root_.views.html.F
+£¥<_root_.actions.BasicAuthenticatedRequest#(individualAccount)*
+ë.¢. _root_.models.IndividualDetails#
+ÌÒ_root_.views.html.P
+“ÿDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2770..2776X
+ﬂ+Ë+N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength)P
+û§Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@1694..1700Í
+ñúﬂ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(mobile)`
+¥√V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.F
+‘Â<_root_.actions.BasicAuthenticatedRequest#(individualAccount)c
+áèW_root_.controllers.manageDetails.UpdatePersonalDetails#viewName()Lplay/api/mvc/Action;.N
+≠&ª&Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4482..4536´
+°%ß%†_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(phone1)0
+˙Ö&_root_.views.html.details.updatePhone.
+ê"ì"_root_.scala.Int#N
+ˆ)˜)Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@5357..5358P
+Œ€F_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated)2
+°Æ(_root_.views.html.details.updateAddress.
+ÁÔ_root_.form.Mappings.P
+·*„*F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+„È_root_.config._
+˘˝U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.N
+è'ù'Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@5007..5021N
+¥∫Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3313..3319Î
+ó#û#‡_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(request)2
+àï(_root_.views.html.details.updateAddress.ú
+Ä'Ñ'ë_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.L
+ü+ß+@_root_.controllers.manageDetails.UpdatePersonalDetails#nameForm.N
+Ã$⁄$Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4482..4536M
+Å.è.A_root_.controllers.manageDetails.UpdateDetailsVM#(currentDetails)A
+‘⁄7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#%
+⁄ﬂ_root_.play.api.data.Forms.©
+Æ,≥,û_root_.controllers.manageDetails.UpdatePersonalDetails#Name.apply(Ljava/lang/String;Ljava/lang/String;)Lcontrollers/manageDetails/UpdatePersonalDetails/Name;.P
+ßÆDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2087..2094P
+’‚F_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated);
+Ñã1_root_.models.DetailedIndividualAccount#(details);
+÷›1_root_.models.DetailedIndividualAccount#(details)$
+Ú˘_root_.views.html.details.;
+ÿﬂ1_root_.models.DetailedIndividualAccount#(details)&
+èò_root_.connectors.Addresses#N
+ç$õ$Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4482..4536F
+©,≠,<_root_.controllers.manageDetails.UpdatePersonalDetails#Name.P
+⁄·Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2266..2273
+ÈÌ_root_.play.g
+†¨[_root_.controllers.manageDetails.UpdatePersonalDetails#updateMobile()Lplay/api/mvc/Action;.7
+¡⁄-_root_.controllers.PropertyLinkingController#`
+—‡V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.Ï
+π$¡$·_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(lastName)N
+Ã”Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@1916..1923Ï
+¢™·_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(lastName)N
+û•Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2711..2718J
+»–@_root_.controllers.manageDetails.UpdatePersonalDetails#nameForm.$
+¡*≈*_root_.play.api.data.Form.$
+Óı_root_.views.html.details.P
+˛ÑDapp/controllers/manageDetails/UpdatePersonalDetails.scala@3966..3972R
+¡-…-F_root_.controllers.manageDetails.UpdatePersonalDetails#Name#(lastName)P
+˛ãF_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated)N
+¶¨Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2144..2150
+Á Î _root_.scala.None.R
+±	æ	F_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated)N
+“#‡#Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4482..4536£
+·#Â#ò_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.
+ÄÖ_root_.views.P
+Ü#î#Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4482..4536I
+¬»?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#N
+“ŸDapp/controllers/manageDetails/UpdatePersonalDetails.scala@3786..3793Q
+±*æ*E_root_.controllers.manageDetails.UpdatePersonalDetails#telephoneForm.;
+±#∏#1_root_.models.DetailedIndividualAccount#(details)
+≠±_root_.scala.Some.Î
+â!é!ﬁ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(phone)O
+€,Ê,C_root_.controllers.manageDetails.UpdatePersonalDetails#addressForm./
+ô£%_root_.views.html.details.updateName.f
+”ﬁZ_root_.controllers.manageDetails.UpdatePersonalDetails#viewAddress()Lplay/api/mvc/Action;.N
+ñúDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2770..2776
+¢¶_root_.scala.Some.Ì
+ô&¢&‚_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(addressId)7
+¯
+ë-_root_.controllers.PropertyLinkingController#)
+Æ∞_root_.play.api.mvc.Results#Ok.0
+ìû&_root_.views.html.details.updatePhone.)
+Í""_root_.scala.concurrent.Future#Ì
+˘#Ç$‚_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(firstName)
+â"è"_root_.scala.Option#P
+‡ÊDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2144..2150`
+ÁˆV_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.N
+∆'‘'Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4945..5022$
+•¨_root_.views.html.details.e
+Ì˜Y_root_.controllers.manageDetails.UpdatePersonalDetails#updateName()Lplay/api/mvc/Action;.N
+ÔˆDapp/controllers/manageDetails/UpdatePersonalDetails.scala@2266..2273I
+¿∆?_root_.controllers.manageDetails.UpdatePersonalDetails#(config);
+∏ø1_root_.models.DetailedIndividualAccount#(details)U
+’ÁK_root_.controllers.manageDetails.UpdatePersonalDetails#(addressesConnector)%
+Ò"˜"_root_.play.api.mvc.Result#"·
+£_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(firstName)9Ä	firstNameString"!
+_root_.scala.Predef.String#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"5
+ _root_.play.api.data.validation.ÄàÄ
+validation"Ì
+û_root_.controllers.manageDetails.UpdatePersonalDetails#Name.apply(Ljava/lang/String;Ljava/lang/String;)Lcontrollers/manageDetails/UpdatePersonalDetails/Name;.…ÑÄÄapply+(firstName: String, lastName: String): Name"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"D
+'+<_root_.controllers.manageDetails.UpdatePersonalDetails#Name#"◊
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2542..2549éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"ù
+^_root_.play.api.mvc.Result#`<init>`(Lplay/api/mvc/ResponseHeader;Lplay/api/http/HttpEntity;)V.∫<init>2(header: ResponseHeader, body: HttpEntity): Result"+
+	#_root_.play.api.mvc.ResponseHeader#"(
+) _root_.play.api.http.HttpEntity#"#
+,2_root_.play.api.mvc.Result#"å
+Å_root_.play.api.data.Form#`<init>`(Lplay/api/data/Mapping;Lscala/collection/immutable/Map;Lscala/collection/Seq;Lscala/Option;)V.Ö<init>c(mapping: Mapping[T], data: Map[String, String], errors: Seq[FormError], value: Option[T]): Form[T]"%
+
+_root_.play.api.data.Mapping#"%
+_root_.play.api.data.Form#[T]" 
+_root_.scala.Predef.Map#"#
+ &_root_.scala.Predef.String#"#
+(._root_.scala.Predef.String#"!
+9<_root_.scala.package.Seq#"'
+=F_root_.play.api.data.FormError#"
+PV_root_.scala.Option#"%
+WX_root_.play.api.data.Form#[T]""
+\`_root_.play.api.data.Form#"%
+ab_root_.play.api.data.Form#[T]"ê
+â_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÅupdateN(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit]"0
+
+#(_root_.models.DetailedIndividualAccount#".
+2?&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+BH_root_.scala.concurrent.Future#"
+IM_root_.scala.Unit#"ó
+ä_root_.controllers.manageDetails.UpdatePersonalDetails#Name.unapply(Lcontrollers/manageDetails/UpdatePersonalDetails/Name;)Lscala/Option;.áÑÄÄunapply+(x$0: Name): Option[Tuple2[String, String]]"D
+
+<_root_.controllers.manageDetails.UpdatePersonalDetails#Name#"
+_root_.scala.Option#"
+_root_.scala.Tuple2#"#
+!_root_.scala.Predef.String#"#
+#)_root_.scala.Predef.String#"œ
+I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.Åsingle6[A1] => (a1: Tuple2[String, Mapping[A1]]): Mapping[A1]"
+_root_.scala.Tuple2#"#
+_root_.scala.Predef.String#"%
+#_root_.play.api.data.Mapping#"U
+$&M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"%
++2_root_.play.api.data.Mapping#"U
+35M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"
+%_root_.models.Address#(addressUnitId)VÅaddressUnitIdOption[Int]"
+_root_.scala.Option#"
+
+_root_.scala.Int#"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#"«
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3313..3319Äerrors
+Form[Name]" 
+_root_.play.api.data.Form#"D
+	<_root_.controllers.manageDetails.UpdatePersonalDetails#Name#"ã
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@5007..5021Cx$38IndividualDetails"&
+ _root_.models.IndividualDetails#"|
+1_root_.models.DetailedIndividualAccount#(details)GÅdetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"'
+_root_.connectors.ÄàÄ
+connectors"π
+‚_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(addressId)RÄ	addressIdOption[Int]"
+_root_.scala.Option#"
+
+_root_.scala.Int#"â
+?_root_.controllers.manageDetails.UpdatePersonalDetails#(config)FÄconfigApplicationConfig"&
+ _root_.config.ApplicationConfig#"ﬂ
+¢_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(lastName)8ÄlastNameString"!
+_root_.scala.Predef.String#"à
+^_root_.play.api.data.validation.Constraints#maxLength(I)Lplay/api/data/validation/Constraint;.•	maxLength!(length: Int): Constraint[String]"
+	_root_.scala.Int#"3
++_root_.play.api.data.validation.Constraint#"#
+ _root_.scala.Predef.String#"[
++_root_.models.IndividualDetails#(addressId),Å	addressIdInt"
+_root_.scala.Int#"©
+A_root_.controllers.manageDetails.UpdatePersonalDetails#emailForm.dÅÄA	emailFormForm[String]" 
+_root_.play.api.data.Form#"#
+_root_.scala.Predef.String#"ï
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4482..4536McurrentDetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"~
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3966..39726ÄmobileString"!
+_root_.scala.Predef.String#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"f
+*_root_.models.IndividualDetails#(lastName)8ÅlastNameString"!
+_root_.scala.Predef.String#"K
+<_root_.controllers.manageDetails.UpdatePersonalDetails#Name#Ä†ÄName"J
+<_root_.controllers.manageDetails.UpdatePersonalDetails#Name.
+ÄÑName"A
+,_root_.play.api.data.validation.Constraints.ÄÑConstraints"◊
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3786..3793éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"h
++_root_.models.IndividualDetails#(firstName)9Å	firstNameString"!
+_root_.scala.Predef.String#"œ
+X_root_.controllers.manageDetails.UpdatePersonalDetails#viewEmail()Lplay/api/mvc/Action;.s	viewEmail(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"§
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2144..2150\ÄerrorsForm[Address]" 
+_root_.play.api.data.Form#"
+_root_.models.Address#"<
+ _root_.models.IndividualDetails#Ä†ÄIndividualDetails"√
+ò_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.•copy(firstName: String, lastName: String, email: String, phone1: String, phone2: Option[String], addressId: Int): IndividualDetails"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"#
+-3_root_.scala.Predef.String#"#
+=C_root_.scala.Predef.String#"
+MS_root_.scala.Option#"#
+TZ_root_.scala.Predef.String#"
+hk_root_.scala.Int#"(
+n _root_.models.IndividualDetails#"¨
+◊_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.œÑÄupdateDetails€(firstName: Option[String], lastName: Option[String], email: Option[String], phone: Option[String], mobile: Option[String], addressId: Option[Int])(implicit request: actions.BasicAuthenticatedRequest[_]): Future[Result]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+&,_root_.scala.Option#"#
+-3_root_.scala.Predef.String#"
+=C_root_.scala.Option#"#
+DJ_root_.scala.Predef.String#"
+TZ_root_.scala.Option#"#
+[a_root_.scala.Predef.String#"
+lr_root_.scala.Option#"#
+sy_root_.scala.Predef.String#"
+áç_root_.scala.Option#"
+éë_root_.scala.Int#")
+Õ”_root_.scala.concurrent.Future#"%
+‘⁄_root_.play.api.mvc.Result#"$
+_root_.play.api.data.ÄàÄdata"}
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2890..28955ÄphoneString"!
+_root_.scala.Predef.String#"ì
+A_root_.controllers.manageDetails.UpdateDetailsVM#(currentDetails)NÅcurrentDetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"b
+(_root_.models.IndividualDetails#(phone1)6Åphone1String"!
+_root_.scala.Predef.String#"®
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3845..3851`ÄerrorsForm[String]" 
+_root_.play.api.data.Form#"#
+_root_.scala.Predef.String#"@
+%_root_.connectors.IndividualAccounts#Ä IndividualAccounts"
+_root_.form.ÄàÄform"”
+Z_root_.controllers.manageDetails.UpdatePersonalDetails#viewAddress()Lplay/api/mvc/Action;.uviewAddress(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"l
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2325..2327$idInt"
+_root_.scala.Int#"‘
+£_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(addressId),Ä	addressIdInt"
+_root_.scala.Int#"
+_root_.javax.ÄàÄjavax""
+_root_.play.api.mvc.
+ÄàÄmvc"U
+7_root_.controllers.manageDetails.UpdatePersonalDetails#Ä UpdatePersonalDetails"¿
+ﬂ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(mobile)\ÄmobileOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"◊
+\_root_.controllers.manageDetails.UpdatePersonalDetails#updateAddress()Lplay/api/mvc/Action;.wupdateAddress(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"
+_root_.play.api.
+ÄàÄapi"Û
+<_root_.scala.Option#orElse(Lscala/Function0;)Lscala/Option;.≤ÑÄorElse4[B] => (alternative: <byname>[Option[B]]): Option[B]" 
+_root_.scala.`<byname>`#"
+$_root_.scala.Option#"G
+%&?_root_.scala.Option#orElse(Lscala/Function0;)Lscala/Option;.[B]"
++1_root_.scala.Option#"G
+23?_root_.scala.Option#orElse(Lscala/Function0;)Lscala/Option;.[B]"l
+'_root_.play.api.mvc.Results#BadRequest.A
+BadRequestStatus")
+#_root_.play.api.mvc.Results#Status#"•
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4945..5022]updatedAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"∏
+Ç_root_.actions.BasicAuthenticatedRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)V.∞<init>Ñ(organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A]): BasicAuthenticatedRequest[A]"#
+"_root_.models.GroupAccount#"0
+7P(_root_.models.DetailedIndividualAccount#"$
+[b_root_.play.api.mvc.Request#"4
+cd,_root_.actions.BasicAuthenticatedRequest#[A]"2
+hÅ)_root_.actions.BasicAuthenticatedRequest#"6
+ÇÉ,_root_.actions.BasicAuthenticatedRequest#[A]"©
+C_root_.controllers.manageDetails.UpdatePersonalDetails#addressForm.bÅÄAaddressFormForm[Address]" 
+_root_.play.api.data.Form#"
+_root_.models.Address#"ƒ
+·_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(lastName)^ÄlastNameOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"[
+7_root_.controllers.manageDetails.UpdateDetailsVM#(form) Åformplay.api.data.Form[_]"◊
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2087..2094éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"◊
+Ø_root_.controllers.manageDetails.UpdatePersonalDetails#`<init>`(Lconfig/ApplicationConfig;Lactions/AuthenticatedAction;Lconnectors/Addresses;Lconnectors/IndividualAccounts;)V.¢<init>•(config: ApplicationConfig, authenticated: AuthenticatedAction, addressesConnector: Addresses, individualAccountConnector: IndividualAccounts): UpdatePersonalDetails"(
+	 _root_.config.ApplicationConfig#"+
++>#_root_.actions.AuthenticatedAction#"$
+T]_root_.connectors.Addresses#".
+{ç%_root_.connectors.IndividualAccounts#"A
+ê•7_root_.controllers.manageDetails.UpdatePersonalDetails#"á
+N_root_.controllers.manageDetails.ReverseViewDetails#show()Lplay/api/mvc/Call;.5show(): Call"!
+_root_.play.api.mvc.Call#"m
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2434..2436%ÄidInt"
+_root_.scala.Int#".
+_root_.scala.concurrent.Future#Ä@Future"K
+1_root_.controllers.manageDetails.UpdateDetailsVM#Ä†ÄUpdateDetailsVM"J
+1_root_.controllers.manageDetails.UpdateDetailsVM.ÄÑUpdateDetailsVM"!
+_root_.views.html.ÄàÄhtml",
+_root_.javax.inject.Inject#Ä†ÄInject"9
+(_root_.controllers.manageDetails.routes.ÄÑàroutes"ò
+‡_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(request)3ÄÅ request$actions.BasicAuthenticatedRequest[_]"ú
+F_root_.controllers.manageDetails.UpdatePersonalDetails#(authenticated)RÄauthenticatedAuthenticatedAction")
+#_root_.actions.AuthenticatedAction#"◊
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3221..3228éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"~
+N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength),Ä	maxLengthInt"
+_root_.scala.Int#"«
+@_root_.controllers.manageDetails.UpdatePersonalDetails#nameForm.ÇÅÄAnameForm
+Form[Name]" 
+_root_.play.api.data.Form#"D
+	<_root_.controllers.manageDetails.UpdatePersonalDetails#Name#"$
+_root_.scala.Option#Ä†Option"?
+(_root_.views.html.details.updateAddress.ÄÑupdateAddress"x
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@5357..53580eString"!
+_root_.scala.Predef.String#"Ω
+O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
+_root_.play.api.mvc.Call#"#
+_root_.play.api.mvc.Result#",
+_root_.views.html.details.ÄàÄdetails"}
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@1814..18195ÄemailString"!
+_root_.scala.Predef.String#"’
+[_root_.controllers.manageDetails.UpdatePersonalDetails#updateMobile()Lplay/api/mvc/Action;.vupdateMobile(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"%
+_root_.javax.inject.ÄàÄinject"?
+#_root_.actions.AuthenticatedAction#Ä AuthenticatedAction"Ñ
+G_root_.controllers.manageDetails.UpdatePersonalDetails#Name#(firstName)9Å	firstNameString"!
+_root_.scala.Predef.String#"€
+†_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(phone1)6Äphone1String"!
+_root_.scala.Predef.String#"◊
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@1916..1923éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"à
+(_root_.models.IndividualDetails#(phone2)\Åphone2Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"°
+<_root_.actions.BasicAuthenticatedRequest#(individualAccount)aÅindividualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"◊
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@1639..1646éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"¨
+f_root_.connectors.Addresses#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.¡<init>1(config: ServicesConfig, http: WSHttp): Addresses"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"$
+(1_root_.connectors.Addresses#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"â
+!_root_.play.api.data.Forms.email.demailMapping[String]"#
+_root_.play.api.data.Mapping#"#
+_root_.scala.Predef.String#":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"!
+_root_.scala.None.ÄÑàNone"Ÿ
+ü_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(email)5ÄemailString"!
+_root_.scala.Predef.String#")
+_root_.play.api.data.Form#Ä†ÄForm"(
+_root_.play.api.data.Form.
+ÄÑForm"æ
+ﬁ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(phone)[ÄphoneOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"ö
+4_root_.controllers.manageDetails.routes.ViewDetails.bÅÄàViewDetailsReverseViewDetails":
+4_root_.controllers.manageDetails.ReverseViewDetails#"Ò
+V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.ñbindFromRequest6()(implicit request: play.api.mvc.Request[_]): Form[T]""
+/3_root_.play.api.data.Form#"%
+45_root_.play.api.data.Form#[T]"◊
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3615..3622éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"}
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@5370..53755ÄemailString"!
+_root_.scala.Predef.String#"◊
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2711..2718éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"M
+)_root_.actions.BasicAuthenticatedRequest# Ä†ÄBasicAuthenticatedRequest"Ù
+V_root_.play.api.data.Mapping#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.ôÑÄ	verifying4(constraints: <repeated>[Constraint[T]]): Mapping[T]""
+_root_.scala.`<repeated>`#"3
+#+_root_.play.api.data.validation.Constraint#"(
+$% _root_.play.api.data.Mapping#[T]"%
+*1_root_.play.api.data.Mapping#"(
+23 _root_.play.api.data.Mapping#[T]"
+_root_.play.ÄàÄplay"-
+_root_.scala.concurrent.ÄàÄ
+concurrent";
+&_root_.views.html.details.updatePhone.ÄÑupdatePhone"9
+%_root_.views.html.details.updateName.ÄÑ
+updateName"≤
+k_root_.controllers.manageDetails.UpdateDetailsVM#`<init>`(Lplay/api/data/Form;Lmodels/IndividualDetails;)V.¬<init>Q(form: play.api.data.Form[_], currentDetails: IndividualDetails): UpdateDetailsVM"(
+.? _root_.models.IndividualDetails#"9
+BQ1_root_.controllers.manageDetails.UpdateDetailsVM#"—
+Y_root_.controllers.manageDetails.UpdatePersonalDetails#viewMobile()Lplay/api/mvc/Action;.t
+viewMobile(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"á
+ë_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.copyÜ(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"
+JN_root_.scala.Long#"(
+Yj _root_.models.IndividualDetails#"1
+mÜ(_root_.models.DetailedIndividualAccount#"Õ
+W_root_.controllers.manageDetails.UpdatePersonalDetails#viewName()Lplay/api/mvc/Action;.rviewName(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"õ
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@3434..3438SÄnameName"B
+<_root_.controllers.manageDetails.UpdatePersonalDetails#Name#"®
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2770..2776`ÄerrorsForm[String]" 
+_root_.play.api.data.Form#"#
+_root_.scala.Predef.String#"∞
+É_root_.models.IndividualDetails#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)V.ß<init>(firstName: String, lastName: String, email: String, phone1: String, phone2: Option[String], addressId: Int): IndividualDetails"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"#
+-3_root_.scala.Predef.String#"#
+=C_root_.scala.Predef.String#"
+MS_root_.scala.Option#"#
+TZ_root_.scala.Predef.String#"
+hk_root_.scala.Int#"(
+n _root_.models.IndividualDetails#"'
+_root_.form.Mappings.ÄÑMappings"”
+Z_root_.controllers.manageDetails.UpdatePersonalDetails#updatePhone()Lplay/api/mvc/Action;.uupdatePhone(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"
+_root_.models.ÄàÄmodels"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"®
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@1694..1700`ÄerrorsForm[String]" 
+_root_.play.api.data.Form#"#
+_root_.scala.Predef.String#"!
+_root_.actions.ÄàÄactions"◊
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2989..2996éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"`
+'_root_.models.IndividualDetails#(email)5ÅemailString"!
+_root_.scala.Predef.String#",
+_root_.play.api.mvc.Result#Ä†ÄResult"/
+_root_.form.TextMatching.ÄÑTextMatching")
+_root_.controllers.ÄàÄcontrollers"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"
+_root_.views.ÄàÄviews"±
+E_root_.controllers.manageDetails.UpdatePersonalDetails#telephoneForm.hÅÄAtelephoneFormForm[String]" 
+_root_.play.api.data.Form#"#
+_root_.scala.Predef.String#" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"
+_root_.config.ÄàÄconfig"ï
+K_root_.controllers.manageDetails.UpdatePersonalDetails#(addressesConnector)FÄaddressesConnector	Addresses""
+	_root_.connectors.Addresses#"Ç
+F_root_.controllers.manageDetails.UpdatePersonalDetails#Name#(lastName)8ÅlastNameString"!
+_root_.scala.Predef.String#"ë
+$_root_.form.Mappings.addressMapping.iaddressMappingMapping[Address]"#
+_root_.play.api.data.Mapping#"
+_root_.models.Address#"ï
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@4541..4940MupdatedDetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"∆
+‚_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(firstName)_Ä	firstNameOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"∑
+S_root_.controllers.manageDetails.UpdatePersonalDetails#(individualAccountConnector)`ÄindividualAccountConnectorIndividualAccounts"+
+%_root_.connectors.IndividualAccounts#"
+_root_.scala.ÄàÄscala"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"◊
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@1474..1481éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"∏
+l_root_.controllers.manageDetails.UpdatePersonalDetails#Name#`<init>`(Ljava/lang/String;Ljava/lang/String;)V.«<init>+(firstName: String, lastName: String): Name"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"D
+'+<_root_.controllers.manageDetails.UpdatePersonalDetails#Name#"—
+Y_root_.controllers.manageDetails.UpdatePersonalDetails#updateName()Lplay/api/mvc/Action;.t
+updateName(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"œ
+X_root_.controllers.manageDetails.UpdatePersonalDetails#viewPhone()Lplay/api/mvc/Action;.s	viewPhone(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"m
+0_root_.config.ApplicationConfig#editNameEnabled.9editNameEnabledBoolean"
+_root_.scala.Boolean#"*
+_root_.play.api.data.Forms.ÄÑForms"{
+Dapp/controllers/manageDetails/UpdatePersonalDetails.scala@2266..22733ÄaddressAddress"
+_root_.models.Address#"å
+z_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.çmapping©[R, A1, A2] => (a1: Tuple2[String, Mapping[A1]], a2: Tuple2[String, Mapping[A2]])(apply: Function2[A1, A2, R])(unapply: Function1[R, Option[Tuple2[A1, A2]]]): Mapping[R]"
+_root_.scala.Tuple2#"#
+!_root_.scala.Predef.String#"%
+#*_root_.play.api.data.Mapping#"Ü
++-~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"
+5;_root_.scala.Tuple2#"#
+<B_root_.scala.Predef.String#"%
+DK_root_.play.api.data.Mapping#"Ü
+LN~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"
+Yb_root_.scala.Function2#"Ü
+ce~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"Ü
+gi~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"Ö
+kl}_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[R]" 
+xÅ_root_.scala.Function1#"á
+ÇÉ}_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"
+Öã_root_.scala.Option#"
+åí_root_.scala.Tuple2#"à
+ìï~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"à
+óô~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"'
+ü¶_root_.play.api.data.Mapping#"á
+ß®}_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"Ê
+ö_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.(details)GÄdetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"µ
+v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.∫flatMapS[S] => (f: Function1[T, Future[S]])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"'
+_root_.scala.concurrent.Future#"Å
+ y_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+7G)_root_.scala.concurrent.ExecutionContext#"'
+JP_root_.scala.concurrent.Future#"Å
+QRy_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"æ
+ﬁ_root_.controllers.manageDetails.UpdatePersonalDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(email)[ÄemailOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"Œ
+n_root_.connectors.Addresses#create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.€create;(address: Address)(implicit hc: HeaderCarrier): Future[Int]"
+
+_root_.models.Address#".
+ -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+06_root_.scala.concurrent.Future#"
+7:_root_.scala.Int#"
+_root_.scala.Int#	Ä†Int"Ω
+í_root_.connectors.IndividualAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.•<init>Y(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): IndividualAccounts"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"-
+GY%_root_.connectors.IndividualAccounts#"9
+!_root_.controllers.manageDetails.ÄàÄmanageDetails"”
+Z_root_.controllers.manageDetails.UpdatePersonalDetails#updateEmail()Lplay/api/mvc/Action;.uupdateEmail(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"Å
+†_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(phone2)\Äphone2Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#" 
+_root_.scala.Some.
+ÄÑSome"ç
+v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.í<init>r(provider: GovernmentGatewayProvider, businessRatesAuthorisation: BusinessRatesAuthorisation): AuthenticatedAction".
+$&_root_.auth.GovernmentGatewayProvider#"5
+B\-_root_.connectors.BusinessRatesAuthorisation#"+
+_r#_root_.actions.AuthenticatedAction#"Õ
+c_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.fnotFound3(implicit request: play.api.mvc.Request[_]): Result"#
+-3_root_.play.api.mvc.Result#";
+&_root_.views.html.details.updateEmail.ÄÑupdateEmail".
+_root_.connectors.Addresses#Ä 	Addresses"Ñ
+U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.™foldF[R] => (hasErrors: Function1[Form[T], R], success: Function1[T, R]): R"
+_root_.scala.Function1#""
+!_root_.play.api.data.Form#"%
+"#_root_.play.api.data.Form#[T]"`
+&'X_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"
+3<_root_.scala.Function1#"%
+=>_root_.play.api.data.Form#[T]"`
+@AX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"`
+EFX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"=
+'_root_.views.html.details.updateMobile.ÄÑupdateMobile2Î
+ÄÄ*.apply
+_star_.»
+ø_root_.views.html.details.updateName_Scope0.updateName_Scope1.updateName#apply(Lcontrollers/manageDetails/UpdateDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Î
+££*.apply
+_star_.»
+ø_root_.views.html.details.updateName_Scope0.updateName_Scope1.updateName#apply(Lcontrollers/manageDetails/UpdateDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2#
+¡¡
+*(request)
+_star_.2æ
+··*.apply
+_star_.õ
+í_root_.controllers.manageDetails.UpdateDetailsVM.apply(Lplay/api/data/Form;Lmodels/IndividualDetails;)Lcontrollers/manageDetails/UpdateDetailsVM;.2{
+ãã*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2{
+∂∂*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2”
+ééû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2K
+Ø)Ø)*[TextMatching]
+_star_.!
+_root_.form.TextMatching#2à
+¡¡/*(request, UpdatePersonalDetails.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.2{
+*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2#
+€€
+*(request)
+_star_.2w
+Ë(Ë(*[Mapping[String]]
+_star_.#
+
+_root_.scala.Predef.String#%
+	_root_.play.api.data.Mapping#2x
+  *[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2Ó
+ûû*.apply
+_star_.À
+¬_root_.views.html.details.updatePhone_Scope0.updatePhone_Scope1.updatePhone#apply(Lcontrollers/manageDetails/UpdateDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Ó
+ÚÚ*.apply
+_star_.À
+¬_root_.views.html.details.updateEmail_Scope0.updateEmail_Scope1.updateEmail#apply(Lcontrollers/manageDetails/UpdateDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2#
+‚‚
+*(request)
+_star_.2{
+‚‚*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2”
+≤≤*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2Æ
+√+Œ+"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2”
+””*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2”
+ÊÊ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2◊
+Í“,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2{
+õõ*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2G
+å$å$	*[String]
+_star_.#
+_root_.scala.Predef.String#2G
+Ó%Ó%	*[String]
+_star_.#
+_root_.scala.Predef.String#2{
+°°*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2#
+ÂÂ
+*(request)
+_star_.2#
+≈≈
+*(request)
+_star_.2G
+π%π%	*[String]
+_star_.#
+_root_.scala.Predef.String#2”
+ÙÙ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2æ
+ÇÇ*.apply
+_star_.õ
+í_root_.controllers.manageDetails.UpdateDetailsVM.apply(Lplay/api/data/Form;Lmodels/IndividualDetails;)Lcontrollers/manageDetails/UpdateDetailsVM;.2◊
+ã,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2à
+ìì/*(request, UpdatePersonalDetails.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.2”
+îîû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2Ù
+ïï*.apply
+_star_.—
+»_root_.views.html.details.updateAddress_Scope0.updateAddress_Scope1.updateAddress#apply(Lcontrollers/manageDetails/UpdateDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2G
+Ÿ'Ÿ'	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Æ
+ú)¨)"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2{
+€€*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2Æ
+Ÿ*‡*"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2‚
+á*á**.apply[Tuple2[String, String]]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#
+_root_.scala.Tuple2##
+_root_.scala.Predef.String#2¨
+º)º)*.apply
+_star_.â
+Ä_root_.form.TextMatching.apply(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lform/TextMatching;.2#
+ëë
+*(request)
+_star_.2à
+ææ/*(request, UpdatePersonalDetails.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.2”
+∞∞*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2¿
+ª+ª+*[Name, String, String]
+_star_.D
+<_root_.controllers.manageDetails.UpdatePersonalDetails#Name##
+_root_.scala.Predef.String##
+_root_.scala.Predef.String#2è
+££*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2à
+ıı/*(request, UpdatePersonalDetails.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.2◊
+‹¬,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2Ù
+ÆÆ*.apply
+_star_.—
+»_root_.views.html.details.updateAddress_Scope0.updateAddress_Scope1.updateAddress#apply(Lcontrollers/manageDetails/UpdateDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2√
+Æ+Æ+*.apply[Name]
+_star_.U
+M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.D
+<_root_.controllers.manageDetails.UpdatePersonalDetails#Name#2”
+û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2x
+ÿÿ*[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2Ç
+¶¶*.apply[Int]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
+_root_.scala.Int#2G
+ˇˇ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2◊
+”€,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2G
+É%É%	*[String]
+_star_.#
+_root_.scala.Predef.String#2Ó
+——*.apply
+_star_.À
+¬_root_.views.html.details.updateEmail_Scope0.updateEmail_Scope1.updateEmail#apply(Lcontrollers/manageDetails/UpdateDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2◊
+èˆ,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2{
+ââ*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2◊
+˝‚,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2G
+À$À$	*[String]
+_star_.#
+_root_.scala.Predef.String#2è
+ÌÌ*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2w
+Ñ,Ñ,*[Mapping[String]]
+_star_.#
+
+_root_.scala.Predef.String#%
+	_root_.play.api.data.Mapping#2”
+ôô*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2Æ
+˙,É-"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2s
+û(û( *(UpdatePersonalDetails.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2w
+„*„**[Mapping[String]]
+_star_.#
+
+_root_.scala.Predef.String#%
+	_root_.play.api.data.Mapping#2:
+¨&¨&*[Int]
+_star_.
+_root_.scala.Int#2◊
+›Â,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2”
+øøû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2Ò
+––*.apply
+_star_.Œ
+≈_root_.views.html.details.updateMobile_Scope0.updateMobile_Scope1.updateMobile#apply(Lcontrollers/manageDetails/UpdateDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2è
+ππ*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2è
+±±*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2Ó
+ÖÖ*.apply
+_star_.À
+¬_root_.views.html.details.updatePhone_Scope0.updatePhone_Scope1.updatePhone#apply(Lcontrollers/manageDetails/UpdateDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2◊
+Æî,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2◊
+—≤,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2”
+ˇˇ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2{
+ìì*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2°
+÷(÷(*[String, String, String]
+_star_.#
+_root_.scala.Predef.String##
+
+_root_.scala.Predef.String##
+_root_.scala.Predef.String#2s
+Ü-Ü-*[Mapping[Address]]
+_star_.%
+	_root_.play.api.data.Mapping#
+
+_root_.models.Address#2æ
+……*.apply
+_star_.õ
+í_root_.controllers.manageDetails.UpdateDetailsVM.apply(Lplay/api/data/Form;Lmodels/IndividualDetails;)Lcontrollers/manageDetails/UpdateDetailsVM;.2à
+±±/*(request, UpdatePersonalDetails.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.2x
+ÁÁ*[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2è
+êê*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2Æ
+ﬁ(Â("scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2◊
+®é,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2”
+≤≤û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2”
+‡‡û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2à
+ÔÔ/*(request, UpdatePersonalDetails.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.2à
+çç/*(request, UpdatePersonalDetails.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.2æ
+ïï*.apply
+_star_.õ
+í_root_.controllers.manageDetails.UpdateDetailsVM.apply(Lplay/api/data/Form;Lmodels/IndividualDetails;)Lcontrollers/manageDetails/UpdateDetailsVM;.2◊
+‡ø,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2”
+‚‚*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2§
+≈*≈**.apply[String]
+_star_.U
+M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.#
+_root_.scala.Predef.String#2æ
+‡‡*.apply
+_star_.õ
+í_root_.controllers.manageDetails.UpdateDetailsVM.apply(Lplay/api/data/Form;Lmodels/IndividualDetails;)Lcontrollers/manageDetails/UpdateDetailsVM;.2æ
+≥≥*.apply
+_star_.õ
+í_root_.controllers.manageDetails.UpdateDetailsVM.apply(Lplay/api/data/Form;Lmodels/IndividualDetails;)Lcontrollers/manageDetails/UpdateDetailsVM;.2”
+ˆˆû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2æ
+••*.apply
+_star_.õ
+í_root_.controllers.manageDetails.UpdateDetailsVM.apply(Lplay/api/data/Form;Lmodels/IndividualDetails;)Lcontrollers/manageDetails/UpdateDetailsVM;.2Ç
+∫∫*.apply[Int]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
+_root_.scala.Int#2#
+¯¯
+*(request)
+_star_.2¥
+’'’')*(UpdatePersonalDetails.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2æ
+ÆÆ*.apply
+_star_.õ
+í_root_.controllers.manageDetails.UpdateDetailsVM.apply(Lplay/api/data/Form;Lmodels/IndividualDetails;)Lcontrollers/manageDetails/UpdateDetailsVM;.2§
+…(…(*.apply[String]
+_star_.U
+M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.#
+_root_.scala.Predef.String#2w
+—+—+*[Mapping[String]]
+_star_.#
+
+_root_.scala.Predef.String#%
+	_root_.play.api.data.Mapping#2#
+””
+*(request)
+_star_.2{
+ææ*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2x
+ññ*[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2”
+‚‚û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2à
+··/*(request, UpdatePersonalDetails.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.2◊
+˚‡,UpdatePersonalDetails.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2C
+˘,˘,
+*[Address]
+_star_.
+	_root_.models.Address#2”
+çç*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2”
+¬¬û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2s
+´´ *(UpdatePersonalDetails.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2”
+““û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2†
+Ì,Ì,*.apply[Address]
+_star_.U
+M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.
+_root_.models.Address#2Æ
+˜+Å,"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2”
+ÖÖ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2æ
+êê*.apply
+_star_.õ
+í_root_.controllers.manageDetails.UpdateDetailsVM.apply(Lplay/api/data/Form;Lmodels/IndividualDetails;)Lcontrollers/manageDetails/UpdateDetailsVM;.2G
+—*—*	*[String]
+_star_.#
+_root_.scala.Predef.String#2¥
+˜˜)*(UpdatePersonalDetails.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2x
+˝˝*[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2æ
+ææ*.apply
+_star_.õ
+í_root_.controllers.manageDetails.UpdateDetailsVM.apply(Lplay/api/data/Form;Lmodels/IndividualDetails;)Lcontrollers/manageDetails/UpdateDetailsVM;.2Ò
+ππ*.apply
+_star_.Œ
+≈_root_.views.html.details.updateMobile_Scope0.updateMobile_Scope1.updateMobile#apply(Lcontrollers/manageDetails/UpdateDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2à
+——/*(request, UpdatePersonalDetails.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.2à
+ﬂﬂ/*(request, UpdatePersonalDetails.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.:Scala211B§./*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.manageDetails
+
+import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import javax.inject.Inject
+
+import config.ApplicationConfig
+import connectors.{Addresses, IndividualAccounts}
+import controllers.PropertyLinkingController
+import form.Mappings._
+import form.TextMatching
+import models.IndividualDetails
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.data.validation.Constraints
+import play.api.mvc.Result
+
+import scala.concurrent.Future
+
+class UpdatePersonalDetails @Inject()(config: ApplicationConfig,
+                                      authenticated: AuthenticatedAction,
+                                      addressesConnector: Addresses,
+                                      individualAccountConnector: IndividualAccounts) extends PropertyLinkingController {
+
+  def viewEmail() = authenticated { implicit request =>
+    Ok(views.html.details.updateEmail(UpdateDetailsVM(emailForm, request.individualAccount.details)))
+  }
+
+  def updateEmail() = authenticated { implicit request =>
+    emailForm.bindFromRequest().fold(
+      errors => BadRequest(views.html.details.updateEmail(UpdateDetailsVM(errors, request.individualAccount.details))),
+      email => updateDetails(email = Some(email))
+    )
+  }
+
+  def viewAddress() = authenticated { implicit request =>
+    Ok(views.html.details.updateAddress(UpdateDetailsVM(addressForm, request.individualAccount.details)))
+  }
+
+  def updateAddress() = authenticated { implicit request =>
+    addressForm.bindFromRequest().fold(
+      errors => BadRequest(views.html.details.updateAddress(UpdateDetailsVM(errors, request.individualAccount.details))),
+      address => address.addressUnitId match {
+        case Some(id) => updateDetails(addressId = Some(id))
+        case None => addressesConnector.create(address) flatMap { id => updateDetails(addressId = Some(id)) }
+      }
+    )
+  }
+
+  def viewPhone() = authenticated { implicit request =>
+    Ok(views.html.details.updatePhone(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
+  }
+
+  def updatePhone() = authenticated { implicit request =>
+    telephoneForm.bindFromRequest().fold(
+      errors => BadRequest(views.html.details.updatePhone(UpdateDetailsVM(errors, request.individualAccount.details))),
+      phone => updateDetails(phone = Some(phone))
+    )
+  }
+
+  def viewName() = authenticated { implicit request =>
+    if (config.editNameEnabled) {
+      Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details)))
+    } else {
+      notFound
+    }
+  }
+
+  def updateName() = authenticated { implicit request =>
+    if (config.editNameEnabled) {
+      nameForm.bindFromRequest().fold(
+        errors => BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details))),
+        name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
+      )
+    } else {
+      notFound
+    }
+  }
+
+  def viewMobile() = authenticated { implicit request =>
+    Ok(views.html.details.updateMobile(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
+  }
+
+  def updateMobile() = authenticated { implicit request =>
+    telephoneForm.bindFromRequest().fold(
+      errors => BadRequest(views.html.details.updateMobile(UpdateDetailsVM(errors, request.individualAccount.details))),
+      mobile => updateDetails(mobile = Some(mobile))
+    )
+  }
+
+  private def updateDetails(firstName: Option[String] = None,
+                            lastName: Option[String] = None,
+                            email: Option[String] = None,
+                            phone: Option[String] = None,
+                            mobile: Option[String] = None,
+                            addressId: Option[Int] = None)
+                           (implicit request: BasicAuthenticatedRequest[_]): Future[Result] = {
+
+    val currentDetails = request.individualAccount.details
+    val updatedDetails = currentDetails.copy(
+      firstName = firstName.getOrElse(currentDetails.firstName),
+      lastName = lastName.getOrElse(currentDetails.lastName),
+      email = email.getOrElse(currentDetails.email),
+      phone1 = phone.getOrElse(currentDetails.phone1),
+      phone2 = mobile.orElse(currentDetails.phone2),
+      addressId = addressId.getOrElse(currentDetails.addressId)
+    )
+    val updatedAccount = request.individualAccount.copy(details = updatedDetails)
+
+    individualAccountConnector.update(updatedAccount) map { _ => Redirect(controllers.manageDetails.routes.ViewDetails.show()) }
+  }
+
+  private lazy val emailForm = Form(
+    mapping(
+      "email" -> email.verifying(Constraints.maxLength(150)),
+      "confirmedEmail" -> TextMatching("email", "error.emailsMustMatch")
+    ) { case (e, _) => e }(email => Some((email, email)))
+  )
+
+  private lazy val telephoneForm = Form(
+    single(
+      "phone" -> nonEmptyText(maxLength = 20)
+    )
+  )
+
+  private lazy val nameForm = Form(
+    mapping(
+      "firstName" -> nonEmptyText(maxLength = 100),
+      "lastName" -> nonEmptyText(maxLength = 100)
+    )(Name.apply)(Name.unapply)
+  )
+
+  private lazy val addressForm = Form(
+    single("address" -> addressMapping)
+  )
+
+  case class Name(firstName: String, lastName: String)
+
+}
+
+case class UpdateDetailsVM(form: Form[_], currentDetails: IndividualDetails)
+J9app/controllers/manageDetails/UpdatePersonalDetails.scala

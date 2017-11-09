@@ -1,0 +1,1778 @@
+
+Å¶X
+·#Ó#N_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.(numberOfLinks)-
+ÿDÌD#_root_.utils.StubMessagesConnector#K
+€1Ê1A_root_.controllers.agent.ManageClientsSearchSortSpec#defaultHtml..
+˘˛$_root_.org.scalatestplus.play.guice.M
+Å5í5Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6530..6644 
+®'∆'ø_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.M
+”4‰4Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6530..6644+
+êõ!_root_.play.api.test.FakeRequest.u
+Ã„k_root_.play.api.inject.guice.GuiceApplicationBuilder.;_root_.play.api.inject.guice.GuiceApplicationBuilder#°
+ó=ù=î_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(values)O
+’ÿCtest/controllers/agent/ManageClientsSearchSortSpec.scala@3665..3742™
+óAûAü_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(heading)M
+ì"ó"Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4306..4350 
+˚Ö_root_.org.scalacheck.u
+—”k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.)
+ù:ü:_root_.models.GroupAccount#(id)K
+πB¿BA_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.ó
+∑«å_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.X
+∏≈N_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.(numberOfLinks)C
+‡+¯+9_root_.controllers.agent.routes.RepresentationController.M
+ò†Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2142..24145
+â9õ9+_root_.models.searchApi.AgentAuthorisation#d
+û)¶)Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;./
+ï1ó1%_root_.org.scalatest.FlatSpecLike#it.O
+•?¶?Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@8101..8102M
+Í4˚4Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6530..6644!
+…Œ_root_.org.jsoup.Jsoup.<
+¶CæC2_root_.controllers.agent.RepresentationController#f
+ﬁ7ˆ7\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.C
+â*°*9_root_.controllers.agent.routes.RepresentationController.*
+ÎÛ _root_.org.jsoup.nodes.Document#M
+ß<¬<Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7719..7746a
+—C€CW_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.;
+ Ì1_root_.utils.StubPropertyRepresentationConnector.M
+é8ö8Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6873..6950Ç
+ôúx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.%
+µ@ª@_root_.scala.Predef.String#¢
+Ü=ç=ï_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(heading)/
+∞&≤&%_root_.org.scalatest.FlatSpecLike#it.w
+˘+ï,m_root_.controllers.agent.ReverseRepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Call;.®
+âBéBù_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(index)X
+÷ „ N_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.(numberOfLinks)N
+ 8—8D_root_.scala.collection.immutable.Range#foreach(Lscala/Function1;)V.%
+£=©=_root_.scala.Predef.String#o
+“#‘#e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.[
+î£Q_root_.models.searchApi.AgentAuthResult.;_root_.models.searchApi.AgentAuthResult#M
+ù9°9Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7325..7325y
+”Ïo_root_.utils.StubPropertyRepresentationConnector.getstubbedAgentAuthResult()Lmodels/searchApi/AgentAuthResult;.
+ü©_root_.connectors.o
+ﬁ6Á6e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.O
+◊⁄Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@1491..1558O
+˙ãCtest/controllers/agent/ManageClientsSearchSortSpec.scala@1782..1915Y
+–>◊>O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.;
+¥:◊:1_root_.utils.StubPropertyRepresentationConnector.
+‚Â_root_.org.O
+ﬁ‚Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@1754..1776U
+ãAèAK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.M
+ì;†;Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7571..7584/
+ÔÒ%_root_.org.scalatest.FlatSpecLike#it.u
+≥&∑&k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.*
+‹CÌC _root_.config.ApplicationConfig#7
+∆2 2-_root_.org.scalatest.words.MatcherWords#have.M
+BÒBCtest/controllers/agent/ManageClientsSearchSortSpec.scala@8524..8525O
+Ù¸Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@3824..3875M
+£ßCtest/controllers/agent/ManageClientsSearchSortSpec.scala@2564..2586M
+ÂËCtest/controllers/agent/ManageClientsSearchSortSpec.scala@3813..3816M
+˙9˛9Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7418..7418Ç
+˛Åx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ó
+ÙÑå_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.U
+„!Ë!K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.ó
+¡2≈2å_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/HaveWord;)Lorg/scalatest/MustMatchers/ResultOfHaveWordForExtent;.
+·Á_root_.models.'
+˘Ä	_root_.play.api.test.Helpers.O
+ê+î+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5516..5538¸
+æCæCÒ_root_.controllers.agent.RepresentationController#`<init>`(Lconfig/ApplicationConfig;Lconnectors/PropertyRepresentationConnector;Lactions/AuthenticatedAction;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;)V.B
+êBîB8_root_.org.jsoup.nodes.Element#text()Ljava/lang/String;.o
+˚˝e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.>
+Û>ˆ>4_root_.java.util.ArrayList#get(I)Ljava/lang/Object;.z
+˙0Ä1p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.z
+«Õp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.(
+ò,õ,_root_.play.api.mvc.Call#(url)&
+†:¶:_root_.scala.Long#toLong()J.K
+ÂA_root_.controllers.agent.ManageClientsSearchSortSpec#defaultHtml.ô
+Ÿ<È<å_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.O
+Ä(Ñ(Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5116..5160z
+Øµp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.B
+’„8_root_.models.searchApi.AgentAuthResult#(authorisations)M
+∏
+∏
+A_root_.controllers.agent.ManageClientsSearchSortSpec#`<init>`()V.'
+∆À_root_.play.api.inject.guice.M
+ê:ú:Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6873..6950u
+¡≈k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.N
+ô'ß'D_root_.controllers.agent.ManageClientsSearchSortSpec#TestController.K
+õ?¢?A_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.[
+ÉíQ_root_.models.searchApi.AgentAuthClient.;_root_.models.searchApi.AgentAuthClient#&
+∆9Ã9_root_.scala.Long#toLong()J.)
+∂∏_root_.play.api.http.Status#OK.!
+›!‚!_root_.org.jsoup.Jsoup.u
+Ä Ñ k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.ß
+ÆA≤Aú_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(html)y
+π“o_root_.utils.StubPropertyRepresentationConnector.getstubbedAgentAuthResult()Lmodels/searchApi/AgentAuthResult;.3
+ô	¨	)_root_.play.api.test.DefaultAwaitTimeout#U
+∞2¿2K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.U
+Ó$Û$K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.o
+ôõe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.o
+Á&È&e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.)
+Ê/Ë/_root_.models.GroupAccount#(id),
+ª	«	"_root_.play.api.test.FutureAwaits#©
+±B∑Bû_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(values)U
+º¡K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.
+€‡_root_.org.jsoup.(
+Ò3Ù3_root_.play.api.mvc.Call#(url)O
+Û ˆ Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4207..4274M
+Ó3Ô3Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6638..6639>
+ÖBàB4_root_.java.util.ArrayList#get(I)Ljava/lang/Object;.*
+√.–. _root_.connectors.Authenticated.
+Å=Ñ=_root_.scala.Int#M
+¡(≈(Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5116..5160B
+Ô˝8_root_.models.searchApi.AgentAuthResult#(authorisations)z
+ë)ó)p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.ç
+≠B∞BÇ_root_.scala.collection.IterableLike#zip(Lscala/collection/GenIterable;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.z
+Ò2˜2p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.M
+“ŸCtest/controllers/agent/ManageClientsSearchSortSpec.scala@3207..3358&
+˜
+˙
+_root_.scala.collection.Seq.;
+ï∏1_root_.utils.StubPropertyRepresentationConnector._
+ß%≠%U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.S
+ÌDÌDI_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V._
+¯A˛AU_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.)
+Æ∞_root_.play.api.http.Status#OK.ü
+Í<Ó<í_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(html)
+Ò˜_root_.models.?
+ƒC«C5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.:
+µ4º40_root_.org.scalatest.words.MatcherWords#contain.+
+Œ'Ÿ'!_root_.play.api.test.FakeRequest.,
+¿
+Œ
+"_root_.controllers.ControllerSpec##
+ü=¢=_root_.scala.package.Seq#"
+¯Å_root_.models.searchApi./
+™¨%_root_.org.scalatest.FlatSpecLike#it.O
+ì'ñ'Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5007..5084*
+Ç*à* _root_.controllers.agent.routes.M
+ú8≠8Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6955..7042#
+ÊÛ_root_.org.scalatestplus./
+æ¿%_root_.org.scalatest.FlatSpecLike#it.Ç
+≤µx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.>
+Ñã4_root_.models.searchApi.AgentAuthorisation#(address)
+Â_root_.controllers._
+∆(Ã(U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.O
+©3™3Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6569..6570O
+‚ÍCtest/controllers/agent/ManageClientsSearchSortSpec.scala@2142..2414a
+•∑W_root_.models.searchApi.AgentAuthorisation.;_root_.models.searchApi.AgentAuthorisation#z
+Ú%¯%p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.!
+Ö8ç8_root_.models.Accounts.K
+¨5±5?_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.u
+Úˆk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.O
+ãíCtest/controllers/agent/ManageClientsSearchSortSpec.scala@3207..3358!
+á(å(_root_.org.jsoup.Jsoup.B
+ÈÙ8_root_.java.lang.String#toUpperCase()Ljava/lang/String;.
+ƒ…_root_.org.jsoup.U
+ÿ‹K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.M
+ﬂ8˙8Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7047..7109U
+˘=˝=K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.3
+Å1ç1)_root_.play.api.http.Status#UNAUTHORIZED.*
+Ÿ+ﬂ+ _root_.controllers.agent.routes.*
+ÜEóE _root_.config.ApplicationConfig#
+˜˙_root_.org.2
+¬6€6(_root_.models.DetailedIndividualAccount#M
+⁄.Ê.Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5735..58132
+Ë6Å7(_root_.models.DetailedIndividualAccount#*
+Ç@ä@ _root_.org.jsoup.nodes.Document#´
+©@Ø@û_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(values)°
+Ø?≥?ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.z
+˚)Å*p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
+Û	¯	_root_.scala.%
+÷/ÿ/_root_.scala.Long#`!=`(J)Z.M
+Ÿ/Â/Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5735..5813O
+«ÀCtest/controllers/agent/ManageClientsSearchSortSpec.scala@2115..2137o
+Ì-ˆ-e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Q
+ñóG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.M
+∞;Ω;Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7600..76134
+œ
+œ
+*_root_.org.scalatest.FlatSpec#`<init>`()V.
+Ù¯_root_.play.api.test.
+∏ª_root_.org.K
+»C–CA_root_.play.api.Application#injector()Lplay/api/inject/Injector;.)
+’$◊$_root_.play.api.http.Status#OK.
+öû_root_.play.D
+Í˙:_root_.models.searchApi.AgentAuthClient#(organisationName)3
+éí)_root_.models.RepresentationPending.name.M
+Ñ%á%Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4740..4743/
+˛Ä%_root_.org.scalatest.FlatSpecLike#it.I
+– ’ ?_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.z
+˛=Ñ>p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.P
+úûF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ó
+Äêå_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.I
+≤∑?_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.
+•Æ_root_.org.scalatest.#
+Òˆ_root_.controllers.agent.
+ü¢_root_.play.api.z
+√!…!p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.X
+ˆ&É'N_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.(numberOfLinks)O
+™0≠0Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6182..6249!
+∂ª_root_.org.jsoup.Jsoup.M
+ëïCtest/controllers/agent/ManageClientsSearchSortSpec.scala@1754..1776u
+≠±k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.y
+Óáo_root_.utils.StubPropertyRepresentationConnector.getstubbedAgentAuthResult()Lmodels/searchApi/AgentAuthResult;.y
+≤Ào_root_.utils.StubPropertyRepresentationConnector.getstubbedAgentAuthResult()Lmodels/searchApi/AgentAuthResult;.M
+Ë.˘.Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5818..5905o
+ﬂ9Ë9e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.)
+√9≈9_root_.models.GroupAccount#(id)a
+’A€AW_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.z
+©Øp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.t
+ÿ:Î:j_root_.utils.StubPropertyRepresentationConnector.stubAgentAuthResult(Lmodels/searchApi/AgentAuthResult;)V.O
+÷!⁄!Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4306..4350?
+ÓDÒD5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.
+º≈_root_.org.scalatest.B
+ˇí8_root_.org.scalatestplus.play.guice.GuiceOneAppPerSuite#O
+·$Â$Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4701..4745B
+£±8_root_.models.searchApi.OwnerAuthResult#(authorisations)o
+Œ3‚3e_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;.y
+„3Î3o_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;.(pageSize)N
+∞0æ0D_root_.controllers.agent.ManageClientsSearchSortSpec#TestController.
+ªæ_root_.play.api.K
+ó+¢+A_root_.controllers.agent.ManageClientsSearchSortSpec#defaultHtml.U
+Ï22K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.1
+µDŒD'_root_.utils.StubPropertyLinkConnector.;
+ÙCóD1_root_.utils.StubPropertyRepresentationConnector.N
+€ÈD_root_.controllers.agent.ManageClientsSearchSortSpec#TestController.1
+Ñ
+í
+'_root_.scala.collection.JavaConverters.C
+µ3Õ39_root_.controllers.agent.routes.RepresentationController.M
+Ω?æ?Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@8101..8102u
+ò1ú1k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.V
+≥/Ω/L_root_.org.scalacheck.Gen#retryUntil(Lscala/Function1;)Lorg/scalacheck/Gen;.%
+†3¶3_root_.scala.Predef.String#O
+àåCtest/controllers/agent/ManageClientsSearchSortSpec.scala@2564..2586û
+˜>¸>ì_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(index).
+¯ç$_root_.models.RepresentationPending._
+ÑäU_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.=
+„È3_root_.models.searchApi.AgentAuthorisation#(client)z
+€"·"p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.U
+œ‘K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.C
+£Æ9_root_.play.api.Application.;_root_.play.api.Application#B
+«/’/8_root_.models.searchApi.AgentAuthClient#(organisationId)
+Ã5–5_root_.scala.Unit#*
+Üè _root_.org.scalacheck.Arbitrary.Ü
+‡B‰B|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.z
+Ì'Û'p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.ç
+∞4¥4Ç_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/ContainWord;)Lorg/scalatest/words/ResultOfContainWord;.O
+æ-œ-Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5818..5905O
+ÃBÕBCtest/controllers/agent/ManageClientsSearchSortSpec.scala@8524..8525K
+†´A_root_.controllers.agent.ManageClientsSearchSortSpec#defaultHtml.1
+ÌÜ'_root_.utils.StubPropertyLinkConnector.*
+<¯< _root_.org.jsoup.nodes.Document#u
+ò#ú#k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.z
+êAñAp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.œ
+¢*¿*ƒ_root_.controllers.agent.ReverseRepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.O
+¬∆Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@3774..3818M
+±æCtest/controllers/agent/ManageClientsSearchSortSpec.scala@2243..22565
+ü/±/+_root_.models.searchApi.AgentAuthorisation#o
+ÿ⁄e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.M
+»ÃCtest/controllers/agent/ManageClientsSearchSortSpec.scala@2850..2872M
+ˇÉCtest/controllers/agent/ManageClientsSearchSortSpec.scala@3774..3818£
+·?˚?ñ_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.I
+ÿ>‹>?_root_.scala.collection.IterableLike#drop(I)Ljava/lang/Object;.œ
+–Óƒ_root_.controllers.agent.ReverseRepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.*
+˜7Ñ8 _root_.connectors.Authenticated.%
+°@ß@_root_.scala.Predef.String#O
+ôùCtest/controllers/agent/ManageClientsSearchSortSpec.scala@3477..3499u
+ÅÖk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.M
+ÓÙCtest/controllers/agent/ManageClientsSearchSortSpec.scala@2877..2993O
+£¨Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2591..2700O
+≤(æ(Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5166..5225f
+™.¬.\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.O
+ã7¶7Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7047..7109z
+Œ$‘$p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
+¡5ƒ5_root_.scala.Int#o
+ˇ8à9e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.O
+˛#Å$Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4602..4669_
+Œ⁄U_root_.org.scalatest.mockito.MockitoSugar.;_root_.org.scalatest.mockito.MockitoSugar##
+®7´7_root_.scala.package.Seq#ê
+À2œ2Ö_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#size(JLorg/scalatest/enablers/Size;)Lorg/scalatest/compatible/Assertion;.=
+¿/∆/3_root_.models.searchApi.AgentAuthorisation#(client)M
+˘!¸!Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4345..4348*
+Æ3¥3 _root_.controllers.agent.routes. 
+Íàø_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.B
+É?é?8_root_.java.lang.String#toUpperCase()Ljava/lang/String;.M
+∑¿Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2591..2700O
+ÂÈCtest/controllers/agent/ManageClientsSearchSortSpec.scala@3169..3201I
+€#‡#?_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.I
+&ı&?_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.O
+ÍÓCtest/controllers/agent/ManageClientsSearchSortSpec.scala@3306..3310<
+ı˜2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.u
+ÂÈk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.
+ˇÖ_root_.config.+
+Ø$∫$!_root_.play.api.test.FakeRequest.P
+èCùCD_root_.controllers.agent.ManageClientsSearchSortSpec#TestController.M
+æ¬Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@3169..3201|
+˚8˛8r_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.!
+ø≈_root_.play.api.inject.k
+à!ú!a_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.O
+Ü/í/Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6018..6121†
+˙<ˇ<ì_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(index)+
+§!Ø!!_root_.play.api.test.FakeRequest.9
+ œ/_root_.org.jsoup.Jsoup.;_root_.org.jsoup.Jsoup#
+ô3ú3_root_.scala.Int#°
+£Ωñ_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V./
+…À%_root_.org.scalatest.FlatSpecLike#it.K
+èöA_root_.controllers.agent.ManageClientsSearchSortSpec#defaultHtml.&
+œ4“4_root_.scala.collection.Seq.)
+Ù'ˆ'_root_.play.api.http.Status#OK.o
+∫ºe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
+ø@√@_root_.scala.Unit#o
+É+Ö+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.Ç
+ÚAıAx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.
+ì@ñ@_root_.scala.Int#
+ÎÔ_root_.play.
+∂∫_root_.play.*
+À7›7 _root_.utils.StubAuthentication.+
+€0Ê0!_root_.play.api.test.FakeRequest.O
+…B BCtest/controllers/agent/ManageClientsSearchSortSpec.scala@8521..8522B
+ø? ?8_root_.java.lang.String#toUpperCase()Ljava/lang/String;.a
+˚DÖEW_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.(
+Úı_root_.play.api.mvc.Call#(url)M
+‘·Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2243..2256o
+êôe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.N
+˘ á!D_root_.controllers.agent.ManageClientsSearchSortSpec#TestController.ü
+î?ö?î_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(values)"
+˘	É
+_root_.scala.collection.™
+å@ë@ù_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(index)%
+è=ï=_root_.scala.Predef.String#Y
+∏8∫8O_root_.scala.runtime.RichInt#to(I)Lscala/collection/immutable/Range/Inclusive;.
+°§_root_.org.'
+∆Õ_root_.org.scalatest.mockito.
+–	Ÿ	_root_.resources.2
+È9¯9(_root_.models.searchApi.AgentAuthClient#K
+≠∏A_root_.controllers.agent.ManageClientsSearchSortSpec#defaultHtml.
+ì	ó	_root_.play.api.test.M
+í6ñ6Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6930..6930a
+√>…>W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.M
+ÖâCtest/controllers/agent/ManageClientsSearchSortSpec.scala@2115..2137
+◊⁄_root_.org.M
+“’Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@1618..16212
+Ï:˚:(_root_.models.searchApi.AgentAuthResult.
+„	Ë	_root_.utils.M
+≥æA_root_.controllers.agent.ManageClientsSearchSortSpec#defaultHtml.M
+Å<é<Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7681..7694K
+ˆÅA_root_.controllers.agent.ManageClientsSearchSortSpec#defaultHtml.¡
+˘˝∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.O
+ì%ü%Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4751..4810/
+ï#ó#%_root_.org.scalatest.FlatSpecLike#it.X
+ƒ1À1N_root_.org.scalatest.Assertions#pending()Lorg/scalatest/compatible/Assertion;.∑
+Ω4Œ4¨_root_.org.scalatest.words.ResultOfContainWord#theSameElementsAs(Lscala/collection/GenTraversable;Lorg/scalatest/enablers/Aggregating;)Lorg/scalatest/compatible/Assertion;.o
+« … e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V._
+°>ß>U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.ó
+í¢å_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.M
+”;‡;Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7635..7648K
+ŒŸA_root_.controllers.agent.ManageClientsSearchSortSpec#defaultHtml.k
+ì$ß$a_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;._
+Ê>Ï>U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.o
+©´e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.B
+ïB†B8_root_.java.lang.String#toUpperCase()Ljava/lang/String;.O
+1Ä2Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6380..6442%
+Î5˜5_root_.models.GroupAccount#
+è	í	_root_.play.api.o
+ª1Ω1e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.Y
+‚AÈAO_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.,
+ÀŸ"_root_.controllers.ControllerSpec#K
+ÚD˙DA_root_.play.api.Application#injector()Lplay/api/inject/Injector;.Z
+≤5ø5N_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.(numberOfLinks)%
+Ñ6ê6_root_.models.GroupAccount#N
+›ÎD_root_.controllers.agent.ManageClientsSearchSortSpec#TestController.k
+ÏÄa_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;./
+£,•,%_root_.org.scalatest.FlatSpecLike#it.©
+¸?Ä@ú_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(html)Ç
+‰Áx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.Ç
+›‡x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.u
+Ã–k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.M
+É2á2Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6352..6374O
+Î,˜,Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5735..5813!
+—.Ÿ._root_.models.Accounts.K
+ÜóA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#O
+Ø6¿6Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6955..7042¨
+ò@ü@ü_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(heading)U
+·
+Ù
+I_root_.controllers.agent.ManageClientsSearchSortSpec#additionalAppConfig.Y
+£2™2O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.N
+Ñ$í$D_root_.controllers.agent.ManageClientsSearchSortSpec#TestController.d
+Á"Ô"Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.C
+∑œ9_root_.controllers.agent.routes.RepresentationController.d
+˛%Ü&Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.
+≠=±=_root_.scala.Unit#;
+Ø“1_root_.utils.StubPropertyRepresentationConnector.%
+í-û-_root_.models.GroupAccount#M
+Æ	π	C_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#X
+ª8»8N_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.(numberOfLinks)_
+ò"û"U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.ù
+ú>†>í_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(html)o
+á†e_root_.utils.StubPropertyLinkConnector.getstubbedOwnerAuthResult()Lmodels/searchApi/OwnerAuthResult;.B
+ÚB˝B8_root_.java.lang.String#toUpperCase()Ljava/lang/String;.(
+Ù¯_root_.org.scalatestplus.play.
+Û_root_.play.api.
+ø _root_.controllers.B
+˛>Ç?8_root_.org.jsoup.nodes.Element#text()Ljava/lang/String;.K
+ÁÔA_root_.org.jsoup.nodes.Document.;_root_.org.jsoup.nodes.Document#B
+Œ‹8_root_.models.searchApi.AgentAuthResult#(authorisations)/
+‚‰%_root_.org.scalatest.FlatSpecLike#it._
+à2é2U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.o
+ï/û/e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.
+ä	é	_root_.play.O
+√–Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2243..2256U
+‘BﬂBK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.O
+ï>ô>Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7953..8079A
+ú
+∑
+5_root_.controllers.agent.ManageClientsSearchSortSpec#O
+¶™Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2850..2872K
+™∑A_root_.connectors.Authenticated.;_root_.connectors.Authenticated#z
+›„p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.+
+àì!_root_.play.api.test.FakeRequest.2
+—-Í-(_root_.models.DetailedIndividualAccount#M
+§µCtest/controllers/agent/ManageClientsSearchSortSpec.scala@1782..1915'
+ì(¢(_root_.play.api.test.Helpers.O
+¡«Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2877..2993u
+¶,™,k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.<
+ÂBÓB2_root_.org.scalatest.words.MatcherWords#startWith.I
+ÍAÓA?_root_.scala.collection.IterableLike#drop(I)Ljava/lang/Object;.I
+«Ã?_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.z
+ß≠p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.'
+Ù$É%_root_.play.api.test.Helpers./
+˝ˇ%_root_.org.scalatest.FlatSpecLike#it.o
+åée_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.*
+ùDØD _root_.utils.StubAuthentication.=
+‚Ë3_root_.models.searchApi.OwnerAuthorisation#(status)C
+øÀ9_root_.models.searchApi.OwnerAuthorisation#(submissionId)k
+ø0”0a_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.M
+£(¶(Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5155..5158#
+±@¥@_root_.scala.package.Seq#U
+ç(í(K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.z
+“+ÿ+p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.Ç
+‡>„>x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.O
+ßA´ACtest/controllers/agent/ManageClientsSearchSortSpec.scala@8355..8481†
+Ö>å>ï_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(heading)O
+›5È5Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6873..6950!
+Ë$Ì$_root_.org.jsoup.Jsoup.Q
+¯˘G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.o
+˙5É6e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.M
+∂9¬9Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6873..69500
+¬7≈7&_root_.scala.collection.immutable.Nil.O
+‘1ÿ1Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6352..6374d
+‘‹Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.:
+¥?ª?0_root_.org.scalatest.words.MatcherWords#contain.'
+’‰_root_.play.api.test.Helpers.H
+ü∞>_root_.models.searchApi.AgentAuthorisation#(localAuthorityRef)_
+≥AπAU_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.U
+™?Æ?K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.2
+˜-ê.(_root_.models.DetailedIndividualAccount#M
+¢%¶%Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4701..4745M
+†-§-Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5792..5792O
+Ü3ó3Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6530..6644%
+˘,Ö-_root_.models.GroupAccount#o
+à-ë-e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.O
+à"ê"Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4356..4407*
+ó.©. _root_.utils.StubAuthentication.u
+“*÷*k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.)
+ !Ã!_root_.play.api.http.Status#OK.M
+®B¨BCtest/controllers/agent/ManageClientsSearchSortSpec.scala@8355..8481(
+ƒ*«*_root_.play.api.mvc.Call#(url)*
+∞∂ _root_.controllers.agent.routes.!
+·Ê_root_.org.jsoup.nodes.
+¿√_root_.org.'
+¬—_root_.play.api.test.Helpers.;
+é±1_root_.utils.StubPropertyRepresentationConnector.5
+¨7æ7+_root_.models.searchApi.AgentAuthorisation#'
+È!¯!_root_.play.api.test.Helpers.B
+äò8_root_.models.searchApi.AgentAuthResult#(authorisations)o
+ﬁ,‡,e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V./
+œ*—*%_root_.org.scalatest.FlatSpecLike#it."9
+"_root_.controllers.ControllerSpec#Ä@ControllerSpec")
+_root_.scala.collection.Seq.	ÄÑSeq"Ä
+å_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/HaveWord;)Lorg/scalatest/MustMatchers/ResultOfHaveWordForExtent;.Ómust2(haveWord: HaveWord): ResultOfHaveWordForExtent[T]",
+$_root_.org.scalatest.words.HaveWord#"D
+/<_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#"<
+014_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"$
+_root_.play.api.test.ÄàÄtest"™
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@1618..1621cx$9Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"T
+8_root_.org.scalatestplus.play.guice.GuiceOneAppPerSuite#Ä@GuiceOneAppPerSuite"™
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@3665..3742cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"Ï
+Ç_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/ContainWord;)Lorg/scalatest/words/ResultOfContainWord;.‰must2(containWord: ContainWord): ResultOfContainWord[T]"/
+'_root_.org.scalatest.words.ContainWord#"7
+//_root_.org.scalatest.words.ResultOfContainWord#"<
+014_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"6
+!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"´
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4740..4743dx$18Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"Õ
+Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.owithClue(clue: Any): T"
+
+_root_.scala.Any#"6
+._root_.org.scalatest.AppendedClues#Clueful#[T]"o
+-_root_.org.scalatest.words.MatcherWords#have.>haveHaveWord"*
+$_root_.org.scalatest.words.HaveWord#"‘
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6530..6644åmanageClientsLinkFunction1[Int, String]"
+	_root_.scala.Function1#"
+
+_root_.scala.Int#"#
+_root_.scala.Predef.String#"-
+_root_.scala.collection.ÄàÄ
+collection"
+a_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.äviewClientPropertiesM(page: Int, pageSize: Int, requestTotalRowCount: Boolean): Action[AnyContent]"
+
+_root_.scala.Int#"
+_root_.scala.Int#"
+18_root_.scala.Boolean#"#
+;A_root_.play.api.mvc.Action#"'
+BL_root_.play.api.mvc.AnyContent#"'
+_root_.connectors.ÄàÄ
+connectors"™
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@1491..1558cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"^
+1_root_.utils.StubPropertyRepresentationConnector.)ÄÑ#StubPropertyRepresentationConnector"ì
+ø_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.ŒviewClientPropertiesSearchSort„(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], client: Option[String]): Action[AnyContent]"
+
+_root_.scala.Int#"
+_root_.scala.Int#"
+18_root_.scala.Boolean#"
+EK_root_.scala.Option#"#
+LR_root_.scala.Predef.String#"
+`f_root_.scala.Option#"#
+gm_root_.scala.Predef.String#"
+x~_root_.scala.Option#"$
+Ö_root_.scala.Predef.String#"
+ëó_root_.scala.Option#"%
+òû_root_.scala.Predef.String#"
+®Æ_root_.scala.Option#"%
+Øµ_root_.scala.Predef.String#"
+¿∆_root_.scala.Option#"%
+«Õ_root_.scala.Predef.String#"%
+—◊_root_.play.api.mvc.Action#")
+ÿ‚_root_.play.api.mvc.AnyContent#"‘
+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Í	arbitrary)[T] => (implicit a: Arbitrary[T]): Gen[T]"(
+ _root_.org.scalacheck.Arbitrary#"p
+h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]""
+#&_root_.org.scalacheck.Gen#"p
+'(h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]"S
+2_root_.controllers.agent.RepresentationController#Ä RepresentationController"¿
+ì_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(index)(ÄindexInt"
+_root_.scala.Int#"1
+ _root_.controllers.agent.routes.ÄÑàroutes"Î
+t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"
+JN_root_.scala.Long#"(
+Yj _root_.models.IndividualDetails#"1
+mÜ(_root_.models.DetailedIndividualAccount#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2850..2872:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"ó
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@3306..3310PÄauthAgentAuthorisation"1
++_root_.models.searchApi.AgentAuthorisation#"ß
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5818..5905`individualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"ü
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2243..2256XauthorisationOwnerAuthorisation"1
++_root_.models.searchApi.OwnerAuthorisation#"Ê
+I_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.ò<init>5(appConfig: ApplicationConfig): StubMessagesConnector"(
+ _root_.config.ApplicationConfig#"+
+ 5#_root_.utils.StubMessagesConnector#"w
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@8524..85250vString"!
+_root_.scala.Predef.String#"à	
+Ç_root_.scala.collection.IterableLike#zip(Lscala/collection/GenIterable;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.Äzipc[A1, B, That] => (that: GenIterable[B])(implicit bf: CanBuildFrom[Repr, Tuple2[A1, B], That]): That",
+#$_root_.scala.collection.GenIterable#"é
+$%Ö_root_.scala.collection.IterableLike#zip(Lscala/collection/GenIterable;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+5A-_root_.scala.collection.generic.CanBuildFrom#"3
+BF+_root_.scala.collection.IterableLike#[Repr]"
+HN_root_.scala.Tuple2#"è
+OQÜ_root_.scala.collection.IterableLike#zip(Lscala/collection/GenIterable;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[A1]"é
+STÖ_root_.scala.collection.IterableLike#zip(Lscala/collection/GenIterable;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"ë
+W[à_root_.scala.collection.IterableLike#zip(Lscala/collection/GenIterable;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"ë
+_cà_root_.scala.collection.IterableLike#zip(Lscala/collection/GenIterable;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"|
+8_root_.java.lang.String#toUpperCase()Ljava/lang/String;.@ÑÄÄtoUpperCase
+(): String" 
+
+_root_.java.lang.String#",
+_root_.models.searchApi.ÄàÄ	searchApi"å
+G_root_.models.searchApi.AgentAuthClient#`<init>`(JLjava/lang/String;)V.¿<init>A(organisationId: Long, organisationName: String): AgentAuthClient"
+_root_.scala.Long#"#
+)/_root_.scala.Predef.String#"0
+2A(_root_.models.searchApi.AgentAuthClient#"™
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4602..4669cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"ç
+Ö_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#size(JLorg/scalatest/enablers/Size;)Lorg/scalatest/compatible/Assertion;.Çsize5(expectedSize: Long)(implicit sz: Size[A]): Assertion"
+_root_.scala.Long#"+
+"&#_root_.org.scalatest.enablers.Size#"G
+'(?_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#[A]"/
+,5'_root_.org.scalatest.package.Assertion#"î
+4_root_.java.util.ArrayList#get(I)Ljava/lang/Object;.\ÑÄÄget(x$1: Int): E"
+	_root_.scala.Int#"&
+_root_.java.util.ArrayList#[E]"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"‡
+N_root_.org.scalatest.Assertions#pending()Lorg/scalatest/compatible/Assertion;.çpending!Assertion with PendingStatement{}"-
+	'_root_.org.scalatest.package.Assertion#".
+&_root_.org.scalatest.PendingStatement#"´
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5155..5158dx$21Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"m
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7635..7648&x$56Int"
+_root_.scala.Int#"~
+:_root_.models.searchApi.AgentAuthClient#(organisationName)@ÅorganisationNameString"!
+_root_.scala.Predef.String#"J
+_root_.models.GroupAccount#(id)'ÅidLong"
+_root_.scala.Long#"ø
+9_root_.controllers.agent.routes.RepresentationController.ÅÅÄàRepresentationControllerReverseRepresentationController"?
+9_root_.controllers.agent.ReverseRepresentationController#"™
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6182..6249cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"Õ
+e_root_.utils.StubPropertyLinkConnector.getstubbedOwnerAuthResult()Lmodels/searchApi/OwnerAuthResult;.dgetstubbedOwnerAuthResult(): OwnerAuthResult"0
+(_root_.models.searchApi.OwnerAuthResult#"à
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5735..5813AgroupAccountGroupAccount"!
+_root_.models.GroupAccount#"
+_root_.play.api.
+ÄàÄapi"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2115..2137:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"u
+8_root_.org.jsoup.nodes.Element#text()Ljava/lang/String;.9ÑÄÄtext
+(): String" 
+
+_root_.java.lang.String#"‘
+ñ_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.∏ÑÄcheckTableColumnStartsWithH(html: Document, index: Int, heading: String, values: Seq[String]): Unit"(
+ _root_.org.jsoup.nodes.Document#"
+_root_.scala.Int#"#
+&,_root_.scala.Predef.String#"!
+69_root_.scala.package.Seq#"#
+:@_root_.scala.Predef.String#"
+DH_root_.scala.Unit#"[
+)_root_.play.api.http.Status#UNAUTHORIZED..UNAUTHORIZEDInt"
+_root_.scala.Int#"ç
+2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.WÑÄ==(x$1: Any): Boolean"
+	_root_.scala.Any#"
+_root_.scala.Boolean#"“
+í_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(html);ÄhtmlDocument"&
+ _root_.org.jsoup.nodes.Document#" 
+_root_.scala.Unit#
+Ä†Unit"ê
+K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.A†Ä herePosition"+
+%_root_.org.scalactic.source.Position#"û
+∂_root_.models.searchApi.AgentAuthorisation#`<init>`(JJLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lmodels/searchApi/AgentAuthClient;Ljava/lang/String;)V.‚<init>Ÿ(authorisationId: Long, authorisedPartyId: Long, status: String, submissionId: String, uarn: Long, address: String, localAuthorityRef: String, client: AgentAuthClient, representationStatus: String): AgentAuthorisation"
+_root_.scala.Long#"
++/_root_.scala.Long#"#
+9?_root_.scala.Predef.String#"#
+OU_root_.scala.Predef.String#"
+]a_root_.scala.Long#"#
+lr_root_.scala.Predef.String#"%
+áç_root_.scala.Predef.String#"2
+ó¶(_root_.models.searchApi.AgentAuthClient#"%
+æƒ_root_.scala.Predef.String#"5
+«Ÿ+_root_.models.searchApi.AgentAuthorisation#"4
+&_root_.scala.collection.immutable.Nil.
+ÄÑàNil"Ã
+U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.sÑÄÄselect(x$1: String): Elements" 
+_root_.java.lang.String#")
+!_root_.org.jsoup.select.Elements#"Ç
+N_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.(numberOfLinks)0ÄnumberOfLinksInt"
+_root_.scala.Int#"µ
+L_root_.org.scalacheck.Gen#retryUntil(Lscala/Function1;)Lorg/scalacheck/Gen;.‰
+retryUntil"(p: Function1[T, Boolean]): Gen[T]"
+_root_.scala.Function1#"%
+_root_.org.scalacheck.Gen#[T]"
+_root_.scala.Boolean#""
+_root_.org.scalacheck.Gen#"%
+ !_root_.org.scalacheck.Gen#[T]"ß
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6955..7042`individualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"¬
+s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
+	_root_.scala.Long#"#
+_root_.scala.Predef.String#"#
+)/_root_.scala.Predef.String#"
+<?_root_.scala.Int#"#
+HN_root_.scala.Predef.String#"#
+W]_root_.scala.Predef.String#"
+ho_root_.scala.Boolean#"
+|Ä_root_.scala.Long#"%
+Éè_root_.models.GroupAccount#"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4701..4745:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@1754..1776:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"™
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4207..4274cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"/
+_root_.org.scalatest.mockito.ÄàÄmockito"D
+$_root_.models.RepresentationPending.ÄÑàRepresentationPending"'
+_root_.org.jsoup.Jsoup.ÄÑàJsoup"ß
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2877..2993`baRefsSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"ä
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5166..5225CpreviousLinkElements"'
+!_root_.org.jsoup.select.Elements#"%
+_root_.resources.ÄàÄ	resources"Ü
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@3824..3875?nextLinkElements"'
+!_root_.org.jsoup.select.Elements#"o
+8_root_.models.searchApi.AgentAuthClient#(organisationId)3ÅorganisationIdLong"
+_root_.scala.Long#"m
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7571..7584&x$54Int"
+_root_.scala.Int#"-
+_root_.org.scalatestplus.play.ÄàÄplay"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5116..5160:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"´
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4345..4348dx$15Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"o
+4_root_.models.searchApi.AgentAuthorisation#(address)7ÅaddressString"!
+_root_.scala.Predef.String#")
+_root_.org.scalatest.ÄàÄ	scalatest"Û
+j_root_.utils.StubPropertyRepresentationConnector.stubAgentAuthResult(Lmodels/searchApi/AgentAuthResult;)V.ÑstubAgentAuthResult(reps: AgentAuthResult): Unit"0
+(_root_.models.searchApi.AgentAuthResult#"
+_root_.scala.Unit#"‹
+ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.¿mustu[TYPECLASS1] => (rightMatcherFactory1: MatcherFactory1[T, TYPECLASS1])(implicit typeClass1: TYPECLASS1[T]): Assertion"6
+'6._root_.org.scalatest.matchers.MatcherFactory1#"<
+784_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"´
+:D¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"´
+\f¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"<
+gh4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"/
+lu'_root_.org.scalatest.package.Assertion#"7
+ _root_.connectors.Authenticated.ÄÑAuthenticated"Ü
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4356..4407?nextLinkElements"'
+!_root_.org.jsoup.select.Elements#"-
+_root_.play.api.inject.guice.ÄàÄguice"
+_root_.org.
+ÄàÄorg"›
+ƒ_root_.controllers.agent.ReverseRepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.ìviewClientPropertiesSearchSort’(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], client: Option[String]): Call"
+
+_root_.scala.Int#"
+_root_.scala.Int#"
+18_root_.scala.Boolean#"
+EK_root_.scala.Option#"#
+LR_root_.scala.Predef.String#"
+`f_root_.scala.Option#"#
+gm_root_.scala.Predef.String#"
+x~_root_.scala.Option#"$
+Ö_root_.scala.Predef.String#"
+ëó_root_.scala.Option#"%
+òû_root_.scala.Predef.String#"
+®Æ_root_.scala.Option#"%
+Øµ_root_.scala.Predef.String#"
+¿∆_root_.scala.Option#"%
+«Õ_root_.scala.Predef.String#"#
+—’_root_.play.api.mvc.Call#"˜
+î_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(values)^ÄvaluesSeq[String]"
+_root_.scala.package.Seq#"#
+
+_root_.scala.Predef.String#"´
+?_root_.scala.collection.IterableLike#drop(I)Ljava/lang/Object;.hdrop(n: Int): Repr"
+_root_.scala.Int#"3
+
++_root_.scala.collection.IterableLike#[Repr]"„
+p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.omustBe(right: Any): Assertion"
+_root_.scala.Any#"/
+'_root_.org.scalatest.package.Assertion#"A
+(_root_.models.searchApi.AgentAuthResult.ÄÑAgentAuthResult"m
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6638..6639&x$32Int"
+_root_.scala.Int#"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2564..2586:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"à
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6873..6950AgroupAccountGroupAccount"!
+_root_.models.GroupAccount#"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@3477..3499:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"'
+_root_.org.jsoup.nodes.ÄàÄnodes"7
+"_root_.play.api.test.FutureAwaits#Ä@FutureAwaits"2
+_root_.models.GroupAccount#Ä†ÄGroupAccount"(
+_root_.play.api.inject.ÄàÄinject"û
+o_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;.(pageSize)+ÄpageSizeInt"
+_root_.scala.Int#"o
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5792..5792(x$25Long"
+_root_.scala.Long#"k
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6569..6570$ÄnInt"
+_root_.scala.Int#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"∫
+x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ΩmapQ[B, That] => (f: Function1[A, B])(implicit bf: CanBuildFrom[Repr, B, That]): That"
+_root_.scala.Function1#"3
++_root_.scala.collection.TraversableLike#[A]"É
+{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+/;-_root_.scala.collection.generic.CanBuildFrom#"6
+<@._root_.scala.collection.TraversableLike#[Repr]"É
+BC{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ü
+EI~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ü
+MQ~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Y
+5_root_.controllers.agent.ManageClientsSearchSortSpec# Ä ManageClientsSearchSortSpec"∞
+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#"4
+$_root_.org.scalatestplus.play.guice.ÄàÄguice":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"]
+)_root_.models.RepresentationPending.name.0nameString"
+_root_.java.lang.String#"{
+0_root_.org.scalatest.words.MatcherWords#contain.GcontainContainWord"-
+'_root_.org.scalatest.words.ContainWord#"Œ
+W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.sÑÄÄselect(x$1: String): Elements" 
+_root_.java.lang.String#")
+!_root_.org.jsoup.select.Elements#"?
+'_root_.scala.collection.JavaConverters.ÄÑJavaConverters".
+_root_.play.api.test.Helpers.ÄÑHelpers"§
+D_root_.scala.collection.immutable.Range#foreach(Lscala/Function1;)V.€ÑÄforeach#[U] => (f: Function1[Int, U]): Unit"
+_root_.scala.Function1#"
+_root_.scala.Int#"O
+G_root_.scala.collection.immutable.Range#foreach(Lscala/Function1;)V.[U]"
+#_root_.scala.Unit#"—
+|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.–must'(rightMatcherX1: Matcher[T]): Assertion".
+&_root_.org.scalatest.matchers.Matcher#"<
+4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"/
+''_root_.org.scalatest.package.Assertion#"o
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6930..6930(x$35Long"
+_root_.scala.Long#"v
+_root_.scala.Long#`!=`(J)Z.WÑÄ!=(x: Long): Boolean"
+_root_.scala.Long#"
+_root_.scala.Boolean#"ü
+O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.LasScalaA"<
+6_root_.scala.collection.convert.Decorators#AsScala#[A]"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@3774..3818:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"¡
+∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
+_root_.scala.Predef.String#">
+96_root_.org.scalatest.words.StringVerbStringInvocation#">
+<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"Å
+û_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(values)^ÄvaluesSeq[String]"
+_root_.scala.package.Seq#"#
+
+_root_.scala.Predef.String#"™
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2591..2700c	addressesSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"m
+3_root_.models.searchApi.OwnerAuthorisation#(status)6ÅstatusString"!
+_root_.scala.Predef.String#"ä
+W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.ÆÑÄ
+instanceOf,[T] => (implicit evidence$1: ClassTag[T]): T"&
+%_root_.scala.reflect.ClassTag#"b
+&'Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"b
++,Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"à
+A_root_.controllers.agent.ManageClientsSearchSortSpec#defaultHtml.CÅÄ@defaultHtmlDocument"&
+ _root_.org.jsoup.nodes.Document#" 
+ù_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(index)(ÄindexInt"
+_root_.scala.Int#"◊
+o_root_.utils.StubPropertyRepresentationConnector.getstubbedAgentAuthResult()Lmodels/searchApi/AgentAuthResult;.dgetstubbedAgentAuthResult(): AgentAuthResult"0
+(_root_.models.searchApi.AgentAuthResult#"
+_root_.play.ÄàÄplay"+
+_root_.org.scalacheck.ÄàÄ
+scalacheck"É
+2_root_.org.scalatest.words.MatcherWords#startWith.M	startWithStartWithWord"/
+)_root_.org.scalatest.words.StartWithWord#"A
+#_root_.utils.StubMessagesConnector#Ä StubMessagesConnector"‹
+ú_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(html);ÄhtmlDocument"&
+ _root_.org.jsoup.nodes.Document#"≤
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@1782..1915korganisationNamesSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"˝
+e_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;.ìviewClientProperties (page: Int, pageSize: Int): Call"
+
+_root_.scala.Int#"
+_root_.scala.Int#"!
+ _root_.play.api.mvc.Call#"L
+_root_.scala.Long#toLong()J.,ÑÄtoLongLong"
+_root_.scala.Long#"∞
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7953..8079idataBuffer[String]"-
+'_root_.scala.collection.mutable.Buffer#" 
+_root_.java.lang.String#"m
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7600..7613&x$55Int"
+_root_.scala.Int#"y
+9_root_.models.searchApi.OwnerAuthorisation#(submissionId)<ÅsubmissionIdString"!
+_root_.scala.Predef.String#"à
+I_root_.controllers.agent.ManageClientsSearchSortSpec#additionalAppConfig.∫additionalAppConfigSeq[Tuple2[String, String]]""
+_root_.scala.collection.Seq#"
+
+_root_.scala.Tuple2#" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#"B
+(_root_.models.searchApi.AgentAuthClient#Ä†ÄAgentAuthClient"¿
+å_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.ÆÑÄcheckTableColumnH(html: Document, index: Int, heading: String, values: Seq[String]): Unit"(
+ _root_.org.jsoup.nodes.Document#"
+_root_.scala.Int#"#
+&,_root_.scala.Predef.String#"!
+69_root_.scala.package.Seq#"#
+:@_root_.scala.Predef.String#"
+DH_root_.scala.Unit#"1
+_root_.org.scalatestplus.ÄàÄscalatestplus"t
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@8521..8522-dString"
+_root_.java.lang.String#"æ
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7719..7746wx$58Seq[AgentAuthorisation]"
+_root_.scala.package.Seq#"3
++_root_.models.searchApi.AgentAuthorisation#"ˆ
+k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.Ümust(string: String): ItVerbString"#
+	_root_.scala.Predef.String#"7
+/_root_.org.scalatest.FlatSpecLike#ItVerbString#"3
+ _root_.org.scalacheck.Arbitrary.ÄÑ	Arbitrary"Ø
+A_root_.controllers.agent.ManageClientsSearchSortSpec#`<init>`()V.j<init>(): ManageClientsSearchSortSpec"=
+5_root_.controllers.agent.ManageClientsSearchSortSpec#"Ó
+\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.çstubAuthenticationResult#(result: AuthorisationResult): Unit".
+	&_root_.connectors.AuthorisationResult#"
+#_root_.scala.Unit#"R
+_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
+_root_.scala.Unit#"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"
+_root_.models.ÄàÄmodels"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6352..6374:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"∞
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@8355..8481idataBuffer[String]"-
+'_root_.scala.collection.mutable.Buffer#" 
+_root_.java.lang.String#"—
+ï_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(heading)7ÄheadingString"!
+_root_.scala.Predef.String#"m
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7681..7694&x$57Int"
+_root_.scala.Int#"ä
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4751..4810CpreviousLinkElements"'
+!_root_.org.jsoup.select.Elements#"ç
+m_root_.controllers.agent.ReverseRepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Call;.õpendingRepresentationRequest (page: Int, pageSize: Int): Call"
+
+_root_.scala.Int#"
+_root_.scala.Int#"!
+ _root_.play.api.mvc.Call#"É
+3_root_.models.searchApi.AgentAuthorisation#(client)LÅclientAgentAuthClient".
+(_root_.models.searchApi.AgentAuthClient#"´
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@3813..3816dx$12Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#")
+_root_.controllers.ÄàÄcontrollers"™
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5007..5084cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"o
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7325..7325(x$46Long"
+_root_.scala.Long#"®
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@3207..3358aactionsSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"ø
+8_root_.models.searchApi.OwnerAuthResult#(authorisations)ÇÅauthorisationsSeq[OwnerAuthorisation]"
+_root_.scala.package.Seq#"3
++_root_.models.searchApi.OwnerAuthorisation#"ø
+8_root_.models.searchApi.AgentAuthResult#(authorisations)ÇÅauthorisationsSeq[AgentAuthorisation]"
+_root_.scala.package.Seq#"3
++_root_.models.searchApi.AgentAuthorisation#" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"
+_root_.utils.ÄàÄutils"<
+ _root_.utils.StubAuthentication.ÄÑStubAuthentication"»
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6018..6121ÄindirectLinkGen[AgentAuthorisation]" 
+_root_.org.scalacheck.Gen#"3
++_root_.models.searchApi.AgentAuthorisation#"
+_root_.config.ÄàÄconfig"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@5516..5538:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"!
+_root_.org.jsoup.ÄàÄjsoup"ƒ
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@6380..6442}pageSizeControlsBuffer[Element]"-
+'_root_.scala.collection.mutable.Buffer#"'
+_root_.org.jsoup.nodes.Element#")
+_root_.controllers.agent.ÄàÄagent"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."
+_root_.scala.ÄàÄscala"É
+>_root_.models.searchApi.AgentAuthorisation#(localAuthorityRef)AÅlocalAuthorityRefString"!
+_root_.scala.Predef.String#"H
++_root_.models.searchApi.AgentAuthorisation#Ä†ÄAgentAuthorisation"©
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@2142..2414bstatusesSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"E
+)_root_.play.api.test.DefaultAwaitTimeout#Ä@DefaultAwaitTimeout"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"¶
+Ò_root_.controllers.agent.RepresentationController#`<init>`(Lconfig/ApplicationConfig;Lconnectors/PropertyRepresentationConnector;Lactions/AuthenticatedAction;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;)V.Ø<init>›(config: ApplicationConfig, reprConnector: PropertyRepresentationConnector, authenticated: AuthenticatedAction, propertyLinkConnector: PropertyLinkConnector, messagesConnector: MessagesConnector): RepresentationController"(
+	 _root_.config.ApplicationConfig#":
++J2_root_.connectors.PropertyRepresentationConnector#"+
+[n#_root_.actions.AuthenticatedAction#"B
+áú8_root_.connectors.propertyLinking.PropertyLinkConnector#".
+±¬$_root_.connectors.MessagesConnector#"<
+≈›2_root_.controllers.agent.RepresentationController#"±
+A_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.Îforeach![U] => (f: Function1[A, U]): Unit"
+_root_.scala.Function1#"0
+(_root_.scala.collection.IterableLike#[A]"L
+D_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.[U]"
+!_root_.scala.Unit#"J
+'_root_.utils.StubPropertyLinkConnector.ÄÑStubPropertyLinkConnector"∆
+¨_root_.org.scalatest.words.ResultOfContainWord#theSameElementsAs(Lscala/collection/GenTraversable;Lorg/scalatest/enablers/Aggregating;)Lorg/scalatest/compatible/Assertion;.îtheSameElementsAs\(right: scala.collection.GenTraversable[_])(implicit aggregating: Aggregating[L]): Assertion"2
+BM*_root_.org.scalatest.enablers.Aggregating#":
+NO2_root_.org.scalatest.words.ResultOfContainWord#[L]"/
+S\'_root_.org.scalatest.package.Assertion#"n
+*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
+_root_.org.scalatest.FlatSpec#"L
+(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"«
+O_root_.scala.runtime.RichInt#to(I)Lscala/collection/immutable/Range/Inclusive;.tto(end: Int): Inclusive"
+	_root_.scala.Int#":
+2_root_.scala.collection.immutable.Range.Inclusive#"°
+?_root_.controllers.agent.ManageClientsSearchSortSpec#setup(I)V.^ÑÄsetup(numberOfLinks: Int): Unit"
+_root_.scala.Int#"
+_root_.scala.Unit#"\
+D_root_.controllers.agent.ManageClientsSearchSortSpec#TestController.ÄÑTestController")
+_root_.models.Accounts.ÄÑAccounts"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@3169..3201:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"€
+ü_root_.controllers.agent.ManageClientsSearchSortSpec#checkTableColumnStartsWith(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(heading)7ÄheadingString"!
+_root_.scala.Predef.String#"É
+A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.>injectorInjector"&
+ _root_.play.api.inject.Injector#"
+_root_.scala.Int#	Ä†Int"j
+%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
+)_root_.org.scalatest.FlatSpecLike#ItWord#"s
+5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.:ÅÄ`appApplication""
+_root_.play.api.Application#"3
+ _root_.org.jsoup.nodes.Document#Ä†ÄDocument"G
+_root_.play.api.http.Status#OK.$OKInt"
+_root_.scala.Int#"Å
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@4306..4350:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"¥
+>_root_.org.jsoup.nodes.Document#`<init>`(Ljava/lang/String;)V.ràÄÄ<init>(x$1: String): Document" 
+_root_.java.lang.String#"(
+ _root_.org.jsoup.nodes.Document#"x
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@8101..81021ÄvString"!
+_root_.scala.Predef.String#"∞
+r_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.π:+F[B, That] => (elem: B)(implicit bf: CanBuildFrom[Repr, B, That]): That"}
+u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+$0-_root_.scala.collection.generic.CanBuildFrom#".
+15&_root_.scala.collection.SeqLike#[Repr]"}
+78u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ä
+:>x_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ä
+BFx_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"∂
+k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#"z
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7418..74183x$43String"!
+_root_.scala.Predef.String#"÷
+Ctest/controllers/agent/ManageClientsSearchSortSpec.scala@7047..7109éarbitraryAgentAuthorisationSeq[AgentAuthorisation]"
+_root_.scala.package.Seq#"3
++_root_.models.searchApi.AgentAuthorisation#"¿
+K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.qÑÄÄparse(x$1: String): Document" 
+_root_.java.lang.String#"(
+ _root_.org.jsoup.nodes.Document#2ë
+Ÿ.Ÿ.*.apply
+_star_.o
+g_root_.models.Accounts.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;)Lmodels/Accounts;.2∆
+˚˚,*(scala.collection.Seq.canBuildFrom[String])
+_star_.#
+$*_root_.scala.Predef.String#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2Å
+Ô(ù)?ManageClientsSearchSortSpec.this.convertToClueful[Assertion](*)t
+!1l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;./
+2;'_root_.org.scalatest.package.Assertion#
+=>_star_.2&
+÷÷*(x$10, x$11)
+_star_.2n
+∫$∫$*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2x
+¯¯*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2Ÿ
+À*À*ƒ*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 139))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2»
+õ¶§ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 46), org.scalactic.Prettifier.default)
+9<_root_.scala.Int#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+>?_star_.y
+_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ú£(_root_.org.scalactic.Prettifier.default.2Ö
+ﬂ–?ManageClientsSearchSortSpec.this.convertToInAndIgnoreMethods(*)®
+!<ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+=>_star_.2ó
+˚:˚:*.apply
+_star_.u
+m_root_.models.searchApi.AgentAuthResult.apply(IIIIILscala/collection/Seq;)Lmodels/searchApi/AgentAuthResult;.2z
+ë.ë.**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2—
+Ô(ê)©ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Boolean](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 149), org.scalactic.Prettifier.default)
+9@_root_.scala.Boolean#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+BC_star_.y
+chq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+°®(_root_.org.scalactic.Prettifier.default.2≤
+á®£ManageClientsSearchSortSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 110), org.scalactic.Prettifier.default)¡
+!;∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+<=_star_.y
+]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+õ¢(_root_.org.scalactic.Prettifier.default.2m
+‰4‰4*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2n
+Ø!Ø!*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2…
+·'Ï'•ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 143), org.scalactic.Prettifier.default)
+9<_root_.scala.Int#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+>?_star_.y
+_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ù§(_root_.org.scalactic.Prettifier.default.2…
+¬$Õ$•ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 130), org.scalactic.Prettifier.default)
+9<_root_.scala.Int#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+>?_star_.y
+_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ù§(_root_.org.scalactic.Prettifier.default.2~
+ü-ü-,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2n
+Ÿ'Ÿ'*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2÷
+òEòEh*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
+_star_.(
+Te _root_.config.ApplicationConfig#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
+$ _root_.config.ApplicationConfig#&
+KS_root_.scala.reflect.ClassTag#2ü
+ÁÁ*[String, Seq[String]]
+_star_.#
+_root_.scala.Predef.String#$
+
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2¨
+––E*(ManageClientsSearchSortSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+#DD_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2î
+∞2¿2±ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Buffer[Element]](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 178), org.scalactic.Prettifier.default)/
+9?'_root_.scala.collection.mutable.Buffer#'
+@G_root_.org.jsoup.nodes.Element#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+JK_star_.y
+kpq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+©∞(_root_.org.scalactic.Prettifier.default.2∆
+ÓÓ,*(scala.collection.Seq.canBuildFrom[String])
+_star_.#
+$*_root_.scala.Predef.String#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2&
+ß(ß(*(x$22, x$23)
+_star_.2ü
+µµ*[String, Seq[String]]
+_star_.#
+_root_.scala.Predef.String#$
+
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2≤
+∫=˝=£ManageClientsSearchSortSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 207), org.scalactic.Prettifier.default)¡
+!;∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+<=_star_.y
+]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+õ¢(_root_.org.scalactic.Prettifier.default.2¨
+∑B∑BG*(scala.collection.mutable.Buffer.canBuildFrom[Tuple2[String, String]])
+_star_. 
+6<_root_.java.lang.String#e
+".]_root_.scala.collection.mutable.Buffer.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.#
+>D_root_.scala.Predef.String#
+/5_root_.scala.Tuple2#2ò
+ú>œ>Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
+ 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
+7>_root_.org.jsoup.nodes.Element#
+@A_star_.2V
+¢?¢?*[Assertion]
+_star_./
+'_root_.org.scalatest.package.Assertion#2±
+ﬂ¯¢ManageClientsSearchSortSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 51), org.scalactic.Prettifier.default)¡
+!;∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+<=_star_.y
+]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ö°(_root_.org.scalactic.Prettifier.default.2}
+–.–.*.apply
+_star_.[
+S_root_.connectors.Authenticated.apply(Lmodels/Accounts;)Lconnectors/Authenticated;.2ÿ
+≈≈√*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 69))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2…
+˙5ë61resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2î
+˙
+˙
+*.apply[Tuple2[String, String]]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String#
+_root_.scala.Tuple2# 
+_root_.java.lang.String#2÷
+ÓCÓCh*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
+_star_.(
+Te _root_.config.ApplicationConfig#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
+$ _root_.config.ApplicationConfig#&
+KS_root_.scala.reflect.ClassTag#2ò
+—2—2D*(org.scalatest.enablers.Size.sizeOfGenTraversable[Buffer[Element]])
+_star_._
+2W_root_.org.scalatest.enablers.Size.sizeOfGenTraversable()Lorg/scalatest/enablers/Size;./
+39'_root_.scala.collection.mutable.Buffer#'
+:A_root_.org.jsoup.nodes.Element#2‚
+®:®:8*(scala.collection.Seq.canBuildFrom[AgentAuthorisation])
+_star_.3
+$6+_root_.models.searchApi.AgentAuthorisation#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2Ÿ
+ﬂ9˘94resources.`package`.getArbitrary[AgentAuthClient](*)0
+!0(_root_.models.searchApi.AgentAuthClient#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+23_star_.2ÿ
+••√*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 58))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2|
+⁄0⁄0*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2≤
+®+—+£ManageClientsSearchSortSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 156), org.scalactic.Prettifier.default)¡
+!;∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+<=_star_.y
+]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+õ¢(_root_.org.scalactic.Prettifier.default.2Ÿ
+ë#ë#ƒ*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 113))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Y
+≥?≥?*[Containing]
+_star_.1
+)_root_.org.scalatest.enablers.Containing#2ë
+ç8ç8*.apply
+_star_.o
+g_root_.models.Accounts.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;)Lmodels/Accounts;.2Ÿ
+è?è?7*(scala.collection.mutable.Buffer.canBuildFrom[String])
+_star_.e
+".]_root_.scala.collection.mutable.Buffer.canBuildFrom()Lscala/collection/generic/CanBuildFrom;. 
+/5_root_.java.lang.String#2<
+—8—8*[Unit]
+_star_.
+_root_.scala.Unit#2Å
+–%˝%?ManageClientsSearchSortSpec.this.convertToClueful[Assertion](*)t
+!1l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;./
+2;'_root_.org.scalatest.package.Assertion#
+=>_star_.2r
+˘9˘9&*(resources.`package`.agentAuthClient)
+_star_.1
+%)_root_.resources.package.agentAuthClient.2Ÿ
+°B°B7*(scala.collection.mutable.Buffer.canBuildFrom[String])
+_star_.e
+".]_root_.scala.collection.mutable.Buffer.canBuildFrom()Lscala/collection/generic/CanBuildFrom;. 
+/5_root_.java.lang.String#2å
+˙3Ø4∞ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 183), org.scalactic.Prettifier.default) 
+@F_root_.java.lang.String#/
+9?'_root_.scala.collection.mutable.Buffer#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+IJ_star_.y
+joq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+®Ø(_root_.org.scalactic.Prettifier.default.2…
+à-ü-1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2~
+ë6ë6,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2|
+áá*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2∆
+ûû,*(scala.collection.Seq.canBuildFrom[String])
+_star_.#
+$*_root_.scala.Predef.String#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2≤
+Ã@èA£ManageClientsSearchSortSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 213), org.scalactic.Prettifier.default)¡
+!;∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+<=_star_.y
+]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+õ¢(_root_.org.scalactic.Prettifier.default.2Ÿ
+ü,ü,ƒ*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 153))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ﬂ
+ˇ8ú97resources.`package`.getArbitrary[AgentAuthorisation](*)3
+!3+_root_.models.searchApi.AgentAuthorisation#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+56_star_.2∆
+åå,*(scala.collection.Seq.canBuildFrom[String])
+_star_.#
+$*_root_.scala.Predef.String#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2ß
+„>„>*[String, Buffer[String]]
+_star_. 
+_root_.java.lang.String# 
+_root_.java.lang.String#/
+
+'_root_.scala.collection.mutable.Buffer#2n
+Ê0Ê0*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2Å
+©”?ManageClientsSearchSortSpec.this.convertToClueful[Assertion](*)t
+!1l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;./
+2;'_root_.org.scalatest.package.Assertion#
+=>_star_.2ü
+‡‡*[String, Seq[String]]
+_star_.#
+_root_.scala.Predef.String#$
+
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2∆
+±±,*(scala.collection.Seq.canBuildFrom[String])
+_star_.#
+$*_root_.scala.Predef.String#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2≤
+÷22£ManageClientsSearchSortSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 179), org.scalactic.Prettifier.default)¡
+!;∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+<=_star_.y
+]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+õ¢(_root_.org.scalactic.Prettifier.default.2&
+ÈÈ*(x$13, x$14)
+_star_.2ß
+∞B∞B1*[String, String, Buffer[Tuple2[String, String]]]
+_star_. 
+_root_.java.lang.String##
+
+_root_.scala.Predef.String#
+_root_.scala.Tuple2##
+(._root_.scala.Predef.String#/
+'_root_.scala.collection.mutable.Buffer# 
+ &_root_.java.lang.String#2«
+“4“4*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.#
+_root_.scala.Predef.String#2|
+Õ'Õ'*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2n
+õõ*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2n
+ìì*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2ÿ
+˘˘√*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 99))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ê
+≤/≤/5*(resources.`package`.arbitraryAgentAuthorisationGen)
+_star_.@
+48_root_.resources.package.arbitraryAgentAuthorisationGen.2≤
+“BﬂB£ManageClientsSearchSortSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 216), org.scalactic.Prettifier.default)¡
+!;∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+<=_star_.y
+]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+õ¢(_root_.org.scalactic.Prettifier.default.2x
+ññ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2Ì
+ò5ò5*(org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
+_star_. 
+GM_root_.java.lang.String#/
+OU'_root_.scala.collection.mutable.Buffer#ì
+%Fä_root_.org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Aggregating;.H
+nu@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;. 
+v|_root_.java.lang.String#2Ë
+À?À?}*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
+_star_.H
+ls@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.ê
+$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;. 
+EK_root_.java.lang.String#/
+MS'_root_.scala.collection.mutable.Buffer# 
+tz_root_.java.lang.String#2Ÿ
+ë1ë1ƒ*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 159))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ç
+ÓBÓB*.apply
+_star_.k
+c_root_.org.scalatest.words.StartWithWord#apply(Ljava/lang/String;)Lorg/scalatest/matchers/Matcher;.2|
+£!£!*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2Æ
+˚
+õ"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2ÿ
+∫∫√*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 51))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2…
+£Æ•ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 103), org.scalactic.Prettifier.default)
+9<_root_.scala.Int#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+>?_star_.y
+_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ù§(_root_.org.scalactic.Prettifier.default.2Ÿ
+¨&¨&ƒ*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 126))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2|
+èè*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2ü
+ÅÅ*[String, Seq[String]]
+_star_.#
+_root_.scala.Predef.String#$
+
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2p
+∂8∑8scala.Predef.intWrapper(*)9
+1_root_.scala.LowPriorityImplicits#intWrapper(I)I.
+_star_.2ì
+ª?ª?*.apply
+_star_.q
+i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2z
+Ç7Ç7**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2—
+Ω"⁄"©ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Boolean](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 123), org.scalactic.Prettifier.default)
+9@_root_.scala.Boolean#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+BC_star_.y
+chq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+°®(_root_.org.scalactic.Prettifier.default.2ò
+ÆA·ABscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
+ 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
+7>_root_.org.jsoup.nodes.Element#
+@A_star_.2…
+∑!¬!•ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 117), org.scalactic.Prettifier.default)
+9<_root_.scala.Int#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+>?_star_.y
+_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ù§(_root_.org.scalactic.Prettifier.default.2m
+˚4˚4*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2…
+Ó0˘0•ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 169), org.scalactic.Prettifier.default)
+9<_root_.scala.Int#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+>?_star_.y
+_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ù§(_root_.org.scalactic.Prettifier.default.2|
+Æ$Æ$*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2D
+ûû	*[String]
+_star_. 
+_root_.java.lang.String#2&
+à%à%*(x$19, x$20)
+_star_.2ê
+ú9ú95*(resources.`package`.arbitraryAgentAuthorisationGen)
+_star_.@
+48_root_.resources.package.arbitraryAgentAuthorisationGen.2ü
+úú*[String, Seq[String]]
+_star_.#
+_root_.scala.Predef.String#$
+
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2„
+Ì-ë.>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2—
+–%Ò%©ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Boolean](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 136), org.scalactic.Prettifier.default)
+9@_root_.scala.Boolean#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+BC_star_.y
+chq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+°®(_root_.org.scalactic.Prettifier.default.2Å
+Ω"Ê"?ManageClientsSearchSortSpec.this.convertToClueful[Assertion](*)t
+!1l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;./
+2;'_root_.org.scalatest.package.Assertion#
+=>_star_.2—
+©∆©ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Boolean](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 109), org.scalactic.Prettifier.default)
+9@_root_.scala.Boolean#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+BC_star_.y
+chq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+°®(_root_.org.scalactic.Prettifier.default.2±
+±‹¢ManageClientsSearchSortSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 96), org.scalactic.Prettifier.default)¡
+!;∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+<=_star_.y
+]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ö°(_root_.org.scalactic.Prettifier.default.2m
+í5í5*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2å
+™?Æ?∞ManageClientsSearchSortSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 209), org.scalactic.Prettifier.default) 
+@F_root_.java.lang.String#/
+9?'_root_.scala.collection.mutable.Buffer#ª
+!8≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+IJ_star_.y
+joq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+®Ø(_root_.org.scalactic.Prettifier.default.2ÿ
+ÎÎ√*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 93))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ÿ
+ﬁﬁ√*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 84))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ò
+É2¢2Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
+ 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
+7>_root_.org.jsoup.nodes.Element#
+@A_star_.2Ÿ
+ú5ú5ƒ*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 172))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2≤
+’)˙)£ManageClientsSearchSortSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 150), org.scalactic.Prettifier.default)¡
+!;∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+<=_star_.y
+]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+õ¢(_root_.org.scalactic.Prettifier.default.2}
+Ñ8Ñ8*.apply
+_star_.[
+S_root_.connectors.Authenticated.apply(Lmodels/Accounts;)Lconnectors/Authenticated;.2ß
+ıAıA*[String, Buffer[String]]
+_star_. 
+_root_.java.lang.String# 
+_root_.java.lang.String#/
+
+'_root_.scala.collection.mutable.Buffer#2„
+ﬁ6Ç7>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2ÿ
+˘˘√*(org.scalactic.source.Position.apply("ManageClientsSearchSortSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 76))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2V
+¿B¿B*[Assertion]
+_star_./
+'_root_.org.scalatest.package.Assertion#2&
+˝!˝!*(x$16, x$17)
+_star_.:Scala211BüE/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.agent
+
+import config.ApplicationConfig
+import connectors.Authenticated
+import controllers.ControllerSpec
+import models._
+import models.searchApi.{AgentAuthClient, AgentAuthResult, AgentAuthorisation}
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest._
+import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.test.Helpers._
+import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
+import resources._
+import utils._
+
+import scala.collection.JavaConverters._
+
+class ManageClientsSearchSortSpec extends ControllerSpec {
+
+  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "true")
+
+  lazy val defaultHtml = {
+    setup()
+    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    status(res) mustBe OK
+
+    Jsoup.parse(contentAsString(res))
+  }
+
+  "The manage clients page" must "display the organisation name for each of the agent's first 15 client properties" in {
+    val html = defaultHtml
+
+    val organisationNames = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.client.organisationName)
+    checkTableColumn(html, 3, "Client", organisationNames)
+  }
+
+  it must "display the link status, and the submission ID if the link is pending, for each of the user's first 15 properties" in {
+    val html = defaultHtml
+    val statuses = StubPropertyLinkConnector.getstubbedOwnerAuthResult().authorisations.map {
+      case authorisation if authorisation.status.toUpperCase == RepresentationPending.name => s"Pending submission ID: ${authorisation.submissionId}"
+      case _ => "Approved"
+    }
+
+    checkTableColumn(html, 2, "Status", statuses)
+  }
+
+
+  it must "display the address for each of the agent's first 15 client properties" in {
+    val html = defaultHtml
+    val addresses = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.address)
+
+    checkTableColumn(html, 0, "Address", addresses)
+  }
+
+  it must "display the BA ref for each of the agent's first 15 client properties" in {
+    val html = defaultHtml
+    val baRefs = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.localAuthorityRef)
+
+    checkTableColumn(html, 1, "Local authority reference", baRefs)
+  }
+
+
+  it must "display the available actions for each of the user's first 15 client properties" in {
+    val html: Document = defaultHtml
+
+    val actions = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map { auth =>
+      s"Revoke Client View Valuations"
+    }
+    checkTableColumnStartsWith(html, 4, "Actions", actions)
+  }
+
+  it must "display the current page number" in {
+    val html = defaultHtml
+
+    html.select("ul.pagination li.active").text mustBe "1"
+  }
+
+  it must "include a 'next' link if there are more results" in {
+    setup(numberOfLinks = 16)
+
+    val res = TestController.viewClientPropertiesSearchSort(1, 15)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    val nextLink = html.select("ul.pagination li.next")
+
+    nextLink.hasClass("disabled") mustBe false withClue "'Next' link is incorrectly disabled"
+    nextLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientPropertiesSearchSort(2).url
+  }
+
+  it must "include an inactive 'next' link if there are no further results" in {
+    setup(numberOfLinks = 16)
+
+    val res = TestController.viewClientProperties(2, 15)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    val nextLink = html.select("ul.pagination li.next")
+
+    nextLink.hasClass("disabled") mustBe true withClue "'Next' link is not disabled"
+  }
+
+  it must "include an inactive 'previous' link when on page 1" in {
+    setup(numberOfLinks = 16)
+
+    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    val previousLink = html.select("ul.pagination li.previous")
+
+    previousLink.hasClass("disabled") mustBe true withClue "'Previous' link is not disabled"
+  }
+
+  it must "include a 'previous' link when not on page 1" in {
+    setup(numberOfLinks = 16)
+
+    val res = TestController.viewClientPropertiesSearchSort(2, 15)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    val previousLink = html.select("ul.pagination li.previous")
+
+    previousLink.hasClass("disabled") mustBe false withClue "'Previous' link is incorrectly disabled"
+    previousLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientPropertiesSearchSort(1).url
+  }
+
+  it must "include a link to pending properties view" in {
+    val html = defaultHtml
+
+    html.select("a#viewPending").attr("href") mustBe routes.RepresentationController.pendingRepresentationRequest().url
+  }
+
+  it must "not display the page if the user is not an agent" in {
+    val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = false)
+    val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
+
+    val indirectLink = arbitrary[AgentAuthorisation].retryUntil(_.client.organisationId != groupAccount.id)
+    //StubPropertyLinkConnector.stubLink(indirectLink)
+
+    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    status(res) mustBe UNAUTHORIZED
+  }
+
+  it must "include pagination controls" in {
+    pending
+    val html = defaultHtml
+
+    val pageSizeControls = html.select("ul.pageLength li").asScala
+
+    pageSizeControls must have size 4
+    pageSizeControls.head.text mustBe "15"
+
+    val manageClientsLink: Int => String = n => routes.RepresentationController.viewClientProperties(pageSize = n).url
+
+    pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(manageClientsLink(25), manageClientsLink(50), manageClientsLink(100))
+  }
+
+  private def setup(numberOfLinks: Int = 15): Unit = {
+    val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = true)
+    val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
+    var arbitraryAgentAuthorisation: Seq[AgentAuthorisation] = Nil
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
+    (1 to numberOfLinks) foreach { _ =>
+      arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(authorisedPartyId = groupAccount.id.toLong,
+        client = arbitrary[AgentAuthClient].copy(organisationId = groupAccount.id.toLong))
+    }
+
+    StubPropertyRepresentationConnector.stubAgentAuthResult(AgentAuthResult(start =1,
+      size = numberOfLinks,
+      total = numberOfLinks,
+      filterTotal = numberOfLinks,
+      pendingRepresentations = numberOfLinks,
+      authorisations = arbitraryAgentAuthorisation))
+
+  }
+
+  private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
+    html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
+    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(2).map(_.select("td").get(index).text.toUpperCase)
+    values foreach { v => data must contain (v.toUpperCase) }
+  }
+
+  private def checkTableColumnStartsWith(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
+    html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
+    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(2).map(_.select("td").get(index).text.toUpperCase)
+
+    (data zip values).foreach { case (d, v) => d.toUpperCase must startWith (v.toUpperCase) }
+  }
+
+  object TestController extends RepresentationController(
+    app.injector.instanceOf[ApplicationConfig],
+    StubPropertyRepresentationConnector,
+    StubAuthentication,
+    StubPropertyLinkConnector,
+    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
+  )
+}J8test/controllers/agent/ManageClientsSearchSortSpec.scala

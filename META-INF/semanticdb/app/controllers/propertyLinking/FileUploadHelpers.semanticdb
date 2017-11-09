@@ -1,0 +1,283 @@
+
+ÎqT
+ÇH_root_.controllers.propertyLinking.FileUploadHelpers#withLinkingSession.F
+˜
+˝
+<_root_.controllers.propertyLinking.FileUploadHelpers#config.Q
+õúG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.H
+–÷<_root_.controllers.propertyLinking.FileUploadHelpers#config.K
+¢£?_root_.controllers.propertyLinking.FileUploadHelpers#$init$()V.L
+ò™Bapp/controllers/propertyLinking/FileUploadHelpers.scala@1370..1429A
+ê°5_root_.controllers.propertyLinking.FileUploadHelpers#=
+Î	ı	3_root_.java.util.UUID.randomUUID()Ljava/util/UUID;.R
+„ıH_root_.controllers.propertyLinking.FileUploadHelpers#withLinkingSession.
+éí_root_.java.util./
+É	ò	%_root_.session.LinkingSessionRequest#N
+â
+õ
+Bapp/controllers/propertyLinking/FileUploadHelpers.scala@1285..1365>
+ÛÉ4_root_.controllers.propertyLinking.FileUploadResult#L
+‘⁄Bapp/controllers/propertyLinking/FileUploadHelpers.scala@1241..1280
+¿À_root_.controllers.U
+ﬁÛK_root_.session.LinkingSessionRequest.;_root_.session.LinkingSessionRequest#ü
+äîî_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadUrl(Ljava/lang/String;Lsession/LinkingSessionRequest;)Ljava/lang/String;.(failureUrl)4
+∂
+º
+*_root_.controllers.propertyLinking.routes.Q
+û
+ü
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.F
+¢
+®
+<_root_.controllers.propertyLinking.FileUploadHelpers#config.%
+ÈÔ_root_.scala.Predef.String#.
+∂∂$_root_.java.lang.Object#`<init>`()V.8
+Ω ._root_.config.ApplicationConfig#fileUploadUrl.4
+©Ø*_root_.controllers.propertyLinking.routes.%
+û	§	_root_.scala.Predef.String#Z
+º¿P_root_.controllers.propertyLinking.ReverseDeclaration#show()Lplay/api/mvc/Call;.
+’‹_root_.session.<
+√œ0_root_.controllers.propertyLinking.FileTooLarge.N
+ÅàBapp/controllers/propertyLinking/FileUploadHelpers.scala@1025..10327
+¨≈-_root_.controllers.PropertyLinkingController#Q
+Û
+Ù
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.N
+ﬁ
+
+Bapp/controllers/propertyLinking/FileUploadHelpers.scala@1370..1429Z
+…
+Õ
+P_root_.controllers.propertyLinking.ReverseDeclaration#show()Lplay/api/mvc/Call;.-
+ÒÄ#_root_.controllers.propertyLinking.=
+¯	Ä
+3_root_.java.util.UUID#toString()Ljava/lang/String;.S
+¢≥G_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadBaseUrl.
+†¶_root_.config.@
+∞ª6_root_.controllers.propertyLinking.routes.Declaration.3
+ 	‘	)_root_.models.LinkingSession#(envelopeId)?
+ˆÖ3_root_.controllers.propertyLinking.InvalidFileType.L
+¬ÃBapp/controllers/propertyLinking/FileUploadHelpers.scala@1197..1236G
+¶™;_root_.controllers.propertyLinking.FileUploadHelpers#self=>.
+ûû$_root_.java.lang.Object#`<init>`()V.°
+›Áî_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadUrl(Ljava/lang/String;Lsession/LinkingSessionRequest;)Ljava/lang/String;.(failureUrl).
+ÈÈ$_root_.java.lang.Object#`<init>`()V.û
+˙Å	ë_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadUrl(Ljava/lang/String;Lsession/LinkingSessionRequest;)Ljava/lang/String;.(request)>
+éû4_root_.controllers.propertyLinking.FileUploadResult#N
+±	ª	Bapp/controllers/propertyLinking/FileUploadHelpers.scala@1197..12364
+∆	…	*_root_.session.LinkingSessionRequest#(ses)@
+¿–4_root_.controllers.propertyLinking.FileUploadResult#N
+›	„	Bapp/controllers/propertyLinking/FileUploadHelpers.scala@1241..1280,
+ıá"_root_.session.WithLinkingSession#7
+ìó-_root_.java.util.UUID.;_root_.java.util.UUID#
+âç_root_.java..
+ÑÑ$_root_.java.lang.Object#`<init>`()V.Q
+ûØG_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadBaseUrl.ï
+œ‹à_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadUrl(Ljava/lang/String;Lsession/LinkingSessionRequest;)Ljava/lang/String;.>
+ÿË4_root_.controllers.propertyLinking.FileUploadResult# 
+Ê	Í	_root_.java.util.UUID.(
+–
+”
+_root_.play.api.mvc.Call#(url)F
+∂º<_root_.controllers.propertyLinking.FileUploadHelpers#config.-
+ô®#_root_.controllers.propertyLinking.,
+Ññ"_root_.session.WithLinkingSession#ú
+æ	≈	ë_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadUrl(Ljava/lang/String;Lsession/LinkingSessionRequest;)Ljava/lang/String;.(request)*
+ÿÈ _root_.config.ApplicationConfig#
+Â_root_.controllers.>
+•µ4_root_.controllers.propertyLinking.FileUploadResult#e
+“ﬁY_root_.controllers.propertyLinking.FileUploadHelpers#fileUploaded()Lplay/api/mvc/Action;.L
+ÒÉBapp/controllers/propertyLinking/FileUploadHelpers.scala@1285..13655
+©
+≥
++_root_.config.ApplicationConfig#serviceUrl.5
+˛
+à+_root_.config.ApplicationConfig#serviceUrl.@
+Ω
+»
+6_root_.controllers.propertyLinking.routes.Declaration.;
+ëú/_root_.controllers.propertyLinking.FileMissing.<
+ﬁÍ0_root_.controllers.propertyLinking.FileAccepted.Y
+êòO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.K
+ß∏A_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"t
+3_root_.java.util.UUID#toString()Ljava/lang/String;.=ÑÄÄtoString
+(): String" 
+
+_root_.java.lang.String#"—
+e_root_.session.WithLinkingSession#`<init>`(Lactions/AuthenticatedAction;Lrepositories/SessionRepo;)V.Á<init>X(authenticated: AuthenticatedAction, sessionRepository: SessionRepo): WithLinkingSession"+
+##_root_.actions.AuthenticatedAction#"(
+8C _root_.repositories.SessionRepo#"*
+FX"_root_.session.WithLinkingSession#"
+;_root_.controllers.propertyLinking.FileUploadHelpers#self=>∞self2FileUploadHelpers with PropertyLinkingController{}";
+5_root_.controllers.propertyLinking.FileUploadHelpers#"5
+0-_root_.controllers.PropertyLinkingController#"û
+6_root_.controllers.propertyLinking.routes.Declaration.dÅÄàDeclarationReverseDeclaration"<
+6_root_.controllers.propertyLinking.ReverseDeclaration#"≈
+ë_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadUrl(Ljava/lang/String;Lsession/LinkingSessionRequest;)Ljava/lang/String;.(request)/ÄÅ request session.LinkingSessionRequest[_]"ç
+G_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadBaseUrl.BÅÄ@fileUploadBaseUrlString"!
+_root_.scala.Predef.String#"O
+5_root_.controllers.propertyLinking.FileUploadHelpers#Ä@FileUploadHelpers"n
+._root_.config.ApplicationConfig#fileUploadUrl.<fileUploadUrlString"!
+_root_.scala.Predef.String#"G
+0_root_.controllers.propertyLinking.FileAccepted.ÄÑàFileAccepted"ª
+à_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadUrl(Ljava/lang/String;Lsession/LinkingSessionRequest;)Ljava/lang/String;.≠fileUploadUrlP(failureUrl: String)(implicit request: session.LinkingSessionRequest[_]): String"#
+_root_.scala.Predef.String#"#
+JP_root_.scala.Predef.String#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"
+Bapp/controllers/propertyLinking/FileUploadHelpers.scala@1197..12369
+envelopeIdString"!
+_root_.scala.Predef.String#"
+_root_.java.ÄàÄjava"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"h
++_root_.config.ApplicationConfig#serviceUrl.9
+serviceUrlString"!
+_root_.scala.Predef.String#"E
+%_root_.session.LinkingSessionRequest#Ä†ÄLinkingSessionRequest"=
+#_root_.controllers.propertyLinking.ÄàÄpropertyLinking"N
+4_root_.controllers.propertyLinking.FileUploadResult#Ä¿FileUploadResult"á
+Bapp/controllers/propertyLinking/FileUploadHelpers.scala@1285..1365AabsoluteSuccessUrlString"!
+_root_.scala.Predef.String#"”
+î_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadUrl(Ljava/lang/String;Lsession/LinkingSessionRequest;)Ljava/lang/String;.(failureUrl):Ä
+failureUrlString"!
+_root_.scala.Predef.String#"r
+3_root_.java.util.UUID.randomUUID()Ljava/util/UUID;.;ÑÄÄ
+randomUUID(): UUID"
+_root_.java.util.UUID#"Ω
+O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
+_root_.play.api.mvc.Call#"#
+_root_.play.api.mvc.Result#"k
+*_root_.session.LinkingSessionRequest#(ses)=ÅsesLinkingSession"#
+_root_.models.LinkingSession#"M
+3_root_.controllers.propertyLinking.InvalidFileType.ÄÑàInvalidFileType":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"ß
+ñ_root_.session.LinkingSessionRequest#`<init>`(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)V.ã<init>§(ses: LinkingSession, organisationId: Long, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount, request: Request[A]): LinkingSessionRequest[A]"%
+_root_.models.LinkingSession#"
+&*_root_.scala.Long#"0
+?X(_root_.models.DetailedIndividualAccount#"#
+ht_root_.models.GroupAccount#"%
+Ü_root_.play.api.mvc.Request#"2
+áà(_root_.session.LinkingSessionRequest#[A]"/
+å°%_root_.session.LinkingSessionRequest#"2
+¢£(_root_.session.LinkingSessionRequest#[A]"¢
+H_root_.controllers.propertyLinking.FileUploadHelpers#withLinkingSession.VÅÄwithLinkingSessionWithLinkingSession"(
+"_root_.session.WithLinkingSession#"x
+Bapp/controllers/propertyLinking/FileUploadHelpers.scala@1241..12802fileIdString"
+_root_.java.lang.String#"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"á
+Bapp/controllers/propertyLinking/FileUploadHelpers.scala@1370..1429AabsoluteFailureUrlString"!
+_root_.scala.Predef.String#"s
+?_root_.controllers.propertyLinking.FileUploadHelpers#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#")
+_root_.controllers.ÄàÄcontrollers"=
+"_root_.session.WithLinkingSession#Ä WithLinkingSession" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"g
+)_root_.models.LinkingSession#(envelopeId):Å
+envelopeIdString"!
+_root_.scala.Predef.String#"
+_root_.config.ÄàÄconfig"”
+Y_root_.controllers.propertyLinking.FileUploadHelpers#fileUploaded()Lplay/api/mvc/Action;.vfileUploaded(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#" 
+_root_.java.util.ÄàÄutil"G
+0_root_.controllers.propertyLinking.FileTooLarge.ÄÑàFileTooLarge"!
+_root_.session.ÄàÄsession"Õ
+Bapp/controllers/propertyLinking/FileUploadHelpers.scala@1025..1032ÜÄÅ request!LinkingSessionRequest[AnyContent]"+
+%_root_.session.LinkingSessionRequest#"'
+ _root_.play.api.mvc.AnyContent#"á
+<_root_.controllers.propertyLinking.FileUploadHelpers#config.GÅÄconfigApplicationConfig"&
+ _root_.config.ApplicationConfig#"E
+/_root_.controllers.propertyLinking.FileMissing.ÄÑàFileMissing"â
+P_root_.controllers.propertyLinking.ReverseDeclaration#show()Lplay/api/mvc/Call;.5show(): Call"!
+_root_.play.api.mvc.Call#"%
+_root_.java.util.UUID.ÄÑàUUID";
+*_root_.controllers.propertyLinking.routes.ÄÑàroutes2í
+ıı*.apply
+_star_.p
+h_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.2x
+Û
+Û
+*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2{
+««"*(FileUploadHelpers.this.messages)
+_star_.>
+!6_root_.controllers.PropertyLinkingController#messages.2x
+õõ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2”
+ê√(FileUploadHelpers.this.future[Result](*)i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
+$_root_.play.api.mvc.Result#
+&'_star_.2x
+û
+û
+*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.:Scala211Bû/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.propertyLinking
+
+import java.util.UUID
+
+import config.ApplicationConfig
+import controllers._
+import session.{LinkingSessionRequest, WithLinkingSession}
+
+trait FileUploadHelpers {
+  self: PropertyLinkingController =>
+
+  val config: ApplicationConfig
+  val withLinkingSession: WithLinkingSession
+  lazy val fileUploadBaseUrl = config.fileUploadUrl
+
+  def fileUploaded() = withLinkingSession { implicit request =>
+    Redirect(propertyLinking.routes.Declaration.show())
+  }
+
+  def fileUploadUrl(failureUrl: String)(implicit request: LinkingSessionRequest[_]): String = {
+    val envelopeId = request.ses.envelopeId
+    val fileId = UUID.randomUUID().toString
+    val absoluteSuccessUrl = s"${config.serviceUrl}${routes.Declaration.show().url}"
+    val absoluteFailureUrl = s"${config.serviceUrl}$failureUrl"
+
+    s"$fileUploadBaseUrl/upload/envelopes/$envelopeId/files/$fileId?redirect-success-url=$absoluteSuccessUrl&redirect-error-url=$absoluteFailureUrl"
+  }
+}
+
+sealed trait FileUploadResult
+
+case object FileAccepted extends FileUploadResult
+
+case object FileMissing extends FileUploadResult
+
+case object FileTooLarge extends FileUploadResult
+
+case object InvalidFileType extends FileUploadResultJ7app/controllers/propertyLinking/FileUploadHelpers.scala

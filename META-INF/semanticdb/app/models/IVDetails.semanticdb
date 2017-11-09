@@ -1,0 +1,105 @@
+
+ä!,
+…– _root_.models.IVDetails.formats.
+Ø±
+_root_.uk.
+∂∫_root_.uk.gov.hmrc.*
+öû_root_.models.IVDetails#(nino)I
+¬∆?_root_.uk.gov.hmrc.domain.Nino.;_root_.uk.gov.hmrc.domain.Nino#)
+”◊_root_.play.api.libs.json.Json.%
+èò_root_.java.time.LocalDate#
+Ù¯_root_.java.$
+ª¡_root_.uk.gov.hmrc.domain.$
+Æ∑_root_.models.IVDetails.
+êî_root_.play..
+¯"_root_.models.IVDetails#(lastName)
+ôù_root_.play.api.libs.
+ïò_root_.play.api.
+≤µ_root_.uk.gov.
+˘˝_root_.java.time.A
+˛á7_root_.java.time.LocalDate.;_root_.java.time.LocalDate#"
+ﬂË_root_.models.IVDetails#%
+˙Ä_root_.scala.Predef.String#1
+Çç%_root_.models.IVDetails#(dateOfBirth)$
+”‹_root_.models.IVDetails#
+ÂÎ_root_.models.)
+†§_root_.uk.gov.hmrc.domain.Nino#/
+›Ê#_root_.models.IVDetails#(firstName))
+£ß_root_.play.api.libs.json.Json.$
+û¢_root_.play.api.libs.json.Ç
+‹‹v_root_.models.IVDetails#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;)V.N
+ÿﬁD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.%
+ËÓ_root_.scala.Predef.String#"X
+_root_.models.IVDetails#(nino)6ÅninoNino"%
+_root_.uk.gov.hmrc.domain.Nino#")
+_root_.play.api.libs.json.ÄàÄjson"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"^
+"_root_.models.IVDetails#(lastName)8ÅlastNameString"!
+_root_.scala.Predef.String#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"
+_root_.java.ÄàÄjava"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"/
+_root_.java.time.LocalDate#Ä†à	LocalDate"g
+%_root_.models.IVDetails#(dateOfBirth)>ÅdateOfBirth	LocalDate"!
+	_root_.java.time.LocalDate#"ï
+v_root_.models.IVDetails#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;)V.ö<init>T(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino): IVDetails"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"#
+3<_root_.java.time.LocalDate#"'
+DH_root_.uk.gov.hmrc.domain.Nino#" 
+KT_root_.models.IVDetails#"
+
+_root_.uk.	ÄàÄuk"
+_root_.uk.gov.
+ÄàÄgov"`
+#_root_.models.IVDetails#(firstName)9Å	firstNameString"!
+_root_.scala.Predef.String#"
+_root_.play.ÄàÄplay"+
+_root_.uk.gov.hmrc.domain.ÄàÄdomain"
+_root_.models.ÄàÄmodels" 
+_root_.java.time.ÄàÄtime"Ø
+=_root_.uk.gov.hmrc.domain.Nino#`<init>`(Ljava/lang/String;)V.n<init>(nino: String): Nino"#
+_root_.scala.Predef.String#"'
+_root_.uk.gov.hmrc.domain.Nino#"ë
+ _root_.models.IVDetails.formats.mÅÄ formatsOFormat[IVDetails]"(
+"_root_.play.api.libs.json.OFormat#" 
+_root_.models.IVDetails#".
+_root_.uk.gov.hmrc.domain.Nino#Ä†ÄNino""
+_root_.uk.gov.hmrc.ÄàÄhmrc",
+_root_.models.IVDetails#Ä†Ä	IVDetails"+
+_root_.models.IVDetails.ÄÑ	IVDetails:Scala211BÏ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import java.time.LocalDate
+
+import play.api.libs.json.Json
+import uk.gov.hmrc.domain.Nino
+
+case class IVDetails(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino)
+
+object IVDetails {
+  implicit val formats = Json.format[IVDetails]
+}
+Japp/models/IVDetails.scala

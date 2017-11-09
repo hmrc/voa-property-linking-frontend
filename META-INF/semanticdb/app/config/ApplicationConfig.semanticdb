@@ -1,0 +1,441 @@
+
+ŸÆ9
+ÆØ-app/config/ApplicationConfig.scala@2222..22239
+éõ/_root_.config.ApplicationConfig#(configuration)^
+»ŸT_root_.config.ApplicationConfig#getOptionalConfig(Ljava/lang/String;)Lscala/Option;.Z
+ﬁÁP_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;."
+Ï_root_.uk.gov.hmrc.play.
+„Ê_root_.uk.gov.%
+‡Ê_root_.scala.Predef.String#%
+πø_root_.scala.Predef.String#Z
+…“P_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.8
+ˇÜ._root_.uk.gov.hmrc.play.config.inject.RunMode#7
+ı
+ˇ
++_root_.config.ApplicationConfig#serviceUrl.)
+∂ø_root_.scala.package.Exception#-
+âí#_root_.com.google.inject.Singleton#x
+∂∂l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.(
+∆”_root_.play.api.Configuration#6
+¥Ω*_root_.config.ApplicationConfig#ivEnabled.a
+ˇÇU_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.(key)5
+’‹)_root_.config.ApplicationConfig#(runMode))
+Ò˜_root_.uk.gov.hmrc.play.config.Z
+…
+“
+P_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.D
+À‘:_root_.scala.collection.immutable.StringLike#toBoolean()Z.#
+òû_root_.com.google.inject.
+∑Ω_root_.scala.Option#.
+ñ
+ü
+$_root_.controllers.routes.Dashboard.D
+§≠:_root_.scala.collection.immutable.StringLike#toBoolean()Z.5
+çê+_root_.uk.gov.hmrc.play.config.RunMode#env.C
+®´9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.8
+ÊÒ,_root_.config.ApplicationConfig#ggSignInUrl.\
+ı˛P_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.
+ø¬_root_.play.api.Q
+¿¡G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.9
+˛ã/_root_.config.ApplicationConfig#(configuration)D
+Ìˆ:_root_.scala.collection.immutable.StringLike#toBoolean()Z.>
+û	Ø	2_root_.config.ApplicationConfig#ggRegistrationUrl.%
+’€_root_.scala.Predef.String#
+∫æ_root_.play.Z
+ÈÚP_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.<
+Üï0_root_.config.ApplicationConfig#editNameEnabled.e
+ÔÚY_root_.config.ApplicationConfig#getOptionalConfig(Ljava/lang/String;)Lscala/Option;.(key)
+ëó_root_.com.google.,
+¶∑ _root_.config.ApplicationConfig.
+Óı_root_.scala.Boolean#(
+ì†_root_.config.ConfigMissing#D
+¬À:_root_.scala.collection.immutable.StringLike#toBoolean()Z.Z
+¸Ö	P_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.,
+õ¨ _root_.config.ApplicationConfig#&
+ª»_root_.config.ConfigMissing.3
+±∑'_root_.config.ApplicationConfig#vmvUrl.%
+‚Ë_root_.scala.Predef.String#K
+†¶A_root_.com.google.inject.Inject.;_root_.com.google.inject.Inject#Z
+¬ÀP_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.K
+÷ﬁA_root_.play.api.Application#injector()Lplay/api/inject/Injector;.Q
+®±G_root_.com.google.inject.Singleton.;_root_.com.google.inject.Singleton#G
+ƒ—=_root_.play.api.Configuration.;_root_.play.api.Configuration#Z
+°™P_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.3
+¿∆'_root_.config.ApplicationConfig.config.c
+ñôY_root_.config.ApplicationConfig#getOptionalConfig(Ljava/lang/String;)Lscala/Option;.(key)6
+¥¥,_root_.com.google.inject.Inject#`<init>`()V.
+ÂÎ_root_.config.%
+ú¢_root_.scala.Predef.String#M
+´¥C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.%
+ÎÒ_root_.scala.Predef.String#Z
+ò°P_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.<
+˝å0_root_.config.ApplicationConfig#messagesEnabled.3
+Öå)_root_.config.ApplicationConfig#(runMode)Z
+äìP_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.7
+ﬁﬂ-app/config/ApplicationConfig.scala@2222..2223*
+Í˚ _root_.config.ApplicationConfig#H
+†
+§
+>_root_.controllers.ReverseDashboard#home()Lplay/api/mvc/Call;.
+óû_root_.scala.Boolean#%
+¶¨_root_.scala.Predef.String#9
+¯Ö/_root_.config.ApplicationConfig#(configuration)%
+Ù˙_root_.scala.Predef.String#%
+Ñä_root_.scala.Predef.String#b
+ú•X_root_.play.api.Configuration#getString(Ljava/lang/String;Lscala/Option;)Lscala/Option;."
+ª¡_root_.java.lang.String#L
+ûüB_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.?
+Œ’5_root_.play.api.Play.current()Lplay/api/Application;.$
+è
+ï
+_root_.controllers.routes.9
+©µ-_root_.config.ApplicationConfig#pingdomToken.
+Ù¯_root_.java.F
+˘	Ä
+<_root_.config.ApplicationConfig#baseUrl()Ljava/lang/String;.C
+øø9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.;
+≈”/_root_.config.ApplicationConfig#analyticsToken.
+ÁÌ_root_.scala.Option#`
+›ÓT_root_.config.ApplicationConfig#getOptionalConfig(Ljava/lang/String;)Lscala/Option;.:
+·	Ó	._root_.config.ApplicationConfig#ggContinueUrl.%
+æƒ_root_.scala.Predef.String#
+éï_root_.scala.Boolean#F
+††:_root_.config.ConfigMissing#`<init>`(Ljava/lang/String;)V.L
+…÷B_root_.java.util.Base64.getUrlDecoder()Ljava/util/Base64/Decoder;.l
+¬€`_root_.config.ApplicationConfig#businessRatesValuationUrl(Ljava/lang/String;)Ljava/lang/String;.*
+Æ¥ _root_.com.google.inject.Inject#b
+åïX_root_.play.api.Configuration#getString(Ljava/lang/String;Lscala/Option;)Lscala/Option;.a
+ﬂÈW_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.Z
+Ù˝P_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.
+”◊_root_.play.api.Play.>
+€Ï2_root_.config.ApplicationConfig#searchSortEnabled.&
+÷Ÿ_root_.config.ConfigMissing#b
+ÜèX_root_.play.api.Configuration#getString(Ljava/lang/String;Lscala/Option;)Lscala/Option;.%
+	ˆ	_root_.scala.Predef.String#
+…Õ_root_.play.api.Play.0
+¡¡&_root_.java.lang.String#`<init>`([B)V.Z
+∫	√	P_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.;
+∑ƒ/_root_.config.ApplicationConfig#(configuration)p
+§®f_root_.config.ApplicationConfig#businessRatesValuationUrl(Ljava/lang/String;)Ljava/lang/String;.(page)(
+ß
+™
+_root_.play.api.mvc.Call#(url)
+É
+é
+_root_.controllers.%
+ÓÙ_root_.scala.Predef.String#
+ø∆_root_.scala.Boolean#0
+¯˛&_root_.uk.gov.hmrc.play.config.inject.9
+íí/_root_.com.google.inject.Singleton#`<init>`()V.%
+Åá_root_.scala.Predef.String#%
+¿
+∆
+_root_.scala.Predef.String#
+ÁÎ_root_.uk.gov.hmrc.r
+‹‡f_root_.config.ApplicationConfig#businessRatesValuationUrl(Ljava/lang/String;)Ljava/lang/String;.(page)"
+¬»_root_.java.util.Base64.
+çê_root_.com.
+˘˝_root_.java.util.:
+çö._root_.config.ApplicationConfig#analyticsHost.%
+Û˘_root_.scala.Predef.String#:
+±
+æ
+._root_.config.ApplicationConfig#fileUploadUrl.%
+±	∑	_root_.scala.Predef.String#-
+°§!_root_.config.ConfigMissing#(key):
+ÿÂ._root_.config.ApplicationConfig#bannerContent.8
+ﬁÂ._root_.uk.gov.hmrc.play.config.inject.RunMode#Z
+•ÆP_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.G
+◊›=_root_.java.util.Base64.Decoder#decode(Ljava/lang/String;)[B.%
+¯˛_root_.scala.Predef.String#8
+”ﬁ,_root_.config.ApplicationConfig#voaPersonID.L
+Å
+Ç
+B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.<
+ëì2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.Q
+†°G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;._
+¶©U_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.(key)H
+Ôˆ<_root_.config.ApplicationConfig#baseUrl()Ljava/lang/String;.
+‡‚
+_root_.uk._
+…ÃU_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.(key);
+˛Ñ1_root_.java.util.Base64.;_root_.java.util.Base64#Z
+¯ÅP_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.r
+…’fmethod current in object Play is deprecated: This is a static reference to application, use DI instead"∆
+=_root_.java.util.Base64.Decoder#decode(Ljava/lang/String;)[B.ÑÑÄÄdecode(x$1: String): Array[Byte]" 
+_root_.java.lang.String#"
+_root_.scala.Array#"
+_root_.scala.Byte#"c
+$_root_.java.lang.String#`<init>`()V.;àÄÄ<init>
+(): String" 
+
+_root_.java.lang.String#"€
+9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.ùÑÄmap&[B] => (f: Function1[A, B]): Option[B]"
+_root_.scala.Function1#"
+_root_.scala.Option#[A]"D
+<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"
+#_root_.scala.Option#"D
+$%<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"*
+_root_.com.google.inject.ÄàÄinject"
+_root_.com.
+ÄàÄcom"v
+2_root_.config.ApplicationConfig#ggRegistrationUrl.@ggRegistrationUrlString"!
+_root_.scala.Predef.String#"Ø
+&_root_.java.lang.String#`<init>`([B)V.ÑêÄÄ<init>(x$1: Array[Byte]): String"
+_root_.scala.Array#"
+_root_.scala.Byte#" 
+_root_.java.lang.String#"x
+)_root_.config.ApplicationConfig#(runMode)KÄrunModeRunMode"4
+._root_.uk.gov.hmrc.play.config.inject.RunMode#"n
+._root_.config.ApplicationConfig#fileUploadUrl.<fileUploadUrlString"!
+_root_.scala.Predef.String#">
+._root_.uk.gov.hmrc.play.config.inject.RunMode#Ä@RunMode")
+_root_.java.lang.String#Ä†àString"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"j
+,_root_.config.ApplicationConfig#ggSignInUrl.:ggSignInUrlString"!
+_root_.scala.Predef.String#"X
+!_root_.config.ConfigMissing#(key)3ÅkeyString"!
+_root_.scala.Predef.String#"Œ
+F_root_.play.api.Configuration#`<init>`(Lcom/typesafe/config/Config;)V.É<init>#(underlying: Config): Configuration"*
+"_root_.com.typesafe.config.Config#"&
+#_root_.play.api.Configuration#"
+_root_.java.ÄàÄjava"û
+B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.XÑÄ+(x$1: Any): String"
+	_root_.scala.Any#" 
+_root_.java.lang.String#"ƒ
+P_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.pÑÄ	getConfig(key: String): String"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"h
++_root_.config.ApplicationConfig#serviceUrl.9
+serviceUrlString"!
+_root_.scala.Predef.String#"b
+-app/config/ApplicationConfig.scala@2222..22231ÄeString"!
+_root_.scala.Predef.String#"
+_root_.play.api.
+ÄàÄapi"4
+_root_.config.ConfigMissing#Ä†ÅConfigMissing"p
+'_root_.config.ApplicationConfig.config.EconfigApplicationConfig"&
+ _root_.config.ApplicationConfig#"3
+_root_.config.ConfigMissing.ÄÑ	ConfigMissing"^
+_root_.scala.package.Exception#;@	Exception	Exception"!
+	_root_.java.lang.Exception#"ê
+Y_root_.config.ApplicationConfig#getOptionalConfig(Ljava/lang/String;)Lscala/Option;.(key)3ÄkeyString"!
+_root_.scala.Predef.String#"ç
+2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.WÑÄ==(x$1: Any): Boolean"
+	_root_.scala.Any#"
+_root_.scala.Boolean#"[
+!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
+_root_.scala.Boolean#"z
+/_root_.config.ApplicationConfig#(configuration)GÄconfigurationConfiguration"$
+_root_.play.api.Configuration#"´
+9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.nêÄÄ<init>(x$1: String): Exception" 
+_root_.java.lang.String#"#
+_root_.java.lang.Exception#"6
+_root_.play.api.Configuration#Ä†ÄConfiguration"„
+`_root_.config.ApplicationConfig#businessRatesValuationUrl(Ljava/lang/String;)Ljava/lang/String;.businessRatesValuationUrl(page: String): String"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"w
+>_root_.controllers.ReverseDashboard#home()Lplay/api/mvc/Call;.5home(): Call"!
+_root_.play.api.mvc.Call#"s
+,_root_.com.google.inject.Inject#`<init>`()V.CàÄÄ<init>
+(): Inject"(
+
+ _root_.com.google.inject.Inject#"#
+_root_.play.api.Play.
+ÄÑPlay"7
+&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"$
+_root_.scala.Option#Ä†Option"˜
+T_root_.config.ApplicationConfig#getOptionalConfig(Ljava/lang/String;)Lscala/Option;.ûÑÄgetOptionalConfig(key: String): Option[String]"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"1
+ _root_.com.google.inject.Inject#Ä†ÄInject"v
+$_root_.controllers.routes.Dashboard.NÅÄà	DashboardReverseDashboard"*
+$_root_.controllers.ReverseDashboard#"
+
+_root_.uk.	ÄàÄuk"#
+_root_.com.google.ÄàÄgoogle"+
+_root_.controllers.routes.ÄÑàroutes"±
+:_root_.config.ConfigMissing#`<init>`(Ljava/lang/String;)V.s<init>(key: String): ConfigMissing"#
+_root_.scala.Predef.String#"$
+_root_.config.ConfigMissing#"m
+0_root_.config.ApplicationConfig#messagesEnabled.9messagesEnabledBoolean"
+_root_.scala.Boolean#"
+_root_.uk.gov.
+ÄàÄgov"|
+/_root_.com.google.inject.Singleton#`<init>`()V.IàÄÄ<init>(): Singleton"+
+#_root_.com.google.inject.Singleton#"q
+:_root_.scala.collection.immutable.StringLike#toBoolean()Z.3	toBooleanBoolean"
+_root_.scala.Boolean#"û
+f_root_.config.ApplicationConfig#businessRatesValuationUrl(Ljava/lang/String;)Ljava/lang/String;.(page)4ÄpageString"!
+_root_.scala.Predef.String#";
+ _root_.config.ApplicationConfig.ÄÑApplicationConfig":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"q
+2_root_.config.ApplicationConfig#searchSortEnabled.;searchSortEnabledBoolean"
+_root_.scala.Boolean#"&
+_root_.scala.Boolean#Ä†Boolean"ä
+W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.ÆÑÄ
+instanceOf,[T] => (implicit evidence$1: ClassTag[T]): T"&
+%_root_.scala.reflect.ClassTag#"b
+&'Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"b
++,Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"
+_root_.play.ÄàÄplay"ë
+B_root_.java.util.Base64.getUrlDecoder()Ljava/util/Base64/Decoder;.KÑÄÄgetUrlDecoder(): Decoder"(
+ _root_.java.util.Base64.Decoder#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig")
+_root_.java.util.Base64.ÄÑàBase64"n
+._root_.config.ApplicationConfig#ggContinueUrl.<ggContinueUrlString"!
+_root_.scala.Predef.String#"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"7
+#_root_.com.google.inject.Singleton#Ä†Ä	Singleton"î
+-_root_.config.ApplicationConfig#pingdomToken.cÅÄ@pingdomTokenOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"p
+._root_.config.ApplicationConfig#analyticsHost.>ÅÄ@analyticsHostString"!
+_root_.scala.Predef.String#"w
+5_root_.play.api.Play.current()Lplay/api/Application;.>ÑÄ currentApplication""
+_root_.play.api.Application#"˘
+X_root_.play.api.Configuration#getString(Ljava/lang/String;Lscala/Option;)Lscala/Option;.ú	getString@(path: String, validValues: Option[Set[String]]): Option[String]"#
+_root_.scala.Predef.String#"
+"_root_.scala.Option#" 
+#&_root_.scala.Predef.Set#"#
+'-_root_.scala.Predef.String#"
+28_root_.scala.Option#"#
+9?_root_.scala.Predef.String#")
+_root_.controllers.ÄàÄcontrollers"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"
+_root_.config.ÄàÄconfig"v
+<_root_.config.ApplicationConfig#baseUrl()Ljava/lang/String;.6baseUrlString"!
+_root_.scala.Predef.String#"å
+U_root_.config.ApplicationConfig#getConfig(Ljava/lang/String;)Ljava/lang/String;.(key)3ÄkeyString"!
+_root_.scala.Predef.String#"l
+,_root_.config.ApplicationConfig#voaPersonID.<ÅÄ@voaPersonIDString"!
+_root_.scala.Predef.String#" 
+_root_.java.util.ÄàÄutil"a
+*_root_.config.ApplicationConfig#ivEnabled.3	ivEnabledBoolean"
+_root_.scala.Boolean#"ñ
+._root_.config.ApplicationConfig#bannerContent.dÅÄ@bannerContentOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"`
++_root_.uk.gov.hmrc.play.config.RunMode#env.1ÅÄ@envString"
+_root_.java.lang.String#"m
+0_root_.config.ApplicationConfig#editNameEnabled.9editNameEnabledBoolean"
+_root_.scala.Boolean#"r
+/_root_.config.ApplicationConfig#analyticsToken.?ÅÄ@analyticsTokenString"!
+_root_.scala.Predef.String#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"`
+'_root_.config.ApplicationConfig#vmvUrl.5vmvUrlString"!
+_root_.scala.Predef.String#"É
+A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.>injectorInjector"&
+ _root_.play.api.inject.Injector#"'
+_root_.uk.gov.hmrc.play.ÄàÄplay2ä
+…Ïscala.Predef.augmentString(*)P
+H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
+_star_.2ä
+° scala.Predef.augmentString(*)P
+H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
+_star_.2G
+¥¥	*[String]
+_star_.#
+_root_.scala.Predef.String#2D
+´´	*[String]
+_star_. 
+_root_.java.lang.String#2ä
+ò¡scala.Predef.augmentString(*)P
+H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
+_star_.2÷
+¸¸h*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
+_star_.(
+Te _root_.config.ApplicationConfig#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
+$ _root_.config.ApplicationConfig#&
+KS_root_.scala.reflect.ClassTag#2v
+»»*.apply
+_star_.T
+L_root_.config.ConfigMissing.apply(Ljava/lang/String;)Lconfig/ConfigMissing;.2ä
+¯£scala.Predef.augmentString(*)P
+H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
+_star_.2x
+††*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+¿¿*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.:Scala211B‹/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package config
+
+import java.util.Base64
+
+import com.google.inject.{Inject, Singleton}
+import play.api.{Configuration, Play}
+import uk.gov.hmrc.play.config.inject.RunMode
+
+@Singleton()
+class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode) {
+  def baseUrl: String = if (runMode.env == "Prod") "" else "http://localhost:9523"
+  def businessRatesValuationUrl(page: String): String = getConfig("business-rates-valuation.url") + s"/$page"
+
+  val vmvUrl: String = getConfig("vmv-frontend.url")
+  val ggSignInUrl: String = getConfig("gg-sign-in.url")
+  val ggRegistrationUrl: String = getConfig("gg-registration.url")
+  val ggContinueUrl: String = baseUrl + controllers.routes.Dashboard.home().url
+  val fileUploadUrl: String = getConfig("file-upload-frontend.url")
+  val serviceUrl: String = getConfig("voa-property-linking-frontend.url")
+
+  lazy val analyticsToken: String = getConfig("google-analytics.token")
+  lazy val analyticsHost: String = getConfig("google-analytics.host")
+  lazy val voaPersonID: String = getConfig("google-analytics.dimensions.voaPersonId")
+  lazy val pingdomToken: Option[String] = getOptionalConfig("pingdom.performance.monitor.token")
+
+  val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
+  val searchSortEnabled: Boolean = getConfig("featureFlags.searchSortEnabled").toBoolean
+  val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
+  val messagesEnabled: Boolean = getConfig("featureFlags.messagesEnabled").toBoolean
+
+  lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
+    new String(Base64.getUrlDecoder.decode(e))
+  }
+
+  private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
+  private def getOptionalConfig(key: String) = configuration.getString(key)
+
+}
+
+object ApplicationConfig {
+  val config = Play.current.injector.instanceOf[ApplicationConfig]
+}
+
+private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")
+J"app/config/ApplicationConfig.scala

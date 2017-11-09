@@ -1,0 +1,1726 @@
+
+∑í
+òú_root_.scala.None.I
+π-¿-?app/controllers/agent/RepresentationController.scala@5698..5705Í
+◊!Î!›_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(requestTotalRowCount){
+Ö6ë6q_root_.controllers.agent.RepresentationController#reject(Ljava/lang/String;J)Lplay/api/mvc/Action;.(submissionId)K
+ı'Ç(A_root_.controllers.agent.RepresentationController#(reprConnector)K
+–5◊5?app/controllers/agent/RepresentationController.scala@6864..6871
+È Ï _root_.scala.Int#=
+Œ/Ÿ/3_root_.models.PropertyRepresentations#(resultCount)$
+¶7ß7_root_.scala.Long#`>`(I)Z.I
+Ñ2å2?app/controllers/agent/RepresentationController.scala@6275..6376‚
+˜ã’_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(requestTotalRowCount)#
+ÂÎ_root_.com.google.inject.3
+Æ4ƒ4)_root_.views.html.propertyRepresentation.K
+‡Â?app/controllers/agent/RepresentationController.scala@2784..2789±
+˜å¶_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+£4®4_root_.views.I
+·(‰(?app/controllers/agent/RepresentationController.scala@5187..5190u
+∑æk_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.g
+åA†A[_root_.controllers.agent.RepresentationController.ManagePropertiesVM#(totalPendingRequests),
+€Í"_root_.connectors.propertyLinking.{
+ƒ+ +q_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.d
+—9›9X_root_.controllers.agent.RepresentationController#revokeClient(JJ)Lplay/api/mvc/Action;.
+Ó˘_root_.controllers.s
+Å)õ)g_root_.controllers.agent.RepresentationController#pendingRepresentationsJson(IIZ)Lplay/api/mvc/Action;.=
+¨≥3_root_.cats.data.OptionT.;_root_.cats.data.OptionT#K
+ƒ=“=?app/controllers/agent/RepresentationController.scala@7876..7890$
+ 2À2_root_.scala.Long#`>`(I)Z.|
+Ò˘p_root_.controllers.agent.RepresentationController#listRepresentationRequest(IIZ)Lplay/api/mvc/Action;.(pageSize)%
+ë%ó%_root_.scala.Predef.String#S
+ﬁ=Û=I_root_.controllers.agent.RepresentationController#(propertyLinkConnector)x
+˘:ç;n_root_.controllers.agent.RepresentationController#revokeClient(JJ)Lplay/api/mvc/Action;.(clientOrganisationId)I
+ì6ö6?app/controllers/agent/RepresentationController.scala@6864..6871I
+º'¡'?app/controllers/agent/RepresentationController.scala@5052..5057‘
+∂æ…_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(pageSize)É
+È<˝<w_root_.controllers.agent.RepresentationController#revokeClientConfirmed(JJ)Lplay/api/mvc/Action;.(clientOrganisationId)
+ß±_root_.connectors.
+§®_root_.scala.None.)
+£•_root_.play.api.mvc.Results#Ok.’
+•¨»_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(address)á
+´*ø*}_root_.controllers.agent.RepresentationController#pendingRepresentationsJson(IIZ)Lplay/api/mvc/Action;.(requestTotalRowCount)O
+ÄíE_root_.controllers.agent.RepresentationController.ManagePropertiesVM.]
+®A≤AQ_root_.controllers.agent.RepresentationController.ManagePropertiesVM#(pagination)
+ÄÑ_root_.scala.None.K
+√*Õ*?app/controllers/agent/RepresentationController.scala@5443..5453>
+ª“4_root_.views.html.dashboard.manageClientsSearchSort.–
+∞¥≈_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(page)K
+¯)ˇ)?app/controllers/agent/RepresentationController.scala@5368..5375–
+ù©≈_root_.controllers.PaginationSearchSort#copy(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;J)Lcontrollers/PaginationSearchSort;.(totalResults))
+¸8˛8_root_.play.api.mvc.Results#Ok.{
+⁄(‡(q_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.}
+¸4à5q_root_.controllers.agent.RepresentationController#reject(Ljava/lang/String;J)Lplay/api/mvc/Action;.(submissionId)Ü
+úØ|_root_.controllers.ValidPagination#withValidPagination(IIZLscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.
+Úı_root_.scala.Int#¸
+‰ÎÒ_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(address)I
+À+Ã+?app/controllers/agent/RepresentationController.scala@5551..5552)
+∆>»>_root_.models.GroupAccount#(id)˛
+çñÛ_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(sortfield)
+ªø_root_.cats.K
+Ø5º5A_root_.controllers.agent.RepresentationController#(authenticated)%
+ˆ¸_root_.scala.Predef.String#Å
+¸êw_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.(requestTotalRowCount)F
+á/õ/<_root_.models.PropertyRepresentations#(totalPendingRequests)M
+⁄/„/C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.%
+Æ0¥0_root_.scala.Predef.String#
+íñ_root_.scala.None.7
+ù∂-_root_.controllers.PropertyLinkingController#“
+›·≈_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(page)K
+„5Î5?app/controllers/agent/RepresentationController.scala@6879..6980‡
+Â˘’_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(requestTotalRowCount)K
+…6÷6A_root_.controllers.agent.RepresentationController#(reprConnector)#
+—3÷3_root_.controllers.agent.
+¶´_root_.views.â
+∂) )}_root_.controllers.agent.RepresentationController#pendingRepresentationsJson(IIZ)Lplay/api/mvc/Action;.(requestTotalRowCount)
+¢)•)_root_.scala.Int#m
+…›a_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.u
+€„k_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.(pageSize)˛
+ü
+ü
+Ò_root_.controllers.agent.RepresentationController#`<init>`(Lconfig/ApplicationConfig;Lconnectors/PropertyRepresentationConnector;Lactions/AuthenticatedAction;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;)V.
+Ò˜_root_.scala.Option#}
+†0¨0q_root_.controllers.agent.RepresentationController#accept(Ljava/lang/String;J)Lplay/api/mvc/Action;.(submissionId)*
+Î2Ò2 _root_.controllers.agent.routes.Å
+î>®>w_root_.controllers.agent.RepresentationController#revokeClientConfirmed(JJ)Lplay/api/mvc/Action;.(clientOrganisationId)|
+Ù˜r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+ß´_root_.cats.data.*
+®
+π
+ _root_.config.ApplicationConfig#G
+⁄‰=_root_.controllers.Pagination.;_root_.controllers.Pagination#%
+ä5ê5_root_.scala.Predef.String#/
+í1®1%_root_.models.RepresentationResponse.&
+ËÒ_root_.views.html.dashboard.I
+Ôˆ?app/controllers/agent/RepresentationController.scala@2378..2385†
+◊6ﬂ6ï_root_.connectors.PropertyRepresentationConnector#response(Lmodels/RepresentationResponse;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.I
+⁄‚?app/controllers/agent/RepresentationController.scala@2885..2893Ü
+—‰|_root_.controllers.ValidPagination#withValidPagination(IIZLscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.)
+ã ç _root_.play.api.mvc.Results#Ok.
+≈$À$_root_.scala.Option#I
+»/Õ/?app/controllers/agent/RepresentationController.scala@5859..5864#
+Â2Í2_root_.controllers.agent.K
+◊*‰*A_root_.controllers.agent.RepresentationController#(reprConnector)
+—	’	_root_.play.I
+çî?app/controllers/agent/RepresentationController.scala@2378..2385
+ˆ"¸"_root_.scala.Option#|
+É>í>r_root_.controllers.agent.RepresentationController#revokeClientConfirmed(JJ)Lplay/api/mvc/Action;.(authorisationId)|
+é2ë2r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.K
+√(∆(?app/controllers/agent/RepresentationController.scala@5187..5190K
+®=Ø=?app/controllers/agent/RepresentationController.scala@7848..7855u
+ﬁ9Ì9i_root_.controllers.agent.RepresentationController#revokeClient(JJ)Lplay/api/mvc/Action;.(authorisationId)
+éî_root_.scala.Option#M
+Ω A_root_.controllers.agent.RepresentationController#(authenticated)
+©	Ø	_root_.models.I
+•'¨'?app/controllers/agent/RepresentationController.scala@5029..5036
+Ú>¯>u_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.v
+ÂÈl_root_.controllers.agent.RepresentationController#listRepresentationRequest(IIZ)Lplay/api/mvc/Action;.(page)w
+õ*ü*m_root_.controllers.agent.RepresentationController#pendingRepresentationsJson(IIZ)Lplay/api/mvc/Action;.(page)}
+ß)Ø)q_root_.controllers.agent.RepresentationController#pendingRepresentationsJson(IIZ)Lplay/api/mvc/Action;.(pageSize)
+Â_root_.controllers.ﬁ
+õ!£!—_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(pageSize)I
+÷.€.?app/controllers/agent/RepresentationController.scala@5859..5864
+ü£_root_.scala.None..
+´´$_root_.java.lang.Object#`<init>`()V.K
+ÿ‚?app/controllers/agent/RepresentationController.scala@3416..3426@
+•≥6_root_.actions.AuthenticatedRequest#organisationId()J.u
+°:®:k_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.I
+¨±?app/controllers/agent/RepresentationController.scala@2784..2789Q
+·ÚE_root_.controllers.agent.RepresentationController#(messagesConnector)I
+ü•?app/controllers/agent/RepresentationController.scala@2719..27253
+‡;ˆ;)_root_.views.html.propertyRepresentation.K
+£2Ø2?app/controllers/agent/RepresentationController.scala@6431..6681{
+ì ô q_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.ê
+Ù=Ç>Ö_root_.connectors.propertyLinking.PropertyLinkConnector#clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.z
+ı9â:n_root_.controllers.agent.RepresentationController#revokeClient(JJ)Lplay/api/mvc/Action;.(clientOrganisationId)Ü
+ıâ|_root_.controllers.agent.RepresentationController#listRepresentationRequest(IIZ)Lplay/api/mvc/Action;.(requestTotalRowCount)%
+¬#»#_root_.scala.Predef.String#@
+˜;É<6_root_.views.html.propertyRepresentation.revokeClient.K
+„-Ë-?app/controllers/agent/RepresentationController.scala@5859..5864)
+“(‘(_root_.play.api.mvc.Results#Ok.
+„<Á<_root_.scala.Long#o
+ı4˚4c_root_.controllers.agent.RepresentationController#reject(Ljava/lang/String;J)Lplay/api/mvc/Action;.
+µ7¿7_root_.controllers.˚
+…'œ'_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(client)K
+¬…?app/controllers/agent/RepresentationController.scala@3906..3913
+êñ_root_.scala.Option#Ü
+á*ö*|_root_.controllers.ValidPagination#withValidPagination(IIZLscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(
+¥AæA_root_.controllers.Pagination#w
+ã3ß3m_root_.controllers.agent.ReverseRepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Call;.
+©4≠4_root_.views.html.
+ö<û<_root_.scala.None.
+∞¥_root_.scala.None.K
+Ø+∞+?app/controllers/agent/RepresentationController.scala@5551..5552~
+“<·<r_root_.controllers.agent.RepresentationController#revokeClientConfirmed(JJ)Lplay/api/mvc/Action;.(authorisationId)˚
+ñú_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(client)
+ã:è:_root_.scala.Long#%
+µ"ª"_root_.scala.Predef.String#I
+±9Ω9?app/controllers/agent/RepresentationController.scala@7035..7285
+±)¥)_root_.scala.Int#(
+™3≠3_root_.play.api.mvc.Call#(url)#
+îô_root_.controllers.agent.
+„Ê_root_.scala.Int#
+ô	ü	_root_.models.7
+Êˇ-_root_.controllers.PropertyLinkingController#r
+ÃÂf_root_.controllers.agent.RepresentationController#listRepresentationRequest(IIZ)Lplay/api/mvc/Action;.%
+¯˛_root_.scala.Predef.String#q
+ Œg_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.(page)
+Å$á$_root_.scala.Option#G
+˚Ö=_root_.controllers.Pagination.;_root_.controllers.Pagination#Ñ
+∂0…0x_root_.controllers.agent.RepresentationController#accept(Ljava/lang/String;J)Lplay/api/mvc/Action;.(noOfPendingRequests)
+ã,é,_root_.scala.Int#6
+„È,_root_.models.messages.MessageCount#(unread){
+©1µ1q_root_.controllers.agent.RepresentationController#accept(Ljava/lang/String;J)Lplay/api/mvc/Action;.(submissionId)7
+•6√6-_root_.models.RepresentationResponseDeclined.&
+Ç.ã._root_.views.html.dashboard.o
+ô0ü0c_root_.controllers.agent.RepresentationController#accept(Ljava/lang/String;J)Lplay/api/mvc/Action;.I
+‡Ö?_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM.
+ˇ8Ñ9_root_.views.I
+µø?app/controllers/agent/RepresentationController.scala@3416..3426)
+é í _root_.play.api.libs.json.Json.@
+˜Ö6_root_.actions.AuthenticatedRequest#organisationId()J.I
+ œ?app/controllers/agent/RepresentationController.scala@2784..2789I
+æ√?app/controllers/agent/RepresentationController.scala@3527..3532Y
+∞?∏?O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.(
+Í8Ì8_root_.play.api.mvc.Call#(url)K
+µ%º%?app/controllers/agent/RepresentationController.scala@4789..4796I
+á&è&?app/controllers/agent/RepresentationController.scala@4871..4879I
+‹.Û.?_root_.models.PropertyRepresentations#(propertyRepresentations)
+ø√_root_.scala.None.I
+ô∞?_root_.models.PropertyRepresentations#(propertyRepresentations)*
+◊3›3 _root_.controllers.agent.routes.|
+Î,Û,r_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.(pageSize)4
+Úˇ*_root_.views.html.dashboard.manageClients.=
+ãñ3_root_.models.PropertyRepresentations#(resultCount)7
+ë™-_root_.controllers.PropertyLinkingController#O
+∂.».E_root_.controllers.agent.RepresentationController.ManagePropertiesVM.O
+—‚E_root_.controllers.agent.RepresentationController#(messagesConnector)
+À0œ0_root_.scala.Long#I
+ç'ì'?app/controllers/agent/RepresentationController.scala@5005..5011Ç
+∂2…2x_root_.controllers.agent.RepresentationController#accept(Ljava/lang/String;J)Lplay/api/mvc/Action;.(noOfPendingRequests)o
+”8Á8e_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;.
+¿;ƒ;_root_.scala.Some.K
+ú%©%A_root_.controllers.agent.RepresentationController#(authenticated)C
+Ú2ä39_root_.controllers.agent.routes.RepresentationController.>
+˝	ï
+2_root_.controllers.agent.RepresentationController#à
+Äî|_root_.controllers.agent.RepresentationController#listRepresentationRequest(IIZ)Lplay/api/mvc/Action;.(requestTotalRowCount)K
+œAÙA?_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM#2
+˝AåB(_root_.models.searchApi.AgentAuthResult#9
+Ù	Ù	/_root_.com.google.inject.Singleton#`<init>`()V.â
+ÿÏ˛_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(requestTotalRowCount)‘
+º ‚ «_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.Ñ
+í5•5x_root_.controllers.agent.RepresentationController#reject(Ljava/lang/String;J)Lplay/api/mvc/Action;.(noOfPendingRequests)
+Õÿ_root_.controllers.*
+π?ø? _root_.controllers.agent.routes.‘
+Üå«_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(status)2
+òC¨C(_root_.controllers.PaginationSearchSort#S
+ıA˚AG_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM#(result)K
+◊)‰)A_root_.controllers.agent.RepresentationController#(authenticated)*
+ó
+ù
+ _root_.com.google.inject.Inject#
+’;⁄;_root_.views.⁄
+„ Á Õ_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(page)˛
+ &”&Û_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(sortfield)@
+ï£6_root_.actions.AuthenticatedRequest#organisationId()J.#
+Òˆ_root_.controllers.agent.I
+©/≥/?app/controllers/agent/RepresentationController.scala@5751..5761%
+Ã$“$_root_.scala.Predef.String#◊
+‰Ì _root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(sortorder))
+º+æ+_root_.play.api.mvc.Results#Ok.K
+≈;Õ;?app/controllers/agent/RepresentationController.scala@7621..7629∑
+Â*Ì*¨_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˝
+ª√Ú_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(pageSize)˛
+¨µÛ_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(sortorder)†
+˚1É2ï_root_.connectors.PropertyRepresentationConnector#response(Lmodels/RepresentationResponse;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.s
+Ë:˜:i_root_.controllers.agent.RepresentationController#revokeClient(JJ)Lplay/api/mvc/Action;.(authorisationId)U
+äüI_root_.controllers.agent.RepresentationController#(propertyLinkConnector)
+ñù_root_.scala.Boolean#K
+‰>Ò>A_root_.controllers.agent.RepresentationController#(reprConnector)
+˝-Å._root_.views.html.I
+ìò?app/controllers/agent/RepresentationController.scala@3527..35326
+ù
+ù
+,_root_.com.google.inject.Inject#`<init>`()V..
+¢-∑-$_root_.models.RepresentationPending.K
+¥:ª:?app/controllers/agent/RepresentationController.scala@7476..7483F
+†
+¶
+:_root_.controllers.agent.RepresentationController#(config)I
+ÔÉ?app/controllers/agent/RepresentationController.scala@2543..2563<
+Û
+í2_root_.connectors.PropertyRepresentationConnector#€
+æ$√$Œ_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(baref)
+®Æ_root_.scala.Option#S
+√:ÿ:I_root_.controllers.agent.RepresentationController#(propertyLinkConnector)
+ß5´5_root_.scala.Long#˚
+À—_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(status)∑
+¸Ñ¨_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;. 
+§¬ø_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.o
+˜3ã4e_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;.¬
+òú∑_root_.controllers.PaginationSearchSort#copy(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;J)Lcontrollers/PaginationSearchSort;.I
+ö ü ?app/controllers/agent/RepresentationController.scala@4090..4095K
+ÈˆA_root_.controllers.agent.RepresentationController#(reprConnector)I
+Öä?app/controllers/agent/RepresentationController.scala@3527..3532[
+áõQ_root_.controllers.PaginationSearchSort.;_root_.controllers.PaginationSearchSort#˝
+¸%Ñ&Ú_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(pageSize)C
+ﬁ3ˆ39_root_.controllers.agent.routes.RepresentationController.K
+á=î=A_root_.controllers.agent.RepresentationController#(authenticated)%
+≤Ω_root_.scala.Int#toLong()J.C
+∫8“89_root_.controllers.agent.routes.RepresentationController.K
+·'Î'?app/controllers/agent/RepresentationController.scala@5089..5099
+Ö9â9_root_.views.html.
+Ôı_root_.scala.Option#ù
+ÙAÙAê_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM#`<init>`(Lmodels/searchApi/AgentAuthResult;JLcontrollers/PaginationSearchSort;)V.
+éï_root_.scala.Boolean#)
+“;‘;_root_.play.api.mvc.Results#Ok.|
+¡ƒr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.K
+¥/∏/A_root_.controllers.Pagination#copy(IIJZ)Lcontrollers/Pagination;.z
+Ö,â,n_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.(page)"
+∞	π	_root_.models.searchApi.F
+ƒÿ<_root_.models.PropertyRepresentations#(totalPendingRequests)I
+“'ÿ'?app/controllers/agent/RepresentationController.scala@5074..5080ç
+’@’@Ä_root_.controllers.agent.RepresentationController.ManagePropertiesVM#`<init>`(Lscala/collection/Seq;JLcontrollers/Pagination;)V.:
+ø1«10_root_.actions.AuthenticatedRequest#personId()J.I
+áå?app/controllers/agent/RepresentationController.scala@2695..2700˙
+ˇÑÔ_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(baref){
+°*©*q_root_.controllers.agent.RepresentationController#pendingRepresentationsJson(IIZ)Lplay/api/mvc/Action;.(pageSize)%
+Øµ_root_.scala.Predef.String#K
+˙ˇ?app/controllers/agent/RepresentationController.scala@4090..4095%
+–Ê_root_.scala.Int#toLong()J./
+ –%_root_.cats.instances.package.future.y
+ú)†)m_root_.controllers.agent.RepresentationController#pendingRepresentationsJson(IIZ)Lplay/api/mvc/Action;.(page)|
+©+¨+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.Ü
+—,‰,|_root_.controllers.ValidPagination#withValidPagination(IIZLscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.I
+•π?app/controllers/agent/RepresentationController.scala@2736..2756I
+˘>á??app/controllers/agent/RepresentationController.scala@7876..7890s
+ﬁ‚g_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.(page)
+’BŸB_root_.scala.Long#I
+‡6Ë6?app/controllers/agent/RepresentationController.scala@6879..6980˘
+¶™Ó_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(page)<
+‰ı2_root_.config.ApplicationConfig#searchSortEnabled.@
+¡-œ-6_root_.actions.AuthenticatedRequest#organisationId()J.u
+·0Ë0k_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.K
+©∂A_root_.controllers.agent.RepresentationController#(authenticated)
+˚˛_root_.scala.Int#I
+ô¢?app/controllers/agent/RepresentationController.scala@2585..2594I
+Ñ<å<?app/controllers/agent/RepresentationController.scala@7621..7629I
+Óı?app/controllers/agent/RepresentationController.scala@2670..2677
+°•_root_.scala.None.~
+ê,ò,r_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.(pageSize)â
+ó&´&˛_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(requestTotalRowCount)#
+÷=›=_root_.cats.data.OptionT.Ç
+í7•7x_root_.controllers.agent.RepresentationController#reject(Ljava/lang/String;J)Lplay/api/mvc/Action;.(noOfPendingRequests)u
+Â)Ï)k_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.<
+ˇú2_root_.controllers.agent.RepresentationController#
+⁄›_root_.com.#
+Ô@Ú@_root_.scala.package.Seq#
+πΩ_root_.scala.None.I
+‘⁄?app/controllers/agent/RepresentationController.scala@2644..2650
+ﬁ‰_root_.com.google.-
+Ãﬂ#_root_.actions.AuthenticatedAction#
+„Á_root_.views.html.
+–⁄_root_.connectors.
+àì_root_.controllers..
+≥ƒ$_root_.connectors.MessagesConnector#B
+ÎÄ8_root_.connectors.propertyLinking.PropertyLinkConnector#K
+ì:†:A_root_.controllers.agent.RepresentationController#(authenticated)∑
+Ø∑¨_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.C
+Œ7Ê79_root_.controllers.agent.routes.RepresentationController.(
+é4ë4_root_.play.api.mvc.Call#(url)K
+°ÆA_root_.controllers.agent.RepresentationController#(authenticated)
+¢A¶A_root_.scala.Long#$
+ﬂ	„	_root_.play.api.libs.json.@
+ç+õ+6_root_.actions.AuthenticatedRequest#organisationId()J.
+⁄	ﬁ	_root_.play.api.libs.K
+°,Æ,A_root_.controllers.agent.RepresentationController#(authenticated)-
+Î	Ù	#_root_.com.google.inject.Singleton#Y
+π/≈/O_root_.controllers.Pagination#copy(IIJZ)Lcontrollers/Pagination;.(totalResults)&
+±∫_root_.views.html.dashboard.<
+ö≤2_root_.controllers.agent.RepresentationController.a
+øB”BU_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM#(totalPendingRequests)¸
+õ'¢'Ò_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(address)(
+Ü8â8_root_.play.api.mvc.Call#(url)I
+÷&ﬂ&?app/controllers/agent/RepresentationController.scala@4950..4959%
+˝"É#_root_.scala.Predef.String#/
+Öõ%_root_.models.RepresentationApproved.x
+ÊÍl_root_.controllers.agent.RepresentationController#listRepresentationRequest(IIZ)Lplay/api/mvc/Action;.(page)I
+Û&¸&?app/controllers/agent/RepresentationController.scala@4979..4988
+Ô9Û9_root_.scala.Long#;
+≤>≈>1_root_.actions.AgentRequest#(organisationAccount)K
+Ù0˚0?app/controllers/agent/RepresentationController.scala@6260..6267
+°8¨8_root_.controllers.)
+’(Ÿ(_root_.play.api.libs.json.Json.E
+å.™.;_root_.views.html.dashboard.pendingPropertyRepresentations.I
+û£?app/controllers/agent/RepresentationController.scala@2784..2789;
+ó;™;1_root_.actions.AgentRequest#(organisationAccount):
+õ6£60_root_.actions.AuthenticatedRequest#personId()J.I
+ËÚ?app/controllers/agent/RepresentationController.scala@3981..3991K
+á1è1?app/controllers/agent/RepresentationController.scala@6275..6376”
+ÍÔ∆_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(baref)I
+—-€-?app/controllers/agent/RepresentationController.scala@5751..5761I
+∏¡?app/controllers/agent/RepresentationController.scala@2616..2625K
+çó?app/controllers/agent/RepresentationController.scala@3981..3991%
+ïõ_root_.scala.Predef.String#.
+Ó*É+$_root_.models.RepresentationPending.
+ö,ù,_root_.scala.Int#ﬂ
+Î"Ù"“_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(sortorder).
+ÙÖ$_root_.connectors.MessagesConnector##
+¡7∆7_root_.controllers.agent.W
+åCñCK_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM#(pagination)I
+∑1æ1?app/controllers/agent/RepresentationController.scala@6260..6267I
+è;ñ;?app/controllers/agent/RepresentationController.scala@7476..7483K
+ˇ6ã7?app/controllers/agent/RepresentationController.scala@7035..72853
+ä9†9)_root_.views.html.propertyRepresentation.j
+÷@Ì@^_root_.controllers.agent.RepresentationController.ManagePropertiesVM#(propertyRepresentations)‘
+–ÿ…_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(pageSize)v
+„Ól_root_.connectors.MessagesConnector#countUnread(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.%
+à$é$_root_.scala.Predef.String#K
+ã-ò-A_root_.controllers.agent.RepresentationController#(reprConnector)C
+≈4‘49_root_.views.html.propertyRepresentation.requestAccepted.-
+∏«#_root_.controllers.ValidPagination#w
+ÈÒk_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.(pageSize)K
+”0‡0A_root_.controllers.agent.RepresentationController#(authenticated)`
+¯?Å@V_root_.cats.data.OptionT#getOrElse(Lscala/Function0;Lcats/Functor;)Ljava/lang/Object;.˙
+¥'π'Ô_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(baref)
+€;ﬂ;_root_.views.html.ﬂ
+£"¨"“_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(sortfield)‹
+Ç%à%œ_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(client)‹
+≥#π#œ_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(status)‘
+àé«_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(client)K
+Ì1˙1A_root_.controllers.agent.RepresentationController#(reprConnector)–
+√«≈_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(page)-
+∞ø#_root_.controllers.ValidPagination#I
+ù+ß+?app/controllers/agent/RepresentationController.scala@5443..5453u
+ï=ú=k_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.
+¨∞_root_.views.html.
+ª#¡#_root_.scala.Option#
+≈3–3_root_.controllers.w
+Á7É8m_root_.controllers.agent.ReverseRepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Call;.÷
+Ë…_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(pageSize)I
+–◊?app/controllers/agent/RepresentationController.scala@3906..3913K
+°ÆA_root_.controllers.agent.RepresentationController#(reprConnector)
+ä%ê%_root_.scala.Option#
+Æ"¥"_root_.scala.Option#|
+Í6Ì6r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.-
+Å	ê	#_root_.controllers.ValidPagination#K
+¬,…,?app/controllers/agent/RepresentationController.scala@5698..5705|
+›-‡-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.K
+ÌÛA_root_.com.google.inject.Inject.;_root_.com.google.inject.Inject#I
+ô(†(?app/controllers/agent/RepresentationController.scala@4789..4796[
+∫	…	Q_root_.models.searchApi.AgentAuthResult.;_root_.models.searchApi.AgentAuthResult#
+÷	Ÿ	_root_.play.api.◊
+ù¶ _root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(sortfield)D
+›„:_root_.controllers.agent.RepresentationController#(config)*
+≥8π8 _root_.controllers.agent.routes.C
+¿?ÿ?9_root_.controllers.agent.routes.RepresentationController.)
+†4¢4_root_.play.api.mvc.Results#Ok.>
+ö@≤@2_root_.controllers.agent.RepresentationController.C
+°9∞99_root_.views.html.propertyRepresentation.requestRejected.
+Ûˆ_root_.scala.Int#/
+Ó5Ñ6%_root_.models.RepresentationResponse.
+‰Á_root_.scala.Int#˛
+Á&&Û_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(sortorder)K
+Ó˚A_root_.controllers.agent.RepresentationController#(reprConnector)I
+Ö+å+?app/controllers/agent/RepresentationController.scala@5368..5375ê
+Ÿ:Á:Ö_root_.connectors.propertyLinking.PropertyLinkConnector#clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+çî_root_.scala.Boolean#
+Æ¥_root_.scala.Option#I
+Å/Ü/?app/controllers/agent/RepresentationController.scala@5859..5864m
+Ç@ä@c_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.
+•!®!_root_.scala.Int#
+ÏÔ_root_.scala.Int#˘
+È%Ì%Ó_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(page)u
+Ø∂k_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.^
+ﬁ>„>T_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.)
+⁄‹_root_.play.api.mvc.Results#Ok./
+Û@âA%_root_.models.PropertyRepresentation#K
+∞ƒ?app/controllers/agent/RepresentationController.scala@2736..2756É
+¯åw_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.(requestTotalRowCount)Q
+√@’@E_root_.controllers.agent.RepresentationController.ManagePropertiesVM#)
+‰	Ë	_root_.play.api.libs.json.Json.
+™Æ_root_.scala.None.<
+ƒ%·%2_root_.controllers.agent.RepresentationController#)
+Ù-ˆ-_root_.play.api.mvc.Results#Ok.:
+à?ô?0_root_.models.ClientProperty#(authorisedPartyId)I
+Éó?app/controllers/agent/RepresentationController.scala@2736..2756I
+’4·4?app/controllers/agent/RepresentationController.scala@6431..6681Q
+ı˛G_root_.com.google.inject.Singleton.;_root_.com.google.inject.Singleton#I
+±(ª(?app/controllers/agent/RepresentationController.scala@5089..5099t
+Ë+Ñ,h_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.
+¢¶_root_.cats.I
+∆Œ?app/controllers/agent/RepresentationController.scala@2502..2510m
+¢<™<c_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.u
+Ø,∂,k_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.K
+≈Õ?app/controllers/agent/RepresentationController.scala@2885..2893Ã
+æ‹ø_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.
+ˇ<É=_root_.scala.Long##
+≠8≤8_root_.controllers.agent.z
+ÎÛp_root_.controllers.agent.RepresentationController#listRepresentationRequest(IIZ)Lplay/api/mvc/Action;.(pageSize)‡
+¿‘’_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(requestTotalRowCount)B
+°∂8_root_.connectors.propertyLinking.PropertyLinkConnector#*
+«7Õ7 _root_.controllers.agent.routes.I
+ù§?app/controllers/agent/RepresentationController.scala@2378..2385u
+Ω5ƒ5k_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.I
+≠±?app/controllers/agent/RepresentationController.scala@2477..2481
+Ì!Ù!_root_.scala.Boolean#
+Ÿ2‰2_root_.controllers.|
+Ø;≤;r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+ˇÜ_root_.actions.@
+°(Ø(6_root_.actions.AuthenticatedRequest#organisationId()J. 
+¿…_root_.cats.instances.Y
+ˆÇO_root_.controllers.Pagination#copy(IIJZ)Lcontrollers/Pagination;.(totalResults)I
+Æ&¬&?app/controllers/agent/RepresentationController.scala@4910..4930/
+∏Œ%_root_.models.RepresentationApproved.
+˜-¸-_root_.views.%
+óù_root_.scala.Predef.String#
+Ã)”)_root_.scala.Boolean#-
+áö#_root_.actions.AuthenticatedAction#K
+éüA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#›
+¯#ˇ#–_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(address)˚
+Ñ'ä'_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(status)7
+…1Á1-_root_.models.RepresentationResponseApproved.#
+÷>›>_root_.cats.data.OptionT.o
+Ÿ?Ì?e_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;.K
+ÒıA_root_.controllers.Pagination#copy(IIJZ)Lcontrollers/Pagination;.@
+ÿÊ6_root_.actions.AuthenticatedRequest#organisationId()J.I
+%Ù%?app/controllers/agent/RepresentationController.scala@4848..4852K
+«Ã?app/controllers/agent/RepresentationController.scala@3527..3532<
+∆Â2_root_.connectors.PropertyRepresentationConnector#K
+˜,Å-?app/controllers/agent/RepresentationController.scala@5751..5761)
+´;≠;_root_.models.GroupAccount#(id)ñ
+≥≈ã_root_.controllers.agent.RepresentationController.ManagePropertiesVM.;_root_.controllers.agent.RepresentationController.ManagePropertiesVM#|
+Ω(¿(r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+›‚_root_.views.
+û¢_root_.scala.None.M
+ó†C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.M
+‰
+Ò
+A_root_.controllers.agent.RepresentationController#(reprConnector)
+ÇÜ_root_.scala.None.I
+™>±>?app/controllers/agent/RepresentationController.scala@7848..7855%
+µª_root_.scala.Predef.String#±
+É(ò(¶_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.∑
+ô-°-¨_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+áç_root_.config.K
+ —?app/controllers/agent/RepresentationController.scala@2378..2385x
+Â,È,n_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.(page)I
+Ê?app/controllers/agent/RepresentationController.scala@3416..3426)
+ø+√+_root_.play.api.libs.json.Json.m
+º<—<a_root_.controllers.agent.RepresentationController#revokeClientConfirmed(JJ)Lplay/api/mvc/Action;."“
+ö_root_.controllers.PaginationSearchSort#`<init>`(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;J)V.≤<init>ñ(pageNumber: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], agent: Option[String], client: Option[String], totalResults: Long): PaginationSearchSort"
+_root_.scala.Int#"
+_root_.scala.Int#"
+7>_root_.scala.Boolean#"
+KQ_root_.scala.Option#"#
+RX_root_.scala.Predef.String#"
+fl_root_.scala.Option#"#
+ms_root_.scala.Predef.String#"
+~Ñ_root_.scala.Option#"%
+Öã_root_.scala.Predef.String#"
+óù_root_.scala.Option#"%
+û§_root_.scala.Predef.String#"
+Æ¥_root_.scala.Option#"%
+µª_root_.scala.Predef.String#"
+≈À_root_.scala.Option#"%
+Ã“_root_.scala.Predef.String#"
+›„_root_.scala.Option#"%
+‰Í_root_.scala.Predef.String#"
+˚ˇ_root_.scala.Long#"2
+Çñ(_root_.controllers.PaginationSearchSort#" 
+_root_.cats.data.ÄàÄdata"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"õ
+?app/controllers/agent/RepresentationController.scala@2644..2650Xx$8Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"~
+?app/controllers/agent/RepresentationController.scala@7035..7285;continueLinkString"!
+_root_.scala.Predef.String#"ò
+?app/controllers/agent/RepresentationController.scala@5089..5099UÄ
+paginationPaginationSearchSort".
+(_root_.controllers.PaginationSearchSort#"*
+_root_.com.google.inject.ÄàÄinject"°
+i_root_.controllers.agent.RepresentationController#revokeClient(JJ)Lplay/api/mvc/Action;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"
+_root_.com.
+ÄàÄcom"»
+c_root_.controllers.agent.RepresentationController#accept(Ljava/lang/String;J)Lplay/api/mvc/Action;.‡acceptE(submissionId: String, noOfPendingRequests: Long): Action[AnyContent]"#
+_root_.scala.Predef.String#"
+,0_root_.scala.Long#"#
+39_root_.play.api.mvc.Action#"'
+:D_root_.play.api.mvc.AnyContent#"”
+Ò_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(address)]ÄaddressOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"Ì
+∑_root_.controllers.PaginationSearchSort#copy(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;J)Lcontrollers/PaginationSearchSort;.∞copyñ(pageNumber: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], agent: Option[String], client: Option[String], totalResults: Long): PaginationSearchSort"
+_root_.scala.Int#"
+_root_.scala.Int#"
+7>_root_.scala.Boolean#"
+KQ_root_.scala.Option#"#
+RX_root_.scala.Predef.String#"
+fl_root_.scala.Option#"#
+ms_root_.scala.Predef.String#"
+~Ñ_root_.scala.Option#"%
+Öã_root_.scala.Predef.String#"
+óù_root_.scala.Option#"%
+û§_root_.scala.Predef.String#"
+Æ¥_root_.scala.Option#"%
+µª_root_.scala.Predef.String#"
+≈À_root_.scala.Option#"%
+Ã“_root_.scala.Predef.String#"
+›„_root_.scala.Option#"%
+‰Í_root_.scala.Predef.String#"
+˚ˇ_root_.scala.Long#"2
+Çñ(_root_.controllers.PaginationSearchSort#"∂
+“_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(sortfield)_Ä	sortfieldOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#")
+_root_.play.api.libs.json.ÄàÄjson"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#" 
+_root_.scala.Long#
+Ä†Long"≈
+T_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.ÏliftF;[F, A] => (fa: F[A])(implicit F: Functor[F]): OptionT[F, A]"_
+W_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.[F]"_
+W_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.[A]"
+!(_root_.cats.Functor#"_
+)*W_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.[F]"!
+.5_root_.cats.data.OptionT#"_
+67W_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.[F]"_
+9:W_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.[A]"õ
+?app/controllers/agent/RepresentationController.scala@2670..2677Xx$9Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"î
+?app/controllers/agent/RepresentationController.scala@6275..6376QresponseRepresentationResponse"+
+%_root_.models.RepresentationResponse#"Ò
+≈_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(page)'ÄpageInt"
+_root_.scala.Int#"
+a_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.äviewClientPropertiesM(page: Int, pageSize: Int, requestTotalRowCount: Boolean): Action[AnyContent]"
+
+_root_.scala.Int#"
+_root_.scala.Int#"
+18_root_.scala.Boolean#"#
+;A_root_.play.api.mvc.Action#"'
+BL_root_.play.api.mvc.AnyContent#"⁄
+u_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.‡revokeC(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit]"
+_root_.scala.Long#".
+'4&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+7=_root_.scala.concurrent.Future#"
+>B_root_.scala.Unit#"'
+_root_.connectors.ÄàÄ
+connectors"0
+_root_.views.html.dashboard.ÄàÄ	dashboard"y
+<_root_.models.PropertyRepresentations#(totalPendingRequests)9ÅtotalPendingRequestsLong"
+_root_.scala.Long#"ì
+ø_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.ŒviewClientPropertiesSearchSort„(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], client: Option[String]): Action[AnyContent]"
+
+_root_.scala.Int#"
+_root_.scala.Int#"
+18_root_.scala.Boolean#"
+EK_root_.scala.Option#"#
+LR_root_.scala.Predef.String#"
+`f_root_.scala.Option#"#
+gm_root_.scala.Predef.String#"
+x~_root_.scala.Option#"$
+Ö_root_.scala.Predef.String#"
+ëó_root_.scala.Option#"%
+òû_root_.scala.Predef.String#"
+®Æ_root_.scala.Option#"%
+Øµ_root_.scala.Predef.String#"
+¿∆_root_.scala.Option#"%
+«Õ_root_.scala.Predef.String#"%
+—◊_root_.play.api.mvc.Action#")
+ÿ‚_root_.play.api.mvc.AnyContent#"‰
+l_root_.connectors.MessagesConnector#countUnread(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÛcountUnread?(orgId: Long)(implicit hc: HeaderCarrier): Future[MessageCount]"
+_root_.scala.Long#".
+(&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
++1_root_.scala.concurrent.Future#",
+2>$_root_.models.messages.MessageCount#"J
+)_root_.views.html.propertyRepresentation.ÄàÄpropertyRepresentation"T
+2_root_.controllers.agent.RepresentationController.ÄÑRepresentationController"S
+2_root_.controllers.agent.RepresentationController#Ä RepresentationController"i
+?app/controllers/agent/RepresentationController.scala@4848..4852&x$29Int"
+_root_.scala.Int#"ø
+|_root_.controllers.agent.RepresentationController#listRepresentationRequest(IIZ)Lplay/api/mvc/Action;.(requestTotalRowCount)?ÄrequestTotalRowCountBoolean"
+_root_.scala.Boolean#"ú
+?app/controllers/agent/RepresentationController.scala@2719..2725Yx$11Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"1
+ _root_.controllers.agent.routes.ÄÑàroutes"∑
+?app/controllers/agent/RepresentationController.scala@7476..7483tÄÅ requestAgentRequest[AnyContent]""
+_root_.actions.AgentRequest#"'
+_root_.play.api.mvc.AnyContent#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"Ñ
+?app/controllers/agent/RepresentationController.scala@5751..5761AÄ
+pagination
+Pagination"$
+
+_root_.controllers.Pagination#"ê
+?app/controllers/agent/RepresentationController.scala@5551..5552MÄrPropertyRepresentations",
+&_root_.models.PropertyRepresentations#"¿
+}_root_.controllers.agent.RepresentationController#pendingRepresentationsJson(IIZ)Lplay/api/mvc/Action;.(requestTotalRowCount)?ÄrequestTotalRowCountBoolean"
+_root_.scala.Boolean#"Æ
+._root_.controllers.Pagination#`<init>`(IIJZ)V.˚<init>V(pageNumber: Int, pageSize: Int, totalResults: Long, resultCount: Boolean): Pagination"
+_root_.scala.Int#"
+_root_.scala.Int#"
+/3_root_.scala.Long#"
+BI_root_.scala.Boolean#"&
+LV_root_.controllers.Pagination#"ú
+?app/controllers/agent/RepresentationController.scala@5052..5057Yx$36Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"~
+1_root_.actions.AgentRequest#(organisationAccount)IÅorganisationAccountGroupAccount"!
+_root_.models.GroupAccount#"Å
+—_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(pageSize)+ÄpageSizeInt"
+_root_.scala.Int#"†
+q_root_.controllers.agent.RepresentationController#pendingRepresentationsJson(IIZ)Lplay/api/mvc/Action;.(pageSize)+ÄpageSizeInt"
+_root_.scala.Int#"∞
+œ_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(client)\ÄclientOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"ú
+?app/controllers/agent/RepresentationController.scala@5074..5080Yx$37Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"¥
+x_root_.controllers.agent.RepresentationController#reject(Ljava/lang/String;J)Lplay/api/mvc/Action;.(noOfPendingRequests)8ÄnoOfPendingRequestsLong"
+_root_.scala.Long#"Z
+2_root_.connectors.PropertyRepresentationConnector#$Ä PropertyRepresentationConnector"∑
+?app/controllers/agent/RepresentationController.scala@2378..2385tÄÅ requestAgentRequest[AnyContent]""
+_root_.actions.AgentRequest#"'
+_root_.play.api.mvc.AnyContent#"ö
+k_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.(pageSize)+ÄpageSizeInt"
+_root_.scala.Int#",
+_root_.models.searchApi.ÄàÄ	searchApi"∑
+?app/controllers/agent/RepresentationController.scala@6260..6267tÄÅ requestAgentRequest[AnyContent]""
+_root_.actions.AgentRequest#"'
+_root_.play.api.mvc.AnyContent#"ø
+|_root_.controllers.ValidPagination#withValidPagination(IIZLscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.æÑÄwithValidPaginationî(page: Int, pageSize: Int, getTotal: Boolean)(default: Function1[Pagination, Future[Result]])(implicit request: Request[AnyContent]): Future[Result]"
+
+_root_.scala.Int#"
+_root_.scala.Int#"
+%,_root_.scala.Boolean#"
+7@_root_.scala.Function1#"&
+AK_root_.controllers.Pagination#"'
+MS_root_.scala.concurrent.Future#"#
+TZ_root_.play.api.mvc.Result#"$
+pw_root_.play.api.mvc.Request#"(
+xÇ_root_.play.api.mvc.AnyContent#")
+Üå_root_.scala.concurrent.Future#"%
+çì_root_.play.api.mvc.Result#"*
+_root_.cats.data.OptionT.ÄÑOptionT">
+$_root_.connectors.MessagesConnector#Ä MessagesConnector"$
+_root_.play.api.libs.ÄàÄlibs"R
+9_root_.views.html.propertyRepresentation.requestRejected.ÄÑrequestRejected"È
+ê_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM#`<init>`(Lmodels/searchApi/AgentAuthResult;JLcontrollers/PaginationSearchSort;)V.”<init>~(result: AgentAuthResult, totalPendingRequests: Long, pagination: PaginationSearchSort): ManageClientPropertiesSearchAndSortVM"0
+	(_root_.models.searchApi.AgentAuthResult#"
+04_root_.scala.Long#"0
+BV(_root_.controllers.PaginationSearchSort#"G
+Y~?_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM#"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"°
+›_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(requestTotalRowCount)?ÄrequestTotalRowCountBoolean"
+_root_.scala.Boolean#"ù
+k_root_.actions.AuthenticatedAction#asAgent(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.≠asAgentl(body: Function1[AgentRequest[AnyContent], Future[Result]])(implicit messages: Messages): Action[AnyContent]"
+_root_.scala.Function1#"$
+_root_.actions.AgentRequest#"'
+(_root_.play.api.mvc.AnyContent#"'
++1_root_.scala.concurrent.Future#"#
+28_root_.play.api.mvc.Result#"&
+OW_root_.play.api.i18n.Messages#"#
+Z`_root_.play.api.mvc.Action#"'
+ak_root_.play.api.mvc.AnyContent#"F
+%_root_.models.RepresentationApproved.ÄÑàRepresentationApproved"J
+_root_.models.GroupAccount#(id)'ÅidLong"
+_root_.scala.Long#"é
+?app/controllers/agent/RepresentationController.scala@2784..2789KÄreprsAgentAuthResult".
+(_root_.models.searchApi.AgentAuthResult#"ø
+9_root_.controllers.agent.routes.RepresentationController.ÅÅÄàRepresentationControllerReverseRepresentationController"?
+9_root_.controllers.agent.ReverseRepresentationController#"
+_root_.play.api.
+ÄàÄapi"ä
+?app/controllers/agent/RepresentationController.scala@2885..2893GÄmsgCountMessageCount"*
+$_root_.models.messages.MessageCount#"®
+«_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(status)\ÄstatusOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"¥
+x_root_.controllers.agent.RepresentationController#accept(Ljava/lang/String;J)Lplay/api/mvc/Action;.(noOfPendingRequests)8ÄnoOfPendingRequestsLong"
+_root_.scala.Long#"V
+8_root_.connectors.propertyLinking.PropertyLinkConnector#Ä PropertyLinkConnector"∑
+?app/controllers/agent/RepresentationController.scala@7848..7855tÄÅ requestAgentRequest[AnyContent]""
+_root_.actions.AgentRequest#"'
+_root_.play.api.mvc.AnyContent#"ø
+A_root_.controllers.Pagination#copy(IIJZ)Lcontrollers/Pagination;.˘copyV(pageNumber: Int, pageSize: Int, totalResults: Long, resultCount: Boolean): Pagination"
+_root_.scala.Int#"
+_root_.scala.Int#"
+/3_root_.scala.Long#"
+BI_root_.scala.Boolean#"&
+LV_root_.controllers.Pagination#"[
+!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
+_root_.scala.Boolean#"—
+_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(status)\ÄstatusOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"ß
+ï_root_.connectors.PropertyRepresentationConnector#response(Lmodels/RepresentationResponse;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.åresponseZ(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier): Future[Unit]"-
+/%_root_.models.RepresentationResponse#".
+>K&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+NT_root_.scala.concurrent.Future#"
+UY_root_.scala.Unit#"r
+_root_.scala.Long#`>`(I)Z.TÑÄ>(x: Int): Boolean"
+_root_.scala.Int#"
+
+_root_.scala.Boolean#"∑
+?app/controllers/agent/RepresentationController.scala@5368..5375tÄÅ requestAgentRequest[AnyContent]""
+_root_.actions.AgentRequest#"'
+_root_.play.api.mvc.AnyContent#"´
+n_root_.controllers.agent.RepresentationController#revokeClient(JJ)Lplay/api/mvc/Action;.(clientOrganisationId)9ÄclientOrganisationIdLong"
+_root_.scala.Long#"!
+_root_.views.html.ÄàÄhtml"
+_root_.cats.ÄàÄcats"—
+_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(client)\ÄclientOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"D
+$_root_.models.RepresentationPending.ÄÑàRepresentationPending"≤
+–_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(address)]ÄaddressOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"ˆ
+V_root_.cats.data.OptionT#getOrElse(Lscala/Function0;Lcats/Functor;)Ljava/lang/Object;.õ	getOrElse4(default: <byname>[A])(implicit F: Functor[F]): F[A]" 
+
+_root_.scala.`<byname>`#"$
+_root_.cats.data.OptionT#[A]"
+#*_root_.cats.Functor#"$
++,_root_.cats.data.OptionT#[F]"$
+01_root_.cats.data.OptionT#[F]"$
+23_root_.cats.data.OptionT#[A]"Æ
+Œ_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(baref)[ÄbarefOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"Ñ
+:_root_.controllers.agent.RepresentationController#(config)FÄconfigApplicationConfig"&
+ _root_.config.ApplicationConfig#"î
+?app/controllers/agent/RepresentationController.scala@6879..6980QresponseRepresentationResponse"+
+%_root_.models.RepresentationResponse#"ö
+Ó_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(page)'ÄpageInt"
+_root_.scala.Int#"s
+,_root_.com.google.inject.Inject#`<init>`()V.CàÄÄ<init>
+(): Inject"(
+
+ _root_.com.google.inject.Inject#"ú
+?app/controllers/agent/RepresentationController.scala@2695..2700Yx$10Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"¸
+g_root_.controllers.agent.RepresentationController#pendingRepresentationsJson(IIZ)Lplay/api/mvc/Action;.êpendingRepresentationsJsonM(page: Int, pageSize: Int, requestTotalRowCount: Boolean): Action[AnyContent]"
+
+_root_.scala.Int#"
+_root_.scala.Int#"
+18_root_.scala.Boolean#"#
+;A_root_.play.api.mvc.Action#"'
+BL_root_.play.api.mvc.AnyContent#"Ï
+^_root_.controllers.agent.RepresentationController.ManagePropertiesVM#(propertyRepresentations)âÅpropertyRepresentationsSeq[PropertyRepresentation]"
+_root_.scala.package.Seq#"-
+%_root_.models.PropertyRepresentation#"™
+r_root_.controllers.agent.RepresentationController#revokeClientConfirmed(JJ)Lplay/api/mvc/Action;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"í
+¶_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÊforAgentSearchAndSortr(agentOrganisationId: Long, pagination: PaginationSearchSort)(implicit hc: HeaderCarrier): Future[AgentAuthResult]"
+_root_.scala.Long#"0
+(<(_root_.controllers.PaginationSearchSort#".
+KX&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+[a_root_.scala.concurrent.Future#"0
+bq(_root_.models.searchApi.AgentAuthResult#"Ñ
+?app/controllers/agent/RepresentationController.scala@3416..3426AÄ
+pagination
+Pagination"$
+
+_root_.controllers.Pagination#"l
+6_root_.actions.AuthenticatedRequest#organisationId()J.2organisationIdLong"
+_root_.scala.Long#";
+#_root_.controllers.ValidPagination#Ä@ValidPagination"$
+_root_.scala.Option#Ä†Option"£
+«_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.÷&listRepresentationRequestSearchAndSort„(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], client: Option[String]): Action[AnyContent]"
+
+_root_.scala.Int#"
+_root_.scala.Int#"
+18_root_.scala.Boolean#"
+EK_root_.scala.Option#"#
+LR_root_.scala.Predef.String#"
+`f_root_.scala.Option#"#
+gm_root_.scala.Predef.String#"
+x~_root_.scala.Option#"$
+Ö_root_.scala.Predef.String#"
+ëó_root_.scala.Option#"%
+òû_root_.scala.Predef.String#"
+®Æ_root_.scala.Option#"%
+Øµ_root_.scala.Predef.String#"
+¿∆_root_.scala.Option#"%
+«Õ_root_.scala.Predef.String#"%
+—◊_root_.play.api.mvc.Action#")
+ÿ‚_root_.play.api.mvc.AnyContent#"L
+6_root_.views.html.propertyRepresentation.revokeClient.ÄÑrevokeClient"1
+ _root_.com.google.inject.Inject#Ä†ÄInject"∑
+?app/controllers/agent/RepresentationController.scala@6864..6871tÄÅ requestAgentRequest[AnyContent]""
+_root_.actions.AgentRequest#"'
+_root_.play.api.mvc.AnyContent#"Ω
+O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
+_root_.play.api.mvc.Call#"#
+_root_.play.api.mvc.Result#"¶
+∆_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(baref)[ÄbarefOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"3
+_root_.controllers.Pagination#Ä†Ä
+Pagination"ó
+´_root_.connectors.MessagesConnector#`<init>`(Lconfig/WSHttp;Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/ApplicationConfig;Lscala/concurrent/ExecutionContext;)V.Ê<init>q(http: WSHttp, conf: ServicesConfig, config: ApplicationConfig)(implicit ec: ExecutionContext): MessagesConnector"
+_root_.config.WSHttp#"=
+#5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"(
+-> _root_.config.ApplicationConfig#"1
+M])_root_.scala.concurrent.ExecutionContext#",
+`q$_root_.connectors.MessagesConnector#"B
+(_root_.models.searchApi.AgentAuthResult#Ä†ÄAgentAuthResult"?
+#_root_.actions.AuthenticatedAction#Ä AuthenticatedAction"ó
+A_root_.controllers.agent.RepresentationController#(authenticated)RÄauthenticatedAuthenticatedAction")
+#_root_.actions.AuthenticatedAction#"ó
+G_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM#(result)LÅresultAgentAuthResult".
+(_root_.models.searchApi.AgentAuthResult#"Ñ
+?app/controllers/agent/RepresentationController.scala@3981..3991AÄ
+pagination
+Pagination"$
+
+_root_.controllers.Pagination#"ú
+?app/controllers/agent/RepresentationController.scala@5005..5011Yx$34Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"i
+?app/controllers/agent/RepresentationController.scala@4871..4879&x$30Int"
+_root_.scala.Int#"#
+_root_.com.google.ÄàÄgoogle"˘
+Õ_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(page)'ÄpageInt"
+_root_.scala.Int#"ú
+?app/controllers/agent/RepresentationController.scala@4950..4959Yx$32Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"î
+?app/controllers/agent/RepresentationController.scala@4090..4095QÄreprsPropertyRepresentations",
+&_root_.models.PropertyRepresentations#"æ
+I_root_.controllers.agent.RepresentationController#(propertyLinkConnector)qÄpropertyLinkConnectorPropertyLinkConnector">
+8_root_.connectors.propertyLinking.PropertyLinkConnector#"|
+/_root_.com.google.inject.Singleton#`<init>`()V.IàÄÄ<init>(): Singleton"+
+#_root_.com.google.inject.Singleton#"í
+U_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM#(totalPendingRequests)9ÅtotalPendingRequestsLong"
+_root_.scala.Long#"¢
+Ú_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(pageSize)+ÄpageSizeInt"
+_root_.scala.Int#"“
+?app/controllers/agent/RepresentationController.scala@4789..4796éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"ò
+[_root_.controllers.agent.RepresentationController.ManagePropertiesVM#(totalPendingRequests)9ÅtotalPendingRequestsLong"
+_root_.scala.Long#"V
+-_root_.models.RepresentationResponseApproved.%ÄÑàRepresentationResponseApproved"F
+%_root_.models.PropertyRepresentation#Ä†ÄPropertyRepresentation":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"Æ
+ _root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(sortorder)_Ä	sortorderOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"p
+?app/controllers/agent/RepresentationController.scala@2543..2563-x$5Boolean"
+_root_.scala.Boolean#"ô
+’_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(requestTotalRowCount)?ÄrequestTotalRowCountBoolean"
+_root_.scala.Boolean#"ú
+?app/controllers/agent/RepresentationController.scala@4979..4988Yx$33Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"õ
+?app/controllers/agent/RepresentationController.scala@2616..2625Xx$7Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"!
+_root_.scala.None.ÄÑàNone"Í
+ü_root_.connectors.PropertyRepresentationConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.≈<init>l(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): PropertyRepresentationConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"1
+:J)_root_.scala.concurrent.ExecutionContext#":
+Ml2_root_.connectors.PropertyRepresentationConnector#"î
+?app/controllers/agent/RepresentationController.scala@3527..3532QÄreprsPropertyRepresentations",
+&_root_.models.PropertyRepresentations#"°
+r_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.(pageSize)+ÄpageSizeInt"
+_root_.scala.Int#"»
+c_root_.controllers.agent.RepresentationController#reject(Ljava/lang/String;J)Lplay/api/mvc/Action;.‡rejectE(submissionId: String, noOfPendingRequests: Long): Action[AnyContent]"#
+_root_.scala.Predef.String#"
+,0_root_.scala.Long#"#
+39_root_.play.api.mvc.Action#"'
+:D_root_.play.api.mvc.AnyContent#"q
+2_root_.config.ApplicationConfig#searchSortEnabled.;searchSortEnabledBoolean"
+_root_.scala.Boolean#"ü
+p_root_.controllers.agent.RepresentationController#listRepresentationRequest(IIZ)Lplay/api/mvc/Action;.(pageSize)+ÄpageSizeInt"
+_root_.scala.Int#"˘
+…_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(pageSize)+ÄpageSizeInt"
+_root_.scala.Int#"&
+_root_.scala.Boolean#Ä†Boolean"*
+_root_.cats.instances.ÄàÄ	instances"`
+0_root_.actions.AuthenticatedRequest#personId()J.,personIdLong"
+_root_.scala.Long#"õ
+?app/controllers/agent/RepresentationController.scala@2585..2594Xx$6Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.play.ÄàÄplay"o
+?_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM#,Ä†Ä%ManageClientPropertiesSearchAndSortVM"n
+?_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM.+ÄÑ%ManageClientPropertiesSearchAndSortVM"∫
+w_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.(requestTotalRowCount)?ÄrequestTotalRowCountBoolean"
+_root_.scala.Boolean#"¢
+?app/controllers/agent/RepresentationController.scala@2736..2756_ÄpaginationSearchSortPaginationSearchSort".
+(_root_.controllers.PaginationSearchSort#"˝
+e_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;.ìviewClientProperties (page: Int, pageSize: Int): Call"
+
+_root_.scala.Int#"
+_root_.scala.Int#"!
+ _root_.play.api.mvc.Call#"ˇ
+O_root_.models.searchApi.AgentAuthResult#`<init>`(IIIIILscala/collection/Seq;)V.´<init>å(start: Int, size: Int, filterTotal: Int, total: Int, pendingRepresentations: Int, authorisations: Seq[AgentAuthorisation]): AgentAuthResult"
+_root_.scala.Int#"
+_root_.scala.Int#"
+%(_root_.scala.Int#"
+14_root_.scala.Int#"
+NQ_root_.scala.Int#"!
+cf_root_.scala.package.Seq#"3
+gy+_root_.models.searchApi.AgentAuthorisation#"1
+}å(_root_.models.searchApi.AgentAuthResult#"∞
+œ_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(status)\ÄstatusOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"±
+q_root_.controllers.agent.RepresentationController#accept(Ljava/lang/String;J)Lplay/api/mvc/Action;.(submissionId)<ÄsubmissionIdString"!
+_root_.scala.Predef.String#"V
+-_root_.models.RepresentationResponseDeclined.%ÄÑàRepresentationResponseDeclined"â
+Ö_root_.connectors.propertyLinking.PropertyLinkConnector#clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˛clientPropertyx(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]]"
+_root_.scala.Long#"
+%)_root_.scala.Long#"
+7;_root_.scala.Long#".
+JW&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+Z`_root_.scala.concurrent.Future#"
+ag_root_.scala.Option#"%
+hv_root_.models.ClientProperty#"î
+?app/controllers/agent/RepresentationController.scala@5859..5864QÄreprsPropertyRepresentations",
+&_root_.models.PropertyRepresentations#"ã
+?app/controllers/agent/RepresentationController.scala@7876..7890HÄclientPropertyClientProperty"#
+_root_.models.ClientProperty#"Y
+,_root_.models.messages.MessageCount#(unread))ÅunreadInt"
+_root_.scala.Int#"Ê
+•_root_.connectors.propertyLinking.PropertyLinkConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.ª<init>\(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): PropertyLinkConnector"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"@
+G\8_root_.connectors.propertyLinking.PropertyLinkConnector#"Ñ
+?app/controllers/agent/RepresentationController.scala@7621..7629ApropertyClientProperty"#
+_root_.models.ClientProperty#"b
+E_root_.controllers.agent.RepresentationController.ManagePropertiesVM#Ä†ÄManagePropertiesVM"a
+E_root_.controllers.agent.RepresentationController.ManagePropertiesVM.ÄÑManagePropertiesVM"
+_root_.models.ÄàÄmodels"ô
+n_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.(page)'ÄpageInt"
+_root_.scala.Int#"ı
+Ä_root_.controllers.agent.RepresentationController.ManagePropertiesVM#`<init>`(Lscala/collection/Seq;JLcontrollers/Pagination;)V.Ô<init>~(propertyRepresentations: Seq[PropertyRepresentation], totalPendingRequests: Long, pagination: Pagination): ManagePropertiesVM"!
+_root_.scala.package.Seq#"-
+4%_root_.models.PropertyRepresentation#"
+MQ_root_.scala.Long#"&
+_i_root_.controllers.Pagination#"M
+l~E_root_.controllers.agent.RepresentationController.ManagePropertiesVM#"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"7
+#_root_.com.google.inject.Singleton#Ä†Ä	Singleton"R
+9_root_.views.html.propertyRepresentation.requestAccepted.ÄÑrequestAccepted"5
+%_root_.cats.instances.package.future.ÄÑfuture"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"¡
+h_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.‘pendingRepresentationRequest.(page: Int, pageSize: Int): Action[AnyContent]"
+
+_root_.scala.Int#"
+_root_.scala.Int#"#
+"_root_.play.api.mvc.Action#"'
+#-_root_.play.api.mvc.AnyContent#"!
+_root_.actions.ÄàÄactions"ó
+l_root_.controllers.agent.RepresentationController#listRepresentationRequest(IIZ)Lplay/api/mvc/Action;.(page)'ÄpageInt"
+_root_.scala.Int#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"ç
+m_root_.controllers.agent.ReverseRepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Call;.õpendingRepresentationRequest (page: Int, pageSize: Int): Call"
+
+_root_.scala.Int#"
+_root_.scala.Int#"!
+ _root_.play.api.mvc.Call#"ò
+m_root_.controllers.agent.RepresentationController#pendingRepresentationsJson(IIZ)Lplay/api/mvc/Action;.(page)'ÄpageInt"
+_root_.scala.Int#"Œ
+a_root_.controllers.agent.RepresentationController#revokeClientConfirmed(JJ)Lplay/api/mvc/Action;.ËrevokeClientConfirmedG(authorisationId: Long, clientOrganisationId: Long): Action[AnyContent]"
+_root_.scala.Long#"
+.2_root_.scala.Long#"#
+5;_root_.play.api.mvc.Action#"'
+<F_root_.play.api.mvc.AnyContent#")
+_root_.controllers.ÄàÄcontrollers" 
+¨_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.òforAgenté(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier): Future[PropertyRepresentations]"+
+	#_root_.models.RepresentationStatus#"
+48_root_.scala.Long#"&
+FP_root_.controllers.Pagination#".
+_l&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+ou_root_.scala.concurrent.Future#"/
+vç&_root_.models.PropertyRepresentations#"E
+%_root_.models.RepresentationResponse.ÄÑRepresentationResponse"K
+_root_.scala.Int#toLong()J.,ÑÄtoLongLong"
+_root_.scala.Long#"
+_root_.views.ÄàÄviews"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"ç
+3_root_.models.PropertyRepresentations#(resultCount)VÅresultCountOption[Long]"
+_root_.scala.Option#"
+_root_.scala.Long#"G
+(_root_.controllers.PaginationSearchSort#Ä†ÄPaginationSearchSort"™
+»_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(address)]ÄaddressOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"§
+K_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM#(pagination)UÅ
+paginationPaginationSearchSort".
+(_root_.controllers.PaginationSearchSort#" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"◊
+Û_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(sortfield)_Ä	sortfieldOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.config.ÄàÄconfig"Æ
+ _root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(sortfield)_Ä	sortfieldOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"◊
+Û_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(sortorder)_Ä	sortorderOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"h
+?app/controllers/agent/RepresentationController.scala@2477..2481%x$3Int"
+_root_.scala.Int#"Ñ
+q_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.étoJson/[T] => (o: T)(implicit tjs: Writes[T]): JsValue"|
+t_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.[T]")
+"!_root_.play.api.libs.json.Writes#"|
+#$t_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.[T]"*
+(/"_root_.play.api.libs.json.JsValue#"˙
+f_root_.controllers.agent.RepresentationController#listRepresentationRequest(IIZ)Lplay/api/mvc/Action;.èlistRepresentationRequestM(page: Int, pageSize: Int, requestTotalRowCount: Boolean): Action[AnyContent]"
+
+_root_.scala.Int#"
+_root_.scala.Int#"
+18_root_.scala.Boolean#"#
+;A_root_.play.api.mvc.Action#"'
+BL_root_.play.api.mvc.AnyContent#"h
+?app/controllers/agent/RepresentationController.scala@2502..2510%x$4Int"
+_root_.scala.Int#")
+_root_.controllers.agent.ÄàÄagent"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."Ñ
+?app/controllers/agent/RepresentationController.scala@5443..5453AÄ
+pagination
+Pagination"$
+
+_root_.controllers.Pagination#"¥
+w_root_.controllers.agent.RepresentationController#revokeClientConfirmed(JJ)Lplay/api/mvc/Action;.(clientOrganisationId)9ÄclientOrganisationIdLong"
+_root_.scala.Long#"û
+E_root_.controllers.agent.RepresentationController#(messagesConnector)UÄmessagesConnectorMessagesConnector"*
+$_root_.connectors.MessagesConnector#"∂
+“_root_.controllers.agent.RepresentationController#listRepresentationRequestSearchAndSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(sortorder)_Ä	sortorderOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"˚
+≈_root_.controllers.PaginationSearchSort#copy(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;J)Lcontrollers/PaginationSearchSort;.(totalResults)1ÄtotalResultsLong"
+_root_.scala.Long#"®
+«_root_.controllers.agent.RepresentationController#viewClientPropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(client)\ÄclientOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"q
+?app/controllers/agent/RepresentationController.scala@4910..4930.x$31Boolean"
+_root_.scala.Boolean#"c
+;_root_.views.html.dashboard.pendingPropertyRepresentations.$ÄÑpendingPropertyRepresentations"˙
+ﬁ_root_.models.PropertyRepresentation#`<init>`(JJLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lmodels/AgentPermission;Lmodels/AgentPermission;Ljava/time/LocalDate;Lmodels/RepresentationStatus;)V.ñ<init>¬(representationId: Long, authorisationId: Long, billingAuthorityReference: String, submissionId: String, organisationId: Long, organisationName: String, address: String, checkPermission: AgentPermission, challengePermission: AgentPermission, createDatetime: LocalDate, status: RepresentationStatus): PropertyRepresentation"
+_root_.scala.Long#"
+*._root_.scala.Long#"#
+KQ_root_.scala.Predef.String#"#
+ag_root_.scala.Predef.String#"
+y}_root_.scala.Long#"%
+ëó_root_.scala.Predef.String#"%
+¢®_root_.scala.Predef.String#"(
+ª _root_.models.AgentPermission#"(
+·_root_.models.AgentPermission#"%
+Çã_root_.java.time.LocalDate#"-
+ï©#_root_.models.RepresentationStatus#"/
+¨¬%_root_.models.PropertyRepresentation#"U
+4_root_.views.html.dashboard.manageClientsSearchSort.ÄÑmanageClientsSearchSort"~
+?app/controllers/agent/RepresentationController.scala@6431..6681;continueLinkString"!
+_root_.scala.Predef.String#"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"¶
+Ò_root_.controllers.agent.RepresentationController#`<init>`(Lconfig/ApplicationConfig;Lconnectors/PropertyRepresentationConnector;Lactions/AuthenticatedAction;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;)V.Ø<init>›(config: ApplicationConfig, reprConnector: PropertyRepresentationConnector, authenticated: AuthenticatedAction, propertyLinkConnector: PropertyLinkConnector, messagesConnector: MessagesConnector): RepresentationController"(
+	 _root_.config.ApplicationConfig#":
++J2_root_.connectors.PropertyRepresentationConnector#"+
+[n#_root_.actions.AuthenticatedAction#"B
+áú8_root_.connectors.propertyLinking.PropertyLinkConnector#".
+±¬$_root_.connectors.MessagesConnector#"<
+≈›2_root_.controllers.agent.RepresentationController#"∑
+?app/controllers/agent/RepresentationController.scala@5698..5705tÄÅ requestAgentRequest[AnyContent]""
+_root_.actions.AgentRequest#"'
+_root_.play.api.mvc.AnyContent#"œ
+Ô_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(baref)[ÄbarefOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"Õ
+?_root_.models.PropertyRepresentations#(propertyRepresentations)âÅpropertyRepresentationsSeq[PropertyRepresentation]"
+_root_.scala.package.Seq#"-
+%_root_.models.PropertyRepresentation#"¬
+˛_root_.controllers.ValidPagination#withValidPaginationSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Function1;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(requestTotalRowCount)?ÄrequestTotalRowCountBoolean"
+_root_.scala.Boolean#"j
+0_root_.models.ClientProperty#(authorisedPartyId)6ÅauthorisedPartyIdLong"
+_root_.scala.Long#"≤
+A_root_.controllers.agent.RepresentationController#(reprConnector)mÄreprConnectorPropertyRepresentationConnector"8
+2_root_.connectors.PropertyRepresentationConnector#"A
+*_root_.views.html.dashboard.manageClients.ÄÑmanageClients"ú
+?app/controllers/agent/RepresentationController.scala@5029..5036Yx$35Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"∑
+?app/controllers/agent/RepresentationController.scala@3906..3913tÄÅ requestAgentRequest[AnyContent]""
+_root_.actions.AgentRequest#"'
+_root_.play.api.mvc.AnyContent#"±
+q_root_.controllers.agent.RepresentationController#reject(Ljava/lang/String;J)Lplay/api/mvc/Action;.(submissionId)<ÄsubmissionIdString"!
+_root_.scala.Predef.String#"
+_root_.scala.Int#	Ä†Int"Ñ
+O_root_.controllers.Pagination#copy(IIJZ)Lcontrollers/Pagination;.(totalResults)1ÄtotalResultsLong"
+_root_.scala.Long#"å
+?app/controllers/agent/RepresentationController.scala@5187..5190IÄresAgentAuthResult".
+(_root_.models.searchApi.AgentAuthResult#" 
+_root_.scala.Some.
+ÄÑSome"º
+X_root_.controllers.agent.RepresentationController#revokeClient(JJ)Lplay/api/mvc/Action;.ﬂrevokeClientG(authorisationId: Long, clientOrganisationId: Long): Action[AnyContent]"
+_root_.scala.Long#"
+.2_root_.scala.Long#"#
+5;_root_.play.api.mvc.Action#"'
+<F_root_.play.api.mvc.AnyContent#"ñ
+Q_root_.controllers.agent.RepresentationController.ManagePropertiesVM#(pagination)AÅ
+pagination
+Pagination"$
+
+_root_.controllers.Pagination#"ç
+v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.í<init>r(provider: GovernmentGatewayProvider, businessRatesAuthorisation: BusinessRatesAuthorisation): AuthenticatedAction".
+$&_root_.auth.GovernmentGatewayProvider#"5
+B\-_root_.connectors.BusinessRatesAuthorisation#"+
+_r#_root_.actions.AuthenticatedAction#"Õ
+c_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.fnotFound3(implicit request: play.api.mvc.Request[_]): Result"#
+-3_root_.play.api.mvc.Result#"<
+"_root_.connectors.propertyLinking.ÄàÄpropertyLinking"í
+g_root_.controllers.agent.RepresentationController#viewClientProperties(IIZ)Lplay/api/mvc/Action;.(page)'ÄpageInt"
+_root_.scala.Int#2”
+‘;‘;*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2v
+È4È4#*(RepresentationController.this.ec)
+_star_.8
+ "0_root_.controllers.PropertyLinkingController#ec.2 
+‘(‘(*.apply[JsValue]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.*
+"_root_.play.api.libs.json.JsValue#2∑
+ö?ö?,*(RepresentationController.this.hc(request))
+_star_.p
+ "h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2v
+© © #*(RepresentationController.this.ec)
+_star_.8
+ "0_root_.controllers.PropertyLinkingController#ec.2G
+¨+¨+	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Ÿ
+‘4‘4*.apply
+_star_.∂
+≠_root_.views.html.propertyRepresentation.requestAccepted_Scope0.requestAccepted#apply(Ljava/lang/String;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2#
+Ø Ø 
+*(request)
+_star_.2”
+ˆˆû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2Ò
+ÖÖ*.apply
+_star_.Œ
+≈_root_.controllers.agent.ManageClientPropertiesSearchAndSortVM.apply(Lmodels/searchApi/AgentAuthResult;JLcontrollers/PaginationSearchSort;)Lcontrollers/agent/ManageClientPropertiesSearchAndSortVM;.2Ç
+ë0ë0)*(RepresentationController.this.messages)
+_star_.>
+ (6_root_.controllers.PropertyLinkingController#messages.2G
+‡-‡-	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2ã
+æ9æ92*(request, RepresentationController.this.messages)
+_star_.>
+)16_root_.controllers.PropertyLinkingController#messages.2m
+„>„>*[Future, Unit]
+_star_.'
+_root_.scala.concurrent.Future#
+
+_root_.scala.Unit#2G
+˜˜	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2∑
+…>…>,*(RepresentationController.this.hc(request))
+_star_.p
+ "h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2{
+©%©%*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2¨
+ > >*.flatMap[Result]
+_star_.[
+	S_root_.cats.data.OptionT#flatMap(Lscala/Function1;Lcats/Monad;)Lcats/data/OptionT;.#
+
+_root_.play.api.mvc.Result#2”
+••*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2#
+‹+‹+
+*(request)
+_star_.2Ω
+õ?õ?j*.map[Result](cats.instances.`package`.future.catsStdInstancesForFuture(RepresentationController.this.ec))
+_star_.Y
+Q_root_.cats.data.OptionT#map(Lscala/Function1;Lcats/Functor;)Lcats/data/OptionT;.#
+_root_.play.api.mvc.Result#8
+fh0_root_.controllers.PropertyLinkingController#ec.~
+.Gv_root_.cats.instances.FutureInstances#catsStdInstancesForFuture(Lscala/concurrent/ExecutionContext;)Lcats/MonadError;.2±
+??^*(cats.instances.`package`.future.catsStdInstancesForFuture(RepresentationController.this.ec))
+_star_.8
+Z\0_root_.controllers.PropertyLinkingController#ec.~
+";v_root_.cats.instances.FutureInstances#catsStdInstancesForFuture(Lscala/concurrent/ExecutionContext;)Lcats/MonadError;.2”
+„4„4û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2∞
+Ñ6Ñ6*.apply
+_star_.ç
+Ñ_root_.models.RepresentationResponse.apply(Ljava/lang/String;JLmodels/RepresentationResponseStatus;)Lmodels/RepresentationResponse;.2G
+¿(¿(	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Ï
+∫∫<*.flatMap[Result](RepresentationController.this.hc(request))
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#p
+02h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2G
+ë2ë2	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2ã
+˛/˛/2*(request, RepresentationController.this.messages)
+_star_.>
+)16_root_.controllers.PropertyLinkingController#messages.2”
+ˆ-ˆ-*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2”
+‹‹*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2”
+¢4¢4*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2Ω
+™.™.*.apply
+_star_.ö
+ë_root_.views.html.dashboard.pendingPropertyRepresentations_Scope0.pendingPropertyRepresentations_Scope1.pendingPropertyRepresentations#apply(Lcontrollers/agent/RepresentationController/ManagePropertiesVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Ç
+¥<¥<)*(RepresentationController.this.messages)
+_star_.>
+ (6_root_.controllers.PropertyLinkingController#messages.2”
+˛8˛8*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2´
+““*.apply
+_star_.à
+ˇ_root_.views.html.dashboard.manageClientsSearchSort_Scope0.manageClientsSearchSort_Scope1.manageClientsSearchSort#apply(Lcontrollers/agent/ManageClientPropertiesSearchAndSortVM;ILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2é
+Â(Â(3*(models.searchApi.AgentAuthResult.agentAuthResult)
+_star_.@
+#28_root_.models.searchApi.AgentAuthResult.agentAuthResult.2x
+Õ+Õ+(*(models.PropertyRepresentations.format)
+_star_.5
+!'-_root_.models.PropertyRepresentations.format.2Ç
+è@è@)*(RepresentationController.this.messages)
+_star_.>
+ (6_root_.controllers.PropertyLinkingController#messages.2#
+ç0ç0
+*(request)
+_star_.2ã
+ßß2*(request, RepresentationController.this.messages)
+_star_.>
+)16_root_.controllers.PropertyLinkingController#messages.2v
+∞<∞<#*(RepresentationController.this.ec)
+_star_.8
+ "0_root_.controllers.PropertyLinkingController#ec.2∑
+º(º(,*(RepresentationController.this.hc(request))
+_star_.p
+ "h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2ÿ
+›=›=*.apply[Future, ClientProperty]
+_star_.N
+F_root_.cats.data.OptionT.apply(Ljava/lang/Object;)Lcats/data/OptionT;.'
+_root_.scala.concurrent.Future#%
+_root_.models.ClientProperty#2Ç
+Ì4Ì4)*(RepresentationController.this.messages)
+_star_.>
+ (6_root_.controllers.PropertyLinkingController#messages.2v
+á0á0#*(RepresentationController.this.ec)
+_star_.8
+ "0_root_.controllers.PropertyLinkingController#ec.2ã
+‚4‚42*(request, RepresentationController.this.messages)
+_star_.>
+)16_root_.controllers.PropertyLinkingController#messages.2∑
+®+®+,*(RepresentationController.this.hc(request))
+_star_.p
+ "h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2±
+ã@ã@^*(cats.instances.`package`.future.catsStdInstancesForFuture(RepresentationController.this.ec))
+_star_.8
+Z\0_root_.controllers.PropertyLinkingController#ec.~
+";v_root_.cats.instances.FutureInstances#catsStdInstancesForFuture(Lscala/concurrent/ExecutionContext;)Lcats/MonadError;.2v
+≈9≈9#*(RepresentationController.this.ec)
+_star_.8
+ "0_root_.controllers.PropertyLinkingController#ec.2”
+é<é<û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2x
+† † (*(models.PropertyRepresentations.format)
+_star_.5
+!'-_root_.models.PropertyRepresentations.format.2#
+∫∫
+*(request)
+_star_.2í
+ˇˇ*.apply
+_star_.Ô
+Ê_root_.views.html.dashboard.manageClients_Scope0.manageClients_Scope1.manageClients#apply(Lcontrollers/agent/RepresentationController/ManagePropertiesVM;Lactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2∞
+®1®1*.apply
+_star_.ç
+Ñ_root_.models.RepresentationResponse.apply(Ljava/lang/String;JLmodels/RepresentationResponseStatus;)Lmodels/RepresentationResponse;.2<
+„/„/*[Long]
+_star_.
+_root_.scala.Long#2 
+ç ç *.apply[JsValue]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.*
+"_root_.play.api.libs.json.JsValue#2Ç
+…9…9)*(RepresentationController.this.messages)
+_star_.>
+ (6_root_.controllers.PropertyLinkingController#messages.2Ç
+‡+‡+)*(RepresentationController.this.messages)
+_star_.>
+ (6_root_.controllers.PropertyLinkingController#messages.2ã
+ç<ç<2*(request, RepresentationController.this.messages)
+_star_.>
+)16_root_.controllers.PropertyLinkingController#messages.2G
+≤;≤;	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2G
+Ì6Ì6	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2c
+ô ô *[PropertyRepresentations]
+_star_..
+&_root_.models.PropertyRepresentations#2∑
+È6È6,*(RepresentationController.this.hc(request))
+_star_.p
+ "h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2‰
+ÜÜ8*.map[Result](RepresentationController.this.hc(request))
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+_root_.play.api.mvc.Result#p
+,.h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2<
+††*[Long]
+_star_.
+_root_.scala.Long#2∑
+Æ;Æ;,*(RepresentationController.this.hc(request))
+_star_.p
+ "h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2ÿ
+É<É<*.apply
+_star_.µ
+¨_root_.views.html.propertyRepresentation.revokeClient_Scope0.revokeClient#apply(Lmodels/ClientProperty;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2”
+ø9ø9û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2”
+ˇ/ˇ/û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2v
+≤≤#*(RepresentationController.this.ec)
+_star_.8
+ "0_root_.controllers.PropertyLinkingController#ec.2”
+®®û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2ã
+ıı2*(request, RepresentationController.this.messages)
+_star_.>
+)16_root_.controllers.PropertyLinkingController#messages.2Á
+».».*.apply
+_star_.ƒ
+ª_root_.controllers.agent.RepresentationController.ManagePropertiesVM.apply(Lscala/collection/Seq;JLcontrollers/Pagination;)Lcontrollers/agent/RepresentationController/ManagePropertiesVM;.2Ç
+≥ ≥ )*(RepresentationController.this.messages)
+_star_.>
+ (6_root_.controllers.PropertyLinkingController#messages.2∑
+‹-‹-,*(RepresentationController.this.hc(request))
+_star_.p
+ "h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2 
+æ+æ+*.apply[JsValue]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.*
+"_root_.play.api.libs.json.JsValue#2]
+‡(‡(*[AgentAuthResult]
+_star_.0
+(_root_.models.searchApi.AgentAuthResult#2ˇ
+Œ+Œ+H*(play.api.http.Writeable.writeableOf_JsValue(play.api.mvc.Codec.utf_8))
+_star_.(
+AF _root_.play.api.mvc.Codec.utf_8.r
+-j_root_.play.api.http.DefaultWriteables#writeableOf_JsValue(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.2#
+ä@ä@
+*(request)
+_star_.2ˇ
+Ê(Ê(H*(play.api.http.Writeable.writeableOf_JsValue(play.api.mvc.Codec.utf_8))
+_star_.(
+AF _root_.play.api.mvc.Codec.utf_8.r
+-j_root_.play.api.http.DefaultWriteables#writeableOf_JsValue(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.2∑
+ç2ç2,*(RepresentationController.this.hc(request))
+_star_.p
+ "h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2∑
+ÛÛ,*(RepresentationController.this.hc(request))
+_star_.p
+ "h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2∑
+¿¿,*(RepresentationController.this.hc(request))
+_star_.p
+ "h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2G
+ƒƒ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Á
+íí*.apply
+_star_.ƒ
+ª_root_.controllers.agent.RepresentationController.ManagePropertiesVM.apply(Lscala/collection/Seq;JLcontrollers/Pagination;)Lcontrollers/agent/RepresentationController/ManagePropertiesVM;.2#
+™<™<
+*(request)
+_star_.2Ç
+ƒƒ)*(RepresentationController.this.messages)
+_star_.>
+ (6_root_.controllers.PropertyLinkingController#messages.2ˇ
+° ° H*(play.api.http.Writeable.writeableOf_JsValue(play.api.mvc.Codec.utf_8))
+_star_.(
+AF _root_.play.api.mvc.Codec.utf_8.r
+-j_root_.play.api.http.DefaultWriteables#writeableOf_JsValue(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.2c
+ + +*[PropertyRepresentations]
+_star_..
+&_root_.models.PropertyRepresentations#2Ÿ
+∞9∞9*.apply
+_star_.∂
+≠_root_.views.html.propertyRepresentation.requestRejected_Scope0.requestRejected#apply(Ljava/lang/String;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.:Scala211BØC/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.agent
+
+import actions.AuthenticatedAction
+import cats.data.OptionT
+import cats.instances.future._
+import com.google.inject.{Inject, Singleton}
+import config.ApplicationConfig
+import connectors.{MessagesConnector, PropertyRepresentationConnector}
+import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
+import connectors.propertyLinking.PropertyLinkConnector
+import controllers.agent.RepresentationController.ManagePropertiesVM
+import controllers.{Pagination, PropertyLinkingController, ValidPagination}
+import models._
+import models.searchApi.AgentAuthResult
+import play.api.libs.json.Json
+
+@Singleton()
+class RepresentationController @Inject()(config: ApplicationConfig,
+                                         reprConnector: PropertyRepresentationConnector,
+                                         authenticated: AuthenticatedAction,
+                                         propertyLinkConnector: PropertyLinkConnector,
+                                         messagesConnector: MessagesConnector)
+  extends PropertyLinkingController with ValidPagination {
+
+  def viewClientProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true) =
+    viewClientPropertiesSearchSort(page = page, pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, None, None, None, None, None, None)
+
+
+  def viewClientPropertiesSearchSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
+                                     sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
+                                     baref: Option[String] = None, client: Option[String] = None) = authenticated.asAgent { implicit request =>
+    if (config.searchSortEnabled) {
+      withValidPaginationSearchSort(
+        page = page,
+        pageSize = pageSize,
+        requestTotalRowCount = requestTotalRowCount,
+        sortfield = sortfield,
+        sortorder = sortorder,
+        status = status,
+        address = address,
+        baref = baref,
+        client = client
+      ) { paginationSearchSort =>
+        for {
+          reprs <- reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
+          msgCount <- messagesConnector.countUnread(request.organisationId)
+        } yield {
+          Ok(views.html.dashboard.manageClientsSearchSort(
+            ManageClientPropertiesSearchAndSortVM(
+              result = reprs,
+              totalPendingRequests = reprs.pendingRepresentations,
+              pagination = paginationSearchSort.copy(totalResults = reprs.filterTotal)
+            ),
+            msgCount.unread
+          ))
+        }
+      }
+    } else {
+      withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
+        reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
+          Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
+            reprs.totalPendingRequests,
+            pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
+        }
+      }
+    }
+  }
+
+  def listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated.asAgent { implicit request =>
+    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
+      reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
+        Ok(Json.toJson(reprs))
+      }
+    }
+  }
+
+
+  def listRepresentationRequestSearchAndSort(page: Int,
+                                             pageSize: Int,
+                                             requestTotalRowCount: Boolean,
+                                             sortfield: Option[String],
+                                             sortorder: Option[String],
+                                             status: Option[String],
+                                             address: Option[String],
+                                             baref: Option[String],
+                                             client: Option[String]) = authenticated { implicit request =>
+    withValidPaginationSearchSort(
+      page = page,
+      pageSize = pageSize,
+      requestTotalRowCount = requestTotalRowCount,
+      sortfield = sortfield,
+      sortorder = sortorder,
+      status = status,
+      address = address,
+      baref = baref,
+      client = client
+    ) { pagination =>
+      reprConnector.forAgentSearchAndSort(request.organisationId, pagination) map { res =>
+        Ok(Json.toJson(res))
+      }
+    }
+  }
+
+
+  def pendingRepresentationsJson(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated.asAgent { implicit request =>
+    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
+      reprConnector.forAgent(RepresentationPending, request.organisationId, pagination) map { r =>
+        Ok(Json.toJson(r))
+      }
+    }
+  }
+
+  def pendingRepresentationRequest(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+    withValidPagination(page, pageSize) { pagination =>
+      reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
+        Ok(views.html.dashboard.pendingPropertyRepresentations(
+          ManagePropertiesVM(
+            reprs.propertyRepresentations,
+            reprs.totalPendingRequests,
+            pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
+          )
+        ))
+      }
+    }
+  }
+
+  def accept(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
+    val response = RepresentationResponse(submissionId, request.personId, RepresentationResponseApproved)
+    reprConnector.response(response).map { _ =>
+      val continueLink = if (noOfPendingRequests > 1) {
+        controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
+      } else {
+        controllers.agent.routes.RepresentationController.viewClientProperties().url
+      }
+      Ok(views.html.propertyRepresentation.requestAccepted(continueLink))
+    }
+  }
+
+  def reject(submissionId: String, noOfPendingRequests: Long) = authenticated.asAgent { implicit request =>
+    val response = RepresentationResponse(submissionId, request.personId, RepresentationResponseDeclined)
+    reprConnector.response(response).map { _ =>
+      val continueLink = if (noOfPendingRequests > 1) {
+        controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url
+      } else {
+        controllers.agent.routes.RepresentationController.viewClientProperties().url
+      }
+      Ok(views.html.propertyRepresentation.requestRejected(continueLink))
+    }
+  }
+
+  def revokeClient(authorisationId: Long, clientOrganisationId: Long) = authenticated.asAgent { implicit request =>
+    propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id) map {
+      case Some(property) => Ok(views.html.propertyRepresentation.revokeClient(property))
+      case None => notFound
+    }
+  }
+
+  def revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long) = authenticated.asAgent { implicit request =>
+    (for {
+      clientProperty <- OptionT(propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id))
+      _ <- OptionT.liftF(reprConnector.revoke(clientProperty.authorisedPartyId))
+    } yield {
+      Redirect(routes.RepresentationController.viewClientProperties())
+    }).getOrElse(notFound)
+  }
+}
+
+object RepresentationController {
+
+  case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation], totalPendingRequests: Long, pagination: Pagination)
+
+}
+
+case class ManageClientPropertiesSearchAndSortVM(result: AgentAuthResult,
+                                                 totalPendingRequests: Long,
+                                                 pagination: PaginationSearchSort)
+
+J4app/controllers/agent/RepresentationController.scala

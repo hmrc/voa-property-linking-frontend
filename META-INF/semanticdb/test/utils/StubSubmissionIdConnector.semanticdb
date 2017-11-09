@@ -1,0 +1,302 @@
+
+•q?
+Ú
+Ä5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#r
+éúh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;."
+‡Í_root_.scala.concurrent.P
+ÆπD_root_.utils.StubServicesConfig.environment()Lplay/api/Environment;.%
+Ì	Û	_root_.scala.Predef.String#
+íò_root_.scala.Option#%
+ƒ _root_.scala.Predef.String#)
+ÈÔ_root_.scala.concurrent.Future#
+§¶
+_root_.uk.]
+ﬂ	Î	Q_root_.utils.StubSubmissionIdConnector.stubId(Ljava/lang/String;)V.(submissionId)*
+Ô˘ _root_.play.api.libs.concurrent.
+≈…_root_.play.4
+˙É*_root_.play.api.libs.concurrent.Execution."
+∞¥_root_.uk.gov.hmrc.play.)
+˙Ä	_root_.scala.concurrent.Future.
+¸ˇ_root_.uk.gov.0
+‚Â$_root_.utils.StubServicesConfig.env.
+ÄÑ_root_.uk.gov.hmrc.ç
+º¬Ä_root_.utils.StubSubmissionIdConnector.get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(prefix)
+£ß_root_.scala.None.>
+Ñç4_root_.play.api.libs.concurrent.Execution.Implicits.
+´Ø_root_.uk.gov.hmrc.'
+©∞_root_.org.scalatest.mockito.<
+ß
+¨
+0_root_.utils.StubSubmissionIdConnector.reset()V.;
+á	ê	1_root_.utils.StubSubmissionIdConnector.stubbedId.&
+¡Ã_root_.play.api.Environment#"
+Öâ_root_.uk.gov.hmrc.http.
+ÂÍ_root_.utils..
+ÅÅ$_root_.java.lang.Object#`<init>`()V.
+ Õ_root_.play.api.P
+∑
+¿
+F_root_.utils.StubSubmissionIdConnector.`stubbedId_=`(Lscala/Option;)V.)
+µª_root_.uk.gov.hmrc.play.config.Ñ
+∏ªx_root_.utils.StubSubmissionIdConnector.get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+ÊÈ_root_.play.api.
+ÍÓ_root_.play.api.libs.O
+ÿ	ﬁ	C_root_.utils.StubSubmissionIdConnector.stubId(Ljava/lang/String;)V.3
+°∫'_root_.utils.StubSubmissionIdConnector.M
+ë	ö	C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.
+⁄ﬂ_root_.scala.%
+•	Æ	_root_.java.lang.Exception#e
+º¿[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.0
+º¬&_root_.uk.gov.hmrc.play.config.inject. 
+Ìı_root_.utils.StubHttp.=
+áê1_root_.utils.StubSubmissionIdConnector.stubbedId.%
+ôü_root_.scala.Predef.String#C
+Æ	Æ	9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.
+√
+«
+_root_.scala.None.P
+˝	Ü
+F_root_.utils.StubSubmissionIdConnector.`stubbedId_=`(Lscala/Option;)V.W
+äóM_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#%
+ˆ_root_.scala.Predef.String#
+ß™_root_.uk.gov.?
+√—5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#
+·Â_root_.play.C
+ŒŸ9_root_.play.api.Environment.;_root_.play.api.Environment#I
+ÎÒ?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#†
+ÿÿï_root_.connectors.SubmissionIdConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.à
+’◊|_root_.utils.StubSubmissionIdConnector.get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc),
+◊
+È
+ _root_.utils.StubServicesConfig.
+˘˚
+_root_.uk.4
+Üí*_root_.org.scalatest.mockito.MockitoSugar#2
+√ÿ(_root_.connectors.SubmissionIdConnector#2
+˛ì(_root_.connectors.SubmissionIdConnector#
+õû_root_.org.
+â
+ç
+_root_.scala.Some.
+Û˝_root_.connectors.0
+ŸÊ&_root_.uk.gov.hmrc.http.HeaderCarrier#
+ü®_root_.org.scalatest._
+±ΩU_root_.org.scalatest.mockito.MockitoSugar.;_root_.org.scalatest.mockito.MockitoSugar#[
+é
+ö
+Q_root_.utils.StubSubmissionIdConnector.stubId(Ljava/lang/String;)V.(submissionId)*
+ŸÎ _root_.utils.StubServicesConfig."c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"J
+'_root_.utils.StubSubmissionIdConnector.ÄÑStubSubmissionIdConnector"5
+ _root_.play.api.libs.concurrent.ÄàÄ
+concurrent"'
+_root_.connectors.ÄàÄ
+connectors"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"?
+*_root_.org.scalatest.mockito.MockitoSugar#Ä@MockitoSugar"/
+_root_.java.lang.Exception#Ä†Ä	Exception"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"$
+_root_.play.api.libs.ÄàÄlibs"c
+0_root_.utils.StubSubmissionIdConnector.reset()V./reset(): Unit"
+_root_.scala.Unit#"(
+_root_.utils.StubHttp.ÄÑStubHttp"
+_root_.play.api.
+ÄàÄapi"F
+(_root_.connectors.SubmissionIdConnector#Ä SubmissionIdConnector"G
+4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits"Â
+x_root_.utils.StubSubmissionIdConnector.get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Ëget<(prefix: String)(implicit hc: HeaderCarrier): Future[String]"#
+	_root_.scala.Predef.String#".
++&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+.4_root_.scala.concurrent.Future#"#
+5;_root_.scala.Predef.String#".
+_root_.scala.concurrent.Future#Ä@Future"/
+_root_.scala.concurrent.Future.ÄÑFuture"L
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig"=
+*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution"´
+9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.nêÄÄ<init>(x$1: String): Exception" 
+_root_.java.lang.String#"#
+_root_.java.lang.Exception#"/
+_root_.org.scalatest.mockito.ÄàÄmockito"ë
+Q_root_.utils.StubSubmissionIdConnector.stubId(Ljava/lang/String;)V.(submissionId)<ÄsubmissionIdString"!
+_root_.scala.Predef.String#"å
+[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.¨mock*[T] => (implicit classTag: ClassTag[T]): T"&
+#_root_.scala.reflect.ClassTag#"f
+$%^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"f
+)*^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"l
+'_root_.java.lang.Exception#`<init>`()V.AàÄÄ<init>(): Exception"#
+_root_.java.lang.Exception#"ä
+D_root_.utils.StubServicesConfig.environment()Lplay/api/Environment;.BÑÄenvironmentEnvironment""
+_root_.play.api.Environment#"7
+&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject")
+_root_.org.scalatest.ÄàÄ	scalatest"$
+_root_.scala.Option#Ä†Option"
+_root_.org.
+ÄàÄorg"
+
+_root_.uk.	ÄàÄuk"ª
+Ä_root_.utils.StubSubmissionIdConnector.get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(prefix)6ÄprefixString"!
+_root_.scala.Predef.String#"
+_root_.uk.gov.
+ÄàÄgov"Y
+$_root_.utils.StubServicesConfig.env.1ÅÄ@envString"
+_root_.java.lang.String#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"√
+1_root_.utils.StubSubmissionIdConnector.stubbedId.çÇÄstubbedId_=(x$1: Option[String]): Unit"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.scala.Unit#"!
+_root_.scala.None.ÄÑàNone"∞
+C_root_.utils.StubSubmissionIdConnector.stubId(Ljava/lang/String;)V.istubId(submissionId: String): Unit"#
+_root_.scala.Predef.String#"
+_root_.scala.Unit#"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"∆
+ï_root_.connectors.SubmissionIdConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.´<init>\(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): SubmissionIdConnector"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"0
+G\(_root_.connectors.SubmissionIdConnector#"
+_root_.play.ÄàÄplay"√
+h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"<
+ _root_.utils.StubServicesConfig.ÄÑStubServicesConfig"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"
+_root_.utils.ÄàÄutils"ÿ
+F_root_.utils.StubSubmissionIdConnector.`stubbedId_=`(Lscala/Option;)V.çÇÄstubbedId_=(x$1: Option[String]): Unit"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.scala.Unit#">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"≈
+|_root_.utils.StubSubmissionIdConnector.get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"
+_root_.scala.ÄàÄscala"…
+f_root_.play.api.Environment#`<init>`(Ljava/io/File;Ljava/lang/ClassLoader;Lscala/Enumeration/Value;)V.ﬁ<init>C(rootPath: File, classLoader: ClassLoader, mode: Mode): Environment"
+_root_.java.io.File#"%
+)_root_.java.lang.ClassLoader#""
+15_root_.play.api.Mode.Mode#"$
+8C_root_.play.api.Environment#"2
+_root_.play.api.Environment#Ä†ÄEnvironment""
+_root_.uk.gov.hmrc.ÄàÄhmrc"'
+_root_.uk.gov.hmrc.play.ÄàÄplay" 
+_root_.scala.Some.
+ÄÑSome2À
+Ä	Ä	*.apply[String]
+_star_.|
+t_root_.scala.concurrent.Future.apply(Lscala/Function0;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+_root_.scala.Predef.String#2G
+ö	ö		*[String]
+_star_.#
+_root_.scala.Predef.String#2æ
+ÕÕX*(((ClassTag.apply[Environment](classOf[play.api.Environment])): ClassTag[Environment]))
+_star_.$
+JU_root_.play.api.Environment#$
+_root_.play.api.Environment#&
+AI_root_.scala.reflect.ClassTag#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.2…
+–	–	>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.p
+/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2…
+ıı>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.p
+/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2è
+ç
+ç
+*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#:Scala211B/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package utils
+
+import connectors.SubmissionIdConnector
+import org.scalatest.mockito.MockitoSugar
+import play.api.Environment
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+
+import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
+
+
+object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfig, StubHttp) {
+  private var stubbedId: Option[String] = None
+
+  override def get(prefix: String)(implicit hc: HeaderCarrier): Future[String] = Future {
+    stubbedId.getOrElse(throw new Exception("submission id not stubbed"))
+  }
+
+  def stubId(submissionId: String) = {
+    stubbedId = Some(submissionId)
+  }
+
+  def reset() = {
+    stubbedId = None
+  }
+}
+
+
+object StubServicesConfig extends ServicesConfig with MockitoSugar {
+  override protected def environment = mock[Environment]
+  override lazy val env = "Test"
+}J*test/utils/StubSubmissionIdConnector.scala

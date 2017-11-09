@@ -46,6 +46,7 @@ trait MicroService {
     .settings(organization := "uk.gov.hmrc")
     .settings(PlayKeys.playDefaultPort := defaultPort)
     .settings(
+      scalaVersion := "2.11.11",
       targetJvm := "jvm-1.8",
       libraryDependencies ++= appDependencies,
       parallelExecution in Test := false,

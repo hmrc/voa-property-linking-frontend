@@ -1,0 +1,183 @@
+
+©=%
+∞∂_root_.scala.Predef.String#
+ù°_root_.play.+
+å
+í
+!_root_.play.api.libs.json.Format#
+ÿ‹_root_.scala.Long#)
+ˇå_root_.java.time.LocalDateTime#
+ÇÜ_root_.scala.Long#9
+À◊-_root_.models.messages.Message#(submissionId)
+ÇÜ_root_.java.time.+
+Î	Ú	_root_.models.messages.Message.)
+´	∏	_root_.java.time.LocalDateTime#N
+£
+©
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.+
+À“_root_.models.messages.Message#:
+≈“._root_.models.messages.Message#(effectiveDate)%
+Öã_root_.scala.Predef.String#%
+€	·	_root_.scala.Predef.String#8
+Œ	Ÿ	,_root_.models.messages.Message#(messageType)
+—◊_root_.scala.Option#I
+áî?_root_.java.time.LocalDateTime.;_root_.java.time.LocalDateTime#/
+”’#_root_.models.messages.Message#(id)
+˝Å_root_.java.)
+ì
+ö
+_root_.models.messages.Message#4
+°®(_root_.models.messages.Message#(address)7
+Ú¸+_root_.models.messages.Message#(clientName)%
+Ÿﬂ_root_.scala.Predef.String#M
+±∑C_root_.play.api.libs.json.Format.;_root_.play.api.libs.json.Format#ì
+““Ü_root_.models.messages.Message#`<init>`(Ljava/lang/String;JLjava/lang/String;Lscala/Option;Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Lscala/Option;Ljava/lang/String;)V.!
+ÏÙ_root_.models.messages.
+§	™	_root_.scala.Option#
+˛Ñ_root_.scala.Option#)
+™
+±
+_root_.models.messages.Message#4
+ˆ˝(_root_.models.messages.Message#(subject)9
+õß-_root_.models.messages.Message#(templateName)
+¶™_root_.play.api.libs.%
+◊›_root_.scala.Predef.String#;
+ÚÄ/_root_.models.messages.Message#(recipientOrgId)2
+Ñ
+ä
+&_root_.models.messages.Message.format.)
+πΩ_root_.play.api.libs.json.Json.)
+‘·_root_.java.time.LocalDateTime#:
+°Æ._root_.models.messages.Message#(caseReference)8
+ƒœ,_root_.models.messages.Message#(clientOrgId)
+ÂÎ_root_.models.%
+™∞_root_.scala.Predef.String#%
+ˇÖ	_root_.scala.Predef.String#)
+û
+¢
+_root_.play.api.libs.json.Json.6
+Ù˝*_root_.models.messages.Message#(timestamp)%
+©Ø_root_.scala.Predef.String#5
+ö	¢	)_root_.models.messages.Message#(lastRead)$
+´Ø_root_.play.api.libs.json.
+¢•_root_.play.api."7
+_root_.java.time.LocalDateTime#Ä†àLocalDateTime"ø	
+Ü_root_.models.messages.Message#`<init>`(Ljava/lang/String;JLjava/lang/String;Lscala/Option;Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Lscala/Option;Ljava/lang/String;)V.≥<init>µ(id: String, recipientOrgId: Long, templateName: String, clientOrgId: Option[Long], clientName: Option[String], caseReference: String, submissionId: String, timestamp: LocalDateTime, address: String, effectiveDate: LocalDateTime, subject: String, lastRead: Option[LocalDateTime], messageType: String): Message"#
+_root_.scala.Predef.String#"
+!_root_.scala.Long#"#
+17_root_.scala.Predef.String#"
+FL_root_.scala.Option#"
+MQ_root_.scala.Long#"
+`f_root_.scala.Option#"#
+gm_root_.scala.Predef.String#"$
+Ö_root_.scala.Predef.String#"%
+ïõ_root_.scala.Predef.String#")
+®µ_root_.java.time.LocalDateTime#"%
+¿∆_root_.scala.Predef.String#")
+◊‰_root_.java.time.LocalDateTime#"%
+Ôı_root_.scala.Predef.String#"
+Åá_root_.scala.Option#")
+àï_root_.java.time.LocalDateTime#"%
+•´_root_.scala.Predef.String#")
+Æµ_root_.models.messages.Message#")
+_root_.play.api.libs.json.ÄàÄjson"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"z
+._root_.models.messages.Message#(effectiveDate)HÅeffectiveDateLocalDateTime"%
+_root_.java.time.LocalDateTime#" 
+_root_.scala.Long#
+Ä†Long"ñ
+)_root_.models.messages.Message#(lastRead)iÅlastReadOption[LocalDateTime]"
+_root_.scala.Option#"'
+_root_.java.time.LocalDateTime#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"*
+_root_.models.messages.ÄàÄmessages"
+_root_.java.ÄàÄjava"$
+_root_.play.api.libs.ÄàÄlibs"f
+/_root_.models.messages.Message#(recipientOrgId)3ÅrecipientOrgIdLong"
+_root_.scala.Long#"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"0
+_root_.models.messages.Message.ÄÑMessage"1
+_root_.models.messages.Message#Ä†ÄMessage"k
+,_root_.models.messages.Message#(messageType);ÅmessageTypeString"!
+_root_.scala.Predef.String#"Y
+#_root_.models.messages.Message#(id)2ÅidString"!
+_root_.scala.Predef.String#"$
+_root_.scala.Option#Ä†Option"ô
+&_root_.models.messages.Message.format.oÅÄ formatFormat[Message]"'
+!_root_.play.api.libs.json.Format#"'
+_root_.models.messages.Message#"r
+*_root_.models.messages.Message#(timestamp)DÅ	timestampLocalDateTime"%
+_root_.java.time.LocalDateTime#"m
+-_root_.models.messages.Message#(templateName)<ÅtemplateNameString"!
+_root_.scala.Predef.String#"
+_root_.play.ÄàÄplay"o
+._root_.models.messages.Message#(caseReference)=ÅcaseReferenceString"!
+_root_.scala.Predef.String#"è
++_root_.models.messages.Message#(clientName)`Å
+clientNameOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.models.ÄàÄmodels"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"Ü
+,_root_.models.messages.Message#(clientOrgId)VÅclientOrgIdOption[Long]"
+_root_.scala.Option#"
+_root_.scala.Long#"c
+(_root_.models.messages.Message#(address)7ÅaddressString"!
+_root_.scala.Predef.String#" 
+_root_.java.time.ÄàÄtime"0
+!_root_.play.api.libs.json.Format#Ä@Format"c
+(_root_.models.messages.Message#(subject)7ÅsubjectString"!
+_root_.scala.Predef.String#"m
+-_root_.models.messages.Message#(submissionId)<ÅsubmissionIdString"!
+_root_.scala.Predef.String#:Scala211Bµ
+/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models.messages
+
+import java.time.LocalDateTime
+
+import play.api.libs.json.{Format, Json}
+
+case class Message(id: String,
+                   recipientOrgId: Long,
+                   templateName: String,
+                   clientOrgId: Option[Long],
+                   clientName: Option[String],
+                   caseReference: String,
+                   submissionId: String,
+                   timestamp: LocalDateTime,
+                   address: String,
+                   effectiveDate: LocalDateTime,
+                   subject: String,
+                   lastRead: Option[LocalDateTime],
+                   messageType: String)
+
+object Message {
+  implicit val format: Format[Message] = Json.format[Message]
+}
+J!app/models/messages/Message.scala

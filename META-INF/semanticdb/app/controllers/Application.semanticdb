@@ -1,0 +1,521 @@
+
+ƒ‘&
+≈Ã_root_.play.api.mvc.Request#L
+ó	û	B_root_.play.api.mvc.RequestHeader#headers()Lplay/api/mvc/Headers;.H
+ï
+ö
+<_root_.controllers.Application#start()Lplay/api/mvc/Action;.5
+Ñï+_root_.views.html.errors.errorRegistration.1
+©©'_root_.javax.inject.Inject#`<init>`()V.8
+—⁄._root_.uk.gov.hmrc.http.SessionKeys.sessionId.
+Â_root_.controllers.U
+ÃﬁI_root_.controllers.Application#invalidAccountType()Lplay/api/mvc/Action;.
+•®_root_.play.api.mvc.=
+˙Ç3_root_.java.util.UUID#toString()Ljava/lang/String;.#
+ö†_root_.views.html.errors.
+’Ÿ_root_.play.#
+˝
+É_root_.views.html.errors.5
+µÕ+_root_.connectors.TrafficThrottleConnector#
+	ı	_root_.views.Y
+∏¿O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.
+˜˙_root_.play.api.5
+¨¥)_root_.controllers.Application#(ggAction)9
+‚¯/_root_.uk.gov.hmrc.play.HeaderCarrierConverter..
+”ﬁ$_root_.uk.gov.hmrc.http.SessionKeys.)
+Ì	Ô	_root_.play.api.mvc.Results#Ok. 
+ËÏ_root_.java.util.UUID.=
+Ì˜3_root_.java.util.UUID.randomUUID()Ljava/util/UUID;.8
+óû,app/controllers/Application.scala@1687..1694
+Ø≥_root_.views.html.A
+õ°7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#0
+“ﬂ&_root_.uk.gov.hmrc.http.HeaderCarrier#%
+ü
+•
+_root_.play.api.mvc.Action.
+˛Ü_root_.auth.GGAction#%
+Ã	“	_root_.play.api.mvc.Action.%
+Öã_root_.play.api.mvc.Action.
+éì_root_.javax.+
+ñ°_root_.controllers.Application#8
+©∞,app/controllers/Application.scala@1577..1584,
+êû"_root_.controllers.WithThrottling#"
+Û˜_root_.uk.gov.hmrc.play.
+„Á_root_.java.util.
+°§_root_.play.api.
+ïô_root_.views.html.m
+•	¨	c_root_.controllers.Application#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)^
+πƒT_root_.play.api.mvc.Result#withSession(Lscala/collection/Seq;)Lplay/api/mvc/Result;.P
+€›F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+⁄›_root_.play.api.
+≤¥
+_root_.uk.K
+‘ŸA_root_.controllers.ReverseApplication#start()Lplay/api/mvc/Call;.ñ
+˘é	ã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.
+˘˝_root_.auth..
+≈–$_root_.uk.gov.hmrc.http.SessionKeys.
+èî_root_.views.)
+¢§_root_.play.api.mvc.Results#Ok.
+ÁÈ
+_root_.uk.&
+¥Ω_root_.views.html.contactUs.2
+âí(_root_.play.api.i18n.Messages.Implicits.)
+¶®_root_.play.api.mvc.Results#Ok.
+©Æ_root_.views.
+Úˆ_root_.play.Z
+¶
+´
+P_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.
+¯
+¸
+_root_.views.html.N
+æ	…	B_root_.controllers.Application#addUserToGG()Lplay/api/mvc/Action;.6
+°≥,_root_.views.html.errors.invalidAccountType.
+ú†_root_.play.5
+ﬁˆ+_root_.connectors.TrafficThrottleConnector#
+†	§	_root_.scala.Some.0
+»”&_root_.controllers.routes.Application.I
+ïõ=_root_.controllers.Application#logOut()Lplay/api/mvc/Action;.
+˚ˇ_root_.play.api.i18n."
+∞µ_root_.views.html.start.9
+¯é/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.4
+≠	¥	*_root_.play.api.mvc.RequestHeader#session.8
+∑
+æ
+,app/controllers/Application.scala@1335..13428
+Û˙,app/controllers/Application.scala@1779..1786%
+£©_root_.javax.inject.Inject#m
+è	ñ	c_root_.controllers.Application#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)
+Ú
+˜
+_root_.views..
+ãã$_root_.java.lang.Object#`<init>`()V.L
+˜Ä@_root_.controllers.Application#contactUs()Lplay/api/mvc/Action;.W
+ƒ—M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#
+™¥_root_.connectors.À
+∆
+ﬁ
+¿_root_.controllers.WithThrottling#withThrottledHoldingPage(Ljava/lang/String;Lscala/Function0;Lscala/Function0;Lplay/api/mvc/Request;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.o
+º√c_root_.controllers.Application#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)E
+ƒ‹9_root_.controllers.Application#(trafficThrottleConnector)
+ÍÌ_root_.uk.gov.$
+¡«_root_.controllers.routes.k
+´´__root_.controllers.Application#`<init>`(Lauth/GGAction;Lconnectors/TrafficThrottleConnector;)V.
+µ∏_root_.uk.gov.(
+˚	Ü
+_root_.views.html.addUserToGG.%
+†¶_root_.play.api.mvc.Action.)
+Ää_root_.play.api.mvc.Controller#3
+Çé)_root_.play.api.mvc.Results#Unauthorized.
+´Ø_root_.views.html.
+îö_root_.javax.inject.%
+·Á_root_.play.api.mvc.Action.
+•™_root_.views.K
+›ÎA_root_.play.api.mvc.Result#withNewSession()Lplay/api/mvc/Result;.
+ﬁ‚_root_.play.api.Play.?
+„Í5_root_.play.api.Play.current()Lplay/api/Application;.)
+Ô
+Ò
+_root_.play.api.mvc.Results#Ok.
+∂æ_root_.auth.GGAction#"
+æ¬_root_.uk.gov.hmrc.http.f
+∞≤Z_root_.controllers.Application#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.8
+ﬁ	Â	,app/controllers/Application.scala@1246..1253
+ˆ	˙	_root_.views.html.
+ÓÚ_root_.uk.gov.hmrc.
+ﬁ‚_root_.java.
+πΩ_root_.uk.gov.hmrc.(
+Äà_root_.play.api.i18n.Messages."t
+3_root_.java.util.UUID#toString()Ljava/lang/String;.=ÑÄÄtoString
+(): String" 
+
+_root_.java.lang.String#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"√
+I_root_.controllers.Application#invalidAccountType()Lplay/api/mvc/Action;.vinvalidAccountTypeAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"0
+_root_.play.api.i18n.Messages.ÄÑMessages"
+_root_.auth.ÄàÄauth"/
+_root_.views.html.contactUs.ÄÑ	contactUs"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#"'
+_root_.connectors.ÄàÄ
+connectors"ç
+c_root_.controllers.Application#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)&ÄÅ requestplay.api.mvc.Request[_]"3
+_root_.views.html.addUserToGG.ÄÑaddUserToGG"±
+=_root_.controllers.Application#logOut()Lplay/api/mvc/Action;.plogOut(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"ü
+,app/controllers/Application.scala@1335..1342oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#",
+_root_.play.api.mvc.Request#Ä@Request"3
+_root_.controllers.Application#Ä Application"ü
+,app/controllers/Application.scala@1246..1253oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"
+_root_.java.ÄàÄjava"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"
+z_root_.auth.GGAction#`<init>`(Lauth/GovernmentGatewayProvider;Luk/gov/hmrc/play/frontend/auth/connectors/AuthConnector;)V.Ò<init>M(provider: GovernmentGatewayProvider, authConnector: AuthConnector): GGAction".
+$&_root_.auth.GovernmentGatewayProvider#"G
+5B?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#"
+EM_root_.auth.GGAction#"
+_root_.javax.ÄàÄjavax"µ
+B_root_.controllers.Application#addUserToGG()Lplay/api/mvc/Action;.oaddUserToGGAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"–
+T_root_.play.api.mvc.Result#withSession(Lscala/collection/Seq;)Lplay/api/mvc/Result;.˜withSession5(session: <repeated>[Tuple2[String, String]]): Result""
+
+_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+"_root_.scala.Predef.String#"#
+$*_root_.scala.Predef.String#"#
+/5_root_.play.api.mvc.Result#""
+_root_.play.api.mvc.
+ÄàÄmvc"{
+A_root_.controllers.ReverseApplication#start()Lplay/api/mvc/Call;.6start(): Call"!
+_root_.play.api.mvc.Call#"
+_root_.play.api.
+ÄàÄapi"º
+P_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.ÁÑÄasyncE(block: Function1[R[AnyContent], Future[Result]]): Action[AnyContent]"
+_root_.scala.Function1#"-
+%_root_.play.api.mvc.ActionBuilder#[R]"'
+_root_.play.api.mvc.AnyContent#"'
+!'_root_.scala.concurrent.Future#"#
+(._root_.play.api.mvc.Result#"#
+39_root_.play.api.mvc.Action#"'
+:D_root_.play.api.mvc.AnyContent#"2
+_root_.play.api.mvc.Controller#Ä@
+Controller"!
+_root_.views.html.ÄàÄhtml",
+_root_.javax.inject.Inject#Ä†ÄInject"#
+_root_.play.api.Play.
+ÄÑPlay"r
+3_root_.java.util.UUID.randomUUID()Ljava/util/UUID;.;ÑÄÄ
+randomUUID(): UUID"
+_root_.java.util.UUID#"*
+_root_.views.html.errors.ÄàÄerrors"Ω
+O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
+_root_.play.api.mvc.Call#"#
+_root_.play.api.mvc.Result#"
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"¬
+__root_.controllers.Application#`<init>`(Lauth/GGAction;Lconnectors/TrafficThrottleConnector;)V.ﬁ<init>U(ggAction: GGAction, trafficThrottleConnector: TrafficThrottleConnector): Application"
+_root_.auth.GGAction#"3
+/G+_root_.connectors.TrafficThrottleConnector#"'
+JU_root_.controllers.Application#"+
+_root_.controllers.routes.ÄÑàroutes"9
+"_root_.controllers.WithThrottling#Ä@WithThrottling"
+_root_.uk.gov.
+ÄàÄgov"Ä
+B_root_.play.api.mvc.RequestHeader#headers()Lplay/api/mvc/Headers;.:ÑÄheadersHeaders""
+_root_.play.api.mvc.Headers#"“
+Z_root_.controllers.Application#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.tÑÄ hc:(implicit request: play.api.mvc.Request[_]): HeaderCarrier".
+-:&_root_.uk.gov.hmrc.http.HeaderCarrier#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"g
+._root_.uk.gov.hmrc.http.SessionKeys.sessionId.5	sessionIdString"
+_root_.java.lang.String#";
+(_root_.play.api.i18n.Messages.Implicits.ÄÑ	Implicits"$
+_root_.play.api.i18n.ÄàÄi18n"L
++_root_.connectors.TrafficThrottleConnector#Ä TrafficThrottleConnector"Å
+ã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.fromHeadersAndSession;(headers: Headers, session: Option[Session]): HeaderCarrier"$
+
+_root_.play.api.mvc.Headers#"
+"_root_.scala.Option#"$
+#*_root_.play.api.mvc.Session#".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"O
+/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.ÄÑHeaderCarrierConverter"ü
+,app/controllers/Application.scala@1779..1786oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"
+_root_.play.ÄàÄplay"’
+ò_root_.connectors.TrafficThrottleConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.∑<init>e(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): TrafficThrottleConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"1
+:J)_root_.scala.concurrent.ExecutionContext#"3
+Me+_root_.connectors.TrafficThrottleConnector#"∑
+@_root_.controllers.Application#contactUs()Lplay/api/mvc/Action;.s	contactUs(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"ü
+,app/controllers/Application.scala@1687..1694oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"H
+,_root_.views.html.errors.invalidAccountType.ÄÑinvalidAccountType"Ø
+<_root_.controllers.Application#start()Lplay/api/mvc/Action;.ostart(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"'
+_root_.views.html.start.ÄÑstart"p
+)_root_.play.api.mvc.Results#Unauthorized.CUnauthorizedStatus")
+#_root_.play.api.mvc.Results#Status#"&
+_root_.auth.GGAction#Ä GGAction"w
+5_root_.play.api.Play.current()Lplay/api/Application;.>ÑÄ currentApplication""
+_root_.play.api.Application#")
+_root_.controllers.ÄàÄcontrollers"ß
+9_root_.controllers.Application#(trafficThrottleConnector)jÅtrafficThrottleConnectorTrafficThrottleConnector"1
++_root_.connectors.TrafficThrottleConnector#"+
+_root_.play.api.mvc.Action.ÄÑAction"
+_root_.views.ÄàÄviews"~
+&_root_.controllers.routes.Application.TÅÄàApplicationReverseApplication",
+&_root_.controllers.ReverseApplication#">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"a
+)_root_.controllers.Application#(ggAction)4ÄggActionGGAction"
+_root_.auth.GGAction#" 
+_root_.java.util.ÄàÄutil"û
+,app/controllers/Application.scala@1577..1584nÄrequestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"9
+$_root_.uk.gov.hmrc.http.SessionKeys.ÄÑSessionKeys""
+_root_.uk.gov.hmrc.ÄàÄhmrc"h
+*_root_.play.api.mvc.RequestHeader#session.:ÅÄ@sessionSession""
+_root_.play.api.mvc.Session#"%
+_root_.java.util.UUID.ÄÑàUUID"˝
+¿_root_.controllers.WithThrottling#withThrottledHoldingPage(Ljava/lang/String;Lscala/Function0;Lscala/Function0;Lplay/api/mvc/Request;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.∑withThrottledHoldingPageì(route: String, throttledPage: <byname>[Result])(block: <byname>[Result])(implicit request: Request[AnyContent], hc: HeaderCarrier): Future[Result]"#
+_root_.scala.Predef.String#" 
+'_root_.scala.`<byname>`#"#
+(._root_.play.api.mvc.Result#" 
+8@_root_.scala.`<byname>`#"#
+AG_root_.play.api.mvc.Result#"$
+\c_root_.play.api.mvc.Request#"'
+dn_root_.play.api.mvc.AnyContent#"/
+uÇ&_root_.uk.gov.hmrc.http.HeaderCarrier#")
+Öã_root_.scala.concurrent.Future#"%
+åí_root_.play.api.mvc.Result#"'
+_root_.uk.gov.hmrc.play.ÄàÄplay" 
+_root_.scala.Some.
+ÄÑSome"F
++_root_.views.html.errors.errorRegistration.ÄÑerrorRegistration"Ç
+A_root_.play.api.mvc.Result#withNewSession()Lplay/api/mvc/Result;.=withNewSessionResult"!
+_root_.play.api.mvc.Result#2À
+µµ*(request, play.api.i18n.Messages.Implicits.applicationMessages(Application.this.request2lang(request), play.api.Play.current))
+_star_.f
+Q]^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
+v}5_root_.play.api.Play.current()Lplay/api/Application;.2”
+òòû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2”
+®®*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2ß
+Ü
+Ü
+*.apply
+_star_.Ñ
+|_root_.views.html.addUserToGG_Scope0.addUserToGG#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2À
+à
+à
+*(request, play.api.i18n.Messages.Implicits.applicationMessages(Application.this.request2lang(request), play.api.Play.current))
+_star_.f
+Q]^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
+v}5_root_.play.api.Play.current()Lplay/api/Application;.2”
+∂∂û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2ö
+µµ*.apply
+_star_.x
+p_root_.views.html.start_Scope0.start#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2z
+¶¶*.apply
+_star_.X
+P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2”
+§§*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2À
+óó*(request, play.api.i18n.Messages.Implicits.applicationMessages(Application.this.request2lang(request), play.api.Play.current))
+_star_.f
+Q]^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
+v}5_root_.play.api.Play.current()Lplay/api/Application;.2ë
+§	§	*.apply[Session]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.$
+_root_.play.api.mvc.Session#2ª
+ïï*.apply
+_star_.ò
+è_root_.views.html.errors.errorRegistration_Scope0.errorRegistration#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2À
+∑∑*(request, play.api.i18n.Messages.Implicits.applicationMessages(Application.this.request2lang(request), play.api.Play.current))
+_star_.f
+Q]^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
+v}5_root_.play.api.Play.current()Lplay/api/Application;.2”
+â
+â
+û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2z
+ÁÁ*.apply
+_star_.X
+P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2”
+Ò
+Ò
+*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2À
+øø*(request, play.api.i18n.Messages.Implicits.applicationMessages(Application.this.request2lang(request), play.api.Play.current))
+_star_.f
+Q]^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.â
+,?Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
+v}5_root_.play.api.Play.current()Lplay/api/Application;.2z
+ãã*.apply
+_star_.X
+P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2”
+¿¿û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2”
+éé*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2”
+∏∏û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2Æ
+≈⁄"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2z
+“	“	*.apply
+_star_.X
+P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2”
+Ô	Ô	*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2D
+››	*[String]
+_star_. 
+_root_.java.lang.String#2£
+ΩΩ*.apply
+_star_.Ä
+x_root_.views.html.contactUs_Scope0.contactUs#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2◊
+≥≥*.apply
+_star_.¥
+´_root_.views.html.errors.invalidAccountType_Scope0.invalidAccountType_Scope1.invalidAccountType#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2•
+ââ(*(request, Application.this.hc(request))
+_star_.b
+Z_root_.controllers.Application#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.:Scala211BΩ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers
+
+import auth.GGAction
+import javax.inject.Inject
+
+import connectors.TrafficThrottleConnector
+import play.api.Play.current
+import play.api.i18n.Messages.Implicits._
+import play.api.mvc._
+import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
+import uk.gov.hmrc.play.HeaderCarrierConverter
+
+class Application @Inject()(ggAction: GGAction, val trafficThrottleConnector: TrafficThrottleConnector) extends Controller with WithThrottling {
+  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+
+  def addUserToGG = Action { implicit request =>
+    Ok(views.html.addUserToGG())
+  }
+
+  def start() = Action.async { implicit request =>
+    withThrottledHoldingPage("registration", Ok(views.html.errors.errorRegistration())) {
+      Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
+    }
+  }
+
+  def logOut() = Action { request =>
+    Redirect(routes.Application.start()).withNewSession
+  }
+
+  def contactUs() = Action { implicit request =>
+    Ok(views.html.contactUs())
+  }
+
+  def invalidAccountType = Action { implicit request =>
+    Unauthorized(views.html.errors.invalidAccountType())
+  }
+}
+J!app/controllers/Application.scala

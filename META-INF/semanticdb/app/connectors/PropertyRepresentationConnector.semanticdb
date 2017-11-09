@@ -1,0 +1,783 @@
+
+∏ªD
+Ø∂:_root_.connectors.PropertyRepresentationConnector#baseUrl.™
+•∞ü_root_.connectors.PropertyRepresentationConnector#create(Lmodels/RepresentationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(reprRequest)
+Àœ_root_.scala.Long#
+ÏÒ_root_.scala.
+˛Ñ_root_.javax.inject./
+ì©%_root_.models.PropertyRepresentation#Q
+‘
+’
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.|
+Üâr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+„	Á	_root_.scala.Long#Q
+¨≠G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.√
+ô£∏_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)?
+∂ƒ5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#ü
+“	·	í_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)0
+Œ€&_root_.uk.gov.hmrc.http.HeaderCarrier#"
+£ß_root_.uk.gov.hmrc.play.≈
+À’∏_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)ï
+®πà_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisedPartyId)ë
+π…Ñ_root_.connectors.PropertyRepresentationConnector#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(representationId)Ä
+Œ“ı_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.B
+ù°8_root_.connectors.PropertyRepresentationConnector#(http)/
+Üí%_root_.uk.gov.hmrc.http.HttpResponse#%
+˛Ñ_root_.scala.Predef.String#I
+êñ?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#∆
+œ‚ª_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrganisationId)
+ªø_root_.scala.Long#2
+π
+“
+(_root_.models.AgentCodeValidationResult#
+©¥_root_.controllers.L
+ˇã@_root_.connectors.PropertyRepresentationConnector#(serverConfig)∏
+ñ¨≠_root_.connectors.PropertyRepresentationConnector#response(Lmodels/RepresentationResponse;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(representationResponse)0
+…÷&_root_.uk.gov.hmrc.http.HeaderCarrier#ì
+¿—à_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisedPartyId)á
+Øµ{_root_.connectors.PropertyRepresentationConnector#find(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(linkId)
+û¢_root_.uk.gov.hmrc.(
+◊·_root_.controllers.Pagination#ª
+ãé∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;..
+ŸÓ$_root_.models.UpdatedRepresentation#Q
+îïG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;."
+ˆˇ_root_.models.searchApi.¨
+˛˛ü_root_.connectors.PropertyRepresentationConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.
+∑ª_root_.scala.Long#Q
+ÁËG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;."
+Ú¸_root_.scala.concurrent.Ö
+ÿﬁ{_root_.connectors.PropertyRepresentationConnector#find(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(linkId)ü
+ÏÚí_root_.connectors.PropertyRepresentationConnector#create(Lmodels/RepresentationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+óô
+_root_.uk.¨
+Û˛ü_root_.connectors.PropertyRepresentationConnector#create(Lmodels/RepresentationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(reprRequest)
+£©_root_.config.WSHttp#£
+˘˚ñ_root_.connectors.PropertyRepresentationConnector#update(Lmodels/UpdatedRepresentation;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)¶
+˝Ñõ_root_.connectors.PropertyRepresentationConnector#update(Lmodels/UpdatedRepresentation;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(updated)»
+«⁄ª_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrganisationId)Ω
+ÏÓ∞_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)Q
+–—G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.£
+†¢ñ_root_.connectors.PropertyRepresentationConnector#create(Lmodels/RepresentationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)0
+áû&_root_.models.PropertyRepresentations#
+ÃŒ
+_root_.uk.
+ÂÈ_root_.scala.Unit#B
+ÄÑ8_root_.connectors.PropertyRepresentationConnector#(http)0
+ì†&_root_.uk.gov.hmrc.http.HeaderCarrier#
+™Æ_root_.scala.Unit#/
+≠√%_root_.models.PropertyRepresentation#ü
+…œí_root_.connectors.PropertyRepresentationConnector#update(Lmodels/UpdatedRepresentation;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.)
+ÓÙ_root_.scala.concurrent.Future#)
+£©_root_.scala.concurrent.Future#0
+˝ä&_root_.uk.gov.hmrc.http.HeaderCarrier#B
+∞
+¥
+8_root_.connectors.PropertyRepresentationConnector#(http)ù
+òßí_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId))
+Ü
+å
+_root_.scala.concurrent.Future#/
+¡◊%_root_.models.RepresentationResponse#.
+´¿$_root_.models.UpdatedRepresentation#
+¶¨_root_.scala.Option#
+œ“_root_.uk.gov.5
+õ°+_root_.config.WSHttp.;_root_.config.WSHttp#¡
+íò¥_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(status)#
+·‰_root_.scala.package.Seq#Q
+ÈÍG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.ô
+¬	À	å_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentCode)0
+Øµ&_root_.uk.gov.hmrc.play.config.inject.ª
+≠∞∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.B
+∏º8_root_.connectors.PropertyRepresentationConnector#(http)Œ
+∞√¡_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrganisationId)ª
+µ
+∏
+∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.)
+ﬁ‰_root_.scala.concurrent.Future#
+”◊_root_.uk.gov.hmrc.0
+ﬁÎ&_root_.uk.gov.hmrc.http.HeaderCarrier#A
+Öã7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#D
+ù°8_root_.connectors.PropertyRepresentationConnector#(http)
+¶™_root_.uk.gov.hmrc.)
+®Æ_root_.uk.gov.hmrc.play.config.U
+¿ÃK_root_.uk.gov.hmrc.http.HttpResponse.;_root_.uk.gov.hmrc.http.HttpResponse#G
+∂¿=_root_.controllers.Pagination.;_root_.controllers.Pagination#B
+¥∂6_root_.connectors.PropertyRepresentationConnector#(ec)Q
+¯˘G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;."
+ÿ‹_root_.uk.gov.hmrc.play.
+ªø_root_.scala.Unit#2
+ç
+¶
+(_root_.models.AgentCodeValidationResult#D
+˚Ç:_root_.connectors.PropertyRepresentationConnector#baseUrl.D
+”⁄:_root_.connectors.PropertyRepresentationConnector#baseUrl.)
+⁄‡_root_.scala.concurrent.Future#J
+Ì˘@_root_.connectors.PropertyRepresentationConnector#(serverConfig)
+‹‡_root_.scala.Long#
+Ã	–	_root_.scala.Long#/
+ÓÑ%_root_.models.RepresentationResponse#Ë
+Ω¿›_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.Ã
+Ñó¡_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrganisationId)#
+èí_root_.scala.package.Seq#
+¯˝_root_.javax./
+Íˆ%_root_.uk.gov.hmrc.http.HttpResponse#
+¢•_root_.uk.gov.)
+çì_root_.scala.concurrent.Future#Q
+ΩæG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.
+îö_root_.config.)
+Ÿﬂ_root_.scala.concurrent.Future#D
+…–:_root_.connectors.PropertyRepresentationConnector#baseUrl.
+ÂÔ_root_.connectors.ª
+¢•∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[
+¬÷Q_root_.controllers.PaginationSearchSort.;_root_.controllers.PaginationSearchSort#∑
+≈«™_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc).
+Äï$_root_.models.RepresentationRequest#B
+Û˜8_root_.connectors.PropertyRepresentationConnector#(http)%
+‡Ê_root_.scala.Predef.String#"
+´Ø_root_.uk.gov.hmrc.http./
+Â˚%_root_.models.PropertyRepresentation#)
+¥∫_root_.scala.concurrent.Future#1
+¸¸'_root_.javax.inject.Inject#`<init>`()V.'
+›·_root_.uk.gov.hmrc.play.http.-
+öÆ#_root_.models.RepresentationStatus#.
+”Ë$_root_.models.RepresentationRequest#B
+Üä8_root_.connectors.PropertyRepresentationConnector#(http)D
+óû:_root_.connectors.PropertyRepresentationConnector#baseUrl.D
+◊
+ﬁ
+:_root_.connectors.PropertyRepresentationConnector#baseUrl.è
+Î˚Ñ_root_.connectors.PropertyRepresentationConnector#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(representationId)
+öù_root_.uk.gov.f
+˙Å	\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.0
+˝&_root_.uk.gov.hmrc.http.HeaderCarrier#π
+âë¨_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.2
+‡Ô(_root_.models.searchApi.AgentAuthResult#>
+’Ù2_root_.connectors.PropertyRepresentationConnector#L
+µ∂B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.É
+∆»w_root_.connectors.PropertyRepresentationConnector#find(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)Ë
+ß™›_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.®
+–◊õ_root_.connectors.PropertyRepresentationConnector#update(Lmodels/UpdatedRepresentation;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(updated)Q
+ ÀG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.Q
+∆«G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.ø
+ˆ¸¥_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(status)B
+…Õ8_root_.connectors.PropertyRepresentationConnector#(http)K
+˝Ä?app/connectors/PropertyRepresentationConnector.scala@2169..2299≥
+±∆¶_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;./
+ŸÂ%_root_.uk.gov.hmrc.http.HttpResponse#L
+ÂÊB_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.Q
+ÌÓG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.
+îò_root_.scala.Unit#∫
+÷Ï≠_root_.connectors.PropertyRepresentationConnector#response(Lmodels/RepresentationResponse;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(representationResponse)W
+±æM_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#|
+Æ±r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.2
+âò(_root_.models.searchApi.AgentAuthResult#B
+¢¶8_root_.connectors.PropertyRepresentationConnector#(http)
+ı˚_root_.scala.Option#0
+ ◊&_root_.uk.gov.hmrc.http.HeaderCarrier#
+Ôı_root_.models./
+¬Œ%_root_.uk.gov.hmrc.http.HttpResponse#2
+˝Å(_root_.models.RepresentationStatus#name.]
+˛éS_root_.scala.concurrent.ExecutionContext.;_root_.scala.concurrent.ExecutionContext#3
+∏»)_root_.scala.concurrent.ExecutionContext#Å
+°ßu_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;./
+¸í%_root_.models.PropertyRepresentation#[
+ÄèQ_root_.models.searchApi.AgentAuthResult.;_root_.models.searchApi.AgentAuthResult#
+≈…_root_.scala.Long#I
+öù?app/connectors/PropertyRepresentationConnector.scala@2169..2299ó
+çñå_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentCode)Q
+ÉÑG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.|
+≤µr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.¢
+Õ’ï_root_.connectors.PropertyRepresentationConnector#response(Lmodels/RepresentationResponse;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.?
+çõ5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#ª
+Öà∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.Ç
+⁄‹v_root_.connectors.PropertyRepresentationConnector#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)¶
+èëô_root_.connectors.PropertyRepresentationConnector#response(Lmodels/RepresentationResponse;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc))
+ÄÜ_root_.scala.concurrent.Future#Ï
+¯˝·_root_.uk.gov.hmrc.http.HttpPatch#PATCH(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.0
+§±&_root_.uk.gov.hmrc.http.HeaderCarrier#D
+Õ‘:_root_.connectors.PropertyRepresentationConnector#baseUrl.%
+ˆ¸_root_.javax.inject.Inject#í
+Ú	Ù	Ö_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+ü°
+_root_.uk.
+ﬂÂ_root_.models.B
+®¨8_root_.connectors.PropertyRepresentationConnector#(http)0
+ˆ	É
+&_root_.uk.gov.hmrc.http.HeaderCarrier#~
+µ∏r_root_.connectors.PropertyRepresentationConnector#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+™Æs_root_.connectors.PropertyRepresentationConnector#find(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.|
+ÿ€r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.F
+◊ﬁ:_root_.connectors.PropertyRepresentationConnector#baseUrl.Ö
+ Ãy_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)2
+äû(_root_.controllers.PaginationSearchSort#D
+ÍÒ:_root_.connectors.PropertyRepresentationConnector#baseUrl.é
+∞	¡	Å_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.0
+±»&_root_.models.PropertyRepresentations#Ω
+˙≤_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)ø
+˛à≤_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)D
+Üç:_root_.connectors.PropertyRepresentationConnector#baseUrl."À
+í_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"“
+ö_root_.controllers.PaginationSearchSort#`<init>`(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;J)V.≤<init>ñ(pageNumber: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], agent: Option[String], client: Option[String], totalResults: Long): PaginationSearchSort"
+_root_.scala.Int#"
+_root_.scala.Int#"
+7>_root_.scala.Boolean#"
+KQ_root_.scala.Option#"#
+RX_root_.scala.Predef.String#"
+fl_root_.scala.Option#"#
+ms_root_.scala.Predef.String#"
+~Ñ_root_.scala.Option#"%
+Öã_root_.scala.Predef.String#"
+óù_root_.scala.Option#"%
+û§_root_.scala.Predef.String#"
+Æ¥_root_.scala.Option#"%
+µª_root_.scala.Predef.String#"
+≈À_root_.scala.Option#"%
+Ã“_root_.scala.Predef.String#"
+›„_root_.scala.Option#"%
+‰Í_root_.scala.Predef.String#"
+˚ˇ_root_.scala.Long#"2
+Çñ(_root_.controllers.PaginationSearchSort#"÷
+ı_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.€POST¶[I, O] => (url: String, body: I, headers: Seq[Tuple2[String, String]])(implicit wts: Writes[I], rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext): Future[O]"#
+_root_.scala.Predef.String#"Å
+¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"!
+*-_root_.scala.package.Seq#"
+.4_root_.scala.Tuple2#"#
+5;_root_.scala.Predef.String#"#
+=C_root_.scala.Predef.String#")
+U[!_root_.play.api.libs.json.Writes#"Å
+\]¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"*
+en"_root_.uk.gov.hmrc.http.HttpReads#"Å
+op¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"/
+wÑ&_root_.uk.gov.hmrc.http.HeaderCarrier#"3
+äö)_root_.scala.concurrent.ExecutionContext#")
+ù£_root_.scala.concurrent.Future#"É
+§•¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"Ù
+™_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"$
+_root_.config.WSHttp#Ä@WSHttp" 
+_root_.scala.Long#
+Ä†Long":
+%_root_.uk.gov.hmrc.http.HttpResponse#Ä@HttpResponse"ë
+í_root_.connectors.PropertyRepresentationConnector#update(Lmodels/UpdatedRepresentation;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˘updateJ(updated: UpdatedRepresentation)(implicit hc: HeaderCarrier): Future[Unit]",
+
+$_root_.models.UpdatedRepresentation#".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+>D_root_.scala.concurrent.Future#"
+EI_root_.scala.Unit#"ı
+a_root_.models.UpdatedRepresentation#`<init>`(JLmodels/AgentPermission;Lmodels/AgentPermission;)V.è<init>i(representationId: Long, canCheck: AgentPermission, canChallenge: AgentPermission): UpdatedRepresentation"
+_root_.scala.Long#"&
+#2_root_.models.AgentPermission#"&
+BQ_root_.models.AgentPermission#",
+Ti$_root_.models.UpdatedRepresentation#"'
+_root_.connectors.ÄàÄ
+connectors"⁄
+u_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.‡revokeC(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit]"
+_root_.scala.Long#".
+'4&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+7=_root_.scala.concurrent.Future#"
+>B_root_.scala.Unit#"û
+r_root_.connectors.PropertyRepresentationConnector#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ßget\(representationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyRepresentation]]"
+_root_.scala.Long#".
+&3&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+6<_root_.scala.concurrent.Future#"
+=C_root_.scala.Option#"-
+DZ%_root_.models.PropertyRepresentation#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"Æ
+._root_.controllers.Pagination#`<init>`(IIJZ)V.˚<init>V(pageNumber: Int, pageSize: Int, totalResults: Long, resultCount: Boolean): Pagination"
+_root_.scala.Int#"
+_root_.scala.Int#"
+/3_root_.scala.Long#"
+BI_root_.scala.Boolean#"&
+LV_root_.controllers.Pagination#"Z
+2_root_.connectors.PropertyRepresentationConnector#$Ä PropertyRepresentationConnector",
+_root_.models.searchApi.ÄàÄ	searchApi"¢
+@_root_.connectors.PropertyRepresentationConnector#(serverConfig)^ÄserverConfigServicesConfig";
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"û
+B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.XÑÄ+(x$1: Any): String"
+	_root_.scala.Any#" 
+_root_.java.lang.String#"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"‡
+ñ_root_.connectors.PropertyRepresentationConnector#create(Lmodels/RepresentationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Ô
+õ_root_.connectors.PropertyRepresentationConnector#update(Lmodels/UpdatedRepresentation;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(updated)OÄupdatedUpdatedRepresentation"*
+$_root_.models.UpdatedRepresentation#"
+_root_.javax.ÄàÄjavax"Í
+|_root_.models.RepresentationRequest#`<init>`(JJJLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/time/Instant;)V.È<init>¬(authorisationId: Long, agentOrganisationId: Long, individualId: Long, submissionId: String, checkPermission: String, challengePermission: String, createDatetime: Instant): RepresentationRequest"
+_root_.scala.Long#"
+-1_root_.scala.Long#"
+AE_root_.scala.Long#"#
+U[_root_.scala.Predef.String#"#
+nt_root_.scala.Predef.String#"%
+ãë_root_.scala.Predef.String#"#
+£™_root_.java.time.Instant#".
+≠¬$_root_.models.RepresentationRequest#"»
+Å_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.¡validateAgentCodeg(agentCode: Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[AgentCodeValidationResult]"
+_root_.scala.Long#"
+#'_root_.scala.Long#".
+6C&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+FL_root_.scala.concurrent.Future#"0
+Mf(_root_.models.AgentCodeValidationResult#"Ö
+¥_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(status)LÄstatusRepresentationStatus")
+#_root_.models.RepresentationStatus#" 
+_root_.scala.Unit#
+Ä†Unit"˙
+∞_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#",
+_root_.uk.gov.hmrc.play.http.ÄàÄhttp".
+_root_.scala.concurrent.Future#Ä@Future"L
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig"ß
+ï_root_.connectors.PropertyRepresentationConnector#response(Lmodels/RepresentationResponse;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.åresponseZ(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier): Future[Unit]"-
+/%_root_.models.RepresentationResponse#".
+>K&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+NT_root_.scala.concurrent.Future#"
+UY_root_.scala.Unit#"˜
+ü_root_.connectors.PropertyRepresentationConnector#create(Lmodels/RepresentationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(reprRequest)SÄreprRequestRepresentationRequest"*
+$_root_.models.RepresentationRequest#",
+_root_.javax.inject.Inject#Ä†ÄInject"D
+$_root_.models.RepresentationRequest#Ä†ÄRepresentationRequest"™
+{_root_.connectors.PropertyRepresentationConnector#find(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(linkId)+ÄlinkIdLong"
+_root_.scala.Long#"í
+≠_root_.connectors.PropertyRepresentationConnector#response(Lmodels/RepresentationResponse;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(representationResponse)`ÄrepresentationResponseRepresentationResponse"+
+%_root_.models.RepresentationResponse#"√
+à_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisedPartyId)6ÄauthorisedPartyIdLong"
+_root_.scala.Long#"7
+&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"í
+¶_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÊforAgentSearchAndSortr(agentOrganisationId: Long, pagination: PaginationSearchSort)(implicit hc: HeaderCarrier): Future[AgentAuthResult]"
+_root_.scala.Long#"0
+(<(_root_.controllers.PaginationSearchSort#".
+KX&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+[a_root_.scala.concurrent.Future#"0
+bq(_root_.models.searchApi.AgentAuthResult#"$
+_root_.scala.Option#Ä†Option"
+
+_root_.uk.	ÄàÄuk"3
+_root_.controllers.Pagination#Ä†Ä
+Pagination"%
+_root_.javax.inject.ÄàÄinject"B
+(_root_.models.searchApi.AgentAuthResult#Ä†ÄAgentAuthResult"ò
+s_root_.connectors.PropertyRepresentationConnector#find(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.†findO(linkId: Long)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]]"
+	_root_.scala.Long#".
+)&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+,2_root_.scala.concurrent.Future#"!
+36_root_.scala.package.Seq#"-
+7M%_root_.models.PropertyRepresentation#"ø
+å_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentCode).Ä	agentCodeLong"
+_root_.scala.Long#"L
+(_root_.models.AgentCodeValidationResult# Ä†ÄAgentCodeValidationResult"‘
+\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.tbaseUrl(serviceName: String): String"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"H
+&_root_.models.PropertyRepresentations#Ä†ÄPropertyRepresentations"
+_root_.uk.gov.
+ÄàÄgov"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"F
+%_root_.models.PropertyRepresentation#Ä†ÄPropertyRepresentation"¯
+ª_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrganisationId)8ÄagentOrganisationIdLong"
+_root_.scala.Long#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"¿
+w_root_.connectors.PropertyRepresentationConnector#find(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"ø
+v_root_.connectors.PropertyRepresentationConnector#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Í
+ü_root_.connectors.PropertyRepresentationConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.≈<init>l(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): PropertyRepresentationConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"1
+:J)_root_.scala.concurrent.ExecutionContext#":
+Ml2_root_.connectors.PropertyRepresentationConnector#"¬
+y_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"B
+)_root_.scala.concurrent.ExecutionContext#Ä@ExecutionContext"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"j
+8_root_.connectors.PropertyRepresentationConnector#(http).ÄhttpWSHttp"
+_root_.config.WSHttp#"ˇ
+O_root_.models.searchApi.AgentAuthResult#`<init>`(IIIIILscala/collection/Seq;)V.´<init>å(start: Int, size: Int, filterTotal: Int, total: Int, pendingRepresentations: Int, authorisations: Seq[AgentAuthorisation]): AgentAuthResult"
+_root_.scala.Int#"
+_root_.scala.Int#"
+%(_root_.scala.Int#"
+14_root_.scala.Int#"
+NQ_root_.scala.Int#"!
+cf_root_.scala.package.Seq#"3
+gy+_root_.models.searchApi.AgentAuthorisation#"1
+}å(_root_.models.searchApi.AgentAuthResult#"v
+:_root_.connectors.PropertyRepresentationConnector#baseUrl.8ÅÄ@baseUrlString"!
+_root_.scala.Predef.String#"‡
+ñ_root_.connectors.PropertyRepresentationConnector#update(Lmodels/UpdatedRepresentation;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Ö
+6_root_.connectors.PropertyRepresentationConnector#(ec)KÄÅ ecExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"A
+#_root_.models.RepresentationStatus#Ä¿RepresentationStatus"R
+_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
+_root_.scala.Unit#"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"
+_root_.models.ÄàÄmodels"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"r
+?app/connectors/PropertyRepresentationConnector.scala@2169..2299/urlString"
+_root_.java.lang.String#"„
+ô_root_.connectors.PropertyRepresentationConnector#response(Lmodels/RepresentationResponse;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"˛
+¡_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrganisationId)8ÄagentOrganisationIdLong"
+_root_.scala.Long#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"a
+(_root_.models.RepresentationStatus#name.5ÅÄnameString"!
+_root_.scala.Predef.String#")
+_root_.controllers.ÄàÄcontrollers" 
+¨_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.òforAgenté(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier): Future[PropertyRepresentations]"+
+	#_root_.models.RepresentationStatus#"
+48_root_.scala.Long#"&
+FP_root_.controllers.Pagination#".
+_l&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+ou_root_.scala.concurrent.Future#"/
+vç&_root_.models.PropertyRepresentations#"F
+%_root_.models.RepresentationResponse#Ä†ÄRepresentationResponse"G
+(_root_.controllers.PaginationSearchSort#Ä†ÄPaginationSearchSort"ï
+í_root_.connectors.PropertyRepresentationConnector#create(Lmodels/RepresentationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˝createN(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier): Future[Unit]",
+#$_root_.models.RepresentationRequest#".
+2?&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+BH_root_.scala.concurrent.Future#"
+IM_root_.scala.Unit#"ª
+·_root_.uk.gov.hmrc.http.HttpPatch#PATCH(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.‘
+PATCHÄ[I, O] => (url: String, body: I)(implicit wts: Writes[I], rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext): Future[O]"#
+_root_.scala.Predef.String#"Ì
+‰_root_.uk.gov.hmrc.http.HttpPatch#PATCH(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]")
+/5!_root_.play.api.libs.json.Writes#"Ì
+67‰_root_.uk.gov.hmrc.http.HttpPatch#PATCH(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"*
+?H"_root_.uk.gov.hmrc.http.HttpReads#"Ì
+IJ‰_root_.uk.gov.hmrc.http.HttpPatch#PATCH(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]".
+Q^&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+dt)_root_.scala.concurrent.ExecutionContext#"'
+w}_root_.scala.concurrent.Future#"Ì
+~‰_root_.uk.gov.hmrc.http.HttpPatch#PATCH(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"
+_root_.config.ÄàÄconfig">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"•
+›_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.¬
+PUTÄ[I, O] => (url: String, body: I)(implicit wts: Writes[I], rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext): Future[O]"#
+_root_.scala.Predef.String#"È
+‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]")
+/5!_root_.play.api.libs.json.Writes#"È
+67‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"*
+?H"_root_.uk.gov.hmrc.http.HttpReads#"È
+IJ‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]".
+Q^&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+dt)_root_.scala.concurrent.ExecutionContext#"'
+w}_root_.scala.concurrent.Future#"È
+~‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"»
+W_root_.models.PropertyRepresentations#`<init>`(JLscala/Option;Lscala/collection/Seq;)V.Ï<init>Ü(totalPendingRequests: Long, resultCount: Option[Long], propertyRepresentations: Seq[PropertyRepresentation]): PropertyRepresentations"
+_root_.scala.Long#"
+*0_root_.scala.Option#"
+15_root_.scala.Long#"!
+QT_root_.scala.package.Seq#"-
+Uk%_root_.models.PropertyRepresentation#"/
+oÜ&_root_.models.PropertyRepresentations#"ì
+i_root_.models.RepresentationResponse#`<init>`(Ljava/lang/String;JLmodels/RepresentationResponseStatus;)V.•<init>t(submissionId: String, authorisedPartyPersonId: Long, outcome: RepresentationResponseStatus): RepresentationResponse"#
+_root_.scala.Predef.String#"
+04_root_.scala.Long#"3
+?[+_root_.models.RepresentationResponseStatus#"-
+^t%_root_.models.RepresentationResponse#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."å
+≤_root_.connectors.PropertyRepresentationConnector#forAgentSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)UÄ
+paginationPaginationSearchSort".
+(_root_.controllers.PaginationSearchSort#"
+_root_.scala.ÄàÄscala"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"˙
+ﬁ_root_.models.PropertyRepresentation#`<init>`(JJLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lmodels/AgentPermission;Lmodels/AgentPermission;Ljava/time/LocalDate;Lmodels/RepresentationStatus;)V.ñ<init>¬(representationId: Long, authorisationId: Long, billingAuthorityReference: String, submissionId: String, organisationId: Long, organisationName: String, address: String, checkPermission: AgentPermission, challengePermission: AgentPermission, createDatetime: LocalDate, status: RepresentationStatus): PropertyRepresentation"
+_root_.scala.Long#"
+*._root_.scala.Long#"#
+KQ_root_.scala.Predef.String#"#
+ag_root_.scala.Predef.String#"
+y}_root_.scala.Long#"%
+ëó_root_.scala.Predef.String#"%
+¢®_root_.scala.Predef.String#"(
+ª _root_.models.AgentPermission#"(
+·_root_.models.AgentPermission#"%
+Çã_root_.java.time.LocalDate#"-
+ï©#_root_.models.RepresentationStatus#"/
+¨¬%_root_.models.PropertyRepresentation#"˛
+∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.»GETd[A] => (url: String)(implicit rds: HttpReads[A], hc: HeaderCarrier, ec: ExecutionContext): Future[A]"#
+_root_.scala.Predef.String#"*
+#,"_root_.uk.gov.hmrc.http.HttpReads#"º
+-.≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]".
+5B&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+HX)_root_.scala.concurrent.ExecutionContext#"'
+[a_root_.scala.concurrent.Future#"º
+bc≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]""
+_root_.uk.gov.hmrc.ÄàÄhmrc"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"D
+$_root_.models.UpdatedRepresentation#Ä†ÄUpdatedRepresentation"æ
+Ñ_root_.connectors.PropertyRepresentationConnector#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(representationId)5ÄrepresentationIdLong"
+_root_.scala.Long#"Ê
+P_root_.models.AgentCodeValidationResult#`<init>`(Lscala/Option;Lscala/Option;)V.ë<init>V(organisationId: Option[Long], failureCode: Option[String]): AgentCodeValidationResult"
+_root_.scala.Option#"
+_root_.scala.Long#"
+,2_root_.scala.Option#"#
+39_root_.scala.Predef.String#"0
+=V(_root_.models.AgentCodeValidationResult#"œ
+Ö_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"˛
+∏_root_.connectors.PropertyRepresentationConnector#forAgent(Lmodels/RepresentationStatus;JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)AÄ
+pagination
+Pagination"$
+
+_root_.controllers.Pagination#2Ï
+••Ç*(uk.gov.hmrc.http.HttpReads.readFromJson[PropertyRepresentations](models.PropertyRepresentations.format, scala.reflect.ManifestFactory.classType[PropertyRepresentations](classOf[models.PropertyRepresentations])), hc, PropertyRepresentationConnector.this.ec)
+_star_.0
+í©&_root_.models.PropertyRepresentations#å
+)É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.d
+àëZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;..
+*A&_root_.models.PropertyRepresentations#5
+bh-_root_.models.PropertyRepresentations.format.@
+ˇÅ6_root_.connectors.PropertyRepresentationConnector#(ec)2É
+øø**(PropertyRepresentationConnector.this.ec)
+_star_.>
+')6_root_.connectors.PropertyRepresentationConnector#(ec)2x
+  *.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2É
+ìì**(PropertyRepresentationConnector.this.ec)
+_star_.>
+')6_root_.connectors.PropertyRepresentationConnector#(ec)2<
+ââ*[Unit]
+_star_.
+_root_.scala.Unit#2É
+ªª**(PropertyRepresentationConnector.this.ec)
+_star_.>
+')6_root_.connectors.PropertyRepresentationConnector#(ec)2x
+‘
+‘
+*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2<
+±±*[Unit]
+_star_.
+_root_.scala.Unit#2π
+±±w*(models.RepresentationRequest.format, uk.gov.hmrc.http.HttpReads.readRaw, hc, PropertyRepresentationConnector.this.ec)
+_star_.3
+%+_root_.models.RepresentationRequest.format.2
+BI*_root_.uk.gov.hmrc.http.HttpReads.readRaw.>
+tv6_root_.connectors.PropertyRepresentationConnector#(ec)2x
+ÈÈ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+ÉÉ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2ª
+≠≠x*(models.RepresentationResponse.format, uk.gov.hmrc.http.HttpReads.readRaw, hc, PropertyRepresentationConnector.this.ec)
+_star_.4
+ &,_root_.models.RepresentationResponse.format.2
+CJ*_root_.uk.gov.hmrc.http.HttpReads.readRaw.>
+uw6_root_.connectors.PropertyRepresentationConnector#(ec)2x
+∆∆*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+ÁÁ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2π
+ÖÖw*(models.UpdatedRepresentation.format, uk.gov.hmrc.http.HttpReads.readRaw, hc, PropertyRepresentationConnector.this.ec)
+_star_.3
+%+_root_.models.UpdatedRepresentation.format.2
+BI*_root_.uk.gov.hmrc.http.HttpReads.readRaw.>
+tv6_root_.connectors.PropertyRepresentationConnector#(ec)2˝
+˝˝’*(uk.gov.hmrc.http.HttpReads.readOptionOf[PropertyRepresentation](uk.gov.hmrc.http.HttpReads.readFromJson[PropertyRepresentation](models.PropertyRepresentation.propertyRepresentationFormat, scala.reflect.ManifestFactory.classType[PropertyRepresentation](classOf[models.PropertyRepresentation]))), hc, PropertyRepresentationConnector.this.ec)
+_star_.-
+*@%_root_.models.PropertyRepresentation#d
+‹ÂZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.L
+†ºB_root_.models.PropertyRepresentation.propertyRepresentationFormat.w
+)o_root_.uk.gov.hmrc.http.OptionHttpReads#readOptionOf(Luk/gov/hmrc/http/HttpReads;)Luk/gov/hmrc/http/HttpReads;.å
+]iÉ_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;./
+Ê¸%_root_.models.PropertyRepresentation#.
+jÄ%_root_.models.PropertyRepresentation#@
+“‘6_root_.connectors.PropertyRepresentationConnector#(ec)2˙
+©©ä*(uk.gov.hmrc.http.HttpReads.readFromJson[AgentCodeValidationResult](models.AgentCodeValidationResult.format, scala.reflect.ManifestFactory.classType[AgentCodeValidationResult](classOf[models.AgentCodeValidationResult])), hc, PropertyRepresentationConnector.this.ec)
+_star_.d
+åïZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.å
+)É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.7
+fl/_root_.models.AgentCodeValidationResult.format.0
+*C(_root_.models.AgentCodeValidationResult#2
+ñØ(_root_.models.AgentCodeValidationResult#@
+áâ6_root_.connectors.PropertyRepresentationConnector#(ec)2<
+µµ*[Unit]
+_star_.
+_root_.scala.Unit#2x
+îî*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+ΩΩ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2¯
+ûûˇ*(uk.gov.hmrc.http.HttpReads.readFromJson[AgentAuthResult](models.searchApi.AgentAuthResult.agentAuthResult, scala.reflect.ManifestFactory.classType[AgentAuthResult](classOf[models.searchApi.AgentAuthResult])), hc, PropertyRepresentationConnector.this.ec)
+_star_.0
+*9(_root_.models.searchApi.AgentAuthResult#d
+ãîZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.å
+)É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.2
+ï§(_root_.models.searchApi.AgentAuthResult#@
+\k8_root_.models.searchApi.AgentAuthResult.agentAuthResult.@
+¸˛6_root_.connectors.PropertyRepresentationConnector#(ec)2∆
+◊◊z*(play.api.libs.json.Writes.StringWrites, uk.gov.hmrc.http.HttpReads.readRaw, hc, PropertyRepresentationConnector.this.ec)
+_star_.=
+(5_root_.play.api.libs.json.DefaultWrites#StringWrites.2
+EL*_root_.uk.gov.hmrc.http.HttpReads.readRaw.>
+wy6_root_.connectors.PropertyRepresentationConnector#(ec)2<
+€€*[Unit]
+_star_.
+_root_.scala.Unit#2ù
+‡‡Å*(uk.gov.hmrc.http.HttpReads.readFromJson[Seq[PropertyRepresentation]](play.api.libs.json.Reads.traversableReads[Seq, PropertyRepresentation](scala.collection.Seq.canBuildFrom[PropertyRepresentation], models.PropertyRepresentation.propertyRepresentationFormat), scala.reflect.ManifestFactory.classType[Seq[PropertyRepresentation]](classOf[scala.collection.Seq], scala.reflect.ManifestFactory.classType[PropertyRepresentation](classOf[models.PropertyRepresentation]))), hc, PropertyRepresentationConnector.this.ec)
+_star_.#
+Æ±_root_.scala.package.Seq#ì
+§≠à_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;Lscala/reflect/Manifest;Lscala/collection/Seq;)Lscala/reflect/Manifest;.!
+qt_root_.scala.package.Seq#å
+)É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.©
+`p†_root_.play.api.libs.json.LowPriorityDefaultReads#traversableReads(Lscala/collection/generic/CanBuildFrom;Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.-
+.D%_root_.models.PropertyRepresentation#L
+ÁÉB_root_.models.PropertyRepresentation.propertyRepresentationFormat.!
+*-_root_.scala.package.Seq#/
+∞∆%_root_.models.PropertyRepresentation#d
+àëZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.\
+£ØR_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;./
+≤»%_root_.models.PropertyRepresentation#.
+vå%_root_.models.PropertyRepresentation#/
+í®%_root_.models.PropertyRepresentation#@
+˛Ä6_root_.connectors.PropertyRepresentationConnector#(ec)2É
+ÂÂ**(PropertyRepresentationConnector.this.ec)
+_star_.>
+')6_root_.connectors.PropertyRepresentationConnector#(ec)2x
+––*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+ÌÌ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+¨¨*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+¯¯*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.:Scala211BÓ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package connectors
+
+import javax.inject.Inject
+
+import config.WSHttp
+import controllers.{Pagination, PaginationSearchSort}
+import models._
+import models.searchApi.AgentAuthResult
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.http._
+
+import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+
+class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+  lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
+
+  def validateAgentCode(agentCode:Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[AgentCodeValidationResult] = {
+    http.GET[AgentCodeValidationResult](s"$baseUrl/property-representations/validate-agent-code/$agentCode/$authorisationId")
+  }
+
+  def get(representationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyRepresentation]] = {
+    http.GET[Option[PropertyRepresentation]](s"$baseUrl/property-representations/$representationId")
+  }
+
+  def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier): Future[PropertyRepresentations] = {
+    http.GET[PropertyRepresentations](s"$baseUrl/property-representations/agent/${status.name}/$agentOrganisationId?$pagination")
+  }
+
+  def forAgentSearchAndSort(agentOrganisationId: Long,
+                            pagination: PaginationSearchSort)
+                           (implicit hc: HeaderCarrier): Future[AgentAuthResult] = {
+    val url = s"$baseUrl/property-representations-search-sort?" +
+      s"organisationId=$agentOrganisationId&" +
+      s"$pagination"
+    http.GET[AgentAuthResult](url)
+  }
+
+  def find(linkId: Long)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
+    http.GET[Seq[PropertyRepresentation]](s"$baseUrl/property-representations/linkId/$linkId")
+  }
+
+  def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.POST[RepresentationRequest, HttpResponse](s"$baseUrl/property-representations/create", reprRequest) map { _ => () }
+  }
+
+  def response(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.PUT[RepresentationResponse, HttpResponse](s"$baseUrl/property-representations/response", representationResponse) map { _ => () }
+  }
+
+  def update(updated: UpdatedRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.PUT[UpdatedRepresentation, HttpResponse](s"$baseUrl/property-representations/update", updated) map { _ => () }
+  }
+
+  def revoke(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.PATCH[String, HttpResponse](s"$baseUrl/property-representations/revoke/$authorisedPartyId", "") map { _ => () }
+  }
+}
+J4app/connectors/PropertyRepresentationConnector.scala

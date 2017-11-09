@@ -1,0 +1,113 @@
+
+˝(E
+‚ı9_root_.models.RepresentationRequest#(challengePermission)
+ÂÎ_root_.models.%
+ˇÖ_root_.scala.Predef.String#>
+º»2_root_.models.RepresentationRequest#(individualId)A
+»◊5_root_.models.RepresentationRequest#(authorisationId)
+éí_root_.play.N
+ˆ¸D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.0
+¡÷$_root_.models.RepresentationRequest.
+ìñ_root_.play.api.)
+°•_root_.play.api.libs.json.Json.E
+Äì9_root_.models.RepresentationRequest#(agentOrganisationId)
+ Œ_root_.scala.Long#A
+®∑5_root_.models.RepresentationRequest#(checkPermission)$
+ú†_root_.play.api.libs.json.
+ïô_root_.scala.Long#.
+˝í	$_root_.models.RepresentationRequest#)
+Òı_root_.play.api.libs.json.Json.à
+««|_root_.models.RepresentationRequest#`<init>`(JJJLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/time/Instant;)V.0
+≤«$_root_.models.RepresentationRequest#@
+†Æ4_root_.models.RepresentationRequest#(createDatetime)#
+∞∑_root_.java.time.Instant#
+Ù¯_root_.java.7
+ËÓ+_root_.models.RepresentationRequest.format.=
+˛Ö3_root_.java.time.Instant.;_root_.java.time.Instant#
+˘˝_root_.java.time.%
+˜˝_root_.scala.Predef.String#>
+Ò˝2_root_.models.RepresentationRequest#(submissionId)%
+πø_root_.scala.Predef.String#
+Ÿ›_root_.scala.Long#
+óõ_root_.play.api.libs."¥
++_root_.models.RepresentationRequest.format.ÑÅÄ formatOFormat[RepresentationRequest]"(
+"_root_.play.api.libs.json.OFormat#",
+$_root_.models.RepresentationRequest#"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"Ä
+9_root_.models.RepresentationRequest#(challengePermission)CÅchallengePermissionString"!
+_root_.scala.Predef.String#")
+_root_.play.api.libs.json.ÄàÄjson" 
+_root_.scala.Long#
+Ä†Long"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"
+_root_.java.ÄàÄjava"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"Í
+|_root_.models.RepresentationRequest#`<init>`(JJJLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/time/Instant;)V.È<init>¬(authorisationId: Long, agentOrganisationId: Long, individualId: Long, submissionId: String, checkPermission: String, challengePermission: String, createDatetime: Instant): RepresentationRequest"
+_root_.scala.Long#"
+-1_root_.scala.Long#"
+AE_root_.scala.Long#"#
+U[_root_.scala.Predef.String#"#
+nt_root_.scala.Predef.String#"%
+ãë_root_.scala.Predef.String#"#
+£™_root_.java.time.Instant#".
+≠¬$_root_.models.RepresentationRequest#"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"u
+9_root_.models.RepresentationRequest#(agentOrganisationId)8ÅagentOrganisationIdLong"
+_root_.scala.Long#"C
+$_root_.models.RepresentationRequest.ÄÑRepresentationRequest"D
+$_root_.models.RepresentationRequest#Ä†ÄRepresentationRequest"m
+5_root_.models.RepresentationRequest#(authorisationId)4ÅauthorisationIdLong"
+_root_.scala.Long#"r
+2_root_.models.RepresentationRequest#(submissionId)<ÅsubmissionIdString"!
+_root_.scala.Predef.String#"
+_root_.play.ÄàÄplay"g
+2_root_.models.RepresentationRequest#(individualId)1ÅindividualIdLong"
+_root_.scala.Long#"
+_root_.models.ÄàÄmodels"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#" 
+_root_.java.time.ÄàÄtime"+
+_root_.java.time.Instant#Ä†àInstant"u
+4_root_.models.RepresentationRequest#(createDatetime)=ÅcreateDatetimeInstant"
+_root_.java.time.Instant#"x
+5_root_.models.RepresentationRequest#(checkPermission)?ÅcheckPermissionString"!
+_root_.scala.Predef.String#:Scala211Bñ	/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import java.time.Instant
+
+import play.api.libs.json.Json
+
+case class RepresentationRequest(authorisationId: Long,
+                                 agentOrganisationId: Long,
+                                 individualId: Long,
+                                 submissionId: String,
+                                 checkPermission: String,
+                                 challengePermission: String,
+                                 createDatetime: Instant)
+
+object RepresentationRequest {
+  implicit val format = Json.format[RepresentationRequest]
+}
+J&app/models/RepresentationRequest.scala

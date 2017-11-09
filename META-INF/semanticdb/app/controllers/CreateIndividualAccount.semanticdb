@@ -1,0 +1,1052 @@
+
+ιηC
+«²9_root_.play.api.mvc.Request.;_root_.play.api.mvc.Request#X
+ΜΥN_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength)
+«_root_.connectors.IndividualAccounts#withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;..
+€‹$_root_.uk.gov.hmrc.http.SessionKeys.M
+ΓΜC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.<
+”0_root_.controllers.CreateIndividualAccount.form.9
+›΄-_root_.controllers.CreateIndividualAccountVM#ο
+υϊδ_root_.models.PersonalDetails.apply(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/Address;)Lmodels/PersonalDetails;.
+ÿ…_root_.javax.inject.
+ωώ_root_.javax.Y
+΄΄M_root_.controllers.CreateIndividualAccountVM#`<init>`(Lplay/api/data/Form;)V.
+άί_root_.play.api.
+„‰_root_.views.1
+ΨΨ'_root_.javax.inject.Inject#`<init>`()V.?
+5_root_.play.api.data.Form.;_root_.play.api.data.Form#)
+£§_root_.uk.gov.hmrc.domain.Nino.$
+ό‚_root_.controllers.routes.H
+‘>_root_.controllers.ReverseDashboard#home()Lplay/api/mvc/Call;.6
+πϋ,_root_.play.api.data.validation.Constraints.S
+Β
+ά
+G_root_.controllers.CreateIndividualAccount#(personalDetailsSessionRepo){
+έαq_root_.controllers.CreateIndividualAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateIndividualAccountVM;.(form)B
+ΜÒ8app/controllers/CreateIndividualAccount.scala@2636..2642
+ΊΖ_root_.repositories.
+αε_root_.uk.gov.hmrc.B
+§―8app/controllers/CreateIndividualAccount.scala@2291..2299v
+δλj_root_.controllers.CreateIndividualAccount#showForm(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.(request)k
+¨°a_root_.controllers.CreateIndividualAccount#showForm(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.B
+γι8app/controllers/CreateIndividualAccount.scala@2218..2224*
+εο _root_.play.api.data.validation.?
+·ΐ5_root_.controllers.CreateIndividualAccount.validNino.q
+ΘΜe_root_.controllers.CreateIndividualAccount.toNino(Ljava/lang/String;)Luk/gov/hmrc/domain/Nino;.(nino)1
+΄Ύ'_root_.play.api.mvc.Results#BadRequest.P
+ΕΗF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+ΓΗ_root_.play.api.data.`
+›V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.(
+ό‹_root_.models.PersonalDetails.:
+‡‹0_root_.controllers.CreateIndividualAccount.form.P
+ΟΡF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.5
+¨Ώ+_root_.controllers.CreateIndividualAccount.F
+¨―<_root_.uk.gov.hmrc.domain.Nino.isValid(Ljava/lang/String;)Z.#
+¨΄_root_.form.TextMatching._
+ΆU_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.8
+ΈΑ._root_.uk.gov.hmrc.http.SessionKeys.authToken. 
+¦•_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.5
+’+_root_.play.api.data.validation.Constraint.G
+£²=_root_.models.PersonalDetails.;_root_.models.PersonalDetails#7
+Γά-_root_.controllers.CreateIndividualAccountVM.'
+_root_.play.api.data.Mapping#?
+µΉ3_root_.controllers.CreateIndividualAccountVM#(form)S
+G_root_.controllers.CreateIndividualAccount#show()Lplay/api/mvc/Action;.%
+§«_root_.play.api.data.Forms.
+Ά_root_.auth.Y
+σϋO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.w
+”–k_root_.controllers.CreateIndividualAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateIndividualAccountVM;.A
+θρ5_root_.controllers.CreateIndividualAccount.validNino.P
+κμF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.5
+§+_root_.views.html.createAccount.individual.;
+ιν1_root_.controllers.CreateIndividualAccount#(auth)
+ΧΫ_root_.play.P
+§©F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+ρω_root_.form.Mappings.J
+²»@_root_.controllers.CreateIndividualAccount.keys.$anon#firstName.t
+μσj_root_.controllers.CreateIndividualAccount#showForm(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.(request)©
+ΫΫ_root_.controllers.CreateIndividualAccount#`<init>`(Lauth/GGAction;Lconnectors/VPLAuthConnector;Lconnectors/IndividualAccounts;Lrepositories/SessionRepo;)V.
+ΰδ_root_.play.api.data.B
+‘8_root_.controllers.CreateIndividualAccount#(individuals)/
+η	ω	%_root_.connectors.IndividualAccounts#I
+νρ?_root_.uk.gov.hmrc.domain.Nino.;_root_.uk.gov.hmrc.domain.Nino#M
+ΚΟC_root_.auth.GGAction#async(Lscala/Function1;)Lplay/api/mvc/Action;.%
+ÒΨ_root_.javax.inject.Inject#
+ΏΔ_root_.views.D
+ª°8app/controllers/CreateIndividualAccount.scala@2218..2224P
+¥§F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.X
+ϊƒN_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength)
+³½_root_.connectors.:
+ΐΔ0_root_.controllers.CreateIndividualAccount.form.X
+“N_root_.models.PersonalDetails.unapply(Lmodels/PersonalDetails;)Lscala/Option;.%
+νω_root_.play.api.data.Forms.*
+ΗÒ _root_.repositories.SessionRepo#k
+ΑΗ__root_.controllers.CreateIndividualAccount.toNino(Ljava/lang/String;)Luk/gov/hmrc/domain/Nino;.<
+’–0_root_.controllers.CreateIndividualAccount.nino.O
+–¤E_root_.controllers.CreateIndividualAccount.keys.$anon#confirmedEmail.D
+›Ά8app/controllers/CreateIndividualAccount.scala@3607..3630%
+σÿ_root_.play.api.data.Forms.
+ώ_root_.play.api.V
+ιπL_root_.controllers.ReverseIdentityVerification#startIv()Lplay/api/mvc/Call;.4
+τϋ*_root_.play.api.mvc.RequestHeader#session.D
+8app/controllers/CreateIndividualAccount.scala@2718..2719
+Ά_root_.models.
+ζξ_root_.auth.GGAction#:
+µΉ0_root_.controllers.CreateIndividualAccount.keys.*
+ _root_.views.html.createAccount.
+•—
+_root_.uk.$
+»Ώ_root_.play.api.data.Form#:
+“0_root_.controllers.CreateIndividualAccount.keys.
+›_root_.uk.gov.l
+ΒΛb_root_.play.api.data.Mapping#transform(Lscala/Function1;Lscala/Function1;)Lplay/api/data/Mapping;.:
+βζ0_root_.controllers.CreateIndividualAccount.keys.'
+•_root_.play.api.data.Mapping#e
+τώ[_root_.java.lang.String#replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;..
+ƒ$_root_.controllers.routes.Dashboard.D
+ΐΗ8app/controllers/CreateIndividualAccount.scala@1472..1479)
+ƒ_root_.play.api.mvc.Results#Ok.H
+ΗΞ>_root_.controllers.CreateIndividualAccount.keys.$anon#address.=
+™		1_root_.controllers.CreateIndividualAccount#(auth)G
+γι=_root_.controllers.CreateIndividualAccount.keys.$anon#phone1.0
+ΒΗ&_root_.play.api.data.validation.Valid.G
+”=_root_.controllers.CreateIndividualAccount.keys.$anon#phone2.7
+υ
+-_root_.controllers.PropertyLinkingController#
+‚†_root_.play.api.data.B
+όÿ8app/controllers/CreateIndividualAccount.scala@1456..1459
+μπ_root_.form.:
+ήν0_root_.play.api.data.validation.ValidationError.
+_root_.views.html.:
+ÒΦ0_root_.controllers.CreateIndividualAccount.keys.9
+Τθ/_root_.controllers.routes.IdentityVerification.X
+€‰N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength):
+»Ώ0_root_.controllers.CreateIndividualAccount.keys.+
+ΰε!_root_.play.api.data.Forms.email.*
+¨¬ _root_.play.api.data.Forms.text.B
+²½8_root_.java.lang.String#toUpperCase()Ljava/lang/String;.?
+”5_root_.javax.inject.Named.;_root_.javax.inject.Named#~
+Ξέt_root_.play.api.mvc.Result#addingToSession(Lscala/collection/Seq;Lplay/api/mvc/RequestHeader;)Lplay/api/mvc/Result;.^
+¦T_root_.play.api.data.Forms.optional(Lplay/api/data/Mapping;)Lplay/api/data/Mapping;.7
+§ΐ-_root_.controllers.CreateIndividualAccountVM#
+ΕΙ_root_.views.html.
+§ª_root_.play.api.mvc.
+ωύ_root_.play.D
+Ϋε8app/controllers/CreateIndividualAccount.scala@1499..1509F
+ΊΏ<_root_.controllers.CreateIndividualAccount.keys.$anon#email.D
+‡8app/controllers/CreateIndividualAccount.scala@1543..1549$
+΅_root_.play.api.data.Form#/
+ΦΪ%_root_.uk.gov.hmrc.domain.Nino#(nino)-
+	―	#_root_.connectors.VPLAuthConnector#D
+8app/controllers/CreateIndividualAccount.scala@3462..3484%
+ώ„_root_.scala.Predef.String#
+£¦_root_.play.api.Y
+ΔΜO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.:
+–0_root_.controllers.CreateIndividualAccount.keys.:
+ήβ0_root_.controllers.CreateIndividualAccount.keys.P
+¬µF_root_.play.api.data.Forms.text(II)Lplay/api/data/Mapping;.(maxLength).
+¬·$_root_.uk.gov.hmrc.http.SessionKeys.$
+›_root_.play.api.data.Form.P
+ιλF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.D
+°³8app/controllers/CreateIndividualAccount.scala@1456..1459D
+Ϊ	ε	8_root_.controllers.CreateIndividualAccount#(individuals)D
+σϋ8app/controllers/CreateIndividualAccount.scala@2291..2299I
+ηο?_root_.controllers.CreateIndividualAccount.keys.$anon#lastName.8
+•._root_.uk.gov.hmrc.http.SessionKeys.sessionId.B
+θσ8_root_.java.lang.String#toUpperCase()Ljava/lang/String;./
+ΏΡ%_root_.connectors.IndividualAccounts#?
+§5_root_.controllers.CreateIndividualAccount#(ggAction)*
+ή
+ι
+ _root_.repositories.SessionRepo#7
+ν„+_root_.controllers.CreateIndividualAccount.B
+°±8app/controllers/CreateIndividualAccount.scala@2718..2719
+ƒ‡_root_.form.`
+ζοV_root_.play.api.data.Mapping#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.5
+σύ+_root_.play.api.data.validation.Constraint#
+έΰ_root_.uk.gov.P
+•—F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.D
+ΣΫ8app/controllers/CreateIndividualAccount.scala@3407..3429:
+‘•0_root_.controllers.CreateIndividualAccount.keys.%
+ΘΝ_root_.play.api.data.Forms.L
+¨«B_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;.(
+ετ_root_.models.PersonalDetails.2
+Φέ(_root_.play.api.data.validation.Invalid.
+ΏΒ_root_.play.api.L
+όÿB_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;.D
+ΰη8app/controllers/CreateIndividualAccount.scala@2144..2151.
+$_root_.java.lang.Object#`<init>`()V.)
+ήβ_root_.uk.gov.hmrc.domain.Nino.η
+ §ά_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.&
+ΑΗ_root_.views.helpers.Errors.$
+¦
+«
+_root_.javax.inject.Named#"
+΅¥_root_.uk.gov.hmrc.http.E
+ΐΔ;_root_.controllers.CreateIndividualAccount.keys.$anon#nino.5
+Ψβ+_root_.views.html.createAccount.individual.M
+— C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.D
+‡8app/controllers/CreateIndividualAccount.scala@3581..3602D
+½Λ8app/controllers/CreateIndividualAccount.scala@3513..3550D
+·ΐ8app/controllers/CreateIndividualAccount.scala@3379..3402}
+—›q_root_.controllers.CreateIndividualAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateIndividualAccountVM;.(form)A
+άδ5_root_.controllers.CreateIndividualAccount#(ggAction)6
+ΘΧ,_root_.views.helpers.Errors.emailsMustMatch.
+ΊΎ_root_.play.-
+Σγ#_root_.connectors.VPLAuthConnector#
+ωώ_root_.views.B
+¬¶8app/controllers/CreateIndividualAccount.scala@1499..1509
+ ¤_root_.scala.None.D
+ην8app/controllers/CreateIndividualAccount.scala@3555..3576?
+ΑΙ5_root_.controllers.CreateIndividualAccount#(ggAction)o
+γηe_root_.controllers.CreateIndividualAccount.toNino(Ljava/lang/String;)Luk/gov/hmrc/domain/Nino;.(nino)F
+Χά<_root_.controllers.CreateIndividualAccount.keys.$anon#email.$
+ζμ_root_.uk.gov.hmrc.domain.4
+ §*_root_.play.api.mvc.RequestHeader#session.D
+¥ª8app/controllers/CreateIndividualAccount.scala@3489..3508P
+ΌΎF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.D
+ξω8app/controllers/CreateIndividualAccount.scala@3434..3457B
+ΜÒ8app/controllers/CreateIndividualAccount.scala@1543..15490
+¬
+¬
+&_root_.javax.inject.Named#`<init>`()V..
+¦±$_root_.uk.gov.hmrc.http.SessionKeys.&
+‡_root_.views.helpers.Errors.£
+ξϋ_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+ _root_.uk.gov.hmrc.|
+±΄r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.%
+ΞΤ_root_.scala.Predef.String#P
+›F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.)
+ ¤_root_.uk.gov.hmrc.domain.Nino#`
+­¶V_root_.play.api.data.Mapping#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.=
+”3_root_.form.TextMatching.;_root_.form.TextMatching#P
+πςF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+επ_root_.controllers.*
+ΚΧ _root_.views.html.createAccount.
+£«_root_.auth.GGAction#7
+ΉΠ+_root_.controllers.CreateIndividualAccount#m
+ÒΪa_root_.controllers.CreateIndividualAccount#showForm(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.:
+­±0_root_.controllers.CreateIndividualAccount.keys.<
+Ά¦0_root_.controllers.CreateIndividualAccount.keys.M
+¨­C_root_.auth.GGAction#async(Lscala/Function1;)Lplay/api/mvc/Action;.$
+ΝΣ_root_.controllers.routes..
+Òΰ$_root_.form.Mappings.addressMapping.:
+ΘΜ0_root_.controllers.CreateIndividualAccount.nino.
+θμ_root_.scala.Some.P
+έίF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.A
+‡7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#
+Ά_root_.play.
+Ϊά
+_root_.uk.Q
+ÿ™G_root_.controllers.CreateIndividualAccount#(personalDetailsSessionRepo)t
+j_root_.controllers.CreateIndividualAccount#showForm(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.(request)
+ÿ†_root_.views.helpers.L
+›¦B_root_.controllers.CreateIndividualAccount.keys.$anon#dateOfBirth.5
+ο†+_root_.controllers.CreateIndividualAccount.:
+ΒΖ0_root_.controllers.CreateIndividualAccount.keys.U
+ΈΎI_root_.controllers.CreateIndividualAccount#submit()Lplay/api/mvc/Action;.h
+ό…^_root_.play.api.data.validation.Constraints#maxLength(I)Lplay/api/data/validation/Constraint;./
+ªµ%_root_.form.DateMappings#dmyPastDate.&
+ντ_root_.play.api.mvc.Request#%
+ΏΛ_root_.play.api.data.Forms."m
+8app/controllers/CreateIndividualAccount.scala@3489..35081emailString"
+_root_.java.lang.String#"©
+_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.‹getExternalId>(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String]":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#".
+ -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+06_root_.scala.concurrent.Future#"#
+7=_root_.scala.Predef.String#"c
+$_root_.java.lang.Object#`<init>`()V.;€€<init>
+(): Object" 
+
+_root_.java.lang.Object#"5
+ _root_.play.api.data.validation.€€
+validation"?
++_root_.play.api.data.validation.Constraint.€„
+Constraint"@
++_root_.play.api.data.validation.Constraint#€ €
+Constraint"Υ
+B_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;.get(key: String): Option[String]"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.play.api.data.Form#`<init>`(Lplay/api/data/Mapping;Lscala/collection/immutable/Map;Lscala/collection/Seq;Lscala/Option;)V.…<init>c(mapping: Mapping[T], data: Map[String, String], errors: Seq[FormError], value: Option[T]): Form[T]"%
+
+_root_.play.api.data.Mapping#"%
+_root_.play.api.data.Form#[T]" 
+_root_.scala.Predef.Map#"#
+ &_root_.scala.Predef.String#"#
+(._root_.scala.Predef.String#"!
+9<_root_.scala.package.Seq#"'
+=F_root_.play.api.data.FormError#"
+PV_root_.scala.Option#"%
+WX_root_.play.api.data.Form#[T]""
+\`_root_.play.api.data.Form#"%
+ab_root_.play.api.data.Form#[T]"
+_root_.auth.€€auth"6
+&_root_.play.api.data.validation.Valid.€„Valid"4
+ _root_.repositories.SessionRepo#€@SessionRepo"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#"·
+I_root_.controllers.CreateIndividualAccount#submit()Lplay/api/mvc/Action;.jsubmitAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"ΐF
+ά_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.ήDmappingδ[R, A1, A2, A3, A4, A5, A6, A7, A8, A9] => (a1: Tuple2[String, Mapping[A1]], a2: Tuple2[String, Mapping[A2]], a3: Tuple2[String, Mapping[A3]], a4: Tuple2[String, Mapping[A4]], a5: Tuple2[String, Mapping[A5]], a6: Tuple2[String, Mapping[A6]], a7: Tuple2[String, Mapping[A7]], a8: Tuple2[String, Mapping[A8]], a9: Tuple2[String, Mapping[A9]])(apply: Function9[A1, A2, A3, A4, A5, A6, A7, A8, A9, R])(unapply: Function1[R, Option[Tuple9[A1, A2, A3, A4, A5, A6, A7, A8, A9]]]): Mapping[R]"
+06_root_.scala.Tuple2#"#
+7=_root_.scala.Predef.String#"%
+?F_root_.play.api.data.Mapping#"ι
+GIΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"
+QW_root_.scala.Tuple2#"#
+X^_root_.scala.Predef.String#"%
+`g_root_.play.api.data.Mapping#"ι
+hjΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"
+rx_root_.scala.Tuple2#"#
+y_root_.scala.Predef.String#"'
+_root_.play.api.data.Mapping#"λ
+‰‹ΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"
+“™_root_.scala.Tuple2#"%
+ _root_.scala.Predef.String#"'
+Ά©_root_.play.api.data.Mapping#"λ
+ª¬ΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A4]"
+΄Ί_root_.scala.Tuple2#"%
+»Α_root_.scala.Predef.String#"'
+ΓΚ_root_.play.api.data.Mapping#"λ
+ΛΝΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A5]"
+ΥΫ_root_.scala.Tuple2#"%
+άβ_root_.scala.Predef.String#"'
+δλ_root_.play.api.data.Mapping#"λ
+μξΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A6]"
+φό_root_.scala.Tuple2#"%
+ύƒ_root_.scala.Predef.String#"'
+…_root_.play.api.data.Mapping#"λ
+ΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A7]"
+—_root_.scala.Tuple2#"%
+¤_root_.scala.Predef.String#"'
+¦­_root_.play.api.data.Mapping#"λ
+®°ΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A8]"
+ΈΎ_root_.scala.Tuple2#"%
+ΏΕ_root_.scala.Predef.String#"'
+ΗΞ_root_.play.api.data.Mapping#"λ
+ΟΡΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A9]"!
+άε_root_.scala.Function9#"λ
+ζθΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"λ
+κμΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"λ
+ξπΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"λ
+ςτΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A4]"λ
+φψΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A5]"λ
+ϊόΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A6]"λ
+ώ€ΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A7]"λ
+‚„ΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A8]"λ
+†ΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A9]"κ
+‹ί_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"!
+— _root_.scala.Function1#"κ
+΅Άί_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"
+¤ª_root_.scala.Option#"
+«±_root_.scala.Tuple9#"λ
+²΄ΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"λ
+¶Έΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"λ
+ΊΌΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"λ
+Ύΐΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A4]"λ
+ΒΔΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A5]"λ
+ΖΘΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A6]"λ
+ΚΜΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A7]"λ
+ΞΠΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A8]"λ
+ÒΤΰ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[A9]"'
+Ϊα_root_.play.api.data.Mapping#"κ
+βγί_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function9;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"l
+8app/controllers/CreateIndividualAccount.scala@2718..27190sString"!
+_root_.scala.Predef.String#"'
+_root_.connectors.€€
+connectors"
+^_root_.play.api.data.validation.Constraints#maxLength(I)Lplay/api/data/validation/Constraint;.¥	maxLength!(length: Int): Constraint[String]"
+	_root_.scala.Int#"3
++_root_.play.api.data.validation.Constraint#"#
+ _root_.scala.Predef.String#"Δ
+_root_.connectors.IndividualAccounts#withExternalId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.½withExternalId[(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]]"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+28_root_.scala.concurrent.Future#"
+9?_root_.scala.Option#"0
+@Y(_root_.models.DetailedIndividualAccount#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#",
+_root_.play.api.mvc.Request#€@Request"o
+8app/controllers/CreateIndividualAccount.scala@3607..36303addressString"
+_root_.java.lang.String#"Χ
+l_root_.play.api.data.validation.Constraint#`<init>`(Lscala/Option;Lscala/collection/Seq;Lscala/Function1;)V.ζ<init>X(name: Option[String], args: Seq[Any])(f: Function1[T, ValidationResult]): Constraint[T]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"!
+ _root_.scala.package.Seq#"
+!$_root_.scala.Any#"
+*3_root_.scala.Function1#"6
+45._root_.play.api.data.validation.Constraint#[T]"9
+7G1_root_.play.api.data.validation.ValidationResult#"3
+KU+_root_.play.api.data.validation.Constraint#"6
+VW._root_.play.api.data.validation.Constraint#[T]"9
+(_root_.play.api.data.validation.Invalid.€„Invalid"A
+,_root_.play.api.data.validation.Constraints.€„Constraints"Q
+-_root_.controllers.CreateIndividualAccountVM# € €CreateIndividualAccountVM"P
+-_root_.controllers.CreateIndividualAccountVM.€„CreateIndividualAccountVM"«
+8app/controllers/CreateIndividualAccount.scala@1472..1479o€ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"|
+8_root_.java.lang.String#toUpperCase()Ljava/lang/String;.@„€€toUpperCase
+(): String" 
+
+_root_.java.lang.String#"m
+5_root_.controllers.CreateIndividualAccount#(ggAction)4€ggActionGGAction"
+_root_.auth.GGAction#"n
+8app/controllers/CreateIndividualAccount.scala@3581..36022phone2String"
+_root_.java.lang.String#"
+e_root_.controllers.CreateIndividualAccount.toNino(Ljava/lang/String;)Luk/gov/hmrc/domain/Nino;.(nino)4€ninoString"!
+_root_.scala.Predef.String#"W
+3_root_.controllers.CreateIndividualAccountVM#(form) formplay.api.data.Form[_]"$
+_root_.play.api.data.€€data"'
+_root_.uk.gov.hmrc.http.€€http"
+_root_.form.€€form"@
+%_root_.connectors.IndividualAccounts#€ IndividualAccounts"
+8_root_.controllers.CreateIndividualAccount#(individuals)Q€individualsIndividualAccounts"+
+%_root_.connectors.IndividualAccounts#"π
+z_root_.auth.GGAction#`<init>`(Lauth/GovernmentGatewayProvider;Luk/gov/hmrc/play/frontend/auth/connectors/AuthConnector;)V.ρ<init>M(provider: GovernmentGatewayProvider, authConnector: AuthConnector): GGAction".
+$&_root_.auth.GovernmentGatewayProvider#"G
+5B?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#"
+EM_root_.auth.GGAction#"
+_root_.javax.€€javax""
+_root_.play.api.mvc.
+€€mvc"
+L_root_.controllers.ReverseIdentityVerification#startIv()Lplay/api/mvc/Call;.8startIv(): Call"!
+_root_.play.api.mvc.Call#"–
+%_root_.form.DateMappings#dmyPastDate.mdmyPastDateMapping[LocalDate]"#
+_root_.play.api.data.Mapping#"#
+_root_.java.time.LocalDate#"
+_root_.play.api.
+€€api"?
++_root_.views.html.createAccount.individual.€„
+individual"v
+8app/controllers/CreateIndividualAccount.scala@1499..1509:€
+externalIdString"!
+_root_.scala.Predef.String#"l
+'_root_.play.api.mvc.Results#BadRequest.A
+BadRequestStatus")
+#_root_.play.api.mvc.Results#Status#"”
+j_root_.controllers.CreateIndividualAccount#showForm(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.(request)&€ requestplay.api.mvc.Request[_]"¨
+8app/controllers/CreateIndividualAccount.scala@2218..2224l€errorsForm[PersonalDetails]" 
+_root_.play.api.data.Form#"&
+_root_.models.PersonalDetails#"v
+F_root_.play.api.data.Forms.text(II)Lplay/api/data/Mapping;.(maxLength),€	maxLengthInt"
+_root_.scala.Int#"™
+_root_.controllers.CreateIndividualAccount#`<init>`(Lauth/GGAction;Lconnectors/VPLAuthConnector;Lconnectors/IndividualAccounts;Lrepositories/SessionRepo;)V.χ<init>(ggAction: GGAction, auth: VPLAuthConnector, individuals: IndividualAccounts, personalDetailsSessionRepo: SessionRepo): CreateIndividualAccount"
+_root_.auth.GGAction#"+
++#_root_.connectors.VPLAuthConnector#"-
+:L%_root_.connectors.IndividualAccounts#"(
+ju _root_.repositories.SessionRepo#"4
+x+_root_.controllers.CreateIndividualAccount#"ΐ
+t_root_.play.api.mvc.Result#addingToSession(Lscala/collection/Seq;Lplay/api/mvc/RequestHeader;)Lplay/api/mvc/Result;.ΗaddingToSessionU(values: <repeated>[Tuple2[String, String]])(implicit request: RequestHeader): Result""
+	_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+!_root_.scala.Predef.String#"#
+#)_root_.scala.Predef.String#"*
+?L"_root_.play.api.mvc.RequestHeader#"#
+OU_root_.play.api.mvc.Result#"p
+8app/controllers/CreateIndividualAccount.scala@3407..34294lastNameString"
+_root_.java.lang.String#"α
+•_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Ζ„€saveOrUpdateJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"΅
+_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
+%!_root_.play.api.libs.json.Writes#"΅
+&'_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+>D_root_.scala.concurrent.Future#"
+EI_root_.scala.Unit#"Μ
+M_root_.controllers.CreateIndividualAccountVM#`<init>`(Lplay/api/data/Form;)V.{<init>8(form: play.api.data.Form[_]): CreateIndividualAccountVM"5
+8-_root_.controllers.CreateIndividualAccountVM#"!
+_root_.views.html.€€html"θ
+k_root_.controllers.CreateIndividualAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateIndividualAccountVM;.y„€ vm8(form: play.api.data.Form[_]): CreateIndividualAccountVM"5
+8-_root_.controllers.CreateIndividualAccountVM#",
+_root_.javax.inject.Inject#€ €Inject"Η
+m_root_.connectors.VPLAuthConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.Υ<init>>(serverConfig: ServicesConfig, http: WSHttp): VPLAuthConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"+
+.>#_root_.connectors.VPLAuthConnector#"w
+>_root_.controllers.ReverseDashboard#home()Lplay/api/mvc/Call;.5home(): Call"!
+_root_.play.api.mvc.Call#"
+0_root_.controllers.CreateIndividualAccount.form.k€@formForm[PersonalDetails]" 
+_root_.play.api.data.Form#"&
+_root_.models.PersonalDetails#"o
+;_root_.controllers.CreateIndividualAccount.keys.$anon#nino.0ninoString"
+_root_.java.lang.String#"+
+_root_.repositories.€€repositories"~
+N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength),€	maxLengthInt"
+_root_.scala.Int#"'
+_root_.views.helpers.€€helpers"K
++_root_.controllers.CreateIndividualAccount#€ CreateIndividualAccount"L
++_root_.controllers.CreateIndividualAccount.€„CreateIndividualAccount"v
+8app/controllers/CreateIndividualAccount.scala@3513..3550:confirmedEmailString"
+_root_.java.lang.String#"³
+G_root_.controllers.CreateIndividualAccount#show()Lplay/api/mvc/Action;.hshowAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"½
+O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
+_root_.play.api.mvc.Call#"#
+_root_.play.api.mvc.Result#"v
+$_root_.controllers.routes.Dashboard.N€	DashboardReverseDashboard"*
+$_root_.controllers.ReverseDashboard#"¨
+<_root_.uk.gov.hmrc.domain.Nino.isValid(Ljava/lang/String;)Z.hisValid(nino: String): Boolean"#
+_root_.scala.Predef.String#"
+_root_.scala.Boolean#"ƒ
+E_root_.controllers.CreateIndividualAccount.keys.$anon#confirmedEmail.:confirmedEmailString"
+_root_.java.lang.String#"
+
+_root_.uk.	€€uk"u
+>_root_.controllers.CreateIndividualAccount.keys.$anon#address.3addressString"
+_root_.java.lang.String#"%
+_root_.javax.inject.€€inject"I
+0_root_.play.api.data.validation.ValidationError.€„ValidationError"½
+b_root_.play.api.data.Mapping#transform(Lscala/Function1;Lscala/Function1;)Lplay/api/data/Mapping;.Φ	transform=[B] => (f1: Function1[T, B], f2: Function1[B, T]): Mapping[B]"
+_root_.scala.Function1#"(
+ _root_.play.api.data.Mapping#[T]"m
+e_root_.play.api.data.Mapping#transform(Lscala/Function1;Lscala/Function1;)Lplay/api/data/Mapping;.[B]"
+!*_root_.scala.Function1#"m
++,e_root_.play.api.data.Mapping#transform(Lscala/Function1;Lscala/Function1;)Lplay/api/data/Mapping;.[B]"(
+./ _root_.play.api.data.Mapping#[T]"%
+3:_root_.play.api.data.Mapping#"m
+;<e_root_.play.api.data.Mapping#transform(Lscala/Function1;Lscala/Function1;)Lplay/api/data/Mapping;.[B]"+
+_root_.controllers.routes.€„routes"n
+8app/controllers/CreateIndividualAccount.scala@3555..35762phone1String"
+_root_.java.lang.String#"
+_root_.uk.gov.
+€€gov"s
+8app/controllers/CreateIndividualAccount.scala@3434..34577dateOfBirthString"
+_root_.java.lang.String#"Ά
+/_root_.controllers.routes.IdentityVerification.o€IdentityVerificationReverseIdentityVerification"5
+/_root_.controllers.ReverseIdentityVerification#"-
+_root_.play.api.data.Mapping#€@Mapping"ή
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.“->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+C_root_.auth.GGAction#async(Lscala/Function1;)Lplay/api/mvc/Action;.Φasyncb(body: Function1[AuthContext, Function1[Request[AnyContent], Future[Result]]]): Action[AnyContent]"
+_root_.scala.Function1#":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"
+'_root_.scala.Function1#"$
+(/_root_.play.api.mvc.Request#"'
+0:_root_.play.api.mvc.AnyContent#"'
+=C_root_.scala.concurrent.Future#"#
+DJ_root_.play.api.mvc.Result#"#
+PV_root_.play.api.mvc.Action#"'
+Wa_root_.play.api.mvc.AnyContent#"i
+'_root_.javax.inject.Inject#`<init>`()V.>€€<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"l
+8app/controllers/CreateIndividualAccount.scala@3462..34840ninoString"
+_root_.java.lang.String#",
+_root_.views.helpers.Errors.€„Errors"<
+#_root_.connectors.VPLAuthConnector#€ VPLAuthConnector"g
+._root_.uk.gov.hmrc.http.SessionKeys.sessionId.5	sessionIdString"
+_root_.java.lang.String#"‰
+!_root_.play.api.data.Forms.email.demailMapping[String]"#
+_root_.play.api.data.Mapping#"#
+_root_.scala.Predef.String#"!
+_root_.scala.None.€„None"(
+_root_.play.api.data.Form.
+€„Form")
+_root_.play.api.data.Form#€ €Form"8
+ _root_.views.html.createAccount.€€createAccount"y
+@_root_.controllers.CreateIndividualAccount.keys.$anon#firstName.5	firstNameString"
+_root_.java.lang.String#"ρ
+V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.–bindFromRequest6()(implicit request: play.api.mvc.Request[_]): Form[T]""
+/3_root_.play.api.data.Form#"%
+45_root_.play.api.data.Form#[T]"«
+8app/controllers/CreateIndividualAccount.scala@2144..2151o€ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"
+_root_.play.€€play"τ
+V_root_.play.api.data.Mapping#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.™„€	verifying4(constraints: <repeated>[Constraint[T]]): Mapping[T]""
+_root_.scala.`<repeated>`#"3
+#+_root_.play.api.data.validation.Constraint#"(
+$% _root_.play.api.data.Mapping#[T]"%
+*1_root_.play.api.data.Mapping#"(
+23 _root_.play.api.data.Mapping#[T]"f
+&_root_.javax.inject.Named#`<init>`()V.<€€<init>	(): Named""
+	_root_.javax.inject.Named#"‡
+ _root_.play.api.data.Forms.text.ctextMapping[String]"#
+_root_.play.api.data.Mapping#"#
+_root_.scala.Predef.String#"q
+8app/controllers/CreateIndividualAccount.scala@3379..34025	firstNameString"
+_root_.java.lang.String#"s
+=_root_.controllers.CreateIndividualAccount.keys.$anon#phone2.2phone2String"
+_root_.java.lang.String#"{
+1_root_.controllers.CreateIndividualAccount#(auth)F€authVPLAuthConnector")
+#_root_.connectors.VPLAuthConnector#"Ξ
+δ_root_.models.PersonalDetails.apply(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/Address;)Lmodels/PersonalDetails;.δ„€€apply»(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino, email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: Address): PersonalDetails"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"#
+3<_root_.java.time.LocalDate#"'
+DH_root_.uk.gov.hmrc.domain.Nino#"#
+QW_root_.scala.Predef.String#"#
+io_root_.scala.Predef.String#"#
+y_root_.scala.Predef.String#"
+‰_root_.scala.Option#"%
+–_root_.scala.Predef.String#" 
+Ά©_root_.models.Address#"(
+¬»_root_.models.PersonalDetails#"©
+N_root_.models.PersonalDetails.unapply(Lmodels/PersonalDetails;)Lscala/Option;.Φ„€€unapplyx(x$0: PersonalDetails): Option[Tuple9[String, String, LocalDate, Nino, String, String, String, Option[String], Address]]"&
+_root_.models.PersonalDetails#"
+_root_.scala.Option#"
+%_root_.scala.Tuple9#"#
+&,_root_.scala.Predef.String#"#
+.4_root_.scala.Predef.String#"#
+6?_root_.java.time.LocalDate#"'
+AE_root_.uk.gov.hmrc.domain.Nino#"#
+GM_root_.scala.Predef.String#"#
+OU_root_.scala.Predef.String#"#
+W]_root_.scala.Predef.String#"
+_e_root_.scala.Option#"#
+fl_root_.scala.Predef.String#"
+ov_root_.models.Address#"Ε
+T_root_.play.api.data.Forms.optional(Lplay/api/data/Mapping;)Lplay/api/data/Mapping;.μoptional0[A] => (mapping: Mapping[A]): Mapping[Option[A]]"%
+_root_.play.api.data.Mapping#"_
+W_root_.play.api.data.Forms.optional(Lplay/api/data/Mapping;)Lplay/api/data/Mapping;.[A]"%
+%_root_.play.api.data.Mapping#"
+&,_root_.scala.Option#"_
+-.W_root_.play.api.data.Forms.optional(Lplay/api/data/Mapping;)Lplay/api/data/Mapping;.[A]"'
+_root_.form.Mappings.€„Mappings"g
+._root_.uk.gov.hmrc.http.SessionKeys.authToken.5	authTokenString"
+_root_.java.lang.String#"Ν
+a_root_.controllers.CreateIndividualAccount#showForm(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.h„€showForm3(implicit request: play.api.mvc.Request[_]): Result"#
+-3_root_.play.api.mvc.Result#"
+_root_.models.€€models"H
+8app/controllers/CreateIndividualAccount.scala@2636..2642$anonfun"+
+_root_.uk.gov.hmrc.domain.€€domain"Έ
+8app/controllers/CreateIndividualAccount.scala@1543..1549|€person!Option[DetailedIndividualAccount]"
+_root_.scala.Option#"0
+ (_root_.models.DetailedIndividualAccount#"O
+-_root_.controllers.PropertyLinkingController#€@PropertyLinkingController"•
+q_root_.controllers.CreateIndividualAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateIndividualAccountVM;.(form) €formplay.api.data.Form[_]"&
+_root_.auth.GGAction#€ GGAction"/
+_root_.form.TextMatching.€„TextMatching"Ύ
+0_root_.controllers.CreateIndividualAccount.keys.‰€@keysΚAnyRef{val firstName: String; val lastName: String; val dateOfBirth: String; val nino: String; val email: String; val confirmedEmail: String; val phone1: String; val phone2: String; val address: String}"
+_root_.scala.AnyRef#"H
+@_root_.controllers.CreateIndividualAccount.keys.$anon#firstName."G
+"*?_root_.controllers.CreateIndividualAccount.keys.$anon#lastName."J
+8CB_root_.controllers.CreateIndividualAccount.keys.$anon#dateOfBirth."C
+QU;_root_.controllers.CreateIndividualAccount.keys.$anon#nino."D
+ch<_root_.controllers.CreateIndividualAccount.keys.$anon#email."N
+v„E_root_.controllers.CreateIndividualAccount.keys.$anon#confirmedEmail."G
+’=_root_.controllers.CreateIndividualAccount.keys.$anon#phone1."G
+¦¬=_root_.controllers.CreateIndividualAccount.keys.$anon#phone2."H
+ΊΑ>_root_.controllers.CreateIndividualAccount.keys.$anon#address.")
+_root_.controllers.€€controllers"
+_root_.views.€€views"»
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.σ„€	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"}
+B_root_.controllers.CreateIndividualAccount.keys.$anon#dateOfBirth.7dateOfBirthString"
+_root_.java.lang.String#"7
+_root_.models.PersonalDetails.€„PersonalDetails"Σ
+__root_.controllers.CreateIndividualAccount.toNino(Ljava/lang/String;)Luk/gov/hmrc/domain/Nino;.p„€toNino(nino: String): Nino"#
+_root_.scala.Predef.String#"'
+_root_.uk.gov.hmrc.domain.Nino#"‘
+$_root_.form.Mappings.addressMapping.iaddressMappingMapping[Address]"#
+_root_.play.api.data.Mapping#"
+_root_.models.Address#"›
+0_root_.controllers.CreateIndividualAccount.nino.g€@ninoMapping[Nino]"#
+_root_.play.api.data.Mapping#"'
+_root_.uk.gov.hmrc.domain.Nino#"ϋ
+[_root_.java.lang.String#replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;.›„€€
+replaceAll"(x$1: String, x$2: String): String" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#" 
+"_root_.java.lang.String#"k
+,_root_.views.helpers.Errors.emailsMustMatch.;emailsMustMatchString"
+_root_.java.lang.String#"*
+_root_.javax.inject.Named#€ €Named"ς
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ϋmapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"w
+?_root_.controllers.CreateIndividualAccount.keys.$anon#lastName.4lastNameString"
+_root_.java.lang.String#"q
+<_root_.controllers.CreateIndividualAccount.keys.$anon#email.1emailString"
+_root_.java.lang.String#"΄
+5_root_.controllers.CreateIndividualAccount.validNino.{€@	validNinoConstraint[String]"1
+
++_root_.play.api.data.validation.Constraint#"#
+_root_.scala.Predef.String#"9
+$_root_.uk.gov.hmrc.http.SessionKeys.€„SessionKeys"―
+=_root_.uk.gov.hmrc.domain.Nino#`<init>`(Ljava/lang/String;)V.n<init>(nino: String): Nino"#
+_root_.scala.Predef.String#"'
+_root_.uk.gov.hmrc.domain.Nino#"-
+_root_.uk.gov.hmrc.domain.Nino.
+€„Nino".
+_root_.uk.gov.hmrc.domain.Nino#€ €Nino"*
+_root_.play.api.data.Forms.€„Forms""
+_root_.uk.gov.hmrc.€€hmrc"s
+=_root_.controllers.CreateIndividualAccount.keys.$anon#phone1.2phone1String"
+_root_.java.lang.String#"
+G_root_.controllers.CreateIndividualAccount#(personalDetailsSessionRepo)TpersonalDetailsSessionRepoSessionRepo"&
+ _root_.repositories.SessionRepo#"h
+*_root_.play.api.mvc.RequestHeader#session.:€@sessionSession""
+_root_.play.api.mvc.Session#"‹
+8app/controllers/CreateIndividualAccount.scala@1456..1459O€ctxAuthContext"8
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"½
+’_root_.connectors.IndividualAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.¥<init>Y(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): IndividualAccounts"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"-
+GY%_root_.connectors.IndividualAccounts#"€
+8app/controllers/CreateIndividualAccount.scala@2291..2299D€formDataPersonalDetails"$
+_root_.models.PersonalDetails#"]
+%_root_.uk.gov.hmrc.domain.Nino#(nino)4ninoString"!
+_root_.scala.Predef.String#" 
+_root_.scala.Some.
+€„Some"„
+U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.ªfoldF[R] => (hasErrors: Function1[Form[T], R], success: Function1[T, R]): R"
+_root_.scala.Function1#""
+!_root_.play.api.data.Form#"%
+"#_root_.play.api.data.Form#[T]"`
+&'X_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"
+3<_root_.scala.Function1#"%
+=>_root_.play.api.data.Form#[T]"`
+@AX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"`
+EFX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]2|
+ββ*.apply
+_star_.Z
+R_root_.uk.gov.hmrc.domain.Nino.apply(Ljava/lang/String;)Luk/gov/hmrc/domain/Nino;.2
+§§d*[PersonalDetails, String, String, LocalDate, Nino, String, String, String, Option[String], Address]
+_star_.&
+_root_.models.PersonalDetails##
+_root_.scala.Predef.String##
+!_root_.scala.Predef.String##
+#,_root_.java.time.LocalDate#'
+.2_root_.uk.gov.hmrc.domain.Nino##
+4:_root_.scala.Predef.String##
+<B_root_.scala.Predef.String##
+DJ_root_.scala.Predef.String##
+SY_root_.scala.Predef.String#
+LR_root_.scala.Option#
+\c_root_.models.Address#2G
+λλ	*[String]
+_star_.#
+_root_.scala.Predef.String#2Ω
+΄λ.CreateIndividualAccount.this.future[Result](*)#
+$*_root_.play.api.mvc.Result#i
+#a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+,-_star_.2#
+°°
+*(request)
+_star_.2G
+΄΄	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2w
+ΎΎ*[Mapping[String]]
+_star_.#
+
+_root_.scala.Predef.String#%
+	_root_.play.api.data.Mapping#2y
+ΗΗ*[Mapping[Nino]]
+_star_.'
+
+_root_.uk.gov.hmrc.domain.Nino#%
+	_root_.play.api.data.Mapping#2®
+ήι"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2²
+γι"CreateIndividualAccount.this.vm(*)s
+k_root_.controllers.CreateIndividualAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateIndividualAccountVM;.
+ !_star_.2G
+  	*[String]
+_star_.#
+_root_.scala.Predef.String#2ΐ
+’’*.apply[String]
+_star_.q
+i_root_.play.api.data.validation.Constraint.apply(Lscala/Function1;)Lplay/api/data/validation/Constraint;.#
+_root_.scala.Predef.String#2w
+μμ*[Mapping[String]]
+_star_.#
+
+_root_.scala.Predef.String#%
+	_root_.play.api.data.Mapping#2®
+‡”"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2¶
+νν*.apply
+_star_.“
+_root_.play.api.data.validation.ValidationError.apply(Ljava/lang/String;Lscala/collection/Seq;)Lplay/api/data/validation/ValidationError;.2®
+»Δ"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2#
+
+*(request)
+_star_.2γ
+··7*.map[Result](CreateIndividualAccount.this.hc(request))
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+_root_.play.api.mvc.Result#p
++-h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2G
+¦¦	*[String]
+_star_.#
+_root_.scala.Predef.String#2
+ΕΕ1*(request, CreateIndividualAccount.this.messages)
+_star_.>
+(06_root_.controllers.PropertyLinkingController#messages.2Σ
+λλ*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+–› _root_.play.api.mvc.Codec.utf_8.z
+p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
+-‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2G
+——	*[String]
+_star_.#
+_root_.scala.Predef.String#2I
+ΛΛ*[Nino]
+_star_.'
+_root_.uk.gov.hmrc.domain.Nino#2K
+§§*[TextMatching]
+_star_.!
+_root_.form.TextMatching#2ν
+§§*.apply
+_star_.Κ
+Α_root_.views.html.createAccount.individual_Scope0.individual_Scope1.individual#apply(Lcontrollers/CreateIndividualAccountVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2z
+©©*[Mapping[LocalDate]]
+_star_.#
+
+_root_.java.time.LocalDate#%
+	_root_.play.api.data.Mapping#2
+*[Mapping[Option[String]]]
+_star_.
+
+_root_.scala.Option#%
+	_root_.play.api.data.Mapping##
+_root_.scala.Predef.String#2®
+"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2λ
+€€;*.flatMap[Result](CreateIndividualAccount.this.hc(request))
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#p
+/1h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2®
+–¦"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2„
+°°J*(models.PersonalDetails.format, CreateIndividualAccount.this.hc(request))
+_star_.-
+%_root_.models.PersonalDetails.format.p
+>@h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2#
+¬¬
+*(request)
+_star_.2G
+ΜΜ	*[String]
+_star_.#
+_root_.scala.Predef.String#2Σ
+ƒƒ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2°
+*.apply[PersonalDetails]
+_star_.U
+M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.&
+_root_.models.PersonalDetails#2¬
+΄΄*.apply
+_star_.‰
+€_root_.form.TextMatching.apply(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lform/TextMatching;.2Σ
+ΎΎ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2Σ
+ΖΖ*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+–› _root_.play.api.mvc.Codec.utf_8.z
+p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
+-‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2u
+ΈΈ"*(CreateIndividualAccount.this.ec)
+_star_.8
+!0_root_.controllers.PropertyLinkingController#ec.2®
+‘¤"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2®
+Òά"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2®
+ΒΞ"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2w
+ςς*[Mapping[String]]
+_star_.#
+
+_root_.scala.Predef.String#%
+	_root_.play.api.data.Mapping#2§
+έέ*.apply
+_star_.„
+|_root_.play.api.data.validation.Invalid.apply(Lplay/api/data/validation/ValidationError;)Lplay/api/data/validation/Invalid;.2®
+­»"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2®
+βο"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2S
+¦¦*[PersonalDetails]
+_star_.&
+_root_.models.PersonalDetails#2
+κκ1*(request, CreateIndividualAccount.this.messages)
+_star_.>
+(06_root_.controllers.PropertyLinkingController#messages.2x
+ΆΆ*[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2®
+Ϊθ"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2w
+ίί*[Mapping[String]]
+_star_.#
+
+_root_.scala.Predef.String#%
+	_root_.play.api.data.Mapping#2ν
+ββ*.apply
+_star_.Κ
+Α_root_.views.html.createAccount.individual_Scope0.individual_Scope1.individual#apply(Lcontrollers/CreateIndividualAccountVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2
+άά*.apply
+_star_.x
+p_root_.controllers.CreateIndividualAccountVM.apply(Lplay/api/data/Form;)Lcontrollers/CreateIndividualAccountVM;.2s
+ΡΡ*[Mapping[Address]]
+_star_.%
+	_root_.play.api.data.Mapping#
+
+_root_.models.Address#2²
+¨Δ"CreateIndividualAccount.this.vm(*)s
+k_root_.controllers.CreateIndividualAccount#vm(Lplay/api/data/Form;)Lcontrollers/CreateIndividualAccountVM;.
+ !_star_.2u
+ρρ"*(CreateIndividualAccount.this.ec)
+_star_.8
+!0_root_.controllers.PropertyLinkingController#ec.:Scala211BΔ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers
+
+import javax.inject.{Inject, Named}
+
+import auth.GGAction
+import connectors.{IndividualAccounts, VPLAuthConnector}
+import form.Mappings._
+import form.TextMatching
+import models.PersonalDetails
+import play.api.data.Forms._
+import play.api.data.validation._
+import play.api.data.{Form, Mapping}
+import play.api.mvc.Request
+import repositories.SessionRepo
+import uk.gov.hmrc.domain.Nino
+import views.helpers.Errors
+import uk.gov.hmrc.http.SessionKeys
+
+class CreateIndividualAccount @Inject() (ggAction: GGAction,
+                                         auth: VPLAuthConnector,
+                                         individuals: IndividualAccounts,
+                                          @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
+  extends PropertyLinkingController {
+
+  def show = ggAction.async { ctx => implicit request =>
+    for {
+      externalId <- auth.getExternalId(ctx)
+      person <- individuals.withExternalId(externalId)
+    } yield {
+      person match {
+        case Some(_) => Redirect(routes.Dashboard.home)
+        case None => showForm
+      }
+    }
+  }
+
+  private def showForm(implicit request: Request[_]) = {
+    Ok(views.html.createAccount.individual(CreateIndividualAccount.form))
+      .addingToSession( //because SIV wipes the session
+        "bearerToken" -> request.session.get(SessionKeys.authToken).getOrElse(""),
+        "oldSessionId" -> request.session.get(SessionKeys.sessionId).getOrElse("")
+      )
+  }
+
+  def submit = ggAction.async { _ => implicit request =>
+    CreateIndividualAccount.form.bindFromRequest().fold(
+      errors => BadRequest(views.html.createAccount.individual(errors)),
+      formData => personalDetailsSessionRepo.saveOrUpdate(formData) map { _ =>
+        Redirect(routes.IdentityVerification.startIv)
+      }
+    )
+  }
+
+  implicit def vm(form: Form[_]): CreateIndividualAccountVM = CreateIndividualAccountVM(form)
+}
+
+object CreateIndividualAccount{
+
+  lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
+
+  lazy val validNino: Constraint[String] = Constraint {
+    case s if Nino.isValid(s.toUpperCase) => Valid
+    case _ => Invalid(ValidationError("error.nino.invalid"))
+  }
+  lazy val form = Form(mapping(
+    keys.firstName -> nonEmptyText(maxLength = 100),
+    keys.lastName -> nonEmptyText(maxLength = 100),
+    keys.dateOfBirth -> dmyPastDate,
+    keys.nino -> nino,
+    keys.email -> email.verifying(Constraints.maxLength(150)),
+    keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
+    keys.phone1 -> nonEmptyText(maxLength = 20),
+    keys.phone2 -> optional(text(maxLength = 20)),
+    keys.address -> addressMapping
+  )(PersonalDetails.apply)(PersonalDetails.unapply))
+
+  lazy val keys = new {
+    val firstName = "fname"
+    val lastName = "lname"
+    val dateOfBirth = "dob"
+    val nino = "nino.nino"
+    val email = "email"
+    val confirmedEmail = "confirmedEmail"
+    val phone1 = "phone1"
+    val phone2 = "phone2"
+    val address = "address"
+  }
+  private def toNino(nino: String) = {
+    Nino(nino.toUpperCase.replaceAll(" ", ""))
+  }
+
+}
+case class CreateIndividualAccountVM(form: Form[_])
+J-app/controllers/CreateIndividualAccount.scala

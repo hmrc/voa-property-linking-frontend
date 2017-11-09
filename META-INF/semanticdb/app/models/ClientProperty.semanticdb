@@ -1,0 +1,196 @@
+
+ÅD0
+‚	Ë	$_root_.models.ClientProperty.format.=
+∆
+–
+1_root_.models.ClientPropertyResponse#(properties)>
+¨
+∑
+2_root_.models.ClientPropertyResponse#(resultCount)
+∆ _root_.scala.Long#%
+á	ç	_root_.scala.Predef.String#2
+©	∞	&_root_.models.ClientProperty#(address)@
+¯ç4_root_.models.ClientProperty#(authorisedPartyStatus):
+øŒ._root_.models.ClientProperty#(checkPermission)M
+àéC_root_.play.api.libs.json.Format.;_root_.play.api.libs.json.Format#1
+ï
+´
+%_root_.models.ClientPropertyResponse#
+†§_root_.scala.Long#8
+óù,_root_.models.ClientPropertyResponse.format./
+Ã‚%_root_.models.ClientPropertyResponse#)
+êî_root_.play.api.libs.json.Json.$
+ÇÜ_root_.play.api.libs.json.%
+˝É_root_.scala.Predef.String#'
+˜	Ö
+_root_.models.ClientProperty#
+’‹_root_.scala.Boolean#>
+±ƒ2_root_.models.ClientProperty#(ownerOrganisationId)N
+	ˆ	D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.±
+∞∞§_root_.models.ClientProperty#`<init>`(JLjava/lang/String;Ljava/lang/String;JJZLmodels/RepresentationStatus;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V.a
+´
+´
+U_root_.models.ClientPropertyResponse#`<init>`(Lscala/Option;Lscala/collection/Seq;)V.
+˝Å_root_.play.api.libs.>
+¿”2_root_.models.ClientProperty#(authorisationStatus)
+˘¸_root_.play.api.)
+¿ƒ_root_.play.api.libs.json.Json.
+π
+ø
+_root_.scala.Option#
+¿
+√
+_root_.scala.Int#)
+¢∞_root_.models.ClientProperty#D
+ü∏8_root_.models.ClientProperty#(billingAuthorityReference)
+Ù¯_root_.play.
+ÂÎ_root_.models.@
+Ê˚4_root_.models.ClientProperty#(ownerOrganisationName))
+¬	–	_root_.models.ClientProperty.)
+Î	Ô	_root_.play.api.libs.json.Json.:
+èû._root_.models.ClientProperty#(authorisationId)'
+÷
+‰
+_root_.models.ClientProperty#%
+≤	∏	_root_.scala.Predef.String#1
+Ô
+Ö%_root_.models.ClientPropertyResponse.%
+–÷_root_.scala.Predef.String#%
+∫¿_root_.scala.Predef.String#/
+¶º%_root_.models.ClientPropertyResponse#N
+≈ÀD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.>
+ÚÖ	2_root_.models.ClientProperty#(challengePermission)
+ÔÛ_root_.scala.Long#-
+è£#_root_.models.RepresentationStatus#+
+ü•!_root_.play.api.libs.json.Format#<
+‹Ì0_root_.models.ClientProperty#(authorisedPartyId)#
+“
+’
+_root_.scala.package.Seq#"Ù
+§_root_.models.ClientProperty#`<init>`(JLjava/lang/String;Ljava/lang/String;JJZLmodels/RepresentationStatus;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V. <init>Ø(ownerOrganisationId: Long, ownerOrganisationName: String, billingAuthorityReference: String, authorisedPartyId: Long, authorisationId: Long, authorisationStatus: Boolean, authorisedPartyStatus: RepresentationStatus, checkPermission: String, challengePermission: String, address: String): ClientProperty"
+_root_.scala.Long#"#
+39_root_.scala.Predef.String#"#
+V\_root_.scala.Predef.String#"
+qu_root_.scala.Long#"
+àå_root_.scala.Long#"
+£™_root_.scala.Boolean#"-
+√◊#_root_.models.RepresentationStatus#"%
+Í_root_.scala.Predef.String#"%
+áç_root_.scala.Predef.String#"%
+òû_root_.scala.Predef.String#"'
+°Ø_root_.models.ClientProperty#"t
+2_root_.models.ClientProperty#(authorisationStatus)>ÅauthorisationStatusBoolean"
+_root_.scala.Boolean#")
+_root_.play.api.libs.json.ÄàÄjson"Ö
+8_root_.models.ClientProperty#(billingAuthorityReference)IÅbillingAuthorityReferenceString"!
+_root_.scala.Predef.String#"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]" 
+_root_.scala.Long#
+Ä†Long"°
+1_root_.models.ClientPropertyResponse#(properties)lÅ
+propertiesSeq[ClientProperty]"
+_root_.scala.package.Seq#"%
+_root_.models.ClientProperty#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"Î
+U_root_.models.ClientPropertyResponse#`<init>`(Lscala/Option;Lscala/collection/Seq;)V.ë<init>S(resultCount: Option[Int], properties: Seq[ClientProperty]): ClientPropertyResponse"
+_root_.scala.Option#"
+_root_.scala.Int#"!
+'*_root_.scala.package.Seq#"%
++9_root_.models.ClientProperty#"-
+=S%_root_.models.ClientPropertyResponse#"û
+$_root_.models.ClientProperty.format.vÅÄ formatOFormat[ClientProperty]"(
+"_root_.play.api.libs.json.OFormat#"%
+_root_.models.ClientProperty#"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"f
+._root_.models.ClientProperty#(authorisationId)4ÅauthorisationIdLong"
+_root_.scala.Long#"q
+._root_.models.ClientProperty#(checkPermission)?ÅcheckPermissionString"!
+_root_.scala.Predef.String#"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"[
+!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
+_root_.scala.Boolean#"$
+_root_.scala.Option#Ä†Option"}
+4_root_.models.ClientProperty#(ownerOrganisationName)EÅownerOrganisationNameString"!
+_root_.scala.Predef.String#"n
+2_root_.models.ClientProperty#(ownerOrganisationId)8ÅownerOrganisationIdLong"
+_root_.scala.Long#"µ
+,_root_.models.ClientPropertyResponse.format.ÑÅÄ formatFormat[ClientPropertyResponse]"'
+!_root_.play.api.libs.json.Format#"-
+%_root_.models.ClientPropertyResponse#"ä
+2_root_.models.ClientPropertyResponse#(resultCount)TÅresultCountOption[Int]"
+_root_.scala.Option#"
+
+_root_.scala.Int#"&
+_root_.scala.Boolean#Ä†Boolean"
+_root_.play.ÄàÄplay"A
+#_root_.models.RepresentationStatus#Ä¿RepresentationStatus"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"
+_root_.models.ÄàÄmodels"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"6
+_root_.models.ClientProperty#Ä†ÄClientProperty"5
+_root_.models.ClientProperty.ÄÑClientProperty"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."y
+2_root_.models.ClientProperty#(challengePermission)CÅchallengePermissionString"!
+_root_.scala.Predef.String#"0
+!_root_.play.api.libs.json.Format#Ä@Format"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"j
+0_root_.models.ClientProperty#(authorisedPartyId)6ÅauthorisedPartyIdLong"
+_root_.scala.Long#"
+_root_.scala.Int#	Ä†Int"ì
+4_root_.models.ClientProperty#(authorisedPartyStatus)[ÅauthorisedPartyStatusRepresentationStatus")
+#_root_.models.RepresentationStatus#"a
+&_root_.models.ClientProperty#(address)7ÅaddressString"!
+_root_.scala.Predef.String#"E
+%_root_.models.ClientPropertyResponse.ÄÑClientPropertyResponse"F
+%_root_.models.ClientPropertyResponse#Ä†ÄClientPropertyResponse:Scala211BÂ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import play.api.libs.json.{Format, Json}
+
+case class ClientProperty(ownerOrganisationId: Long,
+                          ownerOrganisationName: String,
+                          billingAuthorityReference: String,
+                          authorisedPartyId: Long,
+                          authorisationId: Long,
+                          authorisationStatus: Boolean,
+                          authorisedPartyStatus: RepresentationStatus,
+                          checkPermission: String,
+                          challengePermission: String,
+                          address: String)
+
+object ClientProperty {
+  implicit val format = Json.format[ClientProperty]
+}
+
+case class ClientPropertyResponse(resultCount: Option[Int], properties: Seq[ClientProperty])
+
+object ClientPropertyResponse {
+  implicit val format: Format[ClientPropertyResponse] = Json.format[ClientPropertyResponse]
+}Japp/models/ClientProperty.scala

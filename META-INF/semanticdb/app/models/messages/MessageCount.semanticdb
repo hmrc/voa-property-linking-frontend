@@ -1,0 +1,77 @@
+
+Á
+¿√_root_.scala.Int#7
+˜˝+_root_.models.messages.MessageCount.format.0
+ŸÂ$_root_.models.messages.MessageCount.8
+∏æ,_root_.models.messages.MessageCount#(unread)+
+ˇÖ!_root_.play.api.libs.json.Format#
+Ãœ_root_.scala.Int#
+Üä_root_.play.api.libs..
+¢Æ$_root_.models.messages.MessageCount#)
+ñö_root_.play.api.libs.json.Json.$
+ãè_root_.play.api.libs.json.
+ÂÎ_root_.models..
+Üí$_root_.models.messages.MessageCount#M
+ëóC_root_.play.api.libs.json.Format.;_root_.play.api.libs.json.Format#>
+∑∑2_root_.models.messages.MessageCount#`<init>`(II)V.7
+≈ +_root_.models.messages.MessageCount#(total)N
+õ°D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.
+˝Å_root_.play.)
+ôù_root_.play.api.libs.json.Json.
+ÇÖ_root_.play.api.0
+´∑$_root_.models.messages.MessageCount#!
+ÏÙ_root_.models.messages."„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]")
+_root_.play.api.libs.json.ÄàÄjson"Œ
+2_root_.models.messages.MessageCount#`<init>`(II)V.ó<init>'(unread: Int, total: Int): MessageCount"
+	_root_.scala.Int#"
+_root_.scala.Int#",
+'$_root_.models.messages.MessageCount#"W
++_root_.models.messages.MessageCount#(total)(ÅtotalInt"
+_root_.scala.Int#"*
+_root_.models.messages.ÄàÄmessages"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"
+_root_.play.ÄàÄplay"
+_root_.models.ÄàÄmodels"Y
+,_root_.models.messages.MessageCount#(unread))ÅunreadInt"
+_root_.scala.Int#":
+$_root_.models.messages.MessageCount.ÄÑMessageCount";
+$_root_.models.messages.MessageCount#Ä†ÄMessageCount"0
+!_root_.play.api.libs.json.Format#Ä@Format"®
++_root_.models.messages.MessageCount.format.yÅÄ formatFormat[MessageCount]"'
+!_root_.play.api.libs.json.Format#",
+$_root_.models.messages.MessageCount#"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"
+_root_.scala.Int#	Ä†Int:Scala211B≤/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models.messages
+
+import play.api.libs.json.{Format, Json}
+
+case class MessageCount(unread: Int, total: Int)
+
+object MessageCount {
+  implicit val format: Format[MessageCount] = Json.format[MessageCount]
+}
+J&app/models/messages/MessageCount.scala

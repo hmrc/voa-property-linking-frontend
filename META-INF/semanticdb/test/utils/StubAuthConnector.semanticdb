@@ -1,0 +1,315 @@
+
+Ÿz
+…Œ_root_.scala.%
+”	Ÿ	_root_.scala.Predef.String#
+ÎÓ_root_.uk.gov.C
+îî9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.)
+◊
+›
+_root_.scala.concurrent.Future.•
+∫ºò_root_.utils.StubAuthConnector.getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+ÈÌ_root_.scala.None.a
+ﬁ
+Ë
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;. 
+Œ÷_root_.utils.StubHttp.û
+î
+û
+ë_root_.utils.StubAuthConnector.getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.3
+òü'_root_.utils.StubAuthConnector.groupId.F
+Ë	Ô	<_root_.utils.StubAuthConnector.`groupId_=`(Lscala/Option;)V.
+Û˝_root_.connectors.+
+ßØ!_root_.uk.gov.hmrc.play.frontend.°
+ëûî_root_.utils.StubAuthConnector.getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.¶
+ü¢ô_root_.utils.StubAuthConnector.getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(ctx)%
+®Æ_root_.scala.Predef.String#
+ñò
+_root_.uk.-
+˛é#_root_.connectors.VPLAuthConnector#
+ËÍ
+_root_.uk.o
+µ¿e_root_.uk.gov.hmrc.play.frontend.auth.AuthContext.;_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#C
+ô	ô	9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.<
+§Ø2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#F
+ﬂÊ<_root_.utils.StubAuthConnector.`groupId_=`(Lscala/Option;)V.0
+∆
+”
+&_root_.uk.gov.hmrc.http.HeaderCarrier#
+ÂÍ_root_.utils.S
+ÕœG_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.(id)4
+πæ(_root_.utils.StubAuthConnector.reset()V.¢
+¬
+ƒ
+ï_root_.utils.StubAuthConnector.getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)%
+˚Å_root_.scala.Predef.String#I
+…”?_root_.utils.StubAuthConnector.`externalId_=`(Lscala/Option;)V.%
+’€_root_.scala.Predef.String#
+⁄ﬁ_root_.scala.Unit#I
+ÁÒ?_root_.utils.StubAuthConnector.`externalId_=`(Lscala/Option;)V.
+≤∂_root_.scala.None.
+ù°_root_.uk.gov.hmrc.
+ÔÛ_root_.uk.gov.hmrc.)
+ﬂÂ_root_.scala.concurrent.Future.´
+ü
+™
+û_root_.utils.StubAuthConnector.getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authContext)*
+∫Ã _root_.utils.StubServicesConfig.4
+Ò˚*_root_.utils.StubAuthConnector.externalId.M
+˜
+ÄC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.w
+ππm_root_.connectors.VPLAuthConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.%
+—◊_root_.scala.Predef.String#
+Ù˙_root_.scala.Option#%
+ãî_root_.java.lang.Exception#
+Ú	ˆ	_root_.scala.Some.-
+©π#_root_.connectors.VPLAuthConnector#S
+˜	˛	I_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.(groupId)a
+ÊW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.
+°ß_root_.scala.Option#%
+ê	ô	_root_.java.lang.Exception#W
+˘ÜM_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#O
+æÃC_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.Q
+˘˚G_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.(id)
+ôú_root_.uk.gov.I
+⁄‡?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#
+Öâ_root_.scala.None.0
+æÀ&_root_.uk.gov.hmrc.http.HeaderCarrier#0
+∞¥&_root_.uk.gov.hmrc.play.frontend.auth.
+÷⁄_root_.scala.None.
+Ù¯_root_.scala.Some."
+œŸ_root_.scala.concurrent.<
+¨
+∑
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"
+¢¶_root_.uk.gov.hmrc.play."
+Ù¯_root_.uk.gov.hmrc.http.6
+ËÚ*_root_.utils.StubAuthConnector.externalId.+
+è†_root_.utils.StubAuthConnector.M
+¸Ö	C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.1
+Ô
+ˆ
+'_root_.utils.StubAuthConnector.groupId.L
+æ	…	@_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.U
+ 	—	I_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.(groupId))
+Œ‘_root_.scala.concurrent.Future#"•
+î_root_.utils.StubAuthConnector.getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ãgetExternalId>(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String]":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#".
+ -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+06_root_.scala.concurrent.Future#"#
+7=_root_.scala.Predef.String#"'
+_root_.connectors.ÄàÄ
+connectors"˙
+û_root_.utils.StubAuthConnector.getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authContext)WÄauthContextAuthContext"8
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"4
+!_root_.uk.gov.hmrc.play.frontend.ÄàÄfrontend"/
+_root_.java.lang.Exception#Ä†Ä	Exception"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"‚
+ò_root_.utils.StubAuthConnector.getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"∑
+'_root_.utils.StubAuthConnector.groupId.ãÇÄ	groupId_=(x$1: Option[String]): Unit"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.scala.Unit#"(
+_root_.utils.StubHttp.ÄÑStubHttp"[
+(_root_.utils.StubAuthConnector.reset()V./reset(): Unit"
+_root_.scala.Unit#" 
+_root_.scala.Unit#
+Ä†Unit".
+_root_.scala.concurrent.Future#Ä@Future"/
+_root_.scala.concurrent.Future.ÄÑFuture"´
+9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.nêÄÄ<init>(x$1: String): Exception" 
+_root_.java.lang.String#"#
+_root_.java.lang.Exception#"«
+m_root_.connectors.VPLAuthConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.’<init>>(serverConfig: ServicesConfig, http: WSHttp): VPLAuthConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"+
+.>#_root_.connectors.VPLAuthConnector#"ﬂ
+ï_root_.utils.StubAuthConnector.getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"Æ
+C_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.gstubExternalId(id: String): Unit"#
+_root_.scala.Predef.String#"
+_root_.scala.Unit#"l
+'_root_.java.lang.Exception#`<init>`()V.AàÄÄ<init>(): Exception"#
+_root_.java.lang.Exception#"‰
+Õ_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#`<init>`(Luk/gov/hmrc/play/frontend/auth/LoggedInUser;Luk/gov/hmrc/play/frontend/auth/Principal;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)V.ë<init>™(user: LoggedInUser, principal: Principal, attorney: Option[Attorney], userDetailsUri: Option[String], enrolmentsUri: Option[String], idsUri: Option[String]): AuthContext";
+3_root_.uk.gov.hmrc.play.frontend.auth.LoggedInUser#"8
+ )0_root_.uk.gov.hmrc.play.frontend.auth.Principal#"
+5;_root_.scala.Option#"7
+<D/_root_.uk.gov.hmrc.play.frontend.auth.Attorney#"
+W]_root_.scala.Option#"#
+^d_root_.scala.Predef.String#"
+v|_root_.scala.Option#"$
+}É_root_.scala.Predef.String#"
+éî_root_.scala.Option#"%
+ïõ_root_.scala.Predef.String#"<
+ü™2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"$
+_root_.scala.Option#Ä†Option"“
+?_root_.utils.StubAuthConnector.`externalId_=`(Lscala/Option;)V.éÇÄexternalId_=(x$1: Option[String]): Unit"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.scala.Unit#"
+
+_root_.uk.	ÄàÄuk"}
+G_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.(id)2ÄidString"!
+_root_.scala.Predef.String#"ß
+ë_root_.utils.StubAuthConnector.getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ê
+getGroupIdF(authContext: AuthContext)(implicit hc: HeaderCarrier): Future[String]":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#".
+(5&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+8>_root_.scala.concurrent.Future#"#
+?E_root_.scala.Predef.String#"
+_root_.uk.gov.
+ÄàÄgov"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"<
+#_root_.connectors.VPLAuthConnector#Ä VPLAuthConnector"!
+_root_.scala.None.ÄÑàNone":
+_root_.utils.StubAuthConnector.ÄÑStubAuthConnector"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"Ì
+ô_root_.utils.StubAuthConnector.getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(ctx)OÄctxAuthContext"8
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"R
+_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
+_root_.scala.Unit#"≠
+@_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.istubGroupId(groupId: String): Unit"#
+
+_root_.scala.Predef.String#"
+_root_.scala.Unit#"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"<
+ _root_.utils.StubServicesConfig.ÄÑStubServicesConfig"Ω
+*_root_.utils.StubAuthConnector.externalId.éÇÄexternalId_=(x$1: Option[String]): Unit"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.scala.Unit#"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"
+_root_.utils.ÄàÄutils">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"
+_root_.scala.ÄàÄscala"5
+&_root_.uk.gov.hmrc.play.frontend.auth.ÄàÄauth""
+_root_.uk.gov.hmrc.ÄàÄhmrc"H
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#Ä†ÄAuthContext"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"Ñ
+I_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.(groupId)7ÄgroupIdString"!
+_root_.scala.Predef.String#"Ã
+<_root_.utils.StubAuthConnector.`groupId_=`(Lscala/Option;)V.ãÇÄ	groupId_=(x$1: Option[String]): Unit"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.scala.Unit#" 
+_root_.scala.Some.
+ÄÑSome2G
+Ë
+Ë
+	*[String]
+_star_.#
+_root_.scala.Predef.String#2G
+Ö	Ö		*[String]
+_star_.#
+_root_.scala.Predef.String#2è
+ˆ	ˆ	*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2è
+¯¯*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2G
+	*[String]
+_star_.#
+_root_.scala.Predef.String#2G
+ÄÄ	*[String]
+_star_.#
+_root_.scala.Predef.String#:Scala211BÙ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package utils
+
+import connectors.VPLAuthConnector
+import uk.gov.hmrc.play.frontend.auth.AuthContext
+
+import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
+
+object StubAuthConnector extends VPLAuthConnector(StubServicesConfig, StubHttp) {
+  private var externalId: Option[String] = None
+  private var groupId: Option[String] = None
+
+  def stubExternalId(id: String): Unit = {
+    externalId = Some(id)
+  }
+
+  override def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(externalId.getOrElse(throw new Exception("External id not stubbed")))
+
+  def stubGroupId(groupId: String) = {
+    this.groupId = Some(groupId)
+  }
+
+  override def getGroupId(authContext: AuthContext)(implicit hc: HeaderCarrier) = Future.successful {
+    groupId.getOrElse(throw new Exception("Group id not stubbed"))
+  }
+
+  def reset() = {
+    externalId = None
+    groupId = None
+  }
+}
+J"test/utils/StubAuthConnector.scala

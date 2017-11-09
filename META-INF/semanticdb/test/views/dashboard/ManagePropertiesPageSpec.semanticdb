@@ -1,0 +1,610 @@
+
+¿ö2
+ñú(_root_.controllers.manageDetails.routes.?
+¡ƒ5_root_.org.scalacheck.Gen.;_root_.org.scalacheck.Gen#H
+Õ‡>test/views/dashboard/ManagePropertiesPageSpec.scala@2893..2912;
+ïõ1_root_.org.scalacheck.Gen#sample()Lscala/Option;.%
+˝
+â_root_.models.PropertyLink#7
+Ù¯-_root_.org.scalatest.words.MatcherWords#have.J
+Ó˙>test/views/dashboard/ManagePropertiesPageSpec.scala@1514..1648.
+¬À$_root_.controllers.routes.Dashboard.W
+€ÌM_root_.controllers.ManagePropertiesVM.;_root_.controllers.ManagePropertiesVM#7
+ÂÌ-_root_.utils.HtmlPage.;_root_.utils.HtmlPage#o
+Ó˜e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.7
+®∏-_root_.views.html.dashboard.manageProperties.(
+ÈÛ_root_.controllers.Pagination..
+ô≠$_root_.actions.AuthenticatedRequest#$
+⁄›_root_.org.scalacheck.Gen#)
+—”_root_.models.GroupAccount#(id)P
+Û	ı	F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.N
+•∏D_root_.views.dashboard.ManagePropertiesPageSpec#organisationAccount.$
+ı˚_root_.controllers.routes.ó
+ÔÛå_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/HaveWord;)Lorg/scalatest/MustMatchers/ResultOfHaveWordForExtent;.D
+Óı8_root_.views.dashboard.ManagePropertiesPageSpec#request.s
+Ãÿi_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.+
+àï!_root_.controllers.manageDetails.$
+ª¡_root_.controllers.routes.,
+ÀŸ"_root_.controllers.ControllerSpec#7
+Åë-_root_.views.html.dashboard.manageProperties.)
+‡‚_root_.models.GroupAccount#(id)]
+úµS_root_.actions.BasicAuthenticatedRequest.;_root_.actions.BasicAuthenticatedRequest#9
+⁄ﬂ/_root_.org.jsoup.Jsoup.;_root_.org.jsoup.Jsoup#N
+ë¢B_root_.views.dashboard.ManagePropertiesPageSpec#individualAccount.(
+Éã_root_.play.api.i18n.Messages.
+ı˘_root_.play.
+ÏÔ_root_.play.api.(
+ôú_root_.play.api.mvc.Call#(url)_
+ü•U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.
+˛Ç_root_.play.api.i18n.H
+»‘>test/views/dashboard/ManagePropertiesPageSpec.scala@2135..2404H
+è	è	<_root_.views.dashboard.ManagePropertiesPageSpec#`<init>`()V.6
+úü,_root_.scala.Option#get()Ljava/lang/Object;.
+‘Ÿ_root_.org.jsoup.B
+ãí8_root_.views.dashboard.ManagePropertiesPageSpec#request.N
+ÃﬂD_root_.views.dashboard.ManagePropertiesPageSpec#organisationAccount.N
+Ω–D_root_.views.dashboard.ManagePropertiesPageSpec#organisationAccount.ó
+ÊÌå_root_.models.GroupAccount#copy(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)Lmodels/GroupAccount;.(isAgent)
+æ…_root_.controllers.
+≤µ_root_.org.
+–”_root_.org. 
+∂¿_root_.org.scalacheck.2
+åï(_root_.play.api.i18n.Messages.Implicits.
+ÁÎ_root_.play.2
+®¡(_root_.models.DetailedIndividualAccount#ç
+©≠Ç_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/ContainWord;)Lorg/scalatest/words/ResultOfContainWord;.Y
+À“O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.H
+·Â>test/views/dashboard/ManagePropertiesPageSpec.scala@2913..2913(
+ÒÙ_root_.play.api.mvc.Call#(url)J
+Â
+
+>test/views/dashboard/ManagePropertiesPageSpec.scala@1377..1509A
+ª«7_root_.models.PropertyLink.;_root_.models.PropertyLink#*
+ó† _root_.org.scalacheck.Arbitrary.&
+ÍÌ_root_.scala.collection.Seq.o
+≈Œe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.:
+Æµ0_root_.org.scalatest.words.MatcherWords#contain.1
+ﬁÏ'_root_.scala.collection.JavaConverters.A
+≠π7_root_.models.GroupAccount.;_root_.models.GroupAccount#U
+¢ßK_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.
+˙˝_root_.play.api.H
+ñö>test/views/dashboard/ManagePropertiesPageSpec.scala@1430..1430.
+´¥$_root_.controllers.routes.Dashboard.∑
+∂«¨_root_.org.scalatest.words.ResultOfContainWord#theSameElementsAs(Lscala/collection/GenTraversable;Lorg/scalatest/enablers/Aggregating;)Lorg/scalatest/compatible/Assertion;.0
+‰Á&_root_.scala.collection.immutable.Nil.o
+°™e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.;
+ãë1_root_.org.scalacheck.Gen#sample()Lscala/Option;."
+”›_root_.scala.collection.3
+≥Ã)_root_.actions.BasicAuthenticatedRequest.
+ÂÍ_root_.views.)
+πª_root_.models.GroupAccount#(id)J
+˝Å>test/views/dashboard/ManagePropertiesPageSpec.scala@1785..1810<
+ˆé	0_root_.views.dashboard.ManagePropertiesPageSpec#H
+¡Ã>test/views/dashboard/ManagePropertiesPageSpec.scala@1377..1509R
+‡ÓH_root_.controllers.ReverseDashboard#viewDraftCases()Lplay/api/mvc/Call;.P
+µ¡F_root_.controllers.ReverseDashboard#manageAgents()Lplay/api/mvc/Call;.e
+ú®[_root_.utils.HtmlPage#mustContain1(Ljava/lang/String;)Lorg/scalatest/compatible/Assertion;.H
+öû>test/views/dashboard/ManagePropertiesPageSpec.scala@1937..2058.
+Üö$_root_.actions.AuthenticatedRequest#J
+ìó>test/views/dashboard/ManagePropertiesPageSpec.scala@2063..2130J
+˙˛>test/views/dashboard/ManagePropertiesPageSpec.scala@1654..1780 
+Ñå_root_.utils.HtmlPage.H
+óõ>test/views/dashboard/ManagePropertiesPageSpec.scala@1785..1810u
+≈…k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.(
+€ﬁ_root_.play.api.mvc.Call#(url)$
+§ß_root_.org.scalacheck.Gen#u
+ÿ
+⁄
+k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
+àã_root_.org.H
+†§>test/views/dashboard/ManagePropertiesPageSpec.scala@1568..15682
+œË(_root_.models.DetailedIndividualAccount#V
+˛óJ_root_.views.dashboard.ManagePropertiesPageSpec#basicAuthenticatedRequest.(
+ƒ«_root_.play.api.mvc.Call#(url)
+ﬂ‰_root_.utils.ê
+˘˝Ö_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#size(JLorg/scalatest/enablers/Size;)Lorg/scalatest/compatible/Assertion;.G
+Ô˘=_root_.controllers.Pagination.;_root_.controllers.Pagination#%
+ﬁÍ_root_.models.GroupAccount#6
+íï,_root_.scala.Option#get()Ljava/lang/Object;.H
+Œ⁄>test/views/dashboard/ManagePropertiesPageSpec.scala@1514..1648 
+åñ_root_.org.scalacheck.0
+πÀ&_root_.controllers.ManagePropertiesVM.
+ü§_root_.views.J
+€Á>test/views/dashboard/ManagePropertiesPageSpec.scala@2135..2404
+˝Ñ_root_.actions.%
+áì_root_.models.PropertyLink#
+äê_root_.models.%
+¯Ñ_root_.models.GroupAccount#X
+©≠N_root_.controllers.manageDetails.ReverseViewDetails#show()Lplay/api/mvc/Call;.P
+∏	À	D_root_.views.dashboard.ManagePropertiesPageSpec#additionalAppConfig.$
+§™_root_.controllers.routes.
+¸á_root_.controllers.&
+Œ	—	_root_.scala.collection.Seq./
+¬ƒ%_root_.org.scalatest.FlatSpecLike#it.P
+≈ÿD_root_.views.dashboard.ManagePropertiesPageSpec#organisationAccount.o
+àäe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.+
+¯É!_root_.play.api.test.FakeRequest.
+Ã’_root_.resources.?
+˚Å5_root_.controllers.routes.;_root_.controllers.routes#)
+«…_root_.models.GroupAccount#(id)N
+≥∆D_root_.views.dashboard.ManagePropertiesPageSpec#organisationAccount.o
+Û
+¸
+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.,
+ó	•	"_root_.controllers.ControllerSpec#
+Õ“_root_.scala.0
+í§&_root_.controllers.ManagePropertiesVM.$
+œ’_root_.controllers.routes.V
+ÜñL_root_.controllers.ReverseDashboard#manageProperties(II)Lplay/api/mvc/Call;.4
+¶	¶	*_root_.org.scalatest.FlatSpec#`<init>`()V.[
+í´Q_root_.models.DetailedIndividualAccount.;_root_.models.DetailedIndividualAccount#!
+ÎÙ_root_.views.dashboard..
+÷ﬂ$_root_.controllers.routes.Dashboard.(
+›Á_root_.controllers.Pagination.o
+˝Üe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.>
+ù®4_root_.controllers.manageDetails.routes.ViewDetails.!
+ú°_root_.org.jsoup.Jsoup.(
+∞≥_root_.play.api.mvc.Call#(url)
+•©_root_.views.html.&
+Ω¿_root_.scala.collection.Seq..
+¸Ö$_root_.controllers.routes.Dashboard.
+Ù_root_.play.api.test.¡
+õ
+ü
+∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.J
+ïô>test/views/dashboard/ManagePropertiesPageSpec.scala@1937..2058M
+ıÄC_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#&
+™≥_root_.views.html.dashboard.M
+ÅâC_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.U
+ÍÓK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.H
+çë>test/views/dashboard/ManagePropertiesPageSpec.scala@1654..1780L
+¯âB_root_.views.dashboard.ManagePropertiesPageSpec#individualAccount.7
+¥ƒ-_root_.views.html.dashboard.manageProperties."9
+"_root_.controllers.ControllerSpec#Ä@ControllerSpec"ã
+&_root_.org.scalacheck.Gen#`<init>`()V.a<init>
+(): Gen[T]""
+_root_.org.scalacheck.Gen#"%
+	_root_.org.scalacheck.Gen#[T]")
+_root_.scala.collection.Seq.	ÄÑSeq"'
+_root_.org.scalacheck.Gen#	Ä†Gen"Ä
+å_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/HaveWord;)Lorg/scalatest/MustMatchers/ResultOfHaveWordForExtent;.Ómust2(haveWord: HaveWord): ResultOfHaveWordForExtent[T]",
+$_root_.org.scalatest.words.HaveWord#"D
+/<_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#"<
+014_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"$
+_root_.play.api.test.ÄàÄtest"0
+_root_.play.api.i18n.Messages.ÄÑMessages"6
+!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"Ï
+Ç_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/ContainWord;)Lorg/scalatest/words/ResultOfContainWord;.‰must2(containWord: ContainWord): ResultOfContainWord[T]"/
+'_root_.org.scalatest.words.ContainWord#"7
+//_root_.org.scalatest.words.ResultOfContainWord#"<
+014_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"o
+-_root_.org.scalatest.words.MatcherWords#have.>haveHaveWord"*
+$_root_.org.scalatest.words.HaveWord#"-
+_root_.scala.collection.ÄàÄ
+collection"0
+_root_.views.html.dashboard.ÄàÄ	dashboard"“
+B_root_.views.dashboard.ManagePropertiesPageSpec#individualAccount.ãÅÄ@individualAccountGen[DetailedIndividualAccount]" 
+_root_.org.scalacheck.Gen#"0
+(_root_.models.DetailedIndividualAccount#"‘
+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Í	arbitrary)[T] => (implicit a: Arbitrary[T]): Gen[T]"(
+ _root_.org.scalacheck.Arbitrary#"p
+h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]""
+#&_root_.org.scalacheck.Gen#"p
+'(h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]"Î
+t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"
+JN_root_.scala.Long#"(
+Yj _root_.models.IndividualDetails#"1
+mÜ(_root_.models.DetailedIndividualAccount#"ã
+H_root_.controllers.ReverseDashboard#viewDraftCases()Lplay/api/mvc/Call;.?viewDraftCases(): Call"!
+_root_.play.api.mvc.Call#"ç
+Ö_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#size(JLorg/scalatest/enablers/Size;)Lorg/scalatest/compatible/Assertion;.Çsize5(expectedSize: Long)(implicit sz: Size[A]): Assertion"
+_root_.scala.Long#"+
+"&#_root_.org.scalatest.enablers.Size#"G
+'(?_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#[A]"/
+,5'_root_.org.scalatest.package.Assertion#"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"®
+>test/views/dashboard/ManagePropertiesPageSpec.scala@2135..2404fexpectedUrlsSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"i
+>test/views/dashboard/ManagePropertiesPageSpec.scala@1430..1430'x$4Long"
+_root_.scala.Long#"J
+_root_.models.GroupAccount#(id)'ÅidLong"
+_root_.scala.Long#"
+_root_.play.api.
+ÄàÄapi"Q
+0_root_.views.dashboard.ManagePropertiesPageSpec#Ä ManagePropertiesPageSpec"2
+_root_.models.PropertyLink#Ä†ÄPropertyLink"ê
+K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.A†Ä herePosition"+
+%_root_.org.scalactic.source.Position#"Ã
+U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.sÑÄÄselect(x$1: String): Elements" 
+_root_.java.lang.String#")
+!_root_.org.jsoup.select.Elements#"4
+&_root_.scala.collection.immutable.Nil.
+ÄÑàNil"á
+N_root_.controllers.manageDetails.ReverseViewDetails#show()Lplay/api/mvc/Call;.5show(): Call"!
+_root_.play.api.mvc.Call#"¬
+s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
+	_root_.scala.Long#"#
+_root_.scala.Predef.String#"#
+)/_root_.scala.Predef.String#"
+<?_root_.scala.Int#"#
+HN_root_.scala.Predef.String#"#
+W]_root_.scala.Predef.String#"
+ho_root_.scala.Boolean#"
+|Ä_root_.scala.Long#"%
+Éè_root_.models.GroupAccount#"ç
+1_root_.org.scalacheck.Gen#sample()Lscala/Option;.Xsample	Option[T]"
+_root_.scala.Option#"%
+_root_.org.scalacheck.Gen#[T]"!
+_root_.views.html.ÄàÄhtml"'
+_root_.org.jsoup.Jsoup.ÄÑàJsoup"9
+(_root_.controllers.manageDetails.routes.ÄÑàroutes"Ü
+>test/views/dashboard/ManagePropertiesPageSpec.scala@1654..1780Dhtml
+Appendable".
+
+(_root_.play.twirl.api.Format#Appendable#"%
+_root_.resources.ÄàÄ	resources"(
+_root_.utils.HtmlPage.ÄÑHtmlPage"r
+>test/views/dashboard/ManagePropertiesPageSpec.scala@1785..18100pageHtmlPage"
+_root_.utils.HtmlPage#"
+_root_.org.
+ÄàÄorg"v
+$_root_.controllers.routes.Dashboard.NÅÄà	DashboardReverseDashboard"*
+$_root_.controllers.ReverseDashboard#"2
+_root_.controllers.Pagination.ÄÑ
+Pagination"2
+_root_.models.GroupAccount#Ä†ÄGroupAccount"é
+J_root_.views.dashboard.ManagePropertiesPageSpec#basicAuthenticatedRequest.@ÅÄ`basicAuthenticatedRequestactions.AuthenticatedRequest[_]"+
+_root_.controllers.routes.ÄÑàroutes"á
+F_root_.controllers.ReverseDashboard#manageAgents()Lplay/api/mvc/Call;.=manageAgents(): Call"!
+_root_.play.api.mvc.Call#"É
+D_root_.views.dashboard.ManagePropertiesPageSpec#additionalAppConfig.∫additionalAppConfigSeq[Tuple2[String, String]]""
+_root_.scala.collection.Seq#"
+
+_root_.scala.Tuple2#" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"Å
+C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.:toString
+(): String" 
+
+_root_.java.lang.String#"B
+&_root_.controllers.ManagePropertiesVM.ÄÑManagePropertiesVM"∞
+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#";
+(_root_.play.api.i18n.Messages.Implicits.ÄÑ	Implicits"{
+0_root_.org.scalatest.words.MatcherWords#contain.GcontainContainWord"-
+'_root_.org.scalatest.words.ContainWord#"?
+'_root_.scala.collection.JavaConverters.ÄÑJavaConverters"$
+_root_.play.api.i18n.ÄàÄi18n"¢
+<_root_.views.dashboard.ManagePropertiesPageSpec#`<init>`()V.b<init>(): ManagePropertiesPageSpec"8
+0_root_.views.dashboard.ManagePropertiesPageSpec#"√
+å_root_.models.GroupAccount#copy(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)Lmodels/GroupAccount;.(isAgent)2ÄisAgentBoolean"
+_root_.scala.Boolean#"j
+>test/views/dashboard/ManagePropertiesPageSpec.scala@2913..2913(x$23Long"
+_root_.scala.Long#"ö
+4_root_.controllers.manageDetails.routes.ViewDetails.bÅÄàViewDetailsReverseViewDetails":
+4_root_.controllers.manageDetails.ReverseViewDetails#"ü
+O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.LasScalaA"<
+6_root_.scala.collection.convert.Decorators#AsScala#[A]"+
+_root_.views.dashboard.ÄàÄ	dashboard"¡
+∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
+_root_.scala.Predef.String#">
+96_root_.org.scalatest.words.StringVerbStringInvocation#">
+<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"L
+)_root_.actions.BasicAuthenticatedRequest.ÄÑBasicAuthenticatedRequest"+
+_root_.org.scalacheck.ÄàÄ
+scalacheck"
+_root_.play.ÄàÄplay"Ç
+>test/views/dashboard/ManagePropertiesPageSpec.scala@1377..1509@pendingPropPropertyLink"!
+_root_.models.PropertyLink#"ˆ
+k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.Ümust(string: String): ItVerbString"#
+	_root_.scala.Predef.String#"7
+/_root_.org.scalatest.FlatSpecLike#ItVerbString#"3
+ _root_.org.scalacheck.Arbitrary.ÄÑ	Arbitrary"≥
+>test/views/dashboard/ManagePropertiesPageSpec.scala@2063..2130qtabsBuffer[Element]"-
+'_root_.scala.collection.mutable.Buffer#"'
+_root_.org.jsoup.nodes.Element#"‡
+L_root_.controllers.ReverseDashboard#manageProperties(II)Lplay/api/mvc/Call;.èmanageProperties (page: Int, pageSize: Int): Call"
+
+_root_.scala.Int#"
+_root_.scala.Int#"!
+ _root_.play.api.mvc.Call#"Â
+[_root_.utils.HtmlPage#mustContain1(Ljava/lang/String;)Lorg/scalatest/compatible/Assertion;.ÖmustContain1(selector: String): Assertion"#
+_root_.scala.Predef.String#"/
+'_root_.org.scalatest.package.Assertion#"
+_root_.models.ÄàÄmodels"!
+_root_.actions.ÄàÄactions"[
+,_root_.scala.Option#get()Ljava/lang/Object;.+ÑÄgetA"
+_root_.scala.Option#[A]"É
+>test/views/dashboard/ManagePropertiesPageSpec.scala@1514..1648AapprovedPropPropertyLink"!
+_root_.models.PropertyLink#"}
+>test/views/dashboard/ManagePropertiesPageSpec.scala@2893..2912;qual$3GroupAccount"!
+_root_.models.GroupAccount#"»
+8_root_.views.dashboard.ManagePropertiesPageSpec#request.ãÅÄ`request#FakeRequest[AnyContentAsEmpty.type]"'
+!_root_.play.api.test.FakeRequest#".
+&_root_.play.api.mvc.AnyContentAsEmpty."˚
+i_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.çviewMessages%(pagination: MessagePagination): Call"1
+)_root_.models.messages.MessagePagination#"!
+!%_root_.play.api.mvc.Call#")
+_root_.controllers.ÄàÄcontrollers"G
+-_root_.views.html.dashboard.manageProperties.ÄÑmanageProperties"
+_root_.views.ÄàÄviews"
+_root_.utils.ÄàÄutils"!
+_root_.org.jsoup.ÄàÄjsoup"Ÿ
+°_root_.models.PropertyLink#`<init>`(JLjava/lang/String;JJLjava/lang/String;Lmodels/Capacity;Ljava/time/LocalDate;ZLscala/collection/Seq;Lscala/collection/Seq;)V.≤<init>Ë(authorisationId: Long, submissionId: String, uarn: Long, organisationId: Long, address: String, capacityDeclaration: Capacity, linkedDate: LocalDate, pending: Boolean, assessments: Seq[Assessment], agents: Seq[Party]): PropertyLink"
+_root_.scala.Long#"#
+&,_root_.scala.Predef.String#"
+48_root_.scala.Long#"
+JN_root_.scala.Long#"#
+Y__root_.scala.Predef.String#"
+v~_root_.models.Capacity#"%
+åï_root_.java.time.LocalDate#"
+†ß_root_.scala.Boolean#"#
+∂π_root_.scala.package.Seq#"#
+∫ƒ_root_.models.Assessment#"#
+œ“_root_.scala.package.Seq#"
+”ÿ_root_.models.Party#"%
+‹Ë_root_.models.PropertyLink#"
+_root_.scala.ÄàÄscala"|
+>test/views/dashboard/ManagePropertiesPageSpec.scala@1937..2058:pageDocument"&
+ _root_.org.jsoup.nodes.Document#"L
+(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"∆
+¨_root_.org.scalatest.words.ResultOfContainWord#theSameElementsAs(Lscala/collection/GenTraversable;Lorg/scalatest/enablers/Aggregating;)Lorg/scalatest/compatible/Assertion;.îtheSameElementsAs\(right: scala.collection.GenTraversable[_])(implicit aggregating: Aggregating[L]): Assertion"2
+BM*_root_.org.scalatest.enablers.Aggregating#":
+NO2_root_.org.scalatest.words.ResultOfContainWord#[L]"/
+S\'_root_.org.scalatest.package.Assertion#"n
+*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
+_root_.org.scalatest.FlatSpec#"B
+$_root_.actions.AuthenticatedRequest#Ä¿AuthenticatedRequest"j
+>test/views/dashboard/ManagePropertiesPageSpec.scala@1568..1568(x$14Long"
+_root_.scala.Long#"9
+!_root_.controllers.manageDetails.ÄàÄmanageDetails"j
+%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
+)_root_.org.scalatest.FlatSpecLike#ItWord#"∂
+k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#"ª
+D_root_.views.dashboard.ManagePropertiesPageSpec#organisationAccount.sÅÄ@organisationAccountGen[GroupAccount]" 
+_root_.org.scalacheck.Gen#"#
+_root_.models.GroupAccount#"¿
+K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.qÑÄÄparse(x$1: String): Document" 
+_root_.java.lang.String#"(
+ _root_.org.jsoup.nodes.Document#2…
+Õ‡1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2Ç
+Ç
+◊
+<ManagePropertiesPageSpec.this.convertToInAndIgnoreMethods(*)®
+9ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+:;_star_.2Õ
+¿¿*.apply[PropertyLink]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.#
+_root_.models.PropertyLink#2D
+ı	ı		*[String]
+_star_. 
+_root_.java.lang.String#2…
+•∏1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2î
+—	—	*.apply[Tuple2[String, String]]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String#
+_root_.scala.Tuple2# 
+_root_.java.lang.String#2†
+ÙÙ≥*(ManagePropertiesPageSpec.this.basicAuthenticatedRequest, play.api.i18n.Messages.Implicits.applicationMessages(play.api.i18n.Lang.defaultLang, ManagePropertiesPageSpec.this.app))
+_star_.R
+ 9J_root_.views.dashboard.ManagePropertiesPageSpec#basicAuthenticatedRequest.0
+Éé&_root_.play.api.i18n.Lang.defaultLang.?
+Æ±5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.â
+\oÄ_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.2®
+ÀÀ*.apply
+_star_.Ö
+}_root_.controllers.ManagePropertiesVM.apply(JLscala/collection/Seq;Lcontrollers/Pagination;)Lcontrollers/ManagePropertiesVM;.2…
+Ãﬂ1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2…
+Ω–1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2l
+ÁÁ*.apply
+_star_.J
+B_root_.controllers.Pagination.apply(IIJZ)Lcontrollers/Pagination;.2l
+ÛÛ*.apply
+_star_.J
+B_root_.controllers.Pagination.apply(IIJZ)Lcontrollers/Pagination;.2Æ
+“	Ú	"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2~
+îî,*(resources.`package`.arbitraryPropertyLink)
+_star_.7
++/_root_.resources.package.arbitraryPropertyLink.2¸
+∏∏*.apply
+_star_.Ÿ
+–_root_.views.html.dashboard.manageProperties_Scope0.manageProperties_Scope1.manageProperties#apply(Lcontrollers/ManagePropertiesVM;Lactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2®
+§§*.apply
+_star_.Ö
+}_root_.controllers.ManagePropertiesVM.apply(JLscala/collection/Seq;Lcontrollers/Pagination;)Lcontrollers/ManagePropertiesVM;.2m
+åå*.apply
+_star_.K
+C_root_.utils.HtmlPage.apply(Lplay/twirl/api/Html;)Lutils/HtmlPage;.2Ö
+Ñ®©ManagePropertiesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("ManagePropertiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 64), org.scalactic.Prettifier.default) 
+=C_root_.java.lang.String#/
+6<'_root_.scala.collection.mutable.Buffer#ª
+5≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+FG_star_.y
+glq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+°®(_root_.org.scalactic.Prettifier.default.2†
+ÄÄ≥*(ManagePropertiesPageSpec.this.basicAuthenticatedRequest, play.api.i18n.Messages.Implicits.applicationMessages(play.api.i18n.Lang.defaultLang, ManagePropertiesPageSpec.this.app))
+_star_.R
+ 9J_root_.views.dashboard.ManagePropertiesPageSpec#basicAuthenticatedRequest.0
+Éé&_root_.play.api.i18n.Lang.defaultLang.?
+Æ±5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.â
+\oÄ_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.2ò
+ˇˇD*(org.scalatest.enablers.Size.sizeOfGenTraversable[Buffer[Element]])
+_star_._
+2W_root_.org.scalatest.enablers.Size.sizeOfGenTraversable()Lorg/scalatest/enablers/Size;./
+39'_root_.scala.collection.mutable.Buffer#'
+:A_root_.org.jsoup.nodes.Element#2ò
+ö Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
+ 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
+7>_root_.org.jsoup.nodes.Element#
+@A_star_.2Ì
+‘‘*(org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
+_star_. 
+GM_root_.java.lang.String#/
+OU'_root_.scala.collection.mutable.Buffer#ì
+%Fä_root_.org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Aggregating;.H
+nu@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;. 
+v|_root_.java.lang.String#2«
+ÌÌ*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.#
+_root_.scala.Predef.String#2z
+ÈÈ**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2~
+ÖÖ,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2…
+≥∆1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2~
+ää,*(resources.`package`.arbitraryPropertyLink)
+_star_.7
++/_root_.resources.package.arbitraryPropertyLink.2í
+ÉÉ*.apply
+_star_.p
+h_root_.play.api.test.FakeRequest.apply(Ljava/lang/String;Ljava/lang/String;)Lplay/api/test/FakeRequest;.2´
+Ç
+ö
+úManagePropertiesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ManagePropertiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 37), org.scalactic.Prettifier.default)¡
+8∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+9:_star_.y
+Z_q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+îõ(_root_.org.scalactic.Prettifier.default.2©
+◊
+◊
+B*(ManagePropertiesPageSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+ AD_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2ï
+ÃÃ*.apply[AnyContentAsEmpty.type]
+_star_.™
+°_root_.actions.BasicAuthenticatedRequest.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)Lactions/BasicAuthenticatedRequest;..
+&_root_.play.api.mvc.AnyContentAsEmpty.2’
+ææ¿*(org.scalactic.source.Position.apply("ManagePropertiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 37))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2¸
+ëë*.apply
+_star_.Ÿ
+–_root_.views.html.dashboard.manageProperties_Scope0.manageProperties_Scope1.manageProperties#apply(Lcontrollers/ManagePropertiesVM;Lactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2„
+¯â>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2ç
+ÍÓ™ManagePropertiesPageSpec.this.convertToAnyMustWrapper[Buffer[Element]](*)(org.scalactic.source.Position.apply("ManagePropertiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 63), org.scalactic.Prettifier.default)/
+6<'_root_.scala.collection.mutable.Buffer#'
+=D_root_.org.jsoup.nodes.Element#ª
+5≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+GH_star_.y
+hmq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+¢©(_root_.org.scalactic.Prettifier.default.2’
+ÿÿ¿*(org.scalactic.source.Position.apply("ManagePropertiesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 52))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.:Scala211Bñ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package views.dashboard
+
+import actions.{AuthenticatedRequest, BasicAuthenticatedRequest}
+import controllers.{ControllerSpec, ManagePropertiesVM, Pagination, routes}
+import models.{DetailedIndividualAccount, GroupAccount, PropertyLink}
+import org.jsoup.Jsoup
+import play.api.test.FakeRequest
+import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.Gen
+import resources._
+import utils.HtmlPage
+import play.api.i18n.Messages.Implicits._
+import views.html.dashboard.manageProperties
+
+import scala.collection.JavaConverters._
+
+class ManagePropertiesPageSpec extends ControllerSpec {
+
+  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false")
+
+  "Manage properties page" must "show the submissionId if the property link is pending" in {
+    val pendingProp = arbitrary[PropertyLink].sample.get.copy(
+      organisationId = organisationAccount.id,
+      pending = true
+    )
+    val approvedProp = arbitrary[PropertyLink].sample.get.copy(
+      organisationId = organisationAccount.id,
+      pending = false
+    )
+
+    val html = manageProperties(ManagePropertiesVM(organisationAccount.id, Seq(pendingProp, approvedProp), Pagination(1, 25, 25)))
+    val page = HtmlPage(html)
+    page.mustContain1(".submission-id")
+  }
+
+  it must "show the dashboard navigation tabs at the top of the screen" in {
+    val page = Jsoup.parse(manageProperties(ManagePropertiesVM(organisationAccount.id, Nil, Pagination(1, 25, 25))).toString)
+    val tabs = page.select(".section-tabs ul[role=tablist] li").asScala
+    val expectedUrls = Seq(
+      routes.Dashboard.manageProperties().url,
+      routes.Dashboard.manageAgents().url,
+      routes.Dashboard.viewDraftCases().url,
+      controllers.manageDetails.routes.ViewDetails.show().url,
+      routes.Dashboard.viewMessages().url
+    )
+
+    tabs must have size 5
+    tabs.map(_.select("a").attr("href")) must contain theSameElementsAs expectedUrls
+  }
+
+  implicit lazy val request = FakeRequest("GET", "/business-rates-property-linking/properties")
+  lazy val organisationAccount: Gen[GroupAccount] = arbitrary[GroupAccount]
+  lazy val individualAccount: Gen[DetailedIndividualAccount] = arbitrary[DetailedIndividualAccount]
+  implicit lazy val basicAuthenticatedRequest: AuthenticatedRequest[_] = BasicAuthenticatedRequest(organisationAccount.copy(isAgent = false), individualAccount, request)
+}
+J3test/views/dashboard/ManagePropertiesPageSpec.scala

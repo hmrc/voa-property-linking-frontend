@@ -1,0 +1,1348 @@
+
+«≤/
+Ÿ€%_root_.org.scalatest.FlatSpecLike#it.u
+Õ—k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.E
+€)Ó);test/controllers/agent/PendingRequestsSpec.scala@5120..5244G
+Œœ;test/controllers/agent/PendingRequestsSpec.scala@1870..1871z
+©!Ø!p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.C
+å	ó	9_root_.controllers.agent.PendingRequestsSpec#defaultHtml.%
+»‘_root_.models.GroupAccount#)
+ü°_root_.play.api.http.Status#OK.G
+…2Õ2;test/controllers/agent/PendingRequestsSpec.scala@6469..6597/
+ªΩ%_root_.org.scalatest.FlatSpecLike#it.U
+·3Â3K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.è
+ÅëÑ_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.;
+º0ﬂ01_root_.utils.StubPropertyRepresentationConnector.V
+ﬁËL_root_.utils.Formatters.formatDate(Ljava/time/LocalDate;)Ljava/lang/String;.A
+è
+ü
+7_root_.models.PropertyRepresentation#(organisationName)C
+Œ%Ê%9_root_.controllers.agent.routes.RepresentationController.!
+íó_root_.org.jsoup.nodes.'
+£™_root_.play.api.test.Helpers.T
+“"Ó"J_root_.controllers.agent.PendingRequestsSpec#TestRepresentationController.
+Â_root_.controllers.(
+Õ*‹*_root_.models.AgentPermission#¡
+™Æ∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.>
+©3¨34_root_.java.util.ArrayList#get(I)Ljava/lang/Object;.%
+†(¶(_root_.scala.Predef.String#o
+¡ e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.2
+é.ß.(_root_.models.DetailedIndividualAccount#(
+Ÿ‹_root_.play.api.mvc.Call#(url);
+€˛1_root_.utils.StubPropertyRepresentationConnector.U
+∏ΩK_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.
+Û¯_root_.utils.@
+¯á6_root_.models.PropertyRepresentation#(checkPermission)u
+‹‡k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.a
+ï6ü6W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.o
+∏&∫&e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.z
+÷$‹$p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.V
+õ4∑4J_root_.controllers.agent.PendingRequestsSpec#TestRepresentationController.ñ
+≠3≤3ã_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(index)d
+Ω≈Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.!
+«,Ã,_root_.org.jsoup.Jsoup.M
+‡ÎC_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#T
+Ç-ë-H_root_.controllers.agent.PendingRequestsSpec#setup(I)V.(pendingRequests)G
+ßÆ;test/controllers/agent/PendingRequestsSpec.scala@2467..2589_
+’2€2U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.E
+ë0ï0;test/controllers/agent/PendingRequestsSpec.scala@6161..6161w
+π’m_root_.controllers.agent.ReverseRepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Call;.u
+¯˙k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.X
+¬&…&N_root_.org.scalatest.Assertions#pending()Lorg/scalatest/compatible/Assertion;.u
+Üäk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.f
+Á.ˇ.\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.E
+µπ;test/controllers/agent/PendingRequestsSpec.scala@2439..2461Ç
+»Àx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.E
+íñ;test/controllers/agent/PendingRequestsSpec.scala@2126..2148+
+ì#û#!_root_.play.api.test.FakeRequest.K
+∫*À*?_root_.controllers.agent.PendingRequestsSpec#displayPermission.G
+≤µ;test/controllers/agent/PendingRequestsSpec.scala@3374..3463C
+íù9_root_.controllers.agent.PendingRequestsSpec#defaultHtml.o
+£¨e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;._
+ﬁ ‰ U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.!
+áè_root_.models.Accounts.E
+ü0¥0;test/controllers/agent/PendingRequestsSpec.scala@6175..6196E
+Ÿ › ;test/controllers/agent/PendingRequestsSpec.scala@4138..4160*
+ß1Ø1 _root_.org.jsoup.nodes.Document#G
+©-µ-;test/controllers/agent/PendingRequestsSpec.scala@5797..5874C
+Ÿ&‰&9_root_.controllers.agent.PendingRequestsSpec#defaultHtml.K
+“3Ÿ3A_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.o
+™.≥.e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.E
+‘ÿ;test/controllers/agent/PendingRequestsSpec.scala@1455..1477U
+“#◊#K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.C
+Ÿ‰9_root_.controllers.agent.PendingRequestsSpec#defaultHtml.G
+“÷;test/controllers/agent/PendingRequestsSpec.scala@2126..2148w
+Œ(Í(m_root_.controllers.agent.ReverseRepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Call;./
+‰Ê%_root_.org.scalatest.FlatSpecLike#it.
+ô(ú(_root_.scala.Int#A
+ß"¨"7_root_.controllers.agent.PendingRequestsSpec#setup(I)V.
+∏1ª1_root_.scala.Int#ó
+ø'√'å_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/HaveWord;)Lorg/scalatest/MustMatchers/ResultOfHaveWordForExtent;.8
+µº._root_.models.PropertyRepresentation#(address)!
+≤∑_root_.org.jsoup.Jsoup.E
+Ù0˚0;test/controllers/agent/PendingRequestsSpec.scala@6079..6197E
+ˆ˜;test/controllers/agent/PendingRequestsSpec.scala@1870..1871"
+ª≈_root_.scala.collection.*
+Æ(¥( _root_.controllers.agent.routes./
+˘/è0%_root_.models.PropertyRepresentation#/
+ Ã%_root_.org.scalatest.FlatSpecLike#it.
+àã_root_.org.è
+√”Ñ_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V..
+±∆$_root_.models.RepresentationPending.<
+¿4ÿ42_root_.controllers.agent.RepresentationController#E
+‚Ê;test/controllers/agent/PendingRequestsSpec.scala@3895..3917
+®´_root_.org.K
+ò†A_root_.org.jsoup.nodes.Document.;_root_.org.jsoup.nodes.Document#K
+å6î6A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.h
+‡0Û0^_root_.utils.StubPropertyRepresentationConnector.stubRepresentations(Lscala/collection/Seq;)V.Y
+°'®'O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.d
+„$Î$Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.%
+⁄1‡1_root_.scala.Predef.String#_
+ã$ë$U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.z
+¢®p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.?
+à6ã65_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.o
+Ô/¯/e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.9
+ﬁÒ-_root_.controllers.agent.PendingRequestsSpec#o
+û"†"e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.G
+˚-å.;test/controllers/agent/PendingRequestsSpec.scala@5879..5966/
+‰Ê%_root_.org.scalatest.FlatSpecLike#it.C
+µ ¿ 9_root_.controllers.agent.PendingRequestsSpec#defaultHtml.z
+≤#∏#p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.I
+‰ı?_root_.controllers.agent.PendingRequestsSpec#displayPermission.E
+Ù3ı3;test/controllers/agent/PendingRequestsSpec.scala@6620..6621ò
+±1∂1ã_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(index)*
+‘.Ê. _root_.utils.StubAuthentication.'
+”,‚,_root_.play.api.test.Helpers.G
+◊ﬂ;test/controllers/agent/PendingRequestsSpec.scala@3923..3974S
+á6á6I_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.á
+ö∞}_root_.utils.StubPropertyRepresentationConnector.stubbedRepresentations(Lmodels/RepresentationStatus;)Lscala/collection/Seq;.o
+≈«e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.z
+∏,æ,p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.z
+±2∑2p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.:
+Ω)ƒ)0_root_.org.scalatest.words.MatcherWords#contain.G
+Ö	â	;test/controllers/agent/PendingRequestsSpec.scala@1153..1175G
+“&÷&;test/controllers/agent/PendingRequestsSpec.scala@4942..4964E
+ç*†*;test/controllers/agent/PendingRequestsSpec.scala@5120..5244_
+Ü'å'U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.A
+çí7_root_.controllers.agent.PendingRequestsSpec#setup(I)V.G
+‹3›3;test/controllers/agent/PendingRequestsSpec.scala@6620..6621
+€ﬂ_root_.play.api.test.*
+ˆ4á5 _root_.config.ApplicationConfig#°
+Ê3Í3ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.?
+Î˘5_root_.models.PropertyRepresentation#(createDatetime)E
+êú;test/controllers/agent/PendingRequestsSpec.scala@2717..27959
+˚Ä/_root_.org.jsoup.Jsoup.;_root_.org.jsoup.Jsoup#B
+¥3∏38_root_.org.jsoup.nodes.Element#text()Ljava/lang/String;./
+ÉÖ%_root_.org.scalatest.FlatSpecLike#it.T
+ÿ+Ù+J_root_.controllers.agent.PendingRequestsSpec#TestRepresentationController./
+Ô
+Ò
+%_root_.org.scalatest.FlatSpecLike#it.G
+ºø;test/controllers/agent/PendingRequestsSpec.scala@3000..3089G
+œÿ;test/controllers/agent/PendingRequestsSpec.scala@1483..1596G
+“+’+;test/controllers/agent/PendingRequestsSpec.scala@5582..5671E
+≠≤;test/controllers/agent/PendingRequestsSpec.scala@2154..2298o
+˛Äe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∑
+≈)÷)¨_root_.org.scalatest.words.ResultOfContainWord#theSameElementsAs(Lscala/collection/GenTraversable;Lorg/scalatest/enablers/Aggregating;)Lorg/scalatest/compatible/Assertion;.G
+Œœ;test/controllers/agent/PendingRequestsSpec.scala@2254..2255 
+¨∂_root_.org.scalacheck."
+”›_root_.utils.Formatters.;
+ˆô1_root_.utils.StubPropertyRepresentationConnector.*
+«%Õ% _root_.controllers.agent.routes.G
+  ÷ ;test/controllers/agent/PendingRequestsSpec.scala@4166..4225r
+ﬂ˚h_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.U
+Õ,“,K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.%
+Ù*Ä+_root_.models.NotPermitted.G
+©(™(;test/controllers/agent/PendingRequestsSpec.scala@5161..5162z
+™∞p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.E
+Ù)á*;test/controllers/agent/PendingRequestsSpec.scala@5120..5244
+ïô_root_.play.o
+∆-œ-e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.o
+îñe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.E
+Ü$ä$;test/controllers/agent/PendingRequestsSpec.scala@4545..4589:
+Î3Ú30_root_.org.scalatest.words.MatcherWords#contain./
+Á!È!%_root_.org.scalatest.FlatSpecLike#it.
+ü©_root_.connectors._
+ÁÌU_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.r
+Ô"ã#h_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.I
+é3í3?_root_.scala.collection.IterableLike#drop(I)Ljava/lang/Object;.
+ÒÙ_root_.org.G
+°≠;test/controllers/agent/PendingRequestsSpec.scala@2717..2795E
+÷⁄;test/controllers/agent/PendingRequestsSpec.scala@2774..2774I
+ó®?_root_.controllers.agent.PendingRequestsSpec#displayPermission._
+ú3¢3U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.U
+≥∑K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.o
+ÁÈe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.?
+ﬁ4·45_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.
+öù_root_.play.api.
+ı˙_root_.org.jsoup.ô
+Œ1‘1å_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(values)Y
+Ü3ç3O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.E
+Å'Ö';test/controllers/agent/PendingRequestsSpec.scala@4942..49641
+œ5Ë5'_root_.utils.StubPropertyLinkConnector.7
+ƒ'»'-_root_.org.scalatest.words.MatcherWords#have.C
+”ﬁ9_root_.controllers.agent.PendingRequestsSpec#defaultHtml.E
+„,Ê,;test/controllers/agent/PendingRequestsSpec.scala@5731..5734Ç
+ñ3ô3x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.Å
+Î(Û(w_root_.controllers.agent.ReverseRepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Call;.(pageSize)u
+Ú
+ˆ
+k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.G
+Ã"œ";test/controllers/agent/PendingRequestsSpec.scala@4424..4513G
+ËÛ;test/controllers/agent/PendingRequestsSpec.scala@1764..1985*
+∑5…5 _root_.utils.StubAuthentication.d
+∂æZ_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.E
+ÚÚ9_root_.controllers.agent.PendingRequestsSpec#`<init>`()V.U
+¨2∞2K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.Q
+Ÿ⁄G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.(
+á&ä&_root_.play.api.mvc.Call#(url),
+ÀŸ"_root_.controllers.ControllerSpec#z
+òûp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;..
+ñ´$_root_.models.RepresentationPending.E
+ˆ(˜(;test/controllers/agent/PendingRequestsSpec.scala@5238..5239;
+±‘1_root_.utils.StubPropertyRepresentationConnector.2
+¥.Õ.(_root_.models.DetailedIndividualAccount#2
+á†(_root_.models.DetailedIndividualAccount#f
+‡¯\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.o
+Æ∞e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.+
+Éé!_root_.play.api.test.FakeRequest..
+	Ö
+$_root_.models.RepresentationPending.u
+åêk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.B
+π3ƒ38_root_.java.lang.String#toUpperCase()Ljava/lang/String;.G
+Ù¯;test/controllers/agent/PendingRequestsSpec.scala@3184..3206G
+ãè;test/controllers/agent/PendingRequestsSpec.scala@2439..2461Y
+–/“/O_root_.scala.runtime.RichInt#to(I)Lscala/collection/immutable/Range/Inclusive;.%
+∑-√-_root_.models.GroupAccount#u
+Í!Ó!k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.ç
+∏)º)Ç_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/ContainWord;)Lorg/scalatest/words/ResultOfContainWord;.*
+Õﬂ _root_.utils.StubAuthentication.ê
+…'Õ'Ö_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#size(JLorg/scalatest/enablers/Size;)Lorg/scalatest/compatible/Assertion;.;
+é5±51_root_.utils.StubPropertyRepresentationConnector.%
+∆1Ã1_root_.scala.Predef.String#(
+˘(¸(_root_.play.api.mvc.Call#(url)á
+ö∞}_root_.utils.StubPropertyRepresentationConnector.stubbedRepresentations(Lmodels/RepresentationStatus;)Lscala/collection/Seq;.Ç
+‰/Á/x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.
+µ∫_root_.scala.d
+µ!Ω!Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.o
+ø¡e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.E
+∑
+ª
+;test/controllers/agent/PendingRequestsSpec.scala@1153..1175è
+¶
+∂
+Ñ_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.E
+ËÏ;test/controllers/agent/PendingRequestsSpec.scala@3495..3539%
+–-‹-_root_.models.GroupAccount#G
+≈#…#;test/controllers/agent/PendingRequestsSpec.scala@4545..4589G
+›Â;test/controllers/agent/PendingRequestsSpec.scala@3545..3596ó
+°1•1ä_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(html)'
+ÿ#Á#_root_.play.api.test.Helpers.ï
+–2‘2ä_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(html)C
+˚Ü9_root_.controllers.agent.PendingRequestsSpec#defaultHtml.u
+ÁÎk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.U
+Æ'æ'K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.z
+¿%∆%p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
+“÷_root_.play.
+ˇÖ_root_.config.C
+¬Õ9_root_.controllers.agent.PendingRequestsSpec#defaultHtml.E
+Ë#Î#;test/controllers/agent/PendingRequestsSpec.scala@4584..4587T
+¬ﬁJ_root_.controllers.agent.PendingRequestsSpec#TestRepresentationController.u
+ÁÎk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;./
+âã%_root_.org.scalatest.FlatSpecLike#it.*
+˘Ü _root_.connectors.Authenticated.E
+≠+∏+9_root_.controllers.agent.PendingRequestsSpec#defaultHtml.E
+…–;test/controllers/agent/PendingRequestsSpec.scala@2467..2589A
+¡+∆+7_root_.controllers.agent.PendingRequestsSpec#setup(I)V.+
+˘Ñ!_root_.play.api.test.FakeRequest.)
+π#ª#_root_.play.api.http.Status#OK._
+ÌÛU_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.è
+§¥Ñ_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.¸
+ÿ4ÿ4Ò_root_.controllers.agent.RepresentationController#`<init>`(Lconfig/ApplicationConfig;Lconnectors/PropertyRepresentationConnector;Lactions/AuthenticatedAction;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;)V.%
+‡*Ê*_root_.scala.Predef.String#U
+Í'Ó'K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.G
+ÙÖ;test/controllers/agent/PendingRequestsSpec.scala@2800..2887u
+¿ƒk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.ò
+∏2ø2ç_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(heading)
+åë_root_.org.jsoup.ó
+À3—3å_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(values)G
+ÓÛ;test/controllers/agent/PendingRequestsSpec.scala@2154..2298T
+∏‘J_root_.controllers.agent.PendingRequestsSpec#TestRepresentationController.;
+ˆô1_root_.utils.StubPropertyRepresentationConnector.G
+≥∑;test/controllers/agent/PendingRequestsSpec.scala@1455..1477&
+◊)⁄)_root_.scala.collection.Seq.G
+Ã–;test/controllers/agent/PendingRequestsSpec.scala@1736..1758Ç
+≠∞x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.G
+√/ /;test/controllers/agent/PendingRequestsSpec.scala@6079..6197G
+Ñ(ó(;test/controllers/agent/PendingRequestsSpec.scala@5120..5244E
+›·;test/controllers/agent/PendingRequestsSpec.scala@1736..17581
+∆‘'_root_.scala.collection.JavaConverters.E
+©™;test/controllers/agent/PendingRequestsSpec.scala@1870..1871+
+ô,§,!_root_.play.api.test.FakeRequest.#
+÷1Ÿ1_root_.scala.package.Seq#K
+ÜóA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#%
+Øª_root_.models.GroupAccount#z
+∏æp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.*
+∑¿ _root_.org.scalacheck.Arbitrary./
+Ωø%_root_.org.scalatest.FlatSpecLike#it.-
+Ú5á6#_root_.utils.StubMessagesConnector#a
+˘2ˇ2W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.E
+Ò˙;test/controllers/agent/PendingRequestsSpec.scala@1483..1596*
+ôü _root_.controllers.agent.routes.
+ø _root_.controllers.3
+©µ)_root_.play.api.http.Status#UNAUTHORIZED.z
+íòp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.!
+Ã#—#_root_.org.jsoup.Jsoup.E
+ıÄ;test/controllers/agent/PendingRequestsSpec.scala@1764..1985
+û¢_root_.play.api.test.o
+° £ e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.o
+æ«e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.#
+Òˆ_root_.controllers.agent.R
+”/‚/H_root_.controllers.agent.PendingRequestsSpec#setup(I)V.(pendingRequests)r
+ı+ë,h_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.Ç
+ÉÜx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.E
+ó/£/;test/controllers/agent/PendingRequestsSpec.scala@5797..5874!
+é/ñ/_root_.models.Accounts./
+í&î&%_root_.org.scalatest.FlatSpecLike#it.
+·Á_root_.models.z
+Ô'ı'p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.á
+Ÿ	Ô	}_root_.utils.StubPropertyRepresentationConnector.stubbedRepresentations(Lmodels/RepresentationStatus;)Lscala/collection/Seq;.E
+ﬁ-‚-;test/controllers/agent/PendingRequestsSpec.scala@5854..5854G
+˜#É$;test/controllers/agent/PendingRequestsSpec.scala@4595..4654E
+ÈÍ;test/controllers/agent/PendingRequestsSpec.scala@2254..2255E
+Œ—;test/controllers/agent/PendingRequestsSpec.scala@3534..3537K
+‚4Í4A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.C
+†∏9_root_.controllers.agent.routes.RepresentationController.G
+°	≤	;test/controllers/agent/PendingRequestsSpec.scala@1181..1311*
+†6±6 _root_.config.ApplicationConfig#a
+Î4ı4W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.ë
+ê1†1Ñ_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.u
+æ¬k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;..
+ÏÅ$_root_.models.RepresentationPending.è
+Ã‹Ñ_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.R
+ì¢H_root_.controllers.agent.PendingRequestsSpec#setup(I)V.(pendingRequests)G
+Æ ≤ ;test/controllers/agent/PendingRequestsSpec.scala@4138..4160E
+•/∂/;test/controllers/agent/PendingRequestsSpec.scala@5879..5966G
+Ó&˛&;test/controllers/agent/PendingRequestsSpec.scala@4970..50324
+ââ*_root_.org.scalatest.FlatSpec#`<init>`()V.C
+∫≈9_root_.controllers.agent.PendingRequestsSpec#defaultHtml.á
+’Î}_root_.utils.StubPropertyRepresentationConnector.stubbedRepresentations(Lmodels/RepresentationStatus;)Lscala/collection/Seq;.E
+ûØ;test/controllers/agent/PendingRequestsSpec.scala@2800..2887z
+∞∂p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.u
+ï&ô&k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.
+◊⁄_root_.play.api.D
+´æ:_root_.models.PropertyRepresentation#(challengePermission)
+Çã_root_.resources.w
+Á%É&m_root_.controllers.agent.ReverseRepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Call;.)
+ø,¡,_root_.play.api.http.Status#OK.R
+≠"º"H_root_.controllers.agent.PendingRequestsSpec#setup(I)V.(pendingRequests)Ç
+»Àx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ö
+Ω1ƒ1ç_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(heading)Ç
+á
+ä
+x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;..
+±∆$_root_.models.RepresentationPending.C
+¸,Å-7_root_.controllers.agent.PendingRequestsSpec#setup(I)V.C
+µ(Õ(9_root_.controllers.agent.routes.RepresentationController.;
+µ	ÿ	1_root_.utils.StubPropertyRepresentationConnector.,
+˙à"_root_.controllers.ControllerSpec#G
+ªø;test/controllers/agent/PendingRequestsSpec.scala@3895..3917B
+ˆ3Å48_root_.java.lang.String#toUpperCase()Ljava/lang/String;.á
+ˇï}_root_.utils.StubPropertyRepresentationConnector.stubbedRepresentations(Lmodels/RepresentationStatus;)Lscala/collection/Seq;.2
+≠∆(_root_.models.DetailedIndividualAccount#o
+¶®e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.K
+™∑A_root_.connectors.Authenticated.;_root_.connectors.Authenticated#E
+’
+Ê
+;test/controllers/agent/PendingRequestsSpec.scala@1181..1311'
+æÕ_root_.play.api.test.Helpers.
+ì-ñ-_root_.scala.Int#G
+´Ø;test/controllers/agent/PendingRequestsSpec.scala@3495..3539r
+’Òh_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.*
+Ä/ç/ _root_.connectors.Authenticated.o
+ÑÜe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V."9
+"_root_.controllers.ControllerSpec#Ä@ControllerSpec")
+_root_.scala.collection.Seq.	ÄÑSeq"Ä
+å_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/HaveWord;)Lorg/scalatest/MustMatchers/ResultOfHaveWordForExtent;.Ómust2(haveWord: HaveWord): ResultOfHaveWordForExtent[T]",
+$_root_.org.scalatest.words.HaveWord#"D
+/<_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#"<
+014_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"I
+-_root_.controllers.agent.PendingRequestsSpec#Ä PendingRequestsSpec"∏
+Ñ_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.ÆÑÄcheckTableColumnH(html: Document, index: Int, heading: String, values: Seq[String]): Unit"(
+ _root_.org.jsoup.nodes.Document#"
+_root_.scala.Int#"#
+&,_root_.scala.Predef.String#"!
+69_root_.scala.package.Seq#"#
+:@_root_.scala.Predef.String#"
+DH_root_.scala.Unit#"$
+_root_.play.api.test.ÄàÄtest"™
+;test/controllers/agent/PendingRequestsSpec.scala@1181..1311korganisationNamesSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"c
+;test/controllers/agent/PendingRequestsSpec.scala@5161..5162$ÄnInt"
+_root_.scala.Int#"õ
+7_root_.controllers.agent.PendingRequestsSpec#setup(I)V.`ÑÄsetup(pendingRequests: Int): Unit"
+_root_.scala.Int#"
+_root_.scala.Unit#"ä
+;test/controllers/agent/PendingRequestsSpec.scala@6175..6196Kx$15RepresentationPending"*
+$_root_.models.RepresentationPending."ü
+;test/controllers/agent/PendingRequestsSpec.scala@5879..5966`individualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"ä
+;test/controllers/agent/PendingRequestsSpec.scala@1870..1871KÄrPropertyRepresentation"+
+%_root_.models.PropertyRepresentation#"Ï
+Ç_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/ContainWord;)Lorg/scalatest/words/ResultOfContainWord;.‰must2(containWord: ContainWord): ResultOfContainWord[T]"/
+'_root_.org.scalatest.words.ContainWord#"7
+//_root_.org.scalatest.words.ResultOfContainWord#"<
+014_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"6
+!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"Õ
+Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.owithClue(clue: Any): T"
+
+_root_.scala.Any#"6
+._root_.org.scalatest.AppendedClues#Clueful#[T]"o
+-_root_.org.scalatest.words.MatcherWords#have.>haveHaveWord"*
+$_root_.org.scalatest.words.HaveWord#"-
+_root_.scala.collection.ÄàÄ
+collection"'
+_root_.connectors.ÄàÄ
+connectors"Ô
+å_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(values)^ÄvaluesSeq[String]"
+_root_.scala.package.Seq#"#
+
+_root_.scala.Predef.String#"¢
+;test/controllers/agent/PendingRequestsSpec.scala@5582..5671cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"^
+1_root_.utils.StubPropertyRepresentationConnector.)ÄÑ#StubPropertyRepresentationConnector"‘
+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Í	arbitrary)[T] => (implicit a: Arbitrary[T]): Gen[T]"(
+ _root_.org.scalacheck.Arbitrary#"p
+h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]""
+#&_root_.org.scalacheck.Gen#"p
+'(h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]"S
+2_root_.controllers.agent.RepresentationController#Ä RepresentationController"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"Î
+t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"
+JN_root_.scala.Long#"(
+Yj _root_.models.IndividualDetails#"1
+mÜ(_root_.models.DetailedIndividualAccount#"1
+ _root_.controllers.agent.routes.ÄÑàroutes"Ä
+;test/controllers/agent/PendingRequestsSpec.scala@2717..2795AgroupAccountGroupAccount"!
+_root_.models.GroupAccount#"f
+;test/controllers/agent/PendingRequestsSpec.scala@5854..5854'x$8Long"
+_root_.scala.Long#"{
+7_root_.models.PropertyRepresentation#(organisationName)@ÅorganisationNameString"!
+_root_.scala.Predef.String#"y
+;test/controllers/agent/PendingRequestsSpec.scala@4138..4160:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"y
+;test/controllers/agent/PendingRequestsSpec.scala@3495..3539:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"Ê
+I_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.ò<init>5(appConfig: ApplicationConfig): StubMessagesConnector"(
+ _root_.config.ApplicationConfig#"+
+ 5#_root_.utils.StubMessagesConnector#"g
+;test/controllers/agent/PendingRequestsSpec.scala@2774..2774(x$30Long"
+_root_.scala.Long#"~
+;test/controllers/agent/PendingRequestsSpec.scala@3923..3974?nextLinkElements"'
+!_root_.org.jsoup.select.Elements#"|
+8_root_.java.lang.String#toUpperCase()Ljava/lang/String;.@ÑÄÄtoUpperCase
+(): String" 
+
+_root_.java.lang.String#"¢
+;test/controllers/agent/PendingRequestsSpec.scala@1483..1596c	addressesSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"~
+;test/controllers/agent/PendingRequestsSpec.scala@3545..3596?nextLinkElements"'
+!_root_.org.jsoup.select.Elements#"ç
+Ö_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#size(JLorg/scalatest/enablers/Size;)Lorg/scalatest/compatible/Assertion;.Çsize5(expectedSize: Long)(implicit sz: Size[A]): Assertion"
+_root_.scala.Long#"+
+"&#_root_.org.scalatest.enablers.Size#"G
+'(?_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#[A]"/
+,5'_root_.org.scalatest.package.Assertion#"î
+4_root_.java.util.ArrayList#get(I)Ljava/lang/Object;.\ÑÄÄget(x$1: Int): E"
+	_root_.scala.Int#"&
+_root_.java.util.ArrayList#[E]"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"‡
+N_root_.org.scalatest.Assertions#pending()Lorg/scalatest/compatible/Assertion;.çpending!Assertion with PendingStatement{}"-
+	'_root_.org.scalatest.package.Assertion#".
+&_root_.org.scalatest.PendingStatement#"£
+;test/controllers/agent/PendingRequestsSpec.scala@4584..4587dx$40Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"ø
+9_root_.controllers.agent.routes.RepresentationController.ÅÅÄàRepresentationControllerReverseRepresentationController"?
+9_root_.controllers.agent.ReverseRepresentationController#"∏
+}_root_.utils.StubPropertyRepresentationConnector.stubbedRepresentations(Lmodels/RepresentationStatus;)Lscala/collection/Seq;.∂ÇÄstubbedRepresentations_=((x$1: Seq[PropertyRepresentation]): Unit"!
+	_root_.scala.package.Seq#"-
+
+ %_root_.models.PropertyRepresentation#"
+$(_root_.scala.Unit#"
+_root_.play.api.
+ÄàÄapi"7
+_root_.models.AgentPermission#Ä¿AgentPermission"~
+H_root_.controllers.agent.PendingRequestsSpec#setup(I)V.(pendingRequests)2ÄpendingRequestsInt"
+_root_.scala.Int#"®
+;test/controllers/agent/PendingRequestsSpec.scala@6469..6597idataBuffer[String]"-
+'_root_.scala.collection.mutable.Buffer#" 
+_root_.java.lang.String#"u
+8_root_.org.jsoup.nodes.Element#text()Ljava/lang/String;.9ÑÄÄtext
+(): String" 
+
+_root_.java.lang.String#"[
+)_root_.play.api.http.Status#UNAUTHORIZED..UNAUTHORIZEDInt"
+_root_.scala.Int#"ü
+;test/controllers/agent/PendingRequestsSpec.scala@2800..2887`individualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"ê
+K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.A†Ä herePosition"+
+%_root_.org.scalactic.source.Position#"Ã
+U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.sÑÄÄselect(x$1: String): Elements" 
+_root_.java.lang.String#")
+!_root_.org.jsoup.select.Elements#"¬
+s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
+	_root_.scala.Long#"#
+_root_.scala.Predef.String#"#
+)/_root_.scala.Predef.String#"
+<?_root_.scala.Int#"#
+HN_root_.scala.Predef.String#"#
+W]_root_.scala.Predef.String#"
+ho_root_.scala.Boolean#"
+|Ä_root_.scala.Long#"%
+Éè_root_.models.GroupAccount#"Œ
+;test/controllers/agent/PendingRequestsSpec.scala@5120..5244épendingRequestsLinkFunction1[Int, String]"
+	_root_.scala.Function1#"
+
+_root_.scala.Int#"#
+_root_.scala.Predef.String#"y
+;test/controllers/agent/PendingRequestsSpec.scala@1455..1477:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"D
+$_root_.models.RepresentationPending.ÄÑàRepresentationPending"'
+_root_.org.jsoup.Jsoup.ÄÑàJsoup"¢
+;test/controllers/agent/PendingRequestsSpec.scala@4424..4513cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"%
+_root_.resources.ÄàÄ	resources"¶
+w_root_.controllers.agent.ReverseRepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Call;.(pageSize)+ÄpageSizeInt"
+_root_.scala.Int#"ù
+;test/controllers/agent/PendingRequestsSpec.scala@2467..2589^actionsSeq[String]""
+_root_.scala.collection.Seq#" 
+
+_root_.java.lang.String#"‹
+ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.¿mustu[TYPECLASS1] => (rightMatcherFactory1: MatcherFactory1[T, TYPECLASS1])(implicit typeClass1: TYPECLASS1[T]): Assertion"6
+'6._root_.org.scalatest.matchers.MatcherFactory1#"<
+784_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"´
+:D¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"´
+\f¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"<
+gh4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"/
+lu'_root_.org.scalatest.package.Assertion#"£
+;test/controllers/agent/PendingRequestsSpec.scala@5731..5734dx$26Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"7
+ _root_.connectors.Authenticated.ÄÑAuthenticated"y
+;test/controllers/agent/PendingRequestsSpec.scala@1153..1175:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"
+_root_.org.
+ÄàÄorg"e
+;test/controllers/agent/PendingRequestsSpec.scala@5238..5239&x$43Int"
+_root_.scala.Int#"´
+?_root_.scala.collection.IterableLike#drop(I)Ljava/lang/Object;.hdrop(n: Int): Repr"
+_root_.scala.Int#"3
+
++_root_.scala.collection.IterableLike#[Repr]"i
+._root_.models.PropertyRepresentation#(address)7ÅaddressString"!
+_root_.scala.Predef.String#"„
+p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.omustBe(right: Any): Assertion"
+_root_.scala.Any#"/
+'_root_.org.scalatest.package.Assertion#"y
+;test/controllers/agent/PendingRequestsSpec.scala@2439..2461:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"y
+;test/controllers/agent/PendingRequestsSpec.scala@3895..3917:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"'
+_root_.org.jsoup.nodes.ÄàÄnodes"2
+_root_.models.GroupAccount#Ä†ÄGroupAccount" 
+ä_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(html);ÄhtmlDocument"&
+ _root_.org.jsoup.nodes.Document#"Ö
+6_root_.models.PropertyRepresentation#(checkPermission)KÅcheckPermissionAgentPermission"$
+_root_.models.AgentPermission#"2
+_root_.models.NotPermitted.ÄÑàNotPermitted"F
+%_root_.models.PropertyRepresentation#Ä†ÄPropertyRepresentation"p
+;test/controllers/agent/PendingRequestsSpec.scala@6620..66211ÄvString"!
+_root_.scala.Predef.String#"∫
+x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ΩmapQ[B, That] => (f: Function1[A, B])(implicit bf: CanBuildFrom[Repr, B, That]): That"
+_root_.scala.Function1#"3
++_root_.scala.collection.TraversableLike#[A]"É
+{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+/;-_root_.scala.collection.generic.CanBuildFrom#"6
+<@._root_.scala.collection.TraversableLike#[Repr]"É
+BC{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ü
+EI~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ü
+MQ~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"∞
+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"∏
+ã_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(index)(ÄindexInt"
+_root_.scala.Int#"{
+0_root_.org.scalatest.words.MatcherWords#contain.GcontainContainWord"-
+'_root_.org.scalatest.words.ContainWord#"Œ
+W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.sÑÄÄselect(x$1: String): Elements" 
+_root_.java.lang.String#")
+!_root_.org.jsoup.select.Elements#"?
+'_root_.scala.collection.JavaConverters.ÄÑJavaConverters".
+_root_.play.api.test.Helpers.ÄÑHelpers"ó
+9_root_.controllers.agent.PendingRequestsSpec#`<init>`()V.Z<init>(): PendingRequestsSpec"5
+-_root_.controllers.agent.PendingRequestsSpec#"ü
+O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.LasScalaA"<
+6_root_.scala.collection.convert.Decorators#AsScala#[A]"¡
+∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
+_root_.scala.Predef.String#">
+96_root_.org.scalatest.words.StringVerbStringInvocation#">
+<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"Î
+?_root_.controllers.agent.PendingRequestsSpec#displayPermission.ßÅÄdisplayPermission"Function1[AgentPermission, String]"
+	_root_.scala.Function1#"&
+
+_root_.models.AgentPermission#"#
+!_root_.scala.Predef.String#"√
+L_root_.utils.Formatters.formatDate(Ljava/time/LocalDate;)Ljava/lang/String;.s
+formatDate(date: LocalDate): String"#
+_root_.java.time.LocalDate#"#
+_root_.scala.Predef.String#"ä
+W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.ÆÑÄ
+instanceOf,[T] => (implicit evidence$1: ClassTag[T]): T"&
+%_root_.scala.reflect.ClassTag#"b
+&'Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"b
++,Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"
+_root_.play.ÄàÄplay"+
+_root_.org.scalacheck.ÄàÄ
+scalacheck"A
+#_root_.utils.StubMessagesConnector#Ä StubMessagesConnector"£
+;test/controllers/agent/PendingRequestsSpec.scala@3534..3537dx$37Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"g
+;test/controllers/agent/PendingRequestsSpec.scala@6161..6161(x$16Long"
+_root_.scala.Long#"ˆ
+k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.Ümust(string: String): ItVerbString"#
+	_root_.scala.Predef.String#"7
+/_root_.org.scalatest.FlatSpecLike#ItVerbString#"3
+ _root_.org.scalacheck.Arbitrary.ÄÑ	Arbitrary"Ó
+\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.çstubAuthenticationResult#(result: AuthorisationResult): Unit".
+	&_root_.connectors.AuthorisationResult#"
+#_root_.scala.Unit#"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"
+_root_.models.ÄàÄmodels"ç
+:_root_.models.PropertyRepresentation#(challengePermission)OÅchallengePermissionAgentPermission"$
+_root_.models.AgentPermission#"¡
+h_root_.controllers.agent.RepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Action;.‘pendingRepresentationRequest.(page: Int, pageSize: Int): Action[AnyContent]"
+
+_root_.scala.Int#"
+_root_.scala.Int#"#
+"_root_.play.api.mvc.Action#"'
+#-_root_.play.api.mvc.AnyContent#"Ä
+9_root_.controllers.agent.PendingRequestsSpec#defaultHtml.CÅÄ@defaultHtmlDocument"&
+ _root_.org.jsoup.nodes.Document#"y
+;test/controllers/agent/PendingRequestsSpec.scala@3184..3206:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"ì
+^_root_.utils.StubPropertyRepresentationConnector.stubRepresentations(Lscala/collection/Seq;)V.∞stubRepresentations)(reps: Seq[PropertyRepresentation]): Unit"!
+
+_root_.scala.package.Seq#"-
+!%_root_.models.PropertyRepresentation#"
+%)_root_.scala.Unit#"§
+;test/controllers/agent/PendingRequestsSpec.scala@1764..1985epermissionsSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"ç
+m_root_.controllers.agent.ReverseRepresentationController#pendingRepresentationRequest(II)Lplay/api/mvc/Call;.õpendingRepresentationRequest (page: Int, pageSize: Int): Call"
+
+_root_.scala.Int#"
+_root_.scala.Int#"!
+ _root_.play.api.mvc.Call#"y
+;test/controllers/agent/PendingRequestsSpec.scala@4942..4964:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"¢
+;test/controllers/agent/PendingRequestsSpec.scala@3000..3089cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"p
+J_root_.controllers.agent.PendingRequestsSpec#TestRepresentationController."ÄÑ	TestRepresentationController"¢
+;test/controllers/agent/PendingRequestsSpec.scala@3374..3463cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#")
+_root_.controllers.ÄàÄcontrollers" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"
+_root_.utils.ÄàÄutils"<
+ _root_.utils.StubAuthentication.ÄÑStubAuthentication"
+_root_.config.ÄàÄconfig"!
+_root_.org.jsoup.ÄàÄjsoup"Ç
+;test/controllers/agent/PendingRequestsSpec.scala@4166..4225CpreviousLinkElements"'
+!_root_.org.jsoup.select.Elements#"ä
+;test/controllers/agent/PendingRequestsSpec.scala@2254..2255KÄrPropertyRepresentation"+
+%_root_.models.PropertyRepresentation#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq.")
+_root_.controllers.agent.ÄàÄagent"û
+;test/controllers/agent/PendingRequestsSpec.scala@2154..2298_datesSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"
+_root_.scala.ÄàÄscala"˙
+ﬁ_root_.models.PropertyRepresentation#`<init>`(JJLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lmodels/AgentPermission;Lmodels/AgentPermission;Ljava/time/LocalDate;Lmodels/RepresentationStatus;)V.ñ<init>¬(representationId: Long, authorisationId: Long, billingAuthorityReference: String, submissionId: String, organisationId: Long, organisationName: String, address: String, checkPermission: AgentPermission, challengePermission: AgentPermission, createDatetime: LocalDate, status: RepresentationStatus): PropertyRepresentation"
+_root_.scala.Long#"
+*._root_.scala.Long#"#
+KQ_root_.scala.Predef.String#"#
+ag_root_.scala.Predef.String#"
+y}_root_.scala.Long#"%
+ëó_root_.scala.Predef.String#"%
+¢®_root_.scala.Predef.String#"(
+ª _root_.models.AgentPermission#"(
+·_root_.models.AgentPermission#"%
+Çã_root_.java.time.LocalDate#"-
+ï©#_root_.models.RepresentationStatus#"/
+¨¬%_root_.models.PropertyRepresentation#"”
+;test/controllers/agent/PendingRequestsSpec.scala@6079..6197ìpending"IndexedSeq[PropertyRepresentation]"3
+
+-_root_.scala.collection.immutable.IndexedSeq#"-
+!%_root_.models.PropertyRepresentation#"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"¶
+Ò_root_.controllers.agent.RepresentationController#`<init>`(Lconfig/ApplicationConfig;Lconnectors/PropertyRepresentationConnector;Lactions/AuthenticatedAction;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;)V.Ø<init>›(config: ApplicationConfig, reprConnector: PropertyRepresentationConnector, authenticated: AuthenticatedAction, propertyLinkConnector: PropertyLinkConnector, messagesConnector: MessagesConnector): RepresentationController"(
+	 _root_.config.ApplicationConfig#":
++J2_root_.connectors.PropertyRepresentationConnector#"+
+[n#_root_.actions.AuthenticatedAction#"B
+áú8_root_.connectors.propertyLinking.PropertyLinkConnector#".
+±¬$_root_.connectors.MessagesConnector#"<
+≈›2_root_.controllers.agent.RepresentationController#"…
+ç_root_.controllers.agent.PendingRequestsSpec#checkTableColumn(Lorg/jsoup/nodes/Document;ILjava/lang/String;Lscala/collection/Seq;)V.(heading)7ÄheadingString"!
+_root_.scala.Predef.String#"y
+;test/controllers/agent/PendingRequestsSpec.scala@2126..2148:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"±
+A_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.Îforeach![U] => (f: Function1[A, U]): Unit"
+_root_.scala.Function1#"0
+(_root_.scala.collection.IterableLike#[A]"L
+D_root_.scala.collection.IterableLike#foreach(Lscala/Function1;)V.[U]"
+!_root_.scala.Unit#"J
+'_root_.utils.StubPropertyLinkConnector.ÄÑStubPropertyLinkConnector"∆
+¨_root_.org.scalatest.words.ResultOfContainWord#theSameElementsAs(Lscala/collection/GenTraversable;Lorg/scalatest/enablers/Aggregating;)Lorg/scalatest/compatible/Assertion;.îtheSameElementsAs\(right: scala.collection.GenTraversable[_])(implicit aggregating: Aggregating[L]): Assertion"2
+BM*_root_.org.scalatest.enablers.Aggregating#":
+NO2_root_.org.scalatest.words.ResultOfContainWord#[L]"/
+S\'_root_.org.scalatest.package.Assertion#"n
+*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
+_root_.org.scalatest.FlatSpec#"L
+(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"«
+O_root_.scala.runtime.RichInt#to(I)Lscala/collection/immutable/Range/Inclusive;.tto(end: Int): Inclusive"
+	_root_.scala.Int#":
+2_root_.scala.collection.immutable.Range.Inclusive#")
+_root_.models.Accounts.ÄÑAccounts"Ç
+;test/controllers/agent/PendingRequestsSpec.scala@4595..4654CpreviousLinkElements"'
+!_root_.org.jsoup.select.Elements#",
+_root_.utils.Formatters.ÄÑ
+Formatters"É
+A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.>injectorInjector"&
+ _root_.play.api.inject.Injector#"
+_root_.scala.Int#	Ä†Int"j
+%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
+)_root_.org.scalatest.FlatSpecLike#ItWord#"Ä
+;test/controllers/agent/PendingRequestsSpec.scala@5797..5874AgroupAccountGroupAccount"!
+_root_.models.GroupAccount#"s
+5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.:ÅÄ`appApplication""
+_root_.play.api.Application#"3
+ _root_.org.jsoup.nodes.Document#Ä†ÄDocument"G
+_root_.play.api.http.Status#OK.$OKInt"
+_root_.scala.Int#"y
+;test/controllers/agent/PendingRequestsSpec.scala@4545..4589:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"¥
+>_root_.org.jsoup.nodes.Document#`<init>`(Ljava/lang/String;)V.ràÄÄ<init>(x$1: String): Document" 
+_root_.java.lang.String#"(
+ _root_.org.jsoup.nodes.Document#"º
+;test/controllers/agent/PendingRequestsSpec.scala@4970..5032}pageSizeControlsBuffer[Element]"-
+'_root_.scala.collection.mutable.Buffer#"'
+_root_.org.jsoup.nodes.Element#"z
+5_root_.models.PropertyRepresentation#(createDatetime)AÅcreateDatetime	LocalDate"!
+	_root_.java.time.LocalDate#"∂
+k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#"y
+;test/controllers/agent/PendingRequestsSpec.scala@1736..1758:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"¿
+K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.qÑÄÄparse(x$1: String): Document" 
+_root_.java.lang.String#"(
+ _root_.org.jsoup.nodes.Document#2z
+Œ.Œ.**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2Ì
+¶*¶**(org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
+_star_. 
+GM_root_.java.lang.String#/
+OU'_root_.scala.collection.mutable.Buffer#ì
+%Fä_root_.org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Aggregating;.H
+nu@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;. 
+v|_root_.java.lang.String#2¸
+·3Â3†PendingRequestsSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 176), org.scalactic.Prettifier.default)ª
+0≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;. 
+8>_root_.java.lang.String#/
+17'_root_.scala.collection.mutable.Buffer#
+AB_star_.y
+bgq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+òü(_root_.org.scalactic.Prettifier.default.2∆
+¡¡,*(scala.collection.Seq.canBuildFrom[String])
+_star_.#
+$*_root_.scala.Predef.String#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2V
+Ÿ3Ÿ3*[Assertion]
+_star_./
+'_root_.org.scalatest.package.Assertion#2Y
+Í3Í3*[Containing]
+_star_.1
+)_root_.org.scalatest.enablers.Containing#2…
+∆-›-1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2÷
+à5à5h*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
+_star_.(
+Te _root_.config.ApplicationConfig#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
+$ _root_.config.ApplicationConfig#&
+KS_root_.scala.reflect.ClassTag#2Ë
+Ç4Ç4}*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
+_star_.H
+ls@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.ê
+$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;. 
+EK_root_.java.lang.String#/
+MS'_root_.scala.collection.mutable.Buffer# 
+tz_root_.java.lang.String#2ò
+œ'œ'D*(org.scalatest.enablers.Size.sizeOfGenTraversable[Buffer[Element]])
+_star_._
+2W_root_.org.scalatest.enablers.Size.sizeOfGenTraversable()Lorg/scalatest/enablers/Size;./
+39'_root_.scala.collection.mutable.Buffer#'
+:A_root_.org.jsoup.nodes.Element#2&
+Ï#Ï#*(x$41, x$42)
+_star_.2∏
+ñ°îPendingRequestsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 79), org.scalactic.Prettifier.default)ª
+0≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+14_root_.scala.Int#
+67_star_.y
+W\q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+åì(_root_.org.scalactic.Prettifier.default.2—
+é&é&º*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 118))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2¢
+‘'Ó'ìPendingRequestsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 140), org.scalactic.Prettifier.default)¡
+3∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+45_star_.y
+UZq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ãí(_root_.org.scalactic.Prettifier.default.2–
+’’ª*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 65))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2°
+å∑íPendingRequestsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 85), org.scalactic.Prettifier.default)¡
+3∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+45_star_.y
+UZq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+äë(_root_.org.scalactic.Prettifier.default.2—
+„!„!º*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 110))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2√
+ùù,*(scala.collection.Seq.canBuildFrom[String])
+_star_. 
+$*_root_.java.lang.String#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2˘
+íº7PendingRequestsSpec.this.convertToClueful[Assertion](*)/
+*3'_root_.org.scalatest.package.Assertion#t
+)l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;.
+56_star_.2˘
+á!¥!7PendingRequestsSpec.this.convertToClueful[Assertion](*)/
+*3'_root_.org.scalatest.package.Assertion#t
+)l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;.
+56_star_.2¸
+Ç)∑)†PendingRequestsSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 144), org.scalactic.Prettifier.default)ª
+0≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;. 
+8>_root_.java.lang.String#/
+17'_root_.scala.collection.mutable.Buffer#
+AB_star_.y
+bgq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+òü(_root_.org.scalactic.Prettifier.default.2m
+ıı*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2∆
+˙˙,*(scala.collection.Seq.canBuildFrom[String])
+_star_.#
+$*_root_.scala.Predef.String#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2§
+˜˜=*(PendingRequestsSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+<D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2ì
+Ú3Ú3*.apply
+_star_.q
+i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2|
+ò,ò,*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2°
+ëíPendingRequestsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 99), org.scalactic.Prettifier.default)¡
+3∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+45_star_.y
+UZq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+äë(_root_.org.scalactic.Prettifier.default.2|
+¯¯*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2°
+é©íPendingRequestsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 35), org.scalactic.Prettifier.default)¡
+3∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+45_star_.y
+UZq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+äë(_root_.org.scalactic.Prettifier.default.2¢
+ö%ø%ìPendingRequestsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 129), org.scalactic.Prettifier.default)¡
+3∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+45_star_.y
+UZq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ãí(_root_.org.scalactic.Prettifier.default.2π
+¶#±#ïPendingRequestsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 122), org.scalactic.Prettifier.default)ª
+0≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+14_root_.scala.Int#
+67_star_.y
+W\q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+çî(_root_.org.scalactic.Prettifier.default.2n
+ÑÑ*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2}
+ç/ç/*.apply
+_star_.[
+S_root_.connectors.Authenticated.apply(Lmodels/Accounts;)Lconnectors/Authenticated;.2|
+í#í#*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2Î
+Á/Á/=*[PropertyRepresentation, IndexedSeq[PropertyRepresentation]]
+_star_.-
+%_root_.models.PropertyRepresentation#5
+$-_root_.scala.collection.immutable.IndexedSeq#-
+%;%_root_.models.PropertyRepresentation#2„
+™.Œ.>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2ü
+∞∞*[String, Seq[String]]
+_star_.#
+_root_.scala.Predef.String#$
+
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2…
+æ’1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2ô
+ÜÜ*[String, Seq[String]]
+_star_. 
+_root_.java.lang.String#$
+
+_root_.scala.collection.Seq# 
+_root_.java.lang.String#2x
+ŸŸ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2ü
+ÀÀ*[String, Seq[String]]
+_star_.#
+_root_.scala.Predef.String#$
+
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2—
+‡‡º*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 102))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ë
+ñ/ñ/*.apply
+_star_.o
+g_root_.models.Accounts.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;)Lmodels/Accounts;.2~
+›-›-,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2ò
+Å'†'Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
+ 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
+7>_root_.org.jsoup.nodes.Element#
+@A_star_.2¡
+å©ôPendingRequestsSpec.this.convertToAnyMustWrapper[Boolean](*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 107), org.scalactic.Prettifier.default)ª
+0≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+18_root_.scala.Boolean#
+:;_star_.y
+[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ëò(_root_.org.scalactic.Prettifier.default.2í
+ê0ê06*(resources.`package`.arbitraryPropertyRepresentation)
+_star_.A
+59_root_.resources.package.arbitraryPropertyRepresentation.2¡
+¥$’$ôPendingRequestsSpec.this.convertToAnyMustWrapper[Boolean](*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 128), org.scalactic.Prettifier.default)ª
+0≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+18_root_.scala.Boolean#
+:;_star_.y
+[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ëò(_root_.org.scalactic.Prettifier.default.2–
+∑∑ª*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 58))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ü
+ÀÀ*[String, Seq[String]]
+_star_.#
+_root_.scala.Predef.String#$
+
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2z
+««**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2∏
+åóîPendingRequestsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 92), org.scalactic.Prettifier.default)ª
+0≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+14_root_.scala.Int#
+67_star_.y
+W\q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+åì(_root_.org.scalactic.Prettifier.default.2|
+ÇÇ*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2ß
+ô3ô3*[String, Buffer[String]]
+_star_. 
+_root_.java.lang.String# 
+_root_.java.lang.String#/
+
+'_root_.scala.collection.mutable.Buffer#2Ÿ
+≈3≈37*(scala.collection.mutable.Buffer.canBuildFrom[String])
+_star_.e
+".]_root_.scala.collection.mutable.Buffer.canBuildFrom()Lscala/collection/generic/CanBuildFrom;. 
+/5_root_.java.lang.String#2m
+Ó)Ó)*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2m
+á*á**.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2„
+£«>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2›
+Ô/ê0;resources.`package`.getArbitrary[PropertyRepresentation](*)-
+!7%_root_.models.PropertyRepresentation#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+9:_star_.2–
+‡‡ª*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 88))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2˘
+åµ7PendingRequestsSpec.this.convertToClueful[Assertion](*)/
+*3'_root_.org.scalatest.package.Assertion#t
+)l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;.
+56_star_.2ü
+ä
+ä
+*[String, Seq[String]]
+_star_.#
+_root_.scala.Predef.String#$
+
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2ë
+èè*.apply
+_star_.o
+g_root_.models.Accounts.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;)Lmodels/Accounts;.2n
+û#û#*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2Ñ
+Æ'æ'°PendingRequestsSpec.this.convertToAnyMustWrapper[Buffer[Element]](*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 139), org.scalactic.Prettifier.default)ª
+0≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
+17'_root_.scala.collection.mutable.Buffer#'
+8?_root_.org.jsoup.nodes.Element#
+BC_star_.y
+chq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ô†(_root_.org.scalactic.Prettifier.default.2˘
+¥$‚$7PendingRequestsSpec.this.convertToClueful[Assertion](*)/
+*3'_root_.org.scalatest.package.Assertion#t
+)l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;.
+56_star_.2–
+ˇˇª*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 42))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Ç
+µ0µ0M*(scala.collection.immutable.IndexedSeq.canBuildFrom[PropertyRepresentation])
+_star_.-
+5K%_root_.models.PropertyRepresentation#k
+(4c_root_.scala.collection.immutable.IndexedSeq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2&
+““*(x$38, x$39)
+_star_.2–
+ÖÖª*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 49))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2p
+Œ/œ/scala.Predef.intWrapper(*)9
+1_root_.scala.LowPriorityImplicits#intWrapper(I)I.
+_star_.2˝
+é˜7PendingRequestsSpec.this.convertToInAndIgnoreMethods(*)®
+4ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+56_star_.2π
+¨,∑,ïPendingRequestsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 156), org.scalactic.Prettifier.default)ª
+0≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+14_root_.scala.Int#
+67_star_.y
+W\q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+çî(_root_.org.scalactic.Prettifier.default.2&
+Á,Á,*(x$27, x$28)
+_star_.2m
+®®*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2∆
+ü
+ü
+,*(scala.collection.Seq.canBuildFrom[String])
+_star_.#
+$*_root_.scala.Predef.String#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2n
+§,§,*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2}
+ÜÜ*.apply
+_star_.[
+S_root_.connectors.Authenticated.apply(Lmodels/Accounts;)Lconnectors/Authenticated;.2ò
+–2Ö3Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
+ 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
+7>_root_.org.jsoup.nodes.Element#
+@A_star_.2–
+∆∆ª*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 82))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2¿
+íØòPendingRequestsSpec.this.convertToAnyMustWrapper[Boolean](*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 98), org.scalactic.Prettifier.default)ª
+0≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+18_root_.scala.Boolean#
+:;_star_.y
+[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+êó(_root_.org.scalactic.Prettifier.default.2—
+™*™*º*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 132))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2÷
+≤6≤6h*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
+_star_.(
+Te _root_.config.ApplicationConfig#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
+$ _root_.config.ApplicationConfig#&
+KS_root_.scala.reflect.ClassTag#2–
+Î
+Î
+ª*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 35))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2n
+éé*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2m
+†*†**.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2«
+⁄)⁄)*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.#
+_root_.scala.Predef.String#2¢
+Î1∞2ìPendingRequestsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 172), org.scalactic.Prettifier.default)¡
+3∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+45_star_.y
+UZq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ãí(_root_.org.scalactic.Prettifier.default.2¡
+á!®!ôPendingRequestsSpec.this.convertToAnyMustWrapper[Boolean](*)(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 115), org.scalactic.Prettifier.default)ª
+0≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+18_root_.scala.Boolean#
+:;_star_.y
+[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+ëò(_root_.org.scalactic.Prettifier.default.2~
+’’,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2∆
+ºº,*(scala.collection.Seq.canBuildFrom[String])
+_star_.#
+$*_root_.scala.Predef.String#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2–
+ππª*(org.scalactic.source.Position.apply("PendingRequestsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 72))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.:Scala211B∫6/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.agent
+
+import config.ApplicationConfig
+import connectors.Authenticated
+import controllers.ControllerSpec
+import models._
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.scalacheck.Arbitrary.arbitrary
+import play.api.test.FakeRequest
+import utils._
+import resources._
+import play.api.test.Helpers._
+
+import scala.collection.JavaConverters._
+
+class PendingRequestsSpec extends ControllerSpec {
+
+  "The pending requests page" must "contain the organisation name for each of the agent's pending requests" in {
+    val html = defaultHtml
+
+    val organisationNames = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { _.organisationName }
+    checkTableColumn(html, 0, "Organisation name", organisationNames)
+  }
+
+  it must "contain the address for each pending request" in {
+    val html = defaultHtml
+
+    val addresses = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { _.address }
+    checkTableColumn(html, 1, "Property address", addresses)
+  }
+
+  it must "contain both permissions for each pending request" in {
+    val html = defaultHtml
+
+    val permissions = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { r =>
+      s"Check: ${displayPermission(r.checkPermission)} Challenge: ${displayPermission(r.challengePermission)}"
+    }
+    checkTableColumn(html, 2, "Permissions", permissions)
+  }
+
+  it must "contain the request date for each pending request" in {
+    val html = defaultHtml
+
+    val dates = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { r => Formatters.formatDate(r.createDatetime) }
+    checkTableColumn(html, 3, "Date requested", dates)
+  }
+
+  it must "display accept and reject links for each pending request" in {
+    val html = defaultHtml
+
+    val actions = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { _ => "Accept Reject" }
+    checkTableColumn(html, 4, "Actions", actions)
+  }
+
+  it must "not display the page if the user is not an agent" in {
+    val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = false)
+    val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
+
+    val res = TestRepresentationController.pendingRepresentationRequest(1, 15)(FakeRequest())
+    status(res) mustBe UNAUTHORIZED
+  }
+
+  it must "display the current page number" in {
+    val html = defaultHtml
+
+    html.select("ul.pagination li.active").text mustBe "1"
+  }
+
+  it must "include a 'next' link if there are more results" in {
+    setup(pendingRequests = 16)
+
+    val res = TestRepresentationController.pendingRepresentationRequest(1, 15)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    val nextLink = html.select("ul.pagination li.next")
+
+    nextLink.hasClass("disabled") mustBe false withClue "'Next' link is incorrectly disabled"
+    nextLink.select("a").attr("href") mustBe routes.RepresentationController.pendingRepresentationRequest(2).url
+  }
+
+  it must "include an inactive 'next' link if there are no further results" in {
+    val html = defaultHtml
+
+    val nextLink = html.select("ul.pagination li.next")
+
+    nextLink.hasClass("disabled") mustBe true withClue "'Next' link is not disabled"
+  }
+
+  it must "include an inactive 'previous' link when on page 1" in {
+    val html = defaultHtml
+
+    val previousLink = html.select("ul.pagination li.previous")
+
+    previousLink.hasClass("disabled") mustBe true withClue "'Previous' link is not disabled"
+  }
+
+  it must "include a 'previous' link when not on page 1" in {
+    setup(pendingRequests = 16)
+
+    val res = TestRepresentationController.pendingRepresentationRequest(2, 15)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    val previousLink = html.select("ul.pagination li.previous")
+
+    previousLink.hasClass("disabled") mustBe false withClue "'Previous' link is incorrectly disabled"
+    previousLink.select("a").attr("href") mustBe routes.RepresentationController.pendingRepresentationRequest(1).url
+  }
+
+  it must "include pagination controls" in {
+
+    pending
+    val html = defaultHtml
+
+    val pageSizeControls = html.select("ul.pageLength li").asScala
+
+    pageSizeControls must have size 4
+    pageSizeControls.head.text mustBe "15"
+
+    val pendingRequestsLink: Int => String = n => routes.RepresentationController.pendingRepresentationRequest(pageSize = n).url
+
+    pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(pendingRequestsLink(25), pendingRequestsLink(50), pendingRequestsLink(100))
+  }
+
+  private val displayPermission: AgentPermission => String = {
+    case NotPermitted => "No"
+    case _ => "Yes"
+  }
+
+  lazy val defaultHtml = {
+    setup()
+
+    val res = TestRepresentationController.pendingRepresentationRequest(1, 15)(FakeRequest())
+    status(res) mustBe OK
+
+    Jsoup.parse(contentAsString(res))
+  }
+
+  private def setup(pendingRequests: Int = 15) = {
+    val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = true)
+    val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
+
+    val pending = (1 to pendingRequests) map { _ => arbitrary[PropertyRepresentation].copy(status = RepresentationPending) }
+    StubPropertyRepresentationConnector.stubRepresentations(pending)
+  }
+
+  private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]) = {
+    html.select("table#nojsPendingRequests").select("th").get(index).text mustBe heading
+
+    val data = html.select("table#nojsPendingRequests").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
+
+    values foreach { v => data must contain (v.toUpperCase) }
+  }
+
+  private object TestRepresentationController extends RepresentationController(
+    app.injector.instanceOf[ApplicationConfig],
+    StubPropertyRepresentationConnector,
+    StubAuthentication,
+    StubPropertyLinkConnector,
+    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
+  )
+}
+J0test/controllers/agent/PendingRequestsSpec.scala

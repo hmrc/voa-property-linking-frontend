@@ -1,0 +1,191 @@
+
+ÉIC
+ìï9_root_.reactivemongo.api.DB.;_root_.reactivemongo.api.DB#%
+„È_root_.javax.inject.Inject#0
+Ã›&_root_.repositories.MongoTaskRegister.A
+¶¨7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#O
+ÎıE_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.M
+ÏÚC_root_.play.api.libs.json.Format.;_root_.play.api.libs.json.Format#j
+§§^_root_.repositories.MongoTaskRegister#`<init>`(Ljava/lang/String;ILjava/time/LocalDateTime;)V.I
+Ñë?_root_.java.time.LocalDateTime.;_root_.java.time.LocalDateTime#
+πø_root_.com.google.)
+ó	õ	_root_.play.api.libs.json.Json..
+‘·"_root_.repositories.MongoTaskRepo#
+ü•_root_.javax.inject.
+Åé_root_.reactivemongo.2
+ì§&_root_.repositories.MongoTaskRegister#1
+ÈÈ'_root_.javax.inject.Inject#`<init>`()V.$
+ÊÍ_root_.play.api.libs.json.
+·Â_root_.play.api.libs.P
+ÎÎD_root_.repositories.MongoTaskRepo#`<init>`(Lreactivemongo/api/DB;)V.
+ÿ‹_root_.play.
+ôû_root_.javax.N
+ú	¢	D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.
+†£_root_.uk.gov.2
+ÏÓ&_root_.repositories.MongoTaskRepo#(db)0
+£	¥	&_root_.repositories.MongoTaskRegister#%
+§™_root_.scala.Predef.String#
+›‡_root_.play.api.<
+•≠0_root_.repositories.MongoTaskRegister#(taskName)#
+èí_root_.reactivemongo.api.9
+ÕÕ/_root_.com.google.inject.Singleton#`<init>`()V.<
+ﬁÈ2_root_.repositories.MongoTaskRegister.mongoFormat.R
+» H_root_.repositories.MongoTaskRepo#`<init>`(Lreactivemongo/api/DB;)V.(db)
+¿√_root_.scala.Int#-
+ƒÕ#_root_.com.google.inject.Singleton#⁄
+´´œ_root_.uk.gov.hmrc.mongo.ReactiveRepository#`<init>`(Ljava/lang/String;Lscala/Function0;Lplay/api/libs/json/Format;Lplay/api/libs/json/Format;Lscala/Option;Lscala/reflect/Manifest;Lscala/reflect/Manifest;)V.
+ùü
+_root_.uk.
+˙˛_root_.java.)
+ÿÂ_root_.java.time.LocalDateTime#)
+Ù¯_root_.play.api.libs.json.Json.%
+Øµ_root_.scala.Predef.String# 
+ÂÒ_root_.repositories.#
+¿∆_root_.com.google.inject.;
+∑æ/_root_.repositories.MongoTaskRegister#(version)%
+˝É_root_.scala.Predef.String#2
+ÔÄ	&_root_.repositories.MongoTaskRegister.c
+Ø¡Y_root_.uk.gov.hmrc.mongo.ReactiveRepository.;_root_.uk.gov.hmrc.mongo.ReactiveRepository#
+ˇÉ_root_.java.time.>
+â	î	2_root_.repositories.MongoTaskRegister.mongoFormat.E
+≈÷9_root_.repositories.MongoTaskRegister#(executionDateTime)Q
+«–G_root_.com.google.inject.Singleton.;_root_.com.google.inject.Singleton#
+µ∏_root_.com.&
+Ú_root_.reactivemongo.api.DB#
+§®_root_.uk.gov.hmrc.#
+©Æ_root_.uk.gov.hmrc.mongo.6
+˛ê,_root_.uk.gov.hmrc.mongo.ReactiveRepository#+
+ˆ¸!_root_.play.api.libs.json.Format#0
+ë¢&_root_.repositories.MongoTaskRegister#"7
+_root_.java.time.LocalDateTime#Ä†àLocalDateTime"A
+&_root_.repositories.MongoTaskRegister.ÄÑMongoTaskRegister"B
+&_root_.repositories.MongoTaskRegister#Ä†ÄMongoTaskRegister"*
+_root_.com.google.inject.ÄàÄinject"
+_root_.com.
+ÄàÄcom"{
+H_root_.repositories.MongoTaskRepo#`<init>`(Lreactivemongo/api/DB;)V.(db)/ÄdbDB""
+_root_.reactivemongo.api.DB#")
+_root_.play.api.libs.json.ÄàÄjson"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"ó
+E_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.Õ
+implicitly[T] => (implicit e: T): T"P
+H_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.[T]"P
+H_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.[T]"
+_root_.java.ÄàÄjava"l
+0_root_.repositories.MongoTaskRegister#(taskName)8ÅtaskNameString"!
+_root_.scala.Predef.String#"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.javax.ÄàÄjavax"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson")
+_root_.uk.gov.hmrc.mongo.ÄàÄmongo",
+_root_.javax.inject.Inject#Ä†ÄInject"+
+_root_.repositories.ÄàÄrepositories"
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"H
+,_root_.uk.gov.hmrc.mongo.ReactiveRepository#Ä†ReactiveRepository"]
+/_root_.repositories.MongoTaskRegister#(version)*ÅversionInt"
+_root_.scala.Int#"º
+2_root_.repositories.MongoTaskRegister.mongoFormat.ÖmongoFormatOFormat[MongoTaskRegister]"(
+"_root_.play.api.libs.json.OFormat#".
+&_root_.repositories.MongoTaskRegister#"#
+_root_.com.google.ÄàÄgoogle"Ω
+D_root_.repositories.MongoTaskRepo#`<init>`(Lreactivemongo/api/DB;)V.u<init>(db: DB): MongoTaskRepo"$
+_root_.reactivemongo.api.DB#"*
+
+"_root_.repositories.MongoTaskRepo#"
+_root_.uk.gov.
+ÄàÄgov"8
+"_root_.repositories.MongoTaskRepo#Ä MongoTaskRepo"|
+/_root_.com.google.inject.Singleton#`<init>`()V.IàÄÄ<init>(): Singleton"+
+#_root_.com.google.inject.Singleton#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"›
+^_root_.repositories.MongoTaskRegister#`<init>`(Ljava/lang/String;ILjava/time/LocalDateTime;)V.˙<init>U(taskName: String, version: Int, executionDateTime: LocalDateTime): MongoTaskRegister"#
+_root_.scala.Predef.String#"
+_root_.scala.Int#"'
+4A_root_.java.time.LocalDateTime#".
+DU&_root_.repositories.MongoTaskRegister#"(
+_root_.reactivemongo.api.DB#Ä¿DB"
+_root_.play.ÄàÄplay"-
+_root_.reactivemongo.ÄàÄreactivemongo"'
+_root_.reactivemongo.api.
+ÄàÄapi"7
+#_root_.com.google.inject.Singleton#Ä†Ä	Singleton" 
+_root_.java.time.ÄàÄtime"â
+9_root_.repositories.MongoTaskRegister#(executionDateTime)LÅexecutionDateTimeLocalDateTime"%
+_root_.java.time.LocalDateTime#"0
+!_root_.play.api.libs.json.Format#Ä@Format"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"Y
+&_root_.repositories.MongoTaskRepo#(db)/ÄdbDB""
+_root_.reactivemongo.api.DB#"∑	
+œ_root_.uk.gov.hmrc.mongo.ReactiveRepository#`<init>`(Ljava/lang/String;Lscala/Function0;Lplay/api/libs/json/Format;Lplay/api/libs/json/Format;Lscala/Option;Lscala/reflect/Manifest;Lscala/reflect/Manifest;)V.‚<init>«(collectionName: String, mongo: Function0[DB], domainFormat: Format[A], idFormat: Format[ID], mc: Option[JSONCollection])(implicit manifest: Manifest[A], mid: Manifest[ID]): ReactiveRepository[A, ID]"#
+_root_.scala.Predef.String#"
+ )_root_.scala.Function0#"$
+*,_root_.reactivemongo.api.DB#")
+=C!_root_.play.api.libs.json.Format#"7
+DE/_root_.uk.gov.hmrc.mongo.ReactiveRepository#[A]")
+RX!_root_.play.api.libs.json.Format#"8
+Y[0_root_.uk.gov.hmrc.mongo.ReactiveRepository#[ID]"
+bh_root_.scala.Option#"A
+iw9_root_.reactivemongo.play.json.collection.JSONCollection#"'
+çï_root_.scala.Predef.Manifest#"9
+ñó/_root_.uk.gov.hmrc.mongo.ReactiveRepository#[A]"'
+üß_root_.scala.Predef.Manifest#":
+®™0_root_.uk.gov.hmrc.mongo.ReactiveRepository#[ID]"6
+Æ¿,_root_.uk.gov.hmrc.mongo.ReactiveRepository#"9
+¡¬/_root_.uk.gov.hmrc.mongo.ReactiveRepository#[A]":
+ƒ∆0_root_.uk.gov.hmrc.mongo.ReactiveRepository#[ID]""
+_root_.uk.gov.hmrc.ÄàÄhmrc"
+_root_.scala.Int#	Ä†Int2œ
+ÖÖÄ*(play.api.libs.json.Format.GenericFormat[String](play.api.libs.json.Reads.StringReads, play.api.libs.json.Writes.StringWrites))
+_star_.ë
+)à_root_.play.api.libs.json.DefaultFormat#GenericFormat(Lplay/api/libs/json/Reads;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/Format;.=
+r~5_root_.play.api.libs.json.DefaultWrites#StringWrites.#
+*0_root_.scala.Predef.String#;
+KV3_root_.play.api.libs.json.DefaultReads#StringReads.:Scala211B∏	/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package repositories
+
+import java.time.LocalDateTime
+import javax.inject.Inject
+
+import com.google.inject.Singleton
+import play.api.libs.json.{Format, Json}
+import reactivemongo.api.DB
+import uk.gov.hmrc.mongo.ReactiveRepository
+
+@Singleton
+class MongoTaskRepo @Inject()(db: DB)
+  extends ReactiveRepository[MongoTaskRegister, String]("mongoTaskExecution", () => db, MongoTaskRegister.mongoFormat, implicitly[Format[String]])
+
+case class MongoTaskRegister(taskName: String, version: Int, executionDateTime: LocalDateTime)
+
+object MongoTaskRegister {
+  val mongoFormat = Json.format[MongoTaskRegister]
+}
+J$app/repositories/MongoTaskRepo.scala

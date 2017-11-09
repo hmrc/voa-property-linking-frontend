@@ -1,0 +1,68 @@
+
+±%
+æƒ_root_.scala.Predef.String#2
+ÏÖ(_root_.models.identityVerificationProxy.7
+¯¸-_root_.models.identityVerificationProxy.Link#9
+Õ—-_root_.models.identityVerificationProxy.Link.
+ìñ_root_.play.api.@
+„È4_root_.models.identityVerificationProxy.Link.format.
+éí_root_.play.W
+∑∑K_root_.models.identityVerificationProxy.Link#`<init>`(Ljava/lang/String;)V.$
+ú†_root_.play.api.libs.json.
+óõ_root_.play.api.libs.)
+Ï_root_.play.api.libs.json.Json.N
+Ò˜D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.?
+∏º3_root_.models.identityVerificationProxy.Link#(link)9
+≥∑-_root_.models.identityVerificationProxy.Link#
+ÂÎ_root_.models.)
+°•_root_.play.api.libs.json.Json."„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]")
+_root_.play.api.libs.json.ÄàÄjson"L
+(_root_.models.identityVerificationProxy. ÄàÄidentityVerificationProxy"<
+-_root_.models.identityVerificationProxy.Link#Ä†ÄLink";
+-_root_.models.identityVerificationProxy.Link.
+ÄÑLink"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"¥
+4_root_.models.identityVerificationProxy.Link.format.|ÅÄ formatOFormat[Link]"(
+"_root_.play.api.libs.json.OFormat#"5
+-_root_.models.identityVerificationProxy.Link#"À
+K_root_.models.identityVerificationProxy.Link#`<init>`(Ljava/lang/String;)V.|<init>(link: String): Link"#
+_root_.scala.Predef.String#"5
+-_root_.models.identityVerificationProxy.Link#"
+_root_.play.ÄàÄplay"
+_root_.models.ÄàÄmodels"k
+3_root_.models.identityVerificationProxy.Link#(link)4ÅlinkString"!
+_root_.scala.Predef.String#:Scala211BÄ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models.identityVerificationProxy
+
+import play.api.libs.json.Json
+
+
+case class Link(link: String)
+object Link {
+  implicit val format = Json.format[Link]
+}
+J/app/models/identityVerificationProxy/Link.scala

@@ -28,9 +28,10 @@ import play.api.libs.json._
 import play.api.mvc.MultipartFormData.FilePart
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
-import uk.gov.hmrc.play.http.ws.WSHttp
+import config.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{ HeaderCarrier, HttpResponse }
 
 case class FileMetadata(linkBasis: LinkBasis, fileInfo: Option[FileInfo])
 

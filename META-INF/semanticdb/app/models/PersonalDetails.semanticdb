@@ -1,0 +1,256 @@
+
+æa5
+„Ï)_root_.models.PersonalDetails#(firstName)˜
+ 	—	Ï_root_.models.PersonalDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/Address;)Lmodels/PersonalDetails;.(address)%
+ÊÏ_root_.scala.Predef.String#%
+ˆ¸_root_.scala.Predef.String#3
+¢´)_root_.models.PersonalDetails#(firstName)
+ÂÎ_root_.models.2
+≠µ(_root_.models.PersonalDetails#(lastName)Ø
+·	Ó	§_root_.models.Address#copy(Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lmodels/Address;.(addressUnitId)M
+‰ÌC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.4
+ˆ˛(_root_.models.PersonalDetails#(lastName)I
+¬∆?_root_.uk.gov.hmrc.domain.Nino.;_root_.uk.gov.hmrc.domain.Nino#*
+ê° _root_.models.IndividualDetails.A
+˛á7_root_.java.time.LocalDate.;_root_.java.time.LocalDate#
+êî_root_.play.N
+Ω
+√
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.)
+£ß_root_.play.api.libs.json.Json.*
+é
+ù
+_root_.models.PersonalDetails.3
+«–)_root_.models.PersonalDetails#(firstName)1
+Œ’'_root_.models.PersonalDetails#(address)$
+û¢_root_.play.api.libs.json./
+∑º%_root_.models.PersonalDetails#(email))
+¶™_root_.uk.gov.hmrc.domain.Nino#X
+ˆáL_root_.models.PersonalDetails#individualDetails()Lmodels/IndividualDetails;."
+Ω∆_root_.models.IVDetails.
+Üå_root_.scala.Option#2
+“⁄(_root_.models.PersonalDetails#(lastName)0
+∆Ã&_root_.models.PersonalDetails#(phone2)H
+±∫<_root_.models.PersonalDetails#ivDetails()Lmodels/IVDetails;.0
+æƒ&_root_.models.PersonalDetails#(phone1)%
+çì_root_.scala.Predef.String#%
+ÓÙ_root_.scala.Predef.String#
+ïò_root_.play.api.†
+‹	‡	ï_root_.models.Address#copy(Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lmodels/Address;.
+∂∫_root_.uk.gov.hmrc.3
+ñù'_root_.models.PersonalDetails#(address)(
+≈	…	_root_.models.PersonalDetails#:
+÷‰._root_.models.PersonalDetails#(confirmedEmail)2
+ÓÙ&_root_.models.PersonalDetails#(phone1)1
+Ø
+µ
+%_root_.models.PersonalDetails.format.^
+≥	º	R_root_.models.PersonalDetails#withAddressId(I)Lmodels/PersonalDetails;.(addressId)(
+ƒ
+”
+_root_.models.PersonalDetails#S
+•	≤	G_root_.models.PersonalDetails#withAddressId(I)Lmodels/PersonalDetails;.5
+‹Á+_root_.models.PersonalDetails#(dateOfBirth).
+ÈÌ$_root_.models.PersonalDetails#(nino))
+∏
+º
+_root_.play.api.libs.json.Json.›
+‚‚–_root_.models.PersonalDetails#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/Address;)V.0
+†§$_root_.models.PersonalDetails#(nino)%
+Œ‘_root_.scala.Predef.String#
+Ò	ı	_root_.scala.Some.1
+‘	€	'_root_.models.PersonalDetails#(address)\
+ˆ	ˇ	R_root_.models.PersonalDetails#withAddressId(I)Lmodels/PersonalDetails;.(addressId)/
+÷„%_root_.models.Address#(addressUnitId)
+ôù_root_.play.api.libs.%
+ïû_root_.java.time.LocalDate#C
+Å	Å	9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.
+≤µ_root_.uk.gov.7
+àì+_root_.models.PersonalDetails#(dateOfBirth)*
+”‚_root_.models.PersonalDetails#
+˘˝_root_.java.time.%
+¯Å	_root_.java.lang.Exception#1
+«Ã%_root_.models.PersonalDetails#(email)
+Ù¯_root_.java. 
+ü¶_root_.models.Address#
+æ	¡	_root_.scala.Int#$
+ª¡_root_.uk.gov.hmrc.domain.2
+˛Ñ&_root_.models.PersonalDetails#(phone2)%
+ÄÜ_root_.scala.Predef.String#
+Ø±
+_root_.uk."^
+'_root_.models.PersonalDetails#(address)3ÅaddressAddress"
+_root_.models.Address#")
+_root_.play.api.libs.json.ÄàÄjson"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"
+%_root_.models.Address#(addressUnitId)VÅaddressUnitIdOption[Int]"
+_root_.scala.Option#"
+
+_root_.scala.Int#"`
+&_root_.models.PersonalDetails#(phone1)6Åphone1String"!
+_root_.scala.Predef.String#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"/
+_root_.java.lang.Exception#Ä†Ä	Exception";
+ _root_.models.IndividualDetails.ÄÑIndividualDetails"
+_root_.java.ÄàÄjava"$
+_root_.play.api.libs.ÄàÄlibs"f
+)_root_.models.PersonalDetails#(firstName)9Å	firstNameString"!
+_root_.scala.Predef.String#"¬
+G_root_.models.PersonalDetails#withAddressId(I)Lmodels/PersonalDetails;.wwithAddressId!(addressId: Int): PersonalDetails"
+_root_.scala.Int#"&
+!_root_.models.PersonalDetails#"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"†
+L_root_.models.PersonalDetails#individualDetails()Lmodels/IndividualDetails;.PindividualDetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"m
++_root_.models.PersonalDetails#(dateOfBirth)>ÅdateOfBirth	LocalDate"!
+	_root_.java.time.LocalDate#"/
+_root_.java.time.LocalDate#Ä†à	LocalDate"´
+9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.nêÄÄ<init>(x$1: String): Exception" 
+_root_.java.lang.String#"#
+_root_.java.lang.Exception#"(
+_root_.models.Address#Ä†ÄAddress"°
+ä_root_.models.Address#`<init>`(Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V.ë<init>s(addressUnitId: Option[Int], line1: String, line2: String, line3: String, line4: String, postcode: String): Address"
+_root_.scala.Option#"
+_root_.scala.Int#"#
+$*_root_.scala.Predef.String#"#
+39_root_.scala.Predef.String#"#
+BH_root_.scala.Predef.String#"#
+QW_root_.scala.Predef.String#"#
+ci_root_.scala.Predef.String#"
+ls_root_.models.Address#"l
+'_root_.java.lang.Exception#`<init>`()V.AàÄÄ<init>(): Exception"#
+_root_.java.lang.Exception#"$
+_root_.scala.Option#Ä†Option"
+
+_root_.uk.	ÄàÄuk"p
+._root_.models.PersonalDetails#(confirmedEmail)>ÅconfirmedEmailString"!
+_root_.scala.Predef.String#"
+_root_.uk.gov.
+ÄàÄgov"§
+Ï_root_.models.PersonalDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/Address;)Lmodels/PersonalDetails;.(address)3ÄaddressAddress"
+_root_.models.Address#"^
+%_root_.models.PersonalDetails#(email)5ÅemailString"!
+_root_.scala.Predef.String#"
+_root_.play.ÄàÄplay"x
+<_root_.models.PersonalDetails#ivDetails()Lmodels/IVDetails;.8	ivDetails	IVDetails"
+	_root_.models.IVDetails#"™
+ï_root_.models.Address#copy(Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lmodels/Address;.ècopys(addressUnitId: Option[Int], line1: String, line2: String, line3: String, line4: String, postcode: String): Address"
+_root_.scala.Option#"
+_root_.scala.Int#"#
+$*_root_.scala.Predef.String#"#
+39_root_.scala.Predef.String#"#
+BH_root_.scala.Predef.String#"#
+QW_root_.scala.Predef.String#"#
+ci_root_.scala.Predef.String#"
+ls_root_.models.Address#"ˇ
+§_root_.models.Address#copy(Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lmodels/Address;.(addressUnitId)VÄaddressUnitIdOption[Int]"
+_root_.scala.Option#"
+
+_root_.scala.Int#"^
+$_root_.models.PersonalDetails#(nino)6ÅninoNino"%
+_root_.uk.gov.hmrc.domain.Nino#"∏
+–_root_.models.PersonalDetails#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/Address;)V.‚<init>ª(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino, email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: Address): PersonalDetails"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"#
+3<_root_.java.time.LocalDate#"'
+DH_root_.uk.gov.hmrc.domain.Nino#"#
+QW_root_.scala.Predef.String#"#
+io_root_.scala.Predef.String#"#
+y_root_.scala.Predef.String#"
+âè_root_.scala.Option#"%
+êñ_root_.scala.Predef.String#" 
+¢©_root_.models.Address#"(
+¨ª_root_.models.PersonalDetails#"
+_root_.models.ÄàÄmodels"+
+_root_.uk.gov.hmrc.domain.ÄàÄdomain"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]" 
+_root_.java.time.ÄàÄtime"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"8
+_root_.models.PersonalDetails#Ä†ÄPersonalDetails"7
+_root_.models.PersonalDetails.ÄÑPersonalDetails"d
+(_root_.models.PersonalDetails#(lastName)8ÅlastNameString"!
+_root_.scala.Predef.String#"Ç
+R_root_.models.PersonalDetails#withAddressId(I)Lmodels/PersonalDetails;.(addressId),Ä	addressIdInt"
+_root_.scala.Int#"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"Ø
+=_root_.uk.gov.hmrc.domain.Nino#`<init>`(Ljava/lang/String;)V.n<init>(nino: String): Nino"#
+_root_.scala.Predef.String#"'
+_root_.uk.gov.hmrc.domain.Nino#"Ü
+&_root_.models.PersonalDetails#(phone2)\Åphone2Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#".
+_root_.uk.gov.hmrc.domain.Nino#Ä†ÄNino""
+_root_.uk.gov.hmrc.ÄàÄhmrc"°
+%_root_.models.PersonalDetails.format.xÅÄ formatOFormat[PersonalDetails]"(
+"_root_.play.api.libs.json.OFormat#"&
+_root_.models.PersonalDetails#"
+_root_.scala.Int#	Ä†Int"+
+_root_.models.IVDetails.ÄÑ	IVDetails" 
+_root_.scala.Some.
+ÄÑSome2:
+ÌÌ*[Int]
+_star_.
+_root_.scala.Int#2Ç
+ı	ı	*.apply[Int]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
+_root_.scala.Int#2∞
+∆∆*.apply
+_star_.ç
+Ñ_root_.models.IVDetails.apply(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;)Lmodels/IVDetails;.2≈
+°°*.apply
+_star_.¢
+ô_root_.models.IndividualDetails.apply(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.:Scala211B◊
+/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import java.time.LocalDate
+
+import play.api.libs.json.Json
+import uk.gov.hmrc.domain.Nino
+
+case class PersonalDetails(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino,
+                           email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: Address) {
+
+  def ivDetails = IVDetails(firstName, lastName, dateOfBirth, nino)
+
+  def individualDetails = {
+    IndividualDetails(firstName, lastName, email, phone1, phone2, address.addressUnitId.getOrElse(throw new Exception("Address ID not set")))
+  }
+
+  def withAddressId(addressId: Int) = copy(address = address.copy(addressUnitId = Some(addressId)))
+
+}
+
+object PersonalDetails {
+  implicit val format = Json.format[PersonalDetails]
+}
+J app/models/PersonalDetails.scala

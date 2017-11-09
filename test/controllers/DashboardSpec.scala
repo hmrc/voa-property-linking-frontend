@@ -26,10 +26,10 @@ import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class DashboardSpec extends ControllerSpec {
   implicit val request = FakeRequest()

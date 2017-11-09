@@ -1,0 +1,339 @@
+
+≈â
+åê_root_.views.html.H
+µ»>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)`
+ÜèV_root_.cats.data.OptionT#getOrElse(Lscala/Function0;Lcats/Functor;)Ljava/lang/Object;.D
+ÏÙ:app/controllers/manageDetails/ViewDetails.scala@1318..13265
+Ø	∏	+_root_.models.IndividualDetails#(addressId)D
+•´:app/controllers/manageDetails/ViewDetails.scala@1072..11109
+’‡-_root_.controllers.manageDetails.ViewDetails#
+áå_root_.javax..
+¡“$_root_.connectors.MessagesConnector#H
+Ä
+ì
+>_root_.actions.BasicAuthenticatedRequest#(organisationAccount))
+ÉÖ_root_.play.api.mvc.Results#Ok.J
+¿
+—
+@_root_.controllers.manageDetails.ViewDetails#(messagesConnector)
+®≥_root_.controllers.F
+È¯:app/controllers/manageDetails/ViewDetails.scala@1129..1144#
+‘	€	_root_.cats.data.OptionT.1
+ËË'_root_.javax.inject.Inject#`<init>`()V.D
+€Í:app/controllers/manageDetails/ViewDetails.scala@1217..1232D
+ﬁ
+Â
+:app/controllers/manageDetails/ViewDetails.scala@1057..10646
+ı˚,_root_.models.messages.MessageCount#(unread)+
+Ò˛!_root_.controllers.manageDetails.0
+ô§&_root_.views.html.details.viewDetails.%
+‚Ë_root_.javax.inject.Inject#v
+“
+›
+l_root_.connectors.MessagesConnector#countUnread(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.k
+ó	ü	a_root_.connectors.Addresses#findById(ILuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ó
+ÍÍä_root_.controllers.manageDetails.ViewDetails#`<init>`(Lconnectors/Addresses;Lactions/AuthenticatedAction;Lconnectors/MessagesConnector;)V.F
+àï<_root_.controllers.manageDetails.ViewDetails#(authenticated)0
+î
+ù
+&_root_.models.GroupAccount#(addressId)
+£™_root_.actions.U
+ˇÉI_root_.controllers.manageDetails.ViewDetails#show()Lplay/api/mvc/Action;.7
+‹ı-_root_.controllers.PropertyLinkingController#=
+–◊3_root_.cats.data.OptionT.;_root_.cats.data.OptionT#
+Â_root_.controllers.
+∆ _root_.cats.5
+Ô¯+_root_.models.IndividualDetails#(addressId)D
+¯	ˇ	:app/controllers/manageDetails/ViewDetails.scala@1057..1064 
+‰Ì_root_.cats.implicits.D
+ Ÿ:app/controllers/manageDetails/ViewDetails.scala@1129..1144M
+Î˝A_root_.controllers.manageDetails.ViewDetails#(addressesConnector)7
+¥Õ-_root_.controllers.PropertyLinkingController#F
+¥∫:app/controllers/manageDetails/ViewDetails.scala@1072..1110H
+û±>_root_.actions.BasicAuthenticatedRequest#(organisationAccount);
+ÁÓ1_root_.models.DetailedIndividualAccount#(details)0
+≤ª&_root_.models.GroupAccount#(addressId).
+éü$_root_.connectors.MessagesConnector#-
+´æ#_root_.actions.AuthenticatedAction#
+Üã_root_.views.F
+≈÷<_root_.actions.BasicAuthenticatedRequest#(individualAccount)D
+≠¥:app/controllers/manageDetails/ViewDetails.scala@1057..1064F
+¶
+Æ
+:app/controllers/manageDetails/ViewDetails.scala@1318..1326;
+ß	Æ	1_root_.models.DetailedIndividualAccount#(details)@
+Ê
+Ù
+6_root_.actions.AuthenticatedRequest#organisationId()J.^
+∫
+ø
+T_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.&
+ˇà_root_.connectors.Addresses#F
+°®:app/controllers/manageDetails/ViewDetails.scala@1057..1064k
+Ô	˜	a_root_.connectors.Addresses#findById(ILuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A
+îö7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#K
+Ñ	ñ	A_root_.controllers.manageDetails.ViewDetails#(addressesConnector)$
+ëò_root_.views.html.details.
+çì_root_.javax.inject..
+ˆˆ$_root_.java.lang.Object#`<init>`()V.L
+Æø@_root_.controllers.manageDetails.ViewDetails#(messagesConnector)Q
+´¨G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.#
+≤
+π
+_root_.cats.data.OptionT.D
+Ωƒ:app/controllers/manageDetails/ViewDetails.scala@1057..1064%
+ö£_root_.java.lang.Exception#D
+†	¶	:app/controllers/manageDetails/ViewDetails.scala@1072..1110-
+ô¨#_root_.actions.AuthenticatedAction#
+Àœ_root_.cats.data.F
+¡	–	:app/controllers/manageDetails/ViewDetails.scala@1217..1232&
+Éå_root_.connectors.Addresses#
+ﬂ„_root_.cats.K
+‹	Ó	A_root_.controllers.manageDetails.ViewDetails#(addressesConnector)D
+ñù:app/controllers/manageDetails/ViewDetails.scala@1057..1064C
+££9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.#
+¸É	_root_.cats.data.OptionT.D
+‡Ê:app/controllers/manageDetails/ViewDetails.scala@1072..1110H
+äó<_root_.controllers.manageDetails.ViewDetails#(authenticated)
+˜Å_root_.connectors."c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#" 
+_root_.cats.data.ÄàÄdata"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#"|
+1_root_.models.DetailedIndividualAccount#(details)GÅdetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"≈
+T_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.ÏliftF;[F, A] => (fa: F[A])(implicit F: Functor[F]): OptionT[F, A]"_
+W_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.[F]"_
+W_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.[A]"
+!(_root_.cats.Functor#"_
+)*W_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.[F]"!
+.5_root_.cats.data.OptionT#"_
+67W_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.[F]"_
+9:W_root_.cats.data.OptionT.liftF(Ljava/lang/Object;Lcats/Functor;)Lcats/data/OptionT;.[A]"'
+_root_.connectors.ÄàÄ
+connectors"‰
+l_root_.connectors.MessagesConnector#countUnread(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÛcountUnread?(orgId: Long)(implicit hc: HeaderCarrier): Future[MessageCount]"
+_root_.scala.Long#".
+(&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
++1_root_.scala.concurrent.Future#",
+2>$_root_.models.messages.MessageCount#"[
++_root_.models.IndividualDetails#(addressId),Å	addressIdInt"
+_root_.scala.Int#"/
+_root_.java.lang.Exception#Ä†Ä	Exception"*
+_root_.cats.data.OptionT.ÄÑOptionT">
+$_root_.connectors.MessagesConnector#Ä MessagesConnector"
+_root_.javax.ÄàÄjavax"Õ
+:app/controllers/manageDetails/ViewDetails.scala@1057..1064éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#")
+_root_.cats.implicits.ÄÑ	implicits"Ö
+:app/controllers/manageDetails/ViewDetails.scala@1318..1326GÄmsgCountMessageCount"*
+$_root_.models.messages.MessageCount#"ª
+I_root_.controllers.manageDetails.ViewDetails#show()Lplay/api/mvc/Action;.nshow(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"´
+9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.nêÄÄ<init>(x$1: String): Exception" 
+_root_.java.lang.String#"#
+_root_.java.lang.Exception#"
+_root_.cats.ÄàÄcats"!
+_root_.views.html.ÄàÄhtml",
+_root_.javax.inject.Inject#Ä†ÄInject"ˆ
+V_root_.cats.data.OptionT#getOrElse(Lscala/Function0;Lcats/Functor;)Ljava/lang/Object;.õ	getOrElse4(default: <byname>[A])(implicit F: Functor[F]): F[A]" 
+
+_root_.scala.`<byname>`#"$
+_root_.cats.data.OptionT#[A]"
+#*_root_.cats.Functor#"$
++,_root_.cats.data.OptionT#[F]"$
+01_root_.cats.data.OptionT#[F]"$
+23_root_.cats.data.OptionT#[A]"l
+'_root_.java.lang.Exception#`<init>`()V.AàÄÄ<init>(): Exception"#
+_root_.java.lang.Exception#"V
+&_root_.models.GroupAccount#(addressId),Å	addressIdInt"
+_root_.scala.Int#"‰
+a_root_.connectors.Addresses#findById(ILuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˛findById>(id: Int)(implicit hc: HeaderCarrier): Future[Option[Address]]"
+_root_.scala.Int#".
+$&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+'-_root_.scala.concurrent.Future#"
+.4_root_.scala.Option#"
+5<_root_.models.Address#"l
+6_root_.actions.AuthenticatedRequest#organisationId()J.2organisationIdLong"
+_root_.scala.Long#" 
+ä_root_.controllers.manageDetails.ViewDetails#`<init>`(Lconnectors/Addresses;Lactions/AuthenticatedAction;Lconnectors/MessagesConnector;)V.∫<init>v(addressesConnector: Addresses, authenticated: AuthenticatedAction, messagesConnector: MessagesConnector): ViewDetails"$
+_root_.connectors.Addresses#"+
+/B#_root_.actions.AuthenticatedAction#",
+Wh$_root_.connectors.MessagesConnector#"5
+kv-_root_.controllers.manageDetails.ViewDetails#",
+_root_.views.html.details.ÄàÄdetails"ó
+´_root_.connectors.MessagesConnector#`<init>`(Lconfig/WSHttp;Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/ApplicationConfig;Lscala/concurrent/ExecutionContext;)V.Ê<init>q(http: WSHttp, conf: ServicesConfig, config: ApplicationConfig)(implicit ec: ExecutionContext): MessagesConnector"
+_root_.config.WSHttp#"=
+#5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"(
+-> _root_.config.ApplicationConfig#"1
+M])_root_.scala.concurrent.ExecutionContext#",
+`q$_root_.connectors.MessagesConnector#"%
+_root_.javax.inject.ÄàÄinject"?
+#_root_.actions.AuthenticatedAction#Ä AuthenticatedAction"°
+<_root_.actions.BasicAuthenticatedRequest#(individualAccount)aÅindividualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"¨
+f_root_.connectors.Addresses#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.¡<init>1(config: ServicesConfig, http: WSHttp): Addresses"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"$
+(1_root_.connectors.Addresses#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"í
+<_root_.controllers.manageDetails.ViewDetails#(authenticated)RÄauthenticatedAuthenticatedAction")
+#_root_.actions.AuthenticatedAction#"y
+:app/controllers/manageDetails/ViewDetails.scala@1129..1144;ÄpersonalAddressAddress"
+_root_.models.Address#";
+&_root_.views.html.details.viewDetails.ÄÑviewDetails"ì
+:app/controllers/manageDetails/ViewDetails.scala@1072..1110UpersonDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"Y
+,_root_.models.messages.MessageCount#(unread))ÅunreadInt"
+_root_.scala.Int#"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"!
+_root_.actions.ÄàÄactions"ô
+@_root_.controllers.manageDetails.ViewDetails#(messagesConnector)UÄmessagesConnectorMessagesConnector"*
+$_root_.connectors.MessagesConnector#"ã
+A_root_.controllers.manageDetails.ViewDetails#(addressesConnector)FÄaddressesConnector	Addresses""
+	_root_.connectors.Addresses#")
+_root_.controllers.ÄàÄcontrollers"
+_root_.views.ÄàÄviews"ã
+>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)IÅorganisationAccountGroupAccount"!
+_root_.models.GroupAccount#"y
+:app/controllers/manageDetails/ViewDetails.scala@1217..1232;ÄbusinessAddressAddress"
+_root_.models.Address#"A
+-_root_.controllers.manageDetails.ViewDetails#Ä ViewDetails"9
+!_root_.controllers.manageDetails.ÄàÄmanageDetails"ç
+v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.í<init>r(provider: GovernmentGatewayProvider, businessRatesAuthorisation: BusinessRatesAuthorisation): AuthenticatedAction".
+$&_root_.auth.GovernmentGatewayProvider#"5
+B\-_root_.connectors.BusinessRatesAuthorisation#"+
+_r#_root_.actions.AuthenticatedAction#".
+_root_.connectors.Addresses#Ä 	Addresses2ü
+ˆ
+ˆ
+L*.map[Result](cats.implicits.catsStdInstancesForFuture(ViewDetails.this.ec))
+_star_.Y
+Q_root_.cats.data.OptionT#map(Lscala/Function1;Lcats/Functor;)Lcats/data/OptionT;.#
+_root_.play.api.mvc.Result#~
+6v_root_.cats.instances.FutureInstances#catsStdInstancesForFuture(Lscala/concurrent/ExecutionContext;)Lcats/MonadError;.8
+HJ0_root_.controllers.PropertyLinkingController#ec.2 
+€	€	*.apply[Future, Address]
+_star_.N
+F_root_.cats.data.OptionT.apply(Ljava/lang/Object;)Lcats/data/OptionT;.'
+_root_.scala.concurrent.Future#
+_root_.models.Address#2”
+˝˝û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2£
+§§*.apply
+_star_.Ä
+˜_root_.views.html.details.viewDetails_Scope0.viewDetails_Scope1.viewDetails#apply(Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lmodels/Address;Lmodels/Address;ILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2 
+É	É	*.apply[Future, Address]
+_star_.N
+F_root_.cats.data.OptionT.apply(Ljava/lang/Object;)Lcats/data/OptionT;.'
+_root_.scala.concurrent.Future#
+_root_.models.Address#2¨
+∫	∫	*.flatMap[Result]
+_star_.[
+	S_root_.cats.data.OptionT#flatMap(Lscala/Function1;Lcats/Monad;)Lcats/data/OptionT;.#
+
+_root_.play.api.mvc.Result#2™
+û
+û
+*(ViewDetails.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2á
+ø
+ø
+*[Future, MessageCount]
+_star_.'
+_root_.scala.concurrent.Future#,
+
+$_root_.models.messages.MessageCount#2¨
+ü
+ü
+*.flatMap[Result]
+_star_.[
+	S_root_.cats.data.OptionT#flatMap(Lscala/Function1;Lcats/Monad;)Lcats/data/OptionT;.#
+
+_root_.play.api.mvc.Result#2™
+ı
+ı
+*(ViewDetails.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2{
+ïï*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2”
+ÖÖ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2x
+´´*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2~
+¸¸%*(request, ViewDetails.this.messages)
+_star_.>
+$6_root_.controllers.PropertyLinkingController#messages.2™
+π	π	*(ViewDetails.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2ì
+ƒƒ@*(cats.implicits.catsStdInstancesForFuture(ViewDetails.this.ec))
+_star_.~
+*v_root_.cats.instances.FutureInstances#catsStdInstancesForFuture(Lscala/concurrent/ExecutionContext;)Lcats/MonadError;.8
+<>0_root_.controllers.PropertyLinkingController#ec.:Scala211BÃ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.manageDetails
+
+import javax.inject.Inject
+
+import actions.AuthenticatedAction
+import cats.data.OptionT
+import cats.implicits._
+import connectors.{Addresses, MessagesConnector}
+import controllers.PropertyLinkingController
+
+class ViewDetails @Inject()(addressesConnector: Addresses, authenticated: AuthenticatedAction, messagesConnector: MessagesConnector) extends PropertyLinkingController {
+
+  def show() = authenticated { implicit request =>
+    val person = request.individualAccount
+
+    (for {
+      personalAddress <- OptionT(addressesConnector.findById(person.details.addressId))
+      businessAddress <- OptionT(addressesConnector.findById(request.organisationAccount.addressId))
+      msgCount <- OptionT.liftF(messagesConnector.countUnread(request.organisationId))
+    } yield Ok(views.html.details.viewDetails(person, request.organisationAccount, personalAddress, businessAddress, msgCount.unread))
+      ).getOrElse(throw new Exception(
+      s"Unable to lookup address: Individual address ID: ${person.details.addressId}; Organisation address Id: ${request.organisationAccount.addressId}")
+    )
+  }
+
+}
+J/app/controllers/manageDetails/ViewDetails.scala

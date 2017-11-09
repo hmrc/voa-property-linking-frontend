@@ -27,11 +27,11 @@ import org.scalatest.OptionValues
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import uk.gov.hmrc.play.http.HeaderCarrier
 import utils.{StubBusinessRatesValuation, _}
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class ViewAssessmentSpec extends ControllerSpec with OptionValues {
 

@@ -1,0 +1,1140 @@
+
+≤í:
+≤∂._root_.controllers.IdentityVerification#(auth)
+ÊÎ_root_.views.?
+ì¢5app/controllers/IdentityVerification.scala@3387..3429y
+€„o_root_.play.api.mvc.Results#Redirect(Ljava/lang/String;Lscala/collection/immutable/Map;I)Lplay/api/mvc/Result;.C
+˜˜9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.Y
+¿#¿#M_root_.controllers.StartIVVM#`<init>`(Lmodels/IVDetails;Ljava/lang/String;)V.A
+¥ª5app/controllers/IdentityVerification.scala@1972..1979*
+˝ä _root_.connectors.GroupAccounts#)
+êñ_root_.scala.concurrent.Future.:
+ø≈0_root_.controllers.IdentityVerification#(config)8
+Öâ._root_.controllers.IdentityVerification#(auth)?
+ïõ5app/controllers/IdentityVerification.scala@3627..3633<
+•∞2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#A
+´±5app/controllers/IdentityVerification.scala@3627..3633 
+˚ˇ_root_.java.util.UUID.P
+©≠D_root_.controllers.IdentityVerification#fail()Lplay/api/mvc/Action;.>
+Ìı2_root_.controllers.IdentityVerification#(ggAction)W
+©∂M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#
+ˆ˙_root_.java.util.8
+—’._root_.controllers.IdentityVerification#(auth)?
+ù¶5app/controllers/IdentityVerification.scala@3368..3377ñ
+Ú¯ã_root_.connectors.IndividualAccounts#create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.M
+™≥C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.É
+‚Ìy_root_.connectors.GroupAccounts#withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+ù°_root_.uk.gov.hmrc.⁄
+ÏÏÕ_root_.controllers.IdentityVerification#`<init>`(Lauth/GGAction;Lconnectors/IdentityVerification;Lconnectors/Addresses;Lconnectors/IndividualAccounts;Lconnectors/identityVerificationProxy/IdentityVerificationProxyConnector;Lconnectors/GroupAccounts;Lconnectors/VPLAuthConnector;Lconfig/ApplicationConfig;Lrepositories/SessionRepo;)V.M
+∑ºC_root_.auth.GGAction#async(Lscala/Function1;)Lplay/api/mvc/Action;.ô
+±πé_root_.controllers.IdentityVerification#continue(Luk/gov/hmrc/play/frontend/auth/AuthContext;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.
+áä_root_.play.api.mvc.:
+‡Ê0_root_.controllers.IdentityVerification#(config)
+‘Ÿ_root_.views.
+„"Á"_root_.scala.Some.=
+Ää3_root_.java.util.UUID.randomUUID()Ljava/util/UUID;.8
+ÂÓ._root_.uk.gov.hmrc.http.SessionKeys.sessionId.S
+§´G_root_.controllers.IdentityVerification#startIv()Lplay/api/mvc/Action;.—
+πæ∆_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#start(Ljava/lang/String;Ljava/lang/String;Lmodels/IVDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.1
+»	‹	'_root_.connectors.IdentityVerification#3
+∞º)_root_.play.api.mvc.Results#Unauthorized.¢
+œ÷ó_root_.controllers.IdentityVerification#continue(Luk/gov/hmrc/play/frontend/auth/AuthContext;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(request).
+Ÿ‰$_root_.uk.gov.hmrc.http.SessionKeys.K
+∫ÀA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#?
+°®5app/controllers/IdentityVerification.scala@2610..2617L
+ÇÖB_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;.4
+˙Å*_root_.play.api.mvc.RequestHeader#session.)
+¶"¨"_root_.scala.concurrent.Future#$
+ù£_root_.controllers.routes.0
+ñ"£"&_root_.uk.gov.hmrc.http.HeaderCarrier#?
+Ï Ì 5app/controllers/IdentityVerification.scala@3853..3853&
+è
+ò
+_root_.connectors.Addresses#)
+„Â_root_.play.api.mvc.Results#Ok.
+« _root_.uk.gov.
+˝ Ç!_root_.views.7
+Åö-_root_.controllers.PropertyLinkingController#ñ
+Ï˚ã_root_.controllers.IdentityVerification#registerAddress(Lmodels/PersonalDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.S
+πΩI_root_.controllers.ReverseIdentityVerification#fail()Lplay/api/mvc/Call;._
+…‰U_root_.models.IndividualAccountSubmission.;_root_.models.IndividualAccountSubmission#C
+îõ9_root_.play.api.mvc.Request.;_root_.play.api.mvc.Request#%
+„È_root_.javax.inject.Inject#
+Àœ_root_.uk.gov.hmrc.Y
+ôùO_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.<
+ı˚0_root_.controllers.IdentityVerification#(groups)?
+¸É5app/controllers/IdentityVerification.scala@3711..3718†
+†£ì_root_.controllers.IdentityVerification#continue(Luk/gov/hmrc/play/frontend/auth/AuthContext;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(ctx)
+”›_root_.connectors.4
+©∞*_root_.play.api.mvc.RequestHeader#session.
+˚"ˇ"_root_.scala.None.~
+ÒÄt_root_.play.api.mvc.Result#addingToSession(Lscala/collection/Seq;Lplay/api/mvc/RequestHeader;)Lplay/api/mvc/Result;.Y
+¡…O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.õ
+éñé_root_.controllers.IdentityVerification#continue(Luk/gov/hmrc/play/frontend/auth/AuthContext;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.0
+∏∏&_root_.javax.inject.Named#`<init>`()V.4
+◊ﬁ*_root_.play.api.mvc.RequestHeader#session.*
+±º _root_.repositories.SessionRepo#9
+§∏/_root_.controllers.routes.IdentityVerification.?
+¬!≈!5app/controllers/IdentityVerification.scala@3891..3894M
+ƒÕC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.A
+àè5app/controllers/IdentityVerification.scala@3592..3599?
+Ô"Ò"5app/controllers/IdentityVerification.scala@4456..4458$
+≤∑_root_.javax.inject.Named#3
+–‹)_root_.play.api.mvc.Results#Unauthorized.
+É!á!_root_.views.html.|
+§ßr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.?
+¯ˇ5app/controllers/IdentityVerification.scala@2921..2928A
+≤π5app/controllers/IdentityVerification.scala@2610..2617:
+åí0_root_.controllers.IdentityVerification#(config)Ä
+íôv_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.H
+‰¯>_root_.controllers.IdentityVerification#(identityVerification)+
+’›!_root_.uk.gov.hmrc.play.frontend.A
+¬…5app/controllers/IdentityVerification.scala@2498..2505-
+∏»#_root_.connectors.VPLAuthConnector#A
+øŒ5app/controllers/IdentityVerification.scala@3387..3429A
+ﬁ·5app/controllers/IdentityVerification.scala@3934..3937A
+çé5app/controllers/IdentityVerification.scala@3853..38824
+Õ·(_root_.controllers.IdentityVerification#M
+⁄„C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.F
+ìö<_root_.config.ApplicationConfig#baseUrl()Ljava/lang/String;.1
+ú#£#'_root_.models.PersonalDetails#(address)§
+≤πó_root_.controllers.IdentityVerification#continue(Luk/gov/hmrc/play/frontend/auth/AuthContext;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(request)†
+ﬂ Î ï_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;."
+˝á_root_.scala.concurrent.<
+Æ∂2_root_.controllers.IdentityVerification#(ggAction)Y
+´ÕO_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#)
+ı˚_root_.scala.concurrent.Future.
+≠"∞"_root_.scala.Int#|
+Ãœr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.A
+ß¿5app/controllers/IdentityVerification.scala@3491..3570%
+ö†_root_.play.api.mvc.Action.
+˛Ç_root_.play.A
+Œœ5app/controllers/IdentityVerification.scala@1994..2061*
+Íı _root_.repositories.SessionRepo#J
+ß	ª	>_root_.controllers.IdentityVerification#(identityVerification)$
+´±_root_.controllers.routes.
+û¢_root_.auth.?
+≈∆5app/controllers/IdentityVerification.scala@1994..2061ç
+˘ÜÇ_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Y
+¢™O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.A
+—⁄5app/controllers/IdentityVerification.scala@3025..3034$
+–÷_root_.controllers.routes.%
+æ«_root_.java.lang.Exception#/
+ƒ"—"%_root_.models.Address#(addressUnitId)Ä
+™±v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.V
+∏…L_root_.models.PersonalDetails#individualDetails()Lmodels/IndividualDetails;.)
+∑#¿#_root_.controllers.StartIVVM#2
+ñ ° (_root_.models.GroupAccount#(companyName).
+õõ$_root_.java.lang.Object#`<init>`()V.A
+áç7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#F
+∆Õ<_root_.config.ApplicationConfig#baseUrl()Ljava/lang/String;.&
+ª¬_root_.play.api.mvc.Request#6
+Úã,_root_.connectors.identityVerificationProxy.1
+ﬂÛ'_root_.views.html.identityVerification.?
+ä£5app/controllers/IdentityVerification.scala@3491..3570
+˜¸_root_.scala.8
+îù._root_.uk.gov.hmrc.http.SessionKeys.authToken.|
+Ô Ú r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.a
+•ØW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.3
+áì)_root_.play.api.mvc.Results#Unauthorized.%
+◊#›#_root_.scala.Predef.String#0
+ﬁ‚&_root_.uk.gov.hmrc.play.frontend.auth.Z
+âóN_root_.controllers.IdentityVerification#restoreSession()Lplay/api/mvc/Action;.)
+±≥_root_.models.GroupAccount#(id)1
+à!ú!'_root_.views.html.identityVerification.~
+“·t_root_.play.api.mvc.Result#addingToSession(Lscala/collection/Seq;Lplay/api/mvc/RequestHeader;)Lplay/api/mvc/Result;.A
+–◊5app/controllers/IdentityVerification.scala@3664..3671;
+æ«1_root_.models.IVDetails.;_root_.models.IVDetails#?
+∂∑5app/controllers/IdentityVerification.scala@3853..3853A
+Ë"Í"5app/controllers/IdentityVerification.scala@4456..4458<
+ø«2_root_.controllers.IdentityVerification#(ggAction)Y
+ÙO_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.û
+òõì_root_.controllers.IdentityVerification#continue(Luk/gov/hmrc/play/frontend/auth/AuthContext;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(ctx)
+⁄ﬁ_root_.views.html.9
+ù!§!/_root_.views.html.identityVerification.success.?
+Óı5app/controllers/IdentityVerification.scala@3592..3599N
+ƒ ﬁ D_root_.controllers.IdentityVerification#(personalDetailsSessionRepo)
+∂º_root_.models.?
+í ï 5app/controllers/IdentityVerification.scala@3934..3937?
+ÊÒ5_root_.controllers.IdentityVerification#(individuals)o
+„Óe_root_.uk.gov.hmrc.play.frontend.auth.AuthContext.;_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#N
+√›D_root_.controllers.IdentityVerification#(personalDetailsSessionRepo)P
+ÓF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.?
+ß©5app/controllers/IdentityVerification.scala@3814..3816L
+àãB_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;.=
+çï3_root_.java.util.UUID#toString()Ljava/lang/String;.)
+˙ ¸ _root_.play.api.mvc.Results#Ok.=
+ˇë 3_root_.views.html.createAccount.groupAlreadyExists.A
+È5app/controllers/IdentityVerification.scala@2921..2928V
+ÊÌL_root_.controllers.ReverseIdentityVerification#success()Lplay/api/mvc/Call;.?
+ëò5app/controllers/IdentityVerification.scala@3711..3718É
+ﬁ·y_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+ƒ∆
+_root_.uk.?
+Ú˘5app/controllers/IdentityVerification.scala@2610..2617V
+ñ∏L_root_.controllers.IdentityVerification#(identityVerificationProxyConnector)(
+¿√_root_.play.api.mvc.Call#(url)Z
+°¶P_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.ú
+í"î"è_root_.controllers.IdentityVerification#registerAddress(Lmodels/PersonalDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)F
+«–<_root_.models.PersonalDetails#ivDetails()Lmodels/IVDetails;.A
+≥∂5app/controllers/IdentityVerification.scala@3891..3894x
+ç#ì#n_root_.connectors.Addresses#create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.?
+áê5app/controllers/IdentityVerification.scala@3025..3034P
+û†F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.L
+õúB_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.G
+Êı=_root_.models.PersonalDetails.;_root_.models.PersonalDetails#A
+ˇÜ5app/controllers/IdentityVerification.scala@3711..3718A
+Ÿ‹5app/controllers/IdentityVerification.scala@2905..2908A
+Õ‘5app/controllers/IdentityVerification.scala@1869..1876É
+ïòy_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.L
+ŒœB_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.*
+¯â _root_.config.ApplicationConfig#/
+¡#≈##_root_.controllers.StartIVVM#(data)
+ôú_root_.uk.gov.$
+ –_root_.controllers.routes.?
+“Ÿ5app/controllers/IdentityVerification.scala@1972..19791
+ÈÈ'_root_.javax.inject.Inject#`<init>`()V.=
+ÊÍ3_root_.models.identityVerificationProxy.Link#(link)A
+®±5app/controllers/IdentityVerification.scala@3368..3377A
+÷◊5app/controllers/IdentityVerification.scala@2262..22639
+—Â/_root_.controllers.routes.IdentityVerification.?
+èî5_root_.javax.inject.Named.;_root_.javax.inject.Named#)
+û§_root_.scala.concurrent.Future.Q
+ô¶G_root_.models.PersonalDetails#withAddressId(I)Lmodels/PersonalDetails;..
+∏√$_root_.uk.gov.hmrc.http.SessionKeys.a
+¸ÜW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.%
+∞∂_root_.play.api.mvc.Action.£
+äóò_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+®¨_root_.scala.Some.
+ÁÒ_root_.connectors.
+Ï_root_.views.html.ü
+¥"ª"î_root_.controllers.IdentityVerification#registerAddress(Lmodels/PersonalDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)M
+»ÕC_root_.auth.GGAction#async(Lscala/Function1;)Lplay/api/mvc/Action;.:
+€·0_root_.controllers.IdentityVerification#(groups))
+—”_root_.play.api.mvc.Results#Ok.|
+“’r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.8
+Ù˙._root_.views.html.identityVerification.failed.Y
+åÆO_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#?
+‰Â5app/controllers/IdentityVerification.scala@2262..2263A
+åí7_root_.play.api.mvc.Action.;_root_.play.api.mvc.Action#
+Â_root_.controllers.A
+¿
+À
+5_root_.controllers.IdentityVerification#(individuals).
+“#’#"_root_.controllers.StartIVVM#(url)"
+–‘_root_.uk.gov.hmrc.play.1
+º"√"'_root_.models.PersonalDetails#(address)9
+◊Î/_root_.controllers.routes.IdentityVerification./
+Õ
+ﬂ
+%_root_.connectors.IndividualAccounts#ü
+î#õ#î_root_.controllers.IdentityVerification#registerAddress(Lmodels/PersonalDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)I
+àé?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#P
+ÔÒF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.9
+≤∆/_root_.controllers.routes.IdentityVerification.(
+¯!á"_root_.models.PersonalDetails#=
+É#å#3_root_.controllers.IdentityVerification#(addresses)"
+¢¶_root_.uk.gov.hmrc.http.(
+˝Ä_root_.play.api.mvc.Call#(url)A
+ÊË5app/controllers/IdentityVerification.scala@3814..3816X
+á©L_root_.controllers.IdentityVerification#(identityVerificationProxyConnector)
+˜ˇ_root_.auth.GGAction#
+≥π_root_.config.?
+Ñ
+ç
+3_root_.controllers.IdentityVerification#(addresses).
+àì$_root_.uk.gov.hmrc.http.SessionKeys.†
+÷‡ï_root_.connectors.VPLAuthConnector#getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.%
+Ó˜_root_.java.lang.Exception#<
+ˆ0_root_.controllers.IdentityVerification#(config)P
+ŒËD_root_.controllers.IdentityVerification#(personalDetailsSessionRepo)4
+Á*_root_.config.ApplicationConfig#ivEnabled.*
+Ò˛ _root_.views.html.createAccount.
+ˇÖ_root_.javax.inject."
+«#–#_root_.models.IVDetails#ò
+ﬂ!Ó!ã_root_.controllers.IdentityVerification#registerAddress(Lmodels/PersonalDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(
+ô®_root_.models.PersonalDetails#
+Òı_root_.java.C
+««9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.°
+Ô!ˆ!î_root_.controllers.IdentityVerification#registerAddress(Lmodels/PersonalDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)
+£´_root_.auth.GGAction#]
+Ï˙S_root_.controllers.ReverseIdentityVerification#restoreSession()Lplay/api/mvc/Call;.4
+Äá*_root_.play.api.mvc.RequestHeader#session.4
+˘î*_root_.models.IndividualAccountSubmission.a
+ó°W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.
+Ÿ›_root_.scala.Some.?
+≠∞5app/controllers/IdentityVerification.scala@3934..3937
+ÉÜ_root_.play.api.
+˘˛_root_.javax.V
+«ŒL_root_.controllers.ReverseIdentityVerification#success()Lplay/api/mvc/Call;.û
+·‰ì_root_.controllers.IdentityVerification#continue(Luk/gov/hmrc/play/frontend/auth/AuthContext;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(ctx)
+Ω	«	_root_.connectors.L
+ﬂ‚B_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;.A
+Ç5app/controllers/IdentityVerification.scala@3436..3484S
+µºG_root_.controllers.IdentityVerification#success()Lplay/api/mvc/Action;.?
+µ«5app/controllers/IdentityVerification.scala@3436..3484(
+‚Ò_root_.models.PersonalDetails#
+§∞_root_.repositories.N
+˙îD_root_.controllers.IdentityVerification#(personalDetailsSessionRepo)
+ñò
+_root_.uk.M
+ñüC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.?
+∫¡5app/controllers/IdentityVerification.scala@3664..3671L
+±¥B_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;."ø
+o_root_.play.api.mvc.Results#Redirect(Ljava/lang/String;Lscala/collection/immutable/Map;I)Lplay/api/mvc/Result;.ÀRedirectI(url: String, queryString: Map[String, Seq[String]], status: Int): Result"#
+_root_.scala.Predef.String#" 
+_root_.scala.Predef.Map#"#
+%_root_.scala.Predef.String#"!
+'*_root_.scala.package.Seq#"#
++1_root_.scala.Predef.String#"
+=@_root_.scala.Int#"#
+CI_root_.play.api.mvc.Result#"t
+3_root_.java.util.UUID#toString()Ljava/lang/String;.=ÑÄÄtoString
+(): String" 
+
+_root_.java.lang.String#"©
+ò_root_.connectors.VPLAuthConnector#getExternalId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ãgetExternalId>(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String]":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#".
+ -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+06_root_.scala.concurrent.Future#"#
+7=_root_.scala.Predef.String#"x
+._root_.controllers.IdentityVerification#(auth)FÄauthVPLAuthConnector")
+#_root_.connectors.VPLAuthConnector#"@
+/_root_.views.html.identityVerification.success.ÄÑsuccess"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"^
+'_root_.models.PersonalDetails#(address)3ÅaddressAddress"
+_root_.models.Address#"[
+#_root_.controllers.StartIVVM#(data)4Ådata	IVDetails"
+	_root_.models.IVDetails#"ú
+5app/controllers/IdentityVerification.scala@3664..3671cÄaccountOption[GroupAccount]"
+_root_.scala.Option#"#
+_root_.models.GroupAccount#"z
+O_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#'Ä "IdentityVerificationProxyConnector"’
+B_root_.play.api.mvc.Session#get(Ljava/lang/String;)Lscala/Option;.éget(key: String): Option[String]"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"q
+5app/controllers/IdentityVerification.scala@3934..39378accGroupAccount"!
+_root_.models.GroupAccount#"E
+(_root_.controllers.IdentityVerification#Ä IdentityVerification"®
+5app/controllers/IdentityVerification.scala@2921..2928oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"O
+*_root_.models.IndividualAccountSubmission.!ÄÑIndividualAccountSubmission"
+_root_.auth.ÄàÄauth"l
+5app/controllers/IdentityVerification.scala@3891..38943ÄresResult"!
+_root_.play.api.mvc.Result#"
+%_root_.models.Address#(addressUnitId)VÅaddressUnitIdOption[Int]"
+_root_.scala.Option#"
+
+_root_.scala.Int#"4
+ _root_.repositories.SessionRepo#Ä@SessionRepo"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#"'
+_root_.connectors.ÄàÄ
+connectors"â
+5app/controllers/IdentityVerification.scala@2905..2908PÄÅ ctxAuthContext"8
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"è	
+Õ_root_.controllers.IdentityVerification#`<init>`(Lauth/GGAction;Lconnectors/IdentityVerification;Lconnectors/Addresses;Lconnectors/IndividualAccounts;Lconnectors/identityVerificationProxy/IdentityVerificationProxyConnector;Lconnectors/GroupAccounts;Lconnectors/VPLAuthConnector;Lconfig/ApplicationConfig;Lrepositories/SessionRepo;)V.º<init>»(ggAction: GGAction, identityVerification: IdentityVerification, addresses: Addresses, individuals: IndividualAccounts, identityVerificationProxyConnector: IdentityVerificationProxyConnector, groups: GroupAccounts, auth: VPLAuthConnector, config: ApplicationConfig, personalDetailsSessionRepo: SessionRepo): IdentityVerification"
+_root_.auth.GGAction#"/
++?'_root_.connectors.IdentityVerification#"$
+LU_root_.connectors.Addresses#"-
+dv%_root_.connectors.IndividualAccounts#"Y
+úæO_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#"*
+»’ _root_.connectors.GroupAccounts#"-
+›Ì#_root_.connectors.VPLAuthConnector#"*
+˜à _root_.config.ApplicationConfig#"*
+¶± _root_.repositories.SessionRepo#"2
+¥»(_root_.controllers.IdentityVerification#"^
+5app/controllers/IdentityVerification.scala@3814..3816%ÄidInt"
+_root_.scala.Int#"∞
+D_root_.controllers.IdentityVerification#fail()Lplay/api/mvc/Action;.hfailAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#",
+_root_.play.api.mvc.Request#Ä@Request"P
+,_root_.connectors.identityVerificationProxy. ÄàÄidentityVerificationProxy"O
+3_root_.views.html.createAccount.groupAlreadyExists.ÄÑgroupAlreadyExists"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"∂
+G_root_.controllers.IdentityVerification#success()Lplay/api/mvc/Action;.ksuccessAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"4
+!_root_.uk.gov.hmrc.play.frontend.ÄàÄfrontend"/
+_root_.java.lang.Exception#Ä†Ä	Exception"
+_root_.java.ÄàÄjava"˚
+é_root_.controllers.IdentityVerification#continue(Luk/gov/hmrc/play/frontend/auth/AuthContext;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.ÁÑÄcontinueM(implicit ctx: AuthContext, request: play.api.mvc.Request[_]): Future[Result]":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"'
+?E_root_.scala.concurrent.Future#"#
+FL_root_.play.api.mvc.Result#"D
+'_root_.connectors.IdentityVerification#Ä IdentityVerification"û
+B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.XÑÄ+(x$1: Any): String"
+	_root_.scala.Any#" 
+_root_.java.lang.String#"u
+5app/controllers/IdentityVerification.scala@3853..3853<dPersonalDetails"$
+_root_.models.PersonalDetails#"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"@
+%_root_.connectors.IndividualAccounts#Ä IndividualAccounts"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"
+z_root_.auth.GGAction#`<init>`(Lauth/GovernmentGatewayProvider;Luk/gov/hmrc/play/frontend/auth/connectors/AuthConnector;)V.Ò<init>M(provider: GovernmentGatewayProvider, authConnector: AuthConnector): GGAction".
+$&_root_.auth.GovernmentGatewayProvider#"G
+5B?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#"
+EM_root_.auth.GGAction#"v
+0_root_.controllers.IdentityVerification#(groups)BÄgroupsGroupAccounts"&
+ _root_.connectors.GroupAccounts#"o
+5app/controllers/IdentityVerification.scala@3627..36336ÄuserIdString"!
+_root_.scala.Predef.String#"
+_root_.javax.ÄàÄjavax"J
+_root_.models.GroupAccount#(id)'ÅidLong"
+_root_.scala.Long#"¬
+G_root_.models.PersonalDetails#withAddressId(I)Lmodels/PersonalDetails;.wwithAddressId!(addressId: Int): PersonalDetails"
+_root_.scala.Int#"&
+!_root_.models.PersonalDetails#""
+_root_.play.api.mvc.
+ÄàÄmvc"®
+5app/controllers/IdentityVerification.scala@3387..3429oeventualGroupIdFuture[String]"%
+_root_.scala.concurrent.Future#"#
+_root_.scala.Predef.String#"
+_root_.play.api.
+ÄàÄapi"®
+5app/controllers/IdentityVerification.scala@2610..2617oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"º
+P_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.ÁÑÄasyncE(block: Function1[R[AnyContent], Future[Result]]): Action[AnyContent]"
+_root_.scala.Function1#"-
+%_root_.play.api.mvc.ActionBuilder#[R]"'
+_root_.play.api.mvc.AnyContent#"'
+!'_root_.scala.concurrent.Future#"#
+(._root_.play.api.mvc.Result#"#
+39_root_.play.api.mvc.Action#"'
+:D_root_.play.api.mvc.AnyContent#"®
+5app/controllers/IdentityVerification.scala@1869..1876oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"†
+L_root_.models.PersonalDetails#individualDetails()Lmodels/IndividualDetails;.PindividualDetailsIndividualDetails"&
+ _root_.models.IndividualDetails#"ß
+º_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.Â<init>o(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): IdentityVerificationProxyConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"1
+:J)_root_.scala.concurrent.ExecutionContext#"W
+MoO_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#"∂
+G_root_.controllers.IdentityVerification#startIv()Lplay/api/mvc/Action;.kstartIvAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"ú
+D_root_.controllers.IdentityVerification#(personalDetailsSessionRepo)TÅpersonalDetailsSessionRepoSessionRepo"&
+ _root_.repositories.SessionRepo#"á
+ã_root_.controllers.IdentityVerification#registerAddress(Lmodels/PersonalDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ˆÑÄregisterAddressC(details: PersonalDetails)(implicit hc: HeaderCarrier): Future[Int]"&
+
+_root_.models.PersonalDetails#".
+(5&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+8>_root_.scala.concurrent.Future#"
+?B_root_.scala.Int#"´
+5app/controllers/IdentityVerification.scala@3436..3484reventualExternalIdFuture[String]"%
+_root_.scala.concurrent.Future#"#
+_root_.scala.Predef.String#"¿
+t_root_.play.api.mvc.Result#addingToSession(Lscala/collection/Seq;Lplay/api/mvc/RequestHeader;)Lplay/api/mvc/Result;.«addingToSessionU(values: <repeated>[Tuple2[String, String]])(implicit request: RequestHeader): Result""
+	_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+!_root_.scala.Predef.String#"#
+#)_root_.scala.Predef.String#"*
+?L"_root_.play.api.mvc.RequestHeader#"#
+OU_root_.play.api.mvc.Result#".
+_root_.scala.concurrent.Future#Ä@Future"/
+_root_.scala.concurrent.Future.ÄÑFuture"u
+5app/controllers/IdentityVerification.scala@3853..3882<dPersonalDetails"$
+_root_.models.PersonalDetails#"´
+9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.nêÄÄ<init>(x$1: String): Exception" 
+_root_.java.lang.String#"#
+_root_.java.lang.Exception#"·
+ï_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.∆ÑÄsaveOrUpdateJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"°
+ò_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
+%!_root_.play.api.libs.json.Writes#"°
+&'ò_root_.repositories.SessionRepo#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+>D_root_.scala.concurrent.Future#"
+EI_root_.scala.Unit#"å
+O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.∏ÑÄfold4[B] => (ifEmpty: <byname>[B])(f: Function1[A, B]): B" 
+_root_.scala.`<byname>`#"Z
+R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"
+!*_root_.scala.Function1#"
++,_root_.scala.Option#[A]"Z
+./R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"Z
+34R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"!
+_root_.views.html.ÄàÄhtml",
+_root_.javax.inject.Inject#Ä†ÄInject"«
+m_root_.connectors.VPLAuthConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.’<init>>(serverConfig: ServicesConfig, http: WSHttp): VPLAuthConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"+
+.>#_root_.connectors.VPLAuthConnector#"+
+_root_.repositories.ÄàÄrepositories"ƒ
+N_root_.controllers.IdentityVerification#restoreSession()Lplay/api/mvc/Action;.rrestoreSessionAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"6
+ _root_.connectors.GroupAccounts#Ä GroupAccounts"l
+'_root_.java.lang.Exception#`<init>`()V.AàÄÄ<init>(): Exception"#
+_root_.java.lang.Exception#"ï
+v_root_.models.IVDetails#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;)V.ö<init>T(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino): IVDetails"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"#
+3<_root_.java.time.LocalDate#"'
+DH_root_.uk.gov.hmrc.domain.Nino#" 
+KT_root_.models.IVDetails#"‰
+Õ_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#`<init>`(Luk/gov/hmrc/play/frontend/auth/LoggedInUser;Luk/gov/hmrc/play/frontend/auth/Principal;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)V.ë<init>™(user: LoggedInUser, principal: Principal, attorney: Option[Attorney], userDetailsUri: Option[String], enrolmentsUri: Option[String], idsUri: Option[String]): AuthContext";
+3_root_.uk.gov.hmrc.play.frontend.auth.LoggedInUser#"8
+ )0_root_.uk.gov.hmrc.play.frontend.auth.Principal#"
+5;_root_.scala.Option#"7
+<D/_root_.uk.gov.hmrc.play.frontend.auth.Attorney#"
+W]_root_.scala.Option#"#
+^d_root_.scala.Predef.String#"
+v|_root_.scala.Option#"$
+}É_root_.scala.Predef.String#"
+éî_root_.scala.Option#"%
+ïõ_root_.scala.Predef.String#"<
+ü™2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"Ω
+∆_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#start(Ljava/lang/String;Ljava/lang/String;Lmodels/IVDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Òstartj(completionURL: String, failureURL: String, userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link]"#
+_root_.scala.Predef.String#"#
+$*_root_.scala.Predef.String#" 
+6?_root_.models.IVDetails#".
+N[&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+^d_root_.scala.concurrent.Future#"5
+ei-_root_.models.identityVerificationProxy.Link#"≥
+ã_root_.connectors.IdentityVerification#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/ApplicationConfig;Lconfig/WSHttp;)V.¢<init>](serverConfig: ServicesConfig, config: ApplicationConfig, http: WSHttp): IdentityVerification"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"(
+'8 _root_.config.ApplicationConfig#"
+@F_root_.config.WSHttp#"/
+I]'_root_.connectors.IdentityVerification#"r
+3_root_.java.util.UUID.randomUUID()Ljava/util/UUID;.;ÑÄÄ
+randomUUID(): UUID"
+_root_.java.util.UUID#"‹
+î_root_.controllers.IdentityVerification#registerAddress(Lmodels/PersonalDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(details)CÄdetailsPersonalDetails"$
+_root_.models.PersonalDetails#"Ω
+O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
+_root_.play.api.mvc.Call#"#
+_root_.play.api.mvc.Result#"´
+ï_root_.connectors.VPLAuthConnector#getGroupId(Luk/gov/hmrc/play/frontend/auth/AuthContext;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ê
+getGroupIdF(authContext: AuthContext)(implicit hc: HeaderCarrier): Future[String]":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#".
+(5&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+8>_root_.scala.concurrent.Future#"#
+?E_root_.scala.Predef.String#"
+
+_root_.uk.	ÄàÄuk"Ë
+ì_root_.controllers.IdentityVerification#continue(Luk/gov/hmrc/play/frontend/auth/AuthContext;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(ctx)PÄÅ ctxAuthContext"8
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"%
+_root_.javax.inject.ÄàÄinject"j
+2_root_.controllers.IdentityVerification#(ggAction)4ÄggActionGGAction"
+_root_.auth.GGAction#"r
+5app/controllers/IdentityVerification.scala@3025..30349Ä	journeyIdString"!
+_root_.scala.Predef.String#"+
+_root_.controllers.routes.ÄÑàroutes"
+_root_.uk.gov.
+ÄàÄgov"¢
+/_root_.controllers.routes.IdentityVerification.oÅÄàIdentityVerificationReverseIdentityVerification"5
+/_root_.controllers.ReverseIdentityVerification#"z
+0_root_.controllers.IdentityVerification#(config)FÄconfigApplicationConfig"&
+ _root_.config.ApplicationConfig#"¨
+f_root_.connectors.Addresses#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.¡<init>1(config: ServicesConfig, http: WSHttp): Addresses"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"$
+(1_root_.connectors.Addresses#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"û
+C_root_.auth.GGAction#async(Lscala/Function1;)Lplay/api/mvc/Action;.÷asyncb(body: Function1[AuthContext, Function1[Request[AnyContent], Future[Result]]]): Action[AnyContent]"
+_root_.scala.Function1#":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"
+'_root_.scala.Function1#"$
+(/_root_.play.api.mvc.Request#"'
+0:_root_.play.api.mvc.AnyContent#"'
+=C_root_.scala.concurrent.Future#"#
+DJ_root_.play.api.mvc.Result#"#
+PV_root_.play.api.mvc.Action#"'
+Wa_root_.play.api.mvc.AnyContent#"ä
+5_root_.controllers.IdentityVerification#(individuals)QÄindividualsIndividualAccounts"+
+%_root_.connectors.IndividualAccounts#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"õ
+y_root_.connectors.GroupAccounts#withGroupId(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ùwithGroupIdK(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]]"#
+
+_root_.scala.Predef.String#".
+,&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+/5_root_.scala.concurrent.Future#"
+6<_root_.scala.Option#"#
+=I_root_.models.GroupAccount#"¯
+Ç_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.verifySuccess@(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean]"#
+_root_.scala.Predef.String#".
+!.&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+17_root_.scala.concurrent.Future#"
+8?_root_.scala.Boolean#"<
+#_root_.connectors.VPLAuthConnector#Ä VPLAuthConnector"g
+._root_.uk.gov.hmrc.http.SessionKeys.sessionId.5	sessionIdString"
+_root_.java.lang.String#":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"!
+_root_.scala.None.ÄÑàNone"r
+5app/controllers/IdentityVerification.scala@3368..33779Ä	journeyIdString"!
+_root_.scala.Predef.String#"†
+>_root_.controllers.IdentityVerification#(identityVerification)^ÄidentityVerificationIdentityVerification"-
+'_root_.connectors.IdentityVerification#"8
+ _root_.views.html.createAccount.ÄàÄcreateAccount"¢
+5app/controllers/IdentityVerification.scala@1972..1979iÄdetailsOption[PersonalDetails]"
+_root_.scala.Option#"&
+_root_.models.PersonalDetails#"à
+L_root_.controllers.ReverseIdentityVerification#success()Lplay/api/mvc/Call;.8success(): Call"!
+_root_.play.api.mvc.Call#"
+_root_.play.ÄàÄplay"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"f
+&_root_.javax.inject.Named#`<init>`()V.<àÄÄ<init>	(): Named""
+	_root_.javax.inject.Named#"x
+<_root_.models.PersonalDetails#ivDetails()Lmodels/IVDetails;.8	ivDetails	IVDetails"
+	_root_.models.IVDetails#"Y
+"_root_.controllers.StartIVVM#(url)3ÅurlString"!
+_root_.scala.Predef.String#"ñ
+S_root_.controllers.ReverseIdentityVerification#restoreSession()Lplay/api/mvc/Call;.?restoreSession(): Call"!
+_root_.play.api.mvc.Call#"ı
+M_root_.controllers.StartIVVM#`<init>`(Lmodels/IVDetails;Ljava/lang/String;)V.£<init>)(data: IVDetails, url: String): StartIVVM" 
+_root_.models.IVDetails#"#
+_root_.scala.Predef.String#"%
+ )_root_.controllers.StartIVVM#"Æ
+ç_root_.connectors.GroupAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.õ<init>T(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): GroupAccounts"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"(
+GT _root_.connectors.GroupAccounts#"]
+5app/controllers/IdentityVerification.scala@4456..4458$idInt"
+_root_.scala.Int#"¬
+ó_root_.controllers.IdentityVerification#continue(Luk/gov/hmrc/play/frontend/auth/AuthContext;Lplay/api/mvc/Request;)Lscala/concurrent/Future;.(request)&ÄÅ requestplay.api.mvc.Request[_]"g
+._root_.uk.gov.hmrc.http.SessionKeys.authToken.5	authTokenString"
+_root_.java.lang.String#"Â
+5app/controllers/IdentityVerification.scala@3491..3570´eventualIndividualDetailsFuture[Option[PersonalDetails]]"%
+_root_.scala.concurrent.Future#"
+_root_.scala.Option#"&
+_root_.models.PersonalDetails#"|
+5app/controllers/IdentityVerification.scala@3711..3718CÄdetailsPersonalDetails"$
+_root_.models.PersonalDetails#"p
+)_root_.play.api.mvc.Results#Unauthorized.CUnauthorizedStatus")
+#_root_.play.api.mvc.Results#Status#"
+_root_.models.ÄàÄmodels"∏
+–_root_.models.PersonalDetails#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/Address;)V.‚<init>ª(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino, email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: Address): PersonalDetails"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"#
+3<_root_.java.time.LocalDate#"'
+DH_root_.uk.gov.hmrc.domain.Nino#"#
+QW_root_.scala.Predef.String#"#
+io_root_.scala.Predef.String#"#
+y_root_.scala.Predef.String#"
+âè_root_.scala.Option#"%
+êñ_root_.scala.Predef.String#" 
+¢©_root_.models.Address#"(
+¨ª_root_.models.PersonalDetails#">
+._root_.views.html.identityVerification.failed.ÄÑfailed"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"&
+_root_.auth.GGAction#Ä GGAction"˝
+y_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ˇÑÄgetE[A] => (implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]]"(
+ _root_.play.api.libs.json.Reads#"Ñ
+|_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+$1&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+4:_root_.scala.concurrent.Future#"
+;A_root_.scala.Option#"Ñ
+BC|_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]"+
+_root_.play.api.mvc.Action.ÄÑAction")
+_root_.controllers.ÄàÄcontrollers"
+_root_.views.ÄàÄviews"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"8
+_root_.models.PersonalDetails#Ä†ÄPersonalDetails"u
+5app/controllers/IdentityVerification.scala@1994..2061<dPersonalDetails"$
+_root_.models.PersonalDetails#"
+_root_.config.ÄàÄconfig"v
+<_root_.config.ApplicationConfig#baseUrl()Ljava/lang/String;.6baseUrlString"!
+_root_.scala.Predef.String#">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"z
+5app/controllers/IdentityVerification.scala@2262..2263AÄlLink"3
+-_root_.models.identityVerificationProxy.Link#"1
+_root_.controllers.StartIVVM#Ä†Ä	StartIVVM"
+_root_.scala.ÄàÄscala"*
+_root_.javax.inject.Named#Ä†ÄNamed"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"5
+&_root_.uk.gov.hmrc.play.frontend.auth.ÄàÄauth"p
+5app/controllers/IdentityVerification.scala@3592..35997ÄgroupIdString"!
+_root_.scala.Predef.String#" 
+_root_.java.util.ÄàÄutil"k
+3_root_.models.identityVerificationProxy.Link#(link)4ÅlinkString"!
+_root_.scala.Predef.String#"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"î
+ã_root_.connectors.IndividualAccounts#create(Lmodels/IndividualAccountSubmission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÉcreateO(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int]"2
+
+%*_root_.models.IndividualAccountSubmission#".
+4A&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+DJ_root_.scala.concurrent.Future#"
+KN_root_.scala.Int#"a
+*_root_.config.ApplicationConfig#ivEnabled.3	ivEnabledBoolean"
+_root_.scala.Boolean#"9
+$_root_.uk.gov.hmrc.http.SessionKeys.ÄÑSessionKeys"Ÿ
+è_root_.controllers.IdentityVerification#registerAddress(Lmodels/PersonalDetails;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"F
+'_root_.views.html.identityVerification.ÄàÄidentityVerification"Û
+L_root_.controllers.IdentityVerification#(identityVerificationProxyConnector)¢Ä"identityVerificationProxyConnector"IdentityVerificationProxyConnector"U
+"O_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"H
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#Ä†ÄAuthContext"µ
+v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.∫flatMapS[S] => (f: Function1[T, Future[S]])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"'
+_root_.scala.concurrent.Future#"Å
+ y_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+7G)_root_.scala.concurrent.ExecutionContext#"'
+JP_root_.scala.concurrent.Future#"Å
+QRy_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"h
+*_root_.play.api.mvc.RequestHeader#session.:ÅÄ@sessionSession""
+_root_.play.api.mvc.Session#"t
+3_root_.controllers.IdentityVerification#(addresses)=Ä	addresses	Addresses""
+	_root_.connectors.Addresses#"Œ
+n_root_.connectors.Addresses#create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.€create;(address: Address)(implicit hc: HeaderCarrier): Future[Int]"
+
+_root_.models.Address#".
+ -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+06_root_.scala.concurrent.Future#"
+7:_root_.scala.Int#"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"
+_root_.scala.Int#	Ä†Int"Ç
+I_root_.controllers.ReverseIdentityVerification#fail()Lplay/api/mvc/Call;.5fail(): Call"!
+_root_.play.api.mvc.Call#"%
+_root_.java.util.UUID.ÄÑàUUID"Ω
+í_root_.connectors.IndividualAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.•<init>Y(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): IndividualAccounts"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"-
+GY%_root_.connectors.IndividualAccounts#",
+_root_.models.IVDetails#Ä†Ä	IVDetails" 
+_root_.scala.Some.
+ÄÑSome".
+_root_.connectors.Addresses#Ä 	Addresses"®
+5app/controllers/IdentityVerification.scala@2498..2505oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"g
+(_root_.models.GroupAccount#(companyName);ÅcompanyNameString"!
+_root_.scala.Predef.String#2≥
+ÂÂ(*(IdentityVerification.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2¡
+˙˙*.apply
+_star_.û
+ï_root_.views.html.identityVerification.failed_Scope0.failed_Scope1.failed#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2á
+¸¸.*(request, IdentityVerification.this.messages)
+_star_.>
+%-6_root_.controllers.PropertyLinkingController#messages.2«
+≥!≥!*.map[Result]
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+_root_.play.api.mvc.Result#2x
+ÙÙ*[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2Á
+££<*(play.api.http.Writeable.wString(play.api.mvc.Codec.utf_8))
+_star_.f
+!^_root_.play.api.http.DefaultWriteables#wString(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.(
+5: _root_.play.api.mvc.Codec.utf_8.2Á
+ÃÃ<*(play.api.http.Writeable.wString(play.api.mvc.Codec.utf_8))
+_star_.f
+!^_root_.play.api.http.DefaultWriteables#wString(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.(
+5: _root_.play.api.mvc.Codec.utf_8.2D
+	*[String]
+_star_. 
+_root_.java.lang.String#2÷
+–Ï+IdentityVerification.this.future[Result](*)i
+ a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
+!'_root_.play.api.mvc.Result#
+)*_star_.2r
+ÙÙ*(IdentityVerification.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2ß
+››/*.flatMap[Result](IdentityVerification.this.ec)
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#8
+,.0_root_.controllers.PropertyLinkingController#ec.2S
+Î Î *[PersonalDetails]
+_star_.&
+_root_.models.PersonalDetails#2
+ë ë *.apply
+_star_.Õ
+ƒ_root_.views.html.createAccount.groupAlreadyExists_Scope0.groupAlreadyExists_Scope1.groupAlreadyExists#apply(Ljava/lang/String;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2#
+ññ
+*(request)
+_star_.2Ë
+ˆˆ8*.flatMap[Result](IdentityVerification.this.hc(request))
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#p
+,.h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2r
+ÙÙ*(IdentityVerification.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2≥
+ÀÀ(*(IdentityVerification.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2ø
+ºº*.apply[String]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;. 
+_root_.java.lang.String#2G
+üü	*[String]
+_star_.#
+_root_.scala.Predef.String#2≥
+úú(*(IdentityVerification.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2#
+©©
+*(request)
+_star_.2…
+Ô"Ò"(IdentityVerification.this.future[Int](*)i
+ a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+!$_root_.scala.Int#
+&'_star_.2S
+≥≥*[PersonalDetails]
+_star_.&
+_root_.models.PersonalDetails#2Ñ
+¨¨*.apply[Long]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
+_root_.scala.Long#2x
+ùù*[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2µ
+§!§!*.apply
+_star_.í
+â_root_.views.html.identityVerification.success_Scope0.success#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2œ
+¢¢*.flatMap[Result]
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#2G
+±±	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2(
+ππ*(ctx, request)
+_star_.2Æ
+ŸÓ"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2r
+≈!≈!*(IdentityVerification.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2Å
+©©G*(models.PersonalDetails.format, IdentityVerification.this.hc(request))
+_star_.-
+%_root_.models.PersonalDetails.format.p
+;=h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2ß
+™™/*.flatMap[Result](IdentityVerification.this.ec)
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#8
+,.0_root_.controllers.PropertyLinkingController#ec.2”
+ß!ß!û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2Å
+Ó Ó G*(models.PersonalDetails.format, IdentityVerification.this.hc(request))
+_star_.-
+%_root_.models.PersonalDetails.format.p
+;=h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2”
+ÂÂ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2S
+ßß*[PersonalDetails]
+_star_.&
+_root_.models.PersonalDetails#2≥
+——(*(IdentityVerification.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2G
+Ú Ú 	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2G
+ÒÒ	*[String]
+_star_.#
+_root_.scala.Predef.String#2÷
+¡©+IdentityVerification.this.future[Result](*)i
+ a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
+!'_root_.play.api.mvc.Result#
+)*_star_.2G
+ØØ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Æ
+àù"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2G
+’’	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Æ
+‚Ì"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2á
+¢ ¢ .*(request, IdentityVerification.this.messages)
+_star_.>
+%-6_root_.controllers.PropertyLinkingController#messages.2r
+ÏÏ*(IdentityVerification.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2ø
+ìì*.apply[String]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;. 
+_root_.java.lang.String#2”
+””*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2G
+ÜÜ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2
+§#§#*(hc)
+_star_.2G
+††	*[String]
+_star_.#
+_root_.scala.Predef.String#2”
+¸ ¸ *.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2Å
+ÚÚG*(models.PersonalDetails.format, IdentityVerification.this.hc(request))
+_star_.-
+%_root_.models.PersonalDetails.format.p
+;=h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2G
+°°	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Á
+ÏÏ<*(play.api.http.Writeable.wString(play.api.mvc.Codec.utf_8))
+_star_.f
+!^_root_.play.api.http.DefaultWriteables#wString(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.(
+5: _root_.play.api.mvc.Codec.utf_8.2”
+£ £ û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2Œ
+îî*.apply
+_star_.´
+¢_root_.models.IndividualAccountSubmission.apply(Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/IndividualDetails;)Lmodels/IndividualAccountSubmission;.2S
+„„*[PersonalDetails]
+_star_.&
+_root_.models.PersonalDetails#2G
+œœ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2á
+¶!¶!.*(request, IdentityVerification.this.messages)
+_star_.>
+%-6_root_.controllers.PropertyLinkingController#messages.2ø
+‹‹*.apply[String]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;. 
+_root_.java.lang.String#2G
+ÕÕ	*[String]
+_star_.#
+_root_.scala.Predef.String#2≥
+ëë(*(IdentityVerification.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2”
+˝˝û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2œ
+««*.flatMap[Result]
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#2G
+ôô	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2z
+∂∂*.apply
+_star_.X
+P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2≤
+ÑÑJ*.map[Tuple2[Int, PersonalDetails]](IdentityVerification.this.hc(request))
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.&
+!_root_.models.PersonalDetails#
+_root_.scala.Tuple2#
+_root_.scala.Int#p
+>@h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.:Scala211Bﬂ#/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers
+
+import javax.inject.{Inject, Named}
+
+import auth.GGAction
+import config.ApplicationConfig
+import connectors._
+import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
+import models.{IVDetails, IndividualAccountSubmission, PersonalDetails}
+import play.api.mvc.{Action, Request}
+import repositories.SessionRepo
+import uk.gov.hmrc.play.frontend.auth.AuthContext
+
+import scala.concurrent.Future
+import uk.gov.hmrc.http.{ HeaderCarrier, SessionKeys }
+
+class IdentityVerification @Inject() (ggAction: GGAction,
+                                      identityVerification: connectors.IdentityVerification,
+                                      addresses: Addresses,
+                                      individuals: IndividualAccounts,
+                                      identityVerificationProxyConnector: IdentityVerificationProxyConnector,
+                                      groups: GroupAccounts,
+                                      auth: VPLAuthConnector,
+                                      config: ApplicationConfig,
+                                      @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
+  extends PropertyLinkingController {
+
+  def startIv = ggAction.async { _ => implicit request =>
+    if (config.ivEnabled) {
+      personalDetailsSessionRepo.get[PersonalDetails] flatMap { details  => {
+        val d = details.getOrElse(throw new Exception("details not found"))
+        identityVerificationProxyConnector.start(config.baseUrl + routes.IdentityVerification.restoreSession().url,
+          config.baseUrl + routes.IdentityVerification.fail().url, d.ivDetails).map(l => Redirect(l.link))
+      }
+      }
+    } else {
+      Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
+    }
+  }
+
+  def fail = Action { implicit request =>
+    Ok(views.html.identityVerification.failed())
+  }
+
+  def restoreSession = Action.async { implicit request =>
+    Redirect(routes.IdentityVerification.success()).addingToSession(
+      SessionKeys.authToken -> request.session.get("bearerToken").getOrElse(""),
+      SessionKeys.sessionId -> request.session.get("oldSessionId").getOrElse("")
+    )
+  }
+
+  def success = ggAction.async { implicit ctx => implicit request =>
+    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      identityVerification.verifySuccess(journeyId) flatMap {
+        case true => continue
+        case false => Unauthorized("Unauthorised")
+      }
+    }
+  }
+
+  private def continue(implicit ctx: AuthContext, request: Request[_]) = {
+    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      val eventualGroupId = auth.getGroupId(ctx)
+      val eventualExternalId = auth.getExternalId(ctx)
+      val eventualIndividualDetails = personalDetailsSessionRepo.get[PersonalDetails]
+
+      for {
+        groupId <- eventualGroupId
+        userId <- eventualExternalId
+        account <- groups.withGroupId(groupId)
+        details <- eventualIndividualDetails.map(_.getOrElse(throw new Exception("no details found")))
+        id <- registerAddress(details)
+        d = details.withAddressId(id)
+        res <- account match {
+          case Some(acc) => individuals.create(IndividualAccountSubmission(userId, journeyId, Some(acc.id), d.individualDetails)) map { _ =>
+            Ok(views.html.createAccount.groupAlreadyExists(acc.companyName))
+          }
+          case _ => personalDetailsSessionRepo.saveOrUpdate(d) map { _ => Ok(views.html.identityVerification.success()) }
+        }
+      } yield res
+    }
+  }
+
+  private def registerAddress(details: PersonalDetails)(implicit hc: HeaderCarrier): Future[Int] = details.address.addressUnitId match {
+    case Some(id) => id
+    case None => addresses.create(details.address)
+  }
+}
+
+case class StartIVVM(data: IVDetails, url: String)
+J*app/controllers/IdentityVerification.scala

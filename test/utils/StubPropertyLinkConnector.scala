@@ -22,10 +22,10 @@ import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import session.LinkingSessionRequest
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfig, StubHttp) {
 

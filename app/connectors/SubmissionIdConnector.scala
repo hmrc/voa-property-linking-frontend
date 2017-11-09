@@ -19,10 +19,9 @@ package connectors
 import javax.inject.Inject
 
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.ws.WSHttp
-import uk.gov.hmrc.play.http.{HeaderCarrier}
-
+import config.WSHttp
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.HeaderCarrier
 
 class SubmissionIdConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"

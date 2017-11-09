@@ -1,0 +1,220 @@
+
+£c7
+¡	»	-_root_.controllers.AddressLookupSpec#request.K
+‚ÔA_root_.controllers.AddressLookupSpec#TestAddressLookupController.c
+À
+Ÿ
+Y_root_.controllers.AddressLookup#findByPostcode(Ljava/lang/String;)Lplay/api/mvc/Action;.6
+Ë
+¯
+,_root_.utils.StubAddresses.noResultPostcode.M
+∞ÀA_root_.controllers.AddressLookupSpec#TestAddressLookupController.7
+˙
+Å-_root_.controllers.AddressLookupSpec#request.o
+˘˚e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.0
+ö£&_root_.play.api.http.Status#NOT_FOUND.,
+Ó¸"_root_.controllers.ControllerSpec#u
+Ó	Ú	k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.+
+ò£!_root_.play.api.test.FakeRequest.
+πæ_root_.utils.o
+ú
+û
+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.>
+·‰2test/controllers/AddressLookupSpec.scala@989..1061p
+˝ˇf_root_.org.scalatest.FlatSpecLike#BehaviorWord#of(Ljava/lang/String;Lorg/scalactic/source/Position;)V.=
+ÊÊ1_root_.controllers.AddressLookupSpec#`<init>`()V.o
+‘÷e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.z
+ìôp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.%
+øÃ_root_.utils.StubAddresses./
+îñ%_root_.org.scalatest.FlatSpecLike#it.+
+‘·!_root_.controllers.AddressLookup#
+ü¢_root_.play.api./
+Î	Ì	%_root_.org.scalatest.FlatSpecLike#it.1
+‘Â%_root_.controllers.AddressLookupSpec#u
+ Œk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.?
+Ü	â	3test/controllers/AddressLookupSpec.scala@1154..1225
+£ß_root_.play.api.test.5
+Ù¸+_root_.org.scalatest.FlatSpecLike#behavior.M
+áíC_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#z
+⁄	‡	p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
+Â_root_.controllers.M
+··C_root_.controllers.AddressLookup#`<init>`(Lconnectors/Addresses;)V.9
+éï-_root_.controllers.AddressLookupSpec#request.c
+®	∂	Y_root_.controllers.AddressLookup#findByPostcode(Ljava/lang/String;)Lplay/api/mvc/Action;.u
+óõk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.K
+Ø
+ 
+A_root_.controllers.AddressLookupSpec#TestAddressLookupController.
+öû_root_.play./
+«…%_root_.org.scalatest.FlatSpecLike#it.K
+å	ß	A_root_.controllers.AddressLookupSpec#TestAddressLookupController.
+ÇÜ_root_.play.api.test.'
+®Ø_root_.play.api.test.Helpers.z
+∂ºp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
+˛Å_root_.play.api.%
+⁄
+Á
+_root_.utils.StubAddresses.)
+Ωø_root_.play.api.http.Status#OK.K
+ÁÇA_root_.controllers.AddressLookupSpec#TestAddressLookupController.c
+ÉëY_root_.controllers.AddressLookup#findByPostcode(Ljava/lang/String;)Lplay/api/mvc/Action;.7
+ù§-_root_.controllers.AddressLookupSpec#request.?
+©
+¨
+3test/controllers/AddressLookupSpec.scala@1317..14104
+˝˝*_root_.org.scalatest.FlatSpec#`<init>`()V.)
+·	„	_root_.play.api.http.Status#OK.
+˘˝_root_.play."9
+"_root_.controllers.ControllerSpec#Ä@ControllerSpec"$
+_root_.play.api.test.ÄàÄtest"6
+!_root_.play.api.test.FakeRequest.ÄÑFakeRequest" 
+C_root_.controllers.AddressLookup#`<init>`(Lconnectors/Addresses;)V.Ç<init>%(addresses: Addresses): AddressLookup"$
+_root_.connectors.Addresses#")
+%!_root_.controllers.AddressLookup#"ô
+2test/controllers/AddressLookupSpec.scala@989..1061cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"l
+,_root_.utils.StubAddresses.noResultPostcode.<noResultPostcodeString"
+_root_.java.lang.String#"
+_root_.play.api.
+ÄàÄapi"7
+!_root_.controllers.AddressLookup#Ä AddressLookup"Ç
++_root_.org.scalatest.FlatSpecLike#behavior.SÅÄbehaviorBehaviorWord"5
+/_root_.org.scalatest.FlatSpecLike#BehaviorWord#"f
+A_root_.controllers.AddressLookupSpec#TestAddressLookupController.!ÄÑTestAddressLookupController"?
+%_root_.controllers.AddressLookupSpec#Ä AddressLookupSpec"„
+p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.omustBe(right: Any): Assertion"
+_root_.scala.Any#"/
+'_root_.org.scalatest.package.Assertion#"ö
+3test/controllers/AddressLookupSpec.scala@1317..1410cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"∞
+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#".
+_root_.play.api.test.Helpers.ÄÑHelpers"ñ
+f_root_.org.scalatest.FlatSpecLike#BehaviorWord#of(Ljava/lang/String;Lorg/scalactic/source/Position;)V.´of3(description: String)(implicit pos: Position): Unit"#
+_root_.scala.Predef.String#"-
+$,%_root_.org.scalactic.source.Position#"
+/3_root_.scala.Unit#"
+_root_.play.ÄàÄplay"Ω
+-_root_.controllers.AddressLookupSpec#request.ãÅÄ request#FakeRequest[AnyContentAsEmpty.type]"'
+!_root_.play.api.test.FakeRequest#".
+&_root_.play.api.mvc.AnyContentAsEmpty."«
+M_root_.controllers.AddressLookupSpec#TestAddressLookupController.`<init>`()V.v<init>(): TestAddressLookupController"I
+A_root_.controllers.AddressLookupSpec#TestAddressLookupController."ˆ
+k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.Ümust(string: String): ItVerbString"#
+	_root_.scala.Predef.String#"7
+/_root_.org.scalatest.FlatSpecLike#ItVerbString#")
+_root_.controllers.ÄàÄcontrollers"
+_root_.utils.ÄàÄutils"U
+&_root_.play.api.http.Status#NOT_FOUND.+	NOT_FOUNDInt"
+_root_.scala.Int#"ã
+Y_root_.controllers.AddressLookup#findByPostcode(Ljava/lang/String;)Lplay/api/mvc/Action;.≠findByPostcode&(postcode: String): Action[AnyContent]"#
+_root_.scala.Predef.String#"#
+_root_.play.api.mvc.Action#"'
+%_root_.play.api.mvc.AnyContent#"n
+*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
+_root_.org.scalatest.FlatSpec#"ö
+3test/controllers/AddressLookupSpec.scala@1154..1225cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"G
+_root_.play.api.http.Status#OK.$OKInt"
+_root_.scala.Int#"Ö
+1_root_.controllers.AddressLookupSpec#`<init>`()V.P<init>(): AddressLookupSpec"-
+%_root_.controllers.AddressLookupSpec#"j
+%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
+)_root_.org.scalatest.FlatSpecLike#ItWord#"2
+_root_.utils.StubAddresses.ÄÑStubAddresses2|
+¿	¿	*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2¥
+™µêAddressLookupSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("AddressLookupSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 32), org.scalactic.Prettifier.default)
+/2_root_.scala.Int#ª
+.≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+45_star_.y
+UZq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+àè(_root_.org.scalactic.Prettifier.default.2Œ
+êêπ*(org.scalactic.source.Position.apply("AddressLookupSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 28))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2¥
+Œ	Ÿ	êAddressLookupSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("AddressLookupSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 37), org.scalactic.Prettifier.default)
+/2_root_.scala.Int#ª
+.≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+45_star_.y
+UZq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+àè(_root_.org.scalactic.Prettifier.default.2|
+úú*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2|
+˘
+˘
+*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2¥
+áíêAddressLookupSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("AddressLookupSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 42), org.scalactic.Prettifier.default)
+/2_root_.scala.Int#ª
+.≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+45_star_.y
+UZq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+àè(_root_.org.scalactic.Prettifier.default.2Œ
+ßßπ*(org.scalactic.source.Position.apply("AddressLookupSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 40))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Œ
+√√π*(org.scalactic.source.Position.apply("AddressLookupSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 30))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Œ
+Á	Á	π*(org.scalactic.source.Position.apply("AddressLookupSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 35))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2n
+££*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.:Scala211B´/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers
+
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import utils.StubAddresses
+
+class AddressLookupSpec extends ControllerSpec {
+  implicit val request = FakeRequest()
+
+  object TestAddressLookupController extends AddressLookup(StubAddresses)
+
+  behavior of "Address lookup"
+
+  it must "eventually return Ok for correctly formatted postcode" in {
+    val res = TestAddressLookupController.findByPostcode("AB1 1BA")(request)
+    status(res) mustBe OK
+  }
+
+  it must "return OK even if postcode has no space" in {
+    val res = TestAddressLookupController.findByPostcode("AB11BA")(request)
+    status(res) mustBe OK
+  }
+
+  it must "return 404 for postcode with no result" in {
+    val res = TestAddressLookupController.findByPostcode(StubAddresses.noResultPostcode)(request)
+    status(res) mustBe NOT_FOUND
+  }
+
+}
+J(test/controllers/AddressLookupSpec.scala

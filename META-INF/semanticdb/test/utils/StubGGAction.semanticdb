@@ -1,0 +1,290 @@
+
+ﬂoZ
+≥
+∑
+N_root_.utils.StubGGAction.async(Lscala/Function1;)Lplay/api/mvc/Action;.(body)0
+©≠&_root_.uk.gov.hmrc.play.frontend.auth.
+·Â_root_.scala.None.)
+„
+È
+_root_.scala.concurrent.Future#
+≈»_root_.uk.gov.%
+Ù
+˙
+_root_.play.api.mvc.Action#K
+ÁÔA_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.Accounts.Z
+îôP_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.
+èë
+_root_.uk.
+ñö_root_.uk.gov.hmrc.4
+˝	Ñ
+(test/utils/StubGGAction.scala@1277..1284T
+ú	°	H_root_.utils.StubGGAction.apply(Lscala/Function1;)Lplay/api/mvc/Action;.k
+˝Üa_root_.uk.gov.hmrc.play.frontend.auth.Principal.;_root_.uk.gov.hmrc.play.frontend.auth.Principal#%
+Ù	˙	_root_.play.api.mvc.Action.2
+±∏(test/utils/StubGGAction.scala@1436..1443(
+¨Ø_root_.utils.StubGGAction.ctx.
+˙˛_root_.scala.None.
+Ü	ä	_root_.scala.None.+
+†®!_root_.uk.gov.hmrc.play.frontend.
+íï_root_.uk.gov.
+¬ƒ
+_root_.uk.A
+≥π7_root_.play.api.mvc.Result.;_root_.play.api.mvc.Result#)
+”
+›
+_root_.play.api.mvc.AnyContent#Z
+¢	¶	N_root_.utils.StubGGAction.apply(Lscala/Function1;)Lplay/api/mvc/Action;.(body)"
+Œ“_root_.uk.gov.hmrc.play.
+ôù_root_.scala.None.
+Û˜_root_.auth.&
+À
+“
+_root_.play.api.mvc.Request#
+Ù¯_root_.scala.None.
+∏¿_root_.auth.GGAction#ú
+÷Âë_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel.;_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel#T
+≠
+≤
+H_root_.utils.StubGGAction.async(Lscala/Function1;)Lplay/api/mvc/Action;.
+çë_root_.scala.None.W
+»ÃM_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel.L200.Ñ
+¿¿z_root_.auth.GGAction#`<init>`(Lauth/GovernmentGatewayProvider;Luk/gov/hmrc/play/frontend/auth/connectors/AuthConnector;)V.q
+Ô˚g_root_.uk.gov.hmrc.play.frontend.auth.LoggedInUser.;_root_.uk.gov.hmrc.play.frontend.auth.LoggedInUser#¢
+Á˘ó_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.CredentialStrength.;_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.CredentialStrength#)
+û®_root_.play.api.mvc.AnyContent#)
+‚	Ï	_root_.play.api.mvc.AnyContent#X
+à
+å
+N_root_.utils.StubGGAction.apply(Lscala/Function1;)Lplay/api/mvc/Action;.(body)
+…Õ_root_.uk.gov.hmrc.)
+¬	Ã	_root_.play.api.mvc.AnyContent#%
+Í
+
+_root_.play.api.mvc.Result#
+àå_root_.play.+
+”€!_root_.uk.gov.hmrc.play.frontend.C
+™±9_root_.play.api.mvc.Request.;_root_.play.api.mvc.Request#R
+∏«H_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel.&
+£Ø_root_.utils.StubGGAction.0
+‹‡&_root_.uk.gov.hmrc.play.frontend.auth.
+ìó_root_.scala.None.é
+¡…É_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.Accounts.;_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.Accounts#
+¯Ä_root_.auth.GGAction#<
+˚2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext.o
+‚Ìe_root_.uk.gov.hmrc.play.frontend.auth.AuthContext.;_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#U
+ü±K_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.CredentialStrength.2
+í
+ô
+(test/utils/StubGGAction.scala@1277..1284A
+ñú7_root_.play.api.mvc.Action.;_root_.play.api.mvc.Action#)
+«ÿ_root_.utils.StubAuthConnector.&
+∫	¡	_root_.play.api.mvc.Request#4
+ú£(test/utils/StubGGAction.scala@1436..1443*
+ÍÌ_root_.utils.StubGGAction.ctx.I
+îö?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#
+ëî_root_.play.api.mvc.
+Ä	Ñ	_root_.scala.None."
+âì_root_.scala.concurrent.:
+◊‡0_root_.uk.gov.hmrc.play.frontend.auth.Principal.(
+ç
+ê
+_root_.utils.StubGGAction.ctx."
+õü_root_.uk.gov.hmrc.play.X
+ß´N_root_.utils.StubGGAction.async(Lscala/Function1;)Lplay/api/mvc/Action;.(body)%
+€	·	_root_.play.api.mvc.Action#
+çê_root_.play.api.
+Éà_root_.scala.ê
+À‘Ö_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.Authority.;_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.Authority#)
+˚
+Ö_root_.play.api.mvc.AnyContent#<
+©	¥	2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#%
+“	ÿ	_root_.play.api.mvc.Result#Z
+≤∂P_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.CredentialStrength.Weak.
+ÂÍ_root_.utils.<
+∫
+≈
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#;
+Æ∏1_root_.uk.gov.hmrc.play.frontend.auth.connectors.B
+πø8_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.=
+¸à3_root_.uk.gov.hmrc.play.frontend.auth.LoggedInUser.%
+çì_root_.play.api.mvc.Action."S
+A_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.Accounts.ÄÑAccounts"ù
+^_root_.play.api.mvc.Result#`<init>`(Lplay/api/mvc/ResponseHeader;Lplay/api/http/HttpEntity;)V.∫<init>2(header: ResponseHeader, body: HttpEntity): Result"+
+	#_root_.play.api.mvc.ResponseHeader#"(
+) _root_.play.api.http.HttpEntity#"#
+,2_root_.play.api.mvc.Result#"
+_root_.auth.ÄàÄauth"£
+H_root_.utils.StubGGAction.async(Lscala/Function1;)Lplay/api/mvc/Action;.÷asyncb(body: Function1[AuthContext, Function1[Request[AnyContent], Future[Result]]]): Action[AnyContent]"
+_root_.scala.Function1#":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"
+'_root_.scala.Function1#"$
+(/_root_.play.api.mvc.Request#"'
+0:_root_.play.api.mvc.AnyContent#"'
+=C_root_.scala.concurrent.Future#"#
+DJ_root_.play.api.mvc.Result#"#
+PV_root_.play.api.mvc.Action#"'
+Wa_root_.play.api.mvc.AnyContent#"C
+0_root_.uk.gov.hmrc.play.frontend.auth.Principal.ÄÑ	Principal"F
+1_root_.uk.gov.hmrc.play.frontend.auth.connectors.ÄàÄ
+connectors",
+_root_.play.api.mvc.Request#Ä@Request"I
+3_root_.uk.gov.hmrc.play.frontend.auth.LoggedInUser.ÄÑLoggedInUser"4
+!_root_.uk.gov.hmrc.play.frontend.ÄàÄfrontend"
+z_root_.auth.GGAction#`<init>`(Lauth/GovernmentGatewayProvider;Luk/gov/hmrc/play/frontend/auth/connectors/AuthConnector;)V.Ò<init>M(provider: GovernmentGatewayProvider, authConnector: AuthConnector): GGAction".
+$&_root_.auth.GovernmentGatewayProvider#"G
+5B?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#"
+EM_root_.auth.GGAction#""
+_root_.play.api.mvc.
+ÄàÄmvc"
+_root_.play.api.
+ÄàÄapi"º
+P_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.ÁÑÄasyncE(block: Function1[R[AnyContent], Future[Result]]): Action[AnyContent]"
+_root_.scala.Function1#"-
+%_root_.play.api.mvc.ActionBuilder#[R]"'
+_root_.play.api.mvc.AnyContent#"'
+!'_root_.scala.concurrent.Future#"#
+(._root_.play.api.mvc.Result#"#
+39_root_.play.api.mvc.Action#"'
+:D_root_.play.api.mvc.AnyContent#".
+_root_.scala.concurrent.Future#Ä@Future"ö
+(test/utils/StubGGAction.scala@1277..1284nÄrequestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"‰
+Õ_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#`<init>`(Luk/gov/hmrc/play/frontend/auth/LoggedInUser;Luk/gov/hmrc/play/frontend/auth/Principal;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)V.ë<init>™(user: LoggedInUser, principal: Principal, attorney: Option[Attorney], userDetailsUri: Option[String], enrolmentsUri: Option[String], idsUri: Option[String]): AuthContext";
+3_root_.uk.gov.hmrc.play.frontend.auth.LoggedInUser#"8
+ )0_root_.uk.gov.hmrc.play.frontend.auth.Principal#"
+5;_root_.scala.Option#"7
+<D/_root_.uk.gov.hmrc.play.frontend.auth.Attorney#"
+W]_root_.scala.Option#"#
+^d_root_.scala.Predef.String#"
+v|_root_.scala.Option#"$
+}É_root_.scala.Predef.String#"
+éî_root_.scala.Option#"%
+ïõ_root_.scala.Predef.String#"<
+ü™2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"r
+_root_.utils.StubGGAction.ctx.PÅÄctxAuthContext"8
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"
+
+_root_.uk.	ÄàÄuk"ö
+(test/utils/StubGGAction.scala@1436..1443nÄrequestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"\
+M_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel.L200.ÄÑàL200"
+_root_.uk.gov.
+ÄàÄgov"!
+_root_.scala.None.ÄÑàNone"
+_root_.play.ÄàÄplay"-
+_root_.scala.concurrent.ÄàÄ
+concurrent":
+_root_.utils.StubAuthConnector.ÄÑStubAuthConnector"å
+N_root_.utils.StubGGAction.apply(Lscala/Function1;)Lplay/api/mvc/Action;.(body)πÄbody>Function1[AuthContext, Function1[Request[AnyContent], Result]]"
+	_root_.scala.Function1#":
+
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"
+ _root_.scala.Function1#"$
+!(_root_.play.api.mvc.Request#"'
+)3_root_.play.api.mvc.AnyContent#"#
+6<_root_.play.api.mvc.Result#"3
+_root_.play.api.mvc.AnyContent#Ä¿
+AnyContent"Ú
+H_root_.utils.StubGGAction.apply(Lscala/Function1;)Lplay/api/mvc/Action;.•applyZ(body: Function1[AuthContext, Function1[Request[AnyContent], Result]]): Action[AnyContent]"
+_root_.scala.Function1#":
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"
+'_root_.scala.Function1#"$
+(/_root_.play.api.mvc.Request#"'
+0:_root_.play.api.mvc.AnyContent#"#
+=C_root_.play.api.mvc.Result#"#
+HN_root_.play.api.mvc.Action#"'
+OY_root_.play.api.mvc.AnyContent#"&
+_root_.auth.GGAction#Ä GGAction",
+_root_.play.api.mvc.Result#Ä†ÄResult"+
+_root_.play.api.mvc.Action.ÄÑAction"*
+_root_.play.api.mvc.Action#Ä@Action"
+_root_.utils.ÄàÄutils"g
+K_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.CredentialStrength.ÄÑCredentialStrength"
+_root_.scala.ÄàÄscala"Ω
+N_root_.utils.StubGGAction.async(Lscala/Function1;)Lplay/api/mvc/Action;.(body)ÍÄbodyFFunction1[AuthContext, Function1[Request[AnyContent], Future[Result]]]"
+	_root_.scala.Function1#":
+
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#"
+ _root_.scala.Function1#"$
+!(_root_.play.api.mvc.Request#"'
+)3_root_.play.api.mvc.AnyContent#"'
+6<_root_.scala.concurrent.Future#"#
+=C_root_.play.api.mvc.Result#"5
+&_root_.uk.gov.hmrc.play.frontend.auth.ÄàÄauth"0
+_root_.utils.StubGGAction.ÄÑStubGGAction"_
+P_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.CredentialStrength.Weak.ÄÑàWeak"a
+H_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel.ÄÑConfidenceLevel"H
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext#Ä†ÄAuthContext""
+_root_.uk.gov.hmrc.ÄàÄhmrc"I
+8_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ÄàÄdomain"G
+2_root_.uk.gov.hmrc.play.frontend.auth.AuthContext.ÄÑAuthContext"'
+_root_.uk.gov.hmrc.play.ÄàÄplay2ê
+ÔÔ*.apply
+_star_.Ì
+‰_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.Accounts.apply(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Luk/gov/hmrc/play/frontend/auth/connectors/domain/Accounts;.2È
+àà*.apply
+_star_.∆
+Ω_root_.uk.gov.hmrc.play.frontend.auth.LoggedInUser.apply(Ljava/lang/String;Lscala/Option;Lscala/Option;Lscala/Option;Luk/gov/hmrc/play/frontend/auth/connectors/domain/CredentialStrength;Luk/gov/hmrc/play/frontend/auth/connectors/domain/ConfidenceLevel;Ljava/lang/String;)Luk/gov/hmrc/play/frontend/auth/LoggedInUser;.2m
+∞∞*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2z
+˙	˙	*.apply
+_star_.X
+P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2m
+´´*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2°
+˚˚*.apply
+_star_.˛
+ı_root_.uk.gov.hmrc.play.frontend.auth.AuthContext.apply(Luk/gov/hmrc/play/frontend/auth/LoggedInUser;Luk/gov/hmrc/play/frontend/auth/Principal;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Luk/gov/hmrc/play/frontend/auth/AuthContext;.2m
+å
+å
+*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2m
+ë
+ë
+*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2◊
+‡‡*.apply
+_star_.¥
+´_root_.uk.gov.hmrc.play.frontend.auth.Principal.apply(Lscala/Option;Luk/gov/hmrc/play/frontend/auth/connectors/domain/Accounts;)Luk/gov/hmrc/play/frontend/auth/Principal;.:Scala211Bæ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package utils
+
+import auth.GGAction
+import play.api.mvc.{Action, AnyContent, Request, Result}
+import uk.gov.hmrc.play.frontend.auth.{AuthContext, LoggedInUser, Principal}
+import uk.gov.hmrc.play.frontend.auth.connectors.domain.{Accounts, Authority, ConfidenceLevel, CredentialStrength}
+
+import scala.concurrent.Future
+
+object StubGGAction extends GGAction(null, StubAuthConnector) {
+  private val ctx = AuthContext(LoggedInUser("", None, None, None, CredentialStrength.Weak, ConfidenceLevel.L200, ""),
+    Principal(None, Accounts()), None, None, None, None)
+
+  override def apply(body: (AuthContext) => (Request[AnyContent]) => Result): Action[AnyContent] =
+    Action { request => body(ctx)(request) }
+
+  override def async(body: (AuthContext) => (Request[AnyContent]) => Future[Result]): Action[AnyContent] =
+    Action.async { request => body(ctx)(request) }
+}
+Jtest/utils/StubGGAction.scala

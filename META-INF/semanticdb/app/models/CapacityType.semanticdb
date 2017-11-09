@@ -1,0 +1,130 @@
+
+©&+
+¥∑_root_.models.CapacityType#key..
+’’$_root_.java.lang.Object#`<init>`()V.%
+ëù_root_.models.CapacityType#.
+ëë$_root_.java.lang.Object#`<init>`()V.)
+›Ì_root_.models.NamedEnumSupport# 
+∫ø_root_.models.Owner.-
+¶™!_root_.models.OwnerOccupier.name.
+ÂÎ_root_.models.1
+áé%_root_.models.CapacityType#$init$()V.1
+Ÿ›'_root_.scala.collection.immutable.List..
+ûû$_root_.java.lang.Object#`<init>`()V.(
+˚à_root_.models.OwnerOccupier.%
+Ó˙_root_.models.CapacityType#.
+¸¸$_root_.java.lang.Object#`<init>`()V.
+ﬁ„_root_.models.Owner.*
+ﬂ„ _root_.models.CapacityType#name.'
+»‘_root_.models.CapacityType..
+çì"_root_.models.CapacityType.format.'
+˙Ü_root_.models.CapacityType#%
+°≠_root_.models.CapacityType.,
+°• _root_.models.CapacityType#name.#
+Û˚_root_.models.Occupier."
+èò_root_.models.NamedEnum#$
+ƒ»_root_.scala.package.List#&
+Ô¸_root_.models.OwnerOccupier.%
+›·_root_.models.Owner.name.!
+ÂÌ_root_.models.Occupier.N
+ø¬B_root_.models.CapacityType.all()Lscala/collection/immutable/List;.#
+ñ†_root_.models.EnumFormat.(
+ôù_root_.models.Occupier.name.D
+‘‹8_root_.models.CapacityType#toString()Ljava/lang/String;.%
+Ñê_root_.models.CapacityType#%
+ß≠_root_.scala.Predef.String#%
+…’_root_.models.CapacityType#%
+»‘_root_.models.CapacityType#"ñ
+"_root_.models.CapacityType.format.pÅÄ formatFormat[CapacityType]"'
+!_root_.play.api.libs.json.Format#"#
+_root_.models.CapacityType#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"®
+B_root_.models.CapacityType.all()Lscala/collection/immutable/List;.ballList[CapacityType]" 
+_root_.scala.package.List#"#
+_root_.models.CapacityType#"U
+!_root_.models.OwnerOccupier.name.0nameString"
+_root_.java.lang.String#"M
+_root_.models.Owner.name.0nameString"
+_root_.java.lang.String#"`
+_root_.scala.package.List#BList	List.type"-
+'_root_.scala.collection.immutable.List."Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"R
+_root_.models.CapacityType#key./keyString"
+_root_.java.lang.String#"1
+_root_.models.CapacityType.ÄÑCapacityType"1
+_root_.models.CapacityType#Ä¿CapacityType"-
+_root_.models.EnumFormat.ÄÑ
+EnumFormat"Y
+ _root_.models.CapacityType#name.5ÅÄnameString"!
+_root_.scala.Predef.String#"P
+_root_.models.Occupier.name.0nameString"
+_root_.java.lang.String#"4
+_root_.models.OwnerOccupier.ÄÑàOwnerOccupier"5
+'_root_.scala.collection.immutable.List.
+ÄÑList"y
+8_root_.models.CapacityType#toString()Ljava/lang/String;.=toString
+(): String"#
+
+_root_.scala.Predef.String#"8
+_root_.models.NamedEnumSupport#Ä@NamedEnumSupport"
+_root_.models.ÄàÄmodels"*
+_root_.models.NamedEnum#Ä@	NamedEnum"*
+_root_.models.Occupier.ÄÑàOccupier"$
+_root_.models.Owner.ÄÑàOwner"Y
+%_root_.models.CapacityType#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#2ß
+››6*.apply[CapacityType with Product with Serializable{}]
+_star_.n
+f_root_.scala.collection.immutable.List.apply(Lscala/collection/Seq;)Lscala/collection/immutable/List;."
+'3_root_.scala.Serializable#
+!_root_.scala.Product##
+_root_.models.CapacityType#2≤
+††*.apply[CapacityType]
+_star_.]
+U_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.#
+_root_.models.CapacityType#:Scala211BÄ	/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+sealed trait CapacityType extends NamedEnum {
+  val name: String
+  val key = "capacity"
+  override def toString = name
+}
+
+case object Occupier extends CapacityType {
+  val name = "OCCUPIER"
+}
+
+case object Owner extends CapacityType {
+  val name = "OWNER"
+}
+
+case object OwnerOccupier extends CapacityType {
+  val name = "OWNER_OCCUPIER"
+}
+
+object CapacityType extends NamedEnumSupport[CapacityType] {
+  implicit val format = EnumFormat(CapacityType)
+
+  override def all: List[CapacityType] = List(Owner, Occupier, OwnerOccupier)
+}
+Japp/models/CapacityType.scala

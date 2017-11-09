@@ -1,0 +1,315 @@
+
+ÖÄ
+¯˝_root_.javax.
+∏∫
+_root_.uk.Q
+˝	˛	G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.-
+È
+Ò
+#_root_.play.api.libs.json.JsString.?
+œ›5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#*
+¬Ã _root_.play.api.libs.concurrent.
+πº_root_.play.api.f
+‡Á\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.0
+∂	√	&_root_.uk.gov.hmrc.http.HeaderCarrier#4
+ÿ	·	*_root_.config.ApplicationConfig#ivEnabled."
+º¿_root_.uk.gov.hmrc.play.A
+˝â5_root_.connectors.IdentityVerification#(serverConfig))
+¡«_root_.uk.gov.hmrc.play.config.è
+à	ï	Ç_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.h
+Ω
+æ
+^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.@
+Æ
+Ø
+4app/connectors/IdentityVerification.scala@1326..1327ö
+ñ	ü	ç_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(journeyId)
+ôû_root_.scala.
+Ï_root_.uk.gov.hmrc.
+¥∏_root_.play."
+ü©_root_.scala.concurrent.
+ø√_root_.uk.gov.hmrc.4
+Õ÷*_root_.play.api.libs.concurrent.Execution..
+ﬂ
+Ë
+$_root_.play.api.libs.json.JsDefined.S
+ãîI_root_.play.api.libs.json.JsDefined.;_root_.play.api.libs.json.JsDefined#,
+Ù	˚	"_root_.play.api.libs.json.JsValue#$
+Öâ_root_.play.api.libs.json."
+ƒ»_root_.uk.gov.hmrc.http.r
+·Ôh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.9
+∂∫-_root_.connectors.IdentityVerification#(http)A
+Öã7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#3
+ﬁÚ'_root_.connectors.IdentityVerification#K
+õ¨A_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#|
+®
+´
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+ÂÔ_root_.connectors.5
+Ä
+É
++_root_.connectors.IdentityVerification#url.?
+”ﬂ5_root_.connectors.IdentityVerification#(serverConfig)ò
+ú
+•
+ç_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(journeyId)7
+Õ–+_root_.connectors.IdentityVerification#url.
+ÄÑ_root_.play.api.libs.
+¸ˇ_root_.play.api.*
+£¥ _root_.config.ApplicationConfig#
+ÂÁ
+_root_.uk.;
+õ°/_root_.connectors.IdentityVerification#(config)
+≥∂_root_.uk.gov.ì
+≤	¥	Ü_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+º¬_root_.config.WSHttp#)
+≈À_root_.scala.concurrent.Future.Q
+ñûG_root_.play.api.libs.json.JsString.;_root_.play.api.libs.json.JsString#>
+ª
+º
+4app/connectors/IdentityVerification.scala@1326..1327I
+™∞?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#
+îö_root_.config.
+Ω¡_root_.play.api.libs.
+∞≤
+_root_.uk.'
+ˆ˙_root_.uk.gov.hmrc.play.http.0
+»Œ&_root_.uk.gov.hmrc.play.config.inject.>
+◊‡4_root_.play.api.libs.concurrent.Execution.Implicits.%
+°	ß	_root_.scala.Predef.String#ª
+	Û	∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+˜˚_root_.play.1
+˙˙'_root_.javax.inject.Inject#`<init>`()V.W
+…÷M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#O
+†ßE_root_.play.api.libs.json.JsValue.;_root_.play.api.libs.json.JsValue#a
+Ã÷W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.%
+Ù˙_root_.javax.inject.Inject#
+ªæ_root_.uk.gov.
+∑ª_root_.uk.gov.hmrc.5
+ãë+_root_.config.WSHttp.;_root_.config.WSHttp#
+Ñä_root_.config."
+Òı_root_.uk.gov.hmrc.play.9
+—	◊	/_root_.connectors.IdentityVerification#(config)
+˛Ñ_root_.javax.inject.
+ËÎ_root_.uk.gov.7
+Î	Ô	-_root_.connectors.IdentityVerification#(http)ò
+¸¸ã_root_.connectors.IdentityVerification#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/ApplicationConfig;Lconfig/WSHttp;)V.?
+ãô5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"3
+"_root_.play.api.libs.json.JsValue#Ä¿JsValue"5
+ _root_.play.api.libs.concurrent.ÄàÄ
+concurrent"$
+_root_.config.WSHttp#Ä@WSHttp")
+_root_.play.api.libs.json.ÄàÄjson"'
+_root_.connectors.ÄàÄ
+connectors"5
+#_root_.play.api.libs.json.JsString.ÄÑJsString"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"D
+'_root_.connectors.IdentityVerification#Ä IdentityVerification"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.javax.ÄàÄjavax"y
+/_root_.connectors.IdentityVerification#(config)FÄconfigApplicationConfig"&
+ _root_.config.ApplicationConfig#"
+_root_.play.api.
+ÄàÄapi"G
+4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits"/
+_root_.scala.concurrent.Future.ÄÑFuture",
+_root_.uk.gov.hmrc.play.http.ÄàÄhttp"=
+*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution"L
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig",
+_root_.javax.inject.Inject#Ä†ÄInject"7
+&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"q
+4app/connectors/IdentityVerification.scala@1326..13279ÄrJsValue"(
+"_root_.play.api.libs.json.JsValue#"≥
+ã_root_.connectors.IdentityVerification#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/ApplicationConfig;Lconfig/WSHttp;)V.¢<init>](serverConfig: ServicesConfig, config: ApplicationConfig, http: WSHttp): IdentityVerification"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"(
+'8 _root_.config.ApplicationConfig#"
+@F_root_.config.WSHttp#"/
+I]'_root_.connectors.IdentityVerification#"
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"‘
+\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.tbaseUrl(serviceName: String): String"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"À
+ç_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(journeyId)9Ä	journeyIdString"!
+_root_.scala.Predef.String#"7
+$_root_.play.api.libs.json.JsDefined.ÄÑ	JsDefined"
+_root_.uk.gov.
+ÄàÄgov"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"¯
+Ç_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.verifySuccess@(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean]"#
+_root_.scala.Predef.String#".
+!.&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+17_root_.scala.concurrent.Future#"
+8?_root_.scala.Boolean#":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"–
+Ü_root_.connectors.IdentityVerification#verifySuccess(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"_
+-_root_.connectors.IdentityVerification#(http).ÄhttpWSHttp"
+_root_.config.WSHttp#"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"
+_root_.play.ÄàÄplay"√
+h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"Â
+^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.Ç\#(fieldName: String): JsLookupResult"#
+_root_.scala.Predef.String#"1
+#)_root_.play.api.libs.json.JsLookupResult#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"ó
+5_root_.connectors.IdentityVerification#(serverConfig)^ÄserverConfigServicesConfig";
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"
+_root_.config.ÄàÄconfig">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"
+_root_.scala.ÄàÄscala"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"a
+*_root_.config.ApplicationConfig#ivEnabled.3	ivEnabledBoolean"
+_root_.scala.Boolean#"˛
+∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.»GETd[A] => (url: String)(implicit rds: HttpReads[A], hc: HeaderCarrier, ec: ExecutionContext): Future[A]"#
+_root_.scala.Predef.String#"*
+#,"_root_.uk.gov.hmrc.http.HttpReads#"º
+-.≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]".
+5B&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+HX)_root_.scala.concurrent.ExecutionContext#"'
+[a_root_.scala.concurrent.Future#"º
+bc≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]""
+_root_.uk.gov.hmrc.ÄàÄhmrc"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"a
++_root_.connectors.IdentityVerification#url.2urlString"!
+_root_.scala.Predef.String#2x
+˝	˝	*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2B
+´
+´
+
+*[Boolean]
+_star_.
+	_root_.scala.Boolean#2…
+©©>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.p
+/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2å
+ß
+ß
+Ú*(uk.gov.hmrc.http.HttpReads.readFromJson[JsValue](play.api.libs.json.Reads.JsValueReads, scala.reflect.ManifestFactory.classType[JsValue](classOf[play.api.libs.json.JsValue])), hc, play.api.libs.concurrent.Execution.Implicits.defaultContext)
+_star_.*
+*1"_root_.play.api.libs.json.JsValue#å
+)É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.,
+Çâ"_root_.play.api.libs.json.JsValue#c
+xÅZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.<
+LX4_root_.play.api.libs.json.DefaultReads#JsValueReads.r
+„Òh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2…
+ª
+º
+/play.api.libs.json.JsValue.jsValueToJsLookup(*)}
+,u_root_.play.api.libs.json.JsValue.jsValueToJsLookup(Lplay/api/libs/json/JsValue;)Lplay/api/libs/json/JsLookupResult;.
+-._star_.2B
+÷÷
+*[Boolean]
+_star_.
+	_root_.scala.Boolean#:Scala211BÈ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package connectors
+
+import javax.inject.Inject
+
+import config.ApplicationConfig
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.{JsDefined, JsString, JsValue}
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.http._
+import config.WSHttp
+import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
+
+class IdentityVerification @Inject()(serverConfig: ServicesConfig, config: ApplicationConfig, http: WSHttp) {
+
+  val url = serverConfig.baseUrl("identity-verification")
+
+  def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier) = {
+    if (config.ivEnabled) {
+      http.GET[JsValue](s"$url/mdtp/journey/journeyId/$journeyId") map { r =>
+        r \ "result" match {
+          case JsDefined(JsString("Success")) => true
+          case _ => false
+        }
+      }
+    } else {
+      Future.successful(true)
+    }
+  }
+}
+J)app/connectors/IdentityVerification.scala

@@ -1,0 +1,98 @@
+
+ƒ"5
+ËÛ+_root_.views.html.helpers.fieldConstructor.?
+®µ5_root_.play.api.Play.current()Lplay/api/Application;.
+ØÜ_root_.play.*
+áé _root_.template.Helper.messages.
+áå_root_.play.api.i18n.
+ ¤_root_.play.#
+¾Ä_root_.template.Helper.2
+ïø(_root_.play.api.i18n.Messages.Implicits._
+ˆ˜U_root_.views.html.helper.FieldConstructor.;_root_.views.html.helper.FieldConstructor#4
+§·*_root_.views.html.helper.FieldConstructor.
+åí_root_.template.$
+ÃÊ_root_.views.html.helpers.
+¾Â_root_.views.html.
+öû_root_.views.
+¥¨_root_.play.api.
+©­_root_.play.api.Play.z
+ÜÝp_root_.views.html.helpers.fieldConstructor_Scope0.fieldConstructor_Scope1.fieldConstructor#f()Lscala/Function1;.‹
+ùŒ€_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.(
+æî_root_.play.api.i18n.Messages.
+ü€_root_.views.html.,
+œ¤ _root_.template.Helper.myFields.,
+ÍÕ _root_.template.Helper.messages.
+Ýà_root_.play.api.
+¸½_root_.views.#
+‡_root_.views.html.helper."0
+_root_.play.api.i18n.Messages.€„Messages"E
++_root_.views.html.helpers.fieldConstructor.€„fieldConstructor"Ì
+€_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.Æ„€ applicationMessages9(implicit lang: Lang, application: Application): Messages""
+_root_.play.api.i18n.Lang#"$
+#._root_.play.api.Application#"&
+19_root_.play.api.i18n.Messages#"*
+_root_.views.html.helper.€ˆ€helper"
+_root_.play.api.
+€ˆ€api"!
+_root_.views.html.€ˆ€html"v
+ _root_.template.Helper.myFields.R€ myFieldsFieldConstructor"0
+*_root_.views.html.helper.FieldConstructor#"#
+_root_.play.api.Play.
+€„Play"'
+_root_.template.Helper.€„Helper"€
+p_root_.views.html.helpers.fieldConstructor_Scope0.fieldConstructor_Scope1.fieldConstructor#f()Lscala/Function1;.‹f9Function1[FieldElements, Function1[Messages, Appendable]]"
+	_root_.scala.Function1#"/
+
+'_root_.views.html.helper.FieldElements#"
+"_root_.scala.Function1#"&
+#+_root_.play.api.i18n.Messages#"0
+-7(_root_.play.twirl.api.Format#Appendable#"D
+*_root_.views.html.helper.FieldConstructor.€„FieldConstructor"$
+_root_.play.api.i18n.€ˆ€i18n";
+(_root_.play.api.i18n.Messages.Implicits.€„	Implicits"
+_root_.play.€ˆ€play"w
+5_root_.play.api.Play.current()Lplay/api/Application;.>„€ currentApplication""
+_root_.play.api.Application#"
+_root_.views.€ˆ€views"`
+ _root_.template.Helper.messages.<messagesMessages"$
+_root_.play.api.i18n.Messages#"#
+_root_.template.€ˆ€template",
+_root_.views.html.helpers.€ˆ€helpers2À
+ŒŒ8*(play.api.i18n.Lang.defaultLang, play.api.Play.current)
+_star_..
+ &_root_.play.api.i18n.Lang.defaultLang.=
+075_root_.play.api.Play.current()Lplay/api/Application;.2‘
+··*.apply
+_star_.o
+g_root_.views.html.helper.FieldConstructor.apply(Lscala/Function1;)Lviews/html/helper/FieldConstructor;.2m
+ÝÝ*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2m
+àà*.apply
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.:Scala211Bî/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package template
+
+import views.html.helper.FieldConstructor
+import play.api.Play.current
+
+object Helper {
+  val messages = play.api.i18n.Messages.Implicits.applicationMessages
+  implicit val myFields = FieldConstructor(views.html.helpers.fieldConstructor.f(_)(messages))
+}
+Japp/template/Helper.scala

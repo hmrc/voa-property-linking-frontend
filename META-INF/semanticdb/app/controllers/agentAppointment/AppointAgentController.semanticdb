@@ -1,0 +1,2605 @@
+
+ßÜ(
+Ã<€<_root_.models.AgentPermission#H
+ˇMàN<_root_.controllers.agentAppointment.AppointAgent#(agentCode)J
+ŸX‹X@_root_.controllers.agentAppointment.AgentPermissionMapping#(key)
+—F’F_root_.scala.Long#V
+‚ÚL_root_.controllers.agentAppointment.AppointAgentController#invalidAgentCode.3
+àõ)_root_.models.Party#(challengePermission)Ï
+Õ8Ÿ8·_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(individualId)W
+“QÂQK_root_.controllers.agentAppointment.ConfirmOverrideVM#(existingPermissions)
+≥∑_root_.scala.Long#T
+˝)Ñ*Happ/controllers/agentAppointment/AppointAgentController.scala@5373..53801
+∫/À/'_root_.models.Party#(authorisedPartyId)%
+¿Ã_root_.models.PropertyLink##
+¢S•S_root_.scala.package.Seq#J
+ÌWW@_root_.controllers.agentAppointment.AgentPermissionMapping#(key)D
+ÁOÎO8_root_.controllers.agentAppointment.ModifyAgentVM#(form)L
+∫YªYB_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.1
+Ã÷'_root_.play.api.mvc.Results#BadRequest.X
+¯âN_root_.controllers.agentAppointment.AppointAgentController#(sessionRepository)·
+ß±‘_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agentOrgId)3
+µJÀJ)_root_.views.html.propertyRepresentation.°
+°Z£Zñ_root_.controllers.agentAppointment.AgentPermissionMapping#verifying(Lscala/collection/Seq;)Lcontrollers/agentAppointment/AgentPermissionMapping;.(cs)
+¢•_root_.play.api.À
+ò3†3¿_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.T
+ÉáHapp/controllers/agentAppointment/AppointAgentController.scala@2819..2823
+—P’P_root_.scala.Long#$
+∫G¿G_root_.controllers.routes.-
+â/è/#_root_.models.PropertyLink#(agents)I
+∫	¿	?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#^
+ﬁ5‰5T_root_.scala.collection.TraversableLike#filter(Lscala/Function1;)Ljava/lang/Object;.à
+¶X´X|_root_.controllers.agentAppointment.AgentPermissionMapping#unbindAndValidate(Lmodels/AgentPermission;)Lscala/Tuple2;.(value)R
+¸&á'Happ/controllers/agentAppointment/AppointAgentController.scala@4313..4607R
+°3Ø3Happ/controllers/agentAppointment/AppointAgentController.scala@6167..6245
+ß@´@_root_.scala.Long#;
+Ì>Ò>1_root_.models.NamedEnum#name()Ljava/lang/String;.-
+±0∑0#_root_.models.PropertyLink#(agents)å
+ˆáÅ_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.E
+ˇYÉZ;_root_.controllers.agentAppointment.AgentPermissionMapping#
+ù°_root_.play.>
+—E›E4_root_.models.AgentAppointmentSession#(propertyLink)7
+ıé-_root_.controllers.PropertyLinkingController#(
+öN©N_root_.models.AgentPermission#$
+ﬂU„U_root_.scala.package.Left.
+àPåP_root_.scala.Long#R
+ØD∂DHapp/controllers/agentAppointment/AppointAgentController.scala@8565..8572b
+áUëUX_root_.play.api.data.FieldMapping#withPrefix(Ljava/lang/String;)Lplay/api/data/Mapping;.Á
+ˆ;Ü<⁄_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(userIndividualId)
+≥ª_root_.form.Mappings.F
+ø$»$<_root_.controllers.agentAppointment.AppointAgent#(agentCode)Å
+ªÀw_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#notFoundTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.Ç
+ÇÖx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.Q
+°•G_root_.play.api.data.Form#fill(Ljava/lang/Object;)Lplay/api/data/Form;.R
+íZùZH_root_.controllers.agentAppointment.AgentPermissionMapping#(constraints)M
+ˇTÜUC_root_.controllers.agentAppointment.AgentPermissionMapping#wrapped.x
+˜CÜDn_root_.controllers.agentAppointment.AppointAgentController#confirmed(J)Lplay/api/mvc/Action;.(authorisationId)i
+πB¬B]_root_.controllers.agentAppointment.AppointAgentController#confirmed(J)Lplay/api/mvc/Action;.$
+ÌOÒO_root_.play.api.data.Form#X
+¯GàHL_root_.controllers.agentAppointment.AppointAgentController#invalidAgentCode.J
+íUïU@_root_.controllers.agentAppointment.AgentPermissionMapping#(key)ô
+öL°Lé_root_.controllers.agentAppointment.AppointAgentController#appointAgentForm(Lactions/BasicAuthenticatedRequest;)Lplay/api/data/Form;.(request)<
+ï?ò?2_root_.java.time.Instant.now()Ljava/time/Instant;.-
+—‰#_root_.actions.AuthenticatedAction#^
+«7Õ7T_root_.scala.collection.TraversableLike#filter(Lscala/Function1;)Ljava/lang/Object;.]
+áêS_root_.play.api.data.Form#withError(Lplay/api/data/FormError;)Lplay/api/data/Form;.
+»CÃC_root_.scala.Some.à
+≥WπW|_root_.controllers.agentAppointment.AgentPermissionMapping#unbind(Lmodels/AgentPermission;)Lscala/collection/immutable/Map;.a
+üRüRU_root_.controllers.agentAppointment.SelectAgentVM#`<init>`(Lscala/collection/Seq;J)V.(
+™V¨V_root_.scala.Boolean#`&&`(Z)Z.
+ô&ù&_root_.views.html.À
+Ø7∑7¿_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.R
+î5°5Happ/controllers/agentAppointment/AppointAgentController.scala@6528..6541E
+ó.ü.;_root_.controllers.agentAppointment.AppointAgent#(canCheck)ê
+í¢Ö_root_.controllers.agentAppointment.AppointAgentController#appointAgentForm(Lactions/BasicAuthenticatedRequest;)Lplay/api/data/Form;.V
+‰UÁUJapp/controllers/agentAppointment/AppointAgentController.scala@10980..10983K
+´N∑N?_root_.controllers.agentAppointment.AppointAgent#(canChallenge)é
+˘W˛WÉ_root_.controllers.agentAppointment.AgentPermissionMapping#unbind(Lmodels/AgentPermission;)Lscala/collection/immutable/Map;.(value)T
+óVôVJapp/controllers/agentAppointment/AppointAgentController.scala@11012..11014ﬂ
+ì>ù>‘_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrgId)a
+ΩU¡UW_root_.play.api.data.Mapping#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.Ô
+ä-ó-‚_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(newAgentOrgId)R
+⁄"€"Happ/controllers/agentAppointment/AppointAgentController.scala@4348..4349_
+ÊOÊOS_root_.controllers.agentAppointment.ModifyAgentVM#`<init>`(Lplay/api/data/Form;J)V.T
+ŸFÊFJ_root_.controllers.agentAppointment.AppointAgentController#(authenticated)
+‘=ÿ=_root_.scala.Unit#R
+ª…Happ/controllers/agentAppointment/AppointAgentController.scala@3122..3225Ä
+ßÆv_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.⁄
+È$Ó$œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agent)T
+î/ô/Happ/controllers/agentAppointment/AppointAgentController.scala@6036..6041R
+ö"õ"Happ/controllers/agentAppointment/AppointAgentController.scala@4348..4349Ê
+¨,∞,Ÿ_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(link)%
+ÌTÛT_root_.scala.Predef.String#;
+πM≈M1_root_.controllers.agentAppointment.AppointAgent.1
+˚6å7'_root_.models.Party#(authorisedPartyId)⁄
+Î!!œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(pLink)m
+®Æc_root_.controllers.agentAppointment.AppointAgentController#appoint(J)Lplay/api/mvc/Action;.(linkId)|
+úGüGr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.T
+¿ Ã Happ/controllers/agentAppointment/AppointAgentController.scala@4156..4224
+ﬁ‚_root_.play.api.data.%
+„7Ô7_root_.models.NotPermitted.R
+àDâDHapp/controllers/agentAppointment/AppointAgentController.scala@8653..8654†
+∆MÀMï_root_.controllers.agentAppointment.AppointAgent.apply(JLmodels/AgentPermission;Lmodels/AgentPermission;)Lcontrollers/agentAppointment/AppointAgent;.O
+üT¶TC_root_.controllers.agentAppointment.AgentPermissionMapping#wrapped.V
+ÊıL_root_.controllers.agentAppointment.AppointAgentController#(representations)0
+≈S»S&_root_.scala.collection.immutable.Nil.<
+Ï"Ó"2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.R
+À1–1Happ/controllers/agentAppointment/AppointAgentController.scala@6315..6320Å
+˘Äw_root_.scala.collection.generic.GenericTraversableTemplate#flatten(Lscala/Function1;)Lscala/collection/GenTraversable;.R
+ÌÚHapp/controllers/agentAppointment/AppointAgentController.scala@2359..2364)
+ˆ¯_root_.models.GroupAccount#(id)T
+¯˘Happ/controllers/agentAppointment/AppointAgentController.scala@3192..3193T
+È-˝-Happ/controllers/agentAppointment/AppointAgentController.scala@5861..7358V
+›UﬁUJapp/controllers/agentAppointment/AppointAgentController.scala@10973..10984&
+áTäT_root_.scala.collection.Seq.W
+Ÿ	Ê	M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#‰
+¨0∞0Ÿ_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(link)D
+†R§R8_root_.controllers.agentAppointment.SelectAgentVM#(reps).
+¡G G$_root_.controllers.routes.Dashboard.M
+Õ÷C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.;
+ÖOëO1_root_.controllers.agentAppointment.AppointAgent#
+èì_root_.java.time.
+“◊_root_.views.u
+Œ÷k_root_.scala.collection.LinearSeqOptimized#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.$
+∆À_root_.javax.inject.Named#%
+–3‹3_root_.models.NotPermitted.ﬂ
+Í'Ù'‘_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agentOrgId)R
+¿ÕHapp/controllers/agentAppointment/AppointAgentController.scala@3846..3928'
+“SŸS_root_.play.api.data.Mapping#Â
+ü>Ø>⁄_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(userIndividualId)À
+í1ö1¿_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+º¿_root_.scala.Some.]
+ÊˇS_root_.actions.BasicAuthenticatedRequest.;_root_.actions.BasicAuthenticatedRequest#a
+†™W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.o
+¿∆c_root_.controllers.agentAppointment.AppointAgentController#appoint(J)Lplay/api/mvc/Action;.(linkId)>
+íRüR2_root_.controllers.agentAppointment.SelectAgentVM#T
+¥≈Happ/controllers/agentAppointment/AppointAgentController.scala@2480..2570J
+ºYøY@_root_.controllers.agentAppointment.AgentPermissionMapping#(key)/
+≠º%_root_.models.Party#(checkPermission)£
+€Y›Yñ_root_.controllers.agentAppointment.AgentPermissionMapping#verifying(Lscala/collection/Seq;)Lcontrollers/agentAppointment/AgentPermissionMapping;.(cs)¢
+≥YπYó_root_.controllers.agentAppointment.AgentPermissionMapping#withPrefix(Ljava/lang/String;)Lcontrollers/agentAppointment/AgentPermissionMapping;.(prefix))
+ÃV’V_root_.play.api.data.FormError.”
+Ù3í4»_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+Æ≤_root_.form.T
+´1∞1Happ/controllers/agentAppointment/AppointAgentController.scala@6315..6320T
+‹BÈBJ_root_.controllers.agentAppointment.AppointAgentController#(authenticated)T
+œ’Happ/controllers/agentAppointment/AppointAgentController.scala@3019..3072|
+‚DÂDr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.0
+öC±C&_root_.models.AgentAppointmentSession#‰
+Ÿ'Ë'Ÿ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(authorisationId)?
+πæ5_root_.javax.inject.Named.;_root_.javax.inject.Named#
+ƒ1 1u_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.3
+‹4Ô4)_root_.models.Party#(challengePermission)⁄
+ı˙œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(pLink)<
+∞V≤V2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.V
+ÀG€GL_root_.controllers.ReverseDashboard#manageProperties(II)Lplay/api/mvc/Call;.E
+‘LÍL;_root_.controllers.agentAppointment.AgentPermissionMapping.T
+ﬂ3‰3Happ/controllers/agentAppointment/AppointAgentController.scala@6623..6628"
+Ø	π	_root_.scala.concurrent.3
+›Û)_root_.views.html.propertyRepresentation.E
+Ò/˘/;_root_.controllers.agentAppointment.AppointAgent#(canCheck)Ÿ
+π=ª=Ã_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)-
+˚Å#_root_.models.PropertyLink#(agents)ﬁ
+◊ﬁ—_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(request)~
+≤P≤Pr_root_.controllers.agentAppointment.ExistingAgentsPermission#`<init>`(Ljava/lang/String;JLscala/collection/Seq;)V.
+¶™_root_.play.api.data.3
+π3Ã3)_root_.models.Party#(challengePermission)
+äNéN_root_.scala.Long#)
+ÁHH_root_.play.api.data.FormError.T
+ÈÓHapp/controllers/agentAppointment/AppointAgentController.scala@2793..27983
+˙*ê+)_root_.views.html.propertyRepresentation.S
+óQ¶QG_root_.controllers.agentAppointment.ConfirmOverrideVM#(authorisationId)$
+«KÀK_root_.play.api.data.Form.ß
+ÓJÙJú_root_.controllers.agentAppointment.AppointAgentController#invalidAppointment(Lplay/api/data/Form;JLplay/api/mvc/Request;)Lscala/concurrent/Future;.(linkId))
+õEùE_root_.play.api.mvc.Results#Ok.`
+ØOØOT_root_.controllers.agentAppointment.AppointAgentVM#`<init>`(Lplay/api/data/Form;J)V.E
+íM®M;_root_.controllers.agentAppointment.AgentPermissionMapping.
+çFìF_root_.config.Global.À
+º6ƒ6¿_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.R
+÷4€4Happ/controllers/agentAppointment/AppointAgentController.scala@6623..6628
+‚Ê_root_.scala.Long#)
+∫*º*_root_.models.GroupAccount#(id)3
+Á5˙5)_root_.models.Party#(challengePermission)@
+ÃJÿJ6_root_.views.html.propertyRepresentation.appointAgent.
+¥∫_root_.config.Global.;
+ÕMŸM1_root_.controllers.agentAppointment.AppointAgent.Ï
+∫4∆4·_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(individualId)
+ûE£E_root_.views.-
+◊5›5#_root_.models.PropertyLink#(agents)#
+ÏPÔP_root_.scala.package.Seq#G
+êNòN;_root_.controllers.agentAppointment.AppointAgent#(canCheck)ù
+ñQñQê_root_.controllers.agentAppointment.ConfirmOverrideVM#`<init>`(JLcontrollers/agentAppointment/ExistingAgentsPermission;Lscala/collection/Seq;)V.l
+˝DÉEb_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+êî_root_.scala.None./
+™R¿R%_root_.models.PropertyRepresentation#*
+˛â _root_.repositories.SessionRepo#7
+®≠-_root_.models.AgentAppointmentSession#(agent)x
+æ*Õ*n_root_.controllers.agentAppointment.AppointAgentController#appointed(J)Lplay/api/mvc/Action;.(authorisationId)%
+âVéV_root_.scala.package.Right.T
+¡5œ5Happ/controllers/agentAppointment/AppointAgentController.scala@6845..6927$
+ﬂYÈY_root_.scala.`<repeated>`#3
+©EøE)_root_.views.html.propertyRepresentation.
+º>¿>_root_.java.util.R
+®´Happ/controllers/agentAppointment/AppointAgentController.scala@2694..2697
+èï_root_.config.Global..
+ÒÅ$_root_.controllers.agentAppointment.R
+¥/π/Happ/controllers/agentAppointment/AppointAgentController.scala@6036..6041T
+UÒUJapp/controllers/agentAppointment/AppointAgentController.scala@10973..10984R
+§ΩHapp/controllers/agentAppointment/AppointAgentController.scala@2591..2616T
+ó7§7Happ/controllers/agentAppointment/AppointAgentController.scala@7063..7076)
+ê&í&_root_.play.api.mvc.Results#Ok.&
+˘IÄJ_root_.play.api.mvc.Request#T
+∑ºHapp/controllers/agentAppointment/AppointAgentController.scala@2359..2364⁄
+öüœ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(pLink)%
+áWåW_root_.scala.package.Right.L
+ÆQ∂Q@_root_.controllers.agentAppointment.ConfirmOverrideVM#(newAgent)R
+⁄·Happ/controllers/agentAppointment/AppointAgentController.scala@2179..21865
+¶S∞S+_root_.play.api.data.validation.Constraint#P
+¸SÑTD_root_.controllers.agentAppointment.AgentPermissionMapping#mappings.Ç
+ß™x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;."
+‘	ÿ	_root_.uk.gov.hmrc.http.á
+€TﬂT{_root_.controllers.agentAppointment.AgentPermissionMapping#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.(data)Ô
+¶8µ8‰_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)E
+áBèB;_root_.controllers.agentAppointment.AppointAgent#(canCheck)L
+ÉSÜS@_root_.controllers.agentAppointment.AgentPermissionMapping#(key)R
+√9◊9Happ/controllers/agentAppointment/AppointAgentController.scala@5861..7358T
+ÉäHapp/controllers/agentAppointment/AppointAgentController.scala@2179..2186
+÷⁄_root_.play.api.libs.T
+ÕCŒCHapp/controllers/agentAppointment/AppointAgentController.scala@8653..8654T
+óWòWJapp/controllers/agentAppointment/AppointAgentController.scala@11141..11151%
+Ú8˛8_root_.models.NotPermitted.)
+ª#À#_root_.models.StartAndContinue.b
+‚WÏWX_root_.play.api.data.FieldMapping#withPrefix(Ljava/lang/String;)Lplay/api/data/Mapping;.<
+öVúV2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.∫
+˚.É/Ø_root_.scala.concurrent.Future.sequence(Lscala/collection/TraversableOnce;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.T
+˙0á1Happ/controllers/agentAppointment/AppointAgentController.scala@6266..6279R
+©µHapp/controllers/agentAppointment/AppointAgentController.scala@2652..2664X
+≤(√(N_root_.controllers.agentAppointment.AppointAgentController#(sessionRepository)
+»Ã_root_.scala.Long#T
+ÈHapp/controllers/agentAppointment/AppointAgentController.scala@1769..1776G
+øO≈O;_root_.controllers.agentAppointment.AppointAgentVM#(linkId)0
+∂LøL&_root_.models.GroupAccount#(agentCode)
+»œ_root_.actions.”
+™A»A»_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.T
+Ã„Happ/controllers/agentAppointment/AppointAgentController.scala@2376..2473
+›·_root_.views.html.,
+ºÀ"_root_.connectors.propertyLinking.·
+Ï?˚?‘_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)‰
+“5÷5Ÿ_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(link)0
+ú"¨"&_root_.models.Party#(organisationName)R
+§4©4Happ/controllers/agentAppointment/AppointAgentController.scala@6623..6628*
+Ù
+Å _root_.connectors.GroupAccounts#
+Òı_root_.scala.Long#
+˛Ç_root_.scala.Some.#
+ç?î?_root_.java.time.Instant.@
+˙Ü6_root_.views.html.propertyRepresentation.appointAgent.;
+ I÷I1_root_.controllers.agentAppointment.AppointAgent#z
+À)⁄)n_root_.controllers.agentAppointment.AppointAgentController#appointed(J)Lplay/api/mvc/Action;.(authorisationId)V
+û?≠?L_root_.controllers.agentAppointment.AppointAgentController#(representations)T
+’6⁄6Happ/controllers/agentAppointment/AppointAgentController.scala@6997..7002%
+ùV©V_root_.models.NotPermitted.Y
+Â(Ì(O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.ê
+ñ¶Ö_root_.controllers.agentAppointment.AppointAgentController#appointAgentForm(Lactions/BasicAuthenticatedRequest;)Lplay/api/data/Form;.
+à	î	_root_.repositories.)
+«◊_root_.models.StartAndContinue.N
+ÙR˘RB_root_.controllers.agentAppointment.AgentPermissionMapping#(other)ú
+ãYïYè_root_.controllers.agentAppointment.AgentPermissionMapping#withPrefix(Ljava/lang/String;)Lcontrollers/agentAppointment/AgentPermissionMapping;.Ô
+ì4¢4‰_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)
+™JØJ_root_.views.H
+§Z©Z>_root_.scala.collection.SeqLike#toSeq()Lscala/collection/Seq;.É
+è
+è
+ˆ_root_.controllers.agentAppointment.AppointAgentController#`<init>`(Lconnectors/PropertyRepresentationConnector;Lconnectors/GroupAccounts;Lconnectors/propertyLinking/PropertyLinkConnector;Lactions/AuthenticatedAction;Lrepositories/SessionRepo;)V.)
+˝/ç0_root_.models.StartAndContinue.ù
+Æ?¥?í_root_.connectors.PropertyRepresentationConnector#create(Lmodels/RepresentationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;._
+µπU_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.T
+»’J_root_.controllers.agentAppointment.AppointAgentController#(propertyLinks)’
+Æ;Ã;»_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.H
+ù•>_root_.scala.collection.SeqLike#contains(Ljava/lang/Object;)Z.
+£®_root_.javax."
+õ¶_root_.form.EnumMapping./
+‹"Î"%_root_.models.Party#(checkPermission)[
+õ∞Q_root_.controllers.agentAppointment.AppointAgentController#alreadyAppointedAgent./
+–7ﬂ7%_root_.models.Party#(checkPermission)5
+Ó(Ù(+_root_.controllers.agentAppointment.routes.)
+„Û_root_.models.StartAndContinue.(
+⁄SÈS_root_.models.AgentPermission#‰
+‹&Î&Ÿ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(authorisationId);
+‘,‡,1_root_.controllers.agentAppointment.AppointAgent#)
+µ6ª6_root_.scala.concurrent.Future.<
+≈%«%2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.V
+ù/¨/L_root_.controllers.agentAppointment.AppointAgentController#(representations)g
+∏ø[_root_.controllers.agentAppointment.AppointAgentController#appoint(J)Lplay/api/mvc/Action;.%
+óLôL_root_.scala.Long#`!=`(J)Z.⁄
+⁄A‰Aœ_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrgId)
+à<å<_root_.scala.Long#R
+õ1©1Happ/controllers/agentAppointment/AppointAgentController.scala@6167..6245-
+†¶#_root_.models.PropertyLink#(agents)
+Ó6Ù6u_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.>
+ŸOÊO2_root_.controllers.agentAppointment.ModifyAgentVM#'
+Ωƒ_root_.play.api.data.Mapping#i
+¡) )]_root_.controllers.agentAppointment.AppointAgentController#appointed(J)Lplay/api/mvc/Action;.(
+¡W–W_root_.models.AgentPermission#Ê
+‡ÔŸ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(authorisationId)L
+ı(ã)B_root_.controllers.agentAppointment.routes.AppointAgentController.T
+ıB¸BHapp/controllers/agentAppointment/AppointAgentController.scala@8565..8572b
+´UµUX_root_.play.api.data.FieldMapping#withPrefix(Ljava/lang/String;)Lplay/api/data/Mapping;.3
+ßK¿K)_root_.actions.BasicAuthenticatedRequest#a
+óUõUW_root_.play.api.data.Mapping#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.3
+‡˘)_root_.actions.BasicAuthenticatedRequest#Ë
+Û>Ü?›_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(challengePermission)(
+Œ–_root_.scala.Boolean#`&&`(Z)Z..
+ﬁEÂE$_root_.models.PropertyLink#(address)~
+—‡r_root_.controllers.agentAppointment.AppointAgentController#appointSubmit(J)Lplay/api/mvc/Action;.(authorisationId)‰
+º-æ-◊_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)Ì
+„::‚_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(newAgentOrgId)~
+⁄M·Mt_root_.controllers.agentAppointment.AppointAgent.unapply(Lcontrollers/agentAppointment/AppointAgent;)Lscala/Option;.*
+Ää _root_.play.api.data.validation.H
+¢LµL>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)
+±ª_root_.connectors.V
+èVëVJapp/controllers/agentAppointment/AppointAgentController.scala@11023..11025
+∏+º+_root_.scala.None.X
+ê
+ü
+L_root_.controllers.agentAppointment.AppointAgentController#(representations)É
+ö*ù*y_root_.connectors.propertyLinking.PropertyLinkConnector#get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.$
+∂O∫O_root_.play.api.data.Form#T
+ÜâHapp/controllers/agentAppointment/AppointAgentController.scala@2694..2697<
+‡‚2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.¡
+≠Y∞Y∂_root_.controllers.agentAppointment.AgentPermissionMapping#copy(Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lcontrollers/agentAppointment/AgentPermissionMapping;.(key)T
+Ú7˜7Happ/controllers/agentAppointment/AppointAgentController.scala@7154..7159R
+éßHapp/controllers/agentAppointment/AppointAgentController.scala@2591..2616
+Â_root_.controllers.Å
+–+‡+w_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#notFoundTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.|
+˙âr_root_.controllers.agentAppointment.AppointAgentController#appointSubmit(J)Lplay/api/mvc/Action;.(authorisationId))
+⁄.Í._root_.models.StartAndContinue.)
+ôü_root_.scala.concurrent.Future.T
+¡¬Happ/controllers/agentAppointment/AppointAgentController.scala@1857..1858í
+ÑKîKÖ_root_.controllers.agentAppointment.AppointAgentController#appointAgentForm(Lactions/BasicAuthenticatedRequest;)Lplay/api/data/Form;.)
+‹Â_root_.play.api.data.FormError#3
+û&¥&)_root_.views.html.propertyRepresentation.=
+áï3_root_.controllers.agentAppointment.AppointAgentVM.)
+çJìJ_root_.scala.concurrent.Future.)
+»%ÿ%_root_.models.StartAndContinue.)
+–-÷-_root_.scala.concurrent.Future#
+ñö_root_.form.É
+ñCôCy_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.&
+≈"»"_root_.scala.collection.Seq.‰
+ñ)•)Ÿ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(authorisationId)
+ì&ò&_root_.views.X
+ÎD¸DN_root_.controllers.agentAppointment.AppointAgentController#(sessionRepository)‡
+≠@ª@”_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(appointedAgent)
+‹)‡)_root_.scala.Long#Ú
+∑.….Á_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(newAgentPermission)Ö
+úU†U{_root_.controllers.agentAppointment.AgentPermissionMapping#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.(data)ß
+øI√Iö_root_.controllers.agentAppointment.AppointAgentController#invalidAppointment(Lplay/api/data/Form;JLplay/api/mvc/Request;)Lscala/concurrent/Future;.(form)
+·IÂI_root_.scala.Long#P
+èMëMF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.$
+◊€_root_.scala.package.List#R
+€8‡8Happ/controllers/agentAppointment/AppointAgentController.scala@7154..7159Q
+Í
+Ú
+E_root_.controllers.agentAppointment.AppointAgentController#(accounts)$
+√V«V_root_.scala.package.Left.Q
+ËÏG_root_.play.api.data.Form#fill(Ljava/lang/Object;)Lplay/api/data/Form;.;
+á?ã?1_root_.models.NamedEnum#name()Ljava/lang/String;.<
+◊.Ÿ.2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.‹
+πæœ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(pLink)Ç
+ê/ì/x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.%
+ÂTÎT_root_.scala.Predef.String#T
+˚ÄHapp/controllers/agentAppointment/AppointAgentController.scala@3195..3200<
+—0”02_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.P
+—L”LF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.)
+∞"π"_root_.models.Party#(agentCode)a
+ãïW_root_.play.api.data.validation.Constraint.;_root_.play.api.data.validation.Constraint#N
+˛NÑOD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.)
+ë3ó3_root_.scala.concurrent.Future.T
+ü®Happ/controllers/agentAppointment/AppointAgentController.scala@2843..30061
+ÈÌ'_root_.scala.collection.immutable.List.Ô
+“:·:‰_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)⁄
+å ë œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agent)T
+‹ËHapp/controllers/agentAppointment/AppointAgentController.scala@2652..2664C
+∑∫9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.|
+ù¨r_root_.controllers.agentAppointment.AppointAgentController#appointSubmit(J)Lplay/api/mvc/Action;.(authorisationId))
+¶∂_root_.models.StartAndContinue.<
+¸$˛$2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.T
+›!Ë!Happ/controllers/agentAppointment/AppointAgentController.scala@4313..4607R
+ÖÜHapp/controllers/agentAppointment/AppointAgentController.scala@3192..3193Ú
+Ä;í;Á_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(newAgentPermission)<
+˚5˝52_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.T
+ïS†SH_root_.controllers.agentAppointment.AgentPermissionMapping#(constraints)0
+ÖAíA&_root_.uk.gov.hmrc.http.HeaderCarrier#
+§E®E_root_.views.html.
+ÆGπG_root_.controllers.R
+›·Happ/controllers/agentAppointment/AppointAgentController.scala@2819..2823‰
+Ñ/à/Ÿ_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(link)
+ı*˘*_root_.views.html.’
+”ﬂ»_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.
+ÀRœR_root_.scala.Long#T
+Â*Á*Happ/controllers/agentAppointment/AppointAgentController.scala@5477..5479=
+ŸJÁJ3_root_.controllers.agentAppointment.AppointAgentVM.I
+≤ª?_root_.play.api.data.FormError.;_root_.play.api.data.FormError#7
+ïÆ-_root_.controllers.PropertyLinkingController#B
+ë+ü+8_root_.views.html.propertyRepresentation.appointedAgent.
+…+œ+_root_.config.Global.<
+£D≠D2_root_.models.AgentAppointmentSession#(agentOrgId)A
+±∑7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#]
+œH‰HQ_root_.controllers.agentAppointment.AppointAgentController#alreadyAppointedAgent.%
+àSéS_root_.scala.Predef.String#R
+àçHapp/controllers/agentAppointment/AppointAgentController.scala@2359..2364
+Ô*Ù*_root_.views.R
+£9∞9Happ/controllers/agentAppointment/AppointAgentController.scala@7063..7076^
+◊PÍPR_root_.controllers.agentAppointment.ExistingAgentsPermission#(availablePermission)
+˝?Å@_root_.scala.Long#
+ı¯_root_.play.api.mvc.l
+å)ï)b_root_.controllers.agentAppointment.ReverseAppointAgentController#appointed(J)Lplay/api/mvc/Call;.%
+„Ë_root_.play.api.data.Forms.⁄
+∂%ª%œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agent)(
+≠XºX_root_.models.AgentPermission#
+®Q¨Q_root_.scala.Long#^
+‚#Ë#T_root_.scala.collection.TraversableLike#filter(Lscala/Function1;)Ljava/lang/Object;.#
+¶R©R_root_.scala.package.Seq#&
+»VÀV_root_.scala.collection.Seq.%
+≤,æ,_root_.models.PropertyLink#)
+ïAõA_root_.scala.concurrent.Future#b
+ÚW¯WX_root_.play.api.data.Mapping#unbind(Ljava/lang/Object;)Lscala/collection/immutable/Map;.z
+√B“Bn_root_.controllers.agentAppointment.AppointAgentController#confirmed(J)Lplay/api/mvc/Action;.(authorisationId))
+’◊_root_.play.api.mvc.Results#Ok.É
+äçy_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Y
+•G≠GO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.T
+∆PœPH_root_.controllers.agentAppointment.ExistingAgentsPermission#(agentCode))
+ËKÒK_root_.form.Mappings.agentCode.
+“’_root_.play.api.P
+ÂKÁKF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.I
+öP≤P=_root_.controllers.agentAppointment.ExistingAgentsPermission#^
+∞3∂3T_root_.scala.collection.TraversableLike#filter(Lscala/Function1;)Ljava/lang/Object;.Ó
+ü-´-·_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(individualId)R
+∑8º8Happ/controllers/agentAppointment/AppointAgentController.scala@7154..7159T
+·ÚHapp/controllers/agentAppointment/AppointAgentController.scala@3933..4023.
+£+™+$_root_.models.PropertyLink#(address)V
+ÖWÜWJapp/controllers/agentAppointment/AppointAgentController.scala@11141..11151R
+ı6˙6Happ/controllers/agentAppointment/AppointAgentController.scala@6997..7002
+ùß_root_.connectors.
+úA†A_root_.scala.Unit#)
+ˇ$è%_root_.models.StartAndContinue.
+¶,™,_root_.scala.Long#⁄
+π$æ$œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agent)
+‡*‰*_root_.scala.Some.P
+ˆOÜPD_root_.controllers.agentAppointment.ModifyAgentVM#(representationId)/
+¿+»+%_root_.play.api.mvc.Results#NotFound.3
+„˘)_root_.views.html.propertyRepresentation.1
+—1‚1'_root_.models.Party#(authorisedPartyId)Å
+îX•Xu_root_.controllers.agentAppointment.AgentPermissionMapping#unbindAndValidate(Lmodels/AgentPermission;)Lscala/Tuple2;.‹
+É@ç@œ_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrgId)(
+ÍY˘Y_root_.models.AgentPermission#
+≈À_root_.models.Å
+÷T⁄Tu_root_.controllers.agentAppointment.AgentPermissionMapping#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.T
+å*ô*J_root_.controllers.agentAppointment.AppointAgentController#(propertyLinks)R
+«ÕHapp/controllers/agentAppointment/AppointAgentController.scala@3019..3072Ä
+ÿ9ﬂ9v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.%
+æPƒP_root_.scala.Predef.String#Ù
+¿,“,Á_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(newAgentPermission)
+©Ø_root_.javax.inject.‹
+˜¸œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agent)
+∞J¥J_root_.views.html.•
+ËJÏJö_root_.controllers.agentAppointment.AppointAgentController#invalidAppointment(Lplay/api/data/Form;JLplay/api/mvc/Request;)Lscala/concurrent/Future;.(form)G
+∏Q–Q=_root_.controllers.agentAppointment.ExistingAgentsPermission#Ú
+Ñ.ñ.Á_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(newAgentPermission)ô
+ô!û!é_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.T
+Ê=È=Happ/controllers/agentAppointment/AppointAgentController.scala@7906..8089Ò
+ï,§,‰_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)0
+¿-Õ-&_root_.uk.gov.hmrc.http.HeaderCarrier#ê
+ê†Ö_root_.controllers.agentAppointment.AppointAgentController#appointAgentForm(Lactions/BasicAuthenticatedRequest;)Lplay/api/data/Form;.a
+îJûJW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.H
+µ&…&>_root_.views.html.propertyRepresentation.confirmAgentOverride.
+ﬁ‚_root_.views.html.B
+Ã·8_root_.connectors.propertyLinking.PropertyLinkConnector#⁄
+û(£(œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agent)B
+æÃ8_root_.models.AgentCodeValidationResult#(organisationId)°
+¨IæIî_root_.controllers.agentAppointment.AppointAgentController#invalidAppointment(Lplay/api/data/Form;JLplay/api/mvc/Request;)Lscala/concurrent/Future;.F
+∑D»D<_root_.actions.BasicAuthenticatedRequest#(individualAccount)⁄
+˙ ˇ œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(pLink)ﬁ
+¯AÜB”_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(appointedAgent)<
+°
+¿
+2_root_.connectors.PropertyRepresentationConnector#Ä
+≥C∫Cv_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.Ç
+¯!˚!x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.V
+¥1√1L_root_.controllers.agentAppointment.AppointAgentController#(representations)#
+ÁQÍQ_root_.scala.package.Seq#/
+´≥%_root_.play.api.mvc.Results#NotFound.|
+∆!…!r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.R
+ù¢Happ/controllers/agentAppointment/AppointAgentController.scala@2359..2364.
+Ω8À8$_root_.models.Party#(organisationId)T
+¸!˝!Happ/controllers/agentAppointment/AppointAgentController.scala@4348..4349I
+ .÷.?_root_.controllers.agentAppointment.AppointAgent#(canChallenge))
+¢ ≤ _root_.models.StartAndContinue.G
+ÎQÉR=_root_.controllers.agentAppointment.ExistingAgentsPermission#”
+ˇã»_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.$
+€ﬂ_root_.play.api.libs.json.‹
+ˆ'˝'—_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(request)D
+NˆN8_root_.controllers.agentAppointment.AppointAgent.format.
+À	Œ	_root_.uk.gov.@
+ &€&6_root_.controllers.agentAppointment.ConfirmOverrideVM.&
+‘$◊$_root_.scala.collection.Seq.X
+á!ò!N_root_.controllers.agentAppointment.AppointAgentController#(sessionRepository)3
+§#∑#)_root_.models.Party#(challengePermission)R
+°D¢DHapp/controllers/agentAppointment/AppointAgentController.scala@8653..8654V
+´∏J_root_.controllers.agentAppointment.AppointAgentController#(propertyLinks)"
+©T¥T_root_.form.EnumMapping.™
+I˜Iù_root_.controllers.agentAppointment.AppointAgentController#invalidAppointment(Lplay/api/data/Form;JLplay/api/mvc/Request;)Lscala/concurrent/Future;.(request)T
+õ0©0Happ/controllers/agentAppointment/AppointAgentController.scala@6167..6245(
+πN»N_root_.models.AgentPermission#G
+›RÛR;_root_.controllers.agentAppointment.AgentPermissionMapping#Ê
+Õ;‹;Ÿ_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)0
+ü!∂!&_root_.models.AgentAppointmentSession#Ü
+XıX|_root_.controllers.agentAppointment.AgentPermissionMapping#unbindAndValidate(Lmodels/AgentPermission;)Lscala/Tuple2;.(value)‡
+ÊAˆA’_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(userIndividualId)|
+À⁄r_root_.controllers.agentAppointment.AppointAgentController#appointSubmit(J)Lplay/api/mvc/Action;.(authorisationId)0
+Ω= =&_root_.uk.gov.hmrc.http.HeaderCarrier#–
+Õ?Î?√_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+˚ˇ_root_.play.api.data.M
+£U™UC_root_.controllers.agentAppointment.AgentPermissionMapping#wrapped.
+ô-ù-_root_.scala.Long#$
+≈I…I_root_.play.api.data.Form#)
+®7Æ7_root_.scala.concurrent.Future.Ê
+ª< <Ÿ_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(checkPermission)ﬂ
+…AÿA‘_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId).
+Ï=Å>$_root_.models.RepresentationRequest.Œ
+∫'ÿ'√_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.J
+÷VŸV@_root_.controllers.agentAppointment.AgentPermissionMapping#(key)E
+◊ﬂ;_root_.controllers.agentAppointment.AppointAgent#(canCheck)R
+¢#£#Happ/controllers/agentAppointment/AppointAgentController.scala@4348..4349)
+Ï*Ó*_root_.play.api.mvc.Results#Ok.ﬂ
+Ó ¯ ‘_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agentOrgId)<
+‡7‚72_root_.java.lang.Object#`!=`(Ljava/lang/Object;)Z.?
+°OØO3_root_.controllers.agentAppointment.AppointAgentVM#)
+‡‰_root_.play.api.libs.json.Json.
+∑>ª>_root_.java.R
+Ó˜Happ/controllers/agentAppointment/AppointAgentController.scala@2843..3006-
+Ò!˜!#_root_.models.PropertyLink#(agents)⁄
+—÷œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agent)Ï
+Ú:˛:·_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(individualId)R
+˜à Happ/controllers/agentAppointment/AppointAgentController.scala@3933..4023I
+†B¨B?_root_.controllers.agentAppointment.AppointAgent#(canChallenge)V
+ÑVÜVJapp/controllers/agentAppointment/AppointAgentController.scala@11012..11014Z
+Î¸N_root_.controllers.agentAppointment.AppointAgentController#(sessionRepository)R
+≈6”6Happ/controllers/agentAppointment/AppointAgentController.scala@6845..6927<
+Õ3œ32_root_.java.lang.Object#`!=`(Ljava/lang/Object;)Z.
+Úˆ_root_.play.
+ÿ‹_root_.views.html.§
+ñYúYó_root_.controllers.agentAppointment.AgentPermissionMapping#withPrefix(Ljava/lang/String;)Lcontrollers/agentAppointment/AgentPermissionMapping;.(prefix)T
+Í˜J_root_.controllers.agentAppointment.AppointAgentController#(authenticated)F
+√R…R:_root_.controllers.agentAppointment.SelectAgentVM#(linkId)2
+œË(_root_.models.AgentCodeValidationResult.^
+Î%Ò%T_root_.scala.collection.TraversableLike#filter(Lscala/Function1;)Ljava/lang/Object;.M
+⁄W·WC_root_.controllers.agentAppointment.AgentPermissionMapping#wrapped.F
+éó<_root_.controllers.agentAppointment.AppointAgent#(agentCode)
+ÒÙ_root_.play.api.Œ
+≥:—:√_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(
+â ã _root_.scala.Boolean#`&&`(Z)Z..
+ÎSÎS$_root_.java.lang.Object#`<init>`()V.
+‘BÿB_root_.scala.Long#V
+˘ÜJ_root_.controllers.agentAppointment.AppointAgentController#(authenticated)>
+Ù%¸%4_root_.scala.collection.TraversableOnce#nonEmpty()Z.
+≠-±-_root_.scala.Long#0
+é•&_root_.models.AgentAppointmentSession#|
+œ*“*r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.l
+ìGôGb_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.R
+∏7∆7Happ/controllers/agentAppointment/AppointAgentController.scala@6845..69277
+öDüD-_root_.models.AgentAppointmentSession#(agent)(
+Ùˆ_root_.scala.Boolean#`||`(Z)Z.z
+˛M˛Mn_root_.controllers.agentAppointment.AppointAgent#`<init>`(JLmodels/AgentPermission;Lmodels/AgentPermission;)V.
+Õ—_root_.play.”
+á8•8»_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.R
+ëóHapp/controllers/agentAppointment/AppointAgentController.scala@3019..3072C
+˘Ä	9_root_.play.api.mvc.Request.;_root_.play.api.mvc.Request#)
+ãHîH_root_.play.api.data.FormError.<
+†.¢.2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.ò
+ûZ†Zç_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.
+Ï_root_.play.
+⁄›_root_.play.api.)
+Ù.˙._root_.scala.concurrent.Future.%
+ûY§Y_root_.scala.Predef.String#R
+œE–EHapp/controllers/agentAppointment/AppointAgentController.scala@8653..86541
+üJ©J'_root_.play.api.mvc.Results#BadRequest.Å
+îF§Fw_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#notFoundTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.‘
+ÅAÉA«_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)õ
+ûK•Ké_root_.controllers.agentAppointment.AppointAgentController#appointAgentForm(Lactions/BasicAuthenticatedRequest;)Lplay/api/data/Form;.(request)0
+œ Ê &_root_.models.AgentAppointmentSession.%
+≥VøV_root_.models.NotPermitted.=
+ÚM˛M1_root_.controllers.agentAppointment.AppointAgent#
+¸EÄF_root_.scala.None.R
+Ï˝Happ/controllers/agentAppointment/AppointAgentController.scala@2480..2570=
+“NﬁN1_root_.controllers.agentAppointment.AppointAgent.É
+÷Ÿy_root_.connectors.propertyLinking.PropertyLinkConnector#get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.l
+ƒ( (b_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.T
+§6±6Happ/controllers/agentAppointment/AppointAgentController.scala@6948..6961=
+”>€>3_root_.java.util.UUID#toString()Ljava/lang/String;.R
+µ?∏?Happ/controllers/agentAppointment/AppointAgentController.scala@7906..8089
+ﬁ;‚;_root_.scala.Long#/
+ÑFåF%_root_.play.api.mvc.Results#NotFound.‚
+ï@•@’_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(userIndividualId)|
+åõr_root_.controllers.agentAppointment.AppointAgentController#appointSubmit(J)Lplay/api/mvc/Action;.(authorisationId)T
+ü∏Happ/controllers/agentAppointment/AppointAgentController.scala@2591..2616R
+û*•*Happ/controllers/agentAppointment/AppointAgentController.scala@5373..5380X
+ÅGíGN_root_.controllers.agentAppointment.AppointAgentController#(sessionRepository)G
+Å"ô"=_root_.controllers.agentAppointment.ExistingAgentsPermission.)
+ã1ë1_root_.scala.concurrent.Future.)
+˛5é6_root_.models.StartAndContinue.T
+≠VØVJapp/controllers/agentAppointment/AppointAgentController.scala@11023..11025
+è@ì@_root_.scala.Long#R
+Æ"Ø"Happ/controllers/agentAppointment/AppointAgentController.scala@4348..4349T
+˚Happ/controllers/agentAppointment/AppointAgentController.scala@2800..2811^
+∏0æ0T_root_.scala.collection.TraversableLike#filter(Lscala/Function1;)Ljava/lang/Object;.>
+Î#Û#4_root_.scala.collection.TraversableOnce#nonEmpty()Z.R
+¶ßHapp/controllers/agentAppointment/AppointAgentController.scala@1857..1858X
+ÑCïCN_root_.controllers.agentAppointment.AppointAgentController#(sessionRepository)@
+˘Ö6_root_.views.html.propertyRepresentation.appointAgent.T
+Ä3ç3Happ/controllers/agentAppointment/AppointAgentController.scala@6528..6541)
+œ—_root_.play.api.mvc.Results#Ok.(
+Ú<Å=_root_.models.AgentPermission#ê
+◊ÁÖ_root_.controllers.agentAppointment.AppointAgentController#appointAgentForm(Lactions/BasicAuthenticatedRequest;)Lplay/api/data/Form;.F
+˛'è(<_root_.actions.BasicAuthenticatedRequest#(individualAccount)B
+ÖQñQ6_root_.controllers.agentAppointment.ConfirmOverrideVM#‰
+›>Ï>Ÿ_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(checkPermission)I
+í û ?_root_.controllers.agentAppointment.AppointAgent#(canChallenge)@
+ê(ú(6_root_.models.DetailedIndividualAccount#(individualId)B
+¿EŒE8_root_.views.html.propertyRepresentation.appointedAgent.R
+òDôDHapp/controllers/agentAppointment/AppointAgentController.scala@8653..8654Ú
+ﬁ//Á_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(newAgentPermission).
+ØØ$_root_.java.lang.Object#`<init>`()V.Í
+›<<›_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(challengePermission)I
+Ô$˚$?_root_.controllers.agentAppointment.AppointAgent#(canChallenge)ü
+—Y⁄Yí_root_.controllers.agentAppointment.AgentPermissionMapping#verifying(Lscala/collection/Seq;)Lcontrollers/agentAppointment/AgentPermissionMapping;.‡
+˚+î,”_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.<
+ü ° 2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.T
+∫¿Happ/controllers/agentAppointment/AppointAgentController.scala@2234..2240©
+ŸIﬂIú_root_.controllers.agentAppointment.AppointAgentController#invalidAppointment(Lplay/api/data/Form;JLplay/api/mvc/Request;)Lscala/concurrent/Future;.(linkId)
+≈…_root_.scala.None.B
+∫œ8_root_.connectors.propertyLinking.PropertyLinkConnector#y
+¿FœFm_root_.controllers.agentAppointment.AppointAgentController#declined(J)Lplay/api/mvc/Action;.(authorisationId)H
+æ∆>_root_.scala.collection.SeqLike#contains(Ljava/lang/Object;)Z.|
+íEïEr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.‰
+Ç>ë>Ÿ_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)H
+¶*π*>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)
+«OÀO_root_.scala.Long#@
+…D’D6_root_.models.DetailedIndividualAccount#(individualId)(
+±S¿S_root_.models.AgentPermission#3
+‚¯)_root_.views.html.propertyRepresentation..
+™4∏4$_root_.models.Party#(organisationId)T
+–›J_root_.controllers.agentAppointment.AppointAgentController#(authenticated)·
+‰;Ó;‘_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrgId)b
+ŒXÿXX_root_.play.api.data.FieldMapping#withPrefix(Ljava/lang/String;)Lplay/api/data/Mapping;.(
+¥.∂._root_.scala.Boolean#`&&`(Z)Z.T
+∂ƒHapp/controllers/agentAppointment/AppointAgentController.scala@3122..3225)
+‘0‰0_root_.models.StartAndContinue.ì
+ÃK”Kà_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.T
+äóHapp/controllers/agentAppointment/AppointAgentController.scala@3846..3928V
+ﬁ6Ì6L_root_.controllers.agentAppointment.AppointAgentController#(representations)|
+ô®r_root_.controllers.agentAppointment.AppointAgentController#appointSubmit(J)Lplay/api/mvc/Action;.(authorisationId)%
+Ü
+å
+_root_.javax.inject.Inject#H
+‚ı>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)=
+∆>–>3_root_.java.util.UUID.randomUUID()Ljava/util/UUID;.R
+´∂Happ/controllers/agentAppointment/AppointAgentController.scala@2800..2811ê
+∫WøWÉ_root_.controllers.agentAppointment.AgentPermissionMapping#unbind(Lmodels/AgentPermission;)Lscala/collection/immutable/Map;.(value)T
+ÚF˘FHapp/controllers/agentAppointment/AppointAgentController.scala@9074..9081%
+»4‘4_root_.models.NotPermitted.[
+ﬁXÔXQ_root_.play.api.data.Mapping#unbindAndValidate(Ljava/lang/Object;)Lscala/Tuple2;.=
+Åè3_root_.controllers.agentAppointment.AppointAgentVM.
+≠/≥/u_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+ÈÙ_root_.controllers.(
+µTƒT_root_.models.AgentPermission.E
+∞O¥O9_root_.controllers.agentAppointment.AppointAgentVM#(form)⁄
+Á Ï œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agent)
+’Ÿ_root_.play.T
+≥PºPH_root_.controllers.agentAppointment.ExistingAgentsPermission#(agentName)"
+·T‰T_root_.scala.Predef.Map#
+◊-€-_root_.scala.Unit#M
+∆XÕXC_root_.controllers.agentAppointment.AgentPermissionMapping#wrapped.
+◊‹_root_.views.h
+∑FøF\_root_.controllers.agentAppointment.AppointAgentController#declined(J)Lplay/api/mvc/Action;.
+˜˙_root_.play.api.1
+å
+å
+'_root_.javax.inject.Inject#`<init>`()V.<
+˙/¸/2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.G
+ú$¥$=_root_.controllers.agentAppointment.ExistingAgentsPermission.ü
+®∫î_root_.controllers.agentAppointment.AppointAgentController#invalidAppointment(Lplay/api/data/Form;JLplay/api/mvc/Request;)Lscala/concurrent/Future;.)
+Õ=”=_root_.scala.concurrent.Future#ﬁ
+ëBüB”_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(appointedAgent)0
+ÀÀ&_root_.javax.inject.Named#`<init>`()V.*
+ï	†	 _root_.repositories.SessionRepo#@
+ÙÄ6_root_.views.html.propertyRepresentation.appointAgent./
+·88%_root_.models.Party#(checkPermission)m
+∞∂c_root_.controllers.agentAppointment.AppointAgentController#appoint(J)Lplay/api/mvc/Action;.(linkId)R
+†+¢+Happ/controllers/agentAppointment/AppointAgentController.scala@5477..5479…
+ÑZèZæ_root_.controllers.agentAppointment.AgentPermissionMapping#copy(Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lcontrollers/agentAppointment/AgentPermissionMapping;.(constraints)Ö
+¬U∆U{_root_.controllers.agentAppointment.AgentPermissionMapping#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.(data)l
+ÚK˚Kb_root_.play.api.data.Mapping#verifying(Lscala/Function0;Lscala/Function1;)Lplay/api/data/Mapping;.;
+˛ä1_root_.controllers.agentAppointment.AppointAgent#)
+£.≥._root_.models.StartAndContinue.)
+˘N˝N_root_.play.api.libs.json.Json.G
+Ó	Ñ
+;_root_.controllers.agentAppointment.AppointAgentController#?
+¨∞5_root_.play.api.data.Form.;_root_.play.api.data.Form#;
+Ω@…@1_root_.controllers.agentAppointment.AppointAgent#R
+ëñHapp/controllers/agentAppointment/AppointAgentController.scala@3195..3200
+œ	”	_root_.uk.gov.hmrc.R
+ïõHapp/controllers/agentAppointment/AppointAgentController.scala@2234..2240m
+√–a_root_.controllers.agentAppointment.AppointAgentController#appointSubmit(J)Lplay/api/mvc/Action;.R
+Ì&˙&Happ/controllers/agentAppointment/AppointAgentController.scala@4616..4871
+àé_root_.config.T
+å$ô$Happ/controllers/agentAppointment/AppointAgentController.scala@4616..4871/
+¡0–0%_root_.models.Party#(checkPermission)<
+∏#∫#2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.é
+ÛRÛRÅ_root_.controllers.agentAppointment.AgentPermissionMapping#`<init>`(Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)V.%
+PˆP_root_.scala.Predef.String#-
+àõ#_root_.actions.AuthenticatedAction#R
+∏!ƒ!Happ/controllers/agentAppointment/AppointAgentController.scala@4156..4224
+ÿ›_root_.views.`
+£≤V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;. 
+¡>≈>_root_.java.util.UUID.=
+îõ3_root_.java.time.Instant.;_root_.java.time.Instant#>
+ò†4_root_.scala.collection.TraversableOnce#nonEmpty()Z.T
+‰)Ò)J_root_.controllers.agentAppointment.AppointAgentController#(authenticated)>
+äDñD4_root_.models.AgentAppointmentSession#(propertyLink)E
+®Y¨Y;_root_.controllers.agentAppointment.AgentPermissionMapping#)
+Ô"ˇ"_root_.models.StartAndContinue.%
+˛UÉV_root_.scala.package.Right.
+»	 	
+_root_.uk.%
+˚RÅS_root_.scala.Predef.String#ﬁ
+›CˆC”_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.E
+º%ƒ%;_root_.controllers.agentAppointment.AppointAgent#(canCheck)
+©	Æ	_root_.scala.R
+º”Happ/controllers/agentAppointment/AppointAgentController.scala@2376..2473L
+∂UªUB_root_.controllers.agentAppointment.AgentPermissionMapping#(other)
+;Ù;_root_.scala.Long#=
+Üî3_root_.controllers.agentAppointment.AppointAgentVM.
+äé_root_.java."≤
+T_root_.scala.collection.TraversableLike#filter(Lscala/Function1;)Ljava/lang/Object;.Ÿfilter (p: Function1[A, Boolean]): Repr"
+_root_.scala.Function1#"3
++_root_.scala.collection.TraversableLike#[A]"
+_root_.scala.Boolean#"6
+ ._root_.scala.collection.TraversableLike#[Repr]"t
+3_root_.java.util.UUID#toString()Ljava/lang/String;.=ÑÄÄtoString
+(): String" 
+
+_root_.java.lang.String#"<
++_root_.controllers.agentAppointment.routes.ÄÑàroutes")
+_root_.scala.collection.Seq.	ÄÑSeq"¿
+b_root_.play.api.data.Mapping#verifying(Lscala/Function0;Lscala/Function1;)Lplay/api/data/Mapping;.Ÿ	verifyingH(error: <byname>[String], constraint: Function1[T, Boolean]): Mapping[T]" 
+_root_.scala.`<byname>`#"#
+_root_.scala.Predef.String#"
+&/_root_.scala.Function1#"(
+01 _root_.play.api.data.Mapping#[T]"
+3:_root_.scala.Boolean#"%
+>E_root_.play.api.data.Mapping#"(
+FG _root_.play.api.data.Mapping#[T]"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"5
+ _root_.play.api.data.validation.ÄàÄ
+validation"â
+—_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(request)3ÄÅ request$actions.BasicAuthenticatedRequest[_]"í
+Ÿ_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"Ü
+]_root_.controllers.agentAppointment.AppointAgentController#appointed(J)Lplay/api/mvc/Action;.§	appointed+(authorisationId: Long): Action[AnyContent]"
+_root_.scala.Long#"#
+_root_.play.api.mvc.Action#"'
+ *_root_.play.api.mvc.AnyContent#"T
+_root_.scala.package.Right.5Right
+Right.type"
+_root_.scala.util.Right."G
+1_root_.controllers.agentAppointment.AppointAgent.ÄÑAppointAgent"H
+1_root_.controllers.agentAppointment.AppointAgent#Ä†ÄAppointAgent"€
+Happ/controllers/agentAppointment/AppointAgentController.scala@8565..8572éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"Ø
+Japp/controllers/agentAppointment/AppointAgentController.scala@10980..10983aerrSeq[FormError]"
+_root_.scala.package.Seq#"'
+_root_.play.api.data.FormError#"µ
+Happ/controllers/agentAppointment/AppointAgentController.scala@2591..2616iÄagentCodeValidationResultAgentCodeValidationResult".
+(_root_.models.AgentCodeValidationResult#"€
+9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.ùÑÄmap&[B] => (f: Function1[A, B]): Option[B]"
+_root_.scala.Function1#"
+_root_.scala.Option#[A]"D
+<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"
+#_root_.scala.Option#"D
+$%<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"@
++_root_.play.api.data.validation.Constraint#Ä†Ä
+Constraint"[
+$_root_.models.Party#(organisationId)3ÅorganisationIdLong"
+_root_.scala.Long#"≈
+8_root_.controllers.agentAppointment.AppointAgent.format.àÅÄ formatOFormat[AppointAgent]"(
+"_root_.play.api.libs.json.OFormat#"9
+1_root_.controllers.agentAppointment.AppointAgent#"≈
+é_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.±ÑÄstartJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"ö
+ë_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
+%!_root_.play.api.libs.json.Writes#"ö
+&'ë_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+>D_root_.scala.concurrent.Future#"
+EI_root_.scala.Unit#" 
+”_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÒÑÄupdateAllAgentsPermission†(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent, newAgentOrgId: Long, individualId: Long)(implicit hc: HeaderCarrier): Future[Unit]"
+_root_.scala.Long#"#
+*_root_.models.PropertyLink#"9
+@L1_root_.controllers.agentAppointment.AppointAgent#"
+]a_root_.scala.Long#"
+qu_root_.scala.Long#"0
+Ñë&_root_.uk.gov.hmrc.http.HeaderCarrier#")
+îö_root_.scala.concurrent.Future#"
+õü_root_.scala.Unit#"å
+Å_root_.play.api.data.Form#`<init>`(Lplay/api/data/Mapping;Lscala/collection/immutable/Map;Lscala/collection/Seq;Lscala/Option;)V.Ö<init>c(mapping: Mapping[T], data: Map[String, String], errors: Seq[FormError], value: Option[T]): Form[T]"%
+
+_root_.play.api.data.Mapping#"%
+_root_.play.api.data.Form#[T]" 
+_root_.scala.Predef.Map#"#
+ &_root_.scala.Predef.String#"#
+(._root_.scala.Predef.String#"!
+9<_root_.scala.package.Seq#"'
+=F_root_.play.api.data.FormError#"
+PV_root_.scala.Option#"%
+WX_root_.play.api.data.Form#[T]""
+\`_root_.play.api.data.Form#"%
+ab_root_.play.api.data.Form#[T]"≥
+ê_root_.controllers.agentAppointment.ConfirmOverrideVM#`<init>`(JLcontrollers/agentAppointment/ExistingAgentsPermission;Lscala/collection/Seq;)V.ù<init>Ç(authorisationId: Long, newAgent: ExistingAgentsPermission, existingPermissions: Seq[ExistingAgentsPermission]): ConfirmOverrideVM"
+_root_.scala.Long#"E
+":=_root_.controllers.agentAppointment.ExistingAgentsPermission#"!
+QT_root_.scala.package.Seq#"E
+Um=_root_.controllers.agentAppointment.ExistingAgentsPermission#"?
+qÇ6_root_.controllers.agentAppointment.ConfirmOverrideVM#"ò
+L_root_.controllers.agentAppointment.AppointAgentController#invalidAgentCode.HÅÄAinvalidAgentCode	FormError"%
+	_root_.play.api.data.FormError#"à
+Happ/controllers/agentAppointment/AppointAgentController.scala@3195..3200<Äerror	FormError"%
+	_root_.play.api.data.FormError#")
+_root_.play.api.libs.json.ÄàÄjson"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"?
+$_root_.controllers.agentAppointment.ÄàÄagentAppointment"4
+ _root_.repositories.SessionRepo#Ä@SessionRepo"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#" 
+_root_.scala.Long#
+Ä†Long"w
+@_root_.controllers.agentAppointment.AgentPermissionMapping#(key)3ÅkeyString"!
+_root_.scala.Predef.String#"{
+B_root_.controllers.agentAppointment.AgentPermissionMapping#(other)5ÅotherString"!
+_root_.scala.Predef.String#"Ô
+K_root_.controllers.agentAppointment.ConfirmOverrideVM#(existingPermissions)üÅexistingPermissionsSeq[ExistingAgentsPermission]"
+_root_.scala.package.Seq#"E
+=_root_.controllers.agentAppointment.ExistingAgentsPermission#"'
+_root_.connectors.ÄàÄ
+connectors"⁄
+u_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.‡revokeC(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit]"
+_root_.scala.Long#".
+'4&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+7=_root_.scala.concurrent.Future#"
+>B_root_.scala.Unit#"`
+_root_.scala.package.List#BList	List.type"-
+'_root_.scala.collection.immutable.List."\
+;_root_.controllers.agentAppointment.AgentPermissionMapping#Ä†ÄAgentPermissionMapping"[
+;_root_.controllers.agentAppointment.AgentPermissionMapping.ÄÑAgentPermissionMapping"ç
+à_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.ˇmapping÷[R, A1, A2, A3] => (a1: Tuple2[String, Mapping[A1]], a2: Tuple2[String, Mapping[A2]], a3: Tuple2[String, Mapping[A3]])(apply: Function3[A1, A2, A3, R])(unapply: Function1[R, Option[Tuple3[A1, A2, A3]]]): Mapping[R]"
+_root_.scala.Tuple2#"#
+%_root_.scala.Predef.String#"%
+'._root_.play.api.data.Mapping#"ï
+/1å_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"
+9?_root_.scala.Tuple2#"#
+@F_root_.scala.Predef.String#"%
+HO_root_.play.api.data.Mapping#"ï
+PRå_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"
+Z`_root_.scala.Tuple2#"#
+ag_root_.scala.Predef.String#"%
+ip_root_.play.api.data.Mapping#"ï
+qså_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]" 
+~á_root_.scala.Function3#"ó
+àäå_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"ó
+åéå_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"ó
+êíå_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"ñ
+îïã_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"!
+°™_root_.scala.Function1#"ñ
+´¨ã_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"
+Æ¥_root_.scala.Option#"
+µª_root_.scala.Tuple3#"ó
+ºæå_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"ó
+¿¬å_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"ó
+ƒ∆å_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"'
+Ã”_root_.play.api.data.Mapping#"ñ
+‘’ã_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"è
+œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(pLink);ÄpLinkPropertyLink"!
+_root_.models.PropertyLink#"“
+ó_root_.controllers.agentAppointment.AgentPermissionMapping#withPrefix(Ljava/lang/String;)Lcontrollers/agentAppointment/AgentPermissionMapping;.(prefix)6ÄprefixString"!
+_root_.scala.Predef.String#"É
+œ_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrgId)/Ä
+agentOrgIdLong"
+_root_.scala.Long#"y
+Happ/controllers/agentAppointment/AppointAgentController.scala@7154..7159-ÄagentParty"
+_root_.models.Party#"y
+Happ/controllers/agentAppointment/AppointAgentController.scala@6623..6628-ÄagentParty"
+_root_.models.Party#"J
+)_root_.views.html.propertyRepresentation.ÄàÄpropertyRepresentation"L
+6_root_.views.html.propertyRepresentation.appointAgent.ÄÑappointAgent"è
+ç_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.¸++Z[B, That] => (that: GenTraversableOnce[B])(implicit bf: CanBuildFrom[Repr, B, That]): That"3
+&+_root_.scala.collection.GenTraversableOnce#"ô
+'(ê_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+8D-_root_.scala.collection.generic.CanBuildFrom#"6
+EI._root_.scala.collection.TraversableLike#[Repr]"ô
+KLê_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"ú
+NRì_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"ú
+VZì_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#",
+_root_.play.api.mvc.Request#Ä@Request"◊
+l_root_.play.api.data.validation.Constraint#`<init>`(Lscala/Option;Lscala/collection/Seq;Lscala/Function1;)V.Ê<init>X(name: Option[String], args: Seq[Any])(f: Function1[T, ValidationResult]): Constraint[T]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"!
+ _root_.scala.package.Seq#"
+!$_root_.scala.Any#"
+*3_root_.scala.Function1#"6
+45._root_.play.api.data.validation.Constraint#[T]"9
+7G1_root_.play.api.data.validation.ValidationResult#"3
+KU+_root_.play.api.data.validation.Constraint#"6
+VW._root_.play.api.data.validation.Constraint#[T]"_
+$_root_.models.PropertyLink#(address)7ÅaddressString"!
+_root_.scala.Predef.String#"ó
+·_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(individualId)1ÄindividualIdLong"
+_root_.scala.Long#"Ö
+H_root_.controllers.agentAppointment.ExistingAgentsPermission#(agentName)9Å	agentNameString"!
+_root_.scala.Predef.String#"
+Happ/controllers/agentAppointment/AppointAgentController.scala@2694..26973ÄresResult"!
+_root_.play.api.mvc.Result#"Ñ
+X_root_.play.api.data.FieldMapping#withPrefix(Ljava/lang/String;)Lplay/api/data/Mapping;.ß
+withPrefix(prefix: String): Mapping[T]"#
+	_root_.scala.Predef.String#"%
+_root_.play.api.data.Mapping#"-
+%_root_.play.api.data.FieldMapping#[T]"¬
+y_root_.connectors.propertyLinking.PropertyLinkConnector#get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ƒgetg(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]]"
+_root_.scala.Long#"
+(,_root_.scala.Long#".
+;H&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+KQ_root_.scala.concurrent.Future#"
+RX_root_.scala.Option#"#
+Ye_root_.models.PropertyLink#"Õ
+B_root_.controllers.agentAppointment.routes.AppointAgentController.ÜÅÄàAppointAgentControllerReverseAppointAgentController"H
+B_root_.controllers.agentAppointment.ReverseAppointAgentController#"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"ê
+Japp/controllers/agentAppointment/AppointAgentController.scala@11141..11151¡r&Right[Seq[FormError], AgentPermission]"
+_root_.scala.util.Right#"!
+	_root_.scala.package.Seq#"'
+
+_root_.play.api.data.FormError#"&
+%_root_.models.AgentPermission#"˘
+T_root_.controllers.agentAppointment.AppointAgentVM#`<init>`(Lplay/api/data/Form;J)V.†<init>;(form: play.api.data.Form[_], linkId: Long): AppointAgentVM"
+&*_root_.scala.Long#";
+-;3_root_.controllers.agentAppointment.AppointAgentVM#"Z
+2_root_.connectors.PropertyRepresentationConnector#$Ä PropertyRepresentationConnector"·
+Happ/controllers/agentAppointment/AppointAgentController.scala@5861..7358îupdateExistingAgentsFuture[Seq[Unit]]"%
+_root_.scala.concurrent.Future#"$
+
+_root_.scala.collection.Seq#"
+_root_.scala.Unit#"≈
+C_root_.controllers.agentAppointment.AgentPermissionMapping#wrapped.~ÅÄwrappedFieldMapping[AgentPermission]"(
+"_root_.play.api.data.FieldMapping#"&
+_root_.models.AgentPermission#"é
+a_root_.controllers.agentAppointment.AppointAgentController#appointSubmit(J)Lplay/api/mvc/Action;.®appointSubmit+(authorisationId: Long): Action[AnyContent]"
+_root_.scala.Long#"#
+_root_.play.api.mvc.Action#"'
+ *_root_.play.api.mvc.AnyContent#"
+_root_.java.ÄàÄjava"¡
+R_root_.controllers.agentAppointment.ExistingAgentsPermission#(availablePermission)kÅavailablePermissionSeq[String]"
+_root_.scala.package.Seq#"#
+
+_root_.scala.Predef.String#"¨
+Happ/controllers/agentAppointment/AppointAgentController.scala@2800..2811`failureCodeOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"û
+B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.XÑÄ+(x$1: Any): String"
+	_root_.scala.Any#" 
+_root_.java.lang.String#"$
+_root_.play.api.data.ÄàÄdata"\
+>_root_.views.html.propertyRepresentation.confirmAgentOverride.ÄÑconfirmAgentOverride"$
+_root_.play.api.libs.ÄàÄlibs"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"
+_root_.form.ÄàÄform"ñ
+Happ/controllers/agentAppointment/AppointAgentController.scala@7906..8089JreqRepresentationRequest"*
+$_root_.models.RepresentationRequest#"}
+#_root_.models.PropertyLink#(agents)VÅagents
+Seq[Party]"
+_root_.scala.package.Seq#"
+	_root_.models.Party#"£
+Happ/controllers/agentAppointment/AppointAgentController.scala@4156..4224WagentSessionAgentAppointmentSession",
+&_root_.models.AgentAppointmentSession#"
+_root_.javax.ÄàÄjavax"J
+_root_.models.GroupAccount#(id)'ÅidLong"
+_root_.scala.Long#""
+_root_.play.api.mvc.
+ÄàÄmvc"L
+3_root_.controllers.agentAppointment.AppointAgentVM#Ä†ÄAppointAgentVM"K
+3_root_.controllers.agentAppointment.AppointAgentVM.ÄÑAppointAgentVM"ç
+E_root_.controllers.agentAppointment.AppointAgentController#(accounts)DÄaccountsGroupAccounts"&
+ _root_.connectors.GroupAccounts#"€
+G_root_.play.api.data.Form#fill(Ljava/lang/Object;)Lplay/api/data/Form;.èfill(value: T): Form[T]"%
+	_root_.play.api.data.Form#[T]""
+_root_.play.api.data.Form#"%
+_root_.play.api.data.Form#[T]"Ä
+√_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.∑ÑÄcreateAndSubmitAgentRepRequestâ(authorisationId: Long, agentOrgId: Long, userIndividualId: Long, appointedAgent: AppointAgent)(implicit hc: HeaderCarrier): Future[Unit]"
+_root_.scala.Long#"
+$(_root_.scala.Long#"
+<@_root_.scala.Long#"9
+R^1_root_.controllers.agentAppointment.AppointAgent#".
+mz&_root_.uk.gov.hmrc.http.HeaderCarrier#"(
+}É_root_.scala.concurrent.Future#"
+Ñà_root_.scala.Unit#"»
+Å_root_.connectors.PropertyRepresentationConnector#validateAgentCode(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.¡validateAgentCodeg(agentCode: Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[AgentCodeValidationResult]"
+_root_.scala.Long#"
+#'_root_.scala.Long#".
+6C&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+FL_root_.scala.concurrent.Future#"0
+Mf(_root_.models.AgentCodeValidationResult#"
+_root_.play.api.
+ÄàÄapi"7
+_root_.models.AgentPermission.ÄÑAgentPermission"7
+_root_.models.AgentPermission#Ä¿AgentPermission"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"2
+_root_.models.PropertyLink#Ä†ÄPropertyLink"P
+_root_.scala.package.Left.2Left	Left.type"
+_root_.scala.util.Left."±
+›_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(challengePermission)OÄchallengePermissionAgentPermission"$
+_root_.models.AgentPermission#"l
+'_root_.play.api.mvc.Results#BadRequest.A
+BadRequestStatus")
+#_root_.play.api.mvc.Results#Status#"í
+c_root_.controllers.agentAppointment.AppointAgentController#appoint(J)Lplay/api/mvc/Action;.(linkId)+ÄlinkIdLong"
+_root_.scala.Long#"∏
+Ç_root_.actions.BasicAuthenticatedRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)V.∞<init>Ñ(organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A]): BasicAuthenticatedRequest[A]"#
+"_root_.models.GroupAccount#"0
+7P(_root_.models.DetailedIndividualAccount#"$
+[b_root_.play.api.mvc.Request#"4
+cd,_root_.actions.BasicAuthenticatedRequest#[A]"2
+hÅ)_root_.actions.BasicAuthenticatedRequest#"6
+ÇÉ,_root_.actions.BasicAuthenticatedRequest#[A]"Ñ
+\_root_.controllers.agentAppointment.AppointAgentController#declined(J)Lplay/api/mvc/Action;.£declined+(authorisationId: Long): Action[AnyContent]"
+_root_.scala.Long#"#
+_root_.play.api.mvc.Action#"'
+ *_root_.play.api.mvc.AnyContent#"Œ
+|_root_.controllers.agentAppointment.AgentPermissionMapping#unbind(Lmodels/AgentPermission;)Lscala/collection/immutable/Map;.Õunbind-(value: AgentPermission): Map[String, String]"&
+_root_.models.AgentPermission#" 
+_root_.scala.Predef.Map#"#
+$_root_.scala.Predef.String#"#
+&,_root_.scala.Predef.String#"à
+‘_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agentOrgId)/Ä
+agentOrgIdLong"
+_root_.scala.Long#"ç
+2_root_.java.lang.Object#`==`(Ljava/lang/Object;)Z.WÑÄ==(x$1: Any): Boolean"
+	_root_.scala.Any#"
+_root_.scala.Boolean#"y
+Happ/controllers/agentAppointment/AppointAgentController.scala@6315..6320-ÄagentParty"
+_root_.models.Party#"V
+8_root_.connectors.propertyLinking.PropertyLinkConnector#Ä PropertyLinkConnector" 
+_root_.scala.Unit#
+Ä†Unit"2
+_root_.play.api.data.FormError.ÄÑ	FormError"3
+_root_.play.api.data.FormError#Ä†Ä	FormError"ﬂ
+k_root_.scala.collection.LinearSeqOptimized#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.ÔfoldLeft([B] => (z: B)(op: Function2[B, A, B]): B"v
+n_root_.scala.collection.LinearSeqOptimized#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.[B]"
+_root_.scala.Function2#"v
+n_root_.scala.collection.LinearSeqOptimized#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.[B]"6
+ ._root_.scala.collection.LinearSeqOptimized#[A]"v
+"#n_root_.scala.collection.LinearSeqOptimized#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.[B]"v
+'(n_root_.scala.collection.LinearSeqOptimized#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.[B]"≤
+í_root_.controllers.agentAppointment.AgentPermissionMapping#verifying(Lscala/collection/Seq;)Lcontrollers/agentAppointment/AgentPermissionMapping;.ö	verifyingE(cs: <repeated>[Constraint[AgentPermission]]): AgentPermissionMapping""
+_root_.scala.`<repeated>`#"3
++_root_.play.api.data.validation.Constraint#"&
+*_root_.models.AgentPermission#"C
+/E;_root_.controllers.agentAppointment.AgentPermissionMapping#"4
+&_root_.scala.collection.immutable.Nil.
+ÄÑàNil"©
+Happ/controllers/agentAppointment/AppointAgentController.scala@6948..6961]ÄrevokedAgents	Seq[Unit]""
+_root_.scala.collection.Seq#"
+_root_.scala.Unit#"/
+_root_.scala.concurrent.Future.ÄÑFuture".
+_root_.scala.concurrent.Future#Ä@Future"€
+Happ/controllers/agentAppointment/AppointAgentController.scala@2179..2186éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"•
+¿_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ﬂtraverseâ[A, B, M] => (in: M[A])(fn: Function1[A, Future[B]])(implicit cbf: CanBuildFrom[M[A], B, M[B]], executor: ExecutionContext): Future[M[B]]"Ã
+√_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[M]"Ã
+√_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"
+%_root_.scala.Function1#"Ã
+&'√_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"'
+)/_root_.scala.concurrent.Future#"Ã
+01√_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[B]"5
+CO-_root_.scala.collection.generic.CanBuildFrom#"Ã
+PQ√_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[M]"Ã
+RS√_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"Ã
+VW√_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[B]"Ã
+YZ√_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[M]"Ã
+[\√_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[B]"1
+jz)_root_.scala.concurrent.ExecutionContext#"(
+}É_root_.scala.concurrent.Future#"Œ
+ÑÖ√_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[M]"Œ
+Üá√_root_.scala.concurrent.Future.traverse(Lscala/collection/TraversableOnce;Lscala/Function1;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[B]"∆
+é_root_.controllers.agentAppointment.AppointAgentController#appointAgentForm(Lactions/BasicAuthenticatedRequest;)Lplay/api/data/Form;.(request)3ÄÅ request$actions.BasicAuthenticatedRequest[_]"˝
+H_root_.controllers.agentAppointment.AgentPermissionMapping#(constraints)∞Åconstraints Seq[Constraint[AgentPermission]]"
+_root_.scala.package.Seq#"3
++_root_.play.api.data.validation.Constraint#"&
+_root_.models.AgentPermission#"≤
+Happ/controllers/agentAppointment/AppointAgentController.scala@3019..3072ferrorsList[FormError]" 
+_root_.scala.package.List#"'
+_root_.play.api.data.FormError#"!
+_root_.views.html.ÄàÄhtml"ˆ
+S_root_.play.api.data.Form#withError(Lplay/api/data/FormError;)Lplay/api/data/Form;.û	withError(error: FormError): Form[T]"'
+_root_.play.api.data.FormError#""
+_root_.play.api.data.Form#"%
+_root_.play.api.data.Form#[T]"ˇ
+n_root_.controllers.agentAppointment.AppointAgent#`<init>`(JLmodels/AgentPermission;Lmodels/AgentPermission;)V.å<init>Y(agentCode: Long, canCheck: AgentPermission, canChallenge: AgentPermission): AppointAgent"
+_root_.scala.Long#"&
++_root_.models.AgentPermission#"&
+;J_root_.models.AgentPermission#"9
+MY1_root_.controllers.agentAppointment.AppointAgent#"Í
+Happ/controllers/agentAppointment/AppointAgentController.scala@2480..2570ùeventualMaybeLinkFuture[Option[PropertyLink]]"%
+_root_.scala.concurrent.Future#"
+_root_.scala.Option#"#
+_root_.models.PropertyLink#"ò
+Happ/controllers/agentAppointment/AppointAgentController.scala@8653..8654LsAgentAppointmentSession",
+&_root_.models.AgentAppointmentSession#",
+_root_.javax.inject.Inject#Ä†ÄInject"C
+$_root_.models.RepresentationRequest.ÄÑRepresentationRequest"[
+_root_.scala.Predef.Map#?MapMap.type",
+&_root_.scala.collection.immutable.Map."+
+_root_.repositories.ÄàÄrepositories"-
+_root_.scala.`<repeated>`#Ä 
+<repeated>"Ä
+S_root_.controllers.agentAppointment.ModifyAgentVM#`<init>`(Lplay/api/data/Form;J)V.®<init>D(form: play.api.data.Form[_], representationId: Long): ModifyAgentVM"
+04_root_.scala.Long#":
+7D2_root_.controllers.agentAppointment.ModifyAgentVM#"»
+ù_root_.controllers.agentAppointment.AppointAgentController#invalidAppointment(Lplay/api/data/Form;JLplay/api/mvc/Request;)Lscala/concurrent/Future;.(request)&ÄÅ requestplay.api.mvc.Request[_]"è
+’_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(userIndividualId)5ÄuserIndividualIdLong"
+_root_.scala.Long#"6
+ _root_.connectors.GroupAccounts#Ä GroupAccounts"õ
+Happ/controllers/agentAppointment/AppointAgentController.scala@2793..2798OorgIdOption[Long]"
+_root_.scala.Option#"
+_root_.scala.Long#"Ë
+»_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.öÑÄappointAgentõ(authorisationId: Long, agent: AppointAgent, agentOrgId: Long, pLink: PropertyLink)(implicit request: actions.BasicAuthenticatedRequest[_]): Future[Result]"
+_root_.scala.Long#"9
++1_root_.controllers.agentAppointment.AppointAgent#"
+9=_root_.scala.Long#"#
+FR_root_.models.PropertyLink#")
+çì_root_.scala.concurrent.Future#"%
+îö_root_.play.api.mvc.Result#"¨
+Happ/controllers/agentAppointment/AppointAgentController.scala@6167..6245`agentsToUpdate
+Seq[Party]""
+_root_.scala.collection.Seq#"
+	_root_.models.Party#"€
+Happ/controllers/agentAppointment/AppointAgentController.scala@1769..1776éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"°
+◊_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"r
+3_root_.java.util.UUID.randomUUID()Ljava/util/UUID;.;ÑÄÄ
+randomUUID(): UUID"
+_root_.java.util.UUID#":
+_root_.models.StartAndContinue.ÄÑàStartAndContinue"É
+Happ/controllers/agentAppointment/AppointAgentController.scala@5477..54797plPropertyLink"!
+_root_.models.PropertyLink#"`
+=_root_.controllers.agentAppointment.ExistingAgentsPermission#Ä†ÄExistingAgentsPermission"_
+=_root_.controllers.agentAppointment.ExistingAgentsPermission.ÄÑExistingAgentsPermission"e
+2_root_.models.AgentAppointmentSession#(agentOrgId)/Å
+agentOrgIdLong"
+_root_.scala.Long#"å
+s_root_.models.AgentAppointmentSession#`<init>`(Lcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;)V.î<init>\(agent: AppointAgent, agentOrgId: Long, propertyLink: PropertyLink): AgentAppointmentSession"9
+1_root_.controllers.agentAppointment.AppointAgent#"
+"&_root_.scala.Long#"#
+6B_root_.models.PropertyLink#".
+E\&_root_.models.AgentAppointmentSession#"}
+D_root_.controllers.agentAppointment.ModifyAgentVM#(representationId)5ÅrepresentationIdLong"
+_root_.scala.Long#"‰
+Happ/controllers/agentAppointment/AppointAgentController.scala@2376..2473óeventualAgentCodeResult!Future[AgentCodeValidationResult]"%
+_root_.scala.concurrent.Future#"0
+ (_root_.models.AgentCodeValidationResult#"≤
+”_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(appointedAgent)ZÄappointedAgentAppointAgent"7
+1_root_.controllers.agentAppointment.AppointAgent#"Ö
+Happ/controllers/agentAppointment/AppointAgentController.scala@2819..28239propPropertyLink"!
+_root_.models.PropertyLink#"◊
+>_root_.scala.collection.SeqLike#contains(Ljava/lang/Object;)Z.îcontains[A1] => (elem: A1): Boolean"J
+B_root_.scala.collection.SeqLike#contains(Ljava/lang/Object;)Z.[A1]"
+_root_.scala.Boolean#"v
+$_root_.controllers.routes.Dashboard.NÅÄà	DashboardReverseDashboard"*
+$_root_.controllers.ReverseDashboard#"Ω
+O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
+_root_.play.api.mvc.Call#"#
+_root_.play.api.mvc.Result#"±
+Happ/controllers/agentAppointment/AppointAgentController.scala@2843..3006e	codeErrorOption[FormError]"
+_root_.scala.Option#"'
+_root_.play.api.data.FormError#"n
+<_root_.controllers.agentAppointment.AppointAgent#(agentCode).Å	agentCodeLong"
+_root_.scala.Long#"ò
+Happ/controllers/agentAppointment/AppointAgentController.scala@1857..1858LsAgentAppointmentSession",
+&_root_.models.AgentAppointmentSession#"
+
+_root_.uk.	ÄàÄuk"ô
+‚_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(newAgentOrgId)2ÄnewAgentOrgIdLong"
+_root_.scala.Long#"Ù
+æ_root_.controllers.agentAppointment.AgentPermissionMapping#copy(Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lcontrollers/agentAppointment/AgentPermissionMapping;.(constraints)∞Äconstraints Seq[Constraint[AgentPermission]]"
+_root_.scala.package.Seq#"3
++_root_.play.api.data.validation.Constraint#"&
+_root_.models.AgentPermission#"?
+#_root_.actions.AuthenticatedAction#Ä AuthenticatedAction"%
+_root_.javax.inject.ÄàÄinject"J
+2_root_.controllers.agentAppointment.ModifyAgentVM#Ä†ÄModifyAgentVM"R
+6_root_.controllers.agentAppointment.ConfirmOverrideVM#Ä†ÄConfirmOverrideVM"Q
+6_root_.controllers.agentAppointment.ConfirmOverrideVM.ÄÑConfirmOverrideVM"À
+ñ_root_.controllers.agentAppointment.AgentPermissionMapping#verifying(Lscala/collection/Seq;)Lcontrollers/agentAppointment/AgentPermissionMapping;.(cs)ØÄcs'<repeated>[Constraint[AgentPermission]]" 
+
+_root_.scala.`<repeated>`#"3
++_root_.play.api.data.validation.Constraint#"&
+%_root_.models.AgentPermission#"j
+4_root_.scala.collection.TraversableOnce#nonEmpty()Z.2nonEmptyBoolean"
+_root_.scala.Boolean#"K
+(_root_.models.AgentCodeValidationResult.ÄÑAgentCodeValidationResult"y
+Happ/controllers/agentAppointment/AppointAgentController.scala@6997..7002-ÄagentParty"
+_root_.models.Party#"¡
+|_root_.controllers.agentAppointment.AgentPermissionMapping#unbindAndValidate(Lmodels/AgentPermission;)Lscala/Tuple2;.(value)AÄvalueAgentPermission"$
+_root_.models.AgentPermission#"°
+<_root_.actions.BasicAuthenticatedRequest#(individualAccount)aÅindividualAccountDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"ã
+Japp/controllers/agentAppointment/AppointAgentController.scala@11023..11025=p2AgentPermission"$
+_root_.models.AgentPermission#"©
+Happ/controllers/agentAppointment/AppointAgentController.scala@6266..6279]ÄrevokedAgents	Seq[Unit]""
+_root_.scala.collection.Seq#"
+_root_.scala.Unit#"+
+_root_.controllers.routes.ÄÑàroutes"à
+‘_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrgId)/Ä
+agentOrgIdLong"
+_root_.scala.Long#"
+_root_.uk.gov.
+ÄàÄgov"5
+'_root_.scala.collection.immutable.List.
+ÄÑList"X
+&_root_.models.GroupAccount#(agentCode).Å	agentCodeLong"
+_root_.scala.Long#"2
+_root_.models.NotPermitted.ÄÑàNotPermitted"¶
+n_root_.controllers.agentAppointment.AppointAgentController#confirmed(J)Lplay/api/mvc/Action;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"-
+_root_.play.api.data.Mapping#Ä@Mapping"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"©
+Happ/controllers/agentAppointment/AppointAgentController.scala@7063..7076]ÄupdatedAgents	Seq[Unit]""
+_root_.scala.collection.Seq#"
+_root_.scala.Unit#"F
+%_root_.models.PropertyRepresentation#Ä†ÄPropertyRepresentation"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"∫
+x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ΩmapQ[B, That] => (f: Function1[A, B])(implicit bf: CanBuildFrom[Repr, B, That]): That"
+_root_.scala.Function1#"3
++_root_.scala.collection.TraversableLike#[A]"É
+{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+/;-_root_.scala.collection.generic.CanBuildFrom#"6
+<@._root_.scala.collection.TraversableLike#[Repr]"É
+BC{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ü
+EI~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ü
+MQ~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"j
+&_root_.models.Party#(organisationName)@ÅorganisationNameString"!
+_root_.scala.Predef.String#"∑
+t_root_.controllers.agentAppointment.AppointAgent.unapply(Lcontrollers/agentAppointment/AppointAgent;)Lscala/Option;.æÑÄÄunapplyK(x$0: AppointAgent): Option[Tuple3[Long, AgentPermission, AgentPermission]]"9
+1_root_.controllers.agentAppointment.AppointAgent#"
+_root_.scala.Option#"
+"_root_.scala.Tuple3#"
+#'_root_.scala.Long#"&
+)8_root_.models.AgentPermission#"&
+:I_root_.models.AgentPermission#"»
+»_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˙ÑÄcreateAndSubmitAgentRepRequest≥(authorisationId: Long, agentOrgId: Long, userIndividualId: Long, checkPermission: AgentPermission, challengePermission: AgentPermission)(implicit hc: HeaderCarrier): Future[Unit]"
+_root_.scala.Long#"
+$(_root_.scala.Long#"
+<@_root_.scala.Long#"&
+Sb_root_.models.AgentPermission#"'
+yà_root_.models.AgentPermission#"0
+ó§&_root_.uk.gov.hmrc.http.HeaderCarrier#")
+ß≠_root_.scala.concurrent.Future#"
+Æ≤_root_.scala.Unit#" 
+Á_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(newAgentPermission)^ÄnewAgentPermissionAppointAgent"7
+1_root_.controllers.agentAppointment.AppointAgent#"ù
+N_root_.controllers.agentAppointment.AppointAgentController#(sessionRepository)KÅsessionRepositorySessionRepo"&
+ _root_.repositories.SessionRepo#"ñ
+Ã_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"y
+Happ/controllers/agentAppointment/AppointAgentController.scala@6036..6041-ÄagentParty"
+_root_.models.Party#"•
+m_root_.controllers.agentAppointment.AppointAgentController#declined(J)Lplay/api/mvc/Action;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"H
+&_root_.models.AgentAppointmentSession#Ä†ÄAgentAppointmentSession"G
+&_root_.models.AgentAppointmentSession.ÄÑAgentAppointmentSession"∞
+@_root_.controllers.agentAppointment.ConfirmOverrideVM#(newAgent)lÅnewAgentExistingAgentsPermission"C
+=_root_.controllers.agentAppointment.ExistingAgentsPermission#"t
+%_root_.models.Party#(checkPermission)KÅcheckPermissionAgentPermission"$
+_root_.models.AgentPermission#"ã
+Japp/controllers/agentAppointment/AppointAgentController.scala@11012..11014=p1AgentPermission"$
+_root_.models.AgentPermission#"!
+_root_.scala.None.ÄÑàNone"Í
+ü_root_.connectors.PropertyRepresentationConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.≈<init>l(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): PropertyRepresentationConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"1
+:J)_root_.scala.concurrent.ExecutionContext#":
+Ml2_root_.connectors.PropertyRepresentationConnector#"€
+Happ/controllers/agentAppointment/AppointAgentController.scala@9074..9081éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"©
+Happ/controllers/agentAppointment/AppointAgentController.scala@6528..6541]ÄupdatedAgents	Seq[Unit]""
+_root_.scala.collection.Seq#"
+_root_.scala.Unit#"z
+H_root_.controllers.agentAppointment.ExistingAgentsPermission#(agentCode).Å	agentCodeLong"
+_root_.scala.Long#"(
+_root_.play.api.data.Form.
+ÄÑForm")
+_root_.play.api.data.Form#Ä†ÄForm"¶
+Q_root_.play.api.data.Mapping#unbindAndValidate(Ljava/lang/Object;)Lscala/Tuple2;.–ÑÄunbindAndValidate7(value: T): Tuple2[Map[String, String], Seq[FormError]]"(
+	 _root_.play.api.data.Mapping#[T]"
+_root_.scala.Tuple2#" 
+_root_.scala.Predef.Map#"#
+_root_.scala.Predef.String#"#
+%_root_.scala.Predef.String#"!
+(+_root_.scala.package.Seq#"'
+,5_root_.play.api.data.FormError#"v
+_root_.scala.Long#`!=`(J)Z.WÑÄ!=(x: Long): Boolean"
+_root_.scala.Long#"
+_root_.scala.Boolean#"†
+J_root_.controllers.agentAppointment.AppointAgentController#(authenticated)RÄauthenticatedAuthenticatedAction")
+#_root_.actions.AuthenticatedAction#"§
+>_root_.scala.collection.SeqLike#toSeq()Lscala/collection/Seq;.btoSeqSeq[A]""
+_root_.scala.collection.Seq#"+
+#_root_.scala.collection.SeqLike#[A]"•
+œ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(agent)QÄagentAppointAgent"7
+1_root_.controllers.agentAppointment.AppointAgent#"i
+:_root_.controllers.agentAppointment.SelectAgentVM#(linkId)+ÅlinkIdLong"
+_root_.scala.Long#"Ò
+V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.ñbindFromRequest6()(implicit request: play.api.mvc.Request[_]): Form[T]""
+/3_root_.play.api.data.Form#"%
+45_root_.play.api.data.Form#[T]"ç
+‘_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"|
+)_root_.models.Party#(challengePermission)OÅchallengePermissionAgentPermission"$
+_root_.models.AgentPermission#"œ
+Ø_root_.scala.concurrent.Future.sequence(Lscala/collection/TraversableOnce;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ösequencey[A, M] => (in: M[Future[A]])(implicit cbf: CanBuildFrom[M[Future[A]], A, M[A]], executor: ExecutionContext): Future[M[A]]"ª
+≤_root_.scala.concurrent.Future.sequence(Lscala/collection/TraversableOnce;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[M]"'
+_root_.scala.concurrent.Future#"ª
+≤_root_.scala.concurrent.Future.sequence(Lscala/collection/TraversableOnce;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"5
++7-_root_.scala.collection.generic.CanBuildFrom#"ª
+89≤_root_.scala.concurrent.Future.sequence(Lscala/collection/TraversableOnce;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[M]"'
+:@_root_.scala.concurrent.Future#"ª
+AB≤_root_.scala.concurrent.Future.sequence(Lscala/collection/TraversableOnce;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"ª
+FG≤_root_.scala.concurrent.Future.sequence(Lscala/collection/TraversableOnce;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"ª
+IJ≤_root_.scala.concurrent.Future.sequence(Lscala/collection/TraversableOnce;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[M]"ª
+KL≤_root_.scala.concurrent.Future.sequence(Lscala/collection/TraversableOnce;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"1
+Zj)_root_.scala.concurrent.ExecutionContext#"'
+ms_root_.scala.concurrent.Future#"ª
+tu≤_root_.scala.concurrent.Future.sequence(Lscala/collection/TraversableOnce;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[M]"ª
+vw≤_root_.scala.concurrent.Future.sequence(Lscala/collection/TraversableOnce;Lscala/collection/generic/CanBuildFrom;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"M
+)_root_.actions.BasicAuthenticatedRequest# Ä†ÄBasicAuthenticatedRequest"≥
+r_root_.controllers.agentAppointment.ExistingAgentsPermission#`<init>`(Ljava/lang/String;JLscala/collection/Seq;)V.º<init>`(agentName: String, agentCode: Long, availablePermission: Seq[String]): ExistingAgentsPermission"#
+_root_.scala.Predef.String#"
+#_root_.scala.Long#"!
+:=_root_.scala.package.Seq#"#
+>D_root_.scala.Predef.String#"E
+H`=_root_.controllers.agentAppointment.ExistingAgentsPermission#"
+_root_.play.ÄàÄplay"a
+'_root_.models.Party#(authorisedPartyId)6ÅauthorisedPartyIdLong"
+_root_.scala.Long#"©
+Ÿ_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(checkPermission)KÄcheckPermissionAgentPermission"$
+_root_.models.AgentPermission#"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"f
+&_root_.javax.inject.Named#`<init>`()V.<àÄÄ<init>	(): Named""
+	_root_.javax.inject.Named#"Ó
+∂_root_.controllers.agentAppointment.AgentPermissionMapping#copy(Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lcontrollers/agentAppointment/AgentPermissionMapping;.(key)3ÄkeyString"!
+_root_.scala.Predef.String#"Ü
+]_root_.controllers.agentAppointment.AppointAgentController#confirmed(J)Lplay/api/mvc/Action;.§	confirmed+(authorisationId: Long): Action[AnyContent]"
+_root_.scala.Long#"#
+_root_.play.api.mvc.Action#"'
+ *_root_.play.api.mvc.AnyContent#"
+G_root_.controllers.agentAppointment.ConfirmOverrideVM#(authorisationId)4ÅauthorisationIdLong"
+_root_.scala.Long#"\
+8_root_.controllers.agentAppointment.ModifyAgentVM#(form) Åformplay.api.data.Form[_]"Ç
+-_root_.models.AgentAppointmentSession#(agent)QÅagentAppointAgent"7
+1_root_.controllers.agentAppointment.AppointAgent#"ï
+8_root_.models.AgentCodeValidationResult#(organisationId)YÅorganisationIdOption[Long]"
+_root_.scala.Option#"
+_root_.scala.Long#"…
+É_root_.controllers.agentAppointment.AgentPermissionMapping#unbind(Lmodels/AgentPermission;)Lscala/collection/immutable/Map;.(value)AÄvalueAgentPermission"$
+_root_.models.AgentPermission#"ø
+L_root_.controllers.agentAppointment.AppointAgentController#(representations)oÄrepresentationsPropertyRepresentationConnector"8
+2_root_.connectors.PropertyRepresentationConnector#"˘
+[_root_.controllers.agentAppointment.AppointAgentController#appoint(J)Lplay/api/mvc/Action;.ôappoint"(linkId: Long): Action[AnyContent]"
+	_root_.scala.Long#"#
+_root_.play.api.mvc.Action#"'
+!_root_.play.api.mvc.AnyContent#"Æ
+ç_root_.connectors.GroupAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.õ<init>T(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): GroupAccounts"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"(
+GT _root_.connectors.GroupAccounts#"
+_root_.scala.Boolean#`&&`(Z)Z.]ÑÄ&&(x: Boolean): Boolean"
+_root_.scala.Boolean#"
+_root_.scala.Boolean#"≤
+8_root_.controllers.agentAppointment.SelectAgentVM#(reps)vÅrepsSeq[PropertyRepresentation]"
+_root_.scala.package.Seq#"-
+%_root_.models.PropertyRepresentation#"ã
+?_root_.controllers.agentAppointment.AppointAgent#(canChallenge)HÅcanChallengeAgentPermission"$
+_root_.models.AgentPermission#"J
+2_root_.controllers.agentAppointment.SelectAgentVM#Ä†ÄSelectAgentVM"'
+_root_.form.Mappings.ÄÑMappings"í
+Ÿ_root_.controllers.agentAppointment.AppointAgentController#appointAgent(JLcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"º
+Happ/controllers/agentAppointment/AppointAgentController.scala@4616..4871pnewAgentPermsExistingAgentsPermission"C
+=_root_.controllers.agentAppointment.ExistingAgentsPermission#"©
+ï_root_.controllers.agentAppointment.AppointAgent.apply(JLmodels/AgentPermission;Lmodels/AgentPermission;)Lcontrollers/agentAppointment/AppointAgent;.éÑÄÄapplyY(agentCode: Long, canCheck: AgentPermission, canChallenge: AgentPermission): AppointAgent"
+_root_.scala.Long#"&
++_root_.models.AgentPermission#"&
+;J_root_.models.AgentPermission#"9
+MY1_root_.controllers.agentAppointment.AppointAgent#"Ê
+•_root_.connectors.propertyLinking.PropertyLinkConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.ª<init>\(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): PropertyLinkConnector"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"@
+G\8_root_.connectors.propertyLinking.PropertyLinkConnector#"R
+_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
+_root_.scala.Unit#"‡
+L_root_.controllers.ReverseDashboard#manageProperties(II)Lplay/api/mvc/Call;.èmanageProperties (page: Int, pageSize: Int): Call"
+
+_root_.scala.Int#"
+_root_.scala.Int#"!
+ _root_.play.api.mvc.Call#"
+_root_.models.ÄàÄmodels"u
+Happ/controllers/agentAppointment/AppointAgentController.scala@4348..4349)ÄaParty"
+_root_.models.Party#"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"†
+X_root_.play.api.data.Mapping#unbind(Ljava/lang/Object;)Lscala/collection/immutable/Map;.√ÑÄunbind(value: T): Map[String, String]"(
+	 _root_.play.api.data.Mapping#[T]" 
+_root_.scala.Predef.Map#"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"!
+_root_.actions.ÄàÄactions"–
+U_root_.controllers.agentAppointment.SelectAgentVM#`<init>`(Lscala/collection/Seq;J)V.ˆ<init>@(reps: Seq[PropertyRepresentation], linkId: Long): SelectAgentVM"!
+
+_root_.scala.package.Seq#"-
+!%_root_.models.PropertyRepresentation#"
+,0_root_.scala.Long#":
+3@2_root_.controllers.agentAppointment.SelectAgentVM#"P
+8_root_.views.html.propertyRepresentation.appointedAgent.ÄÑappointedAgent"∑
+è_root_.controllers.agentAppointment.AgentPermissionMapping#withPrefix(Ljava/lang/String;)Lcontrollers/agentAppointment/AgentPermissionMapping;.¢
+withPrefix((prefix: String): AgentPermissionMapping"#
+	_root_.scala.Predef.String#"C
+(;_root_.controllers.agentAppointment.AgentPermissionMapping#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"≈
+w_root_.scala.collection.generic.GenericTraversableTemplate#flatten(Lscala/Function1;)Lscala/collection/GenTraversable;.…flattenK[B] => (implicit asTraversable: Function1[A, GenTraversableOnce[B]]): CC[B]"
+ )_root_.scala.Function1#"F
+*+>_root_.scala.collection.generic.GenericTraversableTemplate#[A]"3
+-?+_root_.scala.collection.GenTraversableOnce#"Ç
+@Az_root_.scala.collection.generic.GenericTraversableTemplate#flatten(Lscala/Function1;)Lscala/collection/GenTraversable;.[B]"G
+FH?_root_.scala.collection.generic.GenericTraversableTemplate#[CC]"Ç
+IJz_root_.scala.collection.generic.GenericTraversableTemplate#flatten(Lscala/Function1;)Lscala/collection/GenTraversable;.[B]"˝
+y_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ˇÑÄgetE[A] => (implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]]"(
+ _root_.play.api.libs.json.Reads#"Ñ
+|_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+$1&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+4:_root_.scala.concurrent.Future#"
+;A_root_.scala.Option#"Ñ
+BC|_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]"∑
+J_root_.controllers.agentAppointment.AppointAgentController#(propertyLinks)iÄpropertyLinksPropertyLinkConnector">
+8_root_.connectors.propertyLinking.PropertyLinkConnector#"j
+;_root_.controllers.agentAppointment.AppointAgentVM#(linkId)+ÅlinkIdLong"
+_root_.scala.Long#"Ã
+Ö_root_.controllers.agentAppointment.AppointAgentController#appointAgentForm(Lactions/BasicAuthenticatedRequest;)Lplay/api/data/Form;.¡appointAgentFormL(implicit request: actions.BasicAuthenticatedRequest[_]): Form[AppointAgent]""
+:>_root_.play.api.data.Form#"9
+?K1_root_.controllers.agentAppointment.AppointAgent#" 
+_root_.java.time.ÄàÄtime")
+_root_.controllers.ÄàÄcontrollers"é
+Japp/controllers/agentAppointment/AppointAgentController.scala@10973..10984øe%Left[Seq[FormError], AgentPermission]"
+_root_.scala.util.Left#"!
+_root_.scala.package.Seq#"'
+	_root_.play.api.data.FormError#"&
+$_root_.models.AgentPermission#"Ö
+Å_root_.controllers.agentAppointment.AgentPermissionMapping#`<init>`(Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)V.˛<init>c(other: String, key: String, constraints: Seq[Constraint[AgentPermission]]): AgentPermissionMapping"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"!
+*-_root_.scala.package.Seq#"3
+.8+_root_.play.api.data.validation.Constraint#"&
+9H_root_.models.AgentPermission#"C
+Mc;_root_.controllers.agentAppointment.AgentPermissionMapping#"
+_root_.views.ÄàÄviews"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"Z
+;_root_.controllers.agentAppointment.AppointAgentController#Ä AppointAgentController"¨
+Happ/controllers/agentAppointment/AppointAgentController.scala@6845..6927`agentsToUpdate
+Seq[Party]""
+_root_.scala.collection.Seq#"
+	_root_.models.Party#"¶
+n_root_.controllers.agentAppointment.AppointAgentController#appointed(J)Lplay/api/mvc/Action;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"ã
+>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)IÅorganisationAccountGroupAccount"!
+_root_.models.GroupAccount#"ï
+í_root_.connectors.PropertyRepresentationConnector#create(Lmodels/RepresentationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˝createN(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier): Future[Unit]",
+#$_root_.models.RepresentationRequest#".
+2?&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+BH_root_.scala.concurrent.Future#"
+IM_root_.scala.Unit#"Q
+_root_.models.Party#(agentCode).Å	agentCodeLong"
+_root_.scala.Long#"-
+_root_.form.EnumMapping.ÄÑEnumMapping"†
+ˆ_root_.controllers.agentAppointment.AppointAgentController#`<init>`(Lconnectors/PropertyRepresentationConnector;Lconnectors/GroupAccounts;Lconnectors/propertyLinking/PropertyLinkConnector;Lactions/AuthenticatedAction;Lrepositories/SessionRepo;)V.§<init>Õ(representations: PropertyRepresentationConnector, accounts: GroupAccounts, propertyLinks: PropertyLinkConnector, authenticated: AuthenticatedAction, sessionRepository: SessionRepo): AppointAgentController":
+12_root_.connectors.PropertyRepresentationConnector#"(
+=J _root_.connectors.GroupAccounts#"@
+[p8_root_.connectors.propertyLinking.PropertyLinkConnector#"-
+Åî#_root_.actions.AuthenticatedAction#"*
+©¥ _root_.repositories.SessionRepo#"E
+∑Õ;_root_.controllers.agentAppointment.AppointAgentController#"
+_root_.scala.Boolean#`||`(Z)Z.]ÑÄ||(x: Boolean): Boolean"
+_root_.scala.Boolean#"
+_root_.scala.Boolean#"
+_root_.config.ÄàÄconfig"‡
+î_root_.controllers.agentAppointment.AppointAgentController#invalidAppointment(Lplay/api/data/Form;JLplay/api/mvc/Request;)Lscala/concurrent/Future;.∆ÑÄinvalidAppointmentc(form: Form[AppointAgent], linkId: Long)(implicit request: play.api.mvc.Request[_]): Future[Result]""
+_root_.play.api.data.Form#"9
+1_root_.controllers.agentAppointment.AppointAgent#"
+#'_root_.scala.Long#"'
+U[_root_.scala.concurrent.Future#"#
+\b_root_.play.api.mvc.Result#"z
+4_root_.models.AgentAppointmentSession#(propertyLink)BÅpropertyLinkPropertyLink"!
+_root_.models.PropertyLink#"ô
+ö_root_.controllers.agentAppointment.AppointAgentController#invalidAppointment(Lplay/api/data/Form;JLplay/api/mvc/Request;)Lscala/concurrent/Future;.(form)zÄformForm[AppointAgent]" 
+_root_.play.api.data.Form#"9
+1_root_.controllers.agentAppointment.AppointAgent#">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"–
+Happ/controllers/agentAppointment/AppointAgentController.scala@3122..3225ÉformWithErrorsForm[AppointAgent]" 
+_root_.play.api.data.Form#"9
+1_root_.controllers.agentAppointment.AppointAgent#"Á
+w_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#notFoundTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.lnotFoundTemplate1(implicit request: play.api.mvc.Request[_]): Html"#
+-1_root_.play.twirl.api.Html#"ë
+«_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLcontrollers/agentAppointment/AppointAgent;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"á
+Happ/controllers/agentAppointment/AppointAgentController.scala@3933..4023;hasChallengeAgentBoolean"
+_root_.scala.Boolean#"—
+b_root_.controllers.agentAppointment.ReverseAppointAgentController#appointed(J)Lplay/api/mvc/Call;.k	appointed(authorisationId: Long): Call"
+_root_.scala.Long#"!
+_root_.play.api.mvc.Call#"√
+Happ/controllers/agentAppointment/AppointAgentController.scala@3192..3193wÄfForm[AppointAgent]" 
+_root_.play.api.data.Form#"9
+1_root_.controllers.agentAppointment.AppointAgent#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."É
+Happ/controllers/agentAppointment/AppointAgentController.scala@3846..39287hasCheckAgentBoolean"
+_root_.scala.Boolean#"Ÿ
+°_root_.models.PropertyLink#`<init>`(JLjava/lang/String;JJLjava/lang/String;Lmodels/Capacity;Ljava/time/LocalDate;ZLscala/collection/Seq;Lscala/collection/Seq;)V.≤<init>Ë(authorisationId: Long, submissionId: String, uarn: Long, organisationId: Long, address: String, capacityDeclaration: Capacity, linkedDate: LocalDate, pending: Boolean, assessments: Seq[Assessment], agents: Seq[Party]): PropertyLink"
+_root_.scala.Long#"#
+&,_root_.scala.Predef.String#"
+48_root_.scala.Long#"
+JN_root_.scala.Long#"#
+Y__root_.scala.Predef.String#"
+v~_root_.models.Capacity#"%
+åï_root_.java.time.LocalDate#"
+†ß_root_.scala.Boolean#"#
+∂π_root_.scala.package.Seq#"#
+∫ƒ_root_.models.Assessment#"#
+œ“_root_.scala.package.Seq#"
+”ÿ_root_.models.Party#"%
+‹Ë_root_.models.PropertyLink#"ñ
+b_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ØÑÄremove,()(implicit hc: HeaderCarrier): Future[Unit]".
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+ &_root_.scala.concurrent.Future#"
+'+_root_.scala.Unit#"+
+_root_.java.time.Instant.ÄÑàInstant"
+_root_.scala.ÄàÄscala"à
+{_root_.controllers.agentAppointment.AgentPermissionMapping#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.(data)àÄdataMap[String, String]"
+_root_.scala.Predef.Map#"#
+
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"*
+_root_.javax.inject.Named#Ä†ÄNamed"¢
+Q_root_.controllers.agentAppointment.AppointAgentController#alreadyAppointedAgent.MÅÄAalreadyAppointedAgent	FormError"%
+	_root_.play.api.data.FormError#"˙
+ﬁ_root_.models.PropertyRepresentation#`<init>`(JJLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lmodels/AgentPermission;Lmodels/AgentPermission;Ljava/time/LocalDate;Lmodels/RepresentationStatus;)V.ñ<init>¬(representationId: Long, authorisationId: Long, billingAuthorityReference: String, submissionId: String, organisationId: Long, organisationName: String, address: String, checkPermission: AgentPermission, challengePermission: AgentPermission, createDatetime: LocalDate, status: RepresentationStatus): PropertyRepresentation"
+_root_.scala.Long#"
+*._root_.scala.Long#"#
+KQ_root_.scala.Predef.String#"#
+ag_root_.scala.Predef.String#"
+y}_root_.scala.Long#"%
+ëó_root_.scala.Predef.String#"%
+¢®_root_.scala.Predef.String#"(
+ª _root_.models.AgentPermission#"(
+·_root_.models.AgentPermission#"%
+Çã_root_.java.time.LocalDate#"-
+ï©#_root_.models.RepresentationStatus#"/
+¨¬%_root_.models.PropertyRepresentation#"ù
+Happ/controllers/agentAppointment/AppointAgentController.scala@2359..2364QÄagentAppointAgent"7
+1_root_.controllers.agentAppointment.AppointAgent#"%
+_root_.config.Global.ÄÑGlobal" 
+_root_.java.util.ÄàÄutil"ç
+2_root_.java.lang.Object#`!=`(Ljava/lang/Object;)Z.WÑÄ!=(x$1: Any): Boolean"
+	_root_.scala.Any#"
+_root_.scala.Boolean#"»
+Happ/controllers/agentAppointment/AppointAgentController.scala@2234..2240|ÄerrorsForm[AppointAgent]" 
+_root_.play.api.data.Form#"9
+1_root_.controllers.agentAppointment.AppointAgent#"™
+r_root_.controllers.agentAppointment.AppointAgentController#appointSubmit(J)Lplay/api/mvc/Action;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"ù
+‰_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"‘
+u_root_.controllers.agentAppointment.AgentPermissionMapping#unbindAndValidate(Lmodels/AgentPermission;)Lscala/Tuple2;.⁄unbindAndValidateE(value: AgentPermission): Tuple2[Map[String, String], Seq[FormError]]"&
+_root_.models.AgentPermission#"
+ _root_.scala.Tuple2#" 
+!$_root_.scala.Predef.Map#"#
+%+_root_.scala.Predef.String#"#
+-3_root_.scala.Predef.String#"!
+69_root_.scala.package.Seq#"'
+:C_root_.play.api.data.FormError#"€
+D_root_.controllers.agentAppointment.AgentPermissionMapping#mappings.ímappingsSeq[AgentPermissionMapping]""
+_root_.scala.collection.Seq#"C
+;_root_.controllers.agentAppointment.AgentPermissionMapping#"ò
+Ÿ_root_.controllers.agentAppointment.AppointAgentController#updateAllAgentsPermission(JLmodels/PropertyLink;Lcontrollers/agentAppointment/AppointAgent;JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(link):ÄlinkPropertyLink"!
+_root_.models.PropertyLink#"Ê
+Happ/controllers/agentAppointment/AppointAgentController.scala@4313..4607ôpermissionsSeq[ExistingAgentsPermission]""
+_root_.scala.collection.Seq#"E
+=_root_.controllers.agentAppointment.ExistingAgentsPermission#"*
+_root_.play.api.data.Forms.ÄÑForms"j
+1_root_.models.NamedEnum#name()Ljava/lang/String;.5ÑÄnameString"!
+_root_.scala.Predef.String#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"€
+Happ/controllers/agentAppointment/AppointAgentController.scala@5373..5380éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"É
+;_root_.controllers.agentAppointment.AppointAgent#(canCheck)DÅcanCheckAgentPermission"$
+_root_.models.AgentPermission#"¶
+W_root_.play.api.data.Mapping#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;. ÑÄbind6(data: Map[String, String]): Either[Seq[FormError], T]" 
+
+_root_.scala.Predef.Map#"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"$
+#_root_.scala.package.Either#"!
+$'_root_.scala.package.Seq#"'
+(1_root_.play.api.data.FormError#"(
+45 _root_.play.api.data.Mapping#[T]"µ
+v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.∫flatMapS[S] => (f: Function1[T, Future[S]])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"'
+_root_.scala.concurrent.Future#"Å
+ y_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+7G)_root_.scala.concurrent.ExecutionContext#"'
+JP_root_.scala.concurrent.Future#"Å
+QRy_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"k
+6_root_.models.DetailedIndividualAccount#(individualId)1ÅindividualIdLong"
+_root_.scala.Long#"%
+_root_.java.util.UUID.ÄÑàUUID"¥
+Happ/controllers/agentAppointment/AppointAgentController.scala@2652..2664hÄpropertyLinkOption[PropertyLink]"
+_root_.scala.Option#"#
+_root_.models.PropertyLink#"Ç
+_root_.form.Mappings.agentCode._ÅÄ@	agentCodeMapping[Long]"#
+_root_.play.api.data.Mapping#"
+_root_.scala.Long#"Œ
+u_root_.controllers.agentAppointment.AgentPermissionMapping#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.‘bindD(data: Map[String, String]): Either[Seq[FormError], AgentPermission]" 
+
+_root_.scala.Predef.Map#"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"$
+#_root_.scala.package.Either#"!
+$'_root_.scala.package.Seq#"'
+(1_root_.play.api.data.FormError#"&
+4C_root_.models.AgentPermission#" 
+_root_.scala.Some.
+ÄÑSome"î
+⁄_root_.controllers.agentAppointment.AppointAgentController#createAndSubmitAgentRepRequest(JJJLmodels/AgentPermission;Lmodels/AgentPermission;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(userIndividualId)5ÄuserIndividualIdLong"
+_root_.scala.Long#"ç
+v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.í<init>r(provider: GovernmentGatewayProvider, businessRatesAuthorisation: BusinessRatesAuthorisation): AuthenticatedAction".
+$&_root_.auth.GovernmentGatewayProvider#"5
+B\-_root_.connectors.BusinessRatesAuthorisation#"+
+_r#_root_.actions.AuthenticatedAction#"h
+%_root_.play.api.mvc.Results#NotFound.?NotFoundStatus")
+#_root_.play.api.mvc.Results#Status#"]
+9_root_.controllers.agentAppointment.AppointAgentVM#(form) Åformplay.api.data.Form[_]"p
+2_root_.java.time.Instant.now()Ljava/time/Instant;.:ÑÄÄnow(): Instant"!
+_root_.java.time.Instant#"Ñ
+U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.™foldF[R] => (hasErrors: Function1[Form[T], R], success: Function1[T, R]): R"
+_root_.scala.Function1#""
+!_root_.play.api.data.Form#"%
+"#_root_.play.api.data.Form#[T]"`
+&'X_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"
+3<_root_.scala.Function1#"%
+=>_root_.play.api.data.Form#[T]"`
+@AX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"`
+EFX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"ç
+i_root_.play.api.data.FormError#`<init>`(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/Seq;)V.ü<init>?(key: String, messages: Seq[String], args: Seq[Any]): FormError"#
+_root_.scala.Predef.String#"!
+_root_.scala.package.Seq#"#
+"_root_.scala.Predef.String#"!
++._root_.scala.package.Seq#"
+/2_root_.scala.Any#"'
+6?_root_.play.api.data.FormError#"Ã
+ú_root_.controllers.agentAppointment.AppointAgentController#invalidAppointment(Lplay/api/data/Form;JLplay/api/mvc/Request;)Lscala/concurrent/Future;.(linkId)+ÄlinkIdLong"
+_root_.scala.Long#"<
+"_root_.connectors.propertyLinking.ÄàÄpropertyLinking2“
+úú5*(scala.collection.Seq.canBuildFrom[AgentPermission])
+_star_.&
+$3_root_.models.AgentPermission#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2”
+¨+¨+û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2w
+”L”L*[AgentPermissionMapping]
+_star_.C
+;_root_.controllers.agentAppointment.AgentPermissionMapping#2t
+ﬂGﬂG!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2t
+ì'ì'!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2∑
+™™(*[AgentPermission, Seq[AgentPermission]]
+_star_.&
+_root_.models.AgentPermission#&
+&_root_.models.AgentPermission#$
+_root_.scala.collection.Seq#2∑
+ÖÖ(*[AgentPermission, Seq[AgentPermission]]
+_star_.&
+_root_.models.AgentPermission#&
+&_root_.models.AgentPermission#$
+_root_.scala.collection.Seq#2˜
+”K”K7*[AppointAgent, Long, AgentPermission, AgentPermission]
+_star_.9
+1_root_.controllers.agentAppointment.AppointAgent#
+_root_.scala.Long#&
+%_root_.models.AgentPermission#&
+'6_root_.models.AgentPermission#2{
+ÊFÊF*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2â
+ˆJˆJ0*(request, AppointAgentController.this.messages)
+_star_.>
+'/6_root_.controllers.PropertyLinkingController#messages.2
+„1„1*(hc)
+_star_.2¿
+åFåF*.apply[Html]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.#
+_root_.play.twirl.api.Html#2
+ì;ì;*(hc)
+_star_.2ä
+È#Í#scala.Predef.augmentString(*)P
+H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
+_star_.2ä
+Ú%Û%scala.Predef.augmentString(*)P
+H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
+_star_.2é
+’V’V*.apply
+_star_.l
+d_root_.play.api.data.FormError.apply(Ljava/lang/String;Ljava/lang/String;)Lplay/api/data/FormError;.2â
+∞∞0*(request, AppointAgentController.this.messages)
+_star_.>
+'/6_root_.controllers.PropertyLinkingController#messages.2#
+‚‚
+*(request)
+_star_.2Ç
+ÜÜ*.apply
+_star_.ﬂ
+÷_root_.views.html.propertyRepresentation.appointAgent_Scope0.appointAgent_Scope1.appointAgent#apply(Lcontrollers/agentAppointment/AppointAgentVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2x
+ππ*[Future[Result]]
+_star_.#
+	_root_.play.api.mvc.Result#'
+_root_.scala.concurrent.Future#2S
+∆∆*[AgentPermission]
+_star_.&
+_root_.models.AgentPermission#2t
+∑∑!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2ÿ
+’±-AppointAgentController.this.future[Result](*)#
+#)_root_.play.api.mvc.Result#i
+"a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
++,_star_.2#
+€€
+*(request)
+_star_.2œ
+˝˝*.flatMap[Result]
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#2t
+´´!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2Í
+ÌÌ*.apply[Option[FormError]]
+_star_.n
+f_root_.scala.collection.immutable.List.apply(Lscala/collection/Seq;)Lscala/collection/immutable/List;.'
+_root_.play.api.data.FormError#
+_root_.scala.Option#2á
+˚!˚!:*[ExistingAgentsPermission, Seq[ExistingAgentsPermission]]
+_star_.E
+=_root_.controllers.agentAppointment.ExistingAgentsPermission#$
+_root_.scala.collection.Seq#E
+ 8=_root_.controllers.agentAppointment.ExistingAgentsPermission#2—
+ô"ô"*.apply
+_star_.Æ
+•_root_.controllers.agentAppointment.ExistingAgentsPermission.apply(Ljava/lang/String;JLscala/collection/Seq;)Lcontrollers/agentAppointment/ExistingAgentsPermission;.2
+44*(hc)
+_star_.2G
+“*“*	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Í
+é7é7]*.flatMap[Seq[Unit]](scala.collection.Seq.canBuildFrom[Unit], AppointAgentController.this.ec)
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+_root_.scala.Unit#$
+
+_root_.scala.collection.Seq#
+7;_root_.scala.Unit#Z
+*6R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.8
+Z\0_root_.controllers.PropertyLinkingController#ec.2t
+ö;ö;!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2®
+îî*.apply
+_star_.Ö
+}_root_.controllers.agentAppointment.AppointAgentVM.apply(Lplay/api/data/Form;J)Lcontrollers/agentAppointment/AppointAgentVM;.2”
+˜J˜Jû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2G
+ÆÆ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Î
+ì/ì/"*[Future[Unit], Seq[Future[Unit]]]
+_star_.
+	_root_.scala.Unit#'
+_root_.scala.concurrent.Future#
+_root_.scala.Unit#$
+_root_.scala.collection.Seq#'
+_root_.scala.concurrent.Future#2
+π?π?*(hc)
+_star_.2{
+››*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2Ç
+ÿJÿJ*.apply
+_star_.ﬂ
+÷_root_.views.html.propertyRepresentation.appointAgent_Scope0.appointAgent_Scope1.appointAgent#apply(Lcontrollers/agentAppointment/AppointAgentVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2å
+ö1ö1*[Party, Unit, Seq]
+_star_.
+_root_.models.Party#
+	_root_.scala.Unit#$
+_root_.scala.collection.Seq#2w
+ëMëM*[AgentPermissionMapping]
+_star_.C
+;_root_.controllers.agentAppointment.AgentPermissionMapping#2é
+îHîH*.apply
+_star_.l
+d_root_.play.api.data.FormError.apply(Ljava/lang/String;Ljava/lang/String;)Lplay/api/data/FormError;.2
+Ã/Ã/*(hc)
+_star_.2”
+ÁEÁEû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2N
+∫∫*[FormError]
+_star_.'
+_root_.play.api.data.FormError#2
+ç7ç7*(hc)
+_star_.2#
+‡+‡+
+*(request)
+_star_.2ø
+·+·+ò*(play.api.http.Writeable.writeableOf_Content[Html](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.#
+.2_root_.play.twirl.api.Html#y
+j|q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.(
+GL _root_.play.api.mvc.Codec.utf_8.*
+êï _root_.play.api.mvc.Codec.utf_8.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.2ì
+©Z©ZA*(scala.collection.Seq.canBuildFrom[Constraint[AgentPermission]])
+_star_.3
+$.+_root_.play.api.data.validation.Constraint#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.&
+/>_root_.models.AgentPermission#2∂
+†Z†Z@*[Constraint[AgentPermission], Seq[Constraint[AgentPermission]]]
+_star_.3
++_root_.play.api.data.validation.Constraint#&
+_root_.models.AgentPermission#!
+"_root_.scala.package.Seq#&
+.=_root_.models.AgentPermission#3
+#-+_root_.play.api.data.validation.Constraint#2”
+©J©J*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2G
+ïEïE	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Ç
+ÄÄ*.apply
+_star_.ﬂ
+÷_root_.views.html.propertyRepresentation.appointAgent_Scope0.appointAgent_Scope1.appointAgent#apply(Lcontrollers/agentAppointment/AppointAgentVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2g
+É/É/*[Unit, Seq]
+_star_.
+_root_.scala.Unit#$
+_root_.scala.collection.Seq#2ù
+…&…&*.apply
+_star_.˙
+Ò_root_.views.html.propertyRepresentation.confirmAgentOverride_Scope0.confirmAgentOverride_Scope1.confirmAgentOverride#apply(Lcontrollers/agentAppointment/ConfirmOverrideVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2®
+ïï*.apply
+_star_.Ö
+}_root_.controllers.agentAppointment.AppointAgentVM.apply(Lplay/api/data/Form;J)Lcontrollers/agentAppointment/AppointAgentVM;.2G
+ûJûJ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2ÿ
+ÑF•F-AppointAgentController.this.future[Result](*)#
+#)_root_.play.api.mvc.Result#i
+"a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
++,_star_.2µ
+ÖEÖE**(AppointAgentController.this.hc(request))
+_star_.p
+ h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2t
+ß)ß)!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2®
+èè*.apply
+_star_.Ö
+}_root_.controllers.agentAppointment.AppointAgentVM.apply(Lplay/api/data/Form;J)Lcontrollers/agentAppointment/AppointAgentVM;.2‚
+ä9ä9Y*.map[Seq[Unit]](scala.collection.Seq.canBuildFrom[Unit], AppointAgentController.this.ec)
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+
+_root_.scala.Unit#$
+	_root_.scala.collection.Seq#
+37_root_.scala.Unit#Z
+&2R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.8
+VX0_root_.controllers.PropertyLinkingController#ec.2”
+ππû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2ì
+≈!≈!Q*(models.AgentAppointmentSession.format, AppointAgentController.this.hc(request))
+_star_.5
+!'-_root_.models.AgentAppointmentSession.format.p
+EGh_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2t
+´F´F!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2t
+°5°5!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2Ç
+ÖÖ*.apply
+_star_.ﬂ
+÷_root_.views.html.propertyRepresentation.appointAgent_Scope0.appointAgent_Scope1.appointAgent#apply(Lcontrollers/agentAppointment/AppointAgentVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2#
+¶¶
+*(request)
+_star_.2”
+ä'ä'û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2G
+™™	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Ì
+ü+ü+*.apply
+_star_. 
+¡_root_.views.html.propertyRepresentation.appointedAgent_Scope0.appointedAgent_Scope1.appointedAgent#apply(Ljava/lang/String;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Æ
+ŸK‰K"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2{
+ÈBÈB*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2—
+¥$¥$*.apply
+_star_.Æ
+•_root_.controllers.agentAppointment.ExistingAgentsPermission.apply(Ljava/lang/String;JLscala/collection/Seq;)Lcontrollers/agentAppointment/ExistingAgentsPermission;.2œ
+””*.flatMap[Result]
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#2∏
+¥T¥T*.apply[AgentPermission]
+_star_.]
+U_root_.form.EnumMapping.apply(Lmodels/NamedEnumSupport;)Lplay/api/data/FieldMapping;.&
+_root_.models.AgentPermission#2
+ˇ8ˇ8*(hc)
+_star_.2”
+Ó*Ó**.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2˜
+äTäT*.apply[AgentPermissionMapping]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.C
+;_root_.controllers.agentAppointment.AgentPermissionMapping#2t
+ËEËE!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2µ
+©©**(AppointAgentController.this.hc(request))
+_star_.p
+ h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2#
+§F§F
+*(request)
+_star_.2Í
+‰1‰1]*.flatMap[Seq[Unit]](scala.collection.Seq.canBuildFrom[Unit], AppointAgentController.this.ec)
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+_root_.scala.Unit#$
+
+_root_.scala.collection.Seq#
+7;_root_.scala.Unit#Z
+*6R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.8
+Z\0_root_.controllers.PropertyLinkingController#ec.2G
+…!…!	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2«
+èè*.map[Result]
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+_root_.play.api.mvc.Result#2å
+ƒ6ƒ6*[Party, Unit, Seq]
+_star_.
+_root_.models.Party#
+	_root_.scala.Unit#$
+_root_.scala.collection.Seq#2Ì
+ŒEŒE*.apply
+_star_. 
+¡_root_.views.html.propertyRepresentation.appointedAgent_Scope0.appointedAgent_Scope1.appointedAgent#apply(Ljava/lang/String;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2¿
+»+»+*.apply[Html]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.#
+_root_.play.twirl.api.Html#2ﬁ
+ÍLÍL*.apply
+_star_.ª
+≤_root_.controllers.agentAppointment.AgentPermissionMapping.apply(Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lcontrollers/agentAppointment/AgentPermissionMapping;.2”
+ùEùE*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2l
+ÁKÁK*[Mapping[Long]]
+_star_.
+
+_root_.scala.Long#%
+	_root_.play.api.data.Mapping#2â
+â'â'0*(request, AppointAgentController.this.messages)
+_star_.>
+'/6_root_.controllers.PropertyLinkingController#messages.2¬
+Å>Å>*.apply
+_star_.ü
+ñ_root_.models.RepresentationRequest.apply(JJJLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/time/Instant;)Lmodels/RepresentationRequest;.2“
+ΩΩ5*(scala.collection.Seq.canBuildFrom[AgentPermission])
+_star_.&
+$3_root_.models.AgentPermission#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2‚
+Ã(Ã(6*.map[Result](AppointAgentController.this.hc(request))
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+_root_.play.api.mvc.Result#p
+*,h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2â
+´+´+0*(request, AppointAgentController.this.messages)
+_star_.>
+'/6_root_.controllers.PropertyLinkingController#messages.2¿
+≥≥*.apply[Html]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.#
+_root_.play.twirl.api.Html#2Œ
+ÀVÀV*.apply[FormError]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.'
+_root_.play.api.data.FormError#2t
+∞9∞9!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2ç
+÷÷*[Form[AppointAgent]]
+_star_.9
+1_root_.controllers.agentAppointment.AppointAgent#"
+_root_.play.api.data.Form#2®
+ÁJÁJ*.apply
+_star_.Ö
+}_root_.controllers.agentAppointment.AppointAgentVM.apply(Lplay/api/data/Form;J)Lcontrollers/agentAppointment/AppointAgentVM;.2µ
+õGõG**(AppointAgentController.this.hc(request))
+_star_.p
+ h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2µ
+Œ*Œ***(AppointAgentController.this.hc(request))
+_star_.p
+ h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2é
+HH*.apply
+_star_.l
+d_root_.play.api.data.FormError.apply(Ljava/lang/String;Ljava/lang/String;)Lplay/api/data/FormError;.2â
+ÊEÊE0*(request, AppointAgentController.this.messages)
+_star_.>
+'/6_root_.controllers.PropertyLinkingController#messages.2µ
+÷D÷D**(AppointAgentController.this.hc(request))
+_star_.p
+ h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2ª
+Ê Ê *.apply
+_star_.ò
+è_root_.models.AgentAppointmentSession.apply(Lcontrollers/agentAppointment/AppointAgent;JLmodels/PropertyLink;)Lmodels/AgentAppointmentSession;.2”
+í&í&*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2m
+ÂDÂD*[Future[Unit]]
+_star_.
+	_root_.scala.Unit#'
+_root_.scala.concurrent.Future#2ì
+≤C≤CQ*(models.AgentAppointmentSession.format, AppointAgentController.this.hc(request))
+_star_.5
+!'-_root_.models.AgentAppointmentSession.format.p
+EGh_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2#
+¥¥
+*(request)
+_star_.2ÿ
+œπ-AppointAgentController.this.future[Result](*)#
+#)_root_.play.api.mvc.Result#i
+"a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
++,_star_.2#
+¢¢
+*(request)
+_star_.2Æ
+∆L–L"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2ÿ
+ÃØ-AppointAgentController.this.future[Result](*)#
+#)_root_.play.api.mvc.Result#i
+"a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
++,_star_.2<
+÷÷*[Long]
+_star_.
+_root_.scala.Long#2”
+——*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2{
+˜˜*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2â
+ÆÆ0*(request, AppointAgentController.this.messages)
+_star_.>
+'/6_root_.controllers.PropertyLinkingController#messages.2˙
+ˇ#ˇ#>*(scala.collection.Seq.canBuildFrom[ExistingAgentsPermission])
+_star_.E
+$<=_root_.controllers.agentAppointment.ExistingAgentsPermission#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2Í
+§(§(:*.flatMap[Result](AppointAgentController.this.hc(request))
+_star_.~
+	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
+
+_root_.play.api.mvc.Result#p
+.0h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2{
+Ò)Ò)*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2â
+∏∏0*(request, AppointAgentController.this.messages)
+_star_.>
+'/6_root_.controllers.PropertyLinkingController#messages.2Æ
+ÄMéM"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2
+≠B≠B*(hc)
+_star_.2#
+ÀÀ
+*(request)
+_star_.2Á
+ÄÄ\*[FormError]({
+  ((xo: Option[FormError]) => scala.Option.option2Iterable[FormError](xo))
+})
+_star_.'
+_root_.play.api.data.FormError#'
+JS_root_.play.api.data.FormError#'
+'_root_.play.api.data.FormError#W
+:IO_root_.scala.Option.option2Iterable(Lscala/Option;)Lscala/collection/Iterable;.
+_root_.scala.Option#2ø
+•F•Fò*(play.api.http.Writeable.writeableOf_Content[Html](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.#
+.2_root_.play.twirl.api.Html#y
+j|q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.(
+GL _root_.play.api.mvc.Codec.utf_8.*
+êï _root_.play.api.mvc.Codec.utf_8.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.2ﬁ
+®M®M*.apply
+_star_.ª
+≤_root_.controllers.agentAppointment.AgentPermissionMapping.apply(Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lcontrollers/agentAppointment/AgentPermissionMapping;.2ƒ
+◊$◊$*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String#2t
+Á+Á+!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2¿
+ÀKÀK*.apply[AppointAgent]
+_star_.U
+M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.9
+1_root_.controllers.agentAppointment.AppointAgent#2t
+ÜEÜE!*(AppointAgentController.this.ec)
+_star_.8
+ 0_root_.controllers.PropertyLinkingController#ec.2”
+ØØû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2ì
+¶¶Q*(models.AgentAppointmentSession.format, AppointAgentController.this.hc(request))
+_star_.5
+!'-_root_.models.AgentAppointmentSession.format.p
+EGh_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2<
+ﬂ9ﬂ9*[Unit]
+_star_.
+_root_.scala.Unit#2”
+◊◊*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2G
+∫C∫C	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2Ë
+€&€&*.apply
+_star_.≈
+º_root_.controllers.agentAppointment.ConfirmOverrideVM.apply(JLcontrollers/agentAppointment/ExistingAgentsPermission;Lscala/collection/Seq;)Lcontrollers/agentAppointment/ConfirmOverrideVM;.2ï
+Œ/Œ/J*(scala.collection.Seq.canBuildFrom[Unit], AppointAgentController.this.ec)
+_star_.
+$(_root_.scala.Unit#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.8
+GI0_root_.controllers.PropertyLinkingController#ec.2å
+∑7∑7*[Party, Unit, Seq]
+_star_.
+_root_.models.Party#
+	_root_.scala.Unit#$
+_root_.scala.collection.Seq#2Ï
+Õ/Õ/2*(scala.collection.Seq.canBuildFrom[Future[Unit]])
+_star_.
++/_root_.scala.Unit#'
+$*_root_.scala.concurrent.Future#Z
+#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2S
+••*[AgentPermission]
+_star_.&
+_root_.models.AgentPermission#2”
+±±û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2‚
+˚4˚4Y*.map[Seq[Unit]](scala.collection.Seq.canBuildFrom[Unit], AppointAgentController.this.ec)
+_star_.z
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+
+_root_.scala.Unit#$
+	_root_.scala.collection.Seq#
+37_root_.scala.Unit#Z
+&2R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.8
+VX0_root_.controllers.PropertyLinkingController#ec.2G
+üGüG	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2µ
+ää**(AppointAgentController.this.hc(request))
+_star_.p
+ h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2ƒ
+»"»"*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String#2#
+ÁÁ
+*(request)
+_star_.2Û
+«V«V *.apply[Seq[FormError], Nothing]
+_star_.J
+B_root_.scala.util.Left.apply(Ljava/lang/Object;)Lscala/util/Left;.'
+_root_.play.api.data.FormError#$
+_root_.scala.collection.Seq#
+_root_.scala.Nothing#2#
+††
+*(request)
+_star_.2å
+†3†3*[Party, Unit, Seq]
+_star_.
+_root_.models.Party#
+	_root_.scala.Unit#$
+_root_.scala.collection.Seq#2”
+÷÷*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2ø
+ÃÃò*(play.api.http.Writeable.writeableOf_Content[Html](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.#
+.2_root_.play.twirl.api.Html#y
+j|q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.(
+GL _root_.play.api.mvc.Codec.utf_8.*
+êï _root_.play.api.mvc.Codec.utf_8.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.:Scala211B≠Z/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.agentAppointment
+
+import java.time.Instant
+import javax.inject.{Inject, Named}
+
+import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import config.Global
+import connectors._
+import connectors.propertyLinking.PropertyLinkConnector
+import controllers.PropertyLinkingController
+import form.EnumMapping
+import form.Mappings._
+import models._
+import play.api.data.Forms._
+import play.api.data.validation.Constraint
+import play.api.data.{Form, FormError, Mapping}
+import play.api.libs.json.Json
+import play.api.mvc.Request
+import repositories.SessionRepo
+
+import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
+
+class AppointAgentController @Inject() (representations: PropertyRepresentationConnector,
+                                        accounts: GroupAccounts,
+                                        propertyLinks: PropertyLinkConnector,
+                                        authenticated: AuthenticatedAction,
+                                        @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
+  extends PropertyLinkingController {
+
+  def appoint(linkId: Long) = authenticated { implicit request =>
+    sessionRepository.get[AgentAppointmentSession] flatMap {
+      case Some(s) =>
+        Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm.fill(s.agent), linkId)))
+      case None =>
+        Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, linkId)))
+    }
+  }
+
+  def appointSubmit(authorisationId: Long) = authenticated { implicit request =>
+    appointAgentForm.bindFromRequest().fold(errors => {
+      BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, authorisationId)))
+    }, agent => {
+      val eventualAgentCodeResult = representations.validateAgentCode(agent.agentCode, authorisationId)
+      val eventualMaybeLink = propertyLinks.get(request.organisationAccount.id, authorisationId)
+      for {
+        agentCodeValidationResult <- eventualAgentCodeResult
+        propertyLink <- eventualMaybeLink
+        res <- (agentCodeValidationResult, propertyLink) match {
+          case (AgentCodeValidationResult(orgId, failureCode), Some(prop)) => {
+            val codeError = failureCode.map {
+              case "INVALID_CODE" => invalidAgentCode
+              case "DUPLICATE_PARTY" => alreadyAppointedAgent
+            }
+            val errors: List[FormError] = List(codeError).flatten
+            if (errors.nonEmpty) {
+              val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
+              invalidAppointment(formWithErrors, authorisationId)
+            } else {
+              appointAgent(authorisationId, agent, agentCodeValidationResult.organisationId.getOrElse(-1L), prop)
+            }
+          }
+          case (_, None) => Future.successful(NotFound(Global.notFoundTemplate)) //user entered a prop link manually that doesn't exist.
+        }
+      } yield {
+        res
+      }
+    }
+    )
+  }
+
+  private def appointAgent(authorisationId: Long, agent: AppointAgent,
+                           agentOrgId: Long, pLink: PropertyLink)(implicit request: BasicAuthenticatedRequest[_]) = {
+    val hasCheckAgent = pLink.agents.map(_.checkPermission).contains(StartAndContinue)
+    val hasChallengeAgent = pLink.agents.map(_.challengePermission).contains(StartAndContinue)
+    if (hasCheckAgent && agent.canCheck == StartAndContinue || hasChallengeAgent && agent.canChallenge == StartAndContinue) {
+      val agentSession = AgentAppointmentSession(agent, agentOrgId, pLink)
+      sessionRepository.start[AgentAppointmentSession](agentSession).map(_ => {
+        val permissions = pLink.agents.map(a => ExistingAgentsPermission(a.organisationName, a.agentCode,
+          Seq(
+            if (a.checkPermission == StartAndContinue) "check" else "",
+            if (a.challengePermission == StartAndContinue) "challenge" else "").filter(_.nonEmpty)
+        ))
+        val newAgentPerms = ExistingAgentsPermission("", agent.agentCode,
+          Seq(
+            if (agent.canChallenge == StartAndContinue) "challenge" else "",
+            if (agent.canCheck == StartAndContinue) "check" else "").filter(_.nonEmpty)
+        )
+        Ok(views.html.propertyRepresentation.confirmAgentOverride(ConfirmOverrideVM(authorisationId, newAgentPerms, permissions)))
+      })
+    } else {
+      for {
+        _ <- createAndSubmitAgentRepRequest(authorisationId, agentOrgId, request.individualAccount.individualId, agent)
+        _ <- sessionRepository.remove()
+      } yield {
+        Redirect(routes.AppointAgentController.appointed(authorisationId))
+      }
+    }
+  }
+
+  def appointed(authorisationId: Long) = authenticated { implicit request =>
+    propertyLinks.get(request.organisationAccount.id, authorisationId) map {
+      case Some(pl) => Ok(views.html.propertyRepresentation.appointedAgent(pl.address))
+      case None => NotFound(Global.notFoundTemplate)
+    }
+  }
+
+  private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
+                                        newAgentOrgId: Long, individualId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
+    val updateExistingAgents = if (newAgentPermission.canCheck == StartAndContinue && newAgentPermission.canChallenge == StartAndContinue) {
+      Future.sequence(link.agents.map(agent => representations.revoke(agent.authorisedPartyId)))
+    } else if (newAgentPermission.canCheck == StartAndContinue) {
+      val agentsToUpdate = link.agents.filter(_.checkPermission == StartAndContinue)
+      for {
+        revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
+        //existing agents that had a check permission have been revoked
+        //we now need to re-add the agents that had a challenge permission
+        updatedAgents <- Future.traverse(agentsToUpdate.filter(_.challengePermission != NotPermitted))(agent => {
+          createAndSubmitAgentRepRequest(authorisationId, agent.organisationId, individualId, NotPermitted, agent.challengePermission)
+        })
+      } yield {
+        updatedAgents
+      }
+    } else {
+      val agentsToUpdate = link.agents.filter(_.challengePermission == StartAndContinue)
+      for {
+        revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
+        updatedAgents <- Future.traverse(agentsToUpdate.filter(_.checkPermission != NotPermitted))(agent => {
+          createAndSubmitAgentRepRequest(authorisationId, agent.organisationId, individualId, agent.checkPermission, NotPermitted)
+        })
+      } yield {
+        updatedAgents
+      }
+    }
+    updateExistingAgents.flatMap(_ => {
+      //existing agents have been updated. Time to add the new agent.
+      createAndSubmitAgentRepRequest(authorisationId, newAgentOrgId, individualId, newAgentPermission)
+    })
+  }
+
+  private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long,
+                                             checkPermission: AgentPermission, challengePermission: AgentPermission)
+                                            (implicit hc: HeaderCarrier): Future[Unit] = {
+    val req = RepresentationRequest(authorisationId, agentOrgId, userIndividualId,
+      java.util.UUID.randomUUID().toString, checkPermission.name, challengePermission.name, Instant.now)
+    representations.create(req)
+  }
+
+  private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long, appointedAgent: AppointAgent)
+                                            (implicit hc: HeaderCarrier): Future[Unit] = {
+    createAndSubmitAgentRepRequest(authorisationId, agentOrgId, userIndividualId, appointedAgent.canCheck, appointedAgent.canChallenge)
+  }
+
+  def confirmed(authorisationId: Long) = authenticated { implicit request =>
+    sessionRepository.get[AgentAppointmentSession] flatMap {
+      case Some(s) => {
+        updateAllAgentsPermission(authorisationId, s.propertyLink, s.agent, s.agentOrgId, request.individualAccount.individualId)
+          .map(_ => sessionRepository.remove())
+          .map(_ => Ok(views.html.propertyRepresentation.appointedAgent(s.propertyLink.address)))
+      }
+      case None => NotFound(Global.notFoundTemplate)
+    }
+  }
+
+  def declined(authorisationId: Long) = authenticated { implicit request =>
+    sessionRepository.remove().map(_ => Redirect(controllers.routes.Dashboard.manageProperties()))
+  }
+
+  private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
+  private lazy val alreadyAppointedAgent = FormError("agentCode", "error.alreadyAppointedAgent")
+
+  private def invalidAppointment(form: Form[AppointAgent], linkId: Long)(implicit request: Request[_]) = {
+    Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId))))
+  }
+
+  def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
+    "agentCode" -> agentCode.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode),
+    "canCheck" -> AgentPermissionMapping("canChallenge"),
+    "canChallenge" -> AgentPermissionMapping("canCheck")
+  )(AppointAgent.apply)(AppointAgent.unapply))
+}
+
+case class AppointAgent(agentCode: Long, canCheck: AgentPermission, canChallenge: AgentPermission)
+
+object AppointAgent {
+  implicit val format = Json.format[AppointAgent]
+}
+
+case class AppointAgentVM(form: Form[_], linkId: Long)
+
+case class ModifyAgentVM(form: Form[_], representationId: Long)
+
+case class ExistingAgentsPermission(agentName: String, agentCode: Long, availablePermission: Seq[String])
+
+case class ConfirmOverrideVM(authorisationId: Long, newAgent: ExistingAgentsPermission, existingPermissions: Seq[ExistingAgentsPermission])
+
+case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Long)
+
+case class AgentPermissionMapping(other: String, key: String = "", constraints: Seq[Constraint[AgentPermission]] = Nil) extends Mapping[AgentPermission] {
+  override val mappings = Seq(this)
+  private val wrapped = EnumMapping(AgentPermission)
+
+  override def bind(data: Map[String, String]) = {
+    (wrapped.withPrefix(key).bind(data), wrapped.withPrefix(other).bind(data)) match {
+      case (e@Left(err), _) => e
+      case (Right(p1), Right(p2)) if p1 == NotPermitted && p2 == NotPermitted => Left(Seq(FormError(key, "error.invalidPermissions")))
+      case (r@Right(_), _) => r
+    }
+  }
+
+  override def unbind(value: AgentPermission) = {
+    wrapped.withPrefix(key).unbind(value)
+  }
+
+  override def unbindAndValidate(value: AgentPermission) = {
+    wrapped.withPrefix(key).unbindAndValidate(value)
+  }
+
+  override def withPrefix(prefix: String) = copy(key = prefix + key)
+
+  override def verifying(cs: Constraint[AgentPermission]*) = copy(constraints = constraints ++ cs.toSeq)
+}
+J=app/controllers/agentAppointment/AppointAgentController.scala

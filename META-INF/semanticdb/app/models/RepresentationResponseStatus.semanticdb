@@ -1,0 +1,119 @@
+
+Ë*;
+ƒ«/_root_.models.RepresentationResponseStatus#key.#
+Õ◊_root_.models.EnumFormat.5
+ùπ+_root_.models.RepresentationResponseStatus#5
+∞Ã+_root_.models.RepresentationResponseStatus#7
+’	Û	-_root_.models.RepresentationResponseDeclined.^
+Ü	â	R_root_.models.RepresentationResponseStatus.all()Lscala/collection/immutable/List;..
+ÕÕ$_root_.java.lang.Object#`<init>`()V.<
+±µ0_root_.models.RepresentationResponseStatus#name.>
+ƒ 2_root_.models.RepresentationResponseStatus.format."
+ü®_root_.models.NamedEnum#)
+Ñî_root_.models.NamedEnumSupport#.
+≥≥$_root_.java.lang.Object#`<init>`()V.>
+¬∆2_root_.models.RepresentationResponseDeclined.name.T
+ÍÚH_root_.models.RepresentationResponseStatus#toString()Ljava/lang/String;.1
+∞	¥	'_root_.scala.collection.immutable.List.9
+ˆî-_root_.models.RepresentationResponseDeclined.7
+˙ñ+_root_.models.RepresentationResponseStatus#7
+ﬂ˚+_root_.models.RepresentationResponseStatus.%
+∑Ω_root_.scala.Predef.String#:
+ı˘0_root_.models.RepresentationResponseStatus#name.$
+ã	è	_root_.scala.package.List#5
+ï±+_root_.models.RepresentationResponseStatus#7
+µ	”	-_root_.models.RepresentationResponseApproved.>
+’Ÿ2_root_.models.RepresentationResponseApproved.name.5
+ÿÙ+_root_.models.RepresentationResponseStatus.5
+ê	¨	+_root_.models.RepresentationResponseStatus#A
+óû5_root_.models.RepresentationResponseStatus#$init$()V.
+ÂÎ_root_.models..
+∫∫$_root_.java.lang.Object#`<init>`()V.9
+âß-_root_.models.RepresentationResponseApproved."Q
++_root_.models.RepresentationResponseStatus."ÄÑRepresentationResponseStatus"Q
++_root_.models.RepresentationResponseStatus#"Ä¿RepresentationResponseStatus"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"f
+2_root_.models.RepresentationResponseApproved.name.0nameString"
+_root_.java.lang.String#"f
+2_root_.models.RepresentationResponseDeclined.name.0nameString"
+_root_.java.lang.String#"`
+_root_.scala.package.List#BList	List.type"-
+'_root_.scala.collection.immutable.List."b
+/_root_.models.RepresentationResponseStatus#key./keyString"
+_root_.java.lang.String#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"â
+H_root_.models.RepresentationResponseStatus#toString()Ljava/lang/String;.=toString
+(): String"#
+
+_root_.scala.Predef.String#"i
+0_root_.models.RepresentationResponseStatus#name.5ÅÄnameString"!
+_root_.scala.Predef.String#"-
+_root_.models.EnumFormat.ÄÑ
+EnumFormat"Ÿ
+R_root_.models.RepresentationResponseStatus.all()Lscala/collection/immutable/List;.Çall"List[RepresentationResponseStatus]" 
+_root_.scala.package.List#"3
+!+_root_.models.RepresentationResponseStatus#"i
+5_root_.models.RepresentationResponseStatus#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#"5
+'_root_.scala.collection.immutable.List.
+ÄÑList"V
+-_root_.models.RepresentationResponseApproved.%ÄÑàRepresentationResponseApproved"«
+2_root_.models.RepresentationResponseStatus.format.êÅÄ format$Format[RepresentationResponseStatus]"'
+!_root_.play.api.libs.json.Format#"3
+#+_root_.models.RepresentationResponseStatus#"8
+_root_.models.NamedEnumSupport#Ä@NamedEnumSupport"V
+-_root_.models.RepresentationResponseDeclined.%ÄÑàRepresentationResponseDeclined"
+_root_.models.ÄàÄmodels"*
+_root_.models.NamedEnum#Ä@	NamedEnum2“
+◊◊%*.apply[RepresentationResponseStatus]
+_star_.]
+U_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.3
+$+_root_.models.RepresentationResponseStatus#2«
+¥	¥	F*.apply[RepresentationResponseStatus with Product with Serializable{}]
+_star_.n
+f_root_.scala.collection.immutable.List.apply(Lscala/collection/Seq;)Lscala/collection/immutable/List;.
+*1_root_.scala.Product#3
+$+_root_.models.RepresentationResponseStatus#"
+7C_root_.scala.Serializable#:Scala211B˜	/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+sealed trait RepresentationResponseStatus extends NamedEnum {
+  val name: String
+  val key = "propReprStatus"
+  override def toString = name
+}
+
+case object RepresentationResponseApproved extends RepresentationResponseStatus {
+  val name = "APPROVED"
+}
+
+case object RepresentationResponseDeclined extends RepresentationResponseStatus {
+  val name = "DECLINED"
+}
+
+
+object RepresentationResponseStatus extends NamedEnumSupport[RepresentationResponseStatus] {
+  implicit val format = EnumFormat(RepresentationResponseStatus)
+
+  override def all: List[RepresentationResponseStatus] = List(RepresentationResponseApproved, RepresentationResponseDeclined)
+}
+J-app/models/RepresentationResponseStatus.scala

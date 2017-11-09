@@ -1,0 +1,532 @@
+
+ºÉf
+˘Ä\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.O
+ÌÙE_root_.play.api.libs.json.JsValue.;_root_.play.api.libs.json.JsValue#6
+÷‹*_root_.connectors.EnvelopeMetadata.format.
+òû_root_.com.google.8
+Í
+
+,_root_.connectors.EnvelopeConnector#(config)ñ
+≤ºã_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)
+ø√_root_.uk.gov.hmrc.
+íó_root_.scala.)
+¿∆_root_.scala.concurrent.Future#;
+—‘1app/connectors/EnvelopeConnector.scala@1731..1734=
+˙É3_root_.scala.concurrent.ExecutionContext.Implicits.$
+ﬂ„_root_.play.api.libs.json.¢
+˘Åï_root_.connectors.EnvelopeConnector#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(metadata)4
+…Õ*_root_.connectors.EnvelopeConnector#(http)"
+ƒ»_root_.uk.gov.hmrc.play.ô
+’›å_root_.connectors.Envelope#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(metadata)%
+ËÓ_root_.scala.Predef.String#%
+ºƒ_root_.connectors.Envelope#=
+√∆1app/connectors/EnvelopeConnector.scala@1731..1734Ë
+”÷›_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+ÿ›_root_.scala.Ä
+‹‡ı_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ò
+Üêã_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)
+—’_root_.play."
+èì_root_.uk.gov.hmrc.play.9
+ú§-_root_.connectors.EnvelopeMetadata#(personId)/
+¥ƒ#_root_.connectors.EnvelopeMetadata.%
+È	Ô	_root_.scala.Predef.String#)
+ˆ˙_root_.play.api.libs.json.Json.
+⁄ﬁ_root_.play.api.libs.|
+’ÿr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;."
+ò¢_root_.scala.concurrent..
+õ¨$_root_.connectors.EnvelopeConnector#ã
+Åé_root_.connectors.EnvelopeConnector#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Ä
+Œ“ı_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+Üâ_root_.uk.gov.-
+ﬂÔ#_root_.connectors.EnvelopeMetadata#/
+‡Ï%_root_.uk.gov.hmrc.http.HttpResponse#
+äé_root_.uk.gov.hmrc.D
+Ñä:_root_.scala.concurrent.ExecutionContext.Implicits.global.)
+∂
+º
+_root_.scala.concurrent.Future#ñ
+º∆ã_root_.connectors.EnvelopeConnector#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)N
+˛ÑD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.
+ª¡_root_.config.#
+ü•_root_.com.google.inject.ü
+È
+È
+í_root_.connectors.EnvelopeConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/VPLHttp;Lscala/concurrent/ExecutionContext;)V.6
+Üä*_root_.connectors.EnvelopeConnector#(http)6
+Ú¯,_root_.connectors.EnvelopeConnector#(config)
+ÂÔ_root_.connectors.h
+’÷^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;."
+—’_root_.uk.gov.hmrc.http.
+÷Ÿ_root_.play.api.'
+µΩ_root_.connectors.Envelope#U
+ÊÚK_root_.uk.gov.hmrc.http.HttpResponse.;_root_.uk.gov.hmrc.http.HttpResponse#|
+Ω¿r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ñ
+‡Íã_root_.connectors.EnvelopeConnector#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)3
+È˘)_root_.scala.concurrent.ExecutionContext.4
+û†(_root_.connectors.EnvelopeConnector#(ec)Ü
+¢
+§
+z_root_.connectors.Envelope#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)0
+ ◊&_root_.uk.gov.hmrc.http.JsonHttpReads#?
+Ú
+Ä5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#%
+îö_root_.scala.Predef.String#%
+æƒ_root_.scala.Predef.String#b
+Œ—X_root_.play.api.libs.json.Json.obj(Lscala/collection/Seq;)Lplay/api/libs/json/JsObject;.)
+˘˝_root_.play.api.libs.json.Json.0
+Œ
+ﬂ
+$_root_.connectors.EnvelopeConnector#)
+∑Ω_root_.scala.concurrent.Future#Y
+¶≥O_root_.com.google.inject.ImplementedBy.;_root_.com.google.inject.ImplementedBy#
+≈«
+_root_.uk.W
+◊‰M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#-
+Âı#_root_.connectors.EnvelopeMetadata#0
+ÙÅ&_root_.uk.gov.hmrc.http.JsonHttpReads#†
+≥ªï_root_.connectors.EnvelopeConnector#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(metadata)
+Ã–_root_.uk.gov.hmrc.)
+îö_root_.uk.gov.hmrc.play.config.ê
+¨ÆÉ_root_.connectors.EnvelopeConnector#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)0
+˛ã	&_root_.uk.gov.hmrc.http.HeaderCarrier#|
+ÀŒr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
+»À_root_.uk.gov.ê
+£•É_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)f
+Éä\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.,
+·Ë"_root_.play.api.libs.json.JsValue#0
+¢Ø&_root_.uk.gov.hmrc.http.HeaderCarrier#
+îó_root_.com.4
+Œ“*_root_.connectors.EnvelopeConnector#(http)I
+∂º?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#%
+πø_root_.scala.Predef.String#-
+Éì#_root_.connectors.EnvelopeMetadata#%
+íò_root_.scala.Predef.String# 
+¬…_root_.config.VPLHttp#0
+∞Ω&_root_.uk.gov.hmrc.http.HeaderCarrier#%
+Ω	√	_root_.scala.Predef.String#Q
+¯˘G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.Ç
+£	∞	v_root_.connectors.Envelope#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.,
+ÂÏ"_root_.play.api.libs.json.JsValue#,
+◊ﬁ"_root_.play.api.libs.json.JsValue#0
+ß¥&_root_.uk.gov.hmrc.http.HeaderCarrier#3
+¢≤)_root_.scala.concurrent.ExecutionContext#è
+Ö
+è
+Ç_root_.connectors.Envelope#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)%
+ï	õ	_root_.scala.Predef.String#)
+‚	Ë	_root_.scala.concurrent.Future#.
+≈≈$_root_.java.lang.Object#`<init>`()V.=
+Üí1_root_.connectors.EnvelopeMetadata#(submissionId)?
+¢∞5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#]
+§¥S_root_.scala.concurrent.ExecutionContext.;_root_.scala.concurrent.ExecutionContext#
+˛Ñ_root_.javax.inject.)
+≤∏_root_.scala.concurrent.Future#
+¯˝_root_.javax.ò
+èôã_root_.connectors.EnvelopeConnector#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)1
+Öí'_root_.com.google.inject.ImplementedBy#1
+Á
+Á
+'_root_.javax.inject.Inject#`<init>`()V.-
+”„#_root_.connectors.EnvelopeMetadata#6
+¸Ç,_root_.connectors.EnvelopeConnector#(config)ñ
+÷‡ã_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)
+∏∫
+_root_.uk.Ü
+Œ	–	z_root_.connectors.Envelope#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)%
+Ω
+√
+_root_.scala.Predef.String#%
+·
+Á
+_root_.javax.inject.Inject#
+ªæ_root_.uk.gov.)
+…Õ_root_.play.api.libs.json.Json.`
+ÂÁV_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.)
+é	î	_root_.scala.concurrent.Future#è
+±	ª	Ç_root_.connectors.Envelope#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId)0
+¶
+≥
+&_root_.uk.gov.hmrc.http.HeaderCarrier#6
+Ú¯,_root_.connectors.EnvelopeConnector#(config)%
+ë
+ó
+_root_.scala.Predef.String#=
+íí3_root_.com.google.inject.ImplementedBy#`<init>`()V."
+ﬁË_root_.scala.concurrent.0
+“	ﬂ	&_root_.uk.gov.hmrc.http.HeaderCarrier#Q
+ÓÔG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.%
+«Õ_root_.scala.Predef.String#N
+ÖÖB_root_.connectors.EnvelopeMetadata#`<init>`(Ljava/lang/String;J)V.è
+∆‘Ç_root_.connectors.Envelope#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.+
+ﬁ‰!_root_.play.api.libs.json.Format#ã
+¯Ö_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ì
+˙¸Ü_root_.connectors.Envelope#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)Ç
+˜	Ñ
+v_root_.connectors.Envelope#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;./
+Íˆ%_root_.uk.gov.hmrc.http.HttpResponse#f
+˘Ä\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.)
+ø√_root_.play.api.libs.json.Json.4
+◊€*_root_.connectors.EnvelopeConnector#(http)
+ÉÖ
+_root_.uk. 
+åì_root_.config.VPLHttp#/
+ıÖ#_root_.connectors.EnvelopeMetadata#-
+Öï#_root_.connectors.EnvelopeMetadata#b
+ƒ«X_root_.play.api.libs.json.Json.obj(Lscala/collection/Seq;)Lplay/api/libs/json/JsObject;.0
+õ°&_root_.uk.gov.hmrc.play.config.inject.M
+ÂÎC_root_.play.api.libs.json.Format.;_root_.play.api.libs.json.Format#ú
+û†è_root_.connectors.EnvelopeConnector#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)'
+…Õ_root_.uk.gov.hmrc.play.http.%
+õ°_root_.scala.Predef.String#Q
+ÓÔG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.
+¶™_root_.scala.Long#ò
+Í¯ã_root_.connectors.EnvelopeConnector#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A
+Öã7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#"÷
+ı_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.€POST¶[I, O] => (url: String, body: I, headers: Seq[Tuple2[String, String]])(implicit wts: Writes[I], rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext): Future[O]"#
+_root_.scala.Predef.String#"Å
+¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"!
+*-_root_.scala.package.Seq#"
+.4_root_.scala.Tuple2#"#
+5;_root_.scala.Predef.String#"#
+=C_root_.scala.Predef.String#")
+U[!_root_.play.api.libs.json.Writes#"Å
+\]¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"*
+en"_root_.uk.gov.hmrc.http.HttpReads#"Å
+op¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"/
+wÑ&_root_.uk.gov.hmrc.http.HeaderCarrier#"3
+äö)_root_.scala.concurrent.ExecutionContext#")
+ù£_root_.scala.concurrent.Future#"É
+§•¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"3
+"_root_.play.api.libs.json.JsValue#Ä¿JsValue"=
+#_root_.connectors.EnvelopeMetadata.ÄÑEnvelopeMetadata">
+#_root_.connectors.EnvelopeMetadata#Ä†ÄEnvelopeMetadata"ù
+:_root_.scala.concurrent.ExecutionContext.Implicits.global._ÅÄ`globalExecutionContextExecutor"7
+1_root_.scala.concurrent.ExecutionContextExecutor#"*
+_root_.com.google.inject.ÄàÄinject"
+_root_.com.
+ÄàÄcom")
+_root_.play.api.libs.json.ÄàÄjson"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]" 
+_root_.scala.Long#
+Ä†Long":
+%_root_.uk.gov.hmrc.http.HttpResponse#Ä@HttpResponse"'
+_root_.connectors.ÄàÄ
+connectors"Ÿ
+è_root_.connectors.EnvelopeConnector#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"€
+å_root_.connectors.Envelope#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(metadata)JÄmetadataEnvelopeMetadata")
+#_root_.connectors.EnvelopeMetadata#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"™
+*_root_.connectors.EnvelopeMetadata.format.|ÅÄ formatFormat[EnvelopeMetadata]"'
+!_root_.play.api.libs.json.Format#"+
+#_root_.connectors.EnvelopeMetadata#"$
+_root_.play.api.libs.ÄàÄlibs"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"^
+*_root_.connectors.EnvelopeConnector#(http)0ÅhttpVPLHttp"
+_root_.config.VPLHttp#"
+_root_.javax.ÄàÄjavax"q
+1_root_.connectors.EnvelopeMetadata#(submissionId)<ÅsubmissionIdString"!
+_root_.scala.Predef.String#"
+_root_.play.api.
+ÄàÄapi"Õ
+É_root_.connectors.EnvelopeConnector#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"F
+3_root_.scala.concurrent.ExecutionContext.Implicits.ÄÑ	Implicits"˙
+_root_.connectors.EnvelopeConnector#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ˆstoreEnvelope@(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+28_root_.scala.concurrent.Future#"#
+9?_root_.scala.Predef.String#",
+_root_.connectors.Envelope#Ä@Envelope",
+_root_.uk.gov.hmrc.play.http.ÄàÄhttp".
+_root_.scala.concurrent.Future#Ä@Future"L
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig" 
+ã_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId):Ä
+envelopeIdString"!
+_root_.scala.Predef.String#",
+_root_.javax.inject.Inject#Ä†ÄInject"˙
+_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ˆcloseEnvelope@(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+28_root_.scala.concurrent.Future#"#
+9?_root_.scala.Predef.String#"&
+_root_.config.VPLHttp#Ä VPLHttp"à
+3_root_.com.google.inject.ImplementedBy#`<init>`()V.QàÄÄ<init>(): ImplementedBy"/
+'_root_.com.google.inject.ImplementedBy#"7
+&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"–
+Ü_root_.connectors.Envelope#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#" 
+ã_root_.connectors.EnvelopeConnector#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId):Ä
+envelopeIdString"!
+_root_.scala.Predef.String#"ı
+V_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.öas"[T] => (implicit fjs: Reads[T]): T"(
+ _root_.play.api.libs.json.Reads#"a
+Y_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.[T]"a
+!"Y_root_.play.api.libs.json.JsReadable#as(Lplay/api/libs/json/Reads;)Ljava/lang/Object;.[T]"
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"ë
+Ç_root_.connectors.Envelope#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.âÑÄcreateEnvelopeH(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String]"+
+#_root_.connectors.EnvelopeMetadata#".
+*7&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+:@_root_.scala.concurrent.Future#"#
+AG_root_.scala.Predef.String#"#
+_root_.com.google.ÄàÄgoogle"<
+&_root_.uk.gov.hmrc.http.JsonHttpReads#Ä@JsonHttpReads"‘
+\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.tbaseUrl(serviceName: String): String"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"
+_root_.uk.gov.
+ÄàÄgov"√
+z_root_.connectors.Envelope#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"¡
+Ç_root_.connectors.Envelope#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId):Ä
+envelopeIdString"!
+_root_.scala.Predef.String#"Õ
+É_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"w
+(_root_.connectors.EnvelopeConnector#(ec)KÄÅ ecExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"B
+)_root_.scala.concurrent.ExecutionContext#Ä@ExecutionContext"C
+)_root_.scala.concurrent.ExecutionContext.ÄÑExecutionContext"?
+'_root_.com.google.inject.ImplementedBy#Ä†ÄImplementedBy"Û
+v_root_.connectors.Envelope#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.¯ÑÄstoreEnvelope@(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+28_root_.scala.concurrent.Future#"#
+9?_root_.scala.Predef.String#"√
+z_root_.connectors.Envelope#storeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#">
+$_root_.connectors.EnvelopeConnector#Ä EnvelopeConnector"
+_root_.play.ÄàÄplay"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"¡
+Ç_root_.connectors.Envelope#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(envelopeId):Ä
+envelopeIdString"!
+_root_.scala.Predef.String#"à
+,_root_.connectors.EnvelopeConnector#(config)XÄconfigServicesConfig";
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+X_root_.play.api.libs.json.Json.obj(Lscala/collection/Seq;)Lplay/api/libs/json/JsObject;.ìobj>(fields: <repeated>[Tuple2[String, JsValueWrapper]]): JsObject""
+	_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+!_root_.scala.Predef.String#"6
+#1._root_.play.api.libs.json.Json.JsValueWrapper#"+
+6>#_root_.play.api.libs.json.JsObject#"Â
+^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.Ç\#(fieldName: String): JsLookupResult"#
+_root_.scala.Predef.String#"1
+#)_root_.play.api.libs.json.JsLookupResult#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"^
+-_root_.connectors.EnvelopeMetadata#(personId)-ÅpersonIdLong"
+_root_.scala.Long#"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"
+_root_.config.ÄàÄconfig"•
+›_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.¬
+PUTÄ[I, O] => (url: String, body: I)(implicit wts: Writes[I], rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext): Future[O]"#
+_root_.scala.Predef.String#"È
+‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]")
+/5!_root_.play.api.libs.json.Writes#"È
+67‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"*
+?H"_root_.uk.gov.hmrc.http.HttpReads#"È
+IJ‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]".
+Q^&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+dt)_root_.scala.concurrent.ExecutionContext#"'
+w}_root_.scala.concurrent.Future#"È
+~‡_root_.uk.gov.hmrc.http.HttpPut#PUT(Ljava/lang/String;Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"‰
+ï_root_.connectors.EnvelopeConnector#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(metadata)JÄmetadataEnvelopeMetadata")
+#_root_.connectors.EnvelopeMetadata#"
+_root_.scala.ÄàÄscala"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"0
+!_root_.play.api.libs.json.Format#Ä@Format"]
+"_root_.config.VPLHttp#`<init>`()V.7<init>(): VPLHttp"
+_root_.config.VPLHttp#"Ω
+í_root_.connectors.EnvelopeConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/VPLHttp;Lscala/concurrent/ExecutionContext;)V.•<init>Y(config: ServicesConfig, http: VPLHttp)(implicit ec: ExecutionContext): EnvelopeConnector"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+&_root_.config.VPLHttp#"1
+5E)_root_.scala.concurrent.ExecutionContext#",
+HY$_root_.connectors.EnvelopeConnector#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"ò
+ã_root_.connectors.EnvelopeConnector#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ácreateEnvelopeH(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String]"+
+#_root_.connectors.EnvelopeMetadata#".
+*7&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+:@_root_.scala.concurrent.Future#"#
+AG_root_.scala.Predef.String#"˘
+B_root_.connectors.EnvelopeMetadata#`<init>`(Ljava/lang/String;J)V.≤<init>8(submissionId: String, personId: Long): EnvelopeMetadata"#
+_root_.scala.Predef.String#"
+!%_root_.scala.Long#"+
+(8#_root_.connectors.EnvelopeMetadata#"p
+1app/connectors/EnvelopeConnector.scala@1731..1734;ÄresJsValue"(
+"_root_.play.api.libs.json.JsValue#"Û
+v_root_.connectors.Envelope#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.¯ÑÄcloseEnvelope@(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+28_root_.scala.concurrent.Future#"#
+9?_root_.scala.Predef.String#2…
+—‘/play.api.libs.json.JsValue.jsValueToJsLookup(*)}
+,u_root_.play.api.libs.json.JsValue.jsValueToJsLookup(Lplay/api/libs/json/JsValue;)Lplay/api/libs/json/JsLookupResult;.
+-._star_.2G
+ŒŒ	*[String]
+_star_.#
+_root_.scala.Predef.String#2í
+‡‡5*(scala.concurrent.ExecutionContext.Implicits.global)
+_star_.B
+.4:_root_.scala.concurrent.ExecutionContext.Implicits.global.2Ÿ
+‘‘Ü*(play.api.libs.json.Writes.JsValueWrites, uk.gov.hmrc.http.HttpReads.readRaw, hc, scala.concurrent.ExecutionContext.Implicits.global)
+_star_.>
+)6_root_.play.api.libs.json.DefaultWrites#JsValueWrites.2
+FM*_root_.uk.gov.hmrc.http.HttpReads.readRaw.C
+Ö:_root_.scala.concurrent.ExecutionContext.Implicits.global.2G
+¿¿	*[String]
+_star_.#
+_root_.scala.Predef.String#2™
+ººâ*(connectors.EnvelopeMetadata.format, EnvelopeConnector.this.readFromJson[JsValue](play.api.libs.json.Reads.JsValueReads, scala.reflect.ManifestFactory.classType[JsValue](classOf[play.api.libs.json.JsValue])), hc, scala.concurrent.ExecutionContext.Implicits.global)
+_star_.2
+$*_root_.connectors.EnvelopeMetadata.format.d
+ò°Z_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.å
+=IÉ_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.<
+lx4_root_.play.api.libs.json.DefaultReads#JsValueReads.*
+JQ"_root_.play.api.libs.json.JsValue#,
+¢©"_root_.play.api.libs.json.JsValue#D
+Çà:_root_.scala.concurrent.ExecutionContext.Implicits.global.2x
+ÓÓ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2G
+ÿÿ	*[String]
+_star_.#
+_root_.scala.Predef.String#2x
+¯¯*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2í
+ÍÍ5*(scala.concurrent.ExecutionContext.Implicits.global)
+_star_.B
+.4:_root_.scala.concurrent.ExecutionContext.Implicits.global.2Ÿ
+  Ü*(play.api.libs.json.Writes.JsValueWrites, uk.gov.hmrc.http.HttpReads.readRaw, hc, scala.concurrent.ExecutionContext.Implicits.global)
+_star_.>
+)6_root_.play.api.libs.json.DefaultWrites#JsValueWrites.2
+FM*_root_.uk.gov.hmrc.http.HttpReads.readRaw.C
+Ö:_root_.scala.concurrent.ExecutionContext.Implicits.global.2x
+ÓÓ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2}
+ÔÔ'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.:Scala211Bò/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package connectors
+
+import javax.inject.Inject
+
+import com.google.inject.ImplementedBy
+import config.VPLHttp
+import play.api.libs.json.{Format, JsValue, Json}
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.http._
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, JsonHttpReads}
+
+@ImplementedBy(classOf[EnvelopeConnector])
+trait Envelope {
+  def createEnvelope(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String]
+  def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]
+  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]
+}
+
+class EnvelopeConnector @Inject()(config: ServicesConfig, val http: VPLHttp)(implicit ec: ExecutionContext) extends Envelope with JsonHttpReads {
+
+  override def createEnvelope(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String] = {
+    http.POST[EnvelopeMetadata, JsValue](s"${config.baseUrl("property-linking")}/property-linking/envelopes", metadata) map { res =>
+      (res \ "envelopeId").as[String]
+    }
+  }
+
+  def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
+    http.POST[JsValue, HttpResponse](s"${config.baseUrl("property-linking")}/property-linking/envelopes/$envelopeId", Json.obj()) map { _ => envelopeId }
+  }
+
+  def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
+    http.PUT[JsValue, HttpResponse](s"${config.baseUrl("property-linking")}/property-linking/envelopes/$envelopeId", Json.obj()) map { _ => envelopeId }
+  }
+}
+
+case class EnvelopeMetadata(submissionId: String, personId: Long)
+
+object EnvelopeMetadata {
+  implicit val format: Format[EnvelopeMetadata] = Json.format[EnvelopeMetadata]
+}J&app/connectors/EnvelopeConnector.scala

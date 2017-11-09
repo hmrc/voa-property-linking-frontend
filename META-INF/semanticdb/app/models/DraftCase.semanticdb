@@ -1,0 +1,637 @@
+
+Ì»)
+Öà_root_.models.DraftCase#(url)Â
+µ∑⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l4)
+âè_root_.scala.Option#
+±∑_root_.scala.Option#4
+›Î(_root_.models.DraftCase#(propertyLinkId)Á
+·„⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l8)(
+∞ø_root_.models.PropertyAddress#^
+Ó
+Ô
+T_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.n
+‡Ïd_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.%
+‰Í_root_.scala.Predef.String#%
+òû_root_.scala.Predef.String#ï
+®´ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild8;./
+Û¸%app/models/DraftCase.scala@1779..1788*
+¬	«	 _root_.play.api.libs.json.Reads#„
+£¨÷_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.%
+∫¿_root_.scala.Predef.String#(
+Åê_root_.models.PropertyAddress#n
+≠πd_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.^
+ø
+¿
+T_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.6
+Ø	¿	*_root_.models.DraftCase.checkAddressReads.
+ÂÎ_root_.models.&
+•®_root_.scala.collection.Seq.n
+˜Éd_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.%
+∏æ_root_.scala.Predef.String#%
+îö_root_.scala.Predef.String#
+·Â_root_.scala.Some.Â
+≈«⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l8)
+πø_root_.scala.Option#%
+≥π_root_.scala.Predef.String#-
+ßÆ!_root_.models.DraftCase#(address)n
+ ÷d_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.Ê
+Õ–€_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l10)
+æƒ_root_.scala.Option#%
+‰Í_root_.scala.Predef.String#Á
+Öá⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l3)3
+àï'_root_.models.DraftCase#(assessmentRef)%
+äê_root_.scala.Predef.String#/
+º
+æ
+%_root_.play.api.libs.json.package.__.
+çì_root_.scala.Option#
+·Á_root_.scala.Option#Á
+›ﬂ⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l5)
+ïò_root_.play.api.%
+Ñä_root_.scala.Predef.String#
+µª_root_.scala.Option#)
+¸Ä	_root_.play.api.libs.json.Json./
+öú%_root_.play.api.libs.json.package.__.$
+…“_root_.models.DraftCase.Â
+πª⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l5)n
+À
+◊
+d_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.Â
+©´⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l1)/
+ÄÇ%_root_.play.api.libs.json.package.__.
+µπ_root_.play.api.libs.Á
+≠Ø⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l1)
+ÌÒ_root_.scala.Long#/
+ÏÌ%app/models/DraftCase.scala@2406..2407K
+Å	Ü	A_root_.play.api.libs.json.Json.reads()Lplay/api/libs/json/Reads;.
+ôù_root_.play.api.libs./
+∆»%_root_.play.api.libs.json.package.__.^
+ÉÑT_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.Â
+¡√⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l7)/
+Î
+Ì
+%_root_.play.api.libs.json.package.__.Î
+ãì‡_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(postcode)ï
+±
+¥
+ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild2#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild3;.Ω
+„„∞_root_.models.DraftCase#`<init>`(Ljava/lang/String;Ljava/lang/String;Lmodels/PropertyAddress;Ljava/time/LocalDate;Ljava/lang/String;Ljava/time/LocalDate;JJLjava/lang/String;)V./
+è
+ë
+%_root_.play.api.libs.json.package.__.^
+öõT_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.
+ÂÎ_root_.scala.Option#%
+©
+Ø
+_root_.scala.Predef.String#/
+Õœ%_root_.play.api.libs.json.package.__.%
+êñ_root_.scala.Predef.String#4
+≠ª(_root_.models.DraftCase#(expirationDate)Â
+±≥⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l3)/
+Öé#_root_.models.DraftCase#(checkType)^
+… T_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.(
+‰Á_root_.models.DraftCase.rds.%
+ËÓ_root_.scala.Predef.String#
+óõ_root_.scala.Long#*
+ÈÓ _root_.play.api.libs.json.Reads#(
+‰Ê_root_.models.DraftCase#(id)ï
+èíä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild4#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild5;.
+ëó_root_.scala.Option#A
+˛á7_root_.java.time.LocalDate.;_root_.java.time.LocalDate#^
+–—T_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.1
+ù¢%app/models/DraftCase.scala@2329..2415%
+≈À_root_.scala.Predef.String#Á
+âã⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l6)M
+îùC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.(
+ÙÉ_root_.models.PropertyAddress.Á
+çè⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l9)/
+óô%_root_.play.api.libs.json.package.__.Ë
+πº€_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l10)%
+êñ_root_.scala.Predef.String#
+›„_root_.scala.Option#%
+º¬_root_.scala.Predef.String#/
+Ñâ%app/models/DraftCase.scala@2329..2415Â
+Ωø⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l6)n
+ìüd_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.%
+ÂÓ_root_.java.time.LocalDate#Ì
+ÊÓ‡_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(postcode)
+ˆ_root_.scala.Option#n
+¶≤d_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.1
+ÊÁ%app/models/DraftCase.scala@2406..2407ï
+ı¯ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild6#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild7;./
+ÍÏ%_root_.play.api.libs.json.package.__.*
+∫ƒ _root_.play.api.libs.functional.ï
+‡
+„
+ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild3#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild4;.Â
+≠Ø⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l2)ç
+“ŸÇ_root_.scala.collection.TraversableLike#collect(Lscala/PartialFunction;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.$
+û¢_root_.play.api.libs.json.%
+Ω∆_root_.java.time.LocalDate#%
+†¶_root_.scala.Predef.String#1
+≈À'_root_.play.api.libs.functional.syntax.ï
+¬≈ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild5#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild6;.%
+πø_root_.scala.Predef.String#3
+÷„'_root_.models.DraftCase#(effectiveDate)^
+í
+ì
+T_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.n
+˙
+Üd_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.%
+ÌÛ_root_.scala.Predef.String#
+Ù¯_root_.java.(
+»	◊	_root_.models.PropertyAddress#"
+Ô¯_root_.models.DraftCase#
+êî_root_.play.n
+ú
+®
+d_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.%
+ÏÚ_root_.scala.Predef.String#
+±¥_root_.play.api.Á
+µ∑⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l7)ó
+ªæå_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild11;.%
+˜˝_root_.scala.Predef.String#é
+Ñ
+á
+É_root_.play.api.libs.functional.FunctionalBuilderOps#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild2;.%
+ËÓ_root_.scala.Predef.String#
+¨∞_root_.play.%
+◊›_root_.scala.Predef.String#
+˘˝_root_.java.time.ñ
+åèã_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild10;.n
+◊„d_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.%
+ÿ
+ﬁ
+_root_.scala.Predef.String#^
+ÌÓT_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.%
+áç_root_.scala.Predef.String#%
+¿∆_root_.scala.Predef.String#$
+⁄„_root_.models.DraftCase#Á
+Ÿ€⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l2)"
+á	ê	_root_.models.DraftCase#Á
+±≥⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l4)^
+∂∑T_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.+
+≤∑_root_.models.DraftCase#(baRef)^
+ùûT_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;./
+≥µ%_root_.play.api.libs.json.package.__.ï
+ﬂ‚ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild9;.Â
+…À⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l9)")
+_root_.scala.collection.Seq.	ÄÑSeq"Y
+%app/models/DraftCase.scala@2406..24070lString"!
+_root_.scala.Predef.String#"˛
+d_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.ïreadNullable/[T] => (implicit r: Reads[T]): Reads[Option[T]]"(
+ _root_.play.api.libs.json.Reads#"o
+g_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.[T]"(
+$ _root_.play.api.libs.json.Reads#"
+%+_root_.scala.Option#"o
+,-g_root_.play.api.libs.json.JsPath#readNullable(Lplay/api/libs/json/Reads;)Lplay/api/libs/json/Reads;.[T]")
+_root_.play.api.libs.json.ÄàÄjson"X
+_root_.models.DraftCase#(baRef)5ÅbaRefString"!
+_root_.scala.Predef.String#"5
+ _root_.play.api.libs.functional.ÄàÄ
+functional" 
+_root_.scala.Long#
+Ä†Long"m
+(_root_.models.DraftCase#(expirationDate)AÅexpirationDate	LocalDate"!
+	_root_.java.time.LocalDate#"k
+'_root_.models.DraftCase#(effectiveDate)@ÅeffectiveDate	LocalDate"!
+	_root_.java.time.LocalDate#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"h
+!_root_.models.DraftCase#(address)CÅaddressPropertyAddress"$
+_root_.models.PropertyAddress#"
+_root_.java.ÄàÄjava"$
+_root_.play.api.libs.ÄàÄlibs"ê
+ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild2#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild3;.Äand*[A3] => (m3: M[A3]): CanBuild3[A1, A2, A3]"=
+5_root_.play.api.libs.functional.FunctionalBuilder#[M]"ó
+é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild2#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild3;.[A3]"D
+<_root_.play.api.libs.functional.FunctionalBuilder#CanBuild3#"H
+!@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild2#[A1]"H
+#%@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild2#[A2]"ó
+')é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild2#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild3;.[A3]"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"º
+
+ã_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild10;.´	andJ[A10] => (m3: M[A10]): CanBuild10[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10]"=
+5_root_.play.api.libs.functional.FunctionalBuilder#[M]"ô
+ê_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild10;.[A10]"E
+!=_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#"H
+"$@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#[A1]"H
+&(@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#[A2]"H
+*,@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#[A3]"H
+.0@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#[A4]"H
+24@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#[A5]"H
+68@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#[A6]"H
+:<@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#[A7]"H
+>@@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#[A8]"H
+BD@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#[A9]"ô
+FIê_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild10;.[A10]"]
+'_root_.models.DraftCase#(assessmentRef)2ÅassessmentRefLong"
+_root_.scala.Long#"¢
+É_root_.play.api.libs.functional.FunctionalBuilderOps#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild2;.ôand"[B] => (mb: M[B]): CanBuild2[A, B]"@
+8_root_.play.api.libs.functional.FunctionalBuilderOps#[M]"è
+Ü_root_.play.api.libs.functional.FunctionalBuilderOps#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild2;.[B]"D
+<_root_.play.api.libs.functional.FunctionalBuilder#CanBuild2#"@
+8_root_.play.api.libs.functional.FunctionalBuilderOps#[A]"è
+ !Ü_root_.play.api.libs.functional.FunctionalBuilderOps#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild2;.[B]"ô
+å_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild11;.á
+andO[A11] => (m3: M[A11]): CanBuild11[A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11]"=
+5_root_.play.api.libs.functional.FunctionalBuilder#[M]"ö
+ë_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild11;.[A11]"E
+!=_root_.play.api.libs.functional.FunctionalBuilder#CanBuild11#"I
+"$A_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#[A1]"I
+&(A_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#[A2]"I
+*,A_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#[A3]"I
+.0A_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#[A4]"I
+24A_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#[A5]"I
+68A_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#[A6]"I
+:<A_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#[A7]"I
+>@A_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#[A8]"I
+BDA_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#[A9]"J
+FIB_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#[A10]"ö
+KNë_root_.play.api.libs.functional.FunctionalBuilder#CanBuild10#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild11;.[A11]"∑
+⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l2)XÄl2Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"/
+_root_.java.time.LocalDate#Ä†à	LocalDate",
+_root_.models.DraftCase#Ä†Ä	DraftCase"+
+_root_.models.DraftCase.ÄÑ	DraftCase"Ä
+
+÷_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.§ÑÄ	mkAddressÙ(l1: Option[String], l2: Option[String], l3: Option[String], l4: Option[String], l5: Option[String], l6: Option[String], l7: Option[String], l8: Option[String], l9: Option[String], l10: Option[String], postcode: Option[String]): PropertyAddress"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"#
+ &_root_.scala.Predef.String#"
+-3_root_.scala.Option#"#
+4:_root_.scala.Predef.String#"
+AG_root_.scala.Option#"#
+HN_root_.scala.Predef.String#"
+U[_root_.scala.Option#"#
+\b_root_.scala.Predef.String#"
+io_root_.scala.Option#"#
+pv_root_.scala.Predef.String#"
+}É_root_.scala.Option#"%
+Ñä_root_.scala.Predef.String#"
+ëó_root_.scala.Option#"%
+òû_root_.scala.Predef.String#"
+•´_root_.scala.Option#"%
+¨≤_root_.scala.Predef.String#"
+∫¿_root_.scala.Option#"%
+¡«_root_.scala.Predef.String#"
+‘⁄_root_.scala.Option#"%
+€·_root_.scala.Predef.String#"(
+ÂÙ_root_.models.PropertyAddress#"‰	
+ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild9;.‘andB[A9] => (m3: M[A9]): CanBuild9[A1, A2, A3, A4, A5, A6, A7, A8, A9]"=
+5_root_.play.api.libs.functional.FunctionalBuilder#[M]"ó
+é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild9;.[A9]"D
+<_root_.play.api.libs.functional.FunctionalBuilder#CanBuild9#"H
+!@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#[A1]"H
+#%@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#[A2]"H
+')@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#[A3]"H
++-@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#[A4]"H
+/1@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#[A5]"H
+35@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#[A6]"H
+79@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#[A7]"H
+;=@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#[A8]"ó
+?Aé_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild9;.[A9]"T
+_root_.models.DraftCase#(url)3ÅurlString"!
+_root_.scala.Predef.String#"8
+'_root_.play.api.libs.functional.syntax.ÄàÄsyntax"$
+_root_.scala.Option#Ä†Option"»
+ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild6#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild7;.∏and:[A7] => (m3: M[A7]): CanBuild7[A1, A2, A3, A4, A5, A6, A7]"=
+5_root_.play.api.libs.functional.FunctionalBuilder#[M]"ó
+é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild6#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild7;.[A7]"D
+<_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#"H
+!@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild6#[A1]"H
+#%@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild6#[A2]"H
+')@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild6#[A3]"H
++-@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild6#[A4]"H
+/1@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild6#[A5]"H
+35@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild6#[A6]"ó
+79é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild6#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild7;.[A7]"∑
+⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l7)XÄl7Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"∑
+⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l6)XÄl6Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"∑
+⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l3)XÄl3Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"∆
+T_root_.play.api.libs.json.JsPath#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsPath;.n\(child: String): JsPath"#
+_root_.scala.Predef.String#")
+!_root_.play.api.libs.json.JsPath#"5
+%app/models/DraftCase.scala@1779..1788$anonfun"∑
+⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l5)XÄl5Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"R
+_root_.models.DraftCase#(id)2ÅidString"!
+_root_.scala.Predef.String#"_
+(_root_.models.DraftCase#(propertyLinkId)3ÅpropertyLinkIdLong"
+_root_.scala.Long#"
+_root_.play.ÄàÄplay"ñ	
+ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild8;.Üand>[A8] => (m3: M[A8]): CanBuild8[A1, A2, A3, A4, A5, A6, A7, A8]"=
+5_root_.play.api.libs.functional.FunctionalBuilder#[M]"ó
+é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild8;.[A8]"D
+<_root_.play.api.libs.functional.FunctionalBuilder#CanBuild8#"H
+!@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#[A1]"H
+#%@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#[A2]"H
+')@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#[A3]"H
++-@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#[A4]"H
+/1@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#[A5]"H
+35@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#[A6]"H
+79@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#[A7]"ó
+;=é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild7#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild8;.[A8]"e
+%_root_.play.api.libs.json.package.__.<__JsPath.type"'
+!_root_.play.api.libs.json.JsPath."¨
+ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild4#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild5;.úand2[A5] => (m3: M[A5]): CanBuild5[A1, A2, A3, A4, A5]"=
+5_root_.play.api.libs.functional.FunctionalBuilder#[M]"ó
+é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild4#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild5;.[A5]"D
+<_root_.play.api.libs.functional.FunctionalBuilder#CanBuild5#"H
+!@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild4#[A1]"H
+#%@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild4#[A2]"H
+')@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild4#[A3]"H
++-@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild4#[A4]"ó
+/1é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild4#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild5;.[A5]"∑
+⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l1)XÄl1Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"
+_root_.models.ÄàÄmodels".
+ _root_.play.api.libs.json.Reads#
+Ä@Reads"π
+€_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l10)YÄl10Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"`
+#_root_.models.DraftCase#(checkType)9Å	checkTypeString"!
+_root_.scala.Predef.String#"à
+%app/models/DraftCase.scala@2329..2415_linesSeq[String]""
+_root_.scala.collection.Seq#"#
+
+_root_.scala.Predef.String#"∑
+⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l4)XÄl4Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"Ø
+R_root_.models.PropertyAddress#`<init>`(Lscala/collection/Seq;Ljava/lang/String;)V.ÿ<init>7(lines: Seq[String], postcode: String): PropertyAddress"!
+_root_.scala.package.Seq#"#
+_root_.scala.Predef.String#"#
+%_root_.scala.Predef.String#"&
+(7_root_.models.PropertyAddress#" 
+_root_.java.time.ÄàÄtime"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"7
+_root_.models.PropertyAddress.ÄÑPropertyAddress"8
+_root_.models.PropertyAddress#Ä†ÄPropertyAddress"Î
+∞_root_.models.DraftCase#`<init>`(Ljava/lang/String;Ljava/lang/String;Lmodels/PropertyAddress;Ljava/time/LocalDate;Ljava/lang/String;Ljava/time/LocalDate;JJLjava/lang/String;)V.µ<init>¿(id: String, url: String, address: PropertyAddress, effectiveDate: LocalDate, checkType: String, expirationDate: LocalDate, propertyLinkId: Long, assessmentRef: Long, baRef: String): DraftCase"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"&
+#2_root_.models.PropertyAddress#"#
+CL_root_.java.time.LocalDate#"#
+Y__root_.scala.Predef.String#"#
+qz_root_.java.time.LocalDate#"
+åê_root_.scala.Long#"
+°•_root_.scala.Long#"%
+Æ¥_root_.scala.Predef.String#""
+∑¿_root_.models.DraftCase#"∑
+⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l8)XÄl8Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"≠
+*_root_.models.DraftCase.checkAddressReads.ÅÄacheckAddressReadsReads[PropertyAddress]"&
+ _root_.play.api.libs.json.Reads#"&
+_root_.models.PropertyAddress#"∑
+⁄_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(l9)XÄl9Option[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"ﬁ
+ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild3#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild4;.Œand.[A4] => (m3: M[A4]): CanBuild4[A1, A2, A3, A4]"=
+5_root_.play.api.libs.functional.FunctionalBuilder#[M]"ó
+é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild3#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild4;.[A4]"D
+<_root_.play.api.libs.functional.FunctionalBuilder#CanBuild4#"H
+!@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild3#[A1]"H
+#%@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild3#[A2]"H
+')@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild3#[A3]"ó
++-é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild3#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild4;.[A4]"√
+‡_root_.models.DraftCase.mkAddress(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lmodels/PropertyAddress;.(postcode)^ÄpostcodeOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"Ç
+Ç_root_.scala.collection.TraversableLike#collect(Lscala/PartialFunction;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.˙collectX[B, That] => (pf: PartialFunction[A, B])(implicit bf: CanBuildFrom[Repr, B, That]): That"%
+!_root_.scala.PartialFunction#"3
+"#+_root_.scala.collection.TraversableLike#[A]"é
+%&Ö_root_.scala.collection.TraversableLike#collect(Lscala/PartialFunction;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
+6B-_root_.scala.collection.generic.CanBuildFrom#"6
+CG._root_.scala.collection.TraversableLike#[Repr]"é
+IJÖ_root_.scala.collection.TraversableLike#collect(Lscala/PartialFunction;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"ë
+LPà_root_.scala.collection.TraversableLike#collect(Lscala/PartialFunction;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"ë
+TXà_root_.scala.collection.TraversableLike#collect(Lscala/PartialFunction;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"ÿ
+A_root_.play.api.libs.json.Json.reads()Lplay/api/libs/json/Reads;.í reads[A] => Reads[A]"(
+ _root_.play.api.libs.json.Reads#"L
+D_root_.play.api.libs.json.Json.reads()Lplay/api/libs/json/Reads;.[A]"˙
+ä_root_.play.api.libs.functional.FunctionalBuilder#CanBuild5#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild6;.Íand6[A6] => (m3: M[A6]): CanBuild6[A1, A2, A3, A4, A5, A6]"=
+5_root_.play.api.libs.functional.FunctionalBuilder#[M]"ó
+é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild5#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild6;.[A6]"D
+<_root_.play.api.libs.functional.FunctionalBuilder#CanBuild6#"H
+!@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild5#[A1]"H
+#%@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild5#[A2]"H
+')@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild5#[A3]"H
++-@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild5#[A4]"H
+/1@_root_.play.api.libs.functional.FunctionalBuilder#CanBuild5#[A5]"ó
+35é_root_.play.api.libs.functional.FunctionalBuilder#CanBuild5#and(Ljava/lang/Object;)Lplay/api/libs/functional/FunctionalBuilder/CanBuild6;.[A6]"Ö
+_root_.models.DraftCase.rds.eÅÄ rdsReads[DraftCase]"&
+ _root_.play.api.libs.json.Reads#" 
+_root_.models.DraftCase#" 
+_root_.scala.Some.
+ÄÑSome2}
+ãã'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.2Ì
+®®*.apply[Option[String]]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.#
+_root_.scala.Predef.String#
+_root_.scala.Option#2¯
+‚	É
+Éplay.api.libs.functional.syntax.`package`.toFunctionalBuilderOps[Reads, Option[String]](*)(play.api.libs.functional.FunctionalCanBuild.functionalCanBuildApplicative[Reads](play.api.libs.json.Reads.applicative(play.api.libs.json.JsResult.applicativeJsResult)))ø
+*@∂_root_.play.api.libs.functional.syntax.package.toFunctionalBuilderOps(Ljava/lang/Object;Lplay/api/libs/functional/FunctionalCanBuild;)Lplay/api/libs/functional/FunctionalBuilderOps;.
+HN_root_.scala.Option##
+OU_root_.scala.Predef.String#(
+AF _root_.play.api.libs.json.Reads#
+XY_star_.Ñ
+≈–z_root_.play.api.libs.json.Reads.applicative(Lplay/api/libs/functional/Applicative;)Lplay/api/libs/functional/Applicative;.±
+á§¶_root_.play.api.libs.functional.FunctionalCanBuild.functionalCanBuildApplicative(Lplay/api/libs/functional/Applicative;)Lplay/api/libs/functional/FunctionalCanBuild;.*
+•™ _root_.play.api.libs.json.Reads#A
+ÌÄ7_root_.play.api.libs.json.JsResult.applicativeJsResult.2}
+¡¡'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.2G
+ùù	*[String]
+_star_.#
+_root_.scala.Predef.String#2m
+á
+á
+*[Option[String]]
+_star_.#
+	_root_.scala.Predef.String#
+_root_.scala.Option#2}
+ÙÙ'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.2m
+„
+„
+*[Option[String]]
+_star_.#
+	_root_.scala.Predef.String#
+_root_.scala.Option#2}
+∫∫'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.2}
+ﬂ
+ﬂ
+'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.2ü
+ŸŸ*[String, Seq[String]]
+_star_.#
+_root_.scala.Predef.String#$
+
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2m
+‚‚*[Option[String]]
+_star_.#
+	_root_.scala.Predef.String#
+_root_.scala.Option#2ô
+ÔÔ2*.apply(scala.collection.Seq.canBuildFrom[String])
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.#
+*0_root_.scala.Predef.String#Z
+)R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2m
+èè*[Option[String]]
+_star_.#
+	_root_.scala.Predef.String#
+_root_.scala.Option#2m
+íí*[Option[String]]
+_star_.#
+	_root_.scala.Predef.String#
+_root_.scala.Option#2m
+ææ*[Option[String]]
+_star_.#
+	_root_.scala.Predef.String#
+_root_.scala.Option#2ê
+ÉÉ*.apply
+_star_.n
+f_root_.models.PropertyAddress.apply(Lscala/collection/Seq;Ljava/lang/String;)Lmodels/PropertyAddress;.2}
+∞
+∞
+'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.2m
+≈≈*[Option[String]]
+_star_.#
+	_root_.scala.Predef.String#
+_root_.scala.Option#2m
+´´*[Option[String]]
+_star_.#
+	_root_.scala.Predef.String#
+_root_.scala.Option#2}
+éé'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.2m
+¥
+¥
+*[Option[String]]
+_star_.#
+	_root_.scala.Predef.String#
+_root_.scala.Option#2ﬂ
+ˇˇ*(play.api.libs.json.Reads.functorReads(play.api.libs.json.Reads.applicative(play.api.libs.json.JsResult.applicativeJsResult)))
+_star_.?
+i|7_root_.play.api.libs.json.JsResult.applicativeJsResult.Ç
+ALz_root_.play.api.libs.json.Reads.applicative(Lplay/api/libs/functional/Applicative;)Lplay/api/libs/functional/Applicative;.
+'w_root_.play.api.libs.json.Reads.functorReads(Lplay/api/libs/functional/Applicative;)Lplay/api/libs/functional/Functor;.2”
+ÎÎ>*.apply[PropertyAddress](play.api.libs.json.Reads.StringReads)
+_star_.î
+ã_root_.play.api.libs.functional.FunctionalBuilder#CanBuild11#apply(Lscala/Function11;Lplay/api/libs/functional/Functor;)Ljava/lang/Object;.&
+_root_.models.PropertyAddress#;
+2=3_root_.play.api.libs.json.DefaultReads#StringReads.2m
+¯¯*[Option[String]]
+_star_.#
+	_root_.scala.Predef.String#
+_root_.scala.Option#2}
+ﬁﬁ'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.2}
+ßß'*(play.api.libs.json.Reads.StringReads)
+_star_.;
+&3_root_.play.api.libs.json.DefaultReads#StringReads.:Scala211B©/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import java.time.LocalDate
+
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
+
+case class DraftCase(id: String,
+                     url: String,
+                     address: PropertyAddress,
+                     effectiveDate: LocalDate,
+                     checkType: String,
+                     expirationDate: LocalDate,
+                     propertyLinkId: Long,
+                     assessmentRef: Long,
+                     baRef: String)
+
+object DraftCase {
+  implicit val rds: Reads[DraftCase] = Json.reads[DraftCase]
+
+  private implicit lazy val checkAddressReads: Reads[PropertyAddress] = (
+    (__ \ "name").readNullable[String] and
+      (__ \ "firm").readNullable[String] and
+      (__ \ "number").readNullable[String] and
+      (__ \ "street").readNullable[String] and
+      (__ \ "subStreet1").readNullable[String] and
+      (__ \ "subStreet2").readNullable[String] and
+      (__ \ "subStreet3").readNullable[String] and
+      (__ \ "postalDistrict").readNullable[String] and
+      (__ \ "town").readNullable[String] and
+      (__ \ "county").readNullable[String] and
+      (__ \ "postcode").readNullable[String]
+    ) (mkAddress _)
+
+  // scalastyle:off
+  private def mkAddress(l1: Option[String],
+                        l2: Option[String],
+                        l3: Option[String],
+                        l4: Option[String],
+                        l5: Option[String],
+                        l6: Option[String],
+                        l7: Option[String],
+                        l8: Option[String],
+                        l9: Option[String],
+                        l10: Option[String],
+                        postcode: Option[String]): PropertyAddress = {
+    val lines = Seq(l1, l2, l3, l4, l5, l6, l7, l8, l9, l10) collect { case Some(l) => l }
+    PropertyAddress(lines, postcode.getOrElse(""))
+  }
+}
+Japp/models/DraftCase.scala

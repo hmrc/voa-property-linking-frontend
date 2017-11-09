@@ -1,0 +1,275 @@
+
+∑v1
+ºæ%_root_.modules.ConvertTimestamps#(ec)1
+‚Ó'_root_.reactivemongo.bson.BSONDocument.>
+ˇì4_root_.reactivemongo.play.json.ImplicitBSONHandlers.
+ù©_root_.repositories.Y
+“ﬁO_root_.reactivemongo.bson.BSONDocument.;_root_.reactivemongo.bson.BSONDocument#$
+æ¬_root_.reactivemongo.bson.1
+êê'_root_.javax.inject.Inject#`<init>`()V.8
+Ω»._root_.modules.ConvertTimestamps#(sessionRepo)|
+ííp_root_.modules.ConvertTimestamps#`<init>`(Lrepositories/SessionRepository;Lscala/concurrent/ExecutionContext;)V.9
+ıÄ-_root_.modules.ConvertTimestamps#upToVersion.
+ñô_root_.play.api.P
+˚˝F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.%
+äê_root_.javax.inject.Inject#"
+ ‘_root_.scala.concurrent.|
+≥
+∂
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.P
+è	ë	F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+ƒ…_root_.scala.]
+÷ÊS_root_.scala.concurrent.ExecutionContext.;_root_.scala.concurrent.ExecutionContext#
+ëï_root_.play.b
+»	À	X_root_.play.api.libs.json.Json.obj(Lscala/collection/Seq;)Lplay/api/libs/json/JsObject;.#
+⁄„_root_.modules.MongoTask#˙
+‘⁄Ô_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.I
+ËÓ?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#P
+¿	¬	F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+ÁÙ_root_.reactivemongo.
+ÂÏ_root_.modules.)
+®Æ_root_.scala.concurrent.Future#A
+Çà7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#3
+¿–)_root_.scala.concurrent.ExecutionContext#$
+ü£_root_.play.api.libs.json.0
+™ª&_root_.repositories.SessionRepository#
+˚Å_root_.javax.inject.0
+†±&_root_.repositories.SessionRepository#P
+ÿ	⁄	F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.V
+ô†J_root_.modules.ConvertTimestamps#run(I)Lscala/concurrent/Future;.(version)
+öû_root_.play.api.libs.Ç
+ã
+ë
+˜_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.(upsert)A
+…”7_root_.uk.gov.hmrc.mongo.ReactiveRepository#collection.
+∞Ω_root_.reactivemongo.)
+§®_root_.play.api.libs.json.Json.)
+˛Ç	_root_.play.api.libs.json.Json.
+¢•_root_.scala.Int#M
+ïòA_root_.modules.ConvertTimestamps#run(I)Lscala/concurrent/Future;.b
+É	Ü	X_root_.play.api.libs.json.Json.obj(Lscala/collection/Seq;)Lplay/api/libs/json/JsObject;..
+‰‰$_root_.java.lang.Object#`<init>`()V.1
+¨	∏	'_root_.reactivemongo.bson.BSONDocument.Å
+†
+•
+ˆ_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.(multi):
+ìû._root_.modules.ConvertTimestamps#(sessionRepo)
+ı˙_root_.javax.
+Ø≥_root_.scala.Unit#)
+˙˛_root_.reactivemongo.play.json.$
+ı˘_root_.reactivemongo.play.Y
+ƒ–O_root_.reactivemongo.bson.BSONDateTime.;_root_.reactivemongo.bson.BSONDateTime#)
+√	«	_root_.play.api.libs.json.Json.-
+˜à!_root_.modules.ConvertTimestamps#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"Ì
+Ô_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.¯update [S, T] => (selector: S, update: T, writeConcern: WriteConcern, upsert: Boolean, multi: Boolean)(implicit swriter: pack.Writer[S], writer: pack.Writer[T], ec: ExecutionContext): Future[UpdateWriteResult]"˚
+Ú_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"˚
+ !Ú_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[T]"?
+1=7_root_.reactivemongo.api.commands.package.WriteConcern#"
+GN_root_.scala.Boolean#"
+W^_root_.scala.Boolean#"D
+rv<_root_.reactivemongo.api.collections.GenericCollection#pack.":
+w}2_root_.reactivemongo.api.SerializationPack#Writer#"˚
+~Ú_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"F
+äé<_root_.reactivemongo.api.collections.GenericCollection#pack."<
+èï2_root_.reactivemongo.api.SerializationPack#Writer#"˝
+ñóÚ_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[T]"3
+ûÆ)_root_.scala.concurrent.ExecutionContext#")
+±∑_root_.scala.concurrent.Future#">
+∏…4_root_.reactivemongo.api.commands.UpdateWriteResult#")
+_root_.play.api.libs.json.ÄàÄjson"ú
+7_root_.uk.gov.hmrc.mongo.ReactiveRepository#collection.aÅÄ@
+collectionJSONCollection"?
+9_root_.reactivemongo.play.json.collection.JSONCollection#")
+_root_.reactivemongo.play.ÄàÄplay".
+_root_.reactivemongo.play.json.ÄàÄjson"≠
+˜_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.(upsert)1ÄupsertBoolean"
+_root_.scala.Boolean#"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.javax.ÄàÄjavax"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson" 
+_root_.scala.Unit#
+Ä†Unit".
+_root_.scala.concurrent.Future#Ä@Future"À
+A_root_.modules.ConvertTimestamps#run(I)Lscala/concurrent/Future;.Örun(version: Int): Future[Unit]"
+
+_root_.scala.Int#"'
+_root_.scala.concurrent.Future#"
+_root_.scala.Unit#",
+_root_.javax.inject.Inject#Ä†ÄInject"+
+_root_.repositories.ÄàÄrepositories"x
+J_root_.modules.ConvertTimestamps#run(I)Lscala/concurrent/Future;.(version)*ÄversionInt"
+_root_.scala.Int#"%
+_root_.javax.inject.ÄàÄinject"t
+%_root_.modules.ConvertTimestamps#(ec)KÄÅ ecExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"@
+&_root_.repositories.SessionRepository#Ä SessionRepository"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"´
+ˆ_root_.reactivemongo.api.collections.GenericCollection#update(Ljava/lang/Object;Ljava/lang/Object;Lreactivemongo/api/commands/GetLastError;ZZLjava/lang/Object;Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.(multi)0ÄmultiBoolean"
+_root_.scala.Boolean#";
+!_root_.modules.ConvertTimestamps#Ä ConvertTimestamps"B
+)_root_.scala.concurrent.ExecutionContext#Ä@ExecutionContext"
+_root_.play.ÄàÄplay"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"-
+_root_.reactivemongo.ÄàÄreactivemongo"
+X_root_.play.api.libs.json.Json.obj(Lscala/collection/Seq;)Lplay/api/libs/json/JsObject;.ìobj>(fields: <repeated>[Tuple2[String, JsValueWrapper]]): JsObject""
+	_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+!_root_.scala.Predef.String#"6
+#1._root_.play.api.libs.json.Json.JsValueWrapper#"+
+6>#_root_.play.api.libs.json.JsObject#"É
+._root_.modules.ConvertTimestamps#(sessionRepo)QÄsessionRepoSessionRepository",
+&_root_.repositories.SessionRepository#"R
+_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
+_root_.scala.Unit#"!
+_root_.modules.ÄàÄmodules"R
+4_root_.reactivemongo.play.json.ImplicitBSONHandlers.ÄÑImplicitBSONHandlers"ë
+Z_root_.repositories.SessionRepository#`<init>`(Ljava/lang/String;Lreactivemongo/api/DB;)V.≤<init>+(formId: String, db: DB): SessionRepository"#
+	_root_.scala.Predef.String#"$
+_root_.reactivemongo.api.DB#".
++&_root_.repositories.SessionRepository#"
+_root_.scala.ÄàÄscala"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#")
+_root_.reactivemongo.bson.ÄàÄbson"·
+p_root_.modules.ConvertTimestamps#`<init>`(Lrepositories/SessionRepository;Lscala/concurrent/ExecutionContext;)V.Ï<init>R(sessionRepo: SessionRepository)(implicit ec: ExecutionContext): ConvertTimestamps".
+&_root_.repositories.SessionRepository#"1
+.>)_root_.scala.concurrent.ExecutionContext#")
+AR!_root_.modules.ConvertTimestamps#"=
+'_root_.reactivemongo.bson.BSONDocument.ÄÑBSONDocument"^
+-_root_.modules.ConvertTimestamps#upToVersion.-upToVersionInt"
+_root_.scala.Int#"+
+_root_.modules.MongoTask#Ä@	MongoTask"
+_root_.scala.Int#	Ä†Int2±
+€	Å
+Åplay.api.libs.json.Json.toJsFieldJsValueWrapper[BSONDateTime](*)(reactivemongo.play.json.ImplicitBSONHandlers.BSONDateTimeFormat)/
+0<'_root_.reactivemongo.bson.BSONDateTime#ó
+/é_root_.play.api.libs.json.Json.toJsFieldJsValueWrapper(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/Json/JsValueWrapper;.
+>?_star_.G
+nÄ>_root_.reactivemongo.play.json.BSONFormats#BSONDateTimeFormat.2ê
+∏	∏	*.apply
+_star_.n
+f_root_.reactivemongo.bson.BSONDocument.apply(Lscala/collection/Seq;)Lreactivemongo/bson/BSONDocument;.2Q
+˝˝*[JsObject]
+_star_.+
+
+#_root_.play.api.libs.json.JsObject#2b
+⁄	⁄	*[JsValueWrapper]
+_star_.6
+._root_.play.api.libs.json.Json.JsValueWrapper#2©
+Ô£	Treactivemongo.play.json.ImplicitBSONHandlers.JsFieldBSONElementProducer[JsObject](*)+
+HP#_root_.play.api.libs.json.JsObject#ä
+-GÅ_root_.reactivemongo.play.json.LowerImplicitBSONHandlers#JsFieldBSONElementProducer(Lscala/Tuple2;)Lreactivemongo/bson/Producer;.
+RS_star_.2Æ
+Ô˙"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2Æ
+á	é	"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2Æ
+π	ø	"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2©
+π	Ç
+Treactivemongo.play.json.ImplicitBSONHandlers.JsFieldBSONElementProducer[JsObject](*)+
+HP#_root_.play.api.libs.json.JsObject#ä
+-GÅ_root_.reactivemongo.play.json.LowerImplicitBSONHandlers#JsFieldBSONElementProducer(Lscala/Tuple2;)Lreactivemongo/bson/Producer;.
+RS_star_.2b
+ë	ë	*[JsValueWrapper]
+_star_.6
+._root_.play.api.libs.json.Json.JsValueWrapper#2ò
+⁄⁄*[BSONDocument, BSONDocument]
+_star_./
+'_root_.reactivemongo.bson.BSONDocument#/
+'_root_.reactivemongo.bson.BSONDocument#2Q
+¬	¬	*[JsObject]
+_star_.+
+
+#_root_.play.api.libs.json.JsObject#2<
+∂
+∂
+*[Unit]
+_star_.
+_root_.scala.Unit#2ê
+ÓÓ*.apply
+_star_.n
+f_root_.reactivemongo.bson.BSONDocument.apply(Lscala/collection/Seq;)Lreactivemongo/bson/BSONDocument;.2d
+¿
+¿
+*(ConvertTimestamps.this.ec)
+_star_.-
+%_root_.modules.ConvertTimestamps#(ec)2Æ
+Ã	◊	"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2Ë
+í	î	\play.api.libs.json.Json.toJsFieldJsValueWrapper[Int](*)(play.api.libs.json.Writes.IntWrites)
+03_root_.scala.Int#ó
+/é_root_.play.api.libs.json.Json.toJsFieldJsValueWrapper(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/Json/JsValueWrapper;.
+56_star_.:
+R[2_root_.play.api.libs.json.DefaultWrites#IntWrites.:Scala211B…
+/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package modules
+
+import javax.inject.Inject
+
+import play.api.libs.json.Json
+import reactivemongo.bson.{BSONDateTime, BSONDocument}
+import reactivemongo.play.json.ImplicitBSONHandlers._
+import repositories.SessionRepository
+
+import scala.concurrent.{ExecutionContext, Future}
+
+class ConvertTimestamps @Inject()(sessionRepo: SessionRepository)(implicit ec: ExecutionContext) extends MongoTask {
+  override val upToVersion = 1
+
+  override def run(version: Int): Future[Unit] = {
+    sessionRepo.collection.update(
+      BSONDocument("createdAt" -> Json.obj("$type" -> 18 /*BSON long*/)),
+      BSONDocument("$set" -> Json.obj("createdAt" -> BSONDateTime(System.currentTimeMillis))),
+      upsert = true,
+      multi = true
+    ) map { _ => () }
+  }
+}
+J#app/modules/ConvertTimestamps.scala

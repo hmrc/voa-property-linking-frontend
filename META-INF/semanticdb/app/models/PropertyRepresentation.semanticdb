@@ -1,0 +1,148 @@
+
+¿8:
+Ø∂._root_.models.PropertyRepresentation#(address)%
+Öã_root_.scala.Predef.String#-
+≥
+«
+#_root_.models.RepresentationStatus#F
+¶	π	:_root_.models.PropertyRepresentation#(challengePermission)N
+˙
+ñB_root_.models.PropertyRepresentation.propertyRepresentationFormat.C
+À€7_root_.models.PropertyRepresentation#(representationId)9
+´
+±
+-_root_.models.PropertyRepresentation#(status)Î
+  ﬁ_root_.models.PropertyRepresentation#`<init>`(JJLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lmodels/AgentPermission;Lmodels/AgentPermission;Ljava/time/LocalDate;Lmodels/RepresentationStatus;)V.)
+£ß_root_.play.api.libs.json.Json.
+ÂÎ_root_.models.
+˘˝_root_.java.time.L
+æ◊@_root_.models.PropertyRepresentation#(billingAuthorityReference)A
+Ó	¸	5_root_.models.PropertyRepresentation#(createDatetime)
+ñö_root_.scala.Long#C
+ÛÉ7_root_.models.PropertyRepresentation#(organisationName)
+ôù_root_.play.api.libs.$
+û¢_root_.play.api.libs.json.
+Ù¯_root_.java.1
+“
+Ë
+%_root_.models.PropertyRepresentation.%
+˛	á
+_root_.java.time.LocalDate#A
+ª…5_root_.models.PropertyRepresentation#(organisationId)%
+Ÿﬂ_root_.scala.Predef.String#/
+•ª%_root_.models.PropertyRepresentation#A
+˛á7_root_.java.time.LocalDate.;_root_.java.time.LocalDate#
+ïò_root_.play.api.%
+ëó_root_.scala.Predef.String#
+Àœ_root_.scala.Long#
+›·_root_.scala.Long#B
+Öî6_root_.models.PropertyRepresentation#(authorisationId)(
+ª	 	_root_.models.AgentPermission#(
+ÛÇ	_root_.models.AgentPermission#?
+Éè3_root_.models.PropertyRepresentation#(submissionId))
+ôù_root_.play.api.libs.json.Json.B
+‚Ò6_root_.models.PropertyRepresentation#(checkPermission)1
+¥ %_root_.models.PropertyRepresentation#
+êî_root_.play.%
+∏æ_root_.scala.Predef.String#N
+û§D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;."ç
+@_root_.models.PropertyRepresentation#(billingAuthorityReference)IÅbillingAuthorityReferenceString"!
+_root_.scala.Predef.String#")
+_root_.play.api.libs.json.ÄàÄjson"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]" 
+_root_.scala.Long#
+Ä†Long"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"„
+B_root_.models.PropertyRepresentation.propertyRepresentationFormat.úÅÄ propertyRepresentationFormatOFormat[PropertyRepresentation]"(
+"_root_.play.api.libs.json.OFormat#"-
+%_root_.models.PropertyRepresentation#"{
+7_root_.models.PropertyRepresentation#(organisationName)@ÅorganisationNameString"!
+_root_.scala.Predef.String#"
+_root_.java.ÄàÄjava"$
+_root_.play.api.libs.ÄàÄlibs"n
+6_root_.models.PropertyRepresentation#(authorisationId)4ÅauthorisationIdLong"
+_root_.scala.Long#"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"7
+_root_.models.AgentPermission#Ä¿AgentPermission"}
+-_root_.models.PropertyRepresentation#(status)LÅstatusRepresentationStatus")
+#_root_.models.RepresentationStatus#"s
+3_root_.models.PropertyRepresentation#(submissionId)<ÅsubmissionIdString"!
+_root_.scala.Predef.String#"/
+_root_.java.time.LocalDate#Ä†à	LocalDate"i
+._root_.models.PropertyRepresentation#(address)7ÅaddressString"!
+_root_.scala.Predef.String#"Ö
+6_root_.models.PropertyRepresentation#(checkPermission)KÅcheckPermissionAgentPermission"$
+_root_.models.AgentPermission#"E
+%_root_.models.PropertyRepresentation.ÄÑPropertyRepresentation"F
+%_root_.models.PropertyRepresentation#Ä†ÄPropertyRepresentation"l
+5_root_.models.PropertyRepresentation#(organisationId)3ÅorganisationIdLong"
+_root_.scala.Long#"
+_root_.play.ÄàÄplay"A
+#_root_.models.RepresentationStatus#Ä¿RepresentationStatus"
+_root_.models.ÄàÄmodels"ç
+:_root_.models.PropertyRepresentation#(challengePermission)OÅchallengePermissionAgentPermission"$
+_root_.models.AgentPermission#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#"p
+7_root_.models.PropertyRepresentation#(representationId)5ÅrepresentationIdLong"
+_root_.scala.Long#" 
+_root_.java.time.ÄàÄtime"˙
+ﬁ_root_.models.PropertyRepresentation#`<init>`(JJLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lmodels/AgentPermission;Lmodels/AgentPermission;Ljava/time/LocalDate;Lmodels/RepresentationStatus;)V.ñ<init>¬(representationId: Long, authorisationId: Long, billingAuthorityReference: String, submissionId: String, organisationId: Long, organisationName: String, address: String, checkPermission: AgentPermission, challengePermission: AgentPermission, createDatetime: LocalDate, status: RepresentationStatus): PropertyRepresentation"
+_root_.scala.Long#"
+*._root_.scala.Long#"#
+KQ_root_.scala.Predef.String#"#
+ag_root_.scala.Predef.String#"
+y}_root_.scala.Long#"%
+ëó_root_.scala.Predef.String#"%
+¢®_root_.scala.Predef.String#"(
+ª _root_.models.AgentPermission#"(
+·_root_.models.AgentPermission#"%
+Çã_root_.java.time.LocalDate#"-
+ï©#_root_.models.RepresentationStatus#"/
+¨¬%_root_.models.PropertyRepresentation#"z
+5_root_.models.PropertyRepresentation#(createDatetime)AÅcreateDatetime	LocalDate"!
+	_root_.java.time.LocalDate#:Scala211Bø/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import java.time.LocalDate
+
+import play.api.libs.json.Json
+
+case class PropertyRepresentation(representationId: Long,
+                                  authorisationId: Long,
+                                  billingAuthorityReference: String,
+                                  submissionId: String,
+                                  organisationId: Long,
+                                  organisationName: String,
+                                  address: String,
+                                  checkPermission: AgentPermission,
+                                  challengePermission: AgentPermission,
+                                  createDatetime: LocalDate,
+                                  status: RepresentationStatus)
+
+
+object PropertyRepresentation {
+  implicit val propertyRepresentationFormat = Json.format[PropertyRepresentation]
+}
+J'app/models/PropertyRepresentation.scala

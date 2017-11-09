@@ -1,0 +1,248 @@
+
+Y"
+ÎÓ_root_.scala.Predef.Map.1
+¢¢'_root_.javax.inject.Inject#`<init>`()V.
+˛Ü_root_.auth.GGAction#
+ “_root_.auth.GGAction#3
+¨≥'app/controllers/Register.scala@940..947
+´	Ø	_root_.views.html.
+©Ø_root_.config.0
+˙Ç	&_root_.controllers.Register#(ggAction)A
+õ°7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#y
+ª√o_root_.play.api.mvc.Results#Redirect(Ljava/lang/String;Lscala/collection/immutable/Map;I)Lplay/api/mvc/Result;.*
+≠æ _root_.config.ApplicationConfig#(
+íö_root_.controllers.Register#
+…Õ_root_.play.%
+ö†_root_.play.api.mvc.Action.(
+¡ƒ_root_.play.api.mvc.Call#(url)8
+˚â._root_.uk.gov.hmrc.play.config.ServicesConfig#P
+†¢F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.&
+£¶_root_.scala.collection.Seq.
+Œ—_root_.play.api.
+˘˝_root_.auth.-
+Æ∂#_root_.controllers.routes.Register..
+À—$_root_.controllers.Register#(config)2
+¿»&_root_.controllers.Register#(ggAction)
+ÎÔ_root_.uk.gov.hmrc.]
+§§Q_root_.controllers.Register#`<init>`(Lconfig/ApplicationConfig;Lauth/GGAction;)V.
+•	™	_root_.views.J
+∑æ@_root_.controllers.ReverseRegister#confirm()Lplay/api/mvc/Call;.8
+¸ä._root_.uk.gov.hmrc.play.config.ServicesConfig#P
+˝ˇF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
+‰Ê
+_root_.uk."
+Ù_root_.uk.gov.hmrc.play.)
+ı˚_root_.uk.gov.hmrc.play.config.A
+÷‹7_root_.play.api.mvc.Action.;_root_.play.api.mvc.Action#.
+ˆˆ$_root_.java.lang.Object#`<init>`()V.+
+∞	æ	!_root_.views.html.ggRegistration.K
+∞¡A_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#
+“’_root_.play.api.mvc.P
+–“F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.<
+“„2_root_.config.ApplicationConfig#ggRegistrationUrl.
+Â_root_.controllers.
+îö_root_.javax.inject.$
+ß≠_root_.controllers.routes.&
+ÄÉ_root_.scala.collection.Seq.)
+¢	§	_root_.play.api.mvc.Results#Ok.%
+ú¢_root_.javax.inject.Inject#G
+˜;_root_.controllers.Register#confirm()Lplay/api/mvc/Action;.5
+ì	ö	)app/controllers/Register.scala@1171..1178
+éì_root_.javax.7
+‹ı-_root_.controllers.PropertyLinkingController#&
+”÷_root_.scala.collection.Seq.0
+•´$_root_.controllers.Register#(config)
+ÁÍ_root_.uk.gov.D
+ìó8_root_.controllers.Register#show()Lplay/api/mvc/Action;.")
+_root_.scala.collection.Seq.	ÄÑSeq"ø
+o_root_.play.api.mvc.Results#Redirect(Ljava/lang/String;Lscala/collection/immutable/Map;I)Lplay/api/mvc/Result;.ÀRedirectI(url: String, queryString: Map[String, Seq[String]], status: Int): Result"#
+_root_.scala.Predef.String#" 
+_root_.scala.Predef.Map#"#
+%_root_.scala.Predef.String#"!
+'*_root_.scala.package.Seq#"#
++1_root_.scala.Predef.String#"
+=@_root_.scala.Int#"#
+CI_root_.play.api.mvc.Result#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"v
+2_root_.config.ApplicationConfig#ggRegistrationUrl.@ggRegistrationUrlString"!
+_root_.scala.Predef.String#"
+_root_.auth.ÄàÄauth"ä
+Q_root_.controllers.Register#`<init>`(Lconfig/ApplicationConfig;Lauth/GGAction;)V.¥<init>9(config: ApplicationConfig, ggAction: GGAction): Register"(
+	 _root_.config.ApplicationConfig#"
+&._root_.auth.GGAction#"$
+19_root_.controllers.Register#"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#"ú
+)app/controllers/Register.scala@1171..1178oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"
+z_root_.auth.GGAction#`<init>`(Lauth/GovernmentGatewayProvider;Luk/gov/hmrc/play/frontend/auth/connectors/AuthConnector;)V.Ò<init>M(provider: GovernmentGatewayProvider, authConnector: AuthConnector): GGAction".
+$&_root_.auth.GovernmentGatewayProvider#"G
+5B?_root_.uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector#"
+EM_root_.auth.GGAction#"E
+._root_.uk.gov.hmrc.play.config.ServicesConfig#Ä@ServicesConfig""
+_root_.play.api.mvc.
+ÄàÄmvc"
+_root_.javax.ÄàÄjavax"
+_root_.play.api.
+ÄàÄapi"™
+;_root_.controllers.Register#confirm()Lplay/api/mvc/Action;.kconfirmAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"9
+!_root_.views.html.ggRegistration.ÄÑggRegistration"!
+_root_.views.html.ÄàÄhtml",
+_root_.javax.inject.Inject#Ä†ÄInject"[
+_root_.scala.Predef.Map.?MapMap.type",
+&_root_.scala.collection.immutable.Map."
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"+
+_root_.controllers.routes.ÄÑàroutes"
+_root_.uk.gov.
+ÄàÄgov"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"|
+@_root_.controllers.ReverseRegister#confirm()Lplay/api/mvc/Call;.8confirm(): Call"!
+_root_.play.api.mvc.Call#"
+_root_.play.ÄàÄplay"n
+$_root_.controllers.Register#(config)FÄconfigApplicationConfig"&
+ _root_.config.ApplicationConfig#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"ö
+'app/controllers/Register.scala@940..947oÄÅ requestRequest[AnyContent]""
+_root_.play.api.mvc.Request#"'
+_root_.play.api.mvc.AnyContent#"&
+_root_.auth.GGAction#Ä GGAction"
+_root_.views.ÄàÄviews"+
+_root_.play.api.mvc.Action.ÄÑAction")
+_root_.controllers.ÄàÄcontrollers"-
+_root_.controllers.Register#Ä Register" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"
+_root_.config.ÄàÄconfig"§
+8_root_.controllers.Register#show()Lplay/api/mvc/Action;.hshowAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"r
+#_root_.controllers.routes.Register.KÅÄàRegisterReverseRegister")
+#_root_.controllers.ReverseRegister#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"'
+_root_.uk.gov.hmrc.play.ÄàÄplay"^
+&_root_.controllers.Register#(ggAction)4ÄggActionGGAction"
+_root_.auth.GGAction#2”
+¡	¡	û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2«
+¶¶*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.#
+_root_.scala.Predef.String#2o
+ˇˇ*[Seq[String]]
+_star_.$
+_root_.scala.collection.Seq# 
+_root_.java.lang.String#2Æ
+«œ"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2z
+††*.apply
+_star_.X
+P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2o
+““*[Seq[String]]
+_star_.$
+_root_.scala.collection.Seq# 
+_root_.java.lang.String#2{
+¿	¿	"*(request, Register.this.messages)
+_star_.>
+!6_root_.controllers.PropertyLinkingController#messages.2ƒ
+÷÷*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String#2ƒ
+ÉÉ*.apply[String]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
+_root_.java.lang.String#2r
+¢¢*[Seq[String]]
+_star_.$
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2Æ
+ïü"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2ƒ
+æ	æ	*.apply
+_star_.°
+ò_root_.views.html.ggRegistration_Scope0.ggRegistration_Scope1.ggRegistration#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2”
+§	§	*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2ë
+ÓÓ*.apply[String, Seq[String]]
+_star_.m
+e_root_.scala.collection.generic.GenMapFactory#apply(Lscala/collection/Seq;)Lscala/collection/GenMap;. 
+_root_.java.lang.String#$
+_root_.scala.collection.Seq##
+_root_.scala.Predef.String#2m
+Ç	Ç	*.apply
+_star_.K
+C_root_.auth.GGAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2Æ
+Ô¸"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.:Scala211B»	/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers
+
+import auth.GGAction
+import javax.inject.Inject
+import config.ApplicationConfig
+import play.api.mvc.Action
+import uk.gov.hmrc.play.config.ServicesConfig
+
+class Register @Inject()(config: ApplicationConfig, ggAction: GGAction) extends PropertyLinkingController with ServicesConfig {
+
+  def show = Action { implicit request =>
+    Redirect(
+      config.ggRegistrationUrl,
+      Map("accountType" -> Seq("organisation"), "continue" -> Seq(routes.Register.confirm().url), "origin" -> Seq("voa"))
+    )
+  }
+
+  def confirm = ggAction { _ => implicit request =>
+    Ok(views.html.ggRegistration())
+  }
+}
+Japp/controllers/Register.scala

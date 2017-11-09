@@ -1,0 +1,220 @@
+
+í`
+íî
+_root_.uk.;
+êí/_root_.connectors.TrafficThrottleConnector#(ec)Q
+ÓÔG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.@
+ã	ï	6_root_.connectors.TrafficThrottleConnector#serviceUrl.%
+“ÿ_root_.javax.inject.Inject#
+∫	¡	_root_.scala.Boolean#;
+±	µ	1_root_.connectors.TrafficThrottleConnector#(http)=
+˘˝1_root_.connectors.TrafficThrottleConnector#(http)
+òõ_root_.uk.gov.7
+∏–+_root_.connectors.TrafficThrottleConnector#E
+Æª9_root_.connectors.TrafficThrottleConnector#trafficRouter.
+ôù_root_.uk.gov.hmrc.
+ˇÖ_root_.config.WSHttp#1
+ÿÿ'_root_.javax.inject.Inject#`<init>`()V.
+ﬂ‰_root_.scala.ñ
+õ	†	ã_root_.connectors.TrafficThrottleConnector#isThrottled(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(route)%
+¡«_root_.scala.Predef.String#ë
+ÆπÑ_root_.connectors.TrafficThrottleConnector#isThrottled(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.B
+√	∆	8app/connectors/TrafficThrottleConnector.scala@1150..11950
+÷„&_root_.uk.gov.hmrc.http.HeaderCarrier#D
+Ç	Ö	8app/connectors/TrafficThrottleConnector.scala@1150..1195
+ÌÙ_root_.scala.Boolean#
+˘˛_root_.javax.
+ú†_root_.uk.gov.hmrc.B
+·Î6_root_.connectors.TrafficThrottleConnector#serviceUrl.
+ïó
+_root_.uk.ï
+“‘à_root_.connectors.TrafficThrottleConnector#isThrottled(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
+ –_root_.config."
+ÂÔ_root_.scala.concurrent.5
+—◊+_root_.config.WSHttp.;_root_.config.WSHttp#E
+€Á9_root_.connectors.TrafficThrottleConnector#(serverConfig)A
+Üå7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#I
+Éâ?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#)
+ÊÏ_root_.scala.concurrent.Future#"
+û¢_root_.uk.gov.hmrc.http.?
+¥¬5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#
+ïò_root_.uk.gov.]
+ÒÅS_root_.scala.concurrent.ExecutionContext.;_root_.scala.concurrent.ExecutionContext#"
+°•_root_.uk.gov.hmrc.play.ª
+∂	π	∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.?
+È˜5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#C
+áî9_root_.connectors.TrafficThrottleConnector#trafficRouter.0
+≠≥&_root_.uk.gov.hmrc.play.config.inject.C
+Ú˛9_root_.connectors.TrafficThrottleConnector#(serverConfig)C
+ò•9_root_.connectors.TrafficThrottleConnector#trafficRouter.
+ÂÔ_root_.connectors.f
+ˇÜ\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.•
+⁄⁄ò_root_.connectors.TrafficThrottleConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.ò
+∫øã_root_.connectors.TrafficThrottleConnector#isThrottled(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(route)W
+£∞M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#)
+¶¨_root_.uk.gov.hmrc.play.config.Q
+à	â	G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.
+ˇÖ_root_.javax.inject.3
+î§)_root_.scala.concurrent.ExecutionContext#"≈
+ã_root_.connectors.TrafficThrottleConnector#isThrottled(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(route)5ÄrouteString"!
+_root_.scala.Predef.String#"õ
+9_root_.connectors.TrafficThrottleConnector#(serverConfig)^ÄserverConfigServicesConfig";
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"$
+_root_.config.WSHttp#Ä@WSHttp"“
+à_root_.connectors.TrafficThrottleConnector#isThrottled(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+_root_.connectors.ÄàÄ
+connectors"Ù
+Ñ_root_.connectors.TrafficThrottleConnector#isThrottled(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÍisThrottled<(route: String)(implicit hc: HeaderCarrier): Future[Boolean]"#
+_root_.scala.Predef.String#".
+*&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+-3_root_.scala.concurrent.Future#"
+4;_root_.scala.Boolean#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"~
+/_root_.connectors.TrafficThrottleConnector#(ec)KÄÅ ecExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"
+_root_.javax.ÄàÄjavax"[
+!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
+_root_.scala.Boolean#".
+_root_.scala.concurrent.Future#Ä@Future"L
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig",
+_root_.javax.inject.Inject#Ä†ÄInject"u
+6_root_.connectors.TrafficThrottleConnector#serviceUrl.;ÅÄ@
+serviceUrlString"!
+_root_.scala.Predef.String#"7
+&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"v
+9_root_.connectors.TrafficThrottleConnector#trafficRouter.9trafficRouterString"
+_root_.java.lang.String#"n
+8app/connectors/TrafficThrottleConnector.scala@1150..11952urlString"!
+_root_.scala.Predef.String#"
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"‘
+\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.tbaseUrl(serviceName: String): String"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"
+_root_.uk.gov.
+ÄàÄgov"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"L
++_root_.connectors.TrafficThrottleConnector#Ä TrafficThrottleConnector"&
+_root_.scala.Boolean#Ä†Boolean"B
+)_root_.scala.concurrent.ExecutionContext#Ä@ExecutionContext"c
+1_root_.connectors.TrafficThrottleConnector#(http).ÄhttpWSHttp"
+_root_.config.WSHttp#"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"’
+ò_root_.connectors.TrafficThrottleConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.∑<init>e(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): TrafficThrottleConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"1
+:J)_root_.scala.concurrent.ExecutionContext#"3
+Me+_root_.connectors.TrafficThrottleConnector#"0
+_root_.uk.gov.hmrc.play.config.ÄàÄconfig"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"
+_root_.config.ÄàÄconfig"
+_root_.scala.ÄàÄscala"˛
+∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.»GETd[A] => (url: String)(implicit rds: HttpReads[A], hc: HeaderCarrier, ec: ExecutionContext): Future[A]"#
+_root_.scala.Predef.String#"*
+#,"_root_.uk.gov.hmrc.http.HttpReads#"º
+-.≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]".
+5B&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
+HX)_root_.scala.concurrent.ExecutionContext#"'
+[a_root_.scala.concurrent.Future#"º
+bc≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]""
+_root_.uk.gov.hmrc.ÄàÄhmrc"'
+_root_.uk.gov.hmrc.play.ÄàÄplay2ü
+«	«	ß*(uk.gov.hmrc.http.HttpReads.readFromJson[Boolean](play.api.libs.json.Reads.BooleanReads, scala.reflect.ManifestFactory.Boolean), hc, TrafficThrottleConnector.this.ec)
+_star_.
+*1_root_.scala.Boolean#å
+)É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.5
+x-_root_.scala.reflect.ManifestFactory.Boolean.<
+LX4_root_.play.api.libs.json.DefaultReads#BooleanReads.9
+§¶/_root_.connectors.TrafficThrottleConnector#(ec)2x
+ÓÓ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
+à	à	*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.:Scala211Bœ	/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package connectors
+
+
+import javax.inject.Inject
+
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+import config.WSHttp
+import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.HeaderCarrier
+
+class TrafficThrottleConnector @Inject()(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+  val trafficRouter = "voa-traffic-throttle"
+
+  lazy val serviceUrl = s"${serverConfig.baseUrl(trafficRouter)}/$trafficRouter"
+
+  def isThrottled(route: String)(implicit hc: HeaderCarrier): Future[Boolean] = {
+    val url = s"$serviceUrl/cca/$route/throttled"
+
+    http.GET[Boolean](url)
+  }
+
+}
+J-app/connectors/TrafficThrottleConnector.scala

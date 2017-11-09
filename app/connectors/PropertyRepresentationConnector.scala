@@ -18,14 +18,15 @@ package connectors
 
 import javax.inject.Inject
 
+import config.WSHttp
 import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.AgentAuthResult
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
-import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"

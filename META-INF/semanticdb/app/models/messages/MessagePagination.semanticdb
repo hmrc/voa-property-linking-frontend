@@ -1,0 +1,676 @@
+
+”üA
+‘ﬁ5_root_.models.messages.MessagePagination#(clientName)
+∂∫_root_.scala.None.3
+≠æ)_root_.models.messages.MessagePagination#
+¢•_root_.scala.Int##
+ùû_root_.scala.Int#`+`(I)I.?
+◊·5_root_.models.messages.MessagePagination#(clientName)Q
+æøG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.>
+˝	Ü
+4_root_.models.messages.MessagePagination#(sortOrder)W
+úßM_root_.scala.collection.immutable.StringLike#stripMargin()Ljava/lang/String;.
+êñ_root_.scala.Option#@
+ËÍ6app/models/messages/MessagePagination.scala@1615..1617?
+íú5_root_.models.messages.MessagePagination#(pageNumber)&
+µª_root_.scala.package.Either#c
+‚
+Í
+W_root_.models.messages.MessagePagination#nextPage()Lmodels/messages/MessagePagination;.!
+ÏÙ_root_.models.messages.@
+∆œ6app/models/messages/MessagePagination.scala@2153..2271M
+∆ŸC_root_.models.messages.MessagePagination.queryStringBindable.$anon#@
+õ•6app/models/messages/MessagePagination.scala@2293..2303@
+‚Î6app/models/messages/MessagePagination.scala@2643..2652@
+‡È6app/models/messages/MessagePagination.scala@2153..22712
+ô¨(_root_.play.api.mvc.QueryStringBindable#>
+€‰4_root_.models.messages.MessagePagination#(sortField)•
+Üãö_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.(value)%
+êï_root_.scala.package.Right.I
+Ñó=_root_.models.messages.MessagePagination.queryStringBindable.@
+ëì6app/models/messages/MessagePagination.scala@2893..2895@
+Öá6app/models/messages/MessagePagination.scala@2860..28623
+Ï		)_root_.models.messages.MessagePagination#•
+Æ≥ö_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.(value)%
+óù_root_.scala.Predef.String#Y
+ı˘O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.=
+¥º3_root_.models.messages.MessagePagination#(pageSize)%
+™∞_root_.scala.Predef.String#•
+’⁄ö_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.(value)g
+ó
+£
+[_root_.models.messages.MessagePagination#previousPage()Lmodels/messages/MessagePagination;."
+ÎÙ_root_.models.SortOrder.ü
+íòí_root_.models.messages.MessagePagination.queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.(params)[
+¢µQ_root_.play.api.mvc.QueryStringBindable.;_root_.play.api.mvc.QueryStringBindable#A
+Æπ5_root_.models.messages.MessagePagination#queryString.>
+«—4_root_.models.messages.MessagePagination#startPoint. 
+æ
+»
+ø_root_.models.messages.MessagePagination#copy(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.(pageNumber)e
+®≤[_root_.java.lang.String#replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;.3
+õ¨)_root_.models.messages.MessagePagination#M
+≠∂C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.%
+◊›_root_.scala.Predef.String#
+ïô_root_.play.=
+¥	º	3_root_.models.messages.MessagePagination#(pageSize)"
+ÍÛ_root_.models.SortOrder#B
+˜¯6app/models/messages/MessagePagination.scala@2167..2168•
+áäò_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.(key)>
+Ÿ‡2_root_.models.messages.MessagePagination#(address)@
+˝ˇ6app/models/messages/MessagePagination.scala@2838..2840>
+ÎÛ4_root_.scala.collection.TraversableOnce#nonEmpty()Z.†
+ÄÜì_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.B
+ÊÓ6app/models/messages/MessagePagination.scala@2534..2542F
+î£:_root_.models.messages.MessagePagination#(referenceNumber)%
+±∂_root_.scala.package.Right.i
+»	÷	]_root_.models.messages.MessagePagination#reverseSorting()Lmodels/messages/MessagePagination;.%
+Öä_root_.scala.package.Right.ù
+ÿﬁí_root_.models.messages.MessagePagination.queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.(params)@
+ß∂6app/models/messages/MessagePagination.scala@2355..2370?
+À
+’
+5_root_.models.messages.MessagePagination#(pageNumber)
+Æ¥_root_.scala.Option#<
+˘Ä2_root_.models.messages.MessagePagination#(address)2
+ï®(_root_.play.api.mvc.QueryStringBindable#?
+»–3_root_.models.messages.MessagePagination#(pageSize)F
+‚Ë<_root_.scala.Option#filter(Lscala/Function1;)Lscala/Option;.<
+◊ﬁ2_root_.models.messages.MessagePagination#(address)@
+”÷6app/models/messages/MessagePagination.scala@2170..2181
+¸ˇ_root_.scala.Int#
+Òı_root_.scala.None.
+ÀŒ_root_.scala.Int#5
+¬”)_root_.models.messages.MessagePagination#Y
+∆ O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.@
+◊‡6app/models/messages/MessagePagination.scala@2581..2590@
+˘Ç4_root_.models.messages.MessagePagination#(sortField)B
+ñò6app/models/messages/MessagePagination.scala@2838..2840>
+á
+é
+4_root_.models.SortOrder#reverse()Lmodels/SortOrder;."
+ﬂË_root_.models.SortOrder#@
+‘›4_root_.models.messages.MessagePagination#(sortOrder)>
+†©4_root_.models.messages.MessagePagination#(sortOrder)F
+≥π<_root_.scala.Option#filter(Lscala/Function1;)Lscala/Option;.%
+îö_root_.scala.Predef.String#A
+ñ†5_root_.models.messages.MessagePagination#(pageNumber)
+–÷_root_.scala.Option#$
+™Æ_root_.scala.package.Left.
+‡Ê_root_.scala.Option#@
+ Õ6app/models/messages/MessagePagination.scala@2192..2219?
+¢	¨	5_root_.models.messages.MessagePagination#(pageNumber)@
+ÅÉ6app/models/messages/MessagePagination.scala@2849..2851%
+º¡_root_.scala.package.Right.-
+ıˇ#_root_.models.SortOrder.Descending.#
+≤	≥	_root_.scala.Int#`*`(I)I.Q
+¢£G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.B
+˛Ä6app/models/messages/MessagePagination.scala@1534..1536%
+äê_root_.scala.Predef.String#;
+Ñç1_root_.models.SortOrder.;_root_.models.SortOrder#B
+ùû6app/models/messages/MessagePagination.scala@1693..1694B
+¨Æ6app/models/messages/MessagePagination.scala@2860..2862#
+¶©_root_.scala.package.Seq#@
+âã6app/models/messages/MessagePagination.scala@2871..28733
+⁄Î)_root_.models.messages.MessagePagination#%
+·Ê_root_.scala.package.Right.>
+Éå4_root_.models.messages.MessagePagination#(sortOrder)%
+û§_root_.scala.Predef.String# 
+Öèø_root_.models.messages.MessagePagination#copy(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.(pageNumber)Q
+»…G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.3
+À‹)_root_.models.messages.MessagePagination#@
+®µ6_root_.models.messages.MessageSortField.EffectiveDate.%
+åí_root_.scala.Predef.String#@
+¡ 6app/models/messages/MessagePagination.scala@2153..2271?
+‡Í5_root_.models.messages.MessagePagination#(clientName)=
+ÂÌ3_root_.models.messages.MessagePagination#(pageSize)¢
+””ï_root_.models.messages.MessagePagination#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)V.>
+äí4_root_.scala.collection.TraversableOnce#nonEmpty()Z.D
+ù¨:_root_.models.messages.MessagePagination#(referenceNumber)B
+ãç6app/models/messages/MessagePagination.scala@2827..2829Q
+’÷G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.
+‚Ë_root_.scala.Option#B
+˙˝6app/models/messages/MessagePagination.scala@2170..2181%
+¶´_root_.scala.package.Right.@
+ƒ≈6app/models/messages/MessagePagination.scala@2167..2168%
+Øµ_root_.scala.Predef.String##
+≠	Æ	_root_.scala.Int#`-`(I)I.B
+°£6app/models/messages/MessagePagination.scala@2849..2851@
+Üè6app/models/messages/MessagePagination.scala@2153..2271%
+«Ã_root_.scala.package.Right.@
+©™6app/models/messages/MessagePagination.scala@2167..21683
+π
+Ω
+)_root_.models.messages.MessagePagination#
+ÂÎ_root_.models.Q
+ÑÖG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.%
+õ†_root_.scala.package.Right.e
+¬Ã[_root_.java.lang.String#replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;.3
+Á¯)_root_.models.messages.MessagePagination.B
+ıˇ6app/models/messages/MessagePagination.scala@2293..2303B
+≥¬6app/models/messages/MessagePagination.scala@2355..2370Y
+îòO_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.
+µª_root_.scala.Option#3
+•
+∂
+)_root_.models.messages.MessagePagination#B
+ïû6app/models/messages/MessagePagination.scala@2581..2590%
+ÈÔ_root_.scala.Predef.String#B
+Ìˆ6app/models/messages/MessagePagination.scala@2153..2271@
+∏ø6app/models/messages/MessagePagination.scala@2427..2434•
+˝Çö_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.(value)@
+è	ô	4_root_.models.messages.MessagePagination#startPoint.2
+Ñî(_root_.models.messages.MessageSortField#B
+˚Ç6app/models/messages/MessagePagination.scala@2427..2434B
+¬ƒ6app/models/messages/MessagePagination.scala@2882..2884ó
+ÄÑä_root_.models.messages.MessagePagination.queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.
+öù_root_.play.api.%
+ÁÌ_root_.scala.Predef.String#y
+Œ“o_root_.play.api.mvc.QueryStringBindable#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.@
+≠Æ6app/models/messages/MessagePagination.scala@1693..1694&
+º¬_root_.scala.package.Either#.
+ÌÌ$_root_.java.lang.Object#`<init>`()V.#
+÷
+◊
+_root_.scala.Int#`-`(I)I.3
+Ï
+˝
+)_root_.models.messages.MessagePagination#
+Û˜_root_.scala.None.M
+ﬂËC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.@
+Ú˚6app/models/messages/MessagePagination.scala@2153..22712
+¨º(_root_.models.messages.MessageSortField#
+û°_root_.play.api.mvc.
+çì_root_.scala.Option#•
+⁄ﬂö_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.(value)%
+ˇÖ_root_.scala.Predef.String#%
+¨≤_root_.scala.Predef.String#•
+—÷ö_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.(value)B
+œ—6app/models/messages/MessagePagination.scala@1615..1617@
+˘˚6app/models/messages/MessagePagination.scala@2827..2829…
+Ò	˙	æ_root_.models.messages.MessagePagination#copy(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.(sortOrder)3
+ÿ	È	)_root_.models.messages.MessagePagination#2
+óß(_root_.models.messages.MessageSortField.B
+Õœ6app/models/messages/MessagePagination.scala@2893..2895W
+∂¡M_root_.scala.collection.immutable.StringLike#stripMargin()Ljava/lang/String;.F
+Åá<_root_.scala.Option#filter(Lscala/Function1;)Lscala/Option;."
+öù_root_.scala.Predef.Map##
+Ω	æ	_root_.scala.Int#`+`(I)I.
+˝É_root_.models.@
+Õ’6app/models/messages/MessagePagination.scala@2534..2542%
+º¬_root_.scala.Predef.String#B
+êì6app/models/messages/MessagePagination.scala@2192..2219@
+Éå6app/models/messages/MessagePagination.scala@2153..2271B
+∑π6app/models/messages/MessagePagination.scala@2871..2873>
+ºƒ4_root_.scala.collection.TraversableOnce#nonEmpty()Z.B
+”‹6app/models/messages/MessagePagination.scala@2643..2652>
+Çã4_root_.models.messages.MessagePagination#(sortField)5
+·Ú)_root_.models.messages.MessagePagination.
+“’_root_.scala.Int#@
+çè6app/models/messages/MessagePagination.scala@2882..2884
+õ	û	_root_.scala.Int#?
+åñ5_root_.models.messages.MessagePagination#(pageNumber)%
+ª¡_root_.scala.Predef.String#ß
+îôö_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.(value)ú
+Öàè_root_.models.messages.MessagePagination.queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.(key)M
+ÎÙC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.@
+íî6app/models/messages/MessagePagination.scala@1534..1536B
+≥Ω6app/models/messages/MessagePagination.scala@2483..2493
+•´_root_.scala.Option#3
+ÄÑ)_root_.models.messages.MessagePagination#@
+¡À6app/models/messages/MessagePagination.scala@2483..2493•
+óúö_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.(value)%
+√…_root_.scala.Predef.String#D
+£≤:_root_.models.messages.MessagePagination#(referenceNumber)@
+¢´6app/models/messages/MessagePagination.scala@2153..2271"¡
+6app/models/messages/MessagePagination.scala@2534..2542ÜÄpageSizeEither[String, Int]""
+_root_.scala.package.Either#"#
+_root_.scala.Predef.String#"
+_root_.scala.Int#"l
+6app/models/messages/MessagePagination.scala@1534..15362ÄcnString"!
+_root_.scala.Predef.String#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"à
+4_root_.models.messages.MessagePagination#(sortField)PÅ	sortFieldMessageSortField".
+(_root_.models.messages.MessageSortField#"T
+_root_.scala.package.Right.5Right
+Right.type"
+_root_.scala.util.Right."œ
+6app/models/messages/MessagePagination.scala@2643..2652îÄ	sortOrderEither[String, SortOrder]""
+_root_.scala.package.Either#"#
+_root_.scala.Predef.String#" 
+_root_.models.SortOrder#"m
+6app/models/messages/MessagePagination.scala@2170..21813ÄkeyString"!
+_root_.scala.Predef.String#"k
+6app/models/messages/MessagePagination.scala@2893..28951so	SortOrder"
+	_root_.models.SortOrder#"ƒ
+ä_root_.models.messages.MessagePagination.queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.¥bindZ(key: String, params: Map[String, Seq[String]]): Option[Either[String, MessagePagination]]"#
+_root_.scala.Predef.String#" 
+_root_.scala.Predef.Map#"#
+ _root_.scala.Predef.String#"!
+"%_root_.scala.package.Seq#"#
+&,_root_.scala.Predef.String#"
+17_root_.scala.Option#"$
+8>_root_.scala.package.Either#"#
+?E_root_.scala.Predef.String#"1
+GX)_root_.models.messages.MessagePagination#"ì
+2_root_.models.messages.MessagePagination#(address)]ÅaddressOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"µ
+O_root_.models.messages.MessagePagination.queryStringBindable.$anon#`<init>`()V.b<init>	(): $anon"K
+	C_root_.models.messages.MessagePagination.queryStringBindable.$anon#"b
+3_root_.models.messages.MessagePagination#(pageSize)+ÅpageSizeInt"
+_root_.scala.Int#"f
+4_root_.models.messages.MessagePagination#startPoint..ÅÄ@
+startPointInt"
+_root_.scala.Int#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"8
+#_root_.models.SortOrder.Descending.ÄÑà
+Descending"*
+_root_.models.messages.ÄàÄmessages"B
+(_root_.models.messages.MessageSortField.ÄÑMessageSortField"B
+(_root_.models.messages.MessageSortField#Ä¿MessageSortField"D
+(_root_.play.api.mvc.QueryStringBindable#Ä@QueryStringBindable"√
+6app/models/messages/MessagePagination.scala@2483..2493àÄ
+pageNumberEither[String, Int]""
+_root_.scala.package.Either#"#
+_root_.scala.Predef.String#"
+_root_.scala.Int#"i
+_root_.scala.Int#`-`(I)I.LÑÄ-(x: Int): Int"
+_root_.scala.Int#"
+
+_root_.scala.Int#"N
+6_root_.models.messages.MessageSortField.EffectiveDate.ÄÑàEffectiveDate"+
+_root_.models.SortOrder#Ä¿	SortOrder""
+_root_.play.api.mvc.
+ÄàÄmvc"+
+_root_.models.SortOrder.ÄÑ	SortOrder"^
+6app/models/messages/MessagePagination.scala@2860..2862$pnInt"
+_root_.scala.Int#"^
+6app/models/messages/MessagePagination.scala@2871..2873$psInt"
+_root_.scala.Int#"
+_root_.play.api.
+ÄàÄapi"P
+_root_.scala.package.Left.2Left	Left.type"
+_root_.scala.util.Left."i
+_root_.scala.Int#`+`(I)I.LÑÄ+(x: Int): Int"
+_root_.scala.Int#"
+
+_root_.scala.Int#"u
+5_root_.models.messages.MessagePagination#queryString.<ÅÄ@queryStringString"!
+_root_.scala.Predef.String#"¸
+æ_root_.models.messages.MessagePagination#copy(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.(sortOrder)9Ä	sortOrder	SortOrder"
+	_root_.models.SortOrder#"å
+O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.∏ÑÄfold4[B] => (ifEmpty: <byname>[B])(f: Function1[A, B]): B" 
+_root_.scala.`<byname>`#"Z
+R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"
+!*_root_.scala.Function1#"
++,_root_.scala.Option#[A]"Z
+./R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"Z
+34R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"k
+6app/models/messages/MessagePagination.scala@1693..16941ÄaString"!
+_root_.scala.Predef.String#"[
+_root_.scala.Predef.Map#?MapMap.type",
+&_root_.scala.collection.immutable.Map."E
+)_root_.models.messages.MessagePagination#Ä†ÄMessagePagination"D
+)_root_.models.messages.MessagePagination.ÄÑMessagePagination"ô
+5_root_.models.messages.MessagePagination#(clientName)`Å
+clientNameOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+ï_root_.models.messages.MessagePagination#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)V.’<init>º(clientName: Option[String], referenceNumber: Option[String], address: Option[String], pageNumber: Int, pageSize: Int, sortField: MessageSortField, sortOrder: SortOrder): MessagePagination"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+.4_root_.scala.Option#"#
+5;_root_.scala.Predef.String#"
+GM_root_.scala.Option#"#
+NT_root_.scala.Predef.String#"
+cf_root_.scala.Int#"
+ru_root_.scala.Int#"2
+Çí(_root_.models.messages.MessageSortField#""
+ü®_root_.models.SortOrder#"3
+´º)_root_.models.messages.MessagePagination#"$
+_root_.scala.Option#Ä†Option"ﬂ
+6app/models/messages/MessagePagination.scala@2153..2271§	bindParamU[T] => (key: String)(implicit qsb: QueryStringBindable[T]): Option[Either[String, T]]"#
+_root_.scala.Predef.String#"0
+#6(_root_.play.api.mvc.QueryStringBindable#">
+786app/models/messages/MessagePagination.scala@2167..2168"
+<B_root_.scala.Option#"$
+CI_root_.scala.package.Either#"#
+JP_root_.scala.Predef.String#">
+RS6app/models/messages/MessagePagination.scala@2167..2168"Ã
+6app/models/messages/MessagePagination.scala@2192..2219ëÄÅ qsbQueryStringBindable[T]".
+(_root_.play.api.mvc.QueryStringBindable#">
+6app/models/messages/MessagePagination.scala@2167..2168"j
+4_root_.scala.collection.TraversableOnce#nonEmpty()Z.2nonEmptyBoolean"
+_root_.scala.Boolean#"∑
+]_root_.models.messages.MessagePagination#reverseSorting()Lmodels/messages/MessagePagination;.VreverseSortingMessagePagination"/
+)_root_.models.messages.MessagePagination#"—
+ì_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.∏unbind/(key: String, value: MessagePagination): String"#
+_root_.scala.Predef.String#"1
+&)_root_.models.messages.MessagePagination#"#
+)/_root_.scala.Predef.String#"«
+è_root_.models.messages.MessagePagination.queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.(key)3ÄkeyString"!
+_root_.scala.Predef.String#"Û
+6app/models/messages/MessagePagination.scala@2427..2434∏ÄaddressEither[String, Option[String]]""
+_root_.scala.package.Either#"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"@
+6app/models/messages/MessagePagination.scala@2167..2168ÄT"R
+C_root_.models.messages.MessagePagination.queryStringBindable.$anon#Ä†$anon"!
+_root_.scala.None.ÄÑàNone"˚
+6app/models/messages/MessagePagination.scala@2355..2370¿ÄreferenceNumberEither[String, Option[String]]""
+_root_.scala.package.Either#"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.play.ÄàÄplay"ˆ
+6app/models/messages/MessagePagination.scala@2293..2303ªÄ
+clientNameEither[String, Option[String]]""
+_root_.scala.package.Either#"#
+_root_.scala.Predef.String#"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"f
+5_root_.models.messages.MessagePagination#(pageNumber)-Å
+pageNumberInt"
+_root_.scala.Int#"ã
+M_root_.scala.collection.immutable.StringLike#stripMargin()Ljava/lang/String;.:stripMarginString"!
+_root_.scala.Predef.String#"Ç
+6app/models/messages/MessagePagination.scala@2882..2884HsfMessageSortField".
+(_root_.models.messages.MessageSortField#"Ê
+=_root_.models.messages.MessagePagination.queryStringBindable.§ÅÄ queryStringBindable&QueryStringBindable[MessagePagination]".
+(_root_.play.api.mvc.QueryStringBindable#"1
+%)_root_.models.messages.MessagePagination#"p
+4_root_.models.SortOrder#reverse()Lmodels/SortOrder;.8ÑÄreverse	SortOrder"
+	_root_.models.SortOrder#"ë
+6app/models/messages/MessagePagination.scala@2849..2851WadOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"
+_root_.models.ÄàÄmodels"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"–
+ò_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.(key)3ÄkeyString"!
+_root_.scala.Predef.String#"Ê
+6app/models/messages/MessagePagination.scala@2581..2590´Ä	sortField Either[String, MessageSortField]""
+_root_.scala.package.Either#"#
+_root_.scala.Predef.String#"0
+(_root_.models.messages.MessageSortField#"ª
+C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
+_root_.scala.`<byname>`#"N
+F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
+ F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"ë
+6app/models/messages/MessagePagination.scala@2838..2840WrnOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"≥
+[_root_.models.messages.MessagePagination#previousPage()Lmodels/messages/MessagePagination;.TpreviousPageMessagePagination"/
+)_root_.models.messages.MessagePagination#"Ì
+ö_root_.models.messages.MessagePagination.queryStringBindable.$anon#unbind(Ljava/lang/String;Lmodels/messages/MessagePagination;)Ljava/lang/String;.(value)NÄvalueMessagePagination"/
+)_root_.models.messages.MessagePagination#" 
+í_root_.models.messages.MessagePagination.queryStringBindable.$anon#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.(params)≤ÄparamsMap[String, Seq[String]]"
+_root_.scala.Predef.Map#"#
+
+_root_.scala.Predef.String#"!
+_root_.scala.package.Seq#"#
+_root_.scala.Predef.String#"q
+4_root_.models.messages.MessagePagination#(sortOrder)9Å	sortOrder	SortOrder"
+	_root_.models.SortOrder#"ë
+6app/models/messages/MessagePagination.scala@2827..2829WcnOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."i
+_root_.scala.Int#`*`(I)I.LÑÄ*(x: Int): Int"
+_root_.scala.Int#"
+
+_root_.scala.Int#"˚
+[_root_.java.lang.String#replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;.õÑÄÄ
+replaceAll"(x$1: String, x$2: String): String" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#" 
+"_root_.java.lang.String#"Ò
+ø_root_.models.messages.MessagePagination#copy(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.(pageNumber)-Ä
+pageNumberInt"
+_root_.scala.Int#"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"´
+W_root_.models.messages.MessagePagination#nextPage()Lmodels/messages/MessagePagination;.PnextPageMessagePagination"/
+)_root_.models.messages.MessagePagination#"X
+_root_.scala.package.Either#8EitherEither.type"
+_root_.scala.util.Either."l
+6app/models/messages/MessagePagination.scala@1615..16172ÄrnString"!
+_root_.scala.Predef.String#"ú
+o_root_.play.api.mvc.QueryStringBindable#bind(Ljava/lang/String;Lscala/collection/immutable/Map;)Lscala/Option;.®ÑÄbindJ(key: String, params: Map[String, Seq[String]]): Option[Either[String, A]]"#
+_root_.scala.Predef.String#" 
+_root_.scala.Predef.Map#"#
+ _root_.scala.Predef.String#"!
+"%_root_.scala.package.Seq#"#
+&,_root_.scala.Predef.String#"
+17_root_.scala.Option#"$
+8>_root_.scala.package.Either#"#
+?E_root_.scala.Predef.String#"3
+GH+_root_.play.api.mvc.QueryStringBindable#[A]"î
+<_root_.scala.Option#filter(Lscala/Function1;)Lscala/Option;.”ÑÄfilter%(p: Function1[A, Boolean]): Option[A]"
+_root_.scala.Function1#"
+_root_.scala.Option#[A]"
+_root_.scala.Boolean#"
+"_root_.scala.Option#"
+#$_root_.scala.Option#[A]"
+_root_.scala.Int#	Ä†Int"£
+:_root_.models.messages.MessagePagination#(referenceNumber)eÅreferenceNumberOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#2x
+»»*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2˝
+  b*.flatMap[Either[String, MessagePagination]](models.messages.MessageSortField.queryStringBindable)
+_star_.E
+	=_root_.scala.Option#flatMap(Lscala/Function1;)Lscala/Option;.#
+_root_.scala.Predef.String#$
+
+_root_.scala.package.Either#1
+*)_root_.models.messages.MessagePagination#;
+Na3_root_.models.NamedEnumSupport#queryStringBindable.2ä
+ÈÍscala.Predef.augmentString(*)P
+H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
+_star_.2G
+ÙÙ	*[String]
+_star_.#
+_root_.scala.Predef.String#2D
+˘˘	*[String]
+_star_. 
+_root_.java.lang.String#2ˆ
+ååZ*.flatMap[Either[String, MessagePagination]](play.api.mvc.QueryStringBindable.bindableInt)
+_star_.E
+	=_root_.scala.Option#flatMap(Lscala/Function1;)Lscala/Option;.#
+_root_.scala.Predef.String#$
+
+_root_.scala.package.Either#1
+*)_root_.models.messages.MessagePagination#<
+NY4_root_.play.api.mvc.QueryStringBindable.bindableInt.2ˆ
+››Z*.flatMap[Either[String, MessagePagination]](play.api.mvc.QueryStringBindable.bindableInt)
+_star_.E
+	=_root_.scala.Option#flatMap(Lscala/Function1;)Lscala/Option;.#
+_root_.scala.Predef.String#$
+
+_root_.scala.package.Either#1
+*)_root_.models.messages.MessagePagination#<
+NY4_root_.play.api.mvc.QueryStringBindable.bindableInt.2ä
+»µscala.Predef.augmentString(*)P
+H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
+_star_.2G
+∂∂	*[String]
+_star_.#
+_root_.scala.Predef.String#2‡
+¯¯*.apply
+_star_.Ω
+¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2x
+¢¢*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2Â
+ÅÅN*.map[Either[String, MessagePagination]](models.SortOrder.queryStringBindable)
+_star_.A
+9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.#
+_root_.scala.Predef.String#$
+_root_.scala.package.Either#1
+&)_root_.models.messages.MessagePagination#;
+:M3_root_.models.NamedEnumSupport#queryStringBindable.2æ
+ÆÆ*.apply[String, Nothing]
+_star_.J
+B_root_.scala.util.Left.apply(Ljava/lang/Object;)Lscala/util/Left;. 
+_root_.java.lang.String#
+_root_.scala.Nothing#2â
+™™ñ*.flatMap[Either[String, MessagePagination]](play.api.mvc.QueryStringBindable.bindableOption[String](play.api.mvc.QueryStringBindable.bindableString))
+_star_.E
+	=_root_.scala.Option#flatMap(Lscala/Function1;)Lscala/Option;.#
+_root_.scala.Predef.String#$
+
+_root_.scala.package.Either#1
+*)_root_.models.messages.MessagePagination##
+]c_root_.scala.Predef.String#Ö
+N\}_root_.play.api.mvc.QueryStringBindable.bindableOption(Lplay/api/mvc/QueryStringBindable;)Lplay/api/mvc/QueryStringBindable;.e
+Üî[_root_.play.api.mvc.QueryStringBindable.bindableString()Lplay/api/mvc/QueryStringBindable;.2x
+ææ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2D
+  	*[String]
+_star_. 
+_root_.java.lang.String#2x
+ÑÑ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2G
+ËË	*[String]
+_star_.#
+_root_.scala.Predef.String#2â
+ÚÚñ*.flatMap[Either[String, MessagePagination]](play.api.mvc.QueryStringBindable.bindableOption[String](play.api.mvc.QueryStringBindable.bindableString))
+_star_.E
+	=_root_.scala.Option#flatMap(Lscala/Function1;)Lscala/Option;.#
+_root_.scala.Predef.String#$
+
+_root_.scala.package.Either#1
+*)_root_.models.messages.MessagePagination##
+]c_root_.scala.Predef.String#Ö
+N\}_root_.play.api.mvc.QueryStringBindable.bindableOption(Lplay/api/mvc/QueryStringBindable;)Lplay/api/mvc/QueryStringBindable;.e
+Üî[_root_.play.api.mvc.QueryStringBindable.bindableString()Lplay/api/mvc/QueryStringBindable;.2‹
+ÊÊ#*.apply[Nothing, MessagePagination]
+_star_.L
+D_root_.scala.util.Right.apply(Ljava/lang/Object;)Lscala/util/Right;.
+_root_.scala.Nothing#1
+")_root_.models.messages.MessagePagination#2D
+òò	*[String]
+_star_. 
+_root_.java.lang.String#2â
+™™ñ*.flatMap[Either[String, MessagePagination]](play.api.mvc.QueryStringBindable.bindableOption[String](play.api.mvc.QueryStringBindable.bindableString))
+_star_.E
+	=_root_.scala.Option#flatMap(Lscala/Function1;)Lscala/Option;.#
+_root_.scala.Predef.String#$
+
+_root_.scala.package.Either#1
+*)_root_.models.messages.MessagePagination##
+]c_root_.scala.Predef.String#Ö
+N\}_root_.play.api.mvc.QueryStringBindable.bindableOption(Lplay/api/mvc/QueryStringBindable;)Lplay/api/mvc/QueryStringBindable;.e
+Üî[_root_.play.api.mvc.QueryStringBindable.bindableString()Lplay/api/mvc/QueryStringBindable;.2ä
+àâscala.Predef.augmentString(*)P
+H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
+_star_.2x
+’’*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2ä
+æõscala.Predef.augmentString(*)P
+H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
+_star_.2ä
+∫ªscala.Predef.augmentString(*)P
+H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
+_star_.:Scala211B√/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models.messages
+
+import models.SortOrder
+import play.api.mvc.QueryStringBindable
+
+case class MessagePagination(clientName: Option[String] = None,
+                             referenceNumber: Option[String] = None,
+                             address: Option[String] = None,
+                             pageNumber: Int = 1,
+                             pageSize: Int = 15,
+                             sortField: MessageSortField = MessageSortField.EffectiveDate,
+                             sortOrder: SortOrder = SortOrder.Descending) {
+
+  lazy val startPoint: Int = (pageNumber - 1) * pageSize + 1
+
+  def reverseSorting: MessagePagination = copy(sortOrder = sortOrder.reverse)
+
+  def previousPage: MessagePagination = copy(pageNumber = pageNumber - 1)
+
+  def nextPage: MessagePagination = copy(pageNumber = pageNumber + 1)
+
+  lazy val queryString: String =
+    s"""
+       |${clientName.filter(_.nonEmpty).fold("")(cn => s"clientName=$cn&")}
+       |${referenceNumber.filter(_.nonEmpty).fold("")(rn => s"referenceNumber=$rn&")}
+       |${address.filter(_.nonEmpty).fold("")(a => s"address=$a&")}
+       |startPoint=$startPoint&
+       |pageSize=$pageSize&
+       |sortField=$sortField&
+       |sortOrder=$sortOrder
+       |""".stripMargin.replaceAll("\n", "")
+}
+
+object MessagePagination {
+  implicit val queryStringBindable: QueryStringBindable[MessagePagination] = new QueryStringBindable[MessagePagination] {
+    override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, MessagePagination]] = {
+      def bindParam[T](key: String)(implicit qsb: QueryStringBindable[T]): Option[Either[String, T]] = qsb.bind(key, params)
+
+      for {
+        clientName <- bindParam[Option[String]]("clientName")
+        referenceNumber <- bindParam[Option[String]]("referenceNumber")
+        address <- bindParam[Option[String]]("address")
+        pageNumber <- bindParam[Int]("pageNumber")
+        pageSize <- bindParam[Int]("pageSize")
+        sortField <- bindParam[MessageSortField]("sortField")
+        sortOrder <- bindParam[SortOrder]("sortOrder")
+      } yield {
+        (clientName, referenceNumber, address, pageNumber, pageSize, sortField, sortOrder) match {
+          case (Right(cn), Right(rn), Right(ad), Right(pn), Right(ps), Right(sf), Right(so)) =>
+            Right(MessagePagination(cn, rn, ad, pn, ps, sf, so))
+          case _ => Left("Unable to bind to MessagePagination")
+        }
+      }
+    }
+
+    override def unbind(key: String, value: MessagePagination): String =
+      s"""
+         |clientName=${value.clientName.getOrElse("")}&
+         |referenceNumber=${value.referenceNumber.getOrElse("")}&
+         |address=${value.address.getOrElse("")}&
+         |pageNumber=${value.pageNumber}&
+         |pageSize=${value.pageSize}&
+         |sortField=${value.sortField}&
+         |sortOrder=${value.sortOrder}
+         |""".stripMargin.replaceAll("\n", "")
+  }
+}
+J+app/models/messages/MessagePagination.scala

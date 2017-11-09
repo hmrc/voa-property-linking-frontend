@@ -1,0 +1,184 @@
+
+êJ#
+ñ£_root_.org.scalatestplus.
+œ“_root_.play.api.
+—‘_root_.com.h
+◊‡^_root_.play.api.inject.guice.GuiceBuilder#configure(Lscala/collection/Seq;)Ljava/lang/Object;.u
+‡˜k_root_.play.api.inject.guice.GuiceApplicationBuilder.;_root_.play.api.inject.guice.GuiceApplicationBuilder##
+ÊÈ_root_.scala.package.Seq#K
+¡¡A_root_.play.api.inject.guice.GuiceApplicationBuilder#`<init>`()V.
+Ûˆ_root_.org.;
+óû/_root_.utils.NoMetricsOneAppPerSuite#$init$()V.Y
+í°M_root_.utils.NoMetricsOneAppPerSuite#fakeApplication()Lplay/api/Application;.
+ Œ_root_.play.%
+Û˘_root_.scala.Predef.String#0
+˛Å&_root_.scala.collection.immutable.Nil.)
+Åä_root_.org.scalatest.TestSuite#B
+Ø¬8_root_.org.scalatestplus.play.guice.GuiceOneAppPerSuite#!
+”Ÿ_root_.play.api.inject.
+Éä_root_.modules.&
+ãó_root_.modules.MongoStartup#
+’‹_root_.com.kenshoo.h
+…–^_root_.play.api.inject.guice.GuiceBuilder#disable(Lscala/reflect/ClassTag;)Ljava/lang/Object;.1
+ˇñ%_root_.utils.NoMetricsOneAppPerSuite#5
+ÍÙ+_root_.com.kenshoo.play.metrics.PlayModule#P
+«…F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.C
+·Ù9_root_.utils.NoMetricsOneAppPerSuite#additionalAppConfig.
+íï_root_.org.
+˜Ä_root_.org.scalatest.B
+ü≤8_root_.org.scalatestplus.play.guice.GuiceOneAppPerSuite#)
+Ω∆_root_.org.scalatest.TestSuite#%
+ÎÒ_root_.scala.Predef.String#h
+˚Ç^_root_.play.api.inject.guice.GuiceBuilder#disable(Lscala/reflect/ClassTag;)Ljava/lang/Object;.]
+˛É	S_root_.play.api.inject.guice.GuiceApplicationBuilder#build()Lplay/api/Application;.
+ÂÍ_root_.utils.E
+—‰9_root_.utils.NoMetricsOneAppPerSuite#additionalAppConfig.(
+§®_root_.org.scalatestplus.play.h
+ûß^_root_.play.api.inject.guice.GuiceBuilder#configure(Lscala/collection/Seq;)Ljava/lang/Object;.*
+‚È _root_.com.kenshoo.play.metrics.'
+⁄ﬂ_root_.play.api.inject.guice."
+›·_root_.com.kenshoo.play.?
+™¡5_root_.play.api.inject.guice.GuiceApplicationBuilder#.
+©Æ$_root_.org.scalatestplus.play.guice."
+_root_.com.
+ÄàÄcom"2
+ _root_.com.kenshoo.play.metrics.ÄàÄmetrics"˚
+9_root_.utils.NoMetricsOneAppPerSuite#additionalAppConfig.ΩadditionalAppConfigSeq[Tuple2[String, String]]"
+_root_.scala.package.Seq#"
+
+_root_.scala.Tuple2#"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#"T
+8_root_.org.scalatestplus.play.guice.GuiceOneAppPerSuite#Ä@GuiceOneAppPerSuite"õ
+M_root_.utils.NoMetricsOneAppPerSuite#fakeApplication()Lplay/api/Application;.JfakeApplication(): Application"$
+_root_.play.api.Application#"W
+5_root_.play.api.inject.guice.GuiceApplicationBuilder#Ä†àGuiceApplicationBuilder"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"ó
+S_root_.play.api.inject.guice.GuiceApplicationBuilder#build()Lplay/api/Application;.@build(): Application"$
+_root_.play.api.Application#"
+_root_.play.api.
+ÄàÄapi"4
+&_root_.scala.collection.immutable.Nil.
+ÄÑàNil"Á
+^_root_.play.api.inject.guice.GuiceBuilder#disable(Lscala/reflect/ClassTag;)Ljava/lang/Object;.ÑÑÄdisable([T] => (implicit tag: ClassTag[T]): Self"&
+_root_.scala.reflect.ClassTag#"i
+ a_root_.play.api.inject.guice.GuiceBuilder#disable(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"8
+$(0_root_.play.api.inject.guice.GuiceBuilder#[Self]"-
+_root_.org.scalatestplus.play.ÄàÄplay")
+_root_.org.scalatest.ÄàÄ	scalatest"-
+_root_.play.api.inject.guice.ÄàÄguice"
+_root_.org.
+ÄàÄorg"´
+A_root_.play.api.inject.guice.GuiceApplicationBuilder#`<init>`()V.f<init>(): GuiceApplicationBuilder"=
+5_root_.play.api.inject.guice.GuiceApplicationBuilder#"(
+_root_.play.api.inject.ÄàÄinject"c
+/_root_.utils.NoMetricsOneAppPerSuite#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#"1
+_root_.modules.MongoStartup#Ä MongoStartup"'
+_root_.com.kenshoo.play.ÄàÄplay"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"4
+$_root_.org.scalatestplus.play.guice.ÄàÄguice"%
+_root_.com.kenshoo.ÄàÄkenshoo"E
+%_root_.utils.NoMetricsOneAppPerSuite#Ä@NoMetricsOneAppPerSuite"î
+Ç_root_.play.api.inject.guice.GuiceApplicationBuilder#`<init>`(Lplay/api/Environment;Lplay/api/Configuration;Lscala/collection/Seq;Lscala/collection/Seq;Lscala/collection/Seq;Lscala/collection/immutable/Set;ZLscala/Function1;Lscala/Option;Lscala/Function2;)V.å
+<init>˛(environment: Environment, configuration: Configuration, modules: Seq[GuiceableModule], overrides: Seq[GuiceableModule], disabled: Seq[Class[_]], binderOptions: Set[BinderOption], eagerly: Boolean, loadConfiguration: Function1[Environment, Configuration], global: Option[Deprecated], loadModules: Function2[Environment, Configuration, Seq[GuiceableModule]]): GuiceApplicationBuilder"$
+_root_.play.api.Environment#"&
+*7_root_.play.api.Configuration#"!
+BE_root_.scala.package.Seq#"5
+FU-_root_.play.api.inject.guice.GuiceableModule#"!
+cf_root_.scala.package.Seq#"5
+gv-_root_.play.api.inject.guice.GuiceableModule#"#
+ÉÜ_root_.scala.package.Seq#""
+°§_root_.scala.Predef.Set#"4
+•±*_root_.play.api.inject.guice.BinderOption#"
+Ωƒ_root_.scala.Boolean#"!
+Ÿ‚_root_.scala.Function1#"&
+„Ó_root_.play.api.Environment#"(
+˝_root_.play.api.Configuration#"
+àé_root_.scala.Option#"4
+èô*_root_.play.api.GlobalSettings.Deprecated#"!
+©≤_root_.scala.Function2#"&
+≥æ_root_.play.api.Environment#"(
+¿Õ_root_.play.api.Configuration#"#
+œ“_root_.scala.package.Seq#"7
+”‚-_root_.play.api.inject.guice.GuiceableModule#"?
+Á˛5_root_.play.api.inject.guice.GuiceApplicationBuilder#"
+_root_.play.ÄàÄplay"ä
+7_root_.com.kenshoo.play.metrics.PlayModule#`<init>`()V.O<init>(): PlayModule"3
++_root_.com.kenshoo.play.metrics.PlayModule#"1
+_root_.org.scalatestplus.ÄàÄscalatestplus"›
+^_root_.play.api.inject.guice.GuiceBuilder#configure(Lscala/collection/Seq;)Ljava/lang/Object;.˙ÑÄ	configure-(conf: <repeated>[Tuple2[String, Any]]): Self""
+_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+_root_.scala.Predef.String#"
+!$_root_.scala.Any#"8
+)-0_root_.play.api.inject.guice.GuiceBuilder#[Self]"!
+_root_.modules.ÄàÄmodules"°
+V_root_.modules.MongoStartup#`<init>`(Lplay/api/Environment;Lplay/api/Configuration;)V.∆<init>F(environment: Environment, configuration: Configuration): MongoStartup"$
+_root_.play.api.Environment#"&
+*7_root_.play.api.Configuration#"$
+:F_root_.modules.MongoStartup#"1
+_root_.org.scalatest.TestSuite#Ä@	TestSuite"
+_root_.utils.ÄàÄutils"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq.">
++_root_.com.kenshoo.play.metrics.PlayModule#Ä 
+PlayModule2¿
+òòZ*(((ClassTag.apply[MongoStartup](classOf[modules.MongoStartup])): ClassTag[MongoStartup]))
+_star_.$
+_root_.modules.MongoStartup#&
+BJ_root_.scala.reflect.ClassTag#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.$
+KW_root_.modules.MongoStartup#2Æ
+®∆"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2D
+……	*[String]
+_star_. 
+_root_.java.lang.String#2È
+ııe*(((ClassTag.apply[PlayModule](classOf[com.kenshoo.play.metrics.PlayModule])): ClassTag[PlayModule]))
+_star_.&
+OW_root_.scala.reflect.ClassTag#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.3
+Xb+_root_.com.kenshoo.play.metrics.PlayModule#3
++_root_.com.kenshoo.play.metrics.PlayModule#:Scala211Bà	/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package utils
+
+import org.scalatest.TestSuite
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.inject.guice.GuiceApplicationBuilder
+
+trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite {
+  this: TestSuite =>
+
+  val additionalAppConfig: Seq[(String, String)] = Nil
+
+  override def fakeApplication() = new GuiceApplicationBuilder()
+    .disable[com.kenshoo.play.metrics.PlayModule]
+    .disable[modules.MongoStartup]
+    .configure("featureFlags.messagesEnabled" -> "true")
+    .configure(additionalAppConfig:_*)
+    .build()
+}
+J(test/utils/NoMetricsOneAppPerSuite.scala

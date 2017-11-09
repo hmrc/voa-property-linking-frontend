@@ -1,0 +1,176 @@
+
+∏:.
+êê$_root_.java.lang.Object#`<init>`()V.B
+	Ù	6_root_.models.messages.MessageSortField.LastRead.name.2
+ˇè(_root_.models.messages.MessageSortField#%
+∫¿_root_.scala.Predef.String#2
+Ã	‹	(_root_.models.messages.MessageSortField#&
+ÅÑ_root_.scala.collection.Seq..
+ÛÛ$_root_.java.lang.Object#`<init>`()V.@
+ù™6_root_.models.messages.MessageSortField.CaseReference.4
+∑«(_root_.models.messages.MessageSortField.%
+◊
+›
+_root_.scala.Predef.String#%
+ˆ	¸	_root_.scala.Predef.String#;
+®¨1_root_.models.NamedEnum#name()Ljava/lang/String;.B
+œ‹6_root_.models.messages.MessageSortField.CaseReference.!
+ÏÙ_root_.models.messages..
+›	›	$_root_.java.lang.Object#`<init>`()V.%
+√…_root_.scala.Predef.String#.
+æ
+æ
+$_root_.java.lang.Object#`<init>`()V.U
+—
+’
+I_root_.models.messages.MessageSortField.Subject.name()Ljava/lang/String;.2
+Âı(_root_.models.messages.MessageSortField#2
+≠
+Ω
+(_root_.models.messages.MessageSortField#2
+·Ò(_root_.models.messages.MessageSortField#A
+£ß5_root_.models.messages.MessageSortField.Address.name.2
+ê†(_root_.models.messages.MessageSortField#:
+∂Ω0_root_.models.messages.MessageSortField.Subject.B
+Éê6_root_.models.messages.MessageSortField.EffectiveDate.)
+ê†_root_.models.NamedEnumSupport#:
+îõ0_root_.models.messages.MessageSortField.Address.G
+â	ç	;_root_.models.messages.MessageSortField.CaseReference.name..
+ˆˆ$_root_.java.lang.Object#`<init>`()V.<
+ù
+§
+0_root_.models.messages.MessageSortField.Subject.#
+ÈÏ_root_.scala.package.Seq#"
+…“_root_.models.NamedEnum#.
+°°$_root_.java.lang.Object#`<init>`()V..
+™™$_root_.java.lang.Object#`<init>`()V.%
+ÈÔ_root_.scala.Predef.String#%
+è	ï	_root_.scala.Predef.String#=
+ø…3_root_.models.messages.MessageSortField.ClientName.?
+˝
+á3_root_.models.messages.MessageSortField.ClientName.2
+ô©(_root_.models.messages.MessageSortField#X
+¥∏L_root_.models.messages.MessageSortField.ClientName.name()Ljava/lang/String;.G
+Ω¡;_root_.models.messages.MessageSortField.EffectiveDate.name."
+Öé_root_.models.NamedEnum#4
+∞¿(_root_.models.messages.MessageSortField#=
+ª	√	1_root_.models.messages.MessageSortField.LastRead.@
+Öí6_root_.models.messages.MessageSortField.EffectiveDate.;
+¨¥1_root_.models.messages.MessageSortField.LastRead.
+ÂÎ_root_.models.>
+¡»2_root_.models.messages.MessageSortField#$init$()V.%
+©Ø_root_.scala.Predef.String#
+˝É_root_.models.%
+ü•_root_.scala.Predef.String#2
+Ì˝(_root_.models.messages.MessageSortField#Q
+ïùE_root_.models.messages.MessageSortField#toString()Ljava/lang/String;.P
+‰ÁD_root_.models.messages.MessageSortField.all()Lscala/collection/Seq;.8
+‰Á,_root_.models.messages.MessageSortField#key.<
+Ôˆ0_root_.models.messages.MessageSortField.Address.)
+–‡_root_.models.NamedEnumSupport#")
+_root_.scala.collection.Seq.	ÄÑSeq"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"B
+0_root_.models.messages.MessageSortField.Address.ÄÑàAddress"b
+,_root_.models.messages.MessageSortField#key.2keyString"!
+_root_.scala.Predef.String#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"*
+_root_.models.messages.ÄàÄmessages"B
+(_root_.models.messages.MessageSortField.ÄÑMessageSortField"B
+(_root_.models.messages.MessageSortField#Ä¿MessageSortField"H
+3_root_.models.messages.MessageSortField.ClientName.ÄÑà
+ClientName"N
+6_root_.models.messages.MessageSortField.EffectiveDate.ÄÑàEffectiveDate"l
+5_root_.models.messages.MessageSortField.Address.name.3nameString"!
+_root_.scala.Predef.String#"f
+2_root_.models.messages.MessageSortField#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#"Ü
+E_root_.models.messages.MessageSortField#toString()Ljava/lang/String;.=toString
+(): String"#
+
+_root_.scala.Predef.String#"π
+D_root_.models.messages.MessageSortField.all()Lscala/collection/Seq;.qallSeq[MessageSortField]"
+_root_.scala.package.Seq#"0
+(_root_.models.messages.MessageSortField#"Ä
+I_root_.models.messages.MessageSortField.Subject.name()Ljava/lang/String;.3nameString"!
+_root_.scala.Predef.String#"N
+6_root_.models.messages.MessageSortField.CaseReference.ÄÑàCaseReference"8
+_root_.models.NamedEnumSupport#Ä@NamedEnumSupport"É
+L_root_.models.messages.MessageSortField.ClientName.name()Ljava/lang/String;.3nameString"!
+_root_.scala.Predef.String#"r
+;_root_.models.messages.MessageSortField.CaseReference.name.3nameString"!
+_root_.scala.Predef.String#"r
+;_root_.models.messages.MessageSortField.EffectiveDate.name.3nameString"!
+_root_.scala.Predef.String#"*
+_root_.models.NamedEnum#Ä@	NamedEnum"
+_root_.models.ÄàÄmodels"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."D
+1_root_.models.messages.MessageSortField.LastRead.ÄÑàLastRead"j
+1_root_.models.NamedEnum#name()Ljava/lang/String;.5ÑÄnameString"!
+_root_.scala.Predef.String#"m
+6_root_.models.messages.MessageSortField.LastRead.name.3nameString"!
+_root_.scala.Predef.String#"B
+0_root_.models.messages.MessageSortField.Subject.ÄÑàSubject2¬
+ÑÑ:*.apply[MessageSortField with Product with Serializable{}]
+_star_.x
+p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.
+%_root_.scala.Product#"
++7_root_.scala.Serializable#0
+(_root_.models.messages.MessageSortField#:Scala211BÕ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models.messages
+
+import models.{NamedEnum, NamedEnumSupport}
+
+sealed trait MessageSortField extends NamedEnum {
+  override val key: String = "messageSortField"
+
+  override def toString: String = name
+}
+
+object MessageSortField extends NamedEnumSupport[MessageSortField] {
+  case object EffectiveDate extends MessageSortField {
+    override val name: String = "effectiveDate"
+  }
+
+  case object Address extends MessageSortField {
+    override val name: String = "address"
+  }
+
+  case object CaseReference extends MessageSortField {
+    override val name: String = "caseReference"
+  }
+
+  case object LastRead extends MessageSortField {
+    override val name: String = "lastRead"
+  }
+
+  case object Subject extends MessageSortField {
+    override def name: String = "subject"
+  }
+
+  case object ClientName extends MessageSortField {
+    override def name: String = "clientName"
+  }
+
+  override def all: Seq[MessageSortField] = Seq(EffectiveDate, Address, CaseReference, LastRead, Subject, ClientName)
+}
+J*app/models/messages/MessageSortField.scala

@@ -1,0 +1,424 @@
+
+•¬#
+Òˆ_root_.controllers.agent.f
+˙í\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.k
+ÓÉa_root_.controllers.agent.RepresentationController#revokeClientConfirmed(JJ)Lplay/api/mvc/Action;.H
+»œ>_root_.controllers.agent.RepresentationControllerSpec#request.P
+ÉèDtest/controllers/agent/RepresentationControllerSpec.scala@1919..1985*
+í
+£
+ _root_.config.ApplicationConfig#c
+‰ÙW_root_.controllers.agent.RepresentationControllerSpec#stubLoggedInUser()Lscala/Tuple2;.*
+Ë˘ _root_.config.ApplicationConfig#
+äç_root_.org._
+ç©S_root_.controllers.agent.RepresentationControllerSpec#TestRepresentationController.
+ü©_root_.connectors.a
+›ÁW_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.B
+ñ≤6_root_.controllers.agent.RepresentationControllerSpec#N
+≥≥B_root_.controllers.agent.RepresentationControllerSpec#`<init>`()V.,
+ÀŸ"_root_.controllers.ControllerSpec#
+óõ_root_.scala.Some.K
+‘‹A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.6
+©¨,_root_.scala.Option#get()Ljava/lang/Object;.N
+™∂Dtest/controllers/agent/RepresentationControllerSpec.scala@1919..1985C
+£ª9_root_.controllers.agent.routes.RepresentationController./
+€
+›
+%_root_.org.scalatest.FlatSpecLike#it.
+ø _root_.controllers.?
+˙	˝	5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app. 
+éò_root_.org.scalacheck.*
+Á˘ _root_.utils.StubAuthentication.
+⁄›_root_.play.api.*
+©	ª	 _root_.utils.StubAuthentication.w
+ﬁ
+‰
+m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.a
+á
+ë
+W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.'
+„Í_root_.play.api.test.Helpers.P
+∆‘Dtest/controllers/agent/RepresentationControllerSpec.scala@1474..1536P
+ÀŒDtest/controllers/agent/RepresentationControllerSpec.scala@1607..1744o
+£¨e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.a
+´ªW_root_.controllers.agent.RepresentationControllerSpec#stubLoggedInUser()Lscala/Tuple2;.j
+˚`_root_.play.api.test.FakeRequest#withSession(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.]
+—ÌS_root_.controllers.agent.RepresentationControllerSpec#TestRepresentationController.9
+ÈÒ/_root_.models.Accounts.;_root_.models.Accounts#5
+≠
+µ
++_root_.org.scalatest.FlatSpecLike#behavior.N
+≥¡Dtest/controllers/agent/RepresentationControllerSpec.scala@1474..1536*
+ú¢ _root_.controllers.agent.routes.?
+–”5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.!
+°©_root_.models.Accounts.N
+ö¶Dtest/controllers/agent/RepresentationControllerSpec.scala@1919..1985
+’Ÿ_root_.play.,
+ª…"_root_.controllers.ControllerSpec#N
+◊·Dtest/controllers/agent/RepresentationControllerSpec.scala@1990..2031*
+ì† _root_.connectors.Authenticated.N
+≠±Dtest/controllers/agent/RepresentationControllerSpec.scala@1965..1965;
+Ä	£	1_root_.utils.StubPropertyRepresentationConnector.*
+ô¢ _root_.org.scalacheck.Arbitrary.o
+¢§e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
+·Á_root_.models.o
+º–e_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;.N
+∏¬Dtest/controllers/agent/RepresentationControllerSpec.scala@1990..20316
+¨ ,_root_.utils.StubIndividualAccountConnector.'
+Òˇ_root_.models.ClientProperty#(
+”÷_root_.play.api.mvc.Call#(url)
+Ù˝_root_.resources.K
+˛	Ü
+A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.
+áå_root_.utils.Ü
+‚Ê|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.;
+ÂÎ1_root_.org.scalacheck.Gen#sample()Lscala/Option;.P
+ ‘Dtest/controllers/agent/RepresentationControllerSpec.scala@1990..2031-
+‰	˘	#_root_.utils.StubMessagesConnector#N
+§≤Dtest/controllers/agent/RepresentationControllerSpec.scala@1474..1536
+ˇÖ_root_.config.¸
+  Ò_root_.controllers.agent.RepresentationController#`<init>`(Lconfig/ApplicationConfig;Lconnectors/PropertyRepresentationConnector;Lactions/AuthenticatedAction;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;)V.2
+¸Å(_root_.controllers.ControllerSpec#token.o
+Áe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.8
+ì¢._root_.models.ClientProperty#(authorisationId)'
+÷‰_root_.models.ClientProperty#
+¥∏_root_.play.1
+◊‰'_root_.resources.package.individualGen.5
+ÁÈ+_root_.org.scalatest.words.MatcherWords#be.1
+Ùç'_root_.utils.StubGroupAccountConnector.
+ﬁ‚_root_.play.api.test.
+Ω¡_root_.play.api.test.;
+¢®1_root_.org.scalacheck.Gen#sample()Lscala/Option;.+
+‚Ì!_root_.play.api.test.FakeRequest.
+πº_root_.play.api.1
+¡	⁄	'_root_.utils.StubPropertyLinkConnector.M
+¬ÕC_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#4
+  *_root_.org.scalatest.FlatSpec#`<init>`()V.Ü
+èì|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.N
+Ÿ„Dtest/controllers/agent/RepresentationControllerSpec.scala@1990..2031K
+ÜóA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#6
+ÏÔ,_root_.scala.Option#get()Ljava/lang/Object;.0
+ÍÛ&_root_.play.api.http.Status#SEE_OTHER.E
+ÛÅ;_root_.models.ClientProperty.;_root_.models.ClientProperty#
+Â_root_.controllers.5
+îñ+_root_.org.scalatest.words.MatcherWords#be.J
+ÿﬂ>_root_.controllers.agent.RepresentationControllerSpec#request.1
+Üü'_root_.utils.StubPropertyLinkConnector.<
+≤ 2_root_.controllers.agent.RepresentationController#g
+À÷]_root_.utils.StubIndividualAccountConnector.stubAccount(Lmodels/DetailedIndividualAccount;)V.S
+˘	˘	I_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.K
+™∑A_root_.connectors.Authenticated.;_root_.connectors.Authenticated#<
+≥∆2_root_.models.ClientProperty#(ownerOrganisationId)N
+À◊Dtest/controllers/agent/RepresentationControllerSpec.scala@1919..19853
+í°)_root_.resources.package.groupAccountGen.^
+†≤T_root_.utils.StubPropertyLinkConnector.stubClientProperty(Lmodels/ClientProperty;)V.U
+éôK_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.p
+∂
+∏
+f_root_.org.scalatest.FlatSpecLike#BehaviorWord#of(Ljava/lang/String;Lorg/scalactic/source/Position;)V.N
+ÑíDtest/controllers/agent/RepresentationControllerSpec.scala@1474..1536"9
+"_root_.controllers.ControllerSpec#Ä@ControllerSpec"Ù
+§_root_.models.ClientProperty#`<init>`(JLjava/lang/String;Ljava/lang/String;JJZLmodels/RepresentationStatus;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V. <init>Ø(ownerOrganisationId: Long, ownerOrganisationName: String, billingAuthorityReference: String, authorisedPartyId: Long, authorisationId: Long, authorisationStatus: Boolean, authorisedPartyStatus: RepresentationStatus, checkPermission: String, challengePermission: String, address: String): ClientProperty"
+_root_.scala.Long#"#
+39_root_.scala.Predef.String#"#
+V\_root_.scala.Predef.String#"
+qu_root_.scala.Long#"
+àå_root_.scala.Long#"
+£™_root_.scala.Boolean#"-
+√◊#_root_.models.RepresentationStatus#"%
+Í_root_.scala.Predef.String#"%
+áç_root_.scala.Predef.String#"%
+òû_root_.scala.Predef.String#"'
+°Ø_root_.models.ClientProperty#"T
+,_root_.utils.StubIndividualAccountConnector.$ÄÑStubIndividualAccountConnector"$
+_root_.play.api.test.ÄàÄtest"ö
+)_root_.resources.package.groupAccountGen.mgroupAccountGenGen[GroupAccount]" 
+_root_.org.scalacheck.Gen#"#
+_root_.models.GroupAccount#"6
+!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"'
+_root_.connectors.ÄàÄ
+connectors"^
+1_root_.utils.StubPropertyRepresentationConnector.)ÄÑ#StubPropertyRepresentationConnector"ö
+W_root_.controllers.agent.RepresentationControllerSpec#stubLoggedInUser()Lscala/Tuple2;.æstubLoggedInUser3(): Tuple2[GroupAccount, DetailedIndividualAccount]"
+
+_root_.scala.Tuple2#"#
+_root_.models.GroupAccount#"0
+2(_root_.models.DetailedIndividualAccount#"Î
+]_root_.utils.StubIndividualAccountConnector.stubAccount(Lmodels/DetailedIndividualAccount;)V.âstubAccount*(account: DetailedIndividualAccount): Unit"0
+
+#(_root_.models.DetailedIndividualAccount#"
+&*_root_.scala.Unit#"g
++_root_.org.scalatest.words.MatcherWords#be.8beBeWord"(
+"_root_.org.scalatest.words.BeWord#"‘
+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Í	arbitrary)[T] => (implicit a: Arbitrary[T]): Gen[T]"(
+ _root_.org.scalacheck.Arbitrary#"p
+h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]""
+#&_root_.org.scalacheck.Gen#"p
+'(h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]"S
+2_root_.controllers.agent.RepresentationController#Ä RepresentationController"1
+ _root_.controllers.agent.routes.ÄÑàroutes"Ê
+I_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.ò<init>5(appConfig: ApplicationConfig): StubMessagesConnector"(
+ _root_.config.ApplicationConfig#"+
+ 5#_root_.utils.StubMessagesConnector#"±
+'_root_.resources.package.individualGen.ÖindividualGenGen[DetailedIndividualAccount]" 
+_root_.org.scalacheck.Gen#"0
+(_root_.models.DetailedIndividualAccount#"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"ø
+9_root_.controllers.agent.routes.RepresentationController.ÅÅÄàRepresentationControllerReverseRepresentationController"?
+9_root_.controllers.agent.ReverseRepresentationController#"f
+._root_.models.ClientProperty#(authorisationId)4ÅauthorisationIdLong"
+_root_.scala.Long#"
+_root_.play.api.
+ÄàÄapi"Ç
++_root_.org.scalatest.FlatSpecLike#behavior.SÅÄbehaviorBehaviorWord"5
+/_root_.org.scalatest.FlatSpecLike#BehaviorWord#"â
+Dtest/controllers/agent/RepresentationControllerSpec.scala@1919..1985AgroupAccountGroupAccount"!
+_root_.models.GroupAccount#"U
+&_root_.play.api.http.Status#SEE_OTHER.+	SEE_OTHERInt"
+_root_.scala.Int#"ç
+1_root_.org.scalacheck.Gen#sample()Lscala/Option;.Xsample	Option[T]"
+_root_.scala.Option#"%
+_root_.org.scalacheck.Gen#[T]"Æ
+(_root_.controllers.ControllerSpec#token.ÅtokenTuple2[String, String]"
+_root_.scala.Tuple2#" 
+_root_.java.lang.String#" 
+_root_.java.lang.String#"°
+Dtest/controllers/agent/RepresentationControllerSpec.scala@1990..2031Y
+individualDetailedIndividualAccount".
+(_root_.models.DetailedIndividualAccount#"´
+Dtest/controllers/agent/RepresentationControllerSpec.scala@1607..1744cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"%
+_root_.resources.ÄàÄ	resources"Œ
+>_root_.controllers.agent.RepresentationControllerSpec#request.ãÅÄ@request#FakeRequest[AnyContentAsEmpty.type]"'
+!_root_.play.api.test.FakeRequest#".
+&_root_.play.api.mvc.AnyContentAsEmpty."7
+ _root_.connectors.Authenticated.ÄÑAuthenticated"o
+Dtest/controllers/agent/RepresentationControllerSpec.scala@1965..1965'x$2Long"
+_root_.scala.Long#"
+_root_.org.
+ÄàÄorg"n
+2_root_.models.ClientProperty#(ownerOrganisationId)8ÅownerOrganisationIdLong"
+_root_.scala.Long#"y
+S_root_.controllers.agent.RepresentationControllerSpec#TestRepresentationController."ÄÑTestRepresentationController":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"∞
+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#".
+_root_.play.api.test.Helpers.ÄÑHelpers"è
+Dtest/controllers/agent/RepresentationControllerSpec.scala@1474..1536GclientPropertyClientProperty"#
+_root_.models.ClientProperty#"—
+|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.–must'(rightMatcherX1: Matcher[T]): Assertion".
+&_root_.org.scalatest.matchers.Matcher#"<
+4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"/
+''_root_.org.scalatest.package.Assertion#"ñ
+f_root_.org.scalatest.FlatSpecLike#BehaviorWord#of(Ljava/lang/String;Lorg/scalactic/source/Position;)V.´of3(description: String)(implicit pos: Position): Unit"#
+_root_.scala.Predef.String#"-
+$,%_root_.org.scalactic.source.Position#"
+/3_root_.scala.Unit#"ä
+W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.ÆÑÄ
+instanceOf,[T] => (implicit evidence$1: ClassTag[T]): T"&
+%_root_.scala.reflect.ClassTag#"b
+&'Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"b
++,Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"+
+_root_.org.scalacheck.ÄàÄ
+scalacheck"
+_root_.play.ÄàÄplay"˝
+e_root_.controllers.agent.ReverseRepresentationController#viewClientProperties(II)Lplay/api/mvc/Call;.ìviewClientProperties (page: Int, pageSize: Int): Call"
+
+_root_.scala.Int#"
+_root_.scala.Int#"!
+ _root_.play.api.mvc.Call#"A
+#_root_.utils.StubMessagesConnector#Ä StubMessagesConnector"≤
+B_root_.controllers.agent.RepresentationControllerSpec#`<init>`()V.l<init> (): RepresentationControllerSpec">
+ 6_root_.controllers.agent.RepresentationControllerSpec#"3
+ _root_.org.scalacheck.Arbitrary.ÄÑ	Arbitrary"Ó
+\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.çstubAuthenticationResult#(result: AuthorisationResult): Unit".
+	&_root_.connectors.AuthorisationResult#"
+#_root_.scala.Unit#"
+_root_.models.ÄàÄmodels"[
+,_root_.scala.Option#get()Ljava/lang/Object;.+ÑÄgetA"
+_root_.scala.Option#[A]")
+_root_.controllers.ÄàÄcontrollers"Œ
+a_root_.controllers.agent.RepresentationController#revokeClientConfirmed(JJ)Lplay/api/mvc/Action;.ËrevokeClientConfirmedG(authorisationId: Long, clientOrganisationId: Long): Action[AnyContent]"
+_root_.scala.Long#"
+.2_root_.scala.Long#"#
+5;_root_.play.api.mvc.Action#"'
+<F_root_.play.api.mvc.AnyContent#"6
+_root_.models.ClientProperty#Ä†ÄClientProperty"J
+'_root_.utils.StubGroupAccountConnector.ÄÑStubGroupAccountConnector" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"
+_root_.utils.ÄàÄutils"<
+ _root_.utils.StubAuthentication.ÄÑStubAuthentication"˙
+m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.àshould(string: String): ItVerbString"#
+	_root_.scala.Predef.String#"7
+/_root_.org.scalatest.FlatSpecLike#ItVerbString#"
+_root_.config.ÄàÄconfig")
+_root_.controllers.agent.ÄàÄagent"¶
+Ò_root_.controllers.agent.RepresentationController#`<init>`(Lconfig/ApplicationConfig;Lconnectors/PropertyRepresentationConnector;Lactions/AuthenticatedAction;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;)V.Ø<init>›(config: ApplicationConfig, reprConnector: PropertyRepresentationConnector, authenticated: AuthenticatedAction, propertyLinkConnector: PropertyLinkConnector, messagesConnector: MessagesConnector): RepresentationController"(
+	 _root_.config.ApplicationConfig#":
++J2_root_.connectors.PropertyRepresentationConnector#"+
+[n#_root_.actions.AuthenticatedAction#"B
+áú8_root_.connectors.propertyLinking.PropertyLinkConnector#".
+±¬$_root_.connectors.MessagesConnector#"<
+≈›2_root_.controllers.agent.RepresentationController#"æ
+K_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.ostubAccount(account: GroupAccount): Unit"#
+
+_root_.models.GroupAccount#"
+_root_.scala.Unit#"J
+'_root_.utils.StubPropertyLinkConnector.ÄÑStubPropertyLinkConnector"n
+*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
+_root_.org.scalatest.FlatSpec#")
+_root_.models.Accounts.ÄÑAccounts"ú
+`_root_.play.api.test.FakeRequest#withSession(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.∑withSessionA(newSessions: <repeated>[Tuple2[String, String]]): FakeRequest[A]""
+_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+ &_root_.scala.Predef.String#"#
+(._root_.scala.Predef.String#")
+3>!_root_.play.api.test.FakeRequest#",
+?@$_root_.play.api.test.FakeRequest#[A]"⁄
+T_root_.utils.StubPropertyLinkConnector.stubClientProperty(Lmodels/ClientProperty;)V.ÅstubClientProperty&(clientProperty: ClientProperty): Unit"%
+_root_.models.ClientProperty#"
+"&_root_.scala.Unit#"É
+A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.>injectorInjector"&
+ _root_.play.api.inject.Injector#"j
+%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
+)_root_.org.scalatest.FlatSpecLike#ItWord#"[
+6_root_.controllers.agent.RepresentationControllerSpec#!Ä RepresentationControllerSpec"s
+5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.:ÅÄ`appApplication""
+_root_.play.api.Application#" 
+_root_.scala.Some.
+ÄÑSome2÷
+§
+§
+h*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
+_star_.(
+Te _root_.config.ApplicationConfig#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
+$ _root_.config.ApplicationConfig#&
+KS_root_.scala.reflect.ClassTag#2|
+««*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2÷
+˙˙h*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
+_star_.(
+Te _root_.config.ApplicationConfig#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
+$ _root_.config.ApplicationConfig#&
+KS_root_.scala.reflect.ClassTag#2}
+††*.apply
+_star_.[
+S_root_.connectors.Authenticated.apply(Lmodels/Accounts;)Lconnectors/Authenticated;.2Ç
+ÄÄ.*(resources.`package`.arbitraryClientProperty)
+_star_.9
+-1_root_.resources.package.arbitraryClientProperty.2Ü
+ññ*.apply
+_star_.d
+\_root_.org.scalatest.words.BeWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/Matcher;.2 
+÷·¶RepresentationControllerSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("RepresentationControllerSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 50), org.scalactic.Prettifier.default)
+:=_root_.scala.Int#ª
+"9≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+?@_star_.y
+`eq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+û•(_root_.org.scalactic.Prettifier.default.2Ÿ
+‹‹ƒ*(org.scalactic.source.Position.apply("RepresentationControllerSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 43))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2è
+õõ*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2˝
+˘é±RepresentationControllerSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("RepresentationControllerSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 51), org.scalactic.Prettifier.default)#
+AG_root_.scala.Predef.String#
+:@_root_.scala.Option#ª
+"9≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+JK_star_.y
+kpq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+©∞(_root_.org.scalactic.Prettifier.default.2n
+ÌÌ*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2Ÿ
+◊
+◊
+ƒ*(org.scalactic.source.Position.apply("RepresentationControllerSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 41))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ë
+©©*.apply
+_star_.o
+g_root_.models.Accounts.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;)Lmodels/Accounts;.2Õ
+ÁÄ3resources.`package`.getArbitrary[ClientProperty](*)%
+!/_root_.models.ClientProperty#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.2Ü
+ÈÈ*.apply
+_star_.d
+\_root_.org.scalatest.words.BeWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/Matcher;.:Scala211BÎ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.agent
+
+import config.ApplicationConfig
+import connectors.Authenticated
+import controllers.ControllerSpec
+import models.{Accounts, ClientProperty}
+import org.scalacheck.Arbitrary.arbitrary
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import resources._
+import utils._
+
+class RepresentationControllerSpec extends ControllerSpec {
+
+  lazy val request = FakeRequest().withSession(token)
+
+  object TestRepresentationController extends RepresentationController(
+    app.injector.instanceOf[ApplicationConfig],
+    StubPropertyRepresentationConnector,
+    StubAuthentication,
+    StubPropertyLinkConnector,
+    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
+  )
+
+  behavior of "revokeClientConfirmed method"
+
+  it should "revoke an agent and redirect to the client properties page" in {
+    stubLoggedInUser()
+    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+
+    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+    val res = TestRepresentationController.revokeClientConfirmed(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
+
+    status(res) must be(SEE_OTHER)
+    redirectLocation(res) must be(Some(routes.RepresentationController.viewClientProperties().url))
+  }
+
+  def stubLoggedInUser() = {
+    val groupAccount = groupAccountGen.sample.get.copy(isAgent = true)
+    val individual = individualGen.sample.get
+    StubGroupAccountConnector.stubAccount(groupAccount)
+    StubIndividualAccountConnector.stubAccount(individual)
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individual)))
+    (groupAccount, individual)
+  }
+}
+J9test/controllers/agent/RepresentationControllerSpec.scala

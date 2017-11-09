@@ -1,0 +1,524 @@
+
+õÒ(
+Ñá_root_.play.api.mvc.Call#(url)U
+ì†I_root_.controllers.agentAppointment.RevokeAgentController#(authenticated)U
+Î
+Ô
+K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.{
+ß
+∂
+q_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(authorisationId)U
+›ÍI_root_.controllers.agentAppointment.RevokeAgentController#(propertyLinks)à
+◊Ë|_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.(authorisedPartyId)
+âç_root_.scala.None.Ü
+¿œz_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.(authorisationId)|
+ÄÉr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.S
+´∏I_root_.controllers.agentAppointment.RevokeAgentController#(propertyLinks)
+—’_root_.scala.Long#S
+
+Ò
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@1392..1393-
+í•#_root_.actions.AuthenticatedAction#Q
+”ÿGapp/controllers/agentAppointment/RevokeAgentController.scala@2252..2257
+òú_root_.scala.Long#~
+˘Çt_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.(agentCode)v
+ûßj_root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.(agentCode)Q
+…—Gapp/controllers/agentAppointment/RevokeAgentController.scala@1937..2140m
+√Àc_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.
+˙Ñ_root_.connectors.
+≤Ω_root_.controllers.S
+˝	ä
+I_root_.controllers.agentAppointment.RevokeAgentController#(propertyLinks)U
+ÚˆK_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.t
+˙Éj_root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.(agentCode)
+ﬂÂ_root_.models.0
+ŸÈ&_root_.models.Party#(organisationName)u
+åïk_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(agentCode)p
+ÁÏf_root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.(agent)Q
+ΩƒGapp/controllers/agentAppointment/RevokeAgentController.scala@1820..18271
+ΩŒ'_root_.models.Party#(authorisedPartyId)(
+‰Ê_root_.scala.Boolean#`&&`(Z)Z.m
+ëôc_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.-
+‰
+Í
+#_root_.models.PropertyLink#(agents)S
+Ó	ı	Gapp/controllers/agentAppointment/RevokeAgentController.scala@1262..1269$
+“ÿ_root_.controllers.routes.i
+¸ç__root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.Ä
+ÊÌv_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.m
+ù•c_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.0
+¡—&_root_.models.Party#(organisationName)Q
+ﬂ
+„
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@1358..13621
+êê'_root_.javax.inject.Inject#`<init>`()V.r
+˜¸f_root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.(agent)|
+∏
+ª
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.W
+©∏K_root_.controllers.agentAppointment.RevokeAgentController#(representations)<
+∫Ÿ2_root_.connectors.PropertyRepresentationConnector#S
+Œ
+“
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@1358..1362
+ªø_root_.scala.None.
+Â_root_.controllers.Q
+§®Gapp/controllers/agentAppointment/RevokeAgentController.scala@1920..1924
+Õ	—	_root_.scala.Long#
+äë_root_.actions.S
+ïùGapp/controllers/agentAppointment/RevokeAgentController.scala@1937..2140}
+í	°	q_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(authorisationId)
+˛É_root_.models.Party#i
+ı
+Ü__root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z..
+Ÿ‚$_root_.controllers.routes.Dashboard.
+»“_root_.connectors.
+∆—_root_.controllers.
+©	∫	s_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(authorisedPartyId)w
+¬	À	k_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(agentCode)
+„Á_root_.scala.None.@
+≈”6_root_.actions.AuthenticatedRequest#organisationId()J.%
+äê_root_.javax.inject.Inject#S
+’	‚	I_root_.controllers.agentAppointment.RevokeAgentController#(authenticated)É
+ã
+é
+y_root_.connectors.propertyLinking.PropertyLinkConnector#get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+˚ˇ_root_.scala.Some.k
+Âˆ__root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.
+˚ˇ_root_.scala.Long#@
+º»6_root_.views.html.propertyRepresentation.revokedAgent.Q
+áàGapp/controllers/agentAppointment/RevokeAgentController.scala@1392..1393S
+˜¯Gapp/controllers/agentAppointment/RevokeAgentController.scala@2167..2168
+ÍÓ_root_.scala.Long#%
+œ—_root_.scala.Long#`==`(J)Z.2
+∞¥(_root_.scala.collection.SeqLike#size()I.u
+ù¶k_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(agentCode)
+©≠_root_.scala.Long#?
+Äã5_root_.views.html.propertyRepresentation.revokeAgent.<
+”Ú2_root_.connectors.PropertyRepresentationConnector#A
+∫¿7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#7
+æ◊-_root_.controllers.PropertyLinkingController#Ñ
+’‰z_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.(authorisationId)Ü
+ë¢|_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.(authorisedPartyId).
+ÒÅ$_root_.controllers.agentAppointment.#
+µ∂_root_.scala.Int#`>`(I)Z.U
+÷ÂK_root_.controllers.agentAppointment.RevokeAgentController#(representations)~
+§≠t_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.(agentCode))
+€›_root_.play.api.mvc.Results#Ok.Ä
+˘t_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.(agentCode)-
+¢µ#_root_.actions.AuthenticatedAction#Q
+ÎÔGapp/controllers/agentAppointment/RevokeAgentController.scala@1920..1924
+†§_root_.views.html.-
+©Ø#_root_.models.PropertyLink#(agents)
+öü_root_.views.S
+ÄÑGapp/controllers/agentAppointment/RevokeAgentController.scala@1920..1924%
+˜˘_root_.scala.Long#`==`(J)Z.Ü
+Ì˛|_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.(authorisedPartyId)
+ÊÏu_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.)
+Ìˆ_root_.models.Party#(agentCode)Q
+éèGapp/controllers/agentAppointment/RevokeAgentController.scala@2167..21687
+„¸-_root_.controllers.PropertyLinkingController#3
+•ª)_root_.views.html.propertyRepresentation.S
+≈ Gapp/controllers/agentAppointment/RevokeAgentController.scala@1477..1482Q
+ª¿Gapp/controllers/agentAppointment/RevokeAgentController.scala@1477..1482S
+ÉêI_root_.controllers.agentAppointment.RevokeAgentController#(authenticated)É
+πºy_root_.connectors.propertyLinking.PropertyLinkConnector#get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+£	ß	_root_.scala.Long#F
+Ûà:_root_.controllers.agentAppointment.RevokeAgentController#m
+ÎÛc_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.
+º	¿	_root_.scala.Long#,
+Öî"_root_.connectors.propertyLinking.S
+ú£Gapp/controllers/agentAppointment/RevokeAgentController.scala@1820..1827l
+Ü	ë	`_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.
+≥π_root_.javax.inject.|
+“„r_root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.(authorisedPartyId).
+˜$_root_.models.PropertyLink#(address)3
+Èˇ)_root_.views.html.propertyRepresentation.(
+œ“_root_.play.api.mvc.Call#(url)Q
+è
+ñ
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@1262..1269{
+ó¶q_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(authorisationId)}
+®πs_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(authorisedPartyId)P
+¿ÃF_root_.controllers.ReverseDashboard#manageAgents()Lplay/api/mvc/Call;.u
+´øi_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.B
+ÏÅ8_root_.connectors.propertyLinking.PropertyLinkConnector#S
+Ã—Gapp/controllers/agentAppointment/RevokeAgentController.scala@2252..2257$
+Øµ_root_.controllers.routes.
+…
+Õ
+_root_.scala.Some..
+˝˝$_root_.java.lang.Object#`<init>`()V.
+«À_root_.scala.Some.
+£Æ_root_.controllers.3
+ÊÎ)_root_.models.Party.;_root_.models.Party#
+ﬁ„_root_.views.}
+äõs_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(authorisedPartyId)-
+ÎÒ#_root_.models.PropertyLink#(agents)
+‰Ë_root_.views.html.p
+∑ºf_root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.(agent)
+≠≤_root_.javax.)
+óô_root_.play.api.mvc.Results#Ok.@
+ó
+•
+6_root_.actions.AuthenticatedRequest#organisationId()J.~
+Öñr_root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.(authorisedPartyId)
+¿ƒ_root_.scala.Some..
+∂ø$_root_.controllers.routes.Dashboard.
+ïô_root_.scala.None.Œ
+íí¡_root_.controllers.agentAppointment.RevokeAgentController#`<init>`(Lactions/AuthenticatedAction;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/PropertyRepresentationConnector;)V.Q
+ÊÍGapp/controllers/agentAppointment/RevokeAgentController.scala@1920..1924B
+ï™8_root_.connectors.propertyLinking.PropertyLinkConnector#Z
+„¯P_root_.controllers.ReverseDashboard#viewManagedProperties(J)Lplay/api/mvc/Call;."Ç
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@1937..21407nextLinkString"!
+_root_.scala.Predef.String#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"¶
+t_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.(agentCode).Ä	agentCodeLong"
+_root_.scala.Long#"?
+$_root_.controllers.agentAppointment.ÄàÄagentAppointment"¨
+r_root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.(authorisedPartyId)6ÄauthorisedPartyIdLong"
+_root_.scala.Long#" 
+_root_.scala.Long#
+Ä†Long"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#"⁄
+u_root_.connectors.PropertyRepresentationConnector#revoke(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.‡revokeC(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit]"
+_root_.scala.Long#".
+'4&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+7=_root_.scala.concurrent.Future#"
+>B_root_.scala.Unit#"'
+_root_.connectors.ÄàÄ
+connectors"ù
+k_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(agentCode).Ä	agentCodeLong"
+_root_.scala.Long#"¡
+K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.Òfind%(p: Function1[A, Boolean]): Option[A]"
+_root_.scala.Function1#"0
+(_root_.scala.collection.IterableLike#[A]"
+_root_.scala.Boolean#"
+"_root_.scala.Option#"0
+#$(_root_.scala.collection.IterableLike#[A]"Ñ
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@1358..13629linkPropertyLink"!
+_root_.models.PropertyLink#"J
+)_root_.views.html.propertyRepresentation.ÄàÄpropertyRepresentation"∂
+I_root_.controllers.agentAppointment.RevokeAgentController#(propertyLinks)iÄpropertyLinksPropertyLinkConnector">
+8_root_.connectors.propertyLinking.PropertyLinkConnector#"_
+$_root_.models.PropertyLink#(address)7ÅaddressString"!
+_root_.scala.Predef.String#"L
+6_root_.views.html.propertyRepresentation.revokedAgent.ÄÑrevokedAgent"⁄
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@1262..1269éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"¬
+y_root_.connectors.propertyLinking.PropertyLinkConnector#get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ƒgetg(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]]"
+_root_.scala.Long#"
+(,_root_.scala.Long#".
+;H&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+KQ_root_.scala.concurrent.Future#"
+RX_root_.scala.Option#"#
+Ye_root_.models.PropertyLink#"Z
+2_root_.connectors.PropertyRepresentationConnector#$Ä PropertyRepresentationConnector"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"q
+_root_.scala.Int#`>`(I)Z.TÑÄ>(x: Int): Boolean"
+_root_.scala.Int#"
+
+_root_.scala.Boolean#"
+_root_.javax.ÄàÄjavax"}
+#_root_.models.PropertyLink#(agents)VÅagents
+Seq[Party]"
+_root_.scala.package.Seq#"
+	_root_.models.Party#"ã
+e_root_.models.Party#`<init>`(JJLjava/lang/String;JLmodels/AgentPermission;Lmodels/AgentPermission;)V.°<init>©(authorisedPartyId: Long, agentCode: Long, organisationName: String, organisationId: Long, checkPermission: AgentPermission, challengePermission: AgentPermission): Party"
+_root_.scala.Long#"
+%)_root_.scala.Long#"#
+=C_root_.scala.Predef.String#"
+UY_root_.scala.Long#"&
+l{_root_.models.AgentPermission#"(
+í°_root_.models.AgentPermission#"
+§©_root_.models.Party#"⁄
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@1820..1827éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
+)_root_.actions.BasicAuthenticatedRequest#"'
+$_root_.play.api.mvc.AnyContent#"V
+8_root_.connectors.propertyLinking.PropertyLinkConnector#Ä PropertyLinkConnector"t
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@2167..2168)ÄaParty"
+_root_.models.Party#"!
+_root_.views.html.ÄàÄhtml"ˇ
+i_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.ërevokeAgentConfirmedU(authorisationId: Long, authorisedPartyId: Long, agentCode: Long): Action[AnyContent]"
+_root_.scala.Long#"
++/_root_.scala.Long#"
+<@_root_.scala.Long#"#
+CI_root_.play.api.mvc.Action#"'
+JT_root_.play.api.mvc.AnyContent#",
+_root_.javax.inject.Inject#Ä†ÄInject"l
+6_root_.actions.AuthenticatedRequest#organisationId()J.2organisationIdLong"
+_root_.scala.Long#"w
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@1477..1482,agentParty"
+_root_.models.Party#"ó
+f_root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.(agent)-ÄagentParty"
+_root_.models.Party#"v
+$_root_.controllers.routes.Dashboard.NÅÄà	DashboardReverseDashboard"*
+$_root_.controllers.ReverseDashboard#"?
+#_root_.actions.AuthenticatedAction#Ä AuthenticatedAction"%
+_root_.javax.inject.ÄàÄinject"∂
+|_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.(authorisedPartyId)6ÄauthorisedPartyIdLong"
+_root_.scala.Long#"+
+_root_.controllers.routes.ÄÑàroutes"á
+F_root_.controllers.ReverseDashboard#manageAgents()Lplay/api/mvc/Call;.=manageAgents(): Call"!
+_root_.play.api.mvc.Call#"w
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@2252..2257,agentParty"
+_root_.models.Party#"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"j
+&_root_.models.Party#(organisationName)@ÅorganisationNameString"!
+_root_.scala.Predef.String#"Ñ
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@1920..19249linkPropertyLink"!
+_root_.models.PropertyLink#"Í
+ü_root_.connectors.PropertyRepresentationConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.≈<init>l(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): PropertyRepresentationConnector"=
+5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%+_root_.config.WSHttp#"1
+:J)_root_.scala.concurrent.ExecutionContext#":
+Ml2_root_.connectors.PropertyRepresentationConnector#"!
+_root_.scala.None.ÄÑàNone"t
+Gapp/controllers/agentAppointment/RevokeAgentController.scala@1392..1393)ÄaParty"
+_root_.models.Party#"a
+'_root_.models.Party#(authorisedPartyId)6ÅauthorisedPartyIdLong"
+_root_.scala.Long#"Ì
+`_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.àrevokeAgentU(authorisationId: Long, authorisedPartyId: Long, agentCode: Long): Action[AnyContent]"
+_root_.scala.Long#"
++/_root_.scala.Long#"
+<@_root_.scala.Long#"#
+CI_root_.play.api.mvc.Action#"'
+JT_root_.play.api.mvc.AnyContent#"J
+5_root_.views.html.propertyRepresentation.revokeAgent.ÄÑrevokeAgent"
+_root_.scala.Boolean#`&&`(Z)Z.]ÑÄ&&(x: Boolean): Boolean"
+_root_.scala.Boolean#"
+_root_.scala.Boolean#"≤
+z_root_.controllers.agentAppointment.RevokeAgentController#revokeAgentConfirmed(JJJ)Lplay/api/mvc/Action;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"Ê
+•_root_.connectors.propertyLinking.PropertyLinkConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.ª<init>\(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): PropertyLinkConnector"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"@
+G\8_root_.connectors.propertyLinking.PropertyLinkConnector#"X
+:_root_.controllers.agentAppointment.RevokeAgentController#Ä RevokeAgentController"
+_root_.models.ÄàÄmodels"v
+_root_.scala.Long#`==`(J)Z.WÑÄ==(x: Long): Boolean"
+_root_.scala.Long#"
+_root_.scala.Boolean#"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"!
+_root_.actions.ÄàÄactions"ú
+j_root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.(agentCode).Ä	agentCodeLong"
+_root_.scala.Long#"R
+_root_.scala.Long#`<init>`()V.0<init>(): Long"
+_root_.scala.Long#")
+_root_.controllers.ÄàÄcontrollers"
+_root_.views.ÄàÄviews"≥
+__root_.controllers.agentAppointment.RevokeAgentController#agentIsAuthorised(Lmodels/Party;JJ)Z.œÑÄagentIsAuthorisedA(agent: Party, authorisedPartyId: Long, agentCode: Long): Boolean"
+_root_.models.Party#"
+"&_root_.scala.Long#"
+37_root_.scala.Long#"
+:A_root_.scala.Boolean#"Q
+_root_.models.Party#(agentCode).Å	agentCodeLong"
+_root_.scala.Long#"≈
+P_root_.controllers.ReverseDashboard#viewManagedProperties(J)Lplay/api/mvc/Call;.qviewManagedProperties(agentCode: Long): Call"
+_root_.scala.Long#"!
+_root_.play.api.mvc.Call#"≠
+s_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(authorisedPartyId)6ÄauthorisedPartyIdLong"
+_root_.scala.Long#"$
+_root_.models.Party#Ä†ÄParty"Ú
+r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"}
+u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+/?)_root_.scala.concurrent.ExecutionContext#"'
+BH_root_.scala.concurrent.Future#"}
+IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"©
+q_root_.controllers.agentAppointment.RevokeAgentController#revokeAgent(JJJ)Lplay/api/mvc/Action;.(authorisationId)4ÄauthorisationIdLong"
+_root_.scala.Long#"ü
+I_root_.controllers.agentAppointment.RevokeAgentController#(authenticated)RÄauthenticatedAuthenticatedAction")
+#_root_.actions.AuthenticatedAction#"R
+(_root_.scala.collection.SeqLike#size()I.&sizeInt"
+_root_.scala.Int#"µ
+v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.∫flatMapS[S] => (f: Function1[T, Future[S]])(implicit executor: ExecutionContext): Future[S]"
+_root_.scala.Function1#"*
+"_root_.scala.concurrent.Future#[T]"'
+_root_.scala.concurrent.Future#"Å
+ y_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
+7G)_root_.scala.concurrent.ExecutionContext#"'
+JP_root_.scala.concurrent.Future#"Å
+QRy_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]" 
+_root_.scala.Some.
+ÄÑSome"æ
+K_root_.controllers.agentAppointment.RevokeAgentController#(representations)oÄrepresentationsPropertyRepresentationConnector"8
+2_root_.connectors.PropertyRepresentationConnector#"ç
+v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.í<init>r(provider: GovernmentGatewayProvider, businessRatesAuthorisation: BusinessRatesAuthorisation): AuthenticatedAction".
+$&_root_.auth.GovernmentGatewayProvider#"5
+B\-_root_.connectors.BusinessRatesAuthorisation#"+
+_r#_root_.actions.AuthenticatedAction#"Õ
+c_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.fnotFound3(implicit request: play.api.mvc.Request[_]): Result"#
+-3_root_.play.api.mvc.Result#"◊
+¡_root_.controllers.agentAppointment.RevokeAgentController#`<init>`(Lactions/AuthenticatedAction;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/PropertyRepresentationConnector;)V.ê<init>ì(authenticated: AuthenticatedAction, propertyLinks: PropertyLinkConnector, representations: PropertyRepresentationConnector): RevokeAgentController"+
+##_root_.actions.AuthenticatedAction#"@
+4I8_root_.connectors.propertyLinking.PropertyLinkConnector#":
+\{2_root_.connectors.PropertyRepresentationConnector#"C
+~ì:_root_.controllers.agentAppointment.RevokeAgentController#"<
+"_root_.connectors.propertyLinking.ÄàÄpropertyLinking2ã
+»»*.apply
+_star_.Ë
+ﬂ_root_.views.html.propertyRepresentation.revokedAgent_Scope0.revokedAgent_Scope1.revokedAgent#apply(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2‘
+ãã*.apply
+_star_.±
+®_root_.views.html.propertyRepresentation.revokeAgent_Scope0.revokeAgent#apply(JJJLjava/lang/String;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2s
+üü *(RevokeAgentController.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2◊
+√À,RevokeAgentController.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2¥
+ÂÂ)*(RevokeAgentController.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2◊
+ù•,RevokeAgentController.this.future[Result](*)#
+"(_root_.play.api.mvc.Result#i
+!a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+*+_star_.2#
+••
+*(request)
+_star_.2à
+¯¯/*(request, RevokeAgentController.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.2#
+ÛÛ
+*(request)
+_star_.2à
+““/*(request, RevokeAgentController.this.messages)
+_star_.>
+&.6_root_.controllers.PropertyLinkingController#messages.2¥
+ˇˇ)*(RevokeAgentController.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2”
+˘˘û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2s
+—— *(RevokeAgentController.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2”
+””û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2{
+‚	‚	*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2s
+ÖÖ *(RevokeAgentController.this.ec)
+_star_.8
+0_root_.controllers.PropertyLinkingController#ec.2{
+êê*.apply
+_star_.Y
+Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2#
+ôô
+*(request)
+_star_.2G
+ÉÉ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2”
+ôô*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2G
+ÌÌ	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2G
+ª
+ª
+	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2#
+ÀÀ
+*(request)
+_star_.2”
+››*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2¥
+∑
+∑
+)*(RevokeAgentController.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.:Scala211Bä/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.agentAppointment
+
+import actions.AuthenticatedAction
+import javax.inject.Inject
+import connectors.PropertyRepresentationConnector
+import connectors.propertyLinking.PropertyLinkConnector
+import controllers.PropertyLinkingController
+import models.Party
+
+class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
+                                      propertyLinks: PropertyLinkConnector,
+                                      representations: PropertyRepresentationConnector) extends PropertyLinkingController {
+
+  def revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
+    propertyLinks.get(request.organisationId, authorisationId) map {
+      case Some(link) =>
+        link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
+          case Some(agent) =>
+            Ok(views.html.propertyRepresentation.revokeAgent(agentCode, authorisationId, authorisedPartyId, agent.organisationName))
+          case None => notFound
+        }
+      case None => notFound
+    }
+  }
+
+  def revokeAgentConfirmed(authorisationId: Long, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
+    propertyLinks.get(request.organisationId, authorisationId) flatMap {
+      case Some(link) =>
+        val nextLink = if (link.agents.size > 1) {
+          controllers.routes.Dashboard.viewManagedProperties(agentCode).url
+        } else {
+          controllers.routes.Dashboard.manageAgents().url
+        }
+
+        link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
+          case Some(agent) => representations.revoke(authorisedPartyId).map { _ =>
+            Ok(views.html.propertyRepresentation.revokedAgent(nextLink, agent.organisationName, link.address))
+          }
+          case None => notFound
+        }
+      case None => notFound
+    }
+  }
+
+  private def agentIsAuthorised(agent: Party, authorisedPartyId: Long, agentCode: Long) = {
+    agent.authorisedPartyId == authorisedPartyId && agent.agentCode == agentCode
+  }
+}
+J<app/controllers/agentAppointment/RevokeAgentController.scala

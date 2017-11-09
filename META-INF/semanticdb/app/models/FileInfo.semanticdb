@@ -1,0 +1,70 @@
+
+”V
+ùùJ_root_.models.FileInfo#`<init>`(Ljava/lang/String;Lmodels/EvidenceType;)V.*
+Í_root_.models.FileInfo.format.!
+ˇá_root_.models.FileInfo#
+Ù¯_root_.play.N
+¯˛D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.#
+ïù_root_.models.FileInfo#%
+∫∆_root_.models.EvidenceType#%
+§™_root_.scala.Predef.String#
+˝Å_root_.play.api.libs.
+˘¸_root_.play.api.1
+¨∏%_root_.models.FileInfo#(evidenceType)$
+ÇÜ_root_.play.api.libs.json.
+ÂÎ_root_.models.)
+Û˜_root_.play.api.libs.json.Json.)
+û¢_root_.models.FileInfo#(name)#
+–ÿ_root_.models.FileInfo."1
+_root_.models.EvidenceType#Ä¿EvidenceType"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]")
+_root_.play.api.libs.json.ÄàÄjson"*
+_root_.models.FileInfo#Ä†ÄFileInfo")
+_root_.models.FileInfo.ÄÑFileInfo"U
+_root_.models.FileInfo#(name)4ÅnameString"!
+_root_.scala.Predef.String#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"k
+%_root_.models.FileInfo#(evidenceType)BÅevidenceTypeEvidenceType"!
+_root_.models.EvidenceType#"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"
+_root_.play.ÄàÄplay"
+_root_.models.ÄàÄmodels"å
+_root_.models.FileInfo.format.jÅÄ formatOFormat[FileInfo]"(
+"_root_.play.api.libs.json.OFormat#"
+_root_.models.FileInfo#"˙
+J_root_.models.FileInfo#`<init>`(Ljava/lang/String;Lmodels/EvidenceType;)V.´<init>4(name: String, evidenceType: EvidenceType): FileInfo"#
+_root_.scala.Predef.String#"#
+)_root_.models.EvidenceType#"
+,4_root_.models.FileInfo#:Scala211Bã/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import play.api.libs.json._
+
+case class FileInfo(name: String, evidenceType: EvidenceType)
+
+object FileInfo {
+  implicit val format = Json.format[FileInfo]
+}
+Japp/models/FileInfo.scala

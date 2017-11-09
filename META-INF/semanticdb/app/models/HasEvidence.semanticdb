@@ -1,0 +1,84 @@
+
+≥M
+ƒ«A_root_.models.HasEvidence.all()Lscala/collection/immutable/List;..
+ÏÏ$_root_.java.lang.Object#`<init>`()V.D
+˝Å8_root_.models.DoesHaveEvidence.name()Ljava/lang/String;.&
+Åå_root_.models.HasEvidence.,
+·Ù"_root_.models.DoesNotHaveEvidence..
+°¥"_root_.models.DoesNotHaveEvidence.$
+Ω»_root_.models.HasEvidence#.
+≥≥$_root_.java.lang.Object#`<init>`()V..
+……$_root_.java.lang.Object#`<init>`()V.+
+«◊_root_.models.DoesHaveEvidence.&
+˙Ö_root_.models.HasEvidence#)
+œﬂ_root_.models.DoesHaveEvidence.$
+¶±_root_.models.HasEvidence#
+ÂÎ_root_.models.G
+⁄ﬁ;_root_.models.DoesNotHaveEvidence.name()Ljava/lang/String;.1
+ Œ'_root_.scala.collection.immutable.List.$
+‡Î_root_.models.HasEvidence#"
+éó_root_.models.NamedEnum#>
+©¨2_root_.models.HasEvidence#key()Ljava/lang/String;.)
+ï•_root_.models.NamedEnumSupport#0
+Üç$_root_.models.HasEvidence#$init$()V."c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"l
+8_root_.models.DoesHaveEvidence.name()Ljava/lang/String;.0nameString"
+_root_.java.lang.String#"?
+"_root_.models.DoesNotHaveEvidence.ÄÑDoesNotHaveEvidence"e
+2_root_.models.HasEvidence#key()Ljava/lang/String;./keyString"
+_root_.java.lang.String#"X
+$_root_.models.HasEvidence#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#"5
+'_root_.scala.collection.immutable.List.
+ÄÑList"o
+;_root_.models.DoesNotHaveEvidence.name()Ljava/lang/String;.0nameString"
+_root_.java.lang.String#"8
+_root_.models.NamedEnumSupport#Ä@NamedEnumSupport"
+_root_.models.ÄàÄmodels"*
+_root_.models.NamedEnum#Ä@	NamedEnum"/
+_root_.models.HasEvidence#Ä¿HasEvidence"/
+_root_.models.HasEvidence.ÄÑHasEvidence"≤
+A_root_.models.HasEvidence.all()Lscala/collection/immutable/List;.mallList[HasEvidence]"-
+'_root_.scala.collection.immutable.List#""
+_root_.models.HasEvidence#"9
+_root_.models.DoesHaveEvidence.ÄÑDoesHaveEvidence2¡
+ŒŒ*.apply[HasEvidence]
+_star_.n
+f_root_.scala.collection.immutable.List.apply(Lscala/collection/Seq;)Lscala/collection/immutable/List;."
+_root_.models.HasEvidence#:Scala211B¯/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+sealed trait HasEvidence extends NamedEnum {
+  override def key = "hasevidence"
+}
+
+object DoesHaveEvidence extends HasEvidence {
+  override def name = "doeshaveevidence"
+}
+
+object DoesNotHaveEvidence extends HasEvidence {
+  override def name = "doesnothaveevidence"
+}
+
+object HasEvidence extends NamedEnumSupport[HasEvidence] {
+  override def all = List(DoesHaveEvidence, DoesNotHaveEvidence)
+}
+Japp/models/HasEvidence.scala

@@ -1,0 +1,281 @@
+
+Ÿqt
+ÚÙh_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.{
+—ÿq_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)
+ìñ_root_.play.api.
+óö_root_.play.api.mvc.B
+¢™6_root_.controllers.PropertyLinkingController#messages.9
+ﬁ˜-_root_.controllers.PropertyLinkingController#
+÷€_root_.scala.
+’
+€
+_root_.config.Global.C
+®Ø9_root_.play.api.mvc.Request.;_root_.play.api.mvc.Request#?
+∆Õ5_root_.play.api.Play.current()Lplay/api/Application;.
+∏º_root_.play.{
+ÁÓq_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)"
+ªø_root_.uk.gov.hmrc.play.
+‚Ê_root_.scala.Some.x
+µ
+º
+l_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.(request)2
+ƒÕ(_root_.play.api.i18n.Messages.Implicits.0
+î°&_root_.uk.gov.hmrc.http.HeaderCarrier#o
+£
+´
+c_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.
+∂∫_root_.uk.gov.hmrc.L
+Ÿ‡B_root_.play.api.mvc.RequestHeader#headers()Lplay/api/mvc/Headers;.m
+à	é	a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.*
+Ó	¯	 _root_.play.api.libs.concurrent.Å
+‹
+Ï
+w_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#notFoundTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.)
+ú¶_root_.play.api.mvc.Controller#>
+É
+å
+4_root_.play.api.libs.concurrent.Execution.Implicits.r
+ç
+õ
+h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.
+Ω¿_root_.play.api.m
+†	°	c_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.A#)
+Ää_root_.play.api.mvc.Controller#
+≠±_root_.play.ñ
+ª–ã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.9
+§∫/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.&
+áé_root_.play.api.mvc.Request#n
+∑	∏	d_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.(a)
+êî_root_.uk.gov.hmrc.
+Â	Ë	_root_.play.api.a
+¨	∂	W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.}
+˛Öq_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)4
+Ôˆ*_root_.play.api.mvc.RequestHeader#session.
+È	Ì	_root_.play.api.libs.3
+Õ	›	)_root_.scala.concurrent.ExecutionContext#W
+ößM_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#
+¡≈_root_.play.api.Play.
+≤µ_root_.uk.gov.4
+˘	Ç
+*_root_.play.api.libs.concurrent.Execution.I
+˙Ä?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#(
+ª√_root_.play.api.i18n.Messages.
+‡	‰	_root_.play.
+âã
+_root_.uk.)
+•	´	_root_.scala.concurrent.Future./
+Ã
+‘
+%_root_.play.api.mvc.Results#NotFound.o
+è	ê	c_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.A#
+˘ˇ_root_.config.)
+ô	ü	_root_.scala.concurrent.Future#"
+‹Ê_root_.scala.concurrent.&
+æ
+≈
+_root_.play.api.mvc.Request#
+éí_root_.play.ã
+Œ·Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.
+Â_root_.controllers.
+ÄÜ_root_.config.Global.]
+Ë¯S_root_.scala.concurrent.ExecutionContext.;_root_.scala.concurrent.ExecutionContext#
+≤µ_root_.play.api.
+åè_root_.uk.gov.C
+¯ˇ7_root_.controllers.PropertyLinkingController#$init$()V.m
+ï	ñ	c_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.A#p
+í	ì	d_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.(a)
+Ø±
+_root_.uk.
+∂∫_root_.play.api.i18n."
+ïô_root_.uk.gov.hmrc.http.9
+¿÷/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.<
+…	À	0_root_.controllers.PropertyLinkingController#ec."5
+ _root_.play.api.libs.concurrent.ÄàÄ
+concurrent"0
+_root_.play.api.i18n.Messages.ÄÑMessages"x
+6_root_.controllers.PropertyLinkingController#messages.>ÅÄ`messagesMessages"$
+_root_.play.api.i18n.Messages#"Ã
+Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.∆ÑÄ applicationMessages9(implicit lang: Lang, application: Application): Messages""
+_root_.play.api.i18n.Lang#"$
+#._root_.play.api.Application#"&
+19_root_.play.api.i18n.Messages#",
+_root_.play.api.mvc.Request#Ä@Request"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"$
+_root_.play.api.libs.ÄàÄlibs"k
+7_root_.controllers.PropertyLinkingController#$init$()V.0$init$(): Unit"
+_root_.scala.Unit#""
+_root_.play.api.mvc.
+ÄàÄmvc"ñ
+l_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.(request)&ÄÅ requestplay.api.mvc.Request[_]"
+_root_.play.api.
+ÄàÄapi"m
+c_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.A#ÄA"G
+4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits".
+_root_.scala.concurrent.Future#Ä@Future"/
+_root_.scala.concurrent.Future.ÄÑFuture"ë
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.´ÑÄ future[A] => (a: A): Future[A]"l
+d_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.[A]"'
+_root_.scala.concurrent.Future#"l
+d_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.[A]"=
+*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution"2
+_root_.play.api.mvc.Controller#Ä@
+Controller"‡
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.tÑÄ hc:(implicit request: play.api.mvc.Request[_]): HeaderCarrier".
+-:&_root_.uk.gov.hmrc.http.HeaderCarrier#"#
+_root_.play.api.Play.
+ÄÑPlay"
+
+_root_.uk.	ÄàÄuk"
+_root_.uk.gov.
+ÄàÄgov"Ä
+B_root_.play.api.mvc.RequestHeader#headers()Lplay/api/mvc/Headers;.:ÑÄheadersHeaders""
+_root_.play.api.mvc.Headers#"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#";
+(_root_.play.api.i18n.Messages.Implicits.ÄÑ	Implicits"$
+_root_.play.api.i18n.ÄàÄi18n"Å
+ã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.fromHeadersAndSession;(headers: Headers, session: Option[Session]): HeaderCarrier"$
+
+_root_.play.api.mvc.Headers#"
+"_root_.scala.Option#"$
+#*_root_.play.api.mvc.Session#".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"O
+/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.ÄÑHeaderCarrierConverter"B
+)_root_.scala.concurrent.ExecutionContext#Ä@ExecutionContext"
+_root_.play.ÄàÄplay"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"√
+h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"w
+5_root_.play.api.Play.current()Lplay/api/Application;.>ÑÄ currentApplication""
+_root_.play.api.Application#")
+_root_.controllers.ÄàÄcontrollers"
+_root_.config.ÄàÄconfig"
+0_root_.controllers.PropertyLinkingController#ec.KÅÄ ecExecutionContext"/
+)_root_.scala.concurrent.ExecutionContext#">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"Á
+w_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#notFoundTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.lnotFoundTemplate1(implicit request: play.api.mvc.Request[_]): Html"#
+-1_root_.play.twirl.api.Html#"õ
+q_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)&ÄÅ requestplay.api.mvc.Request[_]"
+_root_.scala.ÄàÄscala"%
+_root_.config.Global.ÄÑGlobal""
+_root_.uk.gov.hmrc.ÄàÄhmrc"h
+*_root_.play.api.mvc.RequestHeader#session.:ÅÄ@sessionSession""
+_root_.play.api.mvc.Session#"'
+_root_.uk.gov.hmrc.play.ÄàÄplay" 
+_root_.scala.Some.
+ÄÑSome"Õ
+c_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.fnotFound3(implicit request: play.api.mvc.Request[_]): Result"#
+-3_root_.play.api.mvc.Result#"h
+%_root_.play.api.mvc.Results#NotFound.?NotFoundStatus")
+#_root_.play.api.mvc.Results#Status#"‹
+d_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.(a)tÄaA"i
+c_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.A#2ä
+∂	∂	*[A]
+_star_.k
+c_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.A#2ø
+Ì
+Ì
+ò*(play.api.http.Writeable.writeableOf_Content[Html](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.#
+.2_root_.play.twirl.api.Html#y
+j|q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.(
+GL _root_.play.api.mvc.Codec.utf_8.*
+êï _root_.play.api.mvc.Codec.utf_8.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.2¿
+··8*(play.api.i18n.Lang.defaultLang, play.api.Play.current)
+_star_..
+ &_root_.play.api.i18n.Lang.defaultLang.=
+075_root_.play.api.Play.current()Lplay/api/Application;.2ë
+ÊÊ*.apply[Session]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.$
+_root_.play.api.mvc.Session#2#
+Ï
+Ï
+
+*(request)
+_star_.2¿
+‘
+‘
+*.apply[Html]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.#
+_root_.play.twirl.api.Html#:Scala211B
+/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers
+
+import config.Global
+import play.api.mvc.{Controller, Request}
+import play.api.Play.current
+
+import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.HeaderCarrierConverter
+
+trait PropertyLinkingController extends Controller {
+
+  implicit lazy val messages = play.api.i18n.Messages.Implicits.applicationMessages
+
+  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+  implicit def future[A](a: A): Future[A] = Future.successful(a)
+  implicit val ec: ExecutionContext = play.api.libs.concurrent.Execution.Implicits.defaultContext
+
+  def notFound(implicit request: Request[_]) = NotFound(Global.notFoundTemplate)
+}
+J/app/controllers/PropertyLinkingController.scala

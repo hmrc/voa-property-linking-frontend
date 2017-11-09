@@ -1,0 +1,1766 @@
+
+¢ÔM
+∑≈Atest/controllers/propertyLinking/DeclarationSpec.scala@3251..3343M
+Ó˝C_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration.)
+Ã,“,_root_.scala.concurrent.Future.l
+è8ï8b_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.M
+ˆ+Ö,C_root_.controllers.propertyLinking.DeclarationSpec#mockFileUploads.
+ÁÎ_root_.play.api.test.
+ß™_root_.org.{
+¡,À,q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.F
+∞≥<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.b
+†¨X_root_.controllers.propertyLinking.ReverseDeclaration#confirmation()Lplay/api/mvc/Call;.K
+ï £ Atest/controllers/propertyLinking/DeclarationSpec.scala@3251..3343
+„Ê_root_.play.api.5
+É!è!+_root_.models.LinkingSession#(submissionId)'
+±0¿0_root_.play.api.test.Helpers.M
+ı˘Atest/controllers/propertyLinking/DeclarationSpec.scala@2161..2185W
+˛ÑM_root_.controllers.propertyLinking.Declaration#submit()Lplay/api/mvc/Action;.%
+Ê3Ú3_root_.models.GroupAccount#o
+ˆ$ˇ$e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.P
+ê&í&F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.U
+´1Ø1K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.4
+∞∂*_root_.controllers.propertyLinking.routes.
+∞
+¥
+_root_.uk.gov.hmrc.0
+¡9Œ9&_root_.uk.gov.hmrc.http.HeaderCarrier#M
+˛3Å4Atest/controllers/propertyLinking/DeclarationSpec.scala@6650..6705/
+—”%_root_.org.scalatest.FlatSpecLike#it.U
+∑)ª)K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.P
+Ì,ˇ,F_root_.controllers.propertyLinking.DeclarationSpec#withLinkingSession.K
+Â2È2Atest/controllers/propertyLinking/DeclarationSpec.scala@6501..6501W
+‘%⁄%M_root_.controllers.propertyLinking.Declaration#submit()Lplay/api/mvc/Action;.e
+ú:†:[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.a
+≤8º8W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.@
+îü6_root_.controllers.propertyLinking.routes.Declaration.'
+Öì_root_.models.LinkingSession#
+ÓÒ_root_.org.w
+–÷m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.M
+Ã€C_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration.K
+Ù Ç!Atest/controllers/propertyLinking/DeclarationSpec.scala@3251..3343K
+ª"ø"Atest/controllers/propertyLinking/DeclarationSpec.scala@4411..4411%
+Ã-ÿ-_root_.models.GroupAccount#0
+›Ê&_root_.play.api.http.Status#SEE_OTHER.
+©
+´
+
+_root_.uk.M
+◊6Ê6C_root_.controllers.propertyLinking.DeclarationSpec#mockSessionRepo.o
+Û!ı!e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.O
+ä:ô:C_root_.controllers.propertyLinking.DeclarationSpec#mockFileUploads.∞
+àñ•_root_.connectors.propertyLinking.PropertyLinkConnector#linkToProperty(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.
+ƒ«_root_.org.z
+˝.É/p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.F
+”÷<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.W
+ñ,û,M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.9
+å6ó6/_root_.controllers.propertyLinking.Declaration# 
+¸Ñ_root_.utils.HtmlPage.:
+Æµ0_root_.org.scalatest.words.MatcherWords#contain.K
+≥¡Atest/controllers/propertyLinking/DeclarationSpec.scala@2390..2482%
+–‹_root_.models.GroupAccount#%
+ô<ü<_root_.scala.Predef.String#u
+ï´k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.%
+ﬂÎ_root_.models.GroupAccount#M
+–#ﬂ#C_root_.controllers.propertyLinking.DeclarationSpec#mockFileUploads.P
+î¶F_root_.controllers.propertyLinking.DeclarationSpec#withLinkingSession.M
+æ+∆+Atest/controllers/propertyLinking/DeclarationSpec.scala@5562..5611K
+Õ"◊"Atest/controllers/propertyLinking/DeclarationSpec.scala@4429..4439d
+à8å8Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.{
+·7Î7q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.2
+™√(_root_.models.DetailedIndividualAccount#°
+©≠ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.o
+˘Çe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.K
+ )ÿ)Atest/controllers/propertyLinking/DeclarationSpec.scala@4348..4440
+´Ø_root_.scala.Some.{
+’;ﬂ;q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.U
+çëK_root_.controllers.propertyLinking.Declaration#show()Lplay/api/mvc/Action;.0
+Ÿ.‚.&_root_.play.api.http.Status#SEE_OTHER.)
+…4À4_root_.play.api.http.Status#OK.*
+˘"ä# _root_.models.OtherEvidenceFlag.!
+ÁÔ_root_.models.FileInfo.M
+û0¢0Atest/controllers/propertyLinking/DeclarationSpec.scala@6170..6223e
+®7¨7[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.4
+ˆ
+ˆ
+*_root_.org.scalatest.FlatSpec#`<init>`()V.{
+≈œq_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.M
+∆ Atest/controllers/propertyLinking/DeclarationSpec.scala@1730..1774o
+∆œe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.0
+§ ´ &_root_.models.LinkingSession#(address)M
+¢'±'C_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration.
+ù†_root_.play.api.z
+¬4»4p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.o
+√Ãe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.F
+Ü$â$<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.a
+Û7˝7W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.å
+àìÅ_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.
+Û˙_root_.org.mockito.o
+˚Ñe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.%
+¶%≤%_root_.models.GroupAccount#H
+£≠>_root_.controllers.propertyLinking.DeclarationSpec#envelopeId./
+ÑÜ%_root_.org.scalatest.FlatSpecLike#it.o
+’ﬁe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.â
+ô9¶9_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.K
+ÈÏAtest/controllers/propertyLinking/DeclarationSpec.scala@1769..1772u
+ë.ß.k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.a
+˙ÑW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.+
+Îˆ!_root_.play.api.test.FakeRequest.ô
+≈7 7é_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+ù	¶	_root_.resources."
+µ
+π
+_root_.uk.gov.hmrc.http.U
+≥∏K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.K
+∏$¿$Atest/controllers/propertyLinking/DeclarationSpec.scala@4445..4549'
+è(û(_root_.play.api.test.Helpers.'
+÷+‰+_root_.models.NoEvidenceFlag.K
+ﬂ
+ﬂ
+?_root_.controllers.propertyLinking.DeclarationSpec#`<init>`()V.å
+⁄$Â$Å_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.K
+êûAtest/controllers/propertyLinking/DeclarationSpec.scala@3251..3343M
+æ%¡%Atest/controllers/propertyLinking/DeclarationSpec.scala@4794..4891d
+Ò+ı+Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.d
+òúZ_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.-
+ÒÄ#_root_.controllers.propertyLinking.M
+Ä"é"Atest/controllers/propertyLinking/DeclarationSpec.scala@4348..4440:
+Î4Ú40_root_.org.scalatest.words.MatcherWords#include.M
+Ë:È:Atest/controllers/propertyLinking/DeclarationSpec.scala@7524..7559!
+É(à(_root_.org.jsoup.Jsoup.)
+‡;Ê;_root_.scala.concurrent.Future.'
+«’_root_.models.LinkingSession#%
+≥∫_root_.org.mockito.Mockito.W
+ß9Ø9M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.u
+ù2ü2k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.*
+≠7∏7 _root_.repositories.SessionRepo#å
+ß≤Å_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.&
+Çè_root_.models.RatesBillType.%
+Ûˇ_root_.models.GroupAccount#
+ÿ€_root_.org.Y
+¬:€:M_root_.controllers.propertyLinking.DeclarationSpec#mockPropertyLinkConnector.M
+ª√Atest/controllers/propertyLinking/DeclarationSpec.scala@2487..2578P
+›ﬂF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.,
+˘à"_root_.connectors.propertyLinking.K
+ò6•6A_root_.controllers.propertyLinking.DeclarationSpec#mockEnvelopes.a
+◊·W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.z
+≥πp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;._
+ƒ–U_root_.connectors.fileUpload.FileMetadata.;_root_.connectors.fileUpload.FileMetadata#@
+Í&ı&6_root_.controllers.propertyLinking.routes.Declaration.w
+‘⁄m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.K
+ïôAtest/controllers/propertyLinking/DeclarationSpec.scala@2453..2453
+˝â	_root_.repositories.'
+Ì*˚*_root_.models.LinkingSession#ô
+≠ºé_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
+¶±_root_.controllers.M
+Í-˘-C_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration.B
+Ò:Ü;8_root_.connectors.propertyLinking.PropertyLinkConnector#z
+Åáp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.K
+˜2Å3Atest/controllers/propertyLinking/DeclarationSpec.scala@6519..6529P
+á3ô3F_root_.controllers.propertyLinking.DeclarationSpec#withLinkingSession.W
+óüM_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.4
+â/è/*_root_.controllers.propertyLinking.routes.z
+È'Ô'p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.4
+„&È&*_root_.controllers.propertyLinking.routes. 
+»“_root_.org.scalacheck.ô
+äôé_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.*
+”‹ _root_.org.scalacheck.Arbitrary.M
+·"È"Atest/controllers/propertyLinking/DeclarationSpec.scala@4445..4549
+Ê+Í+_root_.scala.None.!
+•0™0_root_.org.jsoup.Jsoup.F
+¢;•;<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.F
+ò8õ8<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.
+°•_root_.play.api.test.'
+¬–_root_.models.LinkingSession#z
+◊&›&p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.F
+À7Œ7<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.5
+Õ1Ÿ1+_root_.models.LinkingSession#(submissionId))
+Ï7Ú7_root_.scala.concurrent.Future.W
+Ω≈M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;..
+¡	◊	$_root_.utils.StubWithLinkingSession#d
+í9ñ9Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.+
+áí!_root_.play.api.test.FakeRequest.`
+ú/¶/V_root_.controllers.propertyLinking.ReverseDeclaration#noEvidence()Lplay/api/mvc/Call;.
+ø√_root_.scala.Some.d
+À#œ#Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.z
+Ω(√(p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
+´≤_root_.org.mockito.(
+Ö'à'_root_.play.api.mvc.Call#(url)M
+ù¨C_root_.controllers.propertyLinking.DeclarationSpec#mockFileUploads..
+˚8å9$_root_.connectors.EnvelopeConnector#+
+¡'Ã'!_root_.play.api.test.FakeRequest.K
+Ê$Ù$Atest/controllers/propertyLinking/DeclarationSpec.scala@4348..4440U
+Ÿ0ﬁ0K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.K
+ò+ú+Atest/controllers/propertyLinking/DeclarationSpec.scala@5528..5528
+Ú˚_root_.org.scalatest.a
+‰9Ó9W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.M
+ò†Atest/controllers/propertyLinking/DeclarationSpec.scala@3348..3439F
+Ω9¿9<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.W
+„¸M_root_.controllers.propertyLinking.DeclarationSpec#mockPropertyLinkConnector.K
+ÖçAtest/controllers/propertyLinking/DeclarationSpec.scala@2487..2578{
+õ$•$q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.O
+Ù5É6C_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration.0
+◊‰&_root_.uk.gov.hmrc.http.HeaderCarrier#P
+∂.∏.F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.z
+¨&≤&p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.M
+∆/’/C_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration.M
+ãéAtest/controllers/propertyLinking/DeclarationSpec.scala@2823..2920o
+∂3ø3e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.@
+ê/õ/6_root_.controllers.propertyLinking.routes.Declaration.b
+√œX_root_.controllers.propertyLinking.ReverseDeclaration#confirmation()Lplay/api/mvc/Call;.W
+˙-Ä.M_root_.controllers.propertyLinking.Declaration#submit()Lplay/api/mvc/Action;.'
+’2„2_root_.models.LinkingSession#
+Ó¯_root_.connectors.M
+›*Î*Atest/controllers/propertyLinking/DeclarationSpec.scala@5465..5557M
+ë†C_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration.'
+ê"û"_root_.models.LinkingSession#d
+ı˘Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.å
+ö3•3Å_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.4
+˚
+á*_root_.org.scalatest.mockito.MockitoSugar#9
+‚Á/_root_.org.jsoup.Jsoup.;_root_.org.jsoup.Jsoup#Ü
+Ê Í |_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.4
+£Ø*_root_.connectors.fileUpload.FileMetadata.z
+÷‹p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.∞
+ì;°;•_root_.connectors.propertyLinking.PropertyLinkConnector#linkToProperty(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.u
+ÏÓk_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.)
+Û˘_root_.scala.concurrent.Future.o
+îùe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.
+å#ê#_root_.scala.Some.:
+Î Ú 0_root_.org.scalatest.words.MatcherWords#include.o
+†©e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.o
+À2‘2e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.P
+«$Ÿ$F_root_.controllers.propertyLinking.DeclarationSpec#withLinkingSession.U
+”ÿK_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.o
+Õœe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.K
+ç8é8Atest/controllers/propertyLinking/DeclarationSpec.scala@7072..7097:
+µ1º10_root_.org.scalatest.words.MatcherWords#include.0
+Äâ&_root_.play.api.http.Status#SEE_OTHER."
+ê
+ö
+_root_.scala.concurrent.:
+¡)»)0_root_.org.scalatest.words.MatcherWords#include.w
+Ò)˜)m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.M
+¶™Atest/controllers/propertyLinking/DeclarationSpec.scala@4002..4055w
+áçm_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.o
+Ø∏e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.2
+Ä%ô%(_root_.models.DetailedIndividualAccount#W
+°ßM_root_.controllers.propertyLinking.Declaration#submit()Lplay/api/mvc/Action;.U
+â(é(K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.4
+…+’+*_root_.connectors.fileUpload.FileMetadata.o
+›Êe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.K
+¶3¥3Atest/controllers/propertyLinking/DeclarationSpec.scala@6438..6530
+Ñ/à/_root_.scala.Some.K
+√7ƒ7Atest/controllers/propertyLinking/DeclarationSpec.scala@7072..7097
+¨
+Ø
+_root_.uk.gov.K
+∆8«8Atest/controllers/propertyLinking/DeclarationSpec.scala@7072..7097M
+ËÎAtest/controllers/propertyLinking/DeclarationSpec.scala@3684..3781P
+∫ºF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.e
+ˆ8˙8[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;..
+î•$_root_.connectors.EnvelopeConnector#'
+π»_root_.play.api.test.Helpers.!
+≠≤_root_.org.jsoup.Jsoup.Y
+˛ÉO_root_.org.mockito.Mockito.times(I)Lorg/mockito/verification/VerificationMode;.
+âì_root_.connectors.U
+· Â K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.!
+ƒÃ_root_.models.FileInfo.o
+∏¡e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.!
+Õ“_root_.org.jsoup.Jsoup.o
+–*“*e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
+ä
+è
+_root_.scala.R
+°5≥5F_root_.controllers.propertyLinking.DeclarationSpec#withLinkingSession.a
+Á;Ò;W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.)
+∫º_root_.play.api.http.Status#OK.b
+ˆ&Ç'X_root_.controllers.propertyLinking.ReverseDeclaration#confirmation()Lplay/api/mvc/Call;.]
+‹ËS_root_.controllers.propertyLinking.Declaration#confirmation()Lplay/api/mvc/Action;.o
+˛*á+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.o
+ÈÚe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.
+‹·_root_.org.jsoup.z
+˘ˇp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.I
+õ
+°
+?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#]
+≤'æ'S_root_.controllers.propertyLinking.Declaration#confirmation()Lplay/api/mvc/Action;.H
+∆–>_root_.controllers.propertyLinking.DeclarationSpec#envelopeId.+
+™µ!_root_.play.api.test.FakeRequest..
+˚ã$_root_.org.mockito.ArgumentMatchers.
+àå_root_.scala.Some.H
+∞9∫9>_root_.controllers.propertyLinking.DeclarationSpec#envelopeId.H
+ü,©,>_root_.controllers.propertyLinking.DeclarationSpec#envelopeId.E
+¢<≠<;_root_.resources.package.shortString()Lorg/scalacheck/Gen;.)
+–÷_root_.scala.concurrent.Future.∏
+çè≠_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.;_root_.org.mockito.ArgumentMatchers.eq(S)S.;_root_.org.mockito.ArgumentMatchers.eq(J)J.;_root_.org.mockito.ArgumentMatchers.eq(I)I.;_root_.org.mockito.ArgumentMatchers.eq(F)F.;_root_.org.mockito.ArgumentMatchers.eq(D)D.;_root_.org.mockito.ArgumentMatchers.eq(C)C.;_root_.org.mockito.ArgumentMatchers.eq(B)B.;_root_.org.mockito.ArgumentMatchers.eq(Z)Z.'
+¸É_root_.org.scalatest.mockito.ô
+Ü,ï,é_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Ü
+∞1¥1|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.K
+ﬁ,Ê,Atest/controllers/propertyLinking/DeclarationSpec.scala@5562..5611{
+“9‹9q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.o
+‹3Â3e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.)
+í0î0_root_.play.api.http.Status#OK.'
+û¨_root_.models.LinkingSession#'
+ŸË_root_.play.api.test.Helpers.?
+œ
+ﬁ
+3_root_.controllers.propertyLinking.DeclarationSpec#
+ﬁ&‚&_root_.scala.Some.5
+É5è5+_root_.models.LinkingSession#(submissionId)'
+´"π"_root_.models.LinkingSession#R
+ì´H_root_.utils.HtmlPage#mustContainSummaryErrors(Lscala/collection/Seq;)V.W
+±∑M_root_.controllers.propertyLinking.Declaration#submit()Lplay/api/mvc/Action;.M
+‰-Á-Atest/controllers/propertyLinking/DeclarationSpec.scala@5856..5953)
+≤#¬#_root_.models.OtherUtilityBill.a
+”,›,W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.å
+¨∑Å_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.+
+›%Ë%!_root_.play.api.test.FakeRequest.M
+õûAtest/controllers/propertyLinking/DeclarationSpec.scala@2071..2120M
+ß6∂6C_root_.controllers.propertyLinking.DeclarationSpec#mockFileUploads.&
+”‡_root_.models.RatesBillFlag.M
+⁄ËAtest/controllers/propertyLinking/DeclarationSpec.scala@2390..2482e
+Ï::[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.H
+˘#É$>_root_.controllers.propertyLinking.DeclarationSpec#envelopeId.
+ﬁ‚_root_.play.2
+‡Î(_root_.play.api.http.Status#BAD_REQUEST.z
+§™p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.Ü
+Ê4Í4|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.å
+ÑèÅ_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.K
+Ù4Ç5Atest/controllers/propertyLinking/DeclarationSpec.scala@6438..6530U
+·ÊK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.o
+êíe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.2
+ÕÊ(_root_.models.DetailedIndividualAccount#Ü
+º)¿)|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.M
+—5‡5C_root_.controllers.propertyLinking.DeclarationSpec#mockSessionRepo.w
+õ!°!m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.U
+´0∞0K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.M
+ÿ8Â8A_root_.controllers.propertyLinking.DeclarationSpec#mockEnvelopes.K
+ü(´(Atest/controllers/propertyLinking/DeclarationSpec.scala@5151..5163'
+∏¬_root_.connectors.fileUpload.M
+§7•7Atest/controllers/propertyLinking/DeclarationSpec.scala@7072..7097M
+Ñ4ì4C_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration.P
+ÒÉF_root_.controllers.propertyLinking.DeclarationSpec#withLinkingSession.u
+∏Œk_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.d
+æ7¬7Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.K
+˚;¸;Atest/controllers/propertyLinking/DeclarationSpec.scala@7524..75594
+Ï"¯"*_root_.connectors.fileUpload.FileMetadata.K
+¡0Õ0Atest/controllers/propertyLinking/DeclarationSpec.scala@6209..62212
+¿3Ÿ3(_root_.models.DetailedIndividualAccount#M
+ì'ü'Atest/controllers/propertyLinking/DeclarationSpec.scala@5007..5071_
+ÑêU_root_.org.scalatest.mockito.MockitoSugar.;_root_.org.scalatest.mockito.MockitoSugar#B
+âû8_root_.connectors.propertyLinking.PropertyLinkConnector#P
+ıáF_root_.controllers.propertyLinking.DeclarationSpec#withLinkingSession.U
+∑(º(K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.&
+ﬂÏ_root_.models.RatesBillType.K
+å-ö-Atest/controllers/propertyLinking/DeclarationSpec.scala@5465..5557[
+÷/‡/Q_root_.controllers.propertyLinking.Declaration#noEvidence()Lplay/api/mvc/Action;.P
+Ë6˙6F_root_.controllers.propertyLinking.DeclarationSpec#withLinkingSession.2
+›ˆ(_root_.models.DetailedIndividualAccount#)
+¶$¨$_root_.scala.concurrent.Future.}
+‹‚s_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.'
+Í¯_root_.models.LinkingSession#7
+∑	ø	-_root_.utils.HtmlPage.;_root_.utils.HtmlPage#K
+ÑéAtest/controllers/propertyLinking/DeclarationSpec.scala@3332..3342)
+'Ú'_root_.play.api.http.Status#OK.)
+´8±8_root_.scala.concurrent.Future.{
+†8™8q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.(
+Ø≤_root_.play.api.mvc.Call#(url)(
+“’_root_.play.api.mvc.Call#(url)K
+éíAtest/controllers/propertyLinking/DeclarationSpec.scala@2161..2185W
+∏6—6M_root_.controllers.propertyLinking.DeclarationSpec#mockPropertyLinkConnector.M
+°∞C_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration.a
+≠$∑$W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.u
+Î%Å&k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.M
+˙âC_root_.controllers.propertyLinking.DeclarationSpec#mockFileUploads.2
+¶-ø-(_root_.models.DetailedIndividualAccount#K
+ß±Atest/controllers/propertyLinking/DeclarationSpec.scala@2471..2481J
+ç<ó<>_root_.controllers.propertyLinking.DeclarationSpec#envelopeId.M
+Ú8Û8Atest/controllers/propertyLinking/DeclarationSpec.scala@7278..73094
+çì*_root_.controllers.propertyLinking.routes.Q
+ÓÔG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.+
+îü!_root_.play.api.test.FakeRequest.{
+ËÚq_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.z
+Ÿﬂp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.0
+≥&º&&_root_.play.api.http.Status#SEE_OTHER.K
+‚ÍAtest/controllers/propertyLinking/DeclarationSpec.scala@3348..34394
+∆“*_root_.connectors.fileUpload.FileMetadata.5
+Ÿ)Â)+_root_.models.LinkingSession#(submissionId);
+°:¥:1_root_.connectors.fileUpload.FileUploadConnector#˜
+ó6ó6Ï_root_.controllers.propertyLinking.Declaration#`<init>`(Lconnectors/EnvelopeConnector;Lconnectors/fileUpload/FileUploadConnector;Lconnectors/propertyLinking/PropertyLinkConnector;Lrepositories/SessionRepo;Lsession/WithLinkingSession;)V.+
+∫≈!_root_.play.api.test.FakeRequest.o
+™¨e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.K
+ÖàAtest/controllers/propertyLinking/DeclarationSpec.scala@2071..2120o
+ú-•-e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.'
+‚_root_.models.LinkingSession#F
+´Æ<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.;
+“Â1_root_.connectors.fileUpload.FileUploadConnector#M
+Ω…Atest/controllers/propertyLinking/DeclarationSpec.scala@3897..3961T
+–5–5J_root_.utils.StubWithLinkingSession#`<init>`(Lrepositories/SessionRepo;)V.
+Â_root_.controllers.K
+…’Atest/controllers/propertyLinking/DeclarationSpec.scala@4041..4053F
+µ;∏;<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.2
+π“(_root_.models.DetailedIndividualAccount#K
+ÚˆAtest/controllers/propertyLinking/DeclarationSpec.scala@3314..3314K
+Î(˘(Atest/controllers/propertyLinking/DeclarationSpec.scala@4348..4440o
+ÿ·e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.z
+ã0ë0p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
+ÔÚ_root_.org.1
+Ú	Ä
+'_root_.scala.collection.JavaConverters.+
+£4Æ4!_root_.play.api.test.FakeRequest.*
+ä	ï	 _root_.repositories.SessionRepo#.
+∫5–5$_root_.utils.StubWithLinkingSession#
+≠∑_root_.connectors.]
+î4†4S_root_.controllers.propertyLinking.Declaration#confirmation()Lplay/api/mvc/Action;.)
+›9„9_root_.scala.concurrent.Future.
+»Œ_root_.models."
+Á	Ò	_root_.scala.collection.F
+Ÿ7‹7<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;./
+ò!ö!%_root_.org.scalatest.FlatSpecLike#it./
+Ó))%_root_.org.scalatest.FlatSpecLike#it.F
+“7’7<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.
+òú_root_.play.
+π¿_root_.session.,
+Á
+ı
+"_root_.controllers.ControllerSpec#o
+”‹e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.o
+ú%•%e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;./
+Õœ%_root_.org.scalatest.FlatSpecLike#it.o
+¬-À-e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.M
+∑/√/Atest/controllers/propertyLinking/DeclarationSpec.scala@6067..6129!
+ë#ô#_root_.models.FileInfo.O
+à7ó7C_root_.controllers.propertyLinking.DeclarationSpec#mockSessionRepo.
+∞	µ	_root_.utils.W
+∫
+«
+M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#@
+∑¬6_root_.controllers.propertyLinking.routes.Declaration.M
+¸'Ä(Atest/controllers/propertyLinking/DeclarationSpec.scala@5112..5165W
+#¯#M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.+
+„/Ó/!_root_.play.api.test.FakeRequest.4
+¶;≤;*_root_.connectors.fileUpload.FileMetadata#&
+∞Ω_root_.models.RatesBillFlag.
+·	Ê	_root_.scala.K
+ó9ò9Atest/controllers/propertyLinking/DeclarationSpec.scala@7278..7309K
+¯9˘9Atest/controllers/propertyLinking/DeclarationSpec.scala@7278..7309(
+©/¨/_root_.play.api.mvc.Call#(url)«
+˙1Ä2º_root_.org.scalatest.words.ShouldVerb#StringShouldWrapperForVerb#should(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.
+‚Ê_root_.scala.Some.%
+Éè_root_.models.GroupAccount#0
+˙(Å)&_root_.models.LinkingSession#(address)K
+ë;í;Atest/controllers/propertyLinking/DeclarationSpec.scala@7524..7559M
+˜˙Atest/controllers/propertyLinking/DeclarationSpec.scala@1651..1698o
+°"™"e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.K
+™+¥+Atest/controllers/propertyLinking/DeclarationSpec.scala@5546..5556K
+†®Atest/controllers/propertyLinking/DeclarationSpec.scala@2487..2578K
+æ1Ã1Atest/controllers/propertyLinking/DeclarationSpec.scala@5465..5557W
+ö¢M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.U
+¡÷K_root_.session.LinkingSessionRequest.;_root_.session.LinkingSessionRequest#d
+å;ê;Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.ô
+‡#Ô#é_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.'
+∫2»2_root_.models.LinkingSession#0
+¥¡&_root_.uk.gov.hmrc.http.HeaderCarrier#,
+≤¿"_root_.controllers.ControllerSpec#+
+É.é.!_root_.play.api.test.FakeRequest.0
+∞,Ω,&_root_.uk.gov.hmrc.http.HeaderCarrier#«
+§™º_root_.org.scalatest.words.ShouldVerb#StringShouldWrapperForVerb#should(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.M
+™2∏2Atest/controllers/propertyLinking/DeclarationSpec.scala@6438..6530å
+Ä-ã-Å_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.z
+ﬂ0Â0p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.P
+ô´F_root_.controllers.propertyLinking.DeclarationSpec#withLinkingSession./
+π;Œ;%_root_.session.LinkingSessionRequest#'
+à+ñ+_root_.models.LinkingSession#F
+¨,Ø,<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;./
+Øƒ%_root_.session.LinkingSessionRequest#M
+˝åC_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration.z
+“.ÿ.p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.'
+ÏÛ_root_.play.api.test.Helpers.M
+¶±C_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#z
+ìôp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.z
+ÁÌp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.Q
+ƒ(≈(G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.0
+ä$ó$&_root_.uk.gov.hmrc.http.HeaderCarrier#)
+öú_root_.play.api.http.Status#OK.M
+ƒ%”%C_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration."9
+"_root_.controllers.ControllerSpec#Ä@ControllerSpec"©
+Atest/controllers/propertyLinking/DeclarationSpec.scala@5151..5163dx$26Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"å
+Atest/controllers/propertyLinking/DeclarationSpec.scala@2390..2482GlinkingSessionLinkingSession"#
+_root_.models.LinkingSession#"‘
+O_root_.org.mockito.Mockito.times(I)Lorg/mockito/verification/VerificationMode;.ÄÑÄÄtimes(x$1: Int): VerificationMode"
+	_root_.scala.Int#"9
+1_root_.org.mockito.verification.VerificationMode#"M
+1_root_.connectors.fileUpload.FileUploadConnector#Ä FileUploadConnector"û
+6_root_.controllers.propertyLinking.routes.Declaration.dÅÄàDeclarationReverseDeclaration"<
+6_root_.controllers.propertyLinking.ReverseDeclaration#"®
+Atest/controllers/propertyLinking/DeclarationSpec.scala@1651..1698cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"$
+_root_.play.api.test.ÄàÄtest"Õ
+q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.◊ÑÄÑ
+thenReturn(x$1: T): OngoingStubbing[T]"7
+/_root_.org.mockito.stubbing.OngoingStubbing#[T]"4
+
+,_root_.org.mockito.stubbing.OngoingStubbing#"7
+/_root_.org.mockito.stubbing.OngoingStubbing#[T]"x
+Atest/controllers/propertyLinking/DeclarationSpec.scala@6519..65293x$38String"!
+_root_.scala.Predef.String#"°
+é_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.çgetFileMetadataF(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata]"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+28_root_.scala.concurrent.Future#"2
+9E*_root_.connectors.fileUpload.FileMetadata#"x
+Atest/controllers/propertyLinking/DeclarationSpec.scala@4411..44113x$21String"!
+_root_.scala.Predef.String#"±
+Atest/controllers/propertyLinking/DeclarationSpec.scala@3897..3961lconfirmationFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"≈
+é_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.±ÑÄstartJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"ö
+ë_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
+%!_root_.play.api.libs.json.Writes#"ö
+&'ë_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
+.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+>D_root_.scala.concurrent.Future#"
+EI_root_.scala.Unit#"\
+C_root_.controllers.propertyLinking.DeclarationSpec#TestDeclaration.ÄÑ	TestDeclaration"¢
+;_root_.resources.package.shortString()Lorg/scalacheck/Gen;.cshortStringGen[String]" 
+_root_.org.scalacheck.Gen#"#
+
+_root_.scala.Predef.String#"x
+Atest/controllers/propertyLinking/DeclarationSpec.scala@3332..33423x$11String"!
+_root_.scala.Predef.String#"6
+!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"4
+ _root_.repositories.SessionRepo#Ä@SessionRepo")
+_root_.models.FileInfo.ÄÑFileInfo"-
+_root_.scala.collection.ÄàÄ
+collection"a
+&_root_.models.LinkingSession#(address)7ÅaddressString"!
+_root_.scala.Predef.String#"'
+_root_.connectors.ÄàÄ
+connectors"Î
+J_root_.utils.StubWithLinkingSession#`<init>`(Lrepositories/SessionRepo;)V.ú<init>8(sessionRepository: SessionRepo): StubWithLinkingSession"(
+ _root_.repositories.SessionRepo#",
+"8$_root_.utils.StubWithLinkingSession#"ô
+X_root_.controllers.propertyLinking.ReverseDeclaration#confirmation()Lplay/api/mvc/Call;.=confirmation(): Call"!
+_root_.play.api.mvc.Call#"‘
+e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Í	arbitrary)[T] => (implicit a: Arbitrary[T]): Gen[T]"(
+ _root_.org.scalacheck.Arbitrary#"p
+h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]""
+#&_root_.org.scalacheck.Gen#"p
+'(h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]"K
+3_root_.controllers.propertyLinking.DeclarationSpec#Ä DeclarationSpec"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"x
+Atest/controllers/propertyLinking/DeclarationSpec.scala@6501..65013x$39String"!
+_root_.scala.Predef.String#"Î
+t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
+_root_.scala.Predef.String#"#
+$_root_.scala.Predef.String#"
+6:_root_.scala.Long#"
+JN_root_.scala.Long#"(
+Yj _root_.models.IndividualDetails#"1
+mÜ(_root_.models.DetailedIndividualAccount#"?
+*_root_.org.scalatest.mockito.MockitoSugar#Ä@MockitoSugar"x
+Atest/controllers/propertyLinking/DeclarationSpec.scala@5546..55563x$29String"!
+_root_.scala.Predef.String#"˙
+W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
+successful[T] => (result: T): Future[T]"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
+_root_.scala.concurrent.Future#"b
+Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"®
+Atest/controllers/propertyLinking/DeclarationSpec.scala@5856..5953cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"'
+_root_.uk.gov.hmrc.http.ÄàÄhttp"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"x
+Atest/controllers/propertyLinking/DeclarationSpec.scala@5528..55283x$30String"!
+_root_.scala.Predef.String#"ë
+Atest/controllers/propertyLinking/DeclarationSpec.scala@3348..3439LmetadataFileMetadata"0
+*_root_.connectors.fileUpload.FileMetadata#"Ç
+H_root_.utils.HtmlPage#mustContainSummaryErrors(Lscala/collection/Seq;)V.µmustContainSummaryErrors?(errors: <repeated>[Tuple3[FieldId, FieldName, Message]]): Unit""
+	_root_.scala.`<repeated>`#"
+_root_.scala.Tuple3#"&
+"_root_.utils.HtmlPage#FieldId#"(
+$- _root_.utils.HtmlPage#FieldName#"&
+/6_root_.utils.HtmlPage#Message#"
+;?_root_.scala.Unit#"¢
+Å_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.õstubSessionp(linkingSession: LinkingSession, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount): Unit"%
+_root_.models.LinkingSession#"0
+4M(_root_.models.DetailedIndividualAccount#"#
+]i_root_.models.GroupAccount#"
+lp_root_.scala.Unit#"E
+%_root_.session.LinkingSessionRequest#Ä†ÄLinkingSessionRequest"
+_root_.play.api.
+ÄàÄapi"2
+_root_.connectors.fileUpload.ÄàÄ
+fileUpload"u
+Atest/controllers/propertyLinking/DeclarationSpec.scala@2161..21850htmlHtmlPage"
+_root_.utils.HtmlPage#"=
+#_root_.controllers.propertyLinking.ÄàÄpropertyLinking"®
+Atest/controllers/propertyLinking/DeclarationSpec.scala@3684..3781cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"å
+Atest/controllers/propertyLinking/DeclarationSpec.scala@5465..5557GlinkingSessionLinkingSession"#
+_root_.models.LinkingSession#"Y
+(_root_.play.api.http.Status#BAD_REQUEST.-BAD_REQUESTInt"
+_root_.scala.Int#"å
+Atest/controllers/propertyLinking/DeclarationSpec.scala@4348..4440GlinkingSessionLinkingSession"#
+_root_.models.LinkingSession#"«
+M_root_.controllers.propertyLinking.DeclarationSpec#mockPropertyLinkConnector.vÅÄ@mockPropertyLinkConnectorPropertyLinkConnector">
+8_root_.connectors.propertyLinking.PropertyLinkConnector#"V
+8_root_.connectors.propertyLinking.PropertyLinkConnector#Ä PropertyLinkConnector"ê
+K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.A†Ä herePosition"+
+%_root_.org.scalactic.source.Position#"U
+&_root_.play.api.http.Status#SEE_OTHER.+	SEE_OTHERInt"
+_root_.scala.Int#"?
+$_root_.org.mockito.ArgumentMatchers.ÄÑàArgumentMatchers"¬
+s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
+	_root_.scala.Long#"#
+_root_.scala.Predef.String#"#
+)/_root_.scala.Predef.String#"
+<?_root_.scala.Int#"#
+HN_root_.scala.Predef.String#"#
+W]_root_.scala.Predef.String#"
+ho_root_.scala.Boolean#"
+|Ä_root_.scala.Long#"%
+Éè_root_.models.GroupAccount#"/
+_root_.scala.concurrent.Future.ÄÑFuture"œ
+k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.ﬂwithFormUrlEncodedBodyS(data: <repeated>[Tuple2[String, String]]): FakeRequest[AnyContentAsFormUrlEncoded]""
+_root_.scala.`<repeated>`#"
+_root_.scala.Tuple2#"#
+_root_.scala.Predef.String#"#
+!'_root_.scala.Predef.String#")
+,7!_root_.play.api.test.FakeRequest#"7
+8R/_root_.play.api.mvc.AnyContentAsFormUrlEncoded#"å
+Atest/controllers/propertyLinking/DeclarationSpec.scala@6438..6530GlinkingSessionLinkingSession"#
+_root_.models.LinkingSession#"Î
+s_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.ÛÑÄÄverify)[T] => (x$1: T, x$2: VerificationMode): T"~
+v_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.[T]"9
+%1_root_.org.mockito.verification.VerificationMode#"~
+()v_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.[T]"/
+_root_.org.scalatest.mockito.ÄàÄmockito"®
+Atest/controllers/propertyLinking/DeclarationSpec.scala@4794..4891cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"©
+Atest/controllers/propertyLinking/DeclarationSpec.scala@4041..4053dx$17Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"C
+$_root_.utils.StubWithLinkingSession#Ä StubWithLinkingSession"'
+_root_.org.jsoup.Jsoup.ÄÑàJsoup"å
+[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.¨mock*[T] => (implicit classTag: ClassTag[T]): T"&
+#_root_.scala.reflect.ClassTag#"f
+$%^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"f
+)*^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"…
+º_root_.org.scalatest.words.ShouldVerb#StringShouldWrapperForVerb#should(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.áshouldV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
+_root_.scala.Predef.String#">
+96_root_.org.scalatest.words.StringVerbStringInvocation#">
+<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"∑
+K_root_.controllers.propertyLinking.Declaration#show()Lplay/api/mvc/Action;.hshowAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"+
+_root_.repositories.ÄàÄrepositories"˙
+_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ˆcloseEnvelope@(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]"#
+_root_.scala.Predef.String#".
+"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+28_root_.scala.concurrent.Future#"#
+9?_root_.scala.Predef.String#"%
+_root_.resources.ÄàÄ	resources"A
+*_root_.connectors.fileUpload.FileMetadata#Ä†ÄFileMetadata"w
+Atest/controllers/propertyLinking/DeclarationSpec.scala@2453..24532x$6String"!
+_root_.scala.Predef.String#"@
+*_root_.connectors.fileUpload.FileMetadata.ÄÑFileMetadata"(
+_root_.utils.HtmlPage.ÄÑHtmlPage"4
+_root_.models.RatesBillType.ÄÑàRatesBillType")
+_root_.org.scalatest.ÄàÄ	scalatest"‹
+ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.¿mustu[TYPECLASS1] => (rightMatcherFactory1: MatcherFactory1[T, TYPECLASS1])(implicit typeClass1: TYPECLASS1[T]): Assertion"6
+'6._root_.org.scalatest.matchers.MatcherFactory1#"<
+784_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"´
+:D¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"´
+\f¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"<
+gh4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"/
+lu'_root_.org.scalatest.package.Assertion#"ë
+Atest/controllers/propertyLinking/DeclarationSpec.scala@4445..4549LmetadataFileMetadata"0
+*_root_.connectors.fileUpload.FileMetadata#"
+_root_.org.
+ÄàÄorg"®
+Atest/controllers/propertyLinking/DeclarationSpec.scala@1769..1772cx$2Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"
+
+_root_.uk.	ÄàÄuk"°
+Atest/controllers/propertyLinking/DeclarationSpec.scala@7524..7559\mPropertyLinkConnector">
+8_root_.connectors.propertyLinking.PropertyLinkConnector#"„
+p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.omustBe(right: Any): Assertion"
+_root_.scala.Any#"/
+'_root_.org.scalatest.package.Assertion#"
+Atest/controllers/propertyLinking/DeclarationSpec.scala@5112..5165:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"ì
+Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.¥ÑÄÄwhen#[T] => (x$1: T): OngoingStubbing[T]"e
+]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"4
+ ,_root_.org.mockito.stubbing.OngoingStubbing#"e
+!"]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"ë
+C_root_.controllers.propertyLinking.DeclarationSpec#mockSessionRepo.JÅÄ@mockSessionRepoSessionRepo"&
+ _root_.repositories.SessionRepo#"2
+_root_.models.GroupAccount#Ä†ÄGroupAccount"
+_root_.uk.gov.
+ÄàÄgov"k
++_root_.models.LinkingSession#(submissionId)<ÅsubmissionIdString"!
+_root_.scala.Predef.String#"«
+S_root_.controllers.propertyLinking.Declaration#confirmation()Lplay/api/mvc/Action;.pconfirmationAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"˜
+ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
+_root_.scala.Option#"6
+$._root_.uk.gov.hmrc.http.logging.Authorization#"
+/5_root_.scala.Option#"'
+6<_root_.uk.gov.hmrc.http.UserId#"
+FL_root_.scala.Option#"&
+MR_root_.uk.gov.hmrc.http.Token#"
+`f_root_.scala.Option#"5
+gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
+Åá_root_.scala.Option#"4
+àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
+ü•_root_.scala.Option#"4
+¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
+¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
+◊€_root_.scala.Long#"#
+ÎÓ_root_.scala.package.Seq#"
+Ôı_root_.scala.Tuple2#"%
+ˆ¸_root_.scala.Predef.String#"%
+˛Ñ_root_.scala.Predef.String#"
+ñú_root_.scala.Option#"%
+ù£_root_.scala.Predef.String#"
+∂º_root_.scala.Option#"%
+Ω√_root_.scala.Predef.String#"
+œ’_root_.scala.Option#"%
+÷‹_root_.scala.Predef.String#"
+ÈÔ_root_.scala.Option#"%
+ˆ_root_.scala.Predef.String#"
+Éâ_root_.scala.Option#"%
+äê_root_.scala.Predef.String#"
+•´_root_.scala.Option#";
+¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
+Õ–_root_.scala.package.Seq#"
+—◊_root_.scala.Tuple2#"%
+ÿﬁ_root_.scala.Predef.String#"%
+‡Ê_root_.scala.Predef.String#"0
+Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"
+Atest/controllers/propertyLinking/DeclarationSpec.scala@7072..7097:fSessionRepo"&
+ _root_.repositories.SessionRepo#"∞
+e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#"{
+0_root_.org.scalatest.words.MatcherWords#include.GincludeIncludeWord"-
+'_root_.org.scalatest.words.IncludeWord#"{
+0_root_.org.scalatest.words.MatcherWords#contain.GcontainContainWord"-
+'_root_.org.scalatest.words.ContainWord#"?
+'_root_.scala.collection.JavaConverters.ÄÑJavaConverters"!
+_root_.scala.None.ÄÑàNone"ß
+ñ_root_.session.LinkingSessionRequest#`<init>`(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)V.ã<init>§(ses: LinkingSession, organisationId: Long, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount, request: Request[A]): LinkingSessionRequest[A]"%
+_root_.models.LinkingSession#"
+&*_root_.scala.Long#"0
+?X(_root_.models.DetailedIndividualAccount#"#
+ht_root_.models.GroupAccount#"%
+Ü_root_.play.api.mvc.Request#"2
+áà(_root_.session.LinkingSessionRequest#[A]"/
+å°%_root_.session.LinkingSessionRequest#"2
+¢£(_root_.session.LinkingSessionRequest#[A]".
+_root_.play.api.test.Helpers.ÄÑHelpers"—
+|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.–must'(rightMatcherX1: Matcher[T]): Assertion".
+&_root_.org.scalatest.matchers.Matcher#"<
+4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"/
+''_root_.org.scalatest.package.Assertion#"ª
+M_root_.controllers.propertyLinking.Declaration#submit()Lplay/api/mvc/Action;.jsubmitAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#">
+$_root_.connectors.EnvelopeConnector#Ä EnvelopeConnector"£
+M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.—ÑÄÄeq[T] => (x$1: T): T"X
+P_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.[T]"X
+P_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.[T]"
+Atest/controllers/propertyLinking/DeclarationSpec.scala@6170..6223:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"
+_root_.play.ÄàÄplay"-
+_root_.scala.concurrent.ÄàÄ
+concurrent"+
+_root_.org.scalacheck.ÄàÄ
+scalacheck"®
+Atest/controllers/propertyLinking/DeclarationSpec.scala@2071..2120cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"ü
+?_root_.controllers.propertyLinking.DeclarationSpec#`<init>`()V.\<init>(): DeclarationSpec";
+3_root_.controllers.propertyLinking.DeclarationSpec#"÷
+û_root_.connectors.fileUpload.FileUploadConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.≤<init>Z(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): FileUploadConnector"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"9
+GZ1_root_.connectors.fileUpload.FileUploadConnector#"
+Atest/controllers/propertyLinking/DeclarationSpec.scala@1730..1774:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#"<
+ _root_.models.OtherEvidenceFlag.ÄÑàOtherEvidenceFlag"é
+•_root_.connectors.propertyLinking.PropertyLinkConnector#linkToProperty(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.„linkToPropertyV(data: FileMetadata)(implicit request: session.LinkingSessionRequest[_]): Future[Unit]"2
+*_root_.connectors.fileUpload.FileMetadata#"'
+JP_root_.scala.concurrent.Future#"
+QU_root_.scala.Unit#"°
+<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.aÑÄÄany[T] => (): T"G
+?_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.[T]"â
+Atest/controllers/propertyLinking/DeclarationSpec.scala@7278..7309DmEnvelopeConnector"*
+$_root_.connectors.EnvelopeConnector#"-
+_root_.org.mockito.Mockito.ÄÑàMockito"3
+ _root_.org.scalacheck.Arbitrary.ÄÑ	Arbitrary"4
+_root_.models.RatesBillFlag.ÄÑàRatesBillFlag"®
+Atest/controllers/propertyLinking/DeclarationSpec.scala@2823..2920cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"Ê
+•_root_.connectors.propertyLinking.PropertyLinkConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.ª<init>\(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): PropertyLinkConnector"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+%_root_.config.WSHttp#"1
+4D)_root_.scala.concurrent.ExecutionContext#"@
+G\8_root_.connectors.propertyLinking.PropertyLinkConnector#"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"
+_root_.models.ÄàÄmodels"w
+Atest/controllers/propertyLinking/DeclarationSpec.scala@2471..24812x$5String"!
+_root_.scala.Predef.String#"√
+Q_root_.controllers.propertyLinking.Declaration#noEvidence()Lplay/api/mvc/Action;.n
+noEvidenceAction[AnyContent]"!
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"©
+Atest/controllers/propertyLinking/DeclarationSpec.scala@6209..6221dx$35Future[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"º
+V_root_.connectors.fileUpload.FileMetadata#`<init>`(Lmodels/LinkBasis;Lscala/Option;)V.·<init>@(linkBasis: LinkBasis, fileInfo: Option[FileInfo]): FileMetadata" 
+_root_.models.LinkBasis#"
+!'_root_.scala.Option#"
+(0_root_.models.FileInfo#"2
+4@*_root_.connectors.fileUpload.FileMetadata#")
+_root_.controllers.ÄàÄcontrollers"˙
+m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.àshould(string: String): ItVerbString"#
+	_root_.scala.Predef.String#"7
+/_root_.org.scalatest.FlatSpecLike#ItVerbString#"
+_root_.utils.ÄàÄutils"ó
+A_root_.controllers.propertyLinking.DeclarationSpec#mockEnvelopes.RÅÄ@mockEnvelopesEnvelopeConnector"*
+$_root_.connectors.EnvelopeConnector#"ë
+Atest/controllers/propertyLinking/DeclarationSpec.scala@5562..5611LmetadataFileMetadata"0
+*_root_.connectors.fileUpload.FileMetadata#"!
+_root_.org.jsoup.ÄàÄjsoup">
+&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"˘
+Ï_root_.controllers.propertyLinking.Declaration#`<init>`(Lconnectors/EnvelopeConnector;Lconnectors/fileUpload/FileUploadConnector;Lconnectors/propertyLinking/PropertyLinkConnector;Lrepositories/SessionRepo;Lsession/WithLinkingSession;)V.á<init>ª(envelopes: EnvelopeConnector, fileUploads: FileUploadConnector, propertyLinks: PropertyLinkConnector, sessionRepository: SessionRepo, withLinkingSession: WithLinkingSession): Declaration",
+$_root_.connectors.EnvelopeConnector#"9
+,?1_root_.connectors.fileUpload.FileUploadConnector#"@
+Pe8_root_.connectors.propertyLinking.PropertyLinkConnector#")
+zÖ _root_.repositories.SessionRepo#",
+õ≠"_root_.session.WithLinkingSession#"9
+∞ª/_root_.controllers.propertyLinking.Declaration#"ï
+V_root_.controllers.propertyLinking.ReverseDeclaration#noEvidence()Lplay/api/mvc/Call;.;
+noEvidence(): Call"!
+_root_.play.api.mvc.Call#"ñ
+b_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ØÑÄremove,()(implicit hc: HeaderCarrier): Future[Unit]".
+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
+ &_root_.scala.concurrent.Future#"
+'+_root_.scala.Unit#"
+_root_.scala.ÄàÄscala"C
+/_root_.controllers.propertyLinking.Declaration#Ä Declaration"x
+Atest/controllers/propertyLinking/DeclarationSpec.scala@4429..44393x$20String"!
+_root_.scala.Predef.String#"}
+>_root_.controllers.propertyLinking.DeclarationSpec#envelopeId.;ÅÄ@
+envelopeIdString"!
+_root_.scala.Predef.String#"ë
+Atest/controllers/propertyLinking/DeclarationSpec.scala@2487..2578LmetadataFileMetadata"0
+*_root_.connectors.fileUpload.FileMetadata#"å
+Atest/controllers/propertyLinking/DeclarationSpec.scala@3251..3343GlinkingSessionLinkingSession"#
+_root_.models.LinkingSession#"±
+Atest/controllers/propertyLinking/DeclarationSpec.scala@6067..6129lconfirmationFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"!
+_root_.session.ÄàÄsession"¶
+F_root_.controllers.propertyLinking.DeclarationSpec#withLinkingSession.\ÅÄ@withLinkingSessionStubWithLinkingSession"*
+$_root_.utils.StubWithLinkingSession#"™
+C_root_.controllers.propertyLinking.DeclarationSpec#mockFileUploads.cÅÄ@mockFileUploadsFileUploadConnector"7
+1_root_.connectors.fileUpload.FileUploadConnector#"±
+Atest/controllers/propertyLinking/DeclarationSpec.scala@5007..5071lconfirmationFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"Ω
+í_root_.connectors.EnvelopeConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/VPLHttp;Lscala/concurrent/ExecutionContext;)V.•<init>Y(config: ServicesConfig, http: VPLHttp)(implicit ec: ExecutionContext): EnvelopeConnector"=
+	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
+&_root_.config.VPLHttp#"1
+5E)_root_.scala.concurrent.ExecutionContext#",
+HY$_root_.connectors.EnvelopeConnector#":
+_root_.models.OtherUtilityBill.ÄÑàOtherUtilityBill"ì
+}_root_.models.LinkingSession#`<init>`(Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;JLmodels/CapacityDeclaration;)V.ë<init>â(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long, declaration: CapacityDeclaration): LinkingSession"#
+
+_root_.scala.Predef.String#"
+_root_.scala.Long#"#
+*0_root_.scala.Predef.String#"#
+@F_root_.scala.Predef.String#"
+RV_root_.scala.Long#"*
+ex"_root_.models.CapacityDeclaration#"&
+{â_root_.models.LinkingSession#"®
+Atest/controllers/propertyLinking/DeclarationSpec.scala@6650..6705cresFuture[Result]"%
+_root_.scala.concurrent.Future#"#
+_root_.play.api.mvc.Result#"n
+*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
+_root_.org.scalatest.FlatSpec#"L
+(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"
+Atest/controllers/propertyLinking/DeclarationSpec.scala@4002..4055:htmlDocument"&
+ _root_.org.jsoup.nodes.Document#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"6
+_root_.models.LinkingSession#Ä†ÄLinkingSession"j
+%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
+)_root_.org.scalatest.FlatSpecLike#ItWord#";
+*_root_.controllers.propertyLinking.routes.ÄÑàroutes"6
+_root_.models.NoEvidenceFlag.ÄÑàNoEvidenceFlag"G
+_root_.play.api.http.Status#OK.$OKInt"
+_root_.scala.Int#" 
+_root_.scala.Some.
+ÄÑSome"%
+_root_.org.mockito.ÄàÄmockito"∂
+k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
+
+_root_.scala.`<byname>`#"
+_root_.scala.Any#"-
+'/%_root_.org.scalactic.source.Position#"
+26_root_.scala.Unit#"<
+"_root_.connectors.propertyLinking.ÄàÄpropertyLinking"¿
+K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.qÑÄÄparse(x$1: String): Document" 
+_root_.java.lang.String#"(
+ _root_.org.jsoup.nodes.Document#"x
+Atest/controllers/propertyLinking/DeclarationSpec.scala@3314..33143x$12String"!
+_root_.scala.Predef.String#2„
+”˜>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2&
+÷÷*(x$18, x$19)
+_star_.2è
+ØØ*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2m
+å8å8*[Future[Unit]]
+_star_.
+	_root_.scala.Unit#'
+_root_.scala.concurrent.Future#2n
+≈≈*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2n
+é.é.*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2G
+≈≈	*[String]
+_star_.#
+_root_.scala.Predef.String#2†
+ØØ*.apply
+_star_.~
+v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.2b
+ËË*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2„
+Ø”>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2˘
+‚1ú23DeclarationSpec.this.convertToInAndIgnoreMethods(*)®
+0ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+12_star_.2ç
+ê#ê#*.apply[FileInfo]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
+_root_.models.FileInfo#2∞
+ß≤åDeclarationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 46), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+-0_root_.scala.Int#
+23_star_.y
+SXq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Ñã(_root_.org.scalactic.Prettifier.default.2Õ
+‚1˘1ÚDeclarationSpec.this.convertToStringShouldWrapperForVerb(*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 133))¡
+8∏_root_.org.scalatest.words.ShouldVerb#convertToStringShouldWrapperForVerb(Ljava/lang/String;Lorg/scalactic/source/Position;)Lorg/scalatest/words/ShouldVerb/StringShouldWrapperForVerb;.
+9:_star_.y
+Z_q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2†
+ú2ú29*(DeclarationSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+8D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2z
+ö%ö%**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2†
+’+’+*.apply
+_star_.~
+v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.2&
+¨(¨(*(x$27, x$28)
+_star_.2ã
+Ú4Ú4*.apply
+_star_.i
+a_root_.org.scalatest.words.IncludeWord#apply(Ljava/lang/String;)Lorg/scalatest/matchers/Matcher;.2ã
+»)»)*.apply
+_star_.i
+a_root_.org.scalatest.words.IncludeWord#apply(Ljava/lang/String;)Lorg/scalatest/matchers/Matcher;.2\
+›,›,*[FileMetadata]
+_star_.2
+*_root_.connectors.fileUpload.FileMetadata#2±
+∂4¡4çDeclarationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 138), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+-0_root_.scala.Int#
+23_star_.y
+SXq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Öå(_root_.org.scalactic.Prettifier.default.2ç
+ÊÊ*.apply[FileInfo]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
+_root_.models.FileInfo#2…
+’Ï1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2ç
+˘˘*[Future[FileMetadata]]
+_star_.2
+	*_root_.connectors.fileUpload.FileMetadata#'
+_root_.scala.concurrent.Future#2b
+⁄%⁄%*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2D
+∏.∏.	*[String]
+_star_. 
+_root_.java.lang.String#2Y
+≠≠*[Containing]
+_star_.1
+)_root_.org.scalatest.enablers.Containing#2B
+‹7‹7
+*[Nothing]
+_star_.
+	_root_.scala.Nothing#2n
+Ë%Ë%*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2x
+ÓÓ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2n
+üü*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2G
+¢¢	*[String]
+_star_.#
+_root_.scala.Predef.String#2Û
+Û®óDeclarationSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 49), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;. 
+4:_root_.java.lang.String#/
+-3'_root_.scala.collection.mutable.Buffer#
+=>_star_.y
+^cq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+èñ(_root_.org.scalactic.Prettifier.default.2Ä
+≠≠-*(resources.`package`.arbitraryLinkinSession)
+_star_.8
+,0_root_.resources.package.arbitraryLinkinSession.2Ã
+î!î!∑*(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 76))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2n
+Ó/Ó/*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2∞
+ ’åDeclarationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 84), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+-0_root_.scala.Int#
+23_star_.y
+SXq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Ñã(_root_.org.scalactic.Prettifier.default.2ç
+√√*.apply[FileInfo]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
+_root_.models.FileInfo#2…
+˘ê1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2ì
+µµ*.apply
+_star_.q
+i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2~
+Ÿ-Ÿ-,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2‰
+¡&÷&òDeclarationSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 104), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.#
+4:_root_.scala.Predef.String#
+-3_root_.scala.Option#
+=>_star_.y
+^cq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+êó(_root_.org.scalactic.Prettifier.default.2n
+µµ*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2Ä
+ó+ó+-*(resources.`package`.arbitraryLinkinSession)
+_star_.8
+,0_root_.resources.package.arbitraryLinkinSession.2q
+ÑÑ*.apply
+_star_.O
+G_root_.utils.HtmlPage.apply(Lscala/concurrent/Future;)Lutils/HtmlPage;.2~
+êê,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2|
+‚/‚/*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2…
+ú%≥%1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2Ã
+……∑*(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 42))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2∞
+ÕÿåDeclarationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 56), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+-0_root_.scala.Int#
+23_star_.y
+SXq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Ñã(_root_.org.scalactic.Prettifier.default.2G
+¯#¯#	*[String]
+_star_.#
+_root_.scala.Predef.String#2z
+⁄3⁄3**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2|
+©©*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2Ä
+îî-*(resources.`package`.arbitraryLinkinSession)
+_star_.8
+,0_root_.resources.package.arbitraryLinkinSession.2è
+à/à/*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2Õ
+À2‰23resources.`package`.getArbitrary[LinkingSession](*)%
+!/_root_.models.LinkingSession#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.2…
+¬-Ÿ-1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2s
+‚‚*[PropertyLinkConnector]
+_star_.@
+8_root_.connectors.propertyLinking.PropertyLinkConnector#2‚
+ç9ç9l*(((ClassTag.apply[EnvelopeConnector](classOf[connectors.EnvelopeConnector])): ClassTag[EnvelopeConnector]))
+_star_.,
+Xi$_root_.connectors.EnvelopeConnector#&
+OW_root_.scala.reflect.ClassTag#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.,
+$$_root_.connectors.EnvelopeConnector#2Ä
+——-*(resources.`package`.arbitraryLinkinSession)
+_star_.8
+,0_root_.resources.package.arbitraryLinkinSession.2m
+ê;ê;*[Future[Unit]]
+_star_.
+	_root_.scala.Unit#'
+_root_.scala.concurrent.Future#2ö
+‘0ﬁ0ãDeclarationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 129), org.scalactic.Prettifier.default)¡
+/∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Éä(_root_.org.scalactic.Prettifier.default.2b
+ëë*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2ã
+º1º1*.apply
+_star_.i
+a_root_.org.scalatest.words.IncludeWord#apply(Ljava/lang/String;)Lorg/scalatest/matchers/Matcher;.2\
+∑$∑$*[FileMetadata]
+_star_.2
+*_root_.connectors.fileUpload.FileMetadata#2è
+‚&‚&*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2b
+‡/‡/*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2†
+““*.apply
+_star_.~
+v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.2z
+ƒƒ**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2ö
+—4Â4ãDeclarationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 140), org.scalactic.Prettifier.default)¡
+/∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Éä(_root_.org.scalactic.Prettifier.default.2ö
+´)ª)ãDeclarationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 111), org.scalactic.Prettifier.default)¡
+/∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Éä(_root_.org.scalactic.Prettifier.default.2~
+≥%≥%,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2‰
+Á.¸.òDeclarationSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 123), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.#
+4:_root_.scala.Predef.String#
+-3_root_.scala.Option#
+=>_star_.y
+^cq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+êó(_root_.org.scalactic.Prettifier.default.2±
+†&´&çDeclarationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 103), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+-0_root_.scala.Int#
+23_star_.y
+SXq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Öå(_root_.org.scalactic.Prettifier.default.2Æ
+Ç&è&"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2b
+†4†4*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2Ã
+ÕÕ∑*(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 62))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2|
+ÜÜ*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2„
+∂3⁄3>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2G
+û,û,	*[String]
+_star_.#
+_root_.scala.Predef.String#2Õ
+˛*ó+3resources.`package`.getArbitrary[LinkingSession](*)%
+!/_root_.models.LinkingSession#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.2B
+’7’7
+*[Nothing]
+_star_.
+	_root_.scala.Nothing#2B
+ 7 7
+*[Nothing]
+_star_.
+	_root_.scala.Nothing#2„
+é£óDeclarationSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 71), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.#
+4:_root_.scala.Predef.String#
+-3_root_.scala.Option#
+=>_star_.y
+^cq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+èñ(_root_.org.scalactic.Prettifier.default.2Ä
+‰2‰2-*(resources.`package`.arbitraryLinkinSession)
+_star_.8
+,0_root_.resources.package.arbitraryLinkinSession.2\
+··*[FileMetadata]
+_star_.2
+*_root_.connectors.fileUpload.FileMetadata#2z
+””**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2Æ
+®.µ."scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2Ä
+∫"∫"-*(resources.`package`.arbitraryLinkinSession)
+_star_.8
+,0_root_.resources.package.arbitraryLinkinSession.2ã
+Ú Ú *.apply
+_star_.i
+a_root_.org.scalatest.words.IncludeWord#apply(Ljava/lang/String;)Lorg/scalatest/matchers/Matcher;.2D
+ﬂﬂ	*[String]
+_star_. 
+_root_.java.lang.String#2~
+››,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2n
+íí*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2z
+ÁÁ**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2z
+¿-¿-**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2n
+Ã'Ã'*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2D
+í&í&	*[String]
+_star_. 
+_root_.java.lang.String#2„
+√Á>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2z
+˜˜**(resources.`package`.arbitraryIndividual)
+_star_.5
+)-_root_.resources.package.arbitraryIndividual.2®
+á;á;à*(((ClassTag.apply[PropertyLinkConnector](classOf[connectors.propertyLinking.PropertyLinkConnector])): ClassTag[PropertyLinkConnector]))
+_star_.A
+pÖ8_root_.connectors.propertyLinking.PropertyLinkConnector#&
+go_root_.scala.reflect.ClassTag#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.@
+(8_root_.connectors.propertyLinking.PropertyLinkConnector#2ç
+µ:µ:}*(((ClassTag.apply[FileUploadConnector](classOf[connectors.fileUpload.FileUploadConnector])): ClassTag[FileUploadConnector]))
+_star_.&
+^f_root_.scala.reflect.ClassTag#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.9
+&1_root_.connectors.fileUpload.FileUploadConnector#9
+gz1_root_.connectors.fileUpload.FileUploadConnector#2 
+π7π7\*(((ClassTag.apply[SessionRepo](classOf[repositories.SessionRepo])): ClassTag[SessionRepo]))
+_star_.(
+NY _root_.repositories.SessionRepo#&
+EM_root_.scala.reflect.ClassTag#(
+ _root_.repositories.SessionRepo#W
+O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.2ô
+’ Â äDeclarationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 92), org.scalactic.Prettifier.default)¡
+/∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Çâ(_root_.org.scalactic.Prettifier.default.2ç
+úú*[Future[FileMetadata]]
+_star_.2
+	*_root_.connectors.fileUpload.FileMetadata#'
+_root_.scala.concurrent.Future#2…
+ÈÄ1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2„
+ÎÄóDeclarationSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 85), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.#
+4:_root_.scala.Predef.String#
+-3_root_.scala.Option#
+=>_star_.y
+^cq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+èñ(_root_.org.scalactic.Prettifier.default.2Õ
+ﬁ1ﬁ1∏*(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 114))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Õ
+î5î5∏*(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 133))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2√
+¢<≠<+resources.`package`.getArbitrary[String](*)#
+!'_root_.scala.Predef.String#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+)*_star_.2b
+Ä.Ä.*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2|
+¿'¿'*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2~
+Û3Û3,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2x
+ñ9ñ9*[Future[String]]
+_star_.#
+	_root_.scala.Predef.String#'
+_root_.scala.concurrent.Future#2~
+ÏÏ,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2\
+ÑÑ*[FileMetadata]
+_star_.2
+*_root_.connectors.fileUpload.FileMetadata#2<
+Ò;Ò;*[Unit]
+_star_.
+_root_.scala.Unit#2ç
+œ#œ#*[Future[FileMetadata]]
+_star_.2
+	*_root_.connectors.fileUpload.FileMetadata#'
+_root_.scala.concurrent.Future#2Õ
+î≠3resources.`package`.getArbitrary[LinkingSession](*)%
+!/_root_.models.LinkingSession#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.2|
+ÍÍ*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2Æ
+œ‹"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2Ã
+ÄÄ∑*(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 52))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2n
+ˆˆ*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2m
+¬7¬7*[Future[Unit]]
+_star_.
+	_root_.scala.Unit#'
+_root_.scala.concurrent.Future#2|
+ìì*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2†
+ÎÎ9*(DeclarationSpec.this.shorthandTestRegistrationFunction)
+_star_.L
+8D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2Ã
+ç£ÒDeclarationSpec.this.convertToStringShouldWrapperForVerb(*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 42))¡
+8∏_root_.org.scalatest.words.ShouldVerb#convertToStringShouldWrapperForVerb(Ljava/lang/String;Lorg/scalactic/source/Position;)Lorg/scalatest/words/ShouldVerb/StringShouldWrapperForVerb;.
+9:_star_.y
+Z_q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Õ
+ÿÒ3resources.`package`.getArbitrary[LinkingSession](*)%
+!/_root_.models.LinkingSession#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.2±
+‘'Ë'çDeclarationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 107), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+-0_root_.scala.Int#
+23_star_.y
+SXq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Öå(_root_.org.scalactic.Prettifier.default.2…
+∆›1resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2˘
+çÎ3DeclarationSpec.this.convertToInAndIgnoreMethods(*)®
+0ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
+12_star_.2Å
+ÃÃ*.apply
+_star_._
+W_root_.models.FileInfo.apply(Ljava/lang/String;Lmodels/EvidenceType;)Lmodels/FileInfo;.2b
+æ'æ'*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2b
+ßß*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2$
+ÌÌ*(x$3, x$4)
+_star_.2x
+ƒ(ƒ(*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2…
+‹3Û31resources.`package`.getArbitrary[GroupAccount](*)#
+!-_root_.models.GroupAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+/0_star_.2„
+ú-¿->resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2&
+Œ0Œ0*(x$36, x$37)
+_star_.2±
+∆.—.çDeclarationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 122), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+-0_root_.scala.Int#
+23_star_.y
+SXq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Öå(_root_.org.scalactic.Prettifier.default.2b
+∑∑*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2„
+ˆ$ö%>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2|
+¢4¢4*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2Ã
+Í)Í)∑*(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 95))
+_star_.y
+ %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2„
+†ƒ>resources.`package`.getArbitrary[DetailedIndividualAccount](*)0
+!:(_root_.models.DetailedIndividualAccount#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+<=_star_.2D
+ºº	*[String]
+_star_. 
+_root_.java.lang.String#2D
+Ó9Ó9	*[String]
+_star_. 
+_root_.java.lang.String#2Æ
+¨π"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2∞
+Ì¯åDeclarationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 70), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+-0_root_.scala.Int#
+23_star_.y
+SXq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Ñã(_root_.org.scalactic.Prettifier.default.2∞
+˛íåDeclarationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 88), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+-0_root_.scala.Int#
+23_star_.y
+SXq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Ñã(_root_.org.scalactic.Prettifier.default.2†
+¯"¯"*.apply
+_star_.~
+v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.2<
+˝7˝7*[Unit]
+_star_.
+_root_.scala.Unit#2Õ
+∏—3resources.`package`.getArbitrary[LinkingSession](*)%
+!/_root_.models.LinkingSession#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.2b
+ÑÑ*.apply
+_star_.@
+8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2Å
+ô#ô#*.apply
+_star_._
+W_root_.models.FileInfo.apply(Ljava/lang/String;Lmodels/EvidenceType;)Lmodels/FileInfo;.2~
+ÄÄ,*(resources.`package`.arbitraryGroupAccount)
+_star_.7
++/_root_.resources.package.arbitraryGroupAccount.2è
+åå*.apply[String]
+_star_.@
+8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
+_root_.scala.Predef.String#2G
+Ø9Ø9	*[String]
+_star_.#
+_root_.scala.Predef.String#2Å
+ÔÔ*.apply
+_star_._
+W_root_.models.FileInfo.apply(Ljava/lang/String;Lmodels/EvidenceType;)Lmodels/FileInfo;.2|
+ππ*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2n
+Æ4Æ4*.apply
+_star_.L
+D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2|
+‹%‹%*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2Õ
+˚î3resources.`package`.getArbitrary[LinkingSession](*)%
+!/_root_.models.LinkingSession#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.2±
+ˆ/ä0çDeclarationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 126), org.scalactic.Prettifier.default)ª
+,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
+-0_root_.scala.Int#
+23_star_.y
+SXq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Öå(_root_.org.scalactic.Prettifier.default.2|
+Ç.Ç.*.apply
+_star_.Z
+R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2Ë
+≈≈}*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
+_star_.H
+ls@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.ê
+$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;. 
+EK_root_.java.lang.String#/
+MS'_root_.scala.collection.mutable.Buffer# 
+tz_root_.java.lang.String#2ç
+ı+ı+*[Future[FileMetadata]]
+_star_.2
+	*_root_.connectors.fileUpload.FileMetadata#'
+_root_.scala.concurrent.Future#2B
+õ8õ8
+*[Nothing]
+_star_.
+	_root_.scala.Nothing#2ö
+≤(º(ãDeclarationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 110), org.scalactic.Prettifier.default)¡
+/∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Éä(_root_.org.scalactic.Prettifier.default.2<
+º8º8*[Unit]
+_star_.
+_root_.scala.Unit#2ö
+ü1Ø1ãDeclarationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 130), org.scalactic.Prettifier.default)¡
+/∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Éä(_root_.org.scalactic.Prettifier.default.2B
+Œ7Œ7
+*[Nothing]
+_star_.
+	_root_.scala.Nothing#2ô
+‹ÊäDeclarationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("DeclarationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 91), org.scalactic.Prettifier.default)¡
+/∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
+01_star_.y
+QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
+Çâ(_root_.org.scalactic.Prettifier.default.2\
+üü*[FileMetadata]
+_star_.2
+*_root_.connectors.fileUpload.FileMetadata#2Ä
+ÒÒ-*(resources.`package`.arbitraryLinkinSession)
+_star_.8
+,0_root_.resources.package.arbitraryLinkinSession.2Õ
+°"∫"3resources.`package`.getArbitrary[LinkingSession](*)%
+!/_root_.models.LinkingSession#V
+ N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
+12_star_.:Scala211BΩ</*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.propertyLinking
+
+import connectors.EnvelopeConnector
+import connectors.fileUpload.{FileMetadata, FileUploadConnector}
+import connectors.propertyLinking.PropertyLinkConnector
+import controllers.ControllerSpec
+import models._
+import org.jsoup.Jsoup
+import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
+import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.mockito.MockitoSugar
+import play.api.test.FakeRequest
+import session.LinkingSessionRequest
+import play.api.test.Helpers._
+import repositories.SessionRepo
+import resources._
+import utils.{HtmlPage, StubWithLinkingSession}
+
+import scala.collection.JavaConverters._
+import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
+
+class DeclarationSpec extends ControllerSpec with MockitoSugar {
+
+  "The declaration page" should "include a checkbox to allow the user to accept the declaration" in {
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = TestDeclaration.show()(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.select("input[type=checkbox]").asScala.map(_.id) must contain ("declaration")
+  }
+
+  it should "require the user to accept the declaration to continue" in {
+    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = TestDeclaration.submit()(FakeRequest())
+    status(res) mustBe BAD_REQUEST
+
+    val html = HtmlPage(res)
+    html.mustContainSummaryErrors(("declaration", "Declaration", "You must agree to the declaration to continue"))
+  }
+
+  it should "submit the property link if the user accepts the declaration" in {
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    val metadata = FileMetadata(RatesBillFlag, Some(FileInfo("rates bill.pdf", RatesBillType)))
+
+    when(mockFileUploads.getFileMetadata(matching(envelopeId))(any[HeaderCarrier])).thenReturn(Future.successful(metadata))
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
+
+    verify(mockPropertyLinkConnector, times(1)).linkToProperty(matching(metadata))(any[LinkingSessionRequest[_]])
+  }
+
+  it should "display the normal confirmation page when the user has uploaded a rates bill" in {
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    val metadata = FileMetadata(RatesBillFlag, Some(FileInfo("rates bill.pdf", RatesBillType)))
+
+    when(mockFileUploads.getFileMetadata(matching(envelopeId))(any[HeaderCarrier])).thenReturn(Future.successful(metadata))
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
+
+    val confirmation = TestDeclaration.confirmation()(FakeRequest())
+    status(confirmation) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(confirmation))
+    html.title mustBe s"We‚Äôve received your request to add ${linkingSession.address} to your business‚Äôs customer record"
+    html.body().text must include (linkingSession.submissionId)
+  }
+
+  it should "display the normal confirmation page when the user has uploaded other evidence" in {
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    val metadata = FileMetadata(OtherEvidenceFlag, Some(FileInfo("not a rates bill.pdf", OtherUtilityBill)))
+
+    when(mockFileUploads.getFileMetadata(matching(envelopeId))(any[HeaderCarrier])).thenReturn(Future.successful(metadata))
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
+
+    val confirmation = TestDeclaration.confirmation()(FakeRequest())
+    status(confirmation) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(confirmation))
+    html.title mustBe s"We‚Äôve received your request to add ${linkingSession.address} to your business‚Äôs customer record"
+    html.body().text must include (linkingSession.submissionId)
+  }
+
+  it should "display the no evidence confirmation page when the user has not uploaded any evidence" in {
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    val metadata = FileMetadata(NoEvidenceFlag, None)
+
+    when(mockFileUploads.getFileMetadata(matching(envelopeId))(any[HeaderCarrier])).thenReturn(Future.successful(metadata))
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Declaration.noEvidence().url)
+
+    val confirmation = TestDeclaration.noEvidence()(FakeRequest())
+    status(confirmation) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(confirmation))
+    html.title mustBe "We‚Äôre sorry, but you can‚Äôt proceed with this form."
+    html.body().text must include (linkingSession.submissionId)
+  }
+
+  "The confirmation page" should "display the submission ID" in {
+    val linkingSession: LinkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+
+    val res = TestDeclaration.confirmation()(FakeRequest())
+    status(res) mustBe OK
+
+    contentAsString(res) must include (linkingSession.submissionId)
+  }
+
+  lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
+
+  private object TestDeclaration extends Declaration(mockEnvelopes, mockFileUploads, mockPropertyLinkConnector,
+    mockSessionRepo, withLinkingSession)
+
+  lazy val mockSessionRepo = {
+    val f = mock[SessionRepo]
+    when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
+
+    when(f.remove()(any())).thenReturn(Future.successful(()))
+    f
+  }
+
+  lazy val mockEnvelopes = {
+    val m = mock[EnvelopeConnector]
+    when(m.closeEnvelope(matching(envelopeId))(any[HeaderCarrier])).thenReturn(Future.successful(""))
+    m
+  }
+
+  lazy val mockFileUploads = mock[FileUploadConnector]
+
+  lazy val mockPropertyLinkConnector = {
+    val m = mock[PropertyLinkConnector]
+    when(m.linkToProperty(any[FileMetadata])(any[LinkingSessionRequest[_]])).thenReturn(Future.successful(()))
+    m
+  }
+
+  lazy val envelopeId: String = shortString
+
+}
+J6test/controllers/propertyLinking/DeclarationSpec.scala

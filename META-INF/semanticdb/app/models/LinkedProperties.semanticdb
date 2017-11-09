@@ -1,0 +1,91 @@
+
+ï 4
+√ (_root_.models.LinkedProperties#(pending)c
+®®W_root_.models.LinkedProperties#`<init>`(Lscala/collection/Seq;Lscala/collection/Seq;)V.#
+Ãœ_root_.scala.package.Seq#$
+ÇÜ_root_.play.api.libs.json.
+˝Å_root_.play.api.libs.N
+óùD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.2
+©Æ&_root_.models.LinkedProperties#(added)
+ÂÎ_root_.models.%
+–‹_root_.models.PropertyLink#+
+Á˜_root_.models.LinkedProperties.)
+ûÆ_root_.models.LinkedProperties#2
+âè&_root_.models.LinkedProperties.format.
+Ù¯_root_.play.
+˘¸_root_.play.api.%
+¥¿_root_.models.PropertyLink#)
+íñ_root_.play.api.libs.json.Json.)
+áã_root_.play.api.libs.json.Json.+
+ò®_root_.models.LinkedProperties##
+∞≥_root_.scala.package.Seq#"„
+D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
+"_root_.play.api.libs.json.OFormat#"O
+G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]")
+_root_.play.api.libs.json.ÄàÄjson"$
+_root_.play.api.libs.ÄàÄlibs"
+_root_.play.api.
+ÄàÄapi"-
+_root_.play.api.libs.json.Json.
+ÄÑJson"2
+_root_.models.PropertyLink#Ä†ÄPropertyLink"9
+_root_.models.LinkedProperties.ÄÑLinkedProperties":
+_root_.models.LinkedProperties#Ä†ÄLinkedProperties"ë
+(_root_.models.LinkedProperties#(pending)eÅpendingSeq[PropertyLink]"
+_root_.scala.package.Seq#"#
+_root_.models.PropertyLink#"§
+&_root_.models.LinkedProperties.format.zÅÄ formatOFormat[LinkedProperties]"(
+"_root_.play.api.libs.json.OFormat#"'
+_root_.models.LinkedProperties#"
+_root_.play.ÄàÄplay"È
+W_root_.models.LinkedProperties#`<init>`(Lscala/collection/Seq;Lscala/collection/Seq;)V.ç<init>H(added: Seq[PropertyLink], pending: Seq[PropertyLink]): LinkedProperties"!
+_root_.scala.package.Seq#"#
+_root_.models.PropertyLink#"!
+$'_root_.scala.package.Seq#"#
+(4_root_.models.PropertyLink#"'
+8H_root_.models.LinkedProperties#"
+_root_.models.ÄàÄmodels"ç
+&_root_.models.LinkedProperties#(added)cÅaddedSeq[PropertyLink]"
+_root_.scala.package.Seq#"#
+_root_.models.PropertyLink#"R
+_root_.scala.package.Seq#5SeqSeq.type""
+_root_.scala.collection.Seq."Ÿ
+°_root_.models.PropertyLink#`<init>`(JLjava/lang/String;JJLjava/lang/String;Lmodels/Capacity;Ljava/time/LocalDate;ZLscala/collection/Seq;Lscala/collection/Seq;)V.≤<init>Ë(authorisationId: Long, submissionId: String, uarn: Long, organisationId: Long, address: String, capacityDeclaration: Capacity, linkedDate: LocalDate, pending: Boolean, assessments: Seq[Assessment], agents: Seq[Party]): PropertyLink"
+_root_.scala.Long#"#
+&,_root_.scala.Predef.String#"
+48_root_.scala.Long#"
+JN_root_.scala.Long#"#
+Y__root_.scala.Predef.String#"
+v~_root_.models.Capacity#"%
+åï_root_.java.time.LocalDate#"
+†ß_root_.scala.Boolean#"#
+∂π_root_.scala.package.Seq#"#
+∫ƒ_root_.models.Assessment#"#
+œ“_root_.scala.package.Seq#"
+”ÿ_root_.models.Party#"%
+‹Ë_root_.models.PropertyLink#:Scala211B≤/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package models
+
+import play.api.libs.json.Json
+
+case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
+
+object LinkedProperties {
+  implicit val format = Json.format[LinkedProperties]
+}
+J!app/models/LinkedProperties.scala

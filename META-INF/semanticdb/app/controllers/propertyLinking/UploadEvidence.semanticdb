@@ -1,0 +1,656 @@
+
+∂¶
+ﬁ‚_root_.views.html.r
+••f_root_.controllers.propertyLinking.UploadEvidenceVM#`<init>`(Lplay/api/data/Form;Ljava/lang/String;)V.@
+ıÄ6_root_.controllers.propertyLinking.routes.Declaration.y
+˚ˇo_root_.controllers.propertyLinking.ReverseUploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.P
+®∫F_root_.controllers.propertyLinking.UploadEvidence#(withLinkingSession)I
+™≠?app/controllers/propertyLinking/UploadEvidence.scala@2201..2204K
+∆Õ?app/controllers/propertyLinking/UploadEvidence.scala@2502..2509~
+–Ÿt_root_.play.api.data.Form#withError(Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lplay/api/data/Form;.$
+¨∞_root_.play.api.data.Form#F
+©	¡	<_root_.controllers.propertyLinking.FileUploadCircuitBreaker#7
+À	‰	-_root_.controllers.PropertyLinkingController#I
+ÅÑ?app/controllers/propertyLinking/UploadEvidence.scala@2099..2102Å
+ä
+ì
+u_root_.controllers.propertyLinking.UploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(errorCode)K
+ÂÒ?_root_.controllers.propertyLinking.UploadEvidence#fileTooLarge.R
+Œ‡F_root_.controllers.propertyLinking.UploadEvidence#(withLinkingSession)P
+ªΩF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.∑
+˘˘™_root_.controllers.propertyLinking.UploadEvidence#`<init>`(Lconfig/ApplicationConfig;Lsession/WithLinkingSession;Lcontrollers/propertyLinking/FileUploadCircuitBreaker;)V.-
+ÒÄ#_root_.controllers.propertyLinking.C
+ôù7_root_.controllers.propertyLinking.UploadEvidence#form.
+∂∫_root_.views.html.;
+Ñí1_root_.views.html.propertyLinking.uploadEvidence.
+äìu_root_.controllers.propertyLinking.UploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(errorCode)
+ãè_root_.play.api.data.P
+¬
+‘
+F_root_.controllers.propertyLinking.UploadEvidence#(withLinkingSession)>
+äö4_root_.controllers.propertyLinking.UploadEvidenceVM.>
+·Ô2_root_.controllers.propertyLinking.UploadEvidence#,
+ŸÎ"_root_.session.WithLinkingSession#C
+ïò9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.}
+Ò˛s_root_.controllers.propertyLinking.UploadEvidence#submissionUrl(Lsession/LinkingSessionRequest;)Ljava/lang/String;.5
+ÀŸ+_root_.play.api.mvc.Results#EntityTooLarge.?
+Æ∆5_root_.play.api.http.Status#REQUEST_ENTITY_TOO_LARGE.Q
+ﬁﬂG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.R
+ï	ß	F_root_.controllers.propertyLinking.UploadEvidence#(withCircuitBreaker)
+œ”_root_.scala.Some.
+¶™_root_.scala.Some.-
+ﬁÌ#_root_.controllers.propertyLinking.2
+÷·(_root_.play.api.http.Status#BAD_REQUEST.)
+» _root_.play.api.mvc.Results#Ok.9
+≈◊/_root_.play.api.mvc.Results#ServiceUnavailable.?
+Í	˚	5_root_.controllers.propertyLinking.FileUploadHelpers#,
+Äé"_root_.uk.gov.hmrc.circuitbreaker.
+âé_root_.javax.Ñ
+¢
+Æ
+x_root_.controllers.propertyLinking.UploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(errorMessage)
+ú†_root_.play.A
+ñú7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#
+π¿_root_.session.
+∞µ_root_.views.U
+¬◊K_root_.session.LinkingSessionRequest.;_root_.session.LinkingSessionRequest#S
+•´I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.L
+§≥B_root_.controllers.propertyLinking.UploadEvidence#invalidFileType.K
+≥∂?app/controllers/propertyLinking/UploadEvidence.scala@2099..2102>
+ì£4_root_.controllers.propertyLinking.UploadEvidenceVM.,
+ª "_root_.views.html.propertyLinking.*
+è† _root_.config.ApplicationConfig#h
+ë£\_root_.controllers.propertyLinking.UploadEvidence#noEvidenceUploaded()Lplay/api/mvc/Action;.L
+õ™B_root_.controllers.propertyLinking.UploadEvidence#invalidFileType.C
+Ï˙9_root_.controllers.propertyLinking.routes.UploadEvidence.;
+ÔÉ1_root_.play.api.mvc.Results#UnsupportedMediaType.A
+Àœ7_root_.controllers.propertyLinking.UploadEvidence#form.v
+Ö
+â
+j_root_.controllers.propertyLinking.UploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.
+ï
+õ
+_root_.scala.Option#0
+´¥&_root_.play.api.http.Status#NOT_FOUND./
+ª–%_root_.session.LinkingSessionRequest#F
+®¡<_root_.uk.gov.hmrc.circuitbreaker.UnhealthyServiceException#à
+≤π|_root_.controllers.propertyLinking.UploadEvidence#submissionUrl(Lsession/LinkingSessionRequest;)Ljava/lang/String;.(request)
+Æ≤_root_.scala.Some.Y
+’›O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.
+©≠_root_.scala.Some.?
+êî5_root_.play.api.data.Form.;_root_.play.api.data.Form#(
+ÇÖ_root_.play.api.mvc.Call#(url)>
+È˘4_root_.controllers.propertyLinking.UploadEvidenceVM.K
+‡
+Á
+?app/controllers/propertyLinking/UploadEvidence.scala@1376..1383
+Â_root_.controllers.
+ÿ›_root_.views.}
+µ¬s_root_.controllers.propertyLinking.UploadEvidence#submissionUrl(Lsession/LinkingSessionRequest;)Ljava/lang/String;.4
+ÓÙ*_root_.controllers.propertyLinking.routes.P
+Ô
+ÅF_root_.controllers.propertyLinking.UploadEvidence#(withCircuitBreaker)4
+ÂÎ*_root_.controllers.propertyLinking.routes.F
+è®<_root_.uk.gov.hmrc.circuitbreaker.UnhealthyServiceException#I
+˙Ü?_root_.controllers.propertyLinking.UploadEvidence#fileTooLarge.Ç
+àîx_root_.controllers.propertyLinking.UploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(errorMessage)=
+‘Í3_root_.play.api.http.Status#UNSUPPORTED_MEDIA_TYPE.A
+Ù¯7_root_.controllers.propertyLinking.UploadEvidence#form.%
+ ÷_root_.models.EvidenceType.Ü
+êó|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.K
+ôú?app/controllers/propertyLinking/UploadEvidence.scala@2201..2204A
+ÎÔ7_root_.controllers.propertyLinking.UploadEvidence#form.~
+˘Çt_root_.play.api.data.Form#withError(Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lplay/api/data/Form;.
+¿ƒ_root_.scala.None.
+•©_root_.play.api.data.#
+„È_root_.views.html.errors.;
+Ê˙1_root_.play.api.mvc.Results#UnsupportedMediaType.Q
+†°G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.K
+¨ΩA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#;
+⁄Ë1_root_.views.html.propertyLinking.uploadEvidence.>
+⁄Í4_root_.controllers.propertyLinking.UploadEvidenceVM.O
+µ¬C_root_.controllers.propertyLinking.UploadEvidenceVM#(submissionUrl)
+≈–_root_.controllers.
+—’_root_.scala.Some.Z
+ÅÖP_root_.controllers.propertyLinking.ReverseDeclaration#show()Lplay/api/mvc/Call;.%
+Ò˜_root_.javax.inject.Inject#$
+†§_root_.play.api.data.Form.,
+‚Ù"_root_.session.WithLinkingSession#R
+››H_root_.java.lang.IllegalArgumentException#`<init>`(Ljava/lang/String;)V.4
+≈›*_root_.java.lang.IllegalArgumentException#;
+ÀŸ1_root_.views.html.propertyLinking.uploadEvidence.%
+™Ø_root_.play.api.data.Forms.;
+˚â1_root_.views.html.propertyLinking.uploadEvidence.F
+¶™:_root_.controllers.propertyLinking.UploadEvidenceVM#(form)
+ú
+ü
+_root_.scala.Int#
+•´_root_.config.N
+π»B_root_.controllers.propertyLinking.UploadEvidence#invalidFileType.
+Ùˆ
+_root_.uk.m
+π¡c_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.F
+áç:_root_.controllers.propertyLinking.UploadEvidence#(config)
+ÇÜ_root_.play.}
+àïs_root_.controllers.propertyLinking.UploadEvidence#submissionUrl(Lsession/LinkingSessionRequest;)Ljava/lang/String;."
+æ…_root_.form.EnumMapping.ì
+◊‰à_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadUrl(Ljava/lang/String;Lsession/LinkingSessionRequest;)Ljava/lang/String;.
+°§_root_.play.api.
+õ®s_root_.controllers.propertyLinking.UploadEvidence#submissionUrl(Lsession/LinkingSessionRequest;)Ljava/lang/String;.
+èï_root_.javax.inject.@
+ï•4_root_.controllers.propertyLinking.UploadEvidenceVM#
+⁄ﬁ_root_.form.
+˚ˇ_root_.uk.gov.hmrc.
+Ú¯_root_.models.%
+∑
+Ω
+_root_.scala.Predef.String#%
+ƒ _root_.scala.Predef.String#
+áä_root_.play.api."
+ﬂÍ_root_.form.EnumMapping.1
+˜˜'_root_.javax.inject.Inject#`<init>`()V.
+˜˙_root_.uk.gov.
+∞
+∂
+_root_.scala.Option#;
+ÀŸ1_root_.views.html.propertyLinking.uploadEvidence.}
+¨πs_root_.controllers.propertyLinking.UploadEvidence#submissionUrl(Lsession/LinkingSessionRequest;)Ljava/lang/String;.6
+Í¸,_root_.views.html.errors.serviceUnavailable..
+Â	Â	$_root_.java.lang.Object#`<init>`()V."—
+e_root_.session.WithLinkingSession#`<init>`(Lactions/AuthenticatedAction;Lrepositories/SessionRepo;)V.Á<init>X(authenticated: AuthenticatedAction, sessionRepository: SessionRepo): WithLinkingSession"+
+##_root_.actions.AuthenticatedAction#"(
+8C _root_.repositories.SessionRepo#"*
+FX"_root_.session.WithLinkingSession#"Ì
+s_root_.controllers.propertyLinking.UploadEvidence#submissionUrl(Lsession/LinkingSessionRequest;)Ljava/lang/String;.vÑÄsubmissionUrl<(implicit request: session.LinkingSessionRequest[_]): String"#
+6<_root_.scala.Predef.String#"c
+$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
+(): Object" 
+
+_root_.java.lang.Object#"û
+6_root_.controllers.propertyLinking.routes.Declaration.dÅÄàDeclarationReverseDeclaration"<
+6_root_.controllers.propertyLinking.ReverseDeclaration#"I
+1_root_.views.html.propertyLinking.uploadEvidence.ÄÑuploadEvidence"€
+9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.ùÑÄmap&[B] => (f: Function1[A, B]): Option[B]"
+_root_.scala.Function1#"
+_root_.scala.Option#[A]"D
+<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"
+#_root_.scala.Option#"D
+$%<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"1
+_root_.models.EvidenceType.ÄÑEvidenceType"O
+5_root_.controllers.propertyLinking.FileUploadHelpers#Ä@FileUploadHelpers"å
+Å_root_.play.api.data.Form#`<init>`(Lplay/api/data/Mapping;Lscala/collection/immutable/Map;Lscala/collection/Seq;Lscala/Option;)V.Ö<init>c(mapping: Mapping[T], data: Map[String, String], errors: Seq[FormError], value: Option[T]): Form[T]"%
+
+_root_.play.api.data.Mapping#"%
+_root_.play.api.data.Form#[T]" 
+_root_.scala.Predef.Map#"#
+ &_root_.scala.Predef.String#"#
+(._root_.scala.Predef.String#"!
+9<_root_.scala.package.Seq#"'
+=F_root_.play.api.data.FormError#"
+PV_root_.scala.Option#"%
+WX_root_.play.api.data.Form#[T]""
+\`_root_.play.api.data.Form#"%
+ab_root_.play.api.data.Form#[T]"œ
+I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.Åsingle6[A1] => (a1: Tuple2[String, Mapping[A1]]): Mapping[A1]"
+_root_.scala.Tuple2#"#
+_root_.scala.Predef.String#"%
+#_root_.play.api.data.Mapping#"U
+$&M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"%
++2_root_.play.api.data.Mapping#"U
+35M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"\
+_root_.play.api.mvc.Results#Ok.9OkStatus")
+#_root_.play.api.mvc.Results#Status#"ø
+F_root_.controllers.propertyLinking.UploadEvidence#(withCircuitBreaker)uÄwithCircuitBreakerFileUploadCircuitBreaker"B
+<_root_.controllers.propertyLinking.FileUploadCircuitBreaker#"ª
+à_root_.controllers.propertyLinking.FileUploadHelpers#fileUploadUrl(Ljava/lang/String;Lsession/LinkingSessionRequest;)Ljava/lang/String;.≠fileUploadUrlP(failureUrl: String)(implicit request: session.LinkingSessionRequest[_]): String"#
+_root_.scala.Predef.String#"#
+JP_root_.scala.Predef.String#"Q
+_root_.scala.Predef.String#2@StringString"
+_root_.java.lang.String#"N
+4_root_.controllers.propertyLinking.UploadEvidenceVM.ÄÑUploadEvidenceVM"O
+4_root_.controllers.propertyLinking.UploadEvidenceVM#Ä†ÄUploadEvidenceVM"o
+3_root_.play.api.http.Status#UNSUPPORTED_MEDIA_TYPE.8UNSUPPORTED_MEDIA_TYPEInt"
+_root_.scala.Int#"t
++_root_.play.api.mvc.Results#EntityTooLarge.EEntityTooLargeStatus")
+#_root_.play.api.mvc.Results#Status#"$
+_root_.play.api.data.ÄàÄdata" 
+?app/controllers/propertyLinking/UploadEvidence.scala@2502..2509ÜÄÅ request!LinkingSessionRequest[AnyContent]"+
+%_root_.session.LinkingSessionRequest#"'
+ _root_.play.api.mvc.AnyContent#"h
+?app/controllers/propertyLinking/UploadEvidence.scala@2099..2102%errInt"
+_root_.scala.Int#"
+_root_.form.ÄàÄform"U
+_root_.play.api.mvc.Call#(url)3ÅurlString"!
+_root_.scala.Predef.String#"
+_root_.javax.ÄàÄjavax"Ø
+|_root_.controllers.propertyLinking.UploadEvidence#submissionUrl(Lsession/LinkingSessionRequest;)Ljava/lang/String;.(request)/ÄÅ request session.LinkingSessionRequest[_]"E
+%_root_.session.LinkingSessionRequest#Ä†ÄLinkingSessionRequest"
+_root_.play.api.
+ÄàÄapi"=
+#_root_.controllers.propertyLinking.ÄàÄpropertyLinking"Y
+(_root_.play.api.http.Status#BAD_REQUEST.-BAD_REQUESTInt"
+_root_.scala.Int#"∂
+B_root_.controllers.propertyLinking.UploadEvidence#invalidFileType.pÅÄ@invalidFileTypeForm[EvidenceType]" 
+_root_.play.api.data.Form#"#
+_root_.models.EvidenceType#"!
+_root_.views.html.ÄàÄhtml"ﬂ
+«_root_.controllers.propertyLinking.FileUploadCircuitBreaker#`<init>`(Luk/gov/hmrc/circuitbreaker/CircuitBreakerConfig;Lconnectors/fileUpload/FileUploadConnector;Lscala/concurrent/ExecutionContext;)V.í<init>è(circuitBreakerConfig: CircuitBreakerConfig, fileUploadConnector: FileUploadConnector)(implicit ec: ExecutionContext): FileUploadCircuitBreaker"?
++7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#"9
+BU1_root_.connectors.fileUpload.FileUploadConnector#"1
+dt)_root_.scala.concurrent.ExecutionContext#"E
+wè<_root_.controllers.propertyLinking.FileUploadCircuitBreaker#",
+_root_.javax.inject.Inject#Ä†ÄInject"®
+|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ßrecoverZ[U] => (pf: PartialFunction[Throwable, U])(implicit executor: ExecutionContext): Future[U]"%
+_root_.scala.PartialFunction#"'
+%_root_.scala.package.Throwable#"á
+'(_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]"1
+>N)_root_.scala.concurrent.ExecutionContext#"'
+QW_root_.scala.concurrent.Future#"á
+XY_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]"ô
+6_root_.java.lang.IllegalArgumentException#`<init>`()V._àÄÄ<init>(): IllegalArgumentException"2
+*_root_.java.lang.IllegalArgumentException#"$
+_root_.scala.Option#Ä†Option"*
+_root_.views.html.errors.ÄàÄerrors"Ä
+1_root_.play.api.mvc.Results#UnsupportedMediaType.KUnsupportedMediaTypeStatus")
+#_root_.play.api.mvc.Results#Status#"Ω
+O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
+_root_.play.api.mvc.Call#"#
+_root_.play.api.mvc.Result#"
+
+_root_.uk.	ÄàÄuk"%
+_root_.javax.inject.ÄàÄinject"v
+?app/controllers/propertyLinking/UploadEvidence.scala@2201..22043ÄmsgString"!
+_root_.scala.Predef.String#"H
+,_root_.views.html.errors.serviceUnavailable.ÄÑserviceUnavailable"
+_root_.uk.gov.
+ÄàÄgov"ó
+™_root_.controllers.propertyLinking.UploadEvidence#`<init>`(Lconfig/ApplicationConfig;Lsession/WithLinkingSession;Lcontrollers/propertyLinking/FileUploadCircuitBreaker;)V.Á<init>Å(config: ApplicationConfig, withLinkingSession: WithLinkingSession, withCircuitBreaker: FileUploadCircuitBreaker): UploadEvidence"(
+	 _root_.config.ApplicationConfig#"*
+0B"_root_.session.WithLinkingSession#"D
+Xp<_root_.controllers.propertyLinking.FileUploadCircuitBreaker#";
+sÅ2_root_.controllers.propertyLinking.UploadEvidence#"ﬁ
+F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
+_root_.scala.Tuple2#"*
+"_root_.scala.Predef.ArrowAssoc#[A]"Q
+I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"^
+<_root_.uk.gov.hmrc.circuitbreaker.UnhealthyServiceException#Ä UnhealthyServiceException"i
+'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
+(): Inject"#
+
+_root_.javax.inject.Inject#"Ñ
+C_root_.controllers.propertyLinking.UploadEvidenceVM#(submissionUrl)=ÅsubmissionUrlString"!
+_root_.scala.Predef.String#":
+ _root_.config.ApplicationConfig#Ä ApplicationConfig"!
+_root_.scala.None.ÄÑàNone"ß
+ñ_root_.session.LinkingSessionRequest#`<init>`(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)V.ã<init>§(ses: LinkingSession, organisationId: Long, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount, request: Request[A]): LinkingSessionRequest[A]"%
+_root_.models.LinkingSession#"
+&*_root_.scala.Long#"0
+?X(_root_.models.DetailedIndividualAccount#"#
+ht_root_.models.GroupAccount#"%
+Ü_root_.play.api.mvc.Request#"2
+áà(_root_.session.LinkingSessionRequest#[A]"/
+å°%_root_.session.LinkingSessionRequest#"2
+¢£(_root_.session.LinkingSessionRequest#[A]"(
+_root_.play.api.data.Form.
+ÄÑForm")
+_root_.play.api.data.Form#Ä†ÄForm"I
+2_root_.controllers.propertyLinking.UploadEvidence#Ä UploadEvidence"<
+"_root_.views.html.propertyLinking.ÄàÄpropertyLinking"†
+7_root_.controllers.propertyLinking.UploadEvidence#form.eÅÄ@formForm[EvidenceType]" 
+_root_.play.api.data.Form#"#
+_root_.models.EvidenceType#"
+_root_.play.ÄàÄplay"Ç
+Z_root_.uk.gov.hmrc.circuitbreaker.UnhealthyServiceException#`<init>`(Ljava/lang/String;)V.£<init>,(message: String): UnhealthyServiceException"#
+
+_root_.scala.Predef.String#"D
+,<_root_.uk.gov.hmrc.circuitbreaker.UnhealthyServiceException#"Ÿ
+H_root_.java.lang.IllegalArgumentException#`<init>`(Ljava/lang/String;)V.åêÄÄ<init>'(x$1: String): IllegalArgumentException" 
+_root_.java.lang.String#"2
+'*_root_.java.lang.IllegalArgumentException#"ö
+t_root_.play.api.data.Form#withError(Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lplay/api/data/Form;.°	withError>(key: String, message: String, args: <repeated>[Any]): Form[T]"#
+_root_.scala.Predef.String#"#
+_root_.scala.Predef.String#""
+%/_root_.scala.`<repeated>`#"
+03_root_.scala.Any#""
+7;_root_.play.api.data.Form#"%
+<=_root_.play.api.data.Form#[T]"
+_root_.models.ÄàÄmodels"÷
+G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
+_root_.scala.`<repeated>`#"
+_root_.scala.Any#"#
+_root_.scala.Predef.String#"|
+ _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
+
+_root_.scala.Option#"
+_root_.scala.Option#[A]"™
+9_root_.controllers.propertyLinking.routes.UploadEvidence.mÅÄàUploadEvidenceReverseUploadEvidence"?
+9_root_.controllers.propertyLinking.ReverseUploadEvidence#"O
+-_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"À
+u_root_.controllers.propertyLinking.UploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(errorCode)RÄ	errorCodeOption[Int]"
+_root_.scala.Option#"
+
+_root_.scala.Int#"∞
+?_root_.controllers.propertyLinking.UploadEvidence#fileTooLarge.mÅÄ@fileTooLargeForm[EvidenceType]" 
+_root_.play.api.data.Form#"#
+_root_.models.EvidenceType#")
+_root_.controllers.ÄàÄcontrollers"Ÿ
+o_root_.controllers.propertyLinking.ReverseUploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.Âshow<(errorCode: Option[Int], errorMessage: Option[String]): Call"
+_root_.scala.Option#"
+_root_.scala.Int#"
+'-_root_.scala.Option#"#
+.4_root_.scala.Predef.String#"!
+8<_root_.play.api.mvc.Call#"ç
+j_root_.controllers.propertyLinking.UploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.ûshowJ(errorCode: Option[Int], errorMessage: Option[String]): Action[AnyContent]"
+_root_.scala.Option#"
+_root_.scala.Int#"
+'-_root_.scala.Option#"#
+.4_root_.scala.Predef.String#"#
+8>_root_.play.api.mvc.Action#"'
+?I_root_.play.api.mvc.AnyContent#"
+_root_.views.ÄàÄviews" 
+l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
+_root_.play.api.Configuration#"6
+(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
+2C _root_.config.ApplicationConfig#"=
+"_root_.session.WithLinkingSession#Ä WithLinkingSession"-
+_root_.form.EnumMapping.ÄÑEnumMapping" 
+?app/controllers/propertyLinking/UploadEvidence.scala@1376..1383ÜÄÅ request!LinkingSessionRequest[AnyContent]"+
+%_root_.session.LinkingSessionRequest#"'
+ _root_.play.api.mvc.AnyContent#"
+_root_.config.ÄàÄconfig"U
+&_root_.play.api.http.Status#NOT_FOUND.+	NOT_FOUNDInt"
+_root_.scala.Int#"Ñ
+:_root_.controllers.propertyLinking.UploadEvidence#(config)FÅconfigApplicationConfig"&
+ _root_.config.ApplicationConfig#"O
+_root_.scala.Int#`<init>`()V..<init>(): Int"
+_root_.scala.Int#"]
+<_root_.controllers.propertyLinking.FileUploadCircuitBreaker#Ä FileUploadCircuitBreaker"ü
+F_root_.controllers.propertyLinking.UploadEvidence#(withLinkingSession)UÅwithLinkingSessionWithLinkingSession"(
+"_root_.session.WithLinkingSession#"!
+_root_.session.ÄàÄsession"M
+*_root_.java.lang.IllegalArgumentException#Ä†ÄIllegalArgumentException"|
+/_root_.play.api.mvc.Results#ServiceUnavailable.IServiceUnavailableStatus")
+#_root_.play.api.mvc.Results#Status#"*
+_root_.play.api.data.Forms.ÄÑForms"s
+5_root_.play.api.http.Status#REQUEST_ENTITY_TOO_LARGE.:REQUEST_ENTITY_TOO_LARGEInt"
+_root_.scala.Int#""
+_root_.uk.gov.hmrc.ÄàÄhmrc"‹
+\_root_.controllers.propertyLinking.UploadEvidence#noEvidenceUploaded()Lplay/api/mvc/Action;.|noEvidenceUploaded(): Action[AnyContent]"#
+
+_root_.play.api.mvc.Action#"'
+_root_.play.api.mvc.AnyContent#"â
+P_root_.controllers.propertyLinking.ReverseDeclaration#show()Lplay/api/mvc/Call;.5show(): Call"!
+_root_.play.api.mvc.Call#";
+"_root_.uk.gov.hmrc.circuitbreaker.ÄàÄcircuitbreaker"^
+:_root_.controllers.propertyLinking.UploadEvidenceVM#(form) Åformplay.api.data.Form[_]"
+_root_.scala.Int#	Ä†Int";
+*_root_.controllers.propertyLinking.routes.ÄÑàroutes"ﬁ
+x_root_.controllers.propertyLinking.UploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Action;.(errorMessage)bÄerrorMessageOption[String]"
+_root_.scala.Option#"#
+_root_.scala.Predef.String#" 
+_root_.scala.Some.
+ÄÑSome"Õ
+c_root_.controllers.PropertyLinkingController#notFound(Lplay/api/mvc/Request;)Lplay/api/mvc/Result;.fnotFound3(implicit request: play.api.mvc.Request[_]): Result"#
+-3_root_.play.api.mvc.Result#"†
+f_root_.controllers.propertyLinking.UploadEvidenceVM#`<init>`(Lplay/api/data/Form;Ljava/lang/String;)V.µ<init>F(form: play.api.data.Form[_], submissionUrl: String): UploadEvidenceVM"#
+-3_root_.scala.Predef.String#"<
+6F4_root_.controllers.propertyLinking.UploadEvidenceVM#2G
+óó	*[Result]
+_star_.#
+_root_.play.api.mvc.Result#2º
+˘˘*.apply
+_star_.ô
+ê_root_.controllers.propertyLinking.UploadEvidenceVM.apply(Lplay/api/data/Form;Ljava/lang/String;)Lcontrollers/propertyLinking/UploadEvidenceVM;.2Ç
+ËË*.apply
+_star_.ﬂ
+÷_root_.views.html.propertyLinking.uploadEvidence_Scope0.uploadEvidence_Scope1.uploadEvidence#apply(Lcontrollers/propertyLinking/UploadEvidenceVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2x
+††*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2–
+Ô≈%UploadEvidence.this.future[Result](*)#
+!_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+#$_star_.2#
+ïï
+*(request)
+_star_.2x
+ââ*(UploadEvidence.this.messages)
+_star_.>
+6_root_.controllers.PropertyLinkingController#messages.2#
+ππ
+*(request)
+_star_.2Ç
+ŸŸ*.apply
+_star_.ﬂ
+÷_root_.views.html.propertyLinking.uploadEvidence_Scope0.uploadEvidence_Scope1.uploadEvidence#apply(Lcontrollers/propertyLinking/UploadEvidenceVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2#
+¡¡
+*(request)
+_star_.2º
+öö*.apply
+_star_.ô
+ê_root_.controllers.propertyLinking.UploadEvidenceVM.apply(Lplay/api/data/Form;Ljava/lang/String;)Lcontrollers/propertyLinking/UploadEvidenceVM;.2ø
+ÖÖ*.apply(UploadEvidence.this.ec)
+_star_.K
+C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.8
+0_root_.controllers.PropertyLinkingController#ec.2–
+’à%UploadEvidence.this.future[Result](*)#
+!_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+#$_star_.2M
+´´*[EvidenceType]
+_star_.#
+_root_.models.EvidenceType#2#
+¬¬
+*(request)
+_star_.2#
+ÜÜ
+*(request)
+_star_.2G
+òò	*[String]
+_star_.#
+_root_.scala.Predef.String#2º
+ÍÍ*.apply
+_star_.ô
+ê_root_.controllers.propertyLinking.UploadEvidenceVM.apply(Lplay/api/data/Form;Ljava/lang/String;)Lcontrollers/propertyLinking/UploadEvidenceVM;.2Á
+ÅÅ*.apply[Result]
+_star_.ó
+é_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.#
+_root_.play.api.mvc.Result#2º
+££*.apply
+_star_.ô
+ê_root_.controllers.propertyLinking.UploadEvidenceVM.apply(Lplay/api/data/Form;Ljava/lang/String;)Lcontrollers/propertyLinking/UploadEvidenceVM;.2”
+˙˙*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2≤
+……*.apply[EvidenceType]
+_star_.]
+U_root_.form.EnumMapping.apply(Lmodels/NamedEnumSupport;)Lplay/api/data/FieldMapping;.#
+_root_.models.EvidenceType#2”
+ŸŸ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2Å
+ƒƒ(*(request, UploadEvidence.this.messages)
+_star_.>
+'6_root_.controllers.PropertyLinkingController#messages.2#
+˛˛
+*(request)
+_star_.2á
+ΩΩ*[FieldMapping[EvidenceType]]
+_star_.#
+_root_.models.EvidenceType#*
+"_root_.play.api.data.FieldMapping#2”
+ÉÉ*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2”
+òòû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2x
+ﬁﬁ*.apply
+_star_.V
+N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2í
+‘
+‘
+*.apply
+_star_.p
+h_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.2–
+Àò%UploadEvidence.this.future[Result](*)#
+!_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+#$_star_.2–
+π¡%UploadEvidence.this.future[Result](*)#
+!_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+#$_star_.2Å
+óó(*(request, UploadEvidence.this.messages)
+_star_.>
+'6_root_.controllers.PropertyLinkingController#messages.2”
+ººû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2Ç
+ââ*.apply
+_star_.ﬂ
+÷_root_.views.html.propertyLinking.uploadEvidence_Scope0.uploadEvidence_Scope1.uploadEvidence#apply(Lcontrollers/propertyLinking/UploadEvidenceVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Å
+˛˛(*(UploadEvidence.this.messages, request)
+_star_.>
+6_root_.controllers.PropertyLinkingController#messages.2Æ
+¨∫"scala.Predef.ArrowAssoc[String](*)M
+E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
+_root_.java.lang.String#
+ !_star_.2–
+Êº%UploadEvidence.this.future[Result](*)#
+!_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+#$_star_.2–
+»Å%UploadEvidence.this.future[Result](*)#
+!_root_.play.api.mvc.Result#i
+a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
+#$_star_.2Å
+ÄÄ(*(request, UploadEvidence.this.messages)
+_star_.>
+'6_root_.controllers.PropertyLinkingController#messages.2Ω
+¸¸*.apply
+_star_.ö
+ë_root_.views.html.errors.serviceUnavailable_Scope0.serviceUnavailable#apply(Lplay/api/i18n/Messages;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.2™
+§§*.apply[EvidenceType]
+_star_.U
+M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.#
+_root_.models.EvidenceType#2≠
+èè"*(UploadEvidence.this.hc(request))
+_star_.p
+h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2Å
+ªª(*(request, UploadEvidence.this.messages)
+_star_.>
+'6_root_.controllers.PropertyLinkingController#messages.2”
+≈≈û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2”
+  *.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#2í
+∫∫*.apply
+_star_.p
+h_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.2”
+ÅÅû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2”
+ˇˇû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
+_star_.0
+.8(_root_.play.twirl.api.Format#Appendable#*
+ñõ _root_.play.api.mvc.Codec.utf_8.z
+pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
+-ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
+MR _root_.play.api.mvc.Codec.utf_8.2x
+åå*(UploadEvidence.this.messages)
+_star_.>
+6_root_.controllers.PropertyLinkingController#messages.2Ç
+íí*.apply
+_star_.ﬂ
+÷_root_.views.html.propertyLinking.uploadEvidence_Scope0.uploadEvidence_Scope1.uploadEvidence#apply(Lcontrollers/propertyLinking/UploadEvidenceVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2”
+◊◊*.apply[Appendable]
+_star_.s
+k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
+(_root_.play.twirl.api.Format#Appendable#:Scala211BÃ/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.propertyLinking
+
+import javax.inject.Inject
+
+import config.ApplicationConfig
+import controllers._
+import form.EnumMapping
+import models._
+import play.api.data.Form
+import play.api.data.Forms._
+import session.{LinkingSessionRequest, WithLinkingSession}
+import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
+import views.html.propertyLinking.uploadEvidence
+
+class UploadEvidence @Inject()(override val config: ApplicationConfig,
+                               override val withLinkingSession: WithLinkingSession,
+                               withCircuitBreaker: FileUploadCircuitBreaker) extends PropertyLinkingController with FileUploadHelpers {
+
+  def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
+    withCircuitBreaker {
+      errorCode match {
+        case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadEvidence(UploadEvidenceVM(fileTooLarge, submissionUrl)))
+        case Some(NOT_FOUND) => notFound
+        case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadEvidence(UploadEvidenceVM(invalidFileType, submissionUrl)))
+        // this assumes BAD_REQUEST is caused by "Envelope does not allow zero length files, and submitted file has length 0"
+        case Some(BAD_REQUEST) => UnsupportedMediaType(uploadEvidence(UploadEvidenceVM(invalidFileType, submissionUrl)))
+        //if FUaaS repeatedly returns unexpected error codes e.g. 500s, trigger the circuit breaker
+        case Some(err) => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
+        case None => Ok(uploadEvidence(UploadEvidenceVM(form, submissionUrl)))
+      }
+    } recover {
+      case _: UnhealthyServiceException => ServiceUnavailable(views.html.errors.serviceUnavailable())
+    }
+  }
+
+  def noEvidenceUploaded() = withLinkingSession { implicit request =>
+    Redirect(propertyLinking.routes.Declaration.show())
+  }
+
+  lazy val form = Form(single("evidenceType" -> EnumMapping(EvidenceType)))
+  lazy val fileTooLarge = form.withError("evidence[]", "error.fileUpload.tooLarge")
+  lazy val invalidFileType = form.withError("evidence[]", "error.fileUpload.invalidFileType")
+
+  private def submissionUrl(implicit request: LinkingSessionRequest[_]) = fileUploadUrl(routes.UploadEvidence.show().url)
+}
+
+case class UploadEvidenceVM(form: Form[_], submissionUrl: String)
+J4app/controllers/propertyLinking/UploadEvidence.scala

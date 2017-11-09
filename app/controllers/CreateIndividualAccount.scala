@@ -29,8 +29,8 @@ import play.api.data.{Form, Mapping}
 import play.api.mvc.Request
 import repositories.SessionRepo
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.play.http.SessionKeys
 import views.helpers.Errors
+import uk.gov.hmrc.http.SessionKeys
 
 class CreateIndividualAccount @Inject() (ggAction: GGAction,
                                          auth: VPLAuthConnector,
