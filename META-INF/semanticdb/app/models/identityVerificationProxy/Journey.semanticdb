@@ -1,127 +1,0 @@
-
-±3M
-éùA_root_.models.identityVerificationProxy.Journey#(confidenceLevel)<
-íô0_root_.models.identityVerificationProxy.Journey#:
-èñ0_root_.models.identityVerificationProxy.Journey#
-éî_root_.models.
-ÂÎ_root_.models."
-—’_root_.uk.gov.hmrc.play.%
-Ã“_root_.scala.Predef.String#
-¶™_root_.play.%
-Û˘_root_.scala.Predef.String#0
-ﬂ„&_root_.uk.gov.hmrc.play.frontend.auth.D
-ö†8_root_.models.identityVerificationProxy.Journey#(origin)N
-àéD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.
-Ã–_root_.uk.gov.hmrc.H
-ÁÒ<_root_.models.identityVerificationProxy.Journey#(failureURL)F
-√À:_root_.models.identityVerificationProxy.Journey#(userData)K
-Ω ?_root_.models.identityVerificationProxy.Journey#(completionURL))
-Éá_root_.play.api.libs.json.Json.)
-πΩ_root_.play.api.libs.json.Json."
-Õ÷_root_.models.IVDetails#<
-‡Á0_root_.models.identityVerificationProxy.Journey.”
-ôô∆_root_.models.identityVerificationProxy.Journey#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Luk/gov/hmrc/play/frontend/auth/connectors/domain/ConfidenceLevel;Lmodels/IVDetails;)V.ú
-ˆÖë_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel.;_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel#
-»À_root_.uk.gov.$
-¥∏_root_.play.api.libs.json.
-´Æ_root_.play.api.%
-¢®_root_.scala.Predef.String#
-Ø≥_root_.play.api.libs.;
-ïû1_root_.models.IVDetails.;_root_.models.IVDetails#2
-ÏÖ(_root_.models.identityVerificationProxy.;
-‰Ó1_root_.uk.gov.hmrc.play.frontend.auth.connectors.R
-üÆH_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel#
-≈«
-_root_.uk.D
-˘Ä8_root_.models.identityVerificationProxy.Journey.formats.B
-Ôı8_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.+
-÷ﬁ!_root_.uk.gov.hmrc.play.frontend."
-∆_root_.models.identityVerificationProxy.Journey#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Luk/gov/hmrc/play/frontend/auth/connectors/domain/ConfidenceLevel;Lmodels/IVDetails;)V.§<init>{(origin: String, completionURL: String, failureURL: String, confidenceLevel: ConfidenceLevel, userData: IVDetails): Journey"#
-	_root_.scala.Predef.String#"#
- &_root_.scala.Predef.String#"#
-4:_root_.scala.Predef.String#"P
-M\H_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel#" 
-hq_root_.models.IVDetails#"8
-t{0_root_.models.identityVerificationProxy.Journey#")
-_root_.play.api.libs.json.ÄàÄjson"„
-D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
-"_root_.play.api.libs.json.OFormat#"O
-G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"Ä
-?_root_.models.identityVerificationProxy.Journey#(completionURL)=ÅcompletionURLString"!
-_root_.scala.Predef.String#"L
-(_root_.models.identityVerificationProxy. ÄàÄidentityVerificationProxy"F
-1_root_.uk.gov.hmrc.play.frontend.auth.connectors.ÄàÄ
-connectors"r
-8_root_.models.identityVerificationProxy.Journey#(origin)6ÅoriginString"!
-_root_.scala.Predef.String#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"4
-!_root_.uk.gov.hmrc.play.frontend.ÄàÄfrontend"$
-_root_.play.api.libs.ÄàÄlibs"
-U_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel#`<init>`(I)V.ñ<init>(level: Int): ConfidenceLevel"
-_root_.scala.Int#"P
-H_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel#"
-_root_.play.api.
-ÄàÄapi"-
-_root_.play.api.libs.json.Json.
-ÄÑJson"∫
-A_root_.models.identityVerificationProxy.Journey#(confidenceLevel)uÅconfidenceLevelConfidenceLevel"N
-H_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel#"A
-0_root_.models.identityVerificationProxy.Journey.ÄÑJourney"B
-0_root_.models.identityVerificationProxy.Journey#Ä†ÄJourney"ï
-v_root_.models.IVDetails#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;)V.ö<init>T(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino): IVDetails"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"#
-3<_root_.java.time.LocalDate#"'
-DH_root_.uk.gov.hmrc.domain.Nino#" 
-KT_root_.models.IVDetails#"v
-:_root_.models.identityVerificationProxy.Journey#(userData)8ÅuserData	IVDetails"
-	_root_.models.IVDetails#"
-
-_root_.uk.	ÄàÄuk"
-_root_.uk.gov.
-ÄàÄgov"¿
-8_root_.models.identityVerificationProxy.Journey.formats.ÉÅÄ formatsOFormat[Journey]"(
-"_root_.play.api.libs.json.OFormat#"8
-0_root_.models.identityVerificationProxy.Journey#"
-_root_.play.ÄàÄplay"
-_root_.models.ÄàÄmodels"z
-<_root_.models.identityVerificationProxy.Journey#(failureURL):Å
-failureURLString"!
-_root_.scala.Predef.String#"5
-&_root_.uk.gov.hmrc.play.frontend.auth.ÄàÄauth"a
-H_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel#Ä†ConfidenceLevel""
-_root_.uk.gov.hmrc.ÄàÄhmrc"I
-8_root_.uk.gov.hmrc.play.frontend.auth.connectors.domain.ÄàÄdomain"'
-_root_.uk.gov.hmrc.play.ÄàÄplay",
-_root_.models.IVDetails#Ä†Ä	IVDetails:Scala211Bô/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models.identityVerificationProxy
-
-import models.IVDetails
-import play.api.libs.json.Json
-import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
-
-case class Journey(origin: String,
-                   completionURL: String,
-                   failureURL: String,
-                   confidenceLevel: ConfidenceLevel,
-                   userData: IVDetails)
-
-object Journey {
-  implicit val formats = Json.format[Journey]
-}J2app/models/identityVerificationProxy/Journey.scala

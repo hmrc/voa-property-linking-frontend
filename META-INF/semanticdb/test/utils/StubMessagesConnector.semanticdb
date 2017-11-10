@@ -1,277 +1,0 @@
-
-ét
-∑Ω_root_.models.0
-˜Ñ	&_root_.uk.gov.hmrc.http.HeaderCarrier#I
-€·?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#)
-ø
-≈
-_root_.scala.concurrent.Future.^
-˚ÑT_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.(appConfig)
-ãé_root_.play.api..
-À‹$_root_.connectors.MessagesConnector# 
-›Â_root_.utils.StubHttp.6
-æ	“	,_root_.models.messages.MessageSearchResults.)
-®
-Æ
-_root_.scala.concurrent.Future#w
-Ú	˝	k_root_.utils.StubMessagesConnector#countUnread(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.4
-ü®*_root_.play.api.libs.concurrent.Execution.õ
-ó¢é_root_.utils.StubMessagesConnector#getMessages(JLmodels/messages/MessagePagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.*
-îû _root_.play.api.libs.concurrent.)
-á	ç	_root_.scala.concurrent.Future#a
-∆
-–
-W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.!
-æ∆_root_.models.messages.*
-∞¡ _root_.config.ApplicationConfig#a
-≠	∑	W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.{
-î
-ñ
-o_root_.utils.StubMessagesConnector#countUnread(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)ß
-∞∫ö_root_.utils.StubMessagesConnector#getMessages(JLmodels/messages/MessagePagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)>
-©≤4_root_.play.api.libs.concurrent.Execution.Implicits.:
-•Æ._root_.utils.StubMessagesConnector#(appConfig)
-™Æ_root_.scala.Long#"
-–⁄_root_.scala.concurrent.S
-»‘I_root_.models.messages.MessageCount.;_root_.models.messages.MessageCount#
-Û˘_root_.config.~
-˛	É
-r_root_.utils.StubMessagesConnector#countUnread(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(orgId)
-Üä_root_.play.W
-˙áM_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#K
-˙ãA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#)
-¶	¨	_root_.scala.concurrent.Future.r
-≥¡h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.6
-é	¢	,_root_.models.messages.MessageSearchResults#∂
-‹‹´_root_.connectors.MessagesConnector#`<init>`(Lconfig/WSHttp;Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/ApplicationConfig;Lscala/concurrent/ExecutionContext;)V..
-Ø
-ª
-$_root_.models.messages.MessageCount#.
-—
-›
-$_root_.models.messages.MessageCount.
-Ù_root_.uk.gov.hmrc.
-Ö
-â
-_root_.scala.Long#3
-ºÕ)_root_.models.messages.MessagePagination#¢
-£®ï_root_.utils.StubMessagesConnector#getMessages(JLmodels/messages/MessagePagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(orgId)0
-Ÿ	‹	&_root_.scala.collection.immutable.Nil.c
-È˝Y_root_.models.messages.MessageSearchResults.;_root_.models.messages.MessageSearchResults#
-ÈÎ
-_root_.uk.
-ÏÔ_root_.uk.gov.
-èì_root_.play.api.libs.0
-ò
-•
-&_root_.uk.gov.hmrc.http.HeaderCarrier#U
-§§I_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.
- œ_root_.scala."
-ı˘_root_.uk.gov.hmrc.http.]
-÷ÁS_root_.models.messages.MessagePagination.;_root_.models.messages.MessagePagination#*
-Á˘ _root_.utils.StubServicesConfig.
-ìù_root_.connectors.
-ÂÍ_root_.utils..
-ûØ$_root_.connectors.MessagesConnector#ü
-Ûıí_root_.utils.StubMessagesConnector#getMessages(JLmodels/messages/MessagePagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)/
-è§#_root_.utils.StubMessagesConnector#"5
- _root_.play.api.libs.concurrent.ÄàÄ
-concurrent" 
-_root_.scala.Long#
-Ä†Long"'
-_root_.connectors.ÄàÄ
-connectors"Œ
-2_root_.models.messages.MessageCount#`<init>`(II)V.ó<init>'(unread: Int, total: Int): MessageCount"
-	_root_.scala.Int#"
-_root_.scala.Int#",
-'$_root_.models.messages.MessageCount#"È
-é_root_.utils.StubMessagesConnector#getMessages(JLmodels/messages/MessagePagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.’getMessagesf(orgId: Long, pagination: MessagePagination)(implicit hc: HeaderCarrier): Future[MessageSearchResults]"
-_root_.scala.Long#"1
-+)_root_.models.messages.MessagePagination#".
-:G&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-JP_root_.scala.concurrent.Future#"4
-Qe,_root_.models.messages.MessageSearchResults#"K
-,_root_.models.messages.MessageSearchResults#Ä†ÄMessageSearchResults"J
-,_root_.models.messages.MessageSearchResults.ÄÑMessageSearchResults"°
-T_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.(appConfig)IÄ	appConfigApplicationConfig"&
- _root_.config.ApplicationConfig#"Ê
-I_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.ò<init>5(appConfig: ApplicationConfig): StubMessagesConnector"(
- _root_.config.ApplicationConfig#"+
- 5#_root_.utils.StubMessagesConnector#"˙
-W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
-successful[T] => (result: T): Future[T]"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
-_root_.scala.concurrent.Future#"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"*
-_root_.models.messages.ÄàÄmessages"'
-_root_.uk.gov.hmrc.http.ÄàÄhttp">
-$_root_.connectors.MessagesConnector#Ä MessagesConnector"$
-_root_.play.api.libs.ÄàÄlibs"(
-_root_.utils.StubHttp.ÄÑStubHttp"†
-r_root_.utils.StubMessagesConnector#countUnread(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(orgId)*ÄorgIdLong"
-_root_.scala.Long#"
-_root_.play.api.
-ÄàÄapi"„
-k_root_.utils.StubMessagesConnector#countUnread(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÛcountUnread?(orgId: Long)(implicit hc: HeaderCarrier): Future[MessageCount]"
-_root_.scala.Long#".
-(&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-+1_root_.scala.concurrent.Future#",
-2>$_root_.models.messages.MessageCount#"4
-&_root_.scala.collection.immutable.Nil.
-ÄÑàNil"G
-4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits"Ú
-ö_root_.utils.StubMessagesConnector#getMessages(JLmodels/messages/MessagePagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)SÄ
-paginationMessagePagination"/
-)_root_.models.messages.MessagePagination#".
-_root_.scala.concurrent.Future#Ä@Future"/
-_root_.scala.concurrent.Future.ÄÑFuture"=
-*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution"∏
-o_root_.utils.StubMessagesConnector#countUnread(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"E
-)_root_.models.messages.MessagePagination#Ä†ÄMessagePagination"
-ï_root_.models.messages.MessagePagination#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)V.’<init>º(clientName: Option[String], referenceNumber: Option[String], address: Option[String], pageNumber: Int, pageSize: Int, sortField: MessageSortField, sortOrder: SortOrder): MessagePagination"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"
-.4_root_.scala.Option#"#
-5;_root_.scala.Predef.String#"
-GM_root_.scala.Option#"#
-NT_root_.scala.Predef.String#"
-cf_root_.scala.Int#"
-ru_root_.scala.Int#"2
-Çí(_root_.models.messages.MessageSortField#""
-ü®_root_.models.SortOrder#"3
-´º)_root_.models.messages.MessagePagination#"
-
-_root_.uk.	ÄàÄuk"ó
-´_root_.connectors.MessagesConnector#`<init>`(Lconfig/WSHttp;Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/ApplicationConfig;Lscala/concurrent/ExecutionContext;)V.Ê<init>q(http: WSHttp, conf: ServicesConfig, config: ApplicationConfig)(implicit ec: ExecutionContext): MessagesConnector"
-_root_.config.WSHttp#"=
-#5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"(
--> _root_.config.ApplicationConfig#"1
-M])_root_.scala.concurrent.ExecutionContext#",
-`q$_root_.connectors.MessagesConnector#"
-_root_.uk.gov.
-ÄàÄgov"{
-._root_.utils.StubMessagesConnector#(appConfig)IÄ	appConfigApplicationConfig"&
- _root_.config.ApplicationConfig#"˜
-ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
-_root_.scala.Option#"6
-$._root_.uk.gov.hmrc.http.logging.Authorization#"
-/5_root_.scala.Option#"'
-6<_root_.uk.gov.hmrc.http.UserId#"
-FL_root_.scala.Option#"&
-MR_root_.uk.gov.hmrc.http.Token#"
-`f_root_.scala.Option#"5
-gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
-Åá_root_.scala.Option#"4
-àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
-ü•_root_.scala.Option#"4
-¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
-¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
-◊€_root_.scala.Long#"#
-ÎÓ_root_.scala.package.Seq#"
-Ôı_root_.scala.Tuple2#"%
-ˆ¸_root_.scala.Predef.String#"%
-˛Ñ_root_.scala.Predef.String#"
-ñú_root_.scala.Option#"%
-ù£_root_.scala.Predef.String#"
-∂º_root_.scala.Option#"%
-Ω√_root_.scala.Predef.String#"
-œ’_root_.scala.Option#"%
-÷‹_root_.scala.Predef.String#"
-ÈÔ_root_.scala.Option#"%
-ˆ_root_.scala.Predef.String#"
-Éâ_root_.scala.Option#"%
-äê_root_.scala.Predef.String#"
-•´_root_.scala.Option#";
-¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
-Õ–_root_.scala.package.Seq#"
-—◊_root_.scala.Tuple2#"%
-ÿﬁ_root_.scala.Predef.String#"%
-‡Ê_root_.scala.Predef.String#"0
-Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#":
- _root_.config.ApplicationConfig#Ä ApplicationConfig"ƒ
-ï_root_.utils.StubMessagesConnector#getMessages(JLmodels/messages/MessagePagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(orgId)*ÄorgIdLong"
-_root_.scala.Long#"‹
-í_root_.utils.StubMessagesConnector#getMessages(JLmodels/messages/MessagePagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"
-_root_.play.ÄàÄplay"√
-h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
-)_root_.scala.concurrent.ExecutionContext#"A
-#_root_.utils.StubMessagesConnector#Ä StubMessagesConnector"
-_root_.models.ÄàÄmodels"<
- _root_.utils.StubServicesConfig.ÄÑStubServicesConfig":
-$_root_.models.messages.MessageCount.ÄÑMessageCount";
-$_root_.models.messages.MessageCount#Ä†ÄMessageCount"R
-_root_.scala.Long#`<init>`()V.0<init>(): Long"
-_root_.scala.Long#" 
-l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
-_root_.play.api.Configuration#"6
-(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
-2C _root_.config.ApplicationConfig#"
-_root_.utils.ÄàÄutils"
-_root_.config.ÄàÄconfig">
-&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"
-_root_.scala.ÄàÄscala""
-_root_.uk.gov.hmrc.ÄàÄhmrc"ﬁ
-P_root_.models.messages.MessageSearchResults#`<init>`(IILscala/collection/Seq;)V.â<init>E(start: Int, size: Int, messages: Seq[Message]): MessageSearchResults"
-_root_.scala.Int#"
-_root_.scala.Int#"!
-"%_root_.scala.package.Seq#"'
-&-_root_.models.messages.Message#"4
-1E,_root_.models.messages.MessageSearchResults#2v
-›
-›
-*.apply
-_star_.T
-L_root_.models.messages.MessageCount.apply(II)Lmodels/messages/MessageCount;.2f
-∑	∑	*[MessageSearchResults]
-_star_.4
-,_root_.models.messages.MessageSearchResults#2ú
-“	“	*.apply
-_star_.z
-r_root_.models.messages.MessageSearchResults.apply(IILscala/collection/Seq;)Lmodels/messages/MessageSearchResults;.2…
-ÑÑ>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.p
-/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2V
-–
-–
-*[MessageCount]
-_star_.,
-$_root_.models.messages.MessageCount#:Scala211BÁ
-/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package utils
-
-import config.ApplicationConfig
-import connectors.MessagesConnector
-import models.messages.{MessageCount, MessagePagination, MessageSearchResults}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-
-import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
-
-class StubMessagesConnector(appConfig: ApplicationConfig) extends MessagesConnector(StubHttp, StubServicesConfig, appConfig) {
-  override def getMessages(orgId: Long, pagination: MessagePagination)
-                          (implicit hc: HeaderCarrier): Future[MessageSearchResults] = Future.successful {
-    MessageSearchResults(0, 0, Nil)
-  }
-
-  override def countUnread(orgId: Long)(implicit hc: HeaderCarrier): Future[MessageCount] = Future.successful(MessageCount(0, 0))
-}
-J&test/utils/StubMessagesConnector.scala

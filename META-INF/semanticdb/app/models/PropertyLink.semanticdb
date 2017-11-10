@@ -1,236 +1,0 @@
-
-ºP-
-¶∫#_root_.models.PropertyLinkResponse#N
-√…D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.%
-⁄
-Ê
-_root_.models.PropertyLink#)
-¨∞_root_.play.api.libs.json.Json.%
-£©_root_.scala.Predef.String#'
-®	¥	_root_.models.PropertyLink.0
-òü$_root_.models.PropertyLink#(address)
-ˆ˙_root_.scala.Long#$
-û¢_root_.play.api.libs.json.
-ïò_root_.play.api.7
-È˜+_root_.models.PropertyLink#(organisationId)
-†
-§
-_root_.scala.Long#.
-∆	Ã	"_root_.models.PropertyLink.format.+
-ü•!_root_.play.api.libs.json.Format#>
-«
-‘
-2_root_.models.PropertyLinkResponse#(propertyLinks)5
-ï°)_root_.models.PropertyLink#(submissionId)N
-‘	⁄	D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.
-˘˝_root_.scala.Long#
-êî_root_.play.'
-æ _root_.models.PropertyLink#
-≥∫_root_.scala.Boolean##
-‚Â_root_.scala.package.Seq#
-ÂÎ_root_.models.%
-€	Á	_root_.models.PropertyLink#/
-å	í	#_root_.models.PropertyLink#(agents)
-Ù¯_root_.java._
-ã
-ã
-S_root_.models.PropertyLinkResponse#`<init>`(Lscala/Option;Lscala/collection/Seq;)V.#
-÷
-Ÿ
-_root_.scala.package.Seq#6
-óù*_root_.models.PropertyLinkResponse.format.
-ò	ù	_root_.models.Party##
-Ê_root_.models.Assessment#A
-˛á7_root_.java.time.LocalDate.;_root_.java.time.LocalDate#Æ
-  °_root_.models.PropertyLink#`<init>`(JLjava/lang/String;JJLjava/lang/String;Lmodels/Capacity;Ljava/time/LocalDate;ZLscala/collection/Seq;Lscala/collection/Seq;)V.0
-™±$_root_.models.PropertyLink#(pending)/
-˜	ã
-#_root_.models.PropertyLinkResponse#3
-˙Ñ'_root_.models.PropertyLink#(linkedDate)-
- ﬁ#_root_.models.PropertyLinkResponse#4
-’‡(_root_.models.PropertyLink#(assessments)<
-å
-ó
-0_root_.models.PropertyLinkResponse#(resultCount)/
-Ò
-Ö#_root_.models.PropertyLinkResponse.!
-◊ﬂ_root_.models.Capacity##
-î	ó	_root_.scala.package.Seq#)
-œ	”	_root_.play.api.libs.json.Json.
-˘˝_root_.java.time.
-ô
-ü
-_root_.scala.Option#8
-ÂÙ,_root_.models.PropertyLink#(authorisationId)
- Œ_root_.scala.Long#%
-°ß_root_.scala.Predef.String#<
-¬’0_root_.models.PropertyLink#(capacityDeclaration)
-ôù_root_.play.api.libs.M
-§™C_root_.play.api.libs.json.Format.;_root_.play.api.libs.json.Format#%
-Üè_root_.java.time.LocalDate#)
-æ¬_root_.play.api.libs.json.Json.-
-ƒ»!_root_.models.PropertyLink#(uarn)"ä
-0_root_.models.PropertyLinkResponse#(resultCount)VÅresultCountOption[Long]"
-_root_.scala.Option#"
-_root_.scala.Long#"Ê
-S_root_.models.PropertyLinkResponse#`<init>`(Lscala/Option;Lscala/collection/Seq;)V.é<init>S(resultCount: Option[Long], propertyLinks: Seq[PropertyLink]): PropertyLinkResponse"
-_root_.scala.Option#"
-_root_.scala.Long#"!
-+._root_.scala.package.Seq#"#
-/;_root_.models.PropertyLink#"+
-?S#_root_.models.PropertyLinkResponse#")
-_root_.play.api.libs.json.ÄàÄjson"„
-D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
-"_root_.play.api.libs.json.OFormat#"O
-G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]" 
-_root_.scala.Long#
-Ä†Long"i
-)_root_.models.PropertyLink#(submissionId)<ÅsubmissionIdString"!
-_root_.scala.Predef.String#"˙
-ò_root_.models.Assessment#`<init>`(JJLjava/lang/String;JLjava/time/LocalDate;Lscala/Option;Lmodels/PropertyAddress;Ljava/lang/String;Lmodels/Capacity;)V.‹<init>ﬁ(authorisationId: Long, assessmentRef: Long, listYear: String, uarn: Long, effectiveDate: LocalDate, rateableValue: Option[Long], address: PropertyAddress, billingAuthorityReference: String, capacity: Capacity): Assessment"
-_root_.scala.Long#"
-'+_root_.scala.Long#"#
-7=_root_.scala.Predef.String#"
-EI_root_.scala.Long#"#
-Zc_root_.java.time.LocalDate#"
-tz_root_.scala.Option#"
-{_root_.scala.Long#"(
-ãö_root_.models.PropertyAddress#"%
-∑Ω_root_.scala.Predef.String#"!
-…—_root_.models.Capacity#"#
-‘ﬁ_root_.models.Assessment#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"_
-$_root_.models.PropertyLink#(address)7ÅaddressString"!
-_root_.scala.Predef.String#"Ø
-*_root_.models.PropertyLinkResponse.format.ÄÅÄ formatFormat[PropertyLinkResponse]"'
-!_root_.play.api.libs.json.Format#"+
-#_root_.models.PropertyLinkResponse#"
-_root_.java.ÄàÄjava"$
-_root_.play.api.libs.ÄàÄlibs"*
-_root_.models.Capacity#Ä†ÄCapacity"}
-#_root_.models.PropertyLink#(agents)VÅagents
-Seq[Party]"
-_root_.scala.package.Seq#"
-	_root_.models.Party#"
-_root_.play.api.
-ÄàÄapi"1
-_root_.models.PropertyLink.ÄÑPropertyLink"ã
-e_root_.models.Party#`<init>`(JJLjava/lang/String;JLmodels/AgentPermission;Lmodels/AgentPermission;)V.°<init>©(authorisedPartyId: Long, agentCode: Long, organisationName: String, organisationId: Long, checkPermission: AgentPermission, challengePermission: AgentPermission): Party"
-_root_.scala.Long#"
-%)_root_.scala.Long#"#
-=C_root_.scala.Predef.String#"
-UY_root_.scala.Long#"&
-l{_root_.models.AgentPermission#"(
-í°_root_.models.AgentPermission#"
-§©_root_.models.Party#"2
-_root_.models.PropertyLink#Ä†ÄPropertyLink"-
-_root_.play.api.libs.json.Json.
-ÄÑJson"[
-!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
-_root_.scala.Boolean#"/
-_root_.java.time.LocalDate#Ä†à	LocalDate"b
-+_root_.models.PropertyLink#(organisationId)3ÅorganisationIdLong"
-_root_.scala.Long#"ë
-(_root_.models.PropertyLink#(assessments)eÅassessmentsSeq[Assessment]"
-_root_.scala.package.Seq#"!
-_root_.models.Assessment#"$
-_root_.scala.Option#Ä†Option"N
-!_root_.models.PropertyLink#(uarn))ÅuarnLong"
-_root_.scala.Long#"&
-_root_.scala.Boolean#Ä†Boolean"A
-#_root_.models.PropertyLinkResponse.ÄÑPropertyLinkResponse"B
-#_root_.models.PropertyLinkResponse#Ä†ÄPropertyLinkResponse"d
-,_root_.models.PropertyLink#(authorisationId)4ÅauthorisationIdLong"
-_root_.scala.Long#"
-_root_.play.ÄàÄplay".
-_root_.models.Assessment#Ä†Ä
-Assessment"°
-2_root_.models.PropertyLinkResponse#(propertyLinks)kÅpropertyLinksSeq[PropertyLink]"
-_root_.scala.package.Seq#"#
-_root_.models.PropertyLink#"|
- _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
-
-_root_.scala.Option#"
-_root_.scala.Option#[A]"
-_root_.models.ÄàÄmodels"Ï
-[_root_.models.Capacity#`<init>`(Lmodels/CapacityType;Ljava/time/LocalDate;Lscala/Option;)V.å<init>R(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate]): Capacity"#
-_root_.models.CapacityType#"#
-#,_root_.java.time.LocalDate#"
-6<_root_.scala.Option#"#
-=F_root_.java.time.LocalDate#"
-JR_root_.models.Capacity#"R
-_root_.scala.Long#`<init>`()V.0<init>(): Long"
-_root_.scala.Long#" 
-_root_.java.time.ÄàÄtime"ò
-"_root_.models.PropertyLink.format.rÅÄ formatOFormat[PropertyLink]"(
-"_root_.play.api.libs.json.OFormat#"#
-_root_.models.PropertyLink#"R
-_root_.scala.package.Seq#5SeqSeq.type""
-_root_.scala.collection.Seq."Ÿ
-°_root_.models.PropertyLink#`<init>`(JLjava/lang/String;JJLjava/lang/String;Lmodels/Capacity;Ljava/time/LocalDate;ZLscala/collection/Seq;Lscala/collection/Seq;)V.≤<init>Ë(authorisationId: Long, submissionId: String, uarn: Long, organisationId: Long, address: String, capacityDeclaration: Capacity, linkedDate: LocalDate, pending: Boolean, assessments: Seq[Assessment], agents: Seq[Party]): PropertyLink"
-_root_.scala.Long#"#
-&,_root_.scala.Predef.String#"
-48_root_.scala.Long#"
-JN_root_.scala.Long#"#
-Y__root_.scala.Predef.String#"
-v~_root_.models.Capacity#"%
-åï_root_.java.time.LocalDate#"
-†ß_root_.scala.Boolean#"#
-∂π_root_.scala.package.Seq#"#
-∫ƒ_root_.models.Assessment#"#
-œ“_root_.scala.package.Seq#"
-”ÿ_root_.models.Party#"%
-‹Ë_root_.models.PropertyLink#"0
-!_root_.play.api.libs.json.Format#Ä@Format"$
-_root_.models.Party#Ä†ÄParty"h
-'_root_.models.PropertyLink#(linkedDate)=Å
-linkedDate	LocalDate"!
-	_root_.java.time.LocalDate#"u
-0_root_.models.PropertyLink#(capacityDeclaration)AÅcapacityDeclarationCapacity"
-_root_.models.Capacity#"Z
-$_root_.models.PropertyLink#(pending)2ÅpendingBoolean"
-_root_.scala.Boolean#:Scala211B·/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models
-
-import java.time.LocalDate
-
-import play.api.libs.json.{Format, Json}
-
-case class PropertyLink(
-                         authorisationId: Long,
-                         submissionId: String,
-                         uarn: Long,
-                         organisationId: Long,
-                         address: String,
-                         capacityDeclaration: Capacity,
-                         linkedDate: LocalDate,
-                         pending: Boolean,
-                         assessments: Seq[Assessment],
-                         agents: Seq[Party])
-
-object PropertyLink {
-  implicit val format = Json.format[PropertyLink]
-}
-
-case class PropertyLinkResponse(resultCount: Option[Long],
-                                propertyLinks: Seq[PropertyLink])
-
-object PropertyLinkResponse {
-  implicit val format: Format[PropertyLinkResponse] = Json.format[PropertyLinkResponse]
-}Japp/models/PropertyLink.scala

@@ -1,152 +1,0 @@
-
-ﬂ8b
-ÑìV_root_.models.Capacity.fromDeclaration(Lmodels/CapacityDeclaration;)Lmodels/Capacity;.%
-˘Ç_root_.java.time.LocalDate#)
-£ß_root_.play.api.libs.json.Json.$
-û¢_root_.play.api.libs.json.!
-æ∆_root_.models.Capacity.
-Ú¯_root_.scala.Option#M
-Ú˚C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.o
-îüc_root_.models.Capacity.fromDeclaration(Lmodels/CapacityDeclaration;)Lmodels/Capacity;.(declaration)m
-«“c_root_.models.Capacity.fromDeclaration(Lmodels/CapacityDeclaration;)Lmodels/Capacity;.(declaration)+
-Í_root_.models.Capacity#(toDate)#
-çï_root_.models.Capacity.*
-ß≠_root_.models.Capacity.format.#
-¥º_root_.models.Capacity#)
-∞¥_root_.play.api.libs.json.Json.
-˘˝_root_.java.time.1
-¸ã'_root_.models.Capacity.defaultFromDate.3
-“·'_root_.models.Capacity.defaultFromDate.g
-ºº[_root_.models.Capacity#`<init>`(Lmodels/CapacityType;Ljava/time/LocalDate;Lscala/Option;)V.%
-‰Ì_root_.java.time.LocalDate.4
-ö†*_root_.models.CapacityDeclaration#(toDate)A
-˛á7_root_.java.time.LocalDate.;_root_.java.time.LocalDate#
-êî_root_.play.
-ÂÎ_root_.models.6
-ÈÒ,_root_.models.CapacityDeclaration#(fromDate)!
-ºƒ_root_.models.Capacity#N
-µªD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.B
-Ó8_root_.java.time.LocalDate.of(III)Ljava/time/LocalDate;.
-ïò_root_.play.api.%
-«”_root_.models.CapacityType#-
-Ω≈!_root_.models.Capacity#(capacity)6
-”€,_root_.models.CapacityDeclaration#(capacity),
-°¥"_root_.models.CapacityDeclaration#
-ôù_root_.play.api.libs.m
-›Ëc_root_.models.Capacity.fromDeclaration(Lmodels/CapacityDeclaration;)Lmodels/Capacity;.(declaration)
-Ù¯_root_.java.%
-ﬂË_root_.java.time.LocalDate#m
-éôc_root_.models.Capacity.fromDeclaration(Lmodels/CapacityDeclaration;)Lmodels/Capacity;.(declaration)-
-’›!_root_.models.Capacity#(fromDate)"n
-,_root_.models.CapacityDeclaration#(capacity)>ÅcapacityCapacityType"!
-_root_.models.CapacityType#")
-_root_.play.api.libs.json.ÄàÄjson"„
-D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
-"_root_.play.api.libs.json.OFormat#"O
-G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"Ç
-_root_.models.Capacity#(toDate)_ÅtoDateOption[LocalDate]"
-_root_.scala.Option#"#
-_root_.java.time.LocalDate#"c
-!_root_.models.Capacity#(capacity)>ÅcapacityCapacityType"!
-_root_.models.CapacityType#"
-_root_.java.ÄàÄjava"$
-_root_.play.api.libs.ÄàÄlibs"*
-_root_.models.Capacity#Ä†ÄCapacity")
-_root_.models.Capacity.ÄÑCapacity"n
-'_root_.models.Capacity.defaultFromDate.CÅÄ@defaultFromDate	LocalDate"!
-	_root_.java.time.LocalDate#"
-_root_.play.api.
-ÄàÄapi"Á
-8_root_.java.time.LocalDate.of(III)Ljava/time/LocalDate;.™ÑÄÄof)(x$1: Int, x$2: Int, x$3: Int): LocalDate"
-	_root_.scala.Int#"
-_root_.scala.Int#"
-_root_.scala.Int#"#
- )_root_.java.time.LocalDate#"-
-_root_.play.api.libs.json.Json.
-ÄÑJson"1
-_root_.models.CapacityType#Ä¿CapacityType"∂
-c_root_.models.Capacity.fromDeclaration(Lmodels/CapacityDeclaration;)Lmodels/Capacity;.(declaration)OÄdeclarationCapacityDeclaration"(
-"_root_.models.CapacityDeclaration#"/
-_root_.java.time.LocalDate#Ä†à	LocalDate"/
-_root_.java.time.LocalDate.ÄÑà	LocalDate"$
-_root_.scala.Option#Ä†Option"`
-!_root_.models.Capacity#(fromDate);ÅfromDate	LocalDate"!
-	_root_.java.time.LocalDate#"
-_root_.play.ÄàÄplay"@
-"_root_.models.CapacityDeclaration#Ä†ÄCapacityDeclaration"
-_root_.models.ÄàÄmodels"|
- _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
-
-_root_.scala.Option#"
-_root_.scala.Option#[A]"å
-_root_.models.Capacity.format.jÅÄ formatOFormat[Capacity]"(
-"_root_.play.api.libs.json.OFormat#"
-_root_.models.Capacity#"Ï
-[_root_.models.Capacity#`<init>`(Lmodels/CapacityType;Ljava/time/LocalDate;Lscala/Option;)V.å<init>R(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate]): Capacity"#
-_root_.models.CapacityType#"#
-#,_root_.java.time.LocalDate#"
-6<_root_.scala.Option#"#
-=F_root_.java.time.LocalDate#"
-JR_root_.models.Capacity#"ª
-C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
-_root_.scala.`<byname>`#"N
-F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
- F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"©
-a_root_.models.CapacityDeclaration#`<init>`(Lmodels/CapacityType;ZLscala/Option;ZLscala/Option;)V.√<init>û(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate], stillInterested: Boolean, toDate: Option[LocalDate]): CapacityDeclaration"#
-_root_.models.CapacityType#"
-/6_root_.scala.Boolean#"
-BH_root_.scala.Option#"#
-IR_root_.java.time.LocalDate#"
-fm_root_.scala.Boolean#"
-w}_root_.scala.Option#"$
-~á_root_.java.time.LocalDate#",
-ãû"_root_.models.CapacityDeclaration#" 
-_root_.java.time.ÄàÄtime"ë
-,_root_.models.CapacityDeclaration#(fromDate)aÅfromDateOption[LocalDate]"
-_root_.scala.Option#"#
-_root_.java.time.LocalDate#"È
-V_root_.models.Capacity.fromDeclaration(Lmodels/CapacityDeclaration;)Lmodels/Capacity;.éfromDeclaration,(declaration: CapacityDeclaration): Capacity"*
-!"_root_.models.CapacityDeclaration#"
-$,_root_.models.Capacity#"ç
-*_root_.models.CapacityDeclaration#(toDate)_ÅtoDateOption[LocalDate]"
-_root_.scala.Option#"#
-_root_.java.time.LocalDate#2í
-∆∆*.apply
-_star_.p
-h_root_.models.Capacity.apply(Lmodels/CapacityType;Ljava/time/LocalDate;Lscala/Option;)Lmodels/Capacity;.2J
-˚˚*[LocalDate]
-_star_.#
-_root_.java.time.LocalDate#:Scala211B®/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models
-
-import java.time.LocalDate
-
-import play.api.libs.json.Json
-
-case class Capacity(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate])
-
-object Capacity {
-  implicit val format = Json.format[Capacity]
-
-  lazy val defaultFromDate = LocalDate.of(2017, 4, 1)
-
-  def fromDeclaration(declaration: CapacityDeclaration) = {
-    Capacity(declaration.capacity, declaration.fromDate.getOrElse(defaultFromDate), declaration.toDate)
-  }
-}
-Japp/models/Capacity.scala

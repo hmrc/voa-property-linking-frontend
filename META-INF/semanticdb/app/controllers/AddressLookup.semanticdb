@@ -1,214 +1,0 @@
-
-ÜU
-˘˛_root_.javax.-
-¯Ö!_root_.controllers.AddressLookup#8
-ü¶,app/controllers/AddressLookup.scala@927..934O
-èèC_root_.controllers.AddressLookup#`<init>`(Lconnectors/Addresses;)V.%
-ÈÔ_root_.scala.Predef.String#/
-äí%_root_.play.api.mvc.Results#NotFound.Ü
-”⁄|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.e
-–ﬁY_root_.controllers.AddressLookup#findByPostcode(Ljava/lang/String;)Lplay/api/mvc/Action;.)
-ÂÔ_root_.play.api.mvc.AnyContent#
-µ∏_root_.play.api.;
-“÷1_root_.java.lang.String#trim()Ljava/lang/String;.%
-áç_root_.play.api.mvc.Action.Z
-éìP_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.A
-›„7_root_.play.api.mvc.Action.;_root_.play.api.mvc.Action#
-ÿ€_root_.play.api.mvc..
-»»$_root_.java.lang.Object#`<init>`()V.)
-˘É_root_.play.api.mvc.AnyContent#)
-√«_root_.play.api.libs.json.Json.
-œ”_root_.play.6
-∞π,_root_.controllers.AddressLookup#(addresses)8
-ﬁ·,app/controllers/AddressLookup.scala@990..993
-Â_root_.controllers.%
-áç_root_.javax.inject.Inject#8
-êô,_root_.controllers.AddressLookup#(addresses)
-‘◊_root_.play.api.)
-Æ∞_root_.play.api.mvc.Results#Ok.
-πΩ_root_.play.api.libs.)
-±µ_root_.play.api.libs.json.Json.o
-ﬂÁc_root_.controllers.AddressLookup#findByPostcode(Ljava/lang/String;)Lplay/api/mvc/Action;.(postcode)5
-ı¸+_root_.scala.collection.SeqLike#isEmpty()Z.$
-æ¬_root_.play.api.libs.json.7
-Æ«-_root_.controllers.PropertyLinkingController#&
-õ§_root_.connectors.Addresses#|
-ÿ€r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.1
-çç'_root_.javax.inject.Inject#`<init>`()V.Ç
-∫»x_root_.connectors.Addresses#findByPostcode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A
-Üå7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#%
-Ú¯_root_.play.api.mvc.Action#6
-Ω¿,app/controllers/AddressLookup.scala@990..9936
-ÒÙ,app/controllers/AddressLookup.scala@990..993
-ˇÖ_root_.javax.inject./
-Ô˜%_root_.play.api.mvc.Results#NotFound.{
-∂ºq_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.
-∞¥_root_.play.
-îû_root_.connectors.&
-ü®_root_.connectors.Addresses#m
-…—c_root_.controllers.AddressLookup#findByPostcode(Ljava/lang/String;)Lplay/api/mvc/Action;.(postcode)"c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#")
-_root_.play.api.libs.json.ÄàÄjson"\
-_root_.play.api.mvc.Results#Ok.9OkStatus")
-#_root_.play.api.mvc.Results#Status#" 
-C_root_.controllers.AddressLookup#`<init>`(Lconnectors/Addresses;)V.Ç<init>%(addresses: Addresses): AddressLookup"$
-_root_.connectors.Addresses#")
-%!_root_.controllers.AddressLookup#"'
-_root_.connectors.ÄàÄ
-connectors"`
-+_root_.scala.collection.SeqLike#isEmpty()Z.1isEmptyBoolean"
-_root_.scala.Boolean#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"$
-_root_.play.api.libs.ÄàÄlibs"ü
-c_root_.controllers.AddressLookup#findByPostcode(Ljava/lang/String;)Lplay/api/mvc/Action;.(postcode)8ÄpostcodeString"!
-_root_.scala.Predef.String#"ü
-,app/controllers/AddressLookup.scala@927..934oÄÅ requestRequest[AnyContent]""
-_root_.play.api.mvc.Request#"'
-_root_.play.api.mvc.AnyContent#""
-_root_.play.api.mvc.
-ÄàÄmvc"
-_root_.javax.ÄàÄjavax"
-_root_.play.api.
-ÄàÄapi"7
-!_root_.controllers.AddressLookup#Ä AddressLookup"-
-_root_.play.api.libs.json.Json.
-ÄÑJson"º
-P_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.ÁÑÄasyncE(block: Function1[R[AnyContent], Future[Result]]): Action[AnyContent]"
-_root_.scala.Function1#"-
-%_root_.play.api.mvc.ActionBuilder#[R]"'
-_root_.play.api.mvc.AnyContent#"'
-!'_root_.scala.concurrent.Future#"#
-(._root_.play.api.mvc.Result#"#
-39_root_.play.api.mvc.Action#"'
-:D_root_.play.api.mvc.AnyContent#"®
-|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ßrecoverZ[U] => (pf: PartialFunction[Throwable, U])(implicit executor: ExecutionContext): Future[U]"%
-_root_.scala.PartialFunction#"'
-%_root_.scala.package.Throwable#"á
-'(_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]"1
->N)_root_.scala.concurrent.ExecutionContext#"'
-QW_root_.scala.concurrent.Future#"á
-XY_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]",
-_root_.javax.inject.Inject#Ä†ÄInject"%
-_root_.javax.inject.ÄàÄinject"¨
-f_root_.connectors.Addresses#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.¡<init>1(config: ServicesConfig, http: WSHttp): Addresses"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"$
-(1_root_.connectors.Addresses#"i
-'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
-(): Inject"#
-
-_root_.javax.inject.Inject#"á
-,app/controllers/AddressLookup.scala@990..993WÄresSeq[Address]"
-_root_.scala.package.Seq#"
-_root_.models.Address#"
-_root_.play.ÄàÄplay"3
-_root_.play.api.mvc.AnyContent#Ä¿
-AnyContent"O
--_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"ñ
-x_root_.connectors.Addresses#findByPostcode(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ôfindByPostcodeD(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[Address]]"#
-_root_.scala.Predef.String#".
- -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-06_root_.scala.concurrent.Future#"!
-7:_root_.scala.package.Seq#"
-;B_root_.models.Address#"+
-_root_.play.api.mvc.Action.ÄÑAction")
-_root_.controllers.ÄàÄcontrollers"*
-_root_.play.api.mvc.Action#Ä@Action"Ñ
-q_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.étoJson/[T] => (o: T)(implicit tjs: Writes[T]): JsValue"|
-t_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.[T]")
-"!_root_.play.api.libs.json.Writes#"|
-#$t_root_.play.api.libs.json.Json.toJson(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/JsValue;.[T]"*
-(/"_root_.play.api.libs.json.JsValue#"Ú
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"}
-u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-/?)_root_.scala.concurrent.ExecutionContext#"'
-BH_root_.scala.concurrent.Future#"}
-IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"ã
-Y_root_.controllers.AddressLookup#findByPostcode(Ljava/lang/String;)Lplay/api/mvc/Action;.≠findByPostcode&(postcode: String): Action[AnyContent]"#
-_root_.scala.Predef.String#"#
-_root_.play.api.mvc.Action#"'
-%_root_.play.api.mvc.AnyContent#"n
-1_root_.java.lang.String#trim()Ljava/lang/String;.9ÑÄÄtrim
-(): String" 
-
-_root_.java.lang.String#"h
-%_root_.play.api.mvc.Results#NotFound.?NotFoundStatus")
-#_root_.play.api.mvc.Results#Status#"m
-,_root_.controllers.AddressLookup#(addresses)=Ä	addresses	Addresses""
-	_root_.connectors.Addresses#".
-_root_.connectors.Addresses#Ä 	Addresses2k
-ºº*[Seq[Address]]
-_star_.
-_root_.models.Address#!
-_root_.scala.package.Seq#2ˇ
-¬¬H*(play.api.http.Writeable.writeableOf_JsValue(play.api.mvc.Codec.utf_8))
-_star_.(
-AF _root_.play.api.mvc.Codec.utf_8.r
--j_root_.play.api.http.DefaultWriteables#writeableOf_JsValue(Lplay/api/mvc/Codec;)Lplay/api/http/Writeable;.2G
-⁄⁄	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2k
-ÃÃ*(AddressLookup.this.ec)
-_star_.8
-0_root_.controllers.PropertyLinkingController#ec.2™
-¡¡N*(play.api.libs.json.Writes.traversableWrites[Address](models.Address.format))
-_star_.%
-FL_root_.models.Address.format.
-.5_root_.models.Address#z
--r_root_.play.api.libs.json.DefaultWrites#traversableWrites(Lplay/api/libs/json/Writes;)Lplay/api/libs/json/Writes;.2 
-∞∞*.apply[JsValue]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.*
-"_root_.play.api.libs.json.JsValue#2¨
-◊◊!*(AddressLookup.this.hc(request))
-_star_.p
-h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2æ
-˝˝*.apply(AddressLookup.this.ec)
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.8
-0_root_.controllers.PropertyLinkingController#ec.2G
-€€	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#:Scala211BÑ	/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package controllers
-
-import javax.inject.Inject
-import connectors.Addresses
-import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent}
-
-class AddressLookup @Inject()(addresses: Addresses) extends PropertyLinkingController {
-  def findByPostcode(postcode: String): Action[AnyContent] = Action.async { implicit request =>
-      addresses.findByPostcode(postcode.trim) map { res =>
-        if (res.isEmpty) {
-          NotFound
-        } else {
-          Ok(Json.toJson(res))
-        }
-    } recover {
-        case _ => NotFound
-    }
-  }
-}
-J#app/controllers/AddressLookup.scala

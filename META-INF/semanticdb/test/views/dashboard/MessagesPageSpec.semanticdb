@@ -1,2333 +1,0 @@
-
-¶˙	u
-¥0∏0k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.u
-®3¨3k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;./
-ΩXøX%_root_.org.scalatest.FlatSpecLike#it.A
-≈*”*7_root_.views.dashboard.MessagesPageSpec#clientMessages.o
-õùe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.!
- HœH_root_.org.jsoup.Jsoup.K
-›ıA_root_.views.dashboard.MessagesPageSpec#pageWithOneUnreadMessage.Ç
-Ø)≤)x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.?
-Ω√5_root_.controllers.routes.;_root_.controllers.routes#:
-ì0ö00_root_.org.scalatest.words.MatcherWords#contain.@
-ã
-ã
-4_root_.views.dashboard.MessagesPageSpec#`<init>`()V.s
-¡[Õ[i_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;._
-˙>Ä?U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.2
-ì>û>(_root_.views.html.dashboard.messagesTab.2
-Å;å;(_root_.views.html.dashboard.messagesTab.U
-ª!«!K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.K
-•≠A_root_.org.jsoup.nodes.Document.;_root_.org.jsoup.nodes.Document#&
-ˇnão_root_.actions.AgentRequest#3
-°S≤S)_root_.models.messages.MessagePagination.
-—	÷	_root_.scala.U
-≈…K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.G
-√À=_root_.play.api.i18n.Messages.;_root_.play.api.i18n.Messages#8
-π-∆-._root_.models.messages.Message#(effectiveDate)B
-˜=Ñ>6test/views/dashboard/MessagesPageSpec.scala@7918..8015[
-∞…Q_root_.models.DetailedIndividualAccount.;_root_.models.DetailedIndividualAccount#2
-—`‹`(_root_.views.html.dashboard.messagesTab.&
-•®_root_.scala.collection.Seq.&
-ÅgÑg_root_.scala.collection.Seq.@
-ΩÕ6test/views/dashboard/MessagesPageSpec.scala@2062..2315u
-Õ—k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.u
-¿XƒXk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.L
-ÄWÇWB_root_.org.jsoup.select.Elements#eq(I)Lorg/jsoup/select/Elements;._
-ﬁ‰U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.Q
-ÁÎG_root_.org.jsoup.nodes.Node#attr(Ljava/lang/String;)Ljava/lang/String;.&
-≥	º	_root_.views.html.dashboard.$
-◊›_root_.controllers.routes.@
-ü¨6test/views/dashboard/MessagesPageSpec.scala@3655..3724u
-ﬂ6„6k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.z
-ÔJıJp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.°
- Ù ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.o
-®™e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V._
-ºA¬AU_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.2
-ıWÖX(_root_.models.messages.MessageSortField.∑
-÷)Á)¨_root_.org.scalatest.words.ResultOfContainWord#theSameElementsAs(Lscala/collection/GenTraversable;Lorg/scalatest/enablers/Aggregating;)Lorg/scalatest/compatible/Assertion;.B
-‰Ó6test/views/dashboard/MessagesPageSpec.scala@1504..1564U
-ì#ò#K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.U
-∆7À7K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.3
-◊1Ë1)_root_.models.messages.MessagePagination.B
-®≥6test/views/dashboard/MessagesPageSpec.scala@2596..2726o
-†7¢7e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.%
-Œo⁄o_root_.models.GroupAccount.U
-Ó%Û%K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.*
-∫`¬` _root_.org.jsoup.nodes.Document#z
-™-∞-p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.!
-Øa¥a_root_.org.jsoup.Jsoup.2
-ìP£P(_root_.models.messages.MessageSortField.K
-€ÛA_root_.views.dashboard.MessagesPageSpec#pageWithOneUnreadMessage.∑
-Öñ¨_root_.org.scalatest.words.ResultOfContainWord#theSameElementsAs(Lscala/collection/GenTraversable;Lorg/scalatest/enablers/Aggregating;)Lorg/scalatest/compatible/Assertion;.*
-€rÏr _root_.models.IndividualDetails.(
-ﬂM‚M_root_.play.api.mvc.Call#(url)M
-∆>Œ>C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.&
- 
-Õ
-_root_.scala.collection.Seq.d
-ó@ü@Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.z
-Å,á,p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.o
-Ï"Ó"e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.@
-∫8≈86test/views/dashboard/MessagesPageSpec.scala@7081..71973
-´>º>)_root_.models.messages.MessagePagination..
-˝Ü$_root_.controllers.routes.Dashboard.$
-èQïQ_root_.controllers.routes.!
-ó4ú4_root_.org.jsoup.Jsoup.2
-ª1∆1(_root_.views.html.dashboard.messagesTab.)
-∑FƒF_root_.java.time.LocalDateTime.
-Ã“_root_.models.V
-Ë¯L_root_.controllers.ReverseDashboard#manageProperties(II)Lplay/api/mvc/Call;.o
-ı3˜3e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.z
-„BÈBp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;..
-∑Z¿Z$_root_.controllers.routes.Dashboard.B
-ö°6test/views/dashboard/MessagesPageSpec.scala@3222..3260.
-ô¢$_root_.controllers.routes.Dashboard.Y
-äëO_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;."
-◊	·	_root_.scala.collection./
-ÑKÜK%_root_.org.scalatest.FlatSpecLike#it.B
-Õ⁄6test/views/dashboard/MessagesPageSpec.scala@2889..2958o
-æ¿e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.u
-„Ák_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.z
-‹_‚_p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.C
-»f÷f7_root_.views.dashboard.MessagesPageSpec#clientMessages.H
-›*·*>_root_.scala.collection.IterableLike#head()Ljava/lang/Object;.o
-¿¬e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.B
-§/™/6test/views/dashboard/MessagesPageSpec.scala@6048..6146M
-†`∏`A_root_.views.dashboard.MessagesPageSpec#pageWithOneUnreadMessage.@
-±-∏-6test/views/dashboard/MessagesPageSpec.scala@5431..5473B
-µ¬6test/views/dashboard/MessagesPageSpec.scala@4017..4086B
-ª*¬*6test/views/dashboard/MessagesPageSpec.scala@5431..5473U
-™ÆK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.=
-›`Á`3_root_.views.dashboard.MessagesPageSpec#oneMessage.5
-ã-ï-+_root_.models.messages.Message#(clientName)z
-ËYÓYp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.;
-Ïı1_root_.models.SortOrder.;_root_.models.SortOrder#
-æ¬_root_.play.api.i18n./
-˝ˇ%_root_.org.scalatest.FlatSpecLike#it.ó
-Ñàå_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/HaveWord;)Lorg/scalatest/MustMatchers/ResultOfHaveWordForExtent;.-
-Ø_±_#_root_.models.messages.Message#(id)_
-‘V⁄VU_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.H
-óBõB>_root_.scala.collection.IterableLike#head()Ljava/lang/Object;.H
-Õe–e>_root_.java.time.LocalDateTime.now()Ljava/time/LocalDateTime;.)
-”G‡G_root_.java.time.LocalDateTime.u
-ô"ù"k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.M
-„#Î#C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.,
-ãOîO"_root_.models.SortOrder.Ascending.M
-•2≠2C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.a
-±∑W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.U
-À`–`K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;..
-Í_Û_$_root_.controllers.routes.Dashboard.o
-Â=Á=e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.o
-’]◊]e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.3
-ΩNŒN)_root_.models.messages.MessagePagination.o
-…KÀKe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.,
-≠ª"_root_.controllers.ControllerSpec#°
-»!Ã!ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.B
-ÂÈ8_root_.org.jsoup.nodes.Element#text()Ljava/lang/String;.z
-Ò˜p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.@
-Ë&˚&6test/views/dashboard/MessagesPageSpec.scala@4814..4941M
-ï	†	C_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#M
-ı˝C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.<
-˜à2_root_.config.ApplicationConfig#searchSortEnabled.Y
-ﬂÊO_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.3
-§iΩi)_root_.actions.BasicAuthenticatedRequest#z
-Éâp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
-ÂÍ_root_.views.U
-ç>í>K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.G
-öa¨a;_root_.views.dashboard.MessagesPageSpec#clientMessagesPage.!
-á>å>_root_.org.jsoup.Jsoup._
-Ç/à/U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;."
-¶¨_root_.java.time.format.∂
-£Ω´_root_.controllers.ReverseDashboard#managePropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.(
-óOöO_root_.play.api.mvc.Call#(url)2
-Ù%ˇ%(_root_.views.html.dashboard.messagesTab./
-œ'—'%_root_.org.scalatest.FlatSpecLike#it.a
-Ù˙W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.2
-õU¶U(_root_.views.html.dashboard.messagesTab.)
-¸bÉc_root_.models.messages.Message._
-©YØYU_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.Ç
-·‰x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.u
-èTìTk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.v
-‡-È-l_root_.java.time.format.DateTimeFormatter.ofPattern(Ljava/lang/String;)Ljava/time/format/DateTimeFormatter;.=
-•#Ø#3_root_.views.dashboard.MessagesPageSpec#oneMessage.2
-’kÓk(_root_.models.DetailedIndividualAccount.Y
-üL¶LO_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;._
-ö)†)U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.s
-ö6¶6i_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.$
-∞[∂[_root_.controllers.routes.A
-«a’a7_root_.views.dashboard.MessagesPageSpec#clientMessages./
-•3ß3%_root_.org.scalatest.FlatSpecLike#it.s
- W÷Wi_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;..
-äSìS$_root_.controllers.routes.Dashboard.$
-íò_root_.controllers.routes.6
-ñ-ô-,_root_.scala.Option#get()Ljava/lang/Object;.z
-£©p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
-”◊_root_.play.Y
-èBñBO_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.:
-ı ¸ 0_root_.org.scalatest.words.MatcherWords#contain.@
-–S›S6_root_.models.messages.MessageSortField.EffectiveDate.M
-ÑaåaC_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;."
-ÎSÙS_root_.models.SortOrder.=
-Ø4π43_root_.views.dashboard.MessagesPageSpec#oneMessage.3
-ÙHÖI)_root_.models.messages.MessagePagination.z
- –p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.3
-Œ[ﬂ[)_root_.models.messages.MessagePagination.U
-¸+Ä,K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.2
-≤π(_root_.models.messages.Message#(subject)B
-ÏIˆI6test/views/dashboard/MessagesPageSpec.scala@9448..9513@
-Ï>˘>6test/views/dashboard/MessagesPageSpec.scala@7918..8015&
-Ë)Î)_root_.scala.collection.Seq..
-ﬁÁ$_root_.controllers.routes.Dashboard.K
-ú¥A_root_.views.dashboard.MessagesPageSpec#pageWithOneUnreadMessage.U
-Á!Û!K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.K
-£AªAA_root_.views.dashboard.MessagesPageSpec#pageWithOneUnreadMessage.(
-ÎÓ_root_.play.api.mvc.Call#(url):
-Öå0_root_.org.scalatest.words.MatcherWords#contain.D
-∏^ø^8test/views/dashboard/MessagesPageSpec.scala@12084..12122U
-„YÁYK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.a
-ÛV˘VW_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.$
-◊O›O_root_.controllers.routes..
-¶NØN$_root_.controllers.routes.Dashboard._
-˜;˝;U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.(
-òõ_root_.play.api.mvc.Call#(url)3
-ô;™;)_root_.models.messages.MessagePagination.)
-ÆDµD_root_.models.messages.Message.@
-è ú 6test/views/dashboard/MessagesPageSpec.scala@4017..4086U
-ïUöUK_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.,
-ì
-°
-"_root_.controllers.ControllerSpec#B
-∑V”V8test/views/dashboard/MessagesPageSpec.scala@10860..11036∑
-´º¨_root_.org.scalatest.words.ResultOfContainWord#theSameElementsAs(Lscala/collection/GenTraversable;Lorg/scalatest/enablers/Aggregating;)Lorg/scalatest/compatible/Assertion;.U
-û¢K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.Y
-√   O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.@
-‹QÈQ6_root_.models.messages.MessageSortField.CaseReference.z
-º¬p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.2
-øSœS(_root_.models.messages.MessageSortField.
-á	ã	_root_.play.2
-Ã7◊7(_root_.views.html.dashboard.messagesTab.B
-“%Â%6test/views/dashboard/MessagesPageSpec.scala@4814..4941o
-è1ë1e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.)
-ıdÇe_root_.java.time.LocalDateTime.h
-«-Õ-^_root_.java.time.LocalDateTime#format(Ljava/time/format/DateTimeFormatter;)Ljava/lang/String;.U
-ÏK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.3
-◊aËa)_root_.models.messages.MessagePagination.
-ú†_root_.java.z
-Øµp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;./
-˙B¸B%_root_.org.scalatest.FlatSpecLike#it.2
-£4Æ4(_root_.views.html.dashboard.messagesTab.$
-Ÿ9ﬂ9_root_.controllers.routes./
-‡‚%_root_.org.scalatest.FlatSpecLike#it.a
-ü?•?W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;._
-µªU_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.H
-≈F»F>_root_.java.time.LocalDateTime.now()Ljava/time/LocalDateTime;.C
-–‹9_root_.actions.AgentRequest.;_root_.actions.AgentRequest#:
-ÜXçX0_root_.models.messages.MessageSortField.Address.L
-ƒ…B_root_.org.jsoup.select.Elements#first()Lorg/jsoup/nodes/Element;.:
-˘!Ä"0_root_.org.scalatest.words.MatcherWords#contain.a
-Ù_ˇ_W_root_.controllers.ReverseDashboard#viewMessage(Ljava/lang/String;)Lplay/api/mvc/Call;.s
-∞NºNi_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.=
-Ä&ä&3_root_.views.dashboard.MessagesPageSpec#oneMessage.B
-ß_Æ_8test/views/dashboard/MessagesPageSpec.scala@12084..12122U
- ?Œ?K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.[
-èüQ_root_.models.messages.MessageSortField.;_root_.models.messages.MessageSortField#O
-ÄbäbE_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;._
-Ç^à^U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.B
-÷KﬁK6test/views/dashboard/MessagesPageSpec.scala@9682..9766z
-ã@ë@p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.B
-˘"ä#6test/views/dashboard/MessagesPageSpec.scala@4469..4588M
-èIóIC_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.3
-å&ù&)_root_.models.messages.MessagePagination.@
-ª6ø66test/views/dashboard/MessagesPageSpec.scala@6971..69713
-Œ\ﬂ\)_root_.models.messages.MessagePagination.
-Ñfàf_root_.scala.None._
-œ’U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;._
-«(Õ(U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.6
-ÒÖ,_root_.models.messages.MessageSearchResults._
- –U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.@
-Î;ˆ;6test/views/dashboard/MessagesPageSpec.scala@7518..7634=
-ç;ó;3_root_.views.dashboard.MessagesPageSpec#oneMessage._
-˙KÄLU_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.(
-—6‘6_root_.play.api.mvc.Call#(url)M
-î8ú8C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.!
-∂ª_root_.org.jsoup.Jsoup.a
-˛*Ñ+W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.B
-Àÿ6test/views/dashboard/MessagesPageSpec.scala@3655..3724a
-õ_¶_W_root_.controllers.ReverseDashboard#viewMessage(Ljava/lang/String;)Lplay/api/mvc/Call;.4
-Œ-ﬂ-*_root_.java.time.format.DateTimeFormatter.B
-ß8∑86test/views/dashboard/MessagesPageSpec.scala@7203..72993
-ÑMïM)_root_.models.messages.MessagePagination.U
-˘ˇK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.2
-Ω	»	(_root_.views.html.dashboard.messagesTab.K
-≈›A_root_.views.dashboard.MessagesPageSpec#pageWithOneUnreadMessage.z
-É_â_p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;./
-Ÿ€%_root_.org.scalatest.FlatSpecLike#it.@
-£∞6test/views/dashboard/MessagesPageSpec.scala@2889..2958Y
-î+õ+O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.B
-∆C÷C6test/views/dashboard/MessagesPageSpec.scala@8637..9248d
-Ñ=å=Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.B
-Ë((6test/views/dashboard/MessagesPageSpec.scala@5220..5306,
-√PÃP"_root_.models.SortOrder.Ascending.D
-¶V¥V8test/views/dashboard/MessagesPageSpec.scala@11042..11141,
-ıS˛S"_root_.models.SortOrder.Ascending._
-◊2›2U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.
-®Æ_root_.models.)
-Øhºh_root_.java.time.LocalDateTime.u
-å.ê.k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.B
-Ÿ>È>6test/views/dashboard/MessagesPageSpec.scala@8021..8116/
-‰$Ê$%_root_.org.scalatest.FlatSpecLike#it.s
-¡\Õ\i_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.3
-ıOÜP)_root_.models.messages.MessagePagination.(
-ÇÖ_root_.play.api.mvc.Call#(url).
-“€$_root_.controllers.routes.Dashboard.s
-Ûˇi_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.:
-¢!©!0_root_.org.scalatest.words.MatcherWords#contain.
-ˆ1˙1_root_.scala.Some.,
-”M‹M"_root_.models.SortOrder.Ascending.h
-ª¡^_root_.java.time.LocalDateTime#format(Ljava/time/format/DateTimeFormatter;)Ljava/lang/String;.$
-∞Z∂Z_root_.controllers.routes.a
-áJçJW_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.B
-•≥6test/views/dashboard/MessagesPageSpec.scala@1569..1662
-€hﬂh_root_.scala.None._
-ˆ¸U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.z
-–O÷Op_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.!
-ÎÙ_root_.views.dashboard.
-îdòd_root_.scala.None.U
-„ Ô K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.o
-“.‘.e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V..
-ñQüQ$_root_.controllers.routes.Dashboard.@
-à,è,6test/views/dashboard/MessagesPageSpec.scala@5431..5473$
-À—_root_.controllers.routes.U
-ô9ù9K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.U
-ù£K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.z
-Œ$‘$p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
-înòn_root_.scala.None.H
-¥
-«
-<_root_.views.dashboard.MessagesPageSpec#additionalAppConfig.1
-‚		'_root_.scala.collection.JavaConverters.M
-ìVõVC_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;."
-πP¬P_root_.models.SortOrder.u
-‹‡k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.z
-ª'¡'p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.B
-≈ÿ6test/views/dashboard/MessagesPageSpec.scala@1857..2052s
-†Q¨Qi_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.
-∫Ω_root_.play.api./
-â.ã.%_root_.org.scalatest.FlatSpecLike#it.+
-∫t≈t!_root_.play.api.test.FakeRequest.2
-∑,æ,(_root_.models.messages.Message#(address)H
-ìhñh>_root_.java.time.LocalDateTime.now()Ljava/time/LocalDateTime;..
-ÌLˆL$_root_.controllers.routes.Dashboard.@
-Œÿ6test/views/dashboard/MessagesPageSpec.scala@1504..1564a
-Å)á)W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.E
-¥(∆(;_root_.views.dashboard.MessagesPageSpec#clientMessagesPage.)
-æi»i_root_.play.api.mvc.AnyContent#U
-¿)»)K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.
-≥E∑E_root_.scala.None.@
-¯ˇ6test/views/dashboard/MessagesPageSpec.scala@3222..32602
-ÀQ€Q(_root_.models.messages.MessageSortField.o
-’:◊:e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.z
-ê3ñ3p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.u
-–@‘@k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.!
-”€_root_.models.messages.&
-óö_root_.scala.collection.Seq.U
-‹+‡+K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;."
-˜UÄV_root_.models.SortOrder.o
-¥C∂Ce_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.Y
-◊ﬁO_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.D
-˝XçY8test/views/dashboard/MessagesPageSpec.scala@11385..11460:
-§P´P0_root_.models.messages.MessageSortField.Address.z
-“9ÿ9p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;."
-õX§X_root_.models.SortOrder.$
-ÉSâS_root_.controllers.routes.]
-Ê˜S_root_.models.messages.MessagePagination.;_root_.models.messages.MessagePagination#a
-≠≥W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.8
-≠∫._root_.models.messages.Message#(effectiveDate))
-Öhíh_root_.java.time.LocalDateTime.)
-øeÃe_root_.java.time.LocalDateTime.z
-û§p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;._
-ó$ù$U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.B
-ïô6test/views/dashboard/MessagesPageSpec.scala@2321..2426.
-ê6ô6$_root_.controllers.routes.Dashboard.ê
-éíÖ_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#size(JLorg/scalatest/enablers/Size;)Lorg/scalatest/compatible/Assertion;.
-ôû_root_.org.jsoup.]
-ﬁ˜S_root_.actions.BasicAuthenticatedRequest.;_root_.actions.BasicAuthenticatedRequest#P
-‹ËF_root_.controllers.ReverseDashboard#manageAgents()Lplay/api/mvc/Call;.
-ƒg»g_root_.scala.Some.)
-·Î_root_.play.api.mvc.AnyContent#
-å	è	_root_.play.api./
- Ã%_root_.org.scalatest.FlatSpecLike#it.K
-áòA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#$
-πWøW_root_.controllers.routes.$
-‚Ë_root_.controllers.routes.R
-áïH_root_.controllers.ReverseDashboard#viewDraftCases()Lplay/api/mvc/Call;.0
-Ì˛&_root_.play.api.mvc.AnyContentAsEmpty.8
-ﬁ,Î,._root_.models.messages.Message#(caseReference)
-£Æ_root_.controllers.Y
-ùJ§JO_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.Q
-ı/˘/G_root_.org.jsoup.nodes.Node#attr(Ljava/lang/String;)Ljava/lang/String;.
-ê	î	_root_.play.api.test.:
-£™0_root_.org.scalatest.words.MatcherWords#contain.3
-ŒZﬂZ)_root_.models.messages.MessagePagination.B
-Ä å 6test/views/dashboard/MessagesPageSpec.scala@4092..4190K
-ŸÍA_root_.models.IndividualDetails.;_root_.models.IndividualDetails#(
-ˆt˛t_root_.play.api.i18n.Messages.A
-À◊7_root_.models.GroupAccount.;_root_.models.GroupAccount#B
-á4î46test/views/dashboard/MessagesPageSpec.scala@6654..6751/
-¸\˛\%_root_.org.scalatest.FlatSpecLike#it.
-µπ_root_.play.2
-¢M≤M(_root_.models.messages.MessageSortField.Ç
-ÁÍx_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;._
-¸&Ç'U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.3
-È`˙`)_root_.models.messages.MessagePagination.B
-È4ı46test/views/dashboard/MessagesPageSpec.scala@6757..68474
-¬”*_root_.java.time.format.DateTimeFormatter.L
-î)ô)B_root_.org.jsoup.select.Elements#first()Lorg/jsoup/nodes/Element;.$
-„_È__root_.controllers.routes.a
-”ŸW_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.
-ÿ€_root_.play.api.a
-ú<¢<W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.B
-ˆ#Ç$6test/views/dashboard/MessagesPageSpec.scala@4594..4654o
-≈%«%e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.Q
-ÙıG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.U
-ÍJÓJK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.s
-îS†Si_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.$
-ˆ¸_root_.controllers.routes.Q
-— ’ G_root_.org.jsoup.nodes.Node#attr(Ljava/lang/String;)Ljava/lang/String;.Ç
-Ô/Ú/x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.+
-Õnÿn!_root_.play.api.test.FakeRequest.(
-Ò\Ù\_root_.play.api.mvc.Call#(url)H
-·G‰G>_root_.java.time.LocalDateTime.now()Ljava/time/LocalDateTime;._
-≠æU_root_.java.time.format.DateTimeFormatter.;_root_.java.time.format.DateTimeFormatter#$
-ÊLÏL_root_.controllers.routes._
- I–IU_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.(
-ÅTÑT_root_.play.api.mvc.Call#(url)"
-ÅOäO_root_.models.SortOrder.K
-∂ŒA_root_.views.dashboard.MessagesPageSpec#pageWithOneUnreadMessage.I
-áî?_root_.java.time.LocalDateTime.;_root_.java.time.LocalDateTime#?
-Úa˛a5_root_.views.dashboard.MessagesPageSpec#agentRequest.@
-˘IÜJ6test/views/dashboard/MessagesPageSpec.scala@9373..9442ç
-û¢Ç_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/ContainWord;)Lorg/scalatest/words/ResultOfContainWord;.6
-ŸCÌC,_root_.models.messages.MessageSearchResults.U
-ê!ú!K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;./
-ó:ô:%_root_.org.scalatest.FlatSpecLike#it.X
-–‘N_root_.controllers.manageDetails.ReverseViewDetails#show()Lplay/api/mvc/Call;.M
-ƒ&Ã&C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.6
-ŸfÌf,_root_.models.messages.MessageSearchResults.3
-˜9à:)_root_.models.messages.MessagePagination.z
-Ç6à6p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.H
-÷^⁄^>_root_.scala.collection.IterableLike#head()Ljava/lang/Object;.,
-ÅVäV"_root_.models.SortOrder.Ascending.U
-∑ªK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.1
-ˆ'_root_.config.ApplicationConfig.config.P
-Ô
-Ò
-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.3
-◊WËW)_root_.models.messages.MessagePagination.z
-©[Ø[p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.4
-˙	ä
-(_root_.views.dashboard.MessagesPageSpec#z
-¸,Ç-p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.u
-ö:û:k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.s
-Í9ˆ9i_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;..
-ë_ö_$_root_.controllers.routes.Dashboard.2
-Ω√(_root_.controllers.manageDetails.routes..
-¿W…W$_root_.controllers.routes.Dashboard.z
-≤W∏Wp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.z
-ƒ< <p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.U
-˜,˚,K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.!
-ı:˙:_root_.org.jsoup.Jsoup.ã
-âuúuÄ_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.B
-ìA†A6test/views/dashboard/MessagesPageSpec.scala@8335..8404Y
-Á/Ó/O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.(
-◊⁄_root_.play.api.mvc.Call#(url)Y
-Ÿ‡O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.:
-©∞0_root_.org.scalatest.words.MatcherWords#contain.B
-í¢6test/views/dashboard/MessagesPageSpec.scala@2062..23152
-ˇtàu(_root_.play.api.i18n.Messages.Implicits.s
-˜LÉMi_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.@
-∆2÷26test/views/dashboard/MessagesPageSpec.scala@6296..6446o
-ÜAàAe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.z
-ﬂLÂLp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.,
-ÅRäR"_root_.models.SortOrder.Ascending.B
-Á:Ú:6test/views/dashboard/MessagesPageSpec.scala@7518..76347
-âç-_root_.org.scalatest.words.MatcherWords#have./
-Õ@œ@%_root_.org.scalatest.FlatSpecLike#it.z
-œ?’?p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;./
-∂=∏=%_root_.org.scalatest.FlatSpecLike#it.2
-ªa∆a(_root_.views.html.dashboard.messagesTab.s
-ËOÙOi_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.U
-£,ß,K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;._
-Ü5å5U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.D
-ìi¢i8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.=
-§Æ3_root_.views.dashboard.MessagesPageSpec#oneMessage.?
-ã2ó25_root_.views.dashboard.MessagesPageSpec#agentRequest.(
-å`è`_root_.play.api.mvc.Call#(url)B
-≤7Ω76test/views/dashboard/MessagesPageSpec.scala@7081..7197U
-µa∫aK_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.2
-ºq’q(_root_.models.DetailedIndividualAccount.&
-¶o≤o_root_.actions.AgentRequest.O
-ô2£2E_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.B
-ñú6test/views/dashboard/MessagesPageSpec.scala@3730..3828U
-˚:Ä;K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.o
-ôõe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.a
-˘AˇAW_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.
-˘c˝c_root_.scala.None.u
-áKãKk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.U
-ﬁB‚BK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.u
-ÿ‹k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.
-˛Å_root_.org.z
-àQéQp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.U
-º¡K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.2
-ô#§#(_root_.views.html.dashboard.messagesTab.s
-¡ZÕZi_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;."
-…M“M_root_.models.SortOrder.%
-Ûiˇi_root_.models.GroupAccount.@
-É-ä-6test/views/dashboard/MessagesPageSpec.scala@5431..5473!
-èUîU_root_.org.jsoup.Jsoup.)
-Ögåg_root_.models.messages.Message.2
-—U·U(_root_.models.messages.MessageSortField.;
-≥MªM1_root_.models.messages.MessageSortField.LastRead.
-«Œ_root_.actions..
-∑\¿\$_root_.controllers.routes.Dashboard.@
-—ÿ6test/views/dashboard/MessagesPageSpec.scala@3222..3260_
-Ù˙U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.u
-ˇ\É]k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.=
-·tÈt1_root_.views.dashboard.MessagesPageSpec#messages.A
-Òn˝n5_root_.views.dashboard.MessagesPageSpec#agentRequest.6
-Øb√b,_root_.models.messages.MessageSearchResults.(
-œP“P_root_.play.api.mvc.Call#(url)
-°•_root_.java.time.4
-¢
-¢
-*_root_.org.scalatest.FlatSpec#`<init>`()V.$
-ˇÖ_root_.controllers.routes.M
-÷4ﬁ4C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.U
-˛ÇK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.2
-€NÎN(_root_.models.messages.MessageSortField.Y
-ß)Æ)O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.=
-ÿ7‚73_root_.views.dashboard.MessagesPageSpec#oneMessage.2
-Ÿ‡(_root_.models.messages.Message#(address)u
-ÄÑk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.u
-Á$Î$k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.!
-Ø1¥1_root_.org.jsoup.Jsoup."
-˜QÄR_root_.models.SortOrder.B
-§(±(6test/views/dashboard/MessagesPageSpec.scala@5152..5215a
-ù £ W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;./
-åTéT%_root_.org.scalatest.FlatSpecLike#it.B
-‡„6test/views/dashboard/MessagesPageSpec.scala@3164..3217K
-È]Å^A_root_.views.dashboard.MessagesPageSpec#pageWithOneUnreadMessage.
-ÇÜ_root_.java.time.$
-∞\∂\_root_.controllers.routes.!
-¿7≈7_root_.org.jsoup.Jsoup.U
-ôùK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.!
-ü§_root_.org.jsoup.nodes.z
-œ,’,p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.(
-≤XµX_root_.play.api.mvc.Call#(url)@
-Ø,∂,6test/views/dashboard/MessagesPageSpec.scala@5431..5473c
-˘çY_root_.models.messages.MessageSearchResults.;_root_.models.messages.MessageSearchResults#=
-¬^Ã^3_root_.views.dashboard.MessagesPageSpec#oneMessage.@
-Õ^’^6_root_.models.messages.MessageSearchResults#(messages)*
-ﬁÔ _root_.config.ApplicationConfig.Ç
-À Œ x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ç
-…)Õ)Ç_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/ContainWord;)Lorg/scalatest/words/ResultOfContainWord;.3
-ß6∏6)_root_.models.messages.MessagePagination.B
-Ä`á`8test/views/dashboard/MessagesPageSpec.scala@12084..12122B
-ú1¨16test/views/dashboard/MessagesPageSpec.scala@6296..6446E
-Ô.Å/;_root_.views.dashboard.MessagesPageSpec#clientMessagesPage.u
-˝BÅCk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.ç
-¯¸Ç_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/ContainWord;)Lorg/scalatest/words/ResultOfContainWord;.a
-ÌÛW_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.H
-ìGñG>_root_.java.time.LocalDateTime.now()Ljava/time/LocalDateTime;.2
-÷H·H(_root_.views.html.dashboard.messagesTab.U
-µ1∫1K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.@
-Ø∑6_root_.models.messages.MessageSearchResults#(messages)!
-≈` `_root_.org.jsoup.Jsoup.*
-˛lèm _root_.models.IndividualDetails.@
-™±6test/views/dashboard/MessagesPageSpec.scala@3222..3260o
-ó(ô(e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.H
-ÉeÜe>_root_.java.time.LocalDateTime.now()Ljava/time/LocalDateTime;.z
-÷5‹5p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.U
-á0ç0K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.°
-ÄÑñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
-ÄÜ_root_.config.
-†´_root_.controllers.&
-ÒbÙb_root_.scala.collection.Seq.@
-*˝*6test/views/dashboard/MessagesPageSpec.scala@5152..5215z
-¯<˛<p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.u
-◊Ÿk_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.B
-‹;Ë;6test/views/dashboard/MessagesPageSpec.scala@7640..7725z
-òNûNp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.3
-“iÎi)_root_.actions.BasicAuthenticatedRequest.a
-ª/¡/W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.D
-TåU8test/views/dashboard/MessagesPageSpec.scala@10860..11036U
-—5’5K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.@
-‘*‹*6_root_.models.messages.MessageSearchResults#(messages)z
-¸RÇSp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.U
-–H’HK_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.K
-·K˘KA_root_.views.dashboard.MessagesPageSpec#pageWithOneUnreadMessage.:
-Œ)’)0_root_.org.scalatest.words.MatcherWords#contain.
-–E‘E_root_.scala.None._
-∆8Ã8U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.z
-©\Ø\p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.D
-‚]Ê]8test/views/dashboard/MessagesPageSpec.scala@11998..12078@
-•¨6test/views/dashboard/MessagesPageSpec.scala@3222..3260B
-Í*Ì*6test/views/dashboard/MessagesPageSpec.scala@5478..5531/
-’◊%_root_.org.scalatest.FlatSpecLike#it.°
-§®ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.@
-÷,›,6test/views/dashboard/MessagesPageSpec.scala@5431..5473(
-¿√_root_.play.api.mvc.Call#(url)Ç
-ﬂ‚x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.8
-Äç._root_.models.messages.Message#(caseReference)B
-ﬂ.Ï.6test/views/dashboard/MessagesPageSpec.scala@5979..6042/
-±0≥0%_root_.org.scalatest.FlatSpecLike#it.H
-Ωh¿h>_root_.java.time.LocalDateTime.now()Ljava/time/LocalDateTime;.
-Çá_root_.org.jsoup.=
-ßU±U3_root_.views.dashboard.MessagesPageSpec#oneMessage.U
-ôùK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.U
-ˇÉK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.9
-àç/_root_.org.jsoup.Jsoup.;_root_.org.jsoup.Jsoup#U
-Ô˜K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.@
-‚HÚH6test/views/dashboard/MessagesPageSpec.scala@8637..9248>
-ƒœ4_root_.controllers.manageDetails.routes.ViewDetails.?
-¢b¨b3_root_.views.dashboard.MessagesPageSpec#oneMessage.@
-Û(Ä)6test/views/dashboard/MessagesPageSpec.scala@5152..5215-
-à`ä`#_root_.models.messages.Message#(id)@
-¯4Ö56test/views/dashboard/MessagesPageSpec.scala@6654..6751@
-±I…I6test/views/dashboard/MessagesPageSpec.scala@9254..9368v
-‘›l_root_.java.time.format.DateTimeFormatter.ofPattern(Ljava/lang/String;)Ljava/time/format/DateTimeFormatter;.H
-∏º>_root_.scala.collection.IterableLike#head()Ljava/lang/Object;.3
-≠QæQ)_root_.models.messages.MessagePagination.z
-©ZØZp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.¡
-ëï∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.!
-Ë%Ì%_root_.org.jsoup.Jsoup.@
-¯7¸76test/views/dashboard/MessagesPageSpec.scala@7160..7160U
-•-©-K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.&
-°D§D_root_.scala.collection.Seq.B
-ò†6test/views/dashboard/MessagesPageSpec.scala@2964..3050
-Æ	≤	_root_.views.html.(
-ü¢_root_.play.api.mvc.Call#(url)(
-˚˛_root_.play.api.mvc.Call#(url)@
-∞√6test/views/dashboard/MessagesPageSpec.scala@1857..2052B
-µ)π)8_root_.org.jsoup.nodes.Element#text()Ljava/lang/String;.z
-û9§9p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.(
-≥_∂__root_.play.api.mvc.Call#(url)B
-ØH«H6test/views/dashboard/MessagesPageSpec.scala@9254..9368@
-≠;±;6test/views/dashboard/MessagesPageSpec.scala@7597..7597)
-ÖGíG_root_.java.time.LocalDateTime.
-‹ﬂ_root_.play.api.mvc.:
-Õ!‘!0_root_.org.scalatest.words.MatcherWords#contain.°
-Ù!¯!ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.U
- ,Œ,K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.3
-≥UƒU)_root_.models.messages.MessagePagination.
-ŒG“G_root_.scala.Some.+
-Øº!_root_.controllers.manageDetails..
-Üè$_root_.controllers.routes.Dashboard.$
-üN•N_root_.controllers.routes.H
-•J©J>_root_.scala.collection.IterableLike#head()Ljava/lang/Object;.3
-ª4Ã4)_root_.models.messages.MessagePagination./
-‹6ﬁ6%_root_.org.scalatest.FlatSpecLike#it..
-‡9È9$_root_.controllers.routes.Dashboard..
-ÈÚ$_root_.controllers.routes.Dashboard.
-∞&¥&_root_.scala.Some.
-ïò_root_.org.u
-π=Ω=k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.u
-“'÷'k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.z
-·+Á+p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.-
-•XØX#_root_.models.SortOrder.Descending.(
-ZÛZ_root_.play.api.mvc.Call#(url)o
-„TÂTe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.B
-°IÆI6test/views/dashboard/MessagesPageSpec.scala@9373..9442s
-êúi_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.U
-ø<√<K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.I
-›‰?_root_.models.messages.Message.;_root_.models.messages.Message#.
-ﬁOÁO$_root_.controllers.routes.Dashboard.M
-…;—;C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.
-˝Å_root_.java.
-ÍsÓs_root_.scala.None.Y
-ß^Æ^O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.o
-XÚXe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.$
-ä_ê__root_.controllers.routes.@
-ÊÛ6test/views/dashboard/MessagesPageSpec.scala@2889..2958:
-˝Ñ0_root_.org.scalatest.words.MatcherWords#contain.Q
-ÌÒG_root_.org.jsoup.nodes.Node#attr(Ljava/lang/String;)Ljava/lang/String;.B
-◊&Â&6test/views/dashboard/MessagesPageSpec.scala@4947..5017(
-å:è:_root_.play.api.mvc.Call#(url)3
-⁄Î)_root_.models.messages.MessagePagination.(
-ÎtÛt_root_.play.api.i18n.Messages#@
-ÎA¯A6test/views/dashboard/MessagesPageSpec.scala@8335..8404
-Õ#—#_root_.scala.Some.(
-çRêR_root_.play.api.mvc.Call#(url)0
-ìñ&_root_.scala.collection.immutable.Nil.°
-ù!°!ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.@
-≠/∫/6test/views/dashboard/MessagesPageSpec.scala@5979..6042A
-«1’17_root_.views.dashboard.MessagesPageSpec#clientMessages.2
-ê,ó,(_root_.models.messages.Message#(subject)3
-±#¬#)_root_.models.messages.MessagePagination.U
-ù4¢4K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.z
-®,Æ,p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.K
-êY®YA_root_.views.dashboard.MessagesPageSpec#pageWithOneUnreadMessage.:
-ÏNÛN0_root_.models.messages.MessageSortField.Subject.
-’gŸg_root_.scala.Some.!
-ç#í#_root_.org.jsoup.Jsoup.°
-é0í0ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.(
-[Û[_root_.play.api.mvc.Call#(url)B
-ﬁAËA6test/views/dashboard/MessagesPageSpec.scala@8410..84750
-åoùo&_root_.play.api.mvc.AnyContentAsEmpty.B
-∏2√26test/views/dashboard/MessagesPageSpec.scala@6452..6513$
-â6è6_root_.controllers.routes.:
-‚UÈU0_root_.models.messages.MessageSortField.Address./
-ñ"ò"%_root_.org.scalatest.FlatSpecLike#it.
-®	≠	_root_.views.3
-‰7ı7)_root_.models.messages.MessagePagination.M
-åbîbC_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.=
-ü>©>3_root_.views.dashboard.MessagesPageSpec#oneMessage.2
-¬Õ(_root_.views.html.dashboard.messagesTab..
-∑[¿[$_root_.controllers.routes.Dashboard.@
-Ö$ñ$6test/views/dashboard/MessagesPageSpec.scala@4469..4588"9
-"_root_.controllers.ControllerSpec#Ä@ControllerSpec")
-_root_.scala.collection.Seq.	ÄÑSeq"B
-0_root_.models.messages.MessageSortField.Address.ÄÑàAddress"7
-_root_.java.time.LocalDateTime.ÄÑàLocalDateTime"â
-;_root_.views.dashboard.MessagesPageSpec#clientMessagesPage.JÅÄ@clientMessagesPageDocument"&
- _root_.org.jsoup.nodes.Document#"Ä
-å_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/HaveWord;)Lorg/scalatest/MustMatchers/ResultOfHaveWordForExtent;.Ómust2(haveWord: HaveWord): ResultOfHaveWordForExtent[T]",
-$_root_.org.scalatest.words.HaveWord#"D
-/<_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#"<
-014_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"}
-6test/views/dashboard/MessagesPageSpec.scala@7081..7197CÅÄ@messagesPg2Document"&
- _root_.org.jsoup.nodes.Document#"|
-6test/views/dashboard/MessagesPageSpec.scala@2596..2726BmessagesTabElements"'
-!_root_.org.jsoup.select.Elements#"$
-_root_.play.api.test.ÄàÄtest"±
-G_root_.org.jsoup.nodes.Node#attr(Ljava/lang/String;)Ljava/lang/String;.fÑÄÄattr(x$1: String): String" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"6
-"_root_.models.SortOrder.Ascending.ÄÑà	Ascending"Ø
-6test/views/dashboard/MessagesPageSpec.scala@9682..9766uheadingsBuffer[Element]"-
-'_root_.scala.collection.mutable.Buffer#"'
-_root_.org.jsoup.nodes.Element#"”
-8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.ñÅÄ`nonAgentRequest%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"0
-_root_.play.api.i18n.Messages.ÄÑMessages"1
-_root_.play.api.i18n.Messages#Ä†ÄMessages"6
-!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"Ï
-Ç_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/ContainWord;)Lorg/scalatest/words/ResultOfContainWord;.‰must2(containWord: ContainWord): ResultOfContainWord[T]"/
-'_root_.org.scalatest.words.ContainWord#"7
-//_root_.org.scalatest.words.ResultOfContainWord#"<
-014_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"z
-._root_.models.messages.Message#(effectiveDate)HÅeffectiveDateLocalDateTime"%
-_root_.java.time.LocalDateTime#"Õ
-Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.owithClue(clue: Any): T"
-
-_root_.scala.Any#"6
-._root_.org.scalatest.AppendedClues#Clueful#[T]"o
--_root_.org.scalatest.words.MatcherWords#have.>haveHaveWord"*
-$_root_.org.scalatest.words.HaveWord#"-
-_root_.scala.collection.ÄàÄ
-collection"§
-v_root_.actions.AgentRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;JLplay/api/mvc/Request;)V.©<init>à(organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, agentCode: Long, request: Request[A]): AgentRequest[A]"#
-"_root_.models.GroupAccount#"0
-7P(_root_.models.DetailedIndividualAccount#"
-]a_root_.scala.Long#"$
-ls_root_.play.api.mvc.Request#"'
-tu_root_.actions.AgentRequest#[A]"%
-yÖ_root_.actions.AgentRequest#")
-Üá_root_.actions.AgentRequest#[A]"0
-_root_.views.html.dashboard.ÄàÄ	dashboard"}
-6test/views/dashboard/MessagesPageSpec.scala@7518..7634CÅÄ@messagesPg2Document"&
- _root_.org.jsoup.nodes.Document#"F
-*_root_.java.time.format.DateTimeFormatter.ÄÑàDateTimeFormatter"Ã
-Ä_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.∆ÑÄ applicationMessages9(implicit lang: Lang, application: Application): Messages""
-_root_.play.api.i18n.Lang#"$
-#._root_.play.api.Application#"&
-19_root_.play.api.i18n.Messages#"Å
-6test/views/dashboard/MessagesPageSpec.scala@7203..7299GpreviousPageLinkElements"'
-!_root_.org.jsoup.select.Elements#"ä
-4_root_.views.dashboard.MessagesPageSpec#`<init>`()V.R<init>(): MessagesPageSpec"0
-(_root_.views.dashboard.MessagesPageSpec#"u
-6test/views/dashboard/MessagesPageSpec.scala@5431..5473;messageMessage"%
-_root_.models.messages.Message#"J
-,_root_.models.messages.MessageSearchResults.ÄÑMessageSearchResults"8
-#_root_.models.SortOrder.Descending.ÄÑà
-Descending"ó
-E_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.Õ
-implicitly[T] => (implicit e: T): T"P
-H_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.[T]"P
-H_root_.scala.Predef.implicitly(Ljava/lang/Object;)Ljava/lang/Object;.[T]"Å
-6test/views/dashboard/MessagesPageSpec.scala@4469..4588GfilteredByAddressDocument"&
- _root_.org.jsoup.nodes.Document#"*
-_root_.models.messages.ÄàÄmessages"ã
-H_root_.controllers.ReverseDashboard#viewDraftCases()Lplay/api/mvc/Call;.?viewDraftCases(): Call"!
-_root_.play.api.mvc.Call#";
- _root_.models.IndividualDetails.ÄÑIndividualDetails"é
-8test/views/dashboard/MessagesPageSpec.scala@10860..11036RpageSortedByAscendingAddressDocument"&
- _root_.org.jsoup.nodes.Document#"
-_root_.java.ÄàÄjava"B
-(_root_.models.messages.MessageSortField.ÄÑMessageSortField"´
-B_root_.org.jsoup.select.Elements#eq(I)Lorg/jsoup/select/Elements;.eÑÄÄeq(x$1: Int): Elements"
-	_root_.scala.Int#")
-!_root_.org.jsoup.select.Elements#"ç
-Ö_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#size(JLorg/scalatest/enablers/Size;)Lorg/scalatest/compatible/Assertion;.Çsize5(expectedSize: Long)(implicit sz: Size[A]): Assertion"
-_root_.scala.Long#"+
-"&#_root_.org.scalatest.enablers.Size#"G
-'(?_root_.org.scalatest.MustMatchers#ResultOfHaveWordForExtent#[A]"/
-,5'_root_.org.scalatest.package.Assertion#"U
-_root_.play.api.mvc.Call#(url)3ÅurlString"!
-_root_.scala.Predef.String#"ô
-7_root_.views.dashboard.MessagesPageSpec#clientMessages.^ÅÄ@clientMessagesMessageSearchResults"2
-,_root_.models.messages.MessageSearchResults#"B
-&_root_.play.api.mvc.AnyContentAsEmpty.ÄÑàAnyContentAsEmpty"˘
-l_root_.java.time.format.DateTimeFormatter.ofPattern(Ljava/lang/String;)Ljava/time/format/DateTimeFormatter;.àÑÄÄ	ofPattern (x$1: String): DateTimeFormatter" 
-_root_.java.lang.String#"2
- *_root_.java.time.format.DateTimeFormatter#"N
-6_root_.models.messages.MessageSortField.EffectiveDate.ÄÑàEffectiveDate"+
-_root_.models.SortOrder.ÄÑ	SortOrder""
-_root_.play.api.mvc.
-ÄàÄmvc"}
-6test/views/dashboard/MessagesPageSpec.scala@7640..7725CnextPageLinkElements"'
-!_root_.org.jsoup.select.Elements#"}
-6test/views/dashboard/MessagesPageSpec.scala@6757..6847CnextPageLinkElements"'
-!_root_.org.jsoup.select.Elements#"}
-6test/views/dashboard/MessagesPageSpec.scala@4594..4654CaddressInputElements"'
-!_root_.org.jsoup.select.Elements#"
-_root_.play.api.
-ÄàÄapi"}
->_root_.scala.collection.IterableLike#head()Ljava/lang/Object;.;headA".
-(_root_.scala.collection.IterableLike#[A]"
-6test/views/dashboard/MessagesPageSpec.scala@7918..8015EÅÄ@multiplePagesDocument"&
- _root_.org.jsoup.nodes.Document#"p
-'_root_.config.ApplicationConfig.config.EconfigApplicationConfig"&
- _root_.config.ApplicationConfig#"£
-6test/views/dashboard/MessagesPageSpec.scala@2321..2426itabsBuffer[String]"-
-'_root_.scala.collection.mutable.Buffer#" 
-_root_.java.lang.String#"∏
-Ç_root_.actions.BasicAuthenticatedRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)V.∞<init>Ñ(organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A]): BasicAuthenticatedRequest[A]"#
-"_root_.models.GroupAccount#"0
-7P(_root_.models.DetailedIndividualAccount#"$
-[b_root_.play.api.mvc.Request#"4
-cd,_root_.actions.BasicAuthenticatedRequest#[A]"2
-hÅ)_root_.actions.BasicAuthenticatedRequest#"6
-ÇÉ,_root_.actions.BasicAuthenticatedRequest#[A]"0
-_root_.models.messages.Message.ÄÑMessage"u
-8_root_.org.jsoup.nodes.Element#text()Ljava/lang/String;.9ÑÄÄtext
-(): String" 
-
-_root_.java.lang.String#"A
-(_root_.views.dashboard.MessagesPageSpec#Ä MessagesPageSpec"x
-6test/views/dashboard/MessagesPageSpec.scala@8410..8475>
-readStatusElement"%
-_root_.org.jsoup.nodes.Element#"É
-6test/views/dashboard/MessagesPageSpec.scala@4814..4941IfilteredByReferenceDocument"&
- _root_.org.jsoup.nodes.Document#"í
-6test/views/dashboard/MessagesPageSpec.scala@1504..1564X
-noMessagesMessageSearchResults"2
-,_root_.models.messages.MessageSearchResults#"ê
-K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.A†Ä herePosition"+
-%_root_.org.scalactic.source.Position#"ä
-6test/views/dashboard/MessagesPageSpec.scala@9254..9368PÅÄ@pageWithNoUnreadMessagesDocument"&
- _root_.org.jsoup.nodes.Document#"4
-&_root_.scala.collection.immutable.Nil.
-ÄÑàNil"Ã
-U_root_.org.jsoup.nodes.Element#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.sÑÄÄselect(x$1: String): Elements" 
-_root_.java.lang.String#")
-!_root_.org.jsoup.select.Elements#"á
-N_root_.controllers.manageDetails.ReverseViewDetails#show()Lplay/api/mvc/Call;.5show(): Call"!
-_root_.play.api.mvc.Call#"ì
-6test/views/dashboard/MessagesPageSpec.scala@7160..7160Yx$29Option[String]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"~
-6test/views/dashboard/MessagesPageSpec.scala@4017..4086DmessagesTableElements"'
-!_root_.org.jsoup.select.Elements#"Y
-#_root_.models.messages.Message#(id)2ÅidString"!
-_root_.scala.Predef.String#"!
-_root_.views.html.ÄàÄhtml"Å
-8test/views/dashboard/MessagesPageSpec.scala@11042..11141EaddressHeadingElements"'
-!_root_.org.jsoup.select.Elements#"'
-_root_.org.jsoup.Jsoup.ÄÑàJsoup"ß
-6test/views/dashboard/MessagesPageSpec.scala@2964..3050mheadingsBuffer[String]"-
-'_root_.scala.collection.mutable.Buffer#" 
-_root_.java.lang.String#"9
-(_root_.controllers.manageDetails.routes.ÄÑàroutes"D
-)_root_.models.messages.MessagePagination.ÄÑMessagePagination"ö
-6test/views/dashboard/MessagesPageSpec.scala@8637..9248`ÅÄ@noUnreadMessagesMessageSearchResults"2
-,_root_.models.messages.MessageSearchResults#"2
-_root_.actions.AgentRequest.ÄÑAgentRequest"3
-_root_.actions.AgentRequest#Ä†ÄAgentRequest"ß
-6test/views/dashboard/MessagesPageSpec.scala@5220..5306mheadingsBuffer[String]"-
-'_root_.scala.collection.mutable.Buffer#" 
-_root_.java.lang.String#"s
-1_root_.views.dashboard.MessagesPageSpec#messages.>ÅÄ`messagesMessages"$
-_root_.play.api.i18n.Messages#"‹
-ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.¿mustu[TYPECLASS1] => (rightMatcherFactory1: MatcherFactory1[T, TYPECLASS1])(implicit typeClass1: TYPECLASS1[T]): Assertion"6
-'6._root_.org.scalatest.matchers.MatcherFactory1#"<
-784_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"´
-:D¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"´
-\f¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"<
-gh4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"/
-lu'_root_.org.scalatest.package.Assertion#"|
-6test/views/dashboard/MessagesPageSpec.scala@1857..2052BmanagePropertiesUrlString"!
-_root_.scala.Predef.String#"
-_root_.org.
-ÄàÄorg"É
-8test/views/dashboard/MessagesPageSpec.scala@11385..11460GpageSizeControlsElements"'
-!_root_.org.jsoup.select.Elements#"Ä
-6test/views/dashboard/MessagesPageSpec.scala@6296..6446FfilteredByClientDocument"&
- _root_.org.jsoup.nodes.Document#"v
-$_root_.controllers.routes.Dashboard.NÅÄà	DashboardReverseDashboard"*
-$_root_.controllers.ReverseDashboard#"~
-6test/views/dashboard/MessagesPageSpec.scala@9373..9442DmessagesTableElements"'
-!_root_.org.jsoup.select.Elements#"∆
-5_root_.views.dashboard.MessagesPageSpec#agentRequest.åÅÄ@agentRequest$AgentRequest[AnyContentAsEmpty.type]""
-_root_.actions.AgentRequest#".
-&_root_.play.api.mvc.AnyContentAsEmpty."„
-p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.omustBe(right: Any): Assertion"
-_root_.scala.Any#"/
-'_root_.org.scalatest.package.Assertion#"=
-(_root_.views.html.dashboard.messagesTab.ÄÑmessagesTab"≠
-8test/views/dashboard/MessagesPageSpec.scala@11998..12078qrowsBuffer[Element]"-
-'_root_.scala.collection.mutable.Buffer#"'
-_root_.org.jsoup.nodes.Element#"'
-_root_.org.jsoup.nodes.ÄàÄnodes"1
-_root_.models.GroupAccount.ÄÑGroupAccount"
-6test/views/dashboard/MessagesPageSpec.scala@6654..6751EÅÄ@multiplePagesDocument"&
- _root_.org.jsoup.nodes.Document#"™
-6test/views/dashboard/MessagesPageSpec.scala@3164..3217prowBuffer[Element]"-
-'_root_.scala.collection.mutable.Buffer#"'
-_root_.org.jsoup.nodes.Element#"|
-6test/views/dashboard/MessagesPageSpec.scala@6452..6513BclientInputElements"'
-!_root_.org.jsoup.select.Elements#"+
-_root_.controllers.routes.ÄÑàroutes"~
-6test/views/dashboard/MessagesPageSpec.scala@5152..5215DmessagesTableElements"'
-!_root_.org.jsoup.select.Elements#"á
-F_root_.controllers.ReverseDashboard#manageAgents()Lplay/api/mvc/Call;.=manageAgents(): Call"!
-_root_.play.api.mvc.Call#"ﬁ
-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
-_root_.scala.Tuple2#"*
-"_root_.scala.Predef.ArrowAssoc#[A]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"~
-6test/views/dashboard/MessagesPageSpec.scala@1569..1662DnoMessagesPageDocument"&
- _root_.org.jsoup.nodes.Document#"∫
-x_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.ΩmapQ[B, That] => (f: Function1[A, B])(implicit bf: CanBuildFrom[Repr, B, That]): That"
-_root_.scala.Function1#"3
-+_root_.scala.collection.TraversableLike#[A]"É
-{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
-/;-_root_.scala.collection.generic.CanBuildFrom#"6
-<@._root_.scala.collection.TraversableLike#[Repr]"É
-BC{_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ü
-EI~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ü
-MQ~_root_.scala.collection.TraversableLike#map(Lscala/Function1;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"ï
-A_root_.views.dashboard.MessagesPageSpec#pageWithOneUnreadMessage.PÅÄ@pageWithOneUnreadMessageDocument"&
- _root_.org.jsoup.nodes.Document#"Å
-C_root_.play.twirl.api.BufferedContent#toString()Ljava/lang/String;.:toString
-(): String" 
-
-_root_.java.lang.String#";
-(_root_.play.api.i18n.Messages.Implicits.ÄÑ	Implicits"∞
-e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
-
-_root_.scala.`<byname>`#"
-_root_.scala.Any#"-
-'/%_root_.org.scalactic.source.Position#"
-26_root_.scala.Unit#"∆
-W_root_.controllers.ReverseDashboard#viewMessage(Ljava/lang/String;)Lplay/api/mvc/Call;.kviewMessage(id: String): Call"#
-_root_.scala.Predef.String#"!
-_root_.play.api.mvc.Call#";
- _root_.config.ApplicationConfig.ÄÑApplicationConfig"{
-0_root_.org.scalatest.words.MatcherWords#contain.GcontainContainWord"-
-'_root_.org.scalatest.words.ContainWord#"$
-_root_.play.api.i18n.ÄàÄi18n"?
-'_root_.scala.collection.JavaConverters.ÄÑJavaConverters"Œ
-W_root_.org.jsoup.select.Elements#select(Ljava/lang/String;)Lorg/jsoup/select/Elements;.sÑÄÄselect(x$1: String): Elements" 
-_root_.java.lang.String#")
-!_root_.org.jsoup.select.Elements#"!
-_root_.scala.None.ÄÑàNone"~
-6test/views/dashboard/MessagesPageSpec.scala@8335..8404DmessagesTableElements"'
-!_root_.org.jsoup.select.Elements#"ü
-O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.LasScalaA"<
-6_root_.scala.collection.convert.Decorators#AsScala#[A]"+
-_root_.views.dashboard.ÄàÄ	dashboard"q
-2_root_.config.ApplicationConfig#searchSortEnabled.;searchSortEnabledBoolean"
-_root_.scala.Boolean#"ö
-4_root_.controllers.manageDetails.routes.ViewDetails.bÅÄàViewDetailsReverseViewDetails":
-4_root_.controllers.manageDetails.ReverseViewDetails#"¡
-∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
-_root_.scala.Predef.String#">
-96_root_.org.scalatest.words.StringVerbStringInvocation#">
-<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"N
-6_root_.models.messages.MessageSortField.CaseReference.ÄÑàCaseReference"u
-6test/views/dashboard/MessagesPageSpec.scala@3222..3260;messageMessage"%
-_root_.models.messages.Message#"˚
-<_root_.views.dashboard.MessagesPageSpec#additionalAppConfig.∫additionalAppConfigSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"L
-)_root_.actions.BasicAuthenticatedRequest.ÄÑBasicAuthenticatedRequest"M
-)_root_.actions.BasicAuthenticatedRequest# Ä†ÄBasicAuthenticatedRequest"Å
-6test/views/dashboard/MessagesPageSpec.scala@8021..8116GpreviousPageLinkElements"'
-!_root_.org.jsoup.select.Elements#"•
-6test/views/dashboard/MessagesPageSpec.scala@3730..3828kinputsBuffer[String]"-
-'_root_.scala.collection.mutable.Buffer#" 
-_root_.java.lang.String#"
-_root_.play.ÄàÄplay"o
-._root_.models.messages.Message#(caseReference)=ÅcaseReferenceString"!
-_root_.scala.Predef.String#"~
-6test/views/dashboard/MessagesPageSpec.scala@5979..6042DmessagesTableElements"'
-!_root_.org.jsoup.select.Elements#"~
-6test/views/dashboard/MessagesPageSpec.scala@3655..3724DmessagesTableElements"'
-!_root_.org.jsoup.select.Elements#"~
-6test/views/dashboard/MessagesPageSpec.scala@2889..2958DmessagesTableElements"'
-!_root_.org.jsoup.select.Elements#"à
-B_root_.org.jsoup.select.Elements#first()Lorg/jsoup/nodes/Element;.BÑÄÄfirst(): Element"'
-_root_.org.jsoup.nodes.Element#"ì
-6test/views/dashboard/MessagesPageSpec.scala@6971..6971Yx$22Option[String]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#")
-_root_.java.time.format.ÄàÄformat"3
-_root_.play.api.mvc.AnyContent#Ä¿
-AnyContent"ˆ
-k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.Ümust(string: String): ItVerbString"#
-	_root_.scala.Predef.String#"7
-/_root_.org.scalatest.FlatSpecLike#ItVerbString#"è
-+_root_.models.messages.Message#(clientName)`Å
-clientNameOption[String]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"ø
-´_root_.controllers.ReverseDashboard#managePropertiesSearchSort(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.émanagePropertiesSearchSort‘(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], agent: Option[String]): Call"
-
-_root_.scala.Int#"
-_root_.scala.Int#"
-18_root_.scala.Boolean#"
-EK_root_.scala.Option#"#
-LR_root_.scala.Predef.String#"
-`f_root_.scala.Option#"#
-gm_root_.scala.Predef.String#"
-x~_root_.scala.Option#"$
-Ö_root_.scala.Predef.String#"
-ëó_root_.scala.Option#"%
-òû_root_.scala.Predef.String#"
-®Æ_root_.scala.Option#"%
-Øµ_root_.scala.Predef.String#"
-ø≈_root_.scala.Option#"%
-∆Ã_root_.scala.Predef.String#"#
-–‘_root_.play.api.mvc.Call#"
-_root_.models.ÄàÄmodels"‡
-L_root_.controllers.ReverseDashboard#manageProperties(II)Lplay/api/mvc/Call;.èmanageProperties (page: Int, pageSize: Int): Call"
-
-_root_.scala.Int#"
-_root_.scala.Int#"!
- _root_.play.api.mvc.Call#"§
-6test/views/dashboard/MessagesPageSpec.scala@2062..2315jexpectedTabLinksSeq[String]""
-_root_.scala.collection.Seq#"#
-
-_root_.scala.Predef.String#"÷
-G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
-_root_.scala.`<repeated>`#"
-_root_.scala.Any#"#
-_root_.scala.Predef.String#"[
-,_root_.scala.Option#get()Ljava/lang/Object;.+ÑÄgetA"
-_root_.scala.Option#[A]"à
->_root_.java.time.LocalDateTime.now()Ljava/time/LocalDateTime;.FÑÄÄnow(): LocalDateTime"'
-_root_.java.time.LocalDateTime#"!
-_root_.actions.ÄàÄactions"˚
-i_root_.controllers.ReverseDashboard#viewMessages(Lmodels/messages/MessagePagination;)Lplay/api/mvc/Call;.çviewMessages%(pagination: MessagePagination): Call"1
-)_root_.models.messages.MessagePagination#"!
-!%_root_.play.api.mvc.Call#" 
-_root_.java.time.ÄàÄtime"c
-(_root_.models.messages.Message#(address)7ÅaddressString"!
-_root_.scala.Predef.String#")
-_root_.controllers.ÄàÄcontrollers"
-_root_.views.ÄàÄviews"
-_root_.config.ÄàÄconfig"!
-_root_.org.jsoup.ÄàÄjsoup"w
-8test/views/dashboard/MessagesPageSpec.scala@12084..12122;messageMessage"%
-_root_.models.messages.Message#"
-6test/views/dashboard/MessagesPageSpec.scala@4947..5017EreferenceInputElements"'
-!_root_.org.jsoup.select.Elements#"
-_root_.scala.ÄàÄscala"D
-1_root_.models.messages.MessageSortField.LastRead.ÄÑàLastRead"Ë
-^_root_.java.time.LocalDateTime#format(Ljava/time/format/DateTimeFormatter;)Ljava/lang/String;.ÖÑÄÄformat (x$1: DateTimeFormatter): String"2
-*_root_.java.time.format.DateTimeFormatter#" 
- _root_.java.lang.String#"c
-(_root_.models.messages.Message#(subject)7ÅsubjectString"!
-_root_.scala.Predef.String#"™
-6test/views/dashboard/MessagesPageSpec.scala@5478..5531prowBuffer[Element]"-
-'_root_.scala.collection.mutable.Buffer#"'
-_root_.org.jsoup.nodes.Element#"x
-6test/views/dashboard/MessagesPageSpec.scala@9448..9513>
-readStatusElement"%
-_root_.org.jsoup.nodes.Element#"K
-(_root_.models.DetailedIndividualAccount.ÄÑDetailedIndividualAccount"n
-*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
-_root_.org.scalatest.FlatSpec#"∆
-¨_root_.org.scalatest.words.ResultOfContainWord#theSameElementsAs(Lscala/collection/GenTraversable;Lorg/scalatest/enablers/Aggregating;)Lorg/scalatest/compatible/Assertion;.îtheSameElementsAs\(right: scala.collection.GenTraversable[_])(implicit aggregating: Aggregating[L]): Assertion"2
-BM*_root_.org.scalatest.enablers.Aggregating#":
-NO2_root_.org.scalatest.words.ResultOfContainWord#[L]"/
-S\'_root_.org.scalatest.package.Assertion#"´
-6test/views/dashboard/MessagesPageSpec.scala@4092..4190qhiddenInputsBuffer[String]"-
-'_root_.scala.collection.mutable.Buffer#" 
-_root_.java.lang.String#"ü
-6_root_.models.messages.MessageSearchResults#(messages)eÅmessagesSeq[Message]"
-_root_.scala.package.Seq#"'
-_root_.models.messages.Message#"•
-6test/views/dashboard/MessagesPageSpec.scala@6048..6146kinputsBuffer[String]"-
-'_root_.scala.collection.mutable.Buffer#" 
-_root_.java.lang.String#"ë
-3_root_.views.dashboard.MessagesPageSpec#oneMessage.ZÅÄ@
-oneMessageMessageSearchResults"2
-,_root_.models.messages.MessageSearchResults#"j
-%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
-)_root_.org.scalatest.FlatSpecLike#ItWord#"9
-!_root_.controllers.manageDetails.ÄàÄmanageDetails"B
-0_root_.models.messages.MessageSortField.Subject.ÄÑàSubject"3
- _root_.org.jsoup.nodes.Document#Ä†ÄDocument" 
-_root_.scala.Some.
-ÄÑSome"¥
->_root_.org.jsoup.nodes.Document#`<init>`(Ljava/lang/String;)V.ràÄÄ<init>(x$1: String): Document" 
-_root_.java.lang.String#"(
- _root_.org.jsoup.nodes.Document#"é
-Y_root_.play.api.i18n.Messages#`<init>`(Lplay/api/i18n/Lang;Lplay/api/i18n/MessagesApi;)V.∞<init>-(lang: Lang, messages: MessagesApi): Messages""
-_root_.play.api.i18n.Lang#")
-"!_root_.play.api.i18n.MessagesApi#"&
-%-_root_.play.api.i18n.Messages#"ì
-6test/views/dashboard/MessagesPageSpec.scala@7597..7597Yx$36Option[String]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"∂
-k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
-
-_root_.scala.`<byname>`#"
-_root_.scala.Any#"-
-'/%_root_.org.scalactic.source.Position#"
-26_root_.scala.Unit#"¿
-K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.qÑÄÄparse(x$1: String): Document" 
-_root_.java.lang.String#"(
- _root_.org.jsoup.nodes.Document#2ò
-¶U¶U*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2ò
-Æ4Æ4*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2ﬁ
-ì8ì8H*(MessagesPageSpec.this.nonAgentRequest, MessagesPageSpec.this.messages)
-_star_.@
-'8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.9
-?G1_root_.views.dashboard.MessagesPageSpec#messages.2‡
-∏6∏6*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ˆ
-ª!«!öMessagesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 105), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
-.4'_root_.scala.collection.mutable.Buffer# 
-5;_root_.java.lang.String#
->?_star_.y
-_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-íô(_root_.org.scalactic.Prettifier.default.2ò
-*ì+Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2Ì
-±*±**(org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
-_star_. 
-GM_root_.java.lang.String#/
-OU'_root_.scala.collection.mutable.Buffer#ì
-%Fä_root_.org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Aggregating;.H
-nu@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;. 
-v|_root_.java.lang.String#2ú
-üOœOçMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 227), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2‡
-¬#¬#*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2Ã
-ÙbÙb*.apply[Message]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.'
-_root_.models.messages.Message#2Õ
-˘˘∏*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 75))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2«
-®®*.apply[String]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.#
-_root_.scala.Predef.String#2ú
-ı+Ä,çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 132), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2õ
-ÑÆåMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 46), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Ñã(_root_.org.scalactic.Prettifier.default.2Ì
-÷÷*(org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
-_star_. 
-GM_root_.java.lang.String#/
-OU'_root_.scala.collection.mutable.Buffer#ì
-%Fä_root_.org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Aggregating;.H
-nu@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;. 
-v|_root_.java.lang.String#2ò
-£÷Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2õ
-íùåMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 88), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Ñã(_root_.org.scalactic.Prettifier.default.2ú
-ú,ß,çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 133), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2x
-ÙÙ*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2õ
-˝
-êåMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 40), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Ñã(_root_.org.scalactic.Prettifier.default.2ò
-È]¶^Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2ò
-∆1∆1*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2ò
-‹`‹`*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2ú
- YÁYçMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 243), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ò
-·H·H*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2õ
-ó¢åMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 85), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Ñã(_root_.org.scalactic.Prettifier.default.2ƒ
-Î)Î)*.apply[String]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#2ò
-û>û>*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2ú
-ª_€_çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 255), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ú
-,˚,çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 135), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2Œ
-°3°3π*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 146))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ú
-à9ù9çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 165), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ú
-ÌCÌC*.apply
-_star_.z
-r_root_.models.messages.MessageSearchResults.apply(IILscala/collection/Seq;)Lmodels/messages/MessageSearchResults;.2ß
-Œ Œ *[String, Buffer[String]]
-_star_. 
-_root_.java.lang.String# 
-_root_.java.lang.String#/
-
-'_root_.scala.collection.mutable.Buffer#2ú
-¯Y®ZçMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 244), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ì
-åå*.apply
-_star_.q
-i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2‡
-ı7ı7*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2Œ
-ÄKÄKπ*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 192))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2n
-≈t≈t*.apply
-_star_.L
-D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2‡
-ÖIÖI*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ú
-‡^Ç_çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 254), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ú
-◊PáQçMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 228), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ì
-©!©!*.apply
-_star_.q
-i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2Y
-®®*[Containing]
-_star_.1
-)_root_.org.scalatest.enablers.Containing#2ˆ
-Á!Û!öMessagesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 106), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
-.4'_root_.scala.collection.mutable.Buffer# 
-5;_root_.java.lang.String#
->?_star_.y
-_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-íô(_root_.org.scalactic.Prettifier.default.2Y
-ÑÑ*[Containing]
-_star_.1
-)_root_.org.scalatest.enablers.Containing#2‡
-ËWËW*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ú
-äW±WçMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 237), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2Ç
-ÎiÎi*.apply[AnyContent]
-_star_.™
-°_root_.actions.BasicAuthenticatedRequest.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)Lactions/BasicAuthenticatedRequest;.'
-_root_.play.api.mvc.AnyContent#2ì
-∞∞*.apply
-_star_.q
-i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2Õ
-’’∏*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 70))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Ë
-©0©0}*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
-_star_.H
-ls@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.ê
-$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;. 
-EK_root_.java.lang.String#/
-MS'_root_.scala.collection.mutable.Buffer# 
-tz_root_.java.lang.String#2ò
-ÎAéBBscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2Y
-¯!¯!*[Containing]
-_star_.1
-)_root_.org.scalatest.enablers.Containing#2Ë
-é"é"}*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
-_star_.H
-ls@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.ê
-$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;. 
-EK_root_.java.lang.String#/
-MS'_root_.scala.collection.mutable.Buffer# 
-tz_root_.java.lang.String#2Ì
-ÕÕ*(org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
-_star_. 
-GM_root_.java.lang.String#/
-OU'_root_.scala.collection.mutable.Buffer#ì
-%Fä_root_.org.scalatest.enablers.Aggregating.aggregatingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Aggregating;.H
-nu@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;. 
-v|_root_.java.lang.String#2Œ
-≤=≤=π*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 169))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2‡
-Ã4Ã4*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ú
-ÌfÌf*.apply
-_star_.z
-r_root_.models.messages.MessageSearchResults.apply(IILscala/collection/Seq;)Lmodels/messages/MessageSearchResults;.2Ë
-∂!∂!}*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
-_star_.H
-ls@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.ê
-$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;. 
-EK_root_.java.lang.String#/
-MS'_root_.scala.collection.mutable.Buffer# 
-tz_root_.java.lang.String#2å
-ŸgŸg*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;. 
-_root_.java.lang.String#2ú
-¯[®\çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 246), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ú
-Ë5Å6çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 158), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ı
-˘ˇôMessagesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 95), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
-.4'_root_.scala.collection.mutable.Buffer# 
-5;_root_.java.lang.String#
->?_star_.y
-_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ëò(_root_.org.scalactic.Prettifier.default.2ß
-£2£2+*[Messages](MessagesPageSpec.this.messages)
-_star_.&
-
-_root_.play.api.i18n.Messages#9
-"*1_root_.views.dashboard.MessagesPageSpec#messages.2«
-µDµD*.apply
-_star_.§
-õ_root_.models.messages.Message.apply(Ljava/lang/String;JLjava/lang/String;Lscala/Option;Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Lscala/Option;Ljava/lang/String;)Lmodels/messages/Message;.2Ÿ
-Ç0Ç07*(scala.collection.mutable.Buffer.canBuildFrom[String])
-_star_.e
-".]_root_.scala.collection.mutable.Buffer.canBuildFrom()Lscala/collection/generic/CanBuildFrom;. 
-/5_root_.java.lang.String#2‡
-Ë1Ë1*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ß
-≤)≤)*[String, Buffer[String]]
-_star_. 
-_root_.java.lang.String# 
-_root_.java.lang.String#/
-
-'_root_.scala.collection.mutable.Buffer#2‡
-ïMïM*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ò
-úﬁBscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2ﬁ
-‚#‚#H*(MessagesPageSpec.this.nonAgentRequest, MessagesPageSpec.this.messages)
-_star_.@
-'8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.9
-?G1_root_.views.dashboard.MessagesPageSpec#messages.2‡
-ﬂ\ﬂ\*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ú
-¨LﬁLçMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 225), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ì
-‘!‘!*.apply
-_star_.q
-i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2Y
-Ã!Ã!*[Containing]
-_star_.1
-)_root_.org.scalatest.enablers.Containing#2Ë
-‚!‚!}*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
-_star_.H
-ls@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.ê
-$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;. 
-EK_root_.java.lang.String#/
-MS'_root_.scala.collection.mutable.Buffer# 
-tz_root_.java.lang.String#2ˆ
-„ Ô öMessagesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 103), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
-.4'_root_.scala.collection.mutable.Buffer# 
-5;_root_.java.lang.String#
->?_star_.y
-_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-íô(_root_.org.scalactic.Prettifier.default.2Æ
-Œ
-Ó
-"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2ò
-è ¬ Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2ú
-√,Œ,çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 134), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ı
-ù£ôMessagesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 96), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
-.4'_root_.scala.collection.mutable.Buffer# 
-5;_root_.java.lang.String#
->?_star_.y
-_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ëò(_root_.org.scalactic.Prettifier.default.2ú
-∆R˚RçMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 230), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2Œ
-ˆBˆBπ*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 185))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ú
-ˆ2è3çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 150), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2Œ
-…@…@π*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 177))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ﬁ
-≈>≈>H*(MessagesPageSpec.this.nonAgentRequest, MessagesPageSpec.this.messages)
-_star_.@
-'8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.9
-?G1_root_.views.dashboard.MessagesPageSpec#messages.2°
-÷÷:*(MessagesPageSpec.this.shorthandTestRegistrationFunction)
-_star_.L
-9D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2ò
-ÕÕ*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Ÿ
-˙˙7*(scala.collection.mutable.Buffer.canBuildFrom[String])
-_star_.e
-".]_root_.scala.collection.mutable.Buffer.canBuildFrom()Lscala/collection/generic/CanBuildFrom;. 
-/5_root_.java.lang.String#2ﬁ
-√&√&H*(MessagesPageSpec.this.nonAgentRequest, MessagesPageSpec.this.messages)
-_star_.@
-'8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.9
-?G1_root_.views.dashboard.MessagesPageSpec#messages.2ú
-ÖÖ*.apply
-_star_.z
-r_root_.models.messages.MessageSearchResults.apply(IILscala/collection/Seq;)Lmodels/messages/MessageSearchResults;.2ﬁ
-éIéIH*(MessagesPageSpec.this.nonAgentRequest, MessagesPageSpec.this.messages)
-_star_.@
-'8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.9
-?G1_root_.views.dashboard.MessagesPageSpec#messages.2ﬁ
-íVíVH*(MessagesPageSpec.this.nonAgentRequest, MessagesPageSpec.this.messages)
-_star_.@
-'8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.9
-?G1_root_.views.dashboard.MessagesPageSpec#messages.2n
-ÿnÿn*.apply
-_star_.L
-D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2ˆ
-¿)»)öMessagesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 127), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
-.4'_root_.scala.collection.mutable.Buffer# 
-5;_root_.java.lang.String#
->?_star_.y
-_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-íô(_root_.org.scalactic.Prettifier.default.2‡
-ƒUƒU*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ß
-‚‚*[String, Buffer[String]]
-_star_. 
-_root_.java.lang.String# 
-_root_.java.lang.String#/
-
-'_root_.scala.collection.mutable.Buffer#2ú
-≥$Õ$çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 113), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2Œ
-ÿ6ÿ6π*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 153))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2‡
-ﬂZﬂZ*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ò
-§#§#*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2ß
-ÍÍ*[String, Buffer[String]]
-_star_. 
-_root_.java.lang.String# 
-_root_.java.lang.String#/
-
-'_root_.scala.collection.mutable.Buffer#2ª
-Â?ä@ìMessagesPageSpec.this.convertToAnyMustWrapper[Boolean](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 182), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-.5_root_.scala.Boolean#
-78_star_.y
-X]q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ãí(_root_.org.scalactic.Prettifier.default.2ò
-ÊâBscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2å
-¥&¥&*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;. 
-_root_.java.lang.String#2Õ
-∆∆∏*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 91))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2õ
-´ªåMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 72), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Ñã(_root_.org.scalactic.Prettifier.default.2ß
-‰‰*[String, Buffer[String]]
-_star_. 
-_root_.java.lang.String# 
-_root_.java.lang.String#/
-
-'_root_.scala.collection.mutable.Buffer#2ﬁ
-’4’4H*(MessagesPageSpec.this.nonAgentRequest, MessagesPageSpec.this.messages)
-_star_.@
-'8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.9
-?G1_root_.views.dashboard.MessagesPageSpec#messages.2ò
-˘IúJBscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2î
-Õ
-Õ
-*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#2‡
-ÜPÜP*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ß
-Ú/Ú/*[String, Buffer[String]]
-_star_. 
-_root_.java.lang.String# 
-_root_.java.lang.String#/
-
-'_root_.scala.collection.mutable.Buffer#2Ã
-ÑgÑg*.apply[Message]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.'
-_root_.models.messages.Message#2«
-ågåg*.apply
-_star_.§
-õ_root_.models.messages.Message.apply(Ljava/lang/String;JLjava/lang/String;Lscala/Option;Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Lscala/Option;Ljava/lang/String;)Lmodels/messages/Message;.2ò
-ˇ%ˇ%*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Y
-°!°!*[Containing]
-_star_.1
-)_root_.org.scalatest.enablers.Containing#2ò
-◊7◊7*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Œ
-≠0≠0π*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 139))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ˆ
-ê!ú!öMessagesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 104), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
-.4'_root_.scala.collection.mutable.Buffer# 
-5;_root_.java.lang.String#
->?_star_.y
-_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-íô(_root_.org.scalactic.Prettifier.default.2æ
-’q’q*.apply
-_star_.õ
-í_root_.models.DetailedIndividualAccount.apply(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.2Œ
-¯\¯\π*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 240))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2‡
-ﬂ[ﬂ[*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2Ë
-òò}*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
-_star_.H
-ls@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.ê
-$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;. 
-EK_root_.java.lang.String#/
-MS'_root_.scala.collection.mutable.Buffer# 
-tz_root_.java.lang.String#2ú
-†+‡+çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 131), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ß
-äbäb+*[Messages](MessagesPageSpec.this.messages)
-_star_.&
-
-_root_.play.api.i18n.Messages#9
-"*1_root_.views.dashboard.MessagesPageSpec#messages.2Œ
-À'À'π*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 116))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ƒ
-öö*.apply[String]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#2ú
-†B‚BçMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 189), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ﬁ
-ÙÙH*(MessagesPageSpec.this.nonAgentRequest, MessagesPageSpec.this.messages)
-_star_.@
-'8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.9
-?G1_root_.views.dashboard.MessagesPageSpec#messages.2ú
-û-©-çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 136), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2õ
-ÂåMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 87), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Ñã(_root_.org.scalactic.Prettifier.default.2Œ
-πXπXπ*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 233))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Y
-Ù Ù *[Containing]
-_star_.1
-)_root_.org.scalatest.enablers.Containing#2ì
-ö0ö0*.apply
-_star_.q
-i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2ì
-¸ ¸ *.apply
-_star_.q
-i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2ê
-îîC*(org.scalatest.enablers.Size.sizeOfGenTraversable[Buffer[String]])
-_star_. 
-:@_root_.java.lang.String#_
-2W_root_.org.scalatest.enablers.Size.sizeOfGenTraversable()Lorg/scalatest/enablers/Size;./
-39'_root_.scala.collection.mutable.Buffer#2‡
-ŒNŒN*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ú
-≤<√<çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 173), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2Ë
-¬¬}*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
-_star_.H
-ls@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.ê
-$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;. 
-EK_root_.java.lang.String#/
-MS'_root_.scala.collection.mutable.Buffer# 
-tz_root_.java.lang.String#2ò
-Û(¶)Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2õ
-æ…åMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 86), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Ñã(_root_.org.scalactic.Prettifier.default.2ú
-¯Z®[çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 245), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ª
-÷<˜<ìMessagesPageSpec.this.convertToAnyMustWrapper[Boolean](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 174), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-.5_root_.scala.Boolean#
-78_star_.y
-X]q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ãí(_root_.org.scalactic.Prettifier.default.2ﬁ
-»;»;H*(MessagesPageSpec.this.nonAgentRequest, MessagesPageSpec.this.messages)
-_star_.@
-'8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.9
-?G1_root_.views.dashboard.MessagesPageSpec#messages.2Ÿ
-∫)∫)7*(scala.collection.mutable.Buffer.canBuildFrom[String])
-_star_.e
-".]_root_.scala.collection.mutable.Buffer.canBuildFrom()Lscala/collection/generic/CanBuildFrom;. 
-/5_root_.java.lang.String#2ı
-ôùôMessagesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 67), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
-.4'_root_.scala.collection.mutable.Buffer# 
-5;_root_.java.lang.String#
->?_star_.y
-_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ëò(_root_.org.scalactic.Prettifier.default.2ú
-¥9—9çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 166), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2«
-ÉcÉc*.apply
-_star_.§
-õ_root_.models.messages.Message.apply(Ljava/lang/String;JLjava/lang/String;Lscala/Option;Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Lscala/Option;Ljava/lang/String;)Lmodels/messages/Message;.2Œ
-ì`ì`π*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 249))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ú
-√b√b*.apply
-_star_.z
-r_root_.models.messages.MessageSearchResults.apply(IILscala/collection/Seq;)Lmodels/messages/MessageSearchResults;.2Œ
-Ö.Ö.π*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 123))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2‡
-º>º>*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2˙
-˝
-÷4MessagesPageSpec.this.convertToInAndIgnoreMethods(*)®
-1ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
-23_star_.2∞
-⁄o⁄o*.apply
-_star_.ç
-Ñ_root_.models.GroupAccount.apply(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)Lmodels/GroupAccount;.2¸
-≤o≤o*.apply[AnyContentAsEmpty.type]
-_star_.ë
-à_root_.actions.AgentRequest.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;JLplay/api/mvc/Request;)Lactions/AgentRequest;..
-&_root_.play.api.mvc.AnyContentAsEmpty.2ò
-üÿBscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2Õ
-——∏*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 49))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ˆ
-á0ç0öMessagesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 143), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
-.4'_root_.scala.collection.mutable.Buffer# 
-5;_root_.java.lang.String#
->?_star_.y
-_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-íô(_root_.org.scalactic.Prettifier.default.2æ
-ÓkÓk*.apply
-_star_.õ
-í_root_.models.DetailedIndividualAccount.apply(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.2≈
-èmèm*.apply
-_star_.¢
-ô_root_.models.IndividualDetails.apply(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.2D
-Ò
-Ò
-	*[String]
-_star_. 
-_root_.java.lang.String#2ö
-“G“G*.apply[LocalDateTime]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.'
-_root_.java.time.LocalDateTime#2Œ
-‡$‡$π*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 109))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2õ
-¬ÇåMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 84), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Ñã(_root_.org.scalactic.Prettifier.default.2ò
-·KûLBscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2∞
-ˇiˇi*.apply
-_star_.ç
-Ñ_root_.models.GroupAccount.apply(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)Lmodels/GroupAccount;.2ú
-ƒ5’5çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 157), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ˆ
-Â?ñ@4MessagesPageSpec.this.convertToClueful[Assertion](*)t
-&l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;./
-'0'_root_.org.scalatest.package.Assertion#
-23_star_.2Œ
-àTàTπ*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 222))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2å
-˙1˙1*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;. 
-_root_.java.lang.String#2ƒ
-úuúu<*(play.api.i18n.Lang.defaultLang, MessagesPageSpec.this.app)
-_star_..
- &_root_.play.api.i18n.Lang.defaultLang.=
-8;5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.2å
-—#—#*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;. 
-_root_.java.lang.String#2Õ
-í"í"∏*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 99))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ò
-å;å;*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2‡
-˙`˙`*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2‡
-™;™;*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ú
-ÁMóNçMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 226), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ı
-ˇÉôMessagesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 66), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
-.4'_root_.scala.collection.mutable.Buffer# 
-5;_root_.java.lang.String#
->?_star_.y
-_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ëò(_root_.org.scalactic.Prettifier.default.2ı
-Ô˜ôMessagesPageSpec.this.convertToAnyMustWrapper[Buffer[String]](*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 79), org.scalactic.Prettifier.default)ª
--≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;./
-.4'_root_.scala.collection.mutable.Buffer# 
-5;_root_.java.lang.String#
->?_star_.y
-_dq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ëò(_root_.org.scalactic.Prettifier.default.2Ã
-§D§D*.apply[Message]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.'
-_root_.models.messages.Message#2Ÿ
-ÍÍ7*(scala.collection.mutable.Buffer.canBuildFrom[String])
-_star_.e
-".]_root_.scala.collection.mutable.Buffer.canBuildFrom()Lscala/collection/generic/CanBuildFrom;. 
-/5_root_.java.lang.String#2Ÿ
-ÙÙ7*(scala.collection.mutable.Buffer.canBuildFrom[String])
-_star_.e
-".]_root_.scala.collection.mutable.Buffer.canBuildFrom()Lscala/collection/generic/CanBuildFrom;. 
-/5_root_.java.lang.String#2Ÿ
-ﬁ ﬁ 7*(scala.collection.mutable.Buffer.canBuildFrom[String])
-_star_.e
-".]_root_.scala.collection.mutable.Buffer.canBuildFrom()Lscala/collection/generic/CanBuildFrom;. 
-/5_root_.java.lang.String#2‡
-à:à:*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2Œ
-ì:ì:π*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 161))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2‡
-æQæQ*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2≈
-ÏrÏr*.apply
-_star_.¢
-ô_root_.models.IndividualDetails.apply(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.2ì
-Ä"Ä"*.apply
-_star_.q
-i_root_.org.scalatest.words.ContainWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.2ú
-π?Œ?çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 181), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2ò
-≠/Ê/Bscala.collection.JavaConverters.asScalaBufferConverter[Element](*)è
- 6Ü_root_.scala.collection.convert.DecorateAsScala#asScalaBufferConverter(Ljava/util/List;)Lscala/collection/convert/Decorators/AsScala;.'
-7>_root_.org.jsoup.nodes.Element#
-@A_star_.2ˆ
-÷<É=4MessagesPageSpec.this.convertToClueful[Assertion](*)t
-&l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;./
-'0'_root_.org.scalatest.package.Assertion#
-23_star_.2‡
-ù&ù&*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ò
-∆a∆a*.apply
-_star_.ı
-Ï_root_.views.html.dashboard.messagesTab_Scope0.messagesTab_Scope1.messagesTab#apply(Lmodels/messages/MessageSearchResults;Lmodels/messages/MessagePagination;IILactions/AuthenticatedRequest;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2‡
-ËaËa*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2Y
-í0í0*[Containing]
-_star_.1
-)_root_.org.scalatest.enablers.Containing#2ú
-ÆJÓJçMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 219), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2Ë
-ã!ã!}*(org.scalatest.enablers.Containing.containingNatureOfGenTraversable[String, Buffer](org.scalactic.Equality.default[String]))
-_star_.H
-ls@_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.ê
-$Dá_root_.org.scalatest.enablers.Containing.containingNatureOfGenTraversable(Lorg/scalactic/Equality;)Lorg/scalatest/enablers/Containing;. 
-EK_root_.java.lang.String#/
-MS'_root_.scala.collection.mutable.Buffer# 
-tz_root_.java.lang.String#2Õ
-‹‹∏*(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 40))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2‡
-≤S≤S*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.2ú
-û'∫'çMessagesPageSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("MessagesPageSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 120), org.scalactic.Prettifier.default)¡
-0∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-12_star_.y
-RWq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Öå(_root_.org.scalactic.Prettifier.default.2Ñ
-»g»g*.apply[Long]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
-_root_.scala.Long#2ﬁ
-ÉaÉaH*(MessagesPageSpec.this.nonAgentRequest, MessagesPageSpec.this.messages)
-_star_.@
-'8_root_.views.dashboard.MessagesPageSpec#nonAgentRequest.9
-?G1_root_.views.dashboard.MessagesPageSpec#messages.2‡
-ÎÎ*.apply
-_star_.Ω
-¥_root_.models.messages.MessagePagination.apply(Lscala/Option;Lscala/Option;Lscala/Option;IILmodels/messages/MessageSortField;Lmodels/SortOrder;)Lmodels/messages/MessagePagination;.:Scala211Büu/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package views.dashboard
-
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-
-import actions.{AgentRequest, BasicAuthenticatedRequest}
-import config.ApplicationConfig
-import controllers.{ControllerSpec, routes}
-import models.messages.{Message, MessagePagination, MessageSearchResults, MessageSortField}
-import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails, SortOrder}
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import play.api.i18n.Messages
-import play.api.mvc.{AnyContent, AnyContentAsEmpty}
-import play.api.test.FakeRequest
-import views.html.dashboard.messagesTab
-
-import scala.collection.JavaConverters._
-
-class MessagesPageSpec extends ControllerSpec {
-
-  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "true")
-
-  "The messages page" must """show "There are no messages" when the user has no messages""" in {
-    val noMessages = MessageSearchResults(
-      0, 0, Nil
-    )
-    val noMessagesPage = Jsoup.parse(messagesTab(noMessages, MessagePagination(), 1, 1).toString)
-
-    noMessagesPage.select("p#noMessages").text mustBe "There are no messages to display"
-  }
-
-  it must "show the dashboard tabs at the top of the page" in {
-    //because travis is stupid
-    val managePropertiesUrl = if(ApplicationConfig.config.searchSortEnabled) {
-      routes.Dashboard.managePropertiesSearchSort().url
-    } else {
-      routes.Dashboard.manageProperties().url
-    }
-    
-    val expectedTabLinks = Seq(
-      managePropertiesUrl,
-      routes.Dashboard.manageAgents().url,
-      routes.Dashboard.viewDraftCases().url,
-      controllers.manageDetails.routes.ViewDetails.show().url,
-      routes.Dashboard.viewMessages().url
-    )
-
-    val tabs = pageWithOneUnreadMessage.select("div.section-tabs ul").select("a").asScala.map(_.attr("href"))
-    tabs must have size 5
-    tabs must contain theSameElementsAs expectedTabLinks
-  }
-
-  it must "show the number of unread messages in the messages tab text" in {
-    val messagesTab = pageWithOneUnreadMessage.select("div.section-tabs ul").select(s"a[href=${routes.Dashboard.viewMessages().url}]")
-    messagesTab.text mustBe "Messages (1)"
-  }
-
-  it must "show the read status, subject, address, reference number, and received date for each message" in {
-    val messagesTable = pageWithOneUnreadMessage.select("#messagesTable")
-
-    val headings = messagesTable.select("thead tr").first.select("th").asScala.map(_.text)
-    headings must contain theSameElementsAs Seq("Status", "Subject", "Address", "Reference", "Received at")
-
-    val row = messagesTable.select("tbody tr td").asScala
-    val message = oneMessage.messages.head
-
-    row.head.select("i.icon-messageunread span.visuallyhidden").text mustBe "Unread"
-    row(1).text mustBe message.subject
-    row(2).text mustBe message.address
-    row(3).text mustBe message.caseReference
-    row(4).text mustBe message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a"))
-  }
-
-  it must "include search fields for address and reference number" in {
-    val messagesTable = pageWithOneUnreadMessage.select("#messagesTable")
-
-    val inputs = messagesTable.select("thead tr th div.searchField input").asScala.map(_.attr("name"))
-    inputs must contain ("address")
-    inputs must contain ("caseReference")
-  }
-
-  it must "include hidden search fields for page number, page size, sort field, and sort order" in {
-    val messagesTable = pageWithOneUnreadMessage.select("#messagesTable")
-
-    val hiddenInputs = messagesTable.select("thead tr input[type=hidden]").asScala.map(_.attr("name"))
-    hiddenInputs must contain ("pageNumber")
-    hiddenInputs must contain ("pageSize")
-    hiddenInputs must contain ("sortField")
-    hiddenInputs must contain ("sortOrder")
-  }
-
-  it must "prepopulate the address search field if the results are filtered by address" in {
-    val filteredByAddress = Jsoup.parse(messagesTab(oneMessage, MessagePagination(address = Some("where")), 1, 1).toString)
-
-    val addressInput = filteredByAddress.select("input#address")
-    addressInput.attr("value") mustBe "where"
-  }
-
-  it must "prepopulate the reference number search field if the results are filtered by reference" in {
-    val filteredByReference = Jsoup.parse(messagesTab(oneMessage, MessagePagination(referenceNumber = Some("ref")), 1, 1).toString)
-
-    val referenceInput = filteredByReference.select("input#caseReference")
-    referenceInput.attr("value") mustBe "ref"
-  }
-
-  it must "show the client name for each message if the user is an agent" in {
-    val messagesTable = clientMessagesPage.select("#messagesTable")
-    val headings = messagesTable.select("thead tr").first.select("th").asScala.map(_.text)
-
-    headings must contain theSameElementsAs Seq("Status", "Subject", "Address", "Reference", "Client", "Received at")
-
-    val message = clientMessages.messages.head
-    val row = messagesTable.select("tbody tr td").asScala
-    row.head.select("i.icon-messageunread span.visuallyhidden").text mustBe "Unread"
-    row(1).text mustBe message.subject
-    row(2).text mustBe message.address
-    row(3).text mustBe message.caseReference
-    row(4).text mustBe message.clientName.get
-    row(5).text mustBe message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a"))
-  }
-
-  it must "include a search field for client name if the user is an agent" in {
-    val messagesTable = clientMessagesPage.select("#messagesTable")
-
-    val inputs = messagesTable.select("thead tr th div.searchField input").asScala.map(_.attr("name"))
-    inputs must contain ("clientName")
-  }
-
-  it must "prepopulate the client name search field if the results are filtered by client name" in {
-    val filteredByClient = Jsoup.parse(messagesTab(clientMessages, MessagePagination(clientName = Some("body")), 1, 1)(agentRequest, implicitly).toString)
-
-    val clientInput = filteredByClient.select("input#clientName")
-    clientInput.attr("value") mustBe "body"
-  }
-
-  it must """show a "next" button if there is another page of messages to show""" in {
-    lazy val multiplePages = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 2).toString)
-
-    val nextPageLink = multiplePages.select("div#messagesTable_paginate a#messagesTable_next")
-    nextPageLink.text mustBe "Next"
-    nextPageLink.attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination().copy(pageNumber = 2)).url
-  }
-
-  it must """show a "previous" button if the user is not on page 1""" in {
-    lazy val messagesPg2 = Jsoup.parse(messagesTab(oneMessage, MessagePagination().copy(pageNumber = 2), 1, 2).toString)
-
-    val previousPageLink = messagesPg2.select("div#messagesTable_paginate a#messagesTable_previous")
-    previousPageLink.text mustBe "Previous"
-    previousPageLink.attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination()).url
-  }
-
-  it must "not show a next button on the last page of messages" in {
-    lazy val messagesPg2 = Jsoup.parse(messagesTab(oneMessage, MessagePagination().copy(pageNumber = 2), 1, 1).toString)
-
-    val nextPageLink = messagesPg2.select("div#messagesTable_paginate").select("li.next")
-    nextPageLink.text mustBe "Next"
-    nextPageLink.hasClass("disabled") mustBe true withClue "Next page link was not disabled"
-  }
-
-  it must "not show a previous button on page 1" in {
-    lazy val multiplePages = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 1).toString)
-
-    val previousPageLink = multiplePages.select("div#messagesTable_paginate").select("li.previous")
-    previousPageLink.text mustBe "Previous"
-    previousPageLink.hasClass("disabled") mustBe true withClue "Previous page link was not disabled"
-  }
-
-  it must "mark messages as unread where lastRead is None" in {
-    val messagesTable = pageWithOneUnreadMessage.select("#messagesTable")
-
-    val readStatus = messagesTable.select("tbody tr td").asScala.head
-    readStatus.select("i.icon-messageunread span.visuallyhidden").text mustBe "Unread"
-  }
-
-  it must "mark messages as read when lastRead is not None" in {
-    lazy val noUnreadMessages = MessageSearchResults(
-      start = 1,
-      size = 1,
-      messages = Seq(
-        Message(
-          id = "somenoderef",
-          recipientOrgId = 123,
-          templateName = "aTemplate",
-          clientOrgId = None,
-          clientName = None,
-          caseReference = "a case ref",
-          submissionId = "sub id",
-          timestamp = LocalDateTime.now,
-          address = "somewhere",
-          effectiveDate = LocalDateTime.now,
-          subject = "something",
-          lastRead = Some(LocalDateTime.now),
-          messageType = "message"
-        )
-      )
-    )
-
-    lazy val pageWithNoUnreadMessages = Jsoup.parse(messagesTab(noUnreadMessages, MessagePagination(), 1, 1).toString)
-    val messagesTable = pageWithNoUnreadMessages.select("#messagesTable")
-
-    val readStatus = messagesTable.select("tbody tr td").asScala.head
-    readStatus.select("i.icon-messageread span.visuallyhidden").text mustBe "Read"
-  }
-
-  it must "have clickable links on each heading to sort by each field" in {
-    val headings = pageWithOneUnreadMessage.select("#messagesTable thead tr th").asScala
-
-    headings.head.select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.LastRead, sortOrder = SortOrder.Ascending)).url
-    headings(1).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.Subject, sortOrder = SortOrder.Ascending)).url
-    headings(2).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Ascending)).url
-    headings(3).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.CaseReference, sortOrder = SortOrder.Ascending)).url
-    //sorted in descending date order by default
-    headings(4).select("div.sorting_desc a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.EffectiveDate, sortOrder = SortOrder.Ascending)).url
-  }
-
-  it must "have a clickable link to reverse the sort order on the current sorting field" in {
-    val pageSortedByAscendingAddress = Jsoup.parse(messagesTab(oneMessage, MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Ascending), 1, 1).toString)
-
-    val addressHeading = pageSortedByAscendingAddress.select("#messagesTable thead").select("th").eq(2)
-    addressHeading.select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Descending)).url
-  }
-
-  it must "include controls to change the page size" in {
-    val pageSizeControls = pageWithOneUnreadMessage.select("ul.showResults li")
-
-    pageSizeControls.first().text mustBe "15"
-    pageSizeControls.get(1).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 25)).url
-    pageSizeControls.get(2).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 50)).url
-    pageSizeControls.get(3).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 100)).url
-  }
-
-  it must "have links on the read status and subject to view the message for each message" in {
-    val rows = pageWithOneUnreadMessage.select("#messagesTable tbody tr td").asScala
-
-    val message = oneMessage.messages.head
-
-    rows.head.select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.id).url
-    rows(1).select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.id).url
-  }
-
-  lazy val pageWithOneUnreadMessage: Document = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 1).toString)
-
-  lazy val clientMessagesPage = Jsoup.parse(messagesTab(clientMessages, MessagePagination(), 1, 1)(agentRequest, implicitly).toString)
-
-  lazy val oneMessage = MessageSearchResults(
-    start = 1,
-    size = 1,
-    messages = Seq(
-      Message(
-        id = "somenoderef",
-        recipientOrgId = 123,
-        templateName = "aTemplate",
-        clientOrgId = None,
-        clientName = None,
-        caseReference = "a case ref",
-        submissionId = "sub id",
-        timestamp = LocalDateTime.now,
-        address = "somewhere",
-        effectiveDate = LocalDateTime.now,
-        subject = "something",
-        lastRead = None,
-        messageType = "message"
-      )
-    )
-  )
-
-  lazy val clientMessages = MessageSearchResults(
-    1,
-    1,
-    Seq(Message(
-      "noderef",
-      222,
-      "a template",
-      Some(333),
-      Some("client"),
-      "aaa",
-      "bbb",
-      LocalDateTime.now,
-      "address",
-      LocalDateTime.now,
-      "something",
-      None,
-      "a message"
-    ))
-  )
-
-  implicit lazy val nonAgentRequest: BasicAuthenticatedRequest[AnyContent] = {
-    BasicAuthenticatedRequest(
-      GroupAccount(
-        id = 123,
-        groupId = "321",
-        companyName = "company",
-        addressId = 456,
-        email = "aa@bb.cc",
-        phone = "0",
-        isAgent = false,
-        agentCode = 0
-      ),
-      DetailedIndividualAccount(
-        externalId = "external-id",
-        trustId = "trust-id",
-        organisationId = 123,
-        individualId = 456,
-        details = IndividualDetails(
-          firstName = "Mr",
-          lastName = "Man",
-          email = "aa@bb.cc",
-          phone1 = "123",
-          phone2 = None,
-          addressId = 789
-        )
-      ),
-      FakeRequest()
-    )
-  }
-
-  lazy val agentRequest: AgentRequest[AnyContentAsEmpty.type] = AgentRequest(
-    organisationAccount = GroupAccount(
-      id = 456,
-      groupId = "some-group",
-      companyName = "a company",
-      addressId = 999,
-      email = "aa@bb.cc",
-      phone = "123",
-      isAgent = true,
-      agentCode = 123
-    ),
-    individualAccount = DetailedIndividualAccount(
-      externalId = "external-id",
-      trustId = "trust-id",
-      organisationId = 456,
-      individualId = 789,
-      details = IndividualDetails(
-        firstName = "fname",
-        lastName = "lname",
-        email = "aa@bb.cc",
-        phone1 = "1",
-        phone2 = None,
-        addressId = 111
-      )
-    ),
-    agentCode = 123,
-    request = FakeRequest()
-  )
-
-  implicit lazy val messages: Messages = Messages.Implicits.applicationMessages
-}
-J+test/views/dashboard/MessagesPageSpec.scala

@@ -1,718 +1,0 @@
-
-æÃ
-Ó˘_root_.controllers.M
-åûC_root_.controllers.propertyLinking.Declaration#(withLinkingSession);
-ë	ú	/_root_.controllers.propertyLinking.Declaration#4
-Ñê*_root_.connectors.fileUpload.FileMetadata#_
-åòU_root_.connectors.fileUpload.FileMetadata.;_root_.connectors.fileUpload.FileMetadata#O
-ÚáE_root_.controllers.propertyLinking.Declaration#formWithNoDeclaration.%
-»Œ_root_.scala.Predef.String#N
-ÇìB_root_.controllers.propertyLinking.Declaration#(sessionRepository),
-„Ú"_root_.views.html.propertyLinking.K
-ø∆?_root_.controllers.propertyLinking.RequestSubmittedVM#(address)$
-‚
-Á
-_root_.javax.inject.Named#H
-ªø<app/controllers/propertyLinking/Declaration.scala@1979..2015=
-Éê1_root_.controllers.propertyLinking.DeclarationVM#
-ÿ›_root_.views.H
-·	Ï	<_root_.controllers.propertyLinking.Declaration#(fileUploads)
-Àœ_root_.scala.Some.9
-ä	ä	/_root_.com.google.inject.Singleton#`<init>`()V.M
-ö¨C_root_.controllers.propertyLinking.Declaration#(withLinkingSession)
-˝â_root_.repositories.>
-‰Ë4_root_.controllers.propertyLinking.Declaration#form.1
-Õ◊'_root_.play.api.mvc.Results#BadRequest.F
-¯¸<app/controllers/propertyLinking/Declaration.scala@1979..2015B
-Æ
-√
-8_root_.connectors.propertyLinking.PropertyLinkConnector#,
-¡–"_root_.connectors.propertyLinking.
-ËÏ_root_.views.html.?
-˝è5_root_.views.html.propertyLinking.noEvidenceUploaded.4
-í©*_root_.views.html.linkingRequestSubmitted.M
-´ΩC_root_.controllers.propertyLinking.Declaration#(withLinkingSession))
-ÑÜ_root_.play.api.mvc.Results#Ok.
-œ”_root_.play.Ø
-È˝¢_root_.controllers.propertyLinking.Declaration#submitLinkingRequest(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.5
-ﬁÍ+_root_.models.LinkingSession#(submissionId)4
-•®*_root_.session.LinkingSessionRequest#(ses).
-ää$_root_.java.lang.Object#`<init>`()V.H
-û•<app/controllers/propertyLinking/Declaration.scala@1694..1701
-®Æ_root_.com.google.*
-ï† _root_.repositories.SessionRepo#'
-Õ€_root_.models.NoEvidenceFlag.l
-Íb_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.H
-™±<app/controllers/propertyLinking/Declaration.scala@2474..2481;
-ö≠1_root_.connectors.fileUpload.FileUploadConnector#H
-∂∫<app/controllers/propertyLinking/Declaration.scala@1846..1878D
-Öé:_root_.controllers.propertyLinking.Declaration#(envelopes)?
-ñõ5_root_.javax.inject.Named.;_root_.javax.inject.Named#S
-ÊÏI_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.
-èï_root_.javax.inject.H
-–‘<app/controllers/propertyLinking/Declaration.scala@1872..1876.
-‹Ì$_root_.connectors.EnvelopeConnector#
-âé_root_.javax.@
-™º6_root_.controllers.propertyLinking.RequestSubmittedVM.F
-áé<app/controllers/propertyLinking/Declaration.scala@1694..1701â
-èú_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.≠
-⁄Ó¢_root_.controllers.propertyLinking.Declaration#submitLinkingRequest(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.]
-π¬S_root_.play.api.data.Form#withError(Lplay/api/data/FormError;)Lplay/api/data/Form;.>
-≠±4_root_.controllers.propertyLinking.Declaration#form.3
-ìù)_root_.models.LinkingSession#(envelopeId)4
-¿Ã*_root_.connectors.fileUpload.FileMetadata.$
-óõ_root_.play.api.data.Form#'
-Ää_root_.connectors.fileUpload.0
-˛é&_root_.form.Mappings.mandatoryBoolean..
-≤	√	$_root_.connectors.EnvelopeConnector#8
-Û˛._root_.views.html.propertyLinking.declaration.Y
-âëO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.;
-Ó	Å
-1_root_.connectors.fileUpload.FileUploadConnector#+
-ƒ…!_root_.play.api.data.Form#(value),
-“‰"_root_.session.WithLinkingSession#@
-‘ÿ4_root_.controllers.propertyLinking.Declaration#form.
-áå_root_.views.b
-ú®X_root_.controllers.propertyLinking.ReverseDeclaration#confirmation()Lplay/api/mvc/Call;.W
-ìóK_root_.controllers.propertyLinking.Declaration#show()Lplay/api/mvc/Action;.≠
-„˜¢_root_.controllers.propertyLinking.Declaration#submitLinkingRequest(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.
-›·_root_.scala.Some.L
-π B_root_.controllers.propertyLinking.Declaration#(sessionRepository)%
-‡Â_root_.play.api.data.Forms.F
-ÔÛ<app/controllers/propertyLinking/Declaration.scala@1846..18787
-â-_root_.controllers.PropertyLinkingController#-
-ÒÄ#_root_.controllers.propertyLinking.H
-◊‰>_root_.controllers.propertyLinking.Declaration#(propertyLinks)>
-¥∏4_root_.controllers.propertyLinking.Declaration#form.0
-Ø∂&_root_.models.LinkingSession#(address)≥
-Ù¯®_root_.controllers.propertyLinking.Declaration#submitLinkingRequest(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.(info)l
-À—b_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.$
-€ﬂ_root_.play.api.data.Form.4
-≈»*_root_.session.LinkingSessionRequest#(ses)]
-êêQ_root_.controllers.propertyLinking.DeclarationVM#`<init>`(Lplay/api/data/Form;)V.J
-ü
-¨
->_root_.controllers.propertyLinking.Declaration#(propertyLinks)5
-ƒ–+_root_.models.LinkingSession#(submissionId)O
-æ–C_root_.controllers.propertyLinking.Declaration#(withLinkingSession)
-∂¿_root_.connectors.-
-Å	ä	#_root_.com.google.inject.Singleton#@
-ô§6_root_.controllers.propertyLinking.routes.Declaration.
-§ß_root_.com.K
-∑ΩA_root_.com.google.inject.Inject.;_root_.com.google.inject.Inject#H
-∏ø<app/controllers/propertyLinking/Declaration.scala@1592..1599Y
-ÄàO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.@
-êõ6_root_.controllers.propertyLinking.routes.Declaration.7
-˙ì-_root_.controllers.PropertyLinkingController#F
-Îˆ<_root_.controllers.propertyLinking.Declaration#(fileUploads)0
-…–&_root_.models.LinkingSession#(address)∞
-ÂÛ•_root_.connectors.propertyLinking.PropertyLinkConnector#linkToProperty(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.
-ﬁ‚_root_.views.html.4
-⁄›*_root_.session.LinkingSessionRequest#(ses)'
-π«_root_.models.NoEvidenceFlag.4
-ª«*_root_.connectors.fileUpload.FileMetadata.%
-ÔÙ_root_.play.api.data.Forms.0
-Á
-Á
-&_root_.javax.inject.Named#`<init>`()V.r
-ææf_root_.controllers.propertyLinking.RequestSubmittedVM#`<init>`(Ljava/lang/String;Ljava/lang/String;)V.L
-ÿÈB_root_.controllers.propertyLinking.Declaration#(sessionRepository)
-†®_root_.form.Mappings.
-çë_root_.views.html.?
-ﬁ‚5_root_.play.api.data.Form.;_root_.play.api.data.Form#,
-Ì¸"_root_.views.html.propertyLinking.
-—€_root_.connectors._
-ú®S_root_.controllers.propertyLinking.Declaration#confirmation()Lplay/api/mvc/Action;.
-≤∏_root_.models.3
-©≥)_root_.models.LinkingSession#(envelopeId)8
-ÿ„._root_.views.html.propertyLinking.declaration.˘
-¶	¶	Ï_root_.controllers.propertyLinking.Declaration#`<init>`(Lconnectors/EnvelopeConnector;Lconnectors/fileUpload/FileUploadConnector;Lconnectors/propertyLinking/PropertyLinkConnector;Lrepositories/SessionRepo;Lsession/WithLinkingSession;)V.`
-≤¡V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.F
-£™<app/controllers/propertyLinking/Declaration.scala@2474..2481
-‚Á_root_.views.I
-‰Ì?_root_.play.api.data.FormError.;_root_.play.api.data.FormError#∂
-ù§´_root_.controllers.propertyLinking.Declaration#submitLinkingRequest(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.(request))
-«…_root_.play.api.mvc.Results#Ok.)
-ﬂ·_root_.play.api.mvc.Results#Ok.4
-âè*_root_.controllers.propertyLinking.routes.µ
-˛Ç®_root_.controllers.propertyLinking.Declaration#submitLinkingRequest(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.(info)
-ÿ‹_root_.play.api.data.
-õü_root_.form.C
-ëï7_root_.controllers.propertyLinking.DeclarationVM#(form)|
-ı¯r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.|
-‘◊r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.]
-ˇâQ_root_.controllers.propertyLinking.Declaration#noEvidence()Lplay/api/mvc/Action;.M
-ÄíC_root_.controllers.propertyLinking.Declaration#(withLinkingSession)
-ù§_root_.session.I
-–’=_root_.controllers.propertyLinking.RequestSubmittedVM#(refId)Q
-ú±E_root_.controllers.propertyLinking.Declaration#formWithNoDeclaration.P
-˚˝F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.*
-äï _root_.repositories.SessionRepo#U
-¶ªK_root_.session.LinkingSessionRequest.;_root_.session.LinkingSessionRequest#B
-¨æ6_root_.controllers.propertyLinking.RequestSubmittedVM#F
-ß	∞	:_root_.controllers.propertyLinking.Declaration#(envelopes)ô
-˜Üé_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.@
-ê¢6_root_.controllers.propertyLinking.RequestSubmittedVM.F
-∏ø<app/controllers/propertyLinking/Declaration.scala@2474..2481∏
-õ¢´_root_.controllers.propertyLinking.Declaration#submitLinkingRequest(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.(request)F
-“Ÿ<app/controllers/propertyLinking/Declaration.scala@2249..2256`
-•ØV_root_.controllers.propertyLinking.ReverseDeclaration#noEvidence()Lplay/api/mvc/Call;.
-‘◊_root_.play.api.|
-˛År_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.H
-…–<app/controllers/propertyLinking/Declaration.scala@2249..2256Ä
-ü¶v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.%
-◊›_root_.scala.Predef.String#;
-‰Ò1_root_.controllers.propertyLinking.DeclarationVM./
-§π%_root_.session.LinkingSessionRequest##
-Øµ_root_.com.google.inject.Q
-ø»G_root_.com.google.inject.Singleton.;_root_.com.google.inject.Singleton#4
-èí*_root_.session.LinkingSessionRequest#(ses)6
-§	§	,_root_.com.google.inject.Inject#`<init>`()V.Y
-˜˝M_root_.controllers.propertyLinking.Declaration#submit()Lplay/api/mvc/Action;.4
-íò*_root_.controllers.propertyLinking.routes.*
-û	§	 _root_.com.google.inject.Inject#B
-—Ê8_root_.connectors.propertyLinking.PropertyLinkConnector#4
-¿√*_root_.session.LinkingSessionRequest#(ses)
-ıˇ_root_.connectors.|
-Ûˆr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-Â_root_.controllers.F
-Ωƒ<app/controllers/propertyLinking/Declaration.scala@2249..22564
-´Æ*_root_.session.LinkingSessionRequest#(ses);
-÷„1_root_.controllers.propertyLinking.DeclarationVM.,
-Ωœ"_root_.session.WithLinkingSession#8
- ’._root_.views.html.propertyLinking.declaration.)
-√Ã_root_.play.api.data.FormError."—
-e_root_.session.WithLinkingSession#`<init>`(Lactions/AuthenticatedAction;Lrepositories/SessionRepo;)V.Á<init>X(authenticated: AuthenticatedAction, sessionRepository: SessionRepo): WithLinkingSession"+
-##_root_.actions.AuthenticatedAction#"(
-8C _root_.repositories.SessionRepo#"*
-FX"_root_.session.WithLinkingSession#"c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#"M
-1_root_.connectors.fileUpload.FileUploadConnector#Ä FileUploadConnector"û
-6_root_.controllers.propertyLinking.routes.Declaration.dÅÄàDeclarationReverseDeclaration"<
-6_root_.controllers.propertyLinking.ReverseDeclaration#"*
-_root_.com.google.inject.ÄàÄinject"°
-é_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.çgetFileMetadataF(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata]"#
-_root_.scala.Predef.String#".
-"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-28_root_.scala.concurrent.Future#"2
-9E*_root_.connectors.fileUpload.FileMetadata#"
-_root_.com.
-ÄàÄcom"Q
-5_root_.views.html.propertyLinking.noEvidenceUploaded.ÄÑnoEvidenceUploaded"ﬂ
-´_root_.controllers.propertyLinking.Declaration#submitLinkingRequest(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.(request)/ÄÅ request session.LinkingSessionRequest[_]"å
-Å_root_.play.api.data.Form#`<init>`(Lplay/api/data/Mapping;Lscala/collection/immutable/Map;Lscala/collection/Seq;Lscala/Option;)V.Ö<init>c(mapping: Mapping[T], data: Map[String, String], errors: Seq[FormError], value: Option[T]): Form[T]"%
-
-_root_.play.api.data.Mapping#"%
-_root_.play.api.data.Form#[T]" 
-_root_.scala.Predef.Map#"#
- &_root_.scala.Predef.String#"#
-(._root_.scala.Predef.String#"!
-9<_root_.scala.package.Seq#"'
-=F_root_.play.api.data.FormError#"
-PV_root_.scala.Option#"%
-WX_root_.play.api.data.Form#[T]""
-\`_root_.play.api.data.Form#"%
-ab_root_.play.api.data.Form#[T]"«
-<app/controllers/propertyLinking/Declaration.scala@1694..1701ÜÄÅ request!LinkingSessionRequest[AnyContent]"+
-%_root_.session.LinkingSessionRequest#"'
- _root_.play.api.mvc.AnyContent#"4
- _root_.repositories.SessionRepo#Ä@SessionRepo"œ
-I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.Åsingle6[A1] => (a1: Tuple2[String, Mapping[A1]]): Mapping[A1]"
-_root_.scala.Tuple2#"#
-_root_.scala.Predef.String#"%
-#_root_.play.api.data.Mapping#"U
-$&M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"%
-+2_root_.play.api.data.Mapping#"U
-35M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"\
-_root_.play.api.mvc.Results#Ok.9OkStatus")
-#_root_.play.api.mvc.Results#Status#"»
-Q_root_.controllers.propertyLinking.DeclarationVM#`<init>`(Lplay/api/data/Form;)V.s<init>,(form: play.api.data.Form[_]): DeclarationVM"9
-,1_root_.controllers.propertyLinking.DeclarationVM#"a
-&_root_.models.LinkingSession#(address)7ÅaddressString"!
-_root_.scala.Predef.String#"'
-_root_.connectors.ÄàÄ
-connectors"«
-<app/controllers/propertyLinking/Declaration.scala@2249..2256ÜÄÅ request!LinkingSessionRequest[AnyContent]"+
-%_root_.session.LinkingSessionRequest#"'
- _root_.play.api.mvc.AnyContent#"ô
-X_root_.controllers.propertyLinking.ReverseDeclaration#confirmation()Lplay/api/mvc/Call;.=confirmation(): Call"!
-_root_.play.api.mvc.Call#"K
-*_root_.views.html.linkingRequestSubmitted.ÄÑlinkingRequestSubmitted"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"q
-<app/controllers/propertyLinking/Declaration.scala@1872..18761infoFileInfo"
-_root_.models.FileInfo#"$
-_root_.play.api.data.ÄàÄdata"
-_root_.form.ÄàÄform"C
-._root_.views.html.propertyLinking.declaration.ÄÑdeclaration"
-_root_.javax.ÄàÄjavax"E
-%_root_.session.LinkingSessionRequest#Ä†ÄLinkingSessionRequest"
-_root_.play.api.
-ÄàÄapi"2
-_root_.connectors.fileUpload.ÄàÄ
-fileUpload"=
-#_root_.controllers.propertyLinking.ÄàÄpropertyLinking"l
-'_root_.play.api.mvc.Results#BadRequest.A
-BadRequestStatus")
-#_root_.play.api.mvc.Results#Status#"î
-&_root_.form.Mappings.mandatoryBoolean.jmandatoryBooleanMapping[Boolean]"#
-_root_.play.api.data.Mapping#"
-_root_.scala.Boolean#"V
-8_root_.connectors.propertyLinking.PropertyLinkConnector#Ä PropertyLinkConnector"2
-_root_.play.api.data.FormError.ÄÑ	FormError"í
-4_root_.controllers.propertyLinking.Declaration#form.ZÅÄ@formForm[Boolean]" 
-_root_.play.api.data.Form#"
-_root_.scala.Boolean#"ˆ
-S_root_.play.api.data.Form#withError(Lplay/api/data/FormError;)Lplay/api/data/Form;.û	withError(error: FormError): Form[T]"'
-_root_.play.api.data.FormError#""
-_root_.play.api.data.Form#"%
-_root_.play.api.data.Form#[T]"!
-_root_.views.html.ÄàÄhtml"∑
-K_root_.controllers.propertyLinking.Declaration#show()Lplay/api/mvc/Action;.hshowAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"+
-_root_.repositories.ÄàÄrepositories"˙
-_root_.connectors.EnvelopeConnector#closeEnvelope(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ˆcloseEnvelope@(envelopeId: String)(implicit hc: HeaderCarrier): Future[String]"#
-_root_.scala.Predef.String#".
-"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-28_root_.scala.concurrent.Future#"#
-9?_root_.scala.Predef.String#"@
-*_root_.connectors.fileUpload.FileMetadata.ÄÑFileMetadata"A
-*_root_.connectors.fileUpload.FileMetadata#Ä†ÄFileMetadata"s
-,_root_.com.google.inject.Inject#`<init>`()V.CàÄÄ<init>
-(): Inject"(
-
- _root_.com.google.inject.Inject#"I
-1_root_.controllers.propertyLinking.DeclarationVM#Ä†ÄDeclarationVM"´
->_root_.controllers.propertyLinking.Declaration#(propertyLinks)iÄpropertyLinksPropertyLinkConnector">
-8_root_.connectors.propertyLinking.PropertyLinkConnector#"H
-1_root_.controllers.propertyLinking.DeclarationVM.ÄÑDeclarationVM"v
-=_root_.controllers.propertyLinking.RequestSubmittedVM#(refId)5ÅrefIdString"!
-_root_.scala.Predef.String#"1
- _root_.com.google.inject.Inject#Ä†ÄInject"}
-!_root_.play.api.data.Form#(value)XÅvalue	Option[T]"
-_root_.scala.Option#"%
-_root_.play.api.data.Form#[T]"Ω
-O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
-_root_.play.api.mvc.Call#"#
-_root_.play.api.mvc.Result#"%
-_root_.javax.inject.ÄàÄinject"#
-_root_.com.google.ÄàÄgoogle"|
-/_root_.com.google.inject.Singleton#`<init>`()V.IàÄÄ<init>(): Singleton"+
-#_root_.com.google.inject.Singleton#"à
-<app/controllers/propertyLinking/Declaration.scala@1979..2015HdataFileMetadata"0
-*_root_.connectors.fileUpload.FileMetadata#"k
-+_root_.models.LinkingSession#(submissionId)<ÅsubmissionIdString"!
-_root_.scala.Predef.String#"k
-*_root_.session.LinkingSessionRequest#(ses)=ÅsesLinkingSession"#
-_root_.models.LinkingSession#"¥
-E_root_.controllers.propertyLinking.Declaration#formWithNoDeclaration.kÅÄ@formWithNoDeclarationForm[Boolean]" 
-_root_.play.api.data.Form#"
-_root_.scala.Boolean#"«
-S_root_.controllers.propertyLinking.Declaration#confirmation()Lplay/api/mvc/Action;.pconfirmationAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"ﬁ
-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
-_root_.scala.Tuple2#"*
-"_root_.scala.Predef.ArrowAssoc#[A]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"ß
-ñ_root_.session.LinkingSessionRequest#`<init>`(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)V.ã<init>§(ses: LinkingSession, organisationId: Long, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount, request: Request[A]): LinkingSessionRequest[A]"%
-_root_.models.LinkingSession#"
-&*_root_.scala.Long#"0
-?X(_root_.models.DetailedIndividualAccount#"#
-ht_root_.models.GroupAccount#"%
-Ü_root_.play.api.mvc.Request#"2
-áà(_root_.session.LinkingSessionRequest#[A]"/
-å°%_root_.session.LinkingSessionRequest#"2
-¢£(_root_.session.LinkingSessionRequest#[A]"[
-7_root_.controllers.propertyLinking.DeclarationVM#(form) Åformplay.api.data.Form[_]"û
-<_root_.controllers.propertyLinking.Declaration#(fileUploads)^ÄfileUploadsFileUploadConnector"7
-1_root_.connectors.fileUpload.FileUploadConnector#")
-_root_.play.api.data.Form#Ä†ÄForm"ú
-C_root_.controllers.propertyLinking.Declaration#(withLinkingSession)UÄwithLinkingSessionWithLinkingSession"(
-"_root_.session.WithLinkingSession#"(
-_root_.play.api.data.Form.
-ÄÑForm"ª
-M_root_.controllers.propertyLinking.Declaration#submit()Lplay/api/mvc/Action;.jsubmitAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"ˆ
-®_root_.controllers.propertyLinking.Declaration#submitLinkingRequest(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.(info)IÄinfoFileMetadata"0
-*_root_.connectors.fileUpload.FileMetadata#"Ò
-V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.ñbindFromRequest6()(implicit request: play.api.mvc.Request[_]): Form[T]""
-/3_root_.play.api.data.Form#"%
-45_root_.play.api.data.Form#[T]"<
-"_root_.views.html.propertyLinking.ÄàÄpropertyLinking"à
-<app/controllers/propertyLinking/Declaration.scala@1846..1878HdataFileMetadata"0
-*_root_.connectors.fileUpload.FileMetadata#"ì
-¢_root_.controllers.propertyLinking.Declaration#submitLinkingRequest(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.ÎÑÄsubmitLinkingRequestV(info: FileMetadata)(implicit request: session.LinkingSessionRequest[_]): Future[Unit]"2
-*_root_.connectors.fileUpload.FileMetadata#"'
-JP_root_.scala.concurrent.Future#"
-QU_root_.scala.Unit#">
-$_root_.connectors.EnvelopeConnector#Ä EnvelopeConnector"
-_root_.play.ÄàÄplay"f
-&_root_.javax.inject.Named#`<init>`()V.<àÄÄ<init>	(): Named""
-	_root_.javax.inject.Named#"÷
-û_root_.connectors.fileUpload.FileUploadConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.≤<init>Z(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): FileUploadConnector"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"1
-4D)_root_.scala.concurrent.ExecutionContext#"9
-GZ1_root_.connectors.fileUpload.FileUploadConnector#"µ
-f_root_.controllers.propertyLinking.RequestSubmittedVM#`<init>`(Ljava/lang/String;Ljava/lang/String;)V. <init>4(address: String, refId: String): RequestSubmittedVM"#
-
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#">
-"46_root_.controllers.propertyLinking.RequestSubmittedVM#"é
-•_root_.connectors.propertyLinking.PropertyLinkConnector#linkToProperty(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.„linkToPropertyV(data: FileMetadata)(implicit request: session.LinkingSessionRequest[_]): Future[Unit]"2
-*_root_.connectors.fileUpload.FileMetadata#"'
-JP_root_.scala.concurrent.Future#"
-QU_root_.scala.Unit#"«
-<app/controllers/propertyLinking/Declaration.scala@1592..1599ÜÄÅ request!LinkingSessionRequest[AnyContent]"+
-%_root_.session.LinkingSessionRequest#"'
- _root_.play.api.mvc.AnyContent#"'
-_root_.form.Mappings.ÄÑMappings"Ê
-•_root_.connectors.propertyLinking.PropertyLinkConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.ª<init>\(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): PropertyLinkConnector"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"1
-4D)_root_.scala.concurrent.ExecutionContext#"@
-G\8_root_.connectors.propertyLinking.PropertyLinkConnector#"
-_root_.models.ÄàÄmodels"7
-#_root_.com.google.inject.Singleton#Ä†Ä	Singleton"O
--_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"√
-Q_root_.controllers.propertyLinking.Declaration#noEvidence()Lplay/api/mvc/Action;.n
-noEvidenceAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"«
-<app/controllers/propertyLinking/Declaration.scala@2474..2481ÜÄÅ request!LinkingSessionRequest[AnyContent]"+
-%_root_.session.LinkingSessionRequest#"'
- _root_.play.api.mvc.AnyContent#"º
-V_root_.connectors.fileUpload.FileMetadata#`<init>`(Lmodels/LinkBasis;Lscala/Option;)V.·<init>@(linkBasis: LinkBasis, fileInfo: Option[FileInfo]): FileMetadata" 
-_root_.models.LinkBasis#"
-!'_root_.scala.Option#"
-(0_root_.models.FileInfo#"2
-4@*_root_.connectors.fileUpload.FileMetadata#"z
-?_root_.controllers.propertyLinking.RequestSubmittedVM#(address)7ÅaddressString"!
-_root_.scala.Predef.String#")
-_root_.controllers.ÄàÄcontrollers"
-_root_.views.ÄàÄviews"S
-6_root_.controllers.propertyLinking.RequestSubmittedVM#Ä†ÄRequestSubmittedVM"=
-"_root_.session.WithLinkingSession#Ä WithLinkingSession"R
-6_root_.controllers.propertyLinking.RequestSubmittedVM.ÄÑRequestSubmittedVM"g
-)_root_.models.LinkingSession#(envelopeId):Å
-envelopeIdString"!
-_root_.scala.Predef.String#"˘
-Ï_root_.controllers.propertyLinking.Declaration#`<init>`(Lconnectors/EnvelopeConnector;Lconnectors/fileUpload/FileUploadConnector;Lconnectors/propertyLinking/PropertyLinkConnector;Lrepositories/SessionRepo;Lsession/WithLinkingSession;)V.á<init>ª(envelopes: EnvelopeConnector, fileUploads: FileUploadConnector, propertyLinks: PropertyLinkConnector, sessionRepository: SessionRepo, withLinkingSession: WithLinkingSession): Declaration",
-$_root_.connectors.EnvelopeConnector#"9
-,?1_root_.connectors.fileUpload.FileUploadConnector#"@
-Pe8_root_.connectors.propertyLinking.PropertyLinkConnector#")
-zÖ _root_.repositories.SessionRepo#",
-õ≠"_root_.session.WithLinkingSession#"9
-∞ª/_root_.controllers.propertyLinking.Declaration#"ï
-V_root_.controllers.propertyLinking.ReverseDeclaration#noEvidence()Lplay/api/mvc/Call;.;
-noEvidence(): Call"!
-_root_.play.api.mvc.Call#"ñ
-b_root_.repositories.SessionRepo#remove(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ØÑÄremove,()(implicit hc: HeaderCarrier): Future[Unit]".
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
- &_root_.scala.concurrent.Future#"
-'+_root_.scala.Unit#"C
-/_root_.controllers.propertyLinking.Declaration#Ä Declaration"*
-_root_.javax.inject.Named#Ä†ÄNamed"Ú
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"}
-u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-/?)_root_.scala.concurrent.ExecutionContext#"'
-BH_root_.scala.concurrent.Future#"}
-IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"ë
-B_root_.controllers.propertyLinking.Declaration#(sessionRepository)KÄsessionRepositorySessionRepo"&
- _root_.repositories.SessionRepo#"!
-_root_.session.ÄàÄsession"Ω
-í_root_.connectors.EnvelopeConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/VPLHttp;Lscala/concurrent/ExecutionContext;)V.•<init>Y(config: ServicesConfig, http: VPLHttp)(implicit ec: ExecutionContext): EnvelopeConnector"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-&_root_.config.VPLHttp#"1
-5E)_root_.scala.concurrent.ExecutionContext#",
-HY$_root_.connectors.EnvelopeConnector#"*
-_root_.play.api.data.Forms.ÄÑForms"ã
-:_root_.controllers.propertyLinking.Declaration#(envelopes)MÄ	envelopesEnvelopeConnector"*
-$_root_.connectors.EnvelopeConnector#"µ
-v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.∫flatMapS[S] => (f: Function1[T, Future[S]])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"'
-_root_.scala.concurrent.Future#"Å
- y_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-7G)_root_.scala.concurrent.ExecutionContext#"'
-JP_root_.scala.concurrent.Future#"Å
-QRy_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]";
-*_root_.controllers.propertyLinking.routes.ÄÑàroutes"6
-_root_.models.NoEvidenceFlag.ÄÑàNoEvidenceFlag" 
-_root_.scala.Some.
-ÄÑSome"<
-"_root_.connectors.propertyLinking.ÄàÄpropertyLinking2”
-ÎÎû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2ê
-èè*.apply
-_star_.Ì
-‰_root_.views.html.propertyLinking.noEvidenceUploaded_Scope0.noEvidenceUploaded_Scope1.noEvidenceUploaded#apply(Lcontrollers/propertyLinking/RequestSubmittedVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2u
-ÔÔ*(Declaration.this.messages)
-_star_.>
-6_root_.controllers.PropertyLinkingController#messages.2£
-ÒÒ*.apply
-_star_.Ä
-x_root_.controllers.propertyLinking.DeclarationVM.apply(Lplay/api/data/Form;)Lcontrollers/propertyLinking/DeclarationVM;.2í
-¨¨*.apply
-_star_.p
-h_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.2G
-◊◊	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2è
-©©*.apply
-_star_.Ï
-„_root_.views.html.linkingRequestSubmitted_Scope0.linkingRequestSubmitted_Scope1.linkingRequestSubmitted#apply(Lcontrollers/propertyLinking/RequestSubmittedVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2G
-¯¯	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2”
-””û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2G
-ˆˆ	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2í
-ΩΩ*.apply
-_star_.p
-h_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.2~
-ÍÍ%*(request, Declaration.this.messages)
-_star_.>
-$6_root_.controllers.PropertyLinkingController#messages.2”
-ÜÜ*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2ˆ
-„„*.apply
-_star_.”
- _root_.views.html.propertyLinking.declaration_Scope0.declaration_Scope1.declaration#apply(Lcontrollers/propertyLinking/DeclarationVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Õ
-Õä"Declaration.this.future[Result](*)#
-_root_.play.api.mvc.Result#i
-a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
- !_star_.2ˆ
-’’*.apply
-_star_.”
- _root_.views.html.propertyLinking.declaration_Scope0.declaration_Scope1.declaration#apply(Lcontrollers/propertyLinking/DeclarationVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Æ
-Ì˙"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2”
-··*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2#
-√√
-*(request)
-_star_.2é
-ÃÃ*.apply
-_star_.l
-d_root_.play.api.data.FormError.apply(Ljava/lang/String;Ljava/lang/String;)Lplay/api/data/FormError;.2”
-……*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2Ã
-¥¥)*.map[Unit](Declaration.this.hc(request))
-_star_.z
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-
-_root_.scala.Unit#p
-h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2B
-ÏÏ
-*[Boolean]
-_star_.
-	_root_.scala.Boolean#2í
-ûû*.apply
-_star_.p
-h_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.2æ
-¢¢*.apply
-_star_.õ
-í_root_.controllers.propertyLinking.RequestSubmittedVM.apply(Ljava/lang/String;Ljava/lang/String;)Lcontrollers/propertyLinking/RequestSubmittedVM;.2i
-≤≤*(Declaration.this.ec)
-_star_.8
-0_root_.controllers.PropertyLinkingController#ec.2i
-´´*(Declaration.this.ec)
-_star_.8
-0_root_.controllers.PropertyLinkingController#ec.2™
-””*(Declaration.this.hc(request))
-_star_.p
-h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2í
-íí*.apply
-_star_.p
-h_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.2i
-ºº*(Declaration.this.ec)
-_star_.8
-0_root_.controllers.PropertyLinkingController#ec.2u
-îî*(Declaration.this.messages)
-_star_.>
-6_root_.controllers.PropertyLinkingController#messages.2r
-˝˝*[Mapping[Boolean]]
-_star_.%
-	_root_.play.api.data.Mapping#
-
-_root_.scala.Boolean#2G
-¶¶	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2æ
-ºº*.apply
-_star_.õ
-í_root_.controllers.propertyLinking.RequestSubmittedVM.apply(Ljava/lang/String;Ljava/lang/String;)Lcontrollers/propertyLinking/RequestSubmittedVM;.2”
-ÌÌû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2£
-„„*.apply
-_star_.Ä
-x_root_.controllers.propertyLinking.DeclarationVM.apply(Lplay/api/data/Form;)Lcontrollers/propertyLinking/DeclarationVM;.2™
-ÚÚ*(Declaration.this.hc(request))
-_star_.p
-h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2u
-ŸŸ*(Declaration.this.messages)
-_star_.>
-6_root_.controllers.PropertyLinkingController#messages.2~
-““%*(request, Declaration.this.messages)
-_star_.>
-$6_root_.controllers.PropertyLinkingController#messages.2~
-ÏÏ%*(request, Declaration.this.messages)
-_star_.>
-$6_root_.controllers.PropertyLinkingController#messages.2#
-˝˝
-*(request)
-_star_.2Õ
-«Î"Declaration.this.future[Result](*)#
-_root_.play.api.mvc.Result#i
-a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
- !_star_.2”
-ääû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2i
-√√*(Declaration.this.ec)
-_star_.8
-0_root_.controllers.PropertyLinkingController#ec.2#
-ÙÙ
-*(request)
-_star_.2u
-˜˜*(Declaration.this.messages)
-_star_.>
-6_root_.controllers.PropertyLinkingController#messages.2™
-ûû*(Declaration.this.hc(request))
-_star_.p
-h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2ü
-ﬂﬂ*.apply[Boolean]
-_star_.U
-M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.
-_root_.scala.Boolean#2G
-ÅÅ	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2Õ
-˘˘*.flatMap[Unit](request)
-_star_.~
-	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-
-_root_.scala.Unit#2~
-ââ%*(request, Declaration.this.messages)
-_star_.>
-$6_root_.controllers.PropertyLinkingController#messages.2”
-◊◊*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#:Scala211Bﬁ/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package controllers.propertyLinking
-
-import javax.inject.Named
-
-import com.google.inject.{Inject, Singleton}
-import connectors.EnvelopeConnector
-import connectors.fileUpload.{FileMetadata, FileUploadConnector}
-import connectors.propertyLinking.PropertyLinkConnector
-import controllers.PropertyLinkingController
-import form.Mappings._
-import models.NoEvidenceFlag
-import play.api.data.{Form, FormError, Forms}
-import repositories.SessionRepo
-import session.{LinkingSessionRequest, WithLinkingSession}
-import views.html.propertyLinking.declaration
-
-@Singleton
-class Declaration @Inject()(envelopes: EnvelopeConnector,
-                            fileUploads: FileUploadConnector,
-                            propertyLinks: PropertyLinkConnector,
-                            @Named("propertyLinkingSession") sessionRepository: SessionRepo,
-                            withLinkingSession: WithLinkingSession)
-  extends PropertyLinkingController {
-
-  def show = withLinkingSession { implicit request =>
-    Ok(declaration(DeclarationVM(form)))
-  }
-
-  def submit = withLinkingSession { implicit request =>
-    form.bindFromRequest().value match {
-      case Some(true) => fileUploads.getFileMetadata(request.ses.envelopeId) flatMap {
-        case data@FileMetadata(_, Some(info)) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.confirmation()) }
-        case data@FileMetadata(NoEvidenceFlag, _) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.noEvidence()) }
-      }
-      case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
-    }
-  }
-
-  def confirmation = withLinkingSession { implicit request =>
-    sessionRepository.remove() map { _ =>
-      Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
-    }
-  }
-
-  def noEvidence = withLinkingSession { implicit request =>
-    sessionRepository.remove() map { _ => Ok(views.html.propertyLinking.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId))) }
-  }
-
-  private def submitLinkingRequest(info: FileMetadata)(implicit request: LinkingSessionRequest[_]) = {
-    for {
-      _ <- propertyLinks.linkToProperty(info)
-      _ <- envelopes.closeEnvelope(request.ses.envelopeId)
-    } yield ()
-  }
-
-  lazy val form = Form(Forms.single("declaration" -> mandatoryBoolean))
-  lazy val formWithNoDeclaration = form.withError(FormError("declaration", "declaration.required"))
-}
-
-case class DeclarationVM(form: Form[_])
-
-case class RequestSubmittedVM(address: String, refId: String)J1app/controllers/propertyLinking/Declaration.scala

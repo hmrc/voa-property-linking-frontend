@@ -1,1203 +1,0 @@
-
-ù∞
-æ¬_root_.play.T
-˝ˇHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2429..2431T
-≈ Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3397..3402?
-Ã–5_root_.play.api.data.Form.;_root_.play.api.data.Form#E
-Éê;_root_.controllers.manageDetails.UpdateOrganisationDetails#T
-™$´$Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@4650..4651$
-∑!ª!_root_.play.api.data.Form.*
-ù™ _root_.connectors.GroupAccounts#L
-ÈÓB_root_.controllers.manageDetails.UpdateOrganisationDetails#(clock)R
-«ŒHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@3756..3797T
-Ô¸J_root_.controllers.manageDetails.UpdateOrganisationDetails#(authenticated)p
-¢≥d_root_.controllers.manageDetails.UpdateOrganisationDetails#viewBusinessEmail()Lplay/api/mvc/Action;.S
-ì"ô"I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.
-óõ_root_.scala.Some.R
-ÍÒHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2273..2280S
-ﬁ"‰"I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.M
-ÎÙC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.
-Û¯_root_.views.R
-ø∆Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2728..2735G
-à£=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.%
-"¸"_root_.play.api.data.Forms.R
-Ø∂Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3023..3030=
-¸3_root_.form.TextMatching.;_root_.form.TextMatching#t
-ÔÑh_root_.controllers.manageDetails.UpdateOrganisationDetails#updateBusinessAddress()Lplay/api/mvc/Action;.
-˛Ç_root_.views.html.1
-ÈÛ'_root_.play.api.mvc.Results#BadRequest.7
-åû-_root_.views.html.details.updateBusinessName.
-™±_root_.actions.
-ı˘_root_.play.E
-£∞;_root_.controllers.manageDetails.UpdateOrganisationDetails#
-ˇ
-É_root_.views.html.V
-‘·J_root_.controllers.manageDetails.UpdateOrganisationDetails#(authenticated)
-Ñà_root_.scala.Some.T
-»’J_root_.controllers.manageDetails.UpdateOrganisationDetails#(authenticated)
-Õ”_root_.scala.Option#%
-á%ì%_root_.models.GroupAccount#+
-Ò˛!_root_.controllers.manageDetails..
-≤
-≤
-$_root_.java.lang.Object#`<init>`()V.>
-ë õ 4_root_.models.DetailedIndividualAccount#(externalId)T
-„ÈHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@1635..1641|
-… Ã r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.1
-——'_root_.javax.inject.Inject#`<init>`()V.1
-…”'_root_.play.api.mvc.Results#BadRequest.
-§®_root_.scala.None.T
-∞∑Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3756..3797R
-ü¶Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3208..3215R
-≥πHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2137..2143’
-ëö _root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(addressId)G
-∞…;_root_.controllers.manageDetails.UpdateOrganisationDetails#%
-À—_root_.javax.inject.Inject#
-ÁÎ_root_.views.html.3
-ˆè)_root_.actions.BasicAuthenticatedRequest#R
-¬…Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@1573..1580O
-¢	®	C_root_.controllers.manageDetails.UpdateOrganisationDetails#(groups)&
-íõ_root_.connectors.Addresses#T
-àèHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@3208..3215:
-Åñ0_root_.views.html.details.updateBusinessAddress.
-ÓÛ_root_.views.M
-¶ ¨ C_root_.controllers.manageDetails.UpdateOrganisationDetails#(groups)3
-ËÇ)_root_.models.UpdatedOrganisationAccount.O
-Ë$Ï$C_root_.controllers.manageDetails.UpdateOrganisationDetailsVM#(form)$
-˘Ä_root_.views.html.details.
-≥æ_root_.controllers.$
-åì_root_.views.html.details.”
-åë∆_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(email)$
-Éä_root_.views.html.details.P
-‡#‚#F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
-‘Ÿ_root_.views.ë
-≠ ≥ Ü_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.)
-ïõ_root_.scala.concurrent.Future#O
-ó†E_root_.controllers.manageDetails.UpdateOrganisationDetails#emailForm.R
-∫¿Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@1635..1641R
-∏$π$Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@4650..4651H
-◊Í>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)
-√∆_root_.play.api.
-˙˝_root_.play.api.
-ß"Ø"_root_.form.Mappings.0
-Ω∆&_root_.models.GroupAccount#(addressId)”
-˜˛»_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(request)H
- ›>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)G
-ó≤=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.)
-º æ _root_.models.GroupAccount#(id)X
-˝"Ü#N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength)$
-Ñã_root_.views.html.details.A
-˜˝7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#"
-ó°_root_.scala.concurrent.
-›‡_root_.play.api.
-û§_root_.scala.Option#
-˘
-˛
-_root_.views.H
-«⁄>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)T
-ËÙHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@1768..1780T
-ŸﬂHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2137..2143
-Ù¯_root_.views.html.R
-ÈÓHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@3397..3402
-‹‚_root_.scala.Option#Ã
-äóø_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.T
-†ßHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2080..2087r
-˘åf_root_.controllers.manageDetails.UpdateOrganisationDetails#updateBusinessPhone()Lplay/api/mvc/Action;.r
-≤≈f_root_.controllers.manageDetails.UpdateOrganisationDetails#viewBusinessAddress()Lplay/api/mvc/Action;.R
-¥ ª Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3756..3797)
-Ú_root_.play.api.mvc.Results#Ok.%
-•´_root_.scala.Predef.String#A
-çô7_root_.models.GroupAccount.;_root_.models.GroupAccount#`
-¡–V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.R
-ı¸Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3756..3797
-·Ê_root_.views.’
-°™ _root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(addressId)Q
-Ø∫G_root_.controllers.manageDetails.UpdateOrganisationDetails#addressForm.P
-§"¶"F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.$
-Ÿ"›"_root_.play.api.data.Form.Ä
-Û˙v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.T
-·ËHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@1889..1896T
-úûHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2332..2334,
-œ‘"_root_.models.GroupAccount#(phone)_
-Õ—U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;. 
-¯Öø_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.
-áã_root_.views.html.R
-„	Ï	F_root_.controllers.manageDetails.UpdateOrganisationDetails#(addresses))
-ˆ
-¯
-_root_.play.api.mvc.Results#Ok.
-Üê_root_.connectors.]
-»·S_root_.actions.BasicAuthenticatedRequest.;_root_.actions.BasicAuthenticatedRequest#R
-¶$ß$Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@4637..4638T
-∂√J_root_.controllers.manageDetails.UpdateOrganisationDetails#(authenticated)$
-ÏÛ_root_.views.html.details.A
-Çà7_root_.play.api.mvc.Result.;_root_.play.api.mvc.Result#T
-ÔˆHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2543..2550
-Öã_root_.models.H
-√÷>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)7
-øÿ-_root_.controllers.PropertyLinkingController#”
-∫¡»_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(request)H
-¬’>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)-
-≥∆#_root_.actions.AuthenticatedAction#7
-ò
-±
--_root_.controllers.PropertyLinkingController#r
-ŸÏf_root_.controllers.manageDetails.UpdateOrganisationDetails#updateBusinessEmail()Lplay/api/mvc/Action;.T
-•¨Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@1573..1580V
-ªÀL_root_.controllers.manageDetails.UpdateOrganisationDetails#businessNameForm.~
-Á$Á$r_root_.controllers.manageDetails.UpdateOrganisationDetailsVM#`<init>`(Lplay/api/data/Form;Lmodels/GroupAccount;)V.$
-é"í"_root_.play.api.data.Form..
-◊ﬁ$_root_.models.GroupAccount#(isAgent)
-ÅÜ_root_.views.G
-®√=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.“
-òú≈_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(name)7
-ãù-_root_.views.html.details.updateBusinessName.*
-™	∑	 _root_.connectors.GroupAccounts#—
-∑º∆_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(phone)G
-õ∂=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.>
-˛ â!4_root_.controllers.manageDetails.routes.ViewDetails.T
-áîJ_root_.controllers.manageDetails.UpdateOrganisationDetails#(authenticated)#
-›‰_root_.java.time.Instant.$
-ß#´#_root_.play.api.data.Form.8
-áö._root_.views.html.details.updateBusinessPhone.Q
-Õ"÷"E_root_.controllers.manageDetails.UpdateOrganisationDetails#phoneForm.Ñ
-¨#≥#z_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.$
-˛Ö_root_.views.html.details.M
-ó†C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.
-ÍÔ_root_.javax.’
-±∫ _root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(addressId)R
-µºHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@3756..3797%
-‘⁄_root_.scala.Predef.String#H
-Õ‡>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)X
-‚!Î!N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength)%
-’!·!_root_.play.api.data.Forms.H
-’Ë>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)
-åê_root_.java.time.
-ÿ‹_root_.play.
-ÍÓ_root_.scala.None.
-·Â_root_.play.api.data.-
-„ˆ#_root_.actions.AuthenticatedAction#!
-â
-é
-_root_.java.time.Clock#
-ù°_root_.scala.Some.I
-Ã$Á$=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM#)
-˛Ä_root_.play.api.mvc.Results#Ok.R
-µ$∂$Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@4650..4651T
-œ÷Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3023..3030
-⁄ﬁ_root_.views.html.E
-Œ€;_root_.controllers.manageDetails.UpdateOrganisationDetails#$
-Ó$Ú$_root_.play.api.data.Form#R
-âéHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2917..2922`
-°∞V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.R
-íûHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@1768..1780R
-äëHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@3756..3797
-˘˝_root_.views.html.R
-Õ‘Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@1383..1390,
-©Æ"_root_.models.GroupAccount#(email)T
-®ØHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2728..2735+
-ƒ#…#!_root_.play.api.data.Forms.email.Q
-õ#§#E_root_.controllers.manageDetails.UpdateOrganisationDetails#emailForm.N
-Ç
-á
-B_root_.controllers.manageDetails.UpdateOrganisationDetails#(clock)%
-ú¢_root_.play.api.mvc.Result#H
-∑ >_root_.actions.BasicAuthenticatedRequest#(organisationAccount)9
-íó/_root_.java.time.Clock.;_root_.java.time.Clock#R
-¬ƒHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2332..2334x
-„Èn_root_.connectors.Addresses#create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.R
-ª¬Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2080..2087P
-Ÿ‚F_root_.controllers.manageDetails.UpdateOrganisationDetails#(addresses))
-ﬁ‡_root_.play.api.mvc.Results#Ok.—
-¸Å∆_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(phone)$
-ﬂÊ_root_.views.html.details.G
-ûπ=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.
-ﬁ‚_root_.scala.None.o
-ª
-À
-c_root_.controllers.manageDetails.UpdateOrganisationDetails#viewBusinessName()Lplay/api/mvc/Action;./
-ÙÅ%_root_.models.Address#(addressUnitId)Y
-‘ ‹ O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.1
-Ì˜'_root_.play.api.mvc.Results#BadRequest.:
-Üõ0_root_.views.html.details.updateBusinessAddress.P
-Ì"Ô"F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.’
-ÌÙ»_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(request)
-ìô_root_.scala.Option#
-Ø$≥$_root_.scala.Some.+
-È ˆ !_root_.controllers.manageDetails.%
-ö†_root_.scala.Predef.String#E
-Ó˚;_root_.controllers.manageDetails.UpdateOrganisationDetails#G
-ú∑=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.
-ˆ_root_.javax.inject.
-¯˝_root_.views.R
-¢§Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2429..2431–
-Üä≈_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(name)R
-°®Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3756..3797T
-ﬁÂHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@3802..4129
-çë_root_.scala.Some.—
-ëñ∆_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(email)=
-ô†3_root_.java.time.Instant.;_root_.java.time.Instant#8
-Á˙._root_.views.html.details.updateBusinessEmail._
-◊€U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.T
-÷„J_root_.controllers.manageDetails.UpdateOrganisationDetails#(authenticated)X
-ä!é!N_root_.controllers.manageDetails.ReverseViewDetails#show()Lplay/api/mvc/Call;.
-˛Å_root_.play.api.mvc.O
-ƒÕE_root_.controllers.manageDetails.UpdateOrganisationDetails#phoneForm.M
-´¥C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.
-‡‰_root_.form.`
-ª V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.V
-¥ƒL_root_.controllers.manageDetails.UpdateOrganisationDetails#businessNameForm.8
-Ùá._root_.views.html.details.updateBusinessEmail.–
-ÊÍ≈_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(name)T
-èúJ_root_.controllers.manageDetails.UpdateOrganisationDetails#(authenticated)◊
-—⁄ _root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(addressId)_
-≥∑U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.R
-œ÷Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3756..3797H
-ß∫>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)Y
-˜$Ö%M_root_.controllers.manageDetails.UpdateOrganisationDetailsVM#(currentDetails)R
-ÏÛHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2273..2280
-˙˛_root_.views.html.
-ëñ_root_.scala.
-Ω¡_root_.scala.Some.8
-îß._root_.views.html.details.updateBusinessPhone.p
-¬”d_root_.controllers.manageDetails.UpdateOrganisationDetails#viewBusinessPhone()Lplay/api/mvc/Action;.F
-ˇê <_root_.actions.BasicAuthenticatedRequest#(individualAccount)2
-˝à(_root_.models.GroupAccount#(companyName)q
-˜âe_root_.controllers.manageDetails.UpdateOrganisationDetails#updateBusinessName()Lplay/api/mvc/Action;.
-‰Ë_root_.scala.Some.
-› Ë _root_.controllers.R
-≈ÃHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@1889..1896T
-ø≈Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3263..3269
-„Ê_root_.scala.Int#M
-ÂËC_root_.java.time.Instant.now(Ljava/time/Clock;)Ljava/time/Instant;.1
-„Ì'_root_.play.api.mvc.Results#BadRequest.X
-§!¥!L_root_.controllers.manageDetails.UpdateOrganisationDetails#businessNameForm.
-Ù˘_root_.views.%
-ÊÎ_root_.play.api.data.Forms.
-ÊÓ_root_.form.Mappings.R
-¿ « Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3802..4129`
-≈‘V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;..
-íô$_root_.models.GroupAccount#(groupId)≤
-””•_root_.controllers.manageDetails.UpdateOrganisationDetails#`<init>`(Lactions/AuthenticatedAction;Lconnectors/GroupAccounts;Lconnectors/Addresses;Ljava/time/Clock;)V.R
-∑ΩHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2783..2789
-«À_root_.play.api.data.G
-˚ñ=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.S
-Ä"ã"G_root_.controllers.manageDetails.UpdateOrganisationDetails#addressForm.O
-∑¿E_root_.controllers.manageDetails.UpdateOrganisationDetails#phoneForm.T
-ù$û$Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@4637..4638]
-õµS_root_.models.UpdatedOrganisationAccount.;_root_.models.UpdatedOrganisationAccount#
-Â_root_.controllers.R
-óùHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@3263..3269O
-§≠E_root_.controllers.manageDetails.UpdateOrganisationDetails#emailForm.&
-Ó	˜	_root_.connectors.Addresses#T
-·ËHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2273..2280P
-¡#√#F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.T
-ÂÍHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2917..2922T
-Œ
-€
-J_root_.controllers.manageDetails.UpdateOrganisationDetails#(authenticated)P
-“!‘!F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;._
-”◊U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.I
-¢®?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#2
-˜ ˝ (_root_.controllers.manageDetails.routes.T
-ﬂÂHapp/controllers/manageDetails/UpdateOrganisationDetails.scala@2783..2789M
-Ω∆C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.T
-Á
-Ó
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@1383..1390$
-ˇÜ_root_.views.html.details.R
-œ÷Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2543..2550T
-åôJ_root_.controllers.manageDetails.UpdateOrganisationDetails#(authenticated)G
-ü∫=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.#
-„#Ô#_root_.form.TextMatching.Q
-∏√G_root_.controllers.manageDetails.UpdateOrganisationDetails#addressForm.
-áã_root_.java..
-∞"æ"$_root_.form.Mappings.addressMapping.
-Ø≥_root_.scala.None.”
-∆À∆_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(phone)—
-‹·∆_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(email)S
-º!¬!I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;."€
-c_root_.controllers.manageDetails.UpdateOrganisationDetails#viewBusinessName()Lplay/api/mvc/Action;.tviewBusinessNameAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"Ä
-»_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(request)3ÄÅ request$actions.BasicAuthenticatedRequest[_]"c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#"ï
-M_root_.controllers.manageDetails.UpdateOrganisationDetailsVM#(currentDetails)DÅcurrentDetailsGroupAccount"!
-_root_.models.GroupAccount#"¨
-C_root_.java.time.Instant.now(Ljava/time/Clock;)Ljava/time/Instant;.eÑÄÄnow(x$1: Clock): Instant"
-_root_.java.time.Clock#"!
-_root_.java.time.Instant#"°
- _root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(addressId)RÄ	addressIdOption[Int]"
-_root_.scala.Option#"
-
-_root_.scala.Int#"›
-d_root_.controllers.manageDetails.UpdateOrganisationDetails#viewBusinessEmail()Lplay/api/mvc/Action;.uviewBusinessEmailAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"ù
-^_root_.play.api.mvc.Result#`<init>`(Lplay/api/mvc/ResponseHeader;Lplay/api/http/HttpEntity;)V.∫<init>2(header: ResponseHeader, body: HttpEntity): Result"+
-	#_root_.play.api.mvc.ResponseHeader#"(
-) _root_.play.api.http.HttpEntity#"#
-,2_root_.play.api.mvc.Result#"å
-Å_root_.play.api.data.Form#`<init>`(Lplay/api/data/Mapping;Lscala/collection/immutable/Map;Lscala/collection/Seq;Lscala/Option;)V.Ö<init>c(mapping: Mapping[T], data: Map[String, String], errors: Seq[FormError], value: Option[T]): Form[T]"%
-
-_root_.play.api.data.Mapping#"%
-_root_.play.api.data.Form#[T]" 
-_root_.scala.Predef.Map#"#
- &_root_.scala.Predef.String#"#
-(._root_.scala.Predef.String#"!
-9<_root_.scala.package.Seq#"'
-=F_root_.play.api.data.FormError#"
-PV_root_.scala.Option#"%
-WX_root_.play.api.data.Form#[T]""
-\`_root_.play.api.data.Form#"%
-ab_root_.play.api.data.Form#[T]"œ
-I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.Åsingle6[A1] => (a1: Tuple2[String, Mapping[A1]]): Mapping[A1]"
-_root_.scala.Tuple2#"#
-_root_.scala.Predef.String#"%
-#_root_.play.api.data.Mapping#"U
-$&M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"%
-+2_root_.play.api.data.Mapping#"U
-35M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"
-%_root_.models.Address#(addressUnitId)VÅaddressUnitIdOption[Int]"
-_root_.scala.Option#"
-
-_root_.scala.Int#"\
-_root_.play.api.mvc.Results#Ok.9OkStatus")
-#_root_.play.api.mvc.Results#Status#"€
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3023..3030éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"'
-_root_.connectors.ÄàÄ
-connectors"·
-f_root_.controllers.manageDetails.UpdateOrganisationDetails#viewBusinessAddress()Lplay/api/mvc/Action;.wviewBusinessAddressAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"à
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@1768..1780<ÄbusinessNameString"!
-_root_.scala.Predef.String#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"r
-4_root_.models.DetailedIndividualAccount#(externalId):Å
-externalIdString"!
-_root_.scala.Predef.String#"â
-C_root_.controllers.manageDetails.UpdateOrganisationDetails#(groups)BÄgroupsGroupAccounts"&
- _root_.connectors.GroupAccounts#"§
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3802..4129XdetailsUpdatedOrganisationAccount"/
-)_root_.models.UpdatedOrganisationAccount#"
-_root_.java.ÄàÄjava"$
-_root_.play.api.data.ÄàÄdata"¨
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2783..2789`ÄerrorsForm[String]" 
-_root_.play.api.data.Form#"#
-_root_.scala.Predef.String#"
-_root_.form.ÄàÄform"
-_root_.javax.ÄàÄjavax"J
-_root_.models.GroupAccount#(id)'ÅidLong"
-_root_.scala.Long#""
-_root_.play.api.mvc.
-ÄàÄmvc"≠
-G_root_.controllers.manageDetails.UpdateOrganisationDetails#addressForm.bÅÄ@addressFormForm[Address]" 
-_root_.play.api.data.Form#"
-_root_.models.Address#"ﬂ
-e_root_.controllers.manageDetails.UpdateOrganisationDetails#updateBusinessName()Lplay/api/mvc/Action;.vupdateBusinessNameAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"
-_root_.play.api.
-ÄàÄapi"_
-$_root_.models.GroupAccount#(groupId)7ÅgroupIdString"!
-_root_.scala.Predef.String#"'
-_root_.java.time.Clock#Ä†ÑClock"q
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2429..2431%ÄidInt"
-_root_.scala.Int#"M
-)_root_.models.UpdatedOrganisationAccount. ÄÑUpdatedOrganisationAccount"l
-'_root_.play.api.mvc.Results#BadRequest.A
-BadRequestStatus")
-#_root_.play.api.mvc.Results#Status#"∏
-Ç_root_.actions.BasicAuthenticatedRequest#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;Lplay/api/mvc/Request;)V.∞<init>Ñ(organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, request: Request[A]): BasicAuthenticatedRequest[A]"#
-"_root_.models.GroupAccount#"0
-7P(_root_.models.DetailedIndividualAccount#"$
-[b_root_.play.api.mvc.Request#"4
-cd,_root_.actions.BasicAuthenticatedRequest#[A]"2
-hÅ)_root_.actions.BasicAuthenticatedRequest#"6
-ÇÉ,_root_.actions.BasicAuthenticatedRequest#[A]"§
-≈_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(name)ZÄnameOption[String]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"€
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2543..2550éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"]
-;_root_.controllers.manageDetails.UpdateOrganisationDetails#Ä UpdateOrganisationDetails"›
-d_root_.controllers.manageDetails.UpdateOrganisationDetails#viewBusinessPhone()Lplay/api/mvc/Action;.uviewBusinessPhoneAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"á
-N_root_.controllers.manageDetails.ReverseViewDetails#show()Lplay/api/mvc/Call;.5show(): Call"!
-_root_.play.api.mvc.Call#"¬
-s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
-	_root_.scala.Long#"#
-_root_.scala.Predef.String#"#
-)/_root_.scala.Predef.String#"
-<?_root_.scala.Int#"#
-HN_root_.scala.Predef.String#"#
-W]_root_.scala.Predef.String#"
-ho_root_.scala.Boolean#"
-|Ä_root_.scala.Long#"%
-Éè_root_.models.GroupAccount#"}
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@4650..46511ÄeString"!
-_root_.scala.Predef.String#".
-_root_.scala.concurrent.Future#Ä@Future"!
-_root_.views.html.ÄàÄhtml"”
-ø_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.éÑÄupdateDetails§(name: Option[String], addressId: Option[Int], email: Option[String], phone: Option[String])(implicit request: actions.BasicAuthenticatedRequest[_]): Future[Result]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"
-"(_root_.scala.Option#"
-),_root_.scala.Int#"
-6<_root_.scala.Option#"#
-=C_root_.scala.Predef.String#"
-MS_root_.scala.Option#"#
-TZ_root_.scala.Predef.String#")
-ñú_root_.scala.concurrent.Future#"%
-ù£_root_.play.api.mvc.Result#"·
-f_root_.controllers.manageDetails.UpdateOrganisationDetails#updateBusinessEmail()Lplay/api/mvc/Action;.wupdateBusinessEmailAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#",
-_root_.javax.inject.Inject#Ä†ÄInject"9
-(_root_.controllers.manageDetails.routes.ÄÑàroutes"V
-&_root_.models.GroupAccount#(addressId),Å	addressIdInt"
-_root_.scala.Int#"6
- _root_.connectors.GroupAccounts#Ä GroupAccounts"~
-N_root_.play.api.data.Forms.nonEmptyText(II)Lplay/api/data/Mapping;.(maxLength),Ä	maxLengthInt"
-_root_.scala.Int#"¶
-∆_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(email)[ÄemailOption[String]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"Å
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3397..34025ÄemailString"!
-_root_.scala.Predef.String#"ª
-L_root_.controllers.manageDetails.UpdateOrganisationDetails#businessNameForm.kÅÄ@businessNameFormForm[String]" 
-_root_.play.api.data.Form#"#
-_root_.scala.Predef.String#"[
-"_root_.models.GroupAccount#(phone)5ÅphoneString"!
-_root_.scala.Predef.String#"≠
-E_root_.controllers.manageDetails.UpdateOrganisationDetails#phoneForm.dÅÄ@	phoneFormForm[String]" 
-_root_.play.api.data.Form#"#
-_root_.scala.Predef.String#"$
-_root_.scala.Option#Ä†Option"Ω
-O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
-_root_.play.api.mvc.Call#"#
-_root_.play.api.mvc.Result#",
-_root_.views.html.details.ÄàÄdetails"«
-r_root_.controllers.manageDetails.UpdateOrganisationDetailsVM#`<init>`(Lplay/api/data/Form;Lmodels/GroupAccount;)V.–<init>X(form: play.api.data.Form[_], currentDetails: GroupAccount): UpdateOrganisationDetailsVM"#
-.:_root_.models.GroupAccount#"E
-=X=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM#"%
-_root_.javax.inject.ÄàÄinject"?
-#_root_.actions.AuthenticatedAction#Ä AuthenticatedAction"¶
-∆_root_.controllers.manageDetails.UpdateOrganisationDetails#updateDetails(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lactions/BasicAuthenticatedRequest;)Lscala/concurrent/Future;.(phone)[ÄphoneOption[String]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"|
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@4637..46380eString"!
-_root_.scala.Predef.String#"2
-_root_.models.GroupAccount#Ä†ÄGroupAccount"∏
-Ü_root_.connectors.GroupAccounts#update(JLmodels/UpdatedOrganisationAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.¨update\(orgId: Long, details: UpdatedOrganisationAccount)(implicit hc: HeaderCarrier): Future[Unit]"
-_root_.scala.Long#"1
-1)_root_.models.UpdatedOrganisationAccount#".
-@M&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-PV_root_.scala.concurrent.Future#"
-W[_root_.scala.Unit#"°
-<_root_.actions.BasicAuthenticatedRequest#(individualAccount)aÅindividualAccountDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"€
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@1889..1896éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"¨
-f_root_.connectors.Addresses#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.¡<init>1(config: ServicesConfig, http: WSHttp): Addresses"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"$
-(1_root_.connectors.Addresses#"†
-J_root_.controllers.manageDetails.UpdateOrganisationDetails#(authenticated)RÄauthenticatedAuthenticatedAction")
-#_root_.actions.AuthenticatedAction#"ﬁ
-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
-_root_.scala.Tuple2#"*
-"_root_.scala.Predef.ArrowAssoc#[A]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"i
-'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
-(): Inject"#
-
-_root_.javax.inject.Inject#"â
-!_root_.play.api.data.Forms.email.demailMapping[String]"#
-_root_.play.api.data.Mapping#"#
-_root_.scala.Predef.String#"!
-_root_.scala.None.ÄÑàNone"Â
-h_root_.controllers.manageDetails.UpdateOrganisationDetails#updateBusinessAddress()Lplay/api/mvc/Action;.yupdateBusinessAddressAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#")
-_root_.play.api.data.Form#Ä†ÄForm"(
-_root_.play.api.data.Form.
-ÄÑForm"ö
-4_root_.controllers.manageDetails.routes.ViewDetails.bÅÄàViewDetailsReverseViewDetails":
-4_root_.controllers.manageDetails.ReverseViewDetails#"`
-#_root_.java.time.Clock#`<init>`()V.9àÄÇ<init>	(): Clock"
-	_root_.java.time.Clock#"Ò
-V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.ñbindFromRequest6()(implicit request: play.api.mvc.Request[_]): Form[T]""
-/3_root_.play.api.data.Form#"%
-45_root_.play.api.data.Form#[T]"ü
-•_root_.controllers.manageDetails.UpdateOrganisationDetails#`<init>`(Lactions/AuthenticatedAction;Lconnectors/GroupAccounts;Lconnectors/Addresses;Ljava/time/Clock;)V.Ù<init>É(authenticated: AuthenticatedAction, groups: GroupAccounts, addresses: Addresses)(implicit clock: Clock): UpdateOrganisationDetails"+
-##_root_.actions.AuthenticatedAction#"(
--: _root_.connectors.GroupAccounts#"$
-GP_root_.connectors.Addresses#"
-bg_root_.java.time.Clock#"D
-jÉ;_root_.controllers.manageDetails.UpdateOrganisationDetails#"¨
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3263..3269`ÄerrorsForm[String]" 
-_root_.play.api.data.Form#"#
-_root_.scala.Predef.String#"[
-"_root_.models.GroupAccount#(email)5ÅemailString"!
-_root_.scala.Predef.String#"K
-._root_.views.html.details.updateBusinessPhone.ÄÑupdateBusinessPhone"M
-)_root_.actions.BasicAuthenticatedRequest# Ä†ÄBasicAuthenticatedRequest"
-_root_.play.ÄàÄplay"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"Æ
-ç_root_.connectors.GroupAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.õ<init>T(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): GroupAccounts"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"1
-4D)_root_.scala.concurrent.ExecutionContext#"(
-GT _root_.connectors.GroupAccounts#"I
--_root_.views.html.details.updateBusinessName.ÄÑupdateBusinessName"'
-_root_.form.Mappings.ÄÑMappings"Å
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2917..29225ÄphoneString"!
-_root_.scala.Predef.String#"Z
-$_root_.models.GroupAccount#(isAgent)2ÅisAgentBoolean"
-_root_.scala.Boolean#"
-_root_.models.ÄàÄmodels"|
- _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
-
-_root_.scala.Option#"
-_root_.scala.Option#[A]"O
--_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"!
-_root_.actions.ÄàÄactions",
-_root_.play.api.mvc.Result#Ä†ÄResult" 
-_root_.java.time.ÄàÄtime"/
-_root_.form.TextMatching.ÄÑTextMatching")
-_root_.controllers.ÄàÄcontrollers"ª
-C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
-_root_.scala.`<byname>`#"N
-F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
- F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"
-_root_.views.ÄàÄviews"≠
-E_root_.controllers.manageDetails.UpdateOrganisationDetails#emailForm.dÅÄ@	emailFormForm[String]" 
-_root_.play.api.data.Form#"#
-_root_.scala.Predef.String#"ã
->_root_.actions.BasicAuthenticatedRequest#(organisationAccount)IÅorganisationAccountGroupAccount"!
-_root_.models.GroupAccount#"p
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2332..2334$idInt"
-_root_.scala.Int#"á
-F_root_.controllers.manageDetails.UpdateOrganisationDetails#(addresses)=Ä	addresses	Addresses""
-	_root_.connectors.Addresses#"€
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2080..2087éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2273..22803ÄaddressAddress"
-_root_.models.Address#"ë
-$_root_.form.Mappings.addressMapping.iaddressMappingMapping[Address]"#
-_root_.play.api.data.Mapping#"
-_root_.models.Address#"O
-0_root_.views.html.details.updateBusinessAddress.ÄÑupdateBusinessAddress"+
-_root_.java.time.Instant.ÄÑàInstant"
-_root_.scala.ÄàÄscala"Ú
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"}
-u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-/?)_root_.scala.concurrent.ExecutionContext#"'
-BH_root_.scala.concurrent.Future#"}
-IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"O
-_root_.scala.Int#`<init>`()V..<init>(): Int"
-_root_.scala.Int#"€
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@1383..1390éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"*
-_root_.play.api.data.Forms.ÄÑForms"å
-z_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.çmapping©[R, A1, A2] => (a1: Tuple2[String, Mapping[A1]], a2: Tuple2[String, Mapping[A2]])(apply: Function2[A1, A2, R])(unapply: Function1[R, Option[Tuple2[A1, A2]]]): Mapping[R]"
-_root_.scala.Tuple2#"#
-!_root_.scala.Predef.String#"%
-#*_root_.play.api.data.Mapping#"Ü
-+-~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"
-5;_root_.scala.Tuple2#"#
-<B_root_.scala.Predef.String#"%
-DK_root_.play.api.data.Mapping#"Ü
-LN~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"
-Yb_root_.scala.Function2#"Ü
-ce~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"Ü
-gi~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"Ö
-kl}_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[R]" 
-xÅ_root_.scala.Function1#"á
-ÇÉ}_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"
-Öã_root_.scala.Option#"
-åí_root_.scala.Tuple2#"à
-ìï~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"à
-óô~_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"'
-ü¶_root_.play.api.data.Mapping#"á
-ß®}_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Function2;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"K
-._root_.views.html.details.updateBusinessEmail.ÄÑupdateBusinessEmail"·
-f_root_.controllers.manageDetails.UpdateOrganisationDetails#updateBusinessPhone()Lplay/api/mvc/Action;.wupdateBusinessPhoneAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"à
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3756..3797<currentGroupAccount"!
-_root_.models.GroupAccount#"c
-=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM#"Ä†ÄUpdateOrganisationDetailsVM"b
-=_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.!ÄÑUpdateOrganisationDetailsVM"µ
-v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.∫flatMapS[S] => (f: Function1[T, Future[S]])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"'
-_root_.scala.concurrent.Future#"Å
- y_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-7G)_root_.scala.concurrent.ExecutionContext#"'
-JP_root_.scala.concurrent.Future#"Å
-QRy_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"Œ
-n_root_.connectors.Addresses#create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.€create;(address: Address)(implicit hc: HeaderCarrier): Future[Int]"
-
-_root_.models.Address#".
- -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-06_root_.scala.concurrent.Future#"
-7:_root_.scala.Int#"€
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@3208..3215éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"g
-C_root_.controllers.manageDetails.UpdateOrganisationDetailsVM#(form) Åformplay.api.data.Form[_]"
-_root_.scala.Int#	Ä†Int"€
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@1573..1580éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"w
-B_root_.controllers.manageDetails.UpdateOrganisationDetails#(clock)1ÄÅ clockClock"
-_root_.java.time.Clock#"9
-!_root_.controllers.manageDetails.ÄàÄmanageDetails"¨
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@1635..1641`ÄerrorsForm[String]" 
-_root_.play.api.data.Form#"#
-_root_.scala.Predef.String#"€
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2728..2735éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#" 
-_root_.scala.Some.
-ÄÑSome"ç
-v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.í<init>r(provider: GovernmentGatewayProvider, businessRatesAuthorisation: BusinessRatesAuthorisation): AuthenticatedAction".
-$&_root_.auth.GovernmentGatewayProvider#"5
-B\-_root_.connectors.BusinessRatesAuthorisation#"+
-_r#_root_.actions.AuthenticatedAction#"Ñ
-U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.™foldF[R] => (hasErrors: Function1[Form[T], R], success: Function1[T, R]): R"
-_root_.scala.Function1#""
-!_root_.play.api.data.Form#"%
-"#_root_.play.api.data.Form#[T]"`
-&'X_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"
-3<_root_.scala.Function1#"%
-=>_root_.play.api.data.Form#[T]"`
-@AX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"`
-EFX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]".
-_root_.connectors.Addresses#Ä 	Addresses"®
-Happ/controllers/manageDetails/UpdateOrganisationDetails.scala@2137..2143\ÄerrorsForm[Address]" 
-_root_.play.api.data.Form#"
-_root_.models.Address#"g
-(_root_.models.GroupAccount#(companyName);ÅcompanyNameString"!
-_root_.scala.Predef.String#2”
-ÌÌ*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2”
-˜˜*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2G
-ÙÙ	*[String]
-_star_.#
-_root_.scala.Predef.String#2—
-∑∑*.apply
-_star_.Æ
-•_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.apply(Lplay/api/data/Form;Lmodels/GroupAccount;)Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;.2å
-ÃÃ3*(request, UpdateOrganisationDetails.this.messages)
-_star_.>
-*26_root_.controllers.PropertyLinkingController#messages.2G
-∆∆	*[String]
-_star_.#
-_root_.scala.Predef.String#2”
-ΩΩû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2#
-÷÷
-*(request)
-_star_.2#
-††
-*(request)
-_star_.2Ô
-ÇÇ*.apply
-_star_.Ã
-√_root_.models.UpdatedOrganisationAccount.apply(Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/time/Instant;Ljava/lang/String;)Lmodels/UpdatedOrganisationAccount;.2{
-îî*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2G
-††	*[String]
-_star_.#
-_root_.scala.Predef.String#2Æ
-ö"£""scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2Æ
-œ#ﬂ#"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2—
-≤≤*.apply
-_star_.Æ
-•_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.apply(Lplay/api/data/Form;Lmodels/GroupAccount;)Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;.2ò
-ññ*.apply
-_star_.ı
-Ï_root_.views.html.details.updateBusinessAddress_Scope0.updateBusinessAddress_Scope1.updateBusinessAddress#apply(Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2è
-ËË*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.scala.Predef.String#2”
-¯
-¯
-*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2{
-„„*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2”
-ŸŸû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2å
-ÍÍ3*(request, UpdateOrganisationDetails.this.messages)
-_star_.>
-*26_root_.controllers.PropertyLinkingController#messages.2w
-√#√#*[Mapping[String]]
-_star_.#
-
-_root_.scala.Predef.String#%
-	_root_.play.api.data.Mapping#2€
-„Ÿ0UpdateOrganisationDetails.this.future[Result](*)i
-%a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
-&,_root_.play.api.mvc.Result#
-./_star_.2—
-√√*.apply
-_star_.Æ
-•_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.apply(Lplay/api/data/Form;Lmodels/GroupAccount;)Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;.2C
-ô"ô"
-*[Address]
-_star_.
-	_root_.models.Address#2€
-ﬁÕ0UpdateOrganisationDetails.this.future[Result](*)i
-%a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
-&,_root_.play.api.mvc.Result#
-./_star_.2—
-∫∫*.apply
-_star_.Æ
-•_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.apply(Lplay/api/data/Form;Lmodels/GroupAccount;)Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;.2{
-úú*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2”
-››û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2å
-ﬂﬂ3*(request, UpdateOrganisationDetails.this.messages)
-_star_.>
-*26_root_.controllers.PropertyLinkingController#messages.2”
-ÌÌû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2è
-ëë*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.scala.Predef.String#2G
-‰"‰"	*[String]
-_star_.#
-_root_.scala.Predef.String#2í
-˙˙*.apply
-_star_.Ô
-Ê_root_.views.html.details.updateBusinessEmail_Scope0.updateBusinessEmail_Scope1.updateBusinessEmail#apply(Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2€
-„0UpdateOrganisationDetails.this.future[Result](*)i
-%a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
-&,_root_.play.api.mvc.Result#
-./_star_.2—
-∂∂*.apply
-_star_.Æ
-•_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.apply(Lplay/api/data/Form;Lmodels/GroupAccount;)Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;.2∏
-ÚÚ-*(UpdateOrganisationDetails.this.hc(request))
-_star_.p
-!#h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2x
-€€*[Future[Result]]
-_star_.#
-	_root_.play.api.mvc.Result#'
-_root_.scala.concurrent.Future#2å
-‚‚3*(request, UpdateOrganisationDetails.this.messages)
-_star_.>
-*26_root_.controllers.PropertyLinkingController#messages.2—
-££*.apply
-_star_.Æ
-•_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.apply(Lplay/api/data/Form;Lmodels/GroupAccount;)Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;.2”
-””*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2°
-≥#≥#*[String, String, String]
-_star_.#
-_root_.scala.Predef.String##
-
-_root_.scala.Predef.String##
-_root_.scala.Predef.String#2G
-Ã Ã 	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2G
-˙˙	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2—
-ππ*.apply
-_star_.Æ
-•_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.apply(Lplay/api/data/Form;Lmodels/GroupAccount;)Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;.2”
-ÄÄ*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2è
-ùù*.apply
-_star_.Ï
-„_root_.views.html.details.updateBusinessName_Scope0.updateBusinessName_Scope1.updateBusinessName#apply(Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2å
-ÿÿ3*(request, UpdateOrganisationDetails.this.messages)
-_star_.>
-*26_root_.controllers.PropertyLinkingController#messages.2”
-ÕÕû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2Æ
-√!—!"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2€
-È›0UpdateOrganisationDetails.this.future[Result](*)i
-%a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
-&,_root_.play.api.mvc.Result#
-./_star_.2Ç
-¡¡*.apply[Int]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
-_root_.scala.Int#2w
-‘!‘!*[Mapping[String]]
-_star_.#
-
-_root_.scala.Predef.String#%
-	_root_.play.api.data.Mapping#2w
-¶¶$*(UpdateOrganisationDetails.this.ec)
-_star_.8
-!#0_root_.controllers.PropertyLinkingController#ec.2Ç
-°°*.apply[Int]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
-_root_.scala.Int#2€
-…Ω0UpdateOrganisationDetails.this.future[Result](*)i
-%a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
-&,_root_.play.api.mvc.Result#
-./_star_.2è
-àà*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.scala.Predef.String#2”
-‡‡û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2#
-≤≤
-*(request)
-_star_.2∏
-» » -*(UpdateOrganisationDetails.this.hc(request))
-_star_.p
-!#h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2§
-ª!ª!*.apply[String]
-_star_.U
-M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.#
-_root_.scala.Predef.String#2è
-ûû*.apply
-_star_.Ï
-„_root_.views.html.details.updateBusinessName_Scope0.updateBusinessName_Scope1.updateBusinessName#apply(Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2x
-◊◊*[Future[Result]]
-_star_.#
-	_root_.play.api.mvc.Result#'
-_root_.scala.concurrent.Future#2Æ
-π#¿#"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2”
-ÚÚ*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2€
-ˆ
-Î0UpdateOrganisationDetails.this.future[Result](*)i
-%a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
-&,_root_.play.api.mvc.Result#
-./_star_.2§
-›"›"*.apply[String]
-_star_.U
-M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.#
-_root_.scala.Predef.String#2”
-‡‡*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2x
-∑∑*[Future[Result]]
-_star_.#
-	_root_.play.api.mvc.Result#'
-_root_.scala.concurrent.Future#2å
-‹‹3*(request, UpdateOrganisationDetails.this.messages)
-_star_.>
-*26_root_.controllers.PropertyLinkingController#messages.2{
-√√*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2Æ
-Â"Ï""scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2€
-Ì‡0UpdateOrganisationDetails.this.future[Result](*)i
-%a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
-&,_root_.play.api.mvc.Result#
-./_star_.2{
-€
-€
-*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2#
-““
-*(request)
-_star_.2s
-¶"¶"*[Mapping[Address]]
-_star_.%
-	_root_.play.api.data.Mapping#
-
-_root_.models.Address#2€
-˛Ì0UpdateOrganisationDetails.this.future[Result](*)i
-%a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
-&,_root_.play.api.mvc.Result#
-./_star_.2í
-ßß*.apply
-_star_.Ô
-Ê_root_.views.html.details.updateBusinessPhone_Scope0.updateBusinessPhone_Scope1.updateBusinessPhone#apply(Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2{
-’’*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2:
-¥¥*[Int]
-_star_.
-_root_.scala.Int#2í
-áá*.apply
-_star_.Ô
-Ê_root_.views.html.details.updateBusinessEmail_Scope0.updateBusinessEmail_Scope1.updateBusinessEmail#apply(Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2—
-ññ*.apply
-_star_.Æ
-•_root_.controllers.manageDetails.UpdateOrganisationDetailsVM.apply(Lplay/api/data/Form;Lmodels/GroupAccount;)Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;.2{
-¸¸*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2#
-ÃÃ
-*(request)
-_star_.2¨
-Ô#Ô#*.apply
-_star_.â
-Ä_root_.form.TextMatching.apply(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lform/TextMatching;.2å
-ÏÏ3*(request, UpdateOrganisationDetails.this.messages)
-_star_.>
-*26_root_.controllers.PropertyLinkingController#messages.2†
-í"í"*.apply[Address]
-_star_.U
-M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.
-_root_.models.Address#2‚
-≥$≥$*.apply[Tuple2[String, String]]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.scala.Predef.String#
-_root_.scala.Tuple2##
-_root_.scala.Predef.String#2§
-´#´#*.apply[String]
-_star_.U
-M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.#
-_root_.scala.Predef.String#2K
-‚#‚#*[TextMatching]
-_star_.!
-_root_.form.TextMatching#2w
-ë!ë!$*(UpdateOrganisationDetails.this.ec)
-_star_.8
-!#0_root_.controllers.PropertyLinkingController#ec.2å
-ºº3*(request, UpdateOrganisationDetails.this.messages)
-_star_.>
-*26_root_.controllers.PropertyLinkingController#messages.2x
-——*[Future[Result]]
-_star_.#
-	_root_.play.api.mvc.Result#'
-_root_.scala.concurrent.Future#2ò
-õõ*.apply
-_star_.ı
-Ï_root_.views.html.details.updateBusinessAddress_Scope0.updateBusinessAddress_Scope1.updateBusinessAddress#apply(Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2”
-ÛÛ*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2w
-Ô"Ô"*[Mapping[String]]
-_star_.#
-
-_root_.scala.Predef.String#%
-	_root_.play.api.data.Mapping#2{
-ôô*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2í
-öö*.apply
-_star_.Ô
-Ê_root_.views.html.details.updateBusinessPhone_Scope0.updateBusinessPhone_Scope1.updateBusinessPhone#apply(Lcontrollers/manageDetails/UpdateOrganisationDetailsVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2”
-„„û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2G
-¬!¬!	*[String]
-_star_.#
-_root_.scala.Predef.String#2”
-ÎÎû*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.:Scala211Bï%/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package controllers.manageDetails
-
-import java.time.{Clock, Instant}
-
-import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
-import javax.inject.Inject
-
-import connectors.{Addresses, GroupAccounts}
-import controllers.PropertyLinkingController
-import form.{Mappings, TextMatching}
-import models.{GroupAccount, UpdatedOrganisationAccount}
-import play.api.data.Form
-import play.api.data.Forms._
-import play.api.mvc.Result
-
-import scala.concurrent.Future
-
-class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction,
-                                          groups: GroupAccounts,
-                                          addresses: Addresses)(implicit clock: Clock) extends PropertyLinkingController {
-
-  def viewBusinessName = authenticated { implicit request =>
-    Ok(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
-  }
-
-  def updateBusinessName = authenticated { implicit request =>
-    businessNameForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
-      businessName => updateDetails(name = Some(businessName))
-    )
-  }
-
-  def viewBusinessAddress = authenticated { implicit request =>
-    Ok(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(addressForm, request.organisationAccount)))
-  }
-
-  def updateBusinessAddress = authenticated { implicit request =>
-    addressForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
-      address => address.addressUnitId match {
-        case Some(id) => updateDetails(addressId = Some(id))
-        case _ => addresses.create(address) flatMap { id => updateDetails(addressId = Some(id)) }
-      }
-    )
-  }
-
-  def viewBusinessPhone = authenticated { implicit request =>
-    Ok(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(phoneForm, request.organisationAccount)))
-  }
-
-  def updateBusinessPhone = authenticated { implicit request =>
-    phoneForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
-      phone => updateDetails(phone = Some(phone))
-    )
-  }
-
-  def viewBusinessEmail = authenticated { implicit request =>
-    Ok(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(emailForm, request.organisationAccount)))
-  }
-
-  def updateBusinessEmail = authenticated { implicit request =>
-    emailForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
-      email => updateDetails(email = Some(email))
-    )
-  }
-
-  private def updateDetails(name: Option[String] = None,
-                            addressId: Option[Int] = None,
-                            email: Option[String] = None,
-                            phone: Option[String] = None)(implicit request: BasicAuthenticatedRequest[_]): Future[Result] = {
-    val current = request.organisationAccount
-    val details = UpdatedOrganisationAccount(
-      current.groupId,
-      addressId.getOrElse(current.addressId),
-      current.isAgent,
-      name.getOrElse(current.companyName),
-      email.getOrElse(current.email),
-      phone.getOrElse(current.phone),
-      Instant.now(clock),
-      request.individualAccount.externalId
-    )
-    groups.update(current.id, details) map { _ => Redirect(controllers.manageDetails.routes.ViewDetails.show()) }
-  }
-
-  lazy val businessNameForm = Form(single("businessName" -> nonEmptyText(maxLength = 45)))
-
-  lazy val addressForm = Form(single("address" -> Mappings.addressMapping))
-
-  lazy val phoneForm = Form(single("phone" -> nonEmptyText(maxLength = 20)))
-
-  lazy val emailForm = Form(mapping(
-    "email" -> email,
-    "confirmedEmail" -> TextMatching("email", "error.emailsMustMatch")
-  ){ case (e, _) => e }(e => Some((e, e))))
-}
-
-case class UpdateOrganisationDetailsVM(form: Form[_], currentDetails: GroupAccount)
-J=app/controllers/manageDetails/UpdateOrganisationDetails.scala

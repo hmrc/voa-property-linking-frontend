@@ -1,114 +1,0 @@
-
-Ä.%
-À—_root_.scala.Predef.String#
-ˆ˙_root_.play.,
-‚Á"_root_.play.api.data.Field#(value)∑
-£®¨_root_.play.api.data.Field#copy(Lplay/api/data/Form;Ljava/lang/String;Lscala/collection/Seq;Lscala/Option;Lscala/collection/Seq;Lscala/Option;)Lplay/api/data/Field;.(value)A
-Ñâ7_root_.play.api.data.Field.;_root_.play.api.data.Field#%
-‘Ÿ_root_.play.api.data.Field#s
-ß≥g_root_.template.FormSupport.prepopulated(Lplay/api/data/Field;Ljava/lang/String;)Lplay/api/data/Field;.∞
-û¢•_root_.play.api.data.Field#copy(Lplay/api/data/Form;Ljava/lang/String;Lscala/collection/Seq;Lscala/Option;Lscala/collection/Seq;Lscala/Option;)Lplay/api/data/Field;.|
-¬…p_root_.template.FormSupport.prepopulated(Lplay/api/data/Field;Ljava/lang/String;)Lplay/api/data/Field;.(default)z
-∞∑p_root_.template.FormSupport.prepopulated(Lplay/api/data/Field;Ljava/lang/String;)Lplay/api/data/Field;.(default)x
-‹·n_root_.template.FormSupport.prepopulated(Lplay/api/data/Field;Ljava/lang/String;)Lplay/api/data/Field;.(field)
-ÂÌ_root_.template.x
-òùn_root_.template.FormSupport.prepopulated(Lplay/api/data/Field;Ljava/lang/String;)Lplay/api/data/Field;.(field)
-˘˝_root_.scala.Some.
-˚˛_root_.play.api.
-´Ø_root_.scala.Some.%
-ª¿_root_.play.api.data.Field#(
-íù_root_.template.FormSupport.z
-¥πn_root_.template.FormSupport.prepopulated(Lplay/api/data/Field;Ljava/lang/String;)Lplay/api/data/Field;.(field)x
-Ñân_root_.template.FormSupport.prepopulated(Lplay/api/data/Field;Ljava/lang/String;)Lplay/api/data/Field;.(field)
-ˇÉ_root_.play.api.data."ì
-g_root_.template.FormSupport.prepopulated(Lplay/api/data/Field;Ljava/lang/String;)Lplay/api/data/Field;.ßprepopulated&(field: Field, default: String): Field"#
-_root_.play.api.data.Field#"#
-_root_.scala.Predef.String#"#
-!&_root_.play.api.data.Field#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"$
-_root_.play.api.data.ÄàÄdata"
-_root_.play.api.
-ÄàÄapi"¶
-n_root_.template.FormSupport.prepopulated(Lplay/api/data/Field;Ljava/lang/String;)Lplay/api/data/Field;.(field)4ÄfieldField"!
-_root_.play.api.data.Field#"+
-_root_.play.api.data.Field#Ä†ÄField"1
-_root_.template.FormSupport.ÄÑFormSupport"´
-p_root_.template.FormSupport.prepopulated(Lplay/api/data/Field;Ljava/lang/String;)Lplay/api/data/Field;.(default)7ÄdefaultString"!
-_root_.scala.Predef.String#"
-_root_.play.ÄàÄplay"ì
-•_root_.play.api.data.Field#copy(Lplay/api/data/Form;Ljava/lang/String;Lscala/collection/Seq;Lscala/Option;Lscala/collection/Seq;Lscala/Option;)Lplay/api/data/Field;.Ëcopy∑(form: play.api.data.Form[_], name: String, constraints: Seq[Tuple2[String, Seq[Any]]], format: Option[Tuple2[String, Seq[Any]]], errors: Seq[FormError], value: Option[String]): Field"#
-$*_root_.scala.Predef.String#"!
-9<_root_.scala.package.Seq#"
-=C_root_.scala.Tuple2#"#
-DJ_root_.scala.Predef.String#"!
-LO_root_.scala.package.Seq#"
-PS_root_.scala.Any#"
-`f_root_.scala.Option#"
-gm_root_.scala.Tuple2#"#
-nt_root_.scala.Predef.String#"!
-vy_root_.scala.package.Seq#"
-z}_root_.scala.Any#"#
-äç_root_.scala.package.Seq#")
-éó_root_.play.api.data.FormError#"
-°ß_root_.scala.Option#"%
-®Æ_root_.scala.Predef.String#"%
-≤∑_root_.play.api.data.Field#"å
-¨_root_.play.api.data.Field#copy(Lplay/api/data/Form;Ljava/lang/String;Lscala/collection/Seq;Lscala/Option;Lscala/collection/Seq;Lscala/Option;)Lplay/api/data/Field;.(value)[ÄvalueOption[String]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"Ö
-ï_root_.play.api.data.Field#`<init>`(Lplay/api/data/Form;Ljava/lang/String;Lscala/collection/Seq;Lscala/Option;Lscala/collection/Seq;Lscala/Option;)V.Í<init>∑(form: play.api.data.Form[_], name: String, constraints: Seq[Tuple2[String, Seq[Any]]], format: Option[Tuple2[String, Seq[Any]]], errors: Seq[FormError], value: Option[String]): Field"#
-$*_root_.scala.Predef.String#"!
-9<_root_.scala.package.Seq#"
-=C_root_.scala.Tuple2#"#
-DJ_root_.scala.Predef.String#"!
-LO_root_.scala.package.Seq#"
-PS_root_.scala.Any#"
-`f_root_.scala.Option#"
-gm_root_.scala.Tuple2#"#
-nt_root_.scala.Predef.String#"!
-vy_root_.scala.package.Seq#"
-z}_root_.scala.Any#"#
-äç_root_.scala.package.Seq#")
-éó_root_.play.api.data.FormError#"
-°ß_root_.scala.Option#"%
-®Æ_root_.scala.Predef.String#"%
-≤∑_root_.play.api.data.Field#"Å
-"_root_.play.api.data.Field#(value)[ÅvalueOption[String]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"#
-_root_.template.ÄàÄtemplate" 
-_root_.scala.Some.
-ÄÑSome2è
-ØØ*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.scala.Predef.String#:Scala211B¡/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package template
-
-import play.api.data.Field
-
-object FormSupport {
-
-  def prepopulated(field: Field, default: String): Field = field.value match {
-    case Some(_) => field
-    case _ => field.copy(value = Some(default))
-  }
-
-}
-Japp/template/FormSupport.scala

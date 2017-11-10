@@ -1,215 +1,0 @@
-
-∆T,
-˛	è
- _root_.models.IndividualAccount.?
-»œ3_root_.models.IndividualAccountSubmission#(trustId)?
-˜˛3_root_.models.IndividualAccountSubmission#(details),
-àô _root_.models.IndividualAccount#w
-ôôk_root_.models.IndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JLmodels/IndividualDetails;)V.@
-ó°4_root_.models.DetailedIndividualAccount#(externalId)B
-“ﬁ6_root_.models.DetailedIndividualAccount#(individualId)
-‡‰_root_.scala.Long#*
-∑
-»
- _root_.models.IndividualAccount#)
-—’_root_.play.api.libs.json.Json.
-Ù¯_root_.play.%
-¥∫_root_.scala.Predef.String#F
-ŸÁ:_root_.models.IndividualAccountSubmission#(organisationId)N
-÷‹D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.5
-’‹)_root_.models.IndividualAccount#(details)Z
-˛
-ÖN_root_.models.DetailedIndividualAccount.formats()Lplay/api/libs/json/OFormat;.
-˝Å_root_.play.api.libs.è
-≥≥Ç_root_.models.IndividualAccountSubmission#`<init>`(Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/IndividualDetails;)V.%
-¶¨_root_.scala.Predef.String#
-œ”_root_.scala.Long#8
-ö§,_root_.models.IndividualAccount#(externalId);
-—	ÿ	1_root_.models.DetailedIndividualAccount#(trustId)*
-ﬁÔ _root_.models.IndividualDetails#2
-î≠(_root_.models.DetailedIndividualAccount#%
-£©_root_.scala.Predef.String#=
-ÊÌ1_root_.models.DetailedIndividualAccount#(details)*
-ü	∞	 _root_.models.IndividualAccount#N
-∞
-∂
-D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.B
-¥æ6_root_.models.IndividualAccountSubmission#(externalId);
-Í	Ò	1_root_.models.DetailedIndividualAccount#(details)Ä
-ññt_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.>
-≈	œ	4_root_.models.DetailedIndividualAccount#(externalId))
-´
-Ø
-_root_.play.api.libs.json.Json.R
-°
-®
-F_root_.models.IndividualAccount.formats()Lplay/api/libs/json/OFormat;.<
-øÕ0_root_.models.IndividualAccount#(organisationId)4
-˝ñ(_root_.models.DetailedIndividualAccount#)
-àå_root_.play.api.libs.json.Json.B
-⁄	Ë	8_root_.models.DetailedIndividualAccount#(organisationId)
-Ã–_root_.scala.Long#5
-Æµ)_root_.models.IndividualAccount#(trustId)4
-”
-Ï
-(_root_.models.DetailedIndividualAccount.\
-«ŒP_root_.models.IndividualAccountSubmission.formats()Lplay/api/libs/json/OFormat;.)
-áã_root_.play.api.libs.json.Json.N
-çìD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.
-˘¸_root_.play.api.D
-º 8_root_.models.DetailedIndividualAccount#(organisationId)%
-—◊_root_.scala.Predef.String#
-ÂÎ_root_.models.*
-ÔÄ	 _root_.models.IndividualDetails#=
-´≤1_root_.models.DetailedIndividualAccount#(trustId)d
-ä	ù	X_root_.models.DetailedIndividualAccount#toIndividualAccount()Lmodels/IndividualAccount;.%
-¿∆_root_.scala.Predef.String#
-Ù_root_.scala.Long#*
-≥	ƒ	 _root_.models.IndividualAccount.6
-ò≥*_root_.models.IndividualAccountSubmission#%
-∑Ω_root_.scala.Predef.String#6
-öµ*_root_.models.IndividualAccountSubmission.$
-ÇÜ_root_.play.api.libs.json.
-ÈÔ_root_.scala.Option#*
-Äë _root_.models.IndividualDetails#4
-›¯*_root_.models.IndividualAccountSubmission#"t
-)_root_.models.IndividualAccount#(details)GÅdetailsIndividualDetails"&
- _root_.models.IndividualDetails#"P
-*_root_.models.IndividualAccountSubmission#"Ä†ÄIndividualAccountSubmission")
-_root_.play.api.libs.json.ÄàÄjson"O
-*_root_.models.IndividualAccountSubmission.!ÄÑIndividualAccountSubmission" 
-_root_.scala.Long#
-Ä†Long"„
-D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
-"_root_.play.api.libs.json.OFormat#"O
-G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"|
-1_root_.models.DetailedIndividualAccount#(details)GÅdetailsIndividualDetails"&
- _root_.models.IndividualDetails#"†
-k_root_.models.IndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JLmodels/IndividualDetails;)V.∞<init>j(externalId: String, trustId: String, organisationId: Long, details: IndividualDetails): IndividualAccount"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"
-6:_root_.scala.Long#"(
-EV _root_.models.IndividualDetails#"(
-Yj _root_.models.IndividualAccount#"Î
-t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"
-6:_root_.scala.Long#"
-JN_root_.scala.Long#"(
-Yj _root_.models.IndividualDetails#"1
-mÜ(_root_.models.DetailedIndividualAccount#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"r
-4_root_.models.DetailedIndividualAccount#(externalId):Å
-externalIdString"!
-_root_.scala.Predef.String#"~
-3_root_.models.IndividualAccountSubmission#(details)GÅdetailsIndividualDetails"&
- _root_.models.IndividualDetails#"<
- _root_.models.IndividualDetails#Ä†ÄIndividualDetails"o
-8_root_.models.DetailedIndividualAccount#(organisationId)3ÅorganisationIdLong"
-_root_.scala.Long#"$
-_root_.play.api.libs.ÄàÄlibs"g
-0_root_.models.IndividualAccount#(organisationId)3ÅorganisationIdLong"
-_root_.scala.Long#"
-_root_.play.api.
-ÄàÄapi";
- _root_.models.IndividualAccount.ÄÑIndividualAccount"-
-_root_.play.api.libs.json.Json.
-ÄÑJson"<
- _root_.models.IndividualAccount#Ä†ÄIndividualAccount"j
-,_root_.models.IndividualAccount#(externalId):Å
-externalIdString"!
-_root_.scala.Predef.String#"$
-_root_.scala.Option#Ä†Option"«
-F_root_.models.IndividualAccount.formats()Lplay/api/libs/json/OFormat;.}ÑÄ formatsOFormat[IndividualAccount]"(
-"_root_.play.api.libs.json.OFormat#"(
- _root_.models.IndividualAccount#"ó
-:_root_.models.IndividualAccountSubmission#(organisationId)YÅorganisationIdOption[Long]"
-_root_.scala.Option#"
-_root_.scala.Long#"Ê
-P_root_.models.IndividualAccountSubmission.formats()Lplay/api/libs/json/OFormat;.ëÑÄ formats$OFormat[IndividualAccountSubmission]"(
-"_root_.play.api.libs.json.OFormat#"2
-#*_root_.models.IndividualAccountSubmission#"d
-)_root_.models.IndividualAccount#(trustId)7ÅtrustIdString"!
-_root_.scala.Predef.String#"Ú
-Ç_root_.models.IndividualAccountSubmission#`<init>`(Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/IndividualDetails;)V.Í<init>|(externalId: String, trustId: String, organisationId: Option[Long], details: IndividualDetails): IndividualAccountSubmission"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"
-6<_root_.scala.Option#"
-=A_root_.scala.Long#"(
-M^ _root_.models.IndividualDetails#"2
-a|*_root_.models.IndividualAccountSubmission#"l
-1_root_.models.DetailedIndividualAccount#(trustId)7ÅtrustIdString"!
-_root_.scala.Predef.String#"t
-6_root_.models.IndividualAccountSubmission#(externalId):Å
-externalIdString"!
-_root_.scala.Predef.String#"‡
-N_root_.models.DetailedIndividualAccount.formats()Lplay/api/libs/json/OFormat;.çÑÄ formats"OFormat[DetailedIndividualAccount]"(
-"_root_.play.api.libs.json.OFormat#"0
-!(_root_.models.DetailedIndividualAccount#"
-_root_.play.ÄàÄplay"∞
-É_root_.models.IndividualDetails#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)V.ß<init>(firstName: String, lastName: String, email: String, phone1: String, phone2: Option[String], addressId: Int): IndividualDetails"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"#
--3_root_.scala.Predef.String#"#
-=C_root_.scala.Predef.String#"
-MS_root_.scala.Option#"#
-TZ_root_.scala.Predef.String#"
-hk_root_.scala.Int#"(
-n _root_.models.IndividualDetails#"
-_root_.models.ÄàÄmodels"|
- _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
-
-_root_.scala.Option#"
-_root_.scala.Option#[A]"R
-_root_.scala.Long#`<init>`()V.0<init>(): Long"
-_root_.scala.Long#"Æ
-X_root_.models.DetailedIndividualAccount#toIndividualAccount()Lmodels/IndividualAccount;.RtoIndividualAccountIndividualAccount"&
- _root_.models.IndividualAccount#"K
-(_root_.models.DetailedIndividualAccount.ÄÑDetailedIndividualAccount"L
-(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"n
-3_root_.models.IndividualAccountSubmission#(trustId)7ÅtrustIdString"!
-_root_.scala.Predef.String#"k
-6_root_.models.DetailedIndividualAccount#(individualId)1ÅindividualIdLong"
-_root_.scala.Long#2≠
-ƒ	ƒ	*.apply
-_star_.ä
-Å_root_.models.IndividualAccount.apply(Ljava/lang/String;Ljava/lang/String;JLmodels/IndividualDetails;)Lmodels/IndividualAccount;.:Scala211B±/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models
-
-import play.api.libs.json.Json
-
-case class IndividualAccountSubmission(externalId: String, trustId: String, organisationId: Option[Long], details: IndividualDetails)
-object IndividualAccountSubmission {
-  implicit def formats = Json.format[IndividualAccountSubmission]
-}
-
-case class IndividualAccount(externalId: String, trustId: String, organisationId: Long, details: IndividualDetails)
-
-case class DetailedIndividualAccount(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails) {
-  def toIndividualAccount: IndividualAccount = IndividualAccount(externalId, trustId, organisationId, details)
-}
-
-
-object IndividualAccount {
-  implicit def formats = Json.format[IndividualAccount]
-}
-object DetailedIndividualAccount {
-  implicit def formats = Json.format[DetailedIndividualAccount]
-}
-J"app/models/IndividualAccount.scala

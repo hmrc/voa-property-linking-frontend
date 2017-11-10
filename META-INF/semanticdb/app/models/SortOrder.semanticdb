@@ -1,126 +1,0 @@
-
-π'@
-ﬂ‚4_root_.models.SortOrder.all()Lscala/collection/Seq;."
-Á_root_.models.SortOrder#K
-¨≥?_root_.models.SortOrder.Descending.reverse()Lmodels/SortOrder;.$
-˙É_root_.models.SortOrder#"
-˘Ç_root_.models.SortOrder#@
-˜4_root_.models.SortOrder#reverse()Lmodels/SortOrder;.,
-¡ "_root_.models.SortOrder.Ascending..
-Ñã"_root_.models.SortOrder#$init$()V.A
-—Ÿ5_root_.models.SortOrder#toString()Ljava/lang/String;.,
-˘Ç	"_root_.models.SortOrder.Ascending.G
-˙˛;_root_.models.SortOrder.Ascending.name()Ljava/lang/String;.%
-¨≤_root_.scala.Predef.String#$
-çñ_root_.models.SortOrder."
-ËÒ_root_.models.SortOrder#-
-∂¿#_root_.models.SortOrder.Descending.&
-ı¯_root_.scala.collection.Seq."
-›Ê_root_.models.SortOrder#.
-ÁÁ$_root_.java.lang.Object#`<init>`()V."
-µæ_root_.models.SortOrder#%
-äê_root_.scala.Predef.String#.
-ªª$_root_.java.lang.Object#`<init>`()V.
-ÂÎ_root_.models.H
-Ñà<_root_.models.SortOrder.Descending.name()Ljava/lang/String;."
-∞π_root_.models.SortOrder#.
-À‘"_root_.models.SortOrder.Ascending."
-åï_root_.models.NamedEnum#-
-Ñ	é	#_root_.models.SortOrder.Descending..
-ÒÒ$_root_.java.lang.Object#`<init>`()V."
-™≥_root_.models.SortOrder#%
-€·_root_.scala.Predef.String#/
-‘ﬁ#_root_.models.SortOrder.Descending.%
-ÄÜ_root_.scala.Predef.String##
-‰Á_root_.scala.package.Seq#;
-‰Ë1_root_.models.NamedEnum#name()Ljava/lang/String;.(
-ß™_root_.models.SortOrder#key.)
-üØ_root_.models.NamedEnumSupport#J
-°®>_root_.models.SortOrder.Ascending.reverse()Lmodels/SortOrder;.")
-_root_.scala.collection.Seq.	ÄÑSeq"V
-"_root_.models.SortOrder#$init$()V.0$init$(): Unit"
-_root_.scala.Unit#"c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#"6
-"_root_.models.SortOrder.Ascending.ÄÑà	Ascending"y
-?_root_.models.SortOrder.Descending.reverse()Lmodels/SortOrder;.6reverse	SortOrder"
-	_root_.models.SortOrder#"8
-#_root_.models.SortOrder.Descending.ÄÑà
-Descending"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"í
-4_root_.models.SortOrder.all()Lscala/collection/Seq;.ZallSeq[SortOrder]"
-_root_.scala.package.Seq#" 
-_root_.models.SortOrder#"+
-_root_.models.SortOrder#Ä¿	SortOrder"+
-_root_.models.SortOrder.ÄÑ	SortOrder"r
-;_root_.models.SortOrder.Ascending.name()Ljava/lang/String;.3nameString"!
-_root_.scala.Predef.String#"x
->_root_.models.SortOrder.Ascending.reverse()Lmodels/SortOrder;.6reverse	SortOrder"
-	_root_.models.SortOrder#"8
-_root_.models.NamedEnumSupport#Ä@NamedEnumSupport"v
-5_root_.models.SortOrder#toString()Ljava/lang/String;.=toString
-(): String"#
-
-_root_.scala.Predef.String#"p
-4_root_.models.SortOrder#reverse()Lmodels/SortOrder;.8ÑÄreverse	SortOrder"
-	_root_.models.SortOrder#"
-_root_.models.ÄàÄmodels"*
-_root_.models.NamedEnum#Ä@	NamedEnum"R
-_root_.models.SortOrder#key.2keyString"!
-_root_.scala.Predef.String#"s
-<_root_.models.SortOrder.Descending.name()Ljava/lang/String;.3nameString"!
-_root_.scala.Predef.String#"R
-_root_.scala.package.Seq#5SeqSeq.type""
-_root_.scala.collection.Seq."j
-1_root_.models.NamedEnum#name()Ljava/lang/String;.5ÑÄnameString"!
-_root_.scala.Predef.String#2´
-¯¯3*.apply[SortOrder with Product with Serializable{}]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.models.SortOrder#"
-$0_root_.scala.Serializable#
-_root_.scala.Product#:Scala211Bí	/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models
-
-sealed trait SortOrder extends NamedEnum {
-  override val key: String = "sortOrder"
-
-  override def toString: String = name
-
-  def reverse: SortOrder
-}
-
-object SortOrder extends NamedEnumSupport[SortOrder] {
-  case object Ascending extends SortOrder {
-    override def name: String = "asc"
-
-    override def reverse: SortOrder = Descending
-  }
-
-  case object Descending extends SortOrder {
-    override def name: String = "desc"
-
-    override def reverse: SortOrder = Ascending
-  }
-
-  override def all: Seq[SortOrder] = Seq(Ascending, Descending)
-}
-Japp/models/SortOrder.scala

@@ -1,702 +1,0 @@
-
-Æª#
-•®_root_.scala.package.Seq#9
-îö-_root_.utils.Conditionals.IfCondition#format.a
-Ω«W_root_.play.api.data.validation.Constraint.;_root_.play.api.data.validation.Constraint#p
-–‘f_root_.utils.Conditionals.IfCondition#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.(data)9
-ö	°	/_root_.utils.Conditionals.IfCondition#(mapping)8
-≈Œ._root_.uk.gov.voa.play.form.package.Condition#>
-ëù4_root_.utils.Conditionals.IfCondition#(defaultValue)3
-«»)_root_.utils.Conditionals.IfCondition#[T]5
-ûü)_root_.utils.Conditionals.IfCondition#[T]ç
-¨≥Ç_root_.utils.Conditionals.IfCondition#default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lutils/Conditionals/IfCondition;.(mapping)>
-◊„4_root_.utils.Conditionals.IfCondition#(defaultValue)'
-º	√	_root_.play.api.data.Mapping#ã
-´≤Ä_root_.utils.Conditionals.IfCondition#elseIf(Lscala/Function1;Lplay/api/data/Mapping;)Lutils/Conditionals/IfCondition;.(mapping)'
-ˆ˝_root_.play.api.data.Mapping#p
-∑ªf_root_.utils.Conditionals.IfCondition#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.(data)
-Ù˚_root_.scala.Boolean#
-œ—
-_root_.uk.k
-çía_root_.utils.Conditionals.IfCondition#unbindAndValidate(Ljava/lang/Object;)Lscala/Tuple2;.(value)&
-û§_root_.scala.package.Either#∫
-¸ÄØ_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.j
-ı˘`_root_.utils.Conditionals.IfCondition#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.%
-◊‹_root_.play.api.data.Forms.;
-∆œ1_root_.utils.Conditionals.IfCondition#(condition)0
-îü&_root_.utils.Conditionals.IfCondition#[
-˚åQ_root_.play.api.data.Mapping#unbindAndValidate(Ljava/lang/Object;)Lscala/Tuple2;.0
-…Õ&_root_.utils.Conditionals.IfCondition#ç
-†©Ç_root_.utils.Conditionals.IfCondition#elseIf(Lscala/Function1;Lplay/api/data/Mapping;)Lutils/Conditionals/IfCondition;.(condition)%
-ÈÔ_root_.scala.Predef.String#
-ÌÛ_root_.scala.Option#y
- 
-ÿ
-o_root_.utils.Conditionals.IfCondition#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.(addConstraints)
-÷Ÿ_root_.uk.gov.voa.3
-ˆ
-˜
-)_root_.utils.Conditionals.IfCondition#[T]0
-∏√&_root_.utils.Conditionals.IfCondition#!
-⁄ﬁ_root_.uk.gov.voa.play.'
-œ÷_root_.play.api.data.Mapping#ç
-€‡Ä_root_.utils.Conditionals.IfCondition#default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lutils/Conditionals/IfCondition;.(value)3
-ê
-ë
-)_root_.utils.Conditionals.IfCondition#[T];
-†™1_root_.utils.Conditionals.IfCondition#alwaysTrue.w
-ÎÒm_root_.utils.Conditionals.IfCondition#withPrefix(Ljava/lang/String;)Lutils/Conditionals/IfCondition;.(prefix)∫
-®
-¨
-Ø_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;..
-ÅÅ$_root_.java.lang.Object#`<init>`()V.'
-ñ
-ù
-_root_.play.api.data.Mapping#«
-≠
-∏
-º_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.(constraints)|
-ëìr_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.;
-∑æ/_root_.utils.Conditionals.IfCondition#(mapping)6
-î	ó	*_root_.utils.Conditionals.IfCondition#key.H
-Ÿ
-ﬁ
->_root_.scala.collection.SeqLike#toSeq()Lscala/collection/Seq;.l
-˝Å`_root_.utils.Conditionals.IfCondition#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.=
-°™1_root_.utils.Conditionals.IfCondition#(condition)3
-◊ÿ)_root_.utils.Conditionals.IfCondition#[T]3
-ÚÛ)_root_.utils.Conditionals.IfCondition#[T]
-§®_root_.play.|
-ëìr_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.°
-††î_root_.utils.Conditionals.IfCondition#`<init>`(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)V.>
-Ó˙4_root_.utils.Conditionals.IfCondition#(defaultValue).
-¡«$_root_.play.api.data.Mapping#format.0
-ÊÒ&_root_.utils.Conditionals.IfCondition#=
-ª
-∆
-3_root_.utils.Conditionals.IfCondition#(constraints)9
- 	—	/_root_.utils.Conditionals.IfCondition#(mapping)Ö
-æ≈y_root_.utils.Conditionals.IfCondition#default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lutils/Conditionals/IfCondition;.3
-»…)_root_.utils.Conditionals.IfCondition#[T]'
-¿«_root_.play.api.data.Mapping#p
-˙˛f_root_.utils.Conditionals.IfCondition#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.(data)2
-íù&_root_.utils.Conditionals.IfCondition##
-êì_root_.scala.package.Seq#1
-´¨'app/utils/Conditionals.scala@1822..18239
-ÿﬂ/_root_.utils.Conditionals.IfCondition#(mapping)9
-Û˙/_root_.utils.Conditionals.IfCondition#(mapping)ã
-«ÃÄ_root_.utils.Conditionals.IfCondition#default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lutils/Conditionals/IfCondition;.(value)0
-ÊÒ&_root_.utils.Conditionals.IfCondition#0
-ÈÏ&_root_.scala.collection.immutable.Nil.m
-¿≈a_root_.utils.Conditionals.IfCondition#unbindAndValidate(Ljava/lang/Object;)Lscala/Tuple2;.(value)*
-≤º _root_.play.api.data.validation.%
-ãê_root_.scala.package.Right.
-¬∆_root_.scala.Some.I
-Çã?_root_.play.api.data.FormError.;_root_.play.api.data.FormError#t
-Ô
-Ù
-h_root_.utils.Conditionals.IfCondition#unbind(Ljava/lang/Object;)Lscala/collection/immutable/Map;.(value)¬
-Åá∑_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.(orElse)
-©¨_root_.play.api.f
-ÆøZ_root_.utils.Conditionals.IfCondition#unbindAndValidate(Ljava/lang/Object;)Lscala/Tuple2;.9
-êó/_root_.utils.Conditionals.IfCondition#(mapping)3
-†°)_root_.utils.Conditionals.IfCondition#[T]{
-ı	É
-o_root_.utils.Conditionals.IfCondition#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.(addConstraints)a
-ÄÑW_root_.play.api.data.Mapping#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.%
-îö_root_.scala.Predef.String#
-∞≥_root_.scala.Any#É
-≥πw_root_.utils.Conditionals.IfCondition#elseIf(Lscala/Function1;Lplay/api/data/Mapping;)Lutils/Conditionals/IfCondition;.r
-ÇÜf_root_.utils.Conditionals.IfCondition#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.(data)'
-îõ_root_.play.api.data.Mapping#U
-óõK_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.√
-Œ’∏_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.(mapping)3
-Üá)_root_.utils.Conditionals.IfCondition#[T]5
-ÿ‚+_root_.play.api.data.validation.Constraint#;
-Æ	∂	/_root_.utils.Conditionals.IfCondition#mappings.0
-˙Ö&_root_.utils.Conditionals.IfCondition#)
-©≤_root_.play.api.data.FormError#=
-—€1_root_.utils.Conditionals.IfCondition#alwaysTrue.%
-ÿﬁ_root_.scala.Predef.String#8
-äê._root_.utils.Conditionals.IfCondition#(orElse)O
-À÷E_root_.utils.Conditionals.IfCondition#withDefault()Lscala/Function1;.è
-∆ÕÇ_root_.utils.Conditionals.IfCondition#default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lutils/Conditionals/IfCondition;.(mapping)
-Û˜_root_.play.0
-¶©&_root_.scala.collection.immutable.Nil.'
-Ÿ‡_root_.play.api.data.Mapping#
-ú¢_root_.scala.Option#6
-û°,_root_.scala.Option#get()Ljava/lang/Object;.
-⁄‡_root_.scala.Option#?
-«“3_root_.utils.Conditionals.IfCondition#(constraints);
-≠∂1_root_.utils.Conditionals.IfCondition#(condition)C
-≈»9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.m
-Ë
-Ó
-a_root_.utils.Conditionals.IfCondition#unbind(Ljava/lang/Object;)Lscala/collection/immutable/Map;.%
-çí_root_.play.api.data.Forms.3
-û
-ü
-)_root_.utils.Conditionals.IfCondition#[T]8
-êñ._root_.utils.Conditionals.IfCondition#(orElse)]
-‡ÍS_root_.play.api.data.Mapping#withPrefix(Ljava/lang/String;)Lplay/api/data/Mapping;.|
-€	›	r_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.%
-–÷_root_.scala.Predef.String#3
-Ùı)_root_.utils.Conditionals.IfCondition#[T]9
-ÂÏ/_root_.utils.Conditionals.IfCondition#(mapping)%
-·Á_root_.scala.Predef.String##
-∏	ª	_root_.scala.package.Seq#$
-Ö
-è
-_root_.scala.`<repeated>`##
-¨Ø_root_.scala.package.Seq#r
-ü§h_root_.utils.Conditionals.IfCondition#unbind(Ljava/lang/Object;)Lscala/collection/immutable/Map;.(value)k
-Î	Ù	__root_.utils.Conditionals.IfCondition#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.
-¸Ä_root_.play.api.data.3
-˛ˇ)_root_.utils.Conditionals.IfCondition#[T]3
-·‚)_root_.utils.Conditionals.IfCondition#[T]b
-òûX_root_.play.api.data.Mapping#unbind(Ljava/lang/Object;)Lscala/collection/immutable/Map;.3
-‚„)_root_.utils.Conditionals.IfCondition#[T]∫
-¸ÄØ_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.è
-∫√Ç_root_.utils.Conditionals.IfCondition#elseIf(Lscala/Function1;Lplay/api/data/Mapping;)Lutils/Conditionals/IfCondition;.(condition)o
-›‰e_root_.play.api.data.Forms.default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lplay/api/data/Mapping;.q
-ú¶e_root_.utils.Conditionals.IfCondition#withPrefix(Ljava/lang/String;)Lutils/Conditionals/IfCondition;.
-ÊÍ_root_.scala.None.&
-ˆÇ_root_.utils.Conditionals.3
-ãí'app/utils/Conditionals.scala@2315..2322"
-˙
-˝
-_root_.scala.Predef.Map#%
-Øµ_root_.scala.Predef.String#∫
-õüØ_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.@
-Ãÿ4_root_.utils.Conditionals.IfCondition#(defaultValue)#
-·‰_root_.scala.package.Seq#M
-ÅäC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.%
-˛
-Ñ_root_.scala.Predef.String#4
-Û*_root_.utils.Conditionals.IfCondition#key.8
-¨µ._root_.uk.gov.voa.play.form.package.Condition#»
-†¨Ω_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.(defaultValue)0
-“	⁄	&_root_.play.api.data.Mapping#mappings.ç
-–◊Ä_root_.utils.Conditionals.IfCondition#elseIf(Lscala/Function1;Lplay/api/data/Mapping;)Lutils/Conditionals/IfCondition;.(mapping)3
-µ∂)_root_.utils.Conditionals.IfCondition#[T]3
-ƒ≈)_root_.utils.Conditionals.IfCondition#[T]%
-§™_root_.scala.Predef.String#%
-Üå_root_.scala.Predef.String#"
-›‡_root_.scala.Predef.Map#
-“’_root_.uk.gov.
-¯˚_root_.play.api.)
-ÂÓ_root_.play.api.data.FormError#:
-àé._root_.utils.Conditionals.IfCondition#(orElse)p
-Öâf_root_.utils.Conditionals.IfCondition#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.(data)3
-ÚÛ)_root_.utils.Conditionals.IfCondition#[T]"
-Ãœ_root_.scala.Predef.Map#0
-îü&_root_.utils.Conditionals.IfCondition.O
-∂¡E_root_.utils.Conditionals.IfCondition#withDefault()Lscala/Function1;.o
-ÂÔe_root_.utils.Conditionals.IfCondition#withPrefix(Ljava/lang/String;)Lutils/Conditionals/IfCondition;.¬
-Åá∑_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.(orElse)"
-àã_root_.scala.Predef.Map#&
-ﬂ„_root_.uk.gov.voa.play.form.#
-‘◊_root_.scala.package.Seq#3
-ûü'app/utils/Conditionals.scala@1822..18238
-‰Ì._root_.uk.gov.voa.play.form.package.Condition#0
-îü&_root_.utils.Conditionals.IfCondition.y
-ß≠m_root_.utils.Conditionals.IfCondition#withPrefix(Ljava/lang/String;)Lutils/Conditionals/IfCondition;.(prefix)9
-π¿/_root_.utils.Conditionals.IfCondition#(mapping)
-ÂÍ_root_.utils.ò
-«
-…
-ç_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.Q
-‡ÎE_root_.utils.Conditionals.IfCondition#withDefault()Lscala/Function1;.+
-¢	•	!_root_.play.api.data.Mapping#key.3
-„‰)_root_.utils.Conditionals.IfCondition#[T]6
-˚˛,_root_.scala.Option#get()Ljava/lang/Object;.3
-·‚)_root_.utils.Conditionals.IfCondition#[T]1
-Ø∂'app/utils/Conditionals.scala@2351..23588
-äê._root_.utils.Conditionals.IfCondition#(orElse)
-≠±_root_.play.api.data.%
-åí_root_.scala.Predef.String#"c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#"5
- _root_.play.api.data.validation.ÄàÄ
-validation"T
-_root_.scala.package.Right.5Right
-Right.type"
-_root_.scala.util.Right."€
-9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.ùÑÄmap&[B] => (f: Function1[A, B]): Option[B]"
-_root_.scala.Function1#"
-_root_.scala.Option#[A]"D
-<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"
-#_root_.scala.Option#"D
-$%<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"@
-+_root_.play.api.data.validation.Constraint#Ä†Ä
-Constraint"Ó
-Ø_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.πcopyô[T] => (condition: Condition, mapping: Mapping[T], defaultValue: Option[T], orElse: Seq[IfCondition[T]], constraints: Seq[Constraint[T]]): IfCondition[T]"6
-._root_.uk.gov.voa.play.form.package.Condition#"%
-'._root_.play.api.data.Mapping#"ª
-/0≤_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.[T]"
-AG_root_.scala.Option#"ª
-HI≤_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.[T]"!
-TW_root_.scala.package.Seq#".
-Xc&_root_.utils.Conditionals.IfCondition#"ª
-de≤_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.[T]"!
-vy_root_.scala.package.Seq#"4
-zÑ+_root_.play.api.data.validation.Constraint#"Ω
-ÖÜ≤_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.[T]"0
-ãñ&_root_.utils.Conditionals.IfCondition#"Ω
-óò≤_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.[T]"ı
-Ä_root_.utils.Conditionals.IfCondition#elseIf(Lscala/Function1;Lplay/api/data/Mapping;)Lutils/Conditionals/IfCondition;.(mapping)pÄmapping
-Mapping[T]"#
-_root_.play.api.data.Mapping#"1
-	)_root_.utils.Conditionals.IfCondition#[T]"
-_root_.scala.Any#	Ä†Any"™
-y_root_.utils.Conditionals.IfCondition#default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lutils/Conditionals/IfCondition;.¨default/(mapping: Mapping[T], value: T): IfCondition[T]"%
-
-_root_.play.api.data.Mapping#"1
-)_root_.utils.Conditionals.IfCondition#[T]"1
-)_root_.utils.Conditionals.IfCondition#[T]".
-!,&_root_.utils.Conditionals.IfCondition#"1
--.)_root_.utils.Conditionals.IfCondition#[T]"◊
-._root_.utils.Conditionals.IfCondition#(orElse)§ÅorElseSeq[IfCondition[T]]"
-_root_.scala.package.Seq#".
-&_root_.utils.Conditionals.IfCondition#"1
-)_root_.utils.Conditionals.IfCondition#[T]"¡
-K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.Òfind%(p: Function1[A, Boolean]): Option[A]"
-_root_.scala.Function1#"0
-(_root_.scala.collection.IterableLike#[A]"
-_root_.scala.Boolean#"
-"_root_.scala.Option#"0
-#$(_root_.scala.collection.IterableLike#[A]"Y
-!_root_.play.api.data.Mapping#key.4ÅÄkeyString"!
-_root_.scala.Predef.String#"π
-Ω_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.(defaultValue)ˆÄdefaultValue	Option[T]"
-_root_.scala.Option#"ª
-≤_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.[T]"è
-ç_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.¸++Z[B, That] => (that: GenTraversableOnce[B])(implicit bf: CanBuildFrom[Repr, B, That]): That"3
-&+_root_.scala.collection.GenTraversableOnce#"ô
-'(ê_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
-8D-_root_.scala.collection.generic.CanBuildFrom#"6
-EI._root_.scala.collection.TraversableLike#[Repr]"ô
-KLê_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"ú
-NRì_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"ú
-VZì_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"0
-_root_.utils.Conditionals.ÄÑConditionals"◊
-l_root_.play.api.data.validation.Constraint#`<init>`(Lscala/Option;Lscala/collection/Seq;Lscala/Function1;)V.Ê<init>X(name: Option[String], args: Seq[Any])(f: Function1[T, ValidationResult]): Constraint[T]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"!
- _root_.scala.package.Seq#"
-!$_root_.scala.Any#"
-*3_root_.scala.Function1#"6
-45._root_.play.api.data.validation.Constraint#[T]"9
-7G1_root_.play.api.data.validation.ValidationResult#"3
-KU+_root_.play.api.data.validation.Constraint#"6
-VW._root_.play.api.data.validation.Constraint#[T]"ê
-__root_.utils.Conditionals.IfCondition#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.¨	verifying7(addConstraints: <repeated>[Constraint[T]]): Mapping[T]""
-_root_.scala.`<repeated>`#"3
-&+_root_.play.api.data.validation.Constraint#"1
-'()_root_.utils.Conditionals.IfCondition#[T]"%
--4_root_.play.api.data.Mapping#"1
-56)_root_.utils.Conditionals.IfCondition#[T]"√
-Ä_root_.utils.Conditionals.IfCondition#default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lutils/Conditionals/IfCondition;.(value)>ÄvalueT"/
-)_root_.utils.Conditionals.IfCondition#[T]"£
-4_root_.utils.Conditionals.IfCondition#(defaultValue)kÅdefaultValue	Option[T]"
-_root_.scala.Option#"1
-)_root_.utils.Conditionals.IfCondition#[T]"$
-_root_.play.api.data.ÄàÄdata"Ú
-$_root_.play.api.data.Mapping#format.…format Option[Tuple2[String, Seq[Any]]]"
-_root_.scala.Option#"
-_root_.scala.Tuple2#"#
-_root_.scala.Predef.String#"!
-_root_.scala.package.Seq#"
-_root_.scala.Any#"ì
-._root_.uk.gov.voa.play.form.package.Condition#‡@	Condition'Function1[Map[String, String], Boolean]"
-	_root_.scala.Function1#" 
-
-_root_.scala.Predef.Map#"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"
-&_root_.scala.Boolean#"Ï
-∑_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.(orElse)ØÄorElseSeq[IfCondition[T]]"
-_root_.scala.package.Seq#".
-&_root_.utils.Conditionals.IfCondition#"ª
-≤_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.[T]"˙
-º_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.(constraints)∏ÄconstraintsSeq[Constraint[T]]"
-_root_.scala.package.Seq#"3
-+_root_.play.api.data.validation.Constraint#"ª
-≤_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.[T]"Û
-f_root_.utils.Conditionals.IfCondition#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.(data)àÄdataMap[String, String]"
-_root_.scala.Predef.Map#"#
-
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"
-_root_.play.api.
-ÄàÄapi"¨
-o_root_.utils.Conditionals.IfCondition#verifying(Lscala/collection/Seq;)Lplay/api/data/Mapping;.(addConstraints)∏ÄaddConstraints<repeated>[Constraint[T]]" 
-
-_root_.scala.`<repeated>`#"3
-+_root_.play.api.data.validation.Constraint#"1
-)_root_.utils.Conditionals.IfCondition#[T]"∂
-`_root_.utils.Conditionals.IfCondition#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;.—bind6(data: Map[String, String]): Either[Seq[FormError], T]" 
-
-_root_.scala.Predef.Map#"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"$
-#_root_.scala.package.Either#"!
-$'_root_.scala.package.Seq#"'
-(1_root_.play.api.data.FormError#"1
-45)_root_.utils.Conditionals.IfCondition#[T]"π
-∏_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.(mapping)˚Ämapping
-Mapping[T]"#
-_root_.play.api.data.Mapping#"ª
-	≤_root_.utils.Conditionals.IfCondition#copy(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.[T]"3
-_root_.play.api.data.FormError#Ä†Ä	FormError"4
-&_root_.scala.collection.immutable.Nil.
-ÄÑàNil"‘
-E_root_.utils.Conditionals.IfCondition#withDefault()Lscala/Function1;.äÑÄwithDefault$Function1[Option[T], IfCondition[T]]"
-	_root_.scala.Function1#"
-
-_root_.scala.Option#"1
-)_root_.utils.Conditionals.IfCondition#[T]".
- &_root_.utils.Conditionals.IfCondition#"1
-!")_root_.utils.Conditionals.IfCondition#[T]"3
-)_root_.utils.Conditionals.IfCondition#[T]ÄT"[
-!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
-_root_.scala.Boolean#"∞
-a_root_.utils.Conditionals.IfCondition#unbind(Ljava/lang/Object;)Lscala/collection/immutable/Map;. unbind(value: T): Map[String, String]"1
-	)_root_.utils.Conditionals.IfCondition#[T]" 
-_root_.scala.Predef.Map#"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"[
-_root_.scala.Predef.Map#?MapMap.type",
-&_root_.scala.collection.immutable.Map."-
-_root_.scala.`<repeated>`#Ä 
-<repeated>"ç
-'app/utils/Conditionals.scala@2351..2358bx$23	Option[T]"
-_root_.scala.Option#"1
-)_root_.utils.Conditionals.IfCondition#[T]"î
-î_root_.utils.Conditionals.IfCondition#`<init>`(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)V.˙<init>í(condition: Condition, mapping: Mapping[T], defaultValue: Option[T], orElse: Seq[IfCondition[T]], constraints: Seq[Constraint[T]]): IfCondition[T]"6
-._root_.uk.gov.voa.play.form.package.Condition#"%
- '_root_.play.api.data.Mapping#"1
-())_root_.utils.Conditionals.IfCondition#[T]"
-:@_root_.scala.Option#"1
-AB)_root_.utils.Conditionals.IfCondition#[T]"!
-MP_root_.scala.package.Seq#".
-Q\&_root_.utils.Conditionals.IfCondition#"1
-]^)_root_.utils.Conditionals.IfCondition#[T]"!
-or_root_.scala.package.Seq#"3
-s}+_root_.play.api.data.validation.Constraint#"1
-~)_root_.utils.Conditionals.IfCondition#[T]"0
-Ñè&_root_.utils.Conditionals.IfCondition#"3
-êë)_root_.utils.Conditionals.IfCondition#[T]"ë
-'app/utils/Conditionals.scala@2315..2322fÄdefault	Option[T]"
-_root_.scala.Option#"1
-)_root_.utils.Conditionals.IfCondition#[T]"$
-_root_.scala.Option#Ä†Option"
-
-_root_.uk.	ÄàÄuk"
-_root_.uk.gov.
-ÄàÄgov"¢
-e_root_.utils.Conditionals.IfCondition#withPrefix(Ljava/lang/String;)Lutils/Conditionals/IfCondition;.∏
-withPrefix (prefix: String): IfCondition[T]"#
-	_root_.scala.Predef.String#".
-&_root_.utils.Conditionals.IfCondition#"1
-)_root_.utils.Conditionals.IfCondition#[T]"-
-_root_.play.api.data.Mapping#Ä@Mapping"+
-_root_.uk.gov.voa.play.form.ÄàÄform"˜
-Ç_root_.utils.Conditionals.IfCondition#default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lutils/Conditionals/IfCondition;.(mapping)pÄmapping
-Mapping[T]"#
-_root_.play.api.data.Mapping#"1
-	)_root_.utils.Conditionals.IfCondition#[T]"Â
-3_root_.utils.Conditionals.IfCondition#(constraints)≠ÅconstraintsSeq[Constraint[T]]"
-_root_.scala.package.Seq#"3
-+_root_.play.api.data.validation.Constraint#"1
-)_root_.utils.Conditionals.IfCondition#[T]"!
-_root_.scala.None.ÄÑàNone"˚
--_root_.utils.Conditionals.IfCondition#format.…format Option[Tuple2[String, Seq[Any]]]"
-_root_.scala.Option#"
-_root_.scala.Tuple2#"#
-_root_.scala.Predef.String#"!
-_root_.scala.package.Seq#"
-_root_.scala.Any#"¶
-Q_root_.play.api.data.Mapping#unbindAndValidate(Ljava/lang/Object;)Lscala/Tuple2;.–ÑÄunbindAndValidate7(value: T): Tuple2[Map[String, String], Seq[FormError]]"(
-	 _root_.play.api.data.Mapping#[T]"
-_root_.scala.Tuple2#" 
-_root_.scala.Predef.Map#"#
-_root_.scala.Predef.String#"#
-%_root_.scala.Predef.String#"!
-(+_root_.scala.package.Seq#"'
-,5_root_.play.api.data.FormError#"&
-_root_.scala.Boolean#Ä†Boolean"x
-&_root_.play.api.data.Mapping#mappings.NÅÄmappingsSeq[play.api.data.Mapping[_]]"
-_root_.scala.package.Seq#"§
->_root_.scala.collection.SeqLike#toSeq()Lscala/collection/Seq;.btoSeqSeq[A]""
-_root_.scala.collection.Seq#"+
-#_root_.scala.collection.SeqLike#[A]"£
-/_root_.utils.Conditionals.IfCondition#(mapping)pÅmapping
-Mapping[T]"#
-_root_.play.api.data.Mapping#"1
-	)_root_.utils.Conditionals.IfCondition#[T]";
-&_root_.utils.Conditionals.IfCondition.ÄÑIfCondition"<
-&_root_.utils.Conditionals.IfCondition#Ä†ÄIfCondition"
-_root_.play.ÄàÄplay"
-/_root_.utils.Conditionals.IfCondition#mappings.LmappingsSeq[play.api.data.Mapping[_]]"
-_root_.scala.package.Seq#"¸
-S_root_.play.api.data.Mapping#withPrefix(Ljava/lang/String;)Lplay/api/data/Mapping;.§ÑÄ
-withPrefix(prefix: String): Mapping[T]"#
-	_root_.scala.Predef.String#"%
-_root_.play.api.data.Mapping#"(
- _root_.play.api.data.Mapping#[T]"£
-a_root_.utils.Conditionals.IfCondition#unbindAndValidate(Ljava/lang/Object;)Lscala/Tuple2;.(value)>ÄvalueT"/
-)_root_.utils.Conditionals.IfCondition#[T]" 
-_root_.uk.gov.voa.
-ÄàÄvoa"¢
-'app/utils/Conditionals.scala@1822..1823wÄmIfCondition[T]",
-&_root_.utils.Conditionals.IfCondition#"1
-)_root_.utils.Conditionals.IfCondition#[T]"|
- _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
-
-_root_.scala.Option#"
-_root_.scala.Option#[A]"[
-,_root_.scala.Option#get()Ljava/lang/Object;.+ÑÄgetA"
-_root_.scala.Option#[A]"†
-X_root_.play.api.data.Mapping#unbind(Ljava/lang/Object;)Lscala/collection/immutable/Map;.√ÑÄunbind(value: T): Map[String, String]"(
-	 _root_.play.api.data.Mapping#[T]" 
-_root_.scala.Predef.Map#"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"ß
-m_root_.utils.Conditionals.IfCondition#withPrefix(Ljava/lang/String;)Lutils/Conditionals/IfCondition;.(prefix)6ÄprefixString"!
-_root_.scala.Predef.String#"Ñ
-1_root_.utils.Conditionals.IfCondition#(condition)OÅ	condition	Condition"4
-	._root_.uk.gov.voa.play.form.package.Condition#"ª
-C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
-_root_.scala.`<byname>`#"N
-F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
- F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"™
-h_root_.utils.Conditionals.IfCondition#unbind(Ljava/lang/Object;)Lscala/collection/immutable/Map;.(value)>ÄvalueT"/
-)_root_.utils.Conditionals.IfCondition#[T]"
-_root_.utils.ÄàÄutils"÷
-Ç_root_.utils.Conditionals.IfCondition#elseIf(Lscala/Function1;Lplay/api/data/Mapping;)Lutils/Conditionals/IfCondition;.(condition)OÄ	condition	Condition"4
-	._root_.uk.gov.voa.play.form.package.Condition#"R
-_root_.scala.package.Seq#5SeqSeq.type""
-_root_.scala.collection.Seq."&
-_root_.uk.gov.voa.play.ÄàÄplay"`
-*_root_.utils.Conditionals.IfCondition#key.2keyString"!
-_root_.scala.Predef.String#"∏
-w_root_.utils.Conditionals.IfCondition#elseIf(Lscala/Function1;Lplay/api/data/Mapping;)Lutils/Conditionals/IfCondition;.ºelseIf;(condition: Condition, mapping: Mapping[T]): IfCondition[T]"6
-._root_.uk.gov.voa.play.form.package.Condition#"%
- '_root_.play.api.data.Mapping#"1
-())_root_.utils.Conditionals.IfCondition#[T]".
--8&_root_.utils.Conditionals.IfCondition#"1
-9:)_root_.utils.Conditionals.IfCondition#[T]"X
-_root_.scala.package.Either#8EitherEither.type"
-_root_.scala.util.Either."Õ
-e_root_.play.api.data.Forms.default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lplay/api/data/Mapping;.„default2[A] => (mapping: Mapping[A], value: A): Mapping[A]"%
-_root_.play.api.data.Mapping#"p
-h_root_.play.api.data.Forms.default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lplay/api/data/Mapping;.[A]"p
-$%h_root_.play.api.data.Forms.default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lplay/api/data/Mapping;.[A]"%
-(/_root_.play.api.data.Mapping#"p
-01h_root_.play.api.data.Forms.default(Lplay/api/data/Mapping;Ljava/lang/Object;)Lplay/api/data/Mapping;.[A]"*
-_root_.play.api.data.Forms.ÄÑForms"¶
-W_root_.play.api.data.Mapping#bind(Lscala/collection/immutable/Map;)Lscala/util/Either;. ÑÄbind6(data: Map[String, String]): Either[Seq[FormError], T]" 
-
-_root_.scala.Predef.Map#"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"$
-#_root_.scala.package.Either#"!
-$'_root_.scala.package.Seq#"'
-(1_root_.play.api.data.FormError#"(
-45 _root_.play.api.data.Mapping#[T]"ó
-1_root_.utils.Conditionals.IfCondition#alwaysTrue.·
-alwaysTrue'Function1[Map[String, String], Boolean]"
-	_root_.scala.Function1#" 
-
-_root_.scala.Predef.Map#"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"
-&_root_.scala.Boolean#" 
-_root_.scala.Some.
-ÄÑSome"∂
-Z_root_.utils.Conditionals.IfCondition#unbindAndValidate(Ljava/lang/Object;)Lscala/Tuple2;.◊unbindAndValidate7(value: T): Tuple2[Map[String, String], Seq[FormError]]"1
-	)_root_.utils.Conditionals.IfCondition#[T]"
-_root_.scala.Tuple2#" 
-_root_.scala.Predef.Map#"#
-_root_.scala.Predef.String#"#
-%_root_.scala.Predef.String#"!
-(+_root_.scala.package.Seq#"'
-,5_root_.play.api.data.FormError#"∞
-r_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.π:+F[B, That] => (elem: B)(implicit bf: CanBuildFrom[Repr, B, That]): That"}
-u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
-$0-_root_.scala.collection.generic.CanBuildFrom#".
-15&_root_.scala.collection.SeqLike#[Repr]"}
-78u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ä
-:>x_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ä
-BFx_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"ç
-i_root_.play.api.data.FormError#`<init>`(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/Seq;)V.ü<init>?(key: String, messages: Seq[String], args: Seq[Any]): FormError"#
-_root_.scala.Predef.String#"!
-_root_.scala.package.Seq#"#
-"_root_.scala.Predef.String#"!
-+._root_.scala.package.Seq#"
-/2_root_.scala.Any#"'
-6?_root_.play.api.data.FormError#2⁄
-»»*[Either[Seq[FormError], T]]
-_star_.1
-)_root_.utils.Conditionals.IfCondition#[T]'
-_root_.play.api.data.FormError#$
-_root_.scala.package.Either#!
-	_root_.scala.package.Seq#2m
-∂∂*.apply
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2P
-ÕÕ*[T]
-_star_.1
-)_root_.utils.Conditionals.IfCondition#[T]2Ã
-êê*.apply[Nothing, T]
-_star_.L
-D_root_.scala.util.Right.apply(Ljava/lang/Object;)Lscala/util/Right;.
-_root_.scala.Nothing#1
-)_root_.utils.Conditionals.IfCondition#[T]2ò
-∆∆
-*.apply[T]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.1
-	)_root_.utils.Conditionals.IfCondition#[T]2m
-¡¡*.apply
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2®
-ìì&*[IfCondition[T], Seq[IfCondition[T]]]
-_star_.1
-)_root_.utils.Conditionals.IfCondition#[T].
-&_root_.utils.Conditionals.IfCondition#.
-!&_root_.utils.Conditionals.IfCondition#!
-_root_.scala.package.Seq#1
-"#)_root_.utils.Conditionals.IfCondition#[T]2≥
-‚	‚	>*(scala.collection.Seq.canBuildFrom[play.api.data.Mapping[_]])
-_star_.Z
-#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2ê
-ﬁ
-ﬁ
-3*(scala.collection.Seq.canBuildFrom[Constraint[T]])
-_star_.1
-/0)_root_.utils.Conditionals.IfCondition#[T]3
-$.+_root_.play.api.data.validation.Constraint#Z
-#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2∞
-…
-…
-$*[Constraint[T], Seq[Constraint[T]]]
-_star_.3
-+_root_.play.api.data.validation.Constraint#1
-)_root_.utils.Conditionals.IfCondition#[T]1
- !)_root_.utils.Conditionals.IfCondition#[T]!
-_root_.scala.package.Seq#3
-+_root_.play.api.data.validation.Constraint#2P
-¨
-¨
-*[T]
-_star_.1
-)_root_.utils.Conditionals.IfCondition#[T]2P
-üü*[T]
-_star_.1
-)_root_.utils.Conditionals.IfCondition#[T]2v
-›	›	:*[play.api.data.Mapping[_], Seq[play.api.data.Mapping[_]]]
-_star_.!
-_root_.scala.package.Seq#2⁄
-ää*[Either[Seq[FormError], T]]
-_star_.1
-)_root_.utils.Conditionals.IfCondition#[T]'
-_root_.play.api.data.FormError#$
-_root_.scala.package.Either#!
-	_root_.scala.package.Seq#2m
-÷÷*.apply
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2P
-ÄÄ*[T]
-_star_.1
-)_root_.utils.Conditionals.IfCondition#[T]2å
-¥¥4*(scala.collection.Seq.canBuildFrom[IfCondition[T]])
-_star_.1
-01)_root_.utils.Conditionals.IfCondition#[T].
-$/&_root_.utils.Conditionals.IfCondition#Z
-#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2í
-üü
-*.apply[T]
-_star_.π
-∞_root_.utils.Conditionals.IfCondition.apply(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.1
-	)_root_.utils.Conditionals.IfCondition#[T]2í
-üü
-*.apply[T]
-_star_.π
-∞_root_.utils.Conditionals.IfCondition.apply(Lscala/Function1;Lplay/api/data/Mapping;Lscala/Option;Lscala/collection/Seq;Lscala/collection/Seq;)Lutils/Conditionals/IfCondition;.1
-	)_root_.utils.Conditionals.IfCondition#[T]2m
-œœ*.apply
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2´
-ìì&*[IfCondition[T], Seq[IfCondition[T]]]
-_star_.1
-)_root_.utils.Conditionals.IfCondition#[T].
-&_root_.utils.Conditionals.IfCondition#.
-!&_root_.utils.Conditionals.IfCondition#$
-_root_.scala.collection.Seq#1
-"#)_root_.utils.Conditionals.IfCondition#[T]2å
-≥≥4*(scala.collection.Seq.canBuildFrom[IfCondition[T]])
-_star_.1
-01)_root_.utils.Conditionals.IfCondition#[T].
-$/&_root_.utils.Conditionals.IfCondition#Z
-#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2P
-ÄÄ*[T]
-_star_.1
-)_root_.utils.Conditionals.IfCondition#[T]2P
-‰‰*[T]
-_star_.1
-)_root_.utils.Conditionals.IfCondition#[T]:Scala211Bæ/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package utils
-
-import play.api.data.{FormError, Forms, Mapping}
-import play.api.data.validation.Constraint
-import uk.gov.voa.play.form.Condition
-
-object Conditionals {
-  case class IfCondition[T](condition: Condition, mapping: Mapping[T], defaultValue: Option[T] = None,
-                            orElse: Seq[IfCondition[T]] = Nil,
-                            constraints: Seq[Constraint[T]] = Nil) extends Mapping[T] {
-    override val format: Option[(String, Seq[Any])] = mapping.format
-
-    val alwaysTrue: Map[String, String] => Boolean = { _ => true }
-    val key = mapping.key
-    val mappings: Seq[Mapping[_]] = mapping.mappings :+ this
-    def verifying(addConstraints: Constraint[T]*): Mapping[T] = this.copy(constraints = constraints ++ addConstraints.toSeq)
-    def unbind(value: T): Map[String, String] = mapping.unbind(value)
-    def unbindAndValidate(value: T): (Map[String, String], Seq[FormError]) = mapping.unbindAndValidate(value)
-    def withPrefix(prefix: String): IfCondition[T] = copy(mapping = mapping.withPrefix(prefix))
-
-    def bind(data: Map[String, String]): Either[Seq[FormError], T] = {
-      if (condition(data)) Forms.default(mapping, defaultValue.get).bind(data) else orElse.find { m =>
-        m.condition(data)
-      }.map(_.withDefault(defaultValue).withPrefix(key).bind(data)).getOrElse(Right(defaultValue.get))
-    }
-
-    def elseIf(condition: Condition, mapping: Mapping[T]): IfCondition[T] = this.copy(orElse = orElse :+ IfCondition(condition, mapping))
-
-    def default(mapping: Mapping[T], value: T): IfCondition[T] = this.copy(orElse = orElse :+ IfCondition(alwaysTrue, mapping)).withDefault(Some(value))
-
-    private def withDefault: Option[T] => IfCondition[T] = default => this.copy(defaultValue = default)
-  }
-}
-Japp/utils/Conditionals.scala

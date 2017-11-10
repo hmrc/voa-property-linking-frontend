@@ -1,207 +1,0 @@
-
-Ø\é
-ÄÜÅ_root_.connectors.SubmissionIdConnector#get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(prefix)
-ı˚_root_.config.WSHttp#ª
-Œ—∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-îñ
-_root_.uk.?
-≥¡5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#0
-¨≤&_root_.uk.gov.hmrc.play.config.inject.A
-Öã7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#%
-àé_root_.scala.Predef.String#:
-ÔÛ._root_.connectors.SubmissionIdConnector#(http)"
-†§_root_.uk.gov.hmrc.play.
-ÂÔ_root_.connectors."
-‰Ó_root_.scala.concurrent.
-ëì
-_root_.uk.â
-†¢}_root_.connectors.SubmissionIdConnector#get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)I
-Çà?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#Q
-‰ÂG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.)
-¥∫_root_.scala.concurrent.Future#%
-≤∏_root_.scala.Predef.String#8
-…Õ._root_.connectors.SubmissionIdConnector#(http)
-¯˝_root_.javax.
-õü_root_.uk.gov.hmrc.
-óö_root_.uk.gov.
-…œ_root_.config.4
-∑Ã(_root_.connectors.SubmissionIdConnector#L
-‚„B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.
-òú_root_.uk.gov.hmrc.:
-⁄·0_root_.connectors.SubmissionIdConnector#baseUrl.L
-ﬁﬂB_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.
-ﬁ„_root_.scala.)
-•´_root_.uk.gov.hmrc.play.config.:
-ª¡0_root_.connectors.SubmissionIdConnector#(config)<
-◊›0_root_.connectors.SubmissionIdConnector#(config)W
-¢ØM_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#¢
-÷÷ï_root_.connectors.SubmissionIdConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.
-îó_root_.uk.gov.?
-ﬂÌ5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#<
-©∞0_root_.connectors.SubmissionIdConnector#baseUrl.0
-§±&_root_.uk.gov.hmrc.http.HeaderCarrier#f
-¬…\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.3
-äö)_root_.scala.concurrent.ExecutionContext#%
-Œ‘_root_.javax.inject.Inject#5
-–÷+_root_.config.WSHttp.;_root_.config.WSHttp#å
-ı˚Å_root_.connectors.SubmissionIdConnector#get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(prefix)
-˛Ñ_root_.javax.inject.%
-ª¡_root_.scala.Predef.String#]
-ÄS_root_.scala.concurrent.ExecutionContext.;_root_.scala.concurrent.ExecutionContext#%
-“ÿ_root_.scala.Predef.String#8
-Üà,_root_.connectors.SubmissionIdConnector#(ec)"
-ù°_root_.uk.gov.hmrc.http.Q
-‡·G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.1
-‘‘'_root_.javax.inject.Inject#`<init>`()V.Ö
-¸ˇy_root_.connectors.SubmissionIdConnector#get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;."$
-_root_.config.WSHttp#Ä@WSHttp"'
-_root_.connectors.ÄàÄ
-connectors"å
-0_root_.connectors.SubmissionIdConnector#(config)XÄconfigServicesConfig";
-5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"{
-,_root_.connectors.SubmissionIdConnector#(ec)KÄÅ ecExecutionContext"/
-)_root_.scala.concurrent.ExecutionContext#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"∆
-}_root_.connectors.SubmissionIdConnector#get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"û
-B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.XÑÄ+(x$1: Any): String"
-	_root_.scala.Any#" 
-_root_.java.lang.String#"'
-_root_.uk.gov.hmrc.http.ÄàÄhttp"
-_root_.javax.ÄàÄjavax"F
-(_root_.connectors.SubmissionIdConnector#Ä SubmissionIdConnector"º
-Å_root_.connectors.SubmissionIdConnector#get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(prefix)6ÄprefixString"!
-_root_.scala.Predef.String#"Ê
-y_root_.connectors.SubmissionIdConnector#get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Ëget<(prefix: String)(implicit hc: HeaderCarrier): Future[String]"#
-	_root_.scala.Predef.String#".
-+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-.4_root_.scala.concurrent.Future#"#
-5;_root_.scala.Predef.String#".
-_root_.scala.concurrent.Future#Ä@Future"L
-5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig",
-_root_.javax.inject.Inject#Ä†ÄInject"7
-&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"
-
-_root_.uk.	ÄàÄuk"%
-_root_.javax.inject.ÄàÄinject"‘
-\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.tbaseUrl(serviceName: String): String"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"
-_root_.uk.gov.
-ÄàÄgov"˜
-ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
-_root_.scala.Option#"6
-$._root_.uk.gov.hmrc.http.logging.Authorization#"
-/5_root_.scala.Option#"'
-6<_root_.uk.gov.hmrc.http.UserId#"
-FL_root_.scala.Option#"&
-MR_root_.uk.gov.hmrc.http.Token#"
-`f_root_.scala.Option#"5
-gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
-Åá_root_.scala.Option#"4
-àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
-ü•_root_.scala.Option#"4
-¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
-¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
-◊€_root_.scala.Long#"#
-ÎÓ_root_.scala.package.Seq#"
-Ôı_root_.scala.Tuple2#"%
-ˆ¸_root_.scala.Predef.String#"%
-˛Ñ_root_.scala.Predef.String#"
-ñú_root_.scala.Option#"%
-ù£_root_.scala.Predef.String#"
-∂º_root_.scala.Option#"%
-Ω√_root_.scala.Predef.String#"
-œ’_root_.scala.Option#"%
-÷‹_root_.scala.Predef.String#"
-ÈÔ_root_.scala.Option#"%
-ˆ_root_.scala.Predef.String#"
-Éâ_root_.scala.Option#"%
-äê_root_.scala.Predef.String#"
-•´_root_.scala.Option#";
-¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
-Õ–_root_.scala.package.Seq#"
-—◊_root_.scala.Tuple2#"%
-ÿﬁ_root_.scala.Predef.String#"%
-‡Ê_root_.scala.Predef.String#"0
-Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"i
-'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
-(): Inject"#
-
-_root_.javax.inject.Inject#"B
-)_root_.scala.concurrent.ExecutionContext#Ä@ExecutionContext"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"∆
-ï_root_.connectors.SubmissionIdConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.´<init>\(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): SubmissionIdConnector"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"1
-4D)_root_.scala.concurrent.ExecutionContext#"0
-G\(_root_.connectors.SubmissionIdConnector#"`
-._root_.connectors.SubmissionIdConnector#(http).ÄhttpWSHttp"
-_root_.config.WSHttp#"0
-_root_.uk.gov.hmrc.play.config.ÄàÄconfig"÷
-G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
-_root_.scala.`<repeated>`#"
-_root_.scala.Any#"#
-_root_.scala.Predef.String#">
-&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"
-_root_.config.ÄàÄconfig"
-_root_.scala.ÄàÄscala"˛
-∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.»GETd[A] => (url: String)(implicit rds: HttpReads[A], hc: HeaderCarrier, ec: ExecutionContext): Future[A]"#
-_root_.scala.Predef.String#"*
-#,"_root_.uk.gov.hmrc.http.HttpReads#"º
--.≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]".
-5B&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
-HX)_root_.scala.concurrent.ExecutionContext#"'
-[a_root_.scala.concurrent.Future#"º
-bc≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"l
-0_root_.connectors.SubmissionIdConnector#baseUrl.8ÅÄ@baseUrlString"!
-_root_.scala.Predef.String#""
-_root_.uk.gov.hmrc.ÄàÄhmrc"'
-_root_.uk.gov.hmrc.play.ÄàÄplay2x
-‡‡*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
-‰‰*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2ï
-˝˝«*(uk.gov.hmrc.http.HttpReads.readFromJson[String](play.api.libs.json.Reads.StringReads, scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])), hc, SubmissionIdConnector.this.ec)
-_star_.%
-ÄÜ_root_.scala.Predef.String#å
-)É_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.#
-*0_root_.scala.Predef.String#b
-vZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.;
-KV3_root_.play.api.libs.json.DefaultReads#StringReads.6
-ƒ∆,_root_.connectors.SubmissionIdConnector#(ec):Scala211BÄ	/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package connectors
-
-import javax.inject.Inject
-
-import uk.gov.hmrc.play.config.inject.ServicesConfig
-import config.WSHttp
-import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.http.HeaderCarrier
-
-class SubmissionIdConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
-  lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
-
-  def get(prefix: String = "PL")(implicit hc: HeaderCarrier): Future[String] =
-    http.GET[String](baseUrl + s"/submissionId/$prefix")
-}
-J*app/connectors/SubmissionIdConnector.scala

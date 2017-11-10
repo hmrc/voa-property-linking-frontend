@@ -1,497 +1,0 @@
-
-⁄œ2
-ú£(app/session/WithSession.scala@2021..2028
-’Ÿ_root_.scala.None.p
-”⁄f_root_.session.WithLinkingSession#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)M
-ﬂËC_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;."
-˚ˇ_root_.uk.gov.hmrc.http.'
-ãñ_root_.session.NoSessionId.%
-ƒ _root_.javax.inject.Inject#*
-º« _root_.repositories.SessionRepo#H
-§∑>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)r
-ÂÛh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.9
-Û
-â/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.O
-ﬂ
-Ë
-C_root_.session.LinkingSessionRequest#sessionId()Ljava/lang/String;.>
-€‰4_root_.play.api.libs.concurrent.Execution.Implicits.A
-˜Ö	5_root_.session.LinkingSessionRequest#(organisationId)
-ïó
-_root_.uk.
-ı˙_root_.javax.q
-ÕÕe_root_.session.WithLinkingSession#`<init>`(Lactions/AuthenticatedAction;Lrepositories/SessionRepo;)V.-
-º
- 
-#_root_.play.api.mvc.WrappedRequest#$
-òù_root_.javax.inject.Named#
-ôù_root_.play.2
-ƒ	›	(_root_.models.DetailedIndividualAccount#4
-ÂÏ(app/session/WithSession.scala@2021..2028/
-Ô˜%_root_.play.api.mvc.Results#NotFound.
-ƒ _root_.config.Global.G
-®∞=_root_.play.api.i18n.Messages.;_root_.play.api.i18n.Messages#*
-œ⁄ _root_.repositories.SessionRepo#
-òõ_root_.uk.gov./
-¯ç%_root_.session.LinkingSessionRequest#8
-†ß._root_.session.LinkingSessionRequest#(request)
-á	ã	_root_.scala.Long#6
-‚Â*_root_.session.LinkingSessionRequest#(ses)F
-âö<_root_.actions.BasicAuthenticatedRequest#(individualAccount)
-˚Å_root_.javax.inject.
-∏º_root_.play.
-ö°_root_.actions.
-ÔÒ
-_root_.uk.8
-∂Ω._root_.session.LinkingSessionRequest#(request)%
-ë
-ù
-_root_.models.GroupAccount#™
-Œ
-’
-ü_root_.session.LinkingSessionRequest#`<init>`(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)V.(request)ñ
-ßºã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.Ä
-ö°v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-¢•_root_.play.api.mvc.9
-¶º/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.
-˚ˇ_root_.play..
-∞¬"_root_.session.WithLinkingSession#
-öû_root_.play.4
-æ≈*_root_.play.api.mvc.RequestHeader#session.1
-…ﬁ%_root_.session.LinkingSessionRequest#?
-É
-è
-3_root_.session.LinkingSessionRequest#(groupAccount)%
-Í
-
-_root_.scala.Predef.String#ñ
-äüã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.(
-¿»_root_.play.api.i18n.Messages#?
-ÙÖ5_root_.session.WithLinkingSession#(sessionRepository)
-Øª_root_.repositories.9
-ê¶/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.
-¡≈_root_.play.api.libs.t
-ÏÒh_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.
-¯˛_root_.config.Global.;
-»—1_root_.uk.gov.hmrc.http.HeaderCarrier#(sessionId)A
-ºÕ5_root_.session.WithLinkingSession#(sessionRepository)C
-“’9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.x
-∫æn_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(body)2
-À
-Ã
-(_root_.session.LinkingSessionRequest#[A]2
-∞
-±
-(_root_.session.LinkingSessionRequest#[A]2
-π¿(app/session/WithSession.scala@2021..2028
-ü¢_root_.play.api.'
-äò_root_.models.LinkingSession#
-Ø≥_root_.scala.Some.'
-Áı_root_.models.LinkingSession#
-Úı_root_.uk.gov.-
-›#_root_.actions.AuthenticatedAction#A
-Éâ7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#)
-ù£_root_.scala.concurrent.Future#
-±µ_root_.scala.Some.4
-ﬂ‡(_root_.session.LinkingSessionRequest#[A][
-⁄ÛQ_root_.models.DetailedIndividualAccount.;_root_.models.DetailedIndividualAccount#2
-·Ë(app/session/WithSession.scala@2021..2028£
-··ñ_root_.session.LinkingSessionRequest#`<init>`(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)V.~
-∂ær_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(messages)?
-ãê5_root_.javax.inject.Named.;_root_.javax.inject.Named#
-ÂÏ_root_.session."
-°•_root_.uk.gov.hmrc.play.-
-¢µ#_root_.actions.AuthenticatedAction#;
-ÿ›1_root_.uk.gov.hmrc.http.logging.SessionId#(value))
-éò_root_.play.api.mvc.AnyContent#*
-∆– _root_.play.api.libs.concurrent.;
-ÃŸ1_root_.session.WithLinkingSession#(authenticated)
-£ß_root_.play.api.i18n.4
-€‚*_root_.play.api.mvc.RequestHeader#session.W
-ÄçM_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#"
-÷‡_root_.scala.concurrent.D
-±	¬	8_root_.session.LinkingSessionRequest#(individualAccount)%
-Ô˙_root_.session.NoSessionId./
-»›%_root_.session.LinkingSessionRequest.
-Œ“_root_.scala.Some.&
-àè_root_.play.api.mvc.Results.1
-©©'_root_.java.lang.Exception#`<init>`()V.
-ˆ˙_root_.uk.gov.hmrc.r
-˘Äf_root_.session.WithLinkingSession#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)
-“ÿ_root_.models.
-ÄÉ_root_.play.api.&
-Çâ_root_.play.api.mvc.Request#
-û°_root_.play.api.1
-  '_root_.javax.inject.Inject#`<init>`()V.%
-§™_root_.play.api.mvc.Result#
-Ω√_root_.config.
-–’_root_.scala.É
-Üây_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.O
-Õ
-Õ
-E_root_.play.api.mvc.WrappedRequest#`<init>`(Lplay/api/mvc/Request;)V.2
-Åà(app/session/WithSession.scala@2021..2028)
-˝ˇ_root_.models.GroupAccount#(id)
-Ω¿_root_.play.api.L
-®ØB_root_.play.api.mvc.RequestHeader#headers()Lplay/api/mvc/Headers;.
-ú†_root_.uk.gov.hmrc.H
-È¸>_root_.actions.BasicAuthenticatedRequest#(organisationAccount)
-Ñá_root_.play.api.mvc.:
-ü
-¶
-._root_.session.LinkingSessionRequest#(request)2
-ﬁﬂ(app/session/WithSession.scala@2100..2101=
-Œ€1_root_.session.WithLinkingSession#(authenticated)Å
-ˇèw_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#notFoundTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.p
-Ωƒf_root_.session.WithLinkingSession#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)a
-‰ÓW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.A
-ıÅ7_root_.models.GroupAccount.;_root_.models.GroupAccount#4
-¥µ(app/session/WithSession.scala@2100..21010
-ùù&_root_.javax.inject.Named#`<init>`()V.)
-›„_root_.scala.concurrent.Future.4
-—⁄*_root_.play.api.libs.concurrent.Execution.I
-·Á?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#E
-Éë;_root_.models.LinkingSession.;_root_.models.LinkingSession#)
-ü®_root_.scala.package.Exception#&
-®
-Ø
-_root_.play.api.mvc.Request#i
-ÌÔ]_root_.session.WithLinkingSession#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.z
-Úˆn_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(body)L
-≈ÃB_root_.play.api.mvc.RequestHeader#headers()Lplay/api/mvc/Headers;."—
-e_root_.session.WithLinkingSession#`<init>`(Lactions/AuthenticatedAction;Lrepositories/SessionRepo;)V.Á<init>X(authenticated: AuthenticatedAction, sessionRepository: SessionRepo): WithLinkingSession"+
-##_root_.actions.AuthenticatedAction#"(
-8C _root_.repositories.SessionRepo#"*
-FX"_root_.session.WithLinkingSession#"5
- _root_.play.api.libs.concurrent.ÄàÄ
-concurrent"€
-9_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.ùÑÄmap&[B] => (f: Function1[A, B]): Option[B]"
-_root_.scala.Function1#"
-_root_.scala.Option#[A]"D
-<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"
-#_root_.scala.Option#"D
-$%<_root_.scala.Option#map(Lscala/Function1;)Lscala/Option;.[B]"ù
-^_root_.play.api.mvc.Result#`<init>`(Lplay/api/mvc/ResponseHeader;Lplay/api/http/HttpEntity;)V.∫<init>2(header: ResponseHeader, body: HttpEntity): Result"+
-	#_root_.play.api.mvc.ResponseHeader#"(
-) _root_.play.api.http.HttpEntity#"#
-,2_root_.play.api.mvc.Result#"±
-E_root_.play.api.mvc.WrappedRequest#`<init>`(Lplay/api/mvc/Request;)V.Á<init>((request: Request[A]): WrappedRequest[A]"$
-
-_root_.play.api.mvc.Request#".
-&_root_.play.api.mvc.WrappedRequest#[A]"+
-%#_root_.play.api.mvc.WrappedRequest#".
-&'&_root_.play.api.mvc.WrappedRequest#[A]"1
-_root_.play.api.i18n.Messages#Ä†ÄMessages"4
- _root_.repositories.SessionRepo#Ä@SessionRepo" 
-_root_.scala.Long#
-Ä†Long"á
-1_root_.session.WithLinkingSession#(authenticated)RÄauthenticatedAuthenticatedAction")
-#_root_.actions.AuthenticatedAction#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"Î
-t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"
-6:_root_.scala.Long#"
-JN_root_.scala.Long#"(
-Yj _root_.models.IndividualDetails#"1
-mÜ(_root_.models.DetailedIndividualAccount#",
-_root_.play.api.mvc.Request#Ä@Request"˙
-W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
-successful[T] => (result: T): Future[T]"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
-_root_.scala.concurrent.Future#"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"
-C_root_.session.LinkingSessionRequest#sessionId()Ljava/lang/String;.8	sessionIdString"!
-_root_.scala.Predef.String#"†
-._root_.session.LinkingSessionRequest#(request)nÅrequest
-Request[A]""
-_root_.play.api.mvc.Request#"0
-	(_root_.session.LinkingSessionRequest#[A]"ù
-8_root_.session.LinkingSessionRequest#(individualAccount)aÅindividualAccountDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"'
-_root_.uk.gov.hmrc.http.ÄàÄhttp"$
-_root_.play.api.libs.ÄàÄlibs"
-_root_.javax.ÄàÄjavax"J
-_root_.models.GroupAccount#(id)'ÅidLong"
-_root_.scala.Long#""
-_root_.play.api.mvc.
-ÄàÄmvc"D
-%_root_.session.LinkingSessionRequest.ÄÑLinkingSessionRequest"
-_root_.play.api.
-ÄàÄapi"E
-%_root_.session.LinkingSessionRequest#Ä†ÄLinkingSessionRequest"^
-_root_.scala.package.Exception#;@	Exception	Exception"!
-	_root_.java.lang.Exception#"G
-4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits"/
-_root_.scala.concurrent.Future.ÄÑFuture".
-_root_.scala.concurrent.Future#Ä@Future"¬
-s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
-	_root_.scala.Long#"#
-_root_.scala.Predef.String#"#
-)/_root_.scala.Predef.String#"
-<?_root_.scala.Int#"#
-HN_root_.scala.Predef.String#"#
-W]_root_.scala.Predef.String#"
-ho_root_.scala.Boolean#"
-|Ä_root_.scala.Long#"%
-Éè_root_.models.GroupAccount#"’
-]_root_.session.WithLinkingSession#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.tÑÄ hc:(implicit request: play.api.mvc.Request[_]): HeaderCarrier".
--:&_root_.uk.gov.hmrc.http.HeaderCarrier#"=
-*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution"ˇ
-n_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(body)åÄbody<Function1[LinkingSessionRequest[AnyContent], Future[Result]]"
-	_root_.scala.Function1#"-
-
-%_root_.session.LinkingSessionRequest#"'
- *_root_.play.api.mvc.AnyContent#"'
--3_root_.scala.concurrent.Future#"#
-4:_root_.play.api.mvc.Result#",
-_root_.javax.inject.Inject#Ä†ÄInject"+
-_root_.repositories.ÄàÄrepositories"¶
-1_root_.uk.gov.hmrc.http.HeaderCarrier#(sessionId)qÅ	sessionIdOption[SessionId]"
-_root_.scala.Option#"2
-*_root_.uk.gov.hmrc.http.logging.SessionId#"l
-'_root_.java.lang.Exception#`<init>`()V.AàÄÄ<init>(): Exception"#
-_root_.java.lang.Exception#"ê
-f_root_.session.WithLinkingSession#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.(request)&ÄÅ requestplay.api.mvc.Request[_]"ª
-(app/session/WithSession.scala@2021..2028éÄÅ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"
-
-_root_.uk.	ÄàÄuk"%
-_root_.javax.inject.ÄàÄinject"?
-#_root_.actions.AuthenticatedAction#Ä AuthenticatedAction"2
-_root_.models.GroupAccount#Ä†ÄGroupAccount"°
-<_root_.actions.BasicAuthenticatedRequest#(individualAccount)aÅindividualAccountDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"Ä
-B_root_.play.api.mvc.RequestHeader#headers()Lplay/api/mvc/Headers;.:ÑÄheadersHeaders""
-_root_.play.api.mvc.Headers#"
-_root_.uk.gov.
-ÄàÄgov"k
-*_root_.session.LinkingSessionRequest#(ses)=ÅsesLinkingSession"#
-_root_.models.LinkingSession#"í
-ü_root_.session.LinkingSessionRequest#`<init>`(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)V.(request)nÄrequest
-Request[A]""
-_root_.play.api.mvc.Request#"0
-	(_root_.session.LinkingSessionRequest#[A]"i
-'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
-(): Inject"#
-
-_root_.javax.inject.Inject#"1
-_root_.session.NoSessionId.ÄÑàNoSessionId"Å
-ã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.fromHeadersAndSession;(headers: Headers, session: Option[Session]): HeaderCarrier"$
-
-_root_.play.api.mvc.Headers#"
-"_root_.scala.Option#"$
-#*_root_.play.api.mvc.Session#".
-.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"$
-_root_.play.api.i18n.ÄàÄi18n"!
-_root_.scala.None.ÄÑàNone"ß
-ñ_root_.session.LinkingSessionRequest#`<init>`(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)V.ã<init>§(ses: LinkingSession, organisationId: Long, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount, request: Request[A]): LinkingSessionRequest[A]"%
-_root_.models.LinkingSession#"
-&*_root_.scala.Long#"0
-?X(_root_.models.DetailedIndividualAccount#"#
-ht_root_.models.GroupAccount#"%
-Ü_root_.play.api.mvc.Request#"2
-áà(_root_.session.LinkingSessionRequest#[A]"/
-å°%_root_.session.LinkingSessionRequest#"2
-¢£(_root_.session.LinkingSessionRequest#[A]"¥
-r_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(messages)>ÄÅ messagesMessages"$
-_root_.play.api.i18n.Messages#"O
-/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.ÄÑHeaderCarrierConverter"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"
-_root_.play.ÄàÄplay"f
-&_root_.javax.inject.Named#`<init>`()V.<àÄÄ<init>	(): Named""
-	_root_.javax.inject.Named#"√
-h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
-)_root_.scala.concurrent.ExecutionContext#"3
-_root_.play.api.mvc.AnyContent#Ä¿
-AnyContent":
-#_root_.play.api.mvc.WrappedRequest#Ä WrappedRequest"
-_root_.models.ÄàÄmodels"!
-_root_.actions.ÄàÄactions"2
-(_root_.session.LinkingSessionRequest#[A]ÄA"˝
-y_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ˇÑÄgetE[A] => (implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]]"(
- _root_.play.api.libs.json.Reads#"Ñ
-|_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
-$1&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-4:_root_.scala.concurrent.Future#"
-;A_root_.scala.Option#"Ñ
-BC|_root_.repositories.SessionRepo#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]",
-_root_.play.api.mvc.Result#Ä†ÄResult"R
-_root_.scala.Long#`<init>`()V.0<init>(): Long"
-_root_.scala.Long#"ª
-C_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.ÛÑÄ	getOrElse [B] => (default: <byname>[B]): B" 
-_root_.scala.`<byname>`#"N
-F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"N
- F_root_.scala.Option#getOrElse(Lscala/Function0;)Ljava/lang/Object;.[B]"y
-3_root_.session.LinkingSessionRequest#(groupAccount)BÅgroupAccountGroupAccount"!
-_root_.models.GroupAccount#"ã
->_root_.actions.BasicAuthenticatedRequest#(organisationAccount)IÅorganisationAccountGroupAccount"!
-_root_.models.GroupAccount#"=
-"_root_.session.WithLinkingSession#Ä WithLinkingSession"™
-h_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.Ωapplyu(body: Function1[LinkingSessionRequest[AnyContent], Future[Result]])(implicit messages: Messages): Action[AnyContent]"
-_root_.scala.Function1#"-
-&%_root_.session.LinkingSessionRequest#"'
-'1_root_.play.api.mvc.AnyContent#"'
-4:_root_.scala.concurrent.Future#"#
-;A_root_.play.api.mvc.Result#"&
-X`_root_.play.api.i18n.Messages#"#
-ci_root_.play.api.mvc.Action#"'
-jt_root_.play.api.mvc.AnyContent#"
-_root_.config.ÄàÄconfig"Á
-w_root_.uk.gov.hmrc.play.frontend.bootstrap.ShowErrorPage#notFoundTemplate(Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.lnotFoundTemplate1(implicit request: play.api.mvc.Request[_]): Html"#
--1_root_.play.twirl.api.Html#"Ñ
-5_root_.session.WithLinkingSession#(sessionRepository)KÅsessionRepositorySessionRepo"&
- _root_.repositories.SessionRepo#"
-_root_.scala.ÄàÄscala"l
-5_root_.session.LinkingSessionRequest#(organisationId)3ÅorganisationIdLong"
-_root_.scala.Long#"*
-_root_.javax.inject.Named#Ä†ÄNamed"%
-_root_.config.Global.ÄÑGlobal"!
-_root_.session.ÄàÄsession"-
-_root_.play.api.mvc.Results.ÄÑResults"ì
-}_root_.models.LinkingSession#`<init>`(Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;JLmodels/CapacityDeclaration;)V.ë<init>â(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long, declaration: CapacityDeclaration): LinkingSession"#
-
-_root_.scala.Predef.String#"
-_root_.scala.Long#"#
-*0_root_.scala.Predef.String#"#
-@F_root_.scala.Predef.String#"
-RV_root_.scala.Long#"*
-ex"_root_.models.CapacityDeclaration#"&
-{â_root_.models.LinkingSession#"L
-(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount""
-_root_.uk.gov.hmrc.ÄàÄhmrc"µ
-v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.∫flatMapS[S] => (f: Function1[T, Future[S]])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"'
-_root_.scala.concurrent.Future#"Å
- y_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-7G)_root_.scala.concurrent.ExecutionContext#"'
-JP_root_.scala.concurrent.Future#"Å
-QRy_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"h
-*_root_.play.api.mvc.RequestHeader#session.:ÅÄ@sessionSession""
-_root_.play.api.mvc.Session#"'
-_root_.uk.gov.hmrc.play.ÄàÄplay"6
-_root_.models.LinkingSession#Ä†ÄLinkingSession"j
-1_root_.uk.gov.hmrc.http.logging.SessionId#(value)5ÅvalueString"!
-_root_.scala.Predef.String#" 
-_root_.scala.Some.
-ÄÑSome"h
-%_root_.play.api.mvc.Results#NotFound.?NotFoundStatus")
-#_root_.play.api.mvc.Results#Status#"é
-Y_root_.play.api.i18n.Messages#`<init>`(Lplay/api/i18n/Lang;Lplay/api/i18n/MessagesApi;)V.∞<init>-(lang: Lang, messages: MessagesApi): Messages""
-_root_.play.api.i18n.Lang#")
-"!_root_.play.api.i18n.MessagesApi#"&
-%-_root_.play.api.i18n.Messages#"ç
-v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.í<init>r(provider: GovernmentGatewayProvider, businessRatesAuthorisation: BusinessRatesAuthorisation): AuthenticatedAction".
-$&_root_.auth.GovernmentGatewayProvider#"5
-B\-_root_.connectors.BusinessRatesAuthorisation#"+
-_r#_root_.actions.AuthenticatedAction#"f
-(app/session/WithSession.scala@2100..2101:sLinkingSession"#
-_root_.models.LinkingSession#2í
-››*.apply[AnyContent]
-_star_.∫
-±_root_.session.LinkingSessionRequest.apply(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)Lsession/LinkingSessionRequest;.'
-_root_.play.api.mvc.AnyContent#2#
-èè
-*(request)
-_star_.2¿
-˜˜*.apply[Html]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.#
-_root_.play.twirl.api.Html#2G
-°°	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2G
-ËË	*[String]
-_star_.#
-_root_.scala.Predef.String#2ë
-““*.apply[Session]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.$
-_root_.play.api.mvc.Session#2G
-’’	*[String]
-_star_.#
-_root_.scala.Predef.String#2{
-ŸŸ*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2m
-ææ*.apply
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2ë
-µµ*.apply[Session]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.$
-_root_.play.api.mvc.Session#2…
-óó>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.p
-/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2Ú
-ôôD*(models.LinkingSession.format, WithLinkingSession.this.hc(request))
-_star_.,
-$_root_.models.LinkingSession.format.e
-8:]_root_.session.WithLinkingSession#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2G
-ÓÓ	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2ø
-êêò*(play.api.http.Writeable.writeableOf_Content[Html](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.#
-.2_root_.play.twirl.api.Html#y
-j|q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.(
-GL _root_.play.api.mvc.Codec.utf_8.*
-êï _root_.play.api.mvc.Codec.utf_8.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.:Scala211Bù/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package session
-
-import javax.inject.{Inject, Named}
-
-import actions.AuthenticatedAction
-import config.Global
-import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
-import play.api.i18n.Messages
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.mvc.Results._
-import play.api.mvc._
-import repositories.SessionRepo
-
-import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.HeaderCarrierConverter
-
-case class LinkingSessionRequest[A](ses: LinkingSession, organisationId: Long,
-                                    individualAccount: DetailedIndividualAccount,
-                                    groupAccount: GroupAccount, request: Request[A]) extends WrappedRequest[A](request) {
-  def sessionId: String = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
-}
-
-case object NoSessionId extends Exception
-
-class WithLinkingSession @Inject() (authenticated: AuthenticatedAction,
-                                     @Named("propertyLinkingSession") val sessionRepository: SessionRepo) {
-  implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
-
-  def apply(body: LinkingSessionRequest[AnyContent] => Future[Result])(implicit messages: Messages) = authenticated { implicit request =>
-    sessionRepository.get[LinkingSession] flatMap {
-      case Some(s) => body(
-        LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request)
-      )
-      case None => Future.successful(NotFound(Global.notFoundTemplate))
-    }
-  }
-}Japp/session/WithSession.scala

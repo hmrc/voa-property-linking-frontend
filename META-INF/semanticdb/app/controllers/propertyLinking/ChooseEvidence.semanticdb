@@ -1,344 +1,0 @@
-
-±Ö>
-Éë2_root_.controllers.propertyLinking.ChooseEvidence.<
-î¢2_root_.controllers.propertyLinking.ChooseEvidence.A
-ñú7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#%
-ëñ_root_.play.api.data.Forms.A
-˙˛7_root_.controllers.propertyLinking.ChooseEvidence.form.
-Â_root_.controllers.?
-˜˚5_root_.play.api.data.Form.;_root_.play.api.data.Form#`
-ˇé	V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.<
-Î˘2_root_.controllers.propertyLinking.ChooseEvidence.1
-ß	±	'_root_.play.api.mvc.Results#BadRequest.D
-ì
-¢
-:_root_.controllers.propertyLinking.routes.UploadRatesBill.Z
-≥∑N_root_.controllers.propertyLinking.ChooseEvidence#show()Lplay/api/mvc/Action;.P
-ƒ∆F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.4
- 
-–
-*_root_.controllers.propertyLinking.routes.
-ÓÒ_root_.play.api.C
-ü£7_root_.controllers.propertyLinking.ChooseEvidence.form.\
-µªP_root_.controllers.propertyLinking.ChooseEvidence#submit()Lplay/api/mvc/Action;.S
-´±I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.
-åê_root_.play.api.data.
-†ß_root_.session.C
-—
-ﬂ
-9_root_.controllers.propertyLinking.routes.UploadEvidence.%
-“ÿ_root_.javax.inject.Inject#K
-‹„?app/controllers/propertyLinking/ChooseEvidence.scala@1116..11234
-å
-í
-*_root_.controllers.propertyLinking.routes.
-àã_root_.play.api..
-™™$_root_.java.lang.Object#`<init>`()V.7
-± -_root_.controllers.PropertyLinkingController#,
-ıÑ"_root_.views.html.propertyLinking.
-∏	º	_root_.views.html.7
-ê©-_root_.controllers.PropertyLinkingController#
-Ù_root_.views.html.K
-ù	£	?app/controllers/propertyLinking/ChooseEvidence.scala@1181..1187A
-≤∂7_root_.controllers.propertyLinking.ChooseEvidence.keys.
-•∞_root_.controllers.
-◊ﬂ_root_.form.Mappings.
-Éá_root_.play.>
-¬–2_root_.controllers.propertyLinking.ChooseEvidence#;
-Õ	€	1_root_.views.html.propertyLinking.chooseEvidence.f
-€€Z_root_.controllers.propertyLinking.ChooseEvidence#`<init>`(Lsession/WithLinkingSession;)V.0
-«◊&_root_.form.Mappings.mandatoryBoolean.I
-ÿﬂ=app/controllers/propertyLinking/ChooseEvidence.scala@984..991;
-Öì1_root_.views.html.propertyLinking.chooseEvidence.z
-£
-ß
-p_root_.controllers.propertyLinking.ReverseUploadRatesBill#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.,
-Ω	Ã	"_root_.views.html.propertyLinking.I
-‹	‚	?app/controllers/propertyLinking/ChooseEvidence.scala@1181..1187
-“÷_root_.form.1
-ÿÿ'_root_.javax.inject.Inject#`<init>`()V.,
-ÙÜ"_root_.session.WithLinkingSession#P
-∫ÃF_root_.controllers.propertyLinking.ChooseEvidence#(withLinkingSession)
-âé_root_.javax.$
-¶™_root_.play.api.data.Form.Y
-É
-ã
-O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.,
-®∫"_root_.session.WithLinkingSession#_
-ë	ï	U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.)
-ÁÈ_root_.play.api.mvc.Results#Ok.K
-˙Ü?app/controllers/propertyLinking/ChooseEvidence.scala@1526..1559Y
-¡
-…
-O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.A
-£ß7_root_.controllers.propertyLinking.ChooseEvidence.form.R
-‡ÚF_root_.controllers.propertyLinking.ChooseEvidence#(withLinkingSession)-
-ÒÄ#_root_.controllers.propertyLinking.
-ÈÌ_root_.play.
-ÍÔ_root_.views.
-≤	∑	_root_.views.
-èï_root_.javax.inject.C
-ÂÈ7_root_.controllers.propertyLinking.ChooseEvidence.keys.T
-∑√J_root_.controllers.propertyLinking.ChooseEvidence.keys.$anon#hasRatesBill.y
-‡
-‰
-o_root_.controllers.propertyLinking.ReverseUploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.
-Úˆ_root_.play.api.data.P
-æ–F_root_.controllers.propertyLinking.ChooseEvidence#(withLinkingSession)"—
-e_root_.session.WithLinkingSession#`<init>`(Lactions/AuthenticatedAction;Lrepositories/SessionRepo;)V.Á<init>X(authenticated: AuthenticatedAction, sessionRepository: SessionRepo): WithLinkingSession"+
-##_root_.actions.AuthenticatedAction#"(
-8C _root_.repositories.SessionRepo#"*
-FX"_root_.session.WithLinkingSession#"c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#" 
-?app/controllers/propertyLinking/ChooseEvidence.scala@1116..1123ÜÄÅ request!LinkingSessionRequest[AnyContent]"+
-%_root_.session.LinkingSessionRequest#"'
- _root_.play.api.mvc.AnyContent#"ã
-Z_root_.controllers.propertyLinking.ChooseEvidence#`<init>`(Lsession/WithLinkingSession;)V.¨<init>8(withLinkingSession: WithLinkingSession): ChooseEvidence"*
-'"_root_.session.WithLinkingSession#":
-*82_root_.controllers.propertyLinking.ChooseEvidence#"œ
-I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.Åsingle6[A1] => (a1: Tuple2[String, Mapping[A1]]): Mapping[A1]"
-_root_.scala.Tuple2#"#
-_root_.scala.Predef.String#"%
-#_root_.play.api.data.Mapping#"U
-$&M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"%
-+2_root_.play.api.data.Mapping#"U
-35M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"\
-_root_.play.api.mvc.Results#Ok.9OkStatus")
-#_root_.play.api.mvc.Results#Status#"ü
-F_root_.controllers.propertyLinking.ChooseEvidence#(withLinkingSession)UÅwithLinkingSessionWithLinkingSession"(
-"_root_.session.WithLinkingSession#"I
-1_root_.views.html.propertyLinking.chooseEvidence.ÄÑchooseEvidence"$
-_root_.play.api.data.ÄàÄdata"
-_root_.form.ÄàÄform"Ü
-J_root_.controllers.propertyLinking.ChooseEvidence.keys.$anon#hasRatesBill.8hasRatesBillString"
-_root_.java.lang.String#"
-_root_.javax.ÄàÄjavax"
-_root_.play.api.
-ÄàÄapi"=
-#_root_.controllers.propertyLinking.ÄàÄpropertyLinking"î
-&_root_.form.Mappings.mandatoryBoolean.jmandatoryBooleanMapping[Boolean]"#
-_root_.play.api.data.Mapping#"
-_root_.scala.Boolean#"l
-'_root_.play.api.mvc.Results#BadRequest.A
-BadRequestStatus")
-#_root_.play.api.mvc.Results#Status#"!
-_root_.views.html.ÄàÄhtml"ï
-7_root_.controllers.propertyLinking.ChooseEvidence.form.ZÅÄ@formForm[Boolean]" 
-_root_.play.api.data.Form#"
-_root_.scala.Boolean#",
-_root_.javax.inject.Inject#Ä†ÄInject"∫
-N_root_.controllers.propertyLinking.ChooseEvidence#show()Lplay/api/mvc/Action;.hshowAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"æ
-P_root_.controllers.propertyLinking.ChooseEvidence#submit()Lplay/api/mvc/Action;.jsubmitAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"Ω
-O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
-_root_.play.api.mvc.Call#"#
-_root_.play.api.mvc.Result#"%
-_root_.javax.inject.ÄàÄinject"ﬁ
-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
-_root_.scala.Tuple2#"*
-"_root_.scala.Predef.ArrowAssoc#[A]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"i
-'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
-(): Inject"#
-
-_root_.javax.inject.Inject#"»
-=app/controllers/propertyLinking/ChooseEvidence.scala@984..991ÜÄÅ request!LinkingSessionRequest[AnyContent]"+
-%_root_.session.LinkingSessionRequest#"'
- _root_.play.api.mvc.AnyContent#"(
-_root_.play.api.data.Form.
-ÄÑForm"Ò
-V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.ñbindFromRequest6()(implicit request: play.api.mvc.Request[_]): Form[T]""
-/3_root_.play.api.data.Form#"%
-45_root_.play.api.data.Form#[T]"<
-"_root_.views.html.propertyLinking.ÄàÄpropertyLinking"
-_root_.play.ÄàÄplay"⁄
-p_root_.controllers.propertyLinking.ReverseUploadRatesBill#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.Âshow<(errorCode: Option[Int], errorMessage: Option[String]): Call"
-_root_.scala.Option#"
-_root_.scala.Int#"
-'-_root_.scala.Option#"#
-.4_root_.scala.Predef.String#"!
-8<_root_.play.api.mvc.Call#"{
-?app/controllers/propertyLinking/ChooseEvidence.scala@1526..15598hasRatesBillString"
-_root_.java.lang.String#"J
-2_root_.controllers.propertyLinking.ChooseEvidence.ÄÑChooseEvidence"I
-2_root_.controllers.propertyLinking.ChooseEvidence#Ä ChooseEvidence"'
-_root_.form.Mappings.ÄÑMappings"ÿ
-7_root_.controllers.propertyLinking.ChooseEvidence.keys.úÅÄ@keys AnyRef{val hasRatesBill: String}"
-_root_.scala.AnyRef#"R
-J_root_.controllers.propertyLinking.ChooseEvidence.keys.$anon#hasRatesBill."™
-9_root_.controllers.propertyLinking.routes.UploadEvidence.mÅÄàUploadEvidenceReverseUploadEvidence"?
-9_root_.controllers.propertyLinking.ReverseUploadEvidence#"O
--_root_.controllers.PropertyLinkingController#Ä@PropertyLinkingController"Ÿ
-o_root_.controllers.propertyLinking.ReverseUploadEvidence#show(Lscala/Option;Lscala/Option;)Lplay/api/mvc/Call;.Âshow<(errorCode: Option[Int], errorMessage: Option[String]): Call"
-_root_.scala.Option#"
-_root_.scala.Int#"
-'-_root_.scala.Option#"#
-.4_root_.scala.Predef.String#"!
-8<_root_.play.api.mvc.Call#"
-_root_.views.ÄàÄviews")
-_root_.controllers.ÄàÄcontrollers"=
-"_root_.session.WithLinkingSession#Ä WithLinkingSession"!
-_root_.session.ÄàÄsession"*
-_root_.play.api.data.Forms.ÄÑForms"Æ
-:_root_.controllers.propertyLinking.routes.UploadRatesBill.pÅÄàUploadRatesBillReverseUploadRatesBill"@
-:_root_.controllers.propertyLinking.ReverseUploadRatesBill#";
-*_root_.controllers.propertyLinking.routes.ÄÑàroutes"û
-?app/controllers/propertyLinking/ChooseEvidence.scala@1181..1187[ÄerrorsForm[Boolean]" 
-_root_.play.api.data.Form#"
-_root_.scala.Boolean#"Ñ
-U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.™foldF[R] => (hasErrors: Function1[Form[T], R], success: Function1[T, R]): R"
-_root_.scala.Function1#""
-!_root_.play.api.data.Form#"%
-"#_root_.play.api.data.Form#[T]"`
-&'X_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"
-3<_root_.scala.Function1#"%
-=>_root_.play.api.data.Form#[T]"`
-@AX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"`
-EFX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]2x
-ï	ï	*[Future[Result]]
-_star_.#
-	_root_.play.api.mvc.Result#'
-_root_.scala.concurrent.Future#2”
-‰	‰	û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2”
-ÈÈ*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2Ë
-ìì*.apply
-_star_.≈
-º_root_.views.html.propertyLinking.chooseEvidence_Scope0.chooseEvidence_Scope1.chooseEvidence#apply(Lplay/api/data/Form;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2#
-ê	ê	
-*(request)
-_star_.2Æ
-≤√"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2”
-©©û*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-ñõ _root_.play.api.mvc.Codec.utf_8.z
-pÇq_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.î
--ã_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2í
-––*.apply
-_star_.p
-h_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.2r
-∆∆*[Mapping[Boolean]]
-_star_.%
-	_root_.play.api.data.Mapping#
-
-_root_.scala.Boolean#2–
-É
-™
-%ChooseEvidence.this.future[Result](*)#
-!_root_.play.api.mvc.Result#i
-a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
-#$_star_.2Å
-„	„	(*(request, ChooseEvidence.this.messages)
-_star_.>
-'6_root_.controllers.PropertyLinkingController#messages.2x
-˘
-˘
-*(ChooseEvidence.this.messages)
-_star_.>
-6_root_.controllers.PropertyLinkingController#messages.2ü
-™™*.apply[Boolean]
-_star_.U
-M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.
-_root_.scala.Boolean#2–
-ß	‰	%ChooseEvidence.this.future[Result](*)#
-!_root_.play.api.mvc.Result#i
-a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
-#$_star_.2–
-Á©%ChooseEvidence.this.future[Result](*)#
-!_root_.play.api.mvc.Result#i
-a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
-#$_star_.2x
-≠≠*(ChooseEvidence.this.messages)
-_star_.>
-6_root_.controllers.PropertyLinkingController#messages.2”
-±	±	*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2–
-¡
-Á
-%ChooseEvidence.this.future[Result](*)#
-!_root_.play.api.mvc.Result#i
-a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.
-#$_star_.2Ë
-€	€	*.apply
-_star_.≈
-º_root_.views.html.propertyLinking.chooseEvidence_Scope0.chooseEvidence_Scope1.chooseEvidence#apply(Lplay/api/data/Form;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Å
-®®(*(request, ChooseEvidence.this.messages)
-_star_.>
-'6_root_.controllers.PropertyLinkingController#messages.2B
-±±
-*[Boolean]
-_star_.
-	_root_.scala.Boolean#2í
-ÃÃ*.apply
-_star_.p
-h_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.:Scala211Bû/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package controllers.propertyLinking
-
-import javax.inject.Inject
-
-import controllers.PropertyLinkingController
-import form.Mappings._
-import play.api.data.Form
-import play.api.data.Forms._
-import session.WithLinkingSession
-
-class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession) extends PropertyLinkingController {
-
-  def show = withLinkingSession { implicit request =>
-    Ok(views.html.propertyLinking.chooseEvidence(ChooseEvidence.form))
-  }
-
-  def submit = withLinkingSession { implicit request =>
-    ChooseEvidence.form.bindFromRequest().fold(
-      errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors)),
-      {
-        case true => Redirect(routes.UploadRatesBill.show())
-        case false => Redirect(routes.UploadEvidence.show())
-      }
-    )
-  }
-}
-object ChooseEvidence {
-  lazy val form = Form(single(keys.hasRatesBill -> mandatoryBoolean))
-  lazy val keys = new {
-    val hasRatesBill = "hasRatesBill"
-  }
-}
-J4app/controllers/propertyLinking/ChooseEvidence.scala

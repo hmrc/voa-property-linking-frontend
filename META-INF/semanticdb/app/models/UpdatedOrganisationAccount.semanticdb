@@ -1,139 +1,0 @@
-
-µ35
-·	˚	)_root_.models.UpdatedOrganisationAccount.%
-—	◊	_root_.scala.Predef.String#A
-àë7_root_.java.time.LocalDate.;_root_.java.time.LocalDate#
-˙Å_root_.scala.Boolean#D
-¨π8_root_.models.UpdatedOrganisationAccount#(addressUnitId)%
-Éâ_root_.scala.Predef.String#O
-ÈÅC_root_.models.UpdatedOrganisationAccount#(organisationEmailAddress))
-∫
-æ
-_root_.play.api.libs.json.Json.L
-∫	œ	@_root_.models.UpdatedOrganisationAccount#(changedByGGExternalId)<
-ç
-ì
-0_root_.models.UpdatedOrganisationAccount.format.
-§®_root_.play.api.libs.%
-ª¡_root_.scala.Predef.String#M
-ØµC_root_.play.api.libs.json.Format.;_root_.play.api.libs.json.Format#
-˘˝_root_.java.time.5
-…„)_root_.models.UpdatedOrganisationAccount#$
-©≠_root_.play.api.libs.json.O
-‰¸C_root_.models.UpdatedOrganisationAccount#(governmentGatewayGroupId)
-ÂÎ_root_.models.D
-¸â	8_root_.models.UpdatedOrganisationAccount#(effectiveFrom)=
-ˇÜ3_root_.java.time.Instant.;_root_.java.time.Instant#%
-Œ‘_root_.scala.Predef.String#
-†£_root_.play.api.
-ªæ_root_.scala.Int#
-õü_root_.play.G
-©π;_root_.models.UpdatedOrganisationAccount#(organisationName)I
-Ê¯=_root_.models.UpdatedOrganisationAccount#(representativeFlag)±
-„„§_root_.models.UpdatedOrganisationAccount#`<init>`(Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/time/Instant;Ljava/lang/String;)V.)
-∑ª_root_.play.api.libs.json.Json.%
-˛Ñ_root_.scala.Predef.String#N
-ø
-≈
-D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.#
-ã	í	_root_.java.time.Instant#+
-ï
-õ
-!_root_.play.api.libs.json.Format#
-Ù¯_root_.java.3
-∆
-‡
-)_root_.models.UpdatedOrganisationAccount#3
-ú
-∂
-)_root_.models.UpdatedOrganisationAccount#R
-±ÃF_root_.models.UpdatedOrganisationAccount#(organisationTelephoneNumber)"~
-=_root_.models.UpdatedOrganisationAccount#(representativeFlag)=ÅrepresentativeFlagBoolean"
-_root_.scala.Boolean#")
-_root_.play.api.libs.json.ÄàÄjson"„
-D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
-"_root_.play.api.libs.json.OFormat#"O
-G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"è
-C_root_.models.UpdatedOrganisationAccount#(organisationEmailAddress)HÅorganisationEmailAddressString"!
-_root_.scala.Predef.String#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"ï
-F_root_.models.UpdatedOrganisationAccount#(organisationTelephoneNumber)KÅorganisationTelephoneNumberString"!
-_root_.scala.Predef.String#"
-_root_.java.ÄàÄjava"$
-_root_.play.api.libs.ÄàÄlibs"
-_root_.play.api.
-ÄàÄapi"N
-)_root_.models.UpdatedOrganisationAccount#!Ä†ÄUpdatedOrganisationAccount"-
-_root_.play.api.libs.json.Json.
-ÄÑJson"x
-8_root_.models.UpdatedOrganisationAccount#(effectiveFrom)<ÅeffectiveFromInstant"
-_root_.java.time.Instant#"M
-)_root_.models.UpdatedOrganisationAccount. ÄÑUpdatedOrganisationAccount"â
-@_root_.models.UpdatedOrganisationAccount#(changedByGGExternalId)EÅchangedByGGExternalIdString"!
-_root_.scala.Predef.String#"¡
-0_root_.models.UpdatedOrganisationAccount.format.åÅÄ format"Format[UpdatedOrganisationAccount]"'
-!_root_.play.api.libs.json.Format#"1
-!)_root_.models.UpdatedOrganisationAccount#"[
-!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
-_root_.scala.Boolean#"è
-C_root_.models.UpdatedOrganisationAccount#(governmentGatewayGroupId)HÅgovernmentGatewayGroupIdString"!
-_root_.scala.Predef.String#"&
-_root_.scala.Boolean#Ä†Boolean"
-_root_.play.ÄàÄplay"
-;_root_.models.UpdatedOrganisationAccount#(organisationName)@ÅorganisationNameString"!
-_root_.scala.Predef.String#"
-_root_.models.ÄàÄmodels" 
-_root_.java.time.ÄàÄtime"l
-8_root_.models.UpdatedOrganisationAccount#(addressUnitId)0ÅaddressUnitIdInt"
-_root_.scala.Int#"ë
-§_root_.models.UpdatedOrganisationAccount#`<init>`(Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/time/Instant;Ljava/lang/String;)V.Á<init>á(governmentGatewayGroupId: String, addressUnitId: Int, representativeFlag: Boolean, organisationName: String, organisationEmailAddress: String, organisationTelephoneNumber: String, effectiveFrom: Instant, changedByGGExternalId: String): UpdatedOrganisationAccount"#
-!_root_.scala.Predef.String#"
-25_root_.scala.Int#"
-KR_root_.scala.Boolean#"#
-fl_root_.scala.Predef.String#"%
-àé_root_.scala.Predef.String#"%
-≠≥_root_.scala.Predef.String#"#
-ƒÀ_root_.java.time.Instant#"%
-‰Í_root_.scala.Predef.String#"3
-Ìá)_root_.models.UpdatedOrganisationAccount#"+
-_root_.java.time.Instant#Ä†àInstant"0
-!_root_.play.api.libs.json.Format#Ä@Format"O
-_root_.scala.Int#`<init>`()V..<init>(): Int"
-_root_.scala.Int#"
-_root_.scala.Int#	Ä†Int:Scala211B‰
-/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models
-
-import java.time.{Instant, LocalDate}
-
-import play.api.libs.json.{Format, Json}
-
-case class UpdatedOrganisationAccount(governmentGatewayGroupId: String,
-                                      addressUnitId: Int,
-                                      representativeFlag: Boolean,
-                                      organisationName: String,
-                                      organisationEmailAddress: String,
-                                      organisationTelephoneNumber: String,
-                                      effectiveFrom: Instant,
-                                      changedByGGExternalId: String)
-
-object UpdatedOrganisationAccount {
-  implicit val format: Format[UpdatedOrganisationAccount] = Json.format[UpdatedOrganisationAccount]
-}
-J+app/models/UpdatedOrganisationAccount.scala

@@ -1,173 +1,0 @@
-
-ö74
-Ω¿(_root_.models.PropertyLinkingStatus#key.0
-µÃ&_root_.models.PropertyLinkingDeclined.5
-™Æ)_root_.models.PropertyLinkingStatus#name..
-À‡$_root_.models.PropertyLinkingStatus#.
-©æ$_root_.models.PropertyLinkingStatus#.
-áú$_root_.models.PropertyLinkingStatus#.
-··$_root_.java.lang.Object#`<init>`()V.0
-ê
-•
-$_root_.models.PropertyLinkingStatus.6
-•©*_root_.models.PropertyLinkingPending.name.$
-ß´_root_.scala.package.List#<
-Ñß2_root_.models.PropertyLinkingMoreEvidenceRequired..
-÷
-÷
-$_root_.java.lang.Object#`<init>`()V..
-‰˘$_root_.models.PropertyLinkingStatus#.
-ø
-‘
-$_root_.models.PropertyLinkingStatus#7
-Á
-Ì
-+_root_.models.PropertyLinkingStatus.format.7
-Úˆ+_root_.models.PropertyLinkingDeclined.name.2
-â†&_root_.models.PropertyLinkingApproved./
-Á˝%_root_.models.PropertyLinkingRevoked.:
-êó._root_.models.PropertyLinkingStatus#$init$()V."
-ò°_root_.models.NamedEnum#2
-´¬&_root_.models.PropertyLinkingDeclined.%
-∞∂_root_.scala.Predef.String#/
-ôØ%_root_.models.PropertyLinkingPending.M
-ÍÚA_root_.models.PropertyLinkingStatus#toString()Ljava/lang/String;..
-˚
-ê$_root_.models.PropertyLinkingStatus.7
-«À+_root_.models.PropertyLinkingApproved.name.0
- ·&_root_.models.PropertyLinkingApproved..
-øø$_root_.java.lang.Object#`<init>`()V..
-ùù$_root_.java.lang.Object#`<init>`()V.#
-
-˙
-_root_.models.EnumFormat.3
-ı˘)_root_.models.PropertyLinkingStatus#name.6
-ãè*_root_.models.PropertyLinkingRevoked.name.>
-ì	∂	2_root_.models.PropertyLinkingMoreEvidenceRequired.)
-Æ
-æ
-_root_.models.NamedEnumSupport#.
-˙˙$_root_.java.lang.Object#`<init>`()V..
-ø	‘	$_root_.models.PropertyLinkingStatus#
-ÂÎ_root_.models.0
-˙è$_root_.models.PropertyLinkingStatus#C
-Ê	Í	7_root_.models.PropertyLinkingMoreEvidenceRequired.name.1
-≈…'_root_.scala.collection.immutable.List..
-¨¡$_root_.models.PropertyLinkingStatus#1
-Ë˛%_root_.models.PropertyLinkingPending.1
-≈€%_root_.models.PropertyLinkingRevoked..
-’	’	$_root_.java.lang.Object#`<init>`()V.W
-¢•K_root_.models.PropertyLinkingStatus.all()Lscala/collection/immutable/List;."c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#"[
-(_root_.models.PropertyLinkingStatus#key./keyString"
-_root_.java.lang.String#"b
-)_root_.models.PropertyLinkingStatus#name.5ÅÄnameString"!
-_root_.scala.Predef.String#"`
-_root_.scala.package.List#BList	List.type"-
-'_root_.scala.collection.immutable.List."Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"_
-+_root_.models.PropertyLinkingApproved.name.0nameString"
-_root_.java.lang.String#"H
-&_root_.models.PropertyLinkingApproved.ÄÑàPropertyLinkingApproved"-
-_root_.models.EnumFormat.ÄÑ
-EnumFormat"_
-+_root_.models.PropertyLinkingDeclined.name.0nameString"
-_root_.java.lang.String#"`
-2_root_.models.PropertyLinkingMoreEvidenceRequired.*ÄÑà#PropertyLinkingMoreEvidenceRequired"k
-7_root_.models.PropertyLinkingMoreEvidenceRequired.name.0nameString"
-_root_.java.lang.String#"≤
-+_root_.models.PropertyLinkingStatus.format.ÇÅÄ formatFormat[PropertyLinkingStatus]"'
-!_root_.play.api.libs.json.Format#",
-$_root_.models.PropertyLinkingStatus#"5
-'_root_.scala.collection.immutable.List.
-ÄÑList"^
-*_root_.models.PropertyLinkingRevoked.name.0nameString"
-_root_.java.lang.String#"^
-*_root_.models.PropertyLinkingPending.name.0nameString"
-_root_.java.lang.String#"8
-_root_.models.NamedEnumSupport#Ä@NamedEnumSupport"F
-%_root_.models.PropertyLinkingPending.ÄÑàPropertyLinkingPending"b
-._root_.models.PropertyLinkingStatus#$init$()V.0$init$(): Unit"
-_root_.scala.Unit#"*
-_root_.models.NamedEnum#Ä@	NamedEnum"
-_root_.models.ÄàÄmodels"F
-%_root_.models.PropertyLinkingRevoked.ÄÑàPropertyLinkingRevoked"C
-$_root_.models.PropertyLinkingStatus#Ä¿PropertyLinkingStatus"C
-$_root_.models.PropertyLinkingStatus.ÄÑPropertyLinkingStatus"√
-K_root_.models.PropertyLinkingStatus.all()Lscala/collection/immutable/List;.tallList[PropertyLinkingStatus]" 
-_root_.scala.package.List#",
-$_root_.models.PropertyLinkingStatus#"Ç
-A_root_.models.PropertyLinkingStatus#toString()Ljava/lang/String;.=toString
-(): String"#
-
-_root_.scala.Predef.String#"H
-&_root_.models.PropertyLinkingDeclined.ÄÑàPropertyLinkingDeclined2π
-……?*.apply[PropertyLinkingStatus with Product with Serializable{}]
-_star_.n
-f_root_.scala.collection.immutable.List.apply(Lscala/collection/Seq;)Lscala/collection/immutable/List;."
-0<_root_.scala.Serializable#,
-$_root_.models.PropertyLinkingStatus#
-#*_root_.scala.Product#2ƒ
-˙
-˙
-*.apply[PropertyLinkingStatus]
-_star_.]
-U_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.,
-$_root_.models.PropertyLinkingStatus#:Scala211B´/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models
-
-sealed trait PropertyLinkingStatus extends NamedEnum {
-  val name: String
-  val key = "propertyLinkingStatus"
-  override def toString = name
-}
-
-case object PropertyLinkingApproved extends PropertyLinkingStatus {
-  val name = "APPROVED"
-}
-
-case object PropertyLinkingPending extends PropertyLinkingStatus {
-  val name = "PENDING"
-}
-
-case object PropertyLinkingRevoked extends PropertyLinkingStatus {
-  override val name = "REVOKED"
-}
-
-case object PropertyLinkingDeclined extends PropertyLinkingStatus {
-  override val name = "DECLINED"
-}
-
-case object PropertyLinkingMoreEvidenceRequired extends PropertyLinkingStatus {
-  override val name = "MORE_EVIDENCE_REQUIRED"
-}
-
-object PropertyLinkingStatus extends NamedEnumSupport[PropertyLinkingStatus] {
-  implicit val format = EnumFormat(PropertyLinkingStatus)
-
-  override def all: List[PropertyLinkingStatus] = List(PropertyLinkingApproved,
-                                                      PropertyLinkingPending,
-                                                      PropertyLinkingRevoked,
-                                                      PropertyLinkingDeclined,
-                                                      PropertyLinkingMoreEvidenceRequired)
-}
-J&app/models/PropertyLinkingStatus.scala

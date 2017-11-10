@@ -1,210 +1,0 @@
-
-æ9(
-ÂÙ_root_.models.WaterRateDemand.4
-¢¶(_root_.models.StampDutyLandTaxForm.name..
- 	 	$_root_.java.lang.Object#`<init>`()V.%
-íû_root_.models.EvidenceType# 
-ôû_root_.models.Lease..
-¬¬$_root_.java.lang.Object#`<init>`()V..
-˜
-˜
-$_root_.java.lang.Object#`<init>`()V.-
-Àﬂ#_root_.models.StampDutyLandTaxForm.*
-œﬁ_root_.models.WaterRateDemand."
-⁄·_root_.models.License.(
-˚	à
-_root_.models.RatesBillType.$
-ÇÜ_root_.play.api.libs.json./
-¸Ä	#_root_.models.WaterRateDemand.name.
-˝Å_root_.play.api.libs.+
-§	¥	_root_.models.OtherUtilityBill..
-¥¥$_root_.java.lang.Object#`<init>`()V.1
-¢¶'_root_.scala.collection.immutable.List. 
-≥∫_root_.models.License./
-Ñ#_root_.models.StampDutyLandTaxForm.,
-√« _root_.models.EvidenceType#name.%
-ß≥_root_.models.EvidenceType##
-∆–_root_.models.EnumFormat.%
-ë
-ù
-_root_.models.EvidenceType#
-¨±_root_.models.Lease.%
-µ¡_root_.models.EvidenceType#%
-Ω	…	_root_.models.EvidenceType#+
-Øµ!_root_.play.api.libs.json.Format#)
-ˆÜ_root_.models.OtherUtilityBill..
-˜˜$_root_.java.lang.Object#`<init>`()V.%
-È
-ı
-_root_.models.EvidenceType#%
-—›_root_.models.EvidenceType.(
-ü¨_root_.models.ServiceCharge.M
-áçC_root_.play.api.libs.json.Format.;_root_.play.api.libs.json.Format#%
-ÁÛ_root_.models.EvidenceType#%
-∂¬_root_.models.EvidenceType#0
-“	÷	$_root_.models.OtherUtilityBill.name.'
-ú®_root_.models.EvidenceType#-
- Œ!_root_.models.ServiceCharge.name.N
-àãB_root_.models.EvidenceType.all()Lscala/collection/immutable/List;..
-ÙÙ$_root_.java.lang.Object#`<init>`()V.1
-©∞%_root_.models.EvidenceType#$init$()V.%
-Íˆ_root_.models.EvidenceType#.
-û
-û
-$_root_.java.lang.Object#`<init>`()V.)
-ÿ
-Ë
-_root_.models.NamedEnumSupport#+
-÷Ÿ_root_.models.EvidenceType#key.
-ÂÎ_root_.models.*
-Öâ _root_.models.EvidenceType#name."
-±∫_root_.models.NamedEnum#.
-ß≠"_root_.models.EvidenceType.format.
-Ù¯_root_.play.%
-…œ_root_.scala.Predef.String#&
-º…_root_.models.ServiceCharge.-
-¶
-™
-!_root_.models.RatesBillType.name.'
-√
-œ
-_root_.models.EvidenceType.'
-ˇÉ_root_.models.License.name.%
-çô_root_.models.EvidenceType#D
-˙Ç8_root_.models.EvidenceType#toString()Ljava/lang/String;.$
-çë_root_.scala.package.List#%
-º¿_root_.models.Lease.name.
-˘¸_root_.play.api.&
-àï_root_.models.RatesBillType..
-öö$_root_.java.lang.Object#`<init>`()V."y
-8_root_.models.EvidenceType#toString()Ljava/lang/String;.=toString
-(): String"#
-
-_root_.scala.Predef.String#"c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#"\
-(_root_.models.StampDutyLandTaxForm.name.0nameString"
-_root_.java.lang.String#"4
-_root_.models.ServiceCharge.ÄÑàServiceCharge"1
-_root_.models.EvidenceType.ÄÑEvidenceType"1
-_root_.models.EvidenceType#Ä¿EvidenceType")
-_root_.play.api.libs.json.ÄàÄjson"`
-_root_.scala.package.List#BList	List.type"-
-'_root_.scala.collection.immutable.List."ñ
-"_root_.models.EvidenceType.format.pÅÄ formatFormat[EvidenceType]"'
-!_root_.play.api.libs.json.Format#"#
-_root_.models.EvidenceType#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"Y
- _root_.models.EvidenceType#name.5ÅÄnameString"!
-_root_.scala.Predef.String#"U
-!_root_.models.RatesBillType.name.0nameString"
-_root_.java.lang.String#"®
-B_root_.models.EvidenceType.all()Lscala/collection/immutable/List;.ballList[EvidenceType]" 
-_root_.scala.package.List#"#
-_root_.models.EvidenceType#"$
-_root_.play.api.libs.ÄàÄlibs"
-_root_.play.api.
-ÄàÄapi"8
-_root_.models.WaterRateDemand.ÄÑàWaterRateDemand"-
-_root_.models.EnumFormat.ÄÑ
-EnumFormat"U
-!_root_.models.ServiceCharge.name.0nameString"
-_root_.java.lang.String#"4
-_root_.models.RatesBillType.ÄÑàRatesBillType"B
-#_root_.models.StampDutyLandTaxForm.ÄÑàStampDutyLandTaxForm"5
-'_root_.scala.collection.immutable.List.
-ÄÑList"8
-_root_.models.NamedEnumSupport#Ä@NamedEnumSupport"
-_root_.play.ÄàÄplay"Y
-%_root_.models.EvidenceType#$init$()V.0$init$(): Unit"
-_root_.scala.Unit#"O
-_root_.models.License.name.0nameString"
-_root_.java.lang.String#"*
-_root_.models.NamedEnum#Ä@	NamedEnum"
-_root_.models.ÄàÄmodels"W
-#_root_.models.WaterRateDemand.name.0nameString"
-_root_.java.lang.String#"X
-$_root_.models.OtherUtilityBill.name.0nameString"
-_root_.java.lang.String#"(
-_root_.models.License.ÄÑàLicense"R
-_root_.models.EvidenceType#key./keyString"
-_root_.java.lang.String#"M
-_root_.models.Lease.name.0nameString"
-_root_.java.lang.String#"0
-!_root_.play.api.libs.json.Format#Ä@Format"$
-_root_.models.Lease.ÄÑàLease":
-_root_.models.OtherUtilityBill.ÄÑàOtherUtilityBill2ß
-¶¶6*.apply[EvidenceType with Product with Serializable{}]
-_star_.n
-f_root_.scala.collection.immutable.List.apply(Lscala/collection/Seq;)Lscala/collection/immutable/List;."
-'3_root_.scala.Serializable#
-!_root_.scala.Product##
-_root_.models.EvidenceType#2≤
-––*.apply[EvidenceType]
-_star_.]
-U_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.#
-_root_.models.EvidenceType#:Scala211B·/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models
-
-import play.api.libs.json.Format
-
-sealed trait EvidenceType extends NamedEnum {
-  val name: String
-  val key = "evidenceType"
-  override def toString = name
-}
-
-case object Lease extends EvidenceType {
-  val name = "lease"
-}
-
-case object License extends EvidenceType {
-  val name = "license"
-}
-
-case object ServiceCharge extends EvidenceType {
-  val name = "serviceCharge"
-}
-
-case object StampDutyLandTaxForm extends EvidenceType {
-  val name = "stampDutyLandTaxForm"
-}
-
-case object WaterRateDemand extends EvidenceType {
-  val name = "waterRateDemand"
-}
-
-case object OtherUtilityBill extends EvidenceType {
-  val name = "otherUtilityBill"
-}
-
-case object RatesBillType extends EvidenceType {
-  val name = "ratesBill"
-}
-
-object EvidenceType extends NamedEnumSupport[EvidenceType] {
-  override def all: List[EvidenceType] = List(
-    Lease, License, ServiceCharge, StampDutyLandTaxForm,
-    WaterRateDemand, OtherUtilityBill, RatesBillType)
-
-  implicit val format: Format[EvidenceType] = EnumFormat(EvidenceType)
-}
-Japp/models/EvidenceType.scala

@@ -1,106 +1,0 @@
-
-Õ(#
-·‰_root_.scala.package.Seq#)
-ôù_root_.play.api.libs.json.Json.
-ÂÎ_root_.models.6
-–‰,_root_.models.messages.MessageSearchResults#N
-…œD_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.+
-•´!_root_.play.api.libs.json.Format#6
-¨¿,_root_.models.messages.MessageSearchResults#B
-◊ﬂ6_root_.models.messages.MessageSearchResults#(messages)$
-ãè_root_.play.api.libs.json.8
-˜ã,_root_.models.messages.MessageSearchResults.
-“’_root_.scala.Int#>
-Ã–2_root_.models.messages.MessageSearchResults#(size)
-ÇÖ_root_.play.api.?
-¿≈3_root_.models.messages.MessageSearchResults#(start)M
-ëóC_root_.play.api.libs.json.Format.;_root_.play.api.libs.json.Format#
-« _root_.scala.Int#)
-ƒ»_root_.play.api.libs.json.Json.!
-ÏÙ_root_.models.messages.
-˝Å_root_.play.\
-øøP_root_.models.messages.MessageSearchResults#`<init>`(IILscala/collection/Seq;)V.8
-´ø,_root_.models.messages.MessageSearchResults#?
-ù£3_root_.models.messages.MessageSearchResults.format.)
-ÂÏ_root_.models.messages.Message#
-Üä_root_.play.api.libs."ø	
-Ü_root_.models.messages.Message#`<init>`(Ljava/lang/String;JLjava/lang/String;Lscala/Option;Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Ljava/time/LocalDateTime;Ljava/lang/String;Lscala/Option;Ljava/lang/String;)V.≥<init>µ(id: String, recipientOrgId: Long, templateName: String, clientOrgId: Option[Long], clientName: Option[String], caseReference: String, submissionId: String, timestamp: LocalDateTime, address: String, effectiveDate: LocalDateTime, subject: String, lastRead: Option[LocalDateTime], messageType: String): Message"#
-_root_.scala.Predef.String#"
-!_root_.scala.Long#"#
-17_root_.scala.Predef.String#"
-FL_root_.scala.Option#"
-MQ_root_.scala.Long#"
-`f_root_.scala.Option#"#
-gm_root_.scala.Predef.String#"$
-Ö_root_.scala.Predef.String#"%
-ïõ_root_.scala.Predef.String#")
-®µ_root_.java.time.LocalDateTime#"%
-¿∆_root_.scala.Predef.String#")
-◊‰_root_.java.time.LocalDateTime#"%
-Ôı_root_.scala.Predef.String#"
-Åá_root_.scala.Option#")
-àï_root_.java.time.LocalDateTime#"%
-•´_root_.scala.Predef.String#")
-Æµ_root_.models.messages.Message#"„
-D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
-"_root_.play.api.libs.json.OFormat#"O
-G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]")
-_root_.play.api.libs.json.ÄàÄjson"J
-,_root_.models.messages.MessageSearchResults.ÄÑMessageSearchResults"K
-,_root_.models.messages.MessageSearchResults#Ä†ÄMessageSearchResults"*
-_root_.models.messages.ÄàÄmessages"$
-_root_.play.api.libs.ÄàÄlibs"
-_root_.play.api.
-ÄàÄapi"_
-3_root_.models.messages.MessageSearchResults#(start)(ÅstartInt"
-_root_.scala.Int#"1
-_root_.models.messages.Message#Ä†ÄMessage"-
-_root_.play.api.libs.json.Json.
-ÄÑJson"
-_root_.play.ÄàÄplay"
-_root_.models.ÄàÄmodels"¡
-3_root_.models.messages.MessageSearchResults.format.âÅÄ formatFormat[MessageSearchResults]"'
-!_root_.play.api.libs.json.Format#"4
-,_root_.models.messages.MessageSearchResults#"R
-_root_.scala.package.Seq#5SeqSeq.type""
-_root_.scala.collection.Seq."]
-2_root_.models.messages.MessageSearchResults#(size)'ÅsizeInt"
-_root_.scala.Int#"0
-!_root_.play.api.libs.json.Format#Ä@Format"O
-_root_.scala.Int#`<init>`()V..<init>(): Int"
-_root_.scala.Int#"ü
-6_root_.models.messages.MessageSearchResults#(messages)eÅmessagesSeq[Message]"
-_root_.scala.package.Seq#"'
-_root_.models.messages.Message#"
-_root_.scala.Int#	Ä†Int"ﬁ
-P_root_.models.messages.MessageSearchResults#`<init>`(IILscala/collection/Seq;)V.â<init>E(start: Int, size: Int, messages: Seq[Message]): MessageSearchResults"
-_root_.scala.Int#"
-_root_.scala.Int#"!
-"%_root_.scala.package.Seq#"'
-&-_root_.models.messages.Message#"4
-1E,_root_.models.messages.MessageSearchResults#:Scala211BË/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models.messages
-
-import play.api.libs.json.{Format, Json}
-
-case class MessageSearchResults(start: Int, size: Int, messages: Seq[Message])
-
-object MessageSearchResults {
-  implicit val format: Format[MessageSearchResults] = Json.format[MessageSearchResults]
-}
-J.app/models/messages/MessageSearchResults.scala

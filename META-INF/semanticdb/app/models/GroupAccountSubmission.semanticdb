@@ -1,110 +1,0 @@
-
-û,
-˘¸_root_.play.api.
-€ﬁ_root_.scala.Int#%
-ˆ¸_root_.scala.Predef.String#4
-œÍ*_root_.models.IndividualAccountSubmission#
-©∞_root_.scala.Boolean#8
-‡Â,_root_.models.GroupAccountSubmission#(email):
-†ß._root_.models.GroupAccountSubmission#(isAgent)1
-Ùä%_root_.models.GroupAccountSubmission.
-˝Å_root_.play.api.libs.%
-ÁÌ_root_.scala.Predef.String#/
-≤»%_root_.models.GroupAccountSubmission#W
-ú£K_root_.models.GroupAccountSubmission.formats()Lplay/api/libs/json/OFormat;.1
-òÆ%_root_.models.GroupAccountSubmission#>
-ª∆2_root_.models.GroupAccountSubmission#(companyName)%
-»Œ_root_.scala.Predef.String#)
-áã_root_.play.api.libs.json.Json.)
-¶™_root_.play.api.libs.json.Json.N
-´±D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.<
-–Ÿ0_root_.models.GroupAccountSubmission#(addressId)$
-ÇÜ_root_.play.api.libs.json.8
-ÔÙ,_root_.models.GroupAccountSubmission#(phone)¨
-ÆÆü_root_.models.GroupAccountSubmission#`<init>`(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZLmodels/IndividualAccountSubmission;)V.5
-Ø±)_root_.models.GroupAccountSubmission#(id)
-Ù¯_root_.play.N
-≤ÕB_root_.models.GroupAccountSubmission#(individualAccountSubmission)%
-≥π_root_.scala.Predef.String#
-ÂÎ_root_.models.")
-_root_.play.api.libs.json.ÄàÄjson"P
-*_root_.models.IndividualAccountSubmission#"Ä†ÄIndividualAccountSubmission"µ
-B_root_.models.GroupAccountSubmission#(individualAccountSubmission)oÅindividualAccountSubmissionIndividualAccountSubmission"0
-*_root_.models.IndividualAccountSubmission#"„
-D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
-"_root_.play.api.libs.json.OFormat#"O
-G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"$
-_root_.play.api.libs.ÄàÄlibs"_
-)_root_.models.GroupAccountSubmission#(id)2ÅidString"!
-_root_.scala.Predef.String#"
-_root_.play.api.
-ÄàÄapi"e
-,_root_.models.GroupAccountSubmission#(email)5ÅemailString"!
-_root_.scala.Predef.String#"e
-,_root_.models.GroupAccountSubmission#(phone)5ÅphoneString"!
-_root_.scala.Predef.String#"-
-_root_.play.api.libs.json.Json.
-ÄÑJson"d
-._root_.models.GroupAccountSubmission#(isAgent)2ÅisAgentBoolean"
-_root_.scala.Boolean#"[
-!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
-_root_.scala.Boolean#"◊
-K_root_.models.GroupAccountSubmission.formats()Lplay/api/libs/json/OFormat;.áÑÄ formatsOFormat[GroupAccountSubmission]"(
-"_root_.play.api.libs.json.OFormat#"-
-%_root_.models.GroupAccountSubmission#"ô
-ü_root_.models.GroupAccountSubmission#`<init>`(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZLmodels/IndividualAccountSubmission;)V.Ù<init>≥(id: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, individualAccountSubmission: IndividualAccountSubmission): GroupAccountSubmission"#
-_root_.scala.Predef.String#"#
- _root_.scala.Predef.String#"
--0_root_.scala.Int#"#
-9?_root_.scala.Predef.String#"#
-HN_root_.scala.Predef.String#"
-Y`_root_.scala.Boolean#"3
-ö*_root_.models.IndividualAccountSubmission#"/
-ù≥%_root_.models.GroupAccountSubmission#"Ú
-Ç_root_.models.IndividualAccountSubmission#`<init>`(Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/IndividualDetails;)V.Í<init>|(externalId: String, trustId: String, organisationId: Option[Long], details: IndividualDetails): IndividualAccountSubmission"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"
-6<_root_.scala.Option#"
-=A_root_.scala.Long#"(
-M^ _root_.models.IndividualDetails#"2
-a|*_root_.models.IndividualAccountSubmission#"&
-_root_.scala.Boolean#Ä†Boolean"
-_root_.play.ÄàÄplay"F
-%_root_.models.GroupAccountSubmission#Ä†ÄGroupAccountSubmission"E
-%_root_.models.GroupAccountSubmission.ÄÑGroupAccountSubmission"
-_root_.models.ÄàÄmodels"`
-0_root_.models.GroupAccountSubmission#(addressId),Å	addressIdInt"
-_root_.scala.Int#"O
-_root_.scala.Int#`<init>`()V..<init>(): Int"
-_root_.scala.Int#"
-_root_.scala.Int#	Ä†Int"q
-2_root_.models.GroupAccountSubmission#(companyName);ÅcompanyNameString"!
-_root_.scala.Predef.String#:Scala211BÃ/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models
-
-import play.api.libs.json.Json
-
-case class GroupAccountSubmission(id: String, companyName: String, addressId: Int, email: String, phone: String,
-                                  isAgent: Boolean, individualAccountSubmission: IndividualAccountSubmission)
-
-object GroupAccountSubmission {
-  implicit def formats = Json.format[GroupAccountSubmission]
-}
-J'app/models/GroupAccountSubmission.scala

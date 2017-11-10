@@ -1,325 +1,0 @@
-
-‘çA
-ÁÌ7_root_.play.api.mvc.Action.;_root_.play.api.mvc.Action#,
-ƒ÷"_root_.session.WithLinkingSession#<
- ÷2test/utils/StubWithLinkingSession.scala@1385..1397
-ÇÜ_root_.scala.Some.,
- ‹"_root_.session.WithLinkingSession#*
-ó¢ _root_.repositories.SessionRepo#
-Ÿ›_root_.play.B
-≤¿8_root_.models.DetailedIndividualAccount#(organisationId)>
-·
-Á
-2test/utils/StubWithLinkingSession.scala@1377..1383G
-…—=_root_.play.api.i18n.Messages.;_root_.play.api.i18n.Messages#"
-Ïˆ_root_.scala.concurrent.%
-⁄	‡	_root_.play.api.mvc.Action.<
-¬»2test/utils/StubWithLinkingSession.scala@1377..1383ú
-àñë_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.(linkingSession)Y
-ê
-î
-O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.
-ÂÍ_root_.utils.
-‚Â_root_.play.api.mvc.
-™±_root_.session.E
-§≤;_root_.models.LinkingSession.;_root_.models.LinkingSession#C
-®
-®
-9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.(
-Œ	÷	_root_.play.api.i18n.Messages#>
-Ú	˘	2test/utils/StubWithLinkingSession.scala@1266..1273ö
-´∑è_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.(groupAccount)
-ƒ»_root_.play.api.i18n.=
-Å
-è
-3_root_.utils.StubWithLinkingSession#stubbedSession.
-ﬁ·_root_.play.api.)
-´	±	_root_.scala.concurrent.Future#2
-≤À(_root_.models.DetailedIndividualAccount#<
-ÿﬂ2test/utils/StubWithLinkingSession.scala@1266..1273<
-´±2test/utils/StubWithLinkingSession.scala@1377..1383)
-Ô˘_root_.play.api.mvc.AnyContent#A
-˚Å7_root_.play.api.mvc.Result.;_root_.play.api.mvc.Result#R
-’„H_root_.utils.StubWithLinkingSession#`stubbedSession_=`(Lscala/Option;)V.I
-˜˝?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#û
-ˇçë_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.(linkingSession)ú
-ÕŸè_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.(groupAccount)|
-˛Ç	p_root_.utils.StubWithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(body)z
-ÄÑp_root_.utils.StubWithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(body)g
-Î¸]_root_.utils.StubWithLinkingSession#`<init>`(Lrepositories/SessionRepo;)V.(sessionRepository)
-ü•_root_.scala.Option#
-ÊÎ_root_.scala.
-äñ_root_.repositories.o
-÷÷e_root_.session.WithLinkingSession#`<init>`(Lactions/AuthenticatedAction;Lrepositories/SessionRepo;)V.>
-È
-ı
-2test/utils/StubWithLinkingSession.scala@1385..1397%
-€Á_root_.models.GroupAccount#%
-ü
-®
-_root_.java.lang.Exception#>
-—
-ﬂ
-2test/utils/StubWithLinkingSession.scala@1361..1375%
-≤	∏	_root_.play.api.mvc.Result#
-ªø_root_.play.'
-èù_root_.models.LinkingSession#U
-≥»K_root_.session.LinkingSessionRequest.;_root_.session.LinkingSessionRequest#'
-ßµ_root_.models.LinkingSession#%
-“ﬁ_root_.models.GroupAccount#V
-õõJ_root_.utils.StubWithLinkingSession#`<init>`(Lrepositories/SessionRepo;)V.A
-ñ¢7_root_.models.GroupAccount.;_root_.models.GroupAccount#*
-◊È _root_.utils.StubAuthentication./
-Ö	ö	%_root_.session.LinkingSessionRequest#é
-Û˛Å_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.<
-õ©2test/utils/StubWithLinkingSession.scala@1361..1375?
-èù3_root_.utils.StubWithLinkingSession#stubbedSession.°
-ü∞î_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.(individualAccount)
-ÊÍ_root_.scala.None.C
-ú≠7_root_.utils.StubWithLinkingSession#(sessionRepository)[
-˚îQ_root_.models.DetailedIndividualAccount.;_root_.models.DetailedIndividualAccount#*
-Ø∫ _root_.repositories.SessionRepo#ü
-ò©î_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.(individualAccount)Z
-·	Ê	P_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.0
-Öõ$_root_.utils.StubWithLinkingSession#/
-Öö%_root_.session.LinkingSessionRequest.v
-¯˝j_root_.utils.StubWithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.Ä
-ƒ	Ã	t_root_.utils.StubWithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(messages)
-¿√_root_.play.api.2
-∑–(_root_.models.DetailedIndividualAccount#9
-≈ -_root_.utils.StubWithLinkingSession#reset()V.
-„Á_root_.scala.None.)
-õ	•	_root_.play.api.mvc.AnyContent#
-Û˘_root_.models.R
-ÒˇH_root_.utils.StubWithLinkingSession#`stubbedSession_=`(Lscala/Option;)V."—
-e_root_.session.WithLinkingSession#`<init>`(Lactions/AuthenticatedAction;Lrepositories/SessionRepo;)V.Á<init>X(authenticated: AuthenticatedAction, sessionRepository: SessionRepo): WithLinkingSession"+
-##_root_.actions.AuthenticatedAction#"(
-8C _root_.repositories.SessionRepo#"*
-FX"_root_.session.WithLinkingSession#"ù
-^_root_.play.api.mvc.Result#`<init>`(Lplay/api/mvc/ResponseHeader;Lplay/api/http/HttpEntity;)V.∫<init>2(header: ResponseHeader, body: HttpEntity): Result"+
-	#_root_.play.api.mvc.ResponseHeader#"(
-) _root_.play.api.http.HttpEntity#"#
-,2_root_.play.api.mvc.Result#"1
-_root_.play.api.i18n.Messages#Ä†ÄMessages"`
--_root_.utils.StubWithLinkingSession#reset()V./reset(): Unit"
-_root_.scala.Unit#"÷
-è_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.(groupAccount)BÄgroupAccountGroupAccount"!
-_root_.models.GroupAccount#"4
- _root_.repositories.SessionRepo#Ä@SessionRepo"Î
-J_root_.utils.StubWithLinkingSession#`<init>`(Lrepositories/SessionRepo;)V.ú<init>8(sessionRepository: SessionRepo): StubWithLinkingSession"(
- _root_.repositories.SessionRepo#",
-"8$_root_.utils.StubWithLinkingSession#"Î
-t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"
-6:_root_.scala.Long#"
-JN_root_.scala.Long#"(
-Yj _root_.models.IndividualDetails#"1
-mÜ(_root_.models.DetailedIndividualAccount#"¨
-]_root_.utils.StubWithLinkingSession#`<init>`(Lrepositories/SessionRepo;)V.(sessionRepository)KÄsessionRepositorySessionRepo"&
- _root_.repositories.SessionRepo#"/
-_root_.java.lang.Exception#Ä†Ä	Exception"o
-8_root_.models.DetailedIndividualAccount#(organisationId)3ÅorganisationIdLong"
-_root_.scala.Long#""
-_root_.play.api.mvc.
-ÄàÄmvc"¢
-Å_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.õstubSessionp(linkingSession: LinkingSession, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount): Unit"%
-_root_.models.LinkingSession#"0
-4M(_root_.models.DetailedIndividualAccount#"#
-]i_root_.models.GroupAccount#"
-lp_root_.scala.Unit#"Ü
-7_root_.utils.StubWithLinkingSession#(sessionRepository)KÄsessionRepositorySessionRepo"&
- _root_.repositories.SessionRepo#"D
-%_root_.session.LinkingSessionRequest.ÄÑLinkingSessionRequest"
-_root_.play.api.
-ÄàÄapi"E
-%_root_.session.LinkingSessionRequest#Ä†ÄLinkingSessionRequest"º
-P_root_.play.api.mvc.ActionBuilder#async(Lscala/Function1;)Lplay/api/mvc/Action;.ÁÑÄasyncE(block: Function1[R[AnyContent], Future[Result]]): Action[AnyContent]"
-_root_.scala.Function1#"-
-%_root_.play.api.mvc.ActionBuilder#[R]"'
-_root_.play.api.mvc.AnyContent#"'
-!'_root_.scala.concurrent.Future#"#
-(._root_.play.api.mvc.Result#"#
-39_root_.play.api.mvc.Action#"'
-:D_root_.play.api.mvc.AnyContent#"•
-2test/utils/StubWithLinkingSession.scala@1266..1273oÄÅ requestRequest[AnyContent]""
-_root_.play.api.mvc.Request#"'
-_root_.play.api.mvc.AnyContent#"¨
-j_root_.utils.StubWithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.Ωapplyu(body: Function1[LinkingSessionRequest[AnyContent], Future[Result]])(implicit messages: Messages): Action[AnyContent]"
-_root_.scala.Function1#"-
-&%_root_.session.LinkingSessionRequest#"'
-'1_root_.play.api.mvc.AnyContent#"'
-4:_root_.scala.concurrent.Future#"#
-;A_root_.play.api.mvc.Result#"&
-X`_root_.play.api.i18n.Messages#"#
-ci_root_.play.api.mvc.Action#"'
-jt_root_.play.api.mvc.AnyContent#"¬
-s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
-	_root_.scala.Long#"#
-_root_.scala.Predef.String#"#
-)/_root_.scala.Predef.String#"
-<?_root_.scala.Int#"#
-HN_root_.scala.Predef.String#"#
-W]_root_.scala.Predef.String#"
-ho_root_.scala.Boolean#"
-|Ä_root_.scala.Long#"%
-Éè_root_.models.GroupAccount#".
-_root_.scala.concurrent.Future#Ä@Future"å
-O_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.∏ÑÄfold4[B] => (ifEmpty: <byname>[B])(f: Function1[A, B]): B" 
-_root_.scala.`<byname>`#"Z
-R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"
-!*_root_.scala.Function1#"
-+,_root_.scala.Option#[A]"Z
-./R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"Z
-34R_root_.scala.Option#fold(Lscala/Function0;Lscala/Function1;)Ljava/lang/Object;.[B]"´
-9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.nêÄÄ<init>(x$1: String): Exception" 
-_root_.java.lang.String#"#
-_root_.java.lang.Exception#"C
-$_root_.utils.StubWithLinkingSession#Ä StubWithLinkingSession"+
-_root_.repositories.ÄàÄrepositories"l
-'_root_.java.lang.Exception#`<init>`()V.AàÄÄ<init>(): Exception"#
-_root_.java.lang.Exception#"˙
-î_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.(individualAccount)aÄindividualAccountDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"$
-_root_.scala.Option#Ä†Option"w
-2test/utils/StubWithLinkingSession.scala@1385..1397AorganisationGroupAccount"!
-_root_.models.GroupAccount#"2
-_root_.models.GroupAccount#Ä†ÄGroupAccount"}
-2test/utils/StubWithLinkingSession.scala@1361..1375GlinkingSessionLinkingSession"#
-_root_.models.LinkingSession#"˙
-3_root_.utils.StubWithLinkingSession#stubbedSession.¬ÇÄstubbedSession_=T(x$1: Option[Tuple3[LinkingSession, DetailedIndividualAccount, GroupAccount]]): Unit"
-_root_.scala.Option#"
-_root_.scala.Tuple3#"%
-"_root_.models.LinkingSession#"0
-$=(_root_.models.DetailedIndividualAccount#"#
-?K_root_.models.GroupAccount#"
-PT_root_.scala.Unit#"$
-_root_.play.api.i18n.ÄàÄi18n"!
-_root_.scala.None.ÄÑàNone"ß
-ñ_root_.session.LinkingSessionRequest#`<init>`(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)V.ã<init>§(ses: LinkingSession, organisationId: Long, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount, request: Request[A]): LinkingSessionRequest[A]"%
-_root_.models.LinkingSession#"
-&*_root_.scala.Long#"0
-?X(_root_.models.DetailedIndividualAccount#"#
-ht_root_.models.GroupAccount#"%
-Ü_root_.play.api.mvc.Request#"2
-áà(_root_.session.LinkingSessionRequest#[A]"/
-å°%_root_.session.LinkingSessionRequest#"2
-¢£(_root_.session.LinkingSessionRequest#[A]"
-_root_.play.ÄàÄplay"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"ﬁ
-ë_root_.utils.StubWithLinkingSession#stubSession(Lmodels/LinkingSession;Lmodels/DetailedIndividualAccount;Lmodels/GroupAccount;)V.(linkingSession)HÄlinkingSessionLinkingSession"#
-_root_.models.LinkingSession#"Å
-p_root_.utils.StubWithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(body)åÄbody<Function1[LinkingSessionRequest[AnyContent], Future[Result]]"
-	_root_.scala.Function1#"-
-
-%_root_.session.LinkingSessionRequest#"'
- *_root_.play.api.mvc.AnyContent#"'
--3_root_.scala.concurrent.Future#"#
-4:_root_.play.api.mvc.Result#"3
-_root_.play.api.mvc.AnyContent#Ä¿
-AnyContent"|
- _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
-
-_root_.scala.Option#"
-_root_.scala.Option#[A]"
-_root_.models.ÄàÄmodels"ã
-2test/utils/StubWithLinkingSession.scala@1377..1383UpersonDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"∂
-t_root_.utils.StubWithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.(messages)>ÄÅ messagesMessages"$
-_root_.play.api.i18n.Messages#",
-_root_.play.api.mvc.Result#Ä†ÄResult"+
-_root_.play.api.mvc.Action.ÄÑAction"<
- _root_.utils.StubAuthentication.ÄÑStubAuthentication"
-_root_.utils.ÄàÄutils"=
-"_root_.session.WithLinkingSession#Ä WithLinkingSession"
-_root_.scala.ÄàÄscala"!
-_root_.session.ÄàÄsession"ì
-}_root_.models.LinkingSession#`<init>`(Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;JLmodels/CapacityDeclaration;)V.ë<init>â(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long, declaration: CapacityDeclaration): LinkingSession"#
-
-_root_.scala.Predef.String#"
-_root_.scala.Long#"#
-*0_root_.scala.Predef.String#"#
-@F_root_.scala.Predef.String#"
-RV_root_.scala.Long#"*
-ex"_root_.models.CapacityDeclaration#"&
-{â_root_.models.LinkingSession#"L
-(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"6
-_root_.models.LinkingSession#Ä†ÄLinkingSession" 
-_root_.scala.Some.
-ÄÑSome"è
-H_root_.utils.StubWithLinkingSession#`stubbedSession_=`(Lscala/Option;)V.¬ÇÄstubbedSession_=T(x$1: Option[Tuple3[LinkingSession, DetailedIndividualAccount, GroupAccount]]): Unit"
-_root_.scala.Option#"
-_root_.scala.Tuple3#"%
-"_root_.models.LinkingSession#"0
-$=(_root_.models.DetailedIndividualAccount#"#
-?K_root_.models.GroupAccount#"
-PT_root_.scala.Unit#"é
-Y_root_.play.api.i18n.Messages#`<init>`(Lplay/api/i18n/Lang;Lplay/api/i18n/MessagesApi;)V.∞<init>-(lang: Lang, messages: MessagesApi): Messages""
-_root_.play.api.i18n.Lang#")
-"!_root_.play.api.i18n.MessagesApi#"&
-%-_root_.play.api.i18n.Messages#2m
-ÑÑ*.apply
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2ø
-ÜÜH*.apply[Tuple3[LinkingSession, DetailedIndividualAccount, GroupAccount]]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
-_root_.scala.Tuple3##
-:F_root_.models.GroupAccount#0
-8(_root_.models.DetailedIndividualAccount#%
-_root_.models.LinkingSession#2í
-öö*.apply[AnyContent]
-_star_.∫
-±_root_.session.LinkingSessionRequest.apply(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)Lsession/LinkingSessionRequest;.'
-_root_.play.api.mvc.AnyContent#2x
-î
-î
-*[Future[Result]]
-_star_.#
-	_root_.play.api.mvc.Result#'
-_root_.scala.concurrent.Future#:Scala211BÒ/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package utils
-
-import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
-import play.api.i18n.Messages
-import play.api.mvc.{Action, AnyContent, Result}
-import repositories.SessionRepo
-import session.{LinkingSessionRequest, WithLinkingSession}
-
-import scala.concurrent.Future
-
-class StubWithLinkingSession(sessionRepository: SessionRepo) extends WithLinkingSession(StubAuthentication, sessionRepository) {
-
-  private var stubbedSession: Option[(LinkingSession, DetailedIndividualAccount, GroupAccount)] = None
-
-  override def apply(body: (LinkingSessionRequest[AnyContent]) => Future[Result])(implicit messages: Messages) = Action.async { implicit request =>
-    stubbedSession.fold(throw new Exception("Linking session not stubbed")) { case (linkingSession, person, organisation) =>
-      body(LinkingSessionRequest(linkingSession, person.organisationId, person, organisation, request))
-    }
-  }
-
-  def stubSession(linkingSession: LinkingSession, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount) = {
-    stubbedSession = Some((linkingSession, individualAccount, groupAccount))
-  }
-
-  def reset() = {
-    stubbedSession = None
-  }
-}
-J'test/utils/StubWithLinkingSession.scala

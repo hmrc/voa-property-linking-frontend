@@ -1,795 +1,0 @@
-
-˛—(
-ò
-•
-_root_.play.api.Configuration#>
-¡≈4_root_.play.api.LoggerLike#info(Lscala/Function0;)V. 
-æ	∆	_root_.scala.language.
-ÕŸ_root_.repositories.3
-ô§)app/modules/MongoStartup.scala@1433..14600
-≥∂&_root_.scala.collection.immutable.Nil.K
-âèA_root_.com.google.inject.Inject.;_root_.com.google.inject.Inject#1
-ƒ“'_root_.uk.gov.hmrc.lock.LockRepository#"
-ã	ï	_root_.scala.concurrent.5
-˝É)_root_.modules.MongoStartupRunner#lockId.j
-´Ø^_root_.modules.MongoStartupRunnerImpl#alreadyRun(Lmodules/MongoTask;I)Lscala/Function1;.(task)#
-±∫_root_.modules.MongoTask#6
-ÉÖ*_root_.modules.MongoStartupRunnerImpl#(ec)#
-Ò˜_root_.com.google.inject.*
-’€ _root_.com.google.inject.Inject#,
-¨æ"_root_.modules.MongoStartupRunner#5
-ù°)app/modules/MongoStartup.scala@2461..2465r
-‡Ëh_root_.scala.collection.TraversableOnce#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.a
-ô£W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;."
-êî_root_.uk.gov.hmrc.lock.Q
-∆«G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.h
-òú^_root_.modules.MongoStartupRunnerImpl#alreadyRun(Lmodules/MongoTask;I)Lscala/Function1;.(task)V
-Ù¯J_root_.modules.MongoStartupRunner#repo()Luk/gov/hmrc/lock/LockRepository;.&
-ƒ∆_root_.reactivemongo.api.DB#)
-ñú_root_.scala.concurrent.Future#?
-‘·5_root_.modules.MongoStartupRunnerImpl#(mongoTaskRepo)3
-≈…)app/modules/MongoStartup.scala@3185..3189C
-√≈9_root_.reactivemongo.api.DB.;_root_.reactivemongo.api.DB#
-éë_root_.java.util.Set#1
-˙à'_root_.uk.gov.hmrc.lock.LockRepository#÷
-ﬁﬁ…_root_.modules.MongoStartupRunnerImpl#`<init>`(Lplay/modules/reactivemongo/ReactiveMongoComponent;Lrepositories/MongoTaskRepo;Ljava/util/Set;Lreactivemongo/api/DB;Lscala/concurrent/ExecutionContext;)V..
-¥¥$_root_.java.lang.Object#`<init>`()V.y
-Ω«o_root_.com.google.inject.multibindings.Multibinder#addBinding()Lcom/google/inject/binder/LinkedBindingBuilder;.k
-¨≥a_root_.modules.MongoStartupRunnerImpl#alreadyRun(Lmodules/MongoTask;I)Lscala/Function1;.(version)3
-Œ“)app/modules/MongoStartup.scala@2461..2465Ñ
-¡√z_root_.com.google.inject.binder.LinkedBindingBuilder#to(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;.
-≥∂_root_.com.Ä
-π¿v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.G
-°™=_root_.javax.inject.Singleton.;_root_.javax.inject.Singleton#6
-ãû,_root_.uk.gov.hmrc.lock.LockMongoRepository.*
-Ÿ›_root_.modules.MongoTask#name.,
-Ó˚"_root_.repositories.MongoTaskRepo#5
-Ì
-Ô
-)app/modules/MongoStartup.scala@1385..14619
-Õ‘/_root_.scala.Predef.classOf()Ljava/lang/Class;.$
-ªΩ_root_.scala.package.`::`.:
-ñ≠0_root_.uk.gov.hmrc.lock.ExclusiveTimePeriodLock#%
-∞π_root_.modules.MongoTask#h
-ÇÉ^_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.A#3
-˝É)_root_.modules.MongoStartupRunner#logger.
-˙˛_root_.java.time.C
-˜ç9_root_.play.modules.reactivemongo.ReactiveMongoComponent#
-‹
-‡
-_root_.scala.Unit#
-ÁÎ_root_.scala.Unit#
-œ“_root_.scala.Int#
-√«_root_.play.3
-¨∞)app/modules/MongoStartup.scala@2455..2459"
-‚Ï_root_.scala.collection.#
-ø¬_root_.reactivemongo.api.(
-‚	Ó	_root_.modules.MongoStartup#Y
-ÀÕO_root_.scala.runtime.RichInt#to(I)Lscala/collection/immutable/Range/Inclusive;.5
-Òı)app/modules/MongoStartup.scala@3185..3189#
-æƒ_root_.com.google.inject.[
-˘áQ_root_.com.google.inject.AbstractModule.;_root_.com.google.inject.AbstractModule#(
-≠∂_root_.javax.inject.Singleton#5
-∂∫)app/modules/MongoStartup.scala@2998..3002
-áä_root_.uk.gov.r
-ÂÌh_root_.scala.collection.TraversableOnce#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.6
- Ã*_root_.modules.MongoStartupRunnerImpl#(db),
-°≥"_root_.modules.MongoStartupRunner#b
-Ó	Ó	V_root_.modules.MongoStartup#`<init>`(Lplay/api/Environment;Lplay/api/Configuration;)V.3
-ÌÔ)app/modules/MongoStartup.scala@1385..14610
-∑»&_root_.repositories.MongoTaskRegister.1
-¬Õ%_root_.modules.MongoTask#upToVersion.=
-Ú
-˝
-3_root_.com.google.inject.multibindings.Multibinder.+
-’Ê!_root_.modules.ConvertTimestamps#3
-‘€)app/modules/MongoStartup.scala@2590..25974
-«	⁄	*_root_.scala.language.implicitConversions.>
-Ñà4_root_.play.api.LoggerLike#info(Lscala/Function0;)V.)
-íò_root_.scala.concurrent.Future.(
-Ω≈_root_.org.joda.time.Duration#C
- €9_root_.repositories.MongoTaskRegister#(executionDateTime)0
-À‹&_root_.repositories.MongoTaskRegister#m
-º√a_root_.modules.MongoStartupRunnerImpl#alreadyRun(Lmodules/MongoTask;I)Lscala/Function1;.(version)2
-Ø
-Ω
-(_root_.com.google.inject.AbstractModule#
-ÊÈ_root_.com./
-∫ª#_root_.modules.MongoTask#$init$()V.)
-Üå_root_.scala.concurrent.Future#ê
-‚ÊÖ_root_.uk.gov.hmrc.mongo.ReactiveRepository#find(Lscala/collection/Seq;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.(
-Œ“_root_.modules.MongoTask#name.
-Ö	ä	_root_.scala.:
-∞ª._root_.modules.MongoStartupRunner#holdLockFor.
-˝Ñ_root_.play.modules.
-ù°_root_.scala.Unit#
-êì_root_.scala.Int#,
-Öí"_root_.play.modules.reactivemongo.Ä
-Éäv_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.3
-…Õ)app/modules/MongoStartup.scala@2461..24651
-≈“'_root_.com.google.inject.multibindings.2
-Ω”&_root_.modules.MongoStartupRunnerImpl#
-≈»_root_.scala.Int#5
-Õ”)_root_.modules.MongoStartupRunner#logger./
-•ß%_root_.modules.MongoStartupRunner#db.k
-ˇÄ__root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.(a)>
-Ù4_root_.play.api.LoggerLike#info(Lscala/Function0;)V.h
-çé^_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.A#G
-Õ⁄=_root_.play.api.Configuration.;_root_.play.api.Configuration#3
-∫¿)_root_.modules.MongoStartupRunner#logger.(
-»–_root_.org.joda.time.Duration.
-ÂÏ_root_.modules.<
-çî2_root_.play.api.libs.json.DefaultWrites#IntWrites.¢
-π–ó_root_.uk.gov.hmrc.lock.ExclusiveTimePeriodLock#tryToAcquireOrRenewLock(Lscala/Function0;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-∏	Ω	_root_.scala.
-‹·_root_.scala.3
-ÈÔ)_root_.modules.MongoStartupRunner#logger.
-©≠_root_.org.joda.é
-∞∂É_root_.uk.gov.hmrc.mongo.ReactiveRepository#insert(Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.9
-ƒÀ/_root_.scala.Predef.classOf()Ljava/lang/Class;.;
-ØØ1_root_.com.google.inject.TypeLiteral#`<init>`()V.6
-€€,_root_.com.google.inject.Inject#`<init>`()V.3
-áó)_root_.scala.concurrent.ExecutionContext#5
-òú)app/modules/MongoStartup.scala@2584..25884
-∂∂*_root_.javax.inject.Singleton#`<init>`()V.h
-Û˚\_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.q
-”ﬁg_root_.com.google.inject.multibindings.Multibinder.;_root_.com.google.inject.multibindings.Multibinder#3
-Ñà)app/modules/MongoStartup.scala@2461..2465
-¯¸_root_.play.U
-ãëK_root_.com.google.inject.AbstractModule#binder()Lcom/google/inject/Binder;.j
-¸˝^_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.A#>
-ı˘4_root_.play.api.LoggerLike#info(Lscala/Function0;)V.5
-óõ)app/modules/MongoStartup.scala@2455..2459Ñ
-˝ˇz_root_.com.google.inject.binder.LinkedBindingBuilder#to(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;.
-ÑÜ
-_root_.uk.(
-ù°_root_.modules.MongoTask#name.C
-ïò9_root_.modules.MongoTask#run(I)Lscala/concurrent/Future;.)
-‡Ê_root_.scala.concurrent.Future#
-Æ≤_root_.org.joda.time.3
-ÓÙ)_root_.modules.MongoStartupRunner#logger.&
-Œ–_root_.reactivemongo.api.DB#
-∑Ω_root_.com.google.
-îô_root_.javax.I
-ˇå?_root_.java.time.LocalDateTime.;_root_.java.time.LocalDateTime#(
-âç_root_.modules.MongoTask#name.3
-Œ“)app/modules/MongoStartup.scala@2461..2465Q
-âäG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.i
-§•__root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.(a)
-ãè_root_.uk.gov.hmrc.W
-€ÏM_root_.repositories.MongoTaskRegister.;_root_.repositories.MongoTaskRegister#Q
-ıˆG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.P
-äåF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.U
-ëúK_root_.com.google.inject.TypeLiteral.;_root_.com.google.inject.TypeLiteral#.
-Öó"_root_.modules.MongoStartupRunner#b
-√ÕX_root_.modules.MongoStartupRunnerImpl#alreadyRun(Lmodules/MongoTask;I)Lscala/Function1;.y
-˙o_root_.com.google.inject.multibindings.Multibinder#addBinding()Lcom/google/inject/binder/LinkedBindingBuilder;.5
-œ
-ÿ
-)_root_.modules.MongoStartup#configure()V.I
-©	Ø	?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#Ñ
- Ãz_root_.com.google.inject.binder.LinkedBindingBuilder#to(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;.9
-Äá/_root_.scala.Predef.classOf()Ljava/lang/Class;.A
-∑ƒ5_root_.modules.MongoStartupRunnerImpl#(mongoTaskRepo)S
-—‡I_root_.org.joda.time.Duration.standardMinutes(J)Lorg/joda/time/Duration;.3
-œ”)app/modules/MongoStartup.scala@2461..2465E
-ÉÜ9_root_.modules.MongoTask#run(I)Lscala/concurrent/Future;.3
-›·)app/modules/MongoStartup.scala@2998..3002?
-¢Ø5_root_.modules.MongoStartupRunnerImpl#(mongoTaskRepo)1
-¿¬%_root_.modules.MongoStartupRunner#db.Ä
-ñùv_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.9
-ÈÔ/_root_.play.api.Logger.;_root_.play.api.Logger#H
-ÎÓ>_root_.java.time.LocalDateTime.now()Ljava/time/LocalDateTime;.J
-ﬂı>_root_.modules.MongoStartupRunnerImpl#(reactiveMongoComponent)Ä
-±∏v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.8
-òü,_root_.modules.MongoStartupRunner#$init$()V.>
-ÂÌ4_root_.java.lang.Object#getClass()Ljava/lang/Class;.)
-àó_root_.modules.FixSessionIndex#7
-â
-ñ
-+_root_.modules.MongoStartup#(configuration)
-ö†_root_.javax.inject.N
-áéB_root_.modules.MongoTask#run(I)Lscala/concurrent/Future;.(version)&
-¸	á
-_root_.play.api.Environment#
-•®_root_.org.(
-‘ÿ_root_.modules.MongoTask#name.C
-Ó˚9_root_.java.lang.Class#getSimpleName()Ljava/lang/String;.#
-•Æ_root_.modules.MongoTask#1
-Ì˚'_root_.scala.collection.JavaConverters.7
-◊‹-_root_.modules.MongoStartupRunnerImpl#(tasks)?
-˙˛5_root_.play.api.libs.json.DefaultWrites#StringWrites.|
-ôúr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.#
-íõ_root_.modules.MongoTask#3
-ô†)app/modules/MongoStartup.scala@2590..2597)
-›Í_root_.java.time.LocalDateTime.
-ı˘_root_.java.
-âç_root_.java.util.9
-˝Ç-_root_.modules.MongoStartupRunnerImpl#(tasks):
-†∑0_root_.uk.gov.hmrc.lock.ExclusiveTimePeriodLock#
-±æ_root_.reactivemongo.3
-¥∏)app/modules/MongoStartup.scala@2584..25883
-‘€)app/modules/MongoStartup.scala@2590..2597d
-†™X_root_.modules.MongoStartupRunnerImpl#alreadyRun(Lmodules/MongoTask;I)Lscala/Function1;.3
-êî)app/modules/MongoStartup.scala@2461..2465
-»À_root_.play.api.9
-§´/_root_.scala.Predef.classOf()Ljava/lang/Class;.3
-„Í)app/modules/MongoStartup.scala@2590..2597%
-Öã_root_.scala.Predef.String#>
-æ
-æ
-4_root_.com.google.inject.AbstractModule#`<init>`()V.5
-û•)app/modules/MongoStartup.scala@2590..2597Y
-›‰O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.3
-∫º)app/modules/MongoStartup.scala@1385..1461≥
-˛
-ä®_root_.com.google.inject.multibindings.Multibinder.newSetBinder(Lcom/google/inject/Binder;Lcom/google/inject/TypeLiteral;)Lcom/google/inject/multibindings/Multibinder;.6
-Ø¬,_root_.uk.gov.hmrc.lock.LockMongoRepository.C
-‹Á9_root_.play.api.Environment.;_root_.play.api.Environment#]
-ó	ß	S_root_.scala.concurrent.ExecutionContext.;_root_.scala.concurrent.ExecutionContext#
-Ñà_root_.java./
-”ﬁ%_root_.modules.MongoTask#upToVersion.
-Í_root_.com.google.!
-÷‹_root_.play.api.Logger.0
-Ã‚&_root_.modules.MongoStartupRunnerImpl#S
-ÂıI_root_.com.google.inject.binder.ScopedBindingBuilder#asEagerSingleton()V.|
-ü£r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.P
-ÚÙF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.5
-Ô	˙	)_root_.modules.MongoStartup#(environment),
-∆”"_root_.repositories.MongoTaskRepo#G
-≥ª=_root_.org.joda.time.Duration.;_root_.org.joda.time.Duration#C
-ì©9_root_.play.modules.reactivemongo.ReactiveMongoComponent#"7
-_root_.java.time.LocalDateTime.ÄÑàLocalDateTime"c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#"B
-&_root_.repositories.MongoTaskRegister#Ä†ÄMongoTaskRegister"A
-&_root_.repositories.MongoTaskRegister.ÄÑMongoTaskRegister"*
-_root_.com.google.inject.ÄàÄinject"=
-"_root_.modules.MongoStartupRunner#Ä@MongoStartupRunner"
-_root_.com.
-ÄàÄcom"]
-*_root_.modules.MongoStartupRunnerImpl#(db)/ÅdbDB""
-_root_.reactivemongo.api.DB#"n
-)_root_.modules.MongoStartup#(environment)AÄenvironmentEnvironment""
-_root_.play.api.Environment#"ó
-^_root_.modules.MongoStartupRunnerImpl#alreadyRun(Lmodules/MongoTask;I)Lscala/Function1;.(task)5Ätask	MongoTask"
-	_root_.modules.MongoTask#"Ä
-®_root_.com.google.inject.multibindings.Multibinder.newSetBinder(Lcom/google/inject/Binder;Lcom/google/inject/TypeLiteral;)Lcom/google/inject/multibindings/Multibinder;.“ÑÄÄnewSetBinder9[T] => (x$1: Binder, x$2: TypeLiteral[T]): Multibinder[T]"(
- _root_.com.google.inject.Binder#"-
-%%_root_.com.google.inject.TypeLiteral#"¥
-&'´_root_.com.google.inject.multibindings.Multibinder.newSetBinder(Lcom/google/inject/Binder;Lcom/google/inject/TypeLiteral;)Lcom/google/inject/multibindings/Multibinder;.[T]";
-+63_root_.com.google.inject.multibindings.Multibinder#"¥
-78´_root_.com.google.inject.multibindings.Multibinder.newSetBinder(Lcom/google/inject/Binder;Lcom/google/inject/TypeLiteral;)Lcom/google/inject/multibindings/Multibinder;.[T]"V
-)app/modules/MongoStartup.scala@2455..2459)ÄprevUnit"
-_root_.scala.Unit#"-
-_root_.scala.collection.ÄàÄ
-collection"ã
-4_root_.com.google.inject.AbstractModule#`<init>`()V.SàÄÄ<init>(): AbstractModule"0
-(_root_.com.google.inject.AbstractModule#"R
-_root_.modules.MongoTask#name.0nameString"
-_root_.java.lang.String#"`
-)_root_.modules.MongoStartup#configure()V.3	configure(): Unit"
-_root_.scala.Unit#"X
-%_root_.modules.MongoTask#upToVersion./ÅÄupToVersionInt"
-_root_.scala.Int#"h
-^_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.A#ÄA"è
-a_root_.modules.MongoStartupRunnerImpl#alreadyRun(Lmodules/MongoTask;I)Lscala/Function1;.(version)*ÄversionInt"
-_root_.scala.Int#"ó
-+_root_.org.joda.time.Duration#`<init>`(J)V.hàÄÄ<init>(x$1: Long): Duration"
-
-_root_.scala.Long#"&
-_root_.org.joda.time.Duration#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"r
-*_root_.javax.inject.Singleton#`<init>`()V.DàÄÄ<init>(): Singleton"&
-_root_.javax.inject.Singleton#"E
-2_root_.play.api.libs.json.DefaultWrites#IntWrites.ÄÑ(	IntWrites"∂
->_root_.modules.MongoStartupRunnerImpl#(reactiveMongoComponent)tÄreactiveMongoComponentReactiveMongoComponent"?
-9_root_.play.modules.reactivemongo.ReactiveMongoComponent#"#
-_root_.java.util.Set#
-Ä¿ÄSet"˙
-W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
-successful[T] => (result: T): Future[T]"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
-_root_.scala.concurrent.Future#"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"Œ
-F_root_.play.api.Configuration#`<init>`(Lcom/typesafe/config/Config;)V.É<init>#(underlying: Config): Configuration"*
-"_root_.com.typesafe.config.Config#"&
-#_root_.play.api.Configuration#"°
-É_root_.uk.gov.hmrc.mongo.ReactiveRepository#insert(Ljava/lang/Object;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.òinsert?(entity: A)(implicit ec: ExecutionContext): Future[WriteResult]"7
-	
-/_root_.uk.gov.hmrc.mongo.ReactiveRepository#[A]"1
-))_root_.scala.concurrent.ExecutionContext#"'
-,2_root_.scala.concurrent.Future#"6
-3>._root_.reactivemongo.api.commands.WriteResult#"
-_root_.java.ÄàÄjava"b
-)app/modules/MongoStartup.scala@2461..24655Ätask	MongoTask"
-	_root_.modules.MongoTask#"Ú
-z_root_.com.google.inject.binder.LinkedBindingBuilder#to(Ljava/lang/Class;)Lcom/google/inject/binder/ScopedBindingBuilder;.tÑÄÑto*(x$1: Class[_ <: T]): ScopedBindingBuilder"=
-*5_root_.com.google.inject.binder.ScopedBindingBuilder#"\
-_root_.scala.package.`::`.>::::.type"-
-'_root_.scala.collection.immutable.`::`."≈
-9_root_.modules.MongoTask#run(I)Lscala/concurrent/Future;.áÑÄrun(version: Int): Future[Unit]"
-
-_root_.scala.Int#"'
-_root_.scala.concurrent.Future#"
-_root_.scala.Unit#"
-_root_.javax.ÄàÄjavax"'
-_root_.play.api.Logger.ÄÑLogger"
-_root_.play.api.
-ÄàÄapi"∏
-1_root_.com.google.inject.TypeLiteral#`<init>`()V.ÇàÄÇ<init>(): TypeLiteral[T]"-
-%_root_.com.google.inject.TypeLiteral#"0
-(_root_.com.google.inject.TypeLiteral#[T]"w
-)app/modules/MongoStartup.scala@3185..3189JÄheadMongoTaskRegister",
-&_root_.repositories.MongoTaskRegister#"V
-)app/modules/MongoStartup.scala@2584..2588)ÄprevUnit"
-_root_.scala.Unit#"ï
-J_root_.modules.MongoStartupRunner#repo()Luk/gov/hmrc/lock/LockRepository;.GrepoLockRepository"-
-'_root_.uk.gov.hmrc.lock.LockRepository#" 
-_root_.scala.Unit#
-Ä†Unit"4
-&_root_.scala.collection.immutable.Nil.
-ÄÑàNil"8
-)app/modules/MongoStartup.scala@1433..1460Ä†$anon"/
-_root_.scala.concurrent.Future.ÄÑFuture".
-_root_.scala.concurrent.Future#Ä@Future"6
-_root_.play.api.Configuration#Ä†ÄConfiguration"v
-)app/modules/MongoStartup.scala@2998..3002IheadMongoTaskRegister",
-&_root_.repositories.MongoTaskRegister#"q
-._root_.modules.MongoStartupRunner#holdLockFor.?holdLockForDuration"$
-_root_.org.joda.time.Duration#"W
-#_root_.modules.MongoTask#$init$()V.0$init$(): Unit"
-_root_.scala.Unit#"+
-_root_.repositories.ÄàÄrepositories"P
-0_root_.uk.gov.hmrc.lock.ExclusiveTimePeriodLock#Ä@ExclusiveTimePeriodLock"
-_root_.org.joda.ÄàÄjoda"©
-)app/modules/MongoStartup.scala@1385..1461|mbMultibinder[MongoTask]"9
-3_root_.com.google.inject.multibindings.Multibinder#"!
-_root_.modules.MongoTask#"«
-4_root_.play.api.LoggerLike#info(Lscala/Function0;)V.éinfo!(message: <byname>[String]): Unit" 
-
-_root_.scala.`<byname>`#"#
-_root_.scala.Predef.String#"
-!_root_.scala.Unit#"s
-,_root_.com.google.inject.Inject#`<init>`()V.CàÄÄ<init>
-(): Inject"(
-
- _root_.com.google.inject.Inject#"&
-_root_.play.modules.ÄàÄmodules"€
-n_root_.modules.FixSessionIndex#`<init>`(Lrepositories/SessionRepository;Lscala/concurrent/ExecutionContext;)V.Ë<init>P(sessionRepo: SessionRepository)(implicit ec: ExecutionContext): FixSessionIndex".
-&_root_.repositories.SessionRepository#"1
-.>)_root_.scala.concurrent.ExecutionContext#"'
-AP_root_.modules.FixSessionIndex#":
-"_root_.play.modules.reactivemongo.ÄàÄreactivemongo"W
-)app/modules/MongoStartup.scala@2590..2597*ÄversionInt"
-_root_.scala.Int#"
-_root_.org.
-ÄàÄorg"E
-&_root_.modules.MongoStartupRunnerImpl#Ä MongoStartupRunnerImpl"$
-_root_.org.joda.time.ÄàÄtime"1
- _root_.com.google.inject.Inject#Ä†ÄInject"
-
-_root_.uk.	ÄàÄuk"%
-_root_.javax.inject.ÄàÄinject"ï
-*_root_.scala.language.implicitConversions.gÅÄ`implicitConversionsimplicitConversions"7
-1_root_.scala.languageFeature.implicitConversions#"#
-_root_.com.google.ÄàÄgoogle"Ω
-D_root_.repositories.MongoTaskRepo#`<init>`(Lreactivemongo/api/DB;)V.u<init>(db: DB): MongoTaskRepo"$
-_root_.reactivemongo.api.DB#"*
-
-"_root_.repositories.MongoTaskRepo#"1
-_root_.org.joda.time.Duration#Ä†àDuration"1
-_root_.org.joda.time.Duration.ÄÑàDuration"8
-"_root_.repositories.MongoTaskRepo#Ä MongoTaskRepo"
-_root_.uk.gov.
-ÄàÄgov"1
-_root_.modules.MongoStartup#Ä MongoStartup"`
-,_root_.modules.MongoStartupRunner#$init$()V.0$init$(): Unit"
-_root_.scala.Unit#"^
-)_root_.modules.MongoStartupRunner#logger.1loggerLogger"
-_root_.play.api.Logger#"Ø
-/_root_.scala.Predef.classOf()Ljava/lang/Class;.|classOf[T] => Class[T]""
-_root_.scala.Predef.Class#":
-2_root_.scala.Predef.classOf()Ljava/lang/Class;.[T]"v
-+_root_.modules.MongoStartup#(configuration)GÄconfigurationConfiguration"$
-_root_.play.api.Configuration#"ü
-ó_root_.uk.gov.hmrc.lock.ExclusiveTimePeriodLock#tryToAcquireOrRenewLock(Lscala/Function0;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ÇtryToAcquireOrRenewLockT[T] => (body: <byname>[Future[T]])(implicit ec: ExecutionContext): Future[Option[T]]" 
-_root_.scala.`<byname>`#"'
-_root_.scala.concurrent.Future#"£
-ö_root_.uk.gov.hmrc.lock.ExclusiveTimePeriodLock#tryToAcquireOrRenewLock(Lscala/Function0;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[T]"1
-0@)_root_.scala.concurrent.ExecutionContext#"'
-CI_root_.scala.concurrent.Future#"
-JP_root_.scala.Option#"£
-QRö_root_.uk.gov.hmrc.lock.ExclusiveTimePeriodLock#tryToAcquireOrRenewLock(Lscala/Function0;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[T]"ﬁ
-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
-_root_.scala.Tuple2#"*
-"_root_.scala.Predef.ArrowAssoc#[A]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"›
-^_root_.repositories.MongoTaskRegister#`<init>`(Ljava/lang/String;ILjava/time/LocalDateTime;)V.˙<init>U(taskName: String, version: Int, executionDateTime: LocalDateTime): MongoTaskRegister"#
-_root_.scala.Predef.String#"
-_root_.scala.Int#"'
-4A_root_.java.time.LocalDateTime#".
-DU&_root_.repositories.MongoTaskRegister#"Ω
-…_root_.modules.MongoStartupRunnerImpl#`<init>`(Lplay/modules/reactivemongo/ReactiveMongoComponent;Lrepositories/MongoTaskRepo;Ljava/util/Set;Lreactivemongo/api/DB;Lscala/concurrent/ExecutionContext;)V.Ó<init>§(reactiveMongoComponent: ReactiveMongoComponent, mongoTaskRepo: MongoTaskRepo, tasks: Set[MongoTask], db: DB)(implicit ec: ExecutionContext): MongoStartupRunnerImpl"A
-/9_root_.play.modules.reactivemongo.ReactiveMongoComponent#"*
-@M"_root_.repositories.MongoTaskRepo#"
-VY_root_.java.util.Set#"!
-Zc_root_.modules.MongoTask#"$
-jl_root_.reactivemongo.api.DB#"2
-{ã)_root_.scala.concurrent.ExecutionContext#"0
-é§&_root_.modules.MongoStartupRunnerImpl#"ä
-I_root_.com.google.inject.binder.ScopedBindingBuilder#asEagerSingleton()V.=ÑÄÑasEagerSingleton(): Unit"
-_root_.scala.Unit#"Ñ
-5_root_.modules.MongoStartupRunnerImpl#(mongoTaskRepo)KÄmongoTaskRepoMongoTaskRepo"(
-"_root_.repositories.MongoTaskRepo#"ã
--_root_.modules.MongoStartupRunnerImpl#(tasks)ZÄtasksSet[MongoTask]"
-_root_.java.util.Set#"!
-_root_.modules.MongoTask#"?
-'_root_.scala.collection.JavaConverters.ÄÑJavaConverters";
-!_root_.modules.ConvertTimestamps#Ä ConvertTimestamps"(
-_root_.reactivemongo.api.DB#Ä¿DB"ü
-O_root_.scala.collection.convert.Decorators#AsScala#asScala()Ljava/lang/Object;.LasScalaA"<
-6_root_.scala.collection.convert.Decorators#AsScala#[A]"B
-)_root_.scala.concurrent.ExecutionContext#Ä@ExecutionContext"í
-K_root_.com.google.inject.AbstractModule#binder()Lcom/google/inject/Binder;.CÑÄÇbinder
-(): Binder"(
-
- _root_.com.google.inject.Binder#"ó
-r_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.†ÑÄÇbind2[T] => (x$1: Class[T]): AnnotatedBindingBuilder[T]"
-_root_.java.lang.Class#"}
-u_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.[T]"@
-/8_root_.com.google.inject.binder.AnnotatedBindingBuilder#"}
-01u_root_.com.google.inject.AbstractModule#bind(Ljava/lang/Class;)Lcom/google/inject/binder/AnnotatedBindingBuilder;.[T]"
-_root_.play.ÄàÄplay"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"-
-_root_.reactivemongo.ÄàÄreactivemongo"'
-_root_.reactivemongo.api.
-ÄàÄapi"u
-)app/modules/MongoStartup.scala@1433..1433H<init>	(): $anon"1
-	)app/modules/MongoStartup.scala@1433..1460"“
-__root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.(a)oÄaA"d
-^_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.A#"R
-_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
-_root_.scala.Unit#"I
-,_root_.uk.gov.hmrc.lock.LockMongoRepository.ÄÑLockMongoRepository">
-'_root_.uk.gov.hmrc.lock.LockRepository#Ä LockRepository"÷
-G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
-_root_.scala.`<repeated>`#"
-_root_.scala.Any#"#
-_root_.scala.Predef.String#"!
-_root_.modules.ÄàÄmodules"(
-_root_.scala.language.ÄÑlanguage"æ
-I_root_.org.joda.time.Duration.standardMinutes(J)Lorg/joda/time/Duration;.qÑÄÄstandardMinutes(x$1: Long): Duration"
-
-_root_.scala.Long#"&
-_root_.org.joda.time.Duration#"
-9_root_.java.lang.Class#getSimpleName()Ljava/lang/String;.BÑÄÄgetSimpleName
-(): String" 
-
-_root_.java.lang.String#"à
->_root_.java.time.LocalDateTime.now()Ljava/time/LocalDateTime;.FÑÄÄnow(): LocalDateTime"'
-_root_.java.time.LocalDateTime#"°
-V_root_.modules.MongoStartup#`<init>`(Lplay/api/Environment;Lplay/api/Configuration;)V.∆<init>F(environment: Environment, configuration: Configuration): MongoStartup"$
-_root_.play.api.Environment#"&
-*7_root_.play.api.Configuration#"$
-:F_root_.modules.MongoStartup#"–
-Ö_root_.uk.gov.hmrc.mongo.ReactiveRepository#find(Lscala/collection/Seq;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.≈findc(query: <repeated>[Tuple2[String, JsValueWrapper]])(implicit ec: ExecutionContext): Future[List[A]]""
-_root_.scala.`<repeated>`#"
-_root_.scala.Tuple2#"#
- _root_.scala.Predef.String#"6
-"0._root_.play.api.libs.json.Json.JsValueWrapper#"1
-AQ)_root_.scala.concurrent.ExecutionContext#"'
-TZ_root_.scala.concurrent.Future#""
-[__root_.scala.package.List#"7
-`a/_root_.uk.gov.hmrc.mongo.ReactiveRepository#[A]" 
-_root_.java.time.ÄàÄtime"Õ
-h_root_.scala.collection.TraversableOnce#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.‡foldLeft([B] => (z: B)(op: Function2[B, A, B]): B"s
-k_root_.scala.collection.TraversableOnce#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.[B]"
-_root_.scala.Function2#"s
-k_root_.scala.collection.TraversableOnce#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.[B]"3
- +_root_.scala.collection.TraversableOnce#[A]"s
-"#k_root_.scala.collection.TraversableOnce#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.[B]"s
-'(k_root_.scala.collection.TraversableOnce#foldLeft(Ljava/lang/Object;Lscala/Function2;)Ljava/lang/Object;.[B]"A
-(_root_.com.google.inject.AbstractModule#Ä†ÑAbstractModule"X
-9_root_.play.modules.reactivemongo.ReactiveMongoComponent#Ä@ReactiveMongoComponent"Y
-%_root_.modules.MongoStartupRunner#db.0ÅÄdbDB""
-_root_.reactivemongo.api.DB#"p
-B_root_.modules.MongoTask#run(I)Lscala/concurrent/Future;.(version)*ÄversionInt"
-_root_.scala.Int#"
-_root_.scala.ÄàÄscala"â
-9_root_.repositories.MongoTaskRegister#(executionDateTime)LÅexecutionDateTimeLocalDateTime"%
-_root_.java.time.LocalDateTime#"Ú
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"}
-u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-/?)_root_.scala.concurrent.ExecutionContext#"'
-BH_root_.scala.concurrent.Future#"}
-IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"…
-f_root_.play.api.Environment#`<init>`(Ljava/io/File;Ljava/lang/ClassLoader;Lscala/Enumeration/Value;)V.ﬁ<init>C(rootPath: File, classLoader: ClassLoader, mode: Mode): Environment"
-_root_.java.io.File#"%
-)_root_.java.lang.ClassLoader#""
-15_root_.play.api.Mode.Mode#"$
-8C_root_.play.api.Environment#"2
-_root_.play.api.Environment#Ä†ÄEnvironment"°
-o_root_.com.google.inject.multibindings.Multibinder#addBinding()Lcom/google/inject/binder/LinkedBindingBuilder;.≠ÑÄÑ
-addBinding(): LinkedBindingBuilder[T]"=
-5_root_.com.google.inject.binder.LinkedBindingBuilder#">
-6_root_.com.google.inject.multibindings.Multibinder#[T]" 
-_root_.java.util.ÄàÄutil"Ñ
-\_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.£ÑÄ toFuture[A] => (a: A): Future[A]"g
-__root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.[A]"'
-_root_.scala.concurrent.Future#"g
-__root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.[A]"O
-_root_.scala.Int#`<init>`()V..<init>(): Int"
-_root_.scala.Int#"y
-*_root_.modules.MongoStartupRunnerImpl#(ec)KÄÅ ecExecutionContext"/
-)_root_.scala.concurrent.ExecutionContext#"·
-p_root_.modules.ConvertTimestamps#`<init>`(Lrepositories/SessionRepository;Lscala/concurrent/ExecutionContext;)V.Ï<init>R(sessionRepo: SessionRepository)(implicit ec: ExecutionContext): ConvertTimestamps".
-&_root_.repositories.SessionRepository#"1
-.>)_root_.scala.concurrent.ExecutionContext#")
-AR!_root_.modules.ConvertTimestamps#"b
-)_root_.modules.MongoStartupRunner#lockId.5lockIdString"!
-_root_.scala.Predef.String#"K
-5_root_.play.api.libs.json.DefaultWrites#StringWrites.ÄÑ(StringWrites"å
-X_root_.modules.MongoStartupRunnerImpl#alreadyRun(Lmodules/MongoTask;I)Lscala/Function1;.Ø
-alreadyRunK(task: MongoTask, version: Int): Function1[MongoTaskRegister, Future[Unit]]"!
-_root_.modules.MongoTask#"
-_root_.scala.Int#"
-!*_root_.scala.Function1#".
-+<&_root_.repositories.MongoTaskRegister#"'
->D_root_.scala.concurrent.Future#"
-EI_root_.scala.Unit#"'
-_root_.uk.gov.hmrc.lock.ÄàÄlock"«
-O_root_.scala.runtime.RichInt#to(I)Lscala/collection/immutable/Range/Inclusive;.tto(end: Int): Inclusive"
-	_root_.scala.Int#":
-2_root_.scala.collection.immutable.Range.Inclusive#""
-_root_.uk.gov.hmrc.ÄàÄhmrc"U
-4_root_.java.lang.Object#getClass()Ljava/lang/Class;.ÑÄàgetClass(): Class[_]"+
-_root_.modules.MongoTask#Ä@	MongoTask"2
-_root_.javax.inject.Singleton#Ä†Ä	Singleton"µ
-v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.∫flatMapS[S] => (f: Function1[T, Future[S]])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"'
-_root_.scala.concurrent.Future#"Å
- y_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-7G)_root_.scala.concurrent.ExecutionContext#"'
-JP_root_.scala.concurrent.Future#"Å
-QRy_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"
-_root_.scala.Int#	Ä†Int"?
-'_root_.com.google.inject.multibindings.ÄàÄmultibindings"I
-3_root_.com.google.inject.multibindings.Multibinder.ÄÑàMultibinder"˛
-D_root_.uk.gov.hmrc.lock.LockRepository#`<init>`(Lscala/Function0;)V.µ<init>1()(implicit mongo: Function0[DB]): LockRepository"
-_root_.scala.Function0#"$
-_root_.reactivemongo.api.DB#"/
-#1'_root_.uk.gov.hmrc.lock.LockRepository#"7
-_root_.modules.FixSessionIndex#Ä FixSessionIndex2Ö
-££*[A]
-_star_.f
-^_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.A#2<
-ää*[Unit]
-_star_.
-_root_.scala.Unit#2n
-¢¢!*(MongoStartupRunnerImpl.this.ec)
-_star_.2
- *_root_.modules.MongoStartupRunnerImpl#(ec)2n
-¸¸!*(MongoStartupRunnerImpl.this.ec)
-_star_.2
- *_root_.modules.MongoStartupRunnerImpl#(ec)2Æ
-ÁÒ"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2b
-åå*[JsValueWrapper]
-_star_.6
-._root_.play.api.libs.json.Json.JsValueWrapper#2p
-… scala.Predef.intWrapper(*)9
-1_root_.scala.LowPriorityImplicits#intWrapper(I)I.
-_star_.2l
-‹‹*.apply
-_star_.J
-B_root_.play.api.Logger.apply(Ljava/lang/String;)Lplay/api/Logger;.2n
-ÒÒ!*(MongoStartupRunnerImpl.this.ec)
-_star_.2
- *_root_.modules.MongoStartupRunnerImpl#(ec)2x
-∆∆*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2<
-∏∏*[Unit]
-_star_.
-_root_.scala.Unit#2 
-¨∞-MongoStartupRunnerImpl.this.toFuture[Unit](*)d
-$\_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.
-%)_root_.scala.Unit#
-+,_star_.2ê
-ûû*.apply
-_star_.n
-f_root_.uk.gov.hmrc.lock.LockMongoRepository.apply(Lscala/Function0;)Luk/gov/hmrc/lock/LockRepository;.2<
-ùù*[Unit]
-_star_.
-_root_.scala.Unit#2ê
-úú*[Future[WriteResult]]
-_star_.6
-	._root_.reactivemongo.api.commands.WriteResult#'
-_root_.scala.concurrent.Future#2 
-˝ﬁ-MongoStartupRunnerImpl.this.toFuture[Unit](*)d
-$\_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.
-%)_root_.scala.Unit#
-+,_star_.2 
-∫á-MongoStartupRunnerImpl.this.toFuture[Unit](*)d
-$\_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.
-%)_root_.scala.Unit#
-+,_star_.2H
-ää*[MongoTask]
-_star_.!
-_root_.modules.MongoTask#2 
-…Ü-MongoStartupRunnerImpl.this.toFuture[Unit](*)d
-$\_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.
-%)_root_.scala.Unit#
-+,_star_.2<
-ÌÌ*[Unit]
-_star_.
-_root_.scala.Unit#2m
-‹‹*.apply
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.2•
-»»*.apply
-_star_.Ç
-z_root_.repositories.MongoTaskRegister.apply(Ljava/lang/String;ILjava/time/LocalDateTime;)Lrepositories/MongoTaskRegister;.2<
-ËË*[Unit]
-_star_.
-_root_.scala.Unit#2Ë
-çî\play.api.libs.json.Json.toJsFieldJsValueWrapper[Int](*)(play.api.libs.json.Writes.IntWrites)
-03_root_.scala.Int#ó
-/é_root_.play.api.libs.json.Json.toJsFieldJsValueWrapper(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/Json/JsValueWrapper;.
-56_star_.:
-R[2_root_.play.api.libs.json.DefaultWrites#IntWrites.2n
-ïï!*(MongoStartupRunnerImpl.this.ec)
-_star_.2
- *_root_.modules.MongoStartupRunnerImpl#(ec)2n
-éé!*(MongoStartupRunnerImpl.this.ec)
-_star_.2
- *_root_.modules.MongoStartupRunnerImpl#(ec)2Æ
-Äâ"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2n
-òò!*(MongoStartupRunnerImpl.this.ec)
-_star_.2
- *_root_.modules.MongoStartupRunnerImpl#(ec)2x
-ââ*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2<
-¿¿*[Unit]
-_star_.
-_root_.scala.Unit#2Z
-££*[MongoStartupRunner]
-_star_.*
-"_root_.modules.MongoStartupRunner#2x
-ıı*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2ç
-◊‹Ascala.collection.JavaConverters.asScalaSetConverter[MongoTask](*)ã
- 3Ç_root_.scala.collection.convert.DecorateAsScala#asScalaSetConverter(Ljava/util/Set;)Lscala/collection/convert/Decorators/AsScala;.!
-4=_root_.modules.MongoTask#
-?@_star_.2 
-◊î-MongoStartupRunnerImpl.this.toFuture[Unit](*)d
-$\_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.
-%)_root_.scala.Unit#
-+,_star_.2n
-!*(MongoStartupRunnerImpl.this.ec)
-_star_.2
- *_root_.modules.MongoStartupRunnerImpl#(ec)2b
-ÙÙ*[JsValueWrapper]
-_star_.6
-._root_.play.api.libs.json.Json.JsValueWrapper#2 
-¥∏-MongoStartupRunnerImpl.this.toFuture[Unit](*)d
-$\_root_.modules.MongoStartupRunnerImpl#toFuture(Ljava/lang/Object;)Lscala/concurrent/Future;.
-%)_root_.scala.Unit#
-+,_star_.2¯
-ı˛bplay.api.libs.json.Json.toJsFieldJsValueWrapper[String](*)(play.api.libs.json.Writes.StringWrites) 
-06_root_.java.lang.String#ó
-/é_root_.play.api.libs.json.Json.toJsFieldJsValueWrapper(Ljava/lang/Object;Lplay/api/libs/json/Writes;)Lplay/api/libs/json/Json/JsValueWrapper;.
-89_star_.=
-Ua5_root_.play.api.libs.json.DefaultWrites#StringWrites.2n
-!*(MongoStartupRunnerImpl.this.ec)
-_star_.2
- *_root_.modules.MongoStartupRunnerImpl#(ec)2<
-––*[Unit]
-_star_.
-_root_.scala.Unit#:Scala211B•/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package modules
-
-import java.time.LocalDateTime
-import javax.inject.Singleton
-
-import com.google.inject.multibindings.Multibinder
-import com.google.inject.{AbstractModule, Inject, TypeLiteral}
-import org.joda.time.Duration
-import play.api.{Configuration, Environment, Logger}
-import play.modules.reactivemongo.ReactiveMongoComponent
-import reactivemongo.api.DB
-import repositories.{MongoTaskRegister, MongoTaskRepo}
-import uk.gov.hmrc.lock.{ExclusiveTimePeriodLock, LockMongoRepository, LockRepository}
-
-import scala.collection.JavaConverters._
-import scala.concurrent.{ExecutionContext, Future}
-import scala.language.implicitConversions
-
-class MongoStartup(environment: Environment, configuration: Configuration) extends AbstractModule {
-  override def configure(): Unit = {
-    val mb = Multibinder.newSetBinder(binder(), new TypeLiteral[MongoTask]() {})
-    mb.addBinding().to(classOf[ConvertTimestamps])
-    mb.addBinding().to(classOf[FixSessionIndex])
-
-    bind(classOf[MongoStartupRunner]).to(classOf[MongoStartupRunnerImpl]).asEagerSingleton()
-  }
-}
-
-trait MongoStartupRunner extends ExclusiveTimePeriodLock {
-  val db: DB
-  val logger = Logger("MongoStartup")
-
-  override val lockId: String = "MongoStartupLock"
-  override val holdLockFor: Duration = Duration.standardMinutes(10)
-  override def repo: LockRepository = LockMongoRepository(() => db)
-}
-
-@Singleton
-class MongoStartupRunnerImpl @Inject() (reactiveMongoComponent: ReactiveMongoComponent,
-                                        mongoTaskRepo: MongoTaskRepo,
-                                        tasks: java.util.Set[MongoTask],
-                                        val db: DB)
-                                       (implicit ec: ExecutionContext) extends MongoStartupRunner {
-
-  tryToAcquireOrRenewLock {
-    tasks.asScala.foldLeft(logger.info("MongoStartup: running")) { (prev, task) =>
-      prev.flatMap { _ =>
-        (1 to task.upToVersion).foldLeft(logger.info(s"Processing ${task.name}...")) { (prev, version) =>
-          prev.flatMap { _ =>
-            mongoTaskRepo.find("taskName" -> task.name, "version" -> version).flatMap {
-              case Nil => logger.info(s"Task ${task.name} version $version not yet executed - running")
-                .map(_ => mongoTaskRepo.insert(MongoTaskRegister(task.name, version, LocalDateTime.now)))
-                .flatMap(_ => task.run(version))
-              case head :: _ => alreadyRun(task, version)(head)
-            }
-          }
-        }
-      }
-    }
-  }
-
-  def alreadyRun(task: MongoTask, version: Int): MongoTaskRegister => Future[Unit] = { head =>
-    logger.info(s"Mongo task ${task.name} version $version already ran at ${head.executionDateTime}")
-  }
-
-  implicit def toFuture[A](a: A): Future[A] = Future.successful(a)
-}
-
-trait MongoTask {
-  val upToVersion: Int
-  val name = this.getClass.getSimpleName
-
-  def run(version: Int): Future[Unit]
-}
-Japp/modules/MongoStartup.scala

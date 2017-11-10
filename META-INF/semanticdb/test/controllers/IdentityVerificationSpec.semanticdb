@@ -1,956 +1,0 @@
-
-Ûﬁz
-»Œp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.F
-¡ƒ<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.9
-ü§/_root_.org.jsoup.Jsoup.;_root_.org.jsoup.Jsoup#Q
-ËÔG_root_.controllers.IdentityVerification#success()Lplay/api/mvc/Action;.j
-ª∆`_root_.play.api.test.FakeRequest#withSession(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.>
-Ω$ƒ$4_root_.controllers.IdentityVerificationSpec#request.
-“’_root_.play.api.F
-ä!å!:test/controllers/IdentityVerificationSpec.scala@4230..4323)
-√‘_root_.utils.StubAuthConnector.∏
- Ã≠_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.;_root_.org.mockito.ArgumentMatchers.eq(S)S.;_root_.org.mockito.ArgumentMatchers.eq(J)J.;_root_.org.mockito.ArgumentMatchers.eq(I)I.;_root_.org.mockito.ArgumentMatchers.eq(F)F.;_root_.org.mockito.ArgumentMatchers.eq(D)D.;_root_.org.mockito.ArgumentMatchers.eq(C)C.;_root_.org.mockito.ArgumentMatchers.eq(B)B.;_root_.org.mockito.ArgumentMatchers.eq(Z)Z.¶
-–‹õ_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
-ò¢_root_.connectors.)
-Î¸_root_.utils.StubAuthConnector.F
-èí<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.
-ËÔ_root_.org.mockito.u
-áâk_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.D
-£§:test/controllers/IdentityVerificationSpec.scala@1480..1526
-¨Ø_root_.org.U
-ôùK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.Q
-≥$∫$G_root_.controllers.IdentityVerification#success()Lplay/api/mvc/Action;.0
-ÍÇ&_root_.utils.StubIdentityVerification.
-’⁄_root_.utils.U
-æ…K_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.â
-•®_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.t
-£®j_root_.org.scalatest.words.MatcherWords#equal(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.F
-¶®:test/controllers/IdentityVerificationSpec.scala@3106..3199a
-µøW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.t
-ø ƒ j_root_.org.scalatest.words.MatcherWords#equal(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.>
-Óı4_root_.controllers.IdentityVerificationSpec#request.D
-˘
-˘
-8_root_.controllers.IdentityVerificationSpec#`<init>`()V.*
-êô _root_.org.scalacheck.Arbitrary.[
-ò≠Q_root_.utils.StubIdentityVerification.stubSuccessfulJourney(Ljava/lang/String;)V.F
-‰Á<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.
-ïò_root_.org.a
-äîW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.
-í
-ñ
-_root_.uk.gov.hmrc.>
-º!√!4_root_.controllers.IdentityVerificationSpec#request.°
-∫ æ ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.U
-¸ÄK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.1
-§Ω'_root_.utils.StubGroupAccountConnector.F
-Ó˙:test/controllers/IdentityVerificationSpec.scala@3562..3615?
-ö∫5_root_.repositories.PersonalDetailsSessionRepository#W
-ú
-©
-M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#K
-™≤A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.a
-€ÂW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.2
-«€(_root_.controllers.IdentityVerification#0
-œ#Á#&_root_.utils.StubIdentityVerification.F
-…Ã:test/controllers/IdentityVerificationSpec.scala@2629..2716?
-’ı5_root_.repositories.PersonalDetailsSessionRepository#
-ø"√"_root_.scala.None.ÿ
-€€Õ_root_.controllers.IdentityVerification#`<init>`(Lauth/GGAction;Lconnectors/IdentityVerification;Lconnectors/Addresses;Lconnectors/IndividualAccounts;Lconnectors/identityVerificationProxy/IdentityVerificationProxyConnector;Lconnectors/GroupAccounts;Lconnectors/VPLAuthConnector;Lconfig/ApplicationConfig;Lrepositories/SessionRepo;)V.F
-ÁÎ:test/controllers/IdentityVerificationSpec.scala@2787..2818z
-É%â%p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.W
-Ë#˘#M_root_.utils.StubIdentityVerification.stubFailedJourney(Ljava/lang/String;)V.d
-≈ÕZ_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.2
-û©(_root_.models.GroupAccount#(companyName)o
-ÊÔe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.1
-Ùç'_root_.utils.StubGroupAccountConnector.F
-ñô<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.4
-êê*_root_.org.scalatest.FlatSpec#`<init>`()V.u
-ÍÏk_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.'
-–ﬂ_root_.play.api.test.Helpers.J
-∆—@_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.z
-ÚÜp_root_.controllers.IdentityVerificationSpec#requestWithJourneyId(Ljava/lang/String;)Lplay/api/test/FakeRequest;.0
-¸î&_root_.utils.StubIdentityVerification.6
-£º,_root_.connectors.identityVerificationProxy.O
-ö$≤$E_root_.controllers.IdentityVerificationSpec#TestIdentityVerification.Q
-ËÔG_root_.controllers.IdentityVerification#success()Lplay/api/mvc/Action;.
-ÅÑ_root_.org.?
-∑∫5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.D
-˙Å:test/controllers/IdentityVerificationSpec.scala@2748..2782)
-ÛÑ_root_.utils.StubAuthConnector.M
-ÖìC_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.;
-ïõ1_root_.org.scalacheck.Gen#sample()Lscala/Option;.>
-“!Ÿ!4_root_.controllers.IdentityVerificationSpec#request.G
-˝å=_root_.models.PersonalDetails.;_root_.models.PersonalDetails#%
-©Ø_root_.scala.Predef.String#
-œ”_root_.scala.None.e
-–‘[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.ü
-Çáî_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.9
-´¡/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.6
-¡	ﬂ	,_root_.utils.StubIndividualAccountConnector.{
-…”q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.K
-ˇêA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#"
-Ω
-¡
-_root_.uk.gov.hmrc.play.d
-◊ﬂZ_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.
-Â_root_.controllers.t
-Üãj_root_.org.scalatest.words.MatcherWords#equal(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.J
-’‡@_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.D
-éè:test/controllers/IdentityVerificationSpec.scala@1480..1526¡
-§®∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.3
-ä%ñ%)_root_.play.api.http.Status#UNAUTHORIZED.F
-ÎÓ<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.d
-…ÕZ_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.@
-ÍÒ4_root_.controllers.IdentityVerificationSpec#request.F
-…Ã:test/controllers/IdentityVerificationSpec.scala@3781..3865D
-ÄÅ:test/controllers/IdentityVerificationSpec.scala@1480..1526D
-ëù:test/controllers/IdentityVerificationSpec.scala@3562..3615
-Õ—_root_.play.6
-úü,_root_.scala.Option#get()Ljava/lang/Object;.d
- “Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.F
-¿«:test/controllers/IdentityVerificationSpec.scala@2748..27828
-‡
-¯
-,_root_.controllers.IdentityVerificationSpec#%
-˜_root_.org.mockito.Mockito.4
-⁄!·!*_root_.play.api.mvc.RequestHeader#session.
-∞∑_root_.org.mockito.Y
-ΩﬂO_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#$
-‹Ë_root_.utils.StubGGAction.D
-Œœ:test/controllers/IdentityVerificationSpec.scala@1480..1526
-ÈÌ_root_.scala.Some.%
-Ñë_root_.utils.StubAddresses.¡
-™Æ∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.(
-©∏_root_.models.PersonalDetails#D
- ÷:test/controllers/IdentityVerificationSpec.scala@3562..3615P
-”’F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.U
-µ π K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.d
-… — Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.é
-◊€É_root_.models.GroupAccount#copy(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)Lmodels/GroupAccount;.9
-¬
-ÿ
-/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.
-Ï	Ò	_root_.scala.*
-æœ _root_.config.ApplicationConfig#
-˜˚_root_.play.api.test.
-£¶_root_.org.F
-∫Ω<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.a
-ƒŒW_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.
-‰Á_root_.org.
-ã
-ç
-
-_root_.uk.
-¥
-∑
-_root_.uk.gov.F
-Ω¡:test/controllers/IdentityVerificationSpec.scala@3897..3941)
-Æ¥_root_.scala.concurrent.Future.(
-ˇ_root_.models.PersonalDetails#F
-“·<_root_.controllers.IdentityVerificationSpec#mockSessionRepo.
-é
-ë
-_root_.uk.gov.o
-˝Üe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.!
-ƒ…_root_.org.jsoup.Jsoup.H
-∞ø<_root_.controllers.IdentityVerificationSpec#mockSessionRepo.$
-˛ä	_root_.utils.StubGGAction.4
-ƒ!À!*_root_.play.api.test.FakeRequest#(headers)"
-ó
-õ
-_root_.uk.gov.hmrc.http.9
-è!•!/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.4
-ï°*_root_.org.scalatest.mockito.MockitoSugar#+
-Ùˇ!_root_.play.api.test.FakeRequest.v
-º"æ"l_root_.org.scalatest.words.ResultOfNotWordForAny#be(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.M
-¢∞C_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.U
-Ù˘K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.z
-™∞p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
-çô_root_.repositories.6
-óµ,_root_.utils.StubIndividualAccountConnector.z
-≠≥p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.¡
-ú#†#∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.D
-⁄›:test/controllers/IdentityVerificationSpec.scala@2778..2781U
-√«K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.O
-œÁE_root_.controllers.IdentityVerificationSpec#TestIdentityVerification.
-ÓÚ_root_.play.F
-ÃÕ:test/controllers/IdentityVerificationSpec.scala@1480..1526.
-∏»$_root_.org.mockito.ArgumentMatchers.A
-Ô˚7_root_.models.GroupAccount.;_root_.models.GroupAccount#
-÷⁄_root_.play.api.test.1
-å	•	'_root_.utils.StubGroupAccountConnector.F
-›‡<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.)
-±≥_root_.play.api.http.Status#OK.F
-î$ó$:test/controllers/IdentityVerificationSpec.scala@4624..4722)
-Éâ_root_.scala.concurrent.Future.
-Ûˆ_root_.play.api.>
-≥∫4_root_.controllers.IdentityVerificationSpec#request.)
-¥≈_root_.utils.StubAuthConnector.Q
-çéG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.t
-Õ“j_root_.org.scalatest.words.MatcherWords#equal(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.'
-±∏_root_.org.scalatest.mockito.Q
-¶æE_root_.controllers.IdentityVerificationSpec#TestIdentityVerification.[
-ï™Q_root_.utils.StubIdentityVerification.stubSuccessfulJourney(Ljava/lang/String;)V.Ä
-•ßt_root_.controllers.IdentityVerificationSpec#requestWithJourneyId(Ljava/lang/String;)Lplay/api/test/FakeRequest;.(id)|
-ê§p_root_.controllers.IdentityVerificationSpec#requestWithJourneyId(Ljava/lang/String;)Lplay/api/test/FakeRequest;.0
-ˇó&_root_.utils.StubIdentityVerification.d
-˚ˇZ_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.>
-ÿﬂ4_root_.controllers.IdentityVerificationSpec#request.ñ
-¶!ª!ã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.
-ôû_root_.org.jsoup.I
-˝	É
-?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#)
-‘⁄_root_.scala.concurrent.Future.)
-ê°_root_.utils.StubAuthConnector.Y
-œÒO_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#°
-û¢ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.°
-ÅÖñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.F
-àã<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.D
-‡„:test/controllers/IdentityVerificationSpec.scala@3936..3939,
-Åè"_root_.controllers.ControllerSpec#!
-ÓÛ_root_.org.jsoup.Jsoup.4
-‡Á*_root_.play.api.test.FakeRequest#(headers)'
-¸É_root_.play.api.test.Helpers.?
-¶©5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.{
-¯Çq_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.)
-ì§_root_.utils.StubAuthConnector.ó
-‹„å_root_.models.GroupAccount#copy(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)Lmodels/GroupAccount;.(groupId)U
- œK_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.
-¯˛_root_.config.u
-∆#»#k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.z
-ÚÜp_root_.controllers.IdentityVerificationSpec#requestWithJourneyId(Ljava/lang/String;)Lplay/api/test/FakeRequest;.%
-‹È_root_.utils.StubAddresses.°
-»Ãñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.0
-ß	ø	&_root_.utils.StubIdentityVerification.;
-Åá1_root_.org.scalacheck.Gen#sample()Lscala/Option;._
-π≈U_root_.org.scalatest.mockito.MockitoSugar.;_root_.org.scalatest.mockito.MockitoSugar#d
-û¢Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.ñ
-¬◊ã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.)
-¥∂_root_.play.api.http.Status#OK.
-¬À_root_.resources.'
- Ÿ_root_.play.api.test.Helpers."
-Ú	¸	_root_.scala.concurrent.a
-≥ΩW_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.M
-€ÊC_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#%
-áì_root_.models.GroupAccount#6
-∏"ª",_root_.org.scalatest.words.MatcherWords#not.K
-ª√A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.P
-ﬁ$‡$F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
-±
-≥
-
-_root_.uk. 
-Öè_root_.org.scalacheck.
-ÁÌ_root_.models.j
-≈$–$`_root_.play.api.test.FakeRequest#withSession(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.~
-÷ÿt_root_.controllers.IdentityVerificationSpec#requestWithJourneyId(Ljava/lang/String;)Lplay/api/test/FakeRequest;.(id)
-∏
-º
-_root_.uk.gov.hmrc.
-Õ!—!_root_.scala.Some.O
-œÁE_root_.controllers.IdentityVerificationSpec#TestIdentityVerification.
-ß∞_root_.org.scalatest.{
-£≠q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.4
-ˆ˝*_root_.play.api.mvc.RequestHeader#session.ã
-≥"∑"Ä_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/NotWord;)Lorg/scalatest/words/ResultOfNotWordForAny;."9
-"_root_.controllers.ControllerSpec#Ä@ControllerSpec"Õ
-q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.◊ÑÄÑ
-thenReturn(x$1: T): OngoingStubbing[T]"7
-/_root_.org.mockito.stubbing.OngoingStubbing#[T]"4
-
-,_root_.org.mockito.stubbing.OngoingStubbing#"7
-/_root_.org.mockito.stubbing.OngoingStubbing#[T]"T
-,_root_.utils.StubIndividualAccountConnector.$ÄÑStubIndividualAccountConnector"$
-_root_.play.api.test.ÄàÄtest"z
-O_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#'Ä "IdentityVerificationProxyConnector"x
-:test/controllers/IdentityVerificationSpec.scala@2787..2818:htmlDocument"&
- _root_.org.jsoup.nodes.Document#"E
-(_root_.controllers.IdentityVerification#Ä IdentityVerification"°
-:test/controllers/IdentityVerificationSpec.scala@4624..4722cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"6
-!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"Õ
-Z_root_.org.scalatest.AppendedClues#Clueful#withClue(Ljava/lang/Object;)Ljava/lang/Object;.owithClue(clue: Any): T"
-
-_root_.scala.Any#"6
-._root_.org.scalatest.AppendedClues#Clueful#[T]"è
-_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ãgetE[A] => (implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]]"(
- _root_.play.api.libs.json.Reads#"ã
-Ç_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
-$1&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-4:_root_.scala.concurrent.Future#"
-;A_root_.scala.Option#"ã
-BCÇ_root_.repositories.SessionRepository#get(Lplay/api/libs/json/Reads;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]"'
-_root_.connectors.ÄàÄ
-connectors"
-:test/controllers/IdentityVerificationSpec.scala@3562..3615AgroupAccountGroupAccount"!
-_root_.models.GroupAccount#"‘
-e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Í	arbitrary)[T] => (implicit a: Arbitrary[T]): Gen[T]"(
- _root_.org.scalacheck.Arbitrary#"p
-h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]""
-#&_root_.org.scalacheck.Gen#"p
-'(h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]"Ò
-õ_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.–saveOrUpdateJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"ß
-û_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
-%!_root_.play.api.libs.json.Writes#"ß
-&'û_root_.repositories.SessionRepository#saveOrUpdate(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
-.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
->D_root_.scala.concurrent.Future#"
-EI_root_.scala.Unit#"è	
-Õ_root_.controllers.IdentityVerification#`<init>`(Lauth/GGAction;Lconnectors/IdentityVerification;Lconnectors/Addresses;Lconnectors/IndividualAccounts;Lconnectors/identityVerificationProxy/IdentityVerificationProxyConnector;Lconnectors/GroupAccounts;Lconnectors/VPLAuthConnector;Lconfig/ApplicationConfig;Lrepositories/SessionRepo;)V.º<init>»(ggAction: GGAction, identityVerification: IdentityVerification, addresses: Addresses, individuals: IndividualAccounts, identityVerificationProxyConnector: IdentityVerificationProxyConnector, groups: GroupAccounts, auth: VPLAuthConnector, config: ApplicationConfig, personalDetailsSessionRepo: SessionRepo): IdentityVerification"
-_root_.auth.GGAction#"/
-+?'_root_.connectors.IdentityVerification#"$
-LU_root_.connectors.Addresses#"-
-dv%_root_.connectors.IndividualAccounts#"Y
-úæO_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#"*
-»’ _root_.connectors.GroupAccounts#"-
-›Ì#_root_.connectors.VPLAuthConnector#"*
-˜à _root_.config.ApplicationConfig#"*
-¶± _root_.repositories.SessionRepo#"2
-¥»(_root_.controllers.IdentityVerification#"P
-,_root_.connectors.identityVerificationProxy. ÄàÄidentityVerificationProxy"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"?
-*_root_.org.scalatest.mockito.MockitoSugar#Ä@MockitoSugar"˙
-W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
-successful[T] => (result: T): Future[T]"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
-_root_.scala.concurrent.Future#"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"∂
-G_root_.controllers.IdentityVerification#success()Lplay/api/mvc/Action;.ksuccessAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"'
-_root_.uk.gov.hmrc.http.ÄàÄhttp"°
-:test/controllers/IdentityVerificationSpec.scala@2629..2716cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"
-_root_.play.api.
-ÄàÄapi"x
-:test/controllers/IdentityVerificationSpec.scala@3897..3941:htmlDocument"&
- _root_.org.jsoup.nodes.Document#"g
-*_root_.play.api.test.FakeRequest#(headers)9ÅheadersHeaders""
-_root_.play.api.mvc.Headers#"ß
-º_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.Â<init>o(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): IdentityVerificationProxyConnector"=
-5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%+_root_.config.WSHttp#"1
-:J)_root_.scala.concurrent.ExecutionContext#"W
-MoO_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#"[
-)_root_.play.api.http.Status#UNAUTHORIZED..UNAUTHORIZEDInt"
-_root_.scala.Int#"ê
-K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.A†Ä herePosition"+
-%_root_.org.scalactic.source.Position#"ö
-8_root_.controllers.IdentityVerificationSpec#`<init>`()V.^<init>(): IdentityVerificationSpec"4
-,_root_.controllers.IdentityVerificationSpec#"?
-$_root_.org.mockito.ArgumentMatchers.ÄÑàArgumentMatchers"¬
-s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
-	_root_.scala.Long#"#
-_root_.scala.Predef.String#"#
-)/_root_.scala.Predef.String#"
-<?_root_.scala.Int#"#
-HN_root_.scala.Predef.String#"#
-W]_root_.scala.Predef.String#"
-ho_root_.scala.Boolean#"
-|Ä_root_.scala.Long#"%
-Éè_root_.models.GroupAccount#"/
-_root_.scala.concurrent.Future.ÄÑFuture"ç
-1_root_.org.scalacheck.Gen#sample()Lscala/Option;.Xsample	Option[T]"
-_root_.scala.Option#"%
-_root_.org.scalacheck.Gen#[T]"¬
-p_root_.controllers.IdentityVerificationSpec#requestWithJourneyId(Ljava/lang/String;)Lplay/api/test/FakeRequest;.ÕÑÄrequestWithJourneyId1(id: String): FakeRequest[AnyContentAsEmpty.type]"#
-_root_.scala.Predef.String#")
-!_root_.play.api.test.FakeRequest#".
-+&_root_.play.api.mvc.AnyContentAsEmpty."t
-:test/controllers/IdentityVerificationSpec.scala@2748..27826contentString"!
-_root_.scala.Predef.String#"/
-_root_.org.scalatest.mockito.ÄàÄmockito"'
-_root_.org.jsoup.Jsoup.ÄÑàJsoup"¢
-:test/controllers/IdentityVerificationSpec.scala@3936..3939dx$12Future[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"å
-[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.¨mock*[T] => (implicit classTag: ClassTag[T]): T"&
-#_root_.scala.reflect.ClassTag#"f
-$%^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"f
-)*^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"+
-_root_.repositories.ÄàÄrepositories"%
-_root_.resources.ÄàÄ	resources"g
-E_root_.controllers.IdentityVerificationSpec#TestIdentityVerification.ÄÑ	TestIdentityVerification"Æ
-C_root_.utils.StubAuthConnector.stubExternalId(Ljava/lang/String;)V.gstubExternalId(id: String): Unit"#
-_root_.scala.Predef.String#"
-_root_.scala.Unit#")
-_root_.org.scalatest.ÄàÄ	scalatest"‹
-ñ_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.¿mustu[TYPECLASS1] => (rightMatcherFactory1: MatcherFactory1[T, TYPECLASS1])(implicit typeClass1: TYPECLASS1[T]): Assertion"6
-'6._root_.org.scalatest.matchers.MatcherFactory1#"<
-784_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"´
-:D¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"´
-\f¢_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/MatcherFactory1;Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.[TYPECLASS1]"<
-gh4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"/
-lu'_root_.org.scalatest.package.Assertion#"
-_root_.org.
-ÄàÄorg"
-
-_root_.uk.	ÄàÄuk"„
-p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.omustBe(right: Any): Assertion"
-_root_.scala.Any#"/
-'_root_.org.scalatest.package.Assertion#"ì
-Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.¥ÑÄÄwhen#[T] => (x$1: T): OngoingStubbing[T]"e
-]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"4
- ,_root_.org.mockito.stubbing.OngoingStubbing#"e
-!"]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"’
-î_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ªstartJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"†
-ó_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
-%!_root_.play.api.libs.json.Writes#"†
-&'ó_root_.repositories.SessionRepository#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
-.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
->D_root_.scala.concurrent.Future#"
-EI_root_.scala.Unit#"2
-_root_.models.GroupAccount#Ä†ÄGroupAccount"º
-j_root_.org.scalatest.words.MatcherWords#equal(Ljava/lang/Object;)Lorg/scalatest/matchers/MatcherFactory1;.Õequal,(right: Any): MatcherFactory1[Any, Equality]"
-_root_.scala.Any#"6
-._root_.org.scalatest.matchers.MatcherFactory1#"
-!_root_.scala.Any#"&
-#+_root_.org.scalactic.Equality#"
-_root_.uk.gov.
-ÄàÄgov"ﬁ
-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
-_root_.scala.Tuple2#"*
-"_root_.scala.Predef.ArrowAssoc#[A]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"ª
-M_root_.utils.StubIdentityVerification.stubFailedJourney(Ljava/lang/String;)V.jstubFailedJourney(id: String): Unit"#
-_root_.scala.Predef.String#"
-_root_.scala.Unit#":
- _root_.config.ApplicationConfig#Ä ApplicationConfig"¬
-4_root_.controllers.IdentityVerificationSpec#request.ârequest#FakeRequest[AnyContentAsEmpty.type]"'
-!_root_.play.api.test.FakeRequest#".
-&_root_.play.api.mvc.AnyContentAsEmpty."Å
-ã_root_.uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession(Lplay/api/mvc/Headers;Lscala/Option;)Luk/gov/hmrc/http/HeaderCarrier;.fromHeadersAndSession;(headers: Headers, session: Option[Session]): HeaderCarrier"$
-
-_root_.play.api.mvc.Headers#"
-"_root_.scala.Option#"$
-#*_root_.play.api.mvc.Session#".
-.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"!
-_root_.scala.None.ÄÑàNone".
-_root_.play.api.test.Helpers.ÄÑHelpers"k
-,_root_.org.scalatest.words.MatcherWords#not.;notNotWord")
-#_root_.org.scalatest.words.NotWord#"O
-/_root_.uk.gov.hmrc.play.HeaderCarrierConverter.ÄÑHeaderCarrierConverter"¡
-∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
-_root_.scala.Predef.String#">
-96_root_.org.scalatest.words.StringVerbStringInvocation#">
-<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"¥
-<_root_.controllers.IdentityVerificationSpec#mockSessionRepo.tÅÄ@mockSessionRepo PersonalDetailsSessionRepository";
- 5_root_.repositories.PersonalDetailsSessionRepository#"M
-,_root_.controllers.IdentityVerificationSpec#Ä IdentityVerificationSpec"ä
-W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.ÆÑÄ
-instanceOf,[T] => (implicit evidence$1: ClassTag[T]): T"&
-%_root_.scala.reflect.ClassTag#"b
-&'Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"b
-+,Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"
-_root_.play.ÄàÄplay"°
-:test/controllers/IdentityVerificationSpec.scala@3781..3865cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"-
-_root_.scala.concurrent.ÄàÄ
-concurrent":
-_root_.utils.StubAuthConnector.ÄÑStubAuthConnector"+
-_root_.org.scalacheck.ÄàÄ
-scalacheck"‚
-Ä_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/words/NotWord;)Lorg/scalatest/words/ResultOfNotWordForAny;.‹must,(notWord: NotWord): ResultOfNotWordForAny[T]"+
-
-#_root_.org.scalatest.words.NotWord#"9
-)1_root_.org.scalatest.words.ResultOfNotWordForAny#"<
-*+4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"¢
-:test/controllers/IdentityVerificationSpec.scala@1480..1526df PersonalDetailsSessionRepository";
- 5_root_.repositories.PersonalDetailsSessionRepository#"™
-t_root_.controllers.IdentityVerificationSpec#requestWithJourneyId(Ljava/lang/String;)Lplay/api/test/FakeRequest;.(id)2ÄidString"!
-_root_.scala.Predef.String#"°
-<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.aÑÄÄany[T] => (): T"G
-?_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.[T]"-
-_root_.org.mockito.Mockito.ÄÑàMockito"3
- _root_.org.scalacheck.Arbitrary.ÄÑ	Arbitrary"≠
-@_root_.utils.StubAuthConnector.stubGroupId(Ljava/lang/String;)V.istubGroupId(groupId: String): Unit"#
-
-_root_.scala.Predef.String#"
-_root_.scala.Unit#"÷
-G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
-_root_.scala.`<repeated>`#"
-_root_.scala.Any#"#
-_root_.scala.Predef.String#"
-_root_.models.ÄàÄmodels"∏
-–_root_.models.PersonalDetails#`<init>`(Ljava/lang/String;Ljava/lang/String;Ljava/time/LocalDate;Luk/gov/hmrc/domain/Nino;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;Lmodels/Address;)V.‚<init>ª(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino, email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: Address): PersonalDetails"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"#
-3<_root_.java.time.LocalDate#"'
-DH_root_.uk.gov.hmrc.domain.Nino#"#
-QW_root_.scala.Predef.String#"#
-io_root_.scala.Predef.String#"#
-y_root_.scala.Predef.String#"
-âè_root_.scala.Option#"%
-êñ_root_.scala.Predef.String#" 
-¢©_root_.models.Address#"(
-¨ª_root_.models.PersonalDetails#"É
-:test/controllers/IdentityVerificationSpec.scala@3106..3199EÅÄ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"[
-,_root_.scala.Option#get()Ljava/lang/Object;.+ÑÄgetA"
-_root_.scala.Option#[A]"É
-:test/controllers/IdentityVerificationSpec.scala@4230..4323EÅÄ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#")
-_root_.controllers.ÄàÄcontrollers"»
-å_root_.models.GroupAccount#copy(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)Lmodels/GroupAccount;.(groupId)7ÄgroupIdString"!
-_root_.scala.Predef.String#"J
-'_root_.utils.StubGroupAccountConnector.ÄÑStubGroupAccountConnector"8
-_root_.models.PersonalDetails#Ä†ÄPersonalDetails" 
-l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
-_root_.play.api.Configuration#"6
-(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
-2C _root_.config.ApplicationConfig#"
-_root_.utils.ÄàÄutils"
-_root_.config.ÄàÄconfig"!
-_root_.org.jsoup.ÄàÄjsoup"—
-É_root_.models.GroupAccount#copy(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)Lmodels/GroupAccount;.»copyè(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
-	_root_.scala.Long#"#
-_root_.scala.Predef.String#"#
-)/_root_.scala.Predef.String#"
-<?_root_.scala.Int#"#
-HN_root_.scala.Predef.String#"#
-W]_root_.scala.Predef.String#"
-ho_root_.scala.Boolean#"
-|Ä_root_.scala.Long#"%
-Éè_root_.models.GroupAccount#"√
-Q_root_.utils.StubIdentityVerification.stubSuccessfulJourney(Ljava/lang/String;)V.nstubSuccessfulJourney(id: String): Unit"#
-_root_.scala.Predef.String#"
-_root_.scala.Unit#"°
-:test/controllers/IdentityVerificationSpec.scala@2778..2781cx$1Future[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"
-_root_.scala.ÄàÄscala"0
-_root_.utils.StubGGAction.ÄÑStubGGAction"€
-l_root_.org.scalatest.words.ResultOfNotWordForAny#be(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.kbe(right: Any): Assertion"
-_root_.scala.Any#"/
-'_root_.org.scalatest.package.Assertion#"^
-5_root_.repositories.PersonalDetailsSessionRepository#%Ä  PersonalDetailsSessionRepository"H
-&_root_.utils.StubIdentityVerification.ÄÑStubIdentityVerification"æ
-K_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.ostubAccount(account: GroupAccount): Unit"#
-
-_root_.models.GroupAccount#"
-_root_.scala.Unit#"n
-*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
-_root_.org.scalatest.FlatSpec#""
-_root_.uk.gov.hmrc.ÄàÄhmrc"ú
-`_root_.play.api.test.FakeRequest#withSession(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.∑withSessionA(newSessions: <repeated>[Tuple2[String, String]]): FakeRequest[A]""
-_root_.scala.`<repeated>`#"
-_root_.scala.Tuple2#"#
- &_root_.scala.Predef.String#"#
-(._root_.scala.Predef.String#")
-3>!_root_.play.api.test.FakeRequest#",
-?@$_root_.play.api.test.FakeRequest#[A]"h
-*_root_.play.api.mvc.RequestHeader#session.:ÅÄ@sessionSession""
-_root_.play.api.mvc.Session#"'
-_root_.uk.gov.hmrc.play.ÄàÄplay"É
-A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.>injectorInjector"&
- _root_.play.api.inject.Injector#"s
-5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.:ÅÄ`appApplication""
-_root_.play.api.Application#"G
-_root_.play.api.http.Status#OK.$OKInt"
-_root_.scala.Int#" 
-_root_.scala.Some.
-ÄÑSome"%
-_root_.org.mockito.ÄàÄmockito"˜
-W_root_.repositories.PersonalDetailsSessionRepository#`<init>`(Lreactivemongo/api/DB;)V.õ<init>*(db: DB): PersonalDetailsSessionRepository"$
-_root_.reactivemongo.api.DB#"=
-
-*5_root_.repositories.PersonalDetailsSessionRepository#"∂
-k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
-
-_root_.scala.`<byname>`#"
-_root_.scala.Any#"-
-'/%_root_.org.scalactic.source.Position#"
-26_root_.scala.Unit#"g
-(_root_.models.GroupAccount#(companyName);ÅcompanyNameString"!
-_root_.scala.Predef.String#"2
-_root_.utils.StubAddresses.ÄÑStubAddresses"¿
-K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.qÑÄÄparse(x$1: String): Document" 
-_root_.java.lang.String#"(
- _root_.org.jsoup.nodes.Document#2§
-» » &*(org.scalactic.Equality.default[Int])
-_star_.
-!$_root_.scala.Int#H
- @_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.2G
-’’	*[String]
-_star_.#
-_root_.scala.Predef.String#2D
-‡$‡$	*[String]
-_star_. 
-_root_.java.lang.String#2˛
-˘» <IdentityVerificationSpec.this.convertToClueful[Assertion](*)t
-.l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;./
-/8'_root_.org.scalatest.package.Assertion#
-:;_star_.2~
-îî,*(resources.`package`.arbitraryGroupAccount)
-_star_.7
-+/_root_.resources.package.arbitraryGroupAccount.2±
-……)*(org.scalactic.Equality.default[String])
-_star_.#
-!'_root_.scala.Predef.String#H
- @_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.2$
-ﬁﬁ*(x$2, x$3)
-_star_.2˛
-˛÷<IdentityVerificationSpec.this.convertToClueful[Assertion](*)t
-.l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;./
-/8'_root_.org.scalatest.package.Assertion#
-:;_star_.2B
-ãã
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2m
-ÕÕ*[Future[Unit]]
-_star_.
-	_root_.scala.Unit#'
-_root_.scala.concurrent.Future#2´
-›©úIdentityVerificationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 55), org.scalactic.Prettifier.default)¡
-8∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-9:_star_.y
-Z_q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-îõ(_root_.org.scalactic.Prettifier.default.2µ
-ˆˆõ*(((ClassTag.apply[PersonalDetailsSessionRepository](classOf[repositories.PersonalDetailsSessionRepository])): ClassTag[PersonalDetailsSessionRepository]))
-_star_.>
-xò5_root_.repositories.PersonalDetailsSessionRepository#=
-35_root_.repositories.PersonalDetailsSessionRepository#&
-ow_root_.scala.reflect.ClassTag#W
-O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.2b
-∫$∫$*.apply
-_star_.@
-8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2Æ
-«“"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2&
-‰‰*(x$13, x$14)
-_star_.2©
-ÈÈB*(IdentityVerificationSpec.this.shorthandTestRegistrationFunction)
-_star_.L
- AD_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2Ç
-›Ü<IdentityVerificationSpec.this.convertToInAndIgnoreMethods(*)®
-9ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
-:;_star_.2´
-ÍÄúIdentityVerificationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 85), org.scalactic.Prettifier.default)¡
-8∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-9:_star_.y
-Z_q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-îõ(_root_.org.scalactic.Prettifier.default.2m
-ˇˇ*[Future[Unit]]
-_star_.
-	_root_.scala.Unit#'
-_root_.scala.concurrent.Future#2÷
-––h*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
-_star_.(
-Te _root_.config.ApplicationConfig#W
-O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
-$ _root_.config.ApplicationConfig#&
-KS_root_.scala.reflect.ClassTag#2L
-ÃÃ*[Equality]
-_star_.&
-
-_root_.org.scalactic.Equality#2»
-È!≤"ƒIdentityVerificationSpec.this.convertToAnyMustWrapper[Future[Option[DetailedIndividualAccount]]](*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 90), org.scalactic.Prettifier.default)0
-D](_root_.models.DetailedIndividualAccount#
-=C_root_.scala.Option#'
-6<_root_.scala.concurrent.Future#ª
-5≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-ab_star_.{
-Çáq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-º√(_root_.org.scalactic.Prettifier.default.2’
-◊◊¿*(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 56))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2˛
-Íƒ<IdentityVerificationSpec.this.convertToClueful[Assertion](*)t
-.l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;./
-/8'_root_.org.scalatest.package.Assertion#
-:;_star_.2y
-ÂÂ*[Option[PersonalDetails]]
-_star_.&
-	_root_.models.PersonalDetails#
-_root_.scala.Option#2´
-À"õ#úIdentityVerificationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 93), org.scalactic.Prettifier.default)¡
-8∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-9:_star_.y
-Z_q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-îõ(_root_.org.scalactic.Prettifier.default.2x
-çç*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2B
-ƒƒ
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2Ç
-€È<IdentityVerificationSpec.this.convertToInAndIgnoreMethods(*)®
-9ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
-:;_star_.2L
-æ æ *[Equality]
-_star_.&
-
-_root_.org.scalactic.Equality#2ï
-Ö«ºIdentityVerificationSpec.this.convertToAnyMustWrapper[Option[DetailedIndividualAccount]](*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 71), org.scalactic.Prettifier.default)
-6<_root_.scala.Option#ª
-5≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.0
-=V(_root_.models.DetailedIndividualAccount#
-YZ_star_.y
-zq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-¥ª(_root_.org.scalactic.Prettifier.default.2©
-ÜÜB*(IdentityVerificationSpec.this.shorthandTestRegistrationFunction)
-_star_.L
- AD_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2Ç
-À"≈#<IdentityVerificationSpec.this.convertToInAndIgnoreMethods(*)®
-9ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
-:;_star_.2¬
-˘π ûIdentityVerificationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 86), org.scalactic.Prettifier.default)
-69_root_.scala.Int#ª
-5≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-;<_star_.y
-\aq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ñù(_root_.org.scalactic.Prettifier.default.2B
-ÁÁ
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2Ñ
-ÄÄ/*(resources.`package`.arbitraryPersonalDetails)
-_star_.:
-.2_root_.resources.package.arbitraryPersonalDetails.2B
-‡‡
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2ë
-ÌÌ*.apply[Session]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.$
-_root_.play.api.mvc.Session#2¬
-°¨ûIdentityVerificationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 62), org.scalactic.Prettifier.default)
-69_root_.scala.Int#ª
-5≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-;<_star_.y
-\aq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ñù(_root_.org.scalactic.Prettifier.default.2n
-ˇˇ*.apply
-_star_.L
-D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2¬
-û©ûIdentityVerificationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 82), org.scalactic.Prettifier.default)
-69_root_.scala.Int#ª
-5≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-;<_star_.y
-\aq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ñù(_root_.org.scalactic.Prettifier.default.2B
-ΩΩ
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2L
-ÖÖ*[Equality]
-_star_.&
-
-_root_.org.scalactic.Equality#2´
-áùúIdentityVerificationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 66), org.scalactic.Prettifier.default)¡
-8∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-9:_star_.y
-Z_q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-îõ(_root_.org.scalactic.Prettifier.default.2<
-øø*[Unit]
-_star_.
-_root_.scala.Unit#2Æ
-—$›$"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2ë
-—!—!*.apply[Session]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.$
-_root_.play.api.mvc.Session#2§
-÷÷&*(org.scalactic.Equality.default[Int])
-_star_.
-!$_root_.scala.Int#H
- @_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.2±
-ƒƒ)*(org.scalactic.Equality.default[String])
-_star_.#
-!'_root_.scala.Predef.String#H
- @_root_.org.scalactic.Equality.default()Lorg/scalactic/Equality;.2b
-ÔÔ*.apply
-_star_.@
-8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2|
-º$º$*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2|
-ÒÒ*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2©
-≈#≈#B*(IdentityVerificationSpec.this.shorthandTestRegistrationFunction)
-_star_.L
- AD_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2B
-ÓÓ
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2’
-«"«"¿*(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 74))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2B
-áá
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2¬
-˛«ûIdentityVerificationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 67), org.scalactic.Prettifier.default)
-69_root_.scala.Int#ª
-5≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-;<_star_.y
-\aq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ñù(_root_.org.scalactic.Prettifier.default.2<
-îî*[Unit]
-_star_.
-_root_.scala.Unit#2B
-íí
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2™
-¢¢"*[Future[Option[PersonalDetails]]]
-_star_.
-	_root_.scala.Option#'
-_root_.scala.concurrent.Future#&
-_root_.models.PersonalDetails#2ä
-ÚÚπ*(((ClassTag.apply[IdentityVerificationProxyConnector](classOf[connectors.identityVerificationProxy.IdentityVerificationProxyConnector])): ClassTag[IdentityVerificationProxyConnector]))
-_star_.Y
-î∂O_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#(
-ãì_root_.scala.reflect.ClassTag#W
-5O_root_.connectors.identityVerificationProxy.IdentityVerificationProxyConnector#W
-O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.2’
-ö%ö%¿*(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 93))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2´
-€£úIdentityVerificationSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 74), org.scalactic.Prettifier.default)¡
-8∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-9:_star_.y
-Z_q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-îõ(_root_.org.scalactic.Prettifier.default.2B
-ôô
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2˛
-á…<IdentityVerificationSpec.this.convertToClueful[Assertion](*)t
-.l_root_.org.scalatest.AppendedClues#convertToClueful(Lscala/Function0;)Lorg/scalatest/AppendedClues/Clueful;./
-/8'_root_.org.scalatest.package.Assertion#
-:;_star_.2¬
-˜$Ç%ûIdentityVerificationSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("IdentityVerificationSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 97), org.scalactic.Prettifier.default)
-69_root_.scala.Int#ª
-5≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-;<_star_.y
-\aq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ñù(_root_.org.scalactic.Prettifier.default.2|
-ÒÒ*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2b
-ÔÔ*.apply
-_star_.@
-8_root_.play.api.mvc.Action#apply()Lplay/api/mvc/Action;.2B
-‹‹
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2L
-¢¢*[Equality]
-_star_.&
-
-_root_.org.scalactic.Equality#:Scala211Bü%/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package controllers
-import config.ApplicationConfig
-import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
-import models.{GroupAccount, PersonalDetails}
-import org.jsoup.Jsoup
-import org.mockito.ArgumentMatchers.{eq => matching, _}
-import org.mockito.Mockito._
-import org.scalacheck.Arbitrary._
-import org.scalatest.mockito.MockitoSugar
-import play.api.test.FakeRequest
-import play.api.test.Helpers._
-import repositories.PersonalDetailsSessionRepository
-import resources._
-import utils.{StubAddresses, StubAuthConnector, StubGGAction, StubGroupAccountConnector, StubIdentityVerification, StubIndividualAccountConnector, _}
-
-import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.HeaderCarrierConverter
-
-class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
-
-  lazy val mockSessionRepo = {
-    val f = mock[PersonalDetailsSessionRepository]
-    when(f.start(any())(any(), any())
-    ).thenReturn(Future.successful(()))
-    when(f.saveOrUpdate(any())(any(), any())
-    ).thenReturn(Future.successful(()))
-    when(f.get[PersonalDetails](any(), any())).thenReturn(Future.successful(arbitrary[PersonalDetails].sample))
-    f
-  }
-
-  private object TestIdentityVerification extends IdentityVerification(StubGGAction, StubIdentityVerification, StubAddresses,
-    StubIndividualAccountConnector, app.injector.instanceOf[IdentityVerificationProxyConnector], StubGroupAccountConnector,
-    StubAuthConnector, app.injector.instanceOf[ApplicationConfig], mockSessionRepo)
-
-  val request = FakeRequest()
-  private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
-
-  "Successfully verifying identity when the group does not have a CCA account" must
-    "display the successful iv confirmation page, and not create an individual account" in {
-    StubAuthConnector.stubExternalId("externalId")
-    StubAuthConnector.stubGroupId("groupwithoutaccount")
-    StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-
-    val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
-    status(res) mustBe OK
-
-    val content = contentAsString(res)
-    val html = Jsoup.parse(content)
-    html.select("h1").html must equal ("We‚Äôve verified your identity") withClue "Page did not contain success summary"
-    html.select(s"a.button[href=${routes.CreateGroupAccount.show.url}]").size must equal (1) withClue "Page did not contain link to create group account"
-
-    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
-
-    await(StubIndividualAccountConnector.withExternalId("externalId")) mustBe None
-  }
-
-  "Successfully verifying identity when the group does have a CCA account" must "display a confirmation page, and create the individual account" in {
-    StubAuthConnector.stubExternalId("individualwithoutaccount")
-    StubAuthConnector.stubGroupId("groupwithaccount")
-    val groupAccount = arbitrary[GroupAccount].sample.get
-    StubGroupAccountConnector.stubAccount(groupAccount.copy(groupId = "groupwithaccount"))
-    StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
-
-    val res = TestIdentityVerification.success()(requestWithJourneyId("anothersuccess"))
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-    html.select("h1").html must equal (s"${groupAccount.companyName} has already registered.") withClue "Page did not contain success summary"
-    html.select(s"a.button[href=${routes.Dashboard.home.url}]").size must equal (1) withClue "Page did not contain dashboard link"
-
-    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
-
-    StubIndividualAccountConnector.withExternalId("individualwithoutaccount") must not be None
-  }
-
-  "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in {
-    StubIdentityVerification.stubFailedJourney("somejourneyid")
-
-    val res = TestIdentityVerification.success()(request.withSession("journey-id" -> "somejourneyid"))
-    status(res) mustBe UNAUTHORIZED
-  }
-}
-J/test/controllers/IdentityVerificationSpec.scala

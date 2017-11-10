@@ -1,817 +1,0 @@
-
-λα-
-›ª#_root_.controllers.propertyLinking./
-%_root_.org.scalatest.FlatSpecLike#it.‚
-°!·!x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.F
-φÿ<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.w
-¤ªm_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.&
-±'µ'_root_.models.Occupier.name.,
-·Κ"_root_.models.CapacityDeclaration.F
-ώ‡<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.A
-±µ7test/forms/CapacityDeclarationFormSpec.scala@2283..2459‚
-ΙΠx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.‚
-ί#ζ#x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.!
-λσ_root_.models.Occupier.„
-΄Ζz_root_.utils.DateVerification#verifyOptionalDate(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;)V."
-'’'_root_.scala.Predef.Map.
-ΐΖ_root_.models./
-»½%_root_.org.scalatest.FlatSpecLike#it.X
-ζηN_root_.scala.collection.MapLike#`-`(Ljava/lang/Object;)Lscala/collection/Map;.‚
-κ ρ x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.‚
-¤x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.X
-ΣΤN_root_.scala.collection.MapLike#`-`(Ljava/lang/Object;)Lscala/collection/Map;.‚
-ª$±$x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.>
-Ώ&Η&2_root_.forms.CapacityDeclarationFormSpec#TestData.•
-Σ!β!_root_.utils.BasicVerification#verifyOnlyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;)V.¤
-έ
-ξ
-™_root_.utils.FormBindingVerification.verifyMultiChoice(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Lmodels/NamedEnumSupport;)V.
-ΡΦ_root_.views.
-όÿ_root_.org./
-Ά
-¤
-%_root_.org.scalatest.FlatSpecLike#it.o
-¤¦e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.C
-±µ7test/forms/CapacityDeclarationFormSpec.scala@3245..3427o
-ϋύe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.X
-ΒΓN_root_.scala.collection.MapLike#`-`(Ljava/lang/Object;)Lscala/collection/Map;.†
-ό|_root_.utils.DateVerification#verifyMandatoryDate(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Z)V.‚
-ω€x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.
-ψό_root_.java.time.P
-³(µ(F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.‚
-Ά©x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.C
-ΣΧ7test/forms/CapacityDeclarationFormSpec.scala@3791..3846P
-•(—(F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.‚
-„$‹$x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.‚
-¦x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.P
-υ'χ'F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.F
-ΊΓ<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.‚
-Ά©x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.P
-“)•)F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.C
-Ò&Φ&7_root_.forms.CapacityDeclarationFormSpec#TestData.form.5
-ν)_root_.forms.CapacityDeclarationFormSpec#‚
-Γ%Κ%x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.A
-”7_root_.forms.CapacityDeclarationFormSpec#TestData.form.
-_root_.controllers.C
-7test/forms/CapacityDeclarationFormSpec.scala@2694..2870F
-Ϊγ<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.&
-–_root_.views.helpers.Errors.A
-έι7_root_.models.CapacityType.;_root_.models.CapacityType#B
-δÿ8_root_.views.helpers.Errors.dateMustBeAfter1stApril2017.„
-‹z_root_.utils.DateVerification#verifyOptionalDate(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;)V.•
-ζ%υ%_root_.utils.BasicVerification#verifyOnlyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;)V.o
-χωe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V./
-»½%_root_.org.scalatest.FlatSpecLike#it.A
-¤¨7test/forms/CapacityDeclarationFormSpec.scala@3791..38465
-ΖΞ+_root_.org.scalatest.FlatSpecLike#behavior.
-κξ_root_.scala.Some.P
-¥'§'F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.‚
-ρψx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.&
-έγ_root_.views.helpers.Errors.‚
-x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.P
-Φ(Ψ(F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.w
-‹‘m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.%
-οψ_root_.java.time.LocalDate.!
-ΛΣ_root_.models.Occupier.F
-΅<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.w
-¥
-«
-m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.‚
-x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.‚
-ΡΨx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.F
-#¨#<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.A
-«―7_root_.forms.CapacityDeclarationFormSpec#TestData.form.”
-γ	ύ	‰_root_.utils.FormBindingVerification.verifyMandatoryMultiChoice(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;)V.‚
-τϋx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.‚
-ΓΚx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.C
-7test/forms/CapacityDeclarationFormSpec.scala@1540..1655o
-ύÿe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.A
-ό%€&7test/forms/CapacityDeclarationFormSpec.scala@4500..4833&
-ΥΫ_root_.views.helpers.Errors.
-ª―_root_.utils.&
-έγ_root_.views.helpers.Errors.‚
-δλx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;./
-‘“%_root_.org.scalatest.FlatSpecLike#it.‚
-Ώ Ζ x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.‚
-ύ„x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.P
-υ(χ(F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.B
-χω8_root_.java.time.LocalDate.of(III)Ljava/time/LocalDate;./
-ηι%_root_.org.scalatest.FlatSpecLike#it.O
-ΘΫE_root_.models.CapacityDeclaration.;_root_.models.CapacityDeclaration#w
-ΎΔm_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.B
-—²8_root_.views.helpers.Errors.dateMustBeAfter1stApril2017.F
-„
-
-<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.&
-&’&_root_.views.helpers.Errors.
-Ϋί_root_.scala.None.
-Χή_root_.views.helpers.‚
-°#·#x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.‚
-‡x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.w
-’m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.B
-ωϋ8_root_.java.time.LocalDate.of(III)Ljava/time/LocalDate;.C
-χϋ7test/forms/CapacityDeclarationFormSpec.scala@3059..3119(
-‘™_root_.org.scalatest.FlatSpec#A
-ο
-σ
-7_root_.forms.CapacityDeclarationFormSpec#TestData.form.%
-νφ_root_.java.time.LocalDate.C
-οσ7test/forms/CapacityDeclarationFormSpec.scala@2283..2459F
-<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.o
-βδe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.A
-ΝΡ7test/forms/CapacityDeclarationFormSpec.scala@3059..3119B
-“&®&8_root_.views.helpers.Errors.dateMustBeAfter1stApril2017.C
-‘•7test/forms/CapacityDeclarationFormSpec.scala@1933..2102F
-υ
-ώ
-<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.A
-–7test/forms/CapacityDeclarationFormSpec.scala@1540..1655P
-―)±)F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.m
-«Έc_root_.controllers.propertyLinking.ClaimProperty.;_root_.controllers.propertyLinking.ClaimProperty#?
-άτ5_root_.views.helpers.Errors.dateMustBeAfterOtherDate.A
-ώ‚7test/forms/CapacityDeclarationFormSpec.scala@3245..3427/
-°Η%_root_.utils.FormBindingVerification.w
-τϊm_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.;
-Ω&ζ&1_root_.controllers.propertyLinking.ClaimProperty.A
-ΗΛ7_root_.forms.CapacityDeclarationFormSpec#TestData.form.O
-η&ϊ&E_root_.controllers.propertyLinking.ClaimProperty.declareCapacityForm.•
-θχ_root_.utils.BasicVerification#verifyOnlyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;)V.B
-΅	£	8_root_.java.time.LocalDate.of(III)Ljava/time/LocalDate;./
-΅"£"%_root_.org.scalatest.FlatSpecLike#it.
-€‰_root_.org.scalatest.H
-ƒ''<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.A
-‰‰5_root_.forms.CapacityDeclarationFormSpec#`<init>`()V.o
-κμe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.A
-ΗΛ7_root_.forms.CapacityDeclarationFormSpec#TestData.form.4
-*_root_.org.scalatest.FlatSpec#`<init>`()V.‚
-ΜΣx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.<
-Έΐ2_root_.forms.CapacityDeclarationFormSpec#TestData.o
-ΖΘe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.‚
-ΡΨx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.o
- Άe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V./
-ρσ%_root_.org.scalatest.FlatSpecLike#it.ƒ
- ªy_root_.utils.FormBindingVerification.mustBindTo(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/Object;)V.A
-ψό7_root_.forms.CapacityDeclarationFormSpec#TestData.form.Q
-ρςG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.
-εκ_root_.forms.A
-Ϋί7_root_.forms.CapacityDeclarationFormSpec#TestData.form.A
-ΏΓ7_root_.forms.CapacityDeclarationFormSpec#TestData.form.‚
-£x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.!
-¨'°'_root_.models.Occupier.o
-Ϊ	ά	e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.&
-ω!ÿ!_root_.views.helpers.Errors.A
-ΝΡ7test/forms/CapacityDeclarationFormSpec.scala@1933..2102A
-φ%ϊ%7_root_.forms.CapacityDeclarationFormSpec#TestData.form.w
-”m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.A
-ΗΛ7_root_.forms.CapacityDeclarationFormSpec#TestData.form.‚
-x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.A
-΄Έ7_root_.forms.CapacityDeclarationFormSpec#TestData.form.‚
-ύ$„%x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.o
-ƒe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.(
-‹“_root_.org.scalatest.FlatSpec#C
-##7test/forms/CapacityDeclarationFormSpec.scala@4500..4833!
-Ωα_root_.models.Occupier.%
-_root_.models.CapacityType./
-΅£%_root_.org.scalatest.FlatSpecLike#it.F
-•<_root_.forms.CapacityDeclarationFormSpec#TestData.validData./
-ψϊ%_root_.org.scalatest.FlatSpecLike#it.‚
-Ò$Ω$x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.%
-—	 	_root_.java.time.LocalDate.w
-Ύ	Δ	m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.§
-»Ζ_root_.utils.BasicVerification#verifyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)V.?
-€""5_root_.views.helpers.Errors.dateMustBeAfterOtherDate.A
-αε7test/forms/CapacityDeclarationFormSpec.scala@3594..3650‚
-Ωΰx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.
-’	–	_root_.scala.Some.F
-ΈΑ<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.‚
-%¦%x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.C
-„7test/forms/CapacityDeclarationFormSpec.scala@3968..4302w
-¤"ª"m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.F
-‘<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.A
-ύ†7_root_.java.time.LocalDate.;_root_.java.time.LocalDate#F
-‹”<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.B
-δÿ8_root_.views.helpers.Errors.dateMustBeAfter1stApril2017.A
-ΕΙ7test/forms/CapacityDeclarationFormSpec.scala@1540..1655/
-‰‹%_root_.org.scalatest.FlatSpecLike#it.C
-’7test/forms/CapacityDeclarationFormSpec.scala@3594..3650§
-»Ζ_root_.utils.BasicVerification#verifyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)V.o
-Τ
-Φ
-e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.o
-‹##e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.‚
-!“!x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.&
-ίε_root_.views.helpers.Errors.‚
-—  x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.w
-ϋm_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.‚
-™ x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.§
-³Ύ_root_.utils.BasicVerification#verifyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)V.,
-ΕΨ"_root_.models.CapacityDeclaration.,
-«"_root_.org.scalatest.MustMatchers#A
-ΝΡ7test/forms/CapacityDeclarationFormSpec.scala@2694..2870w
-ΎΔm_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.A
-ώ	‚
-7_root_.forms.CapacityDeclarationFormSpec#TestData.form.A
-γ!η!7_root_.forms.CapacityDeclarationFormSpec#TestData.form.O
-•΅E_root_.org.scalatest.MustMatchers.;_root_.org.scalatest.MustMatchers#‚
-τϋx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.‚
-¶½x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.P
-Τ'Φ'F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.A
-Ά7_root_.forms.CapacityDeclarationFormSpec#TestData.form.ƒ
-©³y_root_.utils.FormBindingVerification.mustBindTo(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/Object;)V./
-ύÿ%_root_.org.scalatest.FlatSpecLike#it.A
-ι!ν!7test/forms/CapacityDeclarationFormSpec.scala@3968..4302†
-ΗΪ|_root_.utils.DateVerification#verifyMandatoryDate(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Z)V.w
-κπm_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.p
-ΟΡf_root_.org.scalatest.FlatSpecLike#BehaviorWord#of(Ljava/lang/String;Lorg/scalactic/source/Position;)V.o
-„†e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V./
-»	½	%_root_.org.scalatest.FlatSpecLike#it.w
-€†m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.
-σχ_root_.java.
-θμ_root_.scala.Some."Λ
-7test/forms/CapacityDeclarationFormSpec.scala@4500..4833dataMap[String, String]",
-&_root_.scala.collection.immutable.Map#" 
-
-_root_.java.lang.String#" 
-_root_.java.lang.String#"®
-‰_root_.utils.FormBindingVerification.verifyMandatoryMultiChoice(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;)V.verifyMandatoryMultiChoiceR(form: play.api.data.Form[_], validData: Map[String, String], field: String): Unit" 
-),_root_.scala.Predef.Map#"#
--3_root_.scala.Predef.String#"#
-5;_root_.scala.Predef.String#"#
-EK_root_.scala.Predef.String#"
-NR_root_.scala.Unit#"Λ
-7test/forms/CapacityDeclarationFormSpec.scala@3059..3119dataMap[String, String]",
-&_root_.scala.collection.immutable.Map#" 
-
-_root_.java.lang.String#" 
-_root_.java.lang.String#"
-_root_.java.€€java"H
-1_root_.controllers.propertyLinking.ClaimProperty.€„ClaimProperty"M
-)_root_.forms.CapacityDeclarationFormSpec# € CapacityDeclarationFormSpec"
-z_root_.utils.DateVerification#verifyOptionalDate(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;)V.›verifyOptionalDateV(form: play.api.data.Form[_], validData: Map[String, String], dateField: String): Unit" 
-),_root_.scala.Predef.Map#"#
--3_root_.scala.Predef.String#"#
-5;_root_.scala.Predef.String#"#
-IO_root_.scala.Predef.String#"
-RV_root_.scala.Unit#"η
-8_root_.java.time.LocalDate.of(III)Ljava/time/LocalDate;.ª„€€of)(x$1: Int, x$2: Int, x$3: Int): LocalDate"
-	_root_.scala.Int#"
-_root_.scala.Int#"
-_root_.scala.Int#"#
- )_root_.java.time.LocalDate#"=
-#_root_.controllers.propertyLinking.€€propertyLinking"‚
-+_root_.org.scalatest.FlatSpecLike#behavior.S€behaviorBehaviorWord"5
-/_root_.org.scalatest.FlatSpecLike#BehaviorWord#"Υ
-<_root_.forms.CapacityDeclarationFormSpec#TestData.validData.”	validDataMap[String, String]",
-&_root_.scala.collection.immutable.Map#" 
-
-_root_.java.lang.String#" 
-_root_.java.lang.String#"1
-_root_.models.CapacityType.€„CapacityType"Λ
-7test/forms/CapacityDeclarationFormSpec.scala@1540..1655dataMap[String, String]",
-&_root_.scala.collection.immutable.Map#" 
-
-_root_.java.lang.String#" 
-_root_.java.lang.String#"P
-_root_.models.Occupier.name.0nameString"
-_root_.java.lang.String#"Ϊ
-_root_.utils.BasicVerification#verifyOnlyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;)V.ΚverifyOnlyErrorc(form: play.api.data.Form[_], invalidData: Map[String, String], field: String, error: String): Unit" 
-+._root_.scala.Predef.Map#"#
-/5_root_.scala.Predef.String#"#
-7=_root_.scala.Predef.String#"#
-GM_root_.scala.Predef.String#"#
-V\_root_.scala.Predef.String#"
-_c_root_.scala.Unit#"¬
-7_root_.forms.CapacityDeclarationFormSpec#TestData.form.qformForm[CapacityDeclaration]" 
-_root_.play.api.data.Form#"*
-"_root_.models.CapacityDeclaration#"
-y_root_.utils.FormBindingVerification.mustBindTo(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/Object;)V.
-mustBindToB[A] => (form: Form[A], data: Map[String, String], result: A): Unit""
-_root_.play.api.data.Form#"„
-|_root_.utils.FormBindingVerification.mustBindTo(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/Object;)V.[A]" 
- _root_.scala.Predef.Map#"#
-!'_root_.scala.Predef.String#"#
-)/_root_.scala.Predef.String#"„
-:;|_root_.utils.FormBindingVerification.mustBindTo(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/Object;)V.[A]"
->B_root_.scala.Unit#"/
-_root_.java.time.LocalDate.€„	LocalDate"[
-_root_.scala.Predef.Map.?MapMap.type",
-&_root_.scala.collection.immutable.Map."έ
-x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.ΰupdated'[B1] => (key: A, value: B1): Map[A, B1]"5
--_root_.scala.collection.immutable.MapLike#[A]"„
-|_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.[B1]".
- &_root_.scala.collection.immutable.Map#"5
-!"-_root_.scala.collection.immutable.MapLike#[A]"„
-$&|_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.[B1]"'
-_root_.views.helpers.€€helpers")
-_root_.org.scalatest.€€	scalatest"D
-2_root_.forms.CapacityDeclarationFormSpec#TestData.€„TestData"Ζ
-N_root_.scala.collection.MapLike#`-`(Ljava/lang/Object;)Lscala/collection/Map;.t„€-(key: A): This"+
-#_root_.scala.collection.MapLike#[A]".
-
-&_root_.scala.collection.MapLike#[This]"¶
-_root_.utils.BasicVerification#verifyError(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)V.”verifyErrors(form: play.api.data.Form[_], invalidData: Map[String, String], field: String, error: String, args: Seq[Any]): Unit" 
-+._root_.scala.Predef.Map#"#
-/5_root_.scala.Predef.String#"#
-7=_root_.scala.Predef.String#"#
-GM_root_.scala.Predef.String#"#
-V\_root_.scala.Predef.String#"!
-dg_root_.scala.package.Seq#"
-hk_root_.scala.Any#"
-os_root_.scala.Unit#"
-_root_.org.
-€€org"}
-5_root_.views.helpers.Errors.dateMustBeAfterOtherDate.DdateMustBeAfterOtherDateString"
-_root_.java.lang.String#"Μ
-E_root_.controllers.propertyLinking.ClaimProperty.declareCapacityForm.‚€@declareCapacityFormForm[CapacityDeclaration]" 
-_root_.play.api.data.Form#"*
-"_root_.models.CapacityDeclaration#"Λ
-7test/forms/CapacityDeclarationFormSpec.scala@2694..2870dataMap[String, String]",
-&_root_.scala.collection.immutable.Map#" 
-
-_root_.java.lang.String#" 
-_root_.java.lang.String#"F
-%_root_.utils.FormBindingVerification.€„FormBindingVerification"ή
-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.“->[B] => (y: B): Tuple2[A, B]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
-_root_.scala.Tuple2#"*
-"_root_.scala.Predef.ArrowAssoc#[A]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]",
-_root_.views.helpers.Errors.€„Errors"°
-e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.Ζin6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
-
-_root_.scala.`<byname>`#"
-_root_.scala.Any#"-
-'/%_root_.org.scalactic.source.Position#"
-26_root_.scala.Unit#"
-_root_.forms.€€forms"Λ
-7test/forms/CapacityDeclarationFormSpec.scala@2283..2459dataMap[String, String]",
-&_root_.scala.collection.immutable.Map#" 
-
-_root_.java.lang.String#" 
-_root_.java.lang.String#"!
-_root_.scala.None.€„None"–
-f_root_.org.scalatest.FlatSpecLike#BehaviorWord#of(Ljava/lang/String;Lorg/scalactic/source/Position;)V.«of3(description: String)(implicit pos: Position): Unit"#
-_root_.scala.Predef.String#"-
-$,%_root_.org.scalactic.source.Position#"
-/3_root_.scala.Unit#"/
-_root_.org.scalatest.FlatSpec#€ FlatSpec"—
-5_root_.forms.CapacityDeclarationFormSpec#`<init>`()V.^<init>(): CapacityDeclarationFormSpec"1
-)_root_.forms.CapacityDeclarationFormSpec#"?
-"_root_.models.CapacityDeclaration.€„CapacityDeclaration"
-_root_.models.€€models"Φ
-G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.s(args: <repeated>[Any]): String""
-_root_.scala.`<repeated>`#"
-_root_.scala.Any#"#
-_root_.scala.Predef.String#"Π
-|_root_.utils.DateVerification#verifyMandatoryDate(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Z)V.ΟverifyMandatoryDatej(form: play.api.data.Form[_], validData: Map[String, String], dateField: String, exclusive: Boolean): Unit" 
-),_root_.scala.Predef.Map#"#
--3_root_.scala.Predef.String#"#
-5;_root_.scala.Predef.String#"#
-IO_root_.scala.Predef.String#"
-\c_root_.scala.Boolean#"
-fj_root_.scala.Unit#" 
-_root_.java.time.€€time")
-_root_.controllers.€€controllers"*
-_root_.models.Occupier.€„Occupier"
-_root_.views.€€views"ϊ
-m_root_.org.scalatest.FlatSpecLike#ItWord#should(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.should(string: String): ItVerbString"#
-	_root_.scala.Predef.String#"7
-/_root_.org.scalatest.FlatSpecLike#ItVerbString#"
-_root_.utils.€€utils"ƒ
-8_root_.views.helpers.Errors.dateMustBeAfter1stApril2017.GdateMustBeAfter1stApril2017String"
-_root_.java.lang.String#"Λ
-7test/forms/CapacityDeclarationFormSpec.scala@3594..3650dataMap[String, String]",
-&_root_.scala.collection.immutable.Map#" 
-
-_root_.java.lang.String#" 
-_root_.java.lang.String#"n
-*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
-_root_.org.scalatest.FlatSpec#"Λ
-7test/forms/CapacityDeclarationFormSpec.scala@3791..3846dataMap[String, String]",
-&_root_.scala.collection.immutable.Map#" 
-
-_root_.java.lang.String#" 
-_root_.java.lang.String#"j
-%_root_.org.scalatest.FlatSpecLike#it.A€itItWord"/
-)_root_.org.scalatest.FlatSpecLike#ItWord#"κ
-™_root_.utils.FormBindingVerification.verifyMultiChoice(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Lmodels/NamedEnumSupport;)V.ΛverifyMultiChoice_[A] => (form: play.api.data.Form[_], validData: Map[String, String], field: String, a: A): Unit" 
-03_root_.scala.Predef.Map#"#
-4:_root_.scala.Predef.String#"#
-<B_root_.scala.Predef.String#"#
-LR_root_.scala.Predef.String#"¥
-WX_root_.utils.FormBindingVerification.verifyMultiChoice(Lplay/api/data/Form;Lscala/collection/immutable/Map;Ljava/lang/String;Lmodels/NamedEnumSupport;)V.[A]"
-[__root_.scala.Unit#"Λ
-7test/forms/CapacityDeclarationFormSpec.scala@3245..3427dataMap[String, String]",
-&_root_.scala.collection.immutable.Map#" 
-
-_root_.java.lang.String#" 
-_root_.java.lang.String#" 
-_root_.scala.Some.
-€„Some"Λ
-7test/forms/CapacityDeclarationFormSpec.scala@3968..4302dataMap[String, String]",
-&_root_.scala.collection.immutable.Map#" 
-
-_root_.java.lang.String#" 
-_root_.java.lang.String#"7
-"_root_.org.scalatest.MustMatchers#€@MustMatchers"Λ
-7test/forms/CapacityDeclarationFormSpec.scala@1933..2102dataMap[String, String]",
-&_root_.scala.collection.immutable.Map#" 
-
-_root_.java.lang.String#" 
-_root_.java.lang.String#2D
-§'§'	*[String]
-_star_. 
-_root_.java.lang.String#2D
-Ω$Ω$	*[String]
-_star_. 
-_root_.java.lang.String#2Ψ
-γγΓ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 78))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Ψ
-„„Γ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 51))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
-·!·!	*[String]
-_star_. 
-_root_.java.lang.String#2D
-ζ#ζ#	*[String]
-_star_. 
-_root_.java.lang.String#2D
-ϋϋ	*[String]
-_star_. 
-_root_.java.lang.String#2D
-χ'χ'	*[String]
-_star_. 
-_root_.java.lang.String#2D
-  	*[String]
-_star_. 
-_root_.java.lang.String#2®
-„)’)"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2Ψ
-··Γ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 98))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Ω
-""Δ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 103))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
-½½	*[String]
-_star_. 
-_root_.java.lang.String#2D
-ΰΰ	*[String]
-_star_. 
-_root_.java.lang.String#2D
-„%„%	*[String]
-_star_. 
-_root_.java.lang.String#2Ψ
-ττΓ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 93))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Ψ
-ννΓ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 31))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2[
-ªª*[CapacityDeclaration]
-_star_.*
-"_root_.models.CapacityDeclaration#2D
-Ζ Ζ 	*[String]
-_star_. 
-_root_.java.lang.String#2’
-ξξ*.apply[LocalDate]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.java.time.LocalDate#2D
-ΚΚ	*[String]
-_star_. 
-_root_.java.lang.String#2D
-	*[String]
-_star_. 
-_root_.java.lang.String#2D
-©©	*[String]
-_star_. 
-_root_.java.lang.String#2D
-¤¤	*[String]
-_star_. 
-_root_.java.lang.String#2Ψ
-³	³	Γ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 33))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
-Ψ(Ψ(	*[String]
-_star_. 
-_root_.java.lang.String#2¤
-ΨΨ*.apply
-_star_.
-y_root_.models.CapacityDeclaration.apply(Lmodels/CapacityType;ZLscala/Option;ZLscala/Option;)Lmodels/CapacityDeclaration;.2Ψ
-
-
-Γ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 37))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2®
-θ(τ("scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2D
-  	*[String]
-_star_. 
-_root_.java.lang.String#2D
-¦¦	*[String]
-_star_. 
-_root_.java.lang.String#2D
-	*[String]
-_star_. 
-_root_.java.lang.String#2®
-'¤'"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2D
-Κ%Κ%	*[String]
-_star_. 
-_root_.java.lang.String#2x
-ρρ*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2Ψ
-ωωΓ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 45))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
-„„	*[String]
-_star_. 
-_root_.java.lang.String#2®
-½'Σ'"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2’
-–	–	*.apply[LocalDate]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.java.time.LocalDate#2Ψ
-··Γ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 84))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2[
-³³*[CapacityDeclaration]
-_star_.*
-"_root_.models.CapacityDeclaration#2®
-Δ(Υ("scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2D
-	*[String]
-_star_. 
-_root_.java.lang.String#2D
-±$±$	*[String]
-_star_. 
-_root_.java.lang.String#2D
-	*[String]
-_star_. 
-_root_.java.lang.String#2D
-ψψ	*[String]
-_star_. 
-_root_.java.lang.String#2®
-£(²("scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2D
-Φ'Φ'	*[String]
-_star_. 
-_root_.java.lang.String#2D
-ρ ρ 	*[String]
-_star_. 
-_root_.java.lang.String#2’
-μμ*.apply[LocalDate]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.java.time.LocalDate#2D
-ΨΨ	*[String]
-_star_. 
-_root_.java.lang.String#2D
-“!“!	*[String]
-_star_. 
-_root_.java.lang.String#2D
-±)±)	*[String]
-_star_. 
-_root_.java.lang.String#2D
-©©	*[String]
-_star_. 
-_root_.java.lang.String#2D
-ΠΠ	*[String]
-_star_. 
-_root_.java.lang.String#2¤
-ΚΚ*.apply
-_star_.
-y_root_.models.CapacityDeclaration.apply(Lmodels/CapacityType;ZLscala/Option;ZLscala/Option;)Lmodels/CapacityDeclaration;.2D
-ϋϋ	*[String]
-_star_. 
-_root_.java.lang.String#2D
-‹$‹$	*[String]
-_star_. 
-_root_.java.lang.String#2Ω
-³&³&Δ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 116))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2®
-΅)®)"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2D
-µ(µ(	*[String]
-_star_. 
-_root_.java.lang.String#2Ψ
-Γ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 59))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
-€€	*[String]
-_star_. 
-_root_.java.lang.String#2Ψ
-™™Γ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 41))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
-•)•)	*[String]
-_star_. 
-_root_.java.lang.String#2D
-££	*[String]
-_star_. 
-_root_.java.lang.String#2D
-·#·#	*[String]
-_star_. 
-_root_.java.lang.String#2R
-ξ
-ξ
-*[CapacityType.type]
-_star_.#
-_root_.models.CapacityType.2D
-ΨΨ	*[String]
-_star_. 
-_root_.java.lang.String#2γ
-’'’'*.apply[String, String]
-_star_.m
-e_root_.scala.collection.generic.GenMapFactory#apply(Lscala/collection/Seq;)Lscala/collection/GenMap;. 
-_root_.java.lang.String# 
-_root_.java.lang.String#2D
-λλ	*[String]
-_star_. 
-_root_.java.lang.String#2®
-ζ'τ'"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2D
-¦%¦%	*[String]
-_star_. 
-_root_.java.lang.String#2D
-χ(χ(	*[String]
-_star_. 
-_root_.java.lang.String#2Ψ
-„„Γ*(org.scalactic.source.Position.apply("CapacityDeclarationFormSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 68))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
-—(—(	*[String]
-_star_. 
-_root_.java.lang.String#2D
-ΣΣ	*[String]
-_star_. 
-_root_.java.lang.String#2®
-„(”("scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.:Scala211BΕ)/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package forms
-
-import java.time.LocalDate
-
-import controllers.propertyLinking.ClaimProperty
-import models.{CapacityDeclaration, CapacityType, Occupier}
-import org.scalatest.{FlatSpec, MustMatchers}
-import utils.FormBindingVerification._
-import views.helpers.Errors
-
-class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
-
-  import TestData._
-
-  behavior of "Capacity declaration form"
-
-  it should "bind when the inputs are all valid" in {
-    mustBindTo(form, validData, CapacityDeclaration(Occupier, false, Some(LocalDate.of(2017, 4, 20)), false, Some(LocalDate.of(2017, 4, 23))))
-  }
-
-  it should "mandate a capacity" in {
-    verifyMandatoryMultiChoice(form, validData, "capacity")
-  }
-
-  it should "only allow recognised capacity values" in {
-    verifyMultiChoice(form, validData, "capacity", CapacityType)
-  }
-
-  it should "require a start date if the occupation/ownership started after 1st April 2017" in {
-    val data = validData.updated("interestedBefore2017", "false") - "fromDate.day" - "fromDate.month" - "fromDate.year"
-    verifyMandatoryDate(form, data, "fromDate", false)
-    verifyError(form, data, "toDate", Errors.dateMustBeAfterOtherDate)
-  }
-
-  it should "ignore a start date and require an end date after 1st April 2017 if the occupation/ownership started before 1st April 2017" in {
-    val data = validData.updated("interestedBefore2017", "true")
-      .updated("toDate.day", "28")
-      .updated("toDate.month", "2")
-      .updated("toDate.year", "2017")
-    verifyError(form, data, "toDate", Errors.dateMustBeAfter1stApril2017)
-  }
-
-  it should "ignore a start date if the occupation/ownership started before 1st April 2017" in {
-    val data = validData
-      .updated("interestedBefore2017", "true")
-      .updated("toDate.day", "19")
-      .updated("toDate.month", "4")
-      .updated("toDate.year", "2017")
-    mustBindTo(form, data, CapacityDeclaration(Occupier, true, None, false, Some(LocalDate.of(2017, 4, 19))))
-  }
-
-  it should "require end date after 1st April 2017 if the occupation/ownership started before 1st April 2017" in {
-    val data = validData
-      .updated("interestedBefore2017", "true")
-      .updated("toDate.day", "28")
-      .updated("toDate.month", "2")
-      .updated("toDate.year", "2017")
-    verifyError(form, data, "toDate", Errors.dateMustBeAfter1stApril2017)
-  }
-
-
-  it should "not require the start date if the occupation/ownership started before 1st April 2017" in {
-    val data = validData.updated("interestedBefore2017", "true")
-    verifyOptionalDate(form, data, "fromDate")
-
-  }
-
-  it should s"require the start date to be after 1 April 2017" in {
-    val data = validData
-      .updated("interestedBefore2017", "false")
-      .updated("fromDate.day", "1")
-      .updated("fromDate.month", "3")
-      .updated("fromDate.year", "2017")
-    verifyOnlyError(form, data, "fromDate", Errors.dateMustBeAfter1stApril2017)
-  }
-
-  it should "require an end date if the occupation/ownership has ended" in {
-    val data = validData.updated("stillInterested", "false")
-    verifyMandatoryDate(form, data, "toDate")
-  }
-
-  it should "not require an end date if the occupation/ownership has not ended" in {
-    val data = validData.updated("stillInterested", "true")
-    verifyOptionalDate(form, data, "toDate")
-  }
-
-  it should "require the end date to be after the start date" in {
-    val data = validData
-      .updated("interestedBefore2017", "false")
-      .updated("fromDate.day", "10")
-      .updated("fromDate.month", "4")
-      .updated("fromDate.year", "2017")
-      .updated("stillInterested", "false")
-      .updated("toDate.day", "3")
-      .updated("toDate.month", "4")
-      .updated("toDate.year", "2017")
-    verifyOnlyError(form, data, "toDate", Errors.dateMustBeAfterOtherDate)
-  }
-
-  it should "require the end date to be after 1st April if start before 1st April but start date still set" in {
-    val data = validData
-      .updated("interestedBefore2017", "true")
-      .updated("fromDate.day", "10")
-      .updated("fromDate.month", "3")
-      .updated("fromDate.year", "2017")
-      .updated("stillInterested", "false")
-      .updated("toDate.day", "1")
-      .updated("toDate.month", "3")
-      .updated("toDate.year", "2017")
-    verifyOnlyError(form, data, "toDate", Errors.dateMustBeAfter1stApril2017)
-  }
-
-
-  object TestData {
-    val form = ClaimProperty.declareCapacityForm
-    val validData = Map(
-      "capacity" -> Occupier.name,
-      "interestedBefore2017" -> "false",
-      "fromDate.day" -> "20",
-      "fromDate.month" -> "4",
-      "fromDate.year" -> "2017",
-      "stillInterested" -> "false",
-      "toDate.day" -> "23",
-      "toDate.month" -> "4",
-      "toDate.year" -> "2017"
-    )
-  }
-
-}J,test/forms/CapacityDeclarationFormSpec.scala

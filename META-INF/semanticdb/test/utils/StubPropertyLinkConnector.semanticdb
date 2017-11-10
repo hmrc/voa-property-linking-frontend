@@ -1,694 +1,0 @@
-
-Ä”a
-…”W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.0
-ˆÉ&_root_.uk.gov.hmrc.http.HeaderCarrier#[
-≠ºQ_root_.models.searchApi.OwnerAuthResult.;_root_.models.searchApi.OwnerAuthResult#
-û¢_root_.scala.Long#%
-Ó_root_.scala.Long#`==`(J)Z.T
-©±H_root_.utils.StubPropertyLinkConnector.stubLink(Lmodels/PropertyLink;)V.>
-π≈4_root_.utils.StubPropertyLinkConnector.stubbedLinks.a
-ùßW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.ò
-®´ç_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.
-ùß_root_.connectors.
-ÂÍ_root_.utils.%
-éê_root_.scala.Long#`==`(J)Z.
-¸Ä_root_.scala.Unit#=
-°™3_root_.scala.concurrent.ExecutionContext.Implicits.%
-‚‰_root_.scala.Long#`==`(J)Z.U
-·ˆK_root_.session.LinkingSessionRequest.;_root_.session.LinkingSessionRequest#ù
-ÚÙê_root_.utils.StubPropertyLinkConnector.linkedProperties(JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)0
-ÔÚ&_root_.scala.collection.immutable.Nil.V
-Ô¯J_root_.utils.StubPropertyLinkConnector.stubLinks(Lscala/collection/Seq;)V.2
-‡Ô(_root_.models.searchApi.OwnerAuthResult#Ñ
-Ñíx_root_.utils.StubPropertyLinkConnector.get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)>
- ÷4_root_.utils.StubPropertyLinkConnector.stubbedLinks.d
-¡∆Z_root_.scala.collection.generic.GenericCompanion#empty()Lscala/collection/GenTraversable;.?
-¯˘5test/utils/StubPropertyLinkConnector.scala@2763..2764X
-ﬂ„N_root_.utils.StubPropertyLinkConnector.stubLink(Lmodels/PropertyLink;)V.(link)#
-´	Æ	_root_.scala.package.Seq#™
-—ÿù_root_.utils.StubPropertyLinkConnector.linkToProperty(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.(request)a
-÷‡W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.3
-ˇò'_root_.utils.StubPropertyLinkConnector.#
-ÏÔ_root_.scala.package.Seq#@
-ﬁÍ4_root_.utils.StubPropertyLinkConnector.stubbedLinks.I
-Æ≈?_root_.utils.StubPropertyLinkConnector.stubbedClientProperties.
-Û˝_root_.connectors.?
-ˇÄ5test/utils/StubPropertyLinkConnector.scala@2297..22988
-“·._root_.models.ClientProperty#(authorisationId)4
-∫∆*_root_.connectors.fileUpload.FileMetadata#
-Ù_root_.scala.Long#¿
-éú≥_root_.utils.StubPropertyLinkConnector.linkedPropertiesSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)
-ö†_root_.scala.Option#
-πæ_root_.scala.0
-Éê&_root_.uk.gov.hmrc.http.HeaderCarrier#'
-˛à_root_.connectors.fileUpload./
-⁄Ô%_root_.session.LinkingSessionRequest#d
-÷
-€
-Z_root_.scala.collection.generic.GenericCompanion#empty()Lscala/collection/GenTraversable;.n
-î¢d_root_.utils.StubPropertyLinkConnector.stubClientProperty(Lmodels/ClientProperty;)V.(clientProperty)
-¸Ç_root_.scala.Option#q
-ıãg_root_.utils.StubPropertyLinkConnector.`stubbedOwnerAuthResult_=`(Lmodels/searchApi/OwnerAuthResult;)V.x
-∫ºl_root_.utils.StubPropertyLinkConnector.get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)Ö
-¨∫{_root_.models.searchApi.OwnerAuthResult#copy(IIIILscala/collection/Seq;)Lmodels/searchApi/OwnerAuthResult;.(authorisations)5
-‹
-Ó
-+_root_.models.searchApi.OwnerAuthorisation#J
-”	È	>_root_.utils.StubPropertyLinkConnector.stubbedOwnerAuthResult.ß
-¥∏ö_root_.utils.StubPropertyLinkConnector.linkToProperty(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.(data))
-¬»_root_.scala.concurrent.Future.í
-ú´Ö_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)2
-ñ•(_root_.models.searchApi.OwnerAuthResult#'
-‡Ó_root_.models.ClientProperty#"
-‰Ë_root_.uk.gov.hmrc.http.
-ÿ⁄
-_root_.uk.)
-ìô_root_.scala.concurrent.Future##
-ÄÉ_root_.scala.package.Seq#A
-ÀÃ5test/utils/StubPropertyLinkConnector.scala@2763..2764 
-À”_root_.utils.StubHttp.0
-æÀ&_root_.uk.gov.hmrc.http.HeaderCarrier#|
-€ﬁr_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.U
-◊€K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.a
-π√W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.H
-®æ>_root_.utils.StubPropertyLinkConnector.stubbedOwnerAuthResult.q
-˜çg_root_.utils.StubPropertyLinkConnector.`stubbedOwnerAuthResult_=`(Lmodels/searchApi/OwnerAuthResult;)V.[
-õßQ_root_.utils.StubPropertyLinkConnector.`stubbedLinks_=`(Lscala/collection/Seq;)V.0
-¡	ƒ	&_root_.scala.collection.immutable.Nil.(
-ı˜_root_.scala.Boolean#`&&`(Z)Z.>
-ÕŸ4_root_.utils.StubPropertyLinkConnector.stubbedLinks.∞
-ç£_root_.utils.StubPropertyLinkConnector.linkedPropertiesSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.U
-∆ K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.å
-ëúÅ_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(clientOrgId)G
-‚Ï=_root_.controllers.Pagination.;_root_.controllers.Pagination#%
-∏ƒ_root_.models.PropertyLink#
-îò_root_.scala.Long#
-’‡_root_.controllers.K
-í	©	?_root_.utils.StubPropertyLinkConnector.stubbedClientProperties.B
-∏Õ8_root_.connectors.propertyLinking.PropertyLinkConnector#)
-ı˚_root_.scala.concurrent.Future#Z
-≤∂N_root_.utils.StubPropertyLinkConnector.stubLink(Lmodels/PropertyLink;)V.(link)"
-ø…_root_.scala.concurrent.Ö
-ö©y_root_.utils.StubPropertyLinkConnector.get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)•
-—€ò_root_.utils.StubPropertyLinkConnector.linkedProperties(JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)A
-˘˙5test/utils/StubPropertyLinkConnector.scala@2297..2298W
-ÈˆM_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#w
-‡Ák_root_.utils.StubPropertyLinkConnector.getLink(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.r
-⁄ﬁf_root_.utils.StubPropertyLinkConnector.stubOwnerAuthResult(Lmodels/searchApi/OwnerAuthResult;)V.(reps)º
-–⁄Ø_root_.utils.StubPropertyLinkConnector.linkedPropertiesSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)
-€ﬁ_root_.uk.gov.
-¥∏_root_.scala.Some.©
-ª…ú_root_.utils.StubPropertyLinkConnector.linkedProperties(JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)é
-≥æÅ_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(clientOrgId)<
-˙ç2_root_.models.ClientProperty#(ownerOrganisationId)?
-ê¶5test/utils/StubPropertyLinkConnector.scala@3216..32382
-˝	å
-(_root_.models.searchApi.OwnerAuthResult.0
-Õ–&_root_.scala.collection.immutable.Nil.6
-Åê,_root_.models.PropertyLink#(authorisationId)%
-∆ _root_.scala.Int#toLong()J.<
-Æ≥0_root_.utils.StubPropertyLinkConnector.reset()V.{
-ˇÅo_root_.utils.StubPropertyLinkConnector.getLink(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)3
-ê†)_root_.scala.concurrent.ExecutionContext.[
-æ Q_root_.utils.StubPropertyLinkConnector.`stubbedLinks_=`(Lscala/collection/Seq;)V.É
-î£y_root_.utils.StubPropertyLinkConnector.get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)t
-ÄÉh_root_.utils.StubPropertyLinkConnector.get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.0
-Ä	É	&_root_.scala.collection.immutable.Nil.¥
-ß©ß_root_.utils.StubPropertyLinkConnector.linkedPropertiesSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)6
-ﬁÌ,_root_.models.PropertyLink#(authorisationId)l
-∆Ÿ`_root_.utils.StubPropertyLinkConnector.stubOwnerAuthResult(Lmodels/searchApi/OwnerAuthResult;)V.-
-ü≥#_root_.models.PropertyLinkResponse.a
-îûW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.%
-Ñê_root_.models.PropertyLink#,
-®∑"_root_.connectors.propertyLinking.)
-çì_root_.scala.concurrent.Future.U
-Ù¯K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.
-Àœ_root_.scala.Long#)
-ñú_root_.scala.concurrent.Future.ô
-™∫å_root_.utils.StubPropertyLinkConnector.linkedProperties(JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.f
-’Ï\_root_.utils.StubPropertyLinkConnector.`stubbedClientProperties_=`(Lscala/collection/Seq;)V.0
-ÂÚ&_root_.uk.gov.hmrc.http.HeaderCarrier#p
-–ﬁd_root_.utils.StubPropertyLinkConnector.stubClientProperty(Lmodels/ClientProperty;)V.(clientProperty)[
-ÓÇQ_root_.controllers.PaginationSearchSort.;_root_.controllers.PaginationSearchSort#)
-œ’_root_.scala.concurrent.Future.
-ﬂ„_root_.uk.gov.hmrc.H
-‘Í>_root_.utils.StubPropertyLinkConnector.stubbedOwnerAuthResult.&
-Ω¿_root_.scala.collection.Seq.%
-∏∫_root_.scala.Long#`==`(J)Z.]
-˘˛Q_root_.utils.StubPropertyLinkConnector.stubLinks(Lscala/collection/Seq;)V.(links)_
-âïU_root_.connectors.fileUpload.FileMetadata.;_root_.connectors.fileUpload.FileMetadata#>
-ÁÛ4_root_.utils.StubPropertyLinkConnector.stubbedLinks.5
-«Ÿ+_root_.models.searchApi.OwnerAuthorisation#*
-∑… _root_.utils.StubServicesConfig.I
- –?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#'
-Éë_root_.models.ClientProperty#ç
-∆–Ä_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrgId))
-Ñä_root_.scala.concurrent.Future.a
-æ–W_root_.models.searchApi.OwnerAuthorisation.;_root_.models.searchApi.OwnerAuthorisation#
-≠±_root_.scala.Long#2
-Î	˙	(_root_.models.searchApi.OwnerAuthResult#
-Ÿ‡_root_.session.q
-¯
-ëe_root_.utils.StubPropertyLinkConnector.getstubbedOwnerAuthResult()Lmodels/searchApi/OwnerAuthResult;.Ä
-çõt_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
-õ°_root_.models.%
-ëì_root_.scala.Long#`==`(J)Z.
-¿ƒ_root_.scala.Long#)
-≤∏_root_.scala.concurrent.Future.(
-›Á_root_.controllers.Pagination#
-ËÓs_root_.utils.StubPropertyLinkConnector.getLink(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(linkId)"
-Öè_root_.scala.concurrent.`
-ΩœT_root_.utils.StubPropertyLinkConnector.stubClientProperty(Lmodels/ClientProperty;)V.Ç
-ª…x_root_.utils.StubPropertyLinkConnector.get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)&
-“
-’
-_root_.scala.collection.Seq.?
-ß®5test/utils/StubPropertyLinkConnector.scala@2297..2298p
-éíf_root_.utils.StubPropertyLinkConnector.stubOwnerAuthResult(Lmodels/searchApi/OwnerAuthResult;)V.(reps)
-´Ø_root_.scala.Long#
-“÷_root_.scala.Long#D
-´±:_root_.scala.concurrent.ExecutionContext.Implicits.global.[
-Œ⁄Q_root_.utils.StubPropertyLinkConnector.`stubbedLinks_=`(Lscala/collection/Seq;)V.2
-‹(_root_.controllers.PaginationSearchSort#0
-´∏&_root_.uk.gov.hmrc.http.HeaderCarrier#5
-©∑+_root_.models.PropertyLink#(organisationId)ê
-ÂÙÖ_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)'
-Ø	Ω	_root_.models.ClientProperty#|
-êìr_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.}
-Ò˜s_root_.utils.StubPropertyLinkConnector.getLink(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(linkId)
-ˇÑ_root_.scala.%
-°≠_root_.models.PropertyLink#?
-ß´5test/utils/StubPropertyLinkConnector.scala@3239..3239(
-§¶_root_.scala.Boolean#`&&`(Z)Z.a
-ãïW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.f
-¯è\_root_.utils.StubPropertyLinkConnector.`stubbedClientProperties_=`(Lscala/collection/Seq;)V.∞
-∂∂•_root_.connectors.propertyLinking.PropertyLinkConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V."
-¢´_root_.models.searchApi.%
-¸_root_.models.PropertyLink#)
-ı˚_root_.scala.concurrent.Future#?
-–—5test/utils/StubPropertyLinkConnector.scala@2763..2764B
-°∂8_root_.connectors.propertyLinking.PropertyLinkConnector#
-ãë_root_.models.°
-•≥î_root_.utils.StubPropertyLinkConnector.linkToProperty(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.Ñ
-·„x_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)[
-¨±Q_root_.utils.StubPropertyLinkConnector.stubLinks(Lscala/collection/Seq;)V.(links)")
-_root_.scala.collection.Seq.	ÄÑSeq"ƒ
-N_root_.models.searchApi.OwnerAuthResult#`<init>`(IIIILscala/collection/Seq;)V.Ò<init>o(start: Int, size: Int, filterTotal: Int, total: Int, authorisations: Seq[OwnerAuthorisation]): OwnerAuthResult"
-_root_.scala.Int#"
-_root_.scala.Int#"
-%(_root_.scala.Int#"
-14_root_.scala.Int#"!
-FI_root_.scala.package.Seq#"3
-J\+_root_.models.searchApi.OwnerAuthorisation#"0
-`o(_root_.models.searchApi.OwnerAuthResult#"“
-ö_root_.controllers.PaginationSearchSort#`<init>`(IIZLscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;J)V.≤<init>ñ(pageNumber: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], agent: Option[String], client: Option[String], totalResults: Long): PaginationSearchSort"
-_root_.scala.Int#"
-_root_.scala.Int#"
-7>_root_.scala.Boolean#"
-KQ_root_.scala.Option#"#
-RX_root_.scala.Predef.String#"
-fl_root_.scala.Option#"#
-ms_root_.scala.Predef.String#"
-~Ñ_root_.scala.Option#"%
-Öã_root_.scala.Predef.String#"
-óù_root_.scala.Option#"%
-û§_root_.scala.Predef.String#"
-Æ¥_root_.scala.Option#"%
-µª_root_.scala.Predef.String#"
-≈À_root_.scala.Option#"%
-Ã“_root_.scala.Predef.String#"
-›„_root_.scala.Option#"%
-‰Í_root_.scala.Predef.String#"
-˚ˇ_root_.scala.Long#"2
-Çñ(_root_.controllers.PaginationSearchSort#"^
-5test/utils/StubPropertyLinkConnector.scala@3239..3239%x$3Int"
-_root_.scala.Int#"Ù
-§_root_.models.ClientProperty#`<init>`(JLjava/lang/String;Ljava/lang/String;JJZLmodels/RepresentationStatus;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V. <init>Ø(ownerOrganisationId: Long, ownerOrganisationName: String, billingAuthorityReference: String, authorisedPartyId: Long, authorisationId: Long, authorisationStatus: Boolean, authorisedPartyStatus: RepresentationStatus, checkPermission: String, challengePermission: String, address: String): ClientProperty"
-_root_.scala.Long#"#
-39_root_.scala.Predef.String#"#
-V\_root_.scala.Predef.String#"
-qu_root_.scala.Long#"
-àå_root_.scala.Long#"
-£™_root_.scala.Boolean#"-
-√◊#_root_.models.RepresentationStatus#"%
-Í_root_.scala.Predef.String#"%
-áç_root_.scala.Predef.String#"%
-òû_root_.scala.Predef.String#"'
-°Ø_root_.models.ClientProperty#"ù
-:_root_.scala.concurrent.ExecutionContext.Implicits.global._ÅÄ`globalExecutionContextExecutor"7
-1_root_.scala.concurrent.ExecutionContextExecutor#"‘
-ú_root_.utils.StubPropertyLinkConnector.linkedProperties(JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)3ÄorganisationIdLong"
-_root_.scala.Long#"˜
-t_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˛clientPropertyx(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]]"
-_root_.scala.Long#"
-%)_root_.scala.Long#"
-7;_root_.scala.Long#".
-JW&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-Z`_root_.scala.concurrent.Future#"
-ag_root_.scala.Option#"%
-hv_root_.models.ClientProperty#" 
-_root_.scala.Long#
-Ä†Long"'
-_root_.connectors.ÄàÄ
-connectors"¡
-K_root_.scala.collection.IterableLike#find(Lscala/Function1;)Lscala/Option;.Òfind%(p: Function1[A, Boolean]): Option[A]"
-_root_.scala.Function1#"0
-(_root_.scala.collection.IterableLike#[A]"
-_root_.scala.Boolean#"
-"_root_.scala.Option#"0
-#$(_root_.scala.collection.IterableLike#[A]"c
-0_root_.utils.StubPropertyLinkConnector.reset()V./reset(): Unit"
-_root_.scala.Unit#"˝
-k_root_.utils.StubPropertyLinkConnector.getLink(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.çgetLinkH(linkId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]]"
-	_root_.scala.Long#".
-)&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-,2_root_.scala.concurrent.Future#"
-39_root_.scala.Option#"#
-:F_root_.models.PropertyLink#"∏
-Q_root_.utils.StubPropertyLinkConnector.stubLinks(Lscala/collection/Seq;)V.(links)cÄlinksSeq[PropertyLink]"
-_root_.scala.package.Seq#"#
-_root_.models.PropertyLink#"è
-ç_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.¸++Z[B, That] => (that: GenTraversableOnce[B])(implicit bf: CanBuildFrom[Repr, B, That]): That"3
-&+_root_.scala.collection.GenTraversableOnce#"ô
-'(ê_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
-8D-_root_.scala.collection.generic.CanBuildFrom#"6
-EI._root_.scala.collection.TraversableLike#[Repr]"ô
-KLê_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"ú
-NRì_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"ú
-VZì_root_.scala.collection.TraversableLike#`++`(Lscala/collection/GenTraversableOnce;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"∞
-d_root_.utils.StubPropertyLinkConnector.stubClientProperty(Lmodels/ClientProperty;)V.(clientProperty)HÄclientPropertyClientProperty"#
-_root_.models.ClientProperty#"Æ
-._root_.controllers.Pagination#`<init>`(IIJZ)V.˚<init>V(pageNumber: Int, pageSize: Int, totalResults: Long, resultCount: Boolean): Pagination"
-_root_.scala.Int#"
-_root_.scala.Int#"
-/3_root_.scala.Long#"
-BI_root_.scala.Boolean#"&
-LV_root_.controllers.Pagination#"˙
-W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
-successful[T] => (result: T): Future[T]"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
-_root_.scala.concurrent.Future#"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"Ñ
-5test/utils/StubPropertyLinkConnector.scala@3216..3238Kqual$1OwnerAuthResult".
-(_root_.models.searchApi.OwnerAuthResult#"Ç
-{_root_.models.searchApi.OwnerAuthResult#copy(IIIILscala/collection/Seq;)Lmodels/searchApi/OwnerAuthResult;.(authorisations)ÇÄauthorisationsSeq[OwnerAuthorisation]"
-_root_.scala.package.Seq#"3
-+_root_.models.searchApi.OwnerAuthorisation#",
-_root_.models.searchApi.ÄàÄ	searchApi"'
-_root_.uk.gov.hmrc.http.ÄàÄhttp"¥
-f_root_.utils.StubPropertyLinkConnector.stubOwnerAuthResult(Lmodels/searchApi/OwnerAuthResult;)V.(reps)JÄrepsOwnerAuthResult".
-(_root_.models.searchApi.OwnerAuthResult#"È
-`_root_.utils.StubPropertyLinkConnector.stubOwnerAuthResult(Lmodels/searchApi/OwnerAuthResult;)V.ÑstubOwnerAuthResult(reps: OwnerAuthResult): Unit"0
-(_root_.models.searchApi.OwnerAuthResult#"
-_root_.scala.Unit#"(
-_root_.utils.StubHttp.ÄÑStubHttp"—
-ù_root_.utils.StubPropertyLinkConnector.linkToProperty(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.(request)/ÄÅ request session.LinkingSessionRequest[_]"µ
-H_root_.utils.StubPropertyLinkConnector.stubLink(Lmodels/PropertyLink;)V.istubLink(link: PropertyLink): Unit"#
-_root_.models.PropertyLink#"
-_root_.scala.Unit#"Õ
-e_root_.utils.StubPropertyLinkConnector.getstubbedOwnerAuthResult()Lmodels/searchApi/OwnerAuthResult;.dgetstubbedOwnerAuthResult(): OwnerAuthResult"0
-(_root_.models.searchApi.OwnerAuthResult#"f
-._root_.models.ClientProperty#(authorisationId)4ÅauthorisationIdLong"
-_root_.scala.Long#"E
-%_root_.session.LinkingSessionRequest#Ä†ÄLinkingSessionRequest"2
-_root_.connectors.fileUpload.ÄàÄ
-fileUpload"2
-_root_.models.PropertyLink#Ä†ÄPropertyLink"Ë
-ö_root_.utils.StubPropertyLinkConnector.linkToProperty(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.(data)IÄdataFileMetadata"0
-*_root_.connectors.fileUpload.FileMetadata#"F
-3_root_.scala.concurrent.ExecutionContext.Implicits.ÄÑ	Implicits"ˆ
-g_root_.utils.StubPropertyLinkConnector.`stubbedOwnerAuthResult_=`(Lmodels/searchApi/OwnerAuthResult;)V.äÇÄstubbedOwnerAuthResult_=(x$1: OwnerAuthResult): Unit"0
-(_root_.models.searchApi.OwnerAuthResult#"
-_root_.scala.Unit#"æ
-Ö_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4ÄauthorisationIdLong"
-_root_.scala.Long#"Ï
-Q_root_.utils.StubPropertyLinkConnector.`stubbedLinks_=`(Lscala/collection/Seq;)V.ñstubbedLinks_=(x$1: Seq[PropertyLink]): Unit"!
-	_root_.scala.package.Seq#"#
-
-_root_.models.PropertyLink#"
-_root_.scala.Unit#"V
-8_root_.connectors.propertyLinking.PropertyLinkConnector#Ä PropertyLinkConnector" 
-_root_.scala.Unit#
-Ä†Unit"4
-&_root_.scala.collection.immutable.Nil.
-ÄÑàNil"±
-h_root_.utils.StubPropertyLinkConnector.get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ƒgetg(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]]"
-_root_.scala.Long#"
-(,_root_.scala.Long#".
-;H&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-KQ_root_.scala.concurrent.Future#"
-RX_root_.scala.Option#"#
-Ye_root_.models.PropertyLink#".
-_root_.scala.concurrent.Future#Ä@Future"/
-_root_.scala.concurrent.Future.ÄÑFuture"⁄
-ê_root_.utils.StubPropertyLinkConnector.linkedProperties(JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"p
-5test/utils/StubPropertyLinkConnector.scala@2297..22987ÄxPropertyLink"!
-_root_.models.PropertyLink#"⁄
-å_root_.utils.StubPropertyLinkConnector.linkedProperties(JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.»linkedPropertiesh(organisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier): Future[PropertyLinkResponse]"
-_root_.scala.Long#"&
-#-_root_.controllers.Pagination#".
-<I&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-LR_root_.scala.concurrent.Future#"+
-Sg#_root_.models.PropertyLinkResponse#"A
-*_root_.connectors.fileUpload.FileMetadata#Ä†ÄFileMetadata"A
-(_root_.models.searchApi.OwnerAuthResult.ÄÑOwnerAuthResult"B
-(_root_.models.searchApi.OwnerAuthResult#Ä†ÄOwnerAuthResult"¥
-Ä_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(agentOrgId)/Ä
-agentOrgIdLong"
-_root_.scala.Long#"b
-+_root_.models.PropertyLink#(organisationId)3ÅorganisationIdLong"
-_root_.scala.Long#"¢
-s_root_.utils.StubPropertyLinkConnector.getLink(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(linkId)+ÄlinkIdLong"
-_root_.scala.Long#"˝
-î_root_.utils.StubPropertyLinkConnector.linkToProperty(Lconnectors/fileUpload/FileMetadata;Lsession/LinkingSessionRequest;)Lscala/concurrent/Future;.„linkToPropertyV(data: FileMetadata)(implicit request: session.LinkingSessionRequest[_]): Future[Unit]"2
-*_root_.connectors.fileUpload.FileMetadata#"'
-JP_root_.scala.concurrent.Future#"
-QU_root_.scala.Unit#"$
-_root_.scala.Option#Ä†Option"
-
-_root_.uk.	ÄàÄuk"3
-_root_.controllers.Pagination#Ä†Ä
-Pagination"t
-5test/utils/StubPropertyLinkConnector.scala@2763..2764;ÄpClientProperty"#
-_root_.models.ClientProperty#"n
-2_root_.models.ClientProperty#(ownerOrganisationId)8ÅownerOrganisationIdLong"
-_root_.scala.Long#"
-_root_.uk.gov.
-ÄàÄgov"µ
-l_root_.utils.StubPropertyLinkConnector.get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"˜
-ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
-_root_.scala.Option#"6
-$._root_.uk.gov.hmrc.http.logging.Authorization#"
-/5_root_.scala.Option#"'
-6<_root_.uk.gov.hmrc.http.UserId#"
-FL_root_.scala.Option#"&
-MR_root_.uk.gov.hmrc.http.Token#"
-`f_root_.scala.Option#"5
-gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
-Åá_root_.scala.Option#"4
-àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
-ü•_root_.scala.Option#"4
-¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
-¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
-◊€_root_.scala.Long#"#
-ÎÓ_root_.scala.package.Seq#"
-Ôı_root_.scala.Tuple2#"%
-ˆ¸_root_.scala.Predef.String#"%
-˛Ñ_root_.scala.Predef.String#"
-ñú_root_.scala.Option#"%
-ù£_root_.scala.Predef.String#"
-∂º_root_.scala.Option#"%
-Ω√_root_.scala.Predef.String#"
-œ’_root_.scala.Option#"%
-÷‹_root_.scala.Predef.String#"
-ÈÔ_root_.scala.Option#"%
-ˆ_root_.scala.Predef.String#"
-Éâ_root_.scala.Option#"%
-äê_root_.scala.Predef.String#"
-•´_root_.scala.Option#";
-¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
-Õ–_root_.scala.package.Seq#"
-—◊_root_.scala.Tuple2#"%
-ÿﬁ_root_.scala.Predef.String#"%
-‡Ê_root_.scala.Predef.String#"0
-Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"∏
-o_root_.utils.StubPropertyLinkConnector.getLink(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"ß
-ñ_root_.session.LinkingSessionRequest#`<init>`(Lmodels/LinkingSession;JLmodels/DetailedIndividualAccount;Lmodels/GroupAccount;Lplay/api/mvc/Request;)V.ã<init>§(ses: LinkingSession, organisationId: Long, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount, request: Request[A]): LinkingSessionRequest[A]"%
-_root_.models.LinkingSession#"
-&*_root_.scala.Long#"0
-?X(_root_.models.DetailedIndividualAccount#"#
-ht_root_.models.GroupAccount#"%
-Ü_root_.play.api.mvc.Request#"2
-áà(_root_.session.LinkingSessionRequest#[A]"/
-å°%_root_.session.LinkingSessionRequest#"2
-¢£(_root_.session.LinkingSessionRequest#[A]"C
-)_root_.scala.concurrent.ExecutionContext.ÄÑExecutionContext"Ø
-x_root_.utils.StubPropertyLinkConnector.get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)3ÄorganisationIdLong"
-_root_.scala.Long#"¡
-x_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"±
-y_root_.utils.StubPropertyLinkConnector.get(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4ÄauthorisationIdLong"
-_root_.scala.Long#"A
-#_root_.models.PropertyLinkResponse.ÄÑPropertyLinkResponse"d
-,_root_.models.PropertyLink#(authorisationId)4ÅauthorisationIdLong"
-_root_.scala.Long#"å
-N_root_.utils.StubPropertyLinkConnector.stubLink(Lmodels/PropertyLink;)V.(link):ÄlinkPropertyLink"!
-_root_.models.PropertyLink#"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"
-_root_.scala.Boolean#`&&`(Z)Z.]ÑÄ&&(x: Boolean): Boolean"
-_root_.scala.Boolean#"
-_root_.scala.Boolean#"Õ
->_root_.utils.StubPropertyLinkConnector.stubbedOwnerAuthResult.äÇÄstubbedOwnerAuthResult_=(x$1: OwnerAuthResult): Unit"0
-(_root_.models.searchApi.OwnerAuthResult#"
-_root_.scala.Unit#"Ê
-•_root_.connectors.propertyLinking.PropertyLinkConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.ª<init>\(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): PropertyLinkConnector"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"1
-4D)_root_.scala.concurrent.ExecutionContext#"@
-G\8_root_.connectors.propertyLinking.PropertyLinkConnector#"R
-_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
-_root_.scala.Unit#"
-_root_.models.ÄàÄmodels"|
- _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
-
-_root_.scala.Option#"
-_root_.scala.Option#[A]"â
-Ø_root_.utils.StubPropertyLinkConnector.linkedPropertiesSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)UÄ
-paginationPaginationSearchSort".
-(_root_.controllers.PaginationSearchSort#"v
-_root_.scala.Long#`==`(J)Z.WÑÄ==(x: Long): Boolean"
-_root_.scala.Long#"
-_root_.scala.Boolean#"<
- _root_.utils.StubServicesConfig.ÄÑStubServicesConfig"œ
-4_root_.utils.StubPropertyLinkConnector.stubbedLinks.ñstubbedLinks_=(x$1: Seq[PropertyLink]): Unit"!
-	_root_.scala.package.Seq#"#
-
-_root_.models.PropertyLink#"
-_root_.scala.Unit#"Ò
-ß_root_.utils.StubPropertyLinkConnector.linkedPropertiesSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"R
-_root_.scala.Long#`<init>`()V.0<init>(): Long"
-_root_.scala.Long#"H
-+_root_.models.searchApi.OwnerAuthorisation#Ä†ÄOwnerAuthorisation"º
-V_root_.connectors.fileUpload.FileMetadata#`<init>`(Lmodels/LinkBasis;Lscala/Option;)V.·<init>@(linkBasis: LinkBasis, fileInfo: Option[FileInfo]): FileMetadata" 
-_root_.models.LinkBasis#"
-!'_root_.scala.Option#"
-(0_root_.models.FileInfo#"2
-4@*_root_.connectors.fileUpload.FileMetadata#"ﬁ
-ò_root_.utils.StubPropertyLinkConnector.linkedProperties(JLcontrollers/Pagination;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(pagination)AÄ
-pagination
-Pagination"$
-
-_root_.controllers.Pagination#")
-_root_.controllers.ÄàÄcontrollers"6
-_root_.models.ClientProperty#Ä†ÄClientProperty"K
-_root_.scala.Int#toLong()J.,ÑÄtoLongLong"
-_root_.scala.Long#"í
-£_root_.utils.StubPropertyLinkConnector.linkedPropertiesSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÈlinkedPropertiesSearchAndSortm(organisationId: Long, pagination: PaginationSearchSort)(implicit hc: HeaderCarrier): Future[OwnerAuthResult]"
-_root_.scala.Long#"0
-#7(_root_.controllers.PaginationSearchSort#".
-FS&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-V\_root_.scala.concurrent.Future#"0
-]l(_root_.models.searchApi.OwnerAuthResult#"G
-(_root_.controllers.PaginationSearchSort#Ä†ÄPaginationSearchSort"‚
-J_root_.utils.StubPropertyLinkConnector.stubLinks(Lscala/collection/Seq;)V.ì	stubLinks (links: Seq[PropertyLink]): Unit"!
-_root_.scala.package.Seq#"#
-_root_.models.PropertyLink#"
- _root_.scala.Unit#"
-_root_.utils.ÄàÄutils">
-&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"R
-_root_.scala.package.Seq#5SeqSeq.type""
-_root_.scala.collection.Seq."Ÿ
-°_root_.models.PropertyLink#`<init>`(JLjava/lang/String;JJLjava/lang/String;Lmodels/Capacity;Ljava/time/LocalDate;ZLscala/collection/Seq;Lscala/collection/Seq;)V.≤<init>Ë(authorisationId: Long, submissionId: String, uarn: Long, organisationId: Long, address: String, capacityDeclaration: Capacity, linkedDate: LocalDate, pending: Boolean, assessments: Seq[Assessment], agents: Seq[Party]): PropertyLink"
-_root_.scala.Long#"#
-&,_root_.scala.Predef.String#"
-48_root_.scala.Long#"
-JN_root_.scala.Long#"#
-Y__root_.scala.Predef.String#"
-v~_root_.models.Capacity#"%
-åï_root_.java.time.LocalDate#"
-†ß_root_.scala.Boolean#"#
-∂π_root_.scala.package.Seq#"#
-∫ƒ_root_.models.Assessment#"#
-œ“_root_.scala.package.Seq#"
-”ÿ_root_.models.Party#"%
-‹Ë_root_.models.PropertyLink#"Î
-?_root_.utils.StubPropertyLinkConnector.stubbedClientProperties.ßÇÄstubbedClientProperties_= (x$1: Seq[ClientProperty]): Unit"!
-	_root_.scala.package.Seq#"%
-
-_root_.models.ClientProperty#"
- _root_.scala.Unit#"
-_root_.scala.ÄàÄscala"à
-\_root_.utils.StubPropertyLinkConnector.`stubbedClientProperties_=`(Lscala/collection/Seq;)V.ßÇÄstubbedClientProperties_= (x$1: Seq[ClientProperty]): Unit"!
-	_root_.scala.package.Seq#"%
-
-_root_.models.ClientProperty#"
- _root_.scala.Unit#"Î
-≥_root_.utils.StubPropertyLinkConnector.linkedPropertiesSearchAndSort(JLcontrollers/PaginationSearchSort;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(organisationId)3ÄorganisationIdLong"
-_root_.scala.Long#"∂
-Å_root_.utils.StubPropertyLinkConnector.clientProperty(JJJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(clientOrgId)0ÄclientOrgIdLong"
-_root_.scala.Long#"!
-_root_.session.ÄàÄsession"J
-'_root_.utils.StubPropertyLinkConnector.ÄÑStubPropertyLinkConnector""
-_root_.uk.gov.hmrc.ÄàÄhmrc"⁄
-T_root_.utils.StubPropertyLinkConnector.stubClientProperty(Lmodels/ClientProperty;)V.ÅstubClientProperty&(clientProperty: ClientProperty): Unit"%
-_root_.models.ClientProperty#"
-"&_root_.scala.Unit#" 
-è_root_.models.searchApi.OwnerAuthorisation#`<init>`(JLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lscala/Option;)V.µ<init>Æ(authorisationId: Long, status: String, submissionId: String, uarn: Long, address: String, localAuthorityRef: String, agents: Option[Seq[OwnerAuthAgent]]): OwnerAuthorisation"
-_root_.scala.Long#"#
- &_root_.scala.Predef.String#"#
-6<_root_.scala.Predef.String#"
-DH_root_.scala.Long#"#
-SY_root_.scala.Predef.String#"#
-nt_root_.scala.Predef.String#"
-~Ñ_root_.scala.Option#"#
-Öà_root_.scala.package.Seq#"1
-âó'_root_.models.searchApi.OwnerAuthAgent#"5
-úÆ+_root_.models.searchApi.OwnerAuthorisation#" 
-_root_.scala.Some.
-ÄÑSome"∞
-r_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.π:+F[B, That] => (elem: B)(implicit bf: CanBuildFrom[Repr, B, That]): That"}
-u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
-$0-_root_.scala.collection.generic.CanBuildFrom#".
-15&_root_.scala.collection.SeqLike#[Repr]"}
-78u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ä
-:>x_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ä
-BFx_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"ú
-Z_root_.scala.collection.generic.GenericCompanion#empty()Lscala/collection/GenTraversable;.Ωempty[A] => CC[A]"=
-	5_root_.scala.collection.generic.GenericCompanion#[CC]"e
-
-]_root_.scala.collection.generic.GenericCompanion#empty()Lscala/collection/GenTraversable;.[A]"<
-"_root_.connectors.propertyLinking.ÄàÄpropertyLinking2]
-ûû*[PropertyLinkResponse]
-_star_.+
-#_root_.models.PropertyLinkResponse#2<
-ïï*[Unit]
-_star_.
-_root_.scala.Unit#2–
-¢¢4*(scala.collection.Seq.canBuildFrom[ClientProperty])
-_star_.%
-$2_root_.models.ClientProperty#Z
-#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2ñ
-å
-å
-*.apply
-_star_.t
-l_root_.models.searchApi.OwnerAuthResult.apply(IIIILscala/collection/Seq;)Lmodels/searchApi/OwnerAuthResult;.2í
-””5*(scala.concurrent.ExecutionContext.Implicits.global)
-_star_.B
-.4:_root_.scala.concurrent.ExecutionContext.Implicits.global.2Ã
-„„2*(scala.collection.Seq.canBuildFrom[PropertyLink])
-_star_.#
-$0_root_.models.PropertyLink#Z
-#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2Ñ
-∏∏*.apply[Long]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
-_root_.scala.Long#2]
-””*[OwnerAuthResult]
-_star_.0
-(_root_.models.searchApi.OwnerAuthResult#2Ã
-±±2*(scala.collection.Seq.canBuildFrom[PropertyLink])
-_star_.#
-$0_root_.models.PropertyLink#Z
-#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2ñ
-≥≥*.apply
-_star_.t
-l_root_.models.PropertyLinkResponse.apply(Lscala/Option;Lscala/collection/Seq;)Lmodels/PropertyLinkResponse;.2s
-√√*[Option[PropertyLink]]
-_star_.#
-	_root_.models.PropertyLink#
-_root_.scala.Option#2s
-‡‡*[Option[PropertyLink]]
-_star_.#
-	_root_.models.PropertyLink#
-_root_.scala.Option#2w
-ßß*[Option[ClientProperty]]
-_star_.
-_root_.scala.Option#%
-	_root_.models.ClientProperty#:Scala211B‚/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package utils
-
-import connectors.fileUpload.FileMetadata
-import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{Pagination, PaginationSearchSort}
-import models._
-import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
-import session.LinkingSessionRequest
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
-
-object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfig, StubHttp) {
-
-  var stubbedLinks: Seq[PropertyLink] = Nil
-  private var stubbedClientProperties: Seq[ClientProperty] = Nil
-  private var stubbedOwnerAuthResult: OwnerAuthResult = OwnerAuthResult(start = 15, total = 15, size= 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
-
-  def getstubbedOwnerAuthResult() : OwnerAuthResult = stubbedOwnerAuthResult
-
-  def stubOwnerAuthResult(reps: OwnerAuthResult) = { stubbedOwnerAuthResult = reps }
-
-  override def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
-
-  override def linkedProperties(organisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier) = {
-    Future.successful(PropertyLinkResponse(Some(stubbedLinks.size), stubbedLinks))
-  }
-
-  override def linkedPropertiesSearchAndSort(organisationId: Long,
-                                            pagination: PaginationSearchSort)
-                                           (implicit hc: HeaderCarrier) = {
-    Future.successful(stubbedOwnerAuthResult)
-  }
-
-  override def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
-    stubbedLinks.find(x => {x.authorisationId == authorisationId && x.organisationId == organisationId})
-  }
-
-  override def getLink(linkId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = Future.successful {
-    stubbedLinks.find(_.authorisationId == linkId)
-  }
-
-  override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = Future.successful {
-    stubbedClientProperties.find(p => p.authorisationId == authorisationId && p.ownerOrganisationId == clientOrgId)
-  }
-
-  def stubLink(link: PropertyLink) = {
-    stubbedLinks :+= link
-  }
-
-  def stubLinks(links: Seq[PropertyLink]) = {
-    stubbedLinks ++= links
-  }
-
-  def stubClientProperty(clientProperty: ClientProperty) = {
-    stubbedClientProperties :+= clientProperty
-  }
-
-  def reset() = {
-    stubbedLinks = Nil
-    stubbedClientProperties = Nil
-    stubbedOwnerAuthResult = stubbedOwnerAuthResult.copy(authorisations = Seq.empty[OwnerAuthorisation])
-  }
-}
-J*test/utils/StubPropertyLinkConnector.scala

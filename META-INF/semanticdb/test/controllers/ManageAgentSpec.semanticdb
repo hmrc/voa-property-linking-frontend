@@ -1,391 +1,0 @@
-
-“•o
-àëe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.'
-¬…_root_.play.api.test.Helpers.K
-Å	â	A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.
-òõ_root_.play.api.)
-°£_root_.play.api.http.Status#OK.E
-‘Î;_root_.controllers.ManageAgentSpec#TestDashboardController.¡
-ı	˘	∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.=
-ì
-ó
-1test/controllers/ManageAgentSpec.scala@1295..1340;
-ø√1test/controllers/ManageAgentSpec.scala@1295..1340/
-ıÑ#_root_.controllers.ManageAgentSpec#*
-ï	¶	 _root_.config.ApplicationConfig#o
-ö
-£
-e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.+
-˚Ü!_root_.play.api.test.FakeRequest.?
-˛Å5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.a
-ä	î	W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.R
-∂æH_root_.utils.StubPropertyLinkConnector.stubLink(Lmodels/PropertyLink;)V.
-Ÿﬂ_root_.models.o
-Çãe_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.z
-ö†p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.E
-À	◊	;_root_.controllers.ManageAgentSpec#TestDashboardController.%
-§
-∞
-_root_.models.PropertyLink#K
-¨ΩA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#1
-úµ'_root_.utils.StubPropertyLinkConnector.
-Ω¡_root_.play.api.test.%
-ﬁ
-Í
-_root_.models.GroupAccount#
-πº_root_.play.api.S
-¸¸I_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.G
-œÊ;_root_.controllers.ManageAgentSpec#TestDashboardController.%
-àå_root_.com.builtamont.play.
-ÊÎ_root_.utils.
-˘¸_root_.com.6
-Û
-ˆ
-,_root_.scala.Option#get()Ljava/lang/Object;.=
-≈
-—
-1test/controllers/ManageAgentSpec.scala@1345..1398
-ìó_root_.play.o
-‘
-›
-e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.*
-¯Å _root_.org.scalacheck.Arbitrary.,
-çõ"_root_.controllers.ControllerSpec#*
-Ωœ _root_.utils.StubAuthentication.;
-≤
-∏
-1_root_.org.scalacheck.Gen#sample()Lscala/Option;.e
-∆	 	[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.;
-ÖÖ/_root_.controllers.ManageAgentSpec#`<init>`()V.*
-ñß _root_.config.ApplicationConfig#f
-–Ë\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.'
-≥Ω_root_.connectors.DraftCases#?
-˝Ä	5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.
-ú†_root_.play.api.test.;
-éî1test/controllers/ManageAgentSpec.scala@1403..1463K
-Ï¯A_root_.controllers.Dashboard#manageAgents()Lplay/api/mvc/Action;.;
-≠≥1_root_.org.scalacheck.Gen#sample()Lscala/Option;.a
-ãïW_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.2
-í´(_root_.models.DetailedIndividualAccount#4
-úú*_root_.org.scalatest.FlatSpec#`<init>`()V.u
-Ü
-à
-k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.;
-Ï
-Ú
-1_root_.org.scalacheck.Gen#sample()Lscala/Option;.
-ÈÏ_root_.org.¯
-¯¯Ì_root_.controllers.Dashboard#`<init>`(Lconfig/ApplicationConfig;Lconnectors/DraftCases;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;Lactions/AuthenticatedAction;Lcom/builtamont/play/pdf/PdfGenerator;)V.-
-Á¸#_root_.utils.StubMessagesConnector#
-”‹_root_.resources.
-¥∏_root_.play.6
-π
-º
-,_root_.scala.Option#get()Ljava/lang/Object;.6
-¥∑,_root_.scala.Option#get()Ljava/lang/Object;.
-Â_root_.controllers. 
-Ì˜_root_.org.scalacheck.*
-Èˆ _root_.connectors.Authenticated.e
-Æ≤[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;. 
-˝á_root_.com.builtamont.K
-ÇäA_root_.play.api.Application#injector()Lplay/api/inject/Injector;.c
-ëùY_root_.com.builtamont.play.pdf.PdfGenerator.;_root_.com.builtamont.play.pdf.PdfGenerator#1
-ƒ›'_root_.utils.StubPropertyLinkConnector.*
-Æ	¿	 _root_.utils.StubAuthentication.
-≈œ_root_.connectors.M
-°¨C_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#!
-˜ˇ_root_.models.Accounts.;
-Äå1test/controllers/ManageAgentSpec.scala@1345..1398=
-ˇ
-Ö1test/controllers/ManageAgentSpec.scala@1403..1463
-•´_root_.config.7
-≠¥+_root_.controllers.ManageAgentSpec#request.'
-Ô¯_root_.controllers.Dashboard#)
-çê_root_.com.builtamont.play.pdf.=
-Œ—1test/controllers/ManageAgentSpec.scala@1610..1673+
-∑¬!_root_.play.api.test.FakeRequest."9
-"_root_.controllers.ControllerSpec#Ä@ControllerSpec"$
-_root_.play.api.test.ÄàÄtest"
-_root_.com.
-ÄàÄcom"ò
-1test/controllers/ManageAgentSpec.scala@1610..1673cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"6
-!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"\
-;_root_.controllers.ManageAgentSpec#TestDashboardController.ÄÑTestDashboardController"'
-_root_.connectors.ÄàÄ
-connectors"‘
-e_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.Í	arbitrary)[T] => (implicit a: Arbitrary[T]): Gen[T]"(
- _root_.org.scalacheck.Arbitrary#"p
-h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]""
-#&_root_.org.scalacheck.Gen#"p
-'(h_root_.org.scalacheck.ArbitraryLowPriority#arbitrary(Lorg/scalacheck/Arbitrary;)Lorg/scalacheck/Gen;.[T]"Î
-t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"
-6:_root_.scala.Long#"
-JN_root_.scala.Long#"(
-Yj _root_.models.IndividualDetails#"1
-mÜ(_root_.models.DetailedIndividualAccount#"Ê
-I_root_.utils.StubMessagesConnector#`<init>`(Lconfig/ApplicationConfig;)V.ò<init>5(appConfig: ApplicationConfig): StubMessagesConnector"(
- _root_.config.ApplicationConfig#"+
- 5#_root_.utils.StubMessagesConnector#"ï
-Ì_root_.controllers.Dashboard#`<init>`(Lconfig/ApplicationConfig;Lconnectors/DraftCases;Lconnectors/propertyLinking/PropertyLinkConnector;Lconnectors/MessagesConnector;Lactions/AuthenticatedAction;Lcom/builtamont/play/pdf/PdfGenerator;)V.¢<init>ƒ(config: ApplicationConfig, draftCases: DraftCases, propertyLinks: PropertyLinkConnector, messagesConnector: MessagesConnector, authenticated: AuthenticatedAction, pdfGen: PdfGenerator): Dashboard"(
-	 _root_.config.ApplicationConfig#"%
-(2_root_.connectors.DraftCases#"@
-CX8_root_.connectors.propertyLinking.PropertyLinkConnector#",
-m~$_root_.connectors.MessagesConnector#"-
-è¢#_root_.actions.AuthenticatedAction#"6
-¨∏,_root_.com.builtamont.play.pdf.PdfGenerator#"'
-ªƒ_root_.controllers.Dashboard#"ä
-1test/controllers/ManageAgentSpec.scala@1403..1463UpersonDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"µ
-H_root_.utils.StubPropertyLinkConnector.stubLink(Lmodels/PropertyLink;)V.istubLink(link: PropertyLink): Unit"#
-_root_.models.PropertyLink#"
-_root_.scala.Unit#"
-_root_.play.api.
-ÄàÄapi"/
-_root_.controllers.Dashboard#Ä 	Dashboard"2
-_root_.models.PropertyLink#Ä†ÄPropertyLink"0
-_root_.connectors.DraftCases#Ä 
-DraftCases"¬
-s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
-	_root_.scala.Long#"#
-_root_.scala.Predef.String#"#
-)/_root_.scala.Predef.String#"
-<?_root_.scala.Int#"#
-HN_root_.scala.Predef.String#"#
-W]_root_.scala.Predef.String#"
-ho_root_.scala.Boolean#"
-|Ä_root_.scala.Long#"%
-Éè_root_.models.GroupAccount#"+
-_root_.com.builtamont.ÄàÄ
-builtamont"ç
-1_root_.org.scalacheck.Gen#sample()Lscala/Option;.Xsample	Option[T]"
-_root_.scala.Option#"%
-_root_.org.scalacheck.Gen#[T]"å
-[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.¨mock*[T] => (implicit classTag: ClassTag[T]): T"&
-#_root_.scala.reflect.ClassTag#"f
-$%^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"f
-)*^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"%
-_root_.resources.ÄàÄ	resources"7
- _root_.connectors.Authenticated.ÄÑAuthenticated"ª
-A_root_.controllers.Dashboard#manageAgents()Lplay/api/mvc/Action;.vmanageAgents(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"
-_root_.org.
-ÄàÄorg"„
-p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.omustBe(right: Any): Assertion"
-_root_.scala.Any#"/
-'_root_.org.scalatest.package.Assertion#"2
-_root_.models.GroupAccount#Ä†ÄGroupAccount":
- _root_.config.ApplicationConfig#Ä ApplicationConfig".
-_root_.play.api.test.Helpers.ÄÑHelpers"¡
-∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
-_root_.scala.Predef.String#">
-96_root_.org.scalatest.words.StringVerbStringInvocation#">
-<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"ä
-W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.ÆÑÄ
-instanceOf,[T] => (implicit evidence$1: ClassTag[T]): T"&
-%_root_.scala.reflect.ClassTag#"b
-&'Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"b
-+,Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"
-_root_.play.ÄàÄplay"+
-_root_.org.scalacheck.ÄàÄ
-scalacheck"ª
-+_root_.controllers.ManageAgentSpec#request.ãÅÄ request#FakeRequest[AnyContentAsEmpty.type]"'
-!_root_.play.api.test.FakeRequest#".
-&_root_.play.api.mvc.AnyContentAsEmpty."A
-#_root_.utils.StubMessagesConnector#Ä StubMessagesConnector"
-/_root_.controllers.ManageAgentSpec#`<init>`()V.L<init>(): ManageAgentSpec"+
-#_root_.controllers.ManageAgentSpec#"3
- _root_.org.scalacheck.Arbitrary.ÄÑ	Arbitrary"Ó
-\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.çstubAuthenticationResult#(result: AuthorisationResult): Unit".
-	&_root_.connectors.AuthorisationResult#"
-#_root_.scala.Unit#"*
-_root_.com.builtamont.play.ÄàÄplay"
-_root_.models.ÄàÄmodels"v
-1test/controllers/ManageAgentSpec.scala@1345..1398AorganisationGroupAccount"!
-_root_.models.GroupAccount#"-
-_root_.com.builtamont.play.pdf.
-ÄàÄpdf"[
-,_root_.scala.Option#get()Ljava/lang/Object;.+ÑÄgetA"
-_root_.scala.Option#[A]")
-_root_.controllers.ÄàÄcontrollers" 
-l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
-_root_.play.api.Configuration#"6
-(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
-2C _root_.config.ApplicationConfig#"
-_root_.utils.ÄàÄutils"<
- _root_.utils.StubAuthentication.ÄÑStubAuthentication"n
-1test/controllers/ManageAgentSpec.scala@1295..13409linkPropertyLink"!
-_root_.models.PropertyLink#"
-_root_.config.ÄàÄconfig"Ÿ
-°_root_.models.PropertyLink#`<init>`(JLjava/lang/String;JJLjava/lang/String;Lmodels/Capacity;Ljava/time/LocalDate;ZLscala/collection/Seq;Lscala/collection/Seq;)V.≤<init>Ë(authorisationId: Long, submissionId: String, uarn: Long, organisationId: Long, address: String, capacityDeclaration: Capacity, linkedDate: LocalDate, pending: Boolean, assessments: Seq[Assessment], agents: Seq[Party]): PropertyLink"
-_root_.scala.Long#"#
-&,_root_.scala.Predef.String#"
-48_root_.scala.Long#"
-JN_root_.scala.Long#"#
-Y__root_.scala.Predef.String#"
-v~_root_.models.Capacity#"%
-åï_root_.java.time.LocalDate#"
-†ß_root_.scala.Boolean#"#
-∂π_root_.scala.package.Seq#"#
-∫ƒ_root_.models.Assessment#"#
-œ“_root_.scala.package.Seq#"
-”ÿ_root_.models.Party#"%
-‹Ë_root_.models.PropertyLink#"∑
-G_root_.controllers.ManageAgentSpec#TestDashboardController.`<init>`()V.l<init>(): TestDashboardController"C
-;_root_.controllers.ManageAgentSpec#TestDashboardController."J
-'_root_.utils.StubPropertyLinkConnector.ÄÑStubPropertyLinkConnector"L
-(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"n
-*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
-_root_.org.scalatest.FlatSpec#")
-_root_.models.Accounts.ÄÑAccounts"É
-A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.>injectorInjector"&
- _root_.play.api.inject.Injector#"G
-_root_.play.api.http.Status#OK.$OKInt"
-_root_.scala.Int#"s
-5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.:ÅÄ`appApplication""
-_root_.play.api.Application#";
-#_root_.controllers.ManageAgentSpec#Ä ManageAgentSpec"∂
-k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
-
-_root_.scala.`<byname>`#"
-_root_.scala.Any#"-
-'/%_root_.org.scalactic.source.Position#"
-26_root_.scala.Unit#"•
-ä_root_.connectors.DraftCases#`<init>`(Lconfig/WSHttp;Luk/gov/hmrc/play/config/inject/ServicesConfig;Lscala/concurrent/ExecutionContext;)V.ï<init>Q(http: WSHttp, config: ServicesConfig)(implicit ec: ExecutionContext): DraftCases"
-_root_.config.WSHttp#"=
-%5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"1
-4D)_root_.scala.concurrent.ExecutionContext#"%
-GQ_root_.connectors.DraftCases#2˘
-‡	Ö
-3ManageAgentSpec.this.convertToInAndIgnoreMethods(*)®
-0ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
-12_star_.2÷
-®®h*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
-_star_.(
-Te _root_.config.ApplicationConfig#W
-O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
-$ _root_.config.ApplicationConfig#&
-KS_root_.scala.reflect.ClassTag#2ø
-ææW*(((ClassTag.apply[DraftCases](classOf[connectors.DraftCases])): ClassTag[DraftCases]))
-_star_.%
-JT_root_.connectors.DraftCases#&
-AI_root_.scala.reflect.ClassTag#W
-O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.%
-_root_.connectors.DraftCases#2~
-Î
-Î
-,*(resources.`package`.arbitraryGroupAccount)
-_star_.7
-+/_root_.resources.package.arbitraryGroupAccount.2n
-ÜÜ*.apply
-_star_.L
-D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2ë
-ˇˇ*.apply
-_star_.o
-g_root_.models.Accounts.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;)Lmodels/Accounts;.2}
-ˆˆ*.apply
-_star_.[
-S_root_.connectors.Authenticated.apply(Lmodels/Accounts;)Lconnectors/Authenticated;.2|
-˙˙*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2n
-¬¬*.apply
-_star_.L
-D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2÷
-ß	ß	h*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
-_star_.(
-Te _root_.config.ApplicationConfig#W
-O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
-$ _root_.config.ApplicationConfig#&
-KS_root_.scala.reflect.ClassTag#2
-ÿ	ÿ	j*(((ClassTag.apply[PdfGenerator](classOf[com.builtamont.play.pdf.PdfGenerator])): ClassTag[PdfGenerator]))
-_star_.4
-,_root_.com.builtamont.play.pdf.PdfGenerator#&
-RZ_root_.scala.reflect.ClassTag#W
-O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.4
-[g,_root_.com.builtamont.play.pdf.PdfGenerator#2~
-±
-±
-,*(resources.`package`.arbitraryPropertyLink)
-_star_.7
-+/_root_.resources.package.arbitraryPropertyLink.2†
-Ö
-Ö
-9*(ManageAgentSpec.this.shorthandTestRegistrationFunction)
-_star_.L
-8D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2Ã
-ßß∑*(org.scalactic.source.Position.apply("ManageAgentSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 41))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2∞
-éôåManageAgentSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("ManageAgentSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 50), org.scalactic.Prettifier.default)ª
-,≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
--0_root_.scala.Int#
-23_star_.y
-SXq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Ñã(_root_.org.scalactic.Prettifier.default.2z
-¨¨**(resources.`package`.arbitraryIndividual)
-_star_.5
-)-_root_.resources.package.arbitraryIndividual.2ô
-‡	Ù	äManageAgentSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("ManageAgentSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 41), org.scalactic.Prettifier.default)¡
-/∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-01_star_.y
-QVq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-Çâ(_root_.org.scalactic.Prettifier.default.:Scala211B´/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package controllers
-
-import com.builtamont.play.pdf.PdfGenerator
-import config.ApplicationConfig
-import connectors._
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import play.api.test.FakeRequest
-import play.api.test.Helpers._
-import resources._
-import utils._
-
-class ManageAgentSpec extends ControllerSpec {
-  implicit val request = FakeRequest()
-
-  object TestDashboardController extends Dashboard(
-    app.injector.instanceOf[ApplicationConfig],
-    mock[DraftCases],
-    StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
-    StubAuthentication,
-    mock[PdfGenerator]
-  )
-
-  "Manage Agents page" must "return Ok" in {
-    val link = arbitrary[PropertyLink].sample.get
-    val organisation = arbitrary[GroupAccount].sample.get
-    val person = arbitrary[DetailedIndividualAccount].sample.get
-
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
-    StubPropertyLinkConnector.stubLink(link)
-
-    val res = TestDashboardController.manageAgents()(FakeRequest())
-    status(res) mustBe OK
-  }
-
-}
-J&test/controllers/ManageAgentSpec.scala

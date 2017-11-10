@@ -1,519 +1,0 @@
-
-Ãﬁ
-€·_root_.config.WSHttp#
-˝Å_root_.play.api.libs.∫
-¡«≠_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.S
-À‘I_root_.play.api.libs.json.JsDefined.;_root_.play.api.libs.json.JsDefined#N
-˙	Ö
-D_root_.config.VPLHttp#hasJsonBody(Luk/gov/hmrc/http/HttpResponse;)Z.
-ª¿_root_.scala.)
-ÿﬁ_root_.uk.gov.hmrc.play.config.
-öù_root_.uk.gov.!
-Ã“_root_.config.WSHttp.Y
-‡ÁO_root_.uk.gov.hmrc.play.config.AppName.;_root_.uk.gov.hmrc.play.config.AppName#-
-¯Ç#_root_.uk.gov.hmrc.http.HttpDelete#:
-Üí0_root_.uk.gov.hmrc.play.audit.http.HttpAuditing#¿
-ÿ‹≥_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(body).
- 	Õ	"app/config/Wiring.scala@1226..1229,
-Ü
-â
-"app/config/Wiring.scala@1226..1229,
-’	ÿ	"app/config/Wiring.scala@1226..12292
-•¨(_root_.uk.gov.hmrc.play.http.ws.WSPatch#R
-ß´H_root_.uk.gov.hmrc.http.HttpResponse#json()Lplay/api/libs/json/JsValue;.
-¿ƒ_root_.play.api.libs.,
-∫Ω"app/config/Wiring.scala@1650..1653"
-¡À_root_.scala.concurrent.'
-©≠_root_.uk.gov.hmrc.play.http.
-«…
-_root_.uk.&
-§©_root_.config.Hooks#hooks.Q
-˘˙G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.(
-®≠_root_.uk.gov.hmrc.play.audit.Ω
-ÿ€≤_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(url)9
-Ÿ	ﬂ	/_root_.uk.gov.hmrc.http.HttpResponse#status()I.
-Ûˆ_root_.uk.gov.1
-Ωƒ'_root_.uk.gov.hmrc.play.config.AppName#.
-Úı"app/config/Wiring.scala@1650..1653.
-Õ
-–
-"app/config/Wiring.scala@1357..1360:
-¥¿0_root_.uk.gov.hmrc.play.audit.http.HttpAuditing#9
-Éâ/_root_.uk.gov.hmrc.http.HttpResponse#status()I.ø
-ÀŒ≤_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(url)*
-Çå _root_.play.api.libs.concurrent..
-ﬁÛ$_root_.config.AuditServiceConnector.0
-û´&_root_.uk.gov.hmrc.http.HeaderCarrier#&
-¨Ø_root_.scala.collection.Seq..
-‚‚$_root_.java.lang.Object#`<init>`()V.
-õû_root_.uk.gov.h
-ó
-ò
-^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;."
-Öâ_root_.uk.gov.hmrc.play.-
-ƒ
-Ã
-#_root_.play.api.libs.json.JsString.1
-”⁄'_root_.uk.gov.hmrc.play.config.RunMode#
-⁄ﬂ_root_.scala.√
-·Ë∂_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(headers)N
-¶±D_root_.config.VPLHttp#hasJsonBody(Luk/gov/hmrc/http/HttpResponse;)Z.>
-ó†4_root_.play.api.libs.concurrent.Execution.Implicits.,
-
-Û
-"app/config/Wiring.scala@1357..1360∫
-ñóØ_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#
-˘¸_root_.play.api.G
-∞º=_root_.uk.gov.hmrc.play.audit.http.HttpAuditing#AuditingHook.4
-çñ*_root_.play.api.libs.concurrent.Execution.S
-£¶I_root_.config.VPLHttp#hasJsonBody(Luk/gov/hmrc/http/HttpResponse;)Z.(res)L
-ŸŸ@_root_.config.AuthorisationFailed#`<init>`(Ljava/lang/String;)V.-
-Ú˙#_root_.play.api.libs.json.JsString.æ
-›·≥_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(body)
- Õ_root_.uk.gov.
-‡‰_root_.scala.util.2
-˜Ä(_root_.uk.gov.hmrc.http.hooks.HttpHooks#'
-äé_root_.uk.gov.hmrc.play.http.O
-Õ€C_root_.config.Hooks#auditConnector()Lconfig/AuditServiceConnector;.P
-¸áD_root_.config.VPLHttp#hasJsonBody(Luk/gov/hmrc/http/HttpResponse;)Z.…
-—◊æ_root_.uk.gov.hmrc.play.http.ws.WSPost#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.,
-áä"app/config/Wiring.scala@1226..1229!
-ü•_root_.config.WSHttp#Q
-÷ﬁG_root_.play.api.libs.json.JsString.;_root_.play.api.libs.json.JsString#"
-£ß_root_.uk.gov.hmrc.play.
-ºø_root_.play.api."
-òü_root_.config.VPLHttp#,
-íï"_root_.config.AuthorisationFailed#*
-Æµ _root_.uk.gov.hmrc.http.HttpGet#,
-∑∫"app/config/Wiring.scala@1650..1653.
-∆Ÿ"_root_.config.AuthorisationFailed#,
-≤µ"app/config/Wiring.scala@1650..1653/
-çô%_root_.uk.gov.hmrc.http.HttpResponse#ø
-äç≤_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(rds)%
-Ôı_root_.scala.Predef.String#/
-£	Ø	%_root_.uk.gov.hmrc.http.HttpResponse#
-∑ª_root_.play.:
-≥ø0_root_.uk.gov.hmrc.play.audit.http.HttpAuditing# 
-ÈÓ_root_.config.Hooks#"
-¸Ä_root_.uk.gov.hmrc.http.1
-ÏÚ'_root_.uk.gov.hmrc.play.http.ws.WSPost#C
-¯¯9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.h
-√ƒ^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.
-ˆ˙_root_.uk.gov.hmrc.
-Úı_root_.uk.gov..
-ØØ$_root_.java.lang.Object#`<init>`()V.x
-ø	¬	n_root_.config.VPLHttp#doGet(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(url)+
-ﬁÊ!_root_.uk.gov.hmrc.http.HttpPost#2
-Üè(_root_.uk.gov.hmrc.http.hooks.HttpHooks#º
-»…Ø_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#,
-£¶"app/config/Wiring.scala@1226..1229
-ÂÎ_root_.config.0
-å	ô	&_root_.uk.gov.hmrc.http.HeaderCarrier#-
-Æ≤#_root_.uk.gov.hmrc.play.audit.http.)
-Ô¯_root_.scala.package.Exception#U
-àãI_root_.config.VPLHttp#hasJsonBody(Luk/gov/hmrc/http/HttpResponse;)Z.(res).
-∫
-√
-$_root_.play.api.libs.json.JsDefined.
-ÄÑ_root_.uk.gov.hmrc.,
-◊⁄"app/config/Wiring.scala@1650..1653
-˘˚
-_root_.uk.z
-Úın_root_.config.VPLHttp#doGet(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(url)M
-‡ÊC_root_.play.api.libs.json.Writes.;_root_.play.api.libs.json.Writes#
-ÔÒ
-_root_.uk.*
-∆Õ _root_.uk.gov.hmrc.http.HttpPut#1
-∆Õ'_root_.uk.gov.hmrc.play.config.AppName#R
-í
-ñ
-H_root_.uk.gov.hmrc.http.HttpResponse#json()Lplay/api/libs/json/JsValue;.*
-Æ∞ _root_.uk.gov.hmrc.play.http.ws.*
-Ôˆ_root_.config.Hooks#$init$()V.Y
-ÈO_root_.uk.gov.hmrc.play.config.RunMode.;_root_.uk.gov.hmrc.play.config.RunMode#,
-é
-ë
-"app/config/Wiring.scala@1226..1229
-≤∑_root_.config.Hooks#"
-˚ˇ_root_.uk.gov.hmrc.http.7
-ÂË-_root_.scala.util.Try.;_root_.scala.util.Try##
-ÍÌ_root_.scala.package.Seq#R
-æ¬H_root_.uk.gov.hmrc.http.HttpResponse#json()Lplay/api/libs/json/JsValue;."
-§®_root_.uk.gov.hmrc.play.,
-û°"app/config/Wiring.scala@1787..1790
-Ù¯_root_.play.$
-≈…_root_.play.api.libs.json.%
-ﬂÂ_root_.scala.Predef.String#I
-Ã“?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#
-û¢_root_.uk.gov.hmrc.%
-˜˝_root_.scala.Predef.String#
-¸ˇ_root_.uk.gov.%
-˜˝_root_.scala.Predef.String#.
-††"_root_.config.VPLHttp#`<init>`()V.
-Œ“_root_.uk.gov.hmrc.3
-àê)_root_.uk.gov.hmrc.play.http.ws.WSDelete#%
-–÷_root_.scala.Predef.String#0
-”ÿ&_root_.uk.gov.hmrc.play.http.ws.WSPut#
-ü£_root_.uk.gov.hmrc.-
-Æ∑#_root_.scala.util.Try#isSuccess()Z.-
-Çå#_root_.uk.gov.hmrc.http.HttpDelete#/
-µ¡%_root_.uk.gov.hmrc.http.HttpResponse#)
-ú	¢	_root_.scala.concurrent.Future#∫
-ﬁﬂØ_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#|
-ÏÔr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.)
-Æ¥_root_.scala.concurrent.Future#,
-ˇÇ"app/config/Wiring.scala@1650..1653,
-ñü"_root_.uk.gov.hmrc.http.HttpPatch#
-Ú
-_root_.uk.(
-ÄÖ_root_.uk.gov.hmrc.http.hooks.
-®Æ_root_.config.WSHttp#,
-äù"_root_.config.AuthorisationFailed."
-”◊_root_.uk.gov.hmrc.play.y
-à	ä	m_root_.config.VPLHttp#doGet(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc),
-‹
-Ô
-"_root_.config.AuthorisationFailed.r
-°Øh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;..
-˚˛"app/config/Wiring.scala@1787..1790¡
-„Í∂_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(headers)
-˜˚_root_.uk.gov.hmrc.É
-π	æ	y_root_.uk.gov.hmrc.play.http.ws.WSGet#doGet(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.+
-èï!_root_.play.api.libs.json.Writes#.
-ËÒ$_root_.play.api.libs.json.JsDefined.
-òö
-_root_.uk.
-óô
-_root_.uk.|
-ƒ	«	r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.u
-ÏÒi_root_.config.VPLHttp#doGet(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.3
-⁄›'_root_.config.AuthorisationFailed#(msg) 
-ù†_root_.scala.util.Try.æ
-öú±_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)0
-ª¿&_root_.uk.gov.hmrc.play.http.ws.WSGet#")
-_root_.scala.collection.Seq.	ÄÑSeq"c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#"°
-≠_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÓdoPostÖ[A] => (url: String, body: A, headers: Seq[Tuple2[String, String]])(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse]"#
-_root_.scala.Predef.String#"π
-∞_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]"!
-'*_root_.scala.package.Seq#"
-+1_root_.scala.Tuple2#"#
-28_root_.scala.Predef.String#"#
-:@_root_.scala.Predef.String#")
-RX!_root_.play.api.libs.json.Writes#"π
-YZ∞_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
-an&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-qw_root_.scala.concurrent.Future#".
-xÑ%_root_.uk.gov.hmrc.http.HttpResponse#"5
- _root_.play.api.libs.concurrent.ÄàÄ
-concurrent"%
-_root_.config.WSHttp.ÄÑWSHttp"$
-_root_.config.WSHttp#Ä@WSHttp")
-_root_.play.api.libs.json.ÄàÄjson":
-%_root_.uk.gov.hmrc.http.HttpResponse#Ä@HttpResponse"^
-'_root_.config.AuthorisationFailed#(msg)3ÅmsgString"!
-_root_.scala.Predef.String#"\
-#_root_.scala.util.Try#isSuccess()Z.5ÑÄ	isSuccessBoolean"
-_root_.scala.Boolean#"5
-#_root_.play.api.libs.json.JsString.ÄÑJsString"0
- _root_.uk.gov.hmrc.http.HttpGet#Ä@HttpGet"ı
-y_root_.uk.gov.hmrc.play.http.ws.WSGet#doGet(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˜doGet?(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse]"#
-_root_.scala.Predef.String#".
-(&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-+1_root_.scala.concurrent.Future#"-
-2>%_root_.uk.gov.hmrc.http.HttpResponse#"@
-"_root_.config.AuthorisationFailed#Ä†ÄAuthorisationFailed"?
-"_root_.config.AuthorisationFailed.ÄÑAuthorisationFailed"2
-!_root_.uk.gov.hmrc.http.HttpPost#Ä@HttpPost"6
-'_root_.uk.gov.hmrc.play.http.ws.WSPost#Ä@WSPost"-
- _root_.uk.gov.hmrc.play.http.ws.	ÄàÄws"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"á
-H_root_.uk.gov.hmrc.http.HttpResponse#json()Lplay/api/libs/json/JsValue;.;jsonJsValue"(
-"_root_.play.api.libs.json.JsValue#"2
-#_root_.uk.gov.hmrc.play.audit.http.ÄàÄhttp"X
-"app/config/Wiring.scala@1787..17902errString"!
-_root_.scala.Predef.String#"Ó
-∂_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(headers)≤ÄheadersSeq[Tuple2[String, String]]"
-_root_.scala.package.Seq#"
-
-_root_.scala.Tuple2#"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"!
-_root_.scala.util.ÄàÄutil"ê
-I_root_.config.VPLHttp#hasJsonBody(Luk/gov/hmrc/http/HttpResponse;)Z.(res)CÄresHttpResponse"+
-%_root_.uk.gov.hmrc.http.HttpResponse#"$
-_root_.play.api.libs.ÄàÄlibs"'
-_root_.uk.gov.hmrc.http.ÄàÄhttp"8
-(_root_.uk.gov.hmrc.play.http.ws.WSPatch#Ä@WSPatch"Í
-≤_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(url)3ÄurlString"!
-_root_.scala.Predef.String#"i
-"app/config/Wiring.scala@1650..1653CÄresHttpResponse"+
-%_root_.uk.gov.hmrc.http.HttpResponse#"
-_root_.play.api.
-ÄàÄapi"^
-_root_.scala.package.Exception#;@	Exception	Exception"!
-	_root_.java.lang.Exception#"4
-"_root_.uk.gov.hmrc.http.HttpPatch#Ä@	HttpPatch"0
-!_root_.play.api.libs.json.Writes#Ä@Writes"G
-4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits",
-_root_.uk.gov.hmrc.play.http.ÄàÄhttp".
-_root_.scala.concurrent.Future#Ä@Future"´
-9_root_.java.lang.Exception#`<init>`(Ljava/lang/String;)V.nêÄÄ<init>(x$1: String): Exception" 
-_root_.java.lang.String#"#
-_root_.java.lang.Exception#"=
-*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution""
-_root_.config.Hooks#
-Ä@Hooks"´
-_root_.config.Hooks#hooks.åhooksSeq[AuditingHook.type]""
-_root_.scala.collection.Seq#"E
-=_root_.uk.gov.hmrc.play.audit.http.HttpAuditing#AuditingHook.":
-(_root_.uk.gov.hmrc.http.hooks.HttpHooks#Ä@	HttpHooks"&
-_root_.config.VPLHttp#Ä VPLHttp"7
-'_root_.uk.gov.hmrc.play.config.AppName#Ä@AppName".
-_root_.uk.gov.hmrc.play.audit.ÄàÄaudit"•
-n_root_.config.VPLHttp#doGet(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(url)3ÄurlString"!
-_root_.scala.Predef.String#".
-_root_.uk.gov.hmrc.http.hooks.ÄàÄhooks":
-)_root_.uk.gov.hmrc.play.http.ws.WSDelete#Ä@WSDelete"
-
-_root_.uk.	ÄàÄuk"#
-_root_.scala.util.Try.	ÄÑTry"7
-$_root_.play.api.libs.json.JsDefined.ÄÑ	JsDefined"
-_root_.uk.gov.
-ÄàÄgov"C
-$_root_.config.AuditServiceConnector.ÄÑAuditServiceConnector"˜
-ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
-_root_.scala.Option#"6
-$._root_.uk.gov.hmrc.http.logging.Authorization#"
-/5_root_.scala.Option#"'
-6<_root_.uk.gov.hmrc.http.UserId#"
-FL_root_.scala.Option#"&
-MR_root_.uk.gov.hmrc.http.Token#"
-`f_root_.scala.Option#"5
-gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
-Åá_root_.scala.Option#"4
-àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
-ü•_root_.scala.Option#"4
-¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
-¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
-◊€_root_.scala.Long#"#
-ÎÓ_root_.scala.package.Seq#"
-Ôı_root_.scala.Tuple2#"%
-ˆ¸_root_.scala.Predef.String#"%
-˛Ñ_root_.scala.Predef.String#"
-ñú_root_.scala.Option#"%
-ù£_root_.scala.Predef.String#"
-∂º_root_.scala.Option#"%
-Ω√_root_.scala.Predef.String#"
-œ’_root_.scala.Option#"%
-÷‹_root_.scala.Predef.String#"
-ÈÔ_root_.scala.Option#"%
-ˆ_root_.scala.Predef.String#"
-Éâ_root_.scala.Option#"%
-äê_root_.scala.Predef.String#"
-•´_root_.scala.Option#";
-¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
-Õ–_root_.scala.package.Seq#"
-—◊_root_.scala.Tuple2#"%
-ÿﬁ_root_.scala.Predef.String#"%
-‡Ê_root_.scala.Predef.String#"0
-Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"4
-&_root_.uk.gov.hmrc.play.http.ws.WSGet#
-Ä@WSGet"˚
-±_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"°
-C_root_.config.Hooks#auditConnector()Lconfig/AuditServiceConnector;.ZauditConnectorAuditServiceConnector.type"*
-$_root_.config.AuditServiceConnector."˛
-≥_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(body)≈ÄbodyA"∂
-Ø_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"∂
-m_root_.config.VPLHttp#doGet(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"
-_root_.play.ÄàÄplay"√
-h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
-)_root_.scala.concurrent.ExecutionContext#"Â
-i_root_.config.VPLHttp#doGet(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.˜doGet?(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse]"#
-_root_.scala.Predef.String#".
-(&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-+1_root_.scala.concurrent.Future#"-
-2>%_root_.uk.gov.hmrc.http.HttpResponse#"S
-=_root_.uk.gov.hmrc.play.audit.http.HttpAuditing#AuditingHook.ÄÑAuditingHook"Â
-^_root_.play.api.libs.json.JsLookup#`\`(Ljava/lang/String;)Lplay/api/libs/json/JsLookupResult;.Ç\#(fieldName: String): JsLookupResult"#
-_root_.scala.Predef.String#"1
-#)_root_.play.api.libs.json.JsLookupResult#"0
-_root_.uk.gov.hmrc.play.config.ÄàÄconfig"√
-@_root_.config.AuthorisationFailed#`<init>`(Ljava/lang/String;)V.<init>"(msg: String): AuthorisationFailed"#
-_root_.scala.Predef.String#"*
-""_root_.config.AuthorisationFailed#"÷
-G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
-_root_.scala.`<repeated>`#"
-_root_.scala.Any#"#
-_root_.scala.Predef.String#"∫
-Ø_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#ÄA"≈
-D_root_.config.VPLHttp#hasJsonBody(Luk/gov/hmrc/http/HttpResponse;)Z.}ÑÄhasJsonBody(res: HttpResponse): Boolean"-
-%_root_.uk.gov.hmrc.http.HttpResponse#"
-_root_.scala.Boolean#"‘
-æ_root_.uk.gov.hmrc.play.http.ws.WSPost#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.êdoPostÖ[A] => (url: String, body: A, headers: Seq[Tuple2[String, String]])(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse]"#
-_root_.scala.Predef.String#" 
-¡_root_.uk.gov.hmrc.play.http.ws.WSPost#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]"!
-'*_root_.scala.package.Seq#"
-+1_root_.scala.Tuple2#"#
-28_root_.scala.Predef.String#"#
-:@_root_.scala.Predef.String#")
-RX!_root_.play.api.libs.json.Writes#" 
-YZ¡_root_.uk.gov.hmrc.play.http.ws.WSPost#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
-an&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-qw_root_.scala.concurrent.Future#".
-xÑ%_root_.uk.gov.hmrc.http.HttpResponse#"X
-"app/config/Wiring.scala@1357..13602errString"!
-_root_.scala.Predef.String#"4
-&_root_.uk.gov.hmrc.play.http.ws.WSPut#
-Ä@WSPut"
-_root_.config.ÄàÄconfig">
-&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"i
-"app/config/Wiring.scala@1226..1229CÄresHttpResponse"+
-%_root_.uk.gov.hmrc.http.HttpResponse#"∞
-≤_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(rds)¯ÄÅ rds	Writes[A]"'
-!_root_.play.api.libs.json.Writes#"∏
-Ø_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#"R
-_root_.scala.package.Seq#5SeqSeq.type""
-_root_.scala.collection.Seq."
-_root_.scala.ÄàÄscala"Ú
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"}
-u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-/?)_root_.scala.concurrent.ExecutionContext#"'
-BH_root_.scala.concurrent.Future#"}
-IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"6
-#_root_.uk.gov.hmrc.http.HttpDelete#Ä@
-HttpDelete"]
-"_root_.config.VPLHttp#`<init>`()V.7<init>(): VPLHttp"
-_root_.config.VPLHttp#""
-_root_.uk.gov.hmrc.ÄàÄhmrc"[
-/_root_.uk.gov.hmrc.http.HttpResponse#status()I.(statusInt"
-_root_.scala.Int#"R
-_root_.config.Hooks#$init$()V.0$init$(): Unit"
-_root_.scala.Unit#"'
-_root_.uk.gov.hmrc.play.ÄàÄplay"E
-0_root_.uk.gov.hmrc.play.audit.http.HttpAuditing#Ä@HttpAuditing"0
- _root_.uk.gov.hmrc.http.HttpPut#Ä@HttpPut"7
-'_root_.uk.gov.hmrc.play.config.RunMode#Ä@RunMode2…
-é
-ñ
-/play.api.libs.json.JsValue.jsValueToJsLookup(*)}
-,u_root_.play.api.libs.json.JsValue.jsValueToJsLookup(Lplay/api/libs/json/JsValue;)Lplay/api/libs/json/JsLookupResult;.
--._star_.2ÿ
-◊◊*[A]
-_star_.∏
-Ø_root_.config.VPLHttp#doPost(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.A#2x
-˘˘*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2û
-††*.apply[JsValue]
-_star_.G
-?_root_.scala.util.Try.apply(Lscala/Function0;)Lscala/util/Try;.*
-"_root_.play.api.libs.json.JsValue#2Ù
-ØØ*.apply[AuditingHook.type]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;.E
-=_root_.uk.gov.hmrc.play.audit.http.HttpAuditing#AuditingHook.2Ç
-ùù*.apply
-_star_.`
-X_root_.config.AuthorisationFailed.apply(Ljava/lang/String;)Lconfig/AuthorisationFailed;.2
-√	√	*(hc)
-_star_.2#
-ÎÎ
-*(rds, hc)
-_star_.2…
-¨¨>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.p
-/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2Ç
-Ô
-Ô
-*.apply
-_star_.`
-X_root_.config.AuthorisationFailed.apply(Ljava/lang/String;)Lconfig/AuthorisationFailed;.2…
-‚‚>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.p
-/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2W
-«	«	*[HttpResponse]
-_star_.-
-%_root_.uk.gov.hmrc.http.HttpResponse#2…
-∫¬/play.api.libs.json.JsValue.jsValueToJsLookup(*)}
-,u_root_.play.api.libs.json.JsValue.jsValueToJsLookup(Lplay/api/libs/json/JsValue;)Lplay/api/libs/json/JsLookupResult;.
--._star_.2W
-ÔÔ*[HttpResponse]
-_star_.-
-%_root_.uk.gov.hmrc.http.HttpResponse#:Scala211B˜/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package config
-
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.{JsDefined, JsString, Writes}
-import uk.gov.hmrc.http.hooks.HttpHooks
-import uk.gov.hmrc.play.audit.http.HttpAuditing
-import uk.gov.hmrc.play.config.{AppName, RunMode}
-import uk.gov.hmrc.play.http._
-import uk.gov.hmrc.play.http.ws._
-
-import scala.concurrent.Future
-import scala.util.Try
-import uk.gov.hmrc.http.{HttpDelete, _}
-
-class VPLHttp extends WSHttp with HttpAuditing with AppName with RunMode {
-  override def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = super.doGet(url) map { res =>
-    res.status match {
-      case 401 if hasJsonBody(res) => res.json \ "errorCode" match {
-        case JsDefined(JsString(err)) => throw AuthorisationFailed(err)
-        case _ => res
-      }
-      case _ => res
-    }
-  }
-
-  override def doPost[A](url: String, body: A, headers: Seq[(String, String)])(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = {
-    super.doPost(url, body, headers) map { res =>
-      res.status match {
-        case 401 if hasJsonBody(res) => res.json \ "errorCode" match {
-          case JsDefined(JsString(err)) => throw AuthorisationFailed(err)
-          case _ => res
-        }
-        case _ => res
-      }
-    }
-  }
-
-  private def hasJsonBody(res: HttpResponse) = Try { res.json }.isSuccess
-}
-
-case class AuthorisationFailed(msg: String) extends Exception(s"Authorisation failed: $msg")
-
-trait WSHttp extends HttpGet with WSGet with HttpPut with WSPut with HttpPost with WSPost with HttpDelete with WSDelete with HttpPatch with WSPatch with Hooks with AppName
-object WSHttp extends WSHttp
-
-trait Hooks extends HttpHooks with HttpAuditing {
-  override val hooks = Seq(AuditingHook)
-  override def auditConnector = AuditServiceConnector
-}
-
-Japp/config/Wiring.scala

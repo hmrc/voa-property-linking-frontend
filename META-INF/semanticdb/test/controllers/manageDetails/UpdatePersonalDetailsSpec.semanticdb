@@ -1,2072 +1,0 @@
-
-◊ù&
-¿√_root_.scala.collection.Seq.h
-–G‡G\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.>
-ôC§C4_root_.controllers.manageDetails.routes.ViewDetails.¡
-ú>†>∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.U
-Ñ7ç7Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7040..7072U
-ˇÉK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.2
-∫&≈&(_root_.play.api.http.Status#BAD_REQUEST.Æ
-í<õ<£_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(addressId)u
-¶ºk_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.u
-”)È)k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;._
-‹?ı?U_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.U
-≈—Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2625..2663S
-ﬁ2Á2Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6258..6405S
-‡JÍJItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@9245..9286S
-·6Â6Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7009..7009
-èñ_root_.org.mockito._
-¢ªU_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.&
-ø ¬ _root_.scala.collection.Seq.;
-≠A¥A1_root_.models.DetailedIndividualAccount#(details)0
-Ô<¸<&_root_.uk.gov.hmrc.http.HeaderCarrier#
-¯I¸I_root_.scala.Some.0
- ”&_root_.play.api.http.Status#SEE_OTHER.(
-¨CØC_root_.play.api.mvc.Call#(url)?
-ˇCÇD5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.U
-©≠Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3877..3921¡
-÷⁄∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.d
-Ω)»)Z_root_.controllers.manageDetails.UpdatePersonalDetails#updatePhone()Lplay/api/mvc/Action;.S
-“JﬁJItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@9195..9240}
-ò#û#s_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.U
-£®K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.S
-û<ß<Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7710..7719!
-ß¨_root_.org.jsoup.Jsoup.]
-è®S_root_.actions.BasicAuthenticatedRequest.;_root_.actions.BasicAuthenticatedRequest#
-≤ª_root_.org.scalatest.U
-Ø'≥'K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.O
-˙FÅGC_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.u
-Ω”k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.F
-Î<Ó<<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.z
-„Èp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.´
-Ä+Ü+†_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(phone1)P
-ÖáF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.U
->˜>Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8048..8055S
-ﬂ3Ê3Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6215..6252U
-÷?Ÿ?Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8146..8242z
-Ñäp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;."
-ﬁ
-‚
-_root_.uk.gov.hmrc.http.™
-∫øü_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(email)S
-Ú&ı&Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4978..4981&
-Ä-É-_root_.scala.collection.Seq.M
-ø2∆2C_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.≠
-ˇ"á#¢_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(lastName)U
-ÒÙItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3309..3410
-≥	∑	_root_.play.api.test.4
-Æ∫*_root_.org.scalatest.mockito.MockitoSugar#,
-ö®"_root_.controllers.ControllerSpec#U
-‹ÎItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3672..3730J
-Û˜@_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#once.U
-⁄-›-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5846..5949}
-ú+¢+s_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.5
-…;À;+_root_.org.scalatest.words.MatcherWords#be.U
-Ö%ï%Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4737..4790P
-êíF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.}
-ê4ñ4s_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.I
-´
-±
-?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#S
-˝IáJItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@9245..9286'
-©∏_root_.play.api.test.Helpers.\
-àIûIR_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockIndividualAccounts.*
-ØD¡D _root_.utils.StubAuthentication.W
-ÄàM_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.P
-°1£1F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.'
-ë9ñ9_root_.models.Address#(line2)S
-±9∏9Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6975..7035u
-ˆ%å&k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.•
-ñùö_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.(details)Æ
-Ù3˝3£_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(addressId)S
-‘‰Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2049..2173'
-˝.å/_root_.play.api.test.Helpers.S
-√∆Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@1859..18620
-ü;®;&_root_.play.api.http.Status#SEE_OTHER.U
-‘/ÿ/K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.z
-¥*∫*p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.'
-ºÀ_root_.play.api.test.Helpers.f
-È$˘$\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.0
- I◊I&_root_.uk.gov.hmrc.http.HeaderCarrier#
-√A«A_root_.scala.Some.;
-Ö<å<1_root_.models.DetailedIndividualAccount#(details) 
-Ã6”6_root_.models.Address#U
-˙@âAK_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#viewDetailsPage._
-ƒ–U_root_.org.scalatest.mockito.MockitoSugar.;_root_.org.scalatest.mockito.MockitoSugar#i
-ÛÉ__root_.org.mockito.invocation.InvocationOnMock.;_root_.org.mockito.invocation.InvocationOnMock#
-Ø3≥3_root_.scala.Some.f
-˙-á.\_root_.controllers.manageDetails.UpdatePersonalDetails#updateAddress()Lplay/api/mvc/Action;.U
-ﬁ(Á(Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5210..5267d
-˜ÇZ_root_.controllers.manageDetails.UpdatePersonalDetails#updateEmail()Lplay/api/mvc/Action;.P
-´≠F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.F
-«7 7<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.
-ø
-√
-_root_.scala.util.z
-¥'∫'p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.f
-˚>ã?\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.•
-ﬁ+Â+ö_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.(details)U
-î¢Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2960..30236
-ïHòH,_root_.scala.Option#get()Ljava/lang/Object;.W
-ÊBıBK_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#viewDetailsPage.z
-°"ß"p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.0
-Ñ3ç3&_root_.play.api.http.Status#SEE_OTHER.2
-ﬁE˜E(_root_.models.DetailedIndividualAccount#M
-û•C_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.U
-å ì Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4108..4115M
-∏!ø!C_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.&
-ò%õ%_root_.scala.collection.Seq.
-Ã;–;_root_.scala.Some.&
-óü_root_.org.mockito.stubbing.!
-÷&€&_root_.org.jsoup.Jsoup.e
-ØE≥E[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.;
-≠¥1_root_.models.DetailedIndividualAccount#(details)î
-®=Æ=â_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.'
-í°_root_.play.api.test.Helpers.ú
-ëïë_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.F
-⁄E›E<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.¡
-Ø,≥,∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.f
-“,‚,\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.&
-Í(Ì(_root_.scala.collection.Seq.\
-„A˘AR_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockIndividualAccounts.M
-‘:€:C_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.P
-Ú1Ù1F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ú
-¿=ƒ=ë_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.!
-Ò.ˆ._root_.org.jsoup.Jsoup.
-ö
-ü
-_root_.scala.Z
-´7ø7P_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockAddressConnector.W
-ƒ#Ã#M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.S
-®B∂BItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8488..85020
-Ú4ˇ4&_root_.uk.gov.hmrc.http.HeaderCarrier#{
-èFôFq_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.o
-å6é6e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.U
-úüItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3736..3836î
-Ω#√#â_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.U
-⁄*Ë*Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5462..5527a
-¬C€CU_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.a
-°F´FW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.W
-»+–+M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.S
-—+ÿ+Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5167..5204S
-¬ŒItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3010..3022U
-Ò˙Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2669..27650
-ê*ô*&_root_.play.api.http.Status#SEE_OTHER.@
-∑I√I6_root_.models.DetailedIndividualAccount#(individualId)_
-™:√:U_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.U
-ó?†?Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8083..8140F
-Ó4Ò4<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.=
-ƒ
- 
-3_root_.scala.util.Random.;_root_.scala.util.Random#A
-‰C˘C7_root_.controllers.manageDetails.UpdatePersonalDetails#}
-É=â=s_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.[
-ŒÁQ_root_.models.DetailedIndividualAccount.;_root_.models.DetailedIndividualAccount#_
-ï2Æ2U_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.M
-Ö@å@C_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.0
-æBÀB&_root_.uk.gov.hmrc.http.HeaderCarrier#u
-«2›2k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.Ü
-ó;õ;|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.S
-ç&ù&Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4737..4790
-’
-ÿ
-_root_.uk.gov.
-ÿ‹_root_.play.S
-˝;Ñ<Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6933..6970%
-∞8∂8_root_.scala.Predef.String#!
-Üã_root_.org.jsoup.Jsoup.S
-†ÆItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3104..3118
-ëú_root_.controllers.U
-ã!é!Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4231..4325S
-âêItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2582..2619
-â	ç	_root_.play.u
-À·k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.5
-ú;û;+_root_.org.scalatest.words.MatcherWords#be.{
-Í7Ù7q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.*
-èJ°J _root_.utils.StubAuthentication.9
-ª√/_root_.models.Accounts.;_root_.models.Accounts#S
-‰#Ú#Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4580..4594U
-œ0÷0Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6223..6230
-·‰_root_.play.api.mvc.
-í	ñ	_root_.play.api.test.\
-«F€FP_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockAddressConnector.(
-ËÚ_root_.org.mockito.invocation.
-¯BÉC_root_.controllers.S
-¢•Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3490..3493o
-‡‚e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.f
-Ø2º2\_root_.controllers.manageDetails.UpdatePersonalDetails#updateAddress()Lplay/api/mvc/Action;.U
-®¥Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@1572..1675a
-¸7Ü8W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.
-é	ë	_root_.play.api.;
-Û*˙*1_root_.models.DetailedIndividualAccount#(details)¡
-‚Ê∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.&
-Ç1Ö1_root_.scala.collection.Seq.•
-ûB•Bö_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.(details)U
-ÖïItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2049..2173K
-ÁÙA_root_.connectors.Authenticated.;_root_.connectors.Authenticated#_
-‡-˘-U_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.o
-üI¢Ie_root_.connectors.IndividualAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.M
-√ C_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.;
-éHîH1_root_.org.scalacheck.Gen#sample()Lscala/Option;.'
-º√_root_.org.scalatest.mockito.U
-≥ º Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4143..4225+
-ÑCëC!_root_.controllers.manageDetails.\
-€ÒR_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockIndividualAccounts.0
-Ÿ7Ê7&_root_.uk.gov.hmrc.http.HeaderCarrier#P
-÷ÿF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.o
-çèe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.S
-¨I∂IItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@9245..92862
-îü(_root_.play.api.http.Status#BAD_REQUEST.u
-ﬁ'‚'k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.%
-À“_root_.org.mockito.Mockito.î
-µ4ª4â_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;./
-èë%_root_.org.scalatest.FlatSpecLike#it.
-™	Æ	_root_.play.f
-¢J∫J\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.S
-ª«Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2625..2663S
-Í)Û)Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5210..5267S
-◊!‡!Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4143..4225_
-›ˆU_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.)
-öF†F_root_.scala.concurrent.Future.U
-åëK_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.P
-˝(ˇ(F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.J
-À<œ<@_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#once.
-‡Á_root_.org.mockito.)
-ı7˚7_root_.scala.concurrent.Future.S
-Î*Ú*Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5167..5204f
-®6∏6\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.ú
-ôBùBë_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.c
-º∆Y_root_.controllers.manageDetails.UpdatePersonalDetails#updateName()Lplay/api/mvc/Action;.z
-Œ.‘.p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;./
-Ä0Ç0%_root_.org.scalatest.FlatSpecLike#it.U
-˙âK_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#viewDetailsPage.c
-ëõY_root_.controllers.manageDetails.UpdatePersonalDetails#updateName()Lplay/api/mvc/Action;.S
-∏=ø=Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6933..6970a
-ÌI˜IW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.\
-ó4≠4R_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockIndividualAccounts.z
-Öãp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.)
-ÊIÏI_root_.scala.concurrent.Future.S
-œ=›=Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7887..7901&
-ÓÒ_root_.scala.collection.Seq.S
-·<Ë<Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6975..70353
-˛GçH)_root_.resources.package.groupAccountGen.'
-È8Ó8_root_.models.Address#(line1)M
-ä.ë.C_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.u
-í.®.k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.d
-¶7™7Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.S
-ëBòBItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8040..8077£
-µAπAò_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.S
-Ë˜Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3672..3730U
-◊⁄Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2771..2866P
-∏∫F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.M
-ÖåC_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.Z
-µ<…<P_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockAddressConnector./
-€'›'%_root_.org.scalatest.FlatSpecLike#it.z
-˙Äp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.S
-—E“EItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8871..89032
-ûG£G(_root_.controllers.ControllerSpec#token.U
-¥3√3K_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#viewDetailsPage.
-‹	·	_root_.utils.u
-ÉÖk_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.W
-Ø=∑=M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.S
-·8Ë8Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6975..7035
-ı@˘@_root_.scala.Some.u
-É0á0k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.∫
-˘C˘CØ_root_.controllers.manageDetails.UpdatePersonalDetails#`<init>`(Lconfig/ApplicationConfig;Lactions/AuthenticatedAction;Lconnectors/Addresses;Lconnectors/IndividualAccounts;)V.U
-åêK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.P
-õ-ù-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
-›‡_root_.play.api.f
-¬(“(\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.}
-‹A‚As_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.*
-„	ı	 _root_.utils.StubAuthentication.'
-∏	ø	_root_.play.api.test.Helpers.P
-∂?∏?F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.z
-Ÿ/ﬂ/p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
-Ù˘_root_.org.jsoup.S
-•A¨AItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8040..8077U
-è2í2Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6411..6508^
-àEûER_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockIndividualAccounts.S
-ˆ6˙6Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7030..70340
-˛+ã,&_root_.uk.gov.hmrc.http.HeaderCarrier#/
-â5ã5%_root_.org.scalatest.FlatSpecLike#it.
-áä_root_.org.
-Ÿ
-›
-_root_.uk.gov.hmrc.u
-‡$‚$k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
-Û_root_.org.S
-Õ#‘#Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4100..4137S
-≈4Ã4Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6215..6252z
-ˆ!¸!p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.´
-∫A¿A†_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(phone2)u
-àäk_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.S
-÷6‡6Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6998..7008o
-¶(®(e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.U
-¿*œ*K_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#viewDetailsPage.L
-±GµG@_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#once.\
-ü#µ#R_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockIndividualAccounts.£
-˚*ˇ*ò_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.S
-â9ê9Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6975..7035*
-ªJ»J _root_.connectors.Authenticated.!
-ù¢_root_.org.jsoup.Jsoup.z
-√…p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.'
-‚&Ò&_root_.play.api.test.Helpers.u
-ﬂ>·>k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.S
-‚ÓItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@1572..16757
-≈Ã-_root_.models.Address.;_root_.models.Address#j
-íGùG`_root_.play.api.test.FakeRequest#withSession(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.x
-¿7∆7n_root_.connectors.Addresses#create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.&
-‹Â_root_.connectors.Addresses#S
-Û:Ä;Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7192..7450S
-ìüItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2625..2663S
-•¨Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2582..2619d
-ÃE–EZ_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;._
-ë!™!U_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.&
-òõ_root_.scala.collection.Seq.U
-°H´HItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@9245..92862
-íCòC(_root_.controllers.manageDetails.routes.J
-˚AˇA@_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#once.\
-ä=†=R_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockIndividualAccounts.x
-—<◊<n_root_.connectors.Addresses#create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.*
-óD®D _root_.config.ApplicationConfig#A
-ÊÏ7_root_.play.api.mvc.Action.;_root_.play.api.mvc.Action#S
-‹4Í4Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6748..6762S
-Ë+ˆ+Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5608..5622ú
-Õ4—4ë_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.S
-ΩÕItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3241..3303S
-Ÿ9‡9Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6975..7035U
-Í.Ó.Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5990..6034u
-‹:Ú:k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.U
-˜.¸.K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.f
-©π\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.1
-˜	ê
-'_root_.utils.StubGroupAccountConnector.U
-ù)†)Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5273..5368_
-˜êU_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.U
-—;‡;K_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#viewDetailsPage.0
-∂√&_root_.uk.gov.hmrc.http.HeaderCarrier#P
-Ü9à9F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.S
-§@≠@Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8083..8140#
-´8Æ8_root_.scala.package.Seq#F
-˙+˝+<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.f
-ó ß \_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.}
-Æ<¥<s_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.e
-ˆ?Ç@[_root_.controllers.manageDetails.UpdatePersonalDetails#updateMobile()Lplay/api/mvc/Action;.U
-ÄÑK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.\
-£+π+R_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockIndividualAccounts.•
-≈=Ã=ö_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.(details)U
-îA¢AItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8336..8407;
-Á3Ó31_root_.models.DetailedIndividualAccount#(details)1
-ÆHªH'_root_.resources.package.individualGen.î
-ÅBáBâ_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.W
-ÿ<‡<M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.f
-¿–\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.F
-ˆ#˘#<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.U
-Œ3‹3Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6602..66675
-£I´I+_root_.org.mockito.ArgumentMatchers.eq(J)J.F
-˙E˝E<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.u
-å5ê5k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.!
-…J—J_root_.models.Accounts.î
-˘ˇâ_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.U
-Ó,˝,Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5738..5840z
-®3Æ3p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
-ãí_root_.org.mockito.Ø
-Ê6Û6§_root_.models.Address#copy(Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lmodels/Address;.(addressUnitId)U
-ÂHHK_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.
-≥π_root_.models.9
-˙ˇ/_root_.org.jsoup.Jsoup.;_root_.org.jsoup.Jsoup#U
-œ&”&Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4939..4983e
-ﬁF‚F[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.f
-ë°\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.P
-⁄‹F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.'
-π9æ9_root_.models.Address#(line3)¡
-∞$¥$∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.
-–⁄_root_.connectors.P
- Ú F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.,
-ù´"_root_.controllers.ControllerSpec#P
-»1 1F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.M
-À)“)C_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.∏
-•ß≠_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.;_root_.org.mockito.ArgumentMatchers.eq(S)S.;_root_.org.mockito.ArgumentMatchers.eq(J)J.;_root_.org.mockito.ArgumentMatchers.eq(I)I.;_root_.org.mockito.ArgumentMatchers.eq(F)F.;_root_.org.mockito.ArgumentMatchers.eq(D)D.;_root_.org.mockito.ArgumentMatchers.eq(C)C.;_root_.org.mockito.ArgumentMatchers.eq(B)B.;_root_.org.mockito.ArgumentMatchers.eq(Z)Z.a
-åDñDW_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.'
-·9Ê9_root_.models.Address#(line4)#
-ê7ñ7_root_.scala.util.Random._
-∆%ﬂ%U_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.+
-ÑGèG!_root_.play.api.test.FakeRequest.U
-ù6§6Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6941..6948;
-‡"Á"1_root_.models.DetailedIndividualAccount#(details)2
-Åå(_root_.play.api.http.Status#BAD_REQUEST.z
-ËÓp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.%
-∏8æ8_root_.scala.Predef.String#Q
-†¶G_root_.org.mockito.stubbing.Answer.;_root_.org.mockito.stubbing.Answer#&
-∑∫_root_.scala.collection.Seq.P
-ÙˆF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.z
-çìp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
-√ _root_.org.mockito.6
-√H∆H,_root_.scala.Option#get()Ljava/lang/Object;.S
-ÃœItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3916..3919P
-÷9ÿ9F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.J
-Ø4≥4@_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#once.W
-º4ƒ4M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.U
-√6 6Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6975..7035z
-ÓÙp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.S
-ííG_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#`<init>`()V.A
-˙Ä	7_root_.play.api.mvc.Result.;_root_.play.api.mvc.Result#S
-Ñ:ã:Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6975..7035_
-ç¶U_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.U
-«"’"Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4419..4499S
-á8ê8Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7040..7072U
-áäItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2179..2281z
-ëóp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.î
-¡+«+â_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.P
-´%≠%F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.z
-≥&π&p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.U
-∂ªK_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.S
-µF∂FItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8871..8903
-‹ﬂ_root_.org.J
-¢=¶=@_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#once.z
-Ñäp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.
-Æ±_root_.org.d
-‡%Î%Z_root_.controllers.manageDetails.UpdatePersonalDetails#updatePhone()Lplay/api/mvc/Action;.&
-„FÏF_root_.connectors.Addresses#S
-ÅKãKItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@9245..9286/
-∏∫%_root_.org.scalatest.FlatSpecLike#it.ú
-’#Ÿ#ë_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.&
-£?¶?_root_.scala.collection.Seq.)
-Ó¯_root_.play.api.mvc.AnyContent#u
-Ã–k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.d
-ß≤Z_root_.controllers.manageDetails.UpdatePersonalDetails#updateEmail()Lplay/api/mvc/Action;.
-ª*ø*_root_.scala.Some.U
-∑(æ(Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5175..51820
- @”@&_root_.play.api.http.Status#SEE_OTHER.u
-ç@£@k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.U
-≠"º"K_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#viewDetailsPage.u
-…,À,k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.o
-∑πe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.£
-µπò_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.
-π
-æ
-_root_.scala.S
-πºItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2361..2364
-Â_root_.controllers.£
-Ë"Ï"ò_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.P
-Å:É:F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.P
-≈-«-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;."
-†
-™
-_root_.scala.concurrent.U
-ïòItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@1681..1779u
-¥∏k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.U
-ÔG˚GItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@9195..9240z
-â*è*p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.M
-Ó%ı%C_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.U
-´E¨EItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8871..8903F
-∫BΩB<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.2
-Íı(_root_.play.api.http.Status#BAD_REQUEST.U
-§:ß:Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7456..7558K
-ÉDãDA_root_.play.api.Application#injector()Lplay/api/inject/Injector;.X
-•C©CN_root_.controllers.manageDetails.ReverseViewDetails#show()Lplay/api/mvc/Call;.P
-Æ9∞9F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.1
-ÀH‰H'_root_.utils.StubGroupAccountConnector.
-®"¨"_root_.scala.Some.S
-§≠Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2669..2765+
-Ò˛!_root_.controllers.manageDetails.U
-„ÁK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.J
-ª+ø+@_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#once.F
-·=‰=<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.u
-ªøk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.P
-ﬁ8‡8F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.0
-Â=Ú=&_root_.uk.gov.hmrc.http.HeaderCarrier#G
-¯
-ë;_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#U
-¿%√%Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4796..4898£
-ç<ë<ò_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.î
-”EŸEâ_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;._
-õ¥U_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.Æ
-Ì"ˆ"£_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(firstName)2
-ãñ(_root_.play.api.http.Status#BAD_REQUEST.u
-ç£k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.0
-˝!Ü"&_root_.play.api.http.Status#SEE_OTHER.f
-ƒ:—:\_root_.controllers.manageDetails.UpdatePersonalDetails#updateAddress()Lplay/api/mvc/Action;.S
-ÿ"ﬂ"Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4100..4137F
-∆I…I<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.K
-∑»A_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#0
-˙#á$&_root_.uk.gov.hmrc.http.HeaderCarrier#
-áé_root_.actions.{
-€IÂIq_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.U
-û•Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2590..2597U
-ˇÉItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3451..3495ú
-Ÿ+›+ë_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.S
-ç/ê/Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6029..6032S
-ÒH˝HItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@9195..9240S
-©.∏.Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5738..5840 
-À7“7_root_.models.Address#!
-∞µ_root_.org.jsoup.Jsoup.U
-ˆ0ˇ0Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6258..6405£
-Ô3Û3ò_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;./
-¥E∆E%_root_.connectors.IndividualAccounts#P
- ÃF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;./
-ˆà%_root_.connectors.IndividualAccounts#F
-’7ÿ7<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.U
-≠ΩItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3241..3303U
-‹&·&K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.c
-´!µ!Y_root_.controllers.manageDetails.UpdatePersonalDetails#updateName()Lplay/api/mvc/Action;.0
-˛EãF&_root_.uk.gov.hmrc.http.HeaderCarrier#U
-≠≤K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.z
-˝2É3p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.S
-ÛJˇJItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@9195..9240f
-⁄0Í0\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.2
-’.‡.(_root_.play.api.http.Status#BAD_REQUEST.f
-åú\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.
-∞∂_root_.config.
-ãé_root_.org.
-ı˘_root_.scala.Some.U
-ñöItest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2322..2366
-Ø	≤	_root_.play.api.
-…	“	_root_.resources./
-…À%_root_.org.scalatest.FlatSpecLike#it.
-“
-‘
-
-_root_.uk.&
-√8∆8_root_.scala.collection.Seq.d
-ÉIáIZ_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.u
-—Ák_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.F
-≤µ<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.f
-È˘\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;..
-ì£$_root_.org.mockito.ArgumentMatchers.;
-ºH¬H1_root_.org.scalacheck.Gen#sample()Lscala/Option;.}
-‘⁄s_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.z
-√@…@p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.z
-Ó@Ù@p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.u
-¿!÷!k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.U
-†§Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@1820..1864u
-íñk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.Z
-«D€DP_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockAddressConnector.d
-µ¿Z_root_.controllers.manageDetails.UpdatePersonalDetails#updateEmail()Lplay/api/mvc/Action;.*
-å:î: _root_.models.Address#(postcode)M
-µºC_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.•
-⁄#·#ö_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.(details)'
-≥¬_root_.play.api.test.Helpers.4
-©©*_root_.org.scalatest.FlatSpec#`<init>`()V.U
-Ï;˙;Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7656..7720M
-ó	¢	C_root_.play.api.test.FakeRequest.;_root_.play.api.test.FakeRequest#
-ø¬_root_.org.P
-÷ ÿ F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.o
-æ0¿0e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.Ü
-ƒ;»;|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;./
-±≥%_root_.org.scalatest.FlatSpecLike#it.o
-˚˝e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.\
-·D˜DR_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockIndividualAccounts.&
-˝Ä_root_.scala.collection.Seq..
-ó7û7$_root_.scala.util.Random#nextInt()I.J
-∑#ª#@_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#once.•
-“4Ÿ4ö_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.(details)U
-ú8©8Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7192..7450W
-àBêBM_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.W
-„
-
-M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#M
-…–C_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.Y
-∏GΩGO_root_.org.mockito.Mockito.times(I)Lorg/mockito/verification/VerificationMode;._
-£)º)U_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails."9
-"_root_.controllers.ControllerSpec#Ä@ControllerSpec"ù
-P_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockAddressConnector.IÅÄ@mockAddressConnector	Addresses""
-	_root_.connectors.Addresses#"±
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3490..3493dx$18Future[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#")
-_root_.scala.collection.Seq.	ÄÑSeq"·
-£_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(firstName)9Ä	firstNameString"!
-_root_.scala.Predef.String#"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6215..6252VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"‘
-O_root_.org.mockito.Mockito.times(I)Lorg/mockito/verification/VerificationMode;.ÄÑÄÄtimes(x$1: Int): VerificationMode"
-	_root_.scala.Int#"9
-1_root_.org.mockito.verification.VerificationMode#"á
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2322..2366:htmlDocument"&
- _root_.org.jsoup.nodes.Document#"$
-_root_.play.api.test.ÄàÄtest"Õ
-q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.◊ÑÄÑ
-thenReturn(x$1: T): OngoingStubbing[T]"7
-/_root_.org.mockito.stubbing.OngoingStubbing#[T]"4
-
-,_root_.org.mockito.stubbing.OngoingStubbing#"7
-/_root_.org.mockito.stubbing.OngoingStubbing#[T]"π
-G_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#`<init>`()V.n<init>(): UpdatePersonalDetailsSpec"C
-;_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#"ê
-â_root_.connectors.IndividualAccounts#update(Lmodels/DetailedIndividualAccount;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ÅupdateN(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit]"0
-
-#(_root_.models.DetailedIndividualAccount#".
-2?&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-BH_root_.scala.concurrent.Future#"
-IM_root_.scala.Unit#"ö
-)_root_.resources.package.groupAccountGen.mgroupAccountGenGen[GroupAccount]" 
-_root_.org.scalacheck.Gen#"#
-_root_.models.GroupAccount#"˛
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5210..5267∞	validDataSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6223..6230VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8048..8055VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6933..6970VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"6
-!_root_.play.api.test.FakeRequest.ÄÑFakeRequest"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7456..7558cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"|
-1_root_.models.DetailedIndividualAccount#(details)GÅdetailsIndividualDetails"&
- _root_.models.IndividualDetails#"'
-_root_.connectors.ÄàÄ
-connectors"”
-C_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#request.ãÅÄ@request#FakeRequest[AnyContentAsEmpty.type]"'
-!_root_.play.api.test.FakeRequest#".
-&_root_.play.api.mvc.AnyContentAsEmpty."ﬂ
-¢_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(lastName)8ÄlastNameString"!
-_root_.scala.Predef.String#"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3736..3836cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"g
-+_root_.org.scalatest.words.MatcherWords#be.8beBeWord"(
-"_root_.org.scalatest.words.BeWord#"ê
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6748..6762Cx$52IndividualDetails"&
- _root_.models.IndividualDetails#"Î
-t_root_.models.DetailedIndividualAccount#`<init>`(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)V.Ú<init>Ü(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"
-6:_root_.scala.Long#"
-JN_root_.scala.Long#"(
-Yj _root_.models.IndividualDetails#"1
-mÜ(_root_.models.DetailedIndividualAccount#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"x
-U_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#TestUpdatePersonalDetails.ÄÑ	TestUpdatePersonalDetails"˛
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6258..6405∞	validDataSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"ö
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7656..7720MupdatedDetailsIndividualDetails"&
- _root_.models.IndividualDetails#"ê
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3104..3118Cx$13IndividualDetails"&
- _root_.models.IndividualDetails#"!
-_root_.scala.util.ÄàÄutil"?
-*_root_.org.scalatest.mockito.MockitoSugar#Ä@MockitoSugar"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@1681..1779cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"˙
-W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
-successful[T] => (result: T): Future[T]"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
-_root_.scala.concurrent.Future#"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"Å
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@1572..1675≥invalidEmailSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"√
-ò_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.•copy(firstName: String, lastName: String, email: String, phone1: String, phone2: Option[String], addressId: Int): IndividualDetails"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"#
--3_root_.scala.Predef.String#"#
-=C_root_.scala.Predef.String#"
-MS_root_.scala.Option#"#
-TZ_root_.scala.Predef.String#"
-hk_root_.scala.Int#"(
-n _root_.models.IndividualDetails#"±
-'_root_.resources.package.individualGen.ÖindividualGenGen[DetailedIndividualAccount]" 
-_root_.org.scalacheck.Gen#"0
-(_root_.models.DetailedIndividualAccount#"'
-_root_.uk.gov.hmrc.http.ÄàÄhttp"@
-%_root_.connectors.IndividualAccounts#Ä IndividualAccounts"U
-_root_.play.api.mvc.Call#(url)3ÅurlString"!
-_root_.scala.Predef.String#"‘
-£_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(addressId),Ä	addressIdInt"
-_root_.scala.Int#""
-_root_.play.api.mvc.
-ÄàÄmvc"U
-7_root_.controllers.manageDetails.UpdatePersonalDetails#Ä UpdatePersonalDetails"◊
-\_root_.controllers.manageDetails.UpdatePersonalDetails#updateAddress()Lplay/api/mvc/Action;.wupdateAddress(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"
-_root_.play.api.
-ÄàÄapi"Y
-(_root_.play.api.http.Status#BAD_REQUEST.-BAD_REQUESTInt"
-_root_.scala.Int#"~
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6998..70081qual$1Address"
-_root_.models.Address#"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5175..5182VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"U
-&_root_.play.api.http.Status#SEE_OTHER.+	SEE_OTHERInt"
-_root_.scala.Int#"ê
-K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.A†Ä herePosition"+
-%_root_.org.scalactic.source.Position#"◊
-Ø_root_.controllers.manageDetails.UpdatePersonalDetails#`<init>`(Lconfig/ApplicationConfig;Lactions/AuthenticatedAction;Lconnectors/Addresses;Lconnectors/IndividualAccounts;)V.¢<init>•(config: ApplicationConfig, authenticated: AuthenticatedAction, addressesConnector: Addresses, individualAccountConnector: IndividualAccounts): UpdatePersonalDetails"(
-	 _root_.config.ApplicationConfig#"+
-+>#_root_.actions.AuthenticatedAction#"$
-T]_root_.connectors.Addresses#".
-{ç%_root_.connectors.IndividualAccounts#"A
-ê•7_root_.controllers.manageDetails.UpdatePersonalDetails#"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8040..8077VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"á
-N_root_.controllers.manageDetails.ReverseViewDetails#show()Lplay/api/mvc/Call;.5show(): Call"!
-_root_.play.api.mvc.Call#"/
-_root_.org.mockito.stubbing.ÄàÄstubbing"?
-$_root_.org.mockito.ArgumentMatchers.ÄÑàArgumentMatchers"Æ
-(_root_.controllers.ControllerSpec#token.ÅtokenTuple2[String, String]"
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"/
-_root_.scala.concurrent.Future.ÄÑFuture"ç
-1_root_.org.scalacheck.Gen#sample()Lscala/Option;.Xsample	Option[T]"
-_root_.scala.Option#"%
-_root_.org.scalacheck.Gen#[T]"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8146..8242cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"œ
-k_root_.play.api.test.FakeRequest#withFormUrlEncodedBody(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.ﬂwithFormUrlEncodedBodyS(data: <repeated>[Tuple2[String, String]]): FakeRequest[AnyContentAsFormUrlEncoded]""
-_root_.scala.`<repeated>`#"
-_root_.scala.Tuple2#"#
-_root_.scala.Predef.String#"#
-!'_root_.scala.Predef.String#")
-,7!_root_.play.api.test.FakeRequest#"7
-8R/_root_.play.api.mvc.AnyContentAsFormUrlEncoded#"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@1859..1862cx$1Future[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"Î
-s_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.ÛÑÄÄverify)[T] => (x$1: T, x$2: VerificationMode): T"~
-v_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.[T]"9
-%1_root_.org.mockito.verification.VerificationMode#"~
-()v_root_.org.mockito.Mockito.verify(Ljava/lang/Object;Lorg/mockito/verification/VerificationMode;)Ljava/lang/Object;.[T]"/
-_root_.org.scalatest.mockito.ÄàÄmockito"W
-$_root_.scala.util.Random#nextInt()I./nextInt(): Int"
-_root_.scala.Int#"'
-_root_.org.jsoup.Jsoup.ÄÑàJsoup"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3309..3410cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"á
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@1820..1864:htmlDocument"&
- _root_.org.jsoup.nodes.Document#"å
-[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.¨mock*[T] => (implicit classTag: ClassTag[T]): T"&
-#_root_.scala.reflect.ClassTag#"f
-$%^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"f
-)*^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"Ñ
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5738..5840∂missingPostcodeSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"9
-(_root_.controllers.manageDetails.routes.ÄÑàroutes"%
-_root_.resources.ÄàÄ	resources"(
-_root_.models.Address#Ä†ÄAddress"°
-ä_root_.models.Address#`<init>`(Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V.ë<init>s(addressUnitId: Option[Int], line1: String, line2: String, line3: String, line4: String, postcode: String): Address"
-_root_.scala.Option#"
-_root_.scala.Int#"#
-$*_root_.scala.Predef.String#"#
-39_root_.scala.Predef.String#"#
-BH_root_.scala.Predef.String#"#
-QW_root_.scala.Predef.String#"#
-ci_root_.scala.Predef.String#"
-ls_root_.models.Address#"V
-_root_.models.Address#(line3)5Åline3String"!
-_root_.scala.Predef.String#")
-_root_.org.scalatest.ÄàÄ	scalatest"7
- _root_.connectors.Authenticated.ÄÑAuthenticated"
-_root_.org.
-ÄàÄorg"V
-_root_.models.Address#(line4)5Åline4String"!
-_root_.scala.Predef.String#"ö
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8336..8407MupdatedDetailsIndividualDetails"&
- _root_.models.IndividualDetails#"’
-[_root_.controllers.manageDetails.UpdatePersonalDetails#updateMobile()Lplay/api/mvc/Action;.vupdateMobile(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"Ö
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2625..26638updatedEmailString"
-_root_.java.lang.String#"
-
-_root_.uk.	ÄàÄuk"„
-p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.omustBe(right: Any): Assertion"
-_root_.scala.Any#"/
-'_root_.org.scalatest.package.Assertion#"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4108..4115VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"ì
-Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.¥ÑÄÄwhen#[T] => (x$1: T): OngoingStubbing[T]"e
-]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"4
- ,_root_.org.mockito.stubbing.OngoingStubbing#"e
-!"]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"]
-;_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#Ä UpdatePersonalDetailsSpec"€
-†_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(phone1)6Äphone1String"!
-_root_.scala.Predef.String#"3
-_root_.org.mockito.invocation.ÄàÄ
-invocation"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4100..4137VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"
-_root_.uk.gov.
-ÄàÄgov"Ö
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3241..3303∑missingFirstNameSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"¨
-f_root_.connectors.Addresses#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.¡<init>1(config: ServicesConfig, http: WSHttp): Addresses"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"$
-(1_root_.connectors.Addresses#"é
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@9195..9240AgroupAccountGroupAccount"!
-_root_.models.GroupAccount#"˜
-ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
-_root_.scala.Option#"6
-$._root_.uk.gov.hmrc.http.logging.Authorization#"
-/5_root_.scala.Option#"'
-6<_root_.uk.gov.hmrc.http.UserId#"
-FL_root_.scala.Option#"&
-MR_root_.uk.gov.hmrc.http.Token#"
-`f_root_.scala.Option#"5
-gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
-Åá_root_.scala.Option#"4
-àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
-ü•_root_.scala.Option#"4
-¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
-¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
-◊€_root_.scala.Long#"#
-ÎÓ_root_.scala.package.Seq#"
-Ôı_root_.scala.Tuple2#"%
-ˆ¸_root_.scala.Predef.String#"%
-˛Ñ_root_.scala.Predef.String#"
-ñú_root_.scala.Option#"%
-ù£_root_.scala.Predef.String#"
-∂º_root_.scala.Option#"%
-Ω√_root_.scala.Predef.String#"
-œ’_root_.scala.Option#"%
-÷‹_root_.scala.Predef.String#"
-ÈÔ_root_.scala.Option#"%
-ˆ_root_.scala.Predef.String#"
-Éâ_root_.scala.Option#"%
-äê_root_.scala.Predef.String#"
-•´_root_.scala.Option#";
-¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
-Õ–_root_.scala.package.Seq#"
-—◊_root_.scala.Tuple2#"%
-ÿﬁ_root_.scala.Predef.String#"%
-‡Ê_root_.scala.Predef.String#"0
-Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"ﬁ
-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.ì->[B] => (y: B): Tuple2[A, B]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
-_root_.scala.Tuple2#"*
-"_root_.scala.Predef.ArrowAssoc#[A]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2361..2364cx$4Future[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6941..6948VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"∞
-e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
-
-_root_.scala.`<byname>`#"
-_root_.scala.Any#"-
-'/%_root_.org.scalactic.source.Position#"
-26_root_.scala.Unit#"è
-K_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#viewDetailsPage.@ÅÄAviewDetailsPageString"!
-_root_.scala.Predef.String#":
- _root_.config.ApplicationConfig#Ä ApplicationConfig"x
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7040..7072+	addressIdInt"
-_root_.scala.Int#"V
-_root_.models.Address#(line2)5Åline2String"!
-_root_.scala.Predef.String#".
-_root_.play.api.test.Helpers.ÄÑHelpers"≥
-R_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#mockIndividualAccounts.]ÅÄ@mockIndividualAccountsIndividualAccounts"+
-%_root_.connectors.IndividualAccounts#"Ÿ
-ü_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(email)5ÄemailString"!
-_root_.scala.Predef.String#"V
-_root_.models.Address#(line1)5Åline1String"!
-_root_.scala.Predef.String#"—
-|_root_.org.scalatest.MustMatchers#AnyMustWrapper#must(Lorg/scalatest/matchers/Matcher;)Lorg/scalatest/compatible/Assertion;.–must'(rightMatcherX1: Matcher[T]): Assertion".
-&_root_.org.scalatest.matchers.Matcher#"<
-4_root_.org.scalatest.MustMatchers#AnyMustWrapper#[T]"/
-''_root_.org.scalatest.package.Assertion#"ö
-4_root_.controllers.manageDetails.routes.ViewDetails.bÅÄàViewDetailsReverseViewDetails":
-4_root_.controllers.manageDetails.ReverseViewDetails#"¡
-∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
-_root_.scala.Predef.String#">
-96_root_.org.scalatest.words.StringVerbStringInvocation#">
-<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"s
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7710..7719&x$63Int"
-_root_.scala.Int#"ì
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8871..8903FmIndividualAccounts"+
-%_root_.connectors.IndividualAccounts#"±
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6029..6032dx$43Future[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"ê
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8488..8502Cx$80IndividualDetails"&
- _root_.models.IndividualDetails#"Ö
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4737..4790∑emptyPhoneNumberSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"ä
-W_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.ÆÑÄ
-instanceOf,[T] => (implicit evidence$1: ClassTag[T]): T"&
-%_root_.scala.reflect.ClassTag#"b
-&'Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"b
-+,Z_root_.play.api.inject.Injector#instanceOf(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"Ñ
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3672..3730∂missingLastNameSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"£
-M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.—ÑÄÄeq[T] => (x$1: T): T"X
-P_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.[T]"X
-P_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.[T]"
-_root_.play.ÄàÄplay"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5273..5368cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"á
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3451..3495:htmlDocument"&
- _root_.org.jsoup.nodes.Document#"±
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3916..3919dx$21Future[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"á
-ë_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.copyÜ(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails): DetailedIndividualAccount"#
-_root_.scala.Predef.String#"#
-$_root_.scala.Predef.String#"
-6:_root_.scala.Long#"
-JN_root_.scala.Long#"(
-Yj _root_.models.IndividualDetails#"1
-mÜ(_root_.models.DetailedIndividualAccount#"ˇ
-§_root_.models.Address#copy(Lscala/Option;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lmodels/Address;.(addressUnitId)VÄaddressUnitIdOption[Int]"
-_root_.scala.Option#"
-
-_root_.scala.Int#"Ä
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7009..70093x$58String"!
-_root_.scala.Predef.String#"°
-<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.aÑÄÄany[T] => (): T"G
-?_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.[T]"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2590..2597VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"ê
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7887..7901Cx$69IndividualDetails"&
- _root_.models.IndividualDetails#"-
-_root_.org.mockito.Mockito.ÄÑàMockito")
-_root_.scala.util.Random.ÄÑRandom"3
-_root_.play.api.mvc.AnyContent#Ä¿
-AnyContent"ˆ
-k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.Ümust(string: String): ItVerbString"#
-	_root_.scala.Predef.String#"7
-/_root_.org.scalatest.FlatSpecLike#ItVerbString#"Ó
-\_root_.utils.StubAuthentication.stubAuthenticationResult(Lconnectors/AuthorisationResult;)V.çstubAuthenticationResult#(result: AuthorisationResult): Unit".
-	&_root_.connectors.AuthorisationResult#"
-#_root_.scala.Unit#"”
-Z_root_.controllers.manageDetails.UpdatePersonalDetails#updatePhone()Lplay/api/mvc/Action;.uupdatePhone(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"á
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5990..6034:htmlDocument"&
- _root_.org.jsoup.nodes.Document#"
-_root_.models.ÄàÄmodels"¶
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@9245..9286Y
-individualDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2582..2619VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"°
-\_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#stubLoggedInUser()Lscala/Tuple2;.¿ÑÄstubLoggedInUser3(): Tuple2[GroupAccount, DetailedIndividualAccount]"
-
-_root_.scala.Tuple2#"#
-_root_.models.GroupAccount#"0
-2(_root_.models.DetailedIndividualAccount#"˛
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@8083..8140∞	validDataSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"[
-,_root_.scala.Option#get()Ljava/lang/Object;.+ÑÄgetA"
-_root_.scala.Option#[A]"|
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3010..3022/x$7String"
-_root_.java.lang.String#"!
-_root_.actions.ÄàÄactions"É
-+_root_.org.mockito.ArgumentMatchers.eq(J)J.TÑÄÄeq(x$1: Long): Long"
-
-_root_.scala.Long#"
-_root_.scala.Long#")
-_root_.controllers.ÄàÄcontrollers"è
-e_root_.connectors.IndividualAccounts#get(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.•getW(personId: Long)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]]"
-_root_.scala.Long#".
-+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-.4_root_.scala.concurrent.Future#"
-5;_root_.scala.Option#"0
-<U(_root_.models.DetailedIndividualAccount#"£
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5167..5204VcurrentDetailedIndividualAccount".
-(_root_.models.DetailedIndividualAccount#"J
-'_root_.utils.StubGroupAccountConnector.ÄÑStubGroupAccountConnector" 
-l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ÿ<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
-_root_.play.api.Configuration#"6
-(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
-2C _root_.config.ApplicationConfig#"ô
-@_root_.controllers.manageDetails.UpdatePersonalDetailsSpec#once.UÅÄ@onceVerificationMode"7
-1_root_.org.mockito.verification.VerificationMode#"<
- _root_.utils.StubAuthentication.ÄÑStubAuthentication"
-_root_.utils.ÄàÄutils"
-_root_.config.ÄàÄconfig"!
-_root_.org.jsoup.ÄàÄjsoup">
-&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"ê
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4580..4594Cx$24IndividualDetails"&
- _root_.models.IndividualDetails#"ö
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5462..5527MupdatedDetailsIndividualDetails"&
- _root_.models.IndividualDetails#"R
-_root_.scala.package.Seq#5SeqSeq.type""
-_root_.scala.collection.Seq."ê
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5608..5622Cx$38IndividualDetails"&
- _root_.models.IndividualDetails#"
-_root_.scala.ÄàÄscala"u
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7030..7034(x$57None"
-_root_.scala.None."ö
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6602..6667MupdatedDetailsIndividualDetails"&
- _root_.models.IndividualDetails#"˛
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2669..2765∞	validDataSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4231..4325cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"Ö
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@7192..7450∑validFormDataSeq[Tuple2[String, String]]"
-_root_.scala.package.Seq#"
-
-_root_.scala.Tuple2#"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"—
-Y_root_.controllers.manageDetails.UpdatePersonalDetails#updateName()Lplay/api/mvc/Action;.t
-updateName(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"ö
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2960..3023MupdatedDetailsIndividualDetails"&
- _root_.models.IndividualDetails#"æ
-K_root_.utils.StubGroupAccountConnector.stubAccount(Lmodels/GroupAccount;)V.ostubAccount(account: GroupAccount): Unit"#
-
-_root_.models.GroupAccount#"
-_root_.scala.Unit#"n
-*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
-_root_.org.scalatest.FlatSpec#"L
-(_root_.models.DetailedIndividualAccount# Ä†ÄDetailedIndividualAccount"\
- _root_.models.Address#(postcode)8ÅpostcodeString"!
-_root_.scala.Predef.String#"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2179..2281cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#""
-_root_.uk.gov.hmrc.ÄàÄhmrc"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@5846..5949cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#")
-_root_.models.Accounts.ÄÑAccounts"á
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4939..4983:htmlDocument"&
- _root_.org.jsoup.nodes.Document#"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6411..6508cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4796..4898cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"ú
-`_root_.play.api.test.FakeRequest#withSession(Lscala/collection/Seq;)Lplay/api/test/FakeRequest;.∑withSessionA(newSessions: <repeated>[Tuple2[String, String]]): FakeRequest[A]""
-_root_.scala.`<repeated>`#"
-_root_.scala.Tuple2#"#
- &_root_.scala.Predef.String#"#
-(._root_.scala.Predef.String#")
-3>!_root_.play.api.test.FakeRequest#",
-?@$_root_.play.api.test.FakeRequest#[A]"∞
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2771..2866cresFuture[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#"Ê
-ö_root_.models.DetailedIndividualAccount#copy(Ljava/lang/String;Ljava/lang/String;JJLmodels/IndividualDetails;)Lmodels/DetailedIndividualAccount;.(details)GÄdetailsIndividualDetails"&
- _root_.models.IndividualDetails#"ö
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4419..4499MupdatedDetailsIndividualDetails"&
- _root_.models.IndividualDetails#"k
-6_root_.models.DetailedIndividualAccount#(individualId)1ÅindividualIdLong"
-_root_.scala.Long#"Œ
-n_root_.connectors.Addresses#create(Lmodels/Address;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.€create;(address: Address)(implicit hc: HeaderCarrier): Future[Int]"
-
-_root_.models.Address#".
- -&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-06_root_.scala.concurrent.Future#"
-7:_root_.scala.Int#"˛
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4143..4225∞	validDataSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@6975..70352addressAddress"
-_root_.models.Address#"É
-A_root_.play.api.Application#injector()Lplay/api/inject/Injector;.>injectorInjector"&
- _root_.play.api.inject.Injector#"Ö
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@2049..2173∑mismatchedEmailsSeq[Tuple2[String, String]]""
-_root_.scala.collection.Seq#"
-
-_root_.scala.Tuple2#" 
-_root_.java.lang.String#" 
-_root_.java.lang.String#"j
-%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
-)_root_.org.scalatest.FlatSpecLike#ItWord#"Ω
-í_root_.connectors.IndividualAccounts#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.•<init>Y(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): IndividualAccounts"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"1
-4D)_root_.scala.concurrent.ExecutionContext#"-
-GY%_root_.connectors.IndividualAccounts#"9
-!_root_.controllers.manageDetails.ÄàÄmanageDetails"”
-Z_root_.controllers.manageDetails.UpdatePersonalDetails#updateEmail()Lplay/api/mvc/Action;.uupdateEmail(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"s
-5_root_.org.scalatestplus.play.BaseOneAppPerSuite#app.:ÅÄ`appApplication""
-_root_.play.api.Application#"á
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@3877..3921:htmlDocument"&
- _root_.org.jsoup.nodes.Document#" 
-_root_.scala.Some.
-ÄÑSome"Å
-†_root_.models.IndividualDetails#copy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/Option;I)Lmodels/IndividualDetails;.(phone2)\Äphone2Option[String]"
-_root_.scala.Option#"#
-_root_.scala.Predef.String#"%
-_root_.org.mockito.ÄàÄmockito"±
-Itest/controllers/manageDetails/UpdatePersonalDetailsSpec.scala@4978..4981dx$29Future[Result]"%
-_root_.scala.concurrent.Future#"#
-_root_.play.api.mvc.Result#".
-_root_.connectors.Addresses#Ä 	Addresses"∂
-k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
-
-_root_.scala.`<byname>`#"
-_root_.scala.Any#"-
-'/%_root_.org.scalactic.source.Position#"
-26_root_.scala.Unit#"¿
-K_root_.org.jsoup.Jsoup.parse(Ljava/lang/String;)Lorg/jsoup/nodes/Document;.qÑÄÄparse(x$1: String): Document" 
-_root_.java.lang.String#"(
- _root_.org.jsoup.nodes.Document#2ƒ
-◊‚†UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 98), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-òü(_root_.org.scalactic.Prettifier.default.2Æ
-ß∑"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2|
-»»*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2É
-ï,»,=UpdatePersonalDetailsSpec.this.convertToInAndIgnoreMethods(*)®
-:ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
-;<_star_.2É
-Õá=UpdatePersonalDetailsSpec.this.convertToInAndIgnoreMethods(*)®
-:ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
-;<_star_.2D
-Ù1Ù1	*[String]
-_star_. 
-_root_.java.lang.String#2D
-Ú Ú 	*[String]
-_star_. 
-_root_.java.lang.String#2™
-ÇÇC*(UpdatePersonalDetailsSpec.this.shorthandTestRegistrationFunction)
-_star_.L
-!BD_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2◊
-Ö5Ö5¬*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 178))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2î
-Ì(Ì(*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#2}
-»J»J*.apply
-_star_.[
-S_root_.connectors.Authenticated.apply(Lmodels/Accounts;)Lconnectors/Authenticated;.2≈
-Í!ı!°UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 127), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ô†(_root_.org.scalactic.Prettifier.default.2î
-Ö1Ö1*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#2ƒ
-Ó˘†UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 66), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-òü(_root_.org.scalactic.Prettifier.default.2]
-ñ4ñ4*[IndividualAccounts]
-_star_.-
-%_root_.connectors.IndividualAccounts#2|
-¬¬*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2≈
-∑@¬@°UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 228), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ô†(_root_.org.scalactic.Prettifier.default.2]
-⁄⁄*[IndividualAccounts]
-_star_.-
-%_root_.connectors.IndividualAccounts#2&
-ë/ë/*(x$44, x$45)
-_star_.2∫
-ÌFÌFT*(((ClassTag.apply[Addresses](classOf[connectors.Addresses])): ClassTag[Addresses]))
-_star_.$
-HQ_root_.connectors.Addresses#W
-O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.&
-?G_root_.scala.reflect.ClassTag#$
-_root_.connectors.Addresses#2D
-ˆˆ	*[String]
-_star_. 
-_root_.java.lang.String#2◊
-ç$ç$¬*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 118))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
-ù-ù-	*[String]
-_star_. 
-_root_.java.lang.String#2î
-∫∫*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#2D
-ÃÃ	*[String]
-_star_. 
-_root_.java.lang.String#2g
-–+–+*[DetailedIndividualAccount]
-_star_.0
-(_root_.models.DetailedIndividualAccount#2|
-ÑÑ*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2Æ
-ç1†1"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2]
-û#û#*[IndividualAccounts]
-_star_.-
-%_root_.connectors.IndividualAccounts#2G
-‡8‡8	*[String]
-_star_.#
-_root_.scala.Predef.String#2D
-∫∫	*[String]
-_star_. 
-_root_.java.lang.String#2|
-Ì%Ì%*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2≠
-¿’ûUpdatePersonalDetailsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 42), org.scalactic.Prettifier.default)¡
-9∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-:;_star_.y
-[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ñù(_root_.org.scalactic.Prettifier.default.2|
- ) )*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2Æ
-¸&≥'üUpdatePersonalDetailsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 145), org.scalactic.Prettifier.default)¡
-9∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-:;_star_.y
-[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-óû(_root_.org.scalactic.Prettifier.default.2D
-£1£1	*[String]
-_star_. 
-_root_.java.lang.String#2è
-–;–;*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.scala.Predef.String#2C
-‡<‡<
-*[Address]
-_star_.
-	_root_.models.Address#2è
-¨"¨"*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.scala.Predef.String#2g
-ƒ4ƒ4*[DetailedIndividualAccount]
-_star_.0
-(_root_.models.DetailedIndividualAccount#2g
-àà*[DetailedIndividualAccount]
-_star_.0
-(_root_.models.DetailedIndividualAccount#2ó
-∆8∆8*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2##
-_root_.scala.Predef.String#2÷
-ãã¡*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 90))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2î
-¶?¶?*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#2◊
-—B—B¬*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 220))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Æ
-ˆ8Ö9"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2ƒ
-∑¬†UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 83), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-òü(_root_.org.scalactic.Prettifier.default.2÷
-©D©Dh*(((ClassTag.apply[ApplicationConfig](classOf[config.ApplicationConfig])): ClassTag[ApplicationConfig]))
-_star_.(
-Te _root_.config.ApplicationConfig#W
-O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.(
-$ _root_.config.ApplicationConfig#&
-KS_root_.scala.reflect.ClassTag#2î
-õõ*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#2÷
-≈≈¡*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 57))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
-áá	*[String]
-_star_. 
-_root_.java.lang.String#2Æ
-ë$Ø$üUpdatePersonalDetailsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 134), org.scalactic.Prettifier.default)¡
-9∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-:;_star_.y
-[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-óû(_root_.org.scalactic.Prettifier.default.2Æ
-ã-ö-"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2]
-‚A‚A*[IndividualAccounts]
-_star_.-
-%_root_.connectors.IndividualAccounts#2G
-ÿ9ÿ9	*[String]
-_star_.#
-_root_.scala.Predef.String#2<
-´F´F*[Unit]
-_star_.
-_root_.scala.Unit#2D
-ÿÿ	*[String]
-_star_. 
-_root_.java.lang.String#2g
-Ã#Ã#*[DetailedIndividualAccount]
-_star_.0
-(_root_.models.DetailedIndividualAccount#2]
-â=â=*[IndividualAccounts]
-_star_.-
-%_root_.connectors.IndividualAccounts#2Æ
-û9≠9"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2É
-ë$ﬂ$=UpdatePersonalDetailsSpec.this.convertToInAndIgnoreMethods(*)®
-:ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
-;<_star_.2Æ
-…Ÿ"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2Á
-«E«Eo*(((ClassTag.apply[IndividualAccounts](classOf[connectors.IndividualAccounts])): ClassTag[IndividualAccounts]))
-_star_.-
-%%_root_.connectors.IndividualAccounts#-
-Zl%_root_.connectors.IndividualAccounts#W
-O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.&
-QY_root_.scala.reflect.ClassTag#2$
-««*(x$2, x$3)
-_star_.2Æ
-¸=õ>üUpdatePersonalDetailsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 220), org.scalactic.Prettifier.default)¡
-9∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-:;_star_.y
-[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-óû(_root_.org.scalactic.Prettifier.default.2ƒ
-¯É†UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 51), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-òü(_root_.org.scalactic.Prettifier.default.2◊
-¯=¯=¬*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 195))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2◊
-ë,ë,¬*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 148))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2å
-«A«A*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;. 
-_root_.java.lang.String#2Æ
-ﬂ1Ò1"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2◊
-¥¥¬*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 104))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
-≠≠	*[String]
-_star_. 
-_root_.java.lang.String#2D
-≠%≠%	*[String]
-_star_. 
-_root_.java.lang.String#2≠
-ÕÑûUpdatePersonalDetailsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 54), org.scalactic.Prettifier.default)¡
-9∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-:;_star_.y
-[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ñù(_root_.org.scalactic.Prettifier.default.2â
-˜I˜I"*[Some[DetailedIndividualAccount]]
-_star_.0
- (_root_.models.DetailedIndividualAccount#
-_root_.scala.Some#2Æ
-£%™%"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2î
-õ%õ%*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#2¯
-Æ;√;¨UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 212), org.scalactic.Prettifier.default)#
->D_root_.scala.Predef.String#
-7=_root_.scala.Option#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-GH_star_.y
-hmq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-§´(_root_.org.scalactic.Prettifier.default.2è
-≥3≥3*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.scala.Predef.String#2Æ
-àè"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2Æ
-À’"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2◊
-◊'◊'¬*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 134))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Æ
-ó/ÿ/üUpdatePersonalDetailsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 175), org.scalactic.Prettifier.default)¡
-9∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-:;_star_.y
-[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-óû(_root_.org.scalactic.Prettifier.default.2≈
-Ò2¸2°UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 188), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ô†(_root_.org.scalactic.Prettifier.default.2è
-˘@˘@*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.scala.Predef.String#2¯
-û*≥*¨UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 157), org.scalactic.Prettifier.default)#
->D_root_.scala.Predef.String#
-7=_root_.scala.Option#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-GH_star_.y
-hmq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-§´(_root_.org.scalactic.Prettifier.default.2|
-∑!∑!*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2ë
-—J—J*.apply
-_star_.o
-g_root_.models.Accounts.apply(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;)Lmodels/Accounts;.2Æ
-Æ?µ?"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2™
-ﬁ>ﬁ>C*(UpdatePersonalDetailsSpec.this.shorthandTestRegistrationFunction)
-_star_.L
-!BD_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2Æ
-Œ8›8"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2D
-ˇ(ˇ(	*[String]
-_star_. 
-_root_.java.lang.String#2K
-¥<¥<*[Addresses]
-_star_.$
-_root_.connectors.Addresses#2˜
-ÿÌ´UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 84), org.scalactic.Prettifier.default)#
->D_root_.scala.Predef.String#
-7=_root_.scala.Option#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-GH_star_.y
-hmq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-£™(_root_.org.scalactic.Prettifier.default.2&
-––*(x$22, x$23)
-_star_.2ø
-÷6‡6,resources.`package`.getArbitrary[Address](*)
-!(_root_.models.Address#V
- N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
-*+_star_.2D
- 1 1	*[String]
-_star_. 
-_root_.java.lang.String#2D
-‹‹	*[String]
-_star_. 
-_root_.java.lang.String#2≠
-√ÉûUpdatePersonalDetailsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 69), org.scalactic.Prettifier.default)¡
-9∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-:;_star_.y
-[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ñù(_root_.org.scalactic.Prettifier.default.2Æ
-„Û"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2:
-Ü8Ü8*[Int]
-_star_.
-_root_.scala.Int#2Æ
-ï,Æ,üUpdatePersonalDetailsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 163), org.scalactic.Prettifier.default)¡
-9∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-:;_star_.y
-[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-óû(_root_.org.scalactic.Prettifier.default.2$
-ΩΩ*(x$5, x$6)
-_star_.2]
-¢+¢+*[IndividualAccounts]
-_star_.-
-%_root_.connectors.IndividualAccounts#2Ü
-û;û;*.apply
-_star_.d
-\_root_.org.scalatest.words.BeWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/Matcher;.2g
-êBêB*[DetailedIndividualAccount]
-_star_.0
-(_root_.models.DetailedIndividualAccount#2æ
-áIáI,*[Future[Option[DetailedIndividualAccount]]]
-_star_.
-	_root_.scala.Option#0
-)(_root_.models.DetailedIndividualAccount#'
-_root_.scala.concurrent.Future#2¯
-ã"†"¨UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 128), org.scalactic.Prettifier.default)#
->D_root_.scala.Predef.String#
-7=_root_.scala.Option#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-GH_star_.y
-hmq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-§´(_root_.org.scalactic.Prettifier.default.2D
-íí	*[String]
-_star_. 
-_root_.java.lang.String#2≈
-ã;ñ;°UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 211), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ô†(_root_.org.scalactic.Prettifier.default.2Æ
-Ó9Ä:"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2G
-É:É:	*[String]
-_star_.#
-_root_.scala.Predef.String#2|
-”:”:*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2|
-Ñ@Ñ@*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2¯
-í3ß3¨UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 189), org.scalactic.Prettifier.default)#
->D_root_.scala.Predef.String#
-7=_root_.scala.Option#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-GH_star_.y
-hmq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-§´(_root_.org.scalactic.Prettifier.default.2≈
-Åå°UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 112), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ô†(_root_.org.scalactic.Prettifier.default.2Ü
-À;À;*.apply
-_star_.d
-\_root_.org.scalatest.words.BeWord#apply(Ljava/lang/Object;)Lorg/scalatest/matchers/Matcher;.2î
-¬ ¬ *.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#2g
-∑=∑=*[DetailedIndividualAccount]
-_star_.0
-(_root_.models.DetailedIndividualAccount#2Æ
-¬…"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2≠
-Õ·ûUpdatePersonalDetailsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 90), org.scalactic.Prettifier.default)¡
-9∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-:;_star_.y
-[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ñù(_root_.org.scalactic.Prettifier.default.2™
-ﬂ$ﬂ$C*(UpdatePersonalDetailsSpec.this.shorthandTestRegistrationFunction)
-_star_.L
-!BD_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2G
-à9à9	*[String]
-_star_.#
-_root_.scala.Predef.String#2Æ
-¨ÁüUpdatePersonalDetailsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 101), org.scalactic.Prettifier.default)¡
-9∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-:;_star_.y
-[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-óû(_root_.org.scalactic.Prettifier.default.2|
-¥¥*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2m
-–E–E*[Future[Unit]]
-_star_.
-	_root_.scala.Unit#'
-_root_.scala.concurrent.Future#2Æ
-÷êüUpdatePersonalDetailsSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 115), org.scalactic.Prettifier.default)¡
-9∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-:;_star_.y
-[`q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-óû(_root_.org.scalactic.Prettifier.default.2Æ
-  ’ "scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2&
-ˆ&ˆ&*(x$30, x$31)
-_star_.2Æ
-˘Ñ"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2É
-¸=ﬁ>=UpdatePersonalDetailsSpec.this.convertToInAndIgnoreMethods(*)®
-:ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
-;<_star_.2Ø
-¸I¸I"*.apply[DetailedIndividualAccount]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.0
-!(_root_.models.DetailedIndividualAccount#2¯
-ÿ@Ì@¨UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Option[String]](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 229), org.scalactic.Prettifier.default)#
->D_root_.scala.Predef.String#
-7=_root_.scala.Option#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-GH_star_.y
-hmq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-§´(_root_.org.scalactic.Prettifier.default.2Æ
-∆9’9"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2™
-»,»,C*(UpdatePersonalDetailsSpec.this.shorthandTestRegistrationFunction)
-_star_.L
-!BD_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2÷
-≠≠¡*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 42))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2D
-«-«-	*[String]
-_star_. 
-_root_.java.lang.String#2Æ
-≤-ƒ-"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2n
-èGèG*.apply
-_star_.L
-D_root_.play.api.test.FakeRequest.apply()Lplay/api/test/FakeRequest;.2G
-∞9∞9	*[String]
-_star_.#
-_root_.scala.Predef.String#2î
-É-É-*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#2Æ
-∏1«1"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2è
-ø*ø**.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.scala.Predef.String#2É
-¿Ç=UpdatePersonalDetailsSpec.this.convertToInAndIgnoreMethods(*)®
-:ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
-;<_star_.2î
-√√*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#2D
-ÿ ÿ 	*[String]
-_star_. 
-_root_.java.lang.String#2D
-∏?∏?	*[String]
-_star_. 
-_root_.java.lang.String#2|
-ùù*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2|
-æ2æ2*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2è
-˘˘*.apply[String]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.#
-_root_.scala.Predef.String#2Æ
-ı(¸("scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2Æ
-Â Ô "scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2î
-ÒÒ*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#2|
-â.â.*.apply
-_star_.Z
-R_root_.play.api.mvc.Action#apply(Lplay/api/mvc/Request;)Lscala/concurrent/Future;.2k
-™7™7*[Future[Int]]
-_star_.'
-_root_.scala.concurrent.Future#
-	_root_.scala.Int#2™
-ááC*(UpdatePersonalDetailsSpec.this.shorthandTestRegistrationFunction)
-_star_.L
-!BD_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2&
-¶¶*(x$19, x$20)
-_star_.2≈
-ß&≤&°UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 142), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ô†(_root_.org.scalactic.Prettifier.default.2≈
-¬.Õ.°UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 172), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ô†(_root_.org.scalactic.Prettifier.default.2◊
-¸/¸/¬*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 163))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2Æ
-£™"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2÷
-……¡*(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 72))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2≈
-˝)à*°UpdatePersonalDetailsSpec.this.convertToAnyMustWrapper[Int](*)(org.scalactic.source.Position.apply("UpdatePersonalDetailsSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 156), org.scalactic.Prettifier.default)
-7:_root_.scala.Int#ª
-6≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.
-<=_star_.y
-]bq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ô†(_root_.org.scalactic.Prettifier.default.2î
-ÄÄ*.apply[Tuple2[String, String]]
-_star_.x
-p_root_.scala.collection.generic.GenericCompanion#apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;. 
-_root_.java.lang.String#
-_root_.scala.Tuple2# 
-_root_.java.lang.String#:Scala211BìK/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package controllers.manageDetails
-
-import actions.BasicAuthenticatedRequest
-import config.ApplicationConfig
-import connectors.{Addresses, Authenticated, IndividualAccounts}
-import controllers.ControllerSpec
-import models.{Accounts, Address, DetailedIndividualAccount}
-import org.jsoup.Jsoup
-import org.mockito.ArgumentMatchers.{eq => matching, _}
-import org.mockito.Mockito._
-import org.mockito.invocation.InvocationOnMock
-import org.mockito.stubbing.Answer
-import org.scalatest.mockito.MockitoSugar
-import play.api.mvc.{Action, AnyContent, Result}
-import play.api.test.FakeRequest
-import play.api.test.Helpers._
-import resources._
-import utils.{StubAuthentication, StubGroupAccountConnector}
-
-import scala.concurrent.Future
-import scala.util.Random
-import uk.gov.hmrc.http.HeaderCarrier
-
-class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
-
-  "The edit email page" must "require the updated email to be valid" in {
-    stubLoggedInUser()
-
-    val invalidEmail = Seq(
-      "email" -> "not an email",
-      "confirmedEmail" -> "not an email"
-    )
-
-    val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(invalidEmail:_*))
-    status(res) mustBe BAD_REQUEST
-
-    val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=email] span.error-message").text mustBe "Enter a valid email address"
-  }
-
-  it must "require the confirmed email to match" in {
-    stubLoggedInUser()
-
-    val mismatchedEmails = Seq(
-      "email" -> "email@example.com",
-      "confirmedEmail" -> "anotherEmail@example.com"
-    )
-
-    val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(mismatchedEmails:_*))
-    status(res) mustBe BAD_REQUEST
-
-    val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=confirmedEmail] span.error-message").text mustBe "Email addresses must match. Check them and try again"
-  }
-
-  it must "update the user's email when they make a valid submission" in {
-    val (_, current) = stubLoggedInUser()
-
-    val updatedEmail = "email@example.com"
-
-    val validData = Seq(
-      "email" -> updatedEmail,
-      "confirmedEmail" -> updatedEmail
-    )
-
-    val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(validData:_*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
-
-    val updatedDetails = current.details.copy(email = updatedEmail)
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
-  }
-
-  "The edit name page" must "require a non-empty first name" in {
-    stubLoggedInUser()
-
-    val missingFirstName = Seq(
-      "lastName" -> "Person"
-    )
-
-    val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(missingFirstName:_*))
-    status(res) mustBe BAD_REQUEST
-
-    val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=firstName] span.error-message").text mustBe "This must be filled in"
-  }
-
-  it must "require a non-empty last name" in {
-    stubLoggedInUser()
-
-    val missingLastName = Seq(
-      "firstName" -> "Mr"
-    )
-
-    val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(missingLastName:_*))
-    status(res) mustBe BAD_REQUEST
-
-    val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=lastName] span.error-message").text mustBe "This must be filled in"
-  }
-
-  it must "update the user's name when they make a valid submission" in {
-    val (_, current) = stubLoggedInUser()
-
-    val validData = Seq(
-      "firstName" -> "Mr",
-      "lastName" -> "Person"
-    )
-
-    val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(validData:_*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
-
-    val updatedDetails = current.details.copy(firstName = "Mr", lastName = "Person")
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
-  }
-
-  "The update phone number page" must "require the phone number to be non-empty" in {
-    stubLoggedInUser()
-
-    val emptyPhoneNumber = Seq(
-      "phone" -> ""
-    )
-
-    val res = TestUpdatePersonalDetails.updatePhone()(request.withFormUrlEncodedBody(emptyPhoneNumber:_*))
-    status(res) mustBe BAD_REQUEST
-
-    val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=phone] span.error-message").text mustBe "This must be filled in"
-  }
-
-  it must "update the user's phone number when they make a valid submission" in {
-    val (_, current) = stubLoggedInUser()
-
-    val validData = Seq(
-      "phone" -> "01234567890"
-    )
-
-    val res = TestUpdatePersonalDetails.updatePhone()(request.withFormUrlEncodedBody(validData:_*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
-
-    val updatedDetails = current.details.copy(phone1 = "01234567890")
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
-  }
-
-  "The update address page" must "require a postcode" in {
-    stubLoggedInUser()
-
-    val missingPostcode = Seq(
-      "address.line1" -> "Some place",
-      "address.postcode" -> ""
-    )
-
-    val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(missingPostcode:_*))
-    status(res) mustBe BAD_REQUEST
-
-    val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=addresspostcode] span.error-message").text mustBe "This must be filled in"
-  }
-
-  it must "update the user's address ID if they use the lookup" in {
-    val (_, current) = stubLoggedInUser()
-
-    val validData = Seq(
-      "address.addressId" -> "1234567890",
-      "address.line1" -> "Some place",
-      "address.postcode" -> "AA11 1AA"
-    )
-
-    val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(validData:_*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
-
-    val updatedDetails = current.details.copy(addressId = 1234567890)
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
-  }
-
-  it must "create an address record, and update the user's record with the generated address ID, if they enter the address manually" in {
-    val (_, current) = stubLoggedInUser()
-    val address: Address = addressGen.copy(addressUnitId = None)
-    val addressId = Random.nextInt()
-
-    when(mockAddressConnector.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(addressId))
-
-    val validFormData: Seq[(String, String)] = Seq(
-      "address.line1" -> address.line1,
-      "address.line2" -> address.line2,
-      "address.line3" -> address.line3,
-      "address.line4" -> address.line4,
-      "address.postcode" -> address.postcode
-    )
-
-    val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(validFormData: _*))
-    status(res) must be(SEE_OTHER)
-    redirectLocation(res) must be(Some(viewDetailsPage))
-
-    val updatedDetails = current.details.copy(addressId = addressId)
-
-    verify(mockAddressConnector, once).create(matching(address))(any[HeaderCarrier])
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
-  }
-
-  "The update mobile number page" must "update the user's mobile number if they submit a valid form" in {
-    val (_, current) = stubLoggedInUser()
-
-    val validData = Seq(
-      "phone" -> "01234567890"
-    )
-
-    val res = TestUpdatePersonalDetails.updateMobile()(request.withFormUrlEncodedBody(validData:_*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
-
-    val updatedDetails = current.details.copy(phone2 = Some("01234567890"))
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
-  }
-
-  private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
-
-  private object TestUpdatePersonalDetails extends UpdatePersonalDetails(
-    app.injector.instanceOf[ApplicationConfig],
-    StubAuthentication,
-    mockAddressConnector,
-    mockIndividualAccounts
-  )
-
-  lazy val mockIndividualAccounts = {
-    val m = mock[IndividualAccounts]
-    when(m.update(any[DetailedIndividualAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
-    m
-  }
-
-  lazy val mockAddressConnector = mock[Addresses]
-
-  lazy val request = FakeRequest().withSession(token)
-
-  lazy val once = times(1)
-
-  private def stubLoggedInUser() = {
-    val groupAccount = groupAccountGen.sample.get
-    val individual = individualGen.sample.get
-    StubGroupAccountConnector.stubAccount(groupAccount)
-    when(mockIndividualAccounts.get(matching(individual.individualId))(any[HeaderCarrier])).thenReturn(Future.successful(Some(individual)))
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individual)))
-    (groupAccount, individual)
-  }
-}
-J>test/controllers/manageDetails/UpdatePersonalDetailsSpec.scala

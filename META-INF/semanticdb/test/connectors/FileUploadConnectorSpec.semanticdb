@@ -1,745 +1,0 @@
-
-Í√{
-ÿ‚q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.©
-ÅÅû_root_.connectors.fileUpload.FileUploadConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.
-ìó_root_.play.api.libs.E
-—
-‹
-;_root_.resources.package.shortString()Lorg/scalacheck/Gen;..
-î§$_root_.org.mockito.ArgumentMatchers.{
-ÂÔq_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.
-àã_root_.org.
-ÂÔ_root_.connectors.,
-ÊÌ"_root_.play.api.libs.json.JsValue#D
-º
-∆
-8test/connectors/FileUploadConnectorSpec.scala@1336..1372_
-§∞U_root_.connectors.fileUpload.FileMetadata.;_root_.connectors.fileUpload.FileMetadata#=
-Ÿ·3_root_.connectors.FileUploadConnectorSpec#mockHttp.B
-´	´	6_root_.connectors.FileUploadConnectorSpec#`<init>`()V.F
-œ“<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.D
-™Æ8test/connectors/FileUploadConnectorSpec.scala@2598..2674
-ˆ_root_.models.
-†§_root_.scala.None.0
-·Ó&_root_.uk.gov.hmrc.http.HeaderCarrier.a
-˜ÅW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.K
-àûA_root_.connectors.FileUploadConnectorSpec#noFileUploadedMetadata.)
-∏!º!_root_.play.api.libs.json.Json.ô
-ÆΩé_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
-…Õ_root_.play.api.libs.
-ÎÓ_root_.org.'
-Çê_root_.models.NoEvidenceFlag._
-Ω!¬!U_root_.play.api.libs.json.Json.parse(Ljava/lang/String;)Lplay/api/libs/json/JsValue;.D
-ìó8test/connectors/FileUploadConnectorSpec.scala@2063..2139_
-Ó%Û%U_root_.play.api.libs.json.Json.parse(Ljava/lang/String;)Lplay/api/libs/json/JsValue;.0
-Õ⁄&_root_.uk.gov.hmrc.http.HeaderCarrier#
-∆Ã_root_.config.WSHttp#)
-ˆ¸_root_.scala.concurrent.Future.d
-‘ÿZ_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.
-Ôˆ_root_.org.mockito./
-—”%_root_.org.scalatest.FlatSpecLike#it.
-Õ“_root_.utils.
-ŒŸ_root_.controllers.'
-ò¢_root_.connectors.fileUpload.0
-¿Õ&_root_.uk.gov.hmrc.http.HeaderCarrier#
-¿ƒ_root_.play.F
-»À<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.z
-ÂÎp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.%
-ª¡_root_.scala.Predef.String#>
-≠∂4_root_.play.api.libs.concurrent.Execution.Implicits.4
-˚á*_root_.connectors.fileUpload.FileMetadata.Q
-ãåG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.*
-”Â _root_.utils.StubServicesConfig.W
-ÇäM_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.∏
-¶®≠_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.;_root_.org.mockito.ArgumentMatchers.eq(S)S.;_root_.org.mockito.ArgumentMatchers.eq(J)J.;_root_.org.mockito.ArgumentMatchers.eq(I)I.;_root_.org.mockito.ArgumentMatchers.eq(F)F.;_root_.org.mockito.ArgumentMatchers.eq(D)D.;_root_.org.mockito.ArgumentMatchers.eq(C)C.;_root_.org.mockito.ArgumentMatchers.eq(B)B.;_root_.org.mockito.ArgumentMatchers.eq(Z)Z."
-˘˝_root_.uk.gov.hmrc.http./
-ñò%_root_.org.scalatest.FlatSpecLike#it.$
-Œ“_root_.play.api.libs.json.
-çó_root_.connectors.%
-Œ‘_root_.scala.Predef.String#
-¯˛_root_.config.0
-”‡&_root_.uk.gov.hmrc.http.HeaderCarrier#G
-ıá=_root_.connectors.FileUploadConnectorSpec#noEvidenceMetadata.)
-›·_root_.play.api.libs.json.Json.U
-˜˚K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.F
-„Ê<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.4
-¬	¬	*_root_.org.scalatest.FlatSpec#`<init>`()V.M
-–%Ê%A_root_.connectors.FileUploadConnectorSpec#noFileUploadedMetadata.B
-†≠8_root_.connectors.FileUploadConnectorSpec#testConnector.0
-ŸÊ&_root_.uk.gov.hmrc.http.HeaderCarrier.,
-≥	¡	"_root_.controllers.ControllerSpec#*
-Çî _root_.utils.StubServicesConfig.4
-Ï¯*_root_.connectors.fileUpload.FileMetadata.u
-ôùk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.F
-¬≈<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.=
-ÏÙ3_root_.connectors.FileUploadConnectorSpec#mockHttp.;
-ÓÅ1_root_.connectors.fileUpload.FileUploadConnector#F
-–”<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.
-ÿ·_root_.resources.a
-˝áW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.)
-√«_root_.play.api.libs.json.Json.W
-˛ã	M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#
-¿ƒ_root_.play.api.libs.B
-Õ◊8test/connectors/FileUploadConnectorSpec.scala@1336..1372B
-Øº8_root_.connectors.FileUploadConnectorSpec#testConnector."
-Ò˚_root_.scala.concurrent.E
-◊‚;_root_.resources.package.shortString()Lorg/scalacheck/Gen;.r
-∑≈h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.K
-¨¿?_root_.connectors.FileUploadConnectorSpec#fileUploadedMetadata.9
-¯Ä/_root_.models.FileInfo.;_root_.models.FileInfo#B
-∑ƒ8_root_.connectors.FileUploadConnectorSpec#testConnector.)
-È%Ì%_root_.play.api.libs.json.Json.)
-„È_root_.scala.concurrent.Future.F
-ºø<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.
-èí_root_.play.api.ô
-ΩÃé_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.W
-¥%ø%M_root_.scala.collection.immutable.StringLike#stripMargin()Ljava/lang/String;.&
-íü_root_.models.RatesBillFlag.I
-Çñ?_root_.connectors.FileUploadConnectorSpec#fileUploadedMetadata._
-»ÕU_root_.play.api.libs.json.Json.parse(Ljava/lang/String;)Lplay/api/libs/json/JsValue;.
-≈»_root_.play.api.;
-≤≈1_root_.connectors.fileUpload.FileUploadConnector#
-óõ_root_.scala.Some.&
-°Æ_root_.models.RatesBillType.
-ºø_root_.play.api.ª
-Ô
-Ú
-∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.r
-öüh_root_.play.api.test.FutureAwaits#await(Lscala/concurrent/Future;Lakka/util/Timeout;)Ljava/lang/Object;.*
-ò¢ _root_.play.api.libs.concurrent.W
-¢0≠0M_root_.scala.collection.immutable.StringLike#stripMargin()Ljava/lang/String;.
-âç_root_.scala.None.U
-ÔÛK_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.W
-á!í!M_root_.scala.collection.immutable.StringLike#stripMargin()Ljava/lang/String;.,
-⁄Ë"_root_.controllers.ControllerSpec#'
-˘á_root_.models.NoEvidenceFlag.u
-Ø
-±
-k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
-ÌÔ
-_root_.uk.r
-©Æh_root_.play.api.test.FutureAwaits#await(Lscala/concurrent/Future;Lakka/util/Timeout;)Ljava/lang/Object;.
-Î_root_.scala.¡
-Ê	Í	∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.d
-·
-Â
-Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.a
-ÍÙW_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.5
-ˇÖ+_root_.config.WSHttp.;_root_.config.WSHttp#)
-ˆ_root_.scala.concurrent.Future.B
-ß±8test/connectors/FileUploadConnectorSpec.scala@1835..1871'
-êû_root_.models.NoEvidenceFlag.4
-£¨*_root_.play.api.libs.concurrent.Execution.O
-‘€E_root_.play.api.libs.json.JsValue.;_root_.play.api.libs.json.JsValue#W
-¸
-ÑM_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.ª
-ı¯∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.&
-àï_root_.models.RatesBillFlag.6
-ì	™	*_root_.connectors.FileUploadConnectorSpec#D
-¢¶8test/connectors/FileUploadConnectorSpec.scala@1566..1642U
-‡‰K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.d
-ÁÎZ_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.0
- ◊&_root_.uk.gov.hmrc.http.HeaderCarrier.D
-Øπ8test/connectors/FileUploadConnectorSpec.scala@1835..1871
-∑ª_root_.play.B
-’ﬂ8test/connectors/FileUploadConnectorSpec.scala@2366..2402F
-›‡<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.?
-∂æ3_root_.connectors.FileUploadConnectorSpec#mockHttp.e
-¡≈[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.D
-¬Ã8test/connectors/FileUploadConnectorSpec.scala@2366..24024
-Éè*_root_.connectors.fileUpload.FileMetadata.ô
-≈‘é_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.z
-¸Çp_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.F
-µ∏<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.+
-»–!_root_.play.api.libs.ws.WSClient#,
-Û
-˙
-"_root_.play.api.libs.json.JsValue#Q
-¯˘G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.
-åì_root_.org.mockito.I
-¸Ç?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#r
-±∂h_root_.play.api.test.FutureAwaits#await(Lscala/concurrent/Future;Lakka/util/Timeout;)Ljava/lang/Object;.{
-Îıq_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.&
-π∆_root_.models.RatesBillType.o
-ËÍe_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.F
-…Ã<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.B
-∫ƒ8test/connectors/FileUploadConnectorSpec.scala@2366..2402,
-˘Ä"_root_.play.api.libs.json.JsValue#u
-‘ÿk_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.
-Û_root_.uk.gov.z
-Ù˙p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.!
-ú§_root_.models.FileInfo.%
-˜˛_root_.org.mockito.Mockito.W
-Ô˜M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.Q
-ÖÜG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.I
-£!µ!=_root_.connectors.FileUploadConnectorSpec#noEvidenceMetadata.ª
-‚Â∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.B
-¥æ8test/connectors/FileUploadConnectorSpec.scala@1336..1372E
-ƒœ;_root_.resources.package.shortString()Lorg/scalacheck/Gen;.B
-æ»8test/connectors/FileUploadConnectorSpec.scala@1835..1871
-äé_root_.play.=
-ñû3_root_.connectors.FileUploadConnectorSpec#mockHttp."
-≈«_root_.play.api.libs.ws.o
-¢§e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.
-Ù¯_root_.uk.gov.hmrc.D
-⁄Á8_root_.connectors.FileUploadConnectorSpec#testConnector.%
-»
-Œ
-_root_.scala.Predef.String#=
-Ê
-Ó
-3_root_.connectors.FileUploadConnectorSpec#mockHttp."9
-"_root_.controllers.ControllerSpec#Ä@ControllerSpec"3
-"_root_.play.api.libs.json.JsValue#Ä¿JsValue"M
-1_root_.connectors.fileUpload.FileUploadConnector#Ä FileUploadConnector"5
- _root_.play.api.libs.concurrent.ÄàÄ
-concurrent"Õ
-q_root_.org.mockito.stubbing.OngoingStubbing#thenReturn(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.◊ÑÄÑ
-thenReturn(x$1: T): OngoingStubbing[T]"7
-/_root_.org.mockito.stubbing.OngoingStubbing#[T]"4
-
-,_root_.org.mockito.stubbing.OngoingStubbing#"7
-/_root_.org.mockito.stubbing.OngoingStubbing#[T]"°
-é_root_.connectors.fileUpload.FileUploadConnector#getFileMetadata(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.çgetFileMetadataF(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata]"#
-_root_.scala.Predef.String#".
-"/&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-28_root_.scala.concurrent.Future#"2
-9E*_root_.connectors.fileUpload.FileMetadata#"$
-_root_.config.WSHttp#Ä@WSHttp"¢
-;_root_.resources.package.shortString()Lorg/scalacheck/Gen;.cshortStringGen[String]" 
-_root_.org.scalacheck.Gen#"#
-
-_root_.scala.Predef.String#")
-_root_.play.api.libs.json.ÄàÄjson")
-_root_.models.FileInfo.ÄÑFileInfo"u
-8test/connectors/FileUploadConnectorSpec.scala@1835..18719
-envelopeIdString"!
-_root_.scala.Predef.String#"'
-_root_.connectors.ÄàÄ
-connectors"u
-8test/connectors/FileUploadConnectorSpec.scala@2366..24029
-envelopeIdString"!
-_root_.scala.Predef.String#"Ê
-h_root_.play.api.test.FutureAwaits#await(Lscala/concurrent/Future;Lakka/util/Timeout;)Ljava/lang/Object;.˘await8[T] => (future: Future[T])(implicit timeout: Timeout): T"'
-_root_.scala.concurrent.Future#"s
-k_root_.play.api.test.FutureAwaits#await(Lscala/concurrent/Future;Lakka/util/Timeout;)Ljava/lang/Object;.[T]"!
--4_root_.akka.util.Timeout#"s
-78k_root_.play.api.test.FutureAwaits#await(Lscala/concurrent/Future;Lakka/util/Timeout;)Ljava/lang/Object;.[T]"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"˙
-W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
-successful[T] => (result: T): Future[T]"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
-_root_.scala.concurrent.Future#"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"Õ
-U_root_.play.api.libs.json.Json.parse(Ljava/lang/String;)Lplay/api/libs/json/JsValue;.tparse(input: String): JsValue"#
-_root_.scala.Predef.String#"*
-"_root_.play.api.libs.json.JsValue#"$
-_root_.play.api.libs.ÄàÄlibs"'
-_root_.uk.gov.hmrc.http.ÄàÄhttp"j
-3_root_.connectors.FileUploadConnectorSpec#mockHttp.3ÅÄ@mockHttpWSHttp"
-_root_.config.WSHttp#"å
-=_root_.connectors.FileUploadConnectorSpec#noEvidenceMetadata.KÅÄ@noEvidenceMetadataJsValue"(
-"_root_.play.api.libs.json.JsValue#"
-_root_.play.api.
-ÄàÄapi"-
-_root_.play.api.libs.json.Json.
-ÄÑJson"2
-_root_.connectors.fileUpload.ÄàÄ
-fileUpload"ê
-?_root_.connectors.FileUploadConnectorSpec#fileUploadedMetadata.MÅÄ@fileUploadedMetadataJsValue"(
-"_root_.play.api.libs.json.JsValue#"ê
-K_root_.org.scalactic.source.Position.here()Lorg/scalactic/source/Position;.A†Ä herePosition"+
-%_root_.org.scalactic.source.Position#"?
-$_root_.org.mockito.ArgumentMatchers.ÄÑàArgumentMatchers"G
-4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits"/
-_root_.scala.concurrent.Future.ÄÑFuture"=
-*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution"å
-[_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.¨mock*[T] => (implicit classTag: ClassTag[T]): T"&
-#_root_.scala.reflect.ClassTag#"f
-$%^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"f
-)*^_root_.org.scalatest.mockito.MockitoSugar#mock(Lscala/reflect/ClassTag;)Ljava/lang/Object;.[T]"u
-8test/connectors/FileUploadConnectorSpec.scala@1336..13729
-envelopeIdString"!
-_root_.scala.Predef.String#"%
-_root_.resources.ÄàÄ	resources"@
-*_root_.connectors.fileUpload.FileMetadata.ÄÑFileMetadata"Ñ
-8test/connectors/FileUploadConnectorSpec.scala@1566..1642HdataFileMetadata"0
-*_root_.connectors.fileUpload.FileMetadata#"4
-_root_.models.RatesBillType.ÄÑàRatesBillType"
-_root_.org.
-ÄàÄorg"
-
-_root_.uk.	ÄàÄuk"„
-p_root_.org.scalatest.MustMatchers#AnyMustWrapper#mustBe(Ljava/lang/Object;)Lorg/scalatest/compatible/Assertion;.omustBe(right: Any): Assertion"
-_root_.scala.Any#"/
-'_root_.org.scalatest.package.Assertion#"ì
-Z_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.¥ÑÄÄwhen#[T] => (x$1: T): OngoingStubbing[T]"e
-]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"4
- ,_root_.org.mockito.stubbing.OngoingStubbing#"e
-!"]_root_.org.mockito.Mockito.when(Ljava/lang/Object;)Lorg/mockito/stubbing/OngoingStubbing;.[T]"
-_root_.uk.gov.
-ÄàÄgov"Ñ
-8test/connectors/FileUploadConnectorSpec.scala@2598..2674HdataFileMetadata"0
-*_root_.connectors.fileUpload.FileMetadata#"˜
-ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
-_root_.scala.Option#"6
-$._root_.uk.gov.hmrc.http.logging.Authorization#"
-/5_root_.scala.Option#"'
-6<_root_.uk.gov.hmrc.http.UserId#"
-FL_root_.scala.Option#"&
-MR_root_.uk.gov.hmrc.http.Token#"
-`f_root_.scala.Option#"5
-gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
-Åá_root_.scala.Option#"4
-àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
-ü•_root_.scala.Option#"4
-¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
-¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
-◊€_root_.scala.Long#"#
-ÎÓ_root_.scala.package.Seq#"
-Ôı_root_.scala.Tuple2#"%
-ˆ¸_root_.scala.Predef.String#"%
-˛Ñ_root_.scala.Predef.String#"
-ñú_root_.scala.Option#"%
-ù£_root_.scala.Predef.String#"
-∂º_root_.scala.Option#"%
-Ω√_root_.scala.Predef.String#"
-œ’_root_.scala.Option#"%
-÷‹_root_.scala.Predef.String#"
-ÈÔ_root_.scala.Option#"%
-ˆ_root_.scala.Predef.String#"
-Éâ_root_.scala.Option#"%
-äê_root_.scala.Predef.String#"
-•´_root_.scala.Option#";
-¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
-Õ–_root_.scala.package.Seq#"
-—◊_root_.scala.Tuple2#"%
-ÿﬁ_root_.scala.Predef.String#"%
-‡Ê_root_.scala.Predef.String#"0
-Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"∞
-e_root_.org.scalatest.FlatSpecLike#ItVerbString#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
-
-_root_.scala.`<byname>`#"
-_root_.scala.Any#"-
-'/%_root_.org.scalactic.source.Position#"
-26_root_.scala.Unit#"!
-_root_.scala.None.ÄÑàNone"ï
-6_root_.connectors.FileUploadConnectorSpec#`<init>`()V.[<init>(): FileUploadConnectorSpec"2
-*_root_.connectors.FileUploadConnectorSpec#"¡
-∂_root_.org.scalatest.words.MustVerb#StringMustWrapperForVerb#must(Ljava/lang/String;Lorg/scalatest/words/StringVerbStringInvocation;)Lorg/scalatest/words/ResultOfStringPassedToVerb;.ÖmustV(right: String)(implicit svsi: StringVerbStringInvocation): ResultOfStringPassedToVerb"#
-_root_.scala.Predef.String#">
-96_root_.org.scalatest.words.StringVerbStringInvocation#">
-<V6_root_.org.scalatest.words.ResultOfStringPassedToVerb#"£
-M_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.—ÑÄÄeq[T] => (x$1: T): T"X
-P_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.[T]"X
-P_root_.org.mockito.ArgumentMatchers.eq(Ljava/lang/Object;)Ljava/lang/Object;.[T]"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"
-_root_.play.ÄàÄplay"√
-h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
-)_root_.scala.concurrent.ExecutionContext#"ã
-M_root_.scala.collection.immutable.StringLike#stripMargin()Ljava/lang/String;.:stripMarginString"!
-_root_.scala.Predef.String#"÷
-û_root_.connectors.fileUpload.FileUploadConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.≤<init>Z(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): FileUploadConnector"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"1
-4D)_root_.scala.concurrent.ExecutionContext#"9
-GZ1_root_.connectors.fileUpload.FileUploadConnector#"J
-*_root_.connectors.FileUploadConnectorSpec#Ä FileUploadConnectorSpec"°
-<_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.aÑÄÄany[T] => (): T"G
-?_root_.org.mockito.ArgumentMatchers.any()Ljava/lang/Object;.[T]"-
-_root_.org.mockito.Mockito.ÄÑàMockito"ˆ
-k_root_.org.scalatest.FlatSpecLike#ItWord#must(Ljava/lang/String;)Lorg/scalatest/FlatSpecLike/ItVerbString;.Ümust(string: String): ItVerbString"#
-	_root_.scala.Predef.String#"7
-/_root_.org.scalatest.FlatSpecLike#ItVerbString#"%
-_root_.play.api.libs.ws.	ÄàÄws"Ñ
-8test/connectors/FileUploadConnectorSpec.scala@2063..2139HdataFileMetadata"0
-*_root_.connectors.fileUpload.FileMetadata#"4
-_root_.models.RatesBillFlag.ÄÑàRatesBillFlag"ù
-8_root_.connectors.FileUploadConnectorSpec#testConnector.aÅÄ@testConnectorFileUploadConnector"7
-1_root_.connectors.fileUpload.FileUploadConnector#"÷
-G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.äs(args: <repeated>[Any]): String""
-_root_.scala.`<repeated>`#"
-_root_.scala.Any#"#
-_root_.scala.Predef.String#"
-_root_.models.ÄàÄmodels"<
- _root_.utils.StubServicesConfig.ÄÑStubServicesConfig")
-_root_.controllers.ÄàÄcontrollers"
-_root_.utils.ÄàÄutils"
-_root_.config.ÄàÄconfig"=
-&_root_.uk.gov.hmrc.http.HeaderCarrier.ÄÑHeaderCarrier">
-&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"
-_root_.scala.ÄàÄscala"2
-!_root_.play.api.libs.ws.WSClient#Ä@WSClient"˛
-∞_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.»GETd[A] => (url: String)(implicit rds: HttpReads[A], hc: HeaderCarrier, ec: ExecutionContext): Future[A]"#
-_root_.scala.Predef.String#"*
-#,"_root_.uk.gov.hmrc.http.HttpReads#"º
--.≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]".
-5B&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
-HX)_root_.scala.concurrent.ExecutionContext#"'
-[a_root_.scala.concurrent.Future#"º
-bc≥_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"n
-*_root_.org.scalatest.FlatSpec#`<init>`()V.@<init>(): FlatSpec"&
-_root_.org.scalatest.FlatSpec#""
-_root_.uk.gov.hmrc.ÄàÄhmrc"j
-%_root_.org.scalatest.FlatSpecLike#it.AÅÄitItWord"/
-)_root_.org.scalatest.FlatSpecLike#ItWord#"î
-A_root_.connectors.FileUploadConnectorSpec#noFileUploadedMetadata.OÅÄ@noFileUploadedMetadataJsValue"(
-"_root_.play.api.libs.json.JsValue#"6
-_root_.models.NoEvidenceFlag.ÄÑàNoEvidenceFlag" 
-_root_.scala.Some.
-ÄÑSome"%
-_root_.org.mockito.ÄàÄmockito"∂
-k_root_.org.scalatest.FlatSpecLike#InAndIgnoreMethods#in(Lscala/Function0;Lorg/scalactic/source/Position;)V.∆in6(testFun: <byname>[Any])(implicit pos: Position): Unit" 
-
-_root_.scala.`<byname>`#"
-_root_.scala.Any#"-
-'/%_root_.org.scalactic.source.Position#"
-26_root_.scala.Unit#2√
-—
-‹
-+resources.`package`.getArbitrary[String](*)#
-!'_root_.scala.Predef.String#V
- N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
-)*_star_.2©
-«	Â	öFileUploadConnectorSpec.this.convertToStringMustWrapper(*)(org.scalactic.source.Position.apply("FileUploadConnectorSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 36), org.scalactic.Prettifier.default)¡
-7∏_root_.org.scalatest.MustMatchers#convertToStringMustWrapper(Ljava/lang/String;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/StringMustWrapper;.
-89_star_.y
-Y^q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-íô(_root_.org.scalactic.Prettifier.default.2‘
-©©ø*(org.scalactic.source.Position.apply("FileUploadConnectorSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 52))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2‘
-ííø*(org.scalactic.source.Position.apply("FileUploadConnectorSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 44))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2ç
-õõ*.apply[FileInfo]
-_star_.@
-8_root_.scala.Some.apply(Ljava/lang/Object;)Lscala/Some;.
-_root_.models.FileInfo#2Ä
-ÿÿ*[Future[JsValue]]
-_star_.'
-_root_.scala.concurrent.Future#*
-	"_root_.play.api.libs.json.JsValue#2‘
-ÕÕø*(org.scalactic.source.Position.apply("FileUploadConnectorSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 36))
-_star_.y
- %q_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2·
-◊◊*.apply
-_star_.æ
-µ_root_.uk.gov.hmrc.http.HeaderCarrier.apply(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)Luk/gov/hmrc/http/HeaderCarrier;.2O
-ÅÅ
-*[JsValue]
-_star_.*
-	"_root_.play.api.libs.json.JsValue#2B
-ÊÊ
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2G
-ää	*[String]
-_star_.#
-_root_.scala.Predef.String#2Ä
-Â
-Â
-*[Future[JsValue]]
-_star_.'
-_root_.scala.concurrent.Future#*
-	"_root_.play.api.libs.json.JsValue#2\
-ÆÆ*[FileMetadata]
-_star_.2
-*_root_.connectors.fileUpload.FileMetadata#2ä
-‘Ü!scala.Predef.augmentString(*)P
-H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
-_star_.2G
-˜˜	*[String]
-_star_.#
-_root_.scala.Predef.String#2B
-≈≈
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2Å
-«	Æ
-;FileUploadConnectorSpec.this.convertToInAndIgnoreMethods(*)®
-8ü_root_.org.scalatest.FlatSpecLike#convertToInAndIgnoreMethods(Lorg/scalatest/words/ResultOfStringPassedToVerb;)Lorg/scalatest/FlatSpecLike/InAndIgnoreMethods;.
-9:_star_.2®
-€€3*(FileUploadConnectorSpec.this.defaultAwaitTimeout)
-_star_.Z
-2R_root_.play.api.test.DefaultAwaitTimeout#defaultAwaitTimeout()Lakka/util/Timeout;.2x
-ãã*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2B
-∏∏
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2‚
-˜˚•FileUploadConnectorSpec.this.convertToAnyMustWrapper[FileMetadata](*)(org.scalactic.source.Position.apply("FileUploadConnectorSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 58), org.scalactic.Prettifier.default)ª
-4≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.2
-5A*_root_.connectors.fileUpload.FileMetadata#
-CD_star_.y
-diq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ù§(_root_.org.scalactic.Prettifier.default.2B
-ÀÀ
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2B
-””
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2O
-ÙÙ
-*[JsValue]
-_star_.*
-	"_root_.play.api.libs.json.JsValue#2®
-ÍÍ3*(FileUploadConnectorSpec.this.defaultAwaitTimeout)
-_star_.Z
-2R_root_.play.api.test.DefaultAwaitTimeout#defaultAwaitTimeout()Lakka/util/Timeout;.2G
-ÑÑ	*[String]
-_star_.#
-_root_.scala.Predef.String#2x
-¯¯*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2B
-‡‡
-*[Nothing]
-_star_.
-	_root_.scala.Nothing#2√
-◊‚+resources.`package`.getArbitrary[String](*)#
-!'_root_.scala.Predef.String#V
- N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
-)*_star_.2·
-ÊÊ*.apply
-_star_.æ
-µ_root_.uk.gov.hmrc.http.HeaderCarrier.apply(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)Luk/gov/hmrc/http/HeaderCarrier;.2®
-ÚÚ3*(FileUploadConnectorSpec.this.defaultAwaitTimeout)
-_star_.Z
-2R_root_.play.api.test.DefaultAwaitTimeout#defaultAwaitTimeout()Lakka/util/Timeout;.2†
-èè*.apply
-_star_.~
-v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.2·
-ÓÓ*.apply
-_star_.æ
-µ_root_.uk.gov.hmrc.http.HeaderCarrier.apply(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)Luk/gov/hmrc/http/HeaderCarrier;.2\
-∂∂*[FileMetadata]
-_star_.2
-*_root_.connectors.fileUpload.FileMetadata#2x
-ÖÖ*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2‚
-ÔÛ•FileUploadConnectorSpec.this.convertToAnyMustWrapper[FileMetadata](*)(org.scalactic.source.Position.apply("FileUploadConnectorSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 41), org.scalactic.Prettifier.default)ª
-4≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.2
-5A*_root_.connectors.fileUpload.FileMetadata#
-CD_star_.y
-diq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ù§(_root_.org.scalactic.Prettifier.default.2®
-Æ
-Æ
-A*(FileUploadConnectorSpec.this.shorthandTestRegistrationFunction)
-_star_.L
-@D_root_.org.scalatest.FlatSpecLike#shorthandTestRegistrationFunction.2ü
-ÕÕG*(((ClassTag.apply[WSHttp](classOf[config.WSHttp])): ClassTag[WSHttp]))
-_star_.&
-5=_root_.scala.reflect.ClassTag#
->D_root_.config.WSHttp#W
-O_root_.scala.reflect.ClassTag.apply(Ljava/lang/Class;)Lscala/reflect/ClassTag;.
-_root_.config.WSHttp#2Ä
-ÎÎ*[Future[JsValue]]
-_star_.'
-_root_.scala.concurrent.Future#*
-	"_root_.play.api.libs.json.JsValue#2‚
-‡‰•FileUploadConnectorSpec.this.convertToAnyMustWrapper[FileMetadata](*)(org.scalactic.source.Position.apply("FileUploadConnectorSpec.scala", "Please set the environment variable SCALACTIC_FILL_FILE_PATHNAMES to yes at compile time to enable this feature.", 49), org.scalactic.Prettifier.default)ª
-4≤_root_.org.scalatest.MustMatchers#convertToAnyMustWrapper(Ljava/lang/Object;Lorg/scalactic/source/Position;Lorg/scalactic/Prettifier;)Lorg/scalatest/MustMatchers/AnyMustWrapper;.2
-5A*_root_.connectors.fileUpload.FileMetadata#
-CD_star_.y
-diq_root_.org.scalactic.source.Position.apply(Ljava/lang/String;Ljava/lang/String;I)Lorg/scalactic/source/Position;.2
-ù§(_root_.org.scalactic.Prettifier.default.2ä
-˙%°0scala.Predef.augmentString(*)P
-H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
-_star_.2Å
-§§*.apply
-_star_._
-W_root_.models.FileInfo.apply(Ljava/lang/String;Lmodels/EvidenceType;)Lmodels/FileInfo;.2ä
-…!≥%scala.Predef.augmentString(*)P
-H_root_.scala.Predef.augmentString(Ljava/lang/String;)Ljava/lang/String;.
-_star_.2\
-üü*[FileMetadata]
-_star_.2
-*_root_.connectors.fileUpload.FileMetadata#2…
-üü>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.p
-/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2O
-áá
-*[JsValue]
-_star_.*
-	"_root_.play.api.libs.json.JsValue#2√
-ƒœ+resources.`package`.getArbitrary[String](*)#
-!'_root_.scala.Predef.String#V
- N_root_.resources.package.getArbitrary(Lorg/scalacheck/Gen;)Ljava/lang/Object;.
-)*_star_.2†
-¯¯*.apply
-_star_.~
-v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.2†
-áá*.apply
-_star_.~
-v_root_.connectors.fileUpload.FileMetadata.apply(Lmodels/LinkBasis;Lscala/Option;)Lconnectors/fileUpload/FileMetadata;.:Scala211B¥0/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package connectors
-
-import config.WSHttp
-import connectors.fileUpload.{FileMetadata, FileUploadConnector}
-import controllers.ControllerSpec
-import models.{FileInfo, NoEvidenceFlag, RatesBillFlag, RatesBillType}
-import play.api.libs.ws.WSClient
-import resources._
-import org.mockito.Mockito._
-import org.mockito.ArgumentMatchers.{eq => matching, _}
-import play.api.libs.json.{JsValue, Json}
-
-import scala.concurrent.Future
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import utils.StubServicesConfig
-import uk.gov.hmrc.http.HeaderCarrier
-
-class FileUploadConnectorSpec extends ControllerSpec {
-
-  "Retrieving a file's metadata" must "return the filename and evidence type if a file has been uploaded" in {
-    val envelopeId: String = shortString
-    when(mockHttp.GET[JsValue](matching(s"http://localhost:8898/file-upload/envelopes/$envelopeId"))(any(), any[HeaderCarrier], any())).thenReturn(Future.successful(fileUploadedMetadata))
-
-    val data = await(testConnector.getFileMetadata(envelopeId)(HeaderCarrier()))
-    data mustBe FileMetadata(RatesBillFlag, Some(FileInfo("downloadfile.PDF", RatesBillType)))
-  }
-
-  it must "return no filename or evidence type if the user does not have evidence" in {
-    val envelopeId: String = shortString
-    when(mockHttp.GET[JsValue](matching(s"http://localhost:8898/file-upload/envelopes/$envelopeId"))(any(), any[HeaderCarrier], any())).thenReturn(Future.successful(noEvidenceMetadata))
-
-    val data = await(testConnector.getFileMetadata(envelopeId)(HeaderCarrier()))
-    data mustBe FileMetadata(NoEvidenceFlag, None)
-  }
-
-  it must "return no filename or evidence type if the user has not uploaded a file" in {
-    //FUaaS does not validate that the POST request actually contains a file
-    val envelopeId: String = shortString
-    when(mockHttp.GET[JsValue](matching(s"http://localhost:8898/file-upload/envelopes/$envelopeId"))(any(), any[HeaderCarrier], any())).thenReturn(Future.successful(noFileUploadedMetadata))
-
-    val data = await(testConnector.getFileMetadata(envelopeId)(HeaderCarrier()))
-    data mustBe FileMetadata(NoEvidenceFlag, None)
-  }
-
-  lazy val mockHttp = mock[WSHttp]
-
-  lazy val testConnector = new FileUploadConnector(StubServicesConfig, mockHttp)
-
-  lazy val fileUploadedMetadata = Json.parse {
-    """{
-      |    "id": "d1cb6432-8297-4d36-813b-cf076a8edc42",
-      |    "metadata": {
-      |        "submissionId": "PL1ZRPR2Z",
-      |        "personId": 374017877
-      |    },
-      |    "constraints": {
-      |        "maxItems": 100,
-      |        "maxSize": "10MB",
-      |        "maxSizePerItem": "10MB",
-      |        "contentTypes": [
-      |            "application/pdf",
-      |            "image/jpeg"
-      |        ]
-      |    },
-      |    "status": "OPEN",
-      |    "files": [
-      |        {
-      |            "id": "3d3e32e4-6c4b-443b-81ff-de096917ad58",
-      |            "status": "AVAILABLE",
-      |            "name": "downloadfile.PDF",
-      |            "contentType": "application/pdf",
-      |            "length": 81860,
-      |            "created": "2017-07-20T12:38:26Z",
-      |            "metadata": {
-      |                "evidenceType": [
-      |                    "ratesBill"
-      |                ],
-      |                "csrfToken": [
-      |                    "736833dddf16f037ca9ef9f64be6937f53051b37-1500554293452-02aa9be7ba3a77b348957416"
-      |                ]
-      |            },
-      |            "href": "/file-upload/envelopes/d1cb6432-8297-4d36-813b-cf076a8edc42/files/3d3e32e4-6c4b-443b-81ff-de096917ad58/content"
-      |        }
-      |    ]
-      |}""".stripMargin
-  }
-
-  lazy val noEvidenceMetadata = Json.parse {
-    """{
-      |    "id": "2318e360-15c3-4bf5-9fd6-65d0ad23361e",
-      |    "metadata": {
-      |        "submissionId": "PL1ZRPR3N",
-      |        "personId": 374017877
-      |    },
-      |    "constraints": {
-      |        "maxItems": 100,
-      |        "maxSize": "10MB",
-      |        "maxSizePerItem": "10MB",
-      |        "contentTypes": [
-      |            "application/pdf",
-      |            "image/jpeg"
-      |        ]
-      |    },
-      |    "status": "OPEN"
-      |}""".stripMargin
-  }
-
-  lazy val noFileUploadedMetadata = Json.parse {
-    """{
-      |    "id": "c41f93e2-1747-4674-8f2a-03f97ed6d0cd",
-      |    "metadata": {
-      |        "submissionId": "PL1ZRPR3W",
-      |        "personId": 374017877
-      |    },
-      |    "constraints": {
-      |        "maxItems": 100,
-      |        "maxSize": "10MB",
-      |        "maxSizePerItem": "10MB",
-      |        "contentTypes": [
-      |            "application/pdf",
-      |            "image/jpeg"
-      |        ]
-      |    },
-      |    "status": "OPEN",
-      |    "files": [
-      |        {
-      |            "id": "44375998-fb35-4a24-b9cf-babc90e0648e",
-      |            "status": "AVAILABLE",
-      |            "name": "",
-      |            "contentType": "application/octet-stream",
-      |            "length": 0,
-      |            "created": "2017-07-21T14:22:14Z",
-      |            "metadata": {
-      |                "evidenceType": [
-      |                    "ratesBill"
-      |                ],
-      |                "csrfToken": [
-      |                    "edd8b50b97e8cd029686516ea6ffd6c589a233ea-1500646927707-e258ec4620f5cdf7bcae0289"
-      |                ]
-      |            },
-      |            "href": "/file-upload/envelopes/c41f93e2-1747-4674-8f2a-03f97ed6d0cd/files/44375998-fb35-4a24-b9cf-babc90e0648e/content"
-      |        }
-      |    ]
-      |}""".stripMargin
-  }
-}
-J-test/connectors/FileUploadConnectorSpec.scala

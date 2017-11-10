@@ -1,1056 +1,0 @@
-
-άς7
-Ά»-_root_.controllers.PropertyLinkingController#O
-„—E_root_.controllers.propertyLinking.ClaimProperty.declareCapacityForm.+
-΅!_root_.form.ConditionalDateAfter.
-µΉ_root_.scala.Long#w
-Ϋκk_root_.controllers.propertyLinking.ClaimProperty#declareCapacity(JLjava/lang/String;)Lplay/api/mvc/Action;.y
-«³o_root_.play.api.mvc.Results#Redirect(Ljava/lang/String;Lscala/collection/immutable/Map;I)Lplay/api/mvc/Result;.¶
-΄Ε«_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.0
-ΗΧ&_root_.form.Mappings.mandatoryBoolean.-
-Òε#_root_.actions.AuthenticatedAction#H
->app/controllers/propertyLinking/ClaimProperty.scala@2358..2364=
-ό‰1_root_.controllers.propertyLinking.ClaimProperty.0
-€‡&_root_.models.LinkingSession#(address)R
-ΠεH_root_.controllers.propertyLinking.ClaimProperty#(submissionIdConnector)H
-υφ>app/controllers/propertyLinking/ClaimProperty.scala@3952..3953%
-μ
-ς
-_root_.javax.inject.Inject#
-θτ_root_.repositories.Α
-‘΄_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(request)"
-ΝΨ_root_.form.EnumMapping.w
-™m_root_.controllers.propertyLinking.ClaimProperty#attemptLink(JLjava/lang/String;)Lplay/api/mvc/Action;.(uarn)
-±µ_root_.play.J
-ηξ>app/controllers/propertyLinking/ClaimProperty.scala@2279..2286H
-‘>app/controllers/propertyLinking/ClaimProperty.scala@2771..2778
-­	°	_root_.uk.gov.E
-ω
-ÿ
-9_root_.controllers.propertyLinking.ClaimProperty#(config)J
-£>app/controllers/propertyLinking/ClaimProperty.scala@1948..1955$
-­±_root_.play.api.data.Form."
-²
-¶
-_root_.uk.gov.hmrc.http.J
-ςό>app/controllers/propertyLinking/ClaimProperty.scala@3186..3196,
-Φε"_root_.views.html.propertyLinking.P
-ζθF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
-ΙΠ_root_.actions.:
-ν	€
-0_root_.uk.gov.voa.play.form.ConditionalMappings.H
-ξς>app/controllers/propertyLinking/ClaimProperty.scala@2786..2857
-¤©_root_.javax.4
-™*_root_.session.LinkingSessionRequest#(ses)?
-άν5_root_.controllers.propertyLinking.DeclareCapacityVM.%
-Ωή_root_.play.api.data.Forms.
-ª°_root_.javax.inject.―
-²Ή¤_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.ƒ
-† ‹ y_root_.models.CapacityDeclaration.apply(Lmodels/CapacityType;ZLscala/Option;ZLscala/Option;)Lmodels/CapacityDeclaration;.J
-ƒ@_root_.controllers.propertyLinking.ClaimProperty#(authenticated)O
-ν€E_root_.controllers.propertyLinking.ClaimProperty.declareCapacityForm.Q
-΄µG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.]
-‘•S_root_.controllers.propertyLinking.ReverseChooseEvidence#show()Lplay/api/mvc/Call;.H
-‰>app/controllers/propertyLinking/ClaimProperty.scala@2771..2778&
-Χέ_root_.views.helpers.Errors.H
-‘’>app/controllers/propertyLinking/ClaimProperty.scala@3724..37258
-ΘΦ._root_.uk.gov.hmrc.play.config.ServicesConfig#|
-»Βp_root_.controllers.propertyLinking.ClaimProperty#attemptLink(JLjava/lang/String;)Lplay/api/mvc/Action;.(address)7
-ήξ-_root_.views.helpers.Errors.dateMustBeInPast.A
-Ή Κ 5_root_.controllers.propertyLinking.DeclareCapacityVM#7
-ϊ-_root_.views.helpers.Errors.dateMustBeInPast.$
-‘–_root_.javax.inject.Named#?
-ΏΓ5_root_.play.api.data.Form.;_root_.play.api.data.Form#
-­
-±
-_root_.uk.gov.hmrc.7
-©Β-_root_.controllers.PropertyLinkingController#&
-θ	μ	_root_.uk.gov.voa.play.form.P
-§©F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.Ύ
-δθ±_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(uarn)
-ªΊ‘_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfFalse(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.4
-όÿ*_root_.session.LinkingSessionRequest#(ses)ƒ
-ζιy_root_.connectors.SubmissionIdConnector#get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
-ΛΟ_root_.play.Έ
-°Α«_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.χ
-τ
-τ
-κ_root_.controllers.propertyLinking.ClaimProperty#`<init>`(Lconfig/ApplicationConfig;Lconnectors/EnvelopeConnector;Lactions/AuthenticatedAction;Lconnectors/SubmissionIdConnector;Lrepositories/SessionRepo;Lsession/WithLinkingSession;)V..
-ΙΪ$_root_.connectors.EnvelopeConnector#
-ΛΠ_root_.views.:
-ΖΞ0_root_.actions.AuthenticatedRequest#personId()J.
-§­_root_.config.?
-ΰρ5_root_.controllers.propertyLinking.DeclareCapacityVM.J
-πρ>app/controllers/propertyLinking/ClaimProperty.scala@3952..3953}
-λοq_root_.controllers.propertyLinking.ClaimProperty#declareCapacity(JLjava/lang/String;)Lplay/api/mvc/Action;.(uarn)J
-ζκ>app/controllers/propertyLinking/ClaimProperty.scala@2786..2857Y
-ϊώM_root_.controllers.propertyLinking.ClaimProperty#show()Lplay/api/mvc/Action;.z
-—p_root_.controllers.propertyLinking.ClaimProperty#attemptLink(JLjava/lang/String;)Lplay/api/mvc/Action;.(address)1
-ΏΕ'_root_.config.ApplicationConfig#vmvUrl.C
-ΈΎ9_root_.controllers.propertyLinking.ClaimProperty#(config)A
-²Έ7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#"
-¶	Ί	_root_.uk.gov.hmrc.play.
-„‡_root_.com.)
-²΄_root_.play.api.mvc.Results#Ok.†
-΅¨|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.Q
-—ªE_root_.controllers.propertyLinking.ClaimProperty.declareCapacityForm.,
-‹"_root_.session.WithLinkingSession#
-ΗΡ_root_.connectors.
-
-
-_root_.views.J
-¶Ό>app/controllers/propertyLinking/ClaimProperty.scala@2358..2364J
-Ϊ α >_root_.controllers.propertyLinking.DeclareCapacityVM#(address)@
-6_root_.java.time.LocalDate.now()Ljava/time/LocalDate;.Ό
-Ά±_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(uarn)
-’_root_.java.time.P
-ΚΜF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.Α
-πχ΄_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(address)<
-ζυ2_root_.views.html.propertyLinking.declareCapacity.2
-ψ(_root_.connectors.SubmissionIdConnector#J
-¨°>app/controllers/propertyLinking/ClaimProperty.scala@2472..2480J
-ΐΜ>app/controllers/propertyLinking/ClaimProperty.scala@3136..3148l
-ιςb_root_.play.api.data.Mapping#verifying(Lscala/Function0;Lscala/Function1;)Lplay/api/data/Mapping;.
-ΠΣ_root_.play.api.
-ª	¬	
-_root_.uk.
-©
-¬
-_root_.uk.gov.s
-£®g_root_.controllers.propertyLinking.ClaimProperty#attemptLink(JLjava/lang/String;)Lplay/api/mvc/Action;.O
-µΗE_root_.controllers.propertyLinking.ClaimProperty#(withLinkingSession)Γ
-ΠΫΈ_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(declaration),
-ΌΛ"_root_.views.html.propertyLinking..
-“§$_root_.actions.AuthenticatedRequest#Q
-–G_root_.com.google.inject.Singleton.;_root_.com.google.inject.Singleton#
-ρ υ _root_.scala.Long##
-ψώ_root_.views.html.errors.)
-»	Α	_root_.uk.gov.hmrc.play.config.|
-ίβr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.L
-ώ‹@_root_.controllers.propertyLinking.ClaimProperty#(authenticated)%
-ΔΚ_root_.scala.Predef.String#
-Ψ	Ϊ	
-_root_.uk.
-‰_root_.java.w
-ΠΤm_root_.controllers.propertyLinking.ClaimProperty#attemptLink(JLjava/lang/String;)Lplay/api/mvc/Action;.(uarn)T
-ΔΩH_root_.controllers.propertyLinking.ClaimProperty#(submissionIdConnector)N
-ήοD_root_.controllers.propertyLinking.ClaimProperty#(sessionRepository)@
-¦©6_root_.java.time.LocalDate.now()Ljava/time/LocalDate;.-
- #_root_.actions.AuthenticatedAction#z
-Φέp_root_.controllers.propertyLinking.ClaimProperty#attemptLink(JLjava/lang/String;)Lplay/api/mvc/Action;.(address)O
-ς…E_root_.controllers.propertyLinking.ClaimProperty.declareCapacityForm.2
-Ϋπ(_root_.connectors.SubmissionIdConnector#9
-Ϊμ/_root_.play.api.mvc.Results#ServiceUnavailable..
-ΓΓ$_root_.java.lang.Object#`<init>`()V.9
-Σθ/_root_.form.DateMappings#dmyDateAfterThreshold.;
-γπ1_root_.controllers.propertyLinking.ClaimProperty.
-ί	β	_root_.uk.gov.voa.J
-ΕΖ>app/controllers/propertyLinking/ClaimProperty.scala@4037..4038
-
-—
-_root_.views.helpers.t
-Κ Κ h_root_.controllers.propertyLinking.DeclareCapacityVM#`<init>`(Lplay/api/data/Form;Ljava/lang/String;J)V.l
-— b_root_.play.api.data.Mapping#verifying(Lscala/Function0;Lscala/Function1;)Lplay/api/data/Mapping;.
-ΘΠ_root_.form.Mappings.1
-ΐΚ'_root_.play.api.mvc.Results#BadRequest.4
-¨*_root_.models.LinkingSession#(declaration)Ώ
-ΐΗ΄_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(request)P
-µΖD_root_.controllers.propertyLinking.ClaimProperty#(sessionRepository)_
-ª®U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.Q
-χ‰E_root_.controllers.propertyLinking.ClaimProperty#(withLinkingSession),
-Οβ"_root_.models.CapacityDeclaration#
-		_root_.session.:
-ΘΠ0_root_.actions.AuthenticatedRequest#personId()J.1
-ς
-ς
-'_root_.javax.inject.Inject#`<init>`()V.
-κξ_root_.scala.Long#%
-γ ι _root_.scala.Predef.String#
-µΊ_root_.views.
-Ϊή_root_.form.!
-γ	η	_root_.uk.gov.voa.play.B
-¨Γ8_root_.views.helpers.Errors.dateMustBeAfter1stApril2017.K
-®ΏA_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#Y
-®²M_root_.controllers.propertyLinking.ClaimProperty#back()Lplay/api/mvc/Action;.–
-’ ‹_root_.connectors.EnvelopeConnector#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
-»Ώ_root_.views.html.M
-ΰτC_root_.form.ConditionalDateAfter.;_root_.form.ConditionalDateAfter#'
-†”_root_.models.LinkingSession.~
-‡t_root_.controllers.propertyLinking.ClaimProperty#declareCapacity(JLjava/lang/String;)Lplay/api/mvc/Action;.(address)`
-§V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.*
-ΘΣ _root_.repositories.SessionRepo#
-επ_root_.controllers.<
-Πί2_root_.views.html.propertyLinking.declareCapacity.6
-ÿ‘,_root_.views.html.errors.serviceUnavailable.J
->app/controllers/propertyLinking/ClaimProperty.scala@3724..3725"
-φ_root_.form.EnumMapping.
-·»_root_.views.html.A
-“7_root_.java.time.LocalDate.;_root_.java.time.LocalDate#S
-“›I_root_.java.time.LocalDate#isBefore(Ljava/time/chrono/ChronoLocalDate;)Z.6
-ΈΛ,_root_.uk.gov.hmrc.http.Upstream5xxResponse.#
-•_root_.com.google.inject.y
-―³m_root_.controllers.propertyLinking.ClaimProperty#attemptLink(JLjava/lang/String;)Lplay/api/mvc/Action;.(uarn)%
-€‰_root_.java.time.LocalDate.,
-   "_root_.models.CapacityDeclaration.-
-Ν
-Φ
-#_root_.com.google.inject.Singleton#l
-ΝΦb_root_.play.api.data.Mapping#verifying(Lscala/Function0;Lscala/Function1;)Lplay/api/data/Mapping;.,
-ς… "_root_.models.CapacityDeclaration.J
-£ª>app/controllers/propertyLinking/ClaimProperty.scala@2083..2090c
-·
-Κ
-Y_root_.uk.gov.hmrc.http.Upstream5xxResponse.;_root_.uk.gov.hmrc.http.Upstream5xxResponse#%
-ωÿ_root_.scala.Predef.String#R
-ΜΣH_root_.java.time.LocalDate#isAfter(Ljava/time/chrono/ChronoLocalDate;)Z.J
-ΞΫ@_root_.controllers.propertyLinking.ClaimProperty#(authenticated)9
-Φ
-Φ
-/_root_.com.google.inject.Singleton#`<init>`()V.*
-υ€	 _root_.repositories.SessionRepo#P
-ΔΖF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
-¶Ή_root_.play.api.
-ΡΥ_root_.views.html.H
-²Ύ>app/controllers/propertyLinking/ClaimProperty.scala@3136..3148J
-ΣΪ>app/controllers/propertyLinking/ClaimProperty.scala@2771..2778
-νς_root_.views.Ώ
-ΎΕ΄_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(request){
-”q_root_.controllers.propertyLinking.ClaimProperty#declareCapacity(JLjava/lang/String;)Lplay/api/mvc/Action;.(uarn)$
-Ρ Υ _root_.play.api.data.Form#
-±	µ	_root_.uk.gov.hmrc.
-–΅_root_.controllers..
-Σδ$_root_.connectors.EnvelopeConnector#
-_root_.models.&
-σω_root_.views.helpers.Errors..
-ηϋ$_root_.actions.AuthenticatedRequest#
-ρυ_root_.scala.Long#
-ιω‘_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfFalse(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.=
-έ
-κ
-1_root_.controllers.propertyLinking.ClaimProperty#€
-χώt_root_.controllers.propertyLinking.ClaimProperty#declareCapacity(JLjava/lang/String;)Lplay/api/mvc/Action;.(address)P
-¶ΗD_root_.controllers.propertyLinking.ClaimProperty#(envelopeConnector)
-_root_.com.google.Q
-ζφG_root_.connectors.EnvelopeMetadata.;_root_.connectors.EnvelopeMetadata#0
-†–&_root_.form.Mappings.mandatoryBoolean.%
-Ωε_root_.models.CapacityType.
-ΤΨ_root_.play.api.data.4
-ϋ*_root_.controllers.propertyLinking.routes.)
-®°_root_.play.api.mvc.Results#Ok.,
-ΐΟ"_root_.views.html.propertyLinking.
-ΊΎ_root_.play.api.data.
-¦
-¨
-
-_root_.uk.Y
-ςϊO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.`
-΅ ¨ V_root_.models.CapacityDeclaration.unapply(Lmodels/CapacityDeclaration;)Lscala/Option;.%
-¥_root_.java.time.LocalDate.™
-πυ_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.N
-€‘D_root_.controllers.propertyLinking.ClaimProperty#(envelopeConnector)
-ΓΗ_root_.form.H
-τϋ>app/controllers/propertyLinking/ClaimProperty.scala@2771..2778-
-•™#_root_.models.LinkingSession#(uarn)-
-΅±#_root_.connectors.EnvelopeMetadata.,
-	Ά	"_root_.session.WithLinkingSession#'
-φ„_root_.models.LinkingSession#<
-ΜΫ2_root_.views.html.propertyLinking.declareCapacity.P
-ƒ…F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
-±¶_root_.views.4
-‘”*_root_.session.LinkingSessionRequest#(ses)B
-ήΰ8_root_.java.time.LocalDate.of(III)Ljava/time/LocalDate;.*
-’ _root_.config.ApplicationConfig#\
-R_root_.play.api.data.Form#fillAndValidate(Ljava/lang/Object;)Lplay/api/data/Form;.Ε
-ΒΝΈ_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(declaration)?
-ΊΏ5_root_.javax.inject.Named.;_root_.javax.inject.Named#%
-Τέ_root_.java.time.LocalDate.&
-΅§_root_.views.helpers.Errors.J
-—@_root_.controllers.propertyLinking.ClaimProperty#(authenticated)G
-Λ Ο ;_root_.controllers.propertyLinking.DeclareCapacityVM#(form)%
-€†_root_.scala.Predef.String#Ώ
-•΄_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(address)0
-––&_root_.javax.inject.Named#`<init>`()V.O
-’¥E_root_.models.CapacityDeclaration.;_root_.models.CapacityDeclaration#H
-ΖΞ>app/controllers/propertyLinking/ClaimProperty.scala@2472..2480H
-¤®>app/controllers/propertyLinking/ClaimProperty.scala@3186..3196
-σχ_root_.views.html.?
-φ‡5_root_.controllers.propertyLinking.DeclareCapacityVM.H
-ΚΛ>app/controllers/propertyLinking/ClaimProperty.scala@4037..4038S
-χÿI_root_.java.time.LocalDate#isBefore(Ljava/time/chrono/ChronoLocalDate;)Z.H
-°Ό>app/controllers/propertyLinking/ClaimProperty.scala@3136..3148&
-
-
-_root_.views.helpers.Errors.G
-λ ο ;_root_.controllers.propertyLinking.DeclareCapacityVM#(uarn)
-Ϋ	ή	_root_.uk.gov.-
-ρ€#_root_.controllers.propertyLinking.;
-φƒ1_root_.controllers.propertyLinking.ClaimProperty.8
-Β	Π	._root_.uk.gov.hmrc.play.config.ServicesConfig#C
-‚9_root_.controllers.propertyLinking.routes.ChooseEvidence."ª
-/_root_.form.DateMappings#dmyDateAfterThreshold.wdmyDateAfterThresholdMapping[LocalDate]"#
-_root_.play.api.data.Mapping#"#
-_root_.java.time.LocalDate#"Ρ
-e_root_.session.WithLinkingSession#`<init>`(Lactions/AuthenticatedAction;Lrepositories/SessionRepo;)V.η<init>X(authenticated: AuthenticatedAction, sessionRepository: SessionRepo): WithLinkingSession"+
-##_root_.actions.AuthenticatedAction#"(
-8C _root_.repositories.SessionRepo#"*
-FX"_root_.session.WithLinkingSession#"Ώ
-o_root_.play.api.mvc.Results#Redirect(Ljava/lang/String;Lscala/collection/immutable/Map;I)Lplay/api/mvc/Result;.ΛRedirectI(url: String, queryString: Map[String, Seq[String]], status: Int): Result"#
-_root_.scala.Predef.String#" 
-_root_.scala.Predef.Map#"#
-%_root_.scala.Predef.String#"!
-'*_root_.scala.package.Seq#"#
-+1_root_.scala.Predef.String#"
-=@_root_.scala.Int#"#
-CI_root_.play.api.mvc.Result#"ΐ
-b_root_.play.api.data.Mapping#verifying(Lscala/Function0;Lscala/Function1;)Lplay/api/data/Mapping;.Ω	verifyingH(error: <byname>[String], constraint: Function1[T, Boolean]): Mapping[T]" 
-_root_.scala.`<byname>`#"#
-_root_.scala.Predef.String#"
-&/_root_.scala.Function1#"(
-01 _root_.play.api.data.Mapping#[T]"
-3:_root_.scala.Boolean#"%
->E_root_.play.api.data.Mapping#"(
-FG _root_.play.api.data.Mapping#[T]"c
-$_root_.java.lang.Object#`<init>`()V.;€€<init>
-(): Object" 
-
-_root_.java.lang.Object#"_
-;_root_.controllers.propertyLinking.DeclareCapacityVM#(form) formplay.api.data.Form[_]"=
-#_root_.connectors.EnvelopeMetadata.€„EnvelopeMetadata"Ε
-k_root_.controllers.propertyLinking.ClaimProperty#declareCapacity(JLjava/lang/String;)Lplay/api/mvc/Action;.ΥdeclareCapacity1(uarn: Long, address: String): Action[AnyContent]"
-_root_.scala.Long#"#
-_root_.scala.Predef.String#"#
-%_root_.play.api.mvc.Action#"'
-&0_root_.play.api.mvc.AnyContent#"*
-_root_.com.google.inject.€€inject"
-_root_.com.
-€€com"Ε
-_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.±„€startJ[A] => (data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]"
-‘_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]")
-%!_root_.play.api.libs.json.Writes#"
-&'‘_root_.repositories.SessionRepo#start(Ljava/lang/Object;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[A]".
-.;&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
->D_root_.scala.concurrent.Future#"
-EI_root_.scala.Unit#"
->app/controllers/propertyLinking/ClaimProperty.scala@2472..2480L€formDataCapacityDeclaration"(
-"_root_.models.CapacityDeclaration#"
-_root_.play.api.data.Form#`<init>`(Lplay/api/data/Mapping;Lscala/collection/immutable/Map;Lscala/collection/Seq;Lscala/Option;)V.…<init>c(mapping: Mapping[T], data: Map[String, String], errors: Seq[FormError], value: Option[T]): Form[T]"%
-
-_root_.play.api.data.Mapping#"%
-_root_.play.api.data.Form#[T]" 
-_root_.scala.Predef.Map#"#
- &_root_.scala.Predef.String#"#
-(._root_.scala.Predef.String#"!
-9<_root_.scala.package.Seq#"'
-=F_root_.play.api.data.FormError#"
-PV_root_.scala.Option#"%
-WX_root_.play.api.data.Form#[T]""
-\`_root_.play.api.data.Form#"%
-ab_root_.play.api.data.Form#[T]"
-D_root_.controllers.propertyLinking.ClaimProperty#(envelopeConnector)UenvelopeConnectorEnvelopeConnector"*
-$_root_.connectors.EnvelopeConnector#"4
- _root_.repositories.SessionRepo#€@SessionRepo"Γ
-y_root_.models.CapacityDeclaration.apply(Lmodels/CapacityType;ZLscala/Option;ZLscala/Option;)Lmodels/CapacityDeclaration;.Ε„€€apply(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate], stillInterested: Boolean, toDate: Option[LocalDate]): CapacityDeclaration"#
-_root_.models.CapacityType#"
-/6_root_.scala.Boolean#"
-BH_root_.scala.Option#"#
-IR_root_.java.time.LocalDate#"
-fm_root_.scala.Boolean#"
-w}_root_.scala.Option#"$
-~‡_root_.java.time.LocalDate#",
-‹"_root_.models.CapacityDeclaration#" 
-_root_.scala.Long#
-€ Long"\
-_root_.play.api.mvc.Results#Ok.9OkStatus")
-#_root_.play.api.mvc.Results#Status#"Ώ
-M_root_.controllers.propertyLinking.ClaimProperty#show()Lplay/api/mvc/Action;.nshow(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"a
-&_root_.models.LinkingSession#(address)7addressString"!
-_root_.scala.Predef.String#"'
-_root_.connectors.€€
-connectors"|
->app/controllers/propertyLinking/ClaimProperty.scala@3186..3196:€
-envelopeIdString"!
-_root_.scala.Predef.String#"ψ"
-¤_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.Ξ!mapping°[R, A1, A2, A3, A4, A5] => (a1: Tuple2[String, Mapping[A1]], a2: Tuple2[String, Mapping[A2]], a3: Tuple2[String, Mapping[A3]], a4: Tuple2[String, Mapping[A4]], a5: Tuple2[String, Mapping[A5]])(apply: Function5[A1, A2, A3, A4, A5, R])(unapply: Function1[R, Option[Tuple5[A1, A2, A3, A4, A5]]]): Mapping[R]"
- &_root_.scala.Tuple2#"#
-'-_root_.scala.Predef.String#"%
-/6_root_.play.api.data.Mapping#"±
-79¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"
-AG_root_.scala.Tuple2#"#
-HN_root_.scala.Predef.String#"%
-PW_root_.play.api.data.Mapping#"±
-XZ¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"
-bh_root_.scala.Tuple2#"#
-io_root_.scala.Predef.String#"%
-qx_root_.play.api.data.Mapping#"±
-y{¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"
-ƒ‰_root_.scala.Tuple2#"%
-_root_.scala.Predef.String#"'
-’™_root_.play.api.data.Mapping#"³
-¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A4]"
-¤ª_root_.scala.Tuple2#"%
-«±_root_.scala.Predef.String#"'
-³Ί_root_.play.api.data.Mapping#"³
-»½¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A5]"!
-ΘΡ_root_.scala.Function5#"³
-ÒΤ¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"³
-ΦΨ¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"³
-Ϊά¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"³
-ήΰ¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A4]"³
-βδ¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A5]"²
-ζη§_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"!
-σό_root_.scala.Function1#"²
-ύώ§_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"
-€†_root_.scala.Option#"
-‡_root_.scala.Tuple5#"³
-¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"³
-’”¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"³
-–¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"³
-¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A4]"³
- ¨_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[A5]"'
-¦­_root_.play.api.data.Mapping#"²
-®―§_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function5;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"Q
-5_root_.controllers.propertyLinking.DeclareCapacityVM#€ €DeclareCapacityVM"P
-5_root_.controllers.propertyLinking.DeclareCapacityVM.€„DeclareCapacityVM"«
-p_root_.controllers.propertyLinking.ClaimProperty#attemptLink(JLjava/lang/String;)Lplay/api/mvc/Action;.(address)7€addressString"!
-_root_.scala.Predef.String#"Ι
->app/controllers/propertyLinking/ClaimProperty.scala@2771..2778†€ request!LinkingSessionRequest[AnyContent]"+
-%_root_.session.LinkingSessionRequest#"'
- _root_.play.api.mvc.AnyContent#"½
-g_root_.controllers.propertyLinking.ClaimProperty#attemptLink(JLjava/lang/String;)Lplay/api/mvc/Action;.ΡattemptLink1(uarn: Long, address: String): Action[AnyContent]"
-_root_.scala.Long#"#
-_root_.scala.Predef.String#"#
-%_root_.play.api.mvc.Action#"'
-&0_root_.play.api.mvc.AnyContent#"ƒ
-9_root_.controllers.propertyLinking.ClaimProperty#(config)FconfigApplicationConfig"&
- _root_.config.ApplicationConfig#"
-_root_.java.€€java"$
-_root_.play.api.data.€€data"'
-_root_.uk.gov.hmrc.http.€€http"
-_root_.form.€€form"G
-1_root_.controllers.propertyLinking.ClaimProperty#€ ClaimProperty"H
-1_root_.controllers.propertyLinking.ClaimProperty.€„ClaimProperty"E
-._root_.uk.gov.hmrc.play.config.ServicesConfig#€@ServicesConfig"
-_root_.javax.€€javax"h
-;_root_.controllers.propertyLinking.DeclareCapacityVM#(uarn))uarnLong"
-_root_.scala.Long#"
-Έ_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(declaration)O€declarationCapacityDeclaration"(
-"_root_.models.CapacityDeclaration#"
-‘_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfFalse(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.…mandatoryIfFalse[[T] => (fieldName: String, mapping: Mapping[T], prefix: Option[String]): Mapping[Option[T]]"#
-_root_.scala.Predef.String#"%
-$+_root_.play.api.data.Mapping#"
-,-”_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfFalse(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.[T]"
-8>_root_.scala.Option#"#
-?E_root_.scala.Predef.String#"%
-IP_root_.play.api.data.Mapping#"
-QW_root_.scala.Option#"
-XY”_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfFalse(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.[T]"
-q_root_.controllers.propertyLinking.ClaimProperty#declareCapacity(JLjava/lang/String;)Lplay/api/mvc/Action;.(uarn))€uarnLong"
-_root_.scala.Long#"η
-8_root_.java.time.LocalDate.of(III)Ljava/time/LocalDate;.ª„€€of)(x$1: Int, x$2: Int, x$3: Int): LocalDate"
-	_root_.scala.Int#"
-_root_.scala.Int#"
-_root_.scala.Int#"#
- )_root_.java.time.LocalDate#"
-_root_.play.api.
-€€api"Ρ
->app/controllers/propertyLinking/ClaimProperty.scala@2083..2090€ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"=
-#_root_.controllers.propertyLinking.€€propertyLinking"F
-(_root_.connectors.SubmissionIdConnector#€ SubmissionIdConnector"l
-'_root_.play.api.mvc.Results#BadRequest.A
-BadRequestStatus")
-#_root_.play.api.mvc.Results#Status#"”
-&_root_.form.Mappings.mandatoryBoolean.jmandatoryBooleanMapping[Boolean]"#
-_root_.play.api.data.Mapping#"
-_root_.scala.Boolean#"1
-_root_.models.CapacityType.€„CapacityType"³
->app/controllers/propertyLinking/ClaimProperty.scala@2786..2857qformForm[CapacityDeclaration]" 
-_root_.play.api.data.Form#"*
-"_root_.models.CapacityDeclaration#"ζ
-y_root_.connectors.SubmissionIdConnector#get(Ljava/lang/String;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.θget<(prefix: String)(implicit hc: HeaderCarrier): Future[String]"#
-	_root_.scala.Predef.String#".
-+&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-.4_root_.scala.concurrent.Future#"#
-5;_root_.scala.Predef.String#"
-E_root_.controllers.propertyLinking.ClaimProperty#(withLinkingSession)UwithLinkingSessionWithLinkingSession"(
-"_root_.session.WithLinkingSession#"
-m_root_.controllers.propertyLinking.ClaimProperty#attemptLink(JLjava/lang/String;)Lplay/api/mvc/Action;.(uarn))€uarnLong"
-_root_.scala.Long#"/
-_root_.java.time.LocalDate.€„	LocalDate"!
-_root_.views.html.€€html"v
->app/controllers/propertyLinking/ClaimProperty.scala@4037..40384€d	LocalDate"!
-	_root_.java.time.LocalDate#",
-_root_.javax.inject.Inject#€ €Inject"¨
-|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.§recoverZ[U] => (pf: PartialFunction[Throwable, U])(implicit executor: ExecutionContext): Future[U]"%
-_root_.scala.PartialFunction#"'
-%_root_.scala.package.Throwable#"‡
-'(_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]"1
->N)_root_.scala.concurrent.ExecutionContext#"'
-QW_root_.scala.concurrent.Future#"‡
-XY_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]"+
-_root_.repositories.€€repositories"K
-2_root_.views.html.propertyLinking.declareCapacity.€„declareCapacity"Ζ
-h_root_.controllers.propertyLinking.DeclareCapacityVM#`<init>`(Lplay/api/data/Form;Ljava/lang/String;J)V.Ω<init>M(form: play.api.data.Form[_], address: String, uarn: Long): DeclareCapacityVM"#
-'-_root_.scala.Predef.String#"
-59_root_.scala.Long#"=
-<M5_root_.controllers.propertyLinking.DeclareCapacityVM#"'
-_root_.views.helpers.€€helpers"ί
-±_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(uarn))€uarnLong"
-_root_.scala.Long#"v
->app/controllers/propertyLinking/ClaimProperty.scala@3724..37254€d	LocalDate"!
-	_root_.java.time.LocalDate#"Ο
-I_root_.java.time.LocalDate#isBefore(Ljava/time/chrono/ChronoLocalDate;)Z.„€€isBefore(x$1: ChronoLocalDate): Boolean"0
-(_root_.java.time.chrono.ChronoLocalDate#"
-_root_.scala.Boolean#"
-S_root_.controllers.propertyLinking.ReverseChooseEvidence#show()Lplay/api/mvc/Call;.5show(): Call"!
-_root_.play.api.mvc.Call#"*
-_root_.views.html.errors.€€errors"½
-O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
-_root_.play.api.mvc.Call#"#
-_root_.play.api.mvc.Result#"
-
-_root_.uk.	€€uk"?
-#_root_.actions.AuthenticatedAction#€ AuthenticatedAction"%
-_root_.javax.inject.€€inject"#
-_root_.com.google.€€google"Μ
-E_root_.controllers.propertyLinking.ClaimProperty.declareCapacityForm.‚€@declareCapacityFormForm[CapacityDeclaration]" 
-_root_.play.api.data.Form#"*
-"_root_.models.CapacityDeclaration#"}
-*_root_.models.LinkingSession#(declaration)OdeclarationCapacityDeclaration"(
-"_root_.models.CapacityDeclaration#"H
-,_root_.views.html.errors.serviceUnavailable.€„serviceUnavailable"
-_root_.uk.gov.
-€€gov"|
-/_root_.com.google.inject.Singleton#`<init>`()V.I€€<init>(): Singleton"+
-#_root_.com.google.inject.Singleton#"k
-*_root_.session.LinkingSessionRequest#(ses)=sesLinkingSession"#
-_root_.models.LinkingSession#"+
-_root_.uk.gov.voa.play.form.€€form"Ν
-H_root_.java.time.LocalDate#isAfter(Ljava/time/chrono/ChronoLocalDate;)Z.€„€€isAfter(x$1: ChronoLocalDate): Boolean"0
-(_root_.java.time.chrono.ChronoLocalDate#"
-_root_.scala.Boolean#"ή
-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.“->[B] => (y: B): Tuple2[A, B]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
-_root_.scala.Tuple2#"*
-"_root_.scala.Predef.ArrowAssoc#[A]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"I
-,_root_.uk.gov.hmrc.http.Upstream5xxResponse.€„Upstream5xxResponse"i
-'_root_.javax.inject.Inject#`<init>`()V.>€€<init>
-(): Inject"#
-
-_root_.javax.inject.Inject#",
-_root_.views.helpers.Errors.€„Errors"ρ
-R_root_.play.api.data.Form#fillAndValidate(Ljava/lang/Object;)Lplay/api/data/Form;.fillAndValidate(value: T): Form[T]"%
-	_root_.play.api.data.Form#[T]""
-_root_.play.api.data.Form#"%
-_root_.play.api.data.Form#[T]"M
-0_root_.uk.gov.voa.play.form.ConditionalMappings.€„ConditionalMappings":
- _root_.config.ApplicationConfig#€ ApplicationConfig")
-_root_.play.api.data.Form#€ €Form"(
-_root_.play.api.data.Form.
-€„Form"x
-6_root_.java.time.LocalDate.now()Ljava/time/LocalDate;.>„€€now(): LocalDate"#
-_root_.java.time.LocalDate#"ρ
-V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.–bindFromRequest6()(implicit request: play.api.mvc.Request[_]): Form[T]""
-/3_root_.play.api.data.Form#"%
-45_root_.play.api.data.Form#[T]"<
-"_root_.views.html.propertyLinking.€€propertyLinking"?
-!_root_.form.ConditionalDateAfter.€„ConditionalDateAfter"`
-0_root_.actions.AuthenticatedRequest#personId()J.,personIdLong"
-_root_.scala.Long#"¬
-V_root_.models.CapacityDeclaration.unapply(Lmodels/CapacityDeclaration;)Lscala/Option;.Ρ„€€unapplyp(x$0: CapacityDeclaration): Option[Tuple5[CapacityType, Boolean, Option[LocalDate], Boolean, Option[LocalDate]]]"*
-"_root_.models.CapacityDeclaration#"
-"_root_.scala.Option#"
-#)_root_.scala.Tuple5#"#
-*6_root_.models.CapacityType#"
-8?_root_.scala.Boolean#"
-AG_root_.scala.Option#"#
-HQ_root_.java.time.LocalDate#"
-T[_root_.scala.Boolean#"
-]c_root_.scala.Option#"#
-dm_root_.java.time.LocalDate#"~
->app/controllers/propertyLinking/ClaimProperty.scala@3136..3148<€submissionIdString"!
-_root_.scala.Predef.String#">
-$_root_.connectors.EnvelopeConnector#€ EnvelopeConnector"
-_root_.play.€€play"Ζ
-•_root_.connectors.SubmissionIdConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.«<init>\(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): SubmissionIdConnector"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"1
-4D)_root_.scala.concurrent.ExecutionContext#"0
-G\(_root_.connectors.SubmissionIdConnector#"f
-&_root_.javax.inject.Named#`<init>`()V.<€€<init>	(): Named""
-	_root_.javax.inject.Named#" 
-_root_.uk.gov.voa.
-€€voa"“
-D_root_.controllers.propertyLinking.ClaimProperty#(sessionRepository)KsessionRepositorySessionRepo"&
- _root_.repositories.SessionRepo#"?
-"_root_.models.CapacityDeclaration.€„CapacityDeclaration"@
-"_root_.models.CapacityDeclaration#€ €CapacityDeclaration"0
-_root_.uk.gov.hmrc.play.config.€€config"'
-_root_.form.Mappings.€„Mappings"P
-#_root_.models.LinkingSession#(uarn))uarnLong"
-_root_.scala.Long#"v
->app/controllers/propertyLinking/ClaimProperty.scala@3952..39534€d	LocalDate"!
-	_root_.java.time.LocalDate#"Ρ
->app/controllers/propertyLinking/ClaimProperty.scala@1948..1955€ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"
-_root_.models.€€models"Φ
-G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.s(args: <repeated>[Any]): String""
-_root_.scala.`<repeated>`#"
-_root_.scala.Any#"#
-_root_.scala.Predef.String#"π
-΄_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(address)7€addressString"!
-_root_.scala.Predef.String#"7
-#_root_.com.google.inject.Singleton#€ €	Singleton"¶
-κ_root_.controllers.propertyLinking.ClaimProperty#`<init>`(Lconfig/ApplicationConfig;Lconnectors/EnvelopeConnector;Lactions/AuthenticatedAction;Lconnectors/SubmissionIdConnector;Lrepositories/SessionRepo;Lsession/WithLinkingSession;)V.Ζ<init>κ(config: ApplicationConfig, envelopeConnector: EnvelopeConnector, authenticated: AuthenticatedAction, submissionIdConnector: SubmissionIdConnector, sessionRepository: SessionRepo, withLinkingSession: WithLinkingSession): ClaimProperty"(
-	 _root_.config.ApplicationConfig#",
-/@$_root_.connectors.EnvelopeConnector#"+
-Qd#_root_.actions.AuthenticatedAction#"1
-}’(_root_.connectors.SubmissionIdConnector#"*
-§² _root_.repositories.SessionRepo#",
-ΘΪ"_root_.session.WithLinkingSession#";
-έκ1_root_.controllers.propertyLinking.ClaimProperty#"O
--_root_.controllers.PropertyLinkingController#€@PropertyLinkingController"–
-@_root_.controllers.propertyLinking.ClaimProperty#(authenticated)RauthenticatedAuthenticatedAction")
-#_root_.actions.AuthenticatedAction#"!
-_root_.actions.€€actions"ύ
-«_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.Μ„€initialiseSession€(declaration: CapacityDeclaration, uarn: Long, address: String)(implicit request: actions.AuthenticatedRequest[_]): Future[Unit]"*
-!"_root_.models.CapacityDeclaration#"
-)-_root_.scala.Long#"#
-8>_root_.scala.Predef.String#"'
-tz_root_.scala.concurrent.Future#"
-{_root_.scala.Unit#"R
-_root_.scala.Long#`<init>`()V.0<init>(): Long"
-_root_.scala.Long#"©
-a_root_.models.CapacityDeclaration#`<init>`(Lmodels/CapacityType;ZLscala/Option;ZLscala/Option;)V.Γ<init>(capacity: CapacityType, interestedBefore2017: Boolean, fromDate: Option[LocalDate], stillInterested: Boolean, toDate: Option[LocalDate]): CapacityDeclaration"#
-_root_.models.CapacityType#"
-/6_root_.scala.Boolean#"
-BH_root_.scala.Option#"#
-IR_root_.java.time.LocalDate#"
-fm_root_.scala.Boolean#"
-w}_root_.scala.Option#"$
-~‡_root_.java.time.LocalDate#",
-‹"_root_.models.CapacityDeclaration#" 
-_root_.java.time.€€time")
-_root_.controllers.€€controllers"m
--_root_.views.helpers.Errors.dateMustBeInPast.<dateMustBeInPastString"
-_root_.java.lang.String#"
-_root_.views.€€views"Κ
-l_root_.config.ApplicationConfig#`<init>`(Lplay/api/Configuration;Luk/gov/hmrc/play/config/inject/RunMode;)V.Ω<init>C(configuration: Configuration, runMode: RunMode): ApplicationConfig"&
-_root_.play.api.Configuration#"6
-(/._root_.uk.gov.hmrc.play.config.inject.RunMode#"(
-2C _root_.config.ApplicationConfig#"=
-"_root_.session.WithLinkingSession#€ WithLinkingSession"-
-_root_.form.EnumMapping.€„EnumMapping"
-_root_.config.€€config"ª
-9_root_.controllers.propertyLinking.routes.ChooseEvidence.m€ChooseEvidenceReverseChooseEvidence"?
-9_root_.controllers.propertyLinking.ReverseChooseEvidence#"ƒ
-8_root_.views.helpers.Errors.dateMustBeAfter1stApril2017.GdateMustBeAfter1stApril2017String"
-_root_.java.lang.String#"y
->_root_.controllers.propertyLinking.DeclareCapacityVM#(address)7addressString"!
-_root_.scala.Predef.String#"―
-t_root_.controllers.propertyLinking.ClaimProperty#declareCapacity(JLjava/lang/String;)Lplay/api/mvc/Action;.(address)7€addressString"!
-_root_.scala.Predef.String#"&
-_root_.uk.gov.voa.play.€€play"Ρ
->app/controllers/propertyLinking/ClaimProperty.scala@2279..2286€ request%BasicAuthenticatedRequest[AnyContent]"/
-)_root_.actions.BasicAuthenticatedRequest#"'
-$_root_.play.api.mvc.AnyContent#"*
-_root_.javax.inject.Named#€ €Named"ς
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ϋmapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"}
-u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-/?)_root_.scala.concurrent.ExecutionContext#"'
-BH_root_.scala.concurrent.Future#"}
-IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"η
-΄_root_.controllers.propertyLinking.ClaimProperty#initialiseSession(Lmodels/CapacityDeclaration;JLjava/lang/String;Lactions/AuthenticatedRequest;)Lscala/concurrent/Future;.(request).€ requestactions.AuthenticatedRequest[_]"!
-_root_.session.€€session"¶
->app/controllers/propertyLinking/ClaimProperty.scala@2358..2364t€errorsForm[CapacityDeclaration]" 
-_root_.play.api.data.Form#"*
-"_root_.models.CapacityDeclaration#"½
-’_root_.connectors.EnvelopeConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/VPLHttp;Lscala/concurrent/ExecutionContext;)V.¥<init>Y(config: ServicesConfig, http: VPLHttp)(implicit ec: ExecutionContext): EnvelopeConnector"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-&_root_.config.VPLHttp#"1
-5E)_root_.scala.concurrent.ExecutionContext#",
-HY$_root_.connectors.EnvelopeConnector#"|
-/_root_.play.api.mvc.Results#ServiceUnavailable.IServiceUnavailableStatus")
-#_root_.play.api.mvc.Results#Status#"“
-}_root_.models.LinkingSession#`<init>`(Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;JLmodels/CapacityDeclaration;)V.‘<init>‰(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long, declaration: CapacityDeclaration): LinkingSession"#
-
-_root_.scala.Predef.String#"
-_root_.scala.Long#"#
-*0_root_.scala.Predef.String#"#
-@F_root_.scala.Predef.String#"
-RV_root_.scala.Long#"*
-ex"_root_.models.CapacityDeclaration#"&
-{‰_root_.models.LinkingSession#"*
-_root_.play.api.data.Forms.€„Forms""
-_root_.uk.gov.hmrc.€€hmrc"B
-$_root_.actions.AuthenticatedRequest#€ΐAuthenticatedRequest"`
-'_root_.config.ApplicationConfig#vmvUrl.5vmvUrlString"!
-_root_.scala.Predef.String#"'
-_root_.uk.gov.hmrc.play.€€play"5
-_root_.models.LinkingSession.€„LinkingSession"6
-_root_.models.LinkingSession#€ €LinkingSession"Ή
-M_root_.controllers.propertyLinking.ClaimProperty#back()Lplay/api/mvc/Action;.hbackAction[AnyContent]"!
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"­
-H_root_.controllers.propertyLinking.ClaimProperty#(submissionIdConnector)asubmissionIdConnectorSubmissionIdConnector".
-(_root_.connectors.SubmissionIdConnector#";
-*_root_.controllers.propertyLinking.routes.€„routes"
-‹_root_.connectors.EnvelopeConnector#createEnvelope(Lconnectors/EnvelopeMetadata;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.‡createEnvelopeH(metadata: EnvelopeMetadata)(implicit hc: HeaderCarrier): Future[String]"+
-#_root_.connectors.EnvelopeMetadata#".
-*7&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-:@_root_.scala.concurrent.Future#"#
-AG_root_.scala.Predef.String#"
-v_root_.actions.AuthenticatedAction#`<init>`(Lauth/GovernmentGatewayProvider;Lconnectors/BusinessRatesAuthorisation;)V.’<init>r(provider: GovernmentGatewayProvider, businessRatesAuthorisation: BusinessRatesAuthorisation): AuthenticatedAction".
-$&_root_.auth.GovernmentGatewayProvider#"5
-B\-_root_.connectors.BusinessRatesAuthorisation#"+
-_r#_root_.actions.AuthenticatedAction#"„
-U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.ªfoldF[R] => (hasErrors: Function1[Form[T], R], success: Function1[T, R]): R"
-_root_.scala.Function1#""
-!_root_.play.api.data.Form#"%
-"#_root_.play.api.data.Form#[T]"`
-&'X_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"
-3<_root_.scala.Function1#"%
-=>_root_.play.api.data.Form#[T]"`
-@AX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"`
-EFX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]2{
-ΫΫ*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2#
-©©
-*(request)
-_star_.2 
-©©*[Mapping[Option[LocalDate]]]
-_star_.
-
-_root_.scala.Option##
-_root_.java.time.LocalDate#%
-	_root_.play.api.data.Mapping#2®
-¦"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2Σ
-ΚΚ*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2’
-ΗΗ*.apply
-_star_.p
-h_root_.session.WithLinkingSession#apply(Lscala/Function1;Lplay/api/i18n/Messages;)Lplay/api/mvc/Action;.2Ό
-””*.apply
-_star_.™
-_root_.models.LinkingSession.apply(Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;JLmodels/CapacityDeclaration;)Lmodels/LinkingSession;.2Σ
-*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2Ώ
-νν*.apply
-_star_.
-“_root_.controllers.propertyLinking.DeclareCapacityVM.apply(Lplay/api/data/Form;Ljava/lang/String;J)Lcontrollers/propertyLinking/DeclareCapacityVM;.2€
-'*(request, ClaimProperty.this.messages)
-_star_.>
-&6_root_.controllers.PropertyLinkingController#messages.2r
-ΖΖ*[Mapping[Boolean]]
-_star_.%
-	_root_.play.api.data.Mapping#
-
-_root_.scala.Boolean#2k
-  *(ClaimProperty.this.ec)
-_star_.8
-0_root_.controllers.PropertyLinkingController#ec.2J
-ΊΊ*[LocalDate]
-_star_.#
-_root_.java.time.LocalDate#2#
-ήή
-*(request)
-_star_.2Ο
-®$ClaimProperty.this.future[Result](*)i
-a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
- _root_.play.api.mvc.Result#
-"#_star_.2€
-››'*(request, ClaimProperty.this.messages)
-_star_.>
-&6_root_.controllers.PropertyLinkingController#messages.2Φ
-ÒÒ/*.flatMap[Unit](ClaimProperty.this.hc(request))
-_star_.~
-	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-
-_root_.scala.Unit#p
-#%h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2G
-¨¨	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2Ο
-ΐ $ClaimProperty.this.future[Result](*)i
-a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
- _root_.play.api.mvc.Result#
-"#_star_.2€
-““'*(ClaimProperty.this.messages, request)
-_star_.>
-6_root_.controllers.PropertyLinkingController#messages.2Έ
-±±*.apply[CapacityDeclaration]
-_star_.U
-M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.*
-"_root_.models.CapacityDeclaration#2†
-υυ*.apply
-_star_.γ
-Ϊ_root_.views.html.propertyLinking.declareCapacity_Scope0.declareCapacity_Scope1.declareCapacity#apply(Lcontrollers/propertyLinking/DeclareCapacityVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2
-ΉΉ\*[CapacityDeclaration, CapacityType, Boolean, Option[LocalDate], Boolean, Option[LocalDate]]
-_star_.*
-"_root_.models.CapacityDeclaration##
-#_root_.models.CapacityType#
-%,_root_.scala.Boolean##
-5>_root_.java.time.LocalDate#
-.4_root_.scala.Option#
-AH_root_.scala.Boolean##
-QZ_root_.java.time.LocalDate#
-JP_root_.scala.Option#2{
-*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2Σ
-””*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2Ο
-«Ο$ClaimProperty.this.future[Result](*)i
-a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
- _root_.play.api.mvc.Result#
-"#_star_.2Σ
-——*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2½
-‘‘*.apply
-_star_.
-‘_root_.views.html.errors.serviceUnavailable_Scope0.serviceUnavailable#apply(Lplay/api/i18n/Messages;Lplay/api/mvc/Request;)Lplay/twirl/api/Html;.2€
-––'*(request, ClaimProperty.this.messages)
-_star_.>
-&6_root_.controllers.PropertyLinkingController#messages.2…
-±±*.apply
-_star_.c
-[_root_.connectors.EnvelopeMetadata.apply(Ljava/lang/String;J)Lconnectors/EnvelopeMetadata;.2w
-  *(ClaimProperty.this.messages)
-_star_.>
-6_root_.controllers.PropertyLinkingController#messages.2‡
-ΜΜ*[FieldMapping[CapacityType]]
-_star_.#
-_root_.models.CapacityType#*
-"_root_.play.api.data.FieldMapping#2 
-θθ*[Mapping[Option[LocalDate]]]
-_star_.
-
-_root_.scala.Option##
-_root_.java.time.LocalDate#%
-	_root_.play.api.data.Mapping#2Ώ
-‡‡*.apply
-_star_.
-“_root_.controllers.propertyLinking.DeclareCapacityVM.apply(Lplay/api/data/Form;Ljava/lang/String;J)Lcontrollers/propertyLinking/DeclareCapacityVM;.2x
-®®*[Future[Result]]
-_star_.#
-	_root_.play.api.mvc.Result#'
-_root_.scala.concurrent.Future#2Σ
-°°*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2Σ
-΄΄*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2†
-ΫΫ*.apply
-_star_.γ
-Ϊ_root_.views.html.propertyLinking.declareCapacity_Scope0.declareCapacity_Scope1.declareCapacity#apply(Lcontrollers/propertyLinking/DeclareCapacityVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Σ
-μμ*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2†
-ίί*.apply
-_star_.γ
-Ϊ_root_.views.html.propertyLinking.declareCapacity_Scope0.declareCapacity_Scope1.declareCapacity#apply(Lcontrollers/propertyLinking/DeclareCapacityVM;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2®
-έε"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2®
-²Γ"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2x
-΄΄*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2Σ
-  *(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2G
-ββ	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2Ό
-΅΅*.apply
-_star_.™
-_root_.form.ConditionalDateAfter.apply(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lscala/collection/Seq;)Lform/ConditionalDateAfter;.2Ύ
-*.apply(ClaimProperty.this.ec)
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.8
-0_root_.controllers.PropertyLinkingController#ec.2²
-ΨΨ*.apply[CapacityType]
-_star_.]
-U_root_.form.EnumMapping.apply(Lmodels/NamedEnumSupport;)Lplay/api/data/FieldMapping;.#
-_root_.models.CapacityType#2{
-——*.apply
-_star_.Y
-Q_root_.actions.AuthenticatedAction#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2
-έέI*.map[Unit](models.LinkingSession.format, ClaimProperty.this.hc(request))
-_star_.z
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-
-_root_.scala.Unit#,
-"($_root_.models.LinkingSession.format.p
-=?h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2r
-……*[Mapping[Boolean]]
-_star_.%
-	_root_.play.api.data.Mapping#
-
-_root_.scala.Boolean#2k
-μμ*(ClaimProperty.this.ec)
-_star_.8
-0_root_.controllers.PropertyLinkingController#ec.2J
-ωω*[LocalDate]
-_star_.#
-_root_.java.time.LocalDate#2®
-μ‚"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2Φ
-λλ/*.flatMap[Unit](ClaimProperty.this.hc(request))
-_star_.~
-	v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-
-_root_.scala.Unit#p
-#%h_root_.controllers.PropertyLinkingController#hc(Lplay/api/mvc/Request;)Luk/gov/hmrc/http/HeaderCarrier;.2®
-ΏΙ"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2Ο
-²—$ClaimProperty.this.future[Result](*)i
-a_root_.controllers.PropertyLinkingController#future(Ljava/lang/Object;)Lscala/concurrent/Future;.#
- _root_.play.api.mvc.Result#
-"#_star_.2Ώ
-ρρ*.apply
-_star_.
-“_root_.controllers.propertyLinking.DeclareCapacityVM.apply(Lplay/api/data/Form;Ljava/lang/String;J)Lcontrollers/propertyLinking/DeclareCapacityVM;.:Scala211Bχ /*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package controllers.propertyLinking
-
-import java.time.LocalDate
-import javax.inject.{Inject, Named}
-
-import actions.{AuthenticatedAction, AuthenticatedRequest}
-import com.google.inject.Singleton
-import config.ApplicationConfig
-import connectors.{EnvelopeConnector, EnvelopeMetadata, SubmissionIdConnector}
-import controllers.PropertyLinkingController
-import form.Mappings._
-import form.{ConditionalDateAfter, EnumMapping}
-import models.{CapacityDeclaration, _}
-import play.api.data.Form
-import play.api.data.Forms._
-import repositories.SessionRepo
-import session.WithLinkingSession
-import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.voa.play.form.ConditionalMappings._
-import views.helpers.Errors
-import uk.gov.hmrc.http.Upstream5xxResponse
-
-@Singleton
-class ClaimProperty @Inject()(val config: ApplicationConfig,
-                              val envelopeConnector: EnvelopeConnector,
-                              val authenticated: AuthenticatedAction,
-                              val submissionIdConnector: SubmissionIdConnector,
-                              @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
-                              val withLinkingSession: WithLinkingSession)
-  extends PropertyLinkingController with ServicesConfig {
-
-  import ClaimProperty._
-
-  def show() = authenticated { implicit request =>
-    Redirect(s"${config.vmvUrl}/search")
-  }
-
-  def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
-    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn)))
-  }
-
-  def attemptLink(uarn: Long, address: String) = authenticated { implicit request =>
-    ClaimProperty.declareCapacityForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn))),
-      formData => initialiseSession(formData, uarn, address).map { _ =>
-        Redirect(routes.ChooseEvidence.show())
-      }.recover {
-        case Upstream5xxResponse(_, 503, _) => ServiceUnavailable(views.html.errors.serviceUnavailable())
-      }
-    )
-  }
-
-  def back = withLinkingSession { implicit request =>
-    val form = declareCapacityForm.fillAndValidate(request.ses.declaration)
-    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn)))
-  }
-
-  private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(implicit request: AuthenticatedRequest[_]) = {
-    for {
-      submissionId <- submissionIdConnector.get()
-      envelopeId <- envelopeConnector.createEnvelope(EnvelopeMetadata(submissionId, request.personId))
-      _ <- sessionRepository.start[LinkingSession](LinkingSession(address, uarn, envelopeId, submissionId, request.personId, declaration))
-    } yield ()
-  }
-
-}
-
-object ClaimProperty {
-  lazy val declareCapacityForm = Form(mapping(
-    "capacity" -> EnumMapping(CapacityType),
-    "interestedBefore2017" -> mandatoryBoolean,
-    "fromDate" -> mandatoryIfFalse("interestedBefore2017", dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))),
-    "stillInterested" -> mandatoryBoolean,
-    "toDate" -> mandatoryIfFalse("stillInterested", ConditionalDateAfter("interestedBefore2017", "fromDate")
-      .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
-      .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017,4,1))))
-  )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
-}
-
-case class DeclareCapacityVM(form: Form[_], address: String, uarn: Long)
-J3app/controllers/propertyLinking/ClaimProperty.scala

@@ -1,170 +1,0 @@
-
-’C%
-∆Ã_root_.scala.Predef.String#(
-˙â_root_.models.PropertyAddress.|
-Úr_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.$
-ÁÈ_root_.scala.package.`::`.\
-òüR_root_.scala.collection.immutable.List#reverse()Lscala/collection/immutable/List;.O
-ÜãE_root_.java.lang.String#split(Ljava/lang/String;)[Ljava/lang/String;.
-Ù¯_root_.play.7
-Í˜+app/models/PropertyAddress.scala@1002..10155
-±≤)app/models/PropertyAddress.scala@945..946N
- –D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.3
-“”)app/models/PropertyAddress.scala@945..946G
-ﬂÁ;_root_.models.PropertyAddress#toString()Ljava/lang/String;.(
-—‡_root_.models.PropertyAddress#5
-äó+app/models/PropertyAddress.scala@1002..1015d
-ÇÖZ_root_.models.PropertyAddress.fromString(Ljava/lang/String;)Lmodels/PropertyAddress;.(str)%
-¯˛_root_.scala.Predef.String#3
-°©)app/models/PropertyAddress.scala@990..9980
-Õ–&_root_.scala.collection.immutable.Nil.$
-≥µ_root_.scala.package.`::`.\
-òüR_root_.scala.collection.immutable.List#reverse()Lscala/collection/immutable/List;.\
-ëóR_root_.scala.collection.TraversableOnce#toList()Lscala/collection/immutable/List;.$
-ÇÜ_root_.play.api.libs.json.%
-≥π_root_.scala.Predef.String#2
-Û˚(_root_.models.PropertyAddress#(postcode)
-˘¸_root_.play.api.
-˝Å_root_.play.api.libs.a
-¸ÑW_root_.scala.collection.TraversableOnce#mkString(Ljava/lang/String;)Ljava/lang/String;.4
-ºƒ(_root_.models.PropertyAddress#(postcode)#
-Ø≤_root_.scala.package.Seq#)
-áã_root_.play.api.libs.json.Json.1
-®≠%_root_.models.PropertyAddress#(lines)8
-µ¬,_root_.models.PropertyAddress.addressFormat./
-ÍÔ%_root_.models.PropertyAddress#(lines)*
-î£_root_.models.PropertyAddress.f
-ÛˆZ_root_.models.PropertyAddress.fromString(Ljava/lang/String;)Lmodels/PropertyAddress;.(str)0
-∂π&_root_.scala.collection.immutable.Nil.(
-ΩÃ_root_.models.PropertyAddress.^
-ßßR_root_.models.PropertyAddress#`<init>`(Lscala/collection/Seq;Ljava/lang/String;)V.)
-≈…_root_.play.api.libs.json.Json.a
-ËÚU_root_.models.PropertyAddress.fromString(Ljava/lang/String;)Lmodels/PropertyAddress;.5
-ﬁÊ)app/models/PropertyAddress.scala@990..998*
-òß_root_.models.PropertyAddress#
-ÂÎ_root_.models.R
-ÇüFmatch may not be exhaustive.
-It would fail on the following input: Nil"ü
-+app/models/PropertyAddress.scala@1002..1015preversedLinesList[String]"-
-'_root_.scala.collection.immutable.List#" 
-_root_.java.lang.String#")
-_root_.play.api.libs.json.ÄàÄjson"„
-D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
-"_root_.play.api.libs.json.OFormat#"O
-G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"a
-)app/models/PropertyAddress.scala@990..9984postCodeString"
-_root_.java.lang.String#"‘
-U_root_.models.PropertyAddress.fromString(Ljava/lang/String;)Lmodels/PropertyAddress;.{
-fromString(str: String): PropertyAddress"#
-_root_.scala.Predef.String#"&
-_root_.models.PropertyAddress#"’
-E_root_.java.lang.String#split(Ljava/lang/String;)[Ljava/lang/String;.ãÑÄÄsplit(x$1: String): Array[String]" 
-_root_.java.lang.String#"
-_root_.scala.Array#" 
-_root_.java.lang.String#"$
-_root_.play.api.libs.ÄàÄlibs"\
-_root_.scala.package.`::`.>::::.type"-
-'_root_.scala.collection.immutable.`::`."
-_root_.play.api.
-ÄàÄapi"-
-_root_.play.api.libs.json.Json.
-ÄÑJson"4
-&_root_.scala.collection.immutable.Nil.
-ÄÑàNil"»
-W_root_.scala.collection.TraversableOnce#mkString(Ljava/lang/String;)Ljava/lang/String;.mmkString(sep: String): String"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"
-_root_.play.ÄàÄplay"d
-(_root_.models.PropertyAddress#(postcode)8ÅpostcodeString"!
-_root_.scala.Predef.String#"¿
-R_root_.scala.collection.TraversableOnce#toList()Lscala/collection/immutable/List;.jtoListList[A]" 
-_root_.scala.package.List#"3
-+_root_.scala.collection.TraversableOnce#[A]"
-_root_.models.ÄàÄmodels"Z
-)app/models/PropertyAddress.scala@945..946-sString"
-_root_.java.lang.String#"Ø
-R_root_.models.PropertyAddress#`<init>`(Lscala/collection/Seq;Ljava/lang/String;)V.ÿ<init>7(lines: Seq[String], postcode: String): PropertyAddress"!
-_root_.scala.package.Seq#"#
-_root_.scala.Predef.String#"#
-%_root_.scala.Predef.String#"&
-(7_root_.models.PropertyAddress#"8
-_root_.models.PropertyAddress#Ä†ÄPropertyAddress"7
-_root_.models.PropertyAddress.ÄÑPropertyAddress"R
-_root_.scala.package.Seq#5SeqSeq.type""
-_root_.scala.collection.Seq."Õ
-R_root_.scala.collection.immutable.List#reverse()Lscala/collection/immutable/List;.wreverseList[A]"-
-'_root_.scala.collection.immutable.List#"2
-*_root_.scala.collection.immutable.List#[A]"Ø
-,_root_.models.PropertyAddress.addressFormat.ÅÄ addressFormatOFormat[PropertyAddress]"(
-"_root_.play.api.libs.json.OFormat#"&
-_root_.models.PropertyAddress#"Ü
-%_root_.models.PropertyAddress#(lines)]ÅlinesSeq[String]"
-_root_.scala.package.Seq#"#
-
-_root_.scala.Predef.String#"|
-;_root_.models.PropertyAddress#toString()Ljava/lang/String;.=toString
-(): String"#
-
-_root_.scala.Predef.String#"∞
-r_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.π:+F[B, That] => (elem: B)(implicit bf: CanBuildFrom[Repr, B, That]): That"}
-u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"5
-$0-_root_.scala.collection.generic.CanBuildFrom#".
-15&_root_.scala.collection.SeqLike#[Repr]"}
-78u_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[B]"Ä
-:>x_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"Ä
-BFx_root_.scala.collection.SeqLike#`:+`(Ljava/lang/Object;Lscala/collection/generic/CanBuildFrom;)Ljava/lang/Object;.[That]"ë
-Z_root_.models.PropertyAddress.fromString(Ljava/lang/String;)Lmodels/PropertyAddress;.(str)3ÄstrString"!
-_root_.scala.Predef.String#2∆
-˚˚,*(scala.collection.Seq.canBuildFrom[String])
-_star_.#
-$*_root_.scala.Predef.String#Z
-#R_root_.scala.collection.Seq.canBuildFrom()Lscala/collection/generic/CanBuildFrom;.2¬
-Çê#scala.Predef.refArrayOps[String](*)`
-X_root_.scala.Predef.refArrayOps([Ljava/lang/Object;)Lscala/collection/mutable/ArrayOps;. 
-_root_.java.lang.String#
-!"_star_.2ê
-ÃÃ*.apply
-_star_.n
-f_root_.models.PropertyAddress.apply(Lscala/collection/Seq;Ljava/lang/String;)Lmodels/PropertyAddress;.2ê
-ââ*.apply
-_star_.n
-f_root_.models.PropertyAddress.apply(Lscala/collection/Seq;Ljava/lang/String;)Lmodels/PropertyAddress;.2ü
-ÚÚ*[String, Seq[String]]
-_star_.#
-_root_.scala.Predef.String#$
-
-_root_.scala.collection.Seq##
-_root_.scala.Predef.String#:Scala211B±/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models
-
-import play.api.libs.json.Json
-
-case class PropertyAddress(lines: Seq[String], postcode: String) {
-  override def toString = lines :+ postcode mkString ", "
-}
-
-object PropertyAddress {
-  implicit val addressFormat = Json.format[PropertyAddress]
-  def fromString(str: String) = str.split(",").toList.reverse match {
-    case s :: Nil => PropertyAddress(Nil, s)
-    case postCode :: reversedLines=> PropertyAddress(reversedLines.reverse, postCode)
-  }
-}
-J app/models/PropertyAddress.scala

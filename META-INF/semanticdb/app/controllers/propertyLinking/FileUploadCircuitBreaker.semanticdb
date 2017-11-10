@@ -1,280 +1,0 @@
-
-«É%
-ÈÔ_root_.javax.inject.Inject#Ç
-ÈÙx_root_.connectors.fileUpload.FileUploadConnector#healthCheck(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ù
-ˇ
-Äê_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.T#@
-µ»6_root_.uk.gov.hmrc.circuitbreaker.UsingCircuitBreaker#t
-è
-ê
-h_root_.controllers.propertyLinking.FileUploadCircuitBreaker#breakOnException(Ljava/lang/Throwable;)Z.(t)
-âé_root_.javax.r
-®
-©
-h_root_.controllers.propertyLinking.FileUploadCircuitBreaker#breakOnException(Ljava/lang/Throwable;)Z.(t)
-“‹_root_.connectors.I
-ˆ¸?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#3
-¥	ƒ	)_root_.scala.concurrent.ExecutionContext#
-ÉÖ
-_root_.uk.H
-œÁ<_root_.controllers.propertyLinking.FileUploadCircuitBreaker#G
-ü®=_root_.javax.inject.Singleton.;_root_.javax.inject.Singleton#6
-æ
-—
-,_root_.uk.gov.hmrc.http.Upstream4xxResponse#'
-›Á_root_.connectors.fileUpload.;
-Ë˚1_root_.connectors.fileUpload.FileUploadConnector#W
-ò•M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#q
-˛	é
-e_root_.controllers.propertyLinking.FileUploadCircuitBreaker#breakOnException(Ljava/lang/Throwable;)Z.
-Üâ_root_.uk.gov.-
-ÒÄ#_root_.controllers.propertyLinking.
-≤∏_root_.config.
-Â_root_.controllers.
-û
-•
-_root_.scala.Boolean#c
-ß∫Y_root_.uk.gov.hmrc.http.Upstream4xxResponse.;_root_.uk.gov.hmrc.http.Upstream4xxResponse#4
-»»*_root_.javax.inject.Singleton#`<init>`()V.
-èï_root_.javax.inject.û
-ÇÉë_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(f)ú
-ÑÖë_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(f)y
-ü≥o_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig.;_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#)
-àé_root_.scala.concurrent.Future#A
-óù7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#]
-‘ÁQ_root_.controllers.propertyLinking.FileUploadCircuitBreaker#(fileUploadConnector).
-‚	‚	$_root_.java.lang.Object#`<init>`()V.
-Öá
-_root_.uk.õ
-∑∏ê_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.T#
-“◊_root_.scala.
-äé_root_.uk.gov.hmrc.,
-èù"_root_.uk.gov.hmrc.circuitbreaker.
-¬‘u_root_.uk.gov.hmrc.circuitbreaker.UsingCircuitBreaker#withCircuitBreaker(Lscala/Function0;)Lscala/concurrent/Future;.]
-‰ÙS_root_.scala.concurrent.ExecutionContext.;_root_.scala.concurrent.ExecutionContext#‘
-ÒÒ«_root_.controllers.propertyLinking.FileUploadCircuitBreaker#`<init>`(Luk/gov/hmrc/circuitbreaker/CircuitBreakerConfig;Lconnectors/fileUpload/FileUploadConnector;Lscala/concurrent/ExecutionContext;)V.1
-ÔÔ'_root_.javax.inject.Inject#`<init>`()V.Ä
-ı¸v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;."
-ëï_root_.uk.gov.hmrc.http.L
-∞	≤	@_root_.controllers.propertyLinking.FileUploadCircuitBreaker#(ec))
-í
-õ
-_root_.scala.package.Throwable#õ
-èêê_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.T#
-åê_root_.uk.gov.hmrc.(
-ø»_root_.javax.inject.Singleton#0
-†≠&_root_.uk.gov.hmrc.http.HeaderCarrier#ü
-úûí_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)A
-ï©7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#
-àã_root_.uk.gov.;
-È¸1_root_.connectors.fileUpload.FileUploadConnector#[
-’ËQ_root_.controllers.propertyLinking.FileUploadCircuitBreaker#(fileUploadConnector)"
-ÿ‚_root_.scala.concurrent.@
-Œ	·	6_root_.uk.gov.hmrc.circuitbreaker.UsingCircuitBreaker#^
-ˇìR_root_.controllers.propertyLinking.FileUploadCircuitBreaker#(circuitBreakerConfig)K
-π A_root_.config.ApplicationConfig.;_root_.config.ApplicationConfig#)
-∞∂_root_.scala.concurrent.Future#õ
-˘
-˛
-é_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;."c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#"M
-1_root_.connectors.fileUpload.FileUploadConnector#Ä FileUploadConnector"‡
-e_root_.controllers.propertyLinking.FileUploadCircuitBreaker#breakOnException(Ljava/lang/Throwable;)Z.wÑÄbreakOnException(t: Throwable): Boolean"'
-_root_.scala.package.Throwable#"
-_root_.scala.Boolean#"∏
-u_root_.uk.gov.hmrc.circuitbreaker.UsingCircuitBreaker#withCircuitBreaker(Lscala/Function0;)Lscala/concurrent/Future;.æÑÄwithCircuitBreaker*[T] => (f: <byname>[Future[T]]): Future[T]" 
-_root_.scala.`<byname>`#"'
-_root_.scala.concurrent.Future#"Ä
-x_root_.uk.gov.hmrc.circuitbreaker.UsingCircuitBreaker#withCircuitBreaker(Lscala/Function0;)Lscala/concurrent/Future;.[T]"'
-!'_root_.scala.concurrent.Future#"Ä
-()x_root_.uk.gov.hmrc.circuitbreaker.UsingCircuitBreaker#withCircuitBreaker(Lscala/Function0;)Lscala/concurrent/Future;.[T]"'
-_root_.connectors.ÄàÄ
-connectors"R
-6_root_.uk.gov.hmrc.circuitbreaker.UsingCircuitBreaker#Ä@UsingCircuitBreaker"§
-h_root_.controllers.propertyLinking.FileUploadCircuitBreaker#breakOnException(Ljava/lang/Throwable;)Z.(t)8Ät	Throwable"%
-	_root_.scala.package.Throwable#"r
-*_root_.javax.inject.Singleton#`<init>`()V.DàÄÄ<init>(): Singleton"&
-_root_.javax.inject.Singleton#"‹
-í_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"J
-,_root_.uk.gov.hmrc.http.Upstream4xxResponse#Ä†ÄUpstream4xxResponse"ó
-ë_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(f)ÄÄf<byname>[Future[T]]"
-_root_.scala.`<byname>`#"'
-	_root_.scala.concurrent.Future#"ô
-ê_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.T#"'
-_root_.uk.gov.hmrc.http.ÄàÄhttp"
-_root_.javax.ÄàÄjavax"ª
-Q_root_.controllers.propertyLinking.FileUploadCircuitBreaker#(fileUploadConnector)fÄfileUploadConnectorFileUploadConnector"7
-1_root_.connectors.fileUpload.FileUploadConnector#"2
-_root_.connectors.fileUpload.ÄàÄ
-fileUpload"=
-#_root_.controllers.propertyLinking.ÄàÄpropertyLinking".
-_root_.scala.concurrent.Future#Ä@Future"[
-!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
-_root_.scala.Boolean#"ƒ
-R_root_.controllers.propertyLinking.FileUploadCircuitBreaker#(circuitBreakerConfig)nÅcircuitBreakerConfigCircuitBreakerConfig"=
-7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#",
-_root_.javax.inject.Inject#Ä†ÄInject"ﬂ
-«_root_.controllers.propertyLinking.FileUploadCircuitBreaker#`<init>`(Luk/gov/hmrc/circuitbreaker/CircuitBreakerConfig;Lconnectors/fileUpload/FileUploadConnector;Lscala/concurrent/ExecutionContext;)V.í<init>è(circuitBreakerConfig: CircuitBreakerConfig, fileUploadConnector: FileUploadConnector)(implicit ec: ExecutionContext): FileUploadCircuitBreaker"?
-+7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#"9
-BU1_root_.connectors.fileUpload.FileUploadConnector#"1
-dt)_root_.scala.concurrent.ExecutionContext#"E
-wè<_root_.controllers.propertyLinking.FileUploadCircuitBreaker#"V
-7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#Ä†ÄCircuitBreakerConfig"
-
-_root_.uk.	ÄàÄuk"%
-_root_.javax.inject.ÄàÄinject"
-_root_.uk.gov.
-ÄàÄgov"˜
-ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
-_root_.scala.Option#"6
-$._root_.uk.gov.hmrc.http.logging.Authorization#"
-/5_root_.scala.Option#"'
-6<_root_.uk.gov.hmrc.http.UserId#"
-FL_root_.scala.Option#"&
-MR_root_.uk.gov.hmrc.http.Token#"
-`f_root_.scala.Option#"5
-gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
-Åá_root_.scala.Option#"4
-àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
-ü•_root_.scala.Option#"4
-¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
-¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
-◊€_root_.scala.Long#"#
-ÎÓ_root_.scala.package.Seq#"
-Ôı_root_.scala.Tuple2#"%
-ˆ¸_root_.scala.Predef.String#"%
-˛Ñ_root_.scala.Predef.String#"
-ñú_root_.scala.Option#"%
-ù£_root_.scala.Predef.String#"
-∂º_root_.scala.Option#"%
-Ω√_root_.scala.Predef.String#"
-œ’_root_.scala.Option#"%
-÷‹_root_.scala.Predef.String#"
-ÈÔ_root_.scala.Option#"%
-ˆ_root_.scala.Predef.String#"
-Éâ_root_.scala.Option#"%
-äê_root_.scala.Predef.String#"
-•´_root_.scala.Option#";
-¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
-Õ–_root_.scala.package.Seq#"
-—◊_root_.scala.Tuple2#"%
-ÿﬁ_root_.scala.Predef.String#"%
-‡Ê_root_.scala.Predef.String#"0
-Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"i
-'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
-(): Inject"#
-
-_root_.javax.inject.Inject#"ê
-l_root_.uk.gov.hmrc.http.Upstream4xxResponse#`<init>`(Ljava/lang/String;IILscala/collection/immutable/Map;)V.ü<init>s(message: String, upstreamResponseCode: Int, reportAs: Int, headers: Map[String, Seq[String]]): Upstream4xxResponse"#
-
-_root_.scala.Predef.String#"
-(+_root_.scala.Int#"
-7:_root_.scala.Int#" 
-EH_root_.scala.Predef.Map#"#
-IO_root_.scala.Predef.String#"!
-QT_root_.scala.package.Seq#"#
-U[_root_.scala.Predef.String#"4
-`s,_root_.uk.gov.hmrc.http.Upstream4xxResponse#"&
-_root_.scala.Boolean#Ä†Boolean"B
-)_root_.scala.concurrent.ExecutionContext#Ä@ExecutionContext"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"^
-_root_.scala.package.Throwable#;@	Throwable	Throwable"!
-	_root_.java.lang.Throwable#"÷
-û_root_.connectors.fileUpload.FileUploadConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;Lscala/concurrent/ExecutionContext;)V.≤<init>Z(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext): FileUploadConnector"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"1
-4D)_root_.scala.concurrent.ExecutionContext#"9
-GZ1_root_.connectors.fileUpload.FileUploadConnector#")
-_root_.controllers.ÄàÄcontrollers">
-&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"
-_root_.config.ÄàÄconfig"è
-@_root_.controllers.propertyLinking.FileUploadCircuitBreaker#(ec)KÄÅ ecExecutionContext"/
-)_root_.scala.concurrent.ExecutionContext#"≤
-X_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#`<init>`(Ljava/lang/String;III)V.’<init>ê(serviceName: String, numberOfCallsToTriggerStateChange: Int, unavailablePeriodDuration: Int, unstablePeriodDuration: Int): CircuitBreakerConfig"#
-_root_.scala.Predef.String#"
-9<_root_.scala.Int#"
-Y\_root_.scala.Int#"
-vy_root_.scala.Int#"@
-|ê7_root_.uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig#"≠
-x_root_.connectors.fileUpload.FileUploadConnector#healthCheck(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.∞healthCheck*(implicit hc: HeaderCarrier): Future[Unit]".
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-$_root_.scala.concurrent.Future#"
-%)_root_.scala.Unit#"
-_root_.scala.ÄàÄscala"]
-<_root_.controllers.propertyLinking.FileUploadCircuitBreaker#Ä FileUploadCircuitBreaker"õ
-ê_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.T#ÄT""
-_root_.uk.gov.hmrc.ÄàÄhmrc";
-"_root_.uk.gov.hmrc.circuitbreaker.ÄàÄcircuitbreaker"2
-_root_.javax.inject.Singleton#Ä†Ä	Singleton"µ
-v_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.∫flatMapS[S] => (f: Function1[T, Future[S]])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"'
-_root_.scala.concurrent.Future#"Å
- y_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-7G)_root_.scala.concurrent.ExecutionContext#"'
-JP_root_.scala.concurrent.Future#"Å
-QRy_root_.scala.concurrent.Future#flatMap(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"√
-é_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ØapplyF[T] => (f: <byname>[Future[T]])(implicit hc: HeaderCarrier): Future[T]" 
-_root_.scala.`<byname>`#"'
-_root_.scala.concurrent.Future#"ö
-ë_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[T]".
--:&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-=C_root_.scala.concurrent.Future#"ö
-DEë_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.[T]2
-ÙÙ*(hc)
-_star_.2π
-‘‘*[T]
-_star_.ô
-ê_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.T#2π
-¸¸*[T]
-_star_.ô
-ê_root_.controllers.propertyLinking.FileUploadCircuitBreaker#apply(Lscala/Function0;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.T#2Ü
-ÖÖ#*(FileUploadCircuitBreaker.this.ec)
-_star_.H
- "@_root_.controllers.propertyLinking.FileUploadCircuitBreaker#(ec):Scala211Bè/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package controllers.propertyLinking
-
-import javax.inject.{Inject, Singleton}
-
-import config.ApplicationConfig
-import connectors.fileUpload.FileUploadConnector
-import uk.gov.hmrc.circuitbreaker.{CircuitBreakerConfig, UsingCircuitBreaker}
-
-import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.http.{ HeaderCarrier, Upstream4xxResponse }
-
-@Singleton
-class FileUploadCircuitBreaker @Inject()(override val circuitBreakerConfig: CircuitBreakerConfig,
-                                         fileUploadConnector: FileUploadConnector)
-                                        (implicit ec: ExecutionContext) extends UsingCircuitBreaker {
-
-  override protected def breakOnException(t: Throwable): Boolean = t match {
-    case _: Upstream4xxResponse => false
-    case _ => true
-  }
-
-  def apply[T](f: => Future[T])(implicit hc: HeaderCarrier): Future[T] = {
-    withCircuitBreaker(fileUploadConnector.healthCheck flatMap { _ => f })
-  }
-}
-J>app/controllers/propertyLinking/FileUploadCircuitBreaker.scala

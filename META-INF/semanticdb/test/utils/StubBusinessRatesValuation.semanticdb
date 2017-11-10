@@ -1,222 +1,0 @@
-
-€\ 
-√À_root_.utils.StubHttp.
-Ø≥_root_.scala.Long#k
-≤√a_root_.utils.StubBusinessRatesValuation.`stubbedValuations_=`(Lscala/collection/immutable/Map;)V.
-≈«
-_root_.uk.F
-›Ó:_root_.utils.StubBusinessRatesValuation.stubbedValuations.S
-µøG_root_.utils.StubBusinessRatesValuation.stubValuation(JZ)V.(isViewable))
-ƒ	 	_root_.scala.concurrent.Future.)
-≤	∏	_root_.scala.concurrent.Future#Q
-èôG_root_.utils.StubBusinessRatesValuation.stubValuation(JZ)V.(isViewable)
-»À_root_.uk.gov."
-—’_root_.uk.gov.hmrc.http.D
-÷	Á	:_root_.utils.StubBusinessRatesValuation.stubbedValuations.0
-¢	Ø	&_root_.uk.gov.hmrc.http.HeaderCarrier#é
-È¯Å_root_.utils.StubBusinessRatesValuation.isViewable(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4
-ÏÜ(_root_.utils.StubBusinessRatesValuation.
-π	¿	_root_.scala.Boolean#W
-÷„M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#Ü
-ÆÆ|_root_.connectors.BusinessRatesValuationConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.<
-˛ù2_root_.connectors.BusinessRatesValuationConnector#
-Ã–_root_.uk.gov.hmrc.
-è	ì	_root_.scala.Long#I
-∑Ω?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#"
-∆…_root_.scala.Predef.Map.
-ÂÍ_root_.utils.â
-Ë	ı	_root_.utils.StubBusinessRatesValuation.isViewable(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(assessmentRef)Ç
-¯ˇx_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.T
-ÄçJ_root_.utils.StubBusinessRatesValuation.stubValuation(JZ)V.(assessmentRef)k
-“„a_root_.utils.StubBusinessRatesValuation.`stubbedValuations_=`(Lscala/collection/immutable/Map;)V."
-Û_root_.scala.Predef.Map#
-Ù¯_root_.scala.Long#|
-ﬁËp_root_.utils.StubBusinessRatesValuation.isViewable(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.
-Û˝_root_.connectors.
-˙˛_root_.scala.Long#
-¶´_root_.scala."
-Öà_root_.scala.Predef.Map.G
-íü;_root_.utils.StubBusinessRatesValuation.stubValuation(JZ)V.ã
-Ä	ç	_root_.utils.StubBusinessRatesValuation.isViewable(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(assessmentRef)"
-¨∂_root_.scala.concurrent.*
-Ø¡ _root_.utils.StubServicesConfig.V
-†≠J_root_.utils.StubBusinessRatesValuation.stubValuation(JZ)V.(assessmentRef)D
-Ê˜:_root_.utils.StubBusinessRatesValuation.stubbedValuations.<
-èÆ2_root_.connectors.BusinessRatesValuationConnector#
-˙Å_root_.scala.Boolean#
-¡»_root_.scala.Boolean#=
-¶´1_root_.utils.StubBusinessRatesValuation.reset()V.Ä
-û	†	t_root_.utils.StubBusinessRatesValuation.isViewable(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)a
-À	’	W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;." 
-_root_.scala.Long#
-Ä†Long"'
-_root_.connectors.ÄàÄ
-connectors"Ú
-:_root_.utils.StubBusinessRatesValuation.stubbedValuations.≥ÇÄstubbedValuations_=(x$1: Map[Long, Boolean]): Unit" 
-	_root_.scala.Predef.Map#"
-
-_root_.scala.Long#"
-_root_.scala.Boolean#"
-_root_.scala.Unit#"˙
-W_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.û
-successful[T] => (result: T): Future[T]"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
-_root_.scala.concurrent.Future#"b
-Z_root_.scala.concurrent.Future.successful(Ljava/lang/Object;)Lscala/concurrent/Future;.[T]"'
-_root_.uk.gov.hmrc.http.ÄàÄhttp"(
-_root_.utils.StubHttp.ÄÑStubHttp"Ω
-t_root_.utils.StubBusinessRatesValuation.isViewable(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"∫
-Å_root_.utils.StubBusinessRatesValuation.isViewable(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4ÄauthorisationIdLong"
-_root_.scala.Long#"d
-1_root_.utils.StubBusinessRatesValuation.reset()V./reset(): Unit"
-_root_.scala.Unit#"/
-_root_.scala.concurrent.Future.ÄÑFuture".
-_root_.scala.concurrent.Future#Ä@Future"[
-!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
-_root_.scala.Boolean#"[
-_root_.scala.Predef.Map#?MapMap.type",
-&_root_.scala.collection.immutable.Map."[
-_root_.scala.Predef.Map.?MapMap.type",
-&_root_.scala.collection.immutable.Map."›
-x_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.‡updated'[B1] => (key: A, value: B1): Map[A, B1]"5
--_root_.scala.collection.immutable.MapLike#[A]"Ñ
-|_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.[B1]".
- &_root_.scala.collection.immutable.Map#"5
-!"-_root_.scala.collection.immutable.MapLike#[A]"Ñ
-$&|_root_.scala.collection.immutable.MapLike#updated(Ljava/lang/Object;Ljava/lang/Object;)Lscala/collection/immutable/Map;.[B1]"Ó
-|_root_.connectors.BusinessRatesValuationConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.Ì<init>G(config: ServicesConfig, http: WSHttp): BusinessRatesValuationConnector"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#":
-(G2_root_.connectors.BusinessRatesValuationConnector#"
-
-_root_.uk.	ÄàÄuk"⁄
-;_root_.utils.StubBusinessRatesValuation.stubValuation(JZ)V.östubValuation0(assessmentRef: Long, isViewable: Boolean): Unit"
-_root_.scala.Long#"
-")_root_.scala.Boolean#"
-,0_root_.scala.Unit#"
-_root_.uk.gov.
-ÄàÄgov"Ä
-J_root_.utils.StubBusinessRatesValuation.stubValuation(JZ)V.(assessmentRef)2ÄassessmentRefLong"
-_root_.scala.Long#"˜
-ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
-_root_.scala.Option#"6
-$._root_.uk.gov.hmrc.http.logging.Authorization#"
-/5_root_.scala.Option#"'
-6<_root_.uk.gov.hmrc.http.UserId#"
-FL_root_.scala.Option#"&
-MR_root_.uk.gov.hmrc.http.Token#"
-`f_root_.scala.Option#"5
-gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
-Åá_root_.scala.Option#"4
-àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
-ü•_root_.scala.Option#"4
-¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
-¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
-◊€_root_.scala.Long#"#
-ÎÓ_root_.scala.package.Seq#"
-Ôı_root_.scala.Tuple2#"%
-ˆ¸_root_.scala.Predef.String#"%
-˛Ñ_root_.scala.Predef.String#"
-ñú_root_.scala.Option#"%
-ù£_root_.scala.Predef.String#"
-∂º_root_.scala.Option#"%
-Ω√_root_.scala.Predef.String#"
-œ’_root_.scala.Option#"%
-÷‹_root_.scala.Predef.String#"
-ÈÔ_root_.scala.Option#"%
-ˆ_root_.scala.Predef.String#"
-Éâ_root_.scala.Option#"%
-äê_root_.scala.Predef.String#"
-•´_root_.scala.Option#";
-¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
-Õ–_root_.scala.package.Seq#"
-—◊_root_.scala.Tuple2#"%
-ÿﬁ_root_.scala.Predef.String#"%
-‡Ê_root_.scala.Predef.String#"0
-Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"&
-_root_.scala.Boolean#Ä†Boolean"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"é
-p_root_.utils.StubBusinessRatesValuation.isViewable(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.ô
-isViewableY(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean]"
-_root_.scala.Long#"
-'+_root_.scala.Long#".
-:G&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-JP_root_.scala.concurrent.Future#"
-QX_root_.scala.Boolean#"<
- _root_.utils.StubServicesConfig.ÄÑStubServicesConfig"Z
-2_root_.connectors.BusinessRatesValuationConnector#$Ä BusinessRatesValuationConnector"R
-_root_.scala.Long#`<init>`()V.0<init>(): Long"
-_root_.scala.Long#"
-_root_.utils.ÄàÄutils">
-&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"L
-(_root_.utils.StubBusinessRatesValuation. ÄÑStubBusinessRatesValuation"
-_root_.scala.ÄàÄscala""
-_root_.uk.gov.hmrc.ÄàÄhmrc"Ä
-G_root_.utils.StubBusinessRatesValuation.stubValuation(JZ)V.(isViewable)5Ä
-isViewableBoolean"
-_root_.scala.Boolean#"ô
-a_root_.utils.StubBusinessRatesValuation.`stubbedValuations_=`(Lscala/collection/immutable/Map;)V.≥ÇÄstubbedValuations_=(x$1: Map[Long, Boolean]): Unit" 
-	_root_.scala.Predef.Map#"
-
-_root_.scala.Long#"
-_root_.scala.Boolean#"
-_root_.scala.Unit#"µ
-_root_.utils.StubBusinessRatesValuation.isViewable(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(assessmentRef)2ÄassessmentRefLong"
-_root_.scala.Long#2v
-Á	Á	*.apply
-_star_.T
-L_root_.scala.collection.MapLike#apply(Ljava/lang/Object;)Ljava/lang/Object;.2B
-’	’	
-*[Boolean]
-_star_.
-	_root_.scala.Boolean#2Ÿ
-àà*.apply[Long, Nothing]
-_star_.m
-e_root_.scala.collection.generic.GenMapFactory#apply(Lscala/collection/Seq;)Lscala/collection/GenMap;.
-_root_.scala.Long#
-_root_.scala.Nothing#2Ÿ
-……*.apply[Long, Nothing]
-_star_.m
-e_root_.scala.collection.generic.GenMapFactory#apply(Lscala/collection/Seq;)Lscala/collection/GenMap;.
-_root_.scala.Long#
-_root_.scala.Nothing#2B
-ˇˇ
-*[Boolean]
-_star_.
-	_root_.scala.Boolean#:Scala211B˙	/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package utils
-
-import connectors.BusinessRatesValuationConnector
-
-import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
-
-object StubBusinessRatesValuation extends BusinessRatesValuationConnector(StubServicesConfig, StubHttp) {
-  private var stubbedValuations: Map[Long, Boolean] = Map()
-
-  def stubValuation(assessmentRef: Long, isViewable: Boolean) = {
-    stubbedValuations = stubbedValuations.updated(assessmentRef, isViewable)
-  }
-
-  def reset() = { stubbedValuations = Map() }
-
-  override def isViewable(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] = Future.successful(stubbedValuations(assessmentRef))
-}
-J+test/utils/StubBusinessRatesValuation.scala

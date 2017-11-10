@@ -1,119 +1,0 @@
-
-ì(9
-≥√-_root_.views.helpers.Errors.dateMustBeInPast.6
-¢Ø*_root_.views.helpers.Errors.uploadedFiles.5
-Éè)_root_.views.helpers.Errors.aboveMaximum.(
-˚Å_root_.views.helpers.Errors.D
-Ìà	8_root_.views.helpers.Errors.dateMustBeAfter1stApril2017.8
-ï§,_root_.views.helpers.Errors.emailsMustMatch.3
-Ô˘'_root_.views.helpers.Errors.invalidDay.5
-°≠)_root_.views.helpers.Errors.invalidMonth.
-ÂÍ_root_.views.<
-‘Á0_root_.views.helpers.Errors.mustAgreeToSelfCert.8
-∏«,_root_.views.helpers.Errors.noValueSelected.5
-‘‡)_root_.views.helpers.Errors.missingFiles.8
-˜
-Ü,_root_.views.helpers.Errors.invalidCapacity.1
-õ£%_root_.views.helpers.Errors.required.5
-‚Ó)_root_.views.helpers.Errors.belowMinimum.8
-Ì	¸	,_root_.views.helpers.Errors.invalidPostcode.4
-ãñ(_root_.views.helpers.Errors.invalidDate.9
-±
-¡
--_root_.views.helpers.Errors.capacityRequired.A
-Æ	∆	5_root_.views.helpers.Errors.dateMustBeAfterOtherDate.4
-◊‚(_root_.views.helpers.Errors.invalidYear.6
-Ω *_root_.views.helpers.Errors.invalidNumber.
-ÎÚ_root_.views.helpers."k
-,_root_.views.helpers.Errors.invalidPostcode.;invalidPostcodeString"
-_root_.java.lang.String#"]
-%_root_.views.helpers.Errors.required.4requiredString"
-_root_.java.lang.String#"k
-,_root_.views.helpers.Errors.noValueSelected.;noValueSelectedString"
-_root_.java.lang.String#"g
-*_root_.views.helpers.Errors.uploadedFiles.9uploadedFilesString"
-_root_.java.lang.String#"'
-_root_.views.helpers.ÄàÄhelpers"m
--_root_.views.helpers.Errors.capacityRequired.<capacityRequiredString"
-_root_.java.lang.String#"}
-5_root_.views.helpers.Errors.dateMustBeAfterOtherDate.DdateMustBeAfterOtherDateString"
-_root_.java.lang.String#"e
-)_root_.views.helpers.Errors.aboveMaximum.8aboveMaximumString"
-_root_.java.lang.String#",
-_root_.views.helpers.Errors.ÄÑErrors"s
-0_root_.views.helpers.Errors.mustAgreeToSelfCert.?mustAgreeToSelfCertString"
-_root_.java.lang.String#"a
-'_root_.views.helpers.Errors.invalidDay.6
-invalidDayString"
-_root_.java.lang.String#"
-_root_.views.ÄàÄviews"e
-)_root_.views.helpers.Errors.invalidMonth.8invalidMonthString"
-_root_.java.lang.String#"c
-(_root_.views.helpers.Errors.invalidYear.7invalidYearString"
-_root_.java.lang.String#"m
--_root_.views.helpers.Errors.dateMustBeInPast.<dateMustBeInPastString"
-_root_.java.lang.String#"É
-8_root_.views.helpers.Errors.dateMustBeAfter1stApril2017.GdateMustBeAfter1stApril2017String"
-_root_.java.lang.String#"k
-,_root_.views.helpers.Errors.emailsMustMatch.;emailsMustMatchString"
-_root_.java.lang.String#"e
-)_root_.views.helpers.Errors.missingFiles.8missingFilesString"
-_root_.java.lang.String#"k
-,_root_.views.helpers.Errors.invalidCapacity.;invalidCapacityString"
-_root_.java.lang.String#"c
-(_root_.views.helpers.Errors.invalidDate.7invalidDateString"
-_root_.java.lang.String#"e
-)_root_.views.helpers.Errors.belowMinimum.8belowMinimumString"
-_root_.java.lang.String#"g
-*_root_.views.helpers.Errors.invalidNumber.9invalidNumberString"
-_root_.java.lang.String#:Scala211B¡/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package views.helpers
-
-object Errors {
-  // Common Play
-  val required = "error.required"
-  val invalidNumber = "error.number"
-  val belowMinimum = "error.min"
-  val aboveMaximum = "error.max"
-
-  // Common Custom
-  val noValueSelected = "error.common.noValueSelected"
-  val invalidDay = "error.common.date.invalidDay"
-  val invalidMonth = "error.common.date.invalidMonth"
-  val invalidYear = "error.common.date.invalidYear"
-  val invalidDate = "error.invalidDate"
-  val dateMustBeInPast = "error.common.date.mustBeInPast"
-  val dateMustBeAfter1stApril2017 = "error.date.mustBeAfter2017"
-  val dateMustBeAfterOtherDate = "error.date.mustBeAfterOther"
-  val invalidPostcode = "error.postcode"
-
-  // Capacity Declaration
-  val capacityRequired = "error.capacityDeclaration.capacityRequired"
-  val invalidCapacity = "error.capacityDeclaration.invalidCapacity"
-
-  // Self Certification
-  val mustAgreeToSelfCert = "error.mustAgreeToSelfCert"
-
-  // Evidence Upload
-  val uploadedFiles = "error.evidenceUploadFiles"
-  val missingFiles = "error.missingFiles"
-
-  //validation errors
-  val emailsMustMatch = "error.emailsMustMatch"
-}
-Japp/views/helpers/Errors.scala

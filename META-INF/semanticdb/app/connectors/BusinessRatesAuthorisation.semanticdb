@@ -1,492 +1,0 @@
-
-νίD
- :app/connectors/BusinessRatesAuthorisation.scala@1919..1922†
-σ	ϊ	|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ƒ
-ΟΟw_root_.connectors.BusinessRatesAuthorisation#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.
-΄Έ_root_.scala.Long#
-
-_root_.uk.0
-›&_root_.connectors.AuthorisationResult#;
-ΐ	Γ	1_root_.connectors.BusinessRatesAuthorisation#url.
-πÿ…_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)D
-ƒ†:app/connectors/BusinessRatesAuthorisation.scala@1637..1640»
-€ƒ°_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-εο_root_.connectors.€
-Π
-Ω
-t_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.,
-Ρδ"_root_.config.AuthorisationFailed.)
-«±_root_.uk.gov.hmrc.play.config.0
-δχ&_root_.connectors.AuthorisationResult#(
-•_root_.connectors.NoVOARecord.f
-‹’\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;."
-ϋÿ_root_.uk.gov.hmrc.http.D
-Ί
-½
-:app/connectors/BusinessRatesAuthorisation.scala@1308..13111
-ΝΝ'_root_.javax.inject.Inject#`<init>`()V.=
-ª	®	3_root_.connectors.BusinessRatesAuthorisation#(http),
-
-›
-"_root_.config.AuthorisationFailed.„
-‘x_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)0
- &_root_.connectors.AuthorisationResult#
-ΧΫ_root_.play.*
-ΏΚ_root_.connectors.NoVOARecord.5
-®Δ)_root_.connectors.NonOrganisationAccount.;
-έΰ1_root_.connectors.BusinessRatesAuthorisation#url.!
-ΠΨ_root_.models.Accounts#r
-ύ’f_root_.connectors.BusinessRatesAuthorisation#handleUnauthenticated(Ljava/lang/String;)Lscala/Product;.0
-φƒ	&_root_.uk.gov.hmrc.http.HeaderCarrier#4
-πω*_root_.play.api.libs.concurrent.Execution.
-λ
-ο
-_root_.scala.Long#
-™Άs_root_.connectors.BusinessRatesAuthorisation#authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;..
-ψψ$_root_.java.lang.Object#`<init>`()V.=
-ΗΛ3_root_.connectors.BusinessRatesAuthorisation#(http)…
-ςτy_root_.connectors.BusinessRatesAuthorisation#authenticate(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)W
-M_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#»
-―	²	°_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.0
-Σζ&_root_.connectors.AuthorisationResult#†
-ΌΓ|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.L
-³΄B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;..
-΅΅$_root_.java.lang.Object#`<init>`()V.c
-£Y_root_.uk.gov.hmrc.http.Upstream4xxResponse.;_root_.uk.gov.hmrc.http.Upstream4xxResponse#.
-αα$_root_.java.lang.Object#`<init>`()V.=
-ώ1_root_.connectors.BusinessRatesAuthorisation#url.
-άί_root_.play.api.0
-ª½&_root_.connectors.AuthorisationResult#)
-Χέ_root_.scala.concurrent.Future#0
-ήρ&_root_.connectors.AuthorisationResult#"
-¦ª_root_.uk.gov.hmrc.play.0
-	 	&_root_.connectors.AuthorisationResult#!
-„_root_.models.Accounts#*
-ΒΟ _root_.connectors.Authenticated..
-ηη$_root_.java.lang.Object#`<init>`()V.3
-ξ„)_root_.connectors.NonOrganisationAccount.?
-ΉΗ5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#w
-¤©m_root_.connectors.BusinessRatesAuthorisation#handleUnauthenticated(Ljava/lang/String;)Lscala/Product;.(error)?
-„5_root_.connectors.BusinessRatesAuthorisation#(config)
-ξτ_root_.config.WSHttp#*
-ί	μ	 _root_.connectors.Authenticated.ƒ
-ΓΕw_root_.connectors.BusinessRatesAuthorisation#authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc))
-£©_root_.scala.concurrent.Future#0
-Νΰ&_root_.connectors.AuthorisationResult#
-ψύ_root_.javax.>
-ϊƒ4_root_.play.api.libs.concurrent.Execution.Implicits.
-ΰδ_root_.play.api.libs.O
-―E_root_.config.AuthorisationFailed.;_root_.config.AuthorisationFailed#
-™ƒ_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(assessmentRef)
-φϊ_root_.uk.gov.hmrc.†
-Φέ|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.;
-‘”1_root_.connectors.BusinessRatesAuthorisation#url..
-››$_root_.java.lang.Object#`<init>`()V.2
-­&_root_.connectors.AuthorisationResult#9
-«Ε-_root_.connectors.BusinessRatesAuthorisation#=
-ϋÿ3_root_.connectors.BusinessRatesAuthorisation#(http)
-΅¥_root_.uk.gov.hmrc.
-ςυ_root_.uk.gov.
- _root_.uk.gov.6
-­ΐ,_root_.uk.gov.hmrc.http.Upstream4xxResponse.F
-εθ:app/connectors/BusinessRatesAuthorisation.scala@1637..1640-
-¶Ζ#_root_.connectors.IncorrectTrustId.%
- _root_.scala.Predef.String#0
-ΗΤ&_root_.uk.gov.hmrc.http.HeaderCarrier#
-”_root_.config.?
-Ψζ5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#p
-‡f_root_.connectors.BusinessRatesAuthorisation#handleUnauthenticated(Ljava/lang/String;)Lscala/Product;.r
-„’h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.Q
-½	Ύ	G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;./
-τ„#_root_.connectors.IncorrectTrustId./
-…•#_root_.connectors.InvalidGGSession."
-Φΰ_root_.scala.concurrent.*
-εο _root_.play.api.libs.concurrent.|
-Σ	Φ	r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-ορ
-_root_.uk.F
-
-
-:app/connectors/BusinessRatesAuthorisation.scala@1308..1311-
-Ψθ#_root_.connectors.InvalidGGSession.0
-ξÿ$_root_.connectors.ForbiddenResponse.6
-ΘΠ*_root_.connectors.Authenticated#(accounts)’
-Ϊ
-ι
-…_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)Q
-ΪΫG_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.y
-“m_root_.connectors.BusinessRatesAuthorisation#handleUnauthenticated(Ljava/lang/String;)Lscala/Product;.(error)0
-²Έ&_root_.uk.gov.hmrc.play.config.inject.!
-ÒΪ_root_.models.Accounts#
-ώ„_root_.javax.inject.
-άθu_root_.connectors.BusinessRatesAuthorisation#authenticate(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.)
-†		_root_.scala.concurrent.Future#
-ΐΖ_root_.models.
-€„_root_.scala.Long#»
-ΜΟ°_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.
-ρ
-ώ
-ƒ_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(assessmentRef)p
-¤
-Ή
-f_root_.connectors.BusinessRatesAuthorisation#handleUnauthenticated(Ljava/lang/String;)Lscala/Product;.,
-λώ"_root_.config.AuthorisationFailed.0
-±&_root_.connectors.AuthorisationResult#A
-…‹7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#‘
-£²„_root_.connectors.BusinessRatesAuthorisation#authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)F
-ÿ‚:app/connectors/BusinessRatesAuthorisation.scala@1919..1922*
-¨µ _root_.connectors.Authenticated.?
-θμ3_root_.connectors.BusinessRatesAuthorisation#(http)5
-±·+_root_.config.WSHttp.;_root_.config.WSHttp#p
-ν‚f_root_.connectors.BusinessRatesAuthorisation#handleUnauthenticated(Ljava/lang/String;)Lscala/Product;..
-Òγ$_root_.connectors.ForbiddenResponse.Q
-G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.
-ΠΥ_root_.scala..
-²²$_root_.java.lang.Object#`<init>`()V.I
-αη?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#%
-ΗΝ_root_.javax.inject.Inject#!
-³	»	_root_.models.Accounts#|
-¶Ήr_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.,
-ΊΗ _root_.connectors.Authenticated#A
-ΠΦ5_root_.connectors.BusinessRatesAuthorisation#(config)0
-“ &_root_.uk.gov.hmrc.http.HeaderCarrier#|
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.I
-ΗΗ=_root_.connectors.Authenticated#`<init>`(Lmodels/Accounts;)V.
-¤³„_root_.connectors.BusinessRatesAuthorisation#authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)9
-ΗΟ/_root_.models.Accounts.;_root_.models.Accounts#"c
-$_root_.java.lang.Object#`<init>`()V.;€€<init>
-(): Object" 
-
-_root_.java.lang.Object#"5
- _root_.play.api.libs.concurrent.€€
-concurrent"@
-$_root_.connectors.ForbiddenResponse.€„ForbiddenResponse"$
-_root_.config.WSHttp#€@WSHttp" 
-_root_.scala.Long#
-€ Long"'
-_root_.connectors.€€
-connectors"»
-=_root_.connectors.Authenticated#`<init>`(Lmodels/Accounts;)V.z<init>#(accounts: Accounts): Authenticated"
-_root_.models.Accounts#"(
-# _root_.connectors.Authenticated#"?
-"_root_.config.AuthorisationFailed.€„AuthorisationFailed"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"I
-,_root_.uk.gov.hmrc.http.Upstream4xxResponse.€„Upstream4xxResponse"½
-„_root_.connectors.BusinessRatesAuthorisation#authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4€authorisationIdLong"
-_root_.scala.Long#"Ύ
-…_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(authorisationId)4€authorisationIdLong"
-_root_.scala.Long#"'
-_root_.uk.gov.hmrc.http.€€http"$
-_root_.play.api.libs.€€libs"
-B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.X„€+(x$1: Any): String"
-	_root_.scala.Any#" 
-_root_.java.lang.String#"p
-:app/connectors/BusinessRatesAuthorisation.scala@1919..19222errString"!
-_root_.scala.Predef.String#"ό
-s_root_.connectors.BusinessRatesAuthorisation#authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.„	authoriseP(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult]"
-_root_.scala.Long#".
-%2&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-5;_root_.scala.concurrent.Future#".
-<O&_root_.connectors.AuthorisationResult#"
-_root_.javax.€€javax"
-_root_.play.api.
-€€api"¦
-m_root_.connectors.BusinessRatesAuthorisation#handleUnauthenticated(Ljava/lang/String;)Lscala/Product;.(error)5€errorString"!
-_root_.scala.Predef.String#"G
-4_root_.play.api.libs.concurrent.Execution.Implicits.€„	Implicits".
-_root_.scala.concurrent.Future#€@Future"Α
-x_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)E€ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"=
-*_root_.play.api.libs.concurrent.Execution.€„	Execution"L
-5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#€@ServicesConfig">
-#_root_.connectors.IncorrectTrustId.€„IncorrectTrustId",
-_root_.javax.inject.Inject#€ €Inject"¨
-|_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.§recoverZ[U] => (pf: PartialFunction[Throwable, U])(implicit executor: ExecutionContext): Future[U]"%
-_root_.scala.PartialFunction#"'
-%_root_.scala.package.Throwable#"‡
-'(_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]"1
->N)_root_.scala.concurrent.ExecutionContext#"'
-QW_root_.scala.concurrent.Future#"‡
-XY_root_.scala.concurrent.Future#recover(Lscala/PartialFunction;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[U]"®
-t_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.µ	authorisee(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult]"
-_root_.scala.Long#"
-'+_root_.scala.Long#".
-:G&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-JP_root_.scala.concurrent.Future#".
-Qd&_root_.connectors.AuthorisationResult#"7
-&_root_.uk.gov.hmrc.play.config.inject.€€inject"8
- _root_.connectors.Authenticated#€ €Authenticated"ΐ
-w_root_.connectors.BusinessRatesAuthorisation#authorise(JLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)E€ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"7
- _root_.connectors.Authenticated.€„Authenticated"
-
-_root_.uk.	€€uk"%
-_root_.javax.inject.€€inject"p
-:app/connectors/BusinessRatesAuthorisation.scala@1308..13112errString"!
-_root_.scala.Predef.String#"Τ
-\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.tbaseUrl(serviceName: String): String"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"
-_root_.uk.gov.
-€€gov"Ξ
-u_root_.connectors.BusinessRatesAuthorisation#authenticate(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.Τauthenticate9(implicit hc: HeaderCarrier): Future[AuthorisationResult]".
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-$_root_.scala.concurrent.Future#".
-%8&_root_.connectors.AuthorisationResult#"χ
-™_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.Ψ<init>ψ(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
-_root_.scala.Option#"6
-$._root_.uk.gov.hmrc.http.logging.Authorization#"
-/5_root_.scala.Option#"'
-6<_root_.uk.gov.hmrc.http.UserId#"
-FL_root_.scala.Option#"&
-MR_root_.uk.gov.hmrc.http.Token#"
-`f_root_.scala.Option#"5
-gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
-‡_root_.scala.Option#"4
-‘*_root_.uk.gov.hmrc.http.logging.SessionId#"
-¥_root_.scala.Option#"4
-¦―*_root_.uk.gov.hmrc.http.logging.RequestId#"7
-ΐΜ-_root_.uk.gov.hmrc.http.logging.RequestChain#"
-ΧΫ_root_.scala.Long#"#
-λξ_root_.scala.package.Seq#"
-ου_root_.scala.Tuple2#"%
-φό_root_.scala.Predef.String#"%
-ώ„_root_.scala.Predef.String#"
-–_root_.scala.Option#"%
-£_root_.scala.Predef.String#"
-¶Ό_root_.scala.Option#"%
-½Γ_root_.scala.Predef.String#"
-ΟΥ_root_.scala.Option#"%
-Φά_root_.scala.Predef.String#"
-ιο_root_.scala.Option#"%
-πφ_root_.scala.Predef.String#"
-ƒ‰_root_.scala.Option#"%
-_root_.scala.Predef.String#"
-¥«_root_.scala.Option#";
-¬Ό1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
-ΝΠ_root_.scala.package.Seq#"
-ΡΧ_root_.scala.Tuple2#"%
-Ψή_root_.scala.Predef.String#"%
-ΰζ_root_.scala.Predef.String#"0
-λψ&_root_.uk.gov.hmrc.http.HeaderCarrier#">
-#_root_.connectors.InvalidGGSession.€„InvalidGGSession"i
-'_root_.javax.inject.Inject#`<init>`()V.>€€<init>
-(): Inject"#
-
-_root_.javax.inject.Inject#"d
-1_root_.connectors.BusinessRatesAuthorisation#url./urlString"
-_root_.java.lang.String#"d
-*_root_.connectors.Authenticated#(accounts)6accountsAccounts"
-_root_.models.Accounts#"‘
-5_root_.connectors.BusinessRatesAuthorisation#(config)X€configServicesConfig";
-5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"C
-&_root_.connectors.AuthorisationResult#€ΐAuthorisationResult"-
-_root_.scala.concurrent.€€
-concurrent"
-_root_.play.€€play"J
-)_root_.connectors.NonOrganisationAccount.€„NonOrganisationAccount"Γ
-h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.W„€ defaultContextExecutionContext"/
-)_root_.scala.concurrent.ExecutionContext#"e
-3_root_.connectors.BusinessRatesAuthorisation#(http).€httpWSHttp"
-_root_.config.WSHttp#"0
-_root_.uk.gov.hmrc.play.config.€€config"
-_root_.models.€€models"Φ
-G_root_.scala.StringContext#s(Lscala/collection/Seq;)Ljava/lang/String;.s(args: <repeated>[Any]): String""
-_root_.scala.`<repeated>`#"
-_root_.scala.Any#"#
-_root_.scala.Predef.String#"ί
-w_root_.connectors.BusinessRatesAuthorisation#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.γ<init>B(config: ServicesConfig, http: WSHttp): BusinessRatesAuthorisation"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"5
-(B-_root_.connectors.BusinessRatesAuthorisation#"P
--_root_.connectors.BusinessRatesAuthorisation#€ BusinessRatesAuthorisation"p
-:app/connectors/BusinessRatesAuthorisation.scala@1637..16402errString"!
-_root_.scala.Predef.String#"4
-_root_.connectors.NoVOARecord.€„NoVOARecord"R
-_root_.scala.Long#`<init>`()V.0<init>(): Long"
-_root_.scala.Long#"
-_root_.config.€€config">
-&_root_.uk.gov.hmrc.http.HeaderCarrier#€ €HeaderCarrier"
-_root_.scala.€€scala"¬
-Z_root_.models.Accounts#`<init>`(Lmodels/GroupAccount;Lmodels/DetailedIndividualAccount;)V.Ν<init>I(organisation: GroupAccount, person: DetailedIndividualAccount): Accounts"#
-_root_.models.GroupAccount#"0
-%>(_root_.models.DetailedIndividualAccount#"
-AI_root_.models.Accounts#"ς
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ϋmapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"}
-u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-/?)_root_.scala.concurrent.ExecutionContext#"'
-BH_root_.scala.concurrent.Future#"}
-IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"ώ
-°_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.ΘGETd[A] => (url: String)(implicit rds: HttpReads[A], hc: HeaderCarrier, ec: ExecutionContext): Future[A]"#
-_root_.scala.Predef.String#"*
-#,"_root_.uk.gov.hmrc.http.HttpReads#"Ό
--.³_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]".
-5B&_root_.uk.gov.hmrc.http.HeaderCarrier#"1
-HX)_root_.scala.concurrent.ExecutionContext#"'
-[a_root_.scala.concurrent.Future#"Ό
-bc³_root_.uk.gov.hmrc.http.HttpGet#GET(Ljava/lang/String;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[A]"ε
-f_root_.connectors.BusinessRatesAuthorisation#handleUnauthenticated(Ljava/lang/String;)Lscala/Product;.ϊ„€handleUnauthenticatedE(error: String): Product with Serializable with AuthorisationResult{}"#
-_root_.scala.Predef.String#"
-_root_.scala.Product#""
-*_root_.scala.Serializable#".
-0C&_root_.connectors.AuthorisationResult#""
-_root_.uk.gov.hmrc.€€hmrc"*
-_root_.models.Accounts#€ €Accounts"'
-_root_.uk.gov.hmrc.play.€€play"Β
-y_root_.connectors.BusinessRatesAuthorisation#authenticate(Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)E€ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"Ί
-ƒ_root_.connectors.BusinessRatesAuthorisation#authorise(JJLuk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(assessmentRef)2€assessmentRefLong"
-_root_.scala.Long#2
-ιιD*.apply(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.p
-5Ch_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2Ε
-µµΪ*(uk.gov.hmrc.http.HttpReads.readFromJson[Accounts](models.Accounts.format, scala.reflect.ManifestFactory.classType[Accounts](classOf[models.Accounts])), hc, play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.
-*2_root_.models.Accounts#
-)ƒ_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.b
-jsZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.&
-DJ_root_.models.Accounts.format.
-t|_root_.models.Accounts#r
-ΛΩh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2S
-ΉΉ*[Authenticated]
-_star_.(
- _root_.connectors.Authenticated#2
-Δ
-Δ
-D*.apply(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.p
-5Ch_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2S
-Φ	Φ	*[Authenticated]
-_star_.(
- _root_.connectors.Authenticated#2x
-½	½	*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2_
-ΓΓ*[AuthorisationResult]
-_star_..
-&_root_.connectors.AuthorisationResult#2Ι
-µµ>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.p
-/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2Ε
-Ò	Ò	Ϊ*(uk.gov.hmrc.http.HttpReads.readFromJson[Accounts](models.Accounts.format, scala.reflect.ManifestFactory.classType[Accounts](classOf[models.Accounts])), hc, play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.
-*2_root_.models.Accounts#
-)ƒ_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.b
-jsZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.&
-DJ_root_.models.Accounts.format.
-t|_root_.models.Accounts#r
-ΛΩh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2_
-ϊ	ϊ	*[AuthorisationResult]
-_star_..
-&_root_.connectors.AuthorisationResult#2Ε
-››Ϊ*(uk.gov.hmrc.http.HttpReads.readFromJson[Accounts](models.Accounts.format, scala.reflect.ManifestFactory.classType[Accounts](classOf[models.Accounts])), hc, play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.
-*2_root_.models.Accounts#
-)ƒ_root_.uk.gov.hmrc.http.JsonHttpReads#readFromJson(Lplay/api/libs/json/Reads;Lscala/reflect/Manifest;)Luk/gov/hmrc/http/HttpReads;.b
-jsZ_root_.scala.reflect.ManifestFactory.classType(Ljava/lang/Class;)Lscala/reflect/Manifest;.&
-DJ_root_.models.Accounts.format.
-t|_root_.models.Accounts#r
-ΛΩh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2_
-έέ*[AuthorisationResult]
-_star_..
-&_root_.connectors.AuthorisationResult#2
-D*.apply(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.K
-C_root_.scala.Function1#apply(Ljava/lang/Object;)Ljava/lang/Object;.p
-5Ch_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2Ι
-μ	μ	>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.p
-/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2S
-*[Authenticated]
-_star_.(
- _root_.connectors.Authenticated#2x
-*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2x
-ΪΪ*.apply
-_star_.V
-N_root_.scala.StringContext.apply(Lscala/collection/Seq;)Lscala/StringContext;.2Ι
-ΟΟ>*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.p
-/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.:Scala211B›/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package connectors
-
-import javax.inject.Inject
-
-import config.{AuthorisationFailed, WSHttp}
-import models.Accounts
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.play.config.inject.ServicesConfig
-
-import scala.concurrent.Future
-import uk.gov.hmrc.http.{HeaderCarrier, Upstream4xxResponse}
-class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp) {
-  val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
-
-  def authenticate(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
-    http.GET[Accounts](s"$url/authenticate") map {
-      Authenticated
-    } recover {
-      case AuthorisationFailed(err) => handleUnauthenticated(err)
-    }
-  }
-
-  def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
-    http.GET[Accounts](s"$url/property-link/$authorisationId/assessment/$assessmentRef") map {
-      Authenticated
-    } recover {
-      case AuthorisationFailed(err) => handleUnauthenticated(err)
-    }
-  }
-
-  def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
-    http.GET[Accounts](s"$url/property-link/$authorisationId") map {
-      Authenticated
-    } recover {
-      case AuthorisationFailed(err) => handleUnauthenticated(err)
-      case Upstream4xxResponse(_, 403, _, _) => ForbiddenResponse
-    }
-  }
-
-  private def handleUnauthenticated(error: String) = error match {
-    case "INVALID_GATEWAY_SESSION" => InvalidGGSession
-    case "NO_CUSTOMER_RECORD" => NoVOARecord
-    case "TRUST_ID_MISMATCH" => IncorrectTrustId
-    case "NON_ORGANISATION_ACCOUNT" => NonOrganisationAccount
-  }
-
-}
-
-sealed trait AuthorisationResult
-
-case class Authenticated(accounts: Accounts) extends AuthorisationResult
-
-case object InvalidGGSession extends AuthorisationResult
-
-case object NoVOARecord extends AuthorisationResult
-
-case object IncorrectTrustId extends AuthorisationResult
-
-case object NonOrganisationAccount extends AuthorisationResult
-
-case object ForbiddenResponse extends AuthorisationResultJ/app/connectors/BusinessRatesAuthorisation.scala

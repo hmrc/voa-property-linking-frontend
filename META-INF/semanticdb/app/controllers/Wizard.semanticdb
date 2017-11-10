@@ -1,854 +1,0 @@
-
-υμD
-¥8_root_.controllers.Wizard#submit()Lplay/api/mvc/Action;.Y
-΄ΌO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.
-­±_root_.play.%
-ίε_root_.play.api.mvc.Action.
-«®_root_.uk.gov.voa.3
-ϋ‚'app/controllers/Wizard.scala@2427..2434+
-›¨!_root_.controllers.WizardOptions.)
-‹_root_.play.api.mvc.Controller#)
-€‚_root_.play.api.mvc.Results#Ok.
-ήβ_root_.views.html.3
-ª'app/controllers/Wizard.scala@2591..2602
-δθ_root_.play.
-™_root_.play.api.Play.P
-ΦθD_root_.controllers.Wizard#beforeYouRegisterD()Lplay/api/mvc/Action;.P
-γεF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.+
-ΔΚ!_root_.controllers.routes.Wizard.?
-»Ώ5_root_.play.api.data.Form.;_root_.play.api.data.Form#
-¥©_root_.scala.Some.R
-•©F_root_.controllers.Wizard#authenticationWizard()Lplay/api/mvc/Action;.
-Ψά_root_.views.html.D
-µΗ:_root_.views.html.authenticationWizard.beforeYouRegisterC.;
-Ά1_root_.controllers.Wizard.useExistingAccountForm.Y
-›£O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.3
-ρψ'app/controllers/Wizard.scala@1777..1784)
-’”_root_.play.api.mvc.Results#Ok.
-ΓΣ‘_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfFalse(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.(
-ςϊ_root_.play.api.i18n.Messages.$
-ΰζ_root_.controllers.routes.&
-΄Έ_root_.uk.gov.voa.play.form.P
-ΘΪD_root_.controllers.Wizard#beforeYouRegisterA()Lplay/api/mvc/Action;.1
-ΐΗ%app/controllers/Wizard.scala@960..967)
-ΟΡ_root_.play.api.mvc.Results#Ok.%
-ª°_root_.play.api.mvc.Action.Y
-ϊ
-‚O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.1
-Β	Θ	'app/controllers/Wizard.scala@1144..1150
-ΔΘ_root_.scala.Some.2
-ωω&_root_.controllers.Wizard#`<init>`()V.
-‚†_root_.scala.Some.
-¤¦
-_root_.uk.$
-Ψή_root_.controllers.routes.)
-ώ€_root_.play.api.mvc.Results#Ok.%
-ιο_root_.play.api.mvc.Action.>
-Τβ4_root_.controllers.Wizard.keys.$anon#givenGGDetails.
-επ_root_.controllers.
-ωύ_root_.form.F
-­	Α	<_root_.views.html.authenticationWizard.authenticationWizard.1
-²'_root_.views.html.authenticationWizard.1
-ξ	ς	'app/controllers/Wizard.scala@1238..1242E
-Ωξ;_root_.controllers.Wizard.keys.$anon#businessHasRegistered.
-ιο_root_.scala.Option#?
-¥5_root_.play.api.Play.current()Lplay/api/Application;.3
-ΓΙ'app/controllers/Wizard.scala@2499..2505P
-ΔΦD_root_.controllers.Wizard#registerExistingGG()Lplay/api/mvc/Action;.
-›_root_.views.html.
-ιμ_root_.play.api.)
-ΟΣ_root_.controllers.Wizard.keys.`
-£²V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.E
- µ;_root_.controllers.Wizard.keys.$anon#businessHasRegistered.
-νρ_root_.play.api.i18n.
-Φα_root_.controllers.1
-Ά'_root_.views.html.authenticationWizard.1
-²½'app/controllers/Wizard.scala@2591..26021
-ό†%_root_.controllers.Wizard.wizardForm.:
-ΉΜ0_root_.uk.gov.voa.play.form.ConditionalMappings.0
-’Ά&_root_.form.Mappings.mandatoryBoolean.
-ΠΤ_root_.play.api.data._
-θμU_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.1
-γχ'_root_.views.html.authenticationWizard.3
-Τι'app/controllers/Wizard.scala@3152..3203S
-ξ€I_root_.controllers.ReverseWizard#beforeYouRegisterB()Lplay/api/mvc/Call;.3
-'app/controllers/Wizard.scala@3208..3245
-	’	_root_.views.q
-
-¦
-e_root_.controllers.Wizard#redirectToStart(Lcontrollers/WizardOptions;)Lplay/api/mvc/Result;.(options)F
-ς†<_root_.views.html.authenticationWizard.authenticationWizard.0
-ζφ&_root_.form.Mappings.mandatoryBoolean.3
-'app/controllers/Wizard.scala@2177..2184.
-$_root_.java.lang.Object#`<init>`()V.
-•_root_.views.S
-ΛέI_root_.controllers.ReverseWizard#registerExistingGG()Lplay/api/mvc/Call;.P
-γεF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.P
-ΐΒF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.
-•_root_.play.api.+
-!_root_.controllers.routes.Wizard.)
-ΤΨ_root_.controllers.Wizard.keys.1
-έρ'_root_.views.html.authenticationWizard.1
-‹‘'app/controllers/Wizard.scala@2499..2505&
-ςψ_root_.controllers.Wizard#D
-Ξβ:_root_.controllers.Wizard.keys.$anon#useExistingGGAccount.E
-ϋ;_root_.controllers.Wizard.keys.$anon#businessHasRegistered.%
-έγ_root_.play.api.mvc.Action.%
-νσ_root_.play.api.mvc.Action.
-θ
-μ
-_root_.scala.Some.h
-
-
-\_root_.controllers.Wizard#redirectToStart(Lcontrollers/WizardOptions;)Lplay/api/mvc/Result;.1
-¤'_root_.views.html.authenticationWizard.0
-π€&_root_.form.Mappings.mandatoryBoolean.1
-	¬	'_root_.views.html.authenticationWizard.3
-Φ	Ϊ	'app/controllers/Wizard.scala@1238..1242+
-†“!_root_.controllers.WizardOptions.$
-›΅_root_.controllers.routes.
-ΕΛ_root_.scala.Option#S
-‘£I_root_.controllers.ReverseWizard#beforeYouRegisterA()Lplay/api/mvc/Call;./
-ΝΧ%_root_.controllers.Wizard.wizardForm.
-πχ_root_.scala.Boolean#
-ÒΧ_root_.views.
-…_root_.views.1
- '_root_.views.html.authenticationWizard.$
-¤ª_root_.controllers.routes.3
-ψώ'app/controllers/Wizard.scala@1144..1150D
-΅³:_root_.views.html.authenticationWizard.registerExistingGG.3
-ΌΓ'app/controllers/Wizard.scala@1084..1091)
-›_root_.controllers.Wizard.keys.
-†_root_.views.+
-Τ
-α
-!_root_.controllers.WizardOptions./
-‡‘%_root_.controllers.Wizard.wizardForm.
-ΜΣ_root_.scala.Boolean#S
-ζψI_root_.controllers.ReverseWizard#beforeYouRegisterC()Lplay/api/mvc/Call;.+
-¨
-µ
-!_root_.controllers.WizardOptions#^
-©°T_root_.controllers.WizardOptions.unapply(Lcontrollers/WizardOptions;)Lscala/Option;.D
-¥·:_root_.views.html.authenticationWizard.beforeYouRegisterA.N
-ΤδB_root_.controllers.Wizard#submitExistingGG()Lplay/api/mvc/Action;.&
-θξ_root_.controllers.Wizard.+
-°½!_root_.controllers.WizardOptions.;
-΄Κ1_root_.controllers.Wizard.useExistingAccountForm.D
-•ª8_root_.controllers.WizardOptions#(businessHasRegistered)$
-ƒ‰_root_.controllers.routes.1
-ΝΧ'_root_.play.api.mvc.Results#BadRequest.2
-ϋ„(_root_.play.api.i18n.Messages.Implicits.=
-µΓ1_root_.controllers.WizardOptions#(givenGGDetails)$
-βθ_root_.controllers.Wizard.=
-¤Ί1_root_.controllers.Wizard.useExistingAccountForm.Y
-ΧίO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.$
-½Α_root_.play.api.data.Form.)
-ΙΝ_root_.controllers.Wizard.keys.S
-©»I_root_.controllers.ReverseWizard#beforeYouRegisterD()Lplay/api/mvc/Call;.
-ΗΛ_root_.play.
-§ª_root_.uk.gov.+
-Ά¨!_root_.controllers.routes.Wizard.f
-ή	ν	\_root_.controllers.Wizard#redirectToStart(Lcontrollers/WizardOptions;)Lplay/api/mvc/Result;.0
-ΉΙ&_root_.form.Mappings.mandatoryBoolean.D
-£µ:_root_.views.html.authenticationWizard.beforeYouRegisterB.
-ƒ_root_.views.V
-””J_root_.controllers.WizardOptions#`<init>`(ZLscala/Option;Lscala/Option;)V.k
-”™a_root_.controllers.WizardOptions.apply(ZLscala/Option;Lscala/Option;)Lcontrollers/WizardOptions;.
-Ψέ_root_.views.)
-©­_root_.controllers.Wizard.keys.S
-ΒΘI_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.
-¬³_root_.scala.Boolean#%
-ΥΪ_root_.play.api.data.Forms.D
-³Ε:_root_.views.html.authenticationWizard.beforeYouRegisterD.+
-!_root_.controllers.WizardOptions.
-“_root_.views.3
-οφ'app/controllers/Wizard.scala@1903..1910+
-ίε!_root_.controllers.routes.Wizard.
-ώ†_root_.form.Mappings.+
-ην!_root_.controllers.routes.Wizard.Y
-ΟΧO_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.$
-‰_root_.play.api.data.Form.+
-ΏΓ_root_.controllers.Wizard.keys.
-ΜΟ_root_.play.api.›
-ζυ_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfTrue(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.
-™_root_.views.html.S
-²ΔI_root_.controllers.ReverseWizard#beforeYouRegisterD()Lplay/api/mvc/Call;.%
-®΄_root_.play.api.mvc.Action.P
-¶ΈF_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.`
-ΨηV_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.3
-ÿ†'app/controllers/Wizard.scala@2303..2310A
-®Ώ7_root_.controllers.Wizard.keys.$anon#existingGGAccount.
-‡‹_root_.views.html.3
-¶Η'app/controllers/Wizard.scala@3250..3293$
-½Γ_root_.controllers.routes.%
-ου_root_.play.api.mvc.Action.
-‹_root_.views.html.+
-κχ!_root_.controllers.WizardOptions.P
-ΖΨD_root_.controllers.Wizard#beforeYouRegisterB()Lplay/api/mvc/Action;.)
-’_root_.play.api.mvc.Results#Ok.
-²µ_root_.play.api.1
-‚		'_root_.play.api.mvc.Results#BadRequest.)
-φϊ_root_.controllers.Wizard.keys.Y
-’O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.1
- ΄'_root_.views.html.authenticationWizard.
-¶Ί_root_.play.api.data.o
-Ή
-ΐ
-e_root_.controllers.Wizard#redirectToStart(Lcontrollers/WizardOptions;)Lplay/api/mvc/Result;.(options)
-’_root_.play.3
-ζϊ'app/controllers/Wizard.scala@3298..3347-
-‡”!_root_.controllers.WizardOptions#_
-³·U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.“
-•_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.
-“–_root_.play.api.
-”_root_.play.)
-‚„_root_.play.api.mvc.Results#Ok.@
-Φη4_root_.controllers.WizardOptions#(existingGGAccount)P
-ΨκD_root_.controllers.Wizard#beforeYouRegisterC()Lplay/api/mvc/Action;.D
-ψ:_root_.views.html.authenticationWizard.registerExistingGG.%
-Ϋα_root_.play.api.mvc.Action.3
-ντ'app/controllers/Wizard.scala@2029..2036
-“	—	_root_.views.html.+
-«±!_root_.controllers.routes.Wizard.
-—_root_.play.api.mvc.
-‰_root_.views.html.!
-―³_root_.uk.gov.voa.play."
-'app/controllers/Wizard.scala@1903..1910o€ requestRequest[AnyContent]""
-_root_.play.api.mvc.Request#"'
-_root_.play.api.mvc.AnyContent#"c
-$_root_.java.lang.Object#`<init>`()V.;€€<init>
-(): Object" 
-
-_root_.java.lang.Object#"Δ
-D_root_.controllers.Wizard#beforeYouRegisterD()Lplay/api/mvc/Action;.|beforeYouRegisterD(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"0
-_root_.play.api.i18n.Messages.€„Messages"Ο
-I_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.single6[A1] => (a1: Tuple2[String, Mapping[A1]]): Mapping[A1]"
-_root_.scala.Tuple2#"#
-_root_.scala.Predef.String#"%
-#_root_.play.api.data.Mapping#"U
-$&M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"%
-+2_root_.play.api.data.Mapping#"U
-35M_root_.play.api.data.Forms.single(Lscala/Tuple2;)Lplay/api/data/Mapping;.[A1]"¬
-a_root_.controllers.WizardOptions.apply(ZLscala/Option;Lscala/Option;)Lcontrollers/WizardOptions;.Ζ„€€applyt(businessHasRegistered: Boolean, givenGGDetails: Option[Boolean], existingGGAccount: Option[Boolean]): WizardOptions"
-_root_.scala.Boolean#"
-17_root_.scala.Option#"
-8?_root_.scala.Boolean#"
-U[_root_.scala.Option#"
-\c_root_.scala.Boolean#")
-gt!_root_.controllers.WizardOptions#"\
-_root_.play.api.mvc.Results#Ok.9OkStatus")
-#_root_.play.api.mvc.Results#Status#"Δ
-D_root_.controllers.Wizard#beforeYouRegisterC()Lplay/api/mvc/Action;.|beforeYouRegisterC(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"k
-'app/controllers/Wizard.scala@3298..3347@useExistingGGAccountString"
-_root_.java.lang.String#"
-'app/controllers/Wizard.scala@2427..2434o€ requestRequest[AnyContent]""
-_root_.play.api.mvc.Request#"'
-_root_.play.api.mvc.AnyContent#"V
-:_root_.views.html.authenticationWizard.beforeYouRegisterC.€„beforeYouRegisterC"
-_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.ÿmappingΦ[R, A1, A2, A3] => (a1: Tuple2[String, Mapping[A1]], a2: Tuple2[String, Mapping[A2]], a3: Tuple2[String, Mapping[A3]])(apply: Function3[A1, A2, A3, R])(unapply: Function1[R, Option[Tuple3[A1, A2, A3]]]): Mapping[R]"
-_root_.scala.Tuple2#"#
-%_root_.scala.Predef.String#"%
-'._root_.play.api.data.Mapping#"•
-/1_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"
-9?_root_.scala.Tuple2#"#
-@F_root_.scala.Predef.String#"%
-HO_root_.play.api.data.Mapping#"•
-PR_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"
-Z`_root_.scala.Tuple2#"#
-ag_root_.scala.Predef.String#"%
-ip_root_.play.api.data.Mapping#"•
-qs_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]" 
-~‡_root_.scala.Function3#"—
-_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"—
-_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"—
-’_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"–
-”•‹_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"!
-΅ª_root_.scala.Function1#"–
-«¬‹_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"
-®΄_root_.scala.Option#"
-µ»_root_.scala.Tuple3#"—
-ΌΎ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A1]"—
-ΐΒ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A2]"—
-ΔΖ_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[A3]"'
-ΜΣ_root_.play.api.data.Mapping#"–
-ΤΥ‹_root_.play.api.data.Forms.mapping(Lscala/Tuple2;Lscala/Tuple2;Lscala/Tuple2;Lscala/Function3;Lscala/Function1;)Lplay/api/data/Mapping;.[R]"r
-4_root_.controllers.Wizard.keys.$anon#givenGGDetails.:givenGGDetailsString"
-_root_.java.lang.String#"V
-:_root_.views.html.authenticationWizard.beforeYouRegisterA.€„beforeYouRegisterA"Ϋ
-_root_.controllers.Wizard.keys.·€@keys†AnyRef{val businessHasRegistered: String; val givenGGDetails: String; val existingGGAccount: String; val useExistingGGAccount: String}"
-_root_.scala.AnyRef#"C
- ;_root_.controllers.Wizard.keys.$anon#businessHasRegistered."<
-.<4_root_.controllers.Wizard.keys.$anon#givenGGDetails."?
-J[7_root_.controllers.Wizard.keys.$anon#existingGGAccount."B
-i}:_root_.controllers.Wizard.keys.$anon#useExistingGGAccount."
-4_root_.controllers.WizardOptions#(existingGGAccount)bexistingGGAccountOption[Boolean]"
-_root_.scala.Option#"
-_root_.scala.Boolean#"$
-_root_.play.api.data.€€data"
-_root_.form.€€form"x
-7_root_.controllers.Wizard.keys.$anon#existingGGAccount.=existingGGAccountString"
-_root_.java.lang.String#"
-'app/controllers/Wizard.scala@2029..2036o€ requestRequest[AnyContent]""
-_root_.play.api.mvc.Request#"'
-_root_.play.api.mvc.AnyContent#"΅
-1_root_.controllers.Wizard.useExistingAccountForm.l€@useExistingAccountFormForm[Boolean]" 
-_root_.play.api.data.Form#"
-_root_.scala.Boolean#""
-_root_.play.api.mvc.
-€€mvc"
-‘_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfFalse(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.…mandatoryIfFalse[[T] => (fieldName: String, mapping: Mapping[T], prefix: Option[String]): Mapping[Option[T]]"#
-_root_.scala.Predef.String#"%
-$+_root_.play.api.data.Mapping#"
-,-”_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfFalse(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.[T]"
-8>_root_.scala.Option#"#
-?E_root_.scala.Predef.String#"%
-IP_root_.play.api.data.Mapping#"
-QW_root_.scala.Option#"
-XY”_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfFalse(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.[T]"
-_root_.play.api.
-€€api"l
-'_root_.play.api.mvc.Results#BadRequest.A
-BadRequestStatus")
-#_root_.play.api.mvc.Results#Status#"e
-'app/controllers/Wizard.scala@3208..3245:givenGGDetailsString"
-_root_.java.lang.String#"”
-&_root_.form.Mappings.mandatoryBoolean.jmandatoryBooleanMapping[Boolean]"#
-_root_.play.api.data.Mapping#"
-_root_.scala.Boolean#"
-'app/controllers/Wizard.scala@1084..1091o€ requestRequest[AnyContent]""
-_root_.play.api.mvc.Request#"'
-_root_.play.api.mvc.AnyContent#"[
-!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
-_root_.scala.Boolean#"V
-:_root_.views.html.authenticationWizard.beforeYouRegisterD.€„beforeYouRegisterD"V
-:_root_.views.html.authenticationWizard.registerExistingGG.€„registerExistingGG"!
-_root_.views.html.€€html"2
-_root_.play.api.mvc.Controller#€@
-Controller"#
-_root_.play.api.Play.
-€„Play"Θ
-F_root_.controllers.Wizard#authenticationWizard()Lplay/api/mvc/Action;.~authenticationWizard(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"
-'app/controllers/Wizard.scala@1144..1150m€errorsForm[WizardOptions]" 
-_root_.play.api.data.Form#")
-!_root_.controllers.WizardOptions#"$
-_root_.scala.Option#€ Option"½
-O_root_.play.api.mvc.Results#Redirect(Lplay/api/mvc/Call;)Lplay/api/mvc/Result;.jRedirect(call: Call): Result"!
-_root_.play.api.mvc.Call#"#
-_root_.play.api.mvc.Result#"
-
-_root_.uk.	€€uk"
-'app/controllers/Wizard.scala@2177..2184o€ requestRequest[AnyContent]""
-_root_.play.api.mvc.Request#"'
-_root_.play.api.mvc.AnyContent#"›
-%_root_.controllers.Wizard.wizardForm.r€@
-wizardFormForm[WizardOptions]" 
-_root_.play.api.data.Form#")
-!_root_.controllers.WizardOptions#"*
-_root_.controllers.Wizard.€„Wizard")
-_root_.controllers.Wizard#€ Wizard"+
-_root_.controllers.routes.€„routes"
-_root_.uk.gov.
-€€gov"†
-'app/controllers/Wizard.scala@2499..2505[€errorsForm[Boolean]" 
-_root_.play.api.data.Form#"
-_root_.scala.Boolean#"
-_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfTrue(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.‚mandatoryIfTrue[[T] => (fieldName: String, mapping: Mapping[T], prefix: Option[String]): Mapping[Option[T]]"#
-_root_.scala.Predef.String#"%
-$+_root_.play.api.data.Mapping#"
-,-“_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfTrue(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.[T]"
-8>_root_.scala.Option#"#
-?E_root_.scala.Predef.String#"%
-IP_root_.play.api.data.Mapping#"
-QW_root_.scala.Option#"
-XY“_root_.uk.gov.voa.play.form.ConditionalMappings.mandatoryIfTrue(Ljava/lang/String;Lplay/api/data/Mapping;Lscala/Option;)Lplay/api/data/Mapping;.[T]"€
-;_root_.controllers.Wizard.keys.$anon#businessHasRegistered.AbusinessHasRegisteredString"
-_root_.java.lang.String#"ΐ
-B_root_.controllers.Wizard#submitExistingGG()Lplay/api/mvc/Action;.zsubmitExistingGG(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"+
-_root_.uk.gov.voa.play.form.€€form"ή
-F_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.“->[B] => (y: B): Tuple2[A, B]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"
-_root_.scala.Tuple2#"*
-"_root_.scala.Predef.ArrowAssoc#[A]"Q
-I_root_.scala.Predef.ArrowAssoc#`->`(Ljava/lang/Object;)Lscala/Tuple2;.[B]"d
-&_root_.controllers.Wizard#`<init>`()V.:<init>
-(): Wizard""
-
-_root_.controllers.Wizard#"M
-0_root_.uk.gov.voa.play.form.ConditionalMappings.€„ConditionalMappings";
-(_root_.play.api.i18n.Messages.Implicits.€„	Implicits"
-'app/controllers/Wizard.scala@2303..2310o€ requestRequest[AnyContent]""
-_root_.play.api.mvc.Request#"'
-_root_.play.api.mvc.AnyContent#"$
-_root_.play.api.i18n.€€i18n"~
-:_root_.controllers.Wizard.keys.$anon#useExistingGGAccount.@useExistingGGAccountString"
-_root_.java.lang.String#"l
-'app/controllers/Wizard.scala@3152..3203AbusinessHasRegisteredString"
-_root_.java.lang.String#"(
-_root_.play.api.data.Form.
-€„Form"
-I_root_.controllers.ReverseWizard#beforeYouRegisterA()Lplay/api/mvc/Call;.CbeforeYouRegisterA(): Call"!
-_root_.play.api.mvc.Call#"h
-'app/controllers/Wizard.scala@3250..3293=existingGGAccountString"
-_root_.java.lang.String#"ρ
-V_root_.play.api.data.Form#bindFromRequest(Lplay/api/mvc/Request;)Lplay/api/data/Form;.–bindFromRequest6()(implicit request: play.api.mvc.Request[_]): Form[T]""
-/3_root_.play.api.data.Form#"%
-45_root_.play.api.data.Form#[T]"&
-_root_.scala.Boolean#€ Boolean"
-_root_.play.€€play"a
-'app/controllers/Wizard.scala@2591..26026€useExistingBoolean"
-_root_.scala.Boolean#"
-I_root_.controllers.ReverseWizard#beforeYouRegisterC()Lplay/api/mvc/Call;.CbeforeYouRegisterC(): Call"!
-_root_.play.api.mvc.Call#" 
-_root_.uk.gov.voa.
-€€voa"j
-!_root_.controllers.routes.Wizard.E€WizardReverseWizard"'
-!_root_.controllers.ReverseWizard#"F
-'_root_.views.html.authenticationWizard.€€authenticationWizard"'
-_root_.form.Mappings.€„Mappings"8
-!_root_.controllers.WizardOptions.€„WizardOptions"9
-!_root_.controllers.WizardOptions#€ €WizardOptions"|
- _root_.scala.Option#`<init>`()V.X<init>(): Option[A]"
-
-_root_.scala.Option#"
-_root_.scala.Option#[A]"­
-e_root_.controllers.Wizard#redirectToStart(Lcontrollers/WizardOptions;)Lplay/api/mvc/Result;.(options)D€optionsWizardOptions"'
-!_root_.controllers.WizardOptions#"
-'app/controllers/Wizard.scala@1777..1784o€ requestRequest[AnyContent]""
-_root_.play.api.mvc.Request#"'
-_root_.play.api.mvc.AnyContent#"w
-5_root_.play.api.Play.current()Lplay/api/Application;.>„€ currentApplication""
-_root_.play.api.Application#"+
-_root_.play.api.mvc.Action.€„Action")
-_root_.controllers.€€controllers"
-_root_.views.€€views"Z
-<_root_.views.html.authenticationWizard.authenticationWizard.€„authenticationWizard"¬
-8_root_.controllers.Wizard#submit()Lplay/api/mvc/Action;.psubmit(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"&
-_root_.uk.gov.voa.play.€€play"Έ
-T_root_.controllers.WizardOptions.unapply(Lcontrollers/WizardOptions;)Lscala/Option;.ί„€€unapplyO(x$0: WizardOptions): Option[Tuple3[Boolean, Option[Boolean], Option[Boolean]]]")
-!_root_.controllers.WizardOptions#"
-_root_.scala.Option#"
-#_root_.scala.Tuple3#"
-$+_root_.scala.Boolean#"
--3_root_.scala.Option#"
-4;_root_.scala.Boolean#"
->D_root_.scala.Option#"
-EL_root_.scala.Boolean#"
-I_root_.controllers.ReverseWizard#beforeYouRegisterD()Lplay/api/mvc/Call;.CbeforeYouRegisterD(): Call"!
-_root_.play.api.mvc.Call#"V
-:_root_.views.html.authenticationWizard.beforeYouRegisterB.€„beforeYouRegisterB"
-I_root_.controllers.ReverseWizard#beforeYouRegisterB()Lplay/api/mvc/Call;.CbeforeYouRegisterB(): Call"!
-_root_.play.api.mvc.Call#"l
-'app/controllers/Wizard.scala@1238..1242A€dataWizardOptions"'
-!_root_.controllers.WizardOptions#"Δ
-D_root_.controllers.Wizard#registerExistingGG()Lplay/api/mvc/Action;.|registerExistingGG(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"
-I_root_.controllers.ReverseWizard#registerExistingGG()Lplay/api/mvc/Call;.CregisterExistingGG(): Call"!
-_root_.play.api.mvc.Call#"|
-8_root_.controllers.WizardOptions#(businessHasRegistered)@businessHasRegisteredBoolean"
-_root_.scala.Boolean#"θ
-\_root_.controllers.Wizard#redirectToStart(Lcontrollers/WizardOptions;)Lplay/api/mvc/Result;.‡„€redirectToStart (options: WizardOptions): Result")
-
-!_root_.controllers.WizardOptions#"#
- _root_.play.api.mvc.Result#"*
-_root_.play.api.data.Forms.€„Forms"“
-J_root_.controllers.WizardOptions#`<init>`(ZLscala/Option;Lscala/Option;)V.Δ<init>t(businessHasRegistered: Boolean, givenGGDetails: Option[Boolean], existingGGAccount: Option[Boolean]): WizardOptions"
-_root_.scala.Boolean#"
-17_root_.scala.Option#"
-8?_root_.scala.Boolean#"
-U[_root_.scala.Option#"
-\c_root_.scala.Boolean#")
-gt!_root_.controllers.WizardOptions#"
-%app/controllers/Wizard.scala@960..967o€ requestRequest[AnyContent]""
-_root_.play.api.mvc.Request#"'
-_root_.play.api.mvc.AnyContent#"Δ
-D_root_.controllers.Wizard#beforeYouRegisterB()Lplay/api/mvc/Action;.|beforeYouRegisterB(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"”
-1_root_.controllers.WizardOptions#(givenGGDetails)_givenGGDetailsOption[Boolean]"
-_root_.scala.Option#"
-_root_.scala.Boolean#" 
-_root_.scala.Some.
-€„Some"Δ
-D_root_.controllers.Wizard#beforeYouRegisterA()Lplay/api/mvc/Action;.|beforeYouRegisterA(): Action[AnyContent]"#
-
-_root_.play.api.mvc.Action#"'
-_root_.play.api.mvc.AnyContent#"„
-U_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.ªfoldF[R] => (hasErrors: Function1[Form[T], R], success: Function1[T, R]): R"
-_root_.scala.Function1#""
-!_root_.play.api.data.Form#"%
-"#_root_.play.api.data.Form#[T]"`
-&'X_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"
-3<_root_.scala.Function1#"%
-=>_root_.play.api.data.Form#[T]"`
-@AX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]"`
-EFX_root_.play.api.data.Form#fold(Lscala/Function1;Lscala/Function1;)Ljava/lang/Object;.[R]2®
-©Ώ"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2Ζ
-ΛΛz*(request, play.api.i18n.Messages.Implicits.applicationMessages(Wizard.this.request2lang(request), play.api.Play.current))
-_star_.f
-LX^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.‰
-,?€_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
-qx5_root_.play.api.Play.current()Lplay/api/Application;.2#
-ηη
-*(request)
-_star_.2
-ΒΒ*[Mapping[Option[Boolean]]]
-_star_.
-
-_root_.scala.Option#
-_root_.scala.Boolean#%
-	_root_.play.api.data.Mapping#2z
-οο*.apply
-_star_.X
-P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2
-ΑΑ*.apply[Boolean]
-_star_.U
-M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.
-_root_.scala.Boolean#2Σ
-‚‚*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2Σ
-ΧΧ*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2r
-ΈΈ*[Mapping[Boolean]]
-_star_.%
-	_root_.play.api.data.Mapping#
-
-_root_.scala.Boolean#2®
-Ιβ"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2±
-*.apply[WizardOptions]
-_star_.U
-M_root_.play.api.data.Form.apply(Lplay/api/data/Mapping;)Lplay/api/data/Form;.)
-!_root_.controllers.WizardOptions#2®
-›µ"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2#
-²²
-*(request)
-_star_.2ÿ
-Α	Α	*.apply
-_star_.ά
-Σ_root_.views.html.authenticationWizard.authenticationWizard_Scope0.authenticationWizard_Scope1.authenticationWizard#apply(Lplay/api/data/Form;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2ω
-*.apply
-_star_.Φ
-Ν_root_.views.html.authenticationWizard.registerExistingGG_Scope0.registerExistingGG_Scope1.registerExistingGG#apply(Lplay/api/data/Form;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2
-εε*[Mapping[Option[Boolean]]]
-_star_.
-
-_root_.scala.Option#
-_root_.scala.Boolean#%
-	_root_.play.api.data.Mapping#2B
-ΣΣ
-*[Boolean]
-_star_.
-	_root_.scala.Boolean#2Ζ
-’’z*(request, play.api.i18n.Messages.Implicits.applicationMessages(Wizard.this.request2lang(request), play.api.Play.current))
-_star_.f
-LX^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.‰
-,?€_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
-qx5_root_.play.api.Play.current()Lplay/api/Application;.2G
-··	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2Σ
-		*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2z
-γγ*.apply
-_star_.X
-P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2Σ
-„„*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2Σ
-ΜΜ*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2
-••;*[WizardOptions, Boolean, Option[Boolean], Option[Boolean]]
-_star_.)
-!_root_.controllers.WizardOptions#
-_root_.scala.Boolean#
- _root_.scala.Option#
-!(_root_.scala.Boolean#
-+1_root_.scala.Option#
-29_root_.scala.Boolean#2®
-Οβ"scala.Predef.ArrowAssoc[String](*)M
-E_root_.scala.Predef.ArrowAssoc(Ljava/lang/Object;)Ljava/lang/Object;. 
-_root_.java.lang.String#
- !_star_.2Ζ
-ΗΗz*(request, play.api.i18n.Messages.Implicits.applicationMessages(Wizard.this.request2lang(request), play.api.Play.current))
-_star_.f
-LX^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.‰
-,?€_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
-qx5_root_.play.api.Play.current()Lplay/api/Application;.2Λ
-µµ*.apply
-_star_.¨
-_root_.views.html.authenticationWizard.beforeYouRegisterB_Scope0.beforeYouRegisterB#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Σ
-ΘΘ*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2Ζ
-ΉΉz*(request, play.api.i18n.Messages.Implicits.applicationMessages(Wizard.this.request2lang(request), play.api.Play.current))
-_star_.f
-LX^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.‰
-,?€_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
-qx5_root_.play.api.Play.current()Lplay/api/Application;.2Ζ
-ΙΙz*(request, play.api.i18n.Messages.Implicits.applicationMessages(Wizard.this.request2lang(request), play.api.Play.current))
-_star_.f
-LX^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.‰
-,?€_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
-qx5_root_.play.api.Play.current()Lplay/api/Application;.2Σ
-ΊΊ*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2z
-°°*.apply
-_star_.X
-P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2r
-εε*[Mapping[Boolean]]
-_star_.%
-	_root_.play.api.data.Mapping#
-
-_root_.scala.Boolean#2ω
-³³*.apply
-_star_.Φ
-Ν_root_.views.html.authenticationWizard.registerExistingGG_Scope0.registerExistingGG_Scope1.registerExistingGG#apply(Lplay/api/data/Form;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Σ
-””*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2G
-μμ	*[Result]
-_star_.#
-_root_.play.api.mvc.Result#2Σ
-Κ	Κ	*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2Λ
-··*.apply
-_star_.¨
-_root_.views.html.authenticationWizard.beforeYouRegisterA_Scope0.beforeYouRegisterA#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Σ
-’’*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2Σ
-““*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2B
-υυ
-*[Boolean]
-_star_.
-	_root_.scala.Boolean#2B
-ΘΘ
-*[Boolean]
-_star_.
-	_root_.scala.Boolean#2Λ
-ΗΗ*.apply
-_star_.¨
-_root_.views.html.authenticationWizard.beforeYouRegisterC_Scope0.beforeYouRegisterC#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Ζ
-’’z*(request, play.api.i18n.Messages.Implicits.applicationMessages(Wizard.this.request2lang(request), play.api.Play.current))
-_star_.f
-LX^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.‰
-,?€_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
-qx5_root_.play.api.Play.current()Lplay/api/Application;.2Λ
-ΕΕ*.apply
-_star_.¨
-_root_.views.html.authenticationWizard.beforeYouRegisterD_Scope0.beforeYouRegisterD#apply(Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2z
-σσ*.apply
-_star_.X
-P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2Σ
-ΡΡ*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2z
-αα*.apply
-_star_.X
-P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2Ζ
-··z*(request, play.api.i18n.Messages.Implicits.applicationMessages(Wizard.this.request2lang(request), play.api.Play.current))
-_star_.f
-LX^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.‰
-,?€_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
-qx5_root_.play.api.Play.current()Lplay/api/Application;.2Σ
-““*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2Σ
-ΚΚ*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2z
-΄΄*.apply
-_star_.X
-P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2Ζ
-Ι	Ι	z*(request, play.api.i18n.Messages.Implicits.applicationMessages(Wizard.this.request2lang(request), play.api.Play.current))
-_star_.f
-LX^_root_.play.api.mvc.Controller#request2lang(Lplay/api/mvc/RequestHeader;)Lplay/api/i18n/Lang;.‰
-,?€_root_.play.api.i18n.Messages.Implicits.applicationMessages(Lplay/api/i18n/Lang;Lplay/api/Application;)Lplay/api/i18n/Messages;.=
-qx5_root_.play.api.Play.current()Lplay/api/Application;.2ÿ
-††*.apply
-_star_.ά
-Σ_root_.views.html.authenticationWizard.authenticationWizard_Scope0.authenticationWizard_Scope1.authenticationWizard#apply(Lplay/api/data/Form;Lplay/api/mvc/Request;Lplay/api/i18n/Messages;)Lplay/twirl/api/Html;.2Σ
-€€*.apply[Appendable]
-_star_.s
-k_root_.play.api.mvc.Results#Status#apply(Ljava/lang/Object;Lplay/api/http/Writeable;)Lplay/api/mvc/Result;.0
-(_root_.play.twirl.api.Format#Appendable#2z
-εε*.apply
-_star_.X
-P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.2Σ
-ΈΈ*(play.api.http.Writeable.writeableOf_Content[Appendable](play.api.mvc.Codec.utf_8, play.api.http.ContentTypeOf.contentTypeOf_Html(play.api.mvc.Codec.utf_8)))
-_star_.0
-.8(_root_.play.twirl.api.Format#Appendable#*
-–› _root_.play.api.mvc.Codec.utf_8.z
-p‚q_root_.play.api.http.DefaultContentTypeOfs#contentTypeOf_Html(Lplay/api/mvc/Codec;)Lplay/api/http/ContentTypeOf;.”
--‹_root_.play.api.http.LowPriorityWriteables#writeableOf_Content(Lplay/api/mvc/Codec;Lplay/api/http/ContentTypeOf;)Lplay/api/http/Writeable;.(
-MR _root_.play.api.mvc.Codec.utf_8.2z
-υυ*.apply
-_star_.X
-P_root_.play.api.mvc.ActionBuilder#apply(Lscala/Function1;)Lplay/api/mvc/Action;.:Scala211Bϊ/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package controllers
-
-import form.Mappings._
-import play.api.Play.current
-import play.api.data.Form
-import play.api.data.Forms._
-import play.api.i18n.Messages.Implicits._
-import play.api.mvc._
-import uk.gov.voa.play.form.ConditionalMappings._
-import controllers.Wizard._
-
-class Wizard extends Controller {
-
-  def authenticationWizard() = Action { implicit request =>
-    Ok(views.html.authenticationWizard.authenticationWizard(wizardForm))
-  }
-
-  def submit() = Action { implicit request =>
-      wizardForm.bindFromRequest.fold(
-          errors => BadRequest(views.html.authenticationWizard.authenticationWizard(errors)),
-          data => redirectToStart(data)
-      )
-  }
-
-  private def redirectToStart(options: WizardOptions) = options match {
-      case WizardOptions(true, Some(true), _) => Redirect(routes.Wizard.beforeYouRegisterA)
-      case WizardOptions(true, Some(false), _) => Redirect(routes.Wizard.beforeYouRegisterB)
-      case WizardOptions(false, _, Some(true)) => Redirect(routes.Wizard.registerExistingGG)
-      case WizardOptions(false, _, Some(false)) => Redirect(routes.Wizard.beforeYouRegisterD)
-  }
-
-  def beforeYouRegisterA() = Action { implicit request =>
-      Ok(views.html.authenticationWizard.beforeYouRegisterA())
-  }
-
-  def beforeYouRegisterB() = Action { implicit request =>
-      Ok(views.html.authenticationWizard.beforeYouRegisterB())
-  }
-
-  def registerExistingGG() = Action { implicit request =>
-      Ok(views.html.authenticationWizard.registerExistingGG(useExistingAccountForm))
-  }
-
-  def beforeYouRegisterC() = Action { implicit request =>
-      Ok(views.html.authenticationWizard.beforeYouRegisterC())
-  }
-
-  def beforeYouRegisterD() = Action { implicit request =>
-      Ok(views.html.authenticationWizard.beforeYouRegisterD())
-  }
-
-  def submitExistingGG() = Action { implicit request =>
-      useExistingAccountForm.bindFromRequest.fold(
-          errors => BadRequest(views.html.authenticationWizard.registerExistingGG(errors)),
-          useExisting => if (useExisting) {
-              Redirect(routes.Wizard.beforeYouRegisterC)
-          } else {
-              Redirect(routes.Wizard.beforeYouRegisterD)
-          }
-      )
-  }
-}
-
-object Wizard {
-  lazy val wizardForm = Form(mapping(
-    keys.businessHasRegistered -> mandatoryBoolean,
-    keys.givenGGDetails -> mandatoryIfTrue(keys.businessHasRegistered, mandatoryBoolean),
-    keys.existingGGAccount -> mandatoryIfFalse(keys.businessHasRegistered, mandatoryBoolean)
-  )(WizardOptions.apply)(WizardOptions.unapply))
-
-  lazy val keys = new {
-    val businessHasRegistered = "businessHasRegistered"
-    val givenGGDetails = "givenGGDetails"
-    val existingGGAccount = "existingGGAccount"
-    val useExistingGGAccount = "useExistingGGAccount"
-  }
-
-  lazy val useExistingAccountForm = Form(single(keys.useExistingGGAccount -> mandatoryBoolean))
-}
-
-case class WizardOptions(businessHasRegistered: Boolean, givenGGDetails: Option[Boolean], existingGGAccount: Option[Boolean])
-Japp/controllers/Wizard.scala

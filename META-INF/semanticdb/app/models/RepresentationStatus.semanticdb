@@ -1,177 +1,0 @@
-
-»5.
-——$_root_.java.lang.Object#`<init>`()V./
-˙é#_root_.models.RepresentationStatus#1
-ù≥%_root_.models.RepresentationDeclined.6
-‚Ê*_root_.models.RepresentationDeclined.name.1
-Åó%_root_.models.RepresentationApproved.4
-©≠(_root_.models.RepresentationStatus#name.-
-°	µ	#_root_.models.RepresentationStatus#L
-‚Í@_root_.models.RepresentationStatus#toString()Ljava/lang/String;./
-ö∞%_root_.models.RepresentationApproved.6
-π
-ø
-*_root_.models.RepresentationStatus.format.5
-˝Å)_root_.models.RepresentationRevoked.name..
-∂	∂	$_root_.java.lang.Object#`<init>`()V.9
-èñ-_root_.models.RepresentationStatus#$init$()V..
-Ë˝$_root_.models.RepresentationPending.-
-í
-¶
-#_root_.models.RepresentationStatus#-
-º–#_root_.models.RepresentationStatus#3
-ºø'_root_.models.RepresentationStatus#key..
-ÏÏ$_root_.java.lang.Object#`<init>`()V.#
-¬
-Ã
-_root_.models.EnumFormat."
-ó†_root_.models.NamedEnum#0
-πŒ$_root_.models.RepresentationRevoked..
-µ $_root_.models.RepresentationRevoked.-
-Õ
-·
-#_root_.models.RepresentationStatus.-
-¸ê#_root_.models.RepresentationStatus#.
-–Â$_root_.models.RepresentationTimeOut.$
-¯
-¸
-_root_.scala.package.List#-
-†¥#_root_.models.RepresentationStatus#
-ÂÎ_root_.models..
-®
-®
-$_root_.java.lang.Object#`<init>`()V.0
-É	ò	$_root_.models.RepresentationTimeOut..
-ëë$_root_.java.lang.Object#`<init>`()V.6
-Ω¡*_root_.models.RepresentationApproved.name.V
-Û
-ˆ
-J_root_.models.RepresentationStatus.all()Lscala/collection/immutable/List;./
-‰	¯	#_root_.models.RepresentationStatus.5
-ôù)_root_.models.RepresentationPending.name.0
-ﬁÛ$_root_.models.RepresentationPending./
-Çò%_root_.models.RepresentationDeclined..
-µµ$_root_.java.lang.Object#`<init>`()V.)
-Å
-ë
-_root_.models.NamedEnumSupport#%
-Øµ_root_.scala.Predef.String#2
-ÌÒ(_root_.models.RepresentationStatus#name.-
-◊Î#_root_.models.RepresentationStatus#5
-«	À	)_root_.models.RepresentationTimeOut.name.1
-ïô'_root_.scala.collection.immutable.List.-
-˝
-ë#_root_.models.RepresentationStatus#"c
-$_root_.java.lang.Object#`<init>`()V.;àÄÄ<init>
-(): Object" 
-
-_root_.java.lang.Object#"^
-*_root_.models.RepresentationDeclined.name.0nameString"
-_root_.java.lang.String#"Z
-'_root_.models.RepresentationStatus#key./keyString"
-_root_.java.lang.String#"`
-_root_.scala.package.List#BList	List.type"-
-'_root_.scala.collection.immutable.List."D
-$_root_.models.RepresentationTimeOut.ÄÑàRepresentationTimeOut"¿
-J_root_.models.RepresentationStatus.all()Lscala/collection/immutable/List;.rallList[RepresentationStatus]" 
-_root_.scala.package.List#"+
-#_root_.models.RepresentationStatus#"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"Å
-@_root_.models.RepresentationStatus#toString()Ljava/lang/String;.=toString
-(): String"#
-
-_root_.scala.Predef.String#"F
-%_root_.models.RepresentationDeclined.ÄÑàRepresentationDeclined"F
-%_root_.models.RepresentationApproved.ÄÑàRepresentationApproved"D
-$_root_.models.RepresentationRevoked.ÄÑàRepresentationRevoked"-
-_root_.models.EnumFormat.ÄÑ
-EnumFormat"a
--_root_.models.RepresentationStatus#$init$()V.0$init$(): Unit"
-_root_.scala.Unit#"]
-)_root_.models.RepresentationRevoked.name.0nameString"
-_root_.java.lang.String#"D
-$_root_.models.RepresentationPending.ÄÑàRepresentationPending"5
-'_root_.scala.collection.immutable.List.
-ÄÑList"]
-)_root_.models.RepresentationPending.name.0nameString"
-_root_.java.lang.String#"8
-_root_.models.NamedEnumSupport#Ä@NamedEnumSupport"A
-#_root_.models.RepresentationStatus#Ä¿RepresentationStatus"A
-#_root_.models.RepresentationStatus.ÄÑRepresentationStatus"*
-_root_.models.NamedEnum#Ä@	NamedEnum"
-_root_.models.ÄàÄmodels"^
-*_root_.models.RepresentationApproved.name.0nameString"
-_root_.java.lang.String#"a
-(_root_.models.RepresentationStatus#name.5ÅÄnameString"!
-_root_.scala.Predef.String#"]
-)_root_.models.RepresentationTimeOut.name.0nameString"
-_root_.java.lang.String#"Ø
-*_root_.models.RepresentationStatus.format.ÄÅÄ formatFormat[RepresentationStatus]"'
-!_root_.play.api.libs.json.Format#"+
-#_root_.models.RepresentationStatus#2∑
-ôô>*.apply[RepresentationStatus with Product with Serializable{}]
-_star_.n
-f_root_.scala.collection.immutable.List.apply(Lscala/collection/Seq;)Lscala/collection/immutable/List;.+
-#_root_.models.RepresentationStatus#
-")_root_.scala.Product#"
-/;_root_.scala.Serializable#2¬
-Ã
-Ã
-*.apply[RepresentationStatus]
-_star_.]
-U_root_.models.EnumFormat.apply(Lmodels/NamedEnumSupport;)Lplay/api/libs/json/Format;.+
-#_root_.models.RepresentationStatus#:Scala211BÈ/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models
-
-sealed trait RepresentationStatus extends NamedEnum {
-  val name: String
-  val key = "propReprStatus"
-  override def toString = name
-}
-
-case object RepresentationApproved extends RepresentationStatus {
-  val name = "APPROVED"
-}
-
-case object RepresentationPending extends RepresentationStatus {
-  val name = "PENDING"
-}
-
-case object RepresentationRevoked extends RepresentationStatus {
-  override val name = "REVOKED"
-}
-
-case object RepresentationDeclined extends RepresentationStatus {
-  override val name = "DECLINED"
-}
-
-case object RepresentationTimeOut extends RepresentationStatus {
-  override val name = "TIMED_OUT"
-}
-
-object RepresentationStatus extends NamedEnumSupport[RepresentationStatus] {
-  implicit val format = EnumFormat(RepresentationStatus)
-
-  override def all: List[RepresentationStatus] = List(RepresentationApproved,
-                                                      RepresentationPending,
-                                                      RepresentationRevoked,
-                                                      RepresentationDeclined,
-                                                      RepresentationTimeOut)
-}
-J%app/models/RepresentationStatus.scala

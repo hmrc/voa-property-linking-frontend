@@ -1,248 +1,0 @@
-
-€s0
-˝ä	&_root_.uk.gov.hmrc.http.HeaderCarrier#"
-«À_root_.uk.gov.hmrc.play.≥
-˘˚¶_root_.connectors.DVRCaseManagementConnector#requestDetailedValuation(Lmodels/DetailedValuationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)
-»Õ_root_.scala.
-î	ò	_root_.scala.Unit#0
-”Ÿ&_root_.uk.gov.hmrc.play.config.inject.%
-ª¡_root_.javax.inject.Inject#W
-˙áM_root_.uk.gov.hmrc.http.HeaderCarrier.;_root_.uk.gov.hmrc.http.HeaderCarrier#Y
-õ≥O_root_.models.DetailedValuationRequest.;_root_.models.DetailedValuationRequest#|
-˛	Å
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;."
-Œÿ_root_.scala.concurrent.É
-√√w_root_.connectors.DVRCaseManagementConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.1
-¡¡'_root_.javax.inject.Inject#`<init>`()V.L
-õúB_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.>
-ìú4_root_.play.api.libs.concurrent.Execution.Implicits.
-ÂÔ_root_.connectors.Ø
-∏–¢_root_.connectors.DVRCaseManagementConnector#requestDetailedValuation(Lmodels/DetailedValuationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.¥
-—‘ß_root_.connectors.DVRCaseManagementConnector#requestDetailedValuation(Lmodels/DetailedValuationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(dvr)
-ı¯_root_.play.api.*
-˛à _root_.play.api.libs.concurrent.1
-¨	ƒ	'_root_.models.DetailedValuationRequest#I
-Ÿﬂ?_root_.scala.concurrent.Future.;_root_.scala.concurrent.Future#
-˘˝_root_.play.api.libs.
-Ù_root_.play."
-Û˜_root_.uk.gov.hmrc.http.;
-‘	◊	1_root_.connectors.DVRCaseManagementConnector#url.=
-Úı1_root_.connectors.DVRCaseManagementConnector#url.L
-ÿ	Ÿ	B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.A
-Öã7_root_.javax.inject.Inject.;_root_.javax.inject.Inject#
-¯˝_root_.javax.
-ªΩ
-_root_.uk.
-ÁÈ
-_root_.uk.
-‚Ë_root_.config.WSHttp#/
-∆	“	%_root_.uk.gov.hmrc.http.HttpResponse#4
-âí*_root_.play.api.libs.concurrent.Execution.
-æ¡_root_.uk.gov.f
-ˇÜ\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.≤
-˘	¸	ß_root_.connectors.DVRCaseManagementConnector#requestDetailedValuation(Lmodels/DetailedValuationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(dvr)Ä
-ß	´	ı_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.A
-ƒ 5_root_.connectors.DVRCaseManagementConnector#(config)=
-¢	¶	3_root_.connectors.DVRCaseManagementConnector#(http))
-ç	ì	_root_.scala.concurrent.Future#
-≥π_root_.config.5
-∫¿+_root_.config.WSHttp.;_root_.config.WSHttp#U
-âïK_root_.uk.gov.hmrc.http.HttpResponse.;_root_.uk.gov.hmrc.http.HttpResponse#?
-Ã⁄5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#1
-÷Ó'_root_.models.DetailedValuationRequest#
-îö_root_.models.?
-‹‡3_root_.connectors.DVRCaseManagementConnector#(http)r
-ù´h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.
-˛Ñ_root_.javax.inject.?
-¯˛5_root_.connectors.DVRCaseManagementConnector#(config)?
-⁄Ë5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#
-¬∆_root_.uk.gov.hmrc.
-ÍÌ_root_.uk.gov.9
-üπ-_root_.connectors.DVRCaseManagementConnector#)
-Ã“_root_.uk.gov.hmrc.play.config.
-ÓÚ_root_.uk.gov.hmrc."÷
-ı_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.€POST¶[I, O] => (url: String, body: I, headers: Seq[Tuple2[String, String]])(implicit wts: Writes[I], rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext): Future[O]"#
-_root_.scala.Predef.String#"Å
-¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"!
-*-_root_.scala.package.Seq#"
-.4_root_.scala.Tuple2#"#
-5;_root_.scala.Predef.String#"#
-=C_root_.scala.Predef.String#")
-U[!_root_.play.api.libs.json.Writes#"Å
-\]¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[I]"*
-en"_root_.uk.gov.hmrc.http.HttpReads#"Å
-op¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"/
-wÑ&_root_.uk.gov.hmrc.http.HeaderCarrier#"3
-äö)_root_.scala.concurrent.ExecutionContext#")
-ù£_root_.scala.concurrent.Future#"É
-§•¯_root_.uk.gov.hmrc.http.HttpPost#POST(Ljava/lang/String;Ljava/lang/Object;Lscala/collection/Seq;Lplay/api/libs/json/Writes;Luk/gov/hmrc/http/HttpReads;Luk/gov/hmrc/http/HeaderCarrier;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[O]"d
-1_root_.connectors.DVRCaseManagementConnector#url./urlString"
-_root_.java.lang.String#"5
- _root_.play.api.libs.concurrent.ÄàÄ
-concurrent"$
-_root_.config.WSHttp#Ä@WSHttp":
-%_root_.uk.gov.hmrc.http.HttpResponse#Ä@HttpResponse"
-¶_root_.connectors.DVRCaseManagementConnector#requestDetailedValuation(Lmodels/DetailedValuationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(hc)EÄÅ hcHeaderCarrier",
-&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-_root_.connectors.ÄàÄ
-connectors"û
-B_root_.java.lang.String#`+`(Ljava/lang/Object;)Ljava/lang/String;.XÑÄ+(x$1: Any): String"
-	_root_.scala.Any#" 
-_root_.java.lang.String#"$
-_root_.play.api.libs.ÄàÄlibs"'
-_root_.uk.gov.hmrc.http.ÄàÄhttp"
-_root_.javax.ÄàÄjavax"
-_root_.play.api.
-ÄàÄapi"P
--_root_.connectors.DVRCaseManagementConnector#Ä DVRCaseManagementConnector"˝
-ß_root_.connectors.DVRCaseManagementConnector#requestDetailedValuation(Lmodels/DetailedValuationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.(dvr)QÄdvrDetailedValuationRequest"-
-'_root_.models.DetailedValuationRequest#" 
-_root_.scala.Unit#
-Ä†Unit".
-_root_.scala.concurrent.Future#Ä@Future"G
-4_root_.play.api.libs.concurrent.Execution.Implicits.ÄÑ	Implicits"ë
-5_root_.connectors.DVRCaseManagementConnector#(config)XÄconfigServicesConfig";
-5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"L
-5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#Ä@ServicesConfig"=
-*_root_.play.api.libs.concurrent.Execution.ÄÑ	Execution"µ
-¢_root_.connectors.DVRCaseManagementConnector#requestDetailedValuation(Lmodels/DetailedValuationRequest;Luk/gov/hmrc/http/HeaderCarrier;)Lscala/concurrent/Future;.çrequestDetailedValuationI(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit]"/
-'_root_.models.DetailedValuationRequest#".
--:&_root_.uk.gov.hmrc.http.HeaderCarrier#"'
-=C_root_.scala.concurrent.Future#"
-DH_root_.scala.Unit#",
-_root_.javax.inject.Inject#Ä†ÄInject"7
-&_root_.uk.gov.hmrc.play.config.inject.ÄàÄinject"e
-3_root_.connectors.DVRCaseManagementConnector#(http).ÄhttpWSHttp"
-_root_.config.WSHttp#"
-
-_root_.uk.	ÄàÄuk"á
-[_root_.models.DetailedValuationRequest#`<init>`(JJJLjava/lang/String;JLjava/lang/String;)V.ß<init>´(authorisationId: Long, organisationId: Long, personId: Long, submissionId: String, assessmentRef: Long, billingAuthorityReferenceNumber: String): DetailedValuationRequest"
-_root_.scala.Long#"
-(,_root_.scala.Long#"
-8<_root_.scala.Long#"#
-LR_root_.scala.Predef.String#"
-cg_root_.scala.Long#"%
-äê_root_.scala.Predef.String#"1
-ì´'_root_.models.DetailedValuationRequest#"%
-_root_.javax.inject.ÄàÄinject"‘
-\_root_.uk.gov.hmrc.play.config.ServicesConfig#baseUrl(Ljava/lang/String;)Ljava/lang/String;.tbaseUrl(serviceName: String): String"#
-_root_.scala.Predef.String#"#
-_root_.scala.Predef.String#"
-_root_.uk.gov.
-ÄàÄgov"˜
-ô_root_.uk.gov.hmrc.http.HeaderCarrier#`<init>`(Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Ljava/lang/String;JLscala/collection/Seq;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/Option;Lscala/collection/Seq;)V.ÿ<init>¯(authorization: Option[Authorization], userId: Option[UserId], token: Option[Token], forwarded: Option[ForwardedFor], sessionId: Option[SessionId], requestId: Option[RequestId], requestChain: RequestChain, nsStamp: Long, extraHeaders: Seq[Tuple2[String, String]], trueClientIp: Option[String], trueClientPort: Option[String], gaToken: Option[String], gaUserId: Option[String], deviceID: Option[String], akamaiReputation: Option[AkamaiReputation], otherHeaders: Seq[Tuple2[String, String]]): HeaderCarrier"
-_root_.scala.Option#"6
-$._root_.uk.gov.hmrc.http.logging.Authorization#"
-/5_root_.scala.Option#"'
-6<_root_.uk.gov.hmrc.http.UserId#"
-FL_root_.scala.Option#"&
-MR_root_.uk.gov.hmrc.http.Token#"
-`f_root_.scala.Option#"5
-gs-_root_.uk.gov.hmrc.http.logging.ForwardedFor#"
-Åá_root_.scala.Option#"4
-àë*_root_.uk.gov.hmrc.http.logging.SessionId#"
-ü•_root_.scala.Option#"4
-¶Ø*_root_.uk.gov.hmrc.http.logging.RequestId#"7
-¿Ã-_root_.uk.gov.hmrc.http.logging.RequestChain#"
-◊€_root_.scala.Long#"#
-ÎÓ_root_.scala.package.Seq#"
-Ôı_root_.scala.Tuple2#"%
-ˆ¸_root_.scala.Predef.String#"%
-˛Ñ_root_.scala.Predef.String#"
-ñú_root_.scala.Option#"%
-ù£_root_.scala.Predef.String#"
-∂º_root_.scala.Option#"%
-Ω√_root_.scala.Predef.String#"
-œ’_root_.scala.Option#"%
-÷‹_root_.scala.Predef.String#"
-ÈÔ_root_.scala.Option#"%
-ˆ_root_.scala.Predef.String#"
-Éâ_root_.scala.Option#"%
-äê_root_.scala.Predef.String#"
-•´_root_.scala.Option#";
-¨º1_root_.uk.gov.hmrc.http.logging.AkamaiReputation#"#
-Õ–_root_.scala.package.Seq#"
-—◊_root_.scala.Tuple2#"%
-ÿﬁ_root_.scala.Predef.String#"%
-‡Ê_root_.scala.Predef.String#"0
-Î¯&_root_.uk.gov.hmrc.http.HeaderCarrier#"i
-'_root_.javax.inject.Inject#`<init>`()V.>àÄÄ<init>
-(): Inject"#
-
-_root_.javax.inject.Inject#"J
-'_root_.models.DetailedValuationRequest#Ä†ÄDetailedValuationRequest"
-_root_.play.ÄàÄplay"-
-_root_.scala.concurrent.ÄàÄ
-concurrent"√
-h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.WÑÄ defaultContextExecutionContext"/
-)_root_.scala.concurrent.ExecutionContext#"0
-_root_.uk.gov.hmrc.play.config.ÄàÄconfig"R
-_root_.scala.Unit#`<init>`()V.0<init>(): Unit"
-_root_.scala.Unit#"
-_root_.models.ÄàÄmodels">
-&_root_.uk.gov.hmrc.http.HeaderCarrier#Ä†ÄHeaderCarrier"
-_root_.config.ÄàÄconfig"
-_root_.scala.ÄàÄscala"Ú
-r_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.˚mapK[S] => (f: Function1[T, S])(implicit executor: ExecutionContext): Future[S]"
-_root_.scala.Function1#"*
-"_root_.scala.concurrent.Future#[T]"}
-u_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]"1
-/?)_root_.scala.concurrent.ExecutionContext#"'
-BH_root_.scala.concurrent.Future#"}
-IJu_root_.scala.concurrent.Future#map(Lscala/Function1;Lscala/concurrent/ExecutionContext;)Lscala/concurrent/Future;.[S]""
-_root_.uk.gov.hmrc.ÄàÄhmrc"'
-_root_.uk.gov.hmrc.play.ÄàÄplay"ﬂ
-w_root_.connectors.DVRCaseManagementConnector#`<init>`(Luk/gov/hmrc/play/config/inject/ServicesConfig;Lconfig/WSHttp;)V.„<init>B(config: ServicesConfig, http: WSHttp): DVRCaseManagementConnector"=
-	5_root_.uk.gov.hmrc.play.config.inject.ServicesConfig#"
-%_root_.config.WSHttp#"5
-(B-_root_.connectors.DVRCaseManagementConnector#2…
-ã
-ã
->*(play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.p
-/=h_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2á
-˝	˝	é*(models.DetailedValuationRequest.format, uk.gov.hmrc.http.HttpReads.readRaw, hc, play.api.libs.concurrent.Execution.Implicits.defaultContext)
-_star_.6
-"(._root_.models.DetailedValuationRequest.format.2
-EL*_root_.uk.gov.hmrc.http.HttpReads.readRaw.q
-çh_root_.play.api.libs.concurrent.Execution.Implicits.defaultContext()Lscala/concurrent/ExecutionContext;.2<
-Å
-Å
-*[Unit]
-_star_.
-_root_.scala.Unit#:Scala211Bî
-/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package connectors
-
-import javax.inject.Inject
-
-import models.DetailedValuationRequest
-import uk.gov.hmrc.play.config.inject.ServicesConfig
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import config.WSHttp
-import scala.concurrent.Future
-import uk.gov.hmrc.http.{ HeaderCarrier, HttpResponse }
-
-class DVRCaseManagementConnector @Inject()(config: ServicesConfig, http: WSHttp) {
-  val url = config.baseUrl("property-linking") + "/property-linking"
-
-  def requestDetailedValuation(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.POST[DetailedValuationRequest, HttpResponse](url + "/request-detailed-valuation", dvr) map { _ => () }
-  }
-}
-J/app/connectors/DVRCaseManagementConnector.scala

@@ -1,111 +1,0 @@
-
-Í$
-˝Å_root_.play.api.libs.$
-ÇÜ_root_.play.api.libs.json..
-Ù˘"_root_.models.GroupAccount#(phone)
-•¨_root_.scala.Boolean#2
-’ﬁ&_root_.models.GroupAccount#(addressId)%
-˚Å_root_.scala.Predef.String#
-Ù¯_root_.play.2
-Æ∑&_root_.models.GroupAccount#(agentCode)%
-ÏÚ_root_.scala.Predef.String#
-πΩ_root_.scala.Long#N
-Û˘D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.'
-ò§_root_.models.GroupAccount#)
-ÓÚ_root_.play.api.libs.json.Json.%
-Õ”_root_.scala.Predef.String#
-‡„_root_.scala.Int#%
-∏æ_root_.scala.Predef.String#+
-•ß_root_.models.GroupAccount#(id)%
-˙Ü_root_.models.GroupAccount#
-©≠_root_.scala.Long#.
-ÂÎ"_root_.models.GroupAccount.format.0
-Ø∂$_root_.models.GroupAccount#(groupId)
-ÂÎ_root_.models.0
-ú£$_root_.models.GroupAccount#(isAgent)
-˘¸_root_.play.api.'
-«”_root_.models.GroupAccount.4
-¿À(_root_.models.GroupAccount#(companyName).
-ÂÍ"_root_.models.GroupAccount#(email))
-áã_root_.play.api.libs.json.Json.
-§§s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V.")
-_root_.play.api.libs.json.ÄàÄjson"„
-D_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.ö format[A] => OFormat[A]"*
-"_root_.play.api.libs.json.OFormat#"O
-G_root_.play.api.libs.json.Json.format()Lplay/api/libs/json/OFormat;.[A]" 
-_root_.scala.Long#
-Ä†Long"Q
-_root_.scala.Predef.String#2@StringString"
-_root_.java.lang.String#"$
-_root_.play.api.libs.ÄàÄlibs"J
-_root_.models.GroupAccount#(id)'ÅidLong"
-_root_.scala.Long#"
-_root_.play.api.
-ÄàÄapi"_
-$_root_.models.GroupAccount#(groupId)7ÅgroupIdString"!
-_root_.scala.Predef.String#"-
-_root_.play.api.libs.json.Json.
-ÄÑJson"ò
-"_root_.models.GroupAccount.format.rÅÄ formatOFormat[GroupAccount]"(
-"_root_.play.api.libs.json.OFormat#"#
-_root_.models.GroupAccount#"¬
-s_root_.models.GroupAccount#`<init>`(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ZJ)V. <init>è(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String, isAgent: Boolean, agentCode: Long): GroupAccount"
-	_root_.scala.Long#"#
-_root_.scala.Predef.String#"#
-)/_root_.scala.Predef.String#"
-<?_root_.scala.Int#"#
-HN_root_.scala.Predef.String#"#
-W]_root_.scala.Predef.String#"
-ho_root_.scala.Boolean#"
-|Ä_root_.scala.Long#"%
-Éè_root_.models.GroupAccount#"[
-!_root_.scala.Boolean#`<init>`()V.6<init>(): Boolean"
-_root_.scala.Boolean#"V
-&_root_.models.GroupAccount#(addressId),Å	addressIdInt"
-_root_.scala.Int#"[
-"_root_.models.GroupAccount#(phone)5ÅphoneString"!
-_root_.scala.Predef.String#"2
-_root_.models.GroupAccount#Ä†ÄGroupAccount"1
-_root_.models.GroupAccount.ÄÑGroupAccount"X
-&_root_.models.GroupAccount#(agentCode).Å	agentCodeLong"
-_root_.scala.Long#"&
-_root_.scala.Boolean#Ä†Boolean"[
-"_root_.models.GroupAccount#(email)5ÅemailString"!
-_root_.scala.Predef.String#"
-_root_.play.ÄàÄplay"
-_root_.models.ÄàÄmodels"Z
-$_root_.models.GroupAccount#(isAgent)2ÅisAgentBoolean"
-_root_.scala.Boolean#"R
-_root_.scala.Long#`<init>`()V.0<init>(): Long"
-_root_.scala.Long#"O
-_root_.scala.Int#`<init>`()V..<init>(): Int"
-_root_.scala.Int#"
-_root_.scala.Int#	Ä†Int"g
-(_root_.models.GroupAccount#(companyName);ÅcompanyNameString"!
-_root_.scala.Predef.String#:Scala211Bä/*
- * Copyright 2017 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package models
-
-import play.api.libs.json.Json
-
-case class GroupAccount(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String,
-                         isAgent: Boolean, agentCode: Long)
-
-object GroupAccount {
-  implicit val format = Json.format[GroupAccount]
-}
-Japp/models/GroupAccount.scala
