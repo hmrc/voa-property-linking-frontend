@@ -33,9 +33,9 @@ import play.api.test.FakeRequest
 import resources._
 import utils.StubAuthentication
 import play.api.test.Helpers._
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
 

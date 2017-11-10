@@ -21,9 +21,9 @@ import org.scalatest.mockito.MockitoSugar
 import play.api.Environment
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 
 object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfig, StubHttp) {

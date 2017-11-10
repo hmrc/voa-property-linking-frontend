@@ -18,9 +18,9 @@ package utils
 
 import actions.AuthenticatedAction
 import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation) {
   def stubAuthenticationResult(result: AuthorisationResult) = {

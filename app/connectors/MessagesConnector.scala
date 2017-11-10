@@ -18,14 +18,13 @@ package connectors
 
 import javax.inject.Inject
 
-import config.ApplicationConfig
+import config.{ApplicationConfig, WSHttp}
 import models.messages.{Message, MessageCount, MessagePagination, MessageSearchResults}
 import play.api.libs.json.{JsNull, JsValue}
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpResponse}
-import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig, config: ApplicationConfig)(implicit ec: ExecutionContext) {
 

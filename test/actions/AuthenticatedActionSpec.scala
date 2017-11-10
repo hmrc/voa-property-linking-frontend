@@ -26,11 +26,11 @@ import play.api.mvc.Request
 import play.api.mvc.Results._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.play.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.test.UnitSpec
 import utils.NoMetricsOneAppPerSuite
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.{ BadRequestException, HeaderCarrier, NotFoundException }
 
 class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSuite {
 

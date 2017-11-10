@@ -26,9 +26,9 @@ import models.{IVDetails, IndividualAccountSubmission, PersonalDetails}
 import play.api.mvc.{Action, Request}
 import repositories.SessionRepo
 import uk.gov.hmrc.play.frontend.auth.AuthContext
-import uk.gov.hmrc.play.http.{HeaderCarrier, SessionKeys}
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.{ HeaderCarrier, SessionKeys }
 
 class IdentityVerification @Inject() (ggAction: GGAction,
                                       identityVerification: connectors.IdentityVerification,

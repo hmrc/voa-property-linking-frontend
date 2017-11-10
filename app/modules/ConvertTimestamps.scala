@@ -20,12 +20,12 @@ import javax.inject.Inject
 
 import play.api.libs.json.Json
 import reactivemongo.bson.{BSONDateTime, BSONDocument}
-import reactivemongo.json.ImplicitBSONHandlers
+import reactivemongo.json.ImplicitBSONHandlers._
 import repositories.SessionRepository
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ConvertTimestamps @Inject()(sessionRepo: SessionRepository)(implicit ec: ExecutionContext) extends MongoTask with ImplicitBSONHandlers {
+class ConvertTimestamps @Inject()(sessionRepo: SessionRepository)(implicit ec: ExecutionContext) extends MongoTask {
   override val upToVersion = 1
 
   override def run(version: Int): Future[Unit] = {

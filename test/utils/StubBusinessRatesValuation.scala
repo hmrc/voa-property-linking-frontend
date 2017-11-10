@@ -17,9 +17,9 @@
 package utils
 
 import connectors.BusinessRatesValuationConnector
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 object StubBusinessRatesValuation extends BusinessRatesValuationConnector(StubServicesConfig, StubHttp) {
   private var stubbedValuations: Map[Long, Boolean] = Map()

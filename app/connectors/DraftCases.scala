@@ -18,12 +18,12 @@ package connectors
 
 import javax.inject.Inject
 
+import config.WSHttp
 import models.DraftCase
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.HeaderCarrier
-import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.HeaderCarrier
 
 class DraftCases @Inject()(http: WSHttp, config: ServicesConfig)(implicit ec: ExecutionContext) {
   lazy val checkUrl = config.baseUrl("business-rates-check")

@@ -19,6 +19,7 @@ package connectors.propertyLinking
 import java.time.Instant
 import javax.inject.Inject
 
+import config.WSHttp
 import connectors.fileUpload.FileMetadata
 import controllers.{Pagination, PaginationSearchSort}
 import models._
@@ -26,9 +27,10 @@ import models.searchApi.{OwnerAuthAgent, OwnerAuthResult}
 import session.LinkingSessionRequest
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
-import uk.gov.hmrc.play.http.ws.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
+import uk.gov.hmrc.play.HeaderCarrierConverter
 
 class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
@@ -44,7 +46,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   }
 
   def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
-    implicit val hc = HeaderCarrier.fromHeadersAndSession(request.request.headers, Some(request.request.session))
+    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.request.headers, Some(request.request.session))
     val url = s"$baseUrl/property-links"
     val linkRequest = PropertyLinkRequest(
       request.ses.uarn,

@@ -33,9 +33,9 @@ import play.api.data.{Form, FormError, Mapping}
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import repositories.SessionRepo
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class AppointAgentController @Inject() (representations: PropertyRepresentationConnector,
                                         accounts: GroupAccounts,

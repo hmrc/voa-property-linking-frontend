@@ -18,9 +18,9 @@ package utils
 
 import connectors.IdentityVerification
 import org.scalatest.mockito.MockitoSugar
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 object StubIdentityVerification extends IdentityVerification(StubServicesConfig, null, StubHttp) with MockitoSugar {
 

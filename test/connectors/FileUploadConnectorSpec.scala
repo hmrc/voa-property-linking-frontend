@@ -16,13 +16,12 @@
 
 package connectors
 
+import config.WSHttp
 import connectors.fileUpload.{FileMetadata, FileUploadConnector}
 import controllers.ControllerSpec
 import models.{FileInfo, NoEvidenceFlag, RatesBillFlag, RatesBillType}
 import play.api.libs.ws.WSClient
-import uk.gov.hmrc.play.http.ws.WSHttp
 import resources._
-import uk.gov.hmrc.play.http.HeaderCarrier
 import org.mockito.Mockito._
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import play.api.libs.json.{JsValue, Json}
@@ -30,12 +29,13 @@ import play.api.libs.json.{JsValue, Json}
 import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import utils.StubServicesConfig
+import uk.gov.hmrc.http.HeaderCarrier
 
 class FileUploadConnectorSpec extends ControllerSpec {
 
   "Retrieving a file's metadata" must "return the filename and evidence type if a file has been uploaded" in {
     val envelopeId: String = shortString
-    when(mockHttp.GET[JsValue](matching(s"http://localhost:8898/file-upload/envelopes/$envelopeId"))(any(), any[HeaderCarrier])).thenReturn(Future.successful(fileUploadedMetadata))
+    when(mockHttp.GET[JsValue](matching(s"http://localhost:8898/file-upload/envelopes/$envelopeId"))(any(), any[HeaderCarrier], any())).thenReturn(Future.successful(fileUploadedMetadata))
 
     val data = await(testConnector.getFileMetadata(envelopeId)(HeaderCarrier()))
     data mustBe FileMetadata(RatesBillFlag, Some(FileInfo("downloadfile.PDF", RatesBillType)))
@@ -43,7 +43,7 @@ class FileUploadConnectorSpec extends ControllerSpec {
 
   it must "return no filename or evidence type if the user does not have evidence" in {
     val envelopeId: String = shortString
-    when(mockHttp.GET[JsValue](matching(s"http://localhost:8898/file-upload/envelopes/$envelopeId"))(any(), any[HeaderCarrier])).thenReturn(Future.successful(noEvidenceMetadata))
+    when(mockHttp.GET[JsValue](matching(s"http://localhost:8898/file-upload/envelopes/$envelopeId"))(any(), any[HeaderCarrier], any())).thenReturn(Future.successful(noEvidenceMetadata))
 
     val data = await(testConnector.getFileMetadata(envelopeId)(HeaderCarrier()))
     data mustBe FileMetadata(NoEvidenceFlag, None)
@@ -52,7 +52,7 @@ class FileUploadConnectorSpec extends ControllerSpec {
   it must "return no filename or evidence type if the user has not uploaded a file" in {
     //FUaaS does not validate that the POST request actually contains a file
     val envelopeId: String = shortString
-    when(mockHttp.GET[JsValue](matching(s"http://localhost:8898/file-upload/envelopes/$envelopeId"))(any(), any[HeaderCarrier])).thenReturn(Future.successful(noFileUploadedMetadata))
+    when(mockHttp.GET[JsValue](matching(s"http://localhost:8898/file-upload/envelopes/$envelopeId"))(any(), any[HeaderCarrier], any())).thenReturn(Future.successful(noFileUploadedMetadata))
 
     val data = await(testConnector.getFileMetadata(envelopeId)(HeaderCarrier()))
     data mustBe FileMetadata(NoEvidenceFlag, None)
