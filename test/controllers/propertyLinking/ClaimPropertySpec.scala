@@ -30,10 +30,10 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
-import uk.gov.hmrc.play.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubSubmissionIdConnector, StubWithLinkingSession}
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
 

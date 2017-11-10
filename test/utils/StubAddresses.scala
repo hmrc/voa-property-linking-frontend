@@ -19,12 +19,12 @@ package utils
 import connectors.Addresses
 import models.Address
 import org.scalacheck.Arbitrary
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 import scala.util.Random
 import org.scalacheck.Arbitrary._
 import resources._
+import uk.gov.hmrc.http.HeaderCarrier
 
 object StubAddresses extends Addresses(StubServicesConfig,StubHttp) {
   val noResultPostcode = "NO RESULT"

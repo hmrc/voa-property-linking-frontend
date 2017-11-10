@@ -18,9 +18,9 @@ package utils
 
 import connectors.VPLAuthConnector
 import uk.gov.hmrc.play.frontend.auth.AuthContext
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 object StubAuthConnector extends VPLAuthConnector(StubServicesConfig, StubHttp) {
   private var externalId: Option[String] = None

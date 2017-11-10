@@ -22,10 +22,11 @@ import com.google.inject.ImplementedBy
 import config.VPLHttp
 import play.api.libs.json.{Format, JsValue, Json}
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.{HttpResponse, _}
+import uk.gov.hmrc.play.http._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, JsonHttpReads}
 
 @ImplementedBy(classOf[EnvelopeConnector])
 trait Envelope {

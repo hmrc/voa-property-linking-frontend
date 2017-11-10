@@ -21,9 +21,9 @@ import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.{AgentAuthResult, AgentAuthorisation, OwnerAuthResult, OwnerAuthorisation}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubServicesConfig, StubHttp) {
   private var stubbedRepresentations: Seq[PropertyRepresentation] = Nil

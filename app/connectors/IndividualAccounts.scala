@@ -22,9 +22,9 @@ import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSu
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
-import uk.gov.hmrc.play.http.ws.WSHttp
-
+import config.WSHttp
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.{ HeaderCarrier, HttpResponse }
 
 class IndividualAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
 

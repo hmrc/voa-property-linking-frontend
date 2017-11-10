@@ -33,12 +33,12 @@ import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.circuitbreaker.{CircuitBreakerConfig, UnhealthyServiceException}
-import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
 
 import scala.collection.JavaConverters._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
 

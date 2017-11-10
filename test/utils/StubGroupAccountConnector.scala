@@ -21,11 +21,11 @@ import java.util.UUID
 import connectors.GroupAccounts
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import models.{GroupAccount, GroupAccountSubmission}
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 import scala.util.Random
 import org.scalacheck.Arbitrary.arbitrary
+import uk.gov.hmrc.http.HeaderCarrier
 
 object StubGroupAccountConnector extends GroupAccounts(StubServicesConfig, StubHttp) {
 

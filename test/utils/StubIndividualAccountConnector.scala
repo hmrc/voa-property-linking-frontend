@@ -18,12 +18,12 @@ package utils
 
 import connectors.IndividualAccounts
 import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
-import uk.gov.hmrc.play.http.HeaderCarrier
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 
 import scala.concurrent.Future
 import scala.util.Random
+import uk.gov.hmrc.http.HeaderCarrier
 
 object StubIndividualAccountConnector extends IndividualAccounts(StubServicesConfig, StubHttp) {
 

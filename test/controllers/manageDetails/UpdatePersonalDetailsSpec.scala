@@ -31,11 +31,11 @@ import play.api.mvc.{Action, AnyContent, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import uk.gov.hmrc.play.http.HeaderCarrier
 import utils.{StubAuthentication, StubGroupAccountConnector}
 
 import scala.concurrent.Future
 import scala.util.Random
+import uk.gov.hmrc.http.HeaderCarrier
 
 class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
 

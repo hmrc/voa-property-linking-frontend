@@ -27,10 +27,10 @@ import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.play.http.HeaderNames
 import utils._
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderNames
 
 class CreateIndividualAccountSpec extends ControllerSpec with MockitoSugar {
 

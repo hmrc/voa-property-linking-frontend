@@ -16,14 +16,13 @@
 
 package utils
 
+import config.WSHttp
 import play.api.libs.json.Writes
-import uk.gov.hmrc.play.http.hooks.HttpHook
-import uk.gov.hmrc.play.http._
-import uk.gov.hmrc.play.http.ws.WSHttp
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.Future
 
-object StubHttp extends WSHttp {
+object StubHttp extends WSHttp{
   override def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
 
   override def doPut[A](url: String, body: A)(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
@@ -40,5 +39,4 @@ object StubHttp extends WSHttp {
 
   override def doPatch[A](url: String, body: A)(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
 
-  override val hooks: Seq[HttpHook] = NoneRequired
 }
