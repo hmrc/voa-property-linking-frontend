@@ -36,14 +36,21 @@ class PendingRequestsSpec extends ControllerSpec {
     val html = defaultHtml
 
     val organisationNames = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { _.organisationName }
-    checkTableColumn(html, 0, "Organisation name", organisationNames)
+    checkTableColumn(html, 1, "Organisation name", organisationNames)
+  }
+
+  it must "display select column for each pending request" in {
+    val html = defaultHtml
+
+    val actions = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { _ => "Accept Reject" }
+    checkTableColumn(html, 0, "Select", actions)
   }
 
   it must "contain the address for each pending request" in {
     val html = defaultHtml
 
     val addresses = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { _.address }
-    checkTableColumn(html, 1, "Property address", addresses)
+    checkTableColumn(html, 2, "Property address", addresses)
   }
 
   it must "contain both permissions for each pending request" in {
@@ -52,21 +59,14 @@ class PendingRequestsSpec extends ControllerSpec {
     val permissions = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { r =>
       s"Check: ${displayPermission(r.checkPermission)} Challenge: ${displayPermission(r.challengePermission)}"
     }
-    checkTableColumn(html, 2, "Permissions", permissions)
+    checkTableColumn(html, 3, "Permissions", permissions)
   }
 
   it must "contain the request date for each pending request" in {
     val html = defaultHtml
 
     val dates = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { r => Formatters.formatDate(r.createDatetime) }
-    checkTableColumn(html, 3, "Date requested", dates)
-  }
-
-  it must "display accept and reject links for each pending request" in {
-    val html = defaultHtml
-
-    val actions = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { _ => "Accept Reject" }
-    checkTableColumn(html, 4, "Actions", actions)
+    checkTableColumn(html, 4, "Date requested", dates)
   }
 
   it must "not display the page if the user is not an agent" in {
