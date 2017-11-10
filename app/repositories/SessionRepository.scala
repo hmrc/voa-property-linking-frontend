@@ -26,7 +26,7 @@ import reactivemongo.api.indexes.{Index, IndexType}
 import reactivemongo.bson.{BSONDateTime, BSONDocument, BSONString}
 import uk.gov.hmrc.http.cache.client.NoSessionException
 import uk.gov.hmrc.mongo.ReactiveRepository
-import reactivemongo.play.json.ImplicitBSONHandlers._
+import reactivemongo.json.ImplicitBSONHandlers._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -111,7 +111,7 @@ class SessionRepository @Inject()(formId: String, db: DB)
 case class SessionData(_id: String, data: JsValue, createdAt: BSONDateTime = BSONDateTime(System.currentTimeMillis))
 
 object SessionData {
-  import reactivemongo.play.json.BSONFormats.BSONDateTimeFormat
+  import reactivemongo.json.BSONFormats.BSONDateTimeFormat
 
   val format = Json.format[SessionData]
 }
