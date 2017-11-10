@@ -25,6 +25,7 @@
         @form(controllers.agent.routes.RepresentationController.confirm(model.pagination.pageNumber, model.pagination.pageSize)) {
             <input type="hidden" name="page" value="@model.pagination.pageNumber">
             <input type="hidden" name="pageSize" value="@model.pagination.pageSize">
+            <input type="hidden" name="pending" value="@model.pagination.totalResults">
 
             <div class="margin-top-10 panel panel-border-wide">
                 <p class="font-xsmall"> @Messages("agent.request.warning")</p>
@@ -44,7 +45,6 @@
                             <th scope="col">@Messages("pendingRepresentationRequests.table.propertyAddress")</th>
                             <th scope="col">@Messages("pendingRepresentationRequests.table.permissions")</th>
                             <th scope="col">@Messages("pendingRepresentationRequests.table.dateRequested")</th>
-                            <th scope="col">@Messages("pendingRepresentationRequests.table.5")</th>
                         </tr>
                         @model.propertyRepresentations.map { p =>
                             <tr>
@@ -64,20 +64,6 @@
 
                                 <td>@utils.Formatters.formatDate(p.createDatetime)</td>
 
-                                <td>
-                                    <ul class="list">
-                                        <li>
-                                            <a role="button" href="@controllers.agent.routes.RepresentationController.accept(p.submissionId, model.totalPendingRequests)">
-                                            @Messages("agent.dashboard.manageProperties.accept")
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a role="button" href="@controllers.agent.routes.RepresentationController.reject(p.submissionId, model.totalPendingRequests)">
-                                            @Messages("agent.dashboard.manageProperties.reject")
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </td>
                             </tr>
                         }
                     </tbody>

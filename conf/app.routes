@@ -107,10 +107,6 @@ GET         /manage-clients/json                                                
 GET         /manage-clients-search-sort/json                                                  @controllers.agent.RepresentationController.listRepresentationRequestSearchAndSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], client: Option[String])
 
 GET         /manage-clients/pending-requests                                                  @controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
-GET         /manage-clients/pending-requests/json                                             @controllers.agent.RepresentationController.pendingRepresentationsJson(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
-
-GET         /representation-request/accept/:submissionId/:totalPendingRequests                @controllers.agent.RepresentationController.accept(submissionId, totalPendingRequests: Long)
-GET         /representation-request/reject/:submissionId/:totalPendingRequests                @controllers.agent.RepresentationController.reject(submissionId, totalPendingRequests: Long)
 POST        /representation-request/confirm                                                   @controllers.agent.RepresentationController.confirm(page: Int, pageSize: Int)
 POST        /representation-request/bulkActions                                               @controllers.agent.RepresentationController.bulkActions
 

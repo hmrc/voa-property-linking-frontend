@@ -27,6 +27,7 @@
                 <input type="hidden" name="action" value="@model.action">
                 <input type="hidden" name="page" value="@model.page">
                 <input type="hidden" name="pageSize" value="@model.pageSize">
+                <input type="hidden" name="pending" value="@model.pending">
                 @for(id <- model.requestIds) {
                     <input type="hidden" name="requestIds[]" value="@id">
                 }
