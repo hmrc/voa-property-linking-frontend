@@ -53,13 +53,21 @@
 
     $('#par-select-all-top, #par-select-all-bottom').click(function(event) {
         var allselected = true;
-        $('input[type="checkbox"]').each(function () {
-            allselected = allselected && $(this).is(':checked');
+        $('.selection-button-checkbox').each(function () {
+            allselected = allselected && $(this).hasClass('selected');
+        });
+
+        $('.selection-button-checkbox').each(function () {
+            $(this).removeClass('selected');
+            if (!allselected) {
+                $(this).addClass('selected');
+            }
         });
 
         $('input[type="checkbox"]').each(function () {
             $(this).prop('checked', !allselected);
         });
+
         return false;
     });
 
