@@ -166,7 +166,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
         val futureListOfTrys = Future.sequence(data.requestIds.map(id =>
           reprConnector.response(RepresentationResponse(id, request.personId, actionType))).map(futureToFutureTry(_)))
 
-        futureListOfTrys.flatMap(_ =>
+        futureListOfTrys.flatMap(actions =>
           // re-route
           withValidPagination(data.page, data.pageSize) { pagination =>
             reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
@@ -174,11 +174,11 @@ class RepresentationController @Inject()(config: ApplicationConfig,
                 Ok(views.html.dashboard.pendingPropertyRepresentations(
                   BulkActionsForm.form,
                   ManagePropertiesVM(
-                    reprs.propertyRepresentations,
-                    reprs.totalPendingRequests,
-                    pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
-                  )
-                ))
+                    propertyRepresentations = reprs.propertyRepresentations,
+                    totalPendingRequests = reprs.totalPendingRequests,
+                    pagination = pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)),
+                    action = Some(data.action.toLowerCase),
+                    numberRequest = Some(actions.size))))
               } else {
                 Redirect(routes.RepresentationController.viewClientProperties())
               }
@@ -207,7 +207,12 @@ class RepresentationController @Inject()(config: ApplicationConfig,
 
 object RepresentationController {
 
-  case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation], totalPendingRequests: Long, pagination: Pagination)
+  case class ManagePropertiesVM(propertyRepresentations: Seq[PropertyRepresentation],
+                                totalPendingRequests: Long,
+                                pagination: Pagination,
+                                action: Option[String] = None,
+                                numberRequest: Option[Int] = None
+                               )
 
 }
 

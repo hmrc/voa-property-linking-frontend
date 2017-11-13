@@ -44,15 +44,21 @@
             <input type="hidden" name="pending" value="@model.pagination.totalResults">
 
             <div class="margin-top-10 panel panel-border-wide">
-                <p class="font-xsmall"> @Messages("agent.request.warning")</p>
+                <p class="font-xsmall">@Messages("agent.request.warning")</p>
             </div>
 
-            <div class="margin-top-20 hide-if-no-js">
-                <a href="#" id="select-all-top">@Messages("pendingRepresentationRequests.select.deselect")</a>
+            @if(model.numberRequest.getOrElse(0) > 0 && model.action.isDefined) {
+                <div id="request-action-info" class="margin-top-10 panel panel-border-wide" style="border-color: #255fa4">
+                    <p class="font-small">@Messages("agent.request.actions.info." + model.action.get, model.numberRequest.getOrElse(0))</p>
+                </div>
+            }
+
+            <div class="hide-if-no-js">
+                <a href="#" id="par-select-all-top">@Messages("pendingRepresentationRequests.select.deselect")</a>
             </div>
 
             <div class="table-wrapper">
-                <table class="table-font-xsmall margin-bottom-20 margin-top-30" id="nojsPendingRequests">
+                <table class="table-font-xsmall margin-bottom-10 margin-top-10" id="nojsPendingRequests">
                     <caption class="visuallyhidden">@Messages("pendingRepresentationRequests.title")</caption>
                     <tbody>
                         <tr>
@@ -65,7 +71,9 @@
                         @model.propertyRepresentations.map { p =>
                             <tr>
                                 <td><div class="multiple-choice">
-                                    <input class="select-checkbox" type="checkbox" name="requestIds[]" value="@p.submissionId"></div></td>
+                                    <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId">
+                                    <label for="@p.submissionId"><span class="visually-hidden">Select row</span></label>
+                                </div></td>
                                 <td>@p.organisationName</td>
 
                                 <td>@(Formatters.capitalizedAddress(PropertyAddress.fromString(p.address)))</td>
@@ -86,8 +94,8 @@
                 </table>
             </div>
 
-            <div class="margin-top-20 hide-if-no-js">
-                <a href="#" id="select-all-bottom">@Messages("pendingRepresentationRequests.select.deselect")</a>
+            <div class="hide-if-no-js">
+                <a href="#" id="par-select-all-bottom">@Messages("pendingRepresentationRequests.select.deselect")</a>
             </div>
 
             <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</p>
@@ -149,5 +157,6 @@
             </div>
         }
     }
+
 
 }
