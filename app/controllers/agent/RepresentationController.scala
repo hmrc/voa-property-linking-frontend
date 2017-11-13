@@ -146,6 +146,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
               reprs.totalPendingRequests,
               pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
             ))),
+          //data => Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(data, BulkActionsForm.form))
           data => Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(data, BulkActionsForm.form))
         )
       }

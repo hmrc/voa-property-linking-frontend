@@ -36,6 +36,7 @@ import uk.gov.hmrc.play.HeaderCarrierConverter
 
 class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
                                     businessRatesAuthorisation: BusinessRatesAuthorisation) {
+
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
   def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>

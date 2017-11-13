@@ -17,6 +17,7 @@
 @import controllers.agent.RepresentationController.ManagePropertiesVM
 @import utils.Formatters
 @import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
 
 @(f: Form[RepresentationBulkAction], model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
@@ -57,7 +58,7 @@
                 <a href="#" id="par-select-all-top">@Messages("pendingRepresentationRequests.select.deselect")</a>
             </div>
 
-            <div class="table-wrapper">
+            <div class="table-wrapper" style="padding-bottom: 5px">
                 <table class="table-font-xsmall margin-bottom-10 margin-top-10" id="nojsPendingRequests">
                     <caption class="visuallyhidden">@Messages("pendingRepresentationRequests.title")</caption>
                     <tbody>
@@ -94,14 +95,10 @@
                 </table>
             </div>
 
-            <div class="hide-if-no-js">
-                <a href="#" id="par-select-all-bottom">@Messages("pendingRepresentationRequests.select.deselect")</a>
-            </div>
-
-            <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</p>
+            <div class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</div>
 
             <div role="navigation" aria-label="Pagination" class="pull-right">
-                <ul class="pagination">
+                <ul class="pagination" style="margin:0px">
                     @if(model.pagination.pageNumber > 1) {
                         <li class="previous"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
                     }else{
@@ -119,7 +116,8 @@
             </div>
 
             <div class="clearfix"></div>
-            <div id="page-size-list">
+
+            <div id="page-size-list" style="padding-top:10px">
                 <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
                 @for(len <- List(15,25,50,100)) {
                     @if(model.pagination.pageSize == len) {
@@ -133,23 +131,29 @@
                 @Messages("search.sort.page.size.properties.per.page")
             </div>
 
-            <div class="form-group">
-                <fieldset class="inline">
-                    <legend>
-                        <h1 class="heading-medium">
-                        @Messages("pendingRepresentationRequests.accept.reject")
-                        </h1>
+            @*<div class="clearfix"></div>*@
+
+            @*<div class="hide-if-no-js">*@
+                @*<a href="#" id="par-select-all-bottom">@Messages("pendingRepresentationRequests.select.deselect")</a>*@
+            @*</div>*@
+
+            <div class="form-group" style="padding-top:60px">
+                <fieldset id="actionGroup" class="inline">
+                    <legend class="form-label-bold">
+                        <span class=" label-span">@Messages("pendingRepresentationRequests.accept.reject")</span>
                     </legend>
-                    <div class="multiple-choice" style="float:left;clear:none;width:100px">
-                        <input id="radio-action-accept" type="radio" name="action" value="accept">
-                        <label for="radio-action-accept">@Messages("pendingRepresentationRequests.accept")</label>
-                    </div>
-                    <div class="multiple-choice" style="float:left;clear:none;">
-                        <input id="radio-action-reject" type="radio" name="action" value="reject">
-                        <label for="radio-action-reject">@Messages("pendingRepresentationRequests.reject")</label>
-                    </div>
+                    <label class="block-label selection-button-radio" for="action_accept">
+                        <input id="action_accept" type="radio" name="action" value="accept">
+                        @Messages("pendingRepresentationRequests.accept")
+                    </label>
+
+                    <label class="block-label selection-button-radio" for="action_reject">
+                        <input id="action_reject" type="radio" name="action" value="reject">
+                        @Messages("pendingRepresentationRequests.reject")
+                    </label>
                 </fieldset>
             </div>
+
             <div class="clearfix"></div>
 
             <div style="margin-bottom:20px;" >
@@ -160,3 +164,11 @@
 
 
 }
+@*<div class="multiple-choice" style="float:left;clear:none;width:100px">*@
+    @*<input id="radio-action-accept" type="radio" name="action" value="accept">*@
+    @*<label for="radio-action-accept">@Messages("pendingRepresentationRequests.accept")</label>*@
+@*</div>*@
+@*<div class="multiple-choice" style="float:left;clear:none;">*@
+    @*<input id="radio-action-reject" type="radio" name="action" value="reject">*@
+    @*<label for="radio-action-reject">@Messages("pendingRepresentationRequests.reject")</label>*@
+@*</div>*@
