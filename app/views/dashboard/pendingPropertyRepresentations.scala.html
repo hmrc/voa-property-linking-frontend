@@ -71,10 +71,10 @@
                         </tr>
                         @model.propertyRepresentations.map { p =>
                             <tr>
-                                <td><div class="multiple-choice">
+                                <td><label class="block-label selection-button-checkbox">
                                     <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId">
                                     <label for="@p.submissionId"><span class="visually-hidden">Select row</span></label>
-                                </div></td>
+                                </label></td>
                                 <td>@p.organisationName</td>
 
                                 <td>@(Formatters.capitalizedAddress(PropertyAddress.fromString(p.address)))</td>
