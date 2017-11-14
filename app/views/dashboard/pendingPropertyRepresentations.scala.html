@@ -48,9 +48,9 @@
                 <p class="font-xsmall">@Messages("agent.request.warning")</p>
             </div>
 
-            @if(model.numberRequest.getOrElse(0) > 0 && model.action.isDefined) {
+            @if(model.numberActions.getOrElse(0) > 0 && model.action.isDefined) {
                 <div id="request-action-info" class="margin-top-10 panel panel-border-wide" style="border-color: #255fa4">
-                    <p class="font-small">@Messages("agent.request.actions.info." + model.action.get, model.numberRequest.getOrElse(0))</p>
+                    <p class="font-small">@Messages("agent.request.actions.info." + model.action.get, model.numberActions.getOrElse(0))</p>
                 </div>
             }
 
