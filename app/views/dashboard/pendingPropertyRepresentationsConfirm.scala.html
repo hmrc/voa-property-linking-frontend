@@ -1,0 +1,53 @@
+@*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.agent.RepresentationController._
+@import utils.Formatters
+@import helpers._
+@import uk.gov.hmrc.play.views.html.helpers.form
+
+
+@(model: RepresentationBulkAction, f: Form[RepresentationBulkAction])(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = Messages("pendingRepresentationRequests.confirm.title"),
+    topBackLink = true,
+    bottomBackLink = false,
+    backLinkUrl = Some(controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url)
+) {
+
+    <div class="dialog-content" id="dialog-content-message" role="document" tabindex="-1">
+        @*<button class="dialog-close" aria-label="close" type="button"><span class="icon icon-close">x</span></button>*@
+        <div>
+            <h2>@Messages("pendingRepresentationRequests.confirm.header", model.action.capitalize)</h2>
+            <p>@Messages("pendingRepresentationRequests.confirm.para.1", model.action, model.requestIds.length)</p>
+
+            @form(controllers.agent.routes.RepresentationController.bulkActions) {
+                <input type="hidden" name="action" value="@model.action">
+                <input type="hidden" name="page" value="@model.page">
+                <input type="hidden" name="pageSize" value="@model.pageSize">
+                <input type="hidden" name="pending" value="@model.pending">
+                @for(id <- model.requestIds) {
+                    <input type="hidden" name="requestIds[]" value="@id">
+                }
+                <button type="submit" id="submit-button" name="submit-button" class="button pull-left">@Messages("pendingRepresentationRequests.button.text", model.action.capitalize)</button>
+            }
+            <a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url" class="button-secondary" aria-label="cancel" role="button">@Messages("pendingRepresentationRequests.button.cancel")</a>
+        </div>
+    </div>
+    <div class="clearfix"/>
+
+}

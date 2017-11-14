@@ -16,8 +16,10 @@
 
 @import controllers.agent.RepresentationController.ManagePropertiesVM
 @import utils.Formatters
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
 
-@(model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
+@(f: Form[RepresentationBulkAction], model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = Messages("manageProperties.pendingRequests"),
@@ -31,89 +33,142 @@
     @Messages("pendingRepresentationRequests.title")
     </h1>
 
+    @includes.errorSummary(f,messagePrefix = Some("pendingRepresentationRequests"))
+
     @if(model.propertyRepresentations.isEmpty) {
         <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
     } else {
 
-        @jsPendingRequests()
+        @form(controllers.agent.routes.RepresentationController.confirm(model.pagination.pageNumber, model.pagination.pageSize)) {
+            <input type="hidden" name="page" value="@model.pagination.pageNumber">
+            <input type="hidden" name="pageSize" value="@model.pagination.pageSize">
+            <input type="hidden" name="pending" value="@model.pagination.totalResults">
 
-        <noscript>
+            <div class="margin-top-10 panel panel-border-wide">
+                <p class="font-xsmall">@Messages("agent.request.warning")</p>
+            </div>
 
-        @helpers.paginationControls(model.pagination, agent.routes.RepresentationController.pendingRepresentationRequest)
-
-        <div class="table-wrapper">
-            <table class="table-font-xsmall margin-bottom-20 margin-top-30" id="nojsPendingRequests">
-                <caption class="visuallyhidden">@Messages("pendingRepresentationRequests.title")</caption>
-                <div class="margin-top-10 panel panel-border-wide">
-                    <p class="font-xsmall">
-                        @Messages("agent.request.warning")
-                    </p>
+            @if(model.numberActions.getOrElse(0) > 0 && model.action.isDefined) {
+                <div id="request-action-info" class="margin-top-10 panel panel-border-wide" style="border-color: #255fa4">
+                    <p class="font-small">@Messages("agent.request.actions.info." + model.action.get, model.numberActions.getOrElse(0))</p>
                 </div>
-                <tbody>
-                    <tr>
-                        <th scope="col">@Messages("pendingRepresentationRequests.table.1")</th>
-                        <th scope="col">@Messages("pendingRepresentationRequests.table.2")</th>
-                        <th scope="col">@Messages("pendingRepresentationRequests.table.3")</th>
-                        <th scope="col">@Messages("pendingRepresentationRequests.table.4")</th>
-                        <th scope="col">@Messages("pendingRepresentationRequests.table.5")</th>
-                    </tr>
-                    @model.propertyRepresentations.map { p =>
+            }
+
+            <div class="hide-if-no-js">
+                <a href="#" id="par-select-all-top">@Messages("pendingRepresentationRequests.select.deselect")</a>
+            </div>
+
+            <div class="table-wrapper" style="padding-bottom: 5px">
+                <table class="table-font-xsmall margin-bottom-10 margin-top-10" id="nojsPendingRequests">
+                    <caption class="visuallyhidden">@Messages("pendingRepresentationRequests.title")</caption>
+                    <tbody>
                         <tr>
-                            <td>@(p.organisationName)</td>
-
-                            <td>@(Formatters.capitalizedAddress(PropertyAddress.fromString(p.address)))</td>
-
-                            <td>
-                                <ul class="list">
-                                    <li>Check: @Messages(p.checkPermission.msgKey)</li>
-                                    <li>Challenge: @Messages(p.challengePermission.msgKey)</li>
-                                </ul>
-                                <br>
-                            </td>
-
-                            <td>@utils.Formatters.formatDate(p.createDatetime)</td>
-
-                            <td>
-                                <ul class="list">
-                                    <li>
-                                        <a role="button" href="@controllers.agent.routes.RepresentationController.accept(p.submissionId, model.totalPendingRequests)">
-                                        @Messages("agent.dashboard.manageProperties.accept")
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a role="button" href="@controllers.agent.routes.RepresentationController.reject(p.submissionId, model.totalPendingRequests)">
-                                        @Messages("agent.dashboard.manageProperties.reject")
-                                        </a>
-                                    </li>
-                                </ul>
-                            </td>
+                            <th scope="col">@Messages("pendingRepresentationRequests.table.select")</th>
+                            <th scope="col">@Messages("pendingRepresentationRequests.table.orgName")</th>
+                            <th scope="col">@Messages("pendingRepresentationRequests.table.propertyAddress")</th>
+                            <th scope="col">@Messages("pendingRepresentationRequests.table.permissions")</th>
+                            <th scope="col">@Messages("pendingRepresentationRequests.table.dateRequested")</th>
                         </tr>
+                        @model.propertyRepresentations.map { p =>
+                            <tr>
+                                <td><label class="block-label selection-button-checkbox">
+                                    <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId">
+                                    <label for="@p.submissionId"><span class="visually-hidden">Select row</span></label>
+                                </label></td>
+                                <td>@p.organisationName</td>
+
+                                <td>@(Formatters.capitalizedAddress(PropertyAddress.fromString(p.address)))</td>
+
+                                <td>
+                                    <ul class="list">
+                                        <li>Check: @Messages(p.checkPermission.msgKey)</li>
+                                        <li>Challenge: @Messages(p.challengePermission.msgKey)</li>
+                                    </ul>
+                                    <br>
+                                </td>
+
+                                <td>@utils.Formatters.formatDate(p.createDatetime)</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</div>
+
+            <div role="navigation" aria-label="Pagination" class="pull-right">
+                <ul class="pagination" style="margin:0px">
+                    @if(model.pagination.pageNumber > 1) {
+                        <li class="previous"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
+                    }else{
+                        <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
                     }
-                </tbody>
-            </table>
-        </div>
 
-        <p class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</p>
+                    <li class="active">@model.pagination.pageNumber</li>
 
-        <div role="navigation" aria-label="Pagination">
-            <ul class="pagination">
-                @if(model.pagination.pageNumber > 1) {
-                    <li class="previous"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
-                }else{
-                    <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
+                    @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
+                        <li class="next"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
+                    }else{
+                        <li class="next disabled">Next<i class="next-arrow"></i></li>
+                    }
+                </ul>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div id="page-size-list" style="padding-top:10px">
+                <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
+                @for(len <- List(15,25,50,100)) {
+                    @if(model.pagination.pageSize == len) {
+                        <span class="page-size-option-current">@len</span>
+                    } else {
+                        <a class="page-size-option"
+                        href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber, len).url">
+                        @len</a>
+                    }
                 }
+                @Messages("search.sort.page.size.properties.per.page")
+            </div>
 
-                <li class="active">@model.pagination.pageNumber</li>
+            @*<div class="clearfix"></div>*@
 
-                @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
-                    <li class="next"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
-                }else{
-                    <li class="next disabled">Next<i class="next-arrow"></i></li>
-                }
-            </ul>
-        </div>
+            @*<div class="hide-if-no-js">*@
+                @*<a href="#" id="par-select-all-bottom">@Messages("pendingRepresentationRequests.select.deselect")</a>*@
+            @*</div>*@
 
-        </noscript>
+            <div class="form-group" style="padding-top:60px">
+                <fieldset id="actionGroup" class="inline">
+                    <legend class="form-label-bold">
+                        <span class="label-span">@Messages("pendingRepresentationRequests.accept.reject")</span>
+                    </legend>
+                    <label class="block-label selection-button-radio" for="action_accept">
+                        <input id="action_accept" type="radio" name="action" value="accept">
+                        @Messages("pendingRepresentationRequests.accept")
+                    </label>
+
+                    <label class="block-label selection-button-radio" for="action_reject">
+                        <input id="action_reject" type="radio" name="action" value="reject">
+                        @Messages("pendingRepresentationRequests.reject")
+                    </label>
+                </fieldset>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div style="margin-bottom:20px;" >
+                <button type="submit" id="submit-button" name="submit-button" class="button">@Messages("pendingRepresentationRequests.button.label")</button>
+            </div>
+        }
     }
 
+
 }
+@*<div class="multiple-choice" style="float:left;clear:none;width:100px">*@
+    @*<input id="radio-action-accept" type="radio" name="action" value="accept">*@
+    @*<label for="radio-action-accept">@Messages("pendingRepresentationRequests.accept")</label>*@
+@*</div>*@
+@*<div class="multiple-choice" style="float:left;clear:none;">*@
+    @*<input id="radio-action-reject" type="radio" name="action" value="reject">*@
+    @*<label for="radio-action-reject">@Messages("pendingRepresentationRequests.reject")</label>*@
+@*</div>*@

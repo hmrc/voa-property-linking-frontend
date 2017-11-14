@@ -23,6 +23,10 @@ start.register=Register now
 label.login=Sign in
 label.register=Register
 
+
+app.common.errorSummaryLabel            = The following errors were identified on this page.
+
+
 #PROPERTY LINKING STATUSES
 propertyLinkingStatus.ADDED=Approved
 propertyLinkingStatus.APPROVED=Approved
@@ -421,12 +425,26 @@ manageProperties.noRepresentations=You have no representations
 permission.START_AND_CONTINUE=Yes
 permission.NOT_PERMITTED=No
 
+#PENDING AGENT REQUESTS
+pendingRepresentationRequests.select.deselect=Select / deselect all
+pendingRepresentationRequests.accept=Accept
+pendingRepresentationRequests.accept.reject=Accept or reject selected client requests
+pendingRepresentationRequests.reject=Reject
+pendingRepresentationRequests.button.label=Submit
 pendingRepresentationRequests.title=Pending agent requests
-pendingRepresentationRequests.table.1=Organisation name
-pendingRepresentationRequests.table.2=Property address
-pendingRepresentationRequests.table.3=Permissions
-pendingRepresentationRequests.table.4=Date requested
+pendingRepresentationRequests.table.select=Select
+pendingRepresentationRequests.table.orgName=Organisation name
+pendingRepresentationRequests.table.propertyAddress=Property address
+pendingRepresentationRequests.table.permissions=Permissions
+pendingRepresentationRequests.table.dateRequested=Date requested
 pendingRepresentationRequests.table.5=Actions
+pendingRepresentationRequests.confirm.title=Confirm actions
+pendingRepresentationRequests.confirm.header={0} client requests
+pendingRepresentationRequests.confirm.para.1=Are you sure you wish to {0} {1} pending agent requests?
+pendingRepresentationRequests.button.text={0} requests
+pendingRepresentationRequests.button.cancel=Cancel
+label.pendingRepresentationRequests.action=Accept or reject
+label.pendingRepresentationRequests.requestIds=Select at least one pending request
 
 #SEARCH
 search.title=Search and select a property to add to your customer record
@@ -804,6 +822,8 @@ label.close=Close
 
 #AGENT REQUEST WARNING
 agent.request.warning=You need to accept agent requests within 21 days. Otherwise, they will be rejected and your clients will need to send a new request.
+agent.request.actions.info.accept=You have accepted {0} agent request(s)
+agent.request.actions.info.reject=You have rejected {0} agent request(s)
 
 #MESSAGES TAB
 messages.title=Messages

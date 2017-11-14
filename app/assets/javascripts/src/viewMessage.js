@@ -9,6 +9,7 @@
     }
 
     root.VOA.viewMessage = function () {
+
         $('.message-link').click(function (e) {
             //prevent the non-js behaviour
             e.preventDefault();

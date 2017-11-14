@@ -21,7 +21,7 @@ import java.time.LocalDate
 import models.{Address, NamedEnum, NamedEnumSupport}
 import play.api.data.Forms._
 import play.api.data.format.{Formats, Formatter}
-import play.api.data.validation.{Constraint, Constraints}
+import play.api.data.validation._
 import play.api.data.{FormError, Forms, Mapping}
 import uk.gov.voa.play.form.Condition
 import utils.Conditionals.IfCondition
@@ -144,4 +144,10 @@ case class TextMatching(other: String, errorKey: String, key: String = "", const
   override def withPrefix(prefix: String) = copy(key = prefix + key)
 
   override def verifying(c: Constraint[String]*) = copy(constraints = constraints ++ c.toSeq)
+}
+
+object FormValidation {
+  def nonEmptyList[T]: Constraint[List[T]] = Constraint[List[T]]("constraint.required") { list =>
+    if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
+  }
 }
