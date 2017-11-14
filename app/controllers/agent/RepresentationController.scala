@@ -178,8 +178,6 @@ class RepresentationController @Inject()(config: ApplicationConfig,
     BulkActionsForm.form.bindFromRequest().fold(
       _ => BadRequest(Global.badRequestTemplate),
       data => {
-        val futureListOfTrys: Future[List[Try[Unit]]] = getFutureListOfActions(data, request.personId)
-
         val futureListOfSuccesses = getFutureListOfActions(data, request.personId).map(_.filter(_.isSuccess))
         futureListOfSuccesses.flatMap(successes =>
           withValidPagination(data.page, data.pageSize) { pagination =>
