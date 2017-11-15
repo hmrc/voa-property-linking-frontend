@@ -71,9 +71,11 @@
                         </tr>
                         @model.propertyRepresentations.map { p =>
                             <tr>
-                                <td><label class="block-label selection-button-checkbox">
-                                    <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId">
-                                    <label for="@p.submissionId"><span class="visually-hidden">Select row</span></label>
+                                <td><label class="block-label selection-button-checkbox" for="@p.submissionId">
+                                    <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId"
+                                    @if(f.data.values.toSet.contains(p.submissionId)) { checked="checked" }
+                                    >
+                                    <span class="visually-hidden">Select row</span>
                                 </label></td>
                                 <td>@p.organisationName</td>
 
@@ -132,7 +134,6 @@
             </div>
 
             @*<div class="clearfix"></div>*@
-
             @*<div class="hide-if-no-js">*@
                 @*<a href="#" id="par-select-all-bottom">@Messages("pendingRepresentationRequests.select.deselect")</a>*@
             @*</div>*@
@@ -143,12 +144,14 @@
                         <span class="label-span">@Messages("pendingRepresentationRequests.accept.reject")</span>
                     </legend>
                     <label class="block-label selection-button-radio" for="action_accept">
-                        <input id="action_accept" type="radio" name="action" value="accept">
+                        <input id="action_accept" type="radio" name="action" value="accept"
+                        @f("action").value.filter(_ == "accept").map{_ => checked="checked"}/>
                         @Messages("pendingRepresentationRequests.accept")
                     </label>
 
                     <label class="block-label selection-button-radio" for="action_reject">
-                        <input id="action_reject" type="radio" name="action" value="reject">
+                        <input id="action_reject" type="radio" name="action" value="reject"
+                            @f("action").value.filter(_ == "reject").map{_ => checked="checked"}/>
                         @Messages("pendingRepresentationRequests.reject")
                     </label>
                 </fieldset>
@@ -164,11 +167,3 @@
 
 
 }
-@*<div class="multiple-choice" style="float:left;clear:none;width:100px">*@
-    @*<input id="radio-action-accept" type="radio" name="action" value="accept">*@
-    @*<label for="radio-action-accept">@Messages("pendingRepresentationRequests.accept")</label>*@
-@*</div>*@
-@*<div class="multiple-choice" style="float:left;clear:none;">*@
-    @*<input id="radio-action-reject" type="radio" name="action" value="reject">*@
-    @*<label for="radio-action-reject">@Messages("pendingRepresentationRequests.reject")</label>*@
-@*</div>*@
