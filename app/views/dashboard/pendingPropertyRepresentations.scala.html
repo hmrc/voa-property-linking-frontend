@@ -58,12 +58,12 @@
                 <a href="#" id="par-select-all-top">@Messages("pendingRepresentationRequests.select.deselect")</a>
             </div>
 
-            <div class="table-wrapper" style="padding-bottom: 5px">
-                <table class="table-font-xsmall margin-bottom-10 margin-top-10" id="nojsPendingRequests">
+            <div class="table-wrapper dataTables_wrapper" style="padding-bottom: 5px">
+                <table class="dataTable table-font-xsmall margin-bottom-10 margin-top-10" id="nojsPendingRequests">
                     <caption class="visuallyhidden">@Messages("pendingRepresentationRequests.title")</caption>
                     <tbody>
                         <tr>
-                            <th scope="col">@Messages("pendingRepresentationRequests.table.select")</th>
+                            <th scope="col" width="10%">@Messages("pendingRepresentationRequests.table.select")</th>
                             <th scope="col">@Messages("pendingRepresentationRequests.table.orgName")</th>
                             <th scope="col">@Messages("pendingRepresentationRequests.table.propertyAddress")</th>
                             <th scope="col">@Messages("pendingRepresentationRequests.table.permissions")</th>
@@ -71,12 +71,14 @@
                         </tr>
                         @model.propertyRepresentations.map { p =>
                             <tr>
-                                <td><label class="block-label selection-button-checkbox" for="@p.submissionId">
+                                <td><div style="padding-left: 5px;">
+                                    <label class="block-label selection-button-checkbox" for="@p.submissionId">
                                     <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId"
                                     @if(f.data.values.toSet.contains(p.submissionId)) { checked="checked" }
                                     >
                                     <span class="visually-hidden">Select row</span>
-                                </label></td>
+                                </label></div></td>
+
                                 <td>@p.organisationName</td>
 
                                 <td>@(Formatters.capitalizedAddress(PropertyAddress.fromString(p.address)))</td>
@@ -86,7 +88,6 @@
                                         <li>Check: @Messages(p.checkPermission.msgKey)</li>
                                         <li>Challenge: @Messages(p.challengePermission.msgKey)</li>
                                     </ul>
-                                    <br>
                                 </td>
 
                                 <td>@utils.Formatters.formatDate(p.createDatetime)</td>
@@ -99,16 +100,14 @@
 
             <div class="pull-left">Showing @model.pagination.startPoint to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</div>
 
-            <div role="navigation" aria-label="Pagination" class="pull-right">
-                <ul class="pagination" style="margin:0px">
+            <div role="navigation" aria-label="Pagination" class="pull-right paginate_block">
+                <ul class="pagination paginate_button" style="margin:0px">
                     @if(model.pagination.pageNumber > 1) {
-                        <li class="previous"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
+                        <li class="previous"></i><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
                     }else{
                         <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
                     }
-
                     <li class="active">@model.pagination.pageNumber</li>
-
                     @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
                         <li class="next"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
                     }else{
@@ -119,7 +118,7 @@
 
             <div class="clearfix"></div>
 
-            <div id="page-size-list" style="padding-top:10px">
+            <div id="page-size-list">
                 <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
                 @for(len <- List(15,25,50,100)) {
                     @if(model.pagination.pageSize == len) {
