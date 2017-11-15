@@ -16,10 +16,14 @@
     table.dataTable.display tbody td {
         border-top: none;
     }
+
+    .paginate_block .paginate_button.current,
+    .paginate_block .paginate_button.current:hover,
     .dataTables_wrapper .dataTables_paginate .paginate_button.current,
     .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
         background: none;
     }
+    .paginate_block .paginate_button,
     .dataTables_wrapper .dataTables_paginate .paginate_button {
     	margin: 0 $gutter-half $gutter-half 0;
     	padding: em(6) em(6) em(3) em(6);
@@ -50,6 +54,8 @@
 
     }
 
+    .paginate_block .paginate_button .disabled .previous-arrow,
+    .paginate_block .paginate_button .disabled .next-arrow,
     .dataTables_wrapper .dataTables_paginate .paginate_button.disabled .previous-arrow,
     .dataTables_wrapper .dataTables_paginate .paginate_button.disabled .next-arrow{
         border-color: $grey-1 !important;

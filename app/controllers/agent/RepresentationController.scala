@@ -159,10 +159,10 @@ class RepresentationController @Inject()(config: ApplicationConfig,
         } else {
           val futureListOfSuccesses = getFutureListOfActions(data, request.personId).map(_.filter(_.isSuccess))
           futureListOfSuccesses.flatMap(successes =>
-            withValidPagination(page, pageSize) { pagination =>
+            withValidPagination(1, pageSize) { pagination =>
               reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
                 if (reprs.totalPendingRequests > 0) {
-                  okManagePropertiesVM(successes.size, data, pagination, reprs)
+                  okPendingPropertyRepresentations(successes.size, data, pagination, reprs)
                 } else {
                   Redirect(routes.RepresentationController.viewClientProperties())
                 }
@@ -172,7 +172,6 @@ class RepresentationController @Inject()(config: ApplicationConfig,
       })
   }
 
-
   def bulkActions(): Action[AnyContent] = authenticated.asAgent { implicit request =>
 
     BulkActionsForm.form.bindFromRequest().fold(
@@ -180,10 +179,10 @@ class RepresentationController @Inject()(config: ApplicationConfig,
       data => {
         val futureListOfSuccesses = getFutureListOfActions(data, request.personId).map(_.filter(_.isSuccess))
         futureListOfSuccesses.flatMap(successes =>
-          withValidPagination(data.page, data.pageSize) { pagination =>
+          withValidPagination(1, data.pageSize) { pagination =>
             reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
               if (reprs.totalPendingRequests > 0) {
-                okManagePropertiesVM(successes.size, data, pagination, reprs)
+                okPendingPropertyRepresentations(successes.size, data, pagination, reprs)
               } else {
                 Redirect(routes.RepresentationController.viewClientProperties())
               }
@@ -192,7 +191,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
       })
   }
 
-  private def okManagePropertiesVM(numberActions: Int,
+  private def okPendingPropertyRepresentations(numberActions: Int,
                                    data: RepresentationBulkAction,
                                    pagination: Pagination,
                                    reprs: PropertyRepresentations)(implicit request: AgentRequest[_]): Result = {
