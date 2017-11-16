@@ -426,7 +426,7 @@ permission.START_AND_CONTINUE=Yes
 permission.NOT_PERMITTED=No
 
 #PENDING AGENT REQUESTS
-pendingRepresentationRequests.select.deselect=Select / deselect all
+pendingRepresentationRequests.select.deselect=Select all / deselect all
 pendingRepresentationRequests.accept=Accept
 pendingRepresentationRequests.accept.reject=Accept or reject selected client requests
 pendingRepresentationRequests.reject=Reject
