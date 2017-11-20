@@ -40,7 +40,7 @@ trait AuditingService {
 
   def eventFor[A: Writes](auditType: String, obj: A)(implicit hc: HeaderCarrier, request: Request[_]) = {
     ExtendedDataEvent(
-      auditSource = "voa-property-linking",
+      auditSource = "voa-property-linking-frontend",
       auditType = auditType,
       tags = hc.headers.toMap ++ Map("Ip Address" -> request.remoteAddress),
       detail = Json.toJson(obj)
