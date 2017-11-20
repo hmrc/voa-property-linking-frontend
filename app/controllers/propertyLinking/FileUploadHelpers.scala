@@ -18,6 +18,7 @@ package controllers.propertyLinking
 
 import java.util.UUID
 
+import auditing.AuditingService
 import config.ApplicationConfig
 import controllers._
 import session.{LinkingSessionRequest, WithLinkingSession}
@@ -28,15 +29,18 @@ trait FileUploadHelpers {
   val config: ApplicationConfig
   val withLinkingSession: WithLinkingSession
   lazy val fileUploadBaseUrl = config.fileUploadUrl
+  val successUrl: String
 
   def fileUploaded() = withLinkingSession { implicit request =>
+    val envelopeId = request.ses.envelopeId
+    AuditingService.sendEvent("file upload success", Map("envelopeId" -> envelopeId))
     Redirect(propertyLinking.routes.Declaration.show())
   }
 
   def fileUploadUrl(failureUrl: String)(implicit request: LinkingSessionRequest[_]): String = {
     val envelopeId = request.ses.envelopeId
     val fileId = UUID.randomUUID().toString
-    val absoluteSuccessUrl = s"${config.serviceUrl}${routes.Declaration.show().url}"
+    val absoluteSuccessUrl = s"${config.serviceUrl}$successUrl"
     val absoluteFailureUrl = s"${config.serviceUrl}$failureUrl"
 
     s"$fileUploadBaseUrl/upload/envelopes/$envelopeId/files/$fileId?redirect-success-url=$absoluteSuccessUrl&redirect-error-url=$absoluteFailureUrl"
