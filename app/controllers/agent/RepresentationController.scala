@@ -125,15 +125,30 @@ class RepresentationController @Inject()(config: ApplicationConfig,
 
   def pendingRepresentationRequest(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
-      reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
-        Ok(views.html.dashboard.pendingPropertyRepresentations(
-          BulkActionsForm.form,
-          ManagePropertiesVM(
-            reprs.propertyRepresentations,
-            reprs.totalPendingRequests,
-            pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
-          )
-        ))
+      reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>
+        if (reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size > 0) {
+          Ok(views.html.dashboard.pendingPropertyRepresentations(
+            BulkActionsForm.form,
+            ManagePropertiesVM(
+              reprs.propertyRepresentations,
+              reprs.totalPendingRequests,
+              pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
+            )
+          ))
+        } else if (reprs.totalPendingRequests > 0) {
+          reprConnector.forAgent(RepresentationPending, request.organisationId, pagination.copy(pageNumber = pagination.pageNumber - 1)).map { reprs =>
+            Ok(views.html.dashboard.pendingPropertyRepresentations(
+              BulkActionsForm.form,
+              ManagePropertiesVM(
+                reprs.propertyRepresentations,
+                reprs.totalPendingRequests,
+                pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
+              )
+            ))
+          }
+        } else {
+          Redirect(routes.RepresentationController.viewClientProperties())
+        }
       }
     }
   }
