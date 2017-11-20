@@ -72,15 +72,16 @@
                         @model.propertyRepresentations.map { p =>
                             <tr>
                                 <td class="checkbox-table-cell">
-                                    <label class="block-label selection-button-checkbox" for="@p.submissionId">
-                                    <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId"
-                                    @if(f.data.values.toSet.contains(p.submissionId) ||
-                                            model.requestIds.fold(false)(ids => ids.contains(p.submissionId))) {
-                                        checked="checked"
-                                        }
-                                    >
-                                    <span class="visually-hidden">Select row</span>
-                                </label></td>
+                                    @if(!f.data.values.toSet.contains(p.submissionId) &&
+                                            !model.requestIds.fold(false)(ids => ids.contains(p.submissionId))) {
+                                        <label class="block-label selection-button-checkbox" for="@p.submissionId">
+                                        <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId">
+                                            <span class="visually-hidden">Select row</span>
+                                        </label>
+                                    } else {
+                                        <span>Processing...</span>
+                                    }
+                                </td>
 
                                 <td>@p.organisationName</td>
 
