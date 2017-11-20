@@ -70,7 +70,7 @@
                 if(!aData.agents){
                     $('td:eq(3)', nRow).text('');
                 }
-                if (aData.status.toLowerCase() != 'revoked' && aData.status.toLowerCase() != 'declined') {
+                if (aData.status.toLowerCase() !== 'revoked' && aData.status.toLowerCase() !== 'declined') {
                     $('td:eq(4) ul li:eq(0)', nRow).html('<a href="/business-rates-property-linking/appoint-agent/' + aData.authorisationId + '">' + messages.labels.appointAgent + '</a>');
                 }
                 if (aData.status.toLowerCase() === 'approved' || aData.status.toLowerCase() === 'pending') {
