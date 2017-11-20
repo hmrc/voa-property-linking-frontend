@@ -55,7 +55,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
   it must "submit to the file upload service, with valid success and failure callback URLs" in {
     val html = uploadEvidencePage
-    val successUrl = routes.Declaration.show().absoluteURL()
+    val successUrl = routes.UploadEvidence.fileUploaded().absoluteURL()
     val failureUrl = routes.UploadEvidence.show().absoluteURL()
 
     val formAction = html.select("form").attr("action")
