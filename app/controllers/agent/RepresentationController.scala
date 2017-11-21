@@ -216,8 +216,8 @@ class RepresentationController @Inject()(config: ApplicationConfig,
         withValidPagination(page, pageSize) { pagination =>
           reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
             okPendingPropertyRepresentations(
-              numberActions = 0,
-              data = data.copy(action = data.action + "-continue"),
+              numberActions = data.requestIds.size,
+              data = data,
               pagination = pagination,
               reprs = reprs,
               afterCancel = false)

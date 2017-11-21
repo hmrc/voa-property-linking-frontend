@@ -17,6 +17,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 
 @import controllers.agent.RepresentationController
+
 @(f: Form[RepresentationBulkAction], model: RepresentationController.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(
@@ -46,15 +47,11 @@
                 <input type="hidden" name="page" value="@model.pagination.pageNumber">
                 <input type="hidden" name="pageSize" value="@model.pagination.pageSize">
 
-                @for(id <- model.requestIds) {
+                @for(id <- model.requestIds.getOrElse(Nil)) {
                     <input type="hidden" name="requestIds[]" value="@id">
                 }
                 <button type="submit" id="continue-button" name="continue-button" class="button pull-left">@Messages("label.continue")</button>
             }
-
-            @*<a href="@(continueLink)">*@
-                @*<button id="continue" class="button">@Messages("label.continue")</button>*@
-            @*</a>*@
 
         </div>
     </div>

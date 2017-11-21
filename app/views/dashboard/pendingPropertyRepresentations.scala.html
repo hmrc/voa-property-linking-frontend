@@ -50,7 +50,9 @@
 
             @if(model.complete.getOrElse(0) > 0 && model.action.isDefined) {
                 <div id="request-action-info" class="margin-top-10 panel panel-border-wide">
-                    <p class="font-small">@Messages("agent.request.actions.info." + model.action.get, model.complete.getOrElse(0))</p>
+                    <p class="font-small">
+                    @Messages("agent.request.actions.info." + model.action.get.takeWhile(_!='-'), model.complete.getOrElse(0))
+                    </p>
                 </div>
             }
 
