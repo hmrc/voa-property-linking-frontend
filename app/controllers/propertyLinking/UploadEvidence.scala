@@ -53,7 +53,11 @@ class UploadEvidence @Inject()(override val config: ApplicationConfig,
   }
 
   def noEvidenceUploaded() = withLinkingSession { implicit request =>
-    Redirect(propertyLinking.routes.Declaration.show())
+    if (config.fileUploadEnabled) {
+      Redirect(propertyLinking.routes.Declaration.show())
+    } else {
+      Redirect(propertyLinking.routes.Declaration.show(Some(true)))
+    }
   }
 
   lazy val form = Form(single("evidenceType" -> EnumMapping(EvidenceType)))
