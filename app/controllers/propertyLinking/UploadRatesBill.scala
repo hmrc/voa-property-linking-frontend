@@ -22,6 +22,7 @@ import config.{ApplicationConfig, Global}
 import controllers._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.mvc.Call
 import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
 import views.html.propertyLinking.uploadRatesBill
@@ -36,14 +37,14 @@ class UploadRatesBill @Inject()(override val config: ApplicationConfig,
   def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
     withCircuitBreaker {
       errorCode match {
-        case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadRatesBill(UploadRatesBillVM(fileTooLargeError, submissionUrl)))
+        case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadRatesBill(UploadRatesBillVM(fileTooLargeError, submissionCall)))
         case Some(NOT_FOUND) => NotFound(Global.notFoundTemplate)
-        case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionUrl)))
+        case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionCall)))
         // this assumes BAD_REQUEST is caused by "Envelope does not allow zero length files, and submitted file has length 0"
-        case Some(BAD_REQUEST) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionUrl)))
+        case Some(BAD_REQUEST) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionCall)))
         //if FUaaS repeatedly returns unexpected error codes e.g. 500s, trigger the circuit breaker
         case Some(err) => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
-        case None => Ok(uploadRatesBill(UploadRatesBillVM(form, submissionUrl)))
+        case None => Ok(uploadRatesBill(UploadRatesBillVM(form, submissionCall)))
       }
     } recover {
       case _: UnhealthyServiceException => ServiceUnavailable(views.html.errors.serviceUnavailable())
@@ -54,7 +55,11 @@ class UploadRatesBill @Inject()(override val config: ApplicationConfig,
   lazy val fileTooLargeError = form.withError("ratesBill[]", "error.fileUpload.tooLarge")
   lazy val invalidFileTypeError = form.withError("ratesBill[]", "error.fileUpload.invalidFileType")
 
-  private def submissionUrl(implicit request: LinkingSessionRequest[_]) = fileUploadUrl(routes.UploadRatesBill.show().url)
+  private def submissionCall(implicit request: LinkingSessionRequest[_]) = if (config.fileUploadEnabled) {
+    Call("POST", fileUploadUrl(routes.UploadRatesBill.show().url))
+  } else {
+    Call("GET", routes.Declaration.show().url)
+  }
 }
 
-case class UploadRatesBillVM(form: Form[_], submissionUrl: String)
+case class UploadRatesBillVM(form: Form[_], call: Call)

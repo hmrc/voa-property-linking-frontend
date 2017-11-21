@@ -42,6 +42,8 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
+  override val additionalAppConfig = Seq("featureFlags.fileUploadEnabled" -> "true")
+
   "Upload Evidence page" must "contain a file input" in {
     val page = HtmlPage(uploadEvidencePage)
     page.mustContainFileInput("evidence")
