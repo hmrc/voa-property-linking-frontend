@@ -42,6 +42,8 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
 
+  override val additionalAppConfig = Seq("featureFlags.fileUploadEnabled" -> "true")
+
   "Upload Rates Bill upload page" must "contain a file input" in {
     val html = HtmlPage(uploadRatesBillPage)
     html.mustContainFileInput("ratesBill")

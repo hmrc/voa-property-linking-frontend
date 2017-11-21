@@ -23,7 +23,7 @@
 @main_template(title = Messages("uploadEvidence.show.title"), bottomBackLink = true, topBackLink = true) {
 
 
-    @form(Call("POST", model.submissionUrl), 'enctype -> "multipart/form-data") {
+    @form(model.call, 'enctype -> "multipart/form-data") {
 
         <div class="grid-row">
             <div class="column-two-thirds">
