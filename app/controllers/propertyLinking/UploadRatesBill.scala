@@ -31,6 +31,8 @@ class UploadRatesBill @Inject()(override val config: ApplicationConfig,
                                 withCircuitBreaker: FileUploadCircuitBreaker)
   extends PropertyLinkingController with FileUploadHelpers {
 
+  override val successUrl: String = routes.UploadRatesBill.fileUploaded().url
+
   def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
     withCircuitBreaker {
       errorCode match {

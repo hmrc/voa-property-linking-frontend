@@ -32,6 +32,8 @@ class UploadEvidence @Inject()(override val config: ApplicationConfig,
                                override val withLinkingSession: WithLinkingSession,
                                withCircuitBreaker: FileUploadCircuitBreaker) extends PropertyLinkingController with FileUploadHelpers {
 
+  override val successUrl: String = routes.UploadEvidence.fileUploaded().url
+
   def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
     withCircuitBreaker {
       errorCode match {

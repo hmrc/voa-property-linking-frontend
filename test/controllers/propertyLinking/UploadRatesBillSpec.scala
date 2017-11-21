@@ -57,7 +57,7 @@ class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
 
   it must "submit to the file upload service, with valid success and failure callback URLs" in {
     val html = uploadRatesBillPage
-    val successUrl = "http://localhost:9523/business-rates-property-linking/summary"
+    val successUrl = routes.UploadRatesBill.fileUploaded().absoluteURL()
     val failureUrl = "http://localhost:9523/business-rates-property-linking/upload-rates-bill"
 
     val formTarget = html.select("form").attr("action")
