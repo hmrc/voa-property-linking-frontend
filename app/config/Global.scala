@@ -88,7 +88,7 @@ object AuditFilter extends FrontendAuditFilter with MicroserviceFilterSupport wi
   override lazy val applicationPort = None
   override lazy val auditConnector = AuditServiceConnector
 
-  override def controllerNeedsAuditing(controllerName: String): Boolean = false
+  override def controllerNeedsAuditing(controllerName: String): Boolean = ControllerConfiguration.paramsForController(controllerName).needsAuditing
 }
 
 object ControllerConfiguration extends ControllerConfig {
