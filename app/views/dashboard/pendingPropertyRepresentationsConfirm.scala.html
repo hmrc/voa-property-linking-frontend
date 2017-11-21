@@ -14,9 +14,6 @@
  * limitations under the License.
  *@
 
-@import controllers.agent.RepresentationController._
-@import utils.Formatters
-@import helpers._
 @import uk.gov.hmrc.play.views.html.helpers.form
 
 
@@ -54,7 +51,6 @@
                 }
                 <button type="submit" id="cancel-button" name="cancel-button" class="button-secondary pull-left">@Messages("pendingRepresentationRequests.button.cancel", model.action.capitalize)</button>
             }
-            @*<a href="@controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url" class="button-secondary" aria-label="cancel" role="button">@Messages("pendingRepresentationRequests.button.cancel")</a>*@
         </div>
     </div>
     <div class="clearfix"/>
