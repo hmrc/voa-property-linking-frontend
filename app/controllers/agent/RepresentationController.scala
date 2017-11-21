@@ -265,7 +265,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
         BulkActionsForm.form,
         getModel))
     } else if(data.action.toLowerCase == "reject-confirm") {
-      Ok(views.html.propertyRepresentation.requestAccepted(
+      Ok(views.html.propertyRepresentation.requestRejected(
         BulkActionsForm.form,
         getModel))
     } else {

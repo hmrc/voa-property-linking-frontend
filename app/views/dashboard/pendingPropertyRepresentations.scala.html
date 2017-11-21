@@ -72,8 +72,8 @@
                         @model.propertyRepresentations.map { p =>
                             <tr>
                                 <td class="checkbox-table-cell">
-                                    @if( model.afterCancel && (f.data.values.toSet.contains(p.submissionId) ||
-                                            model.requestIds.fold(false)(ids => ids.contains(p.submissionId))) ) {
+                                    @if(  f.data.values.toSet.contains(p.submissionId) ||
+                                            ( model.afterCancel && model.requestIds.fold(false)(ids => ids.contains(p.submissionId))) ) {
                                         <label class="block-label selection-button-checkbox" for="@p.submissionId">
                                         <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId" checked="checked">
                                             <span class="visually-hidden">Select row</span>
