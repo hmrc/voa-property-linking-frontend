@@ -19,6 +19,7 @@ package controllers.propertyLinking
 import javax.inject.Named
 
 import com.google.inject.{Inject, Singleton}
+import config.ApplicationConfig
 import connectors.EnvelopeConnector
 import connectors.fileUpload.{FileMetadata, FileUploadConnector}
 import connectors.propertyLinking.PropertyLinkConnector
@@ -31,7 +32,8 @@ import session.{LinkingSessionRequest, WithLinkingSession}
 import views.html.propertyLinking.declaration
 
 @Singleton
-class Declaration @Inject()(envelopes: EnvelopeConnector,
+class Declaration @Inject()(config: ApplicationConfig,
+                            envelopes: EnvelopeConnector,
                             fileUploads: FileUploadConnector,
                             propertyLinks: PropertyLinkConnector,
                             @Named("propertyLinkingSession") sessionRepository: SessionRepo,
@@ -43,13 +45,21 @@ class Declaration @Inject()(envelopes: EnvelopeConnector,
   }
 
   def submit = withLinkingSession { implicit request =>
-    form.bindFromRequest().value match {
-      case Some(true) => fileUploads.getFileMetadata(request.ses.envelopeId) flatMap {
-        case data@FileMetadata(_, Some(info)) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.confirmation()) }
-        case data@FileMetadata(NoEvidenceFlag, _) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.noEvidence()) }
+    if (config.fileUploadEnabled) {
+      form.bindFromRequest().value match {
+        case Some(true) => fileUploads.getFileMetadata(request.ses.envelopeId) flatMap {
+          case data@FileMetadata(_, Some(info)) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.confirmation()) }
+          case data@FileMetadata(NoEvidenceFlag, _) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.noEvidence()) }
+        }
+        case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
       }
-      case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
+    } else {
+      form.bindFromRequest().value match {
+        case Some(true) => Redirect(routes.Declaration.confirmation())
+        case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
+      }
     }
+
   }
 
   def confirmation = withLinkingSession { implicit request =>
