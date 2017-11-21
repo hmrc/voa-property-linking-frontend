@@ -27,6 +27,8 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   def baseUrl: String = if (runMode.env == "Prod") "" else "http://localhost:9523"
   def businessRatesValuationUrl(page: String): String = getConfig("business-rates-valuation.url") + s"/$page"
 
+  val helpGuideUrl = getConfig("help-guide.url")
+
   val vmvUrl: String = getConfig("vmv-frontend.url")
   val ggSignInUrl: String = getConfig("gg-sign-in.url")
   val ggRegistrationUrl: String = getConfig("gg-registration.url")

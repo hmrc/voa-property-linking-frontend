@@ -773,6 +773,7 @@ serviceUnavailable.p.2=We’re unable to complete your property link at this tim
 serviceUnavailable.p.3=We apologise for any inconvenience. Please try again later.
 
 ##FOOTER LINKS
+footer.link.help=Help
 footer.link.feedback=Feedback
 footer.link.cookies=Cookies
 footer.link.termsAndConditions=Terms and conditions

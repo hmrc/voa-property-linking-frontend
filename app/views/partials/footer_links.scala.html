@@ -18,6 +18,7 @@
 
 @()(implicit messages: Messages)
 <ul class="platform-help-links" style="display:block">
+    <li><a href="@helpGuideUrl" data-sso="false" data-journey-click="footer:Click:Help">@Messages("footer.link.help")</a></li>
     <li><a href="@businessRatesValuationUrl("send-beta-feedback")" data-sso="false" data-journey-click="footer:Click:Feedback">@Messages("footer.link.feedback")</a></li>
     <li><a href="@businessRatesValuationUrl("cookies")" data-sso="false" data-journey-click="footer:Click:Cookies">@Messages("footer.link.cookies")</a></li>
     <li><a href="@businessRatesValuationUrl("terms-and-conditions")" data-sso="false" data-journey-click="footer:Click:Terms and conditions">@Messages("footer.link.termsAndConditions")</a></li>
