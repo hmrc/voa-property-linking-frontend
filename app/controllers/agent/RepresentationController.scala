@@ -30,7 +30,6 @@ import models.searchApi.AgentAuthResult
 import play.api.data.Forms.mapping
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, Result}
-import play.mvc.Http.Request
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
