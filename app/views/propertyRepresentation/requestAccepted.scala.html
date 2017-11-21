@@ -14,9 +14,10 @@
  * limitations under the License.
  *@
 
-@(continueLink: String)(implicit request: Request[_], messages: Messages)
+@import uk.gov.hmrc.play.views.html.helpers.form
 
-
+@import controllers.agent.RepresentationController
+@(f: Form[RepresentationBulkAction], model: RepresentationController.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = Messages("propertyRepresentation.accepted.title"),
@@ -31,12 +32,29 @@
 
             <p>@Messages("propertyRepresentation.accepted.youCan")</p>
             <ul class="list list-bullet">
-                <li>@Messages("propertyRepresentation.accepted.youCan.1")</li>
+                <li>@if(model.requestIds.getOrElse(Nil).size > 1){
+                        @Messages("propertyRepresentation.accepted.multiple.youCan.1")
+                    } else {
+                        @Messages("propertyRepresentation.accepted.single.youCan.1")
+                    }
+                </li>
                 <li>@Messages("propertyRepresentation.accepted.youCan.2")</li>
             </ul>
-            <a href="@(continueLink)">
-                <button id="continue" class="button">@Messages("label.continue")</button>
-            </a>
+
+            @form(controllers.agent.routes.RepresentationController.continue(model.pagination.pageNumber, model.pagination.pageSize)) {
+                <input type="hidden" name="action" value="accept-continue">
+                <input type="hidden" name="page" value="@model.pagination.pageNumber">
+                <input type="hidden" name="pageSize" value="@model.pagination.pageSize">
+
+                @for(id <- model.requestIds) {
+                    <input type="hidden" name="requestIds[]" value="@id">
+                }
+                <button type="submit" id="continue-button" name="continue-button" class="button pull-left">@Messages("label.continue")</button>
+            }
+
+            @*<a href="@(continueLink)">*@
+                @*<button id="continue" class="button">@Messages("label.continue")</button>*@
+            @*</a>*@
 
         </div>
     </div>

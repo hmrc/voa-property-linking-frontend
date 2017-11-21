@@ -16,7 +16,6 @@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
 
-
 @(model: RepresentationBulkAction, f: Form[RepresentationBulkAction])(implicit request: Request[_], messages: Messages)
 
 @main_template(
@@ -32,20 +31,20 @@
             <p>@Messages("pendingRepresentationRequests.confirm.para.1", model.action, model.requestIds.length)</p>
 
             @form(controllers.agent.routes.RepresentationController.bulkActions) {
-                <input type="hidden" name="action" value="@model.action">
+                <input type="hidden" name="action" value="reject-confirm">
                 <input type="hidden" name="page" value="@model.page">
                 <input type="hidden" name="pageSize" value="@model.pageSize">
-                <input type="hidden" name="pending" value="@model.pending">
+
                 @for(id <- model.requestIds) {
                     <input type="hidden" name="requestIds[]" value="@id">
                 }
                 <button type="submit" id="submit-button" name="submit-button" class="button pull-left">@Messages("pendingRepresentationRequests.button.text", model.action.capitalize)</button>
             }
             @form(controllers.agent.routes.RepresentationController.cancel(model.page, model.pageSize)) {
-                <input type="hidden" name="action" value="@model.action">
+                <input type="hidden" name="action" value="reject">
                 <input type="hidden" name="page" value="@model.page">
                 <input type="hidden" name="pageSize" value="@model.pageSize">
-                <input type="hidden" name="pending" value="@model.pending">
+
                 @for(id <- model.requestIds) {
                     <input type="hidden" name="requestIds[]" value="@id">
                 }

@@ -174,7 +174,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
           futureListOfSuccesses.flatMap(successes =>
             withValidPagination(page, pageSize) { pagination =>
               reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
-                routePendingRequests(data, successes, pagination, reprs)(request)
+                routePendingRequests(data.copy(action = "accept-confirm"), successes, pagination, reprs)(request)
               }
             })
         }
@@ -209,6 +209,23 @@ class RepresentationController @Inject()(config: ApplicationConfig,
       })
   }
 
+  def continue(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+    BulkActionsForm.form.bindFromRequest().fold(
+      _ => BadRequest(Global.badRequestTemplate),
+      data => {
+        withValidPagination(page, pageSize) { pagination =>
+          reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
+            okPendingPropertyRepresentations(
+              numberActions = 0,
+              data = data.copy(action = data.action + "-continue"),
+              pagination = pagination,
+              reprs = reprs,
+              afterCancel = false)
+          }
+        }
+      })
+  }
+
   def bulkActions(): Action[AnyContent] = authenticated.asAgent { implicit request =>
 
     BulkActionsForm.form.bindFromRequest().fold(
@@ -229,19 +246,33 @@ class RepresentationController @Inject()(config: ApplicationConfig,
                                    pagination: Pagination,
                                    reprs: PropertyRepresentations,
                                    afterCancel:Boolean = false)(implicit request: AgentRequest[_]): Result = {
-    Ok(views.html.dashboard.pendingPropertyRepresentations(
-      BulkActionsForm.form,
+    def getModel = {
       ManagePropertiesVM(
         propertyRepresentations = reprs.propertyRepresentations,
         totalPendingRequests = reprs.totalPendingRequests,
         pagination = pagination.copy(
-          pageNumber = if(reprs.propertyRepresentations.size == 0) Math.max(1, pagination.pageNumber - 1)
-                        else pagination.pageNumber,
+          pageNumber = if (reprs.propertyRepresentations.size == 0) Math.max(1, pagination.pageNumber - 1)
+          else pagination.pageNumber,
           totalResults = reprs.resultCount.getOrElse(0L)),
         action = Some(data.action.toLowerCase),
         requestIds = Some(data.requestIds),
         complete = Some(numberActions),
-        afterCancel = afterCancel)))
+        afterCancel = afterCancel)
+    }
+
+    if(data.action.toLowerCase == "accept-confirm") {
+      Ok(views.html.propertyRepresentation.requestAccepted(
+        BulkActionsForm.form,
+        getModel))
+    } else if(data.action.toLowerCase == "reject-confirm") {
+      Ok(views.html.propertyRepresentation.requestAccepted(
+        BulkActionsForm.form,
+        getModel))
+    } else {
+      Ok(views.html.dashboard.pendingPropertyRepresentations(
+        BulkActionsForm.form,
+        getModel))
+    }
   }
 
   private def routePendingRequests(data: RepresentationBulkAction,
@@ -310,7 +341,6 @@ object BulkActionsForm {
   lazy val form: Form[RepresentationBulkAction] = Form(mapping(
     "page" -> number,
     "pageSize" -> number,
-    "pending" -> number,
     "action" -> text,
     "requestIds" -> list(text).verifying(nonEmptyList)
   )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))

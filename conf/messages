@@ -321,15 +321,17 @@ draftCase.viewValuation=Property details
 draftCases.p.empty=You have no saved draft cases
 
 propertyRepresentation.accepted.title=Request accepted
-propertyRepresentation.accepted.message=You’ve confirmed that you act as an agent for this business
+propertyRepresentation.accepted.message=You’ve confirmed that you act as an agent for this/these business/businesses
 propertyRepresentation.accepted.youCan=You can now:
-propertyRepresentation.accepted.youCan.1=view the detailed valuation for this property
-propertyRepresentation.accepted.youCan.2=complete a check or challenge, depending on the permissions that the business has set for you
+propertyRepresentation.accepted.single.youCan.1=view the detailed valuation for this property
+propertyRepresentation.accepted.multiple.youCan.1=view the detailed valuation for these properties
+propertyRepresentation.accepted.youCan.2=complete a check or challenge, depending on the permissions that have been set for you
 
 propertyRepresentation.rejected.title=Request rejected
-propertyRepresentation.rejected.message=You’ve confirmed that you don’t act as an agent for this business
-propertyRepresentation.rejected.youCan.1=You won’t be able to view the detailed valuation for this property or complete a check or challenge.
-propertyRepresentation.rejected.youCan.2=The business will be notified of your decision.
+propertyRepresentation.rejected.message=You’ve confirmed that you don’t act as an agent for this/these business/businesses
+propertyRepresentation.rejected.single.youCan.1=You won’t be able to view the detailed valuation for this property or complete a check or challenge.
+propertyRepresentation.rejected.multiple.youCan.1=You won’t be able to view detailed valuations for these properties or complete checks or challenges.
+propertyRepresentation.rejected.youCan.2=The business/businesses will be notified of your decision.
 
 propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
@@ -438,6 +440,7 @@ pendingRepresentationRequests.table.propertyAddress=Property address
 pendingRepresentationRequests.table.permissions=Permissions
 pendingRepresentationRequests.table.dateRequested=Date requested
 pendingRepresentationRequests.table.5=Actions
+pendingRepresentationRequests.table.pending=Pending
 pendingRepresentationRequests.confirm.title=Confirm actions
 pendingRepresentationRequests.confirm.header={0} client requests
 pendingRepresentationRequests.confirm.para.1=Are you sure you wish to {0} {1} pending agent requests?

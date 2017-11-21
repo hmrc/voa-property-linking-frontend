@@ -21,7 +21,6 @@ import play.api.libs.json.Json
 case class RepresentationBulkAction(
                                      page: Int,
                                      pageSize: Int,
-                                     pending: Int,
                                      action: String,
                                      requestIds: List[String]
                                    )

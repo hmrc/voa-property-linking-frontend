@@ -109,6 +109,7 @@ GET         /manage-clients-search-sort/json                                    
 GET         /manage-clients/pending-requests                                                  @controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
 POST        /representation-request/confirm                                                   @controllers.agent.RepresentationController.confirm(page: Int, pageSize: Int)
 POST        /representation-request/cancel                                                    @controllers.agent.RepresentationController.cancel(page: Int, pageSize: Int)
+POST        /representation-request/continue                                                  @controllers.agent.RepresentationController.continue(page: Int, pageSize: Int)
 POST        /representation-request/bulkActions                                               @controllers.agent.RepresentationController.bulkActions
 
 GET         /add-user-to-gg                                                                   @controllers.Application.addUserToGG
