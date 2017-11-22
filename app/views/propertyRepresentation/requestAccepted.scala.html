@@ -20,7 +20,8 @@
 
 @(f: Form[RepresentationBulkAction], model: RepresentationController.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
-@numberOfBusinesses = @{model.propertyRepresentations.map(r => r.organisationId).distinct.size}
+@* @numberOfBusinesses = @{model.propertyRepresentations.map(r => r.organisationId).distinct.size}  *@
+@numberOfBusinesses = @{2}
 
 @main_template(
     title = Messages("propertyRepresentation.accepted.title"),

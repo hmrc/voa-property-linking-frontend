@@ -174,7 +174,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
           futureListOfSuccesses.flatMap(successes =>
             withValidPagination(page, pageSize) { pagination =>
               reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
-                routePendingRequests(data.copy(action = "accept-confirm"), successes, pagination, reprs)(request)
+                routePendingRequests(successes.size, data.copy(action = "accept-confirm"), pagination, reprs)(request)
               }
             })
         }
@@ -198,7 +198,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
       data => {
         withValidPagination(page, pageSize) { pagination =>
           reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
-            okPendingPropertyRepresentations(
+            routePendingRequests(
               completedActions = 0,
               data = data,
               pagination = pagination,
@@ -215,7 +215,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
       data => {
         withValidPagination(page, pageSize) { pagination =>
           reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
-            okPendingPropertyRepresentations(
+            routePendingRequests(
               completedActions = data.complete.getOrElse(0),
               data = data,
               pagination = pagination,
@@ -235,13 +235,13 @@ class RepresentationController @Inject()(config: ApplicationConfig,
         futureListOfSuccesses.flatMap(successes =>
           withValidPagination(data.page, data.pageSize) { pagination =>
             reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
-              routePendingRequests(data, successes, pagination, reprs)(request)
+              routePendingRequests(successes.size, data, pagination, reprs)(request)
             }
           })
       })
   }
 
-  private def okPendingPropertyRepresentations(completedActions: Int,
+  private def routePendingRequests(completedActions: Int,
                                    data: RepresentationBulkAction,
                                    pagination: Pagination,
                                    reprs: PropertyRepresentations,
@@ -268,26 +268,15 @@ class RepresentationController @Inject()(config: ApplicationConfig,
       Ok(views.html.propertyRepresentation.requestRejected(
         BulkActionsForm.form,
         getModel))
-    } else if(reprs.totalPendingRequests > 0) {
+    } else if(reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size > 0) {
       Ok(views.html.dashboard.pendingPropertyRepresentations(
         BulkActionsForm.form,
         getModel))
-    } else {
-      Redirect(routes.RepresentationController.viewClientProperties())
-    }
-  }
-
-  private def routePendingRequests(data: RepresentationBulkAction,
-                                   successes: List[Try[Unit]],
-                                   pagination: Pagination,
-                                   reprs: PropertyRepresentations)(implicit request: AgentRequest[_]) = {
-    if (reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size > 0) {
-      okPendingPropertyRepresentations(successes.size, data, pagination, reprs)
-    } else if (reprs.totalPendingRequests > 0) {
+    } else if(reprs.totalPendingRequests > 0) {
       Redirect(routes.RepresentationController.pendingRepresentationRequest(
         Math.max(1, pagination.pageNumber - 1), pagination.pageSize))
     } else {
-      Redirect(routes.RepresentationController.viewClientProperties())
+      Redirect(routes.RepresentationController.viewClientProperties(pagination.pageNumber, pagination.pageSize))
     }
   }
 
