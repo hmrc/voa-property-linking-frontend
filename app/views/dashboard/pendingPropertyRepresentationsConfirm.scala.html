@@ -28,7 +28,13 @@
     <div class="dialog-content" id="dialog-content-message" role="document" tabindex="-1">
         <div>
             <h2>@Messages("pendingRepresentationRequests.confirm.header", model.action.capitalize)</h2>
-            <p>@Messages("pendingRepresentationRequests.confirm.para.1", model.action, model.requestIds.length)</p>
+            <p class="margin-top-30 margin-bottom-30">
+                @if(model.requestIds.length == 1) {
+                    @Messages("pendingRepresentationRequests.single.confirm.para.1", model.action)
+                } else {
+                    @Messages("pendingRepresentationRequests.multiple.confirm.para.1", model.action, model.requestIds.length)
+                }
+            </p>
 
             @form(controllers.agent.routes.RepresentationController.bulkActions) {
                 <input type="hidden" name="action" value="reject-confirm">
