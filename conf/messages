@@ -829,8 +829,10 @@ label.close=Close
 
 #AGENT REQUEST WARNING
 agent.request.warning=You need to accept agent requests within 21 days. Otherwise, they will be rejected and your clients will need to send a new request.
-agent.request.actions.info.accept=You have accepted {0} agent request(s)
-agent.request.actions.info.reject=You have rejected {0} agent request(s)
+agent.request.actions.single.info.accept=You have accepted {0} agent request
+agent.request.actions.multiple.info.accept=You have accepted {0} agent requests
+agent.request.actions.single.info.reject=You have rejected {0} agent request
+agent.request.actions.multiple.info.reject=You have rejected {0} agent requests
 
 #MESSAGES TAB
 messages.title=Messages
