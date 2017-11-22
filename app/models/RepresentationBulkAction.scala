@@ -22,7 +22,8 @@ case class RepresentationBulkAction(
                                      page: Int,
                                      pageSize: Int,
                                      action: String,
-                                     requestIds: List[String]
+                                     requestIds: List[String],
+                                     complete: Option[Int] = None
                                    )
 
 object RepresentationBulkAction {

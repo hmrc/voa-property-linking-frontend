@@ -20,6 +20,8 @@
 
 @(f: Form[RepresentationBulkAction], model: RepresentationController.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
 
+@numberOfBusinesses = @{model.propertyRepresentations.map(r => r.organisationId).distinct.size}
+
 @main_template(
     title = Messages("propertyRepresentation.accepted.title"),
     topNavigation = false
@@ -28,7 +30,13 @@
         <div class="column-two-thirds">
 
             <div class="transaction-banner--complete">
-                <h1 class="transaction-banner__heading">@Messages("propertyRepresentation.accepted.message")</h1>
+                <h1 class="transaction-banner__heading">
+                    @if(numberOfBusinesses > 1){
+                        @Messages("propertyRepresentation.accepted.multiple.message")
+                    } else {
+                        @Messages("propertyRepresentation.accepted.single.message")
+                    }
+                </h1>
             </div>
 
             <p>@Messages("propertyRepresentation.accepted.youCan")</p>
@@ -46,6 +54,9 @@
                 <input type="hidden" name="action" value="accept-continue">
                 <input type="hidden" name="page" value="@model.pagination.pageNumber">
                 <input type="hidden" name="pageSize" value="@model.pagination.pageSize">
+                @if(model.complete.isDefined){
+                    <input type="hidden" name="complete" value="@model.complete.get">
+                }
 
                 @for(id <- model.requestIds.getOrElse(Nil)) {
                     <input type="hidden" name="requestIds[]" value="@id">
