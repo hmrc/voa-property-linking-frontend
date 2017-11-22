@@ -40,11 +40,11 @@ class Declaration @Inject()(config: ApplicationConfig,
                             withLinkingSession: WithLinkingSession)
   extends PropertyLinkingController {
 
-  def show = withLinkingSession { implicit request =>
-    Ok(declaration(DeclarationVM(form)))
+  def show(noEvidenceFlag: Option[Boolean] = None) = withLinkingSession { implicit request =>
+    Ok(declaration(DeclarationVM(form), noEvidenceFlag))
   }
 
-  def submit = withLinkingSession { implicit request =>
+  def submit(noEvidenceFlag: Option[Boolean] = None) = withLinkingSession { implicit request =>
     if (config.fileUploadEnabled) {
       form.bindFromRequest().value match {
         case Some(true) => fileUploads.getFileMetadata(request.ses.envelopeId) flatMap {
@@ -55,11 +55,13 @@ class Declaration @Inject()(config: ApplicationConfig,
       }
     } else {
       form.bindFromRequest().value match {
-        case Some(true) => Redirect(routes.Declaration.confirmation())
+        case Some(true) => noEvidenceFlag match {
+          case Some(true) => Redirect(routes.Declaration.noEvidence())
+          case _ => Redirect(routes.Declaration.confirmation())
+        }
         case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
       }
     }
-
   }
 
   def confirmation = withLinkingSession { implicit request =>

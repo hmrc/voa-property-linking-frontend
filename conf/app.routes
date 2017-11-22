@@ -78,8 +78,8 @@ POST        /choose-evidence                                                    
 GET         /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.show(errorCode: Option[Int] ?= None, errorMessage: Option[String] ?= None)
 GET         /upload-evidence                                                                  @controllers.propertyLinking.UploadEvidence.show(errorCode: Option[Int] ?= None, errorMessage: Option[String] ?= None)
 
-GET         /summary                                                                          @controllers.propertyLinking.Declaration.show
-POST        /summary                                                                          @controllers.propertyLinking.Declaration.submit
+GET         /summary                                                                          @controllers.propertyLinking.Declaration.show(noEvidenceFlag: Option[Boolean] ?= None)
+POST        /summary                                                                          @controllers.propertyLinking.Declaration.submit(noEvidenceFlag: Option[Boolean] ?= None)
 
 GET         /confirmation                                                                     @controllers.propertyLinking.Declaration.confirmation
 GET         /confirmation/no-evidence                                                         @controllers.propertyLinking.Declaration.noEvidence
