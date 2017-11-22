@@ -14,8 +14,14 @@
  * limitations under the License.
  *@
 
-@(continueLink: String)(implicit request: Request[_], messages: Messages)
+@import uk.gov.hmrc.play.views.html.helpers.form
 
+@import controllers.agent.RepresentationController
+
+@(f: Form[RepresentationBulkAction], model: RepresentationController.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
+
+@* @numberOfBusinesses = @{model.propertyRepresentations.map(r => r.organisationId).distinct.size}  *@
+@numberOfBusinesses = @{2}
 
 @main_template(
     title = Messages("propertyRepresentation.rejected.title"),
@@ -25,16 +31,44 @@
         <div class="column-two-thirds">
 
             <div class="transaction-banner--complete">
-                <h1 class="transaction-banner__heading">@Messages("propertyRepresentation.rejected.message")</h1>
+                <h1 class="transaction-banner__heading">
+                    @if(numberOfBusinesses > 1){
+                        @Messages("propertyRepresentation.rejected.multiple.message")
+                    } else {
+                        @Messages("propertyRepresentation.rejected.single.message")
+                    }
+                </h1>
             </div>
 
             <ul class="list">
-                <li>@Messages("propertyRepresentation.rejected.youCan.1")</li>
-                <li>@Messages("propertyRepresentation.rejected.youCan.2")</li>
+                <li>@if(model.requestIds.getOrElse(Nil).size > 1){
+                        @Messages("propertyRepresentation.rejected.multiple.youCan.1")
+                    } else {
+                        @Messages("propertyRepresentation.rejected.single.youCan.1")
+                    }
+                </li>
+                <li>
+                    @if(numberOfBusinesses > 1){
+                        @Messages("propertyRepresentation.rejected.multiple.youCan.2")
+                    } else {
+                        @Messages("propertyRepresentation.rejected.single.youCan.2")
+                    }
+                </li>
             </ul>
-            <a href="@(continueLink)">
-                <button id="continue" class="button">@Messages("label.continue")</button>
-            </a>
+
+            @form(controllers.agent.routes.RepresentationController.continue(model.pagination.pageNumber, model.pagination.pageSize)) {
+                <input type="hidden" name="action" value="reject-continue">
+                <input type="hidden" name="page" value="@model.pagination.pageNumber">
+                <input type="hidden" name="pageSize" value="@model.pagination.pageSize">
+                @if(model.complete.isDefined){
+                <input type="hidden" name="complete" value="@model.complete.get">
+                }
+
+                @for(id <- model.requestIds.getOrElse(Nil)) {
+                    <input type="hidden" name="requestIds[]" value="@id">
+                }
+                <button type="submit" id="continue-button" name="continue-button" class="button pull-left">@Messages("label.continue")</button>
+            }
 
         </div>
     </div>

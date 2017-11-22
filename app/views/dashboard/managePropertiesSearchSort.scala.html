@@ -151,7 +151,7 @@
                                     <td>
                                         <ul class="list">
                                             <li>
-                                                @if(p.status.toLowerCase != "revoked" && p.status.toLowerCase != "declined") {
+                                            @if(p.status.toLowerCase == "approved" || p.status.toLowerCase == "pending") {
                                                 <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")
                                                     <span class="visuallyhidden">
                                                         for @(Formatters.capitalizedAddress(p.address))</span>

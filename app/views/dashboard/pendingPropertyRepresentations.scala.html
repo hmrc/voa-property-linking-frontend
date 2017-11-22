@@ -50,7 +50,13 @@
 
             @if(model.complete.getOrElse(0) > 0 && model.action.isDefined) {
                 <div id="request-action-info" class="margin-top-10 panel panel-border-wide">
-                    <p class="font-small">@Messages("agent.request.actions.info." + model.action.get, model.complete.getOrElse(0))</p>
+                    <p class="font-small">
+                        @if(model.complete == Some(1)){
+                            @Messages("agent.request.actions.single.info." + model.action.get.takeWhile(_ != '-'), model.complete.getOrElse(0))
+                        }else{
+                            @Messages("agent.request.actions.multiple.info." + model.action.get.takeWhile(_ != '-'), model.complete.getOrElse(0))
+                        }
+                    </p>
                 </div>
             }
 
@@ -72,14 +78,22 @@
                         @model.propertyRepresentations.map { p =>
                             <tr>
                                 <td class="checkbox-table-cell">
-                                    @if(!f.data.values.toSet.contains(p.submissionId) &&
-                                            !model.requestIds.fold(false)(ids => ids.contains(p.submissionId))) {
+                                    @if(  f.data.values.toSet.contains(p.submissionId) ||
+                                            ( model.afterCancel && model.requestIds.fold(false)(ids => ids.contains(p.submissionId))) ) {
                                         <label class="block-label selection-button-checkbox" for="@p.submissionId">
-                                        <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId">
+                                        <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId" checked="checked">
                                             <span class="visually-hidden">Select row</span>
                                         </label>
                                     } else {
-                                        <span>Processing...</span>
+                                        @if(!f.data.values.toSet.contains(p.submissionId) &&
+                                                !model.requestIds.fold(false)(ids => ids.contains(p.submissionId))) {
+                                            <label class="block-label selection-button-checkbox" for="@p.submissionId">
+                                                <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId">
+                                                <span class="visually-hidden">Select row</span>
+                                            </label>
+                                        } else {
+                                            <span>@Messages("pendingRepresentationRequests.table.pending")</span>
+                                        }
                                     }
                                 </td>
 

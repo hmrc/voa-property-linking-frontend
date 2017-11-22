@@ -174,7 +174,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
           futureListOfSuccesses.flatMap(successes =>
             withValidPagination(page, pageSize) { pagination =>
               reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
-                routePendingRequests(data, successes, pagination, reprs)(request)
+                routePendingRequests(successes.size, data.copy(action = "accept-confirm"), pagination, reprs)(request)
               }
             })
         }
@@ -198,12 +198,29 @@ class RepresentationController @Inject()(config: ApplicationConfig,
       data => {
         withValidPagination(page, pageSize) { pagination =>
           reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
-            okPendingPropertyRepresentations(
-              numberActions = 0,
+            routePendingRequests(
+              completedActions = 0,
               data = data,
               pagination = pagination,
               reprs = reprs,
               afterCancel = true)
+          }
+        }
+      })
+  }
+
+  def continue(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+    BulkActionsForm.form.bindFromRequest().fold(
+      _ => BadRequest(Global.badRequestTemplate),
+      data => {
+        withValidPagination(page, pageSize) { pagination =>
+          reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
+            routePendingRequests(
+              completedActions = data.complete.getOrElse(0),
+              data = data,
+              pagination = pagination,
+              reprs = reprs,
+              afterCancel = false)
           }
         }
       })
@@ -218,57 +235,59 @@ class RepresentationController @Inject()(config: ApplicationConfig,
         futureListOfSuccesses.flatMap(successes =>
           withValidPagination(data.page, data.pageSize) { pagination =>
             reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
-              routePendingRequests(data, successes, pagination, reprs)(request)
+              routePendingRequests(successes.size, data, pagination, reprs)(request)
             }
           })
       })
   }
 
-  private def okPendingPropertyRepresentations(numberActions: Int,
+  private def routePendingRequests(completedActions: Int,
                                    data: RepresentationBulkAction,
                                    pagination: Pagination,
                                    reprs: PropertyRepresentations,
                                    afterCancel:Boolean = false)(implicit request: AgentRequest[_]): Result = {
-    Ok(views.html.dashboard.pendingPropertyRepresentations(
-      BulkActionsForm.form,
+    def getModel = {
       ManagePropertiesVM(
         propertyRepresentations = reprs.propertyRepresentations,
         totalPendingRequests = reprs.totalPendingRequests,
         pagination = pagination.copy(
-          pageNumber = if(reprs.propertyRepresentations.size == 0) Math.max(1, pagination.pageNumber - 1)
-                        else pagination.pageNumber,
+          pageNumber = if (reprs.propertyRepresentations.size == 0) Math.max(1, pagination.pageNumber - 1)
+          else pagination.pageNumber,
           totalResults = reprs.resultCount.getOrElse(0L)),
         action = Some(data.action.toLowerCase),
         requestIds = Some(data.requestIds),
-        complete = Some(numberActions),
-        afterCancel = afterCancel)))
-  }
+        complete = Some(completedActions),
+        afterCancel = afterCancel)
+    }
 
-  private def routePendingRequests(data: RepresentationBulkAction,
-                                   successes: List[Try[Unit]],
-                                   pagination: Pagination,
-                                   reprs: PropertyRepresentations)(implicit request: AgentRequest[_]) = {
-    if (reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size > 0) {
-      okPendingPropertyRepresentations(successes.size, data, pagination, reprs)
-    } else if (reprs.totalPendingRequests > 0) {
+    if(data.action.toLowerCase == "accept-confirm") {
+      Ok(views.html.propertyRepresentation.requestAccepted(
+        BulkActionsForm.form,
+        getModel))
+    } else if(data.action.toLowerCase == "reject-confirm") {
+      Ok(views.html.propertyRepresentation.requestRejected(
+        BulkActionsForm.form,
+        getModel))
+    } else if(reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size > 0) {
+      Ok(views.html.dashboard.pendingPropertyRepresentations(
+        BulkActionsForm.form,
+        getModel))
+    } else if(reprs.totalPendingRequests > 0) {
       Redirect(routes.RepresentationController.pendingRepresentationRequest(
         Math.max(1, pagination.pageNumber - 1), pagination.pageSize))
     } else {
-      Redirect(routes.RepresentationController.viewClientProperties())
+      Redirect(routes.RepresentationController.viewClientProperties(pagination.pageNumber, pagination.pageSize))
     }
   }
 
-  private def getFutureListOfActions[T](data: RepresentationBulkAction, personId: Long)(implicit hc:HeaderCarrier) = {
-    def futureToFutureTry[T](f: Future[T]): Future[Try[T]] = f.map(Success(_)).recover({ case x => Failure(x) })
+  private def getFutureListOfActions(data: RepresentationBulkAction, personId: Long)(implicit hc:HeaderCarrier) = {
+    def futureToFutureTry(f: Future[Unit]): Future[Try[Unit]] = f.map(Success(_)).recover({ case x => Failure(x) })
 
-    // do action
     val actionType =
       if (data.action.toLowerCase == "accept") RepresentationResponseApproved else RepresentationResponseDeclined
 
-    val futureListOfTrys = Future.sequence(data.requestIds.map(id =>
-      reprConnector.response(RepresentationResponse(id, personId, actionType))).map(futureToFutureTry(_)))
-
-    futureListOfTrys
+    Future.sequence(data.requestIds.map(id =>
+      reprConnector.response(RepresentationResponse(id, personId, actionType))).map(futureToFutureTry))
   }
 
   def revokeClient(authorisationId: Long, clientOrganisationId: Long) = authenticated.asAgent { implicit request =>
@@ -310,9 +329,9 @@ object BulkActionsForm {
   lazy val form: Form[RepresentationBulkAction] = Form(mapping(
     "page" -> number,
     "pageSize" -> number,
-    "pending" -> number,
     "action" -> text,
-    "requestIds" -> list(text).verifying(nonEmptyList)
+    "requestIds" -> list(text).verifying(nonEmptyList),
+    "complete" -> optional(number)
   )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))
 }
 
