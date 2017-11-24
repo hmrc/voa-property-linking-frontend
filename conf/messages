@@ -513,7 +513,7 @@ label.ratesBill.help=This business rates bill should be the most recent bill tha
 ratesBill.label.1=PDF, scanned images, and photographs are allowed. Your file must be less than 10MB in size.
 uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 uploadFile.info.title=How do I convert a file into a PDF?
-uploadFile.info.content=<p>Converting a file into PDF format is very simple. The method is similar with most types of word processors. First, open the document you want to convert, then:</p><ul class="list list-number"><li>click “File”</li><li>choose either “Export”, “Export as PDF” or “Save as” (depending on your software)</li><li>select “Create PDF” or “PDF”</li><li>click on either “Publish” or “Save”</li></ul><p>For Mac users and older software:</p><ul class="list list-number"><li>click “File”</li><li>select “Print”</li><li>either click “PDF”, or choose a printer labelled “PDF”</li><li>click either “Save” or “OK”</li></ul><p>You could also search for websites that will convert your document for free.</p><p>Telephone<br /><strong>03000 501 501</strong></p><p>Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.</p>
+uploadFile.info.content=<p>Converting a file into a PDF is similar for most software. First open the document that you want to convert, then:</p><ul class="list list-number"><li>click “File”</li><li>choose either “Export”, “Export as PDF” or “Save as” (depending on your software)</li><li>select “Create PDF” or “PDF”</li><li>click on either “Publish” or “Save”</li></ul><p>For Mac users and older software:</p><ul class="list list-number"><li>click “File”</li><li>select “Print”</li><li>either click “PDF”, or choose a printer labelled “PDF”</li><li>click either “Save” or “OK”</li></ul><p>You could also search for websites that will convert your document for free.</p><p>Telephone<br /><strong>03000 501 501</strong></p><p>Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.</p>
 
 #LINK REQUEST CONFIRMATION
 linkingRequestSubmitted.title1=We’ve received your request to add
@@ -546,7 +546,7 @@ uploadEvidence.noEvidence=I’m unable to provide any of these documents.
 evidenceType.assignment=Assignment
 evidenceType.label=Type of evidence
 evidenceType.lease=Lease
-evidenceType.license=License
+evidenceType.license=Licence to occupy property
 evidenceType.serviceCharge=Service charge
 evidenceType.stampDutyLandTaxForm=Stamp duty land tax form
 evidenceType.waterRateDemand=Water rate demand
