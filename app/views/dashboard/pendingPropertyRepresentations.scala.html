@@ -75,20 +75,20 @@
                             <th scope="col">@Messages("pendingRepresentationRequests.table.permissions")</th>
                             <th scope="col">@Messages("pendingRepresentationRequests.table.dateRequested")</th>
                         </tr>
-                        @model.propertyRepresentations.map { p =>
+                        @model.propertyRepresentations.zipWithIndex.map { case (p, i) =>
                             <tr>
                                 <td class="checkbox-table-cell">
                                     @if(  f.data.values.toSet.contains(p.submissionId) ||
                                             ( model.afterCancel && model.requestIds.fold(false)(ids => ids.contains(p.submissionId))) ) {
-                                        <label class="block-label selection-button-checkbox" for="@p.submissionId">
-                                        <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId" checked="checked">
+                                        <label class="block-label selection-button-checkbox" for="@("pending_agent_request_"+(i+1))">
+                                        <input id=@("pending_agent_request_"+(i+1))  type="checkbox" name="requestIds[]" value="@p.submissionId" checked="checked">
                                             <span class="visually-hidden">Select row</span>
                                         </label>
                                     } else {
                                         @if(!f.data.values.toSet.contains(p.submissionId) &&
                                                 !model.requestIds.fold(false)(ids => ids.contains(p.submissionId))) {
-                                            <label class="block-label selection-button-checkbox" for="@p.submissionId">
-                                                <input id="@p.submissionId" type="checkbox" name="requestIds[]" value="@p.submissionId">
+                                            <label class="block-label selection-button-checkbox" for=@("pending_agent_request_"+(i+1))>
+                                                <input id=@("pending_agent_request_"+(i+1)) type="checkbox" name="requestIds[]" value="@p.submissionId">
                                                 <span class="visually-hidden">Select row</span>
                                             </label>
                                         } else {
