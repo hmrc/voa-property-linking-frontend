@@ -46,6 +46,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
   val messagesEnabled: Boolean = getConfig("featureFlags.messagesEnabled").toBoolean
   val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean
+  val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean
 
   lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
     new String(Base64.getUrlDecoder.decode(e))
@@ -57,6 +58,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
 }
 
 object ApplicationConfig {
+
   val config = Play.current.injector.instanceOf[ApplicationConfig]
 }
 
