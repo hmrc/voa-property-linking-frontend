@@ -856,16 +856,20 @@ checkReceived.title=Check acknowledgement
 checkReceived.reference=Check reference number: {0}
 checkReceived.address=Property: {0}
 checkReceived.timestamp=Received: {0}
-checkReceived.template.1.p1=We have received your check case for the property on {0}. You can view a summary of the check using the link in this message.
-checkReceived.template.1.whatNow=What you need to do
-checkReceived.template.1.p2=<p>You don't need to do anything, we will contact you if we need further information or evidence.</p>
+checkReceived.unrepresented.checkCase=We have received your check case for the property on {0}. You can view a summary of the check using the link in this message.
+checkReceived.represented.checkCase=We have received a check case from your agent for the property on {0}. You can view a summary of the check using the link in this message.
+checkReceived.agent.checkCase=We have received the check case you have made on behalf of your client for the property on {0}.
+checkReceived.whatNow=What you need to do
+checkReceived.furtherInfo=You don't need to do anything, we will contact you if we need further information or evidence.
+checkReceived.agent.viewSummary=You can view a summary of the check using the link in this message.
 checkReceived.print=Print this message
 checkReceived.download=Download this message as a PDF
-checkReceived.template.1.whatNext=What happens next
-checkReceived.template.1.p3=We aim to provide a response within 12 weeks. We prioritise cases from smaller proposers. Some complex cases may take longer to resolve. 
-checkReceived.template.1.p4=The information submitted as part of the check case may cause your valuation to go up as well as down.
-checkReceived.template.1.p5=You can find more information on the check and challenge service by searching for 'check and challenge' on the GOV.UK website.
+checkReceived.whatNext=What happens next
+checkReceived.responseTime=We aim to provide a response within 12 weeks. We prioritise cases from smaller proposers. Some complex cases may take longer to resolve. 
+checkReceived.valuation=The information submitted as part of the check case may cause your valuation to go up as well as down.
+checkReceived.moreInfo=You can find more information on the check and challenge service by searching for 'check and challenge' on the GOV.UK website.
 checkReceived.template.valuationOffice=Valuation Office Agency
+link.summary=View Summary
 
 #PAGINATION CONTROLS
 pagination.next=Next

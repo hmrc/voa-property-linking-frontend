@@ -19,29 +19,36 @@
 
 @(message: Message)(implicit request: Request[_], messages: Messages)
 
-<div id="messageContent">
-    <h1 class="heading-small">@message.caseReference</h1>
+@main_template(
+    title = Messages("checkReceived.title"),
+    bottomBackLink = true,
+    backLinkUrl = Some(routes.Dashboard.viewMessages().url)
+) {
 
-    <h3><strong>@Messages("checkReceived.title")</strong></h3>
+    <div id="messageContent">
+        <h1 class="heading-small">@message.caseReference</h1>
 
-    <p><strong>@Messages("checkReceived.reference", message.caseReference)</strong></p>
+        <h3><strong>@Messages("checkReceived.title")</strong></h3>
 
-    <p><strong>@Messages("checkReceived.address", message.address)</strong></p>
+        <p><strong>@Messages("checkReceived.reference", message.caseReference)</strong></p>
 
-    <p>@Messages("checkReceived.template.1.p1", message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a")))</p>
+        <p><strong>@Messages("checkReceived.address", message.address)</strong></p>
 
-    <h3 class="heading-small">@Messages("checkReceived.template.1.whatNow")</h3>
+        <p>@Messages("checkReceived.represented.checkCase", message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a")))</p>
 
-    @Html(Messages("checkReceived.template.1.p2"))
+        <h3 class="heading-small">@Messages("checkReceived.whatNow")</h3>
 
-    <h3 class="heading-small">@Messages("checkReceived.template.1.whatNext")</h3>
+        @Html(Messages("checkReceived.furtherInfo"))
 
-    <p>@Messages("checkReceived.template.1.p3")</p>
+        <h3 class="heading-small">@Messages("checkReceived.whatNext")</h3>
 
-    <p><strong>@Messages("checkReceived.template.1.p4")</strong></p>
+        <p>@Messages("checkReceived.responseTime")</p>
 
-    <p>@Messages("checkReceived.template.1.p5")</p>
+        <p><strong>@Messages("checkReceived.valuation")</strong></p>
 
-    <p>@Messages("checkReceived.template.valuationOffice")</p>
+        <p>@Messages("checkReceived.moreInfo")</p>
 
-</div>
+        <p>@Messages("checkReceived.template.valuationOffice")</p>
+
+    </div>
+}
