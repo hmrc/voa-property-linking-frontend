@@ -20,17 +20,28 @@
 @(message: Message)(implicit request: Request[_], messages: Messages)
 
 <div id="messageContent">
-    <h1 class="heading-small">@message.subject</h1>
+    <h1 class="heading-small">@message.caseReference</h1>
+
+    <h3><strong>@Messages("checkReceived.title")</strong></h3>
 
     <p><strong>@Messages("checkReceived.reference", message.caseReference)</strong></p>
 
     <p><strong>@Messages("checkReceived.address", message.address)</strong></p>
 
-    <p><strong>@Messages("checkReceived.timestamp", message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a")))</strong></p>
+    <p>@Messages("checkReceived.template.1.p1", message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a")))</p>
 
-    @Html(Messages("checkReceived.template.1", message.submissionId, message.caseReference))
+    <h3 class="heading-small">@Messages("checkReceived.template.1.whatNow")</h3>
 
-    <h3 class="heading-small">@Messages("checkReceived.template.whatNow")</h3>
+    @Html(Messages("checkReceived.template.1.p2"))
 
-    @Html(Messages("checkReceived.template.2"))
+    <h3 class="heading-small">@Messages("checkReceived.template.1.whatNext")</h3>
+
+    <p>@Messages("checkReceived.template.1.p3")</p>
+
+    <p><strong>@Messages("checkReceived.template.1.p4")</strong></p>
+
+    <p>@Messages("checkReceived.template.1.p5")</p>
+
+    <p>@Messages("checkReceived.template.valuationOffice")</p>
+
 </div>
