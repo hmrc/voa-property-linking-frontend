@@ -54,6 +54,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
   }
 
   def appointSubmit(authorisationId: Long) = authenticated { implicit request =>
+    request.session.get()
     appointAgentForm.bindFromRequest().fold(errors => {
       BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, authorisationId)))
     }, agent => {
