@@ -33,14 +33,16 @@ import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.circuitbreaker.{CircuitBreakerConfig, UnhealthyServiceException}
-import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
 
 import scala.collection.JavaConverters._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
+
+  override val additionalAppConfig = Seq("featureFlags.fileUploadEnabled" -> "true")
 
   "Upload Evidence page" must "contain a file input" in {
     val page = HtmlPage(uploadEvidencePage)
@@ -55,7 +57,7 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
 
   it must "submit to the file upload service, with valid success and failure callback URLs" in {
     val html = uploadEvidencePage
-    val successUrl = routes.Declaration.show().absoluteURL()
+    val successUrl = routes.UploadEvidence.fileUploaded().absoluteURL()
     val failureUrl = routes.UploadEvidence.show().absoluteURL()
 
     val formAction = html.select("form").attr("action")

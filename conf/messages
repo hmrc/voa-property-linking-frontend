@@ -23,6 +23,10 @@ start.register=Register now
 label.login=Sign in
 label.register=Register
 
+
+app.common.errorSummaryLabel            = The following errors were identified on this page.
+
+
 #PROPERTY LINKING STATUSES
 propertyLinkingStatus.ADDED=Approved
 propertyLinkingStatus.APPROVED=Approved
@@ -301,12 +305,12 @@ assessments.view.summary=View summary valuation
 label.help=Help with {0}
 rv.na=Rateable value is N/A
 rv.na.p.1=If the rateable value for your property is showing ‘N/A’, this property has been removed from the rating list. This could be because it has a new address, the description has changed or it has been split or merged with another property.
-rv.na.p.2=If you want to view the detailed valuation or check or challenge this property, you’ll need to claim the new entry. You should only claim the property if you are eligible to do so as the owner or occupier for the period of time that the new entry relates to.
-rv.na.p.3=If you are looking to view the detailed valuation or check or challenge the previous entry, you should contact the VOA on 03000 501 501 or by emailing ccaservice@voa.gsi.gov.uk.
+rv.na.p.2=If you want to view the detailed valuation or check or challenge this property you will need to find the new entry and claim it as the owner and/or occupier.
+rv.na.p.3=If you are looking to view the detailed valuation for the previous entry, you should contact the VOA on 03000 501 501 or email ccaservice@voa.gsi.gov.uk.
 
 #DASHBOARD DRAFT CASES
 draftCases.title=Draft cases
-draftCases.p.expiry=Your draft will be saved for 30 days from the last time you saved your check form.
+draftCases.p.expiry=Your draft will be saved for 30 days from the date you started your check.
 draftCases.table.caption=Draft cases
 draftCases.table.1=Address
 draftCases.table.2=Effective date
@@ -317,15 +321,20 @@ draftCase.viewValuation=Property details
 draftCases.p.empty=You have no saved draft cases
 
 propertyRepresentation.accepted.title=Request accepted
-propertyRepresentation.accepted.message=You’ve confirmed that you act as an agent for this business
+propertyRepresentation.accepted.single.message=You’ve confirmed that you act as an agent for this business
+propertyRepresentation.accepted.multiple.message=You’ve confirmed that you act as an agent for these businesses
 propertyRepresentation.accepted.youCan=You can now:
-propertyRepresentation.accepted.youCan.1=view the detailed valuation for this property
-propertyRepresentation.accepted.youCan.2=complete a check or challenge, depending on the permissions that the business has set for you
+propertyRepresentation.accepted.single.youCan.1=view the detailed valuation for this property
+propertyRepresentation.accepted.multiple.youCan.1=view the detailed valuation for these properties
+propertyRepresentation.accepted.youCan.2=complete a check or challenge, depending on the permissions that have been set for you
 
 propertyRepresentation.rejected.title=Request rejected
-propertyRepresentation.rejected.message=You’ve confirmed that you don’t act as an agent for this business
-propertyRepresentation.rejected.youCan.1=You won’t be able to view the detailed valuation for this property or complete a check or challenge.
-propertyRepresentation.rejected.youCan.2=The business will be notified of your decision.
+propertyRepresentation.rejected.single.message=You’ve confirmed that you don’t act as an agent for this business
+propertyRepresentation.rejected.multiple.message=You’ve confirmed that you don’t act as an agent for these businesses
+propertyRepresentation.rejected.single.youCan.1=You won’t be able to view the detailed valuation for this property or complete a check or challenge.
+propertyRepresentation.rejected.multiple.youCan.1=You won’t be able to view detailed valuations for these properties or complete checks or challenges.
+propertyRepresentation.rejected.single.youCan.2=The business will be notified of your decision.
+propertyRepresentation.rejected.multiple.youCan.2=The businesses will be notified of your decision.
 
 propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
@@ -350,7 +359,6 @@ canCheck.details=If any of the factual details about your property or land are i
 
 canChallenge.summary=What is a challenge?
 canChallenge.details=If you want to request a change to your valuation, you’ll need to submit a challenge. Unlike a check, which is to confirm and propose changes to current property information, a challenge allows you to suggest changes to the valuation.
-
 
 propertyRepresentation.overrideAgent.title=Another agent is already appointed
 propertyRepresentation.overrideAgent.message.1=Our records show that the following agents are currently appointed:
@@ -421,12 +429,28 @@ manageProperties.noRepresentations=You have no representations
 permission.START_AND_CONTINUE=Yes
 permission.NOT_PERMITTED=No
 
+#PENDING AGENT REQUESTS
+pendingRepresentationRequests.select.deselect=Select all / deselect all
+pendingRepresentationRequests.accept=Accept
+pendingRepresentationRequests.accept.reject=Accept or reject selected client requests
+pendingRepresentationRequests.reject=Reject
+pendingRepresentationRequests.button.label=Submit
 pendingRepresentationRequests.title=Pending agent requests
-pendingRepresentationRequests.table.1=Organisation name
-pendingRepresentationRequests.table.2=Property address
-pendingRepresentationRequests.table.3=Permissions
-pendingRepresentationRequests.table.4=Date requested
+pendingRepresentationRequests.table.select=Select
+pendingRepresentationRequests.table.orgName=Organisation name
+pendingRepresentationRequests.table.propertyAddress=Property address
+pendingRepresentationRequests.table.permissions=Permissions
+pendingRepresentationRequests.table.dateRequested=Date requested
 pendingRepresentationRequests.table.5=Actions
+pendingRepresentationRequests.table.pending=In progress
+pendingRepresentationRequests.confirm.title=Confirm actions
+pendingRepresentationRequests.confirm.header={0} client requests
+pendingRepresentationRequests.single.confirm.para.1=Are you sure you wish to {0} 1 pending agent request?
+pendingRepresentationRequests.multiple.confirm.para.1=Are you sure you wish to {0} {1} pending agent requests?
+pendingRepresentationRequests.button.text={0} requests
+pendingRepresentationRequests.button.cancel=Cancel
+label.pendingRepresentationRequests.action=Accept or reject
+label.pendingRepresentationRequests.requestIds=Select at least one pending request
 
 #SEARCH
 search.title=Search and select a property to add to your customer record
@@ -488,7 +512,7 @@ label.ratesBill.help=This business rates bill should be the most recent bill tha
 ratesBill.label.1=PDF, scanned images, and photographs are allowed. Your file must be less than 10MB in size.
 uploadRatesBill.ratesBillMissing.error=Please select a rates bill
 uploadFile.info.title=How do I convert a file into a PDF?
-uploadFile.info.content=<p>Converting a file into PDF format is very simple. The method is similar with most types of word processors. First, open the document you want to convert, then:</p><ul class="list list-number"><li>click “File”</li><li>choose either “Export”, “Export as PDF” or “Save as” (depending on your software)</li><li>select “Create PDF” or “PDF”</li><li>click on either “Publish” or “Save”</li></ul><p>For Mac users and older software:</p><ul class="list list-number"><li>click “File”</li><li>select “Print”</li><li>either click “PDF”, or choose a printer labelled “PDF”</li><li>click either “Save” or “OK”</li></ul><p>You could also search for websites that will convert your document for free.</p><p>Telephone<br /><strong>03000 501 501</strong></p><p>Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.</p>
+uploadFile.info.content=<p>Converting a file into a PDF is similar for most software. First open the document that you want to convert, then:</p><ul class="list list-number"><li>click “File”</li><li>choose either “Export”, “Export as PDF” or “Save as” (depending on your software)</li><li>select “Create PDF” or “PDF”</li><li>click on either “Publish” or “Save”</li></ul><p>For Mac users and older software:</p><ul class="list list-number"><li>click “File”</li><li>select “Print”</li><li>either click “PDF”, or choose a printer labelled “PDF”</li><li>click either “Save” or “OK”</li></ul><p>You could also search for websites that will convert your document for free.</p><p>Telephone<br /><strong>03000 501 501</strong></p><p>Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.</p>
 
 #LINK REQUEST CONFIRMATION
 linkingRequestSubmitted.title1=We’ve received your request to add
@@ -521,7 +545,7 @@ uploadEvidence.noEvidence=I’m unable to provide any of these documents.
 evidenceType.assignment=Assignment
 evidenceType.label=Type of evidence
 evidenceType.lease=Lease
-evidenceType.license=License
+evidenceType.license=Licence to occupy property
 evidenceType.serviceCharge=Service charge
 evidenceType.stampDutyLandTaxForm=Stamp duty land tax form
 evidenceType.waterRateDemand=Water rate demand
@@ -755,6 +779,7 @@ serviceUnavailable.p.2=We’re unable to complete your property link at this tim
 serviceUnavailable.p.3=We apologise for any inconvenience. Please try again later.
 
 ##FOOTER LINKS
+footer.link.help=Help
 footer.link.feedback=Feedback
 footer.link.cookies=Cookies
 footer.link.termsAndConditions=Terms and conditions
@@ -804,6 +829,10 @@ label.close=Close
 
 #AGENT REQUEST WARNING
 agent.request.warning=You need to accept agent requests within 21 days. Otherwise, they will be rejected and your clients will need to send a new request.
+agent.request.actions.single.info.accept=You have accepted {0} agent request
+agent.request.actions.multiple.info.accept=You have accepted {0} agent requests
+agent.request.actions.single.info.reject=You have rejected {0} agent request
+agent.request.actions.multiple.info.reject=You have rejected {0} agent requests
 
 #MESSAGES TAB
 messages.title=Messages
@@ -834,3 +863,10 @@ checkReceived.download=Download this message as a PDF
 #PAGINATION CONTROLS
 pagination.next=Next
 pagination.previous=Previous
+
+#DOWNTIME PAGE
+plannedImprovements.title=Planned improvements
+plannedImprovements.p1=The check and challenge service will be unavailable from <time> on <date> while we make some planned improvements. It should be available again <time>.
+plannedImprovements.p2=You will not be able to access the service during this time and we apologise for any inconvenience this may cause you.
+plannedImprovements.p3=The changes we’re making include:
+

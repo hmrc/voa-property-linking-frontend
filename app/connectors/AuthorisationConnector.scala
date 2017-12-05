@@ -18,12 +18,12 @@ package connectors
 
 import javax.inject.Inject
 
+import config.WSHttp
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.ws.WSHttp
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 class AuthorisationConnector @Inject()(config: ServicesConfig, http: WSHttp) {
 

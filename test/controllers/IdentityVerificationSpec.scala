@@ -27,10 +27,11 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.PersonalDetailsSessionRepository
 import resources._
-import uk.gov.hmrc.play.http.HeaderCarrier
 import utils.{StubAddresses, StubAuthConnector, StubGGAction, StubGroupAccountConnector, StubIdentityVerification, StubIndividualAccountConnector, _}
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.HeaderCarrierConverter
 
 class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
 
@@ -65,7 +66,7 @@ class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
     html.select("h1").html must equal ("We’ve verified your identity") withClue "Page did not contain success summary"
     html.select(s"a.button[href=${routes.CreateGroupAccount.show.url}]").size must equal (1) withClue "Page did not contain link to create group account"
 
-    implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
+    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
     await(StubIndividualAccountConnector.withExternalId("externalId")) mustBe None
   }
@@ -84,7 +85,7 @@ class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
     html.select("h1").html must equal (s"${groupAccount.companyName} has already registered.") withClue "Page did not contain success summary"
     html.select(s"a.button[href=${routes.Dashboard.home.url}]").size must equal (1) withClue "Page did not contain dashboard link"
 
-    implicit val hc = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
+    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
     StubIndividualAccountConnector.withExternalId("individualwithoutaccount") must not be None
   }

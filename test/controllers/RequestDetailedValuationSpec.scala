@@ -27,10 +27,10 @@ import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import uk.gov.hmrc.play.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubBusinessRatesValuation, StubPropertyLinkConnector}
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class RequestDetailedValuationSpec extends ControllerSpec with MockitoSugar {
 

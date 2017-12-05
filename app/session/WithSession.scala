@@ -26,21 +26,22 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results._
 import play.api.mvc._
 import repositories.SessionRepo
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.HeaderCarrierConverter
 
 case class LinkingSessionRequest[A](ses: LinkingSession, organisationId: Long,
                                     individualAccount: DetailedIndividualAccount,
                                     groupAccount: GroupAccount, request: Request[A]) extends WrappedRequest[A](request) {
-  def sessionId: String = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
+  def sessionId: String = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
 }
 
 case object NoSessionId extends Exception
 
 class WithLinkingSession @Inject() (authenticated: AuthenticatedAction,
                                      @Named("propertyLinkingSession") val sessionRepository: SessionRepo) {
-  implicit def hc(implicit request: Request[_]) = HeaderCarrier.fromHeadersAndSession(request.headers, Some(request.session))
+  implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
   def apply(body: LinkingSessionRequest[AnyContent] => Future[Result])(implicit messages: Messages) = authenticated { implicit request =>
     sessionRepository.get[LinkingSession] flatMap {

@@ -18,13 +18,13 @@ package connectors
 
 import javax.inject.Inject
 
+import config.WSHttp
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.JsValue
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.AuthContext
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
-import uk.gov.hmrc.play.http.ws.WSHttp
-import uk.gov.hmrc.play.http.{HeaderCarrier}
+import uk.gov.hmrc.http.HeaderCarrier
 
 class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp) extends AuthConnector {
   override val serviceUrl: String = serverConfig.baseUrl("auth")

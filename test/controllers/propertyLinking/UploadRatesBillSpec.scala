@@ -33,14 +33,16 @@ import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.circuitbreaker.{CircuitBreakerConfig, UnhealthyServiceException}
-import uk.gov.hmrc.play.http.HeaderCarrier
 import utils._
 
 import scala.collection.JavaConverters._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
+
+  override val additionalAppConfig = Seq("featureFlags.fileUploadEnabled" -> "true")
 
   "Upload Rates Bill upload page" must "contain a file input" in {
     val html = HtmlPage(uploadRatesBillPage)
@@ -57,7 +59,7 @@ class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
 
   it must "submit to the file upload service, with valid success and failure callback URLs" in {
     val html = uploadRatesBillPage
-    val successUrl = "http://localhost:9523/business-rates-property-linking/summary"
+    val successUrl = routes.UploadRatesBill.fileUploaded().absoluteURL()
     val failureUrl = "http://localhost:9523/business-rates-property-linking/upload-rates-bill"
 
     val formTarget = html.select("form").attr("action")

@@ -18,6 +18,7 @@ package config
 
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, Writes}
+import uk.gov.hmrc.http.hooks.HttpHooks
 import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.config.{AppName, RunMode}
 import uk.gov.hmrc.play.http._
@@ -25,11 +26,9 @@ import uk.gov.hmrc.play.http.ws._
 
 import scala.concurrent.Future
 import scala.util.Try
+import uk.gov.hmrc.http.{HttpDelete, _}
 
 class VPLHttp extends WSHttp with HttpAuditing with AppName with RunMode {
-  override val hooks = Seq(AuditingHook)
-  override def auditConnector = AuditServiceConnector
-
   override def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = super.doGet(url) map { res =>
     res.status match {
       case 401 if hasJsonBody(res) => res.json \ "errorCode" match {
@@ -56,3 +55,12 @@ class VPLHttp extends WSHttp with HttpAuditing with AppName with RunMode {
 }
 
 case class AuthorisationFailed(msg: String) extends Exception(s"Authorisation failed: $msg")
+
+trait WSHttp extends HttpGet with WSGet with HttpPut with WSPut with HttpPost with WSPost with HttpDelete with WSDelete with HttpPatch with WSPatch with Hooks with AppName
+object WSHttp extends WSHttp
+
+trait Hooks extends HttpHooks with HttpAuditing {
+  override val hooks = Seq(AuditingHook)
+  override def auditConnector = AuditServiceConnector
+}
+

@@ -28,10 +28,10 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import repositories.SessionRepo
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
-import uk.gov.hmrc.play.http.HeaderCarrier
 import views.helpers.Errors
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class CreateGroupAccount @Inject()(groups: GroupAccounts,
                                    auth: VPLAuthConnector,

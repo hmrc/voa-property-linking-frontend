@@ -34,16 +34,14 @@ import play.twirl.api.Html
 import reactivemongo.api.DB
 import repositories.{AgentAppointmentSessionRepository, PersonalDetailsSessionRepository, PropertyLinkingSessionRepository, SessionRepo}
 import uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig
-import uk.gov.hmrc.play.audit.filters.FrontendAuditFilter
-import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.config.{AppName, ControllerConfig}
-import uk.gov.hmrc.play.filters.{MicroserviceFilterSupport, RecoveryFilter}
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
-import uk.gov.hmrc.play.http.HeaderNames
-import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
-import uk.gov.hmrc.play.http.ws.WSHttp
+import config.WSHttp
+import uk.gov.hmrc.http.HeaderNames
+import uk.gov.hmrc.play.frontend.config.LoadAuditingConfig
+import uk.gov.hmrc.play.frontend.filters.{FrontendAuditFilter, FrontendLoggingFilter, MicroserviceFilterSupport, RecoveryFilter}
 
 object Global extends VPLFrontendGlobal
 
@@ -90,7 +88,7 @@ object AuditFilter extends FrontendAuditFilter with MicroserviceFilterSupport wi
   override lazy val applicationPort = None
   override lazy val auditConnector = AuditServiceConnector
 
-  override def controllerNeedsAuditing(controllerName: String): Boolean = false
+  override def controllerNeedsAuditing(controllerName: String): Boolean = ControllerConfiguration.paramsForController(controllerName).needsAuditing
 }
 
 object ControllerConfiguration extends ControllerConfig {

@@ -16,6 +16,7 @@
 
 package controllers.propertyLinking
 
+import config.ApplicationConfig
 import connectors.EnvelopeConnector
 import connectors.fileUpload.{FileMetadata, FileUploadConnector}
 import connectors.propertyLinking.PropertyLinkConnector
@@ -31,13 +32,15 @@ import session.LinkingSessionRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
-import uk.gov.hmrc.play.http.HeaderCarrier
 import utils.{HtmlPage, StubWithLinkingSession}
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class DeclarationSpec extends ControllerSpec with MockitoSugar {
+
+  override val additionalAppConfig = Seq("featureFlags.fileUploadEnabled" -> "true")
 
   "The declaration page" should "include a checkbox to allow the user to accept the declaration" in {
     withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
@@ -142,7 +145,7 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  private object TestDeclaration extends Declaration(mockEnvelopes, mockFileUploads, mockPropertyLinkConnector,
+  private object TestDeclaration extends Declaration(app.injector.instanceOf[ApplicationConfig], mockEnvelopes, mockFileUploads, mockPropertyLinkConnector,
     mockSessionRepo, withLinkingSession)
 
   lazy val mockSessionRepo = {

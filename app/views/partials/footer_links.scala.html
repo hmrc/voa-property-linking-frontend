@@ -1,7 +1,24 @@
+@*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
 @import config.ApplicationConfig.config._
 
 @()(implicit messages: Messages)
 <ul class="platform-help-links" style="display:block">
+    <li><a href="@helpGuideUrl" data-sso="false" data-journey-click="footer:Click:Help">@Messages("footer.link.help")</a></li>
     <li><a href="@businessRatesValuationUrl("send-beta-feedback")" data-sso="false" data-journey-click="footer:Click:Feedback">@Messages("footer.link.feedback")</a></li>
     <li><a href="@businessRatesValuationUrl("cookies")" data-sso="false" data-journey-click="footer:Click:Cookies">@Messages("footer.link.cookies")</a></li>
     <li><a href="@businessRatesValuationUrl("terms-and-conditions")" data-sso="false" data-journey-click="footer:Click:Terms and conditions">@Messages("footer.link.termsAndConditions")</a></li>

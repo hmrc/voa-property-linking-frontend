@@ -1,0 +1,63 @@
+@*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.play.views.html.helpers.form
+
+@(model: RepresentationBulkAction, f: Form[RepresentationBulkAction])(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = Messages("pendingRepresentationRequests.confirm.title"),
+    topBackLink = true,
+    bottomBackLink = false,
+    backLinkUrl = Some(controllers.agent.routes.RepresentationController.pendingRepresentationRequest().url)
+) {
+
+    <div class="dialog-content" id="dialog-content-message" role="document" tabindex="-1">
+        <div>
+            <h2>@Messages("pendingRepresentationRequests.confirm.header", model.action.capitalize)</h2>
+            <p class="margin-top-30 margin-bottom-30">
+                @if(model.requestIds.length == 1) {
+                    @Messages("pendingRepresentationRequests.single.confirm.para.1", model.action)
+                } else {
+                    @Messages("pendingRepresentationRequests.multiple.confirm.para.1", model.action, model.requestIds.length)
+                }
+            </p>
+
+            @form(controllers.agent.routes.RepresentationController.bulkActions) {
+                <input type="hidden" name="action" value="reject-confirm">
+                <input type="hidden" name="page" value="@model.page">
+                <input type="hidden" name="pageSize" value="@model.pageSize">
+
+                @for(id <- model.requestIds) {
+                    <input type="hidden" name="requestIds[]" value="@id">
+                }
+                <button type="submit" id="submit-button" name="submit-button" class="button pull-left">@Messages("pendingRepresentationRequests.button.text", model.action.capitalize)</button>
+            }
+            @form(controllers.agent.routes.RepresentationController.cancel(model.page, model.pageSize)) {
+                <input type="hidden" name="action" value="reject">
+                <input type="hidden" name="page" value="@model.page">
+                <input type="hidden" name="pageSize" value="@model.pageSize">
+
+                @for(id <- model.requestIds) {
+                    <input type="hidden" name="requestIds[]" value="@id">
+                }
+                <button type="submit" id="cancel-button" name="cancel-button" class="button-secondary pull-left">@Messages("pendingRepresentationRequests.button.cancel", model.action.capitalize)</button>
+            }
+        </div>
+    </div>
+    <div class="clearfix"/>
+
+}

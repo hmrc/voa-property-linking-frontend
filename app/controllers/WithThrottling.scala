@@ -18,11 +18,11 @@ package controllers
 
 import connectors.TrafficThrottleConnector
 import play.api.mvc.{AnyContent, Request, Result}
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import uk.gov.hmrc.http.HeaderCarrier
 
 trait WithThrottling {
 

@@ -24,6 +24,7 @@ import form.EnumMapping
 import models._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.mvc.Call
 import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
 import views.html.propertyLinking.uploadEvidence
@@ -32,17 +33,19 @@ class UploadEvidence @Inject()(override val config: ApplicationConfig,
                                override val withLinkingSession: WithLinkingSession,
                                withCircuitBreaker: FileUploadCircuitBreaker) extends PropertyLinkingController with FileUploadHelpers {
 
+  override val successUrl: String = routes.UploadEvidence.fileUploaded().url
+
   def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
     withCircuitBreaker {
       errorCode match {
-        case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadEvidence(UploadEvidenceVM(fileTooLarge, submissionUrl)))
+        case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadEvidence(UploadEvidenceVM(fileTooLarge, submissionCall)))
         case Some(NOT_FOUND) => notFound
-        case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadEvidence(UploadEvidenceVM(invalidFileType, submissionUrl)))
+        case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadEvidence(UploadEvidenceVM(invalidFileType, submissionCall)))
         // this assumes BAD_REQUEST is caused by "Envelope does not allow zero length files, and submitted file has length 0"
-        case Some(BAD_REQUEST) => UnsupportedMediaType(uploadEvidence(UploadEvidenceVM(invalidFileType, submissionUrl)))
+        case Some(BAD_REQUEST) => UnsupportedMediaType(uploadEvidence(UploadEvidenceVM(invalidFileType, submissionCall)))
         //if FUaaS repeatedly returns unexpected error codes e.g. 500s, trigger the circuit breaker
         case Some(err) => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
-        case None => Ok(uploadEvidence(UploadEvidenceVM(form, submissionUrl)))
+        case None => Ok(uploadEvidence(UploadEvidenceVM(form, submissionCall)))
       }
     } recover {
       case _: UnhealthyServiceException => ServiceUnavailable(views.html.errors.serviceUnavailable())
@@ -50,14 +53,22 @@ class UploadEvidence @Inject()(override val config: ApplicationConfig,
   }
 
   def noEvidenceUploaded() = withLinkingSession { implicit request =>
-    Redirect(propertyLinking.routes.Declaration.show())
+    if (config.fileUploadEnabled) {
+      Redirect(propertyLinking.routes.Declaration.show())
+    } else {
+      Redirect(propertyLinking.routes.Declaration.show(Some(true)))
+    }
   }
 
   lazy val form = Form(single("evidenceType" -> EnumMapping(EvidenceType)))
   lazy val fileTooLarge = form.withError("evidence[]", "error.fileUpload.tooLarge")
   lazy val invalidFileType = form.withError("evidence[]", "error.fileUpload.invalidFileType")
 
-  private def submissionUrl(implicit request: LinkingSessionRequest[_]) = fileUploadUrl(routes.UploadEvidence.show().url)
+  private def submissionCall(implicit request: LinkingSessionRequest[_]) = if (config.fileUploadEnabled) {
+    Call("POST", fileUploadUrl(routes.UploadEvidence.show().url))
+  } else {
+    Call("GET", routes.Declaration.show().url)
+  }
 }
 
-case class UploadEvidenceVM(form: Form[_], submissionUrl: String)
+case class UploadEvidenceVM(form: Form[_], call: Call)

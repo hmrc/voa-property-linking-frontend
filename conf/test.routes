@@ -1,0 +1,1 @@
+GET        /user-details        @controllers.test.TestUserDetailsController.getUserDetails

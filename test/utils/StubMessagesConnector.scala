@@ -20,9 +20,9 @@ import config.ApplicationConfig
 import connectors.MessagesConnector
 import models.messages.{MessageCount, MessagePagination, MessageSearchResults}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class StubMessagesConnector(appConfig: ApplicationConfig) extends MessagesConnector(StubHttp, StubServicesConfig, appConfig) {
   override def getMessages(orgId: Long, pagination: MessagePagination)

@@ -78,8 +78,8 @@ POST        /choose-evidence                                                    
 GET         /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.show(errorCode: Option[Int] ?= None, errorMessage: Option[String] ?= None)
 GET         /upload-evidence                                                                  @controllers.propertyLinking.UploadEvidence.show(errorCode: Option[Int] ?= None, errorMessage: Option[String] ?= None)
 
-GET         /summary                                                                          @controllers.propertyLinking.Declaration.show
-POST        /summary                                                                          @controllers.propertyLinking.Declaration.submit
+GET         /summary                                                                          @controllers.propertyLinking.Declaration.show(noEvidenceFlag: Option[Boolean] ?= None)
+POST        /summary                                                                          @controllers.propertyLinking.Declaration.submit(noEvidenceFlag: Option[Boolean] ?= None)
 
 GET         /confirmation                                                                     @controllers.propertyLinking.Declaration.confirmation
 GET         /confirmation/no-evidence                                                         @controllers.propertyLinking.Declaration.noEvidence
@@ -107,15 +107,18 @@ GET         /manage-clients/json                                                
 GET         /manage-clients-search-sort/json                                                  @controllers.agent.RepresentationController.listRepresentationRequestSearchAndSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], client: Option[String])
 
 GET         /manage-clients/pending-requests                                                  @controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
-GET         /manage-clients/pending-requests/json                                             @controllers.agent.RepresentationController.pendingRepresentationsJson(page: Int, pageSize: Int, requestTotalRowCount: Boolean)
-
-GET         /representation-request/accept/:submissionId/:totalPendingRequests                @controllers.agent.RepresentationController.accept(submissionId, totalPendingRequests: Long)
-GET         /representation-request/reject/:submissionId/:totalPendingRequests                @controllers.agent.RepresentationController.reject(submissionId, totalPendingRequests: Long)
+POST        /representation-request/confirm                                                   @controllers.agent.RepresentationController.confirm(page: Int, pageSize: Int)
+POST        /representation-request/cancel                                                    @controllers.agent.RepresentationController.cancel(page: Int, pageSize: Int)
+POST        /representation-request/continue                                                  @controllers.agent.RepresentationController.continue(page: Int, pageSize: Int)
+POST        /representation-request/bulkActions                                               @controllers.agent.RepresentationController.bulkActions
 
 GET         /add-user-to-gg                                                                   @controllers.Application.addUserToGG
 
 #Address lookup
 GET         /lookup                                                                           @controllers.AddressLookup.findByPostcode(postcode)
+
+#Downtime page
+GET         /planned-improvements                                                             @controllers.DowntimePage.plannedImprovements
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                                     @controllers.Assets.at(path="/public", file)

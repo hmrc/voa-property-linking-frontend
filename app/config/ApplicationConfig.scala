@@ -27,6 +27,8 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   def baseUrl: String = if (runMode.env == "Prod") "" else "http://localhost:9523"
   def businessRatesValuationUrl(page: String): String = getConfig("business-rates-valuation.url") + s"/$page"
 
+  val helpGuideUrl = getConfig("help-guide.url")
+
   val vmvUrl: String = getConfig("vmv-frontend.url")
   val ggSignInUrl: String = getConfig("gg-sign-in.url")
   val ggRegistrationUrl: String = getConfig("gg-registration.url")
@@ -43,6 +45,8 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   val searchSortEnabled: Boolean = getConfig("featureFlags.searchSortEnabled").toBoolean
   val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
   val messagesEnabled: Boolean = getConfig("featureFlags.messagesEnabled").toBoolean
+  val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean
+  val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean
 
   lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
     new String(Base64.getUrlDecoder.decode(e))
@@ -54,6 +58,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
 }
 
 object ApplicationConfig {
+
   val config = Play.current.injector.instanceOf[ApplicationConfig]
 }
 

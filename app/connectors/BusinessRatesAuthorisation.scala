@@ -18,14 +18,13 @@ package connectors
 
 import javax.inject.Inject
 
-import config.AuthorisationFailed
+import config.{AuthorisationFailed, WSHttp}
 import models.Accounts
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.ws.WSHttp
-import uk.gov.hmrc.play.http.{HeaderCarrier, Upstream4xxResponse}
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.{HeaderCarrier, Upstream4xxResponse}
 class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp) {
   val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 

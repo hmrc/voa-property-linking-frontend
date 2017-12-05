@@ -18,14 +18,14 @@ package connectors
 
 import javax.inject.Inject
 
+import config.WSHttp
 import models.Address
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http.ws.WSHttp
-import uk.gov.hmrc.play.http.{HeaderCarrier}
 
 import scala.concurrent.Future
+import uk.gov.hmrc.http.HeaderCarrier
 
 class Addresses @Inject()(config: ServicesConfig, http: WSHttp) {
 
