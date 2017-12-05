@@ -22,7 +22,11 @@
 @main_template(title = message.subject, topNavigation = false, bottomBackLink = true, backLinkUrl = Some(routes.Dashboard.viewMessages().url)) {
     @partials.welcomeLinks(unreadMessagesCount)
 
-    @checkReceivedTemplateAgent(message)
+    @{message.templateName match {
+     case "NDRCheckAcknowledgementUnrepMsg.odt" => checkReceivedTemplateUnrepresentedIP(message)
+     case "NDRCheckAcknowledgementRepMsg.odt" => checkReceivedTemplateRepresentedIP(message)
+     case "NDRCheckAcknowledgementAgentMsg.odt" =>checkReceivedTemplateAgent(message)
+    }}
 
     <p id="message-pdf"><a href="@routes.Dashboard.viewMessageAsPdf(message.id)">@Messages("checkReceived.download")</a></p>
 }
