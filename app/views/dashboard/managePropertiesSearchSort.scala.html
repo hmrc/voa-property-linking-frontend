@@ -33,6 +33,8 @@
 
         <p>@Messages("dashboard.manageProperties.expectDelays")</p>
 
+        <p class="margin-top-20"><a href="@controllers.propertyLinking.routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
+
         @if(model.result.authorisations.isEmpty && model.pagination.valuesOfSearchParameters == "") {
             <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
