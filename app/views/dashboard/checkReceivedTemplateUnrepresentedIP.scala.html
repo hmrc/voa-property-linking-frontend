@@ -26,7 +26,7 @@
 
 ) {
     <div id="messageContent">
-        <h1 class="heading-small">@message.caseReference</h1>
+        <h1 class="heading-small">@message.subject</h1>
 
         <h3><strong>@Messages("checkReceived.title")</strong></h3>
 
@@ -46,7 +46,7 @@
 
         <p><strong>@Messages("checkReceived.valuation")</strong></p>
 
-        <p>@Messages("checkReceived.moreInfo")</p>
+        <p>@Html(Messages("checkReceived.moreInfo"))</p>
 
         <p>@Messages("checkReceived.template.valuationOffice")</p>
 

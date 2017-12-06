@@ -867,7 +867,7 @@ checkReceived.download=Download this message as a PDF
 checkReceived.whatNext=What happens next
 checkReceived.responseTime=We aim to provide a response within 12 weeks. We prioritise cases from smaller proposers. Some complex cases may take longer to resolve. 
 checkReceived.valuation=The information submitted as part of the check case may cause your valuation to go up as well as down.
-checkReceived.moreInfo=You can find more information on the check and challenge service by searching for 'check and challenge' on the GOV.UK website.
+checkReceived.moreInfo=You can find more information on the check and challenge service by searching for 'check and challenge' on the <a href="https://www.gov.uk/search?q=check+and+challenge">GOV.UK</a> website.
 checkReceived.template.valuationOffice=Valuation Office Agency
 link.summary=View Summary
 
