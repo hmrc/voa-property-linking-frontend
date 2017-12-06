@@ -48,7 +48,8 @@
 @isAgent = @{ request.organisationAccount.isAgent }
 
 @tab(name: String, url: String, args: Any*) = {
-    <li @if(url == request.path) {class="active"}>
+    <li @if(url == request.path) {class="active" role="heading" aria-level="1"} else { role="tab"}>
         <a href="@url">@Messages(s"dashboard.tab.$name", args:_*)</a>
     </li>
 }
+
