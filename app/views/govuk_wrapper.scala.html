@@ -66,6 +66,9 @@
 
 @analyticsAdditionalJs = {
     ga('set', '@voaPersonID', '@individualId');
+    @if(loggedInUser.isDefined) {
+        ga('set', '@loggedInUser.get', 'YES');
+    }
 }
 
 @bodyEnd = {
