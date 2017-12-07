@@ -34,6 +34,10 @@ class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig, config: Ap
     http.GET[Message](s"$baseUrl/message/$orgId/$messageId") map { Some.apply }
   }
 
+  def getMessageType(orgId: Long, messageId: String, templateId:Int)(implicit hc: HeaderCarrier): Future[Option[Message]] ={
+    http.GET[Message](s"$baseUrl/message/$templateId/$orgId/$messageId") map { Some.apply }
+  }
+
   def getMessages(orgId: Long, pagination: MessagePagination)
                  (implicit hc: HeaderCarrier): Future[MessageSearchResults] = {
     http.GET[MessageSearchResults](s"$baseUrl/messages?recipientOrgId=$orgId&${pagination.queryString}")

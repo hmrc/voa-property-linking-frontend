@@ -27,6 +27,7 @@ class TestUserDetailsController @Inject()(authenticated: AuthenticatedAction) ex
 
   def getUserDetails() = authenticated { implicit request =>
     Ok(Json.toJson(request.organisationAccount.isAgent match {
+
       case true => TestUserDetails(
         personId = request.individualAccount.individualId,
         organisationId = request.organisationAccount.id,
