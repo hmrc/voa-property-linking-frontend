@@ -21,7 +21,7 @@
             $('#dialog-message').remove();
 
             var viewMessageUrl = $(this).find('a').first().attr('href');
-            window.open(viewMessageUrl, "_self")
+            window.open(viewMessageUrl, '_self');
             //This has been commented as it will be needed once a way to display the javascript has been decided
         //     $.get(viewMessageUrl).then(function (viewMessagePage) {
         //         console.log(viewMessageUrl)
@@ -57,35 +57,36 @@
             });
         }
 
-        function createModal(message, viewMessageUrl) {
-            var content = $(message).find('#messageContent');
-
-            var pdfLink = '<p><a id="message-pdf" href="' + viewMessageUrl + '/pdf' + '" target="_blank">Download this message as a PDF</a></p>';
-
-            var printLink = '<p><a id="print-message" href="#">Print this message</a></p>';
-
-            var closeIcon =
-                '<button class="dialog-close" aria-label="close" type="button">' +
-                    '<span class="icon icon-close">x</span>' +
-                '</button>';
-
-            var closeButton = '<a href="#" class="margin-top-10 dialog-cancel button-secondary" aria-label="close" role="button">Close</a>';
-
-            return '' +
-                '<div id="dialog-message" class="dialog dialog-scroll" aria-hidden="false">' +
-                    '<div class="dialog-holder">' +
-                        '<div id="dialog-content-message" class="dialog-content">' +
-                            closeIcon +
-                            '<div class="modal-content-div">' +
-                                content.html() +
-                            '</div>' +
-                            pdfLink +
-                            printLink +
-                            closeButton +
-                        '</div>' +
-                    '</div>' +
-                '</div>';
-        }
+        //This has been commented as it will be needed once a way to display the javascript has been decided
+        // function createModal(message, viewMessageUrl) {
+        //     var content = $(message).find('#messageContent');
+        //
+        //     var pdfLink = '<p><a id="message-pdf" href="' + viewMessageUrl + '/pdf' + '" target="_blank">Download this message as a PDF</a></p>';
+        //
+        //     var printLink = '<p><a id="print-message" href="#">Print this message</a></p>';
+        //
+        //     var closeIcon =
+        //         '<button class="dialog-close" aria-label="close" type="button">' +
+        //             '<span class="icon icon-close">x</span>' +
+        //         '</button>';
+        //
+        //     var closeButton = '<a href="#" class="margin-top-10 dialog-cancel button-secondary" aria-label="close" role="button">Close</a>';
+        //
+        //     return '' +
+        //         '<div id="dialog-message" class="dialog dialog-scroll" aria-hidden="false">' +
+        //             '<div class="dialog-holder">' +
+        //                 '<div id="dialog-content-message" class="dialog-content">' +
+        //                     closeIcon +
+        //                     '<div class="modal-content-div">' +
+        //                         content.html() +
+        //                     '</div>' +
+        //                     pdfLink +
+        //                     printLink +
+        //                     closeButton +
+        //                 '</div>' +
+        //             '</div>' +
+        //         '</div>';
+        // }
     };
 
 }).call(this);
