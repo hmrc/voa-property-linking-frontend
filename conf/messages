@@ -851,14 +851,25 @@ messages.pageSize.showing=Showing
 messages.pageSize.perPage=messages per page
 
 #CHECK RECEIVED MESSAGE
-checkReceived.reference=Reference: {0}
+checkReceived.title=Check acknowledgement
+checkReceived.subject=Subject: {0}
+checkReceived.reference=Check reference number: {0}
 checkReceived.address=Property: {0}
+checkReceived.owner=Owner/occupier: {0}
 checkReceived.timestamp=Received: {0}
-checkReceived.template.1=<p>We have received your business rates check that you submitted with submission ID {0}.</p><p>We have now created a case reference number for your check which you should use for all future correspondence. Your case reference number is {1}.</p>
-checkReceived.template.whatNow=What happens now?
-checkReceived.template.2=<p>The check will be considered by the Valuation Office Agency (VOA). No further action is required at this time.</p><p>We aim to provide a response within 12 weeks. Some checks may take longer to resolve. We will prioritise your check if you are a smaller proposer. We will contact you with an outcome for your check.</p><p>We may contact you if we need more information or evidence.</p><p><strong>Please note:</strong> the information submitted as part of your check may cause the valuation to go up as well as down.</p><p>Valuation Office Agency</p>
+checkReceived.unrepresented.checkCase=We have received your Check case for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
+checkReceived.represented.checkCase=We have received a Check case from your agent for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
+checkReceived.agent.checkCase=We have received the Check case you have made on behalf of your client for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
+checkReceived.whatNow=What you need to do
+checkReceived.furtherInfo=You don''t need to do anything, we will contact you if we need further information or evidence.
 checkReceived.print=Print this message
 checkReceived.download=Download this message as a PDF
+checkReceived.whatNext=What happens next
+checkReceived.responseTime=We aim to provide a response within 12 weeks. We prioritise cases from smaller proposers. Some complex cases may take longer to resolve. 
+checkReceived.valuation=The information submitted as part of the Check case may cause your valuation to go up as well as down.
+checkReceived.moreInfo=You can find more information on the Check and Challenge service by searching for ''Check and Challenge'' on the <a href="https://www.gov.uk/search?q=check+and+challenge">GOV.UK</a> website.
+checkReceived.template.valuationOffice=Valuation Office Agency
+link.summary=View Summary
 
 #PAGINATION CONTROLS
 pagination.next=Next

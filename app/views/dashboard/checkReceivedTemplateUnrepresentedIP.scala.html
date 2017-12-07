@@ -1,0 +1,54 @@
+@*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import java.time.format.DateTimeFormatter
+@import models.messages.Message
+
+@(message: Message)(implicit request: Request[_], messages: Messages)
+
+    <div class="clearfix" id="messageContent">
+
+        <h1 class="heading-small">@Messages("checkReceived.subject",message.subject)</h1>
+
+        <hr>
+
+        <p style="font-size:35px"><strong>@Messages("checkReceived.title")</strong></p>
+
+        <p><strong>@Messages("checkReceived.owner", message.clientName.getOrElse(""))</strong></p>
+
+        <p><strong>@Messages("checkReceived.reference", message.caseReference)</strong></p>
+
+        <p><strong>@Messages("checkReceived.address", message.address)</strong></p>
+
+        <p>@Html(Messages("checkReceived.unrepresented.checkCase", message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a"))))</p>
+
+        <h3 class="heading-small">@Messages("checkReceived.whatNow")</h3>
+
+        @Html(Messages("checkReceived.furtherInfo"))
+
+        <h3 class="heading-small">@Messages("checkReceived.whatNext")</h3>
+
+        <p>@Messages("checkReceived.responseTime")</p>
+
+        <p><strong>@Messages("checkReceived.valuation")</strong></p>
+
+        <p>@Html(Messages("checkReceived.moreInfo"))</p>
+
+        <p>@Messages("checkReceived.template.valuationOffice")</p>
+
+        <button type="button" class="button" id="view_summary" name="view_summary_button" a href="#">@Messages("link.summary")</button>
+
+    </div>

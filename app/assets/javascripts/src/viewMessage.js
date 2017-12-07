@@ -21,15 +21,18 @@
             $('#dialog-message').remove();
 
             var viewMessageUrl = $(this).find('a').first().attr('href');
-            $.get(viewMessageUrl).then(function (viewMessagePage) {
-                var modal = createModal(viewMessagePage, viewMessageUrl);
-
-                $(document).find('.content_body').after(modal);
-
-                $('#print-message').click(function() {
-                    $('.modal-content-div').printThis();
-                });
-            });
+            window.open(viewMessageUrl, "_self")
+            //This has been commented as it will be needed once a way to display the javascript has been decided
+        //     $.get(viewMessageUrl).then(function (viewMessagePage) {
+        //         console.log(viewMessageUrl)
+        //         var modal = createModal(viewMessagePage, viewMessageUrl);
+        //
+        //         $(document).find('.content_body').after(modal);
+        //
+        //         $('#print-message').click(function() {
+        //             $('.modal-content-div').printThis();
+        //         });
+        //     });
         });
 
         function markMessageAsRead(row) {

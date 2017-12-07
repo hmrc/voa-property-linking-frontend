@@ -23,7 +23,9 @@
     @*<head>
         <link href="@config.serviceUrl/template/assets/stylesheets/govuk-template-print.css" media="print" rel="stylesheet" type="text/css">
     </head>*@
-    <body>
-        @checkReceivedTemplate(message)
-    </body>
+    @{message.templateName match {
+        case "NDRCheckAcknowledgementUnrepMsg.odt" => checkReceivedTemplateUnrepresentedIP(message)
+        case "NDRCheckAcknowledgementRepMsg.odt" => checkReceivedTemplateRepresentedIP(message)
+        case "NDRCheckAcknowledgementAgentMsg.odt" =>checkReceivedTemplateAgent(message)}
+    }
 </html>
