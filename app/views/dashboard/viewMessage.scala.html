@@ -19,7 +19,13 @@
 
 @(message: Message, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
-@main_template(title = message.subject, topNavigation = false, bottomBackLink = true, backLinkUrl = Some(routes.Dashboard.viewMessages().url)) {
+@main_template(
+  title = message.subject,
+  topNavigation = false,
+  bottomBackLink = true,
+  topBackLink = true,
+  backLinkUrl = Some(routes.Dashboard.viewMessages().url)) {
+
     @partials.welcomeLinks(unreadMessagesCount)
 
     @{message.templateName match {

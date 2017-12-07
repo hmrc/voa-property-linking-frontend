@@ -19,22 +19,21 @@
 
 @(message: Message)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = Messages("checkReceived.title"),
-    bottomBackLink = true,
-    backLinkUrl = Some(routes.Dashboard.viewMessages().url)
-) {
+    <div class="clearfix" id="messageContent">
 
-    <div id="messageContent">
-        <h1 class="heading-small">@message.subject</h1>
+        <h1 class="heading-small">@Messages("checkReceived.subject",message.subject)</h1>
 
-        <h3><strong>@Messages("checkReceived.title")</strong></h3>
+        <hr>
+
+        <p style="font-size:35px"><strong>@Messages("checkReceived.title")</strong></p>
+
+        <p><strong>@Messages("checkReceived.owner", message.clientName.getOrElse(""))</strong></p>
 
         <p><strong>@Messages("checkReceived.reference", message.caseReference)</strong></p>
 
         <p><strong>@Messages("checkReceived.address", message.address)</strong></p>
 
-        <p>@Messages("checkReceived.represented.checkCase", message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a")))</p>
+        <p>@Html(Messages("checkReceived.represented.checkCase", message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a"))))</p>
 
         <h3 class="heading-small">@Messages("checkReceived.whatNow")</h3>
 
@@ -50,5 +49,6 @@
 
         <p>@Messages("checkReceived.template.valuationOffice")</p>
 
+        <button type="button" class="button" id="view_summary" name="view_summary_button" a href="#">@Messages("link.summary")</button>
+
     </div>
-}

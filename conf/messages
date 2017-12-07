@@ -853,21 +853,22 @@ messages.pageSize.perPage=messages per page
 
 #CHECK RECEIVED MESSAGE
 checkReceived.title=Check acknowledgement
+checkReceived.subject=Subject: {0}
 checkReceived.reference=Check reference number: {0}
 checkReceived.address=Property: {0}
+checkReceived.owner=Owner/occupier: {0}
 checkReceived.timestamp=Received: {0}
-checkReceived.unrepresented.checkCase=We have received your check case for the property on {0}. You can view a summary of the check using the link in this message.
-checkReceived.represented.checkCase=We have received a check case from your agent for the property on {0}. You can view a summary of the check using the link in this message.
-checkReceived.agent.checkCase=We have received the check case you have made on behalf of your client for the property on {0}.
+checkReceived.unrepresented.checkCase=We have received your Check case for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
+checkReceived.represented.checkCase=We have received a Check case from your agent for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
+checkReceived.agent.checkCase=We have received the Check case you have made on behalf of your client for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
 checkReceived.whatNow=What you need to do
-checkReceived.furtherInfo=You don't need to do anything, we will contact you if we need further information or evidence.
-checkReceived.agent.viewSummary=You can view a summary of the check using the link in this message.
+checkReceived.furtherInfo=You don''t need to do anything, we will contact you if we need further information or evidence.
 checkReceived.print=Print this message
 checkReceived.download=Download this message as a PDF
 checkReceived.whatNext=What happens next
 checkReceived.responseTime=We aim to provide a response within 12 weeks. We prioritise cases from smaller proposers. Some complex cases may take longer to resolve. 
-checkReceived.valuation=The information submitted as part of the check case may cause your valuation to go up as well as down.
-checkReceived.moreInfo=You can find more information on the check and challenge service by searching for 'check and challenge' on the <a href="https://www.gov.uk/search?q=check+and+challenge">GOV.UK</a> website.
+checkReceived.valuation=The information submitted as part of the Check case may cause your valuation to go up as well as down.
+checkReceived.moreInfo=You can find more information on the Check and Challenge service by searching for ''Check and Challenge'' on the <a href="https://www.gov.uk/search?q=check+and+challenge">GOV.UK</a> website.
 checkReceived.template.valuationOffice=Valuation Office Agency
 link.summary=View Summary
 
