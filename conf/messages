@@ -856,6 +856,7 @@ checkReceived.subject=Subject: {0}
 checkReceived.reference=Check reference number: {0}
 checkReceived.address=Property: {0}
 checkReceived.owner=Owner/occupier: {0}
+checkReceived.agent=Agent: {0}
 checkReceived.timestamp=Received: {0}
 checkReceived.unrepresented.checkCase=We have received your Check case for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
 checkReceived.represented.checkCase=We have received a Check case from your agent for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
