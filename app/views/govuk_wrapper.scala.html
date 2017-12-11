@@ -16,6 +16,7 @@
 
 @import config.ApplicationConfig.config._
 @import models.Accounts._
+@import uk.gov.hmrc.http.SessionKeys
 
 @(title: String,
   mainClass: Option[String] = None,
@@ -66,8 +67,13 @@
 
 @analyticsAdditionalJs = {
     ga('set', '@voaPersonID', '@individualId');
+
     @if(loggedInUser.isDefined) {
-        ga('set', '@loggedInUser.get', 'YES');
+        @if(request.session.get(SessionKeys.userId)){
+            ga('set', '@loggedInUser.get', 'YES');
+        }else{
+            ga('set', '@loggedInUser.get', 'NO');
+        }
     }
 }
 
