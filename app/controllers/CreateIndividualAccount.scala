@@ -18,7 +18,7 @@ package controllers
 
 import javax.inject.{Inject, Named}
 
-import auth.GGAction
+import auth.{GGAction, UnAuthAction}
 import connectors.{IndividualAccounts, VPLAuthConnector}
 import form.Mappings._
 import form.TextMatching
@@ -32,13 +32,13 @@ import uk.gov.hmrc.domain.Nino
 import views.helpers.Errors
 import uk.gov.hmrc.http.SessionKeys
 
-class CreateIndividualAccount @Inject() (ggAction: GGAction,
+class CreateIndividualAccount @Inject() (ggAction: UnAuthAction,
                                          auth: VPLAuthConnector,
                                          individuals: IndividualAccounts,
-                                          @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
+                                         @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
   extends PropertyLinkingController {
 
-  def show = ggAction.async { ctx => implicit request =>
+  def show = ggAction.async(isSession = true) { ctx =>implicit request =>
     for {
       externalId <- auth.getExternalId(ctx)
       person <- individuals.withExternalId(externalId)
@@ -58,7 +58,7 @@ class CreateIndividualAccount @Inject() (ggAction: GGAction,
       )
   }
 
-  def submit = ggAction.async { _ => implicit request =>
+  def submit = ggAction.async(false) { _ => implicit request =>
     CreateIndividualAccount.form.bindFromRequest().fold(
       errors => BadRequest(views.html.createAccount.individual(errors)),
       formData => personalDetailsSessionRepo.saveOrUpdate(formData) map { _ =>

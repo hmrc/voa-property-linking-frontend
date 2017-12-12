@@ -21,7 +21,7 @@ import javax.inject.Inject
 import auth.GovernmentGatewayProvider
 import config.Global
 import connectors._
-import models.{DetailedIndividualAccount, GroupAccount}
+import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import play.api.Logger
 import play.api.Play.current
 import play.api.i18n.Messages
@@ -29,13 +29,22 @@ import play.api.i18n.Messages.Implicits.applicationMessages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results._
 import play.api.mvc._
+import uk.gov.hmrc.auth.core.retrieve._
+import uk.gov.hmrc.auth.core._
+
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
+import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.frontend.auth.connectors.domain.Authority
 
 class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
-                                    businessRatesAuthorisation: BusinessRatesAuthorisation) {
+                                    businessRatesAuthorisation: BusinessRatesAuthorisation,
+                                    servicesConfig: ServicesConfig,
+                                    enrolments: EnrolmentService,
+                                    addressesConnector: Addresses,
+                                    val authConnector: AuthConnector) extends AuthorisedFunctions {
 
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
@@ -86,12 +95,36 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
   private def handleResult(result: AuthorisationResult, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
                           (implicit request: Request[AnyContent]) = {
     result match {
-      case Authenticated(accounts) => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+      case Authenticated(accounts) => enrolment(accounts, body)
       case InvalidGGSession => provider.redirectToLogin
       case NoVOARecord => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
       case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
       case NonOrganisationAccount => Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
       case ForbiddenResponse => Future.successful(Forbidden(views.html.errors.forbidden()))
+    }
+  }
+
+  def enrolment(accounts: Accounts, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+    def handleError : PartialFunction[Throwable, Future[Result]] = {
+      case _: InsufficientEnrolments =>
+        enrolments.enrolIndividual(accounts.person).flatMap {
+          case Success => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+          case Failure =>
+            Logger.warn("")
+            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request)) // TODO maybe do something else.
+        }.recover{case _ : Throwable => Redirect(controllers.routes.CreateIndividualAccount.show())}
+      case _: NoActiveSession => provider.redirectToLogin
+      case otherException =>
+        Logger.debug(s"expection thrown on authorization with message : ${otherException.getMessage}")
+        throw otherException
+    }
+    if (servicesConfig.getConfBool("featureFlag.enrolment", true)){
+      val retrieve = Retrievals.email and Retrievals.postCode and Retrievals.groupIdentifier
+      authorised(AuthProviders(AuthProvider.GovernmentGateway) and Enrolment("HMRC-VOA-CCA")).retrieve(retrieve) {
+        case email ~ postcode ~ groupId => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+      }.recoverWith(handleError)
+    } else {
+      body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
     }
   }
 }

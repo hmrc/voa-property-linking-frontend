@@ -41,7 +41,7 @@ class CreateGroupAccount @Inject()(groups: GroupAccounts,
                                    @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
   extends PropertyLinkingController {
 
-  def show = ggAction.async { _ => implicit request =>
+  def show = ggAction.async(true) { _ => implicit request =>
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       identityVerification.verifySuccess(journeyId) flatMap {
         case true => Ok(views.html.createAccount.group(CreateGroupAccount.form))
@@ -50,7 +50,7 @@ class CreateGroupAccount @Inject()(groups: GroupAccounts,
     }
   }
 
-  def success = ggAction.async { _ => implicit request =>
+  def success = ggAction.async(false) { _ => implicit request =>
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       identityVerification.verifySuccess(journeyId) flatMap {
         case true => Ok(views.html.createAccount.confirmation())
@@ -59,7 +59,7 @@ class CreateGroupAccount @Inject()(groups: GroupAccounts,
     }
   }
 
-  def submit = ggAction.async { ctx => implicit request =>
+  def submit = ggAction.async(false) { ctx => implicit request =>
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       identityVerification.verifySuccess(journeyId) flatMap {
         case true =>
@@ -69,7 +69,7 @@ class CreateGroupAccount @Inject()(groups: GroupAccounts,
               val eventualGroupId = auth.getGroupId(ctx)
               val eventualExternalId = auth.getExternalId(ctx)
               val eventualPersonalDetails = personalDetailsSessionRepo.get[PersonalDetails]
-              val addressId = registerAddress(formData)
+              val addressId = addresses.registerAddress(formData)
 
               for {
                 groupId <- eventualGroupId
@@ -88,10 +88,10 @@ class CreateGroupAccount @Inject()(groups: GroupAccounts,
     }
   }
 
-  private def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = details.address.addressUnitId match {
-    case Some(id) => Future.successful(id)
-    case None => addresses.create(details.address)
-  }
+//  private def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = details.address.addressUnitId match {
+//    case Some(id) => Future.successful(id)
+//    case None => addresses.create(details.address)
+//  }
 
   implicit def vm(form: Form[_]): CreateGroupAccountVM = CreateGroupAccountVM(form)
 }

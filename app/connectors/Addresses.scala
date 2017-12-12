@@ -19,6 +19,7 @@ package connectors
 import javax.inject.Inject
 
 import config.WSHttp
+import controllers.GroupAccountDetails
 import models.Address
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
@@ -30,6 +31,11 @@ import uk.gov.hmrc.http.HeaderCarrier
 class Addresses @Inject()(config: ServicesConfig, http: WSHttp) {
 
   val url = config.baseUrl("property-linking") + "/property-linking/address"
+
+  def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = details.address.addressUnitId match {
+    case Some(id) => Future.successful(id)
+    case None => create(details.address)
+  }
 
   def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[Address]] = {
     http.GET[Seq[Address]](url + s"?postcode=$postcode")

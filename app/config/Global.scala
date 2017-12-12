@@ -19,8 +19,10 @@ package config
 import java.time.{Clock, Instant, LocalDateTime, ZoneId}
 import javax.inject.{Inject, Provider}
 
+import auth.{GGAction, GGActionEnrolment, xxx}
 import com.builtamont.play.pdf.PdfGenerator
 import com.google.inject.AbstractModule
+import com.google.inject.binder.ScopedBindingBuilder
 import com.google.inject.name.Names
 import com.typesafe.config.Config
 import connectors.VPLAuthConnector
@@ -40,6 +42,7 @@ import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
 import config.WSHttp
 import uk.gov.hmrc.http.HeaderNames
+import uk.gov.hmrc.play.frontend.auth.AuthContext
 import uk.gov.hmrc.play.frontend.config.LoadAuditingConfig
 import uk.gov.hmrc.play.frontend.filters.{FrontendAuditFilter, FrontendLoggingFilter, MicroserviceFilterSupport, RecoveryFilter}
 
@@ -107,7 +110,16 @@ class GuiceModule(environment: Environment,
     bind(classOf[AuthConnector]).to(classOf[VPLAuthConnector])
     bind(classOf[CircuitBreakerConfig]).toProvider(classOf[CircuitBreakerConfigProvider]).asEagerSingleton()
     bind(classOf[PdfGenerator]).toInstance(new PdfGenerator(environment))
+    enrolment
   }
+
+
+  val enrolment: ScopedBindingBuilder =
+    if (configuration.getBoolean("featureFlag.enrolment").getOrElse(false)){
+      bind(classOf[xxx]).to(classOf[GGActionEnrolment])
+    } else {
+      bind(classOf[xxx]).to(classOf[GGAction])
+    }
 }
 
 class MongoDbProvider @Inject() (reactiveMongoComponent: ReactiveMongoComponent) extends Provider[DB] {
