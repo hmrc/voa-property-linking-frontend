@@ -79,11 +79,11 @@ object SessionHelpers {
 
     def putUserDetails(userDetails: UserDetails) = {
       session
-        .+("firstName" -> userDetails.userInfo.firstName)
-        .+("lastName" -> userDetails.userInfo.lastName)
-        .+("email" -> userDetails.userInfo.email)
-        .+("postcode" -> userDetails.userInfo.postcode)
-        .+("affinityGroup" -> userDetails.userInfo.affinityGroup.toJson.toString)
+        . +("firstName" -> userDetails.userInfo.firstName)
+        . +("lastName" -> userDetails.userInfo.lastName)
+        . +("email" -> userDetails.userInfo.email)
+        . +("postcode" -> userDetails.userInfo.postcode)
+        . +("affinityGroup" -> userDetails.userInfo.affinityGroup.toJson.toString)
     }
 
     def removeUserDetails = {

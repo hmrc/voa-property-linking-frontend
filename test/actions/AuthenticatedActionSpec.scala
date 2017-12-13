@@ -30,7 +30,8 @@ import uk.gov.hmrc.play.test.UnitSpec
 import utils.NoMetricsOneAppPerSuite
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.{ BadRequestException, HeaderCarrier, NotFoundException }
+import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
+import uk.gov.hmrc.play.config.ServicesConfig
 
 class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSuite {
 
@@ -111,7 +112,8 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
     }
   }
 
-  lazy val testAction = new AuthenticatedAction(mockGG, mockAuth)
+  lazy val testAction = new AuthenticatedAction(mockGG, mockAuth, mockServiceConfig, )
+  lazy val mockServiceConfig = mock[ServicesConfig]
   lazy val mockAuth = mock[BusinessRatesAuthorisation]
   lazy val mockGG = mock[GovernmentGatewayProvider]
 
