@@ -107,7 +107,7 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
   def enrolment(accounts: Accounts, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
     def handleError : PartialFunction[Throwable, Future[Result]] = {
       case _: InsufficientEnrolments =>
-        enrolments.enrolIndividual(accounts.person).flatMap {
+        enrolments.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap {
           case Success => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
           case Failure =>
             Logger.warn("")

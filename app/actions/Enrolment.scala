@@ -20,11 +20,12 @@ import javax.inject.Inject
 
 import config.WSHttp
 import connectors.{Addresses, VPLAuthConnector}
+import controllers.{EnrolmentPayload, KeyValuePair, PayLoad, Previous}
 import models.{Accounts, DetailedIndividualAccount, GroupAccount, PersonalDetails}
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
-
+import controllers.EnrolmentPayload._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -40,14 +41,11 @@ class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, 
 }
 
 class TaxEnrolmentConnector @Inject()(serviceConfig: ServicesConfig, wSHttp: WSHttp) {
-  implicit val keyValue = Json.format[KeyValuePair]
-  implicit val previous = Json.format[Previous]
-  implicit val format = Json.format[PayLoad]
 
   val baseUrl = serviceConfig.baseUrl("tax-enrolments")
 
-  def enrolMaybe(enrolmentPayload: EnrolmentPayload) = {
-    wSHttp.PUT(s"$baseUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment", enrolmentPayload)
+  def enrolMaybe(enrolmentPayload: EnrolmentPayload)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
+    wSHttp.PUT[EnrolmentPayload, HttpResponse](s"$baseUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment", enrolmentPayload)
   }
 
   def enrol(personId: Long, maybePostCode: Option[String], userId: String)(implicit hc: HeaderCarrier): Future[EnrolmentResult] = maybePostCode match {
@@ -67,13 +65,6 @@ class TaxEnrolmentConnector @Inject()(serviceConfig: ServicesConfig, wSHttp: WSH
       .recover{case _ : Throwable => Failure}
 
 }
-
-case class EnrolmentPayload(identifiers: List[KeyValuePair], verifiers: List[KeyValuePair])
-case class PayLoad(verifiers: Seq[KeyValuePair], legacy: Option[Previous] = None)
-
-case class KeyValuePair(key: String, value: String)
-
-case class Previous(previousVerifiers: List[KeyValuePair])
 
 sealed trait EnrolmentResult
 case object Success extends EnrolmentResult

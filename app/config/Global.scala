@@ -19,7 +19,7 @@ package config
 import java.time.{Clock, Instant, LocalDateTime, ZoneId}
 import javax.inject.{Inject, Provider}
 
-import auth.{GGAction, GGActionEnrolment, xxx}
+import auth.{GGAction, GGActionEnrolment, UnAuthAction}
 import com.builtamont.play.pdf.PdfGenerator
 import com.google.inject.AbstractModule
 import com.google.inject.binder.ScopedBindingBuilder
@@ -116,9 +116,9 @@ class GuiceModule(environment: Environment,
 
   val enrolment: ScopedBindingBuilder =
     if (configuration.getBoolean("featureFlag.enrolment").getOrElse(false)){
-      bind(classOf[xxx]).to(classOf[GGActionEnrolment])
+      bind(classOf[UnAuthAction]).to(classOf[GGActionEnrolment])
     } else {
-      bind(classOf[xxx]).to(classOf[GGAction])
+      bind(classOf[UnAuthAction]).to(classOf[GGAction])
     }
 }
 

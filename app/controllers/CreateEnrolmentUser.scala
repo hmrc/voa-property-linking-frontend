@@ -23,6 +23,7 @@ import models._
 import play.api.data.Form
 import play.api.mvc.Result
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
@@ -47,11 +48,11 @@ class CreateEnrolmentUser(
     }
   }
 
-  def showEnrolmentPageIndiv()
+  def showEnrolmentPageIndiv() = ???
 
   def submitOrg = gGAction.async(isSession = false) { ctx =>implicit request =>
         CreateGroupAccount.form.bindFromRequest().fold(
-          errors => ,
+          errors => BadRequest(views.html.createAccount.enrolment_org(errors, "", "")),
           success =>
             for {
             //Format: OFF
@@ -68,15 +69,15 @@ class CreateEnrolmentUser(
         )
   }
 
-  private def x(option: Option[DetailedIndividualAccount], addressId: Int) = option match {
-    case Some(x) => enrolmentService.enrol(x.individualId, addressId).map(_ => Redirect(routes.CreateEnrolmentUser.success()))
-    case None    => throw IllegalArgumentException
+  private def x(option: Option[DetailedIndividualAccount], addressId: Int)(implicit hc: HeaderCarrier) = option match {
+    case Some(x) => enrolmentService.enrol(x.individualId, addressId).map(_ => Ok("This was successful"))//Redirect(routes.CreateEnrolmentUser.success()))
+    case None    => throw new IllegalArgumentException
   }
 
-  private def isExist(groupId: String, groupExists: GroupAccount => Future[Int], noGroup: Future[Long]) = {
-    groupAccounts.withGroupId(groupId).map{
+  private def isExist(groupId: String, groupExists: GroupAccount => Future[Int], noGroup: Future[Long])(implicit hc: HeaderCarrier): Future[Long] = {
+    groupAccounts.withGroupId(groupId).flatMap{
       //Format: OFF
-      case Some(acc)  => groupExists(acc)
+      case Some(acc)  => groupExists(acc).map(_.toLong)
       case _          => noGroup
       //Format: ON
     }

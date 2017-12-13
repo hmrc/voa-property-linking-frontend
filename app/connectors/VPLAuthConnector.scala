@@ -37,28 +37,28 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
 
   override val serviceUrl: String = serverConfig.baseUrl("auth")
 
-  def getExternalId[A](ctx: A)(implicit hc: HeaderCarrier) = ctx match {
+  def getExternalId[A](ctx: A)(implicit hc: HeaderCarrier): Future[String] = ctx match {
     case x: AuthContext => getExternalId(x)
     case y: UserDetails => getExternalId(y)
   }
 
-  private def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier) = getIds[JsValue](ctx) map { r =>
+  private def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = getIds[JsValue](ctx) map { r =>
     (r \ "externalId").as[String]
   }
 
-  private def getExternalId(userDetails: UserDetails) =
+  private def getExternalId(userDetails: UserDetails): Future[String] =
     Future.successful(userDetails.externalId)
 
-  def getGroupId[A](ctx: A)(implicit hc: HeaderCarrier) = ctx match {
+  def getGroupId[A](ctx: A)(implicit hc: HeaderCarrier): Future[String] = ctx match {
     case x: AuthContext => getGroupId(x)
     case y: UserDetails => getGroupId(y)
   }
 
-  private def getGroupId(authContext: AuthContext)(implicit hc: HeaderCarrier) = getUserDetails[JsValue](authContext) map { r =>
+  private def getGroupId(authContext: AuthContext)(implicit hc: HeaderCarrier): Future[String] = getUserDetails[JsValue](authContext) map { r =>
     (r \ "groupIdentifier").as[String]
   }
 
-  private def getGroupId(userDetails: UserDetails) =
+  private def getGroupId(userDetails: UserDetails): Future[String] =
     Future.successful(userDetails.userInfo.groupIdentifier)
 
   def getUserId(implicit hc: HeaderCarrier): Future[String] =
@@ -71,7 +71,7 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
   private def getAuthority[A: Reads](implicit hc: HeaderCarrier) =
     http.GET[JsValue](s"$serviceUrl/auth/authority").map(_.as[A])
 
-  def userDetails[A](ctx: A): Future[UserDetails] = ctx match {
+  def userDetails[A](ctx: A)(implicit hc: HeaderCarrier): Future[UserDetails] = ctx match {
       case x: AuthContext => this.getUserDetails[UserDetails](x)
       case y: UserDetails => Future.successful(y)
     }

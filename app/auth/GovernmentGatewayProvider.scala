@@ -27,7 +27,9 @@ import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.frontend.auth.{Actions, AuthContext, GovernmentGateway}
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.auth.core.{AffinityGroup, InvalidBearerToken, NoActiveSession}
-
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.HeaderCarrierConverter
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class GGAction @Inject()(val provider: GovernmentGatewayProvider, val authConnector: AuthConnector) extends Actions with UnAuthAction {
@@ -98,6 +100,8 @@ object SessionHelpers {
 trait UnAuthAction {
   type x
 
+  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+
   def async(isSession: Boolean)(body: x => Request[AnyContent] => Future[Result]): Action[AnyContent]
 }
 
@@ -105,6 +109,7 @@ case class UserDetails(externalId: String, userInfo: UserInfo)
 
 case class UserInfo(firstName: String, lastName: String, email: String, postcode: String, groupIdentifier: String, affinityGroup: AffinityGroup)
 object UserDetails {
+  implicit val userInfo = Json.format[UserInfo]
   implicit val format = Json.format[UserDetails]
 }
 
