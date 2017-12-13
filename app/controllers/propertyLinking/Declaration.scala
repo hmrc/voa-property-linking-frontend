@@ -25,7 +25,7 @@ import connectors.fileUpload.{FileMetadata, FileUploadConnector}
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import form.Mappings._
-import models.NoEvidenceFlag
+import models._
 import play.api.data.{Form, FormError, Forms}
 import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
@@ -56,8 +56,8 @@ class Declaration @Inject()(config: ApplicationConfig,
     } else {
       form.bindFromRequest().value match {
         case Some(true) => noEvidenceFlag match {
-          case Some(true) => Redirect(routes.Declaration.noEvidence())
-          case _ => Redirect(routes.Declaration.confirmation())
+          case Some(true) => submitLinkingRequest(FileMetadata(NoEvidenceFlag, None)) map { _ => Redirect(routes.Declaration.noEvidence()) }
+          case _ => submitLinkingRequest(FileMetadata(RatesBillFlag, Some(FileInfo("stubbedFile", RatesBillType)))) map { _ => Redirect(routes.Declaration.confirmation()) }
         }
         case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
       }
