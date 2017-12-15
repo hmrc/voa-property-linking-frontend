@@ -17,6 +17,7 @@
 @(title: String,
         sidebarLinks: Option[Html] = None,
         contentHeaderText: Option[String] = None,
+        contentHeaderHidden: Boolean = false,
         contentHeader: Option[Html] = None,
         bodyClasses: Option[String] = None,
         mainClass: Option[String] = None,
@@ -52,7 +53,10 @@
 
 @contentHeaderTextAsHtml = @{
     contentHeaderText.map { headerText =>
-        Html(s"""<h1 class="heading-large">$headerText</h1>""")
+        val classes =
+          if(contentHeaderHidden) "visuallyhidden"
+          else "heading-large"
+        Html(s"""<h1 class="$classes">$headerText</h1>""")
     }
 }
 

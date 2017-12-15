@@ -26,6 +26,8 @@
     @main_template(
         title = heading,
         individualId = Some(request.personId),
+        contentHeaderText = Some(heading),
+        contentHeaderHidden = true,
         topNavigation = false
     ) {
 
@@ -93,7 +95,7 @@
                                 <tr>
                                     <th scope="col"><div class="searchfield"><label for="address-nonjs" class="visually-hidden">@Messages("manageProperties.table.1") </label><input name="address" value="@model.pagination.valueOfAddress" id="address-nonjs" size="10" class="ss-input"><button class="search-submit ss-button">Search for @Messages("manageProperties.table.1") </button></div></th>
                                     <th scope="col"><div class="searchfield"><label for="baref-nonjs" class="visually-hidden">@Messages("manageProperties.table.2")  </label><input name="baref"  value="@model.pagination.valueOfBaref" id="baref-nonjs" size="10" class="ss-input"><button class="search-submit ss-button">Search for @Messages("manageProperties.table.2") </button></div></th>
-                                    <th scope="col"><div class="searchfield">@propertyLinkingStatusDropdown(model.pagination.valueOfStatus)</div></th>
+                                    <th scope="col"><div class="searchfield">@propertyLinkingStatusDropdown(model.pagination.valueOfStatus,"status")</div></th>
                                     <th scope="col"><div class="searchfield"><label for="agent-nonjs" class="visually-hidden">@Messages("manageProperties.table.4")  </label><input name="agent"  value="@model.pagination.valueOfAgent" id="agent-nonjs" size="8" class="ss-input"><button class="search-submit ss-button">Search for @Messages("manageProperties.table.4") </button></div></th>
                                     <th scope="col"><a href="@routes.Dashboard.managePropertiesSearchSort().url" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
 

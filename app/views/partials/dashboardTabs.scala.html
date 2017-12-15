@@ -18,7 +18,6 @@
 @import config.ApplicationConfig.config._
 
 @(unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
-
 @welcomeLinks(unreadMessagesCount)
 
 <div class="clearfix section-tabs">
@@ -48,7 +47,7 @@
 @isAgent = @{ request.organisationAccount.isAgent }
 
 @tab(name: String, url: String, args: Any*) = {
-    <li @if(url == request.path) {class="active" role="heading" aria-level="1"} else { role="tab"}>
+    <li @if(url == request.path) {class="active" aria-level="1"} else { role="tab"}>
         <a href="@url">@Messages(s"dashboard.tab.$name", args:_*)</a>
     </li>
 }
