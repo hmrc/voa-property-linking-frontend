@@ -20,6 +20,7 @@ import javax.inject.Inject
 
 import config.ApplicationConfig
 import connectors.VPLAuthConnector
+import play.api.Logger
 import play.api.libs.json.{JsError, JsSuccess, Json}
 import play.api.mvc._
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -29,6 +30,7 @@ import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.auth.core.{AffinityGroup, InvalidBearerToken, NoActiveSession}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -45,7 +47,7 @@ class GGActionEnrolment @Inject()(val provider: GovernmentGatewayProvider, val a
   import SessionHelpers._
 
   type x = UserDetails
-//  def apply(body: UserDetails => Request[AnyContent] => Result) = ???
+
   def async(isSession: Boolean)(body: UserDetails => Request[AnyContent] => Future[Result]): Action[AnyContent] = Action.async { implicit request =>
     if(isSession) {
       vPLAuthConnector
@@ -68,7 +70,7 @@ object SessionHelpers {
 
     def getUserDetails: Option[UserDetails] = {
       (session.get("externalId"), session.get("firstName"), session.get("lastName"), session.get("email"), session.get("postcode"),  session.get("groupIdentifier"), session.get("affinityGroup")) match {
-        case (Some(externalId), Some(firstName), Some(lastName), Some(email), Some(postcode), Some(groupId), Some(affinityGroup)) =>
+        case (Some(externalId), firstName, lastName, Some(email), postcode, Some(groupId), Some(affinityGroup)) =>
           Json.parse(affinityGroup)
             .asOpt[AffinityGroup]
             .flatMap(aff => Some(UserDetails(externalId, UserInfo(firstName, lastName, email, postcode, groupId, aff))))
@@ -79,10 +81,10 @@ object SessionHelpers {
 
     def putUserDetails(userDetails: UserDetails) = {
       session
-        . +("firstName" -> userDetails.userInfo.firstName)
-        . +("lastName" -> userDetails.userInfo.lastName)
+        . +("firstName" -> userDetails.userInfo.firstName.getOrElse(""))
+        . +("lastName" -> userDetails.userInfo.lastName.getOrElse(""))
         . +("email" -> userDetails.userInfo.email)
-        . +("postcode" -> userDetails.userInfo.postcode)
+        . +("postcode" -> userDetails.userInfo.postcode.getOrElse(""))
         . +("affinityGroup" -> userDetails.userInfo.affinityGroup.toJson.toString)
     }
 
@@ -107,7 +109,12 @@ trait UnAuthAction {
 
 case class UserDetails(externalId: String, userInfo: UserInfo)
 
-case class UserInfo(firstName: String, lastName: String, email: String, postcode: String, groupIdentifier: String, affinityGroup: AffinityGroup)
+case class UserInfo(firstName: Option[String], lastName: Option[String], email: String, postcode: Option[String], groupIdentifier: String, affinityGroup: AffinityGroup)
+
+object UserInfo {
+  implicit val format = Json.format[UserInfo]
+}
+
 object UserDetails {
   implicit val userInfo = Json.format[UserInfo]
   implicit val format = Json.format[UserDetails]

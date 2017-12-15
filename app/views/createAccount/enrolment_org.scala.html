@@ -19,7 +19,7 @@
 @import controllers.CreateGroupAccountVM
 @import controllers.CreateGroupAccount.keys
 
-@(model: CreateGroupAccountVM, postcode: String, email: String)(implicit request: Request[_], messages: Messages)
+@(model: CreateGroupAccountVM, postcode: String = "", email: String = "")(implicit request: Request[_], messages: Messages)
 
 
 @main_template(title = Messages("createAccount.group.title"), topNavigation = false) {
@@ -49,7 +49,7 @@
 
         @includes.errorSummary(model.form, messagePrefix = Some("createAccount"))
 
-        @form(routes.CreateGroupAccount.submit) {
+        @form(routes.CreateEnrolmentUser.submitOrg) {
 
         @inputText(
         field = model.form(keys.companyName),

@@ -26,6 +26,7 @@ import play.api.mvc.Request
 import play.api.mvc.Results._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.hmrc.play.test.UnitSpec
 import utils.NoMetricsOneAppPerSuite
 
@@ -34,6 +35,8 @@ import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.config.ServicesConfig
 
 class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSuite {
+
+  override val additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.enrolment" -> "false")
 
   "AuthenticatedAction" should {
     "invoke the wrapped action when the user is logged in to CCA" in {
@@ -112,7 +115,10 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
     }
   }
 
-  lazy val testAction = new AuthenticatedAction(mockGG, mockAuth, mockServiceConfig, )
+  lazy val testAction = new AuthenticatedAction(mockGG, mockAuth, mockEnrolmentService, mockAddresses, mockAuthConnector)
+  lazy val mockAuthConnector = mock[AuthConnector]
+  lazy val mockAddresses = mock[Addresses]
+  lazy val mockEnrolmentService = mock[EnrolmentService]
   lazy val mockServiceConfig = mock[ServicesConfig]
   lazy val mockAuth = mock[BusinessRatesAuthorisation]
   lazy val mockGG = mock[GovernmentGatewayProvider]

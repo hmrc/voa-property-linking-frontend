@@ -21,8 +21,9 @@ import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSes
 
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.config.ServicesConfig
 
-object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation) {
+object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation, null, null, null) { //TODO mock these things
   def stubAuthenticationResult(result: AuthorisationResult) = {
     StubBusinessRatesAuthorisation.authorisationResult = result
   }

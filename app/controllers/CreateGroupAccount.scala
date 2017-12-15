@@ -18,7 +18,7 @@ package controllers
 
 import javax.inject.{Inject, Named}
 
-import auth.GGAction
+import auth.{GGAction, UnAuthAction}
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector, IdentityVerification => IDV}
 import form.Mappings._
 import form.TextMatching
@@ -35,7 +35,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class CreateGroupAccount @Inject()(groups: GroupAccounts,
                                    auth: VPLAuthConnector,
-                                   ggAction: GGAction,
+                                   ggAction: UnAuthAction,
                                    identityVerification: IDV,
                                    addresses: Addresses,
                                    @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)

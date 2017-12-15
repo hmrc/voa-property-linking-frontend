@@ -16,41 +16,73 @@
 
 package controllers
 
-import actions.EnrolmentService
-import auth.GGAction
+import javax.inject.Inject
+
+import actions.{AuthenticatedAction, EnrolmentService, Failure, Success}
+import auth.{GGAction, UnAuthAction, UserDetails}
+import config.Global
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import models._
 import play.api.data.Form
-import play.api.mvc.Result
+import play.api.mvc.{AnyContent, Request, Result}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class CreateEnrolmentUser(
-                         gGAction: GGAction,
+//Importing cats for monad transformers
+import cats._
+import cats.data._
+import cats.implicits._
+
+class CreateEnrolmentUser @Inject()(
+                         gGAction: UnAuthAction,
                          groupAccounts: GroupAccounts,
                          individualAccounts: IndividualAccounts,
                          enrolmentService: EnrolmentService,
                          auth: VPLAuthConnector,
-                         addresses: Addresses
+                         addresses: Addresses,
+                         authenticatedAction: AuthenticatedAction
                          ) extends PropertyLinkingController {
 
-
-  def showEnrolmentPage() = gGAction.async(isSession = true) { ctx =>implicit request =>
-    auth.userDetails(ctx).map{ x =>
+  def show() = gGAction.async(isSession = true) { ctx =>implicit request =>
+    auth.userDetails(ctx).flatMap{ x =>
       x.userInfo.affinityGroup match {
         case Individual =>
-          Ok("TO COME")
+          Future.successful(Ok(views.html.createAccount.enrolment_org(CreateGroupAccount.form)))
         case Organisation =>
-          Ok(views.html.createAccount.enrolment_org(CreateGroupAccount.form, x.userInfo.postcode, x.userInfo.email))
+          (for {
+            groupId     <- OptionT.liftF(auth.getGroupId(ctx))
+            acc         <- OptionT(groupAccounts.withGroupId(groupId))
+            address    <- OptionT(addresses.findById(acc.addressId))
+          } yield Ok(views.html.createAccount.enrolment_org(CreateGroupAccount.form, address.postcode, acc.email)))
+            .value
+            .map{
+            case Some(x)  => x
+            case None     => Ok(views.html.createAccount.enrolment_org(CreateGroupAccount.form))
+          }
       }
     }
   }
 
-  def showEnrolmentPageIndiv() = ???
+  def submitIndiv = gGAction.async(isSession = false){ ctx => implicit request =>
+    CreateGroupAccount.form.bindFromRequest().fold(
+      errors => BadRequest(views.html.createAccount.enrolment_org(errors, "", "")),
+      success =>
+        for {
+          user <- auth.getUserDetails
+          groupId <- auth.getGroupId(ctx)
+          id      <- addresses.registerAddress(success)
+          individual   =  IndividualAccountSubmission(user.externalId, "NONIV", None, IndividualDetails(user.userInfo.firstName.getOrElse(""), user.userInfo.lastName.getOrElse(""), user.userInfo.email, success.phone, None, id))
+          _           <-  groupAccounts.create(groupId, id, success, individual)
+          personId    <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
+          res         <- resultMapper(personId, id)
+        } yield res
+    )
+  }
 
-  def submitOrg = gGAction.async(isSession = false) { ctx =>implicit request =>
+
+  def submitOrg() = gGAction.async(isSession = false) { ctx => implicit request =>
         CreateGroupAccount.form.bindFromRequest().fold(
           errors => BadRequest(views.html.createAccount.enrolment_org(errors, "", "")),
           success =>
@@ -58,23 +90,35 @@ class CreateEnrolmentUser(
             //Format: OFF
               user        <- auth.userDetails(ctx)
               groupId     <- auth.getGroupId(ctx)
-              externalId  <- auth.getExternalId(ctx)
               id          <- addresses.registerAddress(success)
-              individual   =  IndividualAccountSubmission(externalId, "NONIV", None, IndividualDetails(user.userInfo.firstName, user.userInfo.lastName, user.userInfo.email, success.phone, None, id))
-              _           <- isExist(groupId, acc => individualAccounts.create(individual), groupAccounts.create(groupId, id, success, individual))
-              personId    <- individualAccounts.withExternalId(externalId)
-              res         <- x(personId, id)
+              individual   =  IndividualAccountSubmission(user.externalId, "NONIV", None, IndividualDetails(user.userInfo.firstName.getOrElse(""), user.userInfo.lastName.getOrElse(""), user.userInfo.email, success.phone, None, id))
+              _           <- groupExists(groupId, acc => individualAccounts.create(createIndividualAccountSubmission(user, success.phone)(acc)), groupAccounts.create(groupId, id, success, individual)) //If the user create can return the peresonId back we can shorten this function.
+              personId    <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
+              res         <- resultMapper(personId, id)
             //Format: ON
             } yield res
         )
   }
 
-  private def x(option: Option[DetailedIndividualAccount], addressId: Int)(implicit hc: HeaderCarrier) = option match {
-    case Some(x) => enrolmentService.enrol(x.individualId, addressId).map(_ => Ok("This was successful"))//Redirect(routes.CreateEnrolmentUser.success()))
-    case None    => throw new IllegalArgumentException
+  private def resultMapper(
+                            option: Option[DetailedIndividualAccount],
+                            addressId: Int)(implicit hc: HeaderCarrier, request: Request[AnyContent]): Future[Result] = option match {
+    case Some(x) => enrolmentService.enrol(x.individualId, addressId).map{
+      case Success => Redirect(routes.CreateEnrolmentUser.success(x.individualId))
+      case Failure => InternalServerError(Global.internalServerErrorTemplate)
+    }
+    case None    => Future.successful(InternalServerError(Global.internalServerErrorTemplate))
   }
 
-  private def isExist(groupId: String, groupExists: GroupAccount => Future[Int], noGroup: Future[Long])(implicit hc: HeaderCarrier): Future[Long] = {
+  def success(personId: Long) = authenticatedAction { implicit request =>
+    Ok(views.html.createAccount.confirmation_enrolment(personId))// Add Page
+  }
+
+  private def createIndividualAccountSubmission(userDetails: UserDetails, phoneNumber: String)(groupAccount: GroupAccount) = {
+    IndividualAccountSubmission(userDetails.externalId, "NONIV", Some(groupAccount.id), IndividualDetails(userDetails.userInfo.firstName.getOrElse(""), userDetails.userInfo.lastName.getOrElse(""), userDetails.userInfo.email, phoneNumber, None, groupAccount.addressId))
+  }
+
+  private def groupExists(groupId: String, groupExists: GroupAccount => Future[Int], noGroup: Future[Long])(implicit hc: HeaderCarrier): Future[Long] = {
     groupAccounts.withGroupId(groupId).flatMap{
       //Format: OFF
       case Some(acc)  => groupExists(acc).map(_.toLong)
@@ -82,9 +126,6 @@ class CreateEnrolmentUser(
       //Format: ON
     }
   }
-
-  def submitIndiv = ???
-
 
   implicit def vm(form: Form[_]): CreateGroupAccountVM = CreateGroupAccountVM(form)
 }

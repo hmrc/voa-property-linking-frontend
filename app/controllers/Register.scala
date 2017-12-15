@@ -16,13 +16,14 @@
 
 package controllers
 
-import auth.GGAction
+import auth.{GGAction, UnAuthAction}
 import javax.inject.Inject
+
 import config.ApplicationConfig
 import play.api.mvc.Action
 import uk.gov.hmrc.play.config.ServicesConfig
 
-class Register @Inject()(config: ApplicationConfig, ggAction: GGAction) extends PropertyLinkingController with ServicesConfig {
+class Register @Inject()(config: ApplicationConfig, ggAction: UnAuthAction) extends PropertyLinkingController with ServicesConfig {
 
   def show = Action { implicit request =>
     Redirect(
@@ -31,7 +32,7 @@ class Register @Inject()(config: ApplicationConfig, ggAction: GGAction) extends 
     )
   }
 
-  def confirm = ggAction { _ => implicit request =>
+  def confirm = ggAction.async(true) { _ => implicit request =>
     Ok(views.html.ggRegistration())
   }
 }

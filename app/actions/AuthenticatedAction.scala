@@ -41,10 +41,9 @@ import uk.gov.hmrc.play.frontend.auth.connectors.domain.Authority
 
 class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
                                     businessRatesAuthorisation: BusinessRatesAuthorisation,
-                                    servicesConfig: ServicesConfig,
                                     enrolments: EnrolmentService,
                                     addressesConnector: Addresses,
-                                    val authConnector: AuthConnector) extends AuthorisedFunctions {
+                                    val authConnector: AuthConnector) extends AuthorisedFunctions with ServicesConfig{
 
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
@@ -97,9 +96,19 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
     result match {
       case Authenticated(accounts) => enrolment(accounts, body)
       case InvalidGGSession => provider.redirectToLogin
-      case NoVOARecord => Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
+      case NoVOARecord => // once enrolment enabled we need to do this with the nonOrganisationAcction| NonOrganisationAccount =>
+        if(getBoolean("featureFlags.enrolment") ){
+          Future.successful(Redirect(controllers.routes.CreateEnrolmentUser.show()))
+        } else {
+          Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
+        }
       case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
-      case NonOrganisationAccount => Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
+      case NonOrganisationAccount =>
+        if(getBoolean("featureFlags.enrolment") ){
+          Future.successful(Redirect(controllers.routes.CreateEnrolmentUser.show()))
+        } else {
+          Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
+        }
       case ForbiddenResponse => Future.successful(Forbidden(views.html.errors.forbidden()))
     }
   }
@@ -110,16 +119,17 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
         enrolments.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap {
           case Success => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
           case Failure =>
-            Logger.warn("")
+            Logger.warn("this did not work")
             body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request)) // TODO maybe do something else.
-        }.recover{case _ : Throwable => Redirect(controllers.routes.CreateIndividualAccount.show())}
+        }
       case _: NoActiveSession => provider.redirectToLogin
       case otherException =>
         Logger.debug(s"expection thrown on authorization with message : ${otherException.getMessage}")
         throw otherException
     }
-    if (servicesConfig.getConfBool("featureFlag.enrolment", true)){
+    if (getBoolean("featureFlags.enrolment")){
       val retrieve = Retrievals.email and Retrievals.postCode and Retrievals.groupIdentifier
+      Logger.debug("using this stuff")
       authorised(AuthProviders(AuthProvider.GovernmentGateway) and Enrolment("HMRC-VOA-CCA")).retrieve(retrieve) {
         case email ~ postcode ~ groupId => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
       }.recoverWith(handleError)

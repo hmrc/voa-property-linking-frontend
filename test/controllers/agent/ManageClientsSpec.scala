@@ -34,7 +34,7 @@ import scala.collection.JavaConverters._
 class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout
   with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with NoMetricsOneAppPerSuite {
 
-  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false")
+  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false", "featureFlags.enrolment" -> "false")
 
   val token = "Csrf-Token" -> "nocheck"
 

@@ -30,13 +30,13 @@ object StubAuthConnector extends VPLAuthConnector(StubServicesConfig, StubHttp) 
     externalId = Some(id)
   }
 
-  override def getExternalId(ctx: AuthContext)(implicit hc: HeaderCarrier): Future[String] = Future.successful(externalId.getOrElse(throw new Exception("External id not stubbed")))
+  override def getExternalId[A](ctx: A)(implicit hc: HeaderCarrier): Future[String] = Future.successful(externalId.getOrElse(throw new Exception("External id not stubbed")))
 
   def stubGroupId(groupId: String) = {
     this.groupId = Some(groupId)
   }
 
-  override def getGroupId(authContext: AuthContext)(implicit hc: HeaderCarrier) = Future.successful {
+  override def getGroupId[A](authContext: A)(implicit hc: HeaderCarrier) = Future.successful {
     groupId.getOrElse(throw new Exception("Group id not stubbed"))
   }
 

@@ -19,6 +19,7 @@ package config
 import java.time.{Clock, Instant, LocalDateTime, ZoneId}
 import javax.inject.{Inject, Provider}
 
+import actions.TaxEnrolmentConnector
 import auth.{GGAction, GGActionEnrolment, UnAuthAction}
 import com.builtamont.play.pdf.PdfGenerator
 import com.google.inject.AbstractModule
@@ -37,14 +38,19 @@ import reactivemongo.api.DB
 import repositories.{AgentAppointmentSessionRepository, PersonalDetailsSessionRepository, PropertyLinkingSessionRepository, SessionRepo}
 import uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
-import uk.gov.hmrc.play.config.{AppName, ControllerConfig}
+import uk.gov.hmrc.play.config.{AppName, ControllerConfig, ServicesConfig}
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
 import config.WSHttp
-import uk.gov.hmrc.http.HeaderNames
+import uk.gov.hmrc.auth.core.PlayAuthConnector
+import uk.gov.hmrc.auth.core.authorise.Predicate
+import uk.gov.hmrc.auth.core.retrieve.Retrieval
+import uk.gov.hmrc.http.{CorePost, HeaderCarrier, HeaderNames}
 import uk.gov.hmrc.play.frontend.auth.AuthContext
 import uk.gov.hmrc.play.frontend.config.LoadAuditingConfig
 import uk.gov.hmrc.play.frontend.filters.{FrontendAuditFilter, FrontendLoggingFilter, MicroserviceFilterSupport, RecoveryFilter}
+
+import scala.concurrent.{ExecutionContext, Future}
 
 object Global extends VPLFrontendGlobal
 
@@ -101,25 +107,31 @@ object ControllerConfiguration extends ControllerConfig {
 class GuiceModule(environment: Environment,
                   configuration: Configuration) extends AbstractModule {
   def configure() = {
+    val enrolment: ScopedBindingBuilder = {
+      if (configuration.getBoolean("featureFlags.enrolment").getOrElse(false)) {
+        bind(classOf[UnAuthAction]).to(classOf[GGActionEnrolment])
+      } else {
+        bind(classOf[UnAuthAction]).to(classOf[GGAction])
+      }
+    }
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
+//    bind(classOf[TaxEnrolmentConnector]).to(classOf[TaxEnrolmentConnector]).asEagerSingleton()
+    enrolment
     bind(classOf[Clock]).toInstance(Clock.systemUTC())
+    bind(classOf[uk.gov.hmrc.auth.core.AuthConnector]).to(classOf[AuthConnectorImpl])
     bind(classOf[AuthConnector]).to(classOf[VPLAuthConnector])
     bind(classOf[CircuitBreakerConfig]).toProvider(classOf[CircuitBreakerConfigProvider]).asEagerSingleton()
     bind(classOf[PdfGenerator]).toInstance(new PdfGenerator(environment))
-    enrolment
   }
 
+}
 
-  val enrolment: ScopedBindingBuilder =
-    if (configuration.getBoolean("featureFlag.enrolment").getOrElse(false)){
-      bind(classOf[UnAuthAction]).to(classOf[GGActionEnrolment])
-    } else {
-      bind(classOf[UnAuthAction]).to(classOf[GGAction])
-    }
+class AuthConnectorImpl @Inject()(val http: WSHttp) extends PlayAuthConnector with ServicesConfig {
+  override val serviceUrl: String = baseUrl("auth")
 }
 
 class MongoDbProvider @Inject() (reactiveMongoComponent: ReactiveMongoComponent) extends Provider[DB] {

@@ -20,49 +20,44 @@ import javax.inject.Inject
 
 import config.WSHttp
 import connectors.{Addresses, VPLAuthConnector}
-import controllers.{EnrolmentPayload, KeyValuePair, PayLoad, Previous}
-import models.{Accounts, DetailedIndividualAccount, GroupAccount, PersonalDetails}
-import play.api.libs.json.{Json, OFormat}
+import controllers.EnrolmentPayload._
+import controllers.{EnrolmentPayload, KeyValuePair}
+import models.Address
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
-import controllers.EnrolmentPayload._
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, auth: VPLAuthConnector, addresses: Addresses) {
 
   def enrol(personId: Long, addressId: Int)(implicit hc: HeaderCarrier): Future[EnrolmentResult] = {
-    for {
+    (for {
       optPostCode <- addresses.findById(addressId)
+      y      <- x(optPostCode)
       userId <- auth.getUserId
-      result <- taxEnrolmentsConnector.enrol(personId, optPostCode.map(_.postcode), userId)
-    } yield result
+      _ <- taxEnrolmentsConnector.enrol(personId, y.postcode, userId)
+    } yield Success)
+      .recover{
+        case _: Throwable => Failure
+      }
   } //Test what happens on NONE.
+
+  def x(opt: Option[Address]): Future[Address] = opt match {
+    case None => Future.failed(throw new IllegalArgumentException())
+    case Some(x) => Future.successful(x)
+  }
 }
 
-class TaxEnrolmentConnector @Inject()(serviceConfig: ServicesConfig, wSHttp: WSHttp) {
+class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
 
-  val baseUrl = serviceConfig.baseUrl("tax-enrolments")
+  val serviceUrl = baseUrl("tax-enrolments")
 
-  def enrolMaybe(enrolmentPayload: EnrolmentPayload)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
-    wSHttp.PUT[EnrolmentPayload, HttpResponse](s"$baseUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment", enrolmentPayload)
-  }
+  private def enrolMaybe(enrolmentPayload: EnrolmentPayload)(implicit hc: HeaderCarrier): Future[HttpResponse] =
+    wSHttp.PUT[EnrolmentPayload, HttpResponse](s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment", enrolmentPayload)
 
-  def enrol(personId: Long, maybePostCode: Option[String], userId: String)(implicit hc: HeaderCarrier): Future[EnrolmentResult] = maybePostCode match {
-    case Some(x) =>
-      wSHttp
-      .PUT[PayLoad, HttpResponse](s"$baseUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~PersonID~$personId", PayLoad(List(KeyValuePair("BusPostcode", x)))).flatMap{
-      case HttpResponse(201, _, _, _) => assign(personId, userId)
-      case _ => Future.successful(Failure)
-    }
-    case None => Future.successful(Failure)
-  }
-
-  private def assign(personId: Long, userId: String)(implicit hc: HeaderCarrier): Future[EnrolmentResult] =
-    wSHttp
-      .POSTEmpty[HttpResponse](s"$baseUrl /tax-enrolments/users/$userId/enrolments/HMRC-VOA-CCA~PersonID~$personId")
-      .map(_ => Success)
-      .recover{case _ : Throwable => Failure}
+  def enrol(personId: Long, postcode: String, userId: String)(implicit hc: HeaderCarrier): Future[HttpResponse] =
+    enrolMaybe(EnrolmentPayload(identifiers = List(KeyValuePair("PersonID", personId.toString)), verifiers = List(KeyValuePair("BusPostcode", postcode))))
 
 }
 

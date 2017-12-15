@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 import config.WSHttp
 import controllers.GroupAccountDetails
-import models.Address
+import models.{Address, GroupAccount}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.play.config.inject.ServicesConfig

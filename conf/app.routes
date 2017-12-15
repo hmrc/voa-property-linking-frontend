@@ -120,5 +120,10 @@ GET         /lookup                                                             
 #Downtime page
 GET         /planned-improvements                                                             @controllers.DowntimePage.plannedImprovements
 
+#Enrolment page
+GET         /create                                                                           @controllers.CreateEnrolmentUser.show()
+POST        /create                                                                           @controllers.CreateEnrolmentUser.submitOrg()
+GET         /create-sucess                                                                    @controllers.CreateEnrolmentUser.success(personId: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                                     @controllers.Assets.at(path="/public", file)

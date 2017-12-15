@@ -18,10 +18,11 @@ package connectors
 
 import javax.inject.Inject
 
-import auth.UserDetails
+import auth.{UserDetails, UserInfo}
 import config.WSHttp
+import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.{JsValue, Json, Reads}
+import play.api.libs.json.{JsValue, Json, OFormat, Reads}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.AuthContext
@@ -33,7 +34,9 @@ import scala.concurrent.Future
 
 class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp) extends AuthConnector {
   implicit val format = Json.format[CredId]
+  implicit val userInfo: OFormat[UserInfo] = Json.format[UserInfo]
   implicit val userDetailsLink = Json.format[UserDetailsLink]
+  implicit val externalIdFormat = Json.format[ExternalId]
 
   override val serviceUrl: String = serverConfig.baseUrl("auth")
 
@@ -66,13 +69,26 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
 
   def getUserDetails(implicit hc: HeaderCarrier): Future[UserDetails] =
     getAuthority[UserDetailsLink]
-      .flatMap(x => http.GET[UserDetails](x.userDetailsLink))
+      .flatMap{x =>
+        for {
+          id          <- http.GET[ExternalId](s"$serviceUrl${x.ids}")
+          userInfo    <- http.GET[UserInfo](x.userDetailsLink)
+        } yield UserDetails(id.externalId, userInfo)
+      }
 
   private def getAuthority[A: Reads](implicit hc: HeaderCarrier) =
     http.GET[JsValue](s"$serviceUrl/auth/authority").map(_.as[A])
 
   def userDetails[A](ctx: A)(implicit hc: HeaderCarrier): Future[UserDetails] = ctx match {
-      case x: AuthContext => this.getUserDetails[UserDetails](x)
+      case x: AuthContext =>
+        for {
+          ids       <- this.getIds[ExternalId](x)
+          userInfo  <- this.getUserDetails[JsValue](x)
+          _         =  Logger.debug(Json.prettyPrint(userInfo) + " this is here")
+          x         <- this.getUserDetails[UserInfo](x)
+        } yield {
+          UserDetails(ids.externalId, x)
+        }
       case y: UserDetails => Future.successful(y)
     }
 
@@ -80,4 +96,6 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
 
 case class CredId(credId: String)
 
-case class UserDetailsLink(userDetailsLink: String)
+case class ExternalId(externalId: String)
+
+case class UserDetailsLink(userDetailsLink: String, ids: String)
