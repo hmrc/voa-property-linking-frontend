@@ -21,8 +21,12 @@
 @(results: MessageSearchResults, pagination: MessagePagination,
         unreadCount: Int, numberOfPages: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
+@heading = @{ Messages("messages.title") }
+
 @main_template(
-    Messages("messages.title"),
+    heading,
+    contentHeaderText = Some(heading),
+    contentHeaderHidden = true,
     topNavigation = false
 ) {
 

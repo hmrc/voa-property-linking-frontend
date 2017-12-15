@@ -26,6 +26,8 @@
 @main_template(
     title = Messages("draftCases.title"),
     individualId = Some(request.personId),
+    contentHeaderText = Some(Messages(s"dashboard.tab.drafts")),
+    contentHeaderHidden = true,
     topNavigation = false
 ) {
 

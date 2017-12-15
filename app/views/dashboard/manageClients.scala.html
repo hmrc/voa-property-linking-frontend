@@ -19,8 +19,12 @@
 
 @(model: ManagePropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
+@heading = @{ Messages("agent.dashboard.manageClients.title") }
+
 @main_template(
-    Messages("agent.dashboard.manageClients.title"),
+    heading,
+    contentHeaderText = Some(heading),
+    contentHeaderHidden = true,
     topNavigation = false
 ) {
 

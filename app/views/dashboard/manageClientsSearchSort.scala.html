@@ -19,14 +19,18 @@
 
 @(model: controllers.agent.ManageClientPropertiesSearchAndSortVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
+@heading = @{ Messages("agent.dashboard.manageClients.title") }
+
 @main_template(
-    Messages("agent.dashboard.manageClients.title"),
+    heading,
+    contentHeaderText = Some(heading),
+    contentHeaderHidden = true,
     topNavigation = false
 ) {
 
     @partials.dashboardTabs(unreadMessageCount)
 
-    <h2 class="heading-secondary">
+    <div class="heading-secondary">
         @if(model.totalPendingRequests == 0) {
             @Messages("manageClients.nonePending")
         } else {
@@ -39,7 +43,7 @@
             </p>
         </div>
         }
-    </h2>
+    </div>
 
     @if(model.result.authorisations.isEmpty && model.pagination.valuesOfSearchParameters == "") {
         <h2 class="heading-secondary">@Messages("agent.dashboard.manageClients.noClients")</h2>
@@ -48,7 +52,7 @@
         @jsManageClientsSearchSort(model)
 
         <noscript>
-
+          <form method="GET" action="@agent.routes.RepresentationController.viewClientPropertiesSearchSort()">
             <div class="table-wrapper">
                 <table class="dataTable table-font-xsmall margin-bottom-20 margin-top-20" id="nojsManageClients">
                     <caption class="visuallyhidden">
@@ -56,56 +60,54 @@
                     </caption>
                     <thead>
 
-                        <tr role="row">
-                            <th scope="col" >
+                        <tr>
+                            <th>
                                 @if(model.pagination.valueOfSortfield == "address") {
                                     <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
                                 } else {
                                     <div class="sorting" >
                                 }
-                                    <a id="sort-by-address-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("address"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.1")</a>
+                                    <a id="sort-by-address-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("address-no-js"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.1")</a>
                                     </div>
                             </th>
-                            <th scope="col" >
+                            <th>
                                 @if(model.pagination.valueOfSortfield == "baref") {
                                     <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
                                 } else {
                                     <div class="sorting" >
                                 }
-                                    <a id="sort-by-baref-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("baref"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.2")</a>
+                                    <a id="sort-by-baref-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("baref-no-js"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.2")</a>
                                     </div>
                             </th>
-                            <th scope="col">
+                            <th>
                                 @if(model.pagination.valueOfSortfield == "status") {
                                     <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
                                 } else {
                                     <div class="sorting" >
                                 }
-                                    <a id="sort-by-status-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("status"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.3")</a>
+                                    <a id="sort-by-status-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("status-no-js"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.3")</a>
                                     </div>
                             </th>
-                            <th scope="col">
+                            <th>
                                 @if(model.pagination.valueOfSortfield == "client") {
                                     <div class="sorting_@model.pagination.valueOfSortorder.toLowerCase" >
                                 } else {
                                     <div class="sorting" >
                                 }
-                                    <a id="sort-by-client-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("client"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.4")</a>
+                                    <a id="sort-by-client-no-js" href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort(model.pagination.pageNumber, model.pagination.pageSize, model.pagination.requestTotalRowCount, Some("client-no-js"),  model.pagination.reverseSortOrder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.client).url">@Messages("managePropertiesSearchSort.table.4")</a>
                                     </div>
                             </th>
-                            <th scope="col">
+                            <th>
                                 <div>@Messages("managePropertiesSearchSort.table.5")</div>
                             </th>
                         </tr>
-                        <form method="GET" action="@agent.routes.RepresentationController.viewClientPropertiesSearchSort()">
-                            <tr>
-                                <th scope="col"><div class="searchfield"><label for="address" class="visually-hidden">@Messages("managePropertiesSearchSort.table.1") </label><input name="address" value="@model.pagination.valueOfAddress" id="address" size="10" class="ss-input"><button id="addressBtn" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.1") </button></div></th>
-                                <th scope="col"><div class="searchfield"><label for="baref" class="visually-hidden">@Messages("managePropertiesSearchSort.table.2")  </label><input name="baref"  value="@model.pagination.valueOfBaref" id="baref" size="10" class="ss-input"><button id="barefBtn" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.2") </button></div></th>
-                                <th scope="col"><div class="searchfield">@propertyLinkingStatusDropdown(model.pagination.valueOfStatus)</div></th>
-                                <th scope="col"><div class="searchfield"><label for="client" class="visually-hidden">@Messages("managePropertiesSearchSort.table.4") </label><input name="client"  id="client" value="@model.pagination.valueOfClient" size="8" class="ss-input"><button id="clientBtn" type="submit" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.4")</button></div></th>
-                                <th scope="col"><a href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort().url" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
-                            </tr>
-                        </form>
+                        <tr>
+                            <th><div class="searchfield"><label for="address-no-js" class="visually-hidden">@Messages("managePropertiesSearchSort.table.1") </label><input name="address" value="@model.pagination.valueOfAddress" id="address-no-js" size="10" class="ss-input"><button id="addressBtn-no-js" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.1") </button></div></th>
+                            <th><div class="searchfield"><label for="baref-no-js" class="visually-hidden">@Messages("managePropertiesSearchSort.table.2")  </label><input name="baref"  value="@model.pagination.valueOfBaref" id="baref-no-js" size="10" class="ss-input"><button id="barefBtn-no-js" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.2") </button></div></th>
+                            <th><div class="searchfield">@propertyLinkingStatusDropdown(model.pagination.valueOfStatus,"status-no-js")</div></th>
+                            <th><div class="searchfield"><label for="client-no-js" class="visually-hidden">@Messages("managePropertiesSearchSort.table.4") </label><input name="client"  id="client-no-js" value="@model.pagination.valueOfClient" size="8" class="ss-input"><button id="clientBtn-no-js" type="submit" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.4")</button></div></th>
+                            <th><a href="@agent.routes.RepresentationController.viewClientPropertiesSearchSort().url" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
+                        </tr>
                     </thead>
                     <tbody>
 
@@ -177,7 +179,7 @@
                     </tbody>
                 </table>
             </div>
-
+          </form>
             <div>
                 <div class="pull-left">
                     Showing
@@ -186,7 +188,7 @@
                         }else{
                             @model.pagination.startPoint
                         }
-                        to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults</p>
+                        to @{model.pagination.totalResults.min(model.pagination.startPoint + model.pagination.pageSize - 1)} of @model.pagination.totalResults
                 </div>
                 <div role="navigation" aria-label="Pagination" class="pull-right">
                     <ul class="pagination">

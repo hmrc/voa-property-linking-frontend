@@ -18,8 +18,12 @@
 
 @(model: ManageAgentsVM, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
+@heading = @{ Messages("dashboard.manageAgents.title") }
+
 @main_template(
-    Messages("dashboard.manageAgents.title"),
+    heading,
+    contentHeaderText = Some(heading),
+    contentHeaderHidden = true,
     topNavigation = false
 ) {
     @partials.dashboardTabs(unreadMessagesCount)

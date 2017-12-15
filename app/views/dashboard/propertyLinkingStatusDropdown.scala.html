@@ -14,14 +14,14 @@
  * limitations under the License.
  *@
 
-@(valueOfStatus: String)(implicit  messages: Messages)
-<label for="status" class="visually-hidden">@Messages("manageProperties.table.3") </label>
-<select id="status" name="status" class="ss-dropdown">
+@(valueOfStatus: String, id:String)(implicit  messages: Messages)
+<label for="@id" class="visually-hidden">@Messages("manageProperties.table.3") </label>
+<select id="@id" name="status" class="ss-dropdown">
     <option class="blank" value="">All</option>
     @for(status <- PropertyLinkingStatus.all) {
         <option value="@status.name" @if(valueOfStatus == status.name) { selected }>
         @Messages(status.msgKey)
         </option>
     }
-</select><button id="statusBtn" class="search-submit ss-dropdown-button">Search for @Messages("manageProperties.table.3")</button>
+</select><button id="@{id}Btn" class="search-submit ss-dropdown-button">Search for @Messages("manageProperties.table.3")</button>
 
