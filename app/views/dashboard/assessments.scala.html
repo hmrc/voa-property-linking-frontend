@@ -78,7 +78,8 @@
                                 <li>
                                     <a href="@routes.Assessments.viewSummary(assessment.uarn)">
                                         @Messages("assessments.view.summary")
-                                        <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{
+                                        <span class="visuallyhidden">
+                                            for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{
                                             assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
                                         }</span>
                                     </a>
@@ -86,7 +87,8 @@
                             } else {
                                 <li><a href="@routes.Assessments.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference)">
                                     @Messages("assessments.view.valuation")
-                                    <span class="visuallyhidden">for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{
+                                    <span class="visuallyhidden">
+                                        for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{
                                         assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
                                     }</span>
                                 </a></li>
@@ -99,9 +101,10 @@
         </table>
     </div>
 
-    <div id="my-rv-is-na">
+    @if(!model.assessments.takeWhile(assessment => !assessment.rateableValue.isDefined).isEmpty) { <div id="my-rv-is-na">
         <p>@Messages("rv.na.p.1")</p>
         <p>@Messages("rv.na.p.2")</p>
         <p>@Messages("rv.na.p.3")</p>
-    </div>
+    </div> }
+
 }

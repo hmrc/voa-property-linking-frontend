@@ -304,9 +304,9 @@ assessments.view.summary=View summary valuation
 
 label.help=Help with {0}
 rv.na=Rateable value is N/A
-rv.na.p.1=If the rateable value for your property is showing ‘N/A’, this property has been removed from the rating list. This could be because it has a new address, the description has changed or it has been split or merged with another property.
-rv.na.p.2=If you want to view the detailed valuation or check or challenge this property you will need to find the new entry and claim it as the owner and/or occupier.
-rv.na.p.3=If you are looking to view the detailed valuation for the previous entry, you should contact the VOA on 03000 501 501 or email ccaservice@voa.gsi.gov.uk.
+rv.na.p.1=This property has been removed from the rating list. This could be because it has a new address, the description has changed or it has been split or merged with another property.
+rv.na.p.2=If you want to view the detailed valuation or check or challenge this property, you’ll need to claim the new entry. You should only claim the property if you are eligible to do so as the owner or occupier for the period of time that the new entry relates to. 
+rv.na.p.3=If you are looking to view the detailed valuation or check or challenge the previous entry, you should contact the VOA on 03000 501 501 or by emailing ccaservice@voa.gsi.gov.uk.
 
 #DASHBOARD DRAFT CASES
 draftCases.title=Draft cases
