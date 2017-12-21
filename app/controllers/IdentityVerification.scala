@@ -18,7 +18,7 @@ package controllers
 
 import javax.inject.{Inject, Named}
 
-import auth.{GGAction, UnAuthAction}
+import auth.{GGAction, VoaAction}
 import config.ApplicationConfig
 import connectors._
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
@@ -30,7 +30,7 @@ import uk.gov.hmrc.play.frontend.auth.AuthContext
 import scala.concurrent.Future
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 
-class IdentityVerification @Inject() (ggAction: UnAuthAction,
+class IdentityVerification @Inject() (ggAction: VoaAction,
                                       identityVerification: connectors.IdentityVerification,
                                       addresses: Addresses,
                                       individuals: IndividualAccounts,

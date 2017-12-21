@@ -14,11 +14,12 @@
  * limitations under the License.
  *@
 
-@import controllers.CreateGroupAccount.keys
+@import models.enrolment.CreateEnrolmentOrganisationAccount.keys
 @import helpers._
 @import models.enrolment.CreateEnrolmentOrganisationAccountVM
 @import uk.gov.hmrc.play.views.html.helpers.form
-@(model: CreateEnrolmentOrganisationAccountVM, postcode: String = "", email: String = "")(implicit request: Request[_], messages: Messages)
+@import models.enrolment.OrganisationFieldData
+@(model: CreateEnrolmentOrganisationAccountVM, organisationFieldData: OrganisationFieldData)(implicit request: Request[_], messages: Messages)
 
 
 @main_template(title = Messages("enrolment.title"), topNavigation = false) {
@@ -42,6 +43,24 @@
             @form(routes.CreateEnrolmentUser.submitOrganisation()) {
 
                 @inputText(
+                    field = model.form(keys.firstName),
+                    '_label -> Messages("enrolment.firstName"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    'value -> organisationFieldData.firstName
+                )
+
+                @inputText(
+                    field = model.form(keys.lastName),
+                    '_label -> Messages("enrolment.lastName"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    'value -> organisationFieldData.lastName
+                )
+
+                @inputText(
                     field = model.form(keys.companyName),
                     '_label -> Messages("enrolment.organisation.name"),
                     '_labelClass -> "form-label-bold",
@@ -49,7 +68,7 @@
                     'class -> "form-control"
                 )
 
-                @address(model.form, keys.address)
+                @address(model.form, keys.address, postcode = organisationFieldData.postcode)
 
                 <details>
                     <summary><span class="summary">@Messages("createAccount.group.details.header.multipleAddress")</span></summary>
@@ -62,7 +81,7 @@
 
                 @inputText(
                     field = model.form(keys.phone),
-                    '_label -> Messages(s"enrolment.businessPhoneNumber"),
+                    '_label -> Messages("enrolment.businessPhoneNumber"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control"
@@ -75,16 +94,16 @@
                     '_showConstraints -> false,
                     'class -> "form-control",
                     '_help -> Messages("createAccount.business.email.help"),
-                    '_value -> email
+                    '_value -> organisationFieldData.email
                 )
 
                 @inputText(
                     field = model.form(keys.confirmEmail),
-                    '_label -> Messages(s"enrolment.confirmEmailAddress"),
+                    '_label -> Messages("enrolment.confirmEmailAddress"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    '_value -> email
+                    '_value -> organisationFieldData.email
                 )
 
                 @inputRadioGroup(

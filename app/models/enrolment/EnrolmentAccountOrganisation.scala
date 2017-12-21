@@ -24,14 +24,13 @@ import play.api.data.Forms.{email, mapping, nonEmptyText}
 import play.api.data.validation.Constraints
 import views.helpers.Errors
 
-object CreateEnrolmentAccount {
+object CreateEnrolmentOrganisationAccount {
   lazy val keys = new {
     val companyName = "companyName"
     val firstName = "firstName"
     val lastName = "lastName"
     val address = "address"
     val phone = "phone"
-    val mobilePhone = "mobilePhone"
     val email = "email"
     val confirmEmail = "confirmedBusinessEmail"
     val isAgent = "isAgent"
@@ -43,23 +42,24 @@ object CreateEnrolmentAccount {
     keys.companyName -> nonEmptyText(maxLength = 45),
     keys.address -> addressMapping,
     keys.phone -> nonEmptyText(maxLength = 20),
-    keys.mobilePhone -> nonEmptyText,
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.isAgent -> mandatoryBoolean
-  )(EnrolmentAccountDetails.apply)(EnrolmentAccountDetails.unapply))
-
-
+  )(EnrolmentOrganisationAccountDetails.apply)(EnrolmentOrganisationAccountDetails.unapply))
 }
 
-case class CreateEnrolmentAccountVM(form: Form[_])
+case class CreateEnrolmentOrganisationAccountVM(form: Form[_])
 
-case class EnrolmentAccountDetails(firstName: String,
-                                   lastName: String,
-                                   companyName: String,
-                                   address: Address,
-                                   phone: String,
-                                   mobilePhone: String,
-                                   email: String,
-                                   confirmedEmail: String,
-                                   isAgent: Boolean)
+case class EnrolmentOrganisationAccountDetails(firstName: String,
+                                               lastName: String,
+                                               companyName: String,
+                                               address: Address,
+                                               phone: String,
+                                               email: String,
+                                               confirmedEmail: String,
+                                               isAgent: Boolean)
+
+case class OrganisationFieldData(firstName: String = "",
+                                 lastName: String = "",
+                                 postcode: String = "",
+                                 email: String = "")

@@ -18,7 +18,7 @@ package controllers
 
 import javax.inject.{Inject, Named}
 
-import auth.{GGAction, UnAuthAction}
+import auth.VoaAction
 import connectors.{IndividualAccounts, VPLAuthConnector}
 import form.Mappings._
 import form.TextMatching
@@ -29,10 +29,10 @@ import play.api.data.{Form, Mapping}
 import play.api.mvc.Request
 import repositories.SessionRepo
 import uk.gov.hmrc.domain.Nino
-import views.helpers.Errors
 import uk.gov.hmrc.http.SessionKeys
+import views.helpers.Errors
 
-class CreateIndividualAccount @Inject() (ggAction: UnAuthAction,
+class CreateIndividualAccount @Inject() (ggAction: VoaAction,
                                          auth: VPLAuthConnector,
                                          individuals: IndividualAccounts,
                                          @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)

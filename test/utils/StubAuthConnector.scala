@@ -16,19 +16,26 @@
 
 package utils
 
+import auth.{UserDetails, UserInfo}
 import connectors.VPLAuthConnector
-import uk.gov.hmrc.play.frontend.auth.AuthContext
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 object StubAuthConnector extends VPLAuthConnector(StubServicesConfig, StubHttp) {
   private var externalId: Option[String] = None
   private var groupId: Option[String] = None
+  private var userDetails: Option[UserDetails] = None
 
   def stubExternalId(id: String): Unit = {
     externalId = Some(id)
   }
+
+  def stubUserDetails(id: String, userInfo: UserInfo): Unit = {
+    userDetails = Some(UserDetails(id, userInfo))
+  }
+
+  override def userDetails[A](ctx: A)(implicit hc: HeaderCarrier): Future[UserDetails] = Future.successful(userDetails.getOrElse(throw new Exception("User details not stubbed")))
 
   override def getExternalId[A](ctx: A)(implicit hc: HeaderCarrier): Future[String] = Future.successful(externalId.getOrElse(throw new Exception("External id not stubbed")))
 

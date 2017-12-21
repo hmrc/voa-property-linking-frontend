@@ -18,8 +18,8 @@ package controllers
 
 import javax.inject.{Inject, Named}
 
-import auth.{GGAction, UnAuthAction}
-import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector, IdentityVerification => IDV}
+import auth.VoaAction
+import connectors.{Addresses, GroupAccounts, VPLAuthConnector, IdentityVerification => IDV}
 import form.Mappings._
 import form.TextMatching
 import models.{Address, IndividualAccountSubmission, PersonalDetails}
@@ -27,15 +27,13 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import repositories.SessionRepo
-import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import views.helpers.Errors
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 class CreateGroupAccount @Inject()(groups: GroupAccounts,
                                    auth: VPLAuthConnector,
-                                   ggAction: UnAuthAction,
+                                   ggAction: VoaAction,
                                    identityVerification: IDV,
                                    addresses: Addresses,
                                    @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
@@ -87,11 +85,6 @@ class CreateGroupAccount @Inject()(groups: GroupAccounts,
       }
     }
   }
-
-//  private def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = details.address.addressUnitId match {
-//    case Some(id) => Future.successful(id)
-//    case None => addresses.create(details.address)
-//  }
 
   implicit def vm(form: Form[_]): CreateGroupAccountVM = CreateGroupAccountVM(form)
 }

@@ -16,14 +16,14 @@
 
 package controllers
 
-import auth.{GGAction, UnAuthAction}
 import javax.inject.Inject
 
+import auth.VoaAction
 import config.ApplicationConfig
 import play.api.mvc.Action
 import uk.gov.hmrc.play.config.ServicesConfig
 
-class Register @Inject()(config: ApplicationConfig, ggAction: UnAuthAction) extends PropertyLinkingController with ServicesConfig {
+class Register @Inject()(config: ApplicationConfig, ggAction: VoaAction) extends PropertyLinkingController with ServicesConfig {
 
   def show = Action { implicit request =>
     Redirect(

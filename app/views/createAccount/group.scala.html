@@ -14,107 +14,107 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.play.views.html.helpers.form
-@import helpers._
-@import controllers.CreateGroupAccountVM
 @import controllers.CreateGroupAccount.keys
+@import controllers.CreateGroupAccountVM
+@import helpers._
+@import uk.gov.hmrc.play.views.html.helpers.form
 
 @(model: CreateGroupAccountVM)(implicit request: Request[_], messages: Messages)
 
 
 @main_template(title = Messages("createAccount.group.title"), topNavigation = false) {
 
-            <div class="grid-row">
-                <div class="column-two-thirds">
+    <div class="grid-row">
+        <div class="column-two-thirds">
 
-                    <h1 class="heading-xlarge">@Messages("createAccount.group.title")</h1>
+            <h1 class="heading-xlarge">@Messages("createAccount.group.title")</h1>
 
-                    <p>@Messages("createAccount.p1")</p>
+            <p>@Messages("createAccount.p1")</p>
 
-                    <details>
-                        <summary><span class="summary">@Messages("createAccount.group.details.header")</span></summary>
-                        <div class="panel-indent">
-                          @Messages("createAccount.group.details.content")
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary><span class="summary">@Messages("createAccount.group.details.header.agent")</span></summary>
-                        <div class="panel-indent">
-                          @Messages("createAccount.group.details.content.agent")
-                        </div>
-                    </details>
-
-                    <br />
-
-                    @includes.errorSummary(model.form, messagePrefix = Some("createAccount"))
-
-                    @form(routes.CreateGroupAccount.submit) {
-
-                        @inputText(
-                            field = model.form(keys.companyName),
-                            '_label -> Messages(s"label.createAccount.${keys.companyName}"),
-                            '_labelClass -> "form-label-bold",
-                            '_showConstraints -> false,
-                            'class -> "form-control"
-                        )
-
-                        @address(model.form, keys.address)
-
-                        <details>
-                            <summary><span class="summary">@Messages("createAccount.group.details.header.multipleAddress")</span></summary>
-                            <div class="panel-indent">
-                              @Messages("createAccount.group.details.content.multipleAddress")
-                            </div>
-                        </details>
-
-                        <br />
-
-                        @inputText(
-                            field = model.form(keys.email),
-                            '_label -> Messages(s"label.createAccount.${keys.email}"),
-                            '_labelClass -> "form-label-bold",
-                            '_showConstraints -> false,
-                            'class -> "form-control",
-                            '_help -> Messages("createAccount.business.email.help")
-                        )
-
-                        @inputText(
-                            field = model.form(keys.confirmEmail),
-                            '_label -> Messages(s"label.createAccount.${keys.confirmEmail}"),
-                            '_labelClass -> "form-label-bold",
-                            '_showConstraints -> false,
-                            'class -> "form-control"
-                        )
-
-                        @inputText(
-                            field = model.form(keys.phone),
-                            '_label -> Messages(s"label.createAccount.${keys.phone}"),
-                            '_labelClass -> "form-label-bold",
-                            '_showConstraints -> false,
-                            'class -> "form-control"
-                        )
-
-                        @inputRadioGroup(
-                            field = model.form(keys.isAgent),
-                            options = Seq("true", "false"),
-                            dataAttributes = Nil,
-                            args = Seq(
-                                '_label -> Messages(s"label.createAccount.${keys.isAgent}"),
-                                '_labelClass -> "form-label-bold",
-                                '_legend -> true,
-                                '_fieldsetClass -> "inline"
-                            )
-                        )
-
-                        <p class="panel panel-border-wide">@Messages("isAgent.details")</p>
-
-                        <p>
-                        <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
-                    </p>
-                    }
-
+            <details>
+                <summary><span class="summary">@Messages("createAccount.group.details.header")</span></summary>
+                <div class="panel-indent">
+                @Messages("createAccount.group.details.content")
                 </div>
-            </div>
+            </details>
 
-    }
+            <details>
+                <summary><span class="summary">@Messages("createAccount.group.details.header.agent")</span></summary>
+                <div class="panel-indent">
+                @Messages("createAccount.group.details.content.agent")
+                </div>
+            </details>
+
+            <br />
+
+            @includes.errorSummary(model.form, messagePrefix = Some("createAccount"))
+
+            @form(routes.CreateGroupAccount.submit) {
+
+                @inputText(
+                    field = model.form(keys.companyName),
+                    '_label -> Messages(s"label.createAccount.${keys.companyName}"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control"
+                )
+
+                @address(model.form, keys.address)
+
+                <details>
+                    <summary><span class="summary">@Messages("createAccount.group.details.header.multipleAddress")</span></summary>
+                    <div class="panel-indent">
+                    @Messages("createAccount.group.details.content.multipleAddress")
+                    </div>
+                </details>
+
+                <br />
+
+                @inputText(
+                    field = model.form(keys.email),
+                    '_label -> Messages(s"label.createAccount.${keys.email}"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_help -> Messages("createAccount.business.email.help")
+                )
+
+                @inputText(
+                    field = model.form(keys.confirmEmail),
+                    '_label -> Messages(s"label.createAccount.${keys.confirmEmail}"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control"
+                )
+
+                @inputText(
+                    field = model.form(keys.phone),
+                    '_label -> Messages(s"label.createAccount.${keys.phone}"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control"
+                )
+
+                @inputRadioGroup(
+                    field = model.form(keys.isAgent),
+                    options = Seq("true", "false"),
+                    dataAttributes = Nil,
+                    args = Seq(
+                        '_label -> Messages(s"label.createAccount.${keys.isAgent}"),
+                        '_labelClass -> "form-label-bold",
+                        '_legend -> true,
+                        '_fieldsetClass -> "inline"
+                    )
+                )
+
+                <p class="panel panel-border-wide">@Messages("isAgent.details")</p>
+
+                <p>
+                    <button type="submit" id="continue" class="button">@Messages("label.continue")</button>
+                </p>
+            }
+
+        </div>
+    </div>
+
+}

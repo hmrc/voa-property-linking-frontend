@@ -21,7 +21,7 @@ import org.jsoup.Jsoup
 import play.api.test.Helpers._
 
 import scala.collection.JavaConverters._
-import org.jsoup.nodes.Document
+import org.jsoup.nodes.{Document, Element}
 import play.api.mvc.Result
 import play.twirl.api.Html
 
@@ -44,6 +44,11 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
 
   def mustContainText(text: String) {
     html.body.text.contains(text) mustBe true withClue s"HTML did not contain: $text\nHTML:\n${html.body.text}"
+  }
+
+  def inputMustContain(fieldName: String, text: String): Unit = {
+    val inputField = html.getElementById(fieldName)
+    inputField.attr("value") mustEqual text
   }
 
   def mustContainLink(selector: String, href: String) = mustContain1(s"a$selector[href=$href]")

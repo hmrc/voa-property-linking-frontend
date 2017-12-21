@@ -16,62 +16,106 @@
 
 package controllers
 
-import models.{DetailedIndividualAccount, PersonalDetails}
-import org.mockito.ArgumentMatchers.{eq => matching, _}
-import org.mockito.Mockito._
-import org.scalacheck.Arbitrary.arbitrary
+import actions.EnrolmentService
+import auth.UserInfo
+import org.mockito.ArgumentMatchers.{eq => matching}
 import org.scalatest.mockito.MockitoSugar
-import play.api.Logger
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import repositories.SessionRepo
 import resources._
-import uk.gov.hmrc.domain.Nino
+import uk.gov.hmrc.auth.core.AffinityGroup
 import utils._
 
-import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderNames
+class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
 
-class CreateIndividualAccountSpec extends ControllerSpec with MockitoSugar {
+  lazy val mockEnrolmentService = mock[EnrolmentService]
 
-  lazy val mockSessionRepo = {
-    val f = mock[SessionRepo]
-    when(f.start(any())(any(), any())
-    ).thenReturn(Future.successful(()))
-    when(f.saveOrUpdate(any())(any(), any())
-    ).thenReturn(Future.successful(()))
-    f
+  val testIndividualInfo = UserInfo(firstName = Some("Bob"),
+    lastName = Some("Smith"),
+    email = "bob@smith.com",
+    postcode = Some("AB12 3CD"),
+    groupIdentifier = "GroupIdenfifier",
+    affinityGroup = AffinityGroup.Individual)
+
+  val testOrganisationInfo = UserInfo(firstName = Some("Bob"),
+    lastName = Some("Smith"),
+    email = "bob@smith.com",
+    postcode = Some("AB12 3CD"),
+    groupIdentifier = "GroupIdenfifier",
+    affinityGroup = AffinityGroup.Organisation)
+
+  private object TestCreateEnrolmentUser extends CreateEnrolmentUser(
+    StubGGAction,
+    StubGroupAccountConnector,
+    StubIndividualAccountConnector,
+    mockEnrolmentService,
+    StubAuthConnector,
+    StubAddresses,
+    StubAuthentication)
+
+  "Invoking the app held CreateEnrolmentUser controller" should "result in correct dependency injection" in {
+    app.injector.instanceOf[CreateEnrolmentUser]
   }
 
-  private object TestCreateIndividualAccount extends CreateIndividualAccount(StubGGAction, StubAuthConnector,
-    StubIndividualAccountConnector, mockSessionRepo)
-
-  "Invoking the app held CreateIndividualAccount controller" should "result in correct dependency injection" in {
-    app.injector.instanceOf[CreateIndividualAccount]
-  }
-
-  "Going to the create individual account page, when logged in with an account that has not registered" should "display the create individual account form" in {
+  "Going to the create account page, when logged in with an account that has not registered and has an Individual affinity group" should
+    "display the create individual account form" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
+    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
 
-    val res = TestCreateIndividualAccount.show()(FakeRequest())
+    val res = TestCreateEnrolmentUser.show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-    mustContainIndividualAccountForm(html)
+    html.mustContainText("Mobile number")
+    html.inputMustContain("email", testIndividualInfo.email)
+    html.inputMustContain("confirmedEmail", testIndividualInfo.email)
+    html.inputMustContain("firstName", testIndividualInfo.firstName.get)
+    html.inputMustContain("lastName", testIndividualInfo.lastName.get)
+    html.inputMustContain("addresspostcode", testIndividualInfo.postcode.get)
   }
 
-  "Submitting an invalid form" should "return a bad request response" in {
+  "Going to the create account page, when logged in with an account that has not registered and has an Organisation affinity group" should
+    "display the create organisation account form" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
+    StubAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
 
-    val res = TestCreateIndividualAccount.submit()(FakeRequest())
+    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    status(res) mustBe OK
+
+    val html = HtmlPage(res)
+    html.mustContainText("Business name")
+    html.inputMustContain("email", testOrganisationInfo.email)
+    html.inputMustContain("confirmedBusinessEmail", testOrganisationInfo.email)
+    html.inputMustContain("firstName", testOrganisationInfo.firstName.get)
+    html.inputMustContain("lastName", testOrganisationInfo.lastName.get)
+    html.inputMustContain("addresspostcode", testOrganisationInfo.postcode.get)
+  }
+
+  "Submitting an invalid individual form" should "return a bad request response" in {
+    val (groupId, externalId): (String, String) = (shortString, shortString)
+    StubAuthConnector.stubGroupId(groupId)
+    StubAuthConnector.stubExternalId(externalId)
+    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+
+    val res = TestCreateEnrolmentUser.submitIndividual()(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
-  "Submitting a valid form" should "redirect to SIV" in {
+  "Submitting an invalid organisation form" should "return a bad request response" in {
+    val (groupId, externalId): (String, String) = (shortString, shortString)
+    StubAuthConnector.stubGroupId(groupId)
+    StubAuthConnector.stubExternalId(externalId)
+    StubAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
+
+    val res = TestCreateEnrolmentUser.submitOrganisation()(FakeRequest())
+    status(res) mustBe BAD_REQUEST
+  }
+
+  /*"Submitting a valid form" should "redirect to SIV" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
@@ -110,21 +154,6 @@ class CreateIndividualAccountSpec extends ControllerSpec with MockitoSugar {
     val res = TestCreateIndividualAccount.show()(FakeRequest())
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.Dashboard.home.url)
-  }
+  }*/
 
-  private def mustContainIndividualAccountForm(html: HtmlPage) = {
-    html.mustContainTextInput("#fname")
-    html.mustContainTextInput("#lname")
-    html.mustContainTextInput("#email")
-    html.mustContainTextInput("#confirmedEmail")
-    html.mustContainTextInput("#phone1")
-    html.mustContainTextInput("#phone2")
-    html.mustContainDateSelect("dob")
-    html.mustContainTextInput("#ninonino")
-    html.mustContainTextInput("#addressline1")
-    html.mustContainTextInput("#addressline2")
-    html.mustContainTextInput("#addressline3")
-    html.mustContainTextInput("#addressline4")
-    html.mustContainTextInput("#addresspostcode")
-  }
 }

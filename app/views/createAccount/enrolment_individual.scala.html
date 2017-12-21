@@ -14,12 +14,12 @@
  * limitations under the License.
  *@
 
-@import controllers.CreateGroupAccount.keys
 @import helpers._
-@import uk.gov.hmrc.auth.core.AffinityGroup
+@import models.enrolment.CreateEnrolmentIndividualAccount.keys
+@import models.enrolment.CreateEnrolmentIndividualAccountVM
 @import uk.gov.hmrc.play.views.html.helpers.form
-@import models.enrolment.CreateEnrolmentOrganisationAccountVM
-@(model: CreateEnrolmentOrganisationAccountVM, postcode: String = "", email: String = "")(implicit request: Request[_], messages: Messages)
+@import models.enrolment.IndividualFieldData
+@(model: CreateEnrolmentIndividualAccountVM, individualFieldData: IndividualFieldData)(implicit request: Request[_], messages: Messages)
 
 
 @main_template(title = Messages("enrolment.title"), topNavigation = false) {
@@ -29,78 +29,67 @@
 
             <h1 class="heading-xlarge">@Messages("enrolment.title")</h1>
 
-            <details>
-                <summary><span class="summary">@Messages("createAccount.group.details.header.agent")</span></summary>
-                <div class="panel-indent">
-                @Messages("createAccount.group.details.content.agent")
-                </div>
-            </details>
-
-            <br />
-
             @includes.errorSummary(model.form, messagePrefix = Some("createAccount"))
 
-            @form(routes.CreateEnrolmentUser.submitOrganisation()) {
+            @form(routes.CreateEnrolmentUser.submitIndividual()) {
 
                 @inputText(
-                    field = model.form(keys.companyName),
-                    '_label -> Messages("enrolment.organisation.name"),
+                    field = model.form(keys.firstName),
+                    '_label -> Messages("enrolment.firstName"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control"
+                    'class -> "form-control",
+                    'value -> individualFieldData.firstName
                 )
-
-                @address(model.form, keys.address)
-
-                <details>
-                    <summary><span class="summary">@Messages("createAccount.group.details.header.multipleAddress")</span></summary>
-                    <div class="panel-indent">
-                    @Messages("createAccount.group.details.content.multipleAddress")
-                    </div>
-                </details>
-
-                <br />
 
                 @inputText(
-                    field = model.form(keys.phone),
-                    '_label -> Messages(s"enrolment.businessPhoneNumber"),
+                    field = model.form(keys.lastName),
+                    '_label -> Messages("enrolment.lastName"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control"
+                    'class -> "form-control",
+                    'value -> individualFieldData.lastName
                 )
+
+                @address(model.form, keys.address, postcode = individualFieldData.postcode)
 
                 @inputText(
                     field = model.form(keys.email),
-                    '_label -> Messages("enrolment.emailAddress"),
+                    '_label -> Messages(s"label.createAccount.${keys.email}"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    '_help -> Messages("createAccount.business.email.help"),
-                    '_value -> email
+                    '_help -> Messages("label.createAccount.email.help"),
+                    '_value -> individualFieldData.email
                 )
 
                 @inputText(
-                    field = model.form(keys.confirmEmail),
-                    '_label -> Messages(s"enrolment.confirmEmailAddress"),
+                    field = model.form(keys.confirmedEmail),
+                    '_label -> Messages(s"label.createAccount.${keys.confirmedEmail}"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    '_value -> email
+                    '_value -> individualFieldData.email
                 )
 
-                @inputRadioGroup(
-                    field = model.form(keys.isAgent),
-                    options = Seq("true", "false"),
-                    dataAttributes = Nil,
-                    args = Seq(
-                        '_label -> Messages("enrolment.organisation.individualOrCompany"),
-                        '_labelClass -> "form-label-bold",
-                        '_legend -> true,
-                        '_fieldsetClass -> "inline"
-                    )
+                @inputText(
+                    field = model.form(keys.phone),
+                    '_label -> Messages(s"enrolment.phoneNumber"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_help -> Messages("label.createAccount.phone1.help")
                 )
 
-                <p class="panel panel-border-wide">@Messages("isAgent.details")</p>
+                @inputText(
+                    field = model.form(keys.mobilePhone),
+                    '_label -> Messages(s"enrolment.mobileNumber"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_optional -> true,
+                    '_help -> Messages("label.createAccount.phone2.help")
+                )
 
                 <p>
                     <button type="submit" id="save-and-continue" class="button">@Messages("app.common.saveAndContinue")</button>
