@@ -170,8 +170,8 @@ class Dashboard @Inject()(config: ApplicationConfig,
     if(config.messagesEnabled) {
       for {
         message <- messagesConnector.getMessage(request.organisationId, messageId)
-        count <- messagesConnector.countUnread(request.organisationId)
         _ <- messagesConnector.markAsRead(messageId, request.individualAccount.externalId)
+        count <- messagesConnector.countUnread(request.organisationId)
       } yield {
         message match {
           case Some(m) => Ok(views.html.dashboard.viewMessage(m, count.unread))
