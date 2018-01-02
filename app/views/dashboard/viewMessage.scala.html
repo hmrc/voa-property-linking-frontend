@@ -1,5 +1,5 @@
 @*
- * Copyright 2017 HM Revenue & Customs
+ * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,13 @@
 @import models.messages.Message
 @import actions.AuthenticatedRequest
 
+@import config.ApplicationConfig.config
+
 @(message: Message, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+
+@checkSummaryUrl(message: Message) = @{
+    Some(config.businessRatesCheckUrl(s"check-case/summary/${message.caseReference}"))
+}
 
 @main_template(
   title = message.subject,
@@ -29,9 +35,9 @@
     @partials.welcomeLinks(unreadMessagesCount)
 
     @{message.templateName match {
-     case "NDRCheckAcknowledgementUnrepMsg.odt" => checkReceivedTemplateUnrepresentedIP(message)
-     case "NDRCheckAcknowledgementRepMsg.odt" => checkReceivedTemplateRepresentedIP(message)
-     case "NDRCheckAcknowledgementAgentMsg.odt" =>checkReceivedTemplateAgent(message)}
+     case "NDRCheckAcknowledgementUnrepMsg.odt" => checkReceivedTemplateUnrepresentedIP(message, checkSummaryUrl(message))
+     case "NDRCheckAcknowledgementRepMsg.odt" => checkReceivedTemplateRepresentedIP(message, checkSummaryUrl(message))
+     case "NDRCheckAcknowledgementAgentMsg.odt" => checkReceivedTemplateAgent(message, checkSummaryUrl(message))}
     }
 
     <p id="message-pdf"><a href="@routes.Dashboard.viewMessageAsPdf(message.id)">@Messages("checkReceived.download")</a></p>

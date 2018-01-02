@@ -1,5 +1,5 @@
 @*
- * Copyright 2017 HM Revenue & Customs
+ * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 @import java.time.format.DateTimeFormatter
 @import models.messages.Message
 
-@(message: Message)(implicit request: Request[_], messages: Messages)
+@(message: Message, checkSummaryUrl: Option[String] = None)(implicit request: Request[_], messages: Messages)
 
     <div class="clearfix" id="messageContent">
 
@@ -33,7 +33,13 @@
 
         <p><strong>@Messages("checkReceived.address", message.address)</strong></p>
 
-        <p>@Html(Messages("checkReceived.unrepresented.checkCase", message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))))</p>
+        <p>
+            @Messages("checkReceived.agent.checkCase.1",
+                message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
+            @checkSummaryUrl.map { checkSummary =>
+                <a id="view_summary_link" href="@checkSummary"> @Messages("checkReceived.agent.checkCase.2")</a>
+            }
+        </p>
 
         <h3 class="heading-small">@Messages("checkReceived.whatNow")</h3>
 
@@ -49,6 +55,8 @@
 
         <p>@Messages("checkReceived.template.valuationOffice")</p>
 
-        <button type="button" class="button" id="view_summary" name="view_summary_button" a href="#">@Messages("link.summary")</button>
+        @checkSummaryUrl.map { checkSummary =>
+            <a class="button" id="view_summary" name="view_summary_button" href="@checkSummary">@Messages("link.summary")</a>
+        }
 
     </div>
