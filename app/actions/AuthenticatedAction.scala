@@ -94,7 +94,7 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
   private def handleResult(result: AuthorisationResult, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
                           (implicit request: Request[AnyContent]) = {
     result match {
-      case Authenticated(accounts) => enrolment(accounts, body)
+      case Authenticated(accounts) => success(accounts, body)
       case InvalidGGSession => provider.redirectToLogin
       case NoVOARecord => // once enrolment enabled we need to do this with the nonOrganisationAction | NonOrganisationAccount =>
         if (getBoolean("featureFlags.enrolment")) {
@@ -113,7 +113,7 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
     }
   }
 
-  def enrolment(accounts: Accounts, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+  def success(accounts: Accounts, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
     def handleError: PartialFunction[Throwable, Future[Result]] = {
       case _: InsufficientEnrolments =>
         enrolments.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap {
