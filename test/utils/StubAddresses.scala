@@ -17,6 +17,7 @@
 package utils
 
 import connectors.Addresses
+import controllers.GroupAccountDetails
 import models.Address
 import org.scalacheck.Arbitrary
 
@@ -37,5 +38,12 @@ object StubAddresses extends Addresses(StubServicesConfig,StubHttp) {
     } else {
       Future.successful(Seq.fill(10)(arbitrary[Address].sample.get))
     }
+  }
+
+  override def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = {
+    if(details.companyName == "FAIL")
+      create(details.address)
+    else
+      Future.successful(12)
   }
 }

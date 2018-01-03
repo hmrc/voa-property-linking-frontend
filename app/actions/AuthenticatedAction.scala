@@ -29,9 +29,9 @@ import play.api.i18n.Messages.Implicits.applicationMessages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results._
 import play.api.mvc._
+import services.{EnrolmentService, Failure, Success}
 import uk.gov.hmrc.auth.core.retrieve._
 import uk.gov.hmrc.auth.core._
-
 
 import scala.concurrent.Future
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, HttpResponse, NotFoundException}

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package actions
+package services
 
-import connectors.{Addresses, VPLAuthConnector}
+import connectors.{Addresses, TaxEnrolmentConnector}
 import models.Address
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
@@ -24,30 +24,28 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, MustMatchers}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
 
 class EnrolmentServiceSpec extends FlatSpec with MustMatchers with MockitoSugar with ScalaFutures {
 
-  val mockAddresses = mock[Addresses]
-  val mockAuthConnector = mock[VPLAuthConnector]
-  val mockTaxEnrolmentConnector = mock[TaxEnrolmentConnector]
-  val enrolmentService = new EnrolmentService(mockTaxEnrolmentConnector, mockAuthConnector, mockAddresses)
+  val mockAddresses: Addresses = mock[Addresses]
+  val mockTaxEnrolmentConnector: TaxEnrolmentConnector = mock[TaxEnrolmentConnector]
+  val enrolmentService: EnrolmentService = new EnrolmentService(mockTaxEnrolmentConnector, mockAddresses)
 
-  implicit val hc = HeaderCarrier()
-
-  "Enrolment Service " should " return success" in {
-    when(mockAuthConnector.getUserId(any())).thenReturn(Future.successful(""))
+  "enrol" should " return success with valid details" in {
     when(mockAddresses.findById(any())(any())).thenReturn(Future.successful(Some(Address(Some(1), "", "", "", "", ""))))
-    when(mockTaxEnrolmentConnector.enrol(1l, "", "")).thenReturn(Future.successful(HttpResponse(204)))
+    when(mockTaxEnrolmentConnector.enrol(any(), any())(any(), any())).thenReturn(Future.successful(HttpResponse(204)))
     val result = enrolmentService.enrol(1l, 1)
     result.futureValue must be(Success)
   }
 
-  "Enrolment Service" should " return failure" in {
-    when(mockAuthConnector.getUserId(any())).thenReturn(Future.successful(""))
+  "enrol" should " return failure when None is return for the address" in {
     when(mockAddresses.findById(any())(any())).thenReturn(Future.successful(None))
     val result = enrolmentService.enrol(1l, 1)
     result.futureValue must be(Failure)
   }
+
+  implicit private val hc: HeaderCarrier = HeaderCarrier()
 }
