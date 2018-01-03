@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-package controllers
+package models.enrolment
 
 import play.api.libs.json.Json
+import uk.gov.hmrc.auth.core.AffinityGroup
 
-case class EnrolmentPayload(identifiers: List[KeyValuePair], verifiers: List[KeyValuePair])
+case class UserInfo(
+                     firstName: Option[String],
+                     lastName: Option[String],
+                     email: String,
+                     postcode: Option[String],
+                     groupIdentifier: String,
+                     affinityGroup: AffinityGroup
+                   )
 
-object EnrolmentPayload {
-  implicit val keyValue = Json.format[KeyValuePair]
-  implicit val previous = Json.format[Previous]
-  implicit val format = Json.format[PayLoad]
-  implicit val enrolmentPayload = Json.format[EnrolmentPayload]
+object UserInfo {
+  implicit val format = Json.format[UserInfo]
 }
-case class PayLoad(verifiers: Seq[KeyValuePair], legacy: Option[Previous] = None)
 
-case class KeyValuePair(key: String, value: String)
-
-case class Previous(previousVerifiers: List[KeyValuePair])

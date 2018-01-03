@@ -18,17 +18,15 @@ package connectors
 
 import javax.inject.Inject
 
-import auth.{UserDetails, UserInfo}
 import config.WSHttp
+import models.enrolment.{UserDetails, UserInfo}
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsValue, Json, OFormat, Reads}
-import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.AuthContext
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.frontend.auth.connectors.domain.Authority
 
 import scala.concurrent.Future
 

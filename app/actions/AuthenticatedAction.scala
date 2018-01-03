@@ -98,14 +98,14 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
       case InvalidGGSession => provider.redirectToLogin
       case NoVOARecord => // once enrolment enabled we need to do this with the nonOrganisationAction | NonOrganisationAccount =>
         if (getBoolean("featureFlags.enrolment")) {
-          Future.successful(Redirect(controllers.routes.CreateEnrolmentUser.show()))
+          Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
         } else {
           Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
         }
       case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
       case NonOrganisationAccount =>
         if (getBoolean("featureFlags.enrolment")) {
-          Future.successful(Redirect(controllers.routes.CreateEnrolmentUser.show()))
+          Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
         } else {
           Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
         }
@@ -117,10 +117,13 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
     def handleError: PartialFunction[Throwable, Future[Result]] = {
       case _: InsufficientEnrolments =>
         enrolments.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap {
-          case Success => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+          case Success =>
+            Future.successful(Ok(views.html.createAccount.migration_success()))
+            //TODO use ^ this one instead of the following ???
+            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
           case Failure =>
-            Logger.warn("Failed to enrol existing VOA user") // TODO log something useful here
-            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request)) // TODO maybe do something else.
+            Logger.warn("Failed to enrol existing VOA user")
+            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
         }
       case _: NoActiveSession => provider.redirectToLogin
       case otherException =>

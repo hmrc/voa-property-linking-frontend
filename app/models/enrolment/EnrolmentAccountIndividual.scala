@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 HM Revenue & Customs
+ * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,7 +58,22 @@ case class EnrolmentIndividualAccountDetails(firstName: String,
                                              email: String,
                                              confirmedEmail: String)
 
-case class IndividualFieldData(firstName: String = "",
+case class FieldData(firstName: String = "",
                                lastName: String = "",
                                postcode: String = "",
                                email: String = "")
+
+object FieldData {
+
+  def apply(userInfo: UserInfo): FieldData =
+    new FieldData(
+      firstName = userInfo.firstName,
+      lastName = userInfo.lastName,
+      postcode = userInfo.postcode,
+      email = userInfo.email)
+
+  implicit private def get(opt: Option[String]): String = opt match {
+    case Some(x)  => x
+    case None     => ""
+  } //TODO Just playing around with implicits. will delete.
+}

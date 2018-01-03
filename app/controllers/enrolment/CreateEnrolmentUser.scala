@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 HM Revenue & Customs
+ * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.enrolment
 
 import javax.inject.Inject
 
+import cats.implicits._
 import actions.{AuthenticatedAction, EnrolmentService, Failure, Success}
-import auth.{UserDetails, VoaAction}
+import auth.VoaAction
+import cats.data.OptionT
 import config.Global
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
+import controllers.{CreateGroupAccount, GroupAccountDetails, PropertyLinkingController, routes}
 import models._
 import models.enrolment._
 import play.api.data.Form
@@ -47,18 +50,10 @@ class CreateEnrolmentUser @Inject()(
         userDetails.userInfo.affinityGroup match {
           case Individual =>
             Future.successful(
-              Ok(views.html.createAccount.enrolment_individual(CreateEnrolmentIndividualAccount.form,
-                IndividualFieldData(userDetails.userInfo.firstName.getOrElse(""),
-                  userDetails.userInfo.lastName.getOrElse(""),
-                  userDetails.userInfo.postcode.getOrElse(""),
-                  userDetails.userInfo.email))))
-          case Organisation => //Why was this pre-populating from modernised?
-            Future.successful(
-              Ok(views.html.createAccount.enrolment_organisation(CreateEnrolmentOrganisationAccount.form,
-                OrganisationFieldData(userDetails.userInfo.firstName.getOrElse(""),
-                  userDetails.userInfo.lastName.getOrElse(""),
-                  userDetails.userInfo.postcode.getOrElse(""),
-                  userDetails.userInfo.email))))
+              Ok(views.html.createAccount.enrolment_individual(
+                CreateEnrolmentIndividualAccount.form,
+                FieldData(userInfo = userDetails.userInfo))))
+          case Organisation => orgShow(ctx, userDetails) //Why was this pre-populating from modernised? to use the business details.
         }
       }
   }
@@ -66,7 +61,7 @@ class CreateEnrolmentUser @Inject()(
   def submitIndividual() = ggAction.async(isSession = false) { ctx =>
     implicit request =>
       CreateEnrolmentIndividualAccount.form.bindFromRequest().fold(
-        errors => BadRequest(views.html.createAccount.enrolment_individual(errors, IndividualFieldData())),
+        errors => BadRequest(views.html.createAccount.enrolment_individual(errors, FieldData())),
         success =>
           for {
             user <- auth.getUserDetails
@@ -84,7 +79,7 @@ class CreateEnrolmentUser @Inject()(
   def submitOrganisation() = ggAction.async(isSession = false) { ctx =>
     implicit request =>
       CreateEnrolmentOrganisationAccount.form.bindFromRequest().fold(
-        errors => BadRequest(views.html.createAccount.enrolment_organisation(errors, OrganisationFieldData())),
+        errors => BadRequest(views.html.createAccount.enrolment_organisation(errors, FieldData())),
         success =>
           for {
             user <- auth.userDetails(ctx)
@@ -99,9 +94,8 @@ class CreateEnrolmentUser @Inject()(
       )
   }
 
-  private def resultMapper(
-                            option: Option[DetailedIndividualAccount],
-                            addressId: Int)(implicit hc: HeaderCarrier, request: Request[AnyContent]): Future[Result] = option match {
+  private def resultMapper(option: Option[DetailedIndividualAccount], addressId: Int)
+                          (implicit hc: HeaderCarrier, request: Request[AnyContent]): Future[Result] = option match {
     case Some(x) => enrolmentService.enrol(x.individualId, addressId).map {
       case Success => Redirect(routes.CreateEnrolmentUser.success(x.individualId))
       case Failure => InternalServerError(Global.internalServerErrorTemplate)
@@ -110,7 +104,7 @@ class CreateEnrolmentUser @Inject()(
   }
 
   def success(personId: Long) = authenticatedAction { implicit request =>
-    Ok(views.html.createAccount.confirmation_enrolment(personId)) // Add Page
+    Ok(views.html.createAccount.confirmation_enrolment(personId))
   }
 
   private def createIndividualAccountSubmission(userDetails: UserDetails, phoneNumber: String)(groupAccount: GroupAccount) = {
@@ -124,7 +118,25 @@ class CreateEnrolmentUser @Inject()(
     }
   }
 
-  implicit def organisationVm(form: Form[_]): CreateEnrolmentOrganisationAccountVM = CreateEnrolmentOrganisationAccountVM(form)
+  private def orgShow[A](ctx: A, userDetails: UserDetails)(implicit request: Request[AnyContent]) = {
+    val fieldDataFOptT = for {
+      groupId     <- OptionT.liftF(auth.getGroupId(ctx))
+      acc         <- OptionT(groupAccounts.withGroupId(groupId))
+      address    <- OptionT(addresses.findById(acc.addressId))
+    } yield new FieldData(postcode = address.postcode, email = acc.email)
 
-  implicit def individualVm(form: Form[_]): CreateEnrolmentIndividualAccountVM = CreateEnrolmentIndividualAccountVM(form)
+    val fieldDataF = fieldDataFOptT
+      .value
+      .map(_.getOrElse(FieldData(userDetails.userInfo)))
+
+    fieldDataF.map(fieldData =>
+      Ok(views.html.createAccount.enrolment_organisation(
+        CreateEnrolmentOrganisationAccount.form,
+        fieldData))
+    )
+  }
+
+  implicit private def organisationVm(form: Form[_]): CreateEnrolmentOrganisationAccountVM = CreateEnrolmentOrganisationAccountVM(form)
+
+  implicit private def individualVm(form: Form[_]): CreateEnrolmentIndividualAccountVM = CreateEnrolmentIndividualAccountVM(form)
 }

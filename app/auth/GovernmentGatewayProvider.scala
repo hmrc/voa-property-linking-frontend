@@ -20,6 +20,7 @@ import javax.inject.Inject
 
 import config.ApplicationConfig
 import connectors.VPLAuthConnector
+import models.enrolment.{UserDetails, UserInfo}
 import play.api.libs.json.Json
 import play.api.mvc.Results.Redirect
 import play.api.mvc._
@@ -43,25 +44,30 @@ class GGAction @Inject()(val provider: GovernmentGatewayProvider, val authConnec
   def async(isSession: Boolean)(body: AuthContext => Request[AnyContent] => Future[Result]): Action[AnyContent] = authenticatedBy.async(body)
 }
 
-//Going to the registration pages when not signed into GG needs to redirect to the sign in page - is this using auth correctly?
 class GGActionEnrolment @Inject()(val provider: GovernmentGatewayProvider, val authConnector: AuthConnector, vPLAuthConnector: VPLAuthConnector) extends VoaAction {
 
   import SessionHelpers._
-
   type x = UserDetails
 
   def async(isSession: Boolean)(body: UserDetails => Request[AnyContent] => Future[Result]): Action[AnyContent] = Action.async { implicit request =>
-    if (isSession) {
-      vPLAuthConnector
-        .getUserDetails
-        .flatMap(userDetails => body(userDetails)(request).map(_.withSession(request.session.putUserDetails(userDetails))))
-    } else {
-      request.session.getUserDetails match {
-        case Some(userDetails) => body(userDetails)(request)
-        case None => async(isSession = true)(body)(request)
-      }
-    }
+    if (isSession) userDetailsWithoutSession(body) else userDetailsFromSession(body)
   }
+
+  private def userDetailsWithoutSession(body: UserDetails => Request[AnyContent] => Future[Result])
+                                       (implicit request: Request[AnyContent]) =
+    vPLAuthConnector
+      .getUserDetails
+      .flatMap(userDetails => body(userDetails)(request).map(_.withSession(request.session.putUserDetails(userDetails))))
+      .recoverWith {
+        case _: Throwable => provider.redirectToLogin
+      }
+
+  private def userDetailsFromSession(body: UserDetails => Request[AnyContent] => Future[Result])
+                                    (implicit request: Request[AnyContent]) = request.session.getUserDetails match {
+      case Some(userDetails) => body(userDetails)(request)
+      case None => async(isSession = true)(body)(request)
+    }
+
 }
 
 object SessionHelpers {
@@ -108,19 +114,6 @@ trait VoaAction {
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
   def async(isSession: Boolean)(body: x => Request[AnyContent] => Future[Result]): Action[AnyContent]
-}
-
-case class UserDetails(externalId: String, userInfo: UserInfo)
-
-case class UserInfo(firstName: Option[String], lastName: Option[String], email: String, postcode: Option[String], groupIdentifier: String, affinityGroup: AffinityGroup)
-
-object UserInfo {
-  implicit val format = Json.format[UserInfo]
-}
-
-object UserDetails {
-  implicit val userInfo = Json.format[UserInfo]
-  implicit val format = Json.format[UserDetails]
 }
 
 class GovernmentGatewayProvider @Inject()(config: ApplicationConfig) extends GovernmentGateway {

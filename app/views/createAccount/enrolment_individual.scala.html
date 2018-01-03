@@ -1,5 +1,5 @@
 @*
- * Copyright 2017 HM Revenue & Customs
+ * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 @import models.enrolment.CreateEnrolmentIndividualAccount.keys
 @import models.enrolment.CreateEnrolmentIndividualAccountVM
 @import uk.gov.hmrc.play.views.html.helpers.form
-@import models.enrolment.IndividualFieldData
-@(model: CreateEnrolmentIndividualAccountVM, individualFieldData: IndividualFieldData)(implicit request: Request[_], messages: Messages)
+@import models.enrolment.FieldData
+@(model: CreateEnrolmentIndividualAccountVM, individualFieldData: FieldData)(implicit request: Request[_], messages: Messages)
 
 
 @main_template(title = Messages("enrolment.title"), topNavigation = false) {
@@ -31,7 +31,7 @@
 
             @includes.errorSummary(model.form, messagePrefix = Some("createAccount"))
 
-            @form(routes.CreateEnrolmentUser.submitIndividual()) {
+            @form(controllers.enrolment.routes.CreateEnrolmentUser.submitIndividual()) {
 
                 @inputText(
                     field = model.form(keys.firstName),
