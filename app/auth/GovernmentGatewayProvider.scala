@@ -69,7 +69,6 @@ class GGActionEnrolment @Inject()(val provider: GovernmentGatewayProvider, val a
       case None =>
         async(isSession = true)(body)(request)
     }
-
 }
 
 object SessionHelpers {

@@ -20,7 +20,7 @@ import form.Mappings._
 import form.TextMatching
 import models.Address
 import play.api.data.Form
-import play.api.data.Forms.{email, mapping, nonEmptyText}
+import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import views.helpers.Errors
 
@@ -39,12 +39,11 @@ object CreateEnrolmentIndividualAccount {
     keys.firstName -> nonEmptyText,
     keys.lastName -> nonEmptyText,
     keys.address -> addressMapping,
-    keys.phone -> nonEmptyText(maxLength = 20),
-    keys.mobilePhone -> nonEmptyText, //Pretty sure this is meant to be optional.
+    keys.phone -> nonEmptyText(maxLength = 15),
+    keys.mobilePhone -> optional(text(maxLength = 15)), //Pretty sure this is meant to be optional.
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch)
   )(EnrolmentIndividualAccountDetails.apply)(EnrolmentIndividualAccountDetails.unapply))
-
 
 }
 
@@ -54,7 +53,7 @@ case class EnrolmentIndividualAccountDetails(firstName: String,
                                              lastName: String,
                                              address: Address,
                                              phone: String,
-                                             mobilePhone: String,
+                                             mobilePhone: Option[String],
                                              email: String,
                                              confirmedEmail: String)
 
