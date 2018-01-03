@@ -345,9 +345,11 @@ propertyRepresentation.appointAgent.button=Continue
 label.canCheck=Do you want this agent to submit checks?
 canCheck.START_AND_CONTINUE=Yes
 canCheck.NOT_PERMITTED=No
+canCheck.CONTINUE_ONLY=Continue
 label.canChallenge=Do you want this agent to submit challenges?
 canChallenge.START_AND_CONTINUE=Yes
 canChallenge.NOT_PERMITTED=No
+canChallenge.CONTINUE_ONLY=Continue
 error.invalidPermissions=Agent must either have permission to continue checks or challenges
 error.invalidAgentCode=Invalid agent code
 error.alreadyAppointedAgent=This agent is already assigned to this property. If you want to change the permissions for this agent, you’ll need to remove their permissions and then appoint them with the new permissions.
@@ -428,6 +430,7 @@ propertyRepresentations.viewProperties=View properties
 manageProperties.noRepresentations=You have no representations
 permission.START_AND_CONTINUE=Yes
 permission.NOT_PERMITTED=No
+permission.CONTINUE_ONLY=Continue
 
 #PENDING AGENT REQUESTS
 pendingRepresentationRequests.select.deselect=Select all / deselect all
