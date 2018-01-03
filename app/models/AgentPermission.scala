@@ -35,4 +35,5 @@ case object NotPermitted extends AgentPermission {
 object AgentPermission extends NamedEnumSupport[AgentPermission] {
   implicit val format = EnumFormat(AgentPermission)
   override def all = Seq(StartAndContinue, ContinueOnly, NotPermitted)
+  override def options = Seq(StartAndContinue, NotPermitted).map(_.name)
 }
