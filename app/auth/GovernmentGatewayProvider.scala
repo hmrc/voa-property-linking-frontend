@@ -64,20 +64,29 @@ class GGActionEnrolment @Inject()(val provider: GovernmentGatewayProvider, val a
 
   private def userDetailsFromSession(body: UserDetails => Request[AnyContent] => Future[Result])
                                     (implicit request: Request[AnyContent]) = request.session.getUserDetails match {
-      case Some(userDetails) => body(userDetails)(request)
-      case None => async(isSession = true)(body)(request)
+      case Some(userDetails) =>
+        body(userDetails)(request)
+      case None =>
+        async(isSession = true)(body)(request)
     }
 
 }
 
 object SessionHelpers {
 
+  val key = new {
+    val externalId = "externalId"
+    val firstName = "firstName"
+    val lastName = "lastName"
+    val email = "email"
+    val postcode = "postcode"
+    val affinityGroup = "affinityGroup"
+  }
+
   implicit class SessionOps(session: Session) {
 
-    val keys = List("firstName", "lastName", "email", "postcode", "affinityGroup")
-
     def getUserDetails: Option[UserDetails] = {
-      (session.get("externalId"), session.get("firstName"), session.get("lastName"), session.get("email"), session.get("postcode"), session.get("groupIdentifier"), session.get("affinityGroup")) match {
+      (session.get(key.externalId), session.get(key.firstName), session.get(key.lastName), session.get(key.email), session.get(key.postcode), session.get(key.affinityGroup), session.get("affinityGroup")) match {
         case (Some(externalId), firstName, lastName, Some(email), postcode, Some(groupId), Some(affinityGroup)) =>
           Json.parse(affinityGroup)
             .asOpt[AffinityGroup]
