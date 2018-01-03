@@ -66,7 +66,7 @@ class CreateEnrolmentUser @Inject()(
           for {
             user <- auth.getUserDetails
             groupId <- auth.getGroupId(ctx)
-            groupAccountDetails <- GroupAccountDetails("", success.address, "", "", success.phone, false)
+            groupAccountDetails <- GroupAccountDetails("", success.address, success.email, success.confirmedEmail, success.phone, false)
             id <- addresses.registerAddress(groupAccountDetails)
             individual = IndividualAccountSubmission(user.externalId, "NONIV", None, IndividualDetails(user.userInfo.firstName.getOrElse(""), user.userInfo.lastName.getOrElse(""), user.userInfo.email, success.phone, None, id))
             _ <- groupAccounts.create(groupId, id, groupAccountDetails, individual)
