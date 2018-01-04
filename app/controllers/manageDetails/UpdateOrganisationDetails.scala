@@ -104,7 +104,7 @@ class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction,
 
   lazy val addressForm = Form(single("address" -> Mappings.addressMapping))
 
-  lazy val phoneForm = Form(single("phone" -> nonEmptyText(maxLength = 20)))
+  lazy val phoneForm = Form(single("phone" -> nonEmptyText(maxLength = 15)))
 
   lazy val emailForm = Form(mapping(
     "email" -> email,

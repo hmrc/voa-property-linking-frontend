@@ -85,8 +85,8 @@ object CreateIndividualAccount{
     keys.nino -> nino,
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
-    keys.phone1 -> nonEmptyText(maxLength = 20),
-    keys.phone2 -> optional(text(maxLength = 20)),
+    keys.phone1 -> nonEmptyText(maxLength = 15),
+    keys.phone2 -> optional(text(maxLength = 15)),
     keys.address -> addressMapping
   )(PersonalDetails.apply)(PersonalDetails.unapply))
 
