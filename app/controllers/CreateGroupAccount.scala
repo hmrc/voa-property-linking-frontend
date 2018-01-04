@@ -111,7 +111,7 @@ object CreateGroupAccount{
     keys.address -> addressMapping,
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
-    keys.phone -> nonEmptyText(maxLength = 20),
+    keys.phone -> nonEmptyText(maxLength = 15),
     keys.isAgent -> mandatoryBoolean
   )(GroupAccountDetails.apply)(GroupAccountDetails.unapply))
 }

@@ -67,8 +67,8 @@ class CreateGroupAccountFormSpec extends FlatSpec with MustMatchers {
     verifyMandatory(form, validData, keys.phone)
   }
 
-  it must "require the phone number to be no more than 20 characters" in {
-    verifyCharacterLimit(form, validData, keys.phone, 20)
+  it must "require the phone number to be no more than 15 characters" in {
+    verifyCharacterLimit(form, validData, keys.phone, 15)
   }
 
   it must "require the user to specify if they are an agent or not" in {

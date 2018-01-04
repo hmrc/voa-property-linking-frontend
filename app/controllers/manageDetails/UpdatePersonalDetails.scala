@@ -134,7 +134,7 @@ class UpdatePersonalDetails @Inject()(config: ApplicationConfig,
 
   private lazy val telephoneForm = Form(
     single(
-      "phone" -> nonEmptyText(maxLength = 20)
+      "phone" -> nonEmptyText(maxLength = 15)
     )
   )
 
