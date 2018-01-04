@@ -25,14 +25,19 @@ import org.scalatest.mockito.MockitoSugar
 import play.api.mvc.Request
 import play.api.mvc.Results._
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.{contentAsString, _}
+import services.EnrolmentService
+import uk.gov.hmrc.auth.core.AuthConnector
+import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
+import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.test.UnitSpec
-import utils.NoMetricsOneAppPerSuite
+import utils.{NoMetricsOneAppPerSuite, StubAuthImpl}
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.{ BadRequestException, HeaderCarrier, NotFoundException }
 
 class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSuite {
+
+  override val additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.enrolment" -> "false")
 
   "AuthenticatedAction" should {
     "invoke the wrapped action when the user is logged in to CCA" in {
@@ -111,7 +116,10 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
     }
   }
 
-  lazy val testAction = new AuthenticatedAction(mockGG, mockAuth)
+  lazy val testAction = new AuthenticatedAction(mockGG, mockAuth, StubAuthImpl, mockAddresses, mockAuthConnector)
+  lazy val mockAuthConnector = mock[AuthConnector]
+  lazy val mockAddresses = mock[Addresses]
+  lazy val mockServiceConfig = mock[ServicesConfig]
   lazy val mockAuth = mock[BusinessRatesAuthorisation]
   lazy val mockGG = mock[GovernmentGatewayProvider]
 

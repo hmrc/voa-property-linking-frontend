@@ -18,7 +18,7 @@ package controllers
 
 import javax.inject.{Inject, Named}
 
-import auth.GGAction
+import auth.{GGAction, VoaAction}
 import config.ApplicationConfig
 import connectors._
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
@@ -28,9 +28,9 @@ import repositories.SessionRepo
 import uk.gov.hmrc.play.frontend.auth.AuthContext
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.{ HeaderCarrier, SessionKeys }
+import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 
-class IdentityVerification @Inject() (ggAction: GGAction,
+class IdentityVerification @Inject() (ggAction: VoaAction,
                                       identityVerification: connectors.IdentityVerification,
                                       addresses: Addresses,
                                       individuals: IndividualAccounts,
@@ -41,7 +41,7 @@ class IdentityVerification @Inject() (ggAction: GGAction,
                                       @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
   extends PropertyLinkingController {
 
-  def startIv = ggAction.async { _ => implicit request =>
+  def startIv = ggAction.async(true) { _ => implicit request =>
     if (config.ivEnabled) {
       personalDetailsSessionRepo.get[PersonalDetails] flatMap { details  => {
         val d = details.getOrElse(throw new Exception("details not found"))
@@ -65,16 +65,16 @@ class IdentityVerification @Inject() (ggAction: GGAction,
     )
   }
 
-  def success = ggAction.async { implicit ctx => implicit request =>
+  def success = ggAction.async(false) { implicit ctx => implicit request =>
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       identityVerification.verifySuccess(journeyId) flatMap {
-        case true => continue
+        case true => continue(ctx, request)
         case false => Unauthorized("Unauthorised")
       }
     }
   }
 
-  private def continue(implicit ctx: AuthContext, request: Request[_]) = {
+  private def continue[A](implicit ctx: A, request: Request[_]) = {
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       val eventualGroupId = auth.getGroupId(ctx)
       val eventualExternalId = auth.getExternalId(ctx)

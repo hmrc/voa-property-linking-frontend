@@ -30,6 +30,6 @@ object StubGGAction extends GGAction(null, StubAuthConnector) {
   override def apply(body: (AuthContext) => (Request[AnyContent]) => Result): Action[AnyContent] =
     Action { request => body(ctx)(request) }
 
-  override def async(body: (AuthContext) => (Request[AnyContent]) => Future[Result]): Action[AnyContent] =
+  override def async(isSession: Boolean)(body: (AuthContext) => (Request[AnyContent]) => Future[Result]): Action[AnyContent] =
     Action.async { request => body(ctx)(request) }
 }

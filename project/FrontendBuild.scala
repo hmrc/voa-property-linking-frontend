@@ -34,6 +34,7 @@ private object AppDependencies {
     ws,
     "uk.gov.hmrc" %% "play-reactivemongo" % playReactivemongoVersion,
     "com.codahale.metrics" % "metrics-graphite" % "3.0.1",
+    "uk.gov.hmrc" %% "auth-client" % "2.3.0",
     "com.google.guava" % "guava" % "18.0",
     "joda-time" % "joda-time" % "2.8.2",
     "uk.gov.hmrc" %% "frontend-bootstrap" % "8.11.0",

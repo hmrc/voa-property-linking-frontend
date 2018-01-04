@@ -16,7 +16,7 @@
 
 package controllers
 
-import auth.GGAction
+import auth.{GGAction, VoaAction}
 import javax.inject.Inject
 
 import connectors.TrafficThrottleConnector
@@ -26,7 +26,7 @@ import play.api.mvc._
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
-class Application @Inject()(ggAction: GGAction, val trafficThrottleConnector: TrafficThrottleConnector) extends Controller with WithThrottling {
+class Application @Inject()(ggAction: VoaAction, val trafficThrottleConnector: TrafficThrottleConnector) extends Controller with WithThrottling {
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
   def addUserToGG = Action { implicit request =>

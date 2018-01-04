@@ -1,0 +1,102 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import helpers._
+@import models.enrolment.CreateEnrolmentIndividualAccount.keys
+@import models.enrolment.CreateEnrolmentIndividualAccountVM
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import models.enrolment.FieldData
+@(model: CreateEnrolmentIndividualAccountVM, individualFieldData: FieldData)(implicit request: Request[_], messages: Messages)
+
+
+@main_template(title = Messages("enrolment.title"), topNavigation = false) {
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">@Messages("enrolment.title")</h1>
+
+            @includes.errorSummary(model.form, messagePrefix = Some("createAccount"))
+
+            @form(controllers.enrolment.routes.CreateEnrolmentUser.submitIndividual()) {
+
+                @inputText(
+                    field = model.form(keys.firstName),
+                    '_label -> Messages("enrolment.firstName"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    'value -> individualFieldData.firstName
+                )
+
+                @inputText(
+                    field = model.form(keys.lastName),
+                    '_label -> Messages("enrolment.lastName"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    'value -> individualFieldData.lastName
+                )
+
+                @address(model.form, keys.address, postcode = individualFieldData.postcode)
+
+                @inputText(
+                    field = model.form(keys.email),
+                    '_label -> Messages(s"label.createAccount.${keys.email}"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_help -> Messages("label.createAccount.email.help"),
+                    '_value -> individualFieldData.email
+                )
+
+                @inputText(
+                    field = model.form(keys.confirmedEmail),
+                    '_label -> Messages(s"label.createAccount.${keys.confirmedEmail}"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_value -> individualFieldData.email
+                )
+
+                @inputText(
+                    field = model.form(keys.phone),
+                    '_label -> Messages(s"enrolment.phoneNumber"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_help -> Messages("label.createAccount.phone1.help")
+                )
+
+                @inputText(
+                    field = model.form(keys.mobilePhone),
+                    '_label -> Messages(s"enrolment.mobileNumber"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_optional -> true,
+                    '_help -> Messages("label.createAccount.phone2.help")
+                )
+
+                <p>
+                    <button type="submit" id="save-and-continue" class="button">@Messages("app.common.saveAndContinue")</button>
+                </p>
+            }
+
+        </div>
+    </div>
+
+}

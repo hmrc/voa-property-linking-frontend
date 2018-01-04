@@ -16,23 +16,18 @@
 
 package controllers
 
-import javax.inject.Inject
+import play.api.libs.json.Json
 
-import auth.VoaAction
-import config.ApplicationConfig
-import play.api.mvc.Action
-import uk.gov.hmrc.play.config.ServicesConfig
+case class EnrolmentPayload(identifiers: List[KeyValuePair], verifiers: List[KeyValuePair])
 
-class Register @Inject()(config: ApplicationConfig, ggAction: VoaAction) extends PropertyLinkingController with ServicesConfig {
-
-  def show = Action { implicit request =>
-    Redirect(
-      config.ggRegistrationUrl,
-      Map("accountType" -> Seq("organisation"), "continue" -> Seq(routes.Register.confirm().url), "origin" -> Seq("voa"))
-    )
-  }
-
-  def confirm = ggAction.async(true) { _ => implicit request =>
-    Ok(views.html.ggRegistration())
-  }
+object EnrolmentPayload {
+  implicit val keyValue = Json.format[KeyValuePair]
+  implicit val previous = Json.format[Previous]
+  implicit val format = Json.format[PayLoad]
+  implicit val enrolmentPayload = Json.format[EnrolmentPayload]
 }
+case class PayLoad(verifiers: Seq[KeyValuePair], legacy: Option[Previous] = None)
+
+case class KeyValuePair(key: String, value: String)
+
+case class Previous(previousVerifiers: List[KeyValuePair])

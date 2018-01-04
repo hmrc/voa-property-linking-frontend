@@ -886,3 +886,28 @@ plannedImprovements.p1=The check and challenge service will be unavailable from 
 plannedImprovements.p2=You will not be able to access the service during this time and we apologise for any inconvenience this may cause you.
 plannedImprovements.p3=The changes we’re making include:
 
+#ENROLMENT
+enrolment.title = Complete your contact details
+enrolment.organisation.name = Business name
+enrolment.firstName = First name
+enrolment.lastName = Last name
+enrolment.address1 = Address line 1
+enrolment.address2 = Address line 2
+enrolment.address3 = Address line 3
+enrolment.address4 = Address line 4
+enrolment.postcode = Postcode
+enrolment.businessPhoneNumber = Business telephone number
+enrolment.phoneNumber = Telephone number
+enrolment.mobileNumber = Mobile number
+enrolment.emailAddress = Business email address
+enrolment.confirmEmailAddress = Confirm business email address
+enrolment.organisation.individualOrCompany = Do you wish to act on behalf of an individual or company?
+enrolment.yes = Yes
+enrolment.no = No
+enrolment.migration.success.title = Migration success
+enrolment.migration.success.explanation = Some content here about what has happened
+
+#COMMON
+app.common.saveAndContinue = Save and continue
+app.common.yes = Yes
+app.common.no = No

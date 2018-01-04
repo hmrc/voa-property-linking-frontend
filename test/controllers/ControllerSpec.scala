@@ -23,6 +23,7 @@ import utils._
 
 trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite {
 
+  override val additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.enrolment" -> "false")
   val token = "Csrf-Token" -> "nocheck"
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()

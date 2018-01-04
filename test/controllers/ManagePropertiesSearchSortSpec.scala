@@ -33,7 +33,7 @@ import scala.collection.JavaConverters._
 
 class ManagePropertiesSearchSortSpec extends ControllerSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "true")
+  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "true", "featureFlags.enrolment" -> "false")
 
   //Make the tests run significantly faster by only loading and parsing the default case, of 15 property links, once
   lazy val defaultHtml = {
