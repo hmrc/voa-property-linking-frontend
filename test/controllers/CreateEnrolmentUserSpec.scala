@@ -187,46 +187,4 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     val res = TestCreateEnrolmentUser.submitOrganisation()(fakeRequest)
     status(res) mustBe SEE_OTHER
   }
-
-  /*"Submitting a valid form" should "redirect to SIV" in {
-    val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-
-    val individualAccount: PersonalDetails = arbitrary[PersonalDetails]
-
-    val validFormData: Seq[(String, String)] = Seq(
-      "fname" -> individualAccount.firstName,
-      "lname" -> individualAccount.lastName,
-      "email" -> individualAccount.email,
-      "confirmedEmail" -> individualAccount.email,
-      "phone1" -> individualAccount.phone1,
-      "phone2" -> "",
-      "nino.nino" -> arbitrary[Nino].value,
-      "dob.day" -> individualAccount.dateOfBirth.getDayOfMonth.toString,
-      "dob.month" -> individualAccount.dateOfBirth.getMonthValue.toString,
-      "dob.year" -> individualAccount.dateOfBirth.getYear.toString,
-      "address.line1" -> shortString,
-      "address.postcode" -> "AA11 1AA"
-    )
-
-    Logger.info(individualAccount.toString)
-
-    val res = TestCreateIndividualAccount.submit()(FakeRequest().withFormUrlEncodedBody(validFormData:_*).withHeaders(HeaderNames.xSessionId -> shortString))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.IdentityVerification.startIv().url)
-  }
-
-  "Going to the individual account page, when logged in with an account that has already registered" should "redirect to the dashboard page" in {
-    val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
-
-    StubAuthConnector.stubGroupId(shortString)
-    StubAuthConnector.stubExternalId(individualAccount.externalId)
-    StubIndividualAccountConnector.stubAccount(individualAccount)
-
-    val res = TestCreateIndividualAccount.show()(FakeRequest())
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Dashboard.home.url)
-  }*/
-
 }

@@ -18,14 +18,14 @@ package auth
 
 import javax.inject.Inject
 
-import config.ApplicationConfig
+import config.{ApplicationConfig, Global}
 import connectors.VPLAuthConnector
 import models.enrolment.{UserDetails, UserInfo}
 import play.api.libs.json.Json
 import play.api.mvc.Results.Redirect
 import play.api.mvc._
 import uk.gov.hmrc.auth.core.AffinityGroup
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
@@ -59,7 +59,13 @@ class GGActionEnrolment @Inject()(val provider: GovernmentGatewayProvider, val a
       .getUserDetails
       .flatMap(userDetails => body(userDetails)(request).map(_.withSession(request.session.putUserDetails(userDetails))))
       .recoverWith {
-        case _: Throwable => provider.redirectToLogin
+        case e: BadRequestException =>
+          Global.onBadRequest(request, e.message)
+        case _: NotFoundException =>
+          Global.onHandlerNotFound(request)
+        //need to catch unhandled exceptions here to propagate the request ID into the internal server error page
+        case e =>
+          Global.onError(request, e)
       }
 
   private def userDetailsFromSession(body: UserDetails => Request[AnyContent] => Future[Result])
@@ -79,13 +85,14 @@ object SessionHelpers {
     val lastName = "lastName"
     val email = "email"
     val postcode = "postcode"
+    val groupId = "groupId"
     val affinityGroup = "affinityGroup"
   }
 
   implicit class SessionOps(session: Session) {
 
     def getUserDetails: Option[UserDetails] = {
-      (session.get(key.externalId), session.get(key.firstName), session.get(key.lastName), session.get(key.email), session.get(key.postcode), session.get(key.affinityGroup), session.get("affinityGroup")) match {
+      (session.get(key.externalId), session.get(key.firstName), session.get(key.lastName), session.get(key.email), session.get(key.postcode), session.get(key.groupId), session.get(key.affinityGroup)) match {
         case (Some(externalId), firstName, lastName, Some(email), postcode, Some(groupId), Some(affinityGroup)) =>
           Json.parse(affinityGroup)
             .asOpt[AffinityGroup]
@@ -101,6 +108,7 @@ object SessionHelpers {
         .+("lastName" -> userDetails.userInfo.lastName.getOrElse(""))
         .+("email" -> userDetails.userInfo.email)
         .+("postcode" -> userDetails.userInfo.postcode.getOrElse(""))
+        .+("groupId" -> userDetails.userInfo.groupIdentifier)
         .+("affinityGroup" -> userDetails.userInfo.affinityGroup.toJson.toString)
     }
 
@@ -110,6 +118,7 @@ object SessionHelpers {
         .-("lastName")
         .-("email")
         .-("postcode")
+        .-("groupId")
         .-("affinityGroup")
     }
   }

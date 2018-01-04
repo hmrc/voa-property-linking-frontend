@@ -81,11 +81,9 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
       case x: AuthContext =>
         for {
           ids       <- this.getIds[ExternalId](x)
-          userInfo  <- this.getUserDetails[JsValue](x)
-          _         =  Logger.debug(Json.prettyPrint(userInfo) + " this is here")
-          x         <- this.getUserDetails[UserInfo](x)
+          userInfo         <- this.getUserDetails[UserInfo](x)
         } yield {
-          UserDetails(ids.externalId, x)
+          UserDetails(ids.externalId, userInfo)
         }
       case y: UserDetails => Future.successful(y)
     }

@@ -66,13 +66,9 @@ object FieldData {
 
   def apply(userInfo: UserInfo): FieldData =
     new FieldData(
-      firstName = userInfo.firstName,
-      lastName = userInfo.lastName,
-      postcode = userInfo.postcode,
-      email = userInfo.email)
-
-  implicit private def get(opt: Option[String]): String = opt match {
-    case Some(x)  => x
-    case None     => ""
-  } //TODO Just playing around with implicits. will delete.
+      firstName = userInfo.firstName.getOrElse(""),
+      lastName = userInfo.lastName.getOrElse(""),
+      postcode = userInfo.postcode.getOrElse(""),
+      email = userInfo.email
+    )
 }

@@ -120,7 +120,7 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
           case Success =>
             Future.successful(Ok(views.html.createAccount.migration_success()))
             //TODO use ^ this one instead of the following ???
-            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+//            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
           case Failure =>
             Logger.warn("Failed to enrol existing VOA user")
             body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
@@ -132,7 +132,7 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
     }
 
     if (getBoolean("featureFlags.enrolment")) {
-      val retrieve = Retrievals.email and Retrievals.postCode and Retrievals.groupIdentifier
+      val retrieve: Retrieval[~[~[Option[String], Option[String]], Option[String]]] = Retrievals.email and Retrievals.postCode and Retrievals.groupIdentifier
       authorised(AuthProviders(AuthProvider.GovernmentGateway) and Enrolment("HMRC-VOA-CCA")).retrieve(retrieve) {
         case email ~ postcode ~ groupId => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
       }.recoverWith(handleError)

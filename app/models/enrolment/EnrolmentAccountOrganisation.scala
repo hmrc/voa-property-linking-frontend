@@ -58,9 +58,3 @@ case class EnrolmentOrganisationAccountDetails(firstName: String,
                                                email: String,
                                                confirmedEmail: String,
                                                isAgent: Boolean)
-
-//Do we really need two classes that take in the same data ???
-case class OrganisationFieldData(firstName: String = "",
-                                 lastName: String = "",
-                                 postcode: String = "",
-                                 email: String = "")
