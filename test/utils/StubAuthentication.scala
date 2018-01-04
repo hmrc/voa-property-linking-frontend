@@ -16,14 +16,16 @@
 
 package utils
 
-import actions.AuthenticatedAction
+import actions.{AuthImpl, AuthenticatedAction, BasicAuthenticatedRequest, NonEnrolmentAuth}
 import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
+import models.Accounts
+import play.api.mvc.{AnyContent, Request, Result}
 
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.config.ServicesConfig
 
-object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation, null, null, null) { //TODO mock these things
+object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation, StubAuthImpl, null, null) { //TODO mock these things
   def stubAuthenticationResult(result: AuthorisationResult) = {
     StubBusinessRatesAuthorisation.authorisationResult = result
   }
@@ -34,6 +36,7 @@ object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAut
 
 }
 
+object StubAuthImpl extends NonEnrolmentAuth
 object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubServicesConfig, StubHttp) {
   var authorisationResult: AuthorisationResult = InvalidGGSession
 

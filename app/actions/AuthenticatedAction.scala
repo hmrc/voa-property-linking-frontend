@@ -45,7 +45,7 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
                                     addressesConnector: Addresses,
                                     val authConnector: AuthConnector) {
 
-  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+  protected implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
   def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
     businessRatesAuthorisation.authenticate flatMap {
@@ -124,6 +124,9 @@ case class AgentRequest[A](organisationAccount: GroupAccount, individualAccount:
 
 
 trait AuthImpl {
+
+  protected implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+
   def success(accounts: Accounts, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])(implicit request: Request[AnyContent]): Future[Result]
 
   def noVoaRecord: Future[Result]
@@ -156,8 +159,6 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider, enrolments: E
         enrolments.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap {
           case Success =>
             Future.successful(Ok(views.html.createAccount.migration_success()))
-          //TODO use ^ this one instead of the following ???
-          //            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
           case Failure =>
             Logger.warn("Failed to enrol existing VOA user")
             body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
