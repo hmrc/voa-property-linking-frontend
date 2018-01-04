@@ -40,7 +40,7 @@ object CreateEnrolmentIndividualAccount {
     keys.lastName -> nonEmptyText,
     keys.address -> addressMapping,
     keys.phone -> nonEmptyText(maxLength = 15),
-    keys.mobilePhone -> optional(text(maxLength = 15)), //Pretty sure this is meant to be optional.
+    keys.mobilePhone -> optional(text(maxLength = 15)),
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch)
   )(EnrolmentIndividualAccountDetails.apply)(EnrolmentIndividualAccountDetails.unapply))

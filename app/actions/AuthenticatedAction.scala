@@ -41,9 +41,9 @@ import uk.gov.hmrc.play.frontend.auth.connectors.domain.Authority
 
 class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
                                     businessRatesAuthorisation: BusinessRatesAuthorisation,
-                                    enrolments: EnrolmentService,
+                                    authImpl: AuthImpl,
                                     addressesConnector: Addresses,
-                                    val authConnector: AuthConnector) extends AuthorisedFunctions with ServicesConfig {
+                                    val authConnector: AuthConnector) {
 
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
@@ -94,52 +94,16 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
   private def handleResult(result: AuthorisationResult, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
                           (implicit request: Request[AnyContent]) = {
     result match {
-      case Authenticated(accounts) => success(accounts, body)
+      case Authenticated(accounts) => authImpl.success(accounts, body)
       case InvalidGGSession => provider.redirectToLogin
-      case NoVOARecord => // once enrolment enabled we need to do this with the nonOrganisationAction | NonOrganisationAccount =>
-        if (getBoolean("featureFlags.enrolment")) {
-          Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
-        } else {
-          Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
-        }
+      case NoVOARecord => authImpl.noVoaRecord
       case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
-      case NonOrganisationAccount =>
-        if (getBoolean("featureFlags.enrolment")) {
-          Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
-        } else {
-          Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
-        }
+      case NonOrganisationAccount => authImpl.noOrgAccount
       case ForbiddenResponse => Future.successful(Forbidden(views.html.errors.forbidden()))
     }
   }
 
-  def success(accounts: Accounts, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
-    def handleError: PartialFunction[Throwable, Future[Result]] = {
-      case _: InsufficientEnrolments =>
-        enrolments.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap {
-          case Success =>
-            Future.successful(Ok(views.html.createAccount.migration_success()))
-            //TODO use ^ this one instead of the following ???
-//            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
-          case Failure =>
-            Logger.warn("Failed to enrol existing VOA user")
-            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
-        }
-      case _: NoActiveSession => provider.redirectToLogin
-      case otherException =>
-        Logger.debug(s"exception thrown on authorization with message : ${otherException.getMessage}")
-        throw otherException
-    }
 
-    if (getBoolean("featureFlags.enrolment")) {
-      val retrieve: Retrieval[~[~[Option[String], Option[String]], Option[String]]] = Retrievals.email and Retrievals.postCode and Retrievals.groupIdentifier
-      authorised(AuthProviders(AuthProvider.GovernmentGateway) and Enrolment("HMRC-VOA-CCA")).retrieve(retrieve) {
-        case email ~ postcode ~ groupId => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
-      }.recoverWith(handleError)
-    } else {
-      body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
-    }
-  }
 }
 
 sealed trait AuthenticatedRequest[A] extends Request[A] {
@@ -156,3 +120,64 @@ case class BasicAuthenticatedRequest[A](organisationAccount: GroupAccount, indiv
 
 case class AgentRequest[A](organisationAccount: GroupAccount, individualAccount: DetailedIndividualAccount, agentCode: Long, request: Request[A])
   extends WrappedRequest[A](request) with AuthenticatedRequest[A]
+
+
+
+trait AuthImpl {
+  def success(accounts: Accounts, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])(implicit request: Request[AnyContent]): Future[Result]
+
+  def noVoaRecord: Future[Result]
+
+  def noOrgAccount: Future[Result]
+}
+
+class NonEnrolmentAuth extends AuthImpl {
+  override def success(
+                        accounts: Accounts,
+                        body: (BasicAuthenticatedRequest[AnyContent]) => Future[Result])
+                      (implicit request: Request[AnyContent]): Future[Result] =
+    body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+
+  override def noVoaRecord: Future[Result] =
+    Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
+
+  override def noOrgAccount: Future[Result] =
+    Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
+
+}
+
+class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider, enrolments: EnrolmentService, val authConnector: AuthConnector) extends AuthorisedFunctions with AuthImpl {
+  override def success(
+                        accounts: Accounts,
+                        body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
+                      (implicit request: Request[AnyContent]): Future[Result] = {
+    def handleError: PartialFunction[Throwable, Future[Result]] = {
+      case _: InsufficientEnrolments =>
+        enrolments.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap {
+          case Success =>
+            Future.successful(Ok(views.html.createAccount.migration_success()))
+          //TODO use ^ this one instead of the following ???
+          //            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+          case Failure =>
+            Logger.warn("Failed to enrol existing VOA user")
+            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+        }
+      case _: NoActiveSession => provider.redirectToLogin
+      case otherException =>
+        Logger.debug(s"exception thrown on authorization with message : ${otherException.getMessage}")
+        throw otherException
+    }
+
+    val retrieve: Retrieval[~[~[Option[String], Option[String]], Option[String]]] = Retrievals.email and Retrievals.postCode and Retrievals.groupIdentifier
+    authorised(AuthProviders(AuthProvider.GovernmentGateway) and Enrolment("HMRC-VOA-CCA")).retrieve(retrieve) {
+      case email ~ postcode ~ groupId => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+    }.recoverWith(handleError)
+  }
+
+  override def noVoaRecord: Future[Result] =
+    Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
+
+
+  override def noOrgAccount: Future[Result] =
+      Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
+}

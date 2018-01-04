@@ -19,6 +19,7 @@ package config
 import java.time.{Clock, Instant, LocalDateTime, ZoneId}
 import javax.inject.{Inject, Provider}
 
+import actions.{AuthImpl, EnrolmentAuth, NonEnrolmentAuth}
 import auth.{GGAction, GGActionEnrolment, VoaAction}
 import com.builtamont.play.pdf.PdfGenerator
 import com.google.inject.AbstractModule
@@ -103,8 +104,10 @@ class GuiceModule(environment: Environment,
     val enrolment: ScopedBindingBuilder = {
       if (configuration.getBoolean("featureFlags.enrolment").getOrElse(false)) {
         bind(classOf[VoaAction]).to(classOf[GGActionEnrolment])
+        bind(classOf[AuthImpl]).to(classOf[EnrolmentAuth])
       } else {
         bind(classOf[VoaAction]).to(classOf[GGAction])
+        bind(classOf[AuthImpl]).to(classOf[NonEnrolmentAuth])
       }
     }
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
