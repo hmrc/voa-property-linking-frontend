@@ -102,7 +102,7 @@ class GuiceModule(environment: Environment,
                   configuration: Configuration) extends AbstractModule {
   def configure() = {
     val enrolment: ScopedBindingBuilder = {
-      if (configuration.getBoolean("featureFlags.enrolment").getOrElse(false)) {
+      if (configuration.getString("featureFlags.enrolment").getOrElse(throw ConfigMissing("featureFlags.enrolment")).toBoolean) {
         bind(classOf[VoaAction]).to(classOf[GGActionEnrolment])
         bind(classOf[AuthImpl]).to(classOf[EnrolmentAuth])
       } else {
