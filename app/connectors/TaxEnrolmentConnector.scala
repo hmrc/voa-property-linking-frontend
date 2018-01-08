@@ -31,7 +31,7 @@ class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
   def enrol(personId: Long, postcode: String)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[HttpResponse] =
     enrolMaybe(
       EnrolmentPayload(
-        identifiers = List(KeyValuePair("PersonID", personId.toString)),
+        identifiers = List(KeyValuePair("VOAPersonID", personId.toString)),
         verifiers = List(KeyValuePair("BusPostcode", postcode))
       )
     )
