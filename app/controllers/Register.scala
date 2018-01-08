@@ -25,10 +25,17 @@ import uk.gov.hmrc.play.config.ServicesConfig
 
 class Register @Inject()(config: ApplicationConfig, ggAction: VoaAction) extends PropertyLinkingController with ServicesConfig {
 
+  val continue = {
+    if(config.enrolmentEnabled)
+      Map("continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
+    else
+      Map("accountType" -> Seq("organisation"), "continue" -> Seq(routes.Register.confirm().url), "origin" -> Seq("voa"))
+  }
+
   def show = Action { implicit request =>
     Redirect(
       config.ggRegistrationUrl,
-      Map("accountType" -> Seq("organisation"), "continue" -> Seq(routes.Register.confirm().url), "origin" -> Seq("voa"))
+      continue
     )
   }
 
