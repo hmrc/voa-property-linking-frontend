@@ -109,7 +109,10 @@ class CreateEnrolmentUser @Inject()(
   }
 
   def success(personId: Long) = authenticatedAction { implicit request =>
-    Ok(views.html.createAccount.confirmation_enrolment(personId))
+    if(request.organisationAccount.isAgent){
+      Ok(views.html.createAccount.confirmation_enrolment(s"Agent ID: $personId"))
+    } else
+      Ok(views.html.createAccount.confirmation_enrolment(s"Person ID: $personId"))
   }
 
   private def createIndividualAccountSubmission(userDetails: UserDetails, phoneNumber: String)(groupAccount: GroupAccount) = {
