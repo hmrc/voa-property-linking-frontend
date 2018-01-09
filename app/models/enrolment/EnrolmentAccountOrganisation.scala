@@ -41,7 +41,7 @@ object CreateEnrolmentOrganisationAccount {
     keys.lastName -> nonEmptyText,
     keys.companyName -> nonEmptyText(maxLength = 45),
     keys.address -> addressMapping,
-    keys.phone -> nonEmptyText(maxLength = 15),
+    keys.phone -> nonEmptyText.verifying("Maxiumum length is 15", _.length <= 15),
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.isAgent -> mandatoryBoolean

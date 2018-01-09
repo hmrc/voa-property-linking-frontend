@@ -887,6 +887,10 @@ plannedImprovements.p2=You will not be able to access the service during this ti
 plannedImprovements.p3=The changes we’re making include:
 
 #ENROLMENT
+label.createAccount.firstName= First Name
+label.createAccount.lastName= Last Name
+label.createAccount.phone= Phone Number
+
 enrolment.title = Complete your contact details
 enrolment.organisation.name = Business name
 enrolment.firstName = First name

@@ -17,7 +17,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 
-@(personId: Long)(implicit request: Request[_], messages: Messages)
+@(id: String)(implicit request: Request[_], messages: Messages)
 
     @main_template(Messages("account.confirmation.title"), topNavigation = false) {
         <div class="grid-row">
@@ -25,7 +25,7 @@
 
                 <div class="transaction-banner--complete">
                     <h1 class="transaction-banner__heading">@Messages("account.confirmation.heading")</h1>
-                    <h2 class="transaction-banner__heading">PersonId : @personId</h2>
+                    <h2 class="transaction-banner__heading">@id</h2>
                 </div>
 
                 <p>@Html(Messages("account.confirmation.addToGG", "http://www.gateway.gov.uk"))</p>
