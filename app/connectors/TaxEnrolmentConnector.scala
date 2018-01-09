@@ -36,7 +36,7 @@ class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
       )
     )
 
-  def deEnrol(implicit hc: HeaderCarrier) =
+  def deEnrol(implicit hc: HeaderCarrier, ex: ExecutionContext) =
     wSHttp.POSTEmpty[HttpResponse](s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA")
 
   private def enrolMaybe(enrolmentPayload: EnrolmentPayload)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse] =
