@@ -1,1 +1,2 @@
 GET        /user-details        @controllers.test.TestUserDetailsController.getUserDetails
+GET        /de-enrol            @controllers.enrolment.CreateEnrolmentUser.deEnrol
