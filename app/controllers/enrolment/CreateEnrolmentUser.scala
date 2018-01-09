@@ -144,6 +144,13 @@ class CreateEnrolmentUser @Inject()(
     )
   }
 
+  def deEnrol() = authenticatedAction { implicit request =>
+    enrolmentService.deEnrolUser.map{
+      case Success => Ok("Successful")
+      case Failure => Ok("Failure")
+    }
+  }
+
   implicit private def organisationVm(form: Form[_]): CreateEnrolmentOrganisationAccountVM = CreateEnrolmentOrganisationAccountVM(form)
 
   implicit private def individualVm(form: Form[_]): CreateEnrolmentIndividualAccountVM = CreateEnrolmentIndividualAccountVM(form)
