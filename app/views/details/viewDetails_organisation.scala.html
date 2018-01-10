@@ -28,5 +28,6 @@
 
     @partials.dashboardTabs(unreadMessageCount)
 
-    @personalDetails_enrolment(individualAccount, organisationAccount.companyName, personalAddress, isIndividual = true)
+    @personalDetails_enrolment(individualAccount, organisationAccount.companyName, personalAddress, isIndividual = false)
+    @businessDetails(organisationAccount, businessAddress)
 }

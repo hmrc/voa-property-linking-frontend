@@ -17,7 +17,7 @@
 @import utils.Formatters
 @import config.ApplicationConfig.config._
 
-@(individualAccount: DetailedIndividualAccount, personalAddress: Address)(implicit request: Request[_], messages: Messages)
+@(individualAccount: DetailedIndividualAccount, tradingName: String, personalAddress: Address, isIndividual: Boolean)(implicit request: Request[_], messages: Messages)
 
 @tableRow(key: String, value: String, link: Call) = {
     <tr>
@@ -40,6 +40,7 @@
             <col style="width: 10%">
         </colgroup>
         <tbody>
+        @if(isIndividual){
             @if(editNameEnabled) {
                 @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName())
             } else {
@@ -53,6 +54,18 @@
             @tableRow("phone", individualAccount.details.phone1, controllers.manageDetails.routes.UpdatePersonalDetails.viewPhone())
             @tableRow("mobile", individualAccount.details.phone2.getOrElse(Messages("details.mobile.notSet")), controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile())
             @tableRow("email", individualAccount.details.email, controllers.manageDetails.routes.UpdatePersonalDetails.viewEmail())
+            @tableRow("tradingName", tradingName, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessName())
+        } else {
+        @if(editNameEnabled) {
+        @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName())
+        } else {
+        <tr>
+            <td>@Messages("details.personal.name")</td>
+            <td>@individualAccount.details.firstName @individualAccount.details.lastName</td>
+            <td></td>
+        </tr>
+        }
+        }
         </tbody>
     </table>
 </div>
