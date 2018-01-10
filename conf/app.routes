@@ -121,7 +121,7 @@ GET         /lookup                                                             
 GET         /planned-improvements                                                             @controllers.DowntimePage.plannedImprovements
 
 #Enrolment page
-GET         /complete-contact-details                                                         @controllers.enrolment.CreateEnrolmentUser.show()
+GET         /complete-contact-details                                                         @controllers.enrolment.CreateEnrolmentUser.view()
 POST        /complete-business-contact-details                                                @controllers.enrolment.CreateEnrolmentUser.submitOrganisation()
 POST        /complete-your-contact-details                                                    @controllers.enrolment.CreateEnrolmentUser.submitIndividual()
 GET         /create-success                                                                   @controllers.enrolment.CreateEnrolmentUser.success(personId: Long)

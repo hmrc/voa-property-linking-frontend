@@ -46,7 +46,7 @@ class CreateEnrolmentUser @Inject()(
                                      authenticatedAction: AuthenticatedAction
                                    ) extends PropertyLinkingController {
 
-  def show() = ggAction.async(isSession = true) { ctx =>
+  def view() = ggAction.async(isSession = true) { ctx =>
     implicit request =>
       auth.userDetails(ctx).flatMap { userDetails =>
         userDetails.userInfo.affinityGroup match {
