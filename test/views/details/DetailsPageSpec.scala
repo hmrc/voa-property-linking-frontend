@@ -98,8 +98,7 @@ class DetailsPageSpec extends ControllerSpec {
     val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
 
     val rows = getRows(html, "businessDetailsTable")
-    println(groupAccount.isAgent)
-    rows.foreach(println)
+
     rows must contain (("Agent code", groupAccount.agentCode.toString, ""))
   }
 

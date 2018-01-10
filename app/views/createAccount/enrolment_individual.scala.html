@@ -91,6 +91,16 @@
                     '_help -> Messages("label.createAccount.phone2.help")
                 )
 
+            @inputText(
+                    field = model.form(keys.tradingName),
+                    '_label -> Messages(s"enrolment.tradingName"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_optional -> true,
+                    '_help -> Messages("label.createAccount.tradingName.help")
+                )
+
                 <p>
                     <button type="submit" id="save-and-continue" class="button">@Messages("app.common.saveAndContinue")</button>
                 </p>
