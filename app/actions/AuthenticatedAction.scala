@@ -176,9 +176,9 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider, enrolments: E
   }
 
   override def noVoaRecord: Future[Result] =
-    Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.view()))
+    Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
 
 
   override def noOrgAccount: Future[Result] =
-      Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.view()))
+      Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
 }

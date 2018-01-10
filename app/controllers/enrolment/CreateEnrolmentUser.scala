@@ -46,7 +46,7 @@ class CreateEnrolmentUser @Inject()(
                                      authenticatedAction: AuthenticatedAction
                                    ) extends PropertyLinkingController {
 
-  def view() = ggAction.async(isSession = true) { ctx =>
+  def show() = ggAction.async(isSession = true) { ctx =>
     implicit request =>
       auth.userDetails(ctx).flatMap { userDetails =>
         userDetails.userInfo.affinityGroup match {
@@ -55,7 +55,7 @@ class CreateEnrolmentUser @Inject()(
               Ok(views.html.createAccount.enrolment_individual(
                 CreateEnrolmentIndividualAccount.form,
                 FieldData(userInfo = userDetails.userInfo))))
-          case Organisation => orgShow(ctx, userDetails) //Why was this pre-populating from modernised? to use the business details.
+          case Organisation => orgShow(ctx, userDetails)
         }
       }
   }
