@@ -721,6 +721,7 @@ manageAgents.howToAppoint=You can go to <a href={0}>‘Manage properties’</a> 
 viewDetails.title=My details
 details.user=Personal details
 details.personal.name=Name
+details.personal.tradingName=Trading Name
 details.personal.address=Address
 details.personal.phone=Telephone
 details.personal.email=Email

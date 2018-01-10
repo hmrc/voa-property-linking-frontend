@@ -32,13 +32,13 @@ class DetailsPageSpec extends ControllerSpec {
 
   behavior of "DetailsPage"
 
-  it should "display, and allow the user to edit, their name, email, address, phone, or mobile number" in {
+  it should "display Individual page, and allow the user to edit, their name, email, address, phone, or mobile number" in {
     val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isDefined)
     val groupAccount: GroupAccount = groupAccountGen
     val address: Address = addressGen
     implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
-    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
+    val html = Jsoup.parse(views.html.details.viewDetails_individual(individualAccount, groupAccount, address, address, 0).toString)
     val details = individualAccount.details
 
     val expectedRows: Seq[(String, String, String)] = Seq(
@@ -46,7 +46,8 @@ class DetailsPageSpec extends ControllerSpec {
       ("Address", Formatters.capitalizedAddress(address), controllers.manageDetails.routes.UpdatePersonalDetails.viewAddress().url),
       ("Telephone", details.phone1, controllers.manageDetails.routes.UpdatePersonalDetails.viewPhone().url),
       ("Mobile number", details.phone2.get, controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile().url),
-      ("Email", details.email, controllers.manageDetails.routes.UpdatePersonalDetails.viewEmail().url)
+      ("Email", details.email, controllers.manageDetails.routes.UpdatePersonalDetails.viewEmail().url),
+      ("Trading Name", groupAccount.companyName, controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessName().url)
     )
 
     val rows = getRows(html, "personalDetailsTable")
@@ -56,13 +57,33 @@ class DetailsPageSpec extends ControllerSpec {
     }
   }
 
-  it should "display a placeholder value if the user's mobile number is not set" in {
+  it should "display Organisation page, and allow the user to edit, their name, email, address, phone, or mobile number" in {
+    val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isDefined)
+    val groupAccount: GroupAccount = groupAccountGen
+    val address: Address = addressGen
+    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+
+    val html = Jsoup.parse(views.html.details.viewDetails_individual(individualAccount, groupAccount, address, address, 0).toString)
+    val details = individualAccount.details
+
+    val expectedRows: Seq[(String, String, String)] = Seq(
+      ("Name", s"${details.firstName} ${details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName().url)
+    )
+
+    val rows = getRows(html, "personalDetailsTable")
+
+    expectedRows.foreach { r =>
+      rows must contain (r)
+    }
+  }
+
+  it should "display a placeholder value if the user's mobile number is not set on Individual" in {
     val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isEmpty)
     val groupAccount: GroupAccount = groupAccountGen
     val address: Address = addressGen
     implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
 
-    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
+    val html = Jsoup.parse(views.html.details.viewDetails_individual(individualAccount, groupAccount, address, address, 0).toString)
 
     val rows = getRows(html, "personalDetailsTable")
     rows must contain (("Mobile number", "Not set", controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile().url))
@@ -77,6 +98,8 @@ class DetailsPageSpec extends ControllerSpec {
     val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, 0).toString)
 
     val rows = getRows(html, "businessDetailsTable")
+    println(groupAccount.isAgent)
+    rows.foreach(println)
     rows must contain (("Agent code", groupAccount.agentCode.toString, ""))
   }
 

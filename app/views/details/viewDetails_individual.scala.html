@@ -28,6 +28,5 @@
 
     @partials.dashboardTabs(unreadMessageCount)
 
-    @personalDetails(individualAccount, organisationAccount.companyName, personalAddress, isIndividual = false)
-    @businessDetails(organisationAccount, businessAddress)
+    @personalDetails(individualAccount, organisationAccount.companyName, personalAddress, isIndividual = true)
 }

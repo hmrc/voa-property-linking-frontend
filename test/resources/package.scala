@@ -113,7 +113,7 @@ package object resources {
   val groupAccountGen: Gen[GroupAccount] = for {
     id <- positiveInt
     groupId <- shortString
-    companyName <- shortString
+    companyName <- arbitrary[String]
     addressId <- arbitrary[Int]
     phone <-  Gen.listOfN(8, Gen.numChar)
     isAgent <- arbitrary[Boolean]

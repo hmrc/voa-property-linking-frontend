@@ -23,6 +23,7 @@ import models.enrolment.{UserDetails, UserInfo}
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsValue, Json, OFormat, Reads}
+import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.AuthContext
@@ -37,6 +38,10 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
   implicit val externalIdFormat = Json.format[ExternalId]
 
   override val serviceUrl: String = serverConfig.baseUrl("auth")
+
+  def getAffinityGroup(implicit hc: HeaderCarrier): Future[AffinityGroup] =
+    getUserDetailsLink
+      .flatMap(userDetailsLink => get[AffinityGroup](Some(userDetailsLink.userDetailsLink)))
 
   def getExternalId[A](ctx: A)(implicit hc: HeaderCarrier): Future[String] = ctx match {
     case x: AuthContext => getExternalId(x)
@@ -66,13 +71,16 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
     getAuthority[CredId].map(_.credId)
 
   def getUserDetails(implicit hc: HeaderCarrier): Future[UserDetails] =
-    getAuthority[UserDetailsLink]
+    getUserDetailsLink
       .flatMap{x =>
         for {
           id          <- http.GET[ExternalId](s"$serviceUrl${x.ids}")
           userInfo    <- http.GET[UserInfo](x.userDetailsLink)
         } yield UserDetails(id.externalId, userInfo)
       }
+
+  private def getUserDetailsLink(implicit hc: HeaderCarrier): Future[UserDetailsLink] =
+    getAuthority[UserDetailsLink]
 
   private def getAuthority[A: Reads](implicit hc: HeaderCarrier) =
     http.GET[JsValue](s"$serviceUrl/auth/authority").map(_.as[A])
