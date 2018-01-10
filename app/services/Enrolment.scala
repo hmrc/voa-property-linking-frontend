@@ -38,6 +38,14 @@ class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, 
       }
   }
 
+  def deEnrolUser(implicit hc: HeaderCarrier) =
+    taxEnrolmentsConnector
+      .deEnrol
+      .map(_ => Success)
+      .recover{
+        case _ : Throwable => Failure
+      }
+
   private def getAddress(opt: Option[Address]): Future[Address] = opt match {
     case None => Future.failed(throw new IllegalArgumentException())
     case Some(x) => Future.successful(x)

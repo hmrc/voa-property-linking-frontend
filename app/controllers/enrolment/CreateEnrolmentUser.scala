@@ -55,7 +55,7 @@ class CreateEnrolmentUser @Inject()(
               Ok(views.html.createAccount.enrolment_individual(
                 CreateEnrolmentIndividualAccount.form,
                 FieldData(userInfo = userDetails.userInfo))))
-          case Organisation => orgShow(ctx, userDetails) //Why was this pre-populating from modernised? to use the business details.
+          case Organisation => orgShow(ctx, userDetails)
         }
       }
   }

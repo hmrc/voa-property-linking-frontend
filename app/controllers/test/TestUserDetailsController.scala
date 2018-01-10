@@ -22,8 +22,12 @@ import actions.AuthenticatedAction
 import controllers.PropertyLinkingController
 import models.test.TestUserDetails
 import play.api.libs.json.Json
+import services.{EnrolmentService, Failure, Success}
 
-class TestUserDetailsController @Inject()(authenticated: AuthenticatedAction) extends PropertyLinkingController {
+class TestUserDetailsController @Inject()(
+                                           authenticated: AuthenticatedAction,
+                                           enrolmentService: EnrolmentService
+                                         ) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
     Ok(Json.toJson(request.organisationAccount.isAgent match {
@@ -42,6 +46,13 @@ class TestUserDetailsController @Inject()(authenticated: AuthenticatedAction) ex
         governmentGatewayExternalId = request.individualAccount.externalId,
         agentCode = None)
     }))
+  }
+
+  def deEnrol() = authenticated { implicit request =>
+    enrolmentService.deEnrolUser.map{
+      case Success => Ok("Successful")
+      case Failure => Ok("Failure")
+    }
   }
 
 }
