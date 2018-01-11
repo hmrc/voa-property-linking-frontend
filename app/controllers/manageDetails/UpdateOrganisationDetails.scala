@@ -27,13 +27,15 @@ import form.{Mappings, TextMatching}
 import models.{GroupAccount, UpdatedOrganisationAccount}
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.Result
+import play.api.mvc.{AnyContent, Result}
+import services.ManageDetails
 
 import scala.concurrent.Future
 
-class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction,
-                                          groups: GroupAccounts,
-                                          addresses: Addresses)(implicit clock: Clock) extends PropertyLinkingController {
+class UpdateOrganisationDetails @Inject()(
+  authenticated: AuthenticatedAction, groups: GroupAccounts,
+  addresses: Addresses, manageDetails: ManageDetails)
+  (implicit clock: Clock) extends PropertyLinkingController {
 
   def viewBusinessName = authenticated { implicit request =>
     Ok(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
@@ -85,7 +87,7 @@ class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction,
   private def updateDetails(name: Option[String] = None,
                             addressId: Option[Int] = None,
                             email: Option[String] = None,
-                            phone: Option[String] = None)(implicit request: BasicAuthenticatedRequest[_]): Future[Result] = {
+                            phone: Option[String] = None)(implicit request: BasicAuthenticatedRequest[AnyContent]): Future[Result] = {
     val current = request.organisationAccount
     val details = UpdatedOrganisationAccount(
       current.groupId,
@@ -95,9 +97,11 @@ class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction,
       email.getOrElse(current.email),
       phone.getOrElse(current.phone),
       Instant.now(clock),
-      request.individualAccount.externalId
-    )
-    groups.update(current.id, details) map { _ => Redirect(controllers.manageDetails.routes.ViewDetails.show()) }
+      request.individualAccount.externalId)
+
+    groups.update(current.id, details)
+      .flatMap(_ => addressId.fold(succeed)(manageDetails.updatePostcode(request.individualAccount.individualId, _)(_ => true)))
+      .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show()))
   }
 
   lazy val businessNameForm = Form(single("businessName" -> nonEmptyText(maxLength = 45)))

@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package controllers
+package services
 
-import config.Global
-import play.api.mvc.{Controller, Request}
-import play.api.Play.current
-import services.RequestContext
+import play.api.mvc.Request
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.HeaderCarrierConverter
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-trait PropertyLinkingController extends Controller with RequestContext {
-  implicit lazy val messages = play.api.i18n.Messages.Implicits.applicationMessages
-  implicit def future[A](a: A): Future[A] = Future.successful(a)
-  def notFound(implicit request: Request[_]) = NotFound(Global.notFoundTemplate)
+trait RequestContext {
+  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+  implicit val ec: ExecutionContext = play.api.libs.concurrent.Execution.Implicits.defaultContext
+  def succeed:Future[Any] = Future.successful(())
 }

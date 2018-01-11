@@ -19,7 +19,7 @@ package connectors
 import javax.inject.Inject
 
 import config.WSHttp
-import controllers.{EnrolmentPayload, KeyValuePair}
+import controllers.{EnrolmentPayload, KeyValuePair, PayLoad}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
 
@@ -39,8 +39,11 @@ class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
   def deEnrol(implicit hc: HeaderCarrier, ex: ExecutionContext) =
     wSHttp.POSTEmpty[HttpResponse](s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA")
 
+  def updatePostcode(personId:Long, postcode:String)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[HttpResponse] =
+    wSHttp.PUT[PayLoad, HttpResponse](
+      s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}",
+      PayLoad(verifiers = Seq(KeyValuePair(key="BusPostcode",value=postcode))))
 
   private def enrolMaybe(enrolmentPayload: EnrolmentPayload)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse] =
     wSHttp.PUT[EnrolmentPayload, HttpResponse](s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment", enrolmentPayload)
-
 }

@@ -23,7 +23,6 @@ import actions.{AuthImpl, EnrolmentAuth, NonEnrolmentAuth}
 import auth.{GGAction, GGActionEnrolment, VoaAction}
 import com.builtamont.play.pdf.PdfGenerator
 import com.google.inject.AbstractModule
-import com.google.inject.binder.ScopedBindingBuilder
 import com.google.inject.name.Names
 import com.typesafe.config.Config
 import connectors.VPLAuthConnector
@@ -36,6 +35,7 @@ import play.modules.reactivemongo.ReactiveMongoComponent
 import play.twirl.api.Html
 import reactivemongo.api.DB
 import repositories.{AgentAppointmentSessionRepository, PersonalDetailsSessionRepository, PropertyLinkingSessionRepository, SessionRepo}
+import services._
 import uk.gov.hmrc.auth.core.PlayAuthConnector
 import uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig
 import uk.gov.hmrc.http.HeaderNames
@@ -101,22 +101,22 @@ object ControllerConfiguration extends ControllerConfig {
 class GuiceModule(environment: Environment,
                   configuration: Configuration) extends AbstractModule {
   def configure() = {
-    val enrolment: ScopedBindingBuilder = {
-      if (configuration.getString("featureFlags.enrolment").getOrElse(throw ConfigMissing("featureFlags.enrolment")).toBoolean) {
-        bind(classOf[VoaAction]).to(classOf[GGActionEnrolment])
-        bind(classOf[AuthImpl]).to(classOf[EnrolmentAuth])
-      } else {
-        bind(classOf[VoaAction]).to(classOf[GGAction])
-        bind(classOf[AuthImpl]).to(classOf[NonEnrolmentAuth])
-      }
+    if (configuration.getString("featureFlags.enrolment").getOrElse(throw ConfigMissing("featureFlags.enrolment")).toBoolean) {
+      bind(classOf[VoaAction]).to(classOf[GGActionEnrolment])
+      bind(classOf[AuthImpl]).to(classOf[EnrolmentAuth])
+      bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithEnrolments])
+    } else {
+      bind(classOf[VoaAction]).to(classOf[GGAction])
+      bind(classOf[AuthImpl]).to(classOf[NonEnrolmentAuth])
+      bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithoutEnrolments])
     }
+
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
   //bind(classOf[TaxEnrolmentConnector]).to(classOf[TaxEnrolmentConnector]).asEagerSingleton()
-    enrolment
     bind(classOf[Clock]).toInstance(Clock.systemUTC())
     bind(classOf[uk.gov.hmrc.auth.core.AuthConnector]).to(classOf[AuthConnectorImpl])
     bind(classOf[AuthConnector]).to(classOf[VPLAuthConnector])
