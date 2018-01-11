@@ -28,14 +28,19 @@ import models.IndividualDetails
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
-import play.api.mvc.Result
+import play.api.mvc.{AnyContent, Result}
+import services.ManageDetails
+import uk.gov.hmrc.auth.core.AffinityGroup
 
 import scala.concurrent.Future
 
-class UpdatePersonalDetails @Inject()(config: ApplicationConfig,
-                                      authenticated: AuthenticatedAction,
-                                      addressesConnector: Addresses,
-                                      individualAccountConnector: IndividualAccounts) extends PropertyLinkingController {
+class UpdatePersonalDetails @Inject()(
+  config: ApplicationConfig,
+  authenticated: AuthenticatedAction,
+  addressesConnector: Addresses,
+  individualAccountConnector:IndividualAccounts,
+  manageDetails: ManageDetails)
+  extends PropertyLinkingController {
 
   def viewEmail() = authenticated { implicit request =>
     Ok(views.html.details.updateEmail(UpdateDetailsVM(emailForm, request.individualAccount.details)))
@@ -109,7 +114,7 @@ class UpdatePersonalDetails @Inject()(config: ApplicationConfig,
                             phone: Option[String] = None,
                             mobile: Option[String] = None,
                             addressId: Option[Int] = None)
-                           (implicit request: BasicAuthenticatedRequest[_]): Future[Result] = {
+                           (implicit request: BasicAuthenticatedRequest[AnyContent]): Future[Result] = {
 
     val currentDetails = request.individualAccount.details
     val updatedDetails = currentDetails.copy(
@@ -118,11 +123,12 @@ class UpdatePersonalDetails @Inject()(config: ApplicationConfig,
       email = email.getOrElse(currentDetails.email),
       phone1 = phone.getOrElse(currentDetails.phone1),
       phone2 = mobile.orElse(currentDetails.phone2),
-      addressId = addressId.getOrElse(currentDetails.addressId)
-    )
+      addressId = addressId.getOrElse(currentDetails.addressId))
     val updatedAccount = request.individualAccount.copy(details = updatedDetails)
 
-    individualAccountConnector.update(updatedAccount) map { _ => Redirect(controllers.manageDetails.routes.ViewDetails.show()) }
+    individualAccountConnector.update(updatedAccount)
+      .flatMap(_ => addressId.fold(succeed)(manageDetails.updatePostcode(request.individualAccount.individualId,_)(_!=AffinityGroup.Organisation)))
+      .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show()))
   }
 
   private lazy val emailForm = Form(

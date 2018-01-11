@@ -26,7 +26,14 @@ object EnrolmentPayload {
   implicit val format = Json.format[PayLoad]
   implicit val enrolmentPayload = Json.format[EnrolmentPayload]
 }
+
 case class PayLoad(verifiers: Seq[KeyValuePair], legacy: Option[Previous] = None)
+
+object PayLoad {
+  implicit val keyValue = Json.format[KeyValuePair]
+  implicit val previous = Json.format[Previous]
+  implicit val format = Json.format[PayLoad]
+}
 
 case class KeyValuePair(key: String, value: String)
 
