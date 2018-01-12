@@ -19,6 +19,7 @@ package config
 import java.util.Base64
 
 import com.google.inject.{Inject, Singleton}
+import controllers.routes
 import play.api.{Configuration, Play}
 import uk.gov.hmrc.play.config.inject.RunMode
 
@@ -28,14 +29,14 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   def businessRatesValuationUrl(page: String): String = getConfig("business-rates-valuation.url") + s"/$page"
   def businessRatesCheckUrl(page: String): String = getConfig("business-rates-check.url") + s"/$page"
 
-  val helpGuideUrl = getConfig("help-guide.url")
+  lazy val helpGuideUrl = getConfig("help-guide.url")
 
-  val vmvUrl: String = getConfig("vmv-frontend.url")
-  val ggSignInUrl: String = getConfig("gg-sign-in.url")
-  val ggRegistrationUrl: String = getConfig("gg-registration.url")
-  val ggContinueUrl: String = baseUrl + controllers.routes.Dashboard.home().url
-  val fileUploadUrl: String = getConfig("file-upload-frontend.url")
-  val serviceUrl: String = getConfig("voa-property-linking-frontend.url")
+  lazy val vmvUrl: String = getConfig("vmv-frontend.url")
+  lazy val ggSignInUrl: String = getConfig("gg-sign-in.url")
+  lazy val ggRegistrationUrl: String = getConfig("gg-registration.url")
+  lazy val ggContinueUrl: String = baseUrl + routes.Dashboard.home().url
+  lazy val fileUploadUrl: String = getConfig("file-upload-frontend.url")
+  lazy val serviceUrl: String = getConfig("voa-property-linking-frontend.url")
 
   lazy val analyticsToken: String = getConfig("google-analytics.token")
   lazy val analyticsHost: String = getConfig("google-analytics.host")
@@ -43,13 +44,13 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val loggedInUser:  Option[String] = getOptionalConfig("google-analytics.dimensions.loggedInUser")
   lazy val pingdomToken: Option[String] = getOptionalConfig("pingdom.performance.monitor.token")
 
-  val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
-  val searchSortEnabled: Boolean = getConfig("featureFlags.searchSortEnabled").toBoolean
-  val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
-  val messagesEnabled: Boolean = getConfig("featureFlags.messagesEnabled").toBoolean
-  val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean
-  val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean
-  val enrolmentEnabled: Boolean = getConfig("featureFlags.enrolment").toBoolean
+  lazy val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
+  lazy val searchSortEnabled: Boolean = getConfig("featureFlags.searchSortEnabled").toBoolean
+  lazy val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
+  lazy val messagesEnabled: Boolean = getConfig("featureFlags.messagesEnabled").toBoolean
+  lazy val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean
+  lazy val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean
+  lazy val enrolmentEnabled: Boolean = getConfig("featureFlags.enrolment").toBoolean
 
   lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
     new String(Base64.getUrlDecoder.decode(e))
