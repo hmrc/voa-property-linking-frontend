@@ -23,9 +23,11 @@ import actions.{AuthImpl, EnrolmentAuth, NonEnrolmentAuth}
 import auth.{GGAction, GGActionEnrolment, VoaAction}
 import com.builtamont.play.pdf.PdfGenerator
 import com.google.inject.AbstractModule
+import com.google.inject.binder.ScopedBindingBuilder
 import com.google.inject.name.Names
 import com.typesafe.config.Config
 import connectors.VPLAuthConnector
+import controllers.manageDetails.{Details, EnrolmentDetails, NonEnrolmentDetails}
 import net.ceedubs.ficus.Ficus._
 import play.api.Play.current
 import play.api._
@@ -101,22 +103,23 @@ object ControllerConfiguration extends ControllerConfig {
 class GuiceModule(environment: Environment,
                   configuration: Configuration) extends AbstractModule {
   def configure() = {
-    if (configuration.getString("featureFlags.enrolment").getOrElse(throw ConfigMissing("featureFlags.enrolment")).toBoolean) {
-      bind(classOf[VoaAction]).to(classOf[GGActionEnrolment])
-      bind(classOf[AuthImpl]).to(classOf[EnrolmentAuth])
-      bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithEnrolments])
-    } else {
-      bind(classOf[VoaAction]).to(classOf[GGAction])
-      bind(classOf[AuthImpl]).to(classOf[NonEnrolmentAuth])
-      bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithoutEnrolments])
+    def enrolment(): ScopedBindingBuilder = {
+      if (configuration.getString("featureFlags.enrolment").getOrElse(throw ConfigMissing("featureFlags.enrolment")).toBoolean) {
+        bind(classOf[Details]).to(classOf[EnrolmentDetails])
+        bind(classOf[VoaAction]).to(classOf[GGActionEnrolment])
+        bind(classOf[AuthImpl]).to(classOf[EnrolmentAuth])
+      } else {
+        bind(classOf[Details]).to(classOf[NonEnrolmentDetails])
+        bind(classOf[VoaAction]).to(classOf[GGAction])
+        bind(classOf[AuthImpl]).to(classOf[NonEnrolmentAuth])
+      }
     }
-
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
-  //bind(classOf[TaxEnrolmentConnector]).to(classOf[TaxEnrolmentConnector]).asEagerSingleton()
+    enrolment()
     bind(classOf[Clock]).toInstance(Clock.systemUTC())
     bind(classOf[uk.gov.hmrc.auth.core.AuthConnector]).to(classOf[AuthConnectorImpl])
     bind(classOf[AuthConnector]).to(classOf[VPLAuthConnector])

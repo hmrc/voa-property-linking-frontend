@@ -21,9 +21,14 @@ import config.ApplicationConfig
 import play.api.mvc.Action
 
 class Login @Inject()(config: ApplicationConfig) extends PropertyLinkingController {
+
+  val continue = if (config.enrolmentEnabled){
+    Map("continue" -> Seq(config.ggContinueUrl), "origin" -> Seq("voa"))
+  } else {
+    Map("origin" -> Seq("voa"), "accountType" -> Seq("organisation"), "continue" -> Seq(config.ggContinueUrl))
+  }
+
   def show = Action { implicit request =>
-    Redirect(config.ggSignInUrl, Map(
-      "origin" -> Seq("voa"), "accountType" -> Seq("organisation"), "continue" -> Seq(config.ggContinueUrl))
-    )
+    Redirect(config.ggSignInUrl, continue)
   }
 }

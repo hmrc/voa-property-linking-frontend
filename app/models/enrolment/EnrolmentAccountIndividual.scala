@@ -33,6 +33,7 @@ object CreateEnrolmentIndividualAccount {
     val mobilePhone = "mobilePhone"
     val email = "email"
     val confirmedEmail = "confirmedEmail"
+    val tradingName = "tradingName"
   }
 
   lazy val form = Form(mapping(
@@ -42,7 +43,8 @@ object CreateEnrolmentIndividualAccount {
     keys.phone -> nonEmptyText(maxLength = 15),
     keys.mobilePhone -> optional(text(maxLength = 15)),
     keys.email -> email.verifying(Constraints.maxLength(150)),
-    keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch)
+    keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
+    keys.tradingName -> optional(text())
   )(EnrolmentIndividualAccountDetails.apply)(EnrolmentIndividualAccountDetails.unapply))
 
 }
@@ -55,7 +57,9 @@ case class EnrolmentIndividualAccountDetails(firstName: String,
                                              phone: String,
                                              mobilePhone: Option[String],
                                              email: String,
-                                             confirmedEmail: String)
+                                             confirmedEmail: String,
+                                             tradingName: Option[String]
+                                            )
 
 case class FieldData(firstName: String = "",
                                lastName: String = "",

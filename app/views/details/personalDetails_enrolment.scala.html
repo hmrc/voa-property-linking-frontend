@@ -1,0 +1,72 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import utils.Formatters
+@import config.ApplicationConfig.config._
+
+@(individualAccount: DetailedIndividualAccount, tradingName: String, personalAddress: Address, isIndividual: Boolean)(implicit request: Request[_], messages: Messages)
+
+@tableRow(key: String, value: String, link: Call) = {
+    <tr>
+        <td>@Messages(s"details.personal.$key")</td>
+        <td>@value</td>
+        <td>
+            <a id="update@key.capitalize" href="@link">@Messages("link.update")</a>
+        </td>
+    </tr>
+}
+
+<h3 class="heading-medium">@Messages("details.user")</h3>
+
+<div class="table-wrapper">
+    <table id="personalDetailsTable" class="table-font-xsmall margin-top-30 margin-bottom-20">
+        <caption class="visuallyhidden">@Messages("details.user")</caption>
+        <colgroup>
+            <col style="width: 45%">
+            <col style="width: 45%">
+            <col style="width: 10%">
+        </colgroup>
+        <tbody>
+        @if(isIndividual){
+            @if(editNameEnabled) {
+                @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName())
+            } else {
+                <tr>
+                    <td>@Messages("details.personal.name")</td>
+                    <td>@individualAccount.details.firstName @individualAccount.details.lastName</td>
+                    <td></td>
+                </tr>
+            }
+            @tableRow("address", Formatters.capitalizedAddress(personalAddress), controllers.manageDetails.routes.UpdatePersonalDetails.viewAddress())
+            @tableRow("phone", individualAccount.details.phone1, controllers.manageDetails.routes.UpdatePersonalDetails.viewPhone())
+            @tableRow("mobile", individualAccount.details.phone2.getOrElse(Messages("details.mobile.notSet")), controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile())
+            @tableRow("email", individualAccount.details.email, controllers.manageDetails.routes.UpdatePersonalDetails.viewEmail())
+            @tableRow("tradingName", tradingName, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessName())
+        } else {
+        @if(editNameEnabled) {
+        @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName())
+        } else {
+        <tr>
+            <td>@Messages("details.personal.name")</td>
+            <td>@individualAccount.details.firstName @individualAccount.details.lastName</td>
+            <td></td>
+        </tr>
+        }
+        }
+        </tbody>
+    </table>
+</div>
+
