@@ -108,10 +108,12 @@ class GuiceModule(environment: Environment,
         bind(classOf[Details]).to(classOf[EnrolmentDetails])
         bind(classOf[VoaAction]).to(classOf[GGActionEnrolment])
         bind(classOf[AuthImpl]).to(classOf[EnrolmentAuth])
+        bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithEnrolments])
       } else {
         bind(classOf[Details]).to(classOf[NonEnrolmentDetails])
         bind(classOf[VoaAction]).to(classOf[GGAction])
         bind(classOf[AuthImpl]).to(classOf[NonEnrolmentAuth])
+        bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithoutEnrolments])
       }
     }
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
