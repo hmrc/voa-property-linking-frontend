@@ -22,7 +22,7 @@ import config.WSHttp
 import models.enrolment.{UserDetails, UserInfo}
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.{JsValue, Json, OFormat, Reads}
+import play.api.libs.json._
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.config.inject.ServicesConfig
@@ -36,12 +36,17 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
   implicit val userInfo: OFormat[UserInfo] = Json.format[UserInfo]
   implicit val userDetailsLink = Json.format[UserDetailsLink]
   implicit val externalIdFormat = Json.format[ExternalId]
+  implicit val formatAffinityGroup = Json.format[AffinityGroupContainer]
+
 
   override val serviceUrl: String = serverConfig.baseUrl("auth")
 
   def getAffinityGroup(implicit hc: HeaderCarrier): Future[AffinityGroup] =
     getUserDetailsLink
-      .flatMap(userDetailsLink => get[AffinityGroup](Some(userDetailsLink.userDetailsLink)))
+      .flatMap{
+        userDetailsLink => get[AffinityGroupContainer](Some(userDetailsLink.userDetailsLink))
+          .map(_.affinityGroup)
+      }
 
   def getExternalId[A](ctx: A)(implicit hc: HeaderCarrier): Future[String] = ctx match {
     case x: AuthContext => getExternalId(x)
@@ -103,3 +108,5 @@ case class CredId(credId: String)
 case class ExternalId(externalId: String)
 
 case class UserDetailsLink(userDetailsLink: String, ids: String)
+
+case class AffinityGroupContainer(affinityGroup: AffinityGroup)
