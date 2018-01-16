@@ -95,7 +95,7 @@
                         </a>
                     }
                     </td>
-                    <td><a class="message-link" href="@viewMessageLink(m)">@m.subject</a></td>
+                    <td><a class="message-link" href="@viewMessageLink(m)">@m.subject.take(30)</a></td>
                     <td>@m.address</td>
                     <td>@m.caseReference</td>
                     @if(request.organisationAccount.isAgent) {
@@ -195,7 +195,7 @@
 }
 
 @viewMessageLink(m: Message) = @{
-    routes.Dashboard.viewMessage(m.id)
+    routes.Dashboard.viewMessage(m.caseReference)
 }
 
 @searchField(fieldName: String, value: Option[String]) = {

@@ -82,7 +82,7 @@ class MessagesPageSpec extends ControllerSpec {
     val message = oneMessage.messages.head
 
     row.head.select("i.icon-messageunread span.visuallyhidden").text mustBe "Unread"
-    row(1).text mustBe message.subject
+    row(1).text mustBe message.subject.take(30)
     row(2).text mustBe message.address
     row(3).text mustBe message.caseReference
     row(4).text mustBe message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy hh:mm a"))
@@ -129,7 +129,7 @@ class MessagesPageSpec extends ControllerSpec {
     val message = clientMessages.messages.head
     val row = messagesTable.select("tbody tr td").asScala
     row.head.select("i.icon-messageunread span.visuallyhidden").text mustBe "Unread"
-    row(1).text mustBe message.subject
+    row(1).text mustBe message.subject.take(30)
     row(2).text mustBe message.address
     row(3).text mustBe message.caseReference
     row(4).text mustBe message.clientName.get
@@ -253,8 +253,8 @@ class MessagesPageSpec extends ControllerSpec {
 
     val message = oneMessage.messages.head
 
-    rows.head.select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.id).url
-    rows(1).select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.id).url
+    rows.head.select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.caseReference).url
+    rows(1).select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.caseReference).url
   }
 
   lazy val pageWithOneUnreadMessage: Document = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 1).toString)
