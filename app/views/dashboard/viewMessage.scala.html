@@ -34,10 +34,13 @@
 
     @partials.welcomeLinks(unreadMessagesCount)
 
-    @{message.templateName match {
-     case "NDRCheckAcknowledgementUnrepMsg.odt" => checkReceivedTemplateUnrepresentedIP(message, checkSummaryUrl(message))
-     case "NDRCheckAcknowledgementRepMsg.odt" => checkReceivedTemplateRepresentedIP(message, checkSummaryUrl(message))
-     case "NDRCheckAcknowledgementAgentMsg.odt" => checkReceivedTemplateAgent(message, checkSummaryUrl(message))}
+    @{
+        message.templateName match {
+         case "NDRCheckAcknowledgementUnRepMsg.odt" => checkReceivedTemplateUnrepresentedIP(message, checkSummaryUrl(message))
+         case "NDRCheckAcknowledgementRepMsg.odt" => checkReceivedTemplateRepresentedIP(message, checkSummaryUrl(message))
+         case "NDRCheckAcknowledgementAgentMsg.odt" => checkReceivedTemplateAgent(message, checkSummaryUrl(message))
+         case _ => checkReceivedTemplateAgent(message, checkSummaryUrl(message))
+        }
     }
 
     <p id="message-pdf"><a href="@routes.Dashboard.viewMessageAsPdf(message.id)">@Messages("checkReceived.download")</a></p>
