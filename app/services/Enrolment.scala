@@ -38,9 +38,9 @@ class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, 
       }
   }
 
-  def deEnrolUser(implicit hc: HeaderCarrier) =
+  def deEnrolUser(personID: Long)(implicit hc: HeaderCarrier) =
     taxEnrolmentsConnector
-      .deEnrol
+      .deEnrol(personID)
       .map(_ => Success)
       .recover{
         case _ : Throwable => Failure
