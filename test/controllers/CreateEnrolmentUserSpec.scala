@@ -167,6 +167,7 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
     StubAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
+    StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
 
     CreateGroupAccount.form
     val data = Map(
