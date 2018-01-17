@@ -20,8 +20,8 @@ import javax.inject.Inject
 
 import config.WSHttp
 import controllers.{EnrolmentPayload, KeyValuePair, PayLoad}
-import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import play.api.libs.json.{JsValue, Json, Reads, Writes}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -39,7 +39,8 @@ class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
     )
 
   def deEnrol(personID: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
-    wSHttp.POST[JsValue, HttpResponse](s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA", Json.obj("keepAgentAllocations" ->  true))
+    wSHttp.POST[JsValue, HttpResponse](s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA", Json.obj("keepAgentAllocations" ->  true))(
+      implicitly[Writes[JsValue]], implicitly[HttpReads[HttpResponse]], hc.withExtraHeaders("Content-Type" -> "application/json"), ex)
       .map(_ => wSHttp.DELETE(s"$emacUrl/enrolment-store/enrolments/HMRC-VOA-CCA~VOAPersonID~$personID"))
 
   def updatePostcode(personId:Long, postcode:String)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[HttpResponse] =
