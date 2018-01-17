@@ -195,7 +195,7 @@
 }
 
 @viewMessageLink(m: Message) = @{
-    routes.Dashboard.viewMessage(m.caseReference)
+    routes.Dashboard.viewMessage(m.id)
 }
 
 @searchField(fieldName: String, value: Option[String]) = {
