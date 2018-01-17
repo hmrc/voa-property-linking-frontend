@@ -253,8 +253,8 @@ class MessagesPageSpec extends ControllerSpec {
 
     val message = oneMessage.messages.head
 
-    rows.head.select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.caseReference).url
-    rows(1).select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.caseReference).url
+    rows.head.select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.id).url
+    rows(1).select("a").attr("href") mustBe routes.Dashboard.viewMessage(message.id).url
   }
 
   lazy val pageWithOneUnreadMessage: Document = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 1).toString)
