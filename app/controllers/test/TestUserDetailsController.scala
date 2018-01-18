@@ -49,7 +49,9 @@ class TestUserDetailsController @Inject()(
   }
 
   def deEnrol() = authenticated { implicit request =>
-    enrolmentService.deEnrolUser.map{
+    enrolmentService
+      .deEnrolUser(request.individualAccount.individualId)
+      .map{
       case Success => Ok("Successful")
       case Failure => Ok("Failure")
     }

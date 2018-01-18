@@ -118,7 +118,7 @@ class CreateEnrolmentUser @Inject()(
     IndividualAccountSubmission(userDetails.externalId, "NONIV", Some(groupAccount.id), IndividualDetails(userDetails.userInfo.firstName.getOrElse(""), userDetails.userInfo.lastName.getOrElse(""), userDetails.userInfo.email, phoneNumber, None, groupAccount.addressId))
   }
 
-  private def groupExists(groupId: String, groupExists: GroupAccount => Future[Int], noGroup: Future[Long])(implicit hc: HeaderCarrier): Future[Long] = {
+  private def groupExists(groupId: String, groupExists: GroupAccount => Future[Int], noGroup: => Future[Long])(implicit hc: HeaderCarrier): Future[Long] = {
     groupAccounts.withGroupId(groupId).flatMap {
       case Some(acc) => groupExists(acc).map(_.toLong)
       case _ => noGroup
