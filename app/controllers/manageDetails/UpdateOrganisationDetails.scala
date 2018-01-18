@@ -100,7 +100,7 @@ class UpdateOrganisationDetails @Inject()(
       request.individualAccount.externalId)
 
     groups.update(current.id, details)
-      .flatMap(_ => addressId.fold(succeed)(manageDetails.updatePostcode(request.individualAccount.individualId, _)(_ => true)))
+      .flatMap(_ => addressId.fold(succeed)(manageDetails.updatePostcode(request.individualAccount.individualId, current.addressId, _)(_ => true)))
       .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show()))
   }
 

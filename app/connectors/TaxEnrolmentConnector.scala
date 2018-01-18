@@ -19,7 +19,7 @@ package connectors
 import javax.inject.Inject
 
 import config.WSHttp
-import controllers.{EnrolmentPayload, KeyValuePair, PayLoad}
+import controllers.{EnrolmentPayload, KeyValuePair, PayLoad, Previous}
 import play.api.libs.json.{JsValue, Json, Reads, Writes}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -41,12 +41,12 @@ class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
   def deEnrol(personID: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
     wSHttp.POST[JsValue, HttpResponse](s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA", Json.obj("keepAgentAllocations" ->  true))(
       implicitly[Writes[JsValue]], implicitly[HttpReads[HttpResponse]], hc.withExtraHeaders("Content-Type" -> "application/json"), ex)
-      .map(_ => wSHttp.DELETE(s"$emacUrl/enrolment-store/enrolments/HMRC-VOA-CCA~VOAPersonID~$personID"))
+      .map(_ => wSHttp.DELETE[HttpResponse](s"$emacUrl/enrolment-store/enrolments/HMRC-VOA-CCA~VOAPersonID~$personID"))
 
-  def updatePostcode(personId:Long, postcode:String)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[HttpResponse] =
-    wSHttp.PUT[PayLoad, HttpResponse](
-      s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}",
-      PayLoad(verifiers = Seq(KeyValuePair(key="BusPostcode",value=postcode))))
+  def updatePostcode(personId:Long, postcode:String, previousPostcode:String)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[HttpResponse] =
+    wSHttp.PUT[PayLoad, HttpResponse](s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}",
+      PayLoad(verifiers = Seq(KeyValuePair(key="BusPostcode",value=postcode)),
+        legacy = Some(Previous(previousVerifiers = List(KeyValuePair(key="BusPostcode", value=previousPostcode))))))
 
   private def enrolMaybe(enrolmentPayload: EnrolmentPayload)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse] =
     wSHttp.PUT[EnrolmentPayload, HttpResponse](s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment", enrolmentPayload)
