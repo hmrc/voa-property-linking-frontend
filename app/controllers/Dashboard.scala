@@ -158,7 +158,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
         } yield {
           //round up to nearest integer
           val numberOfPages: Int = Math.ceil(count.total.toDouble / pagination.pageSize).toInt
-          Ok(views.html.dashboard.messagesTab(msgs, pagination, count.unread, numberOfPages))
+          Ok(views.html.dashboard.messages.messagesTab(msgs, pagination, count.unread, numberOfPages))
         }
       }
     } else {
@@ -174,7 +174,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
         count <- messagesConnector.countUnread(request.organisationId)
       } yield {
         message match {
-          case Some(m) => Ok(views.html.dashboard.viewMessage(m, count.unread))
+          case Some(m) => Ok(views.html.dashboard.messages.viewMessage(m, count.unread))
           case None => NotFound(Global.notFoundTemplate)
         }
       }
@@ -188,7 +188,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
       message <- messagesConnector.getMessage(request.organisationId, messageId)
     } yield {
       message match {
-        case Some(m) => pdfGen.ok(views.html.dashboard.viewMessagePdf(m), ApplicationConfig.config.serviceUrl)
+        case Some(m) => pdfGen.ok(views.html.dashboard.messages.viewMessagePdf(m), ApplicationConfig.config.serviceUrl)
         case None => NotFound(Global.notFoundTemplate)
       }
     }

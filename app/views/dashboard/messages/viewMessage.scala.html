@@ -15,17 +15,22 @@
  *@
 
 @import models.messages.Message
+@import actions.AuthenticatedRequest
 
-@(message: Message)(implicit request: Request[_], messages: Messages)
+@import config.ApplicationConfig.config
 
+@(message: Message, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
-<html>
-    @*<head>
-        <link href="@config.serviceUrl/template/assets/stylesheets/govuk-template-print.css" media="print" rel="stylesheet" type="text/css">
-    </head>*@
-    @{message.templateName match {
-        case "NDRCheckAcknowledgementUnrepMsg.odt" => checkReceivedTemplateUnrepresentedIP(message)
-        case "NDRCheckAcknowledgementRepMsg.odt" => checkReceivedTemplateRepresentedIP(message)
-        case "NDRCheckAcknowledgementAgentMsg.odt" => checkReceivedTemplateAgent(message)}
-    }
-</html>
+@main_template(
+  title = message.subject,
+  topNavigation = false,
+  bottomBackLink = true,
+  topBackLink = true,
+  backLinkUrl = Some(routes.Dashboard.viewMessages().url)) {
+
+    @partials.welcomeLinks(unreadMessagesCount)
+
+    @viewMessageTemplate(message)
+
+    <p id="message-pdf"><a href="@routes.Dashboard.viewMessageAsPdf(message.id)">@Messages("checkReceived.download")</a></p>
+}
