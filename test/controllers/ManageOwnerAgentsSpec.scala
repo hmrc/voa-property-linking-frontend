@@ -19,6 +19,7 @@ package controllers
 import com.builtamont.play.pdf.PdfGenerator
 import config.ApplicationConfig
 import connectors._
+import connectors.propertyLinking.PropertyLinkConnector
 import models._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
@@ -26,28 +27,26 @@ import play.api.test.Helpers._
 import resources._
 import utils._
 
-class ManageAgentSpec extends ControllerSpec {
-  override val additionalAppConfig = Seq("featureFlags.managedAgentsEnabled" -> "false", "featureFlags.enrolment" -> "false")
+class ManageOwnerAgentsSpec extends ControllerSpec {
+  override val additionalAppConfig = Seq("featureFlags.managedAgentsEnabled" -> "true", "featureFlags.enrolment" -> "false")
 
   implicit val request = FakeRequest()
 
   object TestDashboardController extends Dashboard(
     app.injector.instanceOf[ApplicationConfig],
     mock[DraftCases],
-    StubPropertyLinkConnector,
+    mock[PropertyLinkConnector],
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
-    mock[AgentsConnector],
+    StubAgentConnector,
     StubAuthentication,
     mock[PdfGenerator]
   )
 
-  "Manage Agents page" must "return Ok" in {
-    val link = arbitrary[PropertyLink].sample.get
+  "Manage Owner Agents page" must "return Ok" in {
+
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
-
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
-    StubPropertyLinkConnector.stubLink(link)
 
     val res = TestDashboardController.manageAgents()(FakeRequest())
     status(res) mustBe OK

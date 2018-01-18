@@ -18,7 +18,7 @@ package controllers
 
 import com.builtamont.play.pdf.PdfGenerator
 import config.ApplicationConfig
-import connectors.{Authenticated, DraftCases}
+import connectors.{AgentsConnector, Authenticated, DraftCases}
 import models._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -222,6 +222,7 @@ class ManagePropertiesSpec extends ControllerSpec {
     mock[DraftCases],
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
+    mock[AgentsConnector],
     StubAuthentication,
     mock[PdfGenerator]
   )

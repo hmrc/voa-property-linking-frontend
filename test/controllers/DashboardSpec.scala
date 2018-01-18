@@ -45,6 +45,7 @@ class DashboardSpec extends ControllerSpec {
     mockDraftCases,
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
+    mock[AgentsConnector],
     StubAuthentication,
     mock[PdfGenerator]
   )

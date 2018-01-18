@@ -37,6 +37,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
                           draftCases: DraftCases,
                           propertyLinks: PropertyLinkConnector,
                           messagesConnector: MessagesConnector,
+                          agentsConnector: AgentsConnector,
                           authenticated: AuthenticatedAction,
                           pdfGen: PdfGenerator) extends PropertyLinkingController with ValidPagination {
 
@@ -117,7 +118,6 @@ class Dashboard @Inject()(config: ApplicationConfig,
   }
 
   def manageAgents() : Action[AnyContent] = {
-    Logger.debug("Manage Agents....")
     if (config.manageAgentsEnabled) {
       manageAgentsNew()
     } else {
@@ -131,7 +131,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
       response <- propertyLinks.linkedProperties(request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false))
       msgCount <- messagesConnector.countUnread(request.organisationId)
     } yield {
-      val agentInfos: Seq[AgentInfo] = response.propertyLinks
+      val agentInfos = response.propertyLinks
         .flatMap(_.agents)
         .map(a => AgentInfo(a.organisationName, a.agentCode))
         .sortBy(_.organisationName).distinct
@@ -142,7 +142,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
   def manageAgentsNew() = authenticated { implicit request =>
     Logger.debug("using manageAgentsNew....")
     for {
-      ownerAgents <- propertyLinks.ownerAgents(request.organisationId)
+      ownerAgents <- agentsConnector.ownerAgents(request.organisationId)
       msgCount <- messagesConnector.countUnread(request.organisationId)
     } yield {
       val agentInfos = ownerAgents.agents
