@@ -29,7 +29,7 @@ import org.jsoup.nodes.Document
 import play.api.i18n.Messages
 import play.api.mvc.{AnyContent, AnyContentAsEmpty}
 import play.api.test.FakeRequest
-import views.html.dashboard.messagesTab
+import views.html.dashboard.messages.messagesTab
 
 import scala.collection.JavaConverters._
 
