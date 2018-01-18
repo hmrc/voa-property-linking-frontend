@@ -23,7 +23,7 @@ import config.WSHttp
 import connectors.fileUpload.FileMetadata
 import controllers.{Pagination, PaginationSearchSort}
 import models._
-import models.searchApi.{OwnerAuthAgent, OwnerAuthResult}
+import models.searchApi.{OwnerAgents, OwnerAuthAgent, OwnerAuthResult}
 import session.LinkingSessionRequest
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.play.http._
@@ -64,6 +64,11 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   def linkedProperties(organisationId: Long, pagination: Pagination)
                       (implicit hc: HeaderCarrier): Future[PropertyLinkResponse] = {
     http.GET[PropertyLinkResponse](s"$baseUrl/property-links?organisationId=$organisationId&$pagination")
+  }
+
+  def ownerAgents(organisationId: Long)
+                      (implicit hc: HeaderCarrier): Future[OwnerAgents] = {
+    http.GET[OwnerAgents](s"$baseUrl/authorisation-search-api/owners/$organisationId/agents")
   }
 
   def linkedPropertiesSearchAndSort(organisationId: Long,

@@ -28,7 +28,8 @@ import models._
 import models.messages.MessagePagination
 import models.searchApi.OwnerAuthResult
 import play.api.libs.json.Json
-import play.api.mvc.{Request, Result}
+import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.Logger
 
 import scala.concurrent.Future
 
@@ -115,14 +116,37 @@ class Dashboard @Inject()(config: ApplicationConfig,
     }
   }
 
-  def manageAgents() = authenticated { implicit request =>
+  def manageAgents() : Action[AnyContent] = {
+    Logger.debug("Manage Agents....")
+    if (config.manageAgentsEnabled) {
+      manageAgentsNew()
+    } else {
+      manageAgentsOld()
+    }
+  }
+
+  def manageAgentsOld() = authenticated { implicit request =>
+    Logger.debug("using manageAgentsOld....")
     for {
       response <- propertyLinks.linkedProperties(request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false))
       msgCount <- messagesConnector.countUnread(request.organisationId)
     } yield {
-      val agentInfos = response.propertyLinks
+      val agentInfos: Seq[AgentInfo] = response.propertyLinks
         .flatMap(_.agents)
         .map(a => AgentInfo(a.organisationName, a.agentCode))
+        .sortBy(_.organisationName).distinct
+      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos), msgCount.unread))
+    }
+  }
+
+  def manageAgentsNew() = authenticated { implicit request =>
+    Logger.debug("using manageAgentsNew....")
+    for {
+      ownerAgents <- propertyLinks.ownerAgents(request.organisationId)
+      msgCount <- messagesConnector.countUnread(request.organisationId)
+    } yield {
+      val agentInfos = ownerAgents.agents
+        .map(ownerAgent => AgentInfo(ownerAgent.name, ownerAgent.ref))
         .sortBy(_.organisationName).distinct
       Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos), msgCount.unread))
     }
