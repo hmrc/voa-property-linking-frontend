@@ -127,7 +127,7 @@ class UpdatePersonalDetails @Inject()(
     val updatedAccount = request.individualAccount.copy(details = updatedDetails)
 
     individualAccountConnector.update(updatedAccount)
-      .flatMap(_ => addressId.fold(succeed)(manageDetails.updatePostcode(request.individualAccount.individualId,_)(_!=AffinityGroup.Organisation)))
+      .flatMap(_ => addressId.fold(succeed)(manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)(_!=AffinityGroup.Organisation)))
       .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show()))
   }
 
