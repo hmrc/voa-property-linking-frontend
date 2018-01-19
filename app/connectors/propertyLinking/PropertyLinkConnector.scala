@@ -25,12 +25,11 @@ import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.{OwnerAuthAgent, OwnerAuthResult}
 import session.LinkingSessionRequest
-import uk.gov.hmrc.play.config.inject.ServicesConfig
-import uk.gov.hmrc.play.http._
-
-import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+
+import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
@@ -65,6 +64,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
                       (implicit hc: HeaderCarrier): Future[PropertyLinkResponse] = {
     http.GET[PropertyLinkResponse](s"$baseUrl/property-links?organisationId=$organisationId&$pagination")
   }
+
 
   def linkedPropertiesSearchAndSort(organisationId: Long,
                                     pagination: PaginationSearchSort)
