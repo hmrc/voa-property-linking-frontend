@@ -14,16 +14,24 @@
  * limitations under the License.
  *@
 
-@()(implicit request: Request[_], messages: Messages)
+@(id: String)(implicit request: Request[_], messages: Messages)
 
-@main_template(Messages("enrolment.migration.success.title"), topNavigation = false) {
-    <div class="grid-row">
-        <div class="column-two-thirds">
-            <h1 class="heading-xlarge">@Messages("enrolment.migration.success.title")</h1>
+@main_template(Messages("account.confirmation.title"), topNavigation = false) {
+<div class="grid-row">
+    <div class="column-two-thirds">
 
-            <p>@Messages("enrolment.migration.success.explanation")</p>
-
-            <a href="@routes.Dashboard.home()" class="button" role="button">@Messages("link.manageProperties")</a>
+        <div class="transaction-banner--complete">
+            <h1 class="transaction-banner__heading">@Messages("account.confirmation.heading")</h1>
+            <h2 class="transaction-banner__heading">@id</h2>
         </div>
+
+        <p>@Html(Messages("account.confirmation.addToGG", "http://www.gateway.gov.uk"))</p>
+
+        <p>@Messages("account.confirmation.disclaimer")</p>
+
+        <p>@Messages("account.confirmation.youCan")</p>
+
+        <a href="@routes.Dashboard.manageProperties()" class="button" role="button">@Messages("link.manageProperties")</a>
     </div>
+</div>
 }
