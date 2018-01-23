@@ -38,6 +38,7 @@ class ManageOwnerAgentsSpec extends ControllerSpec {
     mock[PropertyLinkConnector],
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
     StubAgentConnector,
+    mock[GroupAccounts],
     StubAuthentication,
     mock[PdfGenerator]
   )
