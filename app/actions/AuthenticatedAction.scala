@@ -158,7 +158,7 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider, enrolments: E
       case _: InsufficientEnrolments =>
         enrolments.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap {
           case Success =>
-            Future.successful(Ok(views.html.createAccount.migration_success()))
+            Future.successful(Ok(views.html.createAccount.migration_success(s"PersonID: ${accounts.person.individualId}")))
           case Failure =>
             Logger.warn("Failed to enrol existing VOA user")
             body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))

@@ -108,9 +108,6 @@ class CreateEnrolmentUser @Inject()(
   }
 
   def success(personId: Long) = authenticatedAction { implicit request =>
-    if(request.organisationAccount.isAgent){
-      Ok(views.html.createAccount.confirmation_enrolment(s"Agent ID: $personId"))
-    } else
       Ok(views.html.createAccount.confirmation_enrolment(s"Person ID: $personId"))
   }
 
@@ -130,7 +127,10 @@ class CreateEnrolmentUser @Inject()(
       groupId     <- OptionT.liftF(auth.getGroupId(ctx))
       acc         <- OptionT(groupAccounts.withGroupId(groupId))
       address    <- OptionT(addresses.findById(acc.addressId))
-    } yield new FieldData(postcode = address.postcode, email = acc.email)
+    } yield {
+      acc.phone
+      new FieldData(postcode = address.postcode, email = acc.email)
+    }
 
     val fieldDataF = fieldDataFOptT
       .value

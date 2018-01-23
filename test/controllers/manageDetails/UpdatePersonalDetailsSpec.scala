@@ -179,7 +179,7 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
   it must "update the user's address ID if they use the lookup" in {
     val (_, current) = stubLoggedInUser()
 
-    when(mockManageDetails.updatePostcode(any(),any())(any())(any())).thenReturn(Future.successful(()))
+    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(()))
 
     val validData = Seq(
       "address.addressId" -> "1234567890",
@@ -193,7 +193,7 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
 
     val updatedDetails = current.details.copy(addressId = 1234567890)
     verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
-    verify(mockManageDetails, once).updatePostcode(matching(current.individualId),matching(1234567890))(any())(any())
+    verify(mockManageDetails, once).updatePostcode(matching(current.individualId),any(),matching(1234567890))(any())(any())
   }
 
   it must "create an address record, and update the user's record with the generated address ID, if they enter the address manually" in {
@@ -202,7 +202,7 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
     val addressId = Random.nextInt()
 
     when(mockAddressConnector.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(addressId))
-    when(mockManageDetails.updatePostcode(any(),any())(any())(any())).thenReturn(Future.successful(()))
+    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(()))
 
     val validFormData: Seq[(String, String)] = Seq(
       "address.line1" -> address.line1,
@@ -220,7 +220,7 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
 
     verify(mockAddressConnector, once).create(matching(address))(any[HeaderCarrier])
     verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
-    verify(mockManageDetails, once).updatePostcode(matching(current.individualId),matching(addressId))(any())(any())
+    verify(mockManageDetails, once).updatePostcode(matching(current.individualId),any(),matching(addressId))(any())(any())
   }
 
   "The update mobile number page" must "update the user's mobile number if they submit a valid form" in {
