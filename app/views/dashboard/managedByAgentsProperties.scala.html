@@ -14,9 +14,8 @@
  * limitations under the License.
  *@
 
-@import config.ApplicationConfig
-@import utils.Formatters
 @import actions.AuthenticatedRequest
+@import utils.Formatters
 
 @(model: controllers.ManagedPropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
@@ -39,6 +38,7 @@
         <h2 id="noProperties" class="heading-secondary">
         @Messages("managedByAgentsProperties.no.properties")
         </h2>
+        <br>
     }
 
     @if(model.properties.nonEmpty) {
