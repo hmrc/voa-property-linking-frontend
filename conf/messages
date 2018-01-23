@@ -55,8 +55,8 @@ heading.authenticationWizard.beforeYouRegister=What you need to do next
 
 authenticationWizard.beforeYouRegisterA.title=Sign in using Government Gateway
 authenticationWizard.p1.beforeYouRegisterA=To complete your registration you need to:
-authenticationWizard.beforeYouRegister.l1=sign in with the Government Gateway details that you’ve been given
-authenticationWizard.beforeYouRegister.l2=verify your identity
+authenticationWizard.beforeYouRegisterA.l1=sign in with the Government Gateway details that you’ve been given
+authenticationWizard.beforeYouRegisterA.l2=verify your identity
 
 authenticationWizard.beforeYouRegisterC.title=Sign in to complete registration
 authenticationWizard.p1.beforeYouRegisterC=To complete your registration you need to:
