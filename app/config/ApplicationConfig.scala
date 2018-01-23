@@ -42,6 +42,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val analyticsHost: String = getConfig("google-analytics.host")
   lazy val voaPersonID: String = getConfig("google-analytics.dimensions.voaPersonId")
   lazy val loggedInUser:  Option[String] = getOptionalConfig("google-analytics.dimensions.loggedInUser")
+  lazy val isAgentLoggedIn:  Option[String] = getOptionalConfig("google-analytics.dimensions.isAgentLoggedIn")
   lazy val pingdomToken: Option[String] = getOptionalConfig("pingdom.performance.monitor.token")
 
   lazy val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
@@ -51,7 +52,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean
   lazy val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean
   lazy val enrolmentEnabled: Boolean = getConfig("featureFlags.enrolment").toBoolean
-  lazy val manageAgentsEnabled: Boolean = getConfig("featureFlags.managedAgentsEnabled").toBoolean
+  lazy val manageAgentsEnabled: Boolean = getConfig("featureFlags.manageAgentsEnabled").toBoolean
 
   lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
     new String(Base64.getUrlDecoder.decode(e))

@@ -58,6 +58,7 @@ class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp)
     case "NO_CUSTOMER_RECORD" => NoVOARecord
     case "TRUST_ID_MISMATCH" => IncorrectTrustId
     case "NON_ORGANISATION_ACCOUNT" => NonOrganisationAccount
+    case "NON_GROUPID_ACCOUNT" => NonGroupIDAccount
   }
 
 }
@@ -75,3 +76,5 @@ case object IncorrectTrustId extends AuthorisationResult
 case object NonOrganisationAccount extends AuthorisationResult
 
 case object ForbiddenResponse extends AuthorisationResult
+
+case object NonGroupIDAccount extends AuthorisationResult
