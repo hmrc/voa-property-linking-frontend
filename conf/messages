@@ -36,6 +36,7 @@ propertyLinkingStatus.REVOKED=Revoked
 propertyLinkingStatus.MORE_EVIDENCE_REQUIRED=More evidence required
 
 #WIZARD
+label.wizard.title=Is your business registered for this service?
 label.wizard.businessHasRegistered=Is your business already registered for this service?
 businessHasRegistered.true=Yes
 businessHasRegistered.false=No
@@ -52,15 +53,18 @@ existingGGAccount.false=No
 #WIZARD BEFORE YOU START
 heading.authenticationWizard.beforeYouRegister=What you need to do next
 
+authenticationWizard.beforeYouRegisterA.title=Sign in using Government Gateway
 authenticationWizard.p1.beforeYouRegisterA=To complete your registration you need to:
 authenticationWizard.beforeYouRegister.l1=sign in with the Government Gateway details that you’ve been given
 authenticationWizard.beforeYouRegister.l2=verify your identity
 
+authenticationWizard.beforeYouRegisterC.title=Sign in to complete registration
 authenticationWizard.p1.beforeYouRegisterC=To complete your registration you need to:
 authenticationWizard.beforeYouRegisterC.l1=sign in with your existing Government Gateway details
 authenticationWizard.beforeYouRegisterC.l2=verify your identity
 authenticationWizard.beforeYouRegisterC.l3=register your business
 
+authenticationWizard.beforeYouRegisterD.title=Complete registration using Government Gateway
 authenticationWizard.p1.beforeYouRegisterD=To complete your registration you need to:
 authenticationWizard.beforeYouRegisterD.l1=create a Government Gateway account (you can do this on the next page)
 authenticationWizard.beforeYouRegisterD.l2=verify your identity
@@ -611,7 +615,7 @@ detailedValuationRequested.title=We’ve received your request to view the detai
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 10 working days.
 
-startChallenge.title=Challenge this valuation
+startChallenge.title=Challenge the valuation
 startChallenge.p.1=Your challenge must be submitted within 4 months of the VOA decision, or within 16 months of the date you told the VOA about a change in the surrounding area of your property. You can also submit a challenge if you told the VOA about a change and you haven’t received a decision within 12 months.
 startChallenge.p.2=To submit a challenge you’ll need to <a href="{0}">download and complete the form</a>. You can <a href="{1}">download guidance for completing the form</a>.
 startChallenge.p.3=You should send the form and any supporting evidence to <a href=mailto:ccaservice@voa.gsi.gov.uk>ccaservice@voa.gsi.gov.uk</a>.
