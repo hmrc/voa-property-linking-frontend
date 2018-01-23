@@ -74,6 +74,17 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
       redirectLocation(res) shouldBe Some(controllers.routes.CreateIndividualAccount.show().url)
     }
 
+    "redirect to invalid accoupt page when the user is logged in to GG but does not have groupId" in {
+      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(NonGroupIDAccount))
+
+      val res = testAction { _ =>
+        Ok("something")
+      }(FakeRequest())
+
+      status(res) shouldBe SEE_OTHER
+      redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
+    }
+
     "redirect to the invalid account page when the user is logged in with a non-organisation account" in {
       when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(NonOrganisationAccount))
 
