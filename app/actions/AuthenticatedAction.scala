@@ -94,12 +94,13 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
   private def handleResult(result: AuthorisationResult, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
                           (implicit request: Request[AnyContent]) = {
     result match {
-      case Authenticated(accounts) => authImpl.success(accounts, body)
-      case InvalidGGSession => provider.redirectToLogin
-      case NoVOARecord => authImpl.noVoaRecord
-      case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
-      case NonOrganisationAccount => authImpl.noOrgAccount
-      case ForbiddenResponse => Future.successful(Forbidden(views.html.errors.forbidden()))
+      case Authenticated(accounts)  => authImpl.success(accounts, body)
+      case InvalidGGSession         => provider.redirectToLogin
+      case NoVOARecord              => authImpl.noVoaRecord
+      case IncorrectTrustId         => Future.successful(Unauthorized("Trust ID does not match"))
+      case NonOrganisationAccount   => authImpl.noOrgAccount
+      case ForbiddenResponse        => Future.successful(Forbidden(views.html.errors.forbidden()))
+      case NonGroupIDAccount        => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
     }
   }
 
