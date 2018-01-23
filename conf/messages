@@ -273,9 +273,8 @@ managedByAgentsProperties.table.5=Actions
 dashboard.managedByAgentsProperties.status.added=Approved
 dashboard.managedByAgentsProperties.status.pending=Pending
 dashboard.managedByAgentsProperties.noAgent=None
-dashboard.managedByAgentsProperties.addAnotherProperty=Add another property
-managedByAgentsProperties.addAgent=Appoint agent
 managedByAgentsProperties.viewAssessments=View valuations
+managedByAgentsProperties.no.properties=This agent is not appointed to any properties
 
 
 manageClients.table.1=Organisation name
@@ -716,7 +715,8 @@ dashboard.manageAgents.table.1=Agent name
 dashboard.manageAgents.table.2=Agent code
 dashboard.manageAgents.table.3=Actions
 dashboard.manageAgents.viewManagedProperties=View managed properties
-manageAgents.howToAppoint=You can go to <a href={0}>‘Manage properties’</a> to appoint an agent for a property.
+dashboard.manageAgents.howToAppoint=You can go to <a href={0}>‘Manage properties’</a> to appoint an agent for a property.
+
 
 #details page
 viewDetails.title=My details
