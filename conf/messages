@@ -23,7 +23,6 @@ start.register=Register now
 label.login=Sign in
 label.register=Register
 
-
 app.common.errorSummaryLabel            = The following errors were identified on this page.
 
 
