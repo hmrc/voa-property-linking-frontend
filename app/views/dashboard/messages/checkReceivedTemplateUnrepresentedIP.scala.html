@@ -37,7 +37,7 @@
             @Messages("checkReceived.unrepresented.checkCase.1",
                 message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
             @checkSummaryUrl.map { checkSummary =>
-                <a id="view_summary_link" href="@checkSummary"> @Messages("checkReceived.unrepresented.checkCase.2")</a>
+                <a id="view_summary_link" href="@checkSummary"> @Messages("checkReceived.summaryLink.text")</a>
             }
         </p>
 
