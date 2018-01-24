@@ -18,7 +18,7 @@ package controllers
 
 import com.builtamont.play.pdf.PdfGenerator
 import config.ApplicationConfig
-import connectors.{AgentsConnector, Authenticated, DraftCases}
+import connectors.{AgentsConnector, Authenticated, DraftCases, GroupAccounts}
 import models.Accounts
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers._
@@ -117,6 +117,7 @@ class ViewDraftCasesSpec extends ControllerSpec {
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
     mock[AgentsConnector],
+    mock[GroupAccounts],
     StubAuthentication,
     mock[PdfGenerator]
   )
