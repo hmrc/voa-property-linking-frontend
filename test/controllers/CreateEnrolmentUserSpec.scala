@@ -126,7 +126,7 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
   }
 
   "Submitting a valid individual form" should "return a redirect" in {
-    when(mockEnrolmentService.enrol(any(), any())(any())).thenReturn(Future.successful(Success))
+    when(mockEnrolmentService.enrol(any(), any())(any(), any(), any())).thenReturn(Future.successful(Success))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)

@@ -20,6 +20,7 @@ import java.time.{Clock, Instant, LocalDateTime, ZoneId}
 import javax.inject.{Inject, Provider}
 
 import actions.{AuthImpl, EnrolmentAuth, NonEnrolmentAuth}
+import auditing.AuditingService
 import auth.{GGAction, GGActionEnrolment, VoaAction}
 import com.builtamont.play.pdf.PdfGenerator
 import com.google.inject.AbstractModule
@@ -116,6 +117,7 @@ class GuiceModule(environment: Environment,
         bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithoutEnrolments])
       }
     }
+    bind(classOf[AuditingService]).toInstance(AuditingService)
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])

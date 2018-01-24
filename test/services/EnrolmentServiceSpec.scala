@@ -16,6 +16,7 @@
 
 package services
 
+import auditing.AuditingService
 import connectors.{Addresses, TaxEnrolmentConnector}
 import models.Address
 import org.mockito.ArgumentMatchers.{eq => matching, _}
@@ -23,20 +24,24 @@ import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, MustMatchers}
+import play.api.test.FakeRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class EnrolmentServiceSpec extends FlatSpec with MustMatchers with MockitoSugar with ScalaFutures {
 
   val mockAddresses: Addresses = mock[Addresses]
   val mockTaxEnrolmentConnector: TaxEnrolmentConnector = mock[TaxEnrolmentConnector]
-  val enrolmentService: EnrolmentService = new EnrolmentService(mockTaxEnrolmentConnector, mockAddresses)
+  val mockAuditing = mock[AuditingService]
+  val enrolmentService: EnrolmentService = new EnrolmentService(mockTaxEnrolmentConnector, mockAddresses, mockAuditing)
+
+  implicit val fakeRequest = FakeRequest()
 
   "enrol" should " return success with valid details" in {
     when(mockAddresses.findById(any())(any())).thenReturn(Future.successful(Some(Address(Some(1), "", "", "", "", ""))))
-    when(mockTaxEnrolmentConnector.enrol(any(), any())(any(), any())).thenReturn(Future.successful(HttpResponse(204)))
+    when(mockTaxEnrolmentConnector.enrol(any(), any())(any(), any(), any())).thenReturn(Future.successful(HttpResponse(204)))
     val result = enrolmentService.enrol(1l, 1)
     result.futureValue must be(Success)
   }
