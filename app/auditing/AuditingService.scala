@@ -38,7 +38,7 @@ trait AuditingService {
     auditConnector.sendExtendedEvent(event)
   }
 
-  def eventFor[A: Writes](auditType: String, obj: A)(implicit hc: HeaderCarrier, request: Request[_]) = {
+  private def eventFor[A: Writes](auditType: String, obj: A)(implicit hc: HeaderCarrier, request: Request[_]) = {
     ExtendedDataEvent(
       auditSource = "voa-property-linking-frontend",
       auditType = auditType,

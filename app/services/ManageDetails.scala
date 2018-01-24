@@ -21,17 +21,18 @@ import javax.inject.Inject
 import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
 import models.Address
 import play.api.Logger
+import play.api.mvc.Request
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
 trait ManageDetails {
-  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate:AffinityGroup=>Boolean)(implicit hc: HeaderCarrier): Future[Any]
+  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate:AffinityGroup=>Boolean)(implicit hc: HeaderCarrier, request: Request[_]): Future[Any]
 }
 
 class ManageDetailsWithEnrolments @Inject() (taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, vPLAuthConnector: VPLAuthConnector) extends ManageDetails with RequestContext {
-  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate:AffinityGroup=>Boolean)(implicit hc: HeaderCarrier): Future[Any] = {
+  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate:AffinityGroup=>Boolean)(implicit hc: HeaderCarrier, request: Request[_]): Future[Any] = {
     def withAddress(addressId:Int, addressType:String)(action:Address => Future[Any]):Future[Any] =
       addresses.findById(addressId).flatMap {
         case Some(address) => action(address)
@@ -57,5 +58,5 @@ class ManageDetailsWithEnrolments @Inject() (taxEnrolments: TaxEnrolmentConnecto
 }
 
 class ManageDetailsWithoutEnrolments extends ManageDetails with RequestContext {
-  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate: AffinityGroup => Boolean)(implicit hc: HeaderCarrier): Future[Any] = succeed
+  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate: AffinityGroup => Boolean)(implicit hc: HeaderCarrier, request: Request[_]): Future[Any] = succeed
 }

@@ -18,23 +18,27 @@ package services
 
 import javax.inject.Inject
 
+import auditing.AuditingService
 import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
 import models.Address
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, addresses: Addresses) {
 
-  def enrol(personId: Long, addressId: Int)(implicit hc: HeaderCarrier): Future[EnrolmentResult] = {
+  def enrol(personId: Long, addressId: Int)(implicit hc: HeaderCarrier, ex: ExecutionContext, request: Request[_]): Future[EnrolmentResult] = {
     (for {
       optAddress <- addresses.findById(addressId)
       address      <- getAddress(optAddress)
       _ <- taxEnrolmentsConnector.enrol(personId, address.postcode)
-    } yield Success)
-      .recover{
-        case _: Throwable => Failure
+    } yield Success).recover{
+        case _: Throwable =>
+          AuditingService.sendEvent("Enrolment Failure", Json.obj("personId" -> personId))
+          Failure
       }
   }
 

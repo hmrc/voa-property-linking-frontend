@@ -169,7 +169,6 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider, enrolments: E
         Logger.debug(s"exception thrown on authorization with message : ${otherException.getMessage}")
         throw otherException
     }
-
     val retrieve: Retrieval[~[~[Option[String], Option[String]], Option[String]]] = Retrievals.email and Retrievals.postCode and Retrievals.groupIdentifier
     authorised(AuthProviders(AuthProvider.GovernmentGateway) and Enrolment("HMRC-VOA-CCA")).retrieve(retrieve) {
       case email ~ postcode ~ groupId => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
