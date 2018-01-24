@@ -28,7 +28,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, addresses: Addresses) {
+class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, addresses: Addresses, auditingService: AuditingService) {
 
   def enrol(personId: Long, addressId: Int)(implicit hc: HeaderCarrier, ex: ExecutionContext, request: Request[_]): Future[EnrolmentResult] = {
     (for {
@@ -37,7 +37,7 @@ class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, 
       _ <- taxEnrolmentsConnector.enrol(personId, address.postcode)
     } yield Success).recover{
         case _: Throwable =>
-          AuditingService.sendEvent("Enrolment Failure", Json.obj("personId" -> personId))
+          auditingService.sendEvent("Enrolment Failure", Json.obj("personId" -> personId))
           Failure
       }
   }

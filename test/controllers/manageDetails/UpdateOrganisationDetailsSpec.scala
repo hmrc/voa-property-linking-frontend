@@ -67,7 +67,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
   "The update business address page" must "update the business address ID if the postcode lookup is used" in {
     val (org, person) = stubLoggedInUser()
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
-    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(Success))
+    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
       "address.addressId" -> "1234567890",
@@ -80,14 +80,14 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
     verify(mockGroups, once).update(matching(org.id), matching(updatedDetails(org, person.externalId, addressId = Some(1234567890))))(any[HeaderCarrier])
-    verify(mockManageDetails, once).updatePostcode(matching(person.individualId),any(),matching(1234567890))(any())(any())
+    verify(mockManageDetails, once).updatePostcode(matching(person.individualId),any(),matching(1234567890))(any())(any(), any())
   }
 
   it must "create an address record, and update the business address ID to the created ID, if the address is entered manually" in {
     val (org, person) = stubLoggedInUser()
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
     when(mockAddresses.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(1))
-    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(Success))
+    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
       "address.line1" -> "1, The Place",
@@ -100,7 +100,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
 
     verify(mockAddresses, once).create(matching(Address(None, "1, The Place", "", "", "", "AA11 1AA")))(any[HeaderCarrier])
     verify(mockGroups, once).update(matching(org.id), matching(updatedDetails(org, person.externalId, addressId = Some(1))))(any[HeaderCarrier])
-    verify(mockManageDetails, once).updatePostcode(matching(person.individualId),any(),matching(1))(any())(any())
+    verify(mockManageDetails, once).updatePostcode(matching(person.individualId),any(),matching(1))(any())(any(), any())
   }
 
   "The update business phone page" must "require a non-empty phone number" in {
