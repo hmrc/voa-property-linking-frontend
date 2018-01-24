@@ -34,10 +34,10 @@
         <p><strong>@Messages("checkReceived.address", message.address)</strong></p>
 
         <p>
-            @Messages("checkReceived.agent.checkCase.1",
+            @Messages("checkReceived.unrepresented.checkCase",
                 message.effectiveDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
             @checkSummaryUrl.map { checkSummary =>
-                <a id="view_summary_link" href="@checkSummary"> @Messages("checkReceived.agent.checkCase.2")</a>
+                <a id="view_summary_link" href="@checkSummary"> @Messages("checkReceived.unrepresented.checkCase.2")</a>
             }
         </p>
 
