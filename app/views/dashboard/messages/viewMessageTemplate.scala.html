@@ -26,10 +26,10 @@
 }
 
 @{
-    message.templateName match {
-     case "NDRCheckAcknowledgementUnRepMsg.odt" => checkReceivedTemplateUnrepresentedIP(message, checkSummaryUrl(message))
-     case "NDRCheckAcknowledgementRepMsg.odt" => checkReceivedTemplateRepresentedIP(message, checkSummaryUrl(message))
-     case "NDRCheckAcknowledgementAgentMsg.odt" => checkReceivedTemplateAgent(message, checkSummaryUrl(message))
-     case _ => checkReceivedTemplateAgent(message, checkSummaryUrl(message))
+    message.templateName.toLowerCase match {
+     case "ndrcheckacknowledgementunrepmsg.odt" => checkReceivedTemplateUnrepresentedIP(message, checkSummaryUrl(message))
+     case "ndrcheckacknowledgementrepmsg.odt" => checkReceivedTemplateRepresentedIP(message, checkSummaryUrl(message))
+     case "ndrcheckacknowledgementagentmsg.odt" => checkReceivedTemplateAgent(message, checkSummaryUrl(message))
+     case _ => unrecognisedTemplate(message)
     }
 }

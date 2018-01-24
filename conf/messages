@@ -866,10 +866,10 @@ checkReceived.address=Property: {0}
 checkReceived.owner=Owner/occupier: {0}
 checkReceived.agent=Agent: {0}
 checkReceived.timestamp=Received: {0}
-checkReceived.unrepresented.checkCase=We have received your Check case for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
-checkReceived.represented.checkCase=We have received a Check case from your agent for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
+checkReceived.unrepresented.checkCase.1=We have received your Check case for the property on {0}.
+checkReceived.represented.checkCase.1=We have received a Check case from your agent for the property on {0}.
+checkReceived.summaryLink.text=You can view a summary of the check here
 checkReceived.agent.checkCase.1=We have received the Check case you have made on behalf of your client for the property on {0}.
-checkReceived.agent.checkCase.2=You can view a summary of the check here
 checkReceived.whatNow=What you need to do
 checkReceived.furtherInfo=You don''t need to do anything, we will contact you if we need further information or evidence.
 checkReceived.print=Print this message
@@ -880,6 +880,8 @@ checkReceived.valuation=The information submitted as part of the Check case may 
 checkReceived.moreInfo=You can find more information on the Check and Challenge service by searching for ''Check and Challenge'' on the <a href="https://www.gov.uk/search?q=check+and+challenge">GOV.UK</a> website.
 checkReceived.template.valuationOffice=Valuation Office Agency
 link.summary=View Summary
+messages.unknownTemplate=Unrecognised message template {0}
+messages.caseReference=Case reference: {0}
 
 #PAGINATION CONTROLS
 pagination.next=Next
