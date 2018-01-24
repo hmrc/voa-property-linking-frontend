@@ -10,6 +10,7 @@ GET         /contact-us                                                         
 #Registration
 GET         /login                                                                            @controllers.Login.show
 GET         /register                                                                         @controllers.Register.show
+POST        /regiser-user                                                                     @controllers.Register.choice
 GET         /registered                                                                       @controllers.Register.confirm
 GET         /logout                                                                           @controllers.Application.logOut
 GET         /invalid-account                                                                  @controllers.Application.invalidAccountType

@@ -1,0 +1,75 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import helpers._
+@import views.html.helper.CSRF
+
+@(data: Form[String])(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+title = Messages("start.heading.register"),
+topNavigation = false
+) {
+
+<div class="grid-row">
+    <div class="column-two-thirds">
+
+        <h1 class="heading-xlarge">
+            @Messages("start.heading.register")
+        </h1>
+
+        <p>@Html(Messages("start.registration.p.1", routes.Login.show))</p>
+        <p>@Html(Messages("start.registration.p.2"))</p>
+        <p>@Messages("start.registration.p.3")</p>
+
+        <ul class="list list-bullet">
+            <li>@Messages("start.registration.youNeed.1")</li>
+            <li>@Messages("start.registration.youNeed.2")</li>
+            <li>@Messages("start.registration.youNeed.3")</li>
+        </ul>
+
+        <p class="panel panel-border-wide">@Messages("start.registration.p.5")</p>
+
+
+        <details>
+            <summary><span class="summary">@Messages("start.registration.IdontHave")</span></summary>
+            <div class="panel-indent">
+                @Html(Messages("start.registration.IdontHave.answer"))
+            </div>
+        </details>
+
+    <form action="@routes.Register.choice()" method="POST" enctype="multipart/form-data">
+
+        @{CSRF.formField}
+
+        @inputRadioGroup(
+        field = data("choice"),
+        options = Seq("individual", "organisation"),
+        args = Seq(
+        '_label -> "What type of account do you want.",
+        '_labelClass -> "form-label-bold",
+        '_legend -> true,
+        '_fieldsetClass -> "inline"
+        ))
+
+        <button type="submit" id="save-and-continue" class="button" >@Messages("start.register")</button>
+    </form>
+    </div>
+
+</div>
+
+}
