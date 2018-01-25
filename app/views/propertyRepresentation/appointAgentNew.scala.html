@@ -81,15 +81,11 @@
                 <div class="form-group">
                     <fieldset>
 
-                        <legend>
-                            <h1 class="heading-medium">@Messages("propertyRepresentation.appointAgent.message.appoint")</h1>
-                         </legend>
-
-                        <div class="multiple-choice" data-target="contact-by-email">
-                            <input id="example-contact-by-email" type="radio" name="radio-contact-group" value="Yes">
-                            <label for="example-contact-by-email">Email</label>
+                        <div class="multiple-choice margin-top-20" data-target="new-agent-radio">
+                            <input id="new-agent-radio-id" type="radio" name="appoint-agent" value="toDo">
+                            <label for="new-agent-radio-id">@Messages("propertyRepresentation.appointAgent.message.appoint")</label>
                         </div>
-                        <div class="js-hidden" id="contact-by-email">
+                        <div class="jsx-hidden" id="new-agent-radio">
                             <details>
                                 <summary><span class="summary">@Messages("propertyRepresentation.appointAgent.summary.1")</span></summary>
                                 <div class="panel-indent">
@@ -109,20 +105,11 @@
                     </fieldset>
                 </div>
 
-
-
                 @includes.errorSummary(model.form)
 
 
 
                 <p>@Messages("propertyRepresentation.appointAgent.message.1")</p>
-
-
-
-
-
-
-
 
                 @inputRadioGroup(
                     field = model.form("canCheck"),
