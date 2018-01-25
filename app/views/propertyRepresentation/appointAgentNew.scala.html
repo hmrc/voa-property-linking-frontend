@@ -30,8 +30,7 @@
 ) {
 
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
+
 
             <h1 class="heading-xlarge">
             @Messages("propertyRepresentation.appointAgent.title")
@@ -48,35 +47,37 @@
 
             </div>
 
+
             @form(agentAppointment.routes.AppointAgentController.appointSubmit(model.linkId)) {
 
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                @if(model.agents.nonEmpty) {
+            <div class="table-wrapper">
+                <table id="known-agents" class="margin-bottom-10 margin-top-10">
                 <tbody>
                     <tr>
-                        <th>@Messages("propertyRepresentation.table.title.Appoint")</th>
-                        <th>@Messages("propertyRepresentation.table.title.AgentId")</th>
-                        <th>@Messages("propertyRepresentation.table.title.Appoint")</th>
+                        <th>@Messages("propertyRepresentation.table.title.appoint")</th>
+                        <th>@Messages("propertyRepresentation.table.title.agentId")</th>
+                        <th>@Messages("propertyRepresentation.table.title.agentName")</th>
                     </tr>
-                    <tr>
-                        <td><div class="table-checkbox multiple-choice"><input type="radio" id="agent_12345" name="appoint-agent" value="true"><label for="agent_12345"><span class="visually-hidden">
-                            Appoint</span></label></div></td>
-                        <td>12345</td>
-                        <td>ABC Agent</td>
-                    </tr>
-                    <tr>
-                        <td><div class="table-checkbox multiple-choice"><input type="radio" id="agent_67890" name="appoint-agent" value="true"><label for="agent_67890"><span class="visually-hidden">
-                            Appoint</span></label></div></td>
-                        <td>67890</td>
-                        <td>DEF Agent</td>
-                    </tr>
-                    <tr>
-                        <td><div class="table-checkbox multiple-choice"><input type="radio" id="agent_54321" name="appoint-agent" value="true"><label for="agent_54321"><span class="visually-hidden">
-                            Appointed</span></label></div></td>
-                        <td>54321</td>
-                        <td>GHI Agent</td>
-                    </tr>
-                </tbody>
-            </table>
+
+                    @model.agents.zipWithIndex.map { case (agent, index) =>
+                        <tr>
+                            <td>
+                                <div class="table-checkbox multiple-choice">
+                                    <input type="radio" id=s"agent_$index" name="appoint-agent" value="@agent.agentCode">
+                                    <label for=s"agent_$index">
+                                        <span class="visually-hidden">Appoint</span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>@agent.agentCode</td>
+                            <td>@agent.organisationName</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+                }
 
                 <div class="form-group">
                     <fieldset>
@@ -138,8 +139,5 @@
                 <p><button type="submit" class="button">@Messages("propertyRepresentation.appointAgent.button")</button></p>
 
             }
-
-        </div>
-    </div>
-}
+    }
 

@@ -23,7 +23,7 @@ import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import config.Global
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.PropertyLinkingController
+import controllers.{AgentInfo, PropertyLinkingController}
 import form.EnumMapping
 import form.Mappings._
 import models._
@@ -44,18 +44,19 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
                                         @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
   extends PropertyLinkingController {
 
+  val knownAgents = Seq(AgentInfo("name1", 111), AgentInfo("name2", 222), AgentInfo("name3", 333))
   def appoint(linkId: Long) = authenticated { implicit request =>
     sessionRepository.get[AgentAppointmentSession] flatMap {
       case Some(s) =>
-        Ok(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(appointAgentForm.fill(s.agent), linkId)))
+        Ok(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(appointAgentForm.fill(s.agent), linkId, knownAgents)))
       case None =>
-        Ok(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(appointAgentForm, linkId)))
+        Ok(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(appointAgentForm, linkId, knownAgents)))
     }
   }
 
   def appointSubmit(authorisationId: Long) = authenticated { implicit request =>
     appointAgentForm.bindFromRequest().fold(errors => {
-      BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, authorisationId)))
+      BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, authorisationId, knownAgents)))
     }, agent => {
       val eventualAgentCodeResult = representations.validateAgentCode(agent.agentCode, authorisationId)
       val eventualMaybeLink = propertyLinks.get(request.organisationAccount.id, authorisationId)
@@ -202,7 +203,7 @@ object AppointAgent {
   implicit val format = Json.format[AppointAgent]
 }
 
-case class AppointAgentVM(form: Form[_], linkId: Long)
+case class AppointAgentVM(form: Form[_], linkId: Long, agents: Seq[AgentInfo] = Seq())
 
 case class ModifyAgentVM(form: Form[_], representationId: Long)
 

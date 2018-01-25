@@ -351,9 +351,9 @@ propertyRepresentation.appointAgent.challenges.p1=Once you’ve completed a chec
 propertyRepresentation.appointAgent.challenges.p2=You can’t start a challenge until you’ve received the outcome for your check.
 propertyRepresentation.appointAgent.yes=Yes
 propertyRepresentation.appointAgent.no=No
-propertyRepresentation.table.title.Appoint=Appoint
-propertyRepresentation.table.title.AgentId=Agent ID
-propertyRepresentation.table.title.AgentName=Agent name
+propertyRepresentation.table.title.appoint=Appoint
+propertyRepresentation.table.title.agentId=Agent ID
+propertyRepresentation.table.title.agentName=Agent name
 
 
 
