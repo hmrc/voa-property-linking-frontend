@@ -342,6 +342,20 @@ propertyRepresentation.rejected.multiple.youCan.2=The businesses will be notifie
 propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
 propertyRepresentation.appointAgent.message.2=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
+propertyRepresentation.appointAgent.associatedAgents=The following agents are currently associated with your account. Select an agent from the list below or add a new agent to associate them with one or more properties.
+propertyRepresentation.appointAgent.warning=Please be aware that you'll be responsible for any information your agent submits to us about your property. You'll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
+propertyRepresentation.appointAgent.message.appoint=Appoint a new agent
+propertyRepresentation.appointAgent.check.p1=If any of the factual details about your property or land are incorrect, you (the owner, occupier or authorised agent) need to let the VOA know. Telling us about anything that’s incorrect is known as a check.
+propertyRepresentation.appointAgent.check.p2=If all of your property details are correct but you believe your rateable value is incorrect, you must first complete a check and wait for the outcome before making a challenge.
+propertyRepresentation.appointAgent.challenges.p1=Once you’ve completed a check, the VOA will contact you with the outcome. If you disagree with the outcome of the check or you believe the rateable value of your property is incorrect, you can let us know. Doing this is known as a challenge.
+propertyRepresentation.appointAgent.challenges.p2=You can’t start a challenge until you’ve received the outcome for your check.
+propertyRepresentation.appointAgent.yes=Yes
+propertyRepresentation.appointAgent.no=No
+propertyRepresentation.table.title.Appoint=Appoint
+propertyRepresentation.table.title.AgentId=Agent ID
+propertyRepresentation.table.title.AgentName=Agent name
+
+
 
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Continue
@@ -866,10 +880,10 @@ checkReceived.address=Property: {0}
 checkReceived.owner=Owner/occupier: {0}
 checkReceived.agent=Agent: {0}
 checkReceived.timestamp=Received: {0}
-checkReceived.unrepresented.checkCase.1=We have received your Check case for the property on {0}.
-checkReceived.represented.checkCase.1=We have received a Check case from your agent for the property on {0}.
-checkReceived.summaryLink.text=You can view a summary of the check here
+checkReceived.unrepresented.checkCase=We have received your Check case for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
+checkReceived.represented.checkCase=We have received a Check case from your agent for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
 checkReceived.agent.checkCase.1=We have received the Check case you have made on behalf of your client for the property on {0}.
+checkReceived.agent.checkCase.2=You can view a summary of the check here
 checkReceived.whatNow=What you need to do
 checkReceived.furtherInfo=You don''t need to do anything, we will contact you if we need further information or evidence.
 checkReceived.print=Print this message
@@ -880,8 +894,6 @@ checkReceived.valuation=The information submitted as part of the Check case may 
 checkReceived.moreInfo=You can find more information on the Check and Challenge service by searching for ''Check and Challenge'' on the <a href="https://www.gov.uk/search?q=check+and+challenge">GOV.UK</a> website.
 checkReceived.template.valuationOffice=Valuation Office Agency
 link.summary=View Summary
-messages.unknownTemplate=Unrecognised message template {0}
-messages.caseReference=Case reference: {0}
 
 #PAGINATION CONTROLS
 pagination.next=Next

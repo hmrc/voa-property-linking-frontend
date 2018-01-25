@@ -1,0 +1,145 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import models.AgentPermission
+@import controllers.agentAppointment.AppointAgentVM
+
+@(model: AppointAgentVM)(implicit request: Request[_], messages: Messages)
+
+
+@main_template(
+    title = Messages("propertyRepresentation.appointAgent.title"),
+    topBackLink = true,
+    bottomBackLink = true,
+    backLinkUrl = Some(routes.Dashboard.manageProperties().url)
+) {
+
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">
+            @Messages("propertyRepresentation.appointAgent.title")
+            </h1>
+
+            <p>@Messages("propertyRepresentation.appointAgent.associatedAgents")</p>
+
+
+            <div class="notice margin-top-20 margin-bottom-20">
+                <i class="icon icon-important">
+                    <span class="visually-hidden">Warning</span>
+                </i>
+                <p><strong class="bold-small">@Messages("propertyRepresentation.appointAgent.warning")</strong></p>
+
+            </div>
+
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <th>@Messages("propertyRepresentation.table.title.Appoint")</th>
+                        <th>@Messages("propertyRepresentation.table.title.AgentId")</th>
+                        <th>@Messages("propertyRepresentation.table.title.Appoint")</th>
+                    </tr>
+                    <tr>
+                        <td><div class="table-checkbox multiple-choice"><input type="radio" id="agent_12345" name="appoint-agent" value="true"><label for="agent_12345"><span class="visually-hidden">
+                            Appoint</span></label></div></td>
+                        <td>12345</td>
+                        <td>ABC Agent</td>
+                    </tr>
+                    <tr>
+                        <td><div class="table-checkbox multiple-choice"><input type="radio" id="agent_67890" name="appoint-agent" value="true"><label for="agent_67890"><span class="visually-hidden">
+                            Appoint</span></label></div></td>
+                        <td>67890</td>
+                        <td>DEF Agent</td>
+                    </tr>
+                    <tr>
+                        <td><div class="table-checkbox multiple-choice"><input type="radio" id="agent_54321" name="appoint-agent" value="true"><label for="agent_54321"><span class="visually-hidden">
+                            Appointed</span></label></div></td>
+                        <td>54321</td>
+                        <td>GHI Agent</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="margin-top-20 margin-bottom-20 multiple-choice" data-target="appoint-new-agent-panel">
+                <input id="example-contact-by-email" type="radio" name="appoint-agent" value="Yes" aria-controls="appoint-new-agent-panel" aria-expanded="false">
+                <label for="example-contact-by-email">@Messages("propertyRepresentation.appointAgent.message.appoint")</label>
+            </div>
+
+            @form(agentAppointment.routes.AppointAgentController.appointSubmit(model.linkId)) {
+
+
+                @includes.errorSummary(model.form)
+
+                <div class=" form-group">
+                    <fieldset id="canCheckGroup" class="inline">
+                        <legend class="form-label-bold">
+                            <span class=" label-span">@Messages("label.canCheck")</span>
+                        </legend>
+                        <details>
+                            <summary><span class="summary">@Messages("canCheck.summary")</span></summary>
+                            <div class="panel-indent">
+                                    <p>@Messages("propertyRepresentation.appointAgent.check.p1")</p>
+                                    <p>@Messages("propertyRepresentation.appointAgent.check.p2")</p>
+                            </div>
+                        </details>
+                        <label class="block-label" for="canCheck_START_AND_CONTINUE">
+                            <input id="canCheck_START_AND_CONTINUE" type="radio" name="canCheck" value="START_AND_CONTINUE"/>
+                            @Messages("propertyRepresentation.appointAgent.yes")
+                        </label>
+                        <label class="block-label" for="canCheck_NOT_PERMITTED">
+                            <input id="canCheck_NOT_PERMITTED" type="radio" name="canCheck" value="NOT_PERMITTED"/>
+                            @Messages("propertyRepresentation.appointAgent.no")
+                        </label>
+                    </fieldset>
+                </div>
+
+
+                <div class=" form-group">
+                    <fieldset id="canChallengeGroup" class="inline">
+                        <legend class="form-label-bold">
+                            <span class=" label-span">@Messages("label.canChallenge")</span>
+                        </legend>
+                        <div class="panel panel-border-wide">
+                            <p>@Messages("propertyRepresentation.appointAgent.challenges.p2")</p>
+                        </div>
+                        <details>
+                            <summary><span class="summary">@Messages("canChallenge.summary")</span></summary>
+                            <div class="panel-indent">
+                                <p>@Messages("propertyRepresentation.appointAgent.challenges.p1")</p>
+                                <p>@Messages("propertyRepresentation.appointAgent.challenges.p2")</p>
+                            </div>
+                        </details>
+                        <label class="block-label" for="canChallenge_START_AND_CONTINUE">
+                            <input id="canChallenge_START_AND_CONTINUE" type="radio" name="canChallenge" value="START_AND_CONTINUE"/>
+                            @Messages("propertyRepresentation.appointAgent.yes")
+                        </label>
+                        <label class="block-label" for="canChallenge_NOT_PERMITTED">
+                            <input id="canChallenge_NOT_PERMITTED" type="radio" name="canChallenge" value="NOT_PERMITTED"/>
+                            @Messages("propertyRepresentation.appointAgent.no")
+                        </label>
+                    </fieldset>
+                </div>
+                <p><button type="submit" class="button">@Messages("label.continue")</button></p>
+                </form>
+            </div>
+    </div>
+
+    }
+}
+
