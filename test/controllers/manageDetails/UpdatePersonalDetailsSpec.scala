@@ -31,7 +31,7 @@ import play.api.mvc.{Action, AnyContent, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import services.ManageDetails
+import services.{ManageDetails, Success}
 import utils.{StubAuthentication, StubGroupAccountConnector}
 
 import scala.concurrent.Future
@@ -179,7 +179,7 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
   it must "update the user's address ID if they use the lookup" in {
     val (_, current) = stubLoggedInUser()
 
-    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(()))
+    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
       "address.addressId" -> "1234567890",
@@ -202,7 +202,7 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
     val addressId = Random.nextInt()
 
     when(mockAddressConnector.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(addressId))
-    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(()))
+    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(Success))
 
     val validFormData: Seq[(String, String)] = Seq(
       "address.line1" -> address.line1,

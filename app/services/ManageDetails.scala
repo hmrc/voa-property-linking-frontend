@@ -22,40 +22,41 @@ import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
 import models.Address
 import play.api.Logger
 import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 trait ManageDetails {
-  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate:AffinityGroup=>Boolean)(implicit hc: HeaderCarrier): Future[Any]
+  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate: AffinityGroup => Boolean)
+                    (implicit hc: HeaderCarrier): Future[EnrolmentResult]
 }
 
 class ManageDetailsWithEnrolments @Inject() (taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, vPLAuthConnector: VPLAuthConnector) extends ManageDetails with RequestContext {
-  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate:AffinityGroup=>Boolean)(implicit hc: HeaderCarrier): Future[Any] = {
-    def withAddress(addressId:Int, addressType:String)(action:Address => Future[Any]):Future[Any] =
-      addresses.findById(addressId).flatMap {
-        case Some(address) => action(address)
-        case None => {
-          Logger.error(s"ManageDetails: Could not find address for $addressType addressId $addressId")
-          succeed
-        }
-      }
+  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate: AffinityGroup => Boolean)
+                    (implicit hc: HeaderCarrier): Future[EnrolmentResult] = {
+    def withAddress(addressId:Int, addressType:String):Future[Option[Address]] =
+      addresses.findById(addressId)
 
-    vPLAuthConnector.getUserDetails.flatMap { x =>
-      if (!predicate(x.userInfo.affinityGroup)) {
-        succeed
-      }
-      else {
-        withAddress(currentAddressId, "current") { currentAddress =>
-          withAddress(addressId, "updated") { updatedAddress =>
-            taxEnrolments.updatePostcode(personId = personId, postcode = updatedAddress.postcode, previousPostcode = currentAddress.postcode)
-          }
-        }
-      }
-    }
+    for {
+      currentOpt    <- withAddress(currentAddressId, "current")
+      updatedOpt    <- withAddress(addressId, "updated")
+      affinityGroup <- vPLAuthConnector.getUserDetails.map(_.userInfo.affinityGroup)
+      is            = predicate(affinityGroup)
+      result        <- update(currentOpt, updatedOpt, personId, is)
+    } yield result
   }
+
+  private def update(currentOpt: Option[Address], updatedOpt: Option[Address], personId: Long, predicate: Boolean)(implicit hc: HeaderCarrier): Future[EnrolmentResult] =
+    (currentOpt, updatedOpt, predicate) match {
+      case (Some(current), Some(updated), true) =>
+        taxEnrolments.updatePostcode(personId = personId, postcode = updated.postcode, previousPostcode = current.postcode)
+      case _ =>
+        Future.successful(Failure)
+    }
 }
 
 class ManageDetailsWithoutEnrolments extends ManageDetails with RequestContext {
-  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate: AffinityGroup => Boolean)(implicit hc: HeaderCarrier): Future[Any] = succeed
+  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate: AffinityGroup => Boolean)
+                    (implicit hc: HeaderCarrier): Future[EnrolmentResult] = Future.successful(Success)
 }

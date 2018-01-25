@@ -29,7 +29,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import play.api.mvc.{AnyContent, Result}
-import services.ManageDetails
+import services.{EnrolmentResult, ManageDetails, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup
 
 import scala.concurrent.Future
@@ -127,7 +127,7 @@ class UpdatePersonalDetails @Inject()(
     val updatedAccount = request.individualAccount.copy(details = updatedDetails)
 
     individualAccountConnector.update(updatedAccount)
-      .flatMap(_ => addressId.fold(succeed)(manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)(_!=AffinityGroup.Organisation)))
+      .flatMap(_ => addressId.fold[Future[EnrolmentResult]](Future.successful(Success))(manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)(_==AffinityGroup.Individual)))
       .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show()))
   }
 
