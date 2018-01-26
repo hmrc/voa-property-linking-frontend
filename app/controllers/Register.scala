@@ -20,26 +20,50 @@ import javax.inject.Inject
 
 import auth.VoaAction
 import config.ApplicationConfig
-import play.api.mvc.Action
+import play.api.Logger
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.mvc.{Action, Request}
 import uk.gov.hmrc.play.config.ServicesConfig
 
 class Register @Inject()(config: ApplicationConfig, ggAction: VoaAction) extends PropertyLinkingController with ServicesConfig {
 
-  val continue = {
+  def continue(accountType: String) = {
     if(config.enrolmentEnabled)
-      Map("continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
+      Map("accountType" -> Seq(accountType), "continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
     else
-      Map("accountType" -> Seq("organisation"), "continue" -> Seq(routes.Register.confirm().url), "origin" -> Seq("voa"))
+      Map("accountType" -> Seq(accountType), "continue" -> Seq(routes.Register.confirm().url), "origin" -> Seq("voa"))
   }
 
-  def show = Action { implicit request =>
+  def show() = Action { implicit request =>
+    redirect("organisation")
+  }
+
+  def choice = Action.async { implicit request =>
+    Logger.debug("Some check")
+    if(config.enrolmentEnabled) {
+      RegisterHelper.choiceForm.bindFromRequest().fold(
+        errors => BadRequest(views.html.start_enrolment(errors)),
+        success =>
+          redirect(success)
+      )
+    } else {
+      redirect("organisation")
+    }
+  }
+
+  def redirect(account: String) = {
     Redirect(
       config.ggRegistrationUrl,
-      continue
+      continue(account)
     )
   }
 
   def confirm = ggAction.async(true) { _ => implicit request =>
     Ok(views.html.ggRegistration())
   }
+}
+
+object RegisterHelper {
+  val choiceForm = Form(single("choice" -> nonEmptyText))
 }
