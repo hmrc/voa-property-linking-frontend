@@ -67,7 +67,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
   "The update business address page" must "update the business address ID if the postcode lookup is used" in {
     val (org, person) = stubLoggedInUser()
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
-    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(()))
+    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
       "address.addressId" -> "1234567890",

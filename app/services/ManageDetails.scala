@@ -27,6 +27,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
+import scala.concurrent.ExecutionContext.Implicits.global
 trait ManageDetails {
   def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate: AffinityGroup => Boolean)
                     (implicit hc: HeaderCarrier): Future[EnrolmentResult]
