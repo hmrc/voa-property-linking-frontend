@@ -27,6 +27,7 @@ import controllers.{AgentInfo, PropertyLinkingController}
 import form.EnumMapping
 import form.Mappings._
 import models._
+import models.searchApi.OwnerAgent
 import play.api.data.Forms._
 import play.api.data.validation.Constraint
 import play.api.data.{Form, FormError, Mapping}
@@ -40,17 +41,21 @@ import uk.gov.hmrc.http.HeaderCarrier
 class AppointAgentController @Inject() (representations: PropertyRepresentationConnector,
                                         accounts: GroupAccounts,
                                         propertyLinks: PropertyLinkConnector,
+                                        agentsConnector: AgentsConnector,
                                         authenticated: AuthenticatedAction,
                                         @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
   extends PropertyLinkingController {
 
-  val knownAgents = Seq(AgentInfo("name1", 111), AgentInfo("name2", 222), AgentInfo("name3", 333))
+  val knownAgents = Seq(OwnerAgent("name1", 111), OwnerAgent("name2", 222), OwnerAgent("name3", 333))
+
   def appoint(linkId: Long) = authenticated { implicit request =>
-    sessionRepository.get[AgentAppointmentSession] flatMap {
-      case Some(s) =>
-        Ok(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(appointAgentForm.fill(s.agent), linkId, knownAgents)))
-      case None =>
-        Ok(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(appointAgentForm, linkId, knownAgents)))
+    agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
+      sessionRepository.get[AgentAppointmentSession] flatMap {
+        case Some(s) =>
+          Ok(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(appointAgentForm.fill(s.agent), linkId, ownerAgents.agents)))
+        case None =>
+          Ok(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(appointAgentForm, linkId, ownerAgents.agents)))
+      }
     }
   }
 
@@ -203,7 +208,7 @@ object AppointAgent {
   implicit val format = Json.format[AppointAgent]
 }
 
-case class AppointAgentVM(form: Form[_], linkId: Long, agents: Seq[AgentInfo] = Seq())
+case class AppointAgentVM(form: Form[_], linkId: Long, agents: Seq[OwnerAgent] = Seq())
 
 case class ModifyAgentVM(form: Form[_], representationId: Long)
 

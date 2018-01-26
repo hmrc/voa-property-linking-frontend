@@ -1,13 +1,14 @@
-.table-checkbox.multiple-choice {
+.table-radio.multiple-choice {
   padding-top: 21px;
   padding-bottom: 21px;
 }
 
-.table-checkbox.multiple-choice > label {
+.table-radio.multiple-choice > label {
   width: auto;
   padding: 0px;
 }
 
 #known-agents td {
   vertical-align: middle;
+  padding-left: 5px;
 }
