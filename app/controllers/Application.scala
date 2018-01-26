@@ -16,7 +16,7 @@
 
 package controllers
 
-import auth.{GGAction, VoaAction}
+import auth.{GGAction, GGActionEnrolment, VoaAction}
 import javax.inject.Inject
 
 import connectors.TrafficThrottleConnector
@@ -35,7 +35,12 @@ class Application @Inject()(ggAction: VoaAction, val trafficThrottleConnector: T
 
   def start() = Action.async { implicit request =>
     withThrottledHoldingPage("registration", Ok(views.html.errors.errorRegistration())) {
-      Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
+      ggAction match {
+        case _: GGActionEnrolment =>
+          Ok(views.html.start_enrolment(RegisterHelper.choiceForm))
+        case _: GGAction =>
+          Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
+      }
     }
   }
 
