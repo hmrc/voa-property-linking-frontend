@@ -41,7 +41,7 @@ class EnrolmentServiceSpec extends FlatSpec with MustMatchers with MockitoSugar 
 
   "enrol" should " return success with valid details" in {
     when(mockAddresses.findById(any())(any())).thenReturn(Future.successful(Some(Address(Some(1), "", "", "", "", ""))))
-    when(mockTaxEnrolmentConnector.enrol(any(), any())(any(), any(), any())).thenReturn(Future.successful(HttpResponse(204)))
+    when(mockTaxEnrolmentConnector.enrol(any(), any())(any(), any())).thenReturn(Future.successful(HttpResponse(204)))
     val result = enrolmentService.enrol(1l, 1)
     result.futureValue must be(Success)
   }

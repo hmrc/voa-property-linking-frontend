@@ -38,12 +38,12 @@ class ManageDetailsSpec extends FlatSpec with MustMatchers with MockitoSugar wit
 
   "updatePostcode" should "upsert known facts if predicate matches" in {
     updatePostcode(1, 1, 2,true)
-    verify(mockTaxEnrolments, once).updatePostcode(matches(1L),any(),matches(mockAddress.postcode))(any(),any(), any())
+    verify(mockTaxEnrolments, once).updatePostcode(matches(1L),any(),matches(mockAddress.postcode))(any(),any())
   }
 
   "updatePostcode" should "not upsert known facts if predicate does not match" in {
     updatePostcode(3, 3, 4, false)
-    verify(mockTaxEnrolments, never()).updatePostcode(any(),any(),any())(any(),any(), any())
+    verify(mockTaxEnrolments, never()).updatePostcode(any(),any(),any())(any(),any())
   }
 
   def updatePostcode(personId:Int, addressId:Int, currentAddressId: Int, predicate:Boolean): Unit = {
@@ -57,7 +57,7 @@ class ManageDetailsSpec extends FlatSpec with MustMatchers with MockitoSugar wit
 
     when(mockVPLAuthConnector.getUserDetails(any())).thenReturn(Future.successful(mockUserDetails))
     when(mockAddresses.findById(anyInt)(any[HeaderCarrier])).thenReturn(Future.successful(Some(mockAddress)))
-    when(mockTaxEnrolments.updatePostcode(any(),any(),any())(any(),any(), any())).thenReturn(Future.successful(Success))
+    when(mockTaxEnrolments.updatePostcode(any(),any(),any())(any(),any())).thenReturn(Future.successful(Success))
   }
 
   private var mockTaxEnrolments:TaxEnrolmentConnector = _
