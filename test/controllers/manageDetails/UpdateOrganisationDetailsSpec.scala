@@ -17,6 +17,7 @@
 package controllers.manageDetails
 
 import java.time.{Clock, Instant, ZoneId}
+
 import connectors.{Addresses, Authenticated, GroupAccounts}
 import controllers.ControllerSpec
 import models._
@@ -28,7 +29,7 @@ import play.api.test.FakeRequest
 import resources._
 import utils.StubAuthentication
 import play.api.test.Helpers._
-import services.ManageDetails
+import services.{ManageDetails, Success}
 
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
@@ -66,7 +67,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
   "The update business address page" must "update the business address ID if the postcode lookup is used" in {
     val (org, person) = stubLoggedInUser()
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
-    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(()))
+    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
       "address.addressId" -> "1234567890",
@@ -86,7 +87,7 @@ class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
     val (org, person) = stubLoggedInUser()
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
     when(mockAddresses.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(1))
-    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(()))
+    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
       "address.line1" -> "1, The Place",

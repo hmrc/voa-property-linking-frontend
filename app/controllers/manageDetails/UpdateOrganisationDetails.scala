@@ -28,7 +28,7 @@ import models.{GroupAccount, UpdatedOrganisationAccount}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{AnyContent, Result}
-import services.ManageDetails
+import services.{EnrolmentResult, ManageDetails, Success}
 
 import scala.concurrent.Future
 
@@ -100,7 +100,9 @@ class UpdateOrganisationDetails @Inject()(
       request.individualAccount.externalId)
 
     groups.update(current.id, details)
-      .flatMap(_ => addressId.fold(succeed)(manageDetails.updatePostcode(request.individualAccount.individualId, current.addressId, _)(_ => true)))
+      .flatMap(_ => addressId.fold[Future[EnrolmentResult]]
+        (Future.successful(Success))
+        (manageDetails.updatePostcode(request.individualAccount.individualId, current.addressId, _)(_ => true)))
       .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show()))
   }
 
