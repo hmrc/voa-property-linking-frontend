@@ -21,6 +21,10 @@
 
 @(model: AppointAgentVM)(implicit request: Request[_], messages: Messages)
 
+@agentCodeErrClass = @{
+    if (model.form.error("agentCode").isDefined) "error" else ""
+}
+
 
 @main_template(
     title = Messages("propertyRepresentation.appointAgent.title"),
@@ -28,6 +32,7 @@
     bottomBackLink = true,
     backLinkUrl = Some(routes.Dashboard.manageProperties().url)
 ) {
+
 
         <h1 class="heading-xlarge">
         @Messages("propertyRepresentation.appointAgent.title")
@@ -44,95 +49,96 @@
 
         </div>
 
+        @includes.errorSummary(model.form)
 
         @form(agentAppointment.routes.AppointAgentController.appointSubmit(model.linkId)) {
-            @if(model.agents.nonEmpty) {
-            <div class="table-wrapper">
-                <table id="known-agents" class="margin-bottom-10 margin-top-10">
-                <tbody>
-                    <tr>
-                        <th>@Messages("propertyRepresentation.table.title.appoint")</th>
-                        <th>@Messages("propertyRepresentation.table.title.agentId")</th>
-                        <th>@Messages("propertyRepresentation.table.title.agentName")</th>
-                    </tr>
-
-                    @model.agents.zipWithIndex.map { case (agent, index) =>
+            <div id="agentCodeGroup" class="@agentCodeErrClass form-group">
+                @if(model.agents.nonEmpty) {
+                <div class="table-wrapper">
+                    <table id="known-agents" class="margin-bottom-10 margin-top-10">
+                    <tbody>
                         <tr>
-                            <td>
-                                <div class="table-radio multiple-choice">
-                                    <input type="radio" id=s"agent_$index" name="appoint-agent" value="@agent.ref">
-                                    <label for=s"agent_$index">
-                                        <span class="visually-hidden">Appoint</span>
-                                    </label>
-                                </div>
-                            </td>
-                            <td>@agent.name</td>
-                            <td>@agent.ref</td>
+                            <th><span class="margin-left-5">@Messages("propertyRepresentation.table.title.appoint")</span></th>
+                            <th><span class="margin-left-5">@Messages("propertyRepresentation.table.title.agentId")</span></th>
+                            <th><span class="margin-left-5">@Messages("propertyRepresentation.table.title.agentName")</span></th>
                         </tr>
-                    }
-                    </tbody>
-                </table>
+
+                        @model.agents.zipWithIndex.map { case (agent, index) =>
+                            <tr>
+                                <td>
+                                    <div class="table-radio multiple-choice">
+                                        <input type="radio" id=s"agent_$index" name="agentCode" value="@agent.ref">
+                                        <label for=s"agent_$index">
+                                            <span class="visually-hidden">Appoint</span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>@agent.name</td>
+                                <td>@agent.ref</td>
+                            </tr>
+                        }
+
+                        </tbody>
+                    </table>
+                </div>
+                }
+
+                <div class="margin-left-5">
+                    <div class="form-group">
+                        <fieldset>
+
+                            <div class="multiple-choice margin-bottom-20 margin-top-10" data-target="new-agent-radio">
+                                <input id="new-agent-radio-id" type="radio" name="appoint-agent" value="toDo">
+                                <label for="new-agent-radio-id">@Messages("propertyRepresentation.appointAgent.message.appoint")</label>
+                            </div>
+                            <div class="jsx-hidden" id="new-agent-radio">
+                                <details>
+                                    <summary><span class="summary">@Messages("propertyRepresentation.appointAgent.summary.1")</span></summary>
+                                    <div class="panel-indent">
+                                    @Messages("propertyRepresentation.appointAgent.details.1")
+                                    </div>
+                                </details>
+
+                                <div class="">
+                                    <label class="form-label-bold" for="agentCode" >
+                                        <span class=" label-span">Agent code</span>
+                                    </label>
+                                    <input type="text" id="agentCodeText" value="" name="agentCode" class="form-control" />
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                </div>
             </div>
-            }
             <div class="margin-left-5">
-            <div class="form-group">
-                <fieldset>
+                <p>@Messages("propertyRepresentation.appointAgent.message.1")</p>
 
-                    <div class="multiple-choice margin-bottom-20 margin-top-10" data-target="new-agent-radio">
-                        <input id="new-agent-radio-id" type="radio" name="appoint-agent" value="toDo">
-                        <label for="new-agent-radio-id">@Messages("propertyRepresentation.appointAgent.message.appoint")</label>
-                    </div>
-                    <div class="jsx-hidden" id="new-agent-radio">
-                        <details>
-                            <summary><span class="summary">@Messages("propertyRepresentation.appointAgent.summary.1")</span></summary>
-                            <div class="panel-indent">
-                            @Messages("propertyRepresentation.appointAgent.details.1")
-                            </div>
-                        </details>
-
-                        <div class="form-group">
-                            <div id="agentCodeGroup" class="">
-                                <label class="form-label-bold" for=agentCode >
-                                    <span class=" label-span">Agent code</span>
-                                </label>
-                                <input type="text" id="agentCode" value="" name="agentCode" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-
-            @includes.errorSummary(model.form)
-
-
-
-            <p>@Messages("propertyRepresentation.appointAgent.message.1")</p>
-
-            @inputRadioGroup(
-                field = model.form("canCheck"),
-                options = AgentPermission.options,
-                args = Seq(
-                    '_label -> Messages("label.canCheck"),
-                    '_labelClass -> "form-label-bold",
-                    '_legend -> true,
-                    '_fieldsetClass -> "inline",
-                    '_detailsQuestion -> Messages("canCheck.summary"),
-                    '_detailsAnswer -> Messages("canCheck.details")
+                @inputRadioGroup(
+                    field = model.form("canCheck"),
+                    options = AgentPermission.options,
+                    args = Seq(
+                        '_label -> Messages("label.canCheck"),
+                        '_labelClass -> "form-label-bold",
+                        '_legend -> true,
+                        '_fieldsetClass -> "inline",
+                        '_detailsQuestion -> Messages("canCheck.summary"),
+                        '_detailsAnswer -> Messages("canCheck.details")
+                    )
                 )
-            )
-            @inputRadioGroup(
-                field = model.form("canChallenge"),
-                options = AgentPermission.options,
-                args = Seq(
-                    '_label -> Messages("label.canChallenge"),
-                    '_labelClass -> "form-label-bold",
-                    '_legend -> true,
-                    '_fieldsetClass -> "inline",
-                    '_detailsQuestion -> Messages("canChallenge.summary"),
-                    '_detailsAnswer -> Messages("canChallenge.details")
+                @inputRadioGroup(
+                    field = model.form("canChallenge"),
+                    options = AgentPermission.options,
+                    args = Seq(
+                        '_label -> Messages("label.canChallenge"),
+                        '_labelClass -> "form-label-bold",
+                        '_legend -> true,
+                        '_fieldsetClass -> "inline",
+                        '_detailsQuestion -> Messages("canChallenge.summary"),
+                        '_detailsAnswer -> Messages("canChallenge.details")
+                    )
                 )
-            )
-            <p><button type="submit" class="button">@Messages("propertyRepresentation.appointAgent.button")</button></p>
+                <p><button type="submit" class="button">@Messages("propertyRepresentation.appointAgent.button")</button></p>
             </div>
         }
     }

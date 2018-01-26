@@ -61,7 +61,9 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
 
   def appointSubmit(authorisationId: Long) = authenticated { implicit request =>
     appointAgentForm.bindFromRequest().fold(errors => {
-      BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, authorisationId, knownAgents)))
+      agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
+        BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, authorisationId, ownerAgents.agents)))
+      }
     }, agent => {
       val eventualAgentCodeResult = representations.validateAgentCode(agent.agentCode, authorisationId)
       val eventualMaybeLink = propertyLinks.get(request.organisationAccount.id, authorisationId)
@@ -76,8 +78,10 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
             }
             val errors: List[FormError] = List(codeError).flatten
             if (errors.nonEmpty) {
-              val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
-              invalidAppointment(formWithErrors, authorisationId)
+              agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
+                val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
+                invalidAppointment(formWithErrors, authorisationId, ownerAgents.agents)
+              }
             } else {
               appointAgent(authorisationId, agent, agentCodeValidationResult.organisationId.getOrElse(-1L), prop)
             }
@@ -191,8 +195,8 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
   private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
   private lazy val alreadyAppointedAgent = FormError("agentCode", "error.alreadyAppointedAgent")
 
-  private def invalidAppointment(form: Form[AppointAgent], linkId: Long)(implicit request: Request[_]) = {
-    Future.successful(BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(form, linkId))))
+  private def invalidAppointment(form: Form[AppointAgent], linkId: Long, agents: Seq[OwnerAgent])(implicit request: Request[_]) = {
+    Future.successful(BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(form, linkId, agents))))
   }
 
   def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
