@@ -70,7 +70,7 @@ class CreateEnrolmentUser @Inject()(
             groupId <- auth.getGroupId(ctx)
             groupAccountDetails <- GroupAccountDetails(success.tradingName.getOrElse("Not Applicable"), success.address, success.email, success.confirmedEmail, success.phone, false)
             id <- addresses.registerAddress(groupAccountDetails)
-            individual = IndividualAccountSubmission(user.externalId, "NONIV", None, IndividualDetails(user.userInfo.firstName.getOrElse(""), user.userInfo.lastName.getOrElse(""), user.userInfo.email, success.phone, None, id))
+            individual = IndividualAccountSubmission(user.externalId, "NONIV", None, IndividualDetails(success.firstName, success.lastName, user.userInfo.email, success.phone, None, id))
             _ <- groupAccounts.create(groupId, id, groupAccountDetails, individual)
             personId <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
             res <- resultMapper(personId, id)
@@ -89,7 +89,7 @@ class CreateEnrolmentUser @Inject()(
             groupId             <- auth.getGroupId(ctx)
             groupAccountDetails <- GroupAccountDetails(success.companyName, success.address, success.email, success.confirmedEmail, success.phone, success.isAgent)
             id                  <- addresses.registerAddress(groupAccountDetails)
-            individual          = IndividualAccountSubmission(user.externalId, "NONIV", None, IndividualDetails(user.userInfo.firstName.getOrElse(""), user.userInfo.lastName.getOrElse(""), user.userInfo.email, success.phone, None, id))
+            individual          = IndividualAccountSubmission(user.externalId, "NONIV", None, IndividualDetails(success.firstName, success.lastName, user.userInfo.email, success.phone, None, id))
             _                   <- groupExists(groupId, acc => individualAccounts.create(createIndividualAccountSubmission(user, success.phone)(acc)), groupAccounts.create(groupId, id, groupAccountDetails, individual)) //If the user create can return the personId back we can shorten this function.
             personId            <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
             res                 <- resultMapper(personId, id)
