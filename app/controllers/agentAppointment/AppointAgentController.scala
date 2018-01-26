@@ -30,11 +30,13 @@ import models._
 import models.searchApi.OwnerAgent
 import play.api.data.Forms._
 import play.api.data.validation.Constraint
-import play.api.data.{Form, FormError, Mapping}
+import play.api.data.{FieldMapping, Form, FormError, Mapping}
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.voa.play.form.ConditionalMappings
+import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
 import scala.concurrent.Future
 
@@ -65,13 +67,13 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
         BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, authorisationId, ownerAgents.agents)))
       }
     }, (agent: AppointAgent) => {
-      val eventualAgentCodeResult = representations.validateAgentCode(agent.agentCode, authorisationId)
+      val eventualAgentCodeResult = representations.validateAgentCode(agent.getAgentCode(), authorisationId)
       val eventualMaybeLink = propertyLinks.get(request.organisationAccount.id, authorisationId)
       for {
         agentCodeValidationResult <- eventualAgentCodeResult
         propertyLink <- eventualMaybeLink
         res <- (agentCodeValidationResult, propertyLink) match {
-          case (AgentCodeValidationResult(orgId, failureCode), Some(prop)) => {
+          case (AgentCodeValidationResult(_, failureCode), Some(prop)) => {
             val codeError = failureCode.map {
               case "INVALID_CODE" => invalidAgentCode
               case "DUPLICATE_PARTY" => alreadyAppointedAgent
@@ -107,7 +109,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
             if (a.checkPermission == StartAndContinue) "check" else "",
             if (a.challengePermission == StartAndContinue) "challenge" else "").filter(_.nonEmpty)
         ))
-        val newAgentPerms = ExistingAgentsPermission("", agent.agentCode,
+        val newAgentPerms = ExistingAgentsPermission("", agent.getAgentCode(),
           Seq(
             if (agent.canChallenge == StartAndContinue) "challenge" else "",
             if (agent.canCheck == StartAndContinue) "check" else "").filter(_.nonEmpty)
@@ -200,14 +202,20 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
   }
 
   def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
-    "agentCode" -> agentCode.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode),
+    "agentCode" -> mandatoryIfEqual("agentCodeRadio", "yes", agentCode)
+          .verifying("error.selfAppointment", _ != request.organisationAccount.agentCode),
     "agentCodeRadio" -> text,
     "canCheck" -> AgentPermissionMapping("canChallenge"),
     "canChallenge" -> AgentPermissionMapping("canCheck")
   )(AppointAgent.apply)(AppointAgent.unapply))
 }
 
-case class AppointAgent(agentCode: Long, agentCodeRadio: String, canCheck: AgentPermission, canChallenge: AgentPermission)
+case class AppointAgent(agentCode: Option[Long], agentCodeRadio: String, canCheck: AgentPermission, canChallenge: AgentPermission) {
+  def getAgentCode(): Long = agentCode match {
+    case Some(code) => code
+    case None => agentCodeRadio.toLong
+  }
+}
 
 object AppointAgent {
   implicit val format = Json.format[AppointAgent]
