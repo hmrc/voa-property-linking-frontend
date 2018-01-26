@@ -21,10 +21,17 @@
 
 @(model: AppointAgentVM)(implicit request: Request[_], messages: Messages)
 
+@agentCodeRadioErrClass = @{
+    if (model.form.error("agentCodeRadio").isDefined) "error" else ""
+}
+
 @agentCodeErrClass = @{
     if (model.form.error("agentCode").isDefined) "error" else ""
 }
 
+@isNewAgent = @{
+    model.form.data.getOrElse("agentCodeRadio", "") == "yes"
+}
 
 @main_template(
     title = Messages("propertyRepresentation.appointAgent.title"),
@@ -46,15 +53,14 @@
                 <span class="visually-hidden">Warning</span>
             </i>
             <p><strong class="bold-small">@Messages("propertyRepresentation.appointAgent.warning")</strong></p>
-
         </div>
 
         @includes.errorSummary(model.form)
 
         @form(agentAppointment.routes.AppointAgentController.appointSubmit(model.linkId)) {
-            <div id="agentCodeGroup" class="@agentCodeErrClass form-group">
+            <div id="agentCodeRadioGroup" class="@agentCodeRadioErrClass form-group">
                 @if(model.agents.nonEmpty) {
-                <div class="table-wrapper">
+                <div class="table-wrapper-no-pad">
                     <table id="known-agents" class="margin-bottom-10 margin-top-10">
                     <tbody>
                         <tr>
@@ -67,9 +73,15 @@
                             <tr>
                                 <td>
                                     <div class="table-radio multiple-choice">
-                                        <input type="radio" id=s"agent_$index" name="agentCode" value="@agent.ref">
+                                        <input type="radio" id=s"agent_$index" name="agentCodeRadio"
+                                        value="@agent.ref"
+                                        @if(model.form.data.getOrElse("agentCodeRadio", "") == agent.ref.toString && !isNewAgent){
+                                            checked="checked"
+                                        }/>
                                         <label for=s"agent_$index">
-                                            <span class="visually-hidden">Appoint</span>
+                                            <span class="visually-hidden">
+                                                @Messages("propertyRepresentation.table.title.appoint")
+                                            </span>
                                         </label>
                                     </div>
                                 </td>
@@ -82,16 +94,19 @@
                     </table>
                 </div>
                 }
-
+            </div>
+            <div id="agentCodeGroup" class="@agentCodeErrClass form-group">
                 <div class="margin-left-5">
                     <div class="form-group">
                         <fieldset>
-
-                            <div class="multiple-choice margin-bottom-20 margin-top-10" data-target="new-agent-radio">
-                                <input id="new-agent-radio-id" type="radio" name="appoint-agent" value="toDo">
+                            <div class="multiple-choice margin-bottom-20" data-target="new-agent-radio">
+                                <input id="new-agent-radio-id" type="radio" value="yes" name="agentCodeRadio"
+                                    @if(isNewAgent){
+                                        checked="checked"
+                                    }>
                                 <label for="new-agent-radio-id">@Messages("propertyRepresentation.appointAgent.message.appoint")</label>
                             </div>
-                            <div class="jsx-hidden" id="new-agent-radio">
+                            <div class="@if(!isNewAgent){ js-hidden }" id="new-agent-radio">
                                 <details>
                                     <summary><span class="summary">@Messages("propertyRepresentation.appointAgent.summary.1")</span></summary>
                                     <div class="panel-indent">
@@ -103,7 +118,11 @@
                                     <label class="form-label-bold" for="agentCode" >
                                         <span class=" label-span">Agent code</span>
                                     </label>
-                                    <input type="text" id="agentCodeText" value="" name="agentCode" class="form-control" />
+                                    <input type="text" id="agentCodeText"
+                                            @if(isNewAgent){
+                                                value="@model.form.data.getOrElse("agentCode", "")"
+                                            }
+                                            name="agentCode" class="form-control" />
                                 </div>
                             </div>
                         </fieldset>

@@ -406,6 +406,7 @@ propertyRepresentation.modifyAgent.title=Manage agent relationship
 propertyRepresentation.modifyAgent.message.1=Please enter the code of the agent you wish to modify.
 propertyRepresentation.modifyAgent.message.2=If you do not have this code, please ask your Agent to provide it.
 label.agentCode=Agent code
+label.agentCodeRadio=Appoint agent
 propertyRepresentation.modifyAgent.button=Submit
 
 propertyRepresentation.appointedAgent.title=Agent nomination successful

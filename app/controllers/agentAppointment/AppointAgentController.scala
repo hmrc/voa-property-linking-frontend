@@ -23,7 +23,7 @@ import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import config.Global
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{AgentInfo, PropertyLinkingController}
+import controllers.PropertyLinkingController
 import form.EnumMapping
 import form.Mappings._
 import models._
@@ -34,9 +34,9 @@ import play.api.data.{Form, FormError, Mapping}
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import repositories.SessionRepo
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 class AppointAgentController @Inject() (representations: PropertyRepresentationConnector,
                                         accounts: GroupAccounts,
@@ -64,7 +64,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
       agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
         BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, authorisationId, ownerAgents.agents)))
       }
-    }, agent => {
+    }, (agent: AppointAgent) => {
       val eventualAgentCodeResult = representations.validateAgentCode(agent.agentCode, authorisationId)
       val eventualMaybeLink = propertyLinks.get(request.organisationAccount.id, authorisationId)
       for {
@@ -201,12 +201,13 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
 
   def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
     "agentCode" -> agentCode.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode),
+    "agentCodeRadio" -> text,
     "canCheck" -> AgentPermissionMapping("canChallenge"),
     "canChallenge" -> AgentPermissionMapping("canCheck")
   )(AppointAgent.apply)(AppointAgent.unapply))
 }
 
-case class AppointAgent(agentCode: Long, canCheck: AgentPermission, canChallenge: AgentPermission)
+case class AppointAgent(agentCode: Long, agentCodeRadio: String, canCheck: AgentPermission, canChallenge: AgentPermission)
 
 object AppointAgent {
   implicit val format = Json.format[AppointAgent]
