@@ -17,7 +17,7 @@
 @import config.ApplicationConfig.config._
 @import models.Accounts._
 @import uk.gov.hmrc.http.SessionKeys
-@import actions.AgentRequest
+@import actions._
 
 @(title: String,
   mainClass: Option[String] = None,
@@ -79,7 +79,7 @@
 
     @if(isAgentLoggedIn.isDefined){
         @request match {
-            case agentRequest@ AgentRequest(_, _, _, _) => {
+            case agentRequest: AuthenticatedRequest[_] => {
                 @if(agentRequest.organisationAccount.isAgent) {
                     ga('set', '@isAgentLoggedIn.get', 'YES');
                 }else {
