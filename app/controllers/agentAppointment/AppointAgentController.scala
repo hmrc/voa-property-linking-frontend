@@ -48,8 +48,6 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
                                         @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
   extends PropertyLinkingController {
 
-  val knownAgents = Seq(OwnerAgent("name1", 111), OwnerAgent("name2", 222), OwnerAgent("name3", 333))
-
   def appoint(linkId: Long) = authenticated { implicit request =>
     agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
       sessionRepository.get[AgentAppointmentSession] flatMap {
