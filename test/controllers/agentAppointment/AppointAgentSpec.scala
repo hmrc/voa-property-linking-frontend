@@ -187,7 +187,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     )
     status(res) mustBe BAD_REQUEST
 
-    HtmlPage(res).mustContainFieldErrors("agentCode" -> "")
+    HtmlPage(res).mustContainFieldErrors("agentCode" -> "You can’t appoint your own business as your agent")
   }
 
   it must "display the success page when the form is valid, and no permission have previously been set" in {

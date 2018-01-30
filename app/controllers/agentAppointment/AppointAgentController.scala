@@ -219,8 +219,7 @@ class AppointAgentController @Inject() (config: ApplicationConfig,
   }
 
   def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
-    "agentCode" -> mandatoryIfEqual("agentCodeRadio", "yes", agentCode)
-          .verifying("error.selfAppointment", _ != request.organisationAccount.agentCode),
+    "agentCode" -> mandatoryIfEqual("agentCodeRadio", "yes", agentCode.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode)),
     "agentCodeRadio" -> text,
     "canCheck" -> AgentPermissionMapping("canChallenge"),
     "canChallenge" -> AgentPermissionMapping("canCheck")
