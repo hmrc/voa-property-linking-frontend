@@ -16,6 +16,7 @@
 
 package controllers.agentAppointment
 
+import config.ApplicationConfig
 import connectors.Authenticated
 import controllers.ControllerSpec
 import models._
@@ -32,6 +33,7 @@ import utils._
 import scala.concurrent.Future
 
 class AppointAgentSpec extends ControllerSpec with MockitoSugar{
+  override val additionalAppConfig = Seq("featureFlags.manageAgentsEnabled" -> "true", "featureFlags.enrolment" -> "false")
 
   lazy val agentSession =  AgentAppointmentSession(AppointAgent(Some(1231), "1231", StartAndContinue, StartAndContinue), 123, arbitrary[PropertyLink].sample.get)
   lazy val mockSessionRepo = {
@@ -45,8 +47,14 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     f
   }
 
-  private object TestAppointAgent extends AppointAgentController(StubPropertyRepresentationConnector, StubGroupAccountConnector,
-    StubPropertyLinkConnector, StubAgentConnector, StubAuthentication, mockSessionRepo)
+  private object TestAppointAgent extends AppointAgentController(
+                                          app.injector.instanceOf[ApplicationConfig],
+                                          StubPropertyRepresentationConnector,
+                                          StubGroupAccountConnector,
+                                          StubPropertyLinkConnector,
+                                          StubAgentConnector,
+                                          StubAuthentication,
+                                          mockSessionRepo)
 
   lazy val request = FakeRequest().withSession(token)
 

@@ -50,6 +50,8 @@
 
             @form(agentAppointment.routes.AppointAgentController.appointSubmit(model.linkId)) {
 
+                <input type="hidden" name="agentCodeRadio" value="yes"/>
+
                 @includes.errorSummary(model.form)
 
                 @inputText(
