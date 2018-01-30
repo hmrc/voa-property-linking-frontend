@@ -23,7 +23,6 @@ start.register=Register now
 label.login=Sign in
 label.register=Register
 
-
 app.common.errorSummaryLabel            = The following errors were identified on this page.
 
 
@@ -36,6 +35,7 @@ propertyLinkingStatus.REVOKED=Revoked
 propertyLinkingStatus.MORE_EVIDENCE_REQUIRED=More evidence required
 
 #WIZARD
+label.wizard.title=Is your business registered for this service?
 label.wizard.businessHasRegistered=Is your business already registered for this service?
 businessHasRegistered.true=Yes
 businessHasRegistered.false=No
@@ -52,15 +52,18 @@ existingGGAccount.false=No
 #WIZARD BEFORE YOU START
 heading.authenticationWizard.beforeYouRegister=What you need to do next
 
+authenticationWizard.beforeYouRegisterA.title=Sign in using Government Gateway
 authenticationWizard.p1.beforeYouRegisterA=To complete your registration you need to:
-authenticationWizard.beforeYouRegister.l1=sign in with the Government Gateway details that you’ve been given
-authenticationWizard.beforeYouRegister.l2=verify your identity
+authenticationWizard.beforeYouRegisterA.l1=sign in with the Government Gateway details that you’ve been given
+authenticationWizard.beforeYouRegisterA.l2=verify your identity
 
+authenticationWizard.beforeYouRegisterC.title=Sign in to complete registration
 authenticationWizard.p1.beforeYouRegisterC=To complete your registration you need to:
 authenticationWizard.beforeYouRegisterC.l1=sign in with your existing Government Gateway details
 authenticationWizard.beforeYouRegisterC.l2=verify your identity
 authenticationWizard.beforeYouRegisterC.l3=register your business
 
+authenticationWizard.beforeYouRegisterD.title=Complete registration using Government Gateway
 authenticationWizard.p1.beforeYouRegisterD=To complete your registration you need to:
 authenticationWizard.beforeYouRegisterD.l1=create a Government Gateway account (you can do this on the next page)
 authenticationWizard.beforeYouRegisterD.l2=verify your identity
@@ -273,9 +276,8 @@ managedByAgentsProperties.table.5=Actions
 dashboard.managedByAgentsProperties.status.added=Approved
 dashboard.managedByAgentsProperties.status.pending=Pending
 dashboard.managedByAgentsProperties.noAgent=None
-dashboard.managedByAgentsProperties.addAnotherProperty=Add another property
-managedByAgentsProperties.addAgent=Appoint agent
 managedByAgentsProperties.viewAssessments=View valuations
+managedByAgentsProperties.no.properties=This agent is not appointed to any properties
 
 
 manageClients.table.1=Organisation name
@@ -611,7 +613,7 @@ detailedValuationRequested.title=We’ve received your request to view the detai
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 10 working days.
 
-startChallenge.title=Challenge this valuation
+startChallenge.title=Challenge the valuation
 startChallenge.p.1=Your challenge must be submitted within 4 months of the VOA decision, or within 16 months of the date you told the VOA about a change in the surrounding area of your property. You can also submit a challenge if you told the VOA about a change and you haven’t received a decision within 12 months.
 startChallenge.p.2=To submit a challenge you’ll need to <a href="{0}">download and complete the form</a>. You can <a href="{1}">download guidance for completing the form</a>.
 startChallenge.p.3=You should send the form and any supporting evidence to <a href=mailto:ccaservice@voa.gsi.gov.uk>ccaservice@voa.gsi.gov.uk</a>.
@@ -716,7 +718,8 @@ dashboard.manageAgents.table.1=Agent name
 dashboard.manageAgents.table.2=Agent code
 dashboard.manageAgents.table.3=Actions
 dashboard.manageAgents.viewManagedProperties=View managed properties
-manageAgents.howToAppoint=You can go to <a href={0}>‘Manage properties’</a> to appoint an agent for a property.
+dashboard.manageAgents.howToAppoint=You can go to <a href={0}>‘Manage properties’</a> to appoint an agent for a property.
+
 
 #details page
 viewDetails.title=My details
@@ -863,10 +866,10 @@ checkReceived.address=Property: {0}
 checkReceived.owner=Owner/occupier: {0}
 checkReceived.agent=Agent: {0}
 checkReceived.timestamp=Received: {0}
-checkReceived.unrepresented.checkCase=We have received your Check case for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
-checkReceived.represented.checkCase=We have received a Check case from your agent for the property on {0}. You can view a summary of the Check by clicking this <a href="#">link.</a>
+checkReceived.unrepresented.checkCase.1=We have received your Check case for the property on {0}.
+checkReceived.represented.checkCase.1=We have received a Check case from your agent for the property on {0}.
+checkReceived.summaryLink.text=You can view a summary of the check here
 checkReceived.agent.checkCase.1=We have received the Check case you have made on behalf of your client for the property on {0}.
-checkReceived.agent.checkCase.2=You can view a summary of the check here
 checkReceived.whatNow=What you need to do
 checkReceived.furtherInfo=You don''t need to do anything, we will contact you if we need further information or evidence.
 checkReceived.print=Print this message
@@ -877,6 +880,8 @@ checkReceived.valuation=The information submitted as part of the Check case may 
 checkReceived.moreInfo=You can find more information on the Check and Challenge service by searching for ''Check and Challenge'' on the <a href="https://www.gov.uk/search?q=check+and+challenge">GOV.UK</a> website.
 checkReceived.template.valuationOffice=Valuation Office Agency
 link.summary=View Summary
+messages.unknownTemplate=Unrecognised message template {0}
+messages.caseReference=Case reference: {0}
 
 #PAGINATION CONTROLS
 pagination.next=Next
@@ -892,6 +897,8 @@ plannedImprovements.p3=The changes we’re making include:
 label.createAccount.firstName= First Name
 label.createAccount.lastName= Last Name
 label.createAccount.phone= Phone Number
+choice.individual=Individual
+choice.organisation=Organisation
 
 enrolment.title = Complete your contact details
 enrolment.organisation.name = Business name

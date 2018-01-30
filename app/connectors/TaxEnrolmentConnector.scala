@@ -18,9 +18,12 @@ package connectors
 
 import javax.inject.Inject
 
+import auditing.AuditingService
 import config.WSHttp
 import controllers.{EnrolmentPayload, KeyValuePair, PayLoad, Previous}
 import play.api.libs.json.{JsValue, Json, Reads, Writes}
+import services.{EnrolmentResult, Success}
+import play.api.mvc.{AnyContent, Request}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
 
@@ -30,24 +33,38 @@ class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
   private val serviceUrl = baseUrl("tax-enrolments")
   private val emacUrl = baseUrl("emac") + "/enrolment-store-proxy"
 
-  def enrol(personId: Long, postcode: String)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[HttpResponse] =
-    enrolMaybe(
-      EnrolmentPayload(
-        identifiers = List(KeyValuePair("VOAPersonID", personId.toString)),
-        verifiers = List(KeyValuePair("BusPostcode", postcode))
-      )
-    )
+  private val updateUrl: Long => String = personId => s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}"
+  private val enrolUrl = s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment"
 
-  def deEnrol(personID: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
-    wSHttp.POST[JsValue, HttpResponse](s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA", Json.obj("keepAgentAllocations" ->  true))(
+  def enrol(personId: Long, postcode: String)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[HttpResponse] = {
+    val payload = EnrolmentPayload(
+      identifiers = List(KeyValuePair("VOAPersonID", personId.toString)),
+      verifiers = List(KeyValuePair("BusPostcode", postcode))
+    )
+    wSHttp.PUT[EnrolmentPayload, HttpResponse](enrolUrl, payload).map { result =>
+      AuditingService.sendEvent[EnrolmentPayload]("Enrolment Success", payload)
+      result
+    }.recover{case exception: Throwable =>
+      AuditingService.sendEvent("Enrolment failed to update", payload)
+      throw exception
+    }
+  }
+
+  def deEnrol(personID: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Future[HttpResponse]] =
+    wSHttp.POST[JsValue, HttpResponse](s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA", Json.obj("keepAgentAllocations" -> true))(
       implicitly[Writes[JsValue]], implicitly[HttpReads[HttpResponse]], hc.withExtraHeaders("Content-Type" -> "application/json"), ex)
       .map(_ => wSHttp.DELETE[HttpResponse](s"$emacUrl/enrolment-store/enrolments/HMRC-VOA-CCA~VOAPersonID~$personID"))
 
-  def updatePostcode(personId:Long, postcode:String, previousPostcode:String)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[HttpResponse] =
-    wSHttp.PUT[PayLoad, HttpResponse](s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}",
-      PayLoad(verifiers = Seq(KeyValuePair(key="BusPostcode",value=postcode)),
-        legacy = Some(Previous(previousVerifiers = List(KeyValuePair(key="BusPostcode", value=previousPostcode))))))
-
-  private def enrolMaybe(enrolmentPayload: EnrolmentPayload)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse] =
-    wSHttp.PUT[EnrolmentPayload, HttpResponse](s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment", enrolmentPayload)
+  def updatePostcode(personId:Long, postcode:String, previousPostcode:String)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[EnrolmentResult] = {
+    val payload = PayLoad(verifiers = Seq(KeyValuePair(key="BusPostcode",value=postcode)),
+      legacy = Some(Previous(previousVerifiers = List(KeyValuePair(key="BusPostcode", value=previousPostcode)))))
+    wSHttp.PUT[PayLoad, HttpResponse](s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}", payload)
+      .map{_ =>
+        AuditingService.sendEvent("Enrolment Updated", payload)
+        Success
+      }.recover{case exception: Throwable =>
+      AuditingService.sendEvent("Enrolment failed to update", payload)
+      throw exception
+    }
+  }
 }

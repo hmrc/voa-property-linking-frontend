@@ -33,16 +33,16 @@ trait AuditingService {
 
   def auditConnector: AuditConnector
 
-  def sendEvent[A: Writes](auditType: String, obj: A)(implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Unit = {
+  def sendEvent[A: Writes](auditType: String, obj: A)(implicit ec: ExecutionContext, hc: HeaderCarrier): Unit = {
     val event = eventFor(auditType, obj)
     auditConnector.sendExtendedEvent(event)
   }
 
-  def eventFor[A: Writes](auditType: String, obj: A)(implicit hc: HeaderCarrier, request: Request[_]) = {
+  private def eventFor[A: Writes](auditType: String, obj: A)(implicit hc: HeaderCarrier) = {
     ExtendedDataEvent(
       auditSource = "voa-property-linking-frontend",
       auditType = auditType,
-      tags = hc.headers.toMap ++ Map("Ip Address" -> request.remoteAddress),
+      tags = hc.headers.toMap,
       detail = Json.toJson(obj)
     )
   }

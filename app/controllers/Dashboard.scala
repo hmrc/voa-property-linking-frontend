@@ -16,9 +16,12 @@
 
 package controllers
 
+import java.io
 import java.time._
 import javax.inject.Inject
 
+import cats.data.OptionT
+import cats.instances.future._
 import actions.AuthenticatedAction
 import com.builtamont.play.pdf.PdfGenerator
 import config.{ApplicationConfig, Global}
@@ -38,6 +41,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
                           propertyLinks: PropertyLinkConnector,
                           messagesConnector: MessagesConnector,
                           agentsConnector: AgentsConnector,
+                          groupAccounts: GroupAccounts,
                           authenticated: AuthenticatedAction,
                           pdfGen: PdfGenerator) extends PropertyLinkingController with ValidPagination {
 
@@ -153,15 +157,14 @@ class Dashboard @Inject()(config: ApplicationConfig,
   }
 
   def viewManagedProperties(agentCode: Long) = authenticated { implicit request =>
-    propertyLinks.linkedProperties(request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false)) map { response =>
-      val filteredProps = response.propertyLinks.filter(_.agents.map(_.agentCode).contains(agentCode))
-      if (filteredProps.nonEmpty) {
-        val organisationName = filteredProps.flatMap(_.agents).filter(_.agentCode == agentCode).head.organisationName
-        Ok(views.html.dashboard.managedByAgentsProperties(ManagedPropertiesVM(organisationName, agentCode, filteredProps)))
-      }
-      else
-        NotFound(Global.notFoundTemplate)
-    }
+    for {
+      group <- groupAccounts.withAgentCode(agentCode.toString)
+      companyName = group.fold("No Name")(_.companyName) // this should be impossible
+      propLinkResponse <- propertyLinks.linkedProperties(
+        request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false))
+      filteredProperties = propLinkResponse.propertyLinks.filter(_.agents.map(_.agentCode).contains(agentCode))
+    } yield Ok(views.html.dashboard.managedByAgentsProperties(
+        ManagedPropertiesVM(companyName, agentCode, filteredProperties)))
   }
 
   def viewDraftCases() = authenticated { implicit request =>

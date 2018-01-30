@@ -28,7 +28,7 @@ import resources._
 import utils._
 
 class ManageOwnerAgentsSpec extends ControllerSpec {
-  override val additionalAppConfig = Seq("featureFlags.managedAgentsEnabled" -> "true", "featureFlags.enrolment" -> "false")
+  override val additionalAppConfig = Seq("featureFlags.manageAgentsEnabled" -> "true", "featureFlags.enrolment" -> "false")
 
   implicit val request = FakeRequest()
 
@@ -38,6 +38,7 @@ class ManageOwnerAgentsSpec extends ControllerSpec {
     mock[PropertyLinkConnector],
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
     StubAgentConnector,
+    mock[GroupAccounts],
     StubAuthentication,
     mock[PdfGenerator]
   )
