@@ -18,6 +18,7 @@
 @import models.Accounts._
 @import uk.gov.hmrc.http.SessionKeys
 @import actions._
+@import session._
 
 @(title: String,
   mainClass: Option[String] = None,
@@ -85,6 +86,14 @@
                 }else {
                     ga('set', '@isAgentLoggedIn.get', 'NO');
                 } }
+
+            case linkingRequest: LinkingSessionRequest[_] => {
+                @if(linkingRequest.groupAccount.isAgent) {
+                    ga('set', '@isAgentLoggedIn.get', 'YES');
+                }else {
+                    ga('set', '@isAgentLoggedIn.get', 'NO');
+                } }
+
             case _ => { ga('set', '@isAgentLoggedIn.get', 'NO');}
         }
     }
