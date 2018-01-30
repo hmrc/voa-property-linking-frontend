@@ -33,7 +33,7 @@ import utils._
 import scala.concurrent.Future
 
 class AppointAgentSpec extends ControllerSpec with MockitoSugar{
-  override val additionalAppConfig = Seq("featureFlags.manageAgentsEnabled" -> "true", "featureFlags.enrolment" -> "false")
+  override val additionalAppConfig = Seq("featureFlags.manageAgentsEnabled" -> "false", "featureFlags.enrolment" -> "false")
 
   lazy val agentSession =  AgentAppointmentSession(AppointAgent(Some(1231), "1231", StartAndContinue, StartAndContinue), 123, arbitrary[PropertyLink].sample.get)
   lazy val mockSessionRepo = {
@@ -91,7 +91,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     StubPropertyRepresentationConnector.stubAgentCode(123)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> " 123 ", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
+      request.withFormUrlEncodedBody("agentCodeRadio" -> "yes", "agentCode" -> " 123 ", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
     )
     status(res) must be (SEE_OTHER)
     redirectLocation(res) mustBe Some(routes.AppointAgentController.appointed(link.authorisationId).url)
@@ -182,14 +182,12 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
 
     StubPropertyLinkConnector.stubLink(link)
 
-
-
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
       request.withFormUrlEncodedBody("agentCodeRadio" -> "yes", "agentCode" -> groupAccount.agentCode.toString, "canCheck" -> StartAndContinue.name, "canChallenge" -> NotPermitted.name)
     )
     status(res) mustBe BAD_REQUEST
 
-    HtmlPage(res).mustContainFieldErrors("agentCode" -> "You can’t appoint your own business as your agent")
+    HtmlPage(res).mustContainFieldErrors("agentCode" -> "")
   }
 
   it must "display the success page when the form is valid, and no permission have previously been set" in {
@@ -200,7 +198,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     StubPropertyRepresentationConnector.stubAgentCode(123)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> "123", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
+      request.withFormUrlEncodedBody("agentCodeRadio" -> "yes", "agentCode" -> "123", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
     )
 
     status(res) must be (SEE_OTHER)

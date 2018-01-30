@@ -73,7 +73,7 @@ class AppointAgentController @Inject() (config: ApplicationConfig,
     appointAgentForm.bindFromRequest().fold(errors => {
       agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
         if (config.manageAgentsEnabled){
-        BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, authorisationId, ownerAgents.agents)))
+          BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, authorisationId, ownerAgents.agents)))
         } else {
           BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, authorisationId, ownerAgents.agents)))
         }}
