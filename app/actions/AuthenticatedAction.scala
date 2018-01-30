@@ -29,7 +29,8 @@ import play.api.i18n.Messages.Implicits.applicationMessages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results._
 import play.api.mvc._
-import services.{EnrolmentService, Failure, Success}
+import services.email.EmailService
+import services.{EnrolmentResult, EnrolmentService, Failure, Success}
 import uk.gov.hmrc.auth.core.retrieve._
 import uk.gov.hmrc.auth.core._
 
@@ -150,20 +151,21 @@ class NonEnrolmentAuth extends AuthImpl {
 
 }
 
-class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider, enrolments: EnrolmentService, val authConnector: AuthConnector) extends AuthorisedFunctions with AuthImpl {
+class EnrolmentAuth @Inject()(
+                               provider: GovernmentGatewayProvider,
+                               enrolments: EnrolmentService,
+                               emailService: EmailService,
+                               val authConnector: AuthConnector,
+                               auth: VPLAuthConnector
+                             ) extends AuthorisedFunctions with AuthImpl {
   override def success(
                         accounts: Accounts,
                         body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
                       (implicit request: Request[AnyContent]): Future[Result] = {
     def handleError: PartialFunction[Throwable, Future[Result]] = {
       case _: InsufficientEnrolments =>
-        enrolments.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap {
-          case Success =>
-            Future.successful(Ok(views.html.createAccount.migration_success(s"PersonID: ${accounts.person.individualId}")))
-          case Failure =>
-            Logger.warn("Failed to enrol existing VOA user")
-            body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
-        }
+        enrolments
+        .enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap(enrolment(accounts, body))
       case _: NoActiveSession => provider.redirectToLogin
       case otherException =>
         Logger.debug(s"exception thrown on authorization with message : ${otherException.getMessage}")
@@ -182,4 +184,18 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider, enrolments: E
 
   override def noOrgAccount: Future[Result] =
       Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
+
+  private def enrolment(
+                         accounts: Accounts,
+                         body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
+                       (result: EnrolmentResult)(implicit request: Request[_]): Future[Result] = result match {
+    case Success =>
+      for {
+      userDetails <- auth.getUserDetails
+      _           <- emailService.sendMigrationEnrolmentSuccess(userDetails.userInfo.email, accounts.person.individualId, s"${accounts.person.details.firstName} ${accounts.person.details.lastName}")
+      } yield Ok(views.html.createAccount.migration_success(s"PersonID: ${accounts.person.individualId}"))
+    case Failure =>
+      Logger.warn("Failed to enrol existing VOA user")
+      body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+  }
 }

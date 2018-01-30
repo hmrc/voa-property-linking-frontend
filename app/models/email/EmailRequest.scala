@@ -24,10 +24,10 @@ object EmailRequest {
 
   implicit val format = Json.format[EmailRequest]
 
-  def registration(to: String, personId: String, name: String): EmailRequest =
-    EmailRequest(to, "cca_enrolment_confirmation", Map("personId" -> personId, "name" -> name))
+  def registration(to: String, personId: Long, name: String): EmailRequest =
+    EmailRequest(to, "cca_enrolment_confirmation", Map("personId" -> personId.toString, "name" -> name))
 
-  def migration(to: String, personId: String, name: String): EmailRequest =
-    EmailRequest(to, "cca_enrolment_migration_confirmation", Map("personId" -> personId, "name" -> name))
+  def migration(to: String, personId: Long, name: String): EmailRequest =
+    EmailRequest(to, "cca_enrolment_migration_confirmation", Map("personId" -> personId.toString, "name" -> name))
 
 }

@@ -26,11 +26,11 @@ import scala.concurrent.ExecutionContext
 
 class EmailService @Inject()(emailConnector: EmailConnector){
 
-  def sendNewEnrolmentSuccess(to: String, personId: String, name: String)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
+  def sendNewEnrolmentSuccess(to: String, personId: Long, name: String)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
     emailConnector
       .send(EmailRequest.migration(to, personId, name))
 
-  def sendMigrationEnrolmentSuccess(to: String, personId: String, name: String)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
+  def sendMigrationEnrolmentSuccess(to: String, personId: Long, name: String)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
     emailConnector
       .send(EmailRequest.registration(to, personId, name))
 

@@ -30,6 +30,7 @@ import models.enrolment._
 import play.api.Logger
 import play.api.data.Form
 import play.api.mvc.{AnyContent, Request, Result}
+import services.email.EmailService
 import services.{EnrolmentService, Failure, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -43,6 +44,7 @@ class CreateEnrolmentUser @Inject()(
                                      enrolmentService: EnrolmentService,
                                      auth: VPLAuthConnector,
                                      addresses: Addresses,
+                                     emailService: EmailService,
                                      authenticatedAction: AuthenticatedAction
                                    ) extends PropertyLinkingController {
 
@@ -73,7 +75,7 @@ class CreateEnrolmentUser @Inject()(
             individual = IndividualAccountSubmission(user.externalId, "NONIV", None, IndividualDetails(user.userInfo.firstName.getOrElse(""), user.userInfo.lastName.getOrElse(""), user.userInfo.email, success.phone, None, id))
             _ <- groupAccounts.create(groupId, id, groupAccountDetails, individual)
             personId <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
-            res <- resultMapper(personId, id)
+            res <- resultMapper(personId, id)(user)
           } yield res
       )
   }
@@ -92,16 +94,19 @@ class CreateEnrolmentUser @Inject()(
             individual          = IndividualAccountSubmission(user.externalId, "NONIV", None, IndividualDetails(user.userInfo.firstName.getOrElse(""), user.userInfo.lastName.getOrElse(""), user.userInfo.email, success.phone, None, id))
             _                   <- groupExists(groupId, acc => individualAccounts.create(createIndividualAccountSubmission(user, success.phone)(acc)), groupAccounts.create(groupId, id, groupAccountDetails, individual)) //If the user create can return the personId back we can shorten this function.
             personId            <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
-            res                 <- resultMapper(personId, id)
+            res                 <- resultMapper(personId, id)(user)
             //Format: ON
           } yield res
       )
   }
 
   private def resultMapper(option: Option[DetailedIndividualAccount], addressId: Int)
+                          (userDetails: UserDetails)
                           (implicit hc: HeaderCarrier, request: Request[AnyContent]): Future[Result] = option match {
     case Some(detailIndiv) => enrolmentService.enrol(detailIndiv.individualId, addressId).map {
-      case Success => Redirect(routes.CreateEnrolmentUser.success(detailIndiv.individualId))
+      case Success =>
+        emailService.sendNewEnrolmentSuccess(userDetails.userInfo.email, detailIndiv.individualId, s"${detailIndiv.details.firstName} ${detailIndiv.details.lastName}")
+        Redirect(routes.CreateEnrolmentUser.success(detailIndiv.individualId))
       case Failure => InternalServerError(Global.internalServerErrorTemplate)
     }
     case None => Future.successful(InternalServerError(Global.internalServerErrorTemplate))
