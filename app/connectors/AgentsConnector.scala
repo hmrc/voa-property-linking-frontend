@@ -31,5 +31,4 @@ class AgentsConnector @Inject()(http: WSHttp, conf: ServicesConfig)(implicit ec:
 
   def ownerAgents(organisationId: Long)(implicit hc: HeaderCarrier): Future[OwnerAgents] =
     http.GET[OwnerAgents](s"$baseUrl/manage-agents/$organisationId/agents")
-
 }

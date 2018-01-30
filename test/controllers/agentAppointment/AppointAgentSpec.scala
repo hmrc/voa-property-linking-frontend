@@ -33,7 +33,7 @@ import scala.concurrent.Future
 
 class AppointAgentSpec extends ControllerSpec with MockitoSugar{
 
-  lazy val agentSession =  AgentAppointmentSession(AppointAgent(1231, StartAndContinue, StartAndContinue), 123, arbitrary[PropertyLink].sample.get)
+  lazy val agentSession =  AgentAppointmentSession(AppointAgent(Some(1231), "1231", StartAndContinue, StartAndContinue), 123, arbitrary[PropertyLink].sample.get)
   lazy val mockSessionRepo = {
     val f = mock[AgentAppointmentSessionRepository]
     when(f.start(any())(any(), any())
@@ -46,7 +46,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
   }
 
   private object TestAppointAgent extends AppointAgentController(StubPropertyRepresentationConnector, StubGroupAccountConnector,
-    StubPropertyLinkConnector, StubAuthentication, mockSessionRepo)
+    StubPropertyLinkConnector, StubAgentConnector, StubAuthentication, mockSessionRepo)
 
   lazy val request = FakeRequest().withSession(token)
 
@@ -57,7 +57,8 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     status(res) must be (OK)
 
     val page = HtmlPage(res)
-    page.mustContainTextInput("#agentCode")
+    page.mustContain1("#new-agent-radio-id")
+    page.mustContainTextInput("#agentCodeText")
     page.mustContainRadioSelect("canCheck", AgentPermission.options)
     page.mustContainRadioSelect("canChallenge", AgentPermission.options)
   }
@@ -66,7 +67,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     stubLoggedInUser()
 
     val res = TestAppointAgent.appointSubmit(arbitrary[Long])(
-      request.withFormUrlEncodedBody("agentCode" -> "agents inc", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
+      request.withFormUrlEncodedBody("agentCodeRadio" -> "yes", "agentCode" -> "agents inc", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
     )
     status(res) must be (BAD_REQUEST)
 
@@ -96,7 +97,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> "", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
+      request.withFormUrlEncodedBody("agentCodeRadio" -> "yes", "agentCode" -> "", "canCheck" -> StartAndContinue.name, "canChallenge" -> StartAndContinue.name)
     )
     status(res) must be (BAD_REQUEST)
 
@@ -159,7 +160,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> "999", "canCheck" -> StartAndContinue.name, "canChallenge" -> NotPermitted.name)
+      request.withFormUrlEncodedBody("agentCodeRadio" -> "yes", "agentCode" -> "999", "canCheck" -> StartAndContinue.name, "canChallenge" -> NotPermitted.name)
     )
     status(res) must be (BAD_REQUEST)
 
@@ -176,7 +177,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
 
 
     val res = TestAppointAgent.appointSubmit(link.authorisationId)(
-      request.withFormUrlEncodedBody("agentCode" -> groupAccount.agentCode.toString, "canCheck" -> StartAndContinue.name, "canChallenge" -> NotPermitted.name)
+      request.withFormUrlEncodedBody("agentCodeRadio" -> "yes", "agentCode" -> groupAccount.agentCode.toString, "canCheck" -> StartAndContinue.name, "canChallenge" -> NotPermitted.name)
     )
     status(res) mustBe BAD_REQUEST
 

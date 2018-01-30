@@ -107,6 +107,9 @@
                                 <div class="">
                                     <label class="form-label-bold" for="agentCode" >
                                         <span class="label-span">Agent code</span>
+                                        @if(model.form.error("agentCode").isDefined) {
+                                            <span class="error-message">@Messages(model.form.error("agentCode").get.message)</span>
+                                        }
                                     </label>
                                     <input type="text" id="agentCodeText"
                                         @if(isNewAgent){
@@ -121,7 +124,6 @@
             </fieldset>
 
             <div class="margin-left-5">
-                <p>@Messages("propertyRepresentation.appointAgent.message.1")</p>
 
                 @inputRadioGroupMod(
                     field = model.form("canCheck"),
@@ -166,7 +168,7 @@
 }
 
 @isNewAgent = @{
-    model.form.data.getOrElse("agentCodeRadio", "") == "yes"
+    model.form.data.getOrElse("agentCodeRadio", "") == "yes" || model.agents.isEmpty
 }
 
 @checkAnswer = {
