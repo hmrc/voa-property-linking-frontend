@@ -165,7 +165,7 @@ class EnrolmentAuth @Inject()(
     def handleError: PartialFunction[Throwable, Future[Result]] = {
       case _: InsufficientEnrolments =>
         enrolments
-        .enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap(enrolment(accounts, body))
+        .enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap(enrolmentResult(accounts, body))
       case _: NoActiveSession => provider.redirectToLogin
       case otherException =>
         Logger.debug(s"exception thrown on authorization with message : ${otherException.getMessage}")
@@ -185,10 +185,10 @@ class EnrolmentAuth @Inject()(
   override def noOrgAccount: Future[Result] =
       Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
 
-  private def enrolment(
+  private def enrolmentResult(
                          accounts: Accounts,
                          body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
-                       (result: EnrolmentResult)(implicit request: Request[_]): Future[Result] = result match {
+                       (result: EnrolmentResult)(implicit request: Request[AnyContent]): Future[Result] = result match {
     case Success =>
       for {
       userDetails <- auth.getUserDetails

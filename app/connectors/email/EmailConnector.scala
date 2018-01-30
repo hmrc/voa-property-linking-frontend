@@ -16,6 +16,8 @@
 
 package connectors.email
 
+import javax.inject.Inject
+
 import config.WSHttp
 import models.email.EmailRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
@@ -23,9 +25,9 @@ import uk.gov.hmrc.play.config.inject.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class EmailConnector(config: ServicesConfig, http: WSHttp) {
+class EmailConnector @Inject()(config: ServicesConfig, http: WSHttp) {
 
-  private val serviceUrl = config.baseUrl("email-render")
+  private val serviceUrl = config.baseUrl("email")
 
   def send(emailRequest: EmailRequest)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] =
     http
