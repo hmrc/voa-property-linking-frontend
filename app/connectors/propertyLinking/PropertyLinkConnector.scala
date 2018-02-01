@@ -67,17 +67,21 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
 
 
   def linkedPropertiesSearchAndSort(organisationId: Long,
-                                    pagination: PaginationSearchSort)
+                                    pagination: PaginationSearchSort,
+                                    representationStatusFilter: Seq[RepresentationStatus] =
+                                            Seq(RepresentationApproved, RepresentationPending)
+                                   )
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
     val ownerAuthResult = http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +
       s"organisationId=$organisationId&" +
       s"$pagination")
 
-    def validAgent(agent: OwnerAuthAgent) = {
-      Seq(RepresentationApproved.name, RepresentationPending.name)
-        .contains(agent.status.getOrElse(RepresentationApproved.name).toUpperCase)
-    }
+    def validAgent(agent: OwnerAuthAgent): Boolean =
+      agent.status.fold(false) { status =>
+        representationStatusFilter.map(_.name.toUpperCase).contains(status.toUpperCase)
+      }
+
 
     // filter out agents with status other than Approved, Pending
     // if status is not present, then keep the agent

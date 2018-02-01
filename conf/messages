@@ -278,6 +278,7 @@ dashboard.managedByAgentsProperties.status.pending=Pending
 dashboard.managedByAgentsProperties.noAgent=None
 managedByAgentsProperties.viewAssessments=View valuations
 managedByAgentsProperties.no.properties=This agent is not appointed to any properties
+managedByAgentsProperties.no.agentId=Unable to retrieve agent details
 
 
 manageClients.table.1=Organisation name

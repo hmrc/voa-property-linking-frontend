@@ -37,6 +37,7 @@ class Assessments @Inject()(config: ApplicationConfig,
     val backLink = request.headers.get("Referer")
 
     propertyLinks.getLink(authorisationId) map {
+      case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound // TODO update page to handle no assessments
       case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(link.assessments, backLink, link.pending)))
       case None => notFound
     }
