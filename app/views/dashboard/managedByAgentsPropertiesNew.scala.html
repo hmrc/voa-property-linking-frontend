@@ -74,11 +74,7 @@
                             @{p.localAuthorityRef}
                         </td>
                         <td>
-                            @if(p.status.toLowerCase == "pending") {
-                                @Messages("dashboard.managedByAgentsProperties.status.pending")
-                            } else {
-                                @Messages("dashboard.managedByAgentsProperties.status.added")
-                            }
+                            @Messages(s"dashboard.managedByAgentsProperties.status.${p.status.toLowerCase}")
                         </td>
                         <td>
                             <ul class="list">

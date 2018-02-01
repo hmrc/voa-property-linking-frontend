@@ -23,7 +23,7 @@ import config.WSHttp
 import connectors.fileUpload.FileMetadata
 import controllers.{Pagination, PaginationSearchSort}
 import models._
-import models.searchApi.{OwnerAuthAgent, OwnerAuthResult}
+import models.searchApi.{OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
 import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
@@ -68,8 +68,10 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
 
   def linkedPropertiesSearchAndSort(organisationId: Long,
                                     pagination: PaginationSearchSort,
+                                    authorisationStatusFilter: Seq[PropertyLinkingStatus] =
+                                        PropertyLinkingStatus.all,
                                     representationStatusFilter: Seq[RepresentationStatus] =
-                                            Seq(RepresentationApproved, RepresentationPending)
+                                        Seq(RepresentationApproved, RepresentationPending)
                                    )
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
@@ -82,12 +84,13 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
         representationStatusFilter.map(_.name.toUpperCase).contains(status.toUpperCase)
       }
 
+    def validAuthStatus(authorisation: OwnerAuthorisation): Boolean =
+      authorisationStatusFilter.map(_.name.toUpperCase).contains(authorisation.status)
 
-    // filter out agents with status other than Approved, Pending
-    // if status is not present, then keep the agent
+    // filter for agents on representationStatus and filter on authorisationStatus
     ownerAuthResult.map(oar =>
-      oar.copy(authorisations = oar.authorisations.map(auth =>
-        auth.copy(agents = auth.agents.map(ags => ags.filter(ag => validAgent(ag)))))))
+      oar.copy(authorisations = oar.authorisations.filter(validAuthStatus).map(
+        auth => auth.copy(agents = auth.agents.map(ags => ags.filter(validAgent))))))
 
   }
 

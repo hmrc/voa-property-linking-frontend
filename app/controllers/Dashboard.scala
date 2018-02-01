@@ -157,7 +157,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
     }
   }
 
-  def viewManagedPropertiesNew(agentCode: Long) = authenticated { implicit request =>
+  def viewManagedProperties(agentCode: Long) = authenticated { implicit request =>
     Logger.debug("********** using NEW viewManagedProperties....")
     for {
       group <- groupAccounts.withAgentCode(agentCode.toString)
@@ -169,12 +169,12 @@ class Dashboard @Inject()(config: ApplicationConfig,
                       pageNumber = 1,
                       pageSize = 1000,
                       agent = group.map(_.companyName)),
-                      representationStatusFilter = Seq(RepresentationApproved))
+                      authorisationStatusFilter = Seq(PropertyLinkingApproved, PropertyLinkingPending))
     } yield Ok(views.html.dashboard.managedByAgentsPropertiesNew(
       ManagedPropertiesNewVM(agentOrganisationId, companyName, agentCode, authResult.authorisations)))
   }
 
-  def viewManagedProperties(agentCode: Long) = authenticated { implicit request =>
+  def viewManagedPropertiesOld(agentCode: Long) = authenticated { implicit request =>
     Logger.debug("********** using OLD viewManagedProperties....")
     for {
       group <- groupAccounts.withAgentCode(agentCode.toString)
