@@ -41,7 +41,14 @@
         <br>
     }
 
-    @if(model.properties.nonEmpty) {
+    @if(model.agentOrganisationId.isEmpty) {
+        <h2 id="noAgentId" class="heading-secondary">
+        @Messages("managedByAgentsProperties.no.agentId")
+        </h2>
+        <br>
+    }
+
+    @if(model.properties.nonEmpty && model.agentOrganisationId.isDefined) {
         <div class="table-wrapper">
         <table class="table-font-xsmall margin-bottom-20">
             <caption class="visuallyhidden">@Messages("managedByAgentsProperties.table.caption")</caption>
@@ -64,21 +71,17 @@
                             @(Formatters.capitalizedAddress(p.address))
                         </td>
                         <td>
-                            @{p.assessments.headOption.map(_.billingAuthorityReference).getOrElse("Unknown")}
+                            @{p.localAuthorityRef}
                         </td>
                         <td>
-                            @if(p.pending) {
-                                @Messages("dashboard.managedByAgentsProperties.status.pending")
-                            } else {
-                                @Messages("dashboard.managedByAgentsProperties.status.approved")
-                            }
+                            @Messages(s"dashboard.managedByAgentsProperties.status.${p.status.toLowerCase}")
                         </td>
                         <td>
                             <ul class="list">
                                 @if(p.agents.isEmpty){
                                     @Messages("dashboard.managedByAgentsProperties.noAgent")
                                 } else {
-                                    @p.agents.map { agent =>
+                                    @p.agents.get.map { agent =>
                                         <li>@agent.organisationName</li>
                                     }
                                 }
@@ -87,20 +90,25 @@
                         <td>
                             <ul class="list">
                                 <li>
-                                    <a href="@agentAppointment.routes.RevokeAgentController.revokeAgent(p.authorisationId, p.agents.filter(_.agentCode == model.agentCode).head.authorisedPartyId, model.agentCode)">
+                                    <a href="@agentAppointment.routes.RevokeAgentController.revokeAgent(
+                                        p.authorisationId,
+                                        p.agents.get.filter(ag =>
+                                            Some(ag.organisationId) == model.agentOrganisationId).head.authorisedPartyId,
+                                        model.agentCode)">
                                         @Messages("manageProperties.revokeAgent")
                                     </a>
                                 </li>
-                               <li>
-                                   <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")</a>
-                               </li>
-                            @if(p.assessments.nonEmpty){
+                                <li>
+                                    <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">
+                                        @Messages("manageProperties.addAgent")
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="@routes.Assessments.assessments(p.authorisationId)">
                                         @Messages("manageProperties.viewAssessments")
                                     </a>
                                 </li>
-                            }
+
                             </ul>
                         </td>
                     </tr>
@@ -109,5 +117,4 @@
         </table>
     </div>
     }
-
 }

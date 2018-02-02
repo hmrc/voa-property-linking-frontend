@@ -158,7 +158,6 @@ class Dashboard @Inject()(config: ApplicationConfig,
   }
 
   def viewManagedProperties(agentCode: Long) = authenticated { implicit request =>
-    Logger.debug("********** using NEW viewManagedProperties....")
     for {
       group <- groupAccounts.withAgentCode(agentCode.toString)
       companyName = group.fold("No Name")(_.companyName) // this should be impossible
@@ -170,20 +169,8 @@ class Dashboard @Inject()(config: ApplicationConfig,
                       pageSize = 1000,
                       agent = group.map(_.companyName)),
                       authorisationStatusFilter = Seq(PropertyLinkingApproved, PropertyLinkingPending))
-    } yield Ok(views.html.dashboard.managedByAgentsPropertiesNew(
-      ManagedPropertiesNewVM(agentOrganisationId, companyName, agentCode, authResult.authorisations)))
-  }
-
-  def viewManagedPropertiesOld(agentCode: Long) = authenticated { implicit request =>
-    Logger.debug("********** using OLD viewManagedProperties....")
-    for {
-      group <- groupAccounts.withAgentCode(agentCode.toString)
-      companyName = group.fold("No Name")(_.companyName) // this should be impossible
-      propLinkResponse <- propertyLinks.linkedProperties(
-        request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false))
-      filteredProperties = propLinkResponse.propertyLinks.filter(_.agents.map(_.agentCode).contains(agentCode))
     } yield Ok(views.html.dashboard.managedByAgentsProperties(
-      ManagedPropertiesVM(companyName, agentCode, filteredProperties)))
+      ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authResult.authorisations)))
   }
 
   def viewDraftCases() = authenticated { implicit request =>
@@ -258,11 +245,10 @@ case class ManagePropertiesSearchAndSortVM(organisationId: Long,
                                            pagination: PaginationSearchSort)
 
 
-case class ManagedPropertiesVM(agentName: String, agentCode: Long, properties: Seq[PropertyLink])
-case class ManagedPropertiesNewVM(agentOrganisationId: Option[Long],
-                                  agentName: String,
-                                  agentCode: Long,
-                                  properties: Seq[OwnerAuthorisation])
+case class ManagedPropertiesVM(agentOrganisationId: Option[Long],
+                               agentName: String,
+                               agentCode: Long,
+                               properties: Seq[OwnerAuthorisation])
 
 case class ManageAgentsVM(agents: Seq[AgentInfo])
 
