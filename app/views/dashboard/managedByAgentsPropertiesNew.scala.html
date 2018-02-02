@@ -90,14 +90,15 @@
                         <td>
                             <ul class="list">
                                 <li>
-                                    <a href="@agentAppointment.routes.RevokeAgentController.revokeAgent(p.authorisationId, model.agentOrganisationId.get, model.agentCode)">
+                                    <a href="@agentAppointment.routes.RevokeAgentController.revokeAgent(p.authorisationId,
+                                        p.agents.get.filter(ag => Some(ag.organisationId) == model.agentOrganisationId).head.authorisedPartyId,
+                                        model.agentCode)">
                                         @Messages("manageProperties.revokeAgent")
                                     </a>
                                 </li>
-                               <li>
-                                   <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")</a>
-                               </li>
-
+                                <li>
+                                    <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")</a>
+                                </li>
                                 <li>
                                     <a href="@routes.Assessments.assessments(p.authorisationId)">
                                         @Messages("manageProperties.viewAssessments")
