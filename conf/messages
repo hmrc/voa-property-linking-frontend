@@ -910,8 +910,8 @@ plannedImprovements.p3=The changes we’re making include:
 label.createAccount.firstName= First Name
 label.createAccount.lastName= Last Name
 label.createAccount.phone= Phone Number
-choice.individual=Individual
-choice.organisation=Organisation
+choice.individual=Individual (you represent yourself)
+choice.organisation=Organisation (you represent a business, charity or other organisation)
 
 enrolment.title = Complete your contact details
 enrolment.organisation.name = Business name

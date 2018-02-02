@@ -36,21 +36,7 @@ topNavigation = false
         <p>@Html(Messages("start.registration.p.2"))</p>
         <p>@Messages("start.registration.p.3")</p>
 
-        <ul class="list list-bullet">
-            <li>@Messages("start.registration.youNeed.1")</li>
-            <li>@Messages("start.registration.youNeed.2")</li>
-            <li>@Messages("start.registration.youNeed.3")</li>
-        </ul>
-
         <p class="panel panel-border-wide">@Messages("start.registration.p.5")</p>
-
-
-        <details>
-            <summary><span class="summary">@Messages("start.registration.IdontHave")</span></summary>
-            <div class="panel-indent">
-                @Html(Messages("start.registration.IdontHave.answer"))
-            </div>
-        </details>
 
     <form action="@routes.Register.choice()" method="POST" enctype="multipart/form-data">
 
@@ -62,8 +48,7 @@ topNavigation = false
         args = Seq(
         '_label -> "What type of account do you want.",
         '_labelClass -> "form-label-bold",
-        '_legend -> true,
-        '_fieldsetClass -> "inline"
+        '_legend -> true
         ))
 
         <button type="submit" id="save-and-continue" class="button" >@Messages("start.register")</button>
