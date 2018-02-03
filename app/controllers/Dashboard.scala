@@ -160,7 +160,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
   def viewManagedProperties(agentCode: Long) = authenticated { implicit request =>
     for {
       group <- groupAccounts.withAgentCode(agentCode.toString)
-      companyName = group.fold("No Name")(_.companyName) // this should be impossible
+      companyName = group.fold("No Name")(_.companyName) // impossible
       agentOrganisationId = group.map(_.id)
       authResult <- propertyLinks.linkedPropertiesSearchAndSort(
                     request.organisationId,
@@ -169,8 +169,12 @@ class Dashboard @Inject()(config: ApplicationConfig,
                       pageSize = 1000,
                       agent = group.map(_.companyName)),
                       authorisationStatusFilter = Seq(PropertyLinkingApproved, PropertyLinkingPending))
+      // keep only authorisations that are managed by this agent
+      authsFiltered = authResult.authorisations.filter(
+        _.agents.fold(false)(_.map(_.organisationId).exists(id => agentOrganisationId.fold(false)(_ == id))))
+
     } yield Ok(views.html.dashboard.managedByAgentsProperties(
-      ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authResult.authorisations)))
+      ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authsFiltered)))
   }
 
   def viewDraftCases() = authenticated { implicit request =>
