@@ -169,8 +169,11 @@ class Dashboard @Inject()(config: ApplicationConfig,
                       pageSize = 1000,
                       agent = group.map(_.companyName)),
                       authorisationStatusFilter = Seq(PropertyLinkingApproved, PropertyLinkingPending))
+
+      authsFiltered = authResult.authorisations.filter(_.agents.fold(false)(_.nonEmpty))
+
     } yield Ok(views.html.dashboard.managedByAgentsProperties(
-      ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authResult.authorisations)))
+      ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authsFiltered)))
   }
 
   def viewDraftCases() = authenticated { implicit request =>
