@@ -68,8 +68,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
 
   def linkedPropertiesSearchAndSort(organisationId: Long,
                                     pagination: PaginationSearchSort,
-                                    authorisationStatusFilter: Seq[PropertyLinkingStatus] =
-                                        PropertyLinkingStatus.all,
                                     representationStatusFilter: Seq[RepresentationStatus] =
                                         Seq(RepresentationApproved, RepresentationPending)
                                    )
@@ -84,14 +82,10 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
         representationStatusFilter.map(_.name.toUpperCase).contains(status.toUpperCase)
       }
 
-    def validAuthStatus(authorisation: OwnerAuthorisation): Boolean =
-      authorisationStatusFilter.map(_.name.toUpperCase).contains(authorisation.status)
-
-    // filter for agents on representationStatus and filter on authorisationStatus
+    // filter agents on representationStatus
     ownerAuthResult.map(oar =>
-      oar.copy(authorisations = oar.authorisations.filter(validAuthStatus).map(
-        auth => auth.copy(agents = auth.agents.map(ags => ags.filter(validAgent))))))
-
+      oar.copy(authorisations = oar.authorisations.map(auth =>
+        auth.copy(agents = auth.agents.map(ags => ags.filter(ag => validAgent(ag)))))))
   }
 
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
