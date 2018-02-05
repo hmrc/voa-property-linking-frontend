@@ -147,10 +147,8 @@ class Dashboard @Inject()(config: ApplicationConfig,
       ownerAgents <- agentsConnector.ownerAgents(request.organisationId)
       msgCount <- messagesConnector.countUnread(request.organisationId)
     } yield {
-      val agentInfos = ownerAgents.agents
-        .map(ownerAgent => AgentInfo(ownerAgent.name, ownerAgent.ref))
-        .sortBy(_.organisationName).distinct
-      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos), msgCount.unread))
+      val agents = ownerAgents.agents.map(ownerAgent => AgentInfo(ownerAgent.name, ownerAgent.ref))
+      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agents), msgCount.unread))
     }
   }
 
