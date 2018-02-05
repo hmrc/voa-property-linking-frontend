@@ -273,11 +273,12 @@ managedByAgentsProperties.table.2=Local authority reference
 managedByAgentsProperties.table.3=Status
 managedByAgentsProperties.table.4=Appointed Agents
 managedByAgentsProperties.table.5=Actions
-dashboard.managedByAgentsProperties.status.added=Approved
+dashboard.managedByAgentsProperties.status.approved=Approved
 dashboard.managedByAgentsProperties.status.pending=Pending
 dashboard.managedByAgentsProperties.noAgent=None
 managedByAgentsProperties.viewAssessments=View valuations
 managedByAgentsProperties.no.properties=This agent is not appointed to any properties
+managedByAgentsProperties.no.agentId=Unable to retrieve agent details
 
 
 manageClients.table.1=Organisation name
@@ -343,7 +344,7 @@ propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
 propertyRepresentation.appointAgent.message.2=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
 propertyRepresentation.appointAgent.associatedAgents=The following agents are currently associated with your account. Select an agent from the list below or add a new agent to associate them with one or more properties.
-propertyRepresentation.appointAgent.warning=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
+propertyRepresentation.appointAgent.warning=Please be aware that you'll be responsible for any information your agent submits to us about your property. You'll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
 propertyRepresentation.appointAgent.message.appoint=Appoint a new agent
 propertyRepresentation.appointAgent.check.p1=If any of the factual details about your property or land are incorrect, you (the owner, occupier or authorised agent) need to let the VOA know. Telling us about anything that’s incorrect is known as a check.
 propertyRepresentation.appointAgent.check.p2=If all of your property details are correct but you believe your rateable value is incorrect, you must first complete a check and wait for the outcome before making a challenge.
@@ -352,7 +353,7 @@ propertyRepresentation.appointAgent.challenges.p2=You can’t start a challenge 
 propertyRepresentation.appointAgent.yes=Yes
 propertyRepresentation.appointAgent.no=No
 propertyRepresentation.table.title.appoint=Appoint
-propertyRepresentation.table.title.agentId=Agent code
+propertyRepresentation.table.title.agentId=Agent ID
 propertyRepresentation.table.title.agentName=Agent name
 
 
@@ -894,6 +895,7 @@ checkReceived.responseTime=We aim to provide a response within 12 weeks. We prio
 checkReceived.valuation=The information submitted as part of the Check case may cause your valuation to go up as well as down.
 checkReceived.moreInfo=You can find more information on the Check and Challenge service by searching for ''Check and Challenge'' on the <a href="https://www.gov.uk/search?q=check+and+challenge">GOV.UK</a> website.
 checkReceived.template.valuationOffice=Valuation Office Agency
+checkReceived.unknownTemplate=Unknown message template: {0}
 link.summary=View Summary
 
 #PAGINATION CONTROLS

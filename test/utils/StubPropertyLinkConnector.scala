@@ -44,7 +44,8 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
   }
 
   override def linkedPropertiesSearchAndSort(organisationId: Long,
-                                            pagination: PaginationSearchSort)
+                                            pagination: PaginationSearchSort,
+                                             representationStatusFilter: Seq[RepresentationStatus])
                                            (implicit hc: HeaderCarrier) = {
     Future.successful(stubbedOwnerAuthResult)
   }

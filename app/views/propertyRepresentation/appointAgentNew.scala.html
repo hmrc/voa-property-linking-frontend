@@ -58,26 +58,27 @@
                         </tr>
 
                         @model.agents.zipWithIndex.map { case (agent, index) =>
+                            @defining(s"agent-radio-${index+1}") { radioId:String =>
                             <tr>
                                 <td>
                                     <div class="table-radio multiple-choice">
-                                        <input type="radio" id=s"agent-$index" name="agentCodeRadio"
+                                        <input type="radio" id="@radioId" name="agentCodeRadio"
                                         value="@agent.ref"
                                         @if(model.form.data.getOrElse("agentCodeRadio", "") == agent.ref.toString && !isNewAgent){
                                             checked="checked"
                                         }>
-                                        <label for=s"agent-$index">
+                                        <label for="@radioId">
                                             <span class="visually-hidden">
                                                 @Messages("propertyRepresentation.table.title.appoint")
                                             </span>
                                         </label>
                                     </div>
                                 </td>
-                                <td>@agent.ref</td>
                                 <td>@agent.name</td>
+                                <td>@agent.ref</td>
                             </tr>
+                            }
                         }
-
                         </tbody>
                     </table>
                 </div>
