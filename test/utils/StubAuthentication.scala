@@ -20,8 +20,9 @@ import actions.{AuthImpl, AuthenticatedAction, BasicAuthenticatedRequest, NonEnr
 import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
 import models.Accounts
 import play.api.mvc.{AnyContent, Request, Result}
+import services.email.EmailService
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.config.ServicesConfig
 
@@ -34,6 +35,13 @@ object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAut
     StubBusinessRatesAuthorisation.authorisationResult = InvalidGGSession
   }
 
+}
+
+object StubEmailService extends EmailService(null) {
+
+  override def sendNewEnrolmentSuccess(to: String, personId: Long, name: String)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
+
+  override def sendMigrationEnrolmentSuccess(to: String, personId: Long, name: String)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
 }
 
 object StubAuthImpl extends NonEnrolmentAuth
