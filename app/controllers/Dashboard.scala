@@ -16,12 +16,9 @@
 
 package controllers
 
-import java.io
 import java.time._
 import javax.inject.Inject
 
-import cats.data.OptionT
-import cats.instances.future._
 import actions.AuthenticatedAction
 import com.builtamont.play.pdf.PdfGenerator
 import config.{ApplicationConfig, Global}
@@ -30,9 +27,9 @@ import connectors.propertyLinking.PropertyLinkConnector
 import models._
 import models.messages.MessagePagination
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
+import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, Request, Result}
-import play.api.Logger
 
 import scala.concurrent.Future
 
@@ -167,14 +164,15 @@ class Dashboard @Inject()(config: ApplicationConfig,
                     PaginationSearchSort(
                       pageNumber = 1,
                       pageSize = 1000,
-                      agent = group.map(_.companyName)),
-                      authorisationStatusFilter = Seq(PropertyLinkingApproved, PropertyLinkingPending))
-      // keep only authorisations that are managed by this agent
-      authsFiltered = authResult.authorisations.filter(
+                      agent = group.map(_.companyName)))
+
+      // keep only authorisations that have status Approved/Pending and are managed by this agent
+      filteredAuths = authResult.authorisations.filter(auth =>
+        Seq(PropertyLinkingApproved.name, PropertyLinkingPending.name).contains(auth.status)).filter(
         _.agents.fold(false)(_.map(_.organisationId).exists(id => agentOrganisationId.fold(false)(_ == id))))
 
     } yield Ok(views.html.dashboard.managedByAgentsProperties(
-      ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authsFiltered)))
+      ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, filteredAuths)))
   }
 
   def viewDraftCases() = authenticated { implicit request =>
