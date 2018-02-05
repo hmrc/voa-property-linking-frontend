@@ -16,20 +16,25 @@
 
 package controllers.test
 
+import java.time.Instant
 import java.util.UUID
 import javax.inject.Inject
 
 import actions.AuthenticatedAction
-import connectors.IndividualAccounts
+import connectors.{ExternalId, GroupAccounts, IndividualAccounts}
 import controllers.PropertyLinkingController
+import models.{GroupAccount, UpdatedOrganisationAccount}
 import models.test.TestUserDetails
 import play.api.libs.json.Json
 import services.{EnrolmentService, Failure, Success}
 
+import scala.util.Random
+
 class TestController @Inject()(
                                            authenticated: AuthenticatedAction,
                                            enrolmentService: EnrolmentService,
-                                           individualAccounts: IndividualAccounts
+                                           individualAccounts: IndividualAccounts,
+                                           groups: GroupAccounts
                                          ) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
@@ -64,8 +69,25 @@ class TestController @Inject()(
     enrolmentService
       .deEnrolUser(request.individualAccount.individualId)
       .flatMap{
-        case Success => individualAccounts.update(request.individualAccount.copy(externalId = UUID.randomUUID().toString)).map(_ => Ok("Successful"))
+        case Success =>
+          val externalId = UUID.randomUUID().toString
+          for {
+            _ <- individualAccounts.update(request.individualAccount.copy(externalId = externalId))
+            _<- groups.update(request.organisationAccount.id, create(request.organisationAccount, externalId))
+          } yield Ok("Successful")
         case Failure => Ok("Failure")
       }
   }
+
+  private def create(group: GroupAccount, externalId: String):  UpdatedOrganisationAccount =
+    UpdatedOrganisationAccount(
+      Random.nextString(40),
+      group.addressId,
+      group.isAgent,
+      group.companyName,
+      group.email,
+      group.phone,
+      Instant.now(),
+      externalId
+    )
 }
