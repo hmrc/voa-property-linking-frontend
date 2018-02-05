@@ -343,7 +343,7 @@ propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
 propertyRepresentation.appointAgent.message.2=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
 propertyRepresentation.appointAgent.associatedAgents=The following agents are currently associated with your account. Select an agent from the list below or add a new agent to associate them with one or more properties.
-propertyRepresentation.appointAgent.warning=Please be aware that you'll be responsible for any information your agent submits to us about your property. You'll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
+propertyRepresentation.appointAgent.warning=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
 propertyRepresentation.appointAgent.message.appoint=Appoint a new agent
 propertyRepresentation.appointAgent.check.p1=If any of the factual details about your property or land are incorrect, you (the owner, occupier or authorised agent) need to let the VOA know. Telling us about anything that’s incorrect is known as a check.
 propertyRepresentation.appointAgent.check.p2=If all of your property details are correct but you believe your rateable value is incorrect, you must first complete a check and wait for the outcome before making a challenge.
@@ -352,7 +352,7 @@ propertyRepresentation.appointAgent.challenges.p2=You can’t start a challenge 
 propertyRepresentation.appointAgent.yes=Yes
 propertyRepresentation.appointAgent.no=No
 propertyRepresentation.table.title.appoint=Appoint
-propertyRepresentation.table.title.agentId=Agent ID
+propertyRepresentation.table.title.agentId=Agent code
 propertyRepresentation.table.title.agentName=Agent name
 
 
