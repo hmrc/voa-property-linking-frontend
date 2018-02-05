@@ -14,16 +14,15 @@
  * limitations under the License.
  *@
 
-@import java.time.format.DateTimeFormatter
 @import models.messages.Message
 
 @(message: Message)(implicit request: Request[_], messages: Messages)
 
 <div class="clearfix" id="messageContent">
 
-    <h1 class="heading-medium">@Messages("messages.caseReference", message.caseReference)</h1>
+    <h1 class="heading-medium">@Messages("checkReceived.reference", message.caseReference)</h1>
 
-    <h2 class="heading-small">@Messages("messages.unknownTemplate",message.templateName)</h2>
+    <h2 class="heading-small">@Messages("checkReceived.unknownTemplate",message.templateName)</h2>
 
 </div>
 

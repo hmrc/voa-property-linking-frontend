@@ -895,6 +895,7 @@ checkReceived.responseTime=We aim to provide a response within 12 weeks. We prio
 checkReceived.valuation=The information submitted as part of the Check case may cause your valuation to go up as well as down.
 checkReceived.moreInfo=You can find more information on the Check and Challenge service by searching for ''Check and Challenge'' on the <a href="https://www.gov.uk/search?q=check+and+challenge">GOV.UK</a> website.
 checkReceived.template.valuationOffice=Valuation Office Agency
+checkReceived.unknownTemplate=Unknown message template: {0}
 link.summary=View Summary
 
 #PAGINATION CONTROLS
