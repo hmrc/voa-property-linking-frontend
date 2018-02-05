@@ -59,7 +59,6 @@
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    '_help -> Messages("label.createAccount.email.help"),
                     '_value -> individualFieldData.email
                 )
 
@@ -77,8 +76,7 @@
                     '_label -> Messages(s"enrolment.phoneNumber"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_help -> Messages("label.createAccount.phone1.help")
+                    'class -> "form-control"
                 )
 
                 @inputText(
@@ -86,9 +84,7 @@
                     '_label -> Messages(s"enrolment.mobileNumber"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_optional -> true,
-                    '_help -> Messages("label.createAccount.phone2.help")
+                    'class -> "form-control"
                 )
 
             @inputText(
@@ -97,8 +93,7 @@
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    '_optional -> true,
-                    '_help -> Messages("label.createAccount.tradingName.help")
+                    '_optional -> true
                 )
 
                 <p>

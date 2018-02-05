@@ -71,7 +71,9 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     mockEnrolmentService,
     StubAuthConnector,
     StubAddresses,
-    StubAuthentication)
+    StubEmailService,
+    StubAuthentication
+  )
 
   "Invoking the app held CreateEnrolmentUser controller" should "result in correct dependency injection" in {
     app.injector.instanceOf[CreateEnrolmentUser]
