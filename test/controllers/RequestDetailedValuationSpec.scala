@@ -16,9 +16,11 @@
 
 package controllers
 
+import java.time.LocalDate
+
 import config.ApplicationConfig
 import connectors.{Authenticated, DVRCaseManagementConnector, SubmissionIdConnector}
-import models.{Accounts, DetailedValuationRequest, DetailedValuationRequestTypes}
+import models._
 import org.mockito.ArgumentMatchers._
 import org.mockito.ArgumentMatchers.{eq => matching}
 import org.mockito.Mockito._
@@ -83,7 +85,7 @@ class RequestDetailedValuationSpec extends ControllerSpec with MockitoSugar {
     verify(mockSubmissionIds, times(1)).get(matching("EMAIL"))(any[HeaderCarrier])
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("EMAIL123").url)
+    redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("EMAIL123", authId).url)
   }
 
   it should """generate a submission ID starting with "POST" if they choose to receive the detailed valuation by post""" in {
@@ -94,12 +96,13 @@ class RequestDetailedValuationSpec extends ControllerSpec with MockitoSugar {
     verify(mockSubmissionIds, times(1)).get(matching("POST"))(any[HeaderCarrier])
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("POST123").url)
+    redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("POST123", authId).url)
   }
 
   it should "confirm that the user will receive the detailed valuation by email if that is their preference" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
-    val res = TestAssessments.dvRequestConfirmation("EMAIL123")(FakeRequest())
+    StubPropertyLinkConnector.stubLink(PropertyLink(authId, "SomeId", 0l, 0l, "address", Capacity(Occupier, LocalDate.now(), Some(LocalDate.now())), LocalDate.now(), true, Nil, Nil))
+    val res = TestAssessments.dvRequestConfirmation("EMAIL123", authId)(FakeRequest())
 
     status(res) mustBe OK
 
@@ -110,7 +113,8 @@ class RequestDetailedValuationSpec extends ControllerSpec with MockitoSugar {
 
   it should "confirm that the user will receive the detailed valuation by post if that is their preference" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
-    val res = TestAssessments.dvRequestConfirmation("POST123")(FakeRequest())
+    StubPropertyLinkConnector.stubLink(PropertyLink(authId, "SomeId", 0l, 0l, "address", Capacity(Occupier, LocalDate.now(), Some(LocalDate.now())), LocalDate.now(), true, Nil, Nil))
+    val res = TestAssessments.dvRequestConfirmation("POST123", authId)(FakeRequest())
 
     status(res) mustBe OK
 

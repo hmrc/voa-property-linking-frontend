@@ -18,6 +18,7 @@ package controllers
 
 import actions.AuthenticatedAction
 import javax.inject.Inject
+
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
@@ -25,6 +26,8 @@ import form.EnumMapping
 import models._
 import play.api.data.{Form, Forms}
 import play.api.mvc.Action
+
+import scala.concurrent.Future
 
 class Assessments @Inject()(config: ApplicationConfig,
                             propertyLinks: PropertyLinkConnector,
@@ -75,16 +78,20 @@ class Assessments @Inject()(config: ApplicationConfig,
           submissionId <- submissionIds.get(prefix)
           dvr = DetailedValuationRequest(authId, request.organisationId, request.personId, submissionId, assessmentRef, baRef)
           _ <- dvrCaseManagement.requestDetailedValuation(dvr)
+
         } yield {
-          Redirect(routes.Assessments.dvRequestConfirmation(submissionId))
+          Redirect(routes.Assessments.dvRequestConfirmation(submissionId, authId))
         }
       }
     )
   }
 
-  def dvRequestConfirmation(submissionId: String) = Action { implicit request =>
+  def dvRequestConfirmation(submissionId: String, authorisationId: Long) = Action.async { implicit request =>
     val preference = if (submissionId.startsWith("EMAIL")) "email" else "post"
-    Ok(views.html.dvr.detailedValuationRequested(submissionId, preference))
+    propertyLinks.getLink(authorisationId).map{
+      case Some(link) => Ok(views.html.dvr.detailedValuationRequested(submissionId, preference, link.address))
+      case None       => notFound
+    }
   }
 
   lazy val dvRequestForm = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))

@@ -41,7 +41,7 @@ object CreateEnrolmentIndividualAccount {
     keys.lastName -> nonEmptyText,
     keys.address -> addressMapping,
     keys.phone -> nonEmptyText(maxLength = 15),
-    keys.mobilePhone -> optional(text(maxLength = 15)),
+    keys.mobilePhone -> nonEmptyText(maxLength = 15),
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.tradingName -> optional(text())
@@ -55,7 +55,7 @@ case class EnrolmentIndividualAccountDetails(firstName: String,
                                              lastName: String,
                                              address: Address,
                                              phone: String,
-                                             mobilePhone: Option[String],
+                                             mobilePhone: String,
                                              email: String,
                                              confirmedEmail: String,
                                              tradingName: Option[String]
