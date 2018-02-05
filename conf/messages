@@ -624,7 +624,7 @@ label.requestType=How would you like to receive the detailed valuation?
 requestType.email=By email
 requestType.post=By post
 
-detailedValuationRequested.title=We’ve received your request to view the detailed valuation for this property.
+detailedValuationRequested.title=We''ve received your request to view the detailed valuation for {0}
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 10 working days.
 
@@ -912,6 +912,12 @@ label.createAccount.lastName= Last Name
 label.createAccount.phone= Phone Number
 choice.individual=Individual (you represent yourself)
 choice.organisation=Organisation (you represent a business, charity or other organisation)
+account.enrolment.link.text=Go To Dashboard
+account.enrolment.description=As part of the registration for the check and challenge service, you’ve been given a personal ID number. You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
+account.enrolment.description.existing=As part of the ongoing improvements to the check and challenge service, we’re giving you a personal ID number. You should keep a note of this number in a safe place as you will need it if you want to reset your password.
+account.enrolment.personId=Your ID number is {0}
+account.enrolment.disclaimer=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
+account.enrolment.footer=Valuation Office Agency (VOA)
 
 enrolment.title = Complete your contact details
 enrolment.organisation.name = Business name

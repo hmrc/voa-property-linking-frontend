@@ -25,13 +25,15 @@
             <h2 class="transaction-banner__heading">@id</h2>
         </div>
 
-        <p>@Html(Messages("account.confirmation.addToGG", "http://www.gateway.gov.uk"))</p>
+        <p>@Messages("account.enrolment.description.existing")</p>
 
-        <p>@Messages("account.confirmation.disclaimer")</p>
+        <p>@Messages("account.enrolment.personId", id)</p>
 
-        <p>@Messages("account.confirmation.youCan")</p>
+        <p>@Messages("account.enrolment.disclaimer")</p>
 
-        <a href="@routes.Dashboard.manageProperties()" class="button" role="button">@Messages("link.manageProperties")</a>
+        <p>@Messages("account.enrolment.footer")</p>
+
+        <a href="@routes.Dashboard.manageProperties()" class="button" role="button">@Messages("account.enrolment.link.text")</a>
     </div>
 </div>
 }

@@ -16,30 +16,33 @@
 
 package controllers.test
 
+import java.util.UUID
 import javax.inject.Inject
 
 import actions.AuthenticatedAction
+import connectors.IndividualAccounts
 import controllers.PropertyLinkingController
 import models.test.TestUserDetails
 import play.api.libs.json.Json
 import services.{EnrolmentService, Failure, Success}
 
-class TestUserDetailsController @Inject()(
+class TestController @Inject()(
                                            authenticated: AuthenticatedAction,
-                                           enrolmentService: EnrolmentService
+                                           enrolmentService: EnrolmentService,
+                                           individualAccounts: IndividualAccounts
                                          ) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
-    Ok(Json.toJson(request.organisationAccount.isAgent match {
-
-      case true => TestUserDetails(
+    Ok(Json.toJson(if (request.organisationAccount.isAgent) {
+      TestUserDetails(
         personId = request.individualAccount.individualId,
         organisationId = request.organisationAccount.id,
         organisationName = request.organisationAccount.companyName,
         governmentGatewayGroupId = request.organisationAccount.groupId,
         governmentGatewayExternalId = request.individualAccount.externalId,
         agentCode = Some(request.organisationAccount.agentCode))
-      case _ => TestUserDetails(personId = request.individualAccount.individualId,
+    } else {
+      TestUserDetails(personId = request.individualAccount.individualId,
         organisationId = request.organisationAccount.id,
         organisationName = request.organisationAccount.companyName,
         governmentGatewayGroupId = request.organisationAccount.groupId,
@@ -57,4 +60,12 @@ class TestUserDetailsController @Inject()(
     }
   }
 
+  def denEnrolWithExternalIdChange = authenticated { implicit request =>
+    enrolmentService
+      .deEnrolUser(request.individualAccount.individualId)
+      .flatMap{
+        case Success => individualAccounts.update(request.individualAccount.copy(externalId = UUID.randomUUID().toString)).map(_ => Ok("Successful"))
+        case Failure => Ok("Failure")
+      }
+  }
 }

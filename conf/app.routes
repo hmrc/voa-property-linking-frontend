@@ -65,7 +65,7 @@ GET         /detailed/:authorisationId/:assessmentRef                           
 GET         /request-detailed/:authorisationId/:assessmentRef                                 @controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long, baRef)
 GET         /request-detailed/start-challenge                                                 @controllers.Assessments.startChallengeFromDVR
 POST        /details-requested/:authorisationId/:assessmentRef                                @controllers.Assessments.detailedValuationRequested(authorisationId: Long, assessmentRef: Long, baRef)
-GET         /details-requested/:submissionId                                                  @controllers.Assessments.dvRequestConfirmation(submissionId)
+GET         /details-requested/:submissionId                                                  @controllers.Assessments.dvRequestConfirmation(submissionId, authorisationId: Long)
 
 #Search and Link
 GET         /property-search                                                                  @controllers.propertyLinking.ClaimProperty.show()
