@@ -81,6 +81,7 @@ object SessionHelpers {
 
   val key = new {
     val externalId = "externalId"
+    val credId = "credId"
     val firstName = "firstName"
     val lastName = "lastName"
     val email = "email"
@@ -92,11 +93,11 @@ object SessionHelpers {
   implicit class SessionOps(session: Session) {
 
     def getUserDetails: Option[UserDetails] = {
-      (session.get(key.externalId), session.get(key.firstName), session.get(key.lastName), session.get(key.email), session.get(key.postcode), session.get(key.groupId), session.get(key.affinityGroup)) match {
-        case (Some(externalId), firstName, lastName, Some(email), postcode, Some(groupId), Some(affinityGroup)) =>
+      (session.get(key.externalId), session.get(key.externalId), session.get(key.firstName), session.get(key.lastName), session.get(key.email), session.get(key.postcode), session.get(key.groupId), session.get(key.affinityGroup)) match {
+        case (Some(externalId), Some(credId), firstName, lastName, Some(email), postcode, Some(groupId), Some(affinityGroup)) =>
           Json.parse(affinityGroup)
             .asOpt[AffinityGroup]
-            .flatMap(aff => Some(UserDetails(externalId, UserInfo(firstName, lastName, email, postcode, groupId, aff))))
+            .flatMap(aff => Some(UserDetails(externalId, credId, UserInfo(firstName, lastName, email, postcode, groupId, aff))))
         case _ =>
           None
       }
@@ -104,22 +105,26 @@ object SessionHelpers {
 
     def putUserDetails(userDetails: UserDetails) = {
       session
-        .+("firstName" -> userDetails.userInfo.firstName.getOrElse(""))
-        .+("lastName" -> userDetails.userInfo.lastName.getOrElse(""))
-        .+("email" -> userDetails.userInfo.email)
-        .+("postcode" -> userDetails.userInfo.postcode.getOrElse(""))
-        .+("groupId" -> userDetails.userInfo.groupIdentifier)
-        .+("affinityGroup" -> userDetails.userInfo.affinityGroup.toJson.toString)
+        .+(key.externalId -> userDetails.externalId)
+        .+(key.credId -> userDetails.credId)
+        .+(key.firstName -> userDetails.userInfo.firstName.getOrElse(""))
+        .+(key.lastName -> userDetails.userInfo.lastName.getOrElse(""))
+        .+(key.email -> userDetails.userInfo.email)
+        .+(key.postcode -> userDetails.userInfo.postcode.getOrElse(""))
+        .+(key.groupId -> userDetails.userInfo.groupIdentifier)
+        .+(key.affinityGroup -> userDetails.userInfo.affinityGroup.toJson.toString)
     }
 
     def removeUserDetails = {
       session
-        .-("firstName")
-        .-("lastName")
-        .-("email")
-        .-("postcode")
-        .-("groupId")
-        .-("affinityGroup")
+        .-(key.externalId)
+        .-(key.credId)
+        .-(key.firstName)
+        .-(key.lastName)
+        .-(key.email)
+        .-(key.postcode)
+        .-(key.groupId)
+        .-(key.affinityGroup)
     }
   }
 

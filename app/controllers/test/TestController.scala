@@ -21,7 +21,8 @@ import java.util.UUID
 import javax.inject.Inject
 
 import actions.AuthenticatedAction
-import connectors.{ExternalId, GroupAccounts, IndividualAccounts}
+import connectors.test.EmacConnector
+import connectors.{ExternalId, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import controllers.PropertyLinkingController
 import models.{GroupAccount, UpdatedOrganisationAccount}
 import models.test.TestUserDetails
@@ -34,7 +35,9 @@ class TestController @Inject()(
                                 authenticated: AuthenticatedAction,
                                 enrolmentService: EnrolmentService,
                                 individualAccounts: IndividualAccounts,
-                                groups: GroupAccounts
+                                groups: GroupAccounts,
+                                emacConnector: EmacConnector,
+                                vPLAuthConnector: VPLAuthConnector
                               ) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
@@ -68,6 +71,8 @@ class TestController @Inject()(
   def delete = authenticated { implicit request =>
     val externalId = UUID.randomUUID().toString
     for {
+      user <- vPLAuthConnector.getUserDetails
+      _ <- emacConnector.removeEnrolment(request.individualAccount.individualId, user.credId)
       _ <- individualAccounts.update(request.individualAccount.copy(externalId = externalId))
       _ <- groups.update(request.organisationAccount.id, create(request.organisationAccount, externalId))
     } yield Ok("Successful")
