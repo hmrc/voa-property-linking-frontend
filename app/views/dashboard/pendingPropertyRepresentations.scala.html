@@ -82,14 +82,14 @@
                                             ( model.afterCancel && model.requestIds.fold(false)(ids => ids.contains(p.submissionId))) ) {
                                         <label class="block-label selection-button-checkbox" for="@("pending_agent_request_"+(i+1))">
                                         <input id=@("pending_agent_request_"+(i+1))  type="checkbox" name="requestIds[]" value="@p.submissionId" checked="checked">
-                                            <span class="visually-hidden">Select row</span>
+                                            <span class="visually-hidden">@p.organisationName</span>
                                         </label>
                                     } else {
                                         @if(!f.data.values.toSet.contains(p.submissionId) &&
                                                 !model.requestIds.fold(false)(ids => ids.contains(p.submissionId))) {
                                             <label class="block-label selection-button-checkbox" for=@("pending_agent_request_"+(i+1))>
                                                 <input id=@("pending_agent_request_"+(i+1)) type="checkbox" name="requestIds[]" value="@p.submissionId">
-                                                <span class="visually-hidden">Select row</span>
+                                                <span class="visually-hidden">@p.organisationName</span>
                                             </label>
                                         } else {
                                             <span>@Messages("pendingRepresentationRequests.table.pending")</span>
