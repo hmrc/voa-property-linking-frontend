@@ -1,3 +1,3 @@
 GET        /user-details        @controllers.test.TestController.getUserDetails
 GET        /de-enrol            @controllers.test.TestController.deEnrol
-GET        /de-enrol/delete     @controllers.test.TestController.denEnrolWithExternalIdChange
+GET        /delete              @controllers.test.TestController.delete
