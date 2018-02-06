@@ -31,11 +31,11 @@ import services.{EnrolmentService, Failure, Success}
 import scala.util.Random
 
 class TestController @Inject()(
-                                           authenticated: AuthenticatedAction,
-                                           enrolmentService: EnrolmentService,
-                                           individualAccounts: IndividualAccounts,
-                                           groups: GroupAccounts
-                                         ) extends PropertyLinkingController {
+                                authenticated: AuthenticatedAction,
+                                enrolmentService: EnrolmentService,
+                                individualAccounts: IndividualAccounts,
+                                groups: GroupAccounts
+                              ) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
     Ok(Json.toJson(if (request.organisationAccount.isAgent) {
@@ -59,27 +59,21 @@ class TestController @Inject()(
   def deEnrol() = authenticated { implicit request =>
     enrolmentService
       .deEnrolUser(request.individualAccount.individualId)
-      .map{
-      case Success => Ok("Successful")
-      case Failure => Ok("Failure")
-    }
-  }
-
-  def denEnrolWithExternalIdChange = authenticated { implicit request =>
-    enrolmentService
-      .deEnrolUser(request.individualAccount.individualId)
-      .flatMap{
-        case Success =>
-          val externalId = UUID.randomUUID().toString
-          for {
-            _ <- individualAccounts.update(request.individualAccount.copy(externalId = externalId))
-            _<- groups.update(request.organisationAccount.id, create(request.organisationAccount, externalId))
-          } yield Ok("Successful")
+      .map {
+        case Success => Ok("Successful")
         case Failure => Ok("Failure")
       }
   }
 
-  private def create(group: GroupAccount, externalId: String):  UpdatedOrganisationAccount =
+  def delete = authenticated { implicit request =>
+    val externalId = UUID.randomUUID().toString
+    for {
+      _ <- individualAccounts.update(request.individualAccount.copy(externalId = externalId))
+      _ <- groups.update(request.organisationAccount.id, create(request.organisationAccount, externalId))
+    } yield Ok("Successful")
+  }
+
+  private def create(group: GroupAccount, externalId: String): UpdatedOrganisationAccount =
     UpdatedOrganisationAccount(
       Random.nextString(40),
       group.addressId,
