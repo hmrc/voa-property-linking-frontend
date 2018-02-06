@@ -16,18 +16,18 @@
 
 package models.email
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
-case class EmailRequest(to: String, templateId: String, parameters: Map[String, String])
+case class EmailRequest(to: List[String], templateId: String, parameters: Map[String, String])
 
 object EmailRequest {
 
-  implicit val format = Json.format[EmailRequest]
+  implicit val format: OFormat[EmailRequest] = Json.format[EmailRequest]
 
   def registration(to: String, personId: Long, name: String): EmailRequest =
-    EmailRequest(to, "cca_enrolment_confirmation", Map("personId" -> personId.toString, "name" -> name))
+    EmailRequest(List(to), "cca_enrolment_confirmation", Map("personId" -> personId.toString, "name" -> name))
 
   def migration(to: String, personId: Long, name: String): EmailRequest =
-    EmailRequest(to, "cca_enrolment_migration_confirmation", Map("personId" -> personId.toString, "name" -> name))
+    EmailRequest(List(to), "cca_enrolment_migration_confirmation", Map("personId" -> personId.toString, "name" -> name))
 
 }
