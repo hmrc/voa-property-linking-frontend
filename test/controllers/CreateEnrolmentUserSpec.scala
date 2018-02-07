@@ -84,7 +84,7 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubAuthConnector.stubUserDetails(externalId, "123456", testIndividualInfo)
 
     val res = TestCreateEnrolmentUser.show()(FakeRequest())
     status(res) mustBe OK
@@ -103,7 +103,7 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
+    StubAuthConnector.stubUserDetails(externalId, "123456", testOrganisationInfo)
 
     val res = TestCreateEnrolmentUser.show()(FakeRequest())
     status(res) mustBe OK
@@ -121,7 +121,7 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubAuthConnector.stubUserDetails(externalId, "123456", testIndividualInfo)
 
     val res = TestCreateEnrolmentUser.submitIndividual()(FakeRequest())
     status(res) mustBe BAD_REQUEST
@@ -132,7 +132,7 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubAuthConnector.stubUserDetails(externalId, "123456", testIndividualInfo)
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
 
     val data = Map(
@@ -158,7 +158,7 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
+    StubAuthConnector.stubUserDetails(externalId, "123456", testOrganisationInfo)
 
     val res = TestCreateEnrolmentUser.submitOrganisation()(FakeRequest())
     status(res) mustBe BAD_REQUEST
@@ -168,7 +168,7 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
+    StubAuthConnector.stubUserDetails(externalId, "123456", testOrganisationInfo)
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
 
     CreateGroupAccount.form

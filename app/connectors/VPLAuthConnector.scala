@@ -81,7 +81,7 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
         for {
           id          <- http.GET[ExternalId](s"$serviceUrl${x.ids}")
           userInfo    <- http.GET[UserInfo](x.userDetailsLink)
-        } yield UserDetails(id.externalId, userInfo)
+        } yield UserDetails(id.externalId, id.credId, userInfo)
       }
 
   private def getUserDetailsLink(implicit hc: HeaderCarrier): Future[UserDetailsLink] =
@@ -96,7 +96,7 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
           ids       <- this.getIds[ExternalId](x)
           userInfo         <- this.getUserDetails[UserInfo](x)
         } yield {
-          UserDetails(ids.externalId, userInfo)
+          UserDetails(ids.externalId, ids.credId, userInfo)
         }
       case y: UserDetails => Future.successful(y)
     }
@@ -105,7 +105,7 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
 
 case class CredId(credId: String)
 
-case class ExternalId(externalId: String)
+case class ExternalId(externalId: String, credId: String)
 
 case class UserDetailsLink(userDetailsLink: String, ids: String)
 
