@@ -38,7 +38,7 @@ class VOAActionSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSu
   override val additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.enrolment" -> "false")
 
   "when false provided but session is not stored, goes through process of getting details again" in {
-    when(mockVplAuthConnector.getUserDetails(any())).thenReturn(Future.successful(UserDetails("123456", "654321", UserInfo(None, None, "", None, "", Individual))))
+    when(mockVplAuthConnector.getUserDetails(any())).thenReturn(Future.successful(UserDetails("123456", "654321", UserInfo(None, None, "", None, "", "654321", Individual))))
     println(Individual.toJson)
     val res = testActionEnrolment.async(false) { _ =>
       _ =>

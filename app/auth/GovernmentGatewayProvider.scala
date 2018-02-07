@@ -97,7 +97,7 @@ object SessionHelpers {
         case (Some(externalId), Some(credId), firstName, lastName, Some(email), postcode, Some(groupId), Some(affinityGroup)) =>
           Json.parse(affinityGroup)
             .asOpt[AffinityGroup]
-            .flatMap(aff => Some(UserDetails(externalId, credId, UserInfo(firstName, lastName, email, postcode, groupId, aff))))
+            .flatMap(aff => Some(UserDetails(externalId, credId, UserInfo(firstName, lastName, email, postcode, groupId, credId, aff))))
         case _ =>
           None
       }
