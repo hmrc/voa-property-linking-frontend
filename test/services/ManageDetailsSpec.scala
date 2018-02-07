@@ -66,7 +66,7 @@ class ManageDetailsSpec extends FlatSpec with MustMatchers with MockitoSugar wit
 
   private val once = times(1)
   private val mockAddress = Address(None, "1, The Place", "", "", "", "AA11 1AA")
-  private val mockUserDetails = UserDetails("123456", "654321",  UserInfo(None, None, "", Some("ABC"), "", Individual))
+  private val mockUserDetails = UserDetails("123456", UserInfo(None, None, "", Some("ABC"), "", "654321", Individual))
 
   implicit private lazy val hc: HeaderCarrier = HeaderCarrier()
   private lazy val manageDetails = new ManageDetailsWithEnrolments(taxEnrolments = mockTaxEnrolments, addresses = mockAddresses, vPLAuthConnector = mockVPLAuthConnector)

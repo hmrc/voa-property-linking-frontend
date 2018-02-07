@@ -25,6 +25,7 @@ case class UserInfo(
                      email: String,
                      postcode: Option[String],
                      groupIdentifier: String,
+                     credId: String,
                      affinityGroup: AffinityGroup
                    )
 

@@ -31,8 +31,8 @@ object StubAuthConnector extends VPLAuthConnector(StubServicesConfig, StubHttp) 
     externalId = Some(id)
   }
 
-  def stubUserDetails(id: String, credId: String, userInfo: UserInfo): Unit = {
-    userDetails = Some(UserDetails(id, credId, userInfo))
+  def stubUserDetails(id: String, userInfo: UserInfo): Unit = {
+    userDetails = Some(UserDetails(id, userInfo))
   }
 
   override def userDetails[A](ctx: A)(implicit hc: HeaderCarrier): Future[UserDetails] = Future.successful(userDetails.getOrElse(throw new Exception("User details not stubbed")))
