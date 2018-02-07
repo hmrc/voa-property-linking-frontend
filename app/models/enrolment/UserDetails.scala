@@ -18,7 +18,7 @@ package models.enrolment
 
 import play.api.libs.json.Json
 
-case class UserDetails(externalId: String, credId: String, userInfo: UserInfo)
+case class UserDetails(externalId: String, userInfo: UserInfo)
 
 object UserDetails {
   implicit val format = Json.format[UserDetails]

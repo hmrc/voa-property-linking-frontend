@@ -97,7 +97,7 @@ object SessionHelpers {
         case (Some(externalId), Some(credId), firstName, lastName, Some(email), postcode, Some(groupId), Some(affinityGroup)) =>
           Json.parse(affinityGroup)
             .asOpt[AffinityGroup]
-            .flatMap(aff => Some(UserDetails(externalId, credId, UserInfo(firstName, lastName, email, postcode, groupId, credId, aff))))
+            .flatMap(aff => Some(UserDetails(externalId, UserInfo(firstName, lastName, email, postcode, groupId, credId, aff))))
         case _ =>
           None
       }
@@ -106,7 +106,7 @@ object SessionHelpers {
     def putUserDetails(userDetails: UserDetails) = {
       session
         .+(key.externalId -> userDetails.externalId)
-        .+(key.credId -> userDetails.credId)
+        .+(key.credId -> userDetails.userInfo.credId)
         .+(key.firstName -> userDetails.userInfo.firstName.getOrElse(""))
         .+(key.lastName -> userDetails.userInfo.lastName.getOrElse(""))
         .+(key.email -> userDetails.userInfo.email)
