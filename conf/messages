@@ -734,7 +734,7 @@ dashboard.manageAgents.table.1=Agent name
 dashboard.manageAgents.table.2=Agent code
 dashboard.manageAgents.table.3=Actions
 dashboard.manageAgents.viewManagedProperties=View managed properties
-dashboard.manageAgents.howToAppoint=You can go to <a href={0}>‘Manage properties’</a> to appoint an agent for a property.
+dashboard.manageAgents.howToAppoint=You can go to <a href={0}>‘My properties’</a> to appoint an agent for a property.
 
 
 #details page
