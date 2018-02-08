@@ -736,6 +736,13 @@ dashboard.manageAgents.table.3=Actions
 dashboard.manageAgents.viewManagedProperties=View managed properties
 dashboard.manageAgents.howToAppoint=You can go to <a href={0}>‘My properties’</a> to appoint an agent for a property.
 
+#Appoint agent to properties
+dashboard.appointAgentProperties.title=Appoint an agent to one or more properties
+dashboard.appointAgentProperties.appointAgent=You can appoint ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to the following properties:
+dashboard.appointAgents.table.select=Select
+dashboard.appointAgents.table.address=Address
+dashboard.appointAgents.table.localAuthority=Local authority reference
+dashboard.appointAgents.table.actions=Actions
 
 #details page
 viewDetails.title=My details

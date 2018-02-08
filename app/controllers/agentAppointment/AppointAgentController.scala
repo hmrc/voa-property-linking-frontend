@@ -32,7 +32,7 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraint
 import play.api.data.{FieldMapping, Form, FormError, Mapping}
 import play.api.libs.json.Json
-import play.api.mvc.Request
+import play.api.mvc.{Action, Request}
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.play.form.ConditionalMappings
@@ -224,6 +224,13 @@ class AppointAgentController @Inject() (config: ApplicationConfig,
     "canCheck" -> AgentPermissionMapping("canChallenge"),
     "canChallenge" -> AgentPermissionMapping("canCheck")
   )(AppointAgent.apply)(AppointAgent.unapply))
+
+
+  def selectProperties() = authenticated { implicit request =>
+    Future.successful(Ok(views.html.propertyRepresentation.appointAgentProperties()))
+  }
+
+  def selectPropertiesX() = play.mvc.Results.TODO
 }
 
 case class AppointAgent(agentCode: Option[Long], agentCodeRadio: String, canCheck: AgentPermission, canChallenge: AgentPermission) {

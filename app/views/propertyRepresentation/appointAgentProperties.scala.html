@@ -1,0 +1,154 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import actions.AuthenticatedRequest
+
+@()(implicit request: AuthenticatedRequest[_], messages: Messages)
+
+@heading = @{ Messages("dashboard.appointAgentProperties.title") }
+
+@main_template(
+    heading,
+    contentHeaderText = Some(heading),
+    contentHeaderHidden = true,
+    topNavigation = false
+) {
+    <div class="grid-row">
+        <div class="column-whole">
+            <h1 class="heading-medium">Appoint an agent to one or more properties</h1>
+            <p>You can appoint ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to the following properties:</p>
+            <div class="margin-bottom-20">
+
+                <a href="#" id="selectAll2" class="margin-bottom-20">Select all / deselect all</a>
+
+            </div>
+            <div class="table-wrapper">
+                <table  class="table-font-xsmall margin-top-0 dataTable no-footer" role="grid" aria-describedby="propertiesTableBusiness_info" style="width: 960px;">
+                    <colgroup>
+                        <col style="width:80px;">
+
+                        <col style="width:220px">
+
+                        <col style="width:180px">
+                        <col>
+                    </colgroup>
+
+                    <thead>
+                        <tr role="row">
+                            <th>Select</th>
+                            <th class="sorting_asc" tabindex="0" aria-controls="propertiesTableBusiness" rowspan="1" colspan="1" aria-label="Address: activate to sort column descending" style="width: 320px;" aria-sort="ascending">Address</th>
+                            <th class="sorting" tabindex="0" aria-controls="propertiesTableBusiness" rowspan="1" colspan="1" aria-label="Local authority reference: activate to sort column ascending" style="width: 200px;">Local authority reference</th>
+
+                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Actions" style="width: 160px;">Actions</th>
+                        </tr>
+                        <tr id="filterrow" role="row">
+                            <th></th>
+                            <th rowspan="1" colspan="1"><input type="search" class="filter-input">
+                                <button class="icon"><i class="search-icon"></i></button></th>
+                            <th rowspan="1" colspan="1"><input type="search" class="filter-input">
+                                <button class="icon"><i class="search-icon"></i></button></th>
+
+                            <th rowspan="1" colspan="1"><a href="#" class="clear">Clear search</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr role="row" class="odd">
+                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="1" name="1" value="true"><label for="1"><span class="visually-hidden">Appoint</span></label></div></td>
+                            <td class="sorting_1">1 Chatsworth Rd, Stretford, Manchester M32 9QF</td>
+                            <td>63799452699</td>
+
+                            <td></td>
+                        </tr>
+                        <tr role="row" class="even">
+                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="2" name="2" value="true"><label for="2"><span class="visually-hidden">Appoint</span></label></div></td>
+
+                            <td class="sorting_1">1 Rose Cottages, Penrose, Wadebridge PL27 7TB</td>
+                            <td>79737938099</td>
+
+                            <td></td>
+                        </tr>
+                        <tr role="row" class="odd">
+                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="54321" name="3" value="true"><label for="3"><span class="visually-hidden">Appoint</span></label></div></td>
+                            <td class="sorting_1">1 Virginia St, St Katharine's &amp; Wapping, London E1W</td>
+                            <td>11207740499</td>
+
+                            <td></td>
+                        </tr>
+                        <tr role="row" class="even">
+                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="4" name="4" value="true"><label for="4"><span class="visually-hidden">Appoint</span></label></div></td>
+                            <td class="sorting_1">103 Fells Rigg, Livingston EH54 8PB</td>
+                            <td>18609231399</td>
+
+                            <td></td>
+                        </tr>
+                        <tr role="row" class="odd">
+                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="5" name="5" value="true"><label for="5"><span class="visually-hidden">Appoint</span></label></div></td>
+                            <td class="sorting_1">11 albert Square, Dundee DD1 1DD</td>
+                            <td>37915111599</td>
+
+                            <td></td>
+                        </tr>
+                        <tr role="row" class="even">
+                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="6" name="6" value="true"><label for="6"><span class="visually-hidden">Appoint</span></label></div></td>
+                            <td class="sorting_1">13A Bridge St, Banchory AB31 5SX</td>
+                            <td>45339663099</td>
+                            <td></td>
+
+                        </tr>
+
+                        <tr role="row" class="odd">
+                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="7" name="7" value="true"><label for="7"><span class="visually-hidden">Appoint</span></label></div></td>
+                            <td class="sorting_1">14 Cardiff St, Millport, Isle of Cumbrae KA28 0AU</td>
+                            <td>51942751199</td>
+                            <td></td>
+
+                        </tr>
+
+                        <tr role="row" class="even">
+                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="8" name="8" value="true"><label for="8"><span class="visually-hidden">Appoint</span></label></div></td>
+                            <td class="sorting_1">14 Hatley Ave, Ilford IG6 1EH</td>
+                            <td>03477941699</td>
+
+                            <td></td>
+                        </tr>
+                        <tr role="row" class="odd">
+                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="9" name="9" value="true"><label for="9"><span class="visually-hidden">Appoint</span></label></div></td>
+                            <td class="sorting_1">15 Milton Rd, Blacon, Chester CH1 5XE</td>
+                            <td>30811883599</td>
+
+                            <td></td>
+                        </tr>
+                        <tr role="row" class="even">
+                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="10" name="10" value="true" ><label for="10"><span class="visually-hidden">Appoint</span></label></div></td>
+                            <td class="sorting_1">171 Farringdon Rd, Clerkenwell, London EC1R 3AL</td>
+                            <td>68797473999</td>
+
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="margin-bottom-20">
+
+                <a href="#" id="selectAll1" class="margin-bottom-20">Select all / deselect all</a>
+
+            </div>
+        </div>
+    </div>
+
+
+}
