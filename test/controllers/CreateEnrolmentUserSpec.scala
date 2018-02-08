@@ -56,7 +56,7 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     postcode = Some("AB12 3CD"),
     groupIdentifier = "GroupIdenfifier",
     affinityGroup = AffinityGroup.Individual,
-    credId = "")
+    gatewayId = "")
 
   val testOrganisationInfo = UserInfo(firstName = Some("Bob"),
     lastName = Some("Smith"),
@@ -64,7 +64,7 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     postcode = Some("AB12 3CD"),
     groupIdentifier = "GroupIdenfifier",
     affinityGroup = AffinityGroup.Organisation,
-    credId = "")
+    gatewayId = "")
 
   private object TestCreateEnrolmentUser extends CreateEnrolmentUser(
     StubGGAction,
