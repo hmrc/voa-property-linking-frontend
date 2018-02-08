@@ -106,7 +106,7 @@ object SessionHelpers {
     def putUserDetails(userDetails: UserDetails) = {
       session
         .+(key.externalId -> userDetails.externalId)
-        .+(key.credId -> userDetails.userInfo.credId)
+        .+(key.credId -> userDetails.userInfo.gatewayId)
         .+(key.firstName -> userDetails.userInfo.firstName.getOrElse(""))
         .+(key.lastName -> userDetails.userInfo.lastName.getOrElse(""))
         .+(key.email -> userDetails.userInfo.email)
