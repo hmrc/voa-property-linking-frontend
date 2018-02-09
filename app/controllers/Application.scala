@@ -19,14 +19,15 @@ package controllers
 import auth.{GGAction, GGActionEnrolment, VoaAction}
 import javax.inject.Inject
 
-import connectors.TrafficThrottleConnector
 import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
-class Application @Inject()(ggAction: VoaAction, val trafficThrottleConnector: TrafficThrottleConnector) extends Controller with WithThrottling {
+import scala.concurrent.Future
+
+class Application @Inject()(ggAction: VoaAction) extends Controller {
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
   def addUserToGG = Action { implicit request =>
@@ -34,14 +35,12 @@ class Application @Inject()(ggAction: VoaAction, val trafficThrottleConnector: T
   }
 
   def start() = Action.async { implicit request =>
-    withThrottledHoldingPage("registration", Ok(views.html.errors.errorRegistration())) {
       ggAction match {
         case _: GGActionEnrolment =>
-          Ok(views.html.start_enrolment(RegisterHelper.choiceForm))
+          Future.successful(Ok(views.html.start_enrolment(RegisterHelper.choiceForm)))
         case _: GGAction =>
-          Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString)
+          Future.successful(Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString))
       }
-    }
   }
 
   def logOut() = Action { request =>
