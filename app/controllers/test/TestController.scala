@@ -72,7 +72,7 @@ class TestController @Inject()(
     val externalId = UUID.randomUUID().toString
     for {
       user <- vPLAuthConnector.getUserDetails
-      _ <- emacConnector.removeEnrolment(request.individualAccount.individualId, user.userInfo.gatewayId)
+      _ <- emacConnector.removeEnrolment(request.individualAccount.individualId, user.userInfo.gatewayId, user.userInfo.groupIdentifier)
       _ <- individualAccounts.update(request.individualAccount.copy(externalId = externalId))
       _ <- groups.update(request.organisationAccount.id, create(request.organisationAccount, externalId))
     } yield Ok("Successful")
