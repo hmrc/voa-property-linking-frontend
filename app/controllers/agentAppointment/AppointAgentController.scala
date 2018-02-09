@@ -231,6 +231,10 @@ class AppointAgentController @Inject() (config: ApplicationConfig,
   }
 
   def selectPropertiesX() = play.mvc.Results.TODO
+
+  def agentSummary() = authenticated { implicit request =>
+    Future.successful(Ok(views.html.propertyRepresentation.appointAgentSummary()))
+  }
 }
 
 case class AppointAgent(agentCode: Option[Long], agentCodeRadio: String, canCheck: AgentPermission, canChallenge: AgentPermission) {

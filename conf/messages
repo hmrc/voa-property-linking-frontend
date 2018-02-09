@@ -356,6 +356,16 @@ propertyRepresentation.table.title.appoint=Appoint
 propertyRepresentation.table.title.agentId=Agent code
 propertyRepresentation.table.title.agentName=Agent name
 
+propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
+propertyRepresentation.appointAgentProperties.appointAgent=You can appoint ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to the following properties:
+propertyRepresentation.appointAgents.table.select=Select
+propertyRepresentation.appointAgents.table.address=Address
+propertyRepresentation.appointAgents.table.localAuthority=Local authority reference
+propertyRepresentation.appointAgents.table.actions=Actions
+propertyRepresentation.agentSummary.heading=You have appointed ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to 4 properties.
+propertyRepresentation.agentSummary.title=Agent ABC appointed
+propertyRepresentation.agentSummary.warning=Your agent has 21 days to accept your request. Otherwise your request will be rejected and you will need to send a new request.
+propertyRepresentation.agentSummary.back=Back to dashboard
 
 
 propertyRepresentation.appointAgent.agentCode=Agent code
@@ -736,13 +746,7 @@ dashboard.manageAgents.table.3=Actions
 dashboard.manageAgents.viewManagedProperties=View managed properties
 dashboard.manageAgents.howToAppoint=You can go to <a href={0}>‘My properties’</a> to appoint an agent for a property.
 
-#Appoint agent to properties
-dashboard.appointAgentProperties.title=Appoint an agent to one or more properties
-dashboard.appointAgentProperties.appointAgent=You can appoint ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to the following properties:
-dashboard.appointAgents.table.select=Select
-dashboard.appointAgents.table.address=Address
-dashboard.appointAgents.table.localAuthority=Local authority reference
-dashboard.appointAgents.table.actions=Actions
+
 
 #details page
 viewDetails.title=My details

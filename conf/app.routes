@@ -93,6 +93,7 @@ GET         /manual-verification-required                                       
 GET         /linking-conflict                                                                 controllers.LinkErrors.conflict()
 
 GET         /appoint-agent/select-properties                                                  @controllers.agentAppointment.AppointAgentController.selectProperties()
+GET         /appoint-agent/agent-summary                                                      @controllers.agentAppointment.AppointAgentController.agentSummary()
 GET         /appoint-agent/:linkId                                                            @controllers.agentAppointment.AppointAgentController.appoint(linkId: Long)
 GET         /appoint-agent/:linkId/confirmed                                                  @controllers.agentAppointment.AppointAgentController.confirmed(linkId: Long)
 GET         /appoint-agent/:linkId/declined                                                   @controllers.agentAppointment.AppointAgentController.declined(linkId: Long)
