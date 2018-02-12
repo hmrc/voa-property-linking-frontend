@@ -132,12 +132,6 @@ class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
     f
   }
 
-  lazy val mockFileUploads = {
-    val m = mock[FileUploadConnector]
-    when(m.uploadFile(matching(envelopeId), anyString, anyString, any[File])(any[HeaderCarrier])).thenReturn(Future.successful(()))
-    m
-  }
-
   lazy val envelopeId: String = shortString
 
   implicit lazy val messages: Messages = play.api.i18n.Messages.Implicits.applicationMessages
