@@ -23,8 +23,8 @@ case class OwnerAuthResult(
                       size: Int,
                       filterTotal: Int,
                       total: Int,
-                      authorisations: Seq[OwnerAuthorisation]
-                    )
+                      authorisations: Seq[OwnerAuthorisation],
+                      config: Option[Map[String, Boolean]])
 
 object OwnerAuthResult {
   implicit val ownerAuthResult = Json.format[OwnerAuthResult]
