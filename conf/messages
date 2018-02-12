@@ -324,6 +324,7 @@ draftCase.continue.check=Continue check
 draftCase.viewValuation=Property details
 draftCases.p.empty=You have no saved draft cases
 
+#Appoint agent accept
 propertyRepresentation.accepted.title=Request accepted
 propertyRepresentation.accepted.single.message=You’ve confirmed that you act as an agent for this business
 propertyRepresentation.accepted.multiple.message=You’ve confirmed that you act as an agent for these businesses
@@ -332,6 +333,7 @@ propertyRepresentation.accepted.single.youCan.1=view the detailed valuation for 
 propertyRepresentation.accepted.multiple.youCan.1=view the detailed valuation for these properties
 propertyRepresentation.accepted.youCan.2=complete a check or challenge, depending on the permissions that have been set for you
 
+#Appoint agent reject
 propertyRepresentation.rejected.title=Request rejected
 propertyRepresentation.rejected.single.message=You’ve confirmed that you don’t act as an agent for this business
 propertyRepresentation.rejected.multiple.message=You’ve confirmed that you don’t act as an agent for these businesses
@@ -340,6 +342,7 @@ propertyRepresentation.rejected.multiple.youCan.1=You won’t be able to view de
 propertyRepresentation.rejected.single.youCan.2=The business will be notified of your decision.
 propertyRepresentation.rejected.multiple.youCan.2=The businesses will be notified of your decision.
 
+#Appoint agent
 propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
 propertyRepresentation.appointAgent.message.2=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
@@ -356,20 +359,23 @@ propertyRepresentation.table.title.appoint=Appoint
 propertyRepresentation.table.title.agentId=Agent code
 propertyRepresentation.table.title.agentName=Agent name
 
+#Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
 propertyRepresentation.appointAgentProperties.appointAgent=You can appoint ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to the following properties:
 propertyRepresentation.appointAgents.table.select=Select
 propertyRepresentation.appointAgents.table.address=Address
 propertyRepresentation.appointAgents.table.localAuthority=Local authority reference
 propertyRepresentation.appointAgents.table.actions=Actions
+
+##Appoint agent summary
 propertyRepresentation.agentSummary.heading=You have appointed ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to 4 properties.
 propertyRepresentation.agentSummary.title=Agent ABC appointed
 propertyRepresentation.agentSummary.warning=Your agent has 21 days to accept your request. Otherwise your request will be rejected and you will need to send a new request.
 propertyRepresentation.agentSummary.back=Back to dashboard
 
-
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Continue
+
 label.canCheck=Do you want this agent to submit checks?
 canCheck.START_AND_CONTINUE=Yes
 canCheck.NOT_PERMITTED=No
