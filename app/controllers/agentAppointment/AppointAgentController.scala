@@ -286,6 +286,8 @@ class AppointAgentController @Inject() (config: ApplicationConfig,
     implicit val format = Json.format[AppointAgent]
   }
 
+  case class AppointAgentPropertiesVM(organisationId: Long, response: OwnerAuthResult)
+
   case class AppointAgentVM(form: Form[_], linkId: Option[Long] = None, agents: Seq[OwnerAgent] = Seq())
 
   case class ModifyAgentVM(form: Form[_], representationId: Long)
