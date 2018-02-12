@@ -34,7 +34,7 @@
                 <th scope="col"><div class="searchfield"><label for="baref" class="visually-hidden">@Messages("managePropertiesSearchSort.table.2")  </label><input name="baref"  value="@model.pagination.valueOfBaref" id="baref" size="10" class="ss-input"><button id="barefBtn" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.2") </button></div></th>
                 <th scope="col"><div class="searchfield">@propertyLinkingStatusDropdown(model.pagination.valueOfStatus,"status")</div></th>
                 <th scope="col"><div class="searchfield"><label for="client" class="visually-hidden">@Messages("managePropertiesSearchSort.table.4") </label><input name="client"  id="client" value="@model.pagination.valueOfClient" size="8" class="ss-input"><button id="clientBtn" type="submit" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.4")</button></div></th>
-                <th scope="col"><a href="#" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
+                <th scope="col"><a href="#" id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
             </tr>
         </thead>
     </table>
