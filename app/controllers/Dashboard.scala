@@ -68,15 +68,18 @@ class Dashboard @Inject()(config: ApplicationConfig,
         baref = baref,
         agent = agent
       ) { paginationSearchSort =>
+        val eventualPropertyLinks = propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
+        val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
+
         for {
-          response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-          msgCount <- messagesConnector.countUnread(request.organisationId)
+          propertyLinks <- eventualPropertyLinks
+          msgCount <- eventualMessageCount
         } yield {
           Ok(views.html.dashboard.managePropertiesSearchSort(
             ManagePropertiesSearchAndSortVM(
               request.organisationAccount.id,
-              response,
-              paginationSearchSort.copy(totalResults = response.filterTotal)
+              propertyLinks,
+              paginationSearchSort.copy(totalResults = propertyLinks.filterTotal)
             ),
             msgCount.unread
           ))
