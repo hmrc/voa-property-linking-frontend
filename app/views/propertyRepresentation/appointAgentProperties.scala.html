@@ -15,8 +15,9 @@
  *@
 
 @import actions.AuthenticatedRequest
+@import controllers.agentAppointment.AppointAgentPropertiesVM
 
-@()(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: AppointAgentPropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @heading = @{ Messages("propertyRepresentation.appointAgentProperties.title") }
 
@@ -38,12 +39,10 @@
             <div class="table-wrapper">
                 <table  class="table-font-xsmall margin-top-0 dataTable no-footer" role="grid" aria-describedby="propertiesTableBusiness_info" style="width: 960px;">
                     <colgroup>
-                        <col style="width:80px;">
-
-                        <col style="width:220px">
-
-                        <col style="width:180px">
-                        <col>
+                        <col style="width:8%">
+                        <col style="width:57%">
+                        <col style="width:25%">
+                        <col style="width:10%">
                     </colgroup>
 
                     <thead>
@@ -65,79 +64,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr role="row" class="odd">
-                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="1" name="1" value="true"><label for="1"><span class="visually-hidden">Appoint</span></label></div></td>
-                            <td class="sorting_1">1 Chatsworth Rd, Stretford, Manchester M32 9QF</td>
-                            <td>63799452699</td>
-
+                    @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
+                        @defining(s"checkbox-${index+1}") { checkboxId:String =>
+                        <tr role="row" class="">
+                            <td><div class="table-checkbox multiple-choice margin-bottom-20">
+                                <input type="checkbox" id="@checkboxId" name="linkId" value="@authorisation.authorisationId">
+                                <label for="@checkboxId"><span class="visually-hidden">Appoint</span></label>
+                            </div></td>
+                            <td class="">@authorisation.address</td>
+                            <td>@authorisation.localAuthorityRef</td>
                             <td></td>
                         </tr>
-                        <tr role="row" class="even">
-                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="2" name="2" value="true"><label for="2"><span class="visually-hidden">Appoint</span></label></div></td>
-
-                            <td class="sorting_1">1 Rose Cottages, Penrose, Wadebridge PL27 7TB</td>
-                            <td>79737938099</td>
-
-                            <td></td>
-                        </tr>
-                        <tr role="row" class="odd">
-                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="54321" name="3" value="true"><label for="3"><span class="visually-hidden">Appoint</span></label></div></td>
-                            <td class="sorting_1">1 Virginia St, St Katharine's &amp; Wapping, London E1W</td>
-                            <td>11207740499</td>
-
-                            <td></td>
-                        </tr>
-                        <tr role="row" class="even">
-                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="4" name="4" value="true"><label for="4"><span class="visually-hidden">Appoint</span></label></div></td>
-                            <td class="sorting_1">103 Fells Rigg, Livingston EH54 8PB</td>
-                            <td>18609231399</td>
-
-                            <td></td>
-                        </tr>
-                        <tr role="row" class="odd">
-                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="5" name="5" value="true"><label for="5"><span class="visually-hidden">Appoint</span></label></div></td>
-                            <td class="sorting_1">11 albert Square, Dundee DD1 1DD</td>
-                            <td>37915111599</td>
-
-                            <td></td>
-                        </tr>
-                        <tr role="row" class="even">
-                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="6" name="6" value="true"><label for="6"><span class="visually-hidden">Appoint</span></label></div></td>
-                            <td class="sorting_1">13A Bridge St, Banchory AB31 5SX</td>
-                            <td>45339663099</td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr role="row" class="odd">
-                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="7" name="7" value="true"><label for="7"><span class="visually-hidden">Appoint</span></label></div></td>
-                            <td class="sorting_1">14 Cardiff St, Millport, Isle of Cumbrae KA28 0AU</td>
-                            <td>51942751199</td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr role="row" class="even">
-                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="8" name="8" value="true"><label for="8"><span class="visually-hidden">Appoint</span></label></div></td>
-                            <td class="sorting_1">14 Hatley Ave, Ilford IG6 1EH</td>
-                            <td>03477941699</td>
-
-                            <td></td>
-                        </tr>
-                        <tr role="row" class="odd">
-                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="9" name="9" value="true"><label for="9"><span class="visually-hidden">Appoint</span></label></div></td>
-                            <td class="sorting_1">15 Milton Rd, Blacon, Chester CH1 5XE</td>
-                            <td>30811883599</td>
-
-                            <td></td>
-                        </tr>
-                        <tr role="row" class="even">
-                            <td><div class="table-checkbox multiple-choice margin-bottom-20"><input type="checkbox" id="10" name="10" value="true" ><label for="10"><span class="visually-hidden">Appoint</span></label></div></td>
-                            <td class="sorting_1">171 Farringdon Rd, Clerkenwell, London EC1R 3AL</td>
-                            <td>68797473999</td>
-
-                            <td></td>
-                        </tr>
+                        }
+                    }
                     </tbody>
                 </table>
 

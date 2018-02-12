@@ -238,7 +238,7 @@ dashboard.home.addAnotherUser.link=I want to add another user from my business
 dashboard.home.addAnotherUser.text=To add another user, you’ll firstly need to add them to your Government Gateway account.
 
 #DASHBOARD MANAGE PROPERTIES
-dashboard.manageProperties.title=Manage properties
+dashboard.manageProperties.title=My properties
 dashboard.manageProperties.expectDelays=It may take several hours for your property to display here once you have claimed it.
 dashboard.manageProperties.noProperties=There are no properties to display.
 manageProperties.table.caption=Your properties

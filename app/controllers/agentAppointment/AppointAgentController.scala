@@ -23,11 +23,11 @@ import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import config.{ApplicationConfig, Global}
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.PropertyLinkingController
+import controllers._
 import form.EnumMapping
 import form.Mappings._
 import models._
-import models.searchApi.OwnerAgent
+import models.searchApi.{OwnerAgent, OwnerAuthResult}
 import play.api.data.Forms._
 import play.api.data.validation.Constraint
 import play.api.data.{FieldMapping, Form, FormError, Mapping}
@@ -47,14 +47,17 @@ class AppointAgentController @Inject() (config: ApplicationConfig,
                                         agentsConnector: AgentsConnector,
                                         authenticated: AuthenticatedAction,
                                         @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
-  extends PropertyLinkingController {
+  extends PropertyLinkingController with ValidPagination {
 
   def appoint(linkId: Long) = authenticated { implicit request =>
     if (config.manageAgentsEnabled){
       agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
         sessionRepository.get[AgentAppointmentSession] flatMap {
           case Some(s) =>
-            Ok(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(appointAgentForm.fill(s.agent), linkId, ownerAgents.agents)))
+            Ok(views.html.propertyRepresentation.appointAgentNew(
+              AppointAgentVM(form = appointAgentForm.fill(s.agent),
+                              linkId = linkId,
+                                agents = ownerAgents.agents)))
           case None =>
             Ok(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(appointAgentForm, linkId, ownerAgents.agents)))
         }
@@ -226,11 +229,35 @@ class AppointAgentController @Inject() (config: ApplicationConfig,
   )(AppointAgent.apply)(AppointAgent.unapply))
 
 
-  def selectProperties() = authenticated { implicit request =>
-    Future.successful(Ok(views.html.propertyRepresentation.appointAgentProperties()))
+  def selectPropertiesOld() = authenticated { implicit request =>
+    Future.successful(Ok(views.html.propertyRepresentation.appointAgentProperties(???)))
   }
 
-  def selectPropertiesX() = play.mvc.Results.TODO
+
+  def selectProperties(page: Int, pageSize: Int, sortfield: Option[String] = None,
+                                 sortorder: Option[String] = None, address: Option[String] = None,
+                                 baref: Option[String] = None) = authenticated { implicit request =>
+    withValidPaginationSearchSort(
+      page = page,
+      pageSize = pageSize,
+      sortfield = sortfield,
+      sortorder = sortorder,
+      address = address,
+      baref = baref
+    ) { paginationSearchSort =>
+      for {
+        response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
+      } yield {
+        Ok(views.html.propertyRepresentation.appointAgentProperties(
+          AppointAgentPropertiesVM(
+            request.organisationAccount.id,
+            response
+          )))
+      }
+    }
+  }
+
+
 
   def agentSummary() = authenticated { implicit request =>
     Future.successful(Ok(views.html.propertyRepresentation.appointAgentSummary()))
@@ -248,7 +275,9 @@ object AppointAgent {
   implicit val format = Json.format[AppointAgent]
 }
 
-case class AppointAgentVM(form: Form[_], linkId: Long, agents: Seq[OwnerAgent] = Seq())
+  case class AppointAgentPropertiesVM(organisationId: Long, response: OwnerAuthResult)
+
+  case class AppointAgentVM(form: Form[_], linkId: Long, agents: Seq[OwnerAgent] = Seq())
 
 case class ModifyAgentVM(form: Form[_], representationId: Long)
 
@@ -282,3 +311,4 @@ case class AgentPermissionMapping(other: String, key: String = "", constraints: 
 
   override def verifying(cs: Constraint[AgentPermission]*) = copy(constraints = constraints ++ cs.toSeq)
 }
+
