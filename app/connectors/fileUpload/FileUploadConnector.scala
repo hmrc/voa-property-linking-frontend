@@ -52,7 +52,6 @@ object FileMetadata {
 @ImplementedBy(classOf[FileUploadConnector])
 trait FileUpload {
   def healthCheck(implicit hc: HeaderCarrier): Future[Unit]
-  def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit]
   def getFileMetadata(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata]
 }
 
@@ -60,14 +59,6 @@ class FileUploadConnector @Inject()(config: ServicesConfig, http: WSHttp)(implic
 
   override def healthCheck(implicit hc: HeaderCarrier): Future[Unit] = {
     http.GET[HttpResponse](s"${config.baseUrl("file-upload-frontend")}/ping/ping") map { _ => () }
-  }
-
-  def uploadFile(envelopeId: String, fileName: String, contentType: String, file: File)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val url = s"${config.baseUrl("file-upload-frontend")}/file-upload/upload/envelopes/$envelopeId/files/$fileName"
-    http.buildRequest(url)
-      .withHeaders(("X-Requested-With", "VOA_CCA"))
-      .post(Source(FilePart(fileName, fileName, Option(contentType), FileIO.fromPath(file.toPath)) :: List()))
-      .map(_ => Unit)
   }
 
   def getFileMetadata(envelopeId: String)(implicit hc: HeaderCarrier): Future[FileMetadata] = {

@@ -135,12 +135,6 @@ class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
     f
   }
 
-  lazy val mockFileUploads = {
-    val m = mock[FileUploadConnector]
-    when(m.uploadFile(matching(envelopeId), anyString, anyString, any[File])(any[HeaderCarrier])).thenReturn(Future.successful(()))
-    m
-  }
-
   lazy val envelopeId: String = shortString
 
   lazy val unbreakableCircuit = new FileUploadCircuitBreaker(mock[CircuitBreakerConfig], mock[FileUploadConnector]) {
