@@ -53,6 +53,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean
   lazy val enrolmentEnabled: Boolean = getConfig("featureFlags.enrolment").toBoolean
   lazy val manageAgentsEnabled: Boolean = getConfig("featureFlags.manageAgentsEnabled").toBoolean
+  lazy val agentMultipleAppointEnabled: Boolean = getConfig("featureFlags.agentMultipleAppointEnabled").toBoolean
 
   lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
     new String(Base64.getUrlDecoder.decode(e))

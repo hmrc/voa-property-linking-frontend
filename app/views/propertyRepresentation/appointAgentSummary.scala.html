@@ -28,10 +28,13 @@
 ) {
     <div class="column-two-thirds">
 
-        <h1 class="heading-large clearfix">Appoint agent - summary</h1>
-        <p>You have appointed ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to 4 properties.</p>
+        <h1 class="heading-large clearfix">@messages("propertyRepresentation.agentSummary.title")</h1>
+        <p>@Messages("propertyRepresentation.agentSummary.title")</p>
         <div class="panel panel-border-wide">
-            <p> Your agent has 21 days to accept your request. Otherwise your request will be rejected and you will need to send a new request. </p>
+            <p>@Messages("propertyRepresentation.agentSummary.warning")</p>
         </div>
-        </div>
+        <a href="@routes.Dashboard.home()" class="link">@Messages("link.dashboard.home")</a>
+
+    </div>
+
 }

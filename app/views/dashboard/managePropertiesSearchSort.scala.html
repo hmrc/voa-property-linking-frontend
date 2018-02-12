@@ -16,6 +16,8 @@
 
 @import actions.AuthenticatedRequest
 @import utils.Formatters
+@import config.ApplicationConfig.config._
+
 
 @(model: controllers.ManagePropertiesSearchAndSortVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
@@ -37,6 +39,9 @@
 
         <p class="margin-top-20"><a href="@controllers.propertyLinking.routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
 
+        @if(agentMultipleAppointEnabled){
+            <a href="@agentAppointment.routes.AppointAgentController.appointMultipleProperties()">@Messages("manageProperties.addAgent")
+    }
         @if(model.result.authorisations.isEmpty && model.pagination.valuesOfSearchParameters == "") {
             <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
@@ -236,5 +241,7 @@
         }
 
     <p><a href="@controllers.propertyLinking.routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
+
+
 
 }
