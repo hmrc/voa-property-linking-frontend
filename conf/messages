@@ -258,7 +258,7 @@ dashboard.manageProperties.submissionId=Submission ID: {0}
 dashboard.manageProperties.noAgent=None
 dashboard.managedProperties.addAnotherProperty=Add property
 manageProperties.revokeAgent=Remove agent
-manageProperties.addAgent=Appoint agent
+manageProperties.appointAgent=Appoint agent
 manageProperties.viewAssessments=View valuations
 link.dashboard.home=Back to dashboard
 search.sort.page.size.view=View
@@ -362,10 +362,13 @@ propertyRepresentation.table.title.agentName=Agent name
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
 propertyRepresentation.appointAgentProperties.appointAgent=You can appoint ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to the following properties:
+propertyRepresentation.appointAgentProperties.selectDeselect=Select all / deselect all
 propertyRepresentation.appointAgents.table.select=Select
-propertyRepresentation.appointAgents.table.address=Address
-propertyRepresentation.appointAgents.table.localAuthority=Local authority reference
 propertyRepresentation.appointAgents.table.actions=Actions
+propertyRepresentation.th.address=Address
+propertyRepresentation.th.localAuthorityReference=Local authority reference
+propertyRepresentation.th.agentName=Agent
+propertyRepresentation.search=Search for {0}
 
 ##Appoint agent summary
 propertyRepresentation.agentSummary.heading=You have appointed ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to 4 properties.

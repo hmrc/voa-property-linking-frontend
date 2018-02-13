@@ -233,10 +233,9 @@ class AppointAgentController @Inject() (config: ApplicationConfig,
     Future.successful(Ok(views.html.propertyRepresentation.appointAgentProperties(???)))
   }
 
-
-  def selectProperties(page: Int, pageSize: Int, sortfield: Option[String] = None,
-                                 sortorder: Option[String] = None, address: Option[String] = None,
-                                 baref: Option[String] = None) = authenticated { implicit request =>
+  def selectProperties(page: Int = 1, pageSize: Int = 15, sortfield: Option[String] = None,
+                       sortorder: Option[String] = None, address: Option[String] = None,
+                       baref: Option[String] = None) = authenticated { implicit request =>
     withValidPaginationSearchSort(
       page = page,
       pageSize = pageSize,

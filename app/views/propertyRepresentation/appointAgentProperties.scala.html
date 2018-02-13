@@ -16,6 +16,7 @@
 
 @import actions.AuthenticatedRequest
 @import controllers.agentAppointment.AppointAgentPropertiesVM
+@import models.searchApi._
 
 @(model: AppointAgentPropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
@@ -29,65 +30,90 @@
 ) {
     <div class="grid-row">
         <div class="column-whole">
-            <h1 class="heading-medium">Appoint an agent to one or more properties</h1>
-            <p>You can appoint ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to the following properties:</p>
-            <div class="margin-bottom-20">
+            <h1 class="heading-medium">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
+            <p>@Messages("propertyRepresentation.appointAgentProperties.appointAgent")</p>
 
-                <a href="#" id="selectAll2" class="margin-bottom-20">Select all / deselect all</a>
-
+            <div class="hide-if-no-js">
+                <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
             </div>
-            <div class="table-wrapper">
-                <table  class="table-font-xsmall margin-top-0 dataTable no-footer" role="grid" aria-describedby="propertiesTableBusiness_info" style="width: 960px;">
+
+                <table id="agentPropertiesTable" class="agentProperties dataTable table-font-xsmall no-footer">
                     <colgroup>
-                        <col style="width:8%">
+                        <col style="width:20%">
                         <col style="width:57%">
-                        <col style="width:25%">
-                        <col style="width:10%">
+                        <col style="width:30%">
+                        <col style="width:35%">
+                        <col style="width:15%">
                     </colgroup>
 
                     <thead>
                         <tr role="row">
-                            <th>Select</th>
-                            <th class="sorting_asc" tabindex="0" aria-controls="propertiesTableBusiness" rowspan="1" colspan="1" aria-label="Address: activate to sort column descending" style="width: 320px;" aria-sort="ascending">Address</th>
-                            <th class="sorting" tabindex="0" aria-controls="propertiesTableBusiness" rowspan="1" colspan="1" aria-label="Local authority reference: activate to sort column ascending" style="width: 200px;">Local authority reference</th>
-
-                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Actions" style="width: 160px;">Actions</th>
+                            <th>@Messages("propertyRepresentation.appointAgents.table.select")</th>
+                            <th>@sortingControl(PropertiesSortField.Address)</th>
+                            <th>@sortingControl(PropertiesSortField.LocalAuthorityReference)</th>
+                            <th>@sortingControl(PropertiesSortField.AgentName)</th>
+                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Actions">@Messages("propertyRepresentation.appointAgents.table.actions")</th>
                         </tr>
-                        <tr id="filterrow" role="row">
-                            <th></th>
-                            <th rowspan="1" colspan="1"><input type="search" class="filter-input">
-                                <button class="icon"><i class="search-icon"></i></button></th>
-                            <th rowspan="1" colspan="1"><input type="search" class="filter-input">
-                                <button class="icon"><i class="search-icon"></i></button></th>
 
-                            <th rowspan="1" colspan="1"><a href="#" class="clear">Clear search</a></th>
-                        </tr>
+                        <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectProperties()">
+                            <tr>
+                                <th></th>
+                                <th>@searchField("address")</th>
+                                <th>@searchField("localAuthorityReference")</th>
+                                <th>@searchField("agentName")</th>
+                                <th>
+                            <a href="@agentAppointment.routes.AppointAgentController.selectProperties()" id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
+                                </th>
+                            </tr>
+                        </form>
                     </thead>
+
                     <tbody>
                     @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
                         @defining(s"checkbox-${index+1}") { checkboxId:String =>
-                        <tr role="row" class="">
-                            <td><div class="table-checkbox multiple-choice margin-bottom-20">
-                                <input type="checkbox" id="@checkboxId" name="linkId" value="@authorisation.authorisationId">
-                                <label for="@checkboxId"><span class="visually-hidden">Appoint</span></label>
+                        <tr>
+                            <td><div class="checkbox-table-cell">
+                                <label class="block-label selection-button-checkbox" for="@("checkboxId"+(index+1))">
+                                    <input id=@("checkboxId"+(index+1)) type="checkbox"  name="linkId" value="@authorisation.authorisationId">
+                                    <span class="visually-hidden">Appoint</span></label>
                             </div></td>
                             <td class="">@authorisation.address</td>
                             <td>@authorisation.localAuthorityRef</td>
-                            <td></td>
-                        </tr>
+                            <td>
+                                <ul class="list">
+                                @if(authorisation.agents.isEmpty) {
+                                    <li></li>
+                                } else {
+                                    @authorisation.agents.get.map { agent =>
+                                        <li>@agent.organisationName</li>
+                                    }
+                                }
+                                </ul>
+                            </td>
                         }
                     }
                     </tbody>
                 </table>
 
             </div>
-            <div class="margin-bottom-20">
 
-                <a href="#" id="selectAll1" class="margin-bottom-20">Select all / deselect all</a>
-
-            </div>
+        <div class="hide-if-no-js">
+            <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
         </div>
+        </div>
+}
+
+@searchField(fieldName: String) = {
+    <div class="searchfield">
+        <label for="@fieldName" class="visually-hidden">@Messages(s"propertyRepresentation.th.$fieldName")</label>
+        <input id="@fieldName" name="@fieldName" class="ss-input">
+        <button id="@{fieldName}Button" class="search-submit ss-button">@Messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
     </div>
+}
 
 
+@sortingControl(field: PropertiesSortField) = {
+    <div id="sort-by-@field" class="sorting">
+        <a href="@agentAppointment.routes.AppointAgentController.selectProperties()">@Messages(s"propertyRepresentation.th.$field")</a>
+    </div>
 }

@@ -40,7 +40,7 @@
         <p class="margin-top-20"><a href="@controllers.propertyLinking.routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
 
         @if(agentMultipleAppointEnabled){
-            <a href="@agentAppointment.routes.AppointAgentController.appointMultipleProperties()">@Messages("manageProperties.addAgent")
+            <p class="margin-top-20"><a href="@agentAppointment.routes.AppointAgentController.appointMultipleProperties()" id="appointAgent">@Messages("manageProperties.appointAgent")</a></p>
         }
 
         @if(model.result.authorisations.isEmpty && model.pagination.valuesOfSearchParameters == "") {
@@ -103,7 +103,7 @@
                                     <th scope="col"><div class="searchfield"><label for="baref-nonjs" class="visually-hidden">@Messages("manageProperties.table.2")  </label><input name="baref"  value="@model.pagination.valueOfBaref" id="baref-nonjs" size="10" class="ss-input"><button class="search-submit ss-button">Search for @Messages("manageProperties.table.2") </button></div></th>
                                     <th scope="col"><div class="searchfield">@propertyLinkingStatusDropdown(model.pagination.valueOfStatus,"status")</div></th>
                                     <th scope="col"><div class="searchfield"><label for="agent-nonjs" class="visually-hidden">@Messages("manageProperties.table.4")  </label><input name="agent"  value="@model.pagination.valueOfAgent" id="agent-nonjs" size="8" class="ss-input"><button class="search-submit ss-button">Search for @Messages("manageProperties.table.4") </button></div></th>
-                                    <th scope="col"><a href="@routes.Dashboard.managePropertiesSearchSort().url" id="clear-search-nonjs" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
+                                    <th scope="col"><a href="#" id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
 
                                 </tr>
 
@@ -161,7 +161,7 @@
                                             @if(!agentMultipleAppointEnabled) {
                                                 <li>
                                                     @if(p.status.toLowerCase == "approved" || p.status.toLowerCase == "pending") {
-                                                        <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")
+                                                        <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.appointAgent")
                                                             <span class="visuallyhidden">
                                                                 for @(Formatters.capitalizedAddress(p.address))</span>
                                                         </a>

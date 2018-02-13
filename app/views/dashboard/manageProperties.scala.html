@@ -107,7 +107,7 @@
                                     <ul class="list">
                                         @if(model.organisationId == p.organisationId) {
                                             <li>
-                                                <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")
+                                                <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.appointAgent")
                                                     <span class="visuallyhidden">
                                                         for @(Formatters.capitalizedAddress(p.address))</span>
                                                 </a>
