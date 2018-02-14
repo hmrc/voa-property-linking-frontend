@@ -42,7 +42,11 @@
 @if(messagesEnabled) {
     <div id="unread-message-count" class="clearfix pull-right margin-top-5 margin-bottom-20 font-xsmall">
         <i class="icon icon-messageunread"></i>
-        <span>@Html(Messages("dashboard.unreadMessages", routes.Dashboard.viewMessages().url, unreadMessagesCount))</span>
+        @if(unreadMessagesCount == 0){
+            <span>@Messages("dashboard.unreadMessages.none")</span>
+        } else {
+            <span>@Html(Messages("dashboard.unreadMessages", routes.Dashboard.viewMessages().url, unreadMessagesCount))</span>
+        }
     </div>
 }
 

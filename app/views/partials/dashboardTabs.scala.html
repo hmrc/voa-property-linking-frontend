@@ -39,7 +39,11 @@
         @tab("drafts", routes.Dashboard.viewDraftCases().url)
         @tab("editDetails", controllers.manageDetails.routes.ViewDetails.show().url)
         @if(messagesEnabled) {
-            @tab("messages", routes.Dashboard.viewMessages().url, unreadMessagesCount)
+            @if(unreadMessagesCount == 0){
+            @tab("messages.none", routes.Dashboard.viewMessages().url)
+        } else {
+                @tab("messages", routes.Dashboard.viewMessages().url, unreadMessagesCount)
+            }
         }
     </ul>
 </div>

@@ -208,12 +208,15 @@ account.confirmation.alreadyRegistered.youCan.2=authorise an agent to act on beh
 dashboard.agentCode=Agent code: {0}
 dashboard.notYou=Not you?
 dashboard.unreadMessages=You have <a href={0}>({1}) unread messages</a>
+dashboard.unreadMessages.none=You have no unread messages
 dashboard.tab.clientProperties=Client properties
 dashboard.tab.myProperties=My properties
 dashboard.tab.manageAgents=Agents
 dashboard.tab.drafts=Drafts
 dashboard.tab.editDetails=My details
 dashboard.tab.messages=Messages ({0})
+dashboard.tab.messages.none=Messages
+
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard home
