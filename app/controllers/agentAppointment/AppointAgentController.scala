@@ -234,7 +234,7 @@ class AppointAgentController @Inject() (config: ApplicationConfig,
   }
 
 
-  def selectProperties(page: Int, pageSize: Int, sortfield: Option[String] = None,
+  def selectProperties(page: Int = 1, pageSize: Int = 15, sortfield: Option[String] = None,
                                  sortorder: Option[String] = None, address: Option[String] = None,
                                  baref: Option[String] = None) = authenticated { implicit request =>
     withValidPaginationSearchSort(
