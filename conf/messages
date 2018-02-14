@@ -366,9 +366,12 @@ propertyRepresentation.appointAgentProperties.selectDeselect=Select all / desele
 propertyRepresentation.appointAgents.table.select=Select
 propertyRepresentation.appointAgents.table.actions=Actions
 propertyRepresentation.th.address=Address
-propertyRepresentation.th.localAuthorityReference=Local authority reference
+propertyRepresentation.th.baref=Local authority reference
 propertyRepresentation.th.agentName=Agent
 propertyRepresentation.search=Search for {0}
+propertyRepresentation.pageSize.showing=Showing
+propertyRepresentation.pageSize.perPage=messages per page
+propertyRepresentation.paginationInfo=Page {0} of {1}
 
 ##Appoint agent summary
 propertyRepresentation.agentSummary.heading=You have appointed ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to 4 properties.

@@ -26,8 +26,9 @@ sealed trait AgentPropertiesSortField extends NamedEnum {
 }
 
 object AgentPropertiesSortField extends NamedEnumSupport[AgentPropertiesSortField] {
+
   case object LocalAuthorityReference extends AgentPropertiesSortField {
-    override val name: String = "localAuthorityReference"
+    override val name: String = "baref"
   }
 
   case object Address extends AgentPropertiesSortField {

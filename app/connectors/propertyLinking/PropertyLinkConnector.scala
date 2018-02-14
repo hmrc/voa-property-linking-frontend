@@ -23,7 +23,7 @@ import config.WSHttp
 import connectors.fileUpload.FileMetadata
 import controllers.{Pagination, PaginationSearchSort}
 import models._
-import models.searchApi.{OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
+import models.searchApi.{AgentPropertiesPagination, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
 import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
@@ -70,6 +70,28 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
                                     pagination: PaginationSearchSort,
                                     representationStatusFilter: Seq[RepresentationStatus] =
                                         Seq(RepresentationApproved, RepresentationPending)
+                                   )
+                                   (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
+
+    val ownerAuthResult = http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +
+      s"organisationId=$organisationId&" +
+      s"$pagination")
+
+    def validAgent(agent: OwnerAuthAgent): Boolean =
+      agent.status.fold(false) { status =>
+        representationStatusFilter.map(_.name.toUpperCase).contains(status.toUpperCase)
+      }
+
+    // filter agents on representationStatus
+    ownerAuthResult.map(oar =>
+      oar.copy(authorisations = oar.authorisations.map(auth =>
+        auth.copy(agents = auth.agents.map(ags => ags.filter(ag => validAgent(ag)))))))
+  }
+
+  def agentPropertiesSearchAndSort(organisationId: Long,
+                                    pagination: AgentPropertiesPagination,
+                                    representationStatusFilter: Seq[RepresentationStatus] =
+                                    Seq(RepresentationApproved, RepresentationPending)
                                    )
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 

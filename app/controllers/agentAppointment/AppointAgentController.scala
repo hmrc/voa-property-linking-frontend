@@ -27,12 +27,12 @@ import controllers._
 import form.EnumMapping
 import form.Mappings._
 import models._
-import models.searchApi.{OwnerAgent, OwnerAuthResult}
+import models.searchApi.{AgentPropertiesPagination, OwnerAgent, OwnerAuthResult}
 import play.api.data.Forms._
 import play.api.data.validation.Constraint
 import play.api.data.{FieldMapping, Form, FormError, Mapping}
 import play.api.libs.json.Json
-import play.api.mvc.{Action, Request}
+import play.api.mvc.{Action, Request, Result}
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.play.form.ConditionalMappings
@@ -228,31 +228,28 @@ class AppointAgentController @Inject() (config: ApplicationConfig,
     "canChallenge" -> AgentPermissionMapping("canCheck")
   )(AppointAgent.apply)(AppointAgent.unapply))
 
-
-  def selectPropertiesOld() = authenticated { implicit request =>
-    Future.successful(Ok(views.html.propertyRepresentation.appointAgentProperties(???)))
-  }
-
-  def selectProperties(page: Int = 1, pageSize: Int = 15, sortfield: Option[String] = None,
-                       sortorder: Option[String] = None, address: Option[String] = None,
-                       baref: Option[String] = None) = authenticated { implicit request =>
-    withValidPaginationSearchSort(
-      page = page,
-      pageSize = pageSize,
-      sortfield = sortfield,
-      sortorder = sortorder,
-      address = address,
-      baref = baref
-    ) { paginationSearchSort =>
+  def selectProperties(pagination: AgentPropertiesPagination) = authenticated { implicit request =>
+    withValidPropertiesPagination(pagination){
       for {
-        response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
+        response <- propertyLinks.agentPropertiesSearchAndSort(request.organisationId, pagination)
       } yield {
         Ok(views.html.propertyRepresentation.appointAgentProperties(
           AppointAgentPropertiesVM(
-            request.organisationAccount.id,
-            response
-          )))
+              request.organisationAccount.id,
+              response
+            ),
+          pagination))
       }
+    }
+  }
+
+  private def withValidPropertiesPagination(pagination: AgentPropertiesPagination)
+                                        (f: => Future[Result])
+                                        (implicit request: Request[_]): Future[Result] = {
+    if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 100) {
+      f
+    } else {
+      BadRequest(Global.badRequestTemplate)
     }
   }
 

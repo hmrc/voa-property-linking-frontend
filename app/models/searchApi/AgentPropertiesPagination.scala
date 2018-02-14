@@ -18,17 +18,19 @@ package models.searchApi
 
 import models.SortOrder
 import play.api.mvc.QueryStringBindable
+import utils.Formatters.{buildQueryParams, buildUppercaseQueryParams}
 
 case class AgentPropertiesPagination(address: Option[String] = None,
-                             localAuthorityReference: Option[String] = None,
-                             agentName: Option[String] = None,
-                             pageNumber: Int = 1,
-                             pageSize: Int = 15,
-                             sortField: AgentPropertiesSortField = AgentPropertiesSortField.LocalAuthorityReference,
-                             sortOrder: SortOrder = SortOrder.Descending) {
+                                     baref: Option[String] = None,
+                                     agentName: Option[String] = None,
+                                     pageNumber: Int = 1,
+                                     pageSize: Int = 5,
+                                     totalResults: Int = 10,
+                                     sortField: AgentPropertiesSortField = AgentPropertiesSortField.LocalAuthorityReference,
+                                     sortOrder: SortOrder = SortOrder.Descending) {
 
 
-  lazy val startPoint: Int = (pageNumber - 1) * pageSize + 1
+  def startPoint: Int = (pageNumber - 1) * pageSize + 1
 
   def reverseSorting: AgentPropertiesPagination = copy(sortOrder = sortOrder.reverse)
 
@@ -36,16 +38,23 @@ case class AgentPropertiesPagination(address: Option[String] = None,
 
   def nextPage: AgentPropertiesPagination = copy(pageNumber = pageNumber + 1)
 
-  lazy val queryString: String =
-    s"""
-       |${address.filter(_.nonEmpty).fold("")(a => s"address=$a&")}
-       |${localAuthorityReference.filter(_.nonEmpty).fold("")(lar => s"localAuthorityReference=$lar&")}
-       |${agentName.filter(_.nonEmpty).fold("")(an => s"agentName=$an&")}
-       |startPoint=$startPoint&
-       |pageSize=$pageSize&
-       |sortField=$sortField&
-       |sortOrder=$sortOrder
-       |""".stripMargin.replaceAll("\n", "")
+//  lazy val queryString: String =
+//    s"""
+//       |${address.filter(_.nonEmpty).fold("")(a => s"address=$a&")}
+//       |${localAuthorityReference.filter(_.nonEmpty).fold("")(lar => s"localAuthorityReference=$lar&")}
+//       |${agentName.filter(_.nonEmpty).fold("")(an => s"agentName=$an&")}
+//       |page=$startPoint&
+//       |size=$pageSize&
+//       |sortField=$sortField&
+//       |sortOrder=$sortOrder
+//       |""".stripMargin.replaceAll("\n", "")
+
+  override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true"  +
+//    buildUppercaseQueryParams("sortfield", Some(sortField.name)) +
+//    buildUppercaseQueryParams("sortorder", Some(sortOrder.name)) +
+    buildQueryParams("address", address) +
+    buildQueryParams("baref", baref) +
+    buildQueryParams("agent", agentName)
 }
 
 object AgentPropertiesPagination {
@@ -55,16 +64,17 @@ object AgentPropertiesPagination {
 
       for {
         address <- bindParam[Option[String]]("address")
-        localAuthorityReference <- bindParam[Option[String]]("localAuthorityReference")
+        baref <- bindParam[Option[String]]("baref")
         agentName <- bindParam[Option[String]]("agentName")
         pageNumber <- bindParam[Int]("pageNumber")
         pageSize <- bindParam[Int]("pageSize")
+        totalResults <- bindParam[Int]("totalResults")
         sortField <- bindParam[AgentPropertiesSortField]("sortField")
         sortOrder <- bindParam[SortOrder]("sortOrder")
       } yield {
-        (address, localAuthorityReference, agentName, pageNumber, pageSize, sortField, sortOrder) match {
-          case (Right(a), Right(lar), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>
-            Right(AgentPropertiesPagination(a, lar, an, pn, ps, sf, so))
+        (address, baref, agentName, pageNumber, pageSize, totalResults, sortField, sortOrder) match {
+          case (Right(a), Right(bar), Right(an), Right(pn), Right(ps), Right(tr), Right(sf), Right(so)) =>
+            Right(AgentPropertiesPagination(a, bar, an, pn, ps, tr, sf, so))
           case _ => Left("Unable to bind to AgentPropertiesPagination")
         }
       }
@@ -73,7 +83,7 @@ object AgentPropertiesPagination {
     override def unbind(key: String, value: AgentPropertiesPagination): String =
       s"""
          |address=${value.address.getOrElse("")}&
-         |localAuthorityReference=${value.localAuthorityReference.getOrElse("")}&
+         |baref=${value.baref.getOrElse("")}&
          |agentName=${value.agentName.getOrElse("")}&
          |pageNumber=${value.pageNumber}&
          |pageSize=${value.pageSize}&

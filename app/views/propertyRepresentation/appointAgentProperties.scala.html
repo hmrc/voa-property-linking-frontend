@@ -16,9 +16,11 @@
 
 @import actions.AuthenticatedRequest
 @import controllers.agentAppointment.AppointAgentPropertiesVM
-@import models.searchApi.AgentPropertiesSortField
+@import models.searchApi.{AgentPropertiesSortField,AgentPropertiesPagination}
 
-@(model: AppointAgentPropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: AppointAgentPropertiesVM,
+         pagination: AgentPropertiesPagination
+         )(implicit request: AuthenticatedRequest[_], messages: Messages)
 
 @heading = @{ Messages("propertyRepresentation.appointAgentProperties.title") }
 
@@ -37,64 +39,103 @@
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
             </div>
 
-                <table id="agentPropertiesTable" class="agentProperties dataTable table-font-xsmall no-footer">
-                    <colgroup>
-                        <col style="width:20%">
-                        <col style="width:57%">
-                        <col style="width:30%">
-                        <col style="width:35%">
-                        <col style="width:15%">
-                    </colgroup>
+            <table id="agentPropertiesTable" class="agentProperties dataTable table-font-xsmall no-footer">
+                <colgroup>
+                    <col style="width:20%">
+                    <col style="width:57%">
+                    <col style="width:30%">
+                    <col style="width:35%">
+                    <col style="width:15%">
+                </colgroup>
 
-                    <thead>
-                        <tr role="row">
-                            <th>@Messages("propertyRepresentation.appointAgents.table.select")</th>
-                            <th>@sortingControl(AgentPropertiesSortField.Address)</th>
-                            <th>@sortingControl(AgentPropertiesSortField.LocalAuthorityReference)</th>
-                            <th>@sortingControl(AgentPropertiesSortField.AgentName)</th>
-                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Actions">@Messages("propertyRepresentation.appointAgents.table.actions")</th>
-                        </tr>
+                <thead>
+                    <tr role="row">
+                        <th>@Messages("propertyRepresentation.appointAgents.table.select")</th>
+                        <th>@sortingControl(AgentPropertiesSortField.Address)</th>
+                        <th>@sortingControl(AgentPropertiesSortField.LocalAuthorityReference)</th>
+                        <th>@sortingControl(AgentPropertiesSortField.AgentName)</th>
+                        <th>@Messages("propertyRepresentation.appointAgents.table.actions")</th>
+                    </tr>
 
-                        <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectProperties()">
-                            <tr>
-                                <th></th>
-                                <th>@searchField("address")</th>
-                                <th>@searchField("localAuthorityReference")</th>
-                                <th>@searchField("agentName")</th>
-                                <th>
-                            <a href="@agentAppointment.routes.AppointAgentController.selectProperties()" id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
-                                </th>
-                            </tr>
-                        </form>
-                    </thead>
-
-                    <tbody>
-                    @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
-                        @defining(s"checkbox-${index+1}") { checkboxId:String =>
+                    <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectProperties()">
                         <tr>
-                            <td><div class="checkbox-table-cell">
-                                <label class="block-label selection-button-checkbox" for="@("checkboxId"+(index+1))">
-                                    <input id=@("checkboxId"+(index+1)) type="checkbox"  name="linkId" value="@authorisation.authorisationId">
-                                    <span class="visually-hidden">Appoint</span></label>
-                            </div></td>
-                            <td class="">@authorisation.address</td>
-                            <td>@authorisation.localAuthorityRef</td>
-                            <td>
-                                <ul class="list">
-                                @if(authorisation.agents.isEmpty) {
-                                    <li></li>
-                                } else {
-                                    @authorisation.agents.get.map { agent =>
-                                        <li>@agent.organisationName</li>
-                                    }
-                                }
-                                </ul>
-                            </td>
-                        }
-                    }
-                    </tbody>
-                </table>
+                            <th></th>
+                            <th>@searchField("address", pagination.address)</th>
+                            <th>@searchField("localAuthorityReference", pagination.baref)</th>
+                            <th>@searchField("agentName", pagination.agentName)</th>
+                            <th>
+                                <a href="@agentAppointment.routes.AppointAgentController.selectProperties()" id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
+                            </th>
+                            <th></th>
+                            <input type="hidden" name="pageNumber" value="@pagination.pageNumber" readonly>
+                            <input type="hidden" name="pageSize" value="@pagination.pageSize" readonly>
+                            <input type="hidden" name="sortField" value="@pagination.sortField" readonly>
+                            <input type="hidden" name="sortOrder" value="@pagination.sortOrder" readonly>
+                        </tr>
+                    </form>
+                </thead>
 
+                <tbody>
+                @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
+                    @defining(s"checkbox-${index+1}") { checkboxId:String =>
+                    <tr>
+                        <td><div class="checkbox-table-cell">
+                            <label class="block-label selection-button-checkbox" for="@("checkboxId"+(index+1))">
+                                <input id=@("checkboxId"+(index+1)) type="checkbox"  name="linkId" value="@authorisation.authorisationId">
+                                <span class="visually-hidden">Appoint</span></label>
+                        </div></td>
+                        <td class="">@authorisation.address</td>
+                        <td>@authorisation.localAuthorityRef</td>
+                        <td>
+                            <ul class="list">
+                            @if(authorisation.agents.isEmpty) {
+                                <li></li>
+                            } else {
+                                @authorisation.agents.get.map { agent =>
+                                    <li>@agent.organisationName</li>
+                                }
+                            }
+                            </ul>
+                        </td>
+                    }
+                }
+                </tbody>
+            </table>
+            <div>
+                <div class="pull-left">
+                    Showing
+                    @if(model.response.authorisations.isEmpty) {
+                        0
+                    }else{
+                        @pagination.startPoint
+                    } to @{
+                    pagination.totalResults.min(pagination.startPoint + pagination.pageSize - 1)
+                } of @pagination.totalResults
+                </div>
+
+                <div role="navigation" aria-label="Pagination" class="pull-right">
+                    <ul class="pagination" style="margin-top: 0px">
+                                    @if(pagination.pageNumber > 1) {
+                            <li class="previous ">
+                                <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.previousPage).url">
+                                    <i class="previous-arrow"></i>Previous</a></li>
+                        } else {
+                            <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
+                        }
+
+                        <li class="active">@pagination.pageNumber</li>
+
+                        @if(pagination.totalResults > pagination.startPoint + pagination.pageSize - 1) {
+                            <li class="next">
+                                <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.nextPage).url">Next
+                                    <i class="next-arrow"></i></a></li>
+
+                        } else {
+                            <li class="next disabled">Next <i class="next-arrow"></i></li>
+                        }
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
             </div>
 
         <div class="hide-if-no-js">
@@ -103,17 +144,33 @@
         </div>
 }
 
-@searchField(fieldName: String) = {
+@sortingControl(field: AgentPropertiesSortField) = {
+@if(pagination.sortField == field) {
+    <div id="sort-by-@field" class="sorting_@pagination.sortOrder">
+        <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.reverseSorting)">@Messages(s"propertyRepresentation.th.$field")</a>
+    </div>
+} else {
+    <div id="sort-by-@field" class="sorting">
+        <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"propertyRepresentation.th.$field")</a>
+    </div>
+    }
+}
+
+@pageSizeControl(size: Int) = {
+@if(pagination.pageSize == size) {
+    <li>@size</li>
+} else {
+    <li><a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.copy(pageSize = size))">@size</a></li>
+}
+}
+
+@searchField(fieldName: String, value: Option[String]) = {
     <div class="searchfield">
         <label for="@fieldName" class="visually-hidden">@Messages(s"propertyRepresentation.th.$fieldName")</label>
-        <input id="@fieldName" name="@fieldName" class="ss-input">
+        <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
         <button id="@{fieldName}Button" class="search-submit ss-button">@Messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
     </div>
 }
 
 
-@sortingControl(field: AgentPropertiesSortField) = {
-    <div id="sort-by-@field" class="sorting">
-        <a href="@agentAppointment.routes.AppointAgentController.selectProperties()">@Messages(s"propertyRepresentation.th.$field")</a>
-    </div>
-}
+

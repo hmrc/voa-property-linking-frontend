@@ -92,7 +92,7 @@ GET         /no-evidence-uploaded                                               
 GET         /manual-verification-required                                                     controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                                                 controllers.LinkErrors.conflict()
 
-GET         /appoint-agent/select-properties                                                  @controllers.agentAppointment.AppointAgentController.selectProperties(page: Int ?= 1, pageSize: Int ?= 15, sortfield: Option[String] ?= None, sortorder: Option[String] ?= None , address: Option[String] ?= None, baref: Option[String] ?= None)
+GET         /appoint-agent/select-properties                                                  @controllers.agentAppointment.AppointAgentController.selectProperties(pagination: AgentPropertiesPagination ?= AgentPropertiesPagination())
 GET         /appoint-agent/agent-summary                                                      @controllers.agentAppointment.AppointAgentController.agentSummary()
 GET         /appoint-agent/multiple-proprties                                                 @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
 GET         /appoint-agent/:linkId                                                            @controllers.agentAppointment.AppointAgentController.appoint(linkId: Long)
