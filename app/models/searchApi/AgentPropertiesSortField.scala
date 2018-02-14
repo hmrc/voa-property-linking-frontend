@@ -19,26 +19,26 @@ package models.searchApi
 import models.{NamedEnum, NamedEnumSupport}
 
 
-sealed trait PropertiesSortField extends NamedEnum {
+sealed trait AgentPropertiesSortField extends NamedEnum {
   override val key: String = "propertiesSortField"
 
   override def toString: String = name
 }
 
-object PropertiesSortField extends NamedEnumSupport[PropertiesSortField] {
-  case object LocalAuthorityReference extends PropertiesSortField {
+object AgentPropertiesSortField extends NamedEnumSupport[AgentPropertiesSortField] {
+  case object LocalAuthorityReference extends AgentPropertiesSortField {
     override val name: String = "localAuthorityReference"
   }
 
-  case object Address extends PropertiesSortField {
+  case object Address extends AgentPropertiesSortField {
     override val name: String = "address"
   }
 
-  case object AgentName extends PropertiesSortField {
+  case object AgentName extends AgentPropertiesSortField {
     override val name: String = "agentName"
   }
 
 
-  override def all: Seq[PropertiesSortField] = Seq(LocalAuthorityReference, Address, AgentName)
+  override def all: Seq[AgentPropertiesSortField] = Seq(LocalAuthorityReference, Address, AgentName)
 }
 

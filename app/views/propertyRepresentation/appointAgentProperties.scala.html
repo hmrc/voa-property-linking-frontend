@@ -16,7 +16,7 @@
 
 @import actions.AuthenticatedRequest
 @import controllers.agentAppointment.AppointAgentPropertiesVM
-@import models.searchApi._
+@import models.searchApi.AgentPropertiesSortField
 
 @(model: AppointAgentPropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
 
@@ -49,9 +49,9 @@
                     <thead>
                         <tr role="row">
                             <th>@Messages("propertyRepresentation.appointAgents.table.select")</th>
-                            <th>@sortingControl(PropertiesSortField.Address)</th>
-                            <th>@sortingControl(PropertiesSortField.LocalAuthorityReference)</th>
-                            <th>@sortingControl(PropertiesSortField.AgentName)</th>
+                            <th>@sortingControl(AgentPropertiesSortField.Address)</th>
+                            <th>@sortingControl(AgentPropertiesSortField.LocalAuthorityReference)</th>
+                            <th>@sortingControl(AgentPropertiesSortField.AgentName)</th>
                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Actions">@Messages("propertyRepresentation.appointAgents.table.actions")</th>
                         </tr>
 
@@ -112,7 +112,7 @@
 }
 
 
-@sortingControl(field: PropertiesSortField) = {
+@sortingControl(field: AgentPropertiesSortField) = {
     <div id="sort-by-@field" class="sorting">
         <a href="@agentAppointment.routes.AppointAgentController.selectProperties()">@Messages(s"propertyRepresentation.th.$field")</a>
     </div>
