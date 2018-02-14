@@ -23,7 +23,7 @@ case class MessagePagination(clientName: Option[String] = None,
                              referenceNumber: Option[String] = None,
                              address: Option[String] = None,
                              pageNumber: Int = 1,
-                             pageSize: Int = 5,
+                             pageSize: Int = 15,
                              sortField: MessageSortField = MessageSortField.EffectiveDate,
                              sortOrder: SortOrder = SortOrder.Descending) {
 

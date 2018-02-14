@@ -97,7 +97,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
 
     val ownerAuthResult = http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +
       s"organisationId=$organisationId&" +
-      s"$pagination")
+      s"${pagination.queryString}")
 
     def validAgent(agent: OwnerAuthAgent): Boolean =
       agent.status.fold(false) { status =>

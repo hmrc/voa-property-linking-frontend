@@ -25,7 +25,7 @@ case class AgentPropertiesPagination(address: Option[String] = None,
                                      agentName: Option[String] = None,
                                      pageNumber: Int = 1,
                                      pageSize: Int = 5,
-                                     totalResults: Int = 10,
+//                                     totalResults: Int = 10,
                                      sortField: AgentPropertiesSortField = AgentPropertiesSortField.LocalAuthorityReference,
                                      sortOrder: SortOrder = SortOrder.Descending) {
 
@@ -49,9 +49,9 @@ case class AgentPropertiesPagination(address: Option[String] = None,
 //       |sortOrder=$sortOrder
 //       |""".stripMargin.replaceAll("\n", "")
 
-  override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true"  +
-//    buildUppercaseQueryParams("sortfield", Some(sortField.name)) +
-//    buildUppercaseQueryParams("sortorder", Some(sortOrder.name)) +
+  lazy val queryString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true"  +
+    buildUppercaseQueryParams("sortfield", Some(sortField.name)) +
+    buildUppercaseQueryParams("sortorder", Some(sortOrder.name)) +
     buildQueryParams("address", address) +
     buildQueryParams("baref", baref) +
     buildQueryParams("agent", agentName)
@@ -68,13 +68,19 @@ object AgentPropertiesPagination {
         agentName <- bindParam[Option[String]]("agentName")
         pageNumber <- bindParam[Int]("pageNumber")
         pageSize <- bindParam[Int]("pageSize")
-        totalResults <- bindParam[Int]("totalResults")
         sortField <- bindParam[AgentPropertiesSortField]("sortField")
         sortOrder <- bindParam[SortOrder]("sortOrder")
       } yield {
-        (address, baref, agentName, pageNumber, pageSize, totalResults, sortField, sortOrder) match {
-          case (Right(a), Right(bar), Right(an), Right(pn), Right(ps), Right(tr), Right(sf), Right(so)) =>
-            Right(AgentPropertiesPagination(a, bar, an, pn, ps, tr, sf, so))
+        (address, baref, agentName, pageNumber, pageSize, sortField, sortOrder) match {
+          case (Right(a), Right(bar), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>
+            Right(AgentPropertiesPagination(
+              address = a,
+              baref = bar,
+              agentName = an,
+              pageNumber = pn,
+              pageSize = ps,
+              sortField = sf,
+              sortOrder = so))
           case _ => Left("Unable to bind to AgentPropertiesPagination")
         }
       }

@@ -109,8 +109,8 @@
                     }else{
                         @pagination.startPoint
                     } to @{
-                    pagination.totalResults.min(pagination.startPoint + pagination.pageSize - 1)
-                } of @pagination.totalResults
+                    model.response.filterTotal.min(pagination.startPoint + pagination.pageSize - 1)
+                } of @model.response.total
                 </div>
 
                 <div role="navigation" aria-label="Pagination" class="pull-right">
@@ -125,7 +125,7 @@
 
                         <li class="active">@pagination.pageNumber</li>
 
-                        @if(pagination.totalResults > pagination.startPoint + pagination.pageSize - 1) {
+                        @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                             <li class="next">
                                 <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.nextPage).url">Next
                                     <i class="next-arrow"></i></a></li>
@@ -138,10 +138,11 @@
                 <div class="clearfix"></div>
             </div>
 
-        <div class="hide-if-no-js">
-            <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+            <div class="hide-if-no-js">
+                <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+            </div>
         </div>
-        </div>
+    </div>
 }
 
 @sortingControl(field: AgentPropertiesSortField) = {
@@ -171,6 +172,3 @@
         <button id="@{fieldName}Button" class="search-submit ss-button">@Messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
     </div>
 }
-
-
-
