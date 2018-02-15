@@ -134,6 +134,18 @@
                             <li class="next disabled">Next <i class="next-arrow"></i></li>
                         }
                     </ul>
+                    <div id="page-size-list">
+                        <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
+                        @for(len <- List(15,25,50,100)) {
+                            @if(pagination.pageSize == len) {
+                                <span class="page-size-option-current">@len</span>
+                            } else {
+                                <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.copy(pageSize = len)).url">
+                                @len</a>
+                            }
+                        }
+                        @Messages("search.sort.page.size.properties.per.page")
+                    </div>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -155,14 +167,6 @@
         <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"propertyRepresentation.th.$field")</a>
     </div>
     }
-}
-
-@pageSizeControl(size: Int) = {
-@if(pagination.pageSize == size) {
-    <li>@size</li>
-} else {
-    <li><a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.copy(pageSize = size))">@size</a></li>
-}
 }
 
 @searchField(fieldName: String, value: Option[String]) = {
