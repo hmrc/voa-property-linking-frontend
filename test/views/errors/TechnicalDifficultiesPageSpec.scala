@@ -19,21 +19,17 @@ package views.errors
 import java.time.LocalDateTime
 
 import play.api.i18n.Messages
-import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import resources._
 import uk.gov.hmrc.play.test.UnitSpec
+import utils.NoMetricsOneAppPerSuite
 
-class TechnicalDifficultiesPageSpec extends UnitSpec {
-
-  implicit val app = new GuiceApplicationBuilder()
-    .configure("metrics.enabled" -> "false")
-    .build()
+class TechnicalDifficultiesPageSpec extends UnitSpec with NoMetricsOneAppPerSuite {
 
   "The technical difficulties page" should {
     val ref: String = shortString
-    val html = views.html.errors.technicalDifficulties(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(FakeRequest(), Messages.Implicits.applicationMessages)
-    val page = html.toString
+    lazy val html = views.html.errors.technicalDifficulties(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(FakeRequest(), Messages.Implicits.applicationMessages, implicitly)
+    lazy val page = html.toString
 
     "display an error reference number" in {
       page should include (s"Reference number: $ref")

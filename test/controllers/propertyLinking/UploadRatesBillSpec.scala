@@ -89,7 +89,7 @@ class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "display a service unavailable page when the file upload service is not available" in {
-    val testController = new UploadEvidence(app.injector.instanceOf[ApplicationConfig], withLinkingSession, brokenCircuit)
+    val testController = new UploadEvidence( withLinkingSession, brokenCircuit)
 
     val linkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
@@ -126,7 +126,7 @@ class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  object TestUploadRatesBill extends UploadRatesBill(app.injector.instanceOf[ApplicationConfig], withLinkingSession, unbreakableCircuit)
+  object TestUploadRatesBill extends UploadRatesBill( withLinkingSession, unbreakableCircuit)
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

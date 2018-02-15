@@ -23,6 +23,7 @@ import config.ApplicationConfig
 import connectors._
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import models.{IVDetails, IndividualAccountSubmission, PersonalDetails}
+import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, Request}
 import repositories.SessionRepo
 import uk.gov.hmrc.play.frontend.auth.AuthContext
@@ -37,8 +38,8 @@ class IdentityVerification @Inject() (ggAction: VoaAction,
                                       identityVerificationProxyConnector: IdentityVerificationProxyConnector,
                                       groups: GroupAccounts,
                                       auth: VPLAuthConnector,
-                                      config: ApplicationConfig,
                                       @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
+                                     (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
   def startIv = ggAction.async(true) { _ => implicit request =>

@@ -17,14 +17,13 @@
 package controllers
 
 import config.Global
+import play.api.i18n.I18nSupport
 import play.api.mvc.{Controller, Request}
-import play.api.Play.current
 import services.RequestContext
 
 import scala.concurrent.Future
 
-trait PropertyLinkingController extends Controller with RequestContext {
-  implicit lazy val messages = play.api.i18n.Messages.Implicits.applicationMessages
+trait PropertyLinkingController extends Controller with RequestContext with I18nSupport {
   implicit def future[A](a: A): Future[A] = Future.successful(a)
   def notFound(implicit request: Request[_]) = NotFound(Global.notFoundTemplate)
 }

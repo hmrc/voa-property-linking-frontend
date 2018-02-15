@@ -17,8 +17,9 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 @import controllers.Wizard.keys._
+@import config.ApplicationConfig
 
-@(theForm: Form[_])(implicit request: Request[_], messages: Messages)
+@(theForm: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @main_template(

@@ -89,8 +89,8 @@ GET         /confirmation/no-evidence                                           
 GET         /rates-bill-submitted                                                             @controllers.propertyLinking.UploadRatesBill.fileUploaded()
 GET         /evidence-uploaded                                                                @controllers.propertyLinking.UploadEvidence.fileUploaded()
 GET         /no-evidence-uploaded                                                             @controllers.propertyLinking.UploadEvidence.noEvidenceUploaded()
-GET         /manual-verification-required                                                     controllers.LinkErrors.manualVerificationRequired()
-GET         /linking-conflict                                                                 controllers.LinkErrors.conflict()
+GET         /manual-verification-required                                                     @controllers.LinkErrors.manualVerificationRequired()
+GET         /linking-conflict                                                                 @controllers.LinkErrors.conflict()
 
 GET         /appoint-agent/:linkId                                                            @controllers.agentAppointment.AppointAgentController.appoint(linkId: Long)
 GET         /appoint-agent/:linkId/confirmed                                                  @controllers.agentAppointment.AppointAgentController.confirmed(linkId: Long)

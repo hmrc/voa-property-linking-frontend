@@ -22,14 +22,14 @@ import config.{ApplicationConfig, Global}
 import controllers._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.i18n.MessagesApi
 import play.api.mvc.Call
 import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
 import views.html.propertyLinking.uploadRatesBill
 
-class UploadRatesBill @Inject()(override val config: ApplicationConfig,
-                                override val withLinkingSession: WithLinkingSession,
-                                withCircuitBreaker: FileUploadCircuitBreaker)
+class UploadRatesBill @Inject()(override val withLinkingSession: WithLinkingSession,
+                                withCircuitBreaker: FileUploadCircuitBreaker)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with FileUploadHelpers {
 
   override val successUrl: String = routes.UploadRatesBill.fileUploaded().url

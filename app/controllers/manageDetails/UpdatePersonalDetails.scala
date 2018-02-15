@@ -28,18 +28,17 @@ import models.IndividualDetails
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
+import play.api.i18n.MessagesApi
 import play.api.mvc.{AnyContent, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup
 
 import scala.concurrent.Future
 
-class UpdatePersonalDetails @Inject()(
-  config: ApplicationConfig,
-  authenticated: AuthenticatedAction,
-  addressesConnector: Addresses,
-  individualAccountConnector:IndividualAccounts,
-  manageDetails: ManageDetails)
+class UpdatePersonalDetails @Inject()(authenticated: AuthenticatedAction,
+                                      addressesConnector: Addresses,
+                                      individualAccountConnector: IndividualAccounts,
+                                      manageDetails: ManageDetails)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
   def viewEmail() = authenticated { implicit request =>
@@ -127,7 +126,7 @@ class UpdatePersonalDetails @Inject()(
     val updatedAccount = request.individualAccount.copy(details = updatedDetails)
 
     individualAccountConnector.update(updatedAccount)
-      .flatMap(_ => addressId.fold[Future[EnrolmentResult]](Future.successful(Success))(manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)(_==AffinityGroup.Individual)))
+      .flatMap(_ => addressId.fold[Future[EnrolmentResult]](Future.successful(Success))(manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)(_ == AffinityGroup.Individual)))
       .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show()))
   }
 

@@ -42,7 +42,7 @@ class ChooseEvidenceSpec extends ControllerSpec with MockitoSugar{
   private class TestChooseEvidence (withLinkingSession: StubWithLinkingSession) extends ChooseEvidence(withLinkingSession) {
     val property = testProperty
   }
-  private val testChooseEvidence = new TestChooseEvidence(withLinkingSession)
+  private lazy val testChooseEvidence = new TestChooseEvidence(withLinkingSession)
 
   lazy val testProperty: Property = arbitrary[Property]
 

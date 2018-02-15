@@ -16,8 +16,9 @@
 
 @import models.messages.Message
 @import actions.AuthenticatedRequest
+@import config.ApplicationConfig
 
-@(message: Message, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(message: Message, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
   title = message.subject,

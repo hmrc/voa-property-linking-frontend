@@ -15,21 +15,21 @@
  *@
 
 @import actions.AuthenticatedRequest
-@import config.ApplicationConfig.config._
+@import config.ApplicationConfig
 
-@(unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 @welcomeLinks(unreadMessagesCount)
 
 <div class="clearfix section-tabs">
     <ul role="tablist">
         @if(isAgent) {
-            @if(searchSortEnabled && request.path != controllers.agent.routes.RepresentationController.viewClientProperties().url) {
+            @if(config.searchSortEnabled && request.path != controllers.agent.routes.RepresentationController.viewClientProperties().url) {
                 @tab("clientProperties", controllers.agent.routes.RepresentationController.viewClientPropertiesSearchSort().url)
             }else{
                 @tab("clientProperties", controllers.agent.routes.RepresentationController.viewClientProperties().url)
             }
         }
-        @if(searchSortEnabled && request.path != routes.Dashboard.manageProperties().url) {
+        @if(config.searchSortEnabled && request.path != routes.Dashboard.manageProperties().url) {
             @tab("myProperties", routes.Dashboard.managePropertiesSearchSort().url)
         }else{
             @tab("myProperties", routes.Dashboard.manageProperties().url)
@@ -38,7 +38,7 @@
         @tab("manageAgents", routes.Dashboard.manageAgents().url)
         @tab("drafts", routes.Dashboard.viewDraftCases().url)
         @tab("editDetails", controllers.manageDetails.routes.ViewDetails.show().url)
-        @if(messagesEnabled) {
+        @if(config.messagesEnabled) {
             @if(unreadMessagesCount == 0){
             @tab("messages.none", routes.Dashboard.viewMessages().url)
         } else {

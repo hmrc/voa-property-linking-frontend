@@ -31,7 +31,7 @@ class RepresentationControllerSpec extends ControllerSpec {
   lazy val request = FakeRequest().withSession(token)
 
   object TestRepresentationController extends RepresentationController(
-    app.injector.instanceOf[ApplicationConfig],
+
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,

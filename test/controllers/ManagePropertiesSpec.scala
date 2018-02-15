@@ -218,7 +218,7 @@ class ManagePropertiesSpec extends ControllerSpec {
   }
 
   private object TestDashboardController extends Dashboard(
-    app.injector.instanceOf[ApplicationConfig],
+
     mock[DraftCases],
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),

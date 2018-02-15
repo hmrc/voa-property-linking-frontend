@@ -19,6 +19,7 @@ package controllers
 import javax.inject.{Inject, Named}
 
 import auth.VoaAction
+import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, VPLAuthConnector, IdentityVerification => IDV}
 import form.Mappings._
 import form.TextMatching
@@ -26,6 +27,7 @@ import models.{Address, IndividualAccountSubmission, PersonalDetails}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
+import play.api.i18n.MessagesApi
 import repositories.SessionRepo
 import views.helpers.Errors
 
@@ -37,6 +39,7 @@ class CreateGroupAccount @Inject()(groups: GroupAccounts,
                                    identityVerification: IDV,
                                    addresses: Addresses,
                                    @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
+                                  (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
   def show = ggAction.async(true) { _ => implicit request =>

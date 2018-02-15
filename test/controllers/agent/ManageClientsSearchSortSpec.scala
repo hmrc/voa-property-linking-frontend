@@ -217,7 +217,7 @@ class ManageClientsSearchSortSpec extends ControllerSpec {
   }
 
   object TestController extends RepresentationController(
-    app.injector.instanceOf[ApplicationConfig],
+
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,

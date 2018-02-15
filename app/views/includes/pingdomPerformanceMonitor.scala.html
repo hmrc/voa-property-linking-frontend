@@ -14,12 +14,12 @@
  * limitations under the License.
  *@
 
-@import config.ApplicationConfig.config._
-@()
+@import config.ApplicationConfig
+@()(implicit config: ApplicationConfig)
 <!-- Javascript -->
-@if(pingdomToken.isDefined){
+@if(config.pingdomToken.isDefined){
     <script>
-            var _prum = [['id', '@pingdomToken.get'],
+            var _prum = [['id', '@config.pingdomToken.get'],
                 ['mark', 'firstbyte', (new Date()).getTime()]];
             (function() {
                 var s = document.getElementsByTagName('script')[0]

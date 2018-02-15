@@ -27,5 +27,6 @@ object PropertyAddress {
   def fromString(str: String) = str.split(",").toList.reverse match {
     case s :: Nil => PropertyAddress(Nil, s)
     case postCode :: reversedLines=> PropertyAddress(reversedLines.reverse, postCode)
+    case _ => throw new Exception("Invalid address.")
   }
 }

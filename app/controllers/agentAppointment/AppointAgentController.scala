@@ -31,6 +31,7 @@ import models.searchApi.OwnerAgent
 import play.api.data.Forms._
 import play.api.data.validation.Constraint
 import play.api.data.{FieldMapping, Form, FormError, Mapping}
+import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import repositories.SessionRepo
@@ -40,13 +41,13 @@ import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
 import scala.concurrent.Future
 
-class AppointAgentController @Inject() (config: ApplicationConfig,
-                                        representations: PropertyRepresentationConnector,
+class AppointAgentController @Inject() (representations: PropertyRepresentationConnector,
                                         accounts: GroupAccounts,
                                         propertyLinks: PropertyLinkConnector,
                                         agentsConnector: AgentsConnector,
                                         authenticated: AuthenticatedAction,
                                         @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
+                                       (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
   def appoint(linkId: Long) = authenticated { implicit request =>

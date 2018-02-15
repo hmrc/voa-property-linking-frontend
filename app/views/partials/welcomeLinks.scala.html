@@ -15,9 +15,9 @@
  *@
 
 @import actions.AuthenticatedRequest
-@import config.ApplicationConfig.config._
+@import config.ApplicationConfig
 
-@(unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 <div class="userStatus">
     <span class="userStatus--name">Welcome,
@@ -39,7 +39,7 @@
 
 </div>
 
-@if(messagesEnabled) {
+@if(config.messagesEnabled) {
     <div id="unread-message-count" class="clearfix pull-right margin-top-5 margin-bottom-20 font-xsmall">
         <i class="icon icon-messageunread"></i>
         @if(unreadMessagesCount == 0){

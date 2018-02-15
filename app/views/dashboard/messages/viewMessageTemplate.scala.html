@@ -16,10 +16,9 @@
 
 @import models.messages.Message
 @import actions.AuthenticatedRequest
+@import config.ApplicationConfig
 
-@import config.ApplicationConfig.config
-
-@(message: Message)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(message: Message)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @checkSummaryUrl(message: Message) = @{
     Some(config.businessRatesCheckUrl(s"check-case/summary/${message.caseReference}"))

@@ -15,10 +15,10 @@
  *@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
-
 @import controllers.agent.RepresentationController
+@import config.ApplicationConfig
 
-@(f: Form[RepresentationBulkAction], model: RepresentationController.ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
+@(f: Form[RepresentationBulkAction], model: RepresentationController.ManagePropertiesVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @numberOfBusinesses = @{model.propertyRepresentations
         .filter(r => model.requestIds.getOrElse(Nil).contains(r.submissionId))

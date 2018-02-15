@@ -41,7 +41,6 @@ class DashboardSpec extends ControllerSpec {
   }
 
   object TestDashboard extends Dashboard(
-    app.injector.instanceOf[ApplicationConfig],
     mockDraftCases,
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),

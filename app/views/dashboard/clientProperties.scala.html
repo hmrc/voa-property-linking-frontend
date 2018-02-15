@@ -15,7 +15,9 @@
  *@
 
 @import utils.Formatters
-@(model: ClientPropertiesVM)(implicit request: Request[_], messages: Messages)
+@import config.ApplicationConfig
+
+@(model: ClientPropertiesVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     Messages("dashboard.clientProperties.title"),

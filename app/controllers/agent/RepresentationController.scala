@@ -28,6 +28,7 @@ import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController,
 import models._
 import models.searchApi.AgentAuthResult
 import play.api.data.Forms.mapping
+import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, Result}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -36,11 +37,11 @@ import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
 
 @Singleton()
-class RepresentationController @Inject()(config: ApplicationConfig,
-                                         reprConnector: PropertyRepresentationConnector,
+class RepresentationController @Inject()(reprConnector: PropertyRepresentationConnector,
                                          authenticated: AuthenticatedAction,
                                          propertyLinkConnector: PropertyLinkConnector,
                                          messagesConnector: MessagesConnector)
+                                        (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
   def viewClientProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true) =

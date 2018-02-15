@@ -32,7 +32,7 @@ class ManageAgentSpec extends ControllerSpec {
   implicit val request = FakeRequest()
 
   object TestDashboardController extends Dashboard(
-    app.injector.instanceOf[ApplicationConfig],
+
     mock[DraftCases],
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),

@@ -15,9 +15,10 @@
  *@
 
 @import actions.AuthenticatedRequest
+@import config.ApplicationConfig
 
 @(individualAccount: DetailedIndividualAccount, organisationAccount: GroupAccount,
-        personalAddress: Address, businessAddress: Address, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+        personalAddress: Address, businessAddress: Address, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     Messages("viewDetails.title"),

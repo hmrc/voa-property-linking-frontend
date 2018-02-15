@@ -15,8 +15,9 @@
  *@
 
 @import actions.AuthenticatedRequest
+@import config.ApplicationConfig
 
-@(model: ManageAgentsVM, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: ManageAgentsVM, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{ Messages("dashboard.manageAgents.title") }
 

@@ -18,6 +18,7 @@ package controllers.agent
 
 import config.ApplicationConfig
 import connectors.Authenticated
+import controllers.{ControllerSpec, TemplateSpec}
 import models._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -31,24 +32,9 @@ import utils._
 
 import scala.collection.JavaConverters._
 
-class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout
-  with BeforeAndAfterEach with AppendedClues with MockitoSugar with BeforeAndAfterAll with NoMetricsOneAppPerSuite {
+class ManageClientsSpec extends ControllerSpec {
 
   override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false", "featureFlags.enrolment" -> "false")
-
-  val token = "Csrf-Token" -> "nocheck"
-
-  override protected def beforeEach(): Unit = {
-    StubIndividualAccountConnector.reset()
-    StubGroupAccountConnector.reset()
-    StubAuthConnector.reset()
-    StubIdentityVerification.reset()
-    StubPropertyLinkConnector.reset()
-    StubAuthentication.reset()
-    StubBusinessRatesValuation.reset()
-    StubSubmissionIdConnector.reset()
-    StubPropertyRepresentationConnector.reset()
-  }
 
   lazy val defaultHtml = {
     setup()
@@ -235,7 +221,6 @@ class ManageClientsSpec extends FlatSpec with MustMatchers with FutureAwaits wit
   }
 
   private object TestController extends RepresentationController(
-    app.injector.instanceOf[ApplicationConfig],
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,

@@ -17,7 +17,7 @@
 package views.dashboard
 
 import actions.{AuthenticatedRequest, BasicAuthenticatedRequest}
-import controllers.{ControllerSpec, ManagePropertiesVM, Pagination, routes}
+import controllers._
 import models.{DetailedIndividualAccount, GroupAccount, PropertyLink}
 import org.jsoup.Jsoup
 import play.api.test.FakeRequest
@@ -25,12 +25,11 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import resources._
 import utils.HtmlPage
-import play.api.i18n.Messages.Implicits._
 import views.html.dashboard.manageProperties
 
 import scala.collection.JavaConverters._
 
-class ManagePropertiesPageSpec extends ControllerSpec {
+class ManagePropertiesPageSpec extends TemplateSpec {
 
   override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false")
 

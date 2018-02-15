@@ -21,24 +21,21 @@ import javax.inject.Inject
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import cats.data.OptionT
 import cats.implicits._
+import config.ApplicationConfig
 import connectors.{Addresses, MessagesConnector, VPLAuthConnector}
 import controllers.PropertyLinkingController
 import models.{Address, DetailedIndividualAccount}
-import play.api.i18n.Messages
+import play.api.i18n.{Messages, MessagesApi}
 import play.api.mvc.{AnyContent, Result, Results}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.auth.core.AffinityGroup._
-import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 
-import scala.concurrent.Future
-
-class ViewDetails @Inject()(
-                             addressesConnector: Addresses,
+class ViewDetails @Inject()(addressesConnector: Addresses,
                              authenticated: AuthenticatedAction,
                              messagesConnector: MessagesConnector,
                              authConnector: VPLAuthConnector,
                              details: Details
-                           ) extends PropertyLinkingController {
+                           ) (implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
   def show() = authenticated { implicit request =>
     val person = request.individualAccount
@@ -67,7 +64,7 @@ trait Details extends Results {
           (implicit request: BasicAuthenticatedRequest[AnyContent], messages: Messages): Result
 }
 
-class NonEnrolmentDetails extends Details {
+class NonEnrolmentDetails @Inject()(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends Details {
 
   def view(
             affinityGroup: AffinityGroup,
@@ -80,7 +77,7 @@ class NonEnrolmentDetails extends Details {
   }
 }
 
-class EnrolmentDetails extends Details {
+class EnrolmentDetails @Inject()(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends Details {
 
   def view(
             affinityGroup: AffinityGroup,

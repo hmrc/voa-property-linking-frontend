@@ -35,7 +35,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class ViewAssessmentSpec extends ControllerSpec with OptionValues {
 
-  private object TestAssessmentController extends Assessments(app.injector.instanceOf[ApplicationConfig], StubPropertyLinkConnector,
+  private object TestAssessmentController extends Assessments( StubPropertyLinkConnector,
     StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation)
 
   lazy val mockDvrCaseManagement = {

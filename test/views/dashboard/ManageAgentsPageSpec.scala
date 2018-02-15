@@ -16,20 +16,18 @@
 
 package views.dashboard
 import actions.AgentRequest
-import controllers.{AgentInfo, ControllerSpec, ManageAgentsVM, routes}
+import controllers._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import play.api.i18n.Messages.Implicits._
 import play.api.test.FakeRequest
 import resources._
 import utils.HtmlPage
 
 import scala.collection.JavaConverters._
 
-class ManageAgentsPageSpec extends ControllerSpec {
+class ManageAgentsPageSpec extends TemplateSpec {
 
   override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false")
-
 
   "The manage agents page" must "show a message stating that no agents have been appointed if the user has no agents" in  {
     val html = views.html.dashboard.manageAgents(noAgents, 0)

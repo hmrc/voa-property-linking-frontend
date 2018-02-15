@@ -16,9 +16,13 @@
 
 package controllers
 
+import javax.inject.Inject
+
+import config.ApplicationConfig
+import play.api.i18n.MessagesApi
 import play.api.mvc.Action
 
-object LinkErrors extends PropertyLinkingController {
+class LinkErrors @Inject()(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def manualVerificationRequired() = Action { implicit request =>
     Ok(views.html.linkErrors.manualVerificationRequired())
@@ -26,10 +30,6 @@ object LinkErrors extends PropertyLinkingController {
 
   def conflict() = Action { implicit request =>
     Ok(views.html.linkErrors.conflict())
-  }
-
-  def postcodeVerificationRequired() = Action { implicit request =>
-    Ok(views.html.linkErrors.manualVerificationRequired())
   }
 
 }
