@@ -64,9 +64,6 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
 
 }
 
-object ApplicationConfig {
-
-  val config: ApplicationConfig = Play.current.injector.instanceOf[ApplicationConfig]
-}
+object ApplicationConfig
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")

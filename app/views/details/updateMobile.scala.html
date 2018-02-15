@@ -17,9 +17,10 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 @import _root_.template.FormSupport._
-
+@import config.ApplicationConfig
 @import controllers.manageDetails.UpdateDetailsVM
-@(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages)
+
+@(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     Messages("updateMobile.title"),

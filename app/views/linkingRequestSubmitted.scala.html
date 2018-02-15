@@ -15,8 +15,9 @@
  *@
 
 @import controllers.propertyLinking.RequestSubmittedVM
+@import config.ApplicationConfig
 
-@(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages)
+@(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("linkingRequestSubmitted.title1") + " " + model.address.toString + " " + Messages("linkingRequestSubmitted.title2"),

@@ -16,8 +16,9 @@
 
 @import actions.AuthenticatedRequest
 @import utils.Formatters
+@import config.ApplicationConfig
 
-@(model: controllers.ManagedPropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: controllers.ManagedPropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("dashboard.managedByAgentsProperties.title", model.agentName),

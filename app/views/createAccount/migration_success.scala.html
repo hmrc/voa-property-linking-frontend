@@ -14,7 +14,9 @@
  * limitations under the License.
  *@
 
-@(id: String)(implicit request: Request[_], messages: Messages)
+@import config.ApplicationConfig
+
+@(id: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(Messages("account.confirmation.title"), topNavigation = false) {
 <div class="grid-row">

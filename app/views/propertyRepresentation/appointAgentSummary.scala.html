@@ -15,8 +15,9 @@
  *@
 
 @import actions.AuthenticatedRequest
+@import config.ApplicationConfig
 
-@()(implicit request: AuthenticatedRequest[_], messages: Messages)
+@()(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{ Messages("dashboard.appointAgentProperties.heading") }
 

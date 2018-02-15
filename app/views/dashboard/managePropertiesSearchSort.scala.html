@@ -16,10 +16,9 @@
 
 @import actions.AuthenticatedRequest
 @import utils.Formatters
-@import config.ApplicationConfig.config._
+@import config.ApplicationConfig
 
-
-@(model: controllers.ManagePropertiesSearchAndSortVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: controllers.ManagePropertiesSearchAndSortVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
     @heading = @{
         Messages("dashboard.manageProperties.title")
@@ -39,7 +38,7 @@
 
         <p class="margin-top-20"><a href="@controllers.propertyLinking.routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
 
-        @if(agentMultipleAppointEnabled){
+        @if(config.agentMultipleAppointEnabled){
             <p class="margin-top-20"><a href="@agentAppointment.routes.AppointAgentController.appointMultipleProperties()" id="appointAgent">@Messages("manageProperties.appointAgent")</a></p>
         }
 
@@ -158,7 +157,7 @@
                                     </td>
                                     <td>
                                         <ul class="list">
-                                            @if(!agentMultipleAppointEnabled) {
+                                            @if(!config.agentMultipleAppointEnabled) {
                                                 <li>
                                                     @if(p.status.toLowerCase == "approved" || p.status.toLowerCase == "pending") {
                                                         <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.appointAgent")

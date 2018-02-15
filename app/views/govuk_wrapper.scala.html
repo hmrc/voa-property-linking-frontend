@@ -14,11 +14,10 @@
  * limitations under the License.
  *@
 
-@import config.ApplicationConfig.config._
-@import models.Accounts._
 @import uk.gov.hmrc.http.SessionKeys
 @import actions._
 @import session._
+@import config.ApplicationConfig
 
 @(title: String,
   mainClass: Option[String] = None,
@@ -32,7 +31,7 @@
   scriptElem: Option[Html] = None,
   showLogout: Boolean = true,
   topNavigation: Boolean = true,
-  individualId: Option[Long] = None)(implicit request: RequestHeader, messages: Messages)
+  individualId: Option[Long] = None)(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
 
 @import layouts.{govuk_template => hmrcGovUkTemplate}
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
@@ -61,48 +60,48 @@
 @betaBanner = {
     @uiLayouts.betaBanner(
         userLoggedIn = false,
-        betaFeedbackUrl = businessRatesValuationUrl("send-beta-feedback"),
-        betaFeedbackUnauthenticatedUrl = businessRatesValuationUrl("send-beta-feedback"),
+        betaFeedbackUrl = config.businessRatesValuationUrl("send-beta-feedback"),
+        betaFeedbackUnauthenticatedUrl = config.businessRatesValuationUrl("send-beta-feedback"),
         showFeedbackLinkInBetaBanner = true
     )
 }
 
 @analyticsAdditionalJs = {
-    ga('set', '@voaPersonID', '@individualId');
+    ga('set', '@config.voaPersonID', '@individualId');
 
-    @if(loggedInUser.isDefined) {
+    @if(config.loggedInUser.isDefined) {
         @if(request.session.get(SessionKeys.userId)){
-            ga('set', '@loggedInUser.get', 'YES');
+            ga('set', '@config.loggedInUser.get', 'YES');
         }else{
-            ga('set', '@loggedInUser.get', 'NO');
+            ga('set', '@config.loggedInUser.get', 'NO');
         }
     }
 
-    @if(isAgentLoggedIn.isDefined){
+    @if(config.isAgentLoggedIn.isDefined){
         @request match {
             case agentRequest: AuthenticatedRequest[_] => {
                 @if(agentRequest.organisationAccount.isAgent) {
-                    ga('set', '@isAgentLoggedIn.get', 'YES');
+                    ga('set', '@config.isAgentLoggedIn.get', 'YES');
                 }else {
-                    ga('set', '@isAgentLoggedIn.get', 'NO');
+                    ga('set', '@config.isAgentLoggedIn.get', 'NO');
                 } }
 
             case linkingRequest: LinkingSessionRequest[_] => {
                 @if(linkingRequest.groupAccount.isAgent) {
-                    ga('set', '@isAgentLoggedIn.get', 'YES');
+                    ga('set', '@config.isAgentLoggedIn.get', 'YES');
                 }else {
-                    ga('set', '@isAgentLoggedIn.get', 'NO');
+                    ga('set', '@config.isAgentLoggedIn.get', 'NO');
                 } }
 
-            case _ => { ga('set', '@isAgentLoggedIn.get', 'NO');}
+            case _ => { ga('set', '@config.isAgentLoggedIn.get', 'NO');}
         }
     }
 }
 
 @bodyEnd = {
     @uiLayouts.footer(
-      analyticsToken = Some(analyticsToken),
-      analyticsHost = analyticsHost,
+      analyticsToken = Some(config.analyticsToken),
+      analyticsHost = config.analyticsHost,
       ssoUrl = None,
       scriptElem =  scriptElem,
       gaCalls = None,
@@ -115,7 +114,7 @@
 }
 
 @banner = {
-    @bannerContent.map { content =>
+    @config.bannerContent.map { content =>
         <div class="notification-banner">
             <p>@Html(content)</p>
         </div>

@@ -17,8 +17,9 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 @import controllers.propertyLinking._
+@import config.ApplicationConfig
 
-@(model: UploadRatesBillVM)(implicit request: Request[_], messages: Messages)
+@(model: UploadRatesBillVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
     @main_template(title = Messages("uploadRatesBill.show.title"),
         topBackLink = true, bottomBackLink = true) {

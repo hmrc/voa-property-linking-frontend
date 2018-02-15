@@ -18,9 +18,9 @@
 @import helpers._
 @import models.AgentPermission
 @import controllers.agentAppointment.AppointAgentVM
-@import config.ApplicationConfig.config._
+@import config.ApplicationConfig
 
-@(model: AppointAgentVM)(implicit request: Request[_], messages: Messages)
+@(model: AppointAgentVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @main_template(
@@ -49,7 +49,7 @@
 
             <p>@Messages("propertyRepresentation.appointAgent.message.2")</p>
 
-            @if(agentMultipleAppointEnabled){
+            @if(config.agentMultipleAppointEnabled){
                 @form(agentAppointment.routes.AppointAgentController.selectProperties()) {
                     @formBody
                 }

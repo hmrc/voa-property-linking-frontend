@@ -27,17 +27,17 @@ import controllers.PropertyLinkingController
 import form.Mappings._
 import models._
 import play.api.data.{Form, FormError, Forms}
+import play.api.i18n.MessagesApi
 import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
 import views.html.propertyLinking.declaration
 
 @Singleton
-class Declaration @Inject()(config: ApplicationConfig,
-                            envelopes: EnvelopeConnector,
+class Declaration @Inject()(envelopes: EnvelopeConnector,
                             fileUploads: FileUploadConnector,
                             propertyLinks: PropertyLinkConnector,
                             @Named("propertyLinkingSession") sessionRepository: SessionRepo,
-                            withLinkingSession: WithLinkingSession)
+                            withLinkingSession: WithLinkingSession)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
   def show(noEvidenceFlag: Option[Boolean] = None) = withLinkingSession { implicit request =>

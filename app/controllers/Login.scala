@@ -17,10 +17,11 @@
 package controllers
 
 import javax.inject.Inject
-import config.ApplicationConfig
-import play.api.mvc.Action
 
-class Login @Inject()(config: ApplicationConfig) extends PropertyLinkingController {
+import config.ApplicationConfig
+import play.api.mvc.{Action, Controller}
+
+class Login @Inject()(config: ApplicationConfig) extends Controller {
 
   val continue = if (config.enrolmentEnabled){
     Map("continue" -> Seq(config.ggContinueUrl), "origin" -> Seq("voa"))

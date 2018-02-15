@@ -18,13 +18,16 @@ package controllers.propertyLinking
 
 import javax.inject.Inject
 
+import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.i18n.MessagesApi
 import session.WithLinkingSession
 
-class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession) extends PropertyLinkingController {
+class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession)
+                               (implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def show = withLinkingSession { implicit request =>
     Ok(views.html.propertyLinking.chooseEvidence(ChooseEvidence.form))

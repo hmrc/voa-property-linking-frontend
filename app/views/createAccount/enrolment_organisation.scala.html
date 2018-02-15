@@ -19,7 +19,9 @@
 @import models.enrolment.CreateEnrolmentOrganisationAccountVM
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import models.enrolment.FieldData
-@(model: CreateEnrolmentOrganisationAccountVM, organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages)
+@import config.ApplicationConfig
+
+@(model: CreateEnrolmentOrganisationAccountVM, organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @main_template(title = Messages("enrolment.title"), topNavigation = false) {

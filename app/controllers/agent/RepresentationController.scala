@@ -28,6 +28,7 @@ import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController,
 import models._
 import models.searchApi.AgentAuthResult
 import play.api.data.Forms.mapping
+import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, Result}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -36,11 +37,11 @@ import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
 
 @Singleton()
-class RepresentationController @Inject()(config: ApplicationConfig,
-                                         reprConnector: PropertyRepresentationConnector,
+class RepresentationController @Inject()(reprConnector: PropertyRepresentationConnector,
                                          authenticated: AuthenticatedAction,
                                          propertyLinkConnector: PropertyLinkConnector,
                                          messagesConnector: MessagesConnector)
+                                        (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
   def viewClientProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true) =
@@ -61,20 +62,24 @@ class RepresentationController @Inject()(config: ApplicationConfig,
         address = address,
         baref = baref,
         client = client
-      ) { paginationSearchSort =>
+      ) { paginationSearchSort => {
+        val eventualRepresentations = reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
+        val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
+
         for {
-          reprs <- reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
-          msgCount <- messagesConnector.countUnread(request.organisationId)
+          representations <- eventualRepresentations
+          msgCount <- eventualMessageCount
         } yield {
           Ok(views.html.dashboard.manageClientsSearchSort(
             ManageClientPropertiesSearchAndSortVM(
-              result = reprs,
-              totalPendingRequests = reprs.pendingRepresentations,
-              pagination = paginationSearchSort.copy(totalResults = reprs.filterTotal)
+              result = representations,
+              totalPendingRequests = representations.pendingRepresentations,
+              pagination = paginationSearchSort.copy(totalResults = representations.filterTotal)
             ),
             msgCount.unread
           ))
         }
+      }
       }
     } else {
       withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
@@ -116,8 +121,8 @@ class RepresentationController @Inject()(config: ApplicationConfig,
       baref = baref,
       client = client
     ) { pagination =>
-          reprConnector.forAgentSearchAndSort(request.organisationId, pagination) map { res =>
-           Ok(Json.toJson(res))
+      reprConnector.forAgentSearchAndSort(request.organisationId, pagination) map { res =>
+        Ok(Json.toJson(res))
       }
     }
   }
@@ -130,14 +135,14 @@ class RepresentationController @Inject()(config: ApplicationConfig,
             request.organisationId,
             pagination.copy(pageNumber = pagination.pageNumber - 1)).map { reprs =>
 
-              Ok(views.html.dashboard.pendingPropertyRepresentations(
-                BulkActionsForm.form,
-                ManagePropertiesVM(
-                  reprs.propertyRepresentations,
-                  reprs.totalPendingRequests,
-                  pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
-                )
-              ))
+            Ok(views.html.dashboard.pendingPropertyRepresentations(
+              BulkActionsForm.form,
+              ManagePropertiesVM(
+                reprs.propertyRepresentations,
+                reprs.totalPendingRequests,
+                pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
+              )
+            ))
           }
         } else {
           Ok(views.html.dashboard.pendingPropertyRepresentations(
@@ -175,7 +180,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
             reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>
               val futureListOfSuccesses = getFutureListOfActions(data, request.personId).map(_.filter(_.isSuccess))
               futureListOfSuccesses.map(successes =>
-                  routePendingRequests(successes.size, data.copy(action = "accept-confirm"), pagination, reprs)(request))
+                routePendingRequests(successes.size, data.copy(action = "accept-confirm"), pagination, reprs)(request))
             }
           }
         }
@@ -246,7 +251,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
                                    data: RepresentationBulkAction,
                                    pagination: Pagination,
                                    reprs: PropertyRepresentations,
-                                   afterCancel:Boolean = false)(implicit request: AgentRequest[_]): Result = {
+                                   afterCancel: Boolean = false)(implicit request: AgentRequest[_]): Result = {
     def getModel = {
       ManagePropertiesVM(
         propertyRepresentations = reprs.propertyRepresentations,
@@ -261,19 +266,19 @@ class RepresentationController @Inject()(config: ApplicationConfig,
         afterCancel = afterCancel)
     }
 
-    if(data.action.toLowerCase == "accept-confirm") {
+    if (data.action.toLowerCase == "accept-confirm") {
       Ok(views.html.propertyRepresentation.requestAccepted(
         BulkActionsForm.form,
         getModel))
-    } else if(data.action.toLowerCase == "reject-confirm") {
+    } else if (data.action.toLowerCase == "reject-confirm") {
       Ok(views.html.propertyRepresentation.requestRejected(
         BulkActionsForm.form,
         getModel))
-    } else if(reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size > 0) {
+    } else if (reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size > 0) {
       Ok(views.html.dashboard.pendingPropertyRepresentations(
         BulkActionsForm.form,
         getModel))
-    } else if(reprs.totalPendingRequests > 0) {
+    } else if (reprs.totalPendingRequests > 0) {
       Redirect(routes.RepresentationController.pendingRepresentationRequest(
         Math.max(1, pagination.pageNumber - 1), pagination.pageSize))
     } else {
@@ -281,7 +286,7 @@ class RepresentationController @Inject()(config: ApplicationConfig,
     }
   }
 
-  private def getFutureListOfActions(data: RepresentationBulkAction, personId: Long)(implicit hc:HeaderCarrier) = {
+  private def getFutureListOfActions(data: RepresentationBulkAction, personId: Long)(implicit hc: HeaderCarrier) = {
     def futureToFutureTry(f: Future[Unit]): Future[Try[Unit]] = f.map(Success(_)).recover({ case x => Failure(x) })
 
     val actionType =

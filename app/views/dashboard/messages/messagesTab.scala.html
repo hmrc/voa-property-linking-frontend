@@ -17,9 +17,10 @@
 @import models.messages._
 @import java.time.format.DateTimeFormatter
 @import actions.AuthenticatedRequest
+@import config.ApplicationConfig
 
 @(results: MessageSearchResults, pagination: MessagePagination,
-        unreadCount: Int, numberOfPages: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+        unreadCount: Int, numberOfPages: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{ Messages("messages.title") }
 

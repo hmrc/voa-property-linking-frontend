@@ -19,9 +19,10 @@ package controllers
 import config.{ApplicationConfig, Global}
 import play.api.mvc.Action
 import com.google.inject.Inject
+import play.api.i18n.MessagesApi
 
 
-class DowntimePage @Inject()(config: ApplicationConfig) extends PropertyLinkingController {
+class DowntimePage @Inject()()(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def plannedImprovements() = Action { implicit request =>
     if (config.downtimePageEnabled) {

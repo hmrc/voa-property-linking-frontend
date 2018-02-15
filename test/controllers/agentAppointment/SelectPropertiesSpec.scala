@@ -91,7 +91,6 @@ class SelectPropertiesSpec extends ControllerSpec {
   }
 
   private object TestAppointAgentController extends AppointAgentController(
-    app.injector.instanceOf[ApplicationConfig],
     mock[PropertyRepresentationConnector],
     mock[GroupAccounts],
     StubPropertyLinkConnector,

@@ -17,11 +17,13 @@
 package controllers
 
 import javax.inject.Inject
+
 import connectors.Addresses
+import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent}
 
-class AddressLookup @Inject()(addresses: Addresses) extends PropertyLinkingController {
+class AddressLookup @Inject()(addresses: Addresses)(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
   def findByPostcode(postcode: String): Action[AnyContent] = Action.async { implicit request =>
       addresses.findByPostcode(postcode.trim) map { res =>
         if (res.isEmpty) {

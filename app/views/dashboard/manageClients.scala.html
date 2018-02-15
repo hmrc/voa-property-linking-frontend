@@ -16,8 +16,9 @@
 
 @import controllers.agent.RepresentationController.ManagePropertiesVM
 @import actions.AuthenticatedRequest
+@import config.ApplicationConfig
 
-@(model: ManagePropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: ManagePropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{ Messages("agent.dashboard.manageClients.title") }
 

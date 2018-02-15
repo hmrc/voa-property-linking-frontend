@@ -26,7 +26,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.config.ServicesConfig
 
-object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation, StubAuthImpl, null, null) { //TODO mock these things
+object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation, StubAuthImpl, null, null)(null, null) { //TODO mock these things
   def stubAuthenticationResult(result: AuthorisationResult) = {
     StubBusinessRatesAuthorisation.authorisationResult = result
   }

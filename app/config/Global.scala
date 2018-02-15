@@ -30,8 +30,8 @@ import com.typesafe.config.Config
 import connectors.VPLAuthConnector
 import controllers.manageDetails.{Details, EnrolmentDetails, NonEnrolmentDetails}
 import net.ceedubs.ficus.Ficus._
-import play.api.Play.current
 import play.api._
+import play.api.i18n.{Lang, Messages, MessagesApi}
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.modules.reactivemongo.ReactiveMongoComponent
@@ -53,8 +53,12 @@ object Global extends VPLFrontendGlobal
 
 trait VPLFrontendGlobal extends DefaultFrontendGlobal {
 
+  implicit lazy val appConfig = Play.current.injector.instanceOf[ApplicationConfig]
+  implicit lazy val messageApi = Play.current.injector.instanceOf[MessagesApi]
+  implicit lazy val messages = messageApi.preferred(Seq(Lang.defaultLang))
+
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html = {
-    views.html.errors.error(pageTitle, heading, message)(request, applicationMessages)
+    views.html.errors.error(pageTitle, heading, message)(request, messages, appConfig)
   }
 
   override def internalServerErrorTemplate(implicit request: Request[_]): Html = {
@@ -67,7 +71,9 @@ trait VPLFrontendGlobal extends DefaultFrontendGlobal {
   }
 
   private def extractErrorReference(request: Request[_]): Option[String] = {
-    request.headers.get(HeaderNames.xRequestId) map { _.split("-")(2) }
+    request.headers.get(HeaderNames.xRequestId) map {
+      _.split("-")(2)
+    }
   }
 
   def auditConnector: uk.gov.hmrc.play.audit.http.connector.AuditConnector = AuditServiceConnector
@@ -117,6 +123,7 @@ class GuiceModule(environment: Environment,
         bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithoutEnrolments])
       }
     }
+
     bind(classOf[AuditingService]).toInstance(AuditingService)
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
@@ -137,11 +144,11 @@ class AuthConnectorImpl @Inject()(val http: WSHttp) extends PlayAuthConnector wi
   override val serviceUrl: String = baseUrl("auth")
 }
 
-class MongoDbProvider @Inject() (reactiveMongoComponent: ReactiveMongoComponent) extends Provider[DB] {
+class MongoDbProvider @Inject()(reactiveMongoComponent: ReactiveMongoComponent) extends Provider[DB] {
   def get = reactiveMongoComponent.mongoConnector.db()
 }
 
-class CircuitBreakerConfigProvider @Inject() (config: Configuration) extends Provider[CircuitBreakerConfig] {
+class CircuitBreakerConfigProvider @Inject()(config: Configuration) extends Provider[CircuitBreakerConfig] {
   override def get(): CircuitBreakerConfig = {
     val serviceName = config.getString("circuitBreaker.serviceName").getOrElse("file-upload-frontend")
     val numberOfCallsToTriggerChange = config.getInt("circuitBreaker.numberOfCallsToTriggerStateChange")

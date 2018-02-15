@@ -17,10 +17,12 @@
 @import actions.AuthenticatedRequest
 @import controllers.agentAppointment.AppointAgentPropertiesVM
 @import models.searchApi.{AgentPropertiesSortField,AgentPropertiesPagination}
+@import config.ApplicationConfig
+
 
 @(model: AppointAgentPropertiesVM,
          pagination: AgentPropertiesPagination
-         )(implicit request: AuthenticatedRequest[_], messages: Messages)
+         )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{ Messages("propertyRepresentation.appointAgentProperties.title") }
 

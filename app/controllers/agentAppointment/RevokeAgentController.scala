@@ -18,14 +18,17 @@ package controllers.agentAppointment
 
 import actions.AuthenticatedAction
 import javax.inject.Inject
+
+import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import models.Party
+import play.api.i18n.MessagesApi
 
 class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
                                       propertyLinks: PropertyLinkConnector,
-                                      representations: PropertyRepresentationConnector) extends PropertyLinkingController {
+                                      representations: PropertyRepresentationConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
     propertyLinks.get(request.organisationId, authorisationId) map {

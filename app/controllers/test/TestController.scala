@@ -26,19 +26,19 @@ import connectors.{ExternalId, GroupAccounts, IndividualAccounts, VPLAuthConnect
 import controllers.PropertyLinkingController
 import models.{GroupAccount, UpdatedOrganisationAccount}
 import models.test.TestUserDetails
+import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import services.{EnrolmentService, Failure, Success}
 
 import scala.util.Random
 
-class TestController @Inject()(
-                                authenticated: AuthenticatedAction,
+class TestController @Inject()(authenticated: AuthenticatedAction,
                                 enrolmentService: EnrolmentService,
                                 individualAccounts: IndividualAccounts,
                                 groups: GroupAccounts,
                                 emacConnector: EmacConnector,
                                 vPLAuthConnector: VPLAuthConnector
-                              ) extends PropertyLinkingController {
+                              )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
     Ok(Json.toJson(if (request.organisationAccount.isAgent) {

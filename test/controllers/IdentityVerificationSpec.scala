@@ -47,7 +47,7 @@ class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
 
   private object TestIdentityVerification extends IdentityVerification(StubGGAction, StubIdentityVerification, StubAddresses,
     StubIndividualAccountConnector, app.injector.instanceOf[IdentityVerificationProxyConnector], StubGroupAccountConnector,
-    StubAuthConnector, app.injector.instanceOf[ApplicationConfig], mockSessionRepo)
+    StubAuthConnector, mockSessionRepo)
 
   val request = FakeRequest()
   private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)

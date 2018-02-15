@@ -14,7 +14,9 @@
  * limitations under the License.
  *@
 
-@()(implicit request: Request[_], messages: Messages)
+@import config.ApplicationConfig
+
+@()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
     @main_template(Messages("iv.success.title"), topNavigation = false) {
         <div class="grid-row">

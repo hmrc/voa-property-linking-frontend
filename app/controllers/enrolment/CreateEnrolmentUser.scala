@@ -22,13 +22,14 @@ import actions.AuthenticatedAction
 import auth.VoaAction
 import cats.data.OptionT
 import cats.implicits._
-import config.Global
+import config.{ApplicationConfig, Global}
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import controllers.{GroupAccountDetails, PropertyLinkingController}
 import models._
 import models.enrolment._
 import play.api.Logger
 import play.api.data.Form
+import play.api.i18n.MessagesApi
 import play.api.mvc.{AnyContent, Request, Result}
 import services.email.EmailService
 import services.{EnrolmentService, Failure, Success}
@@ -37,8 +38,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class CreateEnrolmentUser @Inject()(
-                                     ggAction: VoaAction,
+class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
                                      groupAccounts: GroupAccounts,
                                      individualAccounts: IndividualAccounts,
                                      enrolmentService: EnrolmentService,
@@ -46,7 +46,7 @@ class CreateEnrolmentUser @Inject()(
                                      addresses: Addresses,
                                      emailService: EmailService,
                                      authenticatedAction: AuthenticatedAction
-                                   ) extends PropertyLinkingController {
+                                   )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def show() = ggAction.async(isSession = true) { ctx =>
     implicit request =>
@@ -133,7 +133,6 @@ class CreateEnrolmentUser @Inject()(
       acc         <- OptionT(groupAccounts.withGroupId(groupId))
       address    <- OptionT(addresses.findById(acc.addressId))
     } yield {
-      acc.phone
       new FieldData(postcode = address.postcode, email = acc.email)
     }
 
