@@ -56,43 +56,32 @@ class Dashboard @Inject()(draftCases: DraftCases,
   def managePropertiesSearchSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
                                  sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
                                  baref: Option[String] = None, agent: Option[String] = None) = authenticated { implicit request =>
-    if (config.searchSortEnabled) {
-      withValidPaginationSearchSort(
-        page = page,
-        pageSize = pageSize,
-        requestTotalRowCount = requestTotalRowCount,
-        sortfield = sortfield,
-        sortorder = sortorder,
-        status = status,
-        address = address,
-        baref = baref,
-        agent = agent
-      ) { paginationSearchSort =>
-        val eventualPropertyLinks = propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-        val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
+    withValidPaginationSearchSort(
+      page = page,
+      pageSize = pageSize,
+      requestTotalRowCount = requestTotalRowCount,
+      sortfield = sortfield,
+      sortorder = sortorder,
+      status = status,
+      address = address,
+      baref = baref,
+      agent = agent
+    ) { paginationSearchSort =>
+      val eventualPropertyLinks = propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
+      val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
 
-        for {
-          propertyLinks <- eventualPropertyLinks
-          msgCount <- eventualMessageCount
-        } yield {
-          Ok(views.html.dashboard.managePropertiesSearchSort(
-            ManagePropertiesSearchAndSortVM(
-              request.organisationAccount.id,
-              propertyLinks,
-              paginationSearchSort.copy(totalResults = propertyLinks.filterTotal)
-            ),
-            msgCount.unread
-          ))
-        }
-      }
-    } else {
-      withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
-        propertyLinks.linkedProperties(request.organisationId, pagination) map { response =>
-          Ok(views.html.dashboard.manageProperties(
-            ManagePropertiesVM(request.organisationAccount.id,
-              response.propertyLinks,
-              pagination.copy(totalResults = response.resultCount.getOrElse(0L)))))
-        }
+      for {
+        propertyLinks <- eventualPropertyLinks
+        msgCount <- eventualMessageCount
+      } yield {
+        Ok(views.html.dashboard.managePropertiesSearchSort(
+          ManagePropertiesSearchAndSortVM(
+            request.organisationAccount.id,
+            propertyLinks,
+            paginationSearchSort.copy(totalResults = propertyLinks.filterTotal)
+          ),
+          msgCount.unread
+        ))
       }
     }
   }
@@ -122,7 +111,7 @@ class Dashboard @Inject()(draftCases: DraftCases,
   }
 
   // TODO FIXME when feature goes live
-  def manageAgents() : Action[AnyContent] = {
+  def manageAgents(): Action[AnyContent] = {
     if (config.manageAgentsEnabled) {
       manageAgentsNew()
     } else {
@@ -161,11 +150,11 @@ class Dashboard @Inject()(draftCases: DraftCases,
       companyName = group.fold("No Name")(_.companyName) // impossible
       agentOrganisationId = group.map(_.id)
       authResult <- propertyLinks.linkedPropertiesSearchAndSort(
-                    request.organisationId,
-                    PaginationSearchSort(
-                      pageNumber = 1,
-                      pageSize = 1000,
-                      agent = group.map(_.companyName)))
+        request.organisationId,
+        PaginationSearchSort(
+          pageNumber = 1,
+          pageSize = 1000,
+          agent = group.map(_.companyName)))
 
       // keep only authorisations that have status Approved/Pending and are managed by this agent
       filteredAuths = authResult.authorisations.filter(auth =>
@@ -186,7 +175,7 @@ class Dashboard @Inject()(draftCases: DraftCases,
   }
 
   def viewMessages(pagination: MessagePagination) = authenticated { implicit request =>
-    if(config.messagesEnabled) {
+    if (config.messagesEnabled) {
       withValidMessagePagination(pagination) {
         for {
           count <- messagesConnector.countUnread(request.organisationId)
@@ -203,7 +192,7 @@ class Dashboard @Inject()(draftCases: DraftCases,
   }
 
   def viewMessage(messageId: String) = authenticated { implicit request =>
-    if(config.messagesEnabled) {
+    if (config.messagesEnabled) {
       for {
         message <- messagesConnector.getMessage(request.organisationId, messageId)
         _ <- messagesConnector.markAsRead(messageId, request.individualAccount.externalId)

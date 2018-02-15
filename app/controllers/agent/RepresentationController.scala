@@ -51,44 +51,34 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
   def viewClientPropertiesSearchSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
                                      sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
                                      baref: Option[String] = None, client: Option[String] = None) = authenticated.asAgent { implicit request =>
-    if (config.searchSortEnabled) {
-      withValidPaginationSearchSort(
-        page = page,
-        pageSize = pageSize,
-        requestTotalRowCount = requestTotalRowCount,
-        sortfield = sortfield,
-        sortorder = sortorder,
-        status = status,
-        address = address,
-        baref = baref,
-        client = client
-      ) { paginationSearchSort => {
-        val eventualRepresentations = reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
-        val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
+    withValidPaginationSearchSort(
+      page = page,
+      pageSize = pageSize,
+      requestTotalRowCount = requestTotalRowCount,
+      sortfield = sortfield,
+      sortorder = sortorder,
+      status = status,
+      address = address,
+      baref = baref,
+      client = client
+    ) { paginationSearchSort => {
+      val eventualRepresentations = reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
+      val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
 
-        for {
-          representations <- eventualRepresentations
-          msgCount <- eventualMessageCount
-        } yield {
-          Ok(views.html.dashboard.manageClientsSearchSort(
-            ManageClientPropertiesSearchAndSortVM(
-              result = representations,
-              totalPendingRequests = representations.pendingRepresentations,
-              pagination = paginationSearchSort.copy(totalResults = representations.filterTotal)
-            ),
-            msgCount.unread
-          ))
-        }
+      for {
+        representations <- eventualRepresentations
+        msgCount <- eventualMessageCount
+      } yield {
+        Ok(views.html.dashboard.manageClientsSearchSort(
+          ManageClientPropertiesSearchAndSortVM(
+            result = representations,
+            totalPendingRequests = representations.pendingRepresentations,
+            pagination = paginationSearchSort.copy(totalResults = representations.filterTotal)
+          ),
+          msgCount.unread
+        ))
       }
-      }
-    } else {
-      withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
-        reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
-          Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
-            reprs.totalPendingRequests,
-            pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
-        }
-      }
+    }
     }
   }
 

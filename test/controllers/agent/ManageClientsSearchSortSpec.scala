@@ -38,7 +38,7 @@ import scala.collection.JavaConverters._
 
 class ManageClientsSearchSortSpec extends ControllerSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "true", "featureFlags.enrolment" -> "false")
+  override val additionalAppConfig = Seq("featureFlags.enrolment" -> "false")
 
   lazy val defaultHtml = {
     setup()

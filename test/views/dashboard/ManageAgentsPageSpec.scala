@@ -27,8 +27,6 @@ import scala.collection.JavaConverters._
 
 class ManageAgentsPageSpec extends TemplateSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false")
-
   "The manage agents page" must "show a message stating that no agents have been appointed if the user has no agents" in  {
     val html = views.html.dashboard.manageAgents(noAgents, 0)
     val page = HtmlPage(html)
@@ -53,7 +51,7 @@ class ManageAgentsPageSpec extends TemplateSpec {
   it must "show the dashboard navigation tabs at the top of the screen" in {
     val tabs = manageAgentsPage.select(".section-tabs ul[role=tablist] li").asScala
     val expectedUrls = Seq(
-      routes.Dashboard.manageProperties().url,
+      routes.Dashboard.managePropertiesSearchSort().url,
       routes.Dashboard.manageAgents().url,
       routes.Dashboard.viewDraftCases().url,
       controllers.manageDetails.routes.ViewDetails.show().url,
