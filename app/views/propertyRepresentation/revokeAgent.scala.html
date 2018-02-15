@@ -14,7 +14,9 @@
  * limitations under the License.
  *@
 
-@(agentCode: Long, authorisationId: Long, authorisedPartyId: Long, agentName: String)(implicit request: Request[_], messages: Messages)
+@import config.ApplicationConfig
+
+@(agentCode: Long, authorisationId: Long, authorisedPartyId: Long, agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("propertyRepresentation.revokeAgent.title"),

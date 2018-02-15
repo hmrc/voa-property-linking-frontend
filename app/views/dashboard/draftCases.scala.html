@@ -16,8 +16,9 @@
 
 @import utils.Formatters._
 @import actions.AuthenticatedRequest
+@import config.ApplicationConfig
 
-@(model: DraftCasesVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: DraftCasesVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @detailedValuationUrl(draft: DraftCase) = @{
     routes.Assessments.viewDetailedAssessment(draft.propertyLinkId, draft.assessmentRef, draft.baRef)

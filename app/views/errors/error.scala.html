@@ -14,7 +14,9 @@
  * limitations under the License.
  *@
 
-@(title: String, heading: String, message: String)(implicit request: RequestHeader, messages: Messages)
+@import config.ApplicationConfig
+
+@(title: String, heading: String, message: String)(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
 
 
     @main_template(title = title, topNavigation = false) {

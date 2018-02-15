@@ -16,8 +16,9 @@
 
 @import actions.AuthenticatedRequest
 @import utils.Formatters
+@import config.ApplicationConfig
 
-@(model: controllers.ManagePropertiesSearchAndSortVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages)
+@(model: controllers.ManagePropertiesSearchAndSortVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
     @heading = @{
         Messages("dashboard.manageProperties.title")

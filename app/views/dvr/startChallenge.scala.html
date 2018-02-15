@@ -14,7 +14,8 @@
  * limitations under the License.
  *@
 
-@()(implicit request: Request[_], messages: Messages)
+@import config.ApplicationConfig
+@()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @formUrl = @{ "/business-rates-valuation/assets/downloads/Challenge your valuation.pdf" }
 @guidanceUrl = @{ "/business-rates-valuation/assets/downloads/Challenge your valuation guidance.pdf" }

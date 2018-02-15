@@ -177,7 +177,7 @@ class PendingRequestsSpec extends ControllerSpec {
   }
 
   private object TestRepresentationController extends RepresentationController(
-    app.injector.instanceOf[ApplicationConfig],
+
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,

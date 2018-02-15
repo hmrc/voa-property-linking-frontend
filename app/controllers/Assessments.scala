@@ -25,16 +25,15 @@ import connectors.propertyLinking.PropertyLinkConnector
 import form.EnumMapping
 import models._
 import play.api.data.{Form, Forms}
+import play.api.i18n.MessagesApi
 import play.api.mvc.Action
 
 import scala.concurrent.Future
 
-class Assessments @Inject()(config: ApplicationConfig,
-                            propertyLinks: PropertyLinkConnector,
-                            authenticated: AuthenticatedAction,
-                            submissionIds: SubmissionIdConnector,
-                            dvrCaseManagement: DVRCaseManagementConnector,
-                            businessRatesValuations: BusinessRatesValuationConnector) extends PropertyLinkingController {
+class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated: AuthenticatedAction,
+                            submissionIds: SubmissionIdConnector, dvrCaseManagement: DVRCaseManagementConnector,
+                            businessRatesValuations: BusinessRatesValuationConnector)
+                           (implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def assessments(authorisationId: Long) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
     val backLink = request.headers.get("Referer")
@@ -88,9 +87,9 @@ class Assessments @Inject()(config: ApplicationConfig,
 
   def dvRequestConfirmation(submissionId: String, authorisationId: Long) = Action.async { implicit request =>
     val preference = if (submissionId.startsWith("EMAIL")) "email" else "post"
-    propertyLinks.getLink(authorisationId).map{
+    propertyLinks.getLink(authorisationId).map {
       case Some(link) => Ok(views.html.dvr.detailedValuationRequested(submissionId, preference, link.address))
-      case None       => notFound
+      case None => notFound
     }
   }
 

@@ -15,8 +15,9 @@
  *@
 
 @import controllers.agentAppointment.ConfirmOverrideVM
+@import config.ApplicationConfig
 
-@(model: ConfirmOverrideVM)(implicit request: Request[_], messages: Messages)
+@(model: ConfirmOverrideVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @main_template(

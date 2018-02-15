@@ -24,14 +24,15 @@ import form.EnumMapping
 import models._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.i18n.MessagesApi
 import play.api.mvc.Call
 import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
 import views.html.propertyLinking.uploadEvidence
 
-class UploadEvidence @Inject()(override val config: ApplicationConfig,
-                               override val withLinkingSession: WithLinkingSession,
-                               withCircuitBreaker: FileUploadCircuitBreaker) extends PropertyLinkingController with FileUploadHelpers {
+class UploadEvidence @Inject()(override val withLinkingSession: WithLinkingSession, withCircuitBreaker: FileUploadCircuitBreaker)
+                              (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+  extends PropertyLinkingController with FileUploadHelpers {
 
   override val successUrl: String = routes.UploadEvidence.fileUploaded().url
 

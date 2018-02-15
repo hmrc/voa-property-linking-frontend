@@ -17,8 +17,9 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 @import controllers.propertyLinking.DeclarationVM
+@import config.ApplicationConfig
 
-@(model: DeclarationVM, noEvidenceFlag: Option[Boolean] = None)(implicit request: Request[_], messages: Messages)
+@(model: DeclarationVM, noEvidenceFlag: Option[Boolean] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(Messages("declaration.title")) {
     <div class="grid-row">

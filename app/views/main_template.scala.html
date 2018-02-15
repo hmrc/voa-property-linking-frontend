@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import config.ApplicationConfig
+
 @(title: String,
         sidebarLinks: Option[Html] = None,
         contentHeaderText: Option[String] = None,
@@ -28,7 +30,7 @@
         topBackLink: Boolean = false,
         bottomBackLink: Boolean = false,
         backLinkUrl: Option[String] = None,
-        individualId: Option[Long] = None)(mainContent: Html)(implicit request: RequestHeader, messages: Messages)
+        individualId: Option[Long] = None)(mainContent: Html)(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
 
 @import uk.gov.hmrc.play.views.html.layouts
 

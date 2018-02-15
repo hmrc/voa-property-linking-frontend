@@ -145,7 +145,7 @@ class DeclarationSpec extends ControllerSpec with MockitoSugar {
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  private object TestDeclaration extends Declaration(app.injector.instanceOf[ApplicationConfig], mockEnvelopes, mockFileUploads, mockPropertyLinkConnector,
+  private object TestDeclaration extends Declaration( mockEnvelopes, mockFileUploads, mockPropertyLinkConnector,
     mockSessionRepo, withLinkingSession)
 
   lazy val mockSessionRepo = {

@@ -23,10 +23,11 @@ import config.ApplicationConfig
 import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, Request}
 import uk.gov.hmrc.play.config.ServicesConfig
 
-class Register @Inject()(config: ApplicationConfig, ggAction: VoaAction) extends PropertyLinkingController with ServicesConfig {
+class Register @Inject()(ggAction: VoaAction)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController with ServicesConfig {
 
   def continue(accountType: String) = {
     if(config.enrolmentEnabled)

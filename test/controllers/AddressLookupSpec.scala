@@ -23,7 +23,7 @@ import utils.StubAddresses
 class AddressLookupSpec extends ControllerSpec {
   implicit val request = FakeRequest()
 
-  object TestAddressLookupController extends AddressLookup(StubAddresses)
+  object TestAddressLookupController extends AddressLookup(StubAddresses)(messageApi)
 
   behavior of "Address lookup"
 

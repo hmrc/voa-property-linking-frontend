@@ -29,6 +29,7 @@ import form.{ConditionalDateAfter, EnumMapping}
 import models.{CapacityDeclaration, _}
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.i18n.MessagesApi
 import repositories.SessionRepo
 import session.WithLinkingSession
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -37,12 +38,11 @@ import views.helpers.Errors
 import uk.gov.hmrc.http.Upstream5xxResponse
 
 @Singleton
-class ClaimProperty @Inject()(val config: ApplicationConfig,
-                              val envelopeConnector: EnvelopeConnector,
+class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
                               val authenticated: AuthenticatedAction,
                               val submissionIdConnector: SubmissionIdConnector,
                               @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
-                              val withLinkingSession: WithLinkingSession)
+                              val withLinkingSession: WithLinkingSession)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ServicesConfig {
 
   import ClaimProperty._

@@ -16,19 +16,20 @@
 
 package controllers
 
-import auth.{GGAction, GGActionEnrolment, VoaAction}
 import javax.inject.Inject
 
-import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
+import auth.{GGAction, GGActionEnrolment, VoaAction}
+import config.ApplicationConfig
+import play.api.i18n.MessagesApi
 import play.api.mvc._
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
 import scala.concurrent.Future
 
-class Application @Inject()(ggAction: VoaAction) extends Controller {
-  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+class Application @Inject()(ggAction: VoaAction)(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
+
+  implicit override def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
   def addUserToGG = Action { implicit request =>
     Ok(views.html.addUserToGG())

@@ -18,8 +18,9 @@
 @import helpers._
 @import controllers.manageDetails.UpdateOrganisationDetailsVM
 @import _root_.template.FormSupport._
+@import config.ApplicationConfig
 
-@(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages)
+@(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     Messages("updateBusinessPhone.title"),

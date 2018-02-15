@@ -241,7 +241,7 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
   private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
 
   private object TestUpdatePersonalDetails extends UpdatePersonalDetails(
-    app.injector.instanceOf[ApplicationConfig],
+
     StubAuthentication,
     mockAddressConnector,
     mockIndividualAccounts,

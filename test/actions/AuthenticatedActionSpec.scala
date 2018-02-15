@@ -18,10 +18,12 @@ package actions
 
 import auth.GovernmentGatewayProvider
 import connectors._
+import controllers.TemplateSpec
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
+import play.api.i18n.{Messages, MessagesApi}
 import play.api.mvc.Request
 import play.api.mvc.Results._
 import play.api.test.FakeRequest
@@ -36,6 +38,8 @@ import utils.{NoMetricsOneAppPerSuite, StubAuthImpl}
 import scala.concurrent.Future
 
 class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSuite {
+
+  implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
 
   override val additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.enrolment" -> "false")
 

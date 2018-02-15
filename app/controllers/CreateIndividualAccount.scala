@@ -19,6 +19,7 @@ package controllers
 import javax.inject.{Inject, Named}
 
 import auth.VoaAction
+import config.ApplicationConfig
 import connectors.{IndividualAccounts, VPLAuthConnector}
 import form.Mappings._
 import form.TextMatching
@@ -26,6 +27,7 @@ import models.PersonalDetails
 import play.api.data.Forms._
 import play.api.data.validation._
 import play.api.data.{Form, Mapping}
+import play.api.i18n.MessagesApi
 import play.api.mvc.Request
 import repositories.SessionRepo
 import uk.gov.hmrc.domain.Nino
@@ -36,6 +38,7 @@ class CreateIndividualAccount @Inject() (ggAction: VoaAction,
                                          auth: VPLAuthConnector,
                                          individuals: IndividualAccounts,
                                          @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
+                                        (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
   def show = ggAction.async(isSession = true) { ctx =>implicit request =>

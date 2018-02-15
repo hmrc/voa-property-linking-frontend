@@ -18,8 +18,9 @@
 @import utils.Formatters
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
+@import config.ApplicationConfig
 
-@(f: Form[RepresentationBulkAction], model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages)
+@(f: Form[RepresentationBulkAction], model: ManagePropertiesVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("manageProperties.pendingRequests"),

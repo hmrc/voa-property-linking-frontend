@@ -36,7 +36,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class RequestDetailedValuationSpec extends ControllerSpec with MockitoSugar {
 
-  private object TestAssessments extends Assessments(app.injector.instanceOf[ApplicationConfig], StubPropertyLinkConnector,
+  private object TestAssessments extends Assessments( StubPropertyLinkConnector,
     StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation)
 
   lazy val mockDvrCaseManagement = {

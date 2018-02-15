@@ -15,8 +15,9 @@
  *@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
+@import config.ApplicationConfig
 
-@(model: RepresentationBulkAction, f: Form[RepresentationBulkAction])(implicit request: Request[_], messages: Messages)
+@(model: RepresentationBulkAction, f: Form[RepresentationBulkAction])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("pendingRepresentationRequests.confirm.title"),

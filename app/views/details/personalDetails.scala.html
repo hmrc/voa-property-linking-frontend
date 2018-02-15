@@ -15,9 +15,10 @@
  *@
 
 @import utils.Formatters
-@import config.ApplicationConfig.config._
+@import config.ApplicationConfig
 
-@(individualAccount: DetailedIndividualAccount, personalAddress: Address)(implicit request: Request[_], messages: Messages)
+@(individualAccount: DetailedIndividualAccount, personalAddress: Address)(implicit request: Request[_],
+        messages: Messages, config: ApplicationConfig)
 
 @tableRow(key: String, value: String, link: Call) = {
     <tr>
@@ -40,7 +41,7 @@
             <col style="width: 10%">
         </colgroup>
         <tbody>
-            @if(editNameEnabled) {
+            @if(config.editNameEnabled) {
                 @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName())
             } else {
                 <tr>

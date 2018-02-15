@@ -16,8 +16,9 @@
 
 @import utils.Formatters._
 @import java.time.LocalDateTime
+@import config.ApplicationConfig
 
-@(reference: Option[String], dateTime: LocalDateTime)(implicit requestHeader: RequestHeader, messages: Messages)
+@(reference: Option[String], dateTime: LocalDateTime)(implicit requestHeader: RequestHeader, messages: Messages, config: ApplicationConfig)
 
 @main_template(Messages("global.error.InternalServerError500.title"), topNavigation = false) {
 

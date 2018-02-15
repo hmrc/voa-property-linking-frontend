@@ -112,7 +112,7 @@ class ViewDraftCasesSpec extends ControllerSpec {
   }
 
   private lazy val testController = new Dashboard(
-    app.injector.instanceOf[ApplicationConfig],
+
     mockDraftCases,
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),

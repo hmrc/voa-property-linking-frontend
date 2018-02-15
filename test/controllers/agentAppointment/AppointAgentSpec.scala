@@ -48,7 +48,7 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
   }
 
   private object TestAppointAgent extends AppointAgentController(
-                                          app.injector.instanceOf[ApplicationConfig],
+
                                           StubPropertyRepresentationConnector,
                                           StubGroupAccountConnector,
                                           StubPropertyLinkConnector,

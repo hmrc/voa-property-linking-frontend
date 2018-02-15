@@ -37,8 +37,8 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
 
-  private val testClaimProperty = new ClaimProperty(mock[ApplicationConfig], mockEnvelopes,
-    StubAuthentication, StubSubmissionIdConnector, mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]))
+  private lazy val testClaimProperty = new ClaimProperty(mockEnvelopes, StubAuthentication, StubSubmissionIdConnector,
+    mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]))
 
   lazy val submissionId: String = shortString
   lazy val accounts: Accounts = arbitrary[Accounts]

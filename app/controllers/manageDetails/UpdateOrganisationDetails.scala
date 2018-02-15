@@ -21,21 +21,22 @@ import java.time.{Clock, Instant}
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import javax.inject.Inject
 
+import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts}
 import controllers.PropertyLinkingController
 import form.{Mappings, TextMatching}
 import models.{GroupAccount, UpdatedOrganisationAccount}
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.i18n.MessagesApi
 import play.api.mvc.{AnyContent, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
 
 import scala.concurrent.Future
 
-class UpdateOrganisationDetails @Inject()(
-  authenticated: AuthenticatedAction, groups: GroupAccounts,
-  addresses: Addresses, manageDetails: ManageDetails)
-  (implicit clock: Clock) extends PropertyLinkingController {
+class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction, groups: GroupAccounts,
+                                           addresses: Addresses, manageDetails: ManageDetails)
+                                         (implicit clock: Clock, val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
 
   def viewBusinessName = authenticated { implicit request =>
     Ok(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
@@ -115,7 +116,7 @@ class UpdateOrganisationDetails @Inject()(
   lazy val emailForm = Form(mapping(
     "email" -> email,
     "confirmedEmail" -> TextMatching("email", "error.emailsMustMatch")
-  ){ case (e, _) => e }(e => Some((e, e))))
+  ) { case (e, _) => e }(e => Some((e, e))))
 }
 
 case class UpdateOrganisationDetailsVM(form: Form[_], currentDetails: GroupAccount)

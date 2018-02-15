@@ -48,7 +48,7 @@ class MessagesPageSpec extends ControllerSpec {
 
   it must "show the dashboard tabs at the top of the page" in {
     //because travis is stupid
-    val managePropertiesUrl = if(ApplicationConfig.config.searchSortEnabled) {
+    val managePropertiesUrl = if(applicationConfig.searchSortEnabled) {
       routes.Dashboard.managePropertiesSearchSort().url
     } else {
       routes.Dashboard.manageProperties().url
@@ -144,7 +144,7 @@ class MessagesPageSpec extends ControllerSpec {
   }
 
   it must "prepopulate the client name search field if the results are filtered by client name" in {
-    val filteredByClient = Jsoup.parse(messagesTab(clientMessages, MessagePagination(clientName = Some("body")), 1, 1)(agentRequest, implicitly).toString)
+    val filteredByClient = Jsoup.parse(messagesTab(clientMessages, MessagePagination(clientName = Some("body")), 1, 1)(agentRequest, implicitly, implicitly).toString)
 
     val clientInput = filteredByClient.select("input#clientName")
     clientInput.attr("value") mustBe "body"
@@ -259,7 +259,7 @@ class MessagesPageSpec extends ControllerSpec {
 
   lazy val pageWithOneUnreadMessage: Document = Jsoup.parse(messagesTab(oneMessage, MessagePagination(), 1, 1).toString)
 
-  lazy val clientMessagesPage = Jsoup.parse(messagesTab(clientMessages, MessagePagination(), 1, 1)(agentRequest, implicitly).toString)
+  lazy val clientMessagesPage = Jsoup.parse(messagesTab(clientMessages, MessagePagination(), 1, 1)(agentRequest, implicitly, implicitly).toString)
 
   lazy val oneMessage = MessageSearchResults(
     start = 1,

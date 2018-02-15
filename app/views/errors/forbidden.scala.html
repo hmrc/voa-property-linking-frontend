@@ -14,7 +14,9 @@
  * limitations under the License.
  *@
 
-@()(implicit request: RequestHeader, messages: Messages)
+@import config.ApplicationConfig
+
+@()(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
 
 @main_template(Messages("title.error.403"), topNavigation = false) {
     <h1 class="heading-large">@Messages("title.error.403")</h1>

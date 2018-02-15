@@ -15,7 +15,9 @@
  *@
 
 @import utils.Formatters
-@(url: String, agentName: String, address: String)(implicit request: Request[_], messages: Messages)
+@import config.ApplicationConfig
+
+@(url: String, agentName: String, address: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("propertyRepresentation.revokedAgent.title"),

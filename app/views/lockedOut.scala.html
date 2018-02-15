@@ -16,8 +16,9 @@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
+@import config.ApplicationConfig
 
-@()(implicit request: Request[_], messages: Messages)
+@()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
     
     @main_template(Messages("lockedOut.title")) {
         <div class="grid-row">

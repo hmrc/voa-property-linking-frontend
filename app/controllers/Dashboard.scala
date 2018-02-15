@@ -28,19 +28,19 @@ import models._
 import models.messages.MessagePagination
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import play.api.Logger
+import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, Request, Result}
 
 import scala.concurrent.Future
 
-class Dashboard @Inject()(config: ApplicationConfig,
-                          draftCases: DraftCases,
+class Dashboard @Inject()(draftCases: DraftCases,
                           propertyLinks: PropertyLinkConnector,
                           messagesConnector: MessagesConnector,
                           agentsConnector: AgentsConnector,
                           groupAccounts: GroupAccounts,
                           authenticated: AuthenticatedAction,
-                          pdfGen: PdfGenerator) extends PropertyLinkingController with ValidPagination {
+                          pdfGen: PdfGenerator)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController with ValidPagination {
 
   def home() = authenticated { implicit request =>
     if (request.organisationAccount.isAgent) {
@@ -224,7 +224,7 @@ class Dashboard @Inject()(config: ApplicationConfig,
       message <- messagesConnector.getMessage(request.organisationId, messageId)
     } yield {
       message match {
-        case Some(m) => pdfGen.ok(views.html.dashboard.messages.viewMessagePdf(m), ApplicationConfig.config.serviceUrl)
+        case Some(m) => pdfGen.ok(views.html.dashboard.messages.viewMessagePdf(m), config.serviceUrl)
         case None => NotFound(Global.notFoundTemplate)
       }
     }
