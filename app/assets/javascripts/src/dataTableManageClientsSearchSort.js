@@ -8,10 +8,10 @@
         root.VOA = {};
     }
 
-    root.VOA.DataTableManageClientsSearchSort = function (){
+    root.VOA.DataTableManageClients = function (){
 
         var messages = VOA.messages.en,
-        $table  = $('#dataTableManageClientsSearchSort');
+        $table  = $('#dataTableManageClients');
 
         var declinedHelpLink = '<a class="help" href="#declinedHelp" data-toggle="dialog" data-target="declinedHelp-dialog"><i><span class="visuallyhidden">' +
             messages.labels.declinedHelp +
@@ -86,25 +86,25 @@
 
         });
 
-        $( '#dataTableManageClientsSearchSort th button').on('click', function () {
+        $( '#dataTableManageClients th button').on('click', function () {
             dataTable.draw();
         } );
 
-        $( '#dataTableManageClientsSearchSort input').bind('keyup', function(e) {
+        $( '#dataTableManageClients input').bind('keyup', function(e) {
             if(e.keyCode === 13) {
                 dataTable.draw();
             }
         });
 
-        $( '#dataTableManageClientsSearchSort select').bind('keyup', function(e) {
+        $( '#dataTableManageClients select').bind('keyup', function(e) {
             if(e.keyCode === 13) {
                 dataTable.draw();
             }
         });
 
         $( 'th .clear').on( 'click', function () {
-            $('#dataTableManageClientsSearchSort th').find('input:text').val('');
-            $('#dataTableManageClientsSearchSort th').find('#status').val('');
+            $('#dataTableManageClients th').find('input:text').val('');
+            $('#dataTableManageClients th').find('#status').val('');
             dataTable.draw();
         } );
 

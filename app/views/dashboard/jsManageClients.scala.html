@@ -17,7 +17,7 @@
 @(model: controllers.agent.ManageClientPropertiesVM)(implicit  messages: Messages)
 
 <div class="table-wrapper hide-if-no-js">
-    <table id="dataTableManageClientsSearchSort" class="table-font-xsmall margin-bottom-20 margin-top-20">
+    <table id="dataTableManageClients" class="table-font-xsmall margin-bottom-20 margin-top-20">
         <caption class="visuallyhidden">
             @Messages("agent.dashboard.manageClients.existingClients")
         </caption>
@@ -39,5 +39,5 @@
         </thead>
     </table>
 
-    @jsSearchSortPageSize("#dataTableManageClientsSearchSort")
+    @jsSearchSortPageSize("#dataTableManageClients")
 </div>

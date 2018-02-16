@@ -8,10 +8,10 @@
         root.VOA = {};
     }
 
-    root.VOA.DataTableManagePropertiesSearchSort = function (){
+    root.VOA.DataTableManageProperties = function (){
 
         var messages = VOA.messages.en,
-            $table  = $('#dataTableManagePropertiesSearchSort');
+            $table  = $('#dataTableManageProperties');
 
         VOA.helper.dataTableSettings($table);
 
@@ -87,25 +87,25 @@
             }
         });
 
-        $( '#dataTableManagePropertiesSearchSort th button').on( 'click', function () {
+        $( '#dataTableManageProperties th button').on( 'click', function () {
             dataTable.draw();
         } );
 
-        $( '#dataTableManagePropertiesSearchSort input').bind('keyup', function(e) {
+        $( '#dataTableManageProperties input').bind('keyup', function(e) {
             if(e.keyCode === 13) {
                 dataTable.draw();
             }
         });
 
-        $( '#dataTableManagePropertiesSearchSort select').bind('keyup', function(e) {
+        $( '#dataTableManageProperties select').bind('keyup', function(e) {
             if(e.keyCode === 13) {
                 dataTable.draw();
             }
         });
 
         $( 'th .clear').on( 'click', function () {
-            $('#dataTableManagePropertiesSearchSort th').find('input:text').val('');
-            $('#dataTableManagePropertiesSearchSort th').find('#status').val('');
+            $('#dataTableManageProperties th').find('input:text').val('');
+            $('#dataTableManageProperties th').find('#status').val('');
 
             dataTable.draw();
         } );
