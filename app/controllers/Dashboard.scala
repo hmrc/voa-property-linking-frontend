@@ -83,15 +83,15 @@ class Dashboard @Inject()(draftCases: DraftCases,
     }
   }
 
-  def getPropertiesSearchAndSort(page: Int,
-                                 pageSize: Int,
-                                 requestTotalRowCount: Boolean,
-                                 sortfield: Option[String],
-                                 sortorder: Option[String],
-                                 status: Option[String],
-                                 address: Option[String],
-                                 baref: Option[String],
-                                 agent: Option[String]) = authenticated { implicit request =>
+  def getProperties(page: Int,
+                    pageSize: Int,
+                    requestTotalRowCount: Boolean,
+                    sortfield: Option[String],
+                    sortorder: Option[String],
+                    status: Option[String],
+                    address: Option[String],
+                    baref: Option[String],
+                    agent: Option[String]) = authenticated { implicit request =>
     withValidPaginationSearchSort(page, pageSize, requestTotalRowCount, sortfield, sortorder, status, address, baref, agent) { pagination =>
       propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination) map { res =>
         Ok(Json.toJson(res))
