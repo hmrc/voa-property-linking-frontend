@@ -16,17 +16,13 @@
 
 package controllers
 
-import config.ApplicationConfig
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
-import play.api.Play
-import play.api.i18n.{DefaultLangs, DefaultMessagesApi, MessagesApi}
+import play.api.i18n.MessagesApi
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import utils._
 
 trait ControllerSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite {
-
-  override val additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.enrolment" -> "false", "micsroservice.services.email.host" -> "testhost", "microservice.services.email.port" -> "1234")
 
   val token = "Csrf-Token" -> "nocheck"
 

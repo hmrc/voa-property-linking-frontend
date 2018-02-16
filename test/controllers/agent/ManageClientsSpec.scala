@@ -18,13 +18,17 @@ package controllers.agent
 
 import config.ApplicationConfig
 import connectors.Authenticated
-import controllers.{ControllerSpec, TemplateSpec}
+import controllers.ControllerSpec
 import models._
+import models.searchApi.{AgentAuthClient, AgentAuthResult, AgentAuthorisation}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest._
 import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
 import resources._
@@ -34,12 +38,11 @@ import scala.collection.JavaConverters._
 
 class ManageClientsSpec extends ControllerSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "false", "featureFlags.enrolment" -> "false")
+  override val additionalAppConfig = Seq("featureFlags.enrolment" -> "false")
 
   lazy val defaultHtml = {
     setup()
-
-    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     Jsoup.parse(contentAsString(res))
@@ -47,48 +50,44 @@ class ManageClientsSpec extends ControllerSpec {
 
   "The manage clients page" must "display the organisation name for each of the agent's first 15 client properties" in {
     val html = defaultHtml
-      val organisationNames: Seq[String] = StubPropertyRepresentationConnector.stubbedRepresentations().map(_.organisationName)
-      checkTableColumn(html, 0, "Organisation name", organisationNames)
+
+    val organisationNames = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.client.organisationName)
+    checkTableColumn(html, 3, "Client", organisationNames)
   }
+
+  it must "display the link status, and the submission ID if the link is pending, for each of the user's first 15 properties" in {
+    val html = defaultHtml
+    val statuses = StubPropertyLinkConnector.getstubbedOwnerAuthResult().authorisations.map {
+      case authorisation if authorisation.status.toUpperCase == RepresentationPending.name => s"Pending submission ID: ${authorisation.submissionId}"
+      case _ => "Approved"
+    }
+
+    checkTableColumn(html, 2, "Status", statuses)
+  }
+
 
   it must "display the address for each of the agent's first 15 client properties" in {
     val html = defaultHtml
-    val addresses = StubPropertyRepresentationConnector.stubbedRepresentations().map(_.address)
+    val addresses = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.address)
 
-    checkTableColumn(html, 1, "Address", addresses)
+    checkTableColumn(html, 0, "Address", addresses)
   }
 
   it must "display the BA ref for each of the agent's first 15 client properties" in {
     val html = defaultHtml
-    val baRefs = StubPropertyRepresentationConnector.stubbedRepresentations().map(_.billingAuthorityReference)
+    val baRefs = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.localAuthorityRef)
 
-    checkTableColumn(html, 2, "Local authority reference", baRefs)
+    checkTableColumn(html, 1, "Local authority reference", baRefs)
   }
 
-  val permToString: AgentPermission => String = {
-    case StartAndContinue => "Yes"
-    case _ => "No"
-  }
-  val toPermissions: PropertyRepresentation => (AgentPermission, AgentPermission) = rep => (rep.checkPermission, rep.challengePermission)
-  val toStringCheck: Tuple2[AgentPermission, AgentPermission] => String = {
-    case (check, chal) => s"Check: ${permToString(check)} Challenge: ${permToString(chal)}"
-  }
-
-  it must "display the permissions for each of the agent's first 15 client properties" in {
-    val html = defaultHtml
-    val permissions = StubPropertyRepresentationConnector.stubbedRepresentations()
-      .map(toPermissions.andThen(toStringCheck))
-
-    checkTableColumn(html, 3, "Permissions", permissions)
-  }
 
   it must "display the available actions for each of the user's first 15 client properties" in {
-    val html = defaultHtml
-    val actions = StubPropertyRepresentationConnector.stubbedRepresentations().map { l =>
+    val html: Document = defaultHtml
+
+    val actions = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map { auth =>
       s"Revoke Client View Valuations"
     }
-
-    checkTableColumn(html, 4, "Actions", actions)
+    checkTableColumnStartsWith(html, 4, "Actions", actions)
   }
 
   it must "display the current page number" in {
@@ -100,7 +99,7 @@ class ManageClientsSpec extends ControllerSpec {
   it must "include a 'next' link if there are more results" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -114,7 +113,7 @@ class ManageClientsSpec extends ControllerSpec {
   it must "include an inactive 'next' link if there are no further results" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientProperties(2, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(2, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -127,7 +126,7 @@ class ManageClientsSpec extends ControllerSpec {
   it must "include an inactive 'previous' link when on page 1" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -140,7 +139,7 @@ class ManageClientsSpec extends ControllerSpec {
   it must "include a 'previous' link when not on page 1" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientProperties(2, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(2, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -157,31 +156,15 @@ class ManageClientsSpec extends ControllerSpec {
     html.select("a#viewPending").attr("href") mustBe routes.RepresentationController.pendingRepresentationRequest().url
   }
 
-  it must "tell the user they have no clients, if they have no clients to display" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(arbitrary[GroupAccount].copy(isAgent = true),
-      arbitrary[DetailedIndividualAccount])))
-    StubPropertyRepresentationConnector.reset()
-
-    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-
-    html.select("p#noProperties").text mustBe "There are no existing clients"
-
-    setup()
-  }
-
   it must "not display the page if the user is not an agent" in {
     val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = false)
     val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
 
-    val indirectLink = arbitrary[PropertyLink].retryUntil(_.organisationId != groupAccount.id).copy(agents = Seq(arbitrary[Party].copy(organisationId = groupAccount.id)))
-    StubPropertyLinkConnector.stubLink(indirectLink)
+    val indirectLink = arbitrary[AgentAuthorisation].retryUntil(_.client.organisationId != groupAccount.id)
 
-    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe UNAUTHORIZED
   }
 
@@ -199,31 +182,45 @@ class ManageClientsSpec extends ControllerSpec {
     pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(manageClientsLink(25), manageClientsLink(50), manageClientsLink(100))
   }
 
-  private def setup(numberOfLinks: Int = 15) = {
+  private def setup(numberOfLinks: Int = 15): Unit = {
     val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = true)
     val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
+    var arbitraryAgentAuthorisation: Seq[AgentAuthorisation] = Nil
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
     (1 to numberOfLinks) foreach { _ =>
-      StubPropertyLinkConnector.stubLink(arbitrary[PropertyLink].copy(organisationId = groupAccount.id))
-      StubPropertyRepresentationConnector.stubRepresentation(arbitrary[PropertyRepresentation].copy(organisationId = groupAccount.id, status = RepresentationApproved))
-      StubPropertyRepresentationConnector.stubRepresentation(arbitrary[PropertyRepresentation].copy(organisationId = groupAccount.id, status = RepresentationPending))
+      arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(authorisedPartyId = groupAccount.id.toLong,
+        client = arbitrary[AgentAuthClient].copy(organisationId = groupAccount.id.toLong))
     }
 
+    StubPropertyRepresentationConnector.stubAgentAuthResult(AgentAuthResult(start = 1,
+      size = numberOfLinks,
+      total = numberOfLinks,
+      filterTotal = numberOfLinks,
+      pendingRepresentations = numberOfLinks,
+      authorisations = arbitraryAgentAuthorisation))
+
   }
 
-  private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]) = {
+  private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
     html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
-
-    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
-
-    values foreach { v => data must contain (v.toUpperCase) }
+    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(2).map(_.select("td").get(index).text.toUpperCase)
+    values foreach { v => data must contain(v.toUpperCase) }
   }
 
-  private object TestController extends RepresentationController(
+  private def checkTableColumnStartsWith(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
+    html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
+    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(2).map(_.select("td").get(index).text.toUpperCase)
+
+    (data zip values).foreach { case (d, v) => d.toUpperCase must startWith(v.toUpperCase) }
+  }
+
+  object TestController extends RepresentationController(
+
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
   )
+
 }

@@ -16,9 +16,7 @@
         new VOA.postcodeLookup();
         new VOA.ErrorSummary();
         new VOA.DataTableManageProperties();
-        new VOA.DataTableManagePropertiesSearchSort();
         new VOA.DataTableManageClients();
-        new VOA.DataTableManageClientsSearchSort();
         new VOA.DataTablePendingRequests();
         new VOA.ShowDialog();
         new VOA.viewMessage();
