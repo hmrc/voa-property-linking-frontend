@@ -50,12 +50,9 @@ class Dashboard @Inject()(draftCases: DraftCases,
     }
   }
 
-  def manageProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true) =
-    managePropertiesSearchSort(page = page, pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, None, None, None, None, None, None)
-
-  def managePropertiesSearchSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
-                                 sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
-                                 baref: Option[String] = None, agent: Option[String] = None) = authenticated { implicit request =>
+  def manageProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
+                       sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
+                       baref: Option[String] = None, agent: Option[String] = None) = authenticated { implicit request =>
     withValidPaginationSearchSort(
       page = page,
       pageSize = pageSize,
@@ -74,22 +71,14 @@ class Dashboard @Inject()(draftCases: DraftCases,
         propertyLinks <- eventualPropertyLinks
         msgCount <- eventualMessageCount
       } yield {
-        Ok(views.html.dashboard.managePropertiesSearchSort(
-          ManagePropertiesSearchAndSortVM(
+        Ok(views.html.dashboard.manageProperties(
+          ManagePropertiesVM(
             request.organisationAccount.id,
             propertyLinks,
             paginationSearchSort.copy(totalResults = propertyLinks.filterTotal)
           ),
           msgCount.unread
         ))
-      }
-    }
-  }
-
-  def getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated { implicit request =>
-    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
-      propertyLinks.linkedProperties(request.organisationId, pagination) map { res =>
-        Ok(Json.toJson(res))
       }
     }
   }
@@ -230,11 +219,9 @@ class Dashboard @Inject()(draftCases: DraftCases,
   }
 }
 
-case class ManagePropertiesVM(organisationId: Long, properties: Seq[PropertyLink], pagination: Pagination)
-
-case class ManagePropertiesSearchAndSortVM(organisationId: Long,
-                                           result: OwnerAuthResult,
-                                           pagination: PaginationSearchSort)
+case class ManagePropertiesVM(organisationId: Long,
+                              result: OwnerAuthResult,
+                              pagination: PaginationSearchSort)
 
 
 case class ManagedPropertiesVM(agentOrganisationId: Option[Long],

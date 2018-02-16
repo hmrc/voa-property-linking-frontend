@@ -51,7 +51,7 @@ class ManageAgentsPageSpec extends TemplateSpec {
   it must "show the dashboard navigation tabs at the top of the screen" in {
     val tabs = manageAgentsPage.select(".section-tabs ul[role=tablist] li").asScala
     val expectedUrls = Seq(
-      routes.Dashboard.managePropertiesSearchSort().url,
+      routes.Dashboard.manageProperties().url,
       routes.Dashboard.manageAgents().url,
       routes.Dashboard.viewDraftCases().url,
       controllers.manageDetails.routes.ViewDetails.show().url,

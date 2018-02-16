@@ -31,7 +31,7 @@ import utils._
 
 import scala.collection.JavaConverters._
 
-class ManagePropertiesSearchSortSpec extends ControllerSpec {
+class ManagePropertiesSpec extends ControllerSpec {
 
   override val additionalAppConfig = Seq("featureFlags.enrolment" -> "false")
 
@@ -96,7 +96,7 @@ class ManagePropertiesSearchSortSpec extends ControllerSpec {
   it must "include a 'next' link if there are more results" in {
     setup(numberOfLinks = 16)
 
-    val res = TestDashboardController.managePropertiesSearchSort(1, 15)(FakeRequest())
+    val res = TestDashboardController.manageProperties(1, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -104,7 +104,7 @@ class ManagePropertiesSearchSortSpec extends ControllerSpec {
     val nextLink = html.select("ul.pagination li.next")
 
     nextLink.hasClass("disabled") mustBe false withClue "'Next' link is incorrectly disabled"
-    nextLink.select("a").attr("href") mustBe routes.Dashboard.managePropertiesSearchSort(2).url
+    nextLink.select("a").attr("href") mustBe routes.Dashboard.manageProperties(2).url
   }
 
   it must "include an inactive 'next' link if there are no further results" in {
@@ -136,7 +136,7 @@ class ManagePropertiesSearchSortSpec extends ControllerSpec {
   it must "include a 'previous' link when not on page 1" in {
     setup(numberOfLinks = 16)
 
-    val res = TestDashboardController.managePropertiesSearchSort(2, 15)(FakeRequest())
+    val res = TestDashboardController.manageProperties(2, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -144,7 +144,7 @@ class ManagePropertiesSearchSortSpec extends ControllerSpec {
     val previousLink = html.select("ul.pagination li.previous")
 
     previousLink.hasClass("disabled") mustBe false withClue "'Previous' link is incorrectly disabled"
-    previousLink.select("a").attr("href") mustBe routes.Dashboard.managePropertiesSearchSort(1).url
+    previousLink.select("a").attr("href") mustBe routes.Dashboard.manageProperties(1).url
   }
 
   it must "include a link to add another property" in {

@@ -46,7 +46,7 @@ class MessagesPageSpec extends ControllerSpec {
 
   it must "show the dashboard tabs at the top of the page" in {
     val expectedTabLinks = Seq(
-      routes.Dashboard.managePropertiesSearchSort().url,
+      routes.Dashboard.manageProperties().url,
       routes.Dashboard.manageAgents().url,
       routes.Dashboard.viewDraftCases().url,
       controllers.manageDetails.routes.ViewDetails.show().url,

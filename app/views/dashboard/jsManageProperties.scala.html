@@ -14,26 +14,29 @@
  * limitations under the License.
  *@
 
-@()(implicit  messages: Messages)
+@(model: controllers.ManagePropertiesVM)(implicit  messages: Messages)
 
 <div class="table-wrapper hide-if-no-js">
-    <table id="dataTableManageProperties" class="table-font-xsmall margin-bottom-20 margin-top-20">
+    <table id="dataTableManagePropertiesSearchSort" class="table-font-xsmall margin-bottom-20 margin-top-20">
         <caption class="visuallyhidden">@Messages("manageProperties.table.caption")</caption>
-        <colgroup>
-            <col>
-            <col style="width: 140px">
-            <col style="width: 120px">
-            <col style="width: 160px">
-            <col style="width: 140px">
-        </colgroup>
         <thead>
+
             <tr>
-                <th scope="col">@Messages("manageProperties.table.1")</th>
-                <th scope="col">@Messages("manageProperties.table.2")</th>
-                <th scope="col">@Messages("manageProperties.table.3")</th>
-                <th scope="col">@Messages("manageProperties.table.4")</th>
+                <th id="sort-by-address-js" scope="col">@Messages("manageProperties.table.1")</th>
+                <th id="sort-by-baref-js" scope="col">@Messages("manageProperties.table.2")</th>
+                <th id="sort-by-status-js" scope="col">@Messages("manageProperties.table.3")</th>
+                <th id="sort-by-agent-js" scope="col">@Messages("manageProperties.table.4")</th>
                 <th scope="col">@Messages("manageProperties.table.5")</th>
             </tr>
+            <tr>
+                <th scope="col"><div class="searchfield"><label for="address" class="visually-hidden">@Messages("manageProperties.table.1") </label><input name="address" value="@model.pagination.valueOfAddress" id="address" size="10" class="ss-input"><button id="addressBtn" class="search-submit ss-button">Search for @Messages("manageProperties.table.1") </button></div></th>
+                <th scope="col"><div class="searchfield"><label for="baref" class="visually-hidden">@Messages("manageProperties.table.2")  </label><input name="baref"  value="@model.pagination.valueOfBaref" id="baref" size="10" class="ss-input"><button id="barefBtn" class="search-submit ss-button">Search for @Messages("manageProperties.table.2") </button></div></th>
+                <th scope="col"><div class="searchfield">@propertyLinkingStatusDropdown(model.pagination.valueOfStatus,"status")</div></th>
+                <th scope="col"><div class="searchfield"><label for="agent" class="visually-hidden">@Messages("manageProperties.table.4")  </label><input name="agent"  value="@model.pagination.valueOfAgent" id="agent" size="8" class="ss-input"><button id="agentBtn" class="search-submit ss-button">Search for @Messages("manageProperties.table.4") </button></div></th>
+                <th scope="col"><a href="#" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
+           </tr>
         </thead>
     </table>
+
+    @jsSearchSortPageSize("#dataTableManagePropertiesSearchSort")
 </div>

@@ -36,7 +36,7 @@ import utils._
 
 import scala.collection.JavaConverters._
 
-class ManageClientsSearchSortSpec extends ControllerSpec {
+class ManageClientsSpec extends ControllerSpec {
 
   override val additionalAppConfig = Seq("featureFlags.enrolment" -> "false")
 
@@ -99,7 +99,7 @@ class ManageClientsSearchSortSpec extends ControllerSpec {
   it must "include a 'next' link if there are more results" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientPropertiesSearchSort(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -107,7 +107,7 @@ class ManageClientsSearchSortSpec extends ControllerSpec {
     val nextLink = html.select("ul.pagination li.next")
 
     nextLink.hasClass("disabled") mustBe false withClue "'Next' link is incorrectly disabled"
-    nextLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientPropertiesSearchSort(2).url
+    nextLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientProperties(2).url
   }
 
   it must "include an inactive 'next' link if there are no further results" in {
@@ -139,7 +139,7 @@ class ManageClientsSearchSortSpec extends ControllerSpec {
   it must "include a 'previous' link when not on page 1" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientPropertiesSearchSort(2, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(2, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -147,7 +147,7 @@ class ManageClientsSearchSortSpec extends ControllerSpec {
     val previousLink = html.select("ul.pagination li.previous")
 
     previousLink.hasClass("disabled") mustBe false withClue "'Previous' link is incorrectly disabled"
-    previousLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientPropertiesSearchSort(1).url
+    previousLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientProperties(1).url
   }
 
   it must "include a link to pending properties view" in {
