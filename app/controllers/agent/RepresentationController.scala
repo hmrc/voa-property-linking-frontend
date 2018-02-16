@@ -44,9 +44,9 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
                                         (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
-  def viewClientProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
-                           sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
-                           baref: Option[String] = None, client: Option[String] = None) = authenticated.asAgent { implicit request =>
+  def viewClientProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String],
+                           sortorder: Option[String], status: Option[String], address: Option[String],
+                           baref: Option[String], client: Option[String]) = authenticated.asAgent { implicit request =>
     withValidPaginationSearchSort(
       page = page,
       pageSize = pageSize,

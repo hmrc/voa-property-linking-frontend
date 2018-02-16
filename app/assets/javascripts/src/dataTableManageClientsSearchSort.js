@@ -32,7 +32,7 @@
                     queryParameters += '&status=' + $('#status').val();
 
                     var info = $table.DataTable().page.info();
-                    $table.DataTable().ajax.url('/business-rates-property-linking/manage-clients-search-sort/json?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true' + queryParameters);
+                    $table.DataTable().ajax.url('/business-rates-property-linking/manage-clients/json?page=' + (info.page + 1) + '&pageSize='+ info.length +'&requestTotalRowCount=true' + queryParameters);
                 },
                 dataSrc: 'authorisations',
                 dataFilter: function(data) {

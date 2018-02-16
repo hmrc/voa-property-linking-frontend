@@ -50,9 +50,9 @@ class Dashboard @Inject()(draftCases: DraftCases,
     }
   }
 
-  def manageProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
-                       sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
-                       baref: Option[String] = None, agent: Option[String] = None) = authenticated { implicit request =>
+  def manageProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String],
+                       sortorder: Option[String], status: Option[String], address: Option[String],
+                       baref: Option[String], agent: Option[String]) = authenticated { implicit request =>
     withValidPaginationSearchSort(
       page = page,
       pageSize = pageSize,

@@ -42,7 +42,7 @@ class ManageClientsSpec extends ControllerSpec {
 
   lazy val defaultHtml = {
     setup()
-    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     Jsoup.parse(contentAsString(res))
@@ -99,7 +99,7 @@ class ManageClientsSpec extends ControllerSpec {
   it must "include a 'next' link if there are more results" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -113,7 +113,7 @@ class ManageClientsSpec extends ControllerSpec {
   it must "include an inactive 'next' link if there are no further results" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientProperties(2, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(2, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -126,7 +126,7 @@ class ManageClientsSpec extends ControllerSpec {
   it must "include an inactive 'previous' link when on page 1" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -139,7 +139,7 @@ class ManageClientsSpec extends ControllerSpec {
   it must "include a 'previous' link when not on page 1" in {
     setup(numberOfLinks = 16)
 
-    val res = TestController.viewClientProperties(2, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(2, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -164,7 +164,7 @@ class ManageClientsSpec extends ControllerSpec {
 
     val indirectLink = arbitrary[AgentAuthorisation].retryUntil(_.client.organisationId != groupAccount.id)
 
-    val res = TestController.viewClientProperties(1, 15)(FakeRequest())
+    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe UNAUTHORIZED
   }
 
@@ -193,7 +193,7 @@ class ManageClientsSpec extends ControllerSpec {
         client = arbitrary[AgentAuthClient].copy(organisationId = groupAccount.id.toLong))
     }
 
-    StubPropertyRepresentationConnector.stubAgentAuthResult(AgentAuthResult(start =1,
+    StubPropertyRepresentationConnector.stubAgentAuthResult(AgentAuthResult(start = 1,
       size = numberOfLinks,
       total = numberOfLinks,
       filterTotal = numberOfLinks,
@@ -205,14 +205,14 @@ class ManageClientsSpec extends ControllerSpec {
   private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
     html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
     val data = html.select("table#nojsManageClients").select("tr").asScala.drop(2).map(_.select("td").get(index).text.toUpperCase)
-    values foreach { v => data must contain (v.toUpperCase) }
+    values foreach { v => data must contain(v.toUpperCase) }
   }
 
   private def checkTableColumnStartsWith(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
     html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
     val data = html.select("table#nojsManageClients").select("tr").asScala.drop(2).map(_.select("td").get(index).text.toUpperCase)
 
-    (data zip values).foreach { case (d, v) => d.toUpperCase must startWith (v.toUpperCase) }
+    (data zip values).foreach { case (d, v) => d.toUpperCase must startWith(v.toUpperCase) }
   }
 
   object TestController extends RepresentationController(
@@ -222,4 +222,5 @@ class ManageClientsSpec extends ControllerSpec {
     StubPropertyLinkConnector,
     new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
   )
+
 }

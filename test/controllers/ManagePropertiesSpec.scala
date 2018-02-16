@@ -39,7 +39,7 @@ class ManagePropertiesSpec extends ControllerSpec {
   lazy val defaultHtml = {
     setup()
 
-    val res = TestDashboardController.manageProperties(1, 15)(FakeRequest())
+    val res = TestDashboardController.manageProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     Jsoup.parse(contentAsString(res))
@@ -96,7 +96,7 @@ class ManagePropertiesSpec extends ControllerSpec {
   it must "include a 'next' link if there are more results" in {
     setup(numberOfLinks = 16)
 
-    val res = TestDashboardController.manageProperties(1, 15)(FakeRequest())
+    val res = TestDashboardController.manageProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -110,7 +110,7 @@ class ManagePropertiesSpec extends ControllerSpec {
   it must "include an inactive 'next' link if there are no further results" in {
     setup(numberOfLinks = 16)
 
-    val res = TestDashboardController.manageProperties(2, 15)(FakeRequest())
+    val res = TestDashboardController.manageProperties(2, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -123,7 +123,7 @@ class ManagePropertiesSpec extends ControllerSpec {
   it must "include an inactive 'previous' link when on page 1" in {
     setup(numberOfLinks = 16)
 
-    val res = TestDashboardController.manageProperties(1, 15)(FakeRequest())
+    val res = TestDashboardController.manageProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -136,7 +136,7 @@ class ManagePropertiesSpec extends ControllerSpec {
   it must "include a 'previous' link when not on page 1" in {
     setup(numberOfLinks = 16)
 
-    val res = TestDashboardController.manageProperties(2, 15)(FakeRequest())
+    val res = TestDashboardController.manageProperties(2, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -171,7 +171,7 @@ class ManagePropertiesSpec extends ControllerSpec {
     StubPropertyLinkConnector.reset()
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(arbitrary[GroupAccount], arbitrary[DetailedIndividualAccount])))
 
-    val res = TestDashboardController.manageProperties(1, 15)(FakeRequest())
+    val res = TestDashboardController.manageProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
