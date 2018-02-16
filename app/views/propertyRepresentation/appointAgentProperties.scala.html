@@ -16,15 +16,17 @@
 
 @import actions.AuthenticatedRequest
 @import controllers.agentAppointment.AppointAgentPropertiesVM
-@import models.searchApi.{AgentPropertiesSortField,AgentPropertiesPagination}
+@import models.searchApi.{AgentPropertiesSortField, AgentPropertiesPagination}
 @import config.ApplicationConfig
 
 
 @(model: AppointAgentPropertiesVM,
-         pagination: AgentPropertiesPagination
-         )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+        pagination: AgentPropertiesPagination
+)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-@heading = @{ Messages("propertyRepresentation.appointAgentProperties.title") }
+@heading = @{
+    Messages("propertyRepresentation.appointAgentProperties.title")
+}
 
 @main_template(
     heading,
@@ -43,11 +45,11 @@
 
             <table id="agentPropertiesTable" class="agentProperties dataTable table-font-xsmall no-footer">
                 <colgroup>
-                    <col style="width:8%">
-                    <col style="width:30%">
-                    <col style="width:26%">
-                    <col style="width:23%">
-                    <col style="width:13%">
+                    <col style="width: 8%">
+                    <col style="width: 30%">
+                    <col style="width: 26%">
+                    <col style="width: 23%">
+                    <col style="width: 13%">
                 </colgroup>
 
                 <thead>
@@ -79,28 +81,28 @@
 
                 <tbody>
                 @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
-                    @defining(s"checkbox-${index+1}") { checkboxId:String =>
-                    <tr>
-                        <td><div class="checkbox-table-cell">
-                            <label class="block-label selection-button-checkbox" for="@("checkboxId"+(index+1))">
-                                <input id=@("checkboxId"+(index+1)) type="checkbox"  name="linkId" value="@authorisation.authorisationId">
-                                <span class="visually-hidden">Appoint</span></label>
-                        </div></td>
-                        <td class="">@authorisation.address</td>
-                        <td>@authorisation.localAuthorityRef</td>
-                        <td>
-                            <ul class="list">
-                            @if(authorisation.agents.isEmpty) {
-                                <li></li>
-                            } else {
-                                @authorisation.agents.get.map { agent =>
-                                    <li>@agent.organisationName</li>
+                    @defining(s"checkbox-${index + 1}") { checkboxId: String =>
+                        <tr>
+                            <td><div class="checkbox-table-cell">
+                                <label class="block-label selection-button-checkbox" for="@("checkboxId" + (index + 1))">
+                                    <input id=@("checkboxId" + (index + 1)) type="checkbox" name="linkId" value="@authorisation.authorisationId">
+                                    <span class="visually-hidden">Appoint</span></label>
+                            </div></td>
+                            <td class="">@authorisation.address</td>
+                            <td>@authorisation.localAuthorityRef</td>
+                            <td>
+                                <ul class="list">
+                                @if(authorisation.agents.isEmpty) {
+                                    <li></li>
+                                } else {
+                                    @authorisation.agents.get.map { agent =>
+                                        <li>@agent.organisationName</li>
+                                    }
                                 }
-                            }
-                            </ul>
-                        </td>
-                        <td></td>
-                    </tr>
+                                </ul>
+                            </td>
+                            <td></td>
+                        </tr>
                     }
                 }
                 </tbody>
@@ -110,7 +112,7 @@
                     Showing
                     @if(model.response.authorisations.isEmpty) {
                         0
-                    }else{
+                    } else {
                         @pagination.startPoint
                     } to @{
                     model.response.filterTotal.min(pagination.startPoint + pagination.pageSize - 1)
@@ -119,7 +121,7 @@
 
                 <div role="navigation" aria-label="Pagination" class="pull-right">
                     <ul class="pagination" style="margin-top: 0px">
-                                    @if(pagination.pageNumber > 1) {
+                        @if(pagination.pageNumber > 1) {
                             <li class="previous ">
                                 <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.previousPage).url">
                                     <i class="previous-arrow"></i>Previous</a></li>
@@ -131,7 +133,8 @@
 
                         @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                             <li class="next">
-                                <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.nextPage).url">Next
+                                <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.nextPage).url">
+                                    Next
                                     <i class="next-arrow"></i></a></li>
 
                         } else {
@@ -140,7 +143,7 @@
                     </ul>
                     <div id="page-size-list">
                         <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
-                        @for(len <- List(15,25,50,100)) {
+                        @for(len <- List(15, 25, 50, 100)) {
                             @if(pagination.pageSize == len) {
                                 <span class="page-size-option-current">@len</span>
                             } else {
@@ -158,6 +161,11 @@
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
             </div>
         </div>
+        <br>
+
+        <div>
+            <a href="#" type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</a>
+        </div>
     </div>
 }
 
@@ -170,13 +178,15 @@
     <div id="sort-by-@field" class="sorting">
         <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"propertyRepresentation.th.$field")</a>
     </div>
-    }
+}
 }
 
 @searchField(fieldName: String, value: Option[String]) = {
     <div class="searchfield">
         <label for="@fieldName" class="visually-hidden">@Messages(s"propertyRepresentation.th.$fieldName")</label>
         <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
-        <button id="@{fieldName}Button" class="search-submit ss-button">@Messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
+        <button id="@{
+            fieldName
+        }Button" class="search-submit ss-button">@Messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
     </div>
 }

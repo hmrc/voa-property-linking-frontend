@@ -61,6 +61,16 @@ class SelectPropertiesSpec extends ControllerSpec {
     checkTableColumn(html, 2, "Local authority reference", baRefs)
   }
 
+//  it must "display the appointed agents for each of the user's first 15 properties" in {
+//    val html = defaultHtml
+//    val agents = StubPropertyLinkConnector.getstubbedOwnerAuthResult().authorisations.map {
+//      case authorisation if authorisation.agents.nonEmpty => authorisation.agents.get.map(_.organisationName) mkString " "
+//      case _ => "None"
+//    }
+//
+//    checkTableColumn(html, 3, "Agent", agents)
+//  }
+
 
 
 
