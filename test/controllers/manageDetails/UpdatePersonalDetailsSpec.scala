@@ -16,27 +16,22 @@
 
 package controllers.manageDetails
 
-import actions.BasicAuthenticatedRequest
-import config.ApplicationConfig
 import connectors.{Addresses, Authenticated, IndividualAccounts}
 import controllers.ControllerSpec
 import models.{Accounts, Address, DetailedIndividualAccount}
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
-import org.mockito.invocation.InvocationOnMock
-import org.mockito.stubbing.Answer
 import org.scalatest.mockito.MockitoSugar
-import play.api.mvc.{Action, AnyContent, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import services.{ManageDetails, Success}
+import uk.gov.hmrc.http.HeaderCarrier
 import utils.{StubAuthentication, StubGroupAccountConnector}
 
 import scala.concurrent.Future
 import scala.util.Random
-import uk.gov.hmrc.http.HeaderCarrier
 
 class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
 

@@ -23,17 +23,9 @@
 <div class="clearfix section-tabs">
     <ul role="tablist">
         @if(isAgent) {
-            @if(config.searchSortEnabled && request.path != controllers.agent.routes.RepresentationController.viewClientProperties().url) {
-                @tab("clientProperties", controllers.agent.routes.RepresentationController.viewClientPropertiesSearchSort().url)
-            }else{
-                @tab("clientProperties", controllers.agent.routes.RepresentationController.viewClientProperties().url)
-            }
+            @tab("clientProperties", controllers.agent.routes.RepresentationController.viewClientProperties().url)
         }
-        @if(config.searchSortEnabled && request.path != routes.Dashboard.manageProperties().url) {
-            @tab("myProperties", routes.Dashboard.managePropertiesSearchSort().url)
-        }else{
-            @tab("myProperties", routes.Dashboard.manageProperties().url)
-        }
+        @tab("myProperties", routes.Dashboard.manageProperties().url)
 
         @tab("manageAgents", routes.Dashboard.manageAgents().url)
         @tab("drafts", routes.Dashboard.viewDraftCases().url)

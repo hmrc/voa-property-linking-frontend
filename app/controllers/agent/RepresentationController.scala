@@ -44,72 +44,50 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
                                         (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
-  def viewClientProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true) =
-    viewClientPropertiesSearchSort(page = page, pageSize = pageSize, requestTotalRowCount = requestTotalRowCount, None, None, None, None, None, None)
+  def viewClientProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String],
+                           sortorder: Option[String], status: Option[String], address: Option[String],
+                           baref: Option[String], client: Option[String]) = authenticated.asAgent { implicit request =>
+    withValidPaginationSearchSort(
+      page = page,
+      pageSize = pageSize,
+      requestTotalRowCount = requestTotalRowCount,
+      sortfield = sortfield,
+      sortorder = sortorder,
+      status = status,
+      address = address,
+      baref = baref,
+      client = client
+    ) { paginationSearchSort => {
+      val eventualRepresentations = reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
+      val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
 
-
-  def viewClientPropertiesSearchSort(page: Int, pageSize: Int, requestTotalRowCount: Boolean = true, sortfield: Option[String] = None,
-                                     sortorder: Option[String] = None, status: Option[String] = None, address: Option[String] = None,
-                                     baref: Option[String] = None, client: Option[String] = None) = authenticated.asAgent { implicit request =>
-    if (config.searchSortEnabled) {
-      withValidPaginationSearchSort(
-        page = page,
-        pageSize = pageSize,
-        requestTotalRowCount = requestTotalRowCount,
-        sortfield = sortfield,
-        sortorder = sortorder,
-        status = status,
-        address = address,
-        baref = baref,
-        client = client
-      ) { paginationSearchSort => {
-        val eventualRepresentations = reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
-        val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
-
-        for {
-          representations <- eventualRepresentations
-          msgCount <- eventualMessageCount
-        } yield {
-          Ok(views.html.dashboard.manageClientsSearchSort(
-            ManageClientPropertiesSearchAndSortVM(
-              result = representations,
-              totalPendingRequests = representations.pendingRepresentations,
-              pagination = paginationSearchSort.copy(totalResults = representations.filterTotal)
-            ),
-            msgCount.unread
-          ))
-        }
-      }
-      }
-    } else {
-      withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
-        reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
-          Ok(views.html.dashboard.manageClients(ManagePropertiesVM(reprs.propertyRepresentations,
-            reprs.totalPendingRequests,
-            pagination.copy(totalResults = reprs.resultCount.getOrElse(0L)))))
-        }
+      for {
+        representations <- eventualRepresentations
+        msgCount <- eventualMessageCount
+      } yield {
+        Ok(views.html.dashboard.manageClients(
+          ManageClientPropertiesVM(
+            result = representations,
+            totalPendingRequests = representations.pendingRepresentations,
+            pagination = paginationSearchSort.copy(totalResults = representations.filterTotal)
+          ),
+          msgCount.unread
+        ))
       }
     }
-  }
-
-  def listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean) = authenticated.asAgent { implicit request =>
-    withValidPagination(page, pageSize, requestTotalRowCount) { pagination =>
-      reprConnector.forAgent(RepresentationApproved, request.organisationId, pagination).map { reprs =>
-        Ok(Json.toJson(reprs))
-      }
     }
   }
 
 
-  def listRepresentationRequestSearchAndSort(page: Int,
-                                             pageSize: Int,
-                                             requestTotalRowCount: Boolean,
-                                             sortfield: Option[String],
-                                             sortorder: Option[String],
-                                             status: Option[String],
-                                             address: Option[String],
-                                             baref: Option[String],
-                                             client: Option[String]) = authenticated { implicit request =>
+  def listRepresentationRequest(page: Int,
+                                pageSize: Int,
+                                requestTotalRowCount: Boolean,
+                                sortfield: Option[String],
+                                sortorder: Option[String],
+                                status: Option[String],
+                                address: Option[String],
+                                baref: Option[String],
+                                client: Option[String]) = authenticated { implicit request =>
     withValidPaginationSearchSort(
       page = page,
       pageSize = pageSize,
@@ -341,7 +319,7 @@ object BulkActionsForm {
   )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))
 }
 
-case class ManageClientPropertiesSearchAndSortVM(result: AgentAuthResult,
-                                                 totalPendingRequests: Long,
-                                                 pagination: PaginationSearchSort)
+case class ManageClientPropertiesVM(result: AgentAuthResult,
+                                    totalPendingRequests: Long,
+                                    pagination: PaginationSearchSort)
 
