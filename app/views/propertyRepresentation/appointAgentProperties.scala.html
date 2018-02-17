@@ -61,20 +61,22 @@
                         <th>@Messages("propertyRepresentation.appointAgents.table.actions")</th>
                     </tr>
 
-                    <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectProperties()">
+                    <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination)">
                         <tr>
                             <th></th>
                             <th>@searchField("address", pagination.address)</th>
                             <th>@searchField("localAuthorityReference", pagination.baref)</th>
                             <th>@searchField("agentName", pagination.agentName)</th>
                             <th>
-                                <a href="@agentAppointment.routes.AppointAgentController.selectProperties()" id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
+                                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.clear)"
+                                    id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
                             </th>
                             <th></th>
-                            <input type="hidden" name="pageNumber" value="@pagination.pageNumber" readonly>
-                            <input type="hidden" name="pageSize" value="@pagination.pageSize" readonly>
-                            <input type="hidden" name="sortField" value="@pagination.sortField" readonly>
-                            <input type="hidden" name="sortOrder" value="@pagination.sortOrder" readonly>
+                            <input type="hidden" name="agentCode" value="@pagination.agentCode">
+                            <input type="hidden" name="pageNumber" value="@pagination.pageNumber">
+                            <input type="hidden" name="pageSize" value="@pagination.pageSize">
+                            <input type="hidden" name="sortField" value="@pagination.sortField">
+                            <input type="hidden" name="sortOrder" value="@pagination.sortOrder">
                         </tr>
                     </form>
                 </thead>
@@ -123,7 +125,7 @@
                     <ul class="pagination" style="margin-top: 0px">
                         @if(pagination.pageNumber > 1) {
                             <li class="previous ">
-                                <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.previousPage).url">
+                                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.previousPage).url">
                                     <i class="previous-arrow"></i>Previous</a></li>
                         } else {
                             <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
@@ -133,7 +135,7 @@
 
                         @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                             <li class="next">
-                                <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.nextPage).url">
+                                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.nextPage).url">
                                     Next
                                     <i class="next-arrow"></i></a></li>
 
@@ -147,7 +149,7 @@
                             @if(pagination.pageSize == len) {
                                 <span class="page-size-option-current">@len</span>
                             } else {
-                                <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.copy(pageSize = len)).url">
+                                <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(pageSize = len)).url">
                                 @len</a>
                             }
                         }
@@ -172,11 +174,11 @@
 @sortingControl(field: AgentPropertiesSortField) = {
 @if(pagination.sortField == field) {
     <div id="sort-by-@field" class="sorting_@pagination.sortOrder">
-        <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.reverseSorting)">@Messages(s"propertyRepresentation.th.$field")</a>
+        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.reverseSorting)">@Messages(s"propertyRepresentation.th.$field")</a>
     </div>
 } else {
     <div id="sort-by-@field" class="sorting">
-        <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"propertyRepresentation.th.$field")</a>
+        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"propertyRepresentation.th.$field")</a>
     </div>
 }
 }

@@ -38,6 +38,10 @@
 
         <p class="margin-top-20"><a href="@controllers.propertyLinking.routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></p>
 
+        @if(config.agentMultipleAppointEnabled){
+            <p class="margin-top-20"><a href="@agentAppointment.routes.AppointAgentController.appointMultipleProperties()" id="appointAgent">@Messages("manageProperties.appointAgent")</a></p>
+        }
+
         @if(model.result.authorisations.isEmpty && model.pagination.valuesOfSearchParameters == "") {
             <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {
@@ -153,14 +157,17 @@
                                     </td>
                                     <td>
                                         <ul class="list">
-                                            <li>
-                                            @if(p.status.toLowerCase == "approved" || p.status.toLowerCase == "pending") {
-                                                <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")
-                                                    <span class="visuallyhidden">
-                                                        for @(Formatters.capitalizedAddress(p.address))</span>
-                                                </a>
+                                            @if(!config.agentMultipleAppointEnabled) {
+                                                <li>
+                                                @if(p.status.toLowerCase == "approved" || p.status.toLowerCase == "pending") {
+                                                    <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")
+                                                        <span class="visuallyhidden">
+                                                            for @(Formatters.capitalizedAddress(p.address))
+                                                        </span>
+                                                    </a>
+                                                }
+                                                </li>
                                             }
-                                            </li>
                                             <li>
                                             @if(p.status.toLowerCase == "approved" || p.status.toLowerCase == "pending") {
                                                 <a href="@routes.Assessments.assessments(p.authorisationId)">@Messages("manageProperties.viewAssessments")

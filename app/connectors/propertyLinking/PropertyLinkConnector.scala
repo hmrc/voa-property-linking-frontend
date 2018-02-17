@@ -69,8 +69,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   def linkedPropertiesSearchAndSort(organisationId: Long,
                                     pagination: PaginationSearchSort,
                                     representationStatusFilter: Seq[RepresentationStatus] =
-                                        Seq(RepresentationApproved, RepresentationPending)
-                                   )
+                                        Seq(RepresentationApproved, RepresentationPending))
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
     val ownerAuthResult = http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +
@@ -88,26 +87,13 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
         auth.copy(agents = auth.agents.map(ags => ags.filter(ag => validAgent(ag)))))))
   }
 
-  def agentPropertiesSearchAndSort(organisationId: Long,
-                                    pagination: AgentPropertiesPagination,
-                                    representationStatusFilter: Seq[RepresentationStatus] =
-                                    Seq(RepresentationApproved, RepresentationPending)
-                                   )
-                                   (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
+  def appointableProperties(organisationId: Long,
+                            pagination: AgentPropertiesPagination)
+                           (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
-    val ownerAuthResult = http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +
-      s"organisationId=$organisationId&" +
-      s"${pagination.queryString}")
-
-    def validAgent(agent: OwnerAuthAgent): Boolean =
-      agent.status.fold(false) { status =>
-        representationStatusFilter.map(_.name.toUpperCase).contains(status.toUpperCase)
-      }
-
-    // filter agents on representationStatus
-    ownerAuthResult.map(oar =>
-      oar.copy(authorisations = oar.authorisations.map(auth =>
-        auth.copy(agents = auth.agents.map(ags => ags.filter(ag => validAgent(ag)))))))
+    http.GET[OwnerAuthResult](s"$baseUrl/property-links-appointable?" +
+      s"ownerId=$organisationId" +
+      s"&${pagination.queryString}")
   }
 
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {

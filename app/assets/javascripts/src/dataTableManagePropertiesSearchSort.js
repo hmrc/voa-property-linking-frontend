@@ -71,18 +71,18 @@
                     $('td:eq(3)', nRow).text('');
                 }
 
-                var li_num=0;
+                var liNum=0;
                 if (!dataTable.ajax.json().config.agentMultipleAppointEnabled) {
                     if (aData.status.toLowerCase() === 'approved' || aData.status.toLowerCase() === 'pending') {
-                        $('td:eq(4) ul li:eq('+li_num+')', nRow).html('<a href="/business-rates-property-linking/appoint-agent/' + aData.authorisationId + '">' + messages.labels.appointAgent + '</a>');
+                        $('td:eq(4) ul li:eq('+liNum+')', nRow).html('<a href="/business-rates-property-linking/appoint-agent/' + aData.authorisationId + '">' + messages.labels.appointAgent + '</a>');
                     }
-                    li_num++;
+                    liNum++;
                 }
 
                 if (aData.status.toLowerCase() === 'approved' || aData.status.toLowerCase() === 'pending') {
-                    $('td:eq(4) ul li:eq('+li_num+')', nRow).html('<a href="/business-rates-property-linking/property-link/' + aData.authorisationId + '/assessments' + '">' + messages.labels.viewValuations + '</a>');
+                    $('td:eq(4) ul li:eq('+liNum+')', nRow).html('<a href="/business-rates-property-linking/property-link/' + aData.authorisationId + '/assessments' + '">' + messages.labels.viewValuations + '</a>');
                 } else {
-                    $('td:eq(4) ul li:eq('+li_num+')', nRow).html('<a href="/business-rates-property-linking/summary/' + aData.uarn + '">' + messages.labels.viewValuations + '</a>');
+                    $('td:eq(4) ul li:eq('+liNum+')', nRow).html('<a href="/business-rates-property-linking/summary/' + aData.uarn + '">' + messages.labels.viewValuations + '</a>');
                 }
             },
             fnServerParams: function(data) {
