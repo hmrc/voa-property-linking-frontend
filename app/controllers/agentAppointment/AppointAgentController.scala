@@ -25,10 +25,11 @@ import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
 import form.EnumMapping
+import form.FormValidation.nonEmptyList
 import form.Mappings._
 import models._
 import models.searchApi.{AgentPropertiesPagination, OwnerAgent, OwnerAuthResult}
-import play.api.data.Forms._
+import play.api.data.Forms.{number, _}
 import play.api.data.validation.Constraint
 import play.api.data.{FieldMapping, Form, FormError, Mapping}
 import play.api.i18n.MessagesApi
@@ -72,40 +73,6 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
       }
     }
   }
-
-  def selectProperties() = authenticated { implicit request =>
-    appointAgentForm.bindFromRequest().fold(
-      hasErrors = errors => {
-        agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
-          if (config.manageAgentsEnabled) {
-            BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, None, ownerAgents.agents)))
-          } else {
-            BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, None, ownerAgents.agents)))
-          }
-        }
-      },
-      success = (agent: AppointAgent) => {
-        val pagination = AgentPropertiesPagination(agent.getAgentCode())
-        for {
-          response <- propertyLinks.appointableProperties(request.organisationId, pagination)
-        } yield {
-          Ok(views.html.propertyRepresentation.appointAgentProperties(
-            AppointAgentPropertiesVM(request.organisationAccount.id, response), pagination))
-        }
-    })
-  }
-
-  def selectPropertiesSearchSort(pagination: AgentPropertiesPagination) = authenticated { implicit request =>
-      withValidPropertiesPagination(pagination) {
-        for {
-          response <- propertyLinks.appointableProperties(request.organisationId, pagination)
-        } yield {
-          Ok(views.html.propertyRepresentation.appointAgentProperties(
-            AppointAgentPropertiesVM(request.organisationAccount.id, response), pagination))
-        }
-      }
-  }
-
 
   def appointSubmit(authorisationId: Long) = authenticated { implicit request =>
     appointAgentForm.bindFromRequest().fold(errors => {
@@ -183,6 +150,50 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
       case None => NotFound(Global.notFoundTemplate)
     }
   }
+
+  /* appoint agent to multiple properties - Start */
+  def selectProperties() = authenticated { implicit request =>
+    appointAgentForm.bindFromRequest().fold(
+      hasErrors = errors => {
+        agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
+          if (config.manageAgentsEnabled) {
+            BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, None, ownerAgents.agents)))
+          } else {
+            BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, None, ownerAgents.agents)))
+          }
+        }
+      },
+      success = (agent: AppointAgent) => {
+        val pagination = AgentPropertiesPagination(
+          agentCode = agent.getAgentCode(),
+          checkPermission = agent.canCheck,
+          challengePermission = agent.canChallenge)
+        for {
+          response <- propertyLinks.appointableProperties(request.organisationId, pagination)
+        } yield {
+          Ok(views.html.propertyRepresentation.appointAgentProperties(
+            AppointAgentPropertiesVM(request.organisationAccount.id, response), pagination))
+        }
+      })
+  }
+
+  def selectPropertiesSearchSort(pagination: AgentPropertiesPagination) = authenticated { implicit request =>
+    withValidPropertiesPagination(pagination) {
+      for {
+        response <- propertyLinks.appointableProperties(request.organisationId, pagination)
+      } yield {
+        Ok(views.html.propertyRepresentation.appointAgentProperties(
+          AppointAgentPropertiesVM(request.organisationAccount.id, response), pagination))
+      }
+    }
+  }
+
+  def agentSummary() = authenticated { implicit request =>
+    Future.successful(Ok(views.html.propertyRepresentation.appointAgentSummary()))
+  }
+
+  /* appoint agent to multiple properties - End */
+
 
   private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
                                         newAgentOrgId: Long, individualId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
@@ -275,10 +286,6 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
     }
   }
 
-  def agentSummary() = authenticated { implicit request =>
-    Future.successful(Ok(views.html.propertyRepresentation.appointAgentSummary()))
-  }
-
   def appointMultipleProperties() = authenticated { implicit request =>
       agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
         sessionRepository.get[AgentAppointmentSession] flatMap {
@@ -339,4 +346,22 @@ case class AgentPermissionMapping(other: String, key: String = "", constraints: 
   override def withPrefix(prefix: String) = copy(key = prefix + key)
 
   override def verifying(cs: Constraint[AgentPermission]*) = copy(constraints = constraints ++ cs.toSeq)
+}
+
+object BulkActionsForm {
+  lazy val form: Form[RepresentationBulkAction] = Form(mapping(
+    "page" -> number,
+    "pageSize" -> number,
+    "action" -> text,
+    "requestIds" -> list(text).verifying(nonEmptyList),
+    "complete" -> optional(number)
+  )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))
+}
+
+object AgentAppointBulkActionForm {
+  lazy val form: Form[AgentAppointBulkAction] = Form(mapping(
+    "checkPermission" -> text,
+    "challengePermission" -> text,
+    "propertyLinkIds" -> list(text).verifying(nonEmptyList)
+  )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack _))
 }
