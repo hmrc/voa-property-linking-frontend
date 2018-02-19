@@ -16,11 +16,13 @@
 
 package models.searchApi
 
-import models.SortOrder
+import models.{AgentPermission, SortOrder, StartAndContinue}
 import play.api.mvc.QueryStringBindable
 import utils.Formatters.{buildQueryParams, buildUppercaseQueryParams}
 
 case class AgentPropertiesPagination(agentCode: Long,
+                                     checkPermission: AgentPermission = StartAndContinue,
+                                     challengePermission: AgentPermission = StartAndContinue,
                                      address: Option[String] = None,
                                      baref: Option[String] = None,
                                      agentName: Option[String] = None,
@@ -40,6 +42,7 @@ case class AgentPropertiesPagination(agentCode: Long,
   def clear: AgentPropertiesPagination = copy(address = None, baref = None, agentName = None)
 
   lazy val queryString = s"agentCode=$agentCode&startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true" +
+    s"&challengePermission=$challengePermission&checkPermission=$checkPermission" +
     buildUppercaseQueryParams("sortfield", Some(sortField.name)) +
     buildUppercaseQueryParams("sortorder", Some(sortOrder.name)) +
     buildQueryParams("address", address) +
@@ -54,6 +57,8 @@ object AgentPropertiesPagination {
 
       for {
         agentCode <- bindParam[Long]("agentCode")
+        checkPermission <- bindParam[String]("checkPermission")
+        challengePermission <- bindParam[String]("challengePermission")
         address <- bindParam[Option[String]]("address")
         baref <- bindParam[Option[String]]("baref")
         agentName <- bindParam[Option[String]]("agentName")
@@ -62,10 +67,12 @@ object AgentPropertiesPagination {
         sortField <- bindParam[AgentPropertiesSortField]("sortField")
         sortOrder <- bindParam[SortOrder]("sortOrder")
       } yield {
-        (agentCode, address, baref, agentName, pageNumber, pageSize, sortField, sortOrder) match {
-          case (Right(ac), Right(addr), Right(bar), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>
+        (agentCode, checkPermission, challengePermission, address, baref, agentName, pageNumber, pageSize, sortField, sortOrder) match {
+          case (Right(ac), Right(cp1), Right(cp2), Right(addr), Right(bar), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>
             Right(AgentPropertiesPagination(
               agentCode = ac,
+              checkPermission = AgentPermission.fromName(cp1).getOrElse(StartAndContinue),
+              challengePermission = AgentPermission.fromName(cp2).getOrElse(StartAndContinue),
               address = addr,
               baref = bar,
               agentName = an,
@@ -81,6 +88,8 @@ object AgentPropertiesPagination {
     override def unbind(key: String, value: AgentPropertiesPagination): String =
       s"""
          |agentCode=${value.agentCode}&
+         |checkPermission=${value.checkPermission}&
+         |challengePermission=${value.challengePermission}&
          |address=${value.address.getOrElse("")}&
          |baref=${value.baref.getOrElse("")}&
          |agentName=${value.agentName.getOrElse("")}&
