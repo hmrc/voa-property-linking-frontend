@@ -43,7 +43,7 @@
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
             </div>
 
-            <table id="agentPropertiesTable" class="agentProperties dataTable table-font-xsmall no-footer">
+            <table class="dataTable table-font-xsmall no-footer" id="agentPropertiesTable">
                 <colgroup>
                     <col style="width: 8%">
                     <col style="width: 30%">
@@ -61,7 +61,7 @@
                         <th>@Messages("propertyRepresentation.appointAgents.table.actions")</th>
                     </tr>
 
-                    <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectProperties()">
+                    <form method="GET"  action="@agentAppointment.routes.AppointAgentController.selectProperties()">
                         <tr>
                             <th></th>
                             <th>@searchField("address", pagination.address)</th>
@@ -120,27 +120,25 @@
                 </div>
 
                 <div role="navigation" aria-label="Pagination" class="pull-right">
-                    <ul class="pagination" style="margin-top: 0px">
+                    <ul class="pagination">
                         @if(pagination.pageNumber > 1) {
-                            <li class="previous ">
-                                <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.previousPage).url">
-                                    <i class="previous-arrow"></i>Previous</a></li>
+                            <li class="previous "><a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.previousPage).url"><i class="previous-arrow"></i>Previous</a></li>
                         } else {
                             <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
                         }
 
                         <li class="active">@pagination.pageNumber</li>
-
                         @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                             <li class="next">
-                                <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.nextPage).url">
-                                    Next
-                                    <i class="next-arrow"></i></a></li>
-
+                                <a href="@agentAppointment.routes.AppointAgentController.selectProperties(pagination.nextPage).url">Next<i class="next-arrow"></i></a></li>
                         } else {
-                            <li class="next disabled">Next <i class="next-arrow"></i></li>
+                            <li class="next disabled"><i class="next-arrow"></i></li>
                         }
                     </ul>
+                </div>
+                    <div class="clearfix"></div>
+                </div>
+
                     <div id="page-size-list">
                         <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
                         @for(len <- List(15, 25, 50, 100)) {
@@ -154,19 +152,16 @@
                         @Messages("search.sort.page.size.properties.per.page")
                     </div>
                 </div>
-                <div class="clearfix"></div>
+                    <br>
+                    <div class="hide-if-no-js">
+                        <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+                    </div>
             </div>
-
-            <div class="hide-if-no-js">
-                <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
-            </div>
-        </div>
-        <br>
+                    <br>
 
         <div>
             <a href="#" type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</a>
         </div>
-    </div>
 }
 
 @sortingControl(field: AgentPropertiesSortField) = {
