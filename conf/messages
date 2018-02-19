@@ -365,7 +365,8 @@ propertyRepresentation.table.title.agentName=Agent name
 
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
-propertyRepresentation.appointAgentProperties.appointAgent=You can appoint ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to the following properties:
+propertyRepresentation.appointAgentProperties.appointAgent=You can appoint ABC Agent (Agent ID: {0})
+propertyRepresentation.appointAgentProperties.checksChallenges=with the ability to {0} to the following properties:
 propertyRepresentation.appointAgentProperties.selectDeselect=Select all / deselect all
 propertyRepresentation.appointAgents.table.select=Select
 propertyRepresentation.appointAgents.table.actions=Actions

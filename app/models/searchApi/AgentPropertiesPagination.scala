@@ -20,15 +20,14 @@ import models.SortOrder
 import play.api.mvc.QueryStringBindable
 import utils.Formatters.{buildQueryParams, buildUppercaseQueryParams}
 
-case class AgentPropertiesPagination(address: Option[String] = None,
+case class AgentPropertiesPagination(agentCode: Long,
+                                     address: Option[String] = None,
                                      baref: Option[String] = None,
                                      agentName: Option[String] = None,
                                      pageNumber: Int = 1,
                                      pageSize: Int = 15,
-//                                     totalResults: Int = 10,
                                      sortField: AgentPropertiesSortField = AgentPropertiesSortField.LocalAuthorityReference,
                                      sortOrder: SortOrder = SortOrder.Descending) {
-
 
   def startPoint: Int = (pageNumber - 1) * pageSize + 1
 
@@ -38,18 +37,9 @@ case class AgentPropertiesPagination(address: Option[String] = None,
 
   def nextPage: AgentPropertiesPagination = copy(pageNumber = pageNumber + 1)
 
-//  lazy val queryString: String =
-//    s"""
-//       |${address.filter(_.nonEmpty).fold("")(a => s"address=$a&")}
-//       |${localAuthorityReference.filter(_.nonEmpty).fold("")(lar => s"localAuthorityReference=$lar&")}
-//       |${agentName.filter(_.nonEmpty).fold("")(an => s"agentName=$an&")}
-//       |page=$startPoint&
-//       |size=$pageSize&
-//       |sortField=$sortField&
-//       |sortOrder=$sortOrder
-//       |""".stripMargin.replaceAll("\n", "")
+  def clear: AgentPropertiesPagination = copy(address = None, baref = None, agentName = None)
 
-  lazy val queryString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true"  +
+  lazy val queryString = s"agentCode=$agentCode&startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true" +
     buildUppercaseQueryParams("sortfield", Some(sortField.name)) +
     buildUppercaseQueryParams("sortorder", Some(sortOrder.name)) +
     buildQueryParams("address", address) +
@@ -63,6 +53,7 @@ object AgentPropertiesPagination {
       def bindParam[T](key: String)(implicit qsb: QueryStringBindable[T]): Option[Either[String, T]] = qsb.bind(key, params)
 
       for {
+        agentCode <- bindParam[Long]("agentCode")
         address <- bindParam[Option[String]]("address")
         baref <- bindParam[Option[String]]("baref")
         agentName <- bindParam[Option[String]]("agentName")
@@ -71,10 +62,11 @@ object AgentPropertiesPagination {
         sortField <- bindParam[AgentPropertiesSortField]("sortField")
         sortOrder <- bindParam[SortOrder]("sortOrder")
       } yield {
-        (address, baref, agentName, pageNumber, pageSize, sortField, sortOrder) match {
-          case (Right(a), Right(bar), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>
+        (agentCode, address, baref, agentName, pageNumber, pageSize, sortField, sortOrder) match {
+          case (Right(ac), Right(addr), Right(bar), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>
             Right(AgentPropertiesPagination(
-              address = a,
+              agentCode = ac,
+              address = addr,
               baref = bar,
               agentName = an,
               pageNumber = pn,
@@ -88,6 +80,7 @@ object AgentPropertiesPagination {
 
     override def unbind(key: String, value: AgentPropertiesPagination): String =
       s"""
+         |agentCode=${value.agentCode}&
          |address=${value.address.getOrElse("")}&
          |baref=${value.baref.getOrElse("")}&
          |agentName=${value.agentName.getOrElse("")}&
@@ -98,12 +91,3 @@ object AgentPropertiesPagination {
          |""".stripMargin.replaceAll("\n", "")
   }
 }
-
-
-
-
-
-
-
-
-

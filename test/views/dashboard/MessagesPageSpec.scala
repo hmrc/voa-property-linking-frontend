@@ -35,8 +35,6 @@ import scala.collection.JavaConverters._
 
 class MessagesPageSpec extends ControllerSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.searchSortEnabled" -> "true")
-
   "The messages page" must """show "There are no messages" when the user has no messages""" in {
     val noMessages = MessageSearchResults(
       0, 0, Nil
@@ -47,15 +45,8 @@ class MessagesPageSpec extends ControllerSpec {
   }
 
   it must "show the dashboard tabs at the top of the page" in {
-    //because travis is stupid
-    val managePropertiesUrl = if(applicationConfig.searchSortEnabled) {
-      routes.Dashboard.managePropertiesSearchSort().url
-    } else {
-      routes.Dashboard.manageProperties().url
-    }
-    
     val expectedTabLinks = Seq(
-      managePropertiesUrl,
+      routes.Dashboard.manageProperties().url,
       routes.Dashboard.manageAgents().url,
       routes.Dashboard.viewDraftCases().url,
       controllers.manageDetails.routes.ViewDetails.show().url,

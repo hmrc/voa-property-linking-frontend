@@ -46,7 +46,6 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val pingdomToken: Option[String] = getOptionalConfig("pingdom.performance.monitor.token")
 
   lazy val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
-  lazy val searchSortEnabled: Boolean = getConfig("featureFlags.searchSortEnabled").toBoolean
   lazy val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
   lazy val messagesEnabled: Boolean = getConfig("featureFlags.messagesEnabled").toBoolean
   lazy val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean

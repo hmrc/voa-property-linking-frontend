@@ -73,6 +73,40 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
     }
   }
 
+  def selectProperties() = authenticated { implicit request =>
+    appointAgentForm.bindFromRequest().fold(
+      hasErrors = errors => {
+        agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
+          if (config.manageAgentsEnabled) {
+            BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, None, ownerAgents.agents)))
+          } else {
+            BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, None, ownerAgents.agents)))
+          }
+        }
+      },
+      success = (agent: AppointAgent) => {
+        val pagination = AgentPropertiesPagination(agent.getAgentCode())
+        for {
+          response <- propertyLinks.appointableProperties(request.organisationId, pagination)
+        } yield {
+          Ok(views.html.propertyRepresentation.appointAgentProperties(
+            AppointAgentPropertiesVM(request.organisationAccount.id, response), pagination))
+        }
+    })
+  }
+
+  def selectPropertiesSearchSort(pagination: AgentPropertiesPagination) = authenticated { implicit request =>
+      withValidPropertiesPagination(pagination) {
+        for {
+          response <- propertyLinks.appointableProperties(request.organisationId, pagination)
+        } yield {
+          Ok(views.html.propertyRepresentation.appointAgentProperties(
+            AppointAgentPropertiesVM(request.organisationAccount.id, response), pagination))
+        }
+      }
+  }
+
+
   def appointSubmit(authorisationId: Long) = authenticated { implicit request =>
     appointAgentForm.bindFromRequest().fold(errors => {
       agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
@@ -223,31 +257,18 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
   }
 
   def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
-    "agentCode" -> mandatoryIfEqual("agentCodeRadio", "yes", agentCode.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode)),
+    "agentCode" -> mandatoryIfEqual("agentCodeRadio", "yes",
+          agentCode.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode)),
     "agentCodeRadio" -> text,
     "canCheck" -> AgentPermissionMapping("canChallenge"),
     "canChallenge" -> AgentPermissionMapping("canCheck")
   )(AppointAgent.apply)(AppointAgent.unapply))
 
-  def selectProperties(pagination: AgentPropertiesPagination) = authenticated { implicit request =>
-    withValidPropertiesPagination(pagination){
-      for {
-        response <- propertyLinks.agentPropertiesSearchAndSort(request.organisationId, pagination)
-      } yield {
-        Ok(views.html.propertyRepresentation.appointAgentProperties(
-          AppointAgentPropertiesVM(
-              request.organisationAccount.id,
-              response
-            ),
-          pagination))
-      }
-    }
-  }
 
   private def withValidPropertiesPagination(pagination: AgentPropertiesPagination)
                                         (f: => Future[Result])
                                         (implicit request: Request[_]): Future[Result] = {
-    if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 100) {
+    if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 1000) {
       f
     } else {
       BadRequest(Global.badRequestTemplate)
@@ -272,52 +293,50 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
     }
 }
 
-  case class AppointAgent(agentCode: Option[Long], agentCodeRadio: String, canCheck: AgentPermission, canChallenge: AgentPermission) {
-    def getAgentCode(): Long = agentCode match {
-      case Some(code) => code
-      case None => agentCodeRadio.toLong
-    }
+case class AppointAgent(agentCode: Option[Long], agentCodeRadio: String, canCheck: AgentPermission, canChallenge: AgentPermission) {
+  def getAgentCode(): Long = agentCode match {
+    case Some(code) => code
+    case None => agentCodeRadio.toLong
   }
-
-  object AppointAgent {
-    implicit val format = Json.format[AppointAgent]
-  }
-
-  case class AppointAgentPropertiesVM(organisationId: Long, response: OwnerAuthResult)
-
-  case class AppointAgentVM(form: Form[_], linkId: Option[Long] = None, agents: Seq[OwnerAgent] = Seq())
-
-  case class ModifyAgentVM(form: Form[_], representationId: Long)
-
-  case class ExistingAgentsPermission(agentName: String, agentCode: Long, availablePermission: Seq[String])
-
-  case class ConfirmOverrideVM(authorisationId: Long, newAgent: ExistingAgentsPermission, existingPermissions: Seq[ExistingAgentsPermission])
-
-  case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Long)
-
-  case class AgentPermissionMapping(other: String, key: String = "", constraints: Seq[Constraint[AgentPermission]] = Nil) extends Mapping[AgentPermission] {
-    override val mappings = Seq(this)
-    private val wrapped = EnumMapping(AgentPermission)
-
-    override def bind(data: Map[String, String]) = {
-      (wrapped.withPrefix(key).bind(data), wrapped.withPrefix(other).bind(data)) match {
-        case (e@Left(err), _) => e
-        case (Right(p1), Right(p2)) if p1 == NotPermitted && p2 == NotPermitted => Left(Seq(FormError(key, "error.invalidPermissions")))
-        case (r@Right(_), _) => r
-      }
-    }
-
-    override def unbind(value: AgentPermission) = {
-      wrapped.withPrefix(key).unbind(value)
-    }
-
-    override def unbindAndValidate(value: AgentPermission) = {
-      wrapped.withPrefix(key).unbindAndValidate(value)
-    }
-
-    override def withPrefix(prefix: String) = copy(key = prefix + key)
-
-    override def verifying(cs: Constraint[AgentPermission]*) = copy(constraints = constraints ++ cs.toSeq)
-
 }
 
+object AppointAgent {
+  implicit val format = Json.format[AppointAgent]
+}
+
+case class AppointAgentPropertiesVM(organisationId: Long, response: OwnerAuthResult)
+
+case class AppointAgentVM(form: Form[_], linkId: Option[Long] = None, agents: Seq[OwnerAgent] = Seq())
+
+case class ModifyAgentVM(form: Form[_], representationId: Long)
+
+case class ExistingAgentsPermission(agentName: String, agentCode: Long, availablePermission: Seq[String])
+
+case class ConfirmOverrideVM(authorisationId: Long, newAgent: ExistingAgentsPermission, existingPermissions: Seq[ExistingAgentsPermission])
+
+case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Long)
+
+case class AgentPermissionMapping(other: String, key: String = "", constraints: Seq[Constraint[AgentPermission]] = Nil) extends Mapping[AgentPermission] {
+  override val mappings = Seq(this)
+  private val wrapped = EnumMapping(AgentPermission)
+
+  override def bind(data: Map[String, String]) = {
+    (wrapped.withPrefix(key).bind(data), wrapped.withPrefix(other).bind(data)) match {
+      case (e@Left(err), _) => e
+      case (Right(p1), Right(p2)) if p1 == NotPermitted && p2 == NotPermitted => Left(Seq(FormError(key, "error.invalidPermissions")))
+      case (r@Right(_), _) => r
+    }
+  }
+
+  override def unbind(value: AgentPermission) = {
+    wrapped.withPrefix(key).unbind(value)
+  }
+
+  override def unbindAndValidate(value: AgentPermission) = {
+    wrapped.withPrefix(key).unbindAndValidate(value)
+  }
+
+  override def withPrefix(prefix: String) = copy(key = prefix + key)
+
+  override def verifying(cs: Constraint[AgentPermission]*) = copy(constraints = constraints ++ cs.toSeq)
+}
