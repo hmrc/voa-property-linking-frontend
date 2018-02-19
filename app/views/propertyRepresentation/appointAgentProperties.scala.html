@@ -65,7 +65,7 @@
                         <tr>
                             <th></th>
                             <th>@searchField("address", pagination.address)</th>
-                            <th>@searchField("localAuthorityReference", pagination.baref)</th>
+                            <th>@searchField("baref", pagination.baref)</th>
                             <th>@searchField("agentName", pagination.agentName)</th>
                             <th>
                                 <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.clear)"
@@ -86,7 +86,7 @@
         </div>
 
         <div class="column-whole">
-            @form(agentAppointment.routes.AppointAgentController.agentSummary()) {
+            @form(agentAppointment.routes.AppointAgentController.appointAgentSummary()) {
                 <input type="hidden" name="agentCode" value="@pagination.agentCode">
                 <input type="hidden" name="checkPermission" value="@pagination.checkPermission">
                 <input type="hidden" name="challengePermission" value="@pagination.challengePermission">
@@ -186,7 +186,7 @@
             <br>
 
             <div>
-                <a href="@agentAppointment.routes.AppointAgentController.agentSummary()" type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</a>
+                <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</button>
             </div>
         }
         </div>

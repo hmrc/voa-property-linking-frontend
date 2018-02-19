@@ -92,7 +92,7 @@ GET         /linking-conflict                                                   
 
 GET         /appoint-agent/select-properties-search                                           @controllers.agentAppointment.AppointAgentController.selectPropertiesSearchSort(pagination: AgentPropertiesPagination)
 POST        /appoint-agent/select-properties                                                  @controllers.agentAppointment.AppointAgentController.selectProperties()
-POST        /appoint-agent/agent-summary                                                      @controllers.agentAppointment.AppointAgentController.agentSummary()
+POST        /appoint-agent/agent-summary                                                      @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 GET         /appoint-agent/multiple-proprties                                                 @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
 GET         /appoint-agent/:linkId                                                            @controllers.agentAppointment.AppointAgentController.appoint(linkId: Long)
 GET         /appoint-agent/:linkId/confirmed                                                  @controllers.agentAppointment.AppointAgentController.confirmed(linkId: Long)

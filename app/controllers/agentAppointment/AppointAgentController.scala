@@ -188,8 +188,13 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
     }
   }
 
-  def agentSummary() = authenticated { implicit request =>
-    Future.successful(Ok(views.html.propertyRepresentation.appointAgentSummary()))
+  def appointAgentSummary() = authenticated { implicit request =>
+    appointAgentBulkActionForm.bindFromRequest().fold(
+      hasErrors = errors => {???}, // TODO
+      success = (action: AgentAppointBulkAction) => {
+        Ok(views.html.propertyRepresentation.appointAgentSummary())
+      }
+    )
   }
 
   /* appoint agent to multiple properties - End */
@@ -269,11 +274,18 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
 
   def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
     "agentCode" -> mandatoryIfEqual("agentCodeRadio", "yes",
-          agentCode.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode)),
+      agentCode.verifying("error.selfAppointment", _ != request.organisationAccount.agentCode)),
     "agentCodeRadio" -> text,
     "canCheck" -> AgentPermissionMapping("canChallenge"),
     "canChallenge" -> AgentPermissionMapping("canCheck")
   )(AppointAgent.apply)(AppointAgent.unapply))
+
+  def appointAgentBulkActionForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
+    "agentCode" -> longNumber,
+    "checkPermission" -> text,
+    "challengePermission" -> text,
+    "propertyLinkIds" -> list(text).verifying(nonEmptyList)
+  )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack _))
 
 
   private def withValidPropertiesPagination(pagination: AgentPropertiesPagination)
@@ -358,10 +370,3 @@ object BulkActionsForm {
   )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))
 }
 
-object AgentAppointBulkActionForm {
-  lazy val form: Form[AgentAppointBulkAction] = Form(mapping(
-    "checkPermission" -> text,
-    "challengePermission" -> text,
-    "propertyLinkIds" -> list(text).verifying(nonEmptyList)
-  )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack _))
-}
