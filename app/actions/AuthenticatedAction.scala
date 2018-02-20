@@ -153,7 +153,7 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider,
                               emailService: EmailService,
                               val authConnector: AuthConnector,
                               auth: VPLAuthConnector
-                             )(implicit val messages: Messages, config: ApplicationConfig) extends AuthorisedFunctions with AuthImpl {
+                             )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends AuthorisedFunctions with AuthImpl with I18nSupport {
   override def success(
                         accounts: Accounts,
                         body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
