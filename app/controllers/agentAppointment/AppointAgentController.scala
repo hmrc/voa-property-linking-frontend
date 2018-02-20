@@ -192,7 +192,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
     appointAgentBulkActionForm.bindFromRequest().fold(
       hasErrors = errors => {???}, // TODO
       success = (action: AgentAppointBulkAction) => {
-        Ok(views.html.propertyRepresentation.appointAgentSummary())
+        Ok(views.html.propertyRepresentation.appointAgentSummary(action))
       }
     )
   }
@@ -284,7 +284,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
     "agentCode" -> longNumber,
     "checkPermission" -> text,
     "challengePermission" -> text,
-    "propertyLinkIds" -> list(text).verifying(nonEmptyList)
+    "linkIds" -> list(text)//.verifying(nonEmptyList)
   )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack _))
 
 

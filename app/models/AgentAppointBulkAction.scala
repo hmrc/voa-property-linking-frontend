@@ -33,8 +33,8 @@ object AgentAppointBulkAction {
              propertyLinkIds: List[String]
            ): AgentAppointBulkAction = new AgentAppointBulkAction(
                                               agentCode,
-                                              AgentPermission.fromName(checkPermission).getOrElse(StartAndContinue),
-                                              AgentPermission.fromName(challengePermission).getOrElse(StartAndContinue),
+                                              AgentPermission.fromName(checkPermission).getOrElse(NotPermitted),
+                                              AgentPermission.fromName(challengePermission).getOrElse(NotPermitted),
                                               propertyLinkIds)
 
   def unpack(arg: AgentAppointBulkAction): Option[(Long, String, String, List[String])] =

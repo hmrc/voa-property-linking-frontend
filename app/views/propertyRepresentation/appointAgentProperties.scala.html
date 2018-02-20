@@ -81,8 +81,8 @@
                             </th>
                             <th></th>
                             <input type="hidden" name="agentCode" value="@pagination.agentCode">
-                            <input type="hidden" name="checkPermission" value="@pagination.checkPermission">
-                            <input type="hidden" name="challengePermission" value="@pagination.challengePermission">
+                            <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
+                            <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
                             <input type="hidden" name="pageNumber" value="@pagination.pageNumber">
                             <input type="hidden" name="pageSize" value="@pagination.pageSize">
                             <input type="hidden" name="sortField" value="@pagination.sortField">
@@ -96,8 +96,8 @@
         <div class="column-whole">
             @form(agentAppointment.routes.AppointAgentController.appointAgentSummary()) {
                 <input type="hidden" name="agentCode" value="@pagination.agentCode">
-                <input type="hidden" name="checkPermission" value="@pagination.checkPermission">
-                <input type="hidden" name="challengePermission" value="@pagination.challengePermission">
+                <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
+                <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
 
                 <table id="agentPropertiesTableBody" class="agentProperties dataTable table-font-xsmall no-footer">
                     <colgroup>
@@ -114,7 +114,7 @@
                         <tr>
                             <td><div class="checkbox-table-cell">
                                 <label class="block-label selection-button-checkbox" for="@("checkboxId" + (index + 1))">
-                                    <input id=@("checkboxId" + (index + 1)) type="checkbox" name="linkId" value="@authorisation.authorisationId">
+                                    <input id=@("checkboxId" + (index + 1)) type="checkbox" name="linkIds[]" value="@authorisation.authorisationId">
                                     <span class="visually-hidden">Appoint</span></label>
                             </div></td>
                             <td class="">@authorisation.address</td>
