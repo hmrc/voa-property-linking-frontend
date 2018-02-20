@@ -19,6 +19,7 @@
 @import models.searchApi.{AgentPropertiesSortField, AgentPropertiesPagination}
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
+@import models._
 
 @(model: AppointAgentPropertiesVM,
         pagination: AgentPropertiesPagination
@@ -37,14 +38,21 @@
     <div class="grid-row">
         <div class="column-whole">
             <h1 class="heading-medium">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
-            <p>@Messages("propertyRepresentation.appointAgentProperties.appointAgent")</p>
+
+            @defining( (pagination.checkPermission, pagination.challengePermission) match
+            {   case (StartAndContinue, NotPermitted) => "checks"
+                case (NotPermitted, StartAndContinue) => "challenges"
+                case _ => "checks and challenges"
+            }) { perms: String =>
+                <p>@Messages("propertyRepresentation.appointAgentProperties.appointAgent", pagination.agentCode.toString, perms)</p>
+            }
 
             <div class="hide-if-no-js">
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
             </div>
 
             <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination)">
-                <table id="agentPropertiesTable" class="margin-bottom-0 agentProperties dataTable table-font-xsmall no-footer">
+                <table  id="agentPropertiesTable" class="dataTable margin-bottom-0 agentProperties table-font-xsmall no-footer">
                 <colgroup>
                     <col style="width: 8%">
                     <col style="width: 30%">
@@ -56,9 +64,9 @@
                 <thead>
                     <tr role="row">
                         <th>@Messages("propertyRepresentation.appointAgents.table.select")</th>
-                        <th>@sortingControl(AgentPropertiesSortField.Address)</th>
-                        <th>@sortingControl(AgentPropertiesSortField.LocalAuthorityReference)</th>
-                        <th>@sortingControl(AgentPropertiesSortField.AgentName)</th>
+                        <th class="search-sort-table-header">@sortingControl(AgentPropertiesSortField.Address)</th>
+                        <th class="search-sort-table-header">@sortingControl(AgentPropertiesSortField.LocalAuthorityReference)</th>
+                        <th class="search-sort-table-header">@sortingControl(AgentPropertiesSortField.AgentName)</th>
                         <th>@Messages("propertyRepresentation.appointAgents.table.actions")</th>
                     </tr>
 
@@ -144,25 +152,23 @@
                 <div role="navigation" aria-label="Pagination" class="pull-right">
                     <ul class="pagination" style="margin-top: 0px">
                         @if(pagination.pageNumber > 1) {
-                            <li class="previous ">
-                                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.previousPage).url">
-                                    <i class="previous-arrow"></i>Previous</a></li>
+                            <li class="previous "><a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.previousPage).url"><i class="previous-arrow"></i>Previous</a></li>
                         } else {
                             <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
                         }
 
                         <li class="active">@pagination.pageNumber</li>
-
                         @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                             <li class="next">
-                                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.nextPage).url">
-                                    Next
-                                    <i class="next-arrow"></i></a></li>
-
+                                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.nextPage).url">Next<i class="next-arrow"></i></a></li>
                         } else {
-                            <li class="next disabled">Next <i class="next-arrow"></i></li>
+                            <li class="next disabled"><i class="next-arrow"></i>Next</li>
                         }
                     </ul>
+                </div>
+                    <div class="clearfix"></div>
+                </div>
+
                     <div id="page-size-list">
                         <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
                         @for(len <- List(15, 25, 50, 100)) {
@@ -175,18 +181,13 @@
                         }
                         @Messages("search.sort.page.size.properties.per.page")
                     </div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
 
-            <div class="hide-if-no-js">
+            <div class="hide-if-no-js margin-top-20">
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
             </div>
 
-            <br>
-
             <div>
-                <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</button>
+                <button type="submit" id="submit-button" class="buttonmargin-top-20">@Messages("propertyRepresentation.appointAgent.button")</button>
             </div>
         }
         </div>

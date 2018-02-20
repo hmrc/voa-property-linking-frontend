@@ -365,13 +365,13 @@ propertyRepresentation.table.title.agentName=Agent name
 
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
-propertyRepresentation.appointAgentProperties.appointAgent=You can appoint ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to the following properties:
+propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent code: {0} with the ability to submit {1} to the following properties:
 propertyRepresentation.appointAgentProperties.selectDeselect=Select all / deselect all
 propertyRepresentation.appointAgents.table.select=Select
 propertyRepresentation.appointAgents.table.actions=Actions
 propertyRepresentation.th.address=Address
 propertyRepresentation.th.baref=Local authority reference
-propertyRepresentation.th.agentName=Agent
+propertyRepresentation.th.agentName=Appointed Agents
 propertyRepresentation.search=Search for {0}
 propertyRepresentation.pageSize.showing=Showing
 propertyRepresentation.pageSize.perPage=messages per page
