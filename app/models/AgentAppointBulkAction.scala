@@ -20,6 +20,8 @@ import play.api.libs.json.Json
 
 case class AgentAppointBulkAction(
                                    agentCode: Long,
+                                   agentOrganisation: String,
+                                   agentOrganisationId: Long,
                                    checkPermission: AgentPermission,
                                    challengePermission: AgentPermission,
                                    propertyLinkIds: List[String]
@@ -28,17 +30,21 @@ case class AgentAppointBulkAction(
 object AgentAppointBulkAction {
   def apply(
              agentCode: Long,
+             agentOrganisation: String,
+             agentOrganisationId: Long,
              checkPermission: String,
              challengePermission: String,
              propertyLinkIds: List[String]
            ): AgentAppointBulkAction = new AgentAppointBulkAction(
                                               agentCode,
+                                              agentOrganisation,
+                                              agentOrganisationId,
                                               AgentPermission.fromName(checkPermission).getOrElse(NotPermitted),
                                               AgentPermission.fromName(challengePermission).getOrElse(NotPermitted),
                                               propertyLinkIds)
 
-  def unpack(arg: AgentAppointBulkAction): Option[(Long, String, String, List[String])] =
-    Some((arg.agentCode, arg.checkPermission.name, arg.challengePermission.name, arg.propertyLinkIds))
+  def unpack(arg: AgentAppointBulkAction): Option[(Long, String, Long, String, String, List[String])] =
+    Some((arg.agentCode, arg.agentOrganisation, arg.agentOrganisationId, arg.checkPermission.name, arg.challengePermission.name, arg.propertyLinkIds))
 
   implicit val format = Json.format[AgentAppointBulkAction]
 }

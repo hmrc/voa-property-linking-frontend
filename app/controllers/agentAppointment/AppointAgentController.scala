@@ -218,10 +218,13 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
       success = (action: AgentAppointBulkAction) => {
         for {
           _ <- Future.traverse(action.propertyLinkIds)(pLink =>
-                  createAndSubmitAgentRepRequest(pLink, 1000000005L, // TODO
+                  createAndSubmitAgentRepRequest(
+                    pLink,
+                    action.agentOrganisationId,
                     request.organisationId,
                     request.individualAccount.individualId,
-                    action.checkPermission, action.challengePermission))
+                    action.checkPermission,
+                    action.challengePermission))
         } yield
           Ok(views.html.propertyRepresentation.appointAgentSummary(action))
       }
@@ -313,6 +316,8 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
 
   def appointAgentBulkActionForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
     "agentCode" -> longNumber,
+    "agentOrganisation" -> text,
+    "agentOrganisationId" -> longNumber,
     "checkPermission" -> text,
     "challengePermission" -> text,
     "linkIds" -> list(text)//.verifying(nonEmptyList)

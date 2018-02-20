@@ -31,9 +31,10 @@
 ) {
     <div class="column-whole">
 
-        <h1 class="heading-large clearfix">@messages("propertyRepresentation.agentSummary.title", action.agentCode.toString)</h1>
+        <h1 class="heading-large clearfix">@messages("propertyRepresentation.agentSummary.title",
+            action.agentOrganisation, action.agentCode.toString)</h1>
 
-        <p>@Messages("propertyRepresentation.agentSummary.apointed", action.agentCode.toString)</p>
+        <p class="lede">@Messages("propertyRepresentation.agentSummary.apointed", action.agentOrganisation, action.agentCode.toString)</p>
         <div class="panel panel-border-wide">
             <p>@Messages("propertyRepresentation.agentSummary.warning")</p>
         </div>

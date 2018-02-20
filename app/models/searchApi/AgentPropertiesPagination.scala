@@ -30,7 +30,7 @@ case class AgentPropertiesPagination(agentCode: Long,
                                      pageNumber: Int = 1,
                                      pageSize: Int = 15,
                                      sortField: AgentPropertiesSortField = AgentPropertiesSortField.Address,
-                                     sortOrder: SortOrder = SortOrder.Descending) {
+                                     sortOrder: SortOrder = SortOrder.Ascending) {
 
   def startPoint: Int = (pageNumber - 1) * pageSize + 1
 
@@ -69,8 +69,8 @@ object AgentPropertiesPagination {
         sortField <- bindParam[AgentPropertiesSortField]("sortField")
         sortOrder <- bindParam[SortOrder]("sortOrder")
       } yield {
-        (agentCode, agentOrg, agentOrgId, checkPermission, challengePermission, address, baref, agentName, pageNumber, pageSize, sortField, sortOrder) match {
-          case (Right(ac), Right(ao), Right(aoid), Right(cp1), Right(cp2), Right(addr), Right(bar), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>
+        (agentCode, agentOrg, agentOrgId, checkPermission, challengePermission, address, agentName, pageNumber, pageSize, sortField, sortOrder) match {
+          case (Right(ac), Right(ao), Right(aoid), Right(cp1), Right(cp2), Right(addr), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>
             Right(AgentPropertiesPagination(
               agentCode = ac,
               agentOrganisation = ao,
@@ -92,7 +92,7 @@ object AgentPropertiesPagination {
       s"""
          |agentCode=${value.agentCode}&
          |agentOrganisation=${value.agentOrganisation}&
-         |agentOrganisation=${value.agentOrganisationId}&
+         |agentOrganisationId=${value.agentOrganisationId}&
          |checkPermission=${value.checkPermission}&
          |challengePermission=${value.challengePermission}&
          |address=${value.address.getOrElse("")}&

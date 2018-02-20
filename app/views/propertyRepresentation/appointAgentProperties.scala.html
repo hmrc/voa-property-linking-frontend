@@ -35,7 +35,7 @@
     contentHeaderHidden = true,
     topNavigation = false
 ) {
-    <div class="grid-row">
+    <div class="">
         <div class="column-whole">
             <h1 class="heading-large">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
 
@@ -44,8 +44,11 @@
                 case (NotPermitted, StartAndContinue) => "challenges"
                 case _ => "checks and challenges"
             }) { perms: String =>
-                <p class="lede">@Messages("propertyRepresentation.appointAgentProperties.appointAgent", pagination.agentCode.toString, perms)</p>
+                <p class="lede">@Messages("propertyRepresentation.appointAgentProperties.appointAgent",
+                    pagination.agentOrganisation, pagination.agentCode.toString, perms)</p>
             }
+
+            @includes.errorSummary(model.form)
 
             <div class="hide-if-no-js">
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
@@ -156,7 +159,7 @@
                 </div>
 
                 <div role="navigation" aria-label="Pagination" class="pull-right">
-                    <ul class="pagination" style="margin-top: 0px">
+                    <ul class="pagination" style="margin: 0px">
                         @if(pagination.pageNumber > 1) {
                             <li class="previous "><a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.previousPage).url"><i class="previous-arrow"></i>Previous</a></li>
                         } else {
@@ -172,28 +175,30 @@
                         }
                     </ul>
                 </div>
-                    <div class="clearfix"></div>
-                </div>
 
-                    <div id="page-size-list">
-                        <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
-                        @for(len <- List(15, 25, 50, 100)) {
-                            @if(pagination.pageSize == len) {
-                                <span class="page-size-option-current">@len</span>
-                            } else {
-                                <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(pageSize = len)).url">
-                                @len</a>
-                            }
-                        }
-                        @Messages("search.sort.page.size.properties.per.page")
-                    </div>
+                <div class="clearfix"></div>
+
+            </div>
+
+            <div id="page-size-list">
+                <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
+                @for(len <- List(15, 25, 50, 100)) {
+                    @if(pagination.pageSize == len) {
+                        <span class="page-size-option-current">@len</span>
+                    } else {
+                        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(pageSize = len)).url">
+                        @len</a>
+                    }
+                }
+                @Messages("search.sort.page.size.properties.per.page")
+            </div>
 
             <div class="hide-if-no-js margin-top-20">
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
             </div>
 
-            <div>
-                <button type="submit" id="submit-button" class="buttonmargin-top-20">@Messages("propertyRepresentation.appointAgent.button")</button>
+            <div class="margin-top-20">
+                <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</button>
             </div>
         }
         </div>
