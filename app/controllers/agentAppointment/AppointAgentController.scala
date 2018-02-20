@@ -164,15 +164,22 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
         }
       },
       success = (agent: AppointAgent) => {
-        val pagination = AgentPropertiesPagination(
-          agentCode = agent.getAgentCode(),
-          checkPermission = agent.canCheck,
-          challengePermission = agent.canChallenge)
-        for {
-          response <- propertyLinks.appointableProperties(request.organisationId, pagination)
-        } yield {
-          Ok(views.html.propertyRepresentation.appointAgentProperties(
-            AppointAgentPropertiesVM(request.organisationAccount.id, response), pagination))
+        accounts.withAgentCode(agent.getAgentCode().toString) flatMap {
+          case Some(group) => {
+            val pagination = AgentPropertiesPagination(
+              agentCode = agent.getAgentCode(),
+              agentOrganisation = group.companyName,
+              agentOrganisationId = group.id,
+              checkPermission = agent.canCheck,
+              challengePermission = agent.canChallenge)
+            for {
+              response <- propertyLinks.appointableProperties(request.organisationId, pagination)
+            } yield {
+              Ok(views.html.propertyRepresentation.appointAgentProperties(
+                AppointAgentPropertiesVM(request.organisationAccount.id, response), pagination))
+            }
+          }
+          case None => NotFound(s"Unknown Agent: ${agent.getAgentCode()}")
         }
       })
   }
@@ -188,11 +195,35 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
     }
   }
 
+  def createAndSubmitAgentRepRequest(pLink: String,
+                                     agentOrgId: Long,
+                                     organisationId: Long,
+                                     individualId: Long,
+                                     checkPermission: AgentPermission,
+                                     challengePermission: AgentPermission)(implicit hc: HeaderCarrier): Future[Unit] = {
+
+    propertyLinks.get(organisationId, pLink.toLong) map {
+      case Some(prop) => updateAllAgentsPermission(
+                          pLink.toLong, prop,
+                          AppointAgent(None, "", checkPermission, challengePermission),
+                          agentOrgId,
+                          individualId)
+      case None => Future.successful() // shouldn't be possible for user to select a bad property link
+    }
+  }
+
   def appointAgentSummary() = authenticated { implicit request =>
     appointAgentBulkActionForm.bindFromRequest().fold(
       hasErrors = errors => {???}, // TODO
       success = (action: AgentAppointBulkAction) => {
-        Ok(views.html.propertyRepresentation.appointAgentSummary(action))
+        for {
+          _ <- Future.traverse(action.propertyLinkIds)(pLink =>
+                  createAndSubmitAgentRepRequest(pLink, 1000000005L, // TODO
+                    request.organisationId,
+                    request.individualAccount.individualId,
+                    action.checkPermission, action.challengePermission))
+        } yield
+          Ok(views.html.propertyRepresentation.appointAgentSummary(action))
       }
     )
   }

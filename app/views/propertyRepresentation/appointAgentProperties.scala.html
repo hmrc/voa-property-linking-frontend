@@ -37,14 +37,14 @@
 ) {
     <div class="grid-row">
         <div class="column-whole">
-            <h1 class="heading-medium">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
+            <h1 class="heading-large">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
 
             @defining( (pagination.checkPermission, pagination.challengePermission) match
             {   case (StartAndContinue, NotPermitted) => "checks"
                 case (NotPermitted, StartAndContinue) => "challenges"
                 case _ => "checks and challenges"
             }) { perms: String =>
-                <p>@Messages("propertyRepresentation.appointAgentProperties.appointAgent", pagination.agentCode.toString, perms)</p>
+                <p class="lede">@Messages("propertyRepresentation.appointAgentProperties.appointAgent", pagination.agentCode.toString, perms)</p>
             }
 
             <div class="hide-if-no-js">
@@ -52,6 +52,15 @@
             </div>
 
             <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination)">
+                <input type="hidden" name="agentCode" value="@pagination.agentCode">
+                <input type="hidden" name="agentOrganisation" value="@pagination.agentOrganisation">
+                <input type="hidden" name="agentOrganisationId" value="@pagination.agentOrganisationId">
+                <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
+                <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
+                <input type="hidden" name="pageNumber" value="@pagination.pageNumber">
+                <input type="hidden" name="pageSize" value="@pagination.pageSize">
+                <input type="hidden" name="sortField" value="@pagination.sortField">
+                <input type="hidden" name="sortOrder" value="@pagination.sortOrder">
                 <table  id="agentPropertiesTable" class="dataTable margin-bottom-0 agentProperties table-font-xsmall no-footer">
                 <colgroup>
                     <col style="width: 8%">
@@ -74,19 +83,12 @@
                             <th></th>
                             <th>@searchField("address", pagination.address)</th>
                             <th>@searchField("baref", pagination.baref)</th>
-                            <th>@searchField("agentName", pagination.agentName)</th>
+                            <th>@searchField("agentName", pagination.agentNameFilter)</th>
                             <th>
                                 <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.clear)"
                                     id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
                             </th>
                             <th></th>
-                            <input type="hidden" name="agentCode" value="@pagination.agentCode">
-                            <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
-                            <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
-                            <input type="hidden" name="pageNumber" value="@pagination.pageNumber">
-                            <input type="hidden" name="pageSize" value="@pagination.pageSize">
-                            <input type="hidden" name="sortField" value="@pagination.sortField">
-                            <input type="hidden" name="sortOrder" value="@pagination.sortOrder">
                         </tr>
                 </thead>
                 </table>
@@ -96,6 +98,8 @@
         <div class="column-whole">
             @form(agentAppointment.routes.AppointAgentController.appointAgentSummary()) {
                 <input type="hidden" name="agentCode" value="@pagination.agentCode">
+                <input type="hidden" name="agentOrganisation" value="@pagination.agentOrganisation">
+                <input type="hidden" name="agentOrganisationId" value="@pagination.agentOrganisationId">
                 <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
                 <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
 
