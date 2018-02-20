@@ -35,7 +35,7 @@
     contentHeaderHidden = true,
     topNavigation = false
 ) {
-    <div class="grid-row">
+    <div>
         <div class="column-whole">
             <h1 class="heading-medium">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
 
@@ -90,7 +90,6 @@
                 </table>
             </form>
         </div>
-    </div>
 
         <div class="column-whole">
             @form(agentAppointment.routes.AppointAgentController.appointAgentSummary()) {
@@ -187,7 +186,7 @@
             </div>
         }
         </div>
-
+    </div>
 }
 
 @sortingControl(field: AgentPropertiesSortField) = {
