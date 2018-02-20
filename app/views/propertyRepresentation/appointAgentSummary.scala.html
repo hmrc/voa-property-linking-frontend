@@ -16,27 +16,36 @@
 
 @import actions.AuthenticatedRequest
 @import config.ApplicationConfig
+@import uk.gov.hmrc.play.views.html.helpers.form
 
+@import models.searchApi.AgentPropertiesPagination
 @(action: AgentAppointBulkAction)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-@heading = @{ Messages("dashboard.appointAgentProperties.heading") }
+@heading = @{ Messages("propertyRepresentation.agentSummary.heading") }
 
 @main_template(
     heading,
     contentHeaderText = Some(heading),
     contentHeaderHidden = true,
-    topNavigation = false
+    topNavigation = true
 ) {
-    <div class="column-two-thirds">
+    <div class="column-whole">
 
-        <h1 class="heading-large clearfix">@messages("propertyRepresentation.agentSummary.title")</h1>
+        <h1 class="heading-large clearfix">@messages("propertyRepresentation.agentSummary.title", action.agentCode.toString)</h1>
 
-        <p>@Messages("propertyRepresentation.agentSummary.title")</p>
+        <p>@Messages("propertyRepresentation.agentSummary.apointed", action.agentCode.toString)</p>
         <div class="panel panel-border-wide">
             <p>@Messages("propertyRepresentation.agentSummary.warning")</p>
         </div>
-        <a href="@routes.Dashboard.home()" class="link">@Messages("link.dashboard.home")</a>
 
+        @form(agentAppointment.routes.AppointAgentController.selectProperties()) {
+            <input type="hidden" name="agentCode" value="@action.agentCode">
+            <input type="hidden" name="agentCodeRadio" value="yes">
+            <input type="hidden" name="canCheck" value="@action.checkPermission.name">
+            <input type="hidden" name="canChallenge" value="@action.challengePermission.name">
+
+            <button type="submit" id="submit-button"class="button">@Messages("propertyRepresentation.agentSummary.select.more")</button>
+        }
     </div>
 
 }

@@ -249,7 +249,7 @@ manageProperties.table.caption=Your properties
 manageProperties.table.1=Address
 manageProperties.table.2=Local authority reference
 manageProperties.table.3=Status
-manageProperties.table.4=Appointed Agents
+manageProperties.table.4=Appointed agents
 manageProperties.table.5=Actions
 manageProperties.table.clear.search=Clear search
 dashboard.manageProperties.status.added=Approved
@@ -370,18 +370,20 @@ propertyRepresentation.appointAgentProperties.selectDeselect=Select all / desele
 propertyRepresentation.appointAgents.table.select=Select
 propertyRepresentation.appointAgents.table.actions=Actions
 propertyRepresentation.th.address=Address
-propertyRepresentation.th.baref=Local authority reference
-propertyRepresentation.th.agentName=Appointed Agents
+propertyRepresentation.th.agentName=Appointed agents
 propertyRepresentation.search=Search for {0}
 propertyRepresentation.pageSize.showing=Showing
 propertyRepresentation.pageSize.perPage=messages per page
 propertyRepresentation.paginationInfo=Page {0} of {1}
 
 ##Appoint agent summary
-propertyRepresentation.agentSummary.heading=You have appointed ABC Agent (Agent ID: 12345) with the ability to submit checks and challenges to 4 properties.
-propertyRepresentation.agentSummary.title=Agent ABC appointed
+propertyRepresentation.agentSummary.heading=Agent appointed
+propertyRepresentation.agentSummary.title=Agent ''{0}'' appointed
+propertyRepresentation.agentSummary.apointed=You have appointed agent code: {0} with the ability to submit checks and challenges to the selected properties
 propertyRepresentation.agentSummary.warning=Your agent has 21 days to accept your request. Otherwise your request will be rejected and you will need to send a new request.
 propertyRepresentation.agentSummary.back=Back to dashboard
+propertyRepresentation.agentSummary.select.more=Select more properties
+
 
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Continue
