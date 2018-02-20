@@ -50,13 +50,13 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
     Future.successful(stubbedOwnerAuthResult)
   }
 
-  override def agentPropertiesSearchAndSort(organisationId: Long,
-                                            pagination: AgentPropertiesPagination,
-                                            representationStatusFilter: Seq[RepresentationStatus])
-                                            (implicit hc: HeaderCarrier) = {
-    val x = "y"
-    Future.successful(stubbedOwnerAuthResult)
-  }
+//  override def agentPropertiesSearchAndSort(organisationId: Long,
+//                                            pagination: AgentPropertiesPagination,
+//                                            representationStatusFilter: Seq[RepresentationStatus])
+//                                            (implicit hc: HeaderCarrier) = {
+//    val x = "y"
+//    Future.successful(stubbedOwnerAuthResult)
+//  }
 
   override def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
     stubbedLinks.find(x => {x.authorisationId == authorisationId && x.organisationId == organisationId})

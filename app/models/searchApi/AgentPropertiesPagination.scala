@@ -26,11 +26,10 @@ case class AgentPropertiesPagination(agentCode: Long,
                                      checkPermission: AgentPermission = StartAndContinue,
                                      challengePermission: AgentPermission = StartAndContinue,
                                      address: Option[String] = None,
-                                     baref: Option[String] = None,
                                      agentNameFilter: Option[String] = None,
                                      pageNumber: Int = 1,
                                      pageSize: Int = 15,
-                                     sortField: AgentPropertiesSortField = AgentPropertiesSortField.LocalAuthorityReference,
+                                     sortField: AgentPropertiesSortField = AgentPropertiesSortField.Address,
                                      sortOrder: SortOrder = SortOrder.Descending) {
 
   def startPoint: Int = (pageNumber - 1) * pageSize + 1
@@ -41,7 +40,7 @@ case class AgentPropertiesPagination(agentCode: Long,
 
   def nextPage: AgentPropertiesPagination = copy(pageNumber = pageNumber + 1)
 
-  def clear: AgentPropertiesPagination = copy(address = None, baref = None, agentNameFilter = None)
+  def clear: AgentPropertiesPagination = copy(address = None, agentNameFilter = None)
 
   lazy val queryString = s"agentCode=$agentCode&agentOrganisation=$agentOrganisation&agentOrganisationId=$agentOrganisationId" +
     s"&startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true" +
@@ -49,7 +48,6 @@ case class AgentPropertiesPagination(agentCode: Long,
     buildUppercaseQueryParams("sortfield", Some(sortField.name)) +
     buildUppercaseQueryParams("sortorder", Some(sortOrder.name)) +
     buildQueryParams("address", address) +
-    buildQueryParams("baref", baref) +
     buildQueryParams("agent", agentNameFilter)
 }
 
@@ -65,7 +63,6 @@ object AgentPropertiesPagination {
         checkPermission <- bindParam[String]("checkPermission")
         challengePermission <- bindParam[String]("challengePermission")
         address <- bindParam[Option[String]]("address")
-        baref <- bindParam[Option[String]]("baref")
         agentName <- bindParam[Option[String]]("agentName")
         pageNumber <- bindParam[Int]("pageNumber")
         pageSize <- bindParam[Int]("pageSize")
@@ -81,7 +78,6 @@ object AgentPropertiesPagination {
               checkPermission = AgentPermission.fromName(cp1).getOrElse(StartAndContinue),
               challengePermission = AgentPermission.fromName(cp2).getOrElse(StartAndContinue),
               address = addr,
-              baref = bar,
               agentNameFilter = an,
               pageNumber = pn,
               pageSize = ps,
@@ -100,7 +96,6 @@ object AgentPropertiesPagination {
          |checkPermission=${value.checkPermission}&
          |challengePermission=${value.challengePermission}&
          |address=${value.address.getOrElse("")}&
-         |baref=${value.baref.getOrElse("")}&
          |agentName=${value.agentNameFilter.getOrElse("")}&
          |pageNumber=${value.pageNumber}&
          |pageSize=${value.pageSize}&
