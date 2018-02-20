@@ -23,7 +23,7 @@ import config.WSHttp
 import connectors.fileUpload.FileMetadata
 import controllers.{Pagination, PaginationSearchSort}
 import models._
-import models.searchApi.{OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
+import models.searchApi.{AgentPropertiesPagination, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
 import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
@@ -69,8 +69,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   def linkedPropertiesSearchAndSort(organisationId: Long,
                                     pagination: PaginationSearchSort,
                                     representationStatusFilter: Seq[RepresentationStatus] =
-                                        Seq(RepresentationApproved, RepresentationPending)
-                                   )
+                                        Seq(RepresentationApproved, RepresentationPending))
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
     val ownerAuthResult = http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +
@@ -86,6 +85,15 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
     ownerAuthResult.map(oar =>
       oar.copy(authorisations = oar.authorisations.map(auth =>
         auth.copy(agents = auth.agents.map(ags => ags.filter(ag => validAgent(ag)))))))
+  }
+
+  def appointableProperties(organisationId: Long,
+                            pagination: AgentPropertiesPagination)
+                           (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
+
+    http.GET[OwnerAuthResult](s"$baseUrl/property-links-appointable?" +
+      s"ownerId=$organisationId" +
+      s"&${pagination.queryString}")
   }
 
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {

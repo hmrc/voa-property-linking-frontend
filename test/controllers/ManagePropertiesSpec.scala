@@ -75,7 +75,7 @@ class ManagePropertiesSpec extends ControllerSpec {
       case _ => "None"
     }
 
-    checkTableColumn(html, 3, "Appointed Agents", agents)
+    checkTableColumn(html, 3, "Appointed agents", agents)
   }
 
   it must "display the available actions for each of the user's first 15 properties" in {

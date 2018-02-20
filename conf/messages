@@ -242,14 +242,14 @@ dashboard.home.addAnotherUser.link=I want to add another user from my business
 dashboard.home.addAnotherUser.text=To add another user, you’ll firstly need to add them to your Government Gateway account.
 
 #DASHBOARD MANAGE PROPERTIES
-dashboard.manageProperties.title=Manage properties
+dashboard.manageProperties.title=My properties
 dashboard.manageProperties.expectDelays=It may take several hours for your property to display here once you have claimed it.
 dashboard.manageProperties.noProperties=There are no properties to display.
 manageProperties.table.caption=Your properties
 manageProperties.table.1=Address
 manageProperties.table.2=Local authority reference
 manageProperties.table.3=Status
-manageProperties.table.4=Appointed Agents
+manageProperties.table.4=Appointed agents
 manageProperties.table.5=Actions
 manageProperties.table.clear.search=Clear search
 dashboard.manageProperties.status.added=Approved
@@ -262,7 +262,7 @@ dashboard.manageProperties.submissionId=Submission ID: {0}
 dashboard.manageProperties.noAgent=None
 dashboard.managedProperties.addAnotherProperty=Add property
 manageProperties.revokeAgent=Remove agent
-manageProperties.addAgent=Appoint agent
+manageProperties.appointAgent=Appoint agent
 manageProperties.viewAssessments=View valuations
 link.dashboard.home=Back to dashboard
 search.sort.page.size.view=View
@@ -328,6 +328,7 @@ draftCase.continue.check=Continue check
 draftCase.viewValuation=Property details
 draftCases.p.empty=You have no saved draft cases
 
+#Appoint agent accept
 propertyRepresentation.accepted.title=Request accepted
 propertyRepresentation.accepted.single.message=You’ve confirmed that you act as an agent for this business
 propertyRepresentation.accepted.multiple.message=You’ve confirmed that you act as an agent for these businesses
@@ -336,6 +337,7 @@ propertyRepresentation.accepted.single.youCan.1=view the detailed valuation for 
 propertyRepresentation.accepted.multiple.youCan.1=view the detailed valuation for these properties
 propertyRepresentation.accepted.youCan.2=complete a check or challenge, depending on the permissions that have been set for you
 
+#Appoint agent reject
 propertyRepresentation.rejected.title=Request rejected
 propertyRepresentation.rejected.single.message=You’ve confirmed that you don’t act as an agent for this business
 propertyRepresentation.rejected.multiple.message=You’ve confirmed that you don’t act as an agent for these businesses
@@ -344,6 +346,7 @@ propertyRepresentation.rejected.multiple.youCan.1=You won’t be able to view de
 propertyRepresentation.rejected.single.youCan.2=The business will be notified of your decision.
 propertyRepresentation.rejected.multiple.youCan.2=The businesses will be notified of your decision.
 
+#Appoint agent
 propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
 propertyRepresentation.appointAgent.message.2=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
@@ -360,10 +363,31 @@ propertyRepresentation.table.title.appoint=Appoint
 propertyRepresentation.table.title.agentId=Agent code
 propertyRepresentation.table.title.agentName=Agent name
 
+#Appoint agents properties
+propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
+propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent code: {0} with the ability to submit {1} to the following properties:
+propertyRepresentation.appointAgentProperties.selectDeselect=Select all / deselect all
+propertyRepresentation.appointAgents.table.select=Select
+propertyRepresentation.appointAgents.table.actions=Actions
+propertyRepresentation.th.address=Address
+propertyRepresentation.th.agentName=Appointed agents
+propertyRepresentation.search=Search for {0}
+propertyRepresentation.pageSize.showing=Showing
+propertyRepresentation.pageSize.perPage=messages per page
+propertyRepresentation.paginationInfo=Page {0} of {1}
+
+##Appoint agent summary
+propertyRepresentation.agentSummary.heading=Agent appointed
+propertyRepresentation.agentSummary.title=Agent ''{0}'' appointed
+propertyRepresentation.agentSummary.apointed=You have appointed agent code: {0} with the ability to submit checks and challenges to the selected properties
+propertyRepresentation.agentSummary.warning=Your agent has 21 days to accept your request. Otherwise your request will be rejected and you will need to send a new request.
+propertyRepresentation.agentSummary.back=Back to dashboard
+propertyRepresentation.agentSummary.select.more=Select more properties
 
 
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Continue
+
 label.canCheck=Do you want this agent to submit checks?
 canCheck.START_AND_CONTINUE=Yes
 canCheck.NOT_PERMITTED=No
@@ -739,6 +763,7 @@ dashboard.manageAgents.table.2=Agent code
 dashboard.manageAgents.table.3=Actions
 dashboard.manageAgents.viewManagedProperties=View managed properties
 dashboard.manageAgents.howToAppoint=You can go to <a href={0}>‘My properties’</a> to appoint an agent for a property.
+
 
 
 #details page

@@ -1,0 +1,212 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import actions.AuthenticatedRequest
+@import controllers.agentAppointment.AppointAgentPropertiesVM
+@import models.searchApi.{AgentPropertiesSortField, AgentPropertiesPagination}
+@import config.ApplicationConfig
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import models._
+
+@(model: AppointAgentPropertiesVM,
+        pagination: AgentPropertiesPagination
+)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+
+@heading = @{
+    Messages("propertyRepresentation.appointAgentProperties.title")
+}
+
+@main_template(
+    heading,
+    contentHeaderText = Some(heading),
+    contentHeaderHidden = true,
+    topNavigation = false
+) {
+    <div>
+        <div class="column-whole">
+            <h1 class="heading-medium">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
+
+            @defining( (pagination.checkPermission, pagination.challengePermission) match
+            {   case (StartAndContinue, NotPermitted) => "checks"
+                case (NotPermitted, StartAndContinue) => "challenges"
+                case _ => "checks and challenges"
+            }) { perms: String =>
+                <p>@Messages("propertyRepresentation.appointAgentProperties.appointAgent", pagination.agentCode.toString, perms)</p>
+            }
+
+            <div class="hide-if-no-js">
+                <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+            </div>
+
+            <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination)">
+
+                <input type="hidden" name="agentCode" value="@pagination.agentCode">
+                <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
+                <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
+                <input type="hidden" name="pageNumber" value="@pagination.pageNumber">
+                <input type="hidden" name="pageSize" value="@pagination.pageSize">
+                <input type="hidden" name="sortField" value="@pagination.sortField">
+                <input type="hidden" name="sortOrder" value="@pagination.sortOrder">
+
+                <table  id="agentPropertiesTable" class="dataTable margin-bottom-0 agentProperties table-font-xsmall no-footer">
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 42%">
+                    <col style="width: 30%">
+                    <col style="width: 20%">
+                </colgroup>
+
+                <thead>
+                    <tr role="row">
+                        <th>@Messages("propertyRepresentation.appointAgents.table.select")</th>
+                        <th class="search-sort-table-header">@sortingControl(AgentPropertiesSortField.Address)</th>
+                        <th class="search-sort-table-header">@sortingControl(AgentPropertiesSortField.AgentName)</th>
+                        <th>@Messages("propertyRepresentation.appointAgents.table.actions")</th>
+                    </tr>
+
+                        <tr>
+                            <th></th>
+                            <th>@searchField("address", pagination.address)</th>
+                            <th>@searchField("agentName", pagination.agentName)</th>
+                            <th>
+                                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.clear)"
+                                    id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
+                            </th>
+                        </tr>
+                </thead>
+                </table>
+            </form>
+        </div>
+
+        <div class="column-whole">
+            @form(agentAppointment.routes.AppointAgentController.appointAgentSummary()) {
+                <input type="hidden" name="agentCode" value="@pagination.agentCode">
+                <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
+                <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
+
+                <table id="agentPropertiesTableBody" class="agentProperties dataTable table-font-xsmall no-footer">
+                    <colgroup>
+                        <col style="width: 8%">
+                        <col style="width: 42%">
+                        <col style="width: 30%">
+                        <col style="width: 20%">
+                    </colgroup>
+                 <thead></thead>
+                 <tbody>
+                    @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
+                    @defining(s"checkbox-${index + 1}") { checkboxId: String =>
+                        <tr>
+                            <td><div class="checkbox-table-cell multiple-choice margin-bottom-20">
+                                <label class="block-label selection-button-checkbox" for="@("checkboxId" + (index + 1))">
+                                    <input id=@("checkboxId" + (index + 1)) type="checkbox" name="linkIds[]" value="@authorisation.authorisationId">
+                                    <span class="visually-hidden">Appoint</span></label>
+                            </div></td>
+                            <td class="">@authorisation.address</td>
+                            <td>
+                                <ul class="list">
+                                @if(authorisation.agents.isEmpty) {
+                                    <li></li>
+                                } else {
+                                    @authorisation.agents.get.map { agent =>
+                                        <li>@agent.organisationName</li>
+                                    }
+                                }
+                            <td></td>
+                        </tr>
+                    }
+                }
+                </tbody>
+            </table>
+
+            <div>
+                <div class="pull-left">
+                    Showing
+                    @if(model.response.authorisations.isEmpty) {
+                        0
+                    } else {
+                        @pagination.startPoint
+                    } to @{
+                    model.response.filterTotal.min(pagination.startPoint + pagination.pageSize - 1)
+                } of @model.response.total
+                </div>
+
+                <div role="navigation" aria-label="Pagination" class="pull-right">
+                    <ul class="pagination" style="margin: 0px">
+                        @if(pagination.pageNumber > 1) {
+                            <li class="previous "><a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.previousPage).url"><i class="previous-arrow"></i>Previous</a></li>
+                        } else {
+                            <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
+                        }
+
+                        <li class="active">@pagination.pageNumber</li>
+                        @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
+                            <li class="next">
+                                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.nextPage).url">Next<i class="next-arrow"></i></a></li>
+                        } else {
+                            <li class="next disabled"><i class="next-arrow"></i>Next</li>
+                        }
+                    </ul>
+                </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                    <div id="page-size-list">
+                        <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
+                        @for(len <- List(15, 25, 50, 100)) {
+                            @if(pagination.pageSize == len) {
+                                <span class="page-size-option-current">@len</span>
+                            } else {
+                                <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(pageSize = len)).url">
+                                @len</a>
+                            }
+                        }
+                        @Messages("search.sort.page.size.properties.per.page")
+                    </div>
+
+            <div class="hide-if-no-js margin-top-20">
+                <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+            </div>
+
+
+            <div>
+                <button type="submit" id="submit-button" class="button margin-top-20">@Messages("propertyRepresentation.appointAgent.button")</button>
+            </div>
+        }
+        </div>
+    </div>
+}
+
+@sortingControl(field: AgentPropertiesSortField) = {
+@if(pagination.sortField == field) {
+    <div id="sort-by-@field" class="sorting_@pagination.sortOrder">
+        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.reverseSorting)">@Messages(s"propertyRepresentation.th.$field")</a>
+    </div>
+} else {
+    <div id="sort-by-@field" class="sorting">
+        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"propertyRepresentation.th.$field")</a>
+    </div>
+}
+}
+
+@searchField(fieldName: String, value: Option[String]) = {
+    <div class="searchfield">
+        <label for="@fieldName" class="visually-hidden">@Messages(s"propertyRepresentation.th.$fieldName")</label>
+        <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
+        <button id="@{
+            fieldName
+        }Button" class="search-submit ss-button">@Messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
+    </div>
+}

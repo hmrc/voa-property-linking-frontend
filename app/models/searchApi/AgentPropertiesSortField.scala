@@ -16,17 +16,26 @@
 
 package models.searchApi
 
-import play.api.libs.json.Json
+import models.{NamedEnum, NamedEnumSupport}
 
-case class OwnerAuthResult(
-                      start: Int,
-                      size: Int,
-                      filterTotal: Int,
-                      total: Int,
-                      authorisations: Seq[OwnerAuthorisation],
-                      config: Option[Map[String, Boolean]] = None)
 
-object OwnerAuthResult {
-  implicit val ownerAuthResult = Json.format[OwnerAuthResult]
+sealed trait AgentPropertiesSortField extends NamedEnum {
+  override val key: String = "propertiesSortField"
 
+  override def toString: String = name
 }
+
+object AgentPropertiesSortField extends NamedEnumSupport[AgentPropertiesSortField] {
+
+  case object Address extends AgentPropertiesSortField {
+    override val name: String = "address"
+  }
+
+  case object AgentName extends AgentPropertiesSortField {
+    override val name: String = "agentName"
+  }
+
+
+  override def all: Seq[AgentPropertiesSortField] = Seq(Address, AgentName)
+}
+

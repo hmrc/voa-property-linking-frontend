@@ -20,7 +20,7 @@ import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{Pagination, PaginationSearchSort}
 import models._
-import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
+import models.searchApi.{AgentPropertiesPagination, OwnerAuthResult, OwnerAuthorisation}
 import session.LinkingSessionRequest
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -49,6 +49,14 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
                                            (implicit hc: HeaderCarrier) = {
     Future.successful(stubbedOwnerAuthResult)
   }
+
+//  override def agentPropertiesSearchAndSort(organisationId: Long,
+//                                            pagination: AgentPropertiesPagination,
+//                                            representationStatusFilter: Seq[RepresentationStatus])
+//                                            (implicit hc: HeaderCarrier) = {
+//    val x = "y"
+//    Future.successful(stubbedOwnerAuthResult)
+//  }
 
   override def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
     stubbedLinks.find(x => {x.authorisationId == authorisationId && x.organisationId == organisationId})
