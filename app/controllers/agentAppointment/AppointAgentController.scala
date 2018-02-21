@@ -175,7 +175,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
             for {
               response <- propertyLinks.appointableProperties(request.organisationId, pagination)
             } yield {
-              Ok(views.html.propertyRepresentation.appointAgentProperties(
+              Ok(views.html.propertyRepresentation.appointAgentProperties(None,
                 AppointAgentPropertiesVM(request.organisationAccount.id, response), pagination))
             }
           }
@@ -189,7 +189,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
       for {
         response <- propertyLinks.appointableProperties(request.organisationId, pagination)
       } yield {
-        Ok(views.html.propertyRepresentation.appointAgentProperties(
+        Ok(views.html.propertyRepresentation.appointAgentProperties(None,
           AppointAgentPropertiesVM(request.organisationAccount.id, response), pagination))
       }
     }
@@ -214,7 +214,19 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
 
   def appointAgentSummary() = authenticated { implicit request =>
     appointAgentBulkActionForm.bindFromRequest().fold(
-      hasErrors = errors => {???}, // TODO
+      hasErrors = errors => {
+        val data: Map[String, String] = errors.data
+        val pagination = AgentPropertiesPagination(
+          agentCode = data("agentCode").toLong,
+          agentOrganisation = data("agentOrganisation"),
+          agentOrganisationId = data("agentOrganisationId").toLong,
+          checkPermission = AgentPermission.fromName(data("checkPermission")).getOrElse(StartAndContinue),
+          challengePermission = AgentPermission.fromName(data("challengePermission")).getOrElse(StartAndContinue))
+        for {
+          response <- propertyLinks.appointableProperties(request.organisationId, pagination)
+        } yield BadRequest(views.html.propertyRepresentation.appointAgentProperties(Some(errors),
+          AppointAgentPropertiesVM(request.organisationAccount.id, response), pagination))
+      },
       success = (action: AgentAppointBulkAction) => {
         for {
           _ <- Future.traverse(action.propertyLinkIds)(pLink =>

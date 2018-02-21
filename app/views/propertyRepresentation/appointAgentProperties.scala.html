@@ -21,7 +21,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import models._
 
-@(model: AppointAgentPropertiesVM,
+@(f: Option[Form[_]], model: AppointAgentPropertiesVM,
         pagination: AgentPropertiesPagination
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
@@ -50,7 +50,7 @@
                     pagination.agentOrganisation, pagination.agentCode.toString, perms)</p>
             }
 
-@*//            @includes.errorSummary(model.form)*@
+            @if(f.isDefined){ @includes.errorSummary(f.get) }
 
             <div class="hide-if-no-js">
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
@@ -97,7 +97,7 @@
             </form>
         </div>
 
-        <div class="column-whole">
+        <div id="linkIdsGroup" class="column-whole">
             @form(agentAppointment.routes.AppointAgentController.appointAgentSummary()) {
                 <input type="hidden" name="agentCode" value="@pagination.agentCode">
                 <input type="hidden" name="agentOrganisation" value="@pagination.agentOrganisation">
