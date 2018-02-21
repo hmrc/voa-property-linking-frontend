@@ -26,10 +26,10 @@
 @main_template(
     heading,
     contentHeaderText = Some(heading),
-    contentHeaderHidden = true,
-    topNavigation = true
+    contentHeaderHidden = true
 ) {
-    <div class="column-whole">
+
+    <div class="column-whole clearfix">
 
         <h1 class="heading-large">@messages("propertyRepresentation.agentSummary.title",
             action.agentOrganisation, action.agentCode.toString)</h1>
@@ -46,13 +46,14 @@
             <p>@Messages("propertyRepresentation.agentSummary.warning")</p>
         </div>
 
+
         @form(agentAppointment.routes.AppointAgentController.selectProperties()) {
             <input type="hidden" name="agentCode" value="@action.agentCode">
             <input type="hidden" name="agentCodeRadio" value="yes">
             <input type="hidden" name="canCheck" value="@action.checkPermission.name">
             <input type="hidden" name="canChallenge" value="@action.challengePermission.name">
 
-            <button type="submit" id="submit-button"class="button">@Messages("propertyRepresentation.agentSummary.select.more")</button>
+            <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.agentSummary.select.more")</button>
         }
     </div>
 

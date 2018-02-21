@@ -33,7 +33,9 @@
     heading,
     contentHeaderText = Some(heading),
     contentHeaderHidden = true,
-    topNavigation = true
+    topBackLink = true,
+    backLinkUrl = Some(agentAppointment.routes.AppointAgentController.appointMultipleProperties().url)
+
 ) {
     <div class="">
         <div class="column-whole">
@@ -89,13 +91,6 @@
                                     id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
                             </th>
                             <th></th>
-                            <input type="hidden" name="agentCode" value="@pagination.agentCode">
-                            <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
-                            <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
-                            <input type="hidden" name="pageNumber" value="@pagination.pageNumber">
-                            <input type="hidden" name="pageSize" value="@pagination.pageSize">
-                            <input type="hidden" name="sortField" value="@pagination.sortField">
-                            <input type="hidden" name="sortOrder" value="@pagination.sortOrder">
                         </tr>
                 </thead>
                 </table>
@@ -120,13 +115,14 @@
                  <thead></thead>
                  <tbody>
                     @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
-                    @defining(s"checkbox-${index + 1}") { checkboxId: String =>
-                        <tr>
-                            <td><div class="checkbox-table-cell multiple-choice margin-bottom-20">
-                                <label class="block-label selection-button-checkbox" for="@("checkboxId" + (index + 1))">
-                                    <input id=@("checkboxId" + (index + 1)) type="checkbox" name="linkIds[]" value="@authorisation.authorisationId">
-                                    <span class="visually-hidden">Appoint</span></label>
-                            </div></td>
+                        @defining(s"checkbox-${index + 1}") { checkboxId: String =>
+                            <tr>
+                                <td><div class="multiple-choice margin-bottom-20">
+                                    <input id='@("checkboxId" + (index + 1))' type="checkbox" name="linkIds[]" value="@authorisation.authorisationId">
+                                    <label for="@("checkboxId" + (index + 1))">
+                                        <span class="visually-hidden">Appoint</span>
+                                    </label>
+                                </div></td>
                             <td class="">@authorisation.address</td>
                             <td>
                                 <ul class="list">
