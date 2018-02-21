@@ -33,8 +33,13 @@
 
         <h1 class="heading-large clearfix">@messages("propertyRepresentation.agentSummary.title",
             action.agentOrganisation, action.agentCode.toString)</h1>
-
-        <p class="lede">@Messages("propertyRepresentation.agentSummary.apointed", action.agentOrganisation, action.agentCode.toString)</p>
+        @defining((action.checkPermission, action.challengePermission) match
+        {   case (StartAndContinue, NotPermitted) => "checks"
+            case (NotPermitted, StartAndContinue) => "challenges"
+            case _ => "checks and challenges"
+        }) { perms: String =>
+            <p class="lede">@Messages("propertyRepresentation.agentSummary.apointed", action.agentOrganisation, action.agentCode.toString, perms)</p>
+        }
         <div class="panel panel-border-wide">
             <p>@Messages("propertyRepresentation.agentSummary.warning")</p>
         </div>
