@@ -24,20 +24,18 @@ import config.{ApplicationConfig, Global}
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
-import form.EnumMapping
+import form.AgentPermissionMapping
 import form.FormValidation.nonEmptyList
 import form.Mappings._
 import models._
 import models.searchApi.{AgentPropertiesPagination, OwnerAgent, OwnerAuthResult}
 import play.api.data.Forms.{number, _}
-import play.api.data.validation.Constraint
-import play.api.data.{FieldMapping, Form, FormError, Mapping}
+import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
-import play.api.mvc.{Action, Request, Result}
+import play.api.mvc.{Request, Result}
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.play.form.ConditionalMappings
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
 import scala.concurrent.Future
@@ -383,31 +381,6 @@ case class ConfirmOverrideVM(authorisationId: Long, newAgent: ExistingAgentsPerm
 
 case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Long)
 
-case class AgentPermissionMapping(other: String, key: String = "", constraints: Seq[Constraint[AgentPermission]] = Nil) extends Mapping[AgentPermission] {
-  override val mappings = Seq(this)
-  private val wrapped = EnumMapping(AgentPermission)
-
-  override def bind(data: Map[String, String]) = {
-    (wrapped.withPrefix(key).bind(data), wrapped.withPrefix(other).bind(data)) match {
-      case (e@Left(err), _) => e
-      case (Right(p1), Right(p2)) if p1 == NotPermitted && p2 == NotPermitted => Left(Seq(FormError(key, "error.invalidPermissions")))
-      case (r@Right(_), _) => r
-    }
-  }
-
-  override def unbind(value: AgentPermission) = {
-    wrapped.withPrefix(key).unbind(value)
-  }
-
-  override def unbindAndValidate(value: AgentPermission) = {
-    wrapped.withPrefix(key).unbindAndValidate(value)
-  }
-
-  override def withPrefix(prefix: String) = copy(key = prefix + key)
-
-  override def verifying(cs: Constraint[AgentPermission]*) = copy(constraints = constraints ++ cs.toSeq)
-}
-
 object BulkActionsForm {
   lazy val form: Form[RepresentationBulkAction] = Form(mapping(
     "page" -> number,
@@ -417,4 +390,3 @@ object BulkActionsForm {
     "complete" -> optional(number)
   )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))
 }
-
