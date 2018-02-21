@@ -38,6 +38,9 @@
 
 ) {
     <div class="">
+    @if(model.response.authorisations.isEmpty){
+        <h2 class="heading-secondary margin-top-30">@Messages("dashboard.manageProperties.noProperties")</h2>
+    } else {
         <div class="column-whole">
             <h1 class="heading-large">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
 
@@ -198,7 +201,7 @@
             </div>
         }
         </div>
-
+    }
     </div>
 }
 
