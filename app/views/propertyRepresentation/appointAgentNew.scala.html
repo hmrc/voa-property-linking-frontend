@@ -33,7 +33,11 @@
     @Messages("propertyRepresentation.appointAgent.title")
     </h1>
 
-    <p class="lede">@Messages("propertyRepresentation.appointAgent.associatedAgents")</p>
+    <p class="lede">@Messages("propertyRepresentation.appointAgent.associatedAgents.p1")</p>
+
+    @if(config.agentMultipleAppointEnabled) {
+        <p class="lede">@Messages("propertyRepresentation.appointAgent.associatedAgents.p2")</p>
+    }
 
     <div class="notice margin-top-20 margin-bottom-20">
         <i class="icon icon-important">
