@@ -379,7 +379,7 @@ propertyRepresentation.paginationInfo=Page {0} of {1}
 ##Appoint agent summary
 propertyRepresentation.agentSummary.heading=Agent appointed
 propertyRepresentation.agentSummary.title=Agent ''{0}'' appointed
-propertyRepresentation.agentSummary.apointed=You have appointed agent code: {0} with the ability to submit {1} to the selected properties
+propertyRepresentation.agentSummary.appointed=You have appointed agent ''{0}'' ({1}) with the ability to submit {2} to the selected properties
 propertyRepresentation.agentSummary.warning=Your agent has 21 days to accept your request. Otherwise your request will be rejected and you will need to send a new request.
 propertyRepresentation.agentSummary.back=Back to dashboard
 propertyRepresentation.agentSummary.select.more=Select more properties
