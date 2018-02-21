@@ -33,9 +33,12 @@
     heading,
     contentHeaderText = Some(heading),
     contentHeaderHidden = true,
-    topNavigation = false
+    topNavigation = true
 ) {
-    <div>
+    @if(model.response.authorisations.isEmpty){
+        <h2 class="heading-secondary margin-top-30">@Messages("dashboard.manageProperties.noProperties")</h2>
+    } else {
+    <div class="grid-row">
         <div class="column-whole">
             <h1 class="heading-medium">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
 
@@ -144,7 +147,7 @@
                 </div>
 
                 <div role="navigation" aria-label="Pagination" class="pull-right">
-                    <ul class="pagination" style="margin: 0px">
+                    <ul class="pagination" style="margin-top: 0px">
                         @if(pagination.pageNumber > 1) {
                             <li class="previous "><a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.previousPage).url"><i class="previous-arrow"></i>Previous</a></li>
                         } else {
@@ -187,18 +190,19 @@
         }
         </div>
     </div>
+    }
 }
 
 @sortingControl(field: AgentPropertiesSortField) = {
-@if(pagination.sortField == field) {
-    <div id="sort-by-@field" class="sorting_@pagination.sortOrder">
-        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.reverseSorting)">@Messages(s"propertyRepresentation.th.$field")</a>
-    </div>
-} else {
-    <div id="sort-by-@field" class="sorting">
-        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"propertyRepresentation.th.$field")</a>
-    </div>
-}
+    @if(pagination.sortField == field) {
+        <div id="sort-by-@field" class="sorting_@pagination.sortOrder">
+            <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.reverseSorting)">@Messages(s"propertyRepresentation.th.$field")</a>
+        </div>
+    } else {
+        <div id="sort-by-@field" class="sorting">
+            <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"propertyRepresentation.th.$field")</a>
+        </div>
+    }
 }
 
 @searchField(fieldName: String, value: Option[String]) = {
