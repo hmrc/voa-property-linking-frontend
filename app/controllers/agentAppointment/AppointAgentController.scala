@@ -320,7 +320,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
     "agentOrganisationId" -> longNumber,
     "checkPermission" -> text,
     "challengePermission" -> text,
-    "linkIds" -> list(text)//.verifying(nonEmptyList)
+    "linkIds" -> list(text).verifying(nonEmptyList)
   )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack _))
 
 
