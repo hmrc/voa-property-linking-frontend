@@ -373,6 +373,7 @@ propertyRepresentation.th.address=Address
 propertyRepresentation.th.agentName=Appointed agents
 propertyRepresentation.search=Search for {0}
 propertyRepresentation.pageSize.showing=Showing
+label.linkIds=Select a at least one property
 propertyRepresentation.pageSize.perPage=messages per page
 propertyRepresentation.paginationInfo=Page {0} of {1}
 
