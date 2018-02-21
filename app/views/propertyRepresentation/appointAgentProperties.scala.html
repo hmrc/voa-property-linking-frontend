@@ -117,7 +117,7 @@
                     @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
                         @defining(s"checkbox-${index + 1}") { checkboxId: String =>
                             <tr>
-                                <td><div class="multiple-choice margin-bottom-20">
+                                <td><div class="multiple-choice margin-bottom-20 selection-button-checkbox">
                                     <input id='@("checkboxId" + (index + 1))' type="checkbox" name="linkIds[]" value="@authorisation.authorisationId">
                                     <label for="@("checkboxId" + (index + 1))">
                                         <span class="visually-hidden">Appoint</span>
