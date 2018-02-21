@@ -181,7 +181,7 @@
 
             <div id="page-size-list">
                 <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
-                @for(len <- List(15, 25, 50, 100)) {
+                @for(len <- List(15, 25, 50, 100, 500)) {
                     @if(pagination.pageSize == len) {
                         <span class="page-size-option-current">@len</span>
                     } else {
