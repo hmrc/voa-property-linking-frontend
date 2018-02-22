@@ -21,7 +21,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import models._
 
-@(model: AppointAgentPropertiesVM,
+@(f: Option[Form[_]], model: AppointAgentPropertiesVM,
         pagination: AgentPropertiesPagination
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
@@ -33,35 +33,43 @@
     heading,
     contentHeaderText = Some(heading),
     contentHeaderHidden = true,
-    topNavigation = false
+    topBackLink = true,
+    backLinkUrl = Some(agentAppointment.routes.AppointAgentController.appointMultipleProperties().url)
+
 ) {
-    <div>
+    <div class="">
+    @if(model.response.authorisations.isEmpty){
+        <h2 class="heading-secondary margin-top-30">@Messages("dashboard.manageProperties.noProperties")</h2>
+    } else {
         <div class="column-whole">
-            <h1 class="heading-medium">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
+            <h1 class="heading-large">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
 
             @defining( (pagination.checkPermission, pagination.challengePermission) match
             {   case (StartAndContinue, NotPermitted) => "checks"
                 case (NotPermitted, StartAndContinue) => "challenges"
                 case _ => "checks and challenges"
             }) { perms: String =>
-                <p>@Messages("propertyRepresentation.appointAgentProperties.appointAgent", pagination.agentCode.toString, perms)</p>
+                <p class="lede">@Messages("propertyRepresentation.appointAgentProperties.appointAgent",
+                    pagination.agentOrganisation, pagination.agentCode.toString, perms)</p>
             }
+
+            @if(f.isDefined){ @includes.errorSummary(f.get) }
 
             <div class="hide-if-no-js">
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
             </div>
 
             <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination)">
-
                 <input type="hidden" name="agentCode" value="@pagination.agentCode">
+                <input type="hidden" name="agentOrganisation" value="@pagination.agentOrganisation">
+                <input type="hidden" name="agentOrganisationId" value="@pagination.agentOrganisationId">
                 <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
                 <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
                 <input type="hidden" name="pageNumber" value="@pagination.pageNumber">
                 <input type="hidden" name="pageSize" value="@pagination.pageSize">
                 <input type="hidden" name="sortField" value="@pagination.sortField">
                 <input type="hidden" name="sortOrder" value="@pagination.sortOrder">
-
-                <table  id="agentPropertiesTable" class="dataTable margin-bottom-0 agentProperties table-font-xsmall no-footer">
+                <table  id="agentPropertiesTable" class="margin-bottom-0 dataTable agentProperties table-font-xsmall no-footer">
                 <colgroup>
                     <col style="width: 8%">
                     <col style="width: 42%">
@@ -80,24 +88,27 @@
                         <tr>
                             <th></th>
                             <th>@searchField("address", pagination.address)</th>
-                            <th>@searchField("agentName", pagination.agentName)</th>
+                            <th>@searchField("agentName", pagination.agentNameFilter)</th>
                             <th>
                                 <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.clear)"
                                     id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
                             </th>
+                            <th></th>
                         </tr>
                 </thead>
                 </table>
             </form>
         </div>
 
-        <div class="column-whole">
+        <div id="linkIdsGroup" class="column-whole">
             @form(agentAppointment.routes.AppointAgentController.appointAgentSummary()) {
                 <input type="hidden" name="agentCode" value="@pagination.agentCode">
+                <input type="hidden" name="agentOrganisation" value="@pagination.agentOrganisation">
+                <input type="hidden" name="agentOrganisationId" value="@pagination.agentOrganisationId">
                 <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
                 <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
 
-                <table id="agentPropertiesTableBody" class="agentProperties dataTable table-font-xsmall no-footer">
+                <table id="agentPropertiesTableBody" class="agentProperties table-font-xsmall margin-bottom-20 no-footer">
                     <colgroup>
                         <col style="width: 8%">
                         <col style="width: 42%">
@@ -107,13 +118,14 @@
                  <thead></thead>
                  <tbody>
                     @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
-                    @defining(s"checkbox-${index + 1}") { checkboxId: String =>
-                        <tr>
-                            <td><div class="checkbox-table-cell multiple-choice margin-bottom-20">
-                                <label class="block-label selection-button-checkbox" for="@("checkboxId" + (index + 1))">
-                                    <input id=@("checkboxId" + (index + 1)) type="checkbox" name="linkIds[]" value="@authorisation.authorisationId">
-                                    <span class="visually-hidden">Appoint</span></label>
-                            </div></td>
+                        @defining(s"checkbox-${index + 1}") { checkboxId: String =>
+                            <tr>
+                                <td><div class="multiple-choice margin-bottom-20 selection-button-checkbox">
+                                    <input id='@("checkboxId" + (index + 1))' type="checkbox" name="linkIds[]" value="@authorisation.authorisationId">
+                                    <label for="@("checkboxId" + (index + 1))">
+                                        <span class="visually-hidden">Appoint</span>
+                                    </label>
+                                </div></td>
                             <td class="">@authorisation.address</td>
                             <td>
                                 <ul class="list">
@@ -124,6 +136,8 @@
                                         <li>@agent.organisationName</li>
                                     }
                                 }
+                                </ul>
+                            </td>
                             <td></td>
                         </tr>
                     }
@@ -160,32 +174,34 @@
                         }
                     </ul>
                 </div>
-                    <div class="clearfix"></div>
-                </div>
 
-                    <div id="page-size-list">
-                        <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
-                        @for(len <- List(15, 25, 50, 100)) {
-                            @if(pagination.pageSize == len) {
-                                <span class="page-size-option-current">@len</span>
-                            } else {
-                                <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(pageSize = len)).url">
-                                @len</a>
-                            }
-                        }
-                        @Messages("search.sort.page.size.properties.per.page")
-                    </div>
+                <div class="clearfix"></div>
+
+            </div>
+
+            <div id="page-size-list">
+                <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
+                @for(len <- List(15, 25, 50, 100, 500)) {
+                    @if(pagination.pageSize == len) {
+                        <span class="page-size-option-current">@len</span>
+                    } else {
+                        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(pageSize = len)).url">
+                        @len</a>
+                    }
+                }
+                @Messages("search.sort.page.size.properties.per.page")
+            </div>
 
             <div class="hide-if-no-js margin-top-20">
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
             </div>
 
-
-            <div>
-                <button type="submit" id="submit-button" class="button margin-top-20">@Messages("propertyRepresentation.appointAgent.button")</button>
+            <div class="margin-top-20">
+                <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</button>
             </div>
         }
         </div>
+    }
     </div>
 }
 
