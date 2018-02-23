@@ -40,7 +40,7 @@
     @if(model.response.authorisations.isEmpty){
         <h2 class="heading-secondary margin-top-30">@Messages("dashboard.manageProperties.noProperties")</h2>
     } else {
-        <div class="column-whole">
+        <div id="linkIdsGroup"  class="column-whole">
             <h1 class="heading-large">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
 
             @defining( (pagination.checkPermission, pagination.challengePermission) match
@@ -98,7 +98,7 @@
             </form>
         </div>
 
-        <div id="linkIdsGroup" class="column-whole">
+        <div class="column-whole">
             @form(agentAppointment.routes.AppointAgentController.appointAgentSummary()) {
                 <input type="hidden" name="agentCode" value="@pagination.agentCode">
                 <input type="hidden" name="agentOrganisation" value="@pagination.agentOrganisation">
