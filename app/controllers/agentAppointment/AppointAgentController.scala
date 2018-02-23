@@ -208,7 +208,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
                           individualId)
       // shouldn't be possible for user to select a bad property link
       // just ignore if it does happen
-      case None => Future.successful()
+      case None => Future.successful(Unit)
     }
   }
 

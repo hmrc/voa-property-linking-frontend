@@ -31,7 +31,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
 
   var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil
-  private var stubbedOwnerAuthResult: OwnerAuthResult = OwnerAuthResult(start = 15, total = 15, size= 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
+  private var stubbedOwnerAuthResult: OwnerAuthResult = OwnerAuthResult(start = 1, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
 
   def getstubbedOwnerAuthResult() : OwnerAuthResult = stubbedOwnerAuthResult
 

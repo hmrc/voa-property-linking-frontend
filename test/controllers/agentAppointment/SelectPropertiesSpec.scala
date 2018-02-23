@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http: www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 
 package controllers.agentAppointment
 
@@ -79,79 +78,73 @@ class SelectPropertiesSpec extends ControllerSpec {
     html.select("ul.pagination li.active").text mustBe "1"
   }
 
-//  it must "include a 'next' link if there are more results" in {
-//    setup(numberOfLinks = 16)
-//
-//    val res = TestAppointAgentController.selectProperties()(FakeRequest())
-//    status(res) mustBe OK
-//
-//    val html = Jsoup.parse(contentAsString(res))
-//
-//    val expectedPagination = AgentPropertiesPagination(pageNumber = 2)
-//
-//    val nextLink = html.select("ul.pagination li.next")
-//
-//    nextLink.hasClass("disabled") mustBe false withClue "'Next' link is incorrectly disabled"
-//    nextLink.select("a").attr("href") mustBe routes.AppointAgentController.selectProperties(expectedPagination).url
-//  }
-  //Need to fix in view file
-//    it must "include an inactive 'next' link if there are no further results" in {
-//    setup(numberOfLinks = 16)
-//
-//    val res = TestAppointAgentController.selectProperties()(FakeRequest())
-//    status(res) mustBe OK
-//
-//    val html = Jsoup.parse(contentAsString(res))
-//
-//    val nextLink = html.select("ul.pagination li.next")
-//
-//    nextLink.hasClass("disabled") mustBe true withClue "'Next' link is not disabled"
-//  }
+  it must "include a 'next' link if there are more results" in {
+    setup(numberOfLinks = 16)
 
-  //this shouldn 't be passing
-//  it must "include an inactive 'previous' link when on page 1" in {
-//    setup(numberOfLinks = 16)
-//
-//    val res = TestAppointAgentController.selectProperties()(FakeRequest())
-//    status(res) mustBe OK
-//
-//    val html = Jsoup.parse(contentAsString(res))
-//
-//    val previousLink = html.select("ul.pagination li.previous")
-//
-//    previousLink.hasClass("disabled") mustBe true withClue "'Previous' link is not disabled"
-//  }
+    val res = TestAppointAgentController.selectPropertiesSearchSort(pagination)(FakeRequest())
+    status(res) mustBe OK
 
-//  it must "include a 'previous' link when not on page 1" in {
-//    setup(numberOfLinks = 16)
-//
-//    val res = TestAppointAgentController.selectProperties()(FakeRequest())
-//    status(res) mustBe OK
-//
-//    val html = Jsoup.parse(contentAsString(res))
-//
-//    val previousLink = html.select("ul.pagination li.previous")
-//
-//    previousLink.hasClass("disabled") mustBe false withClue "'Previous' link is incorrectly disabled"
-//    previousLink.select("a").attr("href") mustBe routes.AppointAgentController.selectProperties().url
-//  }
+    val html = Jsoup.parse(contentAsString(res))
 
-//  it must "include pagination controls" in {
-//    val html = defaultHtml
-//
-//    val pageSizeControls = html.select("ul.pageLength li").asScala
-//
-//    pageSizeControls must have size 4
-//    pageSizeControls.head.text mustBe "15"
-//
-//    val paginationControls = AgentPropertiesPagination(pageSize = 1.toString(n))
-//
-//    val paginationControls: Int => String = n => routes.AppointAgentController.selectProperties
-//
-//    val managePropertiesLink: Int => String = n => routes.Dashboard.manageProperties(pageSize = n).url
-//
-//    pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(paginationControls(25), paginationControls(50), paginationControls(100))
-//  }
+    val expectedPagination = pagination.copy(pageNumber = 2)
+
+    val nextLink = html.select("ul.pagination li.next")
+
+    nextLink.hasClass("disabled") mustBe false withClue "'Next' link is incorrectly disabled"
+    nextLink.select("a").attr("href") mustBe routes.AppointAgentController.selectPropertiesSearchSort(expectedPagination).url
+  }
+
+  it must "include an inactive 'next' link if there are no further results" in {
+    setup(numberOfLinks = 15)
+
+    val res = TestAppointAgentController.selectPropertiesSearchSort(pagination)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    val nextLink = html.select("ul.pagination li.next")
+
+    nextLink.hasClass("disabled") mustBe true withClue "'Next' link is not disabled"
+  }
+
+  it must "include an inactive 'previous' link when on page 1" in {
+    setup(numberOfLinks = 16)
+
+    val res = TestAppointAgentController.selectPropertiesSearchSort(pagination)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    val previousLink = html.select("ul.pagination li.previous")
+
+    previousLink.hasClass("disabled") mustBe true withClue "'Previous' link is not disabled"
+  }
+
+  it must "include a 'previous' link when not on page 1" in {
+    setup(numberOfLinks = 16)
+
+    val res = TestAppointAgentController.selectPropertiesSearchSort(pagination.copy(pageNumber = 2))(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    val previousLink = html.select("ul.pagination li.previous")
+
+    previousLink.hasClass("disabled") mustBe false withClue "'Previous' link is incorrectly disabled"
+    previousLink.select("a").attr("href") mustBe routes.AppointAgentController.selectPropertiesSearchSort(pagination).url
+  }
+
+  it must "include pagination controls" in {
+    val html = defaultHtml
+
+    val pageSizeControlsCurrent = html.select("span.page-size-option-current").asScala
+    val pageSizeControls = html.select("a.page-size-option").asScala
+
+    pageSizeControlsCurrent must have size 1
+    pageSizeControlsCurrent.head.text mustBe "15"
+    pageSizeControls must have size 4
+    pageSizeControls.head.text mustBe "25"
+  }
 
   private def setup(numberOfLinks: Int = 15) = {
     val groupAccount: GroupAccount = arbitrary[GroupAccount]
@@ -174,7 +167,7 @@ class SelectPropertiesSpec extends ControllerSpec {
   private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]) = {
     html.select("table#agentPropertiesTable").select("th").get(index).text mustBe heading
 
-    val data = html.select("table#agentPropertiesTableBody").select("tr").asScala.drop(2).map(_.select("td").get(index).text.toUpperCase)
+    val data = html.select("table#agentPropertiesTableBody").select("tr").asScala.map(_.select("td").get(index).text.toUpperCase)
 
     values foreach { v => data must contain(v.toUpperCase) }
   }

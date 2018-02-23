@@ -298,7 +298,7 @@ package object resources {
       RepresentationPending.name,
       RepresentationRevoked.name)
   } yield {
-    OwnerAuthAgent(authorisedPartyId, organisationId, organisationName, Some(status))
+    OwnerAuthAgent(authorisedPartyId, organisationId, organisationName, Some(status), Some(StartAndContinue), Some(StartAndContinue))
   }
   implicit val ownerAuthAgent = Arbitrary(ownerAuthAgentGen)
 
@@ -337,7 +337,7 @@ package object resources {
       RepresentationPending.name,
       RepresentationRevoked.name)
     submissionId <- shortString
-    address <- arbitrary[PropertyAddress]
+    address <- shortString
     localAuthorityRef <- shortString
     agents <- Gen.option(Gen.listOfN(1, arbitrary[OwnerAuthAgent]))
   } yield {
