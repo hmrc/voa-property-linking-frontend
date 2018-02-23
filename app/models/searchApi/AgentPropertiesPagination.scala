@@ -44,7 +44,7 @@ case class AgentPropertiesPagination(agentCode: Long,
 
   lazy val queryString = s"agentCode=$agentCode&agentOrganisation=$agentOrganisation&agentOrganisationId=$agentOrganisationId" +
     s"&startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true" +
-    s"&challengePermission=$challengePermission&checkPermission=$checkPermission" +
+    s"&checkPermission=${checkPermission.name}&challengePermission=${challengePermission.name}" +
     buildUppercaseQueryParams("sortfield", Some(sortField.name)) +
     buildUppercaseQueryParams("sortorder", Some(sortOrder.name)) +
     buildQueryParams("address", address) +
