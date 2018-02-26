@@ -31,7 +31,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
 
   var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil
-  private var stubbedOwnerAuthResult: OwnerAuthResult = OwnerAuthResult(start = 15, total = 15, size= 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
+  private var stubbedOwnerAuthResult: OwnerAuthResult = OwnerAuthResult(start = 1, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
 
   def getstubbedOwnerAuthResult() : OwnerAuthResult = stubbedOwnerAuthResult
 
@@ -50,13 +50,11 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
     Future.successful(stubbedOwnerAuthResult)
   }
 
-//  override def agentPropertiesSearchAndSort(organisationId: Long,
-//                                            pagination: AgentPropertiesPagination,
-//                                            representationStatusFilter: Seq[RepresentationStatus])
-//                                            (implicit hc: HeaderCarrier) = {
-//    val x = "y"
-//    Future.successful(stubbedOwnerAuthResult)
-//  }
+  override def appointableProperties(organisationId: Long,
+                                            pagination: AgentPropertiesPagination)
+                                            (implicit hc: HeaderCarrier) = {
+    Future.successful(stubbedOwnerAuthResult)
+  }
 
   override def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
     stubbedLinks.find(x => {x.authorisationId == authorisationId && x.organisationId == organisationId})

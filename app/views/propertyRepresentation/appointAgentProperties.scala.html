@@ -35,13 +35,12 @@
     contentHeaderHidden = true,
     topBackLink = true,
     backLinkUrl = Some(agentAppointment.routes.AppointAgentController.appointMultipleProperties().url)
-
 ) {
     <div class="">
     @if(model.response.authorisations.isEmpty){
         <h2 class="heading-secondary margin-top-30">@Messages("dashboard.manageProperties.noProperties")</h2>
     } else {
-        <div class="column-whole">
+        <div id="linkIdsGroup"  class="column-whole">
             <h1 class="heading-large">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
 
             @defining( (pagination.checkPermission, pagination.challengePermission) match
@@ -69,12 +68,12 @@
                 <input type="hidden" name="pageSize" value="@pagination.pageSize">
                 <input type="hidden" name="sortField" value="@pagination.sortField">
                 <input type="hidden" name="sortOrder" value="@pagination.sortOrder">
-                <table  id="agentPropertiesTable" class="margin-bottom-0 dataTable agentProperties table-font-xsmall no-footer">
+                <table  id="agentPropertiesTable" class="margin-bottom-0 dataTable table-font-xsmall no-footer">
                 <colgroup>
                     <col style="width: 8%">
-                    <col style="width: 42%">
+                    <col style="width: 50%">
                     <col style="width: 30%">
-                    <col style="width: 20%">
+                    <col style="width: 12%">
                 </colgroup>
 
                 <thead>
@@ -84,23 +83,22 @@
                         <th class="search-sort-table-header">@sortingControl(AgentPropertiesSortField.AgentName)</th>
                         <th>@Messages("propertyRepresentation.appointAgents.table.actions")</th>
                     </tr>
-
-                        <tr>
-                            <th></th>
-                            <th>@searchField("address", pagination.address)</th>
-                            <th>@searchField("agentName", pagination.agentNameFilter)</th>
-                            <th>
-                                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.clear)"
-                                    id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
-                            </th>
-                            <th></th>
-                        </tr>
+                    <tr>
+                        <th></th>
+                        <th>@searchField("address", pagination.address)</th>
+                        <th>@searchField("agentName", pagination.agentNameFilter)</th>
+                        <th>
+                            <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.clear)"
+                                id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
+                        </th>
+                        <th></th>
+                    </tr>
                 </thead>
                 </table>
             </form>
         </div>
 
-        <div id="linkIdsGroup" class="column-whole">
+        <div class="column-whole">
             @form(agentAppointment.routes.AppointAgentController.appointAgentSummary()) {
                 <input type="hidden" name="agentCode" value="@pagination.agentCode">
                 <input type="hidden" name="agentOrganisation" value="@pagination.agentOrganisation">
@@ -108,12 +106,12 @@
                 <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
                 <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
 
-                <table id="agentPropertiesTableBody" class="agentProperties table-font-xsmall margin-bottom-20 no-footer">
+                <table id="agentPropertiesTableBody" class="dataTable table-font-xsmall margin-bottom-20 no-footer">
                     <colgroup>
                         <col style="width: 8%">
-                        <col style="width: 42%">
+                        <col style="width: 50%">
                         <col style="width: 30%">
-                        <col style="width: 20%">
+                        <col style="width: 12%">
                     </colgroup>
                  <thead></thead>
                  <tbody>
@@ -121,22 +119,24 @@
                         @defining(s"checkbox-${index + 1}") { checkboxId: String =>
                             <tr>
                                 <td><div class="multiple-choice margin-bottom-20 selection-button-checkbox">
-                                    <input id='@("checkboxId" + (index + 1))' type="checkbox" name="linkIds[]" value="@authorisation.authorisationId">
+                                    <input id='@("checkboxId" + (index + 1))' type="checkbox" name="linkIds[]"
+                                           value="@authorisation.authorisationId">
                                     <label for="@("checkboxId" + (index + 1))">
                                         <span class="visually-hidden">Appoint</span>
                                     </label>
                                 </div></td>
                             <td class="">@authorisation.address</td>
                             <td>
+                            @if(authorisation.agents.nonEmpty) {
                                 <ul class="list">
-                                @if(authorisation.agents.isEmpty) {
-                                    <li></li>
-                                } else {
-                                    @authorisation.agents.get.map { agent =>
-                                        <li>@agent.organisationName</li>
+                                @authorisation.agents.get.map { agent =>
+                                    @* don't display agent if same as selected agent *@
+                                    @if(agent.organisationId != pagination.agentOrganisationId) {
+                                        <li class="margin-bottom-0">@agent.organisationName</li>
                                     }
                                 }
                                 </ul>
+                            }
                             </td>
                             <td></td>
                         </tr>
@@ -160,7 +160,10 @@
                 <div role="navigation" aria-label="Pagination" class="pull-right">
                     <ul class="pagination" style="margin: 0px">
                         @if(pagination.pageNumber > 1) {
-                            <li class="previous "><a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.previousPage).url"><i class="previous-arrow"></i>Previous</a></li>
+                            <li class="previous ">
+                                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.previousPage).url">
+                                    <i class="previous-arrow"></i>Previous</a>
+                            </li>
                         } else {
                             <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
                         }
@@ -208,11 +211,13 @@
 @sortingControl(field: AgentPropertiesSortField) = {
 @if(pagination.sortField == field) {
     <div id="sort-by-@field" class="sorting_@pagination.sortOrder">
-        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.reverseSorting)">@Messages(s"propertyRepresentation.th.$field")</a>
+        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.reverseSorting)">
+        @Messages(s"propertyRepresentation.th.$field")</a>
     </div>
 } else {
     <div id="sort-by-@field" class="sorting">
-        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"propertyRepresentation.th.$field")</a>
+        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">
+        @Messages(s"propertyRepresentation.th.$field")</a>
     </div>
 }
 }

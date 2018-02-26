@@ -206,7 +206,9 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
                           AppointAgent(None, "", checkPermission, challengePermission),
                           agentOrgId,
                           individualId)
-      case None => Future.successful() // shouldn't be possible for user to select a bad property link
+      // shouldn't be possible for user to select a bad property link
+      // just ignore if it does happen
+      case None => Future.successful(Unit)
     }
   }
 
@@ -227,6 +229,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
       },
       success = (action: AgentAppointBulkAction) => {
         for {
+          // TODO get list/number of successful actions and pass to summary
           _ <- Future.traverse(action.propertyLinkIds)(pLink =>
                   createAndSubmitAgentRepRequest(
                     pLink,
