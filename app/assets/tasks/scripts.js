@@ -21,7 +21,7 @@ gulp.task('javascripts', function(callback) {
     './node_modules/govuk_frontend_toolkit/javascripts/vendor/polyfills/bind.js',
     './node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js'
     ])
-    .pipe(concat('all.min.js'))
+    .pipe(concat('all.min.1.js'))
     .pipe(gulp.dest('../../public/javascripts'))
     .pipe(uglify())
     .pipe(gulp.dest('../../public/javascripts'));
