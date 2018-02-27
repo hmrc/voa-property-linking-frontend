@@ -16,7 +16,6 @@
 
 package models
 
-import controllers.agentAppointment.AppointAgent
 import play.api.libs.json.Json
 
 case class AgentAppointmentSession(agent: AppointAgent, agentOrgId: Long, propertyLink: PropertyLink)

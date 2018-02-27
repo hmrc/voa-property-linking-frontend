@@ -90,7 +90,7 @@ GET         /no-evidence-uploaded                                               
 GET         /manual-verification-required                                                     @controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                                                 @controllers.LinkErrors.conflict()
 
-GET         /appoint-agent/select-properties-search                                           @controllers.agentAppointment.AppointAgentController.selectPropertiesSearchSort(pagination: AgentPropertiesPagination)
+GET         /appoint-agent/select-properties-search                                           @controllers.agentAppointment.AppointAgentController.selectPropertiesSearchSort(pagination: AgentPropertiesParameters)
 POST        /appoint-agent/select-properties                                                  @controllers.agentAppointment.AppointAgentController.selectProperties()
 POST        /appoint-agent/agent-summary                                                      @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 GET         /appoint-agent/multiple-properties                                                @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()

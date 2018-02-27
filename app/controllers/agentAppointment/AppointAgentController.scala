@@ -28,11 +28,10 @@ import form.AgentPermissionMapping
 import form.FormValidation.nonEmptyList
 import form.Mappings._
 import models._
-import models.searchApi.{AgentPropertiesPagination, OwnerAgent, OwnerAuthResult}
+import models.searchApi.{AgentPropertiesParameters, OwnerAgent, OwnerAuthResult}
 import play.api.data.Forms.{number, _}
 import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
 import play.api.mvc.{Request, Result}
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
@@ -164,7 +163,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
       success = (agent: AppointAgent) => {
         accounts.withAgentCode(agent.getAgentCode().toString) flatMap {
           case Some(group) => {
-            val pagination = AgentPropertiesPagination(
+            val pagination = AgentPropertiesParameters(
               agentCode = agent.getAgentCode(),
               checkPermission = agent.canCheck,
               challengePermission = agent.canChallenge)
@@ -180,7 +179,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
       })
   }
 
-  def selectPropertiesSearchSort(pagination: AgentPropertiesPagination) = authenticated { implicit request =>
+  def selectPropertiesSearchSort(pagination: AgentPropertiesParameters) = authenticated { implicit request =>
     withValidPropertiesPagination(pagination) {
       accounts.withAgentCode(pagination.agentCode.toString) flatMap {
         case Some(group) => {
@@ -199,7 +198,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
     appointAgentBulkActionForm.bindFromRequest().fold(
       hasErrors = errors => {
         val data: Map[String, String] = errors.data
-        val pagination = AgentPropertiesPagination(
+        val pagination = AgentPropertiesParameters(
           agentCode = data("agentCode").toLong,
           checkPermission = AgentPermission.fromName(data("checkPermission")).getOrElse(StartAndContinue),
           challengePermission = AgentPermission.fromName(data("challengePermission")).getOrElse(StartAndContinue))
@@ -346,7 +345,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
   )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack _))
 
 
-  private def withValidPropertiesPagination(pagination: AgentPropertiesPagination)
+  private def withValidPropertiesPagination(pagination: AgentPropertiesParameters)
                                         (f: => Future[Result])
                                         (implicit request: Request[_]): Future[Result] = {
     if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 1000) {
@@ -368,17 +367,6 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
         }
       }
     }
-}
-
-case class AppointAgent(agentCode: Option[Long], agentCodeRadio: String, canCheck: AgentPermission, canChallenge: AgentPermission) {
-  def getAgentCode(): Long = agentCode match {
-    case Some(code) => code
-    case None => agentCodeRadio.toLong
-  }
-}
-
-object AppointAgent {
-  implicit val format = Json.format[AppointAgent]
 }
 
 case class AppointAgentPropertiesVM(agentGroup: GroupAccount, response: OwnerAuthResult)

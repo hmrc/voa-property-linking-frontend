@@ -27,7 +27,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, status, _}
 import repositories.SessionRepo
 import resources._
-import utils.{StubAuthentication, StubPropertyLinkConnector}
+import utils.{StubAuthentication, StubGroupAccountConnector, StubPropertyLinkConnector}
 
 import scala.collection.JavaConverters._
 
@@ -38,10 +38,9 @@ class SelectPropertiesSpec extends ControllerSpec {
 
  //Make the tests run significantly faster by only loading and parsing the default
 
-  val pagination = AgentPropertiesPagination(
+  val agentGroup = GroupAccount(1L, "groupId", "company", 1, "email", "2341234", true, 1L)
+  val pagination = AgentPropertiesParameters(
     agentCode = 1L,
-    agentOrganisation = "asd",
-    agentOrganisationId = 1L,
     checkPermission = StartAndContinue,
     challengePermission = StartAndContinue)
 
@@ -152,6 +151,8 @@ class SelectPropertiesSpec extends ControllerSpec {
 
     var arbitraryOwnerAuthorisation: Seq[OwnerAuthorisation] = Nil
 
+    StubGroupAccountConnector.stubAccount(agentGroup)
+
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
     (1 to numberOfLinks) foreach { _ =>
       arbitraryOwnerAuthorisation :+= arbitrary[OwnerAuthorisation].copy(authorisationId = groupAccount.id.toLong)
@@ -174,7 +175,7 @@ class SelectPropertiesSpec extends ControllerSpec {
 
   private object TestAppointAgentController extends AppointAgentController(
     mock[PropertyRepresentationConnector],
-    mock[GroupAccounts],
+    StubGroupAccountConnector,
     StubPropertyLinkConnector,
     mock[AgentsConnector],
     StubAuthentication,

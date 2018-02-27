@@ -16,13 +16,13 @@
 
 @import actions.AuthenticatedRequest
 @import controllers.agentAppointment.AppointAgentPropertiesVM
-@import models.searchApi.{AgentPropertiesSortField, AgentPropertiesPagination}
+@import models.searchApi.{AgentPropertiesSortField, AgentPropertiesParameters}
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import models._
 
 @(f: Option[Form[_]], model: AppointAgentPropertiesVM,
-        pagination: AgentPropertiesPagination
+        pagination: AgentPropertiesParameters
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{

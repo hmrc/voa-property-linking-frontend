@@ -18,6 +18,17 @@ package models
 
 import play.api.libs.json.Json
 
+case class AppointAgent(agentCode: Option[Long], agentCodeRadio: String, canCheck: AgentPermission, canChallenge: AgentPermission) {
+  def getAgentCode(): Long = agentCode match {
+    case Some(code) => code
+    case None => agentCodeRadio.toLong
+  }
+}
+
+object AppointAgent {
+  implicit val format = Json.format[AppointAgent]
+}
+
 case class AgentAppointBulkAction(
                                    agentCode: Long,
                                    checkPermission: AgentPermission,

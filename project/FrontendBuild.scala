@@ -15,7 +15,7 @@ object FrontendBuild extends Build with MicroService {
   override val defaultPort: Int = 9523
 
   override lazy val playSettings: Seq[Setting[_]] = Seq(
-    routesImport ++= Seq("models.SortOrder", "models.messages.MessagePagination", "models.searchApi.AgentPropertiesPagination"),
+    routesImport ++= Seq("models.SortOrder", "models.messages.MessagePagination", "models.searchApi.AgentPropertiesParameters"),
     // Add the views to the dist
     unmanagedResourceDirectories in Assets += baseDirectory.value / "app" / "assets",
     // Dont include the source assets in the dist package (public folder)

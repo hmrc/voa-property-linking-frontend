@@ -23,7 +23,7 @@ import config.WSHttp
 import connectors.fileUpload.FileMetadata
 import controllers.{Pagination, PaginationSearchSort}
 import models._
-import models.searchApi.{AgentPropertiesPagination, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
+import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
 import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
@@ -88,7 +88,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   }
 
   def appointableProperties(organisationId: Long,
-                            pagination: AgentPropertiesPagination)
+                            pagination: AgentPropertiesParameters)
                            (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
     http.GET[OwnerAuthResult](s"$baseUrl/property-links-appointable?" +

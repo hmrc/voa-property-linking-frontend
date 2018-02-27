@@ -20,7 +20,7 @@ import models.{AgentPermission, SortOrder, StartAndContinue}
 import play.api.mvc.QueryStringBindable
 import utils.Formatters.{buildQueryParams, buildUppercaseQueryParams}
 
-case class AgentPropertiesPagination(agentCode: Long,
+case class AgentPropertiesParameters(agentCode: Long,
                                      checkPermission: AgentPermission = StartAndContinue,
                                      challengePermission: AgentPermission = StartAndContinue,
                                      address: Option[String] = None,
@@ -32,13 +32,13 @@ case class AgentPropertiesPagination(agentCode: Long,
 
   def startPoint: Int = (pageNumber - 1) * pageSize + 1
 
-  def reverseSorting: AgentPropertiesPagination = copy(sortOrder = sortOrder.reverse)
+  def reverseSorting: AgentPropertiesParameters = copy(sortOrder = sortOrder.reverse)
 
-  def previousPage: AgentPropertiesPagination = copy(pageNumber = pageNumber - 1)
+  def previousPage: AgentPropertiesParameters = copy(pageNumber = pageNumber - 1)
 
-  def nextPage: AgentPropertiesPagination = copy(pageNumber = pageNumber + 1)
+  def nextPage: AgentPropertiesParameters = copy(pageNumber = pageNumber + 1)
 
-  def clear: AgentPropertiesPagination = copy(address = None, agentNameFilter = None)
+  def clear: AgentPropertiesParameters = copy(address = None, agentNameFilter = None)
 
   lazy val queryString = s"agentCode=$agentCode&startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true" +
     s"&checkPermission=${checkPermission.name}&challengePermission=${challengePermission.name}" +
@@ -48,9 +48,9 @@ case class AgentPropertiesPagination(agentCode: Long,
     buildQueryParams("agent", agentNameFilter)
 }
 
-object AgentPropertiesPagination {
-  implicit val queryStringBindable: QueryStringBindable[AgentPropertiesPagination] = new QueryStringBindable[AgentPropertiesPagination] {
-    override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, AgentPropertiesPagination]] = {
+object AgentPropertiesParameters {
+  implicit val queryStringBindable: QueryStringBindable[AgentPropertiesParameters] = new QueryStringBindable[AgentPropertiesParameters] {
+    override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, AgentPropertiesParameters]] = {
       def bindParam[T](key: String)(implicit qsb: QueryStringBindable[T]): Option[Either[String, T]] = qsb.bind(key, params)
 
       for {
@@ -66,7 +66,7 @@ object AgentPropertiesPagination {
       } yield {
         (agentCode, checkPermission, challengePermission, address, agentName, pageNumber, pageSize, sortField, sortOrder) match {
           case (Right(ac), Right(cp1), Right(cp2), Right(addr), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>
-            Right(AgentPropertiesPagination(
+            Right(AgentPropertiesParameters(
               agentCode = ac,
               checkPermission = AgentPermission.fromName(cp1).getOrElse(StartAndContinue),
               challengePermission = AgentPermission.fromName(cp2).getOrElse(StartAndContinue),
@@ -76,12 +76,12 @@ object AgentPropertiesPagination {
               pageSize = ps,
               sortField = sf,
               sortOrder = so))
-          case _ => Left("Unable to bind to AgentPropertiesPagination")
+          case _ => Left("Unable to bind to AgentPropertiesParameters")
         }
       }
     }
 
-    override def unbind(key: String, value: AgentPropertiesPagination): String =
+    override def unbind(key: String, value: AgentPropertiesParameters): String =
       s"""
          |agentCode=${value.agentCode}&
          |checkPermission=${value.checkPermission}&
