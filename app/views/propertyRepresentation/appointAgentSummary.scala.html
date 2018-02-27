@@ -19,7 +19,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 
 @import models.searchApi.AgentPropertiesPagination
-@(action: AgentAppointBulkAction)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(action: AgentAppointBulkAction, agentOrganisation: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{ Messages("propertyRepresentation.agentSummary.heading") }
 
@@ -32,14 +32,14 @@
     <div class="column-whole clearfix">
 
         <h1 class="heading-large">@messages("propertyRepresentation.agentSummary.title",
-            action.agentOrganisation, action.agentCode.toString)</h1>
+            agentOrganisation, action.agentCode.toString)</h1>
 
         @defining((action.checkPermission, action.challengePermission) match
         {   case (StartAndContinue, NotPermitted) => "checks"
             case (NotPermitted, StartAndContinue) => "challenges"
             case _ => "checks and challenges"
         }) { perms: String =>
-            <p class="lede">@Messages("propertyRepresentation.agentSummary.appointed", action.agentOrganisation, action.agentCode.toString, perms)</p>
+            <p class="lede">@Messages("propertyRepresentation.agentSummary.appointed", agentOrganisation, action.agentCode.toString, perms)</p>
         }
 
         <div class="panel panel-border-wide">

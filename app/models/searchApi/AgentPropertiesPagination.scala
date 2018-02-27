@@ -21,8 +21,6 @@ import play.api.mvc.QueryStringBindable
 import utils.Formatters.{buildQueryParams, buildUppercaseQueryParams}
 
 case class AgentPropertiesPagination(agentCode: Long,
-                                     agentOrganisation: String,
-                                     agentOrganisationId: Long,
                                      checkPermission: AgentPermission = StartAndContinue,
                                      challengePermission: AgentPermission = StartAndContinue,
                                      address: Option[String] = None,
@@ -42,8 +40,7 @@ case class AgentPropertiesPagination(agentCode: Long,
 
   def clear: AgentPropertiesPagination = copy(address = None, agentNameFilter = None)
 
-  lazy val queryString = s"agentCode=$agentCode&agentOrganisation=$agentOrganisation&agentOrganisationId=$agentOrganisationId" +
-    s"&startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true" +
+  lazy val queryString = s"agentCode=$agentCode&startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true" +
     s"&checkPermission=${checkPermission.name}&challengePermission=${challengePermission.name}" +
     buildUppercaseQueryParams("sortfield", Some(sortField.name)) +
     buildUppercaseQueryParams("sortorder", Some(sortOrder.name)) +
@@ -58,8 +55,6 @@ object AgentPropertiesPagination {
 
       for {
         agentCode <- bindParam[Long]("agentCode")
-        agentOrg <- bindParam[String]("agentOrganisation")
-        agentOrgId <- bindParam[Long]("agentOrganisationId")
         checkPermission <- bindParam[String]("checkPermission")
         challengePermission <- bindParam[String]("challengePermission")
         address <- bindParam[Option[String]]("address")
@@ -69,12 +64,10 @@ object AgentPropertiesPagination {
         sortField <- bindParam[AgentPropertiesSortField]("sortField")
         sortOrder <- bindParam[SortOrder]("sortOrder")
       } yield {
-        (agentCode, agentOrg, agentOrgId, checkPermission, challengePermission, address, agentName, pageNumber, pageSize, sortField, sortOrder) match {
-          case (Right(ac), Right(ao), Right(aoid), Right(cp1), Right(cp2), Right(addr), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>
+        (agentCode, checkPermission, challengePermission, address, agentName, pageNumber, pageSize, sortField, sortOrder) match {
+          case (Right(ac), Right(cp1), Right(cp2), Right(addr), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>
             Right(AgentPropertiesPagination(
               agentCode = ac,
-              agentOrganisation = ao,
-              agentOrganisationId = aoid,
               checkPermission = AgentPermission.fromName(cp1).getOrElse(StartAndContinue),
               challengePermission = AgentPermission.fromName(cp2).getOrElse(StartAndContinue),
               address = addr,
@@ -91,8 +84,6 @@ object AgentPropertiesPagination {
     override def unbind(key: String, value: AgentPropertiesPagination): String =
       s"""
          |agentCode=${value.agentCode}&
-         |agentOrganisation=${value.agentOrganisation}&
-         |agentOrganisationId=${value.agentOrganisationId}&
          |checkPermission=${value.checkPermission}&
          |challengePermission=${value.challengePermission}&
          |address=${value.address.getOrElse("")}&
