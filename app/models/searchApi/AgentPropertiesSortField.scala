@@ -32,7 +32,7 @@ object AgentPropertiesSortField extends NamedEnumSupport[AgentPropertiesSortFiel
   }
 
   case object AgentName extends AgentPropertiesSortField {
-    override val name: String = "agentName"
+    override val name: String = "agent"
   }
 
 
