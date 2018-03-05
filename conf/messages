@@ -8,12 +8,14 @@ start.heading.registration=Registration
 start.registration.p.1=If you’re a returning user, you can <a href="{0}">sign in</a> to use this service.
 start.registration.p.2=If you’ve already registered for this service and other people from your business want to register, you need to <a href="https://myaccount.gateway.gov.uk/Pages/Common/Help.aspx?content=Whitelabel_RegisterOrLogon_AboutGateway" rel="external">add them to your business Government Gateway account</a>.
 start.registration.p.3=To register for this service you’ll need to verify your identity by providing your National Insurance number, date of birth and details from at least one of the following:
+start.registration.enrolment.p.3=To register for this service you’ll need to verify your identity by providing your National Insurance number or UK passport number and your postcode.
 start.registration.youNeed.1=payslips
 start.registration.youNeed.2=UK passport
 start.registration.youNeed.3=P60
 start.registration.p.5=You should allow approximately 15 minutes without interruption to complete the registration process.
 start.registration.IdontHave=I don’t have these details
 start.registration.IdontHave.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to call the Valuation Office Agency (VOA).</p><p>Telephone: 03000 501 501</p>
+start.registration.IdontHave.enrolment.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, you’ll need to call the Valuation Office Agency (VOA).</p><p>Telephone: 03000 501 501</p>
 
 
 start.heading.agents=Agents
@@ -951,6 +953,8 @@ account.enrolment.description.existing=As part of the ongoing improvements to th
 account.enrolment.personId=Your ID number is {0}
 account.enrolment.disclaimer=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
 account.enrolment.footer=Valuation Office Agency (VOA)
+
+create-account.type.question=Which type of account would you like to create?
 
 enrolment.title = Complete your contact details
 enrolment.organisation.name = Business name
