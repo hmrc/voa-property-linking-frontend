@@ -158,8 +158,8 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
     status(res) must be (BAD_REQUEST)
 
     val page = HtmlPage(res)
-    page.mustContainFieldErrors("canCheck" -> "Agent must either have permission to continue checks or challenges")
-    page.mustContainFieldErrors("canChallenge" -> "Agent must either have permission to continue checks or challenges")
+    page.mustContainFieldErrors("canCheck" -> "Agent must either have permission to submit checks or challenges")
+    page.mustContainFieldErrors("canChallenge" -> "Agent must either have permission to submit checks or challenges")
   }
 
   it must "require the agent code to be valid" in {
