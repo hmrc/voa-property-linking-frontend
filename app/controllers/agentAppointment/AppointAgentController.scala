@@ -265,9 +265,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
       case None => Future.successful(Unit)
     }
   }
-
   /* appoint agent to multiple properties - End */
-
 
   private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
                                         newAgentOrgId: Long, individualId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
@@ -356,7 +354,6 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
     "linkIds" -> list(text).verifying(nonEmptyList)
   )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack _))
 
-
   private def withValidPropertiesPagination(pagination: AgentPropertiesParameters)
                                         (f: => Future[Result])
                                         (implicit request: Request[_]): Future[Result] = {
@@ -382,15 +379,10 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
 }
 
 case class AppointAgentPropertiesVM(agentGroup: GroupAccount, response: OwnerAuthResult)
-
 case class AppointAgentVM(form: Form[_], linkId: Option[Long] = None, agents: Seq[OwnerAgent] = Seq())
-
 case class ModifyAgentVM(form: Form[_], representationId: Long)
-
 case class ExistingAgentsPermission(agentName: String, agentCode: Long, availablePermission: Seq[String])
-
 case class ConfirmOverrideVM(authorisationId: Long, newAgent: ExistingAgentsPermission, existingPermissions: Seq[ExistingAgentsPermission])
-
 case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Long)
 
 object BulkActionsForm {
