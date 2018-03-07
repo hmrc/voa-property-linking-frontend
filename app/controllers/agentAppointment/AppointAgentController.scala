@@ -96,11 +96,11 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
               if (config.manageAgentsEnabled) {
                 agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
                   val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
-                  invalidAppointment(formWithErrors, authorisationId, ownerAgents.agents)
+                  invalidAppointment(formWithErrors, Some(authorisationId), ownerAgents.agents)
                 }
               } else {
                   val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
-                  invalidAppointment(formWithErrors, authorisationId)
+                  invalidAppointment(formWithErrors, Some(authorisationId))
               }
             } else {
               appointAgent(authorisationId, agent, agentCodeValidationResult.organisationId.getOrElse(-1L), prop)
@@ -174,8 +174,20 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
                 AppointAgentPropertiesVM(group, response), pagination))
             }
           }
-          case None => NotFound(s"Unknown Agent: ${agent.getAgentCode()}")
-        }
+          case None =>
+          {
+              val errors: List[FormError] = List(invalidAgentCode)
+              if (config.manageAgentsEnabled) {
+                agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
+                  val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
+                  invalidAppointment(formWithErrors, None, ownerAgents.agents)
+                }
+              } else {
+                val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
+                invalidAppointment(formWithErrors, None)
+              }
+            }
+          }
       })
   }
 
@@ -321,11 +333,11 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
   private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
   private lazy val alreadyAppointedAgent = FormError("agentCode", "error.alreadyAppointedAgent")
 
-  private def invalidAppointment(form: Form[AppointAgent], linkId: Long, agents: Seq[OwnerAgent] = Seq())(implicit request: Request[_]) = {
+  private def invalidAppointment(form: Form[AppointAgent], linkId: Option[Long], agents: Seq[OwnerAgent] = Seq())(implicit request: Request[_]) = {
     if (config.manageAgentsEnabled) {
-      Future.successful(BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(form, Some(linkId), agents))))
+      Future.successful(BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(form, linkId, agents))))
     } else {
-      Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, Some(linkId), agents))))
+      Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId, agents))))
     }
   }
 
