@@ -84,7 +84,7 @@ class MessagesPageSpec extends ControllerSpec {
 
     val inputs = messagesTable.select("thead tr th div.searchField input").asScala.map(_.attr("name"))
     inputs must contain ("address")
-    inputs must contain ("caseReference")
+    inputs must contain ("referenceNumber")
   }
 
   it must "include hidden search fields for page number, page size, sort field, and sort order" in {
@@ -107,7 +107,7 @@ class MessagesPageSpec extends ControllerSpec {
   it must "prepopulate the reference number search field if the results are filtered by reference" in {
     val filteredByReference = Jsoup.parse(messagesTab(oneMessage, MessagePagination(referenceNumber = Some("ref")), 1, 1).toString)
 
-    val referenceInput = filteredByReference.select("input#caseReference")
+    val referenceInput = filteredByReference.select("input#referenceNumber")
     referenceInput.attr("value") mustBe "ref"
   }
 
