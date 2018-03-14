@@ -149,8 +149,8 @@
                     } else {
                         @pagination.startPoint
                     } to @{
-                    model.response.filterTotal.min(pagination.startPoint + pagination.pageSize - 1)
-                } of @model.response.total
+                    model.response.total.min(pagination.startPoint + pagination.pageSize - 1)
+                } of @model.response.filterTotal
                 </div>
 
                 <div role="navigation" aria-label="Pagination" class="pull-right">
