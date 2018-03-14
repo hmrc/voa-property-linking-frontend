@@ -16,7 +16,7 @@
 
 @import config.ApplicationConfig
 
-@()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(url: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
     @main_template(Messages("iv.success.title"), topNavigation = false) {
         <div class="grid-row">
@@ -29,7 +29,7 @@
                 <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
                 <p>@Messages("iv.success.p.1")</p>
 
-                <a href="@routes.CreateGroupAccount.show" class="button" role="button">@Messages("link.createGroupAccount")</a>
+                <a href="@url" class="button" role="button">@Messages("link.createGroupAccount")</a>
 
             </div>
         </div>

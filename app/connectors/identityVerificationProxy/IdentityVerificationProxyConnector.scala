@@ -28,17 +28,12 @@ import config.WSHttp
 import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.http.HeaderCarrier
 
+//completionURL: String, failureURL:  String, userData: IVDetails
 class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
   private lazy val url = serverConfig.baseUrl("identity-verification-proxy")
   private val path = "identity-verification-proxy/journey"
 
-  def start(completionURL: String, failureURL:  String, userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] = {
-    http.POST[Journey, Link](s"$url/$path/start", Journey("voa-property-linking",
-      completionURL, failureURL, ConfidenceLevel.L200, userData))
-  }
-
-  def get(id: Long)(implicit hc: HeaderCarrier): Future[Journey] = {
-    val getUrl = s"$url/$path/$id"
-    http.GET[Journey](getUrl)
+  def start(journey: Journey)(implicit hc: HeaderCarrier): Future[Link] = {
+    http.POST[Journey, Link](s"$url/$path/start", journey)
   }
 }

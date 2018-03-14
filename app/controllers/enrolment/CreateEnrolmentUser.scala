@@ -32,6 +32,7 @@ import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc.{AnyContent, Request, Result}
 import services.email.EmailService
+import services.iv.IdentityVerificationService
 import services.{EnrolmentService, Failure, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -45,7 +46,8 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
                                      auth: VPLAuthConnector,
                                      addresses: Addresses,
                                      emailService: EmailService,
-                                     authenticatedAction: AuthenticatedAction
+                                     authenticatedAction: AuthenticatedAction,
+                                    identityVerificationService: IdentityVerificationService
                                    )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def show() = ggAction.async(isSession = true) { ctx =>
@@ -75,7 +77,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
             individual = IndividualAccountSubmission(user.externalId, "NONIV", None, IndividualDetails(success.firstName, success.lastName, user.userInfo.email, success.phone, None, id))
             _ <- groupAccounts.create(groupId, id, groupAccountDetails, individual)
             personId <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
-            res <- resultMapper(personId, id)(user)
+            res <- resultMapper(personId, id, success.toIvDetails)(user)
           } yield res
       )
   }
@@ -94,26 +96,27 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
             individual          = IndividualAccountSubmission(user.externalId, "NONIV", None, IndividualDetails(success.firstName, success.lastName, user.userInfo.email, success.phone, None, id))
             _                   <- groupExists(groupId, acc => individualAccounts.create(createIndividualAccountSubmission(user, success.phone)(acc)), groupAccounts.create(groupId, id, groupAccountDetails, individual)) //If the user create can return the personId back we can shorten this function.
             personId            <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
-            res                 <- resultMapper(personId, id)(user)
+            res                 <- resultMapper(personId, id, success.toIvDetails)(user)
             //Format: ON
           } yield res
       )
   }
 
-  private def resultMapper(option: Option[DetailedIndividualAccount], addressId: Int)
+  private def resultMapper(option: Option[DetailedIndividualAccount], addressId: Int, iVDetails: IVDetails)
                           (userDetails: UserDetails)
                           (implicit hc: HeaderCarrier, request: Request[AnyContent]): Future[Result] = option match {
-    case Some(detailIndiv) => enrolmentService.enrol(detailIndiv.individualId, addressId).map {
+    case Some(detailIndiv) => enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
       case Success =>
         emailService.sendNewEnrolmentSuccess(userDetails.userInfo.email, detailIndiv.individualId, s"${detailIndiv.details.firstName} ${detailIndiv.details.lastName}")
-        Redirect(routes.CreateEnrolmentUser.success(detailIndiv.individualId))
-      case Failure => InternalServerError(Global.internalServerErrorTemplate)
+        identityVerificationService.start(iVDetails).map(link => Redirect(routes.CreateEnrolmentUser.success(detailIndiv.individualId, link.getLink(config.ivEnabled))))
+      case Failure =>
+        Future.successful(InternalServerError(Global.internalServerErrorTemplate))
     }
     case None => Future.successful(InternalServerError(Global.internalServerErrorTemplate))
   }
 
-  def success(personId: Long) = authenticatedAction { implicit request =>
-      Ok(views.html.createAccount.confirmation_enrolment(s"Person ID: $personId"))
+  def success(personId: Long, url: String) = authenticatedAction { implicit request =>
+    Ok(views.html.createAccount.confirmation_enrolment(s"Person ID: $personId", url))
   }
 
   private def createIndividualAccountSubmission(userDetails: UserDetails, phoneNumber: String)(groupAccount: GroupAccount) = {

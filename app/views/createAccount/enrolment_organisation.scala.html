@@ -119,6 +119,17 @@
                     )
                 )
 
+            @dateFields(model.form, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")))
+
+            @inputText(
+            field = model.form(keys.nino),
+            '_label -> Messages(s"label.createAccount.${keys.nino}"),
+            '_labelClass -> "form-label-bold",
+            '_showConstraints -> false,
+            'class -> "form-control",
+            '_help -> Messages("hint.nino")
+            )
+
                 <p class="panel panel-border-wide">@Messages("isAgent.details")</p>
 
                 <p>

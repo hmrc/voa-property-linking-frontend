@@ -154,6 +154,7 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider,
                               val authConnector: AuthConnector,
                               auth: VPLAuthConnector
                              )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends AuthorisedFunctions with AuthImpl with I18nSupport {
+
   override def success(
                         accounts: Accounts,
                         body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
@@ -168,9 +169,8 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider,
         throw otherException
     }
 
-    val retrieve: Retrieval[~[~[Option[String], Option[String]], Option[String]]] = Retrievals.email and Retrievals.postCode and Retrievals.groupIdentifier
-    authorised(AuthProviders(AuthProvider.GovernmentGateway) and Enrolment("HMRC-VOA-CCA")).retrieve(retrieve) {
-      case email ~ postcode ~ groupId => body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+    authorised(AuthProviders(AuthProvider.GovernmentGateway) and Enrolment("HMRC-VOA-CCA")) {
+       body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
     }.recoverWith(handleError)
   }
 
@@ -189,7 +189,8 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider,
       for {
         userDetails <- auth.getUserDetails
         _ <- emailService.sendMigrationEnrolmentSuccess(userDetails.userInfo.email, accounts.person.individualId, s"${accounts.person.details.firstName} ${accounts.person.details.lastName}")
-      } yield Ok(views.html.createAccount.migration_success(s"PersonID: ${accounts.person.individualId}"))
+      } yield Ok(views.html.createAccount.migration_success(s"PersonID: ${accounts.person.individualId}", controllers.routes.Dashboard.home().url))
+      body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
     case Failure =>
       Logger.warn("Failed to enrol existing VOA user")
       body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))

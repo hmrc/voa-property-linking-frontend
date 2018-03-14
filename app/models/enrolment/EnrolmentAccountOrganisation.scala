@@ -16,15 +16,30 @@
 
 package models.enrolment
 
+import java.time.LocalDate
+
 import form.Mappings._
 import form.TextMatching
-import models.Address
-import play.api.data.Form
-import play.api.data.Forms.{email, mapping, nonEmptyText}
-import play.api.data.validation.Constraints
+import models.{Address, IVDetails}
+import play.api.data.{Form, Mapping}
+import play.api.data.Forms.{email, mapping, nonEmptyText, text}
+import play.api.data.validation._
+import uk.gov.hmrc.domain.Nino
 import views.helpers.Errors
 
 object CreateEnrolmentOrganisationAccount {
+
+  lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
+
+  lazy val validNino: Constraint[String] = Constraint {
+    case s if Nino.isValid(s.toUpperCase) => Valid
+    case _ => Invalid(ValidationError("error.nino.invalid"))
+  }
+
+  private def toNino(nino: String) = {
+    Nino(nino.toUpperCase.replaceAll(" ", ""))
+  }
+
   lazy val keys = new {
     val companyName = "companyName"
     val firstName = "firstName"
@@ -34,6 +49,8 @@ object CreateEnrolmentOrganisationAccount {
     val email = "email"
     val confirmEmail = "confirmedBusinessEmail"
     val isAgent = "isAgent"
+    val dateOfBirth = "dob"
+    val nino = "nino"
   }
 
   lazy val form = Form(mapping(
@@ -41,6 +58,8 @@ object CreateEnrolmentOrganisationAccount {
     keys.lastName -> nonEmptyText,
     keys.companyName -> nonEmptyText(maxLength = 45),
     keys.address -> addressMapping,
+    keys.dateOfBirth -> dmyPastDate,
+    keys.nino -> nino,
     keys.phone -> nonEmptyText.verifying("Maximum length is 15", _.length <= 15),
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
@@ -54,7 +73,12 @@ case class EnrolmentOrganisationAccountDetails(firstName: String,
                                                lastName: String,
                                                companyName: String,
                                                address: Address,
+                                               dob: LocalDate,
+                                               nino: Nino,
                                                phone: String,
                                                email: String,
                                                confirmedEmail: String,
-                                               isAgent: Boolean)
+                                               isAgent: Boolean) {
+
+  def toIvDetails = IVDetails(firstName, lastName, dob, nino)
+}

@@ -18,14 +18,18 @@ package controllers
 
 import javax.inject.{Inject, Named}
 
+import play.api.Logger
 import auth.{GGAction, VoaAction}
+import cats.instances.all._
+import cats.data.OptionT
 import config.ApplicationConfig
 import connectors._
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import models.{IVDetails, IndividualAccountSubmission, PersonalDetails}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, Request}
+import play.api.mvc.{Action, Request, Result}
 import repositories.SessionRepo
+import services.iv.IdentityVerificationService
 import uk.gov.hmrc.play.frontend.auth.AuthContext
 
 import scala.concurrent.Future
@@ -35,7 +39,7 @@ class IdentityVerification @Inject() (ggAction: VoaAction,
                                       identityVerification: connectors.IdentityVerification,
                                       addresses: Addresses,
                                       individuals: IndividualAccounts,
-                                      identityVerificationProxyConnector: IdentityVerificationProxyConnector,
+                                      identityVerificationService: IdentityVerificationService,
                                       groups: GroupAccounts,
                                       auth: VPLAuthConnector,
                                       @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
@@ -44,11 +48,11 @@ class IdentityVerification @Inject() (ggAction: VoaAction,
 
   def startIv = ggAction.async(true) { _ => implicit request =>
     if (config.ivEnabled) {
-      personalDetailsSessionRepo.get[PersonalDetails] flatMap { details  => {
-        val d = details.getOrElse(throw new Exception("details not found"))
-        identityVerificationProxyConnector.start(config.baseUrl + routes.IdentityVerification.restoreSession().url,
-          config.baseUrl + routes.IdentityVerification.fail().url, d.ivDetails).map(l => Redirect(l.link))
-      }
+      //TODO Remove this once we turn on enrolment
+      personalDetailsSessionRepo.get[PersonalDetails] flatMap { details  =>
+        identityVerificationService
+          .start(details.map(_.ivDetails).getOrElse(throw new Exception("details not found")))
+          .map(l => Redirect(l.getLink(config.ivEnabled)))
       }
     } else {
       Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
@@ -69,39 +73,13 @@ class IdentityVerification @Inject() (ggAction: VoaAction,
   def success = ggAction.async(false) { implicit ctx => implicit request =>
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       identityVerification.verifySuccess(journeyId) flatMap {
-        case true => continue(ctx, request)
+        case true =>
+          identityVerificationService.continue(journeyId)(ctx, request, hc, ec).map{
+            case Some(obj) => Ok(identityVerificationService.someCase(obj))
+            case None => Ok(identityVerificationService.noneCase)
+          }
         case false => Unauthorized("Unauthorised")
       }
     }
   }
-
-  private def continue[A](implicit ctx: A, request: Request[_]) = {
-    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
-      val eventualGroupId = auth.getGroupId(ctx)
-      val eventualExternalId = auth.getExternalId(ctx)
-      val eventualIndividualDetails = personalDetailsSessionRepo.get[PersonalDetails]
-
-      for {
-        groupId <- eventualGroupId
-        userId <- eventualExternalId
-        account <- groups.withGroupId(groupId)
-        details <- eventualIndividualDetails.map(_.getOrElse(throw new Exception("no details found")))
-        id <- registerAddress(details)
-        d = details.withAddressId(id)
-        res <- account match {
-          case Some(acc) => individuals.create(IndividualAccountSubmission(userId, journeyId, Some(acc.id), d.individualDetails)) map { _ =>
-            Ok(views.html.createAccount.groupAlreadyExists(acc.companyName))
-          }
-          case _ => personalDetailsSessionRepo.saveOrUpdate(d) map { _ => Ok(views.html.identityVerification.success()) }
-        }
-      } yield res
-    }
-  }
-
-  private def registerAddress(details: PersonalDetails)(implicit hc: HeaderCarrier): Future[Int] = details.address.addressUnitId match {
-    case Some(id) => id
-    case None => addresses.create(details.address)
-  }
 }
-
-case class StartIVVM(data: IVDetails, url: String)

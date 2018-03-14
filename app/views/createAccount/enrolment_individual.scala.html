@@ -97,6 +97,17 @@
                     '_optional -> true
                 )
 
+            @dateFields(model.form, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")))
+
+            @inputText(
+            field = model.form(keys.nino),
+            '_label -> Messages(s"label.createAccount.${keys.nino}"),
+            '_labelClass -> "form-label-bold",
+            '_showConstraints -> false,
+            'class -> "form-control",
+            '_help -> Messages("hint.nino")
+            )
+
                 <p>
                     <button type="submit" id="save-and-continue" class="button">@Messages("app.common.saveAndContinue")</button>
                 </p>

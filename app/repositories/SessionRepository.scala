@@ -36,6 +36,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 @Singleton
 class AgentAppointmentSessionRepository @Inject() (db: DB) extends SessionRepository ("agentAppointmentDocument", db)
 
+//TODO remove this once enrolment has been turned on.
 @Singleton
 class PersonalDetailsSessionRepository @Inject()(db: DB) extends SessionRepository("personDetails", db)
 

@@ -19,7 +19,14 @@ package models.identityVerificationProxy
 import play.api.libs.json.Json
 
 
-case class Link(link: String)
+case class Link(link: String) {
+
+  def getLink(isLocal: Boolean) =
+    if(isLocal)
+      s"http://localhost:9938$link"
+    else link
+}
+
 object Link {
   implicit val format = Json.format[Link]
 }
