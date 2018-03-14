@@ -18,7 +18,7 @@ package utils
 
 import actions.{AuthImpl, AuthenticatedAction, BasicAuthenticatedRequest, NonEnrolmentAuth}
 import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
-import models.Accounts
+import models.{Accounts, DetailedIndividualAccount}
 import play.api.mvc.{AnyContent, Request, Result}
 import services.email.EmailService
 
@@ -39,7 +39,7 @@ object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAut
 
 object StubEmailService extends EmailService(null) {
 
-  override def sendNewEnrolmentSuccess(to: String, personId: Long, name: String)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
+  override def sendNewEnrolmentSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
 
   override def sendMigrationEnrolmentSuccess(to: String, personId: Long, name: String)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
 }

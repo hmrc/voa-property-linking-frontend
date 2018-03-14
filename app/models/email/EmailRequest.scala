@@ -16,6 +16,7 @@
 
 package models.email
 
+import models.DetailedIndividualAccount
 import play.api.libs.json.{Json, OFormat}
 
 case class EmailRequest(to: List[String], templateId: String, parameters: Map[String, String])
@@ -24,8 +25,13 @@ object EmailRequest {
 
   implicit val format: OFormat[EmailRequest] = Json.format[EmailRequest]
 
-  def registration(to: String, personId: Long, name: String): EmailRequest =
-    EmailRequest(List(to), "cca_enrolment_confirmation", Map("personId" -> personId.toString, "name" -> name))
+  def registration(to: String, detailedIndividualAccount: DetailedIndividualAccount): EmailRequest =
+    EmailRequest(List(to), "cca_enrolment_confirmation",
+      Map(
+      "personId" -> detailedIndividualAccount.individualId.toString,
+      "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
+      )
+    )
 
   def migration(to: String, personId: Long, name: String): EmailRequest =
     EmailRequest(List(to), "cca_enrolment_migration_confirmation", Map("personId" -> personId.toString, "name" -> name))

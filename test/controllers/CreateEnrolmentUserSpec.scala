@@ -21,7 +21,7 @@ import java.time.LocalDate
 import akka.util.ByteString
 import controllers.enrolment.CreateEnrolmentUser
 import models.{Address, DetailedIndividualAccount, IndividualDetails, PersonalDetails}
-import models.enrolment.UserInfo
+import models.enrolment.{EnrolmentSuccess, RegistrationResult, UserInfo}
 import org.mockito.ArgumentMatchers.{eq => matching}
 import org.scalatest.mockito.MockitoSugar
 import play.api.libs.json.{JsValue, Json}
@@ -30,7 +30,7 @@ import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded, Result}
 import play.api.test.{FakeHeaders, FakeRequest}
 import play.api.test.Helpers._
 import resources._
-import services.{EnrolmentResult, EnrolmentService, Success}
+import services.{EnrolmentResult, EnrolmentService, RegistrationService, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.domain.Nino
 import utils._
@@ -69,6 +69,9 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     gatewayId = "")
 
   val mockIdentityVerificationService = mock[IdentityVerificationService]
+
+  val mockRegistrationService = mock[RegistrationService]
+
   private object TestCreateEnrolmentUser extends CreateEnrolmentUser(
     StubGGAction,
     StubGroupAccountConnector,
@@ -76,6 +79,7 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     mockEnrolmentService,
     StubAuthConnector,
     StubAddresses,
+    mockRegistrationService,
     StubEmailService,
     StubAuthentication,
     mockIdentityVerificationService
@@ -134,7 +138,8 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
   }
 
   "Submitting a valid individual form" should "return a redirect" in {
-    when(mockEnrolmentService.enrol(any(), any())(any(), any(), any())).thenReturn(Future.successful(Success))
+    when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(Link(""), 1l)))
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
@@ -177,6 +182,8 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
 
   "Submitting a valid organisation form" should "return a redirect" in {
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
+    when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(Link(""), 1l)))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
