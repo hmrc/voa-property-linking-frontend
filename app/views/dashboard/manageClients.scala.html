@@ -214,11 +214,11 @@
 
             <div id="page-size-list">
                 <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
-                @for(len <- List(15,25,50,100)) {
+                @for(len <- List(15, 25, 50, 100)) {
                     @if(model.pagination.pageSize == len) {
                         <span class="page-size-option-current">@len</span>
                     } else {
-                        <a class="page-size-option" href="@controllers.agent.routes.RepresentationController.viewClientProperties(model.pagination.pageNumber, len, model.pagination.requestTotalRowCount, model.pagination.sortfield, model.pagination.sortorder, model.pagination.status, model.pagination.address, model.pagination.baref, model.pagination.agent).url">
+                        <a class="page-size-option" href="@controllers.agent.routes.RepresentationController.viewClientProperties(1, len, model.pagination.requestTotalRowCount, model.pagination.sortfield, model.pagination.sortorder, model.pagination.status, model.pagination.address, model.pagination.baref, model.pagination.agent).url">
                             @len</a>
                     }
                 }
