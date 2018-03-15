@@ -103,7 +103,6 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider,
         userDetails <- auth.getUserDetails
         _ <- emailService.sendMigrationEnrolmentSuccess(userDetails.userInfo.email, accounts.person.individualId, s"${accounts.person.details.firstName} ${accounts.person.details.lastName}")
       } yield Ok(views.html.createAccount.migration_success(s"PersonID: ${accounts.person.individualId}", controllers.routes.Dashboard.home().url))
-      body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
     case Failure =>
       Logger.warn("Failed to enrol existing VOA user")
       body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
