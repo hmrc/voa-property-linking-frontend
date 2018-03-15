@@ -191,7 +191,7 @@
     @if(pagination.pageSize == size) {
         <li>@size</li>
     } else {
-        <li><a href="@routes.Dashboard.viewMessages(pagination.copy(pageSize = size))">@size</a></li>
+        <li><a href="@routes.Dashboard.viewMessages(pagination.copy(pageSize = size, pageNumber = 1))">@size</a></li>
     }
 }
 

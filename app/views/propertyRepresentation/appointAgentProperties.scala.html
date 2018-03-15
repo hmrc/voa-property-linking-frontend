@@ -184,7 +184,7 @@
                     @if(pagination.pageSize == len) {
                         <span class="page-size-option-current">@len</span>
                     } else {
-                        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(pageSize = len)).url">
+                        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(pageSize = len, pageNumber = 1)).url">
                         @len</a>
                     }
                 }
