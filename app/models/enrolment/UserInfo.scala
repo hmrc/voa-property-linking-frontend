@@ -17,7 +17,7 @@
 package models.enrolment
 
 import play.api.libs.json.Json
-import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole}
 
 case class UserInfo(
                      firstName: Option[String],
@@ -26,7 +26,8 @@ case class UserInfo(
                      postcode: Option[String],
                      groupIdentifier: String,
                      gatewayId: String,
-                     affinityGroup: AffinityGroup
+                     affinityGroup: AffinityGroup,
+                     role: CredentialRole
                    )
 
 object UserInfo {
