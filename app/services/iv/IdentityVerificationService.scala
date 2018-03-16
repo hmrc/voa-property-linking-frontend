@@ -51,7 +51,7 @@ trait IdentityVerificationService {
 
   def noneCase(implicit request: Request[_], messages: Messages): Html
 
-  def continue[A](journeyId: String)(implicit ctx: A, request: Request[_], hc: HeaderCarrier, ec: ExecutionContext): Future[Option[B]]
+  def continue[A](journeyId: String)(implicit ctx: A, hc: HeaderCarrier, ec: ExecutionContext): Future[Option[B]]
 
   protected val successUrl: String
 
@@ -73,7 +73,7 @@ class IdentityVerificationServiceEnrolment @Inject()(
 
   def noneCase(implicit request: Request[_], messages: Messages) = Html("Failure Case need Html")
 
-  def continue[A](journeyId: String)(implicit ctx: A, request: Request[_], hc: HeaderCarrier, ec: ExecutionContext): Future[Option[DetailedIndividualAccount]] = {
+  def continue[A](journeyId: String)(implicit ctx: A, hc: HeaderCarrier, ec: ExecutionContext): Future[Option[DetailedIndividualAccount]] = {
     (for {
       userId <- OptionT.liftF(auth.getExternalId(ctx))
       details <- OptionT.liftF(individuals.withExternalId(userId))
@@ -101,7 +101,7 @@ class IdentityVerificationServiceNonEnrolment @Inject()(
 
   def noneCase(implicit request: Request[_], messages: Messages) = views.html.identityVerification.success(routes.CreateGroupAccount.show().url)
 
-  def continue[A](journeyId: String)(implicit ctx: A, request: Request[_], hc: HeaderCarrier, ec: ExecutionContext): Future[Option[GroupAccount]] = {
+  def continue[A](journeyId: String)(implicit ctx: A, hc: HeaderCarrier, ec: ExecutionContext): Future[Option[GroupAccount]] = {
     val eventualGroupId = auth.getGroupId(ctx)
     val eventualExternalId = auth.getExternalId(ctx)
     val eventualIndividualDetails = personalDetailsSessionRepo.get[PersonalDetails]

@@ -16,36 +16,22 @@
 
 package controllers
 
-import java.time.LocalDate
-
-import akka.util.ByteString
 import controllers.enrolment.CreateEnrolmentUser
-import models.{Address, DetailedIndividualAccount, IndividualDetails, PersonalDetails}
-import models.enrolment.{EnrolmentSuccess, RegistrationResult, UserInfo}
-import org.mockito.ArgumentMatchers.{eq => matching}
-import org.scalatest.mockito.MockitoSugar
-import play.api.libs.json.{JsValue, Json}
-import play.api.libs.streams.Accumulator
-import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded, Result}
-import play.api.test.{FakeHeaders, FakeRequest}
-import play.api.test.Helpers._
-import resources._
-import services.{EnrolmentResult, EnrolmentService, RegistrationService, Success}
-import uk.gov.hmrc.auth.core.AffinityGroup
-import uk.gov.hmrc.domain.Nino
-import utils._
-import connectors.{Addresses, TaxEnrolmentConnector}
+import models.enrolment.{EnrolmentSuccess, UserInfo}
 import models.identityVerificationProxy.Link
+import models.{DetailedIndividualAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
-import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
-import org.scalatest.{FlatSpec, MustMatchers}
+import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded}
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import resources._
 import services.iv.IdentityVerificationService
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import services.{EnrolmentService, RegistrationService, Success}
+import uk.gov.hmrc.auth.core.AffinityGroup
+import utils._
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 import scala.concurrent.Future
 
 class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {

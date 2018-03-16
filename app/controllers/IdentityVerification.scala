@@ -74,7 +74,7 @@ class IdentityVerification @Inject() (ggAction: VoaAction,
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
       identityVerification.verifySuccess(journeyId) flatMap {
         case true =>
-          identityVerificationService.continue(journeyId)(ctx, request, hc, ec).map{
+          identityVerificationService.continue(journeyId)(ctx, hc, ec).map{
             case Some(obj) => Ok(identityVerificationService.someCase(obj))
             case None => Ok(identityVerificationService.noneCase)
           }
