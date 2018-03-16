@@ -46,6 +46,4 @@ object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfi
 object StubServicesConfig extends ServicesConfig with MockitoSugar {
   override protected def environment = mock[Environment]
   override lazy val env = "Test"
-
-  override def baseUrl(serviceName: String): String = "Test Url"
 }
