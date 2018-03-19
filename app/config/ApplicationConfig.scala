@@ -48,6 +48,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
 
   lazy val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
   lazy val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
+  lazy val ivEnrolmentEnabled: Boolean = getConfig("featureFlags.ivEnrolmentEnabled").toBoolean
   lazy val messagesEnabled: Boolean = getConfig("featureFlags.messagesEnabled").toBoolean
   lazy val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean
   lazy val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean

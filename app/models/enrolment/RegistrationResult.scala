@@ -22,6 +22,8 @@ sealed trait RegistrationResult
 
 case class EnrolmentSuccess(link: Link, personId: Long) extends RegistrationResult
 
+case class IVNotRequired(personId: Long) extends RegistrationResult
+
 case object EnrolmentFailure extends RegistrationResult
 
 case object DetailsMissing extends RegistrationResult

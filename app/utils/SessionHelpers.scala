@@ -19,7 +19,7 @@ package utils
 import models.enrolment.{UserDetails, UserInfo}
 import play.api.libs.json.Json
 import play.api.mvc.Session
-import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole}
 
 object SessionHelpers {
 
@@ -32,16 +32,17 @@ object SessionHelpers {
     val postcode = "postcode"
     val groupId = "groupId"
     val affinityGroup = "affinityGroup"
+    val role = "role"
   }
 
   implicit class SessionOps(session: Session) {
 
     def getUserDetails: Option[UserDetails] = {
-      (session.get(key.externalId), session.get(key.externalId), session.get(key.firstName), session.get(key.lastName), session.get(key.email), session.get(key.postcode), session.get(key.groupId), session.get(key.affinityGroup)) match {
-        case (Some(externalId), Some(credId), firstName, lastName, Some(email), postcode, Some(groupId), Some(affinityGroup)) =>
-          Json.parse(affinityGroup)
-            .asOpt[AffinityGroup]
-            .flatMap(aff => Some(UserDetails(externalId, UserInfo(firstName, lastName, email, postcode, groupId, credId, aff))))
+      (session.get(key.externalId), session.get(key.externalId), session.get(key.firstName), session.get(key.lastName), session.get(key.email), session.get(key.postcode), session.get(key.groupId), session.get(key.affinityGroup), session.get(key.role)) match {
+        case (Some(externalId), Some(credId), firstName, lastName, Some(email), postcode, Some(groupId), Some(affinityGroup), Some(role)) =>
+          (Json.parse(affinityGroup).\("affinityGroup").asOpt[AffinityGroup], Json.parse(role).\("credentialRole").asOpt[CredentialRole]) match {
+            case (Some(aff), Some(r)) => Some(UserDetails(externalId, UserInfo(firstName, lastName, email, postcode, groupId, credId, aff, r)))
+          }
         case _ =>
           None
       }
@@ -57,6 +58,7 @@ object SessionHelpers {
         .+(key.postcode -> userDetails.userInfo.postcode.getOrElse(""))
         .+(key.groupId -> userDetails.userInfo.groupIdentifier)
         .+(key.affinityGroup -> userDetails.userInfo.affinityGroup.toJson.toString)
+        .+(key.role -> userDetails.userInfo.credentialRole.toJson.toString)
     }
 
     def removeUserDetails = {
@@ -69,6 +71,7 @@ object SessionHelpers {
         .-(key.postcode)
         .-(key.groupId)
         .-(key.affinityGroup)
+        .-(key.role)
     }
   }
 

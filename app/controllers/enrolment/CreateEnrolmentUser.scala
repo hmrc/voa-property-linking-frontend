@@ -31,6 +31,7 @@ import play.api.mvc.{AnyContent, Request}
 import services._
 import services.email.EmailService
 import services.iv.IdentityVerificationService
+import uk.gov.hmrc.auth.core.{Admin, Assistant}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 
 import scala.concurrent.Future
@@ -51,9 +52,9 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
 
   def show() = ggAction.async(isSession = true) { ctx => implicit request =>
       auth.userDetails(ctx).flatMap {
-          case user @ UserDetails(_, UserInfo(_, _, _, _, _, _, Individual)) =>
+           case user @ UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
             Future.successful(Ok(views.html.createAccount.enrolment_individual(EnrolmentUser.individual, FieldData(userInfo = user.userInfo))))
-          case user @ UserDetails(_, UserInfo(_, _, _, _, _, _, Organisation)) =>
+          case user @ UserDetails(_, UserInfo(_, _, _, _, _, _, Organisation, _)) =>
             orgShow(ctx, user)
         }
   }
@@ -66,6 +67,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
         success =>
           registration.create(success.toGroupDetails, success.toIvDetails, ctx)(success.toIndividualAccountSubmission)(hc, ec).map{
             case EnrolmentSuccess(link, personId) => Redirect(routes.CreateEnrolmentUser.success(personId, link.getLink(config.ivEnabled)))
+            case IVNotRequired(personId)          => Redirect(routes.CreateEnrolmentUser.success(personId, controllers.routes.Dashboard.home().url))
             case EnrolmentFailure                 => InternalServerError(Global.internalServerErrorTemplate)
             case DetailsMissing                   => InternalServerError(Global.internalServerErrorTemplate)
           }
@@ -81,6 +83,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
             .create(success.toGroupDetails, success.toIvDetails, ctx)(success.toIndividualAccountSubmission)(hc, ec)
           .map{
             case EnrolmentSuccess(link, personId) => Redirect(routes.CreateEnrolmentUser.success(personId, link.getLink(config.ivEnabled)))
+            case IVNotRequired(personId)          => Redirect(routes.CreateEnrolmentUser.success(personId, controllers.routes.Dashboard.home().url))
             case EnrolmentFailure                 => InternalServerError(Global.internalServerErrorTemplate)
             case DetailsMissing                   => InternalServerError(Global.internalServerErrorTemplate)
           }
@@ -93,22 +96,29 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
   }
 
   private def orgShow[A](ctx: A, userDetails: UserDetails)(implicit request: Request[AnyContent]) = {
-    val fieldDataFOptT = for {
+    val fieldDataFOptT = (for {
       groupId     <- OptionT.liftF(auth.getGroupId(ctx))
       acc         <- OptionT(groupAccounts.withGroupId(groupId))
-      address    <- OptionT(addresses.findById(acc.addressId))
+      address     <- OptionT(addresses.findById(acc.addressId))
     } yield {
       new FieldData(postcode = address.postcode, email = acc.email)
+    }).value
+
+    fieldDataFOptT.map{
+      case Some(fieldData) =>
+        Ok(views.html.createAccount.enrolment_organisation(
+          EnrolmentUser.organisation,
+          fieldData))
+      case None =>
+        userDetails.userInfo.credentialRole match {
+          case Admin      =>
+            Ok(views.html.createAccount.enrolment_organisation(
+            EnrolmentUser.organisation,
+              FieldData(userDetails.userInfo)))
+          case Assistant  =>
+            Ok(views.html.errors.invalidAccountCreation())
+        }
     }
 
-    val fieldDataF = fieldDataFOptT
-      .value
-      .map(_.getOrElse(FieldData(userDetails.userInfo)))
-
-    fieldDataF.map(fieldData =>
-      Ok(views.html.createAccount.enrolment_organisation(
-        EnrolmentUser.organisation,
-        fieldData))
-    )
   }
 }

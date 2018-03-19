@@ -27,6 +27,7 @@ import play.api.mvc.Results.Ok
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.User
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.test.UnitSpec
 import utils.NoMetricsOneAppPerSuite
@@ -38,7 +39,7 @@ class VOAActionSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSu
   override val additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.enrolment" -> "false")
 
   "when false provided but session is not stored, goes through process of getting details again" in {
-    when(mockVplAuthConnector.getUserDetails(any())).thenReturn(Future.successful(UserDetails("123456", UserInfo(None, None, "123456", None, "", "654321", Individual))))
+    when(mockVplAuthConnector.getUserDetails(any())).thenReturn(Future.successful(UserDetails("123456", UserInfo(None, None, "123456", None, "", "654321", Individual, User))))
     println(Individual.toJson)
     val res = testActionEnrolment.async(false) { _ =>
       _ =>

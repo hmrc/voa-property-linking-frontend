@@ -27,6 +27,7 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.User
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.{Await, Future}
@@ -66,7 +67,7 @@ class ManageDetailsSpec extends ServiceSpec {
 
   private val once = times(1)
   private val mockAddress = Address(None, "1, The Place", "", "", "", "AA11 1AA")
-  private val mockUserDetails = UserDetails("123456", UserInfo(None, None, "", Some("ABC"), "", "654321", Individual))
+  private val mockUserDetails = UserDetails("123456", UserInfo(None, None, "", Some("ABC"), "", "654321", Individual, User))
 
   implicit private lazy val hc: HeaderCarrier = HeaderCarrier()
   private lazy val manageDetails = new ManageDetailsWithEnrolments(taxEnrolments = mockTaxEnrolments, addresses = mockAddresses, vPLAuthConnector = mockVPLAuthConnector)

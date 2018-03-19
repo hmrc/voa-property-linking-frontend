@@ -18,6 +18,7 @@ package services
 
 import javax.inject.Inject
 
+import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import controllers.GroupAccountDetails
 import models.enrolment._
@@ -25,19 +26,23 @@ import models.{DetailedIndividualAccount, GroupAccount, IVDetails, IndividualAcc
 import play.api.mvc.{AnyContent, Request}
 import services.email.EmailService
 import services.iv.IdentityVerificationService
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.auth.core
+import uk.gov.hmrc.auth.core.{Admin, Assistant, User}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 
 class RegistrationService @Inject()(groupAccounts: GroupAccounts,
-                                       individualAccounts: IndividualAccounts,
-                                       enrolmentService: EnrolmentService,
-                                       auth: VPLAuthConnector,
-                                       addresses: Addresses,
-                                       emailService: EmailService,
-                                       identityVerificationService: IdentityVerificationService
-                                      ){
+                                    individualAccounts: IndividualAccounts,
+                                    enrolmentService: EnrolmentService,
+                                    auth: VPLAuthConnector,
+                                    addresses: Addresses,
+                                    emailService: EmailService,
+                                    identityVerificationService: IdentityVerificationService,
+                                    config: ApplicationConfig
+                                   ) {
 
   def create[A](
                  groupDetails: GroupAccountDetails,
@@ -47,12 +52,12 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                (individual: UserDetails => Int => Option[Long] => IndividualAccountSubmission)
                (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
     for {
-      user        <- auth.userDetails(ctx)
-      groupId     <- auth.getGroupId(ctx)
-      id          <- addresses.registerAddress(groupDetails)
-      _           <- voaRegister(groupId, acc => individualAccounts.create(individual(user)(id)(Some(acc.id))), groupAccounts.create(groupId, id, groupDetails, individual(user)(id)(None)))
-      personId    <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
-      res         <- enrol(personId, id, iVDetails)(user)
+      user <- auth.userDetails(ctx)
+      groupId <- auth.getGroupId(ctx)
+      id <- addresses.registerAddress(groupDetails)
+      _ <- voaRegister(groupId, acc => individualAccounts.create(individual(user)(id)(Some(acc.id))), groupAccounts.create(groupId, id, groupDetails, individual(user)(id)(None)))
+      personId <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
+      res <- enrol(personId, id, iVDetails)(user)
     } yield res
   }
 
@@ -63,7 +68,7 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                          (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Long] = {
     groupAccounts.withGroupId(groupId).flatMap {
       case Some(acc) => groupExists(acc).map(_.toLong)
-      case _ => noGroup
+      case _         => noGroup
     }
   }
 
@@ -84,13 +89,22 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                        userDetails: UserDetails,
                        detailedIndividualAccount: DetailedIndividualAccount,
                        iVDetails: IVDetails)
-                     (implicit hc: HeaderCarrier, ec: ExecutionContext) = {
+                     (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
     emailService
       .sendNewEnrolmentSuccess(userDetails.userInfo.email, detailedIndividualAccount)
 
-    identityVerificationService
-      .start(iVDetails)
-      .map(EnrolmentSuccess(_, detailedIndividualAccount.individualId))
+    (userDetails.userInfo.affinityGroup, userDetails.userInfo.credentialRole) match {
+      case (Organisation, Assistant)       =>
+        Future
+          .successful(IVNotRequired(detailedIndividualAccount.individualId))
+      case _  if config.ivEnrolmentEnabled =>
+        identityVerificationService
+          .start(iVDetails)
+          .map(EnrolmentSuccess(_, detailedIndividualAccount.individualId))
+      case _                                =>
+          Future
+            .successful(IVNotRequired(detailedIndividualAccount.individualId))
+    }
   }
 }
 

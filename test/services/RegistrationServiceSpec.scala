@@ -18,6 +18,7 @@ package services
 
 import java.time.LocalDate
 
+import config.ApplicationConfig
 import controllers.GroupAccountDetails
 import models._
 import models.enrolment._
@@ -29,7 +30,7 @@ import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, MustMatchers}
 import resources.{shortString, _}
 import services.iv.IdentityVerificationService
-import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.auth.core.{AffinityGroup, User}
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.http.HeaderCarrier
@@ -49,7 +50,7 @@ class RegistrationServiceSpec extends ServiceSpec {
       .create(
         GroupAccountDetails("", Address(None, "", "", "", "", ""), "", "", "", false),
         IVDetails("", "", LocalDate.now(), Nino("AA012345A")),
-        UserDetails("", UserInfo(None, None, "", None, "", "", Individual))
+        UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
       )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
 
     res.futureValue must be(EnrolmentSuccess(Link("some/link"), 2l))
@@ -64,7 +65,7 @@ class RegistrationServiceSpec extends ServiceSpec {
       .create(
         GroupAccountDetails("", Address(None, "", "", "", "", ""), "", "", "", false),
         IVDetails("", "", LocalDate.now(), Nino("AA012345A")),
-        UserDetails("", UserInfo(None, None, "", None, "", "", Individual))
+        UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
       )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
 
     res.futureValue must be(EnrolmentFailure)
@@ -77,7 +78,7 @@ class RegistrationServiceSpec extends ServiceSpec {
       .create(
         GroupAccountDetails("", Address(None, "", "", "", "", ""), "", "", "", false),
         IVDetails("", "", LocalDate.now(), Nino("AA012345A")),
-        UserDetails("", UserInfo(None, None, "", None, "", "", Individual))
+        UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
       )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
 
     res.futureValue must be(DetailsMissing)
@@ -97,7 +98,8 @@ class RegistrationServiceSpec extends ServiceSpec {
       postcode = Some("AB12 3CD"),
       groupIdentifier = "GroupIdenfifier",
       affinityGroup = AffinityGroup.Organisation,
-      gatewayId = "")
+      gatewayId = "",
+      credentialRole = User)
 
 
     protected val mockEnrolmentService = mock[EnrolmentService]
@@ -110,6 +112,8 @@ class RegistrationServiceSpec extends ServiceSpec {
       auth = StubAuthConnector,
       addresses = StubAddresses,
       StubEmailService,
-      mockIdentityVerficationService)
+      mockIdentityVerficationService,
+      app.injector.instanceOf[ApplicationConfig]
+    )
   }
 }
