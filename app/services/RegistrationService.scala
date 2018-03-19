@@ -93,7 +93,7 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
     emailService
       .sendNewEnrolmentSuccess(userDetails.userInfo.email, detailedIndividualAccount)
 
-    (userDetails.userInfo.affinityGroup, userDetails.userInfo.role) match {
+    (userDetails.userInfo.affinityGroup, userDetails.userInfo.credentialRole) match {
       case (Organisation, Assistant)       =>
         Future
           .successful(IVNotRequired(detailedIndividualAccount.individualId))

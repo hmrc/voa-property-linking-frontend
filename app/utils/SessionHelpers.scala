@@ -40,7 +40,7 @@ object SessionHelpers {
     def getUserDetails: Option[UserDetails] = {
       (session.get(key.externalId), session.get(key.externalId), session.get(key.firstName), session.get(key.lastName), session.get(key.email), session.get(key.postcode), session.get(key.groupId), session.get(key.affinityGroup), session.get(key.role)) match {
         case (Some(externalId), Some(credId), firstName, lastName, Some(email), postcode, Some(groupId), Some(affinityGroup), Some(role)) =>
-          (Json.parse(affinityGroup).asOpt[AffinityGroup], Json.parse(role).asOpt[CredentialRole]) match {
+          (Json.parse(affinityGroup).\("affinityGroup").asOpt[AffinityGroup], Json.parse(role).\("credentialRole").asOpt[CredentialRole]) match {
             case (Some(aff), Some(r)) => Some(UserDetails(externalId, UserInfo(firstName, lastName, email, postcode, groupId, credId, aff, r)))
           }
         case _ =>
@@ -58,7 +58,7 @@ object SessionHelpers {
         .+(key.postcode -> userDetails.userInfo.postcode.getOrElse(""))
         .+(key.groupId -> userDetails.userInfo.groupIdentifier)
         .+(key.affinityGroup -> userDetails.userInfo.affinityGroup.toJson.toString)
-        .+(key.role -> userDetails.userInfo.role.toJson.toString)
+        .+(key.role -> userDetails.userInfo.credentialRole.toJson.toString)
     }
 
     def removeUserDetails = {

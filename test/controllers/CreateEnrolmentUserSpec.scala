@@ -29,7 +29,7 @@ import play.api.test.Helpers._
 import resources._
 import services.iv.IdentityVerificationService
 import services.{EnrolmentService, RegistrationService, Success}
-import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, User}
 import utils._
 
 import scala.concurrent.Future
@@ -44,7 +44,8 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     postcode = Some("AB12 3CD"),
     groupIdentifier = "GroupIdenfifier",
     affinityGroup = AffinityGroup.Individual,
-    gatewayId = "")
+    gatewayId = "",
+    credentialRole = User)
 
   val testOrganisationInfo = UserInfo(firstName = Some("Bob"),
     lastName = Some("Smith"),
@@ -52,7 +53,8 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     postcode = Some("AB12 3CD"),
     groupIdentifier = "GroupIdenfifier",
     affinityGroup = AffinityGroup.Organisation,
-    gatewayId = "")
+    gatewayId = "",
+    credentialRole = Admin)
 
   val mockIdentityVerificationService = mock[IdentityVerificationService]
 

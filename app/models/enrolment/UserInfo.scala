@@ -27,7 +27,7 @@ case class UserInfo(
                      groupIdentifier: String,
                      gatewayId: String,
                      affinityGroup: AffinityGroup,
-                     role: CredentialRole
+                     credentialRole: CredentialRole
                    )
 
 object UserInfo {

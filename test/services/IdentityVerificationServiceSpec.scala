@@ -35,7 +35,7 @@ import play.api.{Configuration, Environment}
 import repositories.SessionRepo
 import resources.{shortString, _}
 import services.iv.IdentityVerificationServiceNonEnrolment
-import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.auth.core.{AffinityGroup, User}
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.http.HeaderCarrier
@@ -52,7 +52,7 @@ class IdentityVerificationServiceSpec extends ServiceSpec {
 
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
-    val res: Future[Option[GroupAccount]] = identityVerification.continue("")(UserDetails("", UserInfo(None, None, "", None, "", "", Individual)), hc, ec)
+    val res: Future[Option[GroupAccount]] = identityVerification.continue("")(UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User)), hc, ec)
 
     res.futureValue must be(None)
   }
@@ -64,7 +64,7 @@ class IdentityVerificationServiceSpec extends ServiceSpec {
 
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
-    val res: Future[Option[GroupAccount]] = identityVerification.continue("")(UserDetails("", UserInfo(None, None, "", None, "", "", Individual)), hc, ec)
+    val res: Future[Option[GroupAccount]] = identityVerification.continue("")(UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User)), hc, ec)
 
     res.futureValue must be(Some(GroupAccount(1l, groupId, "", 12, "", "", false, 1l)))
   }
@@ -95,7 +95,8 @@ class IdentityVerificationServiceSpec extends ServiceSpec {
       postcode = Some("AB12 3CD"),
       groupIdentifier = "GroupIdenfifier",
       affinityGroup = AffinityGroup.Organisation,
-      gatewayId = "")
+      gatewayId = "",
+      credentialRole = User)
 
     protected val ivProxy = mock[IdentityVerificationProxyConnector]
 

@@ -52,7 +52,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
 
   def show() = ggAction.async(isSession = true) { ctx => implicit request =>
       auth.userDetails(ctx).flatMap {
-          case user @ UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
+           case user @ UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
             Future.successful(Ok(views.html.createAccount.enrolment_individual(EnrolmentUser.individual, FieldData(userInfo = user.userInfo))))
           case user @ UserDetails(_, UserInfo(_, _, _, _, _, _, Organisation, _)) =>
             orgShow(ctx, user)
@@ -110,13 +110,13 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
           EnrolmentUser.organisation,
           fieldData))
       case None =>
-        userDetails.userInfo.role match {
+        userDetails.userInfo.credentialRole match {
           case Admin      =>
             Ok(views.html.createAccount.enrolment_organisation(
             EnrolmentUser.organisation,
               FieldData(userDetails.userInfo)))
           case Assistant  =>
-            Unauthorized
+            Ok(views.html.errors.invalidAccountCreation())
         }
     }
 
