@@ -30,7 +30,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class EnrolmentServiceSpec extends FlatSpec with MustMatchers with MockitoSugar with ScalaFutures {
+class EnrolmentServiceSpec extends ServiceSpec {
 
   val mockAddresses: Addresses = mock[Addresses]
   val mockTaxEnrolmentConnector: TaxEnrolmentConnector = mock[TaxEnrolmentConnector]

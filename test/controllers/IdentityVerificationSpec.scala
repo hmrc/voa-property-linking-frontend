@@ -23,10 +23,12 @@ import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
 import org.scalatest.mockito.MockitoSugar
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.PersonalDetailsSessionRepository
 import resources._
+import services.iv.{IdentityVerificationService, IdentityVerificationServiceNonEnrolment}
 import utils.{StubAddresses, StubAuthConnector, StubGGAction, StubGroupAccountConnector, StubIdentityVerification, StubIndividualAccountConnector, _}
 
 import scala.concurrent.Future
@@ -45,8 +47,10 @@ class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
     f
   }
 
+  lazy val stubIdentityVerificationService = new IdentityVerificationServiceNonEnrolment(StubAuthConnector, StubIndividualAccountConnector, app.injector.instanceOf[IdentityVerificationProxyConnector], mockSessionRepo, applicationConfig, StubGroupAccountConnector, StubAddresses)
+
   private object TestIdentityVerification extends IdentityVerification(StubGGAction, StubIdentityVerification, StubAddresses,
-    StubIndividualAccountConnector, app.injector.instanceOf[IdentityVerificationProxyConnector], StubGroupAccountConnector,
+    StubIndividualAccountConnector, stubIdentityVerificationService, StubGroupAccountConnector,
     StubAuthConnector, mockSessionRepo)
 
   val request = FakeRequest()

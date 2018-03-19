@@ -16,45 +16,35 @@
 
 package models.enrolment
 
+import java.time.LocalDate
+
+import controllers.GroupAccountDetails
 import form.Mappings._
 import form.TextMatching
-import models.Address
-import play.api.data.Form
-import play.api.data.Forms.{email, mapping, nonEmptyText}
-import play.api.data.validation.Constraints
+import models.{Address, IVDetails, IndividualAccountSubmission, IndividualDetails}
+import play.api.data.{Form, Mapping}
+import play.api.data.Forms.{email, mapping, nonEmptyText, text}
+import play.api.data.validation._
+import uk.gov.hmrc.domain.Nino
 import views.helpers.Errors
-
-object CreateEnrolmentOrganisationAccount {
-  lazy val keys = new {
-    val companyName = "companyName"
-    val firstName = "firstName"
-    val lastName = "lastName"
-    val address = "address"
-    val phone = "phone"
-    val email = "email"
-    val confirmEmail = "confirmedBusinessEmail"
-    val isAgent = "isAgent"
-  }
-
-  lazy val form = Form(mapping(
-    keys.firstName -> nonEmptyText,
-    keys.lastName -> nonEmptyText,
-    keys.companyName -> nonEmptyText(maxLength = 45),
-    keys.address -> addressMapping,
-    keys.phone -> nonEmptyText.verifying("Maximum length is 15", _.length <= 15),
-    keys.email -> email.verifying(Constraints.maxLength(150)),
-    keys.confirmEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
-    keys.isAgent -> mandatoryBoolean
-  )(EnrolmentOrganisationAccountDetails.apply)(EnrolmentOrganisationAccountDetails.unapply))
-}
-
-case class CreateEnrolmentOrganisationAccountVM(form: Form[_])
 
 case class EnrolmentOrganisationAccountDetails(firstName: String,
                                                lastName: String,
                                                companyName: String,
                                                address: Address,
+                                               dob: LocalDate,
+                                               nino: Nino,
                                                phone: String,
                                                email: String,
                                                confirmedEmail: String,
-                                               isAgent: Boolean)
+                                               isAgent: Boolean) extends EnrolmentUser {
+
+  def toGroupDetails = GroupAccountDetails(
+    companyName = companyName,
+    address = address,
+    email = email,
+    confirmedEmail = confirmedEmail,
+    phone = phone,
+    isAgent = false
+  )
+}

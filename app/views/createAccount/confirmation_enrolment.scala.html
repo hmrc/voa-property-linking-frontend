@@ -18,7 +18,7 @@
 @import helpers._
 @import config.ApplicationConfig
 
-@(id: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(id: String, continue: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
     @main_template(Messages("account.confirmation.title"), topNavigation = false) {
         <div class="grid-row">
@@ -35,7 +35,7 @@
 
                 <p>@Messages("account.confirmation.youCan")</p>
 
-                <a href="@routes.Dashboard.manageProperties()" class="button" role="button">@Messages("account.enrolment.link.text")</a>
+                <a href="@continue" class="button" role="button">@Messages("account.enrolment.link.text")</a>
             </div>
         </div>
     }

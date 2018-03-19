@@ -14,14 +14,14 @@
  * limitations under the License.
  *@
 
-@import models.enrolment.CreateEnrolmentOrganisationAccount.keys
+@import models.enrolment._
+@import models.enrolment.EnrolmentUser.keys
 @import helpers._
-@import models.enrolment.CreateEnrolmentOrganisationAccountVM
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import models.enrolment.FieldData
 @import config.ApplicationConfig
 
-@(model: CreateEnrolmentOrganisationAccountVM, organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: Form[EnrolmentOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @main_template(title = Messages("enrolment.title"), topNavigation = false) {
@@ -40,12 +40,12 @@
 
             <br />
 
-            @includes.errorSummary(model.form, messagePrefix = Some("createAccount"))
+            @includes.errorSummary(model, messagePrefix = Some("createAccount"))
 
             @form(controllers.enrolment.routes.CreateEnrolmentUser.submitOrganisation()) {
 
                 @inputText(
-                    field = model.form(keys.firstName),
+                    field = model(keys.firstName),
                     '_label -> Messages("enrolment.firstName"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
@@ -54,7 +54,7 @@
                 )
 
                 @inputText(
-                    field = model.form(keys.lastName),
+                    field = model(keys.lastName),
                     '_label -> Messages("enrolment.lastName"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
@@ -63,14 +63,14 @@
                 )
 
                 @inputText(
-                    field = model.form(keys.companyName),
+                    field = model(keys.companyName),
                     '_label -> Messages("enrolment.organisation.name"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control"
                 )
 
-                @address(model.form, keys.address, postcode = organisationFieldData.postcode)
+                @address(model, keys.address, postcode = organisationFieldData.postcode)
 
                 <details>
                     <summary><span class="summary">@Messages("createAccount.group.details.header.multipleAddress")</span></summary>
@@ -82,7 +82,7 @@
                 <br />
 
                 @inputText(
-                    field = model.form(keys.phone),
+                    field = model(keys.phone),
                     '_label -> Messages("enrolment.businessPhoneNumber"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
@@ -90,7 +90,7 @@
                 )
 
                 @inputText(
-                    field = model.form(keys.email),
+                    field = model(keys.email),
                     '_label -> Messages("enrolment.emailAddress"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
@@ -99,7 +99,7 @@
                 )
 
                 @inputText(
-                    field = model.form(keys.confirmEmail),
+                    field = model(keys.confirmedBusinessEmail),
                     '_label -> Messages("enrolment.confirmEmailAddress"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
@@ -108,7 +108,7 @@
                 )
 
                 @inputRadioGroup(
-                    field = model.form(keys.isAgent),
+                    field = model(keys.isAgent),
                     options = Seq("true", "false"),
                     dataAttributes = Nil,
                     args = Seq(
@@ -118,6 +118,17 @@
                         '_fieldsetClass -> "inline"
                     )
                 )
+
+            @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")))
+
+            @inputText(
+            field = model(keys.nino),
+            '_label -> Messages(s"label.createAccount.${keys.nino}"),
+            '_labelClass -> "form-label-bold",
+            '_showConstraints -> false,
+            'class -> "form-control",
+            '_help -> Messages("hint.nino")
+            )
 
                 <p class="panel panel-border-wide">@Messages("isAgent.details")</p>
 

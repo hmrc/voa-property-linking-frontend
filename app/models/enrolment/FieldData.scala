@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package models.identityVerificationProxy
+package models.enrolment
 
-import play.api.libs.json.Json
+case class FieldData(firstName: String = "",
+                     lastName: String = "",
+                     postcode: String = "",
+                     email: String = "")
 
+object FieldData {
 
-case class Link(link: String) {
-
-  def getLink(isLocal: Boolean) =
-    if(isLocal)
-      s"http://localhost:9938$link"
-    else link
-}
-
-object Link {
-  implicit val format = Json.format[Link]
+  def apply(userInfo: UserInfo): FieldData =
+    new FieldData(
+      firstName = userInfo.firstName.getOrElse(""),
+      lastName = userInfo.lastName.getOrElse(""),
+      postcode = userInfo.postcode.getOrElse(""),
+      email = userInfo.email
+    )
 }

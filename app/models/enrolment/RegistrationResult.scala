@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-package models.identityVerificationProxy
+package models.enrolment
 
-import play.api.libs.json.Json
+import models.identityVerificationProxy.Link
 
+sealed trait RegistrationResult
 
-case class Link(link: String) {
+case class EnrolmentSuccess(link: Link, personId: Long) extends RegistrationResult
 
-  def getLink(isLocal: Boolean) =
-    if(isLocal)
-      s"http://localhost:9938$link"
-    else link
-}
+case object EnrolmentFailure extends RegistrationResult
 
-object Link {
-  implicit val format = Json.format[Link]
-}
+case object DetailsMissing extends RegistrationResult

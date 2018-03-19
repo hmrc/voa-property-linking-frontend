@@ -28,6 +28,7 @@ import com.google.inject.binder.ScopedBindingBuilder
 import com.google.inject.name.Names
 import com.typesafe.config.Config
 import connectors.VPLAuthConnector
+import controllers.IdentityVerification
 import controllers.manageDetails.{Details, EnrolmentDetails, NonEnrolmentDetails}
 import net.ceedubs.ficus.Ficus._
 import play.api._
@@ -39,6 +40,7 @@ import play.twirl.api.Html
 import reactivemongo.api.DB
 import repositories.{AgentAppointmentSessionRepository, PersonalDetailsSessionRepository, PropertyLinkingSessionRepository, SessionRepo}
 import services._
+import services.iv.{IdentityVerificationService, IdentityVerificationServiceEnrolment, IdentityVerificationServiceNonEnrolment}
 import uk.gov.hmrc.auth.core.PlayAuthConnector
 import uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig
 import uk.gov.hmrc.http.HeaderNames
@@ -110,20 +112,6 @@ object ControllerConfiguration extends ControllerConfig {
 class GuiceModule(environment: Environment,
                   configuration: Configuration) extends AbstractModule {
   def configure() = {
-    def enrolment(): ScopedBindingBuilder = {
-      if (configuration.getString("featureFlags.enrolment").getOrElse(throw ConfigMissing("featureFlags.enrolment")).toBoolean) {
-        bind(classOf[Details]).to(classOf[EnrolmentDetails])
-        bind(classOf[VoaAction]).to(classOf[GGActionEnrolment])
-        bind(classOf[AuthImpl]).to(classOf[EnrolmentAuth])
-        bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithEnrolments])
-      } else {
-        bind(classOf[Details]).to(classOf[NonEnrolmentDetails])
-        bind(classOf[VoaAction]).to(classOf[GGAction])
-        bind(classOf[AuthImpl]).to(classOf[NonEnrolmentAuth])
-        bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithoutEnrolments])
-      }
-    }
-
     bind(classOf[AuditingService]).toInstance(AuditingService)
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
@@ -138,6 +126,22 @@ class GuiceModule(environment: Environment,
     bind(classOf[PdfGenerator]).toInstance(new PdfGenerator(environment))
   }
 
+  private def enrolment(): ScopedBindingBuilder = {
+    if (configuration.getString("featureFlags.enrolment").getOrElse(throw ConfigMissing("featureFlags.enrolment")).toBoolean) {
+      bind(classOf[Details]).to(classOf[EnrolmentDetails])
+      bind(classOf[VoaAction]).to(classOf[GGActionEnrolment])
+      bind(classOf[AuthImpl]).to(classOf[EnrolmentAuth])
+      bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithEnrolments])
+      bind(classOf[IdentityVerificationService]).to(classOf[IdentityVerificationServiceEnrolment])
+    } else {
+      bind(classOf[Details]).to(classOf[NonEnrolmentDetails])
+      bind(classOf[VoaAction]).to(classOf[GGAction])
+      bind(classOf[AuthImpl]).to(classOf[NonEnrolmentAuth])
+      bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithoutEnrolments])
+      bind(classOf[IdentityVerificationService]).to(classOf[IdentityVerificationServiceNonEnrolment])
+
+    }
+  }
 }
 
 class AuthConnectorImpl @Inject()(val http: WSHttp) extends PlayAuthConnector with ServicesConfig {

@@ -16,34 +16,22 @@
 
 package controllers
 
-import java.time.LocalDate
-
-import akka.util.ByteString
 import controllers.enrolment.CreateEnrolmentUser
-import models.{Address, DetailedIndividualAccount, IndividualDetails, PersonalDetails}
-import models.enrolment.UserInfo
-import org.mockito.ArgumentMatchers.{eq => matching}
-import org.scalatest.mockito.MockitoSugar
-import play.api.libs.json.{JsValue, Json}
-import play.api.libs.streams.Accumulator
-import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded, Result}
-import play.api.test.{FakeHeaders, FakeRequest}
-import play.api.test.Helpers._
-import resources._
-import services.{EnrolmentResult, EnrolmentService, Success}
-import uk.gov.hmrc.auth.core.AffinityGroup
-import uk.gov.hmrc.domain.Nino
-import utils._
-import connectors.{Addresses, TaxEnrolmentConnector}
+import models.enrolment.{EnrolmentSuccess, UserInfo}
+import models.identityVerificationProxy.Link
+import models.{DetailedIndividualAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
-import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
-import org.scalatest.{FlatSpec, MustMatchers}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded}
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import resources._
+import services.iv.IdentityVerificationService
+import services.{EnrolmentService, RegistrationService, Success}
+import uk.gov.hmrc.auth.core.AffinityGroup
+import utils._
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 import scala.concurrent.Future
 
 class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
@@ -66,6 +54,10 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     affinityGroup = AffinityGroup.Organisation,
     gatewayId = "")
 
+  val mockIdentityVerificationService = mock[IdentityVerificationService]
+
+  val mockRegistrationService = mock[RegistrationService]
+
   private object TestCreateEnrolmentUser extends CreateEnrolmentUser(
     StubGGAction,
     StubGroupAccountConnector,
@@ -73,8 +65,10 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
     mockEnrolmentService,
     StubAuthConnector,
     StubAddresses,
+    mockRegistrationService,
     StubEmailService,
-    StubAuthentication
+    StubAuthentication,
+    mockIdentityVerificationService
   )
 
   "Invoking the app held CreateEnrolmentUser controller" should "result in correct dependency injection" in {
@@ -130,7 +124,9 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
   }
 
   "Submitting a valid individual form" should "return a redirect" in {
-    when(mockEnrolmentService.enrol(any(), any())(any(), any(), any())).thenReturn(Future.successful(Success))
+    when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(Link(""), 1l)))
+    when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
@@ -148,7 +144,11 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
       "address.line2" -> Seq(""),
       "address.line3" -> Seq(""),
       "address.line4" -> Seq(""),
-      "address.postcode" -> Seq("12345")
+      "address.postcode" -> Seq("12345"),
+      "nino" -> Seq("AA000001B"),
+      "dob.day" -> Seq("11"),
+      "dob.month" -> Seq("02"),
+      "dob.year" -> Seq("1980")
     )
 
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
@@ -167,6 +167,9 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
   }
 
   "Submitting a valid organisation form" should "return a redirect" in {
+    when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
+    when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(Link(""), 1l)))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)
@@ -186,7 +189,11 @@ class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
       "phone" -> Seq("12345"),
       "email" -> Seq("x@x.com"),
       "confirmedBusinessEmail" -> Seq("x@x.com"),
-      "isAgent" -> Seq("false")
+      "isAgent" -> Seq("false"),
+      "nino" -> Seq("AA000001B"),
+      "dob.day" -> Seq("11"),
+      "dob.month" -> Seq("02"),
+      "dob.year" -> Seq("1980")
     )
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
     val res = TestCreateEnrolmentUser.submitOrganisation()(fakeRequest)

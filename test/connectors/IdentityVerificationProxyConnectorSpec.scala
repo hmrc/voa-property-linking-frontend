@@ -31,6 +31,7 @@ import utils.{NoMetricsOneAppPerSuite, StubServicesConfig}
 
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 
 class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers with MockitoSugar
   with GeneratorDrivenPropertyChecks with NoMetricsOneAppPerSuite {
@@ -48,7 +49,7 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
 
     val connector = new IdentityVerificationProxyConnector(StubServicesConfig, mockHttp)
     forAll { (ivDetails: IVDetails) =>
-      whenReady(connector.start("completionUrl", "failureUrl", ivDetails)) { link =>
+      whenReady(connector.start(Journey("", "completionUrl", "failureUrl", ConfidenceLevel.L200, ivDetails))) { link =>
         link must be(mockLink)
       }
     }
@@ -62,7 +63,7 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
 
     val connector = new IdentityVerificationProxyConnector(StubServicesConfig, mockHttp)
     forAll { (ivDetails: IVDetails) =>
-      whenReady(connector.start("completionUrl", "failureUrl", ivDetails).failed) { ex =>
+      whenReady(connector.start(Journey("", "completionUrl", "failureUrl", ConfidenceLevel.L200, ivDetails)).failed) { ex =>
         ex must be(mockEx)
       }
     }
