@@ -35,7 +35,7 @@ import play.api.{Configuration, Environment}
 import repositories.SessionRepo
 import resources.{shortString, _}
 import services.iv.IdentityVerificationServiceNonEnrolment
-import uk.gov.hmrc.auth.core.{AffinityGroup, User}
+import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, User}
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.http.HeaderCarrier
@@ -96,7 +96,7 @@ class IdentityVerificationServiceSpec extends ServiceSpec {
       groupIdentifier = "GroupIdenfifier",
       affinityGroup = AffinityGroup.Organisation,
       gatewayId = "",
-      credentialRole = User)
+      credentialRole = Admin)
 
     protected val ivProxy = mock[IdentityVerificationProxyConnector]
 
