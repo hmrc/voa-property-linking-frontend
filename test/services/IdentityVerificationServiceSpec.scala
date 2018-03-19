@@ -20,6 +20,7 @@ import java.time.LocalDate
 
 import config.ApplicationConfig
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
+import controllers.ControllerSpec
 import models._
 import models.enrolment._
 import models.identityVerificationProxy.{Journey, Link}
@@ -43,8 +44,9 @@ import utils._
 
 import scala.concurrent.Future
 
-class IdentityVerificationServiceSpec extends FlatSpec with MustMatchers with BeforeAndAfterEach with MockitoSugar with ScalaFutures with NoMetricsOneAppPerSuite {
+class IdentityVerificationServiceSpec extends ServiceSpec {
 
+//  override val additionalAppConfig: Seq[(String, String)] = Seq("microservice.services.auth.host" -> "test.protected.mdtp", "microservice.services.auth.port" -> "90", "microservice.services.identity-verification.host" -> "test.protected.mdtp", "microservice.services.identity-verification.port" -> "90")
   "create" should "return enrolment success" in new TestCase {
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
 

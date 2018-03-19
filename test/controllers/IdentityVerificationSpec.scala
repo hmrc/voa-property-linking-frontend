@@ -37,13 +37,6 @@ import uk.gov.hmrc.play.HeaderCarrierConverter
 
 class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
 
-  override def fakeApplication() = new GuiceApplicationBuilder()
-    .disable[com.kenshoo.play.metrics.PlayModule]
-    .disable[modules.MongoStartup]
-    .configure("featureFlags.messagesEnabled" -> "true", "featureFlags.enrolment" -> "false")
-    .configure(additionalAppConfig:_*)
-    .build()
-
   lazy val mockSessionRepo = {
     val f = mock[PersonalDetailsSessionRepository]
     when(f.start(any())(any(), any())

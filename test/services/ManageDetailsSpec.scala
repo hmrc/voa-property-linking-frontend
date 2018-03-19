@@ -32,7 +32,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 
-class ManageDetailsSpec extends FlatSpec with MustMatchers with MockitoSugar with ScalaFutures with BeforeAndAfterEach {
+class ManageDetailsSpec extends ServiceSpec {
 
   implicit val request = FakeRequest()
 

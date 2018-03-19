@@ -38,7 +38,7 @@ import utils._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-class RegistrationServiceSpec extends FlatSpec with MustMatchers with MockitoSugar with ScalaFutures {
+class RegistrationServiceSpec extends ServiceSpec {
 
   "create" should "return enrolment success" in new TestCase {
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
