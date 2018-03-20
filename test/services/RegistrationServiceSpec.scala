@@ -53,7 +53,7 @@ class RegistrationServiceSpec extends ServiceSpec {
         UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
       )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
 
-    res.futureValue must be(EnrolmentSuccess(Link("some/link"), 2l))
+    res.futureValue must be(IVNotRequired(2l))
   }
 
   "create" should "return enrolment failure" in new TestCase {
