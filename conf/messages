@@ -123,6 +123,7 @@ dob.day.label=Day
 dob.month.label=Month
 dob.year.label=Year
 label.createAccount.nino.nino=National Insurance number
+label.createAccount.nino=National Insurance number
 error.nino.invalid=Enter a valid National Insurance number
 dropdown.createAccount.nino=I don''t have a National Insurance number
 dropdown.createAccount.nino.p1=You need to provide your National Insurance number to register for this service. You can <a href="https://www.gov.uk/apply-national-insurance-number">apply for a National Insurance number</a> if you don''t already have one.
