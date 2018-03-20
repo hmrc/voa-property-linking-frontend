@@ -31,7 +31,7 @@ import play.api.mvc.{AnyContent, Request}
 import services._
 import services.email.EmailService
 import services.iv.IdentityVerificationService
-import uk.gov.hmrc.auth.core.{Admin, Assistant}
+import uk.gov.hmrc.auth.core.{Admin, Assistant, User}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 
 import scala.concurrent.Future
@@ -111,7 +111,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
           fieldData))
       case None =>
         userDetails.userInfo.credentialRole match {
-          case Admin      =>
+          case Admin | User =>
             Ok(views.html.createAccount.enrolment_organisation(
             EnrolmentUser.organisation,
               FieldData(userDetails.userInfo)))
