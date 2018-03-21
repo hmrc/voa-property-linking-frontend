@@ -69,7 +69,7 @@ class IdentityVerificationServiceEnrolment @Inject()(
 
   protected val successUrl: String = config.baseUrl + routes.IdentityVerification.success().url
 
-  def someCase(obj: DetailedIndividualAccount)(implicit request: Request[_], messages: Messages) = views.html.identityVerification.success(routes.Dashboard.home().url)
+  def someCase(obj: DetailedIndividualAccount)(implicit request: Request[_], messages: Messages) = views.html.identityVerification.success(routes.Dashboard.home().url, "account.enrolment.link.text")
 
   def noneCase(implicit request: Request[_], messages: Messages) = Html("Failure Case need Html")
 
@@ -99,7 +99,7 @@ class IdentityVerificationServiceNonEnrolment @Inject()(
 
   def someCase(obj: GroupAccount)(implicit request: Request[_], messages: Messages) = views.html.createAccount.groupAlreadyExists(obj.companyName)
 
-  def noneCase(implicit request: Request[_], messages: Messages) = views.html.identityVerification.success(routes.CreateGroupAccount.show().url)
+  def noneCase(implicit request: Request[_], messages: Messages) = views.html.identityVerification.success(routes.CreateGroupAccount.show().url, "link.createGroupAccount")
 
   def continue[A](journeyId: String)(implicit ctx: A, hc: HeaderCarrier, ec: ExecutionContext): Future[Option[GroupAccount]] = {
     val eventualGroupId = auth.getGroupId(ctx)

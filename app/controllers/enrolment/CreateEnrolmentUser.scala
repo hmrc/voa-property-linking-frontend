@@ -91,7 +91,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
   }
 
   def success(personId: Long, url: String) = authenticatedAction { implicit request =>
-    Ok(views.html.createAccount.confirmation_enrolment(s"Person ID: $personId", url))
+    Ok(views.html.createAccount.confirmation_enrolment(s"VOA Personal ID: $personId", url))
       .withSession(request.session.removeUserDetails)
   }
 
