@@ -28,7 +28,7 @@ private object AppDependencies {
 
   import play.sbt.PlayImport._
 
-  private val playReactivemongoVersion = "5.0.0"
+  private val playReactivemongoVersion = "5.2.0"
   val compile = Seq(
     filters,
     ws,
@@ -56,7 +56,7 @@ private object AppDependencies {
   object Test {
     def apply() = new TestDependencies {
       override lazy val test = Seq(
-        "uk.gov.hmrc" %% "hmrctest" % "2.2.0" % scope,
+        "uk.gov.hmrc" %% "hmrctest" % "2.3.0" % scope,
         "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0-M1" % scope,
         "org.scalatest" %% "scalatest" % "3.0.1",
         "org.scalatest" %% "scalatest" % "3.0.1" % scope,
