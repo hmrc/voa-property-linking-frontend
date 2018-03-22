@@ -52,12 +52,12 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                (individual: UserDetails => Int => Option[Long] => IndividualAccountSubmission)
                (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
     for {
-      user <- auth.userDetails(ctx)
-      groupId <- auth.getGroupId(ctx)
-      id <- addresses.registerAddress(groupDetails)
-      _ <- voaRegister(groupId, acc => individualAccounts.create(individual(user)(id)(Some(acc.id))), groupAccounts.create(groupId, id, groupDetails, individual(user)(id)(None)))
-      personId <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
-      res <- enrol(personId, id, iVDetails)(user)
+      user      <- auth.userDetails(ctx)
+      groupId   <- auth.getGroupId(ctx)
+      id        <- addresses.registerAddress(groupDetails)
+      _         <- voaRegister(groupId, acc => individualAccounts.create(individual(user)(id)(Some(acc.id))), groupAccounts.create(groupId, id, groupDetails, individual(user)(id)(None)))
+      personId  <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
+      res       <- enrol(personId, id, iVDetails)(user)
     } yield res
   }
 
@@ -78,11 +78,11 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                      iVDetails: IVDetails)
                    (userDetails: UserDetails)
                    (implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] = option match {
-    case Some(detailIndiv) => enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
+    case Some(detailIndiv)  => enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
       case Success => success(userDetails, detailIndiv, iVDetails)
       case Failure => Future.successful(EnrolmentFailure)
     }
-    case None => Future.successful(DetailsMissing)
+    case None               => Future.successful(DetailsMissing)
   }
 
   private def success(
