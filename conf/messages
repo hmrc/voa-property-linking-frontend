@@ -986,3 +986,8 @@ enrolment.migration.success.explanation = Some content here about what has happe
 app.common.saveAndContinue = Save and continue
 app.common.yes = Yes
 app.common.no = No
+
+#Registration Failure
+registration.error.title=Registration failed
+registration.error.p1=You can’t register until the Administrator from your organisation registers first.
+registration.error.p2=You’ll need to speak to the person that gave you your Government Gateway sign-in details.
