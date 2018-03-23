@@ -52,7 +52,7 @@ class IdentityVerification @Inject() (ggAction: VoaAction,
       personalDetailsSessionRepo.get[PersonalDetails] flatMap { details  =>
         identityVerificationService
           .start(details.map(_.ivDetails).getOrElse(throw new Exception("details not found")))
-          .map(l => Redirect(l.getLink(config.isLocal)))
+          .map(l => Redirect(l.getLink(config.ivBaseUrl)))
       }
     } else {
       Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
