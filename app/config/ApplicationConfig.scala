@@ -31,7 +31,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
 
   lazy val helpGuideUrl = getConfig("help-guide.url")
 
-  lazy val isLocal = getConfig("featureFlags.local").toBoolean
+  lazy val ivBaseUrl = getConfig("microservice.services.identity-verification.url")
   lazy val vmvUrl: String = getConfig("vmv-frontend.url")
   lazy val ggSignInUrl: String = getConfig("gg-sign-in.url")
   lazy val ggRegistrationUrl: String = getConfig("gg-registration.url")

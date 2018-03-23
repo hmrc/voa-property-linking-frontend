@@ -66,7 +66,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
           BadRequest(views.html.createAccount.enrolment_individual(errors, FieldData())),
         success =>
           registration.create(success.toGroupDetails, success.toIvDetails, ctx)(success.toIndividualAccountSubmission)(hc, ec).map{
-            case EnrolmentSuccess(link, personId) => Redirect(routes.CreateEnrolmentUser.success(personId, link.getLink(config.ivEnabled)))
+            case EnrolmentSuccess(link, personId) => Redirect(routes.CreateEnrolmentUser.success(personId, link.getLink(config.ivBaseUrl)))
             case IVNotRequired(personId)          => Redirect(routes.CreateEnrolmentUser.success(personId, controllers.routes.Dashboard.home().url))
             case EnrolmentFailure                 => InternalServerError(Global.internalServerErrorTemplate)
             case DetailsMissing                   => InternalServerError(Global.internalServerErrorTemplate)
@@ -82,7 +82,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
           registration
             .create(success.toGroupDetails, success.toIvDetails, ctx)(success.toIndividualAccountSubmission)(hc, ec)
           .map{
-            case EnrolmentSuccess(link, personId) => Redirect(routes.CreateEnrolmentUser.success(personId, link.getLink(config.ivEnabled)))
+            case EnrolmentSuccess(link, personId) => Redirect(routes.CreateEnrolmentUser.success(personId, link.getLink(config.ivBaseUrl)))
             case IVNotRequired(personId)          => Redirect(routes.CreateEnrolmentUser.success(personId, controllers.routes.Dashboard.home().url))
             case EnrolmentFailure                 => InternalServerError(Global.internalServerErrorTemplate)
             case DetailsMissing                   => InternalServerError(Global.internalServerErrorTemplate)

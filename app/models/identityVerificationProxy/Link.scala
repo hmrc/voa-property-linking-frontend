@@ -21,10 +21,7 @@ import play.api.libs.json.Json
 
 case class Link(link: String) {
 
-  def getLink(isLocal: Boolean) =
-    if(isLocal)
-      s"http://localhost:9938$link"
-    else link
+  def getLink(baseUrl: String) = s"$baseUrl$link"
 }
 
 object Link {
