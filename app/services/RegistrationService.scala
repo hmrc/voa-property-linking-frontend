@@ -77,12 +77,13 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                      addressId: Int,
                      iVDetails: IVDetails)
                    (userDetails: UserDetails)
-                   (implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] = option match {
-    case Some(detailIndiv)  => enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
+                   (implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] = (option, userDetails.userInfo.credentialRole) match {
+    case (Some(detailIndiv), Assistant)  => success(userDetails, detailIndiv, iVDetails)
+    case (Some(detailIndiv), _)  => enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
       case Success => success(userDetails, detailIndiv, iVDetails)
       case Failure => Future.successful(EnrolmentFailure)
     }
-    case None               => Future.successful(DetailsMissing)
+    case (None, _)              => Future.successful(DetailsMissing)
   }
 
   private def success(
