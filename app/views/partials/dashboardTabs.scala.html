@@ -30,21 +30,25 @@
         @tab("manageAgents", routes.Dashboard.manageAgents().url)
         @tab("drafts", routes.Dashboard.viewDraftCases().url)
         @tab("editDetails", controllers.manageDetails.routes.ViewDetails.show().url)
-        @if(config.messagesEnabled) {
-            @if(unreadMessagesCount == 0){
+        @if(unreadMessagesCount == 0) {
             @tab("messages.none", routes.Dashboard.viewMessages().url)
         } else {
-                @tab("messages", routes.Dashboard.viewMessages().url, unreadMessagesCount)
-            }
+            @tab("messages", routes.Dashboard.viewMessages().url, unreadMessagesCount)
         }
+
     </ul>
 </div>
 
-@isAgent = @{ request.organisationAccount.isAgent }
+@isAgent = @{
+    request.organisationAccount.isAgent
+}
 
 @tab(name: String, url: String, args: Any*) = {
-    <li @if(url == request.path) {class="active" aria-level="1"} else { role="tab"}>
-        <a href="@url">@Messages(s"dashboard.tab.$name", args:_*)</a>
+    <li @if(url == request.path) {
+        class="active" aria-level="1"
+    } else {
+        role="tab"}>
+        <a href="@url">@Messages(s"dashboard.tab.$name", args: _*)</a>
     </li>
 }
 
