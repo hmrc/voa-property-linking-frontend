@@ -31,11 +31,15 @@ class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig, config: Ap
   lazy val baseUrl: String = conf.baseUrl("property-linking") + "/property-linking"
 
   def getMessage(orgId: Long, messageId: String)(implicit hc: HeaderCarrier): Future[Option[Message]] = {
-    http.GET[Message](s"$baseUrl/message/$orgId/$messageId") map { Some.apply }
+    http.GET[Message](s"$baseUrl/message/$orgId/$messageId") map {
+      Some.apply
+    }
   }
 
-  def getMessageType(orgId: Long, messageId: String, templateId:Int)(implicit hc: HeaderCarrier): Future[Option[Message]] ={
-    http.GET[Message](s"$baseUrl/message/$templateId/$orgId/$messageId") map { Some.apply }
+  def getMessageType(orgId: Long, messageId: String, templateId: Int)(implicit hc: HeaderCarrier): Future[Option[Message]] = {
+    http.GET[Message](s"$baseUrl/message/$templateId/$orgId/$messageId") map {
+      Some.apply
+    }
   }
 
   def getMessages(orgId: Long, pagination: MessagePagination)
@@ -44,12 +48,7 @@ class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig, config: Ap
   }
 
   def countUnread(orgId: Long)(implicit hc: HeaderCarrier): Future[MessageCount] = {
-    if(config.messagesEnabled) {
-      http.GET[MessageCount](s"$baseUrl/unread-messages-count/$orgId")
-    } else {
-      //return fake value when messaging is disabled, so every Dashboard action doesn't need to check the config, etc.
-      Future.successful(MessageCount(0, 0))
-    }
+    http.GET[MessageCount](s"$baseUrl/unread-messages-count/$orgId")
   }
 
   def markAsRead(messageId: String, ggId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
