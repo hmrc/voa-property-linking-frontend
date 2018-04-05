@@ -34,9 +34,9 @@ import scala.collection.JavaConverters._
 
 class SelectPropertiesSpec extends ControllerSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.manageAgentsEnabled" -> "true", "featureFlags.agentMultipleAppointEnabled" -> "true")
+  override val additionalAppConfig = Seq("featureFlags.agentMultipleAppointEnabled" -> "true")
 
- //Make the tests run significantly faster by only loading and parsing the default
+  //Make the tests run significantly faster by only loading and parsing the default
 
   val agentGroup = GroupAccount(1L, "groupId", "company", 1, "email", "2341234", true, 1L)
   val pagination = AgentPropertiesParameters(

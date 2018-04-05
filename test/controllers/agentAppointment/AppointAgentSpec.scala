@@ -33,7 +33,6 @@ import utils._
 import scala.concurrent.Future
 
 class AppointAgentSpec extends ControllerSpec with MockitoSugar{
-  override val additionalAppConfig = Seq("featureFlags.manageAgentsEnabled" -> "true", "featureFlags.enrolment" -> "false")
 
   lazy val agentSession =  AgentAppointmentSession(AppointAgent(Some(1231), "1231", StartAndContinue, StartAndContinue), 123, arbitrary[PropertyLink].sample.get)
   lazy val mockSessionRepo = {

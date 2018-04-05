@@ -99,31 +99,7 @@ class Dashboard @Inject()(draftCases: DraftCases,
     }
   }
 
-  // TODO FIXME when feature goes live
-  def manageAgents(): Action[AnyContent] = {
-    if (config.manageAgentsEnabled) {
-      manageAgentsNew()
-    } else {
-      manageAgentsOld()
-    }
-  }
-
-  def manageAgentsOld() = authenticated { implicit request =>
-    Logger.debug("using manageAgentsOld....")
-    for {
-      response <- propertyLinks.linkedProperties(request.organisationId, Pagination(pageNumber = 1, pageSize = 100, resultCount = false))
-      msgCount <- messagesConnector.countUnread(request.organisationId)
-    } yield {
-      val agentInfos = response.propertyLinks
-        .flatMap(_.agents)
-        .map(a => AgentInfo(a.organisationName, a.agentCode))
-        .sortBy(_.organisationName).distinct
-      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agentInfos), msgCount.unread))
-    }
-  }
-
-  def manageAgentsNew() = authenticated { implicit request =>
-    Logger.debug("using manageAgentsNew....")
+  def manageAgents() = authenticated { implicit request =>
     for {
       ownerAgents <- agentsConnector.ownerAgents(request.organisationId)
       msgCount <- messagesConnector.countUnread(request.organisationId)

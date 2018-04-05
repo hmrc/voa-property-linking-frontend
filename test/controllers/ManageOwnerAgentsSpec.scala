@@ -28,7 +28,6 @@ import resources._
 import utils._
 
 class ManageOwnerAgentsSpec extends ControllerSpec {
-  override val additionalAppConfig = Seq("featureFlags.manageAgentsEnabled" -> "true", "featureFlags.enrolment" -> "false")
 
   implicit val request = FakeRequest()
 
