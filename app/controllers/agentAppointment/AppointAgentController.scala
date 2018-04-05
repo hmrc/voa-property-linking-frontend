@@ -39,34 +39,25 @@ import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
 import scala.concurrent.Future
 
-class AppointAgentController @Inject() (representations: PropertyRepresentationConnector,
-                                        accounts: GroupAccounts,
-                                        propertyLinks: PropertyLinkConnector,
-                                        agentsConnector: AgentsConnector,
-                                        authenticated: AuthenticatedAction,
-                                        @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
-                                       (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+class AppointAgentController @Inject()(representations: PropertyRepresentationConnector,
+                                       accounts: GroupAccounts,
+                                       propertyLinks: PropertyLinkConnector,
+                                       agentsConnector: AgentsConnector,
+                                       authenticated: AuthenticatedAction,
+                                       @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
+                                      (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
   def appoint(linkId: Long) = authenticated { implicit request =>
-    if (config.manageAgentsEnabled) {
-      agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
-        sessionRepository.get[AgentAppointmentSession] flatMap {
-          case Some(s) =>
-            Ok(views.html.propertyRepresentation.appointAgentNew(
-              AppointAgentVM(form = appointAgentForm.fill(s.agent),
-                              linkId = Some(linkId),
-                                agents = ownerAgents.agents)))
-          case None =>
-            Ok(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(appointAgentForm, Some(linkId), ownerAgents.agents)))
-        }
-      }
-    } else {
+    agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
       sessionRepository.get[AgentAppointmentSession] flatMap {
         case Some(s) =>
-          Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm.fill(s.agent), Some(linkId))))
+          Ok(views.html.propertyRepresentation.appointAgent(
+            AppointAgentVM(form = appointAgentForm.fill(s.agent),
+              linkId = Some(linkId),
+              agents = ownerAgents.agents)))
         case None =>
-          Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, Some(linkId))))
+          Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, Some(linkId), ownerAgents.agents)))
       }
     }
   }
@@ -74,11 +65,8 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
   def appointSubmit(authorisationId: Long) = authenticated { implicit request =>
     appointAgentForm.bindFromRequest().fold(errors => {
       agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
-        if (config.manageAgentsEnabled){
-          BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, Some(authorisationId), ownerAgents.agents)))
-        } else {
-          BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, Some(authorisationId), ownerAgents.agents)))
-        }}
+        BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, Some(authorisationId), ownerAgents.agents)))
+      }
     }, (agent: AppointAgent) => {
       val eventualAgentCodeResult = representations.validateAgentCode(agent.getAgentCode(), authorisationId)
       val eventualMaybeLink = propertyLinks.get(request.organisationAccount.id, authorisationId)
@@ -93,15 +81,11 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
             }
             val errors: List[FormError] = List(codeError).flatten
             if (errors.nonEmpty) {
-              if (config.manageAgentsEnabled) {
-                agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
-                  val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
-                  invalidAppointment(formWithErrors, Some(authorisationId), ownerAgents.agents)
-                }
-              } else {
-                  val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
-                  invalidAppointment(formWithErrors, Some(authorisationId))
+              agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
+                val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
+                invalidAppointment(formWithErrors, Some(authorisationId), ownerAgents.agents)
               }
+
             } else {
               appointAgent(authorisationId, agent, agentCodeValidationResult.organisationId.getOrElse(-1L), prop)
             }
@@ -109,7 +93,8 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
           case (_, None) => Future.successful(NotFound(Global.notFoundTemplate)) //user entered a prop link manually that doesn't exist.
         }} yield {
         res
-      }})
+      }
+    })
   }
 
   private def appointAgent(authorisationId: Long, agent: AppointAgent,
@@ -153,11 +138,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
     appointAgentForm.bindFromRequest().fold(
       hasErrors = errors => {
         agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
-          if (config.manageAgentsEnabled) {
-            BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(errors, None, ownerAgents.agents)))
-          } else {
-            BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, None, ownerAgents.agents)))
-          }
+          BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, None, ownerAgents.agents)))
         }
       },
       success = (agent: AppointAgent) => {
@@ -174,20 +155,14 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
                 AppointAgentPropertiesVM(group, response), pagination))
             }
           }
-          case None =>
-          {
-              val errors: List[FormError] = List(invalidAgentCode)
-              if (config.manageAgentsEnabled) {
-                agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
-                  val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
-                  invalidAppointment(formWithErrors, None, ownerAgents.agents)
-                }
-              } else {
-                val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
-                invalidAppointment(formWithErrors, None)
-              }
+          case None => {
+            val errors: List[FormError] = List(invalidAgentCode)
+            agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
+              val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
+              invalidAppointment(formWithErrors, None, ownerAgents.agents)
             }
           }
+        }
       })
   }
 
@@ -200,7 +175,8 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
           } yield {
             Ok(views.html.propertyRepresentation.appointAgentProperties(None,
               AppointAgentPropertiesVM(group, response), pagination))
-          }}
+          }
+        }
         case None => NotFound(s"Unknown Agent: ${pagination.agentCode}")
       }
     }
@@ -248,11 +224,11 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
   }
 
   private def createAndSubmitAgentRepRequest(pLink: String,
-                                     agentOrgId: Long,
-                                     organisationId: Long,
-                                     individualId: Long,
-                                     checkPermission: AgentPermission,
-                                     challengePermission: AgentPermission)(implicit hc: HeaderCarrier): Future[Unit] = {
+                                             agentOrgId: Long,
+                                             organisationId: Long,
+                                             individualId: Long,
+                                             checkPermission: AgentPermission,
+                                             challengePermission: AgentPermission)(implicit hc: HeaderCarrier): Future[Unit] = {
 
     propertyLinks.get(organisationId, pLink.toLong) map {
       case Some(prop) => updateAllAgentsPermission(
@@ -265,6 +241,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
       case None => Future.successful(Unit)
     }
   }
+
   /* appoint agent to multiple properties - End */
 
   private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
@@ -332,11 +309,7 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
   private lazy val alreadyAppointedAgent = FormError("agentCode", "error.alreadyAppointedAgent")
 
   private def invalidAppointment(form: Form[AppointAgent], linkId: Option[Long], agents: Seq[OwnerAgent] = Seq())(implicit request: Request[_]) = {
-    if (config.manageAgentsEnabled) {
-      Future.successful(BadRequest(views.html.propertyRepresentation.appointAgentNew(AppointAgentVM(form, linkId, agents))))
-    } else {
-      Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId, agents))))
-    }
+    Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId, agents))))
   }
 
   def appointAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
@@ -355,8 +328,8 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
   )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack _))
 
   private def withValidPropertiesPagination(pagination: AgentPropertiesParameters)
-                                        (f: => Future[Result])
-                                        (implicit request: Request[_]): Future[Result] = {
+                                           (f: => Future[Result])
+                                           (implicit request: Request[_]): Future[Result] = {
     if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 1000) {
       f
     } else {
@@ -365,24 +338,29 @@ class AppointAgentController @Inject() (representations: PropertyRepresentationC
   }
 
   def appointMultipleProperties() = authenticated { implicit request =>
-      agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
-        sessionRepository.get[AgentAppointmentSession] flatMap {
-          case Some(s) =>
-            Ok(views.html.propertyRepresentation.appointAgentNew(
-              AppointAgentVM(form = appointAgentForm.fill(s.agent), agents = ownerAgents.agents)))
-          case None =>
-            Ok(views.html.propertyRepresentation.appointAgentNew(
-              AppointAgentVM(form = appointAgentForm, agents = ownerAgents.agents)))
-        }
+    agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
+      sessionRepository.get[AgentAppointmentSession] flatMap {
+        case Some(s) =>
+          Ok(views.html.propertyRepresentation.appointAgent(
+            AppointAgentVM(form = appointAgentForm.fill(s.agent), agents = ownerAgents.agents)))
+        case None =>
+          Ok(views.html.propertyRepresentation.appointAgent(
+            AppointAgentVM(form = appointAgentForm, agents = ownerAgents.agents)))
       }
     }
+  }
 }
 
 case class AppointAgentPropertiesVM(agentGroup: GroupAccount, response: OwnerAuthResult)
+
 case class AppointAgentVM(form: Form[_], linkId: Option[Long] = None, agents: Seq[OwnerAgent] = Seq())
+
 case class ModifyAgentVM(form: Form[_], representationId: Long)
+
 case class ExistingAgentsPermission(agentName: String, agentCode: Long, availablePermission: Seq[String])
+
 case class ConfirmOverrideVM(authorisationId: Long, newAgent: ExistingAgentsPermission, existingPermissions: Seq[ExistingAgentsPermission])
+
 case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Long)
 
 object BulkActionsForm {
