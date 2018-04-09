@@ -64,7 +64,7 @@ Example usage:
 
                     }
                     case _ => {
-                        <label class="@elements.args.get('_labelClass)" for=@elements.id.replace("_", "") >
+                        <label class="@elements.args.get('_labelClass)" for="@elements.id.replace("_", "")" >
                             <span class="@elements.args.get('_labelSpanClass) label-span">@elements.label</span>
 
                             @if(elements.hasErrors) {
