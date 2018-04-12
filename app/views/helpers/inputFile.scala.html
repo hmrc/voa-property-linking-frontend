@@ -21,10 +21,5 @@
 @(field: play.api.data.Field, args: (Symbol,Any)*)(implicit requestHeader: RequestHeader, messages: Messages)
 
 @input(field, args:_*) { (id, name, value, htmlArgs) =>
-    <input type="file" id="@id.replace("_", "")" value="@getValue(value, args)" name="@name" @toHtmlArgs(htmlArgs) />
+    <input type="file" id="@id.replace("_", "")" name="@name" @toHtmlArgs(htmlArgs) />
 }(requestHeader, messages)
-
-@getValue(value: Option[String], args: Seq[(Symbol, Any)]) = @{
-    if (value.isDefined) value.get
-    else args.toMap.getOrElse('_value, "")
-}
