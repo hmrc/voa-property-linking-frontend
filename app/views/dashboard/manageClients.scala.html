@@ -47,7 +47,7 @@
     </div>
 
     @if(model.result.authorisations.isEmpty && model.pagination.valuesOfSearchParameters == "") {
-        <h2 class="heading-secondary">@Messages("agent.dashboard.manageClients.noClients")</h2>
+        <h2>@Messages("agent.dashboard.manageClients.noClients")</h2>
     } else {
 
         @jsManageClients(model)
