@@ -65,7 +65,7 @@
                     },
                     success: function(data) {
                         if (data.length > 0) {
-                            $('.postcode-lookup-group').prepend('<label for="addressSelect" class="form-label-bold">'+ messages.labels.selectValue +'</label><select id="addressSelect" class="addressList form-control"></select>');
+                            $('.postcode-lookup-group').prepend('<label for="addressSelect" class="form-label-bold">'+ messages.labels.selectValue +'</label><span class="form-hint">' + messages.labels.addressHelp + '</span><select id="addressSelect" class="addressList form-control"></select>');
                             $('#addressSelect').append('<option value="" selected disabled>' + messages.labels.selectValue + '</option>');
                             $('.postcode-lookup-fields').css('display', 'none');
                             $('.lookupAddressCancel').css('display', 'inline-block');

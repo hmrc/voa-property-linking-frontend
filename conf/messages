@@ -773,7 +773,9 @@ dashboard.manageAgents.howToAppoint=You can go to <a href={0}>‘My properties�
 
 #details page
 viewDetails.title=My details
-details.user=Personal details
+details.user=Contact details
+details.disclaimer= We are required by law to keep you updated at specific points of your case, so it’s important that we have your correct contact details.
+details.advice=The address you provide should be your preferred postal contact address for your business. It must not be that of your agent or authorised representative.
 details.personal.name=Name
 details.personal.tradingName=Trading Name
 details.personal.address=Address
@@ -791,18 +793,20 @@ details.business.businessEmail=Business email
 
 details.edit.label.email=Email
 details.edit.label.email.confirm=Confirm email
-details.edit.personalEmail=Update your email
+details.edit.personalEmail=Update email
 details.edit.label.telephone=Telephone
 details.edit.label.firstName=First name
 details.edit.label.lastName=Last name
 details.edit.label.address=Email
-details.edit.postcode.help=This should be your home address. For example, SW1A 1AA.
+details.edit.postcode.help=This should be your preferred postal contact address for your business. For example, SW1A 1AA.
+details.edit.phone.help=This should be your preferred contact telephone number for your business.
+details.edit.email.help=This should be your preferred contact email address for your business.
 
 updateName.title=Update your name
-updatePhone.title=Update your telephone number
+updatePhone.title=Update telephone number
 updateMobile.title=Update mobile number
-updateAddress.title=Update your address
-updateEmail.title=Update your email
+updateAddress.title=Update address
+updateEmail.title=Update email
 label.updateMobile=Mobile number
 
 updateBusinessName.title=Update business name
