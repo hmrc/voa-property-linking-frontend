@@ -20,6 +20,7 @@
 
     @addressForm = {
         <div class="address--fields show-if-no-js" style="display: none">
+
             <input type="hidden" id="@{
                 fieldName
             }_addressId_text" name="@{
@@ -30,6 +31,7 @@
                 field = form(s"$fieldName.line1"),
                 '_label -> Messages(s"label.$fieldName"),
                 '_labelClass -> "form-label-bold",
+                '_help -> Messages("details.edit.postcode.help"),
                 'class -> "form-control",
                 'placeholder -> Messages("placeholder.address.line1"),
                 '_fieldsetClass -> "margin-bottom-0"
