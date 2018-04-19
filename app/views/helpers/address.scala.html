@@ -16,7 +16,7 @@
 
 @import helpers._
 
-@(form: Form[_], fieldName: String, helpText: String = "addressLookup.lookup.example", postcode: String = "")(implicit request: Request[_], messages: Messages)
+@(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "")(implicit request: Request[_], messages: Messages)
 
     @addressForm = {
         <div class="address--fields show-if-no-js" style="display: none">
