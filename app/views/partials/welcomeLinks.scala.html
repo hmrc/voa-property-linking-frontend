@@ -53,6 +53,7 @@
     }
 </div>
 
+@if(!request.uri.contains("/business-rates-property-linking/message/")){
 <div class="column-full">
     <div class="indent-warning">
         <h2>Are your contact details correct?</h2>
@@ -61,7 +62,7 @@
     </div>
 
 </div>
-
+}
 
     @isAgent = @{
         request.organisationAccount.isAgent
