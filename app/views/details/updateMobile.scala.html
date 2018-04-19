@@ -39,6 +39,7 @@
                     field = prepopulated(model.form("phone"), model.currentDetails.phone2.getOrElse("")),
                     '_label -> Messages("label.updateMobile"),
                     '_labelClass -> "form-label-bold",
+                    '_help -> Messages("details.edit.mobile.help"),
                     '_showConstraints -> false,
                     'class -> "form-control"
                 )

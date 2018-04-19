@@ -105,7 +105,7 @@ lockedOut.p.1=You have entered the wrong password too many times. You are now lo
 
 #CREATE INDIVIDUAL ACCOUNT
 createAccount.individual.title=Your contact details
-createAccount.individual.p.1=You now need to verify your identity and confirm that you have the right to act on behalf of your business. You should provide your personal contact details and not the contact details for your agent.
+createAccount.individual.p.1=You now need to verify your identity and confirm that you have the right to act on behalf of your business. You should provide your contact details and not the contact details for your agent.
 createAccount.individual.heading.details=Your contact details
 label.createAccount.email=Email address
 label.createAccount.email.help=This should be your work email address and not the email address for your agent. The email address should be monitored.
@@ -141,7 +141,7 @@ hint.dateOfBirth=For example, 20 3 1976
 hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C.
 error.emailsMustMatch=Email addresses must match. Check them and try again
 createAccount.p1=You’ll need to provide information about your business in order to complete the registration process.
-label.createAccount.postcode.help=You can search for an address in England, Scotland and Wales. If your property is in Northern Ireland or outside of the UK, you’ll need to enter it manually.
+label.createAccount.postcode.help=This should be your preferred postal contact address for your business. <br> <br> You can search for an address in England, Scotland and Wales. If your property is in Northern Ireland or outside of the UK, you’ll need to enter it manually.
 
 #IDENTITY VERIFICATION
 startIv.title=Provide further identification
@@ -798,8 +798,9 @@ details.edit.label.telephone=Telephone
 details.edit.label.firstName=First name
 details.edit.label.lastName=Last name
 details.edit.label.address=Email
-details.edit.postcode.help=This should be your preferred postal contact address for your business. For example, SW1A 1AA.
+details.edit.postcode.help=This should be your preferred postal contact address for your business.
 details.edit.phone.help=This should be your preferred contact telephone number for your business.
+details.edit.mobile.help=This should be your preferred contact mobile number for your business.
 details.edit.email.help=This should be your preferred contact email address for your business.
 
 updateName.title=Update your name
