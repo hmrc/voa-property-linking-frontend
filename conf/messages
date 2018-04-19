@@ -772,7 +772,7 @@ dashboard.manageAgents.howToAppoint=You can go to <a href={0}>‘My properties�
 
 #details page
 viewDetails.title=My details
-details.user=Contact details
+details.user=Business contact details
 details.disclaimer= We are required by law to keep you updated at specific points of your case, so it’s important that we have your correct contact details.
 details.advice=The address you provide should be your preferred postal contact address for your business. It must not be that of your agent or authorised representative.
 details.personal.name=Name
