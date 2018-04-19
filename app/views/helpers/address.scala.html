@@ -31,7 +31,7 @@
                 field = form(s"$fieldName.line1"),
                 '_label -> Messages(s"label.$fieldName"),
                 '_labelClass -> "form-label-bold",
-                '_help -> Messages("details.edit.postcode.help"),
+                '_help -> Html(Messages("details.edit.postcode.help")),
                 'class -> "form-control",
                 'placeholder -> Messages("placeholder.address.line1"),
                 '_fieldsetClass -> "margin-bottom-0"
@@ -84,7 +84,7 @@
                 '_label -> Messages("label.address.postcode"),
                 '_labelClass -> "form-label-bold",
                 'class -> "form-control form-control-1-4",
-                '_help -> Messages(helpText),
+                '_help -> Html(Messages(helpText)),
                 '_value -> postcode
             )
 

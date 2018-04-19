@@ -4,7 +4,7 @@
         en:{
             labels: {
                 selectValue: 'Select an address',
-                addressHelp: 'This should be your preferred postal contact address for your business. For example, SW1A 1AA.',
+                addressHelp: 'This should be your preferred postal contact address for your business.',
                 appointAgent: 'Appoint agent',
                 viewValuations: 'View valuations',
                 approved: 'Approved',
