@@ -53,17 +53,7 @@
     }
 </div>
 
-<div class="column-full">
-    <div class="indent-warning">
-        <h2>Are your contact details correct?</h2>
-        <p>Make sure you’ve provided us with your preferred contact details. These should be the contact details you use for business, not your personal details. </p>
-        <p><a href="@controllers.manageDetails.routes.ViewDetails.show()">Review and update your contact details.</a></p>
-    </div>
-
-</div>
-
-
-@if(request.uri != controllers.manageDetails.routes.ViewDetails.show().url){
+@if(!request.uri.contains("/business-rates-property-linking/message/")){
 <div class="column-full">
     <div class="indent-warning">
         <h2>Are your contact details correct?</h2>
@@ -73,7 +63,6 @@
 
 </div>
 }
-
 
     @isAgent = @{
         request.organisationAccount.isAgent

@@ -65,7 +65,7 @@
                     },
                     success: function(data) {
                         if (data.length > 0) {
-                            $('.postcode-lookup-group').prepend('<label for="addressSelect" class="form-label-bold">'+ messages.labels.selectValue +'</label><span class="form-hint">' + messages.labels.addressHelp + '</span><select id="addressSelect" class="addressList form-control"></select>');
+                            $('.postcode-lookup-group').prepend('<label for="addressSelect" class="form-label-bold">'+ messages.labels.selectValue +'</label><span class="form-hint" id="addressHelp">' + messages.labels.addressHelp + '</span><select id="addressSelect" class="addressList form-control"></select>');
                             $('#addressSelect').append('<option value="" selected disabled>' + messages.labels.selectValue + '</option>');
                             $('.postcode-lookup-fields').css('display', 'none');
                             $('.lookupAddressCancel').css('display', 'inline-block');
@@ -85,7 +85,7 @@
                                 $('.address--fields input:eq(3)').val(data[index]['line3'].substring(0, 100)).attr('placeholder', '');
                                 $('.address--fields input:eq(4)').val(data[index]['line4'].substring(0, 100)).attr('placeholder', '');
                                 $('.address--fields input:eq(5)').val(data[index]['postcode']);
-                                $(this).closest('.form-group').find('[for="addressSelect"]').remove();
+                                $(this).closest('.form-group').find('[for="addressSelect"], #addressHelp').remove();
                                 $(this).remove();
                             });
                             clearId();
@@ -106,7 +106,7 @@
 
         $('.manualAddress').click(function (e) {
             e.preventDefault();
-            $('.manualAddress, .lookupAddressCancel, [for="addressSelect"], #addressSelect').css('display', 'none');
+            $('.manualAddress, .lookupAddressCancel, [for="addressSelect"], #addressSelect, #addressHelp').css('display', 'none');
             showFields();
             clearFields(this);
         });
@@ -130,7 +130,7 @@
             $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
             $('#postcodeSearchGroup').find('.error-message').remove();
             $('#postcodeSearch').val('').focus();
-            $('#addressSelect, [for="addressSelect"]').remove();
+            $('#addressSelect, [for="addressSelect"], #addressHelp').remove();
             $(this).css('display', 'none');
             active = true;
         });
