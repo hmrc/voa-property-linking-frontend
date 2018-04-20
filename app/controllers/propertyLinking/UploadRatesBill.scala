@@ -18,18 +18,21 @@ package controllers.propertyLinking
 
 import javax.inject.Inject
 
+import auditing.AuditingService
 import config.{ApplicationConfig, Global}
+import connectors.fileUpload.FileUploadConnector
 import controllers._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
+import play.api.libs.json.Json
 import play.api.mvc.Call
 import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
 import views.html.propertyLinking.uploadRatesBill
 
 class UploadRatesBill @Inject()(override val withLinkingSession: WithLinkingSession,
-                                withCircuitBreaker: FileUploadCircuitBreaker)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+                                withCircuitBreaker: FileUploadCircuitBreaker, fileUploadConnector: FileUploadConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with FileUploadHelpers {
 
   override val successUrl: String = routes.UploadRatesBill.fileUploaded().url
@@ -44,7 +47,17 @@ class UploadRatesBill @Inject()(override val withLinkingSession: WithLinkingSess
         case Some(BAD_REQUEST) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionCall)))
         //if FUaaS repeatedly returns unexpected error codes e.g. 500s, trigger the circuit breaker
         case Some(err) => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
-        case None => Ok(uploadRatesBill(UploadRatesBillVM(form, submissionCall)))
+        case None => {
+          val envelopeId = request.ses.envelopeId
+          fileUploadConnector.getFileMetadata(envelopeId).map(fileMetaData =>
+            AuditingService.sendEvent("property link rates bill upload", Json.obj(
+              "organisationId" -> request.organisationId,
+              "individualId" -> request.individualAccount.individualId,
+              "propertyLinkSubmissionId" -> request.ses.submissionId,
+              "fileName" -> fileMetaData.fileInfo.fold("")(_.name)).toString
+            ))
+          Ok(uploadRatesBill(UploadRatesBillVM(form, submissionCall)))
+        }
       }
     } recover {
       case _: UnhealthyServiceException => ServiceUnavailable(views.html.errors.serviceUnavailable())

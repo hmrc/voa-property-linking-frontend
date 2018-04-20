@@ -18,25 +18,30 @@ package controllers.propertyLinking
 
 import javax.inject.Inject
 
+import auditing.AuditingService
 import config.ApplicationConfig
+import connectors.fileUpload.FileUploadConnector
 import controllers._
 import form.EnumMapping
 import models._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
+import play.api.libs.json._
 import play.api.mvc.Call
 import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
 import views.html.propertyLinking.uploadEvidence
 
-class UploadEvidence @Inject()(override val withLinkingSession: WithLinkingSession, withCircuitBreaker: FileUploadCircuitBreaker)
+class UploadEvidence @Inject()(override val withLinkingSession: WithLinkingSession, withCircuitBreaker: FileUploadCircuitBreaker,
+                               fileUploadConnector: FileUploadConnector)
                               (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with FileUploadHelpers {
 
   override val successUrl: String = routes.UploadEvidence.fileUploaded().url
 
   def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
+
     withCircuitBreaker {
       errorCode match {
         case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadEvidence(UploadEvidenceVM(fileTooLarge, submissionCall)))
@@ -46,7 +51,19 @@ class UploadEvidence @Inject()(override val withLinkingSession: WithLinkingSessi
         case Some(BAD_REQUEST) => UnsupportedMediaType(uploadEvidence(UploadEvidenceVM(invalidFileType, submissionCall)))
         //if FUaaS repeatedly returns unexpected error codes e.g. 500s, trigger the circuit breaker
         case Some(err) => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
-        case None => Ok(uploadEvidence(UploadEvidenceVM(form, submissionCall)))
+        case None => {
+
+          val envelopeId = request.ses.envelopeId
+          fileUploadConnector.getFileMetadata(envelopeId).map(fileMetaData =>
+            AuditingService.sendEvent("property link evidence upload", Json.obj(
+              "organisationId" -> request.organisationId,
+              "individualId" -> request.individualAccount.individualId,
+              "propertyLinkSubmissionId" -> request.ses.submissionId,
+              "fileName" -> fileMetaData.fileInfo.fold("")(_.name)).toString
+            ))
+
+          Ok(uploadEvidence(UploadEvidenceVM(form, submissionCall)))
+        }
       }
     } recover {
       case _: UnhealthyServiceException => ServiceUnavailable(views.html.errors.serviceUnavailable())
