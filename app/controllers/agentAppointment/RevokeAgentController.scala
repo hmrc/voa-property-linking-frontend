@@ -36,15 +36,8 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
     propertyLinks.get(request.organisationId, authorisationId) map {
       case Some(link) =>
         link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-          case Some(agent) => {
-            AuditingService.sendEvent("agent representation revoke", Json.obj(
-              "organisationId" -> request.organisationId,
-              "individualId" -> request.individualAccount.individualId,
-              "propertyLinkId" -> authorisationId,
-              "agentOrganisationId" -> request.organisationAccount.id).toString
-            )
+          case Some(agent) =>
             Ok(views.html.propertyRepresentation.revokeAgent(agentCode, authorisationId, authorisedPartyId, agent.organisationName))
-          }
           case None => notFound
         }
       case None => notFound
@@ -61,8 +54,15 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
         }
 
         link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-          case Some(agent) => representations.revoke(authorisedPartyId).map { _ =>
+          case Some(agent) => representations.revoke(authorisedPartyId).map { _ => {
+            AuditingService.sendEvent("agent representation revoke", Json.obj(
+              "organisationId" -> request.organisationId,
+              "individualId" -> request.individualAccount.individualId,
+              "propertyLinkId" -> authorisationId,
+              "agentOrganisationId" -> request.organisationAccount.id).toString
+            )
             Ok(views.html.propertyRepresentation.revokedAgent(nextLink, agent.organisationName, link.address))
+          }
           }
           case None => notFound
         }
