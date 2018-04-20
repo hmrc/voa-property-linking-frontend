@@ -20,6 +20,7 @@ import java.time.Instant
 import javax.inject.{Inject, Named}
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import auditing.AuditingService
 import config.{ApplicationConfig, Global}
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
@@ -32,8 +33,10 @@ import models.searchApi.{AgentPropertiesParameters, OwnerAgent, OwnerAuthResult}
 import play.api.data.Forms.{number, _}
 import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Request, Result}
+import play.api.libs.json.Json
+import play.api.mvc.{AnyContent, Request, Result}
 import repositories.SessionRepo
+import session.LinkingSessionRequest
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
@@ -121,6 +124,11 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
         _ <- createAndSubmitAgentRepRequest(authorisationId, agentOrgId, request.individualAccount.individualId, agent)
         _ <- sessionRepository.remove()
       } yield {
+        AuditingService.sendEvent("property link evidence upload", Json.obj(
+          "organisationId" -> request.organisationId,
+          "individualId" -> request.individualAccount.individualId,
+          "propertyLinkId" -> authorisationId,
+          "agentOrganisationId" -> agentOrgId))
         Redirect(routes.AppointAgentController.appointed(authorisationId))
       }
     }
@@ -231,16 +239,19 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                                              challengePermission: AgentPermission)(implicit hc: HeaderCarrier): Future[Unit] = {
 
     propertyLinks.get(organisationId, pLink.toLong) map {
-      case Some(prop) => updateAllAgentsPermission(
-        pLink.toLong, prop,
-        AppointAgent(None, "", checkPermission, challengePermission),
-        agentOrgId,
-        individualId)
+      case Some(prop) => {
+        updateAllAgentsPermission(
+          pLink.toLong, prop,
+          AppointAgent(None, "", checkPermission, challengePermission),
+          agentOrgId,
+          individualId)
+      }
       // shouldn't be possible for user to select a bad property link
       // just ignore if it does happen
       case None => Future.successful(Unit)
     }
   }
+
 
   /* appoint agent to multiple properties - End */
 

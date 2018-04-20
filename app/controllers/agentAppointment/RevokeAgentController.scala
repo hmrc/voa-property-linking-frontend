@@ -19,12 +19,14 @@ package controllers.agentAppointment
 import actions.AuthenticatedAction
 import javax.inject.Inject
 
+import auditing.AuditingService
 import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import models.Party
 import play.api.i18n.MessagesApi
+import play.api.libs.json.Json
 
 class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
                                       propertyLinks: PropertyLinkConnector,
@@ -52,8 +54,15 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
         }
 
         link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-          case Some(agent) => representations.revoke(authorisedPartyId).map { _ =>
+          case Some(agent) => representations.revoke(authorisedPartyId).map { _ => {
+            AuditingService.sendEvent("agent representation revoke", Json.obj(
+              "organisationId" -> request.organisationId,
+              "individualId" -> request.individualAccount.individualId,
+              "propertyLinkId" -> authorisationId,
+              "agentOrganisationId" -> request.organisationAccount.id).toString
+            )
             Ok(views.html.propertyRepresentation.revokedAgent(nextLink, agent.organisationName, link.address))
+          }
           }
           case None => notFound
         }

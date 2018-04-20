@@ -20,7 +20,7 @@ import java.io.File
 
 import config.{ApplicationConfig, VPLHttp}
 import connectors.EnvelopeConnector
-import connectors.fileUpload.FileUploadConnector
+import connectors.fileUpload.{FileMetadata, FileUploadConnector}
 import controllers.ControllerSpec
 import models._
 import org.jsoup.Jsoup
@@ -43,6 +43,9 @@ import uk.gov.hmrc.http.HeaderCarrier
 class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
 
   override val additionalAppConfig = Seq("featureFlags.fileUploadEnabled" -> "true")
+  val fileMetadata = FileMetadata(Some("OTHER"), Some(Lease))
+  lazy val mockFileUploadConnector = mock[FileUploadConnector]
+  when(mockFileUploadConnector.getFileMetadata(any())(any())).thenReturn(Future.successful(fileMetadata))
 
   "Upload Rates Bill upload page" must "contain a file input" in {
     val html = HtmlPage(uploadRatesBillPage)
@@ -89,7 +92,7 @@ class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
   }
 
   it must "display a service unavailable page when the file upload service is not available" in {
-    val testController = new UploadEvidence( withLinkingSession, brokenCircuit)
+    val testController = new UploadEvidence( withLinkingSession, brokenCircuit, mockFileUploadConnector)
 
     val linkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
@@ -126,7 +129,7 @@ class UploadRatesBillSpec extends ControllerSpec with FileUploadTestHelpers {
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  object TestUploadRatesBill extends UploadRatesBill( withLinkingSession, unbreakableCircuit)
+  object TestUploadRatesBill extends UploadRatesBill( withLinkingSession, unbreakableCircuit, mockFileUploadConnector)
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
