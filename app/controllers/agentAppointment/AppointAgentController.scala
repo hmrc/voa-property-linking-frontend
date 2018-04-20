@@ -136,9 +136,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
 
   def appointed(authorisationId: Long) = authenticated { implicit request =>
     propertyLinks.get(request.organisationAccount.id, authorisationId) map {
-      case Some(pl) => {
-        Ok(views.html.propertyRepresentation.appointedAgent(pl.address))
-      }
+      case Some(pl) => Ok(views.html.propertyRepresentation.appointedAgent(pl.address))
       case None => NotFound(Global.notFoundTemplate)
     }
   }
