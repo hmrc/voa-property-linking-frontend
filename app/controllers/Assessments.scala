@@ -60,14 +60,14 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     }
   }
 
-  lazy val viewValuationForm = Form(Forms.single( "viewValuationRadio" -> text.transform[(Long, Long, String)](x => x.split("-").toList match {
-    case authId :: assessRef :: baRef :: Nil => (authId.toLong, assessRef.toLong, baRef)
+  lazy val viewAssessmentForm = Form(Forms.single( "viewAssessmentRadio" -> text.transform[(Long, Long, String)](x => x.split("-").toList match {
+    case authorisationId :: assessmentRef :: baRef :: Nil => (authorisationId.toLong, assessmentRef.toLong, baRef)
   }, y => s"${y._1}-${y._2}-${y._3}")))
 
   def submitViewAssessment(authorisationId: Long) = authenticated { implicit request =>
-        viewValuationForm.bindFromRequest().fold(
+        viewAssessmentForm.bindFromRequest().fold(
           errors => Redirect(routes.Assessments.assessments(authorisationId)),
-          { case (authId, assessmentId, baRef) => Redirect(routes.Assessments.viewDetailedAssessment(authId, assessmentId, baRef)) }
+          { case (authorisationId, assessmentRef, baRef) => Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, assessmentRef, baRef)) }
         )
   }
 

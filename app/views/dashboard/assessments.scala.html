@@ -1,19 +1,18 @@
 @*
- * Copyright 2018 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *@
-
+* Copyright 2018 HM Revenue & Customs
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*@
 @import actions.AuthenticatedRequest
 @import utils.Formatters
 @import config.ApplicationConfig
@@ -21,109 +20,84 @@
 
 @(model: controllers.AssessmentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    title = Messages("assessments.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    individualId = Some(request.personId),
-    backLinkUrl = Some(routes.Dashboard.home().url)
-) {
-    <h1 class="heading-xlarge margin-bottom-0 clear-right">
-    @Messages("assessments.title")
-    </h1>
+    @main_template(
+        title = Messages("assessments.title"),
+        topBackLink = true,
+        bottomBackLink = true,
+        individualId = Some(request.personId),
+        backLinkUrl = Some(routes.Dashboard.home().url)
+    ) {
+        <h1 class="heading-xlarge margin-bottom-0 clear-right">
+        @Messages("assessments.title")
+        </h1>
 
-    <h2 class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</h2>
+        <h2 class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</h2>
 
-    <div class="table-wrapper">
-        <table class="table-font-xsmall margin-bottom-20 margin-top-30">
-            <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
-            <tbody>
-                <tr>
-                    <th scope="col">@Messages("assessments.table.1")</th>
-                    <th scope="col">@Messages("assessments.table.2")</th>
-                    <th scope="col">@Messages("assessments.table.3")</th>
-                    <th scope="col">@Messages("assessments.table.4")</th>
-                    <th scope="col">@Messages("assessments.table.5")</th>
-                    <th scope="col">@Messages("assessments.table.6")</th>
-                </tr>
+        @form(routes.Assessments.submitViewAssessment(model.assessments.head.authorisationId)) {
+            <fieldset>
+                <div id="assessmentsRadioGroup" class="form-group">
+                    <div class="table-wrapper-no-pad">
+                        <table class="margin-bottom-10 margin-top-10">
+                            <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
+                            <tbody>
+                                <tr>
+                                    <th scope="col">@Messages("assessments.table.1")</th>
+                                    <th scope="col">@Messages("assessments.table.2")</th>
+                                    <th scope="col">@Messages("assessments.table.3")</th>
+                                    <th scope="col">@Messages("assessments.table.4")</th>
+                                    <th scope="col">@Messages("assessments.table.5")</th>
+                                </tr>
 
-                @form(routes.Assessments.submitViewAssessment(model.assessments.head.authorisationId)) {
-
-                    @model.assessments.map { assessment =>
-                        <tr>
-                            <td>
-                                <div class="multiple-choice">
-                                    <input id="viewValuationRadio-@assessment.assessmentRef" type="radio" name="viewValuationRadio" value="@assessment.authorisationId-@assessment.assessmentRef-@assessment.billingAuthorityReference">
-                                    <label for="viewValuationRadio-@assessment.assessmentRef">
-                                    @(Formatters.formatDate(assessment.effectiveDate))
-                                    </label>
-                                </div>
-                            </td>
-                            @assessment.rateableValue match {
-                                case Some(rv) => {
-                                    <td>£@rv</td>
-                                }
-                                case None => {
-                                    <td>N/A
-                                        <a href="#my-rv-is-na" data-toggle="dialog" data-target="no-rv-help" class="help">
-                                            <i><span class="visuallyhidden">@Messages("label.help", Messages("rv.na"))</span></i>
-                                        </a>
-                                    </td>
-                                }
-                            }
-                            <td>
-                            @Messages(s"capacity.${assessment.capacity.capacity}")
-                            </td>
-                            <td>
-                            @(Formatters.formatDate(assessment.capacity.fromDate))
-                            </td>
-                            <td>
-                            @{
-                                assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
-                            }
-                            </td>
-                            <td>
-                                <ul class="list">
-                                @if(model.linkPending || assessment.rateableValue.isEmpty) {
-                                    <li>
-                                        <a href="@routes.Assessments.viewSummary(assessment.uarn)">
-                                            @Messages("assessments.view.summary")
-                                            <span class="visuallyhidden">
-                                                for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{
-                                                assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
-                                            }</span>
-                                        </a>
-                                    </li>
-                                } else {
-                                    <li><a href="@routes.Assessments.viewDetailedAssessment(assessment.authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference)">
-                                        @Messages("assessments.view.valuation")
-                                        <span class="visuallyhidden">
-                                            for @(Formatters.formatDate(assessment.capacity.fromDate)) to @{
+                                @model.assessments.map { assessment =>
+                                    <tr>
+                                        <td>
+                                            <div class="multiple-choice">
+                                                <input id="viewAssessmentRadio-@assessment.assessmentRef" type="radio" name="viewAssessmentRadio" value="@assessment.authorisationId-@assessment.assessmentRef-@assessment.billingAuthorityReference">
+                                                <label for="viewAssessmentRadio-@assessment.assessmentRef">@(Formatters.formatDate(assessment.effectiveDate))</label>
+                                            </div>
+                                        </td>
+                                        @assessment.rateableValue match {
+                                            case Some(rv) => {
+                                                <td>£@rv</td>
+                                            }
+                                            case None => {
+                                                <td>N/A
+                                                    <a href="#my-rv-is-na" data-toggle="dialog" data-target="no-rv-help" class="help">
+                                                        <i><span class="visuallyhidden">@Messages("label.help", Messages("rv.na"))</span></i>
+                                                    </a>
+                                                </td>
+                                            }
+                                        }
+                                        <td>
+                                        @Messages(s"capacity.${assessment.capacity.capacity}")
+                                        </td>
+                                        <td>
+                                        @(Formatters.formatDate(assessment.capacity.fromDate))
+                                        </td>
+                                        <td>
+                                        @{
                                             assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
-                                        }</span>
-                                    </a></li>
+                                        }
+                                        </td>
+                                    </tr>
                                 }
-                                </ul>
-                            </td>
-                        </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    @if(!model.assessments.takeWhile(assessment => !assessment.rateableValue.isDefined).isEmpty) {
+                        <div id="my-rv-is-na">
+                            <p>@Messages("rv.na.p.1")</p>
+                            <p>@Messages("rv.na.p.2")</p>
+                            <p>@Messages("rv.na.p.3")</p>
+                        </div>
                     }
 
-                </tbody>
-        </table>
-    </div>
+                    <input type="submit" class="button" value="@Messages("label.continue")">
 
-    @if(!model.assessments.takeWhile(assessment => !assessment.rateableValue.isDefined).isEmpty) {
-        <div id="my-rv-is-na">
-            <p>@Messages("rv.na.p.1")</p>
-            <p>@Messages("rv.na.p.2")</p>
-            <p>@Messages("rv.na.p.3")</p>
-        </div>
+                    <div class="clearfix"></div>
+                </div>
+            </fieldset>
+        }
+
     }
-
-    <input type="submit" class="button" value="@Messages("label.continue")">
-
-    <div class="clearfix"></div>
-
-}
-
-}
