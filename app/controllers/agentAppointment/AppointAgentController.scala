@@ -30,6 +30,7 @@ import form.FormValidation.nonEmptyList
 import form.Mappings._
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAgent, OwnerAuthResult}
+import play.api.Logger
 import play.api.data.Forms.{number, _}
 import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
@@ -121,7 +122,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       })
     } else {
       for {
-        _ <- createAndSubmitAgentRepRequest(authorisationId, agentOrgId, request.individualAccount.individualId, agent)
+        _ <- createAndSubmitAgentRepRequest(authorisationId, agentOrgId, request.individualAccount.individualId, agent, request.organisationId)
         _ <- sessionRepository.remove()
       } yield {
         AuditingService.sendEvent("agent representation request approve", Json.obj(
@@ -244,7 +245,8 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
           pLink.toLong, prop,
           AppointAgent(None, "", checkPermission, challengePermission),
           agentOrgId,
-          individualId)
+          individualId,
+          organisationId)
       }
       // shouldn't be possible for user to select a bad property link
       // just ignore if it does happen
@@ -256,7 +258,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
   /* appoint agent to multiple properties - End */
 
   private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
-                                        newAgentOrgId: Long, individualId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
+                                        newAgentOrgId: Long, individualId: Long, organisationId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
     val updateExistingAgents = if (newAgentPermission.canCheck == StartAndContinue && newAgentPermission.canChallenge == StartAndContinue) {
       Future.sequence(link.agents.map(agent => representations.revoke(agent.authorisedPartyId)))
     } else if (newAgentPermission.canCheck == StartAndContinue) {
@@ -266,7 +268,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
         //existing agents that had a check permission have been revoked
         //we now need to re-add the agents that had a challenge permission
         updatedAgents <- Future.traverse(agentsToUpdate.filter(_.challengePermission != NotPermitted))(agent => {
-          createAndSubmitAgentRepRequest(authorisationId, agent.organisationId, individualId, NotPermitted, agent.challengePermission)
+          createAndSubmitAgentRepRequest(authorisationId, agent.organisationId, individualId, NotPermitted, agent.challengePermission, organisationId)
         })
       } yield {
         updatedAgents
@@ -276,7 +278,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       for {
         revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
         updatedAgents <- Future.traverse(agentsToUpdate.filter(_.checkPermission != NotPermitted))(agent => {
-          createAndSubmitAgentRepRequest(authorisationId, agent.organisationId, individualId, agent.checkPermission, NotPermitted)
+          createAndSubmitAgentRepRequest(authorisationId, agent.organisationId, individualId, agent.checkPermission, NotPermitted, organisationId)
         })
       } yield {
         updatedAgents
@@ -284,27 +286,40 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
     }
     updateExistingAgents.flatMap(_ => {
       //existing agents have been updated. Time to add the new agent.
-      createAndSubmitAgentRepRequest(authorisationId, newAgentOrgId, individualId, newAgentPermission)
+      createAndSubmitAgentRepRequest(authorisationId, newAgentOrgId, individualId, newAgentPermission, organisationId)
     })
   }
 
   private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long,
-                                             checkPermission: AgentPermission, challengePermission: AgentPermission)
+                                             checkPermission: AgentPermission, challengePermission: AgentPermission, organisationId: Long)
                                             (implicit hc: HeaderCarrier): Future[Unit] = {
+    val submissionId = java.util.UUID.randomUUID().toString
+    val createDatetime = Instant.now
     val req = RepresentationRequest(authorisationId, agentOrgId, userIndividualId,
-      java.util.UUID.randomUUID().toString, checkPermission.name, challengePermission.name, Instant.now)
-    representations.create(req)
+      submissionId, checkPermission.name, challengePermission.name, createDatetime)
+
+    representations.create(req).map(x => {
+      AuditingService.sendEvent("agent representation request approve", Json.obj(
+        "organisationId" -> organisationId,
+        "individualId" -> userIndividualId,
+        "propertyLinkId" -> authorisationId,
+        "agentOrganisationId" -> agentOrgId,
+        "submissionId" -> submissionId,
+        "checkPermission" -> checkPermission.name,
+        "challengePermission" -> challengePermission.name,
+        "createDatetime" -> createDatetime.toString
+        ))})
   }
 
-  private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long, appointedAgent: AppointAgent)
+  private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long, appointedAgent: AppointAgent, organisationId: Long)
                                             (implicit hc: HeaderCarrier): Future[Unit] = {
-    createAndSubmitAgentRepRequest(authorisationId, agentOrgId, userIndividualId, appointedAgent.canCheck, appointedAgent.canChallenge)
+    createAndSubmitAgentRepRequest(authorisationId, agentOrgId, userIndividualId, appointedAgent.canCheck, appointedAgent.canChallenge, organisationId)
   }
 
   def confirmed(authorisationId: Long) = authenticated { implicit request =>
     sessionRepository.get[AgentAppointmentSession] flatMap {
       case Some(s) => {
-        updateAllAgentsPermission(authorisationId, s.propertyLink, s.agent, s.agentOrgId, request.individualAccount.individualId)
+        updateAllAgentsPermission(authorisationId, s.propertyLink, s.agent, s.agentOrgId, request.individualAccount.individualId, request.organisationId)
           .map(_ => sessionRepository.remove())
           .map(_ => Ok(views.html.propertyRepresentation.appointedAgent(s.propertyLink.address)))
       }
