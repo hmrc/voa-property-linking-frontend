@@ -40,7 +40,10 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
 
     propertyLinks.getLink(authorisationId) map {
       case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound // TODO is this possible? how to handle?
-      case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(link.assessments, backLink, link.pending)))
+      case Some(link) => link.assessments.size match {
+        case 1 => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/${link.assessments.head.assessmentRef}"))
+        case _ => Ok(views.html.dashboard.assessments(AssessmentsVM(link.assessments, backLink, link.pending)))
+      }
       case None => notFound
     }
   }
@@ -54,6 +57,10 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
       case true => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef"))
       case false => Redirect(routes.Assessments.requestDetailedValuation(authorisationId, assessmentRef, baRef))
     }
+  }
+
+  def submitViewAssessment = authenticated { implicit request =>
+    Ok(views.html.dvr.startChallenge())
   }
 
   def requestDetailedValuation(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
