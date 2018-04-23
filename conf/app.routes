@@ -64,6 +64,8 @@ GET         /request-detailed/:authorisationId/:assessmentRef                   
 GET         /request-detailed/start-challenge                                                 @controllers.Assessments.startChallengeFromDVR
 POST        /details-requested/:authorisationId/:assessmentRef                                @controllers.Assessments.detailedValuationRequested(authorisationId: Long, assessmentRef: Long, baRef)
 GET         /details-requested/:submissionId                                                  @controllers.Assessments.dvRequestConfirmation(submissionId, authorisationId: Long)
+POST        /view-assessment-from-list                                                        @controllers.Assessments.submitViewAssessment(authorisationId: Long)
+
 
 #Search and Link
 GET         /property-search                                                                  @controllers.propertyLinking.ClaimProperty.show()
@@ -127,6 +129,5 @@ POST        /complete-business-contact-details                                  
 POST        /complete-your-contact-details                                                    @controllers.enrolment.CreateEnrolmentUser.submitIndividual()
 GET         /create-success                                                                   @controllers.enrolment.CreateEnrolmentUser.success(personId: Long, url: String)
 
-POST        /view-assessment-from-list                                                        @controllers.Assessments.submitViewAssessment
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                                     @controllers.Assets.at(path="/public", file)

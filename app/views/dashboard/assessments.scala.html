@@ -47,16 +47,18 @@
                     <th scope="col">@Messages("assessments.table.6")</th>
                 </tr>
 
-                @form(routes.Assessments.submitViewAssessment) {
+                @form(routes.Assessments.submitViewAssessment(model.assessments.head.authorisationId)) {
+
                     @model.assessments.map { assessment =>
                         <tr>
                             <td>
                                 <div class="multiple-choice">
-                                    <input id="viewValuationRadio" type="radio" name="viewValuationRadio" value="@assessment">
-                                    <label for="viewValuationRadio">
+                                    <input id="viewValuationRadio-@assessment.assessmentRef" type="radio" name="viewValuationRadio" value="@assessment.authorisationId-@assessment.assessmentRef-@assessment.billingAuthorityReference">
+                                    <label for="viewValuationRadio-@assessment.assessmentRef">
                                     @(Formatters.formatDate(assessment.effectiveDate))
                                     </label>
-                                </div>                        </td>
+                                </div>
+                            </td>
                             @assessment.rateableValue match {
                                 case Some(rv) => {
                                     <td>£@rv</td>
@@ -119,6 +121,8 @@
     }
 
     <input type="submit" class="button" value="@Messages("label.continue")">
+
+    <div class="clearfix"></div>
 
 }
 

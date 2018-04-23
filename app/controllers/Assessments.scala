@@ -18,15 +18,16 @@ package controllers
 
 import actions.AuthenticatedAction
 import javax.inject.Inject
-
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import form.EnumMapping
 import models._
-import play.api.data.{Form, Forms}
+import play.api.data.{Form, Forms, Mapping}
 import play.api.i18n.MessagesApi
 import play.api.mvc.Action
+import form.Mappings._
+import play.api.data.Forms.{text, tuple}
 
 import scala.concurrent.Future
 
@@ -59,8 +60,15 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     }
   }
 
-  def submitViewAssessment = authenticated { implicit request =>
-    Ok(views.html.dvr.startChallenge())
+  lazy val viewValuationForm = Form(Forms.single( "viewValuationRadio" -> text.transform[(Long, Long, String)](x => x.split("-").toList match {
+    case authId :: assessRef :: baRef :: Nil => (authId.toLong, assessRef.toLong, baRef)
+  }, y => s"${y._1}-${y._2}-${y._3}")))
+
+  def submitViewAssessment(authorisationId: Long) = authenticated { implicit request =>
+        viewValuationForm.bindFromRequest().fold(
+          errors => Redirect(routes.Assessments.assessments(authorisationId)),
+          { case (authId, assessmentId, baRef) => Redirect(routes.Assessments.viewDetailedAssessment(authId, assessmentId, baRef)) }
+        )
   }
 
   def requestDetailedValuation(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
