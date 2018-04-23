@@ -124,7 +124,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
         _ <- createAndSubmitAgentRepRequest(authorisationId, agentOrgId, request.individualAccount.individualId, agent)
         _ <- sessionRepository.remove()
       } yield {
-        AuditingService.sendEvent("property link evidence upload", Json.obj(
+        AuditingService.sendEvent("agent representation request approve", Json.obj(
           "organisationId" -> request.organisationId,
           "individualId" -> request.individualAccount.individualId,
           "propertyLinkId" -> authorisationId,
