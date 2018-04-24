@@ -36,10 +36,7 @@
     topBackLink = true,
     backLinkUrl = Some(agentAppointment.routes.AppointAgentController.appointMultipleProperties().url)
 ) {
-    <div class="">
-    @if(model.response.authorisations.isEmpty){
-        <h2 class="heading-secondary margin-top-30">@Messages("dashboard.manageProperties.noProperties")</h2>
-    } else {
+
         <div id="linkIdsGroup"  class="column-whole">
             <h1 class="heading-large">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
 
@@ -97,6 +94,9 @@
         </div>
 
         <div class="column-whole">
+        @if(model.response.authorisations.isEmpty){
+            <h2 class="heading-secondary margin-top-30">@Messages("dashboard.manageProperties.noProperties")</h2>
+        } else {
             @form(agentAppointment.routes.AppointAgentController.appointAgentSummary()) {
                 <input type="hidden" name="agentCode" value="@pagination.agentCode">
                 <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
@@ -201,7 +201,7 @@
         }
         </div>
     }
-    </div>
+
 }
 
 @sortingControl(field: AgentPropertiesSortField) = {
