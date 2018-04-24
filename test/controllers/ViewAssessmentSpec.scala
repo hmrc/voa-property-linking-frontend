@@ -88,7 +88,9 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
-    status(res) mustBe OK
+
+    status(res) must be (SEE_OTHER)
+//    redirectLocation(res) mustBe
 
     val html = Jsoup.parse(contentAsString(res))
     val assessmentTable = html.select("tr").asScala.tail.map(_.select("td"))
