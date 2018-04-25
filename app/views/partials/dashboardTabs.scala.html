@@ -28,7 +28,7 @@
         @tab("myProperties", routes.Dashboard.manageProperties().url)
 
         @tab("manageAgents", routes.Dashboard.manageAgents().url)
-        @tab("drafts", routes.Dashboard.viewDraftCases().url)
+        @tab("drafts", routes.ManageDrafts.viewDraftCases().url)
         @tab("editDetails", controllers.manageDetails.routes.ViewDetails.show().url)
         @if(unreadMessagesCount == 0) {
             @tab("messages.none", routes.Dashboard.viewMessages().url)

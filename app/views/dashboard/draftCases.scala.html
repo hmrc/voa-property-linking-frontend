@@ -14,15 +14,19 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.play.views.html.helpers.form
 @import utils.Formatters._
 @import actions.AuthenticatedRequest
 @import config.ApplicationConfig
+@import config.ApplicationConfig._
+@import helper._
 
-@(model: DraftCasesVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: DraftCasesVM, unreadMessageCount: Int, userForm: Form[DeleteDraftCase])(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @detailedValuationUrl(draft: DraftCase) = @{
     routes.Assessments.viewDetailedAssessment(draft.propertyLinkId, draft.assessmentRef, draft.baRef)
 }
+
 
 @main_template(
     title = Messages("draftCases.title"),
@@ -38,40 +42,44 @@
 
     @if(model.draftCases.nonEmpty) {
 
+        @form(routes.ManageDrafts.continueCheck) {
+
         <div class="table-wrapper">
             <table class="table-font-xsmall margin-bottom-20 margin-top-30">
                 <caption class="visuallyhidden">@Messages("draftCases.table.caption")</caption>
                 <colgroup>
-                    <col width="55%">
-                    <col width="15%">
-                    <col width="15%">
-                    <col width="15%">
+                    <col width="60%">
+                    <col width="20%">
+                    <col width="20%">
+
                 </colgroup>
                 <thead>
                     <tr>
                         <th scope="col">@Messages("draftCases.table.1")</th>
                         <th scope="col">@Messages("draftCases.table.2")</th>
                         <th scope="col">@Messages("draftCases.table.3")</th>
-                        <th scope="col">@Messages("draftCases.table.4")</th>
                     </tr>
                 </thead>
                 <tbody>
-                @model.draftCases.map { draftCase =>
+                @model.draftCases.zipWithIndex.map { draftCase =>
                     <tr>
-                        <td>@capitalizedAddress(draftCase.address)</td>
-                        <td>@formatDate(draftCase.effectiveDate)</td>
-                        <td>@formatDate(draftCase.expirationDate)</td>
                         <td>
-                            <ul>
-                                <li><a href="@draftCase.url">@Messages("draftCase.continue.check")</a></li>
-                                <li><a href="@detailedValuationUrl(draftCase)">@Messages("draftCase.viewValuation")</a></li>
-                            </ul>
+                            <label class="multiple-choice">
+                                <input id="draft-@draftCase._2" type="radio" name="draft" value="@draftCase._1.id?@draftCase._1.url" />
+                                <label for="draft-@draftCase._2">@capitalizedAddress(draftCase._1.address)</label>
+                            </label>
                         </td>
+                        <td>@formatDate(draftCase._1.effectiveDate)</td>
+                        <td>@formatDate(draftCase._1.expirationDate)</td>
                     </tr>
                 }
                 </tbody>
             </table>
+                <input type="submit" name="continue-check" class="button" value="@Messages("draftCase.continue.check")" />
+                <input type="submit" name="delete-draft" class="button--secondary" value="@messages("draftCase.delete.draft")" formaction="@routes.ManageDrafts.deleteDraftCase" />
+            </p>
         </div>
+      }
     } else {
         <p>@Messages("draftCases.p.empty")</p>
     }
