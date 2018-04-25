@@ -34,27 +34,32 @@
 
         <h2 class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</h2>
 
+        @includes.errorSummary
         @form(routes.Assessments.submitViewAssessment(model.assessments.head.authorisationId)) {
             <fieldset>
                 <div id="assessmentsRadioGroup" class="form-group">
                     <div class="table-wrapper-no-pad">
-                        <table class="margin-bottom-10 margin-top-10">
+                        <table id="middle-radio-buttons" class="margin-bottom-10 margin-top-10">
                             <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
                             <tbody>
                                 <tr>
-                                    <th scope="col">@Messages("assessments.table.1")</th>
-                                    <th scope="col">@Messages("assessments.table.2")</th>
-                                    <th scope="col">@Messages("assessments.table.3")</th>
-                                    <th scope="col">@Messages("assessments.table.4")</th>
-                                    <th scope="col">@Messages("assessments.table.5")</th>
+                                    <th><span class="margin-left-5">@Messages("assessments.table.1")</span></th>
+                                    <th><span class="margin-left-5">@Messages("assessments.table.2")</span></th>
+                                    <th><span class="margin-left-5">@Messages("assessments.table.3")</span></th>
+                                    <th><span class="margin-left-5">@Messages("assessments.table.4")</span></th>
+                                    <th><span class="margin-left-5">@Messages("assessments.table.5")</span></th>
                                 </tr>
+
+                                @includes.errorSummary(model.form)
 
                                 @model.assessments.map { assessment =>
                                     <tr>
                                         <td>
-                                            <div class="multiple-choice margin-left-5">
+                                            <div class="multiple-choice">
                                                 <input type="radio" id="viewAssessmentRadio-@assessment.assessmentRef"  name="viewAssessmentRadio" value="@assessment.authorisationId-@assessment.assessmentRef-@assessment.billingAuthorityReference">
-                                                <label for="viewAssessmentRadio-@assessment.assessmentRef">@(Formatters.formatDate(assessment.effectiveDate))</label>
+                                                <label for="viewAssessmentRadio-@assessment.assessmentRef">
+                                                @(Formatters.formatDate(assessment.effectiveDate))
+                                                </label>
                                             </div>
                                         </td>
                                         @assessment.rateableValue match {
@@ -76,15 +81,14 @@
                                         @(Formatters.formatDate(assessment.capacity.fromDate))
                                         </td>
                                         <td>
-                                        @{
-                                            assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
-                                        }
+                                        @assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
                                         </td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
                     </div>
+
 
                     @if(!model.assessments.takeWhile(assessment => !assessment.rateableValue.isDefined).isEmpty) {
                         <div id="my-rv-is-na">
@@ -96,7 +100,7 @@
 
                     <input type="submit" class="button" value="@Messages("label.continue")">
 
-                    <div class="clearfix"></div>
+
                 </div>
             </fieldset>
         }

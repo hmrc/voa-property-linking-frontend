@@ -21,6 +21,7 @@ import javax.inject.Inject
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
+import controllers.agentAppointment.AppointAgentPropertiesVM
 import form.EnumMapping
 import models._
 import play.api.data.{Form, Forms, Mapping}
@@ -43,7 +44,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
       case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound // TODO is this possible? how to handle?
       case Some(link) => link.assessments.size match {
         case 1 => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/${link.assessments.head.assessmentRef}"))
-        case _ => Ok(views.html.dashboard.assessments(AssessmentsVM(link.assessments, backLink, link.pending)))
+        case _ => Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending)))
       }
       case None => notFound
     }
@@ -64,9 +65,10 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     case authorisationId :: assessmentRef :: baRef :: Nil => (authorisationId.toLong, assessmentRef.toLong, baRef)
   }, y => s"${y._1}-${y._2}-${y._3}")))
 
-  def submitViewAssessment(authorisationId: Long) = authenticated { implicit request =>
+  def submitViewAssessment(asauthorisationId: Long) = authenticated { implicit request =>
         viewAssessmentForm.bindFromRequest().fold(
-          errors => Redirect(routes.Assessments.assessments(authorisationId)),
+          errors => BadRequest(views.html.dashboard.assessments(Some(errors),
+            AssessmentsVM(form, assessments, backLink, linkPending )),
           { case (authorisationId, assessmentRef, baRef) => Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, assessmentRef, baRef)) }
         )
   }
@@ -111,6 +113,6 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
   lazy val dvRequestForm = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))
 }
 
-case class AssessmentsVM(assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean)
+case class AssessmentsVM(form: Form[_], assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean)
 
 case class RequestDetailedValuationVM(form: Form[_], authId: Long, assessmentRef: Long, baRef: String)
