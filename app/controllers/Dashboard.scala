@@ -94,7 +94,7 @@ class Dashboard @Inject()(draftCases: DraftCases,
                     agent: Option[String]) = authenticated { implicit request =>
     withValidPaginationSearchSort(page, pageSize, requestTotalRowCount, sortfield, sortorder, status, address, baref, agent) { pagination =>
       propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination) map { res =>
-        Ok(Json.toJson(res))
+        Ok(Json.toJson(res.copy(config = Some(Map("agentMultipleAppointEnabled" -> config.agentMultipleAppointEnabled)))))
       }
     }
   }
