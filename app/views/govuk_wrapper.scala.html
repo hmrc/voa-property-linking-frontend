@@ -67,7 +67,16 @@
 }
 
 @analyticsAdditionalJs = {
-    ga('set', '@config.voaPersonID', '@individualId');
+    @request match {
+    case linkingReq : LinkingSessionRequest[_] =>  {
+        ga('set', '@config.voaPersonID', @linkingReq.individualAccount.individualId)
+    }
+    case authReq : AuthenticatedRequest[_]  =>  {
+        ga('set', '@config.voaPersonID', @authReq.individualAccount.individualId)
+    }
+    case _ => {}
+    }
+
 
     @if(config.loggedInUser.isDefined) {
         @if(request.session.get(SessionKeys.userId)){
@@ -78,6 +87,7 @@
     }
 
     @if(config.isAgentLoggedIn.isDefined){
+
         @request match {
             case agentRequest: AuthenticatedRequest[_] => {
                 @if(agentRequest.organisationAccount.isAgent) {
