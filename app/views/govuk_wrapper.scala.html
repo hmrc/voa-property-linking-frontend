@@ -71,9 +71,6 @@
     case linkingReq : LinkingSessionRequest[_] =>  {
         ga('set', '@config.voaPersonID', @linkingReq.individualAccount.individualId)
     }
-    case basicReq : BasicAuthenticatedRequest[_] =>  {
-        ga('set', '@config.voaPersonID', @basicReq.individualAccount.individualId)
-    }
     case authReq : AuthenticatedRequest[_]  =>  {
         ga('set', '@config.voaPersonID', @authReq.individualAccount.individualId)
     }
