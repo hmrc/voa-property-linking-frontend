@@ -40,6 +40,12 @@
 
     <p>@Messages("draftCases.p.expiry")</p>
 
+    @if(userForm.hasErrors) {
+        @for(error <- userForm.errors("draft")) {
+            <p class="error-message">@messages(error.message)</p>
+        }
+    }
+
     @if(model.draftCases.nonEmpty) {
 
         @form(routes.ManageDrafts.continueCheck) {

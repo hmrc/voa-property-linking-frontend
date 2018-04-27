@@ -325,7 +325,6 @@ draftCases.table.caption=Draft cases
 draftCases.table.1=Address
 draftCases.table.2=Effective date
 draftCases.table.3=Draft expiry date
-#draftCases.table.4=Actions
 draftCase.continue.check=Continue check
 draftCase.delete.draft=Delete draft
 draftCase.viewValuation=Property details

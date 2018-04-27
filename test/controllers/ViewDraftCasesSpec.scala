@@ -95,7 +95,7 @@ class ViewDraftCasesSpec extends ControllerSpec {
 
     draftCases.zipWithIndex.map { case (draft, index) =>
       val columns = rows(index).select("td")
-      
+
       val address = columns.first.text
       address mustBe Formatters.capitalizedAddress(draft.address)
 

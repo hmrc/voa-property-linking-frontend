@@ -36,5 +36,4 @@ class DraftCases @Inject()(http: WSHttp, config: ServicesConfig)(implicit ec: Ex
     http.DELETE[String](s"$checkUrl/partial-check/draft/delete/$draftCaseId")
   }
 
-
 }

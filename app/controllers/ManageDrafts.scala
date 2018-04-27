@@ -19,13 +19,18 @@ package controllers
 import config.ApplicationConfig
 import javax.inject.Inject
 import connectors.{DraftCases, MessagesConnector}
-import actions.AuthenticatedAction
+import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import views.helpers.Errors
+import akka.actor.Status.{Failure, Success}
 import connectors.propertyLinking.PropertyLinkConnector
 import play.api.i18n.MessagesApi
 import models.DeleteDraftCase
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{Action, AnyContent, Request, Result}
+import uk.gov.hmrc.http.HeaderCarrier
+
+import scala.concurrent.Future
 
 class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
                              propertyLinks: PropertyLinkConnector,
@@ -34,54 +39,44 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
                              val config: ApplicationConfig,
                              draftCases: DraftCases) extends PropertyLinkingController {
 
-
   val draftCaseForm: Form[DeleteDraftCase] = Form(
       mapping(
-        "draft" -> nonEmptyText
+        "draft" -> optional(text).verifying("error.common.noValueSelected", s => s.isDefined &&  s.nonEmpty)
+                      .transform[String](_.get, x => Some(x.toString))
       )(DeleteDraftCase.apply _)(DeleteDraftCase.unapply _))
 
+  private def getIdUrl(value: String): (String, String) = value.split('?') match {
+    case Array(id, url) => (id, url)
+    case _ => ("Invalid Id", "Invalid Url")
+  }
 
   def viewDraftCases() = authenticated { implicit request =>
+    getDraftCases(draftCaseForm)
+  }
+
+  def continueCheck = authenticated { implicit request =>
+    draftCaseForm.bindFromRequest.fold(
+      formWithErrors => getDraftCases(formWithErrors),
+      success        => Redirect(getIdUrl(success.draft)._2))
+    }
+
+  def deleteDraftCase =  authenticated { implicit request =>
+    draftCaseForm.bindFromRequest.fold(
+      formWithErrors => getDraftCases(formWithErrors),
+      success        => draftCases.delete(getIdUrl(success.draft)._1).map(_ =>
+                           Redirect(routes.ManageDrafts.viewDraftCases))
+    ).recover {
+      case _ => Redirect(routes.ManageDrafts.viewDraftCases)
+    }
+  }
+
+  private def getDraftCases(form: Form[DeleteDraftCase])
+                           (implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier) =
     for {
       cases <- draftCases.get(request.personId)
       msgCount <- messagesConnector.countUnread(request.organisationId)
     } yield {
-      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), msgCount.unread, draftCaseForm))
+      BadRequest(views.html.dashboard.draftCases(DraftCasesVM(cases), msgCount.unread, form))
     }
-  }
-
-  def continueCheck = Action { implicit request =>
-
-        draftCaseForm.bindFromRequest.fold(
-          formWithErrors => Ok("delete clicked - Form with errors!!"),
-          test => Ok(s"delete clicked - Result was good " +
-            s"${test.draft}")
-        )
-
-//    val selectedValue: String = request.body.asFormUrlEncoded.get("draft").head
-//    val urls: String = request.body.asFormUrlEncoded.get(s"draft-url-${selectedValue}").head
-//    Ok(s"delete clicked - Result was good ${urls}")
-//    Redirect(urls, 302)
-  }
-
-
-  def deleteDraftCase =  Action { implicit request =>
-git
-    draftCaseForm.bindFromRequest.fold(
-      formWithErrors => Ok("delete clicked - Form with errors!!"),
-      test =>
-        {
-//          draftCases.delete(test.draft)
-
-          Ok(s"delete clicked - Result was good " +
-            s"${test.draft}")
-        }
-    )
-
-//    val selectedValue: String = request.body.asFormUrlEncoded.get("draft").head
-//    val draftCaseId: String = request.body.asFormUrlEncoded.get(s"draft-id-${selectedValue}").head
-//    val deleted = draftCases.delete(draftCaseId)
-//    Ok(s"delete clicked - ${draftCaseId}")
-  }
 
 }
