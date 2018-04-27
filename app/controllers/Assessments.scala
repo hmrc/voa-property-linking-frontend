@@ -42,10 +42,10 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     val backLink = request.headers.get("Referer")
     val fromValuation = backLink.exists(_.contains("business-rates-valuation"))
     propertyLinks.getLink(authorisationId) map {
-//      case Some(PropertyLink(_, _, _, _, _, _, _, _, head :: Nil, _)) if fromValuation  =>
-//        Redirect(routes.Dashboard.home())
-//      case Some(PropertyLink(_, _, _, _, _, _, _, _, head :: Nil, _))                   =>
-//        Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/${head.assessmentRef}"))
+      case Some(PropertyLink(_, _, _, _, _, _, _, _, head :: Nil, _)) if fromValuation  =>
+        Redirect(routes.Dashboard.home())
+      case Some(PropertyLink(_, _, _, _, _, _, _, _, head :: Nil, _))                   =>
+        Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/${head.assessmentRef}"))
       case Some(PropertyLink(_, _, _, _, _, _, _, pending, assessments, _))             =>
         Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, assessments, backLink, pending)))
       case _                                                                            =>
