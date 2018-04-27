@@ -50,7 +50,6 @@ GET         /managed-properties/:agentCode                                      
 GET         /managed-properties/:agentCode/revoke                                             @controllers.agentAppointment.RevokeAgentController.revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
 GET         /managed-properties/:agentCode/revoke/confirmed                                   @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
 GET         /manage-agents                                                                    @controllers.Dashboard.manageAgents()
-GET         /draft-cases                                                                      @controllers.Dashboard.viewDraftCases()
 GET         /messages                                                                         @controllers.Dashboard.viewMessages(pagination: MessagePagination ?= MessagePagination())
 GET         /message/:id                                                                      @controllers.Dashboard.viewMessage(id)
 GET         /message/:id/pdf                                                                  @controllers.Dashboard.viewMessageAsPdf(id)
@@ -126,6 +125,12 @@ GET         /complete-contact-details                                           
 POST        /complete-business-contact-details                                                @controllers.enrolment.CreateEnrolmentUser.submitOrganisation()
 POST        /complete-your-contact-details                                                    @controllers.enrolment.CreateEnrolmentUser.submitIndividual()
 GET         /create-success                                                                   @controllers.enrolment.CreateEnrolmentUser.success(personId: Long, url: String)
+
+#Draft Checks
+GET         /draft-cases                                                                      @controllers.ManageDrafts.viewDraftCases()
+POST        /delete-draft                                                                     @controllers.ManageDrafts.deleteDraftCase()
+POST        /continue-draft-check                                                             @controllers.ManageDrafts.continueCheck()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                                     @controllers.Assets.at(path="/public", file)

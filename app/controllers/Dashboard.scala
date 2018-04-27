@@ -17,8 +17,8 @@
 package controllers
 
 import java.time._
-import javax.inject.Inject
 
+import javax.inject.Inject
 import actions.AuthenticatedAction
 import com.builtamont.play.pdf.PdfGenerator
 import config.{ApplicationConfig, Global}
@@ -128,15 +128,6 @@ class Dashboard @Inject()(draftCases: DraftCases,
 
     } yield Ok(views.html.dashboard.managedByAgentsProperties(
       ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, filteredAuths)))
-  }
-
-  def viewDraftCases() = authenticated { implicit request =>
-    for {
-      cases <- draftCases.get(request.personId)
-      msgCount <- messagesConnector.countUnread(request.organisationId)
-    } yield {
-      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), msgCount.unread))
-    }
   }
 
   def viewMessages(pagination: MessagePagination) = authenticated { implicit request =>

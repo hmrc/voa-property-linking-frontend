@@ -32,4 +32,8 @@ class DraftCases @Inject()(http: WSHttp, config: ServicesConfig)(implicit ec: Ex
     http.GET[Seq[DraftCase]](s"$checkUrl/partial-check/resume/person/$personId")
   }
 
+  def delete(draftCaseId: String)(implicit  hc: HeaderCarrier): Future[String] = {
+    http.DELETE[String](s"$checkUrl/partial-check/draft/delete/$draftCaseId")
+  }
+
 }

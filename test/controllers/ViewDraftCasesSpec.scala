@@ -64,63 +64,13 @@ class ViewDraftCasesSpec extends ControllerSpec {
     expirationDate mustBe Formatters.formatDate(draftCase.expirationDate)
   }
 
-  it should "show a link to continue the draft, and a link to view the detailed valuation" in {
-    val draftCase = randomDraftCase
-    when(mockDraftCases.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Seq(draftCase)))
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccountGen, individualGen)))
+  implicit lazy val mockDraftCases: DraftCases = mock[DraftCases]
 
-    val res = testController.viewDraftCases()(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-    val links = html.select("table tbody tr").asScala.head.select("td").get(3)
-    val resumeLink = links.select("li a").first.attr("href")
-    val viewValuationLink = links.select("li a").get(1).attr("href")
-
-    resumeLink mustBe draftCase.url
-    viewValuationLink mustBe routes.Assessments.viewDetailedAssessment(draftCase.propertyLinkId, draftCase.assessmentRef, draftCase.baRef).url
-  }
-
-  "Viewing draft cases, when the user has multiple saved drafts" should "show the address, expiry date, and links, for each case" in {
-    val draftCases = Seq(randomDraftCase, randomDraftCase, randomDraftCase)
-    when(mockDraftCases.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(draftCases))
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccountGen, individualGen)))
-
-    val res = testController.viewDraftCases()(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-    val rows = html.select("table tbody tr").asScala
-    rows must have size draftCases.size
-
-    draftCases.zipWithIndex.map { case (draft, index) =>
-      val columns = rows(index).select("td")
-      
-      val address = columns.first.text
-      address mustBe Formatters.capitalizedAddress(draft.address)
-
-      val effectiveDate = columns.get(1).text
-      effectiveDate mustBe Formatters.formatDate(draft.effectiveDate)
-
-      val expirationDate = columns.get(2).text
-      expirationDate mustBe Formatters.formatDate(draft.expirationDate)
-
-      val links = columns.get(3).select("li a")
-      links.first.attr("href") mustBe draft.url
-      links.get(1).attr("href") mustBe routes.Assessments.viewDetailedAssessment(draft.propertyLinkId, draft.assessmentRef, draft.baRef).url
-    }
-  }
-
-  private lazy val testController = new Dashboard(
-
-    mockDraftCases,
-    StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
-    mock[AgentsConnector],
-    mock[GroupAccounts],
+  private lazy val testController = new ManageDrafts(
     StubAuthentication,
-    mock[PdfGenerator]
+    StubPropertyLinkConnector,
+    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
   )
 
-  private lazy val mockDraftCases = mock[DraftCases]
+
 }
