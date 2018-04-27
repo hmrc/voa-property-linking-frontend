@@ -48,7 +48,7 @@ class MessagesPageSpec extends ControllerSpec {
     val expectedTabLinks = Seq(
       routes.Dashboard.manageProperties().url,
       routes.Dashboard.manageAgents().url,
-      routes.Dashboard.viewDraftCases().url,
+      routes.ManageDrafts.viewDraftCases().url,
       controllers.manageDetails.routes.ViewDetails.show().url,
       routes.Dashboard.viewMessages().url
     )

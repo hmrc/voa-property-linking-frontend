@@ -43,7 +43,7 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
       mapping(
         "draft" -> optional(text).verifying("error.common.noValueSelected", s => s.isDefined &&  s.nonEmpty)
                       .transform[String](_.get, x => Some(x.toString))
-      )(DeleteDraftCase.apply _)(DeleteDraftCase.unapply _))
+      )(DeleteDraftCase.apply)(DeleteDraftCase.unapply))
 
   private def getIdUrl(value: String): (String, String) = value.split('?') match {
     case Array(id, url) => (id, url)
@@ -51,22 +51,27 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
   }
 
   def viewDraftCases() = authenticated { implicit request =>
-    getDraftCases(draftCaseForm)
+    for {
+      cases <- draftCases.get(request.personId)
+      msgCount <- messagesConnector.countUnread(request.organisationId)
+    } yield {
+      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), msgCount.unread, draftCaseForm))
+    }
   }
 
   def continueCheck = authenticated { implicit request =>
     draftCaseForm.bindFromRequest.fold(
-      formWithErrors => getDraftCases(formWithErrors),
+      getDraftCases,
       success        => Redirect(getIdUrl(success.draft)._2))
     }
 
   def deleteDraftCase =  authenticated { implicit request =>
     draftCaseForm.bindFromRequest.fold(
-      formWithErrors => getDraftCases(formWithErrors),
+      getDraftCases,
       success        => draftCases.delete(getIdUrl(success.draft)._1).map(_ =>
-                           Redirect(routes.ManageDrafts.viewDraftCases))
+                           Redirect(routes.ManageDrafts.viewDraftCases()))
     ).recover {
-      case _ => Redirect(routes.ManageDrafts.viewDraftCases)
+      case _ => Redirect(routes.ManageDrafts.viewDraftCases())
     }
   }
 
