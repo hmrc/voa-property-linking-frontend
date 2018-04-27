@@ -28,6 +28,7 @@ import play.api.data.{Form, Forms, Mapping}
 import play.api.i18n.MessagesApi
 import play.api.mvc.Action
 import form.Mappings._
+import play.api.Logger
 import play.api.data.Forms.{text, tuple}
 
 import scala.concurrent.Future
@@ -39,14 +40,16 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
 
   def assessments(authorisationId: Long) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
     val backLink = request.headers.get("Referer")
-
+    val fromValuation = backLink.exists(_.contains("business-rates-valuation"))
     propertyLinks.getLink(authorisationId) map {
-      case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound // TODO is this possible? how to handle?
-      case Some(link) => link.assessments.size match {
-        case 1 => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/${link.assessments.head.assessmentRef}"))
-        case _ => Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending)))
-      }
-      case None => notFound
+//      case Some(PropertyLink(_, _, _, _, _, _, _, _, head :: Nil, _)) if fromValuation  =>
+//        Redirect(routes.Dashboard.home())
+//      case Some(PropertyLink(_, _, _, _, _, _, _, _, head :: Nil, _))                   =>
+//        Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/${head.assessmentRef}"))
+      case Some(PropertyLink(_, _, _, _, _, _, _, pending, assessments, _))             =>
+        Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, assessments, backLink, pending)))
+      case _                                                                            =>
+        notFound
     }
   }
 
@@ -61,15 +64,23 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     }
   }
 
-  lazy val viewAssessmentForm = Form(Forms.single( "viewAssessmentRadio" -> text.transform[(Long, Long, String)](x => x.split("-").toList match {
-    case authorisationId :: assessmentRef :: baRef :: Nil => (authorisationId.toLong, assessmentRef.toLong, baRef)
-  }, y => s"${y._1}-${y._2}-${y._3}")))
+  lazy val viewAssessmentForm = Form(Forms.single( "viewAssessmentRadio" -> text.transform[(Long, String)](x => x.split("-").toList match {
+    case assessmentRef :: baRef :: Nil => (assessmentRef.toLong, baRef)
+  }, y => s"${y._1}-${y._2}")))
 
-  def submitViewAssessment(asauthorisationId: Long) = authenticated { implicit request =>
+  def submitViewAssessment(authorisationId: Long) = authenticated { implicit request =>
+    val backLink = request.headers.get("Referer")
         viewAssessmentForm.bindFromRequest().fold(
-          errors => BadRequest(views.html.dashboard.assessments(Some(errors),
-            AssessmentsVM(form, assessments, backLink, linkPending )),
-          { case (authorisationId, assessmentRef, baRef) => Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, assessmentRef, baRef)) }
+          errors =>
+            propertyLinks.getLink(authorisationId).map{
+              case Some(assess) => BadRequest(views.html.dashboard.assessments(AssessmentsVM(errors, assess.assessments, backLink, assess.pending)))
+              case None         => notFound
+            }
+            ,
+          {
+            case (assessmentRef, baRef) =>
+              Future.successful(Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, assessmentRef, baRef)))
+          }
         )
   }
 
