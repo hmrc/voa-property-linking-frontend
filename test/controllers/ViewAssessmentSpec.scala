@@ -110,13 +110,13 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
     val assessment = arbitrary[Assessment].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, pending = false, assessments = Seq(assessment, assessment.copy(authorisationId = 12345, assessmentRef = 123456, billingAuthorityReference = "ABC123")))
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, authorisationId = 12345, pending = false, assessments = Seq(assessment, assessment.copy(authorisationId = 12345, assessmentRef = 123456, billingAuthorityReference = "ABC123")))
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
     val validFormData: Seq[(String, String)] = Seq(
-      "viewAssessmentRadio" -> s"${link.assessments.tail.head.authorisationId.toString}-${link.assessments.tail.head.assessmentRef.toString}-${link.assessments.tail.head.billingAuthorityReference}"
+      "viewAssessmentRadio" -> s"${link.assessments.tail.head.assessmentRef.toString}-${link.assessments.tail.head.billingAuthorityReference}"
     )
 
     val res = TestAssessmentController.submitViewAssessment(link.authorisationId)(FakeRequest().withFormUrlEncodedBody(validFormData:_*))
