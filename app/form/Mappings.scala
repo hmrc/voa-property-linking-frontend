@@ -18,7 +18,7 @@ package form
 
 import java.time.LocalDate
 
-import models.{Address, NamedEnum, NamedEnumSupport}
+import models.{Address, Assessment, NamedEnum, NamedEnumSupport}
 import play.api.data.Forms._
 import play.api.data.format.{Formats, Formatter}
 import play.api.data.validation._
