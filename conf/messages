@@ -311,6 +311,7 @@ assessments.table.6=Actions
 assessments.enddate.present=Present
 assessments.view.valuation=View valuation
 assessments.view.summary=View summary valuation
+label.viewAssessmentRadio=Valuation
 
 label.help=Help with {0}
 rv.na=Rateable value is N/A
