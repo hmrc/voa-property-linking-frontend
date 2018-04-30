@@ -34,10 +34,9 @@
 
         <h2 class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</h2>
 
-        @includes.errorSummary
         @form(routes.Assessments.submitViewAssessment(model.assessments.head.authorisationId)) {
             <fieldset>
-                <div id="assessmentsRadioGroup" class="form-group">
+                <div id="viewAssessmentRadioGroup" class="form-group">
                     <div class="table-wrapper-no-pad">
                         <table id="middle-radio-buttons" class="margin-bottom-10 margin-top-10">
                             <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
