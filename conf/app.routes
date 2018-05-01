@@ -131,6 +131,7 @@ GET         /create-success                                                     
 #Draft Checks
 GET         /draft-cases                                                                      @controllers.ManageDrafts.viewDraftCases()
 POST        /delete-draft                                                                     @controllers.ManageDrafts.deleteDraftCase()
+POST        /confirm-delete-draft                                                             @controllers.ManageDrafts.confirmDelete(draftId: String)
 POST        /continue-draft-check                                                             @controllers.ManageDrafts.continueCheck()
 
 

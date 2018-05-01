@@ -330,6 +330,10 @@ draftCase.continue.check=Continue check
 draftCase.delete.draft=Delete draft
 draftCase.viewValuation=Property details
 draftCases.p.empty=You have no saved draft cases
+draftCases.confirm.delete.title=Delete draft
+draftCases.confirm.delete.message.1=This draft will be deleted
+draftCases.confirm.table.caption=Delete draft
+draftCases.confirm.delete.return.button=Return to drafts list
 
 #Appoint agent accept
 propertyRepresentation.accepted.title=Request accepted

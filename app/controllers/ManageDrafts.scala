@@ -45,10 +45,12 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
                       .transform[String](_.get, x => Some(x.toString))
       )(DeleteDraftCase.apply)(DeleteDraftCase.unapply))
 
+
   private def getIdUrl(value: String): (String, String) = value.split('?') match {
     case Array(id, url) => (id, url)
     case _ => ("Invalid Id", "Invalid Url")
   }
+
 
   def viewDraftCases() = authenticated { implicit request =>
     for {
@@ -59,21 +61,39 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
     }
   }
 
+
   def continueCheck = authenticated { implicit request =>
     draftCaseForm.bindFromRequest.fold(
       getDraftCases,
-      success        => Redirect(getIdUrl(success.draft)._2))
-    }
+      success => Redirect(getIdUrl(success.draft)._2))
+  }
+
 
   def deleteDraftCase =  authenticated { implicit request =>
     draftCaseForm.bindFromRequest.fold(
       getDraftCases,
-      success        => draftCases.delete(getIdUrl(success.draft)._1).map(_ =>
-                           Redirect(routes.ManageDrafts.viewDraftCases()))
+      success => {
+        val userSelectedId = getIdUrl(success.draft)._1
+        for {
+          cases <- draftCases.get(request.personId)
+        } yield {
+          val selectedCase = cases.filter(_.id == userSelectedId).head
+          Ok(views.html.dashboard.confirmDeleteDraftCase(selectedCase))
+        }
+      }
     ).recover {
       case _ => Redirect(routes.ManageDrafts.viewDraftCases())
     }
   }
+
+
+  def confirmDelete(draftId: String) =  authenticated { implicit request =>
+    draftCases.delete(draftId).map(_ => Redirect(routes.ManageDrafts.viewDraftCases()))
+      .recover {
+      case _ => Redirect(routes.ManageDrafts.viewDraftCases())
+      }
+  }
+
 
   private def getDraftCases(form: Form[DeleteDraftCase])
                            (implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier) =

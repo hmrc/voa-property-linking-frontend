@@ -1,0 +1,69 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import utils.Formatters._
+@import actions.AuthenticatedRequest
+@import config.ApplicationConfig
+@import config.ApplicationConfig._
+@import helper._
+
+@(model: models.DraftCase)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+
+ @main_template(
+  title = Messages("draftCases.confirm.delete.title"),
+  individualId = Some(request.personId),
+  contentHeaderText = Some(Messages("draftCases.confirm.delete.title")),
+  contentHeaderHidden = false,
+  topNavigation = false
+ ) {
+
+
+  <h2 class="heading-medium">@Messages("draftCases.confirm.delete.message.1")</h2>
+
+   @form(routes.ManageDrafts.confirmDelete(model.id)) {
+       <table id="draftsTable" class="margin-top-20 margin-bottom-20">
+        <caption class="visuallyhidden">@Messages("draftCases.confirm.table.caption")</caption>
+        <colgroup>
+         <col width="60%">
+         <col width="20%">
+         <col width="20%">
+        </colgroup>
+        <thead>
+         <tr>
+          <th scope="col">@Messages("draftCases.table.1")</th>
+          <th scope="col">@Messages("draftCases.table.2")</th>
+          <th scope="col">@Messages("draftCases.table.3")</th>
+         </tr>
+        </thead>
+        <tbody>
+        <fieldSet>
+         <tr>
+           <td>@capitalizedAddress(model.address)</td>
+           <td>@formatDate(model.effectiveDate)</td>
+           <td>@formatDate(model.expirationDate)</td>
+         </tr>
+        </fieldSet>
+        }
+        </tbody>
+       </table>
+       </p>
+       <input type="submit" name="delete" class="button" value="@Messages("draftCase.delete.draft")" />
+       <a href="@routes.ManageDrafts.viewDraftCases()" class="button--secondary">
+         @messages("draftCases.confirm.delete.return.button")
+        </a>
+   }
+
