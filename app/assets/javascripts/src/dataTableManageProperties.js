@@ -79,7 +79,7 @@
                     liNum++;
                 }
 
-                if (aData.status.toLowerCase() === 'approved') {
+                if (aData.status.toLowerCase() === 'approved' || aData.status.toLowerCase() === 'pending') {
                     $('td:eq(4) ul li:eq('+liNum+')', nRow).html('<a href="/business-rates-property-linking/property-link/' + aData.authorisationId + '/assessments' + '">' + messages.labels.viewValuations + '</a>');
                 } else {
                     $('td:eq(4) ul li:eq('+liNum+')', nRow).html('<a href="/business-rates-property-linking/summary/' + aData.uarn + '">' + messages.labels.viewValuations + '</a>');
