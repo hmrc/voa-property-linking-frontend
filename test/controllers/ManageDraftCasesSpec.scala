@@ -75,6 +75,19 @@ class ManageDraftCasesSpec extends ControllerSpec  with MockitoSugar {
 
   }
 
+  it should "continue to a confirm delete case when a valid submission has been made" in {
+      StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccountGen, individualGen)))
+
+    val validData = Seq(
+      "draft" -> s"1234567?${routes.ManageDrafts.viewDraftCases().url}"
+    )
+
+    val res = testController.confirmDelete("abc124")(FakeRequest().withFormUrlEncodedBody(validData: _*))
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(deleteDraftPage)
+  }
+
+
   private lazy val deleteDraftPage = controllers.routes.ManageDrafts.viewDraftCases().url
   implicit lazy val mockDraftCases = mock[DraftCases]
 
