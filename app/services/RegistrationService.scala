@@ -49,7 +49,7 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                  iVDetails: IVDetails,
                  ctx: A
                )
-               (individual: UserDetails => Int => Option[Long] => IndividualAccountSubmission)
+               (individual: UserDetails => Long => Option[Long] => IndividualAccountSubmission)
                (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
     for {
       user      <- auth.userDetails(ctx)
@@ -74,7 +74,7 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
 
   private def enrol(
                      option: Option[DetailedIndividualAccount],
-                     addressId: Int,
+                     addressId: Long,
                      iVDetails: IVDetails)
                    (userDetails: UserDetails)
                    (implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] = (option, userDetails.userInfo.credentialRole) match {

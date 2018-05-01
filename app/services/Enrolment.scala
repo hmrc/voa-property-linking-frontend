@@ -30,7 +30,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, addresses: Addresses, auditingService: AuditingService) {
 
-  def enrol(personId: Long, addressId: Int)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[EnrolmentResult] = {
+  def enrol(personId: Long, addressId: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[EnrolmentResult] = {
     (for {
       optAddress <- addresses.findById(addressId)
       address      <- getAddress(optAddress)

@@ -32,7 +32,7 @@ class Addresses @Inject()(config: ServicesConfig, http: WSHttp) {
 
   val url = config.baseUrl("property-linking") + "/property-linking/address"
 
-  def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = details.address.addressUnitId match {
+  def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Long] = details.address.addressUnitId match {
     case Some(id) => Future.successful(id)
     case None => create(details.address)
   }
@@ -41,14 +41,14 @@ class Addresses @Inject()(config: ServicesConfig, http: WSHttp) {
     http.GET[Seq[Address]](url + s"?postcode=$postcode")
   }
 
-  def findById(id: Int)(implicit hc: HeaderCarrier): Future[Option[Address]] = {
+  def findById(id: Long)(implicit hc: HeaderCarrier): Future[Option[Address]] = {
     http.GET[Option[Address]](url + s"/$id")
   }
 
-  def create(address: Address)(implicit hc: HeaderCarrier): Future[Int] = {
+  def create(address: Address)(implicit hc: HeaderCarrier): Future[Long] = {
     http.POST[Address, JsValue](url, address) map { js =>
       js \ "id" match {
-        case JsDefined(JsNumber(n)) => n.toInt
+        case JsDefined(JsNumber(n)) => n.toLong
         case _ => throw new Exception(s"Unexpected response: $js")
       }
     }

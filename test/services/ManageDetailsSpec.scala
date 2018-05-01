@@ -20,7 +20,7 @@ import org.scalatest._
 import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
 import models.Address
 import models.enrolment.{UserDetails, UserInfo}
-import org.mockito.ArgumentMatchers.{any, anyInt, eq => matches}
+import org.mockito.ArgumentMatchers.{any, anyLong, eq => matches}
 import org.mockito.Mockito.{never, times, verify, when}
 import org.scalatest.{FlatSpec, MustMatchers}
 import org.scalatest.concurrent.ScalaFutures
@@ -38,7 +38,7 @@ class ManageDetailsSpec extends ServiceSpec {
   implicit val request = FakeRequest()
 
   "updatePostcode" should "upsert known facts if predicate matches" in {
-    updatePostcode(1, 1, 2,true)
+    updatePostcode(1, 1, 2, true)
     verify(mockTaxEnrolments, once).updatePostcode(matches(1L),any(),matches(mockAddress.postcode))(any(),any())
   }
 
@@ -47,7 +47,7 @@ class ManageDetailsSpec extends ServiceSpec {
     verify(mockTaxEnrolments, never()).updatePostcode(any(),any(),any())(any(),any())
   }
 
-  def updatePostcode(personId:Int, addressId:Int, currentAddressId: Int, predicate:Boolean): Unit = {
+  def updatePostcode(personId:Int, addressId:Long, currentAddressId: Long, predicate:Boolean): Unit = {
     Await.result(manageDetails.updatePostcode(personId, currentAddressId, addressId)(_ => predicate)(hc, request),1 seconds)
   }
 
@@ -57,7 +57,7 @@ class ManageDetailsSpec extends ServiceSpec {
     mockAddresses = mock[Addresses]
 
     when(mockVPLAuthConnector.getUserDetails(any())).thenReturn(Future.successful(mockUserDetails))
-    when(mockAddresses.findById(anyInt)(any[HeaderCarrier])).thenReturn(Future.successful(Some(mockAddress)))
+    when(mockAddresses.findById(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Some(mockAddress)))
     when(mockTaxEnrolments.updatePostcode(any(),any(),any())(any(),any())).thenReturn(Future.successful(Success))
   }
 
@@ -66,7 +66,7 @@ class ManageDetailsSpec extends ServiceSpec {
   private var mockVPLAuthConnector:VPLAuthConnector = _
 
   private val once = times(1)
-  private val mockAddress = Address(None, "1, The Place", "", "", "", "AA11 1AA")
+  private val mockAddress = Address(Some(1L), "1, The Place", "", "", "", "AA11 1AA")
   private val mockUserDetails = UserDetails("123456", UserInfo(None, None, "", Some("ABC"), "", "654321", Individual, User))
 
   implicit private lazy val hc: HeaderCarrier = HeaderCarrier()

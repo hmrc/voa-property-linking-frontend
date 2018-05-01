@@ -188,13 +188,13 @@ class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
 
     val updatedDetails = current.details.copy(addressId = 1234567890)
     verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
-    verify(mockManageDetails, once).updatePostcode(matching(current.individualId),any(),matching(1234567890))(any())(any(), any())
+    verify(mockManageDetails, once).updatePostcode(matching(current.individualId),any(),matching(1234567890L))(any())(any(), any())
   }
 
   it must "create an address record, and update the user's record with the generated address ID, if they enter the address manually" in {
     val (_, current) = stubLoggedInUser()
     val address: Address = addressGen.copy(addressUnitId = None)
-    val addressId = Random.nextInt()
+    val addressId = Random.nextLong()
 
     when(mockAddressConnector.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(addressId))
     when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any(), any())).thenReturn(Future.successful(Success))

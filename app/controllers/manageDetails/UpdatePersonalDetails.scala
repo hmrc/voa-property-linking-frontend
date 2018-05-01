@@ -112,7 +112,7 @@ class UpdatePersonalDetails @Inject()(authenticated: AuthenticatedAction,
                             email: Option[String] = None,
                             phone: Option[String] = None,
                             mobile: Option[String] = None,
-                            addressId: Option[Int] = None)
+                            addressId: Option[Long] = None)
                            (implicit request: BasicAuthenticatedRequest[AnyContent]): Future[Result] = {
 
     val currentDetails = request.individualAccount.details

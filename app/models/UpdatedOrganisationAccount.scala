@@ -21,7 +21,7 @@ import java.time.{Instant, LocalDate}
 import play.api.libs.json.{Format, Json}
 
 case class UpdatedOrganisationAccount(governmentGatewayGroupId: String,
-                                      addressUnitId: Int,
+                                      addressUnitId: Long,
                                       representativeFlag: Boolean,
                                       organisationName: String,
                                       organisationEmailAddress: String,

@@ -40,10 +40,10 @@ object StubAddresses extends Addresses(StubServicesConfig,StubHttp) {
     }
   }
 
-  override def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Int] = {
+  override def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Long] = {
     if(details.companyName == "FAIL")
       create(details.address)
     else
-      Future.successful(12)
+      Future.successful(12L)
   }
 }
