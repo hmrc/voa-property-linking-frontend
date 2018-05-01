@@ -40,7 +40,7 @@ trait EnrolmentUser {
   val email: String
   val confirmedEmail: String
 
-  def toIndividualAccountSubmission(user: UserDetails)(id: Int)(organisationId: Option[Long]) = IndividualAccountSubmission(
+  def toIndividualAccountSubmission(user: UserDetails)(id: Long)(organisationId: Option[Long]) = IndividualAccountSubmission(
     externalId = user.externalId,
     trustId = "NONIV",
     organisationId = organisationId,

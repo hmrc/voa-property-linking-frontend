@@ -120,7 +120,7 @@ class IdentityVerificationServiceNonEnrolment @Inject()(
     } yield account
   }
 
-  private def registerAddress(details: PersonalDetails)(implicit hc: HeaderCarrier): Future[Int] = details.address.addressUnitId match {
+  private def registerAddress(details: PersonalDetails)(implicit hc: HeaderCarrier): Future[Long] = details.address.addressUnitId match {
     case Some(id) => Future.successful(id)
     case None => addresses.create(details.address)
   }

@@ -86,7 +86,7 @@ class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction, gr
   }
 
   private def updateDetails(name: Option[String] = None,
-                            addressId: Option[Int] = None,
+                            addressId: Option[Long] = None,
                             email: Option[String] = None,
                             phone: Option[String] = None)(implicit request: BasicAuthenticatedRequest[AnyContent]): Future[Result] = {
     val current = request.organisationAccount

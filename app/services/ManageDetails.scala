@@ -30,14 +30,14 @@ import scala.concurrent.{ExecutionContext, Future}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 trait ManageDetails {
-  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate: AffinityGroup => Boolean)
+  def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(predicate: AffinityGroup => Boolean)
                     (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult]
 }
 
 class ManageDetailsWithEnrolments @Inject() (taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, vPLAuthConnector: VPLAuthConnector) extends ManageDetails with RequestContext {
-  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate: AffinityGroup => Boolean)
+  def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(predicate: AffinityGroup => Boolean)
                     (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult] = {
-    def withAddress(addressId:Int, addressType:String):Future[Option[Address]] =
+    def withAddress(addressId:Long, addressType:String):Future[Option[Address]] =
       addresses.findById(addressId)
 
     for {
@@ -59,6 +59,6 @@ class ManageDetailsWithEnrolments @Inject() (taxEnrolments: TaxEnrolmentConnecto
 }
 
 class ManageDetailsWithoutEnrolments extends ManageDetails with RequestContext {
-  def updatePostcode(personId: Long, currentAddressId: Int, addressId: Int)(predicate: AffinityGroup => Boolean)
+  def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(predicate: AffinityGroup => Boolean)
                     (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult] = Future.successful(Success)
 }

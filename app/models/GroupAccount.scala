@@ -18,7 +18,7 @@ package models
 
 import play.api.libs.json.Json
 
-case class GroupAccount(id: Long, groupId: String, companyName: String, addressId: Int, email: String, phone: String,
+case class GroupAccount(id: Long, groupId: String, companyName: String, addressId: Long, email: String, phone: String,
                          isAgent: Boolean, agentCode: Long)
 
 object GroupAccount {

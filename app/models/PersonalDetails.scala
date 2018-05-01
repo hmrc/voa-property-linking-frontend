@@ -30,7 +30,7 @@ case class PersonalDetails(firstName: String, lastName: String, dateOfBirth: Loc
     IndividualDetails(firstName, lastName, email, phone1, phone2, address.addressUnitId.getOrElse(throw new Exception("Address ID not set")))
   }
 
-  def withAddressId(addressId: Int) = copy(address = address.copy(addressUnitId = Some(addressId)))
+  def withAddressId(addressId: Long) = copy(address = address.copy(addressUnitId = Some(addressId)))
 
 }
 

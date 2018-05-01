@@ -50,7 +50,7 @@ object Mappings extends DateMappings {
     "postcode" -> nonEmptyText(maxLength = 8).transform[String](_.toUpperCase, identity)
   )(Address.apply)(Address.unapply)
 
-  lazy val addressId: Mapping[Option[Int]] = default(text, "").transform(t => Try { t.toInt }.toOption, _.map(_.toString).getOrElse(""))
+  lazy val addressId: Mapping[Option[Long]] = default(text, "").transform(t => Try { t.toLong }.toOption, _.map(_.toString).getOrElse(""))
 
   lazy val agentCode: Mapping[Long] = nonEmptyText.verifying("error.agentCode", s => s.trim.forall(_.isDigit)).transform(_.trim.toLong, _.toString)
 }

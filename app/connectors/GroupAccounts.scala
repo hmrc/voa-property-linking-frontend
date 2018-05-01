@@ -48,7 +48,7 @@ class GroupAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec:
     }}
   }
 
-  def create(groupId: String, addressId: Int, details: GroupAccountDetails,
+  def create(groupId: String, addressId: Long, details: GroupAccountDetails,
              individualAccountSubmission: IndividualAccountSubmission)
             (implicit hc: HeaderCarrier): Future[Long] = {
     create(GroupAccountSubmission(
