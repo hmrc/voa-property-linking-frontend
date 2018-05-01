@@ -55,7 +55,7 @@
                                     <tr>
                                         <td>
                                             <div class="multiple-choice">
-                                                <input type="radio" id="viewAssessmentRadio-@assessment.assessmentRef"  name="viewAssessmentRadio" value="@assessment.assessmentRef-@assessment.billingAuthorityReference">
+                                                <input type="radio" id="viewAssessmentRadio-@assessment.assessmentRef"  name="viewAssessmentRadio" value="@{if (assessment.rateableValue.isDefined) {if(model.linkPending) {assessment.uarn} else {""}} else {assessment.uarn}}-@assessment.assessmentRef-@assessment.billingAuthorityReference">
                                                 <label for="viewAssessmentRadio-@assessment.assessmentRef">
                                                 @(Formatters.formatDate(assessment.effectiveDate))
                                                 </label>
@@ -87,7 +87,6 @@
                             </tbody>
                         </table>
                     </div>
-
 
                     @if(!model.assessments.takeWhile(assessment => !assessment.rateableValue.isDefined).isEmpty) {
                         <div id="my-rv-is-na">

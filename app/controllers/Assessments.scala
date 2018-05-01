@@ -40,16 +40,11 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
 
   def assessments(authorisationId: Long) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
     val backLink = request.headers.get("Referer")
-    val fromValuation = backLink.exists(_.contains("business-rates-valuation"))
+
     propertyLinks.getLink(authorisationId) map {
-      case Some(PropertyLink(_, _, _, _, _, _, _, _, head :: Nil, _)) if fromValuation  =>
-        Redirect(routes.Dashboard.home())
-      case Some(PropertyLink(_, _, _, _, _, _, _, _, head :: Nil, _))                   =>
-        Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/${head.assessmentRef}"))
-      case Some(PropertyLink(_, _, _, _, _, _, _, pending, assessments, _))             =>
-        Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, assessments, backLink, pending)))
-      case _                                                                            =>
-        notFound
+      case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
+      case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending)))
+      case None => notFound
     }
   }
 
@@ -64,9 +59,9 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     }
   }
 
-  lazy val viewAssessmentForm = Form(Forms.single( "viewAssessmentRadio" -> text.transform[(Long, String)](x => x.split("-").toList match {
-    case assessmentRef :: baRef :: Nil => (assessmentRef.toLong, baRef)
-  }, y => s"${y._1}-${y._2}")))
+  lazy val viewAssessmentForm = Form(Forms.single( "viewAssessmentRadio" -> text.transform[(String, Long, String)](x => x.split("-").toList match {
+    case uarn :: assessmentRef :: baRef :: Nil => (uarn, assessmentRef.toLong, baRef)
+  }, y => s"${y._1}-${y._2}-${y._3}")))
 
   def submitViewAssessment(authorisationId: Long) = authenticated { implicit request =>
     val backLink = request.headers.get("Referer")
@@ -78,8 +73,11 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
             }
             ,
           {
-            case (assessmentRef, baRef) =>
-              Future.successful(Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, assessmentRef, baRef)))
+            case (uarn, assessmentRef, baRef) =>
+              uarn match {
+                case "" => Future.successful(Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, assessmentRef, baRef)))
+                case _ => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong)))
+              }
           }
         )
   }

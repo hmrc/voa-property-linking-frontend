@@ -79,54 +79,22 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
     case OwnerOccupier => "Owner and occupier"
   }
 
-  it must "redirect to the detailed valuation if there is only 1 assessment" in {
+  it must "show N/A if the assessment does not have a rateable value" in {
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
     val assessment = arbitrary[Assessment].copy(rateableValue = None)
-    val link = arbitrary[PropertyLink].sample.get.copy(pending = false, organisationId = organisation.id, assessments = Seq(assessment))
-
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
-    StubPropertyLinkConnector.stubLink(link)
-
-    val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
-    status(res) mustBe SEE_OTHER
-  }
-
-  it must "redirect to the assessments list if there is more than 1 assessment" in {
-    val organisation = arbitrary[GroupAccount].sample.get
-    val person = arbitrary[DetailedIndividualAccount].sample.get
-    val assessment = arbitrary[Assessment].copy(rateableValue = None)
-    val link = arbitrary[PropertyLink].sample.get.copy(pending = false, organisationId = organisation.id, assessments = Seq(assessment, assessment))
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, assessments = Seq(assessment))
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
     val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
     status(res) mustBe OK
-    contentAsString(res) must include("Valuations")
-  }
 
-  it must "go to the detailed valuation that is selected from the list of assessments" in {
-    val organisation = arbitrary[GroupAccount].sample.get
-    val person = arbitrary[DetailedIndividualAccount].sample.get
-    val assessment = arbitrary[Assessment].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, authorisationId = 12345, pending = false, assessments = Seq(assessment, assessment.copy(authorisationId = 12345, assessmentRef = 123456, billingAuthorityReference = "ABC123")))
+    val html = Jsoup.parse(contentAsString(res))
+    val assessmentTable = html.select("tr").asScala.tail.map(_.select("td"))
 
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
-    StubPropertyLinkConnector.stubLink(link)
-
-    val validFormData: Seq[(String, String)] = Seq(
-      "viewAssessmentRadio" -> s"${link.assessments.tail.head.assessmentRef.toString}-${link.assessments.tail.head.billingAuthorityReference}"
-    )
-
-    val res = TestAssessmentController.submitViewAssessment(link.authorisationId)(FakeRequest().withFormUrlEncodedBody(validFormData:_*))
-
-    status(res) mustBe SEE_OTHER
-
-    redirectLocation(res).value mustBe routes.Assessments.viewDetailedAssessment(
-      link.assessments.tail.head.authorisationId,
-      link.assessments.tail.head.assessmentRef,
-      link.assessments.tail.head.billingAuthorityReference).url
+    assessmentTable.map(_.get(1).text).head must startWith ("N/A")
   }
 
   "Viewing a detailed valuation" must "redirect to business rates valuation if the property is bulk" in {
@@ -167,4 +135,48 @@ class ViewAssessmentSpec extends ControllerSpec with OptionValues {
       link.assessments.head.assessmentRef,
       link.assessments.head.billingAuthorityReference).url
   }
+
+  it must "go to the detailed valuation that is selected from the list of assessments" in {
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+    val assessment = arbitrary[Assessment].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, authorisationId = 12345, pending = false, assessments = Seq(assessment, assessment.copy(authorisationId = 12345, assessmentRef = 123456, billingAuthorityReference = "ABC123")))
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
+    StubPropertyLinkConnector.stubLink(link)
+
+    val validFormData: Seq[(String, String)] = Seq(
+      "viewAssessmentRadio" -> s"${""}-${link.assessments.tail.head.assessmentRef.toString}-${link.assessments.tail.head.billingAuthorityReference}"
+    )
+
+    val res = TestAssessmentController.submitViewAssessment(link.authorisationId)(FakeRequest().withFormUrlEncodedBody(validFormData:_*))
+
+    status(res) mustBe SEE_OTHER
+
+    redirectLocation(res).value mustBe routes.Assessments.viewDetailedAssessment(
+      link.assessments.tail.head.authorisationId,
+      link.assessments.tail.head.assessmentRef,
+      link.assessments.tail.head.billingAuthorityReference).url
+  }
+
+  it must "go to the summary valuation that is selected from the list of assessments if the link is pending" in {
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+    val assessment = arbitrary[Assessment].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, authorisationId = 12345, pending = true, assessments = Seq(assessment, assessment.copy(authorisationId = 12345, assessmentRef = 123456, billingAuthorityReference = "ABC123")))
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
+    StubPropertyLinkConnector.stubLink(link)
+
+    val validFormData: Seq[(String, String)] = Seq(
+      "viewAssessmentRadio" -> s"${"123456"}-${link.assessments.tail.head.assessmentRef.toString}-${link.assessments.tail.head.billingAuthorityReference}"
+    )
+
+    val res = TestAssessmentController.submitViewAssessment(link.authorisationId)(FakeRequest().withFormUrlEncodedBody(validFormData:_*))
+
+    status(res) mustBe SEE_OTHER
+
+    redirectLocation(res).value mustBe routes.Assessments.viewSummary(123456).url
+  }
+
 }
