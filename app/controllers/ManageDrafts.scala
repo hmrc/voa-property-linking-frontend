@@ -92,14 +92,6 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
       .recover {
       case _ => Redirect(routes.ManageDrafts.viewDraftCases())
       }
-
-//    draftCaseForm.bindFromRequest.fold(
-//      getDraftCases,
-//      success =>
-//        draftCases.delete(success.draft).map(_ => Redirect(routes.ManageDrafts.viewDraftCases()))
-//    ).recover {
-//      case _ => Redirect(routes.ManageDrafts.viewDraftCases())
-//    }
   }
 
 
