@@ -21,7 +21,9 @@
 
 @(model: DeclarationVM, noEvidenceFlag: Option[Boolean] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(Messages("declaration.title")) {
+@main_template(Messages("declaration.title"),
+    topBackLink = true, bottomBackLink = true) {
+
     <div class="grid-row">
         <div class="column-two-thirds">
 
