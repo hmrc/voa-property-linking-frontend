@@ -91,14 +91,15 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                        detailedIndividualAccount: DetailedIndividualAccount,
                        iVDetails: IVDetails)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
-    emailService
-      .sendNewEnrolmentSuccess(userDetails.userInfo.email, detailedIndividualAccount)
 
     (userDetails.userInfo.affinityGroup, userDetails.userInfo.credentialRole) match {
       case (Organisation, Assistant)       =>
         Future
           .successful(IVNotRequired(detailedIndividualAccount.individualId))
       case _  if config.ivEnrolmentEnabled =>
+        emailService
+          .sendNewEnrolmentSuccess(userDetails.userInfo.email, detailedIndividualAccount)
+
         identityVerificationService
           .start(iVDetails)
           .map(EnrolmentSuccess(_, detailedIndividualAccount.individualId))
