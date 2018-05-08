@@ -21,7 +21,10 @@
 
 @(model: UploadEvidenceVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(title = Messages("uploadEvidence.show.title"), bottomBackLink = true, topBackLink = true) {
+@main_template(title = Messages("uploadEvidence.show.title"),
+    bottomBackLink = true,
+    topBackLink = true,
+    backLinkUrl = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url)) {
 
 
     @form(model.call, 'enctype -> "multipart/form-data") {
