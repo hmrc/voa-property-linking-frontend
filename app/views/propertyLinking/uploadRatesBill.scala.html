@@ -22,8 +22,10 @@
 @(model: UploadRatesBillVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
     @main_template(title = Messages("uploadRatesBill.show.title"),
-        topBackLink = true, bottomBackLink = true) {
-
+        topBackLink = true,
+        bottomBackLink = true,
+        backLinkUrl = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url)
+) {
         @form(model.call, 'enctype -> "multipart/form-data") {
 
             <div class="grid-row">
