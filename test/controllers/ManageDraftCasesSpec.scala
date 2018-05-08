@@ -94,7 +94,7 @@ class ManageDraftCasesSpec extends ControllerSpec  with MockitoSugar {
   private lazy val testController = new ManageDrafts(
     StubAuthentication,
     StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
+    StubMessagesConnector
   )
 
 }

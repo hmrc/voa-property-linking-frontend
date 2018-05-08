@@ -26,7 +26,7 @@ import uk.gov.hmrc.play.config.inject.ServicesConfig
 import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
-class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig, config: ApplicationConfig)(implicit ec: ExecutionContext) {
+class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig)(implicit ec: ExecutionContext) {
 
   lazy val baseUrl: String = conf.baseUrl("property-linking") + "/property-linking"
 

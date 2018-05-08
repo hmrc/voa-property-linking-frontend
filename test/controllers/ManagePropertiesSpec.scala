@@ -210,7 +210,7 @@ class ManagePropertiesSpec extends ControllerSpec {
 
     mock[DraftCases],
     StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
+    StubMessagesConnector,
     mock[AgentsConnector],
     mock[GroupAccounts],
     StubAuthentication,

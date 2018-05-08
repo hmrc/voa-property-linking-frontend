@@ -69,7 +69,7 @@ class ViewDraftCasesSpec extends ControllerSpec {
   private lazy val testController = new ManageDrafts(
     StubAuthentication,
     StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
+    StubMessagesConnector
   )
 
 

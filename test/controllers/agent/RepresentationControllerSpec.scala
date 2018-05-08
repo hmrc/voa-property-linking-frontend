@@ -31,11 +31,10 @@ class RepresentationControllerSpec extends ControllerSpec {
   lazy val request = FakeRequest().withSession(token)
 
   object TestRepresentationController extends RepresentationController(
-
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
+    StubMessagesConnector
   )
 
   behavior of "revokeClientConfirmed method"
