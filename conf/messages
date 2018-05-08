@@ -265,6 +265,7 @@ dashboard.manageProperties.noAgent=None
 dashboard.managedProperties.addAnotherProperty=Add property
 manageProperties.revokeAgent=Remove agent
 manageProperties.appointAgent=Appoint agent
+manageProperties.addAgent=Appoint agent
 manageProperties.viewAssessments=View valuations
 link.dashboard.home=Back to dashboard
 search.sort.page.size.view=View
