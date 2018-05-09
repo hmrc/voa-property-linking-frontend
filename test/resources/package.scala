@@ -399,4 +399,26 @@ package object resources {
 
   implicit val arbitraryMessageSearchResultsGen = Arbitrary(messageSearchResultsGen)
 
+  val updatedOrganisationAccountGen: Gen[UpdatedOrganisationAccount] = for {
+    governmentGatewayGroupId <- shortString
+    addressUnitId <- arbitrary[Long]
+    representativeFlag <- arbitrary[Boolean]
+    organisationName <- shortString
+    organisationEmailAddress <- shortString
+    organisationTelephoneNumber <- shortString
+    changedByGGExternalId <- shortString
+  } yield {
+    UpdatedOrganisationAccount(
+      governmentGatewayGroupId = governmentGatewayGroupId,
+      addressUnitId = addressUnitId,
+      representativeFlag = representativeFlag,
+      organisationName = organisationName,
+      organisationEmailAddress = organisationEmailAddress,
+      organisationTelephoneNumber = organisationTelephoneNumber,
+      effectiveFrom = Instant.now(),
+      changedByGGExternalId = changedByGGExternalId)
+  }
+
+  implicit val arbitraryUpdatedOrganisationAccountGen = Arbitrary(updatedOrganisationAccountGen)
+
 }
