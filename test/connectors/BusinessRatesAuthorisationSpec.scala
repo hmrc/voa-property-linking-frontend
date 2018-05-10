@@ -21,7 +21,7 @@ import controllers.ControllerSpec
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.scalacheck.Arbitrary._
 import resources._
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, Upstream4xxResponse}
 import utils.StubServicesConfig
 class BusinessRatesAuthorisationSpec extends ControllerSpec {
 
@@ -46,6 +46,38 @@ class BusinessRatesAuthorisationSpec extends ControllerSpec {
   "authenticate" must "return a failed authentication result and be handled if authentication was unsuccessful" in new Setup {
     mockHttpFailedGET[Accounts]("tst-url", AuthorisationFailed("NO_CUSTOMER_RECORD"))
     whenReady(connector.authenticate)(_ mustBe NoVOARecord)
+  }
+
+  "authorise" must "return a successful authentication result if the user is authorised to view an assessment" in new Setup {
+    val validGroupAccount = arbitrary[GroupAccount].sample.get
+    val validIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
+    val validAccounts = Accounts(validGroupAccount, validIndividualAccount)
+    val authenticationSuccessResult = Authenticated(validAccounts)
+
+    mockHttpGET[Accounts]("tst-url", validAccounts)
+    whenReady(connector.authorise(1,1))(_ mustBe authenticationSuccessResult)
+  }
+
+  "authorise" must "return a forbidden response if the user is not authorised to view an assessment" in new Setup {
+    val forbiddenResponse = Upstream4xxResponse("FORBIDDEN", 403, 403, Map.empty)
+    mockHttpFailedGET[Accounts]("tst-url", forbiddenResponse)
+    whenReady(connector.authorise(1,1).failed)(_ mustBe forbiddenResponse)
+  }
+
+  "authorise" must "return a successful authentication result if the user is authorised to view assessments for a property link" in new Setup {
+    val validGroupAccount = arbitrary[GroupAccount].sample.get
+    val validIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
+    val validAccounts = Accounts(validGroupAccount, validIndividualAccount)
+    val authenticationSuccessResult = Authenticated(validAccounts)
+
+    mockHttpGET[Accounts]("tst-url", validAccounts)
+    whenReady(connector.authorise(1))(_ mustBe authenticationSuccessResult)
+  }
+
+  "authorise" must "return a forbidden response if the user is not authorised to view assessments for a property link" in new Setup {
+    val forbiddenResponse = Upstream4xxResponse("FORBIDDEN", 403, 403, Map.empty)
+    mockHttpFailedGET[Accounts]("tst-url", forbiddenResponse)
+    whenReady(connector.authorise(1))(_ mustBe ForbiddenResponse)
   }
 
 }

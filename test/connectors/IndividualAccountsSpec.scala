@@ -17,10 +17,11 @@
 package connectors
 
 import controllers.ControllerSpec
-import models.{DetailedIndividualAccount, GroupAccount, IndividualAccount, UpdatedOrganisationAccount}
+import models._
 import org.scalacheck.Arbitrary._
 import play.api.http.Status._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.{JsValue, Json}
 import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import utils.StubServicesConfig
@@ -54,6 +55,14 @@ class IndividualAccountsSpec extends ControllerSpec {
 
     mockHttpPUT[IndividualAccount, HttpResponse]("tst-url", HttpResponse(OK))
     whenReady(connector.update(validDetailedIndividualAccount))(_ mustBe ())
+  }
+
+  "create" must "create an individual account and return the ID" in new Setup {
+    val individualAccountSubmission = mock[IndividualAccountSubmission]
+    val accountId = Json.obj("id" -> 1)
+
+    mockHttpPOST[IndividualAccountSubmission, JsValue]("tst-url", accountId)
+    whenReady(connector.create(individualAccountSubmission))(_ mustBe 1)
   }
 
 }

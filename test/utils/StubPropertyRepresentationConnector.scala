@@ -70,14 +70,6 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
     stubbedAgentAuthResult
   )
 
-  override def get(representationId: Long)(implicit hc: HeaderCarrier) = Future.successful(
-    stubbedRepresentations.find(_.representationId == representationId)
-  )
-
-  override def find(linkId: Long)(implicit hc: HeaderCarrier) = Future.successful {
-    stubbedRepresentations.filter(_.representationId == linkId)
-  }
-
   override def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 
 

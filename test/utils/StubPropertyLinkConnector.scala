@@ -39,10 +39,6 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
 
   override def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
-  override def linkedProperties(organisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier) = {
-    Future.successful(PropertyLinkResponse(Some(stubbedLinks.size), stubbedLinks))
-  }
-
   override def linkedPropertiesSearchAndSort(organisationId: Long,
                                             pagination: PaginationSearchSort,
                                              representationStatusFilter: Seq[RepresentationStatus])

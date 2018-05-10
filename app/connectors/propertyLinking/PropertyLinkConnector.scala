@@ -60,12 +60,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
     http.POST[PropertyLinkRequest, HttpResponse](url, linkRequest) map { _ => () }
   }
 
-  def linkedProperties(organisationId: Long, pagination: Pagination)
-                      (implicit hc: HeaderCarrier): Future[PropertyLinkResponse] = {
-    http.GET[PropertyLinkResponse](s"$baseUrl/property-links?organisationId=$organisationId&$pagination")
-  }
-
-
   def linkedPropertiesSearchAndSort(organisationId: Long,
                                     pagination: PaginationSearchSort,
                                     representationStatusFilter: Seq[RepresentationStatus] =

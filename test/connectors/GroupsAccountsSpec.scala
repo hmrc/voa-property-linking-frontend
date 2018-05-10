@@ -17,10 +17,11 @@
 package connectors
 
 import controllers.ControllerSpec
-import models.{GroupAccount, UpdatedOrganisationAccount}
+import models.{Address, GroupAccount, GroupAccountSubmission, UpdatedOrganisationAccount}
 import org.scalacheck.Arbitrary._
 import play.api.http.Status._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.{JsValue, Json}
 import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import utils.StubServicesConfig
@@ -60,6 +61,14 @@ class GroupsAccountsSpec extends ControllerSpec {
     val updatedOrganisationAccount = arbitrary[UpdatedOrganisationAccount].sample.get
     mockHttpPUT[UpdatedOrganisationAccount, HttpResponse]("tst-url", HttpResponse(OK))
     whenReady(connector.update(1, updatedOrganisationAccount))(_ mustBe ())
+  }
+
+  "create" must "create a group account and return the ID" in new Setup {
+    val groupAccountSubmission = mock[GroupAccountSubmission]
+    val accountId = Json.obj("id" -> 1)
+
+    mockHttpPOST[GroupAccountSubmission, JsValue]("tst-url", accountId)
+    whenReady(connector.create(groupAccountSubmission))(_ mustBe 1L)
   }
 
 }
