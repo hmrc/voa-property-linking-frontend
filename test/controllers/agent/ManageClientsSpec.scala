@@ -216,11 +216,10 @@ class ManageClientsSpec extends ControllerSpec {
   }
 
   object TestController extends RepresentationController(
-
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
+    StubMessagesConnector
   )
 
 }

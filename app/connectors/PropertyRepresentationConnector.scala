@@ -35,10 +35,6 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
     http.GET[AgentCodeValidationResult](s"$baseUrl/property-representations/validate-agent-code/$agentCode/$authorisationId")
   }
 
-  def get(representationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyRepresentation]] = {
-    http.GET[Option[PropertyRepresentation]](s"$baseUrl/property-representations/$representationId")
-  }
-
   def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier): Future[PropertyRepresentations] = {
     http.GET[PropertyRepresentations](s"$baseUrl/property-representations/agent/${status.name}/$agentOrganisationId?$pagination")
   }
@@ -52,20 +48,12 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
     http.GET[AgentAuthResult](url)
   }
 
-  def find(linkId: Long)(implicit hc: HeaderCarrier): Future[Seq[PropertyRepresentation]] = {
-    http.GET[Seq[PropertyRepresentation]](s"$baseUrl/property-representations/linkId/$linkId")
-  }
-
   def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
     http.POST[RepresentationRequest, HttpResponse](s"$baseUrl/property-representations/create", reprRequest) map { _ => () }
   }
 
   def response(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier): Future[Unit] = {
     http.PUT[RepresentationResponse, HttpResponse](s"$baseUrl/property-representations/response", representationResponse) map { _ => () }
-  }
-
-  def update(updated: UpdatedRepresentation)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.PUT[UpdatedRepresentation, HttpResponse](s"$baseUrl/property-representations/update", updated) map { _ => () }
   }
 
   def revoke(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {

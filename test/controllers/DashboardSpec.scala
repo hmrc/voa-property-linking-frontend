@@ -16,20 +16,22 @@
 
 package controllers
 
+import java.time.LocalDateTime
+
 import com.builtamont.play.pdf.PdfGenerator
-import config.ApplicationConfig
 import connectors._
 import models._
+import models.messages.{Message, MessageCount, MessagePagination, MessageSearchResults}
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
+import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 class DashboardSpec extends ControllerSpec {
   implicit val request = FakeRequest()
@@ -43,9 +45,9 @@ class DashboardSpec extends ControllerSpec {
   object TestDashboard extends Dashboard(
     mockDraftCases,
     StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
-    mock[AgentsConnector],
-    mock[GroupAccounts],
+    StubMessagesConnector,
+    StubAgentConnector,
+    StubGroupAccountConnector,
     StubAuthentication,
     mock[PdfGenerator]
   )
@@ -109,4 +111,74 @@ class DashboardSpec extends ControllerSpec {
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(controllers.agent.routes.RepresentationController.viewClientProperties().url)
   }
+
+  "viewManagedProperties" must "display the properties managed by an agent" in {
+    val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
+    val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
+
+    val agentGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = true, companyName = "Test Agent Company")
+    val agentPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = agentGroup.id)
+
+    StubAuthConnector.stubExternalId(clientPerson.externalId)
+    StubAuthConnector.stubGroupId(clientGroup.groupId)
+
+    StubIndividualAccountConnector.stubAccount(clientPerson)
+    StubIndividualAccountConnector.stubAccount(agentPerson)
+
+    StubGroupAccountConnector.stubAccount(clientGroup)
+    StubGroupAccountConnector.stubAccount(agentGroup)
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
+
+    val res = TestDashboard.viewManagedProperties(agentGroup.agentCode)(request)
+
+    status(res) mustBe OK
+    contentAsString(res) must include("Properties managed by Test Agent Company")
+  }
+
+  "viewMessages" must "display the messages page with messages" in {
+    val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
+    val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
+
+    val messageSearchResults = arbitrary[MessageSearchResults].sample.get
+
+    StubAuthConnector.stubExternalId(clientPerson.externalId)
+    StubAuthConnector.stubGroupId(clientGroup.groupId)
+
+    StubIndividualAccountConnector.stubAccount(clientPerson)
+    StubGroupAccountConnector.stubAccount(clientGroup)
+
+    StubMessagesConnector.stubMessageSearchResults(messageSearchResults)
+    StubMessagesConnector.stubMessageCount(MessageCount(unread = messageSearchResults.size, total =  messageSearchResults.size))
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
+
+    val res = TestDashboard.viewMessages(MessagePagination())(request)
+
+    status(res) mustBe OK
+    contentAsString(res) must include(messageSearchResults.messages.head.subject)
+  }
+
+  "viewMessage" must "display a message using the message id" in {
+    val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
+    val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
+
+    val message = arbitrary[Message].sample.get
+
+    StubAuthConnector.stubExternalId(clientPerson.externalId)
+    StubAuthConnector.stubGroupId(clientGroup.groupId)
+
+    StubIndividualAccountConnector.stubAccount(clientPerson)
+    StubGroupAccountConnector.stubAccount(clientGroup)
+
+    StubMessagesConnector.stubMessage(message)
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
+
+    val res = TestDashboard.viewMessage(message.id)(request)
+
+    status(res) mustBe OK
+    contentAsString(res) must include(message.subject)
+  }
+
 }

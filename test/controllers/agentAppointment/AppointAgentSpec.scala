@@ -16,11 +16,10 @@
 
 package controllers.agentAppointment
 
-import config.ApplicationConfig
 import connectors.Authenticated
 import controllers.ControllerSpec
 import models._
-import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.mockito.MockitoSugar
@@ -47,7 +46,6 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
   }
 
   private object TestAppointAgent extends AppointAgentController(
-
                                           StubPropertyRepresentationConnector,
                                           StubGroupAccountConnector,
                                           StubPropertyLinkConnector,
@@ -202,6 +200,16 @@ class AppointAgentSpec extends ControllerSpec with MockitoSugar{
 
     status(res) must be (SEE_OTHER)
     redirectLocation(res) mustBe Some(routes.AppointAgentController.appointed(link.authorisationId).url)
+  }
+
+  "appointed" must "display the agent appoint success screen if an agent is successfully appointed" in {
+    val (groupAccount, individual) = stubLoggedInUser()
+    StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get)
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = groupAccount.id, authorisationId = 555, agents = Nil)
+    StubPropertyLinkConnector.stubLink(link)
+    val res = TestAppointAgent.appointed(link.authorisationId)(FakeRequest())
+
+    status(res) must be (OK)
   }
 
   private def stubLoggedInUser() = {
