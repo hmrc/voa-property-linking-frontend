@@ -208,6 +208,7 @@ account.confirmation.alreadyRegistered.youCan.2=authorise an agent to act on beh
 
 #DASHBOARD TABS
 dashboard.agentCode=Agent code: {0}
+dashboard.voaPersonalID=Your VOA personal ID is:
 dashboard.notYou=Not you?
 dashboard.unreadMessages=You have <a href={0}>({1}) unread messages</a>
 dashboard.unreadMessages.none=You have no unread messages
