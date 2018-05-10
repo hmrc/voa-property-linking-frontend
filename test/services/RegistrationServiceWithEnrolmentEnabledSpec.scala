@@ -25,13 +25,10 @@ import models.enrolment._
 import models.identityVerificationProxy.Link
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
-import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.mockito.MockitoSugar
-import org.scalatest.{FlatSpec, MustMatchers}
 import resources.{shortString, _}
 import services.iv.IdentityVerificationService
-import uk.gov.hmrc.auth.core.{AffinityGroup, User}
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.{AffinityGroup, User}
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
@@ -39,9 +36,12 @@ import utils._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-class RegistrationServiceSpec extends ServiceSpec {
+class RegistrationServiceWithEnrolmentEnabledSpec extends ServiceSpec {
 
-  "create" should "return IVNotRequired when ivEnrolmentEnabled flag is false" in new TestCase {
+  override val additionalAppConfig = Seq("featureFlags.ivEnrolmentEnabled" -> "true")
+
+  "create" should "return EnrolmentSuccess when ivEnrolmentEnabled flag is true" in new TestCase {
+
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
 
@@ -53,35 +53,7 @@ class RegistrationServiceSpec extends ServiceSpec {
         UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
       )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
 
-    res.futureValue must be(IVNotRequired(2l))
-  }
-
-  "create" should "return enrolment failure" in new TestCase {
-    when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Failure))
-    StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
-
-    when(mockIdentityVerficationService.start(any[IVDetails])(any[HeaderCarrier], any[ExecutionContext])).thenReturn(Future.successful(Link("some/link")))
-    val res: Future[RegistrationResult] = registrationService
-      .create(
-        GroupAccountDetails("", Address(None, "", "", "", "", ""), "", "", "", false),
-        IVDetails("", "", LocalDate.now(), Nino("AA012345A")),
-        UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
-      )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
-
-    res.futureValue must be(EnrolmentFailure)
-  }
-
-  "create" should "return missing details" in new TestCase {
-
-    when(mockIdentityVerficationService.start(any[IVDetails])(any[HeaderCarrier], any[ExecutionContext])).thenReturn(Future.successful(Link("some/link")))
-    val res: Future[RegistrationResult] = registrationService
-      .create(
-        GroupAccountDetails("", Address(None, "", "", "", "", ""), "", "", "", false),
-        IVDetails("", "", LocalDate.now(), Nino("AA012345A")),
-        UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
-      )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
-
-    res.futureValue must be(DetailsMissing)
+    res.futureValue must be(EnrolmentSuccess(Link("some/link"), 2L))
   }
 
   trait TestCase {
