@@ -16,13 +16,13 @@
 
 package connectors
 
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.StubServicesConfig
 
 import scala.concurrent.ExecutionContext.global
 
-class SubmissionIdConnectorSpec extends ControllerSpec {
+class SubmissionIdConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   implicit val ec = global

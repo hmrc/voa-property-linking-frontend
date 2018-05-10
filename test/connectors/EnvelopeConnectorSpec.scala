@@ -17,7 +17,7 @@
 package connectors
 
 import config.VPLHttp
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import utils.StubServicesConfig
@@ -25,7 +25,7 @@ import play.api.http.Status._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class EnvelopeConnectorSpec extends ControllerSpec {
+class EnvelopeConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   implicit val ec = global

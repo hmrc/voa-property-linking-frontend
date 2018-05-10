@@ -16,13 +16,13 @@
 
 package connectors
 
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models.searchApi.{OwnerAgent, OwnerAgents}
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.StubServicesConfig
 import scala.concurrent.ExecutionContext.global
 
-class AgentsConnectorSpec extends ControllerSpec {
+class AgentsConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   implicit val ec = global

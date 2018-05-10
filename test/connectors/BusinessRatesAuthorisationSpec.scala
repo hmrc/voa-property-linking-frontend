@@ -17,13 +17,13 @@
 package connectors
 
 import config.AuthorisationFailed
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.scalacheck.Arbitrary._
 import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, Upstream4xxResponse}
 import utils.StubServicesConfig
-class BusinessRatesAuthorisationSpec extends ControllerSpec {
+class BusinessRatesAuthorisationSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 

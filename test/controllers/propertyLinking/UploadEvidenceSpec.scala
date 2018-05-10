@@ -21,7 +21,7 @@ import java.io.File
 import config.{ApplicationConfig, VPLHttp}
 import connectors.EnvelopeConnector
 import connectors.fileUpload.{FileMetadata, FileUploadConnector}
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
@@ -40,7 +40,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-class UploadEvidenceSpec extends ControllerSpec with FileUploadTestHelpers {
+class UploadEvidenceSpec extends VoaPropertyLinkingSpec with FileUploadTestHelpers {
 
   override val additionalAppConfig = Seq("featureFlags.fileUploadEnabled" -> "true")
 

@@ -16,12 +16,12 @@
 
 package connectors
 
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import utils.StubServicesConfig
 
-class BusinessRatesValuationConnectorSpec extends ControllerSpec {
+class BusinessRatesValuationConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 

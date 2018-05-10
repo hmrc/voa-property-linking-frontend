@@ -16,13 +16,13 @@
 
 package connectors
 
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models.DetailedValuationRequest
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import utils.StubServicesConfig
 
-class DVRCaseManagementConnectorSpec extends ControllerSpec {
+class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 

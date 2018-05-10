@@ -31,7 +31,7 @@ import utils._
 
 import scala.collection.JavaConverters._
 
-class ManagePropertiesSpec extends ControllerSpec {
+class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
 
   override val additionalAppConfig = Seq("featureFlags.enrolment" -> "false")
 

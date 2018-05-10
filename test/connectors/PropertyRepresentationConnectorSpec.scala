@@ -16,7 +16,7 @@
 
 package connectors
 
-import controllers.{ControllerSpec, Pagination, PaginationSearchSort}
+import controllers.{VoaPropertyLinkingSpec, Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.AgentAuthResult
 import org.scalacheck.Arbitrary._
@@ -27,7 +27,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import utils.StubServicesConfig
 import play.api.http.Status._
 
-class PropertyRepresentationConnectorSpec extends ControllerSpec {
+class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 

@@ -20,7 +20,7 @@ import config.ApplicationConfig
 import connectors.EnvelopeConnector
 import connectors.fileUpload.{FileMetadata, FileUploadConnector}
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
@@ -38,7 +38,7 @@ import scala.collection.JavaConverters._
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-class DeclarationSpec extends ControllerSpec with MockitoSugar {
+class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   override val additionalAppConfig = Seq("featureFlags.fileUploadEnabled" -> "true")
 

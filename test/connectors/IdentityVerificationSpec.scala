@@ -17,12 +17,12 @@
 package connectors
 
 import config.ApplicationConfig
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.StubServicesConfig
 
-class IdentityVerificationSpec extends ControllerSpec {
+class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   override val additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.ivEnabled" -> "true")

@@ -17,7 +17,7 @@
 package controllers.agentAppointment
 
 import connectors.{AgentsConnector, Authenticated, GroupAccounts, _}
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models.searchApi._
 import models._
 import org.jsoup.Jsoup
@@ -32,7 +32,7 @@ import utils.{StubAuthentication, StubGroupAccountConnector, StubPropertyLinkCon
 import scala.collection.JavaConverters._
 
 
-class SelectPropertiesSpec extends ControllerSpec {
+class SelectPropertiesSpec extends VoaPropertyLinkingSpec {
 
   override val additionalAppConfig = Seq("featureFlags.agentMultipleAppointEnabled" -> "true")
 

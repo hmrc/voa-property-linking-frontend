@@ -32,7 +32,7 @@ import utils._
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderNames
 
-class CreateIndividualAccountSpec extends ControllerSpec with MockitoSugar {
+class CreateIndividualAccountSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

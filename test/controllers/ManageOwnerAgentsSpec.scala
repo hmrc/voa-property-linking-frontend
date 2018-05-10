@@ -27,7 +27,7 @@ import play.api.test.Helpers._
 import resources._
 import utils._
 
-class ManageOwnerAgentsSpec extends ControllerSpec {
+class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
 
   implicit val request = FakeRequest()
 

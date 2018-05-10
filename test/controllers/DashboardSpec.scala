@@ -33,7 +33,7 @@ import utils._
 
 import scala.concurrent.Future
 
-class DashboardSpec extends ControllerSpec {
+class DashboardSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
   lazy val mockDraftCases = {

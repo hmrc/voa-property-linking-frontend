@@ -16,7 +16,7 @@
 
 package connectors
 
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models.messages.{Message, MessageCount, MessagePagination, MessageSearchResults}
 import org.scalacheck.Arbitrary._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -26,7 +26,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import utils.StubServicesConfig
 import play.api.http.Status._
 
-class MessagesConnectorSpec extends ControllerSpec {
+class MessagesConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 

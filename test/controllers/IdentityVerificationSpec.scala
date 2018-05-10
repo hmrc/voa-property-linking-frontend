@@ -35,7 +35,7 @@ import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
-class IdentityVerificationSpec extends ControllerSpec with MockitoSugar {
+class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   lazy val mockSessionRepo = {
     val f = mock[PersonalDetailsSessionRepository]

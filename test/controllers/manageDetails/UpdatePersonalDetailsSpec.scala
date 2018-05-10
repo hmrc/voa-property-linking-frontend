@@ -17,7 +17,7 @@
 package controllers.manageDetails
 
 import connectors.{Addresses, Authenticated, IndividualAccounts}
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, Address, DetailedIndividualAccount}
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
@@ -33,7 +33,7 @@ import utils.{StubAuthentication, StubGroupAccountConnector}
 import scala.concurrent.Future
 import scala.util.Random
 
-class UpdatePersonalDetailsSpec extends ControllerSpec with MockitoSugar {
+class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   "The edit email page" must "require the updated email to be valid" in {
     stubLoggedInUser()

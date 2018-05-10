@@ -20,7 +20,7 @@ import java.time.LocalDate
 
 import config.ApplicationConfig
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models._
 import models.enrolment._
 import models.identityVerificationProxy.{Journey, Link}

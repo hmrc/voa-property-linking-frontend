@@ -18,7 +18,7 @@ package connectors
 
 import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{ControllerSpec, PaginationSearchSort}
+import controllers.{VoaPropertyLinkingSpec, PaginationSearchSort}
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
 import org.scalacheck.Arbitrary._
@@ -30,7 +30,7 @@ import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import utils.StubServicesConfig
 
-class PropertyLinkConnectorSpec extends ControllerSpec {
+class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 

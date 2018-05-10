@@ -32,7 +32,7 @@ import utils._
 
 import scala.concurrent.Future
 
-class CreateGroupAccountSpec extends ControllerSpec with MockitoSugar {
+class CreateGroupAccountSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

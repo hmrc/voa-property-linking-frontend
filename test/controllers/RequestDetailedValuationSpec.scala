@@ -34,7 +34,7 @@ import utils.{HtmlPage, StubAuthentication, StubBusinessRatesValuation, StubProp
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-class RequestDetailedValuationSpec extends ControllerSpec with MockitoSugar {
+class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   private object TestAssessments extends Assessments( StubPropertyLinkConnector,
     StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation)

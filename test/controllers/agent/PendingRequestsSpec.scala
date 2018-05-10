@@ -18,7 +18,7 @@ package controllers.agent
 
 import config.ApplicationConfig
 import connectors.Authenticated
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -30,7 +30,7 @@ import play.api.test.Helpers._
 
 import scala.collection.JavaConverters._
 
-class PendingRequestsSpec extends ControllerSpec {
+class PendingRequestsSpec extends VoaPropertyLinkingSpec {
 
   "The pending requests page" must "contain the organisation name for each of the agent's pending requests" in {
     val html = defaultHtml

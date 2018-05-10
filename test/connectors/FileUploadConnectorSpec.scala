@@ -18,7 +18,7 @@ package connectors
 
 import config.WSHttp
 import connectors.fileUpload.{FileMetadata, FileUploadConnector}
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models.{FileInfo, NoEvidenceFlag, RatesBillFlag, RatesBillType}
 import play.api.libs.ws.WSClient
 import resources._
@@ -31,7 +31,7 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import utils.StubServicesConfig
 import uk.gov.hmrc.http.HeaderCarrier
 
-class FileUploadConnectorSpec extends ControllerSpec {
+class FileUploadConnectorSpec extends VoaPropertyLinkingSpec {
 
   "Retrieving a file's metadata" must "return the filename and evidence type if a file has been uploaded" in {
     val envelopeId: String = shortString

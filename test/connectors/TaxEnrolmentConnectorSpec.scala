@@ -16,13 +16,13 @@
 
 package connectors
 
-import controllers.{ControllerSpec, EnrolmentPayload}
+import controllers.{EnrolmentPayload, PayLoad, VoaPropertyLinkingSpec}
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
-
+import services.Success
 import scala.concurrent.ExecutionContext.global
 
-class TaxEnrolmentConnectorSpec extends ControllerSpec {
+class TaxEnrolmentConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   implicit val ec = global
@@ -43,6 +43,20 @@ class TaxEnrolmentConnectorSpec extends ControllerSpec {
 
     mockHttpFailedPUT[EnrolmentPayload, HttpResponse]("tst-url", exception)
     whenReady(connector.enrol(1,"AB12 C34").failed)(_ mustBe exception)
+  }
+
+  "updatePostcode" must "update a postcode and return the result if successful" in new Setup {
+    val successEnrolmentResult = Success
+
+    mockHttpPUT[PayLoad, HttpResponse]("tst-url", HttpResponse(OK))
+    whenReady(connector.updatePostcode(1,"NE12 W34", "OL00 D1"))(_ mustBe successEnrolmentResult)
+  }
+
+  "updatePostcode" must "throw an exception if postcode update fails" in new Setup {
+    val exception = new Exception("Failed to update postcode")
+
+    mockHttpFailedPUT[PayLoad, HttpResponse]("tst-url", exception)
+    whenReady(connector.updatePostcode(1,"NE12 W34", "OL00 D1").failed)(_ mustBe exception)
   }
 
 }

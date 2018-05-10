@@ -18,7 +18,7 @@ package controllers.agent
 
 import config.ApplicationConfig
 import connectors.Authenticated
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, ClientProperty}
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
@@ -26,7 +26,7 @@ import play.api.test.Helpers._
 import resources._
 import utils._
 
-class RepresentationControllerSpec extends ControllerSpec {
+class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val request = FakeRequest().withSession(token)
 

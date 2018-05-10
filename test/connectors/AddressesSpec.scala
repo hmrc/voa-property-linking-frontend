@@ -16,7 +16,7 @@
 
 package connectors
 
-import controllers.{ControllerSpec, GroupAccountDetails}
+import controllers.{VoaPropertyLinkingSpec, GroupAccountDetails}
 import models.Address
 import org.scalacheck.Arbitrary._
 import play.api.libs.json.{JsNumber, JsValue, Json}
@@ -24,7 +24,7 @@ import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.StubServicesConfig
 
-class AddressesSpec extends ControllerSpec {
+class AddressesSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 

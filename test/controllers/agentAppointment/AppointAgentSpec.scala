@@ -17,7 +17,7 @@
 package controllers.agentAppointment
 
 import connectors.Authenticated
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -31,7 +31,7 @@ import utils._
 
 import scala.concurrent.Future
 
-class AppointAgentSpec extends ControllerSpec with MockitoSugar{
+class AppointAgentSpec extends VoaPropertyLinkingSpec with MockitoSugar{
 
   lazy val agentSession =  AgentAppointmentSession(AppointAgent(Some(1231), "1231", StartAndContinue, StartAndContinue), 123, arbitrary[PropertyLink].sample.get)
   lazy val mockSessionRepo = {
