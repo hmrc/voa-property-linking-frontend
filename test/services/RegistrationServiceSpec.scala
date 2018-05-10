@@ -41,7 +41,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationServiceSpec extends ServiceSpec {
 
-  "create" should "return enrolment success" in new TestCase {
+  "create" should "return IVNotRequired when ivEnrolmentEnabled flag is false" in new TestCase {
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
 

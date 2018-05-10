@@ -29,6 +29,8 @@ import play.api.mvc.{AnyContent, Request, Result}
 import services.email.EmailService
 import services.{EnrolmentResult, EnrolmentService, Failure, Success}
 import uk.gov.hmrc.auth.core._
+import uk.gov.hmrc.auth.core.retrieve.Retrievals._
+import uk.gov.hmrc.auth.core.retrieve.~
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -72,20 +74,40 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider,
                         body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
                       (implicit request: Request[AnyContent], hc: HeaderCarrier, ec: ExecutionContext): Future[Result] = {
     def handleError: PartialFunction[Throwable, Future[Result]] = {
-      case _: InsufficientEnrolments =>
+      case _: InsufficientEnrolments  =>
         enrolments
           .enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap(enrolmentResult(accounts, body))
-      case _: NoActiveSession =>
+      case _: NoActiveSession         =>
         provider.redirectToLogin
-      case otherException =>
+      case otherException             =>
         Logger.debug(s"exception thrown on authorization with message : ${otherException.getMessage}")
         throw otherException
     }
 
-    authorised(AuthProviders(AuthProvider.GovernmentGateway) and Enrolment("HMRC-VOA-CCA")) {
-      body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+    val retrieval = allEnrolments and credentialRole
+
+    authorised(AuthProviders(AuthProvider.GovernmentGateway)).retrieve(retrieval) {
+      case enrolments ~ role => {
+        val action = body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+        isAssistant(role) match {
+          case false   => {
+              enrolments.getEnrolment("HMRC-VOA-CCA").getOrElse(
+              throw new InsufficientEnrolments("HMRC-VOA-CCA enrolment not found"))
+            action
+          }
+          case true    => action
+        }
+      }
     }.recoverWith(handleError)
   }
+
+  private def isAssistant(credentialRole: Option[CredentialRole])(implicit request: Request[_]): Boolean = {
+    credentialRole match {
+      case Some(Assistant) => true
+      case _               => false
+    }
+  }
+
 
   override def noVoaRecord: Future[Result] =
     Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
