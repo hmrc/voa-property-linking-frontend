@@ -153,7 +153,7 @@ startIv.l3=payslip (PAYE)
 identityVerification.title=Identity verification
 failedIdentityVerification.title=Identity verification failed
 failedIdentityVerification.p.1=We’re unable to verify your identity.
-failedIdentityVerification.p.2=You can either try again or contact us to continue your registration.
+failedIdentityVerification.p.2=You can either <a href="{0}">try again</a> or contact us to continue your registration.
 failedIv.telephone.england=Telephone
 failedIv.telephone.england.number=03000 501 501
 failedIv.email=Email
