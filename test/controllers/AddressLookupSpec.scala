@@ -20,7 +20,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.StubAddresses
 
-class AddressLookupSpec extends ControllerSpec {
+class AddressLookupSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
   object TestAddressLookupController extends AddressLookup(StubAddresses)(messageApi)

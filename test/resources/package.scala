@@ -17,6 +17,7 @@
 import java.time.{Instant, LocalDate, LocalDateTime, ZoneId}
 
 import models._
+import models.messages.{MessageSearchResults, Message}
 import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
@@ -350,5 +351,74 @@ package object resources {
       agents = agents)
   }
   implicit val arbitraryOwnerAuthorisationGen = Arbitrary(ownerAuthorisationGen)
+
+  val messageGen: Gen[Message] = for {
+    id <- shortString
+    recipientOrgId <- arbitrary[Long]
+    templateName <- shortString
+    clientOrgId <- arbitrary[Long]
+    clientName <- shortString
+    agentOrgId <- arbitrary[Long]
+    agentOrgName <- arbitrary[String]
+    caseReference <- shortString
+    submissionId <- shortString
+    address <- shortString
+    subject <- shortString
+    messageType <- shortString
+    address <- shortString
+  } yield {
+    Message(id = id,
+      recipientOrgId = recipientOrgId,
+      templateName = templateName,
+      clientOrgId = Some(clientOrgId),
+      clientName = Some(clientName),
+      agentOrgId = Some(agentOrgId),
+      agentName = Some(agentOrgName),
+      caseReference = caseReference,
+      submissionId = submissionId,
+      timestamp = LocalDateTime.now.minusDays(1),
+      address = address,
+      effectiveDate = LocalDateTime.now.minusYears(1),
+      subject = subject,
+      lastRead = Some(LocalDateTime.now),
+      messageType = messageType)
+  }
+
+  implicit val arbitraryMessageGen = Arbitrary(messageGen)
+
+  val messageSearchResultsGen: Gen[MessageSearchResults] = for {
+    start <- Gen.choose[Int](min = 1, max = 30)
+    size <- Gen.choose[Int](min = start, max = 30)
+    messages <- Gen.listOfN(size, arbitrary[Message])
+  } yield {
+    MessageSearchResults(
+      start = start,
+      size = size,
+      messages = messages)
+  }
+
+  implicit val arbitraryMessageSearchResultsGen = Arbitrary(messageSearchResultsGen)
+
+  val updatedOrganisationAccountGen: Gen[UpdatedOrganisationAccount] = for {
+    governmentGatewayGroupId <- shortString
+    addressUnitId <- arbitrary[Long]
+    representativeFlag <- arbitrary[Boolean]
+    organisationName <- shortString
+    organisationEmailAddress <- shortString
+    organisationTelephoneNumber <- shortString
+    changedByGGExternalId <- shortString
+  } yield {
+    UpdatedOrganisationAccount(
+      governmentGatewayGroupId = governmentGatewayGroupId,
+      addressUnitId = addressUnitId,
+      representativeFlag = representativeFlag,
+      organisationName = organisationName,
+      organisationEmailAddress = organisationEmailAddress,
+      organisationTelephoneNumber = organisationTelephoneNumber,
+      effectiveFrom = Instant.now(),
+      changedByGGExternalId = changedByGGExternalId)
+  }
+
+  implicit val arbitraryUpdatedOrganisationAccountGen = Arbitrary(updatedOrganisationAccountGen)
 
 }

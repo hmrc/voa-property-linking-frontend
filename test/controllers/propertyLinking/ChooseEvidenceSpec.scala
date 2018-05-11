@@ -16,7 +16,7 @@
 
 package controllers.propertyLinking
 
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models._
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
@@ -30,7 +30,7 @@ import utils.{HtmlPage, StubWithLinkingSession}
 
 import scala.concurrent.Future
 
-class ChooseEvidenceSpec extends ControllerSpec with MockitoSugar{
+class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

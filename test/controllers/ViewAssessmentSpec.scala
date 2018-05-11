@@ -34,7 +34,7 @@ import scala.collection.JavaConverters._
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-class ViewAssessmentSpec extends ControllerSpec with OptionValues {
+class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
   private object TestAssessmentController extends Assessments( StubPropertyLinkConnector,
     StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation)

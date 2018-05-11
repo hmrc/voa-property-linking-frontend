@@ -17,7 +17,7 @@
 package views.details
 
 import actions.BasicAuthenticatedRequest
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models.{Address, DetailedIndividualAccount, GroupAccount}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.{Document, Element}
@@ -28,7 +28,7 @@ import utils.Formatters
 
 import scala.collection.JavaConverters._
 
-class DetailsPageSpec extends ControllerSpec {
+class DetailsPageSpec extends VoaPropertyLinkingSpec {
 
   behavior of "DetailsPage"
 

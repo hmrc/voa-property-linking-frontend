@@ -18,7 +18,7 @@ package controllers.agentAppointment
 
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{Authenticated, PropertyRepresentationConnector}
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
@@ -33,7 +33,7 @@ import scala.collection.JavaConverters._
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-class RevokeAgentSpec extends ControllerSpec with MockitoSugar {
+class RevokeAgentSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   "Viewing the revoke agent page when the agent is not appointed for the property link" should "return a Not Found response" in {
     val (org, _) = stubLogin()

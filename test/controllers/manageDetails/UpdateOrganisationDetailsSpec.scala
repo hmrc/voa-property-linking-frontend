@@ -19,7 +19,7 @@ package controllers.manageDetails
 import java.time.{Clock, Instant, ZoneId}
 
 import connectors.{Addresses, Authenticated, GroupAccounts}
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models._
 import org.jsoup.Jsoup
 import org.scalatest.mockito.MockitoSugar
@@ -34,7 +34,7 @@ import services.{ManageDetails, Success}
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-class UpdateOrganisationDetailsSpec extends ControllerSpec with MockitoSugar {
+class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
   "The update business name page" must "require a non-empty business name" in {
     stubLoggedInUser()
 

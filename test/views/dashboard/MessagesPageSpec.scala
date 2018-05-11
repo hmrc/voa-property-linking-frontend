@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter
 
 import actions.{AgentRequest, BasicAuthenticatedRequest}
 import config.ApplicationConfig
-import controllers.{ControllerSpec, routes}
+import controllers.{VoaPropertyLinkingSpec, routes}
 import models.messages.{Message, MessagePagination, MessageSearchResults, MessageSortField}
 import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails, SortOrder}
 import org.jsoup.Jsoup
@@ -33,7 +33,7 @@ import views.html.dashboard.messages.messagesTab
 
 import scala.collection.JavaConverters._
 
-class MessagesPageSpec extends ControllerSpec {
+class MessagesPageSpec extends VoaPropertyLinkingSpec {
 
   "The messages page" must """show "There are no messages" when the user has no messages""" in {
     val noMessages = MessageSearchResults(

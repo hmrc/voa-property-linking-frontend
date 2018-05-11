@@ -20,7 +20,7 @@ import java.time.LocalDate
 
 import config.ApplicationConfig
 import connectors.{Authenticated, EnvelopeConnector, EnvelopeMetadata}
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models._
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
@@ -35,7 +35,7 @@ import utils.{HtmlPage, StubAuthentication, StubSubmissionIdConnector, StubWithL
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-class ClaimPropertySpec extends ControllerSpec with MockitoSugar {
+class ClaimPropertySpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   private lazy val testClaimProperty = new ClaimProperty(mockEnvelopes, StubAuthentication, StubSubmissionIdConnector,
     mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]))

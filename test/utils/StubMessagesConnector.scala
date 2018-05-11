@@ -16,19 +16,50 @@
 
 package utils
 
-import config.ApplicationConfig
 import connectors.MessagesConnector
-import models.messages.{MessageCount, MessagePagination, MessageSearchResults}
+import models.messages.{Message, MessageCount, MessagePagination, MessageSearchResults}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-
-import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-class StubMessagesConnector(appConfig: ApplicationConfig) extends MessagesConnector(StubHttp, StubServicesConfig, appConfig) {
-  override def getMessages(orgId: Long, pagination: MessagePagination)
-                          (implicit hc: HeaderCarrier): Future[MessageSearchResults] = Future.successful {
-    MessageSearchResults(0, 0, Nil)
+import scala.concurrent.Future
+
+object StubMessagesConnector extends MessagesConnector(StubHttp, StubServicesConfig) {
+
+  private var stubbedMessageSearchResult: Option[MessageSearchResults] = None
+
+  private var stubbedMessageCount: Option[MessageCount] = None
+
+  private var stubbedMessage: Option[Message] = None
+
+  def stubMessageSearchResults(messages: MessageSearchResults): Unit = {
+    stubbedMessageSearchResult = Some(messages)
   }
 
-  override def countUnread(orgId: Long)(implicit hc: HeaderCarrier): Future[MessageCount] = Future.successful(MessageCount(0, 0))
+  def stubMessageCount(messageCount: MessageCount): Unit = {
+    stubbedMessageCount = Some(messageCount)
+  }
+
+  def stubMessage(message: Message): Unit = {
+    stubbedMessage = Some(message)
+  }
+
+  def reset() {
+    stubbedMessageSearchResult = None
+    stubbedMessageCount = None
+    stubbedMessage = None
+  }
+
+  override def getMessage(orgId: Long, messageId: String)
+                          (implicit hc: HeaderCarrier): Future[Option[Message]] = Future.successful(stubbedMessage)
+
+  override def getMessages(orgId: Long, pagination: MessagePagination)
+                          (implicit hc: HeaderCarrier): Future[MessageSearchResults] = Future.successful(stubbedMessageSearchResult.getOrElse(MessageSearchResults(0, 0, Nil)))
+
+  override def countUnread(orgId: Long)
+                          (implicit hc: HeaderCarrier): Future[MessageCount] = Future.successful(stubbedMessageCount.getOrElse(MessageCount(0,0)))
+
+  override def markAsRead(messageId: String, ggId: String)
+                          (implicit hc: HeaderCarrier): Future[Unit] = Future.successful()
+
+
 }

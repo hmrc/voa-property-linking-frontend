@@ -16,20 +16,26 @@
 
 package connectors
 
-import javax.inject.Inject
+import controllers.VoaPropertyLinkingSpec
+import uk.gov.hmrc.http.HeaderCarrier
+import utils.StubServicesConfig
 
-import config.WSHttp
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import scala.concurrent.ExecutionContext.global
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+class SubmissionIdConnectorSpec extends VoaPropertyLinkingSpec {
 
-class AuthorisationConnector @Inject()(config: ServicesConfig, http: WSHttp) {
+  implicit val hc = HeaderCarrier()
+  implicit val ec = global
 
-  def canViewAssessment(linkId: String, assessmentRef: Int)(implicit hc: HeaderCarrier): Future[Int] = {
-    val url = config.baseUrl("authorisation") + s"/business-rates-authorisation/property-link/$linkId/assessment/$assessmentRef"
-    http.GET[HttpResponse](url).map(_.status)
+  class Setup {
+    val connector = new SubmissionIdConnector(StubServicesConfig, mockWSHttp)(ec) {
+      override lazy val baseUrl: String = "tst-url"
+    }
+  }
+
+  "get" must "return a submission ID" in new Setup {
+    mockHttpGET[String]("tst-url", "PL12345")
+    whenReady(connector.get())(_ mustBe "PL12345")
   }
 
 }

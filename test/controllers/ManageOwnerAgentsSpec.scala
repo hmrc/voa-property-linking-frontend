@@ -27,15 +27,14 @@ import play.api.test.Helpers._
 import resources._
 import utils._
 
-class ManageOwnerAgentsSpec extends ControllerSpec {
+class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
 
   implicit val request = FakeRequest()
 
   object TestDashboardController extends Dashboard(
-
     mock[DraftCases],
     mock[PropertyLinkConnector],
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
+    StubMessagesConnector,
     StubAgentConnector,
     mock[GroupAccounts],
     StubAuthentication,

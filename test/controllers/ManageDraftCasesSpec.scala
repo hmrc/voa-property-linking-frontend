@@ -32,7 +32,7 @@ import utils.{StubAuthentication, StubMessagesConnector, StubPropertyLinkConnect
 
 import scala.concurrent.Future
 
-class ManageDraftCasesSpec extends ControllerSpec  with MockitoSugar {
+class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar {
 
   implicit val request = FakeRequest()
 
@@ -94,7 +94,7 @@ class ManageDraftCasesSpec extends ControllerSpec  with MockitoSugar {
   private lazy val testController = new ManageDrafts(
     StubAuthentication,
     StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
+    StubMessagesConnector
   )
 
 }

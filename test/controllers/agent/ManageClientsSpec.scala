@@ -18,7 +18,7 @@ package controllers.agent
 
 import config.ApplicationConfig
 import connectors.Authenticated
-import controllers.ControllerSpec
+import controllers.VoaPropertyLinkingSpec
 import models._
 import models.searchApi.{AgentAuthClient, AgentAuthResult, AgentAuthorisation}
 import org.jsoup.Jsoup
@@ -36,7 +36,7 @@ import utils._
 
 import scala.collection.JavaConverters._
 
-class ManageClientsSpec extends ControllerSpec {
+class ManageClientsSpec extends VoaPropertyLinkingSpec {
 
   override val additionalAppConfig = Seq("featureFlags.enrolment" -> "false")
 
@@ -216,11 +216,10 @@ class ManageClientsSpec extends ControllerSpec {
   }
 
   object TestController extends RepresentationController(
-
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
+    StubMessagesConnector
   )
 
 }

@@ -32,7 +32,7 @@ import scala.collection.JavaConverters._
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-class ViewDraftCasesSpec extends ControllerSpec {
+class ViewDraftCasesSpec extends VoaPropertyLinkingSpec {
 
   "Viewing draft cases, when the user has no drafts" should "tell the user they have no draft cases" in {
     when(mockDraftCases.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Nil))
@@ -69,7 +69,7 @@ class ViewDraftCasesSpec extends ControllerSpec {
   private lazy val testController = new ManageDrafts(
     StubAuthentication,
     StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig])
+    StubMessagesConnector
   )
 
 

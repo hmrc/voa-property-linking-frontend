@@ -34,7 +34,7 @@ import utils._
 
 import scala.concurrent.Future
 
-class CreateEnrolmentUserSpec extends ControllerSpec with MockitoSugar {
+class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   lazy val mockEnrolmentService = mock[EnrolmentService]
 

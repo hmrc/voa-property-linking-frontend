@@ -31,7 +31,7 @@ import utils._
 
 import scala.collection.JavaConverters._
 
-class ManagePropertiesSpec extends ControllerSpec {
+class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
 
   override val additionalAppConfig = Seq("featureFlags.enrolment" -> "false")
 
@@ -210,7 +210,7 @@ class ManagePropertiesSpec extends ControllerSpec {
 
     mock[DraftCases],
     StubPropertyLinkConnector,
-    new StubMessagesConnector(app.injector.instanceOf[ApplicationConfig]),
+    StubMessagesConnector,
     mock[AgentsConnector],
     mock[GroupAccounts],
     StubAuthentication,
