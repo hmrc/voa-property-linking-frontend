@@ -15,15 +15,26 @@
  *@
 
 @import utils.Formatters
+@import models.enrolment.UserDetails
+@import uk.gov.hmrc.auth.core.Assistant
+@(organisationAccount: GroupAccount, businessAddress: Address, userDetails: UserDetails)(implicit request: Request[_], messages: Messages)
 
-@(organisationAccount: GroupAccount, businessAddress: Address)(implicit request: Request[_], messages: Messages)
+@isAssistant = @{
+    userDetails.userInfo.credentialRole match {
+        case Assistant => true
+        case _         => false
+    }
+}
+
 
     @tableRow(key: String, value: String, link: Call) = {
         <tr>
             <td>@Messages(s"details.business.$key")</td>
             <td>@value</td>
             <td>
+                @if(!isAssistant){
                 <a id="update@key.capitalize" href="@link">@Messages("link.update")</a>
+                }
             </td>
         </tr>
     }

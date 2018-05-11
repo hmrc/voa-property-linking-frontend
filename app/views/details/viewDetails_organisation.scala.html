@@ -16,9 +16,10 @@
 
 @import actions.AuthenticatedRequest
 @import config.ApplicationConfig
+@import models.enrolment.UserDetails
 
 @(individualAccount: DetailedIndividualAccount, organisationAccount: GroupAccount,
-        personalAddress: Address, businessAddress: Address, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+        personalAddress: Address, businessAddress: Address, unreadMessageCount: Int, userDetails: UserDetails)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     Messages("viewDetails.title"),
@@ -30,5 +31,5 @@
     @partials.dashboardTabs(unreadMessageCount)
 
     @personalDetails_enrolment(individualAccount, organisationAccount.companyName, personalAddress, isIndividual = false)
-    @businessDetails(organisationAccount, businessAddress)
+    @businessDetails(organisationAccount, businessAddress, userDetails)
 }
