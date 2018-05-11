@@ -56,6 +56,15 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     gatewayId = "",
     credentialRole = Admin)
 
+  val testAgentInfo = UserInfo(firstName = Some("Bob"),
+    lastName = Some("Smith"),
+    email = "bob@smith.com",
+    postcode = Some("AB12 3CD"),
+    groupIdentifier = "GroupIdenfifier",
+    affinityGroup = AffinityGroup.Agent,
+    gatewayId = "",
+    credentialRole = Admin)
+
   val mockIdentityVerificationService = mock[IdentityVerificationService]
 
   val mockRegistrationService = mock[RegistrationService]
@@ -94,6 +103,20 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     html.inputMustContain("firstName", testIndividualInfo.firstName.get)
     html.inputMustContain("lastName", testIndividualInfo.lastName.get)
     html.inputMustContain("addresspostcode", testIndividualInfo.postcode.get)
+  }
+
+  "Going to the create account page, when logged in with an account that is an Agent" should
+    "display the invalid account type page" in {
+    val (groupId, externalId): (String, String) = (shortString, shortString)
+    StubAuthConnector.stubGroupId(groupId)
+    StubAuthConnector.stubExternalId(externalId)
+    StubAuthConnector.stubUserDetails(externalId, testAgentInfo)
+
+    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    status(res) mustBe OK
+
+    val html = HtmlPage(res)
+    html.mustContainText("You’ve tried to register using an existing Individual or Agent Government Gateway account")
   }
 
   "Going to the create account page, when logged in with an account that has not registered and has an Organisation affinity group" should

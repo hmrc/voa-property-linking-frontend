@@ -32,7 +32,7 @@ import services._
 import services.email.EmailService
 import services.iv.IdentityVerificationService
 import uk.gov.hmrc.auth.core.{Admin, Assistant, User}
-import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation, Agent}
 
 import scala.concurrent.Future
 
@@ -52,10 +52,11 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
 
   def show() = ggAction.async(isSession = true) { ctx => implicit request =>
       auth.userDetails(ctx).flatMap {
-           case user @ UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
+          case user @ UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
             Future.successful(Ok(views.html.createAccount.enrolment_individual(EnrolmentUser.individual, FieldData(userInfo = user.userInfo))))
           case user @ UserDetails(_, UserInfo(_, _, _, _, _, _, Organisation, _)) =>
             orgShow(ctx, user)
+          case user @ UserDetails(_, UserInfo(_, _, _, _, _, _, Agent, _)) => Ok(views.html.errors.invalidAccountType())
         }
   }
 
