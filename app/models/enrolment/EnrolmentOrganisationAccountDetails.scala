@@ -45,6 +45,6 @@ case class EnrolmentOrganisationAccountDetails(firstName: String,
     email = email,
     confirmedEmail = confirmedEmail,
     phone = phone,
-    isAgent = false
+    isAgent = isAgent
   )
 }
