@@ -33,7 +33,12 @@
         </h1>
 
         <h2 class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</h2>
-
+        @if(model.form.hasErrors) {
+            @for(error <- model.form.errors("viewAssessmentRadio")) {
+                <br>
+                <p class="error-message">@messages("error.select.valuation.required")</p>
+            }
+        }
         @form(routes.Assessments.submitViewAssessment(model.assessments.head.authorisationId)) {
             <fieldset>
                 <div id="viewAssessmentRadioGroup" class="form-group">
@@ -49,13 +54,19 @@
                                     <th><span class="margin-left-5">@Messages("assessments.table.5")</span></th>
                                 </tr>
 
-                                @includes.errorSummary(model.form)
 
                                 @model.assessments.map { assessment =>
                                     <tr>
                                         <td>
                                             <div class="multiple-choice">
-                                                <input type="radio" id="viewAssessmentRadio-@assessment.assessmentRef"  name="viewAssessmentRadio" value="@{if (assessment.rateableValue.isDefined) {if(model.linkPending) {assessment.uarn} else {""}} else {assessment.uarn}}-@assessment.assessmentRef-@assessment.billingAuthorityReference">
+                                                <input type="radio"
+                                                id="viewAssessmentRadio-@assessment.assessmentRef"
+                                                name="viewAssessmentRadio"
+                                                value="@{if (assessment.rateableValue.isDefined) {if(model.linkPending) {assessment.uarn} else {""}} else {assessment.uarn}}-@assessment.assessmentRef-@assessment.billingAuthorityReference"
+                                                @if(model.assessments.size == 1){
+                                                    checked="checked"
+                                                 }
+                                                >
                                                 <label for="viewAssessmentRadio-@assessment.assessmentRef">
                                                 @(Formatters.formatDate(assessment.effectiveDate))
                                                 </label>
