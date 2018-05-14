@@ -650,6 +650,7 @@ linkError.conflict.message=We're unable to add this property to your customer re
 linkError.conflict.home.link=Manage your properties
 
 #REQUEST DETAILED VALUATION
+error.select.valuation.required=Please select a Valuation
 requestDetailedValuation.title=This detailed valuation isn’t available to view online.
 requestDetailedValuation.p.1=We’re working to make more detailed valuations available to view online in the next few months. If you need to view this detailed valuation sooner, please request a copy by email or post.
 requestDetailedValuation.p.2=If you don’t want to request this, you can <a href={0}>return to the dashboard.</a>
