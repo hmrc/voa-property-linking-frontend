@@ -41,9 +41,11 @@
 
     <h3 class="heading-medium">@Messages("details.business")</h3>
 
-    <p>
-        <a href="@routes.Application.addUserToGG()">@Messages("dashboard.home.addAnotherUser.link")</a>
-    </p>
+    @if(!isAssistant) {
+        <p>
+            <a href="@routes.Application.addUserToGG()">@Messages("dashboard.home.addAnotherUser.link")</a>
+        </p>
+    }
 
     <div class="table-wrapper">
         <table id="businessDetailsTable" class="table-font-xsmall margin-top-30 margin-bottom-20">
