@@ -71,65 +71,15 @@
                     '_value -> organisationFieldData.businessName,
                     'readonly -> "readonly"
                 )
-
-                <div class=" form-group">
-                    <div id="addressline1Group" class="margin-bottom-0">
-
-                        <label class="form-label-bold" for="addressline1" >
-                            <span class=" label-span">Address</span>
-                        </label>
-
-                        <span class="form-hint">This should be your preferred postal contact address for your business.</span>
-
-                        <div class=" form-group">
-                            <div id="addressline1Group" class="margin-bottom-0">
-                                <label class="visuallyhidden" for="addressline1" >
-                                    <span class=" label-span">Address line 1</span>
-                                </label>
-                                <input type="text" id="addressline1" readonly="readonly" value="@{organisationFieldData.businessAddress.line1}" name="address.line1" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class=" form-group">
-                    <div id="addressline2Group" class="margin-bottom-0">
-                        <label class="visuallyhidden" for="addressline2" >
-                            <span class=" label-span">Address line 2</span>
-                        </label>
-                        <input type="text" readonly="readonly" id="addressline2" value="@{organisationFieldData.businessAddress.line2}" name="address.line2" class="form-control" />
-                    </div>
-                </div>
-
-                <div class=" form-group">
-                    <div id="addressline3Group" class="margin-bottom-0">
-                        <label class="visuallyhidden" for="addressline3" >
-                            <span class=" label-span">Address line 3</span>
-                        </label>
-                        <input type="text" readonly="readonly" id="addressline3" value="@{organisationFieldData.businessAddress.line3}" name="address.line3" class="form-control" />
-                    </div>
-                </div>
-
-                <div class=" form-group">
-                    <div id="addressline4Group" class="margin-bottom-0">
-                        <label class="visuallyhidden" for="addressline4" >
-                            <span class=" label-span">Address line 4</span>
-                        </label>
-                        <input type="text" readonly="readonly" id="addressline4" value="@{organisationFieldData.businessAddress.line4}" name="address.line4" class="form-control" />
-                    </div>
-                </div>
-
-                <br />
-
-                <div class=" form-group">
-                    <div id="addresspostcodeGroup" class="">
-                        <label class="form-label-bold" for="addresspostcode" >
-                            <span class=" label-span">Postcode</span>
-                        </label>
-                        <input type="text" readonly="readonly" id="addresspostcode" value="@{organisationFieldData.businessAddress.postcode}" name="address.postcode" class="form-control form-control-1-4" />
-                    </div>
-                </div>
-
+@*
+                @address_readonly(model, keys.address, postcode = organisationFieldData.businessAddress.postcode)
+*@
+                @address_readonly(model, keys.address,
+                    postcode = organisationFieldData.businessAddress.postcode,
+                    line1 = organisationFieldData.businessAddress.line1,
+                    line2 = organisationFieldData.businessAddress.line2,
+                    line3 = organisationFieldData.businessAddress.line3,
+                    line4 = organisationFieldData.businessAddress.line4)
                 <br />
 
                 @inputText(

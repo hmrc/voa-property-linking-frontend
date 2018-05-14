@@ -94,7 +94,11 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
   def submitAssistant() = ggAction.async(isSession = false) { ctx =>
     implicit request =>
       EnrolmentUser.assistant.bindFromRequest().fold(
-        errors => BadRequest(views.html.createAccount.enrolment_assistant(errors, FieldData())),
+        errors => BadRequest(
+          views.html.createAccount.enrolment_assistant(
+            errors,
+            FieldData()
+          )),
         success =>
           registration
             .create(success.toGroupDetails, success.toIvDetails, ctx)(success.toIndividualAccountSubmission)(hc, ec)

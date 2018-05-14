@@ -51,7 +51,7 @@ class RegistrationServiceWithEnrolmentDisabledSpec extends ServiceSpec {
     val res: Future[RegistrationResult] = registrationService
       .create(
         GroupAccountDetails("", Address(None, "", "", "", "", ""), "", "", "", false),
-        IVDetails("", "", LocalDate.now(), Nino("AA012345A")),
+        IVDetails("", "", Some(LocalDate.now()), Some(Nino("AA012345A"))),
         UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
       )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
 
@@ -66,7 +66,7 @@ class RegistrationServiceWithEnrolmentDisabledSpec extends ServiceSpec {
     val res: Future[RegistrationResult] = registrationService
       .create(
         GroupAccountDetails("", Address(None, "", "", "", "", ""), "", "", "", false),
-        IVDetails("", "", LocalDate.now(), Nino("AA012345A")),
+        IVDetails("", "", Some(LocalDate.now()), Some(Nino("AA012345A"))),
         UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
       )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
 
@@ -79,7 +79,7 @@ class RegistrationServiceWithEnrolmentDisabledSpec extends ServiceSpec {
     val res: Future[RegistrationResult] = registrationService
       .create(
         GroupAccountDetails("", Address(None, "", "", "", "", ""), "", "", "", false),
-        IVDetails("", "", LocalDate.now(), Nino("AA012345A")),
+        IVDetails("", "", Some(LocalDate.now()), Some(Nino("AA012345A"))),
         UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
       )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
 

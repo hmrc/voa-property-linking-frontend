@@ -52,8 +52,8 @@ trait EnrolmentUser {
   def toIvDetails = IVDetails(
     firstName = firstName,
     lastName = lastName,
-    dateOfBirth = None,
-    nino = None
+    dateOfBirth = dob,
+    nino = nino
   )
 }
 
