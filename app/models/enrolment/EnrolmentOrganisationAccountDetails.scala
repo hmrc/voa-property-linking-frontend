@@ -32,12 +32,18 @@ case class EnrolmentOrganisationAccountDetails(firstName: String,
                                                lastName: String,
                                                companyName: String,
                                                address: Address,
-                                               dob: LocalDate,
-                                               nino: Nino,
+                                               dob: Option[LocalDate],
+                                               nino: Option[Nino],
                                                phone: String,
                                                email: String,
                                                confirmedEmail: String,
                                                isAgent: Boolean) extends EnrolmentUser {
+  override def toIvDetails = IVDetails(
+    firstName = firstName,
+    lastName = lastName,
+    dateOfBirth = dob,
+    nino = nino
+  )
 
   def toGroupDetails = GroupAccountDetails(
     companyName = companyName,

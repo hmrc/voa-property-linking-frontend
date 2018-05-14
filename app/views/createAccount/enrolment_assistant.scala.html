@@ -1,0 +1,188 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import models.enrolment._
+@import models.enrolment.EnrolmentUser.keys
+@import helpers._
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import models.enrolment.FieldData
+@import config.ApplicationConfig
+
+@(model: Form[EnrolmentAssistantAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@isAgent(selected:Boolean) = @{if(selected) """checked="checked""" else """ disabled="disabled" """}
+
+@main_template(title = Messages("enrolment.title"), topNavigation = false) {
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">@Messages("enrolment.title")</h1>
+            <h2 class="heading-xlarge">Assistant</h2>
+
+            <details>
+                <summary><span class="summary">@Messages("createAccount.group.details.header.agent")</span></summary>
+                <div class="panel-indent">
+                @Messages("createAccount.group.details.content.agent")
+                </div>
+            </details>
+
+            <br />
+
+            @includes.errorSummary(model, messagePrefix = Some("createAccount"))
+
+            @form(controllers.enrolment.routes.CreateEnrolmentUser.submitAssistant()) {
+
+                @inputText(
+                    field = model(keys.firstName),
+                    '_label -> Messages("enrolment.firstName"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control"
+                )
+
+                @inputText(
+                    field = model(keys.lastName),
+                    '_label -> Messages("enrolment.lastName"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control"
+                )
+
+                @inputText(
+                    field = model(keys.companyName),
+                    '_label -> Messages("enrolment.organisation.name"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_value -> organisationFieldData.businessName,
+                    'readonly -> "readonly"
+                )
+
+                <div class=" form-group">
+                    <div id="addressline1Group" class="margin-bottom-0">
+
+                        <label class="form-label-bold" for="addressline1" >
+                            <span class=" label-span">Address</span>
+                        </label>
+
+                        <span class="form-hint">This should be your preferred postal contact address for your business.</span>
+
+                        <div class=" form-group">
+                            <div id="addressline1Group" class="margin-bottom-0">
+                                <label class="visuallyhidden" for="addressline1" >
+                                    <span class=" label-span">Address line 1</span>
+                                </label>
+                                <input type="text" id="addressline1" readonly="readonly" value="@{organisationFieldData.businessAddress.line1}" name="address.line1" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" form-group">
+                    <div id="addressline2Group" class="margin-bottom-0">
+                        <label class="visuallyhidden" for="addressline2" >
+                            <span class=" label-span">Address line 2</span>
+                        </label>
+                        <input type="text" readonly="readonly" id="addressline2" value="@{organisationFieldData.businessAddress.line2}" name="address.line2" class="form-control" />
+                    </div>
+                </div>
+
+                <div class=" form-group">
+                    <div id="addressline3Group" class="margin-bottom-0">
+                        <label class="visuallyhidden" for="addressline3" >
+                            <span class=" label-span">Address line 3</span>
+                        </label>
+                        <input type="text" readonly="readonly" id="addressline3" value="@{organisationFieldData.businessAddress.line3}" name="address.line3" class="form-control" />
+                    </div>
+                </div>
+
+                <div class=" form-group">
+                    <div id="addressline4Group" class="margin-bottom-0">
+                        <label class="visuallyhidden" for="addressline4" >
+                            <span class=" label-span">Address line 4</span>
+                        </label>
+                        <input type="text" readonly="readonly" id="addressline4" value="@{organisationFieldData.businessAddress.line4}" name="address.line4" class="form-control" />
+                    </div>
+                </div>
+
+                <br />
+
+                <div class=" form-group">
+                    <div id="addresspostcodeGroup" class="">
+                        <label class="form-label-bold" for="addresspostcode" >
+                            <span class=" label-span">Postcode</span>
+                        </label>
+                        <input type="text" readonly="readonly" id="addresspostcode" value="@{organisationFieldData.businessAddress.postcode}" name="address.postcode" class="form-control form-control-1-4" />
+                    </div>
+                </div>
+
+                <br />
+
+                @inputText(
+                    field = model(keys.phone),
+                    '_label -> Messages("enrolment.businessPhoneNumber"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_value -> organisationFieldData.businessPhoneNumber,
+                    'readonly -> "readonly"
+                )
+
+                @inputText(
+                    field = model(keys.email),
+                    '_label -> Messages("enrolment.emailAddress"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_value -> organisationFieldData.email,
+                    'readonly -> "readonly"
+                )
+
+                @inputText(
+                    field = model(keys.confirmedBusinessEmail),
+                    '_label -> Messages("enrolment.confirmEmailAddress"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_value -> organisationFieldData.email,
+                    'readonly -> "readonly"
+                )
+
+                <fieldset id="isAgentGroup" class="inline">
+                    <legend class="form-label-bold">
+                        <span class="label-span">@Messages("enrolment.organisation.individualOrCompany")</span>
+                    </legend>
+                    <label class="block-label" for="isAgent_true">
+                        <input id="isAgent_true" type="radio" name="isAgent" value="true" @isAgent(organisationFieldData.isAgent) />
+                        Yes
+                    </label>
+
+                    <label class="block-label" for="isAgent_false">
+                        <input id="isAgent_false" type="radio" name="isAgent" value="false" @isAgent(!organisationFieldData.isAgent) />
+                        No
+                    </label>
+                </fieldset>
+
+                <p>
+                    <button type="submit" id="save-and-continue" class="button">@Messages("app.common.saveAndContinue")</button>
+                </p>
+            }
+
+        </div>
+    </div>
+
+}

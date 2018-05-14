@@ -126,6 +126,7 @@ GET         /planned-improvements                                               
 GET         /complete-contact-details                                                         @controllers.enrolment.CreateEnrolmentUser.show()
 POST        /complete-business-contact-details                                                @controllers.enrolment.CreateEnrolmentUser.submitOrganisation()
 POST        /complete-your-contact-details                                                    @controllers.enrolment.CreateEnrolmentUser.submitIndividual()
+POST        /complete-business-contact-details-assistant                                      @controllers.enrolment.CreateEnrolmentUser.submitAssistant()
 GET         /create-success                                                                   @controllers.enrolment.CreateEnrolmentUser.success(personId: Long, url: String)
 
 #Draft Checks

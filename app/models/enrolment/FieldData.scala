@@ -16,10 +16,16 @@
 
 package models.enrolment
 
+import models.Address
+
 case class FieldData(firstName: String = "",
                      lastName: String = "",
                      postcode: String = "",
-                     email: String = "")
+                     email: String = "",
+                     businessName: String = "",
+                     businessPhoneNumber: String = "",
+                     businessAddress: Address = Address(addressUnitId = None, line1 = "", line2 = "", line3 = "", line4 = "", postcode = ""),
+                     isAgent: Boolean = false)
 
 object FieldData {
 
@@ -28,6 +34,10 @@ object FieldData {
       firstName = userInfo.firstName.getOrElse(""),
       lastName = userInfo.lastName.getOrElse(""),
       postcode = userInfo.postcode.getOrElse(""),
-      email = userInfo.email
+      email = userInfo.email,
+      businessName = "",
+      businessPhoneNumber = "",
+      businessAddress = Address(None, "", "", "", "", ""),
+      isAgent = true
     )
 }

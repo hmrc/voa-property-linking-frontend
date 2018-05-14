@@ -21,7 +21,7 @@ import java.time.LocalDate
 import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino
 
-case class IVDetails(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino)
+case class IVDetails(firstName: String, lastName: String, dateOfBirth: Option[LocalDate], nino: Option[Nino])
 
 object IVDetails {
   implicit val formats = Json.format[IVDetails]

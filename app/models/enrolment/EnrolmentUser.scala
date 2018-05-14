@@ -34,8 +34,8 @@ trait EnrolmentUser {
   val firstName: String
   val lastName: String
   val address: Address
-  val dob: LocalDate
-  val nino: Nino
+  val dob: Option[LocalDate]
+  val nino: Option[Nino]
   val phone: String
   val email: String
   val confirmedEmail: String
@@ -47,13 +47,13 @@ trait EnrolmentUser {
     details = IndividualDetails(firstName, lastName, email, phone, None, id)
   )
 
-  def toGroupDetails: GroupAccountDetails
+//  def toGroupDetails: GroupAccountDetails
 
   def toIvDetails = IVDetails(
     firstName = firstName,
     lastName = lastName,
-    dateOfBirth = dob,
-    nino = nino
+    dateOfBirth = None,
+    nino = None
   )
 }
 
@@ -79,8 +79,8 @@ object EnrolmentUser {
     keys.firstName -> nonEmptyText,
     keys.lastName -> nonEmptyText,
     keys.address -> addressMapping,
-    keys.dateOfBirth -> dmyPastDate,
-    keys.nino -> nino,
+    keys.dateOfBirth -> optional(dmyPastDate),
+    keys.nino -> optional(nino),
     keys.phone -> nonEmptyText(maxLength = 15),
     keys.mobilePhone -> nonEmptyText(maxLength = 15),
     keys.email -> email.verifying(Constraints.maxLength(150)),
@@ -93,13 +93,25 @@ object EnrolmentUser {
     keys.lastName -> nonEmptyText,
     keys.companyName -> nonEmptyText(maxLength = 45),
     keys.address -> addressMapping,
-    keys.dateOfBirth -> dmyPastDate,
-    keys.nino -> nino,
+    keys.dateOfBirth -> optional(dmyPastDate),
+    keys.nino -> optional(nino),
     keys.phone -> nonEmptyText.verifying("Maximum length is 15", _.length <= 15),
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.isAgent -> mandatoryBoolean
   )(EnrolmentOrganisationAccountDetails.apply)(EnrolmentOrganisationAccountDetails.unapply))
+
+  lazy val assistant = Form(mapping(
+    keys.firstName -> nonEmptyText,
+    keys.lastName -> nonEmptyText,
+    keys.companyName -> nonEmptyText(maxLength = 45),
+    keys.address -> addressMapping,
+    keys.phone -> nonEmptyText.verifying("Maximum length is 15", _.length <= 15),
+    keys.email -> email.verifying(Constraints.maxLength(150)),
+    keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
+    keys.isAgent -> mandatoryBoolean
+  )(EnrolmentAssistantAccountDetails.apply)(EnrolmentAssistantAccountDetails.unapply))
+
 
   private lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
 

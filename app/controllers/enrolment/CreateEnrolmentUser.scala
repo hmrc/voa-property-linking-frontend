@@ -91,6 +91,22 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
       )
   }
 
+  def submitAssistant() = ggAction.async(isSession = false) { ctx =>
+    implicit request =>
+      EnrolmentUser.assistant.bindFromRequest().fold(
+        errors => BadRequest(views.html.createAccount.enrolment_assistant(errors, FieldData())),
+        success =>
+          registration
+            .create(success.toGroupDetails, success.toIvDetails, ctx)(success.toIndividualAccountSubmission)(hc, ec)
+            .map{
+              case EnrolmentSuccess(link, personId) => Redirect(routes.CreateEnrolmentUser.success(personId, link.getLink(config.ivBaseUrl)))
+              case IVNotRequired(personId)          => Redirect(routes.CreateEnrolmentUser.success(personId, controllers.routes.Dashboard.home().url))
+              case EnrolmentFailure                 => InternalServerError(Global.internalServerErrorTemplate)
+              case DetailsMissing                   => InternalServerError(Global.internalServerErrorTemplate)
+            }
+      )
+  }
+
   def success(personId: Long, url: String) = authenticatedAction { implicit request =>
     Ok(views.html.createAccount.confirmation_enrolment(s"VOA Personal ID: $personId", url))
       .withSession(request.session.removeUserDetails)
@@ -102,14 +118,23 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
       acc         <- OptionT(groupAccounts.withGroupId(groupId))
       address     <- OptionT(addresses.findById(acc.addressId))
     } yield {
-      new FieldData(postcode = address.postcode, email = acc.email)
+      new FieldData(postcode = address.postcode, businessAddress = address, email = acc.email,
+        businessName = acc.companyName, businessPhoneNumber = acc.phone, isAgent = acc.isAgent)
     }).value
 
     fieldDataFOptT.map{
       case Some(fieldData) =>
-        Ok(views.html.createAccount.enrolment_organisation(
-          EnrolmentUser.organisation,
-          fieldData))
+        userDetails.userInfo.credentialRole match {
+          case Admin | User =>
+            Ok(views.html.createAccount.enrolment_organisation(
+              EnrolmentUser.organisation,
+              fieldData))
+          case Assistant =>
+            Ok(views.html.createAccount.enrolment_assistant(
+              EnrolmentUser.assistant,
+              fieldData))
+        }
+
       case None =>
         userDetails.userInfo.credentialRole match {
           case Admin | User =>

@@ -45,14 +45,21 @@ import views.helpers.Errors
 case class EnrolmentIndividualAccountDetails(firstName: String,
                                              lastName: String,
                                              address: Address,
-                                             dob: LocalDate,
-                                             nino: Nino,
+                                             dob: Option[LocalDate],
+                                             nino: Option[Nino],
                                              phone: String,
                                              mobilePhone: String,
                                              email: String,
                                              confirmedEmail: String,
                                              tradingName: Option[String]
                                             ) extends EnrolmentUser {
+
+  override def toIvDetails = IVDetails(
+    firstName = firstName,
+    lastName = lastName,
+    dateOfBirth = dob,
+    nino = nino
+  )
 
   def toGroupDetails = GroupAccountDetails(
     companyName = tradingName.getOrElse("Not Applicable"),
