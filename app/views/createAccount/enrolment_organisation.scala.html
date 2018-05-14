@@ -119,6 +119,8 @@
                     )
                 )
 
+                <p class="panel panel-border-wide">@Messages("isAgent.details")</p>
+
             @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")))
 
             @inputText(
@@ -136,8 +138,6 @@
                     @Html(Messages("start.registration.IdontHave.answer"))
                     </div>
                 </details>
-
-                <p class="panel panel-border-wide">@Messages("isAgent.details")</p>
 
                 <p>
                     <button type="submit" id="save-and-continue" class="button">@Messages("app.common.saveAndContinue")</button>
