@@ -55,7 +55,14 @@
                                     <tr>
                                         <td>
                                             <div class="multiple-choice">
-                                                <input type="radio" id="viewAssessmentRadio-@assessment.assessmentRef"  name="viewAssessmentRadio" value="@{if (assessment.rateableValue.isDefined) {if(model.linkPending) {assessment.uarn} else {""}} else {assessment.uarn}}-@assessment.assessmentRef-@assessment.billingAuthorityReference">
+                                                <input type="radio"
+                                                id="viewAssessmentRadio-@assessment.assessmentRef"
+                                                name="viewAssessmentRadio"
+                                                value="@{if (assessment.rateableValue.isDefined) {if(model.linkPending) {assessment.uarn} else {""}} else {assessment.uarn}}-@assessment.assessmentRef-@assessment.billingAuthorityReference"
+                                                @if(model.assessments.size == 1){
+                                                    checked="checked"
+                                                 }
+                                                >
                                                 <label for="viewAssessmentRadio-@assessment.assessmentRef">
                                                 @(Formatters.formatDate(assessment.effectiveDate))
                                                 </label>
