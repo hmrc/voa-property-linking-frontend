@@ -33,7 +33,7 @@ object FieldData {
     new FieldData(
       firstName = userInfo.firstName.getOrElse(""),
       lastName = userInfo.lastName.getOrElse(""),
-      //postcode = userInfo.postcode.getOrElse(""),
+      postcode = userInfo.postcode.getOrElse(""),
       email = userInfo.email,
       businessName = "",
       businessPhoneNumber = "",

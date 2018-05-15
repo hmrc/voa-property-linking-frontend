@@ -26,9 +26,7 @@ case class EnrolmentAssistantAccountDetails(firstName: String,
                                             phone: String,
                                             email: String,
                                             confirmedEmail: String,
-                                            isAgent: Boolean) extends EnrolmentUser {
-  override val dob = None
-  override val nino = None
+                                            isAgent: Boolean) extends RegisterAssistant {
 
   def toGroupDetails = GroupAccountDetails(
     companyName = companyName,

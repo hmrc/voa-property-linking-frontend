@@ -16,13 +16,11 @@
 
 @import helpers._
 @import models.enrolment._
-@import models.enrolment.EnrolmentUser.keys
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import models.enrolment.FieldData
 @import config.ApplicationConfig
 
 @(model: Form[EnrolmentIndividualAccountDetails], individualFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-
 
 @main_template(title = Messages("enrolment.title"), topNavigation = false) {
 

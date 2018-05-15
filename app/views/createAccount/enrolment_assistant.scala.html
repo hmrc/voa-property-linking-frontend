@@ -15,7 +15,6 @@
  *@
 
 @import models.enrolment._
-@import models.enrolment.EnrolmentUser.keys
 @import helpers._
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import models.enrolment.FieldData
@@ -71,9 +70,8 @@
                     '_value -> organisationFieldData.businessName,
                     'readonly -> "readonly"
                 )
-@*
-                @address_readonly(model, keys.address, postcode = organisationFieldData.businessAddress.postcode)
-*@
+
+                @* refactor to just pass in businessAddress? *@
                 @address_readonly(model, keys.address,
                     postcode = organisationFieldData.businessAddress.postcode,
                     line1 = organisationFieldData.businessAddress.line1,
