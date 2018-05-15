@@ -49,18 +49,23 @@ object DraftCase {
     ) (mkAddress _)
 
   // scalastyle:off
-  private def mkAddress(l1: Option[String],
-                        l2: Option[String],
-                        l3: Option[String],
-                        l4: Option[String],
-                        l5: Option[String],
-                        l6: Option[String],
-                        l7: Option[String],
-                        l8: Option[String],
-                        l9: Option[String],
-                        l10: Option[String],
+  private def mkAddress(name: Option[String],
+                        firm: Option[String],
+                        number: Option[String],
+                        street: Option[String],
+                        subStreet1: Option[String],
+                        subStreet2: Option[String],
+                        subStreet3: Option[String],
+                        postalDistrict: Option[String],
+                        town: Option[String],
+                        county: Option[String],
                         postcode: Option[String]): PropertyAddress = {
-    val lines = Seq(l1, l2, l3, l4, l5, l6, l7, l8, l9, l10) collect { case Some(l) => l }
+
+    val nameAndOrNumber: Option[String] = Seq(number, name).flatten.mkString(" ") match {
+      case "" => None
+      case nameAndOrNumber => Some(nameAndOrNumber)
+    }
+    val lines = Seq(nameAndOrNumber, firm, street, subStreet1, subStreet2, subStreet3, postalDistrict, town, county) collect { case Some(l) => l }
     PropertyAddress(lines, postcode.getOrElse(""))
   }
 }
