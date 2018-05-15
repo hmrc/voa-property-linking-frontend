@@ -130,6 +130,8 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     status(res) mustBe OK
 
     val html = HtmlPage(res)
+    html.inputMustContain("addresspostcode", testOrganisationInfo.postcode.get)
+
     html.mustContainText("Business name")
     html.inputMustContain("email", testOrganisationInfo.email)
     html.inputMustContain("confirmedBusinessEmail", testOrganisationInfo.email)

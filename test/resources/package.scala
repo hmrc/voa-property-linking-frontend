@@ -234,7 +234,7 @@ package object resources {
     lastName <- shortString
     dob <- arbitrary[LocalDate]
     nino <- arbitrary[Nino]
-  } yield IVDetails(firstName, lastName, dob, nino)
+  } yield IVDetails(firstName, lastName, Some(dob), Some(nino))
 
   implicit val arbitraryIVDetails = Arbitrary(ivDetailsGen)
 

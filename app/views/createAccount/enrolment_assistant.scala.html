@@ -20,8 +20,9 @@
 @import models.enrolment.FieldData
 @import config.ApplicationConfig
 
-@(model: Form[EnrolmentOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: Form[EnrolmentAssistantAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@isAgent(selected:Boolean) = @{if(selected) """checked="checked""" else """ disabled="disabled" """}
 
 @main_template(title = Messages("enrolment.title"), topNavigation = false) {
 
@@ -29,6 +30,7 @@
         <div class="column-two-thirds">
 
             <h1 class="heading-xlarge">@Messages("enrolment.title")</h1>
+            <h2 class="heading-xlarge">Assistant</h2>
 
             <details>
                 <summary><span class="summary">@Messages("createAccount.group.details.header.agent")</span></summary>
@@ -41,15 +43,14 @@
 
             @includes.errorSummary(model, messagePrefix = Some("createAccount"))
 
-            @form(controllers.enrolment.routes.CreateEnrolmentUser.submitOrganisation()) {
+            @form(controllers.enrolment.routes.CreateEnrolmentUser.submitAssistant()) {
 
                 @inputText(
                     field = model(keys.firstName),
                     '_label -> Messages("enrolment.firstName"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control",
-                    'value -> organisationFieldData.firstName
+                    'class -> "form-control"
                 )
 
                 @inputText(
@@ -57,8 +58,7 @@
                     '_label -> Messages("enrolment.lastName"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control",
-                    'value -> organisationFieldData.lastName
+                    'class -> "form-control"
                 )
 
                 @inputText(
@@ -66,18 +66,18 @@
                     '_label -> Messages("enrolment.organisation.name"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control"
+                    'class -> "form-control",
+                    '_value -> organisationFieldData.businessName,
+                    'readonly -> "readonly"
                 )
 
-                @address(model, keys.address, postcode = organisationFieldData.postcode)
-
-                <details>
-                    <summary><span class="summary">@Messages("createAccount.group.details.header.multipleAddress")</span></summary>
-                    <div class="panel-indent">
-                    @Messages("createAccount.group.details.content.multipleAddress")
-                    </div>
-                </details>
-
+                @* refactor to just pass in businessAddress? *@
+                @address_readonly(model, keys.address,
+                    postcode = organisationFieldData.businessAddress.postcode,
+                    line1 = organisationFieldData.businessAddress.line1,
+                    line2 = organisationFieldData.businessAddress.line2,
+                    line3 = organisationFieldData.businessAddress.line3,
+                    line4 = organisationFieldData.businessAddress.line4)
                 <br />
 
                 @inputText(
@@ -85,7 +85,9 @@
                     '_label -> Messages("enrolment.businessPhoneNumber"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control"
+                    'class -> "form-control",
+                    '_value -> organisationFieldData.businessPhoneNumber,
+                    'readonly -> "readonly"
                 )
 
                 @inputText(
@@ -94,7 +96,8 @@
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    '_value -> organisationFieldData.email
+                    '_value -> organisationFieldData.email,
+                    'readonly -> "readonly"
                 )
 
                 @inputText(
@@ -103,40 +106,24 @@
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    '_value -> organisationFieldData.email
+                    '_value -> organisationFieldData.email,
+                    'readonly -> "readonly"
                 )
 
-                @inputRadioGroup(
-                    field = model(keys.isAgent),
-                    options = Seq("true", "false"),
-                    dataAttributes = Nil,
-                    args = Seq(
-                        '_label -> Messages("enrolment.organisation.individualOrCompany"),
-                        '_labelClass -> "form-label-bold",
-                        '_legend -> true,
-                        '_fieldsetClass -> "inline"
-                    )
-                )
+                <fieldset id="isAgentGroup" class="inline">
+                    <legend class="form-label-bold">
+                        <span class="label-span">@Messages("enrolment.organisation.individualOrCompany")</span>
+                    </legend>
+                    <label class="block-label" for="isAgent_true">
+                        <input id="isAgent_true" type="radio" name="isAgent" value="true" @isAgent(organisationFieldData.isAgent) />
+                        Yes
+                    </label>
 
-                <p class="panel panel-border-wide">@Messages("isAgent.details")</p>
-
-            @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")))
-
-            @inputText(
-            field = model(keys.nino),
-            '_label -> Messages(s"label.createAccount.${keys.nino}"),
-            '_labelClass -> "form-label-bold",
-            '_showConstraints -> false,
-            'class -> "form-control",
-            '_help -> Messages("hint.nino")
-            )
-
-                <details>
-                    <summary><span class="summary">@Messages("start.registration.IdontHave")</span></summary>
-                    <div class="panel-indent">
-                    @Html(Messages("start.registration.IdontHave.answer"))
-                    </div>
-                </details>
+                    <label class="block-label" for="isAgent_false">
+                        <input id="isAgent_false" type="radio" name="isAgent" value="false" @isAgent(!organisationFieldData.isAgent) />
+                        No
+                    </label>
+                </fieldset>
 
                 <p>
                     <button type="submit" id="save-and-continue" class="button">@Messages("app.common.saveAndContinue")</button>

@@ -24,7 +24,7 @@ import uk.gov.hmrc.domain.Nino
 case class PersonalDetails(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino,
                            email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: Address) {
 
-  def ivDetails = IVDetails(firstName, lastName, dateOfBirth, nino)
+  def ivDetails = IVDetails(firstName, lastName, Some(dateOfBirth), Some(nino))
 
   def individualDetails = {
     IndividualDetails(firstName, lastName, email, phone1, phone2, address.addressUnitId.getOrElse(throw new Exception("Address ID not set")))
