@@ -40,4 +40,16 @@ object FieldData {
       businessAddress = Address(None, "", "", "", "", ""),
       isAgent = true
     )
+
+  def apply(map: Map[String, String]): FieldData =
+    new FieldData(
+      firstName = "",
+      lastName = "",
+      postcode = map("address.postcode"),
+      email = map("email"),
+      businessName = map("companyName"),
+      businessPhoneNumber = map("phone"),
+      businessAddress = Address(None,  map("address.line1"), map("address.line2"), map("address.line3"), map("address.line4"),  map("address.postcode")),
+      isAgent = map("isAgent").toBoolean
+    )
 }

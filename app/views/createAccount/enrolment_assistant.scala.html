@@ -19,31 +19,46 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import models.enrolment.FieldData
 @import config.ApplicationConfig
+@import utils.Formatters._
 
 @(model: Form[EnrolmentAssistantAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @isAgent(selected:Boolean) = @{if(selected) """checked="checked""" else """ disabled="disabled" """}
-
 @main_template(title = Messages("enrolment.title"), topNavigation = false) {
 
     <div class="grid-row">
         <div class="column-two-thirds">
 
             <h1 class="heading-xlarge">@Messages("enrolment.title")</h1>
-            <h2 class="heading-xlarge">Assistant</h2>
+            <p class="form-hint">@Messages("enrolment.assistant.hint")</p>
+            <h2 class="heading-medium">@Messages("enrolment.assistant.organisation.details.title")</h2>
 
-            <details>
-                <summary><span class="summary">@Messages("createAccount.group.details.header.agent")</span></summary>
-                <div class="panel-indent">
-                @Messages("createAccount.group.details.content.agent")
-                </div>
-            </details>
+            @form(controllers.enrolment.routes.CreateEnrolmentUser.submitAssistant()) {
 
-            <br />
+                <table>
+                <tbody><tr>
+                    <th>@Messages("enrolment.organisation.name.label")</th>
+                    <td>@organisationFieldData.businessName</td>
+                </tr>
+                    <tr>
+                        <th>@Messages("label.postal.address")</th>
+                        <td>@Html(capitalizedAddress(organisationFieldData.businessAddress).replaceAll(", ", "<br>"))
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>@Messages("label.telephone.number")</th>
+                        <td>@organisationFieldData.businessPhoneNumber</td>
+                    </tr>
+                    <tr>
+                        <th>@Messages("label.correspondence.email.address")</th>
+                        <td>@organisationFieldData.email</td>
+                    </tr>
+                </tbody></table>
+
+            <h2 class="heading-medium">@Messages("label.your.details")</h2>
 
             @includes.errorSummary(model, messagePrefix = Some("createAccount"))
 
-            @form(controllers.enrolment.routes.CreateEnrolmentUser.submitAssistant()) {
 
                 @inputText(
                     field = model(keys.firstName),
@@ -61,72 +76,18 @@
                     'class -> "form-control"
                 )
 
-                @inputText(
-                    field = model(keys.companyName),
-                    '_label -> Messages("enrolment.organisation.name"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> organisationFieldData.businessName,
-                    'readonly -> "readonly"
-                )
-
-                @* refactor to just pass in businessAddress? *@
-                @address_readonly(model, keys.address,
-                    postcode = organisationFieldData.businessAddress.postcode,
-                    line1 = organisationFieldData.businessAddress.line1,
-                    line2 = organisationFieldData.businessAddress.line2,
-                    line3 = organisationFieldData.businessAddress.line3,
-                    line4 = organisationFieldData.businessAddress.line4)
-                <br />
-
-                @inputText(
-                    field = model(keys.phone),
-                    '_label -> Messages("enrolment.businessPhoneNumber"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> organisationFieldData.businessPhoneNumber,
-                    'readonly -> "readonly"
-                )
-
-                @inputText(
-                    field = model(keys.email),
-                    '_label -> Messages("enrolment.emailAddress"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> organisationFieldData.email,
-                    'readonly -> "readonly"
-                )
-
-                @inputText(
-                    field = model(keys.confirmedBusinessEmail),
-                    '_label -> Messages("enrolment.confirmEmailAddress"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> organisationFieldData.email,
-                    'readonly -> "readonly"
-                )
-
-                <fieldset id="isAgentGroup" class="inline">
-                    <legend class="form-label-bold">
-                        <span class="label-span">@Messages("enrolment.organisation.individualOrCompany")</span>
-                    </legend>
-                    <label class="block-label" for="isAgent_true">
-                        <input id="isAgent_true" type="radio" name="isAgent" value="true" @isAgent(organisationFieldData.isAgent) />
-                        Yes
-                    </label>
-
-                    <label class="block-label" for="isAgent_false">
-                        <input id="isAgent_false" type="radio" name="isAgent" value="false" @isAgent(!organisationFieldData.isAgent) />
-                        No
-                    </label>
-                </fieldset>
-
+                <input type="hidden" id="companyName" value="@organisationFieldData.businessName" name="companyName" class="form-control">
+                <input type="hidden" id="address.line1" value="@organisationFieldData.businessAddress.line1" name="address.line1" class="form-control">
+                <input type="hidden" id="address.line2" value="@organisationFieldData.businessAddress.line2" name="address.line2" class="form-control">
+                <input type="hidden" id="address.line3" value="@organisationFieldData.businessAddress.line3" name="address.line3" class="form-control">
+                <input type="hidden" id="address.line4" value="@organisationFieldData.businessAddress.line4" name="address.line4" class="form-control">
+                <input type="hidden" id="address.postcode" value="@organisationFieldData.businessAddress.postcode" name="address.postcode" class="form-control">
+                <input type="hidden" id="phone" value="@organisationFieldData.businessPhoneNumber" name="phone" class="form-control">
+                <input type="hidden" id="email" value="@organisationFieldData.email" name="email" class="form-control">
+                <input type="hidden" id="confirmedBusinessEmail" value="@organisationFieldData.email" name="confirmedBusinessEmail" class="form-control">
+                <input id="isAgent_true" type="hidden" name="isAgent" value="@organisationFieldData.isAgent"  checked="checked" />
                 <p>
-                    <button type="submit" id="save-and-continue" class="button">@Messages("app.common.saveAndContinue")</button>
+                    <button type="submit" id="save-and-continue" class="button">@Messages("label.confirm")</button>
                 </p>
             }
 

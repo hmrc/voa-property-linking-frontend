@@ -97,7 +97,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
         errors => BadRequest(
           views.html.createAccount.enrolment_assistant(
             errors,
-            FieldData()
+             FieldData(errors.data)
           )),
         success =>
           registration
