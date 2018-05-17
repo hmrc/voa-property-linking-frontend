@@ -36,8 +36,10 @@
             &nbsp;
         <span class="userStatus--agentCode">@Messages("dashboard.agentCode", agentCode)</span>
     }
-        &nbsp;&nbsp;
-    <span class="panel panel-border">@Messages("dashboard.voaPersonalID") @voaPersonId</span>
+    @if(config.enrolmentEnabled) {
+            &nbsp;&nbsp;
+        <span class="panel panel-border">@Messages("dashboard.voaPersonalID") @voaPersonId</span>
+    }
 
     <span class="userStatus--signOut">
         <a href="@routes.Application.logOut().url">@Messages("dashboard.notYou")</a>
