@@ -24,6 +24,7 @@ start.register=Register now
 
 label.login=Sign in
 label.register=Register
+label.confirm=Confirm
 
 app.common.errorSummaryLabel            = The following errors were identified on this page.
 
@@ -958,9 +959,14 @@ plannedImprovements.b2=automatically sending you an acknowledgment email when we
 plannedImprovements.b3=providing a summary of your submitted check via the dashboard, and the option to download a PDF version
 
 #ENROLMENT
+label.postal.address = Postal address
+label.telephone.number = Telephone number
+label.correspondence.email.address = Correspondence email address
 label.createAccount.firstName= First Name
 label.createAccount.lastName= Last Name
 label.createAccount.phone= Phone Number
+label.your.details= Your details
+
 choice.individual=Individual (you represent yourself)
 choice.organisation=Organisation (you represent a business, charity or other organisation)
 account.enrolment.link.text=Go To Dashboard
@@ -975,6 +981,11 @@ create-account.type.question=Which type of account would you like to create?
 
 enrolment.title = Complete your contact details
 enrolment.organisation.name = Business name
+enrolment.organisation.name.label = Organisation name
+
+enrolment.assistant.hint = You have been registered as a new user, please confirm your details below
+enrolment.assistant.organisation.details.title = Your organisation details
+
 enrolment.firstName = First name
 enrolment.lastName = Last name
 enrolment.address1 = Address line 1
