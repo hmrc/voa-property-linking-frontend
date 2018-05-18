@@ -248,6 +248,9 @@ dashboard.home.addAnotherUser.text=To add another user, you’ll firstly need to
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=My properties
 dashboard.manageProperties.expectDelays=It may take several hours for your property to display here once you have claimed it.
+dashboard.manageProperties.noPropertiesMessage1=You haven't claimed any properties yet. You need to 
+dashboard.manageProperties.noPropertiesMessagelink=claim a property
+dashboard.manageProperties.noPropertiesMessage2=before you can check or challenge the rateable value.
 dashboard.manageProperties.noProperties=There are no properties to display.
 manageProperties.table.caption=Your properties
 manageProperties.table.1=Address
