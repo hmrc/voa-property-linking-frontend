@@ -250,7 +250,6 @@ dashboard.manageProperties.expectDelays=It may take several hours for your prope
 dashboard.manageProperties.noPropertiesMessage1=You haven't claimed any properties yet. You need to 
 dashboard.manageProperties.noPropertiesMessagelink=claim a property
 dashboard.manageProperties.noPropertiesMessage2=before you can check or challenge the rateable value.
-
 dashboard.manageProperties.noProperties=There are no properties to display.
 manageProperties.table.caption=Your properties
 manageProperties.table.1=Address
