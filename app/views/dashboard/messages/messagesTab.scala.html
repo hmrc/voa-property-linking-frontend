@@ -46,14 +46,14 @@
         </colgroup>
         <thead>
             <tr role="row">
-                <th>@sortingControl(MessageSortField.LastRead)</th>
-                <th>@sortingControl(MessageSortField.Subject)</th>
-                <th>@sortingControl(MessageSortField.Address)</th>
-                <th>@sortingControl(MessageSortField.CaseReference)</th>
+                <th class="messages-table-header">@sortingControl(MessageSortField.LastRead)</th>
+                <th class="messages-table-header">@sortingControl(MessageSortField.Subject)</th>
+                <th class="messages-table-header">@sortingControl(MessageSortField.Address)</th>
+                <th class="messages-table-header">@sortingControl(MessageSortField.CaseReference)</th>
                 @if(request.organisationAccount.isAgent) {
-                    <th>@sortingControl(MessageSortField.ClientName)</th>
+                    <th class="messages-table-header">@sortingControl(MessageSortField.ClientName)</th>
                 }
-                <th>@sortingControl(MessageSortField.EffectiveDate)</th>
+                <th class="messages-table-header">@sortingControl(MessageSortField.EffectiveDate)</th>
             </tr>
 
             <form method="GET" action="@routes.Dashboard.viewMessages()">
@@ -69,7 +69,10 @@
                     @if(request.organisationAccount.isAgent) {
                         <th>@searchField("clientName", pagination.clientName)</th>
                     }
-                    <th></th>
+                    <th>
+                        <a href="@routes.Dashboard.viewMessages(pagination.clear)"
+                        id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
+                    </th>
                     <input type="hidden" name="pageNumber" value="@pagination.pageNumber" readonly>
                     <input type="hidden" name="pageSize" value="@pagination.pageSize" readonly>
                     <input type="hidden" name="sortField" value="@pagination.sortField" readonly>
