@@ -25,10 +25,6 @@ div#messagesTable_filter.dataTables_filter {
   margin: 0 8px 0px 10px
 }
 
-table.message a {
-  text-decoration: none;
-  color: #0b0c0c;
-}
 
 .message {
   table-layout: auto;
@@ -94,6 +90,10 @@ table.message a {
 
   &--row__read:hover > td a i.icon-messageread {
     background-image: url('../images/icon-envelope-open-white.png');
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button:visited {
+    color: $link-visited-colour !important;
   }
 
 }

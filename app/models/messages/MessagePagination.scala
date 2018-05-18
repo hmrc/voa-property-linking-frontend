@@ -35,6 +35,9 @@ case class MessagePagination(clientName: Option[String] = None,
 
   def nextPage: MessagePagination = copy(pageNumber = pageNumber + 1)
 
+  def clear: MessagePagination = copy(address = None, referenceNumber = None)
+
+
   lazy val queryString: String =
     s"""
        |${clientName.filter(_.nonEmpty).fold("")(cn => s"clientName=$cn&")}
