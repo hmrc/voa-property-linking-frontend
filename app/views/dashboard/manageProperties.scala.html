@@ -17,6 +17,8 @@
 @import actions.AuthenticatedRequest
 @import utils.Formatters
 @import config.ApplicationConfig
+@import controllers.propertyLinking.ClaimProperty
+
 
 @(model: controllers.ManagePropertiesVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
@@ -34,6 +36,14 @@
 
         @partials.dashboardTabs(unreadMessageCount)
 
+        @if(model.result.authorisations.isEmpty) {
+            <div class="margin-top-10 panel panel-border-wide">
+            @Messages("dashboard.manageProperties.noPropertiesMessage1")
+                <a href="@controllers.propertyLinking.routes.ClaimProperty.show">@Messages("dashboard.manageProperties.noPropertiesMessagelink")</a>
+                @Messages("dashboard.manageProperties.noPropertiesMessage2")
+            </div>
+        }
+
         <p>@Messages("dashboard.manageProperties.expectDelays")</p>
 
         <div class="margin-top-20"><a href="@controllers.propertyLinking.routes.ClaimProperty.show" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></div>
@@ -41,6 +51,7 @@
         @if(config.agentMultipleAppointEnabled && model.result.authorisations.nonEmpty){
             <div class="margin-top-5"><a href="@agentAppointment.routes.AppointAgentController.appointMultipleProperties()" id="appointAgent">@Messages("manageProperties.appointAgent")</a></div>
         }
+
 
         @if(model.result.authorisations.isEmpty && model.pagination.valuesOfSearchParameters == "") {
             <h2 class="heading-secondary margin-top-20 margin-bottom-20">@Messages("dashboard.manageProperties.noProperties")</h2>
