@@ -91,7 +91,7 @@ div#messagesTable_filter.dataTables_filter {
     background-image: url('../images/icon-envelope-open-white.png');
   }
 
-  .paginate_button:visited {
+  .dataTables_wrapper .dataTables_paginate .paginate_button:visited {
     color: $link-visited-colour !important;
   }
 

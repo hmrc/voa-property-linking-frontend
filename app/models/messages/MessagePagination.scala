@@ -35,7 +35,7 @@ case class MessagePagination(clientName: Option[String] = None,
 
   def nextPage: MessagePagination = copy(pageNumber = pageNumber + 1)
 
-  def clear: MessagePagination = copy(address = None, referenceNumber = None)
+  def clear: MessagePagination = copy(address = None, referenceNumber = None, clientName = None)
 
 
   lazy val queryString: String =
