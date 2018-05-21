@@ -19,14 +19,9 @@ package models.enrolment
 import java.time.LocalDate
 
 import controllers.GroupAccountDetails
-import form.Mappings._
-import form.TextMatching
-import models.{Address, IVDetails, IndividualAccountSubmission, IndividualDetails}
-import play.api.data.{Form, Mapping}
-import play.api.data.Forms.{email, mapping, nonEmptyText, text}
-import play.api.data.validation._
+import models.{Address, IVDetails}
+import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino
-import views.helpers.Errors
 
 case class EnrolmentOrganisationAccountDetails(firstName: String,
                                                lastName: String,
@@ -54,3 +49,9 @@ case class EnrolmentOrganisationAccountDetails(firstName: String,
     isAgent = isAgent
   )
 }
+
+object EnrolmentOrganisationAccountDetails {
+  implicit val format = Json.format[EnrolmentOrganisationAccountDetails]
+}
+
+

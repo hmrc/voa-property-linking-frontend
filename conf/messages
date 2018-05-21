@@ -980,6 +980,7 @@ account.enrolment.personId=Your ID number is {0}
 account.enrolment.disclaimer=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
 account.enrolment.footer=Valuation Office Agency (VOA)
 
+create.success.personId=VOA Personal ID:
 create-account.type.question=Which type of account would you like to create?
 
 enrolment.title = Complete your contact details

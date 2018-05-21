@@ -33,6 +33,7 @@ POST        /create-account                                                     
 
 #Identity verification
 GET         /identity-verification/start                                                      @controllers.IdentityVerification.startIv
+GET         /identity-verification/start-enrolment                                            @controllers.IdentityVerification.startIvEnrolment
 GET         /identity-verification/failed                                                     @controllers.IdentityVerification.fail
 GET         /identity-verification/restore-session                                            @controllers.IdentityVerification.restoreSession
 GET         /identity-verification/success                                                    @controllers.IdentityVerification.success
@@ -127,7 +128,7 @@ GET         /complete-contact-details                                           
 POST        /complete-business-contact-details                                                @controllers.enrolment.CreateEnrolmentUser.submitOrganisation()
 POST        /complete-your-contact-details                                                    @controllers.enrolment.CreateEnrolmentUser.submitIndividual()
 POST        /complete-business-contact-details-assistant                                      @controllers.enrolment.CreateEnrolmentUser.submitAssistant()
-GET         /create-success                                                                   @controllers.enrolment.CreateEnrolmentUser.success(personId: Long, url: String)
+GET         /create-success                                                                   @controllers.enrolment.CreateEnrolmentUser.success(personId: Long)
 
 #Draft Checks
 GET         /draft-cases                                                                      @controllers.ManageDrafts.viewDraftCases()

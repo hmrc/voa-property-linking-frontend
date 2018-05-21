@@ -18,13 +18,13 @@ package models.enrolment
 
 import java.time.LocalDate
 
-import controllers.GroupAccountDetails
 import form.Mappings._
 import form.TextMatching
 import models.{Address, IVDetails, IndividualAccountSubmission, IndividualDetails, email => _}
 import play.api.data.Forms._
 import play.api.data.validation.{Constraints, _}
 import play.api.data.{Form, Mapping}
+import play.api.libs.json.{Format, JsObject, JsResult, JsValue}
 import uk.gov.hmrc.domain.Nino
 import views.helpers.Errors
 
@@ -40,9 +40,9 @@ trait EnrolmentUser {
   val email: String
   val confirmedEmail: String
 
-  def toIndividualAccountSubmission(user: UserDetails)(id: Long)(organisationId: Option[Long]) = IndividualAccountSubmission(
+  def toIndividualAccountSubmission(trustId: String)(user: UserDetails)(id: Long)(organisationId: Option[Long]) = IndividualAccountSubmission(
     externalId = user.externalId,
-    trustId = "NONIV",
+    trustId = trustId,
     organisationId = organisationId,
     details = IndividualDetails(firstName, lastName, email, phone, None, id)
   )
@@ -92,5 +92,16 @@ object EnrolmentUser {
 
   private def toNino(nino: String) = {
     Nino(nino.toUpperCase.replaceAll(" ", ""))
+  }
+
+  implicit val enrolmentUserFormat: Format[EnrolmentUser] = new Format[EnrolmentUser] {
+    override def reads(json: JsValue): JsResult[EnrolmentUser] = {
+      EnrolmentOrganisationAccountDetails.format.reads(json).orElse(EnrolmentIndividualAccountDetails.format.reads(json))
+    }
+
+    override def writes(o: EnrolmentUser): JsObject = o match {
+      case organisation: EnrolmentOrganisationAccountDetails => EnrolmentOrganisationAccountDetails.format.writes(organisation)
+      case individual: EnrolmentIndividualAccountDetails => EnrolmentIndividualAccountDetails.format.writes(individual)
+    }
   }
 }

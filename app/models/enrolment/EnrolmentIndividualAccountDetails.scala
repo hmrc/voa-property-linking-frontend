@@ -18,29 +18,10 @@ package models.enrolment
 
 import java.time.LocalDate
 
-import form.Mappings._
-import form.TextMatching
-import models.{email => _, _}
-import play.api.data.{Form, Mapping}
-import play.api.data.Forms._
-import play.api.data.validation.Constraints
-import uk.gov.hmrc.domain.Nino
-import views.helpers.Errors
-import auth.VoaAction
-import config.ApplicationConfig
-import connectors.{IndividualAccounts, VPLAuthConnector}
 import controllers.GroupAccountDetails
-import form.Mappings._
-import form.TextMatching
-import play.api.data.Forms._
-import play.api.data.validation._
-import play.api.data.{Form, Mapping}
-import play.api.i18n.MessagesApi
-import play.api.mvc.Request
-import repositories.SessionRepo
+import models.{email => _, _}
+import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.http.SessionKeys
-import views.helpers.Errors
 
 case class EnrolmentIndividualAccountDetails(firstName: String,
                                              lastName: String,
@@ -69,4 +50,8 @@ case class EnrolmentIndividualAccountDetails(firstName: String,
     phone = phone,
     isAgent = false
   )
+}
+
+object EnrolmentIndividualAccountDetails {
+  implicit val format = Json.format[EnrolmentIndividualAccountDetails]
 }

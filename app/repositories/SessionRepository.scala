@@ -41,6 +41,9 @@ class AgentAppointmentSessionRepository @Inject() (db: DB) extends SessionReposi
 class PersonalDetailsSessionRepository @Inject()(db: DB) extends SessionRepository("personDetails", db)
 
 @Singleton
+class RegistrationDetailsSessionRepository @Inject()(db: DB) extends SessionRepository("registrationDetails", db)
+
+@Singleton
 class PropertyLinkingSessionRepository @Inject()(db: DB) extends SessionRepository("propertyLinking", db)
 
 class SessionRepository @Inject()(formId: String, db: DB)
