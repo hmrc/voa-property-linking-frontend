@@ -117,7 +117,6 @@ class GuiceModule(environment: Environment,
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
-    bind(classOf[SessionRepo]).annotatedWith(Names.named("registrationSession")).to(classOf[RegistrationDetailsSessionRepository])
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
     enrolment()
     bind(classOf[Clock]).toInstance(Clock.systemUTC())

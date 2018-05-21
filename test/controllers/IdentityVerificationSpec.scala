@@ -15,25 +15,23 @@
  */
 
 package controllers
-import config.ApplicationConfig
+
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import models.{GroupAccount, PersonalDetails}
 import org.jsoup.Jsoup
-import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
 import org.scalatest.mockito.MockitoSugar
-import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.PersonalDetailsSessionRepository
 import resources._
-import services.iv.{IdentityVerificationService, IdentityVerificationServiceNonEnrolment}
-import utils.{StubAddresses, StubAuthConnector, StubGGAction, StubGroupAccountConnector, StubIdentityVerification, StubIndividualAccountConnector, _}
+import services.iv.IdentityVerificationServiceNonEnrolment
+import uk.gov.hmrc.play.HeaderCarrierConverter
+import utils._
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.HeaderCarrierConverter
 
 class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
@@ -47,13 +45,14 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     f
   }
 
-  lazy val stubIdentityVerificationService = new IdentityVerificationServiceNonEnrolment(StubAuthConnector, StubIndividualAccountConnector, app.injector.instanceOf[IdentityVerificationProxyConnector], mockSessionRepo, applicationConfig, StubGroupAccountConnector, StubAddresses)
+  lazy val stubIdentityVerificationServiceNonEnrolment = new IdentityVerificationServiceNonEnrolment(StubAuthConnector, StubIndividualAccountConnector, app.injector.instanceOf[IdentityVerificationProxyConnector], mockSessionRepo, applicationConfig, StubGroupAccountConnector, StubAddresses)
 
   private object TestIdentityVerification extends IdentityVerification(StubGGAction, StubIdentityVerification, StubAddresses,
-    StubIndividualAccountConnector, stubIdentityVerificationService, StubGroupAccountConnector,
+    StubIndividualAccountConnector, stubIdentityVerificationServiceNonEnrolment, StubGroupAccountConnector,
     StubAuthConnector, mockSessionRepo)
 
   val request = FakeRequest()
+
   private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
 
   "Successfully verifying identity when the group does not have a CCA account" must
@@ -67,8 +66,8 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
 
     val content = contentAsString(res)
     val html = Jsoup.parse(content)
-    html.select("h1").html must equal ("We’ve verified your identity") withClue "Page did not contain success summary"
-    html.select(s"a.button[href=${routes.CreateGroupAccount.show.url}]").size must equal (1) withClue "Page did not contain link to create group account"
+    html.select("h1").html must equal("We’ve verified your identity") withClue "Page did not contain success summary"
+    html.select(s"a.button[href=${routes.CreateGroupAccount.show.url}]").size must equal(1) withClue "Page did not contain link to create group account"
 
     implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
@@ -86,8 +85,8 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("h1").html must equal (s"${groupAccount.companyName} has already registered.") withClue "Page did not contain success summary"
-    html.select(s"a.button[href=${routes.Dashboard.home.url}]").size must equal (1) withClue "Page did not contain dashboard link"
+    html.select("h1").html must equal(s"${groupAccount.companyName} has already registered.") withClue "Page did not contain success summary"
+    html.select(s"a.button[href=${routes.Dashboard.home.url}]").size must equal(1) withClue "Page did not contain dashboard link"
 
     implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 

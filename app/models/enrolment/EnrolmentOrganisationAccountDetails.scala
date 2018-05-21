@@ -33,7 +33,7 @@ case class EnrolmentOrganisationAccountDetails(firstName: String,
                                                email: String,
                                                confirmedEmail: String,
                                                isAgent: Boolean) extends EnrolmentUser {
-  override def toIvDetails = IVDetails(
+  override def ivDetails = IVDetails(
     firstName = firstName,
     lastName = lastName,
     dateOfBirth = Some(dob),

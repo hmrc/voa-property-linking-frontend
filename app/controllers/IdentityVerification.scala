@@ -37,15 +37,13 @@ class IdentityVerification @Inject()(ggAction: VoaAction,
                                      identityVerificationService: IdentityVerificationService,
                                      groups: GroupAccounts,
                                      auth: VPLAuthConnector,
-                                     @Named("personSession") val personalDetailsSessionRepo: SessionRepo,
-                                     @Named("registrationSession") val registrationDetailsSessionRepo: SessionRepo)
+                                     @Named("personSession") val personalDetailsSessionRepo: SessionRepo)
                                     (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
   def startIv = ggAction.async(true) { _ =>
     implicit request =>
       if (config.ivEnabled) {
-        //TODO Remove this once we turn on enrolment
         personalDetailsSessionRepo.get[PersonalDetails] flatMap { details =>
           identityVerificationService
             .start(details.map(_.ivDetails).getOrElse(throw new Exception("details not found")))
@@ -60,8 +58,8 @@ class IdentityVerification @Inject()(ggAction: VoaAction,
     implicit request =>
       if (config.ivEnabled) {
         for {
-          userDetails <- registrationDetailsSessionRepo.get[EnrolmentUser]
-          link <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
+          userDetails <- personalDetailsSessionRepo.get[EnrolmentUser]
+          link <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).ivDetails)
         } yield Redirect(link.getLink(config.ivBaseUrl))
       } else {
         Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))

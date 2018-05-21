@@ -35,7 +35,7 @@ case class EnrolmentIndividualAccountDetails(firstName: String,
                                              tradingName: Option[String]
                                             ) extends EnrolmentUser {
 
-  override def toIvDetails = IVDetails(
+  override def ivDetails = IVDetails(
     firstName = firstName,
     lastName = lastName,
     dateOfBirth = Some(dob),

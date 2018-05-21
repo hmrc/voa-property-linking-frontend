@@ -60,7 +60,7 @@ trait IdentityVerificationService {
 class IdentityVerificationServiceEnrolment @Inject()(
                                                       auth: VPLAuthConnector,
                                                       registrationService: RegistrationService,
-                                                      @Named("registrationSession") registrationDetailsSessionRepo: SessionRepo,
+                                                      @Named("personSession") personalDetailsSessionRepo: SessionRepo,
                                                       val proxyConnector: IdentityVerificationProxyConnector,
                                                       implicit val config: ApplicationConfig
                                                     ) extends IdentityVerificationService {
@@ -82,13 +82,13 @@ class IdentityVerificationServiceEnrolment @Inject()(
       (user.userInfo.affinityGroup, user.userInfo.credentialRole) match {
         case (Organisation, User | Admin) =>
           for {
-            organisationDetailsOpt <- registrationDetailsSessionRepo.get[EnrolmentOrganisationAccountDetails]
+            organisationDetailsOpt <- personalDetailsSessionRepo.get[EnrolmentOrganisationAccountDetails]
             organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
             registrationResult <- registrationService.create(organisationDetails.toGroupDetails, ctx)(organisationDetails.toIndividualAccountSubmission(journeyId))
           } yield Some(registrationResult)
         case (Individual, _) =>
           for {
-            individualDetailsOpt <- registrationDetailsSessionRepo.get[EnrolmentIndividualAccountDetails]
+            individualDetailsOpt <- personalDetailsSessionRepo.get[EnrolmentIndividualAccountDetails]
             individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
             registrationResult <- registrationService.create(individualDetails.toGroupDetails, ctx)(individualDetails.toIndividualAccountSubmission(journeyId))
           } yield Some(registrationResult)

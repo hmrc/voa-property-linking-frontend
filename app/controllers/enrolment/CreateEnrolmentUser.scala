@@ -46,7 +46,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
                                     emailService: EmailService,
                                     authenticatedAction: AuthenticatedAction,
                                     identityVerificationService: IdentityVerificationService,
-                                    @Named("registrationSession") val registrationDetailsSessionRepo: SessionRepo
+                                    @Named("personSession") val personalDetailsSessionRepo: SessionRepo
                                    )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   import utils.SessionHelpers._
@@ -67,7 +67,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
       EnrolmentUser.individual.bindFromRequest().fold(
         errors =>
           BadRequest(views.html.createAccount.enrolment_individual(errors, FieldData())),
-        success => registrationDetailsSessionRepo.saveOrUpdate(success) map { _ =>
+        success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
           Redirect(controllers.routes.IdentityVerification.startIvEnrolment)
         }
       )
@@ -77,7 +77,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
     implicit request =>
       EnrolmentUser.organisation.bindFromRequest().fold(
         errors => BadRequest(views.html.createAccount.enrolment_organisation(errors, FieldData())),
-        success => registrationDetailsSessionRepo.saveOrUpdate(success) map { _ =>
+        success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
           Redirect(controllers.routes.IdentityVerification.startIvEnrolment)
         }
       )

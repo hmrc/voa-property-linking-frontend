@@ -47,7 +47,7 @@ trait EnrolmentUser {
     details = IndividualDetails(firstName, lastName, email, phone, None, id)
   )
 
-  def toIvDetails = IVDetails(
+  def ivDetails = IVDetails(
     firstName = firstName,
     lastName = lastName,
     dateOfBirth = Some(dob),
