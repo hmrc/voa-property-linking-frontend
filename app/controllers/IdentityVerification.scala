@@ -59,7 +59,7 @@ class IdentityVerification @Inject()(ggAction: VoaAction,
       if (config.ivEnabled) {
         for {
           userDetails <- personalDetailsSessionRepo.get[EnrolmentUser]
-          link <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).ivDetails)
+          link <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
         } yield Redirect(link.getLink(config.ivBaseUrl))
       } else {
         Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))

@@ -36,7 +36,7 @@ trait EnrolmentAssistant {
 
   def toIndividualAccountSubmission(user: UserDetails)(id: Long)(organisationId: Option[Long]) = IndividualAccountSubmission(
     externalId = user.externalId,
-    trustId = "NONIV",
+    trustId = "ASSISTANT_NO_IV",
     organisationId = organisationId,
     details = IndividualDetails(firstName, lastName, email, phone, None, id)
   )
