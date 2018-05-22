@@ -43,7 +43,7 @@ case class EnrolmentIndividualAccountDetails(firstName: String,
   )
 
   def toGroupDetails = GroupAccountDetails(
-    companyName = tradingName.getOrElse("Not Applicable"),
+    companyName = tradingName.getOrElse(s"$firstName $lastName"),
     address = address,
     email = email,
     confirmedEmail = confirmedEmail,
