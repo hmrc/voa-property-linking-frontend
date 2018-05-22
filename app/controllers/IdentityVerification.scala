@@ -54,7 +54,7 @@ class IdentityVerification @Inject()(ggAction: VoaAction,
       }
   }
 
-  def startIvEnrolment = ggAction.async(true) { _ =>
+  def startIvEnrolment = ggAction.async(false) { _ =>
     implicit request =>
       if (config.ivEnabled) {
         for {
