@@ -31,7 +31,7 @@ import utils._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class RegistrationServiceWithEnrolmentEnabledSpec extends ServiceSpec {
+class RegistrationServiceSpec extends ServiceSpec {
 
   "create" should "return EnrolmentSuccess when ivEnrolmentEnabled flag is true" in new TestCase {
 

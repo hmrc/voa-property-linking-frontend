@@ -20,7 +20,7 @@ import controllers.enrolment.CreateEnrolmentUser
 import models.enrolment.{EnrolmentSuccess, UserInfo}
 import models.identityVerificationProxy.Link
 import models.{DetailedIndividualAccount, IndividualDetails}
-import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded}

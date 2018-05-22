@@ -17,7 +17,8 @@
 import java.time.{Instant, LocalDate, LocalDateTime, ZoneId}
 
 import models._
-import models.messages.{MessageSearchResults, Message}
+import models.enrolment.{EnrolmentIndividualAccountDetails, EnrolmentOrganisationAccountDetails}
+import models.messages.{Message, MessageSearchResults}
 import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
@@ -116,7 +117,7 @@ package object resources {
     groupId <- shortString
     companyName <- arbitrary[String]
     addressId <- arbitrary[Int]
-    phone <-  Gen.listOfN(8, Gen.numChar)
+    phone <- Gen.listOfN(8, Gen.numChar)
     isAgent <- arbitrary[Boolean]
     agentCode <- positiveLong
   } yield GroupAccount(id, groupId, companyName, addressId, randomEmail, phone.mkString, isAgent, agentCode)
@@ -136,7 +137,7 @@ package object resources {
     uarn <- positiveLong
     effectiveDate <- arbitrary[LocalDate]
     rateableValue <- positiveLong
-    address <- arbitrary[ PropertyAddress]
+    address <- arbitrary[PropertyAddress]
     billingAuthorityReference <- shortString
     capacity <- arbitrary[Capacity]
     description <- shortString
@@ -172,7 +173,7 @@ package object resources {
     address <- shortString
   } yield models.ClientProperty(ownerOrganisationId, ownerOrganisationName, billingAuthorityReference, authorisedPartyId,
     authorisationId, authorisationStatus, authorisedPartyStatus, checkPermission, challengePermission, address)
- implicit val arbitraryClientProperty = Arbitrary(clientPropertyGen)
+  implicit val arbitraryClientProperty = Arbitrary(clientPropertyGen)
 
   val propertyLinkGen: Gen[PropertyLink] = for {
     linkId <- arbitrary[Int]
@@ -257,6 +258,34 @@ package object resources {
 
   implicit val arbitraryPersonalDetails: Arbitrary[PersonalDetails] = Arbitrary(personalDetailsGen)
 
+  private val enrolmentOrgAccountDetailsGen: Gen[EnrolmentOrganisationAccountDetails] = for {
+    firstName <- shortString
+    lastName <- shortString
+    dob <- dateInPast
+    companyName <- shortString
+    nino <- arbitrary[Nino]
+    email = randomEmail
+    phone <- Gen.listOfN(8, Gen.numChar)
+    address <- arbitrary[Address]
+    isAgent <- arbitrary[Boolean]
+  } yield EnrolmentOrganisationAccountDetails(firstName, lastName, companyName, address, dob, nino, phone.mkString, email, email, isAgent)
+
+  implicit val arbitraryEnrolmentOrganisationAccountDetails: Arbitrary[EnrolmentOrganisationAccountDetails] = Arbitrary(enrolmentOrgAccountDetailsGen)
+
+  private val enrolmentIndAccountDetailsGen: Gen[EnrolmentIndividualAccountDetails] = for {
+    firstName <- shortString
+    lastName <- shortString
+    dob <- dateInPast
+    companyName <- shortString
+    nino <- arbitrary[Nino]
+    email = randomEmail
+    phone <- Gen.listOfN(8, Gen.numChar)
+    address <- arbitrary[Address]
+    isAgent <- arbitrary[Boolean]
+  } yield EnrolmentIndividualAccountDetails(firstName, lastName, address, dob, nino, phone.mkString, phone.mkString, email, email, None)
+
+  implicit val arbitraryEnrolmentIndividualAccountDetails: Arbitrary[EnrolmentIndividualAccountDetails] = Arbitrary(enrolmentIndAccountDetailsGen)
+
   private val linkingSessionGen: Gen[LinkingSession] = for {
     address <- shortString
     uarn <- positiveLong
@@ -308,9 +337,9 @@ package object resources {
     authorisedPartyId <- arbitrary[Long]
     uarn <- arbitrary[Long]
     status <- Gen.oneOf(RepresentationApproved.name,
-                        RepresentationDeclined.name,
-                        RepresentationPending.name,
-                        RepresentationRevoked.name)
+      RepresentationDeclined.name,
+      RepresentationPending.name,
+      RepresentationRevoked.name)
     submissionId <- shortString
     address <- arbitrary[PropertyAddress]
     localAuthorityRef <- shortString

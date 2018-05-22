@@ -16,38 +16,27 @@
 
 package services
 
-import java.time.LocalDate
-
 import config.ApplicationConfig
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
-import controllers.VoaPropertyLinkingSpec
 import models._
 import models.enrolment._
 import models.identityVerificationProxy.{Journey, Link}
-import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.mockito.MockitoSugar
-import org.scalatest.{BeforeAndAfterEach, FlatSpec, MustMatchers}
-import play.api.libs.json.Reads
-import play.api.{Configuration, Environment}
 import repositories.SessionRepo
 import resources.{shortString, _}
 import services.iv.IdentityVerificationServiceNonEnrolment
-import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, User}
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
-import uk.gov.hmrc.domain.Nino
+import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, User}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.config.inject.DefaultRunMode
 import utils._
 
 import scala.concurrent.Future
 
 class IdentityVerificationServiceSpec extends ServiceSpec {
 
-//  override val additionalAppConfig: Seq[(String, String)] = Seq("microservice.services.auth.host" -> "test.protected.mdtp", "microservice.services.auth.port" -> "90", "microservice.services.identity-verification.host" -> "test.protected.mdtp", "microservice.services.identity-verification.port" -> "90")
-  "create" should "return enrolment success" in new TestCase {
+  "continue" should "return None if the group account does not already exist" in new TestCase {
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
 
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
@@ -57,7 +46,7 @@ class IdentityVerificationServiceSpec extends ServiceSpec {
     res.futureValue must be(None)
   }
 
-  "create" should "return enrolment failure" in new TestCase {
+  "continue" should "return the GroupAccount if it already exists" in new TestCase {
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
 
     StubGroupAccountConnector.stubAccount(GroupAccount(1l, groupId, "", 12, "", "", false, 1l))
