@@ -20,12 +20,13 @@ import controllers.enrolment.CreateEnrolmentUser
 import models.enrolment.{EnrolmentSuccess, UserInfo}
 import models.identityVerificationProxy.Link
 import models.{DetailedIndividualAccount, IndividualDetails}
-import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import repositories.SessionRepo
 import resources._
 import services.iv.IdentityVerificationService
 import services.{EnrolmentService, RegistrationService, Success}
@@ -37,6 +38,15 @@ import scala.concurrent.Future
 class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   lazy val mockEnrolmentService = mock[EnrolmentService]
+
+  lazy val mockSessionRepo = {
+    val f = mock[SessionRepo]
+    when(f.start(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    when(f.saveOrUpdate(any())(any(), any())
+    ).thenReturn(Future.successful(()))
+    f
+  }
 
   val testIndividualInfo = UserInfo(firstName = Some("Bob"),
     lastName = Some("Smith"),
@@ -79,7 +89,8 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     mockRegistrationService,
     StubEmailService,
     StubAuthentication,
-    mockIdentityVerificationService
+    mockIdentityVerificationService,
+    mockSessionRepo
   )
 
   "Invoking the app held CreateEnrolmentUser controller" should "result in correct dependency injection" in {
@@ -152,7 +163,7 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   "Submitting a valid individual form" should "return a redirect" in {
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(Link(""), 1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
@@ -196,7 +207,7 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
   "Submitting a valid organisation form" should "return a redirect" in {
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(Link(""), 1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubAuthConnector.stubGroupId(groupId)
     StubAuthConnector.stubExternalId(externalId)

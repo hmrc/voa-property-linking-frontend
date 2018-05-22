@@ -16,13 +16,9 @@
 
 package models.enrolment
 
-import models.identityVerificationProxy.Link
-
 sealed trait RegistrationResult
 
-case class EnrolmentSuccess(link: Link, personId: Long) extends RegistrationResult
-
-case class IVNotRequired(personId: Long) extends RegistrationResult
+case class EnrolmentSuccess(personId: Long) extends RegistrationResult
 
 case object EnrolmentFailure extends RegistrationResult
 

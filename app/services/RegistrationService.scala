@@ -16,20 +16,15 @@
 
 package services
 
-import javax.inject.Inject
-
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import controllers.GroupAccountDetails
+import javax.inject.Inject
 import models.enrolment._
-import models.{DetailedIndividualAccount, GroupAccount, IVDetails, IndividualAccountSubmission}
-import play.api.mvc.{AnyContent, Request}
+import models.{DetailedIndividualAccount, GroupAccount, IndividualAccountSubmission}
 import services.email.EmailService
-import services.iv.IdentityVerificationService
-import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
+import uk.gov.hmrc.auth.core.Assistant
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.auth.core
-import uk.gov.hmrc.auth.core.{Admin, Assistant, User}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -40,24 +35,22 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                                     auth: VPLAuthConnector,
                                     addresses: Addresses,
                                     emailService: EmailService,
-                                    identityVerificationService: IdentityVerificationService,
                                     config: ApplicationConfig
                                    ) {
 
   def create[A](
                  groupDetails: GroupAccountDetails,
-                 iVDetails: IVDetails,
                  ctx: A
                )
                (individual: UserDetails => Long => Option[Long] => IndividualAccountSubmission)
                (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
     for {
-      user      <- auth.userDetails(ctx)
-      groupId   <- auth.getGroupId(ctx)
-      id        <- addresses.registerAddress(groupDetails)
-      _         <- voaRegister(groupId, acc => individualAccounts.create(individual(user)(id)(Some(acc.id))), groupAccounts.create(groupId, id, groupDetails, individual(user)(id)(None)))
-      personId  <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
-      res       <- enrol(personId, id, iVDetails)(user)
+      user <- auth.userDetails(ctx)
+      groupId <- auth.getGroupId(ctx)
+      id <- addresses.registerAddress(groupDetails)
+      _ <- voaRegister(groupId, acc => individualAccounts.create(individual(user)(id)(Some(acc.id))), groupAccounts.create(groupId, id, groupDetails, individual(user)(id)(None)))
+      personId <- individualAccounts.withExternalId(user.externalId) //This is used to get the personId back for the group accounts create.
+      res <- enrol(personId, id)(user)
     } yield res
   }
 
@@ -68,45 +61,31 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                          (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Long] = {
     groupAccounts.withGroupId(groupId).flatMap {
       case Some(acc) => groupExists(acc).map(_.toLong)
-      case _         => noGroup
+      case _ => noGroup
     }
   }
 
   private def enrol(
                      option: Option[DetailedIndividualAccount],
-                     addressId: Long,
-                     iVDetails: IVDetails)
+                     addressId: Long)
                    (userDetails: UserDetails)
                    (implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] = (option, userDetails.userInfo.credentialRole) match {
-    case (Some(detailIndiv), Assistant)  => success(userDetails, detailIndiv, iVDetails)
-    case (Some(detailIndiv), _)  => enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
-      case Success => success(userDetails, detailIndiv, iVDetails)
+    case (Some(detailIndiv), Assistant) => success(userDetails, detailIndiv)
+    case (Some(detailIndiv), _) => enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
+      case Success => success(userDetails, detailIndiv)
       case Failure => Future.successful(EnrolmentFailure)
     }
-    case (None, _)              => Future.successful(DetailsMissing)
+    case (None, _) => Future.successful(DetailsMissing)
   }
 
   private def success(
                        userDetails: UserDetails,
-                       detailedIndividualAccount: DetailedIndividualAccount,
-                       iVDetails: IVDetails)
+                       detailedIndividualAccount: DetailedIndividualAccount)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
-
-    (userDetails.userInfo.affinityGroup, userDetails.userInfo.credentialRole) match {
-      case (Organisation, Assistant)       =>
-        Future
-          .successful(IVNotRequired(detailedIndividualAccount.individualId))
-      case _  if config.ivEnrolmentEnabled =>
-        emailService
-          .sendNewEnrolmentSuccess(userDetails.userInfo.email, detailedIndividualAccount)
-
-        identityVerificationService
-          .start(iVDetails)
-          .map(EnrolmentSuccess(_, detailedIndividualAccount.individualId))
-      case _                                =>
-          Future
-            .successful(IVNotRequired(detailedIndividualAccount.individualId))
-    }
+    emailService
+      .sendNewEnrolmentSuccess(userDetails.userInfo.email, detailedIndividualAccount)
+      .map(_ => EnrolmentSuccess(detailedIndividualAccount.individualId))
   }
+
 }
 

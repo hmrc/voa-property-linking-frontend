@@ -16,47 +16,54 @@
 
 package controllers
 
-import javax.inject.{Inject, Named}
-
-import play.api.Logger
-import auth.{GGAction, VoaAction}
-import cats.instances.all._
-import cats.data.OptionT
+import auth.VoaAction
 import config.ApplicationConfig
 import connectors._
-import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
-import models.{IVDetails, IndividualAccountSubmission, PersonalDetails}
+import javax.inject.{Inject, Named}
+import models.PersonalDetails
+import models.enrolment.EnrolmentUser
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, Request, Result}
+import play.api.mvc.Action
 import repositories.SessionRepo
 import services.iv.IdentityVerificationService
-import uk.gov.hmrc.play.frontend.auth.AuthContext
+import uk.gov.hmrc.http.SessionKeys
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 
-class IdentityVerification @Inject() (ggAction: VoaAction,
-                                      identityVerification: connectors.IdentityVerification,
-                                      addresses: Addresses,
-                                      individuals: IndividualAccounts,
-                                      identityVerificationService: IdentityVerificationService,
-                                      groups: GroupAccounts,
-                                      auth: VPLAuthConnector,
-                                      @Named ("personSession") val personalDetailsSessionRepo: SessionRepo)
-                                     (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+class IdentityVerification @Inject()(ggAction: VoaAction,
+                                     identityVerification: connectors.IdentityVerification,
+                                     addresses: Addresses,
+                                     individuals: IndividualAccounts,
+                                     identityVerificationService: IdentityVerificationService,
+                                     groups: GroupAccounts,
+                                     auth: VPLAuthConnector,
+                                     @Named("personSession") val personalDetailsSessionRepo: SessionRepo)
+                                    (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
-  def startIv = ggAction.async(true) { _ => implicit request =>
-    if (config.ivEnabled) {
-      //TODO Remove this once we turn on enrolment
-      personalDetailsSessionRepo.get[PersonalDetails] flatMap { details  =>
-        identityVerificationService
-          .start(details.map(_.ivDetails).getOrElse(throw new Exception("details not found")))
-          .map(l => Redirect(l.getLink(config.ivBaseUrl)))
+  def startIv = ggAction.async(true) { _ =>
+    implicit request =>
+      if (config.ivEnabled) {
+        personalDetailsSessionRepo.get[PersonalDetails] flatMap { details =>
+          identityVerificationService
+            .start(details.map(_.ivDetails).getOrElse(throw new Exception("details not found")))
+            .map(l => Redirect(l.getLink(config.ivBaseUrl)))
+        }
+      } else {
+        Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
       }
-    } else {
-      Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
-    }
+  }
+
+  def startIvEnrolment = ggAction.async(true) { _ =>
+    implicit request =>
+      if (config.ivEnabled) {
+        for {
+          userDetails <- personalDetailsSessionRepo.get[EnrolmentUser]
+          link <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
+        } yield Redirect(link.getLink(config.ivBaseUrl))
+      } else {
+        Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
+      }
   }
 
   def fail = Action { implicit request =>
@@ -70,16 +77,17 @@ class IdentityVerification @Inject() (ggAction: VoaAction,
     )
   }
 
-  def success = ggAction.async(false) { implicit ctx => implicit request =>
-    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
-      identityVerification.verifySuccess(journeyId) flatMap {
-        case true =>
-          identityVerificationService.continue(journeyId)(ctx, hc, ec).map{
-            case Some(obj) => Ok(identityVerificationService.someCase(obj))
-            case None => Ok(identityVerificationService.noneCase)
-          }
-        case false => Unauthorized("Unauthorised")
+  def success = ggAction.async(false) { implicit ctx =>
+    implicit request =>
+      request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+        identityVerification.verifySuccess(journeyId) flatMap {
+          case true =>
+            identityVerificationService.continue(journeyId)(ctx, hc, ec).map {
+              case Some(obj) => identityVerificationService.someCase(obj)
+              case None => identityVerificationService.noneCase
+            }
+          case false => Unauthorized("Unauthorised")
+        }
       }
-    }
   }
 }

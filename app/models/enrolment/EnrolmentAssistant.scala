@@ -25,7 +25,7 @@ import play.api.data.{Form, Mapping}
 import views.helpers.Errors
 
 
-trait RegisterAssistant {
+trait EnrolmentAssistant {
 
   val firstName: String
   val lastName: String
@@ -36,20 +36,14 @@ trait RegisterAssistant {
 
   def toIndividualAccountSubmission(user: UserDetails)(id: Long)(organisationId: Option[Long]) = IndividualAccountSubmission(
     externalId = user.externalId,
-    trustId = "NONIV",
+    trustId = "ASSISTANT_NO_IV",
     organisationId = organisationId,
     details = IndividualDetails(firstName, lastName, email, phone, None, id)
   )
 
-  def toIvDetails = IVDetails(
-    firstName = firstName,
-    lastName = lastName,
-    dateOfBirth = None,
-    nino = None
-  )
 }
 
-object RegisterAssistant {
+object EnrolmentAssistant {
 
   lazy val assistant = Form(mapping(
     keys.firstName -> nonEmptyText,

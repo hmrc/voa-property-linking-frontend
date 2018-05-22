@@ -31,7 +31,7 @@ class EmailConnector @Inject()(config: ServicesConfig, http: WSHttp) {
 
   def send(emailRequest: EmailRequest)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] =
     http
-      .POST[EmailRequest, HttpResponse](s"$serviceUrl/hmrc/email", emailRequest) //Will change to VOA when confirmed.
+      .POST[EmailRequest, HttpResponse](s"$serviceUrl/hmrc/email", emailRequest)
       .map(_ => ())
 
 }

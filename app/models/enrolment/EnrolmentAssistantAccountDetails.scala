@@ -26,7 +26,7 @@ case class EnrolmentAssistantAccountDetails(firstName: String,
                                             phone: String,
                                             email: String,
                                             confirmedEmail: String,
-                                            isAgent: Boolean) extends RegisterAssistant {
+                                            isAgent: Boolean) extends EnrolmentAssistant {
 
   def toGroupDetails = GroupAccountDetails(
     companyName = companyName,

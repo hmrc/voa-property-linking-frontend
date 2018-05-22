@@ -34,9 +34,8 @@ import scala.concurrent.duration._
 import uk.gov.hmrc.http.HeaderCarrier
 
 @Singleton
-class AgentAppointmentSessionRepository @Inject() (db: DB) extends SessionRepository ("agentAppointmentDocument", db)
+class AgentAppointmentSessionRepository @Inject()(db: DB) extends SessionRepository("agentAppointmentDocument", db)
 
-//TODO remove this once enrolment has been turned on.
 @Singleton
 class PersonalDetailsSessionRepository @Inject()(db: DB) extends SessionRepository("personDetails", db)
 
@@ -52,19 +51,19 @@ class SessionRepository @Inject()(formId: String, db: DB)
   }
 
   override def saveOrUpdate[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] = {
-   for {
-     sessionId <- getSessionId
-     _ <- collection.update(
-       BSONDocument("_id" -> BSONString(sessionId)),
-       BSONDocument(
-         "$set" -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
-         "$setOnInsert" -> BSONDocument("createdAt" -> BSONDateTime(System.currentTimeMillis))
-       ),
-       upsert = true
-     )
-   } yield {
-     ()
-   }
+    for {
+      sessionId <- getSessionId
+      _ <- collection.update(
+        BSONDocument("_id" -> BSONString(sessionId)),
+        BSONDocument(
+          "$set" -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
+          "$setOnInsert" -> BSONDocument("createdAt" -> BSONDateTime(System.currentTimeMillis))
+        ),
+        upsert = true
+      )
+    } yield {
+      ()
+    }
   }
 
   override def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]] = {
@@ -112,6 +111,7 @@ class SessionRepository @Inject()(formId: String, db: DB)
 case class SessionData(_id: String, data: JsValue, createdAt: BSONDateTime = BSONDateTime(System.currentTimeMillis))
 
 object SessionData {
+
   import reactivemongo.json.BSONFormats.BSONDateTimeFormat
 
   val format = Json.format[SessionData]
