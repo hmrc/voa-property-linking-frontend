@@ -127,7 +127,7 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("You’ve tried to register using an existing Individual or Agent Government Gateway account")
+    html.mustContainText("You’ve tried to register using an existing Agent Government Gateway account")
   }
 
   "Going to the create account page, when logged in with an account that has not registered and has an Organisation affinity group" should

@@ -121,7 +121,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
       case Some(fieldData) =>
         userDetails.userInfo.credentialRole match {
           case Admin | User =>
-            Ok(views.html.createAccount.enrolment_organisation(
+            Ok(views.html.createAccount.enrolment_assistant_admin(
               EnrolmentUser.organisation,
               fieldData))
           case Assistant =>

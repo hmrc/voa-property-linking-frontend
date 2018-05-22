@@ -843,7 +843,9 @@ heading.dashboard-error.p3=We apologise for any inconvenience. Please try again 
 
 invalidAccountType.title=You can’t use that Government Gateway account to register for this service.
 invalidAccountType.p.1=You’ve tried to register using an existing Individual or Agent Government Gateway account.
+invalidAccountTypeEnrolment.p.1=You’ve tried to register using an existing Agent Government Gateway account.
 invalidAccountType.p.2=To register for this service you’ll need to use an Organisation Government Gateway account.
+invalidAccountTypeEnrolment.p.2=To register for this service you’ll need to use an Organisation or Individual Government Gateway account.
 invalidAccountType.p.3=You can continue to register for this service where you’ll be able to create the correct Government Gateway account.
 invalidAccountType.register=Register for the service
 
