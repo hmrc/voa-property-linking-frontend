@@ -53,6 +53,8 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val enrolmentEnabled: Boolean = getConfig("featureFlags.enrolment").toBoolean
   lazy val agentMultipleAppointEnabled: Boolean = getConfig("featureFlags.agentMultipleAppointEnabled").toBoolean
 
+  lazy val stubEnrolment: Boolean = getConfig("enrolment.useStub").toBoolean
+
   lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
     new String(Base64.getUrlDecoder.decode(e))
   }
