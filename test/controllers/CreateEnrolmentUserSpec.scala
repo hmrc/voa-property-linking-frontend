@@ -19,9 +19,10 @@ package controllers
 import controllers.enrolment.CreateEnrolmentUser
 import models.enrolment.{EnrolmentSuccess, UserInfo}
 import models.identityVerificationProxy.Link
-import models.{DetailedIndividualAccount, IndividualDetails}
+import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.mockito.MockitoSugar
 import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded}
 import play.api.test.FakeRequest
@@ -30,12 +31,14 @@ import repositories.SessionRepo
 import resources._
 import services.iv.IdentityVerificationService
 import services.{EnrolmentService, RegistrationService, Success}
-import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, User}
-import utils._
+import uk.gov.hmrc.auth.core._
+import utils.{StubGroupAccountConnector, _}
 
 import scala.concurrent.Future
 
 class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
+
+  override val additionalAppConfig = Seq("featureFlags.enrolment" -> "true")
 
   lazy val mockEnrolmentService = mock[EnrolmentService]
 
@@ -127,7 +130,7 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("You’ve tried to register using an existing Individual or Agent Government Gateway account")
+    html.mustContainText("You’ve tried to register using an existing Agent Government Gateway account")
   }
 
   "Going to the create account page, when logged in with an account that has not registered and has an Organisation affinity group" should
@@ -149,6 +152,67 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     html.inputMustContain("firstName", testOrganisationInfo.firstName.get)
     html.inputMustContain("lastName", testOrganisationInfo.lastName.get)
     html.inputMustContain("addresspostcode", testOrganisationInfo.postcode.get)
+  }
+
+  "Going to the create account page when logged in as a new assistant user registering with an existing group account" should
+    "display the complete your contact details form for an assistant" in {
+
+    val groupAccount = arbitrary[GroupAccount].sample.get
+    val individualAccount = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = groupAccount.id)
+
+    StubAuthConnector.stubGroupId(groupAccount.groupId)
+    StubAuthConnector.stubExternalId(individualAccount.externalId)
+    StubGroupAccountConnector.stubAccount(groupAccount)
+    StubAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Assistant))
+
+    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    status(res) mustBe OK
+
+    val html = HtmlPage(res)
+    html.mustContainTextInput("#firstName")
+    html.mustContainTextInput("#lastName")
+    html.mustContainText("You have been registered as a new user, please confirm your details below")
+  }
+
+  "Going to the create account page when logged in as a new admin user registering with an existing group account" should
+    "display the complete your contact details form for an admin" in {
+
+    val groupAccount = arbitrary[GroupAccount].sample.get
+    val individualAccount = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = groupAccount.id)
+
+    StubAuthConnector.stubGroupId(groupAccount.groupId)
+    StubAuthConnector.stubExternalId(individualAccount.externalId)
+    StubGroupAccountConnector.stubAccount(groupAccount)
+    StubAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Admin))
+
+    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    status(res) mustBe OK
+
+    val html = HtmlPage(res)
+    html.mustContainText("You have been registered as a new user, please confirm your details below")
+    html.mustContainTextInput("#firstName")
+    html.mustContainTextInput("#lastName")
+    html.mustContainTextInput("#dobday")
+    html.mustContainTextInput("#dobmonth")
+    html.mustContainTextInput("#dobyear")
+    html.mustContainTextInput("#nino")
+  }
+
+  "Going to the create account page when logged in as a new assistant user registering without an existing group account" should
+    "display the invalid account creation page" in {
+
+    val groupAccount = arbitrary[GroupAccount].sample.get
+    val individualAccount = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = groupAccount.id)
+
+    StubAuthConnector.stubGroupId(groupAccount.groupId)
+    StubAuthConnector.stubExternalId(individualAccount.externalId)
+    StubAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Assistant))
+
+    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    status(res) mustBe OK
+
+    val html = HtmlPage(res)
+    html.mustContainText("Registration failed You can’t register until the Administrator from your organisation registers first.")
   }
 
   "Submitting an invalid individual form" should "return a bad request response" in {

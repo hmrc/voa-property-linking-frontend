@@ -19,13 +19,12 @@ package utils
 import connectors.Addresses
 import controllers.GroupAccountDetails
 import models.Address
-import org.scalacheck.Arbitrary
-
-import scala.concurrent.Future
-import scala.util.Random
 import org.scalacheck.Arbitrary._
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier
+
+import scala.concurrent.Future
+import scala.util.Random
 
 object StubAddresses extends Addresses(StubServicesConfig,StubHttp) {
   val noResultPostcode = "NO RESULT"
@@ -38,6 +37,10 @@ object StubAddresses extends Addresses(StubServicesConfig,StubHttp) {
     } else {
       Future.successful(Seq.fill(10)(arbitrary[Address].sample.get))
     }
+  }
+
+  override def findById(id: Long)(implicit hc: HeaderCarrier): Future[Option[Address]] = {
+    Future.successful(Some(arbitrary[Address].sample.get))
   }
 
   override def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Long] = {
