@@ -69,14 +69,22 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                      option: Option[DetailedIndividualAccount],
                      addressId: Long)
                    (userDetails: UserDetails)
-                   (implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] = (option, userDetails.userInfo.credentialRole) match {
-    case (Some(detailIndiv), Assistant) => success(userDetails, detailIndiv)
-    case (Some(detailIndiv), _) => enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
-      case Success => success(userDetails, detailIndiv)
-      case Failure => Future.successful(EnrolmentFailure)
+                   (implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] =
+    if (config.stubEnrolment) {
+      option match {
+        case Some(detailIndiv) => Future.successful(EnrolmentSuccess(detailIndiv.individualId))
+        case _ => Future.successful(DetailsMissing)
+      }
+    } else {
+      (option, userDetails.userInfo.credentialRole) match {
+        case (Some(detailIndiv), Assistant) => success(userDetails, detailIndiv)
+        case (Some(detailIndiv), _) => enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
+          case Success => success(userDetails, detailIndiv)
+          case Failure => Future.successful(EnrolmentFailure)
+        }
+        case (None, _) => Future.successful(DetailsMissing)
+      }
     }
-    case (None, _) => Future.successful(DetailsMissing)
-  }
 
   private def success(
                        userDetails: UserDetails,
