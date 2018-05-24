@@ -18,13 +18,13 @@ package controllers.test
 
 import java.time.Instant
 import java.util.UUID
-import javax.inject.Inject
 
 import actions.AuthenticatedAction
 import connectors.test.EmacConnector
-import connectors.{ExternalId, GroupAccounts, IndividualAccounts, VPLAuthConnector}
-import controllers.PropertyLinkingController
-import models.{GroupAccount, UpdatedOrganisationAccount}
+import connectors.{GroupAccounts, IndividualAccounts, PropertyRepresentationConnector, VPLAuthConnector}
+import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController}
+import javax.inject.Inject
+import models._
 import models.test.TestUserDetails
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
@@ -33,11 +33,12 @@ import services.{EnrolmentService, Failure, Success}
 import scala.util.Random
 
 class TestController @Inject()(authenticated: AuthenticatedAction,
-                                enrolmentService: EnrolmentService,
-                                individualAccounts: IndividualAccounts,
-                                groups: GroupAccounts,
-                                emacConnector: EmacConnector,
-                                vPLAuthConnector: VPLAuthConnector
+                               enrolmentService: EnrolmentService,
+                               individualAccounts: IndividualAccounts,
+                               groups: GroupAccounts,
+                               emacConnector: EmacConnector,
+                               reprConnector: PropertyRepresentationConnector,
+                               vPLAuthConnector: VPLAuthConnector
                               )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
@@ -76,6 +77,22 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
       _ <- individualAccounts.update(request.individualAccount.copy(externalId = externalId))
       _ <- groups.update(request.organisationAccount.id, create(request.organisationAccount, externalId))
     } yield Ok("Successful")
+  }
+
+  def revokeAgentAppointments(agentOrgId: String) = authenticated { implicit request =>
+    val agentAuthResult = reprConnector.forAgentSearchAndSort(agentOrgId.toLong, PaginationSearchSort(pageNumber = 1, pageSize = 100))
+    agentAuthResult.map(representation => representation.authorisations.map(
+      authorisation => reprConnector.revoke(authorisation.authorisedPartyId)
+    )).map(_ =>
+      Ok("Agent appointments revoked"))
+  }
+
+  def declinePendingAgentAppointments(agentOrgId: String, agentPersonId: String) = authenticated { implicit request =>
+    val pendingAgentAppointments = reprConnector.forAgent(RepresentationPending, agentOrgId.toLong, Pagination(pageNumber = 1, pageSize = 100))
+    pendingAgentAppointments.map(appointments =>
+      appointments.propertyRepresentations.map(appointment =>
+        reprConnector.response(RepresentationResponse(appointment.submissionId, agentPersonId.toLong, RepresentationResponseDeclined)))).map(_ =>
+      Ok("Pending agent appointments declined"))
   }
 
   private def create(group: GroupAccount, externalId: String): UpdatedOrganisationAccount =

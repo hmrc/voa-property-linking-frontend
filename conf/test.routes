@@ -1,3 +1,5 @@
-GET        /user-details        @controllers.test.TestController.getUserDetails
-GET        /de-enrol            @controllers.test.TestController.deEnrol
-GET        /delete              @controllers.test.TestController.delete
+GET        /user-details                                          @controllers.test.TestController.getUserDetails
+GET        /de-enrol                                              @controllers.test.TestController.deEnrol
+GET        /delete                                                @controllers.test.TestController.delete
+GET        /revoke-agent-appointments/:agentOrgId                 @controllers.test.TestController.revokeAgentAppointments(agentOrgId)
+GET        /decline-pending-agent-appointments/:agentOrgId        @controllers.test.TestController.declinePendingAgentAppointments(agentOrgId, agentPersonId: String)
