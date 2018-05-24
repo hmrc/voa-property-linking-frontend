@@ -201,7 +201,10 @@ createAccount.group.details.header.multipleAddress=There’s more than one addre
 createAccount.group.details.content.multipleAddress=You should enter the address that you want any business correspondence to be sent to.
 createAccount.business.email.help=This should be your email address and not your agent’s. The email address should be monitored.
 
-
+#MIGRATED ENROLMENT USER
+account.migrated.welcome=Welcome back
+account.migrated.personalId=Your VOA personal ID is:
+account.migrated.p1=As part of the ongoing improvements to the check and challenge service, we''ve given you a personal ID number. You should keep a note of this number in a safe place as you will need it if you want to reset your password.
 
 account.confirmation.alreadyRegistered.youCan=You can now:
 account.confirmation.alreadyRegistered.youCan.1=add properties to the business’s customer record
@@ -220,7 +223,6 @@ dashboard.tab.drafts=Drafts
 dashboard.tab.editDetails=My details
 dashboard.tab.messages=Messages ({0})
 dashboard.tab.messages.none=Messages
-
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard home
@@ -989,7 +991,7 @@ enrolment.title = Complete your contact details
 enrolment.organisation.name = Business name
 enrolment.organisation.name.label = Organisation name
 
-enrolment.assistant.hint = You have been registered as a new user, please confirm your details below
+enrolment.assistant.hint = You have been added as a user to your organisation, please confirm your details below
 enrolment.assistant.organisation.details.title = Your organisation details
 
 enrolment.firstName = First name
@@ -1008,8 +1010,6 @@ enrolment.confirmEmailAddress = Confirm business email address
 enrolment.organisation.individualOrCompany = Do you wish to act on behalf of an other individual or company?
 enrolment.yes = Yes
 enrolment.no = No
-enrolment.migration.success.title = Migration success
-enrolment.migration.success.explanation = Some content here about what has happened
 
 #COMMON
 app.common.saveAndContinue = Save and continue
