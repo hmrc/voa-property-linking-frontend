@@ -1,4 +1,4 @@
 GET        /user-details        @controllers.test.TestController.getUserDetails
 GET        /de-enrol            @controllers.test.TestController.deEnrol
 GET        /delete              @controllers.test.TestController.delete
-DELETE     /de-register         @controllers.test.TestController.deRegister
+GET        /de-register         @controllers.test.TestController.deRegister
