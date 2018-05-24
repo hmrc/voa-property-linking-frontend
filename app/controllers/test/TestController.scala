@@ -18,11 +18,11 @@ package controllers.test
 
 import java.time.Instant
 import java.util.UUID
-import javax.inject.Inject
 
+import javax.inject.Inject
 import actions.AuthenticatedAction
-import connectors.test.EmacConnector
-import connectors.{ExternalId, GroupAccounts, IndividualAccounts, VPLAuthConnector}
+import connectors.test.{EmacConnector, TestConnector}
+import connectors._
 import controllers.PropertyLinkingController
 import models.{GroupAccount, UpdatedOrganisationAccount}
 import models.test.TestUserDetails
@@ -30,6 +30,7 @@ import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import services.{EnrolmentService, Failure, Success}
 
+import scala.concurrent.Future
 import scala.util.Random
 
 class TestController @Inject()(authenticated: AuthenticatedAction,
@@ -37,7 +38,8 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
                                 individualAccounts: IndividualAccounts,
                                 groups: GroupAccounts,
                                 emacConnector: EmacConnector,
-                                vPLAuthConnector: VPLAuthConnector
+                                vPLAuthConnector: VPLAuthConnector,
+                                testConnector: TestConnector
                               )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
@@ -57,6 +59,15 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
         governmentGatewayExternalId = request.individualAccount.externalId,
         agentCode = None)
     }))
+  }
+
+
+  def deRegister() = authenticated { implicit request =>
+    val orgId: Long = request.individualAccount.organisationId
+    for {
+      _ <- testConnector.deRegister(orgId)
+    } yield Ok(s"Successfully removed organisationId: $orgId")
+
   }
 
   def deEnrol() = authenticated { implicit request =>
