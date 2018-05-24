@@ -171,7 +171,7 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     val html = HtmlPage(res)
     html.mustContainTextInput("#firstName")
     html.mustContainTextInput("#lastName")
-    html.mustContainText("You have been registered as a new user, please confirm your details below")
+    html.mustContainText("You have been added as a user to your organisation, please confirm your details below")
   }
 
   "Going to the create account page when logged in as a new admin user registering with an existing group account" should
@@ -189,7 +189,7 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("You have been registered as a new user, please confirm your details below")
+    html.mustContainText("You have been added as a user to your organisation, please confirm your details below")
     html.mustContainTextInput("#firstName")
     html.mustContainTextInput("#lastName")
     html.mustContainTextInput("#dobday")

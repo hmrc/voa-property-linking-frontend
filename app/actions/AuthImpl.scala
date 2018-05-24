@@ -88,8 +88,12 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider,
         val action = body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
         isAssistant(role) match {
           case false => {
+            if(config.stubEnrolment) {
+              Logger.info("Enrolment stubbed")
+            } else {
             enrolments.getEnrolment("HMRC-VOA-CCA").getOrElse(
               throw new InsufficientEnrolments("HMRC-VOA-CCA enrolment not found"))
+            }
             action
           }
           case true => action

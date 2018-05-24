@@ -19,23 +19,18 @@
 @(id: String, continue: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(Messages("account.confirmation.title"), topNavigation = false) {
-<div class="grid-row">
-    <div class="column-two-thirds">
+    <div class="grid-row">
+        <div class="column-two-thirds">
 
-        <div class="transaction-banner--complete">
-            <h1 class="transaction-banner__heading">@Messages("account.confirmation.heading")</h1>
-            <h2 class="transaction-banner__heading">@Messages("create.success.personId") @id</h2>
+            <div class="transaction-banner--complete">
+                <h1 class="transaction-banner__heading">@Messages("account.migrated.welcome")</h1>
+                <h2 class="transaction-banner__heading">@Messages("account.migrated.personalId") @id</h2>
+            </div>
+
+            <p>@Messages("account.migrated.p1")</p>
+            <p>@Messages("account.enrolment.disclaimer")</p>
+
+            <a href="@continue" class="button" role="button">@Messages("account.enrolment.link.text")</a>
         </div>
-
-        <p>@Messages("account.enrolment.description.existing")</p>
-
-        <p>@Messages("account.enrolment.personId", id)</p>
-
-        <p>@Messages("account.enrolment.disclaimer")</p>
-
-        <p>@Messages("account.enrolment.footer")</p>
-
-        <a href="@continue" class="button" role="button">@Messages("account.enrolment.link.text")</a>
     </div>
-</div>
 }
