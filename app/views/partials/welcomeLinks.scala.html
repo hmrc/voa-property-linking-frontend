@@ -20,17 +20,27 @@
 
 @(unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
+@name = @{
+    s"${request.individualAccount.details.firstName} ${request.individualAccount.details.lastName}"
+}
+@company = @{
+    s"${request.organisationAccount.companyName}"
+}
+
+
 <div class="userStatus">
     <span class="userStatus--name">Welcome,
         <a href="@controllers.manageDetails.routes.ViewDetails.show().url">
         @name
         </a>
-    </span> -
-    <span class="userStatus--business">
-        <a href="@controllers.manageDetails.routes.ViewDetails.show().url">
-        @company
-        </a>
     </span>
+    @if(name != company) {
+        <span class="userStatus--business"> -
+            <a href="@controllers.manageDetails.routes.ViewDetails.show().url">
+            @company
+            </a>
+        </span>
+    }
 
     @if(isAgent) {
             &nbsp;
@@ -58,37 +68,35 @@
     }
 </div>
 
-@if(!request.uri.contains("/business-rates-property-linking/message/")){
-<div class="column-full">
-    <div class="indent-warning">
-        <h2>Are your contact details correct?</h2>
-        <p>Make sure you’ve provided us with your preferred contact details. These should be the contact details you use for business, not your personal details. </p>
-        <p><a href="@controllers.manageDetails.routes.ViewDetails.show()">Review and update your contact details.</a></p>
-    </div>
+@if(!request.uri.contains("/business-rates-property-linking/message/")) {
+    <div class="column-full">
+        <div class="indent-warning">
+            <h2>Are your contact details correct?</h2>
+            <p>Make sure you’ve provided us with your preferred contact details. These should be the contact details you use for business, not your personal details. </p>
+            <p><a href="@controllers.manageDetails.routes.ViewDetails.show()">
+                Review and update your contact details.</a></p>
+        </div>
 
-</div>
+    </div>
 }
 
     @isAgent = @{
         request.organisationAccount.isAgent
     }
 
-    @name = @{
-        s"${request.individualAccount.details.firstName} ${request.individualAccount.details.lastName}"
-    }
-    @company = @{
-        s"${request.organisationAccount.companyName}"
-    }
+
     @agentCode = @{
         s"${request.organisationAccount.agentCode}"
     }
 
-    @voaPersonId = @{request match {
-        case linkingReq : LinkingSessionRequest[_] =>  {
-             linkingReq.individualAccount.individualId
+    @voaPersonId = @{
+        request match {
+            case linkingReq: LinkingSessionRequest[_] => {
+                linkingReq.individualAccount.individualId
+            }
+            case authReq: AuthenticatedRequest[_] => {
+                authReq.individualAccount.individualId
+            }
+            case _ => {}
         }
-        case authReq : AuthenticatedRequest[_]  =>  {
-            authReq.individualAccount.individualId
-        }
-        case _ => { }
-    }}
+    }
