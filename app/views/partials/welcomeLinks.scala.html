@@ -49,14 +49,21 @@
 </div>
 
 
-<div id="unread-message-count" class="clearfix pull-right margin-top-5 margin-bottom-20 font-xsmall">
-    <i class="icon icon-messageunread"></i>
-    @if(unreadMessagesCount == 0) {
-        <span>@Messages("dashboard.unreadMessages.none")</span>
-    } else {
-        <span>@Html(Messages("dashboard.unreadMessages", routes.Dashboard.viewMessages().url, unreadMessagesCount))</span>
-    }
-</div>
+@*VTCCA-1846 Live Issue:*@
+
+@*The below is temporary as there is a live issue for users with large numbers of messages.*@
+@*The API call is timing out and preventing users from accessing the dashboard, once*@
+@*the longer term fix is in place we need to revert this.*@
+@if(!Seq(1808).contains(request.organisationId)) {
+    <div id="unread-message-count" class="clearfix pull-right margin-top-5 margin-bottom-20 font-xsmall">
+        <i class="icon icon-messageunread"></i>
+        @if(unreadMessagesCount == 0) {
+            <span>@Messages("dashboard.unreadMessages.none")</span>
+        } else {
+            <span>@Html(Messages("dashboard.unreadMessages", routes.Dashboard.viewMessages().url, unreadMessagesCount))</span>
+        }
+    </div>
+}
 
 @if(!request.uri.contains("/business-rates-property-linking/message/")){
 <div class="column-full">
