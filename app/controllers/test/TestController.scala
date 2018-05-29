@@ -19,16 +19,17 @@ package controllers.test
 import java.time.Instant
 import java.util.UUID
 
-import javax.inject.Inject
 import actions.AuthenticatedAction
-import connectors.test.{EmacConnector, TestConnector}
 import connectors._
+import connectors.test.{EmacConnector, TestConnector}
 import controllers.PropertyLinkingController
-import models.{GroupAccount, UpdatedOrganisationAccount}
+import javax.inject.Inject
 import models.test.TestUserDetails
+import models.{GroupAccount, UpdatedOrganisationAccount}
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import services.{EnrolmentService, Failure, Success}
+
 import scala.util.Random
 
 class TestController @Inject()(authenticated: AuthenticatedAction,
@@ -60,14 +61,14 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
   }
 
   def deRegister() = authenticated { implicit request =>
-    import scala.util.{Try, Success, Failure}
+    import scala.util.{Failure, Success, Try}
 
     val orgId = request.individualAccount.organisationId
     Try{
       testConnector.deRegister(orgId)
     } match {
-      case Success(msg) => Ok(s"Successfully removed organisationId: $orgId")
-      case Failure(error) => Ok(s"Error occurred deleting: $orgId with error: $error")
+      case Success(msg) => Ok(s"Successfully deleted organisation with ID: $orgId")
+      case Failure(error) => Ok(s"Error deleting organisation with ID: $orgId with error: $error")
     }
   }
 
