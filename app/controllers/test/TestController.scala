@@ -33,12 +33,12 @@ import services.{EnrolmentService, Failure, Success}
 import scala.util.Random
 
 class TestController @Inject()(authenticated: AuthenticatedAction,
-                                enrolmentService: EnrolmentService,
-                                individualAccounts: IndividualAccounts,
-                                groups: GroupAccounts,
-                                emacConnector: EmacConnector,
-                                vPLAuthConnector: VPLAuthConnector,
-                                testConnector: TestConnector
+                               enrolmentService: EnrolmentService,
+                               individualAccounts: IndividualAccounts,
+                               groups: GroupAccounts,
+                               emacConnector: EmacConnector,
+                               vPLAuthConnector: VPLAuthConnector,
+                               testConnector: TestConnector
                               )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
@@ -61,14 +61,9 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
   }
 
   def deRegister() = authenticated { implicit request =>
-    import scala.util.{Failure, Success, Try}
-
     val orgId = request.individualAccount.organisationId
-    Try{
-      testConnector.deRegister(orgId)
-    } match {
-      case Success(msg) => Ok(s"Successfully deleted organisation with ID: $orgId")
-      case Failure(error) => Ok(s"Error deleting organisation with ID: $orgId with error: $error")
+    testConnector.deRegister(orgId).map(res => Ok(s"Successfully deleted organisation with ID: $orgId")).recover {
+      case e => Ok(s"Failed to delete organisation with ID: $orgId with error: ${e.getMessage}")
     }
   }
 
