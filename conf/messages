@@ -16,6 +16,7 @@ start.registration.p.5=You should allow approximately 15 minutes without interru
 start.registration.IdontHave=I don’t have these details
 start.registration.IdontHave.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to call the Valuation Office Agency (VOA).</p><p>Telephone: 03000 501 501</p>
 start.registration.IdontHave.enrolment.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, you’ll need to call the Valuation Office Agency (VOA).</p><p>Telephone: 03000 501 501</p>
+start.registration.enrolment.hyperlink=<a href="{0}">I want to register using my existing Government Gateway account</a>
 
 
 start.heading.agents=Agents
@@ -974,8 +975,8 @@ label.createAccount.lastName= Last Name
 label.createAccount.phone= Phone Number
 label.your.details= Your details
 
-choice.individual=Individual (you represent yourself)
-choice.organisation=Organisation (you represent a business, charity or other organisation)
+choice.individual=Individual (you represent yourself) – you won’t be able to add others to this account
+choice.organisation=Organisation (you represent a business, charity or other organisation) – you’ll be able to add others to this account
 account.enrolment.link.text=Go To Dashboard
 account.enrolment.link.success=Continue
 account.enrolment.description=As part of the registration for the check and challenge service, you’ve been given a personal ID number. You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
