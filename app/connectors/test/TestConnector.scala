@@ -20,15 +20,14 @@ import config.WSHttp
 import javax.inject.Inject
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.config.inject.ServicesConfig
-
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{Future, ExecutionContext}
 
 class TestConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
 
-  lazy val url = config.baseUrl("property-linking") + "/property-linking/groups"
+  lazy val url = config.baseUrl("property-linking") + "/property-linking/"
 
-  def deRegister(organisationId: Long)(implicit hc: HeaderCarrier) = {
-    http.DELETE[Long](url + s"/test-only/$organisationId")
+  def deRegister(organisationId: Long)(implicit hc: HeaderCarrier): Future[Long] = {
+      http.DELETE[Long](url + s"test-only/de-register/$organisationId")
   }
 
 }

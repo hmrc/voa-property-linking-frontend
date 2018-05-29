@@ -29,8 +29,6 @@ import models.test.TestUserDetails
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import services.{EnrolmentService, Failure, Success}
-
-import scala.concurrent.Future
 import scala.util.Random
 
 class TestController @Inject()(authenticated: AuthenticatedAction,
@@ -61,13 +59,16 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
     }))
   }
 
-
   def deRegister() = authenticated { implicit request =>
-    val orgId: Long = request.individualAccount.organisationId
-    for {
-      _ <- testConnector.deRegister(orgId)
-    } yield Ok(s"Successfully removed organisationId: $orgId")
+    import scala.util.{Try, Success, Failure}
 
+    val orgId = request.individualAccount.organisationId
+    Try{
+      testConnector.deRegister(orgId)
+    } match {
+      case Success(msg) => Ok(s"Successfully removed organisationId: $orgId")
+      case Failure(error) => Ok(s"Error occurred deleting: $orgId with error: $error")
+    }
   }
 
   def deEnrol() = authenticated { implicit request =>
