@@ -42,7 +42,18 @@ class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig)(implicit e
   }
 
   def countUnread(orgId: Long)(implicit hc: HeaderCarrier): Future[MessageCount] = {
-    http.GET[MessageCount](s"$baseUrl/unread-messages-count/$orgId")
+    /*
+    VTCCA-1846 Live Issue:
+    The below is temporary as there is a live issue for users with large numbers of messages.
+    The API call is timing out and preventing users from accessing the dashboard, once
+    the longer term fix is in place we need to revert this.
+    */
+
+    if (Seq(1808).contains(orgId)) {
+      Future.successful(MessageCount(0, 0))
+    } else {
+      http.GET[MessageCount](s"$baseUrl/unread-messages-count/$orgId")
+    }
   }
 
   def markAsRead(messageId: String, ggId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
