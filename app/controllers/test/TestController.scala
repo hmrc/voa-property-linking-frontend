@@ -19,12 +19,12 @@ package controllers.test
 import java.time.Instant
 import java.util.UUID
 
-import javax.inject.Inject
 import actions.AuthenticatedAction
-import connectors.test.{EmacConnector, TestConnector}
 import connectors._
-import controllers.PropertyLinkingController
-import models.{GroupAccount, UpdatedOrganisationAccount}
+import connectors.test.{EmacConnector, TestConnector}
+import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController}
+import javax.inject.Inject
+import models._
 import models.test.TestUserDetails
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
@@ -33,13 +33,13 @@ import services.{EnrolmentService, Failure, Success}
 import scala.util.Random
 
 class TestController @Inject()(authenticated: AuthenticatedAction,
-                                enrolmentService: EnrolmentService,
-                                individualAccounts: IndividualAccounts,
-                                groups: GroupAccounts,
-                                emacConnector: EmacConnector,
-                                vPLAuthConnector: VPLAuthConnector,
+                               enrolmentService: EnrolmentService,
+                               individualAccounts: IndividualAccounts,
+                               groups: GroupAccounts,
+                               emacConnector: EmacConnector,
+                               vPLAuthConnector: VPLAuthConnector,
                                testConnector: TestConnector,
-                               reprConnector: PropertyRepresentationConnector,
+                               reprConnector: PropertyRepresentationConnector
                               )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
