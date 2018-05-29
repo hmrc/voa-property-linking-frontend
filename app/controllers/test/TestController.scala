@@ -62,8 +62,8 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
 
   def deRegister() = authenticated { implicit request =>
     val orgId = request.individualAccount.organisationId
-    testConnector.deRegister(orgId).map(res => Ok(s"Successfully deleted organisation with ID: $orgId")).recover {
-      case e => Ok(s"Failed to delete organisation with ID: $orgId with error: ${e.getMessage}")
+    testConnector.deRegister(orgId).map(res => Ok(s"Successfully de-registered organisation with ID: $orgId")).recover {
+      case e => Ok(s"Failed to de-register organisation with ID: $orgId with error: ${e.getMessage}")
     }
   }
 
