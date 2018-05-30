@@ -20,8 +20,8 @@ import java.time.Instant
 import java.util.UUID
 
 import actions.AuthenticatedAction
-import connectors.test.EmacConnector
-import connectors.{GroupAccounts, IndividualAccounts, PropertyRepresentationConnector, VPLAuthConnector}
+import connectors._
+import connectors.test.{EmacConnector, TestConnector}
 import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController}
 import javax.inject.Inject
 import models._
@@ -37,8 +37,9 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
                                individualAccounts: IndividualAccounts,
                                groups: GroupAccounts,
                                emacConnector: EmacConnector,
-                               reprConnector: PropertyRepresentationConnector,
-                               vPLAuthConnector: VPLAuthConnector
+                               vPLAuthConnector: VPLAuthConnector,
+                               testConnector: TestConnector,
+                               reprConnector: PropertyRepresentationConnector
                               )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
@@ -58,6 +59,13 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
         governmentGatewayExternalId = request.individualAccount.externalId,
         agentCode = None)
     }))
+  }
+
+  def deRegister() = authenticated { implicit request =>
+    val orgId = request.individualAccount.organisationId
+    testConnector.deRegister(orgId).map(res => Ok(s"Successfully de-registered organisation with ID: $orgId")).recover {
+      case e => Ok(s"Failed to de-register organisation with ID: $orgId with error: ${e.getMessage}")
+    }
   }
 
   def deEnrol() = authenticated { implicit request =>
