@@ -676,7 +676,7 @@ detailedValuationRequested.title=We''ve received your request to view the detail
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 10 working days.
 
-duplicateRequestDetailedValuation.request=We’ve received your request for a copy of the detailed valuation for this property recently. You should receive your copy by post or email (whichever you chose as your preference) shortly.
+duplicateRequestDetailedValuation.request=We’ve received your request for a copy of the detailed valuation for this property in the last 14 days. You should receive your copy by post or email (whichever you chose as your preference) shortly.
 duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email ccaservice@voa.gsi.gov.uk and ask for your request to be prioritised.
 duplicateRequestDetailedValuation.urgent=You should include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and your submission ID or reference number within the email.
 

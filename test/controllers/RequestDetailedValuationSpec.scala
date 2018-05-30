@@ -32,7 +32,7 @@ import resources._
 import utils.{HtmlPage, StubAuthentication, StubBusinessRatesValuation, StubPropertyLinkConnector}
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
 class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
@@ -67,6 +67,18 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
     html.mustContainRadioSelect("requestType", DetailedValuationRequestTypes.options)
   }
 
+  it should "display the duplicated request page if user has already requested a DVR within 14 days" in {
+   StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+   val res = TestAssessments.duplicateRequestDetailedValuation(authId, assessmentRef)(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = contentAsString(res)
+    html must include ("This detailed valuation isn’t available to view online.")
+    html must include ("We’ve received your request for a copy of the detailed valuation for this property in the last 14 days.")
+
+  }
+
   it should "require the user to choose how they want to receive the detailed valuation" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef)(FakeRequest())
@@ -77,12 +89,36 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
     html.mustContainFieldErrors("requestType" -> "Please select an option")
   }
 
-  it should """generate a submission ID starting with "EMAIL" if they choose to receive the detailed valuation by email""" in {
+  it should """redirect the user to the duplicate request page if they choose to receive the detailed valuation by email""" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(true))
     val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef)(FakeRequest().withFormUrlEncodedBody("requestType" -> "email"))
 
     await(res)
     verify(mockSubmissionIds, times(1)).get(matching("EMAIL"))(any[HeaderCarrier])
+
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Assessments.duplicateRequestDetailedValuation(authId, assessmentRef).url)
+  }
+
+  it should """redirect the user to the duplicate request page if they choose to receive the detailed valuation by post""" in {
+    StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(true))
+    val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef)(FakeRequest().withFormUrlEncodedBody("requestType" -> "post"))
+
+    await(res)
+    verify(mockSubmissionIds, times(1)).get(matching("POST"))(any[HeaderCarrier])
+
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Assessments.duplicateRequestDetailedValuation(authId, assessmentRef).url)
+  }
+  it should """generate a submission ID starting with "EMAIL" if they choose to receive the detailed valuation by email""" in {
+    StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
+    val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef)(FakeRequest().withFormUrlEncodedBody("requestType" -> "email"))
+
+    await(res)
+    verify(mockSubmissionIds, times(2)).get(matching("EMAIL"))(any[HeaderCarrier])
 
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("EMAIL123", authId).url)
@@ -90,14 +126,15 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
 
   it should """generate a submission ID starting with "POST" if they choose to receive the detailed valuation by post""" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
-    val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef)(FakeRequest().withFormUrlEncodedBody("requestType" -> "post"))
+      val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef)(FakeRequest().withFormUrlEncodedBody("requestType" -> "post"))
+      when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
 
-    await(res)
-    verify(mockSubmissionIds, times(1)).get(matching("POST"))(any[HeaderCarrier])
+      await(res)
+      verify(mockSubmissionIds, times(2)).get(matching("POST"))(any[HeaderCarrier])
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("POST123", authId).url)
-  }
+      status(res) mustBe SEE_OTHER
+      redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("POST123", authId).url)
+    }
 
   it should "confirm that the user will receive the detailed valuation by email if that is their preference" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
@@ -122,4 +159,22 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
     html must include ("Your reference number is POST123")
     html must include ("We’ll send this to you by post")
   }
+
+  it should "return a 404 response when the action throws a NotFoundException" in {
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
+    val res = TestAssessments.dvRequestConfirmation("1234566", authId)(FakeRequest())
+
+    status(res) mustBe NOT_FOUND
+  }
+
+  "startChallengeFromDVR" should "display 'Challenge the Valuation' page" in {
+    StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+    val res = TestAssessments.startChallengeFromDVR()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = contentAsString(res)
+    html must include ("Your challenge must be submitted within 4 months of the VOA decision")
+  }
+
 }
