@@ -96,6 +96,7 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
 
     await(res)
     verify(mockSubmissionIds, times(1)).get(matching("EMAIL"))(any[HeaderCarrier])
+    verify(mockDvrCaseManagement, times(0)).requestDetailedValuation(any())(any[HeaderCarrier])
 
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.Assessments.duplicateRequestDetailedValuation(authId, assessmentRef).url)
@@ -108,6 +109,7 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
 
     await(res)
     verify(mockSubmissionIds, times(1)).get(matching("POST"))(any[HeaderCarrier])
+    verify(mockDvrCaseManagement, times(0)).requestDetailedValuation(any())(any[HeaderCarrier])
 
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.Assessments.duplicateRequestDetailedValuation(authId, assessmentRef).url)
