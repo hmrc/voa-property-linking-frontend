@@ -17,19 +17,16 @@
 package controllers
 
 import actions.AuthenticatedAction
-import javax.inject.Inject
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.agentAppointment.AppointAgentPropertiesVM
 import form.EnumMapping
+import javax.inject.Inject
 import models._
-import play.api.data.{Form, Forms, Mapping}
+import play.api.data.Forms.text
+import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
 import play.api.mvc.Action
-import form.Mappings._
-import play.api.Logger
-import play.api.data.Forms.{text, tuple}
 
 import scala.concurrent.Future
 
@@ -59,31 +56,35 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     }
   }
 
-  lazy val viewAssessmentForm = Form(Forms.single( "viewAssessmentRadio" -> text.transform[(String, Long, String)](x => x.split("-").toList match {
+  lazy val viewAssessmentForm = Form(Forms.single("viewAssessmentRadio" -> text.transform[(String, Long, String)](x => x.split("-").toList match {
     case uarn :: assessmentRef :: baRef :: Nil => (uarn, assessmentRef.toLong, baRef)
   }, y => s"${y._1}-${y._2}-${y._3}")))
 
   def submitViewAssessment(authorisationId: Long) = authenticated { implicit request =>
     val backLink = request.headers.get("Referer")
-        viewAssessmentForm.bindFromRequest().fold(
-          errors =>
-            propertyLinks.getLink(authorisationId).map{
-              case Some(assess) => BadRequest(views.html.dashboard.assessments(AssessmentsVM(errors, assess.assessments, backLink, assess.pending)))
-              case None         => notFound
-            }
-            ,
-          {
-            case (uarn, assessmentRef, baRef) =>
-              uarn match {
-                case "" => Future.successful(Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, assessmentRef, baRef)))
-                case _ => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong)))
-              }
+    viewAssessmentForm.bindFromRequest().fold(
+      errors =>
+        propertyLinks.getLink(authorisationId).map {
+          case Some(assess) => BadRequest(views.html.dashboard.assessments(AssessmentsVM(errors, assess.assessments, backLink, assess.pending)))
+          case None => notFound
+        }
+      ,
+      {
+        case (uarn, assessmentRef, baRef) =>
+          uarn match {
+            case "" => Future.successful(Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, assessmentRef, baRef)))
+            case _ => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong)))
           }
-        )
+      }
+    )
   }
 
   def requestDetailedValuation(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
     Ok(views.html.dvr.requestDetailedValuation(RequestDetailedValuationVM(dvRequestForm, authId, assessmentRef, baRef)))
+  }
+
+  def duplicateRequestDetailedValuation(authId: Long, assessmentRef: Long) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
+    Ok(views.html.dvr.duplicateRequestDetailedValuation())
   }
 
   def startChallengeFromDVR = authenticated { implicit request =>
@@ -102,10 +103,14 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
         for {
           submissionId <- submissionIds.get(prefix)
           dvr = DetailedValuationRequest(authId, request.organisationId, request.personId, submissionId, assessmentRef, baRef)
-          _ <- dvrCaseManagement.requestDetailedValuation(dvr)
-
+          dvrExists <- dvrCaseManagement.dvrExists(request.organisationId, assessmentRef)
+          _ <- if (!dvrExists) dvrCaseManagement.requestDetailedValuation(dvr)
         } yield {
-          Redirect(routes.Assessments.dvRequestConfirmation(submissionId, authId))
+          if (dvrExists) {
+            Redirect(routes.Assessments.duplicateRequestDetailedValuation(authId, assessmentRef))
+          } else {
+            Redirect(routes.Assessments.dvRequestConfirmation(submissionId, authId))
+          }
         }
       }
     )
