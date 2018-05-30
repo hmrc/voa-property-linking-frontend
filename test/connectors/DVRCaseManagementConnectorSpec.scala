@@ -40,7 +40,6 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "dvrExists" must "successfully return a boolean" in new Setup {
-
     mockHttpGET[Boolean]("tst-url", true)
     whenReady(connector.dvrExists(1,2))(_ mustBe true)
   }
