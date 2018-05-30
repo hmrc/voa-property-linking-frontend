@@ -86,6 +86,10 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     Ok(views.html.dvr.requestDetailedValuation(RequestDetailedValuationVM(dvRequestForm, authId, assessmentRef, baRef)))
   }
 
+  def duplicateRequestDetailedValuation(authId: Long, assessmentRef: Long) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
+    Ok(views.html.dvr.duplicateRequestDetailedValuation())
+  }
+
   def startChallengeFromDVR = authenticated { implicit request =>
     Ok(views.html.dvr.startChallenge())
   }
@@ -102,10 +106,15 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
         for {
           submissionId <- submissionIds.get(prefix)
           dvr = DetailedValuationRequest(authId, request.organisationId, request.personId, submissionId, assessmentRef, baRef)
-          _ <- dvrCaseManagement.requestDetailedValuation(dvr)
+          dvrExists <- dvrCaseManagement.dvrExists(request.organisationId, assessmentRef)
+          _ <- if(!dvrExists) dvrCaseManagement.requestDetailedValuation(dvr)
 
         } yield {
+          if(dvrExists){
+            Redirect(routes.Assessments.duplicateRequestDetailedValuation(authId, assessmentRef))
+          }else{
           Redirect(routes.Assessments.dvRequestConfirmation(submissionId, authId))
+        }
         }
       }
     )

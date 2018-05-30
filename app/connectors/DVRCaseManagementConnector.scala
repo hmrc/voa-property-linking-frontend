@@ -31,4 +31,8 @@ class DVRCaseManagementConnector @Inject()(config: ServicesConfig, http: WSHttp)
   def requestDetailedValuation(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
     http.POST[DetailedValuationRequest, HttpResponse](url + "/request-detailed-valuation", dvr) map { _ => () }
   }
+
+  def dvrExists(organisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] = {
+    http.GET[Boolean](url + s"/dvr-exists?organisationId=$organisationId&assessmentRef=$assessmentRef")
+  }
 }
