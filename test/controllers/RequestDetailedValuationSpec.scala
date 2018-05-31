@@ -74,7 +74,7 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
     status(res) mustBe OK
 
     val html = contentAsString(res)
-    html must include ("This detailed valuation isn’t available to view online.")
+    html must include ("You’ve already requested this detailed valuation.")
     html must include ("We’ve received your request for a copy of the detailed valuation for this property in the last 14 days.")
 
   }
