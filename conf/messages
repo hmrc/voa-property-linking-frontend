@@ -658,7 +658,7 @@ linkError.conflict.home.link=Manage your properties
 
 #REQUEST DETAILED VALUATION
 error.select.valuation.required=Please select a Valuation
-requestDetailedValuation.title=You’ve already requested this detailed valuation.
+requestDetailedValuation.title=This detailed valuation isn’t available to view online.
 requestDetailedValuation.p.1=We’re working to make more detailed valuations available to view online in the next few months. If you need to view this detailed valuation sooner, please request a copy by email or post.
 requestDetailedValuation.p.2=If you don’t want to request this, you can <a href={0}>return to the dashboard.</a>
 requestDetailedValuation.p.3=The majority of our customers prefer us to send information by email as it means we can get it to them quicker. Although we take care to protect the security of your property data, we cannot guarantee that your detailed valuation will be secure once sent.
@@ -676,6 +676,7 @@ detailedValuationRequested.title=We''ve received your request to view the detail
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 10 working days.
 
+duplicateRequestDetailedValuation.title=You’ve already requested this detailed valuation.
 duplicateRequestDetailedValuation.request=We’ve received your request for a copy of the detailed valuation for this property in the last 14 days. You should receive your copy by post or email (whichever you chose as your preference) shortly.
 duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email ccaservice@voa.gsi.gov.uk and ask for your request to be prioritised.
 duplicateRequestDetailedValuation.urgent=You should include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and your submission ID or reference number within the email.
