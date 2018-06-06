@@ -170,7 +170,7 @@ link.createGroupAccount=Register your business
 #INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
 groupAlreadyExists.title={0} has already registered.
 groupAlreadyExists.addedToGroup=You’ve been added to their customer record.
-account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the terms and conditions of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
+account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a href="https://www.tax.service.gov.uk/business-rates-valuation/terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
 
 #CREATE GROUP ACCOUNT
 createAccount.group.title=Your business details
@@ -990,6 +990,8 @@ account.enrolment.personId=Your ID number is {0}
 account.enrolment.disclaimer=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
 account.enrolment.footer=Valuation Office Agency (VOA)
 
+create.success.keepNote=You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
+create.success.keepUsingGg=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
 create.success.personId=VOA Personal ID:
 create-account.type.question=Which type of account would you like to create?
 

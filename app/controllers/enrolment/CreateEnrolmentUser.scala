@@ -103,8 +103,9 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
   }
 
   def success(personId: Long) = authenticatedAction { implicit request =>
-    Ok(views.html.createAccount.confirmation_enrolment(personId.toString))
-      .withSession(request.session.removeUserDetails)
+    auth.getAffinityGroup.map(affinityGroup =>
+      Ok(views.html.createAccount.confirmation_enrolment(personId.toString, affinityGroup))
+        .withSession(request.session.removeUserDetails))
   }
 
   private def orgShow[A](ctx: A, userDetails: UserDetails)(implicit request: Request[AnyContent]) = {

@@ -18,22 +18,28 @@
 @import helpers._
 @import config.ApplicationConfig
 
-@(id: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@import uk.gov.hmrc.auth.core.AffinityGroup
+@import uk.gov.hmrc.auth.core.AffinityGroup._
+@(id: String, affinityGroup: AffinityGroup)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-    @main_template(Messages("account.confirmation.title"), topNavigation = false) {
-        <div class="grid-row">
-            <div class="column-two-thirds">
+@main_template(Messages("account.confirmation.title"), topNavigation = false) {
+    <div class="grid-row">
+        <div class="column-two-thirds">
 
-                <div class="transaction-banner--complete">
-                    <h1 class="transaction-banner__heading">@Messages("account.confirmation.heading")</h1>
-                    <h2 class="transaction-banner__heading">@Messages("create.success.personId") @id</h2>
-                </div>
-
-                <p>@Html(Messages("account.confirmation.addToGG", "http://www.gateway.gov.uk"))</p>
-
-                <p>@Messages("account.confirmation.disclaimer")</p>
-
-                <a href="@routes.Dashboard.home()" class="button" role="button">@Messages("account.enrolment.link.text")</a>
+            <div class="transaction-banner--complete">
+                <h1 class="transaction-banner__heading">@Messages("account.confirmation.heading")</h1>
+                <h2 class="transaction-banner__heading">@Messages("create.success.personId") @id</h2>
             </div>
+            <p>@Messages("create.success.keepNote")</p>
+            <p>@Messages("create.success.keepUsingGg")</p>
+
+            @if(affinityGroup != Individual) {
+                <p>@Html(Messages("account.confirmation.addToGG", routes.Application.addUserToGG()))</p>
+            }
+            
+            <p>@Html(Messages("account.confirmation.disclaimer"))</p>
+
+            <a href="@routes.Dashboard.home()" class="button" role="button">@Messages("account.enrolment.link.success")</a>
         </div>
-    }
+    </div>
+}
