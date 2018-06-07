@@ -171,6 +171,7 @@ link.createGroupAccount=Register your business
 groupAlreadyExists.title={0} has already registered.
 groupAlreadyExists.addedToGroup=You’ve been added to their customer record.
 account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a href="https://www.tax.service.gov.uk/business-rates-valuation/terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
+account.confirmation.disclaimer.oldJourney=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the terms and conditions of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
 
 #CREATE GROUP ACCOUNT
 createAccount.group.title=Your business details
