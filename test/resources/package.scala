@@ -193,7 +193,6 @@ package object resources {
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
 
   val propertyRepresentationGen: Gen[PropertyRepresentation] = for {
-    representationId <- arbitrary[Long]
     authorisationId <- arbitrary[Long]
     billingAuthorityReference <- shortString
     submissionId <- shortString
@@ -205,8 +204,7 @@ package object resources {
     createDatetime <- arbitrary[LocalDate]
     status <- arbitrary[RepresentationStatus]
   } yield {
-    PropertyRepresentation(representationId = representationId,
-      authorisationId = authorisationId,
+    PropertyRepresentation(authorisationId = authorisationId,
       billingAuthorityReference = billingAuthorityReference,
       submissionId = submissionId,
       organisationId = organisationId,
