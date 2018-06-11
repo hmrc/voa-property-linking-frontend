@@ -28,6 +28,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   def baseUrl: String = if (runMode.env == "Prod") "" else "http://localhost:9523"
   def businessRatesValuationUrl(page: String): String = getConfig("business-rates-valuation.url") + s"/$page"
   def businessRatesCheckUrl(page: String): String = getConfig("business-rates-check.url") + s"/$page"
+  def businessTaxAccountUrl(page: String): String = getConfig("business-tax-account.url") + s"/$page"
 
   lazy val helpGuideUrl = getConfig("help-guide.url")
 
