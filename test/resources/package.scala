@@ -201,7 +201,6 @@ package object resources {
     address <- arbitrary[PropertyAddress]
     checkPermission <- arbitrary[AgentPermission]
     challengePermission <- arbitrary[AgentPermission]
-    createDatetime <- arbitrary[LocalDate]
     status <- arbitrary[RepresentationStatus]
   } yield {
     PropertyRepresentation(authorisationId = authorisationId,
@@ -212,7 +211,6 @@ package object resources {
       address = address.toString,
       checkPermission = checkPermission,
       challengePermission = challengePermission,
-      createDatetime = createDatetime,
       status = status)
   }
   implicit val arbitraryPropertyRepresentation = Arbitrary(propertyRepresentationGen)

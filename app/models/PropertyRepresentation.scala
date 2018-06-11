@@ -28,7 +28,6 @@ case class PropertyRepresentation(authorisationId: Long,
                                   address: String,
                                   checkPermission: AgentPermission,
                                   challengePermission: AgentPermission,
-                                  createDatetime: LocalDate,
                                   status: RepresentationStatus)
 
 
