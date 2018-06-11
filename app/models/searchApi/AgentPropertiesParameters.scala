@@ -40,12 +40,15 @@ case class AgentPropertiesParameters(agentCode: Long,
 
   def clear: AgentPropertiesParameters = copy(address = None, agentNameFilter = None)
 
+  def permissionString(agentPermission: AgentPermission): Option[String] = if (agentPermission == StartAndContinue) Some(agentPermission.name) else None
+
   lazy val queryString = s"agentCode=$agentCode&startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=true" +
-    s"&checkPermission=${checkPermission.name}&challengePermission=${challengePermission.name}" +
     buildUppercaseQueryParams("sortfield", Some(sortField.name)) +
     buildUppercaseQueryParams("sortorder", Some(sortOrder.name)) +
     buildQueryParams("address", address) +
-    buildQueryParams("agent", agentNameFilter)
+    buildQueryParams("agent", agentNameFilter) +
+    buildQueryParams("checkPermission", permissionString(checkPermission)) +
+    buildQueryParams("challengePermission", permissionString(challengePermission))
 }
 
 object AgentPropertiesParameters {
