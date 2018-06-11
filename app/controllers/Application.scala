@@ -35,13 +35,17 @@ class Application @Inject()(ggAction: VoaAction)(implicit val messagesApi: Messa
     Ok(views.html.addUserToGG())
   }
 
+  def manageBusinessTaxAccount = Action { implicit request =>
+    Redirect(config.businessTaxAccountUrl("manage-account"))
+  }
+
   def start() = Action.async { implicit request =>
-      ggAction match {
-        case _: GGActionEnrolment =>
-          Future.successful(Ok(views.html.start_enrolment(RegisterHelper.choiceForm)))
-        case _: GGAction =>
-          Future.successful(Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString))
-      }
+    ggAction match {
+      case _: GGActionEnrolment =>
+        Future.successful(Ok(views.html.start_enrolment(RegisterHelper.choiceForm)))
+      case _: GGAction =>
+        Future.successful(Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString))
+    }
   }
 
   def logOut() = Action { request =>
