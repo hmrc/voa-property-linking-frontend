@@ -87,8 +87,8 @@ object AgentPropertiesParameters {
     override def unbind(key: String, value: AgentPropertiesParameters): String =
       s"""
          |agentCode=${value.agentCode}&
-         |checkPermission=${value.checkPermission}&
-         |challengePermission=${value.challengePermission}&
+         |checkPermission=${value.checkPermission.name}&
+         |challengePermission=${value.challengePermission.name}&
          |address=${value.address.getOrElse("")}&
          |agentName=${value.agentNameFilter.getOrElse("")}&
          |pageNumber=${value.pageNumber}&
