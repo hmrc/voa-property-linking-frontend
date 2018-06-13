@@ -42,11 +42,6 @@
             <p class="lede">@Messages("propertyRepresentation.agentSummary.appointed", agentOrganisation, action.agentCode.toString, perms)</p>
         }
 
-        <div class="panel panel-border-wide">
-            <p>@Messages("propertyRepresentation.agentSummary.warning")</p>
-        </div>
-
-
         @form(agentAppointment.routes.AppointAgentController.selectProperties()) {
             <input type="hidden" name="agentCode" value="@action.agentCode">
             <input type="hidden" name="agentCodeRadio" value="yes">

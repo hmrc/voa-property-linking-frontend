@@ -74,7 +74,6 @@
                             <th scope="col">@Messages("pendingRepresentationRequests.table.orgName")</th>
                             <th scope="col">@Messages("pendingRepresentationRequests.table.propertyAddress")</th>
                             <th scope="col">@Messages("pendingRepresentationRequests.table.permissions")</th>
-                            <th scope="col">@Messages("pendingRepresentationRequests.table.dateRequested")</th>
                         </tr>
                         @model.propertyRepresentations.zipWithIndex.map { case (p, i) =>
                             <tr>
@@ -108,9 +107,6 @@
                                         <li>Challenge: @Messages(p.challengePermission.msgKey)</li>
                                     </ul>
                                 </td>
-
-                                <td>@utils.Formatters.formatDate(p.createDatetime)</td>
-
                             </tr>
                         }
                     </tbody>

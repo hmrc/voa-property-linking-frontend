@@ -20,8 +20,7 @@ import java.time.LocalDate
 
 import play.api.libs.json.Json
 
-case class PropertyRepresentation(representationId: Long,
-                                  authorisationId: Long,
+case class PropertyRepresentation(authorisationId: Long,
                                   billingAuthorityReference: String,
                                   submissionId: String,
                                   organisationId: Long,
@@ -29,7 +28,6 @@ case class PropertyRepresentation(representationId: Long,
                                   address: String,
                                   checkPermission: AgentPermission,
                                   challengePermission: AgentPermission,
-                                  createDatetime: LocalDate,
                                   status: RepresentationStatus)
 
 

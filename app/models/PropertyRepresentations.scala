@@ -19,7 +19,6 @@ package models
 import play.api.libs.json.Json
 
 case class PropertyRepresentations(totalPendingRequests: Long,
-                                   resultCount: Option[Long],
                                    propertyRepresentations: Seq[PropertyRepresentation])
 
 

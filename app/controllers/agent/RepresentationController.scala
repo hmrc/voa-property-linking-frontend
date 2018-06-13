@@ -118,7 +118,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
               ManagePropertiesVM(
                 reprs.propertyRepresentations,
                 reprs.totalPendingRequests,
-                pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
+                pagination.copy(totalResults = reprs.totalPendingRequests)
               )
             ))
           }
@@ -128,7 +128,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
             ManagePropertiesVM(
               reprs.propertyRepresentations,
               reprs.totalPendingRequests,
-              pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
+              pagination.copy(totalResults = reprs.totalPendingRequests)
             )
           ))
         }
@@ -145,7 +145,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
               ManagePropertiesVM(
                 propertyRepresentations = reprs.propertyRepresentations,
                 totalPendingRequests = reprs.totalPendingRequests,
-                pagination = pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
+                pagination = pagination.copy(totalResults = reprs.totalPendingRequests)
               )))
           }
         }
@@ -174,7 +174,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
               ManagePropertiesVM(
                 propertyRepresentations = reprs.propertyRepresentations,
                 totalPendingRequests = reprs.totalPendingRequests,
-                pagination = pagination.copy(totalResults = reprs.resultCount.getOrElse(0L))
+                pagination = pagination.copy(totalResults = reprs.totalPendingRequests)
               )))
           }
         }
@@ -237,7 +237,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
         pagination = pagination.copy(
           pageNumber = if (reprs.propertyRepresentations.size == 0) Math.max(1, pagination.pageNumber - 1)
           else pagination.pageNumber,
-          totalResults = reprs.resultCount.getOrElse(0L)),
+          totalResults = reprs.totalPendingRequests),
         action = Some(data.action.toLowerCase),
         requestIds = Some(data.requestIds),
         complete = Some(completedActions),

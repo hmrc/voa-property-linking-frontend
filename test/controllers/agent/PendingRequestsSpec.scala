@@ -62,13 +62,6 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
     checkTableColumn(html, 3, "Permissions", permissions)
   }
 
-  it must "contain the request date for each pending request" in {
-    val html = defaultHtml
-
-    val dates = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { r => Formatters.formatDate(r.createDatetime) }
-    checkTableColumn(html, 4, "Date requested", dates)
-  }
-
   it must "not display the page if the user is not an agent" in {
     val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = false)
     val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
