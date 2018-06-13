@@ -674,7 +674,7 @@ requestType.post=By post
 
 detailedValuationRequested.title=We''ve received your request to view the detailed valuation for {0}
 detailedValuationRequested.title.reference=Your reference number is {0}.
-detailedValuationRequested.p.1=We’ll send this to you by {0} within 10 working days.
+detailedValuationRequested.p.1=We’ll send this to you by {0} within 20 working days.
 
 duplicateRequestDetailedValuation.title=You’ve already requested this detailed valuation.
 duplicateRequestDetailedValuation.request=We’ve received your request for a copy of the detailed valuation for this property in the last 14 days. You should receive your copy by post or email (whichever you chose as your preference) shortly.
@@ -887,15 +887,10 @@ getHelpContent=<p>If you’d like to speak to somebody about this service, pleas
 
 ##ADD USER TO GG
 addUserToGG.heading=Add another user to your Government Gateway account
-addUserToGG.p1=You’ll need to be an administrator for the Government Gateway account to add users. You’re an administrator if you created the Government Gateway account or if you have the ‘Manage Administrators’ and ‘Manage Assistants’ options (shown on the left hand side after signing in to Government Gateway and clicking on ‘Your account’).
-addUserToGG.p2=To add a user, you’ll need to:
-addUserToGG.l1=sign in to Government Gateway
-addUserToGG.l2=select ‘Manage Administrators’ (or Manage Assistants’)
-addUserToGG.l3=select ‘Add an Administrator’ (or ‘Add an Assistant’)
-addUserToGG.l4=enter the details of the new user and create a password
-addUserToGG.l5=submit the details
-addUserToGG.l6=make a note of the User ID
-addUserToGG.p3=You can then give the User ID and password to the new user so that they can <a href="https://www.gov.uk/correct-your-business-rates">register for the service</a>.
+addUserToGG.p1=You''ll need to be an administrator for the Government Gateway account to add users. You''re an administrator if you created the Government Gateway account, or if you''ve been added as an administrator to the account. We recommend you have at least 2 administrators for your organisation.
+addUserToGG.p2=You should be aware that if you add an agent to your Government Gateway account, they''ll have the same access rights as other assistant users within your organisation.
+addUserToGG.p3=You can add a user on the next screen by selecting “Account users” then “Manage users”.
+addUserToGG.l1=Add a user
 
 #TECHNICAL DIFFICULTIES
 internalServerError.p.1=Please try again in a few minutes.

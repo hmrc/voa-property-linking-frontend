@@ -137,6 +137,8 @@ POST        /delete-draft                                                       
 POST        /confirm-delete-draft                                                             @controllers.ManageDrafts.confirmDelete(draftId: String)
 POST        /continue-draft-check                                                             @controllers.ManageDrafts.continueCheck()
 
+#Business tax account
+GET         /manage-business-tax-account                                                      @controllers.Application.manageBusinessTaxAccount()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                                     @controllers.Assets.at(path="/public", file)
