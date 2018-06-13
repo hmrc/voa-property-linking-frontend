@@ -674,7 +674,7 @@ requestType.post=By post
 
 detailedValuationRequested.title=We''ve received your request to view the detailed valuation for {0}
 detailedValuationRequested.title.reference=Your reference number is {0}.
-detailedValuationRequested.p.1=We’ll send this to you by {0} within 10 working days.
+detailedValuationRequested.p.1=We’ll send this to you by {0} within 20 working days.
 
 duplicateRequestDetailedValuation.title=You’ve already requested this detailed valuation.
 duplicateRequestDetailedValuation.request=We’ve received your request for a copy of the detailed valuation for this property in the last 14 days. You should receive your copy by post or email (whichever you chose as your preference) shortly.
