@@ -22,6 +22,7 @@ import controllers.GroupAccountDetails
 import javax.inject.Inject
 import models.enrolment._
 import models.{DetailedIndividualAccount, GroupAccount, IndividualAccountSubmission}
+import play.api.Logger
 import services.email.EmailService
 import uk.gov.hmrc.auth.core.Assistant
 import uk.gov.hmrc.http.HeaderCarrier
@@ -72,7 +73,7 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                    (implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] =
     if (config.stubEnrolment) {
       option match {
-        case Some(detailIndiv) => Future.successful(EnrolmentSuccess(detailIndiv.individualId))
+        case Some(detailIndiv) => success(userDetails, detailIndiv)
         case _ => Future.successful(DetailsMissing)
       }
     } else {
@@ -90,6 +91,7 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                        userDetails: UserDetails,
                        detailedIndividualAccount: DetailedIndividualAccount)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
+    Logger.info(s"New ${userDetails.userInfo.affinityGroup} ${userDetails.userInfo.credentialRole} successfully registered for VOA")
     emailService
       .sendNewEnrolmentSuccess(userDetails.userInfo.email, detailedIndividualAccount)
       .map(_ => EnrolmentSuccess(detailedIndividualAccount.individualId))

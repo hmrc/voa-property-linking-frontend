@@ -121,6 +121,7 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider,
                                body: BasicAuthenticatedRequest[AnyContent] => Future[Result]
                              )(implicit request: Request[AnyContent], hc: HeaderCarrier, ec: ExecutionContext): PartialFunction[EnrolmentResult, Future[Result]] = {
     case Success =>
+      Logger.info("Existing VOA user successfully enrolled")
       for {
         userDetails <- auth.getUserDetails
         _ <- emailService.sendMigrationEnrolmentSuccess(userDetails.userInfo.email, accounts.person.individualId, s"${accounts.person.details.firstName} ${accounts.person.details.lastName}")
