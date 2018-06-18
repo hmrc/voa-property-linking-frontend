@@ -18,7 +18,6 @@ package services
 
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
-import controllers.GroupAccountDetails
 import javax.inject.Inject
 import models.enrolment._
 import models.{DetailedIndividualAccount, GroupAccount, IndividualAccountSubmission}

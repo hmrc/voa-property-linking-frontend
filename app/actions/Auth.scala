@@ -34,7 +34,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-sealed trait AuthImpl {
+sealed trait Auth {
   def success(
                accounts: Accounts,
                body: BasicAuthenticatedRequest[AnyContent] => Future[Result]
@@ -45,26 +45,12 @@ sealed trait AuthImpl {
   def noOrgAccount: Future[Result]
 }
 
-class NonEnrolmentAuth extends AuthImpl {
-  override def success(
-                        accounts: Accounts,
-                        body: (BasicAuthenticatedRequest[AnyContent]) => Future[Result])
-                      (implicit request: Request[AnyContent], hc: HeaderCarrier, ec: ExecutionContext): Future[Result] =
-    body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
-
-  override def noVoaRecord: Future[Result] =
-    Future.successful(Redirect(controllers.routes.CreateIndividualAccount.show))
-
-  override def noOrgAccount: Future[Result] =
-    Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
-}
-
-class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider,
-                              enrolments: EnrolmentService,
-                              emailService: EmailService,
-                              val authConnector: AuthConnector,
-                              auth: VPLAuthConnector
-                             )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends AuthorisedFunctions with AuthImpl with I18nSupport {
+class VoaAuth @Inject()(provider: GovernmentGatewayProvider,
+                        enrolmentService: EnrolmentService,
+                        emailService: EmailService,
+                        val authConnector: AuthConnector,
+                        auth: VPLAuthConnector
+                       )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends AuthorisedFunctions with Auth with I18nSupport {
 
   override def success(
                         accounts: Accounts,
@@ -72,7 +58,7 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider,
                       (implicit request: Request[AnyContent], hc: HeaderCarrier, ec: ExecutionContext): Future[Result] = {
     def handleError: PartialFunction[Throwable, Future[Result]] = {
       case _: InsufficientEnrolments =>
-        enrolments
+        enrolmentService
           .enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap(enrolmentResult(accounts, body))
       case _: NoActiveSession =>
         provider.redirectToLogin
@@ -88,11 +74,11 @@ class EnrolmentAuth @Inject()(provider: GovernmentGatewayProvider,
         val action = body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
         isAssistant(role) match {
           case false => {
-            if(config.stubEnrolment) {
+            if (config.stubEnrolment) {
               Logger.info("Enrolment stubbed")
             } else {
-            enrolments.getEnrolment("HMRC-VOA-CCA").getOrElse(
-              throw new InsufficientEnrolments("HMRC-VOA-CCA enrolment not found"))
+              enrolments.getEnrolment("HMRC-VOA-CCA").getOrElse(
+                throw new InsufficientEnrolments("HMRC-VOA-CCA enrolment not found"))
             }
             action
           }

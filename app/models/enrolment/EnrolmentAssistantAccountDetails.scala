@@ -16,7 +16,6 @@
 
 package models.enrolment
 
-import controllers.GroupAccountDetails
 import models.Address
 
 case class EnrolmentAssistantAccountDetails(firstName: String,

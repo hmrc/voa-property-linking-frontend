@@ -46,10 +46,10 @@
             &nbsp;
         <span class="userStatus--agentCode">@Messages("dashboard.agentCode", agentCode)</span>
     }
-    @if(config.enrolmentEnabled) {
-            &nbsp;&nbsp;
-        <span class="panel panel-border">@Messages("dashboard.voaPersonalID") @voaPersonId</span>
-    }
+
+        &nbsp;&nbsp;
+    <span class="panel panel-border">@Messages("dashboard.voaPersonalID") @voaPersonId</span>
+
 
     <span class="userStatus--signOut">
         <a href="@routes.Application.logOut().url">@Messages("dashboard.notYou")</a>
@@ -87,23 +87,23 @@
     </div>
 }
 
-    @isAgent = @{
-        request.organisationAccount.isAgent
-    }
+@isAgent = @{
+    request.organisationAccount.isAgent
+}
 
 
-    @agentCode = @{
-        s"${request.organisationAccount.agentCode}"
-    }
+@agentCode = @{
+    s"${request.organisationAccount.agentCode}"
+}
 
-    @voaPersonId = @{
-        request match {
-            case linkingReq: LinkingSessionRequest[_] => {
-                linkingReq.individualAccount.individualId
-            }
-            case authReq: AuthenticatedRequest[_] => {
-                authReq.individualAccount.individualId
-            }
-            case _ => {}
+@voaPersonId = @{
+    request match {
+        case linkingReq: LinkingSessionRequest[_] => {
+            linkingReq.individualAccount.individualId
         }
+        case authReq: AuthenticatedRequest[_] => {
+            authReq.individualAccount.individualId
+        }
+        case _ => {}
     }
+}

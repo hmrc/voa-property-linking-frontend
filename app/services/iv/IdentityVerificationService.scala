@@ -57,13 +57,13 @@ trait IdentityVerificationService {
   private val failureUrl = config.baseUrl + controllers.routes.IdentityVerification.fail().url
 }
 
-class IdentityVerificationServiceEnrolment @Inject()(
-                                                      auth: VPLAuthConnector,
-                                                      registrationService: RegistrationService,
-                                                      @Named("personSession") personalDetailsSessionRepo: SessionRepo,
-                                                      val proxyConnector: IdentityVerificationProxyConnector,
-                                                      implicit val config: ApplicationConfig
-                                                    ) extends IdentityVerificationService {
+class IvService @Inject()(
+                           auth: VPLAuthConnector,
+                           registrationService: RegistrationService,
+                           @Named("personSession") personalDetailsSessionRepo: SessionRepo,
+                           val proxyConnector: IdentityVerificationProxyConnector,
+                           implicit val config: ApplicationConfig
+                         ) extends IdentityVerificationService {
 
   type B = RegistrationResult
 
@@ -95,49 +95,6 @@ class IdentityVerificationServiceEnrolment @Inject()(
       })
   }
 
-}
-
-class IdentityVerificationServiceNonEnrolment @Inject()(
-                                                         auth: VPLAuthConnector,
-                                                         individuals: IndividualAccounts,
-                                                         val proxyConnector: IdentityVerificationProxyConnector,
-                                                         @Named("personSession") personalDetailsSessionRepo: SessionRepo,
-                                                         implicit val config: ApplicationConfig,
-                                                         groups: GroupAccounts,
-                                                         addresses: Addresses
-                                                       ) extends IdentityVerificationService {
-
-  type B = GroupAccount
-
-  protected val successUrl: String = config.baseUrl + controllers.routes.IdentityVerification.restoreSession().url
-
-  def someCase(obj: GroupAccount)(implicit request: Request[_], messages: Messages) = Ok(views.html.createAccount.groupAlreadyExists(obj.companyName))
-
-  def noneCase(implicit request: Request[_], messages: Messages) = Ok(views.html.identityVerification.success(controllers.routes.CreateGroupAccount.show().url, "link.createGroupAccount"))
-
-  def continue[A](journeyId: String)(implicit ctx: A, hc: HeaderCarrier, ec: ExecutionContext): Future[Option[GroupAccount]] = {
-    val eventualGroupId = auth.getGroupId(ctx)
-    val eventualExternalId = auth.getExternalId(ctx)
-    val eventualIndividualDetails = personalDetailsSessionRepo.get[PersonalDetails]
-
-    for {
-      groupId <- eventualGroupId
-      userId <- eventualExternalId
-      account <- groups.withGroupId(groupId)
-      details <- eventualIndividualDetails.map(_.getOrElse(throw new Exception("no details found")))
-      id <- registerAddress(details)
-      d = details.withAddressId(id)
-      _ <- account match {
-        case Some(acc) => individuals.create(IndividualAccountSubmission(userId, journeyId, Some(acc.id), d.individualDetails))
-        case _ => personalDetailsSessionRepo.saveOrUpdate(d)
-      }
-    } yield account
-  }
-
-  private def registerAddress(details: PersonalDetails)(implicit hc: HeaderCarrier): Future[Long] = details.address.addressUnitId match {
-    case Some(id) => Future.successful(id)
-    case None => addresses.create(details.address)
-  }
 }
 
 

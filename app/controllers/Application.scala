@@ -16,10 +16,9 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import auth.{GGAction, GGActionEnrolment, VoaAction}
+import auth.{GgAction, VoaAction}
 import config.ApplicationConfig
+import javax.inject.Inject
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
@@ -40,12 +39,7 @@ class Application @Inject()(ggAction: VoaAction)(implicit val messagesApi: Messa
   }
 
   def start() = Action.async { implicit request =>
-    ggAction match {
-      case _: GGActionEnrolment =>
-        Future.successful(Ok(views.html.start_enrolment(RegisterHelper.choiceForm)))
-      case _: GGAction =>
-        Future.successful(Ok(views.html.start()).withSession(SessionKeys.sessionId -> java.util.UUID.randomUUID().toString))
-    }
+    Future.successful(Ok(views.html.start(RegisterHelper.choiceForm)))
   }
 
   def logOut() = Action { request =>

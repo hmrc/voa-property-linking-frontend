@@ -16,14 +16,15 @@
 
 package connectors
 
-import javax.inject.Inject
-import controllers.GroupAccountDetails
-import models._
-import play.api.libs.json.{JsDefined, JsNumber, JsValue}
-import uk.gov.hmrc.play.config.inject.ServicesConfig
 import config.WSHttp
+import javax.inject.Inject
+import models._
+import models.enrolment.GroupAccountDetails
+import play.api.libs.json.{JsDefined, JsNumber, JsValue}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.play.config.inject.ServicesConfig
+
 import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.http.{ HeaderCarrier, HttpResponse }
 
 class GroupAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
 
@@ -42,10 +43,12 @@ class GroupAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec:
   }
 
   def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] = {
-    http.POST[GroupAccountSubmission, JsValue](url, account) map { js => js \ "id" match {
-      case JsDefined(JsNumber(id)) => id.toLong
-      case _ => throw new Exception(s"Invalid id $js")
-    }}
+    http.POST[GroupAccountSubmission, JsValue](url, account) map { js =>
+      js \ "id" match {
+        case JsDefined(JsNumber(id)) => id.toLong
+        case _ => throw new Exception(s"Invalid id $js")
+      }
+    }
   }
 
   def create(groupId: String, addressId: Long, details: GroupAccountDetails,

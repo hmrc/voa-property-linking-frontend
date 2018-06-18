@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-package controllers
+package services.test
 
+import connectors.TaxEnrolmentConnector
 import javax.inject.Inject
+import services.{Failure, Success}
+import uk.gov.hmrc.http.HeaderCarrier
 
-import config.ApplicationConfig
-import play.api.mvc.{Action, Controller}
+import scala.concurrent.ExecutionContext.Implicits.global
 
-class Login @Inject()(config: ApplicationConfig) extends Controller {
+class TestService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector) {
 
-  val continue = Map("continue" -> Seq(config.ggContinueUrl), "origin" -> Seq("voa"))
+  def deEnrolUser(personID: Long)(implicit hc: HeaderCarrier) =
+    taxEnrolmentsConnector
+      .deEnrol(personID)
+      .map(_ => Success)
+      .recover {
+        case _: Throwable => Failure
+      }
 
-  def show = Action { implicit request =>
-    Redirect(config.ggSignInUrl, continue)
-  }
 }

@@ -18,7 +18,6 @@ package models.enrolment
 
 import java.time.LocalDate
 
-import controllers.GroupAccountDetails
 import models.{email => _, _}
 import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino

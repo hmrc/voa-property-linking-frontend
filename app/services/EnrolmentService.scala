@@ -33,22 +33,14 @@ class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, 
   def enrol(personId: Long, addressId: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[EnrolmentResult] = {
     (for {
       optAddress <- addresses.findById(addressId)
-      address      <- getAddress(optAddress)
+      address <- getAddress(optAddress)
       _ <- taxEnrolmentsConnector.enrol(personId, address.postcode)
-    } yield Success).recover{
-        case _: Throwable =>
-          auditingService.sendEvent("Enrolment Failure", Json.obj("personId" -> personId))
-          Failure
-      }
+    } yield Success).recover {
+      case _: Throwable =>
+        auditingService.sendEvent("Enrolment Failure", Json.obj("personId" -> personId))
+        Failure
+    }
   }
-
-  def deEnrolUser(personID: Long)(implicit hc: HeaderCarrier) =
-    taxEnrolmentsConnector
-      .deEnrol(personID)
-      .map(_ => Success)
-      .recover{
-        case _ : Throwable => Failure
-      }
 
   private def getAddress(opt: Option[Address]): Future[Address] = opt match {
     case None => Future.failed(throw new IllegalArgumentException())
@@ -57,5 +49,7 @@ class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, 
 }
 
 sealed trait EnrolmentResult
+
 case object Success extends EnrolmentResult
+
 case object Failure extends EnrolmentResult

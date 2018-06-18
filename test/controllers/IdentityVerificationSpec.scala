@@ -16,9 +16,9 @@
 
 package controllers
 
+import auth.GgAction
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
-import models.{GroupAccount, PersonalDetails}
-import org.jsoup.Jsoup
+import models.enrolment._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
@@ -27,76 +27,114 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.PersonalDetailsSessionRepository
 import resources._
-import services.iv.IdentityVerificationServiceNonEnrolment
-import uk.gov.hmrc.play.HeaderCarrierConverter
+import services.RegistrationService
+import services.iv.IvService
+import uk.gov.hmrc.auth.core.{Admin, AffinityGroup}
 import utils._
 
 import scala.concurrent.Future
 
 class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
-  lazy val mockSessionRepo = {
-    val f = mock[PersonalDetailsSessionRepository]
-    when(f.start(any())(any(), any())
-    ).thenReturn(Future.successful(()))
-    when(f.saveOrUpdate(any())(any(), any())
-    ).thenReturn(Future.successful(()))
-    when(f.get[PersonalDetails](any(), any())).thenReturn(Future.successful(arbitrary[PersonalDetails].sample))
-    f
-  }
-
-  lazy val stubIdentityVerificationServiceNonEnrolment = new IdentityVerificationServiceNonEnrolment(StubAuthConnector, StubIndividualAccountConnector, app.injector.instanceOf[IdentityVerificationProxyConnector], mockSessionRepo, applicationConfig, StubGroupAccountConnector, StubAddresses)
-
-  private object TestIdentityVerification extends IdentityVerification(StubGGAction, StubIdentityVerification, StubAddresses,
-    StubIndividualAccountConnector, stubIdentityVerificationServiceNonEnrolment, StubGroupAccountConnector,
-    StubAuthConnector, mockSessionRepo)
-
-  val request = FakeRequest()
-
-  private def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
-
-  "Successfully verifying identity when the group does not have a CCA account" must
-    "display the successful iv confirmation page, and not create an individual account" in {
-    StubAuthConnector.stubExternalId("externalId")
-    StubAuthConnector.stubGroupId("groupwithoutaccount")
+  "Successfully verifying identity when an organisation does not have a CCA account" must
+    "register and enrol the user then redirect to the registration success page" in new TestCase {
+    StubVplAuthConnector.stubExternalId("externalId")
+    StubVplAuthConnector.stubGroupId("groupwithoutaccount")
+    StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
-    status(res) mustBe OK
-
-    val content = contentAsString(res)
-    val html = Jsoup.parse(content)
-    html.select("h1").html must equal("We’ve verified your identity") withClue "Page did not contain success summary"
-    html.select(s"a.button[href=${routes.CreateGroupAccount.show.url}]").size must equal(1) withClue "Page did not contain link to create group account"
-
-    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
-
-    await(StubIndividualAccountConnector.withExternalId("externalId")) mustBe None
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(controllers.enrolment.routes.CreateEnrolmentUser.success(1l).url)
   }
 
-  "Successfully verifying identity when the group does have a CCA account" must "display a confirmation page, and create the individual account" in {
-    StubAuthConnector.stubExternalId("individualwithoutaccount")
-    StubAuthConnector.stubGroupId("groupwithaccount")
-    val groupAccount = arbitrary[GroupAccount].sample.get
-    StubGroupAccountConnector.stubAccount(groupAccount.copy(groupId = "groupwithaccount"))
-    StubIdentityVerification.stubSuccessfulJourney("anothersuccess")
+  "Successfully verifying identity when an individual does not have a CCA account" must
+    "register and enrol the user then redirect to the registration success page" in new TestCase {
+    override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
+    StubVplAuthConnector.stubExternalId("externalId")
+    StubVplAuthConnector.stubGroupId("groupwithoutaccount")
+    StubVplAuthConnector.stubUserDetails("externalId", testIndividualInfo)
+    StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
 
-    val res = TestIdentityVerification.success()(requestWithJourneyId("anothersuccess"))
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-    html.select("h1").html must equal(s"${groupAccount.companyName} has already registered.") withClue "Page did not contain success summary"
-    html.select(s"a.button[href=${routes.Dashboard.home.url}]").size must equal(1) withClue "Page did not contain dashboard link"
-
-    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
-
-    StubIndividualAccountConnector.withExternalId("individualwithoutaccount") must not be None
+    val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(controllers.enrolment.routes.CreateEnrolmentUser.success(1l).url)
   }
 
-  "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in {
+  "Successfully verifying identity" must
+    "return internal server error when the registration or enrolment fails" in new TestCase {
+    StubVplAuthConnector.stubExternalId("externalId")
+    StubVplAuthConnector.stubGroupId("groupwithoutaccount")
+    StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
+    StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentFailure))
+
+    val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
+
+    status(res) mustBe INTERNAL_SERVER_ERROR
+  }
+
+  "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in new TestCase {
     StubIdentityVerification.stubFailedJourney("somejourneyid")
 
     val res = TestIdentityVerification.success()(request.withSession("journey-id" -> "somejourneyid"))
     status(res) mustBe UNAUTHORIZED
+  }
+
+
+  trait TestCase {
+    lazy val mockSessionRepoOrgDetails = {
+      val f = mock[PersonalDetailsSessionRepository]
+      when(f.start(any())(any(), any())
+      ).thenReturn(Future.successful(()))
+      when(f.saveOrUpdate(any())(any(), any())
+      ).thenReturn(Future.successful(()))
+      when(f.get[EnrolmentOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[EnrolmentOrganisationAccountDetails].sample))
+      f
+    }
+
+    lazy val mockSessionRepoIndDetails = {
+      val f = mock[PersonalDetailsSessionRepository]
+      when(f.start(any())(any(), any())
+      ).thenReturn(Future.successful(()))
+      when(f.saveOrUpdate(any())(any(), any())
+      ).thenReturn(Future.successful(()))
+      when(f.get[EnrolmentIndividualAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[EnrolmentIndividualAccountDetails].sample))
+      f
+    }
+
+    def testOrganisationInfo = UserInfo(firstName = Some("Bob"),
+      lastName = Some("Smith"),
+      email = "bob@smith.com",
+      postcode = Some("AB12 3CD"),
+      groupIdentifier = "GroupIdenfifier",
+      affinityGroup = AffinityGroup.Organisation,
+      gatewayId = "",
+      credentialRole = Admin)
+
+    def testIndividualInfo = UserInfo(firstName = Some("Bob"),
+      lastName = Some("Smith"),
+      email = "bob@smith.com",
+      postcode = Some("AB12 3CD"),
+      groupIdentifier = "GroupIdenfifier",
+      affinityGroup = AffinityGroup.Individual,
+      gatewayId = "",
+      credentialRole = Admin)
+
+    lazy val mockRegistrationService = mock[RegistrationService]
+
+    lazy val stubIdentityVerificationServiceEnrolmentOrg = new IvService(StubVplAuthConnector, mockRegistrationService, mockSessionRepoOrgDetails, app.injector.instanceOf[IdentityVerificationProxyConnector], applicationConfig)
+
+    lazy val mockGgAction = mock[GgAction]
+
+    object TestIdentityVerification extends IdentityVerification(mockGgAction, StubIdentityVerification, StubAddresses,
+      StubIndividualAccountConnector, stubIdentityVerificationServiceEnrolmentOrg, StubGroupAccountConnector,
+      StubVplAuthConnector, mockSessionRepoOrgDetails)
+
+    val request = FakeRequest()
+
+    def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
   }
 }

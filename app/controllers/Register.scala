@@ -30,10 +30,7 @@ import uk.gov.hmrc.play.config.ServicesConfig
 class Register @Inject()(ggAction: VoaAction)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController with ServicesConfig {
 
   def continue(accountType: String) = {
-    if(config.enrolmentEnabled)
-      Map("accountType" -> Seq(accountType), "continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
-    else
-      Map("accountType" -> Seq(accountType), "continue" -> Seq(routes.Register.confirm().url), "origin" -> Seq("voa"))
+    Map("accountType" -> Seq(accountType), "continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
   }
 
   def show() = Action { implicit request =>
@@ -41,16 +38,11 @@ class Register @Inject()(ggAction: VoaAction)(implicit val messagesApi: Messages
   }
 
   def choice = Action.async { implicit request =>
-    Logger.debug("Some check")
-    if(config.enrolmentEnabled) {
-      RegisterHelper.choiceForm.bindFromRequest().fold(
-        errors => BadRequest(views.html.start_enrolment(errors)),
-        success =>
-          redirect(success)
-      )
-    } else {
-      redirect("organisation")
-    }
+    RegisterHelper.choiceForm.bindFromRequest().fold(
+      errors => BadRequest(views.html.start(errors)),
+      success =>
+        redirect(success)
+    )
   }
 
   def redirect(account: String) = {
@@ -60,9 +52,6 @@ class Register @Inject()(ggAction: VoaAction)(implicit val messagesApi: Messages
     )
   }
 
-  def confirm = ggAction.async(true) { _ => implicit request =>
-    Ok(views.html.ggRegistration())
-  }
 }
 
 object RegisterHelper {

@@ -16,17 +16,18 @@
 
 package utils
 
-import actions.{AuthImpl, AuthenticatedAction, BasicAuthenticatedRequest, NonEnrolmentAuth}
+import actions.{AuthenticatedAction, VoaAuth}
 import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
-import models.{Accounts, DetailedIndividualAccount}
-import play.api.mvc.{AnyContent, Request, Result}
+import models.DetailedIndividualAccount
 import services.email.EmailService
+import uk.gov.hmrc.auth.core.authorise.Predicate
+import uk.gov.hmrc.auth.core.retrieve.{Retrieval, ~}
+import uk.gov.hmrc.auth.core.{Assistant, AuthConnector, CredentialRole, Enrolments}
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.config.ServicesConfig
 
-object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation, StubAuthImpl, null, null)(null, null) { //TODO mock these things
+object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation, StubAuth, null, null)(null, null) { //TODO mock these things
   def stubAuthenticationResult(result: AuthorisationResult) = {
     StubBusinessRatesAuthorisation.authorisationResult = result
   }
@@ -44,11 +45,23 @@ object StubEmailService extends EmailService(null) {
   override def sendMigrationEnrolmentSuccess(to: String, personId: Long, name: String)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
 }
 
-object StubAuthImpl extends NonEnrolmentAuth
+object StubAuthConnector extends AuthConnector {
+  def success: ~[Enrolments, Option[CredentialRole]] = new ~(Enrolments(Set()), Some(Assistant))
+
+  def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(
+    implicit hc: HeaderCarrier,
+    ec: ExecutionContext): Future[A] =
+    Future.successful(success.asInstanceOf[A])
+}
+
+object StubAuth extends VoaAuth(null, null, StubEmailService, StubAuthConnector, StubVplAuthConnector)(null, null)
+
 object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubServicesConfig, StubHttp) {
   var authorisationResult: AuthorisationResult = InvalidGGSession
 
   override def authenticate(implicit hc: HeaderCarrier) = Future.successful(authorisationResult)
+
   override def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
+
   override def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
 }

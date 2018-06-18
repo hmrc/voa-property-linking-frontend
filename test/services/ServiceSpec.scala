@@ -41,7 +41,7 @@ trait ServiceSpec
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()
     StubGroupAccountConnector.reset()
-    StubAuthConnector.reset()
+    StubVplAuthConnector.reset()
     StubIdentityVerification.reset()
     StubPropertyLinkConnector.reset()
     StubAuthentication.reset()

@@ -18,7 +18,6 @@ package models.enrolment
 
 import java.time.LocalDate
 
-import controllers.GroupAccountDetails
 import models.{Address, IVDetails}
 import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino
@@ -53,5 +52,8 @@ case class EnrolmentOrganisationAccountDetails(firstName: String,
 object EnrolmentOrganisationAccountDetails {
   implicit val format = Json.format[EnrolmentOrganisationAccountDetails]
 }
+
+case class GroupAccountDetails(companyName: String, address: Address, email: String, confirmedEmail: String,
+                               phone: String, isAgent: Boolean)
 
 
