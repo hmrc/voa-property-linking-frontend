@@ -31,7 +31,7 @@ import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.test.UnitSpec
-import utils.NoMetricsOneAppPerSuite
+import utils.{NoMetricsOneAppPerSuite, StubAuth, StubAuthConnector}
 
 import scala.concurrent.Future
 
@@ -86,18 +86,7 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
       status(res) shouldBe SEE_OTHER
       redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
     }
-
-    "redirect to the invalid account page when the user is logged in with a non-organisation account" in {
-      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(NonOrganisationAccount))
-
-      val res = testAction { _ =>
-        Ok("something")
-      }(FakeRequest())
-
-      status(res) shouldBe SEE_OTHER
-      redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
-    }
-
+    
     "return a 400 response when the wrapped action throws a BadRequestException" in {
       when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
 
@@ -129,12 +118,11 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
     }
   }
 
-  lazy val testAction = new AuthenticatedAction(mockGG, mockAuth, mockVoaAuth, mockAddresses, mockAuthConnector)
+  lazy val testAction = new AuthenticatedAction(mockGG, mockAuth, StubAuth, mockAddresses, StubAuthConnector)
   lazy val mockAuthConnector = mock[AuthConnector]
   lazy val mockAddresses = mock[Addresses]
   lazy val mockServiceConfig = mock[ServicesConfig]
   lazy val mockAuth = mock[BusinessRatesAuthorisation]
-  lazy val mockVoaAuth = mock[VoaAuth]
   lazy val mockGG = mock[GovernmentGatewayProvider]
 
   lazy val accounts = Accounts(mock[GroupAccount], mock[DetailedIndividualAccount])

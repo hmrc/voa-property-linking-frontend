@@ -127,9 +127,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
 
     lazy val stubIdentityVerificationServiceEnrolmentOrg = new IvService(StubVplAuthConnector, mockRegistrationService, mockSessionRepoOrgDetails, app.injector.instanceOf[IdentityVerificationProxyConnector], applicationConfig)
 
-    lazy val mockGgAction = mock[GgAction]
-
-    object TestIdentityVerification extends IdentityVerification(mockGgAction, StubIdentityVerification, StubAddresses,
+    object TestIdentityVerification extends IdentityVerification(StubGgAction, StubIdentityVerification, StubAddresses,
       StubIndividualAccountConnector, stubIdentityVerificationServiceEnrolmentOrg, StubGroupAccountConnector,
       StubVplAuthConnector, mockSessionRepoOrgDetails)
 

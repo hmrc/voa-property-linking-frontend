@@ -43,8 +43,6 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   lazy val mockEnrolmentService = mock[EnrolmentService]
 
-  lazy val mockGgAction = mock[GgAction]
-
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
     when(f.start(any())(any(), any())
@@ -86,7 +84,7 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
   val mockRegistrationService = mock[RegistrationService]
 
   private object TestCreateEnrolmentUser extends CreateEnrolmentUser(
-    mockGgAction,
+    StubGgAction,
     StubGroupAccountConnector,
     StubIndividualAccountConnector,
     mockEnrolmentService,

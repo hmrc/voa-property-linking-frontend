@@ -50,16 +50,6 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
     mock[PdfGenerator]
   )
 
-  "Logging in with a non-organisation account" must "redirect to the wrong account type error page" in {
-    StubVplAuthConnector.stubExternalId(shortString)
-    StubVplAuthConnector.stubGroupId(shortString)
-    StubAuthentication.stubAuthenticationResult(NonOrganisationAccount)
-
-    val res = TestDashboard.home()(request)
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Application.invalidAccountType().url)
-  }
-
   "Logging in for the first time with a group account" must "redirect to the create individual account page" in {
     StubVplAuthConnector.stubExternalId("hasnoaccount")
     StubVplAuthConnector.stubGroupId("groupwithoutaccount")
