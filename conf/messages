@@ -959,9 +959,10 @@ pagination.previous=Previous
 
 #DOWNTIME PAGE
 plannedImprovements.title=Service unavailable
-plannedImprovements.p1=The check and challenge service will be unavailable from 5pm on Thursday 22 March while we make some planned improvements. It should be available again from 1am on Friday 23 March.
-plannedImprovements.p2=You will not be able to access the service during this time and we apologise for any inconvenience this may cause you.
-plannedImprovements.p3=We''re making improvements to the service in response to customer feedback, including:
+plannedImprovements.p1=The check and challenge service will be unavailable from 5pm on Tuesday 26 June while we make some planned improvements. It should be available again from 1am on Wednesday 27 June.
+plannedImprovements.p2=You will not be able to access the service during this time and we apologise for any inconvenience this may cause you. 
+plannedImprovements.p3=We''re making improvements to the service in response to customer feedback.
+plannedImprovements.p4=As well as technical updates to our systems, we''re introducing a quicker way to appoint an agent to multiple properties. 
 plannedImprovements.b1=adding a new ''messages'' tab to the dashboard, where you can view received correspondence
 plannedImprovements.b2=automatically sending you an acknowledgment email when we''ve received your check through the online service (for a shop, warehouse, office or factory)
 plannedImprovements.b3=providing a summary of your submitted check via the dashboard, and the option to download a PDF version
