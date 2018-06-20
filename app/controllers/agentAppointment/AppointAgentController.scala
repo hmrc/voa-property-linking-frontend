@@ -222,7 +222,9 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                   request.organisationId,
                   request.individualAccount.individualId,
                   action.checkPermission,
-                  action.challengePermission))
+                  action.challengePermission)).recover {
+                case e => Logger.info(s"Failed to get a property link during multiple property agent appointment: ${e.getMessage}")
+              }
             } yield
               Ok(views.html.propertyRepresentation.appointAgentSummary(action, group.companyName))
           }
@@ -308,7 +310,8 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
         "checkPermission" -> checkPermission.name,
         "challengePermission" -> challengePermission.name,
         "createDatetime" -> createDatetime.toString
-        ))})
+      ))
+    })
   }
 
   private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long, appointedAgent: AppointAgent, organisationId: Long)
