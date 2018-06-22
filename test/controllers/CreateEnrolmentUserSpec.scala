@@ -16,7 +16,6 @@
 
 package controllers
 
-import auth.GgAction
 import controllers.enrolment.CreateEnrolmentUser
 import models.enrolment.{EnrolmentSuccess, UserInfo}
 import models.identityVerificationProxy.Link
@@ -104,9 +103,9 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
   "Going directly to the complete-contact-details page, when logged in with an already registered VOA account" should
     "redirect the user to the dashboard" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
     StubIndividualAccountConnector.stubAccount(arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = externalId))
 
     val res = TestCreateEnrolmentUser.show()(FakeRequest())
