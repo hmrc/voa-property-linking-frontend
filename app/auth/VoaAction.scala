@@ -54,13 +54,7 @@ class GgAction @Inject()(val provider: GovernmentGatewayProvider, vPLAuthConnect
       .getUserDetails
       .flatMap(userDetails => body(userDetails)(request).map(_.withSession(request.session.putUserDetails(userDetails))))
       .recoverWith {
-        case e: BadRequestException =>
-          Global.onBadRequest(request, e.message)
-        case _: NotFoundException =>
-          Global.onHandlerNotFound(request)
-        //need to catch unhandled exceptions here to propagate the request ID into the internal server error page
-        case e =>
-          Global.onError(request, e)
+        case e: Throwable => provider.redirectToLogin
       }
 
   private def userDetailsFromSession(body: UserDetails => Request[AnyContent] => Future[Result])
