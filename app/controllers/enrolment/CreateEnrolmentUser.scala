@@ -53,13 +53,17 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
 
   def show() = ggAction.async(isSession = true) { ctx =>
     implicit request =>
-      auth.userDetails(ctx).flatMap {
-        case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
-          Future.successful(Ok(views.html.createAccount.enrolment_individual(EnrolmentUser.individual, FieldData(userInfo = user.userInfo))))
-        case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Organisation, _)) =>
-          orgShow(ctx, user)
-        case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Agent, _)) => Ok(views.html.errors.invalidAccountType())
-      }
+      auth.userDetails(ctx).flatMap(authUser => individualAccounts.withExternalId(authUser.externalId).flatMap {
+        case Some(voaUser) =>
+          Redirect(controllers.routes.Dashboard.home())
+        case None => authUser match {
+          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
+            Future.successful(Ok(views.html.createAccount.enrolment_individual(EnrolmentUser.individual, FieldData(userInfo = user.userInfo))))
+          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Organisation, _)) =>
+            orgShow(ctx, user)
+          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Agent, _)) => Ok(views.html.errors.invalidAccountType())
+        }
+      })
   }
 
   def submitIndividual() = ggAction.async(isSession = false) { ctx =>
