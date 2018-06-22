@@ -100,6 +100,19 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     app.injector.instanceOf[CreateEnrolmentUser]
   }
 
+  "Going directly to the complete-contact-details page, when logged in with an already registered VOA account" should
+    "redirect the user to the dashboard" in {
+    val (groupId, externalId): (String, String) = (shortString, shortString)
+    StubAuthConnector.stubGroupId(groupId)
+    StubAuthConnector.stubExternalId(externalId)
+    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubIndividualAccountConnector.stubAccount(arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = externalId))
+
+    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(controllers.routes.Dashboard.home().url)
+  }
+
   "Going to the create account page, when logged in with an account that has not registered and has an Individual affinity group" should
     "display the create individual account form" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
