@@ -73,7 +73,7 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
       }(FakeRequest())
 
       status(res) shouldBe SEE_OTHER
-      redirectLocation(res) shouldBe Some(controllers.enrolment.routes.CreateEnrolmentUser.show().url)
+      redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.show().url)
     }
 
     "redirect to invalid accoupt page when the user is logged in to GG but does not have groupId" in {

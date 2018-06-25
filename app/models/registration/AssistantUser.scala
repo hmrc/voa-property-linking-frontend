@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.enrolment
+package models.registration
 
 import form.Mappings._
 import form.TextMatching
@@ -25,7 +25,7 @@ import play.api.data.{Form, Mapping}
 import views.helpers.Errors
 
 
-trait EnrolmentAssistant {
+trait AssistantUser {
 
   val firstName: String
   val lastName: String
@@ -43,7 +43,7 @@ trait EnrolmentAssistant {
 
 }
 
-object EnrolmentAssistant {
+object AssistantUser {
 
   lazy val assistant = Form(mapping(
     keys.firstName -> nonEmptyText,
@@ -54,6 +54,6 @@ object EnrolmentAssistant {
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.isAgent -> mandatoryBoolean
-  )(EnrolmentAssistantAccountDetails.apply)(EnrolmentAssistantAccountDetails.unapply))
+  )(AssistantUserAccountDetails.apply)(AssistantUserAccountDetails.unapply))
 
 }

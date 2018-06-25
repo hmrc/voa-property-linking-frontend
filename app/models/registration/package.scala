@@ -14,12 +14,24 @@
  * limitations under the License.
  */
 
-package models.enrolment
+package models
 
-import play.api.libs.json.Json
+package object registration {
 
-case class UserDetails(externalId: String, userInfo: UserInfo)
+  lazy val keys = new {
+    val companyName = "companyName"
+    val firstName = "firstName"
+    val lastName = "lastName"
+    val address = "address"
+    val phone = "phone"
+    val mobilePhone = "mobilePhone"
+    val email = "email"
+    val confirmedEmail = "confirmedEmail"
+    val confirmedBusinessEmail = "confirmedBusinessEmail"
+    val tradingName = "tradingName"
+    val dateOfBirth = "dob"
+    val nino = "nino"
+    val isAgent = "isAgent"
+  }
 
-object UserDetails {
-  implicit val format = Json.format[UserDetails]
 }

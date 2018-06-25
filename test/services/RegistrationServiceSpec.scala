@@ -18,7 +18,7 @@ package services
 
 import config.ApplicationConfig
 import models._
-import models.enrolment._
+import models.registration._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import resources.{shortString, _}

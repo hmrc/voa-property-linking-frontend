@@ -16,7 +16,6 @@ GET         /invalid-account                                                    
 
 #Identity verification
 GET         /identity-verification/start                                                      @controllers.IdentityVerification.startIv
-GET         /identity-verification/start-enrolment                                            @controllers.IdentityVerification.startIvEnrolment
 GET         /identity-verification/failed                                                     @controllers.IdentityVerification.fail
 GET         /identity-verification/restore-session                                            @controllers.IdentityVerification.restoreSession
 GET         /identity-verification/success                                                    @controllers.IdentityVerification.success
@@ -103,11 +102,11 @@ GET         /lookup                                                             
 GET         /planned-improvements                                                             @controllers.DowntimePage.plannedImprovements
 
 #Enrolment page
-GET         /complete-contact-details                                                         @controllers.enrolment.CreateEnrolmentUser.show()
-POST        /complete-business-contact-details                                                @controllers.enrolment.CreateEnrolmentUser.submitOrganisation()
-POST        /complete-your-contact-details                                                    @controllers.enrolment.CreateEnrolmentUser.submitIndividual()
-POST        /complete-business-contact-details-assistant                                      @controllers.enrolment.CreateEnrolmentUser.submitAssistant()
-GET         /create-success                                                                   @controllers.enrolment.CreateEnrolmentUser.success(personId: Long)
+GET         /complete-contact-details                                                         @controllers.registration.RegistrationController.show()
+POST        /complete-business-contact-details                                                @controllers.registration.RegistrationController.submitOrganisation()
+POST        /complete-your-contact-details                                                    @controllers.registration.RegistrationController.submitIndividual()
+POST        /complete-business-contact-details-assistant                                      @controllers.registration.RegistrationController.submitAssistant()
+GET         /create-success                                                                   @controllers.registration.RegistrationController.success(personId: Long)
 
 #Draft Checks
 GET         /draft-cases                                                                      @controllers.ManageDrafts.viewDraftCases()

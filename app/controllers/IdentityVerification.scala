@@ -21,7 +21,7 @@ import config.ApplicationConfig
 import connectors._
 import javax.inject.{Inject, Named}
 import models.PersonalDetails
-import models.enrolment.EnrolmentUser
+import models.registration.AdminUser
 import play.api.i18n.MessagesApi
 import play.api.mvc.Action
 import repositories.SessionRepo
@@ -41,24 +41,11 @@ class IdentityVerification @Inject()(ggAction: VoaAction,
                                     (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
-  def startIv = ggAction.async(true) { _ =>
-    implicit request =>
-      if (config.ivEnabled) {
-        personalDetailsSessionRepo.get[PersonalDetails] flatMap { details =>
-          identityVerificationService
-            .start(details.map(_.ivDetails).getOrElse(throw new Exception("details not found")))
-            .map(l => Redirect(l.getLink(config.ivBaseUrl)))
-        }
-      } else {
-        Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
-      }
-  }
-
-  def startIvEnrolment = ggAction.async(false) { _ =>
+  def startIv = ggAction.async(false) { _ =>
     implicit request =>
       if (config.ivEnabled) {
         for {
-          userDetails <- personalDetailsSessionRepo.get[EnrolmentUser]
+          userDetails <- personalDetailsSessionRepo.get[AdminUser]
           link <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
         } yield Redirect(link.getLink(config.ivBaseUrl))
       } else {

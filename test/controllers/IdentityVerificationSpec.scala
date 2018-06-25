@@ -16,9 +16,8 @@
 
 package controllers
 
-import auth.GgAction
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
-import models.enrolment._
+import models.registration._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
@@ -46,7 +45,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(controllers.enrolment.routes.CreateEnrolmentUser.success(1l).url)
+    redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1l).url)
   }
 
   "Successfully verifying identity when an individual does not have a CCA account" must
@@ -60,7 +59,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(controllers.enrolment.routes.CreateEnrolmentUser.success(1l).url)
+    redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1l).url)
   }
 
   "Successfully verifying identity" must
@@ -91,7 +90,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
       ).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())
       ).thenReturn(Future.successful(()))
-      when(f.get[EnrolmentOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[EnrolmentOrganisationAccountDetails].sample))
+      when(f.get[AdminOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetails].sample))
       f
     }
 
@@ -101,7 +100,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
       ).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())
       ).thenReturn(Future.successful(()))
-      when(f.get[EnrolmentIndividualAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[EnrolmentIndividualAccountDetails].sample))
+      when(f.get[IndividualUserAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[IndividualUserAccountDetails].sample))
       f
     }
 

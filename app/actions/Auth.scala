@@ -96,11 +96,11 @@ class VoaAuth @Inject()(provider: GovernmentGatewayProvider,
   }
 
   override def noVoaRecord: Future[Result] =
-    Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
+    Future.successful(Redirect(controllers.registration.routes.RegistrationController.show()))
 
 
   override def noOrgAccount: Future[Result] =
-    Future.successful(Redirect(controllers.enrolment.routes.CreateEnrolmentUser.show()))
+    Future.successful(Redirect(controllers.registration.routes.RegistrationController.show()))
 
   private def enrolmentResult(
                                accounts: Accounts,

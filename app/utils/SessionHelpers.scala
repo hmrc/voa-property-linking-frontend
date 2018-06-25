@@ -16,7 +16,7 @@
 
 package utils
 
-import models.enrolment.{UserDetails, UserInfo}
+import models.registration.{UserDetails, UserInfo}
 import play.api.libs.json.Json
 import play.api.mvc.Session
 import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole}

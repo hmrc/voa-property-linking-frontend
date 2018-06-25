@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 import config.Global
 import connectors.VPLAuthConnector
-import models.enrolment.UserDetails
+import models.registration.UserDetails
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter

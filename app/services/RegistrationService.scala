@@ -19,7 +19,7 @@ package services
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import javax.inject.Inject
-import models.enrolment._
+import models.registration._
 import models.{DetailedIndividualAccount, GroupAccount, IndividualAccountSubmission}
 import play.api.Logger
 import services.email.EmailService

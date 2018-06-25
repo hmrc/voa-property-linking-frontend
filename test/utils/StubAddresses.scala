@@ -18,7 +18,7 @@ package utils
 
 import connectors.Addresses
 import models.Address
-import models.enrolment.GroupAccountDetails
+import models.registration.GroupAccountDetails
 import org.scalacheck.Arbitrary._
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier

@@ -24,7 +24,7 @@ import cats.implicits._
 import config.ApplicationConfig
 import connectors.{Addresses, MessagesConnector, VPLAuthConnector}
 import controllers.PropertyLinkingController
-import models.enrolment.UserDetails
+import models.registration.UserDetails
 import models.{Address, DetailedIndividualAccount}
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.mvc.{AnyContent, Result, Results}

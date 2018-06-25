@@ -17,7 +17,7 @@
 package utils
 
 import connectors.VPLAuthConnector
-import models.enrolment.{UserDetails, UserInfo}
+import models.registration.{UserDetails, UserInfo}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future

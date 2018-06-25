@@ -16,19 +16,15 @@
 
 package services
 
-import javax.inject.Inject
-
 import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
+import javax.inject.Inject
 import models.Address
-import play.api.Logger
 import play.api.mvc.Request
 import uk.gov.hmrc.auth.core.AffinityGroup
-import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.{ExecutionContext, Future}
-
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 trait ManageDetails {
   def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(predicate: AffinityGroup => Boolean)

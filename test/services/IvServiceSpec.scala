@@ -19,7 +19,7 @@ package services
 import config.ApplicationConfig
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import models._
-import models.enrolment._
+import models.registration._
 import models.identityVerificationProxy.{Journey, Link}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -88,7 +88,7 @@ class IvServiceSpec extends ServiceSpec {
       ).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())
       ).thenReturn(Future.successful(()))
-      when(f.get[EnrolmentOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[EnrolmentOrganisationAccountDetails].sample))
+      when(f.get[AdminOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetails].sample))
       f
     }
 
@@ -98,7 +98,7 @@ class IvServiceSpec extends ServiceSpec {
       ).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())
       ).thenReturn(Future.successful(()))
-      when(f.get[EnrolmentIndividualAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[EnrolmentIndividualAccountDetails].sample))
+      when(f.get[IndividualUserAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[IndividualUserAccountDetails].sample))
       f
     }
 

@@ -56,7 +56,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
     StubAuthentication.stubAuthenticationResult(NoVOARecord)
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(enrolment.routes.CreateEnrolmentUser.show.url)
+    header("location", res) mustBe Some(registration.routes.RegistrationController.show.url)
   }
 
   "Logging in for the first time with an individual sub-account under a group that has registered" must "redirect to the create individual account page" in {
@@ -67,7 +67,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
 
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(enrolment.routes.CreateEnrolmentUser.show.url)
+    header("location", res) mustBe Some(registration.routes.RegistrationController.show.url)
   }
 
   "Logging in again with an account that has already registered" must "continue to the manage properties page" in {

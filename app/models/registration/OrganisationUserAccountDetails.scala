@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.enrolment
+package models.registration
 
 import java.time.LocalDate
 
@@ -22,16 +22,16 @@ import models.{Address, IVDetails}
 import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino
 
-case class EnrolmentOrganisationAccountDetails(firstName: String,
-                                               lastName: String,
-                                               companyName: String,
-                                               address: Address,
-                                               dob: LocalDate,
-                                               nino: Nino,
-                                               phone: String,
-                                               email: String,
-                                               confirmedEmail: String,
-                                               isAgent: Boolean) extends EnrolmentUser {
+case class AdminOrganisationAccountDetails(firstName: String,
+                                           lastName: String,
+                                           companyName: String,
+                                           address: Address,
+                                           dob: LocalDate,
+                                           nino: Nino,
+                                           phone: String,
+                                           email: String,
+                                           confirmedEmail: String,
+                                           isAgent: Boolean) extends AdminUser {
   override def toIvDetails = IVDetails(
     firstName = firstName,
     lastName = lastName,
@@ -49,8 +49,8 @@ case class EnrolmentOrganisationAccountDetails(firstName: String,
   )
 }
 
-object EnrolmentOrganisationAccountDetails {
-  implicit val format = Json.format[EnrolmentOrganisationAccountDetails]
+object AdminOrganisationAccountDetails {
+  implicit val format = Json.format[AdminOrganisationAccountDetails]
 }
 
 case class GroupAccountDetails(companyName: String, address: Address, email: String, confirmedEmail: String,

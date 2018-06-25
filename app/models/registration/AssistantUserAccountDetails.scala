@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package models.enrolment
+package models.registration
 
 import models.Address
 
-case class EnrolmentAssistantAccountDetails(firstName: String,
-                                            lastName: String,
-                                            companyName: String,
-                                            address :Address,
-                                            phone: String,
-                                            email: String,
-                                            confirmedEmail: String,
-                                            isAgent: Boolean) extends EnrolmentAssistant {
+case class AssistantUserAccountDetails(firstName: String,
+                                       lastName: String,
+                                       companyName: String,
+                                       address :Address,
+                                       phone: String,
+                                       email: String,
+                                       confirmedEmail: String,
+                                       isAgent: Boolean) extends AssistantUser {
 
   def toGroupDetails = GroupAccountDetails(
     companyName = companyName,

@@ -19,7 +19,7 @@ package connectors
 import config.WSHttp
 import javax.inject.Inject
 import models.Address
-import models.enrolment.GroupAccountDetails
+import models.registration.GroupAccountDetails
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.http.HeaderCarrier

@@ -19,7 +19,7 @@ package services
 import org.scalatest._
 import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
 import models.Address
-import models.enrolment.{UserDetails, UserInfo}
+import models.registration.{UserDetails, UserInfo}
 import org.mockito.ArgumentMatchers.{any, anyLong, eq => matches}
 import org.mockito.Mockito.{never, times, verify, when}
 import org.scalatest.{FlatSpec, MustMatchers}

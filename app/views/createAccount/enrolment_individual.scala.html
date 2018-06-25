@@ -15,12 +15,12 @@
  *@
 
 @import helpers._
-@import models.enrolment._
+@import models.registration._
 @import uk.gov.hmrc.play.views.html.helpers.form
-@import models.enrolment.FieldData
+@import models.registration.FieldData
 @import config.ApplicationConfig
 
-@(model: Form[EnrolmentIndividualAccountDetails], individualFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: Form[IndividualUserAccountDetails], individualFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(title = Messages("enrolment.title"), topNavigation = false) {
 
@@ -31,7 +31,7 @@
 
             @includes.errorSummary(model, messagePrefix = Some("createAccount"))
 
-            @form(controllers.enrolment.routes.CreateEnrolmentUser.submitIndividual()) {
+            @form(controllers.registration.routes.RegistrationController.submitIndividual()) {
 
                 @inputText(
                     field = model(keys.firstName),

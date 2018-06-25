@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 import config.{ApplicationConfig, Global}
 import connectors.VPLAuthConnector
-import models.enrolment.{UserDetails, UserInfo}
+import models.registration.{UserDetails, UserInfo}
 import play.api.libs.json.Json
 import play.api.mvc.Results.Redirect
 import play.api.mvc._

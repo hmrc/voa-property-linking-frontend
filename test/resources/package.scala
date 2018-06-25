@@ -17,7 +17,7 @@
 import java.time.{Instant, LocalDate, LocalDateTime, ZoneId}
 
 import models._
-import models.enrolment.{EnrolmentIndividualAccountDetails, EnrolmentOrganisationAccountDetails}
+import models.registration.{IndividualUserAccountDetails, AdminOrganisationAccountDetails}
 import models.messages.{Message, MessageSearchResults}
 import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
 import org.scalacheck.Arbitrary.arbitrary
@@ -254,7 +254,7 @@ package object resources {
 
   implicit val arbitraryPersonalDetails: Arbitrary[PersonalDetails] = Arbitrary(personalDetailsGen)
 
-  private val enrolmentOrgAccountDetailsGen: Gen[EnrolmentOrganisationAccountDetails] = for {
+  private val enrolmentOrgAccountDetailsGen: Gen[AdminOrganisationAccountDetails] = for {
     firstName <- shortString
     lastName <- shortString
     dob <- dateInPast
@@ -264,11 +264,11 @@ package object resources {
     phone <- Gen.listOfN(8, Gen.numChar)
     address <- arbitrary[Address]
     isAgent <- arbitrary[Boolean]
-  } yield EnrolmentOrganisationAccountDetails(firstName, lastName, companyName, address, dob, nino, phone.mkString, email, email, isAgent)
+  } yield AdminOrganisationAccountDetails(firstName, lastName, companyName, address, dob, nino, phone.mkString, email, email, isAgent)
 
-  implicit val arbitraryEnrolmentOrganisationAccountDetails: Arbitrary[EnrolmentOrganisationAccountDetails] = Arbitrary(enrolmentOrgAccountDetailsGen)
+  implicit val arbitraryEnrolmentOrganisationAccountDetails: Arbitrary[AdminOrganisationAccountDetails] = Arbitrary(enrolmentOrgAccountDetailsGen)
 
-  private val enrolmentIndAccountDetailsGen: Gen[EnrolmentIndividualAccountDetails] = for {
+  private val enrolmentIndAccountDetailsGen: Gen[IndividualUserAccountDetails] = for {
     firstName <- shortString
     lastName <- shortString
     dob <- dateInPast
@@ -278,9 +278,9 @@ package object resources {
     phone <- Gen.listOfN(8, Gen.numChar)
     address <- arbitrary[Address]
     isAgent <- arbitrary[Boolean]
-  } yield EnrolmentIndividualAccountDetails(firstName, lastName, address, dob, nino, phone.mkString, phone.mkString, email, email, None)
+  } yield IndividualUserAccountDetails(firstName, lastName, address, dob, nino, phone.mkString, phone.mkString, email, email, None)
 
-  implicit val arbitraryEnrolmentIndividualAccountDetails: Arbitrary[EnrolmentIndividualAccountDetails] = Arbitrary(enrolmentIndAccountDetailsGen)
+  implicit val arbitraryEnrolmentIndividualAccountDetails: Arbitrary[IndividualUserAccountDetails] = Arbitrary(enrolmentIndAccountDetailsGen)
 
   private val linkingSessionGen: Gen[LinkingSession] = for {
     address <- shortString

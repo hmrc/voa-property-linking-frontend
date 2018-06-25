@@ -21,7 +21,7 @@ import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import javax.inject.{Inject, Named}
 import models._
-import models.enrolment._
+import models.registration._
 import models.identityVerificationProxy.Journey
 import play.api.i18n.Messages
 import play.api.mvc.Results._
@@ -70,7 +70,7 @@ class IvService @Inject()(
   protected val successUrl: String = config.baseUrl + controllers.routes.IdentityVerification.success().url
 
   def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages) = obj match {
-    case EnrolmentSuccess(personId) => Redirect(controllers.enrolment.routes.CreateEnrolmentUser.success(personId))
+    case EnrolmentSuccess(personId) => Redirect(controllers.registration.routes.RegistrationController.success(personId))
     case EnrolmentFailure => InternalServerError(Global.internalServerErrorTemplate)
     case DetailsMissing => InternalServerError(Global.internalServerErrorTemplate)
   }
@@ -82,13 +82,13 @@ class IvService @Inject()(
       (user.userInfo.affinityGroup, user.userInfo.credentialRole) match {
         case (Organisation, User | Admin) =>
           for {
-            organisationDetailsOpt <- personalDetailsSessionRepo.get[EnrolmentOrganisationAccountDetails]
+            organisationDetailsOpt <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
             organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
             registrationResult <- registrationService.create(organisationDetails.toGroupDetails, ctx)(organisationDetails.toIndividualAccountSubmission(journeyId))
           } yield Some(registrationResult)
         case (Individual, _) =>
           for {
-            individualDetailsOpt <- personalDetailsSessionRepo.get[EnrolmentIndividualAccountDetails]
+            individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
             individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
             registrationResult <- registrationService.create(individualDetails.toGroupDetails, ctx)(individualDetails.toIndividualAccountSubmission(journeyId))
           } yield Some(registrationResult)

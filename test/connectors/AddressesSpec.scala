@@ -18,7 +18,7 @@ package connectors
 
 import controllers.VoaPropertyLinkingSpec
 import models.Address
-import models.enrolment.GroupAccountDetails
+import models.registration.GroupAccountDetails
 import org.scalacheck.Arbitrary._
 import play.api.libs.json.{JsValue, Json}
 import resources._

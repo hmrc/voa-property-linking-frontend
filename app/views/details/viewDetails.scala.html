@@ -16,7 +16,7 @@
 
 @import actions.AuthenticatedRequest
 @import config.ApplicationConfig
-@import models.enrolment.UserDetails
+@import models.registration.UserDetails
 
 @(individualAccount: DetailedIndividualAccount, organisationAccount: GroupAccount,
         personalAddress: Address, businessAddress: Address, unreadMessageCount: Int, userDetails: UserDetails)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
