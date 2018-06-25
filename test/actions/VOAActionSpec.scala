@@ -17,9 +17,9 @@
 package actions
 
 
-import auth.{GGActionEnrolment, GovernmentGatewayProvider}
+import auth.{GgAction, GovernmentGatewayProvider}
 import connectors.VPLAuthConnector
-import models.enrolment.{UserDetails, UserInfo}
+import models.registration.{UserDetails, UserInfo}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
@@ -50,8 +50,7 @@ class VOAActionSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSu
     contentAsString(res) shouldBe "something"
   }
 
-  lazy val testActionEnrolment = new GGActionEnrolment(mockGG, mockAuthConnector, mockVplAuthConnector)
-  lazy val mockAuthConnector = mock[AuthConnector]
+  lazy val testActionEnrolment = new GgAction(mockGG, mockVplAuthConnector)
   lazy val mockVplAuthConnector = mock[VPLAuthConnector]
   lazy val mockGG = mock[GovernmentGatewayProvider]
 

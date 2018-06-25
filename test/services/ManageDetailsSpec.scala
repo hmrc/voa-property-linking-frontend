@@ -19,7 +19,7 @@ package services
 import org.scalatest._
 import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
 import models.Address
-import models.enrolment.{UserDetails, UserInfo}
+import models.registration.{UserDetails, UserInfo}
 import org.mockito.ArgumentMatchers.{any, anyLong, eq => matches}
 import org.mockito.Mockito.{never, times, verify, when}
 import org.scalatest.{FlatSpec, MustMatchers}
@@ -70,5 +70,5 @@ class ManageDetailsSpec extends ServiceSpec {
   private val mockUserDetails = UserDetails("123456", UserInfo(None, None, "", Some("ABC"), "", "654321", Individual, User))
 
   implicit private lazy val hc: HeaderCarrier = HeaderCarrier()
-  private lazy val manageDetails = new ManageDetailsWithEnrolments(taxEnrolments = mockTaxEnrolments, addresses = mockAddresses, vPLAuthConnector = mockVPLAuthConnector)
+  private lazy val manageDetails = new ManageVoaDetails(taxEnrolments = mockTaxEnrolments, addresses = mockAddresses, vPLAuthConnector = mockVPLAuthConnector)
 }

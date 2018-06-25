@@ -24,7 +24,7 @@ import cats.implicits._
 import config.ApplicationConfig
 import connectors.{Addresses, MessagesConnector, VPLAuthConnector}
 import controllers.PropertyLinkingController
-import models.enrolment.UserDetails
+import models.registration.UserDetails
 import models.{Address, DetailedIndividualAccount}
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.mvc.{AnyContent, Result, Results}
@@ -32,20 +32,20 @@ import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.auth.core.AffinityGroup._
 
 class ViewDetails @Inject()(addressesConnector: Addresses,
-                             authenticated: AuthenticatedAction,
-                             messagesConnector: MessagesConnector,
-                             authConnector: VPLAuthConnector,
-                             details: Details
-                           ) (implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
+                            authenticated: AuthenticatedAction,
+                            messagesConnector: MessagesConnector,
+                            authConnector: VPLAuthConnector,
+                            details: Details
+                           )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
   def show() = authenticated { implicit request =>
     val person = request.individualAccount
     (for {
       personalAddress <- OptionT(addressesConnector.findById(person.details.addressId))
       businessAddress <- OptionT(addressesConnector.findById(request.organisationAccount.addressId))
-      msgCount        <- OptionT.liftF(messagesConnector.countUnread(request.organisationId))
-      affinityGroup   <- OptionT.liftF(authConnector.getAffinityGroup)
-      userDetails     <- OptionT.liftF(authConnector.getUserDetails)
+      msgCount <- OptionT.liftF(messagesConnector.countUnread(request.organisationId))
+      affinityGroup <- OptionT.liftF(authConnector.getAffinityGroup)
+      userDetails <- OptionT.liftF(authConnector.getUserDetails)
     } yield details.view(affinityGroup, person, personalAddress, businessAddress, msgCount.unread, userDetails)
       ).getOrElse(throw new Exception(
       s"Unable to lookup address: Individual address ID: ${person.details.addressId}; Organisation address Id: ${request.organisationAccount.addressId}")
@@ -67,21 +67,7 @@ trait Details extends Results {
           (implicit request: BasicAuthenticatedRequest[AnyContent], messages: Messages): Result
 }
 
-class NonEnrolmentDetails @Inject()(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends Details {
-
-  def view(
-            affinityGroup: AffinityGroup,
-            person: DetailedIndividualAccount,
-            personalAddress: Address,
-            businessAddress: Address,
-            msgCount: Int,
-            userDetails: UserDetails)
-          (implicit request: BasicAuthenticatedRequest[AnyContent], messages: Messages): Result = {
-    Ok(views.html.details.viewDetails(person, request.organisationAccount, personalAddress, businessAddress, msgCount, userDetails))
-  }
-}
-
-class EnrolmentDetails @Inject()(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends Details {
+class VoaDetails @Inject()(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends Details {
 
   def view(
             affinityGroup: AffinityGroup,
@@ -90,7 +76,7 @@ class EnrolmentDetails @Inject()(implicit val messagesApi: MessagesApi, val conf
             businessAddress: Address,
             msgCount: Int,
             userDetails: UserDetails
-           )
+          )
           (implicit request: BasicAuthenticatedRequest[AnyContent], messages: Messages): Result = {
     affinityGroup match {
       case Individual =>

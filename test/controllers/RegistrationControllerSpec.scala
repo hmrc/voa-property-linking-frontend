@@ -16,8 +16,8 @@
 
 package controllers
 
-import controllers.enrolment.CreateEnrolmentUser
-import models.enrolment.{EnrolmentSuccess, UserInfo}
+import controllers.registration.RegistrationController
+import models.registration.{EnrolmentSuccess, UserInfo}
 import models.identityVerificationProxy.Link
 import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers._
@@ -36,7 +36,7 @@ import utils.{StubGroupAccountConnector, _}
 
 import scala.concurrent.Future
 
-class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
+class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   override val additionalAppConfig = Seq("featureFlags.enrolment" -> "true")
 
@@ -82,12 +82,12 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   val mockRegistrationService = mock[RegistrationService]
 
-  private object TestCreateEnrolmentUser extends CreateEnrolmentUser(
-    StubGGAction,
+  private object TestRegistrationController$ extends RegistrationController(
+    StubGgAction,
     StubGroupAccountConnector,
     StubIndividualAccountConnector,
     mockEnrolmentService,
-    StubAuthConnector,
+    StubVplAuthConnector,
     StubAddresses,
     mockRegistrationService,
     StubEmailService,
@@ -96,19 +96,19 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     mockSessionRepo
   )
 
-  "Invoking the app held CreateEnrolmentUser controller" should "result in correct dependency injection" in {
-    app.injector.instanceOf[CreateEnrolmentUser]
+  "Invoking the app held RegistrationController" should "result in correct dependency injection" in {
+    app.injector.instanceOf[RegistrationController]
   }
 
   "Going directly to the complete-contact-details page, when logged in with an already registered VOA account" should
     "redirect the user to the dashboard" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
     StubIndividualAccountConnector.stubAccount(arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = externalId))
 
-    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    val res = TestRegistrationController$.show()(FakeRequest())
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(controllers.routes.Dashboard.home().url)
   }
@@ -116,11 +116,11 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
   "Going to the create account page, when logged in with an account that has not registered and has an Individual affinity group" should
     "display the create individual account form" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
 
-    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    val res = TestRegistrationController$.show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -135,11 +135,11 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
   "Going to the create account page, when logged in with an account that is an Agent" should
     "display the invalid account type page" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testAgentInfo)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testAgentInfo)
 
-    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    val res = TestRegistrationController$.show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -149,11 +149,11 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
   "Going to the create account page, when logged in with an account that has not registered and has an Organisation affinity group" should
     "display the create organisation account form" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
 
-    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    val res = TestRegistrationController$.show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -173,12 +173,12 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     val groupAccount = arbitrary[GroupAccount].sample.get
     val individualAccount = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = groupAccount.id)
 
-    StubAuthConnector.stubGroupId(groupAccount.groupId)
-    StubAuthConnector.stubExternalId(individualAccount.externalId)
+    StubVplAuthConnector.stubGroupId(groupAccount.groupId)
+    StubVplAuthConnector.stubExternalId(individualAccount.externalId)
     StubGroupAccountConnector.stubAccount(groupAccount)
-    StubAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Assistant))
+    StubVplAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Assistant))
 
-    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    val res = TestRegistrationController$.show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -193,12 +193,12 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     val groupAccount = arbitrary[GroupAccount].sample.get
     val individualAccount = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = groupAccount.id)
 
-    StubAuthConnector.stubGroupId(groupAccount.groupId)
-    StubAuthConnector.stubExternalId(individualAccount.externalId)
+    StubVplAuthConnector.stubGroupId(groupAccount.groupId)
+    StubVplAuthConnector.stubExternalId(individualAccount.externalId)
     StubGroupAccountConnector.stubAccount(groupAccount)
-    StubAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Admin))
+    StubVplAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Admin))
 
-    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    val res = TestRegistrationController$.show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -217,11 +217,11 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     val groupAccount = arbitrary[GroupAccount].sample.get
     val individualAccount = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = groupAccount.id)
 
-    StubAuthConnector.stubGroupId(groupAccount.groupId)
-    StubAuthConnector.stubExternalId(individualAccount.externalId)
-    StubAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Assistant))
+    StubVplAuthConnector.stubGroupId(groupAccount.groupId)
+    StubVplAuthConnector.stubExternalId(individualAccount.externalId)
+    StubVplAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Assistant))
 
-    val res = TestCreateEnrolmentUser.show()(FakeRequest())
+    val res = TestRegistrationController$.show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -230,11 +230,11 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   "Submitting an invalid individual form" should "return a bad request response" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
 
-    val res = TestCreateEnrolmentUser.submitIndividual()(FakeRequest())
+    val res = TestRegistrationController$.submitIndividual()(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
@@ -243,9 +243,9 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
 
     val data = Map(
@@ -267,17 +267,17 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     )
 
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-    val res = TestCreateEnrolmentUser.submitIndividual()(fakeRequest)
+    val res = TestRegistrationController$.submitIndividual()(fakeRequest)
     status(res) mustBe SEE_OTHER
   }
 
   "Submitting an invalid organisation form" should "return a bad request response" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
 
-    val res = TestCreateEnrolmentUser.submitOrganisation()(FakeRequest())
+    val res = TestRegistrationController$.submitOrganisation()(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
@@ -286,12 +286,11 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
     when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
 
-    CreateGroupAccount.form
     val data = Map(
       "companyName" -> Seq("company"),
       "firstName" -> Seq("first"),
@@ -311,7 +310,7 @@ class CreateEnrolmentUserSpec extends VoaPropertyLinkingSpec with MockitoSugar {
       "dob.year" -> Seq("1980")
     )
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-    val res = TestCreateEnrolmentUser.submitOrganisation()(fakeRequest)
+    val res = TestRegistrationController$.submitOrganisation()(fakeRequest)
     status(res) mustBe SEE_OTHER
   }
 }

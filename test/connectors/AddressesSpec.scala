@@ -16,10 +16,11 @@
 
 package connectors
 
-import controllers.{VoaPropertyLinkingSpec, GroupAccountDetails}
+import controllers.VoaPropertyLinkingSpec
 import models.Address
+import models.registration.GroupAccountDetails
 import org.scalacheck.Arbitrary._
-import play.api.libs.json.{JsNumber, JsValue, Json}
+import play.api.libs.json.{JsValue, Json}
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.StubServicesConfig

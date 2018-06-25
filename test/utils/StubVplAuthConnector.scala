@@ -17,12 +17,12 @@
 package utils
 
 import connectors.VPLAuthConnector
-import models.enrolment.{UserDetails, UserInfo}
+import models.registration.{UserDetails, UserInfo}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-object StubAuthConnector extends VPLAuthConnector(StubServicesConfig, StubHttp) {
+object StubVplAuthConnector extends VPLAuthConnector(StubServicesConfig, StubHttp) {
   private var externalId: Option[String] = None
   private var groupId: Option[String] = None
   private var userDetails: Option[UserDetails] = None

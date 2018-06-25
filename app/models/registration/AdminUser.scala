@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.enrolment
+package models.registration
 
 import java.time.LocalDate
 
@@ -29,7 +29,7 @@ import uk.gov.hmrc.domain.Nino
 import views.helpers.Errors
 
 
-trait EnrolmentUser {
+trait AdminUser {
 
   val firstName: String
   val lastName: String
@@ -55,7 +55,7 @@ trait EnrolmentUser {
   )
 }
 
-object EnrolmentUser {
+object AdminUser {
 
   lazy val individual = Form(mapping(
     keys.firstName -> nonEmptyText,
@@ -68,7 +68,7 @@ object EnrolmentUser {
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.tradingName -> optional(text())
-  )(EnrolmentIndividualAccountDetails.apply)(EnrolmentIndividualAccountDetails.unapply))
+  )(IndividualUserAccountDetails.apply)(IndividualUserAccountDetails.unapply))
 
   lazy val organisation = Form(mapping(
     keys.firstName -> nonEmptyText,
@@ -81,7 +81,7 @@ object EnrolmentUser {
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.isAgent -> mandatoryBoolean
-  )(EnrolmentOrganisationAccountDetails.apply)(EnrolmentOrganisationAccountDetails.unapply))
+  )(AdminOrganisationAccountDetails.apply)(AdminOrganisationAccountDetails.unapply))
 
   private lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
 
@@ -94,14 +94,14 @@ object EnrolmentUser {
     Nino(nino.toUpperCase.replaceAll(" ", ""))
   }
 
-  implicit val enrolmentUserFormat: Format[EnrolmentUser] = new Format[EnrolmentUser] {
-    override def reads(json: JsValue): JsResult[EnrolmentUser] = {
-      EnrolmentOrganisationAccountDetails.format.reads(json).orElse(EnrolmentIndividualAccountDetails.format.reads(json))
+  implicit val enrolmentUserFormat: Format[AdminUser] = new Format[AdminUser] {
+    override def reads(json: JsValue): JsResult[AdminUser] = {
+      AdminOrganisationAccountDetails.format.reads(json).orElse(IndividualUserAccountDetails.format.reads(json))
     }
 
-    override def writes(o: EnrolmentUser): JsObject = o match {
-      case organisation: EnrolmentOrganisationAccountDetails => EnrolmentOrganisationAccountDetails.format.writes(organisation)
-      case individual: EnrolmentIndividualAccountDetails => EnrolmentIndividualAccountDetails.format.writes(individual)
+    override def writes(o: AdminUser): JsObject = o match {
+      case organisation: AdminOrganisationAccountDetails => AdminOrganisationAccountDetails.format.writes(organisation)
+      case individual: IndividualUserAccountDetails => IndividualUserAccountDetails.format.writes(individual)
     }
   }
 }

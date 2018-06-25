@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package controllers
+package models.registration
 
-import javax.inject.Inject
+sealed trait RegistrationResult
 
-import config.ApplicationConfig
-import play.api.mvc.{Action, Controller}
+case class EnrolmentSuccess(personId: Long) extends RegistrationResult
 
-class Login @Inject()(config: ApplicationConfig) extends Controller {
+case object EnrolmentFailure extends RegistrationResult
 
-  val continue = Map("continue" -> Seq(config.ggContinueUrl), "origin" -> Seq("voa"))
-
-  def show = Action { implicit request =>
-    Redirect(config.ggSignInUrl, continue)
-  }
-}
+case object DetailsMissing extends RegistrationResult

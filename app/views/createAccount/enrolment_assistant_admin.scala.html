@@ -14,14 +14,14 @@
  * limitations under the License.
  *@
 
-@import models.enrolment._
+@import models.registration._
 @import helpers._
 @import uk.gov.hmrc.play.views.html.helpers.form
-@import models.enrolment.FieldData
+@import models.registration.FieldData
 @import config.ApplicationConfig
 @import utils.Formatters._
 
-@(model: Form[EnrolmentOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @isAgent(selected: Boolean) = @{
     if(selected) """checked="checked""" else """ disabled="disabled" """
@@ -35,7 +35,7 @@
             <p class="form-hint">@Messages("enrolment.assistant.hint")</p>
             <h2 class="heading-medium">@Messages("enrolment.assistant.organisation.details.title")</h2>
 
-            @form(controllers.enrolment.routes.CreateEnrolmentUser.submitOrganisation()) {
+            @form(controllers.registration.routes.RegistrationController.submitOrganisation()) {
 
                 <table>
                     <tbody><tr>

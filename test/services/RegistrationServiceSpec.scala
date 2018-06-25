@@ -17,9 +17,8 @@
 package services
 
 import config.ApplicationConfig
-import controllers.GroupAccountDetails
 import models._
-import models.enrolment._
+import models.registration._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import resources.{shortString, _}
@@ -49,9 +48,9 @@ class RegistrationServiceSpec extends ServiceSpec {
 
   trait TestCase {
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
 
     implicit val hc = HeaderCarrier()
 
@@ -70,7 +69,7 @@ class RegistrationServiceSpec extends ServiceSpec {
       groupAccounts = StubGroupAccountConnector,
       individualAccounts = StubIndividualAccountConnector,
       enrolmentService = mockEnrolmentService,
-      auth = StubAuthConnector,
+      auth = StubVplAuthConnector,
       addresses = StubAddresses,
       StubEmailService,
       app.injector.instanceOf[ApplicationConfig]

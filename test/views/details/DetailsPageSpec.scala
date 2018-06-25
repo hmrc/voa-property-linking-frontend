@@ -18,7 +18,7 @@ package views.details
 
 import actions.BasicAuthenticatedRequest
 import controllers.VoaPropertyLinkingSpec
-import models.enrolment.{UserDetails, UserInfo}
+import models.registration.{UserDetails, UserInfo}
 import models.{Address, DetailedIndividualAccount, GroupAccount}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.{Document, Element}

@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-package models.enrolment
+package models.registration
 
 import java.time.LocalDate
 
-import controllers.GroupAccountDetails
 import models.{email => _, _}
 import play.api.libs.json.Json
 import uk.gov.hmrc.domain.Nino
 
-case class EnrolmentIndividualAccountDetails(firstName: String,
-                                             lastName: String,
-                                             address: Address,
-                                             dob: LocalDate,
-                                             nino: Nino,
-                                             phone: String,
-                                             mobilePhone: String,
-                                             email: String,
-                                             confirmedEmail: String,
-                                             tradingName: Option[String]
-                                            ) extends EnrolmentUser {
+case class IndividualUserAccountDetails(firstName: String,
+                                        lastName: String,
+                                        address: Address,
+                                        dob: LocalDate,
+                                        nino: Nino,
+                                        phone: String,
+                                        mobilePhone: String,
+                                        email: String,
+                                        confirmedEmail: String,
+                                        tradingName: Option[String]
+                                            ) extends AdminUser {
 
   override def toIvDetails = IVDetails(
     firstName = firstName,
@@ -52,6 +51,6 @@ case class EnrolmentIndividualAccountDetails(firstName: String,
   )
 }
 
-object EnrolmentIndividualAccountDetails {
-  implicit val format = Json.format[EnrolmentIndividualAccountDetails]
+object IndividualUserAccountDetails {
+  implicit val format = Json.format[IndividualUserAccountDetails]
 }

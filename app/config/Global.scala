@@ -18,29 +18,26 @@ package config
 
 import java.time.{Clock, Instant, LocalDateTime, ZoneId}
 
-import javax.inject.{Inject, Provider}
-import actions.{AuthImpl, EnrolmentAuth, NonEnrolmentAuth}
+import actions.{Auth, VoaAuth}
 import auditing.AuditingService
-import auth.{GGAction, GGActionEnrolment, VoaAction}
+import auth.{GgAction, VoaAction}
 import com.builtamont.play.pdf.PdfGenerator
 import com.google.inject.AbstractModule
-import com.google.inject.binder.ScopedBindingBuilder
 import com.google.inject.name.Names
 import com.typesafe.config.Config
 import connectors.VPLAuthConnector
-import controllers.IdentityVerification
-import controllers.manageDetails.{Details, EnrolmentDetails, NonEnrolmentDetails}
+import controllers.manageDetails.{Details, VoaDetails}
+import javax.inject.{Inject, Provider}
 import net.ceedubs.ficus.Ficus._
 import play.api._
-import play.api.i18n.{Lang, Messages, MessagesApi}
-import play.api.i18n.Messages.Implicits._
+import play.api.i18n.{Lang, MessagesApi}
 import play.api.mvc._
 import play.modules.reactivemongo.ReactiveMongoComponent
 import play.twirl.api.Html
 import reactivemongo.api.DB
 import repositories._
 import services._
-import services.iv.{IdentityVerificationService, IdentityVerificationServiceEnrolment, IdentityVerificationServiceNonEnrolment}
+import services.iv.{IdentityVerificationService, IvService}
 import uk.gov.hmrc.auth.core.PlayAuthConnector
 import uk.gov.hmrc.circuitbreaker.CircuitBreakerConfig
 import uk.gov.hmrc.http.HeaderNames
@@ -118,7 +115,11 @@ class GuiceModule(environment: Environment,
     bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
-    enrolment()
+    bind(classOf[Details]).to(classOf[VoaDetails])
+    bind(classOf[VoaAction]).to(classOf[GgAction])
+    bind(classOf[Auth]).to(classOf[VoaAuth])
+    bind(classOf[ManageDetails]).to(classOf[ManageVoaDetails])
+    bind(classOf[IdentityVerificationService]).to(classOf[IvService])
     bind(classOf[Clock]).toInstance(Clock.systemUTC())
     bind(classOf[uk.gov.hmrc.auth.core.AuthConnector]).to(classOf[AuthConnectorImpl])
     bind(classOf[AuthConnector]).to(classOf[VPLAuthConnector])
@@ -126,22 +127,6 @@ class GuiceModule(environment: Environment,
     bind(classOf[PdfGenerator]).toInstance(new PdfGenerator(environment))
   }
 
-  private def enrolment(): ScopedBindingBuilder = {
-    if (configuration.getString("featureFlags.enrolment").getOrElse(throw ConfigMissing("featureFlags.enrolment")).toBoolean) {
-      bind(classOf[Details]).to(classOf[EnrolmentDetails])
-      bind(classOf[VoaAction]).to(classOf[GGActionEnrolment])
-      bind(classOf[AuthImpl]).to(classOf[EnrolmentAuth])
-      bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithEnrolments])
-      bind(classOf[IdentityVerificationService]).to(classOf[IdentityVerificationServiceEnrolment])
-    } else {
-      bind(classOf[Details]).to(classOf[NonEnrolmentDetails])
-      bind(classOf[VoaAction]).to(classOf[GGAction])
-      bind(classOf[AuthImpl]).to(classOf[NonEnrolmentAuth])
-      bind(classOf[ManageDetails]).to(classOf[ManageDetailsWithoutEnrolments])
-      bind(classOf[IdentityVerificationService]).to(classOf[IdentityVerificationServiceNonEnrolment])
-
-    }
-  }
 }
 
 class AuthConnectorImpl @Inject()(val http: WSHttp) extends PlayAuthConnector with ServicesConfig {

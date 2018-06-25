@@ -21,7 +21,7 @@ import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import javax.inject.{Inject, Named}
 import models._
-import models.enrolment._
+import models.registration._
 import models.identityVerificationProxy.Journey
 import play.api.i18n.Messages
 import play.api.mvc.Results._
@@ -57,20 +57,20 @@ trait IdentityVerificationService {
   private val failureUrl = config.baseUrl + controllers.routes.IdentityVerification.fail().url
 }
 
-class IdentityVerificationServiceEnrolment @Inject()(
-                                                      auth: VPLAuthConnector,
-                                                      registrationService: RegistrationService,
-                                                      @Named("personSession") personalDetailsSessionRepo: SessionRepo,
-                                                      val proxyConnector: IdentityVerificationProxyConnector,
-                                                      implicit val config: ApplicationConfig
-                                                    ) extends IdentityVerificationService {
+class IvService @Inject()(
+                           auth: VPLAuthConnector,
+                           registrationService: RegistrationService,
+                           @Named("personSession") personalDetailsSessionRepo: SessionRepo,
+                           val proxyConnector: IdentityVerificationProxyConnector,
+                           implicit val config: ApplicationConfig
+                         ) extends IdentityVerificationService {
 
   type B = RegistrationResult
 
   protected val successUrl: String = config.baseUrl + controllers.routes.IdentityVerification.success().url
 
   def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages) = obj match {
-    case EnrolmentSuccess(personId) => Redirect(controllers.enrolment.routes.CreateEnrolmentUser.success(personId))
+    case EnrolmentSuccess(personId) => Redirect(controllers.registration.routes.RegistrationController.success(personId))
     case EnrolmentFailure => InternalServerError(Global.internalServerErrorTemplate)
     case DetailsMissing => InternalServerError(Global.internalServerErrorTemplate)
   }
@@ -82,62 +82,19 @@ class IdentityVerificationServiceEnrolment @Inject()(
       (user.userInfo.affinityGroup, user.userInfo.credentialRole) match {
         case (Organisation, User | Admin) =>
           for {
-            organisationDetailsOpt <- personalDetailsSessionRepo.get[EnrolmentOrganisationAccountDetails]
+            organisationDetailsOpt <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
             organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
             registrationResult <- registrationService.create(organisationDetails.toGroupDetails, ctx)(organisationDetails.toIndividualAccountSubmission(journeyId))
           } yield Some(registrationResult)
         case (Individual, _) =>
           for {
-            individualDetailsOpt <- personalDetailsSessionRepo.get[EnrolmentIndividualAccountDetails]
+            individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
             individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
             registrationResult <- registrationService.create(individualDetails.toGroupDetails, ctx)(individualDetails.toIndividualAccountSubmission(journeyId))
           } yield Some(registrationResult)
       })
   }
 
-}
-
-class IdentityVerificationServiceNonEnrolment @Inject()(
-                                                         auth: VPLAuthConnector,
-                                                         individuals: IndividualAccounts,
-                                                         val proxyConnector: IdentityVerificationProxyConnector,
-                                                         @Named("personSession") personalDetailsSessionRepo: SessionRepo,
-                                                         implicit val config: ApplicationConfig,
-                                                         groups: GroupAccounts,
-                                                         addresses: Addresses
-                                                       ) extends IdentityVerificationService {
-
-  type B = GroupAccount
-
-  protected val successUrl: String = config.baseUrl + controllers.routes.IdentityVerification.restoreSession().url
-
-  def someCase(obj: GroupAccount)(implicit request: Request[_], messages: Messages) = Ok(views.html.createAccount.groupAlreadyExists(obj.companyName))
-
-  def noneCase(implicit request: Request[_], messages: Messages) = Ok(views.html.identityVerification.success(controllers.routes.CreateGroupAccount.show().url, "link.createGroupAccount"))
-
-  def continue[A](journeyId: String)(implicit ctx: A, hc: HeaderCarrier, ec: ExecutionContext): Future[Option[GroupAccount]] = {
-    val eventualGroupId = auth.getGroupId(ctx)
-    val eventualExternalId = auth.getExternalId(ctx)
-    val eventualIndividualDetails = personalDetailsSessionRepo.get[PersonalDetails]
-
-    for {
-      groupId <- eventualGroupId
-      userId <- eventualExternalId
-      account <- groups.withGroupId(groupId)
-      details <- eventualIndividualDetails.map(_.getOrElse(throw new Exception("no details found")))
-      id <- registerAddress(details)
-      d = details.withAddressId(id)
-      _ <- account match {
-        case Some(acc) => individuals.create(IndividualAccountSubmission(userId, journeyId, Some(acc.id), d.individualDetails))
-        case _ => personalDetailsSessionRepo.saveOrUpdate(d)
-      }
-    } yield account
-  }
-
-  private def registerAddress(details: PersonalDetails)(implicit hc: HeaderCarrier): Future[Long] = details.address.addressUnitId match {
-    case Some(id) => Future.successful(id)
-    case None => addresses.create(details.address)
-  }
 }
 
 

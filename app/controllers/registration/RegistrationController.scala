@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.enrolment
+package controllers.registration
 
 import actions.AuthenticatedAction
 import auth.VoaAction
@@ -24,7 +24,7 @@ import config.{ApplicationConfig, Global}
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import controllers.PropertyLinkingController
 import javax.inject.{Inject, Named}
-import models.enrolment._
+import models.registration._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{AnyContent, Request}
 import repositories.SessionRepo
@@ -36,17 +36,17 @@ import uk.gov.hmrc.auth.core.{Admin, Assistant, User}
 
 import scala.concurrent.Future
 
-class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
-                                    groupAccounts: GroupAccounts,
-                                    individualAccounts: IndividualAccounts,
-                                    enrolmentService: EnrolmentService,
-                                    auth: VPLAuthConnector,
-                                    addresses: Addresses,
-                                    registrationService: RegistrationService,
-                                    emailService: EmailService,
-                                    authenticatedAction: AuthenticatedAction,
-                                    identityVerificationService: IdentityVerificationService,
-                                    @Named("personSession") val personalDetailsSessionRepo: SessionRepo
+class RegistrationController @Inject()(ggAction: VoaAction,
+                                       groupAccounts: GroupAccounts,
+                                       individualAccounts: IndividualAccounts,
+                                       enrolmentService: EnrolmentService,
+                                       auth: VPLAuthConnector,
+                                       addresses: Addresses,
+                                       registrationService: RegistrationService,
+                                       emailService: EmailService,
+                                       authenticatedAction: AuthenticatedAction,
+                                       identityVerificationService: IdentityVerificationService,
+                                       @Named("personSession") val personalDetailsSessionRepo: SessionRepo
                                    )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   import utils.SessionHelpers._
@@ -58,7 +58,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
           Redirect(controllers.routes.Dashboard.home())
         case None => authUser match {
           case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
-            Future.successful(Ok(views.html.createAccount.enrolment_individual(EnrolmentUser.individual, FieldData(userInfo = user.userInfo))))
+            Future.successful(Ok(views.html.createAccount.enrolment_individual(AdminUser.individual, FieldData(userInfo = user.userInfo))))
           case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Organisation, _)) =>
             orgShow(ctx, user)
           case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Agent, _)) => Ok(views.html.errors.invalidAccountType())
@@ -68,28 +68,28 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
 
   def submitIndividual() = ggAction.async(isSession = false) { ctx =>
     implicit request =>
-      EnrolmentUser.individual.bindFromRequest().fold(
+      AdminUser.individual.bindFromRequest().fold(
         errors =>
           BadRequest(views.html.createAccount.enrolment_individual(errors, FieldData())),
         success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
-          Redirect(controllers.routes.IdentityVerification.startIvEnrolment)
+          Redirect(controllers.routes.IdentityVerification.startIv)
         }
       )
   }
 
   def submitOrganisation() = ggAction.async(isSession = false) { ctx =>
     implicit request =>
-      EnrolmentUser.organisation.bindFromRequest().fold(
+      AdminUser.organisation.bindFromRequest().fold(
         errors => BadRequest(views.html.createAccount.enrolment_organisation(errors, FieldData())),
         success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
-          Redirect(controllers.routes.IdentityVerification.startIvEnrolment)
+          Redirect(controllers.routes.IdentityVerification.startIv)
         }
       )
   }
 
   def submitAssistant() = ggAction.async(isSession = false) { ctx =>
     implicit request =>
-      EnrolmentAssistant.assistant.bindFromRequest().fold(
+      AssistantUser.assistant.bindFromRequest().fold(
         errors => BadRequest(
           views.html.createAccount.enrolment_assistant(
             errors,
@@ -99,7 +99,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
           registrationService
             .create(success.toGroupDetails, ctx)(success.toIndividualAccountSubmission)(hc, ec)
             .map {
-              case EnrolmentSuccess(personId) => Redirect(routes.CreateEnrolmentUser.success(personId))
+              case EnrolmentSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
               case EnrolmentFailure => InternalServerError(Global.internalServerErrorTemplate)
               case DetailsMissing => InternalServerError(Global.internalServerErrorTemplate)
             }
@@ -128,11 +128,11 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
         userDetails.userInfo.credentialRole match {
           case Admin | User =>
             Ok(views.html.createAccount.enrolment_assistant_admin(
-              EnrolmentUser.organisation,
+              AdminUser.organisation,
               fieldData))
           case Assistant =>
             Ok(views.html.createAccount.enrolment_assistant(
-              EnrolmentAssistant.assistant,
+              AssistantUser.assistant,
               fieldData))
         }
 
@@ -140,7 +140,7 @@ class CreateEnrolmentUser @Inject()(ggAction: VoaAction,
         userDetails.userInfo.credentialRole match {
           case Admin | User =>
             Ok(views.html.createAccount.enrolment_organisation(
-              EnrolmentUser.organisation,
+              AdminUser.organisation,
               FieldData(userDetails.userInfo)))
           case Assistant =>
             Ok(views.html.errors.invalidAccountCreation())

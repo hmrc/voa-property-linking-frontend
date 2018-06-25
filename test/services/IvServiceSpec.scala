@@ -19,14 +19,14 @@ package services
 import config.ApplicationConfig
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import models._
-import models.enrolment._
+import models.registration._
 import models.identityVerificationProxy.{Journey, Link}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import repositories.SessionRepo
 import resources.{shortString, _}
-import services.iv.IdentityVerificationServiceEnrolment
+import services.iv.IvService
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, User}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -34,7 +34,7 @@ import utils._
 
 import scala.concurrent.Future
 
-class IdentityVerificationServiceEnrolmentSpec extends ServiceSpec {
+class IvServiceSpec extends ServiceSpec {
 
   "continue" should "return a successful registration result if registration was successful for a new organisation" in new TestCase {
     StubGroupAccountConnector.stubAccount(GroupAccount(1l, groupId, "", 12, "", "", false, 1l))
@@ -56,7 +56,7 @@ class IdentityVerificationServiceEnrolmentSpec extends ServiceSpec {
 
   "continue" should "return a successful registration result if registration was successful for a new individual" in new TestCase {
     override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
-    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
     StubGroupAccountConnector.stubAccount(GroupAccount(1l, groupId, "", 12, "", "", false, 1l))
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
     when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
@@ -67,7 +67,7 @@ class IdentityVerificationServiceEnrolmentSpec extends ServiceSpec {
 
   "continue" should "return a failed registration result if registration failed for a new individual" in new TestCase {
     override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
-    StubAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
     StubGroupAccountConnector.stubAccount(GroupAccount(1l, groupId, "", 12, "", "", false, 1l))
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
     when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentFailure))
@@ -78,9 +78,9 @@ class IdentityVerificationServiceEnrolmentSpec extends ServiceSpec {
 
   trait TestCase {
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubAuthConnector.stubGroupId(groupId)
-    StubAuthConnector.stubExternalId(externalId)
-    StubAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
 
     lazy val mockSessionRepoOrgDetails = {
       val f = mock[SessionRepo]
@@ -88,7 +88,7 @@ class IdentityVerificationServiceEnrolmentSpec extends ServiceSpec {
       ).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())
       ).thenReturn(Future.successful(()))
-      when(f.get[EnrolmentOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[EnrolmentOrganisationAccountDetails].sample))
+      when(f.get[AdminOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetails].sample))
       f
     }
 
@@ -98,7 +98,7 @@ class IdentityVerificationServiceEnrolmentSpec extends ServiceSpec {
       ).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())
       ).thenReturn(Future.successful(()))
-      when(f.get[EnrolmentIndividualAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[EnrolmentIndividualAccountDetails].sample))
+      when(f.get[IndividualUserAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[IndividualUserAccountDetails].sample))
       f
     }
 
@@ -127,8 +127,8 @@ class IdentityVerificationServiceEnrolmentSpec extends ServiceSpec {
 
     protected val ivProxy = mock[IdentityVerificationProxyConnector]
 
-    protected val identityVerification = new IdentityVerificationServiceEnrolment(
-      StubAuthConnector,
+    protected val identityVerification = new IvService(
+      StubVplAuthConnector,
       mockRegistrationService,
       mockSessionRepoOrgDetails,
       ivProxy,
@@ -138,7 +138,7 @@ class IdentityVerificationServiceEnrolmentSpec extends ServiceSpec {
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()
     StubGroupAccountConnector.reset()
-    StubAuthConnector.reset()
+    StubVplAuthConnector.reset()
     StubIdentityVerification.reset()
     StubPropertyLinkConnector.reset()
     StubAuthentication.reset()

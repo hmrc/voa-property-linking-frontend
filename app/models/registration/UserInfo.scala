@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.enrolment
+package models.registration
 
 import play.api.libs.json.Json
 import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole}

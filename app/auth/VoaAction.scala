@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 import config.Global
 import connectors.VPLAuthConnector
-import models.enrolment.UserDetails
+import models.registration.UserDetails
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
@@ -38,17 +38,7 @@ sealed trait VoaAction {
   def async(isSession: Boolean)(body: x => Request[AnyContent] => Future[Result]): Action[AnyContent]
 }
 
-class GGAction @Inject()(val provider: GovernmentGatewayProvider, val authConnector: AuthConnector) extends Actions with VoaAction {
-  type x = AuthContext
-
-  private def authenticatedBy = AuthenticatedBy(provider, GGConfidence)
-
-  def apply(body: AuthContext => Request[AnyContent] => Result): Action[AnyContent] = authenticatedBy(body)
-
-  def async(isSession: Boolean)(body: AuthContext => Request[AnyContent] => Future[Result]): Action[AnyContent] = authenticatedBy.async(body)
-}
-
-class GGActionEnrolment @Inject()(val provider: GovernmentGatewayProvider, val authConnector: AuthConnector, vPLAuthConnector: VPLAuthConnector) extends VoaAction {
+class GgAction @Inject()(val provider: GovernmentGatewayProvider, vPLAuthConnector: VPLAuthConnector) extends VoaAction {
 
   import utils.SessionHelpers._
 

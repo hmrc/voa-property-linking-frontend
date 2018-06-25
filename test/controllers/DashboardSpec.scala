@@ -16,8 +16,6 @@
 
 package controllers
 
-import java.time.LocalDateTime
-
 import com.builtamont.play.pdf.PdfGenerator
 import connectors._
 import models._
@@ -52,42 +50,32 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
     mock[PdfGenerator]
   )
 
-  "Logging in with a non-organisation account" must "redirect to the wrong account type error page" in {
-    StubAuthConnector.stubExternalId(shortString)
-    StubAuthConnector.stubGroupId(shortString)
-    StubAuthentication.stubAuthenticationResult(NonOrganisationAccount)
-
-    val res = TestDashboard.home()(request)
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Application.invalidAccountType().url)
-  }
-
   "Logging in for the first time with a group account" must "redirect to the create individual account page" in {
-    StubAuthConnector.stubExternalId("hasnoaccount")
-    StubAuthConnector.stubGroupId("groupwithoutaccount")
+    StubVplAuthConnector.stubExternalId("hasnoaccount")
+    StubVplAuthConnector.stubGroupId("groupwithoutaccount")
     StubAuthentication.stubAuthenticationResult(NoVOARecord)
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.CreateIndividualAccount.show.url)
+    header("location", res) mustBe Some(registration.routes.RegistrationController.show.url)
   }
 
   "Logging in for the first time with an individual sub-account under a group that has registered" must "redirect to the create individual account page" in {
-    StubAuthConnector.stubExternalId("hasnoaccount")
-    StubAuthConnector.stubGroupId("hasgroupaccount")
+    StubVplAuthConnector.stubExternalId("hasnoaccount")
+    StubVplAuthConnector.stubGroupId("hasgroupaccount")
     StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get.copy(groupId = "hasgroupaccount"))
     StubAuthentication.stubAuthenticationResult(NoVOARecord)
 
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.CreateIndividualAccount.show.url)
+    header("location", res) mustBe Some(registration.routes.RegistrationController.show.url)
   }
 
   "Logging in again with an account that has already registered" must "continue to the manage properties page" in {
     val group = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
     val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
 
-    StubAuthConnector.stubExternalId("has-account")
-    StubAuthConnector.stubGroupId("has-group-account")
+    StubVplAuthConnector.stubExternalId("has-account")
+    StubVplAuthConnector.stubGroupId("has-group-account")
     StubIndividualAccountConnector.stubAccount(person)
     StubGroupAccountConnector.stubAccount(group)
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
@@ -101,8 +89,8 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
     val group = arbitrary[GroupAccount].sample.get.copy(groupId = "has-agent-account", isAgent = true)
     val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
 
-    StubAuthConnector.stubExternalId("has-account")
-    StubAuthConnector.stubGroupId("has-agent-account")
+    StubVplAuthConnector.stubExternalId("has-account")
+    StubVplAuthConnector.stubGroupId("has-agent-account")
     StubIndividualAccountConnector.stubAccount(person)
     StubGroupAccountConnector.stubAccount(group)
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
@@ -119,8 +107,8 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
     val agentGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = true, companyName = "Test Agent Company")
     val agentPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = agentGroup.id)
 
-    StubAuthConnector.stubExternalId(clientPerson.externalId)
-    StubAuthConnector.stubGroupId(clientGroup.groupId)
+    StubVplAuthConnector.stubExternalId(clientPerson.externalId)
+    StubVplAuthConnector.stubGroupId(clientGroup.groupId)
 
     StubIndividualAccountConnector.stubAccount(clientPerson)
     StubIndividualAccountConnector.stubAccount(agentPerson)
@@ -142,8 +130,8 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
 
     val messageSearchResults = arbitrary[MessageSearchResults].sample.get
 
-    StubAuthConnector.stubExternalId(clientPerson.externalId)
-    StubAuthConnector.stubGroupId(clientGroup.groupId)
+    StubVplAuthConnector.stubExternalId(clientPerson.externalId)
+    StubVplAuthConnector.stubGroupId(clientGroup.groupId)
 
     StubIndividualAccountConnector.stubAccount(clientPerson)
     StubGroupAccountConnector.stubAccount(clientGroup)
@@ -165,8 +153,8 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
 
     val message = arbitrary[Message].sample.get
 
-    StubAuthConnector.stubExternalId(clientPerson.externalId)
-    StubAuthConnector.stubGroupId(clientGroup.groupId)
+    StubVplAuthConnector.stubExternalId(clientPerson.externalId)
+    StubVplAuthConnector.stubGroupId(clientGroup.groupId)
 
     StubIndividualAccountConnector.stubAccount(clientPerson)
     StubGroupAccountConnector.stubAccount(clientGroup)

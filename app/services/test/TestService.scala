@@ -14,12 +14,23 @@
  * limitations under the License.
  */
 
-package models.enrolment
+package services.test
 
-sealed trait RegistrationResult
+import connectors.TaxEnrolmentConnector
+import javax.inject.Inject
+import services.{Failure, Success}
+import uk.gov.hmrc.http.HeaderCarrier
 
-case class EnrolmentSuccess(personId: Long) extends RegistrationResult
+import scala.concurrent.ExecutionContext.Implicits.global
 
-case object EnrolmentFailure extends RegistrationResult
+class TestService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector) {
 
-case object DetailsMissing extends RegistrationResult
+  def deEnrolUser(personID: Long)(implicit hc: HeaderCarrier) =
+    taxEnrolmentsConnector
+      .deEnrol(personID)
+      .map(_ => Success)
+      .recover {
+        case _: Throwable => Failure
+      }
+
+}

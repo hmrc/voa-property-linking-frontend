@@ -11,37 +11,14 @@ GET         /contact-us                                                         
 GET         /login                                                                            @controllers.Login.show
 GET         /register                                                                         @controllers.Register.show
 POST        /regiser-user                                                                     @controllers.Register.choice
-GET         /registered                                                                       @controllers.Register.confirm
 GET         /logout                                                                           @controllers.Application.logOut
 GET         /invalid-account                                                                  @controllers.Application.invalidAccountType
 
-#Wizard
-GET         /authentication-wizard                                                            @controllers.Wizard.authenticationWizard
-POST        /authentication-wizard                                                            @controllers.Wizard.submit
-GET         /authentication-wizard/use-existing-account                                       @controllers.Wizard.registerExistingGG
-POST        /authentication-wizard/use-existing-account                                       @controllers.Wizard.submitExistingGG
-
-#Before you start pages
-GET         /authentication-wizard/before-you-register-a                                      @controllers.Wizard.beforeYouRegisterA
-GET         /authentication-wizard/before-you-register-b                                      @controllers.Wizard.beforeYouRegisterB
-GET         /authentication-wizard/before-you-register-c                                      @controllers.Wizard.beforeYouRegisterC
-GET         /authentication-wizard/before-you-register-d                                      @controllers.Wizard.beforeYouRegisterD
-
-#Create individual account
-GET         /create-account                                                                   @controllers.CreateIndividualAccount.show
-POST        /create-account                                                                   @controllers.CreateIndividualAccount.submit
-
 #Identity verification
 GET         /identity-verification/start                                                      @controllers.IdentityVerification.startIv
-GET         /identity-verification/start-enrolment                                            @controllers.IdentityVerification.startIvEnrolment
 GET         /identity-verification/failed                                                     @controllers.IdentityVerification.fail
 GET         /identity-verification/restore-session                                            @controllers.IdentityVerification.restoreSession
 GET         /identity-verification/success                                                    @controllers.IdentityVerification.success
-
-#Create group account
-GET         /create-group                                                                     @controllers.CreateGroupAccount.show
-GET         /create-group/success                                                             @controllers.CreateGroupAccount.success
-POST        /create-group                                                                     @controllers.CreateGroupAccount.submit
 
 #Dashboard
 GET         /home                                                                             @controllers.Dashboard.home()
@@ -126,11 +103,11 @@ GET         /lookup                                                             
 GET         /planned-improvements                                                             @controllers.DowntimePage.plannedImprovements
 
 #Enrolment page
-GET         /complete-contact-details                                                         @controllers.enrolment.CreateEnrolmentUser.show()
-POST        /complete-business-contact-details                                                @controllers.enrolment.CreateEnrolmentUser.submitOrganisation()
-POST        /complete-your-contact-details                                                    @controllers.enrolment.CreateEnrolmentUser.submitIndividual()
-POST        /complete-business-contact-details-assistant                                      @controllers.enrolment.CreateEnrolmentUser.submitAssistant()
-GET         /create-success                                                                   @controllers.enrolment.CreateEnrolmentUser.success(personId: Long)
+GET         /complete-contact-details                                                         @controllers.registration.RegistrationController.show()
+POST        /complete-business-contact-details                                                @controllers.registration.RegistrationController.submitOrganisation()
+POST        /complete-your-contact-details                                                    @controllers.registration.RegistrationController.submitIndividual()
+POST        /complete-business-contact-details-assistant                                      @controllers.registration.RegistrationController.submitAssistant()
+GET         /create-success                                                                   @controllers.registration.RegistrationController.success(personId: Long)
 
 #Draft Checks
 GET         /draft-cases                                                                      @controllers.ManageDrafts.viewDraftCases()

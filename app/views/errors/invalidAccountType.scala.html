@@ -26,13 +26,9 @@
 
             <h1 class="heading-xlarge">@Messages("invalidAccountType.title")</h1>
 
-            @if(config.enrolmentEnabled) {
-                <p>@Messages("invalidAccountTypeEnrolment.p.1")</p>
-                <p>@Messages("invalidAccountTypeEnrolment.p.2")</p>
-            } else {
-                <p>@Messages("invalidAccountType.p.1")</p>
-                <p>@Messages("invalidAccountType.p.2")</p>
-            }
+            <p>@Messages("invalidAccountTypeEnrolment.p.1")</p>
+            <p>@Messages("invalidAccountTypeEnrolment.p.2")</p>
+
             <p>@Messages("invalidAccountType.p.3")</p>
 
             <a href="@routes.Register.show()" class="button" role="button">@Messages("invalidAccountType.register")</a>

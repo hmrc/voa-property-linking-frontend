@@ -19,7 +19,7 @@ package connectors
 import javax.inject.Inject
 
 import config.WSHttp
-import models.enrolment.{UserDetails, UserInfo}
+import models.registration.{UserDetails, UserInfo}
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._

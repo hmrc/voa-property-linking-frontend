@@ -16,17 +16,16 @@
 
 package connectors
 
-import javax.inject.Inject
-
 import config.WSHttp
-import controllers.GroupAccountDetails
-import models.{Address, GroupAccount}
+import javax.inject.Inject
+import models.Address
+import models.registration.GroupAccountDetails
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 class Addresses @Inject()(config: ServicesConfig, http: WSHttp) {
 

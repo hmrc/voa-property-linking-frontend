@@ -14,18 +14,24 @@
  * limitations under the License.
  */
 
-package controllers
+package models
 
-import javax.inject.Inject
+package object registration {
 
-import config.ApplicationConfig
-import play.api.mvc.{Action, Controller}
-
-class Login @Inject()(config: ApplicationConfig) extends Controller {
-
-  val continue = Map("continue" -> Seq(config.ggContinueUrl), "origin" -> Seq("voa"))
-
-  def show = Action { implicit request =>
-    Redirect(config.ggSignInUrl, continue)
+  lazy val keys = new {
+    val companyName = "companyName"
+    val firstName = "firstName"
+    val lastName = "lastName"
+    val address = "address"
+    val phone = "phone"
+    val mobilePhone = "mobilePhone"
+    val email = "email"
+    val confirmedEmail = "confirmedEmail"
+    val confirmedBusinessEmail = "confirmedBusinessEmail"
+    val tradingName = "tradingName"
+    val dateOfBirth = "dob"
+    val nino = "nino"
+    val isAgent = "isAgent"
   }
+
 }

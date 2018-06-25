@@ -18,22 +18,20 @@ package actions
 
 import auth.GovernmentGatewayProvider
 import connectors._
-import controllers.TemplateSpec
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
-import play.api.i18n.{Messages, MessagesApi}
+import play.api.i18n.MessagesApi
 import play.api.mvc.Request
 import play.api.mvc.Results._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
-import services.EnrolmentService
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.test.UnitSpec
-import utils.{NoMetricsOneAppPerSuite, StubAuthImpl}
+import utils.{NoMetricsOneAppPerSuite, StubAuth, StubAuthConnector}
 
 import scala.concurrent.Future
 
@@ -75,7 +73,7 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
       }(FakeRequest())
 
       status(res) shouldBe SEE_OTHER
-      redirectLocation(res) shouldBe Some(controllers.routes.CreateIndividualAccount.show().url)
+      redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.show().url)
     }
 
     "redirect to invalid accoupt page when the user is logged in to GG but does not have groupId" in {
@@ -88,18 +86,7 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
       status(res) shouldBe SEE_OTHER
       redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
     }
-
-    "redirect to the invalid account page when the user is logged in with a non-organisation account" in {
-      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(NonOrganisationAccount))
-
-      val res = testAction { _ =>
-        Ok("something")
-      }(FakeRequest())
-
-      status(res) shouldBe SEE_OTHER
-      redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
-    }
-
+    
     "return a 400 response when the wrapped action throws a BadRequestException" in {
       when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
 
@@ -131,7 +118,7 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
     }
   }
 
-  lazy val testAction = new AuthenticatedAction(mockGG, mockAuth, StubAuthImpl, mockAddresses, mockAuthConnector)
+  lazy val testAction = new AuthenticatedAction(mockGG, mockAuth, StubAuth, mockAddresses, StubAuthConnector)
   lazy val mockAuthConnector = mock[AuthConnector]
   lazy val mockAddresses = mock[Addresses]
   lazy val mockServiceConfig = mock[ServicesConfig]

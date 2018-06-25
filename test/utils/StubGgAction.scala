@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package models.enrolment
+package utils
 
-import play.api.libs.json.Json
+import auth.GgAction
+import uk.gov.hmrc.play.frontend.auth.connectors.domain.{Accounts, ConfidenceLevel, CredentialStrength}
+import uk.gov.hmrc.play.frontend.auth.{AuthContext, LoggedInUser, Principal}
 
-case class UserDetails(externalId: String, userInfo: UserInfo)
-
-object UserDetails {
-  implicit val format = Json.format[UserDetails]
+object StubGgAction extends GgAction(null, StubVplAuthConnector) {
+  private val ctx = AuthContext(LoggedInUser("", None, None, None, CredentialStrength.Weak, ConfidenceLevel.L200, ""),
+    Principal(None, Accounts()), None, None, None, None)
 }

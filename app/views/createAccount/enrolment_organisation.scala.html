@@ -14,13 +14,13 @@
  * limitations under the License.
  *@
 
-@import models.enrolment._
+@import models.registration._
 @import helpers._
 @import uk.gov.hmrc.play.views.html.helpers.form
-@import models.enrolment.FieldData
+@import models.registration.FieldData
 @import config.ApplicationConfig
 
-@(model: Form[EnrolmentOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @main_template(title = Messages("enrolment.title"), topNavigation = false) {
@@ -41,7 +41,7 @@
 
             @includes.errorSummary(model, messagePrefix = Some("createAccount"))
 
-            @form(controllers.enrolment.routes.CreateEnrolmentUser.submitOrganisation()) {
+            @form(controllers.registration.routes.RegistrationController.submitOrganisation()) {
 
                 @inputText(
                     field = model(keys.firstName),

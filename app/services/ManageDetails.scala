@@ -16,36 +16,33 @@
 
 package services
 
-import javax.inject.Inject
-
 import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
+import javax.inject.Inject
 import models.Address
-import play.api.Logger
 import play.api.mvc.Request
 import uk.gov.hmrc.auth.core.AffinityGroup
-import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.{ExecutionContext, Future}
-
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+
 trait ManageDetails {
   def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(predicate: AffinityGroup => Boolean)
                     (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult]
 }
 
-class ManageDetailsWithEnrolments @Inject() (taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, vPLAuthConnector: VPLAuthConnector) extends ManageDetails with RequestContext {
+class ManageVoaDetails @Inject()(taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, vPLAuthConnector: VPLAuthConnector) extends ManageDetails with RequestContext {
   def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(predicate: AffinityGroup => Boolean)
                     (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult] = {
-    def withAddress(addressId:Long, addressType:String):Future[Option[Address]] =
+    def withAddress(addressId: Long, addressType: String): Future[Option[Address]] =
       addresses.findById(addressId)
 
     for {
-      currentOpt    <- withAddress(currentAddressId, "current")
-      updatedOpt    <- withAddress(addressId, "updated")
+      currentOpt <- withAddress(currentAddressId, "current")
+      updatedOpt <- withAddress(addressId, "updated")
       affinityGroup <- vPLAuthConnector.getUserDetails.map(_.userInfo.affinityGroup)
-      is            = predicate(affinityGroup)
-      result        <- update(currentOpt, updatedOpt, personId, is)
+      is = predicate(affinityGroup)
+      result <- update(currentOpt, updatedOpt, personId, is)
     } yield result
   }
 
@@ -56,9 +53,4 @@ class ManageDetailsWithEnrolments @Inject() (taxEnrolments: TaxEnrolmentConnecto
       case _ =>
         Future.successful(Failure)
     }
-}
-
-class ManageDetailsWithoutEnrolments extends ManageDetails with RequestContext {
-  def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(predicate: AffinityGroup => Boolean)
-                    (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult] = Future.successful(Success)
 }

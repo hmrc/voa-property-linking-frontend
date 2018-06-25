@@ -28,12 +28,13 @@ import models._
 import models.test.TestUserDetails
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
+import services.test.TestService
 import services.{EnrolmentService, Failure, Success}
 
 import scala.util.Random
 
 class TestController @Inject()(authenticated: AuthenticatedAction,
-                               enrolmentService: EnrolmentService,
+                               testService: TestService,
                                individualAccounts: IndividualAccounts,
                                groups: GroupAccounts,
                                emacConnector: EmacConnector,
@@ -69,7 +70,7 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
   }
 
   def deEnrol() = authenticated { implicit request =>
-    enrolmentService
+    testService
       .deEnrolUser(request.individualAccount.individualId)
       .map {
         case Success => Ok("Successful")
