@@ -41,8 +41,6 @@ sealed trait Auth {
              )(implicit request: Request[AnyContent], hc: HeaderCarrier, ec: ExecutionContext): Future[Result]
 
   def noVoaRecord: Future[Result]
-
-  def noOrgAccount: Future[Result]
 }
 
 class VoaAuth @Inject()(provider: GovernmentGatewayProvider,
@@ -63,7 +61,7 @@ class VoaAuth @Inject()(provider: GovernmentGatewayProvider,
       case _: NoActiveSession =>
         provider.redirectToLogin
       case otherException =>
-        Logger.debug(s"exception thrown on authorization with message : ${otherException.getMessage}")
+        Logger.debug(s"exception thrown on authorization with message: ${otherException.getMessage}")
         throw otherException
     }
 
@@ -98,10 +96,6 @@ class VoaAuth @Inject()(provider: GovernmentGatewayProvider,
   override def noVoaRecord: Future[Result] =
     Future.successful(Redirect(controllers.registration.routes.RegistrationController.show()))
 
-
-  override def noOrgAccount: Future[Result] =
-    Future.successful(Redirect(controllers.registration.routes.RegistrationController.show()))
-
   private def enrolmentResult(
                                accounts: Accounts,
                                body: BasicAuthenticatedRequest[AnyContent] => Future[Result]
@@ -111,7 +105,7 @@ class VoaAuth @Inject()(provider: GovernmentGatewayProvider,
       for {
         userDetails <- auth.getUserDetails
         _ <- emailService.sendMigrationEnrolmentSuccess(userDetails.userInfo.email, accounts.person.individualId, s"${accounts.person.details.firstName} ${accounts.person.details.lastName}")
-      } yield Ok(views.html.createAccount.migration_success(accounts.person.individualId.toString, controllers.routes.Dashboard.home().url))
+      } yield Ok(views.html.createAccount.existing_user_enrolment_success(accounts.person.individualId.toString, controllers.routes.Dashboard.home().url))
     case Failure =>
       Logger.warn("Failed to enrol existing VOA user")
       body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))

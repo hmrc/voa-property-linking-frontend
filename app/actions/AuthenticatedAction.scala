@@ -97,12 +97,11 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
       case InvalidGGSession         => provider.redirectToLogin
       case NoVOARecord              => auth.noVoaRecord
       case IncorrectTrustId         => Future.successful(Unauthorized("Trust ID does not match"))
-      case NonOrganisationAccount   => auth.noOrgAccount
+      case InvalidAccountType       => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
       case ForbiddenResponse        => Future.successful(Forbidden(views.html.errors.forbidden()))
       case NonGroupIDAccount        => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
     }
   }
-
 
 }
 
