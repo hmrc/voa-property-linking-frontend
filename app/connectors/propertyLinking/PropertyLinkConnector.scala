@@ -104,11 +104,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
     http.GET[Option[PropertyLink]](s"$baseUrl/dashboard/assessments/$authorisationId") recover { case _: NotFoundException => None }
   }
-
-  def hasPropertyLinks(organisationId: Long)(implicit hc: HeaderCarrier): Future[Boolean] = {
-    val url = s"$baseUrl/property-links/hasPropertyLinks/$organisationId"
-    http.GET[Boolean](url)
-  }
 }
 
 
@@ -126,5 +121,4 @@ trait PropertyLinksConnector {
                            (implicit hc: HeaderCarrier): Future[OwnerAuthResult]
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]]
   def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]]
-  def hasPropertyLinks(organisationId: Long)(implicit hc: HeaderCarrier): Future[Boolean]
 }
