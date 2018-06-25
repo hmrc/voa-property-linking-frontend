@@ -17,8 +17,9 @@
 package connectors.propertyLinking
 
 import java.time.Instant
-import javax.inject.Inject
+import javax.inject.{Inject, Singleton}
 
+import com.google.inject.ImplementedBy
 import config.WSHttp
 import connectors.fileUpload.FileMetadata
 import controllers.{Pagination, PaginationSearchSort}
@@ -31,7 +32,8 @@ import uk.gov.hmrc.play.config.inject.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+@Singleton
+class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) extends PropertyLinksConnector {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
 
   def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
@@ -102,4 +104,27 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
     http.GET[Option[PropertyLink]](s"$baseUrl/dashboard/assessments/$authorisationId") recover { case _: NotFoundException => None }
   }
+
+  def hasPropertyLinks(organisationId: Long)(implicit hc: HeaderCarrier): Future[Boolean] = {
+    val url = s"$baseUrl/property-links/hasPropertyLinks/$organisationId"
+    http.GET[Boolean](url)
+  }
+}
+
+
+@ImplementedBy(classOf[PropertyLinkConnector])
+trait PropertyLinksConnector {
+  def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]]
+  def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit]
+  def linkedPropertiesSearchAndSort(organisationId: Long,
+                                    pagination: PaginationSearchSort,
+                                    representationStatusFilter: Seq[RepresentationStatus] =
+                                    Seq(RepresentationApproved, RepresentationPending))
+                                   (implicit hc: HeaderCarrier): Future[OwnerAuthResult]
+  def appointableProperties(organisationId: Long,
+                            pagination: AgentPropertiesParameters)
+                           (implicit hc: HeaderCarrier): Future[OwnerAuthResult]
+  def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]]
+  def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]]
+  def hasPropertyLinks(organisationId: Long)(implicit hc: HeaderCarrier): Future[Boolean]
 }

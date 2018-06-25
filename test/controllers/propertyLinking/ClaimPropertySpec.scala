@@ -19,6 +19,7 @@ package controllers.propertyLinking
 import java.time.LocalDate
 
 import config.ApplicationConfig
+import connectors.propertyLinking.{PropertyLinkConnector}
 import connectors.{Authenticated, EnvelopeConnector, EnvelopeMetadata}
 import controllers.VoaPropertyLinkingSpec
 import models._
@@ -38,7 +39,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 class ClaimPropertySpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   private lazy val testClaimProperty = new ClaimProperty(mockEnvelopes, StubAuthentication, StubSubmissionIdConnector,
-    mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]))
+    mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]), propertyLinkingConnector)
 
   lazy val submissionId: String = shortString
   lazy val accounts: Accounts = arbitrary[Accounts]
@@ -56,6 +57,8 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec with MockitoSugar {
     ).thenReturn(Future.successful(()))
     f
   }
+
+  lazy val propertyLinkingConnector = mock[PropertyLinkConnector]
 
   "The claim property page" should "contain the claim property form" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))

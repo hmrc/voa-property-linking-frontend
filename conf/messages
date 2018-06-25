@@ -1014,6 +1014,15 @@ enrolment.organisation.individualOrCompany = Do you wish to act on behalf of an 
 enrolment.yes = Yes
 enrolment.no = No
 
+
+before.you.start.title=Claim a property
+before.you.start.p1=Most of the valuation information about your property is confidential and not available to everyone. By claiming a property, you’re proving you have the right to see this information and discuss it with the Valuation Office Agency.
+before.you.start.p2=To claim a property, search for it on the next page then click on ''claim this property'' and follow the instructions.
+before.you.start.p3=You''ll need to provide evidence of your link to the property. The best evidence for this is a business rates bill as it shows the property address, local authority reference and who''s responsible for the bill. If you can''t provide a business rates bill, you can provide other evidence that shows you either own or occupy the property, such as utility bills.
+before.you.start.p4=Once you''ve claimed your property, it can take up to 15 working days to be approved.
+
+before.you.start.startButton=Start
+
 #COMMON
 app.common.saveAndContinue = Save and continue
 app.common.yes = Yes
