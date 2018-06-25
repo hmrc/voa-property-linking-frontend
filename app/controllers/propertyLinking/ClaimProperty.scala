@@ -22,14 +22,16 @@ import javax.inject.{Inject, Named}
 import actions.{AuthenticatedAction, AuthenticatedRequest}
 import com.google.inject.Singleton
 import config.ApplicationConfig
+import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{EnvelopeConnector, EnvelopeMetadata, SubmissionIdConnector}
-import controllers.PropertyLinkingController
+import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
 import models.{CapacityDeclaration, _}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
+import play.api.libs.json.Json
 import repositories.SessionRepo
 import session.WithLinkingSession
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -42,13 +44,25 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
                               val authenticated: AuthenticatedAction,
                               val submissionIdConnector: SubmissionIdConnector,
                               @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
-                              val withLinkingSession: WithLinkingSession)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+                              val withLinkingSession: WithLinkingSession,
+                              val propertyLinksConnector: PropertyLinkConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ServicesConfig {
 
   import ClaimProperty._
 
   def show() = authenticated { implicit request =>
     Redirect(s"${config.vmvUrl}/search")
+  }
+
+  def checkPropertyLinks(uarn: Long, address: String) = authenticated { implicit request =>
+    propertyLinksConnector.linkedPropertiesSearchAndSort(request.organisationAccount.id, PaginationSearchSort(pageNumber = 1, pageSize = 20)).map{ res =>
+      if(res.authorisations.nonEmpty){
+        Redirect(routes.ClaimProperty.declareCapacity(uarn, address))
+      }
+      else{
+        Ok(views.html.propertyLinking.beforeYouStart(uarn, address))
+      }
+    }
   }
 
   def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
