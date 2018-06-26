@@ -23,12 +23,12 @@ import uk.gov.hmrc.play.config.inject.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TestConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+class TestCheckConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
 
-  lazy val url = config.baseUrl("property-linking") + "/property-linking/"
+  lazy val url = config.baseUrl("business-rates-check")
 
-  def deRegister(organisationId: Long)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
-    http.DELETE[HttpResponse](url + s"test-only/de-register/$organisationId")
+  def clearDraftCases(organisationId: Long)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
+    http.DELETE[HttpResponse](s"$url/test-only/clear-draft-cases/$organisationId")
   }
 
 }
