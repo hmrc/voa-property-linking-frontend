@@ -24,11 +24,11 @@ import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.ExecutionContext
 
-class EmacConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
+class TestEmacConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
 
   private val serviceUrl = baseUrl("emac")
 
-  def removeEnrolment(personId: Long, userId:String, groupId: String)(implicit hc: HeaderCarrier, ex: ExecutionContext) = {
+  def removeEnrolment(personId: Long, userId: String, groupId: String)(implicit hc: HeaderCarrier, ex: ExecutionContext) = {
     wSHttp
       .DELETE[HttpResponse](s"$serviceUrl/enrolment-store-proxy/enrolment-store/users/$userId/enrolments/HMRC-VOA-CCA~VOAPersonID~$personId")
       .map(_ => wSHttp.DELETE[HttpResponse](s"$serviceUrl/enrolment-store-proxy/enrolment-store/groups/$groupId/enrolments/HMRC-VOA-CCA~VOAPersonID~$personId"))

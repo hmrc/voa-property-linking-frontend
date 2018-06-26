@@ -21,7 +21,7 @@ import java.util.UUID
 
 import actions.AuthenticatedAction
 import connectors._
-import connectors.test.{EmacConnector, TestConnector}
+import connectors.test.{TestCheckConnector, TestEmacConnector, TestPropertyLinkingConnector}
 import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController}
 import javax.inject.Inject
 import models._
@@ -37,9 +37,10 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
                                testService: TestService,
                                individualAccounts: IndividualAccounts,
                                groups: GroupAccounts,
-                               emacConnector: EmacConnector,
+                               emacConnector: TestEmacConnector,
                                vPLAuthConnector: VPLAuthConnector,
-                               testConnector: TestConnector,
+                               testPropertyLinkingConnector: TestPropertyLinkingConnector,
+                               testCheckConnector: TestCheckConnector,
                                reprConnector: PropertyRepresentationConnector
                               )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
@@ -64,7 +65,7 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
 
   def deRegister() = authenticated { implicit request =>
     val orgId = request.individualAccount.organisationId
-    testConnector.deRegister(orgId).map(res => Ok(s"Successfully de-registered organisation with ID: $orgId")).recover {
+    testPropertyLinkingConnector.deRegister(orgId).map(res => Ok(s"Successfully de-registered organisation with ID: $orgId")).recover {
       case e => Ok(s"Failed to de-register organisation with ID: $orgId with error: ${e.getMessage}")
     }
   }
@@ -78,13 +79,20 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
       }
   }
 
-  def delete = authenticated { implicit request =>
+  def updateAccount = authenticated { implicit request =>
     val externalId = UUID.randomUUID().toString
     for {
       user <- vPLAuthConnector.getUserDetails
       _ <- emacConnector.removeEnrolment(request.individualAccount.individualId, user.userInfo.gatewayId, user.userInfo.groupIdentifier)
       _ <- individualAccounts.update(request.individualAccount.copy(externalId = externalId))
-      _ <- groups.update(request.organisationAccount.id, create(request.organisationAccount, externalId))
+      _ <- groups.update(request.organisationAccount.id, UpdatedOrganisationAccount(
+        Random.nextString(40),
+        request.organisationAccount.addressId,
+        request.organisationAccount.isAgent,
+        request.organisationAccount.companyName,
+        request.organisationAccount.email,
+        request.organisationAccount.phone,
+        Instant.now(), externalId))
     } yield Ok("Successful")
   }
 
@@ -104,15 +112,16 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
       Ok("Pending agent appointments declined"))
   }
 
-  private def create(group: GroupAccount, externalId: String): UpdatedOrganisationAccount =
-    UpdatedOrganisationAccount(
-      Random.nextString(40),
-      group.addressId,
-      group.isAgent,
-      group.companyName,
-      group.email,
-      group.phone,
-      Instant.now(),
-      externalId
-    )
+  def clearDvrRecords = authenticated { implicit request =>
+    testPropertyLinkingConnector.clearDvrRecords(request.organisationAccount.id).map(res => Ok(s"Successfully cleared DVR records for organisation with ID: ${request.organisationAccount.id}")).recover {
+      case e => Ok(s"Failed to clear DVR records for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
+    }
+  }
+
+  def clearDraftCases = authenticated { implicit request =>
+    testCheckConnector.clearDraftCases(request.organisationAccount.id).map(res => Ok(s"Successfully cleared draft check cases for organisation with ID: ${request.organisationAccount.id}")).recover {
+      case e => Ok(s"Failed to clear draft check cases for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
+    }
+  }
+
 }
