@@ -57,7 +57,7 @@ class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp)
     case "INVALID_GATEWAY_SESSION" => InvalidGGSession
     case "NO_CUSTOMER_RECORD" => NoVOARecord
     case "TRUST_ID_MISMATCH" => IncorrectTrustId
-    case "NON_ORGANISATION_ACCOUNT" => NonOrganisationAccount
+    case "INVALID_ACCOUNT_TYPE" => InvalidAccountType
     case "NON_GROUPID_ACCOUNT" => NonGroupIDAccount
   }
 
@@ -73,7 +73,7 @@ case object NoVOARecord extends AuthorisationResult
 
 case object IncorrectTrustId extends AuthorisationResult
 
-case object NonOrganisationAccount extends AuthorisationResult
+case object InvalidAccountType extends AuthorisationResult
 
 case object ForbiddenResponse extends AuthorisationResult
 

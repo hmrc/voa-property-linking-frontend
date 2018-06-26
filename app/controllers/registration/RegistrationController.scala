@@ -58,7 +58,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
           Redirect(controllers.routes.Dashboard.home())
         case None => authUser match {
           case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
-            Future.successful(Ok(views.html.createAccount.enrolment_individual(AdminUser.individual, FieldData(userInfo = user.userInfo))))
+            Future.successful(Ok(views.html.createAccount.register_individual(AdminUser.individual, FieldData(userInfo = user.userInfo))))
           case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Organisation, _)) =>
             orgShow(ctx, user)
           case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Agent, _)) => Ok(views.html.errors.invalidAccountType())
@@ -70,7 +70,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
     implicit request =>
       AdminUser.individual.bindFromRequest().fold(
         errors =>
-          BadRequest(views.html.createAccount.enrolment_individual(errors, FieldData())),
+          BadRequest(views.html.createAccount.register_individual(errors, FieldData())),
         success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
           Redirect(controllers.routes.IdentityVerification.startIv)
         }
@@ -80,7 +80,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
   def submitOrganisation() = ggAction.async(isSession = false) { ctx =>
     implicit request =>
       AdminUser.organisation.bindFromRequest().fold(
-        errors => BadRequest(views.html.createAccount.enrolment_organisation(errors, FieldData())),
+        errors => BadRequest(views.html.createAccount.register_organisation(errors, FieldData())),
         success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
           Redirect(controllers.routes.IdentityVerification.startIv)
         }
@@ -91,7 +91,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
     implicit request =>
       AssistantUser.assistant.bindFromRequest().fold(
         errors => BadRequest(
-          views.html.createAccount.enrolment_assistant(
+          views.html.createAccount.register_assistant(
             errors,
             FieldData(errors.data)
           )),
@@ -109,7 +109,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
   def success(personId: Long) = ggAction.async(isSession = false) { ctx =>
     implicit request =>
       auth.userDetails(ctx).map(user =>
-        Ok(views.html.createAccount.confirmation_enrolment(personId.toString, user.userInfo.affinityGroup, user.userInfo.credentialRole))
+        Ok(views.html.createAccount.registration_confirmation(personId.toString, user.userInfo.affinityGroup, user.userInfo.credentialRole))
           .withSession(request.session.removeUserDetails))
   }
 
@@ -127,11 +127,11 @@ class RegistrationController @Inject()(ggAction: VoaAction,
       case Some(fieldData) =>
         userDetails.userInfo.credentialRole match {
           case Admin | User =>
-            Ok(views.html.createAccount.enrolment_assistant_admin(
+            Ok(views.html.createAccount.register_assistant_admin(
               AdminUser.organisation,
               fieldData))
           case Assistant =>
-            Ok(views.html.createAccount.enrolment_assistant(
+            Ok(views.html.createAccount.register_assistant(
               AssistantUser.assistant,
               fieldData))
         }
@@ -139,7 +139,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
       case None =>
         userDetails.userInfo.credentialRole match {
           case Admin | User =>
-            Ok(views.html.createAccount.enrolment_organisation(
+            Ok(views.html.createAccount.register_organisation(
               AdminUser.organisation,
               FieldData(userDetails.userInfo)))
           case Assistant =>
