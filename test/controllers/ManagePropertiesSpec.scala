@@ -147,10 +147,10 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
     previousLink.select("a").attr("href") mustBe routes.Dashboard.manageProperties(1).url
   }
 
-  it must "include a link to add another property" in {
+  it must "include a link to check property links before adding another property" in {
     val html = defaultHtml
 
-    html.select("a#addAnotherProperty").attr("href") mustBe propertyLinking.routes.ClaimProperty.show.url
+    html.select("a#addAnotherProperty").attr("href") mustBe propertyLinking.routes.ClaimProperty.checkPropertyLinks.url
   }
 
   it must "include pagination controls" in {

@@ -54,13 +54,13 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
     Redirect(s"${config.vmvUrl}/search")
   }
 
-  def checkPropertyLinks(uarn: Long, address: String) = authenticated { implicit request =>
+  def checkPropertyLinks() = authenticated { implicit request =>
     propertyLinksConnector.linkedPropertiesSearchAndSort(request.organisationAccount.id, PaginationSearchSort(pageNumber = 1, pageSize = 20)).map{ res =>
       if(res.authorisations.nonEmpty){
-        Redirect(routes.ClaimProperty.declareCapacity(uarn, address))
+        Redirect(s"${config.vmvUrl}/search")
       }
       else{
-        Ok(views.html.propertyLinking.beforeYouStart(uarn, address))
+        Ok(views.html.propertyLinking.beforeYouStart())
       }
     }
   }

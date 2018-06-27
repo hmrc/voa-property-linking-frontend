@@ -18,7 +18,7 @@
 
 @import controllers.propertyLinking.routes
 
-@(uarn: Long, address: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("before.you.start.title"),
@@ -32,6 +32,6 @@
     <p>@Messages("before.you.start.p3")</p>
     <p>@Messages("before.you.start.p4")</p>
 
-    <a href="@routes.ClaimProperty.declareCapacity(uarn, address)" class="button button-start">@Messages("before.you.start.startButton")</a>
+    <a href="@controllers.propertyLinking.routes.ClaimProperty.show" class="button button-start">@Messages("before.you.start.startButton")</a>
 
 }
