@@ -47,7 +47,7 @@ POST        /view-assessment-from-list                                          
 
 #Search and Link
 GET         /property-search                                                                  @controllers.propertyLinking.ClaimProperty.show()
-GET         /link-to-property/check-property-links                                            @controllers.propertyLinking.ClaimProperty.checkPropertyLinks()
+GET         /link-to-property/before-you-start                                                @controllers.propertyLinking.ClaimProperty.checkPropertyLinks()
 GET         /link-to-property/:uarn                                                           @controllers.propertyLinking.ClaimProperty.declareCapacity(uarn: Long, address)
 GET         /link-to-property                                                                 @controllers.propertyLinking.ClaimProperty.back()
 POST        /link-to-property/:uarn                                                           @controllers.propertyLinking.ClaimProperty.attemptLink(uarn: Long, address)
