@@ -125,7 +125,7 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
   }
 
   def getSubmittedCheck(submissionId: String) = authenticated { implicit request =>
-    testCheckConnector.getSubmittedCheck(submissionId).map(response => Ok(response.json))
+    testCheckConnector.getSubmittedCheck(submissionId).map(response => Ok(response.body))
   }
 
 }
