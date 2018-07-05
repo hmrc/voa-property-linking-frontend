@@ -31,4 +31,8 @@ class TestCheckConnector @Inject()(config: ServicesConfig, http: WSHttp)(implici
     http.DELETE[HttpResponse](s"$url/test-only/clear-draft-cases/$organisationId")
   }
 
+  def getSubmittedCheck(submissionId: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
+    http.GET[HttpResponse](s"$url/test-only/submitted-check/$submissionId")
+  }
+
 }
