@@ -17,7 +17,6 @@
 package controllers.agentAppointment
 
 import java.time.Instant
-import javax.inject.{Inject, Named}
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import auditing.AuditingService
@@ -28,6 +27,7 @@ import controllers._
 import form.AgentPermissionMapping
 import form.FormValidation.nonEmptyList
 import form.Mappings._
+import javax.inject.{Inject, Named}
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAgent, OwnerAuthResult}
 import play.api.Logger
@@ -35,9 +35,8 @@ import play.api.data.Forms.{number, _}
 import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
-import play.api.mvc.{AnyContent, Request, Result}
+import play.api.mvc.{Request, Result}
 import repositories.SessionRepo
-import session.LinkingSessionRequest
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
@@ -222,21 +221,6 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
   private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long, appointedAgent: AppointAgent, organisationId: Long)
                                             (implicit hc: HeaderCarrier): Future[Unit] = {
     createAndSubmitAgentRepRequest(authorisationId, agentOrgId, userIndividualId, appointedAgent.canCheck, appointedAgent.canChallenge, organisationId)
-  }
-
-  def confirmed(authorisationId: Long) = authenticated { implicit request =>
-    sessionRepository.get[AgentAppointmentSession] flatMap {
-      case Some(s) => {
-        updateAllAgentsPermission(authorisationId, s.propertyLink, s.agent, s.agentOrgId, request.individualAccount.individualId, request.organisationId)
-          .map(_ => sessionRepository.remove())
-          .map(_ => Ok(views.html.propertyRepresentation.appointedAgent(s.propertyLink.address)))
-      }
-      case None => NotFound(Global.notFoundTemplate)
-    }
-  }
-
-  def declined(authorisationId: Long) = authenticated { implicit request =>
-    sessionRepository.remove().map(_ => Redirect(controllers.routes.Dashboard.manageProperties()))
   }
 
   private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
