@@ -34,8 +34,6 @@ import scala.collection.JavaConverters._
 
 class SelectPropertiesSpec extends VoaPropertyLinkingSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.agentMultipleAppointEnabled" -> "true")
-
   //Make the tests run significantly faster by only loading and parsing the default
 
   val agentGroup = GroupAccount(1L, "groupId", "company", 1, "email", "2341234", true, 1L)
