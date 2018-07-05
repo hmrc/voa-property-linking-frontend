@@ -17,7 +17,6 @@
 package controllers.agentAppointment
 
 import java.time.Instant
-import javax.inject.{Inject, Named}
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import auditing.AuditingService
@@ -28,6 +27,7 @@ import controllers._
 import form.AgentPermissionMapping
 import form.FormValidation.nonEmptyList
 import form.Mappings._
+import javax.inject.{Inject, Named}
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAgent, OwnerAuthResult}
 import play.api.Logger
@@ -35,9 +35,8 @@ import play.api.data.Forms.{number, _}
 import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
-import play.api.mvc.{AnyContent, Request, Result}
+import play.api.mvc.{Request, Result}
 import repositories.SessionRepo
-import session.LinkingSessionRequest
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
@@ -52,97 +51,6 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                                       (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
-  def appoint(linkId: Long) = authenticated { implicit request =>
-    agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
-      sessionRepository.get[AgentAppointmentSession] flatMap {
-        case Some(s) =>
-          Ok(views.html.propertyRepresentation.appointAgent(
-            AppointAgentVM(form = appointAgentForm.fill(s.agent),
-              linkId = Some(linkId),
-              agents = ownerAgents.agents)))
-        case None =>
-          Ok(views.html.propertyRepresentation.appointAgent(AppointAgentVM(appointAgentForm, Some(linkId), ownerAgents.agents)))
-      }
-    }
-  }
-
-  def appointSubmit(authorisationId: Long) = authenticated { implicit request =>
-    appointAgentForm.bindFromRequest().fold(errors => {
-      agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
-        BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, Some(authorisationId), ownerAgents.agents)))
-      }
-    }, (agent: AppointAgent) => {
-      val eventualAgentCodeResult = representations.validateAgentCode(agent.getAgentCode(), authorisationId)
-      val eventualMaybeLink = propertyLinks.get(request.organisationAccount.id, authorisationId)
-      for {
-        agentCodeValidationResult <- eventualAgentCodeResult
-        propertyLink <- eventualMaybeLink
-        res <- (agentCodeValidationResult, propertyLink) match {
-          case (AgentCodeValidationResult(_, failureCode), Some(prop)) => {
-            val codeError = failureCode.map {
-              case "INVALID_CODE" => invalidAgentCode
-              case "DUPLICATE_PARTY" => alreadyAppointedAgent
-            }
-            val errors: List[FormError] = List(codeError).flatten
-            if (errors.nonEmpty) {
-              agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
-                val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
-                invalidAppointment(formWithErrors, Some(authorisationId), ownerAgents.agents)
-              }
-
-            } else {
-              appointAgent(authorisationId, agent, agentCodeValidationResult.organisationId.getOrElse(-1L), prop)
-            }
-          }
-          case (_, None) => Future.successful(NotFound(Global.notFoundTemplate)) //user entered a prop link manually that doesn't exist.
-        }} yield {
-        res
-      }
-    })
-  }
-
-  private def appointAgent(authorisationId: Long, agent: AppointAgent,
-                           agentOrgId: Long, pLink: PropertyLink)(implicit request: BasicAuthenticatedRequest[_]) = {
-    val hasCheckAgent = pLink.agents.map(_.checkPermission).contains(StartAndContinue)
-    val hasChallengeAgent = pLink.agents.map(_.challengePermission).contains(StartAndContinue)
-    if (hasCheckAgent && agent.canCheck == StartAndContinue || hasChallengeAgent && agent.canChallenge == StartAndContinue) {
-      val agentSession = AgentAppointmentSession(agent, agentOrgId, pLink)
-      sessionRepository.start[AgentAppointmentSession](agentSession).map(_ => {
-        val permissions = pLink.agents.map(a => ExistingAgentsPermission(a.organisationName, a.agentCode,
-          Seq(
-            if (a.checkPermission == StartAndContinue) "check" else "",
-            if (a.challengePermission == StartAndContinue) "challenge" else "").filter(_.nonEmpty)
-        ))
-        val newAgentPerms = ExistingAgentsPermission("", agent.getAgentCode(),
-          Seq(
-            if (agent.canChallenge == StartAndContinue) "challenge" else "",
-            if (agent.canCheck == StartAndContinue) "check" else "").filter(_.nonEmpty)
-        )
-        Ok(views.html.propertyRepresentation.confirmAgentOverride(ConfirmOverrideVM(authorisationId, newAgentPerms, permissions)))
-      })
-    } else {
-      for {
-        _ <- createAndSubmitAgentRepRequest(authorisationId, agentOrgId, request.individualAccount.individualId, agent, request.organisationId)
-        _ <- sessionRepository.remove()
-      } yield {
-        AuditingService.sendEvent("agent representation request approve", Json.obj(
-          "organisationId" -> request.organisationId,
-          "individualId" -> request.individualAccount.individualId,
-          "propertyLinkId" -> authorisationId,
-          "agentOrganisationId" -> agentOrgId))
-        Redirect(routes.AppointAgentController.appointed(authorisationId))
-      }
-    }
-  }
-
-  def appointed(authorisationId: Long) = authenticated { implicit request =>
-    propertyLinks.get(request.organisationAccount.id, authorisationId) map {
-      case Some(pl) => Ok(views.html.propertyRepresentation.appointedAgent(pl.address))
-      case None => NotFound(Global.notFoundTemplate)
-    }
-  }
-
-  /* appoint agent to multiple properties - Start */
   def selectProperties() = authenticated { implicit request =>
     appointAgentForm.bindFromRequest().fold(
       hasErrors = errors => {
@@ -214,7 +122,6 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
         accounts.withAgentCode(action.agentCode.toString) flatMap {
           case Some(group) => {
             for {
-              // TODO get list/number of successful actions and pass to summary
               _ <- Future.traverse(action.propertyLinkIds)(pLink =>
                 createAndSubmitAgentRepRequest(
                   pLink,
@@ -255,9 +162,6 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       case None => Future.successful(Unit)
     }
   }
-
-
-  /* appoint agent to multiple properties - End */
 
   private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
                                         newAgentOrgId: Long, individualId: Long, organisationId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
@@ -317,21 +221,6 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
   private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long, appointedAgent: AppointAgent, organisationId: Long)
                                             (implicit hc: HeaderCarrier): Future[Unit] = {
     createAndSubmitAgentRepRequest(authorisationId, agentOrgId, userIndividualId, appointedAgent.canCheck, appointedAgent.canChallenge, organisationId)
-  }
-
-  def confirmed(authorisationId: Long) = authenticated { implicit request =>
-    sessionRepository.get[AgentAppointmentSession] flatMap {
-      case Some(s) => {
-        updateAllAgentsPermission(authorisationId, s.propertyLink, s.agent, s.agentOrgId, request.individualAccount.individualId, request.organisationId)
-          .map(_ => sessionRepository.remove())
-          .map(_ => Ok(views.html.propertyRepresentation.appointedAgent(s.propertyLink.address)))
-      }
-      case None => NotFound(Global.notFoundTemplate)
-    }
-  }
-
-  def declined(authorisationId: Long) = authenticated { implicit request =>
-    sessionRepository.remove().map(_ => Redirect(controllers.routes.Dashboard.manageProperties()))
   }
 
   private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
