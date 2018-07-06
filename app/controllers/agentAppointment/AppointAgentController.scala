@@ -27,7 +27,7 @@ import controllers._
 import form.AgentPermissionMapping
 import form.FormValidation.nonEmptyList
 import form.Mappings._
-import javax.inject.{Inject, Named}
+import javax.inject.Inject
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAgent, OwnerAuthResult}
 import play.api.Logger
@@ -36,7 +36,6 @@ import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Request, Result}
-import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
@@ -46,8 +45,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                                        accounts: GroupAccounts,
                                        propertyLinks: PropertyLinkConnector,
                                        agentsConnector: AgentsConnector,
-                                       authenticated: AuthenticatedAction,
-                                       @Named("agentAppointmentSession") val sessionRepository: SessionRepo)
+                                       authenticated: AuthenticatedAction)
                                       (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
@@ -256,15 +254,9 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
   }
 
   def appointMultipleProperties() = authenticated { implicit request =>
-    agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
-      sessionRepository.get[AgentAppointmentSession] flatMap {
-        case Some(s) =>
-          Ok(views.html.propertyRepresentation.appointAgent(
-            AppointAgentVM(form = appointAgentForm.fill(s.agent), agents = ownerAgents.agents)))
-        case None =>
-          Ok(views.html.propertyRepresentation.appointAgent(
-            AppointAgentVM(form = appointAgentForm, agents = ownerAgents.agents)))
-      }
+    agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
+      Ok(views.html.propertyRepresentation.appointAgent(
+        AppointAgentVM(form = appointAgentForm, agents = ownerAgents.agents)))
     }
   }
 }

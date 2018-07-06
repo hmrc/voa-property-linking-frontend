@@ -176,8 +176,7 @@ class SelectPropertiesSpec extends VoaPropertyLinkingSpec {
     StubGroupAccountConnector,
     StubPropertyLinkConnector,
     mock[AgentsConnector],
-    StubAuthentication,
-    mock[SessionRepo]
+    StubAuthentication
   )
 
 }
