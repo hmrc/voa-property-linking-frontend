@@ -35,9 +35,8 @@
 
     <p class="lede">@Messages("propertyRepresentation.appointAgent.associatedAgents.p1")</p>
 
-    @if(config.agentMultipleAppointEnabled) {
-        <p class="lede">@Messages("propertyRepresentation.appointAgent.associatedAgents.p2")</p>
-    }
+    <p class="lede">@Messages("propertyRepresentation.appointAgent.associatedAgents.p2")</p>
+
 
     <div class="notice margin-top-20 margin-bottom-20">
         <i class="icon icon-important">
@@ -48,15 +47,10 @@
 
     @includes.errorSummary(model.form)
 
-    @if(config.agentMultipleAppointEnabled) {
-        @form(agentAppointment.routes.AppointAgentController.selectProperties()) {
-            @formBody
-        }
-    }else{
-        @form(agentAppointment.routes.AppointAgentController.appointSubmit(model.linkId.get)) {
-            @formBody
-        }
+    @form(agentAppointment.routes.AppointAgentController.selectProperties()) {
+        @formBody
     }
+
 }
 
 @formBody = {
@@ -74,13 +68,13 @@
                             </tr>
 
                             @model.agents.zipWithIndex.map { case (agent, index) =>
-                                @defining(s"agent-radio-${index+1}") { radioId:String =>
+                                @defining(s"agent-radio-${index + 1}") { radioId: String =>
                                     <tr>
                                         <td>
                                             <div class="table-radio multiple-choice">
                                                 <input type="radio" id="@radioId" name="agentCodeRadio"
                                                 value="@agent.ref"
-                                                    @if(model.form.data.getOrElse("agentCodeRadio", "") == agent.ref.toString && !isNewAgent){
+                                                    @if(model.form.data.getOrElse("agentCodeRadio", "") == agent.ref.toString && !isNewAgent) {
                                                         checked="checked"
                                                         }>
                                                 <label for="@radioId">
@@ -105,7 +99,7 @@
                     <div class="multiple-choice margin-bottom-20">
                         <input id="new-agent-radio-id" type="radio" value="yes" name="agentCodeRadio"
                         data-toggle-id="new-agent-details"
-                            @if(isNewAgent){
+                            @if(isNewAgent) {
                                 checked="checked"
                                 }>
                         <label for="new-agent-radio-id">@Messages("propertyRepresentation.appointAgent.message.appoint")</label>
@@ -129,7 +123,7 @@
                                 }
                             </label>
                             <input type="text" id="agentCodeText"
-                                @if(isNewAgent){
+                                @if(isNewAgent) {
                                     value="@model.form.data.getOrElse("agentCode", "")"
                                 }
                             name="agentCode" class="form-control" />
@@ -169,18 +163,18 @@
         )
 
         <p>
-            <button type="submit" id="submit-button"class="button">@Messages("propertyRepresentation.appointAgent.button")</button>
+            <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</button>
         </p>
 
     </div>
 }
 
 @agentCodeRadioErrClass = @{
-    if (model.form.error("agentCodeRadio").isDefined) "error" else ""
+    if(model.form.error("agentCodeRadio").isDefined) "error" else ""
 }
 
 @agentCodeErrClass = @{
-    if (model.form.error("agentCode").isDefined) "error" else ""
+    if(model.form.error("agentCode").isDefined) "error" else ""
 }
 
 @isNewAgent = @{

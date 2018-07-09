@@ -72,12 +72,6 @@
                 }
 
                 var liNum=0;
-                if (!dataTable.ajax.json().config.agentMultipleAppointEnabled) {
-                    if (aData.status.toLowerCase() === 'approved' || aData.status.toLowerCase() === 'pending') {
-                        $('td:eq(4) ul li:eq('+liNum+')', nRow).html('<a href="/business-rates-property-linking/appoint-agent/' + aData.authorisationId + '">' + messages.labels.appointAgent + '</a>');
-                    }
-                    liNum++;
-                }
 
                 if (aData.status.toLowerCase() === 'approved' || aData.status.toLowerCase() === 'pending') {
                     $('td:eq(4) ul li:eq('+liNum+')', nRow).html('<a href="/business-rates-property-linking/property-link/' + aData.authorisationId + '/assessments' + '">' + messages.labels.viewValuations + '</a>');

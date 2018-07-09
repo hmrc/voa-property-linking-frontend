@@ -46,7 +46,7 @@
 
         <div class="margin-top-20"><a href="@controllers.propertyLinking.routes.ClaimProperty.checkPropertyLinks()" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></div>
 
-        @if(config.agentMultipleAppointEnabled && model.result.authorisations.nonEmpty){
+        @if(model.result.authorisations.nonEmpty){
             <div class="margin-top-5"><a href="@agentAppointment.routes.AppointAgentController.appointMultipleProperties()" id="appointAgent">@Messages("manageProperties.appointAgent")</a></div>
         }
 
@@ -165,17 +165,6 @@
                                     </td>
                                     <td>
                                         <ul class="list">
-                                            @if(!config.agentMultipleAppointEnabled) {
-                                                <li>
-                                                @if(p.status.toLowerCase == "approved" || p.status.toLowerCase == "pending") {
-                                                    <a href="@agentAppointment.routes.AppointAgentController.appoint(p.authorisationId)">@Messages("manageProperties.addAgent")
-                                                        <span class="visuallyhidden">
-                                                            for @(Formatters.capitalizedAddress(p.address))
-                                                        </span>
-                                                    </a>
-                                                }
-                                                </li>
-                                            }
                                             <li>
                                             @if(p.status.toLowerCase == "approved" || p.status.toLowerCase == "pending") {
                                                 <a href="@routes.Assessments.assessments(p.authorisationId)">@Messages("manageProperties.viewAssessments")

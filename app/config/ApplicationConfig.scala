@@ -51,7 +51,6 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
   lazy val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean
   lazy val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean
-  lazy val agentMultipleAppointEnabled: Boolean = getConfig("featureFlags.agentMultipleAppointEnabled").toBoolean
 
   lazy val stubEnrolment: Boolean = getConfig("enrolment.useStub").toBoolean
 

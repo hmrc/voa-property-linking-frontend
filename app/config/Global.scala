@@ -112,7 +112,6 @@ class GuiceModule(environment: Environment,
     bind(classOf[AuditingService]).toInstance(AuditingService)
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
-    bind(classOf[SessionRepo]).annotatedWith(Names.named("agentAppointmentSession")).to(classOf[AgentAppointmentSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
     bind(classOf[Details]).to(classOf[VoaDetails])

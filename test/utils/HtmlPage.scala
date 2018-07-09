@@ -42,6 +42,14 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
     successSummary.text mustEqual msg withClue s"Success summary contained:\n${successSummary.text}"
   }
 
+  def mustContainTable(selector: String): Unit = {
+    html.select(selector).size() mustBe 1
+  }
+
+  def mustNotContainTable(selector: String) = {
+    html.select(selector).size() mustBe 0
+  }
+
   def mustContainText(text: String) {
     html.body.text.contains(text) mustBe true withClue s"HTML did not contain: $text\nHTML:\n${html.body.text}"
   }
