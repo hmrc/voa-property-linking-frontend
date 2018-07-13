@@ -39,6 +39,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val ggContinueUrl: String = baseUrl + routes.Dashboard.home().url
   lazy val fileUploadUrl: String = getConfig("file-upload-frontend.url")
   lazy val serviceUrl: String = getConfig("voa-property-linking-frontend.url")
+  lazy val checkUrl = getConfig("microservice.services.business-rates-check-frontend.url")
 
   lazy val analyticsToken: String = getConfig("google-analytics.token")
   lazy val analyticsHost: String = getConfig("google-analytics.host")

@@ -65,7 +65,7 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
   def continueCheck = authenticated { implicit request =>
     draftCaseForm.bindFromRequest.fold(
       getDraftCases,
-      success => Redirect(getIdUrl(success.draft)._2))
+      success => Redirect(config.checkUrl + getIdUrl(success.draft)._2))
   }
 
 

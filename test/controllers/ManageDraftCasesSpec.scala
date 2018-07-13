@@ -58,7 +58,7 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar {
 
     val res = testController.deleteDraftCase()(FakeRequest().withFormUrlEncodedBody(validData: _*))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(deleteDraftPage)
+    redirectLocation(res) mustBe Some(viewDraftPage)
 
   }
 
@@ -71,7 +71,7 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar {
 
     val res = testController.continueCheck()(FakeRequest().withFormUrlEncodedBody(validData: _*))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(deleteDraftPage)
+    redirectLocation(res).get.endsWith(viewDraftPage) mustBe true
 
   }
 
@@ -84,11 +84,11 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar {
 
     val res = testController.confirmDelete("abc124")(FakeRequest().withFormUrlEncodedBody(validData: _*))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(deleteDraftPage)
+    redirectLocation(res) mustBe Some(viewDraftPage)
   }
 
 
-  private lazy val deleteDraftPage = controllers.routes.ManageDrafts.viewDraftCases().url
+  private lazy val viewDraftPage = controllers.routes.ManageDrafts.viewDraftCases().url
   implicit lazy val mockDraftCases = mock[DraftCases]
 
   private lazy val testController = new ManageDrafts(
