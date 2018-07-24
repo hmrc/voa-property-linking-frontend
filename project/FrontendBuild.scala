@@ -37,7 +37,7 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "auth-client" % "2.5.0",
     "com.google.guava" % "guava" % "18.0",
     "joda-time" % "joda-time" % "2.8.2",
-    "uk.gov.hmrc" %% "frontend-bootstrap" % "8.17.0",
+    "uk.gov.hmrc" %% "frontend-bootstrap" % "8.22.0",
     "uk.gov.hmrc" %% "http-caching-client" % "7.0.0",
     "org.typelevel" %% "cats-core" % "0.8.1",
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % "0.2.0",
