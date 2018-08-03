@@ -28,13 +28,9 @@
 
         <div class="column-two-thirds">
             <br>
-            <h1 class="heading-xlarge">@Messages("plannedImprovements.title")</h1>
-
-            <p>@Messages("plannedImprovements.p1")</p>
-
-            <p>@Messages("plannedImprovements.p2")</p>
-
-            <p>@Messages("plannedImprovements.p3")</p>
+            @config.plannedImprovementsContent.map { content =>
+                @Html(content)
+            }
         </div>
 
     </div>

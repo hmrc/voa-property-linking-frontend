@@ -59,6 +59,10 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
     new String(Base64.getUrlDecoder.decode(e))
   }
 
+  lazy val plannedImprovementsContent: Option[String] = configuration.getString("plannedImprovementsContent") map { e =>
+    new String(Base64.getUrlDecoder.decode(e))
+  }
+
   private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
   private def getOptionalConfig(key: String) = configuration.getString(key)
 
