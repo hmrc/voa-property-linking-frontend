@@ -555,11 +555,11 @@ error.date.mustBeAfter2017=Must be after 1st April 2017
 error.date.mustBeInPast=Must be in the past
 error.date.mustBeAfterOther=The end date must be after the start date
 declareCapacity.details.ownerOrOccupier=I’m the owner or occupier for only part of this property
-declareCapacity.details.ownerOrOccupier.text=If you’re the owner or occupier for only part of the property, you shouldn’t add this property to your customer record. Instead, you should <a href="{0}">contact us</a> to request a split for the property.
+declareCapacity.details.ownerOrOccupier.text=If you’re the owner or occupier for only part of the property, you can claim this property. Once your claim is approved, you may wish to request separate valuations for each part of the property.
 declareCapacity.details.notOwner=I’m not the owner but I let the property to someone else, as a sublet
-declareCapacity.details.notOwner.text=<p>If you’re not the owner of the property but you let all or part of the property to another person or business as a sublet, you should select ‘owner’ and enter the dates of the sublet period.</p><p>If you let only a part of the property to another person or business, you shouldn’t add this property to your customer record. Instead, you should <a href="{0}">contact us</a> to request a split to the property.</p>
+declareCapacity.details.notOwner.text=<p>If you’re not the owner of the property but you let all or part of the property to another person or business as a sublet, you should select ‘owner’ and enter the dates of the sublet period.</p><p>If you let only a part of the property to another person or business, you can claim this property. Once your claim is approved, you may wish to request separate valuations for each part of the property.</p>
 declareCapacity.details.agent=I’m an agent acting on behalf of the owner or occupier for this property
-declareCapacity.details.agent.text=Only an owner or occupier can add a property. You can’t add a property on behalf of your client.
+declareCapacity.details.agent.text=If you’ve been added as an assistant to your client’s organisation, you’ll need to sign in to that account to claim properties. You can’t claim a property from your agent account.
 declareCapacity.details.haveOwned=I have owned or occupied the property on more than one occasion
 declareCapacity.details.haveOwned.text=If you have owned or occupied the property on more than one occasion, you should enter the date that you moved in (and if relevant the date that you moved out) for the period of time that you want to check or challenge the rateable value.
 
