@@ -44,7 +44,19 @@
                     <li>@Messages("uploadEvidence.evidenceTypes.4")</li>
                 </ul>
 
-                <a href="@routes.UploadEvidence.noEvidenceUploaded()">@Messages("uploadEvidence.noEvidence")</a>
+                <details class="print-hide">
+                    <summary aria-controls="details-content-1" >
+                        <span class="summary">@Messages("uploadEvidence.noEvidence")</span>
+                    </summary>
+                    <div id="details-content-1" class="panel panel-border-narrow">
+                        @Html(Messages("uploadEvidence.noEvidence.p1"))
+                        @Html(Messages("uploadEvidence.noEvidence.p2"))
+                        @Html(Messages("uploadEvidence.noEvidence.p3"))
+                        @Html(Messages("uploadEvidence.noEvidence.p4"))
+                        @Html(Messages("uploadEvidence.noEvidence.p5"))
+                    </div>
+                </details>
+
                 <p>@Messages("uploadFile.allowedTypes.mustbe")</p>
 
                 <ul class="list list-bullet">
