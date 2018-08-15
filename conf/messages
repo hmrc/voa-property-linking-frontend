@@ -628,6 +628,7 @@ evidenceType.stampDutyLandTaxForm=Stamp duty land tax form
 evidenceType.waterRateDemand=Water rate demand
 evidenceType.otherUtilityBill=Other utility bill
 evidenceType.ratesBill=Rates bill
+evidenceType.landRegistryTitle=Land Registry title
 
 label.evidence=Please upload evidence so that we can verify your link to the property
 evidence.label=Upload other evidence
