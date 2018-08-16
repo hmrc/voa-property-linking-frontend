@@ -1,7 +1,7 @@
 voa-property-linking-frontend
 =============
 A frontend service for the CCA (Business Rates) project at VOA. It communicates with voa-property-linking, and business-rates-authorisation microservices.
-
+ 
 
 # Installation
 
