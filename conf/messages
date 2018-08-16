@@ -525,8 +525,8 @@ search.title=Search and select a property to add to your customer record
 search.select.link=Select
 
 #DECLARE CAPACITY
-declareCapacity.title=Add this property to your business’s customer record
-declareCapacity.message=You are adding this property to your business’s customer record:
+declareCapacity.title=Claim this property
+declareCapacity.message=You’re claiming you’re the owner or occupier of this property:
 declareCapacity.incorrectProperty.prefix=If this isn’t the right property you can
 declareCapacity.incorrectProperty.link=search for a different property
 label.interestedBefore2017=When did you become the owner or occupier of the property?
