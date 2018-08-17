@@ -22,7 +22,6 @@ Ensure that you have the latest versions of the required services and that they 
 sm --start PROPERTY_LINKING -f
 sm --stop PROPERTY_LINKING
 ```
-
 * `cd` to the root of the project.
 * `sbt run`
 * In your browser navigate to [localhost:9523/business-rates-property-linking](http://localhost:9523/business-rates-property-linking)
