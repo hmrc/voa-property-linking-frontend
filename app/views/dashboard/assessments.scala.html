@@ -99,7 +99,7 @@
                         </table>
                     </div>
 
-                    @if(!model.assessments.takeWhile(assessment => !assessment.rateableValue.isDefined).isEmpty) {
+                    @if(model.assessments.exists(assessment => !assessment.rateableValue.isDefined)) {
                         <div id="my-rv-is-na">
                             <p>@Messages("rv.na.p.1")</p>
                             <p>@Messages("rv.na.p.2")</p>
