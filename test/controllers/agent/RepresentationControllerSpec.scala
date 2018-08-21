@@ -38,7 +38,6 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   )
 
   behavior of "revokeClientConfirmed method"
-
   it should "revoke an agent and redirect to the client properties page" in {
     stubLoggedInUser()
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
@@ -48,6 +47,25 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
     status(res) must be(SEE_OTHER)
     redirectLocation(res) must be(Some(routes.RepresentationController.viewClientProperties().url))
+  }
+
+  behavior of "revokeClient method"
+  it should "revoke an agent and display the revoke client page" in {
+    stubLoggedInUser()
+    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+
+    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+    val res = TestRepresentationController.revokeClient(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
+
+    status(res) must be(OK)
+
+    contentAsString(res) contains "Revoking client" mustBe true
+    contentAsString(res) contains "Are you sure you no longer want to act on behalf of" mustBe true
+  }
+  it should "revoke an agent should return not found when clientProperty cannot be found" in {
+    stubLoggedInUser()
+    val res = TestRepresentationController.revokeClient(12L, 34L)(request)
+    status(res) must be(NOT_FOUND)
   }
 
   def stubLoggedInUser() = {
