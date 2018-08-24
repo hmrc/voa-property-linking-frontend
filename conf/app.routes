@@ -26,6 +26,7 @@ GET         /properties                                                         
 GET         /properties/json                                                                  @controllers.Dashboard.getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], agent: Option[String])
 GET         /managed-properties/:agentCode                                                    @controllers.Dashboard.viewManagedProperties(agentCode: Long)
 GET         /managed-properties/:agentCode/revoke                                             @controllers.agentAppointment.RevokeAgentController.revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
+
 GET         /managed-properties/:agentCode/revoke/confirmed                                   @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
 GET         /manage-agents                                                                    @controllers.Dashboard.manageAgents()
 GET         /messages                                                                         @controllers.Dashboard.viewMessages(pagination: MessagePagination ?= MessagePagination())
@@ -75,6 +76,9 @@ GET         /appoint-agent/select-properties-search                             
 POST        /appoint-agent/select-properties                                                  @controllers.agentAppointment.AppointAgentController.selectProperties()
 POST        /appoint-agent/agent-summary                                                      @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 GET         /appoint-agent/multiple-properties                                                @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
+GET         /agent-list                                                                       @controllers.agentAppointment.AppointAgentController.getAgentsForRemove()
+POST        /agent/select-properties                                                          @controllers.agentAppointment.AppointAgentController.selectAgentProperties()
+GET         /agent/select-properties-search                                                   @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: AgentPropertiesParameters)
 
 #AGENT
 #Dashboard

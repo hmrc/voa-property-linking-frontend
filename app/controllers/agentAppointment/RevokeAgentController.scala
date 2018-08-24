@@ -16,19 +16,25 @@
 
 package controllers.agentAppointment
 
-import actions.AuthenticatedAction
+import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import javax.inject.Inject
 
 import auditing.AuditingService
 import config.ApplicationConfig
-import connectors.PropertyRepresentationConnector
+import connectors.{AgentsConnector, PropertyRepresentationConnector}
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
-import models.Party
+import models.{AppointAgent, Party}
+import models.searchApi.{AgentId, AgentPropertiesParameters}
+import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
+import play.api.data.{Form, FormError}
+import play.api.data.Forms.{number, _}
+import play.api.data.{Form, FormError}
 
 class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
+                                      agentsConnector: AgentsConnector,
                                       propertyLinks: PropertyLinkConnector,
                                       representations: PropertyRepresentationConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 

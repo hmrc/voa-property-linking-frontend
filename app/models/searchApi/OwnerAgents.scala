@@ -28,3 +28,7 @@ object OwnerAgents {
   implicit val format = Json.format[OwnerAgents]
 }
 
+case class AgentId(id: String)
+object AgentId {
+  implicit val format = Json.format[AgentId]
+}
