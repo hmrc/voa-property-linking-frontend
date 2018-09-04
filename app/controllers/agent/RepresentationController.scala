@@ -59,19 +59,16 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
       client = client
     ) { paginationSearchSort => {
       val eventualRepresentations = reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
-      val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
 
       for {
         representations <- eventualRepresentations
-        msgCount <- eventualMessageCount
       } yield {
         Ok(views.html.dashboard.manageClients(
           ManageClientPropertiesVM(
             result = representations,
             totalPendingRequests = representations.pendingRepresentations,
             pagination = paginationSearchSort.copy(totalResults = representations.filterTotal)
-          ),
-          msgCount.unread
+          )
         ))
       }
     }

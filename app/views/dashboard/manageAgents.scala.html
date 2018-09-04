@@ -17,7 +17,7 @@
 @import actions.AuthenticatedRequest
 @import config.ApplicationConfig
 
-@(model: ManageAgentsVM, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: ManageAgentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{ Messages("dashboard.manageAgents.title") }
 
@@ -27,7 +27,7 @@
     contentHeaderHidden = true,
     topNavigation = false
 ) {
-    @partials.dashboardTabs(unreadMessagesCount)
+    @partials.dashboardTabs()
 
     @if(model.agents.isEmpty) {
         <h2 id="noAgents" class="heading-secondary">

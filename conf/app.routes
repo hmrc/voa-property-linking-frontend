@@ -31,6 +31,7 @@ GET         /manage-agents                                                      
 GET         /messages                                                                         @controllers.Dashboard.viewMessages(pagination: MessagePagination ?= MessagePagination())
 GET         /message/:id                                                                      @controllers.Dashboard.viewMessage(id)
 GET         /message/:id/pdf                                                                  @controllers.Dashboard.viewMessageAsPdf(id)
+GET         /message-count/json                                                               @controllers.Dashboard.messageCountJson
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  @controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        @controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
 

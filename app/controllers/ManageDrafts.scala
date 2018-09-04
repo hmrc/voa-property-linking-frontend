@@ -55,9 +55,8 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
   def viewDraftCases() = authenticated { implicit request =>
     for {
       cases <- draftCases.get(request.personId)
-      msgCount <- messagesConnector.countUnread(request.organisationId)
     } yield {
-      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), msgCount.unread, draftCaseForm))
+      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), draftCaseForm))
     }
   }
 
@@ -99,9 +98,8 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
                            (implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier) =
     for {
       cases <- draftCases.get(request.personId)
-      msgCount <- messagesConnector.countUnread(request.organisationId)
     } yield {
-      BadRequest(views.html.dashboard.draftCases(DraftCasesVM(cases), msgCount.unread, form))
+      BadRequest(views.html.dashboard.draftCases(DraftCasesVM(cases), form))
     }
 
 }

@@ -17,8 +17,8 @@
 @import actions.AuthenticatedRequest
 @import config.ApplicationConfig
 
-@(unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
-@welcomeLinks(unreadMessagesCount)
+@()(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@welcomeLinks()
 
 <div class="clearfix section-tabs">
     <ul role="tablist">
@@ -30,12 +30,7 @@
         @tab("manageAgents", routes.Dashboard.manageAgents().url)
         @tab("drafts", routes.ManageDrafts.viewDraftCases().url)
         @tab("editDetails", controllers.manageDetails.routes.ViewDetails.show().url)
-        @if(unreadMessagesCount == 0) {
-            @tab("messages.none", routes.Dashboard.viewMessages().url)
-        } else {
-            @tab("messages", routes.Dashboard.viewMessages().url, unreadMessagesCount)
-        }
-
+        @tab("messages", routes.Dashboard.viewMessages().url)
     </ul>
 </div>
 
@@ -48,7 +43,7 @@
         class="active" aria-level="1"
     } else {
         role="tab"}>
-        <a href="@url">@Messages(s"dashboard.tab.$name", args: _*)</a>
+        <a href="@url"><div id="@name">@Messages(s"dashboard.tab.$name", args: _*)</div></a>
     </li>
 }
 

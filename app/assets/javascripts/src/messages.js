@@ -34,6 +34,7 @@
                 accept: 'Accept',
                 reject: 'Reject',
                 declinedHelp: 'Declined help'
+
             },
             errors : {
                 postcodeLookupError:'Enter a valid postcode',
