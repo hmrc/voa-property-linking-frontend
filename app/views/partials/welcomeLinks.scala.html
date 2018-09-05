@@ -58,6 +58,7 @@
 
 </div>
 
+@*Temporarily disabling message count while modernised investigate Alfresco issues
 <div id="unread-message-count" class="clearfix pull-right margin-top-5 margin-bottom-20 font-xsmall">
     <i class="icon icon-messageunread"></i>
     @if(unreadMessagesCount == 0) {
@@ -66,6 +67,7 @@
         <span>@Html(Messages("dashboard.unreadMessages", routes.Dashboard.viewMessages().url, unreadMessagesCount))</span>
     }
 </div>
+*@
 
 @isAgent = @{
     request.organisationAccount.isAgent
