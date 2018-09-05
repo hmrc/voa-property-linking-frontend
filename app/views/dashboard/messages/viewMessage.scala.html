@@ -27,6 +27,10 @@
   topBackLink = true,
   backLinkUrl = Some(routes.Dashboard.viewMessages().url)) {
 
+    <ul class="navigation-links pull-right">
+        <li><a href="@routes.Dashboard.home().url">@Messages("link.dashboardhome")</a></li>
+    </ul>
+
     @partials.welcomeLinks(unreadMessagesCount)
 
     @viewMessageTemplate(message)
