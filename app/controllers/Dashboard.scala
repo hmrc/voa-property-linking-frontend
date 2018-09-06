@@ -53,32 +53,36 @@ class Dashboard @Inject()(draftCases: DraftCases,
   def manageProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String],
                        sortorder: Option[String], status: Option[String], address: Option[String],
                        baref: Option[String], agent: Option[String]) = authenticated { implicit request =>
-    withValidPaginationSearchSort(
-      page = page,
-      pageSize = pageSize,
-      requestTotalRowCount = requestTotalRowCount,
-      sortfield = sortfield,
-      sortorder = sortorder,
-      status = status,
-      address = address,
-      baref = baref,
-      agent = agent
-    ) { paginationSearchSort =>
-      val eventualPropertyLinks = propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-      val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
+    if (config.newDashboardRedirectsEnabled) {
+      Redirect(config.newDashboardUrl("your-agents"))
+    } else {
+      withValidPaginationSearchSort(
+        page = page,
+        pageSize = pageSize,
+        requestTotalRowCount = requestTotalRowCount,
+        sortfield = sortfield,
+        sortorder = sortorder,
+        status = status,
+        address = address,
+        baref = baref,
+        agent = agent
+      ) { paginationSearchSort =>
+        val eventualPropertyLinks = propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
+        val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
 
-      for {
-        propertyLinks <- eventualPropertyLinks
-        msgCount <- eventualMessageCount
-      } yield {
-        Ok(views.html.dashboard.manageProperties(
-          ManagePropertiesVM(
-            request.organisationAccount.id,
-            propertyLinks,
-            paginationSearchSort.copy(totalResults = propertyLinks.filterTotal)
-          ),
-          msgCount.unread
-        ))
+        for {
+          propertyLinks <- eventualPropertyLinks
+          msgCount <- eventualMessageCount
+        } yield {
+          Ok(views.html.dashboard.manageProperties(
+            ManagePropertiesVM(
+              request.organisationAccount.id,
+              propertyLinks,
+              paginationSearchSort.copy(totalResults = propertyLinks.filterTotal)
+            ),
+            msgCount.unread
+          ))
+        }
       }
     }
   }
@@ -100,12 +104,16 @@ class Dashboard @Inject()(draftCases: DraftCases,
   }
 
   def manageAgents() = authenticated { implicit request =>
-    for {
-      ownerAgents <- agentsConnector.ownerAgents(request.organisationId)
-      msgCount <- messagesConnector.countUnread(request.organisationId)
-    } yield {
-      val agents = ownerAgents.agents.map(ownerAgent => AgentInfo(ownerAgent.name, ownerAgent.ref))
-      Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agents), msgCount.unread))
+    if (config.newDashboardRedirectsEnabled) {
+      Redirect(config.newDashboardUrl("your-agents"))
+    } else {
+      for {
+        ownerAgents <- agentsConnector.ownerAgents(request.organisationId)
+        msgCount <- messagesConnector.countUnread(request.organisationId)
+      } yield {
+        val agents = ownerAgents.agents.map(ownerAgent => AgentInfo(ownerAgent.name, ownerAgent.ref))
+        Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agents), msgCount.unread))
+      }
     }
   }
 

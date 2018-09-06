@@ -29,6 +29,8 @@ import utils._
 
 class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
 
+  override val additionalAppConfig = Seq("featureFlags.newDashboardRedirectsEnabled" -> "false")
+
   implicit val request = FakeRequest()
 
   object TestDashboardController extends Dashboard(
