@@ -54,7 +54,7 @@ class Dashboard @Inject()(draftCases: DraftCases,
                        sortorder: Option[String], status: Option[String], address: Option[String],
                        baref: Option[String], agent: Option[String]) = authenticated { implicit request =>
     if (config.newDashboardRedirectsEnabled) {
-      Redirect(config.newDashboardUrl("your-agents"))
+      Redirect(config.newDashboardUrl("your-properties"))
     } else {
       withValidPaginationSearchSort(
         page = page,
