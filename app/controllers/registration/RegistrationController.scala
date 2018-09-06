@@ -55,11 +55,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
     implicit request =>
       auth.userDetails(ctx).flatMap(authUser => individualAccounts.withExternalId(authUser.externalId).flatMap {
         case Some(voaUser) =>
-          if (config.newDashboardRedirectsEnabled) {
-            Redirect(config.newDashboardUrl("home"))
-          } else {
             Redirect(controllers.routes.Dashboard.home())
-          }
         case None => authUser match {
           case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
             Future.successful(Ok(views.html.createAccount.register_individual(AdminUser.individual, FieldData(userInfo = user.userInfo))))
