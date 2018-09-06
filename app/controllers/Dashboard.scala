@@ -144,17 +144,20 @@ class Dashboard @Inject()(draftCases: DraftCases,
 
   def viewMessages(pagination: MessagePagination) = authenticated { implicit request =>
     withValidMessagePagination(pagination) {
-      for {
-        count <- messagesConnector.countUnread(request.organisationId)
-        msgs <- messagesConnector.getMessages(request.organisationId, pagination)
-      } yield {
-        //round up to nearest integer
-        val numberOfPages: Int = Math.ceil(count.total.toDouble / pagination.pageSize).toInt
-        Ok(views.html.dashboard.messages.messagesTab(msgs, pagination, count.unread, numberOfPages))
+      if (config.newDashboardRedirectsEnabled) {
+        Redirect(config.newDashboardUrl("inbox"))
+      } else {
+        for {
+          count <- messagesConnector.countUnread(request.organisationId)
+          msgs <- messagesConnector.getMessages(request.organisationId, pagination)
+        } yield {
+          //round up to nearest integer
+          val numberOfPages: Int = Math.ceil(count.total.toDouble / pagination.pageSize).toInt
+          Ok(views.html.dashboard.messages.messagesTab(msgs, pagination, count.unread, numberOfPages))
+        }
       }
     }
   }
-
   def viewMessage(messageId: String) = authenticated { implicit request =>
     for {
       message <- messagesConnector.getMessage(request.organisationId, messageId)
