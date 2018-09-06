@@ -28,7 +28,7 @@ import scala.collection.JavaConverters._
 class ManageAgentsPageSpec extends TemplateSpec {
 
   "The manage agents page" must "show a message stating that no agents have been appointed if the user has no agents" in  {
-    val html = views.html.dashboard.manageAgents(noAgents, 0)
+    val html = views.html.dashboard.manageAgents(noAgents)
     val page = HtmlPage(html)
     page.mustContain1("#noAgents")
   }
@@ -67,7 +67,7 @@ class ManageAgentsPageSpec extends TemplateSpec {
   lazy val twoAgents = ManageAgentsVM(List(AgentInfo("name1", 111), AgentInfo("name2", 222)))
 
   lazy val manageAgentsPage: Document = {
-    val html = views.html.dashboard.manageAgents(twoAgents, 0)
+    val html = views.html.dashboard.manageAgents(twoAgents)
     Jsoup.parse(html.toString)
   }
 }

@@ -49,38 +49,37 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
                            baref: Option[String], client: Option[String]) = authenticated.asAgent { implicit request =>
     if (config.newDashboardRedirectsEnabled) {
       Redirect(config.newDashboardUrl("client-properties"))
-    } else {
-      withValidPaginationSearchSort(
-        page = page,
-        pageSize = pageSize,
-        requestTotalRowCount = requestTotalRowCount,
-        sortfield = sortfield,
-        sortorder = sortorder,
-        status = status,
-        address = address,
-        baref = baref,
-        client = client
-      ) { paginationSearchSort => {
-        val eventualRepresentations = reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
-        val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
+    } else {withValidPaginationSearchSort(
+      page = page,
+      pageSize = pageSize,
+      requestTotalRowCount = requestTotalRowCount,
+      sortfield = sortfield,
+      sortorder = sortorder,
+      status = status,
+      address = address,
+      baref = baref,
+      client = client
+    ) { paginationSearchSort => {
+      val eventualRepresentations = reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
 
-        for {
-          representations <- eventualRepresentations
-          msgCount <- eventualMessageCount
-        } yield {
-          Ok(views.html.dashboard.manageClients(
-            ManageClientPropertiesVM(
-              result = representations,
-              totalPendingRequests = representations.pendingRepresentations,
-              pagination = paginationSearchSort.copy(totalResults = representations.filterTotal)
-            ),
-            msgCount.unread
-          ))
-        }
+
+      for {
+        representations <- eventualRepresentations
+
+      } yield {
+        Ok(views.html.dashboard.manageClients(
+          ManageClientPropertiesVM(
+            result = representations,
+            totalPendingRequests = representations.pendingRepresentations,
+            pagination = paginationSearchSort.copy(totalResults = representations.filterTotal)
+          )
+
+        ))}
       }
       }
     }
   }
+
 
   def listRepresentationRequest(page: Int,
                                 pageSize: Int,

@@ -19,7 +19,7 @@
 @import models.registration.UserDetails
 
 @(individualAccount: DetailedIndividualAccount, organisationAccount: GroupAccount,
-        personalAddress: Address, businessAddress: Address, unreadMessageCount: Int, userDetails: UserDetails)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+        personalAddress: Address, businessAddress: Address, userDetails: UserDetails)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     Messages("viewDetails.title"),
@@ -28,7 +28,7 @@
     topNavigation = false
 ) {
 
-    @partials.dashboardTabs(unreadMessageCount)
+    @partials.dashboardTabs()
 
     @personalDetails(individualAccount, personalAddress)
     @businessDetails(organisationAccount, businessAddress, userDetails)

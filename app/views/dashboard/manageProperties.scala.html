@@ -18,7 +18,7 @@
 @import utils.Formatters
 @import config.ApplicationConfig
 
-@(model: controllers.ManagePropertiesVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.ManagePropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
     @heading = @{
         Messages("dashboard.manageProperties.title")
@@ -32,7 +32,7 @@
         topNavigation = false
     ) {
 
-        @partials.dashboardTabs(unreadMessageCount)
+        @partials.dashboardTabs()
 
         @if(model.result.authorisations.isEmpty) {
             <div class="margin-top-10 panel panel-border-wide">

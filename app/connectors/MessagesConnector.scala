@@ -42,9 +42,7 @@ class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig)(implicit e
   }
 
   def countUnread(orgId: Long)(implicit hc: HeaderCarrier): Future[MessageCount] = {
-    //Temporarily disabling message count while modernised investigate Alfresco issues
-    //http.GET[MessageCount](s"$baseUrl/unread-messages-count/$orgId")
-    Future.successful(MessageCount(0,0))
+    http.GET[MessageCount](s"$baseUrl/unread-messages-count/$orgId")
   }
 
   def markAsRead(messageId: String, ggId: String)(implicit hc: HeaderCarrier): Future[Unit] = {

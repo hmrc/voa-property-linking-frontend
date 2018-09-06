@@ -21,7 +21,7 @@
 @import config.ApplicationConfig._
 @import helper._
 
-@(model: DraftCasesVM, unreadMessageCount: Int, userForm: Form[DeleteDraftCase])(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: DraftCasesVM, userForm: Form[DeleteDraftCase])(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @detailedValuationUrl(draft: DraftCase) = @{
     routes.Assessments.viewDetailedAssessment(draft.propertyLinkId, draft.assessmentRef, draft.baRef)
@@ -36,7 +36,7 @@
     topNavigation = false
 ) {
 
-    @partials.dashboardTabs(unreadMessageCount)
+    @partials.dashboardTabs()
 
     <p>@Messages("draftCases.p.expiry")</p>
 

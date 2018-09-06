@@ -58,11 +58,6 @@ class MessagesPageSpec extends VoaPropertyLinkingSpec {
     tabs must contain theSameElementsAs expectedTabLinks
   }
 
-  it must "show the number of unread messages in the messages tab text" in {
-    val messagesTab = pageWithOneUnreadMessage.select("div.section-tabs ul").select(s"a[href=${routes.Dashboard.viewMessages().url}]")
-    messagesTab.text mustBe "Messages (1)"
-  }
-
   it must "show the read status, subject, address, reference number, and received date for each message" in {
     val messagesTable = pageWithOneUnreadMessage.select("#messagesTable")
 
