@@ -29,6 +29,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   def businessRatesValuationUrl(page: String): String = getConfig("business-rates-valuation.url") + s"/$page"
   def businessRatesCheckUrl(page: String): String = getConfig("business-rates-check.url") + s"/$page"
   def businessTaxAccountUrl(page: String): String = getConfig("business-tax-account.url") + s"/$page"
+  def newDashboardUrl(page: String): String = getConfig("business-rates-dashboard-frontend.url") + s"/$page"
 
   lazy val helpGuideUrl = getConfig("help-guide.url")
 
@@ -52,6 +53,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
   lazy val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean
   lazy val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean
+  lazy val newDashboardRedirectsEnabled: Boolean = getConfig("featureFlags.newDashboardRedirectsEnabled").toBoolean
 
   lazy val stubEnrolment: Boolean = getConfig("enrolment.useStub").toBoolean
 
