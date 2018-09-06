@@ -222,8 +222,7 @@ dashboard.tab.myProperties=My properties
 dashboard.tab.manageAgents=Agents
 dashboard.tab.drafts=Drafts
 dashboard.tab.editDetails=My details
-dashboard.tab.messages=Messages ({0})
-dashboard.tab.messages.none=Messages
+dashboard.tab.messages=Messages
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard home

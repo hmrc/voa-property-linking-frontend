@@ -25,6 +25,17 @@ div#messagesTable_filter.dataTables_filter {
   margin: 0 8px 0px 10px
 }
 
+.icon-loading {
+  background-size: 80%;
+  background-image: url('../images/loading.gif');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  margin: 0 8px 0px 10px
+}
+
 .message {
   table-layout: auto;
   width: 100%;
