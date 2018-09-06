@@ -43,10 +43,14 @@ class Dashboard @Inject()(draftCases: DraftCases,
                           pdfGen: PdfGenerator)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController with ValidPagination {
 
   def home() = authenticated { implicit request =>
-    if (request.organisationAccount.isAgent) {
-      Redirect(controllers.agent.routes.RepresentationController.viewClientProperties())
+    if (config.newDashboardRedirectsEnabled) {
+      Redirect(config.newDashboardUrl("home"))
     } else {
-      Redirect(routes.Dashboard.manageProperties())
+      if (request.organisationAccount.isAgent) {
+        Redirect(controllers.agent.routes.RepresentationController.viewClientProperties())
+      } else {
+        Redirect(routes.Dashboard.manageProperties())
+      }
     }
   }
 
