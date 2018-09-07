@@ -34,6 +34,8 @@ import scala.concurrent.Future
 class DashboardSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
+  override val additionalAppConfig = Seq("featureFlags.newDashboardRedirectsEnabled" -> "false")
+
   lazy val mockDraftCases = {
     val m = mock[DraftCases]
     when(m.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Nil))

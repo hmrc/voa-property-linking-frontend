@@ -38,7 +38,7 @@ import scala.collection.JavaConverters._
 
 class ManageClientsSpec extends VoaPropertyLinkingSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.enrolment" -> "false")
+  override val additionalAppConfig = Seq("featureFlags.newDashboardRedirectsEnabled" -> "false")
 
   lazy val defaultHtml = {
     setup()

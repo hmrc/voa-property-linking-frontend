@@ -47,7 +47,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
                                        authenticatedAction: AuthenticatedAction,
                                        identityVerificationService: IdentityVerificationService,
                                        @Named("personSession") val personalDetailsSessionRepo: SessionRepo
-                                   )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+                                      )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   import utils.SessionHelpers._
 
@@ -55,7 +55,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
     implicit request =>
       auth.userDetails(ctx).flatMap(authUser => individualAccounts.withExternalId(authUser.externalId).flatMap {
         case Some(voaUser) =>
-          Redirect(controllers.routes.Dashboard.home())
+            Redirect(controllers.routes.Dashboard.home())
         case None => authUser match {
           case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
             Future.successful(Ok(views.html.createAccount.register_individual(AdminUser.individual, FieldData(userInfo = user.userInfo))))

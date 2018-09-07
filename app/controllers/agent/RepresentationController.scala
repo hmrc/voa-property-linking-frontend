@@ -47,7 +47,9 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
   def viewClientProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String],
                            sortorder: Option[String], status: Option[String], address: Option[String],
                            baref: Option[String], client: Option[String]) = authenticated.asAgent { implicit request =>
-    withValidPaginationSearchSort(
+    if (config.newDashboardRedirectsEnabled) {
+      Redirect(config.newDashboardUrl("client-properties"))
+    } else {withValidPaginationSearchSort(
       page = page,
       pageSize = pageSize,
       requestTotalRowCount = requestTotalRowCount,
@@ -60,8 +62,10 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
     ) { paginationSearchSort => {
       val eventualRepresentations = reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
 
+
       for {
         representations <- eventualRepresentations
+
       } yield {
         Ok(views.html.dashboard.manageClients(
           ManageClientPropertiesVM(
@@ -69,9 +73,10 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
             totalPendingRequests = representations.pendingRepresentations,
             pagination = paginationSearchSort.copy(totalResults = representations.filterTotal)
           )
-        ))
+
+        ))}
       }
-    }
+      }
     }
   }
 

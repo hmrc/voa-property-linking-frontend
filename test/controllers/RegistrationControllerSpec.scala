@@ -38,8 +38,6 @@ import scala.concurrent.Future
 
 class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
-  override val additionalAppConfig = Seq("featureFlags.enrolment" -> "true")
-
   lazy val mockEnrolmentService = mock[EnrolmentService]
 
   lazy val mockSessionRepo = {

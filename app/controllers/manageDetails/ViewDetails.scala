@@ -36,19 +36,22 @@ class ViewDetails @Inject()(addressesConnector: Addresses,
                             messagesConnector: MessagesConnector,
                             authConnector: VPLAuthConnector,
                             details: Details
-                           )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
+                           )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
 
   def show() = authenticated { implicit request =>
-    val person = request.individualAccount
+    if (config.newDashboardRedirectsEnabled) {
+      Redirect(config.newDashboardUrl("your-details"))
+    } else {val person = request.individualAccount
     (for {
       personalAddress <- OptionT(addressesConnector.findById(person.details.addressId))
       businessAddress <- OptionT(addressesConnector.findById(request.organisationAccount.addressId))
+
       affinityGroup <- OptionT.liftF(authConnector.getAffinityGroup)
       userDetails <- OptionT.liftF(authConnector.getUserDetails)
-    } yield details.view(affinityGroup, person, personalAddress, businessAddress, userDetails)
+    } yield details.view(affinityGroup, person, personalAddress, businessAddress,  userDetails)
       ).getOrElse(throw new Exception(
       s"Unable to lookup address: Individual address ID: ${person.details.addressId}; Organisation address Id: ${request.organisationAccount.addressId}")
-    )
+    )}
   }
 
 }
