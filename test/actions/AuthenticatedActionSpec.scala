@@ -39,8 +39,6 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
 
-  override val additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.enrolment" -> "false")
-
   "AuthenticatedAction" should {
     "invoke the wrapped action when the user is logged in to CCA" in {
       when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))

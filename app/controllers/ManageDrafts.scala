@@ -40,10 +40,10 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
                              draftCases: DraftCases) extends PropertyLinkingController {
 
   val draftCaseForm: Form[DeleteDraftCase] = Form(
-      mapping(
-        "draft" -> optional(text).verifying("error.common.noValueSelected", s => s.isDefined &&  s.nonEmpty)
-                      .transform[String](_.get, x => Some(x.toString))
-      )(DeleteDraftCase.apply)(DeleteDraftCase.unapply))
+    mapping(
+      "draft" -> optional(text).verifying("error.common.noValueSelected", s => s.isDefined && s.nonEmpty)
+        .transform[String](_.get, x => Some(x.toString))
+    )(DeleteDraftCase.apply)(DeleteDraftCase.unapply))
 
 
   private def getIdUrl(value: String): (String, String) = value.split('?') match {
@@ -53,10 +53,14 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
 
 
   def viewDraftCases() = authenticated { implicit request =>
-    for {
-      cases <- draftCases.get(request.personId)
-    } yield {
-      Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), draftCaseForm))
+    if (config.newDashboardRedirectsEnabled) {
+      Redirect(config.newDashboardUrl("your-drafts"))
+    } else {
+      for {
+        cases <- draftCases.get(request.personId)
+      } yield {
+        Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), draftCaseForm))
+      }
     }
   }
 
@@ -68,7 +72,7 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
   }
 
 
-  def deleteDraftCase =  authenticated { implicit request =>
+  def deleteDraftCase = authenticated { implicit request =>
     draftCaseForm.bindFromRequest.fold(
       getDraftCases,
       success => {
@@ -86,10 +90,10 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
   }
 
 
-  def confirmDelete(draftId: String) =  authenticated { implicit request =>
+  def confirmDelete(draftId: String) = authenticated { implicit request =>
     draftCases.delete(draftId).map(_ => Redirect(routes.ManageDrafts.viewDraftCases()))
       .recover {
-      case _ => Redirect(routes.ManageDrafts.viewDraftCases())
+        case _ => Redirect(routes.ManageDrafts.viewDraftCases())
       }
   }
 
