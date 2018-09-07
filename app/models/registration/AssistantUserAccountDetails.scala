@@ -19,21 +19,15 @@ package models.registration
 import models.Address
 
 case class AssistantUserAccountDetails(firstName: String,
-                                       lastName: String,
-                                       companyName: String,
-                                       address :Address,
-                                       phone: String,
-                                       email: String,
-                                       confirmedEmail: String,
-                                       isAgent: Boolean) extends AssistantUser {
+                                       lastName: String) extends AssistantUser {
 
-  def toGroupDetails = GroupAccountDetails(
-    companyName = companyName,
-    address = address,
-    email = email,
-    confirmedEmail = confirmedEmail,
-    phone = phone,
-    isAgent = isAgent
+  def toGroupDetails(fieldData: FieldData) = GroupAccountDetails(
+    companyName = fieldData.businessName,
+    address = fieldData.businessAddress,
+    email = fieldData.email,
+    confirmedEmail = fieldData.email,
+    phone = fieldData.businessPhoneNumber,
+    isAgent = fieldData.isAgent
   )
 
 }
