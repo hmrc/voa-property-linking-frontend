@@ -102,8 +102,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
                 ))
             }
             case _ => {
-              Logger.error("Unable to get company details")
-              Ok(views.html.errors.invalidAccountCreation())
+              unableToRetrieveCompanyDetails
             }
           }
 
@@ -120,13 +119,14 @@ class RegistrationController @Inject()(ggAction: VoaAction,
                   }
               }
               case _ => {
-                Logger.error("Unable to get company details")
-                Ok(views.html.errors.invalidAccountCreation())
+                unableToRetrieveCompanyDetails
               }
             }
           }
       )
   }
+
+  private def unableToRetrieveCompanyDetails = throw new IllegalStateException("Unable to retrieve company details")
 
   def success(personId: Long) = ggAction.async(isSession = false) { ctx =>
     implicit request =>
