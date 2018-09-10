@@ -185,6 +185,26 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     html.mustContainText("You have been added as a user to your organisation, please confirm your details below")
   }
 
+  "Submitting an invalid assistant form" should "return a bad request response" in {
+
+    val (groupId, externalId): (String, String) = (shortString, shortString)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubGroupAccountConnector.stubAccount(GroupAccount(1l, groupId, "", 12, "", "", false, 1l))
+
+    val data = Map(
+      "firstName" -> Seq("first")
+    )
+    val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
+    val res = TestRegistrationController$.submitAssistant()(fakeRequest)
+    status(res) mustBe BAD_REQUEST
+
+    val html = HtmlPage(res)
+    html.mustContainText("Last Name - This must be filled in")
+    html.mustNotContainText("First Name - This must be filled in")
+  }
+
   "Going to the create account page when logged in as a new admin user registering with an existing group account" should
     "display the complete your contact details form for an admin" in {
 
