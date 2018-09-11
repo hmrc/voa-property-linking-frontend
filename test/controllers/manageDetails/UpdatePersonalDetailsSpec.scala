@@ -16,7 +16,7 @@
 
 package controllers.manageDetails
 
-import connectors.{Addresses, Authenticated, IndividualAccounts}
+import connectors.{Addresses, Authenticated, GroupAccounts, IndividualAccounts}
 import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, Address, DetailedIndividualAccount}
 import org.jsoup.Jsoup
@@ -240,7 +240,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     StubAuthentication,
     mockAddressConnector,
     mockIndividualAccounts,
-    mockManageDetails
+    mockManageDetails,
+    mockGroupAccounts
   )
 
   lazy val mockIndividualAccounts = {
@@ -251,6 +252,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   lazy val mockAddressConnector = mock[Addresses]
   lazy val mockManageDetails = mock[ManageDetails]
+  lazy val mockGroupAccounts = mock[GroupAccounts]
 
   lazy val request = FakeRequest().withSession(token)
 
