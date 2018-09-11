@@ -14,63 +14,61 @@
  * limitations under the License.
  *@
 
-@import helpers._
-@import views.html.helper.CSRF
 @import config.ApplicationConfig
+@import helpers._
+@import uk.gov.hmrc.play.views.html.helpers.form
 
 @(data: Form[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-
 @main_template(
-title = Messages("start.heading.register"),
-topNavigation = false
+    title = Messages("start.heading.register"),
+    topNavigation = false
 ) {
 
-<div class="grid-row">
-    <div class="column-two-thirds">
+    <div class="grid-row">
+        <div class="column-two-thirds">
 
-        <h1 class="heading-xlarge">
+            <h1 class="heading-xlarge">
             @Messages("start.heading.register")
-        </h1>
+            </h1>
 
-        <p>@Html(Messages("start.registration.p.1", routes.Login.show))</p>
-        <p>@Html(Messages("start.registration.p.2"))</p>
-        <p>@Messages("start.registration.p.3")</p>
+            <p>@Html(Messages("start.registration.p.1", routes.Login.show))</p>
+            <p>@Html(Messages("start.registration.p.2"))</p>
+            <p>@Messages("start.registration.p.3")</p>
 
-        <ul class="list list-bullet">
-            <li>@Messages("start.registration.youNeed.1")</li>
-            <li>@Messages("start.registration.youNeed.2")</li>
-            <li>@Messages("start.registration.youNeed.3")</li>
-        </ul>
+            <ul class="list list-bullet">
+                <li>@Messages("start.registration.youNeed.1")</li>
+                <li>@Messages("start.registration.youNeed.2")</li>
+                <li>@Messages("start.registration.youNeed.3")</li>
+            </ul>
 
-        <p class="panel panel-border-wide">@Messages("start.registration.p.5")</p>
+            <p class="panel panel-border-wide">@Messages("start.registration.p.5")</p>
 
 
-        <details>
-            <summary><span class="summary">@Messages("start.registration.IdontHave")</span></summary>
-            <div class="panel-indent">
+            <details>
+                <summary><span class="summary">@Messages("start.registration.IdontHave")</span></summary>
+                <div class="panel-indent">
                 @Html(Messages("start.registration.IdontHave.answer"))
-            </div>
-        </details>
+                </div>
+            </details>
 
-    <form action="@routes.Register.choice()" method="POST" enctype="multipart/form-data">
+            @form(routes.Register.choice()) {
 
-        @{CSRF.formField}
+                @inputRadioGroup(
+                    field = data("choice"),
+                    options = Seq("individual", "organisation"),
+                    args = Seq(
+                        '_label -> Messages("create-account.type.question"),
+                        '_labelClass -> "form-label-bold",
+                        '_legend -> true
+                    ))
 
-        @inputRadioGroup(
-        field = data("choice"),
-        options = Seq("individual", "organisation"),
-        args = Seq(
-        '_label -> Messages("create-account.type.question"),
-        '_labelClass -> "form-label-bold",
-        '_legend -> true
-        ))
+                <p>@Html(Messages("start.registration.enrolment.hyperlink", routes.Login.show))</p>
 
-        <p>@Html(Messages("start.registration.enrolment.hyperlink", routes.Login.show))</p>
+                <button type="submit" id="save-and-continue" class="button" >@Messages("start.register")</button>
+            }
 
-        <button type="submit" id="save-and-continue" class="button" >@Messages("start.register")</button>
-    </form>
+        </div>
     </div>
-</div>
 
 }
