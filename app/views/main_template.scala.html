@@ -37,9 +37,13 @@
 @headScripts = {
 @views.html.includes.stylesheets()
 @views.html.includes.pingdomPerformanceMonitor()
+@views.html.includes.analyticsTagManagerCodeScript()
+
 }
 @scriptElem = {
 @views.html.includes.javascripts()
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=@config.analyticsTagManagerCode"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 }
 
 
