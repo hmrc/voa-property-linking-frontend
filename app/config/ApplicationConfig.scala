@@ -42,6 +42,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val serviceUrl: String = getConfig("voa-property-linking-frontend.url")
   lazy val checkUrl = getConfig("microservice.services.business-rates-check-frontend.url")
 
+  lazy val analyticsTagManagerCode = getConfig("google-analytics.tag.managerCode")
   lazy val analyticsToken: String = getConfig("google-analytics.token")
   lazy val analyticsHost: String = getConfig("google-analytics.host")
   lazy val voaPersonID: String = getConfig("google-analytics.dimensions.voaPersonId")
