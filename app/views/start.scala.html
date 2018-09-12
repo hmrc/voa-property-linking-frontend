@@ -52,21 +52,17 @@
                 </div>
             </details>
 
-            @form(routes.Register.choice()) {
+            <br/>
 
-                @inputRadioGroup(
-                    field = data("choice"),
-                    options = Seq("individual", "organisation"),
-                    args = Seq(
-                        '_label -> Messages("create-account.type.question"),
-                        '_labelClass -> "form-label-bold",
-                        '_legend -> true
-                    ))
+            <legend class="form-label-bold">
+                <span class=" label-span">@Html(Messages("create-account.type.question"))</span>
+            </legend>
 
-                <p>@Html(Messages("start.registration.enrolment.hyperlink", routes.Login.show))</p>
+            <p>@Html(Messages("start.registration.individual.hyperlink", config.ggRegistrationUrl, routes.Dashboard.home(), "voa"))</p>
+            <p>@Html(Messages("start.registration.organisation.hyperlink", config.ggRegistrationUrl, "organisation", routes.Dashboard.home(), "voa"))</p>
 
-                <button type="submit" id="save-and-continue" class="button" >@Messages("start.register")</button>
-            }
+            <p>@Html(Messages("start.registration.enrolment.hyperlink", routes.Login.show))</p>
+
 
         </div>
     </div>
