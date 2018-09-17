@@ -25,7 +25,6 @@ import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnecto
 import controllers.PropertyLinkingController
 import javax.inject.{Inject, Named}
 import models.registration._
-import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc.{AnyContent, Request}
 import repositories.SessionRepo
@@ -57,7 +56,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
     implicit request =>
       auth.userDetails(ctx).flatMap(authUser => individualAccounts.withExternalId(authUser.externalId).flatMap {
         case Some(voaUser) =>
-            Redirect(controllers.routes.Dashboard.home())
+          Redirect(controllers.routes.Dashboard.home())
         case None => authUser match {
           case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
             Future.successful(Ok(views.html.createAccount.register_individual(AdminUser.individual, FieldData(userInfo = user.userInfo))))
@@ -105,24 +104,23 @@ class RegistrationController @Inject()(ggAction: VoaAction,
               unableToRetrieveCompanyDetails
             }
           }
-
         },
         success => {
-            getCompanyDetails(ctx).flatMap {
-              case Some(fieldData) => {
-                registrationService
-                  .create(success.toGroupDetails(fieldData), ctx)(success.toIndividualAccountSubmission(fieldData))(hc, ec)
-                  .map {
-                    case EnrolmentSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
-                    case EnrolmentFailure => InternalServerError(Global.internalServerErrorTemplate)
-                    case DetailsMissing => InternalServerError(Global.internalServerErrorTemplate)
-                  }
-              }
-              case _ => {
-                unableToRetrieveCompanyDetails
-              }
+          getCompanyDetails(ctx).flatMap {
+            case Some(fieldData) => {
+              registrationService
+                .create(success.toGroupDetails(fieldData), ctx)(success.toIndividualAccountSubmission(fieldData))(hc, ec)
+                .map {
+                  case EnrolmentSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
+                  case EnrolmentFailure => InternalServerError(Global.internalServerErrorTemplate)
+                  case DetailsMissing => InternalServerError(Global.internalServerErrorTemplate)
+                }
+            }
+            case _ => {
+              unableToRetrieveCompanyDetails
             }
           }
+        }
       )
   }
 
@@ -136,9 +134,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
   }
 
   private def orgShow[A](ctx: A, userDetails: UserDetails)(implicit request: Request[AnyContent]) = {
-    val fieldDataFOptT = getCompanyDetails(ctx)
-
-    fieldDataFOptT.map {
+    getCompanyDetails(ctx).map {
       case Some(fieldData) =>
         userDetails.userInfo.credentialRole match {
           case Admin | User =>
@@ -150,7 +146,6 @@ class RegistrationController @Inject()(ggAction: VoaAction,
               AssistantUser.assistant,
               fieldData))
         }
-
       case None =>
         userDetails.userInfo.credentialRole match {
           case Admin | User =>

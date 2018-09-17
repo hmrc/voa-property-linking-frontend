@@ -61,7 +61,7 @@ class VoaAuth @Inject()(provider: GovernmentGatewayProvider,
       case _: NoActiveSession =>
         provider.redirectToLogin
       case otherException =>
-        Logger.debug(s"exception thrown on authorization with message: ${otherException.getMessage}")
+        Logger.debug(s"Exception thrown on authorisation with message: ${otherException.getMessage}")
         throw otherException
     }
 
@@ -100,12 +100,8 @@ class VoaAuth @Inject()(provider: GovernmentGatewayProvider,
                                accounts: Accounts,
                                body: BasicAuthenticatedRequest[AnyContent] => Future[Result]
                              )(implicit request: Request[AnyContent], hc: HeaderCarrier, ec: ExecutionContext): PartialFunction[EnrolmentResult, Future[Result]] = {
-    case Success =>
-      Logger.info("Existing VOA user successfully enrolled")
-      for {
-        userDetails <- auth.getUserDetails
-        _ <- emailService.sendMigrationEnrolmentSuccess(userDetails.userInfo.email, accounts.person.individualId, s"${accounts.person.details.firstName} ${accounts.person.details.lastName}")
-      } yield Ok(views.html.createAccount.existing_user_enrolment_success(accounts.person.individualId.toString, controllers.routes.Dashboard.home().url))
+    case Success => Logger.info("Existing VOA user successfully enrolled")
+      Future.successful(Ok(views.html.createAccount.existing_user_enrolment_success(accounts.person.individualId.toString, controllers.routes.Dashboard.home().url)))
     case Failure =>
       Logger.warn("Failed to enrol existing VOA user")
       body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))

@@ -16,8 +16,6 @@
 
 package models.registration
 
-import models.Address
-
 case class AssistantUserAccountDetails(firstName: String,
                                        lastName: String) extends AssistantUser {
 

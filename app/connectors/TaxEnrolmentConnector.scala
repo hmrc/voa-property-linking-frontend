@@ -44,27 +44,23 @@ class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
     wSHttp.PUT[EnrolmentPayload, HttpResponse](enrolUrl, payload).map { result =>
       AuditingService.sendEvent[EnrolmentPayload]("Enrolment Success", payload)
       result
-    }.recover{case exception: Throwable =>
+    }.recover { case exception: Throwable =>
       AuditingService.sendEvent("Enrolment failed to update", payload)
       throw exception
     }
   }
 
-  def deEnrol(personID: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Future[HttpResponse]] =
-    wSHttp.POST[JsValue, HttpResponse](s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA", Json.obj("keepAgentAllocations" -> true))(
-      implicitly[Writes[JsValue]], implicitly[HttpReads[HttpResponse]], hc.withExtraHeaders("Content-Type" -> "application/json"), ex)
-      .map(_ => wSHttp.DELETE[HttpResponse](s"$emacUrl/enrolment-store/enrolments/HMRC-VOA-CCA~VOAPersonID~$personID"))
-
-  def updatePostcode(personId:Long, postcode:String, previousPostcode:String)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[EnrolmentResult] = {
-    val payload = PayLoad(verifiers = Seq(KeyValuePair(key="BusPostcode",value=postcode)),
-      legacy = Some(Previous(previousVerifiers = List(KeyValuePair(key="BusPostcode", value=previousPostcode)))))
+  def updatePostcode(personId: Long, postcode: String, previousPostcode: String)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[EnrolmentResult] = {
+    val payload = PayLoad(verifiers = Seq(KeyValuePair(key = "BusPostcode", value = postcode)),
+      legacy = Some(Previous(previousVerifiers = List(KeyValuePair(key = "BusPostcode", value = previousPostcode)))))
     wSHttp.PUT[PayLoad, HttpResponse](s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}", payload)
-      .map{_ =>
+      .map { _ =>
         AuditingService.sendEvent("Enrolment Updated", payload)
         Success
-      }.recover{case exception: Throwable =>
+      }.recover { case exception: Throwable =>
       AuditingService.sendEvent("Enrolment failed to update", payload)
       throw exception
     }
   }
+
 }
