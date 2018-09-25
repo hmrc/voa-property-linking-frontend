@@ -44,7 +44,7 @@
 
         <p>@Messages("dashboard.manageProperties.expectDelays")</p>
 
-        <div class="margin-top-20"><a href="@controllers.propertyLinking.routes.ClaimProperty.checkPropertyLinks()" id="addAnotherProperty">@model.pagination.requestTotalRowCount</a></div>
+        <div class="margin-top-20"><a href="@controllers.propertyLinking.routes.ClaimProperty.checkPropertyLinks()" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></div>
 
         @if(model.result.authorisations.nonEmpty){
             <div class="margin-top-5"><a href="@agentAppointment.routes.AppointAgentController.appointMultipleProperties()" id="appointAgent">@Messages("manageProperties.appointAgent")</a></div>
