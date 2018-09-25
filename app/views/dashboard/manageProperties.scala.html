@@ -44,7 +44,7 @@
 
         <p>@Messages("dashboard.manageProperties.expectDelays")</p>
 
-        <div class="margin-top-20"><a href="@controllers.propertyLinking.routes.ClaimProperty.checkPropertyLinks()" id="addAnotherProperty">@Messages("dashboard.managedProperties.addAnotherProperty")</a></div>
+        <div class="margin-top-20"><a href="@controllers.propertyLinking.routes.ClaimProperty.checkPropertyLinks()" id="addAnotherProperty">@model.pagination.requestTotalRowCount</a></div>
 
         @if(model.result.authorisations.nonEmpty){
             <div class="margin-top-5"><a href="@agentAppointment.routes.AppointAgentController.appointMultipleProperties()" id="appointAgent">@Messages("manageProperties.appointAgent")</a></div>
@@ -208,7 +208,7 @@
 
                             @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
                                 <li class="next">
-                                        <a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber + 1, model.pagination.pageSize, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">Next<i class="next-arrow"></i></a></li>
+                                        <a href="@routes.Dashboard.manageProperties(model.pagination.pageNumber + 1, model.pagination.pageSize, model.pagination.requestTotalRowCount, model.pagination.sortfield,  model.pagination.sortorder,  model.pagination.status,  model.pagination.address,  model.pagination.baref,  model.pagination.agent).url">z<i class="next-arrow"></i></a></li>
 
                             } else {
                                 <li class="next disabled">Next <i class="next-arrow"></i></li>

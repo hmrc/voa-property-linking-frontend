@@ -288,8 +288,11 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
       clientProperty <- OptionT(propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id))
       _ <- OptionT.liftF(reprConnector.revoke(clientProperty.authorisedPartyId))
     } yield {
+      if (config.newDashboardRedirectsEnabled) {
+        Redirect(config.newDashboardUrl("client-properties"))
+      } else {
       Redirect(routes.RepresentationController.viewClientProperties())
-    }).getOrElse(notFound)
+    }}).getOrElse(notFound)
   }
 
 }
