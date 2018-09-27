@@ -1018,6 +1018,7 @@ enrolment.businessPhoneNumber = Business telephone number
 enrolment.phoneNumber = Telephone number
 enrolment.mobileNumber = Mobile number
 enrolment.emailAddress = Business email address
+enrolment.emailAddress.hint = This should be your email address and not your agent’s. The email address should be monitored
 enrolment.tradingName = Trading name
 enrolment.confirmEmailAddress = Confirm business email address
 enrolment.organisation.individualOrCompany = Do you wish to act on behalf of an other individual or company?
