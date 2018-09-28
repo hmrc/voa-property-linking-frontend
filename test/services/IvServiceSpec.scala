@@ -39,10 +39,10 @@ class IvServiceSpec extends ServiceSpec {
   "continue" should "return a successful registration result if registration was successful for a new organisation" in new TestCase {
     StubGroupAccountConnector.stubAccount(GroupAccount(1l, groupId, "", 12, "", "", false, 1l))
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
-    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
     val res: Future[Option[RegistrationResult]] = identityVerification.continue("")(UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User)), hc, ec)
-    res.futureValue must be(Some(EnrolmentSuccess(1l)))
+    res.futureValue must be(Some(RegistrationSuccess(1l)))
   }
 
   "continue" should "return a failed registration result if registration failed for a new organisation" in new TestCase {
@@ -59,10 +59,10 @@ class IvServiceSpec extends ServiceSpec {
     StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
     StubGroupAccountConnector.stubAccount(GroupAccount(1l, groupId, "", 12, "", "", false, 1l))
     StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
-    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
     val res: Future[Option[RegistrationResult]] = identityVerification.continue("")(UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User)), hc, ec)
-    res.futureValue must be(Some(EnrolmentSuccess(1l)))
+    res.futureValue must be(Some(RegistrationSuccess(1l)))
   }
 
   "continue" should "return a failed registration result if registration failed for a new individual" in new TestCase {

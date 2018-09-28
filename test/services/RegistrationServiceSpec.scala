@@ -43,7 +43,7 @@ class RegistrationServiceSpec extends ServiceSpec {
         UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
       )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
 
-    res.futureValue must be(EnrolmentSuccess(2L))
+    res.futureValue must be(RegistrationSuccess(2L))
   }
 
   trait TestCase {

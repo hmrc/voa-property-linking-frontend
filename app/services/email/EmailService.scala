@@ -25,15 +25,12 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class EmailService @Inject()(emailConnector: EmailConnector){
+class EmailService @Inject()(emailConnector: EmailConnector) {
 
-  def sendNewEnrolmentSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
+  def sendNewRegistrationSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
     send(EmailRequest.registration(to, detailedIndividualAccount))
-
-  def sendMigrationEnrolmentSuccess(to: String, personId: Long, name: String)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
-    send(EmailRequest.migration(to, personId, name))
 
   private def send(emailRequest: EmailRequest)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
     emailConnector
-      .send(emailRequest).recover{case _: Throwable => ()}
+      .send(emailRequest).recover { case _: Throwable => () }
 }

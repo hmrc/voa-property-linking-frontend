@@ -111,7 +111,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
               registrationService
                 .create(success.toGroupDetails(fieldData), ctx)(success.toIndividualAccountSubmission(fieldData))(hc, ec)
                 .map {
-                  case EnrolmentSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
+                  case RegistrationSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
                   case EnrolmentFailure => InternalServerError(Global.internalServerErrorTemplate)
                   case DetailsMissing => InternalServerError(Global.internalServerErrorTemplate)
                 }

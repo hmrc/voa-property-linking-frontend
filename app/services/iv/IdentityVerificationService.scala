@@ -70,7 +70,7 @@ class IvService @Inject()(
   protected val successUrl: String = config.baseUrl + controllers.routes.IdentityVerification.success().url
 
   def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages) = obj match {
-    case EnrolmentSuccess(personId) => Redirect(controllers.registration.routes.RegistrationController.success(personId))
+    case RegistrationSuccess(personId) => Redirect(controllers.registration.routes.RegistrationController.success(personId))
     case EnrolmentFailure => InternalServerError(Global.internalServerErrorTemplate)
     case DetailsMissing => InternalServerError(Global.internalServerErrorTemplate)
   }

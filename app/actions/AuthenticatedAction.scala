@@ -16,21 +16,17 @@
 
 package actions
 
-import javax.inject.Inject
-
 import auth.GovernmentGatewayProvider
 import config.{ApplicationConfig, Global}
 import connectors._
-import models.{Accounts, DetailedIndividualAccount, GroupAccount}
+import javax.inject.Inject
+import models.{DetailedIndividualAccount, GroupAccount}
 import play.api.Logger
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results._
 import play.api.mvc._
-import services.email.EmailService
-import services.{EnrolmentResult, EnrolmentService, Failure, Success}
 import uk.gov.hmrc.auth.core._
-import uk.gov.hmrc.auth.core.retrieve._
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 

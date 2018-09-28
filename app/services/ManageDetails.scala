@@ -16,6 +16,7 @@
 
 package services
 
+import config.ApplicationConfig
 import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
 import javax.inject.Inject
 import models.Address
@@ -31,7 +32,7 @@ trait ManageDetails {
                     (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult]
 }
 
-class ManageVoaDetails @Inject()(taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, vPLAuthConnector: VPLAuthConnector) extends ManageDetails with RequestContext {
+class ManageVoaDetails @Inject()(taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, vPLAuthConnector: VPLAuthConnector, config: ApplicationConfig) extends ManageDetails with RequestContext {
   def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(predicate: AffinityGroup => Boolean)
                     (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult] = {
     def withAddress(addressId: Long, addressType: String): Future[Option[Address]] =
@@ -42,7 +43,7 @@ class ManageVoaDetails @Inject()(taxEnrolments: TaxEnrolmentConnector, addresses
       updatedOpt <- withAddress(addressId, "updated")
       affinityGroup <- vPLAuthConnector.getUserDetails.map(_.userInfo.affinityGroup)
       is = predicate(affinityGroup)
-      result <- update(currentOpt, updatedOpt, personId, is)
+      result <- if (config.stubEnrolment) Future.successful(Success) else update(currentOpt, updatedOpt, personId, is)
     } yield result
   }
 
