@@ -17,7 +17,7 @@
 package controllers
 
 import controllers.registration.RegistrationController
-import models.registration.{EnrolmentSuccess, UserInfo}
+import models.registration.{RegistrationSuccess, UserInfo}
 import models.identityVerificationProxy.Link
 import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers._
@@ -258,7 +258,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Submitting a valid individual form" should "return a redirect" in {
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubVplAuthConnector.stubGroupId(groupId)
@@ -302,7 +302,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "Submitting a valid organisation form" should "return a redirect" in {
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubVplAuthConnector.stubGroupId(groupId)
     StubVplAuthConnector.stubExternalId(externalId)

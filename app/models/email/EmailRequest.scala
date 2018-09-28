@@ -33,7 +33,4 @@ object EmailRequest {
       )
     )
 
-  def migration(to: String, personId: Long, name: String): EmailRequest =
-    EmailRequest(List(to), "cca_enrolment_migration_confirmation", Map("personId" -> personId.toString, "name" -> name))
-
 }

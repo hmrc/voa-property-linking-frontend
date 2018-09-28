@@ -41,7 +41,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     StubVplAuthConnector.stubGroupId("groupwithoutaccount")
     StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
@@ -55,7 +55,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     StubVplAuthConnector.stubGroupId("groupwithoutaccount")
     StubVplAuthConnector.stubUserDetails("externalId", testIndividualInfo)
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
