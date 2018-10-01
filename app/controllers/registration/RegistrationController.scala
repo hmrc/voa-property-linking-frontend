@@ -35,6 +35,7 @@ import services.iv.IdentityVerificationService
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
 import uk.gov.hmrc.auth.core.{Admin, Assistant, User}
 import uk.gov.hmrc.http.HeaderCarrier
+import models.registration.AdminInExistingOrganisationAccountDetails._
 
 import scala.concurrent.Future
 
@@ -85,6 +86,38 @@ class RegistrationController @Inject()(ggAction: VoaAction,
         errors => BadRequest(views.html.createAccount.register_organisation(errors, FieldData())),
         success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
           Redirect(controllers.routes.IdentityVerification.startIv)
+        }
+      )
+  }
+
+  def submitAdminToExistingOrganisation() = ggAction.async(isSession = false) { ctx =>
+    implicit request =>
+      AdminInExistingOrganisationUser.organisation.bindFromRequest().fold(
+        errors => {
+          getCompanyDetails(ctx).map {
+            case Some(fieldData) => {
+              BadRequest(
+                views.html.createAccount.register_assistant_admin(
+                  errors,
+                  fieldData
+                ))
+            }
+            case _ => {
+              unableToRetrieveCompanyDetails
+            }
+          }
+        },
+        success => {
+          getCompanyDetails(ctx).flatMap {
+            case Some(fieldData) => {
+              personalDetailsSessionRepo.saveOrUpdate(success.toGroupAccountDetails(fieldData)) map { _ =>
+                Redirect(controllers.routes.IdentityVerification.startIv)
+              }
+            }
+            case _ => {
+              unableToRetrieveCompanyDetails
+            }
+          }
         }
       )
   }
@@ -143,7 +176,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
         userDetails.userInfo.credentialRole match {
           case Admin | User =>
             Ok(views.html.createAccount.register_assistant_admin(
-              AdminUser.organisation,
+              AdminInExistingOrganisationUser.organisation,
               fieldData))
           case Assistant =>
             Ok(views.html.createAccount.register_assistant(
