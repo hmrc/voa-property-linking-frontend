@@ -101,6 +101,7 @@ GET         /planned-improvements                                               
 #Enrolment page
 GET         /complete-contact-details                                                         @controllers.registration.RegistrationController.show()
 POST        /complete-business-contact-details                                                @controllers.registration.RegistrationController.submitOrganisation()
+POST        /complete-existing-business-contact-details                                       @controllers.registration.RegistrationController.submitAdminToExistingOrganisation()
 POST        /complete-your-contact-details                                                    @controllers.registration.RegistrationController.submitIndividual()
 POST        /complete-business-contact-details-assistant                                      @controllers.registration.RegistrationController.submitAssistant()
 GET         /create-success                                                                   @controllers.registration.RegistrationController.success(personId: Long)

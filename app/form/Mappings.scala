@@ -43,10 +43,10 @@ object Mappings extends DateMappings {
 
   val addressMapping: Mapping[Address] = mapping(
     "addressId" -> addressId,
-    "line1" -> nonEmptyText(maxLength = 80),
-    "line2" -> IfCondition(line3IsLast(), text(maxLength = 80)).elseIf(line4IsLast(), text(maxLength = 80)).default(text(maxLength = 30), ""),
-    "line3" -> IfCondition(line4IsLast(), text(maxLength = 35)).default(text(maxLength = 30), ""),
-    "line4" -> default(text(maxLength = 30), ""),
+    "line1" -> nonEmptyText(maxLength = 36),
+    "line2" -> text(maxLength = 36),
+    "line3" -> text(maxLength = 36),
+    "line4" -> text(maxLength = 36),
     "postcode" -> nonEmptyText(maxLength = 8).transform[String](_.toUpperCase, identity)
   )(Address.apply)(Address.unapply)
 

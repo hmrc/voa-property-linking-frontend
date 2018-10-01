@@ -28,7 +28,6 @@ import play.api.libs.json.{Format, JsObject, JsResult, JsValue}
 import uk.gov.hmrc.domain.Nino
 import views.helpers.Errors
 
-
 trait AdminUser {
 
   val firstName: String

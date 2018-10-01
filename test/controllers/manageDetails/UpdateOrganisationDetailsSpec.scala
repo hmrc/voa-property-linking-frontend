@@ -72,6 +72,9 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     val validData = Seq(
       "address.addressId" -> "1234567890",
       "address.line1" -> "1, The Place",
+      "address.line2" -> "",
+      "address.line3" -> "",
+      "address.line4" -> "",
       "address.postcode" -> "AA11 1AA"
     )
 
@@ -91,6 +94,9 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
 
     val validData = Seq(
       "address.line1" -> "1, The Place",
+      "address.line2" -> "",
+      "address.line3" -> "",
+      "address.line4" -> "",
       "address.postcode" -> "AA11 1AA"
     )
 
