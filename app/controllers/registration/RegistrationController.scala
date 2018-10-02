@@ -109,7 +109,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
         success => {
           getCompanyDetails(ctx).flatMap {
             case Some(fieldData) => {
-              personalDetailsSessionRepo.saveOrUpdate(success.toGroupAccountDetails(fieldData)) map { _ =>
+              personalDetailsSessionRepo.saveOrUpdate(success.toAdminOrganisationAccountDetails(fieldData)) map { _ =>
                 Redirect(controllers.routes.IdentityVerification.startIv)
               }
             }
