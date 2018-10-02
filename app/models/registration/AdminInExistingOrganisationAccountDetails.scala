@@ -26,13 +26,17 @@ case class AdminInExistingOrganisationAccountDetails(firstName: String,
                                                      dob: LocalDate,
                                                      nino: Nino) extends AdminInExistingOrganisationUser {
 
-  def toGroupAccountDetails(fieldData: FieldData) = GroupAccountDetails(
+  def toAdminOrganisationAccountDetails(fieldData: FieldData) = AdminOrganisationAccountDetails(
     companyName = fieldData.businessName,
     address = fieldData.businessAddress,
     email = fieldData.email,
     confirmedEmail = fieldData.email,
     phone = fieldData.businessPhoneNumber,
-    isAgent = fieldData.isAgent
+    isAgent = fieldData.isAgent,
+    firstName = firstName,
+    lastName = lastName,
+    dob = dob,
+    nino = nino
   )
 }
 
