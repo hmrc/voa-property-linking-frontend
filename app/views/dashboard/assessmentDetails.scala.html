@@ -22,10 +22,10 @@
 @(model: controllers.AssessmentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 <details class="print-hide">
-    <summary role="button" aria-controls="details-content-1" aria-expanded="false">
+    <summary role="button" aria-controls="details-content-valuations" aria-expanded="false">
         <span class="summary">@Messages("assessments.title")</span>
     </summary>
-    <div id="details-content-1">
+    <div id="details-content-valuations">
         <p>@Messages("property.details.valuation.p")</p>
         @if(model.form.hasErrors) {
             @for(error <- model.form.errors("viewAssessmentRadio")) {

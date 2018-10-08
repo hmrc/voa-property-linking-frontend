@@ -24,9 +24,7 @@
 
 @row(submittedDate: LocalDateTime, submittedID: String, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String) = {
     <tr>
-        <td>
-            @(Formatters.formatDateTimeToDate(submittedDate))
-        </td>
+        <td>@(Formatters.formatDateTimeToDate(submittedDate))</td>
         <td>@submittedID</td>
         <td>@status</td>
         <td><a href="@config.businessRatesCheckCaseSummaryUrl(checkReference)">@checkReference</a></td>
@@ -38,11 +36,11 @@
 @if(model.checkCases.isDefined) {
 
   <details class="print-hide">
-        <summary role="button" aria-controls="details-content-1" aria-expanded="false">
+        <summary role="button" aria-controls="details-content-checkcases" aria-expanded="false">
             <span class="summary">@Messages("property.details.div.submitted")</span>
         </summary>
-        <div id="details-content-1">
-            <table id="middle-radio-buttons" class="margin-bottom-10 margin-top-10">
+        <div id="details-content-checkcases">
+            <table id="checkcases-table" class="margin-bottom-10 margin-top-10">
                 <tbody>
                     <tr>
                         <th><span class="margin-left-5">@Messages("property.details.cases.table.1")</span></th>
