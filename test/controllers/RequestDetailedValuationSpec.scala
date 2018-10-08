@@ -18,8 +18,9 @@ package controllers
 
 import java.time.LocalDate
 
+import actions.BasicAuthenticatedRequest
 import config.ApplicationConfig
-import connectors.{Authenticated, DVRCaseManagementConnector, SubmissionIdConnector}
+import connectors.{Authenticated, CheckCaseConnector, DVRCaseManagementConnector, SubmissionIdConnector}
 import models._
 import org.mockito.ArgumentMatchers._
 import org.mockito.ArgumentMatchers.{eq => matching}
@@ -29,15 +30,19 @@ import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import utils.{HtmlPage, StubAuthentication, StubBusinessRatesValuation, StubPropertyLinkConnector}
+import utils._
 
 import scala.concurrent.Future
 import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
-class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
+class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSugar with TestCheckCasesData{
+
+  val mockCheckCaseConnector = mock[CheckCaseConnector]
 
   private object TestAssessments extends Assessments( StubPropertyLinkConnector,
-    StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation)
+    StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation, mockCheckCaseConnector, StubBusinessRatesAuthorisation)
+
+  when(mockCheckCaseConnector.getCheckCases(any[Long], any[Boolean])(any[BasicAuthenticatedRequest[_]])).thenReturn(Future.successful(Some(ownerCheckCasesResponse)))
 
   lazy val mockDvrCaseManagement = {
     val m = mock[DVRCaseManagementConnector]

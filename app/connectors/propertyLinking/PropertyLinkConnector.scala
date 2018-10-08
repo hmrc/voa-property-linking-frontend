@@ -102,7 +102,10 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   }
 
   def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
-    http.GET[Option[PropertyLink]](s"$baseUrl/dashboard/assessments/$authorisationId") recover { case _: NotFoundException => None }
+    http.GET[Option[PropertyLink]](s"$baseUrl/dashboard/assessments/$authorisationId") recover {
+      case _: NotFoundException =>
+        None
+    }
   }
 }
 

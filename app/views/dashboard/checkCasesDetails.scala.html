@@ -1,0 +1,74 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import actions.AuthenticatedRequest
+@import utils.Formatters
+@import config.ApplicationConfig
+
+@import java.time.LocalDateTime
+@import java.time.LocalDate
+@(model: controllers.AssessmentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+
+@row(submittedDate: LocalDateTime, submittedID: String, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String) = {
+    <tr>
+        <td>@(Formatters.formatDateTimeToDate(submittedDate))</td>
+        <td>@submittedID</td>
+        <td>@status</td>
+        <td><a href="@config.businessRatesCheckCaseSummaryUrl(checkReference)">@checkReference</a></td>
+        <td>@if(closedDate.isDefined){@Formatters.formatDate(closedDate.get)}</td>
+        <td>@clientOrAgent</td>
+    </tr>
+}
+
+@if(model.checkCases.isDefined) {
+
+  <details class="print-hide">
+        <summary role="button" aria-controls="details-content-checkcases" aria-expanded="false">
+            <span class="summary">@Messages("property.details.div.submitted")</span>
+        </summary>
+        <div id="details-content-checkcases">
+            <table id="checkcases-table" class="margin-bottom-10 margin-top-10">
+                <tbody>
+                    <tr>
+                        <th><span class="margin-left-5">@Messages("property.details.cases.table.1")</span></th>
+                        <th><span class="margin-left-5">@Messages("property.details.cases.table.2")</span></th>
+                        <th><span class="margin-left-5">@Messages("property.details.cases.table.3")</span></th>
+                        <th><span class="margin-left-5">@Messages("property.details.cases.table.4")</span></th>
+                        <th><span class="margin-left-5">@Messages("property.details.cases.table.5")</span></th>
+                        @if(request.organisationAccount.isAgent && !model.isAgentOwnProperty) {
+                            <th><span class="margin-left-5">@Messages("property.details.cases.table.6")</span></th>
+                        }else{
+                            <th><span class="margin-left-5">@Messages("property.details.cases.table.6")</span></th>
+                        }
+                    </tr>
+
+                    @model.checkCases.get match {
+                        case ownerResponse: OwnerCheckCasesResponse => { }
+                        case agentResponse: AgentCheckCasesResponse => {
+
+                            @agentResponse.checkCases.map { checkCase =>
+                                @row(checkCase.createdDateTime, checkCase.checkCaseSubmissionId, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.client.organisationName)
+                            }
+
+                        }
+                    }
+                </tbody>
+            </table>
+
+
+        </div>
+    </details>
+}

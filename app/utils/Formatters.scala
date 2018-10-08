@@ -16,7 +16,7 @@
 
 package utils
 
-import java.time.{LocalDate, LocalTime}
+import java.time.{LocalDate, LocalDateTime, LocalTime}
 import java.time.format.DateTimeFormatter
 
 import models.{Address, PropertyAddress}
@@ -39,6 +39,10 @@ object Formatters {
   }
 
   def formatDate(date: LocalDate): String = {
+    date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
+  }
+
+  def formatDateTimeToDate(date: LocalDateTime): String = {
     date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
   }
 

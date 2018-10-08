@@ -19,14 +19,19 @@ package connectors
 import javax.inject.Inject
 
 import config.{AuthorisationFailed, WSHttp}
-import models.Accounts
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import models.{Accounts, PropertyLinkIds}
+import play.api.libs.json._
 import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.http.ForbiddenException
 
 import scala.concurrent.Future
 import uk.gov.hmrc.http.{HeaderCarrier, Upstream4xxResponse}
+import uk.gov.hmrc.play.http.logging.MdcLoggingExecutionContext._
+
 class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp) {
   val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
+
+
 
   def authenticate(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
     http.GET[Accounts](s"$url/authenticate") map {
@@ -59,6 +64,14 @@ class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp)
     case "TRUST_ID_MISMATCH" => IncorrectTrustId
     case "INVALID_ACCOUNT_TYPE" => InvalidAccountType
     case "NON_GROUPID_ACCOUNT" => NonGroupIDAccount
+  }
+
+  def isAgentOwnProperty(authorisationId: Long)
+                        (implicit hc: HeaderCarrier): Future[Boolean] = {
+    http.GET[PropertyLinkIds](s"$url/$authorisationId/ids") map {
+      ids  =>
+      ids.caseCreator.organisationId == ids.interestedParty.organisationId
+    } recover { case Upstream4xxResponse(_, 403, _, _) => throw new ForbiddenException("Not Authorised") }
   }
 
 }
