@@ -36,9 +36,9 @@ class CheckCaseConnector @Inject()(config: ApplicationConfig, http: WSHttp){
       .withExtraHeaders(("GG-GROUP-ID" -> request.organisationAccount.groupId))
 
       if(request.organisationAccount.isAgent && !isAgentOwnProperty) {
-        http.GET[Option[OwnerCheckCasesResponse]](s"$url/my-organisation/clients/all/property-links/$authorisationId/check-cases?start=1&size=15&sortField=createdDateTime&sortOrder=ASC") recover { case _: NotFoundException => None }
+        http.GET[Option[AgentCheckCasesResponse]](s"$url/my-organisation/clients/all/property-links/$authorisationId/check-cases?start=1&size=15&sortField=createdDateTime&sortOrder=ASC") recover { case _: NotFoundException => None }
       }else{
-        http.GET[Option[AgentCheckCasesResponse]](s"$url/my-organisation/property-links/$authorisationId/check-cases?start=1&size=15&sortField=createdDateTime&sortOrder=ASC") recover { case _: NotFoundException => None }
+        http.GET[Option[OwnerCheckCasesResponse]](s"$url/my-organisation/property-links/$authorisationId/check-cases?start=1&size=15&sortField=createdDateTime&sortOrder=ASC") recover { case _: NotFoundException => None }
       }
 
   }
