@@ -49,14 +49,19 @@
                         <th><span class="margin-left-5">@Messages("property.details.cases.table.4")</span></th>
                         <th><span class="margin-left-5">@Messages("property.details.cases.table.5")</span></th>
                         @if(request.organisationAccount.isAgent && !model.isAgentOwnProperty) {
-                            <th><span class="margin-left-5">@Messages("property.details.cases.table.6")</span></th>
+                            <th><span class="margin-left-5">@Messages("property.details.cases.table.7")</span></th>
                         }else{
                             <th><span class="margin-left-5">@Messages("property.details.cases.table.6")</span></th>
                         }
                     </tr>
 
                     @model.checkCases.get match {
-                        case ownerResponse: OwnerCheckCasesResponse => { }
+                        case ownerResponse: OwnerCheckCasesResponse => {
+
+                            @ownerResponse.checkCases.map { checkCase =>
+                                @row(checkCase.createdDateTime, checkCase.checkCaseSubmissionId, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.agent.fold("")(_.organisationName))
+                            }
+                            }
                         case agentResponse: AgentCheckCasesResponse => {
 
                             @agentResponse.checkCases.map { checkCase =>

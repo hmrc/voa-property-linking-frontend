@@ -62,7 +62,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
     m
   }
 
-  "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment" in {
+  "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment, agent check cases" in {
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
     val link = arbitrary[PropertyLink].sample.get.copy()
@@ -92,6 +92,38 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
     checkCasesTable.map(_.get(1).text.trim).head mustBe  agentCheckCase.checkCaseSubmissionId
     checkCasesTable.map(_.get(2).text.trim).head mustBe  agentCheckCase.checkCaseStatus
     checkCasesTable.map(_.get(4).text.trim).head mustBe  Formatters.formatDate(agentCheckCase.settledDate.get)
+  }
+
+  "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment, Owner Check cases" in {
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy()
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
+    StubPropertyLinkConnector.stubLink(link)
+
+    when(mockCheckCaseConnector.getCheckCases(any[Long], any[Boolean])(any[BasicAuthenticatedRequest[_]])).thenReturn(Future.successful(Some(ownerCheckCasesResponse)))
+
+    val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    val assessmentTable = html.getElementById("viewAssessmentRadioGroup").select("tr").asScala.tail.map(_.select("td"))
+
+    assessmentTable.map(_.first().text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.effectiveDate))
+    assessmentTable.map(_.get(1).text) must contain theSameElementsAs link.assessments.map(a => "£" + a.rateableValue.getOrElse("N/A"))
+    assessmentTable.map(_.get(2).text) must contain theSameElementsAs link.assessments.map(formatCapacity)
+    assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.capacity.fromDate))
+    assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map(a => a.capacity.toDate.map(Formatters.formatDate).getOrElse("Present"))
+
+
+    val ownerCheckCasesTable = html.getElementById("checkcases-table").select("tr").asScala.tail.map(_.select("td"))
+
+    ownerCheckCasesTable.map(_.get(0).text.trim).head mustBe  Formatters.formatDateTimeToDate(ownerCheckCase.createdDateTime)
+    ownerCheckCasesTable.map(_.get(1).text.trim).head mustBe  ownerCheckCase.checkCaseSubmissionId
+    ownerCheckCasesTable.map(_.get(2).text.trim).head mustBe  ownerCheckCase.checkCaseStatus
+    ownerCheckCasesTable.map(_.get(4).text.trim).head mustBe  Formatters.formatDate(ownerCheckCase.settledDate.get)
   }
 
   private def formatCapacity(assessment: Assessment) = assessment.capacity.capacity match {
