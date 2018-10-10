@@ -24,22 +24,24 @@ import models._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.hmrc.play.config.inject.ServicesConfig
 
 import scala.concurrent.Future
 
-class CheckCaseConnector @Inject()(config: ApplicationConfig, http: WSHttp){
-  val url = config.externalCaseManagementApiUrl
+class CheckCaseConnector @Inject()(config: ServicesConfig, http: WSHttp){
+  lazy val baseUrl: String = config.baseUrl("external-business-rates-data-platform")
+
 
   def getCheckCases(authorisationId: Long, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_]): Future[Option[CheckCasesResponse]] = {
     implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.request.headers, Some(request.request.session))
       .withExtraHeaders(("GG-EXTERNAL-ID" -> request.individualAccount.externalId))
       .withExtraHeaders(("GG-GROUP-ID" -> request.organisationAccount.groupId))
 
-      if(request.organisationAccount.isAgent && !isAgentOwnProperty) {
-        http.GET[Option[AgentCheckCasesResponse]](s"$url/my-organisation/clients/all/property-links/$authorisationId/check-cases?start=1&size=15&sortField=createdDateTime&sortOrder=ASC") recover { case _: NotFoundException => None }
-      }else{
-        http.GET[Option[OwnerCheckCasesResponse]](s"$url/my-organisation/property-links/$authorisationId/check-cases?start=1&size=15&sortField=createdDateTime&sortOrder=ASC") recover { case _: NotFoundException => None }
-      }
+    if(request.organisationAccount.isAgent && !isAgentOwnProperty) {
+      http.GET[Option[AgentCheckCasesResponse]](s"$baseUrl/external-case-management-api/my-organisation/clients/all/property-links/$authorisationId/check-cases?start=1&size=15&sortField=createdDateTime&sortOrder=ASC") recover { case _: NotFoundException => None }
+    }else{
+      http.GET[Option[OwnerCheckCasesResponse]](s"$baseUrl/external-case-management-api/my-organisation/property-links/$authorisationId/check-cases?start=1&size=15&sortField=createdDateTime&sortOrder=ASC") recover { case _: NotFoundException => None }
+    }
 
   }
 }
