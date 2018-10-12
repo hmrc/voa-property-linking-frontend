@@ -17,9 +17,9 @@
 package models
 
 import java.time.{LocalDate, LocalDateTime}
-import play.api.libs.json.Json
-import play.api.libs.json.Json._
 
+import ai.x.play.json.Jsonx
+import play.api.libs.json.{Json, OFormat, Format}
 sealed case class CheckStatus(value: String)
 
 sealed trait CheckCasesResponse{
@@ -70,7 +70,7 @@ case class AgentCheckCasesResponse(start: Int,
 }
 
 object AgentCheckCasesResponse {
-  implicit val formatCheckStatus = Json.format[CheckStatus]
+  implicit val formatCheckStatus: OFormat[CheckStatus] = Json.format[CheckStatus]
   implicit val formatClient = Json.format[Client]
   implicit val formatAgentCheckCase = Json.format[AgentCheckCase]
   implicit val formatCheckCasesResponse = Json.format[AgentCheckCasesResponse]
@@ -124,3 +124,8 @@ object AgentCheckCase {
   implicit val formatAgentCheckCase = Json.format[AgentCheckCase]
 }
 
+object CheckCasesResponse {
+  implicit val checkCasesResponseReadFormat: Format[CheckCasesResponse] = {
+    Jsonx.formatSealed[CheckCasesResponse]
+  }
+}

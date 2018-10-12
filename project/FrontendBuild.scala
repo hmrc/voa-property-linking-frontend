@@ -32,6 +32,7 @@ private object AppDependencies {
   val compile = Seq(
     filters,
     ws,
+    "ai.x" %% "play-json-extensions" % "0.9.0",
     "uk.gov.hmrc" %% "play-reactivemongo" % playReactivemongoVersion,
     "com.codahale.metrics" % "metrics-graphite" % "3.0.1",
     "uk.gov.hmrc" %% "auth-client" % "2.5.0",

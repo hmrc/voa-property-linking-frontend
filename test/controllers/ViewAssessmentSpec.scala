@@ -70,7 +70,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
-    when(mockCheckCaseConnector.getCheckCases(any[Long], any[Boolean])(any[BasicAuthenticatedRequest[_]])).thenReturn(Future.successful(Some(agentCheckCasesResponse)))
+    when(mockCheckCaseConnector.getCheckCases(any[Long], any[Boolean])(any[BasicAuthenticatedRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(Some(agentCheckCasesResponse)))
 
     val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
     status(res) mustBe OK
@@ -102,7 +102,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
-    when(mockCheckCaseConnector.getCheckCases(any[Long], any[Boolean])(any[BasicAuthenticatedRequest[_]])).thenReturn(Future.successful(Some(ownerCheckCasesResponse)))
+    when(mockCheckCaseConnector.getCheckCases(any[Long], any[Boolean])(any[BasicAuthenticatedRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(Some(ownerCheckCasesResponse)))
 
     val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
     status(res) mustBe OK

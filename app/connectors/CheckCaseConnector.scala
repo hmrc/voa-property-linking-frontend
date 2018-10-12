@@ -22,26 +22,25 @@ import actions.BasicAuthenticatedRequest
 import config.{ApplicationConfig, WSHttp}
 import models._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.http.NotFoundException
-import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
 class CheckCaseConnector @Inject()(config: ServicesConfig, http: WSHttp){
-  lazy val baseUrl: String = config.baseUrl("external-business-rates-data-platform")
+  lazy val baseUrl: String = s"${config.baseUrl("property-linking")}/property-linking"
 
 
-  def getCheckCases(authorisationId: Long, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_]): Future[Option[CheckCasesResponse]] = {
-    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.request.headers, Some(request.request.session))
-      .withExtraHeaders(("GG-EXTERNAL-ID" -> request.individualAccount.externalId))
-      .withExtraHeaders(("GG-GROUP-ID" -> request.organisationAccount.groupId))
+  def getCheckCases(authorisationId: Long, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CheckCasesResponse]] = {
+    val interestedParty =  request.organisationAccount.isAgent && !isAgentOwnProperty match {
+        case true => "agent"
+        case false => "client"
+      }
 
-    if(request.organisationAccount.isAgent && !isAgentOwnProperty) {
-      http.GET[Option[AgentCheckCasesResponse]](s"$baseUrl/external-case-management-api/my-organisation/clients/all/property-links/$authorisationId/check-cases?start=1&size=15&sortField=createdDateTime&sortOrder=ASC") recover { case _: NotFoundException => None }
-    }else{
-      http.GET[Option[OwnerCheckCasesResponse]](s"$baseUrl/external-case-management-api/my-organisation/property-links/$authorisationId/check-cases?start=1&size=15&sortField=createdDateTime&sortOrder=ASC") recover { case _: NotFoundException => None }
+    http.GET[CheckCasesResponse](s"$baseUrl/check-cases/${authorisationId}/${interestedParty}").map{
+      case ownerResponse: OwnerCheckCasesResponse => Some(ownerResponse)
+      case agentResponse: AgentCheckCasesResponse => Some(agentResponse)
+      case _ => None
     }
-
   }
 }

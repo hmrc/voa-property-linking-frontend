@@ -42,7 +42,7 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
   private object TestAssessments extends Assessments( StubPropertyLinkConnector,
     StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation, mockCheckCaseConnector, StubBusinessRatesAuthorisation)
 
-  when(mockCheckCaseConnector.getCheckCases(any[Long], any[Boolean])(any[BasicAuthenticatedRequest[_]])).thenReturn(Future.successful(Some(ownerCheckCasesResponse)))
+  when(mockCheckCaseConnector.getCheckCases(any[Long], any[Boolean])(any[BasicAuthenticatedRequest[_]],any[HeaderCarrier])).thenReturn(Future.successful(Some(ownerCheckCasesResponse)))
 
   lazy val mockDvrCaseManagement = {
     val m = mock[DVRCaseManagementConnector]
