@@ -44,7 +44,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
       for {
         propertyAssessments <- propertyLinks.getLink(authorisationId)
         isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-        checkCases <- checkCaseConnector.getCheckCases(authorisationId, isAgentOwnProperty)
+        checkCases <- checkCaseConnector.getCheckCases(propertyAssessments, isAgentOwnProperty)
       } yield {
         propertyAssessments.fold(notFound) {
           case PropertyLink(_, _, _, _, _, _, _, _, Seq(), _) => notFound
@@ -84,7 +84,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
           for {
             propertyAssessments <- propertyLinks.getLink(authorisationId)
             isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-            checkCases <- checkCaseConnector.getCheckCases(authorisationId, isAgentOwnProperty)
+            checkCases <- checkCaseConnector.getCheckCases(propertyAssessments, isAgentOwnProperty)
           } yield {
             propertyAssessments.fold(notFound) {
               case PropertyLink(_, _, _, _, _, _, _, _, Seq(), _) => notFound
