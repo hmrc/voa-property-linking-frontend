@@ -100,7 +100,7 @@ case class OwnerCheckCase(checkCaseSubmissionId: String,
                           createdDateTime: LocalDateTime,
                           settledDate: Option[LocalDate],
                           agent: Option[Agent],
-                          organisationId: Long)
+                          submittedBy: String)
                           extends CheckCase
 
 object OwnerCheckCase {
@@ -116,7 +116,7 @@ case class AgentCheckCase(checkCaseSubmissionId: String,
                           createdDateTime: LocalDateTime,
                           settledDate: Option[LocalDate],
                           client: Client,
-                          organisationId: Long)
+                          submittedBy: String)
                           extends CheckCase
 
 object AgentCheckCase {

@@ -29,7 +29,7 @@ trait TestCheckCasesData{
     createdDateTime = LocalDateTime.now(),
     settledDate = Some(LocalDate.now()),
     agent = Some(Agent(10000L, 10000L, "Agent -1")),
-    organisationId =100000L)
+    submittedBy ="ABC")
 
   lazy val agentCheckCase = AgentCheckCase(checkCaseSubmissionId ="123344",
     checkCaseReference = "CHK-1234",
@@ -39,7 +39,7 @@ trait TestCheckCasesData{
     createdDateTime = LocalDateTime.now(),
     settledDate = Some(LocalDate.now()),
     client = Client(10000L, "Client -1"),
-    organisationId =100000L)
+    submittedBy ="ABC")
 
   lazy val ownerCheckCasesResponse = OwnerCheckCasesResponse(start = 1,
                                      size = 15,
