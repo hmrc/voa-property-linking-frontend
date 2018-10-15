@@ -33,8 +33,8 @@ class CheckCaseConnector @Inject()(config: ServicesConfig, http: WSHttp){
 
   def getCheckCases(authorisationId: Long, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CheckCasesResponse]] = {
     val interestedParty =  request.organisationAccount.isAgent && !isAgentOwnProperty match {
-        case true => "client"
-        case false => "agent"
+        case true => "agent"
+        case false => "client"
       }
 
     http.GET[CheckCasesResponse](s"$baseUrl/check-cases/${authorisationId}/${interestedParty}").map{
