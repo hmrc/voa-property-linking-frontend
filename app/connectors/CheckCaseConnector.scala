@@ -31,16 +31,22 @@ class CheckCaseConnector @Inject()(config: ServicesConfig, http: WSHttp){
   lazy val baseUrl: String = s"${config.baseUrl("property-linking")}/property-linking"
 
 
-  def getCheckCases(authorisationId: Long, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CheckCasesResponse]] = {
-    val interestedParty =  request.organisationAccount.isAgent && !isAgentOwnProperty match {
-        case true => "agent"
-        case false => "client"
-      }
+  def getCheckCases(propertyLink: Option[PropertyLink], isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CheckCasesResponse]] = {
 
-    http.GET[CheckCasesResponse](s"$baseUrl/check-cases/${authorisationId}/${interestedParty}").map{
-      case ownerResponse: OwnerCheckCasesResponse => Some(ownerResponse)
-      case agentResponse: AgentCheckCasesResponse => Some(agentResponse)
-      case _ => None
+    propertyLink match {
+      case Some(link) => {
+          val interestedParty =  request.organisationAccount.isAgent && !isAgentOwnProperty match {
+            case true => "agent"
+            case false => "client"
+          }
+          http.GET[CheckCasesResponse](s"$baseUrl/check-cases/${link.submissionId}/${interestedParty}").map{
+            case ownerResponse: OwnerCheckCasesResponse => Some(ownerResponse)
+            case agentResponse: AgentCheckCasesResponse => Some(agentResponse)
+            case _ => None
+          }
+      }
+      case _ => Future.successful(None)
     }
+
   }
 }
