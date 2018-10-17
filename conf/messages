@@ -328,8 +328,7 @@ property.details.cases.table.4=Check reference
 property.details.cases.table.5=Closed date
 property.details.cases.table.6=Agent
 property.details.cases.table.7=Client
-
-
+property.details.cases.table.8=Submitted By
 
 assessments.title=Valuations
 assessments.table.caption=Valuations
