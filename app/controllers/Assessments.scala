@@ -40,23 +40,37 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
   def assessments(authorisationId: Long) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
     val backLink = request.headers.get("Referer")
 
-    if(config.checkCasesEnabled) {
-      for {
-        propertyAssessments <- propertyLinks.getLink(authorisationId)
-        isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-        checkCases <- checkCaseConnector.getCheckCases(propertyAssessments, isAgentOwnProperty) if propertyAssessments.fold(false)(pending => pending != true)
-      } yield {
-        propertyAssessments.fold(notFound) {
-          case PropertyLink(_, _, _, _, _, _, _, _, Seq(), _) => notFound
-          case link => Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases, isAgentOwnProperty)))
+//    if(config.checkCasesEnabled) {
+//      for {
+//        propertyAssessments <- propertyLinks.getLink(authorisationId)
+//        isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
+//        checkCases <- checkCaseConnector.getCheckCases(authorisationId, isAgentOwnProperty)
+//      } yield {
+//        propertyAssessments.fold(notFound) {
+//          case PropertyLink(_, _, _, _, _, _, _, _, Seq(), _) => notFound
+//          case link => Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases, isAgentOwnProperty)))
+//        }
+//      }
+//    }else{
+//      propertyLinks.getLink(authorisationId) map {
+//        case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
+//        case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending)))
+//        case None => notFound
+//      }
+//    }
+
+    propertyLinks.getLink(authorisationId) map {
+      case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
+      case Some(link) if link.pending == false && config.checkCasesEnabled => {
+        for {
+          isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
+          checkCases <- checkCaseConnector.getCheckCases(authorisationId, isAgentOwnProperty)
+        } yield {
+          Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases, isAgentOwnProperty)))
         }
       }
-    }else{
-      propertyLinks.getLink(authorisationId) map {
-        case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
-        case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending)))
-        case None => notFound
-      }
+      case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending)))
+      case None => notFound
     }
 
   }
@@ -84,11 +98,11 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
           for {
             propertyAssessments <- propertyLinks.getLink(authorisationId)
             isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-            checkCases <- checkCaseConnector.getCheckCases(propertyAssessments, isAgentOwnProperty) if propertyAssessments.fold(false)(pending => pending != true)
+            checkCases <- checkCaseConnector.getCheckCases(authorisationId, isAgentOwnProperty)
           } yield {
             propertyAssessments.fold(notFound) {
               case PropertyLink(_, _, _, _, _, _, _, _, Seq(), _) => notFound
-              case link => BadRequest(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases)))
+              case link => Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases)))
             }
           }
 
