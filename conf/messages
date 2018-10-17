@@ -692,7 +692,7 @@ linkError.conflict.home.link=Manage your properties
 error.select.valuation.required=Please select a Valuation
 requestDetailedValuation.title=This detailed valuation isn’t available to view online.
 requestDetailedValuation.p.1=We’re working to make more detailed valuations available to view online in the next few months. If you need to view this detailed valuation sooner, please request a copy by email or post.
-requestDetailedValuation.p.2=If you don’t want to request this, you can <a href={0}>return to the dashboard.</a>
+requestDetailedValuation.p.2=If you don’t want to request this, you can <a href={0}>return to the home page.</a>
 requestDetailedValuation.p.3=The majority of our customers prefer us to send information by email as it means we can get it to them quicker. Although we take care to protect the security of your property data, we cannot guarantee that your detailed valuation will be secure once sent.
 requestDetailedValuation.p.4=If you’d prefer us to send this by post, we’ll send it to the address that you provided on the ‘your contact details’ page during registration.
 
