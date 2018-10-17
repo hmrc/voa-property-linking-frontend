@@ -22,7 +22,7 @@
 @import java.time.LocalDate
 @(model: controllers.AssessmentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-@row(submittedDate: LocalDateTime, submittedID: String, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String) = {
+@row(submittedDate: LocalDateTime, submittedID: String, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = {
     <tr>
         <td>@(Formatters.formatDateTimeToDate(submittedDate))</td>
         <td>@submittedID</td>
@@ -30,6 +30,7 @@
         <td><a href="@config.businessRatesCheckCaseSummaryUrl(checkReference)">@checkReference</a></td>
         <td>@if(closedDate.isDefined){@Formatters.formatDate(closedDate.get)}</td>
         <td>@clientOrAgent</td>
+        <td>@submittedBy</td>
     </tr>
 }
 
@@ -53,19 +54,21 @@
                         }else{
                             <th><span class="margin-left-5">@Messages("property.details.cases.table.6")</span></th>
                         }
+                        <th><span class="margin-left-5">@Messages("property.details.cases.table.8")</span></th>
+
                     </tr>
 
                     @model.checkCases.get match {
                         case ownerResponse: OwnerCheckCasesResponse => {
 
                             @ownerResponse.checkCases.map { checkCase =>
-                                @row(checkCase.createdDateTime, checkCase.checkCaseSubmissionId, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.agent.fold("")(_.organisationName))
+                                @row(checkCase.createdDateTime, checkCase.checkCaseSubmissionId, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.agent.fold("")(_.organisationName), checkCase.submittedBy)
                             }
                             }
                         case agentResponse: AgentCheckCasesResponse => {
 
                             @agentResponse.checkCases.map { checkCase =>
-                                @row(checkCase.createdDateTime, checkCase.checkCaseSubmissionId, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.client.organisationName)
+                                @row(checkCase.createdDateTime, checkCase.checkCaseSubmissionId, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.client.organisationName, checkCase.submittedBy)
                             }
 
                         }
