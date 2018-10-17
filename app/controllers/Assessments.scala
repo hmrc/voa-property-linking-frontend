@@ -44,7 +44,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
       for {
         propertyAssessments <- propertyLinks.getLink(authorisationId)
         isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-        checkCases <- checkCaseConnector.getCheckCases(propertyAssessments, isAgentOwnProperty)
+        checkCases <- checkCaseConnector.getCheckCases(propertyAssessments, isAgentOwnProperty) if propertyAssessments.fold(false)(pending => pending != true)
       } yield {
         propertyAssessments.fold(notFound) {
           case PropertyLink(_, _, _, _, _, _, _, _, Seq(), _) => notFound
@@ -84,11 +84,11 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
           for {
             propertyAssessments <- propertyLinks.getLink(authorisationId)
             isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-            checkCases <- checkCaseConnector.getCheckCases(propertyAssessments, isAgentOwnProperty)
+            checkCases <- checkCaseConnector.getCheckCases(propertyAssessments, isAgentOwnProperty) if propertyAssessments.fold(false)(pending => pending != true)
           } yield {
             propertyAssessments.fold(notFound) {
               case PropertyLink(_, _, _, _, _, _, _, _, Seq(), _) => notFound
-              case link => Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases)))
+              case link => BadRequest(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases)))
             }
           }
 
