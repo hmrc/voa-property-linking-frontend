@@ -65,7 +65,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
   "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment, agent check cases" in {
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy()
+    val link = arbitrary[PropertyLink].sample.get.copy().copy(pending = false)
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
@@ -97,7 +97,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
   "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment, Owner Check cases" in {
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy()
+    val link = arbitrary[PropertyLink].sample.get.copy().copy(pending = false)
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
