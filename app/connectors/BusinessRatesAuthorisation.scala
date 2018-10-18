@@ -19,7 +19,7 @@ package connectors
 import javax.inject.Inject
 
 import config.{AuthorisationFailed, WSHttp}
-import models.{Accounts, PropertyLinkIds}
+import models.{Accounts, PropertyLink, PropertyLinkIds}
 import play.api.libs.json._
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.http.ForbiddenException
@@ -68,10 +68,8 @@ class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp)
 
   def isAgentOwnProperty(authorisationId: Long)
                         (implicit hc: HeaderCarrier): Future[Boolean] = {
-    http.GET[PropertyLinkIds](s"$url/$authorisationId/ids") map {
-      ids  =>
-      ids.caseCreator.organisationId == ids.interestedParty.organisationId
-    } recover { case Upstream4xxResponse(_, 403, _, _) => throw new ForbiddenException("Not Authorised") }
+    http.GET[PropertyLinkIds](s"$url/$authorisationId/ids") map { ids  =>
+      ids.caseCreator.organisationId == ids.interestedParty.organisationId } recover { case Upstream4xxResponse(_, 403, _, _) => throw new ForbiddenException("Not Authorised") }
   }
 
 }
