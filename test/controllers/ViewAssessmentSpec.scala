@@ -89,9 +89,8 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
     val checkCasesTable = html.getElementById("checkcases-table").select("tr").asScala.tail.map(_.select("td"))
 
     checkCasesTable.map(_.get(0).text.trim).head mustBe  Formatters.formatDateTimeToDate(agentCheckCase.createdDateTime)
-    checkCasesTable.map(_.get(1).text.trim).head mustBe  agentCheckCase.checkCaseSubmissionId
-    checkCasesTable.map(_.get(2).text.trim).head mustBe  agentCheckCase.checkCaseStatus
-    checkCasesTable.map(_.get(4).text.trim).head mustBe  Formatters.formatDate(agentCheckCase.settledDate.get)
+    checkCasesTable.map(_.get(1).text.trim).head mustBe  agentCheckCase.checkCaseStatus
+    checkCasesTable.map(_.get(3).text.trim).head mustBe  Formatters.formatDate(agentCheckCase.settledDate.get)
   }
 
   "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment, Owner Check cases" in {
@@ -121,9 +120,8 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
     val ownerCheckCasesTable = html.getElementById("checkcases-table").select("tr").asScala.tail.map(_.select("td"))
 
     ownerCheckCasesTable.map(_.get(0).text.trim).head mustBe  Formatters.formatDateTimeToDate(ownerCheckCase.createdDateTime)
-    ownerCheckCasesTable.map(_.get(1).text.trim).head mustBe  ownerCheckCase.checkCaseSubmissionId
-    ownerCheckCasesTable.map(_.get(2).text.trim).head mustBe  ownerCheckCase.checkCaseStatus
-    ownerCheckCasesTable.map(_.get(4).text.trim).head mustBe  Formatters.formatDate(ownerCheckCase.settledDate.get)
+    ownerCheckCasesTable.map(_.get(1).text.trim).head mustBe  ownerCheckCase.checkCaseStatus
+    ownerCheckCasesTable.map(_.get(3).text.trim).head mustBe  Formatters.formatDate(ownerCheckCase.settledDate.get)
   }
 
   private def formatCapacity(assessment: Assessment) = assessment.capacity.capacity match {
