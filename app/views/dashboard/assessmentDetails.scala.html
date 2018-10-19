@@ -21,99 +21,96 @@
 
 @(model: controllers.AssessmentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-<details class="print-hide">
-    <summary role="button" aria-controls="details-content-valuations" aria-expanded="false">
-        <span class="summary">@Messages("assessments.title")</span>
-    </summary>
-    <div id="details-content-valuations">
-        <p>@Messages("property.details.valuation.p")</p>
-        @if(model.form.hasErrors) {
-            @for(error <- model.form.errors("viewAssessmentRadio")) {
-                <br>
-                <p class="error-message">@messages("error.select.valuation.required")</p>
-            }
+
+<div id="details-content-valuations">
+    <h2 class="heading-large">@Messages("assessments.title")</h2>
+
+    @if(model.form.hasErrors) {
+        @for(error <- model.form.errors("viewAssessmentRadio")) {
+            <br>
+            <p class="error-message">@messages("error.select.valuation.required")</p>
         }
-        @form(routes.Assessments.submitViewAssessment(model.assessments.head.authorisationId)) {
-            <fieldset>
-                <div id="viewAssessmentRadioGroup" class="form-group">
-                    <div class="table-wrapper-no-pad">
-                        <table id="middle-radio-buttons" class="margin-bottom-10 margin-top-10">
-                            <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
-                            <tbody>
+    }
+    @form(routes.Assessments.submitViewAssessment(model.assessments.head.authorisationId)) {
+        <fieldset>
+            <div id="viewAssessmentRadioGroup" class="form-group">
+                <div class="table-wrapper-no-pad">
+                    <table id="middle-radio-buttons" class="margin-bottom-10 margin-top-10">
+                        <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
+                        <tbody>
+                            <tr>
+                                <th><span class="margin-left-5">@Messages("assessments.table.1")</span></th>
+                                <th><span class="margin-left-5">@Messages("assessments.table.2")</span></th>
+                                <th><span class="margin-left-5">@Messages("assessments.table.3")</span></th>
+                                <th><span class="margin-left-5">@Messages("assessments.table.4")</span></th>
+                                <th><span class="margin-left-5">@Messages("assessments.table.5")</span></th>
+                            </tr>
+
+
+                            @model.assessments.map { assessment =>
                                 <tr>
-                                    <th><span class="margin-left-5">@Messages("assessments.table.1")</span></th>
-                                    <th><span class="margin-left-5">@Messages("assessments.table.2")</span></th>
-                                    <th><span class="margin-left-5">@Messages("assessments.table.3")</span></th>
-                                    <th><span class="margin-left-5">@Messages("assessments.table.4")</span></th>
-                                    <th><span class="margin-left-5">@Messages("assessments.table.5")</span></th>
-                                </tr>
-
-
-                                @model.assessments.map { assessment =>
-                                    <tr>
-                                        <td>
-                                            <div class="multiple-choice">
-                                                <input type="radio"
-                                                id="viewAssessmentRadio-@assessment.assessmentRef"
-                                                name="viewAssessmentRadio"
-                                                value="@{
-                                                    if(assessment.rateableValue.isDefined) {
-                                                        if(model.linkPending) {
-                                                            assessment.uarn
-                                                        } else {
-                                                            ""
-                                                        }
-                                                    } else {
+                                    <td>
+                                        <div class="multiple-choice">
+                                            <input type="radio"
+                                            id="viewAssessmentRadio-@assessment.assessmentRef"
+                                            name="viewAssessmentRadio"
+                                            value="@{
+                                                if(assessment.rateableValue.isDefined) {
+                                                    if(model.linkPending) {
                                                         assessment.uarn
+                                                    } else {
+                                                        ""
                                                     }
-                                                }-@assessment.assessmentRef-@assessment.billingAuthorityReference"
-                                                    @if(model.assessments.size == 1) {
-                                                        checked="checked"
-                                                        }
-                                                >
-                                                <label for="viewAssessmentRadio-@assessment.assessmentRef">
-                                                @(Formatters.formatDate(assessment.effectiveDate))
-                                                </label>
-                                            </div>
-                                        </td>
-                                        @assessment.rateableValue match {
-                                            case Some(rv) => {
-                                                <td>£@rv</td>
-                                            }
-                                            case None => {
-                                                <td>N/A
-                                                    <a href="#my-rv-is-na" data-toggle="dialog" data-target="no-rv-help" class="help">
-                                                        <i><span class="visuallyhidden">@Messages("label.help", Messages("rv.na"))</span></i>
-                                                    </a>
-                                                </td>
-                                            }
+                                                } else {
+                                                    assessment.uarn
+                                                }
+                                            }-@assessment.assessmentRef-@assessment.billingAuthorityReference"
+                                                @if(model.assessments.size == 1) {
+                                                    checked="checked"
+                                                    }
+                                            >
+                                            <label for="viewAssessmentRadio-@assessment.assessmentRef">
+                                            @(Formatters.formatDate(assessment.effectiveDate))
+                                            </label>
+                                        </div>
+                                    </td>
+                                    @assessment.rateableValue match {
+                                        case Some(rv) => {
+                                            <td>£@rv</td>
                                         }
-                                        <td>
-                                        @Messages(s"capacity.${assessment.capacity.capacity}")
-                                        </td>
-                                        <td>
-                                        @(Formatters.formatDate(assessment.capacity.fromDate))
-                                        </td>
-                                        <td>
-                                        @assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-
-                    @if(model.assessments.exists(assessment => !assessment.rateableValue.isDefined)) {
-                        <div id="my-rv-is-na">
-                            <p>@Messages("rv.na.p.1")</p>
-                            <p>@Messages("rv.na.p.2")</p>
-                            <p>@Messages("rv.na.p.3")</p>
-                        </div>
-                    }
-
-                    <input type="submit" class="button" value="@Messages("label.continue")">
+                                        case None => {
+                                            <td>N/A
+                                                <a href="#my-rv-is-na" data-toggle="dialog" data-target="no-rv-help" class="help">
+                                                    <i><span class="visuallyhidden">@Messages("label.help", Messages("rv.na"))</span></i>
+                                                </a>
+                                            </td>
+                                        }
+                                    }
+                                    <td>
+                                    @Messages(s"capacity.${assessment.capacity.capacity}")
+                                    </td>
+                                    <td>
+                                    @(Formatters.formatDate(assessment.capacity.fromDate))
+                                    </td>
+                                    <td>
+                                    @assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
-            </fieldset>
-        }
-    </div>
-</details>
+
+                @if(model.assessments.exists(assessment => !assessment.rateableValue.isDefined)) {
+                    <div id="my-rv-is-na">
+                        <p>@Messages("rv.na.p.1")</p>
+                        <p>@Messages("rv.na.p.2")</p>
+                        <p>@Messages("rv.na.p.3")</p>
+                    </div>
+                }
+
+                <input type="submit" class="button" value="@Messages("label.continue")">
+            </div>
+        </fieldset>
+    }
+</div>
