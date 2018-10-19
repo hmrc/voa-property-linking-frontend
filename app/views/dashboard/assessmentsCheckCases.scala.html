@@ -31,40 +31,16 @@
     individualId = Some(request.personId),
     backLinkUrl = Some(routes.Dashboard.home().url)
 ) {
+
+
+    <h2 class="heading-secondary"> @Messages("property.details.title")</h2>
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
-    @Messages("property.details.title")
+        @(Formatters.capitalizedAddress(model.assessments.head.address))
     </h1>
-
-    <h2 class="heading-secondary">@(Formatters.capitalizedAddress(model.assessments.head.address))</h2>
-
-
+    <br/>
     <p>@Messages("property.details.p1")</p>
 
-    <ul class="list list-bullet">
-        <li>@if(model.assessments.size == 1){
-                @Messages("property.details.li.valuation", 1)
-            }else{
-                @Messages("property.details.li.valuations", model.assessments.size)
-            }
-        </li>
-
-        @if(checkCasesSize > 0) {
-
-            <li>@Messages("property.details.li.case.text", checkCasesSize) </li>
-        }
-    </ul>
-    <p>@Messages("property.details.p2")</p>
-    <details class="print-hide">
-        <summary role="button" aria-controls="details-content-1" aria-expanded="false">
-            <span class="summary">@Messages("property.details.div.what.is")</span>
-        </summary>
-        <div id="details-content-1">
-            <p>@Messages("property.details.div.what.is.p1")</p>
-            <p>@Messages("property.details.div.what.is.p2")</p>
-        </div>
-    </details>
     @assessmentDetails(model)
-    @if(checkCasesSize > 0) {
-        @checkCasesDetails(model)
-    }
+
+    @checkCasesDetails(model, checkCasesSize)
 }

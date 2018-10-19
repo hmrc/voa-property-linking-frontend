@@ -20,7 +20,7 @@
 
 @import java.time.LocalDateTime
 @import java.time.LocalDate
-@(model: controllers.AssessmentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.AssessmentsVM, checkCasesSize: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @row(submittedDate: LocalDateTime, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = {
     <tr>
@@ -33,48 +33,46 @@
     </tr>
 }
 
-@if(model.checkCases.isDefined) {
+    <h2 class="heading-large">@Messages("property.details.div.submitted")</h2>
 
-  <details class="print-hide">
-        <summary role="button" aria-controls="details-content-checkcases" aria-expanded="false">
-            <span class="summary">@Messages("property.details.div.submitted")</span>
-        </summary>
-        <div id="details-content-checkcases">
-            <table id="checkcases-table" class="margin-bottom-10 margin-top-10">
-                <tbody>
-                    <tr>
-                        <th><span class="margin-left-5">@Messages("property.details.cases.table.1")</span></th>
-                        <th><span class="margin-left-5">@Messages("property.details.cases.table.3")</span></th>
-                        <th><span class="margin-left-5">@Messages("property.details.cases.table.4")</span></th>
-                        <th><span class="margin-left-5">@Messages("property.details.cases.table.5")</span></th>
-                        @if(request.organisationAccount.isAgent && !model.isAgentOwnProperty) {
-                            <th><span class="margin-left-5">@Messages("property.details.cases.table.7")</span></th>
-                        }else{
-                            <th><span class="margin-left-5">@Messages("property.details.cases.table.6")</span></th>
-                        }
-                        <th><span class="margin-left-5">@Messages("property.details.cases.table.8")</span></th>
-
-                    </tr>
-
-                    @model.checkCases.get match {
-                        case ownerResponse: OwnerCheckCasesResponse => {
-
-                            @ownerResponse.checkCases.map { checkCase =>
-                                @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.agent.fold("")(_.organisationName), checkCase.submittedBy)
-                            }
-                            }
-                        case agentResponse: AgentCheckCasesResponse => {
-
-                            @agentResponse.checkCases.map { checkCase =>
-                                @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.client.organisationName, checkCase.submittedBy)
-                            }
-
-                        }
+@if(model.checkCases.isDefined && checkCasesSize > 0) {
+    <div id="details-content-checkcases">
+        <table id="checkcases-table" class="margin-bottom-10 margin-top-10">
+            <tbody>
+                <tr>
+                    <th><span class="margin-left-5">@Messages("property.details.cases.table.1")</span></th>
+                    <th><span class="margin-left-5">@Messages("property.details.cases.table.3")</span></th>
+                    <th><span class="margin-left-5">@Messages("property.details.cases.table.4")</span></th>
+                    <th><span class="margin-left-5">@Messages("property.details.cases.table.5")</span></th>
+                    @if(request.organisationAccount.isAgent && !model.isAgentOwnProperty) {
+                        <th><span class="margin-left-5">@Messages("property.details.cases.table.7")</span></th>
+                    }else{
+                        <th><span class="margin-left-5">@Messages("property.details.cases.table.6")</span></th>
                     }
-                </tbody>
-            </table>
+                    <th><span class="margin-left-5">@Messages("property.details.cases.table.8")</span></th>
+
+                </tr>
+
+                @model.checkCases.get match {
+                    case ownerResponse: OwnerCheckCasesResponse => {
+
+                        @ownerResponse.checkCases.map { checkCase =>
+                            @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.agent.fold("")(_.organisationName), checkCase.submittedBy)
+                        }
+                        }
+                    case agentResponse: AgentCheckCasesResponse => {
+
+                        @agentResponse.checkCases.map { checkCase =>
+                            @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.client.organisationName, checkCase.submittedBy)
+                        }
+
+                    }
+                }
+            </tbody>
+        </table>
 
 
-        </div>
-    </details>
+    </div>
+}else{
+    <p>@Messages("property.details.div.noSubmittedCheck")</p>
 }
