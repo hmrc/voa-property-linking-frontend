@@ -18,12 +18,12 @@ package controllers.propertyLinking
 
 import java.time.LocalDate
 
-import config.ApplicationConfig
-import connectors.propertyLinking.{PropertyLinkConnector}
+import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{Authenticated, EnvelopeConnector, EnvelopeMetadata}
-import controllers.VoaPropertyLinkingSpec
+import controllers.{PaginationSearchSort, VoaPropertyLinkingSpec}
 import models._
-import org.mockito.ArgumentMatchers.{eq => matching, _}
+import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
+import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.mockito.MockitoSugar
@@ -31,10 +31,10 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
+import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubSubmissionIdConnector, StubWithLinkingSession}
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 class ClaimPropertySpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
@@ -59,6 +59,9 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec with MockitoSugar {
   }
 
   lazy val propertyLinkingConnector = mock[PropertyLinkConnector]
+
+  implicit val hc = HeaderCarrier()
+
 
   "The claim property page" should "contain the claim property form" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
@@ -123,4 +126,38 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
     verify(mockSessionRepo, times(2)).start(any())(any(), any())
   }
+
+  "show" must "redirect the user to vmv search for property page" in {
+    StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+    StubSubmissionIdConnector.stubId(submissionId)
+
+    val res = testClaimProperty.show()(FakeRequest())
+
+    status(res) mustBe SEE_OTHER
+
+    redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/search")
+  }
+
+//  "checkPropertyLinks" must "redirect the user to search properties if they have property links" in {
+//    StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+//    StubSubmissionIdConnector.stubId(submissionId)
+//
+//    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = None)
+//
+//    val testOwnerAuthResult = OwnerAuthResult(start = 1,
+//      size = 15,
+//      filterTotal = 1,
+//      total = 1,
+//      authorisations = Seq(testOwnerAuth))
+//
+//    val validPagination = PaginationSearchSort(pageNumber = 1, pageSize = 1)
+//
+//    when(propertyLinkingConnector.linkedPropertiesSearchAndSort(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+//
+//    val res = testClaimProperty.checkPropertyLinks()(FakeRequest())
+//
+//    status(res) mustBe SEE_OTHER
+//
+//    redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/search")
+//  }
 }

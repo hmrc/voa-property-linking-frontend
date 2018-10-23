@@ -93,6 +93,16 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
     checkCasesTable.map(_.get(3).text.trim).head mustBe  Formatters.formatDate(agentCheckCase.settledDate.get)
   }
 
+  "viewSummary" must "redirect to view summary details" in {
+    val res = TestAssessmentController.viewSummary(123L)(FakeRequest())
+
+    status(res) mustBe SEE_OTHER
+
+    redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/detail/123")
+
+
+  }
+
   "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment, Owner Check cases" in {
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
