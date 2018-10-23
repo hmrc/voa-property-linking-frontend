@@ -1,0 +1,95 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import config.ApplicationConfig
+
+@(authorisationId: Long, assessmentRef: Long, baRef: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@main_template(Messages("challenge.valuation.heading"), topBackLink = true, bottomBackLink = true,
+    backLinkUrl = Some(routes.Assessments.requestDetailedValuation(authorisationId, assessmentRef, baRef).url)) {
+    <script>
+            function showChallengeContent(){
+                document.getElementById('challengeContent').style.display ='block';
+            }
+
+            function hideChallengeContent(){
+                document.getElementById('challengeContent').style.display ='none';
+            }
+    </script>
+
+    <div class="grid-row">
+
+        <div class="column-two-thirds">
+
+            <h1 class="heading-xlarge">@Messages("challenge.valuation.heading")</h1>
+
+            <p>@Messages("challenge.valuation.challenge")</p>
+
+            <h2 class="heading-medium">@Messages("challenge.valuation.beforeStarting")</h2>
+
+            <form>
+                <div class="form-group">
+                    <fieldset>
+
+                        <legend>
+                            <p> @Messages("challenge.valuation.eligibility")</p>
+                        </legend>
+
+                        <div class="multiple-choice" data-target="challenge-true">
+                            <input id="challenge-yes" type="radio" name="radio-contact-group" value="check4Months" onclick="showChallengeContent();">
+                            <label for="challenge-yes">@Messages("challenge.valuation.b1")</label>
+                        </div>
+
+                        <div class="multiple-choice" data-target="challenge-false">
+                            <input id="challenge-yes" type="radio" name="radio-contact-group" value="check12Months" onclick="showChallengeContent();">
+                            <label for="challenge-yes">@Messages("challenge.valuation.b2")</label>
+                        </div>
+
+                        <div class="multiple-choice" data-target="challenge-false">
+                            <input id="challenge-yes" type="radio" name="radio-contact-group" value="check16Months" onclick="showChallengeContent();">
+                            <label for="challenge-yes">@Messages("challenge.valuation.b3")</label>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </form>
+
+
+            @*<h2> "heading-medium">@Messages("challenge.valuation.whatToDo")</h2>*@
+
+            <div id="challengeContent">
+                <h2 class="heading-medium">@Messages("challenge.valuation.whatToDo")</h2>
+                <p>
+                    @Messages("challenge.valuation.makeChallenge") <a id="download-form" href="@routes.Assets.at("downloads/Challenge your valuation.pdf")" title="Challenge your valuation PDF (Opens in a new window)" target="_blank">@Messages("challenge.valuation.download")</a>.
+                    @Messages("challenge.valuation.also") <a id="download-guidance" href="@routes.Assets.at("downloads/Challenge your valuation guidance.pdf")" target="_blank" title="Challenge your valuation guidance PDF (Opens in a new window)">@Messages("challenge.valuation.guidance")</a> @Messages("challenge.valuation.completing") @Messages("challenge.valuation.supportingEvidence") <a id="email-address" href="mailto:ccaservice@@voa.gsi.gov.uk"> @Messages("challenge.valuation.email")</a> @Messages("challenge.valuation.post")
+                </p>
+
+                <ul>  <p id="postal-address">
+                    @Messages("challenge.valuation.address1")<br>
+                    @Messages("challenge.valuation.address2")<br>
+                    @Messages("challenge.valuation.address3")<br>
+                @Messages("challenge.valuation.address4")
+                </ul></p>
+
+                <p>@Messages("challenge.valuation.risks")</p>
+                <br />
+            </div>
+            <script>hideChallengeContent();</script>
+        </div>
+    </div>
+}
