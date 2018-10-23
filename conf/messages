@@ -953,6 +953,31 @@ messages.search=Search for {0}
 messages.pageSize.showing=Showing
 messages.pageSize.perPage=messages per page
 
+#CHALLENGE
+challenge.valuation.heading=Challenge this valuation
+challenge.valuation.challenge=If you disagree with the valuation on a property you can make a challenge. If you haven’t started a check on the property yet you need to do so before making a challenge.
+challenge.valuation.timeFrame=Your challenge must be made within 4 months of our decision, or within 16 months of the date you told us about a change in the surrounding area of your property. You can also make a challenge if you told us about a change and we haven’t made a decision within 12 months.
+challenge.valuation.beforeStarting=Before you start
+challenge.valuation.eligibility=You’ll need to confirm why you’re eligible to make a challenge. The challenge form will only be available after you’ve selected one of these options:
+challenge.valuation.b1=I received my check decision less than 4 months ago
+challenge.valuation.b2=I submitted a check more than 12 months ago and I have not had a decision
+challenge.valuation.b3=I informed you about a change in the surrounding area of my property less than 16 months ago
+
+challenge.valuation.whatToDo=What you need to do
+challenge.valuation.makeChallenge=You’ll need to
+challenge.valuation.download=download and complete the challenge form
+challenge.valuation.also=You should also
+challenge.valuation.guidance=download and read the guidance
+challenge.valuation.completing=before completing the form.
+challenge.valuation.supportingEvidence=You can send the challenge form, along with your supporting evidence, to
+challenge.valuation.email=ccaservice@voa.gsi.gov.uk
+challenge.valuation.post=or post it to:
+challenge.valuation.address1=Check & challenge service
+challenge.valuation.address2=PO Box 1827
+challenge.valuation.address3=Shirley
+challenge.valuation.address4=SO15 9HH
+challenge.valuation.risks=Please be aware of the risks before sending any confidential information.
+
 #CHECK RECEIVED MESSAGE
 checkReceived.title=Check acknowledgement
 checkReceived.subject=Subject: {0}

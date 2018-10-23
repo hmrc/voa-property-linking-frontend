@@ -176,12 +176,12 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
 
   "startChallengeFromDVR" should "display 'Challenge the Valuation' page" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
-    val res = TestAssessments.startChallengeFromDVR()(FakeRequest())
+    val res = TestAssessments.startChallengeFromDVR(authId, assessmentRef, baRef)(FakeRequest())
 
     status(res) mustBe OK
 
     val html = contentAsString(res)
-    html must include ("Your challenge must be submitted within 4 months of the VOA decision")
+    html must include ("Challenge this valuation")
   }
 
 }
