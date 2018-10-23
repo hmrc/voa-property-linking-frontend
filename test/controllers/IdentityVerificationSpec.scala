@@ -95,6 +95,17 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     status(res) mustBe UNAUTHORIZED
   }
 
+  "Navigating to the iv failed page" must "return the failed page" in new TestCase {
+    val res = TestIdentityVerification.fail()(request)
+    status(res) mustBe OK
+    contentAsString(res) must include("Identity verification failed")
+  }
+  "Navigating to restoreSession" must "redirect to the iv success page" in new TestCase {
+    val res = TestIdentityVerification.restoreSession()(request)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.IdentityVerification.success.url)
+  }
+
   "fail" must "redirect the user to the identity verification failure page" in new TestCase {
     val res = TestIdentityVerification.fail()(FakeRequest())
 

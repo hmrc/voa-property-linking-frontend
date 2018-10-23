@@ -49,6 +49,11 @@ class RegisterPageSpec extends VoaPropertyLinkingSpec {
 
   }
 
+  "continue" should "return the correct map including accountType" in {
+    val testAccountType = "testAccountType"
+    applicationTestController.continue(testAccountType) mustBe  Map("accountType" -> Seq(testAccountType), "continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
+  }
+
   "display a validation error if a choice is not selected"
 
   val result = applicationTestController.choice()(FakeRequest().withFormUrlEncodedBody(
