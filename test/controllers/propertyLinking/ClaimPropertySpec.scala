@@ -138,26 +138,4 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec with MockitoSugar {
     redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/search")
   }
 
-//  "checkPropertyLinks" must "redirect the user to search properties if they have property links" in {
-//    StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
-//    StubSubmissionIdConnector.stubId(submissionId)
-//
-//    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = None)
-//
-//    val testOwnerAuthResult = OwnerAuthResult(start = 1,
-//      size = 15,
-//      filterTotal = 1,
-//      total = 1,
-//      authorisations = Seq(testOwnerAuth))
-//
-//    val validPagination = PaginationSearchSort(pageNumber = 1, pageSize = 1)
-//
-//    when(propertyLinkingConnector.linkedPropertiesSearchAndSort(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
-//
-//    val res = testClaimProperty.checkPropertyLinks()(FakeRequest())
-//
-//    status(res) mustBe SEE_OTHER
-//
-//    redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/search")
-//  }
 }
