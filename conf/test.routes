@@ -7,3 +7,4 @@ GET        /decline-pending-agent-appointments/:agentOrgId        @controllers.t
 GET        /clear-dvr-records                                     @controllers.test.TestController.clearDvrRecords
 GET        /clear-draft-cases                                     @controllers.test.TestController.clearDraftCases
 GET        /submitted-check/:submissionId                         @controllers.test.TestController.getSubmittedCheck(submissionId: String)
+GET        /delete-check-cases/:plSubmissionId                    @controllers.test.TestController.clearCheckCases(plSubmissionId: String)
