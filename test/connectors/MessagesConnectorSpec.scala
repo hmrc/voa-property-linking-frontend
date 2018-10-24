@@ -50,12 +50,12 @@ class MessagesConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(connector.getMessage(1, "MESSAGE_ID"))(_ mustBe Some(message))
   }
 
-//  "countUnread" must "return the total and unread count of messages" in new Setup {
-//    val validMessageCount = MessageCount(5, 3)
-//
-//    mockHttpGET[MessageCount]("tst-url", validMessageCount)
-//    whenReady(connector.countUnread(1))(_ mustBe validMessageCount)
-//  }
+  "countUnread" must "return the total and unread count of messages" in new Setup {
+    val validMessageCount = MessageCount(5, 3)
+
+    mockHttpGET[MessageCount]("tst-url", validMessageCount)
+    whenReady(connector.countUnread(1))(_ mustBe validMessageCount)
+  }
 
   "markAsRead" must "successfully mark a message as read" in new Setup {
     mockHttpPUT[JsValue, HttpResponse]("tst-url", HttpResponse(OK))

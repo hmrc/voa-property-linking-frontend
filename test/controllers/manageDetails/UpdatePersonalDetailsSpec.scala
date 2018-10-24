@@ -236,6 +236,74 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
+  "The update mobile number page" must "throw BAD_REQUEST if they submit an invalid form" in {
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.updateMobile()(FakeRequest())
+    status(res) mustBe BAD_REQUEST
+  }
+
+  "viewEmail" should "display the users email" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.viewEmail()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update email"
+  }
+
+  "viewAddress" should "display the users address" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.viewAddress()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update address"
+  }
+
+  "viewPhone" should "display the users phone number" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.viewPhone()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update telephone number"
+  }
+
+  "viewName" should "display the users name" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.viewName()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update your name"
+  }
+
+  "viewMobile" should "display the users name" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.viewMobile()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update mobile number"
+  }
+
+
   private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
 
   private object TestUpdatePersonalDetails extends UpdatePersonalDetails(

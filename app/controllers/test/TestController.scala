@@ -124,6 +124,12 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
     }
   }
 
+  def clearCheckCases(propertyLinksSubmissionId: String) = authenticated { implicit request =>
+    testPropertyLinkingConnector.deleteCheckCases(propertyLinksSubmissionId).map(res => Ok(s"Successfully cleared the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId")).recover {
+      case e => Ok(s"Failed to delete the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId with error: ${e.getMessage}")
+    }
+  }
+
   def getSubmittedCheck(submissionId: String) = authenticated { implicit request =>
     testCheckConnector.getSubmittedCheck(submissionId).map(response => Ok(response.body))
   }

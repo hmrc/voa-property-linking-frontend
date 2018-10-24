@@ -41,25 +41,25 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
   def assessments(authorisationId: Long) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
     val backLink = request.headers.get("Referer")
 
-      if(config.checkCasesEnabled) {
-        propertyLinks.getLink(authorisationId) flatMap {
-          case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
-          case Some(link) if link.pending == false => {
-                for {
-                  isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-                  checkCases <- checkCaseConnector.getCheckCases(Some(link), isAgentOwnProperty)
-                } yield {
-                  Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases, isAgentOwnProperty)))
-                } }
-          case Some(link) => Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, None, false)))
-        }
-      }else {
-        propertyLinks.getLink(authorisationId) map {
-          case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
-          case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending)))
-          case None => notFound
-        }
+    if(config.checkCasesEnabled) {
+      propertyLinks.getLink(authorisationId) flatMap {
+        case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
+        case Some(link) if link.pending == false => {
+          for {
+            isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
+            checkCases <- checkCaseConnector.getCheckCases(Some(link), isAgentOwnProperty)
+          } yield {
+            Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases, isAgentOwnProperty)))
+          } }
+        case Some(link) => Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, None, false)))
       }
+    }else {
+      propertyLinks.getLink(authorisationId) map {
+        case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
+        case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending)))
+        case None => notFound
+      }
+    }
 
   }
 
@@ -121,8 +121,8 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     Ok(views.html.dvr.duplicateRequestDetailedValuation())
   }
 
-  def startChallengeFromDVR = authenticated { implicit request =>
-    Ok(views.html.dvr.startChallenge())
+  def startChallengeFromDVR(authorisationId: Long, assessmentRef: Long, baRef: String) = authenticated { implicit request =>
+    Ok(views.html.dvr.challenge_valuation(authorisationId, assessmentRef, baRef))
   }
 
   def detailedValuationRequested(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>

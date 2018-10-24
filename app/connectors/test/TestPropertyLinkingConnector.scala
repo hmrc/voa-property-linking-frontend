@@ -35,4 +35,8 @@ class TestPropertyLinkingConnector @Inject()(config: ServicesConfig, http: WSHtt
     http.DELETE[HttpResponse](url + s"test-only/clear-dvr-records/$organisationId")
   }
 
+  def deleteCheckCases(plSubmissionId: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
+    http.DELETE[HttpResponse](url + s"test-only/delete-check-cases/$plSubmissionId")
+  }
+
 }
