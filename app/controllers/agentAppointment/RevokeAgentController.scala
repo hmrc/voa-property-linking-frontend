@@ -34,7 +34,6 @@ import play.api.data.Forms.{number, _}
 import play.api.data.{Form, FormError}
 
 class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
-                                      agentsConnector: AgentsConnector,
                                       propertyLinks: PropertyLinkConnector,
                                       representations: PropertyRepresentationConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 

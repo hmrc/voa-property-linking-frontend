@@ -46,7 +46,6 @@ import scala.util.{Failure, Success, Try}
 @Singleton()
 class RepresentationController @Inject()(reprConnector: PropertyRepresentationConnector,
                                          authenticated: AuthenticatedAction,
-                                         agentsConnector: AgentsConnector,
                                          propertyLinkConnector: PropertyLinkConnector,
                                          messagesConnector: MessagesConnector)
                                         (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)

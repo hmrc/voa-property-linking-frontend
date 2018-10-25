@@ -50,6 +50,10 @@
             <div class="margin-top-5"><a href="@agentAppointment.routes.AppointAgentController.appointMultipleProperties()" id="appointAgent">@Messages("manageProperties.appointAgent")</a></div>
         }
 
+        @if(model.result.authorisations.flatMap(_.agents).toList.nonEmpty){
+            <div class="margin-top-5"><a href="@agentAppointment.routes.AppointAgentController.getAgentsForRemove()" id="removeAgent">@Messages("manageProperties.revokeAgent")</a></div>
+        }
+
         @if(model.result.authorisations.isEmpty && model.pagination.valuesOfSearchParameters == "") {
             <h2 class="heading-secondary margin-top-20 margin-bottom-20">@Messages("dashboard.manageProperties.noProperties")</h2>
         } else {

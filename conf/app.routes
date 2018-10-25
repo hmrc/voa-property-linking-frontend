@@ -76,9 +76,11 @@ GET         /appoint-agent/select-properties-search                             
 POST        /appoint-agent/select-properties                                                  @controllers.agentAppointment.AppointAgentController.selectProperties()
 POST        /appoint-agent/agent-summary                                                      @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 GET         /appoint-agent/multiple-properties                                                @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
-GET         /agent-list                                                                       @controllers.agentAppointment.AppointAgentController.getAgentsForRemove()
-POST        /agent/select-properties                                                          @controllers.agentAppointment.AppointAgentController.selectAgentProperties()
-GET         /agent/select-properties-search                                                   @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: AgentPropertiesParameters)
+
+GET         /revoke-agent/multiple-properties                                                 @controllers.agentAppointment.AppointAgentController.getAgentsForRemove()
+POST        /revoke-agent/select-properties                                                   @controllers.agentAppointment.AppointAgentController.selectAgentProperties()
+GET         /revoke-agent/select-properties-search                                            @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: AgentPropertiesParameters)
+POST        /revoke-agent/agent-summary                                                       @controllers.agentAppointment.AppointAgentController.revokeAgentSummary()
 
 #AGENT
 #Dashboard

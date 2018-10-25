@@ -387,6 +387,7 @@ propertyRepresentation.appointAgent.no=No
 propertyRepresentation.table.title.appoint=Appoint
 propertyRepresentation.table.title.agentId=Agent code
 propertyRepresentation.table.title.agentName=Agent name
+propertyRepresentation.table.title.remove=Select
 
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
@@ -413,6 +414,11 @@ propertyRepresentation.agentSummary.select.more=Select more properties
 
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Continue
+
+
+#Remove agent summary
+propertyRepresentation.agentRemoveSummary.heading=Agent removed
+propertyRepresentation.agentRemoveSummary.removed=You have removed Agent''s ''{0}'' ability to submit checks and challenges to {1} properties
 
 label.canCheck=Do you want this agent to submit checks?
 canCheck.START_AND_CONTINUE=Yes
