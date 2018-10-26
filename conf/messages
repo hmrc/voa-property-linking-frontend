@@ -376,6 +376,14 @@ propertyRepresentation.rejected.multiple.youCan.1=You won’t be able to view de
 propertyRepresentation.rejected.single.youCan.2=The business will be notified of your decision.
 propertyRepresentation.rejected.multiple.youCan.2=The businesses will be notified of your decision.
 
+
+#remove property
+propertyRepresentation.removeAgent.title=Remove agent permissions
+propertyRepresentation.removeAgent.message.p1=You can remove an agent's ability to carry out checks and challenges on your behalf.
+propertyRepresentation.removeAgent.message.p2=Select an agent from the list below to remove them from one or more properties.
+propertyRepresentation.removeAgentProperties.title=Remove an agent
+propertyRepresentation.removeAgentProperties.message.p1=You can remove {0}''s (Agent ID: {1}) ability to carry out checks and challenges for the following properties:
+
 #Appoint agent
 propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
@@ -393,6 +401,7 @@ propertyRepresentation.appointAgent.no=No
 propertyRepresentation.table.title.appoint=Appoint
 propertyRepresentation.table.title.agentId=Agent code
 propertyRepresentation.table.title.agentName=Agent name
+propertyRepresentation.table.title.remove=Select
 
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
@@ -419,6 +428,11 @@ propertyRepresentation.agentSummary.select.more=Select more properties
 
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Continue
+
+
+#Remove agent summary
+propertyRepresentation.agentRemoveSummary.heading=Agent removed
+propertyRepresentation.agentRemoveSummary.removed=You have removed Agent''s ''{0}'' ability to submit checks and challenges to {1} properties
 
 label.canCheck=Do you want this agent to submit checks?
 canCheck.START_AND_CONTINUE=Yes

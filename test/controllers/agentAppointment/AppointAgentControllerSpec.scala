@@ -20,7 +20,7 @@ import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{AgentsConnector, Authenticated, PropertyRepresentationConnector}
 import controllers.VoaPropertyLinkingSpec
 import models._
-import models.searchApi.{OwnerAgent, OwnerAgents, OwnerAuthResult, OwnerAuthorisation}
+import models.searchApi._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
@@ -145,6 +145,148 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainText(s"You have appointed agent '${testAgentAccount.companyName}' (${testAgentAccount.agentCode}) with the ability to submit checks and challenges to the selected properties.")
   }
+
+
+  "getAgentsForRemove" should "show the revoke agent page with a known agent listed for selection with no agent appointment session" in {
+    val testOwnerAgents = OwnerAgents(Seq(OwnerAgent("test-agent", 1l)))
+    stubLogin()
+    when(mockAgentsConnector.ownerAgents(any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAgents))
+    val res = testController.getAgentsForRemove()(FakeRequest())
+    status(res) mustBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainTable("#middle-radio-buttons")
+    page.mustContainText("test-agent")
+  }
+
+  "getAgentsForRemove" should "show the appoint agent page with no known agents listed for selection" in {
+    val testOwnerAgents = OwnerAgents(Seq())
+    stubLogin()
+    when(mockAgentsConnector.ownerAgents(any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAgents))
+    val res = testController.getAgentsForRemove()(FakeRequest())
+    status(res) mustBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustNotContainTable("#middle-radio-buttons")
+  }
+
+  "selectAgentProperties" should "show a list of properties available for removal from a agent" in {
+    stubLogin()
+    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
+    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
+    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "APPROVED")
+    val testOwnerAuthResult = OwnerAuthResult(start = 1,
+      size = 15,
+      filterTotal = 1,
+      total = 1,
+      authorisations = Seq(testOwnerAuth))
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+
+    val res = testController.selectAgentProperties()(FakeRequest().withFormUrlEncodedBody(
+      "agentCode" -> "1",
+      "agentCodeRadio" -> "1"
+    ))
+
+    status(res) mustBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText(testOwnerAuth.address)
+  }
+
+
+  "selectAgentProperties" should "return a bad request response when agent code does not match" in {
+    stubLogin()
+    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 2l)
+    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
+    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "APPROVED")
+    val testOwnerAuthResult = OwnerAuthResult(start = 1,
+      size = 15,
+      filterTotal = 1,
+      total = 1,
+      authorisations = Seq(testOwnerAuth))
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+
+    val res = testController.selectAgentProperties()(FakeRequest().withFormUrlEncodedBody(
+      "agentCode" -> "1",
+      "agentCodeRadio" -> "1"
+    ))
+
+    status(res) mustBe BAD_REQUEST
+  }
+
+
+  "selectAgentPropertiesSearchSort" should "show a list of properties available for removal from a agent" in {
+    stubLogin()
+    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
+    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
+    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "APPROVED")
+    val testOwnerAuthResult = OwnerAuthResult(start = 1,
+      size = 15,
+      filterTotal = 1,
+      total = 1,
+      authorisations = Seq(testOwnerAuth))
+    val testPagination = AgentPropertiesParameters(1l)
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+
+    val res = testController.selectAgentPropertiesSearchSort(testPagination)(FakeRequest().withFormUrlEncodedBody(
+      "agentCode" -> "1",
+      "agentCodeRadio" -> "1"
+    ))
+
+    status(res) mustBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText(testOwnerAuth.address)
+  }
+
+  "viewing select agent properties search sort page" should "show no properties when the agent has no properties appointed" in {
+    stubLogin()
+    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
+    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
+    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "REVOKED")
+    val testOwnerAuthResult = OwnerAuthResult(start = 1,
+      size = 15,
+      filterTotal = 1,
+      total = 1,
+      authorisations = Seq(testOwnerAuth))
+    val testPagination = AgentPropertiesParameters(1l)
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+
+    val res = testController.selectAgentPropertiesSearchSort(testPagination)(FakeRequest().withFormUrlEncodedBody(
+      "agentCode" -> "1",
+      "agentCodeRadio" -> "1"
+    ))
+
+    status(res) mustBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText("There are no properties to display")
+  }
+
+
+  "revokeAgentSummary" should "perform the bulk agent revoke action and display the summary page" in {
+    stubLogin()
+    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
+    val testPropertyLink = arbitrary[PropertyLink].sample.get
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+
+    when(mockPropertyLinkConnector.get(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(Some(testPropertyLink)))
+
+    val res = testController.revokeAgentSummary()(FakeRequest().withFormUrlEncodedBody(
+      "agentCode" -> "1",
+      "linkIds[]" -> "123"
+    ))
+
+    status(res) mustBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText(s"You have removed Agent's '1' ability to submit checks and challenges to 1 properties")
+  }
+
+
 
   private lazy val testController = new AppointAgentController(mockRepresentationConnector, StubGroupAccountConnector, mockPropertyLinkConnector, mockAgentsConnector, StubAuthentication)
 

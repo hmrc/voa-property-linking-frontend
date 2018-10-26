@@ -51,6 +51,7 @@ case class AgentPropertiesParameters(agentCode: Long,
     buildQueryParams("challengePermission", permissionString(challengePermission))
 }
 
+
 object AgentPropertiesParameters {
   implicit val queryStringBindable: QueryStringBindable[AgentPropertiesParameters] = new QueryStringBindable[AgentPropertiesParameters] {
     override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, AgentPropertiesParameters]] = {
