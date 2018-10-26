@@ -16,8 +16,9 @@
 
 package controllers
 
+import actions.BasicAuthenticatedRequest
 import config.ApplicationConfig
-import connectors._
+import connectors.{CheckCaseConnector, IdentityVerification, _}
 import models._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{any, eq => matching}
@@ -34,10 +35,19 @@ import scala.collection.JavaConverters._
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
+class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with TestCheckCasesData{
 
+  override val additionalAppConfig = Seq("featureFlags.checkCasesEnabled" -> "true")
+
+
+  val mockCheckCaseConnector = mock[CheckCaseConnector]
   private object TestAssessmentController extends Assessments( StubPropertyLinkConnector,
-    StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation)
+    StubAuthentication,
+    mockSubmissionIds,
+    mockDvrCaseManagement,
+    StubBusinessRatesValuation,
+    mockCheckCaseConnector,
+    StubBusinessRatesAuthorisation)
 
   lazy val mockDvrCaseManagement = {
     val m = mock[DVRCaseManagementConnector]
@@ -52,25 +62,76 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     m
   }
 
-  "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment" in {
+  "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment, agent check cases" in {
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
-    val link = arbitrary[PropertyLink].sample.get.copy()
+    val link = arbitrary[PropertyLink].sample.get.copy().copy(pending = false)
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
+
+    when(mockCheckCaseConnector.getCheckCases(any[Option[PropertyLink]], any[Boolean])(any[BasicAuthenticatedRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(Some(agentCheckCasesResponse)))
 
     val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    val assessmentTable = html.select("tr").asScala.tail.map(_.select("td"))
+
+    val assessmentTable = html.getElementById("viewAssessmentRadioGroup").select("tr").asScala.tail.map(_.select("td"))
 
     assessmentTable.map(_.first().text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.effectiveDate))
     assessmentTable.map(_.get(1).text) must contain theSameElementsAs link.assessments.map(a => "£" + a.rateableValue.getOrElse("N/A"))
     assessmentTable.map(_.get(2).text) must contain theSameElementsAs link.assessments.map(formatCapacity)
     assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.capacity.fromDate))
     assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map(a => a.capacity.toDate.map(Formatters.formatDate).getOrElse("Present"))
+
+
+    val checkCasesTable = html.getElementById("checkcases-table").select("tr").asScala.tail.map(_.select("td"))
+
+    checkCasesTable.map(_.get(0).text.trim).head mustBe  Formatters.formatDateTimeToDate(agentCheckCase.createdDateTime)
+    checkCasesTable.map(_.get(1).text.trim).head mustBe  agentCheckCase.checkCaseStatus
+    checkCasesTable.map(_.get(3).text.trim).head mustBe  Formatters.formatDate(agentCheckCase.settledDate.get)
+  }
+
+  "viewSummary" must "redirect to view summary details" in {
+    val res = TestAssessmentController.viewSummary(123L)(FakeRequest())
+
+    status(res) mustBe SEE_OTHER
+
+    redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/detail/123")
+
+
+  }
+
+  "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment, Owner Check cases" in {
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+    val link = arbitrary[PropertyLink].sample.get.copy().copy(pending = false)
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
+    StubPropertyLinkConnector.stubLink(link)
+
+    when(mockCheckCaseConnector.getCheckCases(any[Option[PropertyLink]], any[Boolean])(any[BasicAuthenticatedRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(Some(ownerCheckCasesResponse)))
+
+    val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    val assessmentTable = html.getElementById("viewAssessmentRadioGroup").select("tr").asScala.tail.map(_.select("td"))
+
+    assessmentTable.map(_.first().text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.effectiveDate))
+    assessmentTable.map(_.get(1).text) must contain theSameElementsAs link.assessments.map(a => "£" + a.rateableValue.getOrElse("N/A"))
+    assessmentTable.map(_.get(2).text) must contain theSameElementsAs link.assessments.map(formatCapacity)
+    assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.capacity.fromDate))
+    assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map(a => a.capacity.toDate.map(Formatters.formatDate).getOrElse("Present"))
+
+
+    val ownerCheckCasesTable = html.getElementById("checkcases-table").select("tr").asScala.tail.map(_.select("td"))
+
+    ownerCheckCasesTable.map(_.get(0).text.trim).head mustBe  Formatters.formatDateTimeToDate(ownerCheckCase.createdDateTime)
+    ownerCheckCasesTable.map(_.get(1).text.trim).head mustBe  ownerCheckCase.checkCaseStatus
+    ownerCheckCasesTable.map(_.get(3).text.trim).head mustBe  Formatters.formatDate(ownerCheckCase.settledDate.get)
   }
 
   private def formatCapacity(assessment: Assessment) = assessment.capacity.capacity match {
@@ -92,7 +153,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    val assessmentTable = html.select("tr").asScala.tail.map(_.select("td"))
+    val assessmentTable = html.getElementById("viewAssessmentRadioGroup").select("tr").asScala.tail.map(_.select("td"))
 
     assessmentTable.map(_.get(1).text).head must startWith ("N/A")
   }

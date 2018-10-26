@@ -36,20 +36,22 @@ class ViewDetails @Inject()(addressesConnector: Addresses,
                             messagesConnector: MessagesConnector,
                             authConnector: VPLAuthConnector,
                             details: Details
-                           )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
+                           )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
 
   def show() = authenticated { implicit request =>
-    val person = request.individualAccount
+    if (config.newDashboardRedirectsEnabled) {
+      Redirect(config.newDashboardUrl("your-details"))
+    } else {val person = request.individualAccount
     (for {
       personalAddress <- OptionT(addressesConnector.findById(person.details.addressId))
       businessAddress <- OptionT(addressesConnector.findById(request.organisationAccount.addressId))
-      msgCount <- OptionT.liftF(messagesConnector.countUnread(request.organisationId))
+
       affinityGroup <- OptionT.liftF(authConnector.getAffinityGroup)
       userDetails <- OptionT.liftF(authConnector.getUserDetails)
-    } yield details.view(affinityGroup, person, personalAddress, businessAddress, msgCount.unread, userDetails)
+    } yield details.view(affinityGroup, person, personalAddress, businessAddress,  userDetails)
       ).getOrElse(throw new Exception(
       s"Unable to lookup address: Individual address ID: ${person.details.addressId}; Organisation address Id: ${request.organisationAccount.addressId}")
-    )
+    )}
   }
 
 }
@@ -62,7 +64,6 @@ trait Details extends Results {
             person: DetailedIndividualAccount,
             personalAddress: Address,
             businessAddress: Address,
-            msgCount: Int,
             userDetails: UserDetails)
           (implicit request: BasicAuthenticatedRequest[AnyContent], messages: Messages): Result
 }
@@ -74,15 +75,14 @@ class VoaDetails @Inject()(implicit val messagesApi: MessagesApi, val config: Ap
             person: DetailedIndividualAccount,
             personalAddress: Address,
             businessAddress: Address,
-            msgCount: Int,
             userDetails: UserDetails
           )
           (implicit request: BasicAuthenticatedRequest[AnyContent], messages: Messages): Result = {
     affinityGroup match {
       case Individual =>
-        Ok(views.html.details.viewDetails_individual(person, request.organisationAccount, personalAddress, businessAddress, msgCount))
+        Ok(views.html.details.viewDetails_individual(person, request.organisationAccount, personalAddress, businessAddress))
       case Organisation =>
-        Ok(views.html.details.viewDetails_organisation(person, request.organisationAccount, personalAddress, businessAddress, msgCount, userDetails))
+        Ok(views.html.details.viewDetails_organisation(person, request.organisationAccount, personalAddress, businessAddress, userDetails))
     }
   }
 }

@@ -7,6 +7,7 @@ import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 import uk.gov.hmrc.versioning.SbtGitVersioning
 import play.sbt.routes.RoutesKeys.routesGenerator
+import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 trait MicroService {
 
@@ -31,20 +32,21 @@ trait MicroService {
     // Semicolon-separated list of regexs matching classes to exclude
     import scoverage.ScoverageKeys
     Seq(
-      ScoverageKeys.coverageExcludedPackages := "<empty>;Reverse.*;controllers.test.*;connectors.test.*;views.*;config.*;poc.view.*;poc.config.*;.*(AuthService|BuildInfo|Routes).*;.*models.*",
-      ScoverageKeys.coverageMinimum := 70,
-      ScoverageKeys.coverageFailOnMinimum := false,
+      ScoverageKeys.coverageExcludedPackages := "<empty>;Reverse.*;controllers.test.*;connectors.test.*;views.*;config.*;poc.view.*;poc.config.*;.*(AuthService|BuildInfo|Routes).*;.*models.*;.*modules.*;.*utils.Conditionals.*;.*auth.GovernmentGatewayProvider*;.*services.test;",
+      ScoverageKeys.coverageMinimum := 68,
+      ScoverageKeys.coverageFailOnMinimum := true,
       ScoverageKeys.coverageHighlighting := true
     )
   }
 
   lazy val microservice = Project(appName, file("."))
     .enablePlugins(plugins: _*)
-    .settings(playSettings ++ scoverageSettings : _*)
+    .settings(playSettings ++ scoverageSettings: _*)
     .settings(scalaSettings: _*)
     .settings(publishingSettings: _*)
     .settings(organization := "uk.gov.hmrc")
     .settings(PlayKeys.playDefaultPort := defaultPort)
+    .settings(majorVersion := 0)
     .settings(
       targetJvm := "jvm-1.8",
       libraryDependencies ++= appDependencies,
@@ -68,7 +70,7 @@ trait MicroService {
       Resolver.jcenterRepo)
     )
     .settings(evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTransitiveEvictions(false).withWarnDirectEvictions(false).withWarnScalaVersionEviction(false))
-    .enablePlugins(SbtDistributablesPlugin, SbtAutoBuildPlugin, SbtGitVersioning)
+    .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory)
 }
 
 private object TestPhases {

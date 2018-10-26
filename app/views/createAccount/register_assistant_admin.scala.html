@@ -21,7 +21,7 @@
 @import config.ApplicationConfig
 @import utils.Formatters._
 
-@(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: Form[AdminInExistingOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @isAgent(selected: Boolean) = @{
     if(selected) """checked="checked""" else """ disabled="disabled" """
@@ -35,7 +35,7 @@
             <p class="form-hint">@Messages("enrolment.assistant.hint")</p>
             <h2 class="heading-medium">@Messages("enrolment.assistant.organisation.details.title")</h2>
 
-            @form(controllers.registration.routes.RegistrationController.submitOrganisation()) {
+            @form(controllers.registration.routes.RegistrationController.submitAdminToExistingOrganisation()) {
 
                 <table>
                     <tbody><tr>
@@ -88,16 +88,6 @@
                     '_help -> Messages("hint.nino")
                 )
 
-                <input type="hidden" id="companyName" value="@organisationFieldData.businessName" name="companyName" class="form-control">
-                <input type="hidden" id="address.line1" value="@organisationFieldData.businessAddress.line1" name="address.line1" class="form-control">
-                <input type="hidden" id="address.line2" value="@organisationFieldData.businessAddress.line2" name="address.line2" class="form-control">
-                <input type="hidden" id="address.line3" value="@organisationFieldData.businessAddress.line3" name="address.line3" class="form-control">
-                <input type="hidden" id="address.line4" value="@organisationFieldData.businessAddress.line4" name="address.line4" class="form-control">
-                <input type="hidden" id="address.postcode" value="@organisationFieldData.businessAddress.postcode" name="address.postcode" class="form-control">
-                <input type="hidden" id="phone" value="@organisationFieldData.businessPhoneNumber" name="phone" class="form-control">
-                <input type="hidden" id="email" value="@organisationFieldData.email" name="email" class="form-control">
-                <input type="hidden" id="confirmedBusinessEmail" value="@organisationFieldData.email" name="confirmedBusinessEmail" class="form-control">
-                <input id="isAgent_true" type="hidden" name="isAgent" value="@organisationFieldData.isAgent" checked="checked" />
                 <p>
                     <button type="submit" id="save-and-continue" class="button">@Messages("label.confirm")</button>
                 </p>

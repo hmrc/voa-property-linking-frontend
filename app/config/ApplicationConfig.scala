@@ -29,6 +29,8 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   def businessRatesValuationUrl(page: String): String = getConfig("business-rates-valuation.url") + s"/$page"
   def businessRatesCheckUrl(page: String): String = getConfig("business-rates-check.url") + s"/$page"
   def businessTaxAccountUrl(page: String): String = getConfig("business-tax-account.url") + s"/$page"
+  def newDashboardUrl(page: String): String = getConfig("business-rates-dashboard-frontend.url") + s"/$page"
+  def businessRatesCheckCaseSummaryUrl(page: String):String = getConfig("business-rates-check-case-summary.url") + s"/$page"
 
   lazy val helpGuideUrl = getConfig("help-guide.url")
 
@@ -40,7 +42,9 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val fileUploadUrl: String = getConfig("file-upload-frontend.url")
   lazy val serviceUrl: String = getConfig("voa-property-linking-frontend.url")
   lazy val checkUrl = getConfig("microservice.services.business-rates-check-frontend.url")
+  lazy val externalCaseManagementApiUrl :String = getConfig("external-case-management-api.url")
 
+  lazy val analyticsTagManagerCode = getConfig("google-analytics.tag.managerCode")
   lazy val analyticsToken: String = getConfig("google-analytics.token")
   lazy val analyticsHost: String = getConfig("google-analytics.host")
   lazy val voaPersonID: String = getConfig("google-analytics.dimensions.voaPersonId")
@@ -52,6 +56,8 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
   lazy val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean
   lazy val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean
+  lazy val newDashboardRedirectsEnabled: Boolean = getConfig("featureFlags.newDashboardRedirectsEnabled").toBoolean
+  lazy val checkCasesEnabled: Boolean = getConfig("featureFlags.checkCasesEnabled").toBoolean
 
   lazy val stubEnrolment: Boolean = getConfig("enrolment.useStub").toBoolean
 

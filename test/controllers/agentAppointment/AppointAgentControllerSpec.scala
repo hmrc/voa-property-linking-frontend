@@ -192,11 +192,12 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.mustContainText(testOwnerAuth.address)
   }
 
-  "viewing select agent properties page" should "show no properties when the agent has no properties appointed" in {
+
+  "selectAgentProperties" should "return a bad request response when agent code does not match" in {
     stubLogin()
-    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
+    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 2l)
     val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
-    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "REVOKED")
+    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "APPROVED")
     val testOwnerAuthResult = OwnerAuthResult(start = 1,
       size = 15,
       filterTotal = 1,
@@ -207,6 +208,55 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
 
     val res = testController.selectAgentProperties()(FakeRequest().withFormUrlEncodedBody(
+      "agentCode" -> "1",
+      "agentCodeRadio" -> "1"
+    ))
+
+    status(res) mustBe BAD_REQUEST
+  }
+
+
+  "selectAgentPropertiesSearchSort" should "show a list of properties available for removal from a agent" in {
+    stubLogin()
+    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
+    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
+    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "APPROVED")
+    val testOwnerAuthResult = OwnerAuthResult(start = 1,
+      size = 15,
+      filterTotal = 1,
+      total = 1,
+      authorisations = Seq(testOwnerAuth))
+    val testPagination = AgentPropertiesParameters(1l)
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+
+    val res = testController.selectAgentPropertiesSearchSort(testPagination)(FakeRequest().withFormUrlEncodedBody(
+      "agentCode" -> "1",
+      "agentCodeRadio" -> "1"
+    ))
+
+    status(res) mustBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText(testOwnerAuth.address)
+  }
+
+  "viewing select agent properties search sort page" should "show no properties when the agent has no properties appointed" in {
+    stubLogin()
+    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
+    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
+    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "REVOKED")
+    val testOwnerAuthResult = OwnerAuthResult(start = 1,
+      size = 15,
+      filterTotal = 1,
+      total = 1,
+      authorisations = Seq(testOwnerAuth))
+    val testPagination = AgentPropertiesParameters(1l)
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+
+    val res = testController.selectAgentPropertiesSearchSort(testPagination)(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",
       "agentCodeRadio" -> "1"
     ))

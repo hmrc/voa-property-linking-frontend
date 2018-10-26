@@ -40,9 +40,8 @@ object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAut
 
 object StubEmailService extends EmailService(null) {
 
-  override def sendNewEnrolmentSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
+  override def sendNewRegistrationSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
 
-  override def sendMigrationEnrolmentSuccess(to: String, personId: Long, name: String)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
 }
 
 object StubAuthConnector extends AuthConnector {
@@ -64,4 +63,6 @@ object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubSer
   override def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
 
   override def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
+
+  override def isAgentOwnProperty(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Boolean] = Future.successful(true)
 }

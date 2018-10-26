@@ -41,7 +41,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     StubVplAuthConnector.stubGroupId("groupwithoutaccount")
     StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
@@ -55,7 +55,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     StubVplAuthConnector.stubGroupId("groupwithoutaccount")
     StubVplAuthConnector.stubUserDetails("externalId", testIndividualInfo)
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
@@ -63,7 +63,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
   }
 
   "Successfully verifying identity" must
-    "return internal server error when the registration or enrolment fails" in new TestCase {
+  "return internal server error when the registration or enrolment fails" in new TestCase {
     StubVplAuthConnector.stubExternalId("externalId")
     StubVplAuthConnector.stubGroupId("groupwithoutaccount")
     StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
@@ -75,11 +75,44 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     status(res) mustBe INTERNAL_SERVER_ERROR
   }
 
+  "Successfully verifying identity" must
+    "return internal server error when there are details missing" in new TestCase {
+    StubVplAuthConnector.stubExternalId("externalId")
+    StubVplAuthConnector.stubGroupId("groupwithoutaccount")
+    StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
+    StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(DetailsMissing))
+
+    val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
+
+    status(res) mustBe INTERNAL_SERVER_ERROR
+  }
+
   "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in new TestCase {
     StubIdentityVerification.stubFailedJourney("somejourneyid")
 
     val res = TestIdentityVerification.success()(request.withSession("journey-id" -> "somejourneyid"))
     status(res) mustBe UNAUTHORIZED
+  }
+
+  "Navigating to the iv failed page" must "return the failed page" in new TestCase {
+    val res = TestIdentityVerification.fail()(request)
+    status(res) mustBe OK
+    contentAsString(res) must include("Identity verification failed")
+  }
+  "Navigating to restoreSession" must "redirect to the iv success page" in new TestCase {
+    val res = TestIdentityVerification.restoreSession()(request)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.IdentityVerification.success.url)
+  }
+
+  "fail" must "redirect the user to the identity verification failure page" in new TestCase {
+    val res = TestIdentityVerification.fail()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = contentAsString(res)
+    html must include ("We’re unable to verify your identity.")
   }
 
 

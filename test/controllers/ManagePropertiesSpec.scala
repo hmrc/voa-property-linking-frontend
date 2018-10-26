@@ -33,7 +33,7 @@ import scala.collection.JavaConverters._
 
 class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.enrolment" -> "false")
+  override val additionalAppConfig = Seq("featureFlags.newDashboardRedirectsEnabled" -> "false")
 
   //Make the tests run significantly faster by only loading and parsing the default case, of 15 property links, once
   lazy val defaultHtml = {

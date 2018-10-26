@@ -72,6 +72,9 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     val validData = Seq(
       "address.addressId" -> "1234567890",
       "address.line1" -> "1, The Place",
+      "address.line2" -> "",
+      "address.line3" -> "",
+      "address.line4" -> "",
       "address.postcode" -> "AA11 1AA"
     )
 
@@ -91,6 +94,9 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
 
     val validData = Seq(
       "address.line1" -> "1, The Place",
+      "address.line2" -> "",
+      "address.line3" -> "",
+      "address.line4" -> "",
       "address.postcode" -> "AA11 1AA"
     )
 
@@ -180,6 +186,55 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
 
     verify(mockGroups, once).update(matching(org.id), matching(updatedDetails(org, person.externalId, email = Some("email@example.com"))))(any[HeaderCarrier])
   }
+
+  "viewBusinessName" should "display the business name" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = testController.viewBusinessName()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update business name"
+  }
+
+  "viewBusinessAddress" should "display the business address" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = testController.viewBusinessAddress()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update business address"
+  }
+
+  "viewBusinessPhone" should "display the business phone number" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = testController.viewBusinessPhone()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update business telephone number"
+  }
+
+  "viewBusinessEmail" should "display the users email" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = testController.viewBusinessEmail()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update business email"
+  }
+
 
   private def updatedDetails(org: GroupAccount,
                              personId: String,

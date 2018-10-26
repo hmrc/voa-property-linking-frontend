@@ -35,12 +35,9 @@ import play.api.data.Forms.{number, _}
 import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.mvc.{Request, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
-
-import models.RepresentationApproved
-import models.RepresentationPending
 
 import scala.concurrent.Future
 
@@ -68,8 +65,8 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
               page = 1,
               pageSize = 100,
               agent = Some(group.companyName),
-              sortfield = request.getQueryString("sortField"),
-              sortorder = request.getQueryString("sortOrder")
+              sortfield = Some(pagination.sortField.name),
+              sortorder = Some(pagination.sortOrder.name)
             ) { paginationSearchSort =>
 
               for {
@@ -97,12 +94,15 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       })
   }
 
+  val journeyStartBackLink = {
+    if (config.newDashboardRedirectsEnabled) Some(config.newDashboardUrl("your-agents")) else Some(controllers.routes.Dashboard.manageProperties().url)
+  }
 
   def selectProperties() = authenticated { implicit request =>
     appointAgentForm.bindFromRequest().fold(
       hasErrors = errors => {
         agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
-          BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, None, ownerAgents.agents)))
+          BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, None, ownerAgents.agents), journeyStartBackLink))
         }
       },
       success = (agent: AppointAgent) => {
@@ -155,8 +155,8 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
             pageSize = 100,
             address = pagination.address,
             agent = Some(group.companyName),
-            sortfield = request.getQueryString("sortField"),
-            sortorder = request.getQueryString("sortOrder")
+            sortfield = Some(pagination.sortField.name),
+            sortorder = Some(pagination.sortOrder.name)
           ) { paginationSearchSort =>
 
             for {
@@ -235,8 +235,8 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
               page = 1,
               pageSize = 100,
               agent = Some(group.companyName),
-              sortfield = request.getQueryString("sortField"),
-              sortorder = request.getQueryString("sortOrder")
+              sortfield = Some(pagination.sortField.name),
+              sortorder = Some(pagination.sortOrder.name)
             ) { paginationSearchSort =>
 
               for {
@@ -397,7 +397,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
   private lazy val alreadyAppointedAgent = FormError("agentCode", "error.alreadyAppointedAgent")
 
   private def invalidAppointment(form: Form[AppointAgent], linkId: Option[Long], agents: Seq[OwnerAgent] = Seq())(implicit request: Request[_]) = {
-    Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId, agents))))
+    Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId, agents), journeyStartBackLink)))
   }
 
   private def invalidRevokeAppointment(form: Form[AgentId], linkId: Option[Long], agents: Seq[OwnerAgent] = Seq())(implicit request: Request[_]) = {
@@ -437,7 +437,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
   def appointMultipleProperties() = authenticated { implicit request =>
     agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
       Ok(views.html.propertyRepresentation.appointAgent(
-        AppointAgentVM(form = appointAgentForm, agents = ownerAgents.agents)))
+        AppointAgentVM(form = appointAgentForm, agents = ownerAgents.agents), journeyStartBackLink))
     }
   }
 

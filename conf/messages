@@ -1,6 +1,6 @@
 project.header=VOA Property Linking
 service.name=Check and challenge your business rates valuation
-link.dashboardhome=Dashboard
+link.home=Home
 
 #START PAGE
 start.heading.register=Register to use this service
@@ -17,7 +17,8 @@ start.registration.IdontHave=I don’t have these details
 start.registration.IdontHave.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to call the Valuation Office Agency (VOA).</p><p>Telephone: 03000 501 501</p>
 start.registration.IdontHave.enrolment.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, you’ll need to call the Valuation Office Agency (VOA).</p><p>Telephone: 03000 501 501</p>
 start.registration.enrolment.hyperlink=<a href="{0}">I want to register using my existing Government Gateway account</a>
-
+start.registration.individual.hyperlink=<a href="{0}/are-you-trying-to-file-for-sa?continue={1}&origin={2}">Individual (you represent yourself)</a> – you won’t be able to add others to this account
+start.registration.organisation.hyperlink=<a href="{0}?accountType={1}&continue={2}&origin={3}">Organisation (you represent a business, charity or other organisation)</a> – you’ll be able to add others to this account
 
 start.heading.agents=Agents
 start.agents.p.1=If you plan to act as an agent on behalf of another business, you’ll be able to indicate this during the registration process.
@@ -222,8 +223,7 @@ dashboard.tab.myProperties=My properties
 dashboard.tab.manageAgents=Agents
 dashboard.tab.drafts=Drafts
 dashboard.tab.editDetails=My details
-dashboard.tab.messages=Messages ({0})
-dashboard.tab.messages.none=Messages
+dashboard.tab.messages=Messages
 
 #DASHBOARD HOME
 dashboard.home.title=Dashboard home
@@ -309,6 +309,20 @@ managePropertiesSearchSort.table.4=Client
 managePropertiesSearchSort.table.5=Actions
 
 #DASHBOARD ASSESSMENTS
+property.details.title=Valuations and submitted checks for
+property.details.p1=You can view your rateable value and start a new check or view the previous cases
+property.details.div.submitted=Submitted check cases
+property.details.div.noSubmittedCheck=There are no check cases available for your property.
+
+property.details.cases.table.1=Submitted date
+property.details.cases.table.2=Submitted ID
+property.details.cases.table.3=Status
+property.details.cases.table.4=Check reference
+property.details.cases.table.5=Closed date
+property.details.cases.table.6=Agent
+property.details.cases.table.7=Client
+property.details.cases.table.8=Submitted By
+
 assessments.title=Valuations
 assessments.table.caption=Valuations
 assessments.table.1=Effective date
@@ -684,7 +698,7 @@ linkError.conflict.home.link=Manage your properties
 error.select.valuation.required=Please select a Valuation
 requestDetailedValuation.title=This detailed valuation isn’t available to view online.
 requestDetailedValuation.p.1=We’re working to make more detailed valuations available to view online in the next few months. If you need to view this detailed valuation sooner, please request a copy by email or post.
-requestDetailedValuation.p.2=If you don’t want to request this, you can <a href={0}>return to the dashboard.</a>
+requestDetailedValuation.p.2=If you don’t want to request this, you can <a href={0}>return to the home page.</a>
 requestDetailedValuation.p.3=The majority of our customers prefer us to send information by email as it means we can get it to them quicker. Although we take care to protect the security of your property data, we cannot guarantee that your detailed valuation will be secure once sent.
 requestDetailedValuation.p.4=If you’d prefer us to send this by post, we’ll send it to the address that you provided on the ‘your contact details’ page during registration.
 
@@ -953,6 +967,31 @@ messages.search=Search for {0}
 messages.pageSize.showing=Showing
 messages.pageSize.perPage=messages per page
 
+#CHALLENGE
+challenge.valuation.heading=Challenge this valuation
+challenge.valuation.challenge=If you disagree with the valuation on a property you can make a challenge. If you haven’t started a check on the property yet you need to do so before making a challenge.
+challenge.valuation.timeFrame=Your challenge must be made within 4 months of our decision, or within 16 months of the date you told us about a change in the surrounding area of your property. You can also make a challenge if you told us about a change and we haven’t made a decision within 12 months.
+challenge.valuation.beforeStarting=Before you start
+challenge.valuation.eligibility=You’ll need to confirm why you’re eligible to make a challenge. The challenge form will only be available after you’ve selected one of these options:
+challenge.valuation.b1=I received my check decision less than 4 months ago
+challenge.valuation.b2=I submitted a check more than 12 months ago and I have not had a decision
+challenge.valuation.b3=I informed you about a change in the surrounding area of my property less than 16 months ago
+
+challenge.valuation.whatToDo=What you need to do
+challenge.valuation.makeChallenge=You’ll need to
+challenge.valuation.download=download and complete the challenge form
+challenge.valuation.also=You should also
+challenge.valuation.guidance=download and read the guidance
+challenge.valuation.completing=before completing the form.
+challenge.valuation.supportingEvidence=You can send the challenge form, along with your supporting evidence, to
+challenge.valuation.email=ccaservice@voa.gsi.gov.uk
+challenge.valuation.post=or post it to:
+challenge.valuation.address1=Check & challenge service
+challenge.valuation.address2=PO Box 1827
+challenge.valuation.address3=Shirley
+challenge.valuation.address4=SO15 9HH
+challenge.valuation.risks=Please be aware of the risks before sending any confidential information.
+
 #CHECK RECEIVED MESSAGE
 checkReceived.title=Check acknowledgement
 checkReceived.subject=Subject: {0}
@@ -1032,6 +1071,7 @@ enrolment.businessPhoneNumber = Business telephone number
 enrolment.phoneNumber = Telephone number
 enrolment.mobileNumber = Mobile number
 enrolment.emailAddress = Business email address
+enrolment.emailAddress.hint = This should be your email address and not your agent’s. The email address should be monitored
 enrolment.tradingName = Trading name
 enrolment.confirmEmailAddress = Confirm business email address
 enrolment.organisation.individualOrCompany = Do you wish to act on behalf of an other individual or company?

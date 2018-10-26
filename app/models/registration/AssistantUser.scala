@@ -29,16 +29,12 @@ trait AssistantUser {
 
   val firstName: String
   val lastName: String
-  val address: Address
-  val phone: String
-  val email: String
-  val confirmedEmail: String
 
-  def toIndividualAccountSubmission(user: UserDetails)(id: Long)(organisationId: Option[Long]) = IndividualAccountSubmission(
+  def toIndividualAccountSubmission(fieldData: FieldData)(user: UserDetails)(id: Long)(organisationId: Option[Long]) = IndividualAccountSubmission(
     externalId = user.externalId,
     trustId = "ASSISTANT_NO_IV",
     organisationId = organisationId,
-    details = IndividualDetails(firstName, lastName, email, phone, None, id)
+    details = IndividualDetails(firstName, lastName, fieldData.email, fieldData.businessPhoneNumber, None, id)
   )
 
 }
@@ -47,13 +43,7 @@ object AssistantUser {
 
   lazy val assistant = Form(mapping(
     keys.firstName -> nonEmptyText,
-    keys.lastName -> nonEmptyText,
-    keys.companyName -> nonEmptyText(maxLength = 45),
-    keys.address -> addressMapping,
-    keys.phone -> nonEmptyText.verifying("Maximum length is 15", _.length <= 15),
-    keys.email -> email.verifying(Constraints.maxLength(150)),
-    keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
-    keys.isAgent -> mandatoryBoolean
+    keys.lastName -> nonEmptyText
   )(AssistantUserAccountDetails.apply)(AssistantUserAccountDetails.unapply))
 
 }

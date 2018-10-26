@@ -16,9 +16,7 @@
 
 package controllers
 
-import com.builtamont.play.pdf.PdfGenerator
-import config.ApplicationConfig
-import connectors.{AgentsConnector, Authenticated, DraftCases, GroupAccounts}
+import connectors.{Authenticated, DraftCases}
 import models.Accounts
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers._
@@ -26,13 +24,15 @@ import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
+import uk.gov.hmrc.http.HeaderCarrier
 import utils.{Formatters, StubAuthentication, StubMessagesConnector, StubPropertyLinkConnector}
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 class ViewDraftCasesSpec extends VoaPropertyLinkingSpec {
+
+  override val additionalAppConfig = Seq("featureFlags.newDashboardRedirectsEnabled" -> "false")
 
   "Viewing draft cases, when the user has no drafts" should "tell the user they have no draft cases" in {
     when(mockDraftCases.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Nil))

@@ -18,7 +18,7 @@
 @import actions.AuthenticatedRequest
 @import config.ApplicationConfig
 
-@(message: Message, unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(message: Message)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
   title = message.subject,
@@ -27,7 +27,11 @@
   topBackLink = true,
   backLinkUrl = Some(routes.Dashboard.viewMessages().url)) {
 
-    @partials.welcomeLinks(unreadMessagesCount)
+    <ul class="navigation-links pull-right">
+        <li><a href="@routes.Dashboard.home().url">@Messages("link.home")</a></li>
+    </ul>
+
+    @partials.welcomeLinks()
 
     @viewMessageTemplate(message)
 

@@ -17,7 +17,7 @@
 package controllers
 
 import controllers.registration.RegistrationController
-import models.registration.{EnrolmentSuccess, UserInfo}
+import models.registration.{RegistrationSuccess, UserInfo}
 import models.identityVerificationProxy.Link
 import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers._
@@ -37,8 +37,6 @@ import utils.{StubGroupAccountConnector, _}
 import scala.concurrent.Future
 
 class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
-
-  override val additionalAppConfig = Seq("featureFlags.enrolment" -> "true")
 
   lazy val mockEnrolmentService = mock[EnrolmentService]
 
@@ -187,6 +185,26 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     html.mustContainText("You have been added as a user to your organisation, please confirm your details below")
   }
 
+  "Submitting an invalid assistant form" should "return a bad request response" in {
+
+    val (groupId, externalId): (String, String) = (shortString, shortString)
+    StubVplAuthConnector.stubGroupId(groupId)
+    StubVplAuthConnector.stubExternalId(externalId)
+    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
+    StubGroupAccountConnector.stubAccount(GroupAccount(1l, groupId, "", 12, "", "", false, 1l))
+
+    val data = Map(
+      "firstName" -> Seq("first")
+    )
+    val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
+    val res = TestRegistrationController$.submitAssistant()(fakeRequest)
+    status(res) mustBe BAD_REQUEST
+
+    val html = HtmlPage(res)
+    html.mustContainText("Last Name - This must be filled in")
+    html.mustNotContainText("First Name - This must be filled in")
+  }
+
   "Going to the create account page when logged in as a new admin user registering with an existing group account" should
     "display the complete your contact details form for an admin" in {
 
@@ -240,7 +258,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Submitting a valid individual form" should "return a redirect" in {
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubVplAuthConnector.stubGroupId(groupId)
@@ -284,7 +302,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "Submitting a valid organisation form" should "return a redirect" in {
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentSuccess(1l)))
+    when(mockRegistrationService.create(any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubVplAuthConnector.stubGroupId(groupId)
     StubVplAuthConnector.stubExternalId(externalId)

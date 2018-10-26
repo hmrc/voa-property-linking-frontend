@@ -16,15 +16,17 @@
 
 package controllers.manageDetails
 
+import java.time.Instant
+
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import javax.inject.Inject
 
 import config.ApplicationConfig
-import connectors.{Addresses, IndividualAccounts}
+import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.PropertyLinkingController
 import form.Mappings._
 import form.TextMatching
-import models.IndividualDetails
+import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails, UpdatedOrganisationAccount}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
@@ -32,13 +34,14 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{AnyContent, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
 class UpdatePersonalDetails @Inject()(authenticated: AuthenticatedAction,
                                       addressesConnector: Addresses,
                                       individualAccountConnector: IndividualAccounts,
-                                      manageDetails: ManageDetails)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+                                      manageDetails: ManageDetails, groupAccounts: GroupAccounts)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
   def viewEmail() = authenticated { implicit request =>
@@ -127,8 +130,21 @@ class UpdatePersonalDetails @Inject()(authenticated: AuthenticatedAction,
 
     individualAccountConnector.update(updatedAccount)
       .flatMap(_ => addressId.fold[Future[EnrolmentResult]](Future.successful(Success))(manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)(_ == AffinityGroup.Individual)))
-      .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show()))
+      .map{
+        _ => updateGroup(request.organisationAccount, updatedAccount)
+          Redirect(controllers.manageDetails.routes.ViewDetails.show())}
   }
+
+  private def updateGroup(group: GroupAccount, updatedAccount: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
+    val account =
+      UpdatedOrganisationAccount(group.groupId, updatedAccount.details.addressId, group.isAgent,
+        companyName(group.companyName, updatedAccount.details.firstName, updatedAccount.details.lastName),
+        updatedAccount.details.email, updatedAccount.details.phone1, Instant.now(), updatedAccount.externalId)
+
+    groupAccounts.update(updatedAccount.organisationId, account)
+  }
+
+  private def companyName(companyName: String, firstName: String, lastName: String) = if (companyName.isEmpty) s"$firstName $lastName" else companyName
 
   private lazy val emailForm = Form(
     mapping(

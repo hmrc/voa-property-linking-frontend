@@ -32,7 +32,7 @@ import play.api.http.Status.OK
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-class EmailServiceSpec extends UnitSpec with MockitoSugar{
+class EmailServiceSpec extends UnitSpec with MockitoSugar {
 
   private implicit val headerCarrier = HeaderCarrier()
   val config = mock[ServicesConfig]
@@ -52,24 +52,9 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar{
 
       val individualDetails = IndividualDetails("firstName", "lastName", "email@email.com", "012345567788", None, 12345L)
 
-      await(emailService.sendNewEnrolmentSuccess("toAddress@email.com", DetailedIndividualAccount("externalId","trustId", 123L, 234L, individualDetails)))
+      await(emailService.sendNewRegistrationSuccess("toAddress@email.com", DetailedIndividualAccount("externalId", "trustId", 123L, 234L, individualDetails)))
 
-      verify(mockWSHttp, times(1)).POST(any,any,any)(any[Writes[PayLoad]](),
-        any[HttpReads[HttpResponse]](), any[HeaderCarrier](), any())
-    }
-    "send new migration enrolment success email" in {
-      val mockWSHttp = mock[WSHttp]
-      val emailConnector = new EmailConnector(config, mockWSHttp)
-      val emailService = new EmailService(emailConnector)
-
-      when(config.baseUrl("email")).thenReturn("http://blah:2909/")
-      when(mockWSHttp.POST[PayLoad, HttpResponse](anyString(), any[PayLoad](), any())(any[Writes[PayLoad]](),
-        any[HttpReads[HttpResponse]](), any[HeaderCarrier](), any()))
-        .thenReturn(Future.successful(HttpResponse(OK)))
-
-      await(emailService.sendMigrationEnrolmentSuccess("toAddress@email.com", 123L, "name"))
-
-      verify(mockWSHttp, times(1)).POST(any,any,any)(any[Writes[PayLoad]](),
+      verify(mockWSHttp, times(1)).POST(any, any, any)(any[Writes[PayLoad]](),
         any[HttpReads[HttpResponse]](), any[HeaderCarrier](), any())
     }
   }

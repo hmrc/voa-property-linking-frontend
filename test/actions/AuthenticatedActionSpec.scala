@@ -39,8 +39,6 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
 
-  override val additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.enrolment" -> "false")
-
   "AuthenticatedAction" should {
     "invoke the wrapped action when the user is logged in to CCA" in {
       when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
@@ -76,7 +74,39 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
       redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.show().url)
     }
 
-    "redirect to invalid accoupt page when the user is logged in to GG but does not have groupId" in {
+    "redirect to invalid account page when the user has an invalid account type" in {
+      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(InvalidAccountType))
+
+      val res = testAction { _ =>
+        Ok("something")
+      }(FakeRequest())
+
+      status(res) shouldBe SEE_OTHER
+      redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
+    }
+
+    "throw unauthorized when the trustId is incorrect" in {
+      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(IncorrectTrustId))
+
+      val res = testAction { _ =>
+        Ok("something")
+      }(FakeRequest())
+
+      status(res) shouldBe UNAUTHORIZED
+      contentAsString(res) shouldBe "Trust ID does not match"
+    }
+
+    "throw forbidden when a ForbiddenResponse is thrown" in {
+      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(ForbiddenResponse))
+
+      val res = testAction { _ =>
+        Ok("something")
+      }(FakeRequest())
+
+      status(res) shouldBe FORBIDDEN
+    }
+
+    "redirect to invalid account page when the user is logged in to GG but does not have groupId" in {
       when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(NonGroupIDAccount))
 
       val res = testAction { _ =>
@@ -86,7 +116,8 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
       status(res) shouldBe SEE_OTHER
       redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
     }
-    
+
+
     "return a 400 response when the wrapped action throws a BadRequestException" in {
       when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
 

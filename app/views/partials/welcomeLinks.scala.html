@@ -18,7 +18,7 @@
 @import config.ApplicationConfig
 @import session._
 
-@(unreadMessagesCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@()(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @name = @{
     s"${request.individualAccount.details.firstName} ${request.individualAccount.details.lastName}"
@@ -58,26 +58,7 @@
 
 </div>
 
-<div id="unread-message-count" class="clearfix pull-right margin-top-5 margin-bottom-20 font-xsmall">
-    <i class="icon icon-messageunread"></i>
-    @if(unreadMessagesCount == 0) {
-        <span>@Messages("dashboard.unreadMessages.none")</span>
-    } else {
-        <span>@Html(Messages("dashboard.unreadMessages", routes.Dashboard.viewMessages().url, unreadMessagesCount))</span>
-    }
-</div>
-
-@if(!request.uri.contains("/business-rates-property-linking/message/")) {
-    <div class="column-full">
-        <div class="indent-warning">
-            <h2>Are your contact details correct?</h2>
-            <p>Make sure you’ve provided us with your preferred contact details. These should be the contact details you use for business, not your personal details. </p>
-            <p><a href="@controllers.manageDetails.routes.ViewDetails.show()">
-                Review and update your contact details.</a></p>
-        </div>
-
-    </div>
-}
+<div id="unread-message-count" class="clearfix pull-right margin-top-5 margin-bottom-20 font-xsmall"><i class="icon icon-loading"></i></div>
 
 @isAgent = @{
     request.organisationAccount.isAgent

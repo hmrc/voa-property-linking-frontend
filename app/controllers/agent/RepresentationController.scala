@@ -54,7 +54,9 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
   def viewClientProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String],
                            sortorder: Option[String], status: Option[String], address: Option[String],
                            baref: Option[String], client: Option[String]) = authenticated.asAgent { implicit request =>
-    withValidPaginationSearchSort(
+    if (config.newDashboardRedirectsEnabled) {
+      Redirect(config.newDashboardUrl("client-properties"))
+    } else {withValidPaginationSearchSort(
       page = page,
       pageSize = pageSize,
       requestTotalRowCount = requestTotalRowCount,
@@ -66,22 +68,22 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
       client = client
     ) { paginationSearchSort => {
       val eventualRepresentations = reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
-      val eventualMessageCount = messagesConnector.countUnread(request.organisationId)
+
 
       for {
         representations <- eventualRepresentations
-        msgCount <- eventualMessageCount
+
       } yield {
         Ok(views.html.dashboard.manageClients(
           ManageClientPropertiesVM(
             result = representations,
             totalPendingRequests = representations.pendingRepresentations,
             pagination = paginationSearchSort.copy(totalResults = representations.filterTotal)
-          ),
-          msgCount.unread
-        ))
+          )
+
+        ))}
       }
-    }
+      }
     }
   }
 
@@ -293,8 +295,11 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
       clientProperty <- OptionT(propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id))
       _ <- OptionT.liftF(reprConnector.revoke(clientProperty.authorisedPartyId))
     } yield {
+      if (config.newDashboardRedirectsEnabled) {
+        Redirect(config.newDashboardUrl("client-properties"))
+      } else {
       Redirect(routes.RepresentationController.viewClientProperties())
-    }).getOrElse(notFound)
+    }}).getOrElse(notFound)
   }
 
 }

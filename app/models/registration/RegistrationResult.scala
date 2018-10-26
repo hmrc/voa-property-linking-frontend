@@ -18,7 +18,7 @@ package models.registration
 
 sealed trait RegistrationResult
 
-case class EnrolmentSuccess(personId: Long) extends RegistrationResult
+case class RegistrationSuccess(personId: Long) extends RegistrationResult
 
 case object EnrolmentFailure extends RegistrationResult
 

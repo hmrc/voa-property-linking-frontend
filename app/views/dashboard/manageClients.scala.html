@@ -18,7 +18,7 @@
 @import utils.Formatters
 @import config.ApplicationConfig
 
-@(model: controllers.agent.ManageClientPropertiesVM, unreadMessageCount: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.agent.ManageClientPropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{ Messages("agent.dashboard.manageClients.title") }
 
@@ -29,7 +29,7 @@
     topNavigation = false
 ) {
 
-    @partials.dashboardTabs(unreadMessageCount)
+    @partials.dashboardTabs()
 
     <div>
         @if(model.totalPendingRequests == 0) {

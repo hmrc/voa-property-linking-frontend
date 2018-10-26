@@ -16,14 +16,14 @@
 
 package services.test
 
-import connectors.TaxEnrolmentConnector
+import connectors.test.TestTaxEnrolmentConnector
 import javax.inject.Inject
 import services.{Failure, Success}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class TestService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector) {
+class TestService @Inject()(taxEnrolmentsConnector: TestTaxEnrolmentConnector) {
 
   def deEnrolUser(personID: Long)(implicit hc: HeaderCarrier) =
     taxEnrolmentsConnector

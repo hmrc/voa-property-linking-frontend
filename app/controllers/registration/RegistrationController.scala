@@ -33,6 +33,8 @@ import services.email.EmailService
 import services.iv.IdentityVerificationService
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
 import uk.gov.hmrc.auth.core.{Admin, Assistant, User}
+import uk.gov.hmrc.http.HeaderCarrier
+import models.registration.AdminInExistingOrganisationAccountDetails._
 
 import scala.concurrent.Future
 
@@ -47,7 +49,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
                                        authenticatedAction: AuthenticatedAction,
                                        identityVerificationService: IdentityVerificationService,
                                        @Named("personSession") val personalDetailsSessionRepo: SessionRepo
-                                   )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+                                      )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   import utils.SessionHelpers._
 
@@ -87,24 +89,75 @@ class RegistrationController @Inject()(ggAction: VoaAction,
       )
   }
 
+  def submitAdminToExistingOrganisation() = ggAction.async(isSession = false) { ctx =>
+    implicit request =>
+      AdminInExistingOrganisationUser.organisation.bindFromRequest().fold(
+        errors => {
+          getCompanyDetails(ctx).map {
+            case Some(fieldData) => {
+              BadRequest(
+                views.html.createAccount.register_assistant_admin(
+                  errors,
+                  fieldData
+                ))
+            }
+            case _ => {
+              unableToRetrieveCompanyDetails
+            }
+          }
+        },
+        success => {
+          getCompanyDetails(ctx).flatMap {
+            case Some(fieldData) => {
+              personalDetailsSessionRepo.saveOrUpdate(success.toAdminOrganisationAccountDetails(fieldData)) map { _ =>
+                Redirect(controllers.routes.IdentityVerification.startIv)
+              }
+            }
+            case _ => {
+              unableToRetrieveCompanyDetails
+            }
+          }
+        }
+      )
+  }
+
   def submitAssistant() = ggAction.async(isSession = false) { ctx =>
     implicit request =>
       AssistantUser.assistant.bindFromRequest().fold(
-        errors => BadRequest(
-          views.html.createAccount.register_assistant(
-            errors,
-            FieldData(errors.data)
-          )),
-        success =>
-          registrationService
-            .create(success.toGroupDetails, ctx)(success.toIndividualAccountSubmission)(hc, ec)
-            .map {
-              case EnrolmentSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
-              case EnrolmentFailure => InternalServerError(Global.internalServerErrorTemplate)
-              case DetailsMissing => InternalServerError(Global.internalServerErrorTemplate)
+        errors => {
+          getCompanyDetails(ctx).map {
+            case Some(fieldData) => {
+              BadRequest(
+                views.html.createAccount.register_assistant(
+                  errors,
+                  fieldData
+                ))
             }
+            case _ => {
+              unableToRetrieveCompanyDetails
+            }
+          }
+        },
+        success => {
+          getCompanyDetails(ctx).flatMap {
+            case Some(fieldData) => {
+              registrationService
+                .create(success.toGroupDetails(fieldData), ctx)(success.toIndividualAccountSubmission(fieldData))(hc, ec)
+                .map {
+                  case RegistrationSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
+                  case EnrolmentFailure => InternalServerError(Global.internalServerErrorTemplate)
+                  case DetailsMissing => InternalServerError(Global.internalServerErrorTemplate)
+                }
+            }
+            case _ => {
+              unableToRetrieveCompanyDetails
+            }
+          }
+        }
       )
   }
+
+  private def unableToRetrieveCompanyDetails = throw new IllegalStateException("Unable to retrieve company details")
 
   def success(personId: Long) = ggAction.async(isSession = false) { ctx =>
     implicit request =>
@@ -114,28 +167,18 @@ class RegistrationController @Inject()(ggAction: VoaAction,
   }
 
   private def orgShow[A](ctx: A, userDetails: UserDetails)(implicit request: Request[AnyContent]) = {
-    val fieldDataFOptT = (for {
-      groupId <- OptionT.liftF(auth.getGroupId(ctx))
-      acc <- OptionT(groupAccounts.withGroupId(groupId))
-      address <- OptionT(addresses.findById(acc.addressId))
-    } yield {
-      new FieldData(postcode = address.postcode, businessAddress = address, email = acc.email,
-        businessName = acc.companyName, businessPhoneNumber = acc.phone, isAgent = acc.isAgent)
-    }).value
-
-    fieldDataFOptT.map {
+    getCompanyDetails(ctx).map {
       case Some(fieldData) =>
         userDetails.userInfo.credentialRole match {
           case Admin | User =>
             Ok(views.html.createAccount.register_assistant_admin(
-              AdminUser.organisation,
+              AdminInExistingOrganisationUser.organisation,
               fieldData))
           case Assistant =>
             Ok(views.html.createAccount.register_assistant(
               AssistantUser.assistant,
               fieldData))
         }
-
       case None =>
         userDetails.userInfo.credentialRole match {
           case Admin | User =>
@@ -146,6 +189,16 @@ class RegistrationController @Inject()(ggAction: VoaAction,
             Ok(views.html.errors.invalidAccountCreation())
         }
     }
+  }
 
+  private def getCompanyDetails[A](ctx: A)(implicit hc: HeaderCarrier) = {
+    (for {
+      groupId <- OptionT.liftF(auth.getGroupId(ctx))
+      acc <- OptionT(groupAccounts.withGroupId(groupId))
+      address <- OptionT(addresses.findById(acc.addressId))
+    } yield {
+      new FieldData(postcode = address.postcode, businessAddress = address, email = acc.email,
+        businessName = acc.companyName, businessPhoneNumber = acc.phone, isAgent = acc.isAgent)
+    }).value
   }
 }

@@ -16,7 +16,7 @@
 
 package controllers.manageDetails
 
-import connectors.{Addresses, Authenticated, IndividualAccounts}
+import connectors.{Addresses, Authenticated, GroupAccounts, IndividualAccounts}
 import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, Address, DetailedIndividualAccount}
 import org.jsoup.Jsoup
@@ -179,6 +179,9 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val validData = Seq(
       "address.addressId" -> "1234567890",
       "address.line1" -> "Some place",
+      "address.line2" -> "",
+      "address.line3" -> "",
+      "address.line4" -> "",
       "address.postcode" -> "AA11 1AA"
     )
 
@@ -233,6 +236,74 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
+  "The update mobile number page" must "throw BAD_REQUEST if they submit an invalid form" in {
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.updateMobile()(FakeRequest())
+    status(res) mustBe BAD_REQUEST
+  }
+
+  "viewEmail" should "display the users email" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.viewEmail()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update email"
+  }
+
+  "viewAddress" should "display the users address" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.viewAddress()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update address"
+  }
+
+  "viewPhone" should "display the users phone number" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.viewPhone()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update telephone number"
+  }
+
+  "viewName" should "display the users name" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.viewName()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update your name"
+  }
+
+  "viewMobile" should "display the users name" in {
+
+    val (_, current) = stubLoggedInUser()
+
+    val res = TestUpdatePersonalDetails.viewMobile()(FakeRequest())
+
+    status(res) mustBe OK
+
+    val html = Jsoup.parse(contentAsString(res))
+    html.title mustBe "Update mobile number"
+  }
+
+
   private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
 
   private object TestUpdatePersonalDetails extends UpdatePersonalDetails(
@@ -240,7 +311,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     StubAuthentication,
     mockAddressConnector,
     mockIndividualAccounts,
-    mockManageDetails
+    mockManageDetails,
+    mockGroupAccounts
   )
 
   lazy val mockIndividualAccounts = {
@@ -251,6 +323,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   lazy val mockAddressConnector = mock[Addresses]
   lazy val mockManageDetails = mock[ManageDetails]
+  lazy val mockGroupAccounts = mock[GroupAccounts]
 
   lazy val request = FakeRequest().withSession(token)
 

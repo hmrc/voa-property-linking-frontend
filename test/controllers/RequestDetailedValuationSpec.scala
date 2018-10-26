@@ -18,8 +18,9 @@ package controllers
 
 import java.time.LocalDate
 
+import actions.BasicAuthenticatedRequest
 import config.ApplicationConfig
-import connectors.{Authenticated, DVRCaseManagementConnector, SubmissionIdConnector}
+import connectors.{Authenticated, CheckCaseConnector, DVRCaseManagementConnector, SubmissionIdConnector}
 import models._
 import org.mockito.ArgumentMatchers._
 import org.mockito.ArgumentMatchers.{eq => matching}
@@ -29,15 +30,19 @@ import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import utils.{HtmlPage, StubAuthentication, StubBusinessRatesValuation, StubPropertyLinkConnector}
+import utils._
 
 import scala.concurrent.Future
 import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
-class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
+class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSugar with TestCheckCasesData{
+
+  val mockCheckCaseConnector = mock[CheckCaseConnector]
 
   private object TestAssessments extends Assessments( StubPropertyLinkConnector,
-    StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation)
+    StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation, mockCheckCaseConnector, StubBusinessRatesAuthorisation)
+
+  when(mockCheckCaseConnector.getCheckCases(any[Option[PropertyLink]], any[Boolean])(any[BasicAuthenticatedRequest[_]],any[HeaderCarrier])).thenReturn(Future.successful(Some(ownerCheckCasesResponse)))
 
   lazy val mockDvrCaseManagement = {
     val m = mock[DVRCaseManagementConnector]
@@ -171,12 +176,12 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
 
   "startChallengeFromDVR" should "display 'Challenge the Valuation' page" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
-    val res = TestAssessments.startChallengeFromDVR()(FakeRequest())
+    val res = TestAssessments.startChallengeFromDVR(authId, assessmentRef, baRef)(FakeRequest())
 
     status(res) mustBe OK
 
     val html = contentAsString(res)
-    html must include ("Your challenge must be submitted within 4 months of the VOA decision")
+    html must include ("Challenge this valuation")
   }
 
 }
