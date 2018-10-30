@@ -23,14 +23,13 @@
 
 
 @checkCasesSize = @{model.checkCases.fold(0)(_.filterTotal)}
-
+@backURL = @{request.headers.get("Referer")}
 @main_template(
     title = Messages("property.details.title"),
     topBackLink = true,
     bottomBackLink = true,
     individualId = Some(request.personId),
-    backLinkUrl = Some(routes.Dashboard.home().url)
-) {
+    backLinkUrl = backURL) {
 
 
     <h2 class="heading-secondary"> @Messages("property.details.title")</h2>
