@@ -49,6 +49,13 @@ case class IndividualUserAccountDetails(firstName: String,
     phone = phone,
     isAgent = false
   )
+
+  override def toIndividualAccountSubmission(trustId: String)(user: UserDetails)(id: Long)(organisationId: Option[Long]) = IndividualAccountSubmission(
+    externalId = user.externalId,
+    trustId = trustId,
+    organisationId = organisationId,
+    details = IndividualDetails(firstName, lastName, email, phone, Some(mobilePhone), id)
+  )
 }
 
 object IndividualUserAccountDetails {
