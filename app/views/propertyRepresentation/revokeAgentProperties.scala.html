@@ -44,6 +44,10 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.getAgentsForRe
 
     @if(f.isDefined){ @includes.errorSummary(f.get) }
 
+    <div class="hide-if-no-js margin-top-20">
+        <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+    </div>
+
     <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination)">
         <input type="hidden" name="agentCode" value="@pagination.agentCode">
         <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
@@ -176,10 +180,6 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.getAgentsForRe
         }
         }
         @Messages("search.sort.page.size.properties.per.page")
-    </div>
-
-    <div class="hide-if-no-js margin-top-20">
-        <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
     </div>
 
     <div class="margin-top-20">
