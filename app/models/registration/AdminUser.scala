@@ -28,6 +28,8 @@ import play.api.libs.json.{Format, JsObject, JsResult, JsValue}
 import uk.gov.hmrc.domain.Nino
 import views.helpers.Errors
 
+import scala.concurrent.Future
+
 trait AdminUser {
 
   val firstName: String
