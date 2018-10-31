@@ -33,7 +33,7 @@ contentHeaderHidden = true
 
  <h1 class="heading-large">@messages("propertyRepresentation.agentRemoveSummary.heading")</h1>
 
- <p class="lede">@Messages("propertyRepresentation.agentRemoveSummary.removed", action.agentCode, action.propertyLinkIds.size)</p>
+ <p class="lede">@Messages("propertyRepresentation.agentRemoveSummary.removed", action.agentCode.toString, action.propertyLinkIds.size)</p>
 
  @form(agentAppointment.routes.AppointAgentController.selectAgentProperties()) {
 
