@@ -73,10 +73,8 @@ class RegistrationController @Inject()(ggAction: VoaAction,
       AdminUser.individual.bindFromRequest().fold(
         errors =>
           BadRequest(views.html.createAccount.register_individual(errors, FieldData())),
-        success => {
-          personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
-            Redirect(controllers.routes.IdentityVerification.startIv)
-          }
+        success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
+          Redirect(controllers.routes.IdentityVerification.startIv)
         }
       )
   }
