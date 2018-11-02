@@ -29,7 +29,7 @@ class SubmissionIdConnectorSpec extends VoaPropertyLinkingSpec {
 
   class Setup {
     val connector = new SubmissionIdConnector(StubServicesConfig, mockWSHttp)(ec) {
-      override lazy val baseUrl: String = "tst-url"
+      val url: String = "tst-url"
     }
   }
 

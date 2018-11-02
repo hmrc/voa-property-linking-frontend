@@ -19,12 +19,17 @@ package controllers.agent
 import config.ApplicationConfig
 import connectors.Authenticated
 import controllers.VoaPropertyLinkingSpec
-import models.{Accounts, ClientProperty}
+import models.{Accounts, ClientProperty, PropertyRepresentation, RepresentationBulkAction}
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
+import uk.gov.hmrc.http.HeaderCarrier
 import utils._
+
+import scala.concurrent.Future
 
 class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
@@ -36,6 +41,30 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     StubPropertyLinkConnector,
     StubMessagesConnector
   )
+
+  "confirm" should "allow the user to confirm that they want to accept the pending representation request" in {
+    stubLoggedInUser()
+    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
+    val mockRepresentationBulkAction = mock[RepresentationBulkAction]
+
+    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+    StubPropertyRepresentationConnector.stubRepresentations(Seq(propRep))
+
+//    mockRepresentationBulkAction.action("accept-confirm")
+
+
+    val res = TestRepresentationController.confirm(1, 15)(request.withFormUrlEncodedBody(
+      "page" -> "1",
+      "pageSize" -> "15",
+      "action" -> "accept-confirm",
+      "requestIds[]" -> "1",
+      "complete" -> "3"
+    ))
+
+    status(res) mustBe OK
+
+  }
 
   behavior of "revokeClientConfirmed method"
   it should "revoke an agent and redirect to the client properties page" in {

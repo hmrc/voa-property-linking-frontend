@@ -32,7 +32,7 @@ class MessagesConnectorSpec extends VoaPropertyLinkingSpec {
 
   class Setup {
     val connector = new MessagesConnector(mockWSHttp, StubServicesConfig) {
-      override lazy val baseUrl: String = "tst-url"
+      val url: String = "tst-url"
     }
   }
 
