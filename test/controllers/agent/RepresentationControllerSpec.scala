@@ -16,17 +16,16 @@
 
 package controllers.agent
 
-import config.ApplicationConfig
-import connectors.Authenticated
+import connectors.{Authenticated, PropertyRepresentationConnector}
 import controllers.VoaPropertyLinkingSpec
-import models.{Accounts, ClientProperty, PropertyRepresentation, RepresentationBulkAction}
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.when
+import models._
+import org.mockito.ArgumentMatchers._
+import org.mockito.Mockito._
+import org.scalatest.mockito.MockitoSugar
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
 import scala.concurrent.Future
@@ -35,24 +34,43 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val request = FakeRequest().withSession(token)
 
+  val mockPropertyRepresentationConnector = mock[PropertyRepresentationConnector]
+
   object TestRepresentationController extends RepresentationController(
-    StubPropertyRepresentationConnector,
+    mockPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,
     StubMessagesConnector
   )
 
-  "confirm" should "allow the user to confirm that they want to accept the pending representation request" in {
+  "confirm" should "allow the user to confirm that they want to reject the pending representation requests" in {
     stubLoggedInUser()
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
     val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
     val mockRepresentationBulkAction = mock[RepresentationBulkAction]
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
-    StubPropertyRepresentationConnector.stubRepresentations(Seq(propRep))
 
-//    mockRepresentationBulkAction.action("accept-confirm")
+    val res = TestRepresentationController.confirm(1, 15)(request.withFormUrlEncodedBody(
+      "page" -> "1",
+      "pageSize" -> "15",
+      "action" -> "reject",
+      "requestIds[]" -> "1",
+      "complete" -> "3"
+    ))
 
+    status(res) mustBe OK
+  }
+
+  "confirm" should "allow the user to confirm that they want to accept the pending representation requests" in {
+    stubLoggedInUser()
+    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
+    val propReps: PropertyRepresentations = PropertyRepresentations(1, Seq(propRep))
+    val mockRepresentationBulkAction = mock[RepresentationBulkAction]
+
+    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+    when(mockPropertyRepresentationConnector.forAgent(any(),any(), any())).thenReturn(Future.successful(Proper))
 
     val res = TestRepresentationController.confirm(1, 15)(request.withFormUrlEncodedBody(
       "page" -> "1",
@@ -63,7 +81,6 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     ))
 
     status(res) mustBe OK
-
   }
 
   behavior of "revokeClientConfirmed method"
