@@ -26,6 +26,7 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
+import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
 import scala.concurrent.Future
@@ -33,11 +34,10 @@ import scala.concurrent.Future
 class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val request = FakeRequest().withSession(token)
-
-  val mockPropertyRepresentationConnector = mock[PropertyRepresentationConnector]
-
-  object TestRepresentationController extends RepresentationController(
-    mockPropertyRepresentationConnector,
+  implicit val hc = HeaderCarrier()
+  
+  object TestController extends RepresentationController(
+    StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,
     StubMessagesConnector
@@ -47,11 +47,10 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     stubLoggedInUser()
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
     val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
-    val mockRepresentationBulkAction = mock[RepresentationBulkAction]
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
 
-    val res = TestRepresentationController.confirm(1, 15)(request.withFormUrlEncodedBody(
+    val res = TestController.confirm(1, 15)(request.withFormUrlEncodedBody(
       "page" -> "1",
       "pageSize" -> "15",
       "action" -> "reject",
@@ -66,13 +65,11 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     stubLoggedInUser()
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
     val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
-    val propReps: PropertyRepresentations = PropertyRepresentations(1, Seq(propRep))
-    val mockRepresentationBulkAction = mock[RepresentationBulkAction]
+    val propReps: PropertyRepresentations = PropertyRepresentations(1l, Seq(propRep))
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
-    when(mockPropertyRepresentationConnector.forAgent(any(),any(), any())).thenReturn(Future.successful(Proper))
 
-    val res = TestRepresentationController.confirm(1, 15)(request.withFormUrlEncodedBody(
+    val res = TestController.confirm(1, 15)(request.withFormUrlEncodedBody(
       "page" -> "1",
       "pageSize" -> "15",
       "action" -> "accept-confirm",
@@ -83,13 +80,108 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
   }
 
+  "confirm" should "throw Bad Request if the form has errors" in {
+    stubLoggedInUser()
+    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
+    val propReps: PropertyRepresentations = PropertyRepresentations(1l, Seq(propRep))
+
+    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+
+    val res = TestController.confirm(1, 15)(request.withFormUrlEncodedBody(
+      "page" -> "",
+      "pageSize" -> "",
+      "action" -> "",
+      "requestIds[]" -> "1",
+      "complete" -> ""
+    ))
+
+    status(res) mustBe BAD_REQUEST
+  }
+
+  "cancel" should "allow the user to cancel accepting or rejecting the pending representation requests" in {
+    stubLoggedInUser()
+    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
+    val propReps: PropertyRepresentations = PropertyRepresentations(1l, Seq(propRep))
+
+    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+
+    val res = TestController.cancel(1, 15)(request.withFormUrlEncodedBody(
+      "page" -> "1",
+      "pageSize" -> "15",
+      "action" -> "accept-confirm",
+      "requestIds[]" -> "1",
+      "complete" -> "3"
+    ))
+
+    status(res) mustBe OK
+  }
+
+  "cancel" should "throw Bad Request if the form has errors" in {
+    stubLoggedInUser()
+    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
+    val propReps: PropertyRepresentations = PropertyRepresentations(1l, Seq(propRep))
+
+    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+
+    val res = TestController.cancel(1, 15)(request.withFormUrlEncodedBody(
+      "page" -> "",
+      "pageSize" -> "",
+      "action" -> "",
+      "requestIds[]" -> "1",
+      "complete" -> ""
+    ))
+
+    status(res) mustBe BAD_REQUEST
+  }
+
+  "continue" should "redirect the user to the manage clients page" in {
+    stubLoggedInUser()
+    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
+
+    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+
+    val res = TestController.continue(1, 15)(request.withFormUrlEncodedBody(
+      "page" -> "1",
+      "pageSize" -> "15",
+      "action" -> "accept",
+      "requestIds[]" -> "1",
+      "complete" -> "3"
+    ))
+
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some("/business-rates-property-linking/manage-clients")
+  }
+
+  "continue" should "throw Bad Request if the form has errors" in {
+    stubLoggedInUser()
+    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
+
+    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+
+    val res = TestController.continue(1, 15)(request.withFormUrlEncodedBody(
+      "page" -> "1",
+      "pageSize" -> "",
+      "action" -> "",
+      "requestIds[]" -> "",
+      "complete" -> "3"
+    ))
+
+    status(res) mustBe BAD_REQUEST
+  }
+
+
   behavior of "revokeClientConfirmed method"
   it should "revoke an agent and redirect to the client properties page" in {
     stubLoggedInUser()
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
-    val res = TestRepresentationController.revokeClientConfirmed(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
+    val res = TestController.revokeClientConfirmed(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
 
     status(res) must be(SEE_OTHER)
     redirectLocation(res) must be(Some(applicationConfig.newDashboardUrl("client-properties")))
@@ -101,7 +193,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
-    val res = TestRepresentationController.revokeClient(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
+    val res = TestController.revokeClient(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
 
     status(res) must be(OK)
 
@@ -110,7 +202,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   }
   it should "revoke an agent should return not found when clientProperty cannot be found" in {
     stubLoggedInUser()
-    val res = TestRepresentationController.revokeClient(12L, 34L)(request)
+    val res = TestController.revokeClient(12L, 34L)(request)
     status(res) must be(NOT_FOUND)
   }
 
