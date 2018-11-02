@@ -99,7 +99,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe BAD_REQUEST
   }
 
-  "cancel" should "allow the user to cancel accepting or rejecting the pending representation requests" in {
+  "cancel" should "allow the user to cancel accepting/rejecting the pending representation requests" in {
     stubLoggedInUser()
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
     val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
