@@ -43,6 +43,8 @@ class CheckCaseConnector @Inject()(config: ServicesConfig, http: WSHttp){
             case ownerResponse: OwnerCheckCasesResponse => Some(ownerResponse)
             case agentResponse: AgentCheckCasesResponse => Some(agentResponse)
             case _ => None
+          }recover{
+             case _ => None
           }
       }
       case _ => Future.successful(None)
