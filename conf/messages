@@ -611,6 +611,7 @@ uploadFile.info.title=How do I convert a file into a PDF?
 uploadFile.info.content=<p>Converting a file into a PDF is similar for most software. First open the document that you want to convert, then:</p><ul class="list list-number"><li>click “File”</li><li>choose either “Export”, “Export as PDF” or “Save as” (depending on your software)</li><li>select “Create PDF” or “PDF”</li><li>click on either “Publish” or “Save”</li></ul><p>For Mac users and older software:</p><ul class="list list-number"><li>click “File”</li><li>select “Print”</li><li>either click “PDF”, or choose a printer labelled “PDF”</li><li>click either “Save” or “OK”</li></ul><p>You could also search for websites that will convert your document for free.</p><p>Telephone<br /><strong>03000 501 501</strong></p><p>Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.</p>
 
 #LINK REQUEST CONFIRMATION
+linkingRequestSubmitted.title=We’ve received your request to add the property to your business’s customer record
 linkingRequestSubmitted.title1=We’ve received your request to add
 linkingRequestSubmitted.title2=to your business’s customer record
 linkingRequestSubmitted.title3=Your submission ID is
