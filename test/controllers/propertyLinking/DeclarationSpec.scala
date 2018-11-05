@@ -91,7 +91,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     status(confirmation) mustBe OK
 
     val html = Jsoup.parse(contentAsString(confirmation))
-    html.title mustBe s"We’ve received your request to add ${linkingSession.address} to your business’s customer record"
+    html.title mustBe s"We’ve received your request to add the property to your business’s customer record"
     html.body().text must include (linkingSession.submissionId)
   }
 
@@ -110,7 +110,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     status(confirmation) mustBe OK
 
     val html = Jsoup.parse(contentAsString(confirmation))
-    html.title mustBe s"We’ve received your request to add ${linkingSession.address} to your business’s customer record"
+    html.title mustBe s"We’ve received your request to add the property to your business’s customer record"
     html.body().text must include (linkingSession.submissionId)
   }
 
