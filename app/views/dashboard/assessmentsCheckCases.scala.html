@@ -23,13 +23,13 @@
 
 
 @checkCasesSize = @{model.checkCases.fold(0)(_.filterTotal)}
-
+@backURL = @{if(!model.isAgentOwnProperty){ "client-properties" }else{ "your-properties" }}
 @main_template(
     title = Messages("property.details.title"),
     topBackLink = true,
     bottomBackLink = true,
     individualId = Some(request.personId),
-    backLinkUrl = Some(config.newDashboardUrl("your-properties"))
+    backLinkUrl = Some(config.newDashboardUrl(backURL))
 ) {
 
 
