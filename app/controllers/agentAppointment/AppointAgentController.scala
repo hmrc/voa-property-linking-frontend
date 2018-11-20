@@ -63,7 +63,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
 
             withValidPaginationSearchSort(
               page = 1,
-              pageSize = 100,
+              pageSize = 1000,
               agent = Some(group.companyName),
               sortfield = Some(pagination.sortField.name),
               sortorder = Some(pagination.sortOrder.name)
@@ -71,10 +71,9 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
 
               for {
                 response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-                  .map(oar => oar.copy(authorisations = oar.authorisations.filter(auth =>
-                  Seq(PropertyLinkingApproved.name, PropertyLinkingPending.name).contains(auth.status)).filter(
-                  _.agents.fold(false)(_.map(_.organisationId).exists(id => Some(group.id).fold(false)(_ == id))))))
+                  .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                   .map(oar => oar.copy(filterTotal = oar.authorisations.size))
+                  .map(oar => oar.copy(authorisations = oar.authorisations.take(15)))
 
               } yield {
 
@@ -152,7 +151,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
         case Some(group) => {
           withValidPaginationSearchSort(
             page = 1,
-            pageSize = 100,
+            pageSize = 1000,
             address = pagination.address,
             agent = Some(group.companyName),
             sortfield = Some(pagination.sortField.name),
@@ -161,10 +160,9 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
 
             for {
               response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-                .map(oar => oar.copy(authorisations = oar.authorisations.filter(auth =>
-                Seq(PropertyLinkingApproved.name, PropertyLinkingPending.name).contains(auth.status)).filter(
-                _.agents.fold(false)(_.map(_.organisationId).exists(id => Some(group.id).fold(false)(_ == id))))))
+                .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                 .map(oar => oar.copy(filterTotal = oar.authorisations.size))
+                .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
             } yield {
               Ok(views.html.propertyRepresentation.revokeAgentProperties(None,
                 AppointAgentPropertiesVM(group, response), pagination))
@@ -175,10 +173,6 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       }
     }
   }
-
-
-
-
 
   def appointAgentSummary() = authenticated { implicit request =>
     appointAgentBulkActionForm.bindFromRequest().fold(
@@ -233,7 +227,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
           case Some(group) => {
             withValidPaginationSearchSort(
               page = 1,
-              pageSize = 100,
+              pageSize = 1000,
               agent = Some(group.companyName),
               sortfield = Some(pagination.sortField.name),
               sortorder = Some(pagination.sortOrder.name)
@@ -241,10 +235,9 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
 
               for {
                 response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-                  .map(oar => oar.copy(authorisations = oar.authorisations.filter(auth =>
-                  Seq(PropertyLinkingApproved.name, PropertyLinkingPending.name).contains(auth.status)).filter(
-                  _.agents.fold(false)(_.map(_.organisationId).exists(id => Some(group.id).fold(false)(_ == id))))))
+                  .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                   .map(oar => oar.copy(filterTotal = oar.authorisations.size))
+                  .map(oar => oar.copy(authorisations = oar.authorisations.take(15)))
               } yield {
                 BadRequest(views.html.propertyRepresentation.revokeAgentProperties(Some(errors),
                   AppointAgentPropertiesVM(group, response), pagination))
@@ -272,6 +265,12 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
         }
       }
     )
+  }
+
+  def filterProperties(authorisations: Seq[OwnerAuthorisation], id: Long)  = {
+    authorisations.filter(auth =>
+      Seq(PropertyLinkingApproved.name, PropertyLinkingPending.name).contains(auth.status))
+      .filter(_.agents.fold(false)(_.map(_.organisationId).exists(id => Some(id).fold(false)(_ == id))))
   }
 
 

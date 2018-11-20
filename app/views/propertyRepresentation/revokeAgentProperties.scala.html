@@ -137,32 +137,10 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.getAgentsForRe
             @if(model.response.authorisations.isEmpty) {
             0
             } else {
-            @pagination.startPoint
-            } to @{
-            model.response.total.min(pagination.startPoint + pagination.pageSize - 1)
-            } of @model.response.filterTotal
+            @model.response.authorisations.size
+            }  of @model.response.filterTotal
         </div>
 
-        <div role="navigation" aria-label="Pagination" class="pull-right">
-            <ul class="pagination" style="margin: 0px">
-                @if(pagination.pageNumber > 1) {
-                <li class="previous ">
-                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.previousPage).url">
-                        <i class="previous-arrow"></i>Previous</a>
-                </li>
-                } else {
-                <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
-                }
-
-                <li class="active">@pagination.pageNumber</li>
-                @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
-                <li class="next">
-                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.nextPage).url">Next<i class="next-arrow"></i></a></li>
-                } else {
-                <li class="next disabled"><i class="next-arrow"></i>Next</li>
-                }
-            </ul>
-        </div>
 
         <div class="clearfix"></div>
 
