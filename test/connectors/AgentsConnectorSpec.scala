@@ -29,7 +29,7 @@ class AgentsConnectorSpec extends VoaPropertyLinkingSpec {
 
   class Setup {
     val connector = new AgentsConnector(mockWSHttp, StubServicesConfig)(ec) {
-      override lazy val baseUrl: String = "tst-url"
+      val url: String = "tst-url"
     }
   }
 

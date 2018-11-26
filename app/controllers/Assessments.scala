@@ -51,7 +51,13 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
           } yield {
             Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases, isAgentOwnProperty)))
           } }
-        case Some(link) => Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, None, false)))
+        case Some(link) => {
+            for {
+              isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
+            } yield {
+              Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, None, isAgentOwnProperty)))
+            }
+        }
       }
     }else {
       propertyLinks.getLink(authorisationId) map {

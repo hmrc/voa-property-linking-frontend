@@ -16,23 +16,30 @@
 
 package controllers.agent
 
-import actions.{AgentRequest, AuthenticatedAction}
+import actions.{AgentRequest, AuthenticatedAction, BasicAuthenticatedRequest}
 import cats.data.OptionT
 import cats.instances.future._
 import com.google.inject.{Inject, Singleton}
 import config.{ApplicationConfig, Global}
 import connectors.propertyLinking.PropertyLinkConnector
-import connectors.{MessagesConnector, PropertyRepresentationConnector}
+import connectors.{AgentsConnector, MessagesConnector, PropertyRepresentationConnector}
 import controllers.agent.RepresentationController.ManagePropertiesVM
+import controllers.agentAppointment.AppointAgentVM
 import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
+import form.AgentPermissionMapping
 import models._
-import models.searchApi.AgentAuthResult
+import models.searchApi.{AgentAuthResult, AgentId}
+import play.api.data.Form
 import play.api.data.Forms.mapping
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, Result}
 import uk.gov.hmrc.http.HeaderCarrier
-
+import uk.gov.voa.play.form.ConditionalMappings._
+import form.Mappings._
+import form.FormValidation._
+import play.api.data.Form
+import play.api.data.Forms._
 import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
 
@@ -310,9 +317,6 @@ object RepresentationController {
 
 }
 
-import form.FormValidation._
-import play.api.data.Form
-import play.api.data.Forms._
 
 object BulkActionsForm {
   lazy val form: Form[RepresentationBulkAction] = Form(mapping(

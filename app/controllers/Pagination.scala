@@ -43,7 +43,7 @@ trait ValidPagination extends PropertyLinkingController {
                                               agent: Option[String] = None,
                                               client: Option[String] = None)
                                    (default: PaginationSearchSort => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
-    if (page <= 0 || pageSize < 10 || pageSize > 100) {
+    if (page <= 0 || pageSize < 10 || pageSize > 1000) {
       BadRequest(Global.badRequestTemplate)
     } else {
       default(PaginationSearchSort(pageNumber = page,
