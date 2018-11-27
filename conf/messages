@@ -1038,6 +1038,7 @@ label.createAccount.firstName= First Name
 label.createAccount.lastName= Last Name
 label.createAccount.phone= Phone Number
 label.your.details= Your details
+label.createAccount.tradingName=Trading Name
 
 choice.individual=Individual (you represent yourself) – you won’t be able to add others to this account
 choice.organisation=Organisation (you represent a business, charity or other organisation) – you’ll be able to add others to this account
