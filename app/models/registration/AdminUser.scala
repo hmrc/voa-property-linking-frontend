@@ -66,7 +66,7 @@ object AdminUser {
     keys.mobilePhone -> nonEmptyText(maxLength = 15),
     keys.email -> email.verifying(Constraints.maxLength(150)),
     keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
-    keys.tradingName -> optional(text())
+    keys.tradingName -> optional(text(maxLength = 45))
   )(IndividualUserAccountDetails.apply)(IndividualUserAccountDetails.unapply))
 
   lazy val organisation = Form(mapping(
