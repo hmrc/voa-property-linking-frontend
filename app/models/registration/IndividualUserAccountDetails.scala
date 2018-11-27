@@ -42,7 +42,7 @@ case class IndividualUserAccountDetails(firstName: String,
   )
 
   def toGroupDetails = GroupAccountDetails(
-    companyName = tradingName.getOrElse(s"$firstName $lastName"),
+    companyName = tradingName.getOrElse(truncateCompanyName(s"$firstName $lastName")),
     address = address,
     email = email,
     confirmedEmail = confirmedEmail,
@@ -56,6 +56,10 @@ case class IndividualUserAccountDetails(firstName: String,
     organisationId = organisationId,
     details = IndividualDetails(firstName, lastName, email, phone, Some(mobilePhone), id)
   )
+
+  private def truncateCompanyName(companyName: String): String = {
+    companyName.take(45).toString
+  }
 }
 
 object IndividualUserAccountDetails {
