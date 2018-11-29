@@ -16,16 +16,24 @@
 
 package connectors
 
+import akka.stream.scaladsl.Source
+import akka.util.ByteString
 import javax.inject.Inject
-
-import models.DetailedValuationRequest
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import config.WSHttp
-import scala.concurrent.Future
-import uk.gov.hmrc.http.{ HeaderCarrier, HttpResponse }
+import models.dvr.documents.DvrDocumentFiles
+import models.dvr.{DetailedValuationRequest, StreamedDocument}
+import play.api.http.HeaderNames.{CONTENT_LENGTH, CONTENT_TYPE}
+import play.api.libs.ws.{StreamedResponse, WSClient}
 
-class DVRCaseManagementConnector @Inject()(config: ServicesConfig, http: WSHttp) {
+import scala.concurrent.Future
+import uk.gov.hmrc.http._
+
+class DVRCaseManagementConnector @Inject()(
+                                            config: ServicesConfig,
+                                            wsClient: WSClient,
+                                            http: WSHttp) extends HttpErrorFunctions {
   val url = config.baseUrl("property-linking") + "/property-linking"
 
   def requestDetailedValuation(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
@@ -35,4 +43,30 @@ class DVRCaseManagementConnector @Inject()(config: ServicesConfig, http: WSHttp)
   def dvrExists(organisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] = {
     http.GET[Boolean](url + s"/dvr-exists?organisationId=$organisationId&assessmentRef=$assessmentRef")
   }
+
+  def getDvrDocuments(uarn: Long, valuationId: Long, propertyLinkId: String)(implicit hc: HeaderCarrier) = {
+    http.GET[DvrDocumentFiles](s"$url/properties/$uarn/valuation/$valuationId/files", Seq("propertyLinkId" -> propertyLinkId)).map(Some.apply).recover {
+      case _: NotFoundException =>
+        None
+      case e =>
+        throw e
+    }
+  }
+
+  def getDvrDocument(uarn: Long, valuationId: Long, propertyLinkId: String, fileRef: Long)(implicit hc: HeaderCarrier): Future[StreamedDocument] =
+    wsClient
+      .url(s"$url/properties/$uarn/valuation/$valuationId/files/$fileRef?propertyLinkId=$propertyLinkId")
+      .withMethod("GET").withHeaders(hc.headers: _*)
+      .stream().flatMap {
+      case StreamedResponse(hs, body) =>
+
+        val headers = hs.headers.mapValues(_.mkString(","))
+        hs.status match {
+          case s if is4xx(s) => Future.failed(Upstream4xxResponse(s"Upload failed with status ${hs.status}.", s, s))
+          case s if is5xx(s) => Future.failed(Upstream5xxResponse(s"Upload failed with status ${hs.status}.", s, s))
+          case _ => Future.successful(
+            StreamedDocument(headers.get(CONTENT_TYPE), headers.get(CONTENT_LENGTH).map(_.toLong), headers.filter(_._1 != CONTENT_TYPE), body)
+          )
+        }
+    }
 }

@@ -22,6 +22,7 @@ import actions.BasicAuthenticatedRequest
 import config.ApplicationConfig
 import connectors.{Authenticated, CheckCaseConnector, DVRCaseManagementConnector, SubmissionIdConnector}
 import models._
+import models.dvr.{DetailedValuationRequest, DetailedValuationRequestTypes}
 import org.mockito.ArgumentMatchers._
 import org.mockito.ArgumentMatchers.{eq => matching}
 import org.mockito.Mockito._

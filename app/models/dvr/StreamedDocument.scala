@@ -14,20 +14,13 @@
  * limitations under the License.
  */
 
-package models
+package models.dvr
 
-sealed trait DetailedValuationRequestTypes extends NamedEnum {
-  override def key: String = "dvRequestType"
-}
+import akka.stream.scaladsl.Source
+import akka.util.ByteString
 
-case object EmailRequest extends DetailedValuationRequestTypes {
-  override def name: String = "email"
-}
-
-case object PostRequest extends DetailedValuationRequestTypes {
-  override def name: String = "post"
-}
-
-object DetailedValuationRequestTypes extends NamedEnumSupport[DetailedValuationRequestTypes] {
-  override def all: Seq[DetailedValuationRequestTypes] = Seq(EmailRequest, PostRequest)
-}
+case class StreamedDocument(
+                             contentType: Option[String],
+                             contentLength: Option[Long],
+                             headers: Map[String, String],
+                             body: Source[ByteString, _])

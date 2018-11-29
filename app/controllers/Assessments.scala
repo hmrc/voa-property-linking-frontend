@@ -22,8 +22,8 @@ import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import form.EnumMapping
 import javax.inject.Inject
-
 import models._
+import models.dvr.{DetailedValuationRequest, DetailedValuationRequestTypes, EmailRequest, PostRequest}
 import play.api.data.Forms.text
 import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
@@ -59,7 +59,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
             }
         }
       }
-    }else {
+    } else {
       propertyLinks.getLink(authorisationId) map {
         case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
         case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending)))
@@ -76,7 +76,12 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
   def viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef: String) = authenticated { implicit request =>
     businessRatesValuations.isViewable(authorisationId, assessmentRef) map {
       case true => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef"))
-      case false => Redirect(routes.Assessments.requestDetailedValuation(authorisationId, assessmentRef, baRef))
+      case false =>
+        if (config.dvrEnabled){
+          Redirect(routes.DvrController.detailedValuationRequestCheck(authorisationId, assessmentRef, baRef))
+        } else {
+          Redirect(routes.Assessments.requestDetailedValuation(authorisationId, assessmentRef, baRef))
+        }
     }
   }
 
