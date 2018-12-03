@@ -1,0 +1,54 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import models.dvr._
+@import helpers._
+@import config.ApplicationConfig
+
+@(model: RequestDetailedValuationWithoutForm)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+    @main_template(Messages("auto.requestDetailedValuation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(routes.Assessments.assessments(model.authId).url)) {
+        <div class="grid-row">
+            <div class="column-two-thirds">
+
+                <h1 class="heading-xlarge">@Messages("auto.requestDetailedValuation.title")</h1>
+
+                <p>@Messages("auto.requestDetailedValuation.p.1")</p>
+
+                <p>@Html(Messages("auto.requestDetailedValuation.p.2"))</p>
+
+                <p>@Html(Messages("auto.requestDetailedValuation.p.3", routes.Dashboard.home()))</p>
+
+                @form(routes.DvrController.requestDetailedValuation(model.assessmentRef, model.authId, model.baRef)) {
+
+                    <p>
+                        <button type="submit" class="button" id="continue" name="continue_button">@Messages("auto.requestDetailedValuation.button")</button>
+                    </p>
+                }
+
+
+                <h2 class="heading-medium">@Messages("auto.requestDetailedValuation.heading.challenge")</h2>
+
+                <p>@Messages("auto.requestDetailedValuation.challenge.p1")</p>
+
+                <p>@Messages("auto.requestDetailedValuation.challenge.p2")</p>
+
+                <a href="@routes.Assessments.startChallengeFromDVR(model.authId, model.assessmentRef, model.baRef).url">@Messages("requestDetailedValuation.challenge.start")</a>
+
+            </div>
+        </div>
+    }

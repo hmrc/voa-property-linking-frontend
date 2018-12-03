@@ -20,6 +20,7 @@ import actions.BasicAuthenticatedRequest
 import config.ApplicationConfig
 import connectors.{CheckCaseConnector, IdentityVerification, _}
 import models._
+import models.dvr.DetailedValuationRequest
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{any, eq => matching}
 import org.mockito.Mockito.when

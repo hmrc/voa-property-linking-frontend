@@ -1,0 +1,41 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import helpers._
+@import config.ApplicationConfig
+
+@(submissionId: String, address: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+    @main_template(Messages("detailedValuationRequested.title", address), topNavigation = true, topBackLink = true) {
+        <div class="grid-row">
+            <div class="column-two-thirds">
+
+                <div class="transaction-banner--complete">
+                    <h1 class="transaction-banner__heading">@Messages("auto.detailedValuationRequested.title")</h1>
+
+                    <p>@{address}</p>
+                    <p class="heading-medium no-margin">@Html(Messages("auto.detailedValuationRequested.title.reference"))</p>
+                    <p class="font-weight-bold">@submissionId</p>
+                </div>
+
+                <p>@Messages("auto.detailedValuationRequested.p.1")</p>
+
+                <a href="@routes.Dashboard.home()">@Messages("link.go.home")</a>
+
+            </div>
+        </div>
+    }

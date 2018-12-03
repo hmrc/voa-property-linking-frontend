@@ -17,8 +17,9 @@
 package connectors
 
 import controllers.VoaPropertyLinkingSpec
-import models.DetailedValuationRequest
+import models.dvr.DetailedValuationRequest
 import play.api.http.Status._
+import play.api.libs.ws.WSClient
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import utils.StubServicesConfig
 
@@ -27,7 +28,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new DVRCaseManagementConnector(StubServicesConfig, mockWSHttp) {
+    val connector = new DVRCaseManagementConnector(StubServicesConfig, mock[WSClient], mockWSHttp) {
       override val url: String = "tst-url"
     }
   }
