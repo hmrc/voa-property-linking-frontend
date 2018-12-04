@@ -33,10 +33,7 @@ class DvrController @Inject()(
     propertyLinks: PropertyLinkConnector,
     authenticated: AuthenticatedAction,
     submissionIds: SubmissionIdConnector,
-    dvrCaseManagement: DVRCaseManagementConnector,
-    businessRatesValuations: BusinessRatesValuationConnector,
-    checkCaseConnector: CheckCaseConnector,
-    businessRatesAuthorisation: BusinessRatesAuthorisation)(
+    dvrCaseManagement: DVRCaseManagementConnector)(
     implicit val messagesApi: MessagesApi,
     val config: ApplicationConfig)
     extends PropertyLinkingController {
@@ -59,6 +56,7 @@ class DvrController @Inject()(
         }
   }
 
+  //TODO fix ordering or parameters
   def requestDetailedValuation(valuationId: Long, authId: Long, baRef: String) =
     authenticated { implicit request =>
       for {

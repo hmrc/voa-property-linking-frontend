@@ -32,7 +32,7 @@ import uk.gov.hmrc.http._
 
 class DVRCaseManagementConnector @Inject()(
                                             config: ServicesConfig,
-                                            wsClient: WSClient,
+                                            val wsClient: WSClient,
                                             http: WSHttp) extends HttpErrorFunctions {
   val url = config.baseUrl("property-linking") + "/property-linking"
 
