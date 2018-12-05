@@ -18,12 +18,14 @@ package connectors
 
 import java.time.LocalDateTime
 
+import akka.stream.scaladsl.Source
 import controllers.VoaPropertyLinkingSpec
 import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
 import models.dvr.{DetailedValuationRequest, StreamedDocument}
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import play.api.libs.json.Json
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.{DefaultWSResponseHeaders, StreamedResponse, WSClient, WSRequest}
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse, NotFoundException}
 import utils.StubServicesConfig
@@ -36,7 +38,8 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new DVRCaseManagementConnector(StubServicesConfig, mock[WSClient], mockWSHttp) {
+    val mockWsClient = mock[WSClient]
+    val connector = new DVRCaseManagementConnector(StubServicesConfig, mockWsClient, mockWSHttp) {
       override val url: String = "tst-url"
     }
   }
@@ -108,5 +111,18 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
     result mustBe None
+  }
+
+  "get dvr document" must "return streamed Documents" in new Setup {
+    val mockWsRequest = mock[WSRequest]
+    when(mockWsClient.url(any())).thenReturn(mockWsRequest)
+    when(mockWsRequest.withMethod(any())).thenReturn(mockWsRequest)
+    when(mockWsRequest.withHeaders(any())).thenReturn(mockWsRequest)
+    when(mockWsRequest.stream())
+      .thenReturn(Future.successful(StreamedResponse(DefaultWSResponseHeaders(200, Map.empty), Source.empty)))
+
+    val result = connector.getDvrDocument(1L, 1l, "PL-1234", 1)
+
+    await(result) mustBe an[StreamedDocument]
   }
 }
