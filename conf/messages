@@ -739,6 +739,7 @@ requestType.email=By email
 requestType.post=By post
 
 detailedValuationRequested.title=We''ve received your request to view the detailed valuation for {0}
+detailedValuationRequested.page.title=We''ve received your request to view the detailed valuation
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 20 working days.
 
