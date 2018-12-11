@@ -198,7 +198,7 @@ account.confirmation.addToGG=If anyone else wants to register on behalf of the b
 account.confirmation.youCan=You can now manage your properties.
 link.dashboard=Go to your dashboard
 link.return.home=Return to your home page
-link.go.home=Go to homepage
+link.go.home=Go to home page
 createAccount.group.details.header.agent=I’m registering as an agent
 createAccount.group.details.content.agent=You’ll need to provide information about your own business here, not your client’s business.
 createAccount.group.details.header.multipleAddress=There’s more than one address for my business
@@ -739,6 +739,7 @@ requestType.email=By email
 requestType.post=By post
 
 detailedValuationRequested.title=We''ve received your request to view the detailed valuation for {0}
+detailedValuationRequested.page.title=We''ve received your request to view the detailed valuation
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 20 working days.
 
