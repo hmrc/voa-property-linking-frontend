@@ -324,6 +324,7 @@ property.details.cases.table.5=Closed date
 property.details.cases.table.6=Agent
 property.details.cases.table.7=Client
 property.details.cases.table.8=Submitted By
+property.details.cases.table.challenge=Challenge
 
 assessments.title=Valuations
 assessments.table.caption=Valuations
@@ -1135,3 +1136,12 @@ app.common.no = No
 registration.error.title=Registration failed
 registration.error.p1=You can’t register until the Administrator from your organisation registers first.
 registration.error.p2=You’ll need to speak to the person that gave you your Government Gateway sign-in details.
+
+#challenge
+cannotRaiseChallenge.title=You cannot raise a challenge
+challengeRules.summary=Challenge rules explained
+challengeRules.rules=Challenge rules:
+challengeRules.rules.1=had decision less than 4 months ago
+challengeRules.rules.2=been submitted more than 12 months ago and have not had a decision
+challengeRules.rules.3=had a change in the surrounding area of a property less than 16 months ago
+challengeRules.rules.paper=You can also <a href="{0}">submit a challenge using a papar form</a>
