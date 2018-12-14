@@ -22,12 +22,15 @@ import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import form.EnumMapping
 import javax.inject.Inject
+
 import models._
 import models.dvr.{DetailedValuationRequest, DetailedValuationRequestTypes, EmailRequest, PostRequest}
 import play.api.data.Forms.text
 import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
+import play.api.libs.json.Json
 import play.api.mvc.Action
+import views.html.dashboard.cannotRaiseChallenge
 
 import scala.concurrent.Future
 
@@ -49,13 +52,13 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
             isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
             checkCases <- checkCaseConnector.getCheckCases(Some(link), isAgentOwnProperty)
           } yield {
-            Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases, isAgentOwnProperty)))
+            Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases, isAgentOwnProperty, Some(getPaperChallengeUrl(link.assessments)))))
           } }
         case Some(link) => {
             for {
               isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
             } yield {
-              Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, None, isAgentOwnProperty)))
+              Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, None, isAgentOwnProperty, None)))
             }
         }
       }
@@ -169,9 +172,31 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     }
   }
 
+  def canChallenge(authorisationId: Long, assessmnetRef: Long, caseRef: String, isAgent: Boolean)  = authenticated { implicit request =>
+    propertyLinks.canChallenge(authorisationId, assessmnetRef, caseRef, isAgent).map{ responseOpt =>
+      responseOpt match {
+        case None => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmnetRef/startChallenge"))
+        case Some(response) => {
+          response.result match {
+            case true => {
+              val str = config.businessRatesChallengeStartPageUrl(s"property-link/$authorisationId/valuation/$assessmnetRef/check/$caseRef/start")
+              Redirect(str)
+            }
+            case false => Ok(cannotRaiseChallenge(response, config.newDashboardUrl("home")))
+          }
+        }
+      }
+    }
+  }
+
+  private def getPaperChallengeUrl(assessmentSeq: Seq[Assessment]): String = {
+    val a = assessmentSeq.sortWith(_.effectiveDate.toEpochDay < _.effectiveDate.toEpochDay).head
+    config.businessRatesValuationUrl(s"property-link/${a.authorisationId}/assessment/${a.assessmentRef}/startChallenge")
+  }
+
   lazy val dvRequestForm = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))
 }
 
-case class AssessmentsVM(form: Form[_], assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean, checkCases: Option[CheckCasesResponse] = None, isAgentOwnProperty: Boolean = false)
+case class AssessmentsVM(form: Form[_], assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean, checkCases: Option[CheckCasesResponse] = None, isAgentOwnProperty: Boolean = false, paperChallengeUrl: Option[String] = None)
 
 case class RequestDetailedValuationVM(form: Form[_], authId: Long, assessmentRef: Long, baRef: String)

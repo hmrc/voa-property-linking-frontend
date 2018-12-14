@@ -22,7 +22,32 @@
 @import java.time.LocalDate
 @(model: controllers.AssessmentsVM, checkCasesSize: Int)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-@row(submittedDate: LocalDateTime, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = {
+    @assessmentRef(ref: Option[Long]) = @{
+        if(model.assessments.size == 1){
+            model.assessments.head.assessmentRef
+        }
+        else {
+            ref match {
+                case None => 0L
+                case Some(r) => r
+            }
+        }
+    }
+
+    @authId = @{
+        if(model.assessments.nonEmpty){
+            model.assessments.head.authorisationId
+        }
+        else {
+            throw new IllegalStateException("There no assessments")
+        }
+    }
+
+@url(checkRef: String, asstRef: Option[Long]) = @{
+    routes.Assessments.canChallenge(authId, assessmentRef(asstRef), checkRef, model.isAgentOwnProperty)
+}
+
+@row(submittedDate: LocalDateTime, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String, asstRef: Option[Long]) = {
     <tr>
         <td>@(Formatters.formatDateTimeToDate(submittedDate))</td>
         <td>@status</td>
@@ -30,6 +55,7 @@
         <td>@if(closedDate.isDefined){@Formatters.formatDate(closedDate.get)}</td>
         <td>@clientOrAgent</td>
         <td>@submittedBy</td>
+        <td><a href="@url(checkReference, asstRef)">@messages("property.details.cases.table.challenge")</a></td>
     </tr>
 }
 
@@ -50,6 +76,7 @@
                         <th><span class="margin-left-5">@Messages("property.details.cases.table.6")</span></th>
                     }
                     <th><span class="margin-left-5">@Messages("property.details.cases.table.8")</span></th>
+                    <th>&nbsp;</th>
 
                 </tr>
 
@@ -57,19 +84,34 @@
                     case ownerResponse: OwnerCheckCasesResponse => {
 
                         @ownerResponse.checkCases.map { checkCase =>
-                            @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.agent.fold("")(_.organisationName), checkCase.submittedBy)
+                            @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.agent.fold("")(_.organisationName), checkCase.submittedBy, checkCase.assessmentRef)
                         }
                         }
                     case agentResponse: AgentCheckCasesResponse => {
 
                         @agentResponse.checkCases.map { checkCase =>
-                            @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.client.organisationName, checkCase.submittedBy)
+                            @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.client.organisationName, checkCase.submittedBy, checkCase.assessmentRef)
                         }
 
                     }
                 }
             </tbody>
         </table>
+
+        <details role="group">
+            <summary role="button" aria-controls="details-content-0" aria-expanded="false"><span class="summary">@Messages("challengeRules.summary")</span></summary>
+            <div class="panel panel-border-narrow" id="details-content-0" aria-hidden="true">
+                <p>@Messages("challengeRules.rules")</p>
+                <ul class="list">
+                    <li>@Messages("challengeRules.rules.1")</li>
+                    <li>@Messages("challengeRules.rules.2")</li>
+                    <li>@Messages("challengeRules.rules.3")</li>
+                </ul>
+            </div>
+
+            <p>@Html(Messages("challengeRules.rules.paper", model.paperChallengeUrl.getOrElse("#")))</p>
+
+        </details>
 
 
     </div>
