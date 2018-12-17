@@ -172,17 +172,17 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     }
   }
 
-  def canChallenge(plSubmissionId: String, assessmnetRef: Long, caseRef: String, isAgent: Boolean)  = authenticated { implicit request =>
+  def canChallenge(plSubmissionId: String, assessmnetRef: Long, caseRef: String, isAgent: Boolean, authorisationId: Long)  = authenticated { implicit request =>
     propertyLinks.canChallenge(plSubmissionId, assessmnetRef, caseRef, isAgent).map{ responseOpt =>
       responseOpt match {
-        case None => Redirect(config.businessRatesValuationUrl(s"property-link/$plSubmissionId/assessment/$assessmnetRef/startChallenge"))
+        case None => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmnetRef/startChallenge"))
         case Some(response) => {
           response.result match {
             case true => {
               val str = config.businessRatesChallengeStartPageUrl(s"property-link/$plSubmissionId/valuation/$assessmnetRef/check/$caseRef/start")
               Redirect(str)
             }
-            case false => Ok(cannotRaiseChallenge(response, config.newDashboardUrl("home")))
+            case false => Ok(cannotRaiseChallenge(response, config.newDashboardUrl("home"), authorisationId))
           }
         }
       }

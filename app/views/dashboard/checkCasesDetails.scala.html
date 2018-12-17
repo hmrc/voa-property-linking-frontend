@@ -33,10 +33,19 @@
             }
         }
     }
+    @authId = @{
+        if(model.assessments.nonEmpty){
+            model.assessments.head.authorisationId
+        }
+        else {
+            throw new IllegalStateException("There no assessments")
+        }
+    }
 
 @url(checkRef: String, asstRef: Option[Long]) = @{
-    routes.Assessments.canChallenge(model.plSubmissionId, assessmentRef(asstRef), checkRef, model.isAgentOwnProperty)
+    routes.Assessments.canChallenge(model.plSubmissionId, assessmentRef(asstRef), checkRef, model.isAgentOwnProperty, authId)
 }
+
 
 @row(submittedDate: LocalDateTime, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String, asstRef: Option[Long]) = {
     <tr>
