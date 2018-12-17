@@ -112,12 +112,12 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
         None
     }
   }
-  override def canChallenge(authorisationId: Long, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]= {
+  override def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]= {
     val interestedParty =  request.organisationAccount.isAgent && !isAgentOwnProperty match {
       case true => "agent"
       case false => "client"
     }
-    http.GET[HttpResponse](s"$baseUrl/property-links/$authorisationId/check-cases/$caseRef/canChallenge?valuationId=$assessmentRef&party=$interestedParty").map{ resp =>
+    http.GET[HttpResponse](s"$baseUrl/property-links/$plSubmissionId/check-cases/$caseRef/canChallenge?valuationId=$assessmentRef&party=$interestedParty").map{ resp =>
       resp.status match {
         case 200 => {
           Json.parse(resp.body).asOpt[CanChallengeResponse]
@@ -148,5 +148,5 @@ trait PropertyLinksConnector {
                            (implicit hc: HeaderCarrier): Future[OwnerAuthResult]
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]]
   def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]]
-  def canChallenge(authorisationId: Long, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]
+  def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]
 }
