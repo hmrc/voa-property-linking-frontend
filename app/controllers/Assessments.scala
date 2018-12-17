@@ -178,10 +178,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
         case None => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmnetRef/startChallenge"))
         case Some(response) => {
           response.result match {
-            case true => {
-              val str = config.businessRatesChallengeStartPageUrl(s"property-link/$plSubmissionId/valuation/$assessmnetRef/check/$caseRef/start")
-              Redirect(str)
-            }
+            case true  => Redirect(config.businessRatesChallengeStartPageUrl(s"property-link/$authorisationId/valuation/$assessmnetRef/check/$caseRef/start"))
             case false => Ok(cannotRaiseChallenge(response, config.newDashboardUrl("home"), authorisationId))
           }
         }
