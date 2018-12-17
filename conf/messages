@@ -1144,4 +1144,4 @@ challengeRules.rules=Challenge rules:
 challengeRules.rules.1=had decision less than 4 months ago
 challengeRules.rules.2=been submitted more than 12 months ago and have not had a decision
 challengeRules.rules.3=had a change in the surrounding area of a property less than 16 months ago
-challengeRules.rules.paper=You can also <a href="{0}">submit a challenge using a papar form</a>
+challengeRules.rules.paper=You can also <a href="{0}">submit a challenge using a paper form</a>
