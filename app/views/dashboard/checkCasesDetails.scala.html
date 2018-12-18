@@ -74,13 +74,13 @@
                     case ownerResponse: OwnerCheckCasesResponse => {
 
                         @ownerResponse.checkCases.map { checkCase =>
-                            @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.agent.fold("")(_.organisationName), checkCase.submittedBy, checkCase.assessmentRef)
+                            @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.agent.fold("")(_.organisationName), checkCase.submittedBy, checkCase.originatingAssessmentReference)
                         }
                     }
                     case agentResponse: AgentCheckCasesResponse => {
 
                         @agentResponse.checkCases.map { checkCase =>
-                            @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.client.organisationName, checkCase.submittedBy, checkCase.assessmentRef)
+                            @row(checkCase.createdDateTime, checkCase.checkCaseStatus, checkCase.checkCaseReference, checkCase.settledDate, checkCase.client.organisationName, checkCase.submittedBy, checkCase.originatingAssessmentReference)
                         }
 
                     }
