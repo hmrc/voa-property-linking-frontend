@@ -1141,7 +1141,7 @@ registration.error.p2=You’ll need to speak to the person that gave you your Go
 cannotRaiseChallenge.title=You cannot raise a challenge
 challengeRules.summary=Challenge rules explained
 challengeRules.rules=Challenge rules:
-challengeRules.rules.1=had decision less than 4 months ago
-challengeRules.rules.2=been submitted more than 12 months ago and have not had a decision
-challengeRules.rules.3=had a change in the surrounding area of a property less than 16 months ago
-challengeRules.rules.paper=You can also <a href="{0}">submit a challenge using a paper form</a>
+challengeRules.rules.1=Check decision issued less than 4 months ago
+challengeRules.rules.2=Check submitted more than 4 months ago but no decision yet
+challengeRules.rules.3=Check mentioning change in local area less than 16 months ago
+challengeRules.rules.paper=If no valid check cases are shown above but you still think you have a right to Challenge, you will need to download and <a href="{0}">complete a Challenge form</a>.
