@@ -28,7 +28,7 @@
         }
         else {
             ref match {
-                case None => 0L
+                case None => throw new IllegalStateException("AssessmentRef is missing")
                 case Some(r) => r
             }
         }
@@ -55,7 +55,7 @@
         <td>@if(closedDate.isDefined){@Formatters.formatDate(closedDate.get)}</td>
         <td>@clientOrAgent</td>
         <td>@submittedBy</td>
-        <td><a href="@url(checkReference, asstRef)">@messages("property.details.cases.table.challenge")</a></td>
+        <td>@if(asstRef.isDefined){<a href="@url(checkReference, asstRef)">@messages("property.details.cases.table.challenge")</a>}</td>
     </tr>
 }
 
@@ -104,17 +104,19 @@
     <p>@Messages("property.details.div.noSubmittedCheck")</p>
 }
 <br/>
-<details role="group">
-    <summary role="button" aria-controls="details-content-0" aria-expanded="false"><span class="summary">@Messages("challengeRules.summary")</span></summary>
-    <div class="panel panel-border-narrow" id="details-content-0" aria-hidden="true">
-        <p>@Messages("challengeRules.rules")</p>
-        <ul class="list bullets">
-            <li>@Messages("challengeRules.rules.1")</li>
-            <li>@Messages("challengeRules.rules.2")</li>
-            <li>@Messages("challengeRules.rules.3")</li>
-        </ul>
-    </div>
+@if(!model.isPropertyLinkPending) {
+    <details role="group">
+        <summary role="button" aria-controls="details-content-0" aria-expanded="false"><span class="summary">@Messages("challengeRules.summary")</span></summary>
+        <div class="panel panel-border-narrow" id="details-content-0" aria-hidden="true">
+            <p>@Messages("challengeRules.rules")</p>
+            <ul class="list bullets">
+                <li>@Messages("challengeRules.rules.1")</li>
+                <li>@Messages("challengeRules.rules.2")</li>
+                <li>@Messages("challengeRules.rules.3")</li>
+            </ul>
+        </div>
 
-    <p>@Html(Messages("challengeRules.rules.paper", model.paperChallengeUrl.getOrElse("#")))</p>
+        <p>@Html(Messages("challengeRules.rules.paper", model.paperChallengeUrl.getOrElse("#")))</p>
 
-</details>
+    </details>
+}

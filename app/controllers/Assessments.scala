@@ -58,7 +58,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
             for {
               isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
             } yield {
-              Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, None, isAgentOwnProperty, None, link.submissionId)))
+              Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, None, isAgentOwnProperty, None, link.submissionId, isPropertyLinkPending = link.pending)))
             }
         }
       }
@@ -200,6 +200,6 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
   lazy val dvRequestForm = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))
 }
 
-case class AssessmentsVM(form: Form[_], assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean, checkCases: Option[CheckCasesResponse] = None, isAgentOwnProperty: Boolean = false, paperChallengeUrl: Option[String] = None, plSubmissionId: String)
+case class AssessmentsVM(form: Form[_], assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean, checkCases: Option[CheckCasesResponse] = None, isAgentOwnProperty: Boolean = false, paperChallengeUrl: Option[String] = None, plSubmissionId: String, isPropertyLinkPending: Boolean = false)
 
 case class RequestDetailedValuationVM(form: Form[_], authId: Long, assessmentRef: Long, baRef: String)
