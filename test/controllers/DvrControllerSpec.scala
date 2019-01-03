@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "request detailed valuation" must "return 303 SEE_OTHER when request is valid" in new Setup {
-    when(mockDvrCaseManagement.requestDetailedValuation(any())(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockDvrCaseManagement.requestDetailedValuationV2(any())(any[HeaderCarrier])).thenReturn(Future.successful(()))
     val result = controller.requestDetailedValuation(1L, 1L, "billingAuthorityReference")(request)
 
     status(result) mustBe SEE_OTHER
