@@ -19,16 +19,21 @@ package connectors.propertyLinking
 import java.time.Instant
 import javax.inject.{Inject, Singleton}
 
+import actions.BasicAuthenticatedRequest
 import com.google.inject.ImplementedBy
 import config.WSHttp
 import connectors.fileUpload.FileMetadata
 import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
+import play.api
+import play.api.Logger
+import play.api.libs.json.Json
 import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.http.ws.WSHttpResponse
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -107,6 +112,25 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
         None
     }
   }
+  override def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]= {
+    val interestedParty =  request.organisationAccount.isAgent && !isAgentOwnProperty match {
+      case true => "agent"
+      case false => "client"
+    }
+    http.GET[HttpResponse](s"$baseUrl/property-links/$plSubmissionId/check-cases/$caseRef/canChallenge?valuationId=$assessmentRef&party=$interestedParty").map{ resp =>
+      resp.status match {
+        case 200 => {
+          Json.parse(resp.body).asOpt[CanChallengeResponse]
+        }
+        case _ => None
+      }
+    } recover{
+      case x @ _ => {
+        Logger.debug(s"unable to start a challenge: $x")
+        None
+      }
+    }
+  }
 }
 
 
@@ -124,4 +148,5 @@ trait PropertyLinksConnector {
                            (implicit hc: HeaderCarrier): Future[OwnerAuthResult]
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]]
   def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]]
+  def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]
 }

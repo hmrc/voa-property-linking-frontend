@@ -31,6 +31,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   def businessTaxAccountUrl(page: String): String = getConfig("business-tax-account.url") + s"/$page"
   def newDashboardUrl(page: String): String = getConfig("business-rates-dashboard-frontend.url") + s"/$page"
   def businessRatesCheckCaseSummaryUrl(page: String):String = getConfig("business-rates-check-case-summary.url") + s"/$page"
+  def businessRatesChallengeStartPageUrl(page: String) :String = getConfig("business-rates-challenge-start-page.url") + s"/$page"
 
   lazy val helpGuideUrl = getConfig("help-guide.url")
 

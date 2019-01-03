@@ -198,7 +198,7 @@ account.confirmation.addToGG=If anyone else wants to register on behalf of the b
 account.confirmation.youCan=You can now manage your properties.
 link.dashboard=Go to your dashboard
 link.return.home=Return to your home page
-link.go.home=Go to homepage
+link.go.home=Go to home page
 createAccount.group.details.header.agent=I’m registering as an agent
 createAccount.group.details.content.agent=You’ll need to provide information about your own business here, not your client’s business.
 createAccount.group.details.header.multipleAddress=There’s more than one address for my business
@@ -324,6 +324,7 @@ property.details.cases.table.5=Closed date
 property.details.cases.table.6=Agent
 property.details.cases.table.7=Client
 property.details.cases.table.8=Submitted By
+property.details.cases.table.challenge=Challenge
 
 assessments.title=Valuations
 assessments.table.caption=Valuations
@@ -739,6 +740,7 @@ requestType.email=By email
 requestType.post=By post
 
 detailedValuationRequested.title=We''ve received your request to view the detailed valuation for {0}
+detailedValuationRequested.page.title=We''ve received your request to view the detailed valuation
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 20 working days.
 
@@ -1134,3 +1136,12 @@ app.common.no = No
 registration.error.title=Registration failed
 registration.error.p1=You can’t register until the Administrator from your organisation registers first.
 registration.error.p2=You’ll need to speak to the person that gave you your Government Gateway sign-in details.
+
+#challenge
+cannotRaiseChallenge.title=You cannot raise a challenge
+challengeRules.summary=When you may challenge
+challengeRules.rules=You can challenge a valuation if you’ve submitted a check and:
+challengeRules.rules.1=had a decision in the last 4 months
+challengeRules.rules.2=haven’t had a decision in the last 12 months
+challengeRules.rules.3=told us about a change in the local area of a property less than 16 months ago
+challengeRules.rules.paper=If no valid check cases are shown but you still think you have the right to challenge, you will need to <a href="{0}">download and complete a challenge form</a>.
