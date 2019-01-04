@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,10 @@ class DVRCaseManagementConnector @Inject()(
 
   def requestDetailedValuation(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
     http.POST[DetailedValuationRequest, HttpResponse](url + "/request-detailed-valuation", dvr) map { _ => () }
+  }
+
+  def requestDetailedValuationV2(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.POST[DetailedValuationRequest, HttpResponse](url + "/detailed-valuation", dvr) map { _ => () }
   }
 
   def dvrExists(organisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] = {
