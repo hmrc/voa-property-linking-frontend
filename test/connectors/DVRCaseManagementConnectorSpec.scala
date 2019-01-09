@@ -86,14 +86,14 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
 
     when(mockWSHttp.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(Matchers.any(), Matchers.any[HeaderCarrier](), Matchers.any()))
       .thenReturn(Future.successful(DvrDocumentFiles(
-        checkForm = Document(DocumentSummary(1L, "Check Document", now)),
-        detailedValuation = Document(DocumentSummary(2L, "Detailed Valuation Document", now))
+        checkForm = Document(DocumentSummary("1L", "Check Document", now)),
+        detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
       )))
 
       val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
       result mustBe Some(DvrDocumentFiles(
-        checkForm = Document(DocumentSummary(1L, "Check Document", now)),
-        detailedValuation = Document(DocumentSummary(2L, "Detailed Valuation Document", now))
+        checkForm = Document(DocumentSummary("1L", "Check Document", now)),
+        detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
       ))
     }
 
@@ -121,7 +121,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     when(mockWsRequest.stream())
       .thenReturn(Future.successful(StreamedResponse(DefaultWSResponseHeaders(200, Map.empty), Source.empty)))
 
-    val result = connector.getDvrDocument(1L, 1l, "PL-1234", 1)
+    val result = connector.getDvrDocument(1L, 1L, "PL-1234", "1")
 
     await(result) mustBe an[StreamedDocument]
   }

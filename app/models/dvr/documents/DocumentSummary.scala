@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 import play.api.libs.json.{Json, OFormat}
 
 case class DocumentSummary(
-                            documentId: Long,
+                            documentId: String,
                             documentName: String,
                             createDateTime: LocalDateTime
                           )
