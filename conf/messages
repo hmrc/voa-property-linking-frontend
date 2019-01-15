@@ -313,8 +313,9 @@ managePropertiesSearchSort.table.5=Actions
 #DASHBOARD ASSESSMENTS
 property.details.title=Valuations and submitted checks for
 property.details.p1=You can view your rateable value and start a new check or view the previous cases
-property.details.div.submitted=Submitted check cases
-property.details.div.noSubmittedCheck=There are no check cases available for your property.
+
+
+property.details.submittedCheckOnNextPage=<p>Submitted checks can be found on the next page. Please select a valuation and click continue</p>
 
 property.details.cases.table.1=Submitted date
 property.details.cases.table.2=Submitted ID
