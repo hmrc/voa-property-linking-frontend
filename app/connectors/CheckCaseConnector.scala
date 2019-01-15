@@ -24,6 +24,7 @@ import models._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.play.config.inject.ServicesConfig
 import uk.gov.hmrc.http.HeaderCarrier
+import play.api.Logger
 
 import scala.concurrent.Future
 
@@ -40,9 +41,17 @@ class CheckCaseConnector @Inject()(config: ServicesConfig, http: WSHttp){
             case false => "client"
           }
           http.GET[CheckCasesResponse](s"$baseUrl/check-cases/${link.submissionId}/${interestedParty}").map{
-            case ownerResponse: OwnerCheckCasesResponse => Some(ownerResponse)
-            case agentResponse: AgentCheckCasesResponse => Some(agentResponse)
-            case _ => None
+            case ownerResponse: OwnerCheckCasesResponse =>
+              Logger.debug("FilterTotal Owner CheckCases: " + ownerResponse.filterTotal)
+              Logger.debug("Print Owner CheckCases: " + ownerResponse.checkCases.mkString)
+                Some(ownerResponse)
+            case agentResponse: AgentCheckCasesResponse =>
+              Logger.debug("FilterTotal Agent CheckCases: " + agentResponse.filterTotal)
+              Logger.debug("Print Agent CheckCases: "+ agentResponse.checkCases.mkString)
+              Some(agentResponse)
+            case _ =>
+              Logger.debug("No CheckCases Found")
+              None
           }recover{
              case _ => None
           }
