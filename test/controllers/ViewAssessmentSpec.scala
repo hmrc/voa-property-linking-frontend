@@ -18,7 +18,7 @@ package controllers
 
 import actions.BasicAuthenticatedRequest
 import config.ApplicationConfig
-import connectors.{CheckCaseConnector, IdentityVerification, _}
+import connectors.{IdentityVerification, _}
 import models._
 import models.dvr.DetailedValuationRequest
 import org.jsoup.Jsoup
@@ -36,18 +36,16 @@ import scala.collection.JavaConverters._
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with TestCheckCasesData{
+class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
   override val additionalAppConfig = Seq("featureFlags.checkCasesEnabled" -> "true")
 
 
-  val mockCheckCaseConnector = mock[CheckCaseConnector]
   private object TestAssessmentController extends Assessments( StubPropertyLinkConnector,
     StubAuthentication,
     mockSubmissionIds,
     mockDvrCaseManagement,
     StubBusinessRatesValuation,
-    mockCheckCaseConnector,
     StubBusinessRatesAuthorisation)
 
   lazy val mockDvrCaseManagement = {
@@ -70,9 +68,6 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
-
-    when(mockCheckCaseConnector.getCheckCases(any[Option[PropertyLink]], any[Boolean])(any[BasicAuthenticatedRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(Some(agentCheckCasesResponse)))
-
     val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
     status(res) mustBe OK
 
@@ -86,12 +81,6 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
     assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.capacity.fromDate))
     assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map(a => a.capacity.toDate.map(Formatters.formatDate).getOrElse("Present"))
 
-
-    val checkCasesTable = html.getElementById("checkcases-table").select("tr").asScala.tail.map(_.select("td"))
-
-    checkCasesTable.map(_.get(0).text.trim).head mustBe  Formatters.formatDateTimeToDate(agentCheckCase.createdDateTime)
-    checkCasesTable.map(_.get(1).text.trim).head mustBe  agentCheckCase.checkCaseStatus
-    checkCasesTable.map(_.get(3).text.trim).head mustBe  Formatters.formatDate(agentCheckCase.settledDate.get)
   }
 
   "viewSummary" must "redirect to view summary details" in {
@@ -112,8 +101,6 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
 
-    when(mockCheckCaseConnector.getCheckCases(any[Option[PropertyLink]], any[Boolean])(any[BasicAuthenticatedRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(Some(ownerCheckCasesResponse)))
-
     val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
     status(res) mustBe OK
 
@@ -126,13 +113,6 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with T
     assessmentTable.map(_.get(2).text) must contain theSameElementsAs link.assessments.map(formatCapacity)
     assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.capacity.fromDate))
     assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map(a => a.capacity.toDate.map(Formatters.formatDate).getOrElse("Present"))
-
-
-    val ownerCheckCasesTable = html.getElementById("checkcases-table").select("tr").asScala.tail.map(_.select("td"))
-
-    ownerCheckCasesTable.map(_.get(0).text.trim).head mustBe  Formatters.formatDateTimeToDate(ownerCheckCase.createdDateTime)
-    ownerCheckCasesTable.map(_.get(1).text.trim).head mustBe  ownerCheckCase.checkCaseStatus
-    ownerCheckCasesTable.map(_.get(3).text.trim).head mustBe  Formatters.formatDate(ownerCheckCase.settledDate.get)
   }
 
   private def formatCapacity(assessment: Assessment) = assessment.capacity.capacity match {

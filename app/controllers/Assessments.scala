@@ -37,38 +37,24 @@ import scala.concurrent.Future
 class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated: AuthenticatedAction,
                             submissionIds: SubmissionIdConnector, dvrCaseManagement: DVRCaseManagementConnector,
                             businessRatesValuations: BusinessRatesValuationConnector,
-                            checkCaseConnector: CheckCaseConnector,
                             businessRatesAuthorisation: BusinessRatesAuthorisation)
                            (implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def assessments(authorisationId: Long) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
     val backLink = request.headers.get("Referer")
 
-    if(config.checkCasesEnabled) {
       propertyLinks.getLink(authorisationId) flatMap {
         case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
-        case Some(link) if link.pending == false => {
+        case Some(link) => {
           for {
             isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-            checkCases <- checkCaseConnector.getCheckCases(Some(link), isAgentOwnProperty)
           } yield {
-            Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases, isAgentOwnProperty, Some(getPaperChallengeUrl(link.assessments)), link.submissionId)))
-          } }
-        case Some(link) => {
-            for {
-              isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-            } yield {
-              Ok(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, None, isAgentOwnProperty, None, link.submissionId, isPropertyLinkPending = link.pending)))
-            }
+            Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, plSubmissionId = link.submissionId, isAgentOwnProperty)))
+          }
+
         }
-      }
-    } else {
-      propertyLinks.getLink(authorisationId) map {
-        case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
-        case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, plSubmissionId = link.submissionId)))
         case None => notFound
       }
-    }
 
   }
 
@@ -96,25 +82,17 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     val backLink = request.headers.get("Referer")
     viewAssessmentForm.bindFromRequest().fold(
       errors => {
-        if(config.checkCasesEnabled) {
           propertyLinks.getLink(authorisationId) flatMap {
             case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
-            case Some(link) if link.pending == false => {
+            case Some(link) => {
               for {
                 isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-                checkCases <- checkCaseConnector.getCheckCases(Some(link), isAgentOwnProperty)
               } yield {
-                BadRequest(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, checkCases, isAgentOwnProperty, plSubmissionId = link.submissionId)))
-              } }
-            case Some(link) => BadRequest(views.html.dashboard.assessmentsCheckCases(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, None, false, plSubmissionId = link.submissionId)))
-          }
-        }else {
-          propertyLinks.getLink(authorisationId) map {
-            case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
-            case Some(link) => Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, plSubmissionId = link.submissionId)))
+                Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, plSubmissionId = link.submissionId, isAgentOwnProperty)))
+              }
+            }
             case None => notFound
           }
-        }
       }
       ,
       {
@@ -172,26 +150,6 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     }
   }
 
-  def canChallenge(plSubmissionId: String, assessmnetRef: Long, caseRef: String, isAgent: Boolean, authorisationId: Long)  = authenticated { implicit request =>
-    propertyLinks.canChallenge(plSubmissionId, assessmnetRef, caseRef, isAgent).flatMap{ responseOpt =>
-      responseOpt match {
-        case None => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmnetRef/startChallenge"))
-        case Some(response) => {
-          response.result match {
-            case true  => {
-              businessRatesAuthorisation.isAgentOwnProperty(authorisationId).map{ isAgentProperty =>
-                val party = if(isAgentProperty) "client" else "agent"
-                Redirect(config.businessRatesChallengeStartPageUrl(s"property-link/$authorisationId/valuation/$assessmnetRef/check/$caseRef/party/$party/start"))
-              }
-
-            }
-            case false => Ok(cannotRaiseChallenge(response, config.newDashboardUrl("home"), authorisationId))
-          }
-        }
-      }
-    }
-  }
-
   private def getPaperChallengeUrl(assessmentSeq: Seq[Assessment]): String = {
     val a = assessmentSeq.sortWith(_.effectiveDate.toEpochDay < _.effectiveDate.toEpochDay).head
     config.businessRatesValuationUrl(s"property-link/${a.authorisationId}/assessment/${a.assessmentRef}/startChallenge")
@@ -200,6 +158,6 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
   lazy val dvRequestForm = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))
 }
 
-case class AssessmentsVM(form: Form[_], assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean, checkCases: Option[CheckCasesResponse] = None, isAgentOwnProperty: Boolean = false, paperChallengeUrl: Option[String] = None, plSubmissionId: String, isPropertyLinkPending: Boolean = false)
+case class AssessmentsVM(form: Form[_], assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean, plSubmissionId: String, isAgentOwnProperty: Boolean)
 
 case class RequestDetailedValuationVM(form: Form[_], authId: Long, assessmentRef: Long, baRef: String)
