@@ -57,7 +57,7 @@ class DVRCaseManagementConnector @Inject()(
     }
   }
 
-  def getDvrDocument(uarn: Long, valuationId: Long, propertyLinkId: String, fileRef: Long)(implicit hc: HeaderCarrier): Future[StreamedDocument] =
+  def getDvrDocument(uarn: Long, valuationId: Long, propertyLinkId: String, fileRef: String)(implicit hc: HeaderCarrier): Future[StreamedDocument] =
     wsClient
       .url(s"$url/properties/$uarn/valuation/$valuationId/files/$fileRef?propertyLinkId=$propertyLinkId")
       .withMethod("GET").withHeaders(hc.headers: _*)

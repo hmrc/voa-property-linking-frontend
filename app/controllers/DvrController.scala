@@ -114,7 +114,7 @@ class DvrController @Inject()(
 
   def requestDvrFile(valuationId: Long,
                      authId: Long,
-                     fileRef: Long): Action[AnyContent] = authenticated {
+                     fileRef: String): Action[AnyContent] = authenticated {
     implicit request =>
       propertyLinks.getLink(authId).flatMap {
         case Some(link) =>
@@ -137,8 +137,8 @@ case class RequestDetailedValuationWithoutForm(authId: Long,
                                                baRef: String)
 
 case class AvailableRequestDetailedValuation(
-                                            check: Long,
-                                            valuation: Long,
+                                            check: String,
+                                            valuation: String,
                                             authId: Long,
                                             valuationId: Long,
                                             baRef: String,

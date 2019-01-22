@@ -101,8 +101,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val now = LocalDateTime.now()
 
     when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(Some(DvrDocumentFiles(
-      checkForm = Document(DocumentSummary(1L, "Check Document", now)),
-      detailedValuation = Document(DocumentSummary(2L, "Detailed Valuation Document", now))
+      checkForm = Document(DocumentSummary("1L", "Check Document", now)),
+      detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
     ))))
 
     val result = controller.alreadySubmittedDetailedValuationRequest(1L, link.authorisationId, "billingAuthorityReference")(request)
