@@ -57,8 +57,6 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
   lazy val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean
   lazy val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean
-  lazy val newDashboardRedirectsEnabled: Boolean = getConfig("featureFlags.newDashboardRedirectsEnabled").toBoolean
-  lazy val checkCasesEnabled: Boolean = getConfig("featureFlags.checkCasesEnabled").toBoolean
   lazy val dvrEnabled: Boolean = getConfig("featureFlags.dvrEnabled").toBoolean
 
   lazy val stubEnrolment: Boolean = getConfig("enrolment.useStub").toBoolean

@@ -43,52 +43,11 @@ class Dashboard @Inject()(draftCases: DraftCases,
                           pdfGen: PdfGenerator)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController with ValidPagination {
 
   def home() = authenticated { implicit request =>
-    if (config.newDashboardRedirectsEnabled) {
-      Redirect(config.newDashboardUrl("home"))
-    } else {
-      if (request.organisationAccount.isAgent) {
-        Redirect(controllers.agent.routes.RepresentationController.viewClientProperties())
-      } else {
-        Redirect(routes.Dashboard.manageProperties())
-      }
-    }
+    Redirect(config.newDashboardUrl("home"))
   }
 
-  def manageProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String],
-                       sortorder: Option[String], status: Option[String], address: Option[String],
-                       baref: Option[String], agent: Option[String]) = authenticated { implicit request =>
-    if (config.newDashboardRedirectsEnabled) {
-      Redirect(config.newDashboardUrl("your-properties"))
-    } else {
-      withValidPaginationSearchSort(
-        page = page,
-        pageSize = pageSize,
-        requestTotalRowCount = requestTotalRowCount,
-        sortfield = sortfield,
-        sortorder = sortorder,
-        status = status,
-        address = address,
-        baref = baref,
-        agent = agent
-      ) { paginationSearchSort =>
-        val eventualPropertyLinks = propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-
-
-        for {
-          propertyLinks <- eventualPropertyLinks
-
-        } yield {
-          Ok(views.html.dashboard.manageProperties(
-            ManagePropertiesVM(
-              request.organisationAccount.id,
-              propertyLinks,
-              paginationSearchSort.copy(totalResults = propertyLinks.filterTotal)
-            )
-
-          ))
-        }
-      }
-    }
+  def manageProperties() = authenticated { implicit request =>
+   Redirect(config.newDashboardUrl("your-properties"))
   }
 
   def getProperties(page: Int,
@@ -108,16 +67,7 @@ class Dashboard @Inject()(draftCases: DraftCases,
   }
 
   def manageAgents() = authenticated { implicit request =>
-    if (config.newDashboardRedirectsEnabled) {
-      Redirect(config.newDashboardUrl("your-agents"))
-    } else {
-      for {
-        ownerAgents <- agentsConnector.ownerAgents(request.organisationId)
-      } yield {
-        val agents = ownerAgents.agents.map(ownerAgent => AgentInfo(ownerAgent.name, ownerAgent.ref))
-        Ok(views.html.dashboard.manageAgents(ManageAgentsVM(agents)))
-      }
-    }
+    Redirect(config.newDashboardUrl("your-agents"))
   }
 
   def viewManagedProperties(agentCode: Long) = authenticated { implicit request =>
@@ -141,37 +91,12 @@ class Dashboard @Inject()(draftCases: DraftCases,
       ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, filteredAuths)))
   }
 
-  def viewMessages(pagination: MessagePagination) = authenticated { implicit request =>
-    withValidMessagePagination(pagination) {
-      if (config.newDashboardRedirectsEnabled) {
-        Redirect(config.newDashboardUrl("inbox"))
-      } else {
-        for {
-          count <- messagesConnector.countUnread(request.organisationId)
-          msgs <- messagesConnector.getMessages(request.organisationId, pagination)
-        } yield {
-          //round up to nearest integer
-          val numberOfPages: Int = Math.ceil(count.total.toDouble / pagination.pageSize).toInt
-          Ok(views.html.dashboard.messages.messagesTab(msgs, pagination, count.unread, numberOfPages))
-        }
-      }
-    }
+  def viewMessages() = authenticated { implicit request =>
+    Redirect(config.newDashboardUrl("inbox"))
   }
 
   def viewMessage(messageId: String) = authenticated { implicit request =>
-    if (config.newDashboardRedirectsEnabled) {
-      Redirect(config.newDashboardUrl("inbox"))
-    } else {
-      for {
-        message <- messagesConnector.getMessage(request.organisationId, messageId)
-        _ <- messagesConnector.markAsRead(messageId, request.individualAccount.externalId)
-      } yield {
-        message match {
-          case Some(m) => Ok(views.html.dashboard.messages.viewMessage(m))
-          case None => NotFound(Global.notFoundTemplate)
-        }
-      }
-    }
+    Redirect(config.newDashboardUrl("inbox"))
   }
 
   def viewMessageAsPdf(messageId: String) = authenticated { implicit request =>

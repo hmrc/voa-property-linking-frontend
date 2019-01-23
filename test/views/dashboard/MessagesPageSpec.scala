@@ -141,7 +141,7 @@ class MessagesPageSpec extends VoaPropertyLinkingSpec {
 
     val nextPageLink = multiplePages.select("div#messagesTable_paginate a#messagesTable_next")
     nextPageLink.text mustBe "Next"
-    nextPageLink.attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination().copy(pageNumber = 2)).url
+    nextPageLink.attr("href") mustBe routes.Dashboard.viewMessages().url
   }
 
   it must """show a "previous" button if the user is not on page 1""" in {
@@ -149,7 +149,7 @@ class MessagesPageSpec extends VoaPropertyLinkingSpec {
 
     val previousPageLink = messagesPg2.select("div#messagesTable_paginate a#messagesTable_previous")
     previousPageLink.text mustBe "Previous"
-    previousPageLink.attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination()).url
+    previousPageLink.attr("href") mustBe routes.Dashboard.viewMessages().url
   }
 
   it must "not show a next button on the last page of messages" in {
@@ -210,28 +210,28 @@ class MessagesPageSpec extends VoaPropertyLinkingSpec {
   it must "have clickable links on each heading to sort by each field" in {
     val headings = pageWithOneUnreadMessage.select("#messagesTable thead tr th").asScala
 
-    headings.head.select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.LastRead, sortOrder = SortOrder.Ascending)).url
-    headings(1).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.Subject, sortOrder = SortOrder.Ascending)).url
-    headings(2).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Ascending)).url
-    headings(3).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.CaseReference, sortOrder = SortOrder.Ascending)).url
+    headings.head.select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages().url
+    headings(1).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages().url
+    headings(2).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages().url
+    headings(3).select("div.sorting a").attr("href") mustBe routes.Dashboard.viewMessages().url
     //sorted in descending date order by default
-    headings(4).select("div.sorting_desc a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.EffectiveDate, sortOrder = SortOrder.Ascending)).url
+    headings(4).select("div.sorting_desc a").attr("href") mustBe routes.Dashboard.viewMessages().url
   }
 
   it must "have a clickable link to reverse the sort order on the current sorting field" in {
     val pageSortedByAscendingAddress = Jsoup.parse(messagesTab(oneMessage, MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Ascending), 1, 1).toString)
 
     val addressHeading = pageSortedByAscendingAddress.select("#messagesTable thead").select("th").eq(2)
-    addressHeading.select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(sortField = MessageSortField.Address, sortOrder = SortOrder.Descending)).url
+    addressHeading.select("a").attr("href") mustBe routes.Dashboard.viewMessages().url
   }
 
   it must "include controls to change the page size" in {
     val pageSizeControls = pageWithOneUnreadMessage.select("ul.showResults li")
 
     pageSizeControls.first().text mustBe "15"
-    pageSizeControls.get(1).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 25)).url
-    pageSizeControls.get(2).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 50)).url
-    pageSizeControls.get(3).select("a").attr("href") mustBe routes.Dashboard.viewMessages(MessagePagination(pageSize = 100)).url
+    pageSizeControls.get(1).select("a").attr("href") mustBe routes.Dashboard.viewMessages().url
+    pageSizeControls.get(2).select("a").attr("href") mustBe routes.Dashboard.viewMessages().url
+    pageSizeControls.get(3).select("a").attr("href") mustBe routes.Dashboard.viewMessages().url
   }
 
   it must "have links on the read status and subject to view the message for each message" in {

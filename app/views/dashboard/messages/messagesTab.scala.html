@@ -70,7 +70,7 @@
                         <th>@searchField("clientName", pagination.clientName)</th>
                     }
                     <th>
-                        <a href="@routes.Dashboard.viewMessages(pagination.clear)"
+                        <a href="@routes.Dashboard.viewMessages()"
                         id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
                     </th>
                     <input type="hidden" name="pageNumber" value="@pagination.pageNumber" readonly>
@@ -139,7 +139,7 @@
                     </li>
                 } else {
                     <li>
-                        <a id="messagesTable_previous" class="paginate_button previous" href="@routes.Dashboard.viewMessages(pagination.previousPage)">@Messages("pagination.previous")</a>
+                        <a id="messagesTable_previous" class="paginate_button previous" href="@routes.Dashboard.viewMessages()">@Messages("pagination.previous")</a>
                     </li>
                 }
 
@@ -148,14 +148,14 @@
                         @if(pagination.pageNumber == i) {
                             <li class="current">@i</li>
                         } else {
-                            <li><a href="@routes.Dashboard.viewMessages(pagination.copy(pageNumber = i))" class="paginate_button">@i</a></li>
+                            <li><a href="@routes.Dashboard.viewMessages()" class="paginate_button">@i</a></li>
                         }
                     }
                 }
 
                 @if(pagination.pageNumber < numberOfPages) {
                     <li class="next">
-                        <a id="messagesTable_next" class="paginate_button next" href="@routes.Dashboard.viewMessages(pagination.nextPage)">@Messages("pagination.next")</a>
+                        <a id="messagesTable_next" class="paginate_button next" href="@routes.Dashboard.viewMessages()">@Messages("pagination.next")</a>
                     </li>
                 } else {
                     <li class="next disabled">
@@ -181,11 +181,11 @@
 @sortingControl(field: MessageSortField) = {
     @if(pagination.sortField == field) {
         <div id="sort-by-@field" class="sorting_@pagination.sortOrder">
-            <a href="@routes.Dashboard.viewMessages(pagination.reverseSorting)">@Messages(s"messages.th.$field")</a>
+            <a href="@routes.Dashboard.viewMessages()">@Messages(s"messages.th.$field")</a>
         </div>
     } else {
         <div id="sort-by-@field" class="sorting">
-            <a href="@routes.Dashboard.viewMessages(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">@Messages(s"messages.th.$field")</a>
+            <a href="@routes.Dashboard.viewMessages()">@Messages(s"messages.th.$field")</a>
         </div>
     }
 }
@@ -194,7 +194,7 @@
     @if(pagination.pageSize == size) {
         <li>@size</li>
     } else {
-        <li><a href="@routes.Dashboard.viewMessages(pagination.copy(pageSize = size, pageNumber = 1))">@size</a></li>
+        <li><a href="@routes.Dashboard.viewMessages()">@size</a></li>
     }
 }
 

@@ -34,8 +34,6 @@ import scala.concurrent.Future
 class DashboardSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
-  override val additionalAppConfig = Seq("featureFlags.newDashboardRedirectsEnabled" -> "false")
-
   lazy val mockDraftCases = {
     val m = mock[DraftCases]
     when(m.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Nil))
@@ -72,7 +70,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
     header("location", res) mustBe Some(registration.routes.RegistrationController.show.url)
   }
 
-  "Logging in again with an account that has already registered" must "continue to the manage properties page" in {
+  "home page" must "redirect to new dashboard" in {
     val group = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
     val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
 
@@ -84,22 +82,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
 
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Dashboard.manageProperties().url)
-  }
-
-  "Logging in with a group account that has registered as an agent" must "continue to the agent dashboard" in {
-    val group = arbitrary[GroupAccount].sample.get.copy(groupId = "has-agent-account", isAgent = true)
-    val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
-
-    StubVplAuthConnector.stubExternalId("has-account")
-    StubVplAuthConnector.stubGroupId("has-agent-account")
-    StubIndividualAccountConnector.stubAccount(person)
-    StubGroupAccountConnector.stubAccount(group)
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
-
-    val res = TestDashboard.home()(request)
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(controllers.agent.routes.RepresentationController.viewClientProperties().url)
+    redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/home")
   }
 
   "viewManagedProperties" must "display the properties managed by an agent" in {
@@ -126,11 +109,10 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
     contentAsString(res) must include("Properties managed by Test Agent Company")
   }
 
-  "viewMessages" must "display the messages page with messages" in {
+  "viewMessages" must "redirect to new dashoard inbox" in {
     val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
     val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
 
-    val messageSearchResults = arbitrary[MessageSearchResults].sample.get
 
     StubVplAuthConnector.stubExternalId(clientPerson.externalId)
     StubVplAuthConnector.stubGroupId(clientGroup.groupId)
@@ -138,21 +120,17 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
     StubIndividualAccountConnector.stubAccount(clientPerson)
     StubGroupAccountConnector.stubAccount(clientGroup)
 
-    StubMessagesConnector.stubMessageSearchResults(messageSearchResults)
-    StubMessagesConnector.stubMessageCount(MessageCount(unread = messageSearchResults.size, total =  messageSearchResults.size))
-
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
 
-    val res = TestDashboard.viewMessages(MessagePagination())(request)
+    val res = TestDashboard.viewMessages()(request)
 
-    status(res) mustBe OK
-    contentAsString(res) must include(messageSearchResults.messages.head.subject)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/inbox")
   }
 
-  "viewMessage" must "display a message using the message id" in {
+  "viewMessage" must "redirect to new dashoard inbox" in {
     val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
     val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
-
     val message = arbitrary[Message].sample.get
 
     StubVplAuthConnector.stubExternalId(clientPerson.externalId)
@@ -167,8 +145,8 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
 
     val res = TestDashboard.viewMessage(message.id)(request)
 
-    status(res) mustBe OK
-    contentAsString(res) must include(message.subject)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/inbox")
   }
 
 }
