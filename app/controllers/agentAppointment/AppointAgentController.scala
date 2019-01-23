@@ -93,15 +93,12 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       })
   }
 
-  val journeyStartBackLink = {
-    if (config.newDashboardRedirectsEnabled) Some(config.newDashboardUrl("your-agents")) else Some(controllers.routes.Dashboard.manageProperties().url)
-  }
-
   def selectProperties() = authenticated { implicit request =>
     appointAgentForm.bindFromRequest().fold(
       hasErrors = errors => {
         agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
-          BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, None, ownerAgents.agents), journeyStartBackLink))
+          BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(errors, None, ownerAgents.agents),
+            Some(config.newDashboardUrl("your-agents"))))
         }
       },
       success = (agent: AppointAgent) => {
@@ -396,7 +393,8 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
   private lazy val alreadyAppointedAgent = FormError("agentCode", "error.alreadyAppointedAgent")
 
   private def invalidAppointment(form: Form[AppointAgent], linkId: Option[Long], agents: Seq[OwnerAgent] = Seq())(implicit request: Request[_]) = {
-    Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId, agents), journeyStartBackLink)))
+    Future.successful(BadRequest(views.html.propertyRepresentation.appointAgent(AppointAgentVM(form, linkId, agents),
+      Some(config.newDashboardUrl("your-agents")))))
   }
 
   private def invalidRevokeAppointment(form: Form[AgentId], linkId: Option[Long], agents: Seq[OwnerAgent] = Seq())(implicit request: Request[_]) = {
@@ -436,7 +434,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
   def appointMultipleProperties() = authenticated { implicit request =>
     agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
       Ok(views.html.propertyRepresentation.appointAgent(
-        AppointAgentVM(form = appointAgentForm, agents = ownerAgents.agents), journeyStartBackLink))
+        AppointAgentVM(form = appointAgentForm, agents = ownerAgents.agents), Some(config.newDashboardUrl("your-agents"))))
     }
   }
 

@@ -29,8 +29,6 @@ import utils._
 
 class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.newDashboardRedirectsEnabled" -> "false")
-
   implicit val request = FakeRequest()
 
   object TestDashboardController extends Dashboard(
@@ -43,14 +41,14 @@ class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
     mock[PdfGenerator]
   )
 
-  "Manage Owner Agents page" must "return Ok" in {
+  "Manage Owner Agents page" must "return redirect" in {
 
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
 
     val res = TestDashboardController.manageAgents()(FakeRequest())
-    status(res) mustBe OK
+    status(res) mustBe SEE_OTHER
   }
 
 }

@@ -51,40 +51,8 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
                                         (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
-  def viewClientProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String],
-                           sortorder: Option[String], status: Option[String], address: Option[String],
-                           baref: Option[String], client: Option[String]) = authenticated.asAgent { implicit request =>
-    if (config.newDashboardRedirectsEnabled) {
-      Redirect(config.newDashboardUrl("client-properties"))
-    } else {withValidPaginationSearchSort(
-      page = page,
-      pageSize = pageSize,
-      requestTotalRowCount = requestTotalRowCount,
-      sortfield = sortfield,
-      sortorder = sortorder,
-      status = status,
-      address = address,
-      baref = baref,
-      client = client
-    ) { paginationSearchSort => {
-      val eventualRepresentations = reprConnector.forAgentSearchAndSort(request.organisationId, paginationSearchSort)
-
-
-      for {
-        representations <- eventualRepresentations
-
-      } yield {
-        Ok(views.html.dashboard.manageClients(
-          ManageClientPropertiesVM(
-            result = representations,
-            totalPendingRequests = representations.pendingRepresentations,
-            pagination = paginationSearchSort.copy(totalResults = representations.filterTotal)
-          )
-
-        ))}
-      }
-      }
-    }
+  def viewClientProperties() = authenticated.asAgent { implicit request =>
+    Redirect(config.newDashboardUrl("client-properties"))
   }
 
 
@@ -269,7 +237,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
       Redirect(routes.RepresentationController.pendingRepresentationRequest(
         Math.max(1, pagination.pageNumber - 1), pagination.pageSize))
     } else {
-      Redirect(routes.RepresentationController.viewClientProperties(pagination.pageNumber, pagination.pageSize))
+      Redirect(routes.RepresentationController.viewClientProperties())
     }
   }
 
@@ -295,11 +263,8 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
       clientProperty <- OptionT(propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id))
       _ <- OptionT.liftF(reprConnector.revoke(clientProperty.authorisedPartyId))
     } yield {
-      if (config.newDashboardRedirectsEnabled) {
         Redirect(config.newDashboardUrl("client-properties"))
-      } else {
-      Redirect(routes.RepresentationController.viewClientProperties())
-    }}).getOrElse(notFound)
+      }).getOrElse(notFound)
   }
 
 }

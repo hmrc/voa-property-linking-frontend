@@ -32,36 +32,11 @@ import scala.concurrent.Future
 
 class ViewDraftCasesSpec extends VoaPropertyLinkingSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.newDashboardRedirectsEnabled" -> "false")
-
-  "Viewing draft cases, when the user has no drafts" should "tell the user they have no draft cases" in {
-    when(mockDraftCases.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Nil))
+  "Viewing draft cases" should "return redirect" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccountGen, individualGen)))
 
     val res = testController.viewDraftCases()(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-    html.select("p").asScala.map(_.text) must contain ("You have no saved draft cases")
-  }
-
-  "Viewing draft cases, when the user has a saved draft" should "show the property address, assessment effective date, and draft expiry date" in {
-    val draftCase = randomDraftCase
-    when(mockDraftCases.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Seq(draftCase)))
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccountGen, individualGen)))
-
-    val res = testController.viewDraftCases()(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-    val rows = html.select("table tbody tr").asScala
-    val address = rows.head.select("td").first.text
-    val effectiveDate = rows.head.select("td").get(1).text
-    val expirationDate = rows.head.select("td").get(2).text
-
-    address mustBe Formatters.capitalizedAddress(draftCase.address)
-    effectiveDate mustBe Formatters.formatDate(draftCase.effectiveDate)
-    expirationDate mustBe Formatters.formatDate(draftCase.expirationDate)
+    status(res) mustBe SEE_OTHER
   }
 
   implicit lazy val mockDraftCases: DraftCases = mock[DraftCases]

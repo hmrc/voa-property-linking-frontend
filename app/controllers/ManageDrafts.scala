@@ -53,15 +53,7 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
 
 
   def viewDraftCases() = authenticated { implicit request =>
-    if (config.newDashboardRedirectsEnabled) {
-      Redirect(config.newDashboardUrl("your-drafts"))
-    } else {
-      for {
-        cases <- draftCases.get(request.personId)
-      } yield {
-        Ok(views.html.dashboard.draftCases(DraftCasesVM(cases), draftCaseForm))
-      }
-    }
+    Redirect(config.newDashboardUrl("your-drafts"))
   }
 
 

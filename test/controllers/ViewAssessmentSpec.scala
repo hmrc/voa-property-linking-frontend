@@ -38,9 +38,6 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
-  override val additionalAppConfig = Seq("featureFlags.checkCasesEnabled" -> "true")
-
-
   private object TestAssessmentController extends Assessments( StubPropertyLinkConnector,
     StubAuthentication,
     mockSubmissionIds,

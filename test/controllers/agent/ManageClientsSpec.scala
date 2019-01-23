@@ -38,148 +38,12 @@ import scala.collection.JavaConverters._
 
 class ManageClientsSpec extends VoaPropertyLinkingSpec {
 
-  override val additionalAppConfig = Seq("featureFlags.newDashboardRedirectsEnabled" -> "false")
+  "The manage clients page" must "return redirect" in {
 
-  lazy val defaultHtml = {
     setup()
-    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
-    status(res) mustBe OK
 
-    Jsoup.parse(contentAsString(res))
-  }
-
-  "The manage clients page" must "display the organisation name for each of the agent's first 15 client properties" in {
-    val html = defaultHtml
-
-    val organisationNames = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.client.organisationName)
-    checkTableColumn(html, 3, "Client", organisationNames)
-  }
-
-  it must "display the link status, and the submission ID if the link is pending, for each of the user's first 15 properties" in {
-    val html = defaultHtml
-    val statuses = StubPropertyLinkConnector.getstubbedOwnerAuthResult().authorisations.map {
-      case authorisation if authorisation.status.toUpperCase == RepresentationPending.name => s"Pending submission ID: ${authorisation.submissionId}"
-      case _ => "Approved"
-    }
-
-    checkTableColumn(html, 2, "Status", statuses)
-  }
-
-
-  it must "display the address for each of the agent's first 15 client properties" in {
-    val html = defaultHtml
-    val addresses = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.address)
-
-    checkTableColumn(html, 0, "Address", addresses)
-  }
-
-  it must "display the BA ref for each of the agent's first 15 client properties" in {
-    val html = defaultHtml
-    val baRefs = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map(_.localAuthorityRef)
-
-    checkTableColumn(html, 1, "Local authority reference", baRefs)
-  }
-
-
-  it must "display the available actions for each of the user's first 15 client properties" in {
-    val html: Document = defaultHtml
-
-    val actions = StubPropertyRepresentationConnector.getstubbedAgentAuthResult().authorisations.map { auth =>
-      s"Revoke Client View Valuations"
-    }
-    checkTableColumnStartsWith(html, 4, "Actions", actions)
-  }
-
-  it must "display the current page number" in {
-    val html = defaultHtml
-
-    html.select("ul.pagination li.active").text mustBe "1"
-  }
-
-  it must "include a 'next' link if there are more results" in {
-    setup(numberOfLinks = 16)
-
-    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-
-    val nextLink = html.select("ul.pagination li.next")
-
-    nextLink.hasClass("disabled") mustBe false withClue "'Next' link is incorrectly disabled"
-    nextLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientProperties(2).url
-  }
-
-  it must "include an inactive 'next' link if there are no further results" in {
-    setup(numberOfLinks = 16)
-
-    val res = TestController.viewClientProperties(2, 15, true, None, None, None, None, None, None)(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-
-    val nextLink = html.select("ul.pagination li.next")
-
-    nextLink.hasClass("disabled") mustBe true withClue "'Next' link is not disabled"
-  }
-
-  it must "include an inactive 'previous' link when on page 1" in {
-    setup(numberOfLinks = 16)
-
-    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-
-    val previousLink = html.select("ul.pagination li.previous")
-
-    previousLink.hasClass("disabled") mustBe true withClue "'Previous' link is not disabled"
-  }
-
-  it must "include a 'previous' link when not on page 1" in {
-    setup(numberOfLinks = 16)
-
-    val res = TestController.viewClientProperties(2, 15, true, None, None, None, None, None, None)(FakeRequest())
-    status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-
-    val previousLink = html.select("ul.pagination li.previous")
-
-    previousLink.hasClass("disabled") mustBe false withClue "'Previous' link is incorrectly disabled"
-    previousLink.select("a").attr("href") mustBe routes.RepresentationController.viewClientProperties(1).url
-  }
-
-  it must "include a link to pending properties view" in {
-    val html = defaultHtml
-
-    html.select("a#viewPending").attr("href") mustBe routes.RepresentationController.pendingRepresentationRequest().url
-  }
-
-  it must "not display the page if the user is not an agent" in {
-    val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = false)
-    val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
-
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
-
-    val indirectLink = arbitrary[AgentAuthorisation].retryUntil(_.client.organisationId != groupAccount.id)
-
-    val res = TestController.viewClientProperties(1, 15, true, None, None, None, None, None, None)(FakeRequest())
-    status(res) mustBe UNAUTHORIZED
-  }
-
-  it must "include pagination controls" in {
-    pending
-    val html = defaultHtml
-
-    val pageSizeControls = html.select("ul.pageLength li").asScala
-
-    pageSizeControls must have size 4
-    pageSizeControls.head.text mustBe "15"
-
-    val manageClientsLink: Int => String = n => routes.RepresentationController.viewClientProperties(pageSize = n).url
-
-    pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(manageClientsLink(25), manageClientsLink(50), manageClientsLink(100))
+    val res = TestController.viewClientProperties()(FakeRequest())
+    status(res) mustBe SEE_OTHER
   }
 
   private def setup(numberOfLinks: Int = 15): Unit = {
@@ -200,19 +64,6 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
       pendingRepresentations = numberOfLinks,
       authorisations = arbitraryAgentAuthorisation))
 
-  }
-
-  private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
-    html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
-    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(2).map(_.select("td").get(index).text.toUpperCase)
-    values foreach { v => data must contain(v.toUpperCase) }
-  }
-
-  private def checkTableColumnStartsWith(html: Document, index: Int, heading: String, values: Seq[String]): Unit = {
-    html.select("table#nojsManageClients").select("th").get(index).text mustBe heading
-    val data = html.select("table#nojsManageClients").select("tr").asScala.drop(2).map(_.select("td").get(index).text.toUpperCase)
-
-    (data zip values).foreach { case (d, v) => d.toUpperCase must startWith(v.toUpperCase) }
   }
 
   object TestController extends RepresentationController(
