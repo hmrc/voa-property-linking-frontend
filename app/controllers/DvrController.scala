@@ -121,7 +121,7 @@ class DvrController @Inject()(
           dvrCaseManagement
             .getDvrDocument(link.uarn, valuationId, link.submissionId, fileRef)
             .map { document =>
-              Result(ResponseHeader(200, document.headers),
+              Result(ResponseHeader(200, document.headers.updated(CONTENT_DISPOSITION, s"""attachment;filename="Untitled Document"""")),
                      Streamed(document.body,
                               document.contentLength,
                               document.contentType))
