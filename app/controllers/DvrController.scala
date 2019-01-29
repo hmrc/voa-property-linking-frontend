@@ -94,7 +94,7 @@ class DvrController @Inject()(
         dvrCaseManagement
           .getDvrDocuments(link.uarn, valuationId, link.submissionId)
           .map {
-            case Some(documents) =>
+            case Some(documents)  =>
               Ok(views.html.dvr.auto.downloadDvrFiles(
                 AvailableRequestDetailedValuation(
                   documents.checkForm.documentSummary.documentId,
@@ -103,10 +103,10 @@ class DvrController @Inject()(
                   valuationId,
                   baRef,
                   link.address)))
-            case None =>
+            case None             =>
               Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto())
           }
-      case None =>
+      case None       =>
         //Add Logger
         Future.successful(BadRequest(views.html.errors.propertyMissing())) //This page cannot be displayed.
     }
@@ -121,9 +121,9 @@ class DvrController @Inject()(
           dvrCaseManagement
             .getDvrDocument(link.uarn, valuationId, link.submissionId, fileRef)
             .map { document =>
-              Result(ResponseHeader(200, document.headers.updated(CONTENT_DISPOSITION, s"""attachment;filename="Untitled Document"""")),
+              Result(ResponseHeader(200, document.headers.updated(CONTENT_DISPOSITION, s"""attachment;filename="Untitled Document.pdf"""")),
                      Streamed(document.body,
-                              document.contentLength,
+                              Some(document.contentLength.getOrElse(16392)),
                               document.contentType))
             }
         case None =>
