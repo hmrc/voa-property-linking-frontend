@@ -104,7 +104,7 @@ class DvrController @Inject()(
                   baRef,
                   link.address)))
             case None             =>
-              Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto())
+              Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto(authId))
           }
       case None       =>
         //Add Logger
@@ -121,9 +121,9 @@ class DvrController @Inject()(
           dvrCaseManagement
             .getDvrDocument(link.uarn, valuationId, link.submissionId, fileRef)
             .map { document =>
-              Result(ResponseHeader(200, document.headers.updated(CONTENT_DISPOSITION, s"""attachment;filename="Untitled Document.pdf"""")),
+              Result(ResponseHeader(200, document.headers.updated(CONTENT_DISPOSITION, s"""attachment;filename="${link.submissionId}.pdf"""")),
                      Streamed(document.body,
-                              Some(document.contentLength.getOrElse(16392)),
+                              document.contentLength,
                               document.contentType))
             }
         case None =>

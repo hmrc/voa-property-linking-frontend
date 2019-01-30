@@ -17,9 +17,9 @@
 @import helpers._
 @import config.ApplicationConfig
 
-@()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(authId: Long)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(Messages("requestDetailedValuation.title"), topBackLink = true, bottomBackLink = true) {
+@main_template(Messages("requestDetailedValuation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(routes.Assessments.assessments(authId).url)) {
 <div class="grid-row">
     <div class="column-two-thirds">
 
