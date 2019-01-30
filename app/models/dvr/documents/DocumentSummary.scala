@@ -23,7 +23,7 @@ import play.api.libs.json.{Json, OFormat}
 case class DocumentSummary(
                             documentId: String,
                             documentName: String,
-                            createDateTime: LocalDateTime
+                            createDatetime: LocalDateTime
                           )
 
 object DocumentSummary {
