@@ -20,7 +20,7 @@
 
 @(submissionId: String, address: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-    @main_template(Messages("detailedValuationRequested.page.title"), topNavigation = true, topBackLink = true) {
+    @main_template(Messages("detailedValuationRequested.page.title"), topNavigation = true, topBackLink = false) {
         <div class="grid-row">
             <div class="column-two-thirds">
 
