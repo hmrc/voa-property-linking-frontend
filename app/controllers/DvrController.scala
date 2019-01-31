@@ -40,21 +40,33 @@ class DvrController @Inject()(
 
   def detailedValuationRequestCheck(authId: Long,
                                     valuationId: Long,
-                                    baRef: String) = authenticated {
+                                    baRef: String): Action[AnyContent] = authenticated {
     implicit request =>
-      dvrCaseManagement
-        .dvrExists(request.organisationAccount.id, valuationId)
-        .map { exists =>
-          if (exists) {
-            Redirect(
-              routes.DvrController
-                .alreadySubmittedDetailedValuationRequest(valuationId, authId, baRef))
-          } else {
-            Ok(views.html.dvr.auto.requestDetailedValuationAuto(
-              RequestDetailedValuationWithoutForm(authId, valuationId, baRef)))
-          }
-        }
+      propertyLinks.getLink(authId).flatMap {
+        case Some(link) =>
+          dvrCaseManagement
+            .getDvrDocuments(link.uarn, valuationId, link.submissionId)
+            .map {
+              case Some(documents)  =>
+                Ok(views.html.dvr.auto.downloadDvrFiles(
+                  AvailableRequestDetailedValuation(
+                    documents.checkForm.documentSummary.documentId,
+                    documents.detailedValuation.documentSummary.documentId,
+                    authId,
+                    valuationId,
+                    baRef,
+                    link.address)))
+              case None             =>
+                Redirect(
+                  routes.DvrController
+                    .alreadySubmittedDetailedValuationRequest(valuationId, authId, baRef))
+            }
+        case None       =>
+          //Add Logger
+          Future.successful(BadRequest(views.html.errors.propertyMissing())) //This page cannot be displayed.
+      }
   }
+
 
   //TODO fix ordering or parameters
   def requestDetailedValuation(valuationId: Long, authId: Long, baRef: String) =
@@ -89,27 +101,16 @@ class DvrController @Inject()(
       valuationId: Long,
       authId: Long,
       baRef: String): Action[AnyContent] = authenticated { implicit request =>
-    propertyLinks.getLink(authId).flatMap {
-      case Some(link) =>
-        dvrCaseManagement
-          .getDvrDocuments(link.uarn, valuationId, link.submissionId)
-          .map {
-            case Some(documents)  =>
-              Ok(views.html.dvr.auto.downloadDvrFiles(
-                AvailableRequestDetailedValuation(
-                  documents.checkForm.documentSummary.documentId,
-                  documents.detailedValuation.documentSummary.documentId,
-                  authId,
-                  valuationId,
-                  baRef,
-                  link.address)))
-            case None             =>
-              Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto(authId))
-          }
-      case None       =>
-        //Add Logger
-        Future.successful(BadRequest(views.html.errors.propertyMissing())) //This page cannot be displayed.
-    }
+    dvrCaseManagement
+      .dvrExists(request.organisationAccount.id, valuationId)
+      .map { exists =>
+        if (exists) {
+          Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto(authId))
+        } else {
+          Ok(views.html.dvr.auto.requestDetailedValuationAuto(
+            RequestDetailedValuationWithoutForm(authId, valuationId, baRef)))
+        }
+      }
   }
 
   def requestDvrFile(valuationId: Long,
