@@ -64,15 +64,22 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "detailed valuation check" must "return 200 OK when dvr case does not exist" in new Setup {
-    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
-    val result = controller.detailedValuationRequestCheck(1L, 1L, "billingAuthorityReference")(request)
+    val now = LocalDateTime.now()
+
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(Some(DvrDocumentFiles(
+      checkForm = Document(DocumentSummary("1L", "Check Document", now)),
+      detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
+    ))))
+
+    val result = controller.detailedValuationRequestCheck(link.authorisationId, 1L, "billingAuthorityReference")(request)
 
     status(result) mustBe OK
   }
 
   "detailed valuation check" must "return 303 SEE_OTHER when dvr case does exist" in new Setup {
-    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(true))
-    val result = controller.detailedValuationRequestCheck(1L, 1L, "billingAuthorityReference")(request)
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(None))
+
+    val result = controller.detailedValuationRequestCheck(link.authorisationId, 1L, "billingAuthorityReference")(request)
 
     status(result) mustBe SEE_OTHER
   }
@@ -90,22 +97,19 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     status(result) mustBe OK
   }
 
-  "already submitted detailed valuation request" must "return 200 OK when dvr not ready" in new Setup {
+  "already submitted detailed valuation request" must "return 200 OK when dvr does not exist" in new Setup {
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
+
     when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(None))
-    val result = controller.alreadySubmittedDetailedValuationRequest(1L, link.authorisationId, "billingAuthorityReference")(request)
+    val result = controller.alreadySubmittedDetailedValuationRequest(1L, 1L, "billingAuthorityReference")(request)
 
     status(result) mustBe OK
   }
 
-  "already submitted detailed valuation request" must "return 200 OK when dvr ready" in new Setup {
-    val now = LocalDateTime.now()
+  "already submitted detailed valuation request" must "return 200 OK when dvr already exists" in new Setup {
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(true))
 
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(Some(DvrDocumentFiles(
-      checkForm = Document(DocumentSummary("1L", "Check Document", now)),
-      detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-    ))))
-
-    val result = controller.alreadySubmittedDetailedValuationRequest(1L, link.authorisationId, "billingAuthorityReference")(request)
+    val result = controller.alreadySubmittedDetailedValuationRequest(1L, 1L, "billingAuthorityReference")(request)
 
     status(result) mustBe OK
   }
