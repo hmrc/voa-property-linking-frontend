@@ -30,8 +30,6 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
   private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
   private def loadBooleanConfig(key: String) = runModeConfiguration.getBoolean(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
-
-  //def baseUrl: String = if (mode == play.api.Mode.Prod) "" else "http://localhost:9523"
   lazy val baseUrl = if (mode == play.api.Mode.Prod) "" else "http://localhost:9523"
 
   def businessRatesValuationUrl(page: String): String = loadConfig("business-rates-valuation.url") + s"/$page"

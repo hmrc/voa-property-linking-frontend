@@ -95,7 +95,6 @@ object LoggingFilter extends FrontendLoggingFilter with MicroserviceFilterSuppor
   override def controllerNeedsLogging(controllerName: String): Boolean = ControllerConfiguration.paramsForController(controllerName).needsLogging
 }
 
-//object AuditFilter extends FrontendAuditFilter with MicroserviceFilterSupport with AppName {
 class AuditFilter @Inject()(configuration: Configuration) extends FrontendAuditFilter with MicroserviceFilterSupport with AppName {
   override lazy val maskedFormFields = Seq.empty
   override lazy val applicationPort = None
