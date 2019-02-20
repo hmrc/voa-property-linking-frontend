@@ -49,7 +49,6 @@ import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
 import uk.gov.hmrc.play.frontend.config.LoadAuditingConfig
 import uk.gov.hmrc.play.frontend.filters.{FrontendAuditFilter, FrontendLoggingFilter, MicroserviceFilterSupport, RecoveryFilter}
 
-
 object Global extends VPLFrontendGlobal
 
 trait VPLFrontendGlobal extends DefaultFrontendGlobal {
@@ -136,6 +135,7 @@ class GuiceModule(environment: Environment,
     bind(classOf[AuthConnector]).to(classOf[VPLAuthConnector])
     bind(classOf[CircuitBreakerConfig]).toProvider(classOf[CircuitBreakerConfigProvider]).asEagerSingleton()
     bind(classOf[PdfGenerator]).toInstance(new PdfGenerator(environment))
+    bind(classOf[AuditConnector]).toInstance(AuditServiceConnector)
   }
 
 }
