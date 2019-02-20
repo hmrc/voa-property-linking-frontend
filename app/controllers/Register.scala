@@ -17,17 +17,17 @@
 package controllers
 
 import javax.inject.Inject
-
 import auth.VoaAction
 import config.ApplicationConfig
-import play.api.Logger
+import play.api.Mode.Mode
+import play.api.{Configuration, Logger}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, Request}
 import uk.gov.hmrc.play.config.ServicesConfig
 
-class Register @Inject()(ggAction: VoaAction)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController with ServicesConfig {
+class Register @Inject()(ggAction: VoaAction)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig, val mode: Mode, val runModeConfiguration: Configuration) extends PropertyLinkingController with ServicesConfig {
 
   def continue(accountType: String) = {
     Map("accountType" -> Seq(accountType), "continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
@@ -51,7 +51,6 @@ class Register @Inject()(ggAction: VoaAction)(implicit val messagesApi: Messages
       continue(account)
     )
   }
-
 }
 
 object RegisterHelper {

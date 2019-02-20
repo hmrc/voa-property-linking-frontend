@@ -19,7 +19,7 @@ package utils
 import connectors.IndividualAccounts
 import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.Future
 import scala.util.Random

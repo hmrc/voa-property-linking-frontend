@@ -19,10 +19,15 @@ package controllers
 import auth.VoaAction
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.api.{Mode, Play}
+import play.api.Configuration
+
 
 
 class RegisterPageSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
+  implicit val mode = Mode.Test
+  implicit val runConfig = Play.current.configuration
 
   val mockVoaAction = mock[VoaAction]
 

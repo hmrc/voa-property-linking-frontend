@@ -21,7 +21,7 @@ import javax.inject.Inject
 import config.{AuthorisationFailed, WSHttp}
 import models.{Accounts, PropertyLink, PropertyLinkIds}
 import play.api.libs.json._
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.http.ForbiddenException
 
 import scala.concurrent.Future

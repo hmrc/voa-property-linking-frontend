@@ -21,7 +21,7 @@ import javax.inject.Inject
 import config.ApplicationConfig
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, JsValue}
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 import config.WSHttp
 import scala.concurrent.Future

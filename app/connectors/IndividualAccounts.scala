@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 import config.WSHttp
 import scala.concurrent.{ExecutionContext, Future}

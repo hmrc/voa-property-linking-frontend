@@ -20,8 +20,9 @@ import javax.inject.Inject
 
 import play.api.libs.json.Json
 import reactivemongo.bson.{BSONDateTime, BSONDocument}
-import reactivemongo.json.ImplicitBSONHandlers._
 import repositories.SessionRepository
+import reactivemongo.play.json.ImplicitBSONHandlers._
+
 
 import scala.concurrent.{ExecutionContext, Future}
 

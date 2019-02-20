@@ -18,9 +18,10 @@ package utils
 
 import connectors.SubmissionIdConnector
 import org.scalatest.mockito.MockitoSugar
-import play.api.Environment
+import play.api.Mode.Mode
+import play.api.{Configuration, Environment, Mode, Play}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
@@ -44,6 +45,10 @@ object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfi
 
 
 object StubServicesConfig extends ServicesConfig with MockitoSugar {
-  override protected def environment = mock[Environment]
+  //override protected def environment = mock[Environment]
   override lazy val env = "Test"
+
+  override protected def mode: Mode = Mode.Test
+
+  override protected def runModeConfiguration: Configuration = Play.current.configuration
 }

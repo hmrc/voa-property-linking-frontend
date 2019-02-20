@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 import models.IVDetails
 import models.identityVerificationProxy._
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 import uk.gov.hmrc.play.http._
 import config.WSHttp

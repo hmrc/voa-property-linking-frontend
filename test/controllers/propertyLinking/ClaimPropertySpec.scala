@@ -33,13 +33,14 @@ import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubSubmissionIdConnector, StubWithLinkingSession}
+import play.api.Mode
 
 import scala.concurrent.Future
 
 class ClaimPropertySpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   private lazy val testClaimProperty = new ClaimProperty(mockEnvelopes, StubAuthentication, StubSubmissionIdConnector,
-    mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]), propertyLinkingConnector)
+    mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]), propertyLinkingConnector, Mode.Test, null)
 
   lazy val submissionId: String = shortString
   lazy val accounts: Accounts = arbitrary[Accounts]

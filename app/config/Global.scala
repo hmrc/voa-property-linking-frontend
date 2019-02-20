@@ -29,6 +29,7 @@ import connectors.VPLAuthConnector
 import controllers.manageDetails.{Details, VoaDetails}
 import javax.inject.{Inject, Provider}
 import net.ceedubs.ficus.Ficus._
+import play.api.Mode.Mode
 import play.api._
 import play.api.i18n.{Lang, MessagesApi}
 import play.api.mvc._
@@ -47,6 +48,7 @@ import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
 import uk.gov.hmrc.play.frontend.config.LoadAuditingConfig
 import uk.gov.hmrc.play.frontend.filters.{FrontendAuditFilter, FrontendLoggingFilter, MicroserviceFilterSupport, RecoveryFilter}
+
 
 object Global extends VPLFrontendGlobal
 
@@ -75,7 +77,7 @@ trait VPLFrontendGlobal extends DefaultFrontendGlobal {
     }
   }
 
-  def auditConnector: uk.gov.hmrc.play.audit.http.connector.AuditConnector = AuditServiceConnector
+  override  def auditConnector: AuditConnector = AuditServiceConnector
 
   override def microserviceMetricsConfig(implicit app: Application): Option[Configuration] = app.configuration.getConfig("metrics")
 
@@ -100,6 +102,8 @@ object AuditFilter extends FrontendAuditFilter with MicroserviceFilterSupport wi
   override lazy val auditConnector = AuditServiceConnector
 
   override def controllerNeedsAuditing(controllerName: String): Boolean = ControllerConfiguration.paramsForController(controllerName).needsAuditing
+
+  override protected def appNameConfiguration: Configuration = Play.current.configuration
 }
 
 object ControllerConfiguration extends ControllerConfig {
@@ -109,6 +113,14 @@ object ControllerConfiguration extends ControllerConfig {
 class GuiceModule(environment: Environment,
                   configuration: Configuration) extends AbstractModule {
   def configure() = {
+
+    bind(classOf[ServicesConfig]).toInstance(new ServicesConfig {
+      override protected def mode: Mode = environment.mode
+
+      override protected def runModeConfiguration: Configuration = configuration
+    })
+
+
     bind(classOf[AuditingService]).toInstance(AuditingService)
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
@@ -128,8 +140,10 @@ class GuiceModule(environment: Environment,
 
 }
 
-class AuthConnectorImpl @Inject()(val http: WSHttp) extends PlayAuthConnector with ServicesConfig {
+class AuthConnectorImpl @Inject()(val http: WSHttp, override val runModeConfiguration: Configuration) extends PlayAuthConnector with ServicesConfig {
   override val serviceUrl: String = baseUrl("auth")
+
+  override protected def mode: Mode = Play.current.mode
 }
 
 class MongoDbProvider @Inject()(reactiveMongoComponent: ReactiveMongoComponent) extends Provider[DB] {

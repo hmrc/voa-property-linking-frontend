@@ -26,7 +26,7 @@ import models._
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.api.mvc.MultipartFormData.FilePart
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 import config.WSHttp
 
