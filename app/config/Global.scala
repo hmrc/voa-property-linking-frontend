@@ -76,13 +76,13 @@ trait VPLFrontendGlobal extends DefaultFrontendGlobal {
     }
   }
 
-  override  def auditConnector: AuditConnector = AuditServiceConnector
+  override def auditConnector: AuditConnector = AuditServiceConnector
 
   override def microserviceMetricsConfig(implicit app: Application): Option[Configuration] = app.configuration.getConfig("metrics")
 
   override def loggingFilter: FrontendLoggingFilter = LoggingFilter
 
-  override def frontendAuditFilter: FrontendAuditFilter = AuditFilter
+  override def frontendAuditFilter: FrontendAuditFilter = new AuditFilter(configuration)
 
   override def filters: Seq[EssentialFilter] = super.filters.filterNot(_ == RecoveryFilter)
 }
@@ -95,14 +95,15 @@ object LoggingFilter extends FrontendLoggingFilter with MicroserviceFilterSuppor
   override def controllerNeedsLogging(controllerName: String): Boolean = ControllerConfiguration.paramsForController(controllerName).needsLogging
 }
 
-object AuditFilter extends FrontendAuditFilter with MicroserviceFilterSupport with AppName {
+//object AuditFilter extends FrontendAuditFilter with MicroserviceFilterSupport with AppName {
+class AuditFilter @Inject()(configuration: Configuration) extends FrontendAuditFilter with MicroserviceFilterSupport with AppName {
   override lazy val maskedFormFields = Seq.empty
   override lazy val applicationPort = None
   override lazy val auditConnector = AuditServiceConnector
 
   override def controllerNeedsAuditing(controllerName: String): Boolean = ControllerConfiguration.paramsForController(controllerName).needsAuditing
 
-  override protected def appNameConfiguration: Configuration = Play.current.configuration
+  override protected def appNameConfiguration: Configuration = configuration
 }
 
 object ControllerConfiguration extends ControllerConfig {

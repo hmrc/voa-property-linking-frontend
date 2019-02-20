@@ -60,7 +60,7 @@ class VPLHttp @Inject()(override val runModeConfiguration: Configuration, enviro
 
   override protected def mode: Mode = environment.mode
 
-  override protected def configuration: Option[Config] = Some(Play.current.configuration.underlying)
+  override protected def configuration: Option[Config] = Some(appNameConfiguration.underlying)
 }
 
 case class AuthorisationFailed(msg: String) extends Exception(s"Authorisation failed: $msg")

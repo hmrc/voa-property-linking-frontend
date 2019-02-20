@@ -27,14 +27,12 @@ import uk.gov.hmrc.play.config.{RunMode, ServicesConfig}
 @Singleton()
 class ApplicationConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
 
-  //override def mode : play.api.Mode.Mode
-
-
   private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
   private def loadBooleanConfig(key: String) = runModeConfiguration.getBoolean(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
 
-  def baseUrl: String = if (mode == play.api.Mode.Prod) "" else "http://localhost:9523"
+  //def baseUrl: String = if (mode == play.api.Mode.Prod) "" else "http://localhost:9523"
+  lazy val baseUrl = if (mode == play.api.Mode.Prod) "" else "http://localhost:9523"
 
   def businessRatesValuationUrl(page: String): String = loadConfig("business-rates-valuation.url") + s"/$page"
   def businessRatesCheckUrl(page: String): String = loadConfig("business-rates-check.url") + s"/$page"
@@ -43,7 +41,7 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
   def businessRatesCheckCaseSummaryUrl(page: String):String = loadConfig("business-rates-check-case-summary.url") + s"/$page"
   def businessRatesChallengeStartPageUrl(page: String) :String = loadConfig("business-rates-challenge-start-page.url") + s"/$page"
 
-  lazy val helpGuideUrl = runModeConfiguration.getConfig("help-guide.url")
+  lazy val helpGuideUrl = loadConfig("help-guide.url")
 
   lazy val ivBaseUrl = loadConfig("microservice.services.identity-verification.url")
   lazy val vmvUrl = loadConfig("vmv-frontend.url")
@@ -77,8 +75,6 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val plannedImprovementsContent: Option[String] = runModeConfiguration.getString("plannedImprovementsContent").map(e =>
     new String(Base64.getUrlDecoder.decode(e)))
 
-  //private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
-  //private def getOptionalConfig(key: String) = configuration.getString(key)
   override protected def mode: Mode = environment.mode
 }
 

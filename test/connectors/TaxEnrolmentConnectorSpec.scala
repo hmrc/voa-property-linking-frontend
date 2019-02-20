@@ -20,8 +20,9 @@ import controllers.{EnrolmentPayload, PayLoad, VoaPropertyLinkingSpec}
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import services.Success
+
 import scala.concurrent.ExecutionContext.global
-import play.api.Mode
+import play.api.{Mode, Play}
 
 class TaxEnrolmentConnectorSpec extends VoaPropertyLinkingSpec {
 
@@ -29,7 +30,7 @@ class TaxEnrolmentConnectorSpec extends VoaPropertyLinkingSpec {
   implicit val ec = global
 
   class Setup {
-    val connector = new TaxEnrolmentConnector(mockWSHttp, Mode.Test, null)
+    val connector = new TaxEnrolmentConnector(mockWSHttp, Play.current.configuration)
   }
 
   "enrol" must "enrol a user successfully" in new Setup {
