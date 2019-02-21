@@ -140,10 +140,9 @@ class GuiceModule(environment: Environment,
 
 }
 
-class AuthConnectorImpl @Inject()(val http: WSHttp, override val runModeConfiguration: Configuration) extends PlayAuthConnector with ServicesConfig {
-  override val serviceUrl: String = baseUrl("auth")
+class AuthConnectorImpl @Inject()(val http: WSHttp, servicesConfig: ServicesConfig) extends PlayAuthConnector {
+  override val serviceUrl: String = servicesConfig.baseUrl("auth")
 
-  override protected def mode: Mode = Play.current.mode
 }
 
 class MongoDbProvider @Inject()(reactiveMongoComponent: ReactiveMongoComponent) extends Provider[DB] {

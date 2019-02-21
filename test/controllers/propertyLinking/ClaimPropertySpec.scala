@@ -18,6 +18,7 @@ package controllers.propertyLinking
 
 import java.time.LocalDate
 
+import com.google.inject.Inject
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{Authenticated, EnvelopeConnector, EnvelopeMetadata}
 import controllers.{PaginationSearchSort, VoaPropertyLinkingSpec}
@@ -27,20 +28,21 @@ import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.mockito.MockitoSugar
+import play.api.{Configuration, Environment}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubSubmissionIdConnector, StubWithLinkingSession}
-import play.api.Mode
+import play.api.Mode.Test
 
 import scala.concurrent.Future
 
-class ClaimPropertySpec extends VoaPropertyLinkingSpec with MockitoSugar {
+class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Environment) extends VoaPropertyLinkingSpec with MockitoSugar {
 
   private lazy val testClaimProperty = new ClaimProperty(mockEnvelopes, StubAuthentication, StubSubmissionIdConnector,
-    mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]), propertyLinkingConnector, Mode.Test, null)
+    mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]), propertyLinkingConnector, configuration, evironment)
 
   lazy val submissionId: String = shortString
   lazy val accounts: Accounts = arbitrary[Accounts]

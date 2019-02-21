@@ -24,14 +24,15 @@ import services.Success
 
 import scala.concurrent.ExecutionContext.global
 import play.api.{Configuration, Mode, Play}
+import uk.gov.hmrc.play.config.ServicesConfig
 
-class TaxEnrolmentConnectorSpec @Inject() (configuration: Configuration) extends VoaPropertyLinkingSpec {
+class TaxEnrolmentConnectorSpec @Inject() (servicesConfig: ServicesConfig) extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   implicit val ec = global
 
   class Setup {
-    val connector = new TaxEnrolmentConnector(mockWSHttp, configuration)
+    val connector = new TaxEnrolmentConnector(mockWSHttp, servicesConfig)
   }
 
   "enrol" must "enrol a user successfully" in new Setup {

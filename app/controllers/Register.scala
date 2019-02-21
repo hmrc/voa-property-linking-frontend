@@ -27,7 +27,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, Request}
 import uk.gov.hmrc.play.config.ServicesConfig
 
-class Register @Inject()(ggAction: VoaAction)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig, val mode: Mode, val runModeConfiguration: Configuration) extends PropertyLinkingController with ServicesConfig {
+class Register @Inject()(ggAction: VoaAction)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig, servicesConfig: ServicesConfig) extends PropertyLinkingController {
 
   def continue(accountType: String) = {
     Map("accountType" -> Seq(accountType), "continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))

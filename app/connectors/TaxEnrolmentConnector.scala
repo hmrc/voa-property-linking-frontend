@@ -30,9 +30,9 @@ import play.api.Mode.Mode
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp, override val runModeConfiguration: Configuration) extends ServicesConfig {
-  private val serviceUrl = baseUrl("tax-enrolments")
-  private val emacUrl = baseUrl("emac") + "/enrolment-store-proxy"
+class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp, servicesConfig: ServicesConfig) {
+  private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
+  private val emacUrl = servicesConfig.baseUrl("emac") + "/enrolment-store-proxy"
 
   private val updateUrl: Long => String = personId => s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}"
   private val enrolUrl = s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment"
@@ -63,6 +63,4 @@ class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp, override val runModeConfig
       throw exception
     }
   }
-
-  override protected def mode: Mode = Play.current.mode
 }

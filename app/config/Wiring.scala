@@ -18,11 +18,10 @@ package config
 
 import com.google.inject.Inject
 import com.typesafe.config.Config
-import play.api.Mode.Mode
 import play.api.{Configuration, Environment, Play}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, Writes}
-import uk.gov.hmrc.http.hooks.HttpHooks
+import uk.gov.hmrc.http.hooks.{HttpHook, HttpHooks}
 import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
 import uk.gov.hmrc.play.http._
@@ -32,7 +31,7 @@ import scala.concurrent.Future
 import scala.util.Try
 import uk.gov.hmrc.http.{HttpDelete, _}
 
-class VPLHttp @Inject()(override val runModeConfiguration: Configuration, environment: Environment, override val appNameConfiguration: Configuration) extends ServicesConfig with WSHttp with HttpAuditing {
+class VPLHttp @Inject()(environment: Environment, servicesConfig: ServicesConfig, override val appNameConfiguration: Configuration) extends WSHttp with HttpAuditing {
 
   override def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = super.doGet(url) map { res =>
     res.status match {
@@ -58,8 +57,6 @@ class VPLHttp @Inject()(override val runModeConfiguration: Configuration, enviro
 
   private def hasJsonBody(res: HttpResponse) = Try { res.json }.isSuccess
 
-  override protected def mode: Mode = environment.mode
-
   override protected def configuration: Option[Config] = Some(appNameConfiguration.underlying)
 }
 
@@ -71,6 +68,8 @@ object WSHttp extends WSHttp {
 
   override protected def appNameConfiguration: Configuration = Play.current.configuration
 }
+
+
 
 trait Hooks extends HttpHooks with HttpAuditing {
   override val hooks = Seq(AuditingHook)

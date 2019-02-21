@@ -25,9 +25,9 @@ import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.ExecutionContext
 
-class TestEmacConnector @Inject()(wSHttp: WSHttp, val mode: Mode, val runModeConfiguration: Configuration) extends ServicesConfig {
+class TestEmacConnector @Inject()(wSHttp: WSHttp, val mode: Mode, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
 
-  private val serviceUrl = baseUrl("emac")
+  private val serviceUrl = servicesConfig.baseUrl("emac")
 
   def removeEnrolment(personId: Long, userId: String, groupId: String)(implicit hc: HeaderCarrier, ex: ExecutionContext) = {
     wSHttp

@@ -47,8 +47,8 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "mongo-lock" % "5.1.1",
     "com.google.inject.extensions" % "guice-multibindings" % "4.0",
     "uk.gov.hmrc" %% "reactive-circuit-breaker" % "2.1.0",
-    "com.builtamont" %% "play2-scala-pdf" % "2.0.0.P25" exclude ("com.typesafe.play", "play-logback_2.11"),
-    "uk.gov.hmrc" %% "bootstrap-play-25" % "4.3.0"
+    "com.builtamont" %% "play2-scala-pdf" % "2.0.0.P25" exclude ("com.typesafe.play", "play-logback_2.11")
+    //"uk.gov.hmrc" %% "bootstrap-play-25" % "4.3.0"
   )
 
   trait TestDependencies {
