@@ -28,7 +28,7 @@ import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController,
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
 import models.{CapacityDeclaration, _}
-import play.api.Configuration
+import play.api.{Configuration, Environment}
 import play.api.Mode.Mode
 import play.api.data.Form
 import play.api.data.Forms._
@@ -48,8 +48,8 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
                               @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
                               val withLinkingSession: WithLinkingSession,
                               val propertyLinksConnector: PropertyLinkConnector,
-                              val mode: Mode,
-                              val runModeConfiguration: Configuration)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+                              val runModeConfiguration: Configuration,
+                              val environment: Environment)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ServicesConfig {
 
   import ClaimProperty._
@@ -96,6 +96,8 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
       _ <- sessionRepository.start[LinkingSession](LinkingSession(address, uarn, envelopeId, submissionId, request.personId, declaration))
     } yield ()
   }
+
+  override protected def mode: Mode = environment.mode
 }
 
 object ClaimProperty {
