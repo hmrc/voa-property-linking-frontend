@@ -68,6 +68,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
         personId = 1111111,
         submissionId = "submission1",
         assessmentRef = 24680,
+        agents = Nil,
         billingAuthorityReferenceNumber = "barn1"
       )
 

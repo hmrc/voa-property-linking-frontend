@@ -22,7 +22,6 @@ import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import javax.inject.Inject
 import models.dvr.DetailedValuationRequest
-import models.dvr.documents.DvrDocumentFiles
 import play.api.http.HttpEntity.Streamed
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, ResponseHeader, Result}
@@ -62,27 +61,25 @@ class DvrController @Inject()(
                     .alreadySubmittedDetailedValuationRequest(valuationId, authId, baRef))
             }
         case None       =>
-          //Add Logger
-          Future.successful(BadRequest(views.html.errors.propertyMissing())) //This page cannot be displayed.
+          Future.successful(BadRequest(views.html.errors.propertyMissing()))
       }
   }
 
-
-  //TODO fix ordering or parameters
-  def requestDetailedValuation(valuationId: Long, authId: Long, baRef: String) =
+  def requestDetailedValuation(authId: Long, valuationId: Long, baRef: String): Action[AnyContent] =
     authenticated { implicit request =>
       for {
-        submissionId <- submissionIds.get("DVR")
-        dvr = DetailedValuationRequest(authId,
-                                       request.organisationId,
-                                       request.personId,
-                                       submissionId,
-                                       valuationId,
-                                       baRef)
-        _ <- dvrCaseManagement.requestDetailedValuationV2(dvr)
-      } yield {
-        Redirect(routes.DvrController.confirmation(authId, submissionId))
-      }
+        submissionId  <- submissionIds.get("DVR")
+        agents        <- propertyLinks.getLink(authId).map(opt => opt.toList.flatMap(_.agents.map(_.organisationId)))
+        dvr           = DetailedValuationRequest(authId,
+                                        request.organisationId,
+                                        request.personId,
+                                        submissionId,
+                                        valuationId,
+                                        agents,
+                                        baRef)
+        _             <- dvrCaseManagement.requestDetailedValuationV2(dvr)
+      } yield Redirect(routes.DvrController.confirmation(authId, submissionId))
+
     }
 
   def confirmation(authId: Long, submissionId: String) = authenticated {
