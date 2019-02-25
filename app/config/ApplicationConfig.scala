@@ -24,11 +24,13 @@ import play.api.Mode.Mode
 import play.api.{Configuration, Environment, Play}
 import uk.gov.hmrc.play.config.{RunMode, ServicesConfig}
 
+import scala.util.Try
+
 @Singleton()
 class ApplicationConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
 
   private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
-  private def loadBooleanConfig(key: String) = runModeConfiguration.getBoolean(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
+  private def loadBooleanConfig(key: String) = Try(runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key")).toBoolean).getOrElse(false)
 
   lazy val baseUrl = if (mode == play.api.Mode.Prod) "" else "http://localhost:9523"
 
