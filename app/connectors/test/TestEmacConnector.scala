@@ -25,7 +25,7 @@ import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.ExecutionContext
 
-class TestEmacConnector @Inject()(wSHttp: WSHttp, val mode: Mode, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
+class TestEmacConnector @Inject()(wSHttp: WSHttp, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
 
   private val serviceUrl = servicesConfig.baseUrl("emac")
 
