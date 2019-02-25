@@ -22,7 +22,7 @@ import config.WSHttp
 import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.AgentAuthResult
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 
 import scala.concurrent.{ExecutionContext, Future}

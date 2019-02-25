@@ -21,7 +21,7 @@ import javax.inject.Inject
 import config.{ApplicationConfig, WSHttp}
 import models.messages.{Message, MessageCount, MessagePagination, MessageSearchResults}
 import play.api.libs.json.{JsNull, JsValue}
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}

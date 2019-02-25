@@ -34,7 +34,7 @@ import uk.gov.hmrc.play.frontend.auth.{Actions, AuthContext, GovernmentGateway}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class GovernmentGatewayProvider @Inject()(config: ApplicationConfig) extends GovernmentGateway {
+class GovernmentGatewayProvider @Inject()(implicit val config: ApplicationConfig) extends GovernmentGateway {
   this: ServicesConfig =>
   override def additionalLoginParameters: Map[String, Seq[String]] = Map("accountType" -> Seq("organisation"))
 

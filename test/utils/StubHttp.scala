@@ -16,7 +16,9 @@
 
 package utils
 
+import com.typesafe.config.Config
 import config.WSHttp
+import play.api.Configuration
 import play.api.libs.json.Writes
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
@@ -39,4 +41,7 @@ object StubHttp extends WSHttp{
 
   override def doPatch[A](url: String, body: A)(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
 
+  override protected def configuration: Option[Config] = ???
+
+  override protected def appNameConfiguration: Configuration = ???
 }

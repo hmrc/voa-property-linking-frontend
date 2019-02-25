@@ -21,7 +21,7 @@ import javax.inject.Inject
 import config.{ApplicationConfig, WSHttp}
 import models.searchApi.OwnerAgents
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 

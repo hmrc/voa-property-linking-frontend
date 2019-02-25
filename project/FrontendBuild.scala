@@ -29,6 +29,7 @@ private object AppDependencies {
   import play.sbt.PlayImport._
 
   private val playReactivemongoVersion = "5.2.0"
+  
   val compile = Seq(
     filters,
     ws,
@@ -38,15 +39,16 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "auth-client" % "2.5.0",
     "com.google.guava" % "guava" % "18.0",
     "joda-time" % "joda-time" % "2.8.2",
-    "uk.gov.hmrc" %% "frontend-bootstrap" % "8.22.0",
+    "uk.gov.hmrc" %% "frontend-bootstrap" % "11.3.0",
     "uk.gov.hmrc" %% "http-caching-client" % "7.0.0",
     "org.typelevel" %% "cats-core" % "0.8.1",
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % "0.2.0",
     "uk.gov.hmrc" %% "play-whitelist-filter" % "2.0.0",
-    "uk.gov.hmrc" %% "mongo-lock" % "4.1.0",
+    "uk.gov.hmrc" %% "mongo-lock" % "5.1.1",
     "com.google.inject.extensions" % "guice-multibindings" % "4.0",
     "uk.gov.hmrc" %% "reactive-circuit-breaker" % "2.1.0",
     "com.builtamont" %% "play2-scala-pdf" % "2.0.0.P25" exclude ("com.typesafe.play", "play-logback_2.11")
+    //"uk.gov.hmrc" %% "bootstrap-play-25" % "4.3.0"
   )
 
   trait TestDependencies {
@@ -57,7 +59,7 @@ private object AppDependencies {
   object Test {
     def apply() = new TestDependencies {
       override lazy val test = Seq(
-        "uk.gov.hmrc" %% "hmrctest" % "2.3.0" % scope,
+        "uk.gov.hmrc" %% "hmrctest" % "3.3.0" % scope,
         "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0-M1" % scope,
         "org.scalatest" %% "scalatest" % "3.0.1",
         "org.scalatest" %% "scalatest" % "3.0.1" % scope,

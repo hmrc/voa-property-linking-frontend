@@ -17,21 +17,21 @@
 package connectors.test
 
 import javax.inject.Inject
-
 import config.WSHttp
+import play.api.Configuration
+import play.api.Mode.Mode
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.ExecutionContext
 
-class TestEmacConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
+class TestEmacConnector @Inject()(wSHttp: WSHttp, val mode: Mode, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
 
-  private val serviceUrl = baseUrl("emac")
+  private val serviceUrl = servicesConfig.baseUrl("emac")
 
   def removeEnrolment(personId: Long, userId: String, groupId: String)(implicit hc: HeaderCarrier, ex: ExecutionContext) = {
     wSHttp
       .DELETE[HttpResponse](s"$serviceUrl/enrolment-store-proxy/enrolment-store/users/$userId/enrolments/HMRC-VOA-CCA~VOAPersonID~$personId")
       .map(_ => wSHttp.DELETE[HttpResponse](s"$serviceUrl/enrolment-store-proxy/enrolment-store/groups/$groupId/enrolments/HMRC-VOA-CCA~VOAPersonID~$personId"))
   }
-
 }

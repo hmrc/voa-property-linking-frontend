@@ -16,19 +16,23 @@
 
 package connectors
 
+import com.google.inject.Inject
 import controllers.{EnrolmentPayload, PayLoad, VoaPropertyLinkingSpec}
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import services.Success
-import scala.concurrent.ExecutionContext.global
 
-class TaxEnrolmentConnectorSpec extends VoaPropertyLinkingSpec {
+import scala.concurrent.ExecutionContext.global
+import play.api.{Configuration, Mode, Play}
+import uk.gov.hmrc.play.config.ServicesConfig
+
+class TaxEnrolmentConnectorSpec @Inject() (servicesConfig: ServicesConfig) extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   implicit val ec = global
 
   class Setup {
-    val connector = new TaxEnrolmentConnector(mockWSHttp)
+    val connector = new TaxEnrolmentConnector(mockWSHttp, servicesConfig)
   }
 
   "enrol" must "enrol a user successfully" in new Setup {

@@ -21,7 +21,7 @@ import javax.inject.Inject
 import com.google.inject.ImplementedBy
 import config.VPLHttp
 import play.api.libs.json.{Format, JsValue, Json}
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http._
 
 import scala.concurrent.ExecutionContext.Implicits.global

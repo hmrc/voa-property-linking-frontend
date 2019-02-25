@@ -17,12 +17,18 @@
 package controllers
 
 import auth.VoaAction
+import com.google.inject.Inject
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.api.{Mode, Play}
+import play.api.Configuration
 
 
-class RegisterPageSpec extends VoaPropertyLinkingSpec {
+
+class RegisterPageSpec @Inject() (configuration: Configuration) extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
+  implicit val mode = Mode.Test
+  implicit val runConfig = configuration
 
   val mockVoaAction = mock[VoaAction]
 

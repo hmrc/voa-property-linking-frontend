@@ -18,16 +18,18 @@ package connectors.test
 
 import config.WSHttp
 import javax.inject.Inject
+import play.api.Configuration
+import play.api.Mode.Mode
 import play.api.libs.json.{JsValue, Json, Writes}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TestTaxEnrolmentConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
+class TestTaxEnrolmentConnector @Inject()(wSHttp: WSHttp, val mode: Mode, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
 
-  private val serviceUrl = baseUrl("tax-enrolments")
-  private val emacUrl = baseUrl("emac") + "/enrolment-store-proxy"
+  private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
+  private val emacUrl = servicesConfig.baseUrl("emac") + "/enrolment-store-proxy"
 
   def deEnrol(personID: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Future[HttpResponse]] =
     wSHttp.POST[JsValue, HttpResponse](s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA", Json.obj("keepAgentAllocations" -> true))(

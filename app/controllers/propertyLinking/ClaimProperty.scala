@@ -17,8 +17,8 @@
 package controllers.propertyLinking
 
 import java.time.LocalDate
-import javax.inject.{Inject, Named}
 
+import javax.inject.{Inject, Named}
 import actions.{AuthenticatedAction, AuthenticatedRequest}
 import com.google.inject.Singleton
 import config.ApplicationConfig
@@ -28,6 +28,8 @@ import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController,
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
 import models.{CapacityDeclaration, _}
+import play.api.{Configuration, Environment}
+import play.api.Mode.Mode
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
@@ -45,7 +47,9 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
                               val submissionIdConnector: SubmissionIdConnector,
                               @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
                               val withLinkingSession: WithLinkingSession,
-                              val propertyLinksConnector: PropertyLinkConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+                              val propertyLinksConnector: PropertyLinkConnector,
+                              val runModeConfiguration: Configuration,
+                              val environment: Environment)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ServicesConfig {
 
   import ClaimProperty._
@@ -93,6 +97,7 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
     } yield ()
   }
 
+  override protected def mode: Mode = environment.mode
 }
 
 object ClaimProperty {

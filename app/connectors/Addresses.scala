@@ -23,7 +23,7 @@ import models.registration.GroupAccountDetails
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.Future
 

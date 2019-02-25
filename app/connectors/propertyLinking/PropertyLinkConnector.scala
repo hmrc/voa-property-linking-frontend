@@ -32,7 +32,7 @@ import play.api.libs.json.Json
 import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.ws.WSHttpResponse
 
 import scala.concurrent.{ExecutionContext, Future}

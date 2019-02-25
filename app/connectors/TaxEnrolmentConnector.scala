@@ -17,21 +17,22 @@
 package connectors
 
 import javax.inject.Inject
-
 import auditing.AuditingService
 import config.WSHttp
 import controllers.{EnrolmentPayload, KeyValuePair, PayLoad, Previous}
+import play.api.{Configuration, Play}
 import play.api.libs.json.{JsValue, Json, Reads, Writes}
 import services.{EnrolmentResult, Success}
 import play.api.mvc.{AnyContent, Request}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
+import play.api.Mode.Mode
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
-  private val serviceUrl = baseUrl("tax-enrolments")
-  private val emacUrl = baseUrl("emac") + "/enrolment-store-proxy"
+class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp, servicesConfig: ServicesConfig) {
+  private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
+  private val emacUrl = servicesConfig.baseUrl("emac") + "/enrolment-store-proxy"
 
   private val updateUrl: Long => String = personId => s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}"
   private val enrolUrl = s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment"
@@ -62,5 +63,4 @@ class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp) extends ServicesConfig {
       throw exception
     }
   }
-
 }

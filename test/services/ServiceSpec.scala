@@ -21,6 +21,7 @@ import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
 import play.api.i18n.MessagesApi
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
+import play.api.{Mode, Configuration}
 import utils._
 
 trait ServiceSpec

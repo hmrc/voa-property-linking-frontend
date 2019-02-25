@@ -20,58 +20,60 @@ import java.util.Base64
 
 import com.google.inject.{Inject, Singleton}
 import controllers.routes
-import play.api.{Configuration, Play}
-import uk.gov.hmrc.play.config.inject.RunMode
+import play.api.Mode.Mode
+import play.api.{Configuration, Environment, Play}
+import uk.gov.hmrc.play.config.{RunMode, ServicesConfig}
 
 @Singleton()
-class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode) {
-  def baseUrl: String = if (runMode.env == "Prod") "" else "http://localhost:9523"
-  def businessRatesValuationUrl(page: String): String = getConfig("business-rates-valuation.url") + s"/$page"
-  def businessRatesCheckUrl(page: String): String = getConfig("business-rates-check.url") + s"/$page"
-  def businessTaxAccountUrl(page: String): String = getConfig("business-tax-account.url") + s"/$page"
-  def newDashboardUrl(page: String): String = getConfig("business-rates-dashboard-frontend.url") + s"/$page"
-  def businessRatesCheckCaseSummaryUrl(page: String):String = getConfig("business-rates-check-case-summary.url") + s"/$page"
-  def businessRatesChallengeStartPageUrl(page: String) :String = getConfig("business-rates-challenge-start-page.url") + s"/$page"
+class ApplicationConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
 
-  lazy val helpGuideUrl = getConfig("help-guide.url")
+  private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
+  private def loadBooleanConfig(key: String) = runModeConfiguration.getBoolean(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
-  lazy val ivBaseUrl = getConfig("microservice.services.identity-verification.url")
-  lazy val vmvUrl: String = getConfig("vmv-frontend.url")
-  lazy val ggSignInUrl: String = getConfig("gg-sign-in.url")
-  lazy val ggRegistrationUrl: String = getConfig("gg-registration.url")
+  lazy val baseUrl = if (mode == play.api.Mode.Prod) "" else "http://localhost:9523"
+
+  def businessRatesValuationUrl(page: String): String = loadConfig("business-rates-valuation.url") + s"/$page"
+  def businessRatesCheckUrl(page: String): String = loadConfig("business-rates-check.url") + s"/$page"
+  def businessTaxAccountUrl(page: String): String = loadConfig("business-tax-account.url") + s"/$page"
+  def newDashboardUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
+  def businessRatesCheckCaseSummaryUrl(page: String):String = loadConfig("business-rates-check-case-summary.url") + s"/$page"
+  def businessRatesChallengeStartPageUrl(page: String) :String = loadConfig("business-rates-challenge-start-page.url") + s"/$page"
+
+  lazy val helpGuideUrl = loadConfig("help-guide.url")
+
+  lazy val ivBaseUrl = loadConfig("microservice.services.identity-verification.url")
+  lazy val vmvUrl = loadConfig("vmv-frontend.url")
+  lazy val ggSignInUrl: String = loadConfig("gg-sign-in.url")
+  lazy val ggRegistrationUrl: String = loadConfig("gg-registration.url")
   lazy val ggContinueUrl: String = baseUrl + routes.Dashboard.home().url
-  lazy val fileUploadUrl: String = getConfig("file-upload-frontend.url")
-  lazy val serviceUrl: String = getConfig("voa-property-linking-frontend.url")
-  lazy val checkUrl = getConfig("microservice.services.business-rates-check-frontend.url")
-  lazy val externalCaseManagementApiUrl :String = getConfig("external-case-management-api.url")
+  lazy val fileUploadUrl: String = loadConfig("file-upload-frontend.url")
+  lazy val serviceUrl: String = loadConfig("voa-property-linking-frontend.url")
+  lazy val checkUrl = loadConfig("microservice.services.business-rates-check-frontend.url")
+  lazy val externalCaseManagementApiUrl :String = loadConfig("external-case-management-api.url")
 
-  lazy val analyticsTagManagerCode = getConfig("google-analytics.tag.managerCode")
-  lazy val analyticsToken: String = getConfig("google-analytics.token")
-  lazy val analyticsHost: String = getConfig("google-analytics.host")
-  lazy val voaPersonID: String = getConfig("google-analytics.dimensions.voaPersonId")
-  lazy val loggedInUser:  Option[String] = getOptionalConfig("google-analytics.dimensions.loggedInUser")
-  lazy val isAgentLoggedIn:  Option[String] = getOptionalConfig("google-analytics.dimensions.isAgentLoggedIn")
-  lazy val pingdomToken: Option[String] = getOptionalConfig("pingdom.performance.monitor.token")
+  lazy val analyticsTagManagerCode = loadConfig("google-analytics.tag.managerCode")
+  lazy val analyticsToken: String = loadConfig("google-analytics.token")
+  lazy val analyticsHost: String = loadConfig("google-analytics.host")
+  lazy val voaPersonID: String = loadConfig("google-analytics.dimensions.voaPersonId")
+  lazy val loggedInUser:  Option[String] = runModeConfiguration.getString("google-analytics.dimensions.loggedInUser")
+  lazy val isAgentLoggedIn:  Option[String] = runModeConfiguration.getString("google-analytics.dimensions.isAgentLoggedIn")
+  lazy val pingdomToken: Option[String] = runModeConfiguration.getString("pingdom.performance.monitor.token")
 
-  lazy val editNameEnabled: Boolean = getConfig("featureFlags.editNameEnabled").toBoolean
-  lazy val ivEnabled: Boolean = getConfig("featureFlags.ivEnabled").toBoolean
-  lazy val fileUploadEnabled: Boolean = getConfig("featureFlags.fileUploadEnabled").toBoolean
-  lazy val downtimePageEnabled: Boolean = getConfig("featureFlags.downtimePageEnabled").toBoolean
-  lazy val dvrEnabled: Boolean = getConfig("featureFlags.dvrEnabled").toBoolean
+  lazy val editNameEnabled: Boolean = loadBooleanConfig("featureFlags.editNameEnabled")
+  lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
+  lazy val fileUploadEnabled: Boolean = loadBooleanConfig("featureFlags.fileUploadEnabled")
+  lazy val downtimePageEnabled: Boolean = loadBooleanConfig("featureFlags.downtimePageEnabled")
+  lazy val dvrEnabled: Boolean = loadBooleanConfig("featureFlags.dvrEnabled")
 
-  lazy val stubEnrolment: Boolean = getConfig("enrolment.useStub").toBoolean
+  lazy val stubEnrolment: Boolean = loadBooleanConfig("enrolment.useStub")
 
-  lazy val bannerContent: Option[String] = configuration.getString("encodedBannerContent") map { e =>
-    new String(Base64.getUrlDecoder.decode(e))
-  }
+  lazy val bannerContent: Option[String] = runModeConfiguration.getString("encodedBannerContent").map(
+    e => new String(Base64.getUrlDecoder.decode(e)))
 
-  lazy val plannedImprovementsContent: Option[String] = configuration.getString("plannedImprovementsContent") map { e =>
-    new String(Base64.getUrlDecoder.decode(e))
-  }
+  lazy val plannedImprovementsContent: Option[String] = runModeConfiguration.getString("plannedImprovementsContent").map(e =>
+    new String(Base64.getUrlDecoder.decode(e)))
 
-  private def getConfig(key: String) = configuration.getString(key).getOrElse(throw ConfigMissing(key))
-  private def getOptionalConfig(key: String) = configuration.getString(key)
-
+  override protected def mode: Mode = environment.mode
 }
 
 object ApplicationConfig

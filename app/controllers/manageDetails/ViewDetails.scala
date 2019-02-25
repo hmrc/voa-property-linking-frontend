@@ -56,7 +56,7 @@ trait Details extends Results {
           (implicit request: BasicAuthenticatedRequest[AnyContent], messages: Messages): Result
 }
 
-class VoaDetails @Inject()(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends Details {
+class VoaDetails @Inject()(implicit val messagesApi: MessagesApi, implicit val config: ApplicationConfig) extends Details {
 
   def view(
             affinityGroup: AffinityGroup,

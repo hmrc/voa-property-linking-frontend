@@ -19,7 +19,7 @@ package connectors
 import akka.stream.scaladsl.Source
 import akka.util.ByteString
 import javax.inject.Inject
-import uk.gov.hmrc.play.config.inject.ServicesConfig
+import uk.gov.hmrc.play.config.ServicesConfig
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import config.WSHttp
 import models.dvr.documents.DvrDocumentFiles
