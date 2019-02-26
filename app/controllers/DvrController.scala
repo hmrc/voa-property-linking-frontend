@@ -37,9 +37,10 @@ class DvrController @Inject()(
     val config: ApplicationConfig)
     extends PropertyLinkingController {
 
-  def detailedValuationRequestCheck(authId: Long,
-                                    valuationId: Long,
-                                    baRef: String): Action[AnyContent] = authenticated {
+  def detailedValuationRequestCheck(
+                                     authId: Long,
+                                     valuationId: Long,
+                                     baRef: String): Action[AnyContent] = authenticated {
     implicit request =>
       propertyLinks.getLink(authId).flatMap {
         case Some(link) =>
@@ -58,14 +59,17 @@ class DvrController @Inject()(
               case None             =>
                 Redirect(
                   routes.DvrController
-                    .alreadySubmittedDetailedValuationRequest(valuationId, authId, baRef))
+                    .alreadySubmittedDetailedValuationRequest(authId, valuationId, baRef))
             }
         case None       =>
           Future.successful(BadRequest(views.html.errors.propertyMissing()))
       }
   }
 
-  def requestDetailedValuation(authId: Long, valuationId: Long, baRef: String): Action[AnyContent] =
+  def requestDetailedValuation(
+                                authId: Long,
+                                valuationId: Long,
+                                baRef: String): Action[AnyContent] =
     authenticated { implicit request =>
       for {
         submissionId  <- submissionIds.get("DVR")
@@ -82,7 +86,9 @@ class DvrController @Inject()(
 
     }
 
-  def confirmation(authId: Long, submissionId: String) = authenticated {
+  def confirmation(
+                    authId: Long,
+                    submissionId: String) = authenticated {
     implicit request =>
       propertyLinks.getLink(authId).map {
         case Some(link) =>
@@ -95,8 +101,8 @@ class DvrController @Inject()(
   }
 
   def alreadySubmittedDetailedValuationRequest(
-      valuationId: Long,
-      authId: Long,
+                                                authId: Long,
+                                                valuationId: Long,
       baRef: String): Action[AnyContent] = authenticated { implicit request =>
     dvrCaseManagement
       .dvrExists(request.organisationAccount.id, valuationId)
