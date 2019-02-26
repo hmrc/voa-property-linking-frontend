@@ -26,7 +26,7 @@ import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TestTaxEnrolmentConnector @Inject()(wSHttp: WSHttp, val mode: Mode, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
+class TestTaxEnrolmentConnector @Inject()(wSHttp: WSHttp, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
 
   private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
   private val emacUrl = servicesConfig.baseUrl("emac") + "/enrolment-store-proxy"
