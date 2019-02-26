@@ -33,7 +33,7 @@
 
                 <p>@Html(Messages("auto.requestDetailedValuation.p.3", routes.Dashboard.home()))</p>
 
-                @form(routes.DvrController.requestDetailedValuation(model.assessmentRef, model.authId, model.baRef)) {
+                @form(routes.DvrController.requestDetailedValuation(model.authId, model.assessmentRef, model.baRef)) {
 
                     <p>
                         <button type="submit" class="button" id="continue" name="continue_button">@Messages("auto.requestDetailedValuation.button")</button>
