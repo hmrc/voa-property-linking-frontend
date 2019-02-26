@@ -46,10 +46,10 @@ POST        /details-requested/:authorisationId/:assessmentRef                  
 GET         /details-requested/:submissionId                                                  @controllers.Assessments.dvRequestConfirmation(submissionId, authorisationId: Long)
 POST        /view-assessment-from-list                                                        @controllers.Assessments.submitViewAssessment(authorisationId: Long)
 
-GET         /detailed-valuation/:valuationId/property/:authId/billing/:baRef/exists           @controllers.DvrController.alreadySubmittedDetailedValuationRequest(valuationId: Long, authId: Long, baRef: String)
-GET         /detailed-valuation/:valuationId/property/:authId/file/:ref                       @controllers.DvrController.requestDvrFile(valuationId: Long, authId: Long, ref: String)
-GET         /detailed-valuation/:valuationId/property/:authId/billing/:baRef                  @controllers.DvrController.detailedValuationRequestCheck(valuationId: Long, authId: Long, baRef: String)
-POST        /detailed-valuation/:valuationId/property/:authId/billing/:baRef/request          @controllers.DvrController.requestDetailedValuation(valuationId: Long, authId: Long, baRef: String)
+GET         /detailed-valuation/:valuationId/property/:authId/billing/:baRef/exists           @controllers.DvrController.alreadySubmittedDetailedValuationRequest(authId: Long, valuationId: Long, baRef: String)
+GET         /detailed-valuation/:valuationId/property/:authId/file/:ref                       @controllers.DvrController.requestDvrFile(authId: Long, valuationId: Long, ref: String)
+GET         /detailed-valuation/:valuationId/property/:authId/billing/:baRef                  @controllers.DvrController.detailedValuationRequestCheck(authId: Long, valuationId: Long, baRef: String)
+POST        /detailed-valuation/:valuationId/property/:authId/billing/:baRef/request          @controllers.DvrController.requestDetailedValuation(authId: Long, valuationId: Long, baRef: String)
 GET         /detailed-valuation/property/:authId/confirmation/:submissionId                   @controllers.DvrController.confirmation(authId: Long, submissionId: String)
 
 #Search and Link

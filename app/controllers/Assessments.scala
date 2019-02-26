@@ -128,7 +128,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
 
         for {
           submissionId <- submissionIds.get(prefix)
-          dvr = DetailedValuationRequest(authId, request.organisationId, request.personId, submissionId, assessmentRef, baRef)
+          dvr = DetailedValuationRequest(authId, request.organisationId, request.personId, submissionId, assessmentRef, Nil, baRef)
           dvrExists <- dvrCaseManagement.dvrExists(request.organisationId, assessmentRef)
           _ <- if (!dvrExists) dvrCaseManagement.requestDetailedValuation(dvr)
         } yield {
