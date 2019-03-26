@@ -6,7 +6,7 @@ link.home=Home
 start.heading.register=Register to use this service
 start.heading.registration=Registration
 start.registration.p.1=If you’re a returning user, you can <a href="{0}">sign in</a> to use this service.
-start.registration.p.2=If you’ve already registered for this service and other people from your business want to register, you need to <a href="https://myaccount.gateway.gov.uk/Pages/Common/Help.aspx?content=Whitelabel_RegisterOrLogon_AboutGateway" rel="external">add them to your business Government Gateway account</a>.
+start.registration.p.2=If you’ve already registered for this service and other people from your business want to register, you need to <a href="{0}" rel="external">add them to your business Government Gateway account</a>.
 start.registration.p.3=To register for this service you’ll need to verify your identity by providing your National Insurance number, date of birth and details from at least one of the following:
 start.registration.enrolment.p.3=To register for this service you’ll need to verify your identity by providing your National Insurance number or UK passport number and your postcode.
 start.registration.youNeed.1=payslips
