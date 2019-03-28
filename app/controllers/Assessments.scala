@@ -51,15 +51,14 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
           } yield {
             Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, plSubmissionId = link.submissionId, isAgentOwnProperty)))
           }
-
         }
         case None => notFound
       }
 
   }
 
-  def viewSummary(uarn: Long) = Action { implicit request =>
-    Redirect(config.vmvUrl + s"/detail/$uarn")
+  def viewSummary(uarn: Long, isPending: Boolean = false) = Action { implicit request =>
+    Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
   }
 
   def viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef: String) = authenticated { implicit request =>
@@ -99,7 +98,12 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
         case (uarn, assessmentRef, baRef) =>
           uarn match {
             case "" => Future.successful(Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, assessmentRef, baRef)))
-            case _ => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong)))
+            case _ =>
+              propertyLinks.getLink(authorisationId) flatMap {
+                case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, false)))
+                case Some(link) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, link.pending)))
+                case None => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, false)))
+              }
           }
       }
     )

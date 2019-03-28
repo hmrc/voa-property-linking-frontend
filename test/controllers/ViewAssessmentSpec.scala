@@ -81,11 +81,11 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
   }
 
   "viewSummary" must "redirect to view summary details" in {
-    val res = TestAssessmentController.viewSummary(123L)(FakeRequest())
+    val res = TestAssessmentController.viewSummary(123L, true)(FakeRequest())
 
     status(res) mustBe SEE_OTHER
 
-    redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/detail/123")
+    redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/detail/123?isPending=true")
 
 
   }
@@ -215,7 +215,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
     status(res) mustBe SEE_OTHER
 
-    redirectLocation(res).value mustBe routes.Assessments.viewSummary(123456).url
+    redirectLocation(res).value mustBe routes.Assessments.viewSummary(123456, true).url
   }
 
 }

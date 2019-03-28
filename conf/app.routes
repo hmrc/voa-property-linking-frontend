@@ -37,7 +37,7 @@ GET         /client-properties/:clientOrganisationId/revoke/:authorisationId    
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        @controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
 
 GET         /property-link/:linkId/assessments                                                @controllers.Assessments.assessments(linkId: Long)
-GET         /summary/:uarn                                                                    @controllers.Assessments.viewSummary(uarn: Long)
+GET         /summary/:uarn                                                                    @controllers.Assessments.viewSummary(uarn: Long, isPending: Boolean ?= false)
 GET         /detailed/:authorisationId/:assessmentRef                                         @controllers.Assessments.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef)
 GET         /request-detailed/:authorisationId/:assessmentRef                                 @controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long, baRef)
 GET         /already-requested-detailed                                                       @controllers.Assessments.duplicateRequestDetailedValuation(authorisationId: Long, assessmentRef: Long)
