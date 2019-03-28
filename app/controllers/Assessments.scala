@@ -58,7 +58,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
   }
 
   def viewSummary(uarn: Long, isPending: Boolean = false) = Action { implicit request =>
-    Redirect(config.vmvUrl + s"/detail/$uarn/pending/$isPending")
+    Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
   }
 
   def viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef: String) = authenticated { implicit request =>

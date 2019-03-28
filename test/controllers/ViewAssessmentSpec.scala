@@ -85,7 +85,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
     status(res) mustBe SEE_OTHER
 
-    redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/detail/123/pending/true")
+    redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/detail/123?isPending=true")
 
 
   }
