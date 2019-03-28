@@ -99,7 +99,6 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
           uarn match {
             case "" => Future.successful(Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, assessmentRef, baRef)))
             case _ =>
-
               propertyLinks.getLink(authorisationId) flatMap {
                 case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, false)))
                 case Some(link) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, link.pending)))
