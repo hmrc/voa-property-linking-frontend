@@ -22,6 +22,7 @@ GET         /identity-verification/success                                      
 
 #Dashboard
 GET         /home                                                                             @controllers.Dashboard.home()
+GET         /your-details                                                                     @controllers.Dashboard.yourDetails()
 GET         /properties                                                                       @controllers.Dashboard.manageProperties()
 GET         /properties/json                                                                  @controllers.Dashboard.getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], agent: Option[String])
 GET         /managed-properties/:agentCode                                                    @controllers.Dashboard.viewManagedProperties(agentCode: Long)

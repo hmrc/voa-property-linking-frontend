@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import actions._
+@import session._
 @(content: Html,
         includeGridWrapper: Boolean = false,
         articleClasses: Option[String] = None,
@@ -27,19 +29,47 @@
 <article class="content_body@if(includeGridWrapper) { grid-wrapper} @if(articleClasses.isDefined) {
     @articleClasses.get
 }">
-
     @backLink = {
         <a href=@backLinkUrl.orElse(requestHeader.headers.get("referer")).getOrElse(routes.Dashboard.home()) class="link-back">@Messages("link.back")</a>
     }
 
-
     @if(topBackLink) {
         @backLink
     }
-
+    @name = {""}
+    @company = {""}
     @if(topNavigation) {
         <ul class="navigation-links pull-right">
+
         @if(showLogout) {
+            @requestHeader match {
+                case request: AuthenticatedRequest[_] => {
+
+                    @if(request.individualAccount.details.firstName + " " + request.individualAccount.details.lastName != request.organisationAccount.companyName){
+                        <li><a href="@routes.Dashboard.yourDetails()">
+                            @request.individualAccount.details.firstName @request.individualAccount.details.lastName  - @request.organisationAccount.companyName
+                        </a> </li>
+                    }else{
+                        <li><a href="@routes.Dashboard.yourDetails()">
+                            @request.individualAccount.details.firstName @request.individualAccount.details.lastName
+                        </a> </li>
+                    }
+
+                }
+                case linkingRequest: LinkingSessionRequest[_] => {
+
+                    @if(linkingRequest.individualAccount.details.firstName + " " + linkingRequest.individualAccount.details.lastName != linkingRequest.groupAccount.companyName){
+                        <li><a href="@routes.Dashboard.yourDetails()">
+                            @linkingRequest.individualAccount.details.firstName @linkingRequest.individualAccount.details.lastName - @linkingRequest.groupAccount.companyName
+                        </a> </li>
+                    }else{
+                        <li><a href="@routes.Dashboard.yourDetails()">
+                            @linkingRequest.individualAccount.details.firstName @linkingRequest.individualAccount.details.lastName
+                        </a> </li>
+                    }
+                }
+                case _ => {}
+            }
             <li><a href="@routes.Dashboard.home()">@Messages("link.home")</a></li>
             <li><a href="@routes.Application.logOut">@Messages("logout.link")</a></li>
         } else {
