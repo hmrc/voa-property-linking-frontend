@@ -40,7 +40,7 @@ object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAut
 
 object StubEmailService extends EmailService(null) {
 
-  override def sendNewRegistrationSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
+  override def sendNewRegistrationSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount, companyName: String)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
 
 }
 

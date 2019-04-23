@@ -25,9 +25,10 @@ object EmailRequest {
 
   implicit val format: OFormat[EmailRequest] = Json.format[EmailRequest]
 
-  def registration(to: String, detailedIndividualAccount: DetailedIndividualAccount): EmailRequest =
+  def registration(to: String, detailedIndividualAccount: DetailedIndividualAccount, companyName: String): EmailRequest =
     EmailRequest(List(to), "cca_enrolment_confirmation",
       Map(
+      "orgName" -> companyName,
       "personId" -> detailedIndividualAccount.individualId.toString,
       "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
       )
