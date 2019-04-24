@@ -16,7 +16,7 @@
 
 package models.email
 
-import models.DetailedIndividualAccount
+import models.{DetailedIndividualAccount, GroupAccount}
 import play.api.libs.json.{Json, OFormat}
 
 case class EmailRequest(to: List[String], templateId: String, parameters: Map[String, String])
@@ -25,13 +25,28 @@ object EmailRequest {
 
   implicit val format: OFormat[EmailRequest] = Json.format[EmailRequest]
 
-  def registration(to: String, detailedIndividualAccount: DetailedIndividualAccount, companyName: String): EmailRequest =
-    EmailRequest(List(to), "cca_enrolment_confirmation",
-      Map(
-      "orgName" -> companyName,
-      "personId" -> detailedIndividualAccount.individualId.toString,
-      "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
+  def registration(to: String, detailedIndividualAccount: DetailedIndividualAccount, groupAccount: Option[GroupAccount]): EmailRequest = groupAccount match{
+    case Some(acc) if acc.isAgent => {
+      EmailRequest(List(to), "cca_enrolment_confirmation_agent",
+        Map(
+          "agentCode" -> acc.agentCode.toString,
+          "orgName" -> acc.companyName,
+          "personId" -> detailedIndividualAccount.individualId.toString,
+          "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
+        )
       )
-    )
+    }
+    case Some(acc) => {
+      EmailRequest(List(to), "cca_enrolment_confirmation",
+        Map(
+          "orgName" -> acc.companyName,
+          "personId" -> detailedIndividualAccount.individualId.toString,
+          "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
+        )
+      )
+    }
+    case None => throw new IllegalStateException("")
+  }
+
 
 }
