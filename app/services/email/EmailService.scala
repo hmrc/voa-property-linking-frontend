@@ -19,7 +19,7 @@ package services.email
 import javax.inject.Inject
 
 import connectors.email.EmailConnector
-import models.DetailedIndividualAccount
+import models.{DetailedIndividualAccount, GroupAccount}
 import models.email.EmailRequest
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -27,8 +27,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class EmailService @Inject()(emailConnector: EmailConnector) {
 
-  def sendNewRegistrationSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
-    send(EmailRequest.registration(to, detailedIndividualAccount))
+  def sendNewRegistrationSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount, groupAccount: Option[GroupAccount])(implicit hc: HeaderCarrier, ex: ExecutionContext) =
+    send(EmailRequest.registration(to, detailedIndividualAccount, groupAccount))
 
   private def send(emailRequest: EmailRequest)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
     emailConnector

@@ -18,7 +18,7 @@ package utils
 
 import actions.{AuthenticatedAction, VoaAuth}
 import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
-import models.DetailedIndividualAccount
+import models.{DetailedIndividualAccount, GroupAccount}
 import services.email.EmailService
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.{Retrieval, ~}
@@ -40,7 +40,7 @@ object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAut
 
 object StubEmailService extends EmailService(null) {
 
-  override def sendNewRegistrationSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
+  override def sendNewRegistrationSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount, groupAccount: Option[GroupAccount])(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] = Future.successful(())
 
 }
 
