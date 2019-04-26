@@ -122,7 +122,8 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
     val assessment = arbitrary[Assessment].copy(rateableValue = None)
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, assessments = Seq(assessment))
+    val assessment2 = arbitrary[Assessment].copy(rateableValue = None)
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, assessments = Seq(assessment, assessment2))
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
@@ -134,6 +135,20 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     val assessmentTable = html.getElementById("viewAssessmentRadioGroup").select("tr").asScala.tail.map(_.select("td"))
 
     assessmentTable.map(_.get(1).text).head must startWith ("N/A")
+  }
+
+  it must "redirect to detailed valuation when only 1 assessment" in {
+    val organisation = arbitrary[GroupAccount].sample.get
+    val person = arbitrary[DetailedIndividualAccount].sample.get
+    val assessment = arbitrary[Assessment].copy(rateableValue = None)
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, assessments = Seq(assessment))
+
+    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
+    StubPropertyLinkConnector.stubLink(link)
+
+    val res = TestAssessmentController.assessments(link.authorisationId)(FakeRequest())
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res).value must endWith (s"/business-rates-property-linking/detailed/${link.authorisationId}/${link.assessments.head.assessmentRef}?baRef=${link.assessments.head.billingAuthorityReference}")
   }
 
   "Viewing a detailed valuation" must "redirect to business rates valuation if the property is bulk" in {
