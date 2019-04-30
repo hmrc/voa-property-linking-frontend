@@ -18,6 +18,8 @@ package models.email
 
 import models.{DetailedIndividualAccount, GroupAccount}
 import play.api.libs.json.{Json, OFormat}
+import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 
 case class EmailRequest(to: List[String], templateId: String, parameters: Map[String, String])
 
@@ -25,7 +27,8 @@ object EmailRequest {
 
   implicit val format: OFormat[EmailRequest] = Json.format[EmailRequest]
 
-  def registration(to: String, detailedIndividualAccount: DetailedIndividualAccount, groupAccount: Option[GroupAccount]): EmailRequest = groupAccount match{
+  def registration(to: String, detailedIndividualAccount: DetailedIndividualAccount, groupAccount: Option[GroupAccount],
+                   affinityGroupOpt: Option[AffinityGroup] = None): EmailRequest = groupAccount match{
     case Some(acc) if acc.isAgent => {
       EmailRequest(List(to), "cca_enrolment_confirmation_agent",
         Map(
@@ -36,16 +39,29 @@ object EmailRequest {
         )
       )
     }
-    case Some(acc) => {
-      EmailRequest(List(to), "cca_enrolment_confirmation",
-        Map(
-          "orgName" -> acc.companyName,
-          "personId" -> detailedIndividualAccount.individualId.toString,
-          "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
+    case Some(acc) => { affinityGroupOpt match {
+      case None => throw new IllegalStateException("No AffinityGroup for logged in user")
+      case Some(affinityGroup) if affinityGroup == Individual => {
+        EmailRequest(List(to), "cca_enrolment_confirmation_individual",
+          Map(
+            "personId" -> detailedIndividualAccount.individualId.toString,
+            "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
+          )
         )
-      )
+      }
+      case _ => {
+        EmailRequest(List(to), "cca_enrolment_confirmation",
+          Map(
+            "orgName" -> acc.companyName,
+            "personId" -> detailedIndividualAccount.individualId.toString,
+            "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
+          )
+        )
+      }
     }
-    case None => throw new IllegalStateException("")
+
+    }
+    case None => throw new IllegalStateException("No GroupAccount is the session")
   }
 
 
