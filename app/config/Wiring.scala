@@ -16,10 +16,10 @@
 
 package config
 
+import akka.actor.ActorSystem
 import com.google.inject.Inject
 import com.typesafe.config.Config
 import play.api.{Configuration, Environment, Play}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsString, Writes}
 import uk.gov.hmrc.http.hooks.{HttpHook, HttpHooks}
 import uk.gov.hmrc.play.audit.http.HttpAuditing
@@ -62,11 +62,15 @@ class VPLHttp @Inject()(environment: Environment, servicesConfig: ServicesConfig
 
 case class AuthorisationFailed(msg: String) extends Exception(s"Authorisation failed: $msg")
 
-trait WSHttp extends HttpGet with WSGet with HttpPut with WSPut with HttpPost with WSPost with HttpDelete with WSDelete with HttpPatch with WSPatch with Hooks with AppName
+trait WSHttp extends HttpGet with WSGet with HttpPut with WSPut with HttpPost with WSPost with HttpDelete with WSDelete with HttpPatch with WSPatch with Hooks with AppName {
+  override protected def actorSystem: ActorSystem = Play.current.actorSystem
+}
+
 object WSHttp extends WSHttp {
   override protected def configuration: Option[Config] = None
 
   override protected def appNameConfiguration: Configuration = Play.current.configuration
+
 }
 
 

@@ -46,6 +46,10 @@ class Dashboard @Inject()(draftCases: DraftCases,
     Redirect(config.newDashboardUrl("home"))
   }
 
+  def yourDetails() = authenticated { implicit request =>
+    Redirect(config.newDashboardUrl("your-details"))
+  }
+
   def manageProperties() = authenticated { implicit request =>
    Redirect(config.newDashboardUrl("your-properties"))
   }

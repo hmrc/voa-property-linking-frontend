@@ -36,6 +36,7 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
   def businessRatesCheckUrl(page: String): String = loadConfig("business-rates-check.url") + s"/$page"
   def businessTaxAccountUrl(page: String): String = loadConfig("business-tax-account.url") + s"/$page"
   def newDashboardUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
+  def yourDetailsUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
   def businessRatesCheckCaseSummaryUrl(page: String):String = loadConfig("business-rates-check-case-summary.url") + s"/$page"
   def businessRatesChallengeStartPageUrl(page: String) :String = loadConfig("business-rates-challenge-start-page.url") + s"/$page"
 

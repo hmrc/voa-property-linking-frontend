@@ -19,7 +19,7 @@ package services.email
 import config.WSHttp
 import connectors.email.EmailConnector
 import controllers.PayLoad
-import models.{DetailedIndividualAccount, IndividualDetails}
+import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
@@ -44,6 +44,8 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar {
       val emailConnector = new EmailConnector(config, mockWSHttp)
       val emailService = new EmailService(emailConnector)
 
+      val groupAccount = GroupAccount(123L,"groupId","companyName",221L,"email@email.com","01234567889",true,12345678L)
+
       when(config.baseUrl("email")).thenReturn("http://blah:2909/")
 
       when(mockWSHttp.POST[PayLoad, HttpResponse](anyString(), any[PayLoad](), any())(any[Writes[PayLoad]](),
@@ -52,7 +54,7 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar {
 
       val individualDetails = IndividualDetails("firstName", "lastName", "email@email.com", "012345567788", None, 12345L)
 
-      await(emailService.sendNewRegistrationSuccess("toAddress@email.com", DetailedIndividualAccount("externalId", "trustId", 123L, 234L, individualDetails)))
+      await(emailService.sendNewRegistrationSuccess("toAddress@email.com", DetailedIndividualAccount("externalId", "trustId", 123L, 234L, individualDetails), Some(groupAccount)))
 
       verify(mockWSHttp, times(1)).POST(any, any, any)(any[Writes[PayLoad]](),
         any[HttpReads[HttpResponse]](), any[HeaderCarrier](), any())

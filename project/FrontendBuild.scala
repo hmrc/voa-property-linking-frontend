@@ -39,7 +39,7 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "auth-client" % "2.5.0",
     "com.google.guava" % "guava" % "18.0",
     "joda-time" % "joda-time" % "2.8.2",
-    "uk.gov.hmrc" %% "frontend-bootstrap" % "11.3.0",
+    "uk.gov.hmrc" %% "frontend-bootstrap" % "12.4.0",
     "uk.gov.hmrc" %% "http-caching-client" % "7.0.0",
     "org.typelevel" %% "cats-core" % "0.8.1",
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % "0.2.0",
@@ -48,7 +48,6 @@ private object AppDependencies {
     "com.google.inject.extensions" % "guice-multibindings" % "4.0",
     "uk.gov.hmrc" %% "reactive-circuit-breaker" % "2.1.0",
     "com.builtamont" %% "play2-scala-pdf" % "2.0.0.P25" exclude ("com.typesafe.play", "play-logback_2.11")
-    //"uk.gov.hmrc" %% "bootstrap-play-25" % "4.3.0"
   )
 
   trait TestDependencies {
