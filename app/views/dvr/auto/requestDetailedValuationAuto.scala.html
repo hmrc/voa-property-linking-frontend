@@ -21,7 +21,7 @@
 
 @(model: RequestDetailedValuationWithoutForm)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-    @main_template(Messages("auto.requestDetailedValuation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(routes.Assessments.assessments(model.authId).url)) {
+    @main_template(Messages("auto.requestDetailedValuation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = request.headers.get("Referer")) {
         <div class="grid-row">
             <div class="column-two-thirds">
 

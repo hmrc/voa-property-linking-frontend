@@ -49,8 +49,11 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
           for {
             isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
           } yield {
-            if(link.assessments.size == 1){
+            if(!link.pending && link.assessments.size == 1){
               Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference))
+            }
+            else if(link.pending && link.assessments.size == 1){
+              Redirect(routes.Assessments.viewSummary(link.uarn, link.pending))
             }
             else Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, plSubmissionId = link.submissionId, isAgentOwnProperty)))
           }

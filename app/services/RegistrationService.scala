@@ -99,7 +99,7 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                      (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
     Logger.info(s"New ${userDetails.userInfo.affinityGroup} ${userDetails.userInfo.credentialRole} successfully registered for VOA")
     emailService
-      .sendNewRegistrationSuccess(userDetails.userInfo.email, detailedIndividualAccount, groupAccount)
+      .sendNewRegistrationSuccess(userDetails.userInfo.email, detailedIndividualAccount, groupAccount, affinityGroupOpt)
       .map(_ => RegistrationSuccess(detailedIndividualAccount.individualId))
   }
 
