@@ -141,7 +141,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
     val assessment = arbitrary[Assessment].copy(rateableValue = None)
-    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, assessments = Seq(assessment))
+    val link = arbitrary[PropertyLink].sample.get.copy(organisationId = organisation.id, assessments = Seq(assessment), pending = false)
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)

@@ -29,7 +29,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class EmailService @Inject()(emailConnector: EmailConnector) {
 
   def sendNewRegistrationSuccess(to: String, detailedIndividualAccount: DetailedIndividualAccount, groupAccount: Option[GroupAccount],
-                                 affinityGroupOpt: Option[AffinityGroup] = None)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
+                                 affinityGroupOpt: Option[AffinityGroup])(implicit hc: HeaderCarrier, ex: ExecutionContext) =
     send(EmailRequest.registration(to, detailedIndividualAccount, groupAccount, affinityGroupOpt))
 
   private def send(emailRequest: EmailRequest)(implicit hc: HeaderCarrier, ex: ExecutionContext) =
