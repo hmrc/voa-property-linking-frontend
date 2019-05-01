@@ -19,11 +19,12 @@ package services
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import javax.inject.Inject
+
 import models.registration._
 import models.{DetailedIndividualAccount, GroupAccount, IndividualAccountSubmission}
 import play.api.Logger
 import services.email.EmailService
-import uk.gov.hmrc.auth.core.Assistant
+import uk.gov.hmrc.auth.core.{AffinityGroup, Assistant}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -40,7 +41,8 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
 
   def create[A](
                  groupDetails: GroupAccountDetails,
-                 ctx: A
+                 ctx: A,
+                 affinityGroupOpt: Option[AffinityGroup] = None
                )
                (individual: UserDetails => Long => Option[Long] => IndividualAccountSubmission)
                (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
@@ -51,7 +53,7 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
       _ <- register(groupId, acc => individualAccounts.create(individual(user)(id)(Some(acc.id))), groupAccounts.create(groupId, id, groupDetails, individual(user)(id)(None)))
       personId <- individualAccounts.withExternalId(user.externalId)
       groupAccount: Option[GroupAccount] <- groupAccounts.withGroupId(groupId)
-      res <- enrol(personId, id, groupAccount)(user)
+      res <- enrol(personId, id, groupAccount, affinityGroupOpt)(user)
     } yield res
   }
 
@@ -68,22 +70,23 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
 
   private def enrol(
                      option: Option[DetailedIndividualAccount],
-                     addressId: Long, groupAccount: Option[GroupAccount])
+                     addressId: Long, groupAccount: Option[GroupAccount],
+                     affinityGroupOpt: Option[AffinityGroup] = None)
                    (userDetails: UserDetails)
                    (implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] =
     if (config.stubEnrolment) {
       option match {
-        case Some(detailIndiv) => success(userDetails, detailIndiv, groupAccount)
+        case Some(detailIndiv) => success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
         case _ => Future.successful(DetailsMissing)
       }
     } else {
       (option, userDetails.userInfo.credentialRole) match {
-        case (Some(detailIndiv), Assistant) => success(userDetails, detailIndiv, groupAccount)
+        case (Some(detailIndiv), Assistant) => success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
         case (Some(detailIndiv), _) => enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
-          case Success => success(userDetails, detailIndiv, groupAccount)
+          case Success => success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
           case Failure =>
             Logger.warn("Failed to enrol new VOA user")
-            success(userDetails, detailIndiv, groupAccount)
+            success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
         }
         case (None, _) => Future.successful(DetailsMissing)
       }
@@ -91,7 +94,8 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
 
   private def success(
                        userDetails: UserDetails,
-                       detailedIndividualAccount: DetailedIndividualAccount, groupAccount: Option[GroupAccount])
+                       detailedIndividualAccount: DetailedIndividualAccount, groupAccount: Option[GroupAccount],
+                       affinityGroupOpt: Option[AffinityGroup] = None)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
     Logger.info(s"New ${userDetails.userInfo.affinityGroup} ${userDetails.userInfo.credentialRole} successfully registered for VOA")
     emailService

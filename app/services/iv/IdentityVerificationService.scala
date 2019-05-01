@@ -90,7 +90,7 @@ class IvService @Inject()(
           for {
             individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
             individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
-            registrationResult <- registrationService.create(individualDetails.toGroupDetails, ctx)(individualDetails.toIndividualAccountSubmission(journeyId))
+            registrationResult <- registrationService.create(individualDetails.toGroupDetails, ctx, Some(Individual))(individualDetails.toIndividualAccountSubmission(journeyId))
           } yield Some(registrationResult)
       })
   }
