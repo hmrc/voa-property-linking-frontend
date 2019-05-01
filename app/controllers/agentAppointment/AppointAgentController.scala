@@ -264,10 +264,10 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
     )
   }
 
-  def filterProperties(authorisations: Seq[OwnerAuthorisation], id: Long)  = {
+  def filterProperties(authorisations: Seq[OwnerAuthorisation], agentId: Long)  = {
     authorisations.filter(auth =>
       Seq(PropertyLinkingApproved.name, PropertyLinkingPending.name).contains(auth.status))
-      .filter(_.agents.fold(false)(_.map(_.organisationId).exists(id => Some(id).fold(false)(_ == id))))
+      .filter(_.agents.fold(false)(_.map(_.organisationId).exists(id => (agentId == id))))
   }
 
 
