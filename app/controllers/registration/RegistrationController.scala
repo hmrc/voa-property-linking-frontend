@@ -26,7 +26,7 @@ import controllers.PropertyLinkingController
 import javax.inject.{Inject, Named}
 import models.registration._
 import play.api.i18n.MessagesApi
-import play.api.mvc.{AnyContent, Request}
+import play.api.mvc.{Action, AnyContent, Request}
 import repositories.SessionRepo
 import services._
 import services.email.EmailService
@@ -121,7 +121,7 @@ class RegistrationController @Inject()(ggAction: VoaAction,
       )
   }
 
-  def submitAssistant() = ggAction.async(isSession = false) { ctx =>
+  def submitAssistant(): Action[AnyContent] = ggAction.async(isSession = false) { ctx =>
     implicit request =>
       AssistantUser.assistant.bindFromRequest().fold(
         errors => {
@@ -140,18 +140,15 @@ class RegistrationController @Inject()(ggAction: VoaAction,
         },
         success => {
           getCompanyDetails(ctx).flatMap {
-            case Some(fieldData) => {
+            case Some(fieldData)  =>
               registrationService
-                .create(success.toGroupDetails(fieldData), ctx)(success.toIndividualAccountSubmission(fieldData))(hc, ec)
+                .create(success.toGroupDetails(fieldData), ctx, Some(Organisation))(success.toIndividualAccountSubmission(fieldData))(hc, ec)
                 .map {
                   case RegistrationSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
                   case EnrolmentFailure => InternalServerError(Global.internalServerErrorTemplate)
                   case DetailsMissing => InternalServerError(Global.internalServerErrorTemplate)
                 }
-            }
-            case _ => {
-              unableToRetrieveCompanyDetails
-            }
+            case _                => unableToRetrieveCompanyDetails
           }
         }
       )
