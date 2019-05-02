@@ -53,14 +53,14 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
 
 
   def viewDraftCases() = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("your-drafts"))
+    Future.successful(Redirect(config.newDashboardUrl("your-drafts")))
   }
 
 
   def continueCheck = authenticated { implicit request =>
     draftCaseForm.bindFromRequest.fold(
       getDraftCases,
-      success => Redirect(config.checkUrl + getIdUrl(success.draft)._2))
+      success => Future.successful(Redirect(config.checkUrl + getIdUrl(success.draft)._2)))
   }
 
 

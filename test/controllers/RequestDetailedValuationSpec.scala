@@ -21,6 +21,7 @@ import java.time.LocalDate
 import actions.BasicAuthenticatedRequest
 import config.ApplicationConfig
 import connectors.{Authenticated, DVRCaseManagementConnector, SubmissionIdConnector}
+import exceptionhandler.ErrorHandler
 import models._
 import models.dvr.{DetailedValuationRequest, DetailedValuationRequestTypes}
 import org.mockito.ArgumentMatchers._
@@ -38,14 +39,16 @@ import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
 class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
-  private object TestAssessments extends Assessments( StubPropertyLinkConnector,
-    StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation, StubBusinessRatesAuthorisation)
+  private object TestAssessments extends Assessments(StubPropertyLinkConnector,
+    StubAuthentication, mockSubmissionIds, mockDvrCaseManagement, StubBusinessRatesValuation, StubBusinessRatesAuthorisation, mockErrorHandler)
 
   lazy val mockDvrCaseManagement = {
     val m = mock[DVRCaseManagementConnector]
     when(m.requestDetailedValuation(any[DetailedValuationRequest])(any[HeaderCarrier])).thenReturn(Future.successful(()))
     m
   }
+
+  lazy val mockErrorHandler = mock[ErrorHandler]
 
   lazy val mockSubmissionIds = {
     val m = mock[SubmissionIdConnector]
@@ -162,13 +165,6 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
     val html = contentAsString(res)
     html must include ("Your reference number is POST123")
     html must include ("We’ll send this to you by post")
-  }
-
-  it should "return a 404 response when the action throws a NotFoundException" in {
-    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
-    val res = TestAssessments.dvRequestConfirmation("1234566", authId)(FakeRequest())
-
-    status(res) mustBe NOT_FOUND
   }
 
   "startChallengeFromDVR" should "display 'Challenge the Valuation' page" in {

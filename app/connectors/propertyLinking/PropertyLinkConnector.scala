@@ -17,23 +17,20 @@
 package connectors.propertyLinking
 
 import java.time.Instant
-import javax.inject.{Inject, Singleton}
 
-import actions.BasicAuthenticatedRequest
+import binders.pagination.PaginationParameters
+import binders.searchandsort.SearchAndSort
 import com.google.inject.ImplementedBy
 import config.WSHttp
+import connectors.ModernisedPagination
 import connectors.fileUpload.FileMetadata
-import controllers.{Pagination, PaginationSearchSort}
+import javax.inject.{Inject, Singleton}
 import models._
-import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
-import play.api
-import play.api.Logger
-import play.api.libs.json.Json
+import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult}
 import session.LinkingSessionRequest
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.ws.WSHttpResponse
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -44,10 +41,8 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
     val url = s"$baseUrl/property-links/$authorisationId"
 
-    http.GET[Option[PropertyLink]](url) map { link =>
-      link.find(_.organisationId == organisationId)
-    } recover {
-      case _: NotFoundException => None
+    http.GET[PropertyLink](url) map { link =>
+      Some(link).find(_.organisationId == organisationId)
     }
   }
 
@@ -68,14 +63,24 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   }
 
   def linkedPropertiesSearchAndSort(organisationId: Long,
-                                    pagination: PaginationSearchSort,
+                                    pagination: PaginationParameters,
+                                    searchAndSort: SearchAndSort,
                                     representationStatusFilter: Seq[RepresentationStatus] =
                                         Seq(RepresentationApproved, RepresentationPending))
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
-    val ownerAuthResult = http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort?" +
-      s"organisationId=$organisationId&" +
-      s"$pagination")
+    val ownerAuthResult = http.GET[OwnerAuthResult](s"$baseUrl/property-links-search-sort", modernisedPaginationParams(pagination) ++
+      Seq(
+        Some("organisationId" -> organisationId.toString),
+        searchAndSort.address.map("address" -> _.toString),
+        searchAndSort.sortfield.map("sortfield" -> _.toString),
+        Some(searchAndSort.sortorder).map("sortorder" -> _.toString),
+        searchAndSort.status.map("status" -> _.toString),
+        searchAndSort.address.map("address" -> _.toString),
+        searchAndSort.baref.map("baref" -> _.toString),
+        searchAndSort.agent.map("agent" -> _.toString),
+        searchAndSort.client.map("client" -> _.toString)
+      ).flatten)
 
     def validAgent(agent: OwnerAuthAgent): Boolean =
       agent.status.fold(false) { status =>
@@ -97,56 +102,34 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
       s"&${pagination.queryString}")
   }
 
-  def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
+  def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[ClientProperty] = {
     val url =
       s"$baseUrl/property-links/client-property/$authorisationId" +
         s"?clientOrganisationId=$clientOrgId" +
         s"&agentOrganisationId=$agentOrgId"
 
-    http.GET[Option[ClientProperty]](url) recover { case _: NotFoundException => None }
+    http.GET[ClientProperty](url)
   }
 
-  def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
-    http.GET[Option[PropertyLink]](s"$baseUrl/dashboard/assessments/$authorisationId") recover {
-      case _: NotFoundException =>
-        None
-    }
-  }
-  override def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]= {
-    val interestedParty =  request.organisationAccount.isAgent && !isAgentOwnProperty match {
-      case true => "agent"
-      case false => "client"
-    }
-    http.GET[HttpResponse](s"$baseUrl/property-links/$plSubmissionId/check-cases/$caseRef/canChallenge?valuationId=$assessmentRef&party=$interestedParty").map{ resp =>
-      resp.status match {
-        case 200 => {
-          Json.parse(resp.body).asOpt[CanChallengeResponse]
-        }
-        case _ => None
-      }
-    } recover{
-      case x @ _ => {
-        Logger.debug(s"unable to start a challenge: $x")
-        None
-      }
-    }
+  def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[PropertyLink] = {
+    http.GET[PropertyLink](s"$baseUrl/dashboard/assessments/$authorisationId")
   }
 }
 
 
 @ImplementedBy(classOf[PropertyLinkConnector])
-trait PropertyLinksConnector {
+trait PropertyLinksConnector extends ModernisedPagination {
   def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]]
   def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit]
   def linkedPropertiesSearchAndSort(organisationId: Long,
-                                    pagination: PaginationSearchSort,
+                                    pagination: PaginationParameters,
+                                    searchAndSort: SearchAndSort,
                                     representationStatusFilter: Seq[RepresentationStatus] =
                                     Seq(RepresentationApproved, RepresentationPending))
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult]
   def appointableProperties(organisationId: Long,
                             pagination: AgentPropertiesParameters)
                            (implicit hc: HeaderCarrier): Future[OwnerAuthResult]
-  def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]]
-  def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]]
-  def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]
+  def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[ClientProperty]
+  def getLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[PropertyLink]
 }

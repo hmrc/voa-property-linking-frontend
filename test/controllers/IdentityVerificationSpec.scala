@@ -17,6 +17,7 @@
 package controllers
 
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
+import exceptionhandler.ErrorHandler
 import models.registration._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -30,6 +31,8 @@ import services.RegistrationService
 import services.iv.IvService
 import uk.gov.hmrc.auth.core.{Admin, AffinityGroup}
 import utils._
+
+import play.api.mvc.Results._
 
 import scala.concurrent.Future
 
@@ -68,6 +71,9 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     StubVplAuthConnector.stubGroupId("groupwithoutaccount")
     StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
+
+    when(mockErrorHandler.internalServerError(any(), any())).thenReturn(InternalServerError("failure"))
+
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentFailure))
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
@@ -81,6 +87,9 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     StubVplAuthConnector.stubGroupId("groupwithoutaccount")
     StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
+
+    when(mockErrorHandler.internalServerError(any(), any())).thenReturn(InternalServerError("failure"))
+
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(DetailsMissing))
 
     val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
@@ -123,7 +132,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
       ).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())
       ).thenReturn(Future.successful(()))
-      when(f.get[AdminOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetails].sample))
+      when(f.get[AdminOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetails].sample.get))
       f
     }
 
@@ -133,7 +142,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
       ).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())
       ).thenReturn(Future.successful(()))
-      when(f.get[IndividualUserAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[IndividualUserAccountDetails].sample))
+      when(f.get[IndividualUserAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[IndividualUserAccountDetails].sample.get))
       f
     }
 
@@ -156,12 +165,13 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
       credentialRole = Admin)
 
     lazy val mockRegistrationService = mock[RegistrationService]
+    lazy val mockErrorHandler = mock[ErrorHandler]
 
-    lazy val stubIdentityVerificationServiceEnrolmentOrg = new IvService(StubVplAuthConnector, mockRegistrationService, mockSessionRepoOrgDetails, app.injector.instanceOf[IdentityVerificationProxyConnector], applicationConfig)
+    lazy val stubIdentityVerificationServiceEnrolmentOrg = new IvService(StubVplAuthConnector, mockRegistrationService, mockSessionRepoOrgDetails, app.injector.instanceOf[IdentityVerificationProxyConnector], applicationConfig, mockErrorHandler)
 
     object TestIdentityVerification extends IdentityVerification(StubGgAction, StubIdentityVerification, StubAddresses,
       StubIndividualAccountConnector, stubIdentityVerificationServiceEnrolmentOrg, StubGroupAccountConnector,
-      StubVplAuthConnector, mockSessionRepoOrgDetails)
+      StubVplAuthConnector, mockErrorHandler, mockSessionRepoOrgDetails)
 
     val request = FakeRequest()
 

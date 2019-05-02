@@ -16,20 +16,18 @@
 
 package session
 
-import javax.inject.{Inject, Named}
-
 import actions.AuthenticatedAction
-import config.Global
+import javax.inject.{Inject, Named}
 import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
 import play.api.i18n.Messages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results._
 import play.api.mvc._
 import repositories.SessionRepo
-
-import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
+
+import scala.concurrent.Future
 
 case class LinkingSessionRequest[A](ses: LinkingSession, organisationId: Long,
                                     individualAccount: DetailedIndividualAccount,
@@ -41,14 +39,14 @@ case object NoSessionId extends Exception
 
 class WithLinkingSession @Inject() (authenticated: AuthenticatedAction,
                                      @Named("propertyLinkingSession") val sessionRepository: SessionRepo) {
-  implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-  def apply(body: LinkingSessionRequest[AnyContent] => Future[Result])(implicit messages: Messages) = authenticated { implicit request =>
-    sessionRepository.get[LinkingSession] flatMap {
-      case Some(s) => body(
-        LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request)
+  implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+
+  def apply(body: LinkingSessionRequest[AnyContent] => Future[Result])(implicit messages: Messages): Action[AnyContent] = authenticated { implicit request =>
+    sessionRepository
+      .get[LinkingSession]
+      .flatMap( s =>
+        body(LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request))
       )
-      case None => Future.successful(NotFound(Global.notFoundTemplate))
-    }
   }
 }

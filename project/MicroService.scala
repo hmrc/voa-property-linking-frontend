@@ -6,7 +6,7 @@ import sbt._
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 import uk.gov.hmrc.versioning.SbtGitVersioning
-import play.sbt.routes.RoutesKeys.routesGenerator
+import play.sbt.routes.RoutesKeys.{routesGenerator, routesImport}
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 trait MicroService {
@@ -57,6 +57,12 @@ trait MicroService {
       test in Test <<= (test in Test) dependsOn compileScalastyle
     )
     .settings(routesGenerator := StaticRoutesGenerator)
+    .settings(routesImport ++= Seq(
+      "models.SortOrder", 
+      "binders.pagination._", 
+      "binders.searchandsort._", 
+      "models.messages.MessagePagination", 
+      "models.searchApi.AgentPropertiesParameters"))
     .settings(inConfig(TemplateTest)(Defaults.testSettings): _*)
     .configs(IntegrationTest)
     .settings(inConfig(TemplateItTest)(Defaults.itSettings): _*)

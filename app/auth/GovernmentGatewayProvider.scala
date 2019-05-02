@@ -16,22 +16,13 @@
 
 package auth
 
+import config.ApplicationConfig
 import javax.inject.Inject
-
-import config.{ApplicationConfig, Global}
-import connectors.VPLAuthConnector
-import models.registration.{UserDetails, UserInfo}
-import play.api.libs.json.Json
 import play.api.mvc.Results.Redirect
 import play.api.mvc._
-import uk.gov.hmrc.auth.core.AffinityGroup
-import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
-import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
-import uk.gov.hmrc.play.frontend.auth.{Actions, AuthContext, GovernmentGateway}
+import uk.gov.hmrc.play.frontend.auth.GovernmentGateway
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class GovernmentGatewayProvider @Inject()(implicit val config: ApplicationConfig) extends GovernmentGateway {

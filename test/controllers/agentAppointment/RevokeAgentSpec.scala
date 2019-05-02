@@ -16,9 +16,11 @@
 
 package controllers.agentAppointment
 
+import auditing.AuditingService
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{Authenticated, PropertyRepresentationConnector}
 import controllers.VoaPropertyLinkingSpec
+import exceptionhandler.ErrorHandler
 import models._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
@@ -28,10 +30,12 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import utils.StubAuthentication
-import scala.collection.JavaConverters._
 
+import scala.collection.JavaConverters._
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
+
+import play.api.mvc.Results._
 
 class RevokeAgentSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
@@ -40,6 +44,8 @@ class RevokeAgentSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     val authId: Long = positiveLong
     val agentId: Long = positiveLong
     val link: PropertyLink = propertyLinkGen.retryUntil(_.agents.forall(_.authorisedPartyId != agentId))
+
+    when(mockErrorHandler.notFound(any(), any())).thenReturn(NotFound("property link does not belong to the agent"))
 
     when(mockPropertyLinks.get(matching(org.id), matching(authId))(any[HeaderCarrier])).thenReturn(Future.successful(Some(link)))
 
@@ -50,6 +56,8 @@ class RevokeAgentSpec extends VoaPropertyLinkingSpec with MockitoSugar {
   "Viewing the revoke agent page when the user is not authorised for the property link" should "return a Not Found response" in {
     val (org, _) = stubLogin()
     val authId: Long = positiveLong
+
+    when(mockErrorHandler.notFound(any(), any())).thenReturn(NotFound("property link does not belong to the agent"))
 
     when(mockPropertyLinks.get(matching(org.id), matching(authId))(any[HeaderCarrier])).thenReturn(Future.successful(None))
 
@@ -112,8 +120,10 @@ class RevokeAgentSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     verify(mockRepresentationConnector, times(1)).revoke(matching(agentId))(any[HeaderCarrier])
   }
 
-  private lazy val testController = new RevokeAgentController(StubAuthentication, mockPropertyLinks, mockRepresentationConnector)
+  private lazy val testController = new RevokeAgentController(StubAuthentication, mockPropertyLinks, mockRepresentationConnector, mockAuditingService, mockErrorHandler)
 
+  private lazy val mockAuditingService = mock[AuditingService]
+  private lazy val mockErrorHandler = mock[ErrorHandler]
   private lazy val mockPropertyLinks = mock[PropertyLinkConnector]
 
   private lazy val mockRepresentationConnector = mock[PropertyRepresentationConnector]

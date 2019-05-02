@@ -17,6 +17,7 @@
 package controllers
 
 import controllers.registration.RegistrationController
+import exceptionhandler.ErrorHandler
 import models.registration.{RegistrationSuccess, UserInfo}
 import models.identityVerificationProxy.Link
 import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
@@ -78,6 +79,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   val mockIdentityVerificationService = mock[IdentityVerificationService]
 
+  val mockErrorHandler = mock[ErrorHandler]
+
   val mockRegistrationService = mock[RegistrationService]
 
   private object TestRegistrationController$ extends RegistrationController(
@@ -90,6 +93,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     mockRegistrationService,
     StubEmailService,
     StubAuthentication,
+    mockErrorHandler,
     mockIdentityVerificationService,
     mockSessionRepo
   )

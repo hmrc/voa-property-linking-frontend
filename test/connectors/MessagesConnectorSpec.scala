@@ -47,7 +47,7 @@ class MessagesConnectorSpec extends VoaPropertyLinkingSpec {
     val message = arbitrary[Message].sample.get
 
     mockHttpGET[Message]("tst-url", message)
-    whenReady(connector.getMessage(1, "MESSAGE_ID"))(_ mustBe Some(message))
+    whenReady(connector.getMessage(1, "MESSAGE_ID"))(_ mustBe message)
   }
 
   "countUnread" must "return the total and unread count of messages" in new Setup {

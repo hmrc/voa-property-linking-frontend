@@ -55,7 +55,7 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar {
 
       val individualDetails = IndividualDetails("firstName", "lastName", "email@email.com", "012345567788", None, 12345L)
 
-      await(emailService.sendNewRegistrationSuccess("toAddress@email.com", DetailedIndividualAccount("externalId", "trustId", 123L, 234L, individualDetails), Some(groupAccount), Some(Organisation)))
+      await(emailService.sendNewRegistrationSuccess("toAddress@email.com", DetailedIndividualAccount("externalId", "trustId", 123L, 234L, individualDetails), groupAccount, Organisation), Some(Organisation))
 
       verify(mockWSHttp, times(1)).POST(any, any, any)(any[Writes[PayLoad]](),
         any[HttpReads[HttpResponse]](), any[HeaderCarrier](), any())

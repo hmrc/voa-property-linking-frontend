@@ -16,16 +16,17 @@
 
 package utils
 
+import binders.pagination.PaginationParameters
+import binders.searchandsort.SearchAndSort
 import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{Pagination, PaginationSearchSort}
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
 import session.LinkingSessionRequest
+import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfig, StubHttp) {
 
@@ -40,7 +41,8 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
   override def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
   override def linkedPropertiesSearchAndSort(organisationId: Long,
-                                            pagination: PaginationSearchSort,
+                                             pagination: PaginationParameters,
+                                             searchAndSort: SearchAndSort,
                                              representationStatusFilter: Seq[RepresentationStatus])
                                            (implicit hc: HeaderCarrier) = {
     Future.successful(stubbedOwnerAuthResult)
@@ -56,13 +58,11 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
     stubbedLinks.find(x => {x.authorisationId == authorisationId && x.organisationId == organisationId})
   }
 
-  override def getLink(linkId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = Future.successful {
-    stubbedLinks.find(_.authorisationId == linkId)
-  }
+  override def getLink(linkId: Long)(implicit hc: HeaderCarrier): Future[PropertyLink] =
+    stubbedLinks.find(_.authorisationId == linkId).fold[Future[PropertyLink]](Future.failed(new NotFoundException("")))(Future.successful)
 
-  override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = Future.successful {
-    stubbedClientProperties.find(p => p.authorisationId == authorisationId && p.ownerOrganisationId == clientOrgId)
-  }
+  override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[ClientProperty] =
+    stubbedClientProperties.find(p => p.authorisationId == authorisationId && p.ownerOrganisationId == clientOrgId).fold[Future[ClientProperty]](Future.failed(new NotFoundException("")))(Future.successful)
 
   def stubLink(link: PropertyLink) = {
     stubbedLinks :+= link

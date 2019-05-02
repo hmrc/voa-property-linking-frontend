@@ -87,7 +87,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "request detailed valuation" must "return 303 SEE_OTHER when request is valid" in new Setup {
     when(mockDvrCaseManagement.requestDetailedValuationV2(any())(any[HeaderCarrier])).thenReturn(Future.successful(()))
-    val result = controller.requestDetailedValuation(1L, 1L, "billingAuthorityReference")(request)
+
+    val result = controller.requestDetailedValuation(link.authorisationId, 1L, "billingAuthorityReference")(request)
 
     status(result) mustBe SEE_OTHER
   }

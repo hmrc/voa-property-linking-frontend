@@ -53,17 +53,17 @@ class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp)
     http.GET[Accounts](s"$url/property-link/$authorisationId") map {
       Authenticated
     } recover {
-      case AuthorisationFailed(err) => handleUnauthenticated(err)
-      case Upstream4xxResponse(_, 403, _, _) => ForbiddenResponse
+      case AuthorisationFailed(err)           => handleUnauthenticated(err)
+      case Upstream4xxResponse(_, 403, _, _)  => ForbiddenResponse
     }
   }
 
-  private def handleUnauthenticated(error: String) = error match {
-    case "INVALID_GATEWAY_SESSION" => InvalidGGSession
-    case "NO_CUSTOMER_RECORD" => NoVOARecord
-    case "TRUST_ID_MISMATCH" => IncorrectTrustId
-    case "INVALID_ACCOUNT_TYPE" => InvalidAccountType
-    case "NON_GROUPID_ACCOUNT" => NonGroupIDAccount
+  private def handleUnauthenticated(error: String): AuthorisationResult = error match {
+    case "INVALID_GATEWAY_SESSION"  => InvalidGGSession
+    case "NO_CUSTOMER_RECORD"       => NoVOARecord
+    case "TRUST_ID_MISMATCH"        => IncorrectTrustId
+    case "INVALID_ACCOUNT_TYPE"     => InvalidAccountType
+    case "NON_GROUPID_ACCOUNT"      => NonGroupIDAccount
   }
 
   def isAgentOwnProperty(authorisationId: Long)

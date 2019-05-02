@@ -18,28 +18,32 @@ package controllers.propertyLinking
 
 import java.time.LocalDate
 
-import javax.inject.{Inject, Named}
 import actions.{AuthenticatedAction, AuthenticatedRequest}
+import binders.pagination.PaginationParameters
+import binders.searchandsort.SearchAndSort
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{EnvelopeConnector, EnvelopeMetadata, SubmissionIdConnector}
-import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
+import controllers.PropertyLinkingController
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
+import javax.inject.{Inject, Named}
 import models.{CapacityDeclaration, _}
-import play.api.{Configuration, Environment}
 import play.api.Mode.Mode
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
+import play.api.mvc.{Action, AnyContent}
+import play.api.{Configuration, Environment}
 import repositories.SessionRepo
 import session.WithLinkingSession
+import uk.gov.hmrc.http.Upstream5xxResponse
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
-import uk.gov.hmrc.http.Upstream5xxResponse
+
+import scala.concurrent.Future
 
 @Singleton
 class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
@@ -54,12 +58,12 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
 
   import ClaimProperty._
 
-  def show() = authenticated { implicit request =>
-    Redirect(s"${config.vmvUrl}/search")
+  val show: Action[AnyContent] = authenticated { implicit request =>
+    Future.successful(Redirect(s"${config.vmvUrl}/search"))
   }
 
-  def checkPropertyLinks() = authenticated { implicit request =>
-    propertyLinksConnector.linkedPropertiesSearchAndSort(request.organisationAccount.id, PaginationSearchSort(pageNumber = 1, pageSize = 20)).map{ res =>
+  val checkPropertyLinks = authenticated { implicit request =>
+    propertyLinksConnector.linkedPropertiesSearchAndSort(request.organisationAccount.id, PaginationParameters(page = 1, pageSize = 20), SearchAndSort()).map{ res =>
       if(res.authorisations.nonEmpty){
         Redirect(s"${config.vmvUrl}/search")
       }
@@ -69,13 +73,16 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
     }
   }
 
-  def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
-    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn)))
+  def declareCapacity(
+                       uarn: Long,
+                       address: String
+                     ): Action[AnyContent] = authenticated { implicit request =>
+    Future.successful(Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn))))
   }
 
   def attemptLink(uarn: Long, address: String) = authenticated { implicit request =>
     ClaimProperty.declareCapacityForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn))),
+      errors => Future.successful(BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn)))),
       formData => initialiseSession(formData, uarn, address).map { _ =>
         Redirect(routes.ChooseEvidence.show())
       }.recover {
@@ -86,7 +93,7 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
 
   def back = withLinkingSession { implicit request =>
     val form = declareCapacityForm.fillAndValidate(request.ses.declaration)
-    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn)))
+    Future.successful(Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn))))
   }
 
   private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(implicit request: AuthenticatedRequest[_]) = {

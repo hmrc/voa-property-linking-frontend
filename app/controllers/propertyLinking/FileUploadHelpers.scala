@@ -20,26 +20,24 @@ import java.util.UUID
 
 import config.ApplicationConfig
 import controllers._
+import play.api.mvc.{Action, AnyContent}
 import session.{LinkingSessionRequest, WithLinkingSession}
+
+import scala.concurrent.Future
 
 trait FileUploadHelpers {
   self: PropertyLinkingController =>
 
   val config: ApplicationConfig
   val withLinkingSession: WithLinkingSession
-  lazy val fileUploadBaseUrl = config.fileUploadUrl
+  lazy val fileUploadBaseUrl: String = config.fileUploadUrl
   val successUrl: String
 
-  def fileUploaded() = withLinkingSession { implicit request => {
-    Redirect(propertyLinking.routes.Declaration.show())
-  }
-
+  val fileUploaded: Action[AnyContent] = withLinkingSession { implicit request =>
+    Future.successful(Redirect(propertyLinking.routes.Declaration.show()))
   }
 
   def fileUploadUrl(failureUrl: String)(implicit request: LinkingSessionRequest[_]): String = {
-import connectors.fileUpload.FileMetadata
-
-import scala.concurrent.Future
     val envelopeId = request.ses.envelopeId
     val fileId = UUID.randomUUID().toString
     val absoluteSuccessUrl = s"${config.serviceUrl}$successUrl"

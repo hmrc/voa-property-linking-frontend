@@ -40,7 +40,8 @@ class RegistrationServiceSpec extends ServiceSpec {
     val res: Future[RegistrationResult] = registrationService
       .create(
         GroupAccountDetails("", Address(None, "", "", "", "", ""), "", "", "", false),
-        UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
+        UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User)),
+        Individual
       )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
 
     res.futureValue must be(RegistrationSuccess(2L))

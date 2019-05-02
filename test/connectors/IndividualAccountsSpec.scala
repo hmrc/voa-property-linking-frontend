@@ -26,6 +26,8 @@ import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import utils.StubServicesConfig
 
+import scala.concurrent.Future
+
 class IndividualAccountsSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
@@ -39,15 +41,21 @@ class IndividualAccountsSpec extends VoaPropertyLinkingSpec {
   "get" must "return a valid detailed individual account account using the person ID" in new Setup {
     val validDetailedIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
 
-    mockHttpGETOption[DetailedIndividualAccount]("tst-url", validDetailedIndividualAccount)
-    whenReady(connector.get(1))(_ mustBe Some(validDetailedIndividualAccount))
+    mockHttpGET[DetailedIndividualAccount]("tst-url", validDetailedIndividualAccount)
+
+    val result: DetailedIndividualAccount = connector.get(1).futureValue
+
+    result mustBe validDetailedIndividualAccount
   }
 
   "withExternalId" must "return a valid detailed individual account using the external ID" in new Setup {
     val validDetailedIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
 
-    mockHttpGETOption[DetailedIndividualAccount]("tst-url", validDetailedIndividualAccount)
-    whenReady(connector.withExternalId("EXTERNAL_ID"))(_ mustBe Some(validDetailedIndividualAccount))
+    mockHttpGET[DetailedIndividualAccount]("tst-url", validDetailedIndividualAccount)
+
+    val result: DetailedIndividualAccount = connector.withExternalId("EXTERNAL_ID") .futureValue
+
+    result mustBe validDetailedIndividualAccount
   }
 
   "update" must "successfully update an individual account" in new Setup {

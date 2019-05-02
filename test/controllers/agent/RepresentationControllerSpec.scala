@@ -16,8 +16,11 @@
 
 package controllers.agent
 
+import binders.pagination.PaginationParameters
 import connectors.{Authenticated, PropertyRepresentationConnector}
 import controllers.VoaPropertyLinkingSpec
+import exceptionhandler.ErrorHandler
+import javafx.scene.control.Pagination
 import models._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -29,18 +32,22 @@ import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
+import play.api.mvc.Results._
+
 import scala.concurrent.Future
 
 class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val request = FakeRequest().withSession(token)
   implicit val hc = HeaderCarrier()
-  
+
+  val mockErrorHandler = mock[ErrorHandler]
   object TestController extends RepresentationController(
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,
-    StubMessagesConnector
+    StubMessagesConnector,
+    mockErrorHandler
   )
 
   "confirm" should "allow the user to confirm that they want to reject the pending representation requests" in {
@@ -50,7 +57,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
 
-    val res = TestController.confirm(1, 15)(request.withFormUrlEncodedBody(
+    val res = TestController.confirm(PaginationParameters(1, 15))(request.withFormUrlEncodedBody(
       "page" -> "1",
       "pageSize" -> "15",
       "action" -> "reject",
@@ -69,7 +76,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
 
-    val res = TestController.confirm(1, 15)(request.withFormUrlEncodedBody(
+    val res = TestController.confirm(PaginationParameters(1, 15))(request.withFormUrlEncodedBody(
       "page" -> "1",
       "pageSize" -> "15",
       "action" -> "accept-confirm",
@@ -88,7 +95,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
 
-    val res = TestController.confirm(1, 15)(request.withFormUrlEncodedBody(
+    val res = TestController.confirm(PaginationParameters(1, 15))(request.withFormUrlEncodedBody(
       "page" -> "",
       "pageSize" -> "",
       "action" -> "",
@@ -107,7 +114,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
 
-    val res = TestController.cancel(1, 15)(request.withFormUrlEncodedBody(
+    val res = TestController.cancel(PaginationParameters(1, 15))(request.withFormUrlEncodedBody(
       "page" -> "1",
       "pageSize" -> "15",
       "action" -> "accept-confirm",
@@ -126,7 +133,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
 
-    val res = TestController.cancel(1, 15)(request.withFormUrlEncodedBody(
+    val res = TestController.cancel(PaginationParameters(1, 15))(request.withFormUrlEncodedBody(
       "page" -> "",
       "pageSize" -> "",
       "action" -> "",
@@ -144,7 +151,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
 
-    val res = TestController.continue(1, 15)(request.withFormUrlEncodedBody(
+    val res = TestController.continue(PaginationParameters(1, 15))(request.withFormUrlEncodedBody(
       "page" -> "1",
       "pageSize" -> "15",
       "action" -> "accept",
@@ -163,7 +170,9 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
 
-    val res = TestController.continue(1, 15)(request.withFormUrlEncodedBody(
+    when(mockErrorHandler.badRequest(any(), any())).thenReturn(BadRequest("Bad request"))
+
+    val res = TestController.continue(PaginationParameters(1, 15))(request.withFormUrlEncodedBody(
       "page" -> "1",
       "pageSize" -> "",
       "action" -> "",
@@ -199,11 +208,6 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
     contentAsString(res) contains "Revoking client" mustBe true
     contentAsString(res) contains "Are you sure you no longer want to act on behalf of" mustBe true
-  }
-  it should "revoke an agent should return not found when clientProperty cannot be found" in {
-    stubLoggedInUser()
-    val res = TestController.revokeClient(12L, 34L)(request)
-    status(res) must be(NOT_FOUND)
   }
 
   def stubLoggedInUser() = {

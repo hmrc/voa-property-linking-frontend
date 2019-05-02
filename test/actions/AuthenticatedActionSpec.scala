@@ -116,37 +116,6 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
       status(res) shouldBe SEE_OTHER
       redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
     }
-
-
-    "return a 400 response when the wrapped action throws a BadRequestException" in {
-      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
-
-      val res = testAction { _ =>
-        throw new BadRequestException("the request was bad")
-      }(FakeRequest())
-
-      status(res) shouldBe BAD_REQUEST
-    }
-
-    "return a 404 response when the wrapped action throws a NotFoundException" in {
-      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
-
-      val res = testAction { _ =>
-        throw new NotFoundException("not found")
-      }(FakeRequest())
-
-      status(res) shouldBe NOT_FOUND
-    }
-
-    "return a 500 response when the wrapped action throws any other unhandled exception" in {
-      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
-
-      val res = testAction { _ =>
-        throw new Exception("bad stuff happened")
-      }(FakeRequest())
-
-      status(res) shouldBe INTERNAL_SERVER_ERROR
-    }
   }
 
   lazy val testAction = new AuthenticatedAction(mockGG, mockAuth, StubAuth, mockAddresses, StubAuthConnector)

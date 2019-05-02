@@ -52,9 +52,9 @@
                 <li>@Messages("propertyRepresentation.accepted.youCan.2")</li>
             </ul>
 
-            @form(controllers.agent.routes.RepresentationController.continue(model.pagination.pageNumber, model.pagination.pageSize)) {
+            @form(controllers.agent.routes.RepresentationController.continue(model.pagination)) {
                 <input type="hidden" name="action" value="accept-continue">
-                <input type="hidden" name="page" value="@model.pagination.pageNumber">
+                <input type="hidden" name="page" value="@model.pagination.page">
                 <input type="hidden" name="pageSize" value="@model.pagination.pageSize">
                 @if(model.complete.isDefined){
                     <input type="hidden" name="complete" value="@model.complete.get">

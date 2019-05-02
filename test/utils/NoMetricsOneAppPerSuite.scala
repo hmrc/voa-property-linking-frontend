@@ -30,7 +30,6 @@ trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite {
   implicit lazy val applicationConfig = app.injector.instanceOf[ApplicationConfig]
 
   override def fakeApplication() = new GuiceApplicationBuilder()
-    .disable[com.kenshoo.play.metrics.PlayModule]
     .disable[modules.MongoStartup]
     .configure(additionalAppConfig:_*)
     .build()

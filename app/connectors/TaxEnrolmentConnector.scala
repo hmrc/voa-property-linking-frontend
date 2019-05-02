@@ -16,25 +16,24 @@
 
 package connectors
 
-import javax.inject.Inject
 import auditing.AuditingService
 import config.WSHttp
 import controllers.{EnrolmentPayload, KeyValuePair, PayLoad, Previous}
-import play.api.{Configuration, Play}
-import play.api.libs.json.{JsValue, Json, Reads, Writes}
+import javax.inject.Inject
 import services.{EnrolmentResult, Success}
-import play.api.mvc.{AnyContent, Request}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
-import play.api.Mode.Mode
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp, servicesConfig: ServicesConfig) {
-  private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
-  private val emacUrl = servicesConfig.baseUrl("emac") + "/enrolment-store-proxy"
+class TaxEnrolmentConnector @Inject()(
+                                       wSHttp: WSHttp,
+                                       auditingService: AuditingService,
+                                       servicesConfig: ServicesConfig
+                                     ) {
 
-  private val updateUrl: Long => String = personId => s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}"
+  private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
+
   private val enrolUrl = s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment"
 
   def enrol(personId: Long, postcode: String)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[HttpResponse] = {
@@ -43,10 +42,10 @@ class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp, servicesConfig: ServicesCo
       verifiers = List(KeyValuePair("BusPostcode", postcode))
     )
     wSHttp.PUT[EnrolmentPayload, HttpResponse](enrolUrl, payload).map { result =>
-      AuditingService.sendEvent[EnrolmentPayload]("Enrolment Success", payload)
+      auditingService.sendEvent[EnrolmentPayload]("Enrolment Success", payload)
       result
     }.recover { case exception: Throwable =>
-      AuditingService.sendEvent("Enrolment failed to update", payload)
+      auditingService.sendEvent("Enrolment failed to update", payload)
       throw exception
     }
   }
@@ -56,10 +55,11 @@ class TaxEnrolmentConnector @Inject()(wSHttp: WSHttp, servicesConfig: ServicesCo
       legacy = Some(Previous(previousVerifiers = List(KeyValuePair(key = "BusPostcode", value = previousPostcode)))))
     wSHttp.PUT[PayLoad, HttpResponse](s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}", payload)
       .map { _ =>
-        AuditingService.sendEvent("Enrolment Updated", payload)
+        auditingService.sendEvent("Enrolment Updated", payload)
         Success
-      }.recover { case exception: Throwable =>
-      AuditingService.sendEvent("Enrolment failed to update", payload)
+      }.recover
+      { case exception: Throwable =>
+      auditingService.sendEvent("Enrolment failed to update", payload)
       throw exception
     }
   }

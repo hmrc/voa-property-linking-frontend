@@ -17,7 +17,6 @@
 package repositories
 
 import javax.inject.Inject
-
 import com.google.inject.Singleton
 import models.messages.Message
 import play.api.libs.json._
@@ -32,7 +31,7 @@ import reactivemongo.play.json.ImplicitBSONHandlers._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.concurrent.duration._
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
 @Singleton
 class PersonalDetailsSessionRepository @Inject()(db: DB) extends SessionRepository("personDetails", db)
@@ -64,19 +63,17 @@ class SessionRepository @Inject()(formId: String, db: DB)
     }
   }
 
-  override def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]] = {
+  override def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[A] =
     for {
-      sessionId <- getSessionId
+      sessionId   <- getSessionId
       maybeOption <- findById(sessionId)
     } yield {
       maybeOption
         .map(_.data \ formId)
-        .flatMap(x => x match {
-          case JsDefined(value) => Some(value.as[A])
-          case JsUndefined() => None
-        })
+        .flatMap(_.toOption)
+        .fold(throw new NotFoundException("session not found"))(_.as[A])
     }
-  }
+
 
   override def remove()(implicit hc: HeaderCarrier): Future[Unit] = {
     for {
@@ -119,7 +116,7 @@ trait SessionRepo {
 
   def saveOrUpdate[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit]
 
-  def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]]
+  def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[A]
 
   def remove()(implicit hc: HeaderCarrier): Future[Unit]
 }

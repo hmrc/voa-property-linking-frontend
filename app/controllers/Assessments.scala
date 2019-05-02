@@ -20,32 +20,34 @@ import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
+import exceptionhandler.ErrorHandler
 import form.EnumMapping
 import javax.inject.Inject
-
 import models._
 import models.dvr.{DetailedValuationRequest, DetailedValuationRequestTypes, EmailRequest, PostRequest}
 import play.api.data.Forms.text
 import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
 import play.api.mvc.Action
-import views.html.dashboard.cannotRaiseChallenge
 
 import scala.concurrent.Future
 
-class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated: AuthenticatedAction,
-                            submissionIds: SubmissionIdConnector, dvrCaseManagement: DVRCaseManagementConnector,
-                            businessRatesValuations: BusinessRatesValuationConnector,
-                            businessRatesAuthorisation: BusinessRatesAuthorisation)
-                           (implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+class Assessments @Inject()(
+                             propertyLinks: PropertyLinkConnector,
+                             authenticated: AuthenticatedAction,
+                             submissionIds: SubmissionIdConnector,
+                             dvrCaseManagement: DVRCaseManagementConnector,
+                             businessRatesValuations: BusinessRatesValuationConnector,
+                             businessRatesAuthorisation: BusinessRatesAuthorisation,
+                             errorHandler: ErrorHandler
+                           )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def assessments(authorisationId: Long) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
     val backLink = request.headers.get("Referer")
 
       propertyLinks.getLink(authorisationId) flatMap {
-        case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
-        case Some(link) => {
+        case PropertyLink(_, _, _, _, _, _, _, _, Seq(), _) => Future.successful(errorHandler.notFound)
+        case link => {
           for {
             isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
           } yield {
@@ -58,7 +60,6 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
             else Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, plSubmissionId = link.submissionId, isAgentOwnProperty)))
           }
         }
-        case None => notFound
       }
 
   }
@@ -88,15 +89,14 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     viewAssessmentForm.bindFromRequest().fold(
       errors => {
           propertyLinks.getLink(authorisationId) flatMap {
-            case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
-            case Some(link) => {
+            case PropertyLink(_, _, _, _, _, _, _, _, Seq(), _) => Future.successful(errorHandler.notFound)
+            case link => {
               for {
                 isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
               } yield {
                 Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, plSubmissionId = link.submissionId, isAgentOwnProperty)))
               }
             }
-            case None => notFound
           }
       }
       ,
@@ -106,9 +106,8 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
             case "" => Future.successful(Redirect(routes.Assessments.viewDetailedAssessment(authorisationId, assessmentRef, baRef)))
             case _ =>
               propertyLinks.getLink(authorisationId) flatMap {
-                case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, false)))
-                case Some(link) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, link.pending)))
-                case None => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, false)))
+                case PropertyLink(_, _, _, _, _, _, _, _, Seq(), _) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, false)))
+                case link => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, link.pending)))
               }
           }
       }
@@ -116,20 +115,20 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
   }
 
   def requestDetailedValuation(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
-    Ok(views.html.dvr.requestDetailedValuation(RequestDetailedValuationVM(dvRequestForm, authId, assessmentRef, baRef)))
+    Future.successful(Ok(views.html.dvr.requestDetailedValuation(RequestDetailedValuationVM(dvRequestForm, authId, assessmentRef, baRef))))
   }
 
   def duplicateRequestDetailedValuation(authId: Long, assessmentRef: Long) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
-    Ok(views.html.dvr.duplicateRequestDetailedValuation())
+    Future.successful(Ok(views.html.dvr.duplicateRequestDetailedValuation()))
   }
 
   def startChallengeFromDVR(authorisationId: Long, assessmentRef: Long, baRef: String) = authenticated { implicit request =>
-    Ok(views.html.dvr.challenge_valuation(authorisationId, assessmentRef, baRef))
+    Future.successful(Ok(views.html.dvr.challenge_valuation(authorisationId, assessmentRef, baRef)))
   }
 
   def detailedValuationRequested(authId: Long, assessmentRef: Long, baRef: String) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
     dvRequestForm.bindFromRequest().fold(
-      errs => BadRequest(views.html.dvr.requestDetailedValuation(RequestDetailedValuationVM(errs, authId, assessmentRef, baRef))),
+      errs => Future.successful(BadRequest(views.html.dvr.requestDetailedValuation(RequestDetailedValuationVM(errs, authId, assessmentRef, baRef)))),
       preference => {
         val prefix = preference match {
           case EmailRequest => "EMAIL"
@@ -137,10 +136,10 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
         }
 
         for {
-          submissionId <- submissionIds.get(prefix)
-          dvr = DetailedValuationRequest(authId, request.organisationId, request.personId, submissionId, assessmentRef, Nil, baRef)
-          dvrExists <- dvrCaseManagement.dvrExists(request.organisationId, assessmentRef)
-          _ <- if (!dvrExists) dvrCaseManagement.requestDetailedValuation(dvr)
+          submissionId  <- submissionIds.get(prefix)
+          dvr           = DetailedValuationRequest(authId, request.organisationId, request.personId, submissionId, assessmentRef, Nil, baRef)
+          dvrExists     <- dvrCaseManagement.dvrExists(request.organisationId, assessmentRef)
+          _             <- if (!dvrExists) dvrCaseManagement.requestDetailedValuation(dvr) else Future.successful(())
         } yield {
           if (dvrExists) {
             Redirect(routes.Assessments.duplicateRequestDetailedValuation(authId, assessmentRef))
@@ -154,9 +153,8 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
 
   def dvRequestConfirmation(submissionId: String, authorisationId: Long) = Action.async { implicit request =>
     val preference = if (submissionId.startsWith("EMAIL")) "email" else "post"
-    propertyLinks.getLink(authorisationId).map {
-      case Some(link) => Ok(views.html.dvr.detailedValuationRequested(submissionId, preference, link.address))
-      case None => notFound
+    propertyLinks.getLink(authorisationId).map { link =>
+      Ok(views.html.dvr.detailedValuationRequested(submissionId, preference, link.address))
     }
   }
 

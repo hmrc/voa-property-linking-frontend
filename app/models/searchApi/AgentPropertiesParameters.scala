@@ -57,16 +57,21 @@ object AgentPropertiesParameters {
     override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, AgentPropertiesParameters]] = {
       def bindParam[T](key: String)(implicit qsb: QueryStringBindable[T]): Option[Either[String, T]] = qsb.bind(key, params)
 
+      def bindParamWithValidation[T](key: String, f: T => Either[String, T])(implicit qsb: QueryStringBindable[T]): Option[Either[String, T]] =
+        qsb
+          .bind(key, params)
+          .map(either => either.fold[Either[String, T]](str => Left[String, T](str), f(_)))
+
       for {
-        agentCode <- bindParam[Long]("agentCode")
-        checkPermission <- bindParam[String]("checkPermission")
+        agentCode           <- bindParam[Long]("agentCode")
+        checkPermission     <- bindParam[String]("checkPermission")
         challengePermission <- bindParam[String]("challengePermission")
-        address <- bindParam[Option[String]]("address")
-        agentName <- bindParam[Option[String]]("agentName")
-        pageNumber <- bindParam[Int]("pageNumber")
-        pageSize <- bindParam[Int]("pageSize")
-        sortField <- bindParam[AgentPropertiesSortField]("sortField")
-        sortOrder <- bindParam[SortOrder]("sortOrder")
+        address             <- bindParam[Option[String]]("address")
+        agentName           <- bindParam[Option[String]]("agentName")
+        pageNumber          <- bindParamWithValidation[Int]("pageNumber", int => Either.cond(int >= 1, int, s"""Value "$int" for parameter 'pageNumber' is under the acceptable limit: 1"""))
+        pageSize            <- bindParamWithValidation[Int]("pageSize", int => Either.cond(int >= 1 && int <= 1000, int, s"""Value "$int" for parameter 'pageSize' should be between 1 and 100"""))
+        sortField           <- bindParam[AgentPropertiesSortField]("sortField")
+        sortOrder           <- bindParam[SortOrder]("sortOrder")
       } yield {
         (agentCode, checkPermission, challengePermission, address, agentName, pageNumber, pageSize, sortField, sortOrder) match {
           case (Right(ac), Right(cp1), Right(cp2), Right(addr), Right(an), Right(pn), Right(ps), Right(sf), Right(so)) =>

@@ -39,8 +39,8 @@ object StubAddresses extends Addresses(StubServicesConfig, StubHttp) {
     }
   }
 
-  override def findById(id: Long)(implicit hc: HeaderCarrier): Future[Option[Address]] = {
-    Future.successful(Some(arbitrary[Address].sample.get))
+  override def findById(id: Long)(implicit hc: HeaderCarrier): Future[Address] = {
+    Future.successful(arbitrary[Address].sample.get)
   }
 
   override def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Long] = {

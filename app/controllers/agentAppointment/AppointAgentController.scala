@@ -20,7 +20,9 @@ import java.time.Instant
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import auditing.AuditingService
-import config.{ApplicationConfig, Global}
+import binders.pagination.PaginationParameters
+import binders.searchandsort.SearchAndSort
+import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
@@ -41,13 +43,15 @@ import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
 import scala.concurrent.Future
 
-class AppointAgentController @Inject()(representations: PropertyRepresentationConnector,
-                                       accounts: GroupAccounts,
-                                       propertyLinks: PropertyLinkConnector,
-                                       agentsConnector: AgentsConnector,
-                                       authenticated: AuthenticatedAction)
-                                      (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
-  extends PropertyLinkingController with ValidPagination {
+class AppointAgentController @Inject()(
+                                        representations: PropertyRepresentationConnector,
+                                        accounts: GroupAccounts,
+                                        propertyLinks: PropertyLinkConnector,
+                                        agentsConnector: AgentsConnector,
+                                        authenticated: AuthenticatedAction,
+                                        auditingService: AuditingService
+                                      )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+  extends PropertyLinkingController {
 
   def selectAgentProperties() = authenticated { implicit request =>
     registeredAgentForm.bindFromRequest().fold(
@@ -60,28 +64,25 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
         accounts.withAgentCode(agent.id) flatMap {
           case Some(group) => {
             val pagination = AgentPropertiesParameters(agentCode = agent.id.toLong)
-
-            withValidPaginationSearchSort(
-              page = 1,
-              pageSize = 1000,
-              agent = Some(group.companyName),
-              sortfield = Some(pagination.sortField.name),
-              sortorder = Some(pagination.sortOrder.name)
-            ) { paginationSearchSort =>
-
-              for {
-                response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-                  .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                  .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                  .map(oar => oar.copy(authorisations = oar.authorisations.take(15)))
-
-              } yield {
-
-                Ok(views.html.propertyRepresentation.revokeAgentProperties(None,
+              propertyLinks
+                .linkedPropertiesSearchAndSort(
+                  request.organisationId,
+                  PaginationParameters(1, 1000),
+                  SearchAndSort(
+                    agent = Some(group.companyName),
+                    sortfield = Some(pagination.sortField.name),
+                    sortorder = pagination.sortOrder.name)
+                ).map(oar =>
+                  oar.copy(
+                    authorisations = filterProperties(oar.authorisations, group.id).take(15),
+                    filterTotal = oar.authorisations.size
+                  )
+                ).map(response =>
+                Ok(views.html.propertyRepresentation.revokeAgentProperties(
+                  None,
                   AppointAgentPropertiesVM(group, response), pagination))
-              }
+              )
             }
-          }
           case None => {
             val errors: List[FormError] = List(invalidAgentCode)
             agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
@@ -127,48 +128,43 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
   }
 
   def selectPropertiesSearchSort(pagination: AgentPropertiesParameters) = authenticated { implicit request =>
-    withValidPropertiesPagination(pagination) {
-      accounts.withAgentCode(pagination.agentCode.toString) flatMap {
-        case Some(group) => {
+      accounts.withAgentCode(pagination.agentCode.toString) flatMap  {
+        case Some(group) =>
           for {
             response <- propertyLinks.appointableProperties(request.organisationId, pagination)
           } yield {
             Ok(views.html.propertyRepresentation.appointAgentProperties(None,
               AppointAgentPropertiesVM(group, response), pagination))
           }
-        }
-        case None => NotFound(s"Unknown Agent: ${pagination.agentCode}")
+        case None => Future.successful(NotFound(s"Unknown Agent: ${pagination.agentCode}"))
       }
-    }
   }
 
   def selectAgentPropertiesSearchSort(pagination: AgentPropertiesParameters) = authenticated { implicit request =>
-    withValidPropertiesPagination(pagination) {
       accounts.withAgentCode(pagination.agentCode.toString) flatMap {
         case Some(group) => {
-          withValidPaginationSearchSort(
-            page = 1,
-            pageSize = 1000,
-            address = pagination.address,
-            agent = Some(group.companyName),
-            sortfield = Some(pagination.sortField.name),
-            sortorder = Some(pagination.sortOrder.name)
-          ) { paginationSearchSort =>
-
-            for {
-              response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-                .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
-            } yield {
-              Ok(views.html.propertyRepresentation.revokeAgentProperties(None,
-                AppointAgentPropertiesVM(group, response), pagination))
-            }
-          }
+          propertyLinks
+            .linkedPropertiesSearchAndSort(
+              request.organisationId,
+              PaginationParameters(1, 1000),
+              SearchAndSort(
+                agent = Some(group.companyName),
+                address = pagination.address,
+                sortfield = Some(pagination.sortField.name),
+                sortorder = pagination.sortOrder.name)
+            ).map(oar =>
+            oar.copy(
+              authorisations = filterProperties(oar.authorisations, group.id).take(pagination.pageSize),
+              filterTotal = oar.authorisations.size
+            )
+          ).map(response =>
+            Ok(views.html.propertyRepresentation.revokeAgentProperties(
+              None,
+              AppointAgentPropertiesVM(group, response), pagination))
+          )
         }
-        case None => NotFound(s"Unknown Agent: ${pagination.agentCode}")
+        case None => Future.successful(NotFound(s"Unknown Agent: ${pagination.agentCode}"))
       }
-    }
   }
 
   def appointAgentSummary() = authenticated { implicit request =>
@@ -187,7 +183,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
             } yield BadRequest(views.html.propertyRepresentation.appointAgentProperties(Some(errors),
               AppointAgentPropertiesVM(group, response), pagination))
           }
-          case None => NotFound(s"Unknown Agent: ${pagination.agentCode}")
+          case None => Future.successful(NotFound(s"Unknown Agent: ${pagination.agentCode}"))
         }
       },
       success = (action: AgentAppointBulkAction) => {
@@ -207,7 +203,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
             } yield
               Ok(views.html.propertyRepresentation.appointAgentSummary(action, group.companyName))
           }
-          case None => NotFound(s"Unknown Agent: ${action.agentCode}")
+          case None => Future.successful(NotFound(s"Unknown Agent: ${action.agentCode}"))
         }
       }
     )
@@ -220,35 +216,34 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
         val pagination = AgentPropertiesParameters(
           agentCode = data("agentCode").toLong)
 
+
         accounts.withAgentCode(pagination.agentCode.toString) flatMap {
           case Some(group) => {
-            withValidPaginationSearchSort(
-              page = 1,
-              pageSize = 1000,
-              agent = Some(group.companyName),
-              sortfield = Some(pagination.sortField.name),
-              sortorder = Some(pagination.sortOrder.name)
-            ) { paginationSearchSort =>
-
-              for {
-                response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-                  .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                  .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                  .map(oar => oar.copy(authorisations = oar.authorisations.take(15)))
-              } yield {
-                BadRequest(views.html.propertyRepresentation.revokeAgentProperties(Some(errors),
-                  AppointAgentPropertiesVM(group, response), pagination))
-              }
-            }
+            propertyLinks
+              .linkedPropertiesSearchAndSort(
+                request.organisationId,
+                PaginationParameters(1, 1000),
+                SearchAndSort(
+                  agent = Some(group.companyName),
+                  sortfield = Some(pagination.sortField.name),
+                  sortorder = pagination.sortOrder.name)
+              ).map(oar =>
+              oar.copy(
+                authorisations = filterProperties(oar.authorisations, group.id).take(15),
+                filterTotal = oar.authorisations.size
+              )
+            ).map(response =>
+              BadRequest(views.html.propertyRepresentation.revokeAgentProperties(Some(errors),
+                AppointAgentPropertiesVM(group, response), pagination))
+            )
           }
-          case None => NotFound(s"Unknown Agent: ${pagination.agentCode}")
+          case None => Future.successful(NotFound(s"Unknown Agent: ${pagination.agentCode}"))
         }
       },
       success = (action: AgentRevokeBulkAction) => {
         accounts.withAgentCode(action.agentCode.toString) flatMap {
           case Some(group) => {
             for {
-
               _ <- Future.traverse(action.propertyLinkIds)(pLink =>
                 createAndSubitAgentRevokeRequest(
                   pLink,
@@ -258,7 +253,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
             } yield
               Ok(views.html.propertyRepresentation.revokeAgentSummary(action, group.companyName))
           }
-          case None => NotFound(s"Unknown Agent: ${action.agentCode}")
+          case None => Future.successful(NotFound(s"Unknown Agent: ${action.agentCode}"))
         }
       }
     )
@@ -316,17 +311,12 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
         Future.successful(Unit)
       }
     }
-
   }
 
   private def revokeAgents(link: PropertyLink)(implicit hc: HeaderCarrier): Future[Unit] = {
-    for {
-      revokedAgents <- Future.traverse(link.agents)(agent => representations.revoke(agent.authorisedPartyId))
-    } yield {
-      revokedAgents
-    }
+    Future.traverse(link.agents)(agent => representations.revoke(agent.authorisedPartyId))
+      .map(_ => ())
   }
-
 
   private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
                                         newAgentOrgId: Long, individualId: Long, organisationId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
@@ -370,7 +360,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       submissionId, checkPermission.name, challengePermission.name, createDatetime)
 
     representations.create(req).map(x => {
-      AuditingService.sendEvent("agent representation request approve", Json.obj(
+      auditingService.sendEvent("agent representation request approve", Json.obj(
         "organisationId" -> organisationId,
         "individualId" -> userIndividualId,
         "propertyLinkId" -> authorisationId,
@@ -420,16 +410,6 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
     "agentCode" -> longNumber,
     "linkIds" -> list(text).verifying(nonEmptyList)
   )(AgentRevokeBulkAction.apply)(AgentRevokeBulkAction.unpack _))
-
-  private def withValidPropertiesPagination(pagination: AgentPropertiesParameters)
-                                           (f: => Future[Result])
-                                           (implicit request: Request[_]): Future[Result] = {
-    if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 1000) {
-      f
-    } else {
-      BadRequest(Global.badRequestTemplate)
-    }
-  }
 
   def appointMultipleProperties() = authenticated { implicit request =>
     agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>

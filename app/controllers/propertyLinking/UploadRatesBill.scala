@@ -16,57 +16,63 @@
 
 package controllers.propertyLinking
 
-import javax.inject.Inject
-
 import auditing.AuditingService
-import config.{ApplicationConfig, Global}
+import config.ApplicationConfig
 import connectors.fileUpload.FileUploadConnector
 import controllers._
+import exceptionhandler.ErrorHandler
+import javax.inject.Inject
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
-import play.api.mvc.Call
+import play.api.mvc.{Action, AnyContent, Call}
 import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
 import views.html.propertyLinking.uploadRatesBill
 
-class UploadRatesBill @Inject()(override val withLinkingSession: WithLinkingSession,
-                                withCircuitBreaker: FileUploadCircuitBreaker, fileUploadConnector: FileUploadConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+import scala.concurrent.Future
+
+class UploadRatesBill @Inject()(
+                                 override val withLinkingSession: WithLinkingSession,
+                                 withCircuitBreaker: FileUploadCircuitBreaker,
+                                 errorHandler: ErrorHandler,
+                                 auditingService: AuditingService,
+                                 fileUploadConnector: FileUploadConnector
+                               )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with FileUploadHelpers {
 
   override val successUrl: String = routes.UploadRatesBill.fileUploaded().url
 
-  def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
+  def show(errorCode: Option[Int], errorMessage: Option[String]): Action[AnyContent] = withLinkingSession { implicit request =>
     withCircuitBreaker {
       errorCode match {
-        case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadRatesBill(UploadRatesBillVM(fileTooLargeError, submissionCall)))
-        case Some(NOT_FOUND) => NotFound(Global.notFoundTemplate)
-        case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionCall)))
+        case Some(REQUEST_ENTITY_TOO_LARGE) => Future.successful(EntityTooLarge(uploadRatesBill(UploadRatesBillVM(fileTooLargeError, submissionCall))))
+        case Some(NOT_FOUND)                => Future.successful(errorHandler.notFound)
+        case Some(UNSUPPORTED_MEDIA_TYPE)   => Future.successful(UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionCall))))
         // this assumes BAD_REQUEST is caused by "Envelope does not allow zero length files, and submitted file has length 0"
-        case Some(BAD_REQUEST) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionCall)))
+        case Some(BAD_REQUEST)              => Future.successful(UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionCall))))
         //if FUaaS repeatedly returns unexpected error codes e.g. 500s, trigger the circuit breaker
-        case Some(err) => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
-        case None => {
+        case Some(err)                      => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
+        case None                           =>
           val envelopeId = request.ses.envelopeId
           fileUploadConnector.getFileMetadata(envelopeId).map(fileMetaData =>
-            AuditingService.sendEvent("property link rates bill upload", Json.obj(
+            auditingService.sendEvent("property link rates bill upload", Json.obj(
               "organisationId" -> request.organisationId,
               "individualId" -> request.individualAccount.individualId,
               "propertyLinkSubmissionId" -> request.ses.submissionId,
               "fileName" -> fileMetaData.fileInfo.fold("")(_.name)).toString
             ))
-          Ok(uploadRatesBill(UploadRatesBillVM(form, submissionCall)))
+          Future.successful(Ok(uploadRatesBill(UploadRatesBillVM(form, submissionCall))))
         }
-      }
     } recover {
       case _: UnhealthyServiceException => ServiceUnavailable(views.html.errors.serviceUnavailable())
     }
   }
 
   lazy val form = Form(single("ratesBill[]" -> text))
-  lazy val fileTooLargeError = form.withError("ratesBill[]", "error.fileUpload.tooLarge")
-  lazy val invalidFileTypeError = form.withError("ratesBill[]", "error.fileUpload.invalidFileType")
+  lazy val fileTooLargeError: Form[String] = form.withError("ratesBill[]", "error.fileUpload.tooLarge")
+  lazy val invalidFileTypeError: Form[String] = form.withError("ratesBill[]", "error.fileUpload.invalidFileType")
 
   private def submissionCall(implicit request: LinkingSessionRequest[_]) = if (config.fileUploadEnabled) {
     Call("POST", fileUploadUrl(routes.UploadRatesBill.show().url))

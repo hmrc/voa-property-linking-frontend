@@ -333,7 +333,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val groupAccount = groupAccountGen.sample.get
     val individual = individualGen.sample.get
     StubGroupAccountConnector.stubAccount(groupAccount)
-    when(mockIndividualAccounts.get(matching(individual.individualId))(any[HeaderCarrier])).thenReturn(Future.successful(Some(individual)))
+    when(mockIndividualAccounts.get(matching(individual.individualId))(any[HeaderCarrier])).thenReturn(Future.successful(individual))
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individual)))
     (groupAccount, individual)
   }

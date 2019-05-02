@@ -31,7 +31,7 @@ class IdentityVerification @Inject()(serverConfig: ServicesConfig, config: Appli
 
   val url = serverConfig.baseUrl("identity-verification")
 
-  def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier) = {
+  def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean] = {
     if (config.ivEnabled) {
       http.GET[JsValue](s"$url/mdtp/journey/journeyId/$journeyId") map { r =>
         r \ "result" match {

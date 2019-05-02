@@ -16,9 +16,10 @@
 
 package services.iv
 
-import config.{ApplicationConfig, Global}
+import config.ApplicationConfig
 import connectors.VPLAuthConnector
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
+import exceptionhandler.ErrorHandler
 import javax.inject.{Inject, Named}
 import models._
 import models.identityVerificationProxy.{Journey, Link}
@@ -62,7 +63,8 @@ class IvService @Inject()(
                            registrationService: RegistrationService,
                            @Named("personSession") personalDetailsSessionRepo: SessionRepo,
                            val proxyConnector: IdentityVerificationProxyConnector,
-                           implicit val config: ApplicationConfig
+                           implicit val config: ApplicationConfig,
+                           errorHandler: ErrorHandler
                          ) extends IdentityVerificationService {
 
   type B = RegistrationResult
@@ -71,26 +73,24 @@ class IvService @Inject()(
 
   def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages): Result = obj match {
     case RegistrationSuccess(personId)  => Redirect(controllers.registration.routes.RegistrationController.success(personId))
-    case EnrolmentFailure               => InternalServerError(Global.internalServerErrorTemplate)
-    case DetailsMissing                 => InternalServerError(Global.internalServerErrorTemplate)
+    case EnrolmentFailure               => errorHandler.internalServerError
+    case DetailsMissing                 => errorHandler.internalServerError
   }
 
-  def noneCase(implicit request: Request[_], messages: Messages): Result = InternalServerError(Global.internalServerErrorTemplate)
+  def noneCase(implicit request: Request[_], messages: Messages): Result = errorHandler.internalServerError
 
   def continue[A](journeyId: String)(implicit ctx: A, hc: HeaderCarrier, ec: ExecutionContext): Future[Option[RegistrationResult]] = {
     auth.userDetails(ctx).flatMap(user =>
       (user.userInfo.affinityGroup, user.userInfo.credentialRole) match {
         case (Organisation, User | Admin)  =>
           for {
-            organisationDetailsOpt  <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
-            organisationDetails     =  organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
-            registrationResult      <- registrationService.create(organisationDetails.toGroupDetails, ctx, Some(Organisation))(organisationDetails.toIndividualAccountSubmission(journeyId))
+            organisationDetails <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
+            registrationResult      <- registrationService.create(organisationDetails.toGroupDetails, ctx, Organisation)(organisationDetails.toIndividualAccountSubmission(journeyId))
           } yield Some(registrationResult)
         case (Individual, _)                    =>
           for {
-            individualDetailsOpt  <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
-            individualDetails     =  individualDetailsOpt.getOrElse(throw new Exception("details not found"))
-            registrationResult    <- registrationService.create(individualDetails.toGroupDetails, ctx, Some(Individual))(individualDetails.toIndividualAccountSubmission(journeyId))
+            individualDetails   <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
+            registrationResult  <- registrationService.create(individualDetails.toGroupDetails, ctx, Individual)(individualDetails.toIndividualAccountSubmission(journeyId))
           } yield Some(registrationResult)
       })
   }

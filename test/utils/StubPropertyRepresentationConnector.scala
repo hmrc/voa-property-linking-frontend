@@ -16,14 +16,15 @@
 
 package utils
 
+import binders.pagination.PaginationParameters
+import binders.searchandsort.SearchAndSort
 import connectors.PropertyRepresentationConnector
-import controllers.{Pagination, PaginationSearchSort}
 import models._
-import models.searchApi.{AgentAuthResult, AgentAuthorisation, OwnerAuthResult, OwnerAuthorisation}
+import models.searchApi.{AgentAuthResult, AgentAuthorisation}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubServicesConfig, StubHttp) {
   private var stubbedRepresentations: Seq[PropertyRepresentation] = Nil
@@ -58,13 +59,12 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
     if(stubbedValidCodes.contains(agentCode)) { AgentCodeValidationResult(Some(123), None) } else { AgentCodeValidationResult(None, Some("INVALID_CODE")) }
   }
 
-  override def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier) = Future.successful(
+  override def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: PaginationParameters)(implicit hc: HeaderCarrier) = Future.successful(
     PropertyRepresentations(totalPendingRequests = stubbedRepresentations.count(_.status == RepresentationPending),
       propertyRepresentations = stubbedRepresentations.filter(_.status == status))
   )
 
-  override def forAgentSearchAndSort(agentOrganisationId: Long,
-                            pagination: PaginationSearchSort)
+  override def forAgentSearchAndSort(agentOrganisationId: Long, pagination: PaginationParameters, searchAndSort: SearchAndSort)
                            (implicit hc: HeaderCarrier): Future[AgentAuthResult] = Future.successful(
     stubbedAgentAuthResult
   )

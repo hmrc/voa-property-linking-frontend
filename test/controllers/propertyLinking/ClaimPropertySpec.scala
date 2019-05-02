@@ -21,21 +21,19 @@ import java.time.LocalDate
 import com.google.inject.Inject
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{Authenticated, EnvelopeConnector, EnvelopeMetadata}
-import controllers.{PaginationSearchSort, VoaPropertyLinkingSpec}
+import controllers.VoaPropertyLinkingSpec
 import models._
-import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.mockito.MockitoSugar
-import play.api.{Configuration, Environment}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.api.{Configuration, Environment}
 import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubSubmissionIdConnector, StubWithLinkingSession}
-import play.api.Mode.Test
 
 import scala.concurrent.Future
 

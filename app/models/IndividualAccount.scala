@@ -25,7 +25,12 @@ object IndividualAccountSubmission {
 
 case class IndividualAccount(externalId: String, trustId: String, organisationId: Long, details: IndividualDetails)
 
-case class DetailedIndividualAccount(externalId: String, trustId: String, organisationId: Long, individualId: Long, details: IndividualDetails) {
+case class DetailedIndividualAccount(
+                                      externalId: String,
+                                      trustId: String,
+                                      organisationId: Long,
+                                      individualId: Long,
+                                      details: IndividualDetails) {
   def toIndividualAccount: IndividualAccount = IndividualAccount(externalId, trustId, organisationId, details)
 }
 

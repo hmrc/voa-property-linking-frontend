@@ -18,6 +18,7 @@ package services
 
 import config.ApplicationConfig
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
+import exceptionhandler.ErrorHandler
 import models._
 import models.registration._
 import models.identityVerificationProxy.{Journey, Link}
@@ -88,7 +89,7 @@ class IvServiceSpec extends ServiceSpec {
       ).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())
       ).thenReturn(Future.successful(()))
-      when(f.get[AdminOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetails].sample))
+      when(f.get[AdminOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetails].sample.get))
       f
     }
 
@@ -98,7 +99,7 @@ class IvServiceSpec extends ServiceSpec {
       ).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())
       ).thenReturn(Future.successful(()))
-      when(f.get[IndividualUserAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[IndividualUserAccountDetails].sample))
+      when(f.get[IndividualUserAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[IndividualUserAccountDetails].sample.get))
       f
     }
 
@@ -132,7 +133,8 @@ class IvServiceSpec extends ServiceSpec {
       mockRegistrationService,
       mockSessionRepoOrgDetails,
       ivProxy,
-      app.injector.instanceOf[ApplicationConfig])
+      app.injector.instanceOf[ApplicationConfig],
+      mock[ErrorHandler])
   }
 
   override protected def beforeEach(): Unit = {

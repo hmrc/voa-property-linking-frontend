@@ -19,6 +19,7 @@ package controllers
 import actions.BasicAuthenticatedRequest
 import config.ApplicationConfig
 import connectors.{IdentityVerification, _}
+import exceptionhandler.ErrorHandler
 import models._
 import models.dvr.DetailedValuationRequest
 import org.jsoup.Jsoup
@@ -38,12 +39,15 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
-  private object TestAssessmentController extends Assessments( StubPropertyLinkConnector,
+  val mockErrorHandler = mock[ErrorHandler]
+
+  private object TestAssessmentController extends Assessments(StubPropertyLinkConnector,
     StubAuthentication,
     mockSubmissionIds,
     mockDvrCaseManagement,
     StubBusinessRatesValuation,
-    StubBusinessRatesAuthorisation)
+    StubBusinessRatesAuthorisation,
+    mockErrorHandler)
 
   lazy val mockDvrCaseManagement = {
     val m = mock[DVRCaseManagementConnector]

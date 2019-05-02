@@ -16,36 +16,52 @@
 
 package connectors
 
-import javax.inject.Inject
-
+import binders.pagination.PaginationParameters
+import binders.searchandsort.SearchAndSort
 import config.WSHttp
-import controllers.{Pagination, PaginationSearchSort}
+import javax.inject.Inject
 import models._
 import models.searchApi.AgentAuthResult
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http._
 
 import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
-class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+class PropertyRepresentationConnector @Inject()(
+                                                 serverConfig: ServicesConfig,
+                                                 http: WSHttp
+                                               )(implicit ec: ExecutionContext) extends ModernisedPagination {
   lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
+
 
   def validateAgentCode(agentCode:Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[AgentCodeValidationResult] = {
     http.GET[AgentCodeValidationResult](s"$baseUrl/property-representations/validate-agent-code/$agentCode/$authorisationId")
   }
 
-  def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier): Future[PropertyRepresentations] = {
-    http.GET[PropertyRepresentations](s"$baseUrl/property-representations/agent/${status.name}/$agentOrganisationId?$pagination")
+  def forAgent(
+                status: RepresentationStatus,
+                agentOrganisationId: Long,
+                pagination: PaginationParameters
+              )(implicit hc: HeaderCarrier): Future[PropertyRepresentations] = {
+    http
+      .GET[PropertyRepresentations](
+      s"$baseUrl/property-representations/agent/${status.name}/$agentOrganisationId",
+      modernisedPaginationParams(pagination))
   }
 
   def forAgentSearchAndSort(agentOrganisationId: Long,
-                            pagination: PaginationSearchSort)
+                            pagination: PaginationParameters,
+                            searchSort: SearchAndSort)
                            (implicit hc: HeaderCarrier): Future[AgentAuthResult] = {
-    val url = s"$baseUrl/property-representations-search-sort?" +
-      s"organisationId=$agentOrganisationId&" +
-      s"$pagination"
-    http.GET[AgentAuthResult](url)
+    val url = s"$baseUrl/property-representations-search-sort"
+
+    http.GET[AgentAuthResult](url,
+      modernisedPaginationParams(pagination) ++
+        Seq(
+          Some("organisationId" -> agentOrganisationId.toString),
+          searchSort.address.map("address" -> _)
+        ).flatten
+    )
   }
 
   def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {

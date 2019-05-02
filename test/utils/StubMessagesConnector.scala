@@ -19,7 +19,7 @@ package utils
 import connectors.MessagesConnector
 import models.messages.{Message, MessageCount, MessagePagination, MessageSearchResults}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
 import scala.concurrent.Future
 
@@ -50,7 +50,8 @@ object StubMessagesConnector extends MessagesConnector(StubHttp, StubServicesCon
   }
 
   override def getMessage(orgId: Long, messageId: String)
-                          (implicit hc: HeaderCarrier): Future[Option[Message]] = Future.successful(stubbedMessage)
+                          (implicit hc: HeaderCarrier): Future[Message] =
+    stubbedMessage.fold[Future[Message]](Future.failed(new NotFoundException("")))(Future.successful)
 
   override def getMessages(orgId: Long, pagination: MessagePagination)
                           (implicit hc: HeaderCarrier): Future[MessageSearchResults] = Future.successful(stubbedMessageSearchResult.getOrElse(MessageSearchResults(0, 0, Nil)))

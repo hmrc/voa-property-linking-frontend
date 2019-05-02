@@ -16,19 +16,15 @@
 
 package auth
 
-import javax.inject.Inject
-
-import config.Global
 import connectors.VPLAuthConnector
+import javax.inject.Inject
 import models.registration.UserDetails
 import play.api.mvc.{Action, AnyContent, Request, Result}
-import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
-import uk.gov.hmrc.play.frontend.auth.{Actions, AuthContext}
-import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 
-import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
 
 sealed trait VoaAction {
   type x
@@ -53,15 +49,12 @@ class GgAction @Inject()(val provider: GovernmentGatewayProvider, vPLAuthConnect
     vPLAuthConnector
       .getUserDetails
       .flatMap(userDetails => body(userDetails)(request).map(_.withSession(request.session.putUserDetails(userDetails))))
-      .recoverWith {
-        case e: Throwable => provider.redirectToLogin
-      }
 
   private def userDetailsFromSession(body: UserDetails => Request[AnyContent] => Future[Result])
                                     (implicit request: Request[AnyContent], ec: ExecutionContext) = request.session.getUserDetails match {
-    case Some(userDetails) =>
+    case Some(userDetails)  =>
       body(userDetails)(request)
-    case None =>
+    case None               =>
       async(isSession = true)(body)(request)
   }
 }

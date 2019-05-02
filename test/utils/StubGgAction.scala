@@ -24,3 +24,4 @@ object StubGgAction extends GgAction(null, StubVplAuthConnector) {
   private val ctx = AuthContext(LoggedInUser("", None, None, None, CredentialStrength.Weak, ConfidenceLevel.L200, ""),
     Principal(None, Accounts()), None, None, None, None)
 }
+

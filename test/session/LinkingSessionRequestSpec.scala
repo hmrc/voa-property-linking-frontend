@@ -55,7 +55,7 @@ class LinkingSessionRequestSpec extends VoaPropertyLinkingSpec {
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
 
-    when(mockSessionRepo.get[LinkingSession]).thenReturn(Future.successful(Some(mockLinkingSession)))
+    when(mockSessionRepo.get[LinkingSession]).thenReturn(Future.successful(mockLinkingSession))
 
     val res = TestWithLinkingSession { _ =>
       Future.successful(Ok("Test"))
@@ -68,7 +68,7 @@ class LinkingSessionRequestSpec extends VoaPropertyLinkingSpec {
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
 
-    when(mockSessionRepo.get[LinkingSession]).thenReturn(Future.successful(Some(mockLinkingSession)))
+    when(mockSessionRepo.get[LinkingSession]).thenReturn(Future.successful(mockLinkingSession))
 
     val res = TestWithLinkingSession { _ =>
       Future.successful(NotFound)

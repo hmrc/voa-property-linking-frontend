@@ -32,19 +32,13 @@ class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, 
 
   def enrol(personId: Long, addressId: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[EnrolmentResult] = {
     (for {
-      optAddress <- addresses.findById(addressId)
-      address <- getAddress(optAddress)
-      _ <- taxEnrolmentsConnector.enrol(personId, address.postcode)
+      address <- addresses.findById(addressId)
+      _       <- taxEnrolmentsConnector.enrol(personId, address.postcode)
     } yield Success).recover {
       case _: Throwable =>
         auditingService.sendEvent("Enrolment Failure", Json.obj("personId" -> personId))
         Failure
     }
-  }
-
-  private def getAddress(opt: Option[Address]): Future[Address] = opt match {
-    case None => Future.failed(throw new IllegalArgumentException())
-    case Some(x) => Future.successful(x)
   }
 }
 

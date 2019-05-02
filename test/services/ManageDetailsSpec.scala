@@ -54,7 +54,7 @@ class ManageDetailsSpec extends ServiceSpec {
     mockAddresses = mock[Addresses]
 
     when(mockVPLAuthConnector.getUserDetails(any())).thenReturn(Future.successful(mockUserDetails))
-    when(mockAddresses.findById(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Some(mockAddress)))
+    when(mockAddresses.findById(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(mockAddress))
     when(mockTaxEnrolments.updatePostcode(any(), any(), any())(any(), any())).thenReturn(Future.successful(Success))
   }
 

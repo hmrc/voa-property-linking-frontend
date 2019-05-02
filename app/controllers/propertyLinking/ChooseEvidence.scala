@@ -17,32 +17,36 @@
 package controllers.propertyLinking
 
 import javax.inject.Inject
-
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
+import play.api.mvc.{Action, AnyContent}
 import session.WithLinkingSession
 
-class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession)
-                               (implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+import scala.concurrent.Future
 
-  def show = withLinkingSession { implicit request =>
-    Ok(views.html.propertyLinking.chooseEvidence(ChooseEvidence.form))
+class ChooseEvidence @Inject() (
+                                 val withLinkingSession: WithLinkingSession
+                               )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+
+  def show: Action[AnyContent] = withLinkingSession { implicit request =>
+    Future.successful(Ok(views.html.propertyLinking.chooseEvidence(ChooseEvidence.form)))
   }
 
-  def submit = withLinkingSession { implicit request =>
+  def submit: Action[AnyContent] = withLinkingSession { implicit request =>
     ChooseEvidence.form.bindFromRequest().fold(
-      errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors)),
+      errors => Future.successful(BadRequest(views.html.propertyLinking.chooseEvidence(errors))),
       {
-        case true => Redirect(routes.UploadRatesBill.show())
-        case false => Redirect(routes.UploadEvidence.show())
+        case true   => Future.successful(Redirect(routes.UploadRatesBill.show()))
+        case false  => Future.successful(Redirect(routes.UploadEvidence.show()))
       }
     )
   }
 }
+
 object ChooseEvidence {
   lazy val form = Form(single(keys.hasRatesBill -> mandatoryBoolean))
   lazy val keys = new {

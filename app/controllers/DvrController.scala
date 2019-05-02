@@ -46,8 +46,7 @@ class DvrController @Inject()(
                                      valuationId: Long,
                                      baRef: String): Action[AnyContent] = authenticated {
     implicit request =>
-      propertyLinks.getLink(authId).flatMap {
-        case Some(link) =>
+      propertyLinks.getLink(authId).flatMap { link =>
           dvrCaseManagement
             .getDvrDocuments(link.uarn, valuationId, link.submissionId)
             .map {
@@ -71,8 +70,6 @@ class DvrController @Inject()(
                       assessment.effectiveDate.format(formatter), assessment.rateableValue))
               }
             }
-        case None       =>
-          Future.successful(BadRequest(views.html.errors.propertyMissing()))
       }
   }
 
@@ -83,8 +80,9 @@ class DvrController @Inject()(
     authenticated { implicit request =>
       for {
         submissionId  <- submissionIds.get("DVR")
-        agents        <- propertyLinks.getLink(authId).map(opt => opt.toList.flatMap(_.agents.map(_.organisationId)))
-        dvr           = DetailedValuationRequest(authId,
+        agents        <- propertyLinks.getLink(authId).map(link => link.agents.map(_.organisationId).toList)
+        dvr           = DetailedValuationRequest(
+                                        authId,
                                         request.organisationId,
                                         request.personId,
                                         submissionId,
@@ -98,15 +96,11 @@ class DvrController @Inject()(
 
   def confirmation(
                     authId: Long,
-                    submissionId: String) = authenticated {
+                    submissionId: String): Action[AnyContent] = authenticated {
     implicit request =>
-      propertyLinks.getLink(authId).map {
-        case Some(link) =>
+      propertyLinks.getLink(authId).map { link =>
           Ok(
-            views.html.dvr.auto.detailedValuationRequestedAuto(submissionId,
-                                                               link.address))
-        case None =>
-          BadRequest(views.html.errors.propertyMissing())
+            views.html.dvr.auto.detailedValuationRequestedAuto(submissionId, link.address))
       }
   }
 
@@ -130,8 +124,7 @@ class DvrController @Inject()(
                      authId: Long,
                      fileRef: String): Action[AnyContent] = authenticated {
     implicit request =>
-      propertyLinks.getLink(authId).flatMap {
-        case Some(link) =>
+      propertyLinks.getLink(authId).flatMap { link =>
           dvrCaseManagement
             .getDvrDocument(link.uarn, valuationId, link.submissionId, fileRef)
             .map { document =>
@@ -140,8 +133,6 @@ class DvrController @Inject()(
                               document.contentLength,
                               document.contentType))
             }
-        case None =>
-          Future.successful(BadRequest(views.html.errors.propertyMissing()))
       }
   }
 }

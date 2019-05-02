@@ -16,9 +16,11 @@
 
 package controllers.agent
 
+import binders.pagination.PaginationParameters
 import config.ApplicationConfig
 import connectors.Authenticated
 import controllers.VoaPropertyLinkingSpec
+import exceptionhandler.ErrorHandler
 import models._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -68,7 +70,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
 
-    val res = TestRepresentationController.pendingRepresentationRequest(1, 15)(FakeRequest())
+    val res = TestRepresentationController.pendingRepresentationRequest(PaginationParameters(1, 15))(FakeRequest())
     status(res) mustBe UNAUTHORIZED
   }
 
@@ -81,7 +83,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
   it must "include a 'next' link if there are more results" in {
     setup(pendingRequests = 16)
 
-    val res = TestRepresentationController.pendingRepresentationRequest(1, 15)(FakeRequest())
+    val res = TestRepresentationController.pendingRepresentationRequest(PaginationParameters(1, 15))(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -89,7 +91,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
     val nextLink = html.select("ul.pagination li.next")
 
     nextLink.hasClass("disabled") mustBe false withClue "'Next' link is incorrectly disabled"
-    nextLink.select("a").attr("href") mustBe routes.RepresentationController.pendingRepresentationRequest(2).url
+    nextLink.select("a").attr("href") mustBe routes.RepresentationController.pendingRepresentationRequest(PaginationParameters(2, 15)).url
   }
 
   it must "include an inactive 'next' link if there are no further results" in {
@@ -111,7 +113,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
   it must "include a 'previous' link when not on page 1" in {
     setup(pendingRequests = 16)
 
-    val res = TestRepresentationController.pendingRepresentationRequest(2, 15)(FakeRequest())
+    val res = TestRepresentationController.pendingRepresentationRequest(PaginationParameters(2, 15))(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -119,7 +121,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
     val previousLink = html.select("ul.pagination li.previous")
 
     previousLink.hasClass("disabled") mustBe false withClue "'Previous' link is incorrectly disabled"
-    previousLink.select("a").attr("href") mustBe routes.RepresentationController.pendingRepresentationRequest(1).url
+    previousLink.select("a").attr("href") mustBe routes.RepresentationController.pendingRepresentationRequest(PaginationParameters(1, 15)).url
   }
 
   it must "include pagination controls" in {
@@ -132,7 +134,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
     pageSizeControls must have size 4
     pageSizeControls.head.text mustBe "15"
 
-    val pendingRequestsLink: Int => String = n => routes.RepresentationController.pendingRepresentationRequest(pageSize = n).url
+    val pendingRequestsLink: Int => String = n => routes.RepresentationController.pendingRepresentationRequest(PaginationParameters(page = 1, pageSize = n)).url
 
     pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(pendingRequestsLink(25), pendingRequestsLink(50), pendingRequestsLink(100))
   }
@@ -145,7 +147,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
   lazy val defaultHtml = {
     setup()
 
-    val res = TestRepresentationController.pendingRepresentationRequest(1, 15)(FakeRequest())
+    val res = TestRepresentationController.pendingRepresentationRequest(PaginationParameters(1, 15))(FakeRequest())
     status(res) mustBe OK
 
     Jsoup.parse(contentAsString(res))
@@ -169,10 +171,13 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
     values foreach { v => data must contain (v.toUpperCase) }
   }
 
+  val mockErrorHandler = mock[ErrorHandler]
+
   private object TestRepresentationController extends RepresentationController(
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,
-    StubMessagesConnector
+    StubMessagesConnector,
+    mockErrorHandler
   )
 }

@@ -17,17 +17,16 @@
 package actions
 
 import auth.GovernmentGatewayProvider
-import config.{ApplicationConfig, Global}
+import config.ApplicationConfig
 import connectors._
 import javax.inject.Inject
 import models.{DetailedIndividualAccount, GroupAccount}
-import play.api.Logger
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results._
 import play.api.mvc._
 import uk.gov.hmrc.auth.core._
-import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
 import scala.concurrent.Future
@@ -42,17 +41,9 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
 
   protected implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-  def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
+  def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]): Action[AnyContent] = Action.async { implicit request =>
     businessRatesAuthorisation.authenticate flatMap {
       res => handleResult(res, body)
-    } recoverWith {
-      case e: BadRequestException =>
-        Global.onBadRequest(request, e.message)
-      case _: NotFoundException =>
-        Global.onHandlerNotFound(request)
-      //need to catch unhandled exceptions here to propagate the request ID into the internal server error page
-      case e =>
-        Global.onError(request, e)
     }
   }
 
@@ -68,10 +59,6 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
     Action.async { implicit request =>
       businessRatesAuthorisation.authorise(authorisationId, assessmentRef) flatMap {
         res => handleResult(res, body)
-      } recover {
-        case e =>
-          Logger.error(e.getMessage, e)
-          InternalServerError(Global.internalServerErrorTemplate(request))
       }
     }
   }
@@ -79,10 +66,6 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
   def toViewAssessmentsFor(authorisationId: Long)(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
     businessRatesAuthorisation.authorise(authorisationId) flatMap {
       res => handleResult(res, body)
-    } recover {
-      case e =>
-        Logger.error(e.getMessage, e)
-        InternalServerError(Global.internalServerErrorTemplate(request))
     }
   }
 

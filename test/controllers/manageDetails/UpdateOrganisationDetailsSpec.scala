@@ -254,7 +254,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
   private def stubLoggedInUser() = {
     val org: GroupAccount = groupAccountGen
     val person: DetailedIndividualAccount = individualGen
-    when(mockGroups.get(anyInt)(any[HeaderCarrier])).thenReturn(Future.successful(Some(org)))
+    when(mockGroups.get(anyInt)(any[HeaderCarrier])).thenReturn(Future.successful(org))
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(org, person)))
     (org, person)
   }

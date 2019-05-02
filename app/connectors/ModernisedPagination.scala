@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,28 +12,21 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(pagination: Pagination, url: (Int, Int) => Call)(implicit messages: Messages)
+package connectors
 
-@paginationLink(pageSize: Int) = {
-    @if(pagination.pageSize == pageSize) {
-        <strong>@pageSize</strong>
-    } else {
-        <a href="@url(pagination.pageNumber, pageSize)">@pageSize</a>
-    }
+import binders.pagination.PaginationParameters
+
+trait ModernisedPagination {
+
+  def modernisedPaginationParams(params: PaginationParameters): Seq[(String, String)] =
+    Seq(
+      "start"                -> calculateStart(params),
+      "size"                 -> params.pageSize,
+      "requestTotalRowCount" -> "true"
+    ).map({ case (key, value) => (key, value.toString) })
+
+  def calculateStart(params: PaginationParameters): Int = ((params.page - 1) * params.pageSize) + 1
+
 }
-@*
-    @Messages("paginationControls.show")
-
-    <ul class="pageLength">
-        <li>@paginationLink(15)</li>
-        <li>@paginationLink(25)</li>
-        <li>@paginationLink(50)</li>
-        <li>@paginationLink(100)</li>
-    </ul>
-
-
-    @Messages("paginationControls.rows")
-
-*@

@@ -23,7 +23,7 @@ import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.Future
 import scala.util.Random
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
 object StubIndividualAccountConnector extends IndividualAccounts(StubServicesConfig, StubHttp) {
 
@@ -37,8 +37,8 @@ object StubIndividualAccountConnector extends IndividualAccounts(StubServicesCon
     stubbedIndividuals = Nil
   }
 
-  override def get(personId: Long)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
-    Future.successful(stubbedIndividuals.find(_.individualId == personId))
+  override def get(personId: Long)(implicit hc: HeaderCarrier): Future[DetailedIndividualAccount] = {
+    stubbedIndividuals.find(_.individualId == personId).fold[Future[DetailedIndividualAccount]](Future.failed(new NotFoundException("")))(Future.successful)
   }
 
   override def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = Future.successful {
@@ -48,9 +48,8 @@ object StubIndividualAccountConnector extends IndividualAccounts(StubServicesCon
     }
   }
 
-  override def withExternalId(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = Future.successful {
-    stubbedIndividuals.find(_.externalId == externalId)
-  }
+  override def withExternalId(externalId: String)(implicit hc: HeaderCarrier): Future[DetailedIndividualAccount] =
+    stubbedIndividuals.find(_.externalId == externalId).fold[Future[DetailedIndividualAccount]](Future.failed(new NotFoundException("")))(Future.successful)
 
   override def create(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = {
     val personId = Random.nextInt(Int.MaxValue)

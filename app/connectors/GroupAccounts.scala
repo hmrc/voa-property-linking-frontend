@@ -30,12 +30,12 @@ class GroupAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec:
 
   lazy val url = config.baseUrl("property-linking") + "/property-linking/groups"
 
-  def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
-    http.GET[Option[GroupAccount]](s"$url/$organisationId")
+  def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[GroupAccount] = {
+    http.GET[GroupAccount](s"$url/$organisationId")
   }
 
-  def withGroupId(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
-    http.GET[Option[GroupAccount]](s"$url?groupId=$groupId")
+  def withGroupId(groupId: String)(implicit hc: HeaderCarrier): Future[GroupAccount] = {
+    http.GET[GroupAccount](s"$url?groupId=$groupId")
   }
 
   def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {

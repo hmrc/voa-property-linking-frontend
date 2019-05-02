@@ -18,10 +18,12 @@ package controllers.propertyLinking
 
 import java.io.File
 
+import auditing.AuditingService
 import config.{ApplicationConfig, VPLHttp}
 import connectors.EnvelopeConnector
 import connectors.fileUpload.{FileMetadata, FileUploadConnector}
 import controllers.VoaPropertyLinkingSpec
+import exceptionhandler.ErrorHandler
 import models._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
@@ -91,7 +93,7 @@ class UploadEvidenceSpec extends VoaPropertyLinkingSpec with FileUploadTestHelpe
   }
 
   it must "display a service unavailable page when the file upload service is not available" in {
-    val testController = new UploadEvidence( withLinkingSession, brokenCircuit, mockFileUploadConnector)
+    val testController = new UploadEvidence(withLinkingSession, brokenCircuit, mock[ErrorHandler], mock[AuditingService], mockFileUploadConnector)
 
     val linkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
@@ -127,7 +129,7 @@ class UploadEvidenceSpec extends VoaPropertyLinkingSpec with FileUploadTestHelpe
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  object TestUploadEvidence extends UploadEvidence( withLinkingSession, unbreakableCircuit, mockFileUploadConnector)
+  object TestUploadEvidence extends UploadEvidence(withLinkingSession, unbreakableCircuit, mock[ErrorHandler], mock[AuditingService], mockFileUploadConnector)
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

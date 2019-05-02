@@ -28,6 +28,8 @@ class BusinessRatesValuationConnector @Inject()(config: ServicesConfig, http: WS
   val url = config.baseUrl("business-rates-valuation")
 
   def isViewable(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] = {
-    http.GET[HttpResponse](s"$url/property-link/$authorisationId/assessment/$assessmentRef") map { _ => true } recover { case _: NotFoundException => false }
+    http.GET[HttpResponse](s"$url/property-link/$authorisationId/assessment/$assessmentRef")
+      .map(_ => true)
+      .recover { case _: NotFoundException => false }
   }
 }

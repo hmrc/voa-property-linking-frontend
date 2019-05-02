@@ -20,7 +20,7 @@ import connectors.GroupAccounts
 import models.{GroupAccount, GroupAccountSubmission}
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
 import scala.concurrent.Future
 import scala.util.Random
@@ -37,9 +37,10 @@ object StubGroupAccountConnector extends GroupAccounts(StubServicesConfig, StubH
     stubbedGroups = Nil
   }
 
-  override def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = Future.successful(stubbedGroups.find(_.id == organisationId))
+  override def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[GroupAccount] =  stubbedGroups.find(_.id == organisationId).fold[Future[GroupAccount]](Future.failed(new NotFoundException("")))(Future.successful)
 
-  override def withGroupId(groupId: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.groupId == groupId))
+  override def withGroupId(groupId: String)(implicit hc: HeaderCarrier) =
+    stubbedGroups.find(_.groupId == groupId).fold[Future[GroupAccount]](Future.failed(new NotFoundException("")))(Future.successful)
 
   override def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.agentCode.toString == agentCode))
 

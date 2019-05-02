@@ -15,6 +15,7 @@
  *@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
+@import binders.pagination._
 @import config.ApplicationConfig
 
 @(model: RepresentationBulkAction, f: Form[RepresentationBulkAction])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -47,7 +48,7 @@
                 }
                 <button type="submit" id="submit-button" name="submit-button" class="button pull-left">@Messages("pendingRepresentationRequests.button.text", model.action.capitalize)</button>
             }
-            @form(controllers.agent.routes.RepresentationController.cancel(model.page, model.pageSize)) {
+            @form(controllers.agent.routes.RepresentationController.cancel(PaginationParameters(model.page, model.pageSize))) {
                 <input type="hidden" name="action" value="reject">
                 <input type="hidden" name="page" value="@model.page">
                 <input type="hidden" name="pageSize" value="@model.pageSize">

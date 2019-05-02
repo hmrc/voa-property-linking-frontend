@@ -16,7 +16,7 @@
 
 @import config.ApplicationConfig
 
-@()(implicit messages: Messages, request: Request[_], config: ApplicationConfig)
+@()(implicit messages: Messages, request: RequestHeader, config: ApplicationConfig)
 
 @main_template(Messages("serviceUnavailable.title"), topNavigation = false) {
 

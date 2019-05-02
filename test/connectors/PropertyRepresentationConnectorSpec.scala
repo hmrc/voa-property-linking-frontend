@@ -16,16 +16,17 @@
 
 package connectors
 
-import controllers.{VoaPropertyLinkingSpec, Pagination, PaginationSearchSort}
+import binders.pagination.PaginationParameters
+import binders.searchandsort.SearchAndSort
+import controllers.VoaPropertyLinkingSpec
 import models._
 import models.searchApi.AgentAuthResult
 import org.scalacheck.Arbitrary._
+import play.api.http.Status._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.{JsValue, Json}
 import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import utils.StubServicesConfig
-import play.api.http.Status._
 
 class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
 
@@ -47,18 +48,19 @@ class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
   "forAgent" must "return the property representations for an agent" in new Setup {
     val propertyRepresentation = mock[PropertyRepresentations]
     val representationStatus = arbitrary[RepresentationStatus].sample.get
-    val pagination = mock[Pagination]
+    val pagination = mock[PaginationParameters]
 
-    mockHttpGET[PropertyRepresentations]("tst-url", propertyRepresentation)
+    mockHttpGETWithQueryParams[PropertyRepresentations]("tst-url", propertyRepresentation)
     whenReady(connector.forAgent(representationStatus, 1, pagination))(_ mustBe propertyRepresentation)
   }
 
   "forAgentSearchAndSort" must "return the authorisations for an agent" in new Setup {
     val agentAuthResult = mock[AgentAuthResult]
-    val pagination = mock[PaginationSearchSort]
+    val pagination = mock[PaginationParameters]
+    val searchAndSort = SearchAndSort()
 
-    mockHttpGET[AgentAuthResult]("tst-url", agentAuthResult)
-    whenReady(connector.forAgentSearchAndSort(1, pagination))(_ mustBe agentAuthResult)
+    mockHttpGETWithQueryParams[AgentAuthResult]("tst-url", agentAuthResult)
+    whenReady(connector.forAgentSearchAndSort(1, pagination, searchAndSort))(_ mustBe agentAuthResult)
   }
 
   "create" must "post a representation request" in new Setup {

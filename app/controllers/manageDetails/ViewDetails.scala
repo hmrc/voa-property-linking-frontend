@@ -17,7 +17,6 @@
 package controllers.manageDetails
 
 import javax.inject.Inject
-
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import cats.data.OptionT
 import cats.implicits._
@@ -31,6 +30,8 @@ import play.api.mvc.{AnyContent, Result, Results}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.auth.core.AffinityGroup._
 
+import scala.concurrent.Future
+
 class ViewDetails @Inject()(addressesConnector: Addresses,
                             authenticated: AuthenticatedAction,
                             messagesConnector: MessagesConnector,
@@ -39,7 +40,7 @@ class ViewDetails @Inject()(addressesConnector: Addresses,
                            )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
 
   def show() = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("your-details"))
+    Future.successful(Redirect(config.newDashboardUrl("your-details")))
   }
 
 }

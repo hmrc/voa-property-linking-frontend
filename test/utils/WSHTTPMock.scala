@@ -36,6 +36,11 @@ trait WSHTTPMock {
       .thenReturn(Future.successful(thenReturn))
   }
 
+  def mockHttpGETWithQueryParams[T](url: String, thenReturn: T): OngoingStubbing[Future[T]] = {
+    when(mockWSHttp.GET[T](Matchers.anyString(), Matchers.any())(Matchers.any[HttpReads[T]](), Matchers.any[HeaderCarrier](), Matchers.any()))
+      .thenReturn(Future.successful(thenReturn))
+  }
+
   def mockHttpGET[T](url: String, thenReturn: Future[T]): OngoingStubbing[Future[T]] = {
     when(mockWSHttp.GET[T](Matchers.anyString())(Matchers.any[HttpReads[T]](), Matchers.any[HeaderCarrier](), Matchers.any()))
       .thenReturn(thenReturn)

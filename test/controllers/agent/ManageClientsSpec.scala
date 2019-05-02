@@ -19,6 +19,7 @@ package controllers.agent
 import config.ApplicationConfig
 import connectors.Authenticated
 import controllers.VoaPropertyLinkingSpec
+import exceptionhandler.ErrorHandler
 import models._
 import models.searchApi.{AgentAuthClient, AgentAuthResult, AgentAuthorisation}
 import org.jsoup.Jsoup
@@ -66,11 +67,14 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
 
   }
 
+  val mockErrorHandler = mock[ErrorHandler]
+
   object TestController extends RepresentationController(
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector,
-    StubMessagesConnector
+    StubMessagesConnector,
+    mockErrorHandler
   )
 
 }

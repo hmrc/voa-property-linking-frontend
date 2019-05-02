@@ -25,7 +25,7 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, MustMatchers}
 import play.api.test.FakeRequest
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -40,14 +40,14 @@ class EnrolmentServiceSpec extends ServiceSpec {
   implicit val fakeRequest = FakeRequest()
 
   "enrol" should " return success with valid details" in {
-    when(mockAddresses.findById(any())(any())).thenReturn(Future.successful(Some(Address(Some(1), "", "", "", "", ""))))
+    when(mockAddresses.findById(any())(any())).thenReturn(Future.successful(Address(Some(1), "", "", "", "", "")))
     when(mockTaxEnrolmentConnector.enrol(any(), any())(any(), any())).thenReturn(Future.successful(HttpResponse(204)))
     val result = enrolmentService.enrol(1l, 1)
     result.futureValue must be(Success)
   }
 
   "enrol" should " return failure when None is return for the address" in {
-    when(mockAddresses.findById(any())(any())).thenReturn(Future.successful(None))
+    when(mockAddresses.findById(any())(any())).thenReturn(Future.failed(new NotFoundException("missing address")))
     val result = enrolmentService.enrol(1l, 1)
     result.futureValue must be(Failure)
   }

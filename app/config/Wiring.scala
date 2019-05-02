@@ -17,21 +17,25 @@
 package config
 
 import akka.actor.ActorSystem
-import com.google.inject.Inject
 import com.typesafe.config.Config
-import play.api.{Configuration, Environment, Play}
+import javax.inject.Inject
 import play.api.libs.json.{JsDefined, JsString, Writes}
-import uk.gov.hmrc.http.hooks.{HttpHook, HttpHooks}
+import play.api.{Configuration, Environment, Play}
+import uk.gov.hmrc.http.hooks.HttpHooks
+import uk.gov.hmrc.http.{HttpDelete, _}
 import uk.gov.hmrc.play.audit.http.HttpAuditing
-import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
-import uk.gov.hmrc.play.http._
+import uk.gov.hmrc.play.audit.http.connector.AuditConnector
+import uk.gov.hmrc.play.config.{AppName, ServicesConfig}
 import uk.gov.hmrc.play.http.ws._
 
 import scala.concurrent.Future
 import scala.util.Try
-import uk.gov.hmrc.http.{HttpDelete, _}
 
-class VPLHttp @Inject()(environment: Environment, servicesConfig: ServicesConfig, override val appNameConfiguration: Configuration) extends WSHttp with HttpAuditing {
+class VPLHttp @Inject()(
+                         environment: Environment,
+                         servicesConfig: ServicesConfig,
+                         override val appNameConfiguration: Configuration,
+                         val auditConnector: AuditConnector) extends WSHttp with HttpAuditing {
 
   override def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = super.doGet(url) map { res =>
     res.status match {
@@ -71,12 +75,12 @@ object WSHttp extends WSHttp {
 
   override protected def appNameConfiguration: Configuration = Play.current.configuration
 
+  override def auditConnector: AuditConnector = Play.current.injector.instanceOf[AuditConnector]
 }
 
 
 
 trait Hooks extends HttpHooks with HttpAuditing {
   override val hooks = Seq(AuditingHook)
-  override def auditConnector = AuditServiceConnector
 }
 

@@ -31,17 +31,18 @@ class Addresses @Inject()(config: ServicesConfig, http: WSHttp) {
 
   val url = config.baseUrl("property-linking") + "/property-linking/address"
 
+  //TODO move to service.
   def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Long] = details.address.addressUnitId match {
     case Some(id) => Future.successful(id)
-    case None => create(details.address)
+    case None     => create(details.address)
   }
 
   def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[Address]] = {
     http.GET[Seq[Address]](url + s"?postcode=$postcode")
   }
 
-  def findById(id: Long)(implicit hc: HeaderCarrier): Future[Option[Address]] = {
-    http.GET[Option[Address]](url + s"/$id")
+  def findById(id: Long)(implicit hc: HeaderCarrier): Future[Address] = {
+    http.GET[Address](url + s"/$id")
   }
 
   def create(address: Address)(implicit hc: HeaderCarrier): Future[Long] = {

@@ -20,17 +20,21 @@ import java.time.Instant
 import java.util.UUID
 
 import actions.AuthenticatedAction
+import binders.pagination.PaginationParameters
+import binders.searchandsort.SearchAndSort
 import connectors._
 import connectors.test.{TestCheckConnector, TestEmacConnector, TestPropertyLinkingConnector}
-import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController}
+import controllers.PropertyLinkingController
 import javax.inject.Inject
 import models._
 import models.test.TestUserDetails
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
+import play.api.mvc.{Action, AnyContent}
 import services.test.TestService
-import services.{EnrolmentService, Failure, Success}
+import services.{Failure, Success}
 
+import scala.concurrent.Future
 import scala.util.Random
 
 class TestController @Inject()(authenticated: AuthenticatedAction,
@@ -44,8 +48,8 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
                                reprConnector: PropertyRepresentationConnector
                               )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
-  def getUserDetails() = authenticated { implicit request =>
-    Ok(Json.toJson(if (request.organisationAccount.isAgent) {
+  def getUserDetails(): Action[AnyContent] = authenticated { implicit request =>
+    Future.successful(Ok(Json.toJson(if (request.organisationAccount.isAgent) {
       TestUserDetails(
         personId = request.individualAccount.individualId,
         organisationId = request.organisationAccount.id,
@@ -60,17 +64,17 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
         governmentGatewayGroupId = request.organisationAccount.groupId,
         governmentGatewayExternalId = request.individualAccount.externalId,
         agentCode = None)
-    }))
+    })))
   }
 
-  def deRegister() = authenticated { implicit request =>
+  def deRegister(): Action[AnyContent] = authenticated { implicit request =>
     val orgId = request.individualAccount.organisationId
     testPropertyLinkingConnector.deRegister(orgId).map(res => Ok(s"Successfully de-registered organisation with ID: $orgId")).recover {
       case e => Ok(s"Failed to de-register organisation with ID: $orgId with error: ${e.getMessage}")
     }
   }
 
-  def deEnrol() = authenticated { implicit request =>
+  def deEnrol(): Action[AnyContent] = authenticated { implicit request =>
     testService
       .deEnrolUser(request.individualAccount.individualId)
       .map {
@@ -79,13 +83,13 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
       }
   }
 
-  def updateAccount = authenticated { implicit request =>
+  def updateAccount: Action[AnyContent] = authenticated { implicit request =>
     val externalId = UUID.randomUUID().toString
     for {
-      user <- vPLAuthConnector.getUserDetails
-      _ <- emacConnector.removeEnrolment(request.individualAccount.individualId, user.userInfo.gatewayId, user.userInfo.groupIdentifier)
-      _ <- individualAccounts.update(request.individualAccount.copy(externalId = externalId))
-      _ <- groups.update(request.organisationAccount.id, UpdatedOrganisationAccount(
+      user  <- vPLAuthConnector.getUserDetails
+      _     <- emacConnector.removeEnrolment(request.individualAccount.individualId, user.userInfo.gatewayId, user.userInfo.groupIdentifier)
+      _     <- individualAccounts.update(request.individualAccount.copy(externalId = externalId))
+      _     <- groups.update(request.organisationAccount.id, UpdatedOrganisationAccount(
         Random.nextString(40),
         request.organisationAccount.addressId,
         request.organisationAccount.isAgent,
@@ -96,41 +100,41 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
     } yield Ok("Successful")
   }
 
-  def revokeAgentAppointments(agentOrgId: String) = authenticated { implicit request =>
-    val agentAuthResult = reprConnector.forAgentSearchAndSort(agentOrgId.toLong, PaginationSearchSort(pageNumber = 1, pageSize = 100))
+  def revokeAgentAppointments(agentOrgId: String): Action[AnyContent] = authenticated { implicit request =>
+    val agentAuthResult = reprConnector.forAgentSearchAndSort(agentOrgId.toLong, PaginationParameters(page = 1, pageSize = 100), SearchAndSort())
     agentAuthResult.map(representation => representation.authorisations.map(
       authorisation => reprConnector.revoke(authorisation.authorisedPartyId)
     )).map(_ =>
       Ok("Agent appointments revoked"))
   }
 
-  def declinePendingAgentAppointments(agentOrgId: String, agentPersonId: String) = authenticated { implicit request =>
-    val pendingAgentAppointments = reprConnector.forAgent(RepresentationPending, agentOrgId.toLong, Pagination(pageNumber = 1, pageSize = 100))
+  def declinePendingAgentAppointments(agentOrgId: String, agentPersonId: String): Action[AnyContent] = authenticated { implicit request =>
+    val pendingAgentAppointments = reprConnector.forAgent(RepresentationPending, agentOrgId.toLong, PaginationParameters(page = 1, pageSize = 100))
     pendingAgentAppointments.map(appointments =>
       appointments.propertyRepresentations.map(appointment =>
         reprConnector.response(RepresentationResponse(appointment.submissionId, agentPersonId.toLong, RepresentationResponseDeclined)))).map(_ =>
       Ok("Pending agent appointments declined"))
   }
 
-  def clearDvrRecords = authenticated { implicit request =>
+  def clearDvrRecords: Action[AnyContent] = authenticated { implicit request =>
     testPropertyLinkingConnector.clearDvrRecords(request.organisationAccount.id).map(res => Ok(s"Successfully cleared DVR records for organisation with ID: ${request.organisationAccount.id}")).recover {
       case e => Ok(s"Failed to clear DVR records for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
     }
   }
 
-  def clearDraftCases = authenticated { implicit request =>
+  def clearDraftCases: Action[AnyContent] = authenticated { implicit request =>
     testCheckConnector.clearDraftCases(request.organisationAccount.id).map(res => Ok(s"Successfully cleared draft check cases for organisation with ID: ${request.organisationAccount.id}")).recover {
       case e => Ok(s"Failed to clear draft check cases for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
     }
   }
 
-  def clearCheckCases(propertyLinksSubmissionId: String) = authenticated { implicit request =>
+  def clearCheckCases(propertyLinksSubmissionId: String): Action[AnyContent] = authenticated { implicit request =>
     testPropertyLinkingConnector.deleteCheckCases(propertyLinksSubmissionId).map(res => Ok(s"Successfully cleared the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId")).recover {
       case e => Ok(s"Failed to delete the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId with error: ${e.getMessage}")
     }
   }
 
-  def getSubmittedCheck(submissionId: String) = authenticated { implicit request =>
+  def getSubmittedCheck(submissionId: String): Action[AnyContent] = authenticated { implicit request =>
     testCheckConnector.getSubmittedCheck(submissionId).map(response => Ok(response.body))
   }
 

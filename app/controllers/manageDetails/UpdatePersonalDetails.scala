@@ -20,7 +20,6 @@ import java.time.Instant
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import javax.inject.Inject
-
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.PropertyLinkingController
@@ -31,7 +30,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import play.api.i18n.MessagesApi
-import play.api.mvc.{AnyContent, Result}
+import play.api.mvc.{Action, AnyContent, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
@@ -44,68 +43,60 @@ class UpdatePersonalDetails @Inject()(authenticated: AuthenticatedAction,
                                       manageDetails: ManageDetails, groupAccounts: GroupAccounts)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
-  def viewEmail() = authenticated { implicit request =>
-    Ok(views.html.details.updateEmail(UpdateDetailsVM(emailForm, request.individualAccount.details)))
+  def viewEmail(): Action[AnyContent] = authenticated { implicit request =>
+    Future.successful(Ok(views.html.details.updateEmail(UpdateDetailsVM(emailForm, request.individualAccount.details))))
   }
 
-  def updateEmail() = authenticated { implicit request =>
+  def updateEmail(): Action[AnyContent] = authenticated { implicit request =>
     emailForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateEmail(UpdateDetailsVM(errors, request.individualAccount.details))),
+      errors => Future.successful(BadRequest(views.html.details.updateEmail(UpdateDetailsVM(errors, request.individualAccount.details)))),
       email => updateDetails(email = Some(email))
     )
   }
 
-  def viewAddress() = authenticated { implicit request =>
-    Ok(views.html.details.updateAddress(UpdateDetailsVM(addressForm, request.individualAccount.details)))
+  def viewAddress(): Action[AnyContent] = authenticated { implicit request =>
+    Future.successful(Ok(views.html.details.updateAddress(UpdateDetailsVM(addressForm, request.individualAccount.details))))
   }
 
-  def updateAddress() = authenticated { implicit request =>
+  def updateAddress(): Action[AnyContent] = authenticated { implicit request =>
     addressForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateAddress(UpdateDetailsVM(errors, request.individualAccount.details))),
+      errors => Future.successful(BadRequest(views.html.details.updateAddress(UpdateDetailsVM(errors, request.individualAccount.details)))),
       address => address.addressUnitId match {
         case Some(id) => updateDetails(addressId = Some(id))
-        case None => addressesConnector.create(address) flatMap { id => updateDetails(addressId = Some(id)) }
+        case None     => addressesConnector.create(address) flatMap { id => updateDetails(addressId = Some(id)) }
       }
     )
   }
 
-  def viewPhone() = authenticated { implicit request =>
-    Ok(views.html.details.updatePhone(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
+  def viewPhone(): Action[AnyContent] = authenticated { implicit request =>
+    Future.successful(Ok(views.html.details.updatePhone(UpdateDetailsVM(telephoneForm, request.individualAccount.details))))
   }
 
-  def updatePhone() = authenticated { implicit request =>
+  def updatePhone(): Action[AnyContent] = authenticated { implicit request =>
     telephoneForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updatePhone(UpdateDetailsVM(errors, request.individualAccount.details))),
+      errors => Future.successful(BadRequest(views.html.details.updatePhone(UpdateDetailsVM(errors, request.individualAccount.details)))),
       phone => updateDetails(phone = Some(phone))
     )
   }
 
-  def viewName() = authenticated { implicit request =>
-    if (config.editNameEnabled) {
-      Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details)))
-    } else {
-      notFound
-    }
+  def viewName(): Action[AnyContent] = authenticated { implicit request =>
+    Future.successful(Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details))))
   }
 
-  def updateName() = authenticated { implicit request =>
-    if (config.editNameEnabled) {
+  def updateName(): Action[AnyContent] = authenticated { implicit request =>
       nameForm.bindFromRequest().fold(
-        errors => BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details))),
+        errors => Future.successful(BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details)))),
         name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
       )
-    } else {
-      notFound
-    }
   }
 
-  def viewMobile() = authenticated { implicit request =>
-    Ok(views.html.details.updateMobile(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
+  def viewMobile(): Action[AnyContent] = authenticated { implicit request =>
+    Future.successful(Ok(views.html.details.updateMobile(UpdateDetailsVM(telephoneForm, request.individualAccount.details))))
   }
 
-  def updateMobile() = authenticated { implicit request =>
+  def updateMobile(): Action[AnyContent] = authenticated { implicit request =>
     telephoneForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateMobile(UpdateDetailsVM(errors, request.individualAccount.details))),
+      errors => Future.successful(BadRequest(views.html.details.updateMobile(UpdateDetailsVM(errors, request.individualAccount.details)))),
       mobile => updateDetails(mobile = Some(mobile))
     )
   }
@@ -128,8 +119,14 @@ class UpdatePersonalDetails @Inject()(authenticated: AuthenticatedAction,
       addressId = addressId.getOrElse(currentDetails.addressId))
     val updatedAccount = request.individualAccount.copy(details = updatedDetails)
 
-    individualAccountConnector.update(updatedAccount)
-      .flatMap(_ => addressId.fold[Future[EnrolmentResult]](Future.successful(Success))(manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)(_ == AffinityGroup.Individual)))
+    individualAccountConnector
+      .update(updatedAccount)
+      .flatMap(_ =>
+        addressId
+          .fold[Future[EnrolmentResult]](
+          Future.successful(Success)
+        )(
+          manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)(_ == AffinityGroup.Individual)))
       .map{
         _ => updateGroup(request.organisationAccount, updatedAccount)
           Redirect(controllers.manageDetails.routes.ViewDetails.show())}

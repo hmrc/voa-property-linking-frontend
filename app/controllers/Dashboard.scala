@@ -18,19 +18,20 @@ package controllers
 
 import java.time._
 
-import javax.inject.Inject
 import actions.AuthenticatedAction
+import binders.pagination.PaginationParameters
+import binders.searchandsort.SearchAndSort
 import com.builtamont.play.pdf.PdfGenerator
-import config.{ApplicationConfig, Global}
+import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
+import javax.inject.Inject
 import models._
 import models.messages.MessagePagination
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
-import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.mvc.{Request, Result}
 
 import scala.concurrent.Future
 
@@ -40,38 +41,31 @@ class Dashboard @Inject()(draftCases: DraftCases,
                           agentsConnector: AgentsConnector,
                           groupAccounts: GroupAccounts,
                           authenticated: AuthenticatedAction,
-                          pdfGen: PdfGenerator)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController with ValidPagination {
+                          pdfGen: PdfGenerator)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def home() = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("home"))
+    Future.successful(Redirect(config.newDashboardUrl("home")))
   }
 
   def yourDetails() = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("your-details"))
+    Future.successful(Redirect(config.newDashboardUrl("your-details")))
   }
 
   def manageProperties() = authenticated { implicit request =>
-   Redirect(config.newDashboardUrl("your-properties"))
+   Future.successful(Redirect(config.newDashboardUrl("your-properties")))
   }
 
-  def getProperties(page: Int,
-                    pageSize: Int,
-                    requestTotalRowCount: Boolean,
-                    sortfield: Option[String],
-                    sortorder: Option[String],
-                    status: Option[String],
-                    address: Option[String],
-                    baref: Option[String],
-                    agent: Option[String]) = authenticated { implicit request =>
-    withValidPaginationSearchSort(page, pageSize, requestTotalRowCount, sortfield, sortorder, status, address, baref, agent) { pagination =>
-      propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination) map { res =>
+  def getProperties(
+                   pagination: PaginationParameters,
+                   searchAndSort: SearchAndSort
+                   ) = authenticated { implicit request =>
+      propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination, searchAndSort) map { res =>
         Ok(Json.toJson(res))
       }
-    }
   }
 
   def manageAgents() = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("your-agents"))
+    Future.successful(Redirect(config.newDashboardUrl("your-agents")))
   }
 
   def viewManagedProperties(agentCode: Long) = authenticated { implicit request =>
@@ -81,10 +75,9 @@ class Dashboard @Inject()(draftCases: DraftCases,
       agentOrganisationId = group.map(_.id)
       authResult <- propertyLinks.linkedPropertiesSearchAndSort(
         request.organisationId,
-        PaginationSearchSort(
-          pageNumber = 1,
-          pageSize = 1000,
-          agent = group.map(_.companyName)))
+        PaginationParameters(1, 1000),
+        SearchAndSort(agent = group.map(_.companyName))
+       )
 
       // keep only authorisations that have status Approved/Pending and are managed by this agent
       filteredAuths = authResult.authorisations.filter(auth =>
@@ -96,42 +89,28 @@ class Dashboard @Inject()(draftCases: DraftCases,
   }
 
   def viewMessages() = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("inbox"))
+    Future.successful(Redirect(config.newDashboardUrl("inbox")))
   }
 
   def viewMessage(messageId: String) = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("inbox"))
+    Future.successful(Redirect(config.newDashboardUrl("inbox")))
   }
 
   def viewMessageAsPdf(messageId: String) = authenticated { implicit request =>
-    for {
-      message <- messagesConnector.getMessage(request.organisationId, messageId)
-    } yield {
-      message match {
-        case Some(m) => pdfGen.ok(views.html.dashboard.messages.viewMessagePdf(m), config.serviceUrl)
-        case None => NotFound(Global.notFoundTemplate)
-      }
-    }
+    messagesConnector
+      .getMessage(request.organisationId, messageId)
+      .map(m => pdfGen.ok(views.html.dashboard.messages.viewMessagePdf(m), config.serviceUrl))
   }
 
   def messageCountJson() = authenticated { implicit request =>
     messagesConnector.countUnread(request.organisationId).map(messageCount => Ok(Json.toJson(messageCount)))
   }
-
-  private def withValidMessagePagination(pagination: MessagePagination)
-                                        (f: => Future[Result])
-                                        (implicit request: Request[_]): Future[Result] = {
-    if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 100) {
-      f
-    } else {
-      BadRequest(Global.badRequestTemplate)
-    }
-  }
 }
 
 case class ManagePropertiesVM(organisationId: Long,
                               result: OwnerAuthResult,
-                              pagination: PaginationSearchSort)
+                              pagination: PaginationParameters,
+                              searchAndSort: SearchAndSort)
 
 
 case class ManagedPropertiesVM(agentOrganisationId: Option[Long],

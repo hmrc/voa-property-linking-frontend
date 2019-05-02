@@ -24,7 +24,7 @@ GET         /identity-verification/success                                      
 GET         /home                                                                             @controllers.Dashboard.home()
 GET         /your-details                                                                     @controllers.Dashboard.yourDetails()
 GET         /properties                                                                       @controllers.Dashboard.manageProperties()
-GET         /properties/json                                                                  @controllers.Dashboard.getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], agent: Option[String])
+GET         /properties/json                                                                  @controllers.Dashboard.getProperties(pagination: PaginationParameters, searchAndSort: SearchAndSort)
 GET         /managed-properties/:agentCode                                                    @controllers.Dashboard.viewManagedProperties(agentCode: Long)
 GET         /managed-properties/:agentCode/revoke                                             @controllers.agentAppointment.RevokeAgentController.revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
 
@@ -94,12 +94,12 @@ POST        /revoke-agent/agent-summary                                         
 #TODO: Move to dashboard
 GET         /manage-clients                                                                   @controllers.agent.RepresentationController.viewClientProperties()
 
-GET         /manage-clients/json                                                              @controllers.agent.RepresentationController.listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], client: Option[String])
+GET         /manage-clients/json                                                              @controllers.agent.RepresentationController.listRepresentationRequest(pagination: PaginationParameters, searchandsort: SearchAndSort)
 
-GET         /manage-clients/pending-requests                                                  @controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
-POST        /representation-request/confirm                                                   @controllers.agent.RepresentationController.confirm(page: Int, pageSize: Int)
-POST        /representation-request/cancel                                                    @controllers.agent.RepresentationController.cancel(page: Int, pageSize: Int)
-POST        /representation-request/continue                                                  @controllers.agent.RepresentationController.continue(page: Int, pageSize: Int)
+GET         /manage-clients/pending-requests                                                  @controllers.agent.RepresentationController.pendingRepresentationRequest(pagination: PaginationParameters ?= PaginationParameters(1, 15))
+POST        /representation-request/confirm                                                   @controllers.agent.RepresentationController.confirm(pagination: PaginationParameters)
+POST        /representation-request/cancel                                                    @controllers.agent.RepresentationController.cancel(pagination: PaginationParameters)
+POST        /representation-request/continue                                                  @controllers.agent.RepresentationController.continue(pagination: PaginationParameters)
 POST        /representation-request/bulkActions                                               @controllers.agent.RepresentationController.bulkActions
 
 GET         /add-user-to-gg                                                                   @controllers.Application.addUserToGG

@@ -16,9 +16,11 @@
 
 package connectors
 
+import binders.pagination.PaginationParameters
+import binders.searchandsort.SearchAndSort
 import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{VoaPropertyLinkingSpec, PaginationSearchSort}
+import controllers.VoaPropertyLinkingSpec
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
 import org.scalacheck.Arbitrary._
@@ -43,14 +45,14 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   "get" must "return a property link" in new Setup {
     val propertyLink = arbitrary[PropertyLink].sample.get.copy(organisationId = 1)
 
-    mockHttpGETOption[PropertyLink]("tst-url", propertyLink)
+    mockHttpGET[PropertyLink]("tst-url", propertyLink)
     whenReady(connector.get(1, 1))(_ mustBe Some(propertyLink))
   }
 
   "get" must "return None if no property link is found for the given organisation ID" in new Setup {
     val propertyLink = arbitrary[PropertyLink].sample.get.copy(organisationId = 1)
 
-    mockHttpGETOption[PropertyLink]("tst-url", propertyLink)
+    mockHttpGET[PropertyLink]("tst-url", propertyLink)
     whenReady(connector.get(2, 1))(_ mustBe None)
   }
 
@@ -73,7 +75,8 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "linkedPropertiesSearchAndSort" must "return the property links for an owner" in new Setup {
-    val validPagination = PaginationSearchSort(pageNumber = 1, pageSize = 1)
+    val validPagination = PaginationParameters(page = 1, pageSize = 10)
+    val searchAndSort = SearchAndSort()
     val ownerAuthResult = OwnerAuthResult(start = 1,
       size = 1,
       filterTotal = 1,
@@ -81,8 +84,8 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
       authorisations = Seq(arbitrary[OwnerAuthorisation].sample.get.copy(agents = None))
     )
 
-    mockHttpGET[OwnerAuthResult]("tst-url", ownerAuthResult)
-    whenReady(connector.linkedPropertiesSearchAndSort(1, validPagination))(_ mustBe ownerAuthResult)
+    mockHttpGETWithQueryParams[OwnerAuthResult]("tst-url", ownerAuthResult)
+    whenReady(connector.linkedPropertiesSearchAndSort(1, validPagination, searchAndSort))(_ mustBe ownerAuthResult)
   }
 
   "appointableProperties" must "return the properties appointable to an agent" in new Setup {
@@ -101,29 +104,14 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   "clientProperty" must "return a client property if it exists" in new Setup {
     val clientProperty = arbitrary[ClientProperty].sample.get
 
-    mockHttpGETOption[ClientProperty]("tst-url", clientProperty)
-    whenReady(connector.clientProperty(1, 1, 1))(_ mustBe Some(clientProperty))
-  }
-
-  "clientProperty" must "return None if the client property is not found" in new Setup {
-    val clientProperty = arbitrary[ClientProperty].sample.get
-
-    mockHttpFailedGET[ClientProperty]("tst-url", new NotFoundException("Client property not found"))
-    whenReady(connector.clientProperty(1, 1, 1))(_ mustBe None)
+    mockHttpGET[ClientProperty]("tst-url", clientProperty)
+    whenReady(connector.clientProperty(1, 1, 1))(_ mustBe clientProperty)
   }
 
   "getLink" must "return a property link if it exists" in new Setup {
     val propertyLink = arbitrary[PropertyLink].sample.get
 
-    mockHttpGETOption[PropertyLink]("tst-url", propertyLink)
-    whenReady(connector.getLink(1))(_ mustBe Some(propertyLink))
+    mockHttpGET[PropertyLink]("tst-url", propertyLink)
+    whenReady(connector.getLink(1))(_ mustBe propertyLink)
   }
-
-  "getLink" must "return None if the property link is not found" in new Setup {
-    val propertyLink = arbitrary[PropertyLink].sample.get
-
-    mockHttpFailedGET[PropertyLink]("tst-url", new NotFoundException("Property link not found"))
-    whenReady(connector.getLink(1))(_ mustBe None)
-  }
-
 }

@@ -45,8 +45,8 @@ class AddressesSpec extends VoaPropertyLinkingSpec {
   "findById" must "return an address based on the ID" in new Setup {
     val validAddress = arbitrary[Address].sample.get
 
-    mockHttpGETOption[Address]("tst-url", validAddress)
-    whenReady(connector.findById(1))(_ mustBe Some(validAddress))
+    mockHttpGET[Address]("tst-url", validAddress)
+    whenReady(connector.findById(1))(_ mustBe validAddress)
   }
 
   "create" must "create an address and return the ID" in new Setup {

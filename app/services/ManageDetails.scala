@@ -32,26 +32,31 @@ trait ManageDetails {
                     (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult]
 }
 
-class ManageVoaDetails @Inject()(taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, vPLAuthConnector: VPLAuthConnector, config: ApplicationConfig) extends ManageDetails with RequestContext {
+class ManageVoaDetails @Inject()(
+                                  taxEnrolments: TaxEnrolmentConnector,
+                                  addresses: Addresses,
+                                  vPLAuthConnector: VPLAuthConnector,
+                                  config: ApplicationConfig
+                                ) extends ManageDetails with RequestContext {
+
   def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(predicate: AffinityGroup => Boolean)
                     (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult] = {
-    def withAddress(addressId: Long, addressType: String): Future[Option[Address]] =
+    def withAddress(addressId: Long, addressType: String): Future[Address] =
       addresses.findById(addressId)
 
     for {
-      currentOpt <- withAddress(currentAddressId, "current")
-      updatedOpt <- withAddress(addressId, "updated")
+      current       <- withAddress(currentAddressId, "current")
+      updated       <- withAddress(addressId, "updated")
       affinityGroup <- vPLAuthConnector.getUserDetails.map(_.userInfo.affinityGroup)
-      is = predicate(affinityGroup)
-      result <- if (config.stubEnrolment) Future.successful(Success) else update(currentOpt, updatedOpt, personId, is)
+      is            = predicate(affinityGroup)
+      result        <- if (config.stubEnrolment) Future.successful(Success) else update(current, updated, personId, is)
     } yield result
   }
 
-  private def update(currentOpt: Option[Address], updatedOpt: Option[Address], personId: Long, predicate: Boolean)(implicit hc: HeaderCarrier): Future[EnrolmentResult] =
-    (currentOpt, updatedOpt, predicate) match {
-      case (Some(current), Some(updated), true) =>
-        taxEnrolments.updatePostcode(personId = personId, postcode = updated.postcode, previousPostcode = current.postcode)
-      case _ =>
-        Future.successful(Failure)
+  private def update(current: Address, updated: Address, personId: Long, predicate: Boolean)(implicit hc: HeaderCarrier): Future[EnrolmentResult] =
+    if(predicate) {
+      taxEnrolments.updatePostcode(personId = personId, postcode = updated.postcode, previousPostcode = current.postcode)
+    } else {
+      Future.successful(Failure)
     }
 }

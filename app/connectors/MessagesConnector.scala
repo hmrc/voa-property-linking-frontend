@@ -30,10 +30,8 @@ class MessagesConnector @Inject()(http: WSHttp, conf: ServicesConfig)(implicit e
 
   lazy val baseUrl: String = conf.baseUrl("property-linking") + "/property-linking"
 
-  def getMessage(orgId: Long, messageId: String)(implicit hc: HeaderCarrier): Future[Option[Message]] = {
-    http.GET[Message](s"$baseUrl/message/$orgId/$messageId") map {
-      Some.apply
-    }
+  def getMessage(orgId: Long, messageId: String)(implicit hc: HeaderCarrier): Future[Message] = {
+    http.GET[Message](s"$baseUrl/message/$orgId/$messageId")
   }
 
   def getMessages(orgId: Long, pagination: MessagePagination)

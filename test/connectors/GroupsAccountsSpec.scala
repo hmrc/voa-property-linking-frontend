@@ -39,15 +39,15 @@ class GroupsAccountsSpec extends VoaPropertyLinkingSpec {
   "get" must "return a valid group account using the organisation ID" in new Setup {
     val validGroupAccount = arbitrary[GroupAccount].sample.get
 
-    mockHttpGETOption[GroupAccount]("tst-url", validGroupAccount)
-    whenReady(connector.get(1))(_ mustBe Some(validGroupAccount))
+    mockHttpGET[GroupAccount]("tst-url", validGroupAccount)
+    whenReady(connector.get(1))(_ mustBe validGroupAccount)
   }
 
   "withGroupId" must "return a valid group account using the group ID" in new Setup {
     val validGroupAccount = arbitrary[GroupAccount].sample.get
 
-    mockHttpGETOption[GroupAccount]("tst-url", validGroupAccount)
-    whenReady(connector.withGroupId("GROUP_ID"))(_ mustBe Some(validGroupAccount))
+    mockHttpGET[GroupAccount]("tst-url", validGroupAccount)
+    whenReady(connector.withGroupId("GROUP_ID"))(_ mustBe validGroupAccount)
   }
 
   "withAgentCode" must "return a valid group account using the agent code" in new Setup {

@@ -18,12 +18,12 @@ package controllers.agentAppointment
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import javax.inject.Inject
-
 import auditing.AuditingService
 import config.ApplicationConfig
 import connectors.{AgentsConnector, PropertyRepresentationConnector}
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
+import exceptionhandler.ErrorHandler
 import models.{AppointAgent, Party}
 import models.searchApi.{AgentId, AgentPropertiesParameters}
 import play.api.data.Forms._
@@ -32,46 +32,54 @@ import play.api.libs.json.Json
 import play.api.data.{Form, FormError}
 import play.api.data.Forms.{number, _}
 import play.api.data.{Form, FormError}
+import play.api.mvc.{Action, AnyContent}
 
-class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
-                                      propertyLinks: PropertyLinkConnector,
-                                      representations: PropertyRepresentationConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+import scala.concurrent.Future
 
-  def revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
-    propertyLinks.get(request.organisationId, authorisationId) map {
-      case Some(link) =>
-        link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-          case Some(agent) =>
+class RevokeAgentController @Inject()(
+                                       authenticated: AuthenticatedAction,
+                                       propertyLinks: PropertyLinkConnector,
+                                       representations: PropertyRepresentationConnector,
+                                       auditingService: AuditingService,
+                                       errorHandler: ErrorHandler
+                                     )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+
+  def revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long): Action[AnyContent] = authenticated { implicit request =>
+    propertyLinks.get(request.organisationId, authorisationId) map { link =>
+        link.flatMap (_.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode))) match {
+          case Some(agent)  =>
             Ok(views.html.propertyRepresentation.revokeAgent(agentCode, authorisationId, authorisedPartyId, agent.organisationName))
-          case None => notFound
+          case None         => errorHandler.notFound
         }
-      case None => notFound
     }
   }
 
-  def revokeAgentConfirmed(authorisationId: Long, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
+  def revokeAgentConfirmed(
+                            authorisationId: Long,
+                            authorisedPartyId: Long,
+                            agentCode: Long
+                          ): Action[AnyContent] = authenticated { implicit request =>
     propertyLinks.get(request.organisationId, authorisationId) flatMap {
       case Some(link) =>
-        val nextLink = if (link.agents.size > 1) {
-          controllers.routes.Dashboard.viewManagedProperties(agentCode).url
-        } else {
-          controllers.routes.Dashboard.manageAgents().url
-        }
-
         link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-          case Some(agent) => representations.revoke(authorisedPartyId).map { _ => {
-            AuditingService.sendEvent("agent representation revoke", Json.obj(
+          case Some(agent)  => representations.revoke(authorisedPartyId).map { _ => {
+            auditingService.sendEvent("agent representation revoke", Json.obj(
               "organisationId" -> request.organisationId,
               "individualId" -> request.individualAccount.individualId,
               "propertyLinkId" -> authorisationId,
               "agentOrganisationId" -> request.organisationAccount.id).toString
             )
+            val nextLink = if (link.agents.size > 1) {
+              controllers.routes.Dashboard.viewManagedProperties(agentCode).url
+            } else {
+              controllers.routes.Dashboard.manageAgents().url
+            }
             Ok(views.html.propertyRepresentation.revokedAgent(nextLink, agent.organisationName, link.address))
           }
           }
-          case None => notFound
+          case None         => Future.successful(errorHandler.notFound)
         }
-      case None => notFound
+      case None       => Future.successful(errorHandler.notFound)
     }
   }
 

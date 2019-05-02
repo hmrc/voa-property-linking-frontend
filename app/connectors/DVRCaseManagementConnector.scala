@@ -48,7 +48,7 @@ class DVRCaseManagementConnector @Inject()(
     http.GET[Boolean](url + s"/dvr-exists?organisationId=$organisationId&assessmentRef=$assessmentRef")
   }
 
-  def getDvrDocuments(uarn: Long, valuationId: Long, propertyLinkId: String)(implicit hc: HeaderCarrier) = {
+  def getDvrDocuments(uarn: Long, valuationId: Long, propertyLinkId: String)(implicit hc: HeaderCarrier): Future[Option[DvrDocumentFiles]] = {
     http.GET[DvrDocumentFiles](s"$url/properties/$uarn/valuation/$valuationId/files", Seq("propertyLinkId" -> propertyLinkId)).map(Some.apply).recover {
       case _: NotFoundException =>
         None

@@ -16,6 +16,7 @@
 
 package controllers.agentAppointment
 
+import auditing.AuditingService
 import connectors.{AgentsConnector, Authenticated, GroupAccounts, _}
 import controllers.VoaPropertyLinkingSpec
 import models.searchApi._
@@ -176,7 +177,8 @@ class SelectPropertiesSpec extends VoaPropertyLinkingSpec {
     StubGroupAccountConnector,
     StubPropertyLinkConnector,
     mock[AgentsConnector],
-    StubAuthentication
+    StubAuthentication,
+    mock[AuditingService]
   )
 
 }
