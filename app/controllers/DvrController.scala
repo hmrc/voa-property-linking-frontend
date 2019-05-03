@@ -16,11 +16,15 @@
 
 package controllers
 
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
 import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import javax.inject.Inject
+
 import models.dvr.DetailedValuationRequest
 import play.api.http.HttpEntity.Streamed
 import play.api.i18n.MessagesApi
@@ -56,10 +60,16 @@ class DvrController @Inject()(
                     valuationId,
                     baRef,
                     link.address)))
-              case None             =>
+              case None             => {
+                val assessment = link.assessments.find(a => a.assessmentRef == valuationId).
+                  getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
+                val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
+
                 Redirect(
                   routes.DvrController
-                    .alreadySubmittedDetailedValuationRequest(authId, valuationId, baRef))
+                    .alreadySubmittedDetailedValuationRequest(authId, valuationId, baRef, link.address,
+                      assessment.effectiveDate.format(formatter), assessment.rateableValue))
+              }
             }
         case None       =>
           Future.successful(BadRequest(views.html.errors.propertyMissing()))
@@ -103,7 +113,7 @@ class DvrController @Inject()(
   def alreadySubmittedDetailedValuationRequest(
                                                 authId: Long,
                                                 valuationId: Long,
-      baRef: String): Action[AnyContent] = authenticated { implicit request =>
+      baRef: String, address: String, effectiveDate: String, rateableValue: Option[Long]): Action[AnyContent] = authenticated { implicit request =>
     dvrCaseManagement
       .dvrExists(request.organisationAccount.id, valuationId)
       .map { exists =>
@@ -111,7 +121,7 @@ class DvrController @Inject()(
           Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto(authId))
         } else {
           Ok(views.html.dvr.auto.requestDetailedValuationAuto(
-            RequestDetailedValuationWithoutForm(authId, valuationId, baRef)))
+            RequestDetailedValuationWithoutForm(authId, valuationId, baRef, address, effectiveDate, rateableValue)))
         }
       }
   }
@@ -138,7 +148,10 @@ class DvrController @Inject()(
 
 case class RequestDetailedValuationWithoutForm(authId: Long,
                                                assessmentRef: Long,
-                                               baRef: String)
+                                               baRef: String,
+                                               address: String,
+                                               effectiveDate: String,
+                                               rateableValue: Option[Long])
 
 case class AvailableRequestDetailedValuation(
                                             check: String,
