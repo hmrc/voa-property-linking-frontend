@@ -25,7 +25,14 @@
         <div class="grid-row">
             <div class="column-two-thirds">
 
-                <h1 class="heading-xlarge">@Messages("auto.requestDetailedValuation.title")</h1>
+                <br/>
+                <h2 class="heading-secondary"> @Messages("auto.requestDetailedValuation.smallTitle")</h2>
+                <h2 class="heading-large">@model.address</h2>
+
+                <p>@Html(Messages("auto.requestDetailedValuation.effectiveDate", model.effectiveDate))</p>
+                @if(model.rateableValue.nonEmpty){
+                    <p>@Html(Messages("auto.requestDetailedValuation.rateableValue", model.rateableValue.get))</p>
+                }
 
                 <p>@Messages("auto.requestDetailedValuation.p.1")</p>
 

@@ -56,7 +56,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     val organisation = arbitrary[GroupAccount].sample.get
     val person = arbitrary[DetailedIndividualAccount].sample.get
-    val link: PropertyLink = arbitrary[PropertyLink].sample.get.copy().copy(pending = false)
+    val assessment = arbitrary[Assessment].sample.get
+    val link: PropertyLink = arbitrary[PropertyLink].sample.get.copy().copy(pending = false, assessments = Seq(assessment))
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
     StubPropertyLinkConnector.stubLink(link)
@@ -79,7 +80,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "detailed valuation check" must "return 303 SEE_OTHER when dvr case does exist" in new Setup {
     when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(None))
 
-    val result = controller.detailedValuationRequestCheck(link.authorisationId, 1L, "billingAuthorityReference")(request)
+    val result = controller.detailedValuationRequestCheck(link.authorisationId, assessment.assessmentRef, "billingAuthorityReference")(request)
 
     status(result) mustBe SEE_OTHER
   }
@@ -101,7 +102,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
 
     when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(None))
-    val result = controller.alreadySubmittedDetailedValuationRequest(1L, 1L, "billingAuthorityReference")(request)
+    val result = controller.alreadySubmittedDetailedValuationRequest(1L, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L))(request)
 
     status(result) mustBe OK
   }
@@ -109,7 +110,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "already submitted detailed valuation request" must "return 200 OK when dvr already exists" in new Setup {
     when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(true))
 
-    val result = controller.alreadySubmittedDetailedValuationRequest(1L, 1L, "billingAuthorityReference")(request)
+    val result = controller.alreadySubmittedDetailedValuationRequest(1L, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L))(request)
 
     status(result) mustBe OK
   }
