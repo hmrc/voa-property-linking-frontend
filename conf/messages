@@ -721,12 +721,12 @@ requestDetailedValuation.challenge.p=Once you’ve completed a check, the VOA wi
 requestDetailedValuation.challenge.start=Challenge this valuation
 
 auto.requestDetailedValuation.heading.challenge=Already submitted a check?
-auto.requestDetailedValuation.challenge.p1=The VOA will contact you with the outcome. if you disagree with the outcome of the check, or the rateable value of your property, you can start a challenge.
-auto.requestDetailedValuation.challenge.p2=You can't start a challenge until you've received the outcome of your check.
+auto.requestDetailedValuation.challenge.p1=The VOA will contact you with the outcome. If you disagree with the outcome of the check, or the rateable value of your property, you can start a challenge.
+auto.requestDetailedValuation.challenge.p2=You can''t start a challenge until you''ve received the outcome of your check.
 auto.requestDetailedValuation.challenge.start=Challenge this valuation
 
-auto.requestDetailedValuation.challenge.p1=The VOA will contact you with the outcome. if you disagree with the outcome of the check, or the rateable value of your property, you can start a challenge.
-auto.requestDetailedValuation.challenge.p2=You cant start a challenge until you've received the outcome of your check.
+auto.requestDetailedValuation.challenge.p1=The VOA will contact you with the outcome. If you disagree with the outcome of the check, or the rateable value of your property, you can start a challenge.
+auto.requestDetailedValuation.challenge.p2=You can''t start a challenge until you''ve received the outcome of your check.
 auto.requestDetailedValuation.challenge.start=Challenge this valuation
 
 #VIEW REQUEST DETAILED VALUATION
