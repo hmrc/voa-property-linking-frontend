@@ -75,9 +75,16 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     assessmentTable.map(_.first().text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.effectiveDate))
     assessmentTable.map(_.get(1).text) must contain theSameElementsAs link.assessments.map(a => "£" + a.rateableValue.getOrElse("N/A"))
     assessmentTable.map(_.get(2).text) must contain theSameElementsAs link.assessments.map(formatCapacity)
-    assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.capacity.fromDate))
-    assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map(a => a.capacity.toDate.map(Formatters.formatDate).getOrElse("Present"))
-
+    assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => a.currentFromDate.map(Formatters.formatDate).getOrElse(""))
+    assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map {
+      a =>
+        (a.currentFromDate, a.currentToDate) match {
+          case (None, None) => ""
+          case (Some(_), None) => "Present"
+          case (Some(_), Some(to)) => Formatters.formatDate(to)
+          case (None, Some(_)) => ""
+        }
+    }
   }
 
   "viewSummary" must "redirect to view summary details" in {
@@ -108,8 +115,16 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     assessmentTable.map(_.first().text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.effectiveDate))
     assessmentTable.map(_.get(1).text) must contain theSameElementsAs link.assessments.map(a => "£" + a.rateableValue.getOrElse("N/A"))
     assessmentTable.map(_.get(2).text) must contain theSameElementsAs link.assessments.map(formatCapacity)
-    assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => Formatters.formatDate(a.capacity.fromDate))
-    assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map(a => a.capacity.toDate.map(Formatters.formatDate).getOrElse("Present"))
+    assessmentTable.map(_.get(3).text) must contain theSameElementsAs link.assessments.map(a => a.currentFromDate.map(Formatters.formatDate).getOrElse(""))
+    assessmentTable.map(_.get(4).text) must contain theSameElementsAs link.assessments.map {
+      a =>
+        (a.currentFromDate, a.currentToDate) match {
+          case (None, None) => ""
+          case (Some(_), None) => "Present"
+          case (Some(_), Some(to)) => Formatters.formatDate(to)
+          case (None, Some(_)) => ""
+        }
+    }
   }
 
   private def formatCapacity(assessment: Assessment) = assessment.capacity.capacity match {
