@@ -90,10 +90,17 @@
                                     @Messages(s"capacity.${assessment.capacity.capacity}")
                                     </td>
                                     <td>
-                                    @(Formatters.formatDate(assessment.capacity.fromDate))
+                                    @assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
                                     </td>
                                     <td>
-                                    @assessment.capacity.toDate.map(Formatters.formatDate).getOrElse(Messages("assessments.enddate.present"))
+                                    @{
+                                        (assessment.currentFromDate, assessment.currentToDate) match {
+                                            case (None, None)        => ""
+                                            case (Some(_), None)     => Messages("assessments.enddate.present")
+                                            case (Some(_), Some(to)) => Formatters.formatDate(to)
+                                            case (None, Some(to))    => ""
+                                        }
+                                    }
                                     </td>
                                 </tr>
                             }
