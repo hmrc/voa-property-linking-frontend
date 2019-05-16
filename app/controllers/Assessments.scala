@@ -16,13 +16,14 @@
 
 package controllers
 
+import java.time.LocalDate
+
 import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import form.EnumMapping
 import javax.inject.Inject
-
 import models._
 import models.dvr.{DetailedValuationRequest, DetailedValuationRequestTypes, EmailRequest, PostRequest}
 import play.api.data.Forms.text
@@ -55,7 +56,16 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
             else if(link.pending && link.assessments.size == 1){
               Redirect(routes.Assessments.viewSummary(link.uarn, link.pending))
             }
-            else Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, plSubmissionId = link.submissionId, isAgentOwnProperty)))
+            else Ok(
+              views.html.dashboard.assessments(
+                model = AssessmentsVM(
+                  form = viewAssessmentForm,
+                  assessments = link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)),
+                  backLink = backLink,
+                  linkPending = link.pending,
+                  plSubmissionId = link.submissionId,
+                  isAgentOwnProperty = isAgentOwnProperty)
+              ))
           }
         }
         case None => notFound
