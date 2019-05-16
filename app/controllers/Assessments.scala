@@ -60,7 +60,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
               views.html.dashboard.assessments(
                 model = AssessmentsVM(
                   form = viewAssessmentForm,
-                  assessments = link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)),
+                  assessments = link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)).reverse,
                   backLink = backLink,
                   linkPending = link.pending,
                   plSubmissionId = link.submissionId,
