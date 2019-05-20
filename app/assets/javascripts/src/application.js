@@ -20,7 +20,6 @@
         new VOA.DataTablePendingRequests();
         new VOA.ShowDialog();
         new VOA.viewMessage();
-        new VOA.messageCount();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));
