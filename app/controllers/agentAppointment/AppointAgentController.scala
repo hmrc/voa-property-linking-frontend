@@ -252,8 +252,9 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
               _ <- Future.traverse(action.propertyLinkIds)(pLink =>
                 createAndSubitAgentRevokeRequest(
                   pLink,
-                  request.organisationId)).recover {
-                case e => Logger.info(s"Failed to get a property link during multiple property agent appointment: ${e.getMessage}")
+                  request.organisationId,
+                  action.agentCode)).recover {
+                case e => Logger.info(s"Failed to get a property link during revoke multiple property agent: ${e.getMessage}")
               }
             } yield
               Ok(views.html.propertyRepresentation.revokeAgentSummary(action, group.companyName))
@@ -307,26 +308,19 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
 
 
   private def createAndSubitAgentRevokeRequest(pLink: String,
-                                               organisationId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
-    propertyLinks.get(organisationId, pLink.toLong) map {
-      case Some(prop) => {
-        revokeAgents(prop)
-      }
-      case None => {
-        Future.successful(Unit)
+                                               organisationId: Long,
+                                               agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
+
+
+    propertyLinks.get(organisationId, pLink.toLong) flatMap {
+      case Some(link) => link.agents.find(a => a.agentCode == agentCode) match {
+        case Some(agent) => {
+          representations.revoke(agent.authorisedPartyId)
+        }
       }
     }
 
   }
-
-  private def revokeAgents(link: PropertyLink)(implicit hc: HeaderCarrier): Future[Unit] = {
-    for {
-      revokedAgents <- Future.traverse(link.agents)(agent => representations.revoke(agent.authorisedPartyId))
-    } yield {
-      revokedAgents
-    }
-  }
-
 
   private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
                                         newAgentOrgId: Long, individualId: Long, organisationId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
