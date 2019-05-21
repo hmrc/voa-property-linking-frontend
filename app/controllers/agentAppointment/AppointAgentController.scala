@@ -310,16 +310,12 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
   private def createAndSubitAgentRevokeRequest(pLink: String,
                                                organisationId: Long,
                                                agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
-
-
+    
     propertyLinks.get(organisationId, pLink.toLong) flatMap {
       case Some(link) => link.agents.find(a => a.agentCode == agentCode) match {
-        case Some(agent) => {
-          representations.revoke(agent.authorisedPartyId)
-        }
+        case Some(agent) => representations.revoke(agent.authorisedPartyId)
       }
     }
-
   }
 
   private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
