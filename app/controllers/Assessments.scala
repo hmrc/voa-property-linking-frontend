@@ -42,7 +42,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
                            (implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def assessments(authorisationId: Long) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
-    val backLink = request.headers.get("Referer")
+    val refererOpt = request.headers.get("Referer")
 
       propertyLinks.getLink(authorisationId) flatMap {
         case Some(PropertyLink(_, _, _, _, _, _, _, _, Seq(), _)) => notFound
@@ -56,21 +56,28 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
             else if(link.pending && link.assessments.size == 1){
               Redirect(routes.Assessments.viewSummary(link.uarn, link.pending))
             }
-            else Ok(
-              views.html.dashboard.assessments(
-                model = AssessmentsVM(
-                  form = viewAssessmentForm,
-                  assessments = link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)).reverse,
-                  backLink = backLink,
-                  linkPending = link.pending,
-                  plSubmissionId = link.submissionId,
-                  isAgentOwnProperty = isAgentOwnProperty)
-              ))
+            else {
+              Ok(
+                views.html.dashboard.assessments(
+                  model = AssessmentsVM(
+                    form = viewAssessmentForm,
+                    assessments = link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)).reverse,
+                    backLink = calculateBackLink(refererOpt, isAgentOwnProperty),
+                    linkPending = link.pending,
+                    plSubmissionId = link.submissionId,
+                    isAgentOwnProperty = isAgentOwnProperty)
+                ))
+            }
           }
         }
         case None => notFound
       }
 
+  }
+
+  private def calculateBackLink(refererOpt: Option[String], agentOwnsProperty: Boolean): String = refererOpt match {
+    case Some(referer) => referer
+    case None => config.newDashboardUrl(if(!agentOwnsProperty) "client-properties" else "your-properties")
   }
 
   def viewSummary(uarn: Long, isPending: Boolean = false) = Action { implicit request =>
@@ -94,7 +101,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
   }, y => s"${y._1}-${y._2}-${y._3}")))
 
   def submitViewAssessment(authorisationId: Long) = authenticated { implicit request =>
-    val backLink = request.headers.get("Referer")
+
     viewAssessmentForm.bindFromRequest().fold(
       errors => {
           propertyLinks.getLink(authorisationId) flatMap {
@@ -103,7 +110,14 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
               for {
                 isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
               } yield {
-                Ok(views.html.dashboard.assessments(AssessmentsVM(viewAssessmentForm, link.assessments, backLink, link.pending, plSubmissionId = link.submissionId, isAgentOwnProperty)))
+                Ok(views.html.dashboard.assessments(
+                  AssessmentsVM(
+                    viewAssessmentForm,
+                    link.assessments,
+                    calculateBackLink(request.headers.get("Referer"), isAgentOwnProperty),
+                    link.pending,
+                    plSubmissionId = link.submissionId,
+                    isAgentOwnProperty)))
               }
             }
             case None => notFound
@@ -178,6 +192,6 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
   lazy val dvRequestForm = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))
 }
 
-case class AssessmentsVM(form: Form[_], assessments: Seq[Assessment], backLink: Option[String], linkPending: Boolean, plSubmissionId: String, isAgentOwnProperty: Boolean)
+case class AssessmentsVM(form: Form[_], assessments: Seq[Assessment], backLink: String, linkPending: Boolean, plSubmissionId: String, isAgentOwnProperty: Boolean)
 
 case class RequestDetailedValuationVM(form: Form[_], authId: Long, assessmentRef: Long, baRef: String)
