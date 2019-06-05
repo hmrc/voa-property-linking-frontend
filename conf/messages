@@ -435,7 +435,7 @@ propertyRepresentation.appointAgent.button=Continue
 
 #Remove agent summary
 propertyRepresentation.agentRemoveSummary.heading=Agent removed
-propertyRepresentation.agentRemoveSummary.removed=You have removed Agent''s ''{0}'' ability to submit checks and challenges to {1} properties
+propertyRepresentation.agentRemoveSummary.removed=You have removed Agent ''{0}’s'' ability to submit checks and challenges from {1} properties
 
 label.canCheck=Do you want this agent to submit checks?
 canCheck.START_AND_CONTINUE=Yes

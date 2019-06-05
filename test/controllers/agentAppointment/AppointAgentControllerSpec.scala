@@ -283,7 +283,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText(s"You have removed Agent's '1' ability to submit checks and challenges to 1 properties")
+    page.mustContainText(s"You have removed Agent '1’s' ability to submit checks and challenges from 1 properties")
   }
 
 
