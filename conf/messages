@@ -382,7 +382,7 @@ propertyRepresentation.rejected.multiple.youCan.2=The businesses will be notifie
 
 #remove property
 propertyRepresentation.removeAgent.title=Remove agent permissions
-propertyRepresentation.removeAgent.message.p1=You can remove an agent's ability to carry out checks and challenges on your behalf.
+propertyRepresentation.removeAgent.message.p1=You can remove an agent''s ability to carry out checks and challenges on your behalf.
 propertyRepresentation.removeAgent.message.p2=Select an agent from the list below to remove them from one or more properties.
 propertyRepresentation.removeAgentProperties.title=Remove an agent
 propertyRepresentation.removeAgentProperties.message.p1=You can remove {0}''s (Agent ID: {1}) ability to carry out checks and challenges for any of these properties:
