@@ -408,7 +408,7 @@ propertyRepresentation.table.title.remove=Select
 
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
-propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent ''{0}'' ({1}) with the ability to submit {2} to the following properties:
+propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent ''{0}'' (Agent ID: {1}) to submit {2} for any of these properties:
 propertyRepresentation.appointAgentProperties.selectDeselect=Select all / deselect all
 propertyRepresentation.appointAgents.table.select=Select
 propertyRepresentation.appointAgents.table.actions=Actions
