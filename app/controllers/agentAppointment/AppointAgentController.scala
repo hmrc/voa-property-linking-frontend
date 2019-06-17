@@ -28,7 +28,9 @@ import form.AgentPermissionMapping
 import form.FormValidation.nonEmptyList
 import form.Mappings._
 import javax.inject.Inject
+
 import models._
+import models.searchApi.AgentPropertiesFilter.{Both}
 import models.searchApi._
 import play.api.Logger
 import play.api.data.Forms.{number, _}
@@ -109,10 +111,12 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
               checkPermission = agent.canCheck,
               challengePermission = agent.canChallenge)
             for {
-              response <- propertyLinks.appointableProperties(request.organisationId, pagination)
+              response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, toPaginationParameters(pagination))
             } yield {
-              Ok(views.html.propertyRepresentation.appointAgentProperties(None,
-                AppointAgentPropertiesVM(group, response), pagination))
+              Ok(views.html.propertyRepresentation.appointAgentProperties(
+                None,
+                AppointAgentPropertiesVM(group, response, Some(pagination.agentCode), Some(pagination.checkPermission), Some(pagination.challengePermission), pagination.agentAppointed),
+                pagination))
             }
           }
           case None => {
@@ -131,15 +135,28 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       accounts.withAgentCode(pagination.agentCode.toString) flatMap {
         case Some(group) => {
           for {
-            response <- propertyLinks.appointableProperties(request.organisationId, pagination)
+            response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, toPaginationParameters(pagination))
           } yield {
-            Ok(views.html.propertyRepresentation.appointAgentProperties(None,
-              AppointAgentPropertiesVM(group, response), pagination))
+            Ok(views.html.propertyRepresentation.appointAgentProperties(
+              None,
+              AppointAgentPropertiesVM(group, response, Some(pagination.agentCode), Some(pagination.checkPermission), Some(pagination.challengePermission), pagination.agentAppointed),
+              pagination))
           }
         }
         case None => NotFound(s"Unknown Agent: ${pagination.agentCode}")
       }
     }
+  }
+
+  private def toPaginationParameters(pagination: AgentPropertiesParameters): PaginationSearchSort = {
+    PaginationSearchSort(
+      pageNumber = pagination.pageNumber,
+      pageSize = pagination.pageSize,
+      address = pagination.address,
+      sortfield = Some(pagination.sortField.name),
+      sortorder = Some(pagination.sortOrder.name),
+      agentAppointed = pagination.agentAppointed
+    )
   }
 
   def selectAgentPropertiesSearchSort(pagination: AgentPropertiesParameters) = authenticated { implicit request =>
@@ -436,7 +453,12 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
 
 }
 
-case class AppointAgentPropertiesVM(agentGroup: GroupAccount, response: OwnerAuthResult)
+case class AppointAgentPropertiesVM(agentGroup: GroupAccount,
+                                    response: OwnerAuthResult,
+                                    agentCode: Option[Long] = None,
+                                    checkPermission: Option[AgentPermission] = None,
+                                    challengePermission: Option[AgentPermission] = None,
+                                    agentAppointed: String = Both.name)
 
 case class AppointAgentVM(form: Form[_], linkId: Option[Long] = None, agents: Seq[OwnerAgent] = Seq())
 

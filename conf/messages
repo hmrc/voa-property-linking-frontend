@@ -419,6 +419,10 @@ propertyRepresentation.pageSize.showing=Showing
 label.linkIds=Select one or more properties
 propertyRepresentation.pageSize.perPage=messages per page
 propertyRepresentation.paginationInfo=Page {0} of {1}
+propertyRepresentation.appointAgents.showPropertiesNoAgent.link=<a href="{0}">Only show properties with no agent</a>
+propertyRepresentation.appointAgents.showAllProperties.link=<a href="{0}">Show all properties</a>
+
+
 
 ##Appoint agent summary
 propertyRepresentation.agentSummary.heading=Agent appointed
