@@ -21,12 +21,24 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import models._
 
+@import models.searchApi.AgentPropertiesFilter
 @(f: Option[Form[_]], model: AppointAgentPropertiesVM,
         pagination: AgentPropertiesParameters
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{
     Messages("propertyRepresentation.appointAgentProperties.title")
+}
+
+@agentPropertiesFilter(filter: String) = @{
+    if(filter == "NO"){
+        Html(Messages("propertyRepresentation.appointAgents.showAllProperties.link",
+            agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(agentAppointed = AgentPropertiesFilter.Both.name)).url))
+    }
+    else{
+        Html(Messages("propertyRepresentation.appointAgents.showPropertiesNoAgent.link",
+            agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(agentAppointed = AgentPropertiesFilter.No.name)).url))
+    }
 }
 
 @main_template(
@@ -53,6 +65,8 @@
 
             <div class="hide-if-no-js">
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+                |
+                @agentPropertiesFilter(model.agentAppointed)
             </div>
 
             <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination)">
@@ -63,6 +77,7 @@
                 <input type="hidden" name="pageSize" value="@pagination.pageSize">
                 <input type="hidden" name="sortField" value="@pagination.sortField">
                 <input type="hidden" name="sortOrder" value="@pagination.sortOrder">
+                <input type="hidden" name="agentAppointed" value="@pagination.agentAppointed">
                 <table  id="agentPropertiesTable" class="margin-bottom-0 dataTable table-font-xsmall no-footer">
                 <colgroup>
                     <col style="width: 8%">

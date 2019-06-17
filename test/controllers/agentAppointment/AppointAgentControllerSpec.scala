@@ -68,7 +68,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       authorisations = Seq(testOwnerAuth))
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.appointableProperties(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
 
     val res = testController.selectProperties()(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",

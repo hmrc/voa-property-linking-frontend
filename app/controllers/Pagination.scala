@@ -17,6 +17,7 @@
 package controllers
 
 import config.Global
+import models.searchApi.AgentPropertiesFilter.Both
 import play.api.mvc.{AnyContent, Request, Result}
 import utils.Formatters._
 
@@ -76,7 +77,8 @@ case class PaginationSearchSort(pageNumber: Int,
                                 baref: Option[String] = None,
                                 agent: Option[String] = None,
                                 client: Option[String] = None,
-                                totalResults: Long = 0) {
+                                totalResults: Long = 0,
+                                agentAppointed: String = Both.name) {
 
   def reverseSortOrder: Option[String] = {
 
@@ -106,7 +108,8 @@ case class PaginationSearchSort(pageNumber: Int,
     buildQueryParams("address", address) +
     buildQueryParams("baref", baref) +
     buildQueryParams("agent", agent) +
-    buildQueryParams("client", client)
+    buildQueryParams("client", client)+
+    buildQueryParams("agentAppointed", Some(agentAppointed))
 
 }
 
