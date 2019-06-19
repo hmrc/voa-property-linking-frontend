@@ -31,6 +31,7 @@ import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{AnyContent, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
+import utils.EmailAddressValidation
 
 import scala.concurrent.Future
 
@@ -114,7 +115,7 @@ class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction, gr
   lazy val phoneForm = Form(single("phone" -> nonEmptyText(maxLength = 15)))
 
   lazy val emailForm = Form(mapping(
-    "email" -> email,
+    "email" -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
     "confirmedEmail" -> TextMatching("email", "error.emailsMustMatch")
   ) { case (e, _) => e }(e => Some((e, e))))
 }

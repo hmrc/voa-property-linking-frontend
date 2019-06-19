@@ -35,6 +35,7 @@ import play.api.mvc.{AnyContent, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
+import utils.EmailAddressValidation
 
 import scala.concurrent.Future
 
@@ -148,7 +149,7 @@ class UpdatePersonalDetails @Inject()(authenticated: AuthenticatedAction,
 
   private lazy val emailForm = Form(
     mapping(
-      "email" -> email.verifying(Constraints.maxLength(150)),
+      "email" -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
       "confirmedEmail" -> TextMatching("email", "error.emailsMustMatch")
     ) { case (e, _) => e }(email => Some((email, email)))
   )

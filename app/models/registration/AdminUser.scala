@@ -26,6 +26,7 @@ import play.api.data.validation.{Constraints, _}
 import play.api.data.{Form, Mapping}
 import play.api.libs.json.{Format, JsObject, JsResult, JsValue}
 import uk.gov.hmrc.domain.Nino
+import utils.EmailAddressValidation
 import views.helpers.Errors
 
 trait AdminUser {
@@ -64,7 +65,7 @@ object AdminUser {
     keys.nino -> nino,
     keys.phone -> nonEmptyText(maxLength = 15),
     keys.mobilePhone -> nonEmptyText(maxLength = 15),
-    keys.email -> email.verifying(Constraints.maxLength(150)),
+    keys.email -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
     keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.tradingName -> optional(text(maxLength = 45))
   )(IndividualUserAccountDetails.apply)(IndividualUserAccountDetails.unapply))
@@ -77,7 +78,7 @@ object AdminUser {
     keys.dateOfBirth -> dmyPastDate,
     keys.nino -> nino,
     keys.phone -> nonEmptyText.verifying("Maximum length is 15", _.length <= 15),
-    keys.email -> email.verifying(Constraints.maxLength(150)),
+    keys.email -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
     keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.isAgent -> mandatoryBoolean
   )(AdminOrganisationAccountDetails.apply)(AdminOrganisationAccountDetails.unapply))

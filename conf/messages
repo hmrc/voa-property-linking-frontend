@@ -143,6 +143,8 @@ label.createAccount.phone2.help=This should be your own work mobile number
 hint.dateOfBirth=For example, 20 3 1976
 hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C.
 error.emailsMustMatch=Email addresses must match. Check them and try again
+error.invalidEmail=Enter a valid email address
+
 createAccount.p1=You’ll need to provide information about your business in order to complete the registration process.
 label.createAccount.postcode.help=This should be your preferred postal contact address for your business. <br> <br> You can search for an address in England, Scotland and Wales. If your property is in Northern Ireland or outside of the UK, you’ll need to enter it manually.
 
