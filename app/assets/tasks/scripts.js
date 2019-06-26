@@ -2,7 +2,6 @@
 
 // Dependencies
 var gulp = require('gulp'),
-	jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat');
 
