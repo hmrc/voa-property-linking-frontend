@@ -19,7 +19,6 @@
 @(form: Form[_], messagePrefix: Option[String] = None)(implicit requestHeader: RequestHeader, messages: Messages)
 
     @removeInvalid(error: FormError) = @{ error.key.replace("[", "").replace(".", "").replace("]", "").replace("__", "") }
-
     @showError(error: FormError) = {
         <li>
             <a href="#@removeInvalid(error)Group" data-focuses="@removeInvalid(error)Group">
@@ -33,6 +32,7 @@
                 </span> - @Messages(stripIndices(error.message), error.args: _*)
             </a>
         </li>
+
     }
 
     @stripIndices(field: String) = @{

@@ -73,7 +73,7 @@ class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp)
       case x: AuthContext =>
         for {
           ids       <- this.getIds[ExternalId](x)
-          userInfo         <- this.getUserDetails[UserInfo](x)
+          userInfo  <- this.getUserDetails[UserInfo](x)
         } yield {
           UserDetails(ids.externalId, userInfo)
         }

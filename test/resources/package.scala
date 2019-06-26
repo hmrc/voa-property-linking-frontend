@@ -91,8 +91,36 @@ package object resources {
     line4 <- shortString
     postcode <- postcode
   } yield Address(Some(id), line1, line2, line3, line4, postcode)
-  implicit val arbitraryAddress = Arbitrary(addressGen)
 
+  implicit val arbitraryAddress = Arbitrary(addressGen)
+  val detailedAddressGen: Gen[DetailedAddress] = for {
+    addressUnitId <- arbitrary[Int]
+    nonAbpAddressId <- arbitrary[Int]
+    organisationName <- shortString
+    departmentName <- shortString
+    subBuildingName <- shortString
+    buildingName <- shortString
+    buildingNumber <- shortString
+    dependentThoroughfareName <- shortString
+    thoroughfareName <- shortString
+    doubleDependentLocality <- shortString
+    dependentLocality <- shortString
+    postTown <- shortString
+    postcode <- postcode
+  } yield DetailedAddress(Some(addressUnitId),
+    Some(nonAbpAddressId),
+    Some(organisationName),
+    Some(departmentName),
+    Some(subBuildingName),
+    Some(buildingName),
+    Some(buildingNumber),
+    Some(dependentThoroughfareName),
+    Some(thoroughfareName),
+    Some(doubleDependentLocality),
+    Some(dependentLocality),
+    postTown,
+    postcode)
+  implicit val arbitraryDetailedAddress = Arbitrary(detailedAddressGen)
 
   val individualDetailsGen: Gen[IndividualDetails] = for {
     fistName <- shortString

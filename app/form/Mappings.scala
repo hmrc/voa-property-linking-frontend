@@ -26,7 +26,6 @@ import play.api.data.{FormError, Forms, Mapping}
 import uk.gov.voa.play.form.Condition
 import utils.Conditionals.IfCondition
 import views.helpers.Errors
-
 import scala.util.Try
 
 object Mappings extends DateMappings {
@@ -43,12 +42,18 @@ object Mappings extends DateMappings {
 
   val addressMapping: Mapping[Address] = mapping(
     "addressId" -> addressId,
-    "line1" -> nonEmptyText(maxLength = 36),
+    "line1" -> text(maxLength = 36),
     "line2" -> text(maxLength = 36),
     "line3" -> text(maxLength = 36),
     "line4" -> text(maxLength = 36),
-    "postcode" -> nonEmptyText(maxLength = 8).transform[String](_.toUpperCase, identity)
-  )(Address.apply)(Address.unapply)
+    "postcode" -> text(maxLength = 8).transform[String](_.toUpperCase, identity)
+  )(Address.apply)(Address.unapply).verifying("error.required", form => {
+    !(form.postcode.isEmpty && form.line1.isEmpty && form.addressUnitId.isEmpty)
+    }
+
+  )
+
+
 
   lazy val addressId: Mapping[Option[Long]] = default(text, "").transform(t => Try { t.toLong }.toOption, _.map(_.toString).getOrElse(""))
 

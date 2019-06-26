@@ -48,7 +48,7 @@ object SessionHelpers {
       }
     }
 
-    def putUserDetails(userDetails: UserDetails) = {
+    def putUserDetails(userDetails: UserDetails): Session = {
       session
         .+(key.externalId -> userDetails.externalId)
         .+(key.credId -> userDetails.userInfo.gatewayId)

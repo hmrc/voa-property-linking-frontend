@@ -168,7 +168,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=addresspostcode] span.error-message").text mustBe "This must be filled in"
+    html.select("label[for=addresspostcode] span.error-message").text mustBe ""
   }
 
   it must "update the user's address ID if they use the lookup" in {

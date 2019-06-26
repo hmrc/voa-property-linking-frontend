@@ -17,7 +17,7 @@
 package utils
 
 import connectors.Addresses
-import models.Address
+import models.{Address, DetailedAddress}
 import models.registration.GroupAccountDetails
 import org.scalacheck.Arbitrary._
 import resources._
@@ -31,11 +31,11 @@ object StubAddresses extends Addresses(StubServicesConfig, StubHttp) {
 
   override def create(address: Address)(implicit hc: HeaderCarrier) = Future.successful(Random.nextInt)
 
-  override def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[Address]] = {
+  override def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[DetailedAddress]] = {
     if (postcode.contentEquals(noResultPostcode)) {
-      Future.successful(Seq[Address]())
+      Future.successful(Seq[DetailedAddress]())
     } else {
-      Future.successful(Seq.fill(10)(arbitrary[Address].sample.get))
+      Future.successful(Seq.fill(10)(arbitrary[DetailedAddress].sample.get))
     }
   }
 
