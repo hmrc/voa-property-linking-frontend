@@ -16,6 +16,8 @@
 
 package controllers.registration
 
+import javax.inject.{Inject, Named}
+
 import actions.AuthenticatedAction
 import auth.VoaAction
 import cats.data.OptionT
@@ -23,7 +25,6 @@ import cats.implicits._
 import config.{ApplicationConfig, Global}
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import controllers.PropertyLinkingController
-import javax.inject.{Inject, Named}
 import models.registration._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, Request}
@@ -34,21 +35,21 @@ import services.iv.IdentityVerificationService
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
 import uk.gov.hmrc.auth.core.{Admin, Assistant, User}
 import uk.gov.hmrc.http.HeaderCarrier
-import models.registration.AdminInExistingOrganisationAccountDetails._
 
 import scala.concurrent.Future
 
-class RegistrationController @Inject()(ggAction: VoaAction,
-                                       groupAccounts: GroupAccounts,
-                                       individualAccounts: IndividualAccounts,
-                                       enrolmentService: EnrolmentService,
-                                       auth: VPLAuthConnector,
-                                       addresses: Addresses,
-                                       registrationService: RegistrationService,
-                                       emailService: EmailService,
-                                       authenticatedAction: AuthenticatedAction,
-                                       identityVerificationService: IdentityVerificationService,
-                                       @Named("personSession") val personalDetailsSessionRepo: SessionRepo
+class RegistrationController @Inject()(
+                                        ggAction: VoaAction,
+                                        groupAccounts: GroupAccounts,
+                                        individualAccounts: IndividualAccounts,
+                                        enrolmentService: EnrolmentService,
+                                        auth: VPLAuthConnector,
+                                        addresses: Addresses,
+                                        registrationService: RegistrationService,
+                                        emailService: EmailService,
+                                        authenticatedAction: AuthenticatedAction,
+                                        identityVerificationService: IdentityVerificationService,
+                                        @Named("personSession") val personalDetailsSessionRepo: SessionRepo
                                       )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   import utils.SessionHelpers._
@@ -82,7 +83,8 @@ class RegistrationController @Inject()(ggAction: VoaAction,
   def submitOrganisation() = ggAction.async(isSession = false) { ctx =>
     implicit request =>
       AdminUser.organisation.bindFromRequest().fold(
-        errors => BadRequest(views.html.createAccount.register_organisation(errors, FieldData())),
+        errors =>
+          BadRequest(views.html.createAccount.register_organisation(errors, FieldData())),
         success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
           Redirect(controllers.routes.IdentityVerification.startIv)
         }
@@ -194,8 +196,13 @@ class RegistrationController @Inject()(ggAction: VoaAction,
       acc <- OptionT(groupAccounts.withGroupId(groupId))
       address <- OptionT(addresses.findById(acc.addressId))
     } yield {
-      new FieldData(postcode = address.postcode, businessAddress = address, email = acc.email,
-        businessName = acc.companyName, businessPhoneNumber = acc.phone, isAgent = acc.isAgent)
+      new FieldData(
+        postcode = address.postcode,
+        businessAddress = address,
+        email = acc.email,
+        businessName = acc.companyName,
+        businessPhoneNumber = acc.phone,
+        isAgent = acc.isAgent)
     }).value
   }
 }

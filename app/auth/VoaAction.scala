@@ -21,6 +21,7 @@ import javax.inject.Inject
 import config.Global
 import connectors.VPLAuthConnector
 import models.registration.UserDetails
+import play.api.Logger
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
@@ -42,6 +43,8 @@ class GgAction @Inject()(val provider: GovernmentGatewayProvider, vPLAuthConnect
 
   import utils.SessionHelpers._
 
+  private val logger = Logger(this.getClass.getName)
+
   type x = UserDetails
 
   def async(isSession: Boolean)(body: UserDetails => Request[AnyContent] => Future[Result]): Action[AnyContent] = Action.async { implicit request =>
@@ -54,7 +57,9 @@ class GgAction @Inject()(val provider: GovernmentGatewayProvider, vPLAuthConnect
       .getUserDetails
       .flatMap(userDetails => body(userDetails)(request).map(_.withSession(request.session.putUserDetails(userDetails))))
       .recoverWith {
-        case e: Throwable => provider.redirectToLogin
+        case e: Throwable =>
+          logger.debug(e.getMessage, e)
+          provider.redirectToLogin
       }
 
   private def userDetailsFromSession(body: UserDetails => Request[AnyContent] => Future[Result])

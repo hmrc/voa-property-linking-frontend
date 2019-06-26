@@ -67,7 +67,8 @@ object AdminUser {
     keys.mobilePhone -> nonEmptyText(maxLength = 15),
     keys.email -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
     keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
-    keys.tradingName -> optional(text(maxLength = 45))
+    keys.tradingName -> optional(text(maxLength = 45)),
+    keys.selectedAddress -> optional(text)
   )(IndividualUserAccountDetails.apply)(IndividualUserAccountDetails.unapply))
 
   lazy val organisation = Form(mapping(
@@ -80,7 +81,8 @@ object AdminUser {
     keys.phone -> nonEmptyText.verifying("Maximum length is 15", _.length <= 15),
     keys.email -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
     keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
-    keys.isAgent -> mandatoryBoolean
+    keys.isAgent -> mandatoryBoolean,
+    keys.selectedAddress -> optional(text)
   )(AdminOrganisationAccountDetails.apply)(AdminOrganisationAccountDetails.unapply))
 
   private lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)

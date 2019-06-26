@@ -18,7 +18,8 @@ package connectors
 
 import config.WSHttp
 import javax.inject.Inject
-import models.Address
+
+import models.{Address, DetailedAddress}
 import models.registration.GroupAccountDetails
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
@@ -36,8 +37,8 @@ class Addresses @Inject()(config: ServicesConfig, http: WSHttp) {
     case None => create(details.address)
   }
 
-  def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[Address]] = {
-    http.GET[Seq[Address]](url + s"?postcode=$postcode")
+  def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[DetailedAddress]] = {
+    http.GET[Seq[DetailedAddress]](url + s"?postcode=$postcode")
   }
 
   def findById(id: Long)(implicit hc: HeaderCarrier): Future[Option[Address]] = {

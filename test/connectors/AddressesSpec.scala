@@ -17,7 +17,7 @@
 package connectors
 
 import controllers.VoaPropertyLinkingSpec
-import models.Address
+import models.{Address, DetailedAddress}
 import models.registration.GroupAccountDetails
 import org.scalacheck.Arbitrary._
 import play.api.libs.json.{JsValue, Json}
@@ -36,9 +36,9 @@ class AddressesSpec extends VoaPropertyLinkingSpec {
   }
 
   "findByPostcode" must "return a sequence of addresses based on the postcode" in new Setup {
-    val validAddresses = Seq(arbitrary[Address].sample.get)
+    val validAddresses = Seq(arbitrary[DetailedAddress].sample.get)
 
-    mockHttpGET[Seq[Address]]("tst-url", validAddresses)
+    mockHttpGET[Seq[DetailedAddress]]("tst-url", validAddresses)
     whenReady(connector.findByPostcode("AB12 C34"))(_ mustBe validAddresses)
   }
 

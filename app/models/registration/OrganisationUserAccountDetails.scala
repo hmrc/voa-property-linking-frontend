@@ -31,7 +31,8 @@ case class AdminOrganisationAccountDetails(firstName: String,
                                            phone: String,
                                            email: String,
                                            confirmedEmail: String,
-                                           isAgent: Boolean) extends AdminUser {
+                                           isAgent: Boolean,
+                                           selectedAddress: Option[String] = None) extends AdminUser {
   override def toIvDetails = IVDetails(
     firstName = firstName,
     lastName = lastName,

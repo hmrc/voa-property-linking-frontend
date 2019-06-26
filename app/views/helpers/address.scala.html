@@ -19,19 +19,31 @@
 @(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "")(implicit request: Request[_], messages: Messages)
 
     @addressForm = {
-        <div class="address--fields show-if-no-js" style="display: none">
+        <div id="textAddressDiv" style="display: none">
+            <div id="text-form-group" class="form-group">
+                <div id="lastNameGroup" class="">
+                    <label class="form-label-bold" for="lastName">
+                        <span class=" label-span">@Messages("label.address")</span>
+                    </label>
+                    <input type="hidden" id="@{
+                        fieldName
+                    }_addressId_text" name="@{
+                        fieldName
+                    }.addressId" value="@form(s"${fieldName}.addressId").value.getOrElse("")"/>
+                    <input type="hidden" id="selectedAddress" name="selectedAddress" value="@form("selectedAddress").value.getOrElse("")">
+                    <div id="textAddressData"></div>
+                </div>
+            </div>
+        </div>
 
-            <input type="hidden" id="@{
-                fieldName
-            }_addressId_text" name="@{
-                fieldName
-            }.addressId"/>
+        <div class="address--fields show-if-no-js" style="display: none">
 
             @inputText(
                 field = form(s"$fieldName.line1"),
                 '_label -> Messages(s"label.$fieldName"),
                 '_labelClass -> "form-label-bold",
                 '_help -> Html(Messages("details.edit.postcode.help")),
+                '_error -> form.error("address"),
                 'class -> "form-control",
                 'placeholder -> Messages("placeholder.address.line1"),
                 '_fieldsetClass -> "margin-bottom-0"
@@ -76,7 +88,8 @@
         </div>
     }
 
-    <div class="form-group postcode-lookup-group">
+
+    <div class="form-group postcode-lookup-group"  id="addressGroup">
 
         <div class="postcode-lookup-fields hide-if-no-js">
             @inputText(

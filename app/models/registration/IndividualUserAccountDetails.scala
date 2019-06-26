@@ -31,7 +31,8 @@ case class IndividualUserAccountDetails(firstName: String,
                                         mobilePhone: String,
                                         email: String,
                                         confirmedEmail: String,
-                                        tradingName: Option[String]
+                                        tradingName: Option[String],
+                                        selectedAddress: Option[String] = None
                                             ) extends AdminUser {
 
   override def toIvDetails = IVDetails(

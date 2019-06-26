@@ -75,16 +75,54 @@
                             });
                             $('#addressSelect').focus();
                             $('#addressSelect').change(function (e) {
+                                $("#textAddressData").empty();
                                 $('[for="addressSelect"], .lookupAddressCancel').css('display', 'none');
-                                $('.manualAddress').css('display', 'none');
                                 var index = $(this).find('option:selected').index() - 1;
-                                $('.address--fields').css('display', 'block');
-                                $('.address--fields input:eq(0)').val(data[index]['addressUnitId']).attr('placeholder', '');
-                                $('.address--fields input:eq(1)').val(data[index]['line1'].substring(0, 36)).attr('placeholder', '');
-                                $('.address--fields input:eq(2)').val(data[index]['line2'].substring(0, 36)).attr('placeholder', '');
-                                $('.address--fields input:eq(3)').val(data[index]['line3'].substring(0, 36)).attr('placeholder', '');
-                                $('.address--fields input:eq(4)').val(data[index]['line4'].substring(0, 36)).attr('placeholder', '');
-                                $('.address--fields input:eq(5)').val(data[index]['postcode']);
+                                $('.address--fields').css('display', 'none');
+                                $('#textAddressDiv').css('display', 'block');
+                                $('#text-form-group input:eq(0)').val(data[index]['addressUnitId']).attr('placeholder', '');
+
+                                if(data[index]['organisationName'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['organisationName'] + "</span><br>");
+                                }
+                                if(data[index]['departmentName'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['departmentName']+ "</span><br>");
+                                }
+                                if(data[index]['subBuildingName'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['subBuildingName']+ "</span><br>");
+                                }
+                                if(data[index]['buildingNumber'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['buildingNumber'] + "</span>");
+                                }
+                                if(data[index]['buildingName'] != undefined) {
+                                    $('#textAddressData').append("<span>" +  " "+ data[index]['buildingName']+ "</span><br>");
+                                }
+
+                                if(data[index]['dependentThoroughfareName'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['dependentThoroughfareName']+ "</span><br>");
+                                }
+
+                                if(data[index]['thoroughfareName'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['thoroughfareName']+ "</span><br>");
+                                }
+
+                                if(data[index]['doubleDependentLocality'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['doubleDependentLocality']+ "</span><br>");
+                                }
+
+                                if(data[index]['dependentLocality'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['dependentLocality']+ "</span><br>");
+                                }
+
+                                if(data[index]['postTown'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['postTown']+ "</span><br>");
+                                }
+                                if(data[index]['postcode'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['postcode']+ "</span>");
+                                }
+
+                                $('#selectedAddress').attr('value', $('#textAddressData').html());
+
                                 $(this).closest('.form-group').find('[for="addressSelect"], #addressHelp').remove();
                                 $(this).remove();
                             });
@@ -106,6 +144,10 @@
 
         $('.manualAddress').click(function (e) {
             e.preventDefault();
+            $('#textAddressDiv').css('display', 'none');
+            $('#textAddressData').html('');
+            $('#text-form-group input:eq(0)').val('');
+            $('#selectedAddress').attr('value', '');
             $('.manualAddress, .lookupAddressCancel, [for="addressSelect"], #addressSelect, #addressHelp').css('display', 'none');
             showFields();
             clearFields(this);
@@ -114,6 +156,7 @@
         $('.lookupAddress').click(function (e) {
             e.preventDefault();
             $('.address--fields').css('display', 'none');
+            $('#textAddressDiv').css('display', 'none');
             $('.postcode-lookup-fields').css('display', 'block');
             $('.manualAddress').css('display', 'inline-block');
             $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
@@ -135,6 +178,13 @@
             active = true;
         });
 
+        if($('#text-form-group input:eq(0)').val() != ""){
+            $('.address--fields').css('display', 'none');
+            $('.postcode-lookup-fields').css('display', 'none');
+            $('.manualAddress').css('display', 'inline-block');
+            $('#textAddressDiv').css('display', 'block');
+            $('#textAddressData').append($("#selectedAddress").val());
+        }
 
 
 

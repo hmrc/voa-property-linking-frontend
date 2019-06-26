@@ -32,6 +32,7 @@ package object registration {
     val dateOfBirth = "dob"
     val nino = "nino"
     val isAgent = "isAgent"
+    val selectedAddress = "selectedAddress"
   }
 
 }
