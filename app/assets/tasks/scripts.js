@@ -2,6 +2,7 @@
 
 // Dependencies
 var gulp = require('gulp'),
+	jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat');
 
@@ -27,4 +28,4 @@ gulp.task('javascripts', function(callback) {
 });
 
 // Run scripts task
-gulp.task('scripts', [ 'jshint','javascripts']);
+gulp.task('scripts', ['javascripts']);
