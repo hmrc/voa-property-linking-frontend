@@ -69,8 +69,26 @@
                             $('#addressSelect').append('<option value="" selected disabled>' + messages.labels.selectValue + '</option>');
                             $('.postcode-lookup-fields').css('display', 'none');
                             $('.lookupAddressCancel').css('display', 'inline-block');
+
+
                             $.each(data, function(i, item) {
-                                var address = addressLine(item['line1']) + addressLine(item['line2']) + addressLine(item['line3']) + addressLine(item['line4']) + item['postcode'];
+                                var organisationName = item['organisationName'];
+                                var departmentName = item['departmentName'];
+                                var subBuildingName = item['subBuildingName'];
+                                var buildingNumber = item['buildingNumber'];
+                                var buildingName = item['buildingName'];
+                                var dependentThoroughfareName = item['dependentThoroughfareName'];
+                                var thoroughfareName = item['thoroughfareName'];
+                                var doubleDependentLocality = item['doubleDependentLocality'];
+                                var dependentLocality = item['dependentLocality'];
+                                var postTown = item['postTown'];
+                                var postcode = item['postcode'];
+
+                                var address = addressLine(buildingNumber) + addressLine(buildingName) + addressLine(subBuildingName) +
+                                              addressLine(departmentName) + addressLine(dependentThoroughfareName) + addressLine(doubleDependentLocality) +
+                                              addressLine(thoroughfareName) + addressLine(dependentLocality) + addressLine(organisationName) +
+                                              addressLine(postTown) + postcode;
+
                                 $('.addressList').append('<option value="' + i + '">' +  window.xssEscape(address) + '</option>');
                             });
                             $('#addressSelect').focus();
@@ -82,20 +100,14 @@
                                 $('#textAddressDiv').css('display', 'block');
                                 $('#text-form-group input:eq(0)').val(data[index]['addressUnitId']).attr('placeholder', '');
 
-                                if(data[index]['organisationName'] != undefined) {
-                                    $('#textAddressData').append("<span>" + data[index]['organisationName'] + "</span><br>");
-                                }
-                                if(data[index]['departmentName'] != undefined) {
-                                    $('#textAddressData').append("<span>" + data[index]['departmentName']+ "</span><br>");
-                                }
-                                if(data[index]['subBuildingName'] != undefined) {
-                                    $('#textAddressData').append("<span>" + data[index]['subBuildingName']+ "</span><br>");
-                                }
                                 if(data[index]['buildingNumber'] != undefined) {
                                     $('#textAddressData').append("<span>" + data[index]['buildingNumber'] + "</span>");
                                 }
                                 if(data[index]['buildingName'] != undefined) {
                                     $('#textAddressData').append("<span>" +  " "+ data[index]['buildingName']+ "</span><br>");
+                                }
+                                if(data[index]['subBuildingName'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['subBuildingName']+ "</span><br>");
                                 }
 
                                 if(data[index]['dependentThoroughfareName'] != undefined) {
@@ -114,6 +126,12 @@
                                     $('#textAddressData').append("<span>" + data[index]['dependentLocality']+ "</span><br>");
                                 }
 
+                                if(data[index]['organisationName'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['organisationName'] + "</span><br>");
+                                }
+                                if(data[index]['departmentName'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['departmentName']+ "</span><br>");
+                                }
                                 if(data[index]['postTown'] != undefined) {
                                     $('#textAddressData').append("<span>" + data[index]['postTown']+ "</span><br>");
                                 }
