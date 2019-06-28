@@ -84,10 +84,18 @@
                                 var postTown = item['postTown'];
                                 var postcode = item['postcode'];
 
-                                var address = addressLine(buildingNumber) + addressLine(buildingName) + addressLine(subBuildingName) +
-                                              addressLine(departmentName) + addressLine(dependentThoroughfareName) + addressLine(doubleDependentLocality) +
-                                              addressLine(thoroughfareName) + addressLine(dependentLocality) + addressLine(organisationName) +
-                                              addressLine(postTown) + postcode;
+                                var address =
+                                    addressLine(departmentName) +
+                                    addressLine(organisationName) +
+                                    addressLine(subBuildingName) +
+                                    addressLine(buildingNumber) +
+                                    addressLine(buildingName) +
+                                    addressLine(dependentThoroughfareName) +
+                                    addressLine(thoroughfareName) +
+                                    addressLine(doubleDependentLocality) +
+                                    addressLine(dependentLocality) +
+                                    addressLine(postTown) +
+                                    postcode;
 
                                 $('.addressList').append('<option value="' + i + '">' +  window.xssEscape(address) + '</option>');
                             });
@@ -100,37 +108,34 @@
                                 $('#textAddressDiv').css('display', 'block');
                                 $('#text-form-group input:eq(0)').val(data[index]['addressUnitId']).attr('placeholder', '');
 
-                                if(data[index]['buildingNumber'] != undefined) {
-                                    $('#textAddressData').append("<span>" + data[index]['buildingNumber'] + "</span><br>");
+                                if(data[index]['departmentName'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['departmentName']+ "</span><br>");
                                 }
-                                if(data[index]['buildingName'] != undefined) {
-                                    $('#textAddressData').append("<span>" +  " "+ data[index]['buildingName']+ "</span><br>");
+                                if(data[index]['organisationName'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['organisationName'] + "</span><br>");
                                 }
                                 if(data[index]['subBuildingName'] != undefined) {
                                     $('#textAddressData').append("<span>" + data[index]['subBuildingName']+ "</span><br>");
                                 }
-
+                                if(data[index]['buildingNumber'] != undefined) {
+                                    $('#textAddressData').append("<span>" + data[index]['buildingNumber'] + "</span>");
+                                }
+                                if(data[index]['buildingName'] != undefined) {
+                                    $('#textAddressData').append("<span>" + " "+ data[index]['buildingName']+ "</span><br>");
+                                }else{
+                                    $('#textAddressData').append("<br>");
+                                }
                                 if(data[index]['dependentThoroughfareName'] != undefined) {
                                     $('#textAddressData').append("<span>" + data[index]['dependentThoroughfareName']+ "</span><br>");
                                 }
-
                                 if(data[index]['thoroughfareName'] != undefined) {
                                     $('#textAddressData').append("<span>" + data[index]['thoroughfareName']+ "</span><br>");
                                 }
-
                                 if(data[index]['doubleDependentLocality'] != undefined) {
                                     $('#textAddressData').append("<span>" + data[index]['doubleDependentLocality']+ "</span><br>");
                                 }
-
                                 if(data[index]['dependentLocality'] != undefined) {
                                     $('#textAddressData').append("<span>" + data[index]['dependentLocality']+ "</span><br>");
-                                }
-
-                                if(data[index]['organisationName'] != undefined) {
-                                    $('#textAddressData').append("<span>" + data[index]['organisationName'] + "</span><br>");
-                                }
-                                if(data[index]['departmentName'] != undefined) {
-                                    $('#textAddressData').append("<span>" + data[index]['departmentName']+ "</span><br>");
                                 }
                                 if(data[index]['postTown'] != undefined) {
                                     $('#textAddressData').append("<span>" + data[index]['postTown']+ "</span><br>");
