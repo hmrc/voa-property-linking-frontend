@@ -30,7 +30,7 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
   private var stubbedValidCodes: Seq[Long] = Nil
   private var stubbedAgentAuthResult: AgentAuthResult = AgentAuthResult(
     start = 15, total = 15, size= 15,
-    filterTotal = 15, pendingRepresentations = 2,
+    filterTotal = 15,
     authorisations = Seq.empty[AgentAuthorisation])
 
 

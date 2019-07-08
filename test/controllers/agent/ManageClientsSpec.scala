@@ -61,7 +61,6 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
       size = numberOfLinks,
       total = numberOfLinks,
       filterTotal = numberOfLinks,
-      pendingRepresentations = numberOfLinks,
       authorisations = arbitraryAgentAuthorisation))
 
   }
