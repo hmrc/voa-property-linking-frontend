@@ -23,7 +23,6 @@ case class AgentAuthResult(
                             size: Int,
                             filterTotal: Int,
                             total: Int,
-                            pendingRepresentations: Int,
                             authorisations: Seq[AgentAuthorisation]
                           )
 
