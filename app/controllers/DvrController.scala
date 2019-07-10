@@ -29,6 +29,7 @@ import models.dvr.DetailedValuationRequest
 import play.api.http.HttpEntity.Streamed
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, ResponseHeader, Result}
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
@@ -36,7 +37,8 @@ class DvrController @Inject()(
     propertyLinks: PropertyLinkConnector,
     authenticated: AuthenticatedAction,
     submissionIds: SubmissionIdConnector,
-    dvrCaseManagement: DVRCaseManagementConnector)(
+    dvrCaseManagement: DVRCaseManagementConnector,
+    businessRatesAuthorisation: BusinessRatesAuthorisation)(
     implicit val messagesApi: MessagesApi,
     val config: ApplicationConfig)
     extends PropertyLinkingController {
@@ -116,9 +118,10 @@ class DvrController @Inject()(
       baRef: String, address: String, effectiveDate: String, rateableValue: Option[Long]): Action[AnyContent] = authenticated { implicit request =>
     dvrCaseManagement
       .dvrExists(request.organisationAccount.id, valuationId)
-      .map { exists =>
+      .flatMap { exists =>
         if (exists) {
-          Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto(authId))
+          calculateBackLink(authId).map(backLink => Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto(authId, backLink)))
+
         } else {
           Ok(views.html.dvr.auto.requestDetailedValuationAuto(
             RequestDetailedValuationWithoutForm(authId, valuationId, baRef, address, effectiveDate, rateableValue)))
@@ -143,6 +146,20 @@ class DvrController @Inject()(
         case None =>
           Future.successful(BadRequest(views.html.errors.propertyMissing()))
       }
+  }
+
+  private def calculateBackLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[String] = {
+    for{
+      authorisation     <- propertyLinks.getLink(authorisationId)
+      agentOwnsProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
+      numOfAssessments  <- authorisation.fold(throw new IllegalStateException(s"PropertyLink $authorisationId does not exist"))(_.assessments.size)
+    }
+    yield {
+      numOfAssessments match {
+        case 1 => config.newDashboardUrl(if(!agentOwnsProperty) "client-properties" else "your-properties")
+        case _ => routes.Assessments.assessments(authorisationId).url
+      }
+    }
   }
 }
 
