@@ -42,10 +42,12 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       StubPropertyLinkConnector,
       StubAuthentication,
       mockSubmissionIds,
-      mockDvrCaseManagement
+      mockDvrCaseManagement,
+      mockBusinessRatesAuthorisation
     )
 
     lazy val mockDvrCaseManagement = mock[DVRCaseManagementConnector]
+    lazy val mockBusinessRatesAuthorisation = mock[BusinessRatesAuthorisation]
 
 
     lazy val mockSubmissionIds = {
@@ -108,9 +110,10 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "already submitted detailed valuation request" must "return 200 OK when dvr already exists" in new Setup {
+    when(mockBusinessRatesAuthorisation.isAgentOwnProperty(any())(any[HeaderCarrier])).thenReturn(Future successful true)
     when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(true))
 
-    val result = controller.alreadySubmittedDetailedValuationRequest(1L, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L))(request)
+    val result = controller.alreadySubmittedDetailedValuationRequest(link.authorisationId, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L))(request)
 
     status(result) mustBe OK
   }
