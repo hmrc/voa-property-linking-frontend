@@ -33,16 +33,6 @@ trait ValidPagination extends PropertyLinkingController {
     }
   }
 
-//  protected def withValidGetPropertyLinksParameters(sortfield: Option[String] = None,
-//                                                    sortorder: Option[String] = None,
-//                                                    status: Option[String] = None,
-//                                                    address: Option[String] = None,
-//                                                    baref: Option[String] = None,
-//                                                    agent: Option[String] = None,
-//                                                    client: Option[String] = None) : Future[Result] = {
-//
-//  }
-
   protected def withValidPaginationSearchSort(page: Int,
                                               pageSize: Int,
                                               requestTotalRowCount: Boolean = true,
