@@ -19,19 +19,19 @@
 @import helpers._
 @import config.ApplicationConfig
 
-@(model: AvailableRequestDetailedValuation)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: AvailableRequestDetailedValuation, submissionId: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(Messages("available.requestvaluation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(routes.Assessments.assessments(model.authId).url)) {
+@main_template(Messages("available.requestvaluation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(routes.Assessments.assessments(model.authId, submissionId).url)) {
 <div class="grid-row">
     <div class="column-two-thirds">
 
         <h1 class="heading-xlarge">@Messages("available.requestvaluation.title")</h1>
 
-        <p>@Html(Messages("available.requestvaluation.p1", routes.DvrController.requestDvrFile(model.valuationId, model.authId, model.valuation), model.address))</p>
+        <p>@Html(Messages("available.requestvaluation.p1", routes.DvrController.requestDvrFile(submissionId, model.valuationId, model.authId, model.valuation), model.address))</p>
         <p>@Html(Messages("available.requestvaluation.p2"))</p>
 
         <h1 class="heading-medium">@Messages("available.requestvaluation.check.title")</h1>
-        <p>@Html(Messages("available.requestvaluation.check.p1", routes.DvrController.requestDvrFile(model.valuationId, model.authId, model.check)))</p>
+        <p>@Html(Messages("available.requestvaluation.check.p1", routes.DvrController.requestDvrFile(submissionId, model.valuationId, model.authId, model.check)))</p>
         <p>@Html(Messages("available.requestvaluation.check.p2"))</p>
         <p>@Html(Messages("available.requestvaluation.address"))</p>
 

@@ -20,11 +20,12 @@ import java.time.LocalDate
 
 import javax.inject.{Inject, Named}
 import actions.{AuthenticatedAction, AuthenticatedRequest}
+import binders.GetPropertyLinksParameters
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{EnvelopeConnector, EnvelopeMetadata, SubmissionIdConnector}
-import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
+import controllers._
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
 import models.{CapacityDeclaration, _}
@@ -59,7 +60,17 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
   }
 
   def checkPropertyLinks() = authenticated { implicit request =>
-    propertyLinksConnector.linkedPropertiesSearchAndSort(request.organisationAccount.id, PaginationSearchSort(pageNumber = 1, pageSize = 20)).map{ res =>
+
+    val pLinks = if(request.organisationAccount.isAgent) {
+      propertyLinksConnector.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(),
+        PaginationParams(1, 20, false), ownerOrAgent = "agent")
+    }
+    else {
+      propertyLinksConnector.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(),
+        PaginationParams(1, 20, false), ownerOrAgent = "owner")
+    }
+    pLinks.map {
+    res =>
       if(res.authorisations.nonEmpty){
         Redirect(s"${config.vmvUrl}/search")
       }

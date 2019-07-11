@@ -44,11 +44,14 @@ class DvrController @Inject()(
     extends PropertyLinkingController {
 
   def detailedValuationRequestCheck(
+                                     submissionId: String,
                                      authId: Long,
                                      valuationId: Long,
                                      baRef: String): Action[AnyContent] = authenticated {
     implicit request =>
-      propertyLinks.getLink(authId).flatMap {
+      val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessments(submissionId) else propertyLinks.getOwnerAssessments(submissionId)
+
+      pLink.flatMap {
         case Some(link) =>
           dvrCaseManagement
             .getDvrDocuments(link.uarn, valuationId, link.submissionId)
@@ -61,7 +64,7 @@ class DvrController @Inject()(
                     authId,
                     valuationId,
                     baRef,
-                    link.address)))
+                    link.address), submissionId))
               case None             => {
                 val assessment = link.assessments.find(a => a.assessmentRef == valuationId).
                   getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
@@ -69,7 +72,7 @@ class DvrController @Inject()(
 
                 Redirect(
                   routes.DvrController
-                    .alreadySubmittedDetailedValuationRequest(authId, valuationId, baRef, link.address,
+                    .alreadySubmittedDetailedValuationRequest(submissionId, authId, valuationId, baRef, link.address,
                       assessment.effectiveDate.format(formatter), assessment.rateableValue))
               }
             }
@@ -85,7 +88,8 @@ class DvrController @Inject()(
     authenticated { implicit request =>
       for {
         submissionId  <- submissionIds.get("DVR")
-        agents        <- propertyLinks.getLink(authId).map(opt => opt.toList.flatMap(_.agents.map(_.organisationId)))
+        pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessments(submissionId) else propertyLinks.getOwnerAssessments(submissionId)
+        agents        <- pLink.map(opt => opt.toList.flatMap(_.agents.map(_.organisationId)))
         dvr           = DetailedValuationRequest(authId,
                                         request.organisationId,
                                         request.personId,
@@ -102,7 +106,8 @@ class DvrController @Inject()(
                     authId: Long,
                     submissionId: String) = authenticated {
     implicit request =>
-      propertyLinks.getLink(authId).map {
+      val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessments(submissionId) else propertyLinks.getOwnerAssessments(submissionId)
+      pLink.map {
         case Some(link) =>
           Ok(
             views.html.dvr.auto.detailedValuationRequestedAuto(submissionId,
@@ -113,6 +118,7 @@ class DvrController @Inject()(
   }
 
   def alreadySubmittedDetailedValuationRequest(
+                                                submissionId: String,
                                                 authId: Long,
                                                 valuationId: Long,
       baRef: String, address: String, effectiveDate: String, rateableValue: Option[Long]): Action[AnyContent] = authenticated { implicit request =>
@@ -129,11 +135,13 @@ class DvrController @Inject()(
       }
   }
 
-  def requestDvrFile(valuationId: Long,
+  def requestDvrFile(submissionId: String,
+                      valuationId: Long,
                      authId: Long,
                      fileRef: String): Action[AnyContent] = authenticated {
     implicit request =>
-      propertyLinks.getLink(authId).flatMap {
+      val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessments(submissionId) else propertyLinks.getOwnerAssessments(submissionId)
+      pLink.flatMap {
         case Some(link) =>
           dvrCaseManagement
             .getDvrDocument(link.uarn, valuationId, link.submissionId, fileRef)

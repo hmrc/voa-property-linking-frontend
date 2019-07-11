@@ -16,7 +16,7 @@
 
 @import config.ApplicationConfig
 
-@(agentCode: Long, authorisationId: Long, authorisedPartyId: Long, agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentCode: Long, submissionId: String, authorisedPartyId: Long, agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("propertyRepresentation.revokeAgent.title"),
@@ -33,7 +33,7 @@
 
             <p>@Messages("propertyRepresentation.revokeAgent.message", agentName)
             <p>
-                <a id="confirm" href="@agentAppointment.routes.RevokeAgentController.revokeAgentConfirmed(authorisationId, authorisedPartyId, agentCode)" class="button">
+                <a id="confirm" href="@agentAppointment.routes.RevokeAgentController.revokeAgentConfirmed(submissionId, authorisedPartyId, agentCode)" class="button">
                     @Messages("propertyRepresentation.revokeAgent.button")
                 </a>
             </p>

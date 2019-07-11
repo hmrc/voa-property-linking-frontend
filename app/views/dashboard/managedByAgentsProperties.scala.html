@@ -92,7 +92,7 @@
                             <ul class="list">
                                 <li>
                                     <a href="@agentAppointment.routes.RevokeAgentController.revokeAgent(
-                                        p.authorisationId,
+                                        p.submissionId,
                                         p.agents.get.filter(ag =>
                                             Some(ag.organisationId) == model.agentOrganisationId).head.authorisedPartyId,
                                         model.agentCode)">
@@ -100,7 +100,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="@routes.Assessments.assessments(p.authorisationId)">
+                                    <a href="@routes.Assessments.assessments(p.authorisationId, p.submissionId)">
                                         @Messages("manageProperties.viewAssessments")
                                     </a>
                                 </li>

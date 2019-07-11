@@ -20,6 +20,7 @@ import java.time._
 
 import javax.inject.Inject
 import actions.AuthenticatedAction
+import binders.GetPropertyLinksParameters
 import com.builtamont.play.pdf.PdfGenerator
 import config.{ApplicationConfig, Global}
 import connectors._
@@ -63,10 +64,18 @@ class Dashboard @Inject()(draftCases: DraftCases,
                     address: Option[String],
                     baref: Option[String],
                     agent: Option[String]) = authenticated { implicit request =>
-    withValidPaginationSearchSort(page, pageSize, requestTotalRowCount, sortfield, sortorder, status, address, baref, agent) { pagination =>
-      propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination) map { res =>
-        Ok(Json.toJson(res))
-      }
+
+    val pLinks = if(request.organisationAccount.isAgent) {
+      propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address, baref, agent, status, sortfield, sortorder),
+        PaginationParams(page, pageSize, requestTotalRowCount), ownerOrAgent = "agent")
+    }
+    else {
+      propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address, baref, agent, status, sortfield, sortorder),
+        PaginationParams(page, pageSize, requestTotalRowCount), ownerOrAgent = "owner")
+    }
+
+    pLinks map { res =>
+      Ok(Json.toJson(res))
     }
   }
 
@@ -79,12 +88,14 @@ class Dashboard @Inject()(draftCases: DraftCases,
       group <- groupAccounts.withAgentCode(agentCode.toString)
       companyName = group.fold("No Name")(_.companyName) // impossible
       agentOrganisationId = group.map(_.id)
-      authResult <- propertyLinks.linkedPropertiesSearchAndSort(
-        request.organisationId,
-        PaginationSearchSort(
-          pageNumber = 1,
-          pageSize = 1000,
-          agent = group.map(_.companyName)))
+      authResult <- if(request.organisationAccount.isAgent) {
+        propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(agent = group.map(_.companyName)),
+          PaginationParams(1, 1000, false), ownerOrAgent = "agent")
+      }
+      else {
+        propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(agent = group.map(_.companyName)),
+          PaginationParams(1, 1000, false), ownerOrAgent = "owner")
+      }
 
       // keep only authorisations that have status Approved/Pending and are managed by this agent
       filteredAuths = authResult.authorisations.filter(auth =>

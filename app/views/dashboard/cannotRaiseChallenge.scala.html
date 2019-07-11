@@ -19,7 +19,7 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
 
-@(model: CanChallengeResponse, homePageUrl: String, authorisationId: Long)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: CanChallengeResponse, homePageUrl: String, authorisationId: Long, submissionId: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("cannotRaiseChallenge.title"),
@@ -28,7 +28,7 @@
     topBackLink = true,
     bottomBackLink = true,
     individualId = Some(request.personId),
-    backLinkUrl = Some(routes.Assessments.assessments(authorisationId).url)
+    backLinkUrl = Some(routes.Assessments.assessments(authorisationId, submissionId).url)
 ) {
     <div id="cannot-raise-challenge">
         <h2 class="heading-large">@Messages("cannotRaiseChallenge.title")</h2>

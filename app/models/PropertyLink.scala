@@ -24,16 +24,40 @@ case class PropertyLink(
                          authorisationId: Long,
                          submissionId: String,
                          uarn: Long,
-                         organisationId: Long,
                          address: String,
-                         capacityDeclaration: Capacity,
-                         linkedDate: LocalDate,
-                         pending: Boolean,
-                         assessments: Seq[Assessment],
                          agents: Seq[Party])
 
 object PropertyLink {
-  implicit val format = Json.format[PropertyLink]
+  implicit val format: Format[PropertyLink] = Json.format[PropertyLink]
+}
+
+case class ApiAssessments(submissionId: String,
+                      uarn: Long,
+                      address: String,
+                      pending: Boolean,
+                      capacity: Option[String],
+                      assessments: Seq[ApiAssessment],
+                      agents: Seq[Party])
+
+object ApiAssessments {
+  implicit val format: Format[ApiAssessments] = Json.format[ApiAssessments]
+}
+
+case class ApiAssessment(
+                       authorisationId: Long,
+                       assessmentRef: Long,
+                       listYear: String,
+                       uarn: Long,
+                       effectiveDate: LocalDate,
+                       rateableValue: Option[Long],
+                       address: PropertyAddress,
+                       billingAuthorityReference: String,
+                       currentFromDate: Option[LocalDate] = None,
+                       currentToDate: Option[LocalDate] = None
+                     )
+
+object ApiAssessment {
+  implicit val format: Format[ApiAssessment] = Json.format[ApiAssessment]
 }
 
 case class PropertyLinkResponse(resultCount: Option[Long],
@@ -42,3 +66,5 @@ case class PropertyLinkResponse(resultCount: Option[Long],
 object PropertyLinkResponse {
   implicit val format: Format[PropertyLinkResponse] = Json.format[PropertyLinkResponse]
 }
+
+
