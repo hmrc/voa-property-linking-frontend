@@ -30,14 +30,19 @@
     Messages("propertyRepresentation.appointAgentProperties.title")
 }
 
-@agentPropertiesFilter(filter: String) = @{
-    if(filter == "NO"){
-        Html(Messages("propertyRepresentation.appointAgents.showAllProperties.link",
-            agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(agentAppointed = AgentPropertiesFilter.Both.name)).url))
+@agentPropertiesFilter(showAllProperties: Boolean) = @{
+    if(showAllProperties){
+        Html(Messages("propertyRepresentation.appointAgents.showPropertiesNoAgent.link",
+            agentAppointment.routes.AppointAgentController.selectPropertiesWithNoAgent(
+                pagination.copy(
+                    agentNameFilter = None,
+                    address = None,
+                    agentAppointed = AgentPropertiesFilter.No.name
+                )).url))
     }
     else{
-        Html(Messages("propertyRepresentation.appointAgents.showPropertiesNoAgent.link",
-            agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(agentAppointed = AgentPropertiesFilter.No.name)).url))
+        Html(Messages("propertyRepresentation.appointAgents.showAllProperties.link",
+            agentAppointment.routes.AppointAgentController.showAllProperties(pagination).url))
     }
 }
 
@@ -66,7 +71,7 @@
             <div class="hide-if-no-js">
                 <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
                 |
-                @agentPropertiesFilter(model.agentAppointed)
+                @agentPropertiesFilter(model.showAllProperties)
             </div>
 
             <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination)">
@@ -93,7 +98,7 @@
                         <th class="search-sort-table-header">@sortingControl(AgentPropertiesSortField.AgentName)</th>
                         <th>@Messages("propertyRepresentation.appointAgents.table.actions")</th>
                     </tr>
-                    <tr>
+                    <tr style="@{if(model.showAllProperties) "" else "display: none;"}">
                         <th></th>
                         <th>@searchField("address", pagination.address)</th>
                         <th>@searchField("agentName", pagination.agentNameFilter)</th>
@@ -220,17 +225,31 @@
 }
 
 @sortingControl(field: AgentPropertiesSortField) = {
-@if(pagination.sortField == field) {
-    <div id="sort-by-@field" class="sorting_@pagination.sortOrder">
-        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.reverseSorting)">
-        @Messages(s"propertyRepresentation.th.$field")</a>
-    </div>
-} else {
-    <div id="sort-by-@field" class="sorting">
-        <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">
-        @Messages(s"propertyRepresentation.th.$field")</a>
-    </div>
-}
+    @if(model.showAllProperties){
+        @if(pagination.sortField == field) {
+            <div id="sort-by-@field" class="sorting_@pagination.sortOrder">
+                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.reverseSorting)">
+                @Messages(s"propertyRepresentation.th.$field")</a>
+            </div>
+        } else {
+            <div id="sort-by-@field" class="sorting">
+                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesSearchSort(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">
+                @Messages(s"propertyRepresentation.th.$field")</a>
+            </div>
+        }
+    } else {
+        @if(pagination.sortField == field) {
+            <div id="sort-by-@field" class="sorting_@pagination.sortOrder">
+                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesWithNoAgent(pagination.reverseSorting)">
+                @Messages(s"propertyRepresentation.th.$field")</a>
+            </div>
+        } else {
+            <div id="sort-by-@field" class="sorting">
+                <a href="@agentAppointment.routes.AppointAgentController.selectPropertiesWithNoAgent(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">
+                @Messages(s"propertyRepresentation.th.$field")</a>
+            </div>
+        }
+    }
 }
 
 @searchField(fieldName: String, value: Option[String]) = {

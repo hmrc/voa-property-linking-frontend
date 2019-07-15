@@ -111,11 +111,11 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
               checkPermission = agent.canCheck,
               challengePermission = agent.canChallenge)
             for {
-              response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, toPaginationParameters(pagination))
+              response <- propertyLinks.appointableProperties(request.organisationId, pagination)
             } yield {
               Ok(views.html.propertyRepresentation.appointAgentProperties(
                 None,
-                AppointAgentPropertiesVM(group, response, Some(pagination.agentCode), Some(pagination.checkPermission), Some(pagination.challengePermission), pagination.agentAppointed),
+                AppointAgentPropertiesVM(group, response, Some(pagination.agentCode), Some(pagination.checkPermission), Some(pagination.challengePermission), true),
                 pagination))
             }
           }
@@ -135,11 +135,47 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       accounts.withAgentCode(pagination.agentCode.toString) flatMap {
         case Some(group) => {
           for {
+            response <- propertyLinks.appointableProperties(request.organisationId, pagination)
+          } yield {
+            Ok(views.html.propertyRepresentation.appointAgentProperties(
+              None,
+              AppointAgentPropertiesVM(group, response, Some(pagination.agentCode), Some(pagination.checkPermission), Some(pagination.challengePermission), true),
+              pagination))
+          }
+        }
+        case None => NotFound(s"Unknown Agent: ${pagination.agentCode}")
+      }
+    }
+  }
+
+  def selectPropertiesWithNoAgent(pagination: AgentPropertiesParameters) = authenticated { implicit request =>
+    withValidPropertiesPagination(pagination) {
+      accounts.withAgentCode(pagination.agentCode.toString) flatMap {
+        case Some(group) => {
+          for {
             response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, toPaginationParameters(pagination))
           } yield {
             Ok(views.html.propertyRepresentation.appointAgentProperties(
               None,
-              AppointAgentPropertiesVM(group, response, Some(pagination.agentCode), Some(pagination.checkPermission), Some(pagination.challengePermission), pagination.agentAppointed),
+              AppointAgentPropertiesVM(group, response, Some(pagination.agentCode), Some(pagination.checkPermission), Some(pagination.challengePermission), false),
+              pagination))
+          }
+        }
+        case None => NotFound(s"Unknown Agent: ${pagination.agentCode}")
+      }
+    }
+  }
+
+  def showAllProperties(pagination: AgentPropertiesParameters) = authenticated { implicit request =>
+    withValidPropertiesPagination(pagination) {
+      accounts.withAgentCode(pagination.agentCode.toString) flatMap {
+        case Some(group) => {
+          for {
+            response <- propertyLinks.appointableProperties(request.organisationId, pagination)
+          } yield {
+            Ok(views.html.propertyRepresentation.appointAgentProperties(
+              None,
+              AppointAgentPropertiesVM(group, response, Some(pagination.agentCode), Some(pagination.checkPermission), Some(pagination.challengePermission), true),
               pagination))
           }
         }
@@ -458,7 +494,7 @@ case class AppointAgentPropertiesVM(agentGroup: GroupAccount,
                                     agentCode: Option[Long] = None,
                                     checkPermission: Option[AgentPermission] = None,
                                     challengePermission: Option[AgentPermission] = None,
-                                    agentAppointed: String = Both.name)
+                                    showAllProperties: Boolean = false)
 
 case class AppointAgentVM(form: Form[_], linkId: Option[Long] = None, agents: Seq[OwnerAgent] = Seq())
 
