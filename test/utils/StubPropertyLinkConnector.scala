@@ -20,6 +20,7 @@ import binders.GetPropertyLinksParameters
 import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{Pagination, PaginationParams, PaginationSearchSort}
+import models.OwnerOrAgent.OwnerOrAgent
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
 import session.LinkingSessionRequest
@@ -44,7 +45,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
                                     pagination: PaginationParams,
                                     representationStatusFilter: Seq[RepresentationStatus] =
                                     Seq(RepresentationApproved, RepresentationPending),
-                                    ownerOrAgent: String)
+                                    ownerOrAgent: OwnerOrAgent)
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
     Future.successful(stubbedOwnerAuthResult)

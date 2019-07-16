@@ -104,7 +104,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
 
     when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(None))
-    val result = controller.alreadySubmittedDetailedValuationRequest("11111", 1L, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L))(request)
+    val result = controller.alreadySubmittedDetailedValuationRequest("11111", 1L, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L), true)(request)
 
     status(result) mustBe OK
   }

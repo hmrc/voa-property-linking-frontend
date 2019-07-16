@@ -45,7 +45,7 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
       case Some(link) =>
         link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
           case Some(agent) =>
-            Ok(views.html.propertyRepresentation.revokeAgent(agentCode, submissionId, authorisedPartyId, agent.organisationName))
+            Ok(views.html.propertyRepresentation.revokeAgent(agentCode, submissionId, authorisedPartyId, agent.organisationName, !request.organisationAccount.isAgent))
           case None => notFound
         }
       case None => notFound
@@ -59,7 +59,7 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
     pLink flatMap {
       case Some(link) =>
         val nextLink = if (link.agents.size > 1) {
-          controllers.routes.Dashboard.viewManagedProperties(agentCode).url
+          controllers.routes.Dashboard.viewManagedProperties(agentCode, !request.organisationAccount.isAgent).url
         } else {
           controllers.routes.Dashboard.manageAgents().url
         }

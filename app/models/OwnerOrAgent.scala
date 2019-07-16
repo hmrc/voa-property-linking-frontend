@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-import cats.data.ValidatedNel
-import play.api.data.validation.ValidationError
+package models
 
-package object binders {
-  type Params = Map[String, Seq[String]]
+object OwnerOrAgent extends Enumeration {
 
-  type ValidationResult[T] = ValidatedNel[ValidationError, T]
+  type OwnerOrAgent = Value
+
+  val OWNER = Value("owner")
+  val AGENT = Value("agent")
+
 }

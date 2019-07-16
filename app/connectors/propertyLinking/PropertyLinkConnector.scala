@@ -25,6 +25,7 @@ import com.google.inject.ImplementedBy
 import config.WSHttp
 import connectors.fileUpload.FileMetadata
 import controllers.{Pagination, PaginationParams, PaginationSearchSort}
+import models.OwnerOrAgent.OwnerOrAgent
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
 import play.api
@@ -75,7 +76,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
                                     pagination: PaginationParams,
                                     representationStatusFilter: Seq[RepresentationStatus] =
                                         Seq(RepresentationApproved, RepresentationPending),
-                                    ownerOrAgent: String)
+                                    ownerOrAgent: OwnerOrAgent)
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
 
@@ -116,31 +117,19 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   }
 
   def getOwnerAssessmentsWithCapacity(submissionId: String, organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
-      http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId/$organisationId") recover {
-        case _: NotFoundException =>
-          None
-      }
+      http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId/$organisationId")
     }
 
   def getClientAssessmentsWithCapacity(submissionId: String, organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
-    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId/$organisationId") recover {
-      case _: NotFoundException =>
-        None
-    }
+    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId/$organisationId")
   }
 
   def getOwnerAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
-    http.GET[Option[ApiAssessments]](s"$baseUrl/owner/dashboard/assessments/$submissionId") recover {
-      case _: NotFoundException =>
-        None
-    }
+    http.GET[Option[ApiAssessments]](s"$baseUrl/owner/dashboard/assessments/$submissionId")
   }
 
   def getClientAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
-    http.GET[Option[ApiAssessments]](s"$baseUrl/agent/dashboard/assessments/$submissionId") recover {
-      case _: NotFoundException =>
-        None
-    }
+    http.GET[Option[ApiAssessments]](s"$baseUrl/agent/dashboard/assessments/$submissionId")
   }
 
   override def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]= {
@@ -176,7 +165,7 @@ trait PropertyLinksConnector {
                                     pagination: PaginationParams,
                                     representationStatusFilter: Seq[RepresentationStatus] =
                                     Seq(RepresentationApproved, RepresentationPending),
-                                    ownerOrAgent: String)
+                                    ownerOrAgent: OwnerOrAgent)
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult]
   def appointableProperties(organisationId: Long,
                             pagination: AgentPropertiesParameters)

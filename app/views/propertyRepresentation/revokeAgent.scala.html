@@ -16,13 +16,13 @@
 
 @import config.ApplicationConfig
 
-@(agentCode: Long, submissionId: String, authorisedPartyId: Long, agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentCode: Long, submissionId: String, authorisedPartyId: Long, agentName: String, owner: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("propertyRepresentation.revokeAgent.title"),
     topBackLink = true,
     bottomBackLink = true,
-    backLinkUrl = Some(routes.Dashboard.viewManagedProperties(agentCode).url)
+    backLinkUrl = Some(routes.Dashboard.viewManagedProperties(agentCode, owner).url)
 ) {
     <div class="grid-row">
         <div class="column-two-thirds">

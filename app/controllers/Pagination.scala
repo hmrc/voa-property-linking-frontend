@@ -61,9 +61,7 @@ trait ValidPagination extends PropertyLinkingController {
   }
 }
 
-case class PaginationParams(startPoint: Int, pageSize: Int, requestTotalRowCount: Boolean) {
-  override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$requestTotalRowCount"
-}
+case class PaginationParams(startPoint: Int, pageSize: Int, requestTotalRowCount: Boolean)
 
 object DefaultPaginationParams extends PaginationParams(startPoint = 1, pageSize = 15, requestTotalRowCount = true)
 

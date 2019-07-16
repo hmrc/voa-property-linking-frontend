@@ -51,6 +51,8 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                                       (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
+  val logger: Logger = Logger(this.getClass)
+
   def selectAgentProperties() = authenticated { implicit request =>
     registeredAgentForm.bindFromRequest().fold(
       hasErrors = errors => {
@@ -77,13 +79,13 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                   propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(agent = Some(group.companyName),
                                       sortfield = Some(pagination.sortField.name),
                                       sortorder = Some(pagination.sortOrder.name)),
-                    PaginationParams(1, 1000, false), ownerOrAgent = "agent")
+                    PaginationParams(1, 1000, false), ownerOrAgent = OwnerOrAgent.AGENT)
                 }
                 else {
                   propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(agent = Some(group.companyName),
                     sortfield = Some(pagination.sortField.name),
                     sortorder = Some(pagination.sortOrder.name)),
-                    PaginationParams(1, 1000, false), ownerOrAgent = "owner")
+                    PaginationParams(1, 1000, false), ownerOrAgent = OwnerOrAgent.OWNER)
                 }
 
               } yield {
@@ -122,11 +124,11 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
             for {
               response <- if(request.organisationAccount.isAgent) {
                 propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(),
-                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = "agent" )
+                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.AGENT)
               }
               else {
                 propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(),
-                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = "owner")
+                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.OWNER)
               }
             } yield {
               Ok(views.html.propertyRepresentation.appointAgentProperties(
@@ -173,13 +175,13 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
               propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address = pagination.address,
                               sortfield = Some(pagination.sortField.name),
                               sortorder = Some(pagination.sortOrder.name)),
-                PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = "agent" )
+                PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.AGENT)
             }
             else {
               propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address = pagination.address,
                 sortfield = Some(pagination.sortField.name),
                 sortorder = Some(pagination.sortOrder.name)),
-                PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = "owner")
+                PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.OWNER)
             }
           } yield {
             Ok(views.html.propertyRepresentation.appointAgentProperties(
@@ -241,7 +243,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                   agent = Some(group.companyName),
                   sortfield = Some(pagination.sortField.name),
                   sortorder = Some(pagination.sortOrder.name)),
-                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = "agent" )
+                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.AGENT)
                     .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                     .map(oar => oar.copy(filterTotal = oar.authorisations.size))
                     .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
@@ -250,7 +252,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                 propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address = pagination.address,
                   sortfield = Some(pagination.sortField.name),
                   sortorder = Some(pagination.sortOrder.name)),
-                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = "owner")
+                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.OWNER)
                     .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                     .map(oar => oar.copy(filterTotal = oar.authorisations.size))
                     .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
@@ -332,7 +334,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                     agent = Some(group.companyName),
                     sortfield = Some(pagination.sortField.name),
                     sortorder = Some(pagination.sortOrder.name)),
-                    PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = "agent" )
+                    PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.AGENT)
                     .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                     .map(oar => oar.copy(filterTotal = oar.authorisations.size))
                     .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
@@ -341,7 +343,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                   propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address = pagination.address,
                     sortfield = Some(pagination.sortField.name),
                     sortorder = Some(pagination.sortOrder.name)),
-                    PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = "owner")
+                    PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.OWNER)
                     .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                     .map(oar => oar.copy(filterTotal = oar.authorisations.size))
                     .map(oar => oar.copy(authorisations = oar.authorisations.take(15)))
@@ -414,7 +416,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
             individualId,
             organisationId)
         }
-        // shouldn't be possible for user to select a bad property link
+          logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible.")
         // just ignore if it does happen
         case None => Future.successful(Unit)
       }
@@ -431,11 +433,12 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
     link flatMap {
         case Some(link) => link.agents.find(a => a.agentCode == agentCode) match {
           case Some(agent) => representations.revoke(agent.authorisedPartyId)
+            logger.warn(s"Agent $agentCode does not exist for the property link with subission ID $pLink - this shouldn't be possible.")
           // shouldn't be possible for agent not to exist in property links
           // just ignore if it does happen
           case None => Future.successful(Unit)
         }
-        // shouldn't be possible for user to select a bad property link
+        logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible.")
         // just ignore if it does happen
         case None => Future.successful(Unit)
       }

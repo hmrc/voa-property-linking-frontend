@@ -47,9 +47,10 @@ class DvrController @Inject()(
                                      submissionId: String,
                                      authId: Long,
                                      valuationId: Long,
-                                     baRef: String): Action[AnyContent] = authenticated {
+                                     baRef: String,
+                                     owner: Boolean): Action[AnyContent] = authenticated {
     implicit request =>
-      val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessments(submissionId) else propertyLinks.getOwnerAssessments(submissionId)
+      val pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
 
       pLink.flatMap {
         case Some(link) =>
@@ -64,7 +65,7 @@ class DvrController @Inject()(
                     authId,
                     valuationId,
                     baRef,
-                    link.address), submissionId))
+                    link.address), submissionId, owner))
               case None             => {
                 val assessment = link.assessments.find(a => a.assessmentRef == valuationId).
                   getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
@@ -73,7 +74,7 @@ class DvrController @Inject()(
                 Redirect(
                   routes.DvrController
                     .alreadySubmittedDetailedValuationRequest(submissionId, authId, valuationId, baRef, link.address,
-                      assessment.effectiveDate.format(formatter), assessment.rateableValue))
+                      assessment.effectiveDate.format(formatter), assessment.rateableValue, owner))
               }
             }
         case None       =>
@@ -84,11 +85,12 @@ class DvrController @Inject()(
   def requestDetailedValuation(
                                 authId: Long,
                                 valuationId: Long,
-                                baRef: String): Action[AnyContent] =
+                                baRef: String,
+                                owner: Boolean): Action[AnyContent] =
     authenticated { implicit request =>
       for {
         submissionId  <- submissionIds.get("DVR")
-        pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessments(submissionId) else propertyLinks.getOwnerAssessments(submissionId)
+        pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
         agents        <- pLink.map(opt => opt.toList.flatMap(_.agents.map(_.organisationId)))
         dvr           = DetailedValuationRequest(authId,
                                         request.organisationId,
@@ -98,15 +100,16 @@ class DvrController @Inject()(
                                         agents,
                                         baRef)
         _             <- dvrCaseManagement.requestDetailedValuationV2(dvr)
-      } yield Redirect(routes.DvrController.confirmation(authId, submissionId))
+      } yield Redirect(routes.DvrController.confirmation(authId, submissionId, owner))
 
     }
 
   def confirmation(
                     authId: Long,
-                    submissionId: String) = authenticated {
+                    submissionId: String,
+                    owner: Boolean) = authenticated {
     implicit request =>
-      val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessments(submissionId) else propertyLinks.getOwnerAssessments(submissionId)
+      val pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
       pLink.map {
         case Some(link) =>
           Ok(
@@ -121,7 +124,7 @@ class DvrController @Inject()(
                                                 submissionId: String,
                                                 authId: Long,
                                                 valuationId: Long,
-      baRef: String, address: String, effectiveDate: String, rateableValue: Option[Long]): Action[AnyContent] = authenticated { implicit request =>
+      baRef: String, address: String, effectiveDate: String, rateableValue: Option[Long], owner: Boolean): Action[AnyContent] = authenticated { implicit request =>
     dvrCaseManagement
       .dvrExists(request.organisationAccount.id, valuationId)
       .flatMap { exists =>
@@ -130,7 +133,7 @@ class DvrController @Inject()(
 
         } else {
           Ok(views.html.dvr.auto.requestDetailedValuationAuto(
-            RequestDetailedValuationWithoutForm(authId, valuationId, baRef, address, effectiveDate, rateableValue)))
+            RequestDetailedValuationWithoutForm(authId, valuationId, baRef, address, effectiveDate, rateableValue), owner))
         }
       }
   }
@@ -138,9 +141,10 @@ class DvrController @Inject()(
   def requestDvrFile(submissionId: String,
                       valuationId: Long,
                      authId: Long,
-                     fileRef: String): Action[AnyContent] = authenticated {
+                     fileRef: String,
+                     owner: Boolean): Action[AnyContent] = authenticated {
     implicit request =>
-      val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessments(submissionId) else propertyLinks.getOwnerAssessments(submissionId)
+      val pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
       pLink.flatMap {
         case Some(link) =>
           dvrCaseManagement

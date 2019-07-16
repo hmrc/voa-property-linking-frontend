@@ -16,73 +16,22 @@
 
 package binders.validation
 
-import java.time.LocalDate
-
 import binders.Params
 import cats.data.Validated.Valid
 import cats.data.{Validated, ValidatedNel}
-import org.apache.commons.lang3.StringUtils
+import play.api.data.validation.ValidationError
 import utils.Cats
 
 import scala.language.implicitConversions
-import scala.util.Try
-import scala.util.matching.Regex
+
 
 trait ValidationUtils extends Cats {
-
-  def read(implicit key: String, params: Params): ValidatedNel[MissingError, String] =
-    Validated.fromOption(params.get(key).flatMap(_.headOption), MissingError(key)).toValidatedNel
-
-  def readWithDefault(
-                       default: => String)(implicit key: String, params: Params): ValidatedNel[ValidationError, String] =
-    params.get(key).fold(default)(_.headOption.getOrElse(default)).validNel
 
   def readOption(implicit key: String, params: Params): ValidatedNel[ValidationError, Option[String]] =
     params.get(key).flatMap(_.headOption).validNel
 
-  def asInt(value: String)(implicit key: String): ValidatedNel[InvalidTypeError[Int], Int] =
-    Validated.fromTry(Try(value.toInt)).leftMap(_ => InvalidTypeError(key, classOf[Int])(value)).toValidatedNel
-
-  def asLong(value: String)(implicit key: String): ValidatedNel[InvalidTypeError[Long], Long] =
-    Validated.fromTry(Try(value.toLong)).leftMap(_ => InvalidTypeError(key, classOf[Long])(value)).toValidatedNel
-
-  def nonBlankString(value: String)(implicit key: String): ValidatedNel[BlankQueryParameterError, String] =
-    Valid(value).ensure(BlankQueryParameterError(key))(StringUtils.isNotBlank(_)).toValidatedNel
-
-  def asBoolean(value: String)(implicit key: String): ValidatedNel[InvalidTypeError[Boolean], Boolean] =
-    Validated.fromTry(Try(value.toBoolean)).leftMap(_ => InvalidTypeError(key, classOf[Boolean])(value)).toValidatedNel
-
-  def asLocalDate(value: String)(implicit key: String): ValidatedNel[InvalidTypeError[LocalDate], LocalDate] =
-    Validated
-      .fromTry(Try(LocalDate.parse(value)))
-      .leftMap(_ => InvalidTypeError(key, classOf[LocalDate])(value))
-      .toValidatedNel
-
-  def min[T](minBound: T)(value: T)(implicit key: String, ordT: Ordering[T]): ValidatedNel[UnderLimitError[T], T] =
-    Valid(value).ensure(UnderLimitError(key, minBound)(value))(ordT.gteq(_, minBound)).toValidatedNel
-
-  def max[T](maxBound: T)(value: T)(implicit key: String, ordT: Ordering[T]): ValidatedNel[OverLimitError[T], T] =
-    Valid(value).ensure(OverLimitError(key, maxBound)(value))(ordT.lteq(_, maxBound)).toValidatedNel
-
-  def maxLength(maxBound: Int)(value: String)(implicit key: String): ValidatedNel[OverMaxLengthError, String] =
-    Validated.condNel(value.length <= maxBound, value, OverMaxLengthError(key, maxBound)(value))
-
-  def minLength(minBound: Int)(value: String)(implicit key: String): ValidatedNel[UnderMinLengthError, String] =
-    Validated.condNel(value.length >= minBound, value, UnderMinLengthError(key, minBound)(value))
-
-  def enumValue[T <: Enumeration](t: T)(value: String)(implicit key: String): ValidatedNel[NotAnEnumError, t.Value] =
-    Validated
-      .fromTry(Try(t.withName(value)))
-      .leftMap(_ => NotAnEnumError(key, t.values.map(_.toString).toList)(value))
-      .toValidatedNel
-
-  def regex(r: Regex)(value: String)(implicit key: String): ValidatedNel[InvalidFormat, String] =
-    Validated.fromOption(r.findFirstIn(value), InvalidFormat(key)).toValidatedNel
-
-  lazy val ukPostCodeFormat: Regex =
-    """^(([A-Za-z]\d{1,2})|(([A-Za-z]{2}\d{1,2})|(([A-Za-z]\d[A-Za-z])|([A-Za-z]{2}\d[A-Za-z]))))( \d[A-Za-z]{2}){0,1}$""".r
-
-  def validPostcode(implicit key: String): String => ValidatedNel[InvalidFormat, String] = regex(ukPostCodeFormat)
+  def maxLength(maxBound: Int)(value: String)(implicit key: String): ValidatedNel[ValidationError, String] =
+    Validated.condNel(value.length <= maxBound, value, ValidationError(key, maxBound))
 
   private[validation] class ValidatedOptional[E, A](validated: Validated[E, Option[A]]) {
 

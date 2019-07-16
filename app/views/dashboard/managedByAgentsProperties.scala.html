@@ -18,7 +18,7 @@
 @import utils.Formatters
 @import config.ApplicationConfig
 
-@(model: controllers.ManagedPropertiesVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.ManagedPropertiesVM, owner: Boolean)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("dashboard.managedByAgentsProperties.title", model.agentName),
@@ -100,7 +100,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="@routes.Assessments.assessments(p.authorisationId, p.submissionId)">
+                                    <a href="@routes.Assessments.assessments(p.authorisationId, p.submissionId, owner)">
                                         @Messages("manageProperties.viewAssessments")
                                     </a>
                                 </li>

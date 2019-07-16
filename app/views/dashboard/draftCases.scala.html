@@ -23,10 +23,6 @@
 
 @(model: DraftCasesVM, userForm: Form[DeleteDraftCase], submissionId: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-@detailedValuationUrl(draft: DraftCase) = @{
-    routes.Assessments.viewDetailedAssessment(submissionId, draft.propertyLinkId, draft.assessmentRef, draft.baRef)
-}
-
 
 @main_template(
     title = Messages("draftCases.title"),

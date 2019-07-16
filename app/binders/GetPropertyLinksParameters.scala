@@ -20,6 +20,7 @@ import binders.validation.ValidationUtils
 import play.api.mvc.QueryStringBindable
 import utils.Cats
 import utils.QueryParamUtils.toQueryString
+import cats.Show
 
 case class GetPropertyLinksParameters(address: Option[String] = None, baref: Option[String] = None, agent: Option[String] = None,
                                       status: Option[String] = None, sortfield: Option[String] = None, sortorder: Option[String] = None)
@@ -29,7 +30,7 @@ object GetPropertyLinksParameters extends ValidationUtils {
   implicit object Binder extends QueryStringBindable[GetPropertyLinksParameters] with Cats {
 
     override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, GetPropertyLinksParameters]] =
-      Some(validate(params).leftMap(_.map(_.show).toList.mkString(", ")).toEither)
+      Some(validate(params).leftMap(_.map(_.message).toList.mkString(", ")).toEither)
 
     override def unbind(key: String, value: GetPropertyLinksParameters): String = toQueryString(value)
 

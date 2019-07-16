@@ -63,11 +63,11 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
 
     val pLinks = if(request.organisationAccount.isAgent) {
       propertyLinksConnector.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(),
-        PaginationParams(1, 20, false), ownerOrAgent = "agent")
+        PaginationParams(1, 20, false), ownerOrAgent = OwnerOrAgent.AGENT)
     }
     else {
       propertyLinksConnector.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(),
-        PaginationParams(1, 20, false), ownerOrAgent = "owner")
+        PaginationParams(1, 20, false), ownerOrAgent = OwnerOrAgent.OWNER)
     }
     pLinks.map {
     res =>

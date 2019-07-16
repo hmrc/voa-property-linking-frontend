@@ -61,7 +61,7 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
 
   "The request detailed valuation page" should "give the user a choice between receiving the valuation in the post or by email" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
-    val res = TestAssessments.requestDetailedValuation(authId, assessmentRef, baRef)(FakeRequest())
+    val res = TestAssessments.requestDetailedValuation(authId, assessmentRef, baRef, true)(FakeRequest())
 
     status(res) mustBe OK
 
@@ -83,7 +83,7 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
 
   it should "require the user to choose how they want to receive the detailed valuation" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
-    val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef)(FakeRequest())
+    val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef, true)(FakeRequest())
 
     status(res) mustBe BAD_REQUEST
 
@@ -94,7 +94,7 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
   it should """redirect the user to the duplicate request page if they choose to receive the detailed valuation by email""" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(true))
-    val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef)(FakeRequest().withFormUrlEncodedBody("requestType" -> "email"))
+    val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef, true)(FakeRequest().withFormUrlEncodedBody("requestType" -> "email"))
 
     await(res)
     verify(mockSubmissionIds, times(1)).get(matching("EMAIL"))(any[HeaderCarrier])
@@ -107,7 +107,7 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
   it should """redirect the user to the duplicate request page if they choose to receive the detailed valuation by post""" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(true))
-    val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef)(FakeRequest().withFormUrlEncodedBody("requestType" -> "post"))
+    val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef, true)(FakeRequest().withFormUrlEncodedBody("requestType" -> "post"))
 
     await(res)
     verify(mockSubmissionIds, times(1)).get(matching("POST"))(any[HeaderCarrier])
@@ -119,25 +119,25 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
   it should """generate a submission ID starting with "EMAIL" if they choose to receive the detailed valuation by email""" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
     when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
-    val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef)(FakeRequest().withFormUrlEncodedBody("requestType" -> "email"))
+    val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef, true)(FakeRequest().withFormUrlEncodedBody("requestType" -> "email"))
 
     await(res)
     verify(mockSubmissionIds, times(2)).get(matching("EMAIL"))(any[HeaderCarrier])
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("EMAIL123", authId).url)
+    redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("EMAIL123", authId, true).url)
   }
 
   it should """generate a submission ID starting with "POST" if they choose to receive the detailed valuation by post""" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
-      val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef)(FakeRequest().withFormUrlEncodedBody("requestType" -> "post"))
+      val res = TestAssessments.detailedValuationRequested(authId, assessmentRef, baRef, true)(FakeRequest().withFormUrlEncodedBody("requestType" -> "post"))
       when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
 
       await(res)
       verify(mockSubmissionIds, times(2)).get(matching("POST"))(any[HeaderCarrier])
 
       status(res) mustBe SEE_OTHER
-      redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("POST123", authId).url)
+      redirectLocation(res) mustBe Some(routes.Assessments.dvRequestConfirmation("POST123", authId, true).url)
     }
 
 //  it should "confirm that the user will receive the detailed valuation by email if that is their preference" in {
@@ -173,7 +173,7 @@ class RequestDetailedValuationSpec extends VoaPropertyLinkingSpec with MockitoSu
 
   "startChallengeFromDVR" should "display 'Challenge the Valuation' page" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
-    val res = TestAssessments.startChallengeFromDVR(authId, assessmentRef, baRef)(FakeRequest())
+    val res = TestAssessments.startChallengeFromDVR(authId, assessmentRef, baRef, true)(FakeRequest())
 
     status(res) mustBe OK
 

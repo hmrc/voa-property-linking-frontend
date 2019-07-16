@@ -19,7 +19,7 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
 
-@(model: controllers.AssessmentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("property.details.title"),
@@ -37,7 +37,7 @@
     <br/>
     <p>@Messages("property.details.p1")</p>
 
-    @assessmentDetails(model)
+    @assessmentDetails(model, owner)
 
     @Html(Messages("property.details.submittedCheckOnNextPage"))
 }

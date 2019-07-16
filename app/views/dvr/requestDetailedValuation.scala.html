@@ -19,7 +19,7 @@
 @import helpers._
 @import config.ApplicationConfig
 
-@(model: RequestDetailedValuationVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: RequestDetailedValuationVM, owner: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
     @main_template(Messages("requestDetailedValuation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = request.headers.get("Referer")) {
         <div class="grid-row">
@@ -34,7 +34,7 @@
                 <p>@Messages("requestDetailedValuation.p.3")</p>
                 <p>@Messages("requestDetailedValuation.p.4")</p>
 
-                @form(routes.Assessments.detailedValuationRequested(model.authId, model.assessmentRef, model.baRef)) {
+                @form(routes.Assessments.detailedValuationRequested(model.authId, model.assessmentRef, model.baRef, owner)) {
                     @inputRadioGroup(
                         model.form("requestType"),
                         options = DetailedValuationRequestTypes.options,
@@ -55,7 +55,7 @@
                 <h2 class="heading-medium">@Messages("requestDetailedValuation.heading.challenge")</h2>
                 <p>@Messages("requestDetailedValuation.challenge.p")</p>
 
-                <p><a href="@routes.Assessments.startChallengeFromDVR(model.authId, model.assessmentRef, model.baRef).url" class="button">@Messages("requestDetailedValuation.challenge.start")</a></p>
+                <p><a href="@routes.Assessments.startChallengeFromDVR(model.authId, model.assessmentRef, model.baRef, owner).url" class="button">@Messages("requestDetailedValuation.challenge.start")</a></p>
 
             </div>
         </div>
