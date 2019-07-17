@@ -191,11 +191,6 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     }
   }
 
-  private def getPaperChallengeUrl(assessmentSeq: Seq[Assessment]): String = {
-    val a = assessmentSeq.sortWith(_.effectiveDate.toEpochDay < _.effectiveDate.toEpochDay).head
-    config.businessRatesValuationUrl(s"property-link/${a.authorisationId}/assessment/${a.assessmentRef}/startChallenge")
-  }
-
   lazy val dvRequestForm = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))
 }
 

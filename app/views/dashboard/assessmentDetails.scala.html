@@ -70,7 +70,7 @@
                                                     }
                                             >
                                             <label for="viewAssessmentRadio-@assessment.assessmentRef">
-                                            @(Formatters.formatDate(assessment.effectiveDate))
+                                            @assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")
                                             </label>
                                         </div>
                                     </td>

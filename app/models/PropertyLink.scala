@@ -48,7 +48,7 @@ case class ApiAssessment(
                        assessmentRef: Long,
                        listYear: String,
                        uarn: Long,
-                       effectiveDate: LocalDate,
+                       effectiveDate: Option[LocalDate],
                        rateableValue: Option[Long],
                        address: PropertyAddress,
                        billingAuthorityReference: String,

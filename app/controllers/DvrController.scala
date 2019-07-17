@@ -69,12 +69,14 @@ class DvrController @Inject()(
               case None             => {
                 val assessment = link.assessments.find(a => a.assessmentRef == valuationId).
                   getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
+                val effectiveDate = assessment.effectiveDate.
+                  getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not contain an Effective Date"))
                 val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
 
                 Redirect(
                   routes.DvrController
                     .alreadySubmittedDetailedValuationRequest(submissionId, authId, valuationId, baRef, link.address,
-                      assessment.effectiveDate.format(formatter), assessment.rateableValue, owner))
+                      effectiveDate.format(formatter), assessment.rateableValue, owner))
               }
             }
         case None       =>
