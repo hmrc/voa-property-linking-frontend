@@ -1,0 +1,11 @@
+
+.admin-nav { margin: 10px 0 10px 0; float: right;}
+.admin-nav li { display: inline-block; font-size:16px; padding-right:5px;}
+.admin-nav li a {padding-right:5px;}
+
+
+@media (max-width: 640px) {
+  .admin-nav { margin: 10px 0 10px 0; float:none;}
+  .admin-nav li { margin:5px 0px; padding:0; display:block; font-size:17px; }
+  .admin-nav span.separator {display:none;}
+}
