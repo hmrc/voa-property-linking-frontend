@@ -21,6 +21,7 @@ import java.util.UUID
 
 import actions.AuthenticatedAction
 import connectors._
+import connectors.propertyLinking.PropertyLinkConnector
 import connectors.test.{TestCheckConnector, TestEmacConnector, TestPropertyLinkingConnector}
 import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController}
 import javax.inject.Inject
@@ -31,17 +32,20 @@ import play.api.libs.json.Json
 import services.test.TestService
 import services.{EnrolmentService, Failure, Success}
 
+import scala.concurrent.Future
 import scala.util.Random
 
-class TestController @Inject()(authenticated: AuthenticatedAction,
-                               testService: TestService,
-                               individualAccounts: IndividualAccounts,
-                               groups: GroupAccounts,
-                               emacConnector: TestEmacConnector,
-                               vPLAuthConnector: VPLAuthConnector,
-                               testPropertyLinkingConnector: TestPropertyLinkingConnector,
-                               testCheckConnector: TestCheckConnector,
-                               reprConnector: PropertyRepresentationConnector
+class TestController @Inject()(
+                                authenticated: AuthenticatedAction,
+                                testService: TestService,
+                                individualAccounts: IndividualAccounts,
+                                groups: GroupAccounts,
+                                emacConnector: TestEmacConnector,
+                                vPLAuthConnector: VPLAuthConnector,
+                                testPropertyLinkingConnector: TestPropertyLinkingConnector,
+                                testCheckConnector: TestCheckConnector,
+                                propertyLinkingConnector: PropertyLinkConnector,
+                                reprConnector: PropertyRepresentationConnector
                               )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
   def getUserDetails() = authenticated { implicit request =>
@@ -97,11 +101,8 @@ class TestController @Inject()(authenticated: AuthenticatedAction,
   }
 
   def revokeAgentAppointments(agentOrgId: String) = authenticated { implicit request =>
-    val agentAuthResult = reprConnector.forAgentSearchAndSort(agentOrgId.toLong, PaginationSearchSort(pageNumber = 1, pageSize = 100))
-    agentAuthResult.map(representation => representation.authorisations.map(
-      authorisation => reprConnector.revoke(authorisation.authorisedPartyId)
-    )).map(_ =>
-      Ok("Agent appointments revoked"))
+    //TODO need more context around what this is used for.
+    Future.successful(Ok("Agent appointments revoked"))
   }
 
   def declinePendingAgentAppointments(agentOrgId: String, agentPersonId: String) = authenticated { implicit request =>

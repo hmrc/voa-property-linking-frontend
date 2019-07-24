@@ -38,8 +38,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   trait Setup {
     implicit val request = FakeRequest()
     val mockPropertyLinkConnector = mock[PropertyLinkConnector]
+
     val controller = new DvrController(
-      StubPropertyLinkConnector,
+      mockPropertyLinkConnector,
       StubAuthentication,
       mockSubmissionIds,
       mockDvrCaseManagement,
@@ -113,7 +114,15 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     when(mockBusinessRatesAuthorisation.isAgentOwnProperty(any())(any[HeaderCarrier])).thenReturn(Future successful true)
     when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(true))
 
-    val result = controller.alreadySubmittedDetailedValuationRequest(link.authorisationId, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L))(request)
+    val mockApiAssessments = {
+      val apiAssessment = mock[ApiAssessments]
+      when(apiAssessment.assessments).thenReturn(List.fill(1)(mock[ApiAssessment]))
+      apiAssessment
+    }
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any())).thenReturn(Future.successful(Some(mockApiAssessments)))
+    when(mockPropertyLinkConnector.getClientAssessments(any())(any())).thenReturn(Future.successful(Some(mockApiAssessments)))
+
+    val result = controller.alreadySubmittedDetailedValuationRequest(link.submissionId, link.authorisationId, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L), false)(request)
 
     status(result) mustBe OK
   }

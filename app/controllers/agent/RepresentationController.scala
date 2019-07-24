@@ -55,33 +55,6 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
     Redirect(config.newDashboardUrl("client-properties"))
   }
 
-
-  def listRepresentationRequest(page: Int,
-                                pageSize: Int,
-                                requestTotalRowCount: Boolean,
-                                sortfield: Option[String],
-                                sortorder: Option[String],
-                                status: Option[String],
-                                address: Option[String],
-                                baref: Option[String],
-                                client: Option[String]) = authenticated { implicit request =>
-    withValidPaginationSearchSort(
-      page = page,
-      pageSize = pageSize,
-      requestTotalRowCount = requestTotalRowCount,
-      sortfield = sortfield,
-      sortorder = sortorder,
-      status = status,
-      address = address,
-      baref = baref,
-      client = client
-    ) { pagination =>
-      reprConnector.forAgentSearchAndSort(request.organisationId, pagination) map { res =>
-        Ok(Json.toJson(res))
-      }
-    }
-  }
-
   def pendingRepresentationRequest(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
       reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>

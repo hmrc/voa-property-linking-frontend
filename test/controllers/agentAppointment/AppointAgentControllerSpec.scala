@@ -57,32 +57,6 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.mustNotContainTable("#middle-radio-buttons")
   }
 
-  "selectProperties" should "show a list of properties available for appointment to an agent" in {
-    stubLogin()
-    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = None)
-    val testOwnerAuthResult = OwnerAuthResult(start = 1,
-      size = 15,
-      filterTotal = 1,
-      total = 1,
-      authorisations = Seq(testOwnerAuth))
-
-    StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.appointableProperties(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
-
-    val res = testController.selectProperties()(FakeRequest().withFormUrlEncodedBody(
-      "agentCode" -> "1",
-      "agentCodeRadio" -> "1",
-      "canCheck" -> StartAndContinue.name,
-      "canChallenge" -> StartAndContinue.name
-    ))
-
-    status(res) mustBe OK
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText(testOwnerAuth.address)
-  }
-
-
 //  "appointAgentSummary" should "perform the bulk agent appointment action and display the summary page for checks only" in {
 //    stubLogin()
 //    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)

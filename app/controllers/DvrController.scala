@@ -20,11 +20,11 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 import actions.AuthenticatedAction
+import cats.Apply
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import javax.inject.Inject
-
 import models.dvr.DetailedValuationRequest
 import play.api.http.HttpEntity.Streamed
 import play.api.i18n.MessagesApi
@@ -131,7 +131,7 @@ class DvrController @Inject()(
       .dvrExists(request.organisationAccount.id, valuationId)
       .flatMap { exists =>
         if (exists) {
-          calculateBackLink(authId).map(backLink => Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto(authId, backLink)))
+          calculateBackLink(authId, submissionId).map(backLink => Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto(authId, backLink)))
 
         } else {
           Ok(views.html.dvr.auto.requestDetailedValuationAuto(
@@ -162,16 +162,19 @@ class DvrController @Inject()(
       }
   }
 
-  private def calculateBackLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[String] = {
+  private def calculateBackLink(authId: Long, submissionId: String)(implicit hc: HeaderCarrier): Future[String] = {
     for{
-      authorisation     <- propertyLinks.getLink(authorisationId)
-      agentOwnsProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-      numOfAssessments  <- authorisation.fold(throw new IllegalStateException(s"PropertyLink $authorisationId does not exist"))(_.assessments.size)
-    }
-    yield {
-      numOfAssessments match {
+      optOwnerAuthorisation     <- propertyLinks.getOwnerAssessments(submissionId)
+      optAgentAuhtorisation     <- propertyLinks.getClientAssessments(submissionId)
+    } yield {
+      val (agentOwnsProperty, assessments) = (optOwnerAuthorisation, optAgentAuhtorisation) match {
+        case (Some(owner), _) => true -> owner
+        case (_, Some(agent)) => false -> agent
+        case (_, _)           => throw new IllegalStateException(s"PropertyLink $submissionId does not exist")
+      }
+      assessments.assessments.size match {
         case 1 => config.newDashboardUrl(if(!agentOwnsProperty) "client-properties" else "your-properties")
-        case _ => routes.Assessments.assessments(authorisationId).url
+        case _ => routes.Assessments.assessments(authId, submissionId, agentOwnsProperty).url
       }
     }
   }

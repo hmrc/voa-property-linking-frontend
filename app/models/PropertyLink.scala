@@ -31,13 +31,15 @@ object PropertyLink {
   implicit val format: Format[PropertyLink] = Json.format[PropertyLink]
 }
 
-case class ApiAssessments(submissionId: String,
-                      uarn: Long,
-                      address: String,
-                      pending: Boolean,
-                      capacity: Option[String],
-                      assessments: Seq[ApiAssessment],
-                      agents: Seq[Party])
+case class ApiAssessments(
+                           submissionId: String,
+                           uarn: Long,
+                           address: String,
+                           pending: Boolean,
+                           capacity: Option[String],
+                           assessments: Seq[ApiAssessment],
+                           agents: Seq[Party]
+                         )
 
 object ApiAssessments {
   implicit val format: Format[ApiAssessments] = Json.format[ApiAssessments]
