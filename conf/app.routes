@@ -25,10 +25,10 @@ GET         /home                                                               
 GET         /your-details                                                                     @controllers.Dashboard.yourDetails()
 GET         /properties                                                                       @controllers.Dashboard.manageProperties()
 GET         /properties/json                                                                  @controllers.Dashboard.getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], agent: Option[String])
-GET         /managed-properties/:agentCode                                                    @controllers.Dashboard.viewManagedProperties(agentCode: Long)
-GET         /managed-properties/:agentCode/revoke                                             @controllers.agentAppointment.RevokeAgentController.revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
+GET         /managed-properties/:agentCode                                                    @controllers.Dashboard.viewManagedProperties(agentCode: Long, owner: Boolean ?= true)
+GET         /managed-properties/:agentCode/revoke                                             @controllers.agentAppointment.RevokeAgentController.revokeAgent(submissionId: String, authorisedPartyId: Long, agentCode: Long)
 
-GET         /managed-properties/:agentCode/revoke/confirmed                                   @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(authorisationId: Long, authorisedPartyId: Long, agentCode: Long)
+GET         /managed-properties/:agentCode/revoke/confirmed                                   @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long)
 GET         /manage-agents                                                                    @controllers.Dashboard.manageAgents()
 GET         /messages                                                                         @controllers.Dashboard.viewMessages()
 GET         /message/:id                                                                      @controllers.Dashboard.viewMessage(id)
@@ -37,21 +37,25 @@ GET         /message-count/json                                                 
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  @controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        @controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
 
-GET         /property-link/:linkId/assessments                                                @controllers.Assessments.assessments(linkId: Long)
-GET         /summary/:uarn                                                                    @controllers.Assessments.viewSummary(uarn: Long, isPending: Boolean ?= false)
-GET         /detailed/:authorisationId/:assessmentRef                                         @controllers.Assessments.viewDetailedAssessment(authorisationId: Long, assessmentRef: Long, baRef)
-GET         /request-detailed/:authorisationId/:assessmentRef                                 @controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long, baRef)
-GET         /already-requested-detailed                                                       @controllers.Assessments.duplicateRequestDetailedValuation(authorisationId: Long, assessmentRef: Long)
-GET         /request-detailed/start-challenge                                                 @controllers.Assessments.startChallengeFromDVR(authorisationId: Long, assessmentRef: Long, baRef: String)
-POST        /details-requested/:authorisationId/:assessmentRef                                @controllers.Assessments.detailedValuationRequested(authorisationId: Long, assessmentRef: Long, baRef)
-GET         /details-requested/:submissionId                                                  @controllers.Assessments.dvRequestConfirmation(submissionId, authorisationId: Long)
-POST        /view-assessment-from-list                                                        @controllers.Assessments.submitViewAssessment(authorisationId: Long)
+GET         /property-link/:linkId/assessments/:submissionId                                   @controllers.Assessments.assessments(linkId: Long, submissionId: String, owner: Boolean ?= true)
 
-GET         /detailed-valuation/:valuationId/property/:authId/billing/:baRef/exists           @controllers.DvrController.alreadySubmittedDetailedValuationRequest(authId: Long, valuationId: Long, baRef: String, address: String, effectiveDate: String, rateableValue: Option[Long])
-GET         /detailed-valuation/:valuationId/property/:authId/file/:ref                       @controllers.DvrController.requestDvrFile(authId: Long, valuationId: Long, ref: String)
-GET         /detailed-valuation/:valuationId/property/:authId/billing/:baRef                  @controllers.DvrController.detailedValuationRequestCheck(authId: Long, valuationId: Long, baRef: String)
-POST        /detailed-valuation/:valuationId/property/:authId/billing/:baRef/request          @controllers.DvrController.requestDetailedValuation(authId: Long, valuationId: Long, baRef: String)
-GET         /detailed-valuation/property/:authId/confirmation/:submissionId                   @controllers.DvrController.confirmation(authId: Long, submissionId: String)
+
+GET         /summary/:uarn                                                                    @controllers.Assessments.viewSummary(uarn: Long, isPending: Boolean ?= false)
+GET         /detailed/:authorisationId/:assessmentRef                                         @controllers.Assessments.viewDetailedAssessment(submissionId: String, authorisationId: Long, assessmentRef: Long, baRef, owner: Boolean ?= true)
+GET         /request-detailed/:authorisationId/:assessmentRef                                 @controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long, baRef, owner: Boolean ?= true)
+GET         /already-requested-detailed                                                       @controllers.Assessments.duplicateRequestDetailedValuation(authorisationId: Long, assessmentRef: Long)
+GET         /request-detailed/start-challenge                                                 @controllers.Assessments.startChallengeFromDVR(authorisationId: Long, assessmentRef: Long, baRef: String, owner: Boolean ?= true)
+POST        /details-requested/:authorisationId/:assessmentRef                                @controllers.Assessments.detailedValuationRequested(authorisationId: Long, assessmentRef: Long, baRef, owner: Boolean ?= true)
+GET         /details-requested/:submissionId                                                  @controllers.Assessments.dvRequestConfirmation(submissionId, authorisationId: Long, owner: Boolean ?= true)
+#POST        /view-assessment-from-list                                                        @controllers.Assessments.submitViewAssessment(authorisationId: Long)
+POST        /view-assessment-from-list                                                        @controllers.Assessments.submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean ?= true)
+
+
+GET         /detailed-valuation/:valuationId/property/:authId/billing/:baRef/exists           @controllers.DvrController.alreadySubmittedDetailedValuationRequest(submissionId: String, authId: Long, valuationId: Long, baRef: String, address: String, effectiveDate: String, rateableValue: Option[Long], owner: Boolean)
+GET         /detailed-valuation/:valuationId/property/:authId/file/:ref                       @controllers.DvrController.requestDvrFile(submissionId: String, authId: Long, valuationId: Long, ref: String, owner: Boolean ?= true)
+GET         /detailed-valuation/:valuationId/property/:authId/billing/:baRef                  @controllers.DvrController.detailedValuationRequestCheck(submissionId: String, authId: Long, valuationId: Long, baRef: String, owner: Boolean ?= true)
+POST        /detailed-valuation/:valuationId/property/:authId/billing/:baRef/request          @controllers.DvrController.requestDetailedValuation(authId: Long, valuationId: Long, baRef: String, owner: Boolean ?= true)
+GET         /detailed-valuation/property/:authId/confirmation/:submissionId                   @controllers.DvrController.confirmation(authId: Long, submissionId: String, owner: Boolean ?= true)
 
 #Search and Link
 GET         /property-search                                                                  @controllers.propertyLinking.ClaimProperty.show()
@@ -95,8 +99,6 @@ POST        /revoke-agent/agent-summary                                         
 #Dashboard
 #TODO: Move to dashboard
 GET         /manage-clients                                                                   @controllers.agent.RepresentationController.viewClientProperties()
-
-GET         /manage-clients/json                                                              @controllers.agent.RepresentationController.listRepresentationRequest(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], client: Option[String])
 
 GET         /manage-clients/pending-requests                                                  @controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
 POST        /representation-request/confirm                                                   @controllers.agent.RepresentationController.confirm(page: Int, pageSize: Int)

@@ -20,6 +20,7 @@ import java.time._
 
 import javax.inject.Inject
 import actions.AuthenticatedAction
+import binders.GetPropertyLinksParameters
 import com.builtamont.play.pdf.PdfGenerator
 import config.{ApplicationConfig, Global}
 import connectors._
@@ -63,10 +64,18 @@ class Dashboard @Inject()(draftCases: DraftCases,
                     address: Option[String],
                     baref: Option[String],
                     agent: Option[String]) = authenticated { implicit request =>
-    withValidPaginationSearchSort(page, pageSize, requestTotalRowCount, sortfield, sortorder, status, address, baref, agent) { pagination =>
-      propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, pagination) map { res =>
-        Ok(Json.toJson(res))
-      }
+
+    val pLinks = if(request.organisationAccount.isAgent) {
+      propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address, baref, agent, status, sortfield, sortorder),
+        PaginationParams(page, pageSize, requestTotalRowCount), ownerOrAgent = OwnerOrAgent.AGENT)
+    }
+    else {
+      propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address, baref, agent, status, sortfield, sortorder),
+        PaginationParams(page, pageSize, requestTotalRowCount), ownerOrAgent = OwnerOrAgent.OWNER)
+    }
+
+    pLinks map { res =>
+      Ok(Json.toJson(res))
     }
   }
 
@@ -74,17 +83,19 @@ class Dashboard @Inject()(draftCases: DraftCases,
     Redirect(config.newDashboardUrl("your-agents"))
   }
 
-  def viewManagedProperties(agentCode: Long) = authenticated { implicit request =>
+  def viewManagedProperties(agentCode: Long, owner: Boolean) = authenticated { implicit request =>
     for {
       group <- groupAccounts.withAgentCode(agentCode.toString)
       companyName = group.fold("No Name")(_.companyName) // impossible
       agentOrganisationId = group.map(_.id)
-      authResult <- propertyLinks.linkedPropertiesSearchAndSort(
-        request.organisationId,
-        PaginationSearchSort(
-          pageNumber = 1,
-          pageSize = 1000,
-          agent = group.map(_.companyName)))
+      authResult <- if(request.organisationAccount.isAgent) {
+        propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(agent = group.map(_.companyName)),
+          PaginationParams(1, 1000, false), ownerOrAgent = OwnerOrAgent.AGENT)
+      }
+      else {
+        propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(agent = group.map(_.companyName)),
+          PaginationParams(1, 1000, false), ownerOrAgent = OwnerOrAgent.OWNER)
+      }
 
       // keep only authorisations that have status Approved/Pending and are managed by this agent
       filteredAuths = authResult.authorisations.filter(auth =>
@@ -92,7 +103,7 @@ class Dashboard @Inject()(draftCases: DraftCases,
         _.agents.fold(false)(_.map(_.organisationId).exists(id => agentOrganisationId.fold(false)(_ == id))))
 
     } yield Ok(views.html.dashboard.managedByAgentsProperties(
-      ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, filteredAuths)))
+      ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, filteredAuths), owner))
   }
 
   def viewMessages() = authenticated { implicit request =>

@@ -20,11 +20,11 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 import actions.AuthenticatedAction
+import cats.Apply
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
 import javax.inject.Inject
-
 import models.dvr.DetailedValuationRequest
 import play.api.http.HttpEntity.Streamed
 import play.api.i18n.MessagesApi
@@ -44,11 +44,15 @@ class DvrController @Inject()(
     extends PropertyLinkingController {
 
   def detailedValuationRequestCheck(
+                                     submissionId: String,
                                      authId: Long,
                                      valuationId: Long,
-                                     baRef: String): Action[AnyContent] = authenticated {
+                                     baRef: String,
+                                     owner: Boolean): Action[AnyContent] = authenticated {
     implicit request =>
-      propertyLinks.getLink(authId).flatMap {
+      val pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
+
+      pLink.flatMap {
         case Some(link) =>
           dvrCaseManagement
             .getDvrDocuments(link.uarn, valuationId, link.submissionId)
@@ -61,16 +65,18 @@ class DvrController @Inject()(
                     authId,
                     valuationId,
                     baRef,
-                    link.address)))
+                    link.address), submissionId, owner))
               case None             => {
                 val assessment = link.assessments.find(a => a.assessmentRef == valuationId).
                   getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
+                val effectiveDate = assessment.effectiveDate.
+                  getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not contain an Effective Date"))
                 val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
 
                 Redirect(
                   routes.DvrController
-                    .alreadySubmittedDetailedValuationRequest(authId, valuationId, baRef, link.address,
-                      assessment.effectiveDate.format(formatter), assessment.rateableValue))
+                    .alreadySubmittedDetailedValuationRequest(submissionId, authId, valuationId, baRef, link.address,
+                      effectiveDate.format(formatter), assessment.rateableValue, owner))
               }
             }
         case None       =>
@@ -81,11 +87,13 @@ class DvrController @Inject()(
   def requestDetailedValuation(
                                 authId: Long,
                                 valuationId: Long,
-                                baRef: String): Action[AnyContent] =
+                                baRef: String,
+                                owner: Boolean): Action[AnyContent] =
     authenticated { implicit request =>
       for {
         submissionId  <- submissionIds.get("DVR")
-        agents        <- propertyLinks.getLink(authId).map(opt => opt.toList.flatMap(_.agents.map(_.organisationId)))
+        pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
+        agents        <- pLink.map(opt => opt.toList.flatMap(_.agents.map(_.organisationId)))
         dvr           = DetailedValuationRequest(authId,
                                         request.organisationId,
                                         request.personId,
@@ -94,15 +102,17 @@ class DvrController @Inject()(
                                         agents,
                                         baRef)
         _             <- dvrCaseManagement.requestDetailedValuationV2(dvr)
-      } yield Redirect(routes.DvrController.confirmation(authId, submissionId))
+      } yield Redirect(routes.DvrController.confirmation(authId, submissionId, owner))
 
     }
 
   def confirmation(
                     authId: Long,
-                    submissionId: String) = authenticated {
+                    submissionId: String,
+                    owner: Boolean) = authenticated {
     implicit request =>
-      propertyLinks.getLink(authId).map {
+      val pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
+      pLink.map {
         case Some(link) =>
           Ok(
             views.html.dvr.auto.detailedValuationRequestedAuto(submissionId,
@@ -113,27 +123,31 @@ class DvrController @Inject()(
   }
 
   def alreadySubmittedDetailedValuationRequest(
+                                                submissionId: String,
                                                 authId: Long,
                                                 valuationId: Long,
-      baRef: String, address: String, effectiveDate: String, rateableValue: Option[Long]): Action[AnyContent] = authenticated { implicit request =>
+      baRef: String, address: String, effectiveDate: String, rateableValue: Option[Long], owner: Boolean): Action[AnyContent] = authenticated { implicit request =>
     dvrCaseManagement
       .dvrExists(request.organisationAccount.id, valuationId)
       .flatMap { exists =>
         if (exists) {
-          calculateBackLink(authId).map(backLink => Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto(authId, backLink)))
+          calculateBackLink(authId, submissionId).map(backLink => Ok(views.html.dvr.auto.duplicateRequestDetailedValuationAuto(authId, backLink)))
 
         } else {
           Ok(views.html.dvr.auto.requestDetailedValuationAuto(
-            RequestDetailedValuationWithoutForm(authId, valuationId, baRef, address, effectiveDate, rateableValue)))
+            RequestDetailedValuationWithoutForm(authId, valuationId, baRef, address, effectiveDate, rateableValue), owner))
         }
       }
   }
 
-  def requestDvrFile(valuationId: Long,
+  def requestDvrFile(submissionId: String,
+                      valuationId: Long,
                      authId: Long,
-                     fileRef: String): Action[AnyContent] = authenticated {
+                     fileRef: String,
+                     owner: Boolean): Action[AnyContent] = authenticated {
     implicit request =>
-      propertyLinks.getLink(authId).flatMap {
+      val pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
+      pLink.flatMap {
         case Some(link) =>
           dvrCaseManagement
             .getDvrDocument(link.uarn, valuationId, link.submissionId, fileRef)
@@ -148,16 +162,19 @@ class DvrController @Inject()(
       }
   }
 
-  private def calculateBackLink(authorisationId: Long)(implicit hc: HeaderCarrier): Future[String] = {
+  private def calculateBackLink(authId: Long, submissionId: String)(implicit hc: HeaderCarrier): Future[String] = {
     for{
-      authorisation     <- propertyLinks.getLink(authorisationId)
-      agentOwnsProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-      numOfAssessments  <- authorisation.fold(throw new IllegalStateException(s"PropertyLink $authorisationId does not exist"))(_.assessments.size)
-    }
-    yield {
-      numOfAssessments match {
+      optOwnerAuthorisation     <- propertyLinks.getOwnerAssessments(submissionId)
+      optAgentAuhtorisation     <- propertyLinks.getClientAssessments(submissionId)
+    } yield {
+      val (agentOwnsProperty, assessments) = (optOwnerAuthorisation, optAgentAuhtorisation) match {
+        case (Some(owner), _) => true -> owner
+        case (_, Some(agent)) => false -> agent
+        case (_, _)           => throw new IllegalStateException(s"PropertyLink $submissionId does not exist")
+      }
+      assessments.assessments.size match {
         case 1 => config.newDashboardUrl(if(!agentOwnsProperty) "client-properties" else "your-properties")
-        case _ => routes.Assessments.assessments(authorisationId).url
+        case _ => routes.Assessments.assessments(authId, submissionId, agentOwnsProperty).url
       }
     }
   }

@@ -29,8 +29,8 @@ case class Assessment(
                        rateableValue: Option[Long],
                        address: PropertyAddress,
                        billingAuthorityReference: String,
-                       currentFromDate: Option[LocalDate] = None,
-                       currentToDate: Option[LocalDate] = None,
+                       currentFromDate: Option[LocalDate],
+                       currentToDate: Option[LocalDate],
                        capacity: Capacity
                      )
 

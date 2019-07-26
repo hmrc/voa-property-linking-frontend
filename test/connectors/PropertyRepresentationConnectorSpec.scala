@@ -53,14 +53,6 @@ class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(connector.forAgent(representationStatus, 1, pagination))(_ mustBe propertyRepresentation)
   }
 
-  "forAgentSearchAndSort" must "return the authorisations for an agent" in new Setup {
-    val agentAuthResult = mock[AgentAuthResult]
-    val pagination = mock[PaginationSearchSort]
-
-    mockHttpGET[AgentAuthResult]("tst-url", agentAuthResult)
-    whenReady(connector.forAgentSearchAndSort(1, pagination))(_ mustBe agentAuthResult)
-  }
-
   "create" must "post a representation request" in new Setup {
     val representationRequest = mock[RepresentationRequest]
 
@@ -86,5 +78,4 @@ class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
     mockHttpPATCH[String, HttpResponse]("tst-url", HttpResponse(OK))
     whenReady(connector.revoke(1))(_ mustBe ())
   }
-
 }

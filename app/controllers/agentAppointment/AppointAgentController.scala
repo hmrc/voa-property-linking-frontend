@@ -20,6 +20,7 @@ import java.time.Instant
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import auditing.AuditingService
+import binders.GetPropertyLinksParameters
 import config.{ApplicationConfig, Global}
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
@@ -28,9 +29,8 @@ import form.AgentPermissionMapping
 import form.FormValidation.nonEmptyList
 import form.Mappings._
 import javax.inject.Inject
-
 import models._
-import models.searchApi.AgentPropertiesFilter.{Both}
+import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi._
 import play.api.Logger
 import play.api.data.Forms.{number, _}
@@ -50,6 +50,8 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                                        authenticated: AuthenticatedAction)
                                       (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
+
+  val logger: Logger = Logger(this.getClass)
 
   def selectAgentProperties() = authenticated { implicit request =>
     registeredAgentForm.bindFromRequest().fold(
@@ -72,10 +74,19 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
             ) { paginationSearchSort =>
 
               for {
-                response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-                  .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                  .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                  .map(oar => oar.copy(authorisations = oar.authorisations.take(15)))
+
+                response <- if(request.organisationAccount.isAgent) {
+                  propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(agent = Some(group.companyName),
+                                      sortfield = Some(pagination.sortField.name),
+                                      sortorder = Some(pagination.sortOrder.name)),
+                    PaginationParams(1, 1000, false), ownerOrAgent = OwnerOrAgent.AGENT)
+                }
+                else {
+                  propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(agent = Some(group.companyName),
+                    sortfield = Some(pagination.sortField.name),
+                    sortorder = Some(pagination.sortOrder.name)),
+                    PaginationParams(1, 1000, false), ownerOrAgent = OwnerOrAgent.OWNER)
+                }
 
               } yield {
 
@@ -111,7 +122,14 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
               checkPermission = agent.canCheck,
               challengePermission = agent.canChallenge)
             for {
-              response <- propertyLinks.appointableProperties(request.organisationId, pagination)
+              response <- if(request.organisationAccount.isAgent) {
+                propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(),
+                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.AGENT)
+              }
+              else {
+                propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(),
+                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.OWNER)
+              }
             } yield {
               Ok(views.html.propertyRepresentation.appointAgentProperties(
                 None,
@@ -153,7 +171,18 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       accounts.withAgentCode(pagination.agentCode.toString) flatMap {
         case Some(group) => {
           for {
-            response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, toPaginationParameters(pagination))
+            response <- if(request.organisationAccount.isAgent) {
+              propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address = pagination.address,
+                              sortfield = Some(pagination.sortField.name),
+                              sortorder = Some(pagination.sortOrder.name)),
+                PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.AGENT)
+            }
+            else {
+              propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address = pagination.address,
+                sortfield = Some(pagination.sortField.name),
+                sortorder = Some(pagination.sortOrder.name)),
+                PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.OWNER)
+            }
           } yield {
             Ok(views.html.propertyRepresentation.appointAgentProperties(
               None,
@@ -209,10 +238,25 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
           ) { paginationSearchSort =>
 
             for {
-              response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-                .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
+              response <- if(request.organisationAccount.isAgent) {
+                propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address = pagination.address,
+                  agent = Some(group.companyName),
+                  sortfield = Some(pagination.sortField.name),
+                  sortorder = Some(pagination.sortOrder.name)),
+                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.AGENT)
+                    .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
+                    .map(oar => oar.copy(filterTotal = oar.authorisations.size))
+                    .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
+              }
+              else {
+                propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address = pagination.address,
+                  sortfield = Some(pagination.sortField.name),
+                  sortorder = Some(pagination.sortOrder.name)),
+                  PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.OWNER)
+                    .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
+                    .map(oar => oar.copy(filterTotal = oar.authorisations.size))
+                    .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
+              }
             } yield {
               Ok(views.html.propertyRepresentation.revokeAgentProperties(None,
                 AppointAgentPropertiesVM(group, response), pagination))
@@ -254,7 +298,8 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                   request.organisationId,
                   request.individualAccount.individualId,
                   action.checkPermission,
-                  action.challengePermission)).recover {
+                  action.challengePermission,
+                  request.organisationAccount.isAgent)).recover {
                 case e => Logger.info(s"Failed to get a property link during multiple property agent appointment: ${e.getMessage}")
               }
             } yield
@@ -284,10 +329,25 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
             ) { paginationSearchSort =>
 
               for {
-                response <- propertyLinks.linkedPropertiesSearchAndSort(request.organisationId, paginationSearchSort)
-                  .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                  .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                  .map(oar => oar.copy(authorisations = oar.authorisations.take(15)))
+                response <- if(request.organisationAccount.isAgent) {
+                  propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address = pagination.address,
+                    agent = Some(group.companyName),
+                    sortfield = Some(pagination.sortField.name),
+                    sortorder = Some(pagination.sortOrder.name)),
+                    PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.AGENT)
+                    .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
+                    .map(oar => oar.copy(filterTotal = oar.authorisations.size))
+                    .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
+                }
+                else {
+                  propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address = pagination.address,
+                    sortfield = Some(pagination.sortField.name),
+                    sortorder = Some(pagination.sortOrder.name)),
+                    PaginationParams(pagination.pageNumber, pagination.pageSize, false), ownerOrAgent = OwnerOrAgent.OWNER)
+                    .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
+                    .map(oar => oar.copy(filterTotal = oar.authorisations.size))
+                    .map(oar => oar.copy(authorisations = oar.authorisations.take(15)))
+                }
               } yield {
                 BadRequest(views.html.propertyRepresentation.revokeAgentProperties(Some(errors),
                   AppointAgentPropertiesVM(group, response), pagination))
@@ -306,7 +366,8 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                 createAndSubitAgentRevokeRequest(
                   pLink,
                   request.organisationId,
-                  action.agentCode)).recover {
+                  action.agentCode,
+                  request.organisationAccount.isAgent)).recover {
                 case e => Logger.info(s"Failed to get a property link during revoke multiple property agent: ${e.getMessage}")
               }
             } yield
@@ -342,40 +403,46 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                                              organisationId: Long,
                                              individualId: Long,
                                              checkPermission: AgentPermission,
-                                             challengePermission: AgentPermission)(implicit hc: HeaderCarrier): Future[Unit] = {
+                                             challengePermission: AgentPermission,
+                                             isAgent: Boolean)(implicit hc: HeaderCarrier): Future[Unit] = {
+    val link = if(isAgent) propertyLinks.getClientLink(pLink) else propertyLinks.getOwnerLink(pLink)
 
-    propertyLinks.get(organisationId, pLink.toLong) map {
-      case Some(prop) => {
-        updateAllAgentsPermission(
-          pLink.toLong, prop,
-          AppointAgent(None, "", checkPermission, challengePermission),
-          agentOrgId,
-          individualId,
-          organisationId)
+    link map {
+        case Some(prop) => {
+          updateAllAgentsPermission(
+            pLink.toLong, prop,
+            AppointAgent(None, "", checkPermission, challengePermission),
+            agentOrgId,
+            individualId,
+            organisationId)
+        }
+          logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible.")
+        // just ignore if it does happen
+        case None => Future.successful(Unit)
       }
-      // shouldn't be possible for user to select a bad property link
-      // just ignore if it does happen
-      case None => Future.successful(Unit)
     }
-  }
 
 
   private def createAndSubitAgentRevokeRequest(pLink: String,
                                                organisationId: Long,
-                                               agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
+                                               agentCode: Long,
+                                               isAgent: Boolean)(implicit hc: HeaderCarrier): Future[Unit] = {
 
-    propertyLinks.get(organisationId, pLink.toLong) flatMap {
-      case Some(link) => link.agents.find(a => a.agentCode == agentCode) match {
-        case Some(agent) => representations.revoke(agent.authorisedPartyId)
-        // shouldn't be possible for agent not to exist in property links
+    val link = if(isAgent) propertyLinks.getClientLink(pLink) else propertyLinks.getOwnerLink(pLink)
+
+    link flatMap {
+        case Some(link) => link.agents.find(a => a.agentCode == agentCode) match {
+          case Some(agent) => representations.revoke(agent.authorisedPartyId)
+            logger.warn(s"Agent $agentCode does not exist for the property link with subission ID $pLink - this shouldn't be possible.")
+          // shouldn't be possible for agent not to exist in property links
+          // just ignore if it does happen
+          case None => Future.successful(Unit)
+        }
+        logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible.")
         // just ignore if it does happen
         case None => Future.successful(Unit)
       }
-      // shouldn't be possible for user to select a bad property link
-      // just ignore if it does happen
-      case None => Future.successful(Unit)
     }
-  }
 
   private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
                                         newAgentOrgId: Long, individualId: Long, organisationId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {

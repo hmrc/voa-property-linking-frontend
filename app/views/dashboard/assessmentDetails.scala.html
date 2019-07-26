@@ -19,7 +19,7 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
 
-@(model: controllers.AssessmentsVM)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 
 <div id="details-content-valuations">
@@ -31,7 +31,7 @@
             <p class="error-message">@messages("error.select.valuation.required")</p>
         }
     }
-    @form(routes.Assessments.submitViewAssessment(model.assessments.head.authorisationId)) {
+    @form(routes.Assessments.submitViewAssessment(model.assessments.head.authorisationId, model.plSubmissionId, owner)) {
         <fieldset>
             <div id="viewAssessmentRadioGroup" class="form-group">
                 <div class="table-wrapper-no-pad">
@@ -70,7 +70,7 @@
                                                     }
                                             >
                                             <label for="viewAssessmentRadio-@assessment.assessmentRef">
-                                            @(Formatters.formatDate(assessment.effectiveDate))
+                                            @assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")
                                             </label>
                                         </div>
                                     </td>
@@ -86,9 +86,15 @@
                                             </td>
                                         }
                                     }
-                                    <td>
-                                    @Messages(s"capacity.${assessment.capacity.capacity}")
-                                    </td>
+                                    @model.capacity match {
+                                        case Some(cap) => {
+                                            <td>@Messages(s"capacity.${cap}")</td>
+                                        }
+                                        case None => {
+                                            <td></td>
+                                        }
+                                    }
+
                                     <td>
                                     @assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
                                     </td>

@@ -63,12 +63,6 @@ object StubPropertyRepresentationConnector extends PropertyRepresentationConnect
       propertyRepresentations = stubbedRepresentations.filter(_.status == status))
   )
 
-  override def forAgentSearchAndSort(agentOrganisationId: Long,
-                            pagination: PaginationSearchSort)
-                           (implicit hc: HeaderCarrier): Future[AgentAuthResult] = Future.successful(
-    stubbedAgentAuthResult
-  )
-
   override def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 
   override def response(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier) = Future.successful(Unit)

@@ -216,7 +216,7 @@ package object resources {
     userActingAsAgent <- arbitrary[Boolean]
     agents <- Gen.listOf(arbitrary[Party])
   } yield {
-    PropertyLink(authorisationId = linkId, submissionId = submissionId, uarn = uarn, organisationId = organisationId, address = address.toString, capacityDeclaration = capacity, linkedDate = linkedDate, pending = pending, assessments = assessment, agents = agents)
+    PropertyLink(authorisationId = linkId, submissionId = submissionId, uarn = uarn, address = address.toString, agents = agents)
   }
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
 

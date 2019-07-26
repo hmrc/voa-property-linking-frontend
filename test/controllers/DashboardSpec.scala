@@ -103,7 +103,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
 
-    val res = TestDashboard.viewManagedProperties(agentGroup.agentCode)(request)
+    val res = TestDashboard.viewManagedProperties(agentGroup.agentCode, false)(request)
 
     status(res) mustBe OK
     contentAsString(res) must include("Properties managed by Test Agent Company")

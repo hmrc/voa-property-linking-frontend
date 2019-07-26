@@ -95,7 +95,7 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
     for {
       cases <- draftCases.get(request.personId)
     } yield {
-      BadRequest(views.html.dashboard.draftCases(DraftCasesVM(cases), form))
+      BadRequest(views.html.dashboard.draftCases(DraftCasesVM(cases), form, ""))
     }
 
 }

@@ -37,23 +37,29 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
                                       propertyLinks: PropertyLinkConnector,
                                       representations: PropertyRepresentationConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
-  def revokeAgent(authorisationId: Long, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
-    propertyLinks.get(request.organisationId, authorisationId) map {
+  def revokeAgent(submissionId: String, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
+
+    val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientLink(submissionId) else propertyLinks.getOwnerLink(submissionId)
+
+    pLink map {
       case Some(link) =>
         link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
           case Some(agent) =>
-            Ok(views.html.propertyRepresentation.revokeAgent(agentCode, authorisationId, authorisedPartyId, agent.organisationName))
+            Ok(views.html.propertyRepresentation.revokeAgent(agentCode, submissionId, authorisedPartyId, agent.organisationName, !request.organisationAccount.isAgent))
           case None => notFound
         }
       case None => notFound
     }
   }
 
-  def revokeAgentConfirmed(authorisationId: Long, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
-    propertyLinks.get(request.organisationId, authorisationId) flatMap {
+  def revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
+
+    val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientLink(submissionId) else propertyLinks.getOwnerLink(submissionId)
+
+    pLink flatMap {
       case Some(link) =>
         val nextLink = if (link.agents.size > 1) {
-          controllers.routes.Dashboard.viewManagedProperties(agentCode).url
+          controllers.routes.Dashboard.viewManagedProperties(agentCode, !request.organisationAccount.isAgent).url
         } else {
           controllers.routes.Dashboard.manageAgents().url
         }
@@ -63,7 +69,7 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
             AuditingService.sendEvent("agent representation revoke", Json.obj(
               "organisationId" -> request.organisationId,
               "individualId" -> request.individualAccount.individualId,
-              "propertyLinkId" -> authorisationId,
+              "propertyLinkId" -> submissionId,
               "agentOrganisationId" -> request.organisationAccount.id).toString
             )
             Ok(views.html.propertyRepresentation.revokedAgent(nextLink, agent.organisationName, link.address))

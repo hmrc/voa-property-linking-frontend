@@ -16,9 +16,11 @@
 
 package utils
 
+import binders.GetPropertyLinksParameters
 import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{Pagination, PaginationSearchSort}
+import controllers.{Pagination, PaginationParams, PaginationSearchSort}
+import models.OwnerOrAgent.OwnerOrAgent
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
 import session.LinkingSessionRequest
@@ -39,10 +41,13 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
 
   override def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
-  override def linkedPropertiesSearchAndSort(organisationId: Long,
-                                            pagination: PaginationSearchSort,
-                                             representationStatusFilter: Seq[RepresentationStatus])
-                                           (implicit hc: HeaderCarrier) = {
+  override def linkedPropertiesSearchAndSort(searchParams: GetPropertyLinksParameters,
+                                    pagination: PaginationParams,
+                                    representationStatusFilter: Seq[RepresentationStatus] =
+                                    Seq(RepresentationApproved, RepresentationPending),
+                                    ownerOrAgent: OwnerOrAgent)
+                                   (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
+
     Future.successful(stubbedOwnerAuthResult)
   }
 
@@ -52,13 +57,13 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
     Future.successful(stubbedOwnerAuthResult)
   }
 
-  override def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
-    stubbedLinks.find(x => {x.authorisationId == authorisationId && x.organisationId == organisationId})
-  }
-
-  override def getLink(linkId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = Future.successful {
-    stubbedLinks.find(_.authorisationId == linkId)
-  }
+//  override def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
+//    stubbedLinks.find(x => {x.authorisationId == authorisationId})
+//  }
+//
+//  override def getLink(linkId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = Future.successful {
+//    stubbedLinks.find(_.authorisationId == linkId)
+//  }
 
   override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = Future.successful {
     stubbedClientProperties.find(p => p.authorisationId == authorisationId && p.ownerOrganisationId == clientOrgId)

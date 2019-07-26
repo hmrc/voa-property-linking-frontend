@@ -20,7 +20,7 @@ object FrontendBuild extends Build with MicroService {
     unmanagedResourceDirectories in Assets += baseDirectory.value / "app" / "assets",
     // Dont include the source assets in the dist package (public folder)
     excludeFilter in Assets := "fonts" || "tasks" || "karma.conf.js" || "tests" || "gulpfile.js*" || "js*" || "src*" || "node_modules*" || "sass*" || "typescript*" || "typings*" || ".jshintrc" || "package.json" || "tsconfig.json" || "tsd.json"
-  )  ++ JavaScriptBuild.javaScriptUiSettings
+  )  //++ JavaScriptBuild.javaScriptUiSettings
 
 }
 
@@ -41,7 +41,7 @@ private object AppDependencies {
     "joda-time" % "joda-time" % "2.8.2",
     "uk.gov.hmrc" %% "frontend-bootstrap" % "12.4.0",
     "uk.gov.hmrc" %% "http-caching-client" % "7.0.0",
-    "org.typelevel" %% "cats-core" % "0.8.1",
+    "org.typelevel" %% "cats-core" % "1.0.1",
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % "0.2.0",
     "uk.gov.hmrc" %% "play-whitelist-filter" % "2.0.0",
     "uk.gov.hmrc" %% "mongo-lock" % "5.1.1",

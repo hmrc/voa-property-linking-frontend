@@ -21,11 +21,7 @@
 @import config.ApplicationConfig._
 @import helper._
 
-@(model: DraftCasesVM, userForm: Form[DeleteDraftCase])(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
-
-@detailedValuationUrl(draft: DraftCase) = @{
-    routes.Assessments.viewDetailedAssessment(draft.propertyLinkId, draft.assessmentRef, draft.baRef)
-}
+@(model: DraftCasesVM, userForm: Form[DeleteDraftCase], submissionId: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 
 @main_template(
