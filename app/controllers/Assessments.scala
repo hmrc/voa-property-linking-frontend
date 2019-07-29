@@ -45,6 +45,8 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
 
     val pLink = if(owner) propertyLinks.getOwnerAssessmentsWithCapacity(submissionId, authorisationId) else propertyLinks.getClientAssessmentsWithCapacity(submissionId, authorisationId)
 
+    println(request.headers)
+
     pLink flatMap {
         case Some(ApiAssessments(_,_, _, _,_,Seq(), _)) => notFound
         case Some(link) => {
@@ -88,7 +90,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
 
   def viewDetailedAssessment(submissionId: String, authorisationId: Long, assessmentRef: Long, baRef: String, owner: Boolean) = authenticated { implicit request =>
     businessRatesValuations.isViewable(authorisationId, assessmentRef) map {
-      case true => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef"))
+      case true => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
       case false =>
         if (config.dvrEnabled){
           Redirect(routes.DvrController.detailedValuationRequestCheck(submissionId, authorisationId, assessmentRef, baRef, owner))
