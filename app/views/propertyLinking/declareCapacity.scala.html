@@ -26,19 +26,16 @@
 
     <div class="grid-row">
         <div class="column-two-thirds">
-            <h1 class="heading-xlarge">@Messages("declareCapacity.title")</h1>
+
+            <h1 class="heading-large" id="assessment-address">
+                <span class="heading-secondary">@Messages("declareCapacity.title")</span>
+                <span class="heading-main">@model.address.toString</span>
+            </h1>
 
             @includes.errorSummary(model.form)
 
 
             <p class="heading-medium">@Messages("declareCapacity.message")</p>
-
-
-            <header class="hero">
-                <section class="hero__content">
-                    <span class="hero__heading-medium">@model.address.toString</span>
-                </section>
-            </header>
 
 
             <p class="panel panel-border-wide">
