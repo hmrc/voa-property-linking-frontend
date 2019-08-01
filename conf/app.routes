@@ -37,7 +37,8 @@ GET         /message-count/json                                                 
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  @controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        @controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
 
-GET         /property-link/:linkId/assessments/:submissionId                                   @controllers.Assessments.assessments(linkId: Long, submissionId: String, owner: Boolean ?= true)
+GET         /property-link/:linkId/assessments/:submissionId                                  @controllers.Assessments.assessments(linkId: Long, submissionId: String, owner: Boolean ?= true)
+GET         /property-link/clients/all/:linkId/assessments/:submissionId                      @controllers.Assessments.assessments(linkId: Long, submissionId: String, owner: Boolean ?= false)
 
 
 GET         /summary/:uarn                                                                    @controllers.Assessments.viewSummary(uarn: Long, isPending: Boolean ?= false)
