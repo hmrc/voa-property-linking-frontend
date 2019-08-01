@@ -90,7 +90,13 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
 
   def viewDetailedAssessment(submissionId: String, authorisationId: Long, assessmentRef: Long, baRef: String, owner: Boolean) = authenticated { implicit request =>
     businessRatesValuations.isViewable(authorisationId, assessmentRef) map {
-      case true => Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+      case true =>
+        if (owner) {
+          Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+
+        } else {
+          Redirect(config.businessRatesValuationUrl(s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+        }
       case false =>
         if (config.dvrEnabled){
           Redirect(routes.DvrController.detailedValuationRequestCheck(submissionId, authorisationId, assessmentRef, baRef, owner))

@@ -405,12 +405,13 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                                              checkPermission: AgentPermission,
                                              challengePermission: AgentPermission,
                                              isAgent: Boolean)(implicit hc: HeaderCarrier): Future[Unit] = {
-    val link = if(isAgent) propertyLinks.getClientLink(pLink) else propertyLinks.getOwnerLink(pLink)
+    val link = propertyLinks.getOwnerAssessments(pLink)
 
     link map {
         case Some(prop) => {
           updateAllAgentsPermission(
-            pLink.toLong, prop,
+            pLink.toLong,
+            prop,
             AppointAgent(None, "", checkPermission, challengePermission),
             agentOrgId,
             individualId,
@@ -428,7 +429,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
                                                agentCode: Long,
                                                isAgent: Boolean)(implicit hc: HeaderCarrier): Future[Unit] = {
 
-    val link = if(isAgent) propertyLinks.getClientLink(pLink) else propertyLinks.getOwnerLink(pLink)
+    val link =  propertyLinks.getOwnerAssessments(pLink)
 
     link flatMap {
         case Some(link) => link.agents.find(a => a.agentCode == agentCode) match {
@@ -444,7 +445,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       }
     }
 
-  private def updateAllAgentsPermission(authorisationId: Long, link: PropertyLink, newAgentPermission: AppointAgent,
+  private def updateAllAgentsPermission(authorisationId: Long, link: ApiAssessments, newAgentPermission: AppointAgent,
                                         newAgentOrgId: Long, individualId: Long, organisationId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
     val updateExistingAgents = if (newAgentPermission.canCheck == StartAndContinue && newAgentPermission.canChallenge == StartAndContinue) {
       Future.sequence(link.agents.map(agent => representations.revoke(agent.authorisedPartyId)))
