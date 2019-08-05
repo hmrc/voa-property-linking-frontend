@@ -24,8 +24,7 @@ import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
 
-class KeepAliveController @Inject()(val messagesApi: MessagesApi,
-                                    ggAction: VoaAction) extends FrontendController with I18nSupport {
+class KeepAliveController @Inject()(ggAction: VoaAction) extends FrontendController {
 
 
   def keepAlive() = ggAction.async(false) { ctx => implicit request => Future.successful(Ok(""))  }

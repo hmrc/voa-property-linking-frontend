@@ -60,7 +60,6 @@ class KeepAliveControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   val messagesApi  = app.injector.instanceOf[MessagesApi]
   private object TestRegistrationController$ extends KeepAliveController(
-    messagesApi,
     StubGgAction
   )
 
