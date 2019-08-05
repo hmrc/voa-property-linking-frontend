@@ -43,8 +43,7 @@ class ViewDraftCasesSpec extends VoaPropertyLinkingSpec {
 
   private lazy val testController = new ManageDrafts(
     StubAuthentication,
-    StubPropertyLinkConnector,
-    StubMessagesConnector
+    StubPropertyLinkConnector
   )
 
 

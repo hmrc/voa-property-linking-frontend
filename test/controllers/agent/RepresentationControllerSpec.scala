@@ -39,8 +39,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   object TestController extends RepresentationController(
     StubPropertyRepresentationConnector,
     StubAuthentication,
-    StubPropertyLinkConnector,
-    StubMessagesConnector
+    StubPropertyLinkConnector
   )
 
   "confirm" should "allow the user to confirm that they want to reject the pending representation requests" in {

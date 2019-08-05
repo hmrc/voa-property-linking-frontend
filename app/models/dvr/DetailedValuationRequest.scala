@@ -16,8 +16,6 @@
 
 package models.dvr
 
-import form.EnumMapping
-import play.api.data.{Form, Forms}
 import play.api.libs.json.{Format, Json}
 
 case class DetailedValuationRequest(
@@ -32,6 +30,4 @@ case class DetailedValuationRequest(
 
 object DetailedValuationRequest {
   implicit val format: Format[DetailedValuationRequest] = Json.format[DetailedValuationRequest]
-
-  val form = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))
 }

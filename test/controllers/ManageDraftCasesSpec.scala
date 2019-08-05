@@ -93,8 +93,7 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar {
 
   private lazy val testController = new ManageDrafts(
     StubAuthentication,
-    StubPropertyLinkConnector,
-    StubMessagesConnector
+    StubPropertyLinkConnector
   )
 
 }

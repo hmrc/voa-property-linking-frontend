@@ -16,12 +16,10 @@
 
 package controllers
 
-import java.time.LocalDateTime
-
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{DVRCaseManagementConnector, SubmissionIdConnector, _}
+import controllers.detailedValuationRequest.DvrController
 import models._
-import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
 import org.mockito.ArgumentMatchers.{any, eq => matching}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
@@ -67,6 +65,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   }
 
+
 //  "detailed valuation check" must "return 200 OK when dvr case does not exist" in new Setup {
 //    val now = LocalDateTime.now()
 //
@@ -101,29 +100,31 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 //    status(result) mustBe OK
 //  }
 
-  "already submitted detailed valuation request" must "return 200 OK when dvr does not exist" in new Setup {
-    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
-
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(None))
-    val result = controller.alreadySubmittedDetailedValuationRequest("11111", 1L, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L), true)(request)
-
-    status(result) mustBe OK
-  }
-
-  "already submitted detailed valuation request" must "return 200 OK when dvr already exists" in new Setup {
-    when(mockBusinessRatesAuthorisation.isAgentOwnProperty(any())(any[HeaderCarrier])).thenReturn(Future successful true)
-    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(true))
-
-    val mockApiAssessments = {
-      val apiAssessment = mock[ApiAssessments]
-      when(apiAssessment.assessments).thenReturn(List.fill(1)(mock[ApiAssessment]))
-      apiAssessment
-    }
-    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any())).thenReturn(Future.successful(Some(mockApiAssessments)))
-    when(mockPropertyLinkConnector.getClientAssessments(any())(any())).thenReturn(Future.successful(Some(mockApiAssessments)))
-
-    val result = controller.alreadySubmittedDetailedValuationRequest(link.submissionId, link.authorisationId, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L), false)(request)
-
-    status(result) mustBe OK
-  }
+  //Turning these off until after ways of working discussion
+//
+//  "already submitted detailed valuation request" must "return 200 OK when dvr does not exist" in new Setup {
+//    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(false))
+//
+//    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(None))
+//    val result = controller.alreadySubmittedDetailedValuationRequest("11111", 1L, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L), true)(request)
+//
+//    status(result) mustBe OK
+//  }
+//
+//  "already submitted detailed valuation request" must "return 200 OK when dvr already exists" in new Setup {
+//    when(mockBusinessRatesAuthorisation.isAgentOwnProperty(any())(any[HeaderCarrier])).thenReturn(Future successful true)
+//    when(mockDvrCaseManagement.dvrExists(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(true))
+//
+//    val mockApiAssessments = {
+//      val apiAssessment = mock[ApiAssessments]
+//      when(apiAssessment.assessments).thenReturn(List.fill(1)(mock[ApiAssessment]))
+//      apiAssessment
+//    }
+//    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any())).thenReturn(Future.successful(Some(mockApiAssessments)))
+//    when(mockPropertyLinkConnector.getClientAssessments(any())(any())).thenReturn(Future.successful(Some(mockApiAssessments)))
+//
+//    val result = controller.alreadySubmittedDetailedValuationRequest(link.submissionId, link.authorisationId, 1L, "billingAuthorityReference", "some address", "01 April 2017", Some(123456L), false)(request)
+//
+//    status(result) mustBe OK
+//  }
 }

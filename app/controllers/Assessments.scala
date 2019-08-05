@@ -18,19 +18,16 @@ package controllers
 
 import java.time.LocalDate
 
-import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
-import form.EnumMapping
 import javax.inject.Inject
 import models._
-import models.dvr.{DetailedValuationRequest, DetailedValuationRequestTypes, EmailRequest, PostRequest}
 import play.api.data.Forms.text
 import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.Action
 
 import scala.concurrent.Future
 
